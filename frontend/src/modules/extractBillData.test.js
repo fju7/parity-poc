@@ -139,6 +139,11 @@ describe("extractBillData", () => {
     // Check specific amounts
     const item99213 = result.lineItems.find((li) => li.code === "99213");
     expect(item99213.billedAmount).toBe(250.0);
+
+    // New fields should be present
+    expect(result).toHaveProperty("patientName");
+    expect(result).toHaveProperty("accountNumber");
+    expect(result.patientName).toBe("Jane Doe");
   });
 
   it("returns empty lineItems for a non-bill PDF", async () => {
@@ -153,5 +158,51 @@ describe("extractBillData", () => {
     const result = await extractBillData(file);
 
     expect(result.lineItems.length).toBe(0);
+    expect(result.patientName).toBe("");
+    expect(result.accountNumber).toBe("");
+  });
+
+  it("extracts patient name and account number from an EOB-like document", async () => {
+    const pdf = buildTestPdf([
+      "EXPLANATION OF BENEFITS",
+      "Aetna Health Insurance",
+      "PO Box 14079, Lexington, KY 40512",
+      "",
+      "Patient: John Smith",
+      "Member ID: AET123456789",
+      "Account Number: ACC-98765",
+      "Claim Reference: CLM2026-4421",
+      "",
+      "Date of Service: 03/10/2026",
+      "Provider: Suncoast Medical Center",
+      "",
+      "Services Summary:",
+      "Office Visit                     $350.00",
+      "Lab Work                         $120.00",
+      "Total Billed                     $470.00",
+      "Plan Paid                        $280.00",
+      "Your Responsibility              $190.00",
+    ]);
+
+    const file = makeFile(pdf);
+    const result = await extractBillData(file);
+
+    expect(result.patientName).toBe("John Smith");
+    expect(result.accountNumber).toBe("ACC-98765");
+  });
+
+  it("returns empty strings when patient name and account number are not found", async () => {
+    const pdf = buildTestPdf([
+      "Some Hospital",
+      "123 Main St, Tampa FL 33601",
+      "Statement Date: 01/20/2026",
+      "Amount Due: $500.00",
+    ]);
+
+    const file = makeFile(pdf);
+    const result = await extractBillData(file);
+
+    expect(result.patientName).toBe("");
+    expect(result.accountNumber).toBe("");
   });
 });

@@ -3,6 +3,7 @@ import UploadView from "./components/UploadView.jsx";
 import ProcessingView from "./components/ProcessingView.jsx";
 import ReportView from "./components/ReportView.jsx";
 import ErrorView from "./components/ErrorView.jsx";
+import ItemizedBillRequestView from "./components/ItemizedBillRequestView.jsx";
 import extractBillData from "./modules/extractBillData.js";
 import scoreAnomalies from "./modules/scoreAnomalies.js";
 
@@ -33,13 +34,14 @@ const SAMPLE_BILL = {
 // ---------------------------------------------------------------------------
 
 export default function App() {
-  // "upload" | "processing" | "report" | "error"
+  // "upload" | "processing" | "report" | "error" | "itemized-request"
   const [view, setView] = useState("upload");
   const [processingStep, setProcessingStep] = useState(0);
   const [report, setReport] = useState(null);
   const [provider, setProvider] = useState(null);
   const [serviceDate, setServiceDate] = useState("");
   const [error, setError] = useState({ title: "", message: "" });
+  const [eobData, setEobData] = useState(null);
 
   const handleReset = useCallback(() => {
     setView("upload");
@@ -48,6 +50,7 @@ export default function App() {
     setServiceDate("");
     setProcessingStep(0);
     setError({ title: "", message: "" });
+    setEobData(null);
   }, []);
 
   const runPipeline = useCallback(
@@ -111,14 +114,10 @@ export default function App() {
         // Step 1: Extract bill data from PDF
         const billData = await extractBillData(file);
 
-        // Check for empty extraction
+        // Check for empty extraction — show itemized bill request flow
         if (!billData.lineItems || billData.lineItems.length === 0) {
-          setError({
-            title: "No Procedure Codes Found",
-            message:
-              "This appears to be a summary bill. Please upload an itemized bill showing individual procedure codes.",
-          });
-          setView("error");
+          setEobData(billData);
+          setView("itemized-request");
           return;
         }
 
@@ -166,6 +165,12 @@ export default function App() {
         message={error.message}
         onReset={handleReset}
       />
+    );
+  }
+
+  if (view === "itemized-request") {
+    return (
+      <ItemizedBillRequestView eobData={eobData} onReset={handleReset} />
     );
   }
 

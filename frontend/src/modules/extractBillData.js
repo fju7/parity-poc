@@ -91,8 +91,10 @@ export default async function extractBillData(file) {
   const provider = extractProvider(allLines, fullText);
   const serviceDate = extractServiceDate(fullText);
   const lineItems = extractLineItems(allLines);
+  const patientName = extractPatientName(allLines, fullText);
+  const accountNumber = extractAccountNumber(fullText);
 
-  return { provider, serviceDate, lineItems };
+  return { provider, serviceDate, lineItems, patientName, accountNumber };
 }
 
 // ---------------------------------------------------------------------------
@@ -325,6 +327,48 @@ function parseLineItem(text) {
   const description = extractDescription(text, code);
 
   return { code, codeType, description, billedAmount };
+}
+
+// ---------------------------------------------------------------------------
+// Patient name extraction
+// ---------------------------------------------------------------------------
+
+function extractPatientName(lines, fullText) {
+  // Look for labels like "Patient:", "Member:", "Insured:", "Subscriber:"
+  const labelPattern =
+    /(?:Patient|Member|Insured|Subscriber)\s*(?:Name)?\s*[:\s]\s*([A-Z][a-zA-Z'-]+(?:\s+[A-Z][a-zA-Z'-]+){1,3})/i;
+
+  // First check structured lines for better context
+  for (const line of lines) {
+    const m = line.text.match(labelPattern);
+    if (m) return m[1].trim();
+  }
+
+  // Fallback: search full text
+  const m = fullText.match(labelPattern);
+  if (m) return m[1].trim();
+
+  return "";
+}
+
+// ---------------------------------------------------------------------------
+// Account number extraction
+// ---------------------------------------------------------------------------
+
+function extractAccountNumber(fullText) {
+  // Look for account/claim/reference number labels followed by an alphanumeric ID
+  const patterns = [
+    /(?:Account|Acct)[\s.#:]*(?:Number|No|#)?[\s.#:]*([A-Z0-9][\w-]{3,20})/i,
+    /(?:Claim|Reference|Ref)[\s.#:]*(?:Number|No|#)?[\s.#:]*([A-Z0-9][\w-]{3,20})/i,
+    /(?:Patient\s*ID|Member\s*ID)[\s.#:]*([A-Z0-9][\w-]{3,20})/i,
+  ];
+
+  for (const pattern of patterns) {
+    const m = fullText.match(pattern);
+    if (m) return m[1].trim();
+  }
+
+  return "";
 }
 
 // ---------------------------------------------------------------------------
