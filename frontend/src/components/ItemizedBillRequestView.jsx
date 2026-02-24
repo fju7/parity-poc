@@ -1,13 +1,13 @@
 import { useState, useCallback } from "react";
 import { Footer } from "./UploadView.jsx";
 
-export default function ItemizedBillRequestView({ eobData, onReset }) {
+export default function ItemizedBillRequestView({ eobData, onboardingData, onReset }) {
   const [copied, setCopied] = useState(false);
 
   const [fields, setFields] = useState({
-    patientName: eobData?.patientName || "",
-    serviceDate: eobData?.serviceDate || "",
-    dateOfBirth: "",
+    patientName: eobData?.patientName || onboardingData?.patientName || "",
+    serviceDate: eobData?.serviceDate || onboardingData?.serviceDate || "",
+    dateOfBirth: onboardingData?.dateOfBirth || "",
     accountId: eobData?.accountNumber || "",
     mailingAddress: "",
     email: "",
@@ -18,7 +18,7 @@ export default function ItemizedBillRequestView({ eobData, onReset }) {
     setFields((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const providerName = eobData?.provider?.name || "";
+  const providerName = eobData?.provider?.name || onboardingData?.providerName || "";
 
   const letterText = buildLetterText(fields, providerName);
 
@@ -39,6 +39,16 @@ export default function ItemizedBillRequestView({ eobData, onReset }) {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, [letterText]);
+
+  const handleEmail = useCallback(() => {
+    const name = fields.patientName || "Patient";
+    const date = fields.serviceDate || "Date of Service";
+    const subject = encodeURIComponent(
+      `Request for Itemized Bill — ${name}, Date of Service ${date}`
+    );
+    const body = encodeURIComponent(letterText);
+    window.open(`mailto:?subject=${subject}&body=${body}`, "_self");
+  }, [fields.patientName, fields.serviceDate, letterText]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -205,6 +215,12 @@ export default function ItemizedBillRequestView({ eobData, onReset }) {
             className="px-5 py-2.5 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
           >
             Download as PDF
+          </button>
+          <button
+            onClick={handleEmail}
+            className="px-5 py-2.5 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
+          >
+            Send via Email
           </button>
         </div>
 

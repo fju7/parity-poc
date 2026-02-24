@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import OnboardingView from "./components/OnboardingView.jsx";
 import UploadView from "./components/UploadView.jsx";
 import ProcessingView from "./components/ProcessingView.jsx";
 import ReportView from "./components/ReportView.jsx";
@@ -34,23 +35,40 @@ const SAMPLE_BILL = {
 // ---------------------------------------------------------------------------
 
 export default function App() {
-  // "upload" | "processing" | "report" | "error" | "itemized-request"
-  const [view, setView] = useState("upload");
+  // "onboarding" | "upload" | "processing" | "report" | "error" | "itemized-request"
+  const [view, setView] = useState("onboarding");
   const [processingStep, setProcessingStep] = useState(0);
   const [report, setReport] = useState(null);
   const [provider, setProvider] = useState(null);
   const [serviceDate, setServiceDate] = useState("");
   const [error, setError] = useState({ title: "", message: "" });
   const [eobData, setEobData] = useState(null);
+  const [onboardingData, setOnboardingData] = useState({
+    patientName: "",
+    dateOfBirth: "",
+    providerName: "",
+    serviceDate: "",
+  });
 
   const handleReset = useCallback(() => {
-    setView("upload");
+    setView("onboarding");
     setReport(null);
     setProvider(null);
     setServiceDate("");
     setProcessingStep(0);
     setError({ title: "", message: "" });
     setEobData(null);
+    setOnboardingData({
+      patientName: "",
+      dateOfBirth: "",
+      providerName: "",
+      serviceDate: "",
+    });
+  }, []);
+
+  const handleOnboardingSubmit = useCallback((data) => {
+    setOnboardingData(data);
+    setView("upload");
   }, []);
 
   const runPipeline = useCallback(
@@ -170,7 +188,7 @@ export default function App() {
 
   if (view === "itemized-request") {
     return (
-      <ItemizedBillRequestView eobData={eobData} onReset={handleReset} />
+      <ItemizedBillRequestView eobData={eobData} onboardingData={onboardingData} onReset={handleReset} />
     );
   }
 
@@ -183,6 +201,10 @@ export default function App() {
         onReset={handleReset}
       />
     );
+  }
+
+  if (view === "onboarding") {
+    return <OnboardingView onSubmit={handleOnboardingSubmit} />;
   }
 
   return (
