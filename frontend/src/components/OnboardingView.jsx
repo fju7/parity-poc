@@ -21,10 +21,6 @@ export default function OnboardingView({ onSubmit }) {
     [fields, onSubmit]
   );
 
-  const handleSkip = useCallback(() => {
-    onSubmit({ patientName: "", dateOfBirth: "", providerName: "", serviceDate: "" });
-  }, [onSubmit]);
-
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 font-[Arial,sans-serif]">
       <div className="w-full max-w-md">
@@ -39,8 +35,7 @@ export default function OnboardingView({ onSubmit }) {
         {/* Form */}
         <form onSubmit={handleContinue} className="space-y-5">
           <p className="text-sm text-gray-600 mb-2">
-            Enter your details below to pre-fill your request. All fields are
-            optional.
+            Enter your details below to pre-fill your request.
           </p>
 
           <div>
@@ -49,6 +44,7 @@ export default function OnboardingView({ onSubmit }) {
             </label>
             <input
               type="text"
+              required
               value={fields.patientName}
               onChange={(e) => updateField("patientName", e.target.value)}
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
@@ -62,6 +58,7 @@ export default function OnboardingView({ onSubmit }) {
             </label>
             <input
               type="text"
+              required
               value={fields.dateOfBirth}
               onChange={(e) => updateField("dateOfBirth", e.target.value)}
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
@@ -75,6 +72,7 @@ export default function OnboardingView({ onSubmit }) {
             </label>
             <input
               type="text"
+              required
               value={fields.providerName}
               onChange={(e) => updateField("providerName", e.target.value)}
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
@@ -88,6 +86,7 @@ export default function OnboardingView({ onSubmit }) {
             </label>
             <input
               type="text"
+              required
               value={fields.serviceDate}
               onChange={(e) => updateField("serviceDate", e.target.value)}
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
@@ -102,15 +101,6 @@ export default function OnboardingView({ onSubmit }) {
             Continue
           </button>
 
-          <p className="text-center">
-            <button
-              type="button"
-              onClick={handleSkip}
-              className="text-sm text-gray-400 hover:text-gray-600 cursor-pointer"
-            >
-              Skip
-            </button>
-          </p>
         </form>
       </div>
 

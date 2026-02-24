@@ -5,8 +5,8 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
   const [copied, setCopied] = useState(false);
 
   const [fields, setFields] = useState({
-    patientName: eobData?.patientName || onboardingData?.patientName || "",
-    serviceDate: eobData?.serviceDate || onboardingData?.serviceDate || "",
+    patientName: onboardingData?.patientName || "",
+    serviceDate: onboardingData?.serviceDate || "",
     dateOfBirth: onboardingData?.dateOfBirth || "",
     accountId: eobData?.accountNumber || "",
     mailingAddress: "",
@@ -18,7 +18,7 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
     setFields((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const providerName = eobData?.provider?.name || onboardingData?.providerName || "";
+  const providerName = onboardingData?.providerName || "";
 
   const letterText = buildLetterText(fields, providerName);
 
@@ -40,15 +40,14 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
     setTimeout(() => setCopied(false), 2000);
   }, [letterText]);
 
-  const handleEmail = useCallback(() => {
+  const handleOpenEmail = useCallback(() => {
     const name = fields.patientName || "Patient";
     const date = fields.serviceDate || "Date of Service";
     const subject = encodeURIComponent(
       `Request for Itemized Bill — ${name}, Date of Service ${date}`
     );
-    const body = encodeURIComponent(letterText);
-    window.open(`mailto:?subject=${subject}&body=${body}`, "_self");
-  }, [fields.patientName, fields.serviceDate, letterText]);
+    window.location.href = `mailto:?subject=${subject}`;
+  }, [fields.patientName, fields.serviceDate]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -203,7 +202,7 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
         </div>
 
         {/* Action buttons */}
-        <div className="flex items-center gap-3 mb-8 print:hidden">
+        <div className="flex items-center gap-3 mb-3 print:hidden">
           <button
             onClick={handleCopy}
             className="px-5 py-2.5 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
@@ -211,18 +210,21 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
             {copied ? "Copied!" : "Copy Letter"}
           </button>
           <button
+            onClick={handleOpenEmail}
+            className="px-5 py-2.5 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
+          >
+            Open Email
+          </button>
+          <button
             onClick={() => window.print()}
             className="px-5 py-2.5 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
           >
             Download as PDF
           </button>
-          <button
-            onClick={handleEmail}
-            className="px-5 py-2.5 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
-          >
-            Send via Email
-          </button>
         </div>
+        <p className="text-xs text-gray-400 mb-8 print:hidden">
+          Tip: Copy the letter first, then open your email and paste it into the body.
+        </p>
 
         {/* Come-back note */}
         <div className="bg-[#0D7377]/5 border border-[#0D7377]/20 rounded-xl p-5 text-center print:hidden">
