@@ -119,8 +119,7 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
               value={fields.serviceDate}
               placeholder="date of service"
               onChange={(v) => updateField("serviceDate", v)}
-            />
-            .
+            />.
           </p>
 
           <p className="text-gray-700 mb-2">
@@ -160,14 +159,16 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
                 onChange={(v) => updateField("dateOfBirth", v)}
               />
             </p>
-            <p className="text-gray-700">
-              Account or Patient ID:{" "}
-              <EditableField
-                value={fields.accountId}
-                placeholder="XXXXXXX"
-                onChange={(v) => updateField("accountId", v)}
-              />
-            </p>
+            {fields.accountId && (
+              <p className="text-gray-700">
+                Account or Patient ID:{" "}
+                <EditableField
+                  value={fields.accountId}
+                  placeholder="XXXXXXX"
+                  onChange={(v) => updateField("accountId", v)}
+                />
+              </p>
+            )}
             <p className="text-gray-700">
               <EditableField
                 value={fields.mailingAddress}
@@ -249,10 +250,13 @@ function buildLetterText(fields, providerName) {
   const name = fields.patientName || "[Patient Name]";
   const date = fields.serviceDate || "[Date of Service]";
   const dob = fields.dateOfBirth || "[Date of Birth]";
-  const acct = fields.accountId || "XXXXXXX";
   const addr = fields.mailingAddress || "[Your Mailing Address]";
   const email = fields.email || "[Your Email Address]";
   const phone = fields.phone || "[Your Phone Number]";
+
+  const sigLines = [name, dob];
+  if (fields.accountId) sigLines.push(`Account or Patient ID: ${fields.accountId}`);
+  sigLines.push(addr, email, phone);
 
   return `Subject: Request for Itemized Bill — ${name}, Date of Service ${date}
 
@@ -271,10 +275,5 @@ I understand I have the right to receive this information and would appreciate r
 Thank you for your assistance.
 
 Sincerely,
-${name}
-${dob}
-Account or Patient ID: ${acct}
-${addr}
-${email}
-${phone}`;
+${sigLines.join("\n")}`;
 }
