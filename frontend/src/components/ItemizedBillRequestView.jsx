@@ -9,9 +9,9 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
     serviceDate: onboardingData?.serviceDate || "",
     dateOfBirth: onboardingData?.dateOfBirth || "",
     accountId: eobData?.accountNumber || "",
-    mailingAddress: "",
-    email: "",
-    phone: "",
+    mailingAddress: onboardingData?.mailingAddress || "",
+    email: onboardingData?.email || "",
+    phone: onboardingData?.phone || "",
   });
 
   const updateField = useCallback((key, value) => {
@@ -39,15 +39,6 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, [letterText]);
-
-  const handleOpenEmail = useCallback(() => {
-    const name = fields.patientName || "Patient";
-    const date = fields.serviceDate || "Date of Service";
-    const subject = encodeURIComponent(
-      `Request for Itemized Bill — ${name}, Date of Service ${date}`
-    );
-    window.location.href = `mailto:?subject=${subject}`;
-  }, [fields.patientName, fields.serviceDate]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -204,26 +195,20 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
         {/* Action buttons */}
         <div className="flex items-center gap-3 mb-3 print:hidden">
           <button
-            onClick={handleCopy}
+            onClick={() => window.print()}
             className="px-5 py-2.5 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
+          >
+            Download Letter
+          </button>
+          <button
+            onClick={handleCopy}
+            className="px-5 py-2.5 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
           >
             {copied ? "Copied!" : "Copy Letter"}
           </button>
-          <button
-            onClick={handleOpenEmail}
-            className="px-5 py-2.5 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
-          >
-            Open Email
-          </button>
-          <button
-            onClick={() => window.print()}
-            className="px-5 py-2.5 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
-          >
-            Download as PDF
-          </button>
         </div>
         <p className="text-xs text-gray-400 mb-8 print:hidden">
-          Tip: Copy the letter first, then open your email and paste it into the body.
+          To send: email your provider's billing department and attach or paste this letter.
         </p>
 
         {/* Come-back note */}

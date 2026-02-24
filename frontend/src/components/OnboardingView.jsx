@@ -7,6 +7,9 @@ export default function OnboardingView({ onSubmit }) {
     dateOfBirth: "",
     providerName: "",
     serviceDate: "",
+    mailingAddress: "",
+    email: "",
+    phone: "",
   });
 
   const updateField = useCallback((key, value) => {
@@ -91,6 +94,48 @@ export default function OnboardingView({ onSubmit }) {
               onChange={(e) => updateField("serviceDate", e.target.value)}
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
               placeholder="MM/DD/YYYY"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-[#1B3A5C] mb-1">
+              Mailing address
+            </label>
+            <input
+              type="text"
+              required
+              value={fields.mailingAddress}
+              onChange={(e) => updateField("mailingAddress", e.target.value)}
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
+              placeholder="123 Main St, City, ST 12345"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-[#1B3A5C] mb-1">
+              Email address
+            </label>
+            <input
+              type="email"
+              required
+              value={fields.email}
+              onChange={(e) => updateField("email", e.target.value)}
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
+              placeholder="jane@example.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-[#1B3A5C] mb-1">
+              Phone number
+              <span className="text-gray-400 font-normal"> (optional)</span>
+            </label>
+            <input
+              type="tel"
+              value={fields.phone}
+              onChange={(e) => updateField("phone", e.target.value)}
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
+              placeholder="(555) 123-4567"
             />
           </div>
 

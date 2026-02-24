@@ -48,6 +48,9 @@ export default function App() {
     dateOfBirth: "",
     providerName: "",
     serviceDate: "",
+    mailingAddress: "",
+    email: "",
+    phone: "",
   });
 
   const handleReset = useCallback(() => {
@@ -63,6 +66,9 @@ export default function App() {
       dateOfBirth: "",
       providerName: "",
       serviceDate: "",
+      mailingAddress: "",
+      email: "",
+      phone: "",
     });
   }, []);
 
