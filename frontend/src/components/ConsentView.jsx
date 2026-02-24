@@ -91,9 +91,9 @@ export default function ConsentView({ onSubmit }) {
           />
           <span className="text-sm text-gray-600">
             I have read and agree to the{" "}
-            <a href="https://civicscale.ai/terms" className="text-[#0D7377] underline">Terms of Service</a>{" "}
+            <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-[#0D7377] underline">Terms of Service</a>{" "}
             and{" "}
-            <a href="https://civicscale.ai/privacy" className="text-[#0D7377] underline">Privacy Policy</a>
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[#0D7377] underline">Privacy Policy</a>
           </span>
         </label>
 
