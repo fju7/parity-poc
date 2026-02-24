@@ -133,6 +133,12 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
           </div>
         </div>
 
+        {/* Coding Intelligence Section */}
+        <CodingIntelligenceSection
+          codingAlerts={report.codingAlerts}
+          codingSummary={report.codingSummary}
+        />
+
         {/* Next Steps */}
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
           <h3 className="text-lg font-bold text-[#1B3A5C] mb-4">
@@ -314,6 +320,152 @@ function LineItemRow({ item }) {
       )}
     </>
   );
+}
+
+// ---------------------------------------------------------------------------
+// Coding Intelligence Section
+// ---------------------------------------------------------------------------
+
+function CodingIntelligenceSection({ codingAlerts, codingSummary }) {
+  if (!codingAlerts || codingAlerts.length === 0) return null;
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
+      <div className="px-6 py-4 border-b border-gray-200">
+        <div className="flex items-center gap-3">
+          {/* Shield icon */}
+          <svg
+            className="w-5 h-5 text-[#1B3A5C]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.5}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
+            />
+          </svg>
+          <div>
+            <h3 className="text-lg font-bold text-[#1B3A5C]">
+              Parity Intelligence Engine
+            </h3>
+            <p className="text-xs text-gray-500">
+              Coding pattern analysis
+            </p>
+          </div>
+          {codingSummary && (
+            <div className="ml-auto flex items-center gap-2">
+              {codingSummary.highConfidenceCount > 0 && (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                  {codingSummary.highConfidenceCount} Review
+                </span>
+              )}
+              {codingSummary.mediumConfidenceCount > 0 && (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                  {codingSummary.mediumConfidenceCount} Info
+                </span>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="divide-y divide-gray-100">
+        {codingAlerts.map((alert, i) => (
+          <CodingAlertRow key={i} alert={alert} />
+        ))}
+      </div>
+
+      <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+        <p className="text-xs text-gray-400">
+          Coding checks are based on CMS National Correct Coding Initiative and
+          Medically Unlikely Edit rules. These are informational flags — consult
+          with a certified coder for definitive guidance.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function CodingAlertRow({ alert }) {
+  const [expanded, setExpanded] = useState(false);
+  const isHigh = alert.confidence === "high";
+
+  return (
+    <div
+      className="px-6 py-4 hover:bg-gray-50 cursor-pointer"
+      onClick={() => setExpanded(!expanded)}
+    >
+      <div className="flex items-start gap-3">
+        {/* Confidence badge */}
+        <span
+          className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium shrink-0 mt-0.5 ${
+            isHigh
+              ? "bg-amber-100 text-amber-700"
+              : "bg-blue-100 text-blue-700"
+          }`}
+        >
+          {isHigh ? "Review" : "Info"}
+        </span>
+
+        <div className="flex-1 min-w-0">
+          {/* Check type + codes */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-sm font-medium text-[#1B3A5C]">
+              {formatCheckType(alert.checkType)}
+            </span>
+            {alert.codes.map((code) => (
+              <span
+                key={code}
+                className="font-mono text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-600"
+              >
+                {code}
+              </span>
+            ))}
+          </div>
+
+          {/* Expandable message */}
+          {expanded && (
+            <div className="mt-2 text-sm text-gray-600 leading-relaxed">
+              <p>{alert.message}</p>
+              <p className="text-xs text-gray-400 mt-1">
+                Source: {alert.source}
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Expand chevron */}
+        <svg
+          className={`w-4 h-4 text-gray-400 shrink-0 mt-1 transition-transform ${
+            expanded ? "rotate-180" : ""
+          }`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m19.5 8.25-7.5 7.5-7.5-7.5"
+          />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function formatCheckType(checkType) {
+  const labels = {
+    NCCI_EDIT: "NCCI Edit Violation",
+    MUE_LIMIT: "MUE Unit Limit",
+    EM_COMPLEXITY: "E&M Complexity",
+    SITE_OF_SERVICE: "Site-of-Service Mismatch",
+  };
+  return labels[checkType] || checkType;
 }
 
 // ---------------------------------------------------------------------------

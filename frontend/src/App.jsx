@@ -15,6 +15,7 @@ import AppHeader from "./components/AppHeader.jsx";
 import Toast from "./components/Toast.jsx";
 import extractBillData from "./modules/extractBillData.js";
 import scoreAnomalies from "./modules/scoreAnomalies.js";
+import runCodingIntelligence from "./modules/codingIntelligence.js";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const API_TIMEOUT_MS = 10000;
@@ -34,7 +35,7 @@ const SAMPLE_BILL = {
     { code: "99213", codeType: "CPT", description: "Office visit, established patient, level 3", billedAmount: 285.0 },
     { code: "36415", codeType: "CPT", description: "Venipuncture for blood draw", billedAmount: 75.0 },
     { code: "93000", codeType: "CPT", description: "Electrocardiogram (ECG), 12-lead", billedAmount: 310.0 },
-    { code: "99214", codeType: "CPT", description: "Office visit, established patient, level 4 (follow-up)", billedAmount: 425.0 },
+    { code: "99215", codeType: "CPT", description: "Office visit, established patient, level 5 (complex)", billedAmount: 525.0 },
   ],
 };
 
@@ -254,6 +255,8 @@ export default function App() {
         lineItems: bill.lineItems || [],
         summary: bill.summary || {},
         partialWarning: bill.partialWarning || null,
+        codingAlerts: bill.codingAlerts || [],
+        codingSummary: bill.codingSummary || null,
       });
       setProvider(bill.provider || { name: "Unknown Provider" });
       setServiceDate(bill.serviceDate || "");
@@ -273,6 +276,8 @@ export default function App() {
           summary: scored.summary,
           lineItems: scored.lineItems,
           partialWarning: scored.partialWarning || null,
+          codingAlerts: scored.codingAlerts || [],
+          codingSummary: scored.codingSummary || null,
         });
 
         setToast({ message: "Saved", visible: true });
@@ -379,6 +384,15 @@ export default function App() {
       } else if (nullCount > 0) {
         scored.partialWarning = `${nullCount} of ${benchmarkResponse.lineItems.length} procedure codes could not be benchmarked against current CMS data.`;
       }
+
+      // Step 4: Run coding intelligence checks
+      setProcessingStep(3);
+      const { codingAlerts, codingSummary } = runCodingIntelligence(
+        billData,
+        benchmarkResponse.codingAlerts || []
+      );
+      scored.codingAlerts = codingAlerts;
+      scored.codingSummary = codingSummary;
 
       // Small delay so the user sees the final step
       await delay(400);

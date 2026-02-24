@@ -5,6 +5,7 @@ const STEPS = [
   "Reading your document...",
   "Looking up benchmark rates...",
   "Analyzing charges...",
+  "Checking coding patterns...",
 ];
 
 export default function ProcessingView({ currentStep = 0 }) {

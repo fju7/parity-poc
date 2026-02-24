@@ -13,6 +13,8 @@ import pandas as pd
 from fastapi import APIRouter
 from pydantic import BaseModel
 
+from routers.coding_intelligence import run_coding_checks
+
 router = APIRouter()
 
 # ---------------------------------------------------------------------------
@@ -88,8 +90,18 @@ class LineItemResponse(BaseModel):
     localityCode: Optional[str]
 
 
+class CodingAlert(BaseModel):
+    checkType: str
+    codes: list[str]
+    confidence: str
+    severity: str
+    message: str
+    source: str
+
+
 class BenchmarkResponse(BaseModel):
     lineItems: list[LineItemResponse]
+    codingAlerts: list[CodingAlert] = []
 
 
 # ---------------------------------------------------------------------------
@@ -118,7 +130,11 @@ def benchmark(req: BenchmarkRequest):
             )
         )
 
-    return BenchmarkResponse(lineItems=results)
+    # Run coding intelligence checks
+    codes = [item.code for item in req.lineItems]
+    coding_alerts = run_coding_checks(codes)
+
+    return BenchmarkResponse(lineItems=results, codingAlerts=coding_alerts)
 
 
 # ---------------------------------------------------------------------------

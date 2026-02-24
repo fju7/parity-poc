@@ -5,11 +5,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from routers.benchmark import load_data, router as benchmark_router
+from routers.coding_intelligence import load_coding_data
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     load_data()
+    load_coding_data()
     yield
 
 
