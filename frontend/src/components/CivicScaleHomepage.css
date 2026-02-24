@@ -551,6 +551,68 @@
 
 .cs-footer-links a:hover { color: rgba(255,255,255,0.7); }
 
+/* ── DATA INFRASTRUCTURE ── */
+.cs-data-header {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+}
+
+.cs-data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cs-data-card {
+  border: 1px solid var(--cs-border);
+  border-radius: 12px;
+  padding: 32px;
+  background: var(--cs-white);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+}
+
+.cs-data-card:hover {
+  border-color: var(--cs-teal);
+  box-shadow: 0 8px 28px rgba(13,115,119,0.08);
+  transform: translateY(-2px);
+}
+
+.cs-data-card-accent {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.cs-data-accent-public { background: var(--cs-teal); }
+.cs-data-accent-licensed { background: linear-gradient(90deg, var(--cs-teal), var(--cs-teal-light)); }
+.cs-data-accent-proprietary { background: linear-gradient(90deg, var(--cs-navy), var(--cs-teal)); }
+
+.cs-data-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  color: rgba(13,115,119,0.2);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.cs-data-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--cs-navy);
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+
+.cs-data-desc {
+  font-size: 14px;
+  color: var(--cs-slate);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .cs-nav { padding: 0 24px; }
@@ -559,6 +621,7 @@
   .cs-stat { padding: 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 24px; }
   .cs-section { padding: 64px 24px; }
   .cs-platform-grid { grid-template-columns: 1fr; gap: 40px; }
+  .cs-data-grid { grid-template-columns: 1fr; }
   .cs-products-grid { grid-template-columns: 1fr; }
   .cs-principles-grid { grid-template-columns: 1fr; }
   .cs-principle:nth-child(2n) { border-right: none; }

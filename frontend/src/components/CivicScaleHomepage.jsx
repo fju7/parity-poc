@@ -45,8 +45,8 @@ export default function CivicScaleHomepage() {
           <span className="cs-nav-wordmark">CivicScale</span>
         </Link>
         <div className="cs-nav-links">
-          <a href="#">Platform</a>
-          <a href="#">Data</a>
+          <a href="#platform">Platform</a>
+          <a href="#data">Data</a>
           <Link to="/investors">Investors</Link>
           <Link to="/parity-health/" className="cs-nav-cta">Open Parity Health &rarr;</Link>
         </div>
@@ -95,7 +95,7 @@ export default function CivicScaleHomepage() {
       </div>
 
       {/* PLATFORM */}
-      <section className="cs-section cs-platform-section">
+      <section id="platform" className="cs-section cs-platform-section">
         <div className="cs-platform-grid">
           <div>
             <div className="cs-section-label">The Platform</div>
@@ -130,6 +130,40 @@ export default function CivicScaleHomepage() {
                 <div className="cs-diagram-sublabel">Parity Health &middot; Insurance &middot; Property</div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DATA INFRASTRUCTURE */}
+      <section id="data" className="cs-section" style={{ background: "#fff" }}>
+        <div className="cs-data-header">
+          <div className="cs-section-label">Data Infrastructure</div>
+          <h2 className="cs-section-title">Three layers of<br />benchmark accuracy</h2>
+        </div>
+        <div className="cs-data-grid">
+          <div className="cs-data-card">
+            <div className="cs-data-card-accent cs-data-accent-public" />
+            <div className="cs-data-num">01</div>
+            <div className="cs-data-name">Public Foundation</div>
+            <p className="cs-data-desc">
+              CMS Medicare Physician Fee Schedule and OPPS rates. 841,000+ procedure rates updated annually. The floor benchmark for every analysis. Free and publicly available.
+            </p>
+          </div>
+          <div className="cs-data-card">
+            <div className="cs-data-card-accent cs-data-accent-licensed" />
+            <div className="cs-data-num">02</div>
+            <div className="cs-data-name">Licensed Intelligence</div>
+            <p className="cs-data-desc">
+              Turquoise Health Clear Rates — negotiated rate data from 96% of US hospitals and 95% of commercial lives. The difference between Medicare floor rates and what your insurer actually contracted to pay. Phase 1 integration.
+            </p>
+          </div>
+          <div className="cs-data-card">
+            <div className="cs-data-card-accent cs-data-accent-proprietary" />
+            <div className="cs-data-num">03</div>
+            <div className="cs-data-name">Proprietary Network</div>
+            <p className="cs-data-desc">
+              User-consented, de-identified EOB aggregation. Every analysis contributes to a proprietary benchmark database that grows more accurate over time. The long-term data moat no competitor can replicate from a standing start.
+            </p>
           </div>
         </div>
       </section>
