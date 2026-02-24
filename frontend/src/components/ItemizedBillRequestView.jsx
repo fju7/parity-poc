@@ -4,12 +4,21 @@ import { Footer } from "./UploadView.jsx";
 export default function ItemizedBillRequestView({ eobData, onboardingData, onReset }) {
   const [copied, setCopied] = useState(false);
 
+  const fullName = [onboardingData?.firstName, onboardingData?.lastName]
+    .filter(Boolean).join(" ");
+  const fullAddress = [
+    onboardingData?.streetAddress,
+    [onboardingData?.city, onboardingData?.state].filter(Boolean).join(", "),
+    onboardingData?.zipCode,
+  ].filter(Boolean).join(", ");
+
   const [fields, setFields] = useState({
-    patientName: onboardingData?.patientName || "",
-    serviceDate: onboardingData?.serviceDate || "",
+    patientName: fullName,
+    serviceDate: "",
+    providerName: "",
     dateOfBirth: onboardingData?.dateOfBirth || "",
     accountId: eobData?.accountNumber || "",
-    mailingAddress: onboardingData?.mailingAddress || "",
+    mailingAddress: fullAddress,
     email: onboardingData?.email || "",
     phone: onboardingData?.phone || "",
   });
@@ -42,21 +51,6 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
-      {/* Screen header */}
-      <header className="bg-white border-b border-gray-200 print:hidden">
-        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-[#1B3A5C] tracking-tight">
-            Parity
-          </h1>
-          <button
-            onClick={onReset}
-            className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
-          >
-            Upload Another Bill
-          </button>
-        </div>
-      </header>
-
       {/* Print-only header */}
       <div className="hidden print:block px-4 pt-4 pb-2 border-b border-gray-300 mb-4">
         <div className="flex items-center justify-between">
@@ -74,6 +68,18 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
       </div>
 
       <main className="max-w-3xl mx-auto px-4 py-8 w-full flex-1">
+        {/* Action buttons */}
+        <div className="flex items-center gap-3 mb-6 print:hidden">
+          {onReset && (
+            <button
+              onClick={onReset}
+              className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
+            >
+              Upload Another Bill
+            </button>
+          )}
+        </div>
+
         {/* Explanation section */}
         <div className="mb-8 print:hidden">
           <h2 className="text-2xl font-bold text-[#1B3A5C] mb-2">

@@ -1,10 +1,17 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { supabase } from "./lib/supabase.js";
+import { saveBill, getBillById, clearAll } from "./lib/localBillStore.js";
+import SignInView from "./components/SignInView.jsx";
+import ConsentView from "./components/ConsentView.jsx";
 import OnboardingView from "./components/OnboardingView.jsx";
 import UploadView from "./components/UploadView.jsx";
 import ProcessingView from "./components/ProcessingView.jsx";
 import ReportView from "./components/ReportView.jsx";
 import ErrorView from "./components/ErrorView.jsx";
 import ItemizedBillRequestView from "./components/ItemizedBillRequestView.jsx";
+import BillHistoryView from "./components/BillHistoryView.jsx";
+import AppHeader from "./components/AppHeader.jsx";
+import Toast from "./components/Toast.jsx";
 import extractBillData from "./modules/extractBillData.js";
 import scoreAnomalies from "./modules/scoreAnomalies.js";
 
@@ -35,7 +42,11 @@ const SAMPLE_BILL = {
 // ---------------------------------------------------------------------------
 
 export default function App() {
-  // "onboarding" | "upload" | "processing" | "report" | "error" | "itemized-request"
+  // Auth state
+  const [session, setSession] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  // "consent" | "onboarding" | "upload" | "processing" | "report" | "error" | "itemized-request" | "history"
   const [view, setView] = useState("onboarding");
   const [processingStep, setProcessingStep] = useState(0);
   const [report, setReport] = useState(null);
@@ -43,17 +54,95 @@ export default function App() {
   const [serviceDate, setServiceDate] = useState("");
   const [error, setError] = useState({ title: "", message: "" });
   const [eobData, setEobData] = useState(null);
+  const [toast, setToast] = useState({ message: "", visible: false });
+  const [hasCompletedConsent, setHasCompletedConsent] = useState(false);
+  const [consentData, setConsentData] = useState({ consentAnalytics: true, consentEmployer: false });
   const [onboardingData, setOnboardingData] = useState({
-    patientName: "",
+    firstName: "",
+    lastName: "",
     dateOfBirth: "",
-    providerName: "",
-    serviceDate: "",
-    mailingAddress: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    zipCode: "",
     email: "",
     phone: "",
   });
 
-  const handleReset = useCallback(() => {
+  // ----- Auth: session bootstrap + listener -----
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session: s } }) => {
+      setSession(s);
+      if (s) fetchProfile(s.user.id, s.user.email);
+      setAuthLoading(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, s) => {
+      setSession(s);
+      if (s) fetchProfile(s.user.id, s.user.email);
+    });
+
+    return () => subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ----- Fetch profile from Supabase and pre-fill onboarding -----
+  const fetchProfile = async (userId, email) => {
+    try {
+      const { data } = await supabase
+        .from("profiles")
+        .select("first_name, last_name, date_of_birth, street_address, city, state, zip_code, phone, consent_agreed_at, consent_analytics, consent_employer")
+        .eq("id", userId)
+        .single();
+
+      if (data) {
+        setOnboardingData((prev) => ({
+          ...prev,
+          firstName: data.first_name || "",
+          lastName: data.last_name || "",
+          dateOfBirth: data.date_of_birth || "",
+          streetAddress: data.street_address || "",
+          city: data.city || "",
+          state: data.state || "",
+          zipCode: data.zip_code || "",
+          phone: data.phone || "",
+          email: email || "",
+        }));
+
+        // Track consent state
+        if (data.consent_agreed_at) {
+          setHasCompletedConsent(true);
+          setConsentData({
+            consentAnalytics: data.consent_analytics ?? true,
+            consentEmployer: data.consent_employer ?? false,
+          });
+          // Skip to upload if profile is filled in
+          if (data.first_name && data.last_name) {
+            setView("upload");
+          }
+        } else {
+          setHasCompletedConsent(false);
+          setView("consent");
+        }
+      } else {
+        setOnboardingData((prev) => ({ ...prev, email: email || "" }));
+        setHasCompletedConsent(false);
+        setView("consent");
+      }
+    } catch {
+      // Profile doesn't exist yet — show consent flow
+      setOnboardingData((prev) => ({ ...prev, email: email || "" }));
+      setHasCompletedConsent(false);
+      setView("consent");
+    }
+  };
+
+  // ----- Sign out -----
+  const handleSignOut = useCallback(async () => {
+    await supabase.auth.signOut();
+    setSession(null);
     setView("onboarding");
     setReport(null);
     setProvider(null);
@@ -62,20 +151,169 @@ export default function App() {
     setError({ title: "", message: "" });
     setEobData(null);
     setOnboardingData({
-      patientName: "",
+      firstName: "",
+      lastName: "",
       dateOfBirth: "",
-      providerName: "",
-      serviceDate: "",
-      mailingAddress: "",
+      streetAddress: "",
+      city: "",
+      state: "",
+      zipCode: "",
       email: "",
       phone: "",
     });
   }, []);
 
-  const handleOnboardingSubmit = useCallback((data) => {
-    setOnboardingData(data);
+  const handleReset = useCallback(() => {
     setView("upload");
+    setReport(null);
+    setProvider(null);
+    setServiceDate("");
+    setProcessingStep(0);
+    setError({ title: "", message: "" });
+    setEobData(null);
   }, []);
+
+  // ----- Navigation -----
+  const handleNavigate = useCallback((target) => {
+    if (target === "account") {
+      setView("account");
+    } else {
+      setView(target);
+    }
+  }, []);
+
+  // ----- Delete account -----
+  const handleDeleteAccount = useCallback(async () => {
+    try {
+      // Clear local bill data
+      await clearAll();
+
+      // Delete profile from Supabase
+      if (session?.user) {
+        await supabase.from("profiles").delete().eq("id", session.user.id);
+      }
+
+      // Sign out
+      await supabase.auth.signOut();
+      setSession(null);
+      setView("onboarding");
+      setReport(null);
+      setProvider(null);
+      setServiceDate("");
+      setProcessingStep(0);
+      setError({ title: "", message: "" });
+      setEobData(null);
+      setHasCompletedConsent(false);
+      setConsentData({ consentAnalytics: true, consentEmployer: false });
+      setOnboardingData({
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
+        streetAddress: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        email: "",
+        phone: "",
+      });
+    } catch (err) {
+      console.error("Failed to delete account:", err);
+    }
+  }, [session]);
+
+  // ----- View saved bill from history (IndexedDB) -----
+  const handleViewSavedBill = useCallback(async (billId) => {
+    try {
+      const bill = await getBillById(billId);
+      if (!bill) return;
+
+      setReport({
+        lineItems: bill.lineItems || [],
+        summary: bill.summary || {},
+        partialWarning: bill.partialWarning || null,
+      });
+      setProvider(bill.provider || { name: "Unknown Provider" });
+      setServiceDate(bill.serviceDate || "");
+      setView("report");
+    } catch (err) {
+      console.error("Failed to load saved bill:", err);
+    }
+  }, []);
+
+  // ----- Auto-save bill to IndexedDB (local only) -----
+  const saveBillLocally = useCallback(
+    async (scored, billProvider, billServiceDate) => {
+      try {
+        await saveBill({
+          provider: billProvider || { name: "Unknown Provider" },
+          serviceDate: billServiceDate || null,
+          summary: scored.summary,
+          lineItems: scored.lineItems,
+          partialWarning: scored.partialWarning || null,
+        });
+
+        setToast({ message: "Saved", visible: true });
+        setTimeout(() => setToast((prev) => ({ ...prev, visible: false })), 2000);
+      } catch {
+        // Non-blocking — don't disrupt the report display
+      }
+    },
+    []
+  );
+
+  // ----- Consent submission -----
+  const handleConsentSubmit = useCallback(
+    async ({ consentAnalytics: analytics, consentEmployer: employer }) => {
+      setConsentData({ consentAnalytics: analytics, consentEmployer: employer });
+      setHasCompletedConsent(true);
+
+      if (session?.user) {
+        try {
+          await supabase.from("profiles").upsert({
+            id: session.user.id,
+            email: session.user.email,
+            consent_analytics: analytics,
+            consent_employer: employer,
+            consent_agreed_at: new Date().toISOString(),
+          });
+        } catch {
+          // Non-blocking
+        }
+      }
+
+      setView("onboarding");
+    },
+    [session]
+  );
+
+  const handleOnboardingSubmit = useCallback(
+    async (data) => {
+      setOnboardingData(data);
+
+      // Upsert profile to Supabase
+      if (session?.user) {
+        try {
+          await supabase.from("profiles").upsert({
+            id: session.user.id,
+            email: session.user.email,
+            first_name: data.firstName,
+            last_name: data.lastName,
+            date_of_birth: data.dateOfBirth,
+            street_address: data.streetAddress,
+            city: data.city,
+            state: data.state,
+            zip_code: data.zipCode,
+            phone: data.phone,
+          });
+        } catch {
+          // Non-blocking — continue even if profile save fails
+        }
+      }
+
+      setView("upload");
+    },
+    [session]
+  );
 
   const runPipeline = useCallback(
     async (billData) => {
@@ -125,8 +363,11 @@ export default function App() {
       setProvider(billData.provider);
       setServiceDate(billData.serviceDate);
       setView("report");
+
+      // Auto-save to IndexedDB (non-blocking)
+      saveBillLocally(scored, billData.provider, billData.serviceDate);
     },
-    []
+    [saveBillLocally]
   );
 
   const handleFileSelect = useCallback(
@@ -178,28 +419,43 @@ export default function App() {
     }
   }, [runPipeline]);
 
-  if (view === "processing") {
-    return <ProcessingView currentStep={processingStep} />;
+  // ----- Auth loading state -----
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center font-[Arial,sans-serif]">
+        <p className="text-gray-400 text-sm">Loading...</p>
+      </div>
+    );
   }
 
-  if (view === "error") {
-    return (
+  // ----- Not signed in -----
+  if (!session) {
+    return <SignInView />;
+  }
+
+  // ----- Determine which view content to render -----
+  let viewContent;
+
+  if (view === "processing") {
+    viewContent = <ProcessingView currentStep={processingStep} />;
+  } else if (view === "error") {
+    viewContent = (
       <ErrorView
         title={error.title}
         message={error.message}
         onReset={handleReset}
       />
     );
-  }
-
-  if (view === "itemized-request") {
-    return (
-      <ItemizedBillRequestView eobData={eobData} onboardingData={onboardingData} onReset={handleReset} />
+  } else if (view === "itemized-request") {
+    viewContent = (
+      <ItemizedBillRequestView
+        eobData={eobData}
+        onboardingData={onboardingData}
+        onReset={handleReset}
+      />
     );
-  }
-
-  if (view === "report" && report) {
-    return (
+  } else if (view === "report" && report) {
+    viewContent = (
       <ReportView
         report={report}
         provider={provider}
@@ -207,17 +463,57 @@ export default function App() {
         onReset={handleReset}
       />
     );
+  } else if (view === "consent") {
+    viewContent = <ConsentView onSubmit={handleConsentSubmit} />;
+  } else if (view === "history") {
+    viewContent = (
+      <BillHistoryView
+        onViewBill={handleViewSavedBill}
+        onNavigate={handleNavigate}
+      />
+    );
+  } else if (view === "account") {
+    viewContent = (
+      <OnboardingView
+        onSubmit={handleOnboardingSubmit}
+        initialData={onboardingData}
+        isAccountView
+        consentData={consentData}
+        onDeleteAccount={handleDeleteAccount}
+        session={session}
+      />
+    );
+  } else if (view === "onboarding") {
+    viewContent = (
+      <OnboardingView
+        onSubmit={handleOnboardingSubmit}
+        initialData={onboardingData}
+      />
+    );
+  } else {
+    viewContent = (
+      <UploadView
+        onFileSelect={handleFileSelect}
+        onSampleBill={handleSampleBill}
+      />
+    );
   }
 
-  if (view === "onboarding") {
-    return <OnboardingView onSubmit={handleOnboardingSubmit} />;
-  }
+  const showHeader = view !== "consent" && view !== "onboarding";
 
   return (
-    <UploadView
-      onFileSelect={handleFileSelect}
-      onSampleBill={handleSampleBill}
-    />
+    <>
+      {showHeader && (
+        <AppHeader
+          onNavigate={handleNavigate}
+          currentView={view}
+          session={session}
+          onSignOut={handleSignOut}
+        />
+      )}
+      {viewContent}
+      <Toast message={toast.message} visible={toast.visible} />
+    </>
   );
 }
 

@@ -6,29 +6,6 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
-      {/* Screen header */}
-      <header className="bg-white border-b border-gray-200 print:hidden">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-[#1B3A5C] tracking-tight">
-            Parity
-          </h1>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => window.print()}
-              className="px-4 py-2 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
-            >
-              Download Report
-            </button>
-            <button
-              onClick={onReset}
-              className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
-            >
-              Analyze Another Bill
-            </button>
-          </div>
-        </div>
-      </header>
-
       {/* Print-only header */}
       <div className="hidden print:block px-4 pt-4 pb-2 border-b border-gray-300 mb-4">
         <div className="flex items-center justify-between">
@@ -43,6 +20,24 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
       </div>
 
       <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1">
+        {/* Action buttons */}
+        <div className="flex items-center gap-3 mb-6 print:hidden">
+          <button
+            onClick={() => window.print()}
+            className="px-4 py-2 text-sm font-medium text-[#1B3A5C] border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer"
+          >
+            Download Report
+          </button>
+          {onReset && (
+            <button
+              onClick={onReset}
+              className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
+            >
+              Analyze Another Bill
+            </button>
+          )}
+        </div>
+
         {/* Partial benchmark warning */}
         {report.partialWarning && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex items-start gap-3">
