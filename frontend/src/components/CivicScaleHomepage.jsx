@@ -47,7 +47,7 @@ export default function CivicScaleHomepage() {
         <div className="cs-nav-links">
           <a href="#">Platform</a>
           <a href="#">Data</a>
-          <a href="#">Investors</a>
+          <Link to="/investors">Investors</Link>
           <Link to="/parity-health/" className="cs-nav-cta">Open Parity Health &rarr;</Link>
         </div>
       </nav>
@@ -71,9 +71,9 @@ export default function CivicScaleHomepage() {
               Open Parity Health
               <span>&rarr;</span>
             </Link>
-            <a href="#" className="cs-btn-ghost">
-              Investor Overview
-            </a>
+            <Link to="/investors" className="cs-btn-ghost">
+              Project Overview
+            </Link>
           </div>
         </div>
       </section>
@@ -228,7 +228,7 @@ export default function CivicScaleHomepage() {
         <div className="cs-footer-links">
           <Link to="/privacy">Privacy Policy</Link>
           <Link to="/terms">Terms of Service</Link>
-          <a href="#">Investors</a>
+          <Link to="/investors">Investors</Link>
         </div>
       </footer>
     </div>

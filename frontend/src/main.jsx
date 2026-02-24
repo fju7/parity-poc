@@ -6,6 +6,7 @@ import App from './App.jsx'
 import CivicScaleHomepage from './components/CivicScaleHomepage.jsx'
 import TermsPage from './components/TermsPage.jsx'
 import PrivacyPage from './components/PrivacyPage.jsx'
+import InvestorsPage from './components/InvestorsPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<CivicScaleHomepage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/investors" element={<InvestorsPage />} />
         <Route path="/parity-health/*" element={<App />} />
       </Routes>
     </BrowserRouter>
