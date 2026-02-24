@@ -11,7 +11,11 @@ from routers.coding_intelligence import load_coding_data
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     load_data()
-    load_coding_data()
+    try:
+        load_coding_data()
+    except Exception as exc:
+        print(f"WARNING: Coding intelligence startup failed — {exc}")
+        print("The server will continue without coding intelligence checks.")
     yield
 
 
