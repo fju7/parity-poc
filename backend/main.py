@@ -24,6 +24,8 @@ app = FastAPI(title="Parity API", version="0.1.0", lifespan=lifespan)
 # CORS: allow localhost dev + production Vercel domain
 allowed_origins = [
     "http://localhost:5173",
+    "https://civicscale.ai",
+    "https://www.civicscale.ai",
 ]
 
 # Add production Vercel URL from env if set
