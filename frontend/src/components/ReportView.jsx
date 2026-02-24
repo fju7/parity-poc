@@ -6,8 +6,8 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      {/* Screen header */}
+      <header className="bg-white border-b border-gray-200 print:hidden">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-[#1B3A5C] tracking-tight">
             Parity
@@ -28,6 +28,19 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
           </div>
         </div>
       </header>
+
+      {/* Print-only header */}
+      <div className="hidden print:block px-4 pt-4 pb-2 border-b border-gray-300 mb-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-[#1B3A5C] tracking-tight">
+            Parity
+          </h1>
+          <p className="text-sm text-gray-500">
+            Report generated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </p>
+        </div>
+        <p className="text-xs text-gray-400 mt-1">Medical Bill Benchmark Analysis</p>
+      </div>
 
       <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1">
         {/* Partial benchmark warning */}
@@ -150,7 +163,7 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
                 A medical billing advocate can negotiate on your behalf and
                 may identify additional discrepancies or applicable regulations.
               </p>
-              <button className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer">
+              <button className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer print:hidden">
                 Find a Specialist
               </button>
             </div>

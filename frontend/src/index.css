@@ -1,1 +1,46 @@
 @import "tailwindcss";
+
+@media print {
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide interactive elements — use data attribute instead of escaped class */
+  [data-print-hide] {
+    display: none !important;
+  }
+
+  /* Single-column clean layout */
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Clean print corners */
+  [class*="rounded-xl"] {
+    border-radius: 4px !important;
+  }
+
+  /* Smaller table text for page fit */
+  table {
+    font-size: 11px !important;
+  }
+
+  /* Remove hover states */
+  tr:hover {
+    background: inherit !important;
+  }
+
+  /* Keep rows together */
+  tbody tr {
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 0.75in;
+    size: letter;
+  }
+}
