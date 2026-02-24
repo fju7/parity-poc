@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "./lib/supabase.js";
 import { saveBill, getBillById, clearAll } from "./lib/localBillStore.js";
 import SignInView from "./components/SignInView.jsx";
@@ -41,13 +42,24 @@ const SAMPLE_BILL = {
 // App
 // ---------------------------------------------------------------------------
 
+// Map URL pathname (relative to /parity-health) to view name
+function viewFromPath(pathname) {
+  const rel = pathname.replace(/^\/parity-health\/?/, "").replace(/\/$/, "");
+  if (rel === "history") return "history";
+  if (rel === "account") return "account";
+  return "onboarding"; // default — auth flow will override
+}
+
 export default function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // Auth state
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
   // "consent" | "onboarding" | "upload" | "processing" | "report" | "error" | "itemized-request" | "history"
-  const [view, setView] = useState("onboarding");
+  const [view, setView] = useState(() => viewFromPath(location.pathname));
   const [processingStep, setProcessingStep] = useState(0);
   const [report, setReport] = useState(null);
   const [provider, setProvider] = useState(null);
@@ -118,9 +130,14 @@ export default function App() {
             consentAnalytics: data.consent_analytics ?? true,
             consentEmployer: data.consent_employer ?? false,
           });
-          // Skip to upload if profile is filled in
+          // Skip to upload if profile is filled in — respect URL if it's a deep link
           if (data.first_name && data.last_name) {
-            setView("upload");
+            const urlView = viewFromPath(location.pathname);
+            if (urlView === "history" || urlView === "account") {
+              setView(urlView);
+            } else {
+              setView("upload");
+            }
           }
         } else {
           setHasCompletedConsent(false);
@@ -143,6 +160,7 @@ export default function App() {
   const handleSignOut = useCallback(async () => {
     await supabase.auth.signOut();
     setSession(null);
+    navigate("/parity-health/");
     setView("onboarding");
     setReport(null);
     setProvider(null);
@@ -161,9 +179,10 @@ export default function App() {
       email: "",
       phone: "",
     });
-  }, []);
+  }, [navigate]);
 
   const handleReset = useCallback(() => {
+    navigate("/parity-health/");
     setView("upload");
     setReport(null);
     setProvider(null);
@@ -171,16 +190,19 @@ export default function App() {
     setProcessingStep(0);
     setError({ title: "", message: "" });
     setEobData(null);
-  }, []);
+  }, [navigate]);
 
   // ----- Navigation -----
   const handleNavigate = useCallback((target) => {
-    if (target === "account") {
-      setView("account");
-    } else {
-      setView(target);
+    if (target === "upload") {
+      navigate("/parity-health/");
+    } else if (target === "history") {
+      navigate("/parity-health/history");
+    } else if (target === "account") {
+      navigate("/parity-health/account");
     }
-  }, []);
+    setView(target);
+  }, [navigate]);
 
   // ----- Delete account -----
   const handleDeleteAccount = useCallback(async () => {
@@ -196,6 +218,7 @@ export default function App() {
       // Sign out
       await supabase.auth.signOut();
       setSession(null);
+      navigate("/parity-health/");
       setView("onboarding");
       setReport(null);
       setProvider(null);
@@ -219,7 +242,7 @@ export default function App() {
     } catch (err) {
       console.error("Failed to delete account:", err);
     }
-  }, [session]);
+  }, [session, navigate]);
 
   // ----- View saved bill from history (IndexedDB) -----
   const handleViewSavedBill = useCallback(async (billId) => {
@@ -310,9 +333,10 @@ export default function App() {
         }
       }
 
+      navigate("/parity-health/");
       setView("upload");
     },
-    [session]
+    [session, navigate]
   );
 
   const runPipeline = useCallback(

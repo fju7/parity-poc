@@ -13,7 +13,10 @@ export default function SignInView() {
       setStatus("sending");
       setErrorMsg("");
 
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: window.location.origin + "/parity-health/" },
+      });
 
       if (error) {
         setStatus("error");
