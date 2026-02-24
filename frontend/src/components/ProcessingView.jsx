@@ -21,7 +21,7 @@ export default function ProcessingView({ currentStep = 0 }) {
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 font-[Arial,sans-serif]">
       <div className="text-center">
         <h1 className="text-4xl font-bold text-[#1B3A5C] mb-12 tracking-tight">
-          Parity
+          Parity Health
         </h1>
 
         {/* Spinner */}

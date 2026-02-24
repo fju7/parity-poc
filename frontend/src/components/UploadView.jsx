@@ -37,10 +37,10 @@ export default function UploadView({ onFileSelect, onSampleBill }) {
       <div className="w-full max-w-2xl text-center">
         {/* Logo */}
         <h1 className="text-6xl font-bold text-[#1B3A5C] mb-2 tracking-tight">
-          Parity
+          Parity Health
         </h1>
         <p className="text-lg text-gray-500 mb-12">
-          Medical Bill Analysis
+          Bill Analysis
         </p>
 
         {/* Drop zone */}
@@ -134,7 +134,7 @@ export default function UploadView({ onFileSelect, onSampleBill }) {
 
         {/* Disclaimer */}
         <p className="mt-10 text-xs text-gray-400 max-w-lg mx-auto leading-relaxed">
-          Parity provides benchmark comparisons only. This is not legal advice.
+          Parity Health provides benchmark comparisons only. This is not legal advice.
           Consult a billing specialist or attorney before taking action.
         </p>
       </div>
@@ -168,8 +168,9 @@ export function Footer() {
   return (
     <footer className="w-full text-center py-6 mt-auto">
       <p className="text-xs text-gray-400">
-        Parity is a trade name of USPV. Benchmark comparisons use publicly
-        available CMS Medicare data. Not legal advice. &copy; USPV 2026.
+        Parity Health is powered by CivicScale benchmark infrastructure.
+        Benchmark comparisons use publicly available CMS Medicare data.
+        Not legal advice. &copy; CivicScale 2026.
       </p>
     </footer>
   );

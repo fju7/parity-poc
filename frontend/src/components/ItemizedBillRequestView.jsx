@@ -55,7 +55,7 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
       <div className="hidden print:block px-4 pt-4 pb-2 border-b border-gray-300 mb-4">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold text-[#1B3A5C] tracking-tight">
-            Parity
+            Parity Health
           </h1>
           <p className="text-sm text-gray-500">
             {new Date().toLocaleDateString("en-US", {

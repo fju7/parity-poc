@@ -10,7 +10,7 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
       <div className="hidden print:block px-4 pt-4 pb-2 border-b border-gray-300 mb-4">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold text-[#1B3A5C] tracking-tight">
-            Parity
+            Parity Health
           </h1>
           <p className="text-sm text-gray-500">
             Report generated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
@@ -167,7 +167,7 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
 
         {/* Disclaimer */}
         <p className="text-xs text-gray-400 text-center mb-4">
-          Parity provides benchmark comparisons only. This is not legal advice.
+          Parity Health provides benchmark comparisons only. This is not legal advice.
           Consult a billing specialist or attorney before taking action.
           Benchmark rates are based on publicly available CMS Medicare data and
           may not reflect negotiated commercial insurance rates.

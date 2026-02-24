@@ -30,9 +30,9 @@ export default function SignInView() {
       <div className="w-full max-w-sm text-center">
         {/* Logo */}
         <h1 className="text-5xl font-bold text-[#1B3A5C] mb-2 tracking-tight">
-          Parity
+          Parity Health
         </h1>
-        <p className="text-lg text-gray-500 mb-10">Medical Bill Analysis</p>
+        <p className="text-lg text-gray-500 mb-10">Bill Analysis</p>
 
         {status === "sent" ? (
           <div className="bg-[#0D7377]/5 border border-[#0D7377]/20 rounded-xl p-6">

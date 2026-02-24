@@ -19,7 +19,7 @@ export default function ConsentView({ onSubmit }) {
           Before we get started
         </h1>
         <p className="text-gray-500 mb-8 text-center">
-          Please review how Parity handles your data
+          Please review how Parity Health handles your data
         </p>
 
         {/* Cards */}
@@ -53,7 +53,7 @@ export default function ConsentView({ onSubmit }) {
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-between">
-                <p className="font-medium text-[#1B3A5C]">Help improve Parity</p>
+                <p className="font-medium text-[#1B3A5C]">Help improve Parity Health</p>
                 <Toggle checked={consentAnalytics} onChange={setConsentAnalytics} />
               </div>
               <p className="text-sm text-gray-500 mt-1">
@@ -75,7 +75,7 @@ export default function ConsentView({ onSubmit }) {
                 <Toggle checked={consentEmployer} onChange={setConsentEmployer} />
               </div>
               <p className="text-sm text-gray-500 mt-1">
-                If your employer partners with Parity, allow de-identified billing trends to appear on their benefits dashboard. You can change this anytime.
+                If your employer partners with Parity Health, allow de-identified billing trends to appear on their benefits dashboard. You can change this anytime.
               </p>
             </div>
           </div>
@@ -91,9 +91,9 @@ export default function ConsentView({ onSubmit }) {
           />
           <span className="text-sm text-gray-600">
             I have read and agree to the{" "}
-            <a href="#" className="text-[#0D7377] underline">Terms of Service</a>{" "}
+            <a href="https://civicscale.ai/terms" className="text-[#0D7377] underline">Terms of Service</a>{" "}
             and{" "}
-            <a href="#" className="text-[#0D7377] underline">Privacy Policy</a>
+            <a href="https://civicscale.ai/privacy" className="text-[#0D7377] underline">Privacy Policy</a>
           </span>
         </label>
 

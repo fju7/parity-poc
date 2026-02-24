@@ -80,10 +80,10 @@ export default function OnboardingView({
         ) : (
           <>
             <h1 className="text-5xl font-bold text-[#1B3A5C] mb-2 tracking-tight text-center">
-              Parity
+              Parity Health
             </h1>
             <p className="text-lg text-gray-500 mb-10 text-center">
-              Medical Bill Analysis
+              Bill Analysis
             </p>
           </>
         )}
@@ -242,7 +242,7 @@ export default function OnboardingView({
               {/* Analytics toggle */}
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
                 <div>
-                  <p className="font-medium text-[#1B3A5C] text-sm">Help improve Parity</p>
+                  <p className="font-medium text-[#1B3A5C] text-sm">Help improve Parity Health</p>
                   <p className="text-xs text-gray-500 mt-0.5">
                     Share anonymized usage data to improve accuracy
                   </p>

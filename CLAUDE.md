@@ -1,9 +1,18 @@
-# Parity — Medical Bill Analysis Tool
+# Parity Health — Bill Analysis Tool
 ## POC Build (Phase 0)
+
+### Brand Architecture
+
+- **CivicScale** — parent infrastructure company (civicscale.ai). Builds the benchmark intelligence platform.
+- **Parity** — the benchmark intelligence engine that powers all verticals.
+- **Parity Health** — the healthcare product (first vertical). This codebase.
+- Future verticals: **Parity Property**, **Parity Insurance**, **Parity Finance**.
+
+In the UI the product is always referred to as "Parity Health". The header shows "Parity Health" with a smaller "by CivicScale" subtitle. The footer references CivicScale benchmark infrastructure.
 
 ### What This Project Is
 
-Parity is a browser-based medical bill analysis tool that compares itemized hospital bills against CMS Medicare benchmark rates and flags potentially anomalous line items. It is the Phase 0 proof of concept for a larger financial advocacy platform.
+Parity Health is a browser-based medical bill analysis tool that compares itemized hospital bills against CMS Medicare benchmark rates and flags potentially anomalous line items. It is the Phase 0 proof of concept for a larger financial advocacy platform.
 
 **The single most important architectural constraint:** The patient's PDF document must never be uploaded to any server. All document processing happens in the browser (client-side). Only CPT codes and a zip code are ever sent to the backend API. This is a non-negotiable privacy-by-architecture design.
 
@@ -193,10 +202,10 @@ Write `frontend/src/modules/scoreAnomalies.js`. Takes line items from extraction
 Build the complete React UI in `frontend/src/`. Three views managed by React `useState` (no router needed):
 
 **Upload View:**
-- Parity logo (text wordmark, navy, bold, large)
+- Parity Health logo (text wordmark, navy, bold, large)
 - Drag-and-drop zone (large, teal border, accepts PDF)
 - Three-point privacy explanation: "Your document never leaves your device", "Only procedure codes are analyzed in the cloud", "No names, dates, or diagnoses are ever transmitted"
-- Disclaimer: "Parity provides benchmark comparisons only. This is not legal advice. Consult a billing specialist or attorney before taking action."
+- Disclaimer: "Parity Health provides benchmark comparisons only. This is not legal advice. Consult a billing specialist or attorney before taking action."
 
 **Processing View:**
 - Animated progress indicator (Tailwind animate-pulse or similar)
@@ -235,9 +244,9 @@ Final investor-demo finishing work:
 
 1. **Sample bill mode:** Add a "Try a Sample Bill" button on the Upload view. It loads a pre-built JavaScript object (no PDF needed) representing a fictional but realistic hospital bill with 8 line items, 3 of which are flagged. This is the primary investor demo path.
 
-2. **Report download:** Add "Download Report" button on Report view. Use browser `window.print()` with a print-specific CSS class that renders a clean, single-column report with: Parity logo, date, disclaimer, all line items, flagged items highlighted, benchmark source citations. Add a `@media print` CSS block.
+2. **Report download:** Add "Download Report" button on Report view. Use browser `window.print()` with a print-specific CSS class that renders a clean, single-column report with: Parity Health logo, date, disclaimer, all line items, flagged items highlighted, benchmark source citations. Add a `@media print` CSS block.
 
-3. **Footer:** Add to every view: "Parity is a trade name of USPV. Benchmark comparisons use publicly available CMS Medicare data. Not legal advice. © USPV 2026."
+3. **Footer:** Add to every view: "Parity Health is powered by CivicScale benchmark infrastructure. Benchmark comparisons use publicly available CMS Medicare data. Not legal advice. © CivicScale 2026."
 
 4. **Production deployment:** Deploy frontend to Vercel, backend to Render. Update CORS in `backend/main.py` with the production Vercel URL. Confirm end-to-end works on production URLs.
 

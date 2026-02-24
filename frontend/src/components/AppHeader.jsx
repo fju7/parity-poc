@@ -5,9 +5,10 @@ export default function AppHeader({ onNavigate, currentView, session, onSignOut 
         {/* Left: Logo */}
         <button
           onClick={() => onNavigate("upload")}
-          className="text-2xl font-bold text-[#1B3A5C] tracking-tight hover:opacity-80 cursor-pointer"
+          className="hover:opacity-80 cursor-pointer text-left"
         >
-          Parity
+          <span className="text-2xl font-bold text-[#1B3A5C] tracking-tight block leading-tight">Parity Health</span>
+          <span className="text-[10px] text-gray-400 font-normal tracking-wide">by CivicScale</span>
         </button>
 
         {/* Center + Right */}
