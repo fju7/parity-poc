@@ -67,6 +67,25 @@ export default function runCodingIntelligence(billData, backendAlerts = []) {
   };
 }
 
+// Code-specific E&M explanations
+const EM_MESSAGES = {
+  "99215":
+    "99215 is the highest complexity office visit billing level. It requires " +
+    "documented high medical decision-making complexity. It is the most " +
+    "frequently upcoded E&M code.",
+  "99223":
+    "99223 is the highest level initial hospital admission code. It requires " +
+    "documented high severity presenting problems and high complexity medical " +
+    "decision-making.",
+  "99233":
+    "99233 is the highest level subsequent hospital care code. It requires " +
+    "the patient to be unstable or to have developed a significant new " +
+    "problem requiring high complexity medical decision-making.",
+  "99291":
+    "99291 is the critical care code for the first 30-74 minutes. It requires " +
+    "documented direct personal management of a critically ill or injured patient.",
+};
+
 /**
  * Check 3: Flag high-level E&M codes with informational note.
  */
@@ -82,10 +101,10 @@ function checkEmComplexity(codes) {
         codes: [code],
         confidence: "medium",
         severity: "info",
-        message:
-          `CPT ${code} is a high-level E&M code that requires extensive ` +
-          `documentation of medical decision-making complexity. Ensure the ` +
-          `clinical documentation supports this level of service.`,
+        message: EM_MESSAGES[code] ||
+          `CPT ${code} is a high-level E&M code that requires documented ` +
+          `high medical decision-making complexity. Ensure the clinical ` +
+          `documentation supports this level of service.`,
         source: "CMS E&M Guidelines 2026",
       });
     }
@@ -113,13 +132,13 @@ function checkSiteOfService(codes, provider) {
       alerts.push({
         checkType: "SITE_OF_SERVICE",
         codes: [code],
-        confidence: "medium",
-        severity: "info",
+        confidence: "high",
+        severity: "warning",
         message:
-          `CPT ${code} is typically billed in an office setting, but this ` +
-          `bill is from "${provider.name}" which appears to be a facility. ` +
-          `Facility billing for this code may result in higher charges. ` +
-          `Verify the place of service is correct.`,
+          `This procedure is commonly performed in a physician office setting. ` +
+          `Hospital outpatient billing (facility rate) for this code may result ` +
+          `in significantly higher costs than the same service at a physician ` +
+          `office. This bill is from "${provider.name}" which appears to be a facility.`,
         source: "CMS Place of Service Codes",
       });
     }
