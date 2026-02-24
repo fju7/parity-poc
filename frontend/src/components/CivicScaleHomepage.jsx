@@ -226,8 +226,8 @@ export default function CivicScaleHomepage() {
           privacy@civicscale.ai
         </div>
         <div className="cs-footer-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/terms">Terms of Service</Link>
           <a href="#">Investors</a>
         </div>
       </footer>
