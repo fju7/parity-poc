@@ -1,15 +1,36 @@
 import { useState, useCallback } from "react";
 import { Footer } from "./UploadView.jsx";
 
+const STORAGE_KEY = "parity_patient_info";
+const SAVED_FIELDS = ["patientName", "dateOfBirth", "mailingAddress", "email", "phone"];
+
+function loadSavedInfo() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch { /* ignore */ }
+  return null;
+}
+
+function saveSavedInfo(fields) {
+  try {
+    const data = {};
+    for (const key of SAVED_FIELDS) data[key] = fields[key] || "";
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch { /* ignore */ }
+}
+
 export default function OnboardingView({ onSubmit }) {
+  const saved = loadSavedInfo();
+
   const [fields, setFields] = useState({
-    patientName: "",
-    dateOfBirth: "",
+    patientName: saved?.patientName || "",
+    dateOfBirth: saved?.dateOfBirth || "",
     providerName: "",
     serviceDate: "",
-    mailingAddress: "",
-    email: "",
-    phone: "",
+    mailingAddress: saved?.mailingAddress || "",
+    email: saved?.email || "",
+    phone: saved?.phone || "",
   });
 
   const updateField = useCallback((key, value) => {
@@ -19,10 +40,24 @@ export default function OnboardingView({ onSubmit }) {
   const handleContinue = useCallback(
     (e) => {
       e.preventDefault();
+      saveSavedInfo(fields);
       onSubmit(fields);
     },
     [fields, onSubmit]
   );
+
+  const handleClearSaved = useCallback(() => {
+    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+    setFields({
+      patientName: "",
+      dateOfBirth: "",
+      providerName: fields.providerName,
+      serviceDate: fields.serviceDate,
+      mailingAddress: "",
+      email: "",
+      phone: "",
+    });
+  }, [fields.providerName, fields.serviceDate]);
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 font-[Arial,sans-serif]">
@@ -146,6 +181,17 @@ export default function OnboardingView({ onSubmit }) {
             Continue
           </button>
 
+          {saved && (
+            <p className="text-center">
+              <button
+                type="button"
+                onClick={handleClearSaved}
+                className="text-sm text-gray-400 hover:text-gray-600 cursor-pointer"
+              >
+                Update my information
+              </button>
+            </p>
+          )}
         </form>
       </div>
 
