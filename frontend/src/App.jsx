@@ -1,71 +1,172 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import UploadView from "./components/UploadView.jsx";
 import ProcessingView from "./components/ProcessingView.jsx";
 import ReportView from "./components/ReportView.jsx";
+import ErrorView from "./components/ErrorView.jsx";
+import extractBillData from "./modules/extractBillData.js";
+import scoreAnomalies from "./modules/scoreAnomalies.js";
 
-// Mock data for UI development — will be replaced by real pipeline in Task 7
-const MOCK_REPORT = {
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_TIMEOUT_MS = 10000;
+
+// ---------------------------------------------------------------------------
+// Sample bill data (for investor demo — no PDF needed)
+// ---------------------------------------------------------------------------
+
+const SAMPLE_BILL = {
+  provider: { name: "Clearwater Medical Center", zip: "33701", npi: null },
+  serviceDate: "01/15/2026",
   lineItems: [
-    { code: "99214", codeType: "CPT", description: "Office visit, level 4", billedAmount: 375.0, benchmarkRate: 135.02, benchmarkSource: "CMS_PFS_2026", localityCode: "99", anomalyScore: 2.78, flagged: true, flagReason: "Billed at 2.8x the Medicare benchmark rate", estimatedDiscrepancy: 239.98 },
-    { code: "71046", codeType: "CPT", description: "Chest X-ray, 2 views", billedAmount: 320.0, benchmarkRate: 34.12, benchmarkSource: "CMS_PFS_2026", localityCode: "99", anomalyScore: 9.38, flagged: true, flagReason: "Billed at 9.4x the Medicare benchmark rate", estimatedDiscrepancy: 285.88 },
-    { code: "85025", codeType: "CPT", description: "CBC with differential", billedAmount: 45.5, benchmarkRate: null, benchmarkSource: "NOT_FOUND", localityCode: "99", anomalyScore: null, flagged: false, flagReason: "", estimatedDiscrepancy: 0 },
-    { code: "99213", codeType: "CPT", description: "Office visit, level 3", billedAmount: 250.0, benchmarkRate: 94.56, benchmarkSource: "CMS_PFS_2026", localityCode: "99", anomalyScore: 2.64, flagged: true, flagReason: "Billed at 2.6x the Medicare benchmark rate", estimatedDiscrepancy: 155.44 },
-    { code: "36415", codeType: "CPT", description: "Venipuncture", billedAmount: 35.0, benchmarkRate: 12.45, benchmarkSource: "CMS_PFS_2026", localityCode: "99", anomalyScore: 2.81, flagged: true, flagReason: "Billed at 2.8x the Medicare benchmark rate", estimatedDiscrepancy: 22.55 },
-    { code: "80053", codeType: "CPT", description: "Comprehensive metabolic panel", billedAmount: 120.0, benchmarkRate: null, benchmarkSource: "NOT_FOUND", localityCode: "99", anomalyScore: null, flagged: false, flagReason: "", estimatedDiscrepancy: 0 },
+    { code: "99214", codeType: "CPT", description: "Office visit, established patient, level 4", billedAmount: 425.0 },
+    { code: "71046", codeType: "CPT", description: "Chest X-ray, 2 views", billedAmount: 380.0 },
+    { code: "85025", codeType: "CPT", description: "Complete blood count with differential", billedAmount: 145.0 },
+    { code: "80053", codeType: "CPT", description: "Comprehensive metabolic panel", billedAmount: 220.0 },
+    { code: "99213", codeType: "CPT", description: "Office visit, established patient, level 3", billedAmount: 285.0 },
+    { code: "36415", codeType: "CPT", description: "Venipuncture for blood draw", billedAmount: 75.0 },
+    { code: "93000", codeType: "CPT", description: "Electrocardiogram (ECG), 12-lead", billedAmount: 310.0 },
+    { code: "99214", codeType: "CPT", description: "Office visit, established patient, level 4 (follow-up)", billedAmount: 425.0 },
   ],
-  summary: {
-    totalBilled: 1145.5,
-    totalBenchmark: 276.15,
-    totalPotentialDiscrepancy: 703.85,
-    flaggedItemCount: 4,
-    totalItemCount: 6,
-  },
 };
 
-const MOCK_PROVIDER = {
-  name: "Tampa General Hospital",
-  zip: "33601",
-  npi: "1234567890",
-};
+// ---------------------------------------------------------------------------
+// App
+// ---------------------------------------------------------------------------
 
 export default function App() {
-  // "upload" | "processing" | "report"
+  // "upload" | "processing" | "report" | "error"
   const [view, setView] = useState("upload");
   const [processingStep, setProcessingStep] = useState(0);
   const [report, setReport] = useState(null);
   const [provider, setProvider] = useState(null);
   const [serviceDate, setServiceDate] = useState("");
+  const [error, setError] = useState({ title: "", message: "" });
 
-  const handleFileSelect = (file) => {
-    // Task 7 will replace this with real extraction pipeline
-    setView("processing");
-    setProcessingStep(0);
-
-    // Simulate processing steps
-    setTimeout(() => setProcessingStep(1), 1000);
-    setTimeout(() => setProcessingStep(2), 2000);
-    setTimeout(() => {
-      setReport(MOCK_REPORT);
-      setProvider(MOCK_PROVIDER);
-      setServiceDate("01/15/2026");
-      setView("report");
-    }, 3000);
-  };
-
-  const handleSampleBill = () => {
-    handleFileSelect(null);
-  };
-
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setView("upload");
     setReport(null);
     setProvider(null);
     setServiceDate("");
     setProcessingStep(0);
-  };
+    setError({ title: "", message: "" });
+  }, []);
+
+  const runPipeline = useCallback(
+    async (billData) => {
+      // Step 2: Look up benchmark rates
+      setProcessingStep(1);
+
+      let benchmarkResponse;
+      try {
+        benchmarkResponse = await fetchBenchmark(
+          billData.provider.zip,
+          billData.lineItems
+        );
+      } catch (err) {
+        setError({
+          title: "Rate Lookup Unavailable",
+          message:
+            "Rate lookup is temporarily unavailable. Please try again in a moment.",
+        });
+        setView("error");
+        return;
+      }
+
+      // Check if all benchmarks are null
+      const foundCount = benchmarkResponse.lineItems.filter(
+        (i) => i.benchmarkRate !== null
+      ).length;
+      const nullCount = benchmarkResponse.lineItems.length - foundCount;
+
+      // Step 3: Score anomalies
+      setProcessingStep(2);
+      const scored = scoreAnomalies(
+        billData.lineItems,
+        benchmarkResponse.lineItems
+      );
+
+      // Add a partial-benchmark warning to the report if needed
+      if (foundCount === 0) {
+        scored.partialWarning = `None of the ${nullCount} procedure codes could be benchmarked against current CMS data.`;
+      } else if (nullCount > 0) {
+        scored.partialWarning = `${nullCount} of ${benchmarkResponse.lineItems.length} procedure codes could not be benchmarked against current CMS data.`;
+      }
+
+      // Small delay so the user sees the final step
+      await delay(400);
+
+      setReport(scored);
+      setProvider(billData.provider);
+      setServiceDate(billData.serviceDate);
+      setView("report");
+    },
+    []
+  );
+
+  const handleFileSelect = useCallback(
+    async (file) => {
+      setView("processing");
+      setProcessingStep(0);
+
+      try {
+        // Step 1: Extract bill data from PDF
+        const billData = await extractBillData(file);
+
+        // Check for empty extraction
+        if (!billData.lineItems || billData.lineItems.length === 0) {
+          setError({
+            title: "No Procedure Codes Found",
+            message:
+              "This appears to be a summary bill. Please upload an itemized bill showing individual procedure codes.",
+          });
+          setView("error");
+          return;
+        }
+
+        await runPipeline(billData);
+      } catch (err) {
+        console.error("Pipeline error:", err);
+        setError({
+          title: "Processing Error",
+          message:
+            "An error occurred while processing your document. Please make sure it is a valid PDF and try again.",
+        });
+        setView("error");
+      }
+    },
+    [runPipeline]
+  );
+
+  const handleSampleBill = useCallback(async () => {
+    setView("processing");
+    setProcessingStep(0);
+
+    // Small delay to show the first step
+    await delay(600);
+
+    try {
+      await runPipeline(SAMPLE_BILL);
+    } catch (err) {
+      console.error("Sample bill error:", err);
+      setError({
+        title: "Processing Error",
+        message: "An error occurred while processing the sample bill.",
+      });
+      setView("error");
+    }
+  }, [runPipeline]);
 
   if (view === "processing") {
     return <ProcessingView currentStep={processingStep} />;
+  }
+
+  if (view === "error") {
+    return (
+      <ErrorView
+        title={error.title}
+        message={error.message}
+        onReset={handleReset}
+      />
+    );
   }
 
   if (view === "report" && report) {
@@ -85,4 +186,54 @@ export default function App() {
       onSampleBill={handleSampleBill}
     />
   );
+}
+
+// ---------------------------------------------------------------------------
+// API call with timeout + retry
+// ---------------------------------------------------------------------------
+
+async function fetchBenchmark(zipCode, lineItems) {
+  const body = {
+    zipCode: zipCode || "00000",
+    lineItems: lineItems.map((i) => ({
+      code: i.code,
+      codeType: i.codeType,
+      billedAmount: i.billedAmount,
+    })),
+  };
+
+  // First attempt
+  try {
+    return await fetchWithTimeout(`${API_BASE}/api/benchmark`, body);
+  } catch (err) {
+    // Retry once on timeout/network error
+    console.warn("Benchmark API first attempt failed, retrying:", err.message);
+    return await fetchWithTimeout(`${API_BASE}/api/benchmark`, body);
+  }
+}
+
+async function fetchWithTimeout(url, body) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    return await response.json();
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
