@@ -126,6 +126,10 @@
   max-width: 780px;
 }
 
+.cs-hero-content--wide {
+  max-width: 960px;
+}
+
 .cs-hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(13,115,119,0.2);
@@ -168,7 +172,7 @@
   font-size: 18px; font-weight: 300;
   color: rgba(255,255,255,0.65);
   line-height: 1.65;
-  max-width: 580px;
+  max-width: 640px;
   margin-bottom: 48px;
 }
 
@@ -177,6 +181,80 @@
   flex-wrap: wrap;
 }
 
+/* ── HERO CTA CARDS ── */
+.cs-hero-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.cs-hero-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(13,115,119,0.35);
+  border-radius: 14px;
+  padding: 28px;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.cs-hero-card:hover {
+  background: rgba(13,115,119,0.08);
+  border-color: var(--cs-teal-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(13,115,119,0.15);
+}
+
+.cs-hero-card-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: #34d399;
+  margin-bottom: 14px;
+}
+
+.cs-hero-card-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: cs-pulse 2s infinite;
+}
+
+.cs-hero-card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--cs-white);
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+
+.cs-hero-card-subtitle {
+  font-size: 13px;
+  color: var(--cs-teal-light);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.cs-hero-card-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.cs-hero-card-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 500;
+  color: var(--cs-teal-light);
+  transition: gap 0.2s;
+}
+
+.cs-hero-card:hover .cs-hero-card-btn { gap: 10px; }
+
+/* ── BUTTONS ── */
 .cs-btn-primary {
   background: var(--cs-teal);
   color: var(--cs-white);
@@ -342,13 +420,22 @@
   opacity: 0.5;
 }
 
-/* ── PRODUCTS ── */
+/* ── PRODUCTS — 2x3 grid ── */
 .cs-products-section { background: var(--cs-white); }
 
 .cs-products-header {
   max-width: 1100px; margin: 0 auto 56px;
 }
 
+.cs-products-grid-2x3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Legacy grid — kept for external references */
 .cs-products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -384,6 +471,13 @@
 .cs-product-card.cs-soon {
   background: var(--cs-mist);
   cursor: default;
+  opacity: 0.45;
+  border-color: #d1d5db;
+}
+
+.cs-product-card.cs-soon:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .cs-card-accent {
@@ -392,7 +486,7 @@
 }
 
 .cs-accent-live { background: linear-gradient(90deg, var(--cs-teal), var(--cs-teal-light)); }
-.cs-accent-soon { background: var(--cs-border); }
+.cs-accent-soon { background: #d1d5db; }
 
 .cs-card-badge {
   display: inline-flex; align-items: center; gap: 6px;
@@ -414,8 +508,9 @@
 }
 
 .cs-badge-soon {
-  background: var(--cs-border);
-  color: var(--cs-slate);
+  background: #e5e7eb;
+  color: #6b7280;
+  letter-spacing: 0.5px;
 }
 
 .cs-card-icon {
@@ -426,9 +521,12 @@
   font-size: 20px;
 }
 
-.cs-icon-health { background: rgba(13,115,119,0.1); }
-.cs-icon-insurance { background: rgba(27,58,92,0.07); }
-.cs-icon-property { background: rgba(27,58,92,0.07); }
+.cs-icon-health   { background: rgba(13,115,119,0.1); color: var(--cs-teal); }
+.cs-icon-employer  { background: rgba(13,115,119,0.1); color: var(--cs-teal); }
+.cs-icon-insurance { background: rgba(27,58,92,0.07); color: var(--cs-slate); }
+.cs-icon-property  { background: rgba(27,58,92,0.07); color: var(--cs-slate); }
+.cs-icon-utility   { background: rgba(27,58,92,0.07); color: var(--cs-slate); }
+.cs-icon-finance   { background: rgba(27,58,92,0.07); color: var(--cs-slate); }
 
 .cs-card-name {
   font-family: 'DM Serif Display', serif;
@@ -461,7 +559,59 @@
 
 .cs-card-soon-text {
   font-size: 13px; color: var(--cs-slate);
-  opacity: 0.6; font-style: italic;
+  font-style: italic;
+}
+
+/* ── THREE-PATH CTA ── */
+.cs-paths-section {
+  background: var(--cs-navy-deep);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.cs-paths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cs-path-card {
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.cs-path-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: rgba(13,115,119,0.15);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--cs-teal-light);
+}
+
+.cs-path-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--cs-white);
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+
+.cs-path-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 24px;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cs-path-btn {
+  padding: 12px 24px;
+  font-size: 14px;
 }
 
 /* ── PRINCIPLES ── */
@@ -616,13 +766,17 @@
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .cs-nav { padding: 0 24px; }
+  .cs-nav-links { gap: 16px; }
   .cs-hero { padding: 100px 24px 60px; }
+  .cs-hero-cards { grid-template-columns: 1fr; }
   .cs-stats-bar { grid-template-columns: 1fr; padding: 32px 24px; gap: 24px; }
   .cs-stat { padding: 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 24px; }
   .cs-section { padding: 64px 24px; }
   .cs-platform-grid { grid-template-columns: 1fr; gap: 40px; }
   .cs-data-grid { grid-template-columns: 1fr; }
+  .cs-products-grid-2x3 { grid-template-columns: 1fr; }
   .cs-products-grid { grid-template-columns: 1fr; }
+  .cs-paths-grid { grid-template-columns: 1fr; gap: 0; }
   .cs-principles-grid { grid-template-columns: 1fr; }
   .cs-principle:nth-child(2n) { border-right: none; }
   .cs-footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }

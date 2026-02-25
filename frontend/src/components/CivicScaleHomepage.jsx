@@ -47,6 +47,7 @@ export default function CivicScaleHomepage() {
         <div className="cs-nav-links">
           <a href="#platform">Platform</a>
           <a href="#data">Data</a>
+          <Link to="/employer">For Employers</Link>
           <Link to="/investors">Investors</Link>
           <Link to="/parity-health/" className="cs-nav-cta">Open Parity Health &rarr;</Link>
         </div>
@@ -57,22 +58,46 @@ export default function CivicScaleHomepage() {
         <div className="cs-hero-grid" />
         <div className="cs-hero-glow" />
         <div className="cs-hero-glow-2" />
-        <div className="cs-hero-content">
+        <div className="cs-hero-content cs-hero-content--wide">
           <div className="cs-hero-eyebrow">
             <span className="cs-hero-eyebrow-dot" />
             Institutional Benchmark Infrastructure
           </div>
           <h1>The data layer for<br /><em>institutional transparency</em></h1>
           <p className="cs-hero-sub">
-            CivicScale normalizes publicly mandated institutional rate disclosures, applies AI anomaly scoring, and enables verifiable benchmark comparisons across regulated data domains.
+            Normalizing healthcare costs, detecting billing anomalies, and surfacing pricing intelligence — across every market where institutional data asymmetry creates consumer harm.
           </p>
-          <div className="cs-hero-actions">
-            <Link to="/parity-health/" className="cs-btn-primary">
-              Open Parity Health
-              <span>&rarr;</span>
+
+          {/* Two CTA cards */}
+          <div className="cs-hero-cards">
+            <Link to="/parity-health/" className="cs-hero-card">
+              <div className="cs-hero-card-badge">
+                <span className="cs-hero-card-dot" />
+                Live
+              </div>
+              <div className="cs-hero-card-title">Parity Health</div>
+              <div className="cs-hero-card-subtitle">For individuals &amp; families</div>
+              <p className="cs-hero-card-desc">
+                Analyze your medical bills against CMS benchmark rates. Detect coding anomalies. Request itemized bills with one click.
+              </p>
+              <span className="cs-hero-card-btn">
+                Open Parity Health <span>&rarr;</span>
+              </span>
             </Link>
-            <Link to="/investors" className="cs-btn-ghost">
-              Project Overview
+
+            <Link to="/employer" className="cs-hero-card">
+              <div className="cs-hero-card-badge">
+                <span className="cs-hero-card-dot" />
+                Live
+              </div>
+              <div className="cs-hero-card-title">Employer Dashboard</div>
+              <div className="cs-hero-card-subtitle">For self-insured employers</div>
+              <p className="cs-hero-card-desc">
+                Anonymous aggregate billing intelligence across your workforce. Identify outlier providers and coding patterns.
+              </p>
+              <span className="cs-hero-card-btn">
+                View Demo Dashboard <span>&rarr;</span>
+              </span>
             </Link>
           </div>
         </div>
@@ -94,42 +119,148 @@ export default function CivicScaleHomepage() {
         </div>
       </div>
 
-      {/* PLATFORM */}
-      <section id="platform" className="cs-section cs-platform-section">
-        <div className="cs-platform-grid">
-          <div>
-            <div className="cs-section-label">The Platform</div>
-            <h2 className="cs-section-title">One engine.<br />Every domain.</h2>
-            <p className="cs-section-sub">
-              The Parity engine normalizes institutional data, scores anomalies, and powers vertical products across healthcare, insurance, property, and finance.
-            </p>
-          </div>
-          <div>
-            <div className="cs-platform-diagram">
-              <div className="cs-diagram-row">
-                <div className="cs-diagram-dot cs-dot-teal" />
-                <div className="cs-diagram-label">Publicly mandated institutional data</div>
-                <div className="cs-diagram-sublabel">MRF &middot; CMS &middot; FOIA</div>
-              </div>
-              <div className="cs-diagram-arrow">&darr;</div>
-              <div className="cs-diagram-row">
-                <div className="cs-diagram-dot cs-dot-teal" />
-                <div className="cs-diagram-label">Machine-readable file ingestion &amp; normalization</div>
-                <div className="cs-diagram-sublabel">CivicScale pipeline</div>
-              </div>
-              <div className="cs-diagram-arrow">&darr;</div>
-              <div className="cs-diagram-row cs-highlight">
-                <div className="cs-diagram-dot cs-dot-navy" />
-                <div className="cs-diagram-label">Parity Engine — anomaly scoring &amp; benchmark comparison</div>
-                <div className="cs-diagram-sublabel">AI-powered</div>
-              </div>
-              <div className="cs-diagram-arrow">&darr;</div>
-              <div className="cs-diagram-row">
-                <div className="cs-diagram-dot cs-dot-teal" />
-                <div className="cs-diagram-label">Vertical product layer</div>
-                <div className="cs-diagram-sublabel">Parity Health &middot; Insurance &middot; Property</div>
-              </div>
+      {/* PLATFORM PRODUCTS */}
+      <section id="platform" className="cs-section cs-products-section">
+        <div className="cs-products-header">
+          <div className="cs-section-label">The Parity Engine</div>
+          <h2 className="cs-section-title">One platform. Multiple markets.</h2>
+          <p className="cs-section-sub">
+            Every vertical where institutional pricing data creates systematic consumer disadvantage is an expansion opportunity.
+          </p>
+        </div>
+        <div className="cs-products-grid-2x3">
+          {/* LIVE: Parity Health */}
+          <Link to="/parity-health/" className="cs-product-card cs-live">
+            <div className="cs-card-accent cs-accent-live" />
+            <div className="cs-card-badge cs-badge-live">
+              <span className="cs-badge-live-dot" />
+              Live
             </div>
+            <div className="cs-card-icon cs-icon-health">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </div>
+            <div className="cs-card-name">Parity Health</div>
+            <p className="cs-card-desc">
+              Medical bill analysis. Benchmark against CMS rates. Detect coding anomalies.
+            </p>
+            <span className="cs-card-link">
+              Open App
+              <span className="cs-card-link-arrow">&rarr;</span>
+            </span>
+          </Link>
+
+          {/* LIVE: Employer Intelligence */}
+          <Link to="/employer" className="cs-product-card cs-live">
+            <div className="cs-card-accent cs-accent-live" />
+            <div className="cs-card-badge cs-badge-live">
+              <span className="cs-badge-live-dot" />
+              Live
+            </div>
+            <div className="cs-card-icon cs-icon-employer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+            </div>
+            <div className="cs-card-name">Employer Intelligence</div>
+            <p className="cs-card-desc">
+              Anonymous workforce billing analytics for self-insured employers.
+            </p>
+            <span className="cs-card-link">
+              View Dashboard
+              <span className="cs-card-link-arrow">&rarr;</span>
+            </span>
+          </Link>
+
+          {/* COMING SOON: Parity Property */}
+          <div className="cs-product-card cs-soon">
+            <div className="cs-card-accent cs-accent-soon" />
+            <div className="cs-card-badge cs-badge-soon">Phase 3 — 2027</div>
+            <div className="cs-card-icon cs-icon-property">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div className="cs-card-name">Parity Property</div>
+            <p className="cs-card-desc">
+              Property tax assessment anomaly detection. Benchmark residential assessments against comparable sales.
+            </p>
+            <span className="cs-card-soon-text">Coming Soon</span>
+          </div>
+
+          {/* COMING SOON: Parity Insurance */}
+          <div className="cs-product-card cs-soon">
+            <div className="cs-card-accent cs-accent-soon" />
+            <div className="cs-card-badge cs-badge-soon">Phase 3 — 2027</div>
+            <div className="cs-card-icon cs-icon-insurance">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div className="cs-card-name">Parity Insurance</div>
+            <p className="cs-card-desc">
+              Auto and homeowner claim settlement benchmarking. Flag lowball offers against comparable settlements.
+            </p>
+            <span className="cs-card-soon-text">Coming Soon</span>
+          </div>
+
+          {/* COMING SOON: Parity Utility */}
+          <div className="cs-product-card cs-soon">
+            <div className="cs-card-accent cs-accent-soon" />
+            <div className="cs-card-badge cs-badge-soon">Phase 4 — 2028</div>
+            <div className="cs-card-icon cs-icon-utility">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div className="cs-card-name">Parity Utility</div>
+            <p className="cs-card-desc">
+              Utility rate anomaly detection. Benchmark residential rates against regulatory filings and comparable accounts.
+            </p>
+            <span className="cs-card-soon-text">Coming Soon</span>
+          </div>
+
+          {/* COMING SOON: Parity Finance */}
+          <div className="cs-product-card cs-soon">
+            <div className="cs-card-accent cs-accent-soon" />
+            <div className="cs-card-badge cs-badge-soon">Phase 4 — 2028</div>
+            <div className="cs-card-icon cs-icon-finance">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div className="cs-card-name">Parity Finance</div>
+            <p className="cs-card-desc">
+              Consumer lending rate benchmarking. Detect above-market rates on mortgages, auto loans, and credit.
+            </p>
+            <span className="cs-card-soon-text">Coming Soon</span>
+          </div>
+        </div>
+      </section>
+
+      {/* THREE-PATH CTA */}
+      <section className="cs-section cs-paths-section">
+        <div className="cs-paths-grid">
+          <div className="cs-path-card">
+            <div className="cs-path-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div className="cs-path-title">I have a medical bill</div>
+            <p className="cs-path-desc">Upload your bill and get a benchmark analysis in minutes.</p>
+            <Link to="/parity-health/" className="cs-btn-primary cs-path-btn">
+              Analyze My Bill <span>&rarr;</span>
+            </Link>
+          </div>
+
+          <div className="cs-path-card">
+            <div className="cs-path-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
+            </div>
+            <div className="cs-path-title">I manage employee benefits</div>
+            <p className="cs-path-desc">See anonymous billing intelligence across your workforce.</p>
+            <Link to="/employer" className="cs-btn-primary cs-path-btn">
+              Request Employer Access <span>&rarr;</span>
+            </Link>
+          </div>
+
+          <div className="cs-path-card">
+            <div className="cs-path-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div className="cs-path-title">I&apos;m an investor or advisor</div>
+            <p className="cs-path-desc">Learn about CivicScale&apos;s platform architecture and expansion roadmap.</p>
+            <Link to="/investors" className="cs-btn-ghost cs-path-btn">
+              Investor Overview <span>&rarr;</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -164,58 +295,6 @@ export default function CivicScaleHomepage() {
             <p className="cs-data-desc">
               User-consented, de-identified EOB aggregation. Every analysis contributes to a proprietary benchmark database that grows more accurate over time. The long-term data moat no competitor can replicate from a standing start.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTS */}
-      <section className="cs-section cs-products-section">
-        <div className="cs-products-header">
-          <div className="cs-section-label">Products</div>
-          <h2 className="cs-section-title">Benchmark intelligence<br />across institutional domains</h2>
-          <p className="cs-section-sub">Each vertical applies the Parity engine to a distinct domain of publicly mandated rate disclosure.</p>
-        </div>
-        <div className="cs-products-grid">
-          {/* Parity Health */}
-          <Link to="/parity-health/" className="cs-product-card cs-live">
-            <div className="cs-card-accent cs-accent-live" />
-            <div className="cs-card-badge cs-badge-live">
-              <span className="cs-badge-live-dot" />
-              Live
-            </div>
-            <div className="cs-card-icon cs-icon-health">🏥</div>
-            <div className="cs-card-name">Parity Health</div>
-            <p className="cs-card-desc">
-              Medical bill benchmark analysis against CMS Medicare rates and negotiated hospital rate data. Identifies anomalous charges with full source citations.
-            </p>
-            <span className="cs-card-link">
-              Open Parity Health
-              <span className="cs-card-link-arrow">&rarr;</span>
-            </span>
-          </Link>
-
-          {/* Parity Insurance */}
-          <div className="cs-product-card cs-soon">
-            <div className="cs-card-accent cs-accent-soon" />
-            <div className="cs-card-badge cs-badge-soon">Coming Soon</div>
-            <div className="cs-card-icon cs-icon-insurance">📋</div>
-            <div className="cs-card-name">Parity Insurance</div>
-            <p className="cs-card-desc">
-              Commercial insurance premium audit against industry classification benchmarks. Workers&apos; compensation and general liability misclassification detection.
-            </p>
-            <span className="cs-card-soon-text">Phase 3 — 2027</span>
-          </div>
-
-          {/* Parity Property */}
-          <div className="cs-product-card cs-soon">
-            <div className="cs-card-accent cs-accent-soon" />
-            <div className="cs-card-badge cs-badge-soon">Coming Soon</div>
-            <div className="cs-card-icon cs-icon-property">🏠</div>
-            <div className="cs-card-name">Parity Property</div>
-            <p className="cs-card-desc">
-              Property tax assessment benchmark analysis against comparable sales data. Identifies likely over-assessments with attorney referral to tax appeal specialists.
-            </p>
-            <span className="cs-card-soon-text">Phase 3 — 2027</span>
           </div>
         </div>
       </section>
