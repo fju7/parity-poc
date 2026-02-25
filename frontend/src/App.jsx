@@ -898,9 +898,9 @@ async function renderPDFToBase64(file) {
 
     await page.render({ canvasContext: ctx, viewport }).promise;
 
-    // Convert to base64 PNG
-    const dataUrl = canvas.toDataURL("image/png");
-    // Strip the data:image/png;base64, prefix
+    // Convert to base64 JPEG (much smaller than PNG, better for API limits)
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+    // Strip the data:image/jpeg;base64, prefix
     const base64 = dataUrl.split(",")[1];
     pages.push(base64);
   }

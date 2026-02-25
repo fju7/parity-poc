@@ -9,6 +9,7 @@ Standard parsing never sends document content to any server.
 import json
 import os
 import re
+import time
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -96,15 +97,25 @@ def parse_with_ai(req: AIParseRequest):
 
     # Build content blocks: each page as a separate image
     content = []
-    for page_b64 in req.pages:
+    for idx, page_b64 in enumerate(req.pages):
         # Strip data URL prefix if present
-        b64_data = page_b64
-        media_type = "image/png"
-        if page_b64.startswith("data:"):
-            match = re.match(r"data:(image/\w+);base64,(.+)", page_b64, re.DOTALL)
+        b64_data = page_b64.strip()
+        media_type = "image/jpeg"  # Default to JPEG (frontend sends JPEG)
+        if b64_data.startswith("data:"):
+            match = re.match(r"data:(image/\w+);base64,(.+)", b64_data, re.DOTALL)
             if match:
                 media_type = match.group(1)
-                b64_data = match.group(2)
+                b64_data = match.group(2).strip()
+            else:
+                b64_data = b64_data.split(",", 1)[-1].strip()
+
+        # Detect media type from base64 header bytes
+        if b64_data.startswith("/9j/"):
+            media_type = "image/jpeg"
+        elif b64_data.startswith("iVBOR"):
+            media_type = "image/png"
+
+        print(f"[AI Parse] Page {idx+1}: {len(b64_data)} chars, media={media_type}, starts={b64_data[:20]}")
 
         content.append({
             "type": "image",
@@ -120,20 +131,34 @@ def parse_with_ai(req: AIParseRequest):
         "text": "Extract all procedure line items from this medical bill. Return only the JSON structure specified in the system prompt.",
     })
 
-    try:
-        response = client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=4096,
-            temperature=0,
-            system=SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": content}],
-        )
-    except Exception as exc:
-        print(f"AI parsing API error: {exc}")
-        raise HTTPException(
-            status_code=502,
-            detail="AI reading encountered an error. Please try a clearer image or enter manually.",
-        )
+    # Call Claude with retry on 529 (overloaded)
+    response = None
+    for attempt in range(2):
+        try:
+            response = client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=4096,
+                temperature=0,
+                system=SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": content}],
+            )
+            break
+        except Exception as exc:
+            err_str = str(exc)
+            if "529" in err_str and attempt == 0:
+                print(f"[AI Parse] Claude overloaded (529), retrying in 2s...")
+                time.sleep(2)
+                continue
+            print(f"AI parsing API error: {exc}")
+            if "529" in err_str:
+                raise HTTPException(
+                    status_code=503,
+                    detail="AI service temporarily busy, please try again.",
+                )
+            raise HTTPException(
+                status_code=502,
+                detail="AI reading encountered an error. Please try a clearer image or enter manually.",
+            )
 
     # Extract text from response
     raw_text = ""
