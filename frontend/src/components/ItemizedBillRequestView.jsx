@@ -1,8 +1,17 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Footer } from "./UploadView.jsx";
 
-export default function ItemizedBillRequestView({ eobData, onboardingData, onReset, reason }) {
+export default function ItemizedBillRequestView({
+  eobData,
+  eobExtracted,
+  nppesResult,
+  nppesLoading,
+  onboardingData,
+  onReset,
+  reason,
+}) {
   const [copied, setCopied] = useState(false);
+  const isEOB = reason === "eob_detected";
 
   const fullName = [onboardingData?.firstName, onboardingData?.lastName]
     .filter(Boolean).join(" ");
@@ -13,29 +22,50 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
   ].filter(Boolean).join(", ");
 
   const [fields, setFields] = useState({
-    patientName: fullName,
-    serviceDate: "",
-    providerName: "",
+    patientName: eobExtracted?.patientName || fullName,
+    serviceDate: eobExtracted?.serviceDate || "",
+    providerName: eobExtracted?.providerName || "",
+    providerAddress: "",
+    providerCityStateZip: "",
+    providerPhone: "",
     dateOfBirth: onboardingData?.dateOfBirth || "",
     accountId: eobData?.accountNumber || "",
     mailingAddress: fullAddress,
     email: onboardingData?.email || "",
     phone: onboardingData?.phone || "",
+    insuranceCompany: eobExtracted?.insuranceCompany || "",
+    claimNumber: eobExtracted?.claimNumber || "",
+    memberID: eobExtracted?.memberID || "",
+    groupNumber: eobExtracted?.groupNumber || "",
   });
+
+  // Pre-fill provider fields when NPPES result arrives
+  useEffect(() => {
+    if (nppesResult?.found && nppesResult.bestMatch) {
+      const m = nppesResult.bestMatch;
+      setFields((prev) => ({
+        ...prev,
+        providerName: prev.providerName || m.name || "",
+        providerAddress: prev.providerAddress || m.address?.line1 || "",
+        providerCityStateZip:
+          prev.providerCityStateZip ||
+          [m.address?.city, m.address?.state, m.address?.zip].filter(Boolean).join(", ") ||
+          "",
+        providerPhone: prev.providerPhone || m.phone || "",
+      }));
+    }
+  }, [nppesResult]);
 
   const updateField = useCallback((key, value) => {
     setFields((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const providerName = onboardingData?.providerName || "";
-
-  const letterText = buildLetterText(fields, providerName);
+  const letterText = buildLetterText(fields, isEOB);
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(letterText);
     } catch {
-      // Fallback for older browsers
       const ta = document.createElement("textarea");
       ta.value = letterText;
       ta.style.position = "fixed";
@@ -83,14 +113,18 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
         {/* Explanation section */}
         <div className="mb-8 print:hidden">
           <h2 className="text-2xl font-bold text-[#1B3A5C] mb-2">
-            {reason === "no_codes"
-              ? "We couldn\u2019t find procedure codes on this bill"
-              : "We need your itemized bill"}
+            {isEOB
+              ? "Request your itemized bill"
+              : reason === "no_codes"
+                ? "We couldn\u2019t find procedure codes on this bill"
+                : "We need your itemized bill"}
           </h2>
           <p className="text-gray-600 mb-4">
-            {reason === "no_codes"
-              ? "This is common for bills that don\u2019t itemize services. To analyze your charges, we need an itemized bill from your provider \u2014 the one that lists each procedure separately with its code."
-              : "The document you uploaded is a summary. To analyze your charges, we need the itemized bill from your provider \u2014 the one that lists each procedure separately with its code."}
+            {isEOB
+              ? "We detected an Explanation of Benefits (EOB) from your insurance. To benchmark your charges, we need the itemized bill from your provider \u2014 the one that lists each procedure with its CPT code."
+              : reason === "no_codes"
+                ? "This is common for bills that don\u2019t itemize services. To analyze your charges, we need an itemized bill from your provider \u2014 the one that lists each procedure separately with its code."
+                : "The document you uploaded is a summary. To analyze your charges, we need the itemized bill from your provider \u2014 the one that lists each procedure separately with its code."}
           </p>
           <p className="text-gray-600">
             The good news: you have a legal right to this document. Use the
@@ -98,10 +132,79 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
           </p>
         </div>
 
+        {/* NPPES status banner */}
+        {isEOB && (
+          <div className="mb-4 print:hidden">
+            {nppesLoading && (
+              <div className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 border border-blue-100 rounded-lg">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+                </span>
+                <span className="text-sm text-blue-700">Looking up provider contact information...</span>
+              </div>
+            )}
+            {!nppesLoading && nppesResult?.found && (
+              <div className="flex items-center gap-2 px-4 py-2.5 bg-green-50 border border-green-100 rounded-lg">
+                <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                </svg>
+                <span className="text-sm text-green-700">
+                  Contact information found for <strong>{nppesResult.bestMatch?.name}</strong> — please verify before sending.
+                </span>
+              </div>
+            )}
+            {!nppesLoading && nppesResult && !nppesResult.found && (
+              <div className="flex items-center gap-2 px-4 py-2.5 bg-amber-50 border border-amber-100 rounded-lg">
+                <svg className="w-4 h-4 text-amber-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+                <span className="text-sm text-amber-700">
+                  Provider contact information not found — please add the provider address manually.
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Provider + claim details form (EOB mode) */}
+        {isEOB && (
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 print:hidden">
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+              Provider & Claim Details
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormField label="Provider Name" value={fields.providerName} onChange={(v) => updateField("providerName", v)} />
+              <FormField label="Provider Phone" value={fields.providerPhone} onChange={(v) => updateField("providerPhone", v)} placeholder="(XXX) XXX-XXXX" />
+              <FormField label="Provider Address" value={fields.providerAddress} onChange={(v) => updateField("providerAddress", v)} className="sm:col-span-2" />
+              <FormField label="City, State, ZIP" value={fields.providerCityStateZip} onChange={(v) => updateField("providerCityStateZip", v)} className="sm:col-span-2" />
+              <FormField label="Insurance Company" value={fields.insuranceCompany} onChange={(v) => updateField("insuranceCompany", v)} />
+              <FormField label="Claim Number" value={fields.claimNumber} onChange={(v) => updateField("claimNumber", v)} />
+              <FormField label="Member ID" value={fields.memberID} onChange={(v) => updateField("memberID", v)} />
+              <FormField label="Group Number" value={fields.groupNumber} onChange={(v) => updateField("groupNumber", v)} />
+            </div>
+          </div>
+        )}
+
         {/* Letter template */}
         <div className="bg-white rounded-xl border border-gray-200 p-8 mb-6">
+          {/* Provider address block (EOB enhanced) */}
+          {isEOB && (fields.providerName || fields.providerAddress) && (
+            <div className="text-gray-700 mb-6 print:mb-4">
+              <p className="text-sm text-gray-400 mb-1 print:hidden">To:</p>
+              {fields.providerName && <p className="font-medium">{fields.providerName}</p>}
+              {fields.providerAddress && <p>{fields.providerAddress}</p>}
+              {fields.providerCityStateZip && <p>{fields.providerCityStateZip}</p>}
+            </div>
+          )}
+
+          {/* Date */}
+          <p className="text-gray-700 mb-6">
+            {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </p>
+
           {/* Subject line */}
-          <p className="font-semibold text-[#1B3A5C] mb-6">
+          <p className="font-semibold text-[#1B3A5C] mb-2">
             Subject: Request for Itemized Bill —{" "}
             <EditableField
               value={fields.patientName}
@@ -115,6 +218,20 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
               onChange={(v) => updateField("serviceDate", v)}
             />
           </p>
+
+          {/* Re: line with claim details (EOB enhanced) */}
+          {isEOB && (fields.insuranceCompany || fields.claimNumber || fields.memberID) && (
+            <p className="text-sm text-gray-500 mb-6">
+              Re:{" "}
+              {[
+                fields.insuranceCompany && `Insurance: ${fields.insuranceCompany}`,
+                fields.claimNumber && `Claim #${fields.claimNumber}`,
+                fields.memberID && `Member ID: ${fields.memberID}`,
+              ]
+                .filter(Boolean)
+                .join(" | ")}
+            </p>
+          )}
 
           {/* Salutation */}
           <p className="text-gray-700 mb-4">Dear Billing Department,</p>
@@ -130,21 +247,37 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
             />.
           </p>
 
+          {isEOB && (
+            <p className="text-gray-700 mb-4">
+              I have received an Explanation of Benefits from my insurance company
+              {fields.insuranceCompany ? ` (${fields.insuranceCompany})` : ""}
+              {fields.claimNumber ? `, claim #${fields.claimNumber}` : ""}
+              , but this document does not include the individual procedure codes needed to verify my charges.
+            </p>
+          )}
+
           <p className="text-gray-700 mb-2">
             Specifically, I am requesting a document that includes:
           </p>
           <ul className="list-disc list-inside text-gray-700 mb-4 ml-2 space-y-1">
             <li>Each service or procedure listed separately</li>
-            <li>The CPT or procedure code for each service</li>
+            <li>The CPT or HCPCS procedure code for each service</li>
             <li>The charge amount for each individual service</li>
             <li>The name of the treating provider</li>
+            {isEOB && <li>Revenue codes and service descriptions</li>}
           </ul>
 
-          <p className="text-gray-700 mb-6">
-            I understand I have the right to receive this information and would
-            appreciate receiving it within 30 days. Please send it to the
-            address or email below.
-          </p>
+          {isEOB ? (
+            <p className="text-gray-700 mb-4">
+              Under the No Surprises Act (P.L. 116-260) and applicable state consumer protection laws, patients have the right to receive a detailed, itemized statement of charges. I understand this right and respectfully request that this information be provided within 30 days. Please send it to the address or email below.
+            </p>
+          ) : (
+            <p className="text-gray-700 mb-4">
+              I understand I have the right to receive this information and would
+              appreciate receiving it within 30 days. Please send it to the
+              address or email below.
+            </p>
+          )}
 
           <p className="text-gray-700 mb-6">
             Thank you for your assistance.
@@ -177,6 +310,16 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
                 />
               </p>
             )}
+            {isEOB && fields.memberID && (
+              <p className="text-gray-700">
+                Member ID:{" "}
+                <EditableField
+                  value={fields.memberID}
+                  placeholder="Member ID"
+                  onChange={(v) => updateField("memberID", v)}
+                />
+              </p>
+            )}
             <p className="text-gray-700">
               <EditableField
                 value={fields.mailingAddress}
@@ -198,6 +341,11 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
                 onChange={(v) => updateField("phone", v)}
               />
             </p>
+          </div>
+
+          {/* Generated-by footer (print only) */}
+          <div className="hidden print:block mt-8 pt-4 border-t border-gray-200">
+            <p className="text-xs text-gray-400">Generated by Parity Health (parityhealth.com)</p>
           </div>
         </div>
 
@@ -234,6 +382,25 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
 }
 
 // ---------------------------------------------------------------------------
+// Form field (for the provider/claim details form)
+// ---------------------------------------------------------------------------
+
+function FormField({ label, value, onChange, placeholder, className = "" }) {
+  return (
+    <div className={className}>
+      <label className="block text-xs text-gray-500 mb-1">{label}</label>
+      <input
+        type="text"
+        value={value}
+        placeholder={placeholder || label}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full px-3 py-2 text-sm text-[#1B3A5C] border border-gray-200 rounded-lg focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/20 outline-none placeholder:text-gray-300"
+      />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Editable inline field
 // ---------------------------------------------------------------------------
 
@@ -254,34 +421,69 @@ function EditableField({ value, placeholder, onChange }) {
 // Build plain-text letter for clipboard
 // ---------------------------------------------------------------------------
 
-function buildLetterText(fields, providerName) {
+function buildLetterText(fields, isEOB) {
   const name = fields.patientName || "[Patient Name]";
   const date = fields.serviceDate || "[Date of Service]";
   const dob = fields.dateOfBirth || "[Date of Birth]";
   const addr = fields.mailingAddress || "[Your Mailing Address]";
   const email = fields.email || "[Your Email Address]";
   const phone = fields.phone || "[Your Phone Number]";
+  const todayStr = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
+  // Provider address block
+  const providerBlock = [];
+  if (isEOB) {
+    if (fields.providerName) providerBlock.push(fields.providerName);
+    if (fields.providerAddress) providerBlock.push(fields.providerAddress);
+    if (fields.providerCityStateZip) providerBlock.push(fields.providerCityStateZip);
+  }
+
+  // Re: line
+  const reItems = [];
+  if (isEOB) {
+    if (fields.insuranceCompany) reItems.push(`Insurance: ${fields.insuranceCompany}`);
+    if (fields.claimNumber) reItems.push(`Claim #${fields.claimNumber}`);
+    if (fields.memberID) reItems.push(`Member ID: ${fields.memberID}`);
+  }
+
+  // EOB paragraph
+  const eobParagraph = isEOB
+    ? `\nI have received an Explanation of Benefits from my insurance company${fields.insuranceCompany ? ` (${fields.insuranceCompany})` : ""}${fields.claimNumber ? `, claim #${fields.claimNumber}` : ""}, but this document does not include the individual procedure codes needed to verify my charges.\n`
+    : "";
+
+  // Request items
+  const requestItems = [
+    "Each service or procedure listed separately",
+    "The CPT or HCPCS procedure code for each service",
+    "The charge amount for each individual service",
+    "The name of the treating provider",
+  ];
+  if (isEOB) requestItems.push("Revenue codes and service descriptions");
+
+  // Rights paragraph
+  const rightsParagraph = isEOB
+    ? "Under the No Surprises Act (P.L. 116-260) and applicable state consumer protection laws, patients have the right to receive a detailed, itemized statement of charges. I understand this right and respectfully request that this information be provided within 30 days. Please send it to the address or email below."
+    : "I understand I have the right to receive this information and would appreciate receiving it within 30 days. Please send it to the address or email below.";
+
+  // Signature lines
   const sigLines = [name, dob];
   if (fields.accountId) sigLines.push(`Account or Patient ID: ${fields.accountId}`);
+  if (isEOB && fields.memberID) sigLines.push(`Member ID: ${fields.memberID}`);
   sigLines.push(addr, email, phone);
 
-  return `Subject: Request for Itemized Bill — ${name}, Date of Service ${date}
+  const parts = [];
+  if (providerBlock.length > 0) parts.push(providerBlock.join("\n"));
+  parts.push(todayStr);
+  parts.push(`Subject: Request for Itemized Bill — ${name}, Date of Service ${date}`);
+  if (reItems.length > 0) parts.push(`Re: ${reItems.join(" | ")}`);
+  parts.push(`Dear Billing Department,`);
+  parts.push(`I am writing to request a complete itemized bill for services I received on ${date}.`);
+  if (eobParagraph) parts.push(eobParagraph.trim());
+  parts.push(`Specifically, I am requesting a document that includes:\n${requestItems.map((i) => `- ${i}`).join("\n")}`);
+  parts.push(rightsParagraph);
+  parts.push("Thank you for your assistance.");
+  parts.push(`Sincerely,\n${sigLines.join("\n")}`);
+  parts.push("Generated by Parity Health (parityhealth.com)");
 
-Dear Billing Department,
-
-I am writing to request a complete itemized bill for services I received on ${date}.
-
-Specifically, I am requesting a document that includes:
-- Each service or procedure listed separately
-- The CPT or procedure code for each service
-- The charge amount for each individual service
-- The name of the treating provider
-
-I understand I have the right to receive this information and would appreciate receiving it within 30 days. Please send it to the address or email below.
-
-Thank you for your assistance.
-
-Sincerely,
-${sigLines.join("\n")}`;
+  return parts.join("\n\n");
 }

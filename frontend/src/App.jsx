@@ -16,8 +16,11 @@ import AIParseModal from "./components/AIParseModal.jsx";
 import AppHeader from "./components/AppHeader.jsx";
 import Toast from "./components/Toast.jsx";
 import extractBillData from "./modules/extractBillData.js";
+import { detectEOB, extractEOBData } from "./modules/eobExtractor.js";
+import { lookupNPPES } from "./modules/nppesLookup.js";
 import scoreAnomalies from "./modules/scoreAnomalies.js";
 import runCodingIntelligence from "./modules/codingIntelligence.js";
+import EOBDetectedView from "./components/EOBDetectedView.jsx";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const API_TIMEOUT_MS = 60000;
@@ -72,6 +75,9 @@ export default function App() {
   const [serviceDate, setServiceDate] = useState("");
   const [error, setError] = useState({ title: "", message: "" });
   const [eobData, setEobData] = useState(null);
+  const [eobExtracted, setEobExtracted] = useState(null);
+  const [nppesResult, setNppesResult] = useState(null);
+  const [nppesLoading, setNppesLoading] = useState(false);
   const [itemizedReason, setItemizedReason] = useState(null);
   const [toast, setToast] = useState({ message: "", visible: false });
   const [hasCompletedConsent, setHasCompletedConsent] = useState(false);
@@ -222,6 +228,9 @@ export default function App() {
     setProcessingStep(0);
     setError({ title: "", message: "" });
     setEobData(null);
+    setEobExtracted(null);
+    setNppesResult(null);
+    setNppesLoading(false);
     setOnboardingData({
       firstName: "",
       lastName: "",
@@ -244,6 +253,9 @@ export default function App() {
     setProcessingStep(0);
     setError({ title: "", message: "" });
     setEobData(null);
+    setEobExtracted(null);
+    setNppesResult(null);
+    setNppesLoading(false);
     setItemizedReason(null);
     setShowAIModal(false);
     setPendingBillData(null);
@@ -287,6 +299,9 @@ export default function App() {
       setProcessingStep(0);
       setError({ title: "", message: "" });
       setEobData(null);
+      setEobExtracted(null);
+      setNppesResult(null);
+      setNppesLoading(false);
       setHasCompletedConsent(false);
       setConsentData({ consentAnalytics: true, consentEmployer: false });
       setOnboardingData({
@@ -498,6 +513,15 @@ export default function App() {
         // Step 1: Extract bill data from PDF
         const billData = await extractBillData(file);
 
+        // EOB detection — before AI modal or pipeline
+        if (billData.rawText && detectEOB(billData.rawText)) {
+          const extracted = extractEOBData(billData.rawText, billData.rawLines || []);
+          setEobData(billData);
+          setEobExtracted(extracted);
+          setView("eob-detected");
+          return;
+        }
+
         // Check for empty extraction — show itemized bill request flow
         if (!billData.lineItems || billData.lineItems.length === 0) {
           setPendingBillData(billData);
@@ -676,6 +700,26 @@ export default function App() {
     }
   }, [runPipeline]);
 
+  // ----- EOB: request itemized bill (triggers NPPES lookup) -----
+  const handleRequestItemizedFromEOB = useCallback(async () => {
+    setItemizedReason("eob_detected");
+    setNppesLoading(true);
+    setNppesResult(null);
+    setView("itemized-request");
+
+    // Look up provider contact info via NPPES
+    const providerName = eobExtracted?.providerName || eobData?.provider?.name || "";
+    if (providerName) {
+      try {
+        const result = await lookupNPPES(providerName);
+        setNppesResult(result);
+      } catch {
+        setNppesResult(null);
+      }
+    }
+    setNppesLoading(false);
+  }, [eobExtracted, eobData]);
+
   // ----- Auth loading state -----
   if (authLoading) {
     return (
@@ -703,10 +747,21 @@ export default function App() {
         onReset={handleReset}
       />
     );
+  } else if (view === "eob-detected") {
+    viewContent = (
+      <EOBDetectedView
+        eobExtracted={eobExtracted}
+        onRequestItemized={handleRequestItemizedFromEOB}
+        onUploadItemized={handleReset}
+      />
+    );
   } else if (view === "itemized-request") {
     viewContent = (
       <ItemizedBillRequestView
         eobData={eobData}
+        eobExtracted={eobExtracted}
+        nppesResult={nppesResult}
+        nppesLoading={nppesLoading}
         onboardingData={onboardingData}
         onReset={handleReset}
         reason={itemizedReason}

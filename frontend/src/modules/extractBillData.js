@@ -94,7 +94,7 @@ export default async function extractBillData(file) {
   const patientName = extractPatientName(allLines, fullText);
   const accountNumber = extractAccountNumber(fullText);
 
-  return { provider, serviceDate, lineItems, patientName, accountNumber };
+  return { provider, serviceDate, lineItems, patientName, accountNumber, rawText: fullText, rawLines: allLines };
 }
 
 // ---------------------------------------------------------------------------
