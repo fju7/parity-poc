@@ -6,7 +6,7 @@
  */
 
 const NPPES_BASE = "https://npiregistry.cms.hhs.gov/api/";
-const TIMEOUT_MS = 5000;
+const TIMEOUT_MS = 10000;
 
 /**
  * Look up an organization provider by name via NPPES.

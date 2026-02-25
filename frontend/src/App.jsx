@@ -799,11 +799,14 @@ export default function App() {
 
     // Look up provider contact info via NPPES (AI fields use snake_case)
     const providerName = eobExtracted?.provider_name || eobData?.provider?.name || "";
+    console.log("[EOB→NPPES] Provider name for lookup:", providerName);
     if (providerName) {
       try {
         const result = await lookupNPPES(providerName);
+        console.log("[EOB→NPPES] Result:", result);
         setNppesResult(result);
-      } catch {
+      } catch (err) {
+        console.warn("[EOB→NPPES] Lookup error:", err);
         setNppesResult(null);
       }
     }

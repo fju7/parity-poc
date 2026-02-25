@@ -1,6 +1,19 @@
 import { useState, useCallback, useEffect } from "react";
 import { Footer } from "./UploadView.jsx";
 
+/**
+ * Format a date string like "2025-11-07" to "November 7, 2025".
+ * Returns the original string if parsing fails.
+ */
+function formatDateLong(dateStr) {
+  if (!dateStr) return "";
+  const match = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return dateStr;
+  const d = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
 export default function ItemizedBillRequestView({
   eobData,
   eobExtracted,
@@ -40,6 +53,22 @@ export default function ItemizedBillRequestView({
     groupNumber: eobExtracted?.group_number || "",
   });
 
+  // Sync eobExtracted fields into form state (handles late-arriving data)
+  useEffect(() => {
+    if (!eobExtracted) return;
+    setFields((prev) => ({
+      ...prev,
+      patientName: prev.patientName || eobExtracted.patient_name || "",
+      serviceDate: prev.serviceDate || eobExtracted.service_date || "",
+      providerName: prev.providerName || eobExtracted.provider_name || "",
+      providerAddress: prev.providerAddress || eobExtracted.provider_address || "",
+      insuranceCompany: prev.insuranceCompany || eobExtracted.insurance_company || "",
+      claimNumber: prev.claimNumber || eobExtracted.claim_number || "",
+      memberID: prev.memberID || eobExtracted.member_id || "",
+      groupNumber: prev.groupNumber || eobExtracted.group_number || "",
+    }));
+  }, [eobExtracted]);
+
   // Pre-fill provider fields when NPPES result arrives
   useEffect(() => {
     if (nppesResult?.found && nppesResult.bestMatch) {
@@ -61,6 +90,7 @@ export default function ItemizedBillRequestView({
     setFields((prev) => ({ ...prev, [key]: value }));
   }, []);
 
+  const formattedDate = formatDateLong(fields.serviceDate) || fields.serviceDate;
   const letterText = buildLetterText(fields, isEOB);
 
   const handleCopy = useCallback(async () => {
@@ -214,7 +244,7 @@ export default function ItemizedBillRequestView({
             />
             , Date of Service{" "}
             <EditableField
-              value={fields.serviceDate}
+              value={formattedDate}
               placeholder="Date"
               onChange={(v) => updateField("serviceDate", v)}
             />
@@ -242,7 +272,7 @@ export default function ItemizedBillRequestView({
             I am writing to request a complete itemized bill for services I
             received on{" "}
             <EditableField
-              value={fields.serviceDate}
+              value={formattedDate}
               placeholder="date of service"
               onChange={(v) => updateField("serviceDate", v)}
             />.
@@ -428,7 +458,8 @@ function EditableField({ value, placeholder, onChange }) {
 
 function buildLetterText(fields, isEOB) {
   const name = fields.patientName || "[Patient Name]";
-  const date = fields.serviceDate || "[Date of Service]";
+  const rawDate = fields.serviceDate || "[Date of Service]";
+  const date = formatDateLong(rawDate) || rawDate;
   const dob = fields.dateOfBirth || "[Date of Birth]";
   const addr = fields.mailingAddress || "[Your Mailing Address]";
   const phone = fields.phone || "[Your Phone Number]";
