@@ -137,11 +137,14 @@ def parse_eob(req: EOBParseRequest):
         if hasattr(block, "text"):
             raw_text += block.text
 
-    # Parse JSON from response — handle potential markdown wrapping
+    # Strip markdown code fences before parsing JSON
     raw_text = raw_text.strip()
     if raw_text.startswith("```"):
         raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
-        raw_text = re.sub(r"\s*```$", "", raw_text)
+        raw_text = re.sub(r"\s*```\s*$", "", raw_text)
+    raw_text = raw_text.strip()
+
+    print(f"EOB parse raw response: {raw_text[:200]}")
 
     try:
         parsed = json.loads(raw_text)
@@ -151,6 +154,16 @@ def parse_eob(req: EOBParseRequest):
             status_code=502,
             detail="Could not read the EOB document. Please try again.",
         )
+
+    # Clean amount fields — remove $ signs, commas, spaces before converting
+    for field in ["amount_billed", "plan_paid", "patient_responsibility", "cost_reduction"]:
+        val = parsed.get(field)
+        if val is not None and not isinstance(val, (int, float)):
+            val = str(val).replace("$", "").replace(",", "").strip()
+            try:
+                parsed[field] = float(val)
+            except (ValueError, TypeError):
+                parsed[field] = None
 
     return EOBParseResponse(
         insurance_company=parsed.get("insurance_company"),

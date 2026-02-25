@@ -141,11 +141,14 @@ def parse_with_ai(req: AIParseRequest):
         if hasattr(block, "text"):
             raw_text += block.text
 
-    # Parse JSON from response — handle potential markdown wrapping
+    # Strip markdown code fences before parsing JSON
     raw_text = raw_text.strip()
     if raw_text.startswith("```"):
         raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
-        raw_text = re.sub(r"\s*```$", "", raw_text)
+        raw_text = re.sub(r"\s*```\s*$", "", raw_text)
+    raw_text = raw_text.strip()
+
+    print(f"AI parse raw response: {raw_text[:200]}")
 
     try:
         parsed = json.loads(raw_text)
@@ -155,6 +158,22 @@ def parse_with_ai(req: AIParseRequest):
             status_code=502,
             detail="AI reading encountered an error. Please try a clearer image or enter manually.",
         )
+
+    # Clean amount fields — remove $ signs, commas, spaces before converting
+    if parsed.get("total_billed") is not None and not isinstance(parsed["total_billed"], (int, float)):
+        val = str(parsed["total_billed"]).replace("$", "").replace(",", "").strip()
+        try:
+            parsed["total_billed"] = float(val)
+        except (ValueError, TypeError):
+            parsed["total_billed"] = None
+
+    for li in parsed.get("line_items", []):
+        if li.get("billed_amount") is not None and not isinstance(li["billed_amount"], (int, float)):
+            val = str(li["billed_amount"]).replace("$", "").replace(",", "").strip()
+            try:
+                li["billed_amount"] = float(val)
+            except (ValueError, TypeError):
+                li["billed_amount"] = 0
 
     # Determine confidence based on number of line items extracted
     items = parsed.get("line_items", [])
