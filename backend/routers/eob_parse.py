@@ -49,6 +49,10 @@ class EOBParseRequest(BaseModel):
     pages: list[str]  # base64-encoded page images
 
 
+class EOBParseTextRequest(BaseModel):
+    text: str  # raw PDF text
+
+
 class EOBParseResponse(BaseModel):
     insurance_company: str | None = None
     patient_name: str | None = None
@@ -160,7 +164,70 @@ def parse_eob(req: EOBParseRequest):
                 detail="Could not read the EOB document. Please try again.",
             )
 
-    # Extract text from response
+    return _parse_claude_response(response)
+
+
+# ---------------------------------------------------------------------------
+# Text-based EOB parsing (much cheaper/faster than image-based)
+# ---------------------------------------------------------------------------
+
+@router.post("/api/parse-eob-text", response_model=EOBParseResponse)
+def parse_eob_text(req: EOBParseTextRequest):
+    if not req.text or len(req.text.strip()) < 50:
+        raise HTTPException(status_code=400, detail="Insufficient text provided.")
+
+    client = _get_client()
+
+    print(f"[EOB-text] Parsing {len(req.text)} chars of text")
+
+    content = [
+        {
+            "type": "text",
+            "text": f"Extract the key information from this Explanation of Benefits document text. Return only the JSON structure specified in the system prompt.\n\n---\n{req.text}\n---",
+        }
+    ]
+
+    # Call Claude with exponential backoff retry on 529 (overloaded)
+    backoff_delays = [2, 5, 10]
+    response = None
+    for attempt in range(len(backoff_delays) + 1):
+        try:
+            response = client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=2048,
+                temperature=0,
+                system=SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": content}],
+            )
+            break
+        except Exception as exc:
+            err_str = str(exc)
+            if "529" in err_str and attempt < len(backoff_delays):
+                delay = backoff_delays[attempt]
+                print(f"[EOB-text] Claude overloaded (529), retry {attempt+1}/{len(backoff_delays)} in {delay}s...")
+                time.sleep(delay)
+                continue
+            print(f"EOB text parsing API error: {exc}")
+            if "529" in err_str:
+                from fastapi.responses import JSONResponse
+                return JSONResponse(
+                    status_code=503,
+                    content={"error": "overloaded", "message": "AI service is temporarily busy. Please try again in a moment."},
+                )
+            raise HTTPException(
+                status_code=502,
+                detail="Could not read the EOB document. Please try again.",
+            )
+
+    return _parse_claude_response(response)
+
+
+# ---------------------------------------------------------------------------
+# Shared response parsing
+# ---------------------------------------------------------------------------
+
+def _parse_claude_response(response):
+    """Parse Claude's response into an EOBParseResponse."""
     raw_text = ""
     for block in response.content:
         if hasattr(block, "text"):

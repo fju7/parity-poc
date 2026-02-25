@@ -530,15 +530,25 @@ export default function App() {
           setSlowServer(false);
           setEobParseError(false);
 
-          // Render PDF pages to images and call AI extraction
+          // Use text-based AI extraction (fast/cheap) with image fallback for scanned PDFs
           const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
           try {
-            const pages = await renderPDFToBase64(file);
-            setEobPages(pages); // Store for retry
-            const response = await fetchWithTimeout(
-              `${API_BASE}/api/parse-eob`,
-              { pages }
-            );
+            let response;
+            if (billData.rawText && billData.rawText.trim().length >= 100) {
+              // Text-based extraction — no image rendering needed
+              response = await fetchWithTimeout(
+                `${API_BASE}/api/parse-eob-text`,
+                { text: billData.rawText }
+              );
+            } else {
+              // Fallback: scanned/image-only PDF — render to images
+              const pages = await renderPDFToBase64(file);
+              setEobPages(pages);
+              response = await fetchWithTimeout(
+                `${API_BASE}/api/parse-eob`,
+                { pages }
+              );
+            }
             clearTimeout(slowTimer);
             setSlowServer(false);
             if (response.error === "overloaded") {
@@ -738,7 +748,6 @@ export default function App() {
 
   // ----- EOB: retry parse when overloaded -----
   const handleRetryEobParse = useCallback(async () => {
-    if (!eobPages) return;
     setEobOverloaded(false);
     setEobParseError(false);
     setProcessingStep(0);
@@ -747,10 +756,21 @@ export default function App() {
 
     const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
     try {
-      const response = await fetchWithTimeout(
-        `${API_BASE}/api/parse-eob`,
-        { pages: eobPages }
-      );
+      let response;
+      const rawText = eobData?.rawText;
+      if (rawText && rawText.trim().length >= 100) {
+        response = await fetchWithTimeout(
+          `${API_BASE}/api/parse-eob-text`,
+          { text: rawText }
+        );
+      } else if (eobPages) {
+        response = await fetchWithTimeout(
+          `${API_BASE}/api/parse-eob`,
+          { pages: eobPages }
+        );
+      } else {
+        throw new Error("No EOB data available for retry");
+      }
       clearTimeout(slowTimer);
       setSlowServer(false);
       if (response.error === "overloaded") {
@@ -768,7 +788,7 @@ export default function App() {
       setEobParseError(true);
     }
     setView("eob-detected");
-  }, [eobPages]);
+  }, [eobData, eobPages]);
 
   // ----- EOB: request itemized bill (triggers NPPES lookup) -----
   const handleRequestItemizedFromEOB = useCallback(async () => {
