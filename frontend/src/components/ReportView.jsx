@@ -52,9 +52,21 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
           <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
             <div>
-              <h2 className="text-xl font-bold text-[#1B3A5C]">
-                {provider?.name || "Medical Provider"}
-              </h2>
+              <div className="flex items-center gap-2">
+                <h2 className="text-xl font-bold text-[#1B3A5C]">
+                  {provider?.name || "Medical Provider"}
+                </h2>
+                {report.parsingMethod === "ai" && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-700">
+                    AI-assisted reading
+                  </span>
+                )}
+                {report.parsingMethod === "manual" && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600">
+                    Manual entry
+                  </span>
+                )}
+              </div>
               {serviceDate && (
                 <p className="text-sm text-gray-500 mt-1">
                   Service date: {serviceDate}

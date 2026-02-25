@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "./lib/supabase.js";
 import { saveBill, getBillById, clearAll } from "./lib/localBillStore.js";
@@ -11,6 +11,8 @@ import ReportView from "./components/ReportView.jsx";
 import ErrorView from "./components/ErrorView.jsx";
 import ItemizedBillRequestView from "./components/ItemizedBillRequestView.jsx";
 import BillHistoryView from "./components/BillHistoryView.jsx";
+import ManualEntryView from "./components/ManualEntryView.jsx";
+import AIParseModal from "./components/AIParseModal.jsx";
 import AppHeader from "./components/AppHeader.jsx";
 import Toast from "./components/Toast.jsx";
 import extractBillData from "./modules/extractBillData.js";
@@ -48,6 +50,7 @@ function viewFromPath(pathname) {
   const rel = pathname.replace(/^\/parity-health\/?/, "").replace(/\/$/, "");
   if (rel === "history") return "history";
   if (rel === "account") return "account";
+  if (rel === "manual-entry") return "manual-entry";
   return "onboarding"; // default — auth flow will override
 }
 
@@ -59,7 +62,7 @@ export default function App() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
-  // "consent" | "onboarding" | "upload" | "processing" | "report" | "error" | "itemized-request" | "history"
+  // Views: "consent" | "onboarding" | "upload" | "processing" | "report" | "error" | "itemized-request" | "history" | "manual-entry"
   const [view, setView] = useState(() => viewFromPath(location.pathname));
   const [processingStep, setProcessingStep] = useState(0);
   const [report, setReport] = useState(null);
@@ -81,6 +84,12 @@ export default function App() {
     email: "",
     phone: "",
   });
+
+  // AI parsing state
+  const [showAIModal, setShowAIModal] = useState(false);
+  const [pendingBillData, setPendingBillData] = useState(null);
+  const pendingFileRef = useRef(null);
+  const [parsingMethod, setParsingMethod] = useState("standard");
 
   // ----- Auth: session bootstrap + listener -----
   useEffect(() => {
@@ -134,7 +143,7 @@ export default function App() {
           // Skip to upload if profile is filled in — respect URL if it's a deep link
           if (data.first_name && data.last_name) {
             const urlView = viewFromPath(location.pathname);
-            if (urlView === "history" || urlView === "account") {
+            if (urlView === "history" || urlView === "account" || urlView === "manual-entry") {
               setView(urlView);
             } else {
               setView("upload");
@@ -191,6 +200,10 @@ export default function App() {
     setProcessingStep(0);
     setError({ title: "", message: "" });
     setEobData(null);
+    setShowAIModal(false);
+    setPendingBillData(null);
+    pendingFileRef.current = null;
+    setParsingMethod("standard");
   }, [navigate]);
 
   // ----- Navigation -----
@@ -201,6 +214,8 @@ export default function App() {
       navigate("/parity-health/history");
     } else if (target === "account") {
       navigate("/parity-health/account");
+    } else if (target === "manual-entry") {
+      navigate("/parity-health/manual-entry");
     }
     setView(target);
   }, [navigate]);
@@ -257,6 +272,7 @@ export default function App() {
         partialWarning: bill.partialWarning || null,
         codingAlerts: bill.codingAlerts || [],
         codingSummary: bill.codingSummary || null,
+        parsingMethod: bill.parsingMethod || "standard",
       });
       setProvider(bill.provider || { name: "Unknown Provider" });
       setServiceDate(bill.serviceDate || "");
@@ -268,7 +284,7 @@ export default function App() {
 
   // ----- Auto-save bill to IndexedDB (local only) -----
   const saveBillLocally = useCallback(
-    async (scored, billProvider, billServiceDate) => {
+    async (scored, billProvider, billServiceDate, method) => {
       try {
         await saveBill({
           provider: billProvider || { name: "Unknown Provider" },
@@ -278,6 +294,7 @@ export default function App() {
           partialWarning: scored.partialWarning || null,
           codingAlerts: scored.codingAlerts || [],
           codingSummary: scored.codingSummary || null,
+          parsingMethod: method || "standard",
         });
 
         setToast({ message: "Saved", visible: true });
@@ -345,7 +362,7 @@ export default function App() {
   );
 
   const runPipeline = useCallback(
-    async (billData) => {
+    async (billData, method = "standard") => {
       // Step 2: Look up benchmark rates
       setProcessingStep(1);
 
@@ -393,6 +410,7 @@ export default function App() {
       );
       scored.codingAlerts = codingAlerts;
       scored.codingSummary = codingSummary;
+      scored.parsingMethod = method;
 
       // Small delay so the user sees the final step
       await delay(400);
@@ -403,15 +421,17 @@ export default function App() {
       setView("report");
 
       // Auto-save to IndexedDB (non-blocking)
-      saveBillLocally(scored, billData.provider, billData.serviceDate);
+      saveBillLocally(scored, billData.provider, billData.serviceDate, method);
     },
     [saveBillLocally]
   );
 
+  // ----- Standard PDF parsing flow -----
   const handleFileSelect = useCallback(
     async (file) => {
       setView("processing");
       setProcessingStep(0);
+      pendingFileRef.current = file;
 
       try {
         // Step 1: Extract bill data from PDF
@@ -419,18 +439,157 @@ export default function App() {
 
         // Check for empty extraction — show itemized bill request flow
         if (!billData.lineItems || billData.lineItems.length === 0) {
-          setEobData(billData);
-          setView("itemized-request");
+          setPendingBillData(billData);
+          setShowAIModal(true);
+          setView("upload");
           return;
         }
 
-        await runPipeline(billData);
+        // If fewer than 2 items found, offer AI parsing
+        if (billData.lineItems.length < 2) {
+          setPendingBillData(billData);
+          setShowAIModal(true);
+          setView("upload");
+          return;
+        }
+
+        setParsingMethod("standard");
+        await runPipeline(billData, "standard");
       } catch (err) {
         console.error("Pipeline error:", err);
         setError({
           title: "Processing Error",
           message:
             "An error occurred while processing your document. Please make sure it is a valid PDF and try again.",
+        });
+        setView("error");
+      }
+    },
+    [runPipeline]
+  );
+
+  // ----- "Having trouble?" link from upload screen -----
+  const handleHavingTrouble = useCallback(() => {
+    setPendingBillData(null);
+    setShowAIModal(true);
+  }, []);
+
+  // ----- AI parsing flow -----
+  const handleAIParse = useCallback(async () => {
+    setShowAIModal(false);
+    const file = pendingFileRef.current;
+
+    if (!file) {
+      // No file available — go to manual entry
+      navigate("/parity-health/manual-entry");
+      setView("manual-entry");
+      return;
+    }
+
+    setView("processing");
+    setProcessingStep(0);
+
+    try {
+      // Render PDF pages to base64 images
+      const pages = await renderPDFToBase64(file);
+
+      setProcessingStep(1);
+
+      // Call AI parsing endpoint
+      const response = await fetch(`${API_BASE}/api/parse-with-ai`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pages }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`AI parse error: ${response.status}`);
+      }
+
+      const aiResult = await response.json();
+
+      // Convert AI result to the billData format the pipeline expects
+      const billData = {
+        provider: {
+          name: aiResult.provider_name || "Unknown Provider",
+          zip: "00000", // AI parse doesn't get ZIP from images
+          npi: null,
+        },
+        serviceDate: aiResult.service_date || "",
+        parsingMethod: "ai",
+        insuranceName: aiResult.insurance_name || null,
+        lineItems: (aiResult.line_items || [])
+          .filter((li) => li.cpt_code || li.revenue_code)
+          .map((li) => ({
+            code: li.cpt_code || li.revenue_code || "",
+            codeType: li.cpt_code ? "CPT" : "REVENUE",
+            description: li.description || "Unknown procedure",
+            billedAmount: li.billed_amount || 0,
+            quantity: li.quantity || 1,
+            modifier: li.modifier || null,
+          })),
+      };
+
+      if (billData.lineItems.length === 0) {
+        setError({
+          title: "No Items Found",
+          message:
+            "AI reading could not identify procedure codes in this bill. Please try entering the bill manually.",
+        });
+        setView("error");
+        return;
+      }
+
+      setParsingMethod("ai");
+      await runPipeline(billData, "ai");
+    } catch (err) {
+      console.error("AI parsing error:", err);
+      setError({
+        title: "AI Reading Error",
+        message:
+          "AI reading encountered an error. Please try a clearer image or enter manually.",
+      });
+      setView("error");
+    }
+  }, [navigate, runPipeline]);
+
+  // ----- AI modal: skip and use standard results -----
+  const handleAISkip = useCallback(async () => {
+    setShowAIModal(false);
+    if (pendingBillData && pendingBillData.lineItems?.length > 0) {
+      setView("processing");
+      setProcessingStep(0);
+      await delay(300);
+      setParsingMethod("standard");
+      await runPipeline(pendingBillData, "standard");
+    } else {
+      // No items at all — show itemized request
+      setEobData(pendingBillData);
+      setView("itemized-request");
+    }
+  }, [pendingBillData, runPipeline]);
+
+  // ----- Manual entry flow -----
+  const handleManualEntry = useCallback(() => {
+    setShowAIModal(false);
+    navigate("/parity-health/manual-entry");
+    setView("manual-entry");
+  }, [navigate]);
+
+  const handleManualSubmit = useCallback(
+    async (billData) => {
+      setView("processing");
+      setProcessingStep(0);
+      await delay(300);
+
+      try {
+        setParsingMethod("manual");
+        await runPipeline(billData, "manual");
+      } catch (err) {
+        console.error("Manual entry pipeline error:", err);
+        setError({
+          title: "Processing Error",
+          message: "An error occurred while analyzing the bill.",
         });
         setView("error");
       }
@@ -446,7 +605,7 @@ export default function App() {
     await delay(600);
 
     try {
-      await runPipeline(SAMPLE_BILL);
+      await runPipeline(SAMPLE_BILL, "standard");
     } catch (err) {
       console.error("Sample bill error:", err);
       setError({
@@ -510,6 +669,13 @@ export default function App() {
         onNavigate={handleNavigate}
       />
     );
+  } else if (view === "manual-entry") {
+    viewContent = (
+      <ManualEntryView
+        onSubmit={handleManualSubmit}
+        onCancel={handleReset}
+      />
+    );
   } else if (view === "account") {
     viewContent = (
       <OnboardingView
@@ -533,6 +699,8 @@ export default function App() {
       <UploadView
         onFileSelect={handleFileSelect}
         onSampleBill={handleSampleBill}
+        onManualEntry={handleManualEntry}
+        onHavingTrouble={handleHavingTrouble}
       />
     );
   }
@@ -550,9 +718,52 @@ export default function App() {
         />
       )}
       {viewContent}
+      {showAIModal && (
+        <AIParseModal
+          onUseAI={handleAIParse}
+          onManualEntry={handleManualEntry}
+          onSkip={handleAISkip}
+          itemCount={pendingBillData?.lineItems?.length || 0}
+        />
+      )}
       <Toast message={toast.message} visible={toast.visible} />
     </>
   );
+}
+
+// ---------------------------------------------------------------------------
+// PDF to base64 image rendering (for AI parsing)
+// ---------------------------------------------------------------------------
+
+async function renderPDFToBase64(file) {
+  const pdfjsLib = await import("pdfjs-dist");
+
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const pages = [];
+
+  // Render each page at 2x scale for better OCR quality
+  const scale = 2.0;
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({ scale });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext("2d");
+
+    await page.render({ canvasContext: ctx, viewport }).promise;
+
+    // Convert to base64 PNG
+    const dataUrl = canvas.toDataURL("image/png");
+    // Strip the data:image/png;base64, prefix
+    const base64 = dataUrl.split(",")[1];
+    pages.push(base64);
+  }
+
+  return pages;
 }
 
 // ---------------------------------------------------------------------------

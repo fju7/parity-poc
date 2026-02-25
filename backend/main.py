@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from routers.benchmark import load_data, router as benchmark_router
+from routers.ai_parse import router as ai_parse_router
 from routers.coding_intelligence import load_coding_data
 
 
@@ -46,6 +47,7 @@ app.add_middleware(
 )
 
 app.include_router(benchmark_router)
+app.include_router(ai_parse_router)
 
 
 @app.get("/")

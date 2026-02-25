@@ -214,3 +214,40 @@ def lookup_opps(code: str) -> Optional[float]:
     except KeyError:
         pass
     return None
+
+
+# ---------------------------------------------------------------------------
+# CPT description lookup
+# ---------------------------------------------------------------------------
+
+class CPTDescriptionResponse(BaseModel):
+    code: str
+    description: str
+    found: bool
+
+
+@router.get("/api/cpt-description", response_model=CPTDescriptionResponse)
+def cpt_description(code: str):
+    """Look up a CPT/HCPCS code description from the loaded rate data."""
+    code = code.strip()
+    if not code:
+        return CPTDescriptionResponse(code=code, description="", found=False)
+
+    # Look up in OPPS rates (which have descriptions)
+    if code in opps_rates.index:
+        row = opps_rates.loc[code]
+        if isinstance(row, pd.DataFrame):
+            row = row.iloc[0]
+        desc = row.get("description", "")
+        if desc and str(desc) != "nan":
+            return CPTDescriptionResponse(code=code, description=str(desc), found=True)
+
+    # Check if code exists in PFS (no description, but confirms it's valid)
+    try:
+        matches = pfs_rates.xs(code, level="cpt_code")
+        if len(matches) > 0:
+            return CPTDescriptionResponse(code=code, description="", found=True)
+    except KeyError:
+        pass
+
+    return CPTDescriptionResponse(code=code, description="", found=False)

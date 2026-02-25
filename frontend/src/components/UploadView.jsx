@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export default function UploadView({ onFileSelect, onSampleBill }) {
+export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, onHavingTrouble }) {
   const [dragOver, setDragOver] = useState(false);
 
   const handleDragOver = useCallback((e) => {
@@ -85,15 +85,35 @@ export default function UploadView({ onFileSelect, onSampleBill }) {
           </div>
         </label>
 
-        {/* Sample bill button */}
-        {onSampleBill && (
-          <button
-            onClick={onSampleBill}
-            className="mt-6 text-[#0D7377] font-medium hover:underline cursor-pointer text-sm"
-          >
-            Try a Sample Bill
-          </button>
-        )}
+        {/* Action links */}
+        <div className="mt-6 flex flex-col items-center gap-2">
+          {onSampleBill && (
+            <button
+              onClick={onSampleBill}
+              className="text-[#0D7377] font-medium hover:underline cursor-pointer text-sm"
+            >
+              Try a Sample Bill
+            </button>
+          )}
+          <div className="flex items-center gap-4">
+            {onManualEntry && (
+              <button
+                onClick={onManualEntry}
+                className="text-gray-500 hover:text-[#1B3A5C] cursor-pointer text-sm"
+              >
+                Enter Manually
+              </button>
+            )}
+            {onHavingTrouble && (
+              <button
+                onClick={onHavingTrouble}
+                className="text-gray-400 hover:text-gray-600 cursor-pointer text-xs"
+              >
+                Having trouble?
+              </button>
+            )}
+          </div>
+        </div>
 
         {/* Privacy points */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">

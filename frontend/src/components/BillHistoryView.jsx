@@ -103,7 +103,19 @@ export default function BillHistoryView({ onViewBill, onNavigate }) {
                     className="hover:bg-gray-50 cursor-pointer"
                   >
                     <td className="px-6 py-4 text-[#1B3A5C] font-medium">
-                      {bill.provider?.name || "Unknown Provider"}
+                      <div className="flex items-center gap-2">
+                        {bill.provider?.name || "Unknown Provider"}
+                        {bill.parsingMethod === "ai" && (
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-700">
+                            AI
+                          </span>
+                        )}
+                        {bill.parsingMethod === "manual" && (
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600">
+                            Manual
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="px-6 py-4 text-gray-600">
                       {bill.serviceDate || "\u2014"}
