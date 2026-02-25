@@ -10,6 +10,7 @@ import InvestorsPage from './components/InvestorsPage.jsx'
 import EmployerLandingPage from './components/EmployerLandingPage.jsx'
 import EmployerLoginPage from './components/EmployerLoginPage.jsx'
 import EmployerDashboard from './components/EmployerDashboard.jsx'
+import EmployerAuthCallback from './components/EmployerAuthCallback.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/investors" element={<InvestorsPage />} />
         <Route path="/employer" element={<EmployerLandingPage />} />
         <Route path="/employer/login" element={<EmployerLoginPage />} />
+        <Route path="/employer/auth/callback" element={<EmployerAuthCallback />} />
         <Route path="/employer/dashboard" element={<EmployerDashboard />} />
         <Route path="/parity-health/*" element={<App />} />
       </Routes>

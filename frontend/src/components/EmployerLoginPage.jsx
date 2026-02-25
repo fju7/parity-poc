@@ -1,57 +1,35 @@
 import { useState, useCallback, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase.js";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
+const ERROR_MESSAGES = {
+  not_registered: "This email is not registered as an employer account. Contact CivicScale at hello@civicscale.ai to get started.",
+  auth_timeout: "Sign-in timed out. Please try again.",
+};
+
 export default function EmployerLoginPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error | checking
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
   const [errorMsg, setErrorMsg] = useState("");
 
-  // On mount, check if already authenticated and linked to an employer
+  // Check for error params from callback redirect
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        checkEmployerAccess(session.user.email);
-      }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        checkEmployerAccess(session.user.email);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const checkEmployerAccess = useCallback(async (userEmail) => {
-    setStatus("checking");
-    try {
-      const { data } = await supabase
-        .from("employer_users")
-        .select("employer_id, employer_accounts(company_name)")
-        .eq("email", userEmail)
-        .single();
-
-      if (data && data.employer_id) {
-        const companyName = data.employer_accounts?.company_name || "Your Company";
-        localStorage.setItem("employer_session", JSON.stringify({
-          employer_id: data.employer_id,
-          company_name: companyName,
-          email: userEmail,
-        }));
-        navigate("/employer/dashboard");
-      } else {
-        setStatus("error");
-        setErrorMsg("This email is not registered as an employer account. Contact CivicScale at hello@civicscale.ai to get started.");
-      }
-    } catch {
+    const errorCode = searchParams.get("error");
+    if (errorCode && ERROR_MESSAGES[errorCode]) {
       setStatus("error");
-      setErrorMsg("This email is not registered as an employer account. Contact CivicScale at hello@civicscale.ai to get started.");
+      setErrorMsg(ERROR_MESSAGES[errorCode]);
+    }
+  }, [searchParams]);
+
+  // If there's already an employer session in localStorage, go to dashboard
+  useEffect(() => {
+    const stored = localStorage.getItem("employer_session");
+    if (stored) {
+      navigate("/employer/dashboard");
     }
   }, [navigate]);
 
@@ -62,7 +40,7 @@ export default function EmployerLoginPage() {
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: window.location.origin + "/employer/login" },
+      options: { emailRedirectTo: window.location.origin + "/employer/auth/callback" },
     });
 
     if (error) {
@@ -98,15 +76,6 @@ export default function EmployerLoginPage() {
             </p>
           </div>
 
-          {status === "checking" && (
-            <div style={{
-              padding: 24, borderRadius: 12, border: "1px solid var(--cs-border)",
-              textAlign: "center", background: "var(--cs-mist)"
-            }}>
-              <p style={{ color: "var(--cs-navy)", fontWeight: 600 }}>Verifying access...</p>
-            </div>
-          )}
-
           {status === "sent" ? (
             <div style={{
               padding: 24, borderRadius: 12, border: "1px solid var(--cs-teal)",
@@ -129,7 +98,7 @@ export default function EmployerLoginPage() {
                 Use a different email
               </button>
             </div>
-          ) : status !== "checking" && (
+          ) : (
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: 16 }}>
                 <label style={{
