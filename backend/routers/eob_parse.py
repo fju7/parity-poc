@@ -11,8 +11,10 @@ import json
 import os
 import re
 import time
+import urllib.request
+import urllib.parse
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -67,6 +69,39 @@ class EOBParseResponse(BaseModel):
     cost_reduction: float | None = None
     provider_address: str | None = None
     account_name: str | None = None
+
+
+# ---------------------------------------------------------------------------
+# NPPES proxy — CMS NPPES API does not support CORS, so we proxy it
+# ---------------------------------------------------------------------------
+
+NPPES_BASE = "https://npiregistry.cms.hhs.gov/api/"
+
+
+@router.get("/api/nppes-lookup")
+def nppes_lookup(
+    name: str = Query(..., min_length=2),
+    enumeration_type: str = Query("NPI-2"),
+    limit: int = Query(5, ge=1, le=10),
+):
+    params = urllib.parse.urlencode({
+        "version": "2.1",
+        "enumeration_type": enumeration_type,
+        "organization_name": name,
+        "limit": str(limit),
+    })
+    url = f"{NPPES_BASE}?{params}"
+    print(f"[NPPES proxy] Fetching: {url}")
+
+    try:
+        req = urllib.request.Request(url, headers={"Accept": "application/json"})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read().decode())
+    except Exception as exc:
+        print(f"[NPPES proxy] Error: {exc}")
+        raise HTTPException(status_code=502, detail="NPPES lookup failed.")
+
+    return data
 
 
 SYSTEM_PROMPT = """You are an insurance document data extraction specialist. Extract key information from this Explanation of Benefits (EOB) document. Return ONLY valid JSON with no other text:

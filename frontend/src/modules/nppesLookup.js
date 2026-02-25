@@ -1,12 +1,12 @@
 /**
  * nppesLookup.js — Looks up provider contact information via the public
- * CMS NPPES NPI Registry API. No backend needed.
+ * CMS NPPES NPI Registry API, proxied through our backend (NPPES has no CORS).
  *
  * API docs: https://npiregistry.cms.hhs.gov/api-page
  */
 
-const NPPES_BASE = "https://npiregistry.cms.hhs.gov/api/";
-const TIMEOUT_MS = 10000;
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const TIMEOUT_MS = 15000;
 
 /**
  * Look up an organization provider by name via NPPES.
@@ -98,6 +98,8 @@ function buildSearchVariations(name) {
 }
 
 /**
+ * Search NPPES via our backend proxy (CMS NPPES API has no CORS support).
+ *
  * @param {string} name
  * @param {"NPI-1"|"NPI-2"} enumerationType
  * @param {AbortSignal} signal
@@ -105,31 +107,22 @@ function buildSearchVariations(name) {
  */
 async function searchNPPES(name, enumerationType, signal) {
   const params = new URLSearchParams({
-    version: "2.1",
-    limit: "5",
+    name: name.trim(),
     enumeration_type: enumerationType,
+    limit: "5",
   });
 
-  // NPI-2 = organization, NPI-1 = individual
-  if (enumerationType === "NPI-2") {
-    params.set("organization_name", name.trim());
-  } else {
-    // For individual providers, try splitting into first/last name
-    const parts = name.trim().split(/\s+/);
-    if (parts.length >= 2) {
-      params.set("last_name", parts[parts.length - 1]);
-      params.set("first_name", parts[0]);
-    } else {
-      params.set("last_name", name.trim());
-    }
-  }
-
-  const url = `${NPPES_BASE}?${params.toString()}`;
+  const url = `${API_BASE}/api/nppes-lookup?${params.toString()}`;
+  console.log("[NPPES] Proxy request:", url);
   const response = await fetch(url, { signal });
 
-  if (!response.ok) return null;
+  if (!response.ok) {
+    console.warn("[NPPES] Proxy returned:", response.status);
+    return null;
+  }
 
   const data = await response.json();
+  console.log("[NPPES] API response:", data.result_count, "results");
 
   if (!data.results || data.results.length === 0) return null;
 
