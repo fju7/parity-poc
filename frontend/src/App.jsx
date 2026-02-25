@@ -20,7 +20,9 @@ import scoreAnomalies from "./modules/scoreAnomalies.js";
 import runCodingIntelligence from "./modules/codingIntelligence.js";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-const API_TIMEOUT_MS = 10000;
+const API_TIMEOUT_MS = 60000;
+const COLD_START_THRESHOLD_MS = 8000;
+const KEEPALIVE_INTERVAL_MS = 4 * 60 * 1000; // 4 minutes
 
 // ---------------------------------------------------------------------------
 // Sample bill data (for investor demo — no PDF needed)
@@ -92,6 +94,9 @@ export default function App() {
   const pendingFileRef = useRef(null);
   const [parsingMethod, setParsingMethod] = useState("standard");
 
+  // Cold-start "waking up" indicator
+  const [slowServer, setSlowServer] = useState(false);
+
   // ----- Auth: session bootstrap + listener -----
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session: s } }) => {
@@ -110,6 +115,44 @@ export default function App() {
     return () => subscription.unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ----- Backend keepalive: ping every 4 min while tab is visible -----
+  const keepaliveRef = useRef(null);
+
+  useEffect(() => {
+    function startKeepalive() {
+      stopKeepalive();
+      keepaliveRef.current = setInterval(() => {
+        fetch(`${API_BASE}/`).catch(() => {});
+      }, KEEPALIVE_INTERVAL_MS);
+    }
+
+    function stopKeepalive() {
+      if (keepaliveRef.current) {
+        clearInterval(keepaliveRef.current);
+        keepaliveRef.current = null;
+      }
+    }
+
+    function onVisibilityChange() {
+      if (document.visibilityState === "visible") {
+        startKeepalive();
+      } else {
+        stopKeepalive();
+      }
+    }
+
+    // Start immediately if tab is visible and user is signed in
+    if (session && document.visibilityState === "visible") {
+      startKeepalive();
+    }
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      stopKeepalive();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [session]);
 
   // ----- Fetch profile from Supabase and pre-fill onboarding -----
   const fetchProfile = async (userId, email) => {
@@ -375,6 +418,10 @@ export default function App() {
 
       // Step 2: Look up benchmark rates
       setProcessingStep(1);
+      setSlowServer(false);
+
+      // Show "waking up" message if the request takes longer than 8s
+      const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
 
       let benchmarkResponse;
       try {
@@ -383,6 +430,8 @@ export default function App() {
           billData.lineItems
         );
       } catch (err) {
+        clearTimeout(slowTimer);
+        setSlowServer(false);
         setError({
           title: "Rate Lookup Unavailable",
           message:
@@ -391,6 +440,8 @@ export default function App() {
         setView("error");
         return;
       }
+      clearTimeout(slowTimer);
+      setSlowServer(false);
 
       // Check if all benchmarks are null
       const foundCount = benchmarkResponse.lineItems.filter(
@@ -643,7 +694,7 @@ export default function App() {
   let viewContent;
 
   if (view === "processing") {
-    viewContent = <ProcessingView currentStep={processingStep} />;
+    viewContent = <ProcessingView currentStep={processingStep} slowServer={slowServer} />;
   } else if (view === "error") {
     viewContent = (
       <ErrorView

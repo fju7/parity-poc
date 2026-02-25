@@ -8,7 +8,7 @@ const STEPS = [
   "Checking coding patterns...",
 ];
 
-export default function ProcessingView({ currentStep = 0 }) {
+export default function ProcessingView({ currentStep = 0, slowServer = false }) {
   const [dots, setDots] = useState("");
 
   useEffect(() => {
@@ -74,6 +74,16 @@ export default function ProcessingView({ currentStep = 0 }) {
             </div>
           ))}
         </div>
+
+        {/* Cold-start "waking up" notice */}
+        {slowServer && (
+          <div className="mt-10 flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 max-w-md">
+            <div className="w-4 h-4 rounded-full bg-[#0D7377]/60 animate-pulse shrink-0" />
+            <p className="text-sm text-gray-500">
+              Waking up the server&hellip; this takes up to 30 seconds on first use. Subsequent analyses will be faster.
+            </p>
+          </div>
+        )}
       </div>
 
       <Footer />
