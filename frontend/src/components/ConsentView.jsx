@@ -1,14 +1,46 @@
 import { useState } from "react";
 import { Footer } from "./UploadView.jsx";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export default function ConsentView({ onSubmit }) {
   const [consentAnalytics, setConsentAnalytics] = useState(true);
   const [consentEmployer, setConsentEmployer] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
+  // Employer code state
+  const [employerCode, setEmployerCode] = useState("");
+  const [employerCompany, setEmployerCompany] = useState("");
+  const [codeStatus, setCodeStatus] = useState("idle"); // idle | verifying | valid | invalid
+
+  const verifyCode = async (code) => {
+    if (!code.trim()) return;
+    setCodeStatus("verifying");
+    try {
+      const res = await fetch(`${API_BASE}/api/employer/verify-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: code.trim() }),
+      });
+      const data = await res.json();
+      if (data.valid) {
+        setEmployerCompany(data.company_name);
+        setCodeStatus("valid");
+      } else {
+        setCodeStatus("invalid");
+      }
+    } catch {
+      setCodeStatus("invalid");
+    }
+  };
+
   const handleContinue = () => {
     if (!agreedToTerms) return;
-    onSubmit({ consentAnalytics, consentEmployer });
+    onSubmit({
+      consentAnalytics,
+      consentEmployer,
+      employerCode: consentEmployer && codeStatus === "valid" ? employerCode.trim() : null,
+    });
   };
 
   return (
@@ -77,6 +109,45 @@ export default function ConsentView({ onSubmit }) {
               <p className="text-sm text-gray-500 mt-1">
                 If your employer partners with Parity Health, allow de-identified billing trends to appear on their benefits dashboard. You can change this anytime.
               </p>
+
+              {/* Employer code input — shown when toggle is on */}
+              {consentEmployer && (
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <label className="block text-xs font-medium text-[#1B3A5C] mb-1.5">
+                    Employer Code <span className="text-gray-400 font-normal">(optional)</span>
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={employerCode}
+                      onChange={(e) => {
+                        setEmployerCode(e.target.value.toUpperCase());
+                        if (codeStatus === "invalid") setCodeStatus("idle");
+                      }}
+                      onBlur={() => { if (employerCode.trim()) verifyCode(employerCode); }}
+                      placeholder="e.g. ACME-2847"
+                      className="flex-1 px-2.5 py-1.5 border border-gray-300 rounded-lg text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]"
+                    />
+                  </div>
+                  {codeStatus === "verifying" && (
+                    <p className="text-xs text-gray-400 mt-1">Checking...</p>
+                  )}
+                  {codeStatus === "valid" && (
+                    <p className="text-xs text-[#0D7377] mt-1 flex items-center gap-1">
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                      {employerCompany}
+                    </p>
+                  )}
+                  {codeStatus === "invalid" && (
+                    <p className="text-xs text-red-500 mt-1">Code not recognized</p>
+                  )}
+                  <p className="text-xs text-gray-400 mt-1">
+                    Ask your benefits team for this code. You can also add it later in Settings.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -168,7 +168,7 @@ export default function App() {
     try {
       const { data } = await supabase
         .from("profiles")
-        .select("first_name, last_name, date_of_birth, street_address, city, state, zip_code, phone, consent_agreed_at, consent_analytics, consent_employer")
+        .select("first_name, last_name, date_of_birth, street_address, city, state, zip_code, phone, consent_agreed_at, consent_analytics, consent_employer, employer_code")
         .eq("id", userId)
         .single();
 
@@ -184,6 +184,8 @@ export default function App() {
           zipCode: data.zip_code || "",
           phone: data.phone || "",
           email: email || "",
+          employerCode: data.employer_code || "",
+          employerCompany: "",
         }));
 
         // Track consent state
@@ -378,19 +380,25 @@ export default function App() {
 
   // ----- Consent submission -----
   const handleConsentSubmit = useCallback(
-    async ({ consentAnalytics: analytics, consentEmployer: employer }) => {
+    async ({ consentAnalytics: analytics, consentEmployer: employer, employerCode: code }) => {
       setConsentData({ consentAnalytics: analytics, consentEmployer: employer });
       setHasCompletedConsent(true);
 
+      if (code) {
+        setOnboardingData((prev) => ({ ...prev, employerCode: code }));
+      }
+
       if (session?.user) {
         try {
-          await supabase.from("profiles").upsert({
+          const upsertData = {
             id: session.user.id,
             email: session.user.email,
             consent_analytics: analytics,
             consent_employer: employer,
             consent_agreed_at: new Date().toISOString(),
-          });
+          };
+          if (code) upsertData.employer_code = code;
+          await supabase.from("profiles").upsert(upsertData);
         } catch {
           // Non-blocking
         }
@@ -508,8 +516,13 @@ export default function App() {
 
       // Auto-save to IndexedDB (non-blocking)
       saveBillLocally(scored, billData.provider, billData.serviceDate, method);
+
+      // Fire-and-forget employer contribution (non-blocking)
+      if (consentData.consentEmployer && onboardingData.employerCode) {
+        contributeToEmployer(scored, billData, session.user.id, onboardingData.employerCode);
+      }
     },
-    [saveBillLocally]
+    [saveBillLocally, consentData, onboardingData, session]
   );
 
   // ----- Standard PDF parsing flow -----
@@ -1033,4 +1046,36 @@ async function fetchWithTimeout(url, body) {
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// ---------------------------------------------------------------------------
+// Fire-and-forget: contribute de-identified billing data to employer dashboard
+// ---------------------------------------------------------------------------
+
+async function contributeToEmployer(scored, billData, userId, employerCode) {
+  try {
+    const lineItems = (scored.lineItems || []).map((item) => ({
+      code: item.code || "",
+      description: item.description || "",
+      billedAmount: item.billedAmount || 0,
+      benchmarkRate: item.benchmarkRate || null,
+      anomalyScore: item.anomalyScore || null,
+      flagged: item.flagged || false,
+      flagReason: item.flagReason || null,
+      codingFlags: item.codingFlags || null,
+    }));
+
+    await fetch(`${API_BASE}/api/employer/contribute`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: userId,
+        employer_code: employerCode,
+        provider_name: billData.provider?.name || null,
+        line_items: lineItems,
+      }),
+    });
+  } catch {
+    // Non-blocking — silently ignore contribution failures
+  }
 }

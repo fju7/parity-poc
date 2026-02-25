@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./CivicScaleHomepage.css";
 
-function LogoIcon({ footer }) {
+export function LogoIcon({ footer }) {
   if (footer) {
     return (
       <div className="cs-nav-logo-icon">

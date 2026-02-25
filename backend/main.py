@@ -8,6 +8,7 @@ from routers.benchmark import load_data, router as benchmark_router
 from routers.ai_parse import router as ai_parse_router
 from routers.eob_parse import router as eob_parse_router
 from routers.coding_intelligence import load_coding_data
+from routers.employer import router as employer_router
 
 
 @asynccontextmanager
@@ -50,6 +51,7 @@ app.add_middleware(
 app.include_router(benchmark_router)
 app.include_router(ai_parse_router)
 app.include_router(eob_parse_router)
+app.include_router(employer_router)
 
 
 @app.get("/")
