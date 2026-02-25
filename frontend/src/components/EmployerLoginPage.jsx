@@ -38,7 +38,12 @@ export default function EmployerLoginPage() {
     setStatus("sending");
     setErrorMsg("");
 
-    const redirectUrl = window.location.origin + "/employer/auth/callback";
+    // Hardcode to non-www to match Supabase allowlist exactly
+    // (window.location.origin may be www.civicscale.ai which won't match)
+    const origin = window.location.hostname === "localhost"
+      ? window.location.origin
+      : "https://civicscale.ai";
+    const redirectUrl = origin + "/employer/auth/callback";
     console.log("[EmployerLogin] Sending magic link with redirect:", redirectUrl);
 
     const { error } = await supabase.auth.signInWithOtp({
