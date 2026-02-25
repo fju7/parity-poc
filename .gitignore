@@ -1,6 +1,7 @@
 # CMS raw data files (too large for git)
 data/cms-pfs/
 data/cms-opps/
+data/cms-clfs/
 
 # Test bills (NEVER commit real medical bills)
 data/test-bills/

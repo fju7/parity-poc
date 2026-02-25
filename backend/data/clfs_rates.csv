@@ -1,0 +1,2007 @@
+hcpcs_code,payment_rate,description
+0001U,720.0,Rbc dna hea 35 ag 11 bld grp
+0002M,503.4,Liver dis 10 assays w/ash
+0002U,25.0,Onc clrct 3 ur metab alg plp
+0003M,503.4,Liver dis 10 assays w/nash
+0003U,950.0,Onc ovar 5 prtn ser alg scor
+0004M,79.0,Scoliosis dna alys
+0005U,760.0,Onco prst8 3 gene ur alg
+0006M,150.0,Onc hep gene risk classifier
+0007M,375.0,Onc gastro 51 gene nomogram
+0007U,114.43,Rx test prsmv ur w/def conf
+0008U,597.91,Hpylori detcj abx rstnc dna
+0009U,107.0,Onc brst ca erbb2 amp/nonamp
+0010U,427.26,Nfct ds strn typ whl gen seq
+0011M,760.0,Onc prst8 ca mrna 12 gen alg
+0011U,114.43,Rx mntr lc-ms/ms oral fluid
+0012M,760.0,Onc mrna 5 gen rsk urthl ca
+0013M,760.0,Onc mrna 5 gen recr urthl ca
+0015M,1305.37,Adrnl cortcl tum bchm asy 25
+0016M,3489.63,Onc bladder mrna 219 gen alg
+0016U,163.96,Onc hmtlmf neo rna bcr/abl1
+0017M,2510.21,Onc dlbcl mrna 20 genes alg
+0017U,91.66,Onc hmtlmf neo jak2 mut dna
+0018M,640.73,Trnsplj rnl meas cd154+cll
+0018U,3002.09,Onc thyr 10 microrna seq alg
+0019M,712.4,Cv ds plasma alys prtn bmrk
+0019U,3675.0,Onc rna tiss predict alg
+0020M,2500.0,Onc cns alys 30000 dna loci
+0021U,760.0,Onc prst8 detcj 8 autoantb
+0022U,1950.0,Tgsap nsm lung neo dna&rna23
+0023U,248.51,Onc aml dna detcj/nondetcj
+0024U,34.19,Glyca nuc mr spectrsc quan
+0025U,114.43,Tenofovir liq chrom ur quan
+0026U,3600.0,Onc thyr dna&mrna 112 genes
+0027U,121.91,Jak2 gene trgt seq alys
+0029U,742.27,Rx metab advrs trgt seq alys
+0030U,134.13,Rx metab warf trgt seq alys
+0031U,174.81,Cyp1a2 gene
+0032U,174.81,Comt gene
+0034U,466.17,Tpmt nudt15 genes
+0035U,540.99,Neuro csf prion prtn qual
+0036U,4780.0,Xome tum & nml spec seq alys
+0037U,3500.0,Trgt gen seq dna 324 genes
+0038U,29.6,Vitamin d srm microsamp quan
+0039U,13.74,Dna antb 2strand hi avidity
+0040U,409.9,Bcr/abl1 gene major bp quan
+0041U,17.21,B brgdrferi antb 5 prtn igm
+0042U,17.21,B brgdrferi antb 12 prtn igg
+0043U,14.86,Tbrf b grp antb 4 prtn igm
+0044U,14.86,Tbrf b grp antb 4 prtn igg
+0045U,3873.0,Onc brst dux carc is 12 gene
+0046U,407.43,Flt3 gene itd variants quan
+0047U,3873.0,Onc prst8 mrna 17 gene alg
+0048U,2919.6,Onc sld org neo dna 468 gene
+0049U,407.43,Npm1 gene analysis quan
+0050U,2916.6,Trgt gen seq dna 194 genes
+0051U,246.92,Rx mntr lc-ms/ms ur/bld 31
+0052U,33.86,Lpoprtn bld w/5 maj classes
+0054U,198.74,Rx mntr 14+ drugs & sbsts
+0055U,3240.0,Card hrt trnspl 96 dna seq
+0058U,322.96,Onc merkel cll carc srm quan
+0059U,322.96,Onc merkel cll carc srm +/-
+0060U,759.05,Twn zyg gen seq alys chrms2
+0061U,25.1,Tc meas 5 bmrk sfdi m-s alys
+0062U,380.72,Ai sle igg&igm alys 80 bmrk
+0063U,750.0,Neuro autism 32 amines alg
+0064U,31.33,Antb tp total&rpr ia qual
+0065U,18.09,Syfls tst nontreponemal antb
+0067U,1897.0,Onc brst imhchem prfl 4 bmrk
+0068U,142.63,Candida species pnl amp prb
+0069U,380.0,Onc clrct microrna mir-31-3p
+0070U,676.37,Cyp2d6 gen com&slct rar vrnt
+0071U,600.0,Cyp2d6 full gene sequence
+0072U,450.91,Cyp2d6 gen cyp2d6-2d7 hybrid
+0073U,450.91,Cyp2d6 gen cyp2d7-2d6 hybrid
+0074U,450.91,Cyp2d6 nonduplicated gene
+0075U,450.91,Cyp2d6 5' gene dup/mlt
+0076U,450.91,Cyp2d6 3' gene dup/mlt
+0077U,43.43,Ig paraprotein qual bld/ur
+0080U,3520.0,Onc lng 5 clin rsk factr alg
+0082U,246.92,Rx test def 90+ rx/sbsts ur
+0083U,167.35,Onc rspse chemo cntrst tomog
+0084U,720.0,Rbc dna gnotyp 10 bld groups
+0086U,200.0,Nfct ds bact&fng org id 6+
+0087U,3159.42,Crd hrt trnspl mrna 1283 gen
+0088U,3159.42,Trnsplj kdn algrft rej 1494
+0089U,760.0,Onc mlnma prame & linc00518
+0090U,1950.0,Onc cutan mlnma mrna 23 gene
+0092U,2488.0,Onc lng 3 prtn bmrk plsm alg
+0093U,62.14,Rx mntr 65 com drugs urine
+0094U,7582.2,Genome rapid sequence alys
+0095U,771.98,Ee 2 prtn bmrk elisa est
+0096U,35.09,Hpv hi risk types male urine
+0101U,1743.95,Hered colon ca do 15 genes
+0102U,1303.95,Hered brst ca rltd do 17 gen
+0103U,1743.95,Hered ova ca pnl 24 genes
+0105U,950.0,Neph ckd mult eclia tum nec
+0106U,874.49,Gstr emptg 7 timed brth spec
+0107U,16.0,C diff tox ag detcj ia stool
+0108U,4950.0,Gi barrett esoph 9 prtn bmrk
+0109U,142.63,Id aspergillus dna 4 species
+0110U,27.11,Rx mntr 1+oral onc rx&sbsts
+0111U,682.29,Onc colon ca kras&nras alys
+0112U,356.13,Iadi 16s&18s rrna genes
+0113U,760.0,Onc prst8 pca3&tmprss2-erg
+0114U,1938.01,Gi barretts esoph vim&ccna1
+0115U,275.35,Respir iadna 18 viral&2 bact
+0116U,246.92,Rx mntr nzm ia 35+oral flu
+0117U,840.65,Pain mgmt 11 endogenous anal
+0118U,2753.25,Trnsplj don-drv cll-fr dna
+0119U,83.76,Crd ceramides liq chrom plsm
+0120U,2510.21,Onc b cll lymphm mrna 58 gen
+0121U,509.2,Sc dis vcam-1 whole blood
+0122U,526.23,Sc dis p-selectin whl blood
+0123U,357.63,Mchnl fragility rbc prflg
+0129U,1303.95,Hered brst ca rltd do panel
+0130U,584.9,Hered colon ca do mrna pnl
+0133U,690.29,Hered prst8 ca rltd do 11
+0134U,748.39,Hered pan ca mrna pnl 18 gen
+0136U,407.43,Atm mrna seq alys
+0137U,282.88,Palb2 mrna seq alys
+0138U,468.33,Brca1 brca2 mrna seq alys
+0140U,156.75,Nfct ds fungi dna 15 trgt
+0141U,156.75,Nfct ds bact&fng gram pos
+0142U,156.75,Nfct ds bact&fng gram neg
+0152U,2126.2,Nfct ds dna untrgt ngnrj seq
+0153U,3159.42,Onc breast mrna 101 genes
+0154U,482.14,Onc urthl ca rna fgfr3 gene
+0155U,274.83,Onc brst ca dna pik3ca gene
+0156U,1740.0,Copy number sequence alys
+0157U,282.88,Apc mrna seq alys
+0158U,282.88,Mlh1 mrna seq alys
+0159U,282.88,Msh2 mrna seq alys
+0160U,282.88,Msh6 mrna seq alys
+0161U,282.88,Pms2 mrna seq alys
+0162U,486.54,Hered colon ca trgt mrna pnl
+0163U,390.75,Onc clrct scr 3 prtn alg
+0164U,112.02,Gi ibs ia anti-cdtb&vinculin
+0165U,463.76,Peanut allg asmt epi
+0166U,503.4,Liver ds 10 biochem asy srm
+0169U,466.17,Nudt15&tpmt gene com vrnt
+0170U,1950.0,Neuro asd rna next gen seq
+0171U,1519.06,Trgt gen seq alys pnl dna 23
+0172U,3030.0,Onc sld tum alys brca1 brca2
+0173U,466.17,Psyc gen alys panel 14 genes
+0174U,1305.37,Onc solid tumor 30 prtn trgt
+0175U,1336.09,Psyc gen alys panel 15 genes
+0176U,64.19,Cdtb&vinculin igg antb ia
+0177U,274.83,Onc brst ca dna pik3ca 11
+0178U,459.86,Peanut allg asmt epi clin rx
+0179U,1943.21,Onc nonsm cll lng ca alys 23
+0180U,274.83,Abo gnotyp abo 7 exons
+0181U,185.2,Co gnotyp aqp1 exon 1
+0182U,301.35,Crom gnotyp cd55 exons 1-10
+0183U,185.2,Di gnotyp slc4a1 exon 19
+0184U,185.2,Do gnotyp art4 exon 2
+0185U,185.2,Fut1 gnotyp fut1 exon 4
+0186U,185.2,Fut2 gnotyp fut2 exon 2
+0187U,274.83,Fy gnotyp ackr1 exons 1-2
+0188U,274.83,Ge gnotyp gypc exons 1-4
+0189U,274.83,Gypa gnotyp ntrns 1 5 exon 2
+0190U,274.83,Gypb gnotyp ntrns 1 5 seux 3
+0191U,274.83,In gnotyp cd44 exons 2 3 6
+0192U,274.83,Jk gnotyp slc14a1 exon 9
+0193U,282.88,Jr gnotyp abcg2 exons 2-26
+0194U,185.2,Kel gnotyp kel exon 8
+0195U,375.25,Klf1 targeted sequencing
+0196U,185.2,Lu gnotyp bcam exon 3
+0197U,185.2,Lw gnotyp icam4 exon 1
+0198U,282.88,Rhd&rhce gntyp rhd1-10&rhce5
+0199U,274.83,Sc gnotyp ermap exons 4 12
+0200U,274.83,Xk gnotyp xk exons 1-3
+0201U,185.2,Yt gnotyp ache exon 2
+0202U,416.78,Nfct ds 22 trgt sars-cov-2
+0203U,760.0,Ai ibd mrna xprsn prfl 17
+0205U,47.0,Oph amd alys 3 gene variants
+0206U,2215.4,Neuro alzheimer cell aggregj
+0207U,511.2,Neuro alzheimer quan imaging
+0209U,787.15,Cytog const alys interrog
+0210U,18.63,Syphilis tst antb ia quan
+0211U,8455.0,Onc pan-tum dna&rna gnrj seq
+0212U,5475.2,Rare ds gen dna alys proband
+0213U,2709.95,Rare ds gen dna alys ea comp
+0214U,5224.6,Rare ds xom dna alys proband
+0215U,2574.65,Rare ds xom dna alys ea comp
+0216U,1537.02,Neuro inh ataxia dna 12 com
+0217U,2198.35,Neuro inh ataxia dna 51 gene
+0218U,2279.0,Neuro musc dys dmd seq alys
+0219U,725.0,Nfct agt hiv gnrj seq alys
+0220U,706.25,Onc brst ca ai assmt 12 feat
+0221U,274.83,Abo gnotyp next gnrj seq abo
+0222U,282.88,Rhd&rhce gntyp next gnrj seq
+0223U,416.78,Nfct ds 22 trgt sars-cov-2
+0224U,51.43,Antibody sars-cov-2 titer(s)
+0225U,416.78,Nfct ds dna&rna 21 sarscov2
+0226U,42.28,Svnt sarscov2 elisa plsm srm
+0227U,62.14,Rx asy prsmv 30+rx/metablt
+0228U,173.03,Onc prst8 ma molec prfl alg
+0229U,384.0,Bcat1&ikzf1 prmtr mthyln aly
+0230U,301.35,Ar full sequence analysis
+0231U,846.27,Cacna1a full gene analysis
+0232U,274.83,Cstb full gene analysis
+0233U,274.83,Fxn gene analysis
+0234U,527.87,Mecp2 full gene analysis
+0235U,600.0,Pten full gene analysis
+0236U,602.7,Smn1&smn2 full gene analysis
+0237U,584.9,Car ion chnlpthy gen seq pnl
+0238U,584.9,Onc lnch syn gen dna seq aly
+0239U,3500.0,Trgt gen seq alys pnl 311+
+0242U,5000.0,Trgt gen seq alys pnl 55-74
+0243U,64.41,Ob pe biochem assay pgf alg
+0244U,3500.0,Onc solid orgn dna 257 genes
+0245U,1266.07,Onc thyr mut alys 10 gen&37
+0246U,720.0,Rbc dna gnotyp 16 bld groups
+0247U,750.0,Ob prtrm brth ibp4 shbg meas
+0248U,3033.86,Onc sphrd cell cul 12 rx pnl
+0249U,2219.13,Onc brst alys 32 phsprtn alg
+0250U,2919.6,Onc sld org neo dna 505 gene
+0251U,17.27,Hepcidin-25 elisa serum/plsm
+0252U,759.05,Ftl aneuploidy str alys dna
+0253U,3159.42,Rprdtve med rna gen prfl 238
+0254U,759.05,Reprdtve med alys 24 chrmsm
+0255U,31.6,Andrology infertility assmt
+0256U,159.95,Tma/tmao prfl ms/ms ur alg
+0257U,712.47,Vlcad leuk nzm actv whl bld
+0258U,3675.0,Ai psor mrna 50-100 gen alg
+0259U,52.71,Neph ckd nuc mrs meas gfr
+0260U,1263.53,Rare ds id opt genome mapg
+0261U,2513.25,Onc clrct ca img alys w/ai
+0262U,3200.0,Onc sld tum rt-pcr 7 gen
+0263U,750.0,Neuro asd meas 16 c metblt
+0264U,1263.53,Rare ds id opt genome mapg
+0265U,5475.8,Rar do whl gn&mtcdrl dna als
+0266U,3200.0,Unxpl cnst hrtbl do gn xprsn
+0267U,6739.33,Rare do id opt gen mapg&seq
+0268U,608.17,Hem ahus gen seq alys 15 gen
+0269U,608.17,Hem aut dm cgen trmbctpna 22
+0270U,608.17,Hem cgen coagj do 20 genes
+0271U,608.17,Hem cgen neutropenia 24 gen
+0272U,608.17,Hem genetic bld do 60 genes
+0273U,608.17,Hem gen hyprfibrnlysis 8 gen
+0274U,608.17,Hem gen pltlt do 62 genes
+0275U,18.37,Hem heprn nduc trmbctpna srm
+0276U,2448.56,Hem inh thrombocytopenia 42
+0277U,608.17,Hem gen pltlt funcj do 40
+0278U,608.17,Hem gen thrombosis 14 genes
+0279U,11.53,Hem vw factor&clgn iii bndg
+0280U,17.27,Hem vw factor&clgn iv bndg
+0281U,17.27,Hem vwd propeptide ag lvl
+0282U,720.0,Rbc dna gntyp 12 bld grp gen
+0283U,18.4,Vw factor type 2b eval plsm
+0284U,17.27,Vw factor type 2n eval plsm
+0285U,443.31,Onc ds prog&rspse mntr radj
+0286U,134.13,Cep72 nudt15&tpmt gene alys
+0287U,3600.0,Onc thyr dna&mrna 112 genes
+0288U,3873.0,Onc lung mrna quan pcr 11&3
+0289U,760.0,Neuro alzheimer mrna 24 gen
+0290U,760.0,Pain mgmt mrna gen xprsn 36
+0291U,1755.0,Psyc mood do mrna 144 genes
+0292U,1755.0,Psyc strs do mrna 72 genes
+0293U,760.0,Psyc suicidal idea mrna 54
+0294U,760.0,Lngvty&mrtlty rsk mrna 18gen
+0295U,5435.0,Onc brst dux carc 7 proteins
+0296U,1950.0,Onc orl&/orop ca 20 mlc feat
+0297U,2919.6,Onc pan tum whl gen seq dna
+0298U,2919.6,Onc pan tum whl trns seq rna
+0299U,1863.22,Onc pan tum whl gen opt mapg
+0300U,4183.13,Onc pan tum whl gen seq&opt
+0301U,262.72,Iadna bartonella ddpcr
+0302U,361.37,Iadna brtnla ddpcr flwg liq
+0303U,2201.62,Hem rbc ads whl bld hypoxic
+0304U,2075.8,Hem rbc ads whl bld normoxic
+0305U,662.58,Hem rbc fnclty&dfrm shr strs
+0306U,3878.45,Onc mrd nxt-gnrj alys 1st
+0307U,794.49,Onc mrd nxt-gnrj alys sbsq
+0308U,390.75,Crd cad alys 3 prtn 3 param
+0309U,390.75,Crd cv ds aly 4 prtn plm alg
+0310U,390.75,Ped vsclts kd alys 3 bmrks
+0311U,8.08,Nfct ds bct quan antmcrb sc
+0312U,840.65,Ai ds sle alys 8 igg autoant
+0313U,3600.0,Onc pncrs dna&mrna seq 74
+0314U,1950.0,Onc cutan mlnma mrna 35 gene
+0315U,8500.0,Onc cutan sq cll ca mrna 40
+0316U,18.66,B brgdrferi lyme ds ospa evl
+0317U,2030.0,Onc lung ca 4-prb fish assay
+0318U,1770.48,Ped whl gen mthyltn alys 50+
+0319U,2650.0,Neph rna pretrnspl perph bld
+0320U,2650.0,Neph rna psttrnspl perph bld
+0321U,634.84,Iadna gu pthgn 20bct&fng org
+0322U,750.0,Neuro asd meas 14 acyl carn
+0323U,2126.2,Iadna cns pthgn next gen seq
+0326U,5000.0,Trgt gen seq alys pnl 83+
+0327U,795.0,Ftl aneuploidy trsmy dna seq
+0328U,114.43,Drug assay 120+ rx&metablt
+0329U,3437.98,Onc neo xome&trns seq alys
+0330U,416.78,Iadna vag pthgn panel 27 org
+0331U,1863.22,Onc hl neo opt gen mapping
+0332U,1142.06,Onc pan tum gen prflg 8 dna
+0333U,662.32,Onc lvr surveilanc hcc cfdna
+0334U,3500.0,Onc sld orgn tgsa dna 84/+
+0335U,5224.6,Rare ds whl gen seq feta
+0336U,2574.65,Rare ds whl gen seq bld/slv
+0337U,2435.0,Onc plsm cell do&myeloma id
+0338U,2435.0,Onc sld tum crcg tum cl slct
+0339U,760.0,Onc prst8 mrna hoxc6 & dlx1
+0340U,3590.0,Onc pan ca alys mrd plasma
+0341U,1900.2,Ftl aneup dna seq cmpr alys
+0342U,897.0,Onc pncrtc ca mult ia eclia
+0343U,760.0,Onc prst8 xom aly 442 sncrna
+0344U,792.17,Hep nafld semiq evl 28 lipid
+0345U,1336.09,Psyc genom alys pnl 15 gen
+0347U,1336.09,Rx metab/pcx dna 16 gen alys
+0348U,742.27,Rx metab/pcx dna 25 gen alys
+0349U,742.27,Rx metab/pcx dna 27gen rx ia
+0350U,1336.09,Rx metab/pcx dna 27 gen alys
+0351U,260.5,Nfct ds bct/viral trail ip10
+0355U,137.0,Apol1 risk variants
+0356U,1800.0,Onc orop/anal 17 dna ddpcr
+0358U,260.5,Neuro alys b-amyl 1-42&1-40
+0359U,760.0,Onc prst8 ca alys all psa
+0360U,840.65,Onc lung elisa 7 autoant alg
+0362U,3600.0,Onc pap thyr ca rna 82&10
+0363U,760.0,Onc urthl mrna 5 gen alg
+0364U,2007.25,Onc hl neo gen seq alys alg
+0365U,897.0,Onc bldr 10 ur hrbr urthl ca
+0366U,897.0,Onc bldr 10 prb recr bldr ca
+0367U,902.18,Onc bldr 10 flwg trurl rescj
+0368U,416.78,Onc clrct ca mut&mthyltn mrk
+0371U,416.78,Iadna gu pthgn semiq dna16&1
+0372U,416.78,Nfct ds gu pthgn arg detcj
+0375U,897.0,Onc ovrn bchm asy 7 prtn alg
+0376U,706.25,Onc prst8 ca img alys 128
+0377U,47.58,Cv ds quan advsrm/plsm lprtn
+0378U,137.0,Rfc1 repeat xpnsj vrnt alys
+0379U,3288.51,Tgsap sl or neo dna523&rna55
+0381U,44.12,Maple syrup ur ds mntr quan
+0382U,51.64,Hyprphenylalninmia mntr quan
+0383U,52.05,Tyrosinemia typ i mntr quan
+0384U,750.0,Neph ckd rsk hi stg kdn ds
+0385U,390.75,Neph ckd alg rsk dbtc kdn ds
+0387U,948.5,Onc mlnma ambra1&amlo
+0388U,3500.0,Onc nonsm cll lng ca 37 gen
+0389U,70.2,Ped fbrl kd ifi27&mcemp1 rna
+0390U,64.41,Ob pe kdr eng&rbp4 ia alg
+0391U,3600.0,Onc sld tum dna&rna 437 gen
+0392U,1336.09,Rx metab genrx ia 16 genes
+0393U,540.99,Neu prksn msfl a-syncln prtn
+0394U,198.74,Pfas 16 pfas compnd lc ms/ms
+0395U,797.45,Onc lng multiomics plsm alg
+0398U,1755.0,Gi baret esph dna mthyln aly
+0399U,300.0,Neuro cere folate defncy srm
+0400U,1456.88,Ob xpnd car scr 145 genes
+0401U,489.68,Crd c hrt ds 9 gen 12 vrnts
+0402U,142.63,Nfct agt sti mult amp prb tq
+0403U,760.0,Onc prst8 mrna 18 gen 1st ur
+0404U,322.96,Onc brst semiq meas thym kn
+0405U,1770.48,Onc pncrtc 59 mthltn blk mrk
+0406U,760.0,Onc lung flow cytmtry 5 mrk
+0407U,950.0,Neph dbtc ckd mult eclia alg
+0408U,14.13,Iaad blk ac wv bsnsr sarscv2
+0409U,2919.6,Onc sld tum dna 80 & rna 36
+0410U,1160.0,Onc pncrtc dna whl gn seq 5-
+0411U,1336.09,Psyc genom alys pnl 15 gen
+0412U,750.0,Beta amyloid ab42/40 imprcip
+0413U,1263.53,Onc hl neo opt gen mapg dna
+0414U,706.25,Onc lng aug alg aly whl sld8
+0415U,390.75,Cv ds acs bld alg 5 yr score
+0417U,2842.53,Rare ds alys 335 nuc genes
+0418U,706.25,Onc brst aug alg aly whl sl8
+0419U,1336.09,Nrpsyc gen seq vrnt aly 13
+0420U,1328.32,Onc urthl mrna xprsn 6 snp
+0421U,508.87,Onc clrct scr sgl amp 8 rna
+0422U,1943.21,Onc pan solid tum alys dna
+0423U,416.78,Psyc genomic alys pnl 26 gen
+0424U,760.0,Onc prst8 xom alys 53 sncrna
+0425U,4094.39,Genom rpd seq alys ea cmprtr
+0426U,7582.2,Genome ultra-rapid seq alys
+0427U,4.48,Monocyte dstrbj wdth whl bld
+0429U,35.09,Hpv orop swab 14 hi-risk typ
+0430U,61.54,Gi malabs aat calpro pncrtc
+0431U,36.57,Gly rcptr alpha1 igg srm/csf
+0432U,36.57,Klhl11 antb sr/csf asy qual
+0433U,760.0,Onc prst8 5 dna reg mrk pcr
+0434U,416.78,Rx metab advrs vrnt alys 25
+0435U,3033.86,Onc chemo rx cytox csc 14 rx
+0436U,1504.24,Onc lng plsm alys 388 prtn
+0437U,760.0,Psyc anxiety do mrna 15 bmrk
+0438U,416.78,Rx metab advrs vrnt alys 33
+0439U,854.0,Crd chd dna alys 5 snp 3 dna
+0440U,854.0,Crd chd dna alys 10 snp 6dna
+0441U,444.08,Nfct ds bct fngl/viral semiq
+0442U,41.38,Nfct ds respir nfctj mxa&crp
+0443U,116.23,Neurflmnt lt chn ultrsens ia
+0444U,2919.6,Onc sld orgn neo tgsap 361
+0445U,260.5,Abeta42 & ptau181 eclia csf
+0446U,840.65,Ai ds sle alys 10 cytokine
+0447U,840.65,Ai ds sle alys 11 cytokine
+0449U,1824.88,Car scr sev inh cond 5 genes
+0452U,192.0,Onc bldr mthyl penk lte-qmsp
+0453U,192.0,Onc clrct ca cfdna qpcr asy
+0454U,1263.53,Rare ds id opt genome mapg
+0455U,142.63,Nfct agt sti mult amp prb ur
+0457U,198.74,Pfas 9 cmpnd lcms/ms pls/sr
+0458U,260.5,Onc brst ca s100 a8&a9 elisa
+0459U,260.5,Abeta42 & ttau eclia csf
+0460U,917.08,Onc whl bld/bucc rtpcr 24gen
+0461U,917.08,Onc rxgenom alys rtpcr 24gen
+0462U,17.27,Melatonin lvl tst slp std7/9
+0463U,760.0,Onc crvx mrna genxprsn 14bmk
+0464U,591.92,Onc clrct scr qrtsa dna mrk
+0465U,1938.01,Onc urthl carc dna qmsp 2gen
+0466U,345.43,Crd cad dna gwas 564856 snp
+0467U,1519.06,Onc bldr dna ngs 60gen&aneup
+0468U,251.7,Hep nash mir34a5p a2m ykl40
+0469U,1197.94,Rare ds whl gen seq ftl samp
+0470U,597.91,Onc orop detcj mrd 8 dna hpv
+0471U,760.0,Onc clrc ca 35 vrn kras&nras
+0472U,27.9,Ca vi psp&sp1 antb sjogren
+0473U,4500.0,Onc sld tum bld/slv 648 gene
+0474U,1303.95,Hered pan ca gsap 88gene ngs
+0475U,1303.95,Hered prst8 ca gsap 23 genes
+0476U,416.78,Rx metab psyc 14gen&cyp2d6
+0477U,416.78,Rx metab psy 14&cyp2d6 gn-rx
+0478U,552.99,Onc nsclc dna&rna dpcr 9gens
+0479U,17.27,Tau phosphorylated ptau217
+0480U,2126.2,Nfct ds csf metag ngs alys
+0481U,674.24,Idh1 idh2&tert promoter ngs
+0482U,128.82,Ob pe biochem asy sflt1&plgf
+0483U,35.09,Nfct ds ng gyra s91f pt mut
+0484U,35.09,Nfct ds mgen 23s rrna pt mut
+0485U,3649.48,Onc sol tum cfdna&rna ngs gm
+0486U,1644.25,Onc pan sol tum ngs cfctdna
+0487U,2919.6,Onc sol tum cfcdna tgsap 84
+0488U,759.05,Ob fetal ag nipt cfdna alys
+0489U,1153.62,Ob sgnipt cfdna seq alys 1+
+0490U,2435.0,Onc cutan/uveal mlnma cd146
+0491U,2435.0,Onc sol tum ctc slct er prtn
+0492U,2435.0,Onc sol tum ctc slctn pd-l1
+0493U,2753.25,Trnspl med quan dd-cfdna ngs
+0494U,759.05,Rbc ag ftl rhd gene alys ngs
+0495U,760.0,Onc prst8 alys crcg plsm prt
+0496U,485.86,Onc clrct cfdna 8/7 genes
+0497U,3873.0,Onc prst8 mrna rt-pcr 6genes
+0498U,1345.31,Onc clrct ngs mut detc 43gen
+0499U,597.91,Onc clrct&lng dna ngs 8genes
+0500U,175.4,Autoinflam ds vexas synd dna
+0501U,192.0,Onc clrc bld quan meas cfdna
+0502U,35.09,Hpv e6/e7 mrk hi-rsk typ crv
+0503U,750.0,Neuro alz ds bamyl&tau prtn
+0504U,416.78,Nfct ds uti id 17 path orgs
+0505U,679.77,Nfct ds vag infctj id 32orgs
+0506U,1938.01,Gi barretts esophgl cell 89
+0507U,1160.0,Onc ovr dna whole gen w/5hmc
+0510U,473.91,Onc pncrtc ca alg alys 16gen
+0511U,3033.86,Onc sol tum 3dmicroenvir 36+
+0512U,706.25,Onc prst8 alys dgtz img msi
+0513U,706.25,Onc prst8 alg alys msi&hrd
+0514U,38.57,Gi ibd ia quan deter adl lvl
+0515U,38.57,Gi ibd ia quan deter ifx lvl
+0516U,416.78,Rx metab rxgenomic gnotyp 40
+0517U,246.92,Ther rx mntr 80+ psyactiv rx
+0518U,246.92,Ther rx mntr 90+ pn&mtl hlth
+0519U,246.92,Ther rx mntr meds p/d/a 110+
+0520U,246.92,Ther rx mntr 200+ rx/sbsts
+0521U,51.8,Rf iga&igm ccp antb sr-a ia
+0522U,260.5,Ca vi psp&sp1 antb cl semiql
+0523U,1352.09,Onc soltum dna ngs snv 22gen
+0524U,128.82,Ob pe sflt-1/plgf ia srm/pls
+0525U,3033.86,Onc sphrd cell cul 11-rx pnl
+0527U,142.63,Hsv 1&2 vzv amp prb tq pthgn
+0528U,634.84,Lrt iad 18bct/8vir&7arg rna
+0530U,2919.6,Onc pan-sol tum ctdna 77 gen
+0532U,5031.2,Rare ds whlgen&mitochdrl dna
+0533U,416.78,Rx metab advrs gnotyp 16gens
+0535U,62.14,Pfas lc-ms/ms plsm/srm quan
+0536U,192.0,Rbcag ftl rhd pcr alys exon4
+0537U,1495.0,Onc clrct ca cfdna >2500 dmr
+0538U,2989.55,Onc sol tum ngts ffpe 600gen
+0539U,3288.51,Onc sol tumor cfctdna 152gen
+0540U,2753.25,Trnsplj med quan dd-cfdna
+0543U,2989.55,Onc sol tum ngs dna 517 gens
+0545U,37.73,Achr antb id imfluor livecll
+0546U,37.73,Ldns lrp4 antb imflr livecll
+0547U,116.23,Neurflmnt lt chn cleia plsm
+0548U,116.23,Gfap cleia plasma
+0549U,760.0,Onc urthl dna mthyltd rt pcr
+0553U,759.05,Repr med pga embry te strux
+0554U,759.05,Repr med pga 24chrm te bx qc
+0555U,759.05,Repr med pga embryonic te qc
+0556U,142.63,Nfct ds p-s dna&rna 12 trgts
+0557U,262.99,Nfct ds bv dna mrk vag fluid
+0558U,20.81,Onc clrct elisa bf7 ag serum
+0559U,20.81,Onc brs quan elisa bf9ag srm
+0560U,3878.45,Onc mrd gsa cfdna baseline
+0561U,794.49,Onc mrd gsa cfdna subsequent
+0562U,597.91,Onc sol tum tgsa 33gens snvs
+0563U,416.78,Nfct ds pthgn-sna 11vir&4bct
+0564U,416.78,Nfct ds pthgn-sna 10vir&4bct
+0565U,1160.0,Onc hcc ngs detc 6626epigalt
+0566U,416.78,Onc lng qpcr-bsd alys 13dmrs
+0567U,5031.2,Rare ds whl gen seq srs&lrs
+0568U,897.0,Neurol dementia bamyl ptau
+0570U,260.5,Neurol tbi alys gfap&uch-l1
+0571U,2919.6,Onc sol tum dna80&rna10g ngs
+0575U,380.0,Trnsplj med lar rtpcr 4genes
+0576U,3240.0,Trnsplj med lar quan ddcfdna
+0577U,246.92,Onc ovr serum alys 39 gps
+0578U,3873.0,Onc cutan mln rna qpcr 10gen
+0579U,390.75,Nfro dbtc ckd elisa apoa4
+0580U,17.21,Bbrgdrferi antb detc 24rprtn
+0581U,325.8,Trnspl med antb nohla 39trgt
+0582U,7582.2,Rare ds rpd whlgen dna vrnts
+0583U,3791.1,Rare ds rpd whlgen cmptr dna
+0584U,540.99,Neuro csf prion prtn qual
+0585U,2919.6,Tgsap so neo cfdna 521 genes
+0586U,2919.6,Onc mrna gen xprsn 216 genes
+0587U,114.43,Ther rx mntr 60150rx&metabl
+0588U,760.0,Nfct ds bct/vir 32genes mrna
+0589U,198.74,Pfas24cmpnd hiperf lc-ms/ms
+0591U,760.0,Onc prst8 ca 3prtns plsm srm
+0592U,2919.6,Onc hl neo dna tgs 417 genes
+0593U,634.84,Nfct ds gu pthgn dna 46trgt
+0595U,262.99,Nfct ds tfp vctrbrn&zoonotic
+0598U,300.0,Gi ibs igg antb 18food items
+0599U,897.0,Onc pncrtc ca mult ia serum
+36415,9.34,Coll venous bld venipuncture
+78267,11.06,Urea breath tst c-14 acquisj
+78268,94.41,Urea breath test c-14 alys
+80047,13.73,Basic metablc pnl ionized ca
+80048,8.46,Basic metabolic pnl total ca
+80051,7.01,Electrolyte panel
+80053,10.56,Comprehen metabolic panel
+80055,47.81,Obstetric panel
+80061,13.39,Lipid panel
+80069,8.68,Renal function panel
+80074,47.63,Acute hepatitis panel
+80076,8.17,Hepatic function panel
+80081,74.86,Obstetric panel inc hiv tstg
+80143,18.64,Drug assay acetaminophen
+80145,38.57,Drug assay adalimumab
+80150,15.08,Assay of amikacin
+80151,18.64,Drug assay amiodarone
+80155,38.57,Drug assay caffeine
+80156,14.57,Assay carbamazepine total
+80157,13.25,Assay carbamazepine free
+80158,18.05,Drug assay cyclosporine
+80159,20.15,Drug assay clozapine
+80161,18.64,"Asy carbamazepin 10,11-epxid"
+80162,13.28,Assay of digoxin total
+80163,13.28,Assay of digoxin free
+80164,13.54,Assay dipropylacetic acd tot
+80165,13.54,Dipropylacetic acid free
+80167,18.64,Drug assay felbamate
+80168,16.34,Assay of ethosuximide
+80169,13.73,Drug assay everolimus
+80170,16.38,Assay of gentamicin
+80171,21.67,Drug screen quant gabapentin
+80173,15.78,Assay of haloperidol
+80175,13.25,Drug screen quan lamotrigine
+80176,14.69,Assay of lidocaine
+80177,13.25,Drug scrn quan levetiracetam
+80178,6.61,Assay of lithium
+80179,18.64,Drug assay salicylate
+80180,18.05,Drug scrn quan mycophenolate
+80181,18.64,Drug assay flecainide
+80183,13.25,Drug scrn quant oxcarbazepin
+80184,15.3,Assay of phenobarbital
+80185,13.25,Assay of phenytoin total
+80186,13.76,Assay of phenytoin free
+80187,27.11,Drug assay posaconazole
+80188,16.59,Assay of primidone
+80189,27.11,Drug assay itraconazole
+80190,60.0,Assay of procainamide
+80192,16.75,Assay of procainamide
+80193,38.57,Drug assay leflunomide
+80194,14.6,Assay of quinidine
+80195,13.73,Assay of sirolimus
+80197,13.73,Assay of tacrolimus
+80198,14.14,Assay of theophylline
+80199,27.11,Drug screen quant tiagabine
+80200,16.13,Assay of tobramycin
+80201,11.92,Assay of topiramate
+80202,13.54,Assay of vancomycin
+80203,13.25,Drug screen quant zonisamide
+80204,38.57,Drug assay methotrexate
+80210,27.11,Drug assay rufinamide
+80220,18.64,Drug asy hydroxychloroquine
+80230,38.57,Drug assay infliximab
+80235,27.11,Drug assay lacosamide
+80280,38.57,Drug assay vedolizumab
+80285,27.11,Drug assay voriconazole
+80299,18.64,Quantitative assay drug
+80305,12.6,Drug test prsmv dir opt obs
+80306,17.14,Drug test prsmv instrmnt
+80307,62.14,Drug test prsmv chem anlyzr
+80400,32.62,Acth stimulation panel
+80402,86.96,Acth stimulation panel
+80406,78.26,Acth stimulation panel
+80408,125.5,Aldosterone suppression eval
+80410,80.37,Calcitonin stimul panel
+80412,801.62,Crh stimulation panel
+80414,51.64,Testosterone response panel
+80415,55.89,Tot estradiol response panel
+80416,209.32,Renin stimulation panel
+80417,43.99,Renin stimulation panel
+80418,579.48,Pituitary evaluation panel
+80420,161.88,Dexamethasone panel
+80422,46.07,Glucagon tolerance panel
+80424,50.5,Glucagon tolerance panel
+80426,148.41,Gonadotropin hormone panel
+80428,66.7,Growth hormone panel
+80430,129.33,Growth hormone panel
+80432,165.61,Insulin suppression panel
+80434,285.03,Insulin tolerance panel
+80435,103.0,Insulin tolerance panel
+80436,91.16,Metyrapone panel
+80438,50.41,Trh stimulation panel
+80439,67.21,Trh stimulation panel
+81000,4.02,Urinalysis nonauto w/scope
+81001,3.17,Urinalysis auto w/scope
+81002,3.48,Urinalysis nonauto w/o scope
+81003,2.25,Urinalysis auto w/o scope
+81005,2.17,Urinalysis
+81007,29.98,Urine screen for bacteria
+81015,3.05,Microscopic exam of urine
+81020,4.7,Urinalysis glass test
+81025,8.61,Urine pregnancy test
+81050,3.64,Urinalysis volume measure
+81105,122.22,Hpa-1 genotyping
+81106,122.22,Hpa-2 genotyping
+81107,122.22,Hpa-3 genotyping
+81108,122.22,Hpa-4 genotyping
+81109,122.22,Hpa-5 genotyping
+81110,122.22,Hpa-6 genotyping
+81111,122.22,Hpa-9 genotyping
+81112,122.22,Hpa-15 genotyping
+81120,193.25,Idh1 common variants
+81121,295.79,Idh2 common variants
+81161,279.0,Dmd dup/delet analysis
+81162,1824.88,Brca1&2 gen full seq dup/del
+81163,468.0,Brca1&2 gene full seq alys
+81164,584.23,Brca1&2 gen ful dup/del alys
+81165,282.88,Brca1 gene full seq alys
+81166,301.35,Brca1 gene full dup/del alys
+81167,282.88,Brca2 gene full dup/del alys
+81168,207.31,Ccnd1/igh translocation alys
+81170,300.0,Abl1 gene
+81171,137.0,Aff2 gen aly detc abnl allel
+81172,274.83,Aff2 gen alys charac alleles
+81173,301.35,Ar gene full gene sequence
+81174,185.2,Ar gene known famil variant
+81175,676.5,Asxl1 full gene sequence
+81176,241.9,Asxl1 gene target seq alys
+81177,137.0,Atn1 gene detc abnor alleles
+81178,137.0,Atxn1 gene detc abnor allele
+81179,137.0,Atxn2 gene detc abnor allele
+81180,137.0,Atxn3 gene detc abnor allele
+81181,137.0,Atxn7 gene detc abnor allele
+81182,137.0,Atxn8os gen detc abnor allel
+81183,137.0,Atxn10 gene detc abnor allel
+81184,137.0,Cacna1a gen detc abnor allel
+81185,846.27,Cacna1a gene full gene seq
+81186,185.2,Cacna1a gen known famil vrnt
+81187,137.0,Cnbp gene detc abnor allele
+81188,137.0,Cstb gene detc abnor allele
+81189,274.83,Cstb gene full gene sequence
+81190,185.2,Cstb gene known famil vrnt
+81191,207.31,Ntrk1 translocation analysis
+81192,207.31,Ntrk2 translocation analysis
+81193,207.31,Ntrk3 translocation analysis
+81194,518.28,Ntrk translocation analysis
+81195,1863.22,Cytog genom-wid alys hem mal
+81200,47.25,Aspa gene
+81201,780.0,Apc gene full sequence
+81202,280.0,Apc gene known fam variants
+81203,200.0,Apc gene dup/delet variants
+81204,137.0,Ar gene charac alleles
+81205,94.99,Bckdhb gene
+81206,163.96,Bcr/abl1 gene major bp
+81207,144.84,Bcr/abl1 gene minor bp
+81208,214.62,Bcr/abl1 gene other bp
+81209,39.31,Blm gene
+81210,175.4,Braf gene
+81212,440.0,Brca1&2 185&5385&6174 vrnt
+81215,375.25,Brca1 gene known famil vrnt
+81216,185.12,Brca2 gene full seq alys
+81217,375.25,Brca2 gene known famil vrnt
+81218,241.9,Cebpa gene full sequence
+81219,121.63,Calr gene com variants
+81220,556.6,Cftr gene com variants
+81221,97.22,Cftr gene known fam variants
+81222,435.07,Cftr gene dup/delet variants
+81223,499.0,Cftr gene full sequence
+81224,168.75,Cftr gene intron poly t
+81225,291.36,Cyp2c19 gene com variants
+81226,450.91,Cyp2d6 gene com variants
+81227,174.81,Cyp2c9 gene com variants
+81228,900.0,Cytog alys chrml abnr cgh
+81229,1160.0,Cytog alys chrml abnr snpcgh
+81230,174.81,Cyp3a4 gene common variants
+81231,174.81,Cyp3a5 gene common variants
+81232,174.81,Dpyd gene common variants
+81233,175.4,Btk gene common variants
+81234,137.0,Dmpk gene detc abnor allele
+81235,324.58,Egfr gene com variants
+81236,282.88,Ezh2 gene full gene sequence
+81237,175.4,Ezh2 gene common variants
+81238,600.0,F9 full gene sequence
+81239,274.83,Dmpk gene charac alleles
+81240,65.69,F2 gene
+81241,73.37,F5 gene
+81242,36.62,Fancc gene
+81243,57.04,Fmr1 gen aly detc abnl allel
+81244,44.89,Fmr1 gen alys charac alleles
+81245,165.51,Flt3 gene
+81246,83.0,Flt3 gene analysis
+81247,174.81,G6pd gene alys cmn variant
+81248,375.25,G6pd known familial variant
+81249,600.0,G6pd full gene sequence
+81250,58.49,G6pc gene
+81251,47.25,Gba gene
+81252,101.12,Gjb2 gene full sequence
+81253,61.52,Gjb2 gene known fam variants
+81254,35.0,Gjb6 gene com variants
+81255,51.45,Hexa gene
+81256,65.36,Hfe gene
+81257,102.26,Hba1/hba2 gene
+81258,375.25,Hba1/hba2 gene fam vrnt
+81259,600.0,Hba1/hba2 full gene sequence
+81260,39.31,Ikbkap gene
+81261,197.99,Igh gene rearrange amp meth
+81262,68.55,Igh gene rearrang dir probe
+81263,294.52,Igh vari regional mutation
+81264,172.73,Igk rearrangeabn clonal pop
+81265,233.07,Str markers specimen anal
+81266,304.81,Str markers spec anal addl
+81267,207.46,Chimerism anal no cell selec
+81268,260.79,Chimerism anal w/cell select
+81269,202.4,Hba1/hba2 gene dup/del vrnts
+81270,91.66,Jak2 gene
+81271,137.0,Htt gene detc abnor alleles
+81272,329.51,Kit gene targeted seq analys
+81273,124.87,Kit gene analys d816 variant
+81274,274.83,Htt gene charac alleles
+81275,193.25,Kras gene variants exon 2
+81276,193.25,Kras gene addl variants
+81277,1160.0,Cytogenomic neo microra alys
+81278,207.31,Igh@/bcl2 translocation alys
+81279,185.2,Jak2 gene trgt sequence alys
+81283,73.37,Ifnl3 gene
+81284,137.0,Fxn gene detc abnor alleles
+81285,274.83,Fxn gene charac alleles
+81286,274.83,Fxn gene full gene sequence
+81287,124.64,Mgmt gene prmtr mthyltn alys
+81288,192.32,Mlh1 gene
+81289,185.2,Fxn gene known famil variant
+81290,39.31,Mcoln1 gene
+81291,65.34,Mthfr gene
+81292,675.4,Mlh1 gene full seq
+81293,331.0,Mlh1 gene known variants
+81294,202.4,Mlh1 gene dup/delete variant
+81295,381.7,Msh2 gene full seq
+81296,337.73,Msh2 gene known variants
+81297,213.3,Msh2 gene dup/delete variant
+81298,641.85,Msh6 gene full seq
+81299,308.0,Msh6 gene known variants
+81300,238.0,Msh6 gene dup/delete variant
+81301,348.56,Microsatellite instability
+81302,527.87,Mecp2 gene full seq
+81303,120.0,Mecp2 gene known variant
+81304,150.0,Mecp2 gene dup/delet variant
+81305,175.4,Myd88 gene p.leu265pro vrnt
+81306,291.36,Nudt15 gene common variants
+81307,676.5,Palb2 gene full gene seq
+81308,301.35,Palb2 gene known famil vrnt
+81309,274.83,Pik3ca gene trgt seq alys
+81310,246.52,Npm1 gene
+81311,295.79,Nras gene variants exon 2&3
+81312,137.0,Pabpn1 gene detc abnor allel
+81313,255.05,Pca3/klk3 antigen
+81314,329.51,Pdgfra gene
+81315,207.31,Pml/raralpha com breakpoints
+81316,207.31,Pml/raralpha 1 breakpoint
+81317,676.5,Pms2 gene full seq analysis
+81318,331.0,Pms2 known familial variants
+81319,203.5,Pms2 gene dup/delet variants
+81320,291.36,Plcg2 gene common variants
+81321,600.0,Pten gene full sequence
+81322,46.6,Pten gene known fam variant
+81323,300.0,Pten gene dup/delet variant
+81324,758.36,Pmp22 gene dup/delet
+81325,769.58,Pmp22 gene full sequence
+81326,46.6,Pmp22 gene known fam variant
+81327,192.0,Sept9 gen prmtr mthyltn alys
+81328,174.81,Slco1b1 gene com variants
+81329,137.0,Smn1 gene dos/deletion alys
+81330,47.0,Smpd1 gene common variants
+81331,51.07,Snrpn/ube3a gene
+81332,43.65,Serpina1 gene
+81333,137.0,Tgfbi gene common variants
+81334,329.51,Runx1 gene targeted seq alys
+81335,174.81,Tpmt gene com variants
+81336,301.35,Smn1 gene full gene sequence
+81337,185.2,Smn1 gen nown famil seq vrnt
+81338,150.33,Mpl gene common variants
+81339,185.2,Mpl gene seq alys exon 10
+81340,208.92,Trb@ gene rearrange amplify
+81341,49.59,Trb@ gene rearrange dirprobe
+81342,201.5,Trg gene rearrangement anal
+81343,137.0,Ppp2r2b gen detc abnor allel
+81344,137.0,Tbp gene detc abnor alleles
+81345,185.2,Tert gene targeted seq alys
+81346,174.81,Tyms gene com variants
+81347,193.25,Sf3b1 gene common variants
+81348,175.4,Srsf2 gene common variants
+81349,1197.94,Cytog alys chrml abnr lw-ps
+81350,234.0,Ugt1a1 gene common variants
+81351,641.85,Tp53 gene full gene sequence
+81352,329.51,Tp53 gene trgt sequence alys
+81353,308.0,Tp53 gene known famil vrnt
+81354,1263.53,Cytog alys chrml abnor ogm
+81355,88.2,Vkorc1 gene
+81357,193.25,U2af1 gene common variants
+81360,193.25,Zrsr2 gene common variants
+81361,174.81,Hbb gene com variants
+81362,375.25,Hbb gene known fam variant
+81363,202.4,Hbb gene dup/del variants
+81364,324.58,Hbb full gene sequence
+81370,402.12,Hla i & ii typing lr
+81371,404.52,Hla i & ii type verify lr
+81372,403.59,Hla i typing complete lr
+81373,127.43,Hla i typing 1 locus lr
+81374,74.33,Hla i typing 1 antigen lr
+81375,220.74,Hla ii typing ag equiv lr
+81376,122.22,Hla ii typing 1 locus lr
+81377,94.74,Hla ii type 1 ag equiv lr
+81378,345.57,Hla i & ii typing hr
+81379,335.38,Hla i typing complete hr
+81380,177.25,Hla i typing 1 locus hr
+81381,169.9,Hla i typing 1 allele hr
+81382,123.68,Hla ii typing 1 loc hr
+81383,109.13,Hla ii typing 1 allele hr
+81400,63.96,Mopath procedure level 1
+81401,137.0,Mopath procedure level 2
+81402,150.33,Mopath procedure level 3
+81403,185.2,Mopath procedure level 4
+81404,274.83,Mopath procedure level 5
+81405,301.35,Mopath procedure level 6
+81406,282.88,Mopath procedure level 7
+81407,846.27,Mopath procedure level 8
+81408,2000.0,Mopath procedure level 9
+81410,504.0,Aortic dysfunction/dilation
+81411,1350.19,Aortic dysfunction/dilation
+81412,2448.56,Ashkenazi jewish assoc dis
+81413,584.9,Car ion chnnlpath inc 10 gns
+81414,584.9,Car ion chnnlpath inc 2 gns
+81415,4780.0,Exome sequence analysis
+81416,12000.0,Exome sequence analysis
+81417,320.0,Exome re-evaluation
+81418,917.08,Rx metab gen seq alys pnl 6
+81419,2448.56,Epilepsy gen seq alys panel
+81420,759.05,Fetal chrmoml aneuploidy
+81422,759.05,Fetal chrmoml microdeltj
+81425,5031.2,Genome sequence analysis
+81426,2709.95,Genome sequence analysis
+81427,2337.65,Genome re-evaluation
+81430,1625.0,Hearing loss sequence analys
+81431,679.57,Hearing loss dup/del analys
+81432,1303.95,Hrdtry brst ca-rlatd do 5+
+81434,597.91,Hered rta do gen seq 15
+81435,1303.95,Hered colon ca-rlatd do 5+
+81437,1303.95,Hered neuroend tum-rlt do 5+
+81439,584.9,Hrdtry cardmypy gene panel
+81440,3324.0,Mitochondrial gene
+81441,2448.56,Ibmfs seq alys pnl 30 genes
+81442,2143.6,Noonan spectrum disorders
+81443,2448.56,Genetic tstg severe inh cond
+81445,597.91,So neo gsap 5-50dna/dna&rna
+81448,584.9,Hrdtry perph neurphy panel
+81449,597.91,So neo gsap 5-50 rna alys
+81450,759.53,Hl neo gsap 5-50dna/dna&rna
+81451,759.53,Hl neo gsap 5-50 rna alys
+81455,2919.6,So/hl 51/>gsap dna/dna&rna
+81456,2919.6,So/hl 51/>gsap rna alys
+81457,896.87,So neo gsap dna mcrstl ins
+81458,1046.35,So gsap dna cpy nmbr&mcrstl
+81459,2989.55,So neo gsap dna/dna&rna
+81460,1287.0,Whole mitochondrial genome
+81462,1195.83,So gsap cll fr dna/dna&rna
+81463,1345.31,So gsap cl fr cpy nmbr&mcrst
+81464,3288.51,So gsap cll fr mcrstl ins
+81465,936.0,Whole mitochondrial genome
+81470,914.0,X-linked intellectual dblt
+81471,914.0,X-linked intellectual dblt
+81490,840.65,Autoimmune ra alys 12 bmrk
+81493,1050.0,Cor artery disease mrna
+81500,260.5,Onco (ovar) two proteins
+81503,897.0,Onco (ovar) five proteins
+81504,520.0,Oncology tissue of origin
+81506,68.92,Endo assay seven anal
+81507,795.0,Fetal aneuploidy trisom risk
+81508,54.3,Ftl cgen abnor two proteins
+81509,1487.37,Ftl cgen abnor 3 proteins
+81510,55.54,Ftl cgen abnor three anal
+81511,153.5,Ftl cgen abnor four anal
+81512,69.52,Ftl cgen abnor five anal
+81513,142.63,Nfct ds bv rna vag flu alg
+81514,262.99,Nfct ds bv&vaginitis dna alg
+81515,262.99,Nfct ds bv&vaginitis dna alg
+81517,176.19,Liver ds alys 3 bmrk srm alg
+81518,3873.0,Onc brst mrna 11 genes
+81519,3873.0,Oncology breast mrna
+81520,2510.21,Onc breast mrna 58 genes
+81521,3873.0,Onc breast mrna 70 genes
+81522,3873.0,Onc breast mrna 12 genes
+81523,3873.0,Onc brst mrna 70 cnt 31 gene
+81525,3116.0,Oncology colon mrna
+81528,508.87,Oncology colorectal scr
+81529,7193.0,Onc cutan mlnma mrna 31 gene
+81535,579.46,Oncology gynecologic
+81536,177.56,Oncology gynecologic
+81538,2871.0,Oncology lung
+81539,760.0,Oncology prostate prob score
+81540,3750.0,Oncology tum unknown origin
+81541,3873.0,Onc prostate mrna 46 genes
+81542,3873.0,Onc prostate mrna 22 cnt gen
+81546,3600.0,"Onc thyr mrna 10,196 gen alg"
+81551,2030.0,Onc prostate 3 genes
+81552,7776.0,Onc uveal mlnma mrna 15 gene
+81554,5409.6,Pulm ds ipf mrna 190 gen alg
+81558,3240.0,Trnspl rej kdn mrna qpcr 139
+81560,640.73,Trnsplj pd lvr&bwl cd154+cll
+81595,3240.0,Cardiology hrt trnspl mrna
+81596,72.19,Nfct ds chrnc hcv 6 assays
+82009,4.52,Ketone bodys qual
+82010,8.17,Ketone bodys quan
+82013,12.29,Acetylcholinesterase assay
+82016,16.49,Acylcarnitines qual
+82017,16.87,Acylcarnitines quant
+82024,38.62,Assay of acth
+82030,25.8,Assay of adp & amp
+82040,4.95,Assay of serum albumin
+82042,7.78,Other source albumin quan ea
+82043,5.78,Ur albumin quantitative
+82044,6.23,Ur albumin semiquantitative
+82045,33.94,Albumin ischemia modified
+82075,30.0,Assay of breath ethanol
+82077,17.27,Assay spec xcp ur&breath ia
+82085,9.71,Assay of aldolase
+82088,40.75,Assay of aldosterone
+82103,13.44,Alpha-1-antitrypsin total
+82104,14.46,Alpha-1-antitrypsin pheno
+82105,16.77,Alpha-fetoprotein serum
+82106,17.0,Alpha-fetoprotein amniotic
+82107,64.41,Alpha-fetoprotein l3
+82108,25.48,Assay of aluminum
+82120,5.99,Amines vaginal fluid qual
+82127,14.18,Amino acid single qual
+82128,13.87,Amino acids mult qual
+82131,22.98,Amino acids single quant
+82135,16.45,Assay aminolevulinic acid
+82136,19.61,Amino acids quant 2-5
+82139,16.87,Amino acids quan 6 or more
+82140,14.57,Assay of ammonia
+82143,9.35,Amniotic fluid scan
+82150,6.48,Assay of amylase
+82154,28.83,Androstanediol glucuronide
+82157,29.28,Assay of androstenedione
+82160,25.55,Assay of androsterone
+82163,20.52,Assay of angiotensin ii
+82164,14.6,Angiotensin i enzyme test
+82166,38.62,Assay anti-mullerian horm
+82172,21.09,Assay of apolipoprotein
+82175,18.97,Assay of arsenic
+82180,9.89,Assay of ascorbic acid
+82190,15.9,Atomic absorption
+82232,16.18,Assay of beta-2 protein
+82233,128.92,Beta-amyloid 1-40 (abeta 40)
+82234,128.92,Beta-amyloid 1-42 (abeta 42)
+82239,17.12,Bile acids total
+82240,26.58,Bile acids cholylglycine
+82247,5.02,Bilirubin total
+82248,5.02,Bilirubin direct
+82252,4.56,Fecal bilirubin test
+82261,16.87,Assay of biotinidase
+82270,4.38,Occult blood feces
+82271,5.32,Occult blood other sources
+82272,4.23,Occult bld feces 1-3 tests
+82274,15.92,Assay test for blood fecal
+82286,5.16,Assay of bradykinin
+82300,23.64,Assay of cadmium
+82306,29.6,Vitamin d 25 hydroxy
+82308,26.79,Assay of calcitonin
+82310,5.16,Assay of calcium
+82330,13.68,Assay of calcium
+82331,13.34,Calcium infusion test
+82340,6.03,Assay of calcium in urine
+82355,11.58,Calculus analysis qual
+82360,12.87,Calculus assay quant
+82365,12.9,Calculus spectroscopy
+82370,12.52,X-ray assay calculus
+82373,18.06,Assay c-d transfer measure
+82374,4.88,Assay blood carbon dioxide
+82375,12.32,Assay carboxyhb quant
+82376,14.07,Assay carboxyhb qual
+82378,18.96,Carcinoembryonic antigen
+82379,16.87,Assay of carnitine
+82380,9.22,Assay of carotene
+82382,27.3,Assay urine catecholamines
+82383,29.08,Assay blood catecholamines
+82384,25.25,Assay three catecholamines
+82387,18.06,Assay of cathepsin-d
+82390,10.74,Assay of ceruloplasmin
+82397,14.12,Chemiluminescent assay
+82415,12.67,Assay of chloramphenicol
+82435,4.6,Assay of blood chloride
+82436,5.75,Assay of urine chloride
+82438,5.0,Assay other fluid chlorides
+82441,6.01,Test for chlorohydrocarbons
+82465,4.35,Assay bld/serum cholesterol
+82480,7.87,Assay serum cholinesterase
+82482,9.81,Assay rbc cholinesterase
+82485,20.65,Assay chondroitin sulfate
+82495,20.28,Assay of chromium
+82507,27.8,Assay of citrate
+82523,18.68,Collagen crosslinks
+82525,12.41,Assay of copper
+82528,22.52,Assay of corticosterone
+82530,16.71,Cortisol free
+82533,16.3,Total cortisol
+82540,4.64,Assay of creatine
+82542,24.09,Col chromotography qual/quan
+82550,6.51,Assay of ck (cpk)
+82552,13.39,Assay of cpk in blood
+82553,11.55,Creatine mb fraction
+82554,11.87,Creatine isoforms
+82565,5.12,Assay of creatinine
+82570,5.18,Assay of urine creatinine
+82575,9.46,Creatinine clearance test
+82585,14.14,Assay of cryofibrinogen
+82595,6.47,Assay of cryoglobulin
+82600,19.4,Assay of cyanide
+82607,15.08,Vitamin b-12
+82608,14.32,B-12 binding capacity
+82610,18.52,Cystatin c
+82615,9.55,Test for urine cystines
+82626,25.27,Dehydroepiandrosterone
+82627,22.23,Dehydroepiandrosterone
+82633,30.98,Desoxycorticosterone
+82634,29.28,Deoxycortisol
+82638,12.25,Assay of dibucaine number
+82642,29.28,Dihydrotestosterone
+82652,38.5,Vit d 1 25-dihydroxy
+82653,22.97,El-1 fecal quantitative
+82656,11.53,El-1 fecal qual/semiq
+82657,22.17,Enzyme cell activity
+82658,44.03,Enzyme cell activity ra
+82664,61.5,Electrophoretic test
+82668,18.79,Assay of erythropoietin
+82670,27.94,Assay of total estradiol
+82671,32.3,Assay of estrogens
+82672,21.7,Assay of estrogen
+82677,24.18,Assay of estriol
+82679,24.95,Assay of estrone
+82681,27.94,Assay dir meas fr estradiol
+82693,14.9,Assay of ethylene glycol
+82696,26.24,Assay of etiocholanolone
+82705,5.1,Fats/lipids feces qual
+82710,16.8,Fats/lipids feces quant
+82715,22.97,Assay of fecal fat
+82725,18.77,Assay of blood fatty acids
+82726,19.75,Long chain fatty acids
+82728,13.63,Assay of ferritin
+82731,64.41,Assay of fetal fibronectin
+82735,18.54,Assay of fluoride
+82746,14.7,Assay of folic acid serum
+82747,17.65,Assay of folic acid rbc
+82757,17.34,Assay of semen fructose
+82759,21.48,Assay of rbc galactokinase
+82760,11.2,Assay of galactose
+82775,21.07,Assay galactose transferase
+82776,11.74,Galactose transferase test
+82777,44.25,Galectin-3
+82784,9.3,Assay iga/igd/igg/igm each
+82785,16.46,Assay of ige
+82787,8.02,Igg 1 2 3 or 4 each
+82800,11.0,Blood ph
+82803,26.07,Blood gases any combination
+82805,78.77,Blood gases w/o2 saturation
+82810,9.77,Blood gases o2 sat only
+82820,13.34,Hemoglobin-oxygen affinity
+82930,6.71,Gastric analy w/ph ea spec
+82938,17.69,Gastrin test
+82941,17.63,Assay of gastrin
+82943,14.29,Assay of glucagon
+82945,3.93,Glucose other fluid
+82946,17.77,Glucagon tolerance test
+82947,3.93,Assay glucose blood quant
+82948,5.04,Reagent strip/blood glucose
+82950,4.75,Glucose test
+82951,12.87,Glucose tolerance test (gtt)
+82952,3.92,Gtt-added samples
+82955,9.7,Assay of g6pd enzyme
+82960,6.05,Test for g6pd enzyme
+82962,3.28,Glucose blood test
+82963,21.48,Assay of glucosidase
+82965,13.15,Assay of gdh enzyme
+82977,7.2,Assay of ggt
+82978,15.45,Assay of glutathione
+82979,9.44,Assay rbc glutathione
+82985,16.76,Assay of glycated protein
+83001,18.58,Assay of gonadotropin (fsh)
+83002,18.52,Assay of gonadotropin (lh)
+83003,16.67,Assay growth hormone (hgh)
+83006,75.6,Growth stimulation gene 2
+83009,67.36,H pylori (c-13) blood
+83010,12.58,Assay of haptoglobin quant
+83012,26.89,Assay of haptoglobins
+83013,67.36,H pylori (c-13) breath
+83014,7.86,H pylori drug admin
+83015,20.94,Heavy metal qual any number
+83018,21.96,Heavy metal quan each nes
+83020,12.87,Hemoglobin electrophoresis
+83021,18.06,Hemoglobin chromotography
+83026,4.01,Hemoglobin copper sulfate
+83030,10.74,Hemoglobin f fetal chemical
+83033,8.0,Hemoglobin ftl f assay qual
+83036,9.71,Hemoglobin glycosylated a1c
+83037,9.71,Hb glycosylated a1c home dev
+83045,6.49,Hgb methemoglobin qual
+83050,8.2,Hgb methemoglobin quan
+83051,7.31,Hemoglobin plasma
+83060,8.8,Hgb sulfhemoglobin quan
+83065,9.0,Hemoglobin thermolabile
+83068,9.47,Hemoglobin unstable screen
+83069,3.95,Hemoglobin urine
+83070,4.75,Assay of hemosiderin qual
+83080,16.87,Assay of b hexosaminidase ea
+83088,29.53,Assay of histamine
+83090,17.92,Assay of homocysteine
+83150,22.41,Assay of homovanillic acid
+83491,17.9,Asy hydroxycorticosteroids17
+83497,12.9,Assay of 5-hiaa
+83498,27.17,Asy hydroxyprogesterone 17-d
+83500,22.65,Assay free hydroxyproline
+83505,24.3,Assay total hydroxyproline
+83516,11.53,Immunoassay nonantibody
+83518,9.64,Immunoassay dipstick
+83519,18.4,Ria nonantibody
+83520,17.27,Immunoassay quant nos nonab
+83521,17.27,Ig light chains free each
+83525,11.43,Assay of insulin
+83527,12.95,Assay of insulin
+83528,19.82,Assay of intrinsic factor
+83529,17.27,Asay of interleukin-6 (il-6)
+83540,6.47,Assay of iron
+83550,8.74,Iron binding test
+83570,8.85,Assay of idh enzyme
+83582,15.47,Assay of ketogenic steroids
+83586,12.8,Assay 17- ketosteroids
+83593,28.5,Fractionation ketosteroids
+83605,11.57,Assay of lactic acid
+83615,6.04,Lactate (ld) (ldh) enzyme
+83625,12.79,Assay of ldh enzymes
+83630,19.7,Lactoferrin fecal (qual)
+83631,19.63,Lactoferrin fecal (quant)
+83632,20.22,Placental lactogen
+83633,11.25,Test urine for lactose
+83655,12.11,Assay of lead
+83661,21.99,L/s ratio fetal lung
+83662,18.91,Foam stability fetal lung
+83663,18.91,Fluoro polarize fetal lung
+83664,19.32,Lamellar bdy fetal lung
+83670,9.81,Assay of lap enzyme
+83690,6.89,Assay of lipase
+83695,14.32,Assay of lipoprotein(a)
+83698,46.31,Assay lipoprotein pla2
+83700,11.26,Lipopro bld electrophoretic
+83701,33.86,Lipoprotein bld hr fraction
+83704,34.19,Lipoprotein bld quan part
+83718,8.19,Assay of lipoprotein
+83719,12.75,Assay of blood lipoprotein
+83721,10.5,Assay of blood lipoprotein
+83722,34.19,Lipoprtn dir meas sd ldl chl
+83727,17.19,Assay of lrh hormone
+83735,6.7,Assay of magnesium
+83775,7.37,Assay malate dehydrogenase
+83785,26.65,Assay of manganese
+83789,24.11,Mass spectrometry qual/quan
+83825,16.26,Assay of mercury
+83835,16.94,Assay of metanephrines
+83857,10.74,Assay of methemalbumin
+83861,22.48,Microfluid analy tears
+83864,28.5,Mucopolysaccharides
+83872,5.86,Assay synovial fluid mucin
+83873,17.2,Assay of csf protein
+83874,12.92,Assay of myoglobin
+83876,50.86,Assay myeloperoxidase
+83880,39.26,Assay of natriuretic peptide
+83883,13.6,Assay nephelometry not spec
+83884,116.23,Assay neurflmnt light chain
+83885,24.51,Assay of nickel
+83915,11.15,Assay of nucleotidase
+83916,27.39,Oligoclonal bands
+83918,23.6,Organic acids total quant
+83919,16.45,Organic acids qual each
+83921,21.21,Organic acid single quant
+83930,6.61,Assay of blood osmolality
+83935,6.82,Assay of urine osmolality
+83937,29.85,Assay of osteocalcin
+83945,14.45,Assay of oxalate
+83950,64.41,Oncoprotein her-2/neu
+83951,64.41,Oncoprotein dcp
+83970,41.28,Assay of parathormone
+83986,3.58,Assay ph body fluid nos
+83987,3.58,Exhaled breath condensate
+83993,19.63,Assay for calprotectin fecal
+84030,5.5,Assay of blood pku
+84035,3.98,Assay of phenylketones
+84060,7.64,Assay acid phosphatase
+84066,9.66,Assay prostate phosphatase
+84075,5.18,Assay alkaline phosphatase
+84078,8.26,Assay alkaline phosphatase
+84080,14.78,Assay alkaline phosphatases
+84081,16.52,Assay phosphatidylglycerol
+84085,9.44,Assay of rbc pg6d enzyme
+84087,10.73,Assay phosphohexose enzymes
+84100,4.74,Assay of phosphorus
+84105,5.78,Assay of urine phosphorus
+84106,5.82,Test for porphobilinogen
+84110,8.44,Assay of porphobilinogen
+84112,98.11,Eval amniotic fluid protein
+84119,13.36,Test urine for porphyrins
+84120,14.71,Assay of urine porphyrins
+84126,39.11,Assay of feces porphyrins
+84132,4.76,Assay of serum potassium
+84133,4.73,Assay of urine potassium
+84134,14.59,Assay of prealbumin
+84135,21.27,Assay of pregnanediol
+84138,21.05,Assay of pregnanetriol
+84140,20.67,Assay of pregnenolone
+84143,22.81,Assay of 17-hydroxypregneno
+84144,20.86,Assay of progesterone
+84145,27.22,Procalcitonin (pct)
+84146,19.38,Assay of prolactin
+84150,41.77,Assay of prostaglandin
+84152,18.39,Assay of psa complexed
+84153,18.39,Assay of psa total
+84154,18.39,Assay of psa free
+84155,3.67,Assay of protein serum
+84156,3.67,Assay of protein urine
+84157,4.0,Assay of protein other
+84160,5.61,Assay of protein any source
+84163,15.05,Pappa serum
+84165,10.74,Protein e-phoresis serum
+84166,17.83,Protein e-phoresis/urine/csf
+84181,17.03,Western blot test
+84182,29.21,Protein western blot test
+84202,14.35,Assay rbc protoporphyrin
+84203,9.74,Test rbc protoporphyrin
+84206,26.69,Assay of proinsulin
+84207,28.1,Assay of vitamin b-6
+84210,14.48,Assay of pyruvate
+84220,9.44,Assay of pyruvate kinase
+84228,11.63,Assay of quinine
+84233,87.88,Assay of estrogen
+84234,64.88,Assay of progesterone
+84235,71.23,Assay of endocrine hormone
+84238,36.57,Assay nonendocrine receptor
+84244,21.99,Assay of renin
+84252,20.24,Assay of vitamin b-2
+84255,25.53,Assay of selenium
+84260,30.98,Assay of serotonin
+84270,21.73,Assay of sex hormone globul
+84275,13.44,Assay of sialic acid
+84285,25.21,Assay of silica
+84295,4.81,Assay of serum sodium
+84300,5.06,Assay of urine sodium
+84302,4.86,Assay of sweat sodium
+84305,21.26,Assay of somatomedin
+84307,18.28,Assay of somatostatin
+84311,8.1,Spectrophotometry
+84315,3.28,Body fluid specific gravity
+84375,39.0,Chromatogram assay sugars
+84376,5.5,Sugars single qual
+84377,5.5,Sugars multiple qual
+84378,11.53,Sugars single quant
+84379,11.53,Sugars multiple quant
+84392,5.49,Assay of urine sulfate
+84393,128.92,Tau phosphorylated ea
+84394,128.92,Total tau
+84402,25.47,Assay of free testosterone
+84403,25.81,Assay of total testosterone
+84410,51.28,Testosterone bioavailable
+84425,21.23,Assay of vitamin b-1
+84430,11.63,Assay of thiocyanate
+84431,35.11,Thromboxane urine
+84432,16.06,Assay of thyroglobulin
+84433,22.17,Asy thiopurin s-mthyltrnsfrs
+84436,6.87,Assay of total thyroxine
+84437,6.47,Assay of neonatal thyroxine
+84439,9.02,Assay of free thyroxine
+84442,14.78,Assay of thyroid activity
+84443,16.8,Assay thyroid stim hormone
+84445,50.86,Assay of tsi globulin
+84446,14.18,Assay of vitamin e
+84449,18.0,Assay of transcortin
+84450,5.18,Transferase (ast) (sgot)
+84460,5.3,Alanine amino (alt) (sgpt)
+84466,12.76,Assay of transferrin
+84478,5.74,Assay of triglycerides
+84479,6.47,Assay of thyroid (t3 or t4)
+84480,14.18,Assay triiodothyronine (t3)
+84481,16.94,Free assay (ft-3)
+84482,15.76,T3 reverse
+84484,12.47,Assay of troponin quant
+84485,7.2,Assay duodenal fluid trypsin
+84488,7.3,Test feces for trypsin
+84490,9.93,Assay of feces for trypsin
+84510,10.63,Assay of tyrosine
+84512,10.09,Assay of troponin qual
+84520,3.95,Assay of urea nitrogen
+84525,5.13,Urea nitrogen semi-quant
+84540,5.56,Assay of urine/urea-n
+84545,7.2,Urea-n clearance test
+84550,4.52,Assay of blood/uric acid
+84560,5.08,Assay of urine/uric acid
+84577,16.8,Assay of feces/urobilinogen
+84578,4.47,Test urine urobilinogen
+84580,9.55,Assay of urine urobilinogen
+84583,6.05,Assay of urine urobilinogen
+84585,15.5,Assay of urine vma
+84586,35.33,Assay of vip
+84588,33.94,Assay of vasopressin
+84590,11.61,Assay of vitamin a
+84591,17.06,Assay of nos vitamin
+84597,13.72,Assay of vitamin k
+84600,17.11,Assay of volatiles
+84620,12.91,Xylose tolerance test
+84630,11.39,Assay of zinc
+84681,20.81,Assay of c-peptide
+84702,15.05,Chorionic gonadotropin test
+84703,7.52,Chorionic gonadotropin assay
+84704,15.29,Hcg free betachain test
+84830,12.7,Ovulation tests
+85002,4.82,Bleeding time test
+85004,6.47,Automated diff wbc count
+85007,3.8,Bl smear w/diff wbc count
+85008,3.43,Bl smear w/o diff wbc count
+85009,5.07,Manual diff wbc count b-coat
+85013,7.0,Spun microhematocrit
+85014,2.37,Hematocrit
+85018,2.37,Hemoglobin
+85025,7.77,Complete cbc w/auto diff wbc
+85027,6.47,Complete cbc automated
+85032,4.31,Manual cell count each
+85041,3.02,Automated rbc count
+85044,4.31,Manual reticulocyte count
+85045,3.99,Automated reticulocyte count
+85046,5.57,Reticyte/hgb concentrate
+85048,2.54,Automated leukocyte count
+85049,4.48,Automated platelet count
+85055,35.74,Reticulated platelet assay
+85130,11.89,Chromogenic substrate assay
+85170,16.3,Blood clot retraction
+85175,20.37,Blood clot lysis time
+85210,12.98,Clot factor ii prothrom spec
+85220,17.65,Blooc clot factor v test
+85230,17.9,Clot factor vii proconvertin
+85240,17.9,Clot factor viii ahg 1 stage
+85244,20.42,Clot factor viii reltd antgn
+85245,22.94,Clot factor viii vw ristoctn
+85246,22.94,Clot factor viii vw antigen
+85247,22.94,Clot factor viii multimetric
+85250,19.04,Clot factor ix ptc/chrstmas
+85260,17.9,Clot factor x stuart-power
+85270,17.9,Clot factor xi pta
+85280,19.35,Clot factor xii hageman
+85290,16.34,Clot factor xiii fibrin stab
+85291,9.11,Clot factor xiii fibrin scrn
+85292,18.93,Clot factor fletcher fact
+85293,18.93,Clot factor wght kininogen
+85300,11.85,Antithrombin iii activity
+85301,10.81,Antithrombin iii antigen
+85302,12.01,Clot inhibit prot c antigen
+85303,13.84,Clot inhibit prot c activity
+85305,11.61,Clot inhibit prot s total
+85306,15.32,Clot inhibit prot s free
+85307,15.32,Assay activated protein c
+85335,12.87,Factor inhibitor test
+85337,17.27,Thrombomodulin
+85345,4.69,Coagulation time lee & white
+85347,4.28,Coagulation time activated
+85348,4.49,Coagulation time otr method
+85360,8.41,Euglobulin lysis
+85362,6.89,Fibrin degradation products
+85366,80.46,Fibrinogen test
+85370,12.43,Fibrinogen test
+85378,9.72,Fibrin degrade semiquant
+85379,10.18,Fibrin degradation quant
+85380,10.18,Fibrin degradj d-dimer
+85384,9.72,Fibrinogen activity
+85385,14.46,Fibrinogen antigen
+85390,15.48,Fibrinolysins screen i&r
+85397,30.86,Clotting funct activity
+85400,7.71,Fibrinolytic plasmin
+85410,7.71,Fibrinolytic antiplasmin
+85415,17.19,Fibrinolytic plasminogen
+85420,6.53,Fibrinolytic plasminogen
+85421,10.18,Fibrinolytic plasminogen
+85441,4.2,Heinz bodies direct
+85445,6.82,Heinz bodies induced
+85460,7.73,Hemoglobin fetal
+85461,9.36,Hemoglobin fetal
+85475,8.87,Hemolysin acid
+85520,13.09,Heparin assay
+85525,11.84,Heparin neutralization
+85530,13.09,Heparin-protamine tolerance
+85536,6.88,Iron stain peripheral blood
+85540,8.6,Wbc alkaline phosphatase
+85547,8.6,Rbc mechanical fragility
+85549,18.75,Muramidase
+85555,7.47,Rbc osmotic fragility
+85557,13.36,Rbc osmotic fragility
+85576,24.91,Blood platelet aggregation
+85597,17.98,Phospholipid pltlt neutraliz
+85598,17.98,Hexagnal phosph pltlt neutrl
+85610,4.29,Prothrombin time
+85611,3.94,Prothrombin test
+85612,17.49,Viper venom prothrombin time
+85613,9.58,Russell viper venom diluted
+85635,9.85,Reptilase test
+85651,4.27,Rbc sed rate nonautomated
+85652,2.7,Rbc sed rate automated
+85660,5.51,Rbc sickle cell test
+85670,5.77,Thrombin time plasma
+85675,6.85,Thrombin time titer
+85705,9.63,Thromboplastin inhibition
+85730,6.01,Thromboplastin time partial
+85732,6.47,Thromboplastin time partial
+85810,11.67,Blood viscosity examination
+86000,6.98,Agglutinins febrile antigen
+86001,7.82,Allergen specific igg
+86003,5.22,Allg spec ige crude xtrc ea
+86005,7.97,Allg spec ige multiallg scr
+86008,17.93,Allg spec ige recomb ea
+86015,12.05,Actin antibody each
+86021,15.05,Wbc antibody identification
+86022,18.37,Platelet antibodies
+86023,12.46,Immunoglobulin assay
+86036,12.05,Anca screen each antibody
+86037,12.05,Anca titer each antibody
+86038,12.09,Antinuclear antibodies
+86039,11.16,Antinuclear antibodies (ana)
+86041,18.4,Acetylcholn rcptr bndng antb
+86042,18.4,Acetylcholn rcptr blckg antb
+86043,12.05,Acetylcholn rcptr modlg antb
+86051,11.53,Aquaporin-4 antb elisa
+86052,12.05,Aquaporin-4 antb cba each
+86053,37.73,Aqaprn-4 antb flo cytmtry ea
+86060,7.3,Antistreptolysin o titer
+86063,5.77,Antistreptolysin o screen
+86140,5.18,C-reactive protein
+86141,12.95,C-reactive protein hs
+86146,25.45,Beta-2 glycoprotein antibody
+86147,25.45,Cardiolipin antibody ea ig
+86148,16.07,Anti-phospholipid antibody
+86152,250.78,Cell enumeration & id
+86155,15.99,Chemotaxis assay
+86156,8.07,Cold agglutinin screen
+86157,8.06,Cold agglutinin titer
+86160,12.0,Complement antigen
+86161,12.0,Complement/function activity
+86162,20.32,Complement total (ch50)
+86171,10.01,Complement fixation each
+86200,12.95,Ccp antibody
+86215,13.25,Deoxyribonuclease antibody
+86225,13.74,Dna antibody native
+86226,12.11,Dna antibody single strand
+86231,12.09,Ema each ig class
+86235,17.93,Nuclear antigen antibody
+86255,12.05,Fluorescent antibody screen
+86256,12.05,Fluorescent antibody titer
+86258,12.05,Dgp antibody each ig class
+86277,15.74,Growth hormone antibody
+86280,8.19,Hemagglutination inhibition
+86294,25.57,Immunoassay tumor qual
+86300,20.81,Immunoassay tumor ca 15-3
+86301,20.81,Immunoassay tumor ca 19-9
+86304,20.81,Immunoassay tumor ca 125
+86305,20.81,Human epididymis protein 4
+86308,5.18,Heterophile antibody screen
+86309,6.47,Heterophile antibody titer
+86310,7.37,Heterophile antibody absrbj
+86316,20.81,Immunoassay tumor other
+86317,14.99,Immunoassay infectious agent
+86318,18.09,Ia infectious agent antibody
+86320,29.92,Serum immunoelectrophoresis
+86325,23.13,Other immunoelectrophoresis
+86328,45.28,Ia nfct ab sarscov2 covid19
+86329,14.05,Immunodiffusion nes
+86331,11.98,Immunodiffusion ouchterlony
+86332,24.37,Immune complex assay
+86334,22.34,Immunofix e-phoresis serum
+86335,29.35,Immunfix e-phorsis/urine/csf
+86336,15.59,Inhibin a
+86337,21.41,Insulin antibodies
+86340,15.08,Intrinsic factor antibody
+86341,23.57,Islet cell antibody
+86343,12.46,Leukocyte histamine release
+86344,10.39,Leukocyte phagocytosis
+86352,135.86,Cell function assay w/stim
+86353,49.03,Lymphocyte transformation
+86355,37.73,B cells total count
+86356,26.78,Mononuclear cell antigen
+86357,37.73,Nk cells total count
+86359,37.73,T cells total count
+86360,46.98,T cell absolute count/ratio
+86361,26.78,T cell absolute count
+86362,12.05,Mog-igg1 antb cba each
+86363,37.73,Mog-igg1 antb flo cytmtry ea
+86364,11.53,Tiss trnsgltmnase ea ig clas
+86366,18.4,Muscle-specific kinase antb
+86367,77.78,Stem cells total count
+86376,14.55,Microsomal antibody each
+86381,25.45,Mitochondrial antibody each
+86382,16.91,Neutralization test viral
+86384,13.61,Nitroblue tetrazolium dye
+86386,21.78,Nuclear matrix protein 22
+86403,11.54,Particle agglut antbdy scrn
+86406,10.64,Particle agglut antbdy titr
+86408,42.13,Neutrlzg antb sarscov2 scr
+86409,79.61,Neutrlzg antb sarscov2 titer
+86413,51.43,Sars-cov-2 antb quantitative
+86430,6.14,Rheumatoid factor test qual
+86431,5.67,Rheumatoid factor quant
+86480,61.98,Tb test cell immun measure
+86481,100.0,Tb ag response t-cell susp
+86581,92.03,Strptcs pneum antb serot ia
+86590,12.66,Streptokinase antibody
+86592,4.27,Syphilis test non-trep qual
+86593,4.4,Syphilis test non-trep quant
+86596,12.05,Voltage-gtd ca chnl antb ea
+86602,10.18,Antinomyces antibody
+86603,12.87,Adenovirus antibody
+86606,15.05,Aspergillus antibody
+86609,12.88,Bacterium antibody
+86611,10.18,Bartonella antibody
+86612,12.9,Blastomyces antibody
+86615,13.19,Bordetella antibody
+86617,15.49,Lyme disease antibody
+86618,17.03,Lyme disease antibody
+86619,13.38,Borrelia antibody
+86622,8.93,Brucella antibody
+86625,13.12,Campylobacter antibody
+86628,12.01,Candida antibody
+86631,11.82,Chlamydia antibody
+86632,12.68,Chlamydia igm antibody
+86635,11.47,Coccidioides antibody
+86638,12.12,Q fever antibody
+86641,14.41,Cryptococcus antibody
+86644,14.39,Cmv antibody
+86645,16.85,Cmv antibody igm
+86648,15.21,Diphtheria antibody
+86651,13.19,Encephalitis californ antbdy
+86652,13.19,Encephaltis east eqne anbdy
+86653,13.19,Encephaltis st louis antbody
+86654,13.19,Encephaltis west eqne antbdy
+86658,13.03,Enterovirus antibody
+86663,13.12,Epstein-barr antibody
+86664,15.29,Epstein-barr nuclear antigen
+86665,18.14,Epstein-barr capsid vca
+86666,10.18,Ehrlichia antibody
+86668,14.16,Francisella tularensis
+86671,12.25,Fungus nes antibody
+86674,14.72,Giardia lamblia antibody
+86677,16.85,Helicobacter pylori antibody
+86682,13.01,Helminth antibody
+86684,15.84,Hemophilus influenza antibdy
+86687,9.09,Htlv-i antibody
+86688,14.0,Htlv-ii antibody
+86689,19.35,Htlv/hiv confirmj antibody
+86692,17.16,Hepatitis delta agent antbdy
+86694,14.39,Herpes simplex nes antbdy
+86695,13.19,Herpes simplex type 1 test
+86696,19.35,Herpes simplex type 2 test
+86698,13.79,Histoplasma antibody
+86701,8.89,Hiv-1antibody
+86702,13.52,Hiv-2 antibody
+86703,13.71,Hiv-1/hiv-2 1 result antbdy
+86704,12.05,Hep b core antibody total
+86705,11.77,Hep b core antibody igm
+86706,10.74,Hep b surface antibody
+86707,11.57,Hepatitis be antibody
+86708,12.39,Hepatitis a antibody
+86709,11.26,Hepatitis a igm antibody
+86710,13.55,Influenza virus antibody
+86711,16.89,John cunningham antibody
+86713,15.3,Legionella antibody
+86717,12.25,Leishmania antibody
+86720,16.2,Leptospira antibody
+86723,13.19,Listeria monocytogenes
+86727,12.87,Lymph choriomeningitis ab
+86732,15.0,Mucormycosis antibody
+86735,13.05,Mumps antibody
+86738,13.24,Mycoplasma antibody
+86741,13.19,Neisseria meningitidis
+86744,15.99,Nocardia antibody
+86747,15.03,Parvovirus antibody
+86750,13.19,Malaria antibody
+86753,12.39,Protozoa antibody nos
+86756,15.89,Respiratory virus antibody
+86757,19.35,Rickettsia antibody
+86759,18.23,Rotavirus antibody
+86762,14.39,Rubella antibody
+86765,12.88,Rubeola antibody
+86768,13.19,Salmonella antibody
+86769,42.13,Sars-cov-2 covid-19 antibody
+86771,24.48,Shigella antibody
+86774,14.8,Tetanus antibody
+86777,14.39,Toxoplasma antibody
+86778,14.41,Toxoplasma antibody igm
+86780,13.24,Treponema pallidum
+86784,12.56,Trichinella antibody
+86787,12.88,Varicella-zoster antibody
+86788,16.85,West nile virus ab igm
+86789,14.39,West nile virus antibody
+86790,12.88,Virus antibody nos
+86793,13.19,Yersinia antibody
+86794,16.85,Zika virus igm antibody
+86800,15.91,Thyroglobulin antibody
+86803,14.27,Hepatitis c ab test
+86804,15.49,Hep c ab test confirm
+86805,189.51,Lymphocytotoxicity assay
+86806,47.59,Lymphocytotoxicity assay
+86807,78.65,Cytotoxic antibody screening
+86808,29.68,Cytotoxic antibody screening
+86812,25.81,Hla typing a b or c
+86813,58.0,Hla typing a b or c
+86816,30.17,Hla typing dr/dq
+86817,106.14,Hla typing dr/dq
+86821,36.56,Lymphocyte culture mixed
+86825,109.49,Hla x-math non-cytotoxic
+86826,36.53,Hla x-match noncytotoxc addl
+86828,64.19,Hla class i&ii antibody qual
+86829,64.19,Hla class i/ii antibody qual
+86830,95.52,Hla class i phenotype qual
+86831,81.88,Hla class ii phenotype qual
+86832,323.75,Hla class i high defin qual
+86833,325.8,Hla class ii high defin qual
+86834,357.56,Hla class i semiquant panel
+86835,322.96,Hla class ii semiquant panel
+86850,9.77,Rbc antibody screen
+86880,5.39,Coombs test direct
+86885,5.72,Coombs test indirect qual
+86886,5.18,Coombs test indirect titer
+86900,2.99,Blood typing serologic abo
+86901,2.99,Blood typing serologic rh(d)
+86902,6.35,Blood type antigen donor ea
+86904,16.34,Blood typing patient serum
+86905,3.83,Blood typing rbc antigens
+86906,7.75,Bld typing serologic rh phnt
+86940,8.77,Hemolysins/agglutinins auto
+86941,12.11,Hemolysins/agglutinins
+87003,16.84,Small animal inoculation
+87015,6.68,Specimen infect agnt concntj
+87040,10.32,Blood culture for bacteria
+87045,9.44,Feces culture aerobic bact
+87046,9.44,Stool cultr aerobic bact ea
+87070,8.62,Culture othr specimn aerobic
+87071,9.89,Culture aerobic quant other
+87073,9.66,Culture bacteria anaerobic
+87075,9.47,Cultr bacteria except blood
+87076,8.08,Culture anaerobe ident each
+87077,8.08,Culture aerobic identify
+87081,6.63,Culture screen only
+87084,27.07,Culture of specimen by kit
+87086,8.07,Urine culture/colony count
+87088,8.09,Urine bacteria culture
+87101,7.71,Skin fungi culture
+87102,8.41,Fungus isolation culture
+87103,20.46,Blood fungus culture
+87106,10.32,Fungi identification yeast
+87107,10.32,Fungi identification mold
+87109,15.39,Mycoplasma
+87110,19.6,Chlamydia culture
+87116,10.8,Mycobacteria culture
+87118,14.61,Mycobacteric identification
+87140,5.57,Culture type immunofluoresc
+87143,12.52,Culture typing glc/hplc
+87147,5.18,Culture type immunologic
+87149,20.05,Dna/rna direct probe
+87150,35.09,Dna/rna amplified probe
+87152,7.74,Culture type pulse field gel
+87153,115.36,Dna/rna sequencing
+87154,218.06,Cul typ id bld pthgn 6+ trgt
+87158,7.74,Culture typing added method
+87164,10.74,Dark field exam spec collj
+87166,11.3,Dark field exam w/o collj
+87168,4.27,Macroscopic exam arthropod
+87169,4.31,Macroscopic exam parasite
+87172,4.27,Pinworm exam
+87176,5.88,Tissue homogenization cultr
+87177,8.9,Ova and parasites smears
+87181,4.75,Sc std agar dilution per agt
+87183,35.09,Sc std carbapenem resist gen
+87184,7.48,Sc std disk method per plate
+87185,4.75,Sc std enzyme detcj per nzm
+87186,8.65,Sc std microdil/agar dil
+87187,40.17,Sc std microdil/agar mlc
+87188,6.64,Sc std macrobroth dil meth
+87190,7.31,Sc std myobacteria prop meth
+87197,15.02,Serum bactericidal titer
+87205,4.27,Smear gram stain
+87206,5.39,Smear fluorescent/acid stai
+87207,5.99,Smear special stain
+87209,17.98,Smear complex stain
+87210,5.82,Smear wet mount saline/ink
+87220,4.27,Tissue exam for fungi
+87230,19.74,Toxin/antitoxin asy tiss cul
+87250,19.56,Virus inoculate eggs/animal
+87252,26.07,Virus inoculation tissue
+87253,20.2,Virus inoculate tissue addl
+87254,19.56,Virus inoculation shell via
+87255,33.86,Genet virus isolate hsv
+87260,14.43,Adenovirus ag if
+87265,11.98,Pertussis ag if
+87267,13.42,Enterovirus antibody dfa
+87269,13.61,Giardia ag if
+87270,11.98,Chlamydia trachomatis ag if
+87271,13.42,Cytomegalovirus dfa
+87272,11.98,Cryptosporidium ag if
+87273,11.98,Herpes simplex 2 ag if
+87274,11.98,Herpes simplex 1 ag if
+87275,12.25,Influenza b ag if
+87276,16.07,Influenza a ag if
+87278,15.6,Legion pneumophilia ag if
+87279,16.43,Parainfluenza ag if
+87280,13.42,Respiratory syncytial ag if
+87281,11.98,Pneumocystis carinii ag if
+87283,60.8,Rubeola ag if
+87285,12.18,Treponema pallidum ag if
+87290,13.42,Varicella zoster ag if
+87299,16.1,Antibody detection nos if
+87300,11.98,Ag detection polyval if
+87301,11.98,Adenovirus ag ia
+87305,11.98,Aspergillus ag ia
+87320,15.0,Chlmyd trach ag ia
+87324,11.98,Clostridium ag ia
+87327,13.42,Cryptococcus neoform ag ia
+87328,13.82,Cryptosporidium ag ia
+87329,11.98,Giardia ag ia
+87332,11.98,Cytomegalovirus ag ia
+87335,12.66,E coli 0157 ag ia
+87336,16.0,Entamoeb hist dispr ag ia
+87337,11.98,Entamoeb hist group ag ia
+87338,14.38,Hpylori stool ag ia
+87339,16.0,H pylori ag ia
+87340,10.33,Hepatitis b surface ag ia
+87341,10.33,Hep b surface ag neutrlzj ia
+87350,11.53,Hepatitis be ag ia
+87380,18.36,Hepatitis delta agent ag ia
+87385,13.25,Histoplasma capsul ag ia
+87389,24.08,Hiv-1 ag w/hiv-1&-2 ab ag ia
+87390,24.06,Hiv-1 ag ia
+87391,21.9,Hiv-2 ag ia
+87400,14.13,Influenza a/b each ag ia
+87420,13.91,Resp syncytial virus ag ia
+87425,11.98,Rotavirus ag ia
+87426,35.33,Sarscov coronavirus ag ia
+87427,11.98,Shiga-like toxin ag ia
+87428,70.29,Sarscov & inf vir a&b ag ia
+87430,16.81,Strep a ag ia
+87449,11.98,Nos each organism ag ia
+87451,10.51,Polyvalent mult org ea ag ia
+87467,25.32,Hepatitis b surface ag quan
+87468,35.09,Anaplsma phgcytophlm amp prb
+87469,35.09,Babesia microti amp prb
+87471,35.09,Bartonella dna amp probe
+87472,42.84,Bartonella dna quant
+87475,20.05,Lyme dis dna dir probe
+87476,35.09,Lyme dis dna amp probe
+87478,35.09,Borrelia miyamotoi amp prb
+87480,20.05,Candida dna dir probe
+87481,35.09,Candida dna amp probe
+87482,55.74,Candida dna quant
+87483,416.78,Cns dna amp probe type 12-25
+87484,35.09,Ehrlicha chaffeensis amp prb
+87485,20.05,Chlmyd pneum dna dir probe
+87486,35.09,Chlmyd pneum dna amp probe
+87487,42.84,Chlmyd pneum dna quant
+87490,22.75,Chlmyd trach dna dir probe
+87491,35.09,Chlmyd trach dna amp probe
+87492,53.47,Chlmyd trach dna quant
+87493,37.27,C diff amplified probe
+87494,70.18,Chlmy trch&neisra gonor mult
+87495,30.03,Cytomeg dna dir probe
+87496,35.09,Cytomeg dna amp probe
+87497,42.84,Cytomeg dna quant
+87498,35.09,Enterovirus probe&revrs trns
+87500,35.09,Vanomycin dna amp probe
+87501,51.31,Influenza dna amp prob 1+
+87502,95.8,Influenza dna amp probe
+87503,29.22,Influenza dna amp prob addl
+87505,128.29,Nfct agent detection gi
+87506,262.99,Iadna-dna/rna probe tq 6-11
+87507,416.78,Iadna-dna/rna probe tq 12-25
+87510,20.05,Gardner vag dna dir probe
+87511,35.09,Gardner vag dna amp probe
+87512,41.76,Gardner vag dna quant
+87513,35.09,H pylri clrthmcn rst amp prb
+87516,35.09,Hepatitis b dna amp probe
+87517,42.84,Hepatitis b dna quant
+87520,31.22,Hepatitis c rna dir probe
+87521,35.09,Hepatitis c probe&rvrs trnsc
+87522,42.84,Hepatitis c revrs trnscrpj
+87523,42.84,Hepatitis d quantification
+87525,29.8,Hepatitis g dna dir probe
+87526,39.26,Hepatitis g dna amp probe
+87527,41.76,Hepatitis g dna quant
+87528,20.05,Hsv dna dir probe
+87529,35.09,Hsv dna amp probe
+87530,42.84,Hsv dna quant
+87531,58.0,Hhv-6 dna dir probe
+87532,35.09,Hhv-6 dna amp probe
+87533,41.76,Hhv-6 dna quant
+87534,21.92,Hiv-1 dna dir probe
+87535,35.09,Hiv-1 probe&reverse trnscrpj
+87536,85.1,Hiv-1 quant&revrse trnscrpj
+87537,21.92,Hiv-2 dna dir probe
+87538,35.09,Hiv-2 probe&revrse trnscripj
+87539,58.62,Hiv-2 quant&revrse trnscripj
+87540,20.05,Legion pneumo dna dir prob
+87541,35.09,Legion pneumo dna amp prob
+87542,41.76,Legion pneumo dna quant
+87550,20.05,Mycobacteria dna dir probe
+87551,48.24,Mycobacteria dna amp probe
+87552,42.84,Mycobacteria dna quant
+87555,26.88,M.tuberculo dna dir probe
+87556,41.68,M.tuberculo dna amp probe
+87557,42.84,M.tuberculo dna quant
+87560,27.29,M.avium-intra dna dir prob
+87561,35.09,M.avium-intra dna amp prob
+87562,42.84,M.avium-intra dna quant
+87563,35.09,M. genitalium amp probe
+87564,76.77,Mtb rifampin rst amp prb tq
+87580,20.05,M.pneumon dna dir probe
+87581,35.09,M.pneumon dna amp probe
+87582,302.62,M.pneumon dna quant
+87590,26.88,N.gonorrhoeae dna dir prob
+87591,35.09,N.gonorrhoeae dna amp prob
+87592,42.84,N.gonorrhoeae dna quant
+87593,51.31,Orthopoxvirus amp prb each
+87594,35.09,Pneumcysts jirovecii amp prb
+87623,35.09,Hpv low-risk types
+87624,35.09,Hpv hi-risk typ pooled rslt
+87625,40.55,Hpv types 16 & 18 only
+87626,70.2,Hpv sep hi-rsk typ&pool rslt
+87627,679.77,Jt spc pthgn&rx rsist gen26+
+87631,142.63,Resp virus 3-5 targets
+87632,218.06,Resp virus 6-11 targets
+87633,416.78,Resp virus 12-25 targets
+87634,70.2,Rsv dna/rna amp probe
+87635,51.31,Sars-cov-2 covid-19 amp prb
+87636,142.63,Sarscov2 & inf a&b amp prb
+87637,142.63,Sarscov2&inf a&b&rsv amp prb
+87640,35.09,Staph a dna amp probe
+87641,35.09,Mr-staph dna amp probe
+87650,20.05,Strep a dna dir probe
+87651,35.09,Strep a dna amp probe
+87652,41.76,Strep a dna quant
+87653,35.09,Strep b dna amp probe
+87660,20.05,Trichomonas vagin dir probe
+87661,35.09,Trichomonas vaginalis amplif
+87662,51.31,Zika virus dna/rna amp probe
+87797,30.03,Detect agent nos dna dir
+87798,35.09,Detect agent nos dna amp
+87799,42.84,Detect agent nos dna quant
+87800,43.67,Detect agnt mult dna direc
+87801,70.2,Detect agnt mult dna ampli
+87802,12.73,Strep b assay w/optic
+87803,16.0,Clostridium toxin a w/optic
+87804,16.55,Influenza assay w/optic
+87806,32.77,Hiv ag w/hiv1&2 antb w/optic
+87807,13.1,Rsv assay w/optic
+87808,15.29,Trichomonas assay w/optic
+87809,21.76,Adenovirus assay w/optic
+87810,35.29,Chlmyd trach assay w/optic
+87811,41.38,Sars-cov-2 covid19 w/optic
+87812,74.48,Sarscov2&inf typ a&b w/optic
+87850,24.56,N. gonorrhoeae assay w/optic
+87880,16.53,Strep a assay w/optic
+87899,16.07,Agent nos assay w/optic
+87900,130.35,Phenotype infect agent drug
+87901,257.45,Nfct agt gntyp alys hiv1 rev
+87902,257.45,Nfct agt gntyp alys hep c
+87903,488.66,Phenotype dna hiv w/culture
+87904,26.07,Phenotype dna hiv w/clt add
+87905,12.22,Ia nzmtc actv oth/thn virus
+87906,128.73,Nfct agt gntyp alys hiv1
+87910,257.45,Nfct agt gntyp alys cmv
+87912,257.45,Nfct agt gntyp alys hep b
+87913,257.45,Nfct agt gntyp alys sarscov2
+88130,17.98,Sex chromatin identification
+88140,7.99,Sex chromatin identification
+88142,20.26,Cytopath c/v thin layer
+88143,23.04,Cytopath c/v thin layer redo
+88147,50.56,Cytopath c/v automated
+88148,18.54,Cytopath c/v auto rescreen
+88150,18.54,Cytopath c/v manual
+88152,27.64,Cytopath c/v auto redo
+88153,24.03,Cytopath c/v redo
+88155,14.65,Cytopath c/v index add-on
+88164,18.54,Cytopath tbs c/v manual
+88165,42.22,Cytopath tbs c/v redo
+88166,18.54,Cytopath tbs c/v auto redo
+88167,18.54,Cytopath tbs c/v select
+88174,25.37,Cytopath c/v auto in fluid
+88175,26.61,Cytopath c/v auto fluid redo
+88230,116.49,Tissue culture lymphocyte
+88233,140.73,Tissue culture skin/biopsy
+88235,150.3,Tissue culture placenta
+88237,143.75,Tissue culture bone marrow
+88239,147.52,Tissue culture tumor
+88240,13.07,Cell cryopreserve/storage
+88241,12.09,Frozen cell preparation
+88245,173.17,Chromosome analysis 20-25
+88248,173.17,Chromosome analysis 50-100
+88249,173.17,Chromosome analysis 100
+88261,264.34,Chromosome analysis 5
+88262,125.49,Chromosome analysis 15-20
+88263,150.29,Chromosome analysis 45
+88264,144.61,Chromosome analysis 20-25
+88267,188.57,Chromosome analys placenta
+88269,173.66,Chromosome analys amniotic
+88271,21.42,Cytogenetics dna probe
+88272,40.7,Cytogenetics 3-5
+88273,34.81,Cytogenetics 10-30
+88274,42.38,Cytogenetics 25-99
+88275,51.19,Cytogenetics 100-300
+88280,33.47,Chromosome karyotype study
+88283,68.6,Chromosome banding study
+88285,26.91,Chromosome count additional
+88289,34.43,Chromosome study additional
+88371,22.23,Protein western blot tissue
+88372,26.22,Protein analysis w/probe
+88720,5.02,Bilirubin total transcut
+88738,5.02,Hgb quant transcutaneous
+88740,9.37,Transcutaneous carboxyhb
+88741,9.37,Transcutaneous methb
+89050,4.72,Body fluid cell count
+89051,5.6,Body fluid cell count
+89055,4.27,Leukocyte assessment fecal
+89060,7.33,Exam synovial fluid crystals
+89125,5.88,Specimen fat stain
+89160,4.85,Exam feces for meat fibers
+89190,5.79,Nasal smear for eosinophils
+89300,9.84,Semen analysis w/huhner
+89310,8.61,Semen analysis w/count
+89320,12.31,Semen anal vol/count/mot
+89321,12.05,Semen anal sperm detection
+89322,15.5,Semen anal strict criteria
+89325,10.67,Sperm antibody test
+89329,19.59,Sperm evaluation test
+89330,10.38,Evaluation cervical mucus
+89331,19.59,Retrograde ejaculation anal
+G0027,6.5,Semen analysis
+G0103,19.31,Psa screening
+G0123,20.26,Screen cerv/vag thin layer
+G0143,27.05,"Scr c/v cyto,thinlayer,rescr"
+G0144,43.97,"Scr c/v cyto,thinlayer,rescr"
+G0145,26.49,"Scr c/v cyto,thinlayer,rescr"
+G0147,18.54,"Scr c/v cyto, automated sys"
+G0148,31.94,"Scr c/v cyto, autosys, rescr"
+G0306,7.77,Cbc/diffwbc w/o platelet
+G0307,6.47,Cbc without platelet
+G0328,18.05,Fecal blood scrn immunoassay
+G0432,19.57,Eia hiv-1/hiv-2 screen
+G0433,18.29,Elisa hiv-1/hiv-2 screen
+G0435,11.98,Oral hiv-1/hiv-2 screen
+G0471,11.34,Ven blood coll snf/hha
+G0472,46.35,Hep c screen high risk/other
+G0475,24.08,Hiv combination assay
+G0476,35.09,Hpv combo assay ca screen
+G0480,114.43,Drug test def 1-7 classes
+G0481,156.59,Drug test def 8-14 classes
+G0482,198.74,Drug test def 15-21 classes
+G0483,246.92,Drug test def 22+ classes
+G0499,28.27,Hepb screen high risk indiv
+G0567,35.09,Screening hep c detect
+G0659,62.14,Drug test def simple all cl
+G9143,120.72,Warfarin respon genetic test
+P2028,4.95,Cephalin floculation test
+P2029,4.95,Congo red blood test
+P2031,4.95,Hair analysis
+P2033,4.95,Blood thymol turbidity
+P2038,4.95,Blood mucoprotein
+P3000,18.54,Screen pap by tech w md supv
+P9612,9.34,Catheterize for urine spec
+P9615,9.34,Urine specimen collect mult
+Q0111,18.54,Wet mounts/ w preparations
+Q0112,5.83,Potassium hydroxide preps
+Q0113,4.27,Pinworm examinations
+Q0114,9.74,Fern test
+Q0115,25.0,Post-coital mucous exam
+U0001,35.92,2019-ncov diagnostic p
+U0002,51.31,Covid-19 lab test non-cdc

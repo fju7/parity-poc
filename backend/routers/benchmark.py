@@ -28,6 +28,7 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 pfs_rates: pd.DataFrame = pd.DataFrame()
 zip_locality: pd.DataFrame = pd.DataFrame()
 opps_rates: pd.DataFrame = pd.DataFrame()
+clfs_rates: pd.DataFrame = pd.DataFrame()
 
 
 def _mem_mb() -> float:
@@ -44,13 +45,14 @@ def load_data():
 
     Memory-optimised: uses only needed columns, float32, and category dtypes.
     """
-    global pfs_rates, zip_locality, opps_rates
+    global pfs_rates, zip_locality, opps_rates, clfs_rates
 
     mem_before = _mem_mb()
 
     pfs_path = DATA_DIR / "pfs_rates.csv"
     zip_path = DATA_DIR / "zip_locality.csv"
     opps_path = DATA_DIR / "opps_rates.csv"
+    clfs_path = DATA_DIR / "clfs_rates.csv"
 
     # --- PFS rates (841K rows) ---
     # All 5 columns are needed; load amounts as float32 directly
@@ -99,6 +101,18 @@ def load_data():
     opps_rates.set_index("hcpcs_code", inplace=True)
     opps_rates.sort_index(inplace=True)
 
+    # --- CLFS rates (2K rows) ---
+    clfs_rates = pd.read_csv(
+        clfs_path,
+        usecols=["hcpcs_code", "payment_rate", "description"],
+        dtype={"hcpcs_code": str},
+    )
+    clfs_rates["payment_rate"] = pd.to_numeric(
+        clfs_rates["payment_rate"], errors="coerce"
+    ).astype("float32")
+    clfs_rates.set_index("hcpcs_code", inplace=True)
+    clfs_rates.sort_index(inplace=True)
+
     gc.collect()
 
     mem_after = _mem_mb()
@@ -106,13 +120,15 @@ def load_data():
         pfs_rates.memory_usage(deep=True).sum()
         + zip_locality.memory_usage(deep=True).sum()
         + opps_rates.memory_usage(deep=True).sum()
+        + clfs_rates.memory_usage(deep=True).sum()
     ) / 1024 / 1024
 
     print(
         f"Loaded benchmark data: "
         f"{len(pfs_rates):,} PFS rates, "
         f"{len(zip_locality):,} ZIP mappings, "
-        f"{len(opps_rates):,} OPPS rates"
+        f"{len(opps_rates):,} OPPS rates, "
+        f"{len(clfs_rates):,} CLFS rates"
     )
     print(
         f"Memory: {mem_before:.0f} MB -> {mem_after:.0f} MB "
@@ -229,7 +245,11 @@ def lookup_rate(
     if rate is not None:
         return rate, "CMS_OPPS_2026", locality
 
-    # If code_type was UNKNOWN, we already tried both
+    # Try CLFS lookup (clinical laboratory codes)
+    rate = lookup_clfs(code)
+    if rate is not None:
+        return rate, "CMS_CLFS_2026", locality
+
     return None, "NOT_FOUND", locality
 
 
@@ -271,6 +291,20 @@ def lookup_opps(code: str) -> Optional[float]:
     return None
 
 
+def lookup_clfs(code: str) -> Optional[float]:
+    """Look up a code in the CLFS (Clinical Laboratory Fee Schedule) rates table."""
+    try:
+        row = clfs_rates.loc[code]
+        if isinstance(row, pd.DataFrame):
+            row = row.iloc[0]
+        rate = float(row["payment_rate"])
+        if rate > 0:
+            return round(rate, 2)
+    except KeyError:
+        pass
+    return None
+
+
 # ---------------------------------------------------------------------------
 # CPT description lookup
 # ---------------------------------------------------------------------------
@@ -291,6 +325,15 @@ def cpt_description(code: str):
     # Look up in OPPS rates (which have descriptions)
     if code in opps_rates.index:
         row = opps_rates.loc[code]
+        if isinstance(row, pd.DataFrame):
+            row = row.iloc[0]
+        desc = row.get("description", "")
+        if desc and str(desc) != "nan":
+            return CPTDescriptionResponse(code=code, description=str(desc), found=True)
+
+    # Try CLFS (which has descriptions for lab codes)
+    if code in clfs_rates.index:
+        row = clfs_rates.loc[code]
         if isinstance(row, pd.DataFrame):
             row = row.iloc[0]
         desc = row.get("description", "")
