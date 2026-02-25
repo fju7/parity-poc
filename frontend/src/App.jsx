@@ -77,6 +77,8 @@ export default function App() {
   const [eobData, setEobData] = useState(null);
   const [eobExtracted, setEobExtracted] = useState(null);
   const [eobParseError, setEobParseError] = useState(false);
+  const [eobOverloaded, setEobOverloaded] = useState(false);
+  const [eobPages, setEobPages] = useState(null);
   const [nppesResult, setNppesResult] = useState(null);
   const [nppesLoading, setNppesLoading] = useState(false);
   const [itemizedReason, setItemizedReason] = useState(null);
@@ -231,6 +233,8 @@ export default function App() {
     setEobData(null);
     setEobExtracted(null);
     setEobParseError(false);
+    setEobOverloaded(false);
+    setEobPages(null);
     setNppesResult(null);
     setNppesLoading(false);
     setOnboardingData({
@@ -257,6 +261,8 @@ export default function App() {
     setEobData(null);
     setEobExtracted(null);
     setEobParseError(false);
+    setEobOverloaded(false);
+    setEobPages(null);
     setNppesResult(null);
     setNppesLoading(false);
     setItemizedReason(null);
@@ -528,18 +534,23 @@ export default function App() {
           const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
           try {
             const pages = await renderPDFToBase64(file);
+            setEobPages(pages); // Store for retry
             const response = await fetchWithTimeout(
               `${API_BASE}/api/parse-eob`,
               { pages }
             );
             clearTimeout(slowTimer);
             setSlowServer(false);
-            setEobExtracted(response);
+            if (response.error === "overloaded") {
+              setEobExtracted({});
+              setEobOverloaded(true);
+            } else {
+              setEobExtracted(response);
+            }
           } catch (err) {
             clearTimeout(slowTimer);
             setSlowServer(false);
             console.warn("EOB AI extraction failed:", err.message);
-            // Graceful fallback — show EOB screen with empty fields
             setEobExtracted({});
             setEobParseError(true);
           }
@@ -725,6 +736,40 @@ export default function App() {
     }
   }, [runPipeline]);
 
+  // ----- EOB: retry parse when overloaded -----
+  const handleRetryEobParse = useCallback(async () => {
+    if (!eobPages) return;
+    setEobOverloaded(false);
+    setEobParseError(false);
+    setProcessingStep(0);
+    setSlowServer(false);
+    setView("processing");
+
+    const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
+    try {
+      const response = await fetchWithTimeout(
+        `${API_BASE}/api/parse-eob`,
+        { pages: eobPages }
+      );
+      clearTimeout(slowTimer);
+      setSlowServer(false);
+      if (response.error === "overloaded") {
+        setEobExtracted({});
+        setEobOverloaded(true);
+      } else {
+        setEobExtracted(response);
+        setEobOverloaded(false);
+      }
+    } catch (err) {
+      clearTimeout(slowTimer);
+      setSlowServer(false);
+      console.warn("EOB AI retry failed:", err.message);
+      setEobExtracted({});
+      setEobParseError(true);
+    }
+    setView("eob-detected");
+  }, [eobPages]);
+
   // ----- EOB: request itemized bill (triggers NPPES lookup) -----
   const handleRequestItemizedFromEOB = useCallback(async () => {
     setItemizedReason("eob_detected");
@@ -777,7 +822,9 @@ export default function App() {
       <EOBDetectedView
         eobExtracted={eobExtracted}
         eobParseError={eobParseError}
+        eobOverloaded={eobOverloaded}
         onRequestItemized={handleRequestItemizedFromEOB}
+        onRetryParse={handleRetryEobParse}
         onUploadItemized={handleReset}
       />
     );
@@ -945,6 +992,13 @@ async function fetchWithTimeout(url, body) {
     });
 
     if (!response.ok) {
+      // Parse 503 overloaded responses so the caller can handle them
+      if (response.status === 503) {
+        try {
+          const body = await response.json();
+          if (body.error === "overloaded") return body;
+        } catch { /* fall through to throw */ }
+      }
       throw new Error(`API error: ${response.status}`);
     }
 

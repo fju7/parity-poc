@@ -128,9 +128,10 @@ def parse_eob(req: EOBParseRequest):
         "text": "Extract the key information from this Explanation of Benefits document. Return only the JSON structure specified in the system prompt.",
     })
 
-    # Call Claude with retry on 529 (overloaded)
+    # Call Claude with exponential backoff retry on 529 (overloaded)
+    backoff_delays = [2, 5, 10]
     response = None
-    for attempt in range(2):
+    for attempt in range(len(backoff_delays) + 1):
         try:
             response = client.messages.create(
                 model="claude-sonnet-4-6",
@@ -142,16 +143,17 @@ def parse_eob(req: EOBParseRequest):
             break
         except Exception as exc:
             err_str = str(exc)
-            # Retry once on 529 overloaded
-            if "529" in err_str and attempt == 0:
-                print(f"[EOB] Claude overloaded (529), retrying in 2s...")
-                time.sleep(2)
+            if "529" in err_str and attempt < len(backoff_delays):
+                delay = backoff_delays[attempt]
+                print(f"[EOB] Claude overloaded (529), retry {attempt+1}/{len(backoff_delays)} in {delay}s...")
+                time.sleep(delay)
                 continue
             print(f"EOB parsing API error: {exc}")
             if "529" in err_str:
-                raise HTTPException(
+                from fastapi.responses import JSONResponse
+                return JSONResponse(
                     status_code=503,
-                    detail="AI service temporarily busy, please try again.",
+                    content={"error": "overloaded", "message": "AI service is temporarily busy. Please try again in a moment."},
                 )
             raise HTTPException(
                 status_code=502,

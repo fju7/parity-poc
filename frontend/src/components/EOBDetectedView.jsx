@@ -5,7 +5,7 @@ function fmt$(amount) {
   return `$${Number(amount).toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
 }
 
-export default function EOBDetectedView({ eobExtracted, eobParseError, onRequestItemized, onUploadItemized }) {
+export default function EOBDetectedView({ eobExtracted, eobParseError, eobOverloaded, onRequestItemized, onRetryParse, onUploadItemized }) {
   const e = eobExtracted || {};
 
   // Collect non-empty extracted fields for display (AI response uses snake_case)
@@ -42,8 +42,31 @@ export default function EOBDetectedView({ eobExtracted, eobParseError, onRequest
           </p>
         </div>
 
+        {/* Overloaded message with retry */}
+        {eobOverloaded && (
+          <div className="bg-amber-50 border border-amber-100 rounded-lg p-4 mb-6">
+            <div className="flex items-center gap-2 mb-2">
+              <svg className="w-4 h-4 text-amber-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <span className="text-sm font-medium text-amber-800">
+                Our AI reading service is busy right now.
+              </span>
+            </div>
+            <p className="text-sm text-amber-700 mb-3">
+              Please try again in a moment — or fill in the details below manually.
+            </p>
+            <button
+              onClick={onRetryParse}
+              className="px-4 py-2 text-sm font-medium text-amber-800 bg-amber-100 hover:bg-amber-200 rounded-lg cursor-pointer"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+
         {/* Parse error fallback message */}
-        {eobParseError && (
+        {eobParseError && !eobOverloaded && (
           <div className="flex items-center gap-2 px-4 py-2.5 bg-amber-50 border border-amber-100 rounded-lg mb-6">
             <svg className="w-4 h-4 text-amber-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
