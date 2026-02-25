@@ -122,7 +122,7 @@ def parse_with_ai(req: AIParseRequest):
 
     try:
         response = client.messages.create(
-            model="claude-sonnet-4-5-20250514",
+            model="claude-sonnet-4-6",
             max_tokens=4096,
             temperature=0,
             system=SYSTEM_PROMPT,
