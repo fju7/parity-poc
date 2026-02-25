@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { Footer } from "./UploadView.jsx";
 
-export default function ItemizedBillRequestView({ eobData, onboardingData, onReset }) {
+export default function ItemizedBillRequestView({ eobData, onboardingData, onReset, reason }) {
   const [copied, setCopied] = useState(false);
 
   const fullName = [onboardingData?.firstName, onboardingData?.lastName]
@@ -83,12 +83,14 @@ export default function ItemizedBillRequestView({ eobData, onboardingData, onRes
         {/* Explanation section */}
         <div className="mb-8 print:hidden">
           <h2 className="text-2xl font-bold text-[#1B3A5C] mb-2">
-            We need your itemized bill
+            {reason === "no_codes"
+              ? "We couldn\u2019t find procedure codes on this bill"
+              : "We need your itemized bill"}
           </h2>
           <p className="text-gray-600 mb-4">
-            The document you uploaded is a summary. To analyze your charges, we
-            need the itemized bill from your provider — the one that lists each
-            procedure separately with its code.
+            {reason === "no_codes"
+              ? "This is common for bills that don\u2019t itemize services. To analyze your charges, we need an itemized bill from your provider \u2014 the one that lists each procedure separately with its code."
+              : "The document you uploaded is a summary. To analyze your charges, we need the itemized bill from your provider \u2014 the one that lists each procedure separately with its code."}
           </p>
           <p className="text-gray-600">
             The good news: you have a legal right to this document. Use the

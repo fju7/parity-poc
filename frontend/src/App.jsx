@@ -70,6 +70,7 @@ export default function App() {
   const [serviceDate, setServiceDate] = useState("");
   const [error, setError] = useState({ title: "", message: "" });
   const [eobData, setEobData] = useState(null);
+  const [itemizedReason, setItemizedReason] = useState(null);
   const [toast, setToast] = useState({ message: "", visible: false });
   const [hasCompletedConsent, setHasCompletedConsent] = useState(false);
   const [consentData, setConsentData] = useState({ consentAnalytics: true, consentEmployer: false });
@@ -200,6 +201,7 @@ export default function App() {
     setProcessingStep(0);
     setError({ title: "", message: "" });
     setEobData(null);
+    setItemizedReason(null);
     setShowAIModal(false);
     setPendingBillData(null);
     pendingFileRef.current = null;
@@ -363,6 +365,14 @@ export default function App() {
 
   const runPipeline = useCallback(
     async (billData, method = "standard") => {
+      // Guard: if no line items, route to itemized bill request
+      if (!billData.lineItems || billData.lineItems.length === 0) {
+        setEobData(billData);
+        setItemizedReason("no_codes");
+        setView("itemized-request");
+        return;
+      }
+
       // Step 2: Look up benchmark rates
       setProcessingStep(1);
 
@@ -531,12 +541,10 @@ export default function App() {
       };
 
       if (billData.lineItems.length === 0) {
-        setError({
-          title: "No Items Found",
-          message:
-            "AI reading could not identify procedure codes in this bill. Please try entering the bill manually.",
-        });
-        setView("error");
+        // AI parsed successfully but found no codes — route to itemized request
+        setEobData(billData);
+        setItemizedReason("no_codes");
+        setView("itemized-request");
         return;
       }
 
@@ -565,6 +573,7 @@ export default function App() {
     } else {
       // No items at all — show itemized request
       setEobData(pendingBillData);
+      setItemizedReason("no_codes");
       setView("itemized-request");
     }
   }, [pendingBillData, runPipeline]);
@@ -649,6 +658,7 @@ export default function App() {
         eobData={eobData}
         onboardingData={onboardingData}
         onReset={handleReset}
+        reason={itemizedReason}
       />
     );
   } else if (view === "report" && report) {
