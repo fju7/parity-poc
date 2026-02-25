@@ -1,64 +1,40 @@
 """
 Coding intelligence checks — NCCI edit violations and MUE unit limits.
 
-Data is loaded from Supabase at startup. Falls back to empty dicts
-(no alerts) if Supabase is unavailable.
+MUE limits (~15K rows) are loaded into memory at startup.
+NCCI edits (~2.2M rows) are queried from Supabase on demand per request
+to avoid OOM on memory-constrained hosts.
 """
 
 from collections import Counter
 from itertools import combinations
 
-# In-memory lookup dicts (populated by load_coding_data)
-ncci_edits: dict = {}   # (code1, code2) -> {"modifier_indicator": 0|1}
+# In-memory lookup dicts
 mue_limits: dict = {}   # code -> {"practitioner_mue": int, "facility_mue": int}
+
+# Supabase client reference (set during load)
+_sb = None
 
 
 def load_coding_data():
-    """Fetch NCCI edits and MUE limits from Supabase into memory.
+    """Fetch MUE limits from Supabase into memory.
 
-    Paginates in batches of 1000. Falls back gracefully if Supabase
-    is unavailable or the tables don't exist yet.
+    NCCI edits are too large (~2.2M rows) to hold in memory on
+    free-tier hosting, so they are queried per-request instead.
     """
-    global ncci_edits, mue_limits
+    global mue_limits, _sb
 
     try:
         from supabase_client import supabase as sb
         if sb is None:
             print("Coding intelligence: No Supabase key — skipping data load")
             return
+        _sb = sb
     except Exception as exc:
         print(f"Coding intelligence: Could not import Supabase client — {exc}")
         return
 
-    # --- NCCI edits ---
-    try:
-        ncci_edits_tmp = {}
-        offset = 0
-        batch_size = 1000
-        while True:
-            resp = (
-                sb.table("ncci_edits")
-                .select("column1_code, column2_code, modifier_indicator")
-                .range(offset, offset + batch_size - 1)
-                .execute()
-            )
-            rows = resp.data or []
-            for r in rows:
-                c1 = r["column1_code"].strip()
-                c2 = r["column2_code"].strip()
-                mod = int(r["modifier_indicator"])
-                # Store bidirectionally for O(1) pair lookup
-                ncci_edits_tmp[(c1, c2)] = {"modifier_indicator": mod}
-                ncci_edits_tmp[(c2, c1)] = {"modifier_indicator": mod}
-            if len(rows) < batch_size:
-                break
-            offset += batch_size
-        ncci_edits = ncci_edits_tmp
-        print(f"Coding intelligence: Loaded {len(ncci_edits) // 2:,} NCCI edit pairs")
-    except Exception as exc:
-        print(f"Coding intelligence: Failed to load NCCI edits — {exc}")
-
-    # --- MUE limits ---
+    # --- MUE limits (small table, safe to hold in memory) ---
     try:
         mue_limits_tmp = {}
         offset = 0
@@ -85,22 +61,52 @@ def load_coding_data():
     except Exception as exc:
         print(f"Coding intelligence: Failed to load MUE limits — {exc}")
 
+    print("Coding intelligence: NCCI edits will be queried per-request from Supabase")
+
 
 def check_ncci_edits(codes: list[str]) -> list[dict]:
-    """Check all unique code pairs for NCCI edit violations."""
-    if not ncci_edits:
+    """Check all unique code pairs for NCCI edit violations.
+
+    Queries Supabase for only the relevant codes on this bill,
+    rather than holding the full 2.2M edit table in memory.
+    """
+    if _sb is None:
         return []
 
-    alerts = []
     unique_codes = list(set(codes))
+    if len(unique_codes) < 2:
+        return []
+
+    # Query NCCI edits where column1_code is in our code list
+    try:
+        resp = (
+            _sb.table("ncci_edits")
+            .select("column1_code, column2_code, modifier_indicator")
+            .in_("column1_code", unique_codes)
+            .in_("column2_code", unique_codes)
+            .execute()
+        )
+        rows = resp.data or []
+    except Exception as exc:
+        print(f"Coding intelligence: NCCI query failed — {exc}")
+        return []
+
+    # Build lookup from results
+    edit_map = {}
+    for r in rows:
+        c1 = r["column1_code"].strip()
+        c2 = r["column2_code"].strip()
+        mod = int(r["modifier_indicator"])
+        edit_map[(c1, c2)] = mod
+        edit_map[(c2, c1)] = mod
+
+    alerts = []
     for c1, c2 in combinations(unique_codes, 2):
-        edit = ncci_edits.get((c1, c2))
-        if edit is None:
+        mod = edit_map.get((c1, c2))
+        if mod is None:
             continue
 
-        mod = edit["modifier_indicator"]
         if mod == 0:
-            # Hard edit — codes cannot be billed together
             alerts.append({
                 "checkType": "NCCI_EDIT",
                 "codes": [c1, c2],
@@ -114,7 +120,6 @@ def check_ncci_edits(codes: list[str]) -> list[dict]:
                 "source": "CMS NCCI Edits 2026",
             })
         else:
-            # Soft edit — modifier may allow separate billing
             alerts.append({
                 "checkType": "NCCI_EDIT",
                 "codes": [c1, c2],
