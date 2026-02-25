@@ -16,7 +16,7 @@ import AIParseModal from "./components/AIParseModal.jsx";
 import AppHeader from "./components/AppHeader.jsx";
 import Toast from "./components/Toast.jsx";
 import extractBillData from "./modules/extractBillData.js";
-import { detectEOB, extractEOBData } from "./modules/eobExtractor.js";
+import { detectEOB } from "./modules/eobExtractor.js";
 import { lookupNPPES } from "./modules/nppesLookup.js";
 import scoreAnomalies from "./modules/scoreAnomalies.js";
 import runCodingIntelligence from "./modules/codingIntelligence.js";
@@ -76,6 +76,7 @@ export default function App() {
   const [error, setError] = useState({ title: "", message: "" });
   const [eobData, setEobData] = useState(null);
   const [eobExtracted, setEobExtracted] = useState(null);
+  const [eobParseError, setEobParseError] = useState(false);
   const [nppesResult, setNppesResult] = useState(null);
   const [nppesLoading, setNppesLoading] = useState(false);
   const [itemizedReason, setItemizedReason] = useState(null);
@@ -229,6 +230,7 @@ export default function App() {
     setError({ title: "", message: "" });
     setEobData(null);
     setEobExtracted(null);
+    setEobParseError(false);
     setNppesResult(null);
     setNppesLoading(false);
     setOnboardingData({
@@ -254,6 +256,7 @@ export default function App() {
     setError({ title: "", message: "" });
     setEobData(null);
     setEobExtracted(null);
+    setEobParseError(false);
     setNppesResult(null);
     setNppesLoading(false);
     setItemizedReason(null);
@@ -300,6 +303,7 @@ export default function App() {
       setError({ title: "", message: "" });
       setEobData(null);
       setEobExtracted(null);
+      setEobParseError(false);
       setNppesResult(null);
       setNppesLoading(false);
       setHasCompletedConsent(false);
@@ -515,9 +519,30 @@ export default function App() {
 
         // EOB detection — before AI modal or pipeline
         if (billData.rawText && detectEOB(billData.rawText)) {
-          const extracted = extractEOBData(billData.rawText, billData.rawLines || []);
           setEobData(billData);
-          setEobExtracted(extracted);
+          setProcessingStep(0); // "Reading your document..."
+          setSlowServer(false);
+          setEobParseError(false);
+
+          // Render PDF pages to images and call AI extraction
+          const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
+          try {
+            const pages = await renderPDFToBase64(file);
+            const response = await fetchWithTimeout(
+              `${API_BASE}/api/parse-eob`,
+              { pages }
+            );
+            clearTimeout(slowTimer);
+            setSlowServer(false);
+            setEobExtracted(response);
+          } catch (err) {
+            clearTimeout(slowTimer);
+            setSlowServer(false);
+            console.warn("EOB AI extraction failed:", err.message);
+            // Graceful fallback — show EOB screen with empty fields
+            setEobExtracted({});
+            setEobParseError(true);
+          }
           setView("eob-detected");
           return;
         }
@@ -707,8 +732,8 @@ export default function App() {
     setNppesResult(null);
     setView("itemized-request");
 
-    // Look up provider contact info via NPPES
-    const providerName = eobExtracted?.providerName || eobData?.provider?.name || "";
+    // Look up provider contact info via NPPES (AI fields use snake_case)
+    const providerName = eobExtracted?.provider_name || eobData?.provider?.name || "";
     if (providerName) {
       try {
         const result = await lookupNPPES(providerName);
@@ -751,6 +776,7 @@ export default function App() {
     viewContent = (
       <EOBDetectedView
         eobExtracted={eobExtracted}
+        eobParseError={eobParseError}
         onRequestItemized={handleRequestItemizedFromEOB}
         onUploadItemized={handleReset}
       />

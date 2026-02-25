@@ -21,11 +21,12 @@ export default function ItemizedBillRequestView({
     onboardingData?.zipCode,
   ].filter(Boolean).join(", ");
 
+  // AI endpoint returns snake_case field names
   const [fields, setFields] = useState({
-    patientName: eobExtracted?.patientName || fullName,
-    serviceDate: eobExtracted?.serviceDate || "",
-    providerName: eobExtracted?.providerName || "",
-    providerAddress: "",
+    patientName: eobExtracted?.patient_name || fullName,
+    serviceDate: eobExtracted?.service_date || "",
+    providerName: eobExtracted?.provider_name || "",
+    providerAddress: eobExtracted?.provider_address || "",
     providerCityStateZip: "",
     providerPhone: "",
     dateOfBirth: onboardingData?.dateOfBirth || "",
@@ -33,10 +34,10 @@ export default function ItemizedBillRequestView({
     mailingAddress: fullAddress,
     email: onboardingData?.email || "",
     phone: onboardingData?.phone || "",
-    insuranceCompany: eobExtracted?.insuranceCompany || "",
-    claimNumber: eobExtracted?.claimNumber || "",
-    memberID: eobExtracted?.memberID || "",
-    groupNumber: eobExtracted?.groupNumber || "",
+    insuranceCompany: eobExtracted?.insurance_company || "",
+    claimNumber: eobExtracted?.claim_number || "",
+    memberID: eobExtracted?.member_id || "",
+    groupNumber: eobExtracted?.group_number || "",
   });
 
   // Pre-fill provider fields when NPPES result arrives

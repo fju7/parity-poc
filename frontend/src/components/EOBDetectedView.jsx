@@ -1,20 +1,27 @@
 import { Footer } from "./UploadView.jsx";
 
-export default function EOBDetectedView({ eobExtracted, onRequestItemized, onUploadItemized }) {
+function fmt$(amount) {
+  if (amount == null) return null;
+  return `$${Number(amount).toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
+}
+
+export default function EOBDetectedView({ eobExtracted, eobParseError, onRequestItemized, onUploadItemized }) {
   const e = eobExtracted || {};
 
-  // Collect non-empty extracted fields for display
+  // Collect non-empty extracted fields for display (AI response uses snake_case)
   const summaryFields = [
-    { label: "Insurance Company", value: e.insuranceCompany },
-    { label: "Provider", value: e.providerName },
-    { label: "Claim Number", value: e.claimNumber },
-    { label: "Member ID", value: e.memberID },
-    { label: "Group Number", value: e.groupNumber },
-    { label: "Service Date", value: e.serviceDate },
-    { label: "Patient Name", value: e.patientName },
-    { label: "Total Billed", value: e.totalBilled ? `$${e.totalBilled.toLocaleString("en-US", { minimumFractionDigits: 2 })}` : null },
-    { label: "Plan Paid", value: e.planPaid ? `$${e.planPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}` : null },
-    { label: "Patient Responsibility", value: e.patientResponsibility ? `$${e.patientResponsibility.toLocaleString("en-US", { minimumFractionDigits: 2 })}` : null },
+    { label: "Insurance Company", value: e.insurance_company },
+    { label: "Provider", value: e.provider_name },
+    { label: "Claim Number", value: e.claim_number },
+    { label: "Member ID", value: e.member_id },
+    { label: "Group Number", value: e.group_number },
+    { label: "Service Date", value: e.service_date },
+    { label: "Patient Name", value: e.patient_name },
+    { label: "Total Billed", value: fmt$(e.amount_billed) },
+    { label: "Plan Paid", value: fmt$(e.plan_paid) },
+    { label: "Patient Responsibility", value: fmt$(e.patient_responsibility) },
+    { label: "Cost Reduction", value: fmt$(e.cost_reduction) },
+    { label: "Account", value: e.account_name },
   ].filter((f) => f.value);
 
   return (
@@ -34,6 +41,18 @@ export default function EOBDetectedView({ eobExtracted, onRequestItemized, onUpl
             This document is an <strong>EOB from your insurance company</strong>, not an itemized bill from your provider. EOBs summarize what your plan covered but don't include the procedure codes we need to benchmark your charges.
           </p>
         </div>
+
+        {/* Parse error fallback message */}
+        {eobParseError && (
+          <div className="flex items-center gap-2 px-4 py-2.5 bg-amber-50 border border-amber-100 rounded-lg mb-6">
+            <svg className="w-4 h-4 text-amber-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+            </svg>
+            <span className="text-sm text-amber-700">
+              We couldn't read all the details from your EOB. Please fill in the form below manually.
+            </span>
+          </div>
+        )}
 
         {/* What we found */}
         {summaryFields.length > 0 && (
