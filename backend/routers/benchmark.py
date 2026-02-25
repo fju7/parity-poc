@@ -6,6 +6,8 @@ Accepts only: zipCode + lineItems[{code, codeType, billedAmount}].
 No PHI is accepted or stored.
 """
 
+import gc
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -28,40 +30,93 @@ zip_locality: pd.DataFrame = pd.DataFrame()
 opps_rates: pd.DataFrame = pd.DataFrame()
 
 
+def _mem_mb() -> float:
+    """Return current process RSS in MB (uses psutil if available)."""
+    try:
+        import psutil
+        return psutil.Process(os.getpid()).memory_info().rss / 1024 / 1024
+    except ImportError:
+        return 0.0
+
+
 def load_data():
-    """Load CSVs into DataFrames. Called once at app startup."""
+    """Load CSVs into DataFrames. Called once at app startup.
+
+    Memory-optimised: uses only needed columns, float32, and category dtypes.
+    """
     global pfs_rates, zip_locality, opps_rates
+
+    mem_before = _mem_mb()
 
     pfs_path = DATA_DIR / "pfs_rates.csv"
     zip_path = DATA_DIR / "zip_locality.csv"
     opps_path = DATA_DIR / "opps_rates.csv"
 
-    pfs_rates = pd.read_csv(pfs_path, dtype=str)
+    # --- PFS rates (841K rows) ---
+    # All 5 columns are needed; load amounts as float32 directly
+    pfs_rates = pd.read_csv(
+        pfs_path,
+        usecols=["cpt_code", "carrier", "locality_code",
+                 "nonfacility_amount", "facility_amount"],
+        dtype={
+            "cpt_code": "category",
+            "carrier": "category",
+            "locality_code": "category",
+        },
+    )
     pfs_rates["nonfacility_amount"] = pd.to_numeric(
         pfs_rates["nonfacility_amount"], errors="coerce"
-    )
+    ).astype("float32")
     pfs_rates["facility_amount"] = pd.to_numeric(
         pfs_rates["facility_amount"], errors="coerce"
-    )
-    # Index for fast lookup
+    ).astype("float32")
     pfs_rates.set_index(["cpt_code", "carrier", "locality_code"], inplace=True)
     pfs_rates.sort_index(inplace=True)
 
-    zip_locality = pd.read_csv(zip_path, dtype=str)
+    # --- ZIP-to-locality crosswalk (43K rows) ---
+    # Only need zip_code, carrier, locality_code (skip 'state')
+    zip_locality = pd.read_csv(
+        zip_path,
+        usecols=["zip_code", "carrier", "locality_code"],
+        dtype={
+            "zip_code": str,
+            "carrier": "category",
+            "locality_code": "category",
+        },
+    )
     zip_locality.set_index("zip_code", inplace=True)
 
-    opps_rates = pd.read_csv(opps_path, dtype=str)
+    # --- OPPS rates (7K rows) ---
+    # Only need hcpcs_code, payment_rate, description (skip 'apc_code')
+    opps_rates = pd.read_csv(
+        opps_path,
+        usecols=["hcpcs_code", "payment_rate", "description"],
+        dtype={"hcpcs_code": str},
+    )
     opps_rates["payment_rate"] = pd.to_numeric(
         opps_rates["payment_rate"], errors="coerce"
-    )
+    ).astype("float32")
     opps_rates.set_index("hcpcs_code", inplace=True)
     opps_rates.sort_index(inplace=True)
+
+    gc.collect()
+
+    mem_after = _mem_mb()
+    df_mem = (
+        pfs_rates.memory_usage(deep=True).sum()
+        + zip_locality.memory_usage(deep=True).sum()
+        + opps_rates.memory_usage(deep=True).sum()
+    ) / 1024 / 1024
 
     print(
         f"Loaded benchmark data: "
         f"{len(pfs_rates):,} PFS rates, "
         f"{len(zip_locality):,} ZIP mappings, "
         f"{len(opps_rates):,} OPPS rates"
+    )
+    print(
+        f"Memory: {mem_before:.0f} MB -> {mem_after:.0f} MB "
+        f"(DataFrames: {df_mem:.1f} MB)"
     )
 
 
@@ -190,8 +245,8 @@ def lookup_pfs(
         row = pfs_rates.loc[(cpt_code, carrier, locality)]
         if isinstance(row, pd.DataFrame):
             row = row.iloc[0]
-        facility = row["facility_amount"]
-        nonfacility = row["nonfacility_amount"]
+        facility = float(row["facility_amount"])
+        nonfacility = float(row["nonfacility_amount"])
         # Prefer nonfacility for office visits, facility for hospital
         # For now, return the higher of the two (more conservative benchmark)
         rate = max(facility, nonfacility)
@@ -208,7 +263,7 @@ def lookup_opps(code: str) -> Optional[float]:
         row = opps_rates.loc[code]
         if isinstance(row, pd.DataFrame):
             row = row.iloc[0]
-        rate = row["payment_rate"]
+        rate = float(row["payment_rate"])
         if rate > 0:
             return round(rate, 2)
     except KeyError:
