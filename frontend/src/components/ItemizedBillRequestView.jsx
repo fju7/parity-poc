@@ -270,13 +270,12 @@ export default function ItemizedBillRequestView({
 
           {isEOB ? (
             <p className="text-gray-700 mb-4">
-              Under the No Surprises Act (P.L. 116-260) and applicable state consumer protection laws, patients have the right to receive a detailed, itemized statement of charges. I understand this right and respectfully request that this information be provided within 30 days. Please send it to the address or email below.
+              Under the No Surprises Act (P.L. 116-260) and applicable state consumer protection laws, patients have the right to receive a detailed, itemized statement of charges. I understand this right and respectfully request that this information be provided within 30 days. Please send the itemized bill to my mailing address below. You may also contact me at the phone number below to arrange delivery.
             </p>
           ) : (
             <p className="text-gray-700 mb-4">
               I understand I have the right to receive this information and would
-              appreciate receiving it within 30 days. Please send it to the
-              address or email below.
+              appreciate receiving it within 30 days. Please send the itemized bill to my mailing address below. You may also contact me at the phone number below to arrange delivery.
             </p>
           )}
 
@@ -330,13 +329,6 @@ export default function ItemizedBillRequestView({
             </p>
             <p className="text-gray-700">
               <EditableField
-                value={fields.email}
-                placeholder="Your Email Address"
-                onChange={(v) => updateField("email", v)}
-              />
-            </p>
-            <p className="text-gray-700">
-              <EditableField
                 value={fields.phone}
                 placeholder="Your Phone Number"
                 onChange={(v) => updateField("phone", v)}
@@ -365,9 +357,21 @@ export default function ItemizedBillRequestView({
             {copied ? "Copied!" : "Copy Letter"}
           </button>
         </div>
-        <p className="text-xs text-gray-400 mb-8 print:hidden">
-          To send: email your provider's billing department and attach or paste this letter.
-        </p>
+        <div className="space-y-2.5 mb-8 print:hidden">
+          <p className="text-sm font-medium text-[#1B3A5C]">How to send this letter:</p>
+          <div className="flex items-start gap-2 text-sm text-gray-600">
+            <span className="shrink-0">📞</span>
+            <p><strong>Call first:</strong> Contact the billing department{fields.providerPhone ? ` at ${fields.providerPhone}` : ""} to confirm the correct mailing address and fax number for records requests.</p>
+          </div>
+          <div className="flex items-start gap-2 text-sm text-gray-600">
+            <span className="shrink-0">📬</span>
+            <p><strong>Mail or fax:</strong> Send the letter by certified mail or fax to the billing department. Keep a copy for your records.</p>
+          </div>
+          <div className="flex items-start gap-2 text-sm text-gray-600">
+            <span className="shrink-0">⏱</span>
+            <p><strong>Response time:</strong> Providers are typically required to respond within 30 days. Follow up if you haven't heard back.</p>
+          </div>
+        </div>
 
         {/* Come-back note */}
         <div className="bg-[#0D7377]/5 border border-[#0D7377]/20 rounded-xl p-5 text-center print:hidden">
@@ -427,7 +431,6 @@ function buildLetterText(fields, isEOB) {
   const date = fields.serviceDate || "[Date of Service]";
   const dob = fields.dateOfBirth || "[Date of Birth]";
   const addr = fields.mailingAddress || "[Your Mailing Address]";
-  const email = fields.email || "[Your Email Address]";
   const phone = fields.phone || "[Your Phone Number]";
   const todayStr = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
@@ -463,14 +466,14 @@ function buildLetterText(fields, isEOB) {
 
   // Rights paragraph
   const rightsParagraph = isEOB
-    ? "Under the No Surprises Act (P.L. 116-260) and applicable state consumer protection laws, patients have the right to receive a detailed, itemized statement of charges. I understand this right and respectfully request that this information be provided within 30 days. Please send it to the address or email below."
-    : "I understand I have the right to receive this information and would appreciate receiving it within 30 days. Please send it to the address or email below.";
+    ? "Under the No Surprises Act (P.L. 116-260) and applicable state consumer protection laws, patients have the right to receive a detailed, itemized statement of charges. I understand this right and respectfully request that this information be provided within 30 days. Please send the itemized bill to my mailing address below. You may also contact me at the phone number below to arrange delivery."
+    : "I understand I have the right to receive this information and would appreciate receiving it within 30 days. Please send the itemized bill to my mailing address below. You may also contact me at the phone number below to arrange delivery.";
 
   // Signature lines
   const sigLines = [name, dob];
   if (fields.accountId) sigLines.push(`Account or Patient ID: ${fields.accountId}`);
   if (isEOB && fields.memberID) sigLines.push(`Member ID: ${fields.memberID}`);
-  sigLines.push(addr, email, phone);
+  sigLines.push(addr, phone);
 
   const parts = [];
   if (providerBlock.length > 0) parts.push(providerBlock.join("\n"));

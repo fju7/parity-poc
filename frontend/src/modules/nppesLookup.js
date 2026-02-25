@@ -24,21 +24,77 @@ export async function lookupNPPES(providerName) {
   const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
   try {
-    // Search for NPI-2 (organizations) first, then NPI-1 (individuals) as fallback
-    const orgResult = await searchNPPES(providerName, "NPI-2", controller.signal);
-    if (orgResult) {
-      clearTimeout(timeoutId);
-      return orgResult;
+    // Try exact name first, then wildcard variations for abbreviated names
+    const searchNames = buildSearchVariations(providerName);
+    console.log("[NPPES] Searching for:", searchNames);
+
+    for (const name of searchNames) {
+      const orgResult = await searchNPPES(name, "NPI-2", controller.signal);
+      if (orgResult) {
+        console.log("[NPPES] Found org match:", orgResult.bestMatch?.name);
+        clearTimeout(timeoutId);
+        return orgResult;
+      }
     }
 
-    const indResult = await searchNPPES(providerName, "NPI-1", controller.signal);
+    // Fallback: try individual provider (NPI-1) with original name
+    const indResult = await searchNPPES(providerName.trim(), "NPI-1", controller.signal);
+    if (indResult) {
+      console.log("[NPPES] Found individual match:", indResult.bestMatch?.name);
+    } else {
+      console.log("[NPPES] No results found for:", providerName);
+    }
     clearTimeout(timeoutId);
     return indResult || { found: false, bestMatch: null };
-  } catch {
+  } catch (err) {
     // Network error, timeout, or abort — graceful failure
+    console.warn("[NPPES] Lookup failed:", err.message);
     clearTimeout(timeoutId);
     return null;
   }
+}
+
+/**
+ * Build search name variations for NPPES.
+ * NPPES organization_name supports wildcard (*) for partial matching.
+ * Abbreviated names like "H LEE MOFFITT CANCER CTR" need shorter search terms.
+ */
+function buildSearchVariations(name) {
+  const cleaned = name.trim();
+  const variations = [cleaned];
+
+  // Add wildcard version: "MOFFITT*" from "H LEE MOFFITT CANCER CTR"
+  // Strategy: find the longest meaningful word (4+ chars, not a common prefix)
+  const SKIP_WORDS = new Set([
+    "THE", "OF", "AND", "AT", "FOR", "IN", "CTR", "CENTER", "CENTRE",
+    "HOSPITAL", "MEDICAL", "HEALTH", "CLINIC", "GROUP", "INC", "LLC",
+    "DEPT", "DEPARTMENT", "SYSTEM", "SYSTEMS", "SERVICES", "CARE",
+  ]);
+
+  const words = cleaned.split(/\s+/).filter((w) => w.length >= 4);
+  const keyWords = words.filter((w) => !SKIP_WORDS.has(w.toUpperCase()));
+
+  // Try the most distinctive word with wildcard
+  if (keyWords.length > 0) {
+    // Sort by length descending — longest word is usually most distinctive
+    keyWords.sort((a, b) => b.length - a.length);
+    const bestWord = keyWords[0];
+
+    // "MOFFITT*" — wildcard search
+    if (!variations.includes(bestWord + "*")) {
+      variations.push(bestWord + "*");
+    }
+
+    // Also try two-word combination if available: "MOFFITT CANCER*"
+    if (keyWords.length >= 2) {
+      const twoWord = keyWords[0] + " " + keyWords[1] + "*";
+      if (!variations.includes(twoWord)) {
+        variations.push(twoWord);
+      }
+    }
+  }
+
+  return variations;
 }
 
 /**
