@@ -47,11 +47,11 @@ export default function EmployerLoginPage() {
         navigate("/employer/dashboard");
       } else {
         setStatus("error");
-        setErrorMsg("This email is not registered as an employer account. Contact CivicScale at employers@civicscale.ai to get started.");
+        setErrorMsg("This email is not registered as an employer account. Contact CivicScale at hello@civicscale.ai to get started.");
       }
     } catch {
       setStatus("error");
-      setErrorMsg("This email is not registered as an employer account. Contact CivicScale at employers@civicscale.ai to get started.");
+      setErrorMsg("This email is not registered as an employer account. Contact CivicScale at hello@civicscale.ai to get started.");
     }
   }, [navigate]);
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { supabase } from "../lib/supabase.js";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
   LineChart, Line, Cell,
@@ -58,8 +59,9 @@ export default function EmployerDashboard() {
     }
   };
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     localStorage.removeItem("employer_session");
+    await supabase.auth.signOut();
     navigate("/employer/login");
   };
 
