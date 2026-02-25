@@ -38,9 +38,12 @@ export default function EmployerLoginPage() {
     setStatus("sending");
     setErrorMsg("");
 
+    const redirectUrl = window.location.origin + "/employer/auth/callback";
+    console.log("[EmployerLogin] Sending magic link with redirect:", redirectUrl);
+
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: window.location.origin + "/employer/auth/callback" },
+      options: { emailRedirectTo: redirectUrl },
     });
 
     if (error) {
