@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../lib/supabase.js";
 import {
@@ -9,6 +9,7 @@ import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const KEEPALIVE_INTERVAL_MS = 4 * 60 * 1000; // 4 minutes
 
 function fmt$(n) {
   if (n == null) return "—";
@@ -45,6 +46,45 @@ export default function EmployerDashboard() {
     setSession(parsed);
     fetchDashboard(parsed.employer_id);
   }, [navigate]);
+
+  // Backend keepalive: ping every 4 min while tab is visible
+  const keepaliveRef = useRef(null);
+
+  useEffect(() => {
+    if (!session) return;
+
+    function startKeepalive() {
+      stopKeepalive();
+      keepaliveRef.current = setInterval(() => {
+        fetch(`${API_BASE}/`).catch(() => {});
+      }, KEEPALIVE_INTERVAL_MS);
+    }
+
+    function stopKeepalive() {
+      if (keepaliveRef.current) {
+        clearInterval(keepaliveRef.current);
+        keepaliveRef.current = null;
+      }
+    }
+
+    function onVisibilityChange() {
+      if (document.visibilityState === "visible") {
+        startKeepalive();
+      } else {
+        stopKeepalive();
+      }
+    }
+
+    if (document.visibilityState === "visible") {
+      startKeepalive();
+    }
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      stopKeepalive();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [session]);
 
   const fetchDashboard = async (employerId) => {
     try {
