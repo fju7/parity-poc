@@ -49,7 +49,6 @@ export default function CivicScaleHomepage() {
           <a href="#data">Data</a>
           <Link to="/employer">For Employers</Link>
           <Link to="/investors">Investors</Link>
-          <Link to="/parity-health/" className="cs-nav-cta">Open Parity Health &rarr;</Link>
         </div>
       </nav>
 
