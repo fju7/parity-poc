@@ -3,6 +3,7 @@ import { Footer } from "./UploadView.jsx";
 
 export default function ReportView({ report, provider, serviceDate, onReset }) {
   const { lineItems, summary } = report;
+  const billState = getBillState(summary, lineItems);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -37,6 +38,9 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
             </button>
           )}
         </div>
+
+        {/* Summary Card — top-level verdict */}
+        <SummaryCard billState={billState} summary={summary} />
 
         {/* Partial benchmark warning */}
         {report.partialWarning && (
@@ -151,37 +155,8 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
           codingSummary={report.codingSummary}
         />
 
-        {/* Next Steps */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-          <h3 className="text-lg font-bold text-[#1B3A5C] mb-4">
-            Recommended Next Steps
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="border border-gray-200 rounded-lg p-4">
-              <h4 className="font-semibold text-[#1B3A5C] mb-2">
-                Contact the Billing Department
-              </h4>
-              <p className="text-sm text-gray-500 leading-relaxed">
-                Request an itemized bill review and ask for an explanation of
-                each flagged charge. Reference the CMS Medicare benchmark rates
-                as a basis for comparison. Many providers will negotiate when
-                presented with specific benchmark data.
-              </p>
-            </div>
-            <div className="border border-[#0D7377]/30 rounded-lg p-4 bg-[#0D7377]/5">
-              <h4 className="font-semibold text-[#0D7377] mb-2">
-                Connect with a Billing Specialist
-              </h4>
-              <p className="text-sm text-gray-500 leading-relaxed mb-3">
-                A medical billing advocate can negotiate on your behalf and
-                may identify additional discrepancies or applicable regulations.
-              </p>
-              <button className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer print:hidden">
-                Find a Specialist
-              </button>
-            </div>
-          </div>
-        </div>
+        {/* What to do next */}
+        <WhatToDoNext billState={billState} summary={summary} />
 
         {/* Disclaimer */}
         <p className="text-xs text-gray-400 text-center mb-4">
@@ -200,6 +175,76 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
 // ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
+
+/** Determine the overall bill state for the summary card */
+function getBillState(summary, lineItems) {
+  const benchmarkedCount = lineItems.filter((li) => li.benchmarkRate !== null).length;
+  if (benchmarkedCount === 0) return "no_benchmarks";
+  if (summary.flaggedItemCount === 0) return "clean";
+  // "minor" if all flagged items have score <= 3x AND total discrepancy < $500
+  const hasHighScore = lineItems.some((li) => li.flagged && li.anomalyScore > 3);
+  if (!hasHighScore && summary.totalPotentialDiscrepancy < 500) return "minor";
+  return "significant";
+}
+
+const BILL_STATE_CONFIG = {
+  significant: {
+    bg: "bg-amber-50",
+    border: "border-amber-200",
+    icon: "text-amber-500",
+    titleColor: "text-amber-800",
+    title: "This bill has charges that look unusually high",
+    getBody: (summary) =>
+      `We found ${summary.flaggedItemCount} charge${summary.flaggedItemCount === 1 ? "" : "s"} that ${summary.flaggedItemCount === 1 ? "is" : "are"} significantly above the Medicare benchmark for your area. The total potential overcharge is ${formatCurrency(summary.totalPotentialDiscrepancy)}. See the details below and consider contacting the billing department.`,
+    iconPath: "M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z",
+  },
+  minor: {
+    bg: "bg-blue-50",
+    border: "border-blue-200",
+    icon: "text-blue-500",
+    titleColor: "text-blue-800",
+    title: "A few charges are slightly above benchmark",
+    getBody: (summary) =>
+      `We found ${summary.flaggedItemCount} charge${summary.flaggedItemCount === 1 ? "" : "s"} modestly above the Medicare benchmark (${formatCurrency(summary.totalPotentialDiscrepancy)} total). This is relatively common and may not require action, but review the details below if you'd like to follow up.`,
+    iconPath: "m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z",
+  },
+  clean: {
+    bg: "bg-green-50",
+    border: "border-green-200",
+    icon: "text-green-500",
+    titleColor: "text-green-800",
+    title: "This bill looks good",
+    getBody: () =>
+      "All charges are within normal range compared to Medicare benchmarks for your area. No action is needed — this bill appears to be fairly priced.",
+    iconPath: "M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z",
+  },
+  no_benchmarks: {
+    bg: "bg-gray-50",
+    border: "border-gray-200",
+    icon: "text-gray-400",
+    titleColor: "text-gray-700",
+    title: "We couldn't benchmark this bill",
+    getBody: () =>
+      "None of the procedure codes on this bill matched our current Medicare rate database. This can happen with certain facility codes or newer procedures. The raw charges are shown below for your reference.",
+    iconPath: "M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z",
+  },
+};
+
+function SummaryCard({ billState, summary }) {
+  const cfg = BILL_STATE_CONFIG[billState];
+
+  return (
+    <div className={`${cfg.bg} border ${cfg.border} rounded-xl p-5 mb-6 flex items-start gap-4`}>
+      <svg className={`w-6 h-6 ${cfg.icon} shrink-0 mt-0.5`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d={cfg.iconPath} />
+      </svg>
+      <div>
+        <h2 className={`text-lg font-bold ${cfg.titleColor} mb-1`}>{cfg.title}</h2>
+        <p className="text-sm text-gray-600 leading-relaxed">{cfg.getBody(summary)}</p>
+      </div>
+    </div>
+  );
+}
 
 function StatCard({ label, value, highlight = false }) {
   return (
@@ -248,6 +293,7 @@ function AnomalyMeter({ flagged, total }) {
 function LineItemRow({ item }) {
   const [expanded, setExpanded] = useState(false);
   const scoreColor = getScoreColor(item.anomalyScore);
+  const plainLabel = getScorePlainLabel(item.anomalyScore);
 
   return (
     <>
@@ -276,9 +322,14 @@ function LineItemRow({ item }) {
         </td>
         <td className="px-6 py-3 text-right">
           {item.anomalyScore !== null ? (
-            <span className={`font-mono font-semibold ${scoreColor}`}>
-              {item.anomalyScore.toFixed(1)}x
-            </span>
+            <div className="flex flex-col items-end">
+              <span className={`font-mono font-semibold ${scoreColor}`}>
+                {item.anomalyScore.toFixed(1)}x
+              </span>
+              <span className={`text-[10px] leading-tight ${plainLabel.color}`}>
+                {plainLabel.text}
+              </span>
+            </div>
           ) : (
             <span className="text-gray-300">&mdash;</span>
           )}
@@ -338,6 +389,17 @@ function LineItemRow({ item }) {
 // Coding Intelligence Section
 // ---------------------------------------------------------------------------
 
+const CODING_EXPLANATIONS = {
+  NCCI_EDIT:
+    "These two procedures are normally included together as one charge under Medicare rules. Billing them separately may result in a higher total.",
+  MUE_LIMIT:
+    "This procedure was billed more times than Medicare considers typical for a single visit. Extra units may not be justified.",
+  SITE_OF_SERVICE:
+    "This procedure was billed at the higher hospital/facility rate, but it's commonly performed in an office setting at a lower cost.",
+  EM_COMPLEXITY:
+    "The office visit complexity level billed here is higher than what's typical for the services described. A lower-level visit code may be more appropriate.",
+};
+
 function CodingIntelligenceSection({ codingAlerts, codingSummary }) {
   if (!codingAlerts || codingAlerts.length === 0) return null;
 
@@ -361,10 +423,10 @@ function CodingIntelligenceSection({ codingAlerts, codingSummary }) {
           </svg>
           <div>
             <h3 className="text-lg font-bold text-[#1B3A5C]">
-              Parity Intelligence Engine
+              Coding Pattern Analysis
             </h3>
             <p className="text-xs text-gray-500">
-              Coding pattern analysis
+              Common billing patterns we check for
             </p>
           </div>
           {codingSummary && (
@@ -404,6 +466,7 @@ function CodingIntelligenceSection({ codingAlerts, codingSummary }) {
 function CodingAlertRow({ alert }) {
   const [expanded, setExpanded] = useState(false);
   const isHigh = alert.confidence === "high";
+  const explanation = CODING_EXPLANATIONS[alert.checkType];
 
   return (
     <div
@@ -438,9 +501,15 @@ function CodingAlertRow({ alert }) {
             ))}
           </div>
 
-          {/* Expandable message */}
+          {/* Plain English explanation (always visible) */}
+          {explanation && (
+            <p className="text-sm text-gray-500 mt-1 leading-relaxed">{explanation}</p>
+          )}
+
+          {/* Expandable technical details */}
           {expanded && (
-            <div className="mt-2 text-sm text-gray-600 leading-relaxed">
+            <div className="mt-2 text-sm text-gray-600 leading-relaxed bg-gray-50 rounded-lg p-3">
+              <p className="font-medium text-gray-700 mb-1">Technical detail</p>
               <p>{alert.message}</p>
               <p className="text-xs text-gray-400 mt-1">
                 Source: {alert.source}
@@ -470,19 +539,102 @@ function CodingAlertRow({ alert }) {
   );
 }
 
-function formatCheckType(checkType) {
-  const labels = {
-    NCCI_EDIT: "NCCI Edit Violation",
-    MUE_LIMIT: "MUE Unit Limit",
-    EM_COMPLEXITY: "E&M Complexity",
-    SITE_OF_SERVICE: "Site-of-Service Mismatch",
-  };
-  return labels[checkType] || checkType;
+// ---------------------------------------------------------------------------
+// What to do next
+// ---------------------------------------------------------------------------
+
+function WhatToDoNext({ billState, summary }) {
+  if (billState === "clean") {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+        <h3 className="text-lg font-bold text-[#1B3A5C] mb-3">
+          What to do next
+        </h3>
+        <div className="flex items-start gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
+          <svg className="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Your bill looks fairly priced. No action is needed — you can file this away with confidence. If you have questions about any specific charge, you can always call the provider's billing department and ask for an itemized explanation.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (billState === "no_benchmarks") {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+        <h3 className="text-lg font-bold text-[#1B3A5C] mb-3">
+          What to do next
+        </h3>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          Since we couldn't benchmark the codes on this bill, we recommend requesting an itemized bill from the provider if you haven't already, and comparing charges with your insurance Explanation of Benefits (EOB). A medical billing advocate can also help review charges that seem unusually high.
+        </p>
+      </div>
+    );
+  }
+
+  // significant or minor
+  return (
+    <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+      <h3 className="text-lg font-bold text-[#1B3A5C] mb-4">
+        What to do next
+      </h3>
+      <div className="space-y-4">
+        {/* Step 1 */}
+        <div className="flex items-start gap-4">
+          <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0D7377] text-white text-sm font-bold shrink-0">1</span>
+          <div>
+            <h4 className="font-semibold text-[#1B3A5C] text-sm">Download this report</h4>
+            <p className="text-sm text-gray-500 leading-relaxed mt-0.5">
+              Use the "Download Report" button at the top of this page. You'll want a copy of the benchmark comparisons when you contact the provider.
+            </p>
+          </div>
+        </div>
+
+        {/* Step 2 */}
+        <div className="flex items-start gap-4">
+          <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0D7377] text-white text-sm font-bold shrink-0">2</span>
+          <div>
+            <h4 className="font-semibold text-[#1B3A5C] text-sm">Call the billing department</h4>
+            <p className="text-sm text-gray-500 leading-relaxed mt-0.5">
+              Ask for an itemized explanation of the flagged charges. Mention that Medicare benchmarks for your area show lower rates for these procedures. Many billing departments will review and adjust charges when presented with specific data.
+            </p>
+          </div>
+        </div>
+
+        {/* Step 3 */}
+        <div className="flex items-start gap-4">
+          <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0D7377] text-white text-sm font-bold shrink-0">3</span>
+          <div>
+            <h4 className="font-semibold text-[#1B3A5C] text-sm">Consider a billing advocate</h4>
+            <p className="text-sm text-gray-500 leading-relaxed mt-0.5">
+              If the provider won't adjust the charges, a medical billing advocate can negotiate on your behalf. They often work on contingency (they only get paid if they save you money).
+            </p>
+            <button className="mt-2 px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer print:hidden">
+              Find a Specialist
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
+
+function formatCheckType(checkType) {
+  const labels = {
+    NCCI_EDIT: "Bundled Procedure",
+    MUE_LIMIT: "Unusual Quantity",
+    EM_COMPLEXITY: "Visit Level Question",
+    SITE_OF_SERVICE: "Facility vs. Office Rate",
+  };
+  return labels[checkType] || checkType;
+}
 
 function formatCurrency(amount) {
   return new Intl.NumberFormat("en-US", {
@@ -495,5 +647,15 @@ function getScoreColor(score) {
   if (score === null) return "text-gray-400";
   if (score > 3) return "text-red-600";
   if (score > 2) return "text-amber-600";
+  if (score > 1.5) return "text-yellow-600";
   return "text-[#0D7377]";
+}
+
+function getScorePlainLabel(score) {
+  if (score === null) return { text: "No benchmark", color: "text-gray-400" };
+  if (score > 3) return { text: "Very high", color: "text-red-500" };
+  if (score > 2) return { text: "High", color: "text-amber-500" };
+  if (score > 1.5) return { text: "Above average", color: "text-yellow-500" };
+  if (score >= 0.8) return { text: "Normal range", color: "text-green-500" };
+  return { text: "Below benchmark", color: "text-gray-400" };
 }
