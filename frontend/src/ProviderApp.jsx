@@ -196,7 +196,7 @@ export default function ProviderApp() {
     const reader = new FileReader();
     reader.onload = (evt) => {
       try {
-        const wb = XLSX.read(evt.target.result, { type: "array" });
+        const wb = XLSX.read(new Uint8Array(evt.target.result), { type: "array" });
         // Find "Contract Rates" sheet or use first sheet
         const sheetName = wb.SheetNames.find(n => n.toLowerCase().includes("contract")) || wb.SheetNames[0];
         const ws = wb.Sheets[sheetName];
@@ -299,13 +299,13 @@ export default function ProviderApp() {
     setContractError("");
     setContractStep("parsing-835");
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const body = new FormData();
+    body.append("file", file);
 
     try {
       const resp = await fetch(`${API_BASE}/api/provider/parse-835`, {
         method: "POST",
-        body: formData,
+        body,
       });
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
