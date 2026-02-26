@@ -4,6 +4,12 @@ for a list of procedure codes at a given provider ZIP code.
 
 Accepts only: zipCode + lineItems[{code, codeType, billedAmount}].
 No PHI is accepted or stored.
+
+Supports an optional serviceDate field.  When the service date falls
+within the current rate period, the fast in-memory path is used.
+When it falls outside (i.e. an older bill), the endpoint checks
+Supabase for historical rate data and falls back to current rates
+with a warning if none is loaded yet.
 """
 
 import gc
@@ -16,6 +22,11 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 from routers.coding_intelligence import run_coding_checks
+from utils.rate_versioning import (
+    get_version_for_date,
+    is_using_current_rates,
+    parse_service_date,
+)
 
 router = APIRouter()
 
@@ -166,6 +177,7 @@ class LineItemRequest(BaseModel):
 class BenchmarkRequest(BaseModel):
     zipCode: str
     lineItems: list[LineItemRequest]
+    serviceDate: Optional[str] = None  # MM/DD/YYYY or YYYY-MM-DD
 
 
 class LineItemResponse(BaseModel):
@@ -176,6 +188,9 @@ class LineItemResponse(BaseModel):
     benchmarkSource: str
     dataVintage: Optional[str]
     localityCode: Optional[str]
+    isHistorical: bool = False
+    historicalDataAvailable: bool = True
+    warning: Optional[str] = None
 
 
 class CodingAlert(BaseModel):
@@ -202,22 +217,53 @@ def benchmark(req: BenchmarkRequest):
     # Look up carrier + locality for the given ZIP
     carrier, locality = resolve_locality(req.zipCode)
 
+    # Parse service date to decide fast-path vs historical lookup
+    service_date = parse_service_date(req.serviceDate) if req.serviceDate else None
+    use_historical = False
+    if service_date is not None:
+        try:
+            use_historical = not is_using_current_rates(service_date)
+        except Exception:
+            # Supabase unavailable — stay on fast path
+            use_historical = False
+
     results = []
     for item in req.lineItems:
-        rate, source, loc, vintage = lookup_rate(
-            item.code, item.codeType, carrier, locality
-        )
-        results.append(
-            LineItemResponse(
-                code=item.code,
-                codeType=item.codeType,
-                billedAmount=item.billedAmount,
-                benchmarkRate=rate,
-                benchmarkSource=source,
-                dataVintage=vintage,
-                localityCode=loc,
+        if use_historical:
+            rate, source, loc, vintage, is_hist, hist_avail, warning = (
+                lookup_rate_historical(
+                    item.code, item.codeType, service_date, carrier, locality
+                )
             )
-        )
+            results.append(
+                LineItemResponse(
+                    code=item.code,
+                    codeType=item.codeType,
+                    billedAmount=item.billedAmount,
+                    benchmarkRate=rate,
+                    benchmarkSource=source,
+                    dataVintage=vintage,
+                    localityCode=loc,
+                    isHistorical=is_hist,
+                    historicalDataAvailable=hist_avail,
+                    warning=warning,
+                )
+            )
+        else:
+            rate, source, loc, vintage = lookup_rate(
+                item.code, item.codeType, carrier, locality
+            )
+            results.append(
+                LineItemResponse(
+                    code=item.code,
+                    codeType=item.codeType,
+                    billedAmount=item.billedAmount,
+                    benchmarkRate=rate,
+                    benchmarkSource=source,
+                    dataVintage=vintage,
+                    localityCode=loc,
+                )
+            )
 
     # Run coding intelligence checks
     codes = [item.code for item in req.lineItems]
@@ -321,6 +367,167 @@ def lookup_clfs(code: str) -> Optional[float]:
     except KeyError:
         pass
     return None
+
+
+# ---------------------------------------------------------------------------
+# Historical rate lookup (Supabase-backed)
+# ---------------------------------------------------------------------------
+
+
+def lookup_rate_historical(
+    code: str,
+    code_type: str,
+    service_date,
+    carrier: Optional[str],
+    locality: Optional[str],
+) -> tuple[Optional[float], str, Optional[str], Optional[str], bool, bool, Optional[str]]:
+    """Look up benchmark rate from Supabase historical tables.
+
+    Same PFS -> OPPS -> CLFS chain as lookup_rate(), but against the
+    versioned historical tables.
+
+    Returns (rate, source, locality_code, data_vintage,
+             is_historical, historical_data_available, warning).
+
+    If no historical data exists for the resolved version, falls back
+    to in-memory current rates with appropriate warning flags.
+    """
+    from utils.rate_versioning import get_version_for_date
+
+    code = code.strip()
+    warning = None
+
+    # --- Try PFS historical ---
+    if code_type in ("CPT", "UNKNOWN") and carrier and locality:
+        rate, found = _query_historical_pfs(code, carrier, locality, service_date)
+        if rate is not None:
+            return (rate, PFS_SOURCE, locality, PFS_VINTAGE_SHORT,
+                    True, True, None)
+        if not found:
+            # Version exists but no rows — no historical data loaded yet
+            pass
+
+    # --- Try OPPS historical ---
+    rate, found = _query_historical_opps(code, service_date)
+    if rate is not None:
+        return (rate, OPPS_SOURCE, locality, OPPS_VINTAGE_SHORT,
+                True, True, None)
+
+    # --- Try CLFS historical ---
+    rate, found = _query_historical_clfs(code, service_date)
+    if rate is not None:
+        return (rate, CLFS_SOURCE, locality, CLFS_VINTAGE_SHORT,
+                True, True, None)
+
+    # --- Fall back to current in-memory rates ---
+    rate, source, loc, vintage = lookup_rate(code, code_type, carrier, locality)
+    if rate is not None:
+        year = service_date.year if service_date else "prior"
+        warning = (
+            f"Using current 2026 rates — historical {year} rates "
+            f"not yet available"
+        )
+        return (rate, source, loc, vintage,
+                False, False, warning)
+
+    return (None, "NOT_FOUND", locality, None, False, False, None)
+
+
+def _query_historical_pfs(
+    code: str, carrier: str, locality: str, service_date
+) -> tuple[Optional[float], bool]:
+    """Query pfs_rates_historical via Supabase.
+
+    Returns (rate, data_exists_for_version).
+    """
+    try:
+        version_id = get_version_for_date("PFS", service_date)
+        if version_id is None:
+            return None, False
+
+        from utils.rate_versioning import _get_supabase
+        sb = _get_supabase()
+        result = (
+            sb.table("pfs_rates_historical")
+            .select("facility_amount, nonfacility_amount")
+            .eq("version_id", version_id)
+            .eq("hcpcs_code", code)
+            .eq("carrier", carrier)
+            .eq("locality_code", locality)
+            .limit(1)
+            .execute()
+        )
+
+        if not result.data:
+            return None, False
+
+        row = result.data[0]
+        facility = float(row["facility_amount"] or 0)
+        nonfacility = float(row["nonfacility_amount"] or 0)
+        rate = max(facility, nonfacility)
+        if rate > 0:
+            return round(rate, 2), True
+        return None, True
+    except Exception:
+        return None, False
+
+
+def _query_historical_opps(code: str, service_date) -> tuple[Optional[float], bool]:
+    """Query opps_rates_historical via Supabase."""
+    try:
+        version_id = get_version_for_date("OPPS", service_date)
+        if version_id is None:
+            return None, False
+
+        from utils.rate_versioning import _get_supabase
+        sb = _get_supabase()
+        result = (
+            sb.table("opps_rates_historical")
+            .select("payment_rate")
+            .eq("version_id", version_id)
+            .eq("hcpcs_code", code)
+            .limit(1)
+            .execute()
+        )
+
+        if not result.data:
+            return None, False
+
+        rate = float(result.data[0]["payment_rate"] or 0)
+        if rate > 0:
+            return round(rate, 2), True
+        return None, True
+    except Exception:
+        return None, False
+
+
+def _query_historical_clfs(code: str, service_date) -> tuple[Optional[float], bool]:
+    """Query clfs_rates_historical via Supabase."""
+    try:
+        version_id = get_version_for_date("CLFS", service_date)
+        if version_id is None:
+            return None, False
+
+        from utils.rate_versioning import _get_supabase
+        sb = _get_supabase()
+        result = (
+            sb.table("clfs_rates_historical")
+            .select("payment_rate")
+            .eq("version_id", version_id)
+            .eq("hcpcs_code", code)
+            .limit(1)
+            .execute()
+        )
+
+        if not result.data:
+            return None, False
+
+        rate = float(result.data[0]["payment_rate"] or 0)
+        if rate > 0:
+            return round(rate, 2), True
+        return None, True
+    except Exception:
+        return None, False
 
 
 # ---------------------------------------------------------------------------

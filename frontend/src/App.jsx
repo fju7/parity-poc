@@ -460,7 +460,8 @@ export default function App() {
       try {
         benchmarkResponse = await fetchBenchmark(
           billData.provider.zip,
-          billData.lineItems
+          billData.lineItems,
+          billData.serviceDate
         );
       } catch (err) {
         clearTimeout(slowTimer);
@@ -995,7 +996,7 @@ async function renderPDFToBase64(file) {
 // API call with timeout + retry
 // ---------------------------------------------------------------------------
 
-async function fetchBenchmark(zipCode, lineItems) {
+async function fetchBenchmark(zipCode, lineItems, serviceDate) {
   const body = {
     zipCode: zipCode || "00000",
     lineItems: lineItems.map((i) => ({
@@ -1004,6 +1005,9 @@ async function fetchBenchmark(zipCode, lineItems) {
       billedAmount: i.billedAmount,
     })),
   };
+  if (serviceDate) {
+    body.serviceDate = serviceDate;
+  }
 
   // First attempt
   try {

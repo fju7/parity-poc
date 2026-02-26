@@ -44,6 +44,9 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
         {/* Summary Card — top-level verdict */}
         <SummaryCard billState={billState} summary={summary} />
 
+        {/* Historical rate data warning */}
+        <HistoricalDataBanner lineItems={lineItems} serviceDate={serviceDate} />
+
         {/* Partial benchmark warning */}
         {report.partialWarning && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex items-start gap-3">
@@ -186,6 +189,47 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
 // ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
+
+/** Show a blue info banner when historical rate data isn't available for old bills */
+function HistoricalDataBanner({ lineItems, serviceDate }) {
+  // Only show if any item lacks historical data
+  const hasUnavailable = lineItems.some((li) => li.historicalDataAvailable === false);
+  if (!hasUnavailable) return null;
+
+  // Only show if service date is >12 months ago
+  if (!serviceDate) return null;
+  let parsed;
+  // Try MM/DD/YYYY
+  const mdyMatch = serviceDate.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (mdyMatch) {
+    parsed = new Date(+mdyMatch[3], +mdyMatch[1] - 1, +mdyMatch[2]);
+  } else {
+    parsed = new Date(serviceDate);
+  }
+  if (isNaN(parsed.getTime())) return null;
+
+  const twelveMonthsAgo = new Date();
+  twelveMonthsAgo.setFullYear(twelveMonthsAgo.getFullYear() - 1);
+  if (parsed >= twelveMonthsAgo) return null;
+
+  return (
+    <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex items-start gap-3">
+      <svg className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+      </svg>
+      <div>
+        <p className="text-sm font-medium text-blue-800">
+          Benchmark rates may differ from time of service
+        </p>
+        <p className="text-sm text-blue-700 mt-1">
+          This bill's service date is more than 12 months ago. We're comparing against
+          current CMS rates because historical rate data for that period hasn't been loaded
+          yet. Actual Medicare rates at the time of service may have been different.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 /** Determine the overall bill state for the summary card */
 function getBillState(summary, lineItems) {

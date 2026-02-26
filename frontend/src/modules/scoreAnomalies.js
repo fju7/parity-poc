@@ -174,6 +174,9 @@ export default function scoreAnomalies(
       flagged,
       flagReason,
       estimatedDiscrepancy,
+      isHistorical: bench.isHistorical ?? false,
+      historicalDataAvailable: bench.historicalDataAvailable ?? true,
+      warning: bench.warning ?? null,
     };
   });
 
