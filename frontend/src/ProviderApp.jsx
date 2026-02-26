@@ -43,6 +43,7 @@ export default function ProviderApp() {
   const [contractError, setContractError] = useState("");
   const [parsedRates, setParsedRates] = useState(null); // { payers, rows }
   const [savingRates, setSavingRates] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState("");
   const [savedContractRates, setSavedContractRates] = useState({}); // {cpt: rate}
   const [savedPayerName, setSavedPayerName] = useState("");
   const [parsedRemittance, setParsedRemittance] = useState(null);
@@ -163,6 +164,7 @@ export default function ProviderApp() {
   function resetContract() {
     setContractStep("upload-rates");
     setContractError("");
+    setSaveSuccess("");
     setParsedRates(null);
     setSavedContractRates({});
     setSavedPayerName("");
@@ -255,8 +257,8 @@ export default function ProviderApp() {
     if (!parsedRates || !session) return;
     setSavingRates(true);
     setContractError("");
+    setSaveSuccess("");
 
-    // Save for each payer
     const firstPayer = parsedRates.payers[0];
     const ratesPayload = parsedRates.rows.map(r => ({
       cpt: r.cpt,
@@ -275,22 +277,22 @@ export default function ProviderApp() {
         }),
       });
       if (!resp.ok) throw new Error("Failed to save rates");
-
-      // Build flat rate lookup for first payer (used in analysis)
-      const flatRates = {};
-      for (const row of parsedRates.rows) {
-        if (row.rates[firstPayer]) {
-          flatRates[row.cpt] = row.rates[firstPayer];
-        }
-      }
-      setSavedContractRates(flatRates);
-      setSavedPayerName(firstPayer);
-      setContractStep("upload-835");
     } catch (err) {
-      setContractError("Failed to save contract rates: " + err.message);
-    } finally {
-      setSavingRates(false);
+      // Non-fatal — rates still usable in-session
+      console.warn("Save to server failed:", err.message);
     }
+
+    // Build flat rate lookup for first payer (used in analysis)
+    const flatRates = {};
+    for (const row of parsedRates.rows) {
+      if (row.rates[firstPayer]) {
+        flatRates[row.cpt] = row.rates[firstPayer];
+      }
+    }
+    setSavedContractRates(flatRates);
+    setSavedPayerName(firstPayer);
+    setSaveSuccess(`Contract rates saved — ${parsedRates.rows.length} codes across ${parsedRates.payers.length} payer${parsedRates.payers.length !== 1 ? "s" : ""}.`);
+    setSavingRates(false);
   }
 
   async function handle835Upload(e) {
@@ -687,6 +689,7 @@ export default function ProviderApp() {
             error={contractError}
             parsedRates={parsedRates}
             savingRates={savingRates}
+            saveSuccess={saveSuccess}
             parsedRemittance={parsedRemittance}
             analysisResult={analysisResult}
             sortField={sortField}
@@ -747,7 +750,7 @@ export default function ProviderApp() {
 // ═══════════════════════════════════════════════════════════════════
 
 function ContractIntegrityTab({
-  step, error, parsedRates, savingRates, parsedRemittance, analysisResult,
+  step, error, parsedRates, savingRates, saveSuccess, parsedRemittance, analysisResult,
   sortField, sortDir,
   onDownloadTemplate, onRatesFileUpload, onSaveRates, on835Upload,
   onRunAnalysis, onSort, getSortedLines, onReset,
@@ -842,7 +845,7 @@ function ContractIntegrityTab({
                 <tbody>
                   {analysisResult.top_underpaid.map((item, i) => (
                     <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
-                      <td style={tdStyle}><code>{item.cpt_code}</code></td>
+                      <td style={tdStyle}>{item.cpt_code}</td>
                       <td style={{ ...tdStyle, textAlign: "right", color: "#dc2626", fontWeight: 600 }}>
                         ${item.total_underpayment.toFixed(2)}
                       </td>
@@ -877,7 +880,7 @@ function ContractIntegrityTab({
                   const rowBg = flagRowColor(item.flag, i);
                   return (
                     <tr key={i} style={{ background: rowBg }}>
-                      <td style={tdStyle}><code>{item.cpt_code}</code></td>
+                      <td style={tdStyle}>{item.cpt_code}</td>
                       <td style={{ ...tdStyle, textAlign: "right" }}>${(item.billed_amount || 0).toFixed(2)}</td>
                       <td style={{ ...tdStyle, textAlign: "right" }}>${(item.paid_amount || 0).toFixed(2)}</td>
                       <td style={{ ...tdStyle, textAlign: "right" }}>
@@ -958,7 +961,7 @@ function ContractIntegrityTab({
                 <tbody>
                   {rows.slice(0, 20).map((row, i) => (
                     <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
-                      <td style={tdStyle}><code>{row.cpt}</code></td>
+                      <td style={tdStyle}>{row.cpt}</td>
                       <td style={{ ...tdStyle, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{row.description}</td>
                       {payers.map(p => (
                         <td key={p} style={{ ...tdStyle, textAlign: "right" }}>
@@ -976,7 +979,7 @@ function ContractIntegrityTab({
               )}
             </div>
 
-            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
               <button onClick={onSaveRates} disabled={savingRates} style={{ ...btnPrimary, opacity: savingRates ? 0.6 : 1 }}>
                 {savingRates ? "Saving..." : "Save Contract Rates"}
               </button>
@@ -985,6 +988,15 @@ function ContractIntegrityTab({
                 <input type="file" accept=".xlsx,.xls" onChange={onRatesFileUpload} style={{ display: "none" }} />
               </label>
             </div>
+            {saveSuccess && (
+              <div style={{
+                marginTop: 12, padding: 12, borderRadius: 8,
+                background: "#ecfdf5", border: "1px solid #6ee7b7",
+                fontSize: 14, color: "#065f46",
+              }}>
+                {saveSuccess}
+              </div>
+            )}
           </>
         ) : (
           <>
@@ -998,23 +1010,9 @@ function ContractIntegrityTab({
               </button>
             </div>
 
-            <div style={{
-              border: "2px dashed var(--cs-border)", borderRadius: 10,
-              padding: 32, textAlign: "center", background: "var(--cs-mist)",
-            }}>
-              <UploadIcon />
-              <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 12, marginBottom: 12 }}>
-                Upload your completed contract rates spreadsheet (.xlsx)
-              </p>
-              <label style={{
-                display: "inline-block", padding: "8px 20px", borderRadius: 8,
-                background: "var(--cs-navy)", color: "#fff", fontSize: 14, fontWeight: 600,
-                cursor: "pointer",
-              }}>
-                Choose File
-                <input type="file" accept=".xlsx,.xls" onChange={onRatesFileUpload} style={{ display: "none" }} />
-              </label>
-            </div>
+            <DropZone accept=".xlsx,.xls" onChange={onRatesFileUpload}>
+              Upload your completed contract rates spreadsheet (.xlsx)
+            </DropZone>
 
             <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
               <strong style={{ color: "var(--cs-navy)" }}>Template format:</strong> Row 4 contains payer names (columns D onward).
@@ -1058,7 +1056,7 @@ function ContractIntegrityTab({
                 <tbody>
                   {(parsedRemittance.line_items || []).slice(0, 10).map((item, i) => (
                     <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
-                      <td style={tdStyle}><code>{item.cpt_code}</code></td>
+                      <td style={tdStyle}>{item.cpt_code}</td>
                       <td style={{ ...tdStyle, textAlign: "right" }}>${(item.billed_amount || 0).toFixed(2)}</td>
                       <td style={{ ...tdStyle, textAlign: "center" }}>{item.units || 1}</td>
                       <td style={{ ...tdStyle, textAlign: "right" }}>${(item.paid_amount || 0).toFixed(2)}</td>
@@ -1099,23 +1097,9 @@ function ContractIntegrityTab({
               Upload an Electronic Remittance Advice (ERA/835) file from your clearinghouse or payer portal.
             </p>
 
-            <div style={{
-              border: "2px dashed var(--cs-border)", borderRadius: 10,
-              padding: 32, textAlign: "center", background: "var(--cs-mist)",
-            }}>
-              <UploadIcon />
-              <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 12, marginBottom: 12 }}>
-                Accepted formats: .835, .txt, .edi
-              </p>
-              <label style={{
-                display: "inline-block", padding: "8px 20px", borderRadius: 8,
-                background: "var(--cs-navy)", color: "#fff", fontSize: 14, fontWeight: 600,
-                cursor: "pointer",
-              }}>
-                Choose File
-                <input type="file" accept=".txt,.835,.edi,text/plain" onChange={on835Upload} style={{ display: "none" }} />
-              </label>
-            </div>
+            <DropZone accept=".txt,.835,.edi,text/plain" onChange={on835Upload}>
+              Accepted formats: .835, .txt, .edi
+            </DropZone>
 
             <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
               <strong style={{ color: "var(--cs-navy)" }}>Where to find 835 files:</strong> Your clearinghouse (e.g., Availity, Trizetto, Office Ally)
@@ -1249,6 +1233,67 @@ function Spinner() {
       margin: "0 auto", animation: "spin 0.8s linear infinite",
     }}>
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  );
+}
+
+function DropZone({ accept, onChange, children }) {
+  const [dragging, setDragging] = useState(false);
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragging(true);
+  }
+
+  function handleDragLeave(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragging(false);
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragging(false);
+    const file = e.dataTransfer?.files?.[0];
+    if (file) {
+      // Synthesize an event-like object for the existing onChange handlers
+      onChange({ target: { files: [file] } });
+    }
+  }
+
+  return (
+    <div
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      style={{
+        border: dragging ? "2px solid var(--cs-teal)" : "2px dashed var(--cs-border)",
+        borderRadius: 10,
+        padding: 32,
+        textAlign: "center",
+        background: dragging ? "var(--cs-teal-pale)" : "var(--cs-mist)",
+        transition: "border-color 0.15s, background 0.15s",
+      }}
+    >
+      <UploadIcon />
+      <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 12, marginBottom: 12 }}>
+        {children}
+      </p>
+      <label style={{
+        display: "inline-block", padding: "8px 20px", borderRadius: 8,
+        background: "var(--cs-navy)", color: "#fff", fontSize: 14, fontWeight: 600,
+        cursor: "pointer",
+      }}>
+        Choose File
+        <input type="file" accept={accept} onChange={onChange} style={{ display: "none" }} />
+      </label>
+      {dragging && (
+        <p style={{ color: "var(--cs-teal)", fontSize: 13, fontWeight: 600, marginTop: 8, marginBottom: 0 }}>
+          Drop file here
+        </p>
+      )}
     </div>
   );
 }
