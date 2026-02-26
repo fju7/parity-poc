@@ -446,7 +446,6 @@ export default function ProviderApp() {
         body: JSON.stringify({
           user_id: session.user.id,
           specialty: codingSpecialty || profile?.specialty || "",
-          zip_code: profile?.zip_code || "",
           date_range: codingDateStart && codingDateEnd ? `${codingDateStart} to ${codingDateEnd}` : "",
           lines: validLines.map(l => ({
             cpt_code: l.cpt_code.trim(),
@@ -780,7 +779,11 @@ export default function ProviderApp() {
             onGoToCoding={() => setActiveTab("coding")}
           />
         ) : activeTab === "contract" ? (
-          <ContractIntegrityTab
+          <div>
+            <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 0, marginBottom: 24, lineHeight: 1.6 }}>
+              Upload your 835 remittance file and contracted rates. We compare every paid amount against what your payer agreed to pay — by code, by claim, by payer.
+            </p>
+            <ContractIntegrityTab
             step={contractStep}
             error={contractError}
             parsedRates={parsedRates}
@@ -799,8 +802,13 @@ export default function ProviderApp() {
             getSortedLines={getSortedLines}
             onReset={resetContract}
           />
+          </div>
         ) : (
-          <CodingAnalysisTab
+          <div>
+            <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 0, marginBottom: 24, lineHeight: 1.6 }}>
+              Enter your billing patterns. We identify undercoding risk and compliance issues — independent of payer, because correct coding is correct coding regardless of who is paying.
+            </p>
+            <CodingAnalysisTab
             lines={codingLines}
             specialty={codingSpecialty}
             dateStart={codingDateStart}
@@ -817,7 +825,9 @@ export default function ProviderApp() {
             onSetDateEnd={setCodingDateEnd}
             onRun={handleRunCodingAnalysis}
             onReset={resetCoding}
+            onGoToContract={() => setActiveTab("contract")}
           />
+          </div>
         )}
       </div>
 
@@ -1250,7 +1260,7 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }
             </div>
           </div>
           <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: 0, lineHeight: 1.5 }}>
-            Upload your contract rates and 835 remittance files to identify underpayments and denied claims.
+            Compare your remittances against contracted rates. Find what your payer owes you.
           </p>
         </button>
 
@@ -1281,7 +1291,7 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }
             </div>
           </div>
           <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: 0, lineHeight: 1.5 }}>
-            Analyze E&M distributions, NCCI edit compliance, and Medicare benchmark comparisons.
+            Analyze your E&M coding patterns. Find undercoding risk and compliance issues.
           </p>
         </button>
       </div>
@@ -1373,6 +1383,7 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }
 function CodingAnalysisTab({
   lines, specialty, dateStart, dateEnd, result, loading, error, profileSpecialty,
   onAddLine, onRemoveLine, onUpdateLine, onSetSpecialty, onSetDateStart, onSetDateEnd, onRun, onReset,
+  onGoToContract,
 }) {
 
   if (loading) {
@@ -1467,62 +1478,37 @@ function CodingAnalysisTab({
           </div>
         )}
 
-        {/* Benchmark Comparison Table */}
-        {(result.benchmark_lines || []).length > 0 && (
-          <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
-            <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
-              Medicare Benchmark Comparison
-            </h3>
-            <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: "0 0 16px" }}>
-              Total billed: ${result.total_billed.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-              {" "}| Total benchmark: ${result.total_benchmark.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-            </p>
-            <div style={{ overflowX: "auto" }}>
-              <table style={tableStyle}>
-                <thead>
-                  <tr>
-                    <th style={thStyle}>CPT</th>
-                    <th style={{ ...thStyle, textAlign: "center" }}>Units</th>
-                    <th style={{ ...thStyle, textAlign: "right" }}>Billed</th>
-                    <th style={{ ...thStyle, textAlign: "right" }}>Medicare Rate</th>
-                    <th style={{ ...thStyle, textAlign: "right" }}>Ratio</th>
-                    <th style={thStyle}>Source</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.benchmark_lines.map((line, i) => (
-                    <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
-                      <td style={tdStyle}>{line.cpt_code}</td>
-                      <td style={{ ...tdStyle, textAlign: "center" }}>{line.units}</td>
-                      <td style={{ ...tdStyle, textAlign: "right" }}>${line.billed_amount.toFixed(2)}</td>
-                      <td style={{ ...tdStyle, textAlign: "right" }}>
-                        {line.medicare_rate != null ? `$${line.medicare_rate.toFixed(2)}` : "—"}
-                      </td>
-                      <td style={{
-                        ...tdStyle, textAlign: "right", fontWeight: 600,
-                        color: line.ratio == null ? "var(--cs-slate)" : line.ratio > 3 ? "#dc2626" : line.ratio > 2 ? "#d97706" : "#059669",
-                      }}>
-                        {line.ratio != null ? `${line.ratio}x` : "—"}
-                      </td>
-                      <td style={{ ...tdStyle, fontSize: 11, color: "var(--cs-slate)" }}>
-                        {line.medicare_source || "—"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
+        {/* Bridge callout to Contract Integrity */}
+        <div style={{
+          border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24,
+          background: "var(--cs-mist)", marginBottom: 24,
+        }}>
+          <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
+            Want rate-level analysis?
+          </h4>
+          <p style={{ fontSize: 13, color: "var(--cs-slate)", lineHeight: 1.6, margin: "0 0 16px" }}>
+            Coding analysis identifies whether you are billing at the right complexity level — that question
+            is the same regardless of payer. Whether your payer is actually honoring your contracted rates
+            is a separate question. Upload your 835 remittance file in the Contract Integrity tab for a
+            payer-specific rate comparison against your contracted rates.
+          </p>
+          <button onClick={onGoToContract} style={{
+            background: "none", border: "none", padding: 0,
+            color: "var(--cs-teal)", fontSize: 14, fontWeight: 600,
+            cursor: "pointer",
+          }}>
+            Go to Contract Integrity &rarr;
+          </button>
+        </div>
 
         {/* Disclaimer */}
         <div style={{
           padding: 16, borderRadius: 8, background: "var(--cs-mist)",
           fontSize: 12, color: "var(--cs-slate)", marginBottom: 24, lineHeight: 1.6,
         }}>
-          <strong>Disclaimer:</strong> This coding analysis uses CMS benchmark distributions and publicly available
-          NCCI edit and MUE limit tables. It is not legal or compliance advice. Individual chart documentation
-          determines the appropriate code level. Consult a certified coder or compliance officer before making changes.
+          <strong>Disclaimer:</strong> This coding analysis uses CMS benchmark distributions for specialty comparison.
+          It is not legal or compliance advice. Individual chart documentation determines the appropriate code level.
+          Consult a certified coder or compliance officer before making changes.
         </div>
 
         {/* Actions */}

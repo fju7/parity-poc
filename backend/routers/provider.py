@@ -93,7 +93,6 @@ class CodingLine(BaseModel):
 class CodingAnalyzeRequest(BaseModel):
     user_id: str
     specialty: str = ""
-    zip_code: Optional[str] = ""
     date_range: Optional[str] = ""
     lines: List[CodingLine]
 
@@ -418,51 +417,11 @@ async def analyze_coding(req: CodingAnalyzeRequest):
                 ),
             })
 
-    # --- 2. Medicare Benchmark Comparison ---
-    unique_codes = list(set(codes_flat))
-    carrier, locality = None, None
-    if req.zip_code:
-        carrier, locality = resolve_locality(req.zip_code)
-
-    benchmark_lines = []
-    total_billed = 0.0
-    total_benchmark = 0.0
-    for line in req.lines:
-        medicare_rate = None
-        medicare_source = None
-        if carrier and locality:
-            rate, source, _, _ = lookup_rate(
-                line.cpt_code, "CPT", carrier, locality
-            )
-            if rate is not None:
-                medicare_rate = rate
-                medicare_source = source
-
-        line_billed = line.billed_amount * line.units
-        line_benchmark = (medicare_rate * line.units) if medicare_rate else None
-        total_billed += line_billed
-        if line_benchmark is not None:
-            total_benchmark += line_benchmark
-
-        benchmark_lines.append({
-            "cpt_code": line.cpt_code,
-            "units": line.units,
-            "billed_amount": line.billed_amount,
-            "total_billed": round(line_billed, 2),
-            "medicare_rate": medicare_rate,
-            "medicare_source": medicare_source,
-            "total_benchmark": round(line_benchmark, 2) if line_benchmark else None,
-            "ratio": round(line.billed_amount / medicare_rate, 2) if medicare_rate and medicare_rate > 0 else None,
-        })
-
     return {
         "em_distribution": em_distribution,
         "em_benchmark": em_benchmark,
         "em_total": em_total,
         "em_alerts": em_alerts,
-        "benchmark_lines": benchmark_lines,
-        "total_billed": round(total_billed, 2),
-        "total_benchmark": round(total_benchmark, 2),
-        "code_count": len(unique_codes),
+        "code_count": len(set(codes_flat)),
         "line_count": len(req.lines),
     }
