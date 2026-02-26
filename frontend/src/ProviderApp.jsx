@@ -26,7 +26,7 @@ export default function ProviderApp() {
   const [email, setEmail] = useState("");
   const [sending, setSending] = useState(false);
   const [authError, setAuthError] = useState("");
-  const [activeTab, setActiveTab] = useState("contract");
+  const [activeTab, setActiveTab] = useState("home");
 
   // Onboarding form state
   const [formData, setFormData] = useState({
@@ -50,6 +50,20 @@ export default function ProviderApp() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [sortField, setSortField] = useState(null);
   const [sortDir, setSortDir] = useState("asc");
+
+  // ── Coding Analysis state ──
+  const [codingLines, setCodingLines] = useState([
+    { cpt_code: "", units: 1, billed_amount: 0 },
+  ]);
+  const [codingSpecialty, setCodingSpecialty] = useState("");
+  const [codingDateRange, setCodingDateRange] = useState("");
+  const [codingResult, setCodingResult] = useState(null);
+  const [codingLoading, setCodingLoading] = useState(false);
+  const [codingError, setCodingError] = useState("");
+
+  // ── Dashboard home state ──
+  const [recentAnalyses, setRecentAnalyses] = useState(null);
+  const [loadingRecent, setLoadingRecent] = useState(false);
 
   // Auth bootstrap
   useEffect(() => {
@@ -390,6 +404,89 @@ export default function ProviderApp() {
     return lines;
   }
 
+  // ── Coding Analysis handlers ──
+
+  function addCodingLine() {
+    setCodingLines(prev => [...prev, { cpt_code: "", units: 1, billed_amount: 0 }]);
+  }
+
+  function removeCodingLine(idx) {
+    setCodingLines(prev => prev.filter((_, i) => i !== idx));
+  }
+
+  function updateCodingLine(idx, field, value) {
+    setCodingLines(prev => prev.map((line, i) =>
+      i === idx ? { ...line, [field]: value } : line
+    ));
+  }
+
+  function resetCoding() {
+    setCodingLines([{ cpt_code: "", units: 1, billed_amount: 0 }]);
+    setCodingResult(null);
+    setCodingError("");
+    setCodingDateRange("");
+  }
+
+  async function handleRunCodingAnalysis() {
+    const validLines = codingLines.filter(l => l.cpt_code.trim());
+    if (validLines.length === 0) {
+      setCodingError("Add at least one CPT code.");
+      return;
+    }
+    setCodingLoading(true);
+    setCodingError("");
+    setCodingResult(null);
+
+    try {
+      const resp = await fetch(`${API_BASE}/api/provider/analyze-coding`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: session.user.id,
+          specialty: codingSpecialty || profile?.specialty || "",
+          zip_code: profile?.zip_code || "",
+          date_range: codingDateRange,
+          lines: validLines.map(l => ({
+            cpt_code: l.cpt_code.trim(),
+            units: parseInt(l.units) || 1,
+            billed_amount: parseFloat(l.billed_amount) || 0,
+          })),
+        }),
+      });
+      if (!resp.ok) throw new Error("Coding analysis failed");
+      const data = await resp.json();
+      setCodingResult(data);
+    } catch (err) {
+      setCodingError("Analysis failed: " + err.message);
+    }
+    setCodingLoading(false);
+  }
+
+  // ── Dashboard home: load recent analyses ──
+
+  async function loadRecentAnalyses() {
+    if (!session) return;
+    setLoadingRecent(true);
+    try {
+      const { data, error } = await supabase
+        .from("provider_analyses")
+        .select("id, payer_name, created_at, total_billed, total_paid, underpayment, adherence_rate")
+        .eq("user_id", session.user.id)
+        .order("created_at", { ascending: false })
+        .limit(5);
+      if (!error) setRecentAnalyses(data || []);
+    } catch {
+      // Non-fatal
+    }
+    setLoadingRecent(false);
+  }
+
+  useEffect(() => {
+    if (view === "dashboard" && activeTab === "home" && recentAnalyses === null) {
+      loadRecentAnalyses();
+    }
+  }, [view, activeTab]);
+
   // ── Shared nav ──
   const nav = (
     <nav className="cs-nav">
@@ -654,36 +751,33 @@ export default function ProviderApp() {
 
         {/* Tab buttons */}
         <div style={{ display: "flex", gap: 8, marginBottom: 32 }}>
-          <button
-            onClick={() => setActiveTab("contract")}
-            style={{
-              padding: "10px 20px", borderRadius: 8, fontSize: 14, fontWeight: 600,
-              cursor: "pointer", border: "1px solid",
-              ...(activeTab === "contract"
-                ? { background: "var(--cs-navy)", color: "#fff", borderColor: "var(--cs-navy)" }
-                : { background: "#fff", color: "var(--cs-slate)", borderColor: "var(--cs-border)" }
-              ),
-            }}
-          >
-            Contract Integrity
-          </button>
-          <button
-            onClick={() => setActiveTab("coding")}
-            style={{
-              padding: "10px 20px", borderRadius: 8, fontSize: 14, fontWeight: 600,
-              cursor: "pointer", border: "1px solid",
-              ...(activeTab === "coding"
-                ? { background: "var(--cs-navy)", color: "#fff", borderColor: "var(--cs-navy)" }
-                : { background: "#fff", color: "var(--cs-slate)", borderColor: "var(--cs-border)" }
-              ),
-            }}
-          >
-            Coding Analysis
-          </button>
+          {["home", "contract", "coding"].map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                padding: "10px 20px", borderRadius: 8, fontSize: 14, fontWeight: 600,
+                cursor: "pointer", border: "1px solid",
+                ...(activeTab === tab
+                  ? { background: "var(--cs-navy)", color: "#fff", borderColor: "var(--cs-navy)" }
+                  : { background: "#fff", color: "var(--cs-slate)", borderColor: "var(--cs-border)" }
+                ),
+              }}
+            >
+              {tab === "home" ? "Dashboard" : tab === "contract" ? "Contract Integrity" : "Coding Analysis"}
+            </button>
+          ))}
         </div>
 
         {/* Tab content */}
-        {activeTab === "contract" ? (
+        {activeTab === "home" ? (
+          <DashboardHome
+            recentAnalyses={recentAnalyses}
+            loading={loadingRecent}
+            onGoToContract={() => setActiveTab("contract")}
+            onGoToCoding={() => setActiveTab("coding")}
+          />
+        ) : activeTab === "contract" ? (
           <ContractIntegrityTab
             step={contractStep}
             error={contractError}
@@ -704,31 +798,22 @@ export default function ProviderApp() {
             onReset={resetContract}
           />
         ) : (
-          <div style={{
-            border: "1px solid var(--cs-border)", borderRadius: 12,
-            padding: 40, textAlign: "center", background: "var(--cs-mist)",
-          }}>
-            <div style={{ marginBottom: 16 }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--cs-teal)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="20" x2="18" y2="10"/>
-                <line x1="12" y1="20" x2="12" y2="4"/>
-                <line x1="6" y1="20" x2="6" y2="14"/>
-              </svg>
-            </div>
-            <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
-              Coding Pattern Analysis
-            </h3>
-            <p style={{ color: "var(--cs-slate)", fontSize: 14, maxWidth: 480, margin: "0 auto 20px" }}>
-              We'll analyze your coding patterns across claims to identify undercoding opportunities and compliance risks.
-            </p>
-            <div style={{
-              display: "inline-block", padding: "6px 14px", borderRadius: 6,
-              background: "var(--cs-teal-pale)", color: "var(--cs-teal)",
-              fontSize: 13, fontWeight: 500,
-            }}>
-              Coming in next step
-            </div>
-          </div>
+          <CodingAnalysisTab
+            lines={codingLines}
+            specialty={codingSpecialty}
+            dateRange={codingDateRange}
+            result={codingResult}
+            loading={codingLoading}
+            error={codingError}
+            profileSpecialty={profile?.specialty || ""}
+            onAddLine={addCodingLine}
+            onRemoveLine={removeCodingLine}
+            onUpdateLine={updateCodingLine}
+            onSetSpecialty={setCodingSpecialty}
+            onSetDateRange={setCodingDateRange}
+            onRun={handleRunCodingAnalysis}
+            onReset={resetCoding}
+          />
         )}
       </div>
 
@@ -1117,6 +1202,517 @@ function ContractIntegrityTab({
           <button onClick={onReset} style={btnOutline}>Start Over</button>
         </div>
       )}
+    </div>
+  );
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// Dashboard Home Component
+// ═══════════════════════════════════════════════════════════════════
+
+function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }) {
+  const hasAnalyses = recentAnalyses && recentAnalyses.length > 0;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      {/* Quick Actions */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+        <button
+          onClick={onGoToContract}
+          style={{
+            border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24,
+            background: "#fff", cursor: "pointer", textAlign: "left",
+            transition: "border-color 0.15s",
+          }}
+          onMouseOver={e => e.currentTarget.style.borderColor = "var(--cs-teal)"}
+          onMouseOut={e => e.currentTarget.style.borderColor = "var(--cs-border)"}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+            <div style={{
+              width: 40, height: 40, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
+              background: "var(--cs-teal-pale)",
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cs-teal)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)" }}>Contract Integrity</div>
+              <div style={{ fontSize: 13, color: "var(--cs-slate)" }}>Audit payer remittances</div>
+            </div>
+          </div>
+          <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: 0, lineHeight: 1.5 }}>
+            Upload your contract rates and 835 remittance files to identify underpayments and denied claims.
+          </p>
+        </button>
+
+        <button
+          onClick={onGoToCoding}
+          style={{
+            border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24,
+            background: "#fff", cursor: "pointer", textAlign: "left",
+            transition: "border-color 0.15s",
+          }}
+          onMouseOver={e => e.currentTarget.style.borderColor = "var(--cs-teal)"}
+          onMouseOut={e => e.currentTarget.style.borderColor = "var(--cs-border)"}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+            <div style={{
+              width: 40, height: 40, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
+              background: "#eff6ff",
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)" }}>Coding Analysis</div>
+              <div style={{ fontSize: 13, color: "var(--cs-slate)" }}>Check coding patterns</div>
+            </div>
+          </div>
+          <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: 0, lineHeight: 1.5 }}>
+            Analyze E&M distributions, NCCI edit compliance, and Medicare benchmark comparisons.
+          </p>
+        </button>
+      </div>
+
+      {/* Recent Analyses */}
+      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff" }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 16px" }}>
+          Recent Analyses
+        </h3>
+
+        {loading ? (
+          <div style={{ textAlign: "center", padding: 24 }}>
+            <Spinner />
+            <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 12 }}>Loading...</p>
+          </div>
+        ) : hasAnalyses ? (
+          <div style={{ overflowX: "auto" }}>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>Date</th>
+                  <th style={thStyle}>Payer</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Total Billed</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Total Paid</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Underpayment</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Adherence</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentAnalyses.map((a, i) => (
+                  <tr key={a.id} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                    <td style={tdStyle}>
+                      {new Date(a.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </td>
+                    <td style={tdStyle}>{a.payer_name || "—"}</td>
+                    <td style={{ ...tdStyle, textAlign: "right" }}>
+                      ${(a.total_billed || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    </td>
+                    <td style={{ ...tdStyle, textAlign: "right" }}>
+                      ${(a.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    </td>
+                    <td style={{ ...tdStyle, textAlign: "right", color: a.underpayment > 0 ? "#dc2626" : "inherit", fontWeight: a.underpayment > 0 ? 600 : 400 }}>
+                      ${(a.underpayment || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    </td>
+                    <td style={{
+                      ...tdStyle, textAlign: "right", fontWeight: 600,
+                      color: a.adherence_rate >= 97 ? "#059669" : a.adherence_rate >= 90 ? "#d97706" : "#dc2626",
+                    }}>
+                      {a.adherence_rate}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div style={{
+            padding: 32, textAlign: "center", background: "var(--cs-mist)",
+            borderRadius: 8,
+          }}>
+            <div style={{ marginBottom: 12 }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--cs-teal)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
+              No analyses yet
+            </h4>
+            <p style={{ color: "var(--cs-slate)", fontSize: 14, margin: "0 0 16px", maxWidth: 400, marginLeft: "auto", marginRight: "auto" }}>
+              Start by uploading your contract rates and an 835 remittance file to run your first contract integrity analysis.
+            </p>
+            <button onClick={onGoToContract} style={btnPrimary}>
+              Get Started
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// Coding Analysis Tab Component
+// ═══════════════════════════════════════════════════════════════════
+
+function CodingAnalysisTab({
+  lines, specialty, dateRange, result, loading, error, profileSpecialty,
+  onAddLine, onRemoveLine, onUpdateLine, onSetSpecialty, onSetDateRange, onRun, onReset,
+}) {
+
+  if (loading) {
+    return (
+      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 48, textAlign: "center", background: "#fff" }}>
+        <Spinner />
+        <p style={{ color: "var(--cs-navy)", fontWeight: 600, marginTop: 16, fontSize: 16 }}>
+          Analyzing coding patterns...
+        </p>
+        <p style={{ color: "var(--cs-slate)", fontSize: 14 }}>
+          Checking E&M distributions, NCCI edits, and MUE limits.
+        </p>
+      </div>
+    );
+  }
+
+  // ── Report view ──
+  if (result) {
+    const em = result.em_distribution || {};
+    const bench = result.em_benchmark || {};
+    const emCodes = ["99211", "99212", "99213", "99214", "99215"];
+    const maxPct = Math.max(...emCodes.map(c => Math.max(em[c] || 0, bench[c] || 0)), 1);
+
+    return (
+      <div>
+        {/* E&M Distribution */}
+        {result.em_total > 0 && (
+          <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+              E&M Visit Distribution
+            </h3>
+            <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: "0 0 20px" }}>
+              Your established patient E&M mix ({result.em_total} visits) vs. specialty benchmark
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {emCodes.map(code => {
+                const yours = em[code] || 0;
+                const theirs = bench[code] || 0;
+                return (
+                  <div key={code} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{ width: 50, fontSize: 13, fontWeight: 600, color: "var(--cs-navy)", textAlign: "right" }}>{code}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
+                        <div style={{
+                          height: 14, borderRadius: 3,
+                          background: "var(--cs-teal)",
+                          width: `${(yours / maxPct) * 100}%`,
+                          minWidth: yours > 0 ? 4 : 0,
+                          transition: "width 0.3s",
+                        }} />
+                        <span style={{ fontSize: 12, color: "var(--cs-navy)", fontWeight: 600, whiteSpace: "nowrap" }}>{yours}%</span>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <div style={{
+                          height: 8, borderRadius: 2,
+                          background: "var(--cs-border)",
+                          width: `${(theirs / maxPct) * 100}%`,
+                          minWidth: theirs > 0 ? 4 : 0,
+                        }} />
+                        <span style={{ fontSize: 11, color: "var(--cs-slate)", whiteSpace: "nowrap" }}>{theirs}%</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div style={{ display: "flex", gap: 16, marginTop: 16, fontSize: 12, color: "var(--cs-slate)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <div style={{ width: 12, height: 12, borderRadius: 2, background: "var(--cs-teal)" }} />
+                Your practice
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <div style={{ width: 12, height: 8, borderRadius: 2, background: "var(--cs-border)" }} />
+                Specialty benchmark
+              </div>
+            </div>
+
+            {/* E&M Alerts */}
+            {(result.em_alerts || []).map((alert, i) => (
+              <div key={i} style={{
+                marginTop: 16, padding: 14, borderRadius: 8,
+                background: alert.severity === "warning" ? "#fffbeb" : "#eff6ff",
+                border: `1px solid ${alert.severity === "warning" ? "#fbbf24" : "#93c5fd"}`,
+                fontSize: 13, color: "var(--cs-navy)", lineHeight: 1.5,
+              }}>
+                <strong>{alert.type === "UNDERCODING" ? "Potential Undercoding" : "Coding Pattern Note"}:</strong>{" "}
+                {alert.message}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* NCCI Edit Alerts */}
+        {(result.ncci_alerts || []).length > 0 && (
+          <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 16px" }}>
+              NCCI Edit Flags ({result.ncci_alerts.length})
+            </h3>
+            {result.ncci_alerts.map((alert, i) => (
+              <div key={i} style={{
+                padding: 14, borderRadius: 8, marginBottom: i < result.ncci_alerts.length - 1 ? 10 : 0,
+                background: alert.severity === "warning" ? "#fef2f2" : "#eff6ff",
+                border: `1px solid ${alert.severity === "warning" ? "#fecaca" : "#93c5fd"}`,
+                fontSize: 13, lineHeight: 1.5,
+              }}>
+                <div style={{ fontWeight: 600, color: "var(--cs-navy)", marginBottom: 4 }}>
+                  {alert.codes.join(" + ")}
+                </div>
+                <div style={{ color: "var(--cs-slate)" }}>{alert.message}</div>
+                <div style={{ fontSize: 11, color: "var(--cs-slate)", marginTop: 6 }}>Source: {alert.source}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* MUE Limit Alerts */}
+        {(result.mue_alerts || []).length > 0 && (
+          <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 16px" }}>
+              MUE Limit Flags ({result.mue_alerts.length})
+            </h3>
+            {result.mue_alerts.map((alert, i) => (
+              <div key={i} style={{
+                padding: 14, borderRadius: 8, marginBottom: i < result.mue_alerts.length - 1 ? 10 : 0,
+                background: "#fffbeb",
+                border: "1px solid #fbbf24",
+                fontSize: 13, lineHeight: 1.5,
+              }}>
+                <div style={{ fontWeight: 600, color: "var(--cs-navy)", marginBottom: 4 }}>
+                  CPT {alert.codes[0]}
+                </div>
+                <div style={{ color: "var(--cs-slate)" }}>{alert.message}</div>
+                <div style={{ fontSize: 11, color: "var(--cs-slate)", marginTop: 6 }}>Source: {alert.source}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* No NCCI/MUE alerts */}
+        {(result.ncci_alerts || []).length === 0 && (result.mue_alerts || []).length === 0 && (
+          <div style={{
+            border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24,
+            background: "#ecfdf5", marginBottom: 24, textAlign: "center",
+          }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "#059669" }}>
+              No NCCI Edit or MUE Limit Issues Found
+            </div>
+            <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: "8px 0 0" }}>
+              All submitted code combinations passed compliance checks.
+            </p>
+          </div>
+        )}
+
+        {/* Benchmark Comparison Table */}
+        {(result.benchmark_lines || []).length > 0 && (
+          <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+              Medicare Benchmark Comparison
+            </h3>
+            <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: "0 0 16px" }}>
+              Total billed: ${result.total_billed.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              {" "}| Total benchmark: ${result.total_benchmark.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            </p>
+            <div style={{ overflowX: "auto" }}>
+              <table style={tableStyle}>
+                <thead>
+                  <tr>
+                    <th style={thStyle}>CPT</th>
+                    <th style={{ ...thStyle, textAlign: "center" }}>Units</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Billed</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Medicare Rate</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Ratio</th>
+                    <th style={thStyle}>Source</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.benchmark_lines.map((line, i) => (
+                    <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                      <td style={tdStyle}>{line.cpt_code}</td>
+                      <td style={{ ...tdStyle, textAlign: "center" }}>{line.units}</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>${line.billed_amount.toFixed(2)}</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>
+                        {line.medicare_rate != null ? `$${line.medicare_rate.toFixed(2)}` : "—"}
+                      </td>
+                      <td style={{
+                        ...tdStyle, textAlign: "right", fontWeight: 600,
+                        color: line.ratio == null ? "var(--cs-slate)" : line.ratio > 3 ? "#dc2626" : line.ratio > 2 ? "#d97706" : "#059669",
+                      }}>
+                        {line.ratio != null ? `${line.ratio}x` : "—"}
+                      </td>
+                      <td style={{ ...tdStyle, fontSize: 11, color: "var(--cs-slate)" }}>
+                        {line.medicare_source || "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Disclaimer */}
+        <div style={{
+          padding: 16, borderRadius: 8, background: "var(--cs-mist)",
+          fontSize: 12, color: "var(--cs-slate)", marginBottom: 24, lineHeight: 1.6,
+        }}>
+          <strong>Disclaimer:</strong> This coding analysis uses CMS benchmark distributions and publicly available
+          NCCI edit and MUE limit tables. It is not legal or compliance advice. Individual chart documentation
+          determines the appropriate code level. Consult a certified coder or compliance officer before making changes.
+        </div>
+
+        {/* Actions */}
+        <div className="no-print" style={{ display: "flex", gap: 12 }}>
+          <button onClick={() => window.print()} style={btnPrimary}>Download Report</button>
+          <button onClick={onReset} style={btnOutline}>Start Over</button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Input form ──
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      {/* Settings row */}
+      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff" }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 16px" }}>
+          Analysis Settings
+        </h3>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div>
+            <label style={labelStyle}>Specialty</label>
+            <select
+              value={specialty || profileSpecialty}
+              onChange={e => onSetSpecialty(e.target.value)}
+              style={{ ...inputStyle, appearance: "auto" }}
+            >
+              <option value="">Select specialty</option>
+              {SPECIALTIES.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+          <div>
+            <label style={labelStyle}>Date range (optional)</label>
+            <input
+              type="text"
+              value={dateRange}
+              onChange={e => onSetDateRange(e.target.value)}
+              placeholder="e.g. Jan 2026 – Feb 2026"
+              style={inputStyle}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Billing lines */}
+      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff" }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+          Billing Lines
+        </h3>
+        <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: "0 0 16px" }}>
+          Enter CPT codes from recent claims. Include units and billed amounts for benchmark comparison.
+        </p>
+
+        <div style={{ overflowX: "auto" }}>
+          <table style={tableStyle}>
+            <thead>
+              <tr>
+                <th style={thStyle}>CPT Code</th>
+                <th style={{ ...thStyle, textAlign: "center", width: 80 }}>Units</th>
+                <th style={{ ...thStyle, textAlign: "right", width: 120 }}>Billed ($)</th>
+                <th style={{ ...thStyle, width: 50 }}></th>
+              </tr>
+            </thead>
+            <tbody>
+              {lines.map((line, i) => (
+                <tr key={i}>
+                  <td style={tdStyle}>
+                    <input
+                      type="text"
+                      value={line.cpt_code}
+                      onChange={e => onUpdateLine(i, "cpt_code", e.target.value)}
+                      placeholder="e.g. 99213"
+                      maxLength={5}
+                      style={{ ...inputStyle, padding: "6px 10px", fontSize: 13 }}
+                    />
+                  </td>
+                  <td style={tdStyle}>
+                    <input
+                      type="number"
+                      value={line.units}
+                      onChange={e => onUpdateLine(i, "units", e.target.value)}
+                      min={1}
+                      style={{ ...inputStyle, padding: "6px 10px", fontSize: 13, textAlign: "center" }}
+                    />
+                  </td>
+                  <td style={tdStyle}>
+                    <input
+                      type="number"
+                      value={line.billed_amount}
+                      onChange={e => onUpdateLine(i, "billed_amount", e.target.value)}
+                      step="0.01"
+                      style={{ ...inputStyle, padding: "6px 10px", fontSize: 13, textAlign: "right" }}
+                    />
+                  </td>
+                  <td style={tdStyle}>
+                    {lines.length > 1 && (
+                      <button
+                        onClick={() => onRemoveLine(i)}
+                        style={{
+                          background: "none", border: "none", cursor: "pointer",
+                          color: "#dc2626", fontSize: 16, padding: "4px 8px",
+                        }}
+                        title="Remove line"
+                      >
+                        &times;
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <button
+          onClick={onAddLine}
+          style={{
+            marginTop: 12, background: "none", border: "1px dashed var(--cs-border)",
+            borderRadius: 8, padding: "8px 16px", fontSize: 13, color: "var(--cs-teal)",
+            cursor: "pointer", fontWeight: 500,
+          }}
+        >
+          + Add Line
+        </button>
+      </div>
+
+      {error && <ErrorBanner message={error} />}
+
+      <div>
+        <button onClick={onRun} style={btnPrimary}>
+          Run Coding Analysis
+        </button>
+      </div>
     </div>
   );
 }

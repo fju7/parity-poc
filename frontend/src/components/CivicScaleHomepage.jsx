@@ -48,7 +48,7 @@ export default function CivicScaleHomepage() {
           <a href="#platform">Platform</a>
           <a href="#data">Data</a>
           <Link to="/employer">For Employers</Link>
-          <Link to="/provider">For Providers</Link>
+          <Link to="/provider">For Providers <span style={{ fontSize: 10, fontWeight: 600, background: "var(--cs-teal-pale)", color: "var(--cs-teal)", padding: "2px 6px", borderRadius: 4, marginLeft: 4, verticalAlign: "middle" }}>Beta</span></Link>
           <Link to="/investors">Investors</Link>
         </div>
       </nav>
@@ -103,7 +103,7 @@ export default function CivicScaleHomepage() {
             <Link to="/provider" className="cs-hero-card">
               <div className="cs-hero-card-badge">
                 <span className="cs-hero-card-dot" />
-                Live
+                Beta
               </div>
               <div className="cs-hero-card-title">Parity Provider</div>
               <div className="cs-hero-card-subtitle">For independent practices</div>
@@ -184,12 +184,12 @@ export default function CivicScaleHomepage() {
             </span>
           </Link>
 
-          {/* LIVE: Parity Provider */}
+          {/* BETA: Parity Provider */}
           <Link to="/provider" className="cs-product-card cs-live">
             <div className="cs-card-accent cs-accent-live" />
             <div className="cs-card-badge cs-badge-live">
               <span className="cs-badge-live-dot" />
-              Live
+              Beta
             </div>
             <div className="cs-card-icon cs-icon-provider">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><line x1="20" y1="10" x2="20" y2="6"/><line x1="18" y1="8" x2="22" y2="8"/></svg>

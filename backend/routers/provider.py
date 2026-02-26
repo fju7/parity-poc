@@ -4,11 +4,13 @@ Provider dashboard endpoints:
   POST /api/provider/save-rates         — save parsed contract rates
   POST /api/provider/parse-835          — parse an uploaded 835 EDI file
   POST /api/provider/analyze-contract   — compare remittance vs contracted rates
+  POST /api/provider/analyze-coding     — coding pattern analysis (E&M, NCCI, MUE)
 
 No PHI is stored. Contract rates and analysis results are tied to user_id.
 """
 
 import os
+from collections import Counter
 from pathlib import Path
 from typing import List, Optional
 
@@ -19,6 +21,7 @@ from pydantic import BaseModel
 from supabase import create_client
 
 from routers.benchmark import resolve_locality, lookup_rate
+from routers.coding_intelligence import check_ncci_edits, check_mue_limits
 from utils.parse_835 import parse_835
 
 router = APIRouter(prefix="/api/provider", tags=["provider"])
@@ -80,6 +83,20 @@ class AnalyzeRequest(BaseModel):
     zip_code: Optional[str] = ""
     contract_rates: dict  # {cpt_code: rate}
     remittance_lines: List[RemittanceLine]
+
+
+class CodingLine(BaseModel):
+    cpt_code: str
+    units: int = 1
+    billed_amount: float = 0.0
+
+
+class CodingAnalyzeRequest(BaseModel):
+    user_id: str
+    specialty: str = ""
+    zip_code: Optional[str] = ""
+    date_range: Optional[str] = ""
+    lines: List[CodingLine]
 
 
 # ---------------------------------------------------------------------------
@@ -309,4 +326,152 @@ async def analyze_contract(req: AnalyzeRequest):
         "summary": summary,
         "line_items": enriched_lines,
         "top_underpaid": top_underpaid_list,
+    }
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/analyze-coding
+# ---------------------------------------------------------------------------
+
+# E&M code families for distribution analysis
+EM_CODES = {
+    "New Patient": ["99201", "99202", "99203", "99204", "99205"],
+    "Established Patient": ["99211", "99212", "99213", "99214", "99215"],
+}
+
+# CMS benchmark E&M distributions by specialty (approximate national averages)
+EM_BENCHMARKS = {
+    "Internal Medicine": {
+        "99211": 3, "99212": 8, "99213": 40, "99214": 38, "99215": 11,
+    },
+    "Family Medicine": {
+        "99211": 4, "99212": 10, "99213": 42, "99214": 35, "99215": 9,
+    },
+    "Cardiology": {
+        "99211": 2, "99212": 5, "99213": 25, "99214": 45, "99215": 23,
+    },
+    "Orthopedics": {
+        "99211": 3, "99212": 7, "99213": 30, "99214": 42, "99215": 18,
+    },
+    "Dermatology": {
+        "99211": 5, "99212": 12, "99213": 45, "99214": 30, "99215": 8,
+    },
+    "Radiology": {
+        "99211": 2, "99212": 6, "99213": 35, "99214": 40, "99215": 17,
+    },
+    "Pathology/Lab": {
+        "99211": 3, "99212": 8, "99213": 38, "99214": 38, "99215": 13,
+    },
+    "Other": {
+        "99211": 3, "99212": 8, "99213": 38, "99214": 38, "99215": 13,
+    },
+}
+
+
+@router.post("/analyze-coding")
+async def analyze_coding(req: CodingAnalyzeRequest):
+    """Analyze coding patterns: E&M distribution, NCCI edits, MUE limits, benchmarks."""
+
+    codes_flat = []
+    for line in req.lines:
+        for _ in range(line.units):
+            codes_flat.append(line.cpt_code)
+
+    code_counts = Counter(codes_flat)
+
+    # --- 1. E&M Distribution ---
+    em_established = ["99211", "99212", "99213", "99214", "99215"]
+    em_total = sum(code_counts.get(c, 0) for c in em_established)
+    em_distribution = {}
+    if em_total > 0:
+        for c in em_established:
+            em_distribution[c] = round((code_counts.get(c, 0) / em_total) * 100, 1)
+
+    # Get benchmark distribution for specialty
+    specialty_key = req.specialty if req.specialty in EM_BENCHMARKS else "Other"
+    em_benchmark = EM_BENCHMARKS.get(specialty_key, EM_BENCHMARKS["Other"])
+
+    # Identify potential undercoding or overcoding
+    em_alerts = []
+    if em_total >= 5:  # Only flag if enough data
+        pct_low = sum(code_counts.get(c, 0) for c in ["99211", "99212"]) / em_total * 100
+        pct_high = sum(code_counts.get(c, 0) for c in ["99214", "99215"]) / em_total * 100
+        bench_high = em_benchmark.get("99214", 0) + em_benchmark.get("99215", 0)
+
+        if pct_high < bench_high * 0.6:
+            em_alerts.append({
+                "type": "UNDERCODING",
+                "severity": "warning",
+                "message": (
+                    f"Your high-complexity E&M rate ({pct_high:.0f}%) is significantly below "
+                    f"the {specialty_key} benchmark ({bench_high}%). You may be under-coding "
+                    f"visits that qualify for 99214 or 99215."
+                ),
+            })
+        elif pct_high > bench_high * 1.4:
+            em_alerts.append({
+                "type": "OVERCODING",
+                "severity": "info",
+                "message": (
+                    f"Your high-complexity E&M rate ({pct_high:.0f}%) is above "
+                    f"the {specialty_key} benchmark ({bench_high}%). Ensure documentation "
+                    f"supports the level of service billed."
+                ),
+            })
+
+    # --- 2. NCCI Edit Checks ---
+    unique_codes = list(set(codes_flat))
+    ncci_alerts = check_ncci_edits(unique_codes)
+
+    # --- 3. MUE Limit Checks ---
+    mue_alerts = check_mue_limits(codes_flat)
+
+    # --- 4. Medicare Benchmark Comparison ---
+    carrier, locality = None, None
+    if req.zip_code:
+        carrier, locality = resolve_locality(req.zip_code)
+
+    benchmark_lines = []
+    total_billed = 0.0
+    total_benchmark = 0.0
+    for line in req.lines:
+        medicare_rate = None
+        medicare_source = None
+        if carrier and locality:
+            rate, source, _, _ = lookup_rate(
+                line.cpt_code, "CPT", carrier, locality
+            )
+            if rate is not None:
+                medicare_rate = rate
+                medicare_source = source
+
+        line_billed = line.billed_amount * line.units
+        line_benchmark = (medicare_rate * line.units) if medicare_rate else None
+        total_billed += line_billed
+        if line_benchmark is not None:
+            total_benchmark += line_benchmark
+
+        benchmark_lines.append({
+            "cpt_code": line.cpt_code,
+            "units": line.units,
+            "billed_amount": line.billed_amount,
+            "total_billed": round(line_billed, 2),
+            "medicare_rate": medicare_rate,
+            "medicare_source": medicare_source,
+            "total_benchmark": round(line_benchmark, 2) if line_benchmark else None,
+            "ratio": round(line.billed_amount / medicare_rate, 2) if medicare_rate and medicare_rate > 0 else None,
+        })
+
+    return {
+        "em_distribution": em_distribution,
+        "em_benchmark": em_benchmark,
+        "em_total": em_total,
+        "em_alerts": em_alerts,
+        "ncci_alerts": ncci_alerts,
+        "mue_alerts": mue_alerts,
+        "benchmark_lines": benchmark_lines,
+        "total_billed": round(total_billed, 2),
+        "total_benchmark": round(total_benchmark, 2),
+        "code_count": len(unique_codes),
+        "line_count": len(req.lines),
     }
