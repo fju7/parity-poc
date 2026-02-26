@@ -56,7 +56,8 @@ export default function ProviderApp() {
     { cpt_code: "", units: 1, billed_amount: 0 },
   ]);
   const [codingSpecialty, setCodingSpecialty] = useState("");
-  const [codingDateRange, setCodingDateRange] = useState("");
+  const [codingDateStart, setCodingDateStart] = useState("");
+  const [codingDateEnd, setCodingDateEnd] = useState("");
   const [codingResult, setCodingResult] = useState(null);
   const [codingLoading, setCodingLoading] = useState(false);
   const [codingError, setCodingError] = useState("");
@@ -424,7 +425,8 @@ export default function ProviderApp() {
     setCodingLines([{ cpt_code: "", units: 1, billed_amount: 0 }]);
     setCodingResult(null);
     setCodingError("");
-    setCodingDateRange("");
+    setCodingDateStart("");
+    setCodingDateEnd("");
   }
 
   async function handleRunCodingAnalysis() {
@@ -445,7 +447,7 @@ export default function ProviderApp() {
           user_id: session.user.id,
           specialty: codingSpecialty || profile?.specialty || "",
           zip_code: profile?.zip_code || "",
-          date_range: codingDateRange,
+          date_range: codingDateStart && codingDateEnd ? `${codingDateStart} to ${codingDateEnd}` : "",
           lines: validLines.map(l => ({
             cpt_code: l.cpt_code.trim(),
             units: parseInt(l.units) || 1,
@@ -801,7 +803,8 @@ export default function ProviderApp() {
           <CodingAnalysisTab
             lines={codingLines}
             specialty={codingSpecialty}
-            dateRange={codingDateRange}
+            dateStart={codingDateStart}
+            dateEnd={codingDateEnd}
             result={codingResult}
             loading={codingLoading}
             error={codingError}
@@ -810,7 +813,8 @@ export default function ProviderApp() {
             onRemoveLine={removeCodingLine}
             onUpdateLine={updateCodingLine}
             onSetSpecialty={setCodingSpecialty}
-            onSetDateRange={setCodingDateRange}
+            onSetDateStart={setCodingDateStart}
+            onSetDateEnd={setCodingDateEnd}
             onRun={handleRunCodingAnalysis}
             onReset={resetCoding}
           />
@@ -1367,8 +1371,8 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }
 // ═══════════════════════════════════════════════════════════════════
 
 function CodingAnalysisTab({
-  lines, specialty, dateRange, result, loading, error, profileSpecialty,
-  onAddLine, onRemoveLine, onUpdateLine, onSetSpecialty, onSetDateRange, onRun, onReset,
+  lines, specialty, dateStart, dateEnd, result, loading, error, profileSpecialty,
+  onAddLine, onRemoveLine, onUpdateLine, onSetSpecialty, onSetDateStart, onSetDateEnd, onRun, onReset,
 }) {
 
   if (loading) {
@@ -1463,67 +1467,6 @@ function CodingAnalysisTab({
           </div>
         )}
 
-        {/* NCCI Edit Alerts */}
-        {(result.ncci_alerts || []).length > 0 && (
-          <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
-            <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 16px" }}>
-              NCCI Edit Flags ({result.ncci_alerts.length})
-            </h3>
-            {result.ncci_alerts.map((alert, i) => (
-              <div key={i} style={{
-                padding: 14, borderRadius: 8, marginBottom: i < result.ncci_alerts.length - 1 ? 10 : 0,
-                background: alert.severity === "warning" ? "#fef2f2" : "#eff6ff",
-                border: `1px solid ${alert.severity === "warning" ? "#fecaca" : "#93c5fd"}`,
-                fontSize: 13, lineHeight: 1.5,
-              }}>
-                <div style={{ fontWeight: 600, color: "var(--cs-navy)", marginBottom: 4 }}>
-                  {alert.codes.join(" + ")}
-                </div>
-                <div style={{ color: "var(--cs-slate)" }}>{alert.message}</div>
-                <div style={{ fontSize: 11, color: "var(--cs-slate)", marginTop: 6 }}>Source: {alert.source}</div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* MUE Limit Alerts */}
-        {(result.mue_alerts || []).length > 0 && (
-          <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
-            <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 16px" }}>
-              MUE Limit Flags ({result.mue_alerts.length})
-            </h3>
-            {result.mue_alerts.map((alert, i) => (
-              <div key={i} style={{
-                padding: 14, borderRadius: 8, marginBottom: i < result.mue_alerts.length - 1 ? 10 : 0,
-                background: "#fffbeb",
-                border: "1px solid #fbbf24",
-                fontSize: 13, lineHeight: 1.5,
-              }}>
-                <div style={{ fontWeight: 600, color: "var(--cs-navy)", marginBottom: 4 }}>
-                  CPT {alert.codes[0]}
-                </div>
-                <div style={{ color: "var(--cs-slate)" }}>{alert.message}</div>
-                <div style={{ fontSize: 11, color: "var(--cs-slate)", marginTop: 6 }}>Source: {alert.source}</div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* No NCCI/MUE alerts */}
-        {(result.ncci_alerts || []).length === 0 && (result.mue_alerts || []).length === 0 && (
-          <div style={{
-            border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24,
-            background: "#ecfdf5", marginBottom: 24, textAlign: "center",
-          }}>
-            <div style={{ fontSize: 14, fontWeight: 600, color: "#059669" }}>
-              No NCCI Edit or MUE Limit Issues Found
-            </div>
-            <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: "8px 0 0" }}>
-              All submitted code combinations passed compliance checks.
-            </p>
-          </div>
-        )}
-
         {/* Benchmark Comparison Table */}
         {(result.benchmark_lines || []).length > 0 && (
           <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
@@ -1599,7 +1542,7 @@ function CodingAnalysisTab({
         <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 16px" }}>
           Analysis Settings
         </h3>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
           <div>
             <label style={labelStyle}>Specialty</label>
             <select
@@ -1612,12 +1555,20 @@ function CodingAnalysisTab({
             </select>
           </div>
           <div>
-            <label style={labelStyle}>Date range (optional)</label>
+            <label style={labelStyle}>Period Start</label>
             <input
-              type="text"
-              value={dateRange}
-              onChange={e => onSetDateRange(e.target.value)}
-              placeholder="e.g. Jan 2026 – Feb 2026"
+              type="date"
+              value={dateStart}
+              onChange={e => onSetDateStart(e.target.value)}
+              style={inputStyle}
+            />
+          </div>
+          <div>
+            <label style={labelStyle}>Period End</label>
+            <input
+              type="date"
+              value={dateEnd}
+              onChange={e => onSetDateEnd(e.target.value)}
               style={inputStyle}
             />
           </div>

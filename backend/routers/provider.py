@@ -21,7 +21,6 @@ from pydantic import BaseModel
 from supabase import create_client
 
 from routers.benchmark import resolve_locality, lookup_rate
-from routers.coding_intelligence import check_ncci_edits, check_mue_limits
 from utils.parse_835 import parse_835
 
 router = APIRouter(prefix="/api/provider", tags=["provider"])
@@ -419,14 +418,8 @@ async def analyze_coding(req: CodingAnalyzeRequest):
                 ),
             })
 
-    # --- 2. NCCI Edit Checks ---
+    # --- 2. Medicare Benchmark Comparison ---
     unique_codes = list(set(codes_flat))
-    ncci_alerts = check_ncci_edits(unique_codes)
-
-    # --- 3. MUE Limit Checks ---
-    mue_alerts = check_mue_limits(codes_flat)
-
-    # --- 4. Medicare Benchmark Comparison ---
     carrier, locality = None, None
     if req.zip_code:
         carrier, locality = resolve_locality(req.zip_code)
@@ -467,8 +460,6 @@ async def analyze_coding(req: CodingAnalyzeRequest):
         "em_benchmark": em_benchmark,
         "em_total": em_total,
         "em_alerts": em_alerts,
-        "ncci_alerts": ncci_alerts,
-        "mue_alerts": mue_alerts,
         "benchmark_lines": benchmark_lines,
         "total_billed": round(total_billed, 2),
         "total_benchmark": round(total_benchmark, 2),
