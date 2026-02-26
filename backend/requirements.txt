@@ -6,3 +6,4 @@ python-multipart==0.0.12
 supabase==2.13.0
 anthropic>=0.42.0
 psutil>=5.9.0
+reportlab>=4.0
