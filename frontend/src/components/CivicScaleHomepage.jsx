@@ -48,6 +48,7 @@ export default function CivicScaleHomepage() {
           <a href="#platform">Platform</a>
           <a href="#data">Data</a>
           <Link to="/employer">For Employers</Link>
+          <Link to="/provider">For Providers</Link>
           <Link to="/investors">Investors</Link>
         </div>
       </nav>
@@ -96,6 +97,21 @@ export default function CivicScaleHomepage() {
               </p>
               <span className="cs-hero-card-btn">
                 View Demo Dashboard <span>&rarr;</span>
+              </span>
+            </Link>
+
+            <Link to="/provider" className="cs-hero-card">
+              <div className="cs-hero-card-badge">
+                <span className="cs-hero-card-dot" />
+                Live
+              </div>
+              <div className="cs-hero-card-title">Parity Provider</div>
+              <div className="cs-hero-card-subtitle">For independent practices</div>
+              <p className="cs-hero-card-desc">
+                Audit your payer contracts. Find what they owe you.
+              </p>
+              <span className="cs-hero-card-btn">
+                Open Parity Provider <span>&rarr;</span>
               </span>
             </Link>
           </div>
@@ -164,6 +180,26 @@ export default function CivicScaleHomepage() {
             </p>
             <span className="cs-card-link">
               View Dashboard
+              <span className="cs-card-link-arrow">&rarr;</span>
+            </span>
+          </Link>
+
+          {/* LIVE: Parity Provider */}
+          <Link to="/provider" className="cs-product-card cs-live">
+            <div className="cs-card-accent cs-accent-live" />
+            <div className="cs-card-badge cs-badge-live">
+              <span className="cs-badge-live-dot" />
+              Live
+            </div>
+            <div className="cs-card-icon cs-icon-provider">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><line x1="20" y1="10" x2="20" y2="6"/><line x1="18" y1="8" x2="22" y2="8"/></svg>
+            </div>
+            <div className="cs-card-name">Parity Provider</div>
+            <p className="cs-card-desc">
+              For independent practices. Audit your payer contracts and find what they owe you.
+            </p>
+            <span className="cs-card-link">
+              Open App
               <span className="cs-card-link-arrow">&rarr;</span>
             </span>
           </Link>
@@ -248,6 +284,17 @@ export default function CivicScaleHomepage() {
             <p className="cs-path-desc">See anonymous billing intelligence across your workforce.</p>
             <Link to="/employer" className="cs-btn-primary cs-path-btn">
               Request Employer Access <span>&rarr;</span>
+            </Link>
+          </div>
+
+          <div className="cs-path-card">
+            <div className="cs-path-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><line x1="20" y1="10" x2="20" y2="6"/><line x1="18" y1="8" x2="22" y2="8"/></svg>
+            </div>
+            <div className="cs-path-title">I run a medical practice</div>
+            <p className="cs-path-desc">Audit your payer contracts and find what they owe you.</p>
+            <Link to="/provider" className="cs-btn-primary cs-path-btn">
+              Open Parity Provider <span>&rarr;</span>
             </Link>
           </div>
 
