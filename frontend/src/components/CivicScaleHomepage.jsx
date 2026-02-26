@@ -63,9 +63,9 @@ export default function CivicScaleHomepage() {
             <span className="cs-hero-eyebrow-dot" />
             Institutional Benchmark Infrastructure
           </div>
-          <h1>The data layer for<br /><em>institutional transparency</em></h1>
+          <h1>The numbers should be right.<br /><em>For everyone.</em></h1>
           <p className="cs-hero-sub">
-            Normalizing healthcare costs, detecting billing anomalies, and surfacing pricing intelligence — across every market where institutional data asymmetry creates consumer harm.
+            Medical billing fails patients, providers, and employers in the same way: the party with the most information wins. CivicScale levels the field — with the same data, the same standards, and no agenda except accuracy.
           </p>
 
           {/* Two CTA cards */}
@@ -78,10 +78,10 @@ export default function CivicScaleHomepage() {
               <div className="cs-hero-card-title">Parity Health</div>
               <div className="cs-hero-card-subtitle">For individuals &amp; families</div>
               <p className="cs-hero-card-desc">
-                Analyze your medical bills against CMS benchmark rates. Detect coding anomalies. Request itemized bills with one click.
+                Your bill should reflect what your insurer agreed to pay — nothing more. Upload your bill or EOB and the Parity Engine tells you whether the numbers are right.
               </p>
               <span className="cs-hero-card-btn">
-                Open Parity Health <span>&rarr;</span>
+                Analyze My Bill <span>&rarr;</span>
               </span>
             </Link>
 
@@ -93,10 +93,10 @@ export default function CivicScaleHomepage() {
               <div className="cs-hero-card-title">Employer Dashboard</div>
               <div className="cs-hero-card-subtitle">For self-insured employers</div>
               <p className="cs-hero-card-desc">
-                Anonymous aggregate billing intelligence across your workforce. Identify outlier providers and coding patterns.
+                Your plan pays what the claims say it owes. Parity Employer audits your claims portfolio against coding standards and contracted rates — so you pay what you bargained for, not more.
               </p>
               <span className="cs-hero-card-btn">
-                View Demo Dashboard <span>&rarr;</span>
+                Audit My Claims <span>&rarr;</span>
               </span>
             </Link>
 
@@ -108,10 +108,10 @@ export default function CivicScaleHomepage() {
               <div className="cs-hero-card-title">Parity Provider</div>
               <div className="cs-hero-card-subtitle">For independent practices</div>
               <p className="cs-hero-card-desc">
-                Audit your payer contracts. Find what they owe you.
+                Your payer contracted to pay you specific rates for specific codes. Parity Provider compares every remittance against your contracted rates and flags every dollar they short you.
               </p>
               <span className="cs-hero-card-btn">
-                Open Parity Provider <span>&rarr;</span>
+                Check My Remittances <span>&rarr;</span>
               </span>
             </Link>
           </div>
@@ -371,6 +371,22 @@ export default function CivicScaleHomepage() {
             <div className="cs-principle-title">Data Network Effects</div>
             <p className="cs-principle-desc">Every consented user interaction contributes to a proprietary benchmark database that grows more accurate over time — a compounding data asset that no competitor can replicate from a standing start.</p>
           </div>
+        </div>
+      </section>
+
+      {/* MISSION STRIP */}
+      <section className="cs-section" style={{ background: "#f7f8fa" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
+          <h2 className="cs-section-title" style={{ marginBottom: 24 }}>One engine. One standard. No agenda.</h2>
+          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#4a5568", marginBottom: 20 }}>
+            Healthcare billing is complicated by design. CMS publishes thousands of procedure codes, reimbursement rates, and coding rules. Payers negotiate thousands of contracted rates. The system is not secret — but it is inaccessible to everyone except the institution with the most at stake.
+          </p>
+          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#4a5568", marginBottom: 28 }}>
+            CivicScale makes that information accessible to everyone. The Parity Engine applies publicly available CMS standards and contracted rate benchmarks accurately and transparently — for patients verifying their bills, for employers auditing their claims, and for providers verifying their remittances. The rules are the same for everyone. Now the information is too.
+          </p>
+          <p style={{ fontSize: 17, fontWeight: 700, color: "var(--cs-navy)", lineHeight: 1.6 }}>
+            CivicScale does not take sides. It applies the standards.<br />For everyone.
+          </p>
         </div>
       </section>
 
