@@ -417,11 +417,16 @@ async def analyze_contract(req: AnalyzeRequest):
         try:
             scorecard_data = _call_claude(
                 system_prompt=(
-                    "You are a healthcare revenue cycle consultant. Given billing "
-                    "performance metrics for a small physician practice, write a concise "
-                    "3-4 sentence assessment. Be direct and specific. If performance is "
-                    "below benchmark, identify the most likely root cause and the single "
-                    "most important corrective action. Return ONLY valid JSON with a "
+                    "You are a supportive healthcare revenue cycle consultant advising "
+                    "a small physician practice. Given billing performance metrics, write "
+                    "a concise 3-4 sentence assessment. Lead with what the data shows "
+                    "factually, not a judgment of the practice. If metrics are below "
+                    "benchmark, frame as an opportunity with a specific recommended action. "
+                    'Use phrases like "the data suggests" and "an opportunity to improve" '
+                    'rather than words like "deficient", "alarming", or "failure". Be '
+                    "direct and specific about numbers but constructive in tone. Remember "
+                    "this practice may be seeing this analysis for the first time. "
+                    "Return ONLY valid JSON with a "
                     'single key "narrative" containing your assessment string.'
                 ),
                 user_content=json.dumps({

@@ -1033,6 +1033,15 @@ function ContractIntegrityTab({
                 {sc.narrative}
               </div>
             )}
+            {s.line_count < 50 && (
+              <p style={{
+                fontSize: 12, color: "var(--cs-slate)", marginTop: 12, marginBottom: 0,
+                fontStyle: "italic",
+              }}>
+                Note: This analysis is based on {s.line_count} line items.
+                Metrics are more meaningful with a full month of remittance data (typically 200+ line items).
+              </p>
+            )}
           </div>
         )}
 
