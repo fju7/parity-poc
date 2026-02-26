@@ -509,10 +509,10 @@ export default function ProviderApp() {
     try {
       const { data, error } = await supabase
         .from("provider_analyses")
-        .select("id, payer_name, created_at, total_billed, total_paid, underpayment, adherence_rate")
+        .select("id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate")
         .eq("user_id", session.user.id)
-        .order("created_at", { ascending: false })
-        .limit(5);
+        .order("production_date", { ascending: false })
+        .limit(3);
       if (!error) setRecentAnalyses(data || []);
     } catch {
       // Non-fatal
@@ -1458,7 +1458,7 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }
                 {recentAnalyses.map((a, i) => (
                   <tr key={a.id} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
                     <td style={tdStyle}>
-                      {new Date(a.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                      {a.production_date ? new Date(a.production_date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "—"}
                     </td>
                     <td style={tdStyle}>{a.payer_name || "—"}</td>
                     <td style={{ ...tdStyle, textAlign: "right" }}>
