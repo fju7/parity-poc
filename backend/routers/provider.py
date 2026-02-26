@@ -109,25 +109,29 @@ async def download_contract_template():
 @router.post("/save-rates")
 async def save_rates(req: SaveRatesRequest):
     """Save parsed contract rates to Supabase."""
-    sb = _get_supabase()
-
     rates_json = [
         {"cpt": r.cpt, "description": r.description, "rates": r.rates}
         for r in req.rates
     ]
 
-    # Upsert: delete existing for this user+payer, then insert
-    sb.table("provider_contracts") \
-        .delete() \
-        .eq("user_id", req.user_id) \
-        .eq("payer_name", req.payer_name) \
-        .execute()
+    try:
+        sb = _get_supabase()
 
-    sb.table("provider_contracts").insert({
-        "user_id": req.user_id,
-        "payer_name": req.payer_name,
-        "rates": rates_json,
-    }).execute()
+        # Upsert: delete existing for this user+payer, then insert
+        sb.table("provider_contracts") \
+            .delete() \
+            .eq("user_id", req.user_id) \
+            .eq("payer_name", req.payer_name) \
+            .execute()
+
+        sb.table("provider_contracts").insert({
+            "user_id": req.user_id,
+            "payer_name": req.payer_name,
+            "rates": rates_json,
+        }).execute()
+    except Exception as exc:
+        # Non-fatal: rates are still usable in-session even if persist fails
+        print(f"WARNING: Failed to save contract rates to Supabase: {exc}")
 
     return {"status": "ok", "saved": len(req.rates)}
 

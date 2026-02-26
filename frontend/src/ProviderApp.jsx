@@ -752,154 +752,7 @@ function ContractIntegrityTab({
   onDownloadTemplate, onRatesFileUpload, onSaveRates, on835Upload,
   onRunAnalysis, onSort, getSortedLines, onReset,
 }) {
-  // ── Step: upload-rates ──
-  if (step === "upload-rates") {
-    return (
-      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 32, background: "#fff" }}>
-        <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
-          Step 1: Upload Your Contract Rates
-        </h3>
-        <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 24 }}>
-          Download our template, fill in your contracted rates for each payer, then upload the completed file.
-        </p>
-
-        <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
-          <button onClick={onDownloadTemplate} style={btnOutline}>
-            <DownloadIcon /> Download Template
-          </button>
-        </div>
-
-        <div style={{
-          border: "2px dashed var(--cs-border)", borderRadius: 10,
-          padding: 32, textAlign: "center", background: "var(--cs-mist)",
-        }}>
-          <UploadIcon />
-          <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 12, marginBottom: 12 }}>
-            Upload your completed contract rates spreadsheet (.xlsx)
-          </p>
-          <label style={{
-            display: "inline-block", padding: "8px 20px", borderRadius: 8,
-            background: "var(--cs-navy)", color: "#fff", fontSize: 14, fontWeight: 600,
-            cursor: "pointer",
-          }}>
-            Choose File
-            <input type="file" accept=".xlsx,.xls" onChange={onRatesFileUpload} style={{ display: "none" }} />
-          </label>
-        </div>
-
-        {error && <ErrorBanner message={error} />}
-
-        <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
-          <strong style={{ color: "var(--cs-navy)" }}>Template format:</strong> Row 4 contains payer names (columns D onward).
-          Rows 5+ contain CPT codes (column A), descriptions (column B), and contracted rates under each payer column.
-        </div>
-      </div>
-    );
-  }
-
-  // ── Step: preview-rates ──
-  if (step === "preview-rates") {
-    const { payers, rows } = parsedRates || { payers: [], rows: [] };
-    return (
-      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 32, background: "#fff" }}>
-        <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
-          Step 1: Review Contract Rates
-        </h3>
-
-        <div style={{
-          padding: 12, borderRadius: 8, background: "var(--cs-teal-pale)",
-          border: "1px solid var(--cs-teal)", marginBottom: 20, fontSize: 14,
-        }}>
-          Found <strong>{rows.length}</strong> CPT codes across <strong>{payers.length}</strong> payer{payers.length !== 1 ? "s" : ""}: {payers.join(", ")}
-        </div>
-
-        <div style={{ overflowX: "auto", marginBottom: 20 }}>
-          <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>CPT</th>
-                <th style={thStyle}>Description</th>
-                {payers.map(p => <th key={p} style={{ ...thStyle, textAlign: "right" }}>{p}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.slice(0, 20).map((row, i) => (
-                <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
-                  <td style={tdStyle}><code>{row.cpt}</code></td>
-                  <td style={{ ...tdStyle, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{row.description}</td>
-                  {payers.map(p => (
-                    <td key={p} style={{ ...tdStyle, textAlign: "right" }}>
-                      {row.rates[p] ? `$${row.rates[p].toFixed(2)}` : <span style={{ color: "#ccc" }}>—</span>}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {rows.length > 20 && (
-            <p style={{ fontSize: 13, color: "var(--cs-slate)", marginTop: 8 }}>
-              Showing 20 of {rows.length} rows
-            </p>
-          )}
-        </div>
-
-        {error && <ErrorBanner message={error} />}
-
-        <div style={{ display: "flex", gap: 12 }}>
-          <button onClick={onSaveRates} disabled={savingRates} style={{ ...btnPrimary, opacity: savingRates ? 0.6 : 1 }}>
-            {savingRates ? "Saving..." : "Save Contract Rates"}
-          </button>
-          <button onClick={onReset} style={btnOutline}>Start Over</button>
-        </div>
-      </div>
-    );
-  }
-
-  // ── Step: upload-835 ──
-  if (step === "upload-835") {
-    return (
-      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 32, background: "#fff" }}>
-        <StepIndicator current={2} />
-        <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
-          Step 2: Upload 835 Remittance File
-        </h3>
-        <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 24 }}>
-          Upload an Electronic Remittance Advice (ERA/835) file from your clearinghouse or payer portal.
-        </p>
-
-        <div style={{
-          border: "2px dashed var(--cs-border)", borderRadius: 10,
-          padding: 32, textAlign: "center", background: "var(--cs-mist)",
-        }}>
-          <UploadIcon />
-          <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 12, marginBottom: 12 }}>
-            Accepted formats: .835, .txt, .edi
-          </p>
-          <label style={{
-            display: "inline-block", padding: "8px 20px", borderRadius: 8,
-            background: "var(--cs-navy)", color: "#fff", fontSize: 14, fontWeight: 600,
-            cursor: "pointer",
-          }}>
-            Choose File
-            <input type="file" accept=".835,.txt,.edi" onChange={on835Upload} style={{ display: "none" }} />
-          </label>
-        </div>
-
-        {error && <ErrorBanner message={error} />}
-
-        <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
-          <strong style={{ color: "var(--cs-navy)" }}>Where to find 835 files:</strong> Your clearinghouse (e.g., Availity, Trizetto, Office Ally)
-          typically provides ERA/835 files for download. Check your payer portal under "Remittance" or "Payment" sections.
-        </div>
-
-        <div style={{ marginTop: 16 }}>
-          <button onClick={onReset} style={btnOutline}>Start Over</button>
-        </div>
-      </div>
-    );
-  }
-
-  // ── Step: parsing-835 ──
+  // ── Loading / analyzing overlays ──
   if (step === "parsing-835") {
     return (
       <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 48, textAlign: "center", background: "#fff" }}>
@@ -914,73 +767,6 @@ function ContractIntegrityTab({
     );
   }
 
-  // ── Step: preview-835 ──
-  if (step === "preview-835" && parsedRemittance) {
-    const items = parsedRemittance.line_items || [];
-    const preview = items.slice(0, 10);
-    return (
-      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 32, background: "#fff" }}>
-        <StepIndicator current={2} />
-        <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
-          Step 2: Remittance Preview
-        </h3>
-
-        <div style={{
-          padding: 12, borderRadius: 8, background: "var(--cs-teal-pale)",
-          border: "1px solid var(--cs-teal)", marginBottom: 20, fontSize: 14,
-        }}>
-          Found <strong>{parsedRemittance.claim_count}</strong> claims,{" "}
-          <strong>{items.length}</strong> line items,{" "}
-          <strong>${(parsedRemittance.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</strong> total paid
-          {parsedRemittance.payer_name && <> — from <strong>{parsedRemittance.payer_name}</strong></>}
-          {parsedRemittance.production_date && <> ({parsedRemittance.production_date})</>}
-        </div>
-
-        <div style={{ overflowX: "auto", marginBottom: 20 }}>
-          <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>CPT</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Billed</th>
-                <th style={{ ...thStyle, textAlign: "center" }}>Units</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Paid</th>
-                <th style={thStyle}>Adj Codes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {preview.map((item, i) => (
-                <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
-                  <td style={tdStyle}><code>{item.cpt_code}</code></td>
-                  <td style={{ ...tdStyle, textAlign: "right" }}>${(item.billed_amount || 0).toFixed(2)}</td>
-                  <td style={{ ...tdStyle, textAlign: "center" }}>{item.units || 1}</td>
-                  <td style={{ ...tdStyle, textAlign: "right" }}>${(item.paid_amount || 0).toFixed(2)}</td>
-                  <td style={{ ...tdStyle, fontSize: 12, color: "var(--cs-slate)" }}>
-                    {(item.adjustments || []).map(a => a.code).filter(Boolean).join(", ") || "—"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {items.length > 10 && (
-            <p style={{ fontSize: 13, color: "var(--cs-slate)", marginTop: 8 }}>
-              Showing 10 of {items.length} line items
-            </p>
-          )}
-        </div>
-
-        {error && <ErrorBanner message={error} />}
-
-        <div style={{ display: "flex", gap: 12 }}>
-          <button onClick={onRunAnalysis} style={btnPrimary}>
-            Looks Right — Run Analysis
-          </button>
-          <button onClick={onReset} style={btnOutline}>Start Over</button>
-        </div>
-      </div>
-    );
-  }
-
-  // ── Step: analyzing ──
   if (step === "analyzing") {
     return (
       <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 48, textAlign: "center", background: "#fff" }}>
@@ -995,7 +781,7 @@ function ContractIntegrityTab({
     );
   }
 
-  // ── Step: report ──
+  // ── Report view (replaces everything) ──
   if (step === "report" && analysisResult) {
     const s = analysisResult.summary || {};
     const sortedLines = getSortedLines();
@@ -1138,8 +924,217 @@ function ContractIntegrityTab({
     );
   }
 
-  // Fallback
-  return null;
+  // ── Default: show both steps always ──
+  const ratesReady = !!parsedRates;
+  const { payers = [], rows = [] } = parsedRates || {};
+  const remittanceReady = !!parsedRemittance;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      {/* ── STEP 1: Contract Rates ── */}
+      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 32, background: "#fff" }}>
+        <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
+          Step 1: Contract Rates
+        </h3>
+
+        {ratesReady ? (
+          <>
+            <div style={{
+              padding: 12, borderRadius: 8, background: "var(--cs-teal-pale)",
+              border: "1px solid var(--cs-teal)", marginBottom: 20, fontSize: 14,
+            }}>
+              Found <strong>{rows.length}</strong> CPT codes across <strong>{payers.length}</strong> payer{payers.length !== 1 ? "s" : ""}: {payers.join(", ")}
+            </div>
+
+            <div style={{ overflowX: "auto", marginBottom: 20 }}>
+              <table style={tableStyle}>
+                <thead>
+                  <tr>
+                    <th style={thStyle}>CPT</th>
+                    <th style={thStyle}>Description</th>
+                    {payers.map(p => <th key={p} style={{ ...thStyle, textAlign: "right" }}>{p}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.slice(0, 20).map((row, i) => (
+                    <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                      <td style={tdStyle}><code>{row.cpt}</code></td>
+                      <td style={{ ...tdStyle, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{row.description}</td>
+                      {payers.map(p => (
+                        <td key={p} style={{ ...tdStyle, textAlign: "right" }}>
+                          {row.rates[p] ? `$${row.rates[p].toFixed(2)}` : <span style={{ color: "#ccc" }}>—</span>}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {rows.length > 20 && (
+                <p style={{ fontSize: 13, color: "var(--cs-slate)", marginTop: 8 }}>
+                  Showing 20 of {rows.length} rows
+                </p>
+              )}
+            </div>
+
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <button onClick={onSaveRates} disabled={savingRates} style={{ ...btnPrimary, opacity: savingRates ? 0.6 : 1 }}>
+                {savingRates ? "Saving..." : "Save Contract Rates"}
+              </button>
+              <label style={{ ...btnOutline, display: "inline-flex", alignItems: "center", cursor: "pointer" }}>
+                Upload Different File
+                <input type="file" accept=".xlsx,.xls" onChange={onRatesFileUpload} style={{ display: "none" }} />
+              </label>
+            </div>
+          </>
+        ) : (
+          <>
+            <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 24 }}>
+              Download our template, fill in your contracted rates for each payer, then upload the completed file.
+            </p>
+
+            <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
+              <button onClick={onDownloadTemplate} style={btnOutline}>
+                <DownloadIcon /> Download Template
+              </button>
+            </div>
+
+            <div style={{
+              border: "2px dashed var(--cs-border)", borderRadius: 10,
+              padding: 32, textAlign: "center", background: "var(--cs-mist)",
+            }}>
+              <UploadIcon />
+              <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 12, marginBottom: 12 }}>
+                Upload your completed contract rates spreadsheet (.xlsx)
+              </p>
+              <label style={{
+                display: "inline-block", padding: "8px 20px", borderRadius: 8,
+                background: "var(--cs-navy)", color: "#fff", fontSize: 14, fontWeight: 600,
+                cursor: "pointer",
+              }}>
+                Choose File
+                <input type="file" accept=".xlsx,.xls" onChange={onRatesFileUpload} style={{ display: "none" }} />
+              </label>
+            </div>
+
+            <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
+              <strong style={{ color: "var(--cs-navy)" }}>Template format:</strong> Row 4 contains payer names (columns D onward).
+              Rows 5+ contain CPT codes (column A), descriptions (column B), and contracted rates under each payer column.
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* ── STEP 2: 835 Remittance ── */}
+      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 32, background: "#fff" }}>
+        <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
+          Step 2: Upload 835 Remittance File
+        </h3>
+
+        {remittanceReady ? (
+          <>
+            {/* Remittance preview */}
+            <div style={{
+              padding: 12, borderRadius: 8, background: "var(--cs-teal-pale)",
+              border: "1px solid var(--cs-teal)", marginBottom: 20, fontSize: 14,
+            }}>
+              Found <strong>{parsedRemittance.claim_count}</strong> claims,{" "}
+              <strong>{(parsedRemittance.line_items || []).length}</strong> line items,{" "}
+              <strong>${(parsedRemittance.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</strong> total paid
+              {parsedRemittance.payer_name && <> — from <strong>{parsedRemittance.payer_name}</strong></>}
+              {parsedRemittance.production_date && <> ({parsedRemittance.production_date})</>}
+            </div>
+
+            <div style={{ overflowX: "auto", marginBottom: 20 }}>
+              <table style={tableStyle}>
+                <thead>
+                  <tr>
+                    <th style={thStyle}>CPT</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Billed</th>
+                    <th style={{ ...thStyle, textAlign: "center" }}>Units</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Paid</th>
+                    <th style={thStyle}>Adj Codes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(parsedRemittance.line_items || []).slice(0, 10).map((item, i) => (
+                    <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                      <td style={tdStyle}><code>{item.cpt_code}</code></td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>${(item.billed_amount || 0).toFixed(2)}</td>
+                      <td style={{ ...tdStyle, textAlign: "center" }}>{item.units || 1}</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>${(item.paid_amount || 0).toFixed(2)}</td>
+                      <td style={{ ...tdStyle, fontSize: 12, color: "var(--cs-slate)" }}>
+                        {(item.adjustments || []).map(a => a.code).filter(Boolean).join(", ") || "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {(parsedRemittance.line_items || []).length > 10 && (
+                <p style={{ fontSize: 13, color: "var(--cs-slate)", marginTop: 8 }}>
+                  Showing 10 of {(parsedRemittance.line_items || []).length} line items
+                </p>
+              )}
+            </div>
+
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <button
+                onClick={onRunAnalysis}
+                disabled={!ratesReady}
+                style={{ ...btnPrimary, opacity: ratesReady ? 1 : 0.5 }}
+              >
+                Run Analysis
+              </button>
+              <label style={{ ...btnOutline, display: "inline-flex", alignItems: "center", cursor: "pointer" }}>
+                Upload Different File
+                <input type="file" accept=".txt,.835,.edi,text/plain" onChange={on835Upload} style={{ display: "none" }} />
+              </label>
+              {!ratesReady && (
+                <span style={{ fontSize: 13, color: "var(--cs-slate)" }}>Upload contract rates first to run analysis</span>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 24 }}>
+              Upload an Electronic Remittance Advice (ERA/835) file from your clearinghouse or payer portal.
+            </p>
+
+            <div style={{
+              border: "2px dashed var(--cs-border)", borderRadius: 10,
+              padding: 32, textAlign: "center", background: "var(--cs-mist)",
+            }}>
+              <UploadIcon />
+              <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 12, marginBottom: 12 }}>
+                Accepted formats: .835, .txt, .edi
+              </p>
+              <label style={{
+                display: "inline-block", padding: "8px 20px", borderRadius: 8,
+                background: "var(--cs-navy)", color: "#fff", fontSize: 14, fontWeight: 600,
+                cursor: "pointer",
+              }}>
+                Choose File
+                <input type="file" accept=".txt,.835,.edi,text/plain" onChange={on835Upload} style={{ display: "none" }} />
+              </label>
+            </div>
+
+            <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
+              <strong style={{ color: "var(--cs-navy)" }}>Where to find 835 files:</strong> Your clearinghouse (e.g., Availity, Trizetto, Office Ally)
+              typically provides ERA/835 files for download. Check your payer portal under "Remittance" or "Payment" sections.
+            </div>
+          </>
+        )}
+      </div>
+
+      {error && <ErrorBanner message={error} />}
+
+      {/* Start over */}
+      {(ratesReady || remittanceReady) && (
+        <div>
+          <button onClick={onReset} style={btnOutline}>Start Over</button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 
