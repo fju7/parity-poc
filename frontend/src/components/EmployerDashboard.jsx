@@ -336,9 +336,13 @@ export default function EmployerDashboard() {
         textAlign: "center", padding: "32px 24px", fontSize: 13,
         color: "#4a5568", borderTop: "1px solid #e2e8f0", marginTop: 40,
       }}>
-        Parity Health is powered by CivicScale benchmark infrastructure.
+        <p>Parity Health is powered by CivicScale benchmark infrastructure.
         Benchmark comparisons use publicly available CMS Medicare data. Not legal advice.
-        &copy; CivicScale 2026.
+        &copy; CivicScale 2026.</p>
+        <p style={{ fontSize: 11, color: "#718096", marginTop: 8 }}>
+          Data sources: CMS Medicare Physician Fee Schedule (2026), CMS Outpatient Prospective
+          Payment System (2026), CMS Clinical Laboratory Fee Schedule (2026 Q1).
+        </p>
       </footer>
     </div>
   );

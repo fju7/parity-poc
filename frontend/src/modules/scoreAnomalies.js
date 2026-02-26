@@ -111,6 +111,7 @@ export default function scoreAnomalies(
     const bench = benchmarkMap.get(extracted.code) || {};
     const benchmarkRate = bench.benchmarkRate ?? null;
     const benchmarkSource = bench.benchmarkSource ?? "NOT_FOUND";
+    const dataVintage = bench.dataVintage ?? null;
     const localityCode = bench.localityCode ?? null;
 
     // Anomaly score
@@ -167,6 +168,7 @@ export default function scoreAnomalies(
       billedAmount: extracted.billedAmount,
       benchmarkRate,
       benchmarkSource,
+      dataVintage,
       localityCode,
       anomalyScore,
       flagged,

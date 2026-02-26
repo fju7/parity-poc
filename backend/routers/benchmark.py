@@ -20,6 +20,22 @@ from routers.coding_intelligence import run_coding_checks
 router = APIRouter()
 
 # ---------------------------------------------------------------------------
+# Data vintage constants — update these when loading new CMS data files
+# ---------------------------------------------------------------------------
+
+PFS_VINTAGE = "2026"
+OPPS_VINTAGE = "2026"
+CLFS_VINTAGE = "2026 Q1"
+
+PFS_SOURCE = f"CMS Medicare Physician Fee Schedule {PFS_VINTAGE}"
+OPPS_SOURCE = f"CMS Outpatient Prospective Payment System {OPPS_VINTAGE}"
+CLFS_SOURCE = f"CMS Clinical Laboratory Fee Schedule {CLFS_VINTAGE}"
+
+PFS_VINTAGE_SHORT = f"CMS PFS {PFS_VINTAGE}"
+OPPS_VINTAGE_SHORT = f"CMS OPPS {OPPS_VINTAGE}"
+CLFS_VINTAGE_SHORT = f"CMS CLFS {CLFS_VINTAGE}"
+
+# ---------------------------------------------------------------------------
 # Data loading (called once at import time via load_data())
 # ---------------------------------------------------------------------------
 
@@ -158,6 +174,7 @@ class LineItemResponse(BaseModel):
     billedAmount: float
     benchmarkRate: Optional[float]
     benchmarkSource: str
+    dataVintage: Optional[str]
     localityCode: Optional[str]
 
 
@@ -187,7 +204,7 @@ def benchmark(req: BenchmarkRequest):
 
     results = []
     for item in req.lineItems:
-        rate, source, loc = lookup_rate(
+        rate, source, loc, vintage = lookup_rate(
             item.code, item.codeType, carrier, locality
         )
         results.append(
@@ -197,6 +214,7 @@ def benchmark(req: BenchmarkRequest):
                 billedAmount=item.billedAmount,
                 benchmarkRate=rate,
                 benchmarkSource=source,
+                dataVintage=vintage,
                 localityCode=loc,
             )
         )
@@ -227,10 +245,10 @@ def resolve_locality(zip_code: str) -> tuple[Optional[str], Optional[str]]:
 
 def lookup_rate(
     code: str, code_type: str, carrier: Optional[str], locality: Optional[str]
-) -> tuple[Optional[float], str, Optional[str]]:
+) -> tuple[Optional[float], str, Optional[str], Optional[str]]:
     """Look up the benchmark rate for a procedure code.
 
-    Returns (rate, source, locality_code).
+    Returns (rate, source, locality_code, data_vintage).
     """
     code = code.strip()
 
@@ -238,19 +256,19 @@ def lookup_rate(
     if code_type in ("CPT", "UNKNOWN") and carrier and locality:
         rate = lookup_pfs(code, carrier, locality)
         if rate is not None:
-            return rate, "CMS_PFS_2026", locality
+            return rate, PFS_SOURCE, locality, PFS_VINTAGE_SHORT
 
     # Try OPPS lookup (for revenue codes or CPT codes not found in PFS)
     rate = lookup_opps(code)
     if rate is not None:
-        return rate, "CMS_OPPS_2026", locality
+        return rate, OPPS_SOURCE, locality, OPPS_VINTAGE_SHORT
 
     # Try CLFS lookup (clinical laboratory codes)
     rate = lookup_clfs(code)
     if rate is not None:
-        return rate, "CMS_CLFS_2026", locality
+        return rate, CLFS_SOURCE, locality, CLFS_VINTAGE_SHORT
 
-    return None, "NOT_FOUND", locality
+    return None, "NOT_FOUND", locality, None
 
 
 def lookup_pfs(

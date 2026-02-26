@@ -17,7 +17,9 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
             Report generated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
           </p>
         </div>
-        <p className="text-xs text-gray-400 mt-1">Medical Bill Benchmark Analysis</p>
+        <p className="text-xs text-gray-400 mt-1">
+          Medical Bill Benchmark Analysis — CMS PFS 2026 | OPPS 2026 | CLFS 2026 Q1
+        </p>
       </div>
 
       <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1">
@@ -159,12 +161,21 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
         <WhatToDoNext billState={billState} summary={summary} />
 
         {/* Disclaimer */}
-        <p className="text-xs text-gray-400 text-center mb-4">
-          Parity Health provides benchmark comparisons only. This is not legal advice.
-          Consult a billing specialist or attorney before taking action.
-          Benchmark rates are based on publicly available CMS Medicare data and
-          may not reflect negotiated commercial insurance rates.
-        </p>
+        <div className="text-xs text-gray-400 text-center mb-4 space-y-2">
+          <p>
+            Benchmark rates sourced from CMS Medicare Physician Fee Schedule (2026),
+            CMS Outpatient Prospective Payment System (2026), and CMS Clinical Laboratory
+            Fee Schedule (2026 Q1). Rates reflect the CMS schedule in effect at time of
+            report generation. For bills with service dates in prior years, rates may
+            differ from those in effect at time of service.
+          </p>
+          <p>
+            Parity Health provides benchmark comparisons only. This is not legal advice.
+            Consult a billing specialist or attorney before taking action.
+            Benchmark rates are based on publicly available CMS Medicare data and
+            may not reflect negotiated commercial insurance rates.
+          </p>
+        </div>
       </main>
 
       <Footer />
@@ -315,10 +326,17 @@ function LineItemRow({ item }) {
         <td className="px-6 py-3 text-right font-mono text-[#1B3A5C]">
           {formatCurrency(item.billedAmount)}
         </td>
-        <td className="px-6 py-3 text-right font-mono text-gray-500">
-          {item.benchmarkRate !== null
-            ? formatCurrency(item.benchmarkRate)
-            : "N/A"}
+        <td className="px-6 py-3 text-right">
+          {item.benchmarkRate !== null ? (
+            <div className="flex flex-col items-end">
+              <span className="font-mono text-gray-500">{formatCurrency(item.benchmarkRate)}</span>
+              {item.dataVintage && (
+                <span className="text-[10px] leading-tight text-[#4A5568]">{item.dataVintage}</span>
+              )}
+            </div>
+          ) : (
+            <span className="font-mono text-gray-500">N/A</span>
+          )}
         </td>
         <td className="px-6 py-3 text-right">
           {item.anomalyScore !== null ? (
@@ -373,7 +391,7 @@ function LineItemRow({ item }) {
                   {formatCurrency(item.estimatedDiscrepancy)} over benchmark
                 </p>
               )}
-              <p className="text-gray-400 text-xs">
+              <p className="text-[#4A5568] text-xs">
                 Source: {item.benchmarkSource}
                 {item.localityCode && ` (Locality ${item.localityCode})`}
               </p>
