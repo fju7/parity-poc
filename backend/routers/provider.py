@@ -4,18 +4,22 @@ Provider dashboard endpoints:
   POST /api/provider/save-rates         — save parsed contract rates
   POST /api/provider/parse-835          — parse an uploaded 835 EDI file
   POST /api/provider/analyze-contract   — compare remittance vs contracted rates
-  POST /api/provider/analyze-coding     — coding pattern analysis (E&M, NCCI, MUE)
+  POST /api/provider/analyze-coding     — coding pattern analysis (E&M distribution)
+  POST /api/provider/analyze-denials    — AI-powered denial interpretation + appeal letters
 
 No PHI is stored. Contract rates and analysis results are tied to user_id.
 """
 
+import json
 import os
+import re
+import time
 from collections import Counter
 from pathlib import Path
 from typing import List, Optional
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 
 from supabase import create_client
@@ -43,6 +47,82 @@ def _get_supabase():
             raise RuntimeError("SUPABASE_SERVICE_KEY not set")
         _supabase = create_client(url, key)
     return _supabase
+
+
+# ---------------------------------------------------------------------------
+# Anthropic Claude client (lazy singleton)
+# ---------------------------------------------------------------------------
+
+_anthropic_client = None
+
+
+def _get_claude():
+    global _anthropic_client
+    if _anthropic_client is None:
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=503,
+                detail="AI analysis is not configured on this server.",
+            )
+        try:
+            import anthropic
+            _anthropic_client = anthropic.Anthropic(api_key=api_key)
+        except ImportError:
+            raise HTTPException(
+                status_code=503,
+                detail="AI dependencies are not installed.",
+            )
+    return _anthropic_client
+
+
+def _call_claude(system_prompt: str, user_content: str, max_tokens: int = 4096) -> dict:
+    """Call Claude API with retry on 529, return parsed JSON."""
+    client = _get_claude()
+    backoff_delays = [2, 5, 10]
+    response = None
+
+    for attempt in range(len(backoff_delays) + 1):
+        try:
+            response = client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=max_tokens,
+                temperature=0,
+                system=system_prompt,
+                messages=[{"role": "user", "content": user_content}],
+            )
+            break
+        except Exception as exc:
+            err_str = str(exc)
+            if "529" in err_str and attempt < len(backoff_delays):
+                delay = backoff_delays[attempt]
+                print(f"[Provider AI] Claude overloaded (529), retry {attempt + 1}/{len(backoff_delays)} in {delay}s...")
+                time.sleep(delay)
+                continue
+            print(f"[Provider AI] API error: {exc}")
+            if "529" in err_str:
+                return None  # Non-fatal — caller handles gracefully
+            return None
+
+    if response is None:
+        return None
+
+    raw_text = ""
+    for block in response.content:
+        if hasattr(block, "text"):
+            raw_text += block.text
+
+    raw_text = raw_text.strip()
+    if raw_text.startswith("```"):
+        raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
+        raw_text = re.sub(r"\s*```\s*$", "", raw_text)
+    raw_text = raw_text.strip()
+
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        print(f"[Provider AI] Invalid JSON: {raw_text[:500]}")
+        return None
 
 
 # ---------------------------------------------------------------------------
@@ -95,6 +175,18 @@ class CodingAnalyzeRequest(BaseModel):
     specialty: str = ""
     date_range: Optional[str] = ""
     lines: List[CodingLine]
+
+
+class DenialLine(BaseModel):
+    cpt_code: str
+    billed_amount: float = 0.0
+    adjustment_codes: str = ""
+    claim_id: str = ""
+
+
+class AnalyzeDenialsRequest(BaseModel):
+    payer_name: str
+    denied_lines: List[DenialLine]
 
 
 # ---------------------------------------------------------------------------
@@ -207,22 +299,36 @@ async def analyze_contract(req: AnalyzeRequest):
     denied_count = 0
     overpaid_count = 0
     no_contract_count = 0
+    billed_below_count = 0
+    total_chargemaster_gap = 0.0
     code_underpayments = {}  # {cpt: total_underpayment}
+
+    # Track adjustment codes for preventable denial analysis
+    denial_adj_codes = []  # list of adjustment code strings for denied lines
 
     for line in req.remittance_lines:
         contracted_rate = req.contract_rates.get(line.cpt_code)
         expected_payment = None
         variance = None
         flag = "NO_CONTRACT"
+        chargemaster_gap = None
 
         if contracted_rate is not None:
             contracted_rate = float(contracted_rate)
             expected_payment = round(contracted_rate * line.units, 2)
             variance = round(line.paid_amount - expected_payment, 2)
 
-            if line.paid_amount == 0 and expected_payment > 0:
+            # --- Capability 3: Billed-Below-Contract check ---
+            if line.billed_amount < contracted_rate:
+                chargemaster_gap = round((contracted_rate - line.billed_amount) * line.units, 2)
+                billed_below_count += 1
+                total_chargemaster_gap += chargemaster_gap
+                flag = "BILLED_BELOW"
+
+            elif line.paid_amount == 0 and expected_payment > 0:
                 flag = "DENIED"
                 denied_count += 1
+                denial_adj_codes.append(line.adjustments or "")
             elif variance < -0.50:
                 flag = "UNDERPAID"
                 underpaid_count += 1
@@ -263,6 +369,7 @@ async def analyze_contract(req: AnalyzeRequest):
             "expected_payment": expected_payment,
             "variance": variance,
             "flag": flag,
+            "chargemaster_gap": chargemaster_gap,
             "adjustments": line.adjustments or "",
             "claim_id": line.claim_id or "",
             "medicare_rate": medicare_rate,
@@ -270,12 +377,69 @@ async def analyze_contract(req: AnalyzeRequest):
         })
 
     # Adherence rate: % of lines with contract that are CORRECT
-    lines_with_contract = correct_count + underpaid_count + denied_count + overpaid_count
+    lines_with_contract = (correct_count + underpaid_count + denied_count
+                           + overpaid_count + billed_below_count)
     adherence_rate = (
         round((correct_count / lines_with_contract) * 100, 1)
         if lines_with_contract > 0
         else 100.0
     )
+
+    # --- Capability 4: Performance Scorecard metrics ---
+    clean_claim_rate = (
+        round(((correct_count + overpaid_count) / lines_with_contract) * 100, 1)
+        if lines_with_contract > 0
+        else 100.0
+    )
+    denial_rate = (
+        round((denied_count / lines_with_contract) * 100, 1)
+        if lines_with_contract > 0
+        else 0.0
+    )
+
+    # Preventable denials: CO-16 (missing info) and CO-97 (bundled)
+    # CO-45 (contractual adjustment) is NOT preventable
+    preventable_codes = {"CO-16", "CO-97", "16", "97"}
+    preventable_denial_count = 0
+    for adj_str in denial_adj_codes:
+        codes = [c.strip() for c in adj_str.split(",")]
+        if any(c in preventable_codes for c in codes):
+            preventable_denial_count += 1
+    preventable_denial_rate = (
+        round((preventable_denial_count / denied_count) * 100, 1)
+        if denied_count > 0
+        else 0.0
+    )
+
+    # AI scorecard narrative
+    scorecard_narrative = None
+    if lines_with_contract >= 3:
+        try:
+            scorecard_data = _call_claude(
+                system_prompt=(
+                    "You are a healthcare revenue cycle consultant. Given billing "
+                    "performance metrics for a small physician practice, write a concise "
+                    "3-4 sentence assessment. Be direct and specific. If performance is "
+                    "below benchmark, identify the most likely root cause and the single "
+                    "most important corrective action. Return ONLY valid JSON with a "
+                    'single key "narrative" containing your assessment string.'
+                ),
+                user_content=json.dumps({
+                    "clean_claim_rate": clean_claim_rate,
+                    "clean_claim_benchmark": 95.0,
+                    "denial_rate": denial_rate,
+                    "denial_benchmark": 5.0,
+                    "payer_adherence_rate": adherence_rate,
+                    "preventable_denial_rate": preventable_denial_rate,
+                    "total_lines": lines_with_contract,
+                    "payer_name": req.payer_name,
+                }),
+                max_tokens=1024,
+            )
+            if scorecard_data and "narrative" in scorecard_data:
+                scorecard_narrative = scorecard_data["narrative"]
+        except Exception as exc:
+            print(f"[Provider AI] Scorecard narrative failed: {exc}")
 
     # Top underpaid codes
     top_underpaid = sorted(
@@ -297,6 +461,16 @@ async def analyze_contract(req: AnalyzeRequest):
         "denied_count": denied_count,
         "overpaid_count": overpaid_count,
         "no_contract_count": no_contract_count,
+        "billed_below_count": billed_below_count,
+        "total_chargemaster_gap": round(total_chargemaster_gap, 2),
+    }
+
+    scorecard = {
+        "clean_claim_rate": clean_claim_rate,
+        "denial_rate": denial_rate,
+        "payer_adherence_rate": adherence_rate,
+        "preventable_denial_rate": preventable_denial_rate,
+        "narrative": scorecard_narrative,
     }
 
     # Save analysis to Supabase
@@ -324,6 +498,7 @@ async def analyze_contract(req: AnalyzeRequest):
         "summary": summary,
         "line_items": enriched_lines,
         "top_underpaid": top_underpaid_list,
+        "scorecard": scorecard,
     }
 
 
@@ -417,11 +592,163 @@ async def analyze_coding(req: CodingAnalyzeRequest):
                 ),
             })
 
+    # --- Capability 2: Revenue Gap Estimator ---
+    revenue_gap = None
+    has_undercoding = any(a["type"] == "UNDERCODING" for a in em_alerts)
+    if has_undercoding and em_total > 0:
+        # Use Internal Medicine Medicare rates as fallback
+        em_medicare_rates = {
+            "99211": 27.0, "99212": 59.0, "99213": 95.0,
+            "99214": 135.0, "99215": 190.0,
+        }
+
+        gap_lines = []
+        total_gap = 0.0
+        for code in em_established:
+            current_pct = em_distribution.get(code, 0)
+            bench_pct = em_benchmark.get(code, 0)
+            if bench_pct > current_pct:
+                visit_gap = round((bench_pct - current_pct) / 100 * em_total, 1)
+                rate = em_medicare_rates.get(code, 0)
+                gap_value = round(visit_gap * rate, 2)
+                total_gap += gap_value
+                gap_lines.append({
+                    "code": code,
+                    "current_pct": current_pct,
+                    "benchmark_pct": bench_pct,
+                    "visit_gap": visit_gap,
+                    "rate": rate,
+                    "revenue_gap": gap_value,
+                })
+
+        # Annualize: estimate weeks from date_range or default to 4 weeks
+        weeks = 4
+        if req.date_range:
+            # Try to parse "YYYY-MM-DD to YYYY-MM-DD"
+            try:
+                parts = req.date_range.split(" to ")
+                if len(parts) == 2:
+                    from datetime import datetime
+                    d1 = datetime.strptime(parts[0].strip(), "%Y-%m-%d")
+                    d2 = datetime.strptime(parts[1].strip(), "%Y-%m-%d")
+                    weeks = max((d2 - d1).days / 7, 1)
+            except Exception:
+                pass
+
+        annualized_gap = round(total_gap * (52 / max(weeks, 1)), 2)
+
+        # AI narrative for the gap
+        gap_narrative = None
+        if total_gap > 0:
+            try:
+                gap_data = _call_claude(
+                    system_prompt=(
+                        "You are a medical billing analyst. Given an E&M coding gap "
+                        "analysis for a physician practice, write 2-3 sentences explaining "
+                        "the estimated revenue gap in plain language. Be specific about "
+                        "the dollar amount and the codes driving the gap. Include one "
+                        "sentence noting that the estimate assumes documentation supports "
+                        "higher complexity billing. Be direct and factual, not alarming. "
+                        "Return ONLY valid JSON with a single key \"narrative\"."
+                    ),
+                    user_content=json.dumps({
+                        "specialty": specialty_key,
+                        "total_gap_period": total_gap,
+                        "annualized_gap": annualized_gap,
+                        "weeks_of_data": round(weeks, 1),
+                        "gap_by_code": gap_lines,
+                        "em_total": em_total,
+                    }),
+                    max_tokens=512,
+                )
+                if gap_data and "narrative" in gap_data:
+                    gap_narrative = gap_data["narrative"]
+            except Exception as exc:
+                print(f"[Provider AI] Revenue gap narrative failed: {exc}")
+
+        revenue_gap = {
+            "gap_lines": gap_lines,
+            "total_gap_period": round(total_gap, 2),
+            "annualized_gap": annualized_gap,
+            "weeks_of_data": round(weeks, 1),
+            "narrative": gap_narrative,
+        }
+
     return {
         "em_distribution": em_distribution,
         "em_benchmark": em_benchmark,
         "em_total": em_total,
         "em_alerts": em_alerts,
+        "revenue_gap": revenue_gap,
         "code_count": len(set(codes_flat)),
         "line_count": len(req.lines),
     }
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/analyze-denials  (Capability 1 — AI-powered)
+# ---------------------------------------------------------------------------
+
+DENIAL_SYSTEM_PROMPT = """You are a medical billing expert. You will receive a list of denied claims from an 835 remittance file. For each denial reason code present, explain the reason in plain language, assess whether an appeal is likely to succeed, estimate the value of attempting an appeal, and if appealable, draft a brief appeal letter template. Also identify patterns across the full denial set.
+
+Return ONLY valid JSON matching this exact structure, with no other text:
+{
+  "denial_types": [
+    {
+      "adjustment_code": "CO-16",
+      "plain_language": "explanation of what this code means",
+      "is_actionable": true,
+      "appeal_worthiness": "high",
+      "recommended_action": "specific action to take",
+      "appeal_letter_template": "Dear [Payer Name],\\n\\nWe are writing to appeal...",
+      "count": 3,
+      "total_value": 450.00
+    }
+  ],
+  "pattern_summary": "summary of patterns across all denials",
+  "total_recoverable_value": 1240.00,
+  "preventable_denial_rate": 0.67
+}
+
+appeal_worthiness must be one of: "high", "medium", "low".
+Group denials by adjustment code. Include count and total_value per group."""
+
+
+@router.post("/analyze-denials")
+async def analyze_denials(req: AnalyzeDenialsRequest):
+    """AI-powered denial interpretation with appeal letter templates."""
+
+    if not req.denied_lines:
+        return {"denial_types": [], "pattern_summary": "", "total_recoverable_value": 0}
+
+    # Build input for Claude
+    lines_data = []
+    for line in req.denied_lines:
+        lines_data.append({
+            "cpt_code": line.cpt_code,
+            "billed_amount": line.billed_amount,
+            "adjustment_codes": line.adjustment_codes,
+            "claim_id": line.claim_id,
+        })
+
+    user_content = json.dumps({
+        "payer_name": req.payer_name,
+        "denied_lines": lines_data,
+        "total_denied_count": len(lines_data),
+    })
+
+    result = _call_claude(
+        system_prompt=DENIAL_SYSTEM_PROMPT,
+        user_content=user_content,
+        max_tokens=4096,
+    )
+
+    if result is None:
+        return {
+            "denial_types": [],
+            "pattern_summary": "AI analysis is temporarily unavailable. Please try again.",
+            "total_recoverable_value": 0,
+            "error": True,
+        }
+
+    return result

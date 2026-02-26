@@ -62,6 +62,10 @@ export default function ProviderApp() {
   const [codingLoading, setCodingLoading] = useState(false);
   const [codingError, setCodingError] = useState("");
 
+  // ── Denial Intelligence state ──
+  const [denialIntel, setDenialIntel] = useState(null);
+  const [denialLoading, setDenialLoading] = useState(false);
+
   // ── Dashboard home state ──
   const [recentAnalyses, setRecentAnalyses] = useState(null);
   const [loadingRecent, setLoadingRecent] = useState(false);
@@ -185,6 +189,8 @@ export default function ProviderApp() {
     setSavedPayerName("");
     setParsedRemittance(null);
     setAnalysisResult(null);
+    setDenialIntel(null);
+    setDenialLoading(false);
     setSortField(null);
     setSortDir("asc");
   }
@@ -341,6 +347,7 @@ export default function ProviderApp() {
     if (!parsedRemittance || !session) return;
     setContractStep("analyzing");
     setContractError("");
+    setDenialIntel(null);
 
     const remittanceLines = parsedRemittance.line_items.map(item => ({
       cpt_code: item.cpt_code,
@@ -368,10 +375,41 @@ export default function ProviderApp() {
       const data = await resp.json();
       setAnalysisResult(data);
       setContractStep("report");
+      // Auto-trigger denial intelligence if denials found
+      fetchDenialIntel(data, savedPayerName || parsedRemittance.payer_name || "");
     } catch (err) {
       setContractError("Analysis failed: " + err.message);
       setContractStep("preview-835");
     }
+  }
+
+  async function fetchDenialIntel(analysisData, payerName) {
+    const deniedLines = (analysisData.line_items || []).filter(l => l.flag === "DENIED");
+    if (deniedLines.length === 0) return;
+
+    setDenialLoading(true);
+    try {
+      const resp = await fetch(`${API_BASE}/api/provider/analyze-denials`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          payer_name: payerName,
+          denied_lines: deniedLines.map(l => ({
+            cpt_code: l.cpt_code,
+            billed_amount: l.billed_amount,
+            adjustment_codes: l.adjustments || "",
+            claim_id: l.claim_id || "",
+          })),
+        }),
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        setDenialIntel(data);
+      }
+    } catch (err) {
+      console.warn("Denial intelligence failed:", err.message);
+    }
+    setDenialLoading(false);
   }
 
   function handleSort(field) {
@@ -388,7 +426,7 @@ export default function ProviderApp() {
     const lines = [...analysisResult.line_items];
     if (!sortField) return lines;
 
-    const flagOrder = { UNDERPAID: 0, DENIED: 1, OVERPAID: 2, NO_CONTRACT: 3, CORRECT: 4 };
+    const flagOrder = { UNDERPAID: 0, DENIED: 1, BILLED_BELOW: 2, OVERPAID: 3, NO_CONTRACT: 4, CORRECT: 5 };
     lines.sort((a, b) => {
       let va, vb;
       if (sortField === "flag") {
@@ -483,7 +521,7 @@ export default function ProviderApp() {
   }
 
   useEffect(() => {
-    if (view === "dashboard" && activeTab === "home" && recentAnalyses === null) {
+    if (view === "dashboard" && activeTab === "home") {
       loadRecentAnalyses();
     }
   }, [view, activeTab]);
@@ -791,6 +829,8 @@ export default function ProviderApp() {
             saveSuccess={saveSuccess}
             parsedRemittance={parsedRemittance}
             analysisResult={analysisResult}
+            denialIntel={denialIntel}
+            denialLoading={denialLoading}
             sortField={sortField}
             sortDir={sortDir}
             onDownloadTemplate={handleDownloadTemplate}
@@ -850,6 +890,7 @@ export default function ProviderApp() {
 
 function ContractIntegrityTab({
   step, error, parsedRates, savingRates, saveSuccess, parsedRemittance, analysisResult,
+  denialIntel, denialLoading,
   sortField, sortDir,
   onDownloadTemplate, onRatesFileUpload, onSaveRates, on835Upload,
   onRunAnalysis, onSort, getSortedLines, onReset,
@@ -886,6 +927,7 @@ function ContractIntegrityTab({
   // ── Report view (replaces everything) ──
   if (step === "report" && analysisResult) {
     const s = analysisResult.summary || {};
+    const sc = analysisResult.scorecard || {};
     const sortedLines = getSortedLines();
     const adherenceColor = s.adherence_rate >= 97 ? "#059669" : s.adherence_rate >= 90 ? "#d97706" : "#dc2626";
 
@@ -916,6 +958,26 @@ function ContractIntegrityTab({
           </div>
         )}
 
+        {/* Billed-Below-Contract callout (Capability 3) */}
+        {s.billed_below_count > 0 && (
+          <div style={{
+            background: "#fff7ed", borderRadius: 12, padding: 20,
+            marginBottom: 24, border: "1px solid #fb923c",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <span style={{ fontSize: 18 }}>&#9888;</span>
+              <span style={{ fontSize: 15, fontWeight: 600, color: "#9a3412" }}>
+                Chargemaster Below Contract
+              </span>
+            </div>
+            <p style={{ fontSize: 14, color: "#9a3412", margin: 0, lineHeight: 1.5 }}>
+              {s.billed_below_count} line{s.billed_below_count !== 1 ? "s" : ""} billed below your contracted rate.
+              Total chargemaster gap: <strong>${(s.total_chargemaster_gap || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</strong>.
+              Your payer will only pay up to the billed amount — update your chargemaster to capture the full contracted rate.
+            </p>
+          </div>
+        )}
+
         {/* Flag breakdown */}
         <div style={{
           display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap",
@@ -923,9 +985,56 @@ function ContractIntegrityTab({
           <FlagBadge label="Correct" count={s.correct_count} color="#059669" bg="#ecfdf5" />
           <FlagBadge label="Underpaid" count={s.underpaid_count} color="#dc2626" bg="#fef2f2" />
           <FlagBadge label="Denied" count={s.denied_count} color="#d97706" bg="#fffbeb" />
+          {s.billed_below_count > 0 && (
+            <FlagBadge label="Below Contract" count={s.billed_below_count} color="#ea580c" bg="#fff7ed" />
+          )}
           <FlagBadge label="Overpaid" count={s.overpaid_count} color="#2563eb" bg="#eff6ff" />
           <FlagBadge label="No Contract" count={s.no_contract_count} color="#6b7280" bg="#f3f4f6" />
         </div>
+
+        {/* Practice Performance Scorecard (Capability 4) */}
+        {(sc.clean_claim_rate != null) && (
+          <div style={{ marginBottom: 24 }}>
+            <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 12 }}>
+              Practice Performance
+            </h4>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12, marginBottom: 16 }}>
+              <KpiTile
+                label="Clean Claim Rate"
+                value={`${sc.clean_claim_rate}%`}
+                benchmark="95%"
+                color={sc.clean_claim_rate >= 95 ? "#059669" : sc.clean_claim_rate >= 85 ? "#d97706" : "#dc2626"}
+              />
+              <KpiTile
+                label="Denial Rate"
+                value={`${sc.denial_rate}%`}
+                benchmark="<5%"
+                color={sc.denial_rate <= 5 ? "#059669" : sc.denial_rate <= 10 ? "#d97706" : "#dc2626"}
+              />
+              <KpiTile
+                label="Payer Adherence"
+                value={`${sc.payer_adherence_rate}%`}
+                benchmark="97%"
+                color={sc.payer_adherence_rate >= 97 ? "#059669" : sc.payer_adherence_rate >= 90 ? "#d97706" : "#dc2626"}
+              />
+              <KpiTile
+                label="Preventable Denials"
+                value={`${sc.preventable_denial_rate}%`}
+                benchmark="<30%"
+                color={sc.preventable_denial_rate <= 30 ? "#059669" : sc.preventable_denial_rate <= 50 ? "#d97706" : "#dc2626"}
+              />
+            </div>
+            {sc.narrative && (
+              <div style={{
+                padding: 16, borderRadius: 8, background: "#f0f9ff",
+                border: "1px solid #bae6fd", fontSize: 14, color: "var(--cs-navy)",
+                lineHeight: 1.6,
+              }}>
+                {sc.narrative}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Top Underpaid Codes */}
         {analysisResult.top_underpaid?.length > 0 && (
@@ -954,6 +1063,22 @@ function ContractIntegrityTab({
               </table>
             </div>
           </div>
+        )}
+
+        {/* Denial Intelligence (Capability 1) */}
+        {denialLoading && (
+          <div style={{
+            border: "1px solid var(--cs-border)", borderRadius: 12,
+            padding: 24, marginBottom: 24, textAlign: "center", background: "#fff",
+          }}>
+            <Spinner />
+            <p style={{ color: "var(--cs-navy)", fontWeight: 600, marginTop: 12, fontSize: 14 }}>
+              Analyzing denial patterns...
+            </p>
+          </div>
+        )}
+        {denialIntel && !denialIntel.error && (denialIntel.denial_types?.length > 0 || denialIntel.pattern_summary) && (
+          <DenialIntelligenceSection intel={denialIntel} />
         )}
 
         {/* Full Line Items */}
@@ -1394,7 +1519,7 @@ function CodingAnalysisTab({
           Analyzing coding patterns...
         </p>
         <p style={{ color: "var(--cs-slate)", fontSize: 14 }}>
-          Checking E&M distributions, NCCI edits, and MUE limits.
+          Checking E&M distributions and coding patterns.
         </p>
       </div>
     );
@@ -1475,6 +1600,81 @@ function CodingAnalysisTab({
                 {alert.message}
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Revenue Gap Estimator (Capability 2) */}
+        {result.revenue_gap && (
+          <div style={{
+            border: "1px solid var(--cs-border)", borderRadius: 12,
+            padding: 24, background: "#fff", marginBottom: 24,
+          }}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+              Revenue Gap Estimate
+            </h3>
+            <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: "0 0 20px" }}>
+              Based on {result.revenue_gap.weeks_of_data} weeks of data
+            </p>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
+              <div style={{
+                padding: 20, borderRadius: 10,
+                background: "#fffbeb", border: "1px solid #fbbf24",
+              }}>
+                <div style={{ fontSize: 13, color: "#92400e", marginBottom: 4 }}>Period Gap</div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#92400e" }}>
+                  ${(result.revenue_gap.total_gap_period || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                </div>
+              </div>
+              <div style={{
+                padding: 20, borderRadius: 10,
+                background: "#fef2f2", border: "1px solid #fca5a5",
+              }}>
+                <div style={{ fontSize: 13, color: "#991b1b", marginBottom: 4 }}>Annualized Gap</div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#dc2626" }}>
+                  ${(result.revenue_gap.annualized_gap || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                </div>
+              </div>
+            </div>
+
+            {result.revenue_gap.narrative && (
+              <div style={{
+                padding: 16, borderRadius: 8, background: "#f0f9ff",
+                border: "1px solid #bae6fd", fontSize: 14, color: "var(--cs-navy)",
+                lineHeight: 1.6, marginBottom: 20,
+              }}>
+                {result.revenue_gap.narrative}
+              </div>
+            )}
+
+            {result.revenue_gap.gap_lines?.length > 0 && (
+              <div style={{ overflowX: "auto" }}>
+                <table style={tableStyle}>
+                  <thead>
+                    <tr>
+                      <th style={thStyle}>Code</th>
+                      <th style={{ ...thStyle, textAlign: "right" }}>Your %</th>
+                      <th style={{ ...thStyle, textAlign: "right" }}>Benchmark %</th>
+                      <th style={{ ...thStyle, textAlign: "right" }}>Visit Gap</th>
+                      <th style={{ ...thStyle, textAlign: "right" }}>Revenue Gap</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {result.revenue_gap.gap_lines.map((gl, i) => (
+                      <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                        <td style={tdStyle}>{gl.code}</td>
+                        <td style={{ ...tdStyle, textAlign: "right" }}>{gl.current_pct}%</td>
+                        <td style={{ ...tdStyle, textAlign: "right" }}>{gl.benchmark_pct}%</td>
+                        <td style={{ ...tdStyle, textAlign: "right" }}>{gl.visit_gap}</td>
+                        <td style={{ ...tdStyle, textAlign: "right", fontWeight: 600, color: "#dc2626" }}>
+                          ${gl.revenue_gap.toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 
@@ -1715,6 +1915,7 @@ function FlagPill({ flag }) {
   const colors = {
     UNDERPAID: { bg: "#fef2f2", color: "#dc2626" },
     DENIED: { bg: "#fffbeb", color: "#d97706" },
+    BILLED_BELOW: { bg: "#fff7ed", color: "#ea580c" },
     CORRECT: { bg: "#ecfdf5", color: "#059669" },
     OVERPAID: { bg: "#eff6ff", color: "#2563eb" },
     NO_CONTRACT: { bg: "#f3f4f6", color: "#6b7280" },
@@ -1841,6 +2042,135 @@ function UploadIcon() {
   );
 }
 
+function KpiTile({ label, value, benchmark, color }) {
+  return (
+    <div style={{
+      border: "1px solid var(--cs-border)", borderRadius: 10,
+      padding: 16, background: "#fff",
+    }}>
+      <div style={{ fontSize: 12, color: "var(--cs-slate)", marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 22, fontWeight: 700, color: color || "var(--cs-navy)" }}>{value}</div>
+      <div style={{ fontSize: 11, color: "var(--cs-slate)", marginTop: 4 }}>
+        Benchmark: {benchmark}
+      </div>
+    </div>
+  );
+}
+
+function DenialIntelligenceSection({ intel }) {
+  const [expandedType, setExpandedType] = useState(null);
+
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 12 }}>
+        Denial Intelligence
+      </h4>
+
+      {/* Pattern summary */}
+      {intel.pattern_summary && (
+        <div style={{
+          padding: 16, borderRadius: 8, background: "#fffbeb",
+          border: "1px solid #fbbf24", fontSize: 14, color: "#92400e",
+          lineHeight: 1.6, marginBottom: 16,
+        }}>
+          {intel.pattern_summary}
+        </div>
+      )}
+
+      {/* Recoverable value */}
+      {intel.total_recoverable_value > 0 && (
+        <div style={{
+          padding: 16, borderRadius: 8, background: "#ecfdf5",
+          border: "1px solid #6ee7b7", marginBottom: 16,
+        }}>
+          <div style={{ fontSize: 13, color: "#065f46", marginBottom: 4 }}>Estimated Recoverable Value</div>
+          <div style={{ fontSize: 24, fontWeight: 700, color: "#059669" }}>
+            ${intel.total_recoverable_value.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </div>
+        </div>
+      )}
+
+      {/* Denial type cards */}
+      {(intel.denial_types || []).map((dt, i) => {
+        const isExpanded = expandedType === i;
+        const worthColor = dt.appeal_worthiness === "high" ? "#059669"
+          : dt.appeal_worthiness === "medium" ? "#d97706" : "#6b7280";
+
+        return (
+          <div key={i} style={{
+            border: "1px solid var(--cs-border)", borderRadius: 10,
+            marginBottom: 12, overflow: "hidden", background: "#fff",
+          }}>
+            <div
+              onClick={() => setExpandedType(isExpanded ? null : i)}
+              style={{
+                padding: 16, cursor: "pointer",
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+              }}
+            >
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: "var(--cs-navy)" }}>
+                    {dt.adjustment_code}
+                  </span>
+                  <span style={{
+                    padding: "2px 8px", borderRadius: 4, fontSize: 11, fontWeight: 600,
+                    background: dt.is_actionable ? "#ecfdf5" : "#f3f4f6",
+                    color: dt.is_actionable ? "#059669" : "#6b7280",
+                  }}>
+                    {dt.is_actionable ? "Actionable" : "Non-actionable"}
+                  </span>
+                  <span style={{
+                    padding: "2px 8px", borderRadius: 4, fontSize: 11, fontWeight: 600,
+                    color: worthColor,
+                  }}>
+                    Appeal: {dt.appeal_worthiness}
+                  </span>
+                </div>
+                <div style={{ fontSize: 13, color: "var(--cs-slate)" }}>
+                  {dt.plain_language}
+                </div>
+              </div>
+              <div style={{ textAlign: "right", whiteSpace: "nowrap", marginLeft: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--cs-navy)" }}>
+                  {dt.count} line{dt.count !== 1 ? "s" : ""} &middot; ${(dt.total_value || 0).toFixed(2)}
+                </div>
+                <div style={{ fontSize: 12, color: "var(--cs-teal)" }}>
+                  {isExpanded ? "Hide details" : "Show details"}
+                </div>
+              </div>
+            </div>
+
+            {isExpanded && (
+              <div style={{ padding: "0 16px 16px", borderTop: "1px solid var(--cs-border)" }}>
+                {dt.recommended_action && (
+                  <div style={{ padding: "12px 0", fontSize: 13, color: "var(--cs-navy)", lineHeight: 1.5 }}>
+                    <strong>Recommended action:</strong> {dt.recommended_action}
+                  </div>
+                )}
+                {dt.appeal_letter_template && (
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 8, marginTop: 8 }}>
+                      Appeal Letter Template
+                    </div>
+                    <div style={{
+                      padding: 16, borderRadius: 8, background: "var(--cs-mist)",
+                      fontSize: 13, color: "var(--cs-navy)", whiteSpace: "pre-wrap",
+                      lineHeight: 1.6, fontFamily: "monospace",
+                    }}>
+                      {dt.appeal_letter_template}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function DownloadIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6, verticalAlign: "middle" }}>
@@ -1861,6 +2191,7 @@ function flagRowColor(flag, index) {
   switch (flag) {
     case "UNDERPAID": return even ? "#fef2f2" : "#fee2e2";
     case "DENIED": return even ? "#fffbeb" : "#fef3c7";
+    case "BILLED_BELOW": return even ? "#fff7ed" : "#ffedd5";
     case "CORRECT": return even ? "#ecfdf5" : "#d1fae5";
     case "OVERPAID": return even ? "#eff6ff" : "#dbeafe";
     case "NO_CONTRACT": return even ? "#f9fafb" : "#f3f4f6";
