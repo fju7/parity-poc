@@ -70,6 +70,10 @@ export default function ProviderApp() {
   const [recentAnalyses, setRecentAnalyses] = useState(null);
   const [loadingRecent, setLoadingRecent] = useState(false);
 
+  // ── Historical report viewer state ──
+  const [historicalReport, setHistoricalReport] = useState(null); // full analysis record
+  const [historicalLoading, setHistoricalLoading] = useState(false);
+
   // Auth bootstrap
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session: s } }) => {
@@ -512,7 +516,7 @@ export default function ProviderApp() {
         .select("id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate")
         .eq("user_id", session.user.id)
         .order("production_date", { ascending: false })
-        .limit(3);
+        .limit(5);
       if (!error) setRecentAnalyses(data || []);
     } catch {
       // Non-fatal
@@ -521,10 +525,48 @@ export default function ProviderApp() {
   }
 
   useEffect(() => {
-    if (view === "dashboard" && activeTab === "home") {
+    if (view === "dashboard" && activeTab === "home" && !historicalReport) {
       loadRecentAnalyses();
     }
-  }, [view, activeTab]);
+  }, [view, activeTab, historicalReport]);
+
+  async function loadHistoricalReport(analysisId) {
+    setHistoricalLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from("provider_analyses")
+        .select("*")
+        .eq("id", analysisId)
+        .single();
+      if (!error && data) {
+        setHistoricalReport(data);
+      }
+    } catch {
+      // Non-fatal
+    }
+    setHistoricalLoading(false);
+  }
+
+  function getHistoricalSortedLines() {
+    if (!historicalReport?.result_json?.line_items) return [];
+    const lines = [...historicalReport.result_json.line_items];
+    if (!sortField) return lines;
+    const flagOrder = { UNDERPAID: 0, DENIED: 1, BILLED_BELOW: 2, OVERPAID: 3, NO_CONTRACT: 4, CORRECT: 5 };
+    lines.sort((a, b) => {
+      let va, vb;
+      if (sortField === "flag") {
+        va = flagOrder[a.flag] ?? 5;
+        vb = flagOrder[b.flag] ?? 5;
+      } else {
+        va = a[sortField] ?? 0;
+        vb = b[sortField] ?? 0;
+      }
+      if (va < vb) return sortDir === "asc" ? -1 : 1;
+      if (va > vb) return sortDir === "asc" ? 1 : -1;
+      return 0;
+    });
+    return lines;
+  }
 
   // ── Shared nav ──
   const nav = (
@@ -810,12 +852,29 @@ export default function ProviderApp() {
 
         {/* Tab content */}
         {activeTab === "home" ? (
-          <DashboardHome
-            recentAnalyses={recentAnalyses}
-            loading={loadingRecent}
-            onGoToContract={() => setActiveTab("contract")}
-            onGoToCoding={() => setActiveTab("coding")}
-          />
+          historicalReport ? (
+            <HistoricalReportView
+              record={historicalReport}
+              sortField={sortField}
+              sortDir={sortDir}
+              onSort={handleSort}
+              getSortedLines={getHistoricalSortedLines}
+              onBack={() => { setHistoricalReport(null); setSortField(null); setSortDir("asc"); }}
+            />
+          ) : historicalLoading ? (
+            <div style={{ textAlign: "center", padding: 48 }}>
+              <Spinner />
+              <p style={{ color: "var(--cs-navy)", fontWeight: 600, marginTop: 16 }}>Loading report...</p>
+            </div>
+          ) : (
+            <DashboardHome
+              recentAnalyses={recentAnalyses}
+              loading={loadingRecent}
+              onGoToContract={() => setActiveTab("contract")}
+              onGoToCoding={() => setActiveTab("coding")}
+              onViewAnalysis={(id) => loadHistoricalReport(id)}
+            />
+          )
         ) : activeTab === "contract" ? (
           <div>
             <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 0, marginBottom: 24, lineHeight: 1.6 }}>
@@ -1359,7 +1418,7 @@ function ContractIntegrityTab({
 // Dashboard Home Component
 // ═══════════════════════════════════════════════════════════════════
 
-function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }) {
+function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding, onViewAnalysis }) {
   const hasAnalyses = recentAnalyses && recentAnalyses.length > 0;
 
   return (
@@ -1456,7 +1515,16 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }
               </thead>
               <tbody>
                 {recentAnalyses.map((a, i) => (
-                  <tr key={a.id} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                  <tr
+                    key={a.id}
+                    onClick={() => onViewAnalysis(a.id)}
+                    style={{
+                      cursor: "pointer",
+                      ...(i % 2 === 0 ? {} : { background: "var(--cs-mist)" }),
+                    }}
+                    onMouseOver={e => e.currentTarget.style.background = "var(--cs-teal-pale)"}
+                    onMouseOut={e => e.currentTarget.style.background = i % 2 === 0 ? "" : "var(--cs-mist)"}
+                  >
                     <td style={tdStyle}>
                       {a.production_date ? new Date(a.production_date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "—"}
                     </td>
@@ -1504,6 +1572,230 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding }
             </button>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// Historical Report Viewer
+// ═══════════════════════════════════════════════════════════════════
+
+function HistoricalReportView({ record, sortField, sortDir, onSort, getSortedLines, onBack }) {
+  const rj = record.result_json || {};
+  const s = rj.summary || {};
+  const sc = rj.scorecard || {};
+  const di = rj.denial_intelligence || {};
+  const sortedLines = getSortedLines();
+  const adherenceColor = s.adherence_rate >= 97 ? "#059669" : s.adherence_rate >= 90 ? "#d97706" : "#dc2626";
+
+  // Format header date: "December 2025"
+  const headerDate = record.production_date
+    ? new Date(record.production_date + "T00:00:00").toLocaleDateString("en-US", { month: "long", year: "numeric" })
+    : "";
+
+  return (
+    <div>
+      {/* Back button + header */}
+      <div className="no-print" style={{ marginBottom: 24 }}>
+        <button
+          onClick={onBack}
+          style={{
+            background: "none", border: "none", padding: 0,
+            color: "var(--cs-teal)", fontSize: 14, fontWeight: 600,
+            cursor: "pointer", marginBottom: 12, display: "block",
+          }}
+        >
+          &larr; Back to Dashboard
+        </button>
+        <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--cs-navy)", margin: 0 }}>
+          {record.payer_name || "Analysis"}{headerDate ? ` — ${headerDate}` : ""}
+        </h2>
+      </div>
+
+      {/* Summary Cards */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16, marginBottom: 24 }}>
+        <SummaryCard label="Total Contracted" value={`$${(s.total_contracted || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}`} />
+        <SummaryCard label="Total Paid" value={`$${(s.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}`} />
+        <SummaryCard label="Underpayment" value={`$${(s.total_underpayment || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}`} color={s.total_underpayment > 0 ? "#dc2626" : undefined} />
+        <SummaryCard label="Adherence Rate" value={`${s.adherence_rate || 0}%`} color={adherenceColor} />
+      </div>
+
+      {/* Underpayment callout */}
+      {s.total_underpayment > 0 && (
+        <div style={{
+          background: "var(--cs-navy)", borderRadius: 12, padding: 24,
+          marginBottom: 24, color: "#fff",
+        }}>
+          <div style={{ fontSize: 14, opacity: 0.8, marginBottom: 4 }}>Total Potential Underpayment</div>
+          <div style={{ fontSize: 32, fontWeight: 700 }}>
+            ${s.total_underpayment.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </div>
+          <div style={{ fontSize: 13, marginTop: 8, opacity: 0.7 }}>
+            {s.underpaid_count} underpaid line{s.underpaid_count !== 1 ? "s" : ""} + {s.denied_count} denied
+            {" "}out of {s.line_count} total
+          </div>
+        </div>
+      )}
+
+      {/* Billed-Below-Contract callout */}
+      {s.billed_below_count > 0 && (
+        <div style={{
+          background: "#fff7ed", borderRadius: 12, padding: 20,
+          marginBottom: 24, border: "1px solid #fb923c",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <span style={{ fontSize: 18 }}>&#9888;</span>
+            <span style={{ fontSize: 15, fontWeight: 600, color: "#9a3412" }}>
+              Chargemaster Below Contract
+            </span>
+          </div>
+          <p style={{ fontSize: 14, color: "#9a3412", margin: 0, lineHeight: 1.5 }}>
+            {s.billed_below_count} line{s.billed_below_count !== 1 ? "s" : ""} billed below your contracted rate.
+            Total chargemaster gap: <strong>${(s.total_chargemaster_gap || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</strong>.
+          </p>
+        </div>
+      )}
+
+      {/* Flag breakdown */}
+      <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
+        <FlagBadge label="Correct" count={s.correct_count} color="#059669" bg="#ecfdf5" />
+        <FlagBadge label="Underpaid" count={s.underpaid_count} color="#dc2626" bg="#fef2f2" />
+        <FlagBadge label="Denied" count={s.denied_count} color="#d97706" bg="#fffbeb" />
+        {s.billed_below_count > 0 && (
+          <FlagBadge label="Below Contract" count={s.billed_below_count} color="#ea580c" bg="#fff7ed" />
+        )}
+        <FlagBadge label="Overpaid" count={s.overpaid_count} color="#2563eb" bg="#eff6ff" />
+        <FlagBadge label="No Contract" count={s.no_contract_count} color="#6b7280" bg="#f3f4f6" />
+      </div>
+
+      {/* Practice Performance Scorecard */}
+      {(sc.clean_claim_rate != null) && (
+        <div style={{ marginBottom: 24 }}>
+          <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 12 }}>
+            Practice Performance
+          </h4>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12, marginBottom: 16 }}>
+            <KpiTile label="Clean Claim Rate" value={`${sc.clean_claim_rate}%`} benchmark="95%" color={sc.clean_claim_rate >= 95 ? "#059669" : sc.clean_claim_rate >= 85 ? "#d97706" : "#dc2626"} />
+            <KpiTile label="Denial Rate" value={`${sc.denial_rate}%`} benchmark="<5%" color={sc.denial_rate <= 5 ? "#059669" : sc.denial_rate <= 10 ? "#d97706" : "#dc2626"} />
+            <KpiTile label="Payer Adherence" value={`${sc.payer_adherence_rate}%`} benchmark="97%" color={sc.payer_adherence_rate >= 97 ? "#059669" : sc.payer_adherence_rate >= 90 ? "#d97706" : "#dc2626"} />
+            <KpiTile label="Preventable Denials" value={`${sc.preventable_denial_rate}%`} benchmark="<30%" color={sc.preventable_denial_rate <= 30 ? "#059669" : sc.preventable_denial_rate <= 50 ? "#d97706" : "#dc2626"} />
+          </div>
+          {sc.narrative && (
+            <div style={{
+              padding: 16, borderRadius: 8, background: "#f0f9ff",
+              border: "1px solid #bae6fd", fontSize: 14, color: "var(--cs-navy)",
+              lineHeight: 1.6,
+            }}>
+              {sc.narrative}
+            </div>
+          )}
+          {s.line_count < 50 && (
+            <p style={{ fontSize: 12, color: "var(--cs-slate)", marginTop: 12, marginBottom: 0, fontStyle: "italic" }}>
+              Note: This analysis is based on {s.line_count} line items.
+              Metrics are more meaningful with a full month of remittance data (typically 200+ line items).
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Top Underpaid Codes */}
+      {(rj.top_underpaid || []).length > 0 && (
+        <div style={{ marginBottom: 24 }}>
+          <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 12 }}>
+            Top Underpaid Codes
+          </h4>
+          <div style={{ overflowX: "auto" }}>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>CPT Code</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Total Underpayment</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rj.top_underpaid.map((item, i) => (
+                  <tr key={i} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                    <td style={tdStyle}>{item.cpt_code}</td>
+                    <td style={{ ...tdStyle, textAlign: "right", color: "#dc2626", fontWeight: 600 }}>
+                      ${item.total_underpayment.toFixed(2)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Denial Intelligence (from stored data) */}
+      {di.denial_types?.length > 0 && (
+        <DenialIntelligenceSection intel={di} />
+      )}
+
+      {/* Full Line Items (only if stored in result_json) */}
+      {sortedLines.length > 0 && (
+        <div style={{ marginBottom: 24 }}>
+          <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 12 }}>
+            All Line Items ({sortedLines.length})
+          </h4>
+          <div style={{ overflowX: "auto" }}>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  <SortTh field="cpt_code" label="CPT" current={sortField} dir={sortDir} onSort={onSort} />
+                  <SortTh field="billed_amount" label="Billed" current={sortField} dir={sortDir} onSort={onSort} align="right" />
+                  <SortTh field="paid_amount" label="Paid" current={sortField} dir={sortDir} onSort={onSort} align="right" />
+                  <SortTh field="expected_payment" label="Expected" current={sortField} dir={sortDir} onSort={onSort} align="right" />
+                  <SortTh field="variance" label="Variance" current={sortField} dir={sortDir} onSort={onSort} align="right" />
+                  <SortTh field="flag" label="Flag" current={sortField} dir={sortDir} onSort={onSort} />
+                  <th style={{ ...thStyle, textAlign: "right" }}>Medicare</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedLines.map((item, i) => {
+                  const rowBg = flagRowColor(item.flag, i);
+                  return (
+                    <tr key={i} style={{ background: rowBg }}>
+                      <td style={tdStyle}>{item.cpt_code}</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>${(item.billed_amount || 0).toFixed(2)}</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>${(item.paid_amount || 0).toFixed(2)}</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>
+                        {item.expected_payment != null ? `$${item.expected_payment.toFixed(2)}` : "—"}
+                      </td>
+                      <td style={{ ...tdStyle, textAlign: "right", fontWeight: 600, color: varianceColor(item.variance) }}>
+                        {item.variance != null ? `${item.variance >= 0 ? "+" : ""}$${item.variance.toFixed(2)}` : "—"}
+                      </td>
+                      <td style={tdStyle}>
+                        <FlagPill flag={item.flag} />
+                      </td>
+                      <td style={{ ...tdStyle, textAlign: "right", fontSize: 12, color: "var(--cs-slate)" }}>
+                        {item.medicare_rate ? `$${item.medicare_rate.toFixed(2)}` : "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Disclaimer */}
+      <div style={{
+        padding: 16, borderRadius: 8, background: "var(--cs-mist)",
+        fontSize: 12, color: "var(--cs-slate)", marginBottom: 24, lineHeight: 1.6,
+      }}>
+        <strong>Disclaimer:</strong> This analysis compares payer remittance data against your self-reported contracted rates
+        and publicly available CMS Medicare benchmarks. It is not legal or financial advice. Verify all findings with your
+        payer contracts and consult a billing specialist before taking action.
+      </div>
+
+      {/* Action buttons */}
+      <div className="no-print" style={{ display: "flex", gap: 12 }}>
+        <button onClick={() => window.print()} style={btnPrimary}>Download Report</button>
+        <button onClick={onBack} style={btnOutline}>Back to Dashboard</button>
       </div>
     </div>
   );
