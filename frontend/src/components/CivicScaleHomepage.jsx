@@ -331,7 +331,7 @@ export default function CivicScaleHomepage() {
             <div className="cs-data-num">02</div>
             <div className="cs-data-name">Licensed Intelligence</div>
             <p className="cs-data-desc">
-              Turquoise Health Clear Rates — negotiated rate data from 96% of US hospitals and 95% of commercial lives. The difference between Medicare floor rates and what your insurer actually contracted to pay. Phase 1 integration.
+              Commercial rate benchmarks from licensed data sources — negotiated rate data covering major US hospitals and commercial payer networks. The difference between Medicare floor rates and what your insurer actually contracted to pay. Phase 1 integration.
             </p>
           </div>
           <div className="cs-data-card">

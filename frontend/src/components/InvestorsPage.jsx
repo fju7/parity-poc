@@ -320,7 +320,7 @@ export default function InvestorsPage() {
               <span style={{ fontSize: 12, color: "#4a5568", fontWeight: 300 }}>Months 3–6</span>
             </div>
             <p className="inv-tl-desc">
-              User accounts, bill history, Turquoise Health API integration, enhanced anomaly scoring, employer dashboard MVP, attorney referral capture. Validation gate: 1,000 active users.
+              User accounts, bill history, commercial rate benchmark integration, enhanced anomaly scoring, employer dashboard MVP, attorney referral capture. Validation gate: 1,000 active users.
             </p>
           </div>
 
