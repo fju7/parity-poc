@@ -270,17 +270,34 @@ def detect_new_sources(current: dict, previous: dict) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def store_updates(sb, updates: list[dict]) -> int:
-    """Insert change records into signal_evidence_updates. Returns count inserted."""
+    """Insert change records into signal_evidence_updates. Returns count inserted.
+
+    Table columns: id, issue_id, change_type, claim_id, source_id,
+                   previous_score, new_score, previous_category, new_category
+    """
     inserted = 0
     for update in updates:
+        details = update.get("details", {})
         row = {
             "issue_id": update["issue_id"],
             "change_type": update["change_type"],
-            "details": update.get("details", {}),
         }
+
         # Attach claim_id if present
         if update.get("claim_id"):
             row["claim_id"] = update["claim_id"]
+
+        # Flat columns based on change type
+        if update["change_type"] == "score_shift":
+            row["previous_score"] = details.get("previous_score")
+            row["new_score"] = details.get("new_score")
+            row["previous_category"] = details.get("previous_category")
+            row["new_category"] = details.get("new_category")
+        elif update["change_type"] == "consensus_change":
+            row["previous_category"] = details.get("previous_status")
+            row["new_category"] = details.get("new_status")
+        elif update["change_type"] == "new_source":
+            row["source_id"] = details.get("source_id")
 
         try:
             sb.table("signal_evidence_updates").insert(row).execute()

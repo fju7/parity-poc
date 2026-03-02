@@ -125,13 +125,21 @@ def _get_supabase():
 def get_unnotified_updates(sb) -> list[dict]:
     """Find evidence updates that don't yet have notifications.
 
+    Table columns: id, issue_id, change_type, claim_id, source_id,
+                   previous_score, new_score, previous_category, new_category
+
+    We track which updates have been notified by checking signal_notifications
+    for matching title patterns (since there's no evidence_update_id FK).
+    For simplicity, we use a local tracking approach: each notification's
+    deep_link encodes the update ID so we can check for duplicates.
+
     Returns list of update dicts from signal_evidence_updates.
     """
     # Get all evidence updates
     resp = (
         sb.table("signal_evidence_updates")
-        .select("id, issue_id, change_type, claim_id, details, created_at")
-        .order("created_at", desc=False)
+        .select("id, issue_id, change_type, claim_id, source_id, "
+                "previous_score, new_score, previous_category, new_category")
         .execute()
     )
     all_updates = resp.data or []
@@ -139,24 +147,26 @@ def get_unnotified_updates(sb) -> list[dict]:
     if not all_updates:
         return []
 
-    # Get update IDs that already have notifications
-    update_ids = [u["id"] for u in all_updates]
-    notified_ids: set[str] = set()
+    # Check which updates already have notifications by matching deep_link
+    # Deep links are formatted as /signal/{slug}#update_{update_id}
+    existing_links: set[str] = set()
+    resp = (
+        sb.table("signal_notifications")
+        .select("deep_link")
+        .execute()
+    )
+    for row in (resp.data or []):
+        link = row.get("deep_link", "")
+        if link:
+            existing_links.add(link)
 
-    chunk_size = 50
-    for i in range(0, len(update_ids), chunk_size):
-        chunk = update_ids[i:i + chunk_size]
-        resp = (
-            sb.table("signal_notifications")
-            .select("evidence_update_id")
-            .in_("evidence_update_id", chunk)
-            .execute()
-        )
-        for row in (resp.data or []):
-            notified_ids.add(row["evidence_update_id"])
+    # Filter to unnotified — check if the update's deep_link pattern exists
+    unnotified = []
+    for u in all_updates:
+        link_pattern = f"#update_{u['id']}"
+        if not any(link_pattern in link for link in existing_links):
+            unnotified.append(u)
 
-    # Filter to unnotified
-    unnotified = [u for u in all_updates if u["id"] not in notified_ids]
     return unnotified
 
 
@@ -178,7 +188,9 @@ def get_subscribed_users(sb, issue_id: str) -> list[dict]:
 def get_user_preferences(sb, user_ids: list[str]) -> dict[str, dict]:
     """Get notification preferences per user.
 
-    Returns {user_id: {delivery_method, ...}} or empty dict entries for defaults.
+    Table columns: user_id, method, frequency, updated_at
+
+    Returns {user_id: {method, frequency}} or empty dict for defaults.
     """
     if not user_ids:
         return {}
@@ -190,7 +202,7 @@ def get_user_preferences(sb, user_ids: list[str]) -> dict[str, dict]:
         chunk = user_ids[i:i + chunk_size]
         resp = (
             sb.table("signal_notification_preferences")
-            .select("user_id, delivery_method")
+            .select("user_id, method, frequency")
             .in_("user_id", chunk)
             .execute()
         )
@@ -238,8 +250,22 @@ def _build_notification_prompt(updates: list[dict], issue_slug: str) -> str:
         parts.append(f"--- Update {i} ---")
         parts.append(f"ID: {update['id']}")
         parts.append(f"Type: {update['change_type']}")
-        details = update.get("details", {})
-        parts.append(f"Details: {json.dumps(details)}")
+        # Build details from flat columns
+        detail_parts = []
+        if update.get("claim_id"):
+            detail_parts.append(f"claim_id: {update['claim_id']}")
+        if update.get("source_id"):
+            detail_parts.append(f"source_id: {update['source_id']}")
+        if update.get("previous_score") is not None:
+            detail_parts.append(f"previous_score: {update['previous_score']}")
+        if update.get("new_score") is not None:
+            detail_parts.append(f"new_score: {update['new_score']}")
+        if update.get("previous_category"):
+            detail_parts.append(f"previous_category: {update['previous_category']}")
+        if update.get("new_category"):
+            detail_parts.append(f"new_category: {update['new_category']}")
+        if detail_parts:
+            parts.append(f"Details: {', '.join(detail_parts)}")
         parts.append("")
 
     return "\n".join(parts)
@@ -268,18 +294,26 @@ def generate_notification_text(updates: list[dict], issue_slug: str) -> list[dic
 
 def store_notifications(sb, notifications: list[dict], user_id: str,
                         delivery_method: str) -> int:
-    """Insert notification rows for a single user. Returns count inserted."""
+    """Insert notification rows for a single user. Returns count inserted.
+
+    Table columns: id, created_at, user_id, title, body, deep_link,
+                   delivery_method, read_at
+    """
     inserted = 0
 
     for notif in notifications:
+        # Encode update_id in deep_link for dedup tracking
+        deep_link = notif.get("deep_link", "")
+        update_id = notif.get("update_id", "")
+        if update_id and f"#update_{update_id}" not in deep_link:
+            deep_link = f"{deep_link}#update_{update_id}" if deep_link else f"#update_{update_id}"
+
         row = {
             "user_id": user_id,
-            "evidence_update_id": notif["update_id"],
             "title": notif.get("title", "Evidence update"),
             "body": notif.get("body", ""),
-            "deep_link": notif.get("deep_link", ""),
+            "deep_link": deep_link,
             "delivery_method": delivery_method,
-            "status": "pending",
         }
         try:
             sb.table("signal_notifications").insert(row).execute()
@@ -371,7 +405,7 @@ def main():
         # Step 4: Create notification rows per subscriber
         for user_id in user_ids:
             prefs = preferences.get(user_id, {})
-            delivery_method = prefs.get("delivery_method", "in_app")
+            delivery_method = prefs.get("method", "in_app")
             inserted = store_notifications(sb, notifications, user_id, delivery_method)
             total_notifications += inserted
 
