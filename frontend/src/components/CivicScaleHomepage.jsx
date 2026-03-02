@@ -114,6 +114,21 @@ export default function CivicScaleHomepage() {
                 Check My Remittances <span>&rarr;</span>
               </span>
             </Link>
+
+            <Link to="/signal" className="cs-hero-card">
+              <div className="cs-hero-card-badge">
+                <span className="cs-hero-card-dot" />
+                New
+              </div>
+              <div className="cs-hero-card-title">Parity Signal</div>
+              <div className="cs-hero-card-subtitle">Public evidence intelligence</div>
+              <p className="cs-hero-card-desc">
+                Medical evidence should be accessible to everyone. Parity Signal scores health claims across six dimensions of credibility — so you can see the strength of the evidence, not just the headlines.
+              </p>
+              <span className="cs-hero-card-btn">
+                Explore Evidence <span>&rarr;</span>
+              </span>
+            </Link>
           </div>
         </div>
       </section>
@@ -200,6 +215,26 @@ export default function CivicScaleHomepage() {
             </p>
             <span className="cs-card-link">
               Open App
+              <span className="cs-card-link-arrow">&rarr;</span>
+            </span>
+          </Link>
+
+          {/* NEW: Parity Signal */}
+          <Link to="/signal" className="cs-product-card cs-live">
+            <div className="cs-card-accent cs-accent-live" />
+            <div className="cs-card-badge cs-badge-live">
+              <span className="cs-badge-live-dot" />
+              New
+            </div>
+            <div className="cs-card-icon cs-icon-signal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div className="cs-card-name">Parity Signal</div>
+            <p className="cs-card-desc">
+              Public evidence intelligence. Score medical claims across six dimensions of credibility.
+            </p>
+            <span className="cs-card-link">
+              Explore Evidence
               <span className="cs-card-link-arrow">&rarr;</span>
             </span>
           </Link>

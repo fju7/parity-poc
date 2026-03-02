@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Hide scrollbar for horizontal tab containers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @media print {
   body {
     background: white !important;

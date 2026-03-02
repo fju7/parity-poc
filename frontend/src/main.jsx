@@ -12,6 +12,7 @@ import EmployerLoginPage from './components/EmployerLoginPage.jsx'
 import EmployerDashboard from './components/EmployerDashboard.jsx'
 import EmployerAuthCallback from './components/EmployerAuthCallback.jsx'
 import ProviderApp from './ProviderApp.jsx'
+import SignalApp from './SignalApp.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/employer/auth/callback" element={<EmployerAuthCallback />} />
         <Route path="/employer/dashboard" element={<EmployerDashboard />} />
         <Route path="/provider/*" element={<ProviderApp />} />
+        <Route path="/signal/*" element={<SignalApp />} />
         <Route path="/parity-health/*" element={<App />} />
       </Routes>
     </BrowserRouter>

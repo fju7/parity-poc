@@ -1,0 +1,200 @@
+import { useState, useEffect } from "react";
+import { Routes, Route, useParams } from "react-router-dom";
+import { supabase } from "./lib/supabase";
+import SignalHeader from "./components/signal/SignalHeader";
+import SignalFooter from "./components/signal/SignalFooter";
+import SignalLanding from "./components/signal/SignalLanding";
+import IssueDashboard from "./components/signal/IssueDashboard";
+import MethodologyView from "./components/signal/MethodologyView";
+
+// Default featured topic slug
+const FEATURED_SLUG = "glp1-drugs";
+
+function DashboardRoute({ data }) {
+  const { slug } = useParams();
+  const targetSlug = slug || FEATURED_SLUG;
+
+  // If the loaded data matches the slug, use it directly
+  if (data.issue?.slug === targetSlug) {
+    return (
+      <IssueDashboard
+        issue={data.issue}
+        summary={data.summary}
+        claims={data.claims}
+        consensus={data.consensus}
+        sources={data.sources}
+        loading={data.loading}
+        error={data.error}
+      />
+    );
+  }
+
+  // Otherwise, load the requested slug
+  return <LazyDashboard slug={targetSlug} />;
+}
+
+function LazyDashboard({ slug }) {
+  const [state, setState] = useState({
+    issue: null,
+    summary: null,
+    claims: null,
+    consensus: null,
+    sources: null,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    loadIssueData(slug).then(setState);
+  }, [slug]);
+
+  return (
+    <IssueDashboard
+      issue={state.issue}
+      summary={state.summary}
+      claims={state.claims}
+      consensus={state.consensus}
+      sources={state.sources}
+      loading={state.loading}
+      error={state.error}
+    />
+  );
+}
+
+async function loadIssueData(slug) {
+  try {
+    // 1. Fetch issue by slug
+    const { data: issue, error: issueErr } = await supabase
+      .from("signal_issues")
+      .select("*")
+      .eq("slug", slug)
+      .single();
+
+    if (issueErr || !issue) {
+      return {
+        issue: null,
+        summary: null,
+        claims: null,
+        consensus: null,
+        sources: null,
+        loading: false,
+        error: issueErr?.message || "Topic not found",
+      };
+    }
+
+    const issueId = issue.id;
+
+    // 2. Parallel fetch everything else
+    const [summaryRes, claimsRes, consensusRes, sourcesRes, claimSourceCountsRes] =
+      await Promise.all([
+        supabase
+          .from("signal_summaries")
+          .select("*")
+          .eq("issue_id", issueId)
+          .order("version", { ascending: false })
+          .limit(1)
+          .single(),
+        supabase
+          .from("signal_claims")
+          .select("*, signal_claim_composites(*)")
+          .eq("issue_id", issueId),
+        supabase
+          .from("signal_consensus")
+          .select("*")
+          .eq("issue_id", issueId),
+        supabase
+          .from("signal_sources")
+          .select("id, title, url, source_type, publication_date")
+          .eq("issue_id", issueId),
+        // Get source counts per claim
+        supabase
+          .from("signal_claim_sources")
+          .select("claim_id"),
+      ]);
+
+    // Build source count map
+    const sourceCountMap = new Map();
+    if (claimSourceCountsRes.data) {
+      for (const row of claimSourceCountsRes.data) {
+        sourceCountMap.set(
+          row.claim_id,
+          (sourceCountMap.get(row.claim_id) || 0) + 1
+        );
+      }
+    }
+
+    // Attach source counts to claims
+    const claims = (claimsRes.data || []).map((claim) => ({
+      ...claim,
+      _sourceCount: sourceCountMap.get(claim.id) || 0,
+    }));
+
+    return {
+      issue,
+      summary: summaryRes.data || null,
+      claims,
+      consensus: consensusRes.data || [],
+      sources: sourcesRes.data || [],
+      loading: false,
+      error: null,
+    };
+  } catch (err) {
+    return {
+      issue: null,
+      summary: null,
+      claims: null,
+      consensus: null,
+      sources: null,
+      loading: false,
+      error: err.message || "Failed to load data",
+    };
+  }
+}
+
+export default function SignalApp() {
+  const [data, setData] = useState({
+    issue: null,
+    summary: null,
+    claims: null,
+    consensus: null,
+    sources: null,
+    loading: true,
+    error: null,
+  });
+
+  // Load featured topic data on mount
+  useEffect(() => {
+    loadIssueData(FEATURED_SLUG).then(setData);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col font-[Arial,sans-serif]">
+      <SignalHeader />
+      <main className="flex-1">
+        <Routes>
+          <Route
+            index
+            element={
+              <SignalLanding
+                issue={data.issue}
+                summary={data.summary}
+                claims={data.claims}
+                sources={data.sources}
+                loading={data.loading}
+              />
+            }
+          />
+          <Route
+            path="methodology"
+            element={<MethodologyView />}
+          />
+          <Route
+            path=":slug"
+            element={<DashboardRoute data={data} />}
+          />
+        </Routes>
+      </main>
+      <SignalFooter />
+    </div>
+  );
+}
