@@ -1,5 +1,5 @@
 {
-  "snapshot_at": "2026-03-02T21:18:01.085722+00:00",
+  "snapshot_at": "2026-03-02T21:20:11.438492+00:00",
   "issue_id": "e817922f-7a7b-4f25-9ada-20f624f6c1c8",
   "claim_composites": {
     "c9a67abc-4bad-40c9-86aa-4fc946a6fde9": {
@@ -398,120 +398,164 @@
       "score": 2.05,
       "category": "mixed"
     },
-    "a00f528e-6173-46bc-ad7d-9ccc449b5fea": {
-      "score": 3.8,
-      "category": "moderate"
-    },
-    "afa7e2ef-e7b4-4d52-bb40-3e2379ad475d": {
-      "score": 1.7,
-      "category": "weak"
-    },
-    "c740464f-d9c8-46c3-9a53-39d49a8a3d84": {
+    "03740809-4125-4666-b516-10d4c2c619b2": {
       "score": 3.2,
       "category": "moderate"
     },
-    "e5d83aaa-bedf-4a49-8328-7be0c74bac31": {
-      "score": 2.2,
-      "category": "mixed"
+    "04141258-2722-4b4d-bbce-e4c2099c25e4": {
+      "score": 4.4,
+      "category": "strong"
     },
-    "e16b2b3f-2a9e-4898-823f-2222e20271c8": {
+    "0587462c-adb0-44b8-9bcb-32c4c8152f12": {
+      "score": 1.85,
+      "category": "weak"
+    },
+    "0d23614b-a399-4706-b10d-e330b6e1fce3": {
       "score": 3.7,
-      "category": "moderate"
-    },
-    "178c8745-0130-4590-9f9e-61d62a5cd9ae": {
-      "score": 3.5,
-      "category": "moderate"
-    },
-    "394a2c52-1e1f-4705-8612-284019fce7ff": {
-      "score": 3.95,
-      "category": "moderate"
-    },
-    "c3df39a2-de2b-454a-b6a2-6c6aef0da97f": {
-      "score": 3.95,
-      "category": "moderate"
-    },
-    "32a1caa5-8db0-4f8a-b78c-530cd8ae3019": {
-      "score": 3.45,
       "category": "moderate"
     },
     "0e1a7d19-faec-43e4-a9cd-1cc995b53ec0": {
       "score": 2.75,
       "category": "mixed"
     },
-    "e66b1425-4ef4-4693-9204-8ee984e56c7c": {
+    "0fc812ab-4921-44cd-9873-c99273bf8e22": {
+      "score": 4.0,
+      "category": "strong"
+    },
+    "114250c0-8638-4bbb-8430-2f3c4423e5cb": {
+      "score": 3.45,
+      "category": "moderate"
+    },
+    "121a0679-492c-42c5-8cec-d4e0b674f804": {
       "score": 3.25,
+      "category": "moderate"
+    },
+    "178c8745-0130-4590-9f9e-61d62a5cd9ae": {
+      "score": 3.5,
+      "category": "moderate"
+    },
+    "1bc882fc-7acc-42a3-a7ee-ef47982472a1": {
+      "score": 3.25,
+      "category": "moderate"
+    },
+    "28f0e154-65b9-43ec-8ab9-6b8d5da3cac0": {
+      "score": 3.0,
       "category": "moderate"
     },
     "2ad1062e-1010-4c24-97bd-6ddef5942827": {
       "score": 2.7,
       "category": "mixed"
     },
-    "890c2708-0e43-4c40-b2f8-2dee955e4481": {
-      "score": 2.9,
+    "2cb2e233-5a25-4f86-9827-4852aca8664b": {
+      "score": 2.7,
       "category": "mixed"
     },
-    "dd55309d-90b1-479c-800a-d65abbb57650": {
-      "score": 2.95,
+    "2e2e605a-9e05-4b3d-a892-180736c18e42": {
+      "score": 2.65,
       "category": "mixed"
+    },
+    "32a1caa5-8db0-4f8a-b78c-530cd8ae3019": {
+      "score": 3.45,
+      "category": "moderate"
+    },
+    "394a2c52-1e1f-4705-8612-284019fce7ff": {
+      "score": 3.95,
+      "category": "moderate"
+    },
+    "3a225dbb-2538-4af8-9935-bdbaa89908e1": {
+      "score": 3.1,
+      "category": "moderate"
+    },
+    "4f1c7b2a-e195-4ca4-ac99-1e06a6e23181": {
+      "score": 2.25,
+      "category": "mixed"
+    },
+    "57406b7a-981a-4a1d-b562-d34ecc19bd21": {
+      "score": 3.6,
+      "category": "moderate"
+    },
+    "5a0d8ea9-5fb7-48a9-b27f-10e68abe451f": {
+      "score": 3.55,
+      "category": "moderate"
+    },
+    "5e5385f2-bb7a-4ed9-afc2-6429939ab878": {
+      "score": 3.8,
+      "category": "moderate"
+    },
+    "6605b346-fb5f-4612-8c48-c8fdaf87df25": {
+      "score": 3.8,
+      "category": "moderate"
+    },
+    "66527a2f-5ef2-4426-8c88-d855b03b9a4f": {
+      "score": 3.8,
+      "category": "moderate"
     },
     "730d94cb-968e-44c3-94e8-eb57e4d53997": {
       "score": 2.5,
       "category": "mixed"
     },
-    "2cb2e233-5a25-4f86-9827-4852aca8664b": {
-      "score": 2.7,
+    "787be7dc-7fcb-40eb-a35a-403e756beb10": {
+      "score": 3.1,
+      "category": "moderate"
+    },
+    "7b07ed7e-3e9f-48d2-a1de-72871218155b": {
+      "score": 2.55,
+      "category": "mixed"
+    },
+    "890c2708-0e43-4c40-b2f8-2dee955e4481": {
+      "score": 2.9,
+      "category": "mixed"
+    },
+    "8af7980f-5652-47dc-9fc0-d66973bb8f2b": {
+      "score": 4.1,
+      "category": "strong"
+    },
+    "8b48409b-da66-4fdf-a583-ccb4f3d4de8a": {
+      "score": 3.9,
+      "category": "moderate"
+    },
+    "8d6953df-00b7-4ec5-b12b-d6e57e79aff1": {
+      "score": 2.5,
       "category": "mixed"
     },
     "92802241-f483-47f7-bc05-583e7b586e38": {
       "score": 3.3,
       "category": "moderate"
     },
-    "0587462c-adb0-44b8-9bcb-32c4c8152f12": {
-      "score": 1.85,
-      "category": "weak"
-    },
-    "b7ebe11c-0aa5-4435-a16e-78c286fa4466": {
-      "score": 3.7,
+    "937d9867-2cb3-48bf-821b-a0a98d2be725": {
+      "score": 3.4,
       "category": "moderate"
     },
-    "0d23614b-a399-4706-b10d-e330b6e1fce3": {
-      "score": 3.7,
-      "category": "moderate"
-    },
-    "f597b396-5573-4b0a-ba0b-b0b25d91b287": {
-      "score": 2.85,
-      "category": "mixed"
-    },
-    "e0bc9c6c-6148-4d69-b62f-887ee6101945": {
+    "a00f528e-6173-46bc-ad7d-9ccc449b5fea": {
       "score": 3.8,
-      "category": "moderate"
-    },
-    "c0a3743a-902e-4dad-9964-cfab9ac6f420": {
-      "score": 3.1,
-      "category": "moderate"
-    },
-    "0fc812ab-4921-44cd-9873-c99273bf8e22": {
-      "score": 4.0,
-      "category": "strong"
-    },
-    "e0815d76-0ee4-460c-89d6-afb580182556": {
-      "score": 3.9,
-      "category": "moderate"
-    },
-    "03740809-4125-4666-b516-10d4c2c619b2": {
-      "score": 3.2,
       "category": "moderate"
     },
     "a55f184e-9560-4b2e-a7ef-d503070e9e3d": {
       "score": 3.9,
       "category": "moderate"
     },
-    "8af7980f-5652-47dc-9fc0-d66973bb8f2b": {
-      "score": 4.1,
-      "category": "strong"
+    "afa7e2ef-e7b4-4d52-bb40-3e2379ad475d": {
+      "score": 1.7,
+      "category": "weak"
     },
-    "121a0679-492c-42c5-8cec-d4e0b674f804": {
-      "score": 3.25,
+    "b7ebe11c-0aa5-4435-a16e-78c286fa4466": {
+      "score": 3.7,
+      "category": "moderate"
+    },
+    "c0a3743a-902e-4dad-9964-cfab9ac6f420": {
+      "score": 3.1,
+      "category": "moderate"
+    },
+    "c3df39a2-de2b-454a-b6a2-6c6aef0da97f": {
+      "score": 3.95,
+      "category": "moderate"
+    },
+    "c740464f-d9c8-46c3-9a53-39d49a8a3d84": {
+      "score": 3.2,
+      "category": "moderate"
+    },
+    "caf808c1-3ec3-43cc-b359-f27774ba14e6": {
+      "score": 3.8,
       "category": "moderate"
     },
     "d0b6c714-874f-4a70-bb43-25e4059e6f4e": {
@@ -522,92 +566,48 @@
       "score": 3.35,
       "category": "moderate"
     },
-    "caf808c1-3ec3-43cc-b359-f27774ba14e6": {
-      "score": 3.8,
-      "category": "moderate"
-    },
-    "1bc882fc-7acc-42a3-a7ee-ef47982472a1": {
-      "score": 3.25,
-      "category": "moderate"
-    },
-    "57406b7a-981a-4a1d-b562-d34ecc19bd21": {
-      "score": 3.6,
-      "category": "moderate"
-    },
-    "28f0e154-65b9-43ec-8ab9-6b8d5da3cac0": {
-      "score": 3.0,
-      "category": "moderate"
-    },
-    "937d9867-2cb3-48bf-821b-a0a98d2be725": {
-      "score": 3.4,
-      "category": "moderate"
-    },
-    "114250c0-8638-4bbb-8430-2f3c4423e5cb": {
-      "score": 3.45,
-      "category": "moderate"
-    },
-    "5e5385f2-bb7a-4ed9-afc2-6429939ab878": {
-      "score": 3.8,
-      "category": "moderate"
-    },
-    "66527a2f-5ef2-4426-8c88-d855b03b9a4f": {
-      "score": 3.8,
-      "category": "moderate"
-    },
-    "8b48409b-da66-4fdf-a583-ccb4f3d4de8a": {
-      "score": 3.9,
-      "category": "moderate"
-    },
-    "5a0d8ea9-5fb7-48a9-b27f-10e68abe451f": {
-      "score": 3.55,
-      "category": "moderate"
-    },
-    "7b07ed7e-3e9f-48d2-a1de-72871218155b": {
-      "score": 2.55,
-      "category": "mixed"
-    },
-    "04141258-2722-4b4d-bbce-e4c2099c25e4": {
-      "score": 4.4,
-      "category": "strong"
-    },
     "dc7e637a-a7bd-41ed-ab3a-6f333e276ec4": {
       "score": 4.2,
       "category": "strong"
     },
-    "3a225dbb-2538-4af8-9935-bdbaa89908e1": {
-      "score": 3.1,
-      "category": "moderate"
-    },
-    "787be7dc-7fcb-40eb-a35a-403e756beb10": {
-      "score": 3.1,
-      "category": "moderate"
-    },
-    "2e2e605a-9e05-4b3d-a892-180736c18e42": {
-      "score": 2.65,
+    "dd55309d-90b1-479c-800a-d65abbb57650": {
+      "score": 2.95,
       "category": "mixed"
     },
-    "6605b346-fb5f-4612-8c48-c8fdaf87df25": {
+    "e0815d76-0ee4-460c-89d6-afb580182556": {
+      "score": 3.9,
+      "category": "moderate"
+    },
+    "e0bc9c6c-6148-4d69-b62f-887ee6101945": {
       "score": 3.8,
       "category": "moderate"
     },
-    "8d6953df-00b7-4ec5-b12b-d6e57e79aff1": {
-      "score": 2.5,
+    "e16b2b3f-2a9e-4898-823f-2222e20271c8": {
+      "score": 3.7,
+      "category": "moderate"
+    },
+    "e5d83aaa-bedf-4a49-8328-7be0c74bac31": {
+      "score": 2.2,
       "category": "mixed"
     },
-    "4f1c7b2a-e195-4ca4-ac99-1e06a6e23181": {
-      "score": 2.25,
+    "e66b1425-4ef4-4693-9204-8ee984e56c7c": {
+      "score": 3.25,
+      "category": "moderate"
+    },
+    "f597b396-5573-4b0a-ba0b-b0b25d91b287": {
+      "score": 2.85,
       "category": "mixed"
     },
     "02ac3af6-a529-490a-a6dc-39ff018c517e": {
       "score": 3.95,
       "category": "moderate"
     },
-    "be89a332-617d-45fe-a7bf-a561b5389f9a": {
-      "score": 3.95,
-      "category": "moderate"
-    },
     "1a6e4ed7-239e-4463-b4fa-a3fafc69d13f": {
       "score": 3.55,
+      "category": "moderate"
+    },
+    "be89a332-617d-45fe-a7bf-a561b5389f9a": {
+      "score": 3.95,
       "category": "moderate"
     }
   },
