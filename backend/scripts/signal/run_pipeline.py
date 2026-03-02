@@ -1,12 +1,14 @@
 """
 Parity Signal: Pipeline Orchestrator.
 
-Runs all five pipeline steps in sequence with a single command:
-  1. collect_sources.py   — Load sources into Supabase
-  2. extract_claims.py    — Extract + deduplicate claims
-  3. score_claims.py      — Score claims across 6 dimensions
-  4. map_consensus.py     — Map consensus per category
-  5. generate_summary.py  — Generate versioned summary
+Runs all seven pipeline steps in sequence with a single command:
+  1. collect_sources.py          — Load sources into Supabase
+  2. extract_claims.py           — Extract + deduplicate claims
+  3. score_claims.py             — Score claims across 6 dimensions
+  4. map_consensus.py            — Map consensus per category
+  5. generate_summary.py         — Generate versioned summary
+  6. detect_changes.py           — Detect evidence changes vs previous run
+  7. generate_notifications.py   — Generate notifications for subscribers
 
 Each step is run as a subprocess for clean isolation (each script manages
 its own argparse, sys.exit, and state).
@@ -63,6 +65,20 @@ STEPS = [
         "num": 5,
         "name": "Generate Summary",
         "script": "generate_summary.py",
+        "supports_force": False,
+        "supports_dry_run": True,
+    },
+    {
+        "num": 6,
+        "name": "Detect Changes",
+        "script": "detect_changes.py",
+        "supports_force": True,
+        "supports_dry_run": True,
+    },
+    {
+        "num": 7,
+        "name": "Generate Notifications",
+        "script": "generate_notifications.py",
         "supports_force": False,
         "supports_dry_run": True,
     },
@@ -134,24 +150,24 @@ def main():
         default=1,
         dest="from_step",
         metavar="STEP",
-        help="Start from step N (1-5, default: 1)",
+        help="Start from step N (1-7, default: 1)",
     )
     parser.add_argument(
         "--to",
         type=int,
-        default=5,
+        default=7,
         dest="to_step",
         metavar="STEP",
-        help="Stop after step N (1-5, default: 5)",
+        help="Stop after step N (1-7, default: 7)",
     )
     args = parser.parse_args()
 
     # Validate step range
-    if args.from_step < 1 or args.from_step > 5:
-        print(f"ERROR: --from must be between 1 and 5 (got {args.from_step})")
+    if args.from_step < 1 or args.from_step > 7:
+        print(f"ERROR: --from must be between 1 and 7 (got {args.from_step})")
         sys.exit(1)
-    if args.to_step < 1 or args.to_step > 5:
-        print(f"ERROR: --to must be between 1 and 5 (got {args.to_step})")
+    if args.to_step < 1 or args.to_step > 7:
+        print(f"ERROR: --to must be between 1 and 7 (got {args.to_step})")
         sys.exit(1)
     if args.from_step > args.to_step:
         print(f"ERROR: --from ({args.from_step}) cannot be greater than --to ({args.to_step})")
@@ -162,7 +178,7 @@ def main():
 
     mode = "DRY RUN" if args.dry_run else "LIVE"
     force_label = " (--force)" if args.force else ""
-    step_range = f"steps {args.from_step}-{args.to_step}" if args.from_step != 1 or args.to_step != 5 else "all steps"
+    step_range = f"steps {args.from_step}-{args.to_step}" if args.from_step != 1 or args.to_step != 7 else "all steps"
 
     print(f"{'='*60}")
     print(f"PARITY SIGNAL PIPELINE — {mode}{force_label}")
@@ -175,7 +191,7 @@ def main():
     for step in steps_to_run:
         num = step["num"]
         name = step["name"]
-        print(f"[Step {num}/5] {name}")
+        print(f"[Step {num}/7] {name}")
         print(f"{'-'*40}")
 
         success, elapsed, output = run_step(step, args.dry_run, args.force)
