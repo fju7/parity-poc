@@ -10,6 +10,14 @@ import SignalLogin from "./components/signal/SignalLogin";
 import PricingView from "./components/signal/PricingView";
 import AccountView from "./components/signal/AccountView";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function DashboardRoute({ session, userTier }) {
   const { slug } = useParams();
   return <LazyDashboard slug={slug} session={session} userTier={userTier} />;
@@ -203,6 +211,7 @@ export default function SignalApp() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col font-[Arial,sans-serif]">
+      <ScrollToTop />
       <SignalHeader session={session} onSignOut={handleSignOut} />
       <main className="flex-1">
         <Routes>
