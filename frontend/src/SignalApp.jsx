@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Routes, Route, useParams, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "./lib/supabase";
 import SignalHeader from "./components/signal/SignalHeader";
 import SignalFooter from "./components/signal/SignalFooter";
@@ -192,8 +192,8 @@ export default function SignalApp() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Fetch user tier when session changes
-  useEffect(() => {
+  // Reusable tier fetcher
+  const fetchTier = useCallback(() => {
     if (!session?.access_token) {
       setUserTier("free");
       return;
@@ -205,6 +205,28 @@ export default function SignalApp() {
       .then((data) => setUserTier(data.tier || "free"))
       .catch(() => setUserTier("free"));
   }, [session]);
+
+  // Fetch user tier when session changes
+  useEffect(() => {
+    fetchTier();
+  }, [fetchTier]);
+
+  // Re-fetch tier after returning from Stripe Checkout
+  const location = useLocation();
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("checkout_success") === "1") {
+      // Small delay to let Stripe webhook process
+      const timer = setTimeout(() => fetchTier(), 1500);
+      // Clean up the query param from the URL
+      params.delete("checkout_success");
+      const cleanPath = params.toString()
+        ? `${location.pathname}?${params.toString()}`
+        : location.pathname;
+      navigate(cleanPath, { replace: true });
+      return () => clearTimeout(timer);
+    }
+  }, [location.search, fetchTier, navigate, location.pathname]);
 
   async function handleSignOut() {
     await supabase.auth.signOut();

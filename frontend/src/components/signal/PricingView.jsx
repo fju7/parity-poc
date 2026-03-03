@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -51,10 +51,13 @@ const TIERS = [
 
 export default function PricingView({ session, userTier }) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [annual, setAnnual] = useState(false);
   const [loadingKey, setLoadingKey] = useState(null);
 
   const currentTier = userTier || "free";
+  // Return path: use ?from= param if present, otherwise default to pricing
+  const returnPath = searchParams.get("from") || "/signal/pricing";
 
   async function handleCheckout(tierKey) {
     if (!session) {
@@ -72,7 +75,7 @@ export default function PricingView({ session, userTier }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({ price_key: priceKey }),
+        body: JSON.stringify({ price_key: priceKey, return_path: returnPath }),
       });
 
       if (!res.ok) throw new Error("Checkout failed");

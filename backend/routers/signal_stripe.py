@@ -92,6 +92,7 @@ def _get_or_create_stripe_customer(user):
 
 class CheckoutRequest(BaseModel):
     price_key: str  # e.g. "standard_monthly", "premium_annual"
+    return_path: str = "/signal/pricing"  # where to redirect after checkout
 
 
 @router.post("/checkout")
@@ -105,12 +106,16 @@ async def create_checkout(body: CheckoutRequest, request: Request):
 
     customer_id = _get_or_create_stripe_customer(user)
 
+    # Ensure return_path starts with / and stays on-site
+    return_path = body.return_path if body.return_path.startswith("/") else "/signal/pricing"
+    separator = "&" if "?" in return_path else "?"
+
     session = stripe.checkout.Session.create(
         customer=customer_id,
         mode="subscription",
         line_items=[{"price": price_id, "quantity": 1}],
-        success_url=f"{FRONTEND_URL}/signal/pricing?success=1",
-        cancel_url=f"{FRONTEND_URL}/signal/pricing?canceled=1",
+        success_url=f"{FRONTEND_URL}{return_path}{separator}checkout_success=1",
+        cancel_url=f"{FRONTEND_URL}{return_path}",
         metadata={"supabase_user_id": str(user.id)},
     )
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-export default function EvidenceQA({ issueId, session, userTier }) {
+export default function EvidenceQA({ issueId, issueSlug, session, userTier }) {
   const navigate = useNavigate();
   const isPremium = userTier === "premium";
   const [question, setQuestion] = useState("");
@@ -76,7 +76,7 @@ export default function EvidenceQA({ issueId, session, userTier }) {
         </div>
         <p className="text-xs text-gray-400 mt-2">
           <button
-            onClick={() => navigate("/signal/pricing")}
+            onClick={() => navigate(`/signal/pricing?from=/signal/${issueSlug || ""}`)}
             className="text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer p-0 text-xs font-medium"
           >
             Upgrade to Premium

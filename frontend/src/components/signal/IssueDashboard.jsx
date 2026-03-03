@@ -608,7 +608,7 @@ export default function IssueDashboard({
       {/* Q&A — Premium feature */}
       {issue && (
         <div className="mt-8">
-          <EvidenceQA issueId={issue.id} session={session} userTier={userTier} />
+          <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} />
         </div>
       )}
     </div>
