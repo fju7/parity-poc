@@ -126,7 +126,7 @@ async def create_portal(request: Request):
 
     portal_session = stripe.billing_portal.Session.create(
         customer=customer_id,
-        return_url=f"{FRONTEND_URL}/signal",
+        return_url=f"{FRONTEND_URL}/signal/account",
     )
 
     return {"portal_url": portal_session.url}

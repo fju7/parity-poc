@@ -8,6 +8,7 @@ import IssueDashboard from "./components/signal/IssueDashboard";
 import MethodologyView from "./components/signal/MethodologyView";
 import SignalLogin from "./components/signal/SignalLogin";
 import PricingView from "./components/signal/PricingView";
+import AccountView from "./components/signal/AccountView";
 
 // Default featured topic slug
 const FEATURED_SLUG = "glp1-drugs";
@@ -214,7 +215,7 @@ export default function SignalApp() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col font-[Arial,sans-serif]">
-      <SignalHeader session={session} userTier={userTier} onSignOut={handleSignOut} />
+      <SignalHeader session={session} onSignOut={handleSignOut} />
       <main className="flex-1">
         <Routes>
           <Route
@@ -240,6 +241,10 @@ export default function SignalApp() {
           <Route
             path="pricing"
             element={<PricingView session={session} userTier={userTier} />}
+          />
+          <Route
+            path="account"
+            element={<AccountView session={session} />}
           />
           <Route
             path=":slug"
