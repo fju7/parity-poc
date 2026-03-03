@@ -17,6 +17,11 @@ export default function TopicRequestForm({ session, userTier }) {
     e.preventDefault();
     if (!topicName.trim() || !description.trim() || loading) return;
 
+    if (!session?.access_token) {
+      setError("Please sign in to submit a topic request.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccess(false);
@@ -41,8 +46,8 @@ export default function TopicRequestForm({ session, userTier }) {
       });
 
       if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.detail || "Failed to submit request");
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.detail || "Failed to submit request");
       }
 
       setSuccess(true);
@@ -50,7 +55,12 @@ export default function TopicRequestForm({ session, userTier }) {
       setDescription("");
       setSourceUrls("");
     } catch (err) {
-      setError(err.message || "Something went wrong. Please try again.");
+      const msg = err.message || "";
+      if (msg === "Failed to fetch") {
+        setError("Unable to reach the server. Please try again in a moment.");
+      } else {
+        setError(msg || "Something went wrong. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
