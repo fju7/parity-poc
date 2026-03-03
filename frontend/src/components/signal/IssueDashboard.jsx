@@ -4,6 +4,7 @@ import ConsensusIndicator from "./ConsensusIndicator";
 import ClaimCard from "./ClaimCard";
 import ScoreBadge from "./ScoreBadge";
 import EvidenceQA from "./EvidenceQA";
+import GlossaryText from "./GlossaryText";
 import { trackEvent } from "../../lib/signalAnalytics";
 
 /** Format a snake_case category key into a display name. */
@@ -40,7 +41,7 @@ function getOverviewSentences(text, count = 2) {
   return sentences.slice(0, count).join(" ").trim();
 }
 
-function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen = false }) {
+function SummaryThemeSection({ category, categoryData, consensusMap, glossary, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
   const label = displayName(category);
   const status = consensusMap?.[category]?.consensus_status;
@@ -73,7 +74,7 @@ function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen
       {open && (
         <div className="px-4 pb-4 border-t border-gray-100">
           <p className="text-sm text-gray-700 leading-relaxed mt-3">
-            {categoryData?.key_takeaway || "No summary available for this theme."}
+            <GlossaryText text={categoryData?.key_takeaway || "No summary available for this theme."} glossary={glossary} />
           </p>
         </div>
       )}
@@ -81,7 +82,7 @@ function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen
   );
 }
 
-function DebateItem({ item }) {
+function DebateItem({ item, glossary }) {
   const [expanded, setExpanded] = useState(false);
   const isDebated = item.consensus_status === "debated";
   const label = displayName(item.category);
@@ -120,7 +121,7 @@ function DebateItem({ item }) {
           </div>
           {item.summary_text && (
             <p className="text-xs text-gray-600 leading-relaxed">
-              {item.summary_text}
+              <GlossaryText text={item.summary_text} glossary={glossary} />
             </p>
           )}
         </div>
@@ -155,7 +156,7 @@ function DebateItem({ item }) {
                     Supporting Evidence
                   </div>
                   <p className="text-xs text-gray-700 leading-relaxed">
-                    {item.arguments_for}
+                    <GlossaryText text={item.arguments_for} glossary={glossary} />
                   </p>
                 </div>
               )}
@@ -165,7 +166,7 @@ function DebateItem({ item }) {
                     Opposing Evidence
                   </div>
                   <p className="text-xs text-gray-700 leading-relaxed">
-                    {item.arguments_against}
+                    <GlossaryText text={item.arguments_against} glossary={glossary} />
                   </p>
                 </div>
               )}
@@ -337,6 +338,7 @@ export default function IssueDashboard({
 
   // Summary data — declared early because summaryCatMap and categories depend on it
   const summaryData = summary?.summary_json;
+  const glossary = summaryData?.glossary || null;
 
   // Build a lookup from the summary categories list: name -> category object
   const summaryCatMap = useMemo(() => {
@@ -510,7 +512,10 @@ export default function IssueDashboard({
               Summary
             </div>
             <p className="text-sm leading-relaxed opacity-90">
-              {summaryExpanded ? overallSummary : getOverviewSentences(overallSummary, 2)}
+              <GlossaryText
+                text={summaryExpanded ? overallSummary : getOverviewSentences(overallSummary, 2)}
+                glossary={glossary}
+              />
             </p>
             {overallSummary !== getOverviewSentences(overallSummary, 2) && (
               <button
@@ -539,6 +544,7 @@ export default function IssueDashboard({
                   category={cat}
                   categoryData={summaryCatMap[cat]}
                   consensusMap={consensusMap}
+                  glossary={glossary}
                   defaultOpen={i === 0}
                 />
               ))}
@@ -576,7 +582,7 @@ export default function IssueDashboard({
           </p>
           <div className="space-y-2">
             {debateItems.map((item) => (
-              <DebateItem key={item.id || item.category} item={item} />
+              <DebateItem key={item.id || item.category} item={item} glossary={glossary} />
             ))}
           </div>
         </div>
@@ -599,7 +605,7 @@ export default function IssueDashboard({
         <div className="space-y-4">
           {/* Consensus for this category */}
           {consensusMap[activeCategory] && (
-            <ConsensusIndicator consensus={consensusMap[activeCategory]} />
+            <ConsensusIndicator consensus={consensusMap[activeCategory]} glossary={glossary} />
           )}
 
           {/* Category summary + claim count */}
@@ -613,13 +619,13 @@ export default function IssueDashboard({
                   </span>
                 </div>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  {categoryKey.key_takeaway}
+                  <GlossaryText text={categoryKey.key_takeaway} glossary={glossary} />
                 </p>
               </div>
             )}
             {consensusMap[activeCategory]?.summary_text && (
               <p className="text-sm text-gray-600 leading-relaxed">
-                {consensusMap[activeCategory].summary_text}
+                <GlossaryText text={consensusMap[activeCategory].summary_text} glossary={glossary} />
               </p>
             )}
             {filteredClaims.length > 0 && (

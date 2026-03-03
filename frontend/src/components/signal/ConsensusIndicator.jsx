@@ -1,3 +1,5 @@
+import GlossaryText from "./GlossaryText";
+
 const STATUS_CONFIG = {
   consensus: {
     dot: "bg-emerald-400",
@@ -19,7 +21,7 @@ const STATUS_CONFIG = {
   },
 };
 
-export default function ConsensusIndicator({ consensus }) {
+export default function ConsensusIndicator({ consensus, glossary }) {
   if (!consensus) return null;
 
   const config = STATUS_CONFIG[consensus.consensus_status] || STATUS_CONFIG.uncertain;
@@ -33,7 +35,7 @@ export default function ConsensusIndicator({ consensus }) {
 
       {consensus.summary_text && (
         <p className="text-sm text-gray-700 leading-relaxed mb-3">
-          {consensus.summary_text}
+          <GlossaryText text={consensus.summary_text} glossary={glossary} />
         </p>
       )}
 
@@ -46,7 +48,7 @@ export default function ConsensusIndicator({ consensus }) {
                   Supporting Evidence
                 </div>
                 <p className="text-xs text-gray-700 leading-relaxed">
-                  {consensus.arguments_for}
+                  <GlossaryText text={consensus.arguments_for} glossary={glossary} />
                 </p>
               </div>
             )}
@@ -56,7 +58,7 @@ export default function ConsensusIndicator({ consensus }) {
                   Opposing Evidence
                 </div>
                 <p className="text-xs text-gray-700 leading-relaxed">
-                  {consensus.arguments_against}
+                  <GlossaryText text={consensus.arguments_against} glossary={glossary} />
                 </p>
               </div>
             )}
