@@ -28,6 +28,24 @@ PRICE_IDS = {
 
 TIER_RANK = {"free": 0, "standard": 1, "premium": 2}
 
+
+def _get_period_end(sub_obj):
+    """Extract current_period_end from a Stripe subscription object.
+
+    Newer Stripe API versions moved this field from the subscription
+    to items.data[].  Check both locations.
+    """
+    # Try top-level first (older API versions)
+    val = sub_obj.get("current_period_end")
+    if val is not None:
+        return val
+    # Fall back to first item (newer API versions)
+    items = sub_obj.get("items", {}).get("data", [])
+    if items:
+        return items[0].get("current_period_end")
+    return None
+
+
 # Lazy Supabase client
 _sb = None
 
@@ -155,7 +173,7 @@ async def create_checkout(body: CheckoutRequest, request: Request):
             sb = _get_sb()
             sb.table("signal_subscriptions").update({
                 "tier": new_tier,
-                "current_period_end": updated_sub.current_period_end,
+                "current_period_end": _get_period_end(updated_sub),
             }).eq("user_id", str(user.id)).execute()
 
             return {"action": "upgraded", "tier": new_tier}
@@ -171,7 +189,7 @@ async def create_checkout(body: CheckoutRequest, request: Request):
                 "action": "downgraded_scheduled",
                 "tier": current_tier,
                 "new_tier": new_tier,
-                "effective_date": updated_sub.current_period_end,
+                "effective_date": _get_period_end(updated_sub),
             }
 
     # No active subscription — create Checkout session for new subscribers
@@ -264,7 +282,7 @@ async def stripe_webhook(request: Request):
             sub = stripe.Subscription.retrieve(subscription_id)
             price_id = sub["items"]["data"][0]["price"]["id"] if sub["items"]["data"] else ""
             tier = _tier_from_price_id(price_id)
-            period_end = sub.get("current_period_end")
+            period_end = _get_period_end(sub)
 
             sb.table("signal_subscriptions").upsert({
                 "user_id": user_id,
@@ -280,7 +298,7 @@ async def stripe_webhook(request: Request):
         status = obj.get("status")  # active, past_due, canceled, etc.
         price_id = obj["items"]["data"][0]["price"]["id"] if obj.get("items", {}).get("data") else ""
         new_tier = _tier_from_price_id(price_id)
-        period_end = obj.get("current_period_end")
+        period_end = _get_period_end(obj)
 
         # Map Stripe status to our simplified status
         if event_type == "customer.subscription.deleted" or status == "canceled":
