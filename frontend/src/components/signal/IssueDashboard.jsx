@@ -18,12 +18,26 @@ const STATUS_DOT_COLOR = {
   uncertain: "bg-gray-400",
 };
 
-/** Split text into sentences and return the first `count`. */
+/** Split text into sentences and return the first `count`.
+ *  Avoids splitting on abbreviations like "U.S.", "Dr.", "vs." */
 function getOverviewSentences(text, count = 2) {
   if (!text) return text;
-  const sentences = text.match(/[^.!?]+[.!?]+/g);
-  if (!sentences || sentences.length <= count) return text;
-  return sentences.slice(0, count).join("").trim();
+  // Match sentence boundaries: a period/!/? followed by whitespace then an
+  // uppercase letter or end-of-string, but NOT when the period follows a
+  // single uppercase letter (abbreviation like U. S. Dr.) or common short abbrevs.
+  const parts = text.split(/(?<=[.!?])\s+(?=[A-Z])/g);
+  // Rejoin fragments that were split on abbreviations (e.g. "...U." + "S. data...")
+  const sentences = [];
+  for (const part of parts) {
+    if (sentences.length > 0 && /[A-Z]\.$/.test(sentences[sentences.length - 1])) {
+      // Previous fragment ended with an abbreviation like "U." — rejoin
+      sentences[sentences.length - 1] += " " + part;
+    } else {
+      sentences.push(part);
+    }
+  }
+  if (sentences.length <= count) return text;
+  return sentences.slice(0, count).join(" ").trim();
 }
 
 function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen = false }) {
