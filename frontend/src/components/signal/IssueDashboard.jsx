@@ -6,23 +6,11 @@ import ScoreBadge from "./ScoreBadge";
 import EvidenceQA from "./EvidenceQA";
 import { trackEvent } from "../../lib/signalAnalytics";
 
-const CATEGORY_ORDER = [
-  "efficacy",
-  "safety",
-  "cardiovascular",
-  "pricing",
-  "regulatory",
-  "emerging",
-];
-
-const CATEGORY_DISPLAY = {
-  efficacy: "Efficacy",
-  safety: "Safety",
-  cardiovascular: "Heart",
-  pricing: "Pricing",
-  regulatory: "Regulatory",
-  emerging: "Emerging",
-};
+/** Format a snake_case category key into a display name. */
+function displayName(key) {
+  if (!key) return key;
+  return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
 const STATUS_DOT_COLOR = {
   consensus: "bg-emerald-400",
@@ -40,7 +28,7 @@ function getOverviewSentences(text, count = 2) {
 
 function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
-  const displayName = CATEGORY_DISPLAY[category] || category;
+  const label = displayName(category);
   const status = consensusMap?.[category]?.consensus_status;
   const dotColor = STATUS_DOT_COLOR[status] || "bg-gray-300";
 
@@ -57,7 +45,7 @@ function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen
       >
         <span className={`w-2 h-2 rounded-full shrink-0 ${dotColor}`} />
         <span className="flex-1 text-sm font-semibold text-[#1B3A5C]">
-          {displayName}
+          {label}
         </span>
         <svg
           className={`w-4 h-4 text-gray-400 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
@@ -82,7 +70,7 @@ function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen
 function DebateItem({ item }) {
   const [expanded, setExpanded] = useState(false);
   const isDebated = item.consensus_status === "debated";
-  const displayName = CATEGORY_DISPLAY[item.category] || item.category;
+  const label = displayName(item.category);
 
   return (
     <div
@@ -105,7 +93,7 @@ function DebateItem({ item }) {
         />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="text-sm font-semibold text-[#1B3A5C]">{displayName}</span>
+            <span className="text-sm font-semibold text-[#1B3A5C]">{label}</span>
             <span
               className={`text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-full ${
                 isDebated
@@ -323,23 +311,52 @@ export default function IssueDashboard({
   // Debated + uncertain consensus items (ordered: debated first, then uncertain)
   const debateItems = useMemo(() => {
     if (!consensus) return [];
-    return CATEGORY_ORDER
-      .map((cat) => consensusMap[cat])
-      .filter((c) => c && (c.consensus_status === "debated" || c.consensus_status === "uncertain"))
+    return consensus
+      .filter((c) => c.consensus_status === "debated" || c.consensus_status === "uncertain")
       .sort((a, b) => {
         // debated before uncertain
         if (a.consensus_status === "debated" && b.consensus_status !== "debated") return -1;
         if (a.consensus_status !== "debated" && b.consensus_status === "debated") return 1;
         return 0;
       });
-  }, [consensus, consensusMap]);
+  }, [consensus]);
 
-  // Determine available categories (only those with claims)
+  // Summary data — declared early because summaryCatMap and categories depend on it
+  const summaryData = summary?.summary_json;
+
+  // Build a lookup from the summary categories list: name -> category object
+  const summaryCatMap = useMemo(() => {
+    const map = {};
+    const cats = summaryData?.categories;
+    if (Array.isArray(cats)) {
+      for (const c of cats) {
+        if (c?.name) map[c.name] = c;
+      }
+    }
+    return map;
+  }, [summaryData]);
+
+  // Determine available categories (only those with claims), ordered by summary list
   const categories = useMemo(() => {
     if (!claims) return [];
     const catSet = new Set(claims.map((c) => c.category));
-    return CATEGORY_ORDER.filter((cat) => catSet.has(cat));
-  }, [claims]);
+    // Use summary category order if available, then append any extras from claims
+    const ordered = [];
+    const seen = new Set();
+    const cats = summaryData?.categories;
+    if (Array.isArray(cats)) {
+      for (const c of cats) {
+        if (c?.name && catSet.has(c.name) && !seen.has(c.name)) {
+          ordered.push(c.name);
+          seen.add(c.name);
+        }
+      }
+    }
+    for (const cat of catSet) {
+      if (!seen.has(cat)) ordered.push(cat);
+    }
+    return ordered;
+  }, [claims, summaryData]);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [summaryExpanded, setSummaryExpanded] = useState(false);
@@ -413,10 +430,8 @@ export default function IssueDashboard({
       });
   }, [claims, activeCategory, compositeMap]);
 
-  // Summary data
-  const summaryData = summary?.summary_json;
   const overallSummary = summaryData?.overall_summary;
-  const categoryKey = summaryData?.categories?.[activeCategory];
+  const categoryKey = summaryCatMap[activeCategory];
 
   // Average composite for the active category
   const avgScore = useMemo(() => {
@@ -502,13 +517,13 @@ export default function IssueDashboard({
           </div>
 
           {/* Theme sections */}
-          {summaryData?.categories && (
+          {categories.length > 0 && (
             <div className="mt-3 space-y-2">
-              {CATEGORY_ORDER.filter((cat) => summaryData.categories[cat]).map((cat, i) => (
+              {categories.map((cat, i) => (
                 <SummaryThemeSection
                   key={cat}
                   category={cat}
-                  categoryData={summaryData.categories[cat]}
+                  categoryData={summaryCatMap[cat]}
                   consensusMap={consensusMap}
                   defaultOpen={i === 0}
                 />

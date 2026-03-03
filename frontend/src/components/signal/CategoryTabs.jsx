@@ -1,11 +1,7 @@
-const DISPLAY_NAMES = {
-  efficacy: "Efficacy",
-  safety: "Safety",
-  cardiovascular: "Heart",
-  pricing: "Pricing",
-  regulatory: "Regulatory",
-  emerging: "Emerging",
-};
+function formatCategory(key) {
+  if (!key) return key;
+  return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
 const STATUS_DOT = {
   consensus: "bg-emerald-400",
@@ -38,7 +34,7 @@ export default function CategoryTabs({
               }`}
             >
               <span className={`w-2 h-2 rounded-full ${active ? "bg-white/60" : dotColor}`} />
-              {DISPLAY_NAMES[cat] || cat}
+              {formatCategory(cat)}
             </button>
           );
         })}
