@@ -37,20 +37,29 @@ def _get_period_end(sub_obj):
     Newer Stripe API versions moved this field from the subscription
     to items.data[].  Check both locations.  Returns an ISO-8601 string
     suitable for Supabase timestamptz columns (not a raw Unix integer).
+
+    Works with both raw dicts (webhook payloads) and Stripe SDK objects.
     """
-    # Try top-level first (older API versions)
-    val = sub_obj.get("current_period_end")
-    if val is None:
-        # Fall back to first item (newer API versions)
-        items = sub_obj.get("items", {}).get("data", [])
-        if items:
-            val = items[0].get("current_period_end")
-    if val is None:
+    try:
+        # Try top-level first (older API versions)
+        val = sub_obj.get("current_period_end") if hasattr(sub_obj, "get") else None
+        if val is None:
+            # Fall back to first item (newer API versions)
+            items_obj = sub_obj.get("items") if hasattr(sub_obj, "get") else getattr(sub_obj, "items", None)
+            if items_obj is not None:
+                data = getattr(items_obj, "data", None) or (items_obj.get("data") if hasattr(items_obj, "get") else [])
+                if data:
+                    item = data[0]
+                    val = item.get("current_period_end") if hasattr(item, "get") else getattr(item, "current_period_end", None)
+        if val is None:
+            return None
+        # Convert Unix timestamp to ISO string for Supabase
+        if isinstance(val, (int, float)):
+            return datetime.fromtimestamp(val, tz=timezone.utc).isoformat()
+        return val
+    except Exception as exc:
+        print(f"[Stripe] Error extracting period_end: {exc}")
         return None
-    # Convert Unix timestamp to ISO string for Supabase
-    if isinstance(val, (int, float)):
-        return datetime.fromtimestamp(val, tz=timezone.utc).isoformat()
-    return val
 
 
 # Lazy Supabase client
@@ -131,10 +140,12 @@ def _get_active_subscription(user_id: str):
     ).eq("user_id", user_id).execute()
 
     if not result.data:
+        print(f"[Stripe] _get_active_subscription: no DB row for user {user_id}")
         return None, None
 
     row = result.data[0]
     sub_id = row.get("stripe_subscription_id")
+    print(f"[Stripe] _get_active_subscription: db_tier={row.get('tier')}, sub_id={sub_id}")
     if not sub_id:
         return row, None
 
@@ -142,8 +153,8 @@ def _get_active_subscription(user_id: str):
         sub = stripe.Subscription.retrieve(sub_id)
         if sub.status in ("active", "trialing"):
             return row, sub
-    except Exception:
-        pass
+    except Exception as exc:
+        print(f"[Stripe] _get_active_subscription: retrieve failed: {exc}")
 
     return row, None
 
@@ -166,7 +177,12 @@ async def create_checkout(body: CheckoutRequest, request: Request):
 
     if stripe_sub:
         # User already has an active subscription — modify it
+        if not stripe_sub["items"]["data"]:
+            raise HTTPException(status_code=500, detail="Subscription has no items")
         item_id = stripe_sub["items"]["data"][0]["id"]
+        if new_tier == current_tier:
+            raise HTTPException(status_code=400, detail="Already on this plan")
+
         is_upgrade = TIER_RANK.get(new_tier, 0) > TIER_RANK.get(current_tier, 0)
 
         if is_upgrade:
@@ -176,12 +192,22 @@ async def create_checkout(body: CheckoutRequest, request: Request):
                 items=[{"id": item_id, "price": price_id}],
                 proration_behavior="create_prorations",
             )
-            # Update DB tier immediately
-            sb = _get_sb()
-            sb.table("signal_subscriptions").update({
-                "tier": new_tier,
-                "current_period_end": _get_period_end(updated_sub),
-            }).eq("user_id", str(user.id)).execute()
+            print(f"[Stripe] Upgrade modify succeeded: {updated_sub.id}")
+
+            # Update DB — wrapped in try/except so Stripe change isn't lost
+            try:
+                period_end = _get_period_end(updated_sub)
+                print(f"[Stripe] period_end={period_end}")
+                sb = _get_sb()
+                update_data = {"tier": new_tier}
+                if period_end:
+                    update_data["current_period_end"] = period_end
+                sb.table("signal_subscriptions").update(
+                    update_data
+                ).eq("user_id", str(user.id)).execute()
+            except Exception as exc:
+                print(f"[Stripe] DB update after upgrade failed: {exc}")
+                # Still return success — the Stripe subscription was changed
 
             return {"action": "upgraded", "tier": new_tier}
         else:
@@ -191,12 +217,19 @@ async def create_checkout(body: CheckoutRequest, request: Request):
                 items=[{"id": item_id, "price": price_id}],
                 proration_behavior="none",
             )
+            print(f"[Stripe] Downgrade modify succeeded: {updated_sub.id}")
+            effective = None
+            try:
+                effective = _get_period_end(updated_sub)
+            except Exception as exc:
+                print(f"[Stripe] period_end extraction failed: {exc}")
+
             # Keep current tier in DB until period ends
             return {
                 "action": "downgraded_scheduled",
                 "tier": current_tier,
                 "new_tier": new_tier,
-                "effective_date": _get_period_end(updated_sub),
+                "effective_date": effective,
             }
 
     # No active subscription — create Checkout session for new subscribers
