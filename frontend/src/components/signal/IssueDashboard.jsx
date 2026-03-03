@@ -462,7 +462,7 @@ export default function IssueDashboard({
           {issue.title}
         </h1>
         {issue.description && (
-          <p className="text-sm text-gray-500 leading-relaxed">
+          <p className="text-base text-gray-600 leading-relaxed italic">
             {issue.description}
           </p>
         )}
