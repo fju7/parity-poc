@@ -1,3 +1,5 @@
+import { trackEvent } from "../../lib/signalAnalytics";
+
 const TYPE_LABELS = {
   clinical_trial: "Clinical Trial",
   fda: "FDA",
@@ -42,6 +44,13 @@ export default function SourceCard({ source, context }) {
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#0D7377] font-medium hover:underline leading-snug block break-words"
+          onClick={() =>
+            trackEvent("source_clicked", {
+              source_id: source.id,
+              source_type: source.source_type,
+              url: source.url,
+            })
+          }
         >
           {source.title}
         </a>

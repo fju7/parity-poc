@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabase";
 import SourceCard from "./SourceCard";
+import { trackEvent } from "../../lib/signalAnalytics";
 
 const DIMENSION_LABELS = {
   source_quality: "Source Quality",
@@ -68,6 +69,14 @@ export default function ClaimDetail({ claimId }) {
       setScores(scoresRes.data || []);
       setSources(sourcesRes.data || []);
       setLoading(false);
+
+      if (scoresRes.data?.length > 0) {
+        trackEvent("score_rationale_viewed", {
+          claim_id: claimId,
+          dimension_count: scoresRes.data.length,
+          source_count: sourcesRes.data?.length || 0,
+        });
+      }
     }
 
     load();

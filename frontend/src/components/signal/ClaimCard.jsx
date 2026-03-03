@@ -2,6 +2,7 @@ import { useState } from "react";
 import ScoreBadge from "./ScoreBadge";
 import EvidenceBadge from "./EvidenceBadge";
 import ClaimDetail from "./ClaimDetail";
+import { trackEvent } from "../../lib/signalAnalytics";
 
 export default function ClaimCard({ claim, composite }) {
   const [expanded, setExpanded] = useState(false);
@@ -14,7 +15,16 @@ export default function ClaimCard({ claim, composite }) {
     <div className="border border-gray-200 rounded-xl overflow-hidden transition-shadow hover:shadow-sm font-[Arial,sans-serif]">
       {/* Collapsed header — tap to expand */}
       <button
-        onClick={() => setExpanded(!expanded)}
+        onClick={() => {
+          if (!expanded) {
+            trackEvent("claim_expanded", {
+              claim_id: claim.id,
+              category: claim.category,
+              composite_score: score ? Number(score) : null,
+            });
+          }
+          setExpanded(!expanded);
+        }}
         className="w-full flex items-center gap-3 p-4 bg-white text-left border-none cursor-pointer hover:bg-gray-50 transition-colors"
       >
         <ScoreBadge score={score} />

@@ -1,8 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import CategoryTabs from "./CategoryTabs";
 import ConsensusIndicator from "./ConsensusIndicator";
 import ClaimCard from "./ClaimCard";
 import ScoreBadge from "./ScoreBadge";
+import { trackEvent } from "../../lib/signalAnalytics";
 
 const CATEGORY_ORDER = [
   "efficacy",
@@ -154,6 +155,58 @@ export default function IssueDashboard({
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  // Track issue_viewed once on mount when data is ready
+  const trackedIssueRef = useRef(null);
+  useEffect(() => {
+    if (issue && trackedIssueRef.current !== issue.id) {
+      trackedIssueRef.current = issue.id;
+      trackEvent("issue_viewed", {
+        issue_slug: issue.slug,
+        claim_count: claims?.length || 0,
+        source_count: sources?.length || 0,
+      });
+    }
+  }, [issue, claims, sources]);
+
+  // Track summary scroll depth
+  const summaryRef = useRef(null);
+  useEffect(() => {
+    const el = summaryRef.current;
+    if (!el) return;
+
+    let maxDepth = 0;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const depth = Math.round(entry.intersectionRatio * 100);
+          if (depth > maxDepth) maxDepth = depth;
+        }
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      if (maxDepth > 0 && issue) {
+        trackEvent("summary_scroll_depth", {
+          issue_slug: issue.slug,
+          max_depth_pct: maxDepth,
+        });
+      }
+    };
+  }, [issue]);
+
+  function handleCategorySelect(cat) {
+    setSelectedCategory(cat);
+    if (issue) {
+      trackEvent("category_selected", {
+        issue_slug: issue.slug,
+        category: cat,
+      });
+    }
+  }
+
   // Auto-select first category
   const activeCategory = selectedCategory || categories[0];
 
@@ -231,7 +284,7 @@ export default function IssueDashboard({
 
       {/* Overall summary */}
       {overallSummary && (
-        <div className="bg-[#1B3A5C] text-white rounded-xl p-5 mb-6">
+        <div ref={summaryRef} className="bg-[#1B3A5C] text-white rounded-xl p-5 mb-6">
           <div className="text-xs font-semibold text-teal-300 uppercase tracking-wide mb-2">
             Summary
           </div>
@@ -249,7 +302,7 @@ export default function IssueDashboard({
             categories={categories}
             consensusMap={consensusMap}
             selected={activeCategory}
-            onSelect={setSelectedCategory}
+            onSelect={handleCategorySelect}
           />
         </div>
       )}
