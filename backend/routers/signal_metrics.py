@@ -43,8 +43,8 @@ async def get_metrics():
         claims_res = sb.table("signal_claim_composites").select("claim_id", count="exact").execute()
         claims_scored = claims_res.count or 0
 
-        # Active topics (published issues)
-        issues_res = sb.table("signal_issues").select("id", count="exact").eq("status", "published").execute()
+        # Active topics (all issues with claims)
+        issues_res = sb.table("signal_issues").select("id", count="exact").execute()
         topics_tracked = issues_res.count or 0
 
         # Total sources

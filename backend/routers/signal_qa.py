@@ -133,7 +133,7 @@ def _build_context(issue_id: str) -> str:
         parts.append(f"\n### {cat.title()}")
         # Sort by score descending
         cat_claims.sort(
-            key=lambda c: float(c.get("signal_claim_composites", {}).get("composite_score", 0) or 0),
+            key=lambda c: float((c.get("signal_claim_composites") or {}).get("composite_score", 0) or 0),
             reverse=True,
         )
         for claim in cat_claims:
