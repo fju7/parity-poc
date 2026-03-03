@@ -45,7 +45,7 @@ export default function SignalHeader() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8 bg-transparent border-none cursor-pointer p-1"
+          className="md:hidden flex flex-col justify-center gap-[5px] w-11 h-11 bg-transparent border-none cursor-pointer p-2.5"
           aria-label="Toggle menu"
         >
           <span

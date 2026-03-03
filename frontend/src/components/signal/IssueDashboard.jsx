@@ -43,9 +43,9 @@ function StatsBar({ sources, claims, composites }) {
         <div className="text-xs text-gray-500">Scored</div>
       </div>
       <div className="bg-gray-50 rounded-xl p-3">
-        <div className="flex items-center justify-center gap-1 mb-1">
+        <div className="flex items-center justify-center mb-1">
           <div
-            className="h-3 rounded-l bg-emerald-400"
+            className="h-3 rounded-l-full bg-emerald-400"
             style={{
               width: `${((distribution.strong / (scoredCount || 1)) * 100).toFixed(0)}%`,
               minWidth: distribution.strong > 0 ? 4 : 0,
@@ -66,7 +66,7 @@ function StatsBar({ sources, claims, composites }) {
             }}
           />
           <div
-            className="h-3 rounded-r bg-red-400"
+            className="h-3 rounded-r-full bg-red-400"
             style={{
               width: `${((distribution.weak / (scoredCount || 1)) * 100).toFixed(0)}%`,
               minWidth: distribution.weak > 0 ? 4 : 0,
@@ -81,18 +81,18 @@ function StatsBar({ sources, claims, composites }) {
 
 function LoadingSkeleton() {
   return (
-    <div className="animate-pulse space-y-4 py-8">
+    <div className="max-w-3xl mx-auto px-4 py-8 animate-pulse space-y-4">
       <div className="h-6 bg-gray-200 rounded w-2/3" />
       <div className="h-4 bg-gray-100 rounded w-full" />
       <div className="h-4 bg-gray-100 rounded w-5/6" />
-      <div className="grid grid-cols-4 gap-3 mt-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="h-16 bg-gray-100 rounded-xl" />
         ))}
       </div>
-      <div className="flex gap-2 mt-6">
+      <div className="flex gap-2 mt-6 overflow-hidden">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-10 w-24 bg-gray-100 rounded-full" />
+          <div key={i} className="h-11 w-24 bg-gray-100 rounded-full shrink-0" />
         ))}
       </div>
       <div className="space-y-3 mt-6">

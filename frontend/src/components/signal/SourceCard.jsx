@@ -41,12 +41,12 @@ export default function SourceCard({ source, context }) {
           href={source.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#0D7377] font-medium hover:underline leading-snug block"
+          className="text-[#0D7377] font-medium hover:underline leading-snug block break-words"
         >
           {source.title}
         </a>
       ) : (
-        <span className="text-[#1B3A5C] font-medium leading-snug block">
+        <span className="text-[#1B3A5C] font-medium leading-snug block break-words">
           {source.title}
         </span>
       )}

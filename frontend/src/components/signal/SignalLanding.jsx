@@ -159,7 +159,7 @@ export default function SignalLanding({
         </div>
         <Link
           to="/signal/methodology"
-          className="text-xs text-[#0D7377] hover:underline mt-3 inline-block"
+          className="text-xs text-[#0D7377] hover:underline mt-2 inline-flex items-center min-h-[44px]"
         >
           View full methodology &rarr;
         </Link>

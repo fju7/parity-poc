@@ -123,7 +123,7 @@ export default function MethodologyView() {
     <div className="max-w-3xl mx-auto px-4 py-8 font-[Arial,sans-serif]">
       <Link
         to="/signal"
-        className="text-sm text-[#0D7377] hover:underline mb-6 inline-block"
+        className="text-sm text-[#0D7377] hover:underline mb-4 inline-flex items-center gap-1 min-h-[44px]"
       >
         &larr; Back to Signal
       </Link>
@@ -146,10 +146,16 @@ export default function MethodologyView() {
         <p className="text-sm text-gray-600 leading-relaxed mb-3">
           The composite score is a weighted average of six dimension scores:
         </p>
-        <div className="bg-white rounded-lg p-3 font-mono text-xs text-[#1B3A5C] leading-loose border border-gray-100">
-          composite = (source_quality × 0.25) + (data_support × 0.20) +
-          (reproducibility × 0.15) + (consensus × 0.15) + (recency × 0.15) +
-          (rigor × 0.10)
+        <div className="bg-white rounded-lg p-3 font-mono text-xs text-[#1B3A5C] leading-loose border border-gray-100 overflow-x-auto">
+          <div className="min-w-0">
+            composite =<br />
+            &nbsp;&nbsp;(source_quality × 0.25)<br />
+            &nbsp;&nbsp;+ (data_support × 0.20)<br />
+            &nbsp;&nbsp;+ (reproducibility × 0.15)<br />
+            &nbsp;&nbsp;+ (consensus × 0.15)<br />
+            &nbsp;&nbsp;+ (recency × 0.15)<br />
+            &nbsp;&nbsp;+ (rigor × 0.10)
+          </div>
         </div>
       </div>
 
