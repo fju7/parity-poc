@@ -32,6 +32,7 @@ ALLOWED_EVENT_TYPES = {
     "source_clicked",
     "summary_scroll_depth",
     "summary_theme_expanded",
+    "claims_expanded",
 }
 
 MAX_EVENT_DATA_SIZE = 4096  # bytes

@@ -343,6 +343,7 @@ export default function IssueDashboard({
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [summaryExpanded, setSummaryExpanded] = useState(false);
+  const [claimsExpanded, setClaimsExpanded] = useState(false);
 
   // Track issue_viewed once on mount when data is ready
   const trackedIssueRef = useRef(null);
@@ -388,6 +389,7 @@ export default function IssueDashboard({
 
   function handleCategorySelect(cat) {
     setSelectedCategory(cat);
+    setClaimsExpanded(false);
     if (issue) {
       trackEvent("category_selected", {
         issue_slug: issue.slug,
@@ -551,6 +553,13 @@ export default function IssueDashboard({
         </div>
       )}
 
+      {/* Q&A — Premium feature */}
+      {issue && (
+        <div className="mb-6">
+          <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} />
+        </div>
+      )}
+
       {/* Category tabs */}
       {categories.length > 0 && (
         <div className="mb-6">
@@ -571,44 +580,70 @@ export default function IssueDashboard({
             <ConsensusIndicator consensus={consensusMap[activeCategory]} />
           )}
 
-          {/* Category takeaway from summary */}
-          {categoryKey?.key_takeaway && (
-            <div className="bg-gray-50 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-1">
-                {avgScore && <ScoreBadge score={avgScore} size="sm" />}
-                <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">
-                  Key Takeaway
-                </span>
+          {/* Category summary + claim count */}
+          <div className="bg-gray-50 rounded-xl p-4">
+            {categoryKey?.key_takeaway && (
+              <div className="mb-3">
+                <div className="flex items-center gap-2 mb-1">
+                  {avgScore && <ScoreBadge score={avgScore} size="sm" />}
+                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">
+                    Key Takeaway
+                  </span>
+                </div>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {categoryKey.key_takeaway}
+                </p>
               </div>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                {categoryKey.key_takeaway}
+            )}
+            {consensusMap[activeCategory]?.summary_text && (
+              <p className="text-sm text-gray-600 leading-relaxed">
+                {consensusMap[activeCategory].summary_text}
               </p>
-            </div>
-          )}
+            )}
+            {filteredClaims.length > 0 && (
+              <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-200">
+                <span className="text-xs text-gray-500">
+                  {filteredClaims.length} claim{filteredClaims.length !== 1 ? "s" : ""} scored in this category
+                </span>
+                <button
+                  onClick={() => {
+                    setClaimsExpanded(!claimsExpanded);
+                    if (!claimsExpanded && issue) {
+                      trackEvent("claims_expanded", {
+                        issue_slug: issue.slug,
+                        category: activeCategory,
+                        claim_count: filteredClaims.length,
+                      });
+                    }
+                  }}
+                  className="flex items-center gap-1 text-xs font-medium text-[#0D7377] hover:text-[#0B6265] bg-transparent border-none cursor-pointer transition-colors p-0"
+                >
+                  {claimsExpanded ? "Hide claims" : "View all claims"}
+                  <svg
+                    className={`w-3 h-3 transition-transform ${claimsExpanded ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+            )}
+          </div>
 
-          {/* Claims list */}
-          <div className="space-y-3">
-            {filteredClaims.length === 0 ? (
-              <p className="text-sm text-gray-400 text-center py-6">
-                No claims in this category.
-              </p>
-            ) : (
-              filteredClaims.map((claim) => (
+          {/* Claims list — collapsed by default */}
+          {claimsExpanded && (
+            <div className="space-y-3">
+              {filteredClaims.map((claim) => (
                 <ClaimCard
                   key={claim.id}
                   claim={claim}
                   composite={compositeMap.get(claim.id)}
                 />
-              ))
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Q&A — Premium feature */}
-      {issue && (
-        <div className="mt-8">
-          <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
