@@ -78,6 +78,119 @@ function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen
   );
 }
 
+function DebateItem({ item }) {
+  const [expanded, setExpanded] = useState(false);
+  const isDebated = item.consensus_status === "debated";
+  const displayName = CATEGORY_DISPLAY[item.category] || item.category;
+
+  return (
+    <div
+      className={`rounded-xl overflow-hidden border ${
+        isDebated ? "border-amber-200" : "border-gray-200"
+      }`}
+    >
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className={`w-full flex items-center gap-3 p-4 text-left border-none cursor-pointer transition-colors ${
+          isDebated
+            ? "bg-amber-50 hover:bg-amber-100/60"
+            : "bg-gray-50 hover:bg-gray-100"
+        }`}
+      >
+        <span
+          className={`w-2 h-2 rounded-full shrink-0 ${
+            isDebated ? "bg-amber-400" : "bg-gray-400"
+          }`}
+        />
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-sm font-semibold text-[#1B3A5C]">{displayName}</span>
+            <span
+              className={`text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-full ${
+                isDebated
+                  ? "bg-amber-100 text-amber-700"
+                  : "bg-gray-200 text-gray-500"
+              }`}
+            >
+              {isDebated ? "Debated" : "Uncertain"}
+            </span>
+          </div>
+          {item.summary_text && (
+            <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
+              {item.summary_text}
+            </p>
+          )}
+        </div>
+        <svg
+          className={`w-4 h-4 text-gray-400 shrink-0 transition-transform ${
+            expanded ? "rotate-180" : ""
+          }`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      {expanded && (
+        <div
+          className={`px-4 pb-4 border-t ${
+            isDebated ? "border-amber-200" : "border-gray-200"
+          }`}
+        >
+          {item.summary_text && (
+            <p className="text-sm text-gray-700 leading-relaxed mt-3 mb-3">
+              {item.summary_text}
+            </p>
+          )}
+
+          {isDebated && (item.arguments_for || item.arguments_against) && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {item.arguments_for && (
+                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                  <div className="text-xs font-bold text-emerald-700 mb-1">
+                    Supporting Evidence
+                  </div>
+                  <p className="text-xs text-gray-700 leading-relaxed">
+                    {item.arguments_for}
+                  </p>
+                </div>
+              )}
+              {item.arguments_against && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                  <div className="text-xs font-bold text-red-700 mb-1">
+                    Opposing Evidence
+                  </div>
+                  <p className="text-xs text-gray-700 leading-relaxed">
+                    {item.arguments_against}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {!isDebated && (
+            <div className="bg-gray-100 rounded-lg p-3">
+              <div className="text-xs font-bold text-gray-500 mb-1">
+                Why This Remains Uncertain
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                {item.summary_text || "Insufficient evidence to determine a clear direction."}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function StatsBar({ sources, claims, composites }) {
   const sourceCount = sources?.length || 0;
   const claimCount = claims?.length || 0;
@@ -209,6 +322,20 @@ export default function IssueDashboard({
     }
     return map;
   }, [consensus]);
+
+  // Debated + uncertain consensus items (ordered: debated first, then uncertain)
+  const debateItems = useMemo(() => {
+    if (!consensus) return [];
+    return CATEGORY_ORDER
+      .map((cat) => consensusMap[cat])
+      .filter((c) => c && (c.consensus_status === "debated" || c.consensus_status === "uncertain"))
+      .sort((a, b) => {
+        // debated before uncertain
+        if (a.consensus_status === "debated" && b.consensus_status !== "debated") return -1;
+        if (a.consensus_status !== "debated" && b.consensus_status === "debated") return 1;
+        return 0;
+      });
+  }, [consensus, consensusMap]);
 
   // Determine available categories (only those with claims)
   const categories = useMemo(() => {
@@ -394,6 +521,38 @@ export default function IssueDashboard({
 
       {/* Stats */}
       <StatsBar sources={sources} claims={claims} composites={compositeMap} />
+
+      {/* Key Debates & Open Questions */}
+      {debateItems.length > 0 && (
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <svg
+              className="w-4 h-4 text-amber-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"
+              />
+            </svg>
+            <h2 className="text-sm font-bold text-[#1B3A5C] uppercase tracking-wide">
+              Key Debates &amp; Open Questions
+            </h2>
+          </div>
+          <p className="text-xs text-gray-500 mb-3">
+            Areas where the evidence is actively contested or insufficient — worth watching as new data emerges.
+          </p>
+          <div className="space-y-2">
+            {debateItems.map((item) => (
+              <DebateItem key={item.id || item.category} item={item} />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Category tabs */}
       {categories.length > 0 && (
