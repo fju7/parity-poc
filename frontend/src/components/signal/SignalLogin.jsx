@@ -10,6 +10,7 @@ export default function SignalLogin() {
   const [step, setStep] = useState("input"); // input | code | sent
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
+  const [resent, setResent] = useState(false);
 
   // Phone state
   const [phone, setPhone] = useState("");
@@ -71,7 +72,7 @@ export default function SignalLogin() {
     }
 
     setStep("code");
-    setResendCountdown(30);
+    setResendCountdown(60);
     // Focus first OTP input
     setTimeout(() => otpRefs.current[0]?.focus(), 50);
   }
@@ -161,8 +162,10 @@ export default function SignalLogin() {
       return;
     }
 
-    setResendCountdown(30);
+    setResendCountdown(60);
     setOtp(["", "", "", "", "", ""]);
+    setResent(true);
+    setTimeout(() => setResent(false), 3000);
     otpRefs.current[0]?.focus();
   }
 
@@ -292,6 +295,10 @@ export default function SignalLogin() {
                 <p className="text-sm text-gray-400 text-center mb-3">Verifying...</p>
               )}
 
+              {resent && !error && (
+                <p className="text-sm text-[#0D7377] text-center mb-3">New code sent!</p>
+              )}
+
               <div className="text-center text-sm">
                 {resendCountdown > 0 ? (
                   <span className="text-gray-400">
@@ -301,9 +308,9 @@ export default function SignalLogin() {
                   <button
                     onClick={handleResend}
                     disabled={sending}
-                    className="text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer"
+                    className="text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer disabled:opacity-50"
                   >
-                    Resend code
+                    {sending ? "Sending..." : "Resend code"}
                   </button>
                 )}
               </div>
