@@ -1,5 +1,8 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ScoreBadge from "./ScoreBadge";
+
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const CATEGORY_DISPLAY = {
   efficacy: "Efficacy",
@@ -68,6 +71,15 @@ export default function SignalLanding({
   sources,
   loading,
 }) {
+  const [metrics, setMetrics] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/signal/metrics`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then(setMetrics)
+      .catch(() => {});
+  }, []);
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 font-[Arial,sans-serif]">
       {/* Hero */}
@@ -121,6 +133,25 @@ export default function SignalLanding({
           </div>
         ))}
       </div>
+
+      {/* Platform metrics */}
+      {metrics && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+          {[
+            { value: metrics.claims_scored, label: "Claims Scored" },
+            { value: metrics.topics_tracked, label: "Topics Tracked" },
+            { value: metrics.sources_monitored, label: "Sources Indexed" },
+            { value: metrics.updates_this_month, label: "Updates This Month" },
+          ].map((m) => (
+            <div key={m.label} className="bg-gray-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-[#1B3A5C]">
+                {m.value?.toLocaleString() || "0"}
+              </div>
+              <div className="text-xs text-gray-500">{m.label}</div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Featured topic */}
       {loading ? (

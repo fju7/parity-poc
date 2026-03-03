@@ -3,6 +3,7 @@ import CategoryTabs from "./CategoryTabs";
 import ConsensusIndicator from "./ConsensusIndicator";
 import ClaimCard from "./ClaimCard";
 import ScoreBadge from "./ScoreBadge";
+import EvidenceQA from "./EvidenceQA";
 import { trackEvent } from "../../lib/signalAnalytics";
 
 const CATEGORY_ORDER = [
@@ -284,6 +285,8 @@ export default function IssueDashboard({
   sources,
   loading,
   error,
+  session,
+  userTier,
 }) {
   // Build composite map: claim_id -> composite
   const compositeMap = useMemo(() => {
@@ -599,6 +602,13 @@ export default function IssueDashboard({
               ))
             )}
           </div>
+        </div>
+      )}
+
+      {/* Q&A — Premium feature */}
+      {issue && (
+        <div className="mt-8">
+          <EvidenceQA issueId={issue.id} session={session} userTier={userTier} />
         </div>
       )}
     </div>

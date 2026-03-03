@@ -13,7 +13,7 @@ import AccountView from "./components/signal/AccountView";
 // Default featured topic slug
 const FEATURED_SLUG = "glp1-drugs";
 
-function DashboardRoute({ data }) {
+function DashboardRoute({ data, session, userTier }) {
   const { slug } = useParams();
   const targetSlug = slug || FEATURED_SLUG;
 
@@ -28,15 +28,17 @@ function DashboardRoute({ data }) {
         sources={data.sources}
         loading={data.loading}
         error={data.error}
+        session={session}
+        userTier={userTier}
       />
     );
   }
 
   // Otherwise, load the requested slug
-  return <LazyDashboard slug={targetSlug} />;
+  return <LazyDashboard slug={targetSlug} session={session} userTier={userTier} />;
 }
 
-function LazyDashboard({ slug }) {
+function LazyDashboard({ slug, session, userTier }) {
   const [state, setState] = useState({
     issue: null,
     summary: null,
@@ -60,6 +62,8 @@ function LazyDashboard({ slug }) {
       sources={state.sources}
       loading={state.loading}
       error={state.error}
+      session={session}
+      userTier={userTier}
     />
   );
 }
@@ -248,7 +252,7 @@ export default function SignalApp() {
           />
           <Route
             path=":slug"
-            element={<DashboardRoute data={data} />}
+            element={<DashboardRoute data={data} session={session} userTier={userTier} />}
           />
         </Routes>
       </main>
