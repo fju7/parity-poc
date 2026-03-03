@@ -85,16 +85,19 @@ async def create_topic_request(body: TopicRequestCreate, request: Request):
     reference_urls = [u.strip() for u in (body.reference_urls or []) if u.strip()]
 
     sb = _get_sb()
-    result = sb.table("signal_topic_requests").insert({
-        "user_id": str(user.id),
-        "topic_name": topic_name,
-        "description": description,
-        "reference_urls": reference_urls,
-        "status": "submitted",
-    }).execute()
+    try:
+        result = sb.table("signal_topic_requests").insert({
+            "user_id": str(user.id),
+            "topic_name": topic_name,
+            "description": description,
+            "reference_urls": reference_urls,
+            "status": "submitted",
+        }).execute()
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Database insert failed: {exc}")
 
     if not result.data:
-        raise HTTPException(status_code=500, detail="Failed to create topic request")
+        return {"id": None, "status": "submitted", "topic_name": topic_name}
 
     return result.data[0]
 
