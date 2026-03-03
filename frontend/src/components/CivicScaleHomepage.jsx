@@ -49,13 +49,7 @@ export default function CivicScaleHomepage() {
     }}>
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
 
-      <header style={{
-        padding: "20px 40px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderBottom: "1px solid rgba(255,255,255,0.06)"
-      }}>
+      <header className="cs-home-header">
         <Link to="/" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
           <div style={{
             width: "32px", height: "32px", borderRadius: "8px",
@@ -67,7 +61,7 @@ export default function CivicScaleHomepage() {
             CivicScale
           </span>
         </Link>
-        <nav style={{ display: "flex", gap: "32px", fontSize: "14px", color: "#94a3b8", alignItems: "center" }}>
+        <nav className="cs-home-nav">
           <Link to="/parity-health/" style={{ color: "inherit", textDecoration: "none" }}>Billing Products</Link>
           <Link to="/signal" style={{ color: "inherit", textDecoration: "none" }}>Parity Signal</Link>
           <Link to="/investors" style={{ color: "inherit", textDecoration: "none" }}>About</Link>
@@ -79,8 +73,8 @@ export default function CivicScaleHomepage() {
         </nav>
       </header>
 
-      <section style={{
-        padding: "100px 40px 80px",
+      <section className="cs-home-section" style={{
+        paddingTop: "100px", paddingBottom: "80px",
         maxWidth: "1100px",
         margin: "0 auto",
         textAlign: "center",
@@ -132,14 +126,14 @@ export default function CivicScaleHomepage() {
         </div>
       </section>
 
-      <section style={{
-        padding: "0 40px 80px", maxWidth: "900px",
+      <section className="cs-home-section" style={{
+        paddingTop: "0", paddingBottom: "80px", maxWidth: "900px",
         margin: "0 auto", textAlign: "center"
       }}>
-        <div style={{
+        <div className="cs-home-quote-box" style={{
           background: "rgba(255,255,255,0.03)",
           border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: "16px", padding: "40px 48px"
+          borderRadius: "16px"
         }}>
           <p style={{
             fontFamily: "'DM Serif Display', serif",
@@ -153,9 +147,9 @@ export default function CivicScaleHomepage() {
         </div>
       </section>
 
-      <div style={{
+      <div className="cs-home-section" style={{
         display: "flex", alignItems: "center", gap: "20px",
-        maxWidth: "1100px", margin: "0 auto", padding: "0 40px 48px"
+        maxWidth: "1100px", margin: "0 auto", paddingTop: "0", paddingBottom: "48px"
       }}>
         <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
         <span style={{
@@ -165,9 +159,8 @@ export default function CivicScaleHomepage() {
         <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
       </div>
 
-      <section style={{
-        padding: "0 40px 100px", maxWidth: "1100px", margin: "0 auto",
-        display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", alignItems: "stretch"
+      <section className="cs-home-products-grid cs-home-section" style={{
+        paddingTop: "0", paddingBottom: "100px", maxWidth: "1100px", margin: "0 auto"
       }}>
         <Link to="/signal" style={{ textDecoration: "none", color: "inherit", display: "flex" }}
           onMouseEnter={() => setHoveredProduct("signal")} onMouseLeave={() => setHoveredProduct(null)}>
@@ -242,7 +235,7 @@ export default function CivicScaleHomepage() {
         </Link>
       </section>
 
-      <section style={{ padding: "80px 40px", maxWidth: "1100px", margin: "0 auto", textAlign: "center" }}>
+      <section className="cs-home-section" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1100px", margin: "0 auto", textAlign: "center" }}>
         <p style={{ fontSize: "13px", fontWeight: "500", letterSpacing: "0.12em", textTransform: "uppercase", color: "#64748b", marginBottom: "20px" }}>Powered By</p>
         <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "36px", fontWeight: "400", color: "#f1f5f9", marginBottom: "20px" }}>The Parity Engine</h2>
         <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#94a3b8", maxWidth: "700px", margin: "0 auto 48px" }}>
@@ -255,7 +248,7 @@ export default function CivicScaleHomepage() {
         </div>
       </section>
 
-      <section style={{ padding: "80px 40px", maxWidth: "1100px", margin: "0 auto" }}>
+      <section className="cs-home-section" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1100px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "56px" }}>
           <p style={{ fontSize: "13px", fontWeight: "500", letterSpacing: "0.12em", textTransform: "uppercase", color: "#14b8a6", marginBottom: "20px" }}>Why This Requires AI — And Why Ours Is Different</p>
           <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "36px", fontWeight: "400", color: "#f1f5f9", marginBottom: "20px" }}>AI that shows its work</h2>
@@ -263,7 +256,7 @@ export default function CivicScaleHomepage() {
             Most AI tools give you an answer. We show you how the answer was built — which evidence was weighted, what assumptions were made, and where reasonable people disagree. That's the difference between an AI that thinks for you and one that helps you think.
           </p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "24px" }}>
+        <div className="cs-home-whyai-grid">
           <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "12px", padding: "32px" }}>
             <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "rgba(20,184,166,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", fontSize: "20px" }}>&#x26A1;</div>
             <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#f1f5f9", marginBottom: "12px" }}>Scale that humans can't match</h3>
@@ -282,8 +275,8 @@ export default function CivicScaleHomepage() {
         </div>
       </section>
 
-      <section style={{ padding: "60px 40px 100px", maxWidth: "900px", margin: "0 auto" }}>
-        <div style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.05), rgba(59,130,246,0.05))", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "40px 48px", textAlign: "center" }}>
+      <section className="cs-home-section" style={{ paddingTop: "60px", paddingBottom: "100px", maxWidth: "900px", margin: "0 auto" }}>
+        <div className="cs-home-quote-box" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.05), rgba(59,130,246,0.05))", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", textAlign: "center" }}>
           <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "24px", fontWeight: "400", color: "#f1f5f9", marginBottom: "16px" }}>Where We're Going</h3>
           <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#94a3b8", maxWidth: "600px", margin: "0 auto" }}>
             Healthcare is where we start. Information asymmetry is where we're going. The same engine that analyzes medical bills and scores drug safety evidence can evaluate property tax assessments, insurance premium fairness, and policy claims across any domain where individuals face decisions they can't independently verify.
@@ -291,7 +284,7 @@ export default function CivicScaleHomepage() {
         </div>
       </section>
 
-      <footer style={{ padding: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center", fontSize: "13px", color: "#475569" }}>
+      <footer className="cs-home-section" style={{ paddingTop: "40px", paddingBottom: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center", fontSize: "13px", color: "#475569" }}>
         &copy; CivicScale 2026. All rights reserved.
       </footer>
     </div>
