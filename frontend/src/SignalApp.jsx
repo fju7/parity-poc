@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 import { supabase } from "./lib/supabase";
 import SignalHeader from "./components/signal/SignalHeader";
 import SignalFooter from "./components/signal/SignalFooter";
@@ -153,6 +153,7 @@ async function loadIssueData(slug) {
 }
 
 export default function SignalApp() {
+  const navigate = useNavigate();
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -185,6 +186,7 @@ export default function SignalApp() {
   async function handleSignOut() {
     await supabase.auth.signOut();
     setSession(null);
+    navigate("/signal/login");
   }
 
   // Load featured topic data on mount

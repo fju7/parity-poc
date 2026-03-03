@@ -271,8 +271,11 @@ export default function SignalLogin() {
               <p className="text-sm text-gray-600 mb-1">
                 Enter the 6-digit code sent to
               </p>
-              <p className="text-sm font-medium text-[#1B3A5C] mb-4">
+              <p className="text-sm font-medium text-[#1B3A5C] mb-1">
                 +1 {displayPhone(phone)}
+              </p>
+              <p className="text-xs text-gray-400 mb-4">
+                May take up to 30 seconds. Check your messages app.
               </p>
 
               <div className="flex justify-center gap-2 mb-4" onPaste={handleOtpPaste}>
