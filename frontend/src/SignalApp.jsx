@@ -7,6 +7,7 @@ import SignalLanding from "./components/signal/SignalLanding";
 import IssueDashboard from "./components/signal/IssueDashboard";
 import MethodologyView from "./components/signal/MethodologyView";
 import SignalLogin from "./components/signal/SignalLogin";
+import PricingView from "./components/signal/PricingView";
 
 // Default featured topic slug
 const FEATURED_SLUG = "glp1-drugs";
@@ -152,10 +153,13 @@ async function loadIssueData(slug) {
   }
 }
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export default function SignalApp() {
   const navigate = useNavigate();
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
+  const [userTier, setUserTier] = useState("free");
 
   const [data, setData] = useState({
     issue: null,
@@ -183,6 +187,20 @@ export default function SignalApp() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Fetch user tier when session changes
+  useEffect(() => {
+    if (!session?.access_token) {
+      setUserTier("free");
+      return;
+    }
+    fetch(`${API_BASE}/api/signal/stripe/tier`, {
+      headers: { Authorization: `Bearer ${session.access_token}` },
+    })
+      .then((res) => (res.ok ? res.json() : { tier: "free" }))
+      .then((data) => setUserTier(data.tier || "free"))
+      .catch(() => setUserTier("free"));
+  }, [session]);
+
   async function handleSignOut() {
     await supabase.auth.signOut();
     setSession(null);
@@ -196,7 +214,7 @@ export default function SignalApp() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col font-[Arial,sans-serif]">
-      <SignalHeader session={session} onSignOut={handleSignOut} />
+      <SignalHeader session={session} userTier={userTier} onSignOut={handleSignOut} />
       <main className="flex-1">
         <Routes>
           <Route
@@ -218,6 +236,10 @@ export default function SignalApp() {
           <Route
             path="login"
             element={<SignalLogin />}
+          />
+          <Route
+            path="pricing"
+            element={<PricingView session={session} userTier={userTier} />}
           />
           <Route
             path=":slug"

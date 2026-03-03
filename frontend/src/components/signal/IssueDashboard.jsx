@@ -14,6 +14,70 @@ const CATEGORY_ORDER = [
   "emerging",
 ];
 
+const CATEGORY_DISPLAY = {
+  efficacy: "Efficacy",
+  safety: "Safety",
+  cardiovascular: "Heart",
+  pricing: "Pricing",
+  regulatory: "Regulatory",
+  emerging: "Emerging",
+};
+
+const STATUS_DOT_COLOR = {
+  consensus: "bg-emerald-400",
+  debated: "bg-amber-400",
+  uncertain: "bg-gray-400",
+};
+
+/** Split text into sentences and return the first `count`. */
+function getOverviewSentences(text, count = 2) {
+  if (!text) return text;
+  const sentences = text.match(/[^.!?]+[.!?]+/g);
+  if (!sentences || sentences.length <= count) return text;
+  return sentences.slice(0, count).join("").trim();
+}
+
+function SummaryThemeSection({ category, categoryData, consensusMap, defaultOpen = false }) {
+  const [open, setOpen] = useState(defaultOpen);
+  const displayName = CATEGORY_DISPLAY[category] || category;
+  const status = consensusMap?.[category]?.consensus_status;
+  const dotColor = STATUS_DOT_COLOR[status] || "bg-gray-300";
+
+  return (
+    <div className="border border-gray-200 rounded-xl overflow-hidden">
+      <button
+        onClick={() => {
+          if (!open) {
+            trackEvent("summary_theme_expanded", { category });
+          }
+          setOpen(!open);
+        }}
+        className="w-full flex items-center gap-3 p-4 bg-white text-left border-none cursor-pointer hover:bg-gray-50 transition-colors"
+      >
+        <span className={`w-2 h-2 rounded-full shrink-0 ${dotColor}`} />
+        <span className="flex-1 text-sm font-semibold text-[#1B3A5C]">
+          {displayName}
+        </span>
+        <svg
+          className={`w-4 h-4 text-gray-400 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {open && (
+        <div className="px-4 pb-4 border-t border-gray-100">
+          <p className="text-sm text-gray-700 leading-relaxed mt-3">
+            {categoryData?.key_takeaway || "No summary available for this theme."}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function StatsBar({ sources, claims, composites }) {
   const sourceCount = sources?.length || 0;
   const claimCount = claims?.length || 0;
@@ -154,6 +218,7 @@ export default function IssueDashboard({
   }, [claims]);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [summaryExpanded, setSummaryExpanded] = useState(false);
 
   // Track issue_viewed once on mount when data is ready
   const trackedIssueRef = useRef(null);
@@ -284,11 +349,46 @@ export default function IssueDashboard({
 
       {/* Overall summary */}
       {overallSummary && (
-        <div ref={summaryRef} className="bg-[#1B3A5C] text-white rounded-xl p-5 mb-6">
-          <div className="text-xs font-semibold text-teal-300 uppercase tracking-wide mb-2">
-            Summary
+        <div ref={summaryRef} className="mb-6">
+          <div className="bg-[#1B3A5C] text-white rounded-xl p-5">
+            <div className="text-xs font-semibold text-teal-300 uppercase tracking-wide mb-2">
+              Summary
+            </div>
+            <p className="text-sm leading-relaxed opacity-90">
+              {summaryExpanded ? overallSummary : getOverviewSentences(overallSummary, 2)}
+            </p>
+            {overallSummary !== getOverviewSentences(overallSummary, 2) && (
+              <button
+                onClick={() => setSummaryExpanded(!summaryExpanded)}
+                className="flex items-center gap-1 mt-3 text-teal-300 hover:text-teal-200 text-xs font-medium bg-transparent border-none cursor-pointer transition-colors p-0"
+              >
+                {summaryExpanded ? "Show less" : "Read full summary"}
+                <svg
+                  className={`w-3 h-3 transition-transform ${summaryExpanded ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            )}
           </div>
-          <p className="text-sm leading-relaxed opacity-90">{overallSummary}</p>
+
+          {/* Theme sections */}
+          {summaryData?.categories && (
+            <div className="mt-3 space-y-2">
+              {CATEGORY_ORDER.filter((cat) => summaryData.categories[cat]).map((cat, i) => (
+                <SummaryThemeSection
+                  key={cat}
+                  category={cat}
+                  categoryData={summaryData.categories[cat]}
+                  consensusMap={consensusMap}
+                  defaultOpen={i === 0}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
 

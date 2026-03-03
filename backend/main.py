@@ -11,6 +11,7 @@ from routers.coding_intelligence import load_coding_data
 from routers.employer import router as employer_router
 from routers.provider import router as provider_router
 from routers.signal_events import router as signal_events_router
+from routers.signal_stripe import router as signal_stripe_router
 
 
 @asynccontextmanager
@@ -56,6 +57,7 @@ app.include_router(eob_parse_router)
 app.include_router(employer_router)
 app.include_router(provider_router)
 app.include_router(signal_events_router)
+app.include_router(signal_stripe_router)
 
 
 @app.get("/")

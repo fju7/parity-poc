@@ -18,11 +18,32 @@ function formatUserDisplay(session) {
   return "Account";
 }
 
-export default function SignalHeader({ session, onSignOut }) {
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
+export default function SignalHeader({ session, userTier, onSignOut }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const userDisplay = formatUserDisplay(session);
+  const isPaid = userTier === "standard" || userTier === "premium";
+
+  async function handleBilling() {
+    if (!session?.access_token) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/signal/stripe/portal`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+      if (!res.ok) return;
+      const { portal_url } = await res.json();
+      window.location.href = portal_url;
+    } catch {
+      // silently fail
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
@@ -53,6 +74,12 @@ export default function SignalHeader({ session, onSignOut }) {
           >
             Methodology
           </button>
+          <button
+            onClick={() => navigate("/signal/pricing")}
+            className="text-gray-500 hover:text-[#1B3A5C] transition-colors bg-transparent border-none cursor-pointer"
+          >
+            Pricing
+          </button>
           <Link
             to="/"
             className="text-gray-400 hover:text-gray-600 transition-colors no-underline text-xs"
@@ -64,6 +91,14 @@ export default function SignalHeader({ session, onSignOut }) {
               <span className="text-gray-500 text-xs truncate max-w-[140px]">
                 {userDisplay}
               </span>
+              {isPaid && (
+                <button
+                  onClick={handleBilling}
+                  className="text-gray-400 hover:text-[#0D7377] transition-colors bg-transparent border-none cursor-pointer text-xs"
+                >
+                  Billing
+                </button>
+              )}
               <button
                 onClick={onSignOut}
                 className="text-gray-400 hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer text-xs"
@@ -113,6 +148,15 @@ export default function SignalHeader({ session, onSignOut }) {
           >
             Methodology
           </button>
+          <button
+            onClick={() => {
+              navigate("/signal/pricing");
+              setMenuOpen(false);
+            }}
+            className="text-left text-gray-600 hover:text-[#1B3A5C] hover:bg-gray-50 bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
+          >
+            Pricing
+          </button>
           <Link
             to="/"
             onClick={() => setMenuOpen(false)}
@@ -125,6 +169,17 @@ export default function SignalHeader({ session, onSignOut }) {
               <div className="text-gray-500 text-xs py-2 px-2 truncate">
                 {userDisplay}
               </div>
+              {isPaid && (
+                <button
+                  onClick={() => {
+                    handleBilling();
+                    setMenuOpen(false);
+                  }}
+                  className="text-left text-gray-600 hover:text-[#0D7377] hover:bg-gray-50 bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
+                >
+                  Billing
+                </button>
+              )}
               <button
                 onClick={() => {
                   onSignOut?.();

@@ -31,6 +31,7 @@ ALLOWED_EVENT_TYPES = {
     "score_rationale_viewed",
     "source_clicked",
     "summary_scroll_depth",
+    "summary_theme_expanded",
 }
 
 MAX_EVENT_DATA_SIZE = 4096  # bytes
