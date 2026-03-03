@@ -1,11 +1,20 @@
 import { Link } from "react-router-dom";
 import ScoreBadge from "./ScoreBadge";
 
+const CATEGORY_DISPLAY = {
+  efficacy: "Efficacy",
+  safety: "Safety",
+  cardiovascular: "Heart",
+  pricing: "Pricing",
+  regulatory: "Regulatory",
+  emerging: "Emerging",
+};
+
 function FeatureCard({ issue, summary, claimCount, sourceCount }) {
   const summaryData = summary?.summary_json;
   const overallSummary = summaryData?.overall_summary;
   const categories = summaryData?.categories
-    ? Object.keys(summaryData.categories)
+    ? Object.keys(summaryData.categories).filter((k) => k in CATEGORY_DISPLAY)
     : [];
 
   return (
@@ -39,7 +48,7 @@ function FeatureCard({ issue, summary, claimCount, sourceCount }) {
               key={cat}
               className="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full capitalize"
             >
-              {cat === "cardiovascular" ? "Heart" : cat}
+              {CATEGORY_DISPLAY[cat]}
             </span>
           ))}
         </div>
