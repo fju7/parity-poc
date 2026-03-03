@@ -116,7 +116,7 @@ function DebateItem({ item }) {
             </span>
           </div>
           {item.summary_text && (
-            <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
+            <p className="text-xs text-gray-600 leading-relaxed">
               {item.summary_text}
             </p>
           )}
@@ -140,16 +140,10 @@ function DebateItem({ item }) {
 
       {expanded && (
         <div
-          className={`px-4 pb-4 border-t ${
+          className={`px-4 pb-4 pt-3 border-t ${
             isDebated ? "border-amber-200" : "border-gray-200"
           }`}
         >
-          {item.summary_text && (
-            <p className="text-sm text-gray-700 leading-relaxed mt-3 mb-3">
-              {item.summary_text}
-            </p>
-          )}
-
           {isDebated && (item.arguments_for || item.arguments_against) && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {item.arguments_for && (
@@ -181,7 +175,7 @@ function DebateItem({ item }) {
                 Why This Remains Uncertain
               </div>
               <p className="text-xs text-gray-600 leading-relaxed">
-                {item.summary_text || "Insufficient evidence to determine a clear direction."}
+                The evidence in this area is too early-stage or insufficient to establish a clear direction. More research is needed before conclusions can be drawn.
               </p>
             </div>
           )}
