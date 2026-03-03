@@ -118,7 +118,7 @@ export default function IssueDashboard({
     const map = new Map();
     if (!claims) return map;
     for (const claim of claims) {
-      const comp = claim.signal_claim_composites?.[0];
+      const comp = claim.signal_claim_composites;
       if (comp) map.set(claim.id, comp);
     }
     return map;
