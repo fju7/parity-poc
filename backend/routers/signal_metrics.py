@@ -23,6 +23,7 @@ def _get_sb():
 
 # Simple in-memory cache
 _cache = {"data": None, "expires": 0}
+_topics_cache = {"data": None, "expires": 0}
 CACHE_TTL = 300  # 5 minutes
 
 
@@ -76,3 +77,88 @@ async def get_metrics():
 
     except Exception:
         return {"claims_scored": 0, "topics_tracked": 0, "sources_monitored": 0, "updates_this_month": 0}
+
+
+@router.get("/topics")
+async def get_topics():
+    """Return all topics with claim counts, source counts, categories, and summary."""
+    now = time.time()
+
+    if _topics_cache["data"] and now < _topics_cache["expires"]:
+        return JSONResponse(content=_topics_cache["data"])
+
+    sb = _get_sb()
+    if not sb:
+        return JSONResponse(content=[])
+
+    try:
+        # Fetch all issues
+        issues_res = sb.table("signal_issues").select("*").execute()
+        issues = issues_res.data or []
+
+        if not issues:
+            _topics_cache["data"] = []
+            _topics_cache["expires"] = now + CACHE_TTL
+            return JSONResponse(content=[])
+
+        issue_ids = [i["id"] for i in issues]
+
+        # Count claims per issue
+        claims_res = sb.table("signal_claims").select("id, issue_id").in_("issue_id", issue_ids).execute()
+        claim_counts = {}
+        for row in claims_res.data or []:
+            claim_counts[row["issue_id"]] = claim_counts.get(row["issue_id"], 0) + 1
+
+        # Count sources per issue
+        sources_res = sb.table("signal_sources").select("id, issue_id").in_("issue_id", issue_ids).execute()
+        source_counts = {}
+        for row in sources_res.data or []:
+            source_counts[row["issue_id"]] = source_counts.get(row["issue_id"], 0) + 1
+
+        # Fetch latest summary per issue (order by version desc)
+        summaries_res = (
+            sb.table("signal_summaries")
+            .select("issue_id, summary_json, version")
+            .in_("issue_id", issue_ids)
+            .order("version", desc=True)
+            .execute()
+        )
+        # Keep only the latest summary per issue
+        summary_map = {}
+        for row in summaries_res.data or []:
+            iid = row["issue_id"]
+            if iid not in summary_map:
+                summary_map[iid] = row.get("summary_json")
+
+        # Build response
+        result = []
+        for issue in issues:
+            iid = issue["id"]
+            summary_json = summary_map.get(iid) or {}
+            raw_cats = summary_json.get("categories", []) if isinstance(summary_json, dict) else []
+            if isinstance(raw_cats, list):
+                categories = [c["name"] for c in raw_cats if isinstance(c, dict) and "name" in c]
+            elif isinstance(raw_cats, dict):
+                categories = list(raw_cats.keys())
+            else:
+                categories = []
+            overall_summary = summary_json.get("overall_summary", "") if isinstance(summary_json, dict) else ""
+
+            result.append({
+                "id": iid,
+                "slug": issue.get("slug", ""),
+                "title": issue.get("title", ""),
+                "description": issue.get("description", ""),
+                "claim_count": claim_counts.get(iid, 0),
+                "source_count": source_counts.get(iid, 0),
+                "categories": categories,
+                "overall_summary": overall_summary,
+            })
+
+        _topics_cache["data"] = result
+        _topics_cache["expires"] = now + CACHE_TTL
+
+        return JSONResponse(content=result)
+
+    except Exception:
+        return JSONResponse(content=[])

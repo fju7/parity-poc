@@ -5,82 +5,52 @@ import TopicRequestForm from "./TopicRequestForm";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-const CATEGORY_DISPLAY = {
-  efficacy: "Efficacy",
-  safety: "Safety",
-  cardiovascular: "Heart",
-  pricing: "Pricing",
-  regulatory: "Regulatory",
-  emerging: "Emerging",
-};
-
-function FeatureCard({ issue, summary, claimCount, sourceCount }) {
-  const summaryData = summary?.summary_json;
-  const overallSummary = summaryData?.overall_summary;
-  const categories = summaryData?.categories
-    ? Object.keys(summaryData.categories).filter((k) => k in CATEGORY_DISPLAY)
-    : [];
-
+function TopicCard({ topic }) {
   return (
     <Link
-      to={`/signal/${issue.slug}`}
+      to={`/signal/${topic.slug}`}
       className="block border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow no-underline group"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs font-semibold text-[#0D7377] bg-teal-50 px-2.5 py-0.5 rounded-full uppercase tracking-wide">
-          Featured
-        </span>
-        <span className="text-xs text-gray-400">
-          {sourceCount} sources &middot; {claimCount} claims
-        </span>
-      </div>
-
       <h2 className="text-lg font-bold text-[#1B3A5C] mb-2 group-hover:text-[#0D7377] transition-colors">
-        {issue.title}
+        {topic.title}
       </h2>
 
-      {overallSummary && (
-        <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 mb-4">
-          {overallSummary}
+      {topic.description && (
+        <p className="text-sm text-gray-600 leading-relaxed mb-4">
+          {topic.description}
         </p>
       )}
 
-      {categories.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {categories.map((cat) => (
-            <span
-              key={cat}
-              className="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full capitalize"
-            >
-              {CATEGORY_DISPLAY[cat]}
-            </span>
-          ))}
-        </div>
-      )}
-
-      <span className="text-sm font-semibold text-[#0D7377] group-hover:underline">
-        View Evidence Dashboard &rarr;
-      </span>
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-gray-400">
+          {topic.claim_count} claims scored
+        </span>
+        <span className="text-sm font-semibold text-[#0D7377] group-hover:underline">
+          View Dashboard &rarr;
+        </span>
+      </div>
     </Link>
   );
 }
 
-export default function SignalLanding({
-  issue,
-  summary,
-  claims,
-  sources,
-  loading,
-  session,
-  userTier,
-}) {
+export default function SignalLanding({ session, userTier }) {
   const [metrics, setMetrics] = useState(null);
+  const [topics, setTopics] = useState([]);
+  const [topicsLoading, setTopicsLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${API_BASE}/api/signal/metrics`)
       .then((r) => (r.ok ? r.json() : null))
       .then(setMetrics)
       .catch(() => {});
+
+    fetch(`${API_BASE}/api/signal/topics`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => {
+        setTopics(data);
+        setTopicsLoading(false);
+      })
+      .catch(() => setTopicsLoading(false));
   }, []);
 
   return (
@@ -156,23 +126,25 @@ export default function SignalLanding({
         </div>
       )}
 
-      {/* Featured topic */}
-      {loading ? (
+      {/* Topics */}
+      {topicsLoading ? (
         <div className="animate-pulse">
           <div className="h-6 bg-gray-200 rounded w-40 mb-4" />
-          <div className="h-48 bg-gray-100 rounded-2xl" />
+          <div className="grid grid-cols-1 gap-4">
+            <div className="h-48 bg-gray-100 rounded-2xl" />
+            <div className="h-48 bg-gray-100 rounded-2xl" />
+          </div>
         </div>
-      ) : issue ? (
+      ) : topics.length > 0 ? (
         <div>
           <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">
-            Featured Topic
+            Topics
           </h2>
-          <FeatureCard
-            issue={issue}
-            summary={summary}
-            claimCount={claims?.length || 0}
-            sourceCount={sources?.length || 0}
-          />
+          <div className="grid grid-cols-1 gap-4">
+            {topics.map((topic) => (
+              <TopicCard key={topic.id} topic={topic} />
+            ))}
+          </div>
         </div>
       ) : (
         <div className="text-center py-8">

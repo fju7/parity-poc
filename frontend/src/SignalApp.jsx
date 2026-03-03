@@ -10,32 +10,9 @@ import SignalLogin from "./components/signal/SignalLogin";
 import PricingView from "./components/signal/PricingView";
 import AccountView from "./components/signal/AccountView";
 
-// Default featured topic slug
-const FEATURED_SLUG = "glp1-drugs";
-
-function DashboardRoute({ data, session, userTier }) {
+function DashboardRoute({ session, userTier }) {
   const { slug } = useParams();
-  const targetSlug = slug || FEATURED_SLUG;
-
-  // If the loaded data matches the slug, use it directly
-  if (data.issue?.slug === targetSlug) {
-    return (
-      <IssueDashboard
-        issue={data.issue}
-        summary={data.summary}
-        claims={data.claims}
-        consensus={data.consensus}
-        sources={data.sources}
-        loading={data.loading}
-        error={data.error}
-        session={session}
-        userTier={userTier}
-      />
-    );
-  }
-
-  // Otherwise, load the requested slug
-  return <LazyDashboard slug={targetSlug} session={session} userTier={userTier} />;
+  return <LazyDashboard slug={slug} session={session} userTier={userTier} />;
 }
 
 function LazyDashboard({ slug, session, userTier }) {
@@ -166,16 +143,6 @@ export default function SignalApp() {
   const [authLoading, setAuthLoading] = useState(true);
   const [userTier, setUserTier] = useState("free");
 
-  const [data, setData] = useState({
-    issue: null,
-    summary: null,
-    claims: null,
-    consensus: null,
-    sources: null,
-    loading: true,
-    error: null,
-  });
-
   // Auth: session bootstrap + listener
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session: s } }) => {
@@ -234,11 +201,6 @@ export default function SignalApp() {
     navigate("/signal/login");
   }
 
-  // Load featured topic data on mount
-  useEffect(() => {
-    loadIssueData(FEATURED_SLUG).then(setData);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white flex flex-col font-[Arial,sans-serif]">
       <SignalHeader session={session} onSignOut={handleSignOut} />
@@ -248,11 +210,6 @@ export default function SignalApp() {
             index
             element={
               <SignalLanding
-                issue={data.issue}
-                summary={data.summary}
-                claims={data.claims}
-                sources={data.sources}
-                loading={data.loading}
                 session={session}
                 userTier={userTier}
               />
@@ -276,7 +233,7 @@ export default function SignalApp() {
           />
           <Route
             path=":slug"
-            element={<DashboardRoute data={data} session={session} userTier={userTier} />}
+            element={<DashboardRoute session={session} userTier={userTier} />}
           />
         </Routes>
       </main>
