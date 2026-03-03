@@ -6,6 +6,7 @@ import SignalFooter from "./components/signal/SignalFooter";
 import SignalLanding from "./components/signal/SignalLanding";
 import IssueDashboard from "./components/signal/IssueDashboard";
 import MethodologyView from "./components/signal/MethodologyView";
+import SignalLogin from "./components/signal/SignalLogin";
 
 // Default featured topic slug
 const FEATURED_SLUG = "glp1-drugs";
@@ -152,6 +153,9 @@ async function loadIssueData(slug) {
 }
 
 export default function SignalApp() {
+  const [session, setSession] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
+
   const [data, setData] = useState({
     issue: null,
     summary: null,
@@ -162,6 +166,27 @@ export default function SignalApp() {
     error: null,
   });
 
+  // Auth: session bootstrap + listener
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session: s } }) => {
+      setSession(s);
+      setAuthLoading(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, s) => {
+      setSession(s);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    setSession(null);
+  }
+
   // Load featured topic data on mount
   useEffect(() => {
     loadIssueData(FEATURED_SLUG).then(setData);
@@ -169,7 +194,7 @@ export default function SignalApp() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col font-[Arial,sans-serif]">
-      <SignalHeader />
+      <SignalHeader session={session} onSignOut={handleSignOut} />
       <main className="flex-1">
         <Routes>
           <Route
@@ -187,6 +212,10 @@ export default function SignalApp() {
           <Route
             path="methodology"
             element={<MethodologyView />}
+          />
+          <Route
+            path="login"
+            element={<SignalLogin />}
           />
           <Route
             path=":slug"

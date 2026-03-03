@@ -1,9 +1,28 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function SignalHeader() {
+function formatUserDisplay(session) {
+  if (!session?.user) return null;
+  const { phone, email } = session.user;
+  if (phone) {
+    // Format +1XXXXXXXXXX → (XXX) XXX-XXXX
+    const digits = phone.replace(/\D/g, "").slice(-10);
+    if (digits.length === 10) {
+      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+    }
+    return phone;
+  }
+  if (email) {
+    return email.length > 20 ? email.slice(0, 20) + "..." : email;
+  }
+  return "Account";
+}
+
+export default function SignalHeader({ session, onSignOut }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const userDisplay = formatUserDisplay(session);
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
@@ -40,6 +59,26 @@ export default function SignalHeader() {
           >
             CivicScale
           </Link>
+          {session ? (
+            <>
+              <span className="text-gray-500 text-xs truncate max-w-[140px]">
+                {userDisplay}
+              </span>
+              <button
+                onClick={onSignOut}
+                className="text-gray-400 hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer text-xs"
+              >
+                Sign out
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/signal/login"
+              className="text-[#0D7377] hover:text-[#0B6265] transition-colors no-underline font-medium"
+            >
+              Sign in
+            </Link>
+          )}
         </nav>
 
         {/* Mobile hamburger */}
@@ -62,7 +101,7 @@ export default function SignalHeader() {
 
       {/* Mobile slide-down menu */}
       <div
-        className={`md:hidden overflow-hidden transition-[max-height] duration-200 ease-in-out ${menuOpen ? "max-h-40" : "max-h-0"}`}
+        className={`md:hidden overflow-hidden transition-[max-height] duration-200 ease-in-out ${menuOpen ? "max-h-60" : "max-h-0"}`}
       >
         <nav className="flex flex-col gap-1 px-4 pb-3 pt-1 font-[Arial,sans-serif] text-sm border-t border-gray-100">
           <button
@@ -81,6 +120,30 @@ export default function SignalHeader() {
           >
             CivicScale
           </Link>
+          {session ? (
+            <>
+              <div className="text-gray-500 text-xs py-2 px-2 truncate">
+                {userDisplay}
+              </div>
+              <button
+                onClick={() => {
+                  onSignOut?.();
+                  setMenuOpen(false);
+                }}
+                className="text-left text-red-500 hover:bg-red-50 bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
+              >
+                Sign out
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/signal/login"
+              onClick={() => setMenuOpen(false)}
+              className="text-[#0D7377] hover:bg-gray-50 no-underline py-2.5 px-2 rounded-lg transition-colors font-medium"
+            >
+              Sign in
+            </Link>
+          )}
         </nav>
       </div>
     </header>
