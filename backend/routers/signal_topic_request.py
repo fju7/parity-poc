@@ -60,7 +60,7 @@ def _check_premium(user_id: str):
 class TopicRequestCreate(BaseModel):
     topic_name: str
     description: str
-    source_urls: Optional[List[str]] = []
+    reference_urls: Optional[List[str]] = []
 
 
 @router.post("/topic-requests")
@@ -81,16 +81,16 @@ async def create_topic_request(body: TopicRequestCreate, request: Request):
     if len(description) > 2000:
         raise HTTPException(status_code=400, detail="Description too long (max 2000 chars)")
 
-    # Clean up source URLs — filter out empty strings
-    source_urls = [u.strip() for u in (body.source_urls or []) if u.strip()]
+    # Clean up reference URLs — filter out empty strings
+    reference_urls = [u.strip() for u in (body.reference_urls or []) if u.strip()]
 
     sb = _get_sb()
     result = sb.table("signal_topic_requests").insert({
         "user_id": str(user.id),
         "topic_name": topic_name,
         "description": description,
-        "source_urls": source_urls,
-        "status": "pending",
+        "reference_urls": reference_urls,
+        "status": "submitted",
     }).execute()
 
     if not result.data:

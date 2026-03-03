@@ -41,7 +41,7 @@ export default function TopicRequestForm({ session, userTier }) {
         body: JSON.stringify({
           topic_name: topicName.trim(),
           description: description.trim(),
-          source_urls: urls,
+          reference_urls: urls,
         }),
       });
 
