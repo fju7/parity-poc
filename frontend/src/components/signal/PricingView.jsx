@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
+const TIER_RANK = { free: 0, standard: 1, premium: 2 };
+
 const TIERS = [
   {
     name: "Free",
@@ -14,7 +16,6 @@ const TIERS = [
       "Summary & key takeaways",
       "Basic anomaly scores",
     ],
-    cta: "Current Plan",
     accent: false,
   },
   {
@@ -29,7 +30,6 @@ const TIERS = [
       "Consensus indicators",
       "Email support",
     ],
-    cta: "Get Started",
     accent: true,
   },
   {
@@ -44,7 +44,6 @@ const TIERS = [
       "API access (coming soon)",
       "Priority support",
     ],
-    cta: "Get Started",
     accent: false,
   },
 ];
@@ -54,10 +53,17 @@ export default function PricingView({ session, userTier }) {
   const [searchParams] = useSearchParams();
   const [annual, setAnnual] = useState(false);
   const [loadingKey, setLoadingKey] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const currentTier = userTier || "free";
   // Return path: use ?from= param if present, otherwise default to pricing
   const returnPath = searchParams.get("from") || "/signal/pricing";
+
+  function getCta(tierKey) {
+    if (tierKey === currentTier) return "Current Plan";
+    if (TIER_RANK[tierKey] > TIER_RANK[currentTier]) return "Upgrade";
+    return "Downgrade";
+  }
 
   async function handleCheckout(tierKey) {
     if (!session) {
@@ -67,6 +73,7 @@ export default function PricingView({ session, userTier }) {
 
     const priceKey = `${tierKey}_${annual ? "annual" : "monthly"}`;
     setLoadingKey(priceKey);
+    setMessage(null);
 
     try {
       const res = await fetch(`${API_BASE}/api/signal/stripe/checkout`, {
@@ -80,9 +87,36 @@ export default function PricingView({ session, userTier }) {
 
       if (!res.ok) throw new Error("Checkout failed");
 
-      const { checkout_url } = await res.json();
-      window.location.href = checkout_url;
+      const data = await res.json();
+
+      if (data.checkout_url) {
+        // New subscription — redirect to Stripe Checkout
+        window.location.href = data.checkout_url;
+        return;
+      }
+
+      if (data.action === "upgraded") {
+        setMessage({
+          type: "success",
+          text: `Upgraded to ${data.tier.charAt(0).toUpperCase() + data.tier.slice(1)}! Your new features are available now.`,
+        });
+        // Tier will refresh via the checkout_success flow or page reload
+        setTimeout(() => window.location.reload(), 1500);
+        return;
+      }
+
+      if (data.action === "downgraded_scheduled") {
+        const effectiveDate = data.effective_date
+          ? new Date(data.effective_date * 1000).toLocaleDateString()
+          : "the end of your billing period";
+        setMessage({
+          type: "info",
+          text: `Plan change scheduled. You'll keep ${data.tier.charAt(0).toUpperCase() + data.tier.slice(1)} access until ${effectiveDate}, then switch to ${data.new_tier.charAt(0).toUpperCase() + data.new_tier.slice(1)}.`,
+        });
+      }
     } catch {
+      setMessage({ type: "error", text: "Something went wrong. Please try again." });
+    } finally {
       setLoadingKey(null);
     }
   }
@@ -126,6 +160,21 @@ export default function PricingView({ session, userTier }) {
         </div>
       </div>
 
+      {/* Status message */}
+      {message && (
+        <div
+          className={`mb-6 p-4 rounded-xl text-sm ${
+            message.type === "success"
+              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+              : message.type === "error"
+                ? "bg-red-50 text-red-700 border border-red-200"
+                : "bg-blue-50 text-blue-700 border border-blue-200"
+          }`}
+        >
+          {message.text}
+        </div>
+      )}
+
       {/* Tier cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {TIERS.map((tier) => {
@@ -133,6 +182,8 @@ export default function PricingView({ session, userTier }) {
           const isCurrentTier = currentTier === tier.key;
           const priceKey = `${tier.key}_${annual ? "annual" : "monthly"}`;
           const isLoading = loadingKey === priceKey;
+          const cta = getCta(tier.key);
+          const isDowngrade = TIER_RANK[tier.key] < TIER_RANK[currentTier];
 
           return (
             <div
@@ -201,12 +252,14 @@ export default function PricingView({ session, userTier }) {
                   className={`w-full py-2.5 rounded-lg text-sm font-semibold border-none cursor-pointer transition-colors ${
                     isCurrentTier
                       ? "bg-gray-100 text-gray-400 cursor-default"
-                      : tier.accent
-                        ? "bg-[#0D7377] hover:bg-[#0B6265] text-white"
-                        : "bg-[#1B3A5C] hover:bg-[#162f4a] text-white"
+                      : isDowngrade
+                        ? "bg-gray-200 hover:bg-gray-300 text-gray-600"
+                        : tier.accent
+                          ? "bg-[#0D7377] hover:bg-[#0B6265] text-white"
+                          : "bg-[#1B3A5C] hover:bg-[#162f4a] text-white"
                   } ${isLoading ? "opacity-60 cursor-wait" : ""}`}
                 >
-                  {isCurrentTier ? "Current Plan" : isLoading ? "Redirecting..." : tier.cta}
+                  {isCurrentTier ? "Current Plan" : isLoading ? "Processing..." : cta}
                 </button>
               )}
             </div>

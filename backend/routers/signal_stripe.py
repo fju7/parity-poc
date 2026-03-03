@@ -1,7 +1,8 @@
 """Parity Signal — Stripe subscription endpoints.
 
-Handles checkout session creation, customer portal access,
-tier lookup, and webhook processing for subscription lifecycle.
+Handles checkout session creation, plan upgrades/downgrades,
+customer portal access, tier lookup, and webhook processing
+for subscription lifecycle.
 """
 
 import os
@@ -24,6 +25,8 @@ PRICE_IDS = {
     "premium_monthly": os.environ.get("STRIPE_PRICE_PREMIUM_MONTHLY", ""),
     "premium_annual": os.environ.get("STRIPE_PRICE_PREMIUM_ANNUAL", ""),
 }
+
+TIER_RANK = {"free": 0, "standard": 1, "premium": 2}
 
 # Lazy Supabase client
 _sb = None
@@ -95,9 +98,34 @@ class CheckoutRequest(BaseModel):
     return_path: str = "/signal/pricing"  # where to redirect after checkout
 
 
+def _get_active_subscription(user_id: str):
+    """Return the user's DB subscription row and live Stripe subscription, or (None, None)."""
+    sb = _get_sb()
+    result = sb.table("signal_subscriptions").select(
+        "tier, stripe_subscription_id, current_period_end"
+    ).eq("user_id", user_id).execute()
+
+    if not result.data:
+        return None, None
+
+    row = result.data[0]
+    sub_id = row.get("stripe_subscription_id")
+    if not sub_id:
+        return row, None
+
+    try:
+        sub = stripe.Subscription.retrieve(sub_id)
+        if sub.status in ("active", "trialing"):
+            return row, sub
+    except Exception:
+        pass
+
+    return row, None
+
+
 @router.post("/checkout")
 async def create_checkout(body: CheckoutRequest, request: Request):
-    """Create a Stripe Checkout session and return the URL."""
+    """Create a Stripe Checkout session, or modify an existing subscription."""
     user = await _get_authenticated_user(request)
 
     price_id = PRICE_IDS.get(body.price_key)
@@ -105,8 +133,48 @@ async def create_checkout(body: CheckoutRequest, request: Request):
         raise HTTPException(status_code=400, detail="Invalid price key")
 
     customer_id = _get_or_create_stripe_customer(user)
+    new_tier = body.price_key.split("_")[0]  # "standard" or "premium"
 
-    # Ensure return_path starts with / and stays on-site
+    # Check for existing active subscription
+    db_row, stripe_sub = _get_active_subscription(str(user.id))
+    current_tier = (db_row or {}).get("tier", "free")
+
+    if stripe_sub:
+        # User already has an active subscription — modify it
+        item_id = stripe_sub["items"]["data"][0]["id"]
+        is_upgrade = TIER_RANK.get(new_tier, 0) > TIER_RANK.get(current_tier, 0)
+
+        if is_upgrade:
+            # Upgrade: apply immediately with proration
+            updated_sub = stripe.Subscription.modify(
+                stripe_sub.id,
+                items=[{"id": item_id, "price": price_id}],
+                proration_behavior="create_prorations",
+            )
+            # Update DB tier immediately
+            sb = _get_sb()
+            sb.table("signal_subscriptions").update({
+                "tier": new_tier,
+                "current_period_end": updated_sub.current_period_end,
+            }).eq("user_id", str(user.id)).execute()
+
+            return {"action": "upgraded", "tier": new_tier}
+        else:
+            # Downgrade: change price but no proration — takes effect next invoice
+            updated_sub = stripe.Subscription.modify(
+                stripe_sub.id,
+                items=[{"id": item_id, "price": price_id}],
+                proration_behavior="none",
+            )
+            # Keep current tier in DB until period ends
+            return {
+                "action": "downgraded_scheduled",
+                "tier": current_tier,
+                "new_tier": new_tier,
+                "effective_date": updated_sub.current_period_end,
+            }
+
+    # No active subscription — create Checkout session for new subscribers
     return_path = body.return_path if body.return_path.startswith("/") else "/signal/pricing"
     separator = "&" if "?" in return_path else "?"
 
@@ -211,12 +279,12 @@ async def stripe_webhook(request: Request):
         subscription_id = obj.get("id")
         status = obj.get("status")  # active, past_due, canceled, etc.
         price_id = obj["items"]["data"][0]["price"]["id"] if obj.get("items", {}).get("data") else ""
-        tier = _tier_from_price_id(price_id)
+        new_tier = _tier_from_price_id(price_id)
         period_end = obj.get("current_period_end")
 
         # Map Stripe status to our simplified status
         if event_type == "customer.subscription.deleted" or status == "canceled":
-            tier = "free"
+            new_tier = "free"
             mapped_status = "canceled"
         elif status == "past_due":
             mapped_status = "past_due"
@@ -224,16 +292,35 @@ async def stripe_webhook(request: Request):
             mapped_status = "active"
 
         # Find user by subscription_id
-        result = sb.table("signal_subscriptions").select("user_id").eq(
+        result = sb.table("signal_subscriptions").select(
+            "user_id, tier, current_period_end"
+        ).eq(
             "stripe_subscription_id", subscription_id
         ).execute()
 
         if result.data:
-            sb.table("signal_subscriptions").update({
-                "tier": tier,
-                "status": mapped_status,
-                "current_period_end": period_end,
-            }).eq("stripe_subscription_id", subscription_id).execute()
+            current_db_tier = result.data[0].get("tier", "free")
+            db_period_end = result.data[0].get("current_period_end")
+
+            # For downgrades (new tier lower than current DB tier): only apply
+            # the tier change when the billing period rolls over, so the user
+            # keeps their current tier for the remainder of the paid period.
+            if (mapped_status == "active"
+                    and TIER_RANK.get(new_tier, 0) < TIER_RANK.get(current_db_tier, 0)
+                    and db_period_end
+                    and period_end == db_period_end):
+                # Same period — this is the mid-cycle downgrade event.
+                # Update status but keep the current (higher) tier.
+                sb.table("signal_subscriptions").update({
+                    "status": mapped_status,
+                }).eq("stripe_subscription_id", subscription_id).execute()
+            else:
+                # Upgrade, cancellation, new period, or no previous period — apply fully
+                sb.table("signal_subscriptions").update({
+                    "tier": new_tier,
+                    "status": mapped_status,
+                    "current_period_end": period_end,
+                }).eq("stripe_subscription_id", subscription_id).execute()
 
     elif event_type == "invoice.payment_failed":
         subscription_id = obj.get("subscription")
