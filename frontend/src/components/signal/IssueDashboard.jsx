@@ -553,13 +553,6 @@ export default function IssueDashboard({
         </div>
       )}
 
-      {/* Q&A — Premium feature */}
-      {issue && (
-        <div className="mb-6">
-          <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} />
-        </div>
-      )}
-
       {/* Category tabs */}
       {categories.length > 0 && (
         <div className="mb-6">
@@ -631,6 +624,13 @@ export default function IssueDashboard({
               </div>
             )}
           </div>
+
+          {/* Q&A — Premium feature */}
+          {issue && (
+            <div>
+              <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} />
+            </div>
+          )}
 
           {/* Claims list — collapsed by default */}
           {claimsExpanded && (
