@@ -44,6 +44,8 @@ from pathlib import Path
 # Add backend/ to sys.path so we can import supabase_client
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+from topic_config import get_topic
+
 SCORING_MODEL = "claude-sonnet-4-6"
 BACKOFF_DELAYS = [2, 5, 10]
 
@@ -149,16 +151,15 @@ def _get_supabase():
     return sb
 
 
-def load_claims_with_sources(sb) -> tuple[str, list[dict]]:
-    """Load all claims for the GLP-1 issue with their supporting sources.
+def load_claims_with_sources(sb, issue_slug: str) -> tuple[str, list[dict]]:
+    """Load all claims for the given issue with their supporting sources.
 
     Returns (issue_id, claims_list) where each claim dict has:
       id, claim_text, category, specificity, sources: [{title, source_type, publication_date}]
     """
-    # Get the GLP-1 issue
-    resp = sb.table("signal_issues").select("id").eq("slug", "glp1-drugs").execute()
+    resp = sb.table("signal_issues").select("id").eq("slug", issue_slug).execute()
     if not resp.data:
-        print("ERROR: No 'glp1-drugs' issue found. Run extract_claims.py first.")
+        print(f"ERROR: No '{issue_slug}' issue found. Run extract_claims.py first.")
         sys.exit(1)
     issue_id = resp.data[0]["id"]
 
@@ -518,7 +519,7 @@ def store_composites(sb, composites: list[dict]) -> int:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Score GLP-1 claims across six evidence dimensions using Claude API."
+        description="Score claims across six evidence dimensions using Claude API."
     )
     parser.add_argument(
         "--dry-run",
@@ -542,10 +543,20 @@ def main():
         default=DEFAULT_BATCH_SIZE,
         help=f"Claims per Claude API call (default: {DEFAULT_BATCH_SIZE})",
     )
+    parser.add_argument(
+        "--issue-slug",
+        type=str,
+        default="glp1-drugs",
+        help="Topic slug (default: glp1-drugs)",
+    )
     args = parser.parse_args()
 
+    issue_slug = args.issue_slug
+    topic = get_topic(issue_slug)
+    print(f"Topic: {topic['title']} ({issue_slug})")
+
     sb = _get_supabase()
-    issue_id, claims = load_claims_with_sources(sb)
+    issue_id, claims = load_claims_with_sources(sb, issue_slug)
 
     if args.limit:
         claims = claims[:args.limit]

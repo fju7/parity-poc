@@ -36,7 +36,8 @@ from pathlib import Path
 # Add backend/ to sys.path so we can import supabase_client
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-SNAPSHOT_PATH = Path(__file__).resolve().parent.parent.parent / "data" / "signal" / "pipeline_snapshot.json"
+from topic_config import get_topic, get_snapshot_path
+
 DEFAULT_THRESHOLD = 0.5
 
 EVIDENCE_CATEGORIES = [
@@ -73,15 +74,14 @@ def _score_to_category(score: float) -> str:
 # Load current state from Supabase
 # ---------------------------------------------------------------------------
 
-def load_current_state(sb) -> dict:
+def load_current_state(sb, issue_slug: str) -> dict:
     """Read current claims, composites, consensus, and sources from Supabase.
 
     Returns a dict matching the snapshot schema.
     """
-    # Get the GLP-1 issue
-    resp = sb.table("signal_issues").select("id").eq("slug", "glp1-drugs").execute()
+    resp = sb.table("signal_issues").select("id").eq("slug", issue_slug).execute()
     if not resp.data:
-        print("ERROR: No 'glp1-drugs' issue found. Run earlier pipeline steps first.")
+        print(f"ERROR: No '{issue_slug}' issue found. Run earlier pipeline steps first.")
         sys.exit(1)
     issue_id = resp.data[0]["id"]
 
@@ -151,24 +151,24 @@ def load_current_state(sb) -> dict:
 # Snapshot I/O
 # ---------------------------------------------------------------------------
 
-def load_snapshot() -> dict | None:
+def load_snapshot(snapshot_path: Path) -> dict | None:
     """Read previous snapshot from JSON file. Returns None if first run."""
-    if not SNAPSHOT_PATH.exists():
+    if not snapshot_path.exists():
         return None
     try:
-        with open(SNAPSHOT_PATH, "r") as f:
+        with open(snapshot_path, "r") as f:
             return json.load(f)
     except (json.JSONDecodeError, OSError) as exc:
         print(f"  [WARN] Could not read snapshot: {exc}")
         return None
 
 
-def save_snapshot(state: dict) -> None:
+def save_snapshot(state: dict, snapshot_path: Path) -> None:
     """Write current state as the new snapshot."""
-    SNAPSHOT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(SNAPSHOT_PATH, "w") as f:
+    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(snapshot_path, "w") as f:
         json.dump(state, f, indent=2)
-    print(f"Snapshot saved to {SNAPSHOT_PATH}")
+    print(f"Snapshot saved to {snapshot_path}")
 
 
 # ---------------------------------------------------------------------------
@@ -332,20 +332,31 @@ def main():
         default=DEFAULT_THRESHOLD,
         help=f"Score shift threshold (default: {DEFAULT_THRESHOLD})",
     )
+    parser.add_argument(
+        "--issue-slug",
+        type=str,
+        default="glp1-drugs",
+        help="Topic slug (default: glp1-drugs)",
+    )
     args = parser.parse_args()
 
+    issue_slug = args.issue_slug
+    topic = get_topic(issue_slug)
+    snapshot_path = get_snapshot_path(issue_slug)
+    print(f"Topic: {topic['title']} ({issue_slug})")
+
     sb = _get_supabase()
-    current = load_current_state(sb)
+    current = load_current_state(sb, issue_slug)
 
     # Load previous snapshot
-    previous = load_snapshot()
+    previous = load_snapshot(snapshot_path)
 
     if previous is None:
         print(f"\nNo previous snapshot found — this is the first run (baseline).")
         if args.dry_run:
             print("  [DRY RUN] Would save baseline snapshot. No changes to detect.")
             return
-        save_snapshot(current)
+        save_snapshot(current, snapshot_path)
         print("Baseline snapshot saved. No changes to detect on first run.")
         return
 
@@ -398,7 +409,7 @@ def main():
     # --- Store changes ---
     if not all_changes:
         print(f"\nNo changes detected.")
-        save_snapshot(current)
+        save_snapshot(current, snapshot_path)
         return
 
     print(f"\nDetected {len(all_changes)} changes. Storing...")

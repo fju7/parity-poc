@@ -1,18 +1,20 @@
 """
-Parity Signal: Collect and load GLP-1 source library into Supabase.
+Parity Signal: Collect and load source library into Supabase.
 
-Reads the curated source manifest from data/signal/sources/glp1_sources.json
-and loads each source into the signal_sources table. Creates the GLP-1 issue
-row in signal_issues if it doesn't already exist.
+Reads the curated source manifest for the specified topic and loads each
+source into the signal_sources table. Creates the issue row in
+signal_issues if it doesn't already exist.
 
 Usage:
     cd backend
     python3 scripts/signal/collect_sources.py [--dry-run] [--fetch-content] [--slugs slug1,slug2]
+    python3 scripts/signal/collect_sources.py --issue-slug breast-cancer-therapies
 
 Flags:
     --dry-run         Print what would be inserted without touching Supabase
     --fetch-content   Attempt to fetch full text for fetchable sources
     --slugs           Comma-separated list of slugs to process (default: all)
+    --issue-slug      Topic slug (default: glp1-drugs)
 """
 from __future__ import annotations
 
@@ -33,19 +35,7 @@ try:
 except ImportError:
     _HTTP_CLIENT = "urllib"
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-MANIFEST_PATH = PROJECT_ROOT / "data" / "signal" / "sources" / "glp1_sources.json"
-
-GLP1_ISSUE = {
-    "slug": "glp1-drugs",
-    "title": "GLP-1 Receptor Agonist Drugs",
-    "description": (
-        "Evidence assessment of GLP-1 receptor agonist medications "
-        "(semaglutide/Ozempic/Wegovy, tirzepatide/Mounjaro/Zepbound) "
-        "for obesity, diabetes, and cardiovascular outcomes."
-    ),
-    "status": "draft",
-}
+from topic_config import get_topic, get_manifest_path
 
 HTTP_TIMEOUT = 15  # seconds
 FETCH_DELAY = 1.0  # seconds between fetches (rate-limit courtesy)
@@ -244,7 +234,7 @@ def fetch_content(source: dict) -> str | None:
 # Manifest loading
 # ---------------------------------------------------------------------------
 
-def load_manifest(path: Path = MANIFEST_PATH) -> list[dict]:
+def load_manifest(path: Path) -> list[dict]:
     """Read and validate the source manifest JSON."""
     if not path.exists():
         raise FileNotFoundError(f"Manifest not found at {path}")
@@ -263,17 +253,24 @@ def load_manifest(path: Path = MANIFEST_PATH) -> list[dict]:
 # Supabase operations
 # ---------------------------------------------------------------------------
 
-def ensure_glp1_issue(sb) -> str:
-    """Create or retrieve the GLP-1 issue row. Returns the issue UUID."""
-    resp = sb.table("signal_issues").select("id").eq("slug", GLP1_ISSUE["slug"]).execute()
+def ensure_issue(sb, topic: dict) -> str:
+    """Create or retrieve the issue row for the given topic. Returns the issue UUID."""
+    slug = topic["slug"]
+    resp = sb.table("signal_issues").select("id").eq("slug", slug).execute()
     if resp.data:
         issue_id = resp.data[0]["id"]
-        print(f"Found existing issue: {GLP1_ISSUE['slug']} ({issue_id})")
+        print(f"Found existing issue: {slug} ({issue_id})")
         return issue_id
 
-    resp = sb.table("signal_issues").insert(GLP1_ISSUE).execute()
+    issue_row = {
+        "slug": slug,
+        "title": topic["title"],
+        "description": topic["description"],
+        "status": "draft",
+    }
+    resp = sb.table("signal_issues").insert(issue_row).execute()
     issue_id = resp.data[0]["id"]
-    print(f"Created issue: {GLP1_ISSUE['slug']} ({issue_id})")
+    print(f"Created issue: {slug} ({issue_id})")
     return issue_id
 
 
@@ -377,7 +374,7 @@ def load_sources(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Load GLP-1 source library into Supabase signal_sources table."
+        description="Load source library into Supabase signal_sources table."
     )
     parser.add_argument(
         "--dry-run",
@@ -395,10 +392,21 @@ def main():
         default="",
         help="Comma-separated list of slugs to process (default: all)",
     )
+    parser.add_argument(
+        "--issue-slug",
+        type=str,
+        default="glp1-drugs",
+        help="Topic slug (default: glp1-drugs)",
+    )
     args = parser.parse_args()
 
+    # Resolve topic config
+    topic = get_topic(args.issue_slug)
+    manifest_path = get_manifest_path(args.issue_slug)
+    print(f"Topic: {topic['title']} ({args.issue_slug})")
+
     # Load manifest
-    sources = load_manifest()
+    sources = load_manifest(manifest_path)
 
     # Filter by slugs if specified
     if args.slugs:
@@ -430,7 +438,7 @@ def main():
             print("  export SUPABASE_SERVICE_KEY=your_service_role_key_here")
             sys.exit(1)
 
-        issue_id = ensure_glp1_issue(sb)
+        issue_id = ensure_issue(sb, topic)
         existing_slugs = get_existing_slugs(sb, issue_id)
         loaded, skipped, failed = load_sources(
             sb, sources, issue_id, existing_slugs, args.fetch_content, dry_run=False

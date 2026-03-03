@@ -1,5 +1,5 @@
 """
-Parity Signal: Extract factual claims from GLP-1 sources using Claude API.
+Parity Signal: Extract factual claims from sources using Claude API.
 
 Two-phase pipeline:
   Phase 1 — Send each source's title/summary/key_findings to Claude, get 2-6
@@ -16,7 +16,8 @@ Usage:
     python scripts/signal/extract_claims.py --dry-run
     python scripts/signal/extract_claims.py --phase extract --limit 3
     python scripts/signal/extract_claims.py
-    python scripts/signal/extract_claims.py --force   # re-extract (clears existing)
+    python scripts/signal/extract_claims.py --force
+    python scripts/signal/extract_claims.py --issue-slug breast-cancer-therapies
 """
 from __future__ import annotations
 
@@ -32,9 +33,10 @@ from pathlib import Path
 # Add backend/ to sys.path so we can import supabase_client
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+from topic_config import get_topic
+
 EXTRACTION_MODEL = "claude-sonnet-4-6"
 BACKOFF_DELAYS = [2, 5, 10]
-CATEGORIES = ["efficacy", "safety", "cardiovascular", "pricing", "regulatory", "emerging"]
 
 # ---------------------------------------------------------------------------
 # Anthropic Claude client (lazy singleton)
@@ -118,16 +120,15 @@ def _get_supabase():
     return sb
 
 
-def get_issue_and_sources(sb) -> tuple[str, list[dict]]:
-    """Read the GLP-1 issue and all its sources from Supabase.
+def get_issue_and_sources(sb, issue_slug: str) -> tuple[str, list[dict]]:
+    """Read the issue and all its sources from Supabase.
 
     Returns (issue_id, sources_list) where each source dict has:
       id, title, content_text, metadata (with slug, key_findings, etc.)
     """
-    # Get the GLP-1 issue
-    resp = sb.table("signal_issues").select("id").eq("slug", "glp1-drugs").execute()
+    resp = sb.table("signal_issues").select("id").eq("slug", issue_slug).execute()
     if not resp.data:
-        print("ERROR: No 'glp1-drugs' issue found in signal_issues.")
+        print(f"ERROR: No '{issue_slug}' issue found in signal_issues.")
         print("Run collect_sources.py first to load the source library.")
         sys.exit(1)
     issue_id = resp.data[0]["id"]
@@ -141,7 +142,7 @@ def get_issue_and_sources(sb) -> tuple[str, list[dict]]:
     )
     sources = resp.data or []
     if not sources:
-        print("ERROR: No sources found for the GLP-1 issue.")
+        print(f"ERROR: No sources found for issue '{issue_slug}'.")
         print("Run collect_sources.py first to load the source library.")
         sys.exit(1)
 
@@ -240,17 +241,17 @@ def store_claims(sb, issue_id: str, final_claims: list[dict], source_id_by_slug:
 # Phase 1: Extract raw claims per source
 # ---------------------------------------------------------------------------
 
-EXTRACT_SYSTEM_PROMPT = """You are an evidence analyst. Extract discrete factual claims from this source about GLP-1 receptor agonist drugs.
+def _build_extract_system_prompt(topic: dict) -> str:
+    """Build the extraction system prompt dynamically from topic config."""
+    categories_text = "\n".join(f"- {cat}" for cat in topic["categories"])
+    return f"""You are an evidence analyst. Extract discrete factual claims from this source about {topic['prompt_subject']}.
 
 A claim is a specific, testable assertion of fact — not a summary, opinion, or recommendation.
 
+Context: {topic['prompt_detail']}
+
 Categories (pick exactly one per claim):
-- efficacy: treatment outcomes, weight loss, A1C reduction, dose-response
-- safety: adverse events, side effects, contraindications, warnings
-- cardiovascular: heart outcomes, MACE, blood pressure, heart failure
-- pricing: cost, insurance coverage, market dynamics, affordability
-- regulatory: FDA approvals, labeling changes, indications, policy
-- emerging: new formulations, pipeline drugs, novel applications
+{categories_text}
 
 Specificity:
 - quantitative: claim contains specific numbers, percentages, or statistical results
@@ -258,16 +259,16 @@ Specificity:
 - mixed: claim has some numbers but key part is qualitative
 
 Return a JSON array of 2-6 claims. Each claim object:
-{
+{{
   "claim_text": "The specific factual assertion (one sentence, precise)",
-  "category": "one of the six categories above",
+  "category": "one of the categories above",
   "specificity": "quantitative|qualitative|mixed",
   "source_context": "The key phrase or sentence from the source that supports this claim"
-}
+}}
 
 Rules:
 - Each claim must be independently understandable (no pronouns referring to the source)
-- Include drug names when relevant (semaglutide, tirzepatide, etc.)
+- Include specific names (drugs, studies, platforms, etc.) when relevant
 - Quantitative claims should preserve exact numbers from the source
 - Do not invent facts not present in the source material
 - Prefer claims that would be useful for evidence assessment"""
@@ -298,7 +299,7 @@ def _build_source_text(source: dict) -> str:
     return "\n".join(parts)
 
 
-def extract_from_source(source: dict) -> list[dict] | None:
+def extract_from_source(source: dict, system_prompt: str) -> list[dict] | None:
     """Phase 1: Send one source to Claude, get back 2-6 raw claims.
 
     Returns list of claim dicts with source slug attached, or None on failure.
@@ -307,7 +308,7 @@ def extract_from_source(source: dict) -> list[dict] | None:
     slug = meta.get("slug", "unknown")
 
     user_text = _build_source_text(source)
-    result = _call_claude(EXTRACT_SYSTEM_PROMPT, user_text)
+    result = _call_claude(system_prompt, user_text)
 
     if result is None:
         print(f"  [FAIL] No response for source: {slug}")
@@ -331,7 +332,9 @@ def extract_from_source(source: dict) -> list[dict] | None:
 # Phase 2: Deduplicate by category
 # ---------------------------------------------------------------------------
 
-DEDUP_SYSTEM_PROMPT = """You are an evidence analyst. Review these candidate claims about GLP-1 drugs and merge any that assert the same fact.
+def _build_dedup_system_prompt(topic: dict) -> str:
+    """Build the deduplication system prompt dynamically from topic config."""
+    return f"""You are an evidence analyst. Review these candidate claims about {topic['prompt_subject']} and merge any that assert the same fact.
 
 Rules:
 - Two claims are duplicates if they assert the same core fact, even if worded differently
@@ -342,16 +345,16 @@ Rules:
 - Keep claims that are related but assert different facts as separate entries
 
 Return a JSON array of deduplicated claims. Each object:
-{
+{{
   "claim_text": "The most precise version of this claim",
   "category": "the category (same for all in this batch)",
   "specificity": "quantitative|qualitative|mixed",
   "source_slugs": ["slug1", "slug2"],
-  "source_contexts": {"slug1": "supporting passage", "slug2": "supporting passage"}
-}"""
+  "source_contexts": {{"slug1": "supporting passage", "slug2": "supporting passage"}}
+}}"""
 
 
-def deduplicate_category(category: str, raw_claims: list[dict]) -> list[dict] | None:
+def deduplicate_category(category: str, raw_claims: list[dict], dedup_prompt: str) -> list[dict] | None:
     """Phase 2: Send all raw claims in one category to Claude for dedup.
 
     Returns list of deduplicated claim dicts, or None on failure.
@@ -374,7 +377,7 @@ def deduplicate_category(category: str, raw_claims: list[dict]) -> list[dict] | 
         f"Candidate claims:\n{json.dumps(claims_for_prompt, indent=2)}"
     )
 
-    result = _call_claude(DEDUP_SYSTEM_PROMPT, user_text, max_tokens=8192)
+    result = _call_claude(dedup_prompt, user_text, max_tokens=8192)
 
     if result is None:
         print(f"  [FAIL] Dedup failed for category: {category}")
@@ -399,7 +402,7 @@ def deduplicate_category(category: str, raw_claims: list[dict]) -> list[dict] | 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Extract factual claims from GLP-1 sources using Claude API."
+        description="Extract factual claims from sources using Claude API."
     )
     parser.add_argument(
         "--dry-run",
@@ -423,13 +426,25 @@ def main():
         action="store_true",
         help="Clear existing claims before re-extracting",
     )
+    parser.add_argument(
+        "--issue-slug",
+        type=str,
+        default="glp1-drugs",
+        help="Topic slug (default: glp1-drugs)",
+    )
     args = parser.parse_args()
+
+    # Resolve topic config
+    issue_slug = args.issue_slug
+    topic = get_topic(issue_slug)
+    categories = topic["categories"]
+    print(f"Topic: {topic['title']} ({issue_slug})")
 
     # --- Dry run mode ---
     if args.dry_run:
         print("\n--- DRY RUN MODE (no API calls, no DB writes) ---\n")
         sb = _get_supabase()
-        issue_id, sources = get_issue_and_sources(sb)
+        issue_id, sources = get_issue_and_sources(sb, issue_slug)
 
         if args.limit:
             sources = sources[:args.limit]
@@ -438,7 +453,7 @@ def main():
         print(f"Existing claims in DB: {len(existing)}")
         print(f"Sources to process: {len(sources)}")
         print(f"\nPhase 1 would extract claims from {len(sources)} sources")
-        print(f"Phase 2 would deduplicate across {len(CATEGORIES)} categories")
+        print(f"Phase 2 would deduplicate across {len(categories)} categories")
         print(f"Estimated raw claims: {len(sources) * 3}-{len(sources) * 6}")
 
         for i, src in enumerate(sources, 1):
@@ -453,7 +468,7 @@ def main():
 
     # --- Live mode ---
     sb = _get_supabase()
-    issue_id, sources = get_issue_and_sources(sb)
+    issue_id, sources = get_issue_and_sources(sb, issue_slug)
 
     # Build slug -> source_id mapping
     source_id_by_slug = {}
@@ -479,6 +494,10 @@ def main():
         sources = sources[:args.limit]
         print(f"Limited to first {args.limit} sources")
 
+    # Build topic-specific prompts
+    extract_prompt = _build_extract_system_prompt(topic)
+    dedup_prompt = _build_dedup_system_prompt(topic)
+
     # =======================================================================
     # Phase 1: Extract raw claims per source
     # =======================================================================
@@ -497,7 +516,7 @@ def main():
             slug = meta.get("slug", "?")
             print(f"[{i:>2}/{len(sources)}] Extracting from: {slug}...")
 
-            claims = extract_from_source(source)
+            claims = extract_from_source(source, extract_prompt)
             if claims:
                 raw_claims.extend(claims)
                 print(f"  -> {len(claims)} claims extracted")
@@ -517,7 +536,7 @@ def main():
         for c in raw_claims:
             cat_counts[c.get("category", "unknown")] += 1
         print("Category distribution:")
-        for cat in CATEGORIES:
+        for cat in categories:
             print(f"  {cat}: {cat_counts.get(cat, 0)}")
 
     # If phase=extract only, store raw claims directly (no dedup)
@@ -550,25 +569,25 @@ def main():
             sys.exit(1)
 
         print(f"\n{'='*60}")
-        print(f"PHASE 2: Deduplicating across {len(CATEGORIES)} categories")
+        print(f"PHASE 2: Deduplicating across {len(categories)} categories")
         print(f"{'='*60}\n")
 
         # Group raw claims by category
         by_category: dict[str, list[dict]] = defaultdict(list)
         for c in raw_claims:
-            cat = c.get("category", "emerging")
-            if cat not in CATEGORIES:
-                cat = "emerging"  # fallback
+            cat = c.get("category", categories[-1])
+            if cat not in categories:
+                cat = categories[-1]  # fallback to last category
             by_category[cat].append(c)
 
-        for cat in CATEGORIES:
+        for cat in categories:
             group = by_category.get(cat, [])
             if not group:
                 print(f"[{cat}] No claims, skipping")
                 continue
 
             print(f"[{cat}] Deduplicating {len(group)} raw claims...")
-            deduped = deduplicate_category(cat, group)
+            deduped = deduplicate_category(cat, group, dedup_prompt)
 
             if deduped:
                 final_claims.extend(deduped)
@@ -610,7 +629,7 @@ def main():
         print(f"Total claims: {claims_ins}")
         print(f"Total source links: {links_ins}")
         print("By category:")
-        for cat in CATEGORIES:
+        for cat in categories:
             print(f"  {cat}: {cat_counts.get(cat, 0)}")
     else:
         print("\nNo claims to store.")

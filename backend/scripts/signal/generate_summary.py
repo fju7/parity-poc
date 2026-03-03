@@ -34,9 +34,10 @@ from pathlib import Path
 # Add backend/ to sys.path so we can import supabase_client
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+from topic_config import get_topic
+
 GENERATION_MODEL = "claude-sonnet-4-6"
 BACKOFF_DELAYS = [2, 5, 10]
-CATEGORIES = ["efficacy", "safety", "cardiovascular", "pricing", "regulatory", "emerging"]
 TOP_CLAIMS_PER_CATEGORY = 5
 
 
@@ -125,15 +126,14 @@ def _get_supabase():
 # Data loading
 # ---------------------------------------------------------------------------
 
-def load_pipeline_data(sb) -> dict:
+def load_pipeline_data(sb, issue_slug: str) -> dict:
     """Load all pipeline data needed for summary generation.
 
     Returns dict with: issue_id, issue_title, claims, composites, consensus, source_count
     """
-    # Get the GLP-1 issue
-    resp = sb.table("signal_issues").select("id, title").eq("slug", "glp1-drugs").execute()
+    resp = sb.table("signal_issues").select("id, title").eq("slug", issue_slug).execute()
     if not resp.data:
-        print("ERROR: No 'glp1-drugs' issue found. Run earlier pipeline steps first.")
+        print(f"ERROR: No '{issue_slug}' issue found. Run earlier pipeline steps first.")
         sys.exit(1)
     issue = resp.data[0]
     issue_id = issue["id"]
@@ -244,7 +244,7 @@ def build_stats(data: dict) -> dict:
     }
 
 
-def build_category_sections(data: dict) -> list[dict]:
+def build_category_sections(data: dict, categories: list[str]) -> list[dict]:
     """Assemble per-category sections with top claims."""
     claims = data["claims"]
     consensus = data["consensus"]
@@ -252,10 +252,10 @@ def build_category_sections(data: dict) -> list[dict]:
     # Group by category
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for c in claims:
-        by_cat[c.get("category", "emerging")].append(c)
+        by_cat[c.get("category", categories[-1])].append(c)
 
     sections = []
-    for cat in CATEGORIES:
+    for cat in categories:
         group = by_cat.get(cat, [])
         scored = [c for c in group if c.get("composite_score") is not None]
         scored.sort(key=lambda c: c["composite_score"], reverse=True)
@@ -298,10 +298,15 @@ def build_category_sections(data: dict) -> list[dict]:
 # Claude narrative generation (one API call)
 # ---------------------------------------------------------------------------
 
-NARRATIVE_SYSTEM_PROMPT = """You are a science communicator writing for a general audience. You are generating a summary of the current evidence on GLP-1 receptor agonist drugs (semaglutide/Ozempic/Wegovy, tirzepatide/Mounjaro/Zepbound).
+def _build_narrative_system_prompt(topic: dict) -> str:
+    """Build the narrative generation system prompt dynamically from topic config."""
+    categories_json = ",\n    ".join(f'"{cat}": "1-2 sentence key takeaway for this category"' for cat in topic["categories"])
+    return f"""You are a science communicator writing for a general audience. You are generating a summary of the current evidence on {topic['prompt_subject']}.
+
+Context: {topic['prompt_detail']}
 
 ## Rules
-- Write in plain language — no medical jargon, no acronyms without explanation
+- Write in plain language — no jargon, no acronyms without explanation
 - Do NOT express opinions or recommendations
 - Describe evidence strength and consensus, not truth
 - Be specific: include key numbers from the top claims where relevant
@@ -311,27 +316,23 @@ NARRATIVE_SYSTEM_PROMPT = """You are a science communicator writing for a genera
 ## Output Format
 
 Return a JSON object:
-{
+{{
   "overall_summary": "2-3 paragraph plain-language narrative covering all categories. Start with the big picture, then address each evidence area. End with what remains debated or uncertain.",
-  "category_takeaways": {
-    "efficacy": "1-2 sentence key takeaway for this category",
-    "safety": "...",
-    "cardiovascular": "...",
-    "pricing": "...",
-    "regulatory": "...",
-    "emerging": "..."
-  }
-}"""
+  "category_takeaways": {{
+    {categories_json}
+  }}
+}}"""
 
 
-def generate_narrative(stats: dict, sections: list[dict]) -> dict | None:
+def generate_narrative(stats: dict, sections: list[dict], topic: dict) -> dict | None:
     """Send assembled data to Claude for narrative generation.
 
     Returns {overall_summary, category_takeaways} or None on failure.
     """
+    narrative_prompt = _build_narrative_system_prompt(topic)
     # Build a condensed view of the data for Claude
     parts = [
-        f"Evidence Summary Data for GLP-1 Receptor Agonist Drugs",
+        f"Evidence Summary Data for {topic['title']}",
         f"",
         f"Overall stats:",
         f"  {stats['total_sources']} sources analyzed",
@@ -358,7 +359,7 @@ def generate_narrative(stats: dict, sections: list[dict]) -> dict | None:
         parts.append("")
 
     user_text = "\n".join(parts)
-    return _call_claude(NARRATIVE_SYSTEM_PROMPT, user_text)
+    return _call_claude(narrative_prompt, user_text)
 
 
 # ---------------------------------------------------------------------------
@@ -410,14 +411,25 @@ def main():
         action="store_true",
         help="Show assembled data without API call or DB write",
     )
+    parser.add_argument(
+        "--issue-slug",
+        type=str,
+        default="glp1-drugs",
+        help="Topic slug (default: glp1-drugs)",
+    )
     args = parser.parse_args()
 
+    issue_slug = args.issue_slug
+    topic = get_topic(issue_slug)
+    categories = topic["categories"]
+    print(f"Topic: {topic['title']} ({issue_slug})")
+
     sb = _get_supabase()
-    data = load_pipeline_data(sb)
+    data = load_pipeline_data(sb, issue_slug)
 
     # Build structured sections
     stats = build_stats(data)
-    sections = build_category_sections(data)
+    sections = build_category_sections(data, categories)
     next_version = get_next_version(sb, data["issue_id"])
 
     # --- Dry run ---
@@ -435,7 +447,7 @@ def main():
 
     # --- Generate narrative ---
     print(f"\nGenerating narrative (version {next_version})...")
-    narrative = generate_narrative(stats, sections)
+    narrative = generate_narrative(stats, sections, topic)
 
     if narrative is None:
         print("ERROR: Failed to generate narrative from Claude.")

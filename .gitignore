@@ -3,6 +3,10 @@ data/cms-pfs/
 data/cms-opps/
 data/cms-clfs/
 
+# Signal pipeline data (lives in Supabase, not git)
+data/signal/sources/
+backend/data/signal/
+
 # Test bills (NEVER commit real medical bills)
 data/test-bills/
 

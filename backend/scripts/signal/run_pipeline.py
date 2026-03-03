@@ -21,6 +21,7 @@ Usage:
     python scripts/signal/run_pipeline.py --force
     python scripts/signal/run_pipeline.py --from 3 --force
     python scripts/signal/run_pipeline.py --from 3 --to 4 --force
+    python scripts/signal/run_pipeline.py --issue-slug breast-cancer-therapies
 """
 from __future__ import annotations
 
@@ -81,11 +82,12 @@ STEPS = [
         "script": "generate_notifications.py",
         "supports_force": False,
         "supports_dry_run": True,
+        "supports_issue_slug": False,
     },
 ]
 
 
-def build_command(step: dict, dry_run: bool, force: bool) -> list[str]:
+def build_command(step: dict, dry_run: bool, force: bool, issue_slug: str) -> list[str]:
     """Build the subprocess command for a pipeline step."""
     cmd = [sys.executable, str(SCRIPTS_DIR / step["script"])]
 
@@ -95,15 +97,20 @@ def build_command(step: dict, dry_run: bool, force: bool) -> list[str]:
     if force and step["supports_force"]:
         cmd.append("--force")
 
+    # Pass --issue-slug to all steps except generate_notifications (step 7)
+    # which already queries all issues dynamically
+    if step.get("supports_issue_slug", True):
+        cmd.extend(["--issue-slug", issue_slug])
+
     return cmd
 
 
-def run_step(step: dict, dry_run: bool, force: bool) -> tuple[bool, float, str]:
+def run_step(step: dict, dry_run: bool, force: bool, issue_slug: str) -> tuple[bool, float, str]:
     """Run one pipeline step as a subprocess.
 
     Returns (success, elapsed_seconds, output_text).
     """
-    cmd = build_command(step, dry_run, force)
+    cmd = build_command(step, dry_run, force, issue_slug)
     start = time.time()
 
     result = subprocess.run(
@@ -160,6 +167,12 @@ def main():
         metavar="STEP",
         help="Stop after step N (1-7, default: 7)",
     )
+    parser.add_argument(
+        "--issue-slug",
+        type=str,
+        default="glp1-drugs",
+        help="Topic slug to run the pipeline for (default: glp1-drugs)",
+    )
     args = parser.parse_args()
 
     # Validate step range
@@ -179,9 +192,11 @@ def main():
     mode = "DRY RUN" if args.dry_run else "LIVE"
     force_label = " (--force)" if args.force else ""
     step_range = f"steps {args.from_step}-{args.to_step}" if args.from_step != 1 or args.to_step != 7 else "all steps"
+    issue_slug = args.issue_slug
 
     print(f"{'='*60}")
     print(f"PARITY SIGNAL PIPELINE — {mode}{force_label}")
+    print(f"Topic: {issue_slug}")
     print(f"Running {step_range}")
     print(f"{'='*60}\n")
 
@@ -194,7 +209,7 @@ def main():
         print(f"[Step {num}/7] {name}")
         print(f"{'-'*40}")
 
-        success, elapsed, output = run_step(step, args.dry_run, args.force)
+        success, elapsed, output = run_step(step, args.dry_run, args.force, issue_slug)
 
         # Print output indented
         for line in output.strip().split("\n"):

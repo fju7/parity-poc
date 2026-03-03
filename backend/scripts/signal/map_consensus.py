@@ -34,9 +34,10 @@ from pathlib import Path
 # Add backend/ to sys.path so we can import supabase_client
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+from topic_config import get_topic
+
 SCORING_MODEL = "claude-sonnet-4-6"
 BACKOFF_DELAYS = [2, 5, 10]
-CATEGORIES = ["efficacy", "safety", "cardiovascular", "pricing", "regulatory", "emerging"]
 
 
 # ---------------------------------------------------------------------------
@@ -120,16 +121,15 @@ def _get_supabase():
     return sb
 
 
-def load_scored_claims(sb) -> tuple[str, dict[str, list[dict]]]:
+def load_scored_claims(sb, issue_slug: str) -> tuple[str, dict[str, list[dict]]]:
     """Load all scored claims grouped by category.
 
     Returns (issue_id, {category: [claim_dicts]}) where each claim has:
       id, claim_text, category, specificity, composite_score, evidence_category
     """
-    # Get the GLP-1 issue
-    resp = sb.table("signal_issues").select("id").eq("slug", "glp1-drugs").execute()
+    resp = sb.table("signal_issues").select("id").eq("slug", issue_slug).execute()
     if not resp.data:
-        print("ERROR: No 'glp1-drugs' issue found. Run earlier pipeline steps first.")
+        print(f"ERROR: No '{issue_slug}' issue found. Run earlier pipeline steps first.")
         sys.exit(1)
     issue_id = resp.data[0]["id"]
 
@@ -208,9 +208,13 @@ def clear_existing_consensus(sb, issue_id: str) -> int:
 # Consensus mapping prompt
 # ---------------------------------------------------------------------------
 
-CONSENSUS_SYSTEM_PROMPT = """You are an evidence analyst for a medical evidence intelligence platform. You are assessing the overall consensus state for a category of claims about GLP-1 receptor agonist drugs.
+def _build_consensus_system_prompt(topic: dict) -> str:
+    """Build the consensus mapping system prompt dynamically from topic config."""
+    return f"""You are an evidence analyst for an evidence intelligence platform. You are assessing the overall consensus state for a category of claims about {topic['prompt_subject']}.
 
 You will receive a list of claims with their evidence scores. Assess whether the evidence in this category shows consensus, debate, or uncertainty.
+
+Context: {topic['prompt_detail']}
 
 ## Consensus Status Definitions
 
@@ -223,13 +227,13 @@ You will receive a list of claims with their evidence scores. Assess whether the
 ## Output Format
 
 Return a JSON object:
-{
+{{
   "consensus_status": "consensus" | "debated" | "uncertain",
   "summary_text": "2-3 sentence plain-language summary of what the evidence says in this category. Written for a general audience — no jargon. Should convey the overall direction and strength of evidence.",
   "supporting_claim_ids": ["id1", "id2", ...],
   "arguments_for": "If debated: 1-2 sentences describing the main argument supported by evidence. If not debated: null.",
   "arguments_against": "If debated: 1-2 sentences describing the opposing argument supported by evidence. If not debated: null."
-}
+}}
 
 ## Rules
 - supporting_claim_ids should include the 3-8 most informative claims for this assessment (use the claim IDs provided)
@@ -264,13 +268,13 @@ def _build_category_prompt(category: str, claims: list[dict]) -> str:
     return "\n".join(parts)
 
 
-def map_category(category: str, claims: list[dict]) -> dict | None:
+def map_category(category: str, claims: list[dict], consensus_prompt: str) -> dict | None:
     """Send category claims to Claude for consensus assessment.
 
     Returns consensus dict or None on failure.
     """
     user_text = _build_category_prompt(category, claims)
-    result = _call_claude(CONSENSUS_SYSTEM_PROMPT, user_text)
+    result = _call_claude(consensus_prompt, user_text)
 
     if result is None:
         print(f"  [FAIL] No response for category: {category}")
@@ -322,10 +326,21 @@ def main():
         action="store_true",
         help="Clear existing consensus rows before re-mapping",
     )
+    parser.add_argument(
+        "--issue-slug",
+        type=str,
+        default="glp1-drugs",
+        help="Topic slug (default: glp1-drugs)",
+    )
     args = parser.parse_args()
 
+    issue_slug = args.issue_slug
+    topic = get_topic(issue_slug)
+    categories = topic["categories"]
+    print(f"Topic: {topic['title']} ({issue_slug})")
+
     sb = _get_supabase()
-    issue_id, by_category = load_scored_claims(sb)
+    issue_id, by_category = load_scored_claims(sb, issue_slug)
 
     # --- Dry run ---
     if args.dry_run:
@@ -337,7 +352,7 @@ def main():
                 print(f"  {row['category']}: {row['consensus_status']}")
 
         print(f"\nCategories to map:")
-        for cat in CATEGORIES:
+        for cat in categories:
             group = by_category.get(cat, [])
             scored = sum(1 for c in group if c.get("composite_score") is not None)
             avg = 0
@@ -345,7 +360,7 @@ def main():
                 avg = sum(c["composite_score"] for c in group if c.get("composite_score") is not None) / scored
             print(f"  {cat}: {len(group)} claims ({scored} scored, avg composite {avg:.2f})")
 
-        print(f"\nAPI calls needed: {len([c for c in CATEGORIES if by_category.get(c)])}")
+        print(f"\nAPI calls needed: {len([c for c in categories if by_category.get(c)])}")
         return
 
     # --- Idempotency check ---
@@ -363,13 +378,14 @@ def main():
         print(f"Cleared {cleared} rows.")
 
     # --- Map each category ---
-    print(f"\nMapping consensus for {len(CATEGORIES)} categories...\n")
+    consensus_prompt = _build_consensus_system_prompt(topic)
+    print(f"\nMapping consensus for {len(categories)} categories...\n")
 
     results = {}
     succeeded = 0
     failed = 0
 
-    for cat in CATEGORIES:
+    for cat in categories:
         group = by_category.get(cat, [])
         if not group:
             print(f"[{cat}] No claims, skipping")
@@ -378,7 +394,7 @@ def main():
         scored_count = sum(1 for c in group if c.get("composite_score") is not None)
         print(f"[{cat}] Mapping {len(group)} claims ({scored_count} scored)...", end=" ", flush=True)
 
-        consensus = map_category(cat, group)
+        consensus = map_category(cat, group, consensus_prompt)
         if consensus:
             stored = store_consensus(sb, issue_id, cat, consensus)
             if stored:
