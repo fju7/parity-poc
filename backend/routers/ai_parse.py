@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 /api/parse-with-ai endpoint — Uses Claude to extract structured
 bill data from PDF page images.
@@ -10,6 +12,8 @@ import json
 import os
 import re
 import time
+
+from typing import Optional, List
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -45,25 +49,25 @@ def _get_client():
 # ---------------------------------------------------------------------------
 
 class AIParseRequest(BaseModel):
-    pages: list[str]  # base64-encoded page images
+    pages: List[str]  # base64-encoded page images
 
 
 class AIParseLineItem(BaseModel):
-    cpt_code: str | None = None
-    revenue_code: str | None = None
+    cpt_code: Optional[str] = None
+    revenue_code: Optional[str] = None
     description: str = ""
     quantity: int = 1
     billed_amount: float = 0.0
-    modifier: str | None = None
-    place_of_service: str | None = None
+    modifier: Optional[str] = None
+    place_of_service: Optional[str] = None
 
 
 class AIParseResponse(BaseModel):
-    provider_name: str | None = None
-    service_date: str | None = None
-    insurance_name: str | None = None
-    line_items: list[AIParseLineItem] = []
-    total_billed: float | None = None
+    provider_name: Optional[str] = None
+    service_date: Optional[str] = None
+    insurance_name: Optional[str] = None
+    line_items: List[AIParseLineItem] = []
+    total_billed: Optional[float] = None
     parsing_confidence: str = "high"
 
 

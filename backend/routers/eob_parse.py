@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 /api/parse-eob endpoint — Uses Claude to extract structured
 data from Explanation of Benefits (EOB) document images.
@@ -13,6 +15,8 @@ import re
 import time
 import urllib.request
 import urllib.parse
+
+from typing import Optional, List
 
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
@@ -48,7 +52,7 @@ def _get_client():
 # ---------------------------------------------------------------------------
 
 class EOBParseRequest(BaseModel):
-    pages: list[str]  # base64-encoded page images
+    pages: List[str]  # base64-encoded page images
 
 
 class EOBParseTextRequest(BaseModel):
@@ -56,19 +60,19 @@ class EOBParseTextRequest(BaseModel):
 
 
 class EOBParseResponse(BaseModel):
-    insurance_company: str | None = None
-    patient_name: str | None = None
-    provider_name: str | None = None
-    service_date: str | None = None
-    claim_number: str | None = None
-    member_id: str | None = None
-    group_number: str | None = None
-    amount_billed: float | None = None
-    plan_paid: float | None = None
-    patient_responsibility: float | None = None
-    cost_reduction: float | None = None
-    provider_address: str | None = None
-    account_name: str | None = None
+    insurance_company: Optional[str] = None
+    patient_name: Optional[str] = None
+    provider_name: Optional[str] = None
+    service_date: Optional[str] = None
+    claim_number: Optional[str] = None
+    member_id: Optional[str] = None
+    group_number: Optional[str] = None
+    amount_billed: Optional[float] = None
+    plan_paid: Optional[float] = None
+    patient_responsibility: Optional[float] = None
+    cost_reduction: Optional[float] = None
+    provider_address: Optional[str] = None
+    account_name: Optional[str] = None
 
 
 # ---------------------------------------------------------------------------
