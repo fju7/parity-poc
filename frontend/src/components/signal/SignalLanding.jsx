@@ -33,18 +33,36 @@ function TopicCard({ topic }) {
   );
 }
 
+function fetchWithRetry(url, retries = 2) {
+  return fetch(url).then((r) => {
+    if (!r.ok && retries > 0) {
+      return new Promise((res) => setTimeout(res, 1500)).then(() =>
+        fetchWithRetry(url, retries - 1)
+      );
+    }
+    return r;
+  }).catch((err) => {
+    if (retries > 0) {
+      return new Promise((res) => setTimeout(res, 1500)).then(() =>
+        fetchWithRetry(url, retries - 1)
+      );
+    }
+    throw err;
+  });
+}
+
 export default function SignalLanding({ session, userTier }) {
   const [metrics, setMetrics] = useState(null);
   const [topics, setTopics] = useState([]);
   const [topicsLoading, setTopicsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/signal/metrics`)
+    fetchWithRetry(`${API_BASE}/api/signal/metrics`)
       .then((r) => (r.ok ? r.json() : null))
       .then(setMetrics)
       .catch(() => {});
 
-    fetch(`${API_BASE}/api/signal/topics`)
+    fetchWithRetry(`${API_BASE}/api/signal/topics`)
       .then((r) => (r.ok ? r.json() : []))
       .then((data) => {
         setTopics(data);
