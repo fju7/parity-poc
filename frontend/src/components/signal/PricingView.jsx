@@ -20,8 +20,8 @@ const TIERS = [
   {
     name: "Standard",
     key: "standard",
-    monthlyPrice: 29,
-    annualPrice: 290,
+    monthlyPrice: 4.99,
+    annualPrice: 39.99,
     features: [
       "5 evidence reports per month",
       "Full claim-level detail",
@@ -35,8 +35,8 @@ const TIERS = [
   {
     name: "Premium",
     key: "premium",
-    monthlyPrice: 79,
-    annualPrice: 790,
+    monthlyPrice: 19.99,
+    annualPrice: 149.99,
     features: [
       "Unlimited evidence reports",
       "Everything in Standard",
@@ -154,12 +154,12 @@ export default function PricingView({ session, userTier }) {
                 ) : (
                   <div className="flex items-baseline gap-1">
                     <span className="text-3xl font-bold text-[#1B3A5C]">
-                      ${annual ? Math.round(price / 12) : price}
+                      ${annual ? (price / 12).toFixed(2) : price.toFixed(2)}
                     </span>
                     <span className="text-gray-400 text-sm">/mo</span>
                     {annual && (
                       <span className="text-xs text-gray-400 ml-1">
-                        (${price}/yr)
+                        (${price.toFixed(2)}/yr)
                       </span>
                     )}
                   </div>
