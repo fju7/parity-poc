@@ -300,37 +300,80 @@ def build_category_sections(data: dict, categories: list[str]) -> list[dict]:
 
 def _build_narrative_system_prompt(topic: dict) -> str:
     """Build the narrative generation system prompt dynamically from topic config."""
-    categories_json = ",\n    ".join(f'"{cat}": "1-2 sentence key takeaway for this category"' for cat in topic["categories"])
+    categories_json = ",\n    ".join(f'"{cat}": "key takeaway for this category (see structure rules below)"' for cat in topic["categories"])
     return f"""You are a science communicator writing for a general audience. You are generating a summary of the current evidence on {topic['prompt_subject']}.
 
 Context: {topic['prompt_detail']}
 
-## Rules
-- Write in plain language — no jargon, no acronyms without explanation
+## Core Rules
 - Do NOT express opinions or recommendations
 - Describe evidence strength and consensus, not truth
 - Be specific: include key numbers from the top claims where relevant
-- Be concise: each key_takeaway is 1-2 sentences, overall_summary is 2-3 paragraphs (~400-500 words)
 - Do NOT use phrases like "our analysis shows" — describe what the evidence shows
+
+## Plain-Language Accessibility Rules
+
+These rules apply to ALL text you generate — overall_summary, every category_takeaways value, and any descriptions.
+
+### Drug and Treatment Names
+- Always include brand names parenthetically on first use: "semaglutide (Ozempic, Wegovy)" not just "semaglutide"
+- For drug classes, include a plain-language explanation on first use: "CDK4/6 inhibitors (drugs that block specific proteins that help cancer cells divide)"
+- Never use abbreviations like T-DXd without the full name and brand: "trastuzumab deruxtecan (Enhertu)"
+
+### Technical Terms
+- Define every clinical term on first use in parentheses: "progression-free survival (how long patients lived before their cancer worsened)"
+- Spell out all acronyms on first use: "HR+ (hormone receptor-positive)" not just "HR+"
+- Avoid jargon when a plain word exists: "side effects" not "adverse events", "spread" not "metastasized" (or use both: "metastasized (spread to other parts of the body)")
+
+### Clinical Data Translation
+- Every time a statistic is cited, follow it with a plain-language interpretation: "median overall survival of 22.4 months vs 16.4 months — meaning patients on the newer drug lived roughly 6 months longer on average"
+- For relative risk reductions, also state the absolute numbers: "a 20% reduction in major cardiovascular events — in practical terms, about 2 fewer events per 100 patients treated"
+- For NNT or similar metrics, translate: "roughly 1 in every 50 patients will benefit"
+
+### Structure
+- Begin each category_takeaways value with a single "Bottom line" sentence in everyday language before any technical details
+- End each category_takeaways value with a "What to watch" sentence about emerging evidence or open questions
+- The overall_summary opening sentence should be understandable by someone with no medical, scientific, or policy background
+
+## Length
+- overall_summary: 2-3 paragraphs (~400-500 words)
+- Each category_takeaways value: 2-4 sentences (bottom line + details + what to watch)
 
 ## Output Format
 
 Return a JSON object:
 {{
-  "overall_summary": "2-3 paragraph plain-language narrative covering all categories. Start with the big picture, then address each evidence area. End with what remains debated or uncertain.",
+  "overall_summary": "2-3 paragraph plain-language narrative. Start with a sentence anyone can understand. Cover all categories. End with what remains debated or uncertain.",
   "category_takeaways": {{
     {categories_json}
   }}
 }}"""
 
 
-def generate_narrative(stats: dict, sections: list[dict], topic: dict) -> dict | None:
-    """Send assembled data to Claude for narrative generation.
+def _build_glossary_system_prompt() -> str:
+    """System prompt for glossary extraction."""
+    return """You are a medical/scientific glossary writer. Given a summary text, extract every technical term, drug name, acronym, or clinical concept that a general reader might not understand.
 
-    Returns {overall_summary, category_takeaways} or None on failure.
-    """
-    narrative_prompt = _build_narrative_system_prompt(topic)
-    # Build a condensed view of the data for Claude
+For each term, write a plain-English definition in 1 sentence, under 20 words.
+
+Return a JSON object where keys are terms (lowercase) and values are definitions.
+
+Example:
+{
+  "semaglutide": "An injectable medication that mimics a gut hormone to reduce appetite and blood sugar.",
+  "progression-free survival": "How long a patient lives before their disease gets worse.",
+  "HR+": "Hormone receptor-positive; a breast cancer type that grows in response to hormones."
+}
+
+Rules:
+- Include drug names (generic and brand), acronyms, clinical terms, statistical concepts, and medical procedures
+- Use plain language a high school student would understand
+- Keep each definition under 20 words
+- Do NOT include common English words that happen to appear in a medical context"""
+
+
+def _build_narrative_user_content(stats: dict, sections: list[dict], topic: dict) -> str:
+    """Build the user-content block with all evidence data for narrative generation."""
     parts = [
         f"Evidence Summary Data for {topic['title']}",
         f"",
@@ -358,8 +401,31 @@ def generate_narrative(stats: dict, sections: list[dict], topic: dict) -> dict |
             parts.append(f"  [{tc['composite_score']:.2f} {tc['evidence_category']}] {tc['claim_text']}")
         parts.append("")
 
-    user_text = "\n".join(parts)
-    return _call_claude(narrative_prompt, user_text)
+    return "\n".join(parts)
+
+
+def generate_narrative(stats: dict, sections: list[dict], topic: dict) -> dict | None:
+    """Send assembled data to Claude for narrative generation.
+
+    Returns {overall_summary, category_takeaways} or None on failure.
+    """
+    narrative_prompt = _build_narrative_system_prompt(topic)
+    user_text = _build_narrative_user_content(stats, sections, topic)
+    return _call_claude(narrative_prompt, user_text, max_tokens=8192)
+
+
+def generate_glossary(summary_text: str, category_takeaways: dict) -> dict | None:
+    """Extract technical terms from generated summary and produce a glossary.
+
+    Returns {term: definition, ...} or None on failure.
+    """
+    all_text = summary_text + "\n\n"
+    for takeaway in category_takeaways.values():
+        all_text += takeaway + "\n"
+
+    system_prompt = _build_glossary_system_prompt()
+    user_content = f"Extract a glossary of technical terms from this summary text:\n\n{all_text}"
+    return _call_claude(system_prompt, user_content, max_tokens=4096)
 
 
 # ---------------------------------------------------------------------------
@@ -442,7 +508,7 @@ def main():
             print(f"  {s['name']}: {s['consensus_status']}, "
                   f"{s['claim_count']} claims, avg {s['avg_composite']}, "
                   f"{len(s['top_claims'])} top claims")
-        print(f"\nWould make 1 Claude API call for narrative generation")
+        print(f"\nWould make 2 Claude API calls (narrative + glossary)")
         return
 
     # --- Generate narrative ---
@@ -455,6 +521,15 @@ def main():
 
     overall_summary = narrative.get("overall_summary", "")
     category_takeaways = narrative.get("category_takeaways", {})
+
+    # --- Generate glossary ---
+    print("Generating glossary...")
+    glossary = generate_glossary(overall_summary, category_takeaways)
+    if glossary is None:
+        print("WARNING: Glossary generation failed — continuing without glossary.")
+        glossary = {}
+    else:
+        print(f"  Glossary: {len(glossary)} terms extracted")
 
     # Attach takeaways to sections
     for section in sections:
@@ -469,6 +544,7 @@ def main():
         "stats": stats,
         "categories": sections,
         "overall_summary": overall_summary,
+        "glossary": glossary,
     }
 
     # summary_text is the overall narrative
