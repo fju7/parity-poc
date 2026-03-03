@@ -14,6 +14,7 @@ from routers.signal_events import router as signal_events_router
 from routers.signal_stripe import router as signal_stripe_router
 from routers.signal_metrics import router as signal_metrics_router
 from routers.signal_qa import router as signal_qa_router
+from routers.signal_topic_request import router as signal_topic_request_router
 
 
 @asynccontextmanager
@@ -62,6 +63,7 @@ app.include_router(signal_events_router)
 app.include_router(signal_stripe_router)
 app.include_router(signal_metrics_router)
 app.include_router(signal_qa_router)
+app.include_router(signal_topic_request_router)
 
 
 @app.get("/")

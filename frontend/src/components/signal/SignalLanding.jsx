@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ScoreBadge from "./ScoreBadge";
+import TopicRequestForm from "./TopicRequestForm";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -70,6 +71,8 @@ export default function SignalLanding({
   claims,
   sources,
   loading,
+  session,
+  userTier,
 }) {
   const [metrics, setMetrics] = useState(null);
 
@@ -178,6 +181,14 @@ export default function SignalLanding({
           </p>
         </div>
       )}
+
+      {/* Topic request */}
+      <div className="mt-10">
+        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">
+          Have a topic you'd like us to investigate?
+        </h2>
+        <TopicRequestForm session={session} userTier={userTier} />
+      </div>
 
       {/* Score example */}
       <div className="mt-10 bg-gray-50 rounded-xl p-5">

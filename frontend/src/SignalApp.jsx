@@ -253,6 +253,8 @@ export default function SignalApp() {
                 claims={data.claims}
                 sources={data.sources}
                 loading={data.loading}
+                session={session}
+                userTier={userTier}
               />
             }
           />
