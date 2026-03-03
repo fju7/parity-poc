@@ -6,6 +6,8 @@ for subscription lifecycle.
 """
 
 import os
+from datetime import datetime, timezone
+
 import stripe
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import JSONResponse
@@ -33,17 +35,22 @@ def _get_period_end(sub_obj):
     """Extract current_period_end from a Stripe subscription object.
 
     Newer Stripe API versions moved this field from the subscription
-    to items.data[].  Check both locations.
+    to items.data[].  Check both locations.  Returns an ISO-8601 string
+    suitable for Supabase timestamptz columns (not a raw Unix integer).
     """
     # Try top-level first (older API versions)
     val = sub_obj.get("current_period_end")
-    if val is not None:
-        return val
-    # Fall back to first item (newer API versions)
-    items = sub_obj.get("items", {}).get("data", [])
-    if items:
-        return items[0].get("current_period_end")
-    return None
+    if val is None:
+        # Fall back to first item (newer API versions)
+        items = sub_obj.get("items", {}).get("data", [])
+        if items:
+            val = items[0].get("current_period_end")
+    if val is None:
+        return None
+    # Convert Unix timestamp to ISO string for Supabase
+    if isinstance(val, (int, float)):
+        return datetime.fromtimestamp(val, tz=timezone.utc).isoformat()
+    return val
 
 
 # Lazy Supabase client
