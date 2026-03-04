@@ -807,6 +807,7 @@ export default function App() {
           serviceDate: response.service_date || "",
           parsingMethod: "ai",
           insuranceName: response.insurance_name || null,
+          networkStatus: response.network_status || null,
           lineItems: (response.line_items || [])
             .filter((li) => li.cpt_code || li.revenue_code)
             .map((li) => ({
@@ -926,6 +927,7 @@ export default function App() {
           serviceDate: response.service_date || "",
           parsingMethod: "ai",
           insuranceName: response.insurance_name || null,
+          networkStatus: response.network_status || null,
           lineItems: (response.line_items || [])
             .filter((li) => li.cpt_code || li.revenue_code)
             .map((li) => ({
@@ -1309,7 +1311,7 @@ async function saveBenchmarkObservations(billData, inputMethod) {
         line_items: lineItems,
         insurer: billData.insuranceName || null,
         zip_code: billData.provider?.zip || "00000",
-        network_status: "unknown",
+        network_status: billData.networkStatus || "unknown",
         input_method: inputMethod,
         service_date: billData.serviceDate || null,
         provider_specialty: null,

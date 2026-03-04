@@ -71,6 +71,7 @@ class AnalyzeResponse(BaseModel):
     provider_name: Optional[str] = None
     service_date: Optional[str] = None
     insurance_name: Optional[str] = None
+    network_status: Optional[str] = None  # "in_network", "out_of_network", or null
     line_items: List[AnalyzeLineItem] = []
     total_billed: Optional[float] = None
     parsing_confidence: str = "high"
@@ -82,6 +83,7 @@ SYSTEM_PROMPT = """You are a medical bill data extraction specialist. Extract al
   "provider_name": "string or null",
   "service_date": "YYYY-MM-DD or null",
   "insurance_name": "string or null",
+  "network_status": "in_network or out_of_network or null",
   "line_items": [
     {
       "cpt_code": "5-character code or null",
@@ -95,7 +97,7 @@ SYSTEM_PROMPT = """You are a medical bill data extraction specialist. Extract al
   ],
   "total_billed": number or null
 }
-Extract every line item. Use null for any field not visible. Do not include subtotal or total rows as line items."""
+Extract every line item. Use null for any field not visible. Do not include subtotal or total rows as line items. For network_status, look for terms like "in-network", "out-of-network", "participating", "non-participating", "PPO", "HMO" to determine if the provider was in or out of network. Use null if not determinable."""
 
 
 # ---------------------------------------------------------------------------
@@ -270,10 +272,21 @@ def _parse_response(response):
     items = parsed.get("line_items", [])
     confidence = "high" if len(items) >= 3 else "medium" if len(items) >= 1 else "low"
 
+    # Normalize network_status
+    raw_network = parsed.get("network_status")
+    network_status = None
+    if raw_network:
+        ns_lower = str(raw_network).lower().replace("-", "_").replace(" ", "_")
+        if "out" in ns_lower:
+            network_status = "out_of_network"
+        elif "in" in ns_lower or "participating" in ns_lower:
+            network_status = "in_network"
+
     return AnalyzeResponse(
         provider_name=parsed.get("provider_name"),
         service_date=parsed.get("service_date"),
         insurance_name=parsed.get("insurance_name"),
+        network_status=network_status,
         line_items=[
             AnalyzeLineItem(
                 cpt_code=li.get("cpt_code"),
