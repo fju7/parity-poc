@@ -203,13 +203,29 @@ export default function SignalLogin() {
     <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center px-4 py-12 font-[Arial,sans-serif]">
       <div className="w-full max-w-sm">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-[#1B3A5C] mb-1">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-[#1B3A5C] mb-2">
             Sign in to Parity Signal
           </h1>
-          <p className="text-sm text-gray-500">
-            Optional — all evidence data is public
+          <p className="text-sm text-gray-500 leading-relaxed">
+            Subscribe to topics, ask evidence questions, and request new research.
           </p>
+        </div>
+
+        {/* Tier info */}
+        <div className="bg-gray-50 rounded-xl p-4 mb-6 text-center">
+          <p className="text-xs font-semibold text-[#1B3A5C] mb-2">Free accounts include</p>
+          <div className="flex justify-center gap-6 text-xs text-gray-500">
+            <span>3 topics</span>
+            <span className="text-gray-300">|</span>
+            <span>5 questions/mo</span>
+          </div>
+          <Link
+            to="/signal/pricing"
+            className="text-[10px] text-[#0D7377] hover:underline mt-2 inline-block no-underline"
+          >
+            View plans for more access &rarr;
+          </Link>
         </div>
 
         {/* Card */}
