@@ -12,6 +12,8 @@ import EmployerLoginPage from './components/EmployerLoginPage.jsx'
 import EmployerDashboard from './components/EmployerDashboard.jsx'
 import EmployerAuthCallback from './components/EmployerAuthCallback.jsx'
 import BillingLanding from './components/BillingLanding.jsx'
+import EmployerProductPage from './components/EmployerProductPage.jsx'
+import ProviderProductPage from './components/ProviderProductPage.jsx'
 import ProviderApp from './ProviderApp.jsx'
 import SignalApp from './SignalApp.jsx'
 
@@ -24,6 +26,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
         <Route path="/billing" element={<BillingLanding />} />
+        <Route path="/billing/employer" element={<EmployerProductPage />} />
+        <Route path="/billing/provider" element={<ProviderProductPage />} />
         <Route path="/employer" element={<EmployerLandingPage />} />
         <Route path="/employer/login" element={<EmployerLoginPage />} />
         <Route path="/employer/auth/callback" element={<EmployerAuthCallback />} />

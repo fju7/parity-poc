@@ -14,16 +14,16 @@ const PRODUCTS = [
     subtitle: "Self-Insured Employer Analytics",
     description:
       "Benchmark your claims data against regional and national rates to surface hidden cost drivers.",
-    to: "/employer",
-    cta: "View Dashboard",
+    to: "/billing/employer",
+    cta: "Learn More",
   },
   {
     name: "Parity Provider",
     subtitle: "Practice Contract & Denial Intelligence",
     description:
       "Compare your contract rates against benchmarks and build evidence-based denial appeals.",
-    to: "/provider",
-    cta: "Open App",
+    to: "/billing/provider",
+    cta: "Learn More",
   },
 ];
 
