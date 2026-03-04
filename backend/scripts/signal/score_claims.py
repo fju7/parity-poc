@@ -28,6 +28,7 @@ Usage:
     python scripts/signal/score_claims.py --limit 5
     python scripts/signal/score_claims.py
     python scripts/signal/score_claims.py --force   # re-score (clears existing)
+    python scripts/signal/score_claims.py --summaries-only  # generate plain summaries only
 """
 from __future__ import annotations
 
@@ -354,6 +355,23 @@ Return a JSON array with one object per claim. Each object:
 - Do not invent information not present in the claim or source metadata"""
 
 
+SUMMARY_SYSTEM_PROMPT = """You are a science communicator for a medical evidence intelligence platform. Write a 2-3 sentence plain-English summary of each claim for a non-expert audience.
+
+## Rules
+- Explain what the study or evidence found and why it matters
+- Use brand names parenthetically after generic names (e.g., "semaglutide (Ozempic)")
+- Define clinical terms in plain language on first use
+- Translate statistics into concrete language (e.g., "cut the risk roughly in half" instead of "HR 0.52")
+- Do not editorialize or add opinions — just explain the evidence clearly
+- Keep each summary to 2-3 sentences maximum
+
+## Output Format
+Return a JSON array:
+[
+  {"claim_id": "the claim ID provided", "plain_summary": "2-3 sentence summary here."}
+]"""
+
+
 def _build_batch_prompt(batch: list[dict], category: str, total_in_category: int) -> str:
     """Build user prompt for a batch of claims to score."""
     parts = [
@@ -402,6 +420,51 @@ def score_batch(batch: list[dict], category: str, total_in_category: int) -> lis
         return None
 
     return scored
+
+
+# ---------------------------------------------------------------------------
+# Plain-language summary generation
+# ---------------------------------------------------------------------------
+
+def generate_summaries(batch: list[dict], category: str, total_in_category: int) -> list[dict] | None:
+    """Send a batch of claims to Claude for plain-language summary generation.
+
+    Returns list of {claim_id, plain_summary} or None on failure.
+    """
+    user_text = _build_batch_prompt(batch, category, total_in_category)
+    result = _call_claude(SUMMARY_SYSTEM_PROMPT, user_text)
+
+    if result is None:
+        return None
+
+    summaries = result if isinstance(result, list) else result.get("summaries", [])
+
+    if not summaries:
+        print(f"  [WARN] Empty summary response")
+        return None
+
+    return summaries
+
+
+def store_summaries(sb, summaries: list[dict]) -> int:
+    """Update signal_claims.plain_summary for each claim.
+
+    Returns count of rows updated.
+    """
+    rows_updated = 0
+    for item in summaries:
+        claim_id = item.get("claim_id")
+        text = item.get("plain_summary", "")
+        if not claim_id or not text:
+            continue
+        try:
+            sb.table("signal_claims").update(
+                {"plain_summary": text}
+            ).eq("id", claim_id).execute()
+            rows_updated += 1
+        except Exception as exc:
+            print(f"  [ERROR] Failed to update summary for {claim_id}: {exc}")
+    return rows_updated
 
 
 # ---------------------------------------------------------------------------
@@ -549,6 +612,11 @@ def main():
         default="glp1-drugs",
         help="Topic slug (default: glp1-drugs)",
     )
+    parser.add_argument(
+        "--summaries-only",
+        action="store_true",
+        help="Generate only plain-language summaries (skip dimension scoring)",
+    )
     args = parser.parse_args()
 
     issue_slug = args.issue_slug
@@ -592,6 +660,38 @@ def main():
         print(f"\nDefault weights: {json.dumps(DEFAULT_WEIGHTS)}")
         return
 
+    # --- Summaries-only mode ---
+    if args.summaries_only:
+        print(f"\n--- SUMMARIES ONLY MODE ---\n")
+        by_category: dict[str, list[dict]] = defaultdict(list)
+        for c in claims:
+            by_category[c.get("category", "emerging")].append(c)
+
+        total_summaries = 0
+        for cat in sorted(by_category.keys()):
+            group = by_category[cat]
+            n_batches = math.ceil(len(group) / args.batch_size)
+            print(f"\n[{cat}] Generating summaries for {len(group)} claims in {n_batches} batches...")
+
+            for batch_idx in range(n_batches):
+                start = batch_idx * args.batch_size
+                batch = group[start:start + args.batch_size]
+                print(f"  batch {batch_idx + 1}/{n_batches} ({len(batch)} claims)...", end=" ", flush=True)
+
+                summaries = generate_summaries(batch, cat, len(group))
+                if summaries:
+                    stored = store_summaries(sb, summaries)
+                    total_summaries += stored
+                    print(f"OK ({stored} stored)")
+                else:
+                    print("FAILED")
+
+                if batch_idx < n_batches - 1 or cat != sorted(by_category.keys())[-1]:
+                    time.sleep(0.5)
+
+        print(f"\nSummaries complete: {total_summaries} claims updated")
+        return
+
     # --- Idempotency check ---
     existing_count = get_existing_scores(sb, claim_ids)
     if existing_count > 0 and not args.force:
@@ -632,6 +732,15 @@ def main():
             if scored:
                 all_scored.extend(scored)
                 print(f"OK ({len(scored)} scored)")
+
+                # Generate summaries for this batch
+                print(f"  → summaries...", end=" ", flush=True)
+                summaries = generate_summaries(batch, cat, len(group))
+                if summaries:
+                    stored = store_summaries(sb, summaries)
+                    print(f"OK ({stored} stored)")
+                else:
+                    print("FAILED (non-fatal)")
             else:
                 failed_batches += 1
                 print("FAILED")

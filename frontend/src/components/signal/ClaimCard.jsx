@@ -38,6 +38,11 @@ export default function ClaimCard({ claim, composite, customScore }) {
           >
             {claim.claim_text}
           </p>
+          {claim.plain_summary && (
+            <p className="text-xs text-gray-500 leading-relaxed mt-1 line-clamp-2">
+              {claim.plain_summary}
+            </p>
+          )}
           <div className="flex items-center gap-2 mt-1.5">
             <EvidenceBadge category={evCat} />
             {sourceCount > 0 && (

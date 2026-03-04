@@ -619,6 +619,9 @@ export default function IssueDashboard({
             }
             setWeightsOpen(!weightsOpen);
           }}
+          claims={claims}
+          dimensionScores={dimensionScores}
+          compositeMap={compositeMap}
         />
       )}
 
