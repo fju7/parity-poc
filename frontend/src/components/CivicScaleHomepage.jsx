@@ -36,6 +36,58 @@ export function LogoIcon({ footer }) {
   );
 }
 
+const SIGN_IN_PRODUCTS = [
+  { name: "Parity Health", path: "/parity-health/login", desc: "Medical bill analysis" },
+  { name: "Parity Provider", path: "/provider/login", desc: "Provider benchmarks" },
+  { name: "Parity Signal", path: "/signal/login", desc: "Evidence intelligence" },
+  { name: "Parity Employer", path: "/employer/login", desc: "Employer claims" },
+];
+
+function SignInDropdown() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div style={{ position: "relative" }}>
+      <button
+        onClick={() => setOpen(!open)}
+        onBlur={() => setTimeout(() => setOpen(false), 150)}
+        style={{
+          color: "#14b8a6", background: "transparent", cursor: "pointer",
+          border: "1px solid #14b8a6", borderRadius: "6px",
+          padding: "6px 16px", fontFamily: "inherit", fontSize: "inherit",
+          fontWeight: "inherit",
+        }}
+      >
+        Sign In
+      </button>
+      {open && (
+        <div style={{
+          position: "absolute", right: 0, top: "calc(100% + 8px)",
+          background: "#111827", border: "1px solid #1e293b",
+          borderRadius: "10px", padding: "6px", minWidth: "220px",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.4)", zIndex: 100,
+        }}>
+          {SIGN_IN_PRODUCTS.map((p) => (
+            <Link
+              key={p.path}
+              to={p.path}
+              style={{
+                display: "block", padding: "10px 12px", borderRadius: "6px",
+                textDecoration: "none", color: "#e2e8f0", transition: "background 0.15s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#1e293b")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{ fontSize: "13px", fontWeight: 600 }}>{p.name}</div>
+              <div style={{ fontSize: "11px", color: "#94a3b8", marginTop: "2px" }}>{p.desc}</div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function CivicScaleHomepage() {
   const [hoveredProduct, setHoveredProduct] = useState(null);
 
@@ -65,11 +117,7 @@ export default function CivicScaleHomepage() {
           <Link to="/billing" style={{ color: "inherit", textDecoration: "none" }}>Billing Products</Link>
           <Link to="/signal" style={{ color: "inherit", textDecoration: "none" }}>Parity Signal</Link>
           <Link to="/investors" style={{ color: "inherit", textDecoration: "none" }}>About</Link>
-          <Link to="/employer/login" style={{
-            color: "#14b8a6", textDecoration: "none",
-            border: "1px solid #14b8a6", borderRadius: "6px",
-            padding: "6px 16px"
-          }}>Sign In</Link>
+          <SignInDropdown />
         </nav>
       </header>
 
