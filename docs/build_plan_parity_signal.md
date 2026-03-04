@@ -12,8 +12,10 @@
 - `/signal` — Multi-topic landing page with dynamic topic discovery
 - `/signal/:slug` — Topic dashboard (e.g., `/signal/glp1-drugs`)
 - `/signal/methodology` — Scoring methodology explanation
-- `/signal/pricing` — Subscription tiers
-- `/signal/login` — Phone (SMS) authentication via Twilio
+- `/signal/pricing` — Four-tier subscription plans
+- `/signal/login` — Email magic link + SMS OTP authentication
+- `/signal/account` — Account settings, usage dashboard, topic request history
+- `/signal/admin/requests` — Admin dashboard for topic request management
 
 ### Frontend Components (frontend/src/components/signal/)
 - `SignalApp.jsx` — App shell, routing, auth, tier state
@@ -26,19 +28,32 @@
 - `ScoreBadge.jsx` / `EvidenceBadge.jsx` — Score visualization
 - `SourceCard.jsx` — Source attribution display
 - `MethodologyView.jsx` — Scoring methodology page
-- `PricingView.jsx` — Three-tier pricing with monthly/annual toggle
-- `TierGate.jsx` — Tier enforcement (free=1, standard=5, premium=unlimited)
+- `PricingView.jsx` — Four-tier pricing with monthly/annual toggle, Stripe checkout
+- `TierGate.jsx` — Tier enforcement (free=3, standard=10, premium=unlimited, professional=unlimited)
+- `EvidenceQA.jsx` — Q&A interface with per-tier question limits and usage counter
+- `TopicRequestForm.jsx` — Topic request submission with Claude parsing, clarification flow, and tier limits
+- `AccountView.jsx` — Profile, subscription status, monthly usage dashboard (Q&A + topic requests with progress bars and reset dates), topic request history with status tracking
+- `AdminRequestsDashboard.jsx` — Admin view for all topic requests with approve/reject/clarify/complete actions
 - `GlossaryText.jsx` — Inline tooltip definitions for technical terms
 
 ### Backend Endpoints (backend/routers/)
 - `GET /api/signal/topics` — All topics with claim counts, source counts, categories, summaries (5-min cache)
 - `GET /api/signal/metrics` — Live platform stats (claims, sources, topics)
 - `POST /api/signal/events` — Event capture (6 event types, anonymous UUID)
-- `POST /api/signal/checkout` — Stripe checkout session creation
-- `POST /api/signal/portal` — Stripe customer portal URL
-- `GET /api/signal/tier` — Current user subscription tier
-- `POST /api/signal/webhooks` — Stripe webhook handler
-- `POST /api/signal/qa` — Premium AI Q&A (from scored evidence, not training data)
+- `POST /api/signal/stripe/checkout` — Stripe checkout session creation (4 tiers × 2 billing periods)
+- `POST /api/signal/stripe/portal` — Stripe customer portal URL
+- `GET /api/signal/stripe/tier` — Current user subscription tier, limits, and monthly usage with reset dates
+- `POST /api/signal/stripe/webhooks` — Stripe webhook handler (subscriptions + one-time topic request purchases)
+- `POST /api/signal/qa` — AI Q&A with per-tier question limits (from scored evidence, not training data)
+- `POST /api/signal/topic-request` — Submit topic request with Claude parsing/validation and tier limit enforcement
+- `POST /api/signal/topic-request/confirm` — Confirm a request after clarification
+- `POST /api/signal/topic-request/purchase` — Stripe checkout for additional topic request (one-time payment)
+- `GET /api/signal/topic-requests` — List authenticated user's own topic requests
+- `GET /api/signal/admin/topic-requests` — List all requests (admin, filterable by status)
+- `POST /api/signal/admin/topic-requests/approve` — Approve and launch pipeline
+- `POST /api/signal/admin/topic-requests/reject` — Reject with reason
+- `POST /api/signal/admin/topic-requests/clarify` — Request clarification from user
+- `POST /api/signal/admin/topic-requests/complete` — Mark completed, link to issue, auto-subscribe requester
 - `GET /api/signal/notifications/deliver` — Email notification delivery (via Resend, cron-triggerable)
 
 ### Backend Scripts (scripts/signal/)
@@ -50,7 +65,7 @@
 - `06_generate_summary.py` — Generate plain-language summary + glossary (v3 with accessibility)
 - `07_orchestrator.py` — Full pipeline orchestrator with dry-run capability
 
-### Database Tables (Supabase — 17 signal_ tables)
+### Database Tables (Supabase — 18 signal_ tables)
 - `signal_issues` — Topics (slug, title, description, status)
 - `signal_sources` — Ingested sources per issue
 - `signal_claims` — Extracted claims per source
@@ -58,7 +73,8 @@
 - `signal_composite_scores` — Aggregated claim scores
 - `signal_consensus` — Category-level consensus (consensus/debated/uncertain)
 - `signal_summaries` — Versioned summaries with glossary (currently v3)
-- `signal_subscriptions` — User subscription records (tier, stripe IDs)
+- `signal_subscriptions` — User subscription records (tier, stripe IDs, qa_questions_used, topic_requests_used, reset dates)
+- `signal_topic_requests` — User topic requests with status tracking (pending → approved → processing → completed)
 - `signal_notifications` — Change notifications (delivered_at tracking)
 - `signal_events` — Analytics events
 - Plus metadata/config tables
@@ -72,18 +88,19 @@
 | **Total** | | **124** | **559** | **164** |
 
 ### Integrations
-- Anthropic Claude API (claim extraction, scoring, summary generation, Q&A)
-- Stripe (subscription billing — 3 tiers with monthly/annual)
+- Anthropic Claude API (claim extraction, scoring, summary generation, Q&A, topic request parsing)
+- Stripe (subscription billing — 4 tiers with monthly/annual + one-time topic request purchases)
 - Twilio (SMS authentication — toll-free (888) 676-2695)
-- Resend (notification email delivery — notifications@civicscale.ai)
+- Resend (notification email delivery — notifications@civicscale.ai, admin alerts — fred@civicscale.ai)
 - Supabase (auth, database, RLS)
 
-### Subscription Tiers
-| Tier | Monthly | Annual | Topics | Q&A |
-|------|---------|--------|--------|-----|
-| Free | $0 | $0 | 1 | No |
-| Standard | $4.99 | $39.99 | 5 | No |
-| Premium | $19.99 | $149.99 | Unlimited | Yes |
+### Subscription Tiers (Four-Tier Model — Implemented)
+| Tier | Monthly | Annual | Topics | Q&A/mo | Topic Requests/mo | Additional Requests |
+|------|---------|--------|--------|--------|-------------------|---------------------|
+| Free | $0 | $0 | 3 | 5 | 0 | — |
+| Standard | $4.99 | $39.99 | 10 | 30 | 1 | $7.99 each |
+| Premium | $19.99 | $149.99 | Unlimited | 30 | 3 | $4.99 each |
+| Professional | $99 | $950 | Unlimited | 200 | 10 | $2.99 each |
 
 ---
 
@@ -108,8 +125,6 @@
 ---
 
 ## Phase 1 Remaining — In Dependency Order
-
-**Note:** Four-tier subscriptions (with topic request system, admin approval, Q&A counters) are specified separately in `spec_four_tier_subscriptions.md` and are being implemented now.
 
 ### Task 1.1: Topic Expansion to 10+ Topics
 **Priority:** High — Phase 1 validation gate requires 10+ topics
@@ -174,7 +189,7 @@ For each new topic:
 ### Task 1.4: Periodic Topic Monitoring & Update Notifications
 **Priority:** High — core retention driver and key reason to stay subscribed
 **Depends on:** Task 1.3 (web search source discovery) must be built first
-**Sequence:** After four-tier subscriptions, after source discovery script
+**Sequence:** After source discovery script
 
 **Four pieces to build:**
 
