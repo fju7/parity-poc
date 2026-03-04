@@ -134,6 +134,30 @@ def get_snapshot_path(slug: str) -> Path:
     return BACKEND_ROOT / "data" / "signal" / f"pipeline_snapshot_{slug}.json"
 
 
+def register_topic(
+    slug: str,
+    title: str,
+    description: str,
+    categories: list[str],
+    manifest_filename: str | None = None,
+) -> dict:
+    """Register a new topic at runtime.
+
+    Used by the automated pipeline to add dynamically created topics
+    without hardcoding them in TOPICS.
+    """
+    TOPICS[slug] = {
+        "slug": slug,
+        "title": title,
+        "description": description,
+        "categories": categories,
+        "prompt_subject": title.lower(),
+        "prompt_detail": description,
+        "manifest_filename": manifest_filename or f"{slug}_sources.json",
+    }
+    return TOPICS[slug]
+
+
 def list_slugs() -> list[str]:
     """Return all valid topic slugs."""
     return sorted(TOPICS.keys())

@@ -4,12 +4,17 @@ Allows users to request new topics (with tier-based limits), uses Claude
 to parse/validate requests, and provides admin approval workflow.
 """
 
+import asyncio
 import os
+import sys
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Optional
 
 from fastapi import APIRouter, Request, HTTPException
 from pydantic import BaseModel
+
+BACKEND_ROOT = Path(__file__).resolve().parent.parent
 
 router = APIRouter(prefix="/api/signal", tags=["signal-topic-requests"])
 
@@ -464,9 +469,29 @@ class AdminApproveBody(BaseModel):
     request_id: str
 
 
+async def _run_topic_pipeline(request_id: str, slug: str, title: str, description: str, requester_id: str):
+    """Launch the full topic pipeline as an async subprocess."""
+    proc = await asyncio.create_subprocess_exec(
+        sys.executable, str(BACKEND_ROOT / "scripts" / "signal" / "run_full_topic.py"),
+        "--slug", slug,
+        "--title", title,
+        "--description", description,
+        "--request-id", request_id,
+        "--requester-id", requester_id,
+        cwd=str(BACKEND_ROOT),
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    stdout, stderr = await proc.communicate()
+    if proc.returncode != 0:
+        print(f"[Pipeline] FAILED for {slug}: {stderr.decode()[-500:]}")
+    else:
+        print(f"[Pipeline] Completed for {slug}")
+
+
 @router.post("/admin/topic-requests/approve")
 async def admin_approve(body: AdminApproveBody, request: Request):
-    """Approve a topic request and notify the requester."""
+    """Approve a topic request, notify the requester, and launch the pipeline."""
     await _verify_admin(request)
 
     sb = _get_sb()
@@ -489,7 +514,21 @@ async def admin_approve(body: AdminApproveBody, request: Request):
         "/signal",
     )
 
-    return {"status": "processing"}
+    # Launch the full pipeline as a background task
+    slug = req.get("parsed_slug", "")
+    title = req.get("parsed_title", "")
+    description = req.get("parsed_description", "")
+    requester_id = req.get("user_id", "")
+
+    if slug and title:
+        asyncio.create_task(
+            _run_topic_pipeline(body.request_id, slug, title, description, requester_id)
+        )
+        print(f"[Pipeline] Background task launched for {slug}")
+    else:
+        print(f"[Pipeline] Skipped: missing slug or title for request {body.request_id}")
+
+    return {"status": "processing", "message": "Pipeline started"}
 
 
 class AdminRejectBody(BaseModel):
