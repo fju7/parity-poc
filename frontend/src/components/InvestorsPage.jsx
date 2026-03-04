@@ -46,6 +46,8 @@ export default function InvestorsPage() {
         </Link>
         <div className="cs-nav-links">
           <Link to="/">Home</Link>
+          <Link to="/signal">Signal</Link>
+          <Link to="/billing">Billing</Link>
           <Link to="/investors">Investors</Link>
           <Link to="/parity-health/" className="cs-nav-cta">Open Parity Health &rarr;</Link>
         </div>
@@ -61,9 +63,9 @@ export default function InvestorsPage() {
             <span className="cs-hero-eyebrow-dot" />
             Investor Overview
           </div>
-          <h1>Institutional Benchmark Infrastructure</h1>
+          <h1>The evidence should be clear.<br />The numbers should be right.</h1>
           <p className="inv-hero-sub">
-            CivicScale builds AI-powered normalization and anomaly detection systems across regulated institutional data domains. Parity Health is the first vertical implementation.
+            CivicScale builds AI-powered benchmark intelligence across domains where information asymmetry causes systematic wealth transfer. Four products live across two tracks &mdash; billing intelligence and evidence intelligence &mdash; powered by a single analytical engine.
           </p>
         </div>
       </section>
@@ -72,20 +74,20 @@ export default function InvestorsPage() {
       <section className="cs-section" style={{ background: "#fff" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="cs-section-label">The Opportunity</div>
-          <h2 className="cs-section-title">A structural inefficiency<br />in institutional billing</h2>
+          <h2 className="cs-section-title">Information asymmetry<br />is a structural problem</h2>
         </div>
         <div className="inv-opp-grid" style={{ marginTop: 40 }}>
           <div className="inv-opp-card">
-            <div className="inv-opp-num">$1,300<span>+</span></div>
-            <div className="inv-opp-label">Average overcharge per erroneous medical bill</div>
+            <div className="inv-opp-num">$300B<span>+</span></div>
+            <div className="inv-opp-label">Estimated annual healthcare billing errors in the US</div>
           </div>
           <div className="inv-opp-card">
-            <div className="inv-opp-num">25,000<span>+</span></div>
-            <div className="inv-opp-label">Self-insured US employers with direct claims exposure</div>
+            <div className="inv-opp-num">4</div>
+            <div className="inv-opp-label">Live products across billing intelligence and evidence intelligence</div>
           </div>
           <div className="inv-opp-card">
-            <div className="inv-opp-num">$2–4M</div>
-            <div className="inv-opp-label">Estimated total capital to sustained profitability</div>
+            <div className="inv-opp-num">559</div>
+            <div className="inv-opp-label">Evidence claims scored across 124 sources with six-dimension methodology</div>
           </div>
         </div>
       </section>
@@ -94,9 +96,9 @@ export default function InvestorsPage() {
       <section className="cs-section cs-platform-section">
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="cs-section-label">Platform Architecture</div>
-          <h2 className="cs-section-title">One engine. Four layers.</h2>
+          <h2 className="cs-section-title">One engine. Two tracks. Four products.</h2>
           <p className="cs-section-sub">
-            CivicScale is structured as a vertical SaaS platform with a shared intelligence core and domain-specific product layers.
+            CivicScale is structured as a platform with a shared analytical core and domain-specific product layers. Healthcare billing is where it starts. It is not where it ends.
           </p>
         </div>
         <div className="inv-arch-grid">
@@ -104,28 +106,35 @@ export default function InvestorsPage() {
             <div className="inv-arch-card-accent inv-arch-accent-navy" />
             <div className="inv-arch-name">CivicScale</div>
             <p className="inv-arch-desc">
-              Parent infrastructure company. Owns the benchmark datasets, normalization pipelines, and anomaly detection engine.
+              Parent infrastructure company. Benchmark datasets, normalization pipelines, anomaly detection, evidence scoring, and Analytical Paths methodology.
             </p>
           </div>
           <div className="inv-arch-card">
             <div className="inv-arch-card-accent inv-arch-accent-teal" />
             <div className="inv-arch-name">Parity Engine</div>
             <p className="inv-arch-desc">
-              AI-powered benchmark intelligence layer. Normalizes institutional data and scores anomalies across all verticals.
+              AI-powered benchmark intelligence layer. Normalizes data, scores anomalies, maps analytical choices, and generates plain-language explanations across all verticals.
             </p>
           </div>
           <div className="inv-arch-card">
             <div className="inv-arch-card-accent inv-arch-accent-teal" />
-            <div className="inv-arch-name">Parity Health</div>
+            <div className="inv-arch-name">Billing Intelligence</div>
             <p className="inv-arch-desc">
-              First vertical product. Medical bill benchmark analysis for consumers and self-insured employers. Live at civicscale.ai/parity-health.
+              Three products addressing healthcare billing from three positions: Parity Health (consumers), Parity Employer (self-insured employers), and Parity Provider (physician practices). All live.
+            </p>
+          </div>
+          <div className="inv-arch-card">
+            <div className="inv-arch-card-accent inv-arch-accent-teal" />
+            <div className="inv-arch-name">Evidence Intelligence</div>
+            <p className="inv-arch-desc">
+              Parity Signal: six-dimension evidence scoring, consensus mapping, and Analytical Paths for complex public issues. Three topics live with subscription billing.
             </p>
           </div>
           <div className="inv-arch-card">
             <div className="inv-arch-card-accent inv-arch-accent-muted" />
             <div className="inv-arch-name">Future Verticals</div>
             <p className="inv-arch-desc">
-              Parity Insurance, Parity Property, Parity Finance. Same engine, new data domains. Phase 3 target.
+              Parity Property, Parity Insurance, Parity Finance. Same engine, new data domains. Phase 3 target.
             </p>
           </div>
         </div>
@@ -135,15 +144,15 @@ export default function InvestorsPage() {
       <section className="cs-section" style={{ background: "#fff" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="cs-section-label">The Parity Intelligence Engine</div>
-          <h2 className="cs-section-title">Four levels of clinical intelligence</h2>
+          <h2 className="cs-section-title">Four levels of intelligence</h2>
           <p className="cs-section-sub">
-            Each level catches what the level below cannot. The combination is what makes Parity Health defensible.
+            Each level catches what the level below cannot. The combination &mdash; applied across both billing and evidence analysis &mdash; is what makes CivicScale defensible.
           </p>
         </div>
 
         {/* PART 1 — Four-Level Ladder */}
         <div className="inv-intel-ladder">
-          {/* Level 1 */}
+          {/* Level 1 — Detect */}
           <div className="inv-intel-card inv-intel-card-live">
             <div className="inv-intel-connector inv-intel-connector-teal" />
             <div className="inv-intel-icon">
@@ -154,47 +163,49 @@ export default function InvestorsPage() {
             <div className="inv-intel-body">
               <div className="inv-intel-header">
                 <span className="inv-intel-level">Level 1</span>
-                <span className="inv-intel-label">Pattern Matching</span>
+                <span className="inv-intel-label">Detect</span>
                 <span className="inv-intel-badge inv-intel-badge-live">Live</span>
               </div>
-              <div className="inv-intel-sublabel">Rules-Based Coding Checks</div>
+              <div className="inv-intel-sublabel">Benchmark Comparison &amp; Evidence Extraction</div>
               <p className="inv-intel-desc">
-                Flags known high-risk codes, site-of-service mismatches, and E&amp;M complexity levels against hardcoded clinical rules. Fast, deterministic, zero false positives on covered cases.
+                <strong>Billing:</strong> Compares every charge against 841K CMS rates, 2.2M NCCI edit pairs, and 15K MUE limits. Flags overcharges, unbundling, and coding violations. Accepts PDF, pasted text, and photo input.<br />
+                <strong>Evidence:</strong> Extracts claims from 124+ sources and scores each across six dimensions: methodological rigor, sample size, recency, source authority, consistency, and effect magnitude.
               </p>
               <div className="inv-intel-catches">
-                <span className="inv-intel-catches-label">Catches:</span> High-complexity billing codes, procedure/setting mismatches
+                <span className="inv-intel-catches-label">Catches:</span> Overcharges, coding violations, weak or conflicting evidence claims
               </div>
             </div>
           </div>
 
-          {/* Level 2 */}
-          <div className="inv-intel-card inv-intel-card-dev">
+          {/* Level 2 — Explain */}
+          <div className="inv-intel-card inv-intel-card-live">
             <div className="inv-intel-connector inv-intel-connector-teal" />
             <div className="inv-intel-icon inv-intel-icon-navy">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M12 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M3.375 15h7.5m0 0c.621 0 1.125-.504 1.125-1.125M12 15v1.5" />
+                <path d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
               </svg>
             </div>
             <div className="inv-intel-body">
               <div className="inv-intel-header">
                 <span className="inv-intel-level">Level 2</span>
-                <span className="inv-intel-label">CMS Rules Engine</span>
-                <span className="inv-intel-badge inv-intel-badge-dev">In Development</span>
+                <span className="inv-intel-label">Explain</span>
+                <span className="inv-intel-badge inv-intel-badge-live">Live</span>
               </div>
-              <div className="inv-intel-sublabel">NCCI &amp; MUE Table Validation</div>
+              <div className="inv-intel-sublabel">Plain-Language Intelligence</div>
               <p className="inv-intel-desc">
-                Applies CMS&apos;s 250,000+ National Correct Coding Initiative edit pairs and Medically Unlikely Edit limits. Identifies unbundling violations and unit limit breaches against published government coding rules.
+                <strong>Billing:</strong> Interprets denial codes in plain language, explains why a charge diverges from benchmarks, and identifies whether a denial is a payer error or a contractual adjustment.<br />
+                <strong>Evidence:</strong> Auto-generated glossaries (44&ndash;64 terms per topic) with inline tooltip definitions. Every technical term defined on first use. Statistics followed by plain-language translations.
               </p>
               <div className="inv-intel-catches">
-                <span className="inv-intel-catches-label">Catches:</span> Unbundling, impossible code combinations, unit limit violations
+                <span className="inv-intel-catches-label">Catches:</span> Misunderstood denials, opaque evidence claims, inaccessible technical language
               </div>
             </div>
           </div>
 
-          {/* Level 3 */}
-          <div className="inv-intel-card inv-intel-card-future">
-            <div className="inv-intel-connector inv-intel-connector-muted" />
-            <div className="inv-intel-icon inv-intel-icon-muted">
+          {/* Level 3 — Prioritize & Act */}
+          <div className="inv-intel-card inv-intel-card-live">
+            <div className="inv-intel-connector inv-intel-connector-teal" />
+            <div className="inv-intel-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
               </svg>
@@ -202,20 +213,21 @@ export default function InvestorsPage() {
             <div className="inv-intel-body">
               <div className="inv-intel-header">
                 <span className="inv-intel-level">Level 3</span>
-                <span className="inv-intel-label">Statistical Intelligence</span>
-                <span className="inv-intel-badge inv-intel-badge-future">Phase 2</span>
+                <span className="inv-intel-label">Prioritize &amp; Act</span>
+                <span className="inv-intel-badge inv-intel-badge-live">Live</span>
               </div>
-              <div className="inv-intel-sublabel">Population-Level Anomaly Detection</div>
+              <div className="inv-intel-sublabel">Scoring, Appeals &amp; Consensus Mapping</div>
               <p className="inv-intel-desc">
-                Compares provider billing patterns against CMS utilization norms across millions of real claims. A provider billing the highest complexity code for 95% of patients when the national average is 30% is a detectable outlier.
+                <strong>Billing:</strong> Scores denial appeal worthiness (high/medium/low), estimates revenue gaps in dollars, drafts appeal letters citing specific CMS guidelines, and benchmarks billing contractor performance.<br />
+                <strong>Evidence:</strong> Maps consensus across hundreds of claims &mdash; where evidence agrees, where it diverges, and why. Key Debates section surfaces active disagreements with arguments for and against. Premium AI Q&amp;A answers questions from the scored evidence base.
               </p>
               <div className="inv-intel-catches">
-                <span className="inv-intel-catches-label">Catches:</span> Systematic upcoding, provider-level billing pattern anomalies
+                <span className="inv-intel-catches-label">Catches:</span> Low-value appeals, missed revenue, hidden evidence disagreements
               </div>
             </div>
           </div>
 
-          {/* Level 4 */}
+          {/* Level 4 — Predict */}
           <div className="inv-intel-card inv-intel-card-future inv-intel-card-last">
             <div className="inv-intel-icon inv-intel-icon-muted">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -225,15 +237,16 @@ export default function InvestorsPage() {
             <div className="inv-intel-body">
               <div className="inv-intel-header">
                 <span className="inv-intel-level">Level 4</span>
-                <span className="inv-intel-label">Clinical AI Reasoning</span>
-                <span className="inv-intel-badge inv-intel-badge-future">Phase 2–3</span>
+                <span className="inv-intel-label">Predict</span>
+                <span className="inv-intel-badge inv-intel-badge-future">Phase 2</span>
               </div>
-              <div className="inv-intel-sublabel">LLM-Powered Clinical Plausibility</div>
+              <div className="inv-intel-sublabel">Proactive Intelligence &amp; Change Detection</div>
               <p className="inv-intel-desc">
-                Claude AI reasons about whether procedure combinations, diagnosis codes, and complexity levels are clinically coherent for a given encounter. Catches implausible combinations that no lookup table can identify.
+                <strong>Billing:</strong> Pre-submission denial risk scoring flags high-risk claims before they reach the payer. Proactive underpayment alerts notify practices when payer behavior shifts.<br />
+                <strong>Evidence:</strong> Continuous monitoring with automated re-scoring as new sources publish. Change detection alerts notify subscribers when new evidence shifts consensus on topics they follow.
               </p>
               <div className="inv-intel-catches">
-                <span className="inv-intel-catches-label">Catches:</span> Clinically impossible combinations, diagnosis-procedure mismatches, specialty anomalies
+                <span className="inv-intel-catches-label">Catches:</span> Preventable denials, emerging payer patterns, consensus shifts in real time
               </div>
             </div>
           </div>
@@ -245,37 +258,42 @@ export default function InvestorsPage() {
           <div className="inv-intel-moat-table">
             <div className="inv-intel-moat-header">
               <div>Capability</div>
-              <div>Parity Health</div>
-              <div>Human Services (Goodbill etc.)</div>
+              <div>CivicScale</div>
+              <div>General-Purpose AI</div>
             </div>
             <div className="inv-intel-moat-row">
               <div className="inv-intel-moat-cap">Rate benchmark comparison</div>
-              <div className="inv-intel-moat-parity">Automated, instant</div>
-              <div className="inv-intel-moat-human">Manual review, days</div>
+              <div className="inv-intel-moat-parity">841K CMS rates, automated, instant</div>
+              <div className="inv-intel-moat-human">No persistent data, hallucination risk</div>
             </div>
             <div className="inv-intel-moat-row">
-              <div className="inv-intel-moat-cap">CMS coding rules (NCCI/MUE)</div>
-              <div className="inv-intel-moat-parity">Automated, 250K+ rules</div>
-              <div className="inv-intel-moat-human">Partial, manual</div>
+              <div className="inv-intel-moat-cap">Denial pattern intelligence</div>
+              <div className="inv-intel-moat-parity">Cross-claim analysis, appeal generation</div>
+              <div className="inv-intel-moat-human">Single-query, no historical context</div>
             </div>
             <div className="inv-intel-moat-row">
-              <div className="inv-intel-moat-cap">Statistical pattern detection</div>
-              <div className="inv-intel-moat-parity">AI-powered at scale</div>
-              <div className="inv-intel-moat-human">Not available</div>
+              <div className="inv-intel-moat-cap">Evidence scoring infrastructure</div>
+              <div className="inv-intel-moat-parity">559 claims, 6 dimensions, persistent scores</div>
+              <div className="inv-intel-moat-human">No persistent scoring, no versioning</div>
             </div>
             <div className="inv-intel-moat-row">
-              <div className="inv-intel-moat-cap">Clinical plausibility reasoning</div>
-              <div className="inv-intel-moat-parity">LLM inference, Phase 2</div>
-              <div className="inv-intel-moat-human">Human reviewer, expensive</div>
+              <div className="inv-intel-moat-cap">Analytical Paths</div>
+              <div className="inv-intel-moat-parity">Shows invisible analytical choices</div>
+              <div className="inv-intel-moat-human">Black box &mdash; no visibility into reasoning</div>
+            </div>
+            <div className="inv-intel-moat-row">
+              <div className="inv-intel-moat-cap">Proprietary data moat</div>
+              <div className="inv-intel-moat-parity">Crowdsourced commercial rates, growing</div>
+              <div className="inv-intel-moat-human">No proprietary data accumulation</div>
             </div>
             <div className="inv-intel-moat-row inv-intel-moat-row-last">
               <div className="inv-intel-moat-cap">Cost per analysis</div>
               <div className="inv-intel-moat-parity">Near zero at scale</div>
-              <div className="inv-intel-moat-human">25–30% of savings recovered</div>
+              <div className="inv-intel-moat-human">Per-query cost, no compounding</div>
             </div>
           </div>
           <p className="inv-intel-moat-note">
-            Human billing advocacy services validate the market demand. CivicScale automates the same intelligence at a fraction of the cost.
+            The proliferation of AI makes CivicScale&apos;s position stronger, not weaker. General-purpose AI gives institutions more tools. CivicScale gives individuals equivalent infrastructure. The gap widens without a platform on the other side.
           </p>
         </div>
 
@@ -283,7 +301,7 @@ export default function InvestorsPage() {
         <div style={{ maxWidth: 1100, margin: "0 auto", paddingTop: 56 }}>
           <div className="inv-intel-callout">
             <p>
-              Most billing analysis tools catch overcharges. Parity Health also catches miscoding — wrong codes, impossible code combinations, and clinically implausible procedure patterns — using a layered intelligence system that starts with CMS&apos;s published coding rules and scales to LLM-powered clinical reasoning. The rate comparison layer is table stakes. The Parity Intelligence Engine is the moat: its accuracy compounds with every claim analyzed, and the false-positive calibration built from real claims cannot be replicated from a standing start.
+              <strong>Analytical Paths</strong> is CivicScale&apos;s deepest differentiator: making invisible analytical choices visible. A payer denying a claim is making analytical choices about which rules to weight. A news outlet covering a drug trial is making analytical choices about which findings to emphasize. CivicScale shows these choices &mdash; in billing, it transforms appeals from &ldquo;we disagree&rdquo; into &ldquo;here is the specific choice you made and the evidence that undermines it.&rdquo; In evidence intelligence, it shows why different sources reach different conclusions about the same data. This is persistent infrastructure, not a prompt &mdash; and it compounds with every analysis.
             </p>
           </div>
         </div>
@@ -303,11 +321,11 @@ export default function InvestorsPage() {
           <div className="inv-tl-item">
             <div className="inv-tl-dot inv-tl-active" />
             <div className="inv-tl-header">
-              <span className="inv-tl-phase">Phase 0 — Proof of Concept</span>
+              <span className="inv-tl-phase">Phase 0 &mdash; Platform Build</span>
               <span className="inv-tl-badge inv-tl-badge-done">Complete</span>
             </div>
             <p className="inv-tl-desc">
-              Browser-based PDF parsing, CMS benchmark lookup, anomaly scoring, plain-language report. Live at civicscale.ai.
+              Four products live: Parity Health (multi-input bill analysis), Parity Employer (claims analytics with demo), Parity Provider (contract integrity with demo), Parity Signal (evidence intelligence with 3 scored topics). Stripe subscription billing. Benchmark observations database. Homepage with dual-track positioning. Authentication, privacy architecture, event analytics.
             </p>
           </div>
 
@@ -315,12 +333,12 @@ export default function InvestorsPage() {
           <div className="inv-tl-item">
             <div className="inv-tl-dot inv-tl-current" />
             <div className="inv-tl-header">
-              <span className="inv-tl-phase">Phase 1 — Consumer Launch</span>
+              <span className="inv-tl-phase">Phase 1 &mdash; Validation &amp; Commercialization</span>
               <span className="inv-tl-badge inv-tl-badge-current">In Progress</span>
-              <span style={{ fontSize: 12, color: "#4a5568", fontWeight: 300 }}>Months 3–6</span>
+              <span style={{ fontSize: 12, color: "#4a5568", fontWeight: 300 }}>Months 5&ndash;8</span>
             </div>
             <p className="inv-tl-desc">
-              User accounts, bill history, commercial rate benchmark integration, enhanced anomaly scoring, employer dashboard MVP, attorney referral capture. Validation gate: 1,000 active users.
+              Provider validation with real 835 data from 3&ndash;5 practices. Turquoise Health commercial rate integration. Signal topic expansion to 10+. Analytical Paths weight adjustment UI. Founding team hire (Head of Clinical Accuracy + Head of Commercial). Validation gate: 1,000 active Health users, 3 Provider pilots, 10+ Signal topics.
             </p>
           </div>
 
@@ -328,11 +346,11 @@ export default function InvestorsPage() {
           <div className="inv-tl-item">
             <div className="inv-tl-dot" />
             <div className="inv-tl-header">
-              <span className="inv-tl-phase">Phase 2 — Employer Platform</span>
-              <span className="inv-tl-badge inv-tl-badge-future">Months 7–18</span>
+              <span className="inv-tl-phase">Phase 2 &mdash; Revenue Scale</span>
+              <span className="inv-tl-badge inv-tl-badge-future">Months 9&ndash;18</span>
             </div>
             <p className="inv-tl-desc">
-              Employer analytics dashboard, TPA claims feed integration, first employer contracts. Validation gate: $500K annualized employer ARR.
+              First 3&ndash;5 employer contracts. Provider trend analysis and full appeal generator. Signal change detection alerts. Community benchmark display (100+ observations per metro). Attorney referral network. Validation gate: $500K annualized employer ARR, 50+ provider practices.
             </p>
           </div>
 
@@ -340,11 +358,11 @@ export default function InvestorsPage() {
           <div className="inv-tl-item">
             <div className="inv-tl-dot" />
             <div className="inv-tl-header">
-              <span className="inv-tl-phase">Phase 3 — Multi-Vertical</span>
-              <span className="inv-tl-badge inv-tl-badge-future">Months 19–36</span>
+              <span className="inv-tl-phase">Phase 3 &mdash; Multi-Vertical</span>
+              <span className="inv-tl-badge inv-tl-badge-future">Months 19&ndash;36</span>
             </div>
             <p className="inv-tl-desc">
-              Parity Insurance and Parity Property launch. Same Parity engine, new data domains. Validation gate: $3M ARR.
+              Parity Property and Parity Insurance launch. Proprietary rate database at scale. PM system integrations. Signal expansion beyond healthcare. Validation gate: $3M ARR across all verticals.
             </p>
           </div>
 
@@ -352,11 +370,11 @@ export default function InvestorsPage() {
           <div className="inv-tl-item">
             <div className="inv-tl-dot" />
             <div className="inv-tl-header">
-              <span className="inv-tl-phase">Phase 4 — Data Platform</span>
+              <span className="inv-tl-phase">Phase 4 &mdash; Data Platform</span>
               <span className="inv-tl-badge inv-tl-badge-future">Months 37+</span>
             </div>
             <p className="inv-tl-desc">
-              Proprietary benchmark database licensed to TPAs, insurers, researchers, and regulators. Validation gate: $1M+ data licensing revenue.
+              Proprietary benchmark database licensed to TPAs, insurers, researchers, and regulators. Combined provider contract + consumer EOB + crowdsourced observation data. Validation gate: $1M+ data licensing revenue.
             </p>
           </div>
         </div>
@@ -368,7 +386,7 @@ export default function InvestorsPage() {
           <div className="cs-section-label">Revenue Model</div>
           <h2 className="cs-section-title">Illustrative Year 3 revenue</h2>
           <p className="cs-section-sub">
-            Multiple revenue streams across consumer, employer, referral, and data licensing channels.
+            Multiple revenue streams across consumer, employer, provider, evidence intelligence, referral, and data licensing channels.
           </p>
         </div>
         <div className="inv-rev-table">
@@ -380,12 +398,22 @@ export default function InvestorsPage() {
           <div className="inv-rev-row">
             <div className="inv-rev-cell-label">Consumer Access (Parity Health)</div>
             <div className="inv-rev-cell">50,000 active users</div>
-            <div className="inv-rev-cell-amount">$750K–$1.5M</div>
+            <div className="inv-rev-cell-amount">$750K&ndash;$1.5M</div>
           </div>
           <div className="inv-rev-row">
-            <div className="inv-rev-cell-label">Employer Platform</div>
+            <div className="inv-rev-cell-label">Employer Platform (Parity Employer)</div>
             <div className="inv-rev-cell">20 contracts avg $72K ACV</div>
             <div className="inv-rev-cell-amount">$1.44M</div>
+          </div>
+          <div className="inv-rev-row">
+            <div className="inv-rev-cell-label">Provider Platform (Parity Provider)</div>
+            <div className="inv-rev-cell">200 practices avg $3,600/year</div>
+            <div className="inv-rev-cell-amount">$720K</div>
+          </div>
+          <div className="inv-rev-row">
+            <div className="inv-rev-cell-label">Evidence Intelligence (Parity Signal)</div>
+            <div className="inv-rev-cell">10,000 subscribers @ $8/mo blended</div>
+            <div className="inv-rev-cell-amount">$960K</div>
           </div>
           <div className="inv-rev-row">
             <div className="inv-rev-cell-label">Attorney Referral Network</div>
@@ -395,15 +423,15 @@ export default function InvestorsPage() {
           <div className="inv-rev-row">
             <div className="inv-rev-cell-label">Property &amp; Insurance Verticals</div>
             <div className="inv-rev-cell">Early stage</div>
-            <div className="inv-rev-cell-amount">$200K–$400K</div>
+            <div className="inv-rev-cell-amount">$200K&ndash;$400K</div>
           </div>
           <div className="inv-rev-row inv-rev-row-total">
             <div className="inv-rev-cell-label">Total</div>
             <div className="inv-rev-cell"></div>
-            <div className="inv-rev-cell-amount">$2.47M–$3.42M</div>
+            <div className="inv-rev-cell-amount">$4.15M&ndash;$5.10M</div>
           </div>
           <div className="inv-rev-note">
-            Projections are illustrative, not a financial forecast. Revenue optimization begins in Phase 2. Phase 0 and 1 are optimized for user adoption and benchmark database growth.
+            Projections are illustrative, not a financial forecast. Revenue optimization begins in Phase 2. Phases 0 and 1 are optimized for user adoption, data accumulation, and validation.
           </div>
         </div>
       </section>
@@ -417,22 +445,22 @@ export default function InvestorsPage() {
           <div className="cs-principle">
             <div className="cs-principle-num">01</div>
             <div className="cs-principle-title">Privacy by Architecture</div>
-            <p className="cs-principle-desc">Documents are processed locally on the user&apos;s device. Analysis results are stored locally. Only anonymized procedure codes reach our servers. This makes certain privacy violations technically impossible — not merely prohibited.</p>
+            <p className="cs-principle-desc">Documents are processed locally on the user&apos;s device. Analysis results are stored locally. Only anonymized procedure codes reach our servers. This makes certain privacy violations technically impossible &mdash; not merely prohibited.</p>
           </div>
           <div className="cs-principle">
             <div className="cs-principle-num">02</div>
             <div className="cs-principle-title">Analysis, Not Advocacy</div>
-            <p className="cs-principle-desc">CivicScale products produce anomaly reports and cite benchmarks. They do not generate legal arguments, draft dispute letters, or advise on strategy. CivicScale is the calculator. The professional decides what to do with the result.</p>
+            <p className="cs-principle-desc">CivicScale products produce benchmark reports and cite sources. They do not generate legal arguments or advise on strategy. In evidence intelligence, they show why sources disagree &mdash; they do not tell users what to believe. CivicScale is the infrastructure. The professional or individual decides what to do with the result.</p>
           </div>
           <div className="cs-principle">
             <div className="cs-principle-num">03</div>
-            <div className="cs-principle-title">Benchmark Transparency</div>
-            <p className="cs-principle-desc">Every flagged item cites its source. Users can verify every finding independently. This transparency protects CivicScale and makes the anomaly report credible to billing departments, legal counsel, and reviewing attorneys.</p>
+            <div className="cs-principle-title">Transparent Methodology</div>
+            <p className="cs-principle-desc">Every flagged billing item cites its benchmark source. Every evidence score shows six dimension ratings. Analytical Paths makes invisible analytical choices visible. Users can verify every finding independently. Transparency protects CivicScale and builds compounding institutional trust.</p>
           </div>
           <div className="cs-principle">
             <div className="cs-principle-num">04</div>
             <div className="cs-principle-title">Data Network Effects</div>
-            <p className="cs-principle-desc">Every consented user interaction contributes to a proprietary benchmark database that grows more accurate over time — a compounding data asset that no competitor can replicate from a standing start.</p>
+            <p className="cs-principle-desc">Every bill analyzed contributes anonymized data to a crowdsourced commercial rate database. Every evidence topic scored produces structured analytical metadata. These proprietary data assets grow more accurate over time &mdash; a compounding moat that no competitor can replicate from a standing start.</p>
           </div>
         </div>
       </section>
@@ -442,14 +470,14 @@ export default function InvestorsPage() {
         <div className="inv-cta-content">
           <h2>Interested in CivicScale?</h2>
           <p>
-            CivicScale is currently in active development. We welcome conversations with investors, healthcare industry experts, and potential employer partners.
+            CivicScale is live and in active validation. We welcome conversations with investors, healthcare industry experts, potential employer partners, and anyone who recognizes the information asymmetry problem from their own experience.
           </p>
-          <a href="mailto:privacy@civicscale.ai" className="inv-cta-btn">
+          <a href="mailto:fred@civicscale.ai" className="inv-cta-btn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect width="20" height="16" x="2" y="4" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
-            privacy@civicscale.ai
+            fred@civicscale.ai
           </a>
         </div>
       </section>
@@ -462,7 +490,7 @@ export default function InvestorsPage() {
         </div>
         <div className="cs-footer-meta">
           Operated by U.S. Photovoltaics, Inc. &middot; Florida &middot; civicscale.ai<br />
-          privacy@civicscale.ai
+          fred@civicscale.ai
         </div>
         <div className="cs-footer-links">
           <Link to="/privacy">Privacy Policy</Link>
