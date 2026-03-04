@@ -137,9 +137,9 @@ export default function EmployerProductPage() {
             margin: "0 auto 32px",
           }}
         >
-          Parity Employer benchmarks your self-insured claims against regional
-          and national data to surface hidden cost drivers, overpriced
-          providers, and savings opportunities.
+          AI-powered claims benchmarking that tells you exactly where your
+          self-insured plan is overpaying — by category, by provider, by
+          procedure.
         </p>
         <div
           style={{
@@ -194,7 +194,7 @@ export default function EmployerProductPage() {
         </div>
       </section>
 
-      {/* Problem Statement */}
+      {/* Why AI Changes Everything */}
       <section
         className="cs-home-section"
         style={{
@@ -212,25 +212,52 @@ export default function EmployerProductPage() {
             padding: "36px",
           }}
         >
-          <p
+          <h2
             style={{
-              fontSize: "16px",
-              lineHeight: "1.8",
-              color: "#94a3b8",
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "24px",
+              fontWeight: "400",
+              color: "#f1f5f9",
               marginBottom: "20px",
             }}
           >
-            Self-insured employers spend $15,000+ per employee annually on
-            healthcare — but most can't tell you whether those costs are fair.
-            Your TPA sends you reports, but without independent benchmarks,
-            you're trusting the same system that generates the bills to tell
-            you if the bills are reasonable.
+            Why this couldn't exist without AI
+          </h2>
+          <p
+            style={{
+              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "#94a3b8",
+              marginBottom: "16px",
+            }}
+          >
+            Traditional benefits consultants sample 5-10% of your claims and
+            compare them against broad averages. That misses the details that
+            matter — the specific provider charging 40% above market for knee
+            replacements, the hospital outpatient facility fee that's triple what
+            a freestanding center charges, the imaging costs that quietly doubled
+            year over year.
           </p>
-          <p style={{ fontSize: "16px", lineHeight: "1.8", color: "#cbd5e1" }}>
-            Parity Employer changes that. We compare your claims against
-            Medicare fee schedules, regional commercial rates, and national
-            averages — procedure by procedure, provider by provider — so you
-            can see exactly where your plan is overpaying.
+          <p
+            style={{
+              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "#94a3b8",
+              marginBottom: "16px",
+            }}
+          >
+            Parity Employer uses AI to analyze every single claim against
+            Medicare fee schedules, regional commercial benchmarks, and — as our
+            community database grows — actual reported rates from real plans. Not
+            a sample. Every line. The AI reads CPT codes, maps them to procedure
+            categories, normalizes for geography, and flags anomalies that a
+            human analyst reviewing spreadsheets would never catch.
+          </p>
+          <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#cbd5e1" }}>
+            But unlike a black-box AI that just gives you a number, we show you
+            the analytical path: why a cost is flagged, what benchmark it's
+            compared against, and what assumptions went into the comparison. You
+            see the methodology, not just the conclusion.
           </p>
         </div>
       </section>
@@ -295,6 +322,68 @@ export default function EmployerProductPage() {
                   fontWeight: "600",
                   color: "#f1f5f9",
                   marginBottom: "10px",
+                }}
+              >
+                {c.title}
+              </h3>
+              <p
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "1.7",
+                  color: "#94a3b8",
+                }}
+              >
+                {c.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* How We're Different — 3 comparison cards */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "960px",
+          margin: "0 auto",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "28px",
+            fontWeight: "400",
+            color: "#f1f5f9",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          How We're Different
+        </h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "24px",
+          }}
+        >
+          {DIFF_CARDS.map((c) => (
+            <div
+              key={c.title}
+              style={{
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(59,130,246,0.18)",
+                borderRadius: "14px",
+                padding: "28px",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "600",
+                  color: "#60a5fa",
+                  marginBottom: "12px",
                 }}
               >
                 {c.title}
@@ -379,6 +468,143 @@ export default function EmployerProductPage() {
               >
                 {s.text}
               </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* What You Need to Get Started */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "780px",
+          margin: "0 auto",
+        }}
+      >
+        <div
+          style={{
+            background: "rgba(59,130,246,0.04)",
+            border: "1px solid rgba(59,130,246,0.12)",
+            borderRadius: "16px",
+            padding: "36px",
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "24px",
+              fontWeight: "400",
+              color: "#f1f5f9",
+              marginBottom: "20px",
+            }}
+          >
+            What You Need to Get Started
+          </h2>
+          <p
+            style={{
+              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "#94a3b8",
+              marginBottom: "16px",
+            }}
+          >
+            Export your claims data from your TPA or benefits administrator.
+            Most TPAs can generate a claims extract in CSV or Excel format — ask
+            for service dates, CPT/HCPCS codes, billed amounts, allowed
+            amounts, paid amounts, provider names, and member ZIP codes.
+          </p>
+          <p
+            style={{
+              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "#94a3b8",
+              marginBottom: "16px",
+            }}
+          >
+            We accept:
+          </p>
+          <ul
+            style={{
+              fontSize: "15px",
+              lineHeight: "2",
+              color: "#94a3b8",
+              paddingLeft: "20px",
+              marginBottom: "16px",
+            }}
+          >
+            <li>CSV or Excel claims exports (most common)</li>
+            <li>EDI 837 Professional/Institutional files</li>
+            <li>EDI 835 Remittance files</li>
+            <li>Custom formats (contact us and we'll build an importer)</li>
+          </ul>
+          <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#cbd5e1" }}>
+            Your data is processed securely and never shared. Individual claims
+            are anonymized after analysis — we keep only aggregate benchmarks,
+            never identifiable records.
+          </p>
+        </div>
+      </section>
+
+      {/* Roadmap Transparency */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "780px",
+          margin: "0 auto",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "28px",
+            fontWeight: "400",
+            color: "#f1f5f9",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          Where We Are
+        </h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {ROADMAP.map((r, i) => (
+            <div
+              key={i}
+              style={{
+                background: "rgba(255,255,255,0.02)",
+                border: `1px solid ${r.borderColor}`,
+                borderRadius: "14px",
+                padding: "24px 28px",
+                display: "flex",
+                gap: "16px",
+                alignItems: "flex-start",
+              }}
+            >
+              <span style={{ fontSize: "20px", flexShrink: 0, marginTop: "2px" }}>
+                {r.icon}
+              </span>
+              <div>
+                <h3
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: "600",
+                    color: r.labelColor,
+                    marginBottom: "8px",
+                  }}
+                >
+                  {r.label}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "1.7",
+                    color: "#94a3b8",
+                  }}
+                >
+                  {r.text}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -526,7 +752,22 @@ const CARDS = [
   {
     icon: "\u2193",
     title: "Actionable Savings Report",
-    text: "Get a prioritized list of savings opportunities ranked by dollar impact. Each recommendation includes the data behind it \u2014 not just 'you're overpaying' but exactly how much, on which procedures, at which providers.",
+    text: "Get a prioritized list of savings opportunities ranked by dollar impact. Each recommendation includes the data behind it \u2014 not just \u2018you\u2019re overpaying\u2019 but exactly how much, on which procedures, at which providers.",
+  },
+];
+
+const DIFF_CARDS = [
+  {
+    title: "vs. Your Benefits Consultant",
+    text: "Consultants review summary-level data and rely on proprietary benchmarks you can\u2019t verify. They bill $50\u2013150K annually for what amounts to a few pivot tables and some industry averages. Parity Employer analyzes every claim, uses transparent benchmarks, and costs a fraction of traditional consulting.",
+  },
+  {
+    title: "vs. TPA Reports",
+    text: "Your TPA manages the same claims they\u2019re reporting on \u2014 that\u2019s a structural conflict of interest. Their reports tell you what happened but not whether it was fair. Parity Employer provides independent analysis against external benchmarks, so you\u2019re not relying on the same system that generates the bills to tell you if the bills are reasonable.",
+  },
+  {
+    title: "vs. Other Analytics Platforms",
+    text: "Most claims analytics platforms require a 6-month implementation, EDI integration, and a six-figure contract. Parity Employer works with the claims export you already have \u2014 CSV, Excel, or standard EDI formats. Upload your data and get results the same day. No implementation project required.",
   },
 ];
 
@@ -542,6 +783,30 @@ const STEPS = [
   {
     title: "Review your insights",
     text: "Your dashboard shows cost variances by category, provider, and procedure \u2014 with specific dollar amounts and percentage differences. Export reports for your broker or benefits committee.",
+  },
+];
+
+const ROADMAP = [
+  {
+    icon: "\u2705",
+    label: "Available now",
+    text: "Medicare fee schedule benchmarking for every CPT code, geographic adjustment, category-level cost analysis, provider-level variance identification.",
+    borderColor: "rgba(34,197,94,0.25)",
+    labelColor: "#4ade80",
+  },
+  {
+    icon: "\uD83D\uDD04",
+    label: "Coming soon",
+    text: "Community-reported commercial rate benchmarks (powered by anonymized data from Parity Health users), year-over-year trend analysis, automated savings recommendations with estimated dollar impact.",
+    borderColor: "rgba(59,130,246,0.25)",
+    labelColor: "#60a5fa",
+  },
+  {
+    icon: "\uD83D\uDD2E",
+    label: "On our roadmap",
+    text: "Direct TPA integration for automated data refresh, network optimization modeling, pharmacy benefit benchmarking.",
+    borderColor: "rgba(148,163,184,0.2)",
+    labelColor: "#94a3b8",
   },
 ];
 

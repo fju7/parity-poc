@@ -137,9 +137,8 @@ export default function ProviderProductPage() {
             margin: "0 auto 32px",
           }}
         >
-          Parity Provider compares your payer contract rates against Medicare
-          benchmarks and regional averages — and builds evidence-based denial
-          appeals when claims are rejected.
+          AI-powered contract benchmarking and denial intelligence for physician
+          practices that want to negotiate from evidence, not intuition.
         </p>
         <div
           style={{
@@ -194,7 +193,7 @@ export default function ProviderProductPage() {
         </div>
       </section>
 
-      {/* Problem Statement */}
+      {/* Why AI — "Your billing team is fighting denials blind" */}
       <section
         className="cs-home-section"
         style={{
@@ -212,38 +211,54 @@ export default function ProviderProductPage() {
             padding: "36px",
           }}
         >
-          <p
+          <h2
             style={{
-              fontSize: "16px",
-              lineHeight: "1.8",
-              color: "#94a3b8",
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "24px",
+              fontWeight: "400",
+              color: "#f1f5f9",
               marginBottom: "20px",
             }}
           >
-            Most physician practices sign payer contracts and never benchmark
-            them. You know what Medicare pays for CPT 99214, but do you know
-            how your Blue Cross rate compares? Your Aetna rate? What about the
-            rates your competitor down the street negotiated?
+            Your billing team is fighting denials blind
+          </h2>
+          <p
+            style={{
+              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "#94a3b8",
+              marginBottom: "16px",
+            }}
+          >
+            The average physician practice has a denial rate between 5-10%. Each
+            denied claim costs $25-35 to rework and takes 14+ days to resolve.
+            Most practices send generic appeal letters — "we believe this was
+            incorrectly denied" — and win about 30% of the time.
           </p>
           <p
             style={{
-              fontSize: "16px",
+              fontSize: "15px",
               lineHeight: "1.8",
               color: "#94a3b8",
-              marginBottom: "20px",
+              marginBottom: "16px",
             }}
           >
-            When claims are denied, your billing team sends a standard appeal
-            letter. But denials aren't random — they follow patterns driven by
-            specific analytical choices the payer made about coding, bundling,
-            or medical necessity. A generic appeal doesn't address the actual
-            reason.
+            The problem isn't effort. It's information asymmetry. The payer used
+            a specific algorithm or rule to deny your claim — a bundling edit, a
+            medical necessity algorithm, a frequency limit. But they don't tell
+            you which rule, and your billing team doesn't have time to research
+            it for every denial.
           </p>
-          <p style={{ fontSize: "16px", lineHeight: "1.8", color: "#cbd5e1" }}>
-            Parity Provider gives you two things: contract intelligence that
-            shows where you're leaving money on the table, and denial
-            intelligence that builds targeted appeals challenging the specific
-            logic behind each denial.
+          <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#cbd5e1" }}>
+            AI changes this equation. Parity Provider reads your ERA data,
+            classifies each denial by its root cause, identifies patterns across
+            hundreds of denials, and — using our Analytical Paths methodology —
+            maps the specific analytical choices the payer made. Then it
+            generates a targeted appeal that challenges that specific logic,
+            citing the relevant CMS guidelines, specialty society criteria, and
+            coding rules. A generic appeal succeeds ~30% of the time. A targeted
+            appeal that addresses the actual denial logic succeeds ~60-65% of
+            the time.
           </p>
         </div>
       </section>
@@ -326,78 +341,7 @@ export default function ProviderProductPage() {
         </div>
       </section>
 
-      {/* How It Works — 3 steps */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "72px",
-          maxWidth: "900px",
-          margin: "0 auto",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "28px",
-            fontWeight: "400",
-            color: "#f1f5f9",
-            textAlign: "center",
-            marginBottom: "40px",
-          }}
-        >
-          How It Works
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "28px",
-          }}
-        >
-          {STEPS.map((s, i) => (
-            <div key={i} style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  width: "44px",
-                  height: "44px",
-                  borderRadius: "50%",
-                  background: "rgba(59,130,246,0.15)",
-                  color: "#60a5fa",
-                  fontWeight: "700",
-                  fontSize: "18px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 16px",
-                }}
-              >
-                {i + 1}
-              </div>
-              <h3
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  color: "#f1f5f9",
-                  marginBottom: "8px",
-                }}
-              >
-                {s.title}
-              </h3>
-              <p
-                style={{
-                  fontSize: "14px",
-                  lineHeight: "1.7",
-                  color: "#94a3b8",
-                }}
-              >
-                {s.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Analytical Paths Highlight */}
+      {/* Analytical Paths — The Core Innovation */}
       <section
         className="cs-home-section"
         style={{
@@ -423,22 +367,86 @@ export default function ProviderProductPage() {
               marginBottom: "16px",
             }}
           >
-            Powered by Analytical Paths
+            Analytical Paths — The Core Innovation
           </h3>
           <p
             style={{
               fontSize: "15px",
               lineHeight: "1.8",
               color: "#94a3b8",
+              marginBottom: "16px",
+            }}
+          >
+            Every denial is a conclusion. Behind that conclusion is a chain of
+            analytical choices the payer made:
+          </p>
+          <div
+            style={{
+              background: "rgba(59,130,246,0.06)",
+              borderRadius: "10px",
+              padding: "20px 24px",
+              marginBottom: "16px",
+            }}
+          >
+            {[
+              "Which bundling rules to apply",
+              "How to interpret modifier usage",
+              "What constitutes medical necessity for a given procedure",
+              "How strictly to enforce frequency limits",
+              "Whether to apply the most restrictive or most generous interpretation",
+            ].map((item) => (
+              <p
+                key={item}
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "1.8",
+                  color: "#cbd5e1",
+                  paddingLeft: "16px",
+                  position: "relative",
+                }}
+              >
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    color: "#60a5fa",
+                  }}
+                >
+                  &rsaquo;
+                </span>
+                {item}
+              </p>
+            ))}
+          </div>
+          <p
+            style={{
+              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "#94a3b8",
+              marginBottom: "16px",
+            }}
+          >
+            These choices are invisible to you. You see "claim denied" — you
+            don't see which analytical path led to that denial.
+          </p>
+          <p
+            style={{
+              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "#cbd5e1",
               marginBottom: "24px",
             }}
           >
-            Most denial appeals fail because they argue the wrong point. Parity
-            Provider uses Analytical Paths — our methodology for revealing the
-            invisible choices behind a decision — to identify exactly why a
-            claim was denied and build an appeal that challenges that specific
-            logic.
+            Analytical Paths is our methodology for making those invisible
+            choices visible. For each denial, we identify the specific rule
+            applied, the interpretation used, and the alternative
+            interpretations that support your claim. Then we build an appeal
+            that doesn't just say "we disagree" — it says "you applied Rule X
+            with Interpretation Y, but CMS Guideline Z supports Interpretation
+            W, and here's why."
           </p>
+
+          {/* Standard vs Analytical Paths comparison */}
           <div
             style={{
               display: "grid",
@@ -461,10 +469,19 @@ export default function ProviderProductPage() {
                   color: "#f87171",
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
-                  marginBottom: "8px",
+                  marginBottom: "4px",
                 }}
               >
                 Standard Appeal
+              </div>
+              <div
+                style={{
+                  fontSize: "12px",
+                  color: "#94a3b8",
+                  marginBottom: "8px",
+                }}
+              >
+                ~30% success rate
               </div>
               <p
                 style={{
@@ -492,10 +509,19 @@ export default function ProviderProductPage() {
                   color: "#4ade80",
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
-                  marginBottom: "8px",
+                  marginBottom: "4px",
                 }}
               >
                 Analytical Paths Appeal
+              </div>
+              <div
+                style={{
+                  fontSize: "12px",
+                  color: "#94a3b8",
+                  marginBottom: "8px",
+                }}
+              >
+                ~60-65% success rate
               </div>
               <p
                 style={{
@@ -507,12 +533,314 @@ export default function ProviderProductPage() {
               >
                 "This denial applied CPT bundling rule 59.4, which assumes
                 services were part of a single procedure. However, the
-                documented clinical circumstances — separate anatomical sites,
-                distinct diagnoses — meet CMS exception criteria under NCCI
-                Policy Manual Chapter 1, Section G."
+                documented clinical circumstances meet CMS exception criteria
+                under NCCI Policy Manual Chapter 1, Section G."
               </p>
             </div>
           </div>
+
+          <p
+            style={{
+              fontSize: "14px",
+              lineHeight: "1.7",
+              color: "#64748b",
+              marginTop: "16px",
+              fontStyle: "italic",
+            }}
+          >
+            This is the same methodology that powers Parity Signal's evidence
+            scoring and Parity Health's bill analysis. One engine, multiple
+            applications — all focused on making analytical choices transparent.
+          </p>
+        </div>
+      </section>
+
+      {/* How We're Different — 3 comparison cards */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "960px",
+          margin: "0 auto",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "28px",
+            fontWeight: "400",
+            color: "#f1f5f9",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          How We're Different
+        </h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "24px",
+          }}
+        >
+          {DIFF_CARDS.map((c) => (
+            <div
+              key={c.title}
+              style={{
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(59,130,246,0.18)",
+                borderRadius: "14px",
+                padding: "28px",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "600",
+                  color: "#60a5fa",
+                  marginBottom: "12px",
+                }}
+              >
+                {c.title}
+              </h3>
+              <p
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "1.7",
+                  color: "#94a3b8",
+                }}
+              >
+                {c.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* What You Need to Get Started */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "780px",
+          margin: "0 auto",
+        }}
+      >
+        <div
+          style={{
+            background: "rgba(59,130,246,0.04)",
+            border: "1px solid rgba(59,130,246,0.12)",
+            borderRadius: "16px",
+            padding: "36px",
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "24px",
+              fontWeight: "400",
+              color: "#f1f5f9",
+              marginBottom: "20px",
+            }}
+          >
+            What You Need to Get Started
+          </h2>
+          <p
+            style={{
+              fontSize: "15px",
+              fontWeight: "600",
+              color: "#cbd5e1",
+              marginBottom: "8px",
+            }}
+          >
+            For contract benchmarking:
+          </p>
+          <ul
+            style={{
+              fontSize: "15px",
+              lineHeight: "2",
+              color: "#94a3b8",
+              paddingLeft: "20px",
+              marginBottom: "20px",
+            }}
+          >
+            <li>
+              Your payer fee schedules (the contracted rates for your top CPT
+              codes)
+            </li>
+            <li>
+              If you don't have a fee schedule document, your recent remittance
+              data works — we can extract effective rates from payment history
+            </li>
+          </ul>
+          <p
+            style={{
+              fontSize: "15px",
+              fontWeight: "600",
+              color: "#cbd5e1",
+              marginBottom: "8px",
+            }}
+          >
+            For denial intelligence:
+          </p>
+          <ul
+            style={{
+              fontSize: "15px",
+              lineHeight: "2",
+              color: "#94a3b8",
+              paddingLeft: "20px",
+              marginBottom: "20px",
+            }}
+          >
+            <li>
+              ERA/835 remittance files from your practice management system
+              (most systems can export these)
+            </li>
+            <li>
+              Or a denial report with: CPT code, denial reason code
+              (CARC/RARC), payer, date, and billed amount
+            </li>
+            <li>CSV or Excel exports also accepted</li>
+          </ul>
+          <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#cbd5e1" }}>
+            Your data is processed securely and never shared outside your
+            practice.
+          </p>
+        </div>
+      </section>
+
+      {/* How It Builds Over Time */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "900px",
+          margin: "0 auto",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "28px",
+            fontWeight: "400",
+            color: "#f1f5f9",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          How It Builds Over Time
+        </h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: "28px",
+          }}
+        >
+          {TIMELINE.map((t, i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <div
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "50%",
+                  background: t.bgColor,
+                  color: t.fgColor,
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 16px",
+                }}
+              >
+                {t.badge}
+              </div>
+              <h3
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#f1f5f9",
+                  marginBottom: "8px",
+                }}
+              >
+                {t.title}
+              </h3>
+              <p
+                style={{
+                  fontSize: "14px",
+                  lineHeight: "1.7",
+                  color: "#94a3b8",
+                }}
+              >
+                {t.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Roadmap Transparency */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "780px",
+          margin: "0 auto",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "28px",
+            fontWeight: "400",
+            color: "#f1f5f9",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          Where We Are
+        </h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {ROADMAP.map((r, i) => (
+            <div
+              key={i}
+              style={{
+                background: "rgba(255,255,255,0.02)",
+                border: `1px solid ${r.borderColor}`,
+                borderRadius: "14px",
+                padding: "24px 28px",
+                display: "flex",
+                gap: "16px",
+                alignItems: "flex-start",
+              }}
+            >
+              <span style={{ fontSize: "20px", flexShrink: 0, marginTop: "2px" }}>
+                {r.icon}
+              </span>
+              <div>
+                <h3
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: "600",
+                    color: r.labelColor,
+                    marginBottom: "8px",
+                  }}
+                >
+                  {r.label}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "1.7",
+                    color: "#94a3b8",
+                  }}
+                >
+                  {r.text}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -614,17 +942,79 @@ const CARDS = [
   },
 ];
 
-const STEPS = [
+const DIFF_CARDS = [
   {
-    title: "Connect your data",
-    text: "Upload your fee schedules, remittance data (ERA/835), and denial reports. We accept standard formats from all major practice management systems.",
+    title: "vs. Your Billing Company",
+    text: "Your billing team processes denials reactively \u2014 one at a time, using template letters. They don\u2019t have the bandwidth to research each denial\u2019s root cause or track patterns across payers. Parity Provider analyzes all your denials at once, identifies systematic patterns, and generates appeals that address the actual reason \u2014 not just the outcome.",
   },
   {
-    title: "We analyze every rate and denial",
-    text: "Each contracted rate is benchmarked. Each denial is classified by root cause and mapped to the payer's analytical logic. Patterns emerge that aren't visible in standard reports.",
+    title: "vs. Revenue Cycle Management Software",
+    text: "RCM platforms track denials and help you manage the workflow. But they don\u2019t analyze why denials happen or generate targeted appeals. They tell you \u2018you had 47 denials from UHC this quarter.\u2019 We tell you \u2018UHC denied 12 echocardiograms using a frequency limit that doesn\u2019t account for documented clinical changes \u2014 here are 12 targeted appeals with supporting guidelines.\u2019",
   },
   {
-    title: "Act on insights",
-    text: "Use contract benchmarks in your next payer negotiation. Deploy targeted denial appeals that address the actual reason for rejection. Track revenue recovery over time.",
+    title: "vs. Denial Management Services",
+    text: "Outsourced denial management services charge 15-25% of recovered revenue. They use standard appeal processes that don\u2019t scale. Parity Provider gives your own team the intelligence to fight denials effectively \u2014 and you keep 100% of what you recover.",
+  },
+];
+
+const TIMELINE = [
+  {
+    badge: "M1",
+    title: "Month 1: Pattern Detection",
+    text: "Upload your denial data and see immediate insights \u2014 denial rates by payer, most-denied CPT codes, most common denial reasons. AI generates initial appeals using general coding guidelines and payer-specific rules.",
+    bgColor: "rgba(59,130,246,0.15)",
+    fgColor: "#60a5fa",
+  },
+  {
+    badge: "M2",
+    title: "Month 2\u20133: Targeted Intelligence",
+    text: "As the system processes more of your denials, patterns sharpen. Analytical Paths identifies the specific logic behind recurring denial types. Appeals become increasingly targeted \u2014 citing exact policy manual sections, pointing to specific guideline criteria your claims meet.",
+    bgColor: "rgba(34,197,94,0.15)",
+    fgColor: "#4ade80",
+  },
+  {
+    badge: "M4",
+    title: "Month 4+: Predictive & Proactive",
+    text: "With enough history, the system begins predicting which claims are likely to be denied before submission and recommending documentation or coding adjustments. Contract negotiation briefs are generated automatically before renewal periods.",
+    bgColor: "rgba(168,85,247,0.15)",
+    fgColor: "#c084fc",
+  },
+];
+
+const ROADMAP = [
+  {
+    icon: "\u2705",
+    label: "Available now",
+    text: "Fee schedule benchmarking against Medicare rates for every CPT code, geographic adjustment, payer-by-payer rate comparison, revenue gap calculation.",
+    borderColor: "rgba(34,197,94,0.25)",
+    labelColor: "#4ade80",
+  },
+  {
+    icon: "\u2705",
+    label: "Available now",
+    text: "Denial pattern analysis \u2014 classification by reason code, payer, and procedure category, with frequency and dollar-impact tracking.",
+    borderColor: "rgba(34,197,94,0.25)",
+    labelColor: "#4ade80",
+  },
+  {
+    icon: "\uD83D\uDD04",
+    label: "Coming soon",
+    text: "AI-generated targeted denial appeals using Analytical Paths methodology, with CMS guideline citations and specialty-specific supporting evidence.",
+    borderColor: "rgba(59,130,246,0.25)",
+    labelColor: "#60a5fa",
+  },
+  {
+    icon: "\uD83D\uDD04",
+    label: "Coming soon",
+    text: "Community-reported contract rate benchmarks (aggregated from Parity Provider users \u2014 anonymized, minimum thresholds for display).",
+    borderColor: "rgba(59,130,246,0.25)",
+    labelColor: "#60a5fa",
+  },
+  {
+    icon: "\uD83D\uDD2E",
+    label: "On our roadmap",
+    text: "Pre-submission denial risk scoring, automated ERA ingestion from clearinghouses, contract negotiation brief generator, payer performance scorecards.",
+    borderColor: "rgba(148,163,184,0.2)",
+    labelColor: "#94a3b8",
   },
 ];
