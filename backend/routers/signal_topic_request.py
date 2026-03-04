@@ -402,7 +402,7 @@ async def list_topic_requests(request: Request):
     sb = _get_sb()
     result = sb.table("signal_topic_requests").select("*").eq(
         "user_id", str(user.id)
-    ).order("created_at", desc=True).execute()
+    ).order("submitted_at", desc=True).execute()
 
     return {"requests": result.data or []}
 
@@ -452,7 +452,7 @@ async def admin_list_requests(request: Request, status: Optional[str] = None):
     await _verify_admin(request)
 
     sb = _get_sb()
-    query = sb.table("signal_topic_requests").select("*").order("created_at", desc=True)
+    query = sb.table("signal_topic_requests").select("*").order("submitted_at", desc=True)
     if status:
         query = query.eq("status", status)
 

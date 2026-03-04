@@ -89,7 +89,7 @@ function RequestCard({ req, authHeaders, onRefresh }) {
           )}
         </div>
         <div className="text-[10px] text-gray-400 whitespace-nowrap tabular-nums">
-          {new Date(req.created_at).toLocaleDateString()}
+          {new Date(req.submitted_at).toLocaleDateString()}
         </div>
       </div>
 
@@ -229,13 +229,21 @@ export default function AdminRequestsDashboard({ session }) {
     : null;
 
   function fetchRequests() {
-    if (!authHeaders) return;
+    // Recompute auth headers at call time to avoid stale closures
+    const headers = token
+      ? { Authorization: `Bearer ${token}` }
+      : secret
+      ? { "X-Cron-Secret": secret }
+      : null;
+
+    if (!headers) return;
     setLoading(true);
+    setError(null);
     const url = filterStatus
       ? `${API_BASE}/api/signal/admin/topic-requests?status=${filterStatus}`
       : `${API_BASE}/api/signal/admin/topic-requests`;
 
-    fetch(url, { headers: authHeaders })
+    fetch(url, { headers })
       .then((r) => {
         if (r.status === 401) throw new Error("Unauthorized — admin access required");
         if (!r.ok) throw new Error("Failed to load requests");
