@@ -43,19 +43,61 @@ async def _get_authenticated_user(request: Request):
         raise HTTPException(status_code=401, detail=f"Auth failed: {exc}")
 
 
-def _check_premium(user_id: str):
-    """Verify user has premium tier. Raises 403 if not."""
-    sb = _get_sb()
-    result = sb.table("signal_subscriptions").select("tier").eq(
-        "user_id", user_id
-    ).execute()
+def _check_qa_limit(user_id: str):
+    """Check Q&A usage limit for the user's tier. Raises 403 if at limit.
 
-    tier = result.data[0]["tier"] if result.data else "free"
-    if tier != "premium":
+    Returns the user's current tier.
+    """
+    from routers.signal_stripe import TIER_LIMITS, _maybe_reset_counters
+
+    sb = _get_sb()
+    result = sb.table("signal_subscriptions").select(
+        "tier, qa_questions_used, qa_reset_at"
+    ).eq("user_id", user_id).execute()
+
+    if not result.data:
+        tier = "free"
+        qa_used = 0
+    else:
+        row = result.data[0]
+        # Reset counters if needed
+        _maybe_reset_counters(sb, user_id, row)
+        tier = row.get("tier", "free")
+        qa_used = row.get("qa_questions_used", 0)
+
+    limits = TIER_LIMITS.get(tier, TIER_LIMITS["free"])
+    qa_limit = limits["qa_per_month"]
+
+    if qa_used >= qa_limit:
+        next_tier = "standard" if tier == "free" else "professional" if tier in ("standard", "premium") else None
         raise HTTPException(
             status_code=403,
-            detail="Q&A is available to Premium subscribers only."
+            detail={
+                "error": "qa_limit_reached",
+                "limit": qa_limit,
+                "used": qa_used,
+                "upgrade_to": next_tier,
+            },
         )
+
+    return tier
+
+
+def _increment_qa_counter(user_id: str):
+    """Increment the Q&A question counter for this user."""
+    sb = _get_sb()
+    # Fetch current count and increment
+    result = sb.table("signal_subscriptions").select(
+        "qa_questions_used"
+    ).eq("user_id", user_id).execute()
+
+    current = 0
+    if result.data:
+        current = result.data[0].get("qa_questions_used", 0)
+
+    sb.table("signal_subscriptions").update(
+        {"qa_questions_used": current + 1}
+    ).eq("user_id", user_id).execute()
 
 
 QA_SYSTEM_PROMPT = """You are a medical evidence analyst for Parity Signal, an evidence intelligence platform. You answer questions about health topics based ONLY on the scored evidence data provided below.
@@ -154,7 +196,7 @@ class QARequest(BaseModel):
 async def ask_question(body: QARequest, request: Request):
     """Answer a question about an issue using Claude + scored evidence context."""
     user = await _get_authenticated_user(request)
-    _check_premium(str(user.id))
+    _check_qa_limit(str(user.id))
 
     question = body.question.strip()
     if not question:
@@ -194,6 +236,12 @@ async def ask_question(body: QARequest, request: Request):
         for block in response.content:
             if hasattr(block, "text"):
                 answer += block.text
+
+        # Increment Q&A counter after successful answer
+        try:
+            _increment_qa_counter(str(user.id))
+        except Exception as exc:
+            print(f"[QA] Failed to increment counter for {str(user.id)[:8]}: {exc}")
 
         return {"answer": answer.strip()}
 

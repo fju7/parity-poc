@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-const TIER_RANK = { free: 0, standard: 1, premium: 2 };
+const TIER_RANK = { free: 0, standard: 1, premium: 2, professional: 3 };
 
 const TIERS = [
   {
@@ -12,10 +12,12 @@ const TIERS = [
     monthlyPrice: 0,
     annualPrice: 0,
     features: [
-      "1 evidence report per month",
+      "3 existing topics",
+      "5 Q&A questions/month",
       "Summary & key takeaways",
       "Basic anomaly scores",
     ],
+    badge: null,
     accent: false,
   },
   {
@@ -24,13 +26,15 @@ const TIERS = [
     monthlyPrice: 4.99,
     annualPrice: 39.99,
     features: [
-      "5 evidence reports per month",
+      "10 existing topics",
+      "30 Q&A questions/month",
+      "1 new topic request/month",
       "Full claim-level detail",
       "Source citations & links",
-      "Consensus indicators",
-      "Email support",
     ],
-    accent: true,
+    extra: "Additional requests: $7.99 each",
+    badge: null,
+    accent: false,
   },
   {
     name: "Premium",
@@ -38,12 +42,31 @@ const TIERS = [
     monthlyPrice: 19.99,
     annualPrice: 149.99,
     features: [
-      "Unlimited evidence reports",
+      "Unlimited existing topics",
+      "30 Q&A questions/month",
+      "3 new topic requests/month",
       "Everything in Standard",
-      "Custom topic requests",
-      "API access (coming soon)",
+      "Consensus indicators",
       "Priority support",
     ],
+    extra: "Additional requests: $4.99 each",
+    badge: "Most Popular",
+    accent: true,
+  },
+  {
+    name: "Professional",
+    key: "professional",
+    monthlyPrice: 99,
+    annualPrice: 950,
+    features: [
+      "Unlimited existing topics",
+      "200 Q&A questions/month",
+      "10 new topic requests/month",
+      "Everything in Premium",
+      "API access (coming soon)",
+    ],
+    extra: "Additional requests: $2.99 each",
+    badge: "For Organizations",
     accent: false,
   },
 ];
@@ -56,7 +79,6 @@ export default function PricingView({ session, userTier }) {
   const [message, setMessage] = useState(null);
 
   const currentTier = userTier || "free";
-  // Return path: use ?from= param if present, otherwise default to pricing
   const returnPath = searchParams.get("from") || "/signal/pricing";
 
   function getCta(tierKey) {
@@ -90,7 +112,6 @@ export default function PricingView({ session, userTier }) {
       const data = await res.json();
 
       if (data.checkout_url) {
-        // New subscription — redirect to Stripe Checkout
         window.location.href = data.checkout_url;
         return;
       }
@@ -100,7 +121,6 @@ export default function PricingView({ session, userTier }) {
           type: "success",
           text: `Upgraded to ${data.tier.charAt(0).toUpperCase() + data.tier.slice(1)}! Your new features are available now.`,
         });
-        // Tier will refresh via the checkout_success flow or page reload
         setTimeout(() => window.location.reload(), 1500);
         return;
       }
@@ -122,7 +142,7 @@ export default function PricingView({ session, userTier }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 font-[Arial,sans-serif]">
+    <div className="max-w-5xl mx-auto px-4 py-12 font-[Arial,sans-serif]">
       <div className="text-center mb-10">
         <h1 className="text-2xl sm:text-3xl font-bold text-[#1B3A5C] mb-3">
           Choose your plan
@@ -154,7 +174,7 @@ export default function PricingView({ session, userTier }) {
           </span>
           {annual && (
             <span className="text-xs font-semibold text-[#0D7377] bg-teal-50 px-2 py-0.5 rounded-full">
-              Save ~17%
+              Save up to 20%
             </span>
           )}
         </div>
@@ -176,7 +196,7 @@ export default function PricingView({ session, userTier }) {
       )}
 
       {/* Tier cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {TIERS.map((tier) => {
           const price = annual ? tier.annualPrice : tier.monthlyPrice;
           const isCurrentTier = currentTier === tier.key;
@@ -188,31 +208,33 @@ export default function PricingView({ session, userTier }) {
           return (
             <div
               key={tier.key}
-              className={`rounded-2xl p-6 flex flex-col ${
+              className={`rounded-2xl p-5 flex flex-col ${
                 tier.accent
                   ? "border-2 border-[#0D7377] shadow-lg ring-1 ring-[#0D7377]/20"
                   : "border border-gray-200"
               }`}
             >
-              {tier.accent && (
-                <div className="text-xs font-bold text-[#0D7377] uppercase tracking-wide mb-2">
-                  Most Popular
+              {tier.badge && (
+                <div className={`text-[10px] font-bold uppercase tracking-wide mb-2 ${
+                  tier.accent ? "text-[#0D7377]" : "text-[#1B3A5C]"
+                }`}>
+                  {tier.badge}
                 </div>
               )}
 
               <h2 className="text-lg font-bold text-[#1B3A5C]">{tier.name}</h2>
 
-              <div className="mt-3 mb-5">
+              <div className="mt-2 mb-4">
                 {price === 0 ? (
-                  <span className="text-3xl font-bold text-[#1B3A5C]">Free</span>
+                  <span className="text-2xl font-bold text-[#1B3A5C]">Free</span>
                 ) : (
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-bold text-[#1B3A5C]">
+                    <span className="text-2xl font-bold text-[#1B3A5C]">
                       ${annual ? (price / 12).toFixed(2) : price.toFixed(2)}
                     </span>
                     <span className="text-gray-400 text-sm">/mo</span>
                     {annual && (
-                      <span className="text-xs text-gray-400 ml-1">
+                      <span className="text-[10px] text-gray-400 ml-0.5">
                         (${price.toFixed(2)}/yr)
                       </span>
                     )}
@@ -220,11 +242,11 @@ export default function PricingView({ session, userTier }) {
                 )}
               </div>
 
-              <ul className="space-y-2.5 mb-6 flex-1">
+              <ul className="space-y-2 mb-4 flex-1">
                 {tier.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-gray-600">
+                  <li key={f} className="flex items-start gap-2 text-xs text-gray-600">
                     <svg
-                      className="w-4 h-4 text-[#0D7377] shrink-0 mt-0.5"
+                      className="w-3.5 h-3.5 text-[#0D7377] shrink-0 mt-0.5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -241,8 +263,12 @@ export default function PricingView({ session, userTier }) {
                 ))}
               </ul>
 
+              {tier.extra && (
+                <p className="text-[10px] text-gray-400 mb-3">{tier.extra}</p>
+              )}
+
               {tier.key === "free" ? (
-                <div className="text-center text-sm text-gray-400 py-2.5">
+                <div className="text-center text-sm text-gray-400 py-2">
                   {isCurrentTier ? "Current Plan" : "Free forever"}
                 </div>
               ) : (

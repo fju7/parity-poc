@@ -51,7 +51,7 @@ function fetchWithRetry(url, retries = 2) {
   });
 }
 
-export default function SignalLanding({ session, userTier }) {
+export default function SignalLanding({ session, userTier, tierData }) {
   const [metrics, setMetrics] = useState(null);
   const [topics, setTopics] = useState([]);
   const [topicsLoading, setTopicsLoading] = useState(true);
@@ -177,7 +177,7 @@ export default function SignalLanding({ session, userTier }) {
         <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">
           Have a topic you'd like us to investigate?
         </h2>
-        <TopicRequestForm session={session} userTier={userTier} />
+        <TopicRequestForm session={session} userTier={userTier} tierData={tierData} />
       </div>
 
       {/* Score example */}

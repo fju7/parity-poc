@@ -292,6 +292,7 @@ export default function IssueDashboard({
   error,
   session,
   userTier,
+  tierData,
 }) {
   // Build composite map: claim_id -> composite
   const compositeMap = useMemo(() => {
@@ -700,7 +701,7 @@ export default function IssueDashboard({
           {/* Q&A — Premium feature */}
           {issue && (
             <div>
-              <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} />
+              <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} qaUsage={tierData?.usage} />
             </div>
           )}
 

@@ -3,13 +3,37 @@ import { useNavigate } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-export default function EvidenceQA({ issueId, issueSlug, session, userTier }) {
+const QA_LIMITS = {
+  free: 5,
+  standard: 30,
+  premium: 30,
+  professional: 200,
+};
+
+const NEXT_TIER = {
+  free: "Standard",
+  standard: "Professional",
+  premium: "Professional",
+};
+
+export default function EvidenceQA({ issueId, issueSlug, session, userTier, qaUsage }) {
   const navigate = useNavigate();
-  const isPremium = userTier === "premium";
+  const tier = userTier || "free";
+  const limit = QA_LIMITS[tier] ?? QA_LIMITS.free;
+  const used = qaUsage?.qa_questions_used ?? 0;
+  const resetAt = qaUsage?.qa_reset_at;
+  const remaining = Math.max(0, limit - used);
+  const atLimit = remaining <= 0;
+
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [localUsed, setLocalUsed] = useState(used);
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    setLocalUsed(used);
+  }, [used]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -17,10 +41,13 @@ export default function EvidenceQA({ issueId, issueSlug, session, userTier }) {
     }
   }, [messages]);
 
+  const localRemaining = Math.max(0, limit - localUsed);
+  const localAtLimit = localRemaining <= 0;
+
   async function handleSubmit(e) {
     e.preventDefault();
     const q = question.trim();
-    if (!q || loading) return;
+    if (!q || loading || localAtLimit) return;
 
     setMessages((prev) => [...prev, { role: "user", text: q }]);
     setQuestion("");
@@ -38,11 +65,20 @@ export default function EvidenceQA({ issueId, issueSlug, session, userTier }) {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
+        if (err.detail?.error === "qa_limit_reached") {
+          setMessages((prev) => [
+            ...prev,
+            { role: "error", text: `You've used all ${limit} questions this month. Upgrade for more.` },
+          ]);
+          setLocalUsed(limit);
+          return;
+        }
         throw new Error(err.detail || "Failed to get answer");
       }
 
       const { answer } = await res.json();
       setMessages((prev) => [...prev, { role: "assistant", text: answer }]);
+      setLocalUsed((prev) => prev + 1);
     } catch (err) {
       setMessages((prev) => [
         ...prev,
@@ -53,48 +89,23 @@ export default function EvidenceQA({ issueId, issueSlug, session, userTier }) {
     }
   }
 
-  // Gated state for non-premium users
-  if (!isPremium) {
-    return (
-      <div className="border border-gray-200 rounded-xl p-5 font-[Arial,sans-serif]">
-        <div className="flex items-center gap-2 mb-3">
-          <svg className="w-4 h-4 text-[#0D7377]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-          <span className="text-sm font-bold text-[#1B3A5C]">Ask the Evidence</span>
-          <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700">
-            Premium
-          </span>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <input
-            type="text"
-            disabled
-            placeholder="Ask a follow-up question about any claim..."
-            className="w-full bg-transparent text-sm text-gray-400 placeholder-gray-400 border-none outline-none cursor-not-allowed"
-          />
-        </div>
-        <p className="text-xs text-gray-400 mt-2">
-          <button
-            onClick={() => navigate(`/signal/pricing?from=/signal/${issueSlug || ""}`)}
-            className="text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer p-0 text-xs font-medium"
-          >
-            Upgrade to Premium
-          </button>
-          {" "}to ask follow-up questions about any claim.
-        </p>
-      </div>
-    );
-  }
+  const resetDate = resetAt
+    ? new Date(resetAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+    : null;
 
   return (
     <div className="border border-gray-200 rounded-xl overflow-hidden font-[Arial,sans-serif]">
       {/* Header */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-100">
-        <svg className="w-4 h-4 text-[#0D7377]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-        </svg>
-        <span className="text-sm font-bold text-[#1B3A5C]">Ask the Evidence</span>
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-[#0D7377]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          <span className="text-sm font-bold text-[#1B3A5C]">Ask the Evidence</span>
+        </div>
+        <span className="text-[10px] text-gray-400 tabular-nums">
+          {localUsed} of {limit} used{resetDate ? ` · resets ${resetDate}` : ""}
+        </span>
       </div>
 
       {/* Messages */}
@@ -131,22 +142,44 @@ export default function EvidenceQA({ issueId, issueSlug, session, userTier }) {
         </div>
       )}
 
+      {/* At-limit message */}
+      {localAtLimit && (
+        <div className="px-4 py-3 bg-amber-50 border-t border-amber-200">
+          <p className="text-xs text-amber-700">
+            You've used all {limit} questions this month.
+            {resetDate && ` Resets ${resetDate}.`}
+            {NEXT_TIER[tier] && (
+              <>
+                {" "}
+                <button
+                  onClick={() => navigate(`/signal/pricing?from=/signal/${issueSlug || ""}`)}
+                  className="text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer p-0 text-xs font-medium"
+                >
+                  Upgrade to {NEXT_TIER[tier]}
+                </button>
+                {" "}for more questions.
+              </>
+            )}
+          </p>
+        </div>
+      )}
+
       {/* Input */}
       <form onSubmit={handleSubmit} className="flex items-center gap-2 px-4 py-3 border-t border-gray-100">
         <input
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Ask a follow-up question about any claim..."
+          placeholder={localAtLimit ? "Question limit reached" : "Ask a follow-up question about any claim..."}
           maxLength={1000}
-          disabled={loading}
-          className="flex-1 text-sm text-[#1B3A5C] placeholder-gray-400 bg-gray-50 rounded-lg px-3 py-2.5 border border-gray-200 outline-none focus:border-[#0D7377] transition-colors"
+          disabled={loading || localAtLimit}
+          className="flex-1 text-sm text-[#1B3A5C] placeholder-gray-400 bg-gray-50 rounded-lg px-3 py-2.5 border border-gray-200 outline-none focus:border-[#0D7377] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
         />
         <button
           type="submit"
-          disabled={loading || !question.trim()}
+          disabled={loading || !question.trim() || localAtLimit}
           className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center border-none cursor-pointer transition-colors ${
-            loading || !question.trim()
+            loading || !question.trim() || localAtLimit
               ? "bg-gray-100 text-gray-300 cursor-not-allowed"
               : "bg-[#0D7377] hover:bg-[#0B6265] text-white"
           }`}

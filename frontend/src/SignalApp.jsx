@@ -9,6 +9,7 @@ import MethodologyView from "./components/signal/MethodologyView";
 import SignalLogin from "./components/signal/SignalLogin";
 import PricingView from "./components/signal/PricingView";
 import AccountView from "./components/signal/AccountView";
+import AdminRequestsDashboard from "./components/signal/AdminRequestsDashboard";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -18,12 +19,12 @@ function ScrollToTop() {
   return null;
 }
 
-function DashboardRoute({ session, userTier }) {
+function DashboardRoute({ session, userTier, tierData }) {
   const { slug } = useParams();
-  return <LazyDashboard slug={slug} session={session} userTier={userTier} />;
+  return <LazyDashboard slug={slug} session={session} userTier={userTier} tierData={tierData} />;
 }
 
-function LazyDashboard({ slug, session, userTier }) {
+function LazyDashboard({ slug, session, userTier, tierData }) {
   const [state, setState] = useState({
     issue: null,
     summary: null,
@@ -51,6 +52,7 @@ function LazyDashboard({ slug, session, userTier }) {
       error={state.error}
       session={session}
       userTier={userTier}
+      tierData={tierData}
     />
   );
 }
@@ -174,6 +176,7 @@ export default function SignalApp() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [userTier, setUserTier] = useState("free");
+  const [tierData, setTierData] = useState(null);
 
   // Auth: session bootstrap + listener
   useEffect(() => {
@@ -201,8 +204,14 @@ export default function SignalApp() {
       headers: { Authorization: `Bearer ${session.access_token}` },
     })
       .then((res) => (res.ok ? res.json() : { tier: "free" }))
-      .then((data) => setUserTier(data.tier || "free"))
-      .catch(() => setUserTier("free"));
+      .then((data) => {
+        setUserTier(data.tier || "free");
+        setTierData(data);
+      })
+      .catch(() => {
+        setUserTier("free");
+        setTierData(null);
+      });
   }, [session]);
 
   // Fetch user tier when session changes
@@ -245,6 +254,7 @@ export default function SignalApp() {
               <SignalLanding
                 session={session}
                 userTier={userTier}
+                tierData={tierData}
               />
             }
           />
@@ -265,8 +275,12 @@ export default function SignalApp() {
             element={<AccountView session={session} />}
           />
           <Route
+            path="admin/requests"
+            element={<AdminRequestsDashboard session={session} />}
+          />
+          <Route
             path=":slug"
-            element={<DashboardRoute session={session} userTier={userTier} />}
+            element={<DashboardRoute session={session} userTier={userTier} tierData={tierData} />}
           />
         </Routes>
       </main>

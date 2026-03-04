@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
 export const TIER_LIMITS = {
-  free: 1,
-  standard: 5,
+  free: 3,
+  standard: 10,
   premium: Infinity,
+  professional: Infinity,
 };
 
 /**
@@ -49,8 +50,8 @@ export default function TierGate({ userTier = "free", usageCount = 0, children }
 
       <p className="text-sm text-gray-500 mb-6 leading-relaxed">
         {isFreeTier
-          ? "You've used your free report for this month. Upgrade to Standard for up to 5 reports, or Premium for unlimited access."
-          : `You've used all ${limit} reports included in your ${tierLabel} plan this month. Upgrade to get more.`}
+          ? "You're subscribed to all 3 topics on your Free plan. Upgrade to Standard for up to 10, or Premium for unlimited access."
+          : `You're subscribed to ${usageCount} of ${limit} topics on your ${tierLabel} plan. Unsubscribe from a topic or upgrade for more.`}
       </p>
 
       <button

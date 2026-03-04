@@ -6,7 +6,7 @@ for subscription lifecycle.
 """
 
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 import stripe
 from fastapi import APIRouter, Request, HTTPException
@@ -26,9 +26,25 @@ PRICE_IDS = {
     "standard_annual": os.environ.get("STRIPE_PRICE_STANDARD_ANNUAL", ""),
     "premium_monthly": os.environ.get("STRIPE_PRICE_PREMIUM_MONTHLY", ""),
     "premium_annual": os.environ.get("STRIPE_PRICE_PREMIUM_ANNUAL", ""),
+    "professional_monthly": os.environ.get("STRIPE_PRICE_PROFESSIONAL_MONTHLY", ""),
+    "professional_annual": os.environ.get("STRIPE_PRICE_PROFESSIONAL_ANNUAL", ""),
 }
 
-TIER_RANK = {"free": 0, "standard": 1, "premium": 2}
+TOPIC_REQUEST_PRICE_IDS = {
+    "free": os.environ.get("STRIPE_PRICE_TOPIC_REQUEST_FREE", ""),
+    "standard": os.environ.get("STRIPE_PRICE_TOPIC_REQUEST_STANDARD", ""),
+    "premium": os.environ.get("STRIPE_PRICE_TOPIC_REQUEST_PREMIUM", ""),
+    "professional": os.environ.get("STRIPE_PRICE_TOPIC_REQUEST_PROFESSIONAL", ""),
+}
+
+TIER_RANK = {"free": 0, "standard": 1, "premium": 2, "professional": 3}
+
+TIER_LIMITS = {
+    "free":         {"topics": 3,    "qa_per_month": 5,   "topic_requests_per_month": 0},
+    "standard":     {"topics": 10,   "qa_per_month": 30,  "topic_requests_per_month": 1},
+    "premium":      {"topics": None, "qa_per_month": 30,  "topic_requests_per_month": 3},
+    "professional": {"topics": None, "qa_per_month": 200, "topic_requests_per_month": 10},
+}
 
 
 def _get_period_end(sub_obj):
@@ -263,24 +279,97 @@ async def create_portal(request: Request):
     return {"portal_url": portal_session.url}
 
 
+def _first_of_next_month():
+    """Return an ISO-8601 timestamp for the 1st of next month at midnight UTC."""
+    now = datetime.now(timezone.utc)
+    if now.month == 12:
+        first = now.replace(year=now.year + 1, month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
+    else:
+        first = now.replace(month=now.month + 1, day=1, hour=0, minute=0, second=0, microsecond=0)
+    return first.isoformat()
+
+
+def _maybe_reset_counters(sb, user_id: str, row: dict) -> dict:
+    """Check if usage counters need resetting (monthly). Mutates and returns row."""
+    now = datetime.now(timezone.utc)
+    updates = {}
+
+    qa_reset = row.get("qa_reset_at")
+    if qa_reset:
+        if isinstance(qa_reset, str):
+            try:
+                qa_reset = datetime.fromisoformat(qa_reset.replace("Z", "+00:00"))
+            except Exception:
+                qa_reset = None
+    if qa_reset and now >= qa_reset:
+        updates["qa_questions_used"] = 0
+        updates["qa_reset_at"] = _first_of_next_month()
+        row["qa_questions_used"] = 0
+        row["qa_reset_at"] = updates["qa_reset_at"]
+
+    tr_reset = row.get("topic_requests_reset_at")
+    if tr_reset:
+        if isinstance(tr_reset, str):
+            try:
+                tr_reset = datetime.fromisoformat(tr_reset.replace("Z", "+00:00"))
+            except Exception:
+                tr_reset = None
+    if tr_reset and now >= tr_reset:
+        updates["topic_requests_used"] = 0
+        updates["topic_requests_reset_at"] = _first_of_next_month()
+        row["topic_requests_used"] = 0
+        row["topic_requests_reset_at"] = updates["topic_requests_reset_at"]
+
+    if updates:
+        sb.table("signal_subscriptions").update(updates).eq("user_id", user_id).execute()
+
+    return row
+
+
 @router.get("/tier")
 async def get_tier(request: Request):
-    """Return the current user's subscription tier and status."""
+    """Return the current user's subscription tier, limits, and usage."""
     user = await _get_authenticated_user(request)
 
     sb = _get_sb()
     result = sb.table("signal_subscriptions").select(
-        "tier, status, current_period_end"
+        "tier, status, current_period_end, "
+        "qa_questions_used, qa_reset_at, "
+        "topic_requests_used, topic_requests_reset_at"
     ).eq("user_id", str(user.id)).execute()
 
     if not result.data:
-        return {"tier": "free", "status": "active", "current_period_end": None}
+        tier = "free"
+        limits = TIER_LIMITS[tier]
+        return {
+            "tier": tier,
+            "status": "active",
+            "current_period_end": None,
+            "limits": limits,
+            "usage": {
+                "qa_questions_used": 0,
+                "qa_reset_at": _first_of_next_month(),
+                "topic_requests_used": 0,
+                "topic_requests_reset_at": _first_of_next_month(),
+            },
+        }
 
     row = result.data[0]
+    row = _maybe_reset_counters(sb, str(user.id), row)
+    tier = row.get("tier", "free")
+    limits = TIER_LIMITS.get(tier, TIER_LIMITS["free"])
+
     return {
-        "tier": row.get("tier", "free"),
+        "tier": tier,
         "status": row.get("status", "active"),
         "current_period_end": row.get("current_period_end"),
+        "limits": limits,
+        "usage": {
+            "qa_questions_used": row.get("qa_questions_used", 0),
+            "qa_reset_at": row.get("qa_reset_at"),
+            "topic_requests_used": row.get("topic_requests_used", 0),
+            "topic_requests_reset_at": row.get("topic_requests_reset_at"),
+        },
     }
 
 
