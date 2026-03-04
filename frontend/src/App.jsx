@@ -6,6 +6,8 @@ import SignInView from "./components/SignInView.jsx";
 import ConsentView from "./components/ConsentView.jsx";
 import OnboardingView from "./components/OnboardingView.jsx";
 import UploadView from "./components/UploadView.jsx";
+import InputSelectionView from "./components/InputSelectionView.jsx";
+import PasteTextView from "./components/PasteTextView.jsx";
 import ProcessingView from "./components/ProcessingView.jsx";
 import ReportView from "./components/ReportView.jsx";
 import ErrorView from "./components/ErrorView.jsx";
@@ -56,6 +58,8 @@ function viewFromPath(pathname) {
   if (rel === "history") return "history";
   if (rel === "account") return "account";
   if (rel === "manual-entry") return "manual-entry";
+  if (rel === "paste-text") return "paste-text";
+  if (rel === "image-upload") return "image-upload";
   return "onboarding"; // default — auth flow will override
 }
 
@@ -67,7 +71,7 @@ export default function App() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
-  // Views: "consent" | "onboarding" | "upload" | "processing" | "report" | "error" | "itemized-request" | "history" | "manual-entry"
+  // Views: "consent" | "onboarding" | "input-selection" | "upload" | "paste-text" | "image-upload" | "confirmation" | "processing" | "report" | "error" | "itemized-request" | "history" | "manual-entry"
   const [view, setView] = useState(() => viewFromPath(location.pathname));
   const [processingStep, setProcessingStep] = useState(0);
   const [report, setReport] = useState(null);
@@ -195,13 +199,13 @@ export default function App() {
             consentAnalytics: data.consent_analytics ?? true,
             consentEmployer: data.consent_employer ?? false,
           });
-          // Skip to upload if profile is filled in — respect URL if it's a deep link
+          // Skip to input-selection if profile is filled in — respect URL if it's a deep link
           if (data.first_name && data.last_name) {
             const urlView = viewFromPath(location.pathname);
-            if (urlView === "history" || urlView === "account" || urlView === "manual-entry") {
+            if (urlView === "history" || urlView === "account" || urlView === "manual-entry" || urlView === "paste-text" || urlView === "image-upload") {
               setView(urlView);
             } else {
-              setView("upload");
+              setView("input-selection");
             }
           }
         } else {
@@ -254,7 +258,7 @@ export default function App() {
 
   const handleReset = useCallback(() => {
     navigate("/parity-health/");
-    setView("upload");
+    setView("input-selection");
     setReport(null);
     setProvider(null);
     setServiceDate("");
@@ -276,7 +280,7 @@ export default function App() {
 
   // ----- Navigation -----
   const handleNavigate = useCallback((target) => {
-    if (target === "upload") {
+    if (target === "upload" || target === "input-selection") {
       navigate("/parity-health/");
     } else if (target === "history") {
       navigate("/parity-health/history");
@@ -434,7 +438,7 @@ export default function App() {
       }
 
       navigate("/parity-health/");
-      setView("upload");
+      setView("input-selection");
     },
     [session, navigate]
   );
@@ -760,6 +764,88 @@ export default function App() {
     }
   }, [runPipeline]);
 
+  // ----- Paste text flow -----
+  const handlePasteSubmit = useCallback(
+    async (text) => {
+      setView("processing");
+      setProcessingStep(0);
+      setSlowServer(false);
+
+      const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
+
+      try {
+        const response = await fetchWithTimeout(
+          `${API_BASE}/api/health/analyze-text`,
+          { text }
+        );
+        clearTimeout(slowTimer);
+        setSlowServer(false);
+
+        if (response.error === "overloaded") {
+          setError({
+            title: "AI Service Busy",
+            message: "The AI service is temporarily busy. Please try again in a moment.",
+          });
+          setView("error");
+          return;
+        }
+
+        // Convert AI result to billData format
+        const billData = {
+          provider: {
+            name: response.provider_name || "Unknown Provider",
+            zip: "00000",
+            npi: null,
+          },
+          serviceDate: response.service_date || "",
+          parsingMethod: "ai",
+          insuranceName: response.insurance_name || null,
+          lineItems: (response.line_items || [])
+            .filter((li) => li.cpt_code || li.revenue_code)
+            .map((li) => ({
+              code: li.cpt_code || li.revenue_code || "",
+              codeType: li.cpt_code ? "CPT" : "REVENUE",
+              description: li.description || "Unknown procedure",
+              billedAmount: li.billed_amount || 0,
+              quantity: li.quantity || 1,
+              modifier: li.modifier || null,
+            })),
+        };
+
+        if (billData.lineItems.length === 0) {
+          setEobData(billData);
+          setItemizedReason("no_codes");
+          setView("itemized-request");
+          return;
+        }
+
+        setParsingMethod("ai");
+        await runPipeline(billData, "ai");
+      } catch (err) {
+        clearTimeout(slowTimer);
+        setSlowServer(false);
+        console.error("Paste text analysis error:", err);
+        setError({
+          title: "Analysis Error",
+          message: "Could not analyze the pasted text. Please try again or use a different input method.",
+        });
+        setView("error");
+      }
+    },
+    [runPipeline]
+  );
+
+  // ----- Navigation to new input views -----
+  const handleGoToPasteText = useCallback(() => {
+    navigate("/parity-health/paste-text");
+    setView("paste-text");
+  }, [navigate]);
+
+  const handleGoToImageUpload = useCallback(() => {
+    navigate("/parity-health/image-upload");
+    setView("image-upload");
+  }, [navigate]);
+
   // ----- EOB: retry parse when overloaded -----
   const handleRetryEobParse = useCallback(async () => {
     setEobOverloaded(false);
@@ -920,13 +1006,31 @@ export default function App() {
         initialData={onboardingData}
       />
     );
-  } else {
+  } else if (view === "paste-text") {
+    viewContent = (
+      <PasteTextView
+        onSubmit={handlePasteSubmit}
+        onBack={handleReset}
+      />
+    );
+  } else if (view === "upload") {
     viewContent = (
       <UploadView
         onFileSelect={handleFileSelect}
         onSampleBill={handleSampleBill}
         onManualEntry={handleManualEntry}
         onHavingTrouble={handleHavingTrouble}
+      />
+    );
+  } else {
+    // Default: input-selection
+    viewContent = (
+      <InputSelectionView
+        onFileSelect={handleFileSelect}
+        onPasteText={handleGoToPasteText}
+        onImageUpload={handleGoToImageUpload}
+        onSampleBill={handleSampleBill}
+        onManualEntry={handleManualEntry}
       />
     );
   }
