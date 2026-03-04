@@ -403,10 +403,26 @@ async def stripe_webhook(request: Request):
 
     if event_type == "checkout.session.completed":
         user_id = obj.get("metadata", {}).get("supabase_user_id")
+        mode = obj.get("mode")
         subscription_id = obj.get("subscription")
         customer_id = obj.get("customer")
 
-        if user_id and subscription_id:
+        # One-time payment (e.g. additional topic request purchase)
+        if user_id and mode == "payment":
+            payment_type = obj.get("metadata", {}).get("type")
+            if payment_type == "topic_request":
+                # Grant one additional topic request by decrementing used count
+                result = sb.table("signal_subscriptions").select(
+                    "topic_requests_used"
+                ).eq("user_id", user_id).execute()
+                if result.data:
+                    current = result.data[0].get("topic_requests_used", 0)
+                    new_count = max(current - 1, 0)
+                    sb.table("signal_subscriptions").update(
+                        {"topic_requests_used": new_count}
+                    ).eq("user_id", user_id).execute()
+
+        elif user_id and subscription_id:
             # Fetch the subscription to get price/tier info
             sub = stripe.Subscription.retrieve(subscription_id)
             price_id = sub["items"]["data"][0]["price"]["id"] if sub["items"]["data"] else ""
