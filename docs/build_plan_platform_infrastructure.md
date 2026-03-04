@@ -89,8 +89,14 @@
 - `STRIPE_PRICE_STANDARD_ANNUAL` — Price ID for Standard annual
 - `STRIPE_PRICE_PREMIUM_MONTHLY` — Price ID for Premium monthly
 - `STRIPE_PRICE_PREMIUM_ANNUAL` — Price ID for Premium annual
+- `STRIPE_PRICE_PROFESSIONAL_MONTHLY` — Price ID for Professional monthly
+- `STRIPE_PRICE_PROFESSIONAL_ANNUAL` — Price ID for Professional annual
+- `STRIPE_PRICE_TOPIC_REQUEST_FREE` — One-time topic request price (Free tier)
+- `STRIPE_PRICE_TOPIC_REQUEST_STANDARD` — One-time topic request price (Standard tier)
+- `STRIPE_PRICE_TOPIC_REQUEST_PREMIUM` — One-time topic request price (Premium tier)
+- `STRIPE_PRICE_TOPIC_REQUEST_PROFESSIONAL` — One-time topic request price (Professional tier)
 - `FRONTEND_URL` — https://civicscale.ai
-- `CRON_SECRET` — Secret for notification delivery endpoint
+- `CRON_SECRET` — Secret for notification delivery and admin endpoints
 - `TWILIO_ACCOUNT_SID` — Twilio account SID
 - `TWILIO_AUTH_TOKEN` — Twilio auth token
 
@@ -107,6 +113,14 @@
 |---------|-----------|---------------|--------------|
 | Signal Standard | prod_U53zC8Cds0OrDH | $4.99 | $39.99 |
 | Signal Premium | prod_U53zD0oXaivdLv | $19.99 | $149.99 |
+| Signal Professional | (check Stripe dashboard) | $99.00 | $950.00 |
+
+| One-Time Product | Tier | Price |
+|------------------|------|-------|
+| Additional Topic Request | Free | $9.99 |
+| Additional Topic Request | Standard | $7.99 |
+| Additional Topic Request | Premium | $4.99 |
+| Additional Topic Request | Professional | $2.99 |
 
 All in test mode. Switch to live mode before charging real customers.
 
@@ -129,8 +143,10 @@ civicscale.ai/provider                  → ProviderApp.jsx (authenticated)
 civicscale.ai/signal                    → SignalLanding.jsx (multi-topic)
 civicscale.ai/signal/:slug              → IssueDashboard.jsx
 civicscale.ai/signal/methodology        → MethodologyView.jsx
-civicscale.ai/signal/pricing            → PricingView.jsx
-civicscale.ai/signal/login              → Signal phone auth
+civicscale.ai/signal/pricing            → PricingView.jsx (four-tier)
+civicscale.ai/signal/login              → SignalLogin.jsx (email + SMS)
+civicscale.ai/signal/account            → AccountView.jsx (usage + requests)
+civicscale.ai/signal/admin/requests     → AdminRequestsDashboard.jsx
 civicscale.ai/privacy                   → Privacy policy
 civicscale.ai/terms                     → Terms of service
 ```
@@ -161,9 +177,18 @@ civicscale.ai/terms                     → Terms of service
 - `GET /api/signal/topics` — All topics (cached 5 min)
 - `GET /api/signal/metrics` — Live platform stats
 - `POST /api/signal/events` — Event capture
-- `POST /api/signal/checkout` — Stripe checkout
-- `POST /api/signal/portal` — Stripe portal
-- `GET /api/signal/tier` — User tier
-- `POST /api/signal/webhooks` — Stripe webhooks
-- `POST /api/signal/qa` — Premium Q&A
+- `POST /api/signal/stripe/checkout` — Stripe checkout (4 tiers)
+- `POST /api/signal/stripe/portal` — Stripe portal
+- `GET /api/signal/stripe/tier` — User tier, limits, and usage
+- `POST /api/signal/stripe/webhooks` — Stripe webhooks (subscriptions + one-time purchases)
+- `POST /api/signal/qa` — Q&A with per-tier limits
+- `POST /api/signal/topic-request` — Submit topic request (Claude parsing)
+- `POST /api/signal/topic-request/confirm` — Confirm after clarification
+- `POST /api/signal/topic-request/purchase` — Buy additional request
+- `GET /api/signal/topic-requests` — User's own requests
+- `GET /api/signal/admin/topic-requests` — All requests (admin)
+- `POST /api/signal/admin/topic-requests/approve` — Approve + launch pipeline
+- `POST /api/signal/admin/topic-requests/reject` — Reject with reason
+- `POST /api/signal/admin/topic-requests/clarify` — Request clarification
+- `POST /api/signal/admin/topic-requests/complete` — Mark completed
 - `GET /api/signal/notifications/deliver` — Email delivery (cron)
