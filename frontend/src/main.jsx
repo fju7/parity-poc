@@ -15,6 +15,7 @@ import BillingLanding from './components/BillingLanding.jsx'
 import EmployerProductPage from './components/EmployerProductPage.jsx'
 import ProviderProductPage from './components/ProviderProductPage.jsx'
 import EmployerDemoPage from './components/EmployerDemoPage.jsx'
+import ProviderDemoPage from './components/ProviderDemoPage.jsx'
 import ProviderApp from './ProviderApp.jsx'
 import SignalApp from './SignalApp.jsx'
 
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/billing/employer" element={<EmployerProductPage />} />
         <Route path="/billing/provider" element={<ProviderProductPage />} />
         <Route path="/billing/employer/demo" element={<EmployerDemoPage />} />
+        <Route path="/billing/provider/demo" element={<ProviderDemoPage />} />
         <Route path="/employer" element={<EmployerLandingPage />} />
         <Route path="/employer/login" element={<EmployerLoginPage />} />
         <Route path="/employer/auth/callback" element={<EmployerAuthCallback />} />
