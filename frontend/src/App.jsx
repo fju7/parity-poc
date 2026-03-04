@@ -8,6 +8,7 @@ import OnboardingView from "./components/OnboardingView.jsx";
 import UploadView from "./components/UploadView.jsx";
 import InputSelectionView from "./components/InputSelectionView.jsx";
 import PasteTextView from "./components/PasteTextView.jsx";
+import ImageUploadView from "./components/ImageUploadView.jsx";
 import ProcessingView from "./components/ProcessingView.jsx";
 import ReportView from "./components/ReportView.jsx";
 import ErrorView from "./components/ErrorView.jsx";
@@ -846,6 +847,77 @@ export default function App() {
     setView("image-upload");
   }, [navigate]);
 
+  // ----- Image upload flow -----
+  const handleImageSubmit = useCallback(
+    async (base64Pages) => {
+      setView("processing");
+      setProcessingStep(0);
+      setSlowServer(false);
+
+      const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
+
+      try {
+        const response = await fetchWithTimeout(
+          `${API_BASE}/api/health/analyze-image`,
+          { pages: base64Pages }
+        );
+        clearTimeout(slowTimer);
+        setSlowServer(false);
+
+        if (response.error === "overloaded") {
+          setError({
+            title: "AI Service Busy",
+            message: "The AI service is temporarily busy. Please try again in a moment.",
+          });
+          setView("error");
+          return;
+        }
+
+        // Convert AI result to billData format
+        const billData = {
+          provider: {
+            name: response.provider_name || "Unknown Provider",
+            zip: "00000",
+            npi: null,
+          },
+          serviceDate: response.service_date || "",
+          parsingMethod: "ai",
+          insuranceName: response.insurance_name || null,
+          lineItems: (response.line_items || [])
+            .filter((li) => li.cpt_code || li.revenue_code)
+            .map((li) => ({
+              code: li.cpt_code || li.revenue_code || "",
+              codeType: li.cpt_code ? "CPT" : "REVENUE",
+              description: li.description || "Unknown procedure",
+              billedAmount: li.billed_amount || 0,
+              quantity: li.quantity || 1,
+              modifier: li.modifier || null,
+            })),
+        };
+
+        if (billData.lineItems.length === 0) {
+          setEobData(billData);
+          setItemizedReason("no_codes");
+          setView("itemized-request");
+          return;
+        }
+
+        setParsingMethod("ai");
+        await runPipeline(billData, "ai");
+      } catch (err) {
+        clearTimeout(slowTimer);
+        setSlowServer(false);
+        console.error("Image analysis error:", err);
+        setError({
+          title: "Analysis Error",
+          message: "Could not analyze the image. Please try a clearer photo or use a different input method.",
+        });
+        setView("error");
+      }
+    },
+    [runPipeline]
+  );
+
   // ----- EOB: retry parse when overloaded -----
   const handleRetryEobParse = useCallback(async () => {
     setEobOverloaded(false);
@@ -1010,6 +1082,13 @@ export default function App() {
     viewContent = (
       <PasteTextView
         onSubmit={handlePasteSubmit}
+        onBack={handleReset}
+      />
+    );
+  } else if (view === "image-upload") {
+    viewContent = (
+      <ImageUploadView
+        onSubmit={handleImageSubmit}
         onBack={handleReset}
       />
     );
