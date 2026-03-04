@@ -6,7 +6,7 @@ export default function SignalLogin() {
   const navigate = useNavigate();
 
   // Flow state
-  const [method, setMethod] = useState("phone"); // phone | email
+  const [method, setMethod] = useState("email"); // phone | email
   const [step, setStep] = useState("input"); // input | code | sent
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);

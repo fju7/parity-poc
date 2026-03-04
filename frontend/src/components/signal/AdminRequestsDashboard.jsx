@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -30,7 +31,7 @@ function StatusBadge({ status }) {
   );
 }
 
-function RequestCard({ req, token, onRefresh }) {
+function RequestCard({ req, authHeaders, onRefresh }) {
   const [loading, setLoading] = useState(false);
   const [rejectReason, setRejectReason] = useState("");
   const [clarifyMessage, setClarifyMessage] = useState("");
@@ -46,7 +47,7 @@ function RequestCard({ req, token, onRefresh }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          ...authHeaders,
         },
         body: JSON.stringify(body),
       });
@@ -215,19 +216,26 @@ export default function AdminRequestsDashboard({ session }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterStatus, setFilterStatus] = useState("");
+  const [searchParams] = useSearchParams();
 
+  const secret = searchParams.get("secret");
   const token = session?.access_token;
 
+  // Build auth headers: Bearer token if signed in, or X-Cron-Secret from ?secret= param
+  const authHeaders = token
+    ? { Authorization: `Bearer ${token}` }
+    : secret
+    ? { "X-Cron-Secret": secret }
+    : null;
+
   function fetchRequests() {
-    if (!token) return;
+    if (!authHeaders) return;
     setLoading(true);
     const url = filterStatus
       ? `${API_BASE}/api/signal/admin/topic-requests?status=${filterStatus}`
       : `${API_BASE}/api/signal/admin/topic-requests`;
 
-    fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(url, { headers: authHeaders })
       .then((r) => {
         if (r.status === 401) throw new Error("Unauthorized — admin access required");
         if (!r.ok) throw new Error("Failed to load requests");
@@ -245,12 +253,12 @@ export default function AdminRequestsDashboard({ session }) {
 
   useEffect(() => {
     fetchRequests();
-  }, [token, filterStatus]);
+  }, [token, secret, filterStatus]);
 
-  if (!session) {
+  if (!authHeaders) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <p className="text-gray-500 text-sm">Sign in to access the admin dashboard.</p>
+        <p className="text-gray-500 text-sm">Sign in or provide ?secret= to access the admin dashboard.</p>
       </div>
     );
   }
@@ -331,7 +339,7 @@ export default function AdminRequestsDashboard({ session }) {
             <RequestCard
               key={req.id}
               req={req}
-              token={token}
+              authHeaders={authHeaders}
               onRefresh={fetchRequests}
             />
           ))}

@@ -283,6 +283,7 @@ async def request_topic(body: TopicRequestBody, request: Request):
         # Out of scope — save and return rejection
         row = sb.table("signal_topic_requests").insert({
             "user_id": user_id,
+            "topic_name": parsed.get("parsed_title", request_text[:100]),
             "raw_request": request_text,
             "parsed_title": parsed.get("parsed_title"),
             "parsed_description": parsed.get("parsed_description"),
@@ -300,6 +301,7 @@ async def request_topic(body: TopicRequestBody, request: Request):
         # Save with clarification_needed status
         result = sb.table("signal_topic_requests").insert({
             "user_id": user_id,
+            "topic_name": parsed.get("parsed_title", request_text[:100]),
             "raw_request": request_text,
             "parsed_title": parsed.get("parsed_title"),
             "parsed_description": parsed.get("parsed_description"),
@@ -319,6 +321,7 @@ async def request_topic(body: TopicRequestBody, request: Request):
     # Valid — save as approved
     result = sb.table("signal_topic_requests").insert({
         "user_id": user_id,
+        "topic_name": parsed.get("parsed_title", request_text[:100]),
         "raw_request": request_text,
         "parsed_title": parsed.get("parsed_title"),
         "parsed_description": parsed.get("parsed_description"),
