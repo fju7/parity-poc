@@ -5,6 +5,7 @@ import ClaimCard from "./ClaimCard";
 import ScoreBadge from "./ScoreBadge";
 import EvidenceQA from "./EvidenceQA";
 import GlossaryText from "./GlossaryText";
+import WeightAdjuster, { computeCustomComposite, evidenceCategory } from "./WeightAdjuster";
 import { trackEvent } from "../../lib/signalAnalytics";
 
 /** Format a snake_case category key into a display name. */
@@ -286,6 +287,7 @@ export default function IssueDashboard({
   claims,
   consensus,
   sources,
+  dimensionScores,
   loading,
   error,
   session,
@@ -377,6 +379,8 @@ export default function IssueDashboard({
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [summaryExpanded, setSummaryExpanded] = useState(false);
   const [claimsExpanded, setClaimsExpanded] = useState(false);
+  const [customWeights, setCustomWeights] = useState(null);
+  const [weightsOpen, setWeightsOpen] = useState(false);
 
   // Track issue_viewed once on mount when data is ready
   const trackedIssueRef = useRef(null);
@@ -440,11 +444,15 @@ export default function IssueDashboard({
     return claims
       .filter((c) => c.category === activeCategory)
       .sort((a, b) => {
-        const sa = compositeMap.get(a.id)?.composite_score ?? 0;
-        const sb = compositeMap.get(b.id)?.composite_score ?? 0;
+        const sa = customWeights
+          ? (computeCustomComposite(a.id, customWeights, dimensionScores) ?? 0)
+          : (compositeMap.get(a.id)?.composite_score ?? 0);
+        const sb = customWeights
+          ? (computeCustomComposite(b.id, customWeights, dimensionScores) ?? 0)
+          : (compositeMap.get(b.id)?.composite_score ?? 0);
         return sb - sa;
       });
-  }, [claims, activeCategory, compositeMap]);
+  }, [claims, activeCategory, compositeMap, customWeights, dimensionScores]);
 
   const overallSummary = summaryData?.overall_summary;
   const categoryKey = summaryCatMap[activeCategory];
@@ -453,11 +461,15 @@ export default function IssueDashboard({
   const avgScore = useMemo(() => {
     if (filteredClaims.length === 0) return null;
     const scores = filteredClaims
-      .map((c) => compositeMap.get(c.id)?.composite_score)
+      .map((c) =>
+        customWeights
+          ? computeCustomComposite(c.id, customWeights, dimensionScores)
+          : compositeMap.get(c.id)?.composite_score
+      )
       .filter((s) => s != null);
     if (scores.length === 0) return null;
     return (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
-  }, [filteredClaims, compositeMap]);
+  }, [filteredClaims, compositeMap, customWeights, dimensionScores]);
 
   if (loading) return <LoadingSkeleton />;
 
@@ -588,6 +600,28 @@ export default function IssueDashboard({
         </div>
       )}
 
+      {/* Analytical Paths — weight adjustment */}
+      {dimensionScores && dimensionScores.size > 0 && (
+        <WeightAdjuster
+          weights={customWeights}
+          onChange={(w) => {
+            setCustomWeights(w);
+            trackEvent("weights_adjusted", { preset: null });
+          }}
+          onReset={() => {
+            setCustomWeights(null);
+            trackEvent("weights_reset");
+          }}
+          isOpen={weightsOpen}
+          onToggle={() => {
+            if (!weightsOpen) {
+              trackEvent("analytical_paths_opened", { issue_slug: issue?.slug });
+            }
+            setWeightsOpen(!weightsOpen);
+          }}
+        />
+      )}
+
       {/* Category tabs */}
       {categories.length > 0 && (
         <div className="mb-6">
@@ -675,6 +709,7 @@ export default function IssueDashboard({
                   key={claim.id}
                   claim={claim}
                   composite={compositeMap.get(claim.id)}
+                  customScore={customWeights ? computeCustomComposite(claim.id, customWeights, dimensionScores) : undefined}
                 />
               ))}
             </div>

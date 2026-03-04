@@ -2,13 +2,14 @@ import { useState } from "react";
 import ScoreBadge from "./ScoreBadge";
 import EvidenceBadge from "./EvidenceBadge";
 import ClaimDetail from "./ClaimDetail";
+import { evidenceCategory as getEvidenceCategory } from "./WeightAdjuster";
 import { trackEvent } from "../../lib/signalAnalytics";
 
-export default function ClaimCard({ claim, composite }) {
+export default function ClaimCard({ claim, composite, customScore }) {
   const [expanded, setExpanded] = useState(false);
 
-  const score = composite?.composite_score;
-  const evidenceCategory = composite?.evidence_category;
+  const score = customScore != null ? customScore : composite?.composite_score;
+  const evCat = customScore != null ? getEvidenceCategory(customScore) : composite?.evidence_category;
   const sourceCount = claim._sourceCount || 0;
 
   return (
@@ -38,7 +39,7 @@ export default function ClaimCard({ claim, composite }) {
             {claim.claim_text}
           </p>
           <div className="flex items-center gap-2 mt-1.5">
-            <EvidenceBadge category={evidenceCategory} />
+            <EvidenceBadge category={evCat} />
             {sourceCount > 0 && (
               <span className="text-xs text-gray-400">
                 {sourceCount} source{sourceCount !== 1 ? "s" : ""}

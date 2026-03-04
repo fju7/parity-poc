@@ -30,6 +30,7 @@ function LazyDashboard({ slug, session, userTier }) {
     claims: null,
     consensus: null,
     sources: null,
+    dimensionScores: null,
     loading: true,
     error: null,
   });
@@ -45,6 +46,7 @@ function LazyDashboard({ slug, session, userTier }) {
       claims={state.claims}
       consensus={state.consensus}
       sources={state.sources}
+      dimensionScores={state.dimensionScores}
       loading={state.loading}
       error={state.error}
       session={session}
@@ -69,6 +71,7 @@ async function loadIssueData(slug) {
         claims: null,
         consensus: null,
         sources: null,
+        dimensionScores: null,
         loading: false,
         error: issueErr?.message || "Topic not found",
       };
@@ -121,12 +124,32 @@ async function loadIssueData(slug) {
       _sourceCount: sourceCountMap.get(claim.id) || 0,
     }));
 
+    // 3. Fetch dimension scores for all claims (for Analytical Paths weight adjustment)
+    const claimIds = claims.map((c) => c.id);
+    let dimensionScores = new Map();
+    if (claimIds.length > 0) {
+      const { data: dimScoresData } = await supabase
+        .from("signal_claim_scores")
+        .select("claim_id, dimension, score")
+        .in("claim_id", claimIds);
+
+      if (dimScoresData) {
+        for (const row of dimScoresData) {
+          if (!dimensionScores.has(row.claim_id)) {
+            dimensionScores.set(row.claim_id, {});
+          }
+          dimensionScores.get(row.claim_id)[row.dimension] = row.score;
+        }
+      }
+    }
+
     return {
       issue,
       summary: summaryRes.data || null,
       claims,
       consensus: consensusRes.data || [],
       sources: sourcesRes.data || [],
+      dimensionScores,
       loading: false,
       error: null,
     };
@@ -137,6 +160,7 @@ async function loadIssueData(slug) {
       claims: null,
       consensus: null,
       sources: null,
+      dimensionScores: null,
       loading: false,
       error: err.message || "Failed to load data",
     };
