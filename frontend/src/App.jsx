@@ -9,6 +9,7 @@ import UploadView from "./components/UploadView.jsx";
 import InputSelectionView from "./components/InputSelectionView.jsx";
 import PasteTextView from "./components/PasteTextView.jsx";
 import ImageUploadView from "./components/ImageUploadView.jsx";
+import ConfirmationView from "./components/ConfirmationView.jsx";
 import ProcessingView from "./components/ProcessingView.jsx";
 import ReportView from "./components/ReportView.jsx";
 import ErrorView from "./components/ErrorView.jsx";
@@ -107,6 +108,9 @@ export default function App() {
   const [pendingBillData, setPendingBillData] = useState(null);
   const pendingFileRef = useRef(null);
   const [parsingMethod, setParsingMethod] = useState("standard");
+
+  // Pending bill data for confirmation screen (paste-text / image flows)
+  const [pendingConfirmData, setPendingConfirmData] = useState(null);
 
   // Cold-start "waking up" indicator
   const [slowServer, setSlowServer] = useState(false);
@@ -275,6 +279,7 @@ export default function App() {
     setItemizedReason(null);
     setShowAIModal(false);
     setPendingBillData(null);
+    setPendingConfirmData(null);
     pendingFileRef.current = null;
     setParsingMethod("standard");
   }, [navigate]);
@@ -820,8 +825,9 @@ export default function App() {
           return;
         }
 
-        setParsingMethod("ai");
-        await runPipeline(billData, "ai");
+        // Show confirmation screen for review before running pipeline
+        setPendingConfirmData(billData);
+        setView("confirmation");
       } catch (err) {
         clearTimeout(slowTimer);
         setSlowServer(false);
@@ -846,6 +852,29 @@ export default function App() {
     navigate("/parity-health/image-upload");
     setView("image-upload");
   }, [navigate]);
+
+  // ----- Confirmation screen: run pipeline with confirmed data -----
+  const handleConfirmSubmit = useCallback(
+    async (confirmedBillData) => {
+      setView("processing");
+      setProcessingStep(0);
+
+      await delay(300);
+
+      try {
+        setParsingMethod("ai");
+        await runPipeline(confirmedBillData, "ai");
+      } catch (err) {
+        console.error("Confirmation pipeline error:", err);
+        setError({
+          title: "Processing Error",
+          message: "An error occurred while analyzing the bill.",
+        });
+        setView("error");
+      }
+    },
+    [runPipeline]
+  );
 
   // ----- Image upload flow -----
   const handleImageSubmit = useCallback(
@@ -902,8 +931,9 @@ export default function App() {
           return;
         }
 
-        setParsingMethod("ai");
-        await runPipeline(billData, "ai");
+        // Show confirmation screen for review before running pipeline
+        setPendingConfirmData(billData);
+        setView("confirmation");
       } catch (err) {
         clearTimeout(slowTimer);
         setSlowServer(false);
@@ -1089,6 +1119,14 @@ export default function App() {
     viewContent = (
       <ImageUploadView
         onSubmit={handleImageSubmit}
+        onBack={handleReset}
+      />
+    );
+  } else if (view === "confirmation" && pendingConfirmData) {
+    viewContent = (
+      <ConfirmationView
+        billData={pendingConfirmData}
+        onConfirm={handleConfirmSubmit}
         onBack={handleReset}
       />
     );
