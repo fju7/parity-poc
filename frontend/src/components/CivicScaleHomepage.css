@@ -802,6 +802,12 @@
   padding: 40px 48px;
 }
 
+.cs-billing-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .cs-nav { padding: 0 24px; }

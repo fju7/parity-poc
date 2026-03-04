@@ -62,7 +62,7 @@ export default function CivicScaleHomepage() {
           </span>
         </Link>
         <nav className="cs-home-nav">
-          <Link to="/parity-health/" style={{ color: "inherit", textDecoration: "none" }}>Billing Products</Link>
+          <Link to="/billing" style={{ color: "inherit", textDecoration: "none" }}>Billing Products</Link>
           <Link to="/signal" style={{ color: "inherit", textDecoration: "none" }}>Parity Signal</Link>
           <Link to="/investors" style={{ color: "inherit", textDecoration: "none" }}>About</Link>
           <Link to="/employer/login" style={{
@@ -116,7 +116,7 @@ export default function CivicScaleHomepage() {
             cursor: "pointer", fontFamily: "inherit", textDecoration: "none",
             display: "inline-block"
           }}>Explore Parity Signal &rarr;</Link>
-          <Link to="/parity-health/" style={{
+          <Link to="/billing" style={{
             background: "linear-gradient(135deg, #2563eb, #3b82f6)",
             color: "#0a1628", border: "none", borderRadius: "8px",
             padding: "14px 28px", fontSize: "15px", fontWeight: "600",
@@ -197,7 +197,7 @@ export default function CivicScaleHomepage() {
           </div>
         </Link>
 
-        <Link to="/parity-health/" style={{ textDecoration: "none", color: "inherit", display: "flex" }}
+        <Link to="/billing" style={{ textDecoration: "none", color: "inherit", display: "flex" }}
           onMouseEnter={() => setHoveredProduct("billing")} onMouseLeave={() => setHoveredProduct(null)}>
           <div style={{
             background: hoveredProduct === "billing" ? "rgba(59,130,246,0.06)" : "rgba(255,255,255,0.02)",
