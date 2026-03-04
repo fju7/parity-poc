@@ -1,9 +1,19 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
+
+const PROD_ORIGIN = "https://civicscale.ai";
+
+function getRedirectOrigin() {
+  return window.location.hostname === "localhost"
+    ? window.location.origin
+    : PROD_ORIGIN;
+}
 
 export default function SignalLogin() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const returnTo = searchParams.get("returnTo");
 
   // Flow state
   const [method, setMethod] = useState("email"); // phone | email
@@ -33,10 +43,10 @@ export default function SignalLogin() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) navigate("/signal", { replace: true });
+      if (session) navigate(returnTo || "/signal", { replace: true });
     });
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, returnTo]);
 
   // ── Phone helpers ──
 
@@ -183,7 +193,7 @@ export default function SignalLogin() {
     const { error: otpError } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: window.location.origin + "/signal",
+        emailRedirectTo: getRedirectOrigin() + (returnTo || "/signal"),
       },
     });
 

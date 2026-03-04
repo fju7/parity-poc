@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -73,6 +73,7 @@ const TIERS = [
 
 export default function PricingView({ session, userTier }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const [annual, setAnnual] = useState(false);
   const [loadingKey, setLoadingKey] = useState(null);
@@ -89,7 +90,7 @@ export default function PricingView({ session, userTier }) {
 
   async function handleCheckout(tierKey) {
     if (!session) {
-      navigate("/signal/login");
+      navigate("/signal/login?returnTo=" + encodeURIComponent(location.pathname + location.search));
       return;
     }
 

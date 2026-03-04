@@ -2,6 +2,14 @@ import { useState, useCallback } from "react";
 import { supabase } from "../lib/supabase.js";
 import { Footer } from "./UploadView.jsx";
 
+const PROD_ORIGIN = "https://civicscale.ai";
+
+function getRedirectOrigin() {
+  return window.location.hostname === "localhost"
+    ? window.location.origin
+    : PROD_ORIGIN;
+}
+
 export default function SignInView() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
@@ -15,7 +23,7 @@ export default function SignInView() {
 
       const { error } = await supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: window.location.origin + "/parity-health/" },
+        options: { emailRedirectTo: getRedirectOrigin() + "/parity-health/" },
       });
 
       if (error) {
