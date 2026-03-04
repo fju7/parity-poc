@@ -111,6 +111,7 @@ export default function App() {
 
   // Pending bill data for confirmation screen (paste-text / image flows)
   const [pendingConfirmData, setPendingConfirmData] = useState(null);
+  const [pendingInputMethod, setPendingInputMethod] = useState("pdf_upload");
 
   // Cold-start "waking up" indicator
   const [slowServer, setSlowServer] = useState(false);
@@ -827,6 +828,7 @@ export default function App() {
 
         // Show confirmation screen for review before running pipeline
         setPendingConfirmData(billData);
+        setPendingInputMethod("paste_text");
         setView("confirmation");
       } catch (err) {
         clearTimeout(slowTimer);
@@ -855,7 +857,7 @@ export default function App() {
 
   // ----- Confirmation screen: run pipeline with confirmed data -----
   const handleConfirmSubmit = useCallback(
-    async (confirmedBillData) => {
+    async (confirmedBillData, benchmarkConsent) => {
       setView("processing");
       setProcessingStep(0);
 
@@ -864,6 +866,18 @@ export default function App() {
       try {
         setParsingMethod("ai");
         await runPipeline(confirmedBillData, "ai");
+
+        // Fire-and-forget: save anonymized benchmark observations
+        if (benchmarkConsent) {
+          saveBenchmarkObservations(confirmedBillData, pendingInputMethod);
+          setTimeout(() => {
+            setToast({
+              message: "Your anonymized data has been added to our benchmark database. Thank you!",
+              visible: true,
+            });
+            setTimeout(() => setToast((prev) => ({ ...prev, visible: false })), 4000);
+          }, 1500);
+        }
       } catch (err) {
         console.error("Confirmation pipeline error:", err);
         setError({
@@ -873,7 +887,7 @@ export default function App() {
         setView("error");
       }
     },
-    [runPipeline]
+    [runPipeline, pendingInputMethod]
   );
 
   // ----- Image upload flow -----
@@ -933,6 +947,7 @@ export default function App() {
 
         // Show confirmation screen for review before running pipeline
         setPendingConfirmData(billData);
+        setPendingInputMethod("image_upload");
         setView("confirmation");
       } catch (err) {
         clearTimeout(slowTimer);
@@ -1276,6 +1291,34 @@ function delay(ms) {
 // ---------------------------------------------------------------------------
 // Fire-and-forget: contribute de-identified billing data to employer dashboard
 // ---------------------------------------------------------------------------
+
+async function saveBenchmarkObservations(billData, inputMethod) {
+  try {
+    const lineItems = (billData.lineItems || []).map((item) => ({
+      cpt_code: item.code || null,
+      amount: item.billedAmount || null,
+      amount_type: "billed_amount",
+      cpt_confidence: "medium",
+      facility_type: "unknown",
+    }));
+
+    await fetch(`${API_BASE}/api/benchmark-observations`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        line_items: lineItems,
+        insurer: billData.insuranceName || null,
+        zip_code: billData.provider?.zip || "00000",
+        network_status: "unknown",
+        input_method: inputMethod,
+        service_date: billData.serviceDate || null,
+        provider_specialty: null,
+      }),
+    });
+  } catch {
+    // Non-blocking — silently ignore save failures
+  }
+}
 
 async function contributeToEmployer(scored, billData, userId, employerCode) {
   try {
