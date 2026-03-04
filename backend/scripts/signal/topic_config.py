@@ -5,6 +5,10 @@ Centralizes issue metadata, categories, prompt context, snapshot path, and
 manifest path for every Signal topic. All pipeline scripts import this module
 instead of hardcoding GLP-1-specific values.
 
+Dynamically registered topics are persisted to
+``backend/data/signal/dynamic_topics.json`` so that subprocesses (which
+reimport this module) can see them too.
+
 Usage:
     from topic_config import get_topic, get_manifest_path, get_snapshot_path
 
@@ -13,10 +17,12 @@ Usage:
 """
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 BACKEND_ROOT = Path(__file__).resolve().parent.parent.parent
+DYNAMIC_TOPICS_PATH = BACKEND_ROOT / "data" / "signal" / "dynamic_topics.json"
 
 # ---------------------------------------------------------------------------
 # Topic definitions
@@ -111,6 +117,26 @@ TOPICS: dict[str, dict] = {
 
 
 # ---------------------------------------------------------------------------
+# Load dynamically registered topics from disk
+# ---------------------------------------------------------------------------
+
+def _load_dynamic_topics():
+    """Load topics registered at runtime from the dynamic topics JSON file."""
+    if DYNAMIC_TOPICS_PATH.exists():
+        try:
+            with open(DYNAMIC_TOPICS_PATH) as f:
+                dynamic = json.load(f)
+            for slug, topic in dynamic.items():
+                if slug not in TOPICS:
+                    TOPICS[slug] = topic
+        except (json.JSONDecodeError, OSError) as exc:
+            print(f"[topic_config] Warning: failed to load dynamic topics: {exc}")
+
+
+_load_dynamic_topics()
+
+
+# ---------------------------------------------------------------------------
 # Helper functions
 # ---------------------------------------------------------------------------
 
@@ -141,12 +167,12 @@ def register_topic(
     categories: list[str],
     manifest_filename: str | None = None,
 ) -> dict:
-    """Register a new topic at runtime.
+    """Register a new topic at runtime and persist to disk.
 
-    Used by the automated pipeline to add dynamically created topics
-    without hardcoding them in TOPICS.
+    Persists to ``dynamic_topics.json`` so that subprocesses (which reimport
+    this module) can see the new topic too.
     """
-    TOPICS[slug] = {
+    topic = {
         "slug": slug,
         "title": title,
         "description": description,
@@ -155,7 +181,23 @@ def register_topic(
         "prompt_detail": description,
         "manifest_filename": manifest_filename or f"{slug}_sources.json",
     }
-    return TOPICS[slug]
+    TOPICS[slug] = topic
+
+    # Persist to disk for subprocess visibility
+    dynamic: dict = {}
+    if DYNAMIC_TOPICS_PATH.exists():
+        try:
+            with open(DYNAMIC_TOPICS_PATH) as f:
+                dynamic = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    dynamic[slug] = topic
+    DYNAMIC_TOPICS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(DYNAMIC_TOPICS_PATH, "w") as f:
+        json.dump(dynamic, f, indent=2)
+
+    return topic
 
 
 def list_slugs() -> list[str]:
