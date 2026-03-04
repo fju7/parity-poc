@@ -3,6 +3,7 @@ import { Footer } from "./UploadView.jsx";
 
 export default function ConfirmationView({ billData, onConfirm, onBack }) {
   const [zipCode, setZipCode] = useState(billData.provider?.zip || "");
+  const [benchmarkConsent, setBenchmarkConsent] = useState(true);
 
   const totalBilled = (billData.lineItems || []).reduce(
     (sum, item) => sum + (item.billedAmount || 0),
@@ -18,8 +19,8 @@ export default function ConfirmationView({ billData, onConfirm, onBack }) {
         zip: zipCode.trim() || "00000",
       },
     };
-    onConfirm(confirmed);
-  }, [billData, zipCode, onConfirm]);
+    onConfirm(confirmed, benchmarkConsent);
+  }, [billData, zipCode, benchmarkConsent, onConfirm]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -134,6 +135,28 @@ export default function ConfirmationView({ billData, onConfirm, onBack }) {
           ) : (
             <p className="text-sm text-gray-500 italic">No line items extracted.</p>
           )}
+        </div>
+
+        {/* Benchmark consent */}
+        <div className="bg-white rounded-xl border border-gray-200 p-5 mb-6">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={benchmarkConsent}
+              onChange={(e) => setBenchmarkConsent(e.target.checked)}
+              className="mt-0.5 w-4 h-4 accent-[#0D7377] cursor-pointer"
+            />
+            <div>
+              <p className="text-sm text-[#1B3A5C] font-medium leading-snug">
+                Anonymize my bill data and add it to CivicScale's benchmark database
+                to help make healthcare pricing more transparent.
+              </p>
+              <p className="text-xs text-gray-500 mt-1.5 leading-relaxed">
+                We store only: procedure codes, amounts, insurer, region, and date (month/year).
+                No personal information, provider names, or identifying details are saved.
+              </p>
+            </div>
+          </label>
         </div>
 
         {/* Actions */}
