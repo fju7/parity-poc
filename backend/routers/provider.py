@@ -779,11 +779,14 @@ async def analyze_contract(req: AnalyzeRequest):
             "medicare_source": medicare_source,
         })
 
-    # Adherence rate: % of lines with contract that are CORRECT
+    # Adherence rate: % of lines paid at or above contracted rate
+    # Correct + Overpaid = adherent (payer met or exceeded obligation)
+    # Underpaid + Denied = non-adherent
     lines_with_contract = (correct_count + underpaid_count + denied_count
                            + overpaid_count + billed_below_count)
+    adherent_count = correct_count + overpaid_count
     adherence_rate = (
-        round((correct_count / lines_with_contract) * 100, 1)
+        round((adherent_count / lines_with_contract) * 100, 1)
         if lines_with_contract > 0
         else 100.0
     )
@@ -1226,17 +1229,55 @@ async def generate_audit_report(req: AuditReportRequest):
     payer_results = data.get("payer_results", [])
 
     # --- AI-generated narrative sections ---
+    # Enrich summary input with per-payer detail for tone calibration
+    total_underpayment_all = sum(
+        pr.get("summary", {}).get("total_underpayment", 0) for pr in payer_results
+    )
+    total_lines_all = sum(
+        pr.get("summary", {}).get("line_count", 0) for pr in payer_results
+    )
+    total_underpaid_lines = sum(
+        pr.get("summary", {}).get("underpaid_count", 0) for pr in payer_results
+    )
+    total_overpaid_lines = sum(
+        pr.get("summary", {}).get("overpaid_count", 0) for pr in payer_results
+    )
+    total_denied_lines = sum(
+        pr.get("summary", {}).get("denied_count", 0) for pr in payer_results
+    )
+
+    # Determine severity level for tone calibration
+    underpaid_pct = (total_underpaid_lines / total_lines_all * 100) if total_lines_all > 0 else 0
+    if total_underpayment_all > 1000 or underpaid_pct > 25:
+        severity = "high"
+    elif total_underpayment_all > 500 or underpaid_pct > 10:
+        severity = "moderate"
+    else:
+        severity = "low"
+
     summary_input = json.dumps({
         "practice_name": practice_name,
         "date_range": date_range,
         "payer_count": len(payer_results),
+        "severity": severity,
+        "totals": {
+            "total_lines": total_lines_all,
+            "total_underpayment": round(total_underpayment_all, 2),
+            "underpaid_lines": total_underpaid_lines,
+            "overpaid_lines": total_overpaid_lines,
+            "denied_lines": total_denied_lines,
+        },
         "payers": [
             {
                 "name": pr.get("payer_name", ""),
                 "total_underpayment": pr.get("summary", {}).get("total_underpayment", 0),
                 "denied_count": pr.get("summary", {}).get("denied_count", 0),
+                "underpaid_count": pr.get("summary", {}).get("underpaid_count", 0),
+                "overpaid_count": pr.get("summary", {}).get("overpaid_count", 0),
+                "correct_count": pr.get("summary", {}).get("correct_count", 0),
                 "adherence_rate": pr.get("summary", {}).get("adherence_rate", 0),
                 "line_count": pr.get("summary", {}).get("line_count", 0),
+                "scorecard": pr.get("scorecard", {}),
             }
             for pr in payer_results
         ],
@@ -1247,7 +1288,17 @@ async def generate_audit_report(req: AuditReportRequest):
             "You are a healthcare revenue cycle analyst writing an executive summary "
             "for a payer contract audit report. Write 3-4 sentences summarizing the "
             "key findings. Be specific about dollar amounts and percentages. "
-            "Use a professional, factual tone. Do not use markdown formatting."
+            "Use a professional, factual tone. Do not use markdown formatting.\n\n"
+            "CRITICAL TONE CALIBRATION based on the 'severity' field:\n"
+            "- severity='low' (underpayment <$500, <10% of lines): Use measured, reassuring "
+            "language. Frame overpayments positively (e.g., 'Payer is paying above contracted "
+            "rates on X of Y lines, which is favorable to the practice'). Describe underpayments "
+            "as 'minor' or 'isolated'. Do NOT use alarming language like 'systemic issues' or "
+            "'significant revenue leakage'.\n"
+            "- severity='moderate' ($500-$1000 or 10-25% of lines): Use balanced, factual language. "
+            "Note both positive and concerning findings.\n"
+            "- severity='high' (>$1000 or >25% of lines): Use direct, urgent language highlighting "
+            "the financial impact and need for immediate action."
         ),
         user_content=summary_input,
         max_tokens=512,
@@ -1257,7 +1308,12 @@ async def generate_audit_report(req: AuditReportRequest):
         system_prompt=(
             "You are a healthcare revenue cycle consultant. Given audit findings, "
             "write 4-6 prioritized recommended actions. Number each one. Be specific "
-            "and actionable. Each action should be 1-2 sentences. Do not use markdown."
+            "and actionable. Each action should be 1-2 sentences. Do not use markdown.\n\n"
+            "Match urgency to the 'severity' field:\n"
+            "- severity='low': Focus on monitoring and maintaining current performance. "
+            "Lead with positive findings before addressing minor issues.\n"
+            "- severity='moderate': Balance corrective actions with maintenance items.\n"
+            "- severity='high': Lead with urgent corrective actions."
         ),
         user_content=summary_input,
         max_tokens=1024,
@@ -1268,7 +1324,12 @@ async def generate_audit_report(req: AuditReportRequest):
             "You are a healthcare billing consultant assessing a billing contractor's "
             "performance. Given audit metrics, write 2-3 sentences about the billing "
             "contractor's performance based on clean claim rate, denial rate, and "
-            "preventable denial patterns. Be constructive and factual. Do not use markdown."
+            "preventable denial patterns. Be constructive and factual. Do not use markdown.\n\n"
+            "TONE CALIBRATION based on 'severity' field:\n"
+            "- severity='low': Emphasize strong performance. Frame any issues as minor "
+            "optimization opportunities rather than problems.\n"
+            "- severity='moderate': Acknowledge good areas while noting specific improvements.\n"
+            "- severity='high': Be direct about performance gaps while remaining constructive."
         ),
         user_content=summary_input,
         max_tokens=512,
@@ -2201,7 +2262,9 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
             })
 
         lines_with_contract = correct_count + underpaid_count + denied_count + overpaid_count + billed_below_count
-        adherence_rate = round((correct_count / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
+        # Adherence = paid at or above contracted rate (correct + overpaid)
+        adherent_count = correct_count + overpaid_count
+        adherence_rate = round((adherent_count / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
 
         # Scorecard
         clean_claim_rate = round(((correct_count + overpaid_count) / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
