@@ -536,6 +536,43 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
                 }
               }}
             />
+
+            {/* Archive / Unarchive */}
+            {audit.archived ? (
+              <ActionButton
+                label="Unarchive"
+                loading={loading}
+                color="#6B7280"
+                outline
+                onClick={() => adminAction("archive", { audit_id: audit.id, archived: false })}
+              />
+            ) : (
+              <ActionButton
+                label="Archive"
+                loading={loading}
+                color="#6B7280"
+                outline
+                onClick={() => {
+                  if (confirm("Archive this audit? It will be hidden from the default view.")) {
+                    adminAction("archive", { audit_id: audit.id, archived: true });
+                  }
+                }}
+              />
+            )}
+
+            {/* Delete — only on archived audits */}
+            {audit.archived && (
+              <ActionButton
+                label="Delete"
+                loading={loading}
+                color="#DC2626"
+                onClick={() => {
+                  if (confirm("Permanently delete this audit and all associated data? This cannot be undone.")) {
+                    adminAction("delete", { audit_id: audit.id });
+                  }
+                }}
+              />
+            )}
           </div>
 
           {/* Analysis status message */}
@@ -629,9 +666,14 @@ export default function ProviderAuditAdmin({ session }) {
     setLoading(true);
     setError(null);
 
-    const url = filterStatus
-      ? `${API_BASE}/api/provider/admin/audits?status=${filterStatus}`
-      : `${API_BASE}/api/provider/admin/audits`;
+    const params = new URLSearchParams();
+    if (filterStatus === "archived") {
+      params.set("archived", "true");
+    } else {
+      params.set("archived", "false");
+      if (filterStatus) params.set("status", filterStatus);
+    }
+    const url = `${API_BASE}/api/provider/admin/audits?${params.toString()}`;
 
     fetch(url, { headers })
       .then(r => {
@@ -714,8 +756,9 @@ export default function ProviderAuditAdmin({ session }) {
           { key: "processing", label: "Processing" },
           { key: "review", label: "Review" },
           { key: "delivered", label: "Delivered" },
+          { key: "archived", label: "Archived" },
         ].map(tab => {
-          const count = tab.key ? (statusCounts[tab.key] || 0) : audits.length;
+          const count = tab.key && tab.key !== "archived" ? (statusCounts[tab.key] || 0) : audits.length;
           const active = filterStatus === tab.key;
           return (
             <button

@@ -1962,17 +1962,68 @@ def _send_followup_email(audit: dict):
 # ---------------------------------------------------------------------------
 
 @router.get("/admin/audits")
-async def admin_list_audits(request: Request, status: Optional[str] = None):
-    """List all audits (admin only)."""
+async def admin_list_audits(request: Request, status: Optional[str] = None, archived: Optional[str] = None):
+    """List all audits (admin only). Use archived=true to show archived, archived=false (default) to hide them."""
     await _verify_admin(request)
 
     sb = _get_supabase()
     query = sb.table("provider_audits").select("*").order("created_at", desc=True)
     if status:
         query = query.eq("status", status)
+    if archived == "true":
+        query = query.eq("archived", True)
+    elif archived != "all":
+        # Default: hide archived
+        query = query.eq("archived", False)
 
     result = query.execute()
     return {"audits": result.data or []}
+
+
+class AdminArchiveBody(BaseModel):
+    audit_id: str
+    archived: bool = True
+
+
+@router.post("/admin/audits/archive")
+async def admin_archive_audit(body: AdminArchiveBody, request: Request):
+    """Archive or unarchive an audit (admin only)."""
+    await _verify_admin(request)
+    sb = _get_supabase()
+    sb.table("provider_audits").update({"archived": body.archived}).eq("id", body.audit_id).execute()
+    return {"status": "ok", "archived": body.archived}
+
+
+class AdminDeleteBody(BaseModel):
+    audit_id: str
+
+
+@router.post("/admin/audits/delete")
+async def admin_delete_audit(body: AdminDeleteBody, request: Request):
+    """Permanently delete an audit and associated analyses (admin only)."""
+    await _verify_admin(request)
+    sb = _get_supabase()
+
+    # Fetch audit to get analysis_ids
+    row = sb.table("provider_audits").select("analysis_ids, archived").eq("id", body.audit_id).execute()
+    if not row.data:
+        raise HTTPException(status_code=404, detail="Audit not found")
+
+    audit = row.data[0]
+    if not audit.get("archived"):
+        raise HTTPException(status_code=400, detail="Audit must be archived before deletion")
+
+    # Delete associated analyses
+    analysis_ids = audit.get("analysis_ids", []) or []
+    for aid in analysis_ids:
+        try:
+            sb.table("provider_analyses").delete().eq("id", aid).execute()
+        except Exception:
+            pass
+
+    # Delete the audit
+    sb.table("provider_audits").delete().eq("id", body.audit_id).execute()
+    return {"status": "deleted", "audit_id": body.audit_id}
 
 
 class AdminRunAnalysisBody(BaseModel):
