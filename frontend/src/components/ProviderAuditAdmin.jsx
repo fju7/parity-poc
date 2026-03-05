@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import ProviderAuditReport from "./ProviderAuditReport";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -45,6 +46,8 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
   const [backfillZip, setBackfillZip] = useState("");
   const [backfillPct, setBackfillPct] = useState("120");
   const [uploading835, setUploading835] = useState(false);
+  const [analysisStatus, setAnalysisStatus] = useState(null); // null | "running" | {success message}
+  const fileInputRef = useRef(null);
 
   async function adminAction(endpoint, body) {
     setLoading(true);
@@ -184,13 +187,15 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
 
               {/* Upload 835 */}
               <div style={{ marginBottom: 12 }}>
-                <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: NAVY, marginBottom: 4 }}>
+                <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: NAVY, marginBottom: 8 }}>
                   Upload 835 File
                 </label>
                 <input
+                  ref={fileInputRef}
                   type="file"
                   accept=".835,.edi,.txt"
                   disabled={uploading835}
+                  style={{ display: "none" }}
                   onChange={async (e) => {
                     const f = e.target.files?.[0];
                     if (!f) return;
@@ -198,10 +203,7 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
                     try {
                       const formData = new FormData();
                       formData.append("file", f);
-                      formData.append("audit_id", audit.id);
-                      // Auto-assign payer from first payer in list
                       const firstPayer = payers[0]?.payer_name || "";
-                      formData.append("payer_name", firstPayer);
                       const res = await fetch(`${API_BASE}/api/provider/admin/audits/upload-835?audit_id=${audit.id}&payer_name=${encodeURIComponent(firstPayer)}`, {
                         method: "POST",
                         headers: authHeaders,
@@ -219,11 +221,54 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
                       alert(err.message);
                     } finally {
                       setUploading835(false);
+                      if (fileInputRef.current) fileInputRef.current.value = "";
                     }
                   }}
-                  style={{ fontSize: 13 }}
                 />
-                {uploading835 && <div style={{ fontSize: 12, color: TEAL, marginTop: 4 }}>Uploading and parsing...</div>}
+                <div
+                  onClick={() => !uploading835 && fileInputRef.current?.click()}
+                  onDragOver={e => { e.preventDefault(); e.stopPropagation(); }}
+                  onDrop={async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const f = e.dataTransfer.files?.[0];
+                    if (!f || uploading835) return;
+                    // Trigger same upload flow
+                    const dt = new DataTransfer();
+                    dt.items.add(f);
+                    if (fileInputRef.current) {
+                      fileInputRef.current.files = dt.files;
+                      fileInputRef.current.dispatchEvent(new Event("change", { bubbles: true }));
+                    }
+                  }}
+                  style={{
+                    border: `2px dashed ${uploading835 ? "#CBD5E1" : TEAL}`,
+                    borderRadius: 8, padding: "20px 16px", textAlign: "center",
+                    cursor: uploading835 ? "wait" : "pointer",
+                    background: uploading835 ? "#F8FAFC" : "#F0FDFA",
+                    transition: "border-color 0.15s, background 0.15s",
+                  }}
+                >
+                  {uploading835 ? (
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                      <div style={{
+                        width: 16, height: 16, border: "2px solid #CBD5E1",
+                        borderTopColor: TEAL, borderRadius: "50%",
+                        animation: "spin 0.8s linear infinite",
+                      }} />
+                      <span style={{ fontSize: 13, color: TEAL, fontWeight: 600 }}>Uploading and parsing...</span>
+                    </div>
+                  ) : (
+                    <>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: TEAL, marginBottom: 4 }}>
+                        Choose 835 File or Drag & Drop
+                      </div>
+                      <div style={{ fontSize: 11, color: SLATE }}>
+                        Accepts .835, .edi, .txt files
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* ZIP + Percentage for medicare-pct fallback */}
@@ -347,37 +392,66 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
             />
 
             {/* Run Analysis — available when audit has data to analyze */}
-            <ActionButton
-              label={analysisRunning ? "Running Analysis..." : "Run Analysis"}
-              loading={analysisRunning}
-              color="#7C3AED"
-              onClick={async () => {
-                if (!confirm("Run the full analysis pipeline (contract integrity + denial intelligence) for this audit? This may take 1-2 minutes.")) return;
-                setAnalysisRunning(true);
-                try {
-                  const payload = { audit_id: audit.id };
-                  if (backfillZip) payload.zip_code = backfillZip;
-                  if (backfillPct) payload.percentage = parseFloat(backfillPct) || 120;
-                  const res = await fetch(`${API_BASE}/api/provider/admin/audits/run-analysis`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json", ...authHeaders },
-                    body: JSON.stringify(payload),
-                  });
-                  if (!res.ok) {
-                    const data = await res.json().catch(() => ({}));
-                    alert(data.detail || "Analysis failed");
-                    return;
+            {analysisRunning ? (
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                padding: "7px 16px", borderRadius: 6, background: "#7C3AED",
+                opacity: 0.85,
+              }}>
+                <div style={{
+                  width: 14, height: 14, border: "2px solid rgba(255,255,255,0.3)",
+                  borderTopColor: "#fff", borderRadius: "50%",
+                  animation: "spin 0.8s linear infinite",
+                }} />
+                <span style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>
+                  Analyzing... this may take 1-2 minutes
+                </span>
+              </div>
+            ) : (
+              <ActionButton
+                label="Run Analysis"
+                loading={false}
+                color="#7C3AED"
+                onClick={async () => {
+                  if (!confirm("Run the full analysis pipeline (contract integrity + denial intelligence) for this audit? This may take 1-2 minutes.")) return;
+                  setAnalysisRunning(true);
+                  setAnalysisStatus(null);
+                  try {
+                    const payload = { audit_id: audit.id };
+                    if (backfillZip) payload.zip_code = backfillZip;
+                    if (backfillPct) payload.percentage = parseFloat(backfillPct) || 120;
+                    const res = await fetch(`${API_BASE}/api/provider/admin/audits/run-analysis`, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json", ...authHeaders },
+                      body: JSON.stringify(payload),
+                    });
+                    if (!res.ok) {
+                      const data = await res.json().catch(() => ({}));
+                      setAnalysisStatus(`Error: ${data.detail || "Analysis failed"}`);
+                      return;
+                    }
+                    const result = await res.json();
+                    // Build detailed summary
+                    const pr = result.payer_results || [];
+                    const totalLines = pr.reduce((n, p) => n + (p.line_count || 0), 0);
+                    const totalUnderpaid = pr.reduce((n, p) => n + (p.summary?.underpaid_count || 0), 0);
+                    const totalDenied = pr.reduce((n, p) => n + (p.summary?.denied_count || 0), 0);
+                    const totalAmount = pr.reduce((n, p) => n + (p.underpayment || 0), 0);
+                    setAnalysisStatus(
+                      `Analysis complete: ${totalLines} line items analyzed, ` +
+                      `${totalUnderpaid} underpayment${totalUnderpaid !== 1 ? "s" : ""} found` +
+                      (totalAmount > 0 ? ` ($${totalAmount.toFixed(2)})` : "") +
+                      `, ${totalDenied} denial${totalDenied !== 1 ? "s" : ""} identified.`
+                    );
+                    onRefresh();
+                  } catch (err) {
+                    setAnalysisStatus(`Error: ${err.message}`);
+                  } finally {
+                    setAnalysisRunning(false);
                   }
-                  const result = await res.json();
-                  alert(`Analysis complete! ${result.payer_count || 0} payer(s) analyzed, ${result.analysis_ids?.length || 0} result(s) stored.`);
-                  onRefresh();
-                } catch (err) {
-                  alert(err.message);
-                } finally {
-                  setAnalysisRunning(false);
-                }
-              }}
-            />
+                }}
+              />
+            )}
 
             {/* View Results — fetch and display analysis results */}
             {(audit.analysis_ids?.length > 0 || viewResults) && (
@@ -464,141 +538,42 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
             />
           </div>
 
-          {/* Analysis Results Panel */}
-          {viewResults && (
-            <div style={{ marginTop: 16, borderTop: "1px solid #E2E8F0", paddingTop: 16 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: NAVY, marginBottom: 12 }}>
-                Analysis Results ({viewResults.length} payer{viewResults.length !== 1 ? "s" : ""})
-              </div>
+          {/* Analysis status message */}
+          {analysisStatus && (
+            <div style={{
+              marginTop: 12, padding: "10px 16px", borderRadius: 8, fontSize: 13,
+              background: analysisStatus.startsWith("Error") ? "#FEF2F2" : "#ECFDF5",
+              color: analysisStatus.startsWith("Error") ? "#DC2626" : "#059669",
+              border: `1px solid ${analysisStatus.startsWith("Error") ? "#FECACA" : "#A7F3D0"}`,
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+            }}>
+              <span>{analysisStatus}</span>
+              <button
+                onClick={() => setAnalysisStatus(null)}
+                style={{
+                  background: "none", border: "none", cursor: "pointer",
+                  fontSize: 16, color: SLATE, padding: "0 4px",
+                }}
+              >
+                &times;
+              </button>
+            </div>
+          )}
 
-              {viewResults.length === 0 && (
+          {/* Analysis Results — reuse full ProviderAuditReport component */}
+          {viewResults && (
+            <div style={{ marginTop: 16, borderTop: "2px solid #E2E8F0", paddingTop: 16 }}>
+              {viewResults.length === 0 ? (
                 <div style={{ fontSize: 13, color: SLATE, padding: 12, background: "#F8FAFC", borderRadius: 8 }}>
                   No analysis results found. Click "Run Analysis" to execute the pipeline.
                 </div>
+              ) : (
+                <ProviderAuditReport
+                  analysisResults={viewResults}
+                  practiceInfo={{ practice_name: audit.practice_name }}
+                  onClose={() => setViewResults(null)}
+                />
               )}
-
-              {viewResults.map((pr, pi) => (
-                <div key={pi} style={{
-                  border: "1px solid #E2E8F0", borderRadius: 10, marginBottom: 12,
-                  overflow: "hidden",
-                }}>
-                  {/* Payer header */}
-                  <div style={{
-                    padding: "12px 16px", background: "#F0FDFA",
-                    borderBottom: "1px solid #E2E8F0",
-                    display: "flex", justifyContent: "space-between", alignItems: "center",
-                  }}>
-                    <span style={{ fontSize: 14, fontWeight: 600, color: NAVY }}>
-                      {pr.payer_name || `Payer ${pi + 1}`}
-                    </span>
-                    <span style={{ fontSize: 12, color: TEAL, fontWeight: 600 }}>
-                      {pr.summary?.total_underpaid_amount != null
-                        ? `$${Number(pr.summary.total_underpaid_amount).toLocaleString("en-US", { minimumFractionDigits: 2 })} underpaid`
-                        : ""}
-                    </span>
-                  </div>
-
-                  {/* Summary stats */}
-                  {pr.summary && (
-                    <div style={{
-                      display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
-                      gap: 1, background: "#E2E8F0",
-                    }}>
-                      {[
-                        { label: "Total Claims", value: pr.summary.total_lines || pr.summary.total_claims || 0 },
-                        { label: "Underpaid", value: pr.summary.underpaid_count || 0, color: "#DC2626" },
-                        { label: "Denied", value: pr.summary.denied_count || 0, color: "#D97706" },
-                        { label: "Correct", value: pr.summary.correct_count || 0, color: "#059669" },
-                      ].map((s, si) => (
-                        <div key={si} style={{
-                          padding: "10px 12px", background: "#fff", textAlign: "center",
-                        }}>
-                          <div style={{ fontSize: 20, fontWeight: 700, color: s.color || NAVY }}>{s.value}</div>
-                          <div style={{ fontSize: 10, color: SLATE, textTransform: "uppercase", letterSpacing: 0.5 }}>{s.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Flagged line items (underpaid + denied) */}
-                  {pr.line_items?.filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED").length > 0 && (
-                    <div style={{ padding: 16 }}>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: NAVY, marginBottom: 8 }}>
-                        Flagged Items ({pr.line_items.filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED").length})
-                      </div>
-                      <div style={{ overflowX: "auto" }}>
-                        <table style={{
-                          width: "100%", fontSize: 12, borderCollapse: "collapse",
-                        }}>
-                          <thead>
-                            <tr style={{ borderBottom: "2px solid #E2E8F0" }}>
-                              {["CPT", "Description", "Billed", "Paid", "Expected", "Diff", "Flag"].map(h => (
-                                <th key={h} style={{
-                                  padding: "6px 8px", textAlign: "left", fontWeight: 600,
-                                  color: SLATE, fontSize: 10, textTransform: "uppercase", letterSpacing: 0.5,
-                                }}>{h}</th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {pr.line_items
-                              .filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED")
-                              .slice(0, 20)
-                              .map((li, li_i) => (
-                                <tr key={li_i} style={{
-                                  borderBottom: "1px solid #F1F5F9",
-                                  background: li.flag === "DENIED" ? "#FFFBEB" : li.flag === "UNDERPAID" ? "#FEF2F2" : "#fff",
-                                }}>
-                                  <td style={{ padding: "6px 8px", fontFamily: "monospace", fontWeight: 600 }}>{li.cpt_code}</td>
-                                  <td style={{ padding: "6px 8px", color: SLATE, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{li.description || "—"}</td>
-                                  <td style={{ padding: "6px 8px" }}>${Number(li.billed_amount || 0).toFixed(2)}</td>
-                                  <td style={{ padding: "6px 8px" }}>${Number(li.paid_amount || 0).toFixed(2)}</td>
-                                  <td style={{ padding: "6px 8px" }}>${Number(li.expected_rate || 0).toFixed(2)}</td>
-                                  <td style={{ padding: "6px 8px", fontWeight: 600, color: "#DC2626" }}>
-                                    ${Number(li.difference || 0).toFixed(2)}
-                                  </td>
-                                  <td style={{ padding: "6px 8px" }}>
-                                    <span style={{
-                                      fontSize: 10, fontWeight: 600, padding: "2px 6px", borderRadius: 4,
-                                      background: li.flag === "DENIED" ? "#FDE68A" : "#FECACA",
-                                      color: li.flag === "DENIED" ? "#92400E" : "#991B1B",
-                                    }}>
-                                      {li.flag}
-                                    </span>
-                                  </td>
-                                </tr>
-                              ))}
-                          </tbody>
-                        </table>
-                        {pr.line_items.filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED").length > 20 && (
-                          <div style={{ fontSize: 12, color: SLATE, padding: "8px 0" }}>
-                            + {pr.line_items.filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED").length - 20} more flagged items
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Denial intel summary */}
-                  {pr.denial_intel && (
-                    <div style={{
-                      padding: "12px 16px", borderTop: "1px solid #E2E8F0",
-                      background: "#FFFBEB",
-                    }}>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: "#92400E", marginBottom: 4 }}>
-                        Denial Intelligence
-                      </div>
-                      <div style={{ fontSize: 12, color: "#78350F", whiteSpace: "pre-wrap" }}>
-                        {typeof pr.denial_intel === "string"
-                          ? pr.denial_intel
-                          : pr.denial_intel?.summary || pr.denial_intel?.top_denial_codes?.map(d =>
-                              `${d.code}: ${d.description} (${d.count} claims, $${d.total_amount})`
-                            ).join("\n") || "No denial data"}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
             </div>
           )}
         </div>
