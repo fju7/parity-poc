@@ -114,6 +114,7 @@ export default function CivicScaleHomepage() {
           </span>
         </Link>
         <nav className="cs-home-nav">
+          <Link to="/audit" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: "600" }}>Free Audit</Link>
           <Link to="/billing" style={{ color: "inherit", textDecoration: "none" }}>Billing Products</Link>
           <Link to="/signal" style={{ color: "inherit", textDecoration: "none" }}>Parity Signal</Link>
           <Link to="/investors" style={{ color: "inherit", textDecoration: "none" }}>About</Link>
@@ -278,6 +279,68 @@ export default function CivicScaleHomepage() {
             </div>
             <div style={{ marginTop: "auto", paddingTop: "24px" }}>
               <span style={{ fontSize: "14px", fontWeight: "500", color: "#60a5fa" }}>View Billing Products &rarr;</span>
+            </div>
+          </div>
+        </Link>
+      </section>
+
+      {/* Parity Audit CTA */}
+      <section className="cs-home-section" style={{
+        paddingTop: "0", paddingBottom: "80px", maxWidth: "1100px", margin: "0 auto"
+      }}>
+        <Link to="/audit" style={{ textDecoration: "none", color: "inherit", display: "block" }}
+          onMouseEnter={() => setHoveredProduct("audit")} onMouseLeave={() => setHoveredProduct(null)}>
+          <div style={{
+            background: hoveredProduct === "audit"
+              ? "linear-gradient(135deg, rgba(20,184,166,0.12), rgba(13,148,136,0.06))"
+              : "linear-gradient(135deg, rgba(20,184,166,0.06), rgba(255,255,255,0.02))",
+            border: hoveredProduct === "audit"
+              ? "1px solid rgba(20,184,166,0.35)"
+              : "1px solid rgba(20,184,166,0.15)",
+            borderRadius: "16px", padding: "40px 48px",
+            transition: "all 0.3s ease", cursor: "pointer",
+            display: "flex", alignItems: "center", gap: "48px",
+          }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: "inline-block", background: "rgba(20,184,166,0.15)", borderRadius: "8px", padding: "6px 14px", marginBottom: "16px" }}>
+                <span style={{ fontSize: "12px", fontWeight: "700", color: "#14b8a6", letterSpacing: "0.08em" }}>FREE FOR PRACTICES</span>
+              </div>
+              <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "28px", fontWeight: "400", color: "#f1f5f9", marginBottom: "12px" }}>
+                Parity Audit
+              </h2>
+              <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "20px", maxWidth: "540px" }}>
+                Find out what your payers owe you. Upload one month of remittance data and get a detailed contract integrity report within 5-7 business days. No cost. No commitment. No integration required.
+              </p>
+              <div style={{ display: "flex", gap: "24px", marginBottom: "20px" }}>
+                {[
+                  { icon: "1", label: "Upload 835 files" },
+                  { icon: "2", label: "Add payer contracts" },
+                  { icon: "3", label: "Get your report" },
+                ].map(s => (
+                  <div key={s.icon} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <div style={{
+                      width: "24px", height: "24px", borderRadius: "50%",
+                      background: "rgba(20,184,166,0.15)", display: "flex",
+                      alignItems: "center", justifyContent: "center",
+                      fontSize: "12px", fontWeight: "700", color: "#14b8a6",
+                    }}>{s.icon}</div>
+                    <span style={{ fontSize: "13px", color: "#cbd5e1" }}>{s.label}</span>
+                  </div>
+                ))}
+              </div>
+              <span style={{ fontSize: "15px", fontWeight: "600", color: "#14b8a6" }}>
+                Start Your Free Audit &rarr;
+              </span>
+            </div>
+            <div style={{
+              flexShrink: 0, width: "180px", height: "180px", borderRadius: "16px",
+              background: "rgba(20,184,166,0.08)", border: "1px solid rgba(20,184,166,0.15)",
+              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+              gap: "8px",
+            }}>
+              <div style={{ fontSize: "42px", fontWeight: "700", color: "#14b8a6" }}>$0</div>
+              <div style={{ fontSize: "13px", color: "#94a3b8", textAlign: "center" }}>No cost to practices</div>
+              <div style={{ fontSize: "11px", color: "#64748b" }}>5-7 day delivery</div>
             </div>
           </div>
         </Link>

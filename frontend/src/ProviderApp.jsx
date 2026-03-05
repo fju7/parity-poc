@@ -843,6 +843,7 @@ export default function ProviderApp() {
         <span className="cs-nav-wordmark">CivicScale</span>
       </Link>
       <div className="cs-nav-links">
+        <Link to="/audit">Free Audit</Link>
         <Link to="/provider">For Providers</Link>
       </div>
     </nav>

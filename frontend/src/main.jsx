@@ -18,6 +18,7 @@ import EmployerDemoPage from './components/EmployerDemoPage.jsx'
 import ProviderDemoPage from './components/ProviderDemoPage.jsx'
 import ProviderApp from './ProviderApp.jsx'
 import SignalApp from './SignalApp.jsx'
+import AuditStandalone from './components/AuditStandalone.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
+        <Route path="/audit" element={<AuditStandalone />} />
         <Route path="/billing" element={<BillingLanding />} />
         <Route path="/billing/employer" element={<EmployerProductPage />} />
         <Route path="/billing/provider" element={<ProviderProductPage />} />
