@@ -11,6 +11,15 @@ Provider dashboard endpoints:
   POST /api/provider/analyze-contract        — compare remittance vs contracted rates
   POST /api/provider/analyze-coding          — coding pattern analysis (E&M distribution)
   POST /api/provider/analyze-denials         — AI-powered denial interpretation + appeal letters
+  POST /api/provider/audit-report            — generate branded PDF audit report
+  POST /api/provider/submit-audit            — submit audit + send confirmation emails
+
+Admin endpoints (ADMIN_USER_ID or CRON_SECRET protected):
+  GET  /api/provider/admin/audits            — list all audits (with optional status filter)
+  POST /api/provider/admin/audits/notes      — add review notes to an audit
+  POST /api/provider/admin/audits/deliver    — deliver report + send email to practice
+  POST /api/provider/admin/audits/follow-up  — send follow-up email
+  GET  /api/provider/admin/audits/cron-followup — auto-send follow-ups 3 days after delivery
 
 No PHI is stored. Contract rates and analysis results are tied to user_id.
 """
@@ -26,7 +35,7 @@ from collections import Counter
 from pathlib import Path
 from typing import List, Optional
 
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
@@ -55,6 +64,47 @@ def _get_supabase():
             raise RuntimeError("SUPABASE_SERVICE_KEY not set")
         _supabase = create_client(url, key)
     return _supabase
+
+
+ADMIN_USER_ID = os.environ.get("ADMIN_USER_ID", "")
+
+
+async def _get_authenticated_user(request: Request):
+    """Extract Bearer token and validate via Supabase auth."""
+    auth_header = request.headers.get("authorization", "")
+    if not auth_header.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Missing authorization token")
+
+    token = auth_header.split(" ", 1)[1]
+    sb = _get_supabase()
+
+    try:
+        user_response = sb.auth.get_user(token)
+        user = user_response.user
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid token")
+        return user
+    except Exception as exc:
+        raise HTTPException(status_code=401, detail=f"Auth failed: {exc}")
+
+
+async def _verify_admin(request: Request):
+    """Verify request comes from admin (CRON_SECRET header or admin Bearer token)."""
+    # Option 1: CRON_SECRET header (for server-to-server / cron jobs)
+    cron_secret = os.environ.get("CRON_SECRET")
+    if cron_secret and request.headers.get("X-Cron-Secret") == cron_secret:
+        return
+
+    # Option 2: Bearer token from ADMIN_USER_ID (for frontend admin dashboard)
+    if ADMIN_USER_ID:
+        try:
+            user = await _get_authenticated_user(request)
+            if str(user.id) == ADMIN_USER_ID:
+                return
+        except Exception:
+            pass
+
+    raise HTTPException(status_code=401, detail="Unauthorized")
 
 
 # ---------------------------------------------------------------------------
@@ -1579,3 +1629,385 @@ async def submit_audit(req: SubmitAuditRequest):
         "status": "submitted",
         "message": f"Audit submitted for {req.practice_name}. Confirmation sent to {req.contact_email}.",
     }
+
+
+# ---------------------------------------------------------------------------
+# Email template helpers
+# ---------------------------------------------------------------------------
+
+def _email_wrapper(inner_html: str) -> str:
+    """Wrap email body in consistent branded template."""
+    return f"""
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1E293B;">
+        <div style="background: #0D9488; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">Parity Audit</h1>
+            <p style="color: #CCFBF1; margin: 4px 0 0; font-size: 14px;">by CivicScale</p>
+        </div>
+        <div style="padding: 32px 24px;">
+            {inner_html}
+        </div>
+        <div style="background: #F8FAFC; padding: 16px 24px; text-align: center; border-top: 1px solid #E2E8F0;">
+            <p style="color: #94A3B8; font-size: 12px; margin: 0;">
+                Parity Audit by CivicScale &middot; Benchmark comparisons use publicly available CMS Medicare data.
+                Not legal or financial advice. &middot; civicscale.ai
+            </p>
+        </div>
+    </div>
+    """
+
+
+def _send_submission_confirmation(audit: dict):
+    """Email 1: Submission confirmation — sent immediately when audit is submitted."""
+    try:
+        import resend
+        resend_key = os.environ.get("RESEND_API_KEY")
+        if not resend_key:
+            print("[AuditEmail] RESEND_API_KEY not configured, skipping")
+            return
+        resend.api_key = resend_key
+
+        practice_name = audit.get("practice_name", "Practice")
+        contact_email = audit.get("contact_email", "")
+        audit_id = audit.get("id", "")
+        payer_list = audit.get("payer_list", [])
+        payer_names = ", ".join(p.get("payer_name", "Unknown") for p in payer_list) or "Not specified"
+
+        inner = f"""
+        <h2 style="color: #1E293B; margin-top: 0;">Your Parity Audit has been submitted</h2>
+        <p>Thank you for submitting your billing data for analysis. Your Parity Audit Report will be
+        delivered to this email address within <strong>5-7 business days</strong>.</p>
+
+        <div style="background: #F0FDFA; border: 1px solid #99F6E4; border-radius: 8px; padding: 16px; margin: 20px 0;">
+            <p style="margin: 0 0 8px; font-weight: 600;">Audit Details:</p>
+            <p style="margin: 4px 0; font-size: 14px; color: #475569;">Audit ID: <code>{audit_id}</code></p>
+            <p style="margin: 4px 0; font-size: 14px; color: #475569;">Practice: {practice_name}</p>
+            <p style="margin: 4px 0; font-size: 14px; color: #475569;">Payers analyzed: {payer_names}</p>
+        </div>
+
+        <p>If you have questions, reply to this email or contact
+        <a href="mailto:fred@civicscale.ai" style="color: #0D9488;">fred@civicscale.ai</a>.</p>
+        """
+
+        resend.Emails.send({
+            "from": "Parity Provider <notifications@civicscale.ai>",
+            "to": [contact_email],
+            "subject": f"Your Parity Audit has been submitted — {practice_name}",
+            "html": _email_wrapper(inner),
+        })
+        print(f"[AuditEmail] Submission confirmation sent to {contact_email}")
+
+    except Exception as exc:
+        print(f"[AuditEmail] Submission confirmation failed: {exc}")
+
+
+def _send_delivery_email(audit: dict, admin_notes: str = ""):
+    """Email 2: Report delivery — sent when admin clicks 'Deliver Report'."""
+    try:
+        import resend
+        resend_key = os.environ.get("RESEND_API_KEY")
+        if not resend_key:
+            print("[AuditEmail] RESEND_API_KEY not configured, skipping")
+            return
+        resend.api_key = resend_key
+
+        practice_name = audit.get("practice_name", "Practice")
+        contact_email = audit.get("contact_email", "")
+        audit_id = audit.get("id", "")
+        payer_list = audit.get("payer_list", [])
+        payer_count = len(payer_list)
+        frontend_url = os.environ.get("FRONTEND_URL", "https://civicscale.ai")
+
+        # Try to get summary stats from analysis
+        analysis_ids = audit.get("analysis_ids", [])
+        total_underpayment = 0
+        total_lines = 0
+        exec_summary_line = ""
+
+        if analysis_ids:
+            try:
+                sb = _get_supabase()
+                for aid in analysis_ids[:10]:
+                    row = sb.table("provider_analyses").select("result_json").eq("id", aid).execute()
+                    if row.data:
+                        rj = row.data[0].get("result_json", {})
+                        s = rj.get("summary", {})
+                        total_underpayment += s.get("total_underpayment", 0)
+                        total_lines += s.get("line_count", 0)
+            except Exception as exc:
+                print(f"[AuditEmail] Failed to fetch analysis stats: {exc}")
+
+        underpayment_str = f"${total_underpayment:,.2f}" if total_underpayment > 0 else "findings detailed in the report"
+
+        notes_section = ""
+        if admin_notes:
+            notes_section = f"""
+            <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 16px; margin: 20px 0;">
+                <p style="margin: 0 0 8px; font-weight: 600; color: #1E40AF;">Notes from our review:</p>
+                <p style="margin: 0; font-size: 14px; color: #1E40AF;">{admin_notes}</p>
+            </div>
+            """
+
+        inner = f"""
+        <h2 style="color: #1E293B; margin-top: 0;">Your Parity Audit Report is ready</h2>
+        <p>We analyzed <strong>{total_lines}</strong> transactions across <strong>{payer_count}</strong>
+        payer{"s" if payer_count != 1 else ""} and identified <strong>{underpayment_str}</strong>
+        in potential recoverable revenue.</p>
+
+        <div style="text-align: center; margin: 28px 0;">
+            <a href="{frontend_url}/provider" style="
+                display: inline-block; padding: 14px 32px; border-radius: 8px;
+                background: #0D9488; color: #fff; font-weight: 600; font-size: 15px;
+                text-decoration: none;
+            ">View Report Online &rarr;</a>
+        </div>
+
+        {notes_section}
+
+        <p>Want to discuss the findings? Reply to this email or contact
+        <a href="mailto:fred@civicscale.ai" style="color: #0D9488;">fred@civicscale.ai</a>.</p>
+        """
+
+        resend.Emails.send({
+            "from": "Parity Provider <notifications@civicscale.ai>",
+            "to": [contact_email],
+            "subject": f"Your Parity Audit Report is ready — {practice_name}",
+            "html": _email_wrapper(inner),
+        })
+        print(f"[AuditEmail] Delivery email sent to {contact_email}")
+
+        # Admin notification
+        resend.Emails.send({
+            "from": "Parity Provider <notifications@civicscale.ai>",
+            "to": ["fred@civicscale.ai"],
+            "subject": f"Audit Delivered: {practice_name}",
+            "html": f"<p>Audit report delivered to {contact_email} for {practice_name}.</p>"
+                     f"<p>Audit ID: {audit_id}</p>"
+                     f"<p>Total underpayment: {underpayment_str}</p>",
+        })
+
+    except Exception as exc:
+        print(f"[AuditEmail] Delivery email failed: {exc}")
+
+
+def _send_followup_email(audit: dict):
+    """Email 3: Follow-up — sent 3 days after delivery (manual or cron)."""
+    try:
+        import resend
+        resend_key = os.environ.get("RESEND_API_KEY")
+        if not resend_key:
+            print("[AuditEmail] RESEND_API_KEY not configured, skipping")
+            return
+        resend.api_key = resend_key
+
+        practice_name = audit.get("practice_name", "Practice")
+        contact_email = audit.get("contact_email", "")
+        payer_list = audit.get("payer_list", [])
+        payer_count = len(payer_list)
+
+        # Get total underpayment for messaging
+        total_underpayment = 0
+        analysis_ids = audit.get("analysis_ids", [])
+        if analysis_ids:
+            try:
+                sb = _get_supabase()
+                for aid in analysis_ids[:10]:
+                    row = sb.table("provider_analyses").select("result_json").eq("id", aid).execute()
+                    if row.data:
+                        rj = row.data[0].get("result_json", {})
+                        total_underpayment += rj.get("summary", {}).get("total_underpayment", 0)
+            except Exception:
+                pass
+
+        annualized = total_underpayment * 12
+        underpayment_str = f"${annualized:,.2f}" if annualized > 0 else "significant potential"
+
+        inner = f"""
+        <h2 style="color: #1E293B; margin-top: 0;">Following up on your Parity Audit</h2>
+        <p>We delivered your Parity Audit Report a few days ago. We identified
+        <strong>{underpayment_str}</strong> in potential annual recoverable revenue across
+        <strong>{payer_count}</strong> payer{"s" if payer_count != 1 else ""}.</p>
+
+        <p>Have you had a chance to review the findings? If you would like to discuss:</p>
+        <ul style="color: #475569; font-size: 14px; line-height: 1.8;">
+            <li>Which underpayments to appeal first</li>
+            <li>How to address the denial patterns we identified</li>
+            <li>What ongoing monitoring would look like for your practice</li>
+        </ul>
+
+        <p>Reply to this email or contact
+        <a href="mailto:fred@civicscale.ai" style="color: #0D9488;">fred@civicscale.ai</a>.</p>
+
+        <div style="background: #F0FDFA; border: 1px solid #99F6E4; border-radius: 8px; padding: 16px; margin: 20px 0;">
+            <p style="margin: 0 0 8px; font-weight: 600; color: #0D9488;">Ongoing Monitoring</p>
+            <p style="margin: 0; font-size: 14px; color: #475569;">
+                Ongoing monitoring scans every remittance automatically and alerts you when new underpayments
+                or denial patterns emerge. It costs <strong>$300/month</strong> and typically pays for itself
+                within the first month.
+            </p>
+        </div>
+        """
+
+        resend.Emails.send({
+            "from": "Parity Provider <notifications@civicscale.ai>",
+            "to": [contact_email],
+            "subject": f"Following up on your Parity Audit — {practice_name}",
+            "html": _email_wrapper(inner),
+        })
+        print(f"[AuditEmail] Follow-up sent to {contact_email}")
+
+        # Admin tracking
+        resend.Emails.send({
+            "from": "Parity Provider <notifications@civicscale.ai>",
+            "to": ["fred@civicscale.ai"],
+            "subject": f"Follow-up sent: {practice_name}",
+            "html": f"<p>Follow-up email sent to {contact_email} for {practice_name}.</p>",
+        })
+
+    except Exception as exc:
+        print(f"[AuditEmail] Follow-up email failed: {exc}")
+
+
+# ---------------------------------------------------------------------------
+# Admin Audit Endpoints (protected by ADMIN_USER_ID / CRON_SECRET)
+# ---------------------------------------------------------------------------
+
+@router.get("/admin/audits")
+async def admin_list_audits(request: Request, status: Optional[str] = None):
+    """List all audits (admin only)."""
+    await _verify_admin(request)
+
+    sb = _get_supabase()
+    query = sb.table("provider_audits").select("*").order("created_at", desc=True)
+    if status:
+        query = query.eq("status", status)
+
+    result = query.execute()
+    return {"audits": result.data or []}
+
+
+class AdminNotesBody(BaseModel):
+    audit_id: str
+    notes: str
+
+
+@router.post("/admin/audits/notes")
+async def admin_add_notes(body: AdminNotesBody, request: Request):
+    """Add review notes to an audit (admin only)."""
+    await _verify_admin(request)
+
+    sb = _get_supabase()
+    sb.table("provider_audits").update({
+        "admin_notes": body.notes,
+    }).eq("id", body.audit_id).execute()
+
+    return {"status": "ok"}
+
+
+class AdminDeliverBody(BaseModel):
+    audit_id: str
+
+
+@router.post("/admin/audits/deliver")
+async def admin_deliver_report(body: AdminDeliverBody, request: Request):
+    """Deliver audit report — updates status + sends delivery email (admin only)."""
+    await _verify_admin(request)
+
+    sb = _get_supabase()
+    from datetime import datetime
+
+    # Fetch audit
+    result = sb.table("provider_audits").select("*").eq("id", body.audit_id).execute()
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Audit not found")
+
+    audit = result.data[0]
+
+    # Update status
+    sb.table("provider_audits").update({
+        "status": "delivered",
+        "delivered_at": datetime.utcnow().isoformat(),
+    }).eq("id", body.audit_id).execute()
+
+    # Send delivery email (Email 2)
+    _send_delivery_email(audit, admin_notes=audit.get("admin_notes", ""))
+
+    return {"status": "delivered", "audit_id": body.audit_id}
+
+
+class AdminFollowUpBody(BaseModel):
+    audit_id: str
+
+
+@router.post("/admin/audits/follow-up")
+async def admin_send_followup(body: AdminFollowUpBody, request: Request):
+    """Manually send follow-up email for an audit (admin only)."""
+    await _verify_admin(request)
+
+    sb = _get_supabase()
+
+    result = sb.table("provider_audits").select("*").eq("id", body.audit_id).execute()
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Audit not found")
+
+    audit = result.data[0]
+
+    # Send follow-up email (Email 3)
+    _send_followup_email(audit)
+
+    # Mark follow-up sent
+    sb.table("provider_audits").update({
+        "follow_up_sent": True,
+    }).eq("id", body.audit_id).execute()
+
+    return {"status": "follow_up_sent", "audit_id": body.audit_id}
+
+
+class AdminStatusBody(BaseModel):
+    audit_id: str
+    status: str
+
+
+@router.post("/admin/audits/status")
+async def admin_update_status(body: AdminStatusBody, request: Request):
+    """Update audit status (admin only)."""
+    await _verify_admin(request)
+
+    valid_statuses = {"submitted", "processing", "review", "delivered"}
+    if body.status not in valid_statuses:
+        raise HTTPException(status_code=400, detail=f"Invalid status. Must be one of: {valid_statuses}")
+
+    sb = _get_supabase()
+    sb.table("provider_audits").update({
+        "status": body.status,
+    }).eq("id", body.audit_id).execute()
+
+    return {"status": body.status, "audit_id": body.audit_id}
+
+
+@router.get("/admin/audits/cron-followup")
+async def admin_cron_followup(request: Request):
+    """Auto-send follow-up emails for audits delivered 3+ days ago (cron endpoint)."""
+    await _verify_admin(request)
+
+    from datetime import datetime, timedelta
+
+    sb = _get_supabase()
+    cutoff = (datetime.utcnow() - timedelta(days=3)).isoformat()
+
+    # Find delivered audits where follow_up_sent is false and delivered_at < cutoff
+    result = sb.table("provider_audits") \
+        .select("*") \
+        .eq("status", "delivered") \
+        .eq("follow_up_sent", False) \
+        .lt("delivered_at", cutoff) \
+        .execute()
+
+    sent = 0
+    for audit in (result.data or []):
+        _send_followup_email(audit)
+        sb.table("provider_audits").update({
+            "follow_up_sent": True,
+        }).eq("id", audit["id"]).execute()
+        sent += 1
+
+    return {"follow_ups_sent": sent}

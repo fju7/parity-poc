@@ -5,6 +5,7 @@ import { supabase } from "./lib/supabase.js";
 import { LogoIcon } from "./components/CivicScaleHomepage.jsx";
 import ProviderAuditPage from "./components/ProviderAuditPage.jsx";
 import ProviderAuditReport from "./components/ProviderAuditReport.jsx";
+import ProviderAuditAdmin from "./components/ProviderAuditAdmin.jsx";
 import "./components/CivicScaleHomepage.css";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -846,6 +847,11 @@ export default function ProviderApp() {
       </div>
     </nav>
   );
+
+  // Route: /provider/admin/audits → admin audit dashboard
+  if (location.pathname.includes("/provider/admin/audits")) {
+    return <ProviderAuditAdmin session={session} />;
+  }
 
   // Route: /provider/audit → dedicated audit landing page + wizard
   if (location.pathname.includes("/provider/audit")) {
