@@ -18,6 +18,7 @@ import EmployerDemoPage from './components/EmployerDemoPage.jsx'
 import ProviderDemoPage from './components/ProviderDemoPage.jsx'
 import ProviderApp from './ProviderApp.jsx'
 import SignalApp from './SignalApp.jsx'
+import AuditAccount from './components/AuditAccount.jsx'
 import AuditStandalone from './components/AuditStandalone.jsx'
 import PublicAuditReport from './components/PublicAuditReport.jsx'
 
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
+        <Route path="/audit/account" element={<AuditAccount />} />
         <Route path="/audit" element={<AuditStandalone />} />
         <Route path="/billing" element={<BillingLanding />} />
         <Route path="/billing/employer" element={<EmployerProductPage />} />

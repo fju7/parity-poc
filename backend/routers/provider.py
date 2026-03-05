@@ -1761,6 +1761,7 @@ def _send_submission_confirmation(audit: dict):
         audit_id = audit.get("id", "")
         payer_list = audit.get("payer_list", [])
         payer_names = ", ".join(p.get("payer_name", "Unknown") for p in payer_list) or "Not specified"
+        frontend_url = os.environ.get("FRONTEND_URL", "https://civicscale.ai")
 
         inner = f"""
         <h2 style="color: #1E293B; margin-top: 0;">Your Parity Audit has been submitted</h2>
@@ -1773,6 +1774,10 @@ def _send_submission_confirmation(audit: dict):
             <p style="margin: 4px 0; font-size: 14px; color: #475569;">Practice: {practice_name}</p>
             <p style="margin: 4px 0; font-size: 14px; color: #475569;">Payers analyzed: {payer_names}</p>
         </div>
+
+        <p style="text-align: center; margin: 20px 0 0; font-size: 14px;">
+            <a href="{frontend_url}/audit/account" style="color: #0D9488; font-weight: 600;">View your audit status &rarr;</a>
+        </p>
 
         <p>If you have questions, reply to this email or contact
         <a href="mailto:fred@civicscale.ai" style="color: #0D9488;">fred@civicscale.ai</a>.</p>
@@ -1850,6 +1855,9 @@ def _send_delivery_email(audit: dict, admin_notes: str = "", report_token: str =
                 text-decoration: none;
             ">View Report Online &rarr;</a>
         </div>
+        <p style="text-align: center; margin: 8px 0 0; font-size: 13px;">
+            <a href="{frontend_url}/audit/account" style="color: #0D9488;">View your account &rarr;</a>
+        </p>
 
         {notes_section}
 
@@ -1932,6 +1940,9 @@ def _send_followup_email(audit: dict):
         <strong>{payer_count}</strong> payer{"s" if payer_count != 1 else ""}.</p>
 
         {report_link_section}
+        <p style="text-align: center; margin: 8px 0 0; font-size: 13px;">
+            <a href="{frontend_url}/audit/account" style="color: #0D9488;">View your account &rarr;</a>
+        </p>
 
         <p>Have you had a chance to review the findings? If you would like to discuss:</p>
         <ul style="color: #475569; font-size: 14px; line-height: 1.8;">
@@ -1971,6 +1982,28 @@ def _send_followup_email(audit: dict):
 
     except Exception as exc:
         print(f"[AuditEmail] Follow-up email failed: {exc}")
+
+
+# ---------------------------------------------------------------------------
+# User Account — My Audits (authenticated, no admin required)
+# ---------------------------------------------------------------------------
+
+@router.get("/my-audits")
+async def my_audits(request: Request):
+    """Return audits belonging to the authenticated user (by email)."""
+    user = await _get_authenticated_user(request)
+    email = user.email
+    if not email:
+        raise HTTPException(status_code=400, detail="No email on account")
+
+    sb = _get_supabase()
+    result = sb.table("provider_audits") \
+        .select("id, practice_name, status, created_at, report_token") \
+        .eq("contact_email", email) \
+        .order("created_at", desc=True) \
+        .execute()
+
+    return {"audits": result.data or []}
 
 
 # ---------------------------------------------------------------------------

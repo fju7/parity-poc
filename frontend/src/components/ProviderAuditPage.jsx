@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -955,6 +956,15 @@ export default function ProviderAuditPage({ session, profile }) {
               <li>We run a full contract integrity analysis across all payers</li>
               <li>You receive your complete Parity Audit report via email</li>
             </ul>
+          </div>
+
+          <div style={{ marginTop: 24 }}>
+            <Link
+              to="/audit/account"
+              style={{ color: "#0D9488", fontSize: 15, fontWeight: 600, textDecoration: "none" }}
+            >
+              View your audit status &rarr;
+            </Link>
           </div>
         </div>
       )}
