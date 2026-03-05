@@ -51,6 +51,10 @@ export default function ProviderApp() {
   const [uploadProgress, setUploadProgress] = useState(null); // { total, done, errors[] }
   const [ratesMethod, setRatesMethod] = useState(null); // null | "excel" | "pdf" | "medicare-pct" | "paste" | "photo"
   const [extractingRates, setExtractingRates] = useState(false);
+  const [savedPayers, setSavedPayers] = useState([]); // [{name, rates: {cpt: rate}, codeCount}]
+  const [filePayerMap, setFilePayerMap] = useState({}); // {filename: assignedPayerName}
+  const [analysisResults, setAnalysisResults] = useState([]); // [{payer_name, result, denial_intel}]
+  const [selectedPayerIdx, setSelectedPayerIdx] = useState(0);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [sortField, setSortField] = useState(null);
   const [sortDir, setSortDir] = useState("asc");
@@ -203,6 +207,10 @@ export default function ProviderApp() {
     setSortDir("asc");
     setRatesMethod(null);
     setExtractingRates(false);
+    setSavedPayers([]);
+    setFilePayerMap({});
+    setAnalysisResults([]);
+    setSelectedPayerIdx(0);
   }
 
   async function handleDownloadTemplate() {
@@ -421,17 +429,40 @@ export default function ProviderApp() {
       console.warn("Save to server failed:", err.message);
     }
 
-    // Build flat rate lookup for first payer (used in analysis)
-    const flatRates = {};
-    for (const row of parsedRates.rows) {
-      if (row.rates[firstPayer]) {
-        flatRates[row.cpt] = row.rates[firstPayer];
+    // Build payer entries for ALL payers in the file
+    const newPayers = [];
+    for (const payerName of parsedRates.payers) {
+      const flatRates = {};
+      let codeCount = 0;
+      for (const row of parsedRates.rows) {
+        if (row.rates[payerName]) {
+          flatRates[row.cpt] = row.rates[payerName];
+          codeCount++;
+        }
+      }
+      if (codeCount > 0) {
+        newPayers.push({ name: payerName, rates: flatRates, codeCount });
       }
     }
-    setSavedContractRates(flatRates);
-    setSavedPayerName(firstPayer);
-    setSaveSuccess(`Contract rates saved — ${parsedRates.rows.length} codes across ${parsedRates.payers.length} payer${parsedRates.payers.length !== 1 ? "s" : ""}.`);
+    setSavedPayers(prev => [...prev, ...newPayers]);
+
+    // Backward compat: also set first payer as active
+    if (newPayers.length > 0) {
+      setSavedContractRates(newPayers[0].rates);
+      setSavedPayerName(newPayers[0].name);
+    }
+
+    const payerLabel = newPayers.length === 1 ? newPayers[0].name : `${newPayers.length} payers`;
+    setSaveSuccess(`Saved ${payerLabel} — ${parsedRates.rows.length} CPT codes. Add another payer or proceed to Step 2.`);
     setSavingRates(false);
+
+    // Reset parsedRates so user can add another payer
+    setParsedRates(null);
+    setRatesMethod(null);
+  }
+
+  function handleRemovePayer(idx) {
+    setSavedPayers(prev => prev.filter((_, i) => i !== idx));
   }
 
   async function handle835Upload(e) {
@@ -470,6 +501,21 @@ export default function ProviderApp() {
 
       setParsedRemittances(data.results);
 
+      // Auto-map each 835 file to a saved payer by name matching
+      if (savedPayers.length > 0) {
+        const map = {};
+        for (const r of data.results) {
+          const detected = (r.payer_name || "").toLowerCase();
+          const match = savedPayers.find(p =>
+            detected === p.name.toLowerCase() ||
+            detected.includes(p.name.toLowerCase()) ||
+            p.name.toLowerCase().includes(detected)
+          );
+          if (match) map[r.filename] = match.name;
+        }
+        setFilePayerMap(map);
+      }
+
       // Merge all results into a combined parsedRemittance for backward compat
       const merged = {
         payer_name: data.results[0].payer_name,
@@ -496,39 +542,110 @@ export default function ProviderApp() {
     setContractStep("analyzing");
     setContractError("");
     setDenialIntel(null);
+    setAnalysisResults([]);
 
-    const remittanceLines = parsedRemittance.line_items.map(item => ({
-      cpt_code: item.cpt_code,
-      code_type: item.code_type || "CPT",
-      billed_amount: item.billed_amount || 0,
-      paid_amount: item.paid_amount || 0,
-      units: item.units || 1,
-      adjustments: (item.adjustments || []).map(a => a.code || "").join(", "),
-      claim_id: item.claim_id || "",
-    }));
+    function buildLines(items) {
+      return items.map(item => ({
+        cpt_code: item.cpt_code,
+        code_type: item.code_type || "CPT",
+        billed_amount: item.billed_amount || 0,
+        paid_amount: item.paid_amount || 0,
+        units: item.units || 1,
+        adjustments: (item.adjustments || []).map(a => a.code || "").join(", "),
+        claim_id: item.claim_id || "",
+      }));
+    }
 
-    try {
+    async function analyzeOnePayer(payerName, rates, lineItems) {
       const resp = await fetch(`${API_BASE}/api/provider/analyze-contract`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_id: session.user.id,
-          payer_name: savedPayerName || parsedRemittance.payer_name || "",
+          payer_name: payerName,
           zip_code: profile?.zip_code || "",
-          contract_rates: savedContractRates,
-          remittance_lines: remittanceLines,
+          contract_rates: rates,
+          remittance_lines: buildLines(lineItems),
         }),
       });
-      if (!resp.ok) throw new Error("Analysis failed");
-      const data = await resp.json();
-      setAnalysisResult(data);
-      setContractStep("report");
-      // Auto-trigger denial intelligence if denials found
-      fetchDenialIntel(data, savedPayerName || parsedRemittance.payer_name || "");
+      if (!resp.ok) throw new Error(`Analysis failed for ${payerName}`);
+      const result = await resp.json();
+
+      // Fetch denial intelligence
+      let denial = null;
+      const denied = (result.line_items || []).filter(l => l.flag === "DENIED");
+      if (denied.length > 0) {
+        try {
+          const dResp = await fetch(`${API_BASE}/api/provider/analyze-denials`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              payer_name: payerName,
+              denied_lines: denied.map(l => ({
+                cpt_code: l.cpt_code,
+                billed_amount: l.billed_amount,
+                adjustment_codes: l.adjustments || "",
+                claim_id: l.claim_id || "",
+              })),
+            }),
+          });
+          if (dResp.ok) denial = await dResp.json();
+        } catch { /* non-fatal */ }
+      }
+      return { payer_name: payerName, result, denial_intel: denial };
+    }
+
+    try {
+      if (savedPayers.length > 0) {
+        // Multi-payer: group 835 files by assigned payer and analyze each
+        const allResults = [];
+        for (const payer of savedPayers) {
+          // Find 835 files assigned to this payer
+          const payerFiles = parsedRemittances.filter(r => {
+            const assigned = filePayerMap[r.filename];
+            return assigned ? assigned === payer.name : (r.payer_name || "") === payer.name;
+          });
+          if (payerFiles.length === 0) continue;
+          const lines = payerFiles.flatMap(f => f.line_items || []);
+          if (lines.length === 0) continue;
+          allResults.push(await analyzeOnePayer(payer.name, payer.rates, lines));
+        }
+
+        if (allResults.length === 0) {
+          throw new Error("No 835 files matched any saved payer. Check payer assignments in Step 2.");
+        }
+
+        setAnalysisResults(allResults);
+        setSelectedPayerIdx(0);
+        setAnalysisResult(allResults[0].result);
+        setDenialIntel(allResults[0].denial_intel);
+        setDenialLoading(false);
+        setContractStep("report");
+      } else {
+        // Single payer fallback
+        const result = await analyzeOnePayer(
+          savedPayerName || parsedRemittance.payer_name || "",
+          savedContractRates,
+          parsedRemittance.line_items,
+        );
+        setAnalysisResults([result]);
+        setSelectedPayerIdx(0);
+        setAnalysisResult(result.result);
+        setDenialIntel(result.denial_intel);
+        setDenialLoading(false);
+        setContractStep("report");
+      }
     } catch (err) {
       setContractError("Analysis failed: " + err.message);
       setContractStep("preview-835");
     }
+  }
+
+  function selectPayerResult(idx) {
+    if (!analysisResults[idx]) return;
+    setSelectedPayerIdx(idx);
+    setAnalysisResult(analysisResults[idx].result);
+    setDenialIntel(analysisResults[idx].denial_intel);
   }
 
   async function fetchDenialIntel(analysisData, payerName) {
@@ -1041,6 +1158,10 @@ export default function ProviderApp() {
             ratesMethod={ratesMethod}
             extractingRates={extractingRates}
             zipCode={profile?.zip_code || ""}
+            savedPayers={savedPayers}
+            filePayerMap={filePayerMap}
+            analysisResults={analysisResults}
+            selectedPayerIdx={selectedPayerIdx}
             onDownloadTemplate={handleDownloadTemplate}
             onRatesFileUpload={handleRatesFileUpload}
             onSaveRates={handleSaveRates}
@@ -1054,6 +1175,9 @@ export default function ProviderApp() {
             onRatesImageUpload={handleRatesImageUpload}
             onRatesTextExtract={handleRatesTextExtract}
             onMedicarePercentage={handleMedicarePercentage}
+            onRemovePayer={handleRemovePayer}
+            onFilePayerAssign={(filename, payer) => setFilePayerMap(prev => ({ ...prev, [filename]: payer }))}
+            onSelectPayerResult={selectPayerResult}
           />
           </div>
         ) : (
@@ -1106,9 +1230,11 @@ function ContractIntegrityTab({
   denialIntel, denialLoading,
   sortField, sortDir,
   ratesMethod, extractingRates, zipCode,
+  savedPayers, filePayerMap, analysisResults, selectedPayerIdx,
   onDownloadTemplate, onRatesFileUpload, onSaveRates, on835Upload,
   onRunAnalysis, onSort, getSortedLines, onReset,
   onSetRatesMethod, onRatesPdfUpload, onRatesImageUpload, onRatesTextExtract, onMedicarePercentage,
+  onRemovePayer, onFilePayerAssign, onSelectPayerResult,
 }) {
   // ── Loading / analyzing overlays ──
   if (step === "parsing-835") {
@@ -1145,9 +1271,79 @@ function ContractIntegrityTab({
     const sc = analysisResult.scorecard || {};
     const sortedLines = getSortedLines();
     const adherenceColor = s.adherence_rate >= 97 ? "#059669" : s.adherence_rate >= 90 ? "#d97706" : "#dc2626";
+    const multiPayer = analysisResults.length > 1;
 
     return (
       <div>
+        {/* Payer tabs (multi-payer only) */}
+        {multiPayer && (
+          <div style={{ display: "flex", gap: 0, marginBottom: 24, borderBottom: "2px solid var(--cs-border)", flexWrap: "wrap" }}>
+            <button
+              onClick={() => onSelectPayerResult(selectedPayerIdx)}
+              style={{ display: "none" }}
+            />
+            {analysisResults.map((r, i) => (
+              <button
+                key={i}
+                onClick={() => onSelectPayerResult(i)}
+                style={{
+                  padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer",
+                  border: "none", borderBottom: i === selectedPayerIdx ? "2px solid var(--cs-teal)" : "2px solid transparent",
+                  background: "transparent",
+                  color: i === selectedPayerIdx ? "var(--cs-teal)" : "var(--cs-slate)",
+                  marginBottom: -2,
+                }}
+              >
+                {r.payer_name}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Cross-payer summary (multi-payer only) */}
+        {multiPayer && (
+          <div style={{
+            background: "var(--cs-navy)", borderRadius: 12, padding: 24,
+            marginBottom: 24, color: "#fff",
+          }}>
+            <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 12 }}>Cross-Payer Summary</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {analysisResults.map((r, i) => {
+                const rs = r.result?.summary || {};
+                return (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 14 }}>
+                    <span>{r.payer_name}</span>
+                    <span>
+                      {rs.total_underpayment > 0 ? (
+                        <span style={{ color: "#fca5a5" }}>
+                          Underpaid ${rs.total_underpayment.toLocaleString("en-US", { minimumFractionDigits: 2 })} across {rs.underpaid_count} line{rs.underpaid_count !== 1 ? "s" : ""}
+                        </span>
+                      ) : (
+                        <span style={{ color: "#86efac" }}>Within contract on all lines</span>
+                      )}
+                      {rs.denied_count > 0 && (
+                        <span style={{ color: "#fcd34d", marginLeft: 12 }}>
+                          {rs.denied_count} denied
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", marginTop: 12, paddingTop: 12, fontSize: 15, fontWeight: 600 }}>
+              Total: ${analysisResults.reduce((s, r) => s + (r.result?.summary?.total_underpayment || 0), 0).toLocaleString("en-US", { minimumFractionDigits: 2 })} underpayment
+            </div>
+          </div>
+        )}
+
+        {/* Per-payer heading */}
+        {multiPayer && (
+          <h4 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 16 }}>
+            {analysisResults[selectedPayerIdx]?.payer_name} — Detail
+          </h4>
+        )}
+
         {/* Summary Cards */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16, marginBottom: 24 }}>
           <SummaryCard label="Total Contracted" value={`$${(s.total_contracted || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}`} />
@@ -1388,6 +1584,38 @@ function ContractIntegrityTab({
           Step 1: Contract Rates
         </h3>
 
+        {/* Saved payers list */}
+        {savedPayers.length > 0 && (
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              {savedPayers.map((p, i) => (
+                <div key={i} style={{
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                  padding: "10px 14px", borderRadius: 8,
+                  background: "var(--cs-teal-pale)", border: "1px solid var(--cs-teal)",
+                }}>
+                  <span style={{ fontSize: 14, color: "var(--cs-navy)" }}>
+                    <strong>{p.name}</strong> — {p.codeCount} CPT codes
+                  </span>
+                  <button
+                    onClick={() => onRemovePayer(i)}
+                    style={{
+                      background: "none", border: "none", cursor: "pointer",
+                      fontSize: 13, color: "var(--cs-slate)", padding: "2px 8px",
+                    }}
+                    title="Remove payer"
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+            </div>
+            {saveSuccess && (
+              <p style={{ fontSize: 13, color: "#059669", marginTop: 8, marginBottom: 0 }}>{saveSuccess}</p>
+            )}
+          </div>
+        )}
+
         {ratesReady ? (
           <>
             <div style={{
@@ -1581,24 +1809,72 @@ function ContractIntegrityTab({
               {parsedRemittance._file_count <= 1 && parsedRemittance.production_date && <> ({parsedRemittance.production_date})</>}
             </div>
 
-            {/* Per-file breakdown for multi-file uploads */}
-            {parsedRemittances.length > 1 && (
+            {/* Per-file breakdown with payer assignment */}
+            {parsedRemittances.length > 0 && (
               <div style={{ marginBottom: 20 }}>
-                <details>
-                  <summary style={{ cursor: "pointer", fontSize: 13, color: "var(--cs-teal)", fontWeight: 600, marginBottom: 8 }}>
-                    View per-file breakdown
-                  </summary>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 8 }}>
-                    {parsedRemittances.map((r, i) => (
-                      <div key={i} style={{ fontSize: 13, padding: 8, borderRadius: 6, background: "var(--cs-mist)", display: "flex", justifyContent: "space-between" }}>
-                        <span style={{ color: "var(--cs-navy)", fontWeight: 500 }}>{r.filename}</span>
-                        <span style={{ color: "var(--cs-slate)" }}>
-                          {r.payer_name} &middot; {r.claim_count} claims &middot; ${(r.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </details>
+                {savedPayers.length > 0 ? (
+                  <>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 8 }}>
+                      Payer assignment per file:
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      {parsedRemittances.map((r, i) => {
+                        const assigned = filePayerMap[r.filename];
+                        const matched = assigned || "";
+                        return (
+                          <div key={i} style={{
+                            fontSize: 13, padding: "8px 12px", borderRadius: 6,
+                            background: matched ? "var(--cs-teal-pale)" : "#fef2f2",
+                            border: matched ? "1px solid var(--cs-teal)" : "1px solid #fecaca",
+                            display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12,
+                            flexWrap: "wrap",
+                          }}>
+                            <span style={{ color: "var(--cs-navy)", fontWeight: 500 }}>
+                              {r.filename}
+                              <span style={{ color: "var(--cs-slate)", fontWeight: 400, marginLeft: 8 }}>
+                                {r.claim_count} claims &middot; ${(r.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                              </span>
+                            </span>
+                            <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                              <span style={{ fontSize: 12, color: "var(--cs-slate)" }}>
+                                Detected: {r.payer_name || "unknown"}
+                              </span>
+                              <select
+                                value={matched}
+                                onChange={e => onFilePayerAssign(r.filename, e.target.value)}
+                                style={{
+                                  padding: "4px 8px", borderRadius: 6, fontSize: 12,
+                                  border: "1px solid var(--cs-border)", background: "#fff",
+                                }}
+                              >
+                                <option value="">— Select payer —</option>
+                                {savedPayers.map(p => (
+                                  <option key={p.name} value={p.name}>{p.name}</option>
+                                ))}
+                              </select>
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : parsedRemittances.length > 1 ? (
+                  <details>
+                    <summary style={{ cursor: "pointer", fontSize: 13, color: "var(--cs-teal)", fontWeight: 600, marginBottom: 8 }}>
+                      View per-file breakdown
+                    </summary>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 8 }}>
+                      {parsedRemittances.map((r, i) => (
+                        <div key={i} style={{ fontSize: 13, padding: 8, borderRadius: 6, background: "var(--cs-mist)", display: "flex", justifyContent: "space-between" }}>
+                          <span style={{ color: "var(--cs-navy)", fontWeight: 500 }}>{r.filename}</span>
+                          <span style={{ color: "var(--cs-slate)" }}>
+                            {r.payer_name} &middot; {r.claim_count} claims &middot; ${(r.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </details>
+                ) : null}
               </div>
             )}
 
@@ -1634,19 +1910,19 @@ function ContractIntegrityTab({
               )}
             </div>
 
-            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
               <button
                 onClick={onRunAnalysis}
-                disabled={!ratesReady}
-                style={{ ...btnPrimary, opacity: ratesReady ? 1 : 0.5 }}
+                disabled={!ratesReady && savedPayers.length === 0}
+                style={{ ...btnPrimary, opacity: (ratesReady || savedPayers.length > 0) ? 1 : 0.5 }}
               >
-                Run Analysis
+                Run Analysis{savedPayers.length > 1 ? ` (${savedPayers.length} payers)` : ""}
               </button>
               <label style={{ ...btnOutline, display: "inline-flex", alignItems: "center", cursor: "pointer" }}>
                 Upload Different Files
                 <input type="file" accept=".txt,.835,.edi,.zip,text/plain,application/zip" multiple onChange={on835Upload} style={{ display: "none" }} />
               </label>
-              {!ratesReady && (
+              {!ratesReady && savedPayers.length === 0 && (
                 <span style={{ fontSize: 13, color: "var(--cs-slate)" }}>Upload contract rates first to run analysis</span>
               )}
             </div>
@@ -1680,7 +1956,7 @@ function ContractIntegrityTab({
       {error && <ErrorBanner message={error} />}
 
       {/* Start over */}
-      {(ratesReady || remittanceReady) && (
+      {(ratesReady || remittanceReady || savedPayers.length > 0) && (
         <div>
           <button onClick={onReset} style={btnOutline}>Start Over</button>
         </div>
