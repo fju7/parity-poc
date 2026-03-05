@@ -39,6 +39,8 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
   const [loading, setLoading] = useState(false);
   const [notes, setNotes] = useState(audit.admin_notes || "");
   const [showNotes, setShowNotes] = useState(false);
+  const [analysisRunning, setAnalysisRunning] = useState(false);
+  const [viewResults, setViewResults] = useState(null); // fetched payer_results
 
   async function adminAction(endpoint, body) {
     setLoading(true);
@@ -219,6 +221,62 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
               />
             )}
 
+            {/* Run Analysis — available when audit has data to analyze */}
+            <ActionButton
+              label={analysisRunning ? "Running Analysis..." : "Run Analysis"}
+              loading={analysisRunning}
+              color="#7C3AED"
+              onClick={async () => {
+                if (!confirm("Run the full analysis pipeline (contract integrity + denial intelligence) for this audit? This may take 1-2 minutes.")) return;
+                setAnalysisRunning(true);
+                try {
+                  const res = await fetch(`${API_BASE}/api/provider/admin/audits/run-analysis`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", ...authHeaders },
+                    body: JSON.stringify({ audit_id: audit.id }),
+                  });
+                  if (!res.ok) {
+                    const data = await res.json().catch(() => ({}));
+                    alert(data.detail || "Analysis failed");
+                    return;
+                  }
+                  const result = await res.json();
+                  alert(`Analysis complete! ${result.payer_count || 0} payer(s) analyzed, ${result.analysis_ids?.length || 0} result(s) stored.`);
+                  onRefresh();
+                } catch (err) {
+                  alert(err.message);
+                } finally {
+                  setAnalysisRunning(false);
+                }
+              }}
+            />
+
+            {/* View Results — fetch and display analysis results */}
+            {(audit.analysis_ids?.length > 0 || viewResults) && (
+              <ActionButton
+                label={viewResults ? "Hide Results" : "View Results"}
+                loading={false}
+                color="#2563EB"
+                onClick={async () => {
+                  if (viewResults) {
+                    setViewResults(null);
+                    return;
+                  }
+                  try {
+                    const res = await fetch(
+                      `${API_BASE}/api/provider/admin/audits/results?audit_id=${audit.id}`,
+                      { headers: authHeaders }
+                    );
+                    if (!res.ok) throw new Error("Failed to load results");
+                    const data = await res.json();
+                    setViewResults(data.payer_results || []);
+                  } catch (err) {
+                    alert(err.message);
+                  }
+                }}
+              />
+            )}
+
             {!showNotes && (
               <ActionButton
                 label={audit.admin_notes ? "Edit Notes" : "Add Notes"}
@@ -277,6 +335,144 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
               }}
             />
           </div>
+
+          {/* Analysis Results Panel */}
+          {viewResults && (
+            <div style={{ marginTop: 16, borderTop: "1px solid #E2E8F0", paddingTop: 16 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: NAVY, marginBottom: 12 }}>
+                Analysis Results ({viewResults.length} payer{viewResults.length !== 1 ? "s" : ""})
+              </div>
+
+              {viewResults.length === 0 && (
+                <div style={{ fontSize: 13, color: SLATE, padding: 12, background: "#F8FAFC", borderRadius: 8 }}>
+                  No analysis results found. Click "Run Analysis" to execute the pipeline.
+                </div>
+              )}
+
+              {viewResults.map((pr, pi) => (
+                <div key={pi} style={{
+                  border: "1px solid #E2E8F0", borderRadius: 10, marginBottom: 12,
+                  overflow: "hidden",
+                }}>
+                  {/* Payer header */}
+                  <div style={{
+                    padding: "12px 16px", background: "#F0FDFA",
+                    borderBottom: "1px solid #E2E8F0",
+                    display: "flex", justifyContent: "space-between", alignItems: "center",
+                  }}>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: NAVY }}>
+                      {pr.payer_name || `Payer ${pi + 1}`}
+                    </span>
+                    <span style={{ fontSize: 12, color: TEAL, fontWeight: 600 }}>
+                      {pr.summary?.total_underpaid_amount != null
+                        ? `$${Number(pr.summary.total_underpaid_amount).toLocaleString("en-US", { minimumFractionDigits: 2 })} underpaid`
+                        : ""}
+                    </span>
+                  </div>
+
+                  {/* Summary stats */}
+                  {pr.summary && (
+                    <div style={{
+                      display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
+                      gap: 1, background: "#E2E8F0",
+                    }}>
+                      {[
+                        { label: "Total Claims", value: pr.summary.total_lines || pr.summary.total_claims || 0 },
+                        { label: "Underpaid", value: pr.summary.underpaid_count || 0, color: "#DC2626" },
+                        { label: "Denied", value: pr.summary.denied_count || 0, color: "#D97706" },
+                        { label: "Correct", value: pr.summary.correct_count || 0, color: "#059669" },
+                      ].map((s, si) => (
+                        <div key={si} style={{
+                          padding: "10px 12px", background: "#fff", textAlign: "center",
+                        }}>
+                          <div style={{ fontSize: 20, fontWeight: 700, color: s.color || NAVY }}>{s.value}</div>
+                          <div style={{ fontSize: 10, color: SLATE, textTransform: "uppercase", letterSpacing: 0.5 }}>{s.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Flagged line items (underpaid + denied) */}
+                  {pr.line_items?.filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED").length > 0 && (
+                    <div style={{ padding: 16 }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: NAVY, marginBottom: 8 }}>
+                        Flagged Items ({pr.line_items.filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED").length})
+                      </div>
+                      <div style={{ overflowX: "auto" }}>
+                        <table style={{
+                          width: "100%", fontSize: 12, borderCollapse: "collapse",
+                        }}>
+                          <thead>
+                            <tr style={{ borderBottom: "2px solid #E2E8F0" }}>
+                              {["CPT", "Description", "Billed", "Paid", "Expected", "Diff", "Flag"].map(h => (
+                                <th key={h} style={{
+                                  padding: "6px 8px", textAlign: "left", fontWeight: 600,
+                                  color: SLATE, fontSize: 10, textTransform: "uppercase", letterSpacing: 0.5,
+                                }}>{h}</th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {pr.line_items
+                              .filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED")
+                              .slice(0, 20)
+                              .map((li, li_i) => (
+                                <tr key={li_i} style={{
+                                  borderBottom: "1px solid #F1F5F9",
+                                  background: li.flag === "DENIED" ? "#FFFBEB" : li.flag === "UNDERPAID" ? "#FEF2F2" : "#fff",
+                                }}>
+                                  <td style={{ padding: "6px 8px", fontFamily: "monospace", fontWeight: 600 }}>{li.cpt_code}</td>
+                                  <td style={{ padding: "6px 8px", color: SLATE, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{li.description || "—"}</td>
+                                  <td style={{ padding: "6px 8px" }}>${Number(li.billed_amount || 0).toFixed(2)}</td>
+                                  <td style={{ padding: "6px 8px" }}>${Number(li.paid_amount || 0).toFixed(2)}</td>
+                                  <td style={{ padding: "6px 8px" }}>${Number(li.expected_rate || 0).toFixed(2)}</td>
+                                  <td style={{ padding: "6px 8px", fontWeight: 600, color: "#DC2626" }}>
+                                    ${Number(li.difference || 0).toFixed(2)}
+                                  </td>
+                                  <td style={{ padding: "6px 8px" }}>
+                                    <span style={{
+                                      fontSize: 10, fontWeight: 600, padding: "2px 6px", borderRadius: 4,
+                                      background: li.flag === "DENIED" ? "#FDE68A" : "#FECACA",
+                                      color: li.flag === "DENIED" ? "#92400E" : "#991B1B",
+                                    }}>
+                                      {li.flag}
+                                    </span>
+                                  </td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                        {pr.line_items.filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED").length > 20 && (
+                          <div style={{ fontSize: 12, color: SLATE, padding: "8px 0" }}>
+                            + {pr.line_items.filter(li => li.flag === "UNDERPAID" || li.flag === "DENIED").length - 20} more flagged items
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Denial intel summary */}
+                  {pr.denial_intel && (
+                    <div style={{
+                      padding: "12px 16px", borderTop: "1px solid #E2E8F0",
+                      background: "#FFFBEB",
+                    }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: "#92400E", marginBottom: 4 }}>
+                        Denial Intelligence
+                      </div>
+                      <div style={{ fontSize: 12, color: "#78350F", whiteSpace: "pre-wrap" }}>
+                        {typeof pr.denial_intel === "string"
+                          ? pr.denial_intel
+                          : pr.denial_intel?.summary || pr.denial_intel?.top_denial_codes?.map(d =>
+                              `${d.code}: ${d.description} (${d.count} claims, $${d.total_amount})`
+                            ).join("\n") || "No denial data"}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

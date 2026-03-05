@@ -16,7 +16,10 @@ Provider dashboard endpoints:
 
 Admin endpoints (ADMIN_USER_ID or CRON_SECRET protected):
   GET  /api/provider/admin/audits            — list all audits (with optional status filter)
+  POST /api/provider/admin/audits/run-analysis — run full analysis pipeline for an audit
+  GET  /api/provider/admin/audits/results    — fetch analysis results for an audit
   POST /api/provider/admin/audits/notes      — add review notes to an audit
+  POST /api/provider/admin/audits/status     — update audit status
   POST /api/provider/admin/audits/deliver    — deliver report + send email to practice
   POST /api/provider/admin/audits/follow-up  — send follow-up email
   GET  /api/provider/admin/audits/cron-followup — auto-send follow-ups 3 days after delivery
@@ -310,8 +313,8 @@ class SubmitAuditRequest(BaseModel):
     billing_company: str = ""
     contact_email: str
     contact_phone: str = ""
-    payer_list: list = []
-    remittance_summary: dict = {}
+    payer_list: list = []  # [{payer_name, fee_schedule_method, code_count, fee_schedule_data}]
+    remittance_data: list = []  # [{filename, payer_name, claims: [{claim_id, lines: [...]}]}]
     consent: bool = False
     user_id: Optional[str] = None
 
@@ -1185,7 +1188,32 @@ async def generate_audit_report(req: AuditReportRequest):
             sb = _get_supabase()
             row = sb.table("provider_audits").select("*").eq("id", req.audit_id).single().execute()
             if row.data:
-                data = row.data
+                audit = row.data
+                # Fetch actual analysis results from provider_analyses
+                analysis_ids = audit.get("analysis_ids", [])
+                payer_results = []
+                for aid in analysis_ids:
+                    try:
+                        arow = sb.table("provider_analyses").select("*").eq("id", aid).execute()
+                        if arow.data:
+                            rec = arow.data[0]
+                            rj = rec.get("result_json", {})
+                            payer_results.append({
+                                "payer_name": rec.get("payer_name", ""),
+                                "summary": rj.get("summary", {}),
+                                "line_items": rj.get("line_items", []),
+                                "scorecard": rj.get("scorecard", {}),
+                                "denial_intel": rj.get("denial_intel"),
+                            })
+                    except Exception:
+                        pass
+
+                data = {
+                    "practice_name": audit.get("practice_name", ""),
+                    "report_date": datetime.now().strftime("%B %d, %Y"),
+                    "date_range": audit.get("date_range", ""),
+                    "payer_results": payer_results,
+                }
         except Exception as exc:
             print(f"[AuditReport] Failed to fetch audit: {exc}")
 
@@ -1538,6 +1566,7 @@ async def submit_audit(req: SubmitAuditRequest):
             "billing_company": req.billing_company,
             "contact_email": req.contact_email.strip(),
             "payer_list": req.payer_list,
+            "remittance_data": req.remittance_data,
             "status": "submitted",
         }).execute()
 
@@ -1883,6 +1912,356 @@ async def admin_list_audits(request: Request, status: Optional[str] = None):
 
     result = query.execute()
     return {"audits": result.data or []}
+
+
+class AdminRunAnalysisBody(BaseModel):
+    audit_id: str
+
+
+@router.post("/admin/audits/run-analysis")
+async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
+    """Run the full analysis pipeline for an audit (admin only).
+
+    Reads stored fee schedules + 835 data from the audit record, runs
+    analyze-contract for each payer, runs denial intelligence, stores results
+    as provider_analyses records, and links analysis_ids back to the audit.
+    """
+    await _verify_admin(request)
+
+    sb = _get_supabase()
+
+    # Fetch audit
+    result = sb.table("provider_audits").select("*").eq("id", body.audit_id).execute()
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Audit not found")
+
+    audit = result.data[0]
+    payer_list = audit.get("payer_list", [])
+    remittance_data = audit.get("remittance_data", [])
+
+    if not payer_list:
+        raise HTTPException(status_code=400, detail="No payers in this audit")
+
+    # Update status to processing
+    sb.table("provider_audits").update({"status": "processing"}).eq("id", body.audit_id).execute()
+
+    # Build payer rates lookup: {payer_name: {cpt: rate}}
+    payer_rates = {}
+    for p in payer_list:
+        payer_name = p.get("payer_name", "")
+        rates = p.get("fee_schedule_data", {})
+        if rates:
+            payer_rates[payer_name] = {str(k): float(v) for k, v in rates.items()}
+
+    # Build remittance lines per payer
+    payer_lines = {}  # {payer_name: [RemittanceLine-like dicts]}
+    for rem_file in remittance_data:
+        assigned_payer = rem_file.get("payer_name", "")
+        if not assigned_payer:
+            continue
+
+        for claim in rem_file.get("claims", []):
+            claim_id = claim.get("claim_id", "")
+            for line in claim.get("lines", []):
+                cpt = line.get("cpt_code", "")
+                if not cpt:
+                    continue
+
+                # Build adjustment string from list or use string directly
+                adj = line.get("adjustments", "")
+                if isinstance(adj, list):
+                    adj_parts = []
+                    for a in adj:
+                        if isinstance(a, dict):
+                            gc = a.get("group_code", "")
+                            rc = a.get("reason_code", "")
+                            adj_parts.append(f"{gc}-{rc}" if gc else rc)
+                        else:
+                            adj_parts.append(str(a))
+                    adj = ", ".join(adj_parts)
+
+                payer_lines.setdefault(assigned_payer, []).append({
+                    "cpt_code": cpt,
+                    "code_type": "CPT",
+                    "billed_amount": float(line.get("billed_amount", 0)),
+                    "paid_amount": float(line.get("paid_amount", 0)),
+                    "units": int(line.get("units", 1)),
+                    "adjustments": adj,
+                    "claim_id": claim_id,
+                })
+
+    # Resolve locality from practice ZIP (for Medicare benchmarks)
+    zip_code = audit.get("zip_code", "") or ""
+    # Try to find ZIP from user profile
+    user_id = audit.get("user_id")
+    if not zip_code and user_id:
+        try:
+            prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).maybeSingle().execute()
+            if prof.data:
+                zip_code = prof.data.get("zip_code", "")
+        except Exception:
+            pass
+
+    carrier, locality = None, None
+    if zip_code:
+        carrier, locality = resolve_locality(zip_code)
+
+    # Run analysis per payer
+    analysis_ids = []
+    payer_results = []
+
+    for payer_name, rates in payer_rates.items():
+        lines = payer_lines.get(payer_name, [])
+        if not lines:
+            # Try case-insensitive match
+            for rp, rl in payer_lines.items():
+                if rp.lower() == payer_name.lower():
+                    lines = rl
+                    break
+
+        if not lines:
+            continue
+
+        # Run contract integrity analysis (inline — mirrors analyze-contract logic)
+        enriched_lines = []
+        total_contracted = 0.0
+        total_paid = 0.0
+        total_underpayment = 0.0
+        correct_count = 0
+        underpaid_count = 0
+        denied_count = 0
+        overpaid_count = 0
+        no_contract_count = 0
+        billed_below_count = 0
+        total_chargemaster_gap = 0.0
+        denial_adj_codes = []
+
+        for line in lines:
+            contracted_rate = rates.get(line["cpt_code"])
+            expected_payment = None
+            variance = None
+            flag = "NO_CONTRACT"
+            chargemaster_gap = None
+
+            if contracted_rate is not None:
+                contracted_rate = float(contracted_rate)
+                expected_payment = round(contracted_rate * line["units"], 2)
+                variance = round(line["paid_amount"] - expected_payment, 2)
+
+                if line["billed_amount"] < contracted_rate:
+                    chargemaster_gap = round((contracted_rate - line["billed_amount"]) * line["units"], 2)
+                    billed_below_count += 1
+                    total_chargemaster_gap += chargemaster_gap
+                    flag = "BILLED_BELOW"
+                elif line["paid_amount"] == 0 and expected_payment > 0:
+                    flag = "DENIED"
+                    denied_count += 1
+                    denial_adj_codes.append(line.get("adjustments", ""))
+                elif variance < -0.50:
+                    flag = "UNDERPAID"
+                    underpaid_count += 1
+                    total_underpayment += abs(variance)
+                elif variance > 0.50:
+                    flag = "OVERPAID"
+                    overpaid_count += 1
+                else:
+                    flag = "CORRECT"
+                    correct_count += 1
+
+                total_contracted += expected_payment
+            else:
+                no_contract_count += 1
+
+            total_paid += line["paid_amount"]
+
+            # Medicare benchmark
+            medicare_rate = None
+            medicare_source = None
+            if carrier and locality:
+                rate, source, _, _ = lookup_rate(line["cpt_code"], "CPT", carrier, locality)
+                if rate is not None:
+                    medicare_rate = rate
+                    medicare_source = source
+
+            enriched_lines.append({
+                "cpt_code": line["cpt_code"],
+                "billed_amount": line["billed_amount"],
+                "paid_amount": line["paid_amount"],
+                "units": line["units"],
+                "contracted_rate": contracted_rate,
+                "expected_payment": expected_payment,
+                "variance": variance,
+                "flag": flag,
+                "chargemaster_gap": chargemaster_gap,
+                "adjustments": line.get("adjustments", ""),
+                "claim_id": line.get("claim_id", ""),
+                "medicare_rate": medicare_rate,
+                "medicare_source": medicare_source,
+            })
+
+        lines_with_contract = correct_count + underpaid_count + denied_count + overpaid_count + billed_below_count
+        adherence_rate = round((correct_count / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
+
+        # Scorecard
+        clean_claim_rate = round(((correct_count + overpaid_count) / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
+        denial_rate = round((denied_count / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 0.0
+        preventable_codes = {"CO-16", "CO-97", "16", "97"}
+        preventable_denial_count = 0
+        for adj_str in denial_adj_codes:
+            codes = [c.strip() for c in adj_str.split(",")]
+            if any(c in preventable_codes for c in codes):
+                preventable_denial_count += 1
+        preventable_denial_rate = round((preventable_denial_count / denied_count) * 100, 1) if denied_count > 0 else 0.0
+
+        summary = {
+            "total_contracted": round(total_contracted, 2),
+            "total_paid": round(total_paid, 2),
+            "total_underpayment": round(total_underpayment, 2),
+            "adherence_rate": adherence_rate,
+            "line_count": len(enriched_lines),
+            "correct_count": correct_count,
+            "underpaid_count": underpaid_count,
+            "denied_count": denied_count,
+            "overpaid_count": overpaid_count,
+            "no_contract_count": no_contract_count,
+            "billed_below_count": billed_below_count,
+            "total_chargemaster_gap": round(total_chargemaster_gap, 2),
+        }
+
+        scorecard = {
+            "clean_claim_rate": clean_claim_rate,
+            "denial_rate": denial_rate,
+            "payer_adherence_rate": adherence_rate,
+            "preventable_denial_rate": preventable_denial_rate,
+            "narrative": None,
+        }
+
+        # Run denial intelligence for denied lines
+        denial_intel = None
+        denied_lines_data = [
+            {"cpt_code": l["cpt_code"], "billed_amount": l["billed_amount"],
+             "adjustment_codes": l["adjustments"], "claim_id": l.get("claim_id", "")}
+            for l in enriched_lines if l["flag"] == "DENIED"
+        ]
+        if denied_lines_data:
+            denial_input = json.dumps({
+                "payer_name": payer_name,
+                "denied_lines": denied_lines_data,
+                "total_denied_count": len(denied_lines_data),
+            })
+            denial_intel = _call_claude(
+                system_prompt=DENIAL_SYSTEM_PROMPT,
+                user_content=denial_input,
+                max_tokens=4096,
+            )
+
+        # Save analysis to provider_analyses
+        analysis_record = {
+            "user_id": audit.get("user_id"),
+            "payer_name": payer_name,
+            "production_date": "",
+            "total_billed": summary["total_contracted"],
+            "total_paid": summary["total_paid"],
+            "underpayment": summary["total_underpayment"],
+            "adherence_rate": summary["adherence_rate"],
+            "result_json": {
+                "summary": summary,
+                "scorecard": scorecard,
+                "line_items": enriched_lines,
+                "top_underpaid": sorted(
+                    [
+                        {"cpt_code": cpt, "total_underpayment": round(amt, 2)}
+                        for cpt, amt in _aggregate_underpayments(enriched_lines).items()
+                    ],
+                    key=lambda x: x["total_underpayment"],
+                    reverse=True,
+                )[:10],
+                "denial_intel": denial_intel,
+            },
+        }
+
+        try:
+            ins = sb.table("provider_analyses").insert(analysis_record).execute()
+            if ins.data and len(ins.data) > 0:
+                analysis_ids.append(ins.data[0]["id"])
+        except Exception as exc:
+            print(f"[RunAnalysis] Failed to save analysis for {payer_name}: {exc}")
+
+        payer_results.append({
+            "payer_name": payer_name,
+            "summary": summary,
+            "line_count": len(enriched_lines),
+            "underpayment": summary["total_underpayment"],
+        })
+
+    # Update audit with analysis_ids and status
+    sb.table("provider_audits").update({
+        "analysis_ids": analysis_ids,
+        "status": "review",
+    }).eq("id", body.audit_id).execute()
+
+    return {
+        "status": "review",
+        "audit_id": body.audit_id,
+        "payer_results": payer_results,
+        "analysis_ids": analysis_ids,
+    }
+
+
+def _aggregate_underpayments(enriched_lines: list) -> dict:
+    """Aggregate underpayment amounts by CPT code."""
+    result = {}
+    for line in enriched_lines:
+        if line.get("flag") == "UNDERPAID" and line.get("variance") is not None:
+            cpt = line["cpt_code"]
+            result[cpt] = result.get(cpt, 0) + abs(line["variance"])
+    return result
+
+
+@router.get("/admin/audits/results")
+async def admin_get_results(request: Request, audit_id: str):
+    """Fetch analysis results for an audit (admin only)."""
+    await _verify_admin(request)
+
+    sb = _get_supabase()
+
+    # Fetch audit
+    audit_row = sb.table("provider_audits").select("*").eq("id", audit_id).execute()
+    if not audit_row.data:
+        raise HTTPException(status_code=404, detail="Audit not found")
+
+    audit = audit_row.data[0]
+    analysis_ids = audit.get("analysis_ids", [])
+
+    if not analysis_ids:
+        return {"audit": audit, "payer_results": [], "has_results": False}
+
+    # Fetch all analyses
+    payer_results = []
+    for aid in analysis_ids:
+        try:
+            row = sb.table("provider_analyses").select("*").eq("id", aid).execute()
+            if row.data:
+                rec = row.data[0]
+                rj = rec.get("result_json", {})
+                payer_results.append({
+                    "payer_name": rec.get("payer_name", ""),
+                    "result": {
+                        "summary": rj.get("summary", {}),
+                        "scorecard": rj.get("scorecard", {}),
+                        "line_items": rj.get("line_items", []),
+                        "top_underpaid": rj.get("top_underpaid", []),
+                    },
+                    "denial_intel": rj.get("denial_intel"),
+                })
+        except Exception as exc:
+            print(f"[AdminResults] Failed to fetch analysis {aid}: {exc}")
+
+    return {
+        "audit": audit,
+        "payer_results": payer_results,
+        "has_results": len(payer_results) > 0,
+    }
 
 
 class AdminNotesBody(BaseModel):

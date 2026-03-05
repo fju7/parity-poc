@@ -346,11 +346,22 @@ export default function ProviderAuditPage({ session, profile }) {
           payer_name: p.payer_name,
           fee_schedule_method: p.method,
           code_count: p.codeCount,
+          fee_schedule_data: p.rates, // {cpt: rate} — persist for admin analysis
         })),
-        remittance_summary: {
-          file_count: remittanceResults.length,
-          total_claims: remittanceResults.reduce((s, r) => s + (r.claims?.length || 0), 0),
-        },
+        remittance_data: remittanceResults.map(r => ({
+          filename: r.filename || "",
+          payer_name: filePayerMap[r.filename] || r.payer_name || "",
+          claims: (r.claims || []).map(c => ({
+            claim_id: c.claim_id || "",
+            lines: (c.lines || []).map(l => ({
+              cpt_code: l.cpt_code || l.procedure_code || "",
+              billed_amount: l.billed_amount || l.charge_amount || 0,
+              paid_amount: l.paid_amount || 0,
+              units: l.units || 1,
+              adjustments: l.adjustments || l.adjustment_codes || "",
+            })),
+          })),
+        })),
         consent: true,
         user_id: session?.user?.id || null,
       };
