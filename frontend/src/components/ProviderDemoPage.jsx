@@ -2,934 +2,775 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // ---------------------------------------------------------------------------
-// Sample data — Lakeside Internal Medicine & Cardiology
+// Sample data — Lakeside Internal Medicine (fictional)
 // ---------------------------------------------------------------------------
 
 const PRACTICE = {
-  name: "Lakeside Internal Medicine & Cardiology",
-  physicians: 6,
-  physDesc: "4 internists, 2 cardiologists",
-  annualRevenue: 4200000,
-  revenueGap: 150000,
-  denialRate: 11.2,
-  denialBenchmark: "5\u201310%",
-  deniedRevenue: 89000,
-  totalRecovery: 239000,
+  name: "Lakeside Internal Medicine",
+  location: "Tampa, FL",
+  providers: 3,
+  specialty: "Internal Medicine",
 };
 
-const PAYERS = [
+// Tab 1: Audit Report data (1 month)
+const AUDIT_PAYERS = [
   {
     name: "Blue Cross Blue Shield",
     short: "BCBS",
-    status: "good",
-    statusLabel: "Strong",
-    avgVsMedicare: 7,
-    denialRate: 6.4,
-    denials: 10,
-    revenueGap: 0,
-    denialPatterns: [
-      { reason: "Timely filing (>90 days)", count: 4, reasonCode: "CO-29" },
-      { reason: "Coordination of benefits", count: 3, reasonCode: "CO-22" },
-      { reason: "Various other", count: 3, reasonCode: "Various" },
+    cleanClaimRate: 89,
+    denialRate: 11,
+    totalBilled: 28400,
+    totalPaid: 24870,
+    totalContracted: 25157,
+    underpayments: [
+      { cpt: "99214", desc: "Office visit, est. moderate", billed: 285, paid: 122, contracted: 142, variance: -20, flag: "Underpaid" },
+      { cpt: "99215", desc: "Office visit, est. high", billed: 380, paid: 161, contracted: 178, variance: -17, flag: "Underpaid" },
+      { cpt: "93000", desc: "ECG, 12-lead", billed: 95, paid: 18, contracted: 22, variance: -4, flag: "Underpaid" },
     ],
+    underpaymentTotal: 287,
+    denials: [],
+    denialTotal: 0,
   },
   {
     name: "Aetna",
     short: "Aetna",
-    status: "critical",
-    statusLabel: "Underpaying",
-    avgVsMedicare: -9,
-    denialRate: 9.1,
-    denials: 16,
-    revenueGap: 127000,
-    denialPatterns: [
-      { reason: "Bundling \u2014 99214 + 93000 denied as inclusive", count: 7, reasonCode: "CO-97" },
-      { reason: "Pre-authorization not obtained (cardiac imaging)", count: 5, reasonCode: "CO-197" },
-      { reason: "Various other", count: 4, reasonCode: "Various" },
+    cleanClaimRate: 75,
+    denialRate: 25,
+    totalBilled: 18200,
+    totalPaid: 12380,
+    totalContracted: 12850,
+    underpayments: [
+      { cpt: "99213", desc: "Office visit, est. low", billed: 185, paid: 82, contracted: 89, variance: -7, flag: "Underpaid" },
     ],
+    underpaymentTotal: 44,
+    denials: [
+      { cpt: "99213", desc: "Office visit, est. low", billed: 185, reasonCode: "CO-16", reason: "Claim lacks information needed for adjudication", amount: 185, appealScore: 8 },
+      { cpt: "99214", desc: "Office visit, est. moderate", billed: 285, reasonCode: "CO-16", reason: "Claim lacks information needed for adjudication", amount: 285, appealScore: 7 },
+    ],
+    denialTotal: 470,
   },
   {
     name: "UnitedHealthcare",
     short: "UHC",
-    status: "warning",
-    statusLabel: "High Denials",
-    avgVsMedicare: 1,
-    denialRate: 14.3,
-    denials: 34,
-    revenueGap: 23000,
-    denialPatterns: [
-      { reason: "Medical necessity not established \u2014 CPT 93306 (echo)", count: 12, reasonCode: "CO-50" },
-      { reason: "Modifier 25 rejected on same-day E&M + procedure", count: 8, reasonCode: "CO-4" },
-      { reason: "Duplicate claim (actually separate dates of service)", count: 6, reasonCode: "CO-18" },
-      { reason: "Various other", count: 8, reasonCode: "Various" },
+    cleanClaimRate: 96,
+    denialRate: 4,
+    totalBilled: 22600,
+    totalPaid: 19850,
+    totalContracted: 19850,
+    underpayments: [],
+    underpaymentTotal: 0,
+    denials: [
+      { cpt: "99214", desc: "Office visit, est. moderate", billed: 285, reasonCode: "OA-18", reason: "Exact duplicate claim", amount: 285, appealScore: 9 },
     ],
+    denialTotal: 285,
   },
 ];
 
-const FEE_SCHEDULE = [
-  { cpt: "99214", desc: "Office visit, est. patient, moderate", medicare: 128, bcbs: 142, aetna: 118, uhc: 135 },
-  { cpt: "99213", desc: "Office visit, est. patient, low", medicare: 98, bcbs: 104, aetna: 89, uhc: 96 },
-  { cpt: "93000", desc: "ECG, 12-lead", medicare: 18, bcbs: 22, aetna: 15, uhc: 19 },
-  { cpt: "93306", desc: "Echocardiogram, complete", medicare: 185, bcbs: 198, aetna: 165, uhc: 190 },
-  { cpt: "99215", desc: "Office visit, est. patient, high", medicare: 172, bcbs: 180, aetna: 155, uhc: 168 },
-  { cpt: "99203", desc: "Office visit, new patient, low", medicare: 112, bcbs: 124, aetna: 98, uhc: 115 },
-  { cpt: "93000", desc: "ECG interpretation only", medicare: 12, bcbs: 14, aetna: 10, uhc: 13 },
-  { cpt: "93350", desc: "Stress echocardiogram", medicare: 145, bcbs: 162, aetna: 128, uhc: 148 },
-  { cpt: "71046", desc: "Chest X-ray, 2 views", medicare: 28, bcbs: 32, aetna: 24, uhc: 29 },
-  { cpt: "36415", desc: "Venipuncture", medicare: 3, bcbs: 4, aetna: 3, uhc: 3 },
-  { cpt: "80053", desc: "Comprehensive metabolic panel", medicare: 11, bcbs: 14, aetna: 10, uhc: 12 },
-  { cpt: "85025", desc: "CBC with differential", medicare: 8, bcbs: 10, aetna: 7, uhc: 9 },
-  { cpt: "99395", desc: "Preventive visit, 18-39", medicare: 145, bcbs: 158, aetna: 130, uhc: 148 },
-  { cpt: "99396", desc: "Preventive visit, 40-64", medicare: 155, bcbs: 170, aetna: 140, uhc: 160 },
-  { cpt: "93000", desc: "ECG, complete", medicare: 30, bcbs: 36, aetna: 25, uhc: 32 },
-];
-
-// Revenue gap detail for Aetna
-const AETNA_GAP_DETAIL = [
-  { cpt: "99214", desc: "Office visit, est. moderate", volume: 420, yourRate: 118, medicare: 128, gap: 4200 },
-  { cpt: "99213", desc: "Office visit, est. low", volume: 310, yourRate: 89, medicare: 98, gap: 2790 },
-  { cpt: "99215", desc: "Office visit, est. high", volume: 85, yourRate: 155, medicare: 172, gap: 1445 },
-  { cpt: "93306", desc: "Echo, complete", volume: 60, yourRate: 165, medicare: 185, gap: 1200 },
-  { cpt: "99203", desc: "Office visit, new low", volume: 95, yourRate: 98, medicare: 112, gap: 1330 },
-];
-
-const RECOVERY_MONTHS = [
-  { month: "Oct 2025", denied: 32, appealed: 18, won: 5, recovered: 4200 },
-  { month: "Nov 2025", denied: 28, appealed: 22, won: 11, recovered: 12800 },
-  { month: "Dec 2025", denied: 25, appealed: 24, won: 15, recovered: 17400 },
-];
-
-const SAMPLE_APPEAL = {
-  claimNumber: "UHC-2025-8847291",
-  patientDOB: "03/15/1958",
-  dateOfService: "09/12/2025",
-  cpt: "93306",
-  billedAmount: 190,
-  denialReason: "CO-50: Medical necessity not established. The requested service does not meet the plan's medical necessity criteria based on the submitted documentation.",
-  analyticalPaths: [
-    {
-      choice: "UHC applied a frequency limit of 1 echocardiogram per 90 days",
-      finding: "The prior echocardiogram was performed on 06/08/2025 \u2014 96 days prior to this service. The frequency limit was technically met.",
-    },
-    {
-      choice: "Override for clinical change was not recognized",
-      finding: "The patient's medical record documents new onset dyspnea on exertion and a 15-point decrease in ejection fraction noted on physical exam, constituting a significant change in clinical status.",
-    },
-    {
-      choice: "Documentation of clinical change was present but not in the expected structured data field",
-      finding: "The clinical change was documented in the progress note narrative but was not captured in the structured reason-for-study field on the order. UHC's automated review system processes only structured fields.",
-    },
+const AUDIT_SUMMARY = {
+  totalBilled: 69200,
+  totalPaid: 57100,
+  totalContracted: 57857,
+  totalUnderpayment: 331,
+  totalDenied: 755,
+  monthlyGap: 1086,
+  annualizedGap: 13032,
+  execSummary: "Lakeside Internal Medicine shows a monthly revenue gap of $1,086 across three payers. BCBS has three active underpayments totaling $287/month, primarily on office visits where payments are consistently below contracted rates. Aetna's CO-16 denials ($470) suggest a documentation submission issue that should be addressable. UHC's OA-18 denial ($285) appears to be a corrected resubmission flagged as duplicate — a straightforward appeal. Annualized, this practice is leaving approximately $13,032 on the table.",
+  recommendedActions: [
+    "Appeal the two Aetna CO-16 denials immediately — these are documentation-based and have a high overturn rate when supporting records are attached.",
+    "Appeal the UHC OA-18 denial with proof this was a corrected claim, not a duplicate submission. Include the original claim number and correction reason.",
+    "Contact BCBS about the systematic underpayment on 99214, 99215, and 93000 — request a rate review referencing your contract terms.",
+    "Implement a pre-submission checklist for Aetna claims to ensure all required documentation fields are populated before submission.",
   ],
-  appealLetter: `RE: Appeal of Denied Claim UHC-2025-8847291
-CPT 93306 — Complete Echocardiogram
-Date of Service: September 12, 2025
-Patient DOB: 03/15/1958
-Billed Amount: $190.00
+};
 
-Dear UnitedHealthcare Claims Review Department,
+// Tab 2: Month-over-month trend data (3 months)
+const TREND_MONTHS = ["January 2026", "February 2026", "March 2026"];
 
-I am writing to appeal the denial of the above-referenced claim under reason code CO-50 (Medical necessity not established).
+const TREND_DATA = {
+  aetna99214: {
+    label: "Aetna 99214 Underpayment",
+    values: [13, 18, 22],
+    direction: "worsening",
+    color: "#EF4444",
+  },
+  bcbsDenialRate: {
+    label: "BCBS Denial Rate",
+    values: [11, 8, 6],
+    unit: "%",
+    direction: "improving",
+    color: "#22C55E",
+  },
+  uhcCO197: {
+    label: "UHC CO-197 Denials (new pattern)",
+    values: [0, 0, 3],
+    direction: "new",
+    color: "#F59E0B",
+  },
+  monthlyGap: {
+    label: "Total Monthly Revenue Gap",
+    values: [1086, 1240, 1415],
+    direction: "worsening",
+    color: "#EF4444",
+  },
+};
 
-DENIAL ANALYSIS
+const TREND_NARRATIVE = `Over the past three months, Lakeside Internal Medicine's revenue gap is trending upward — from $1,086 in January to $1,415 in March (+30%).
 
-This denial was based on UHC's frequency limitation policy, which restricts echocardiograms to one per 90-day period absent documented clinical change. However, this denial should be overturned for the following reasons:
+Key changes:
+- Aetna's underpayment on 99214 has increased from $13 to $22 per claim. With ~35 claims/month, this adds ~$315/month in lost revenue vs. January. This suggests a systematic issue, possibly a fee schedule update that wasn't applied to your contract.
+- BCBS denial rate improved from 11% to 6%, likely due to the documentation checklist implemented after the audit. This is saving approximately $180/month in denied claims.
+- A new pattern emerged in March: UHC denied 3 claims with CO-197 (precertification not obtained). This was not present in prior months and should be investigated immediately before it becomes systemic.
 
-1. FREQUENCY LIMIT WAS MET: The prior echocardiogram was performed on June 8, 2025 — 96 days before the September 12 study. The 90-day frequency limit was satisfied.
+Recommended action: Contact your Aetna representative about the 99214 rate discrepancy. This single issue represents ~$3,780/year in underpayments at current volume.`;
 
-2. CLINICAL CHANGE WAS DOCUMENTED: The patient presented with new onset dyspnea on exertion beginning approximately 3 weeks prior to the study. Physical examination revealed a new S3 gallop and bilateral lower extremity edema. These findings represent a significant change in clinical status warranting repeat echocardiographic evaluation.
+// Tab 3: Appeal letters
+const APPEAL_LETTERS = [
+  {
+    payer: "Aetna",
+    cpt: "99213",
+    reasonCode: "CO-16",
+    amount: 185,
+    dos: "02/14/2026",
+    claimId: "AET-2026-441872",
+    letter: `RE: Appeal of Denied Claim AET-2026-441872
+CPT 99213 — Office Visit, Established Patient, Low Complexity
+Date of Service: February 14, 2026
+Patient DOB: 07/22/1965
+Billed Amount: $185.00
 
-3. APPROPRIATE USE CRITERIA SUPPORT: Per the ACC/AHA 2024 Appropriate Use Criteria for Echocardiography, repeat echocardiography is rated as "Appropriate" (Score 7-9) when there is "a change in clinical status or cardiac examination suggesting a change in cardiac structure or function" (Indication #14).
+Dear Aetna Claims Review Department,
 
-The documentation supporting this clinical change was present in the visit progress note dated September 12, 2025. We have attached the relevant progress note and prior echocardiogram report for your review.
+I am writing to appeal the denial of the above-referenced claim under reason code CO-16 (Claim/service lacks information needed for adjudication).
 
-We respectfully request that this claim be reprocessed and paid at the contracted rate of $190.00.
+APPEAL BASIS
+
+This denial indicates that required documentation was not received with the original claim submission. We have confirmed that all required documentation was present in our practice management system at the time of service. The issue appears to be a transmission error during electronic claim submission.
+
+SUPPORTING DOCUMENTATION ENCLOSED
+
+1. Complete progress note for the February 14, 2026 encounter, documenting:
+   - Chief complaint and history of present illness
+   - Review of systems (2 systems reviewed)
+   - Physical examination findings
+   - Medical decision-making of low complexity
+   - Assessment and plan
+
+2. Signed physician attestation confirming the services were rendered as billed
+
+3. Electronic claim submission confirmation showing original transmission date
+
+Per CMS Guidelines (MLN Matters SE0726), claims denied for missing information should be reconsidered when the information was available at the time of service and is subsequently provided. The enclosed documentation satisfies all requirements for CPT 99213.
+
+We respectfully request that this claim be reprocessed and paid at the contracted rate.
 
 Sincerely,
 [Physician Name], MD
-Lakeside Internal Medicine & Cardiology
+Lakeside Internal Medicine
 NPI: [Practice NPI]`,
-  successRate: "This appeal addresses the actual analytical logic behind the denial, not just the outcome. Generic appeals succeed ~30% of the time. Targeted appeals succeed ~65% of the time.",
-};
+  },
+  {
+    payer: "UHC",
+    cpt: "99214",
+    reasonCode: "OA-18",
+    amount: 285,
+    dos: "02/21/2026",
+    claimId: "UHC-2026-559103",
+    letter: `RE: Appeal of Denied Claim UHC-2026-559103
+CPT 99214 — Office Visit, Established Patient, Moderate Complexity
+Date of Service: February 21, 2026
+Patient DOB: 11/03/1971
+Billed Amount: $285.00
+
+Dear UnitedHealthcare Claims Review Department,
+
+I am writing to appeal the denial of the above-referenced claim under reason code OA-18 (Exact duplicate claim/service).
+
+APPEAL BASIS
+
+This claim is NOT a duplicate. It is a corrected resubmission of claim UHC-2026-502847 (original date of submission: February 25, 2026). The original claim contained an incorrect modifier and was resubmitted with the correction on March 3, 2026 using frequency type code "7" (replacement claim) as required by UHC's corrected claim policy.
+
+EVIDENCE OF CORRECTION
+
+1. Original claim UHC-2026-502847 — submitted 02/25/2026 (included for reference)
+2. Corrected claim UHC-2026-559103 — submitted 03/03/2026 with frequency type "7"
+3. The only change between claims is the removal of an incorrect modifier 25 that was applied in error
+
+Per UHC's Provider Administrative Guide, Section 8.4: "Corrected claims submitted with frequency type code 7 should be processed as replacements, not flagged as duplicates."
+
+The corrected claim should be adjudicated on its own merits and paid at the contracted rate of $285.00.
+
+Sincerely,
+[Physician Name], MD
+Lakeside Internal Medicine
+NPI: [Practice NPI]`,
+  },
+  {
+    payer: "Aetna",
+    cpt: "99214",
+    reasonCode: "CO-16",
+    amount: 285,
+    dos: "02/07/2026",
+    claimId: "AET-2026-438291",
+    letter: `RE: Appeal of Denied Claim AET-2026-438291
+CPT 99214 — Office Visit, Established Patient, Moderate Complexity
+Date of Service: February 7, 2026
+Patient DOB: 03/15/1958
+Billed Amount: $285.00
+
+Dear Aetna Claims Review Department,
+
+I am writing to appeal the denial of the above-referenced claim under reason code CO-16 (Claim/service lacks information needed for adjudication).
+
+APPEAL BASIS
+
+The denial states that information needed for adjudication was not included. Upon review, all required elements for a CPT 99214 encounter were documented in the medical record:
+
+1. History: Detailed HPI with 4+ elements, pertinent ROS (3 systems), pertinent PFSH
+2. Examination: Detailed multi-system examination (8 organ systems)
+3. Medical Decision Making: Moderate complexity — multiple diagnoses, prescription drug management, moderate data review
+
+DOCUMENTATION ENCLOSED
+
+- Complete progress note for 02/07/2026 encounter
+- Problem list and medication list current as of date of service
+- Prior authorization reference (if applicable)
+
+This encounter meets all documentation requirements for CPT 99214 per the 2021 E&M Guidelines. We respectfully request reprocessing and payment at the contracted rate.
+
+Sincerely,
+[Physician Name], MD
+Lakeside Internal Medicine
+NPI: [Practice NPI]`,
+  },
+];
+
+// Tab 4: Payer Intelligence (coming soon mockup)
+const BENCHMARK_DATA = [
+  { cpt: "99213", desc: "Office visit, est. low", yourRate: 89, marketMedian: 102, percentile: 28 },
+  { cpt: "99214", desc: "Office visit, est. moderate", yourRate: 118, marketMedian: 138, percentile: 22 },
+  { cpt: "99215", desc: "Office visit, est. high", yourRate: 155, marketMedian: 178, percentile: 25 },
+  { cpt: "99203", desc: "Office visit, new low", yourRate: 98, marketMedian: 118, percentile: 30 },
+  { cpt: "99204", desc: "Office visit, new moderate", yourRate: 165, marketMedian: 192, percentile: 27 },
+];
+
+const CODING_DIST = [
+  { code: "99213", yours: 65, peers: 48 },
+  { code: "99214", yours: 25, peers: 35 },
+  { code: "99215", yours: 5, peers: 10 },
+  { code: "99211/12", yours: 5, peers: 7 },
+];
 
 // ---------------------------------------------------------------------------
-// Screens
+// Component
 // ---------------------------------------------------------------------------
 
 const TABS = [
-  "Practice Overview",
-  "Contract Benchmarking",
-  "Denial Intelligence",
-  "Sample Appeal",
-  "Revenue Recovery",
+  { key: "audit", label: "Your Audit Report" },
+  { key: "trends", label: "Month-Over-Month Trends" },
+  { key: "appeals", label: "Appeal Letters" },
+  { key: "intel", label: "Payer Intelligence" },
 ];
 
 export default function ProviderDemoPage() {
-  const [tab, setTab] = useState(0);
-  const [selectedPayer, setSelectedPayer] = useState(1); // default Aetna
-  const [selectedDenialPayer, setSelectedDenialPayer] = useState(2); // default UHC
-  const [expandedPath, setExpandedPath] = useState(null);
+  const [activeTab, setActiveTab] = useState("audit");
+  const [expandedAppeal, setExpandedAppeal] = useState(null);
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0a1628",
-        color: "#e2e8f0",
-        fontFamily: "'DM Sans', sans-serif",
-      }}
-    >
+    <div style={{ minHeight: "100vh", background: "#0a1628", color: "#e2e8f0", fontFamily: "'DM Sans', sans-serif" }}>
       <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
         rel="stylesheet"
       />
 
       {/* Demo banner */}
-      <div
-        style={{
-          background: "rgba(59,130,246,0.15)",
-          borderBottom: "1px solid rgba(59,130,246,0.25)",
-          padding: "10px 20px",
-          textAlign: "center",
-          fontSize: "13px",
-          color: "#93c5fd",
-        }}
-      >
-        You're viewing a demo with sample data from a fictional practice.{" "}
-        <Link
-          to="/billing/provider"
-          style={{ color: "#60a5fa", fontWeight: "600", textDecoration: "none" }}
-        >
-          Learn more &rarr;
-        </Link>
-        {" "}&middot;{" "}
-        <Link
-          to="/employer/login"
-          style={{ color: "#60a5fa", fontWeight: "600", textDecoration: "none" }}
-        >
-          Sign up for access &rarr;
+      <div style={{
+        background: "rgba(59,130,246,0.15)",
+        borderBottom: "1px solid rgba(59,130,246,0.25)",
+        padding: "10px 20px",
+        textAlign: "center",
+        fontSize: "13px",
+        color: "#93c5fd",
+      }}>
+        You're viewing a demo with sample data from {PRACTICE.name} (fictional).{" "}
+        <Link to="/audit" style={{ color: "#60a5fa", fontWeight: "600", textDecoration: "none" }}>
+          Start Your Free Audit &rarr;
         </Link>
       </div>
 
       {/* Header */}
-      <header
-        style={{
-          padding: "16px 24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-          flexWrap: "wrap",
-          gap: "8px",
-        }}
-      >
+      <header style={{
+        padding: "16px 24px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        flexWrap: "wrap",
+        gap: "8px",
+      }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <Link
-            to="/"
-            style={{
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              background: "linear-gradient(135deg, #0d9488, #14b8a6)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "16px",
-              fontWeight: "700",
-              color: "#0a1628",
-              textDecoration: "none",
-            }}
-          >
-            C
-          </Link>
+          <Link to="/" style={{
+            width: "32px", height: "32px", borderRadius: "8px",
+            background: "linear-gradient(135deg, #0d9488, #14b8a6)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: "16px", fontWeight: "700", color: "#0a1628", textDecoration: "none",
+          }}>C</Link>
           <span style={{ fontWeight: "600", fontSize: "16px" }}>Parity Provider</span>
-          <span
-            style={{
-              background: "rgba(59,130,246,0.15)",
-              color: "#60a5fa",
-              fontSize: "11px",
-              fontWeight: "600",
-              padding: "3px 8px",
-              borderRadius: "4px",
-              textTransform: "uppercase",
-            }}
-          >
-            Demo
-          </span>
+          <span style={{
+            background: "rgba(59,130,246,0.15)", color: "#60a5fa",
+            fontSize: "11px", fontWeight: "600", padding: "3px 8px",
+            borderRadius: "4px", textTransform: "uppercase",
+          }}>Demo</span>
         </div>
         <div style={{ fontSize: "13px", color: "#64748b" }}>
-          {PRACTICE.name} &middot; {PRACTICE.physDesc}
+          {PRACTICE.name} &middot; {PRACTICE.location} &middot; {PRACTICE.providers} providers
         </div>
       </header>
 
       {/* Tab navigation */}
-      <nav
-        style={{
-          display: "flex",
-          gap: "0",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-          padding: "0 24px",
-          overflowX: "auto",
-        }}
-      >
-        {TABS.map((t, i) => (
+      <nav style={{
+        display: "flex", gap: "0",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        padding: "0 24px", overflowX: "auto",
+      }}>
+        {TABS.map((t) => (
           <button
-            key={t}
-            onClick={() => setTab(i)}
+            key={t.key}
+            onClick={() => setActiveTab(t.key)}
             style={{
-              padding: "14px 18px",
-              fontSize: "13px",
-              fontWeight: tab === i ? "600" : "400",
-              color: tab === i ? "#60a5fa" : "#64748b",
-              borderBottom: tab === i ? "2px solid #3b82f6" : "2px solid transparent",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-              transition: "color 0.2s",
-              fontFamily: "inherit",
+              padding: "14px 18px", fontSize: "13px",
+              fontWeight: activeTab === t.key ? "600" : "400",
+              color: activeTab === t.key ? "#60a5fa" : "#64748b",
+              borderBottom: activeTab === t.key ? "2px solid #3b82f6" : "2px solid transparent",
+              background: "none", border: "none", cursor: "pointer",
+              whiteSpace: "nowrap", fontFamily: "inherit",
             }}
-          >
-            {t}
-          </button>
+          >{t.label}</button>
         ))}
       </nav>
 
       {/* Content */}
       <main style={{ padding: "32px 24px", maxWidth: "1100px", margin: "0 auto" }}>
-        {tab === 0 && <PracticeOverview onDrillPayer={(i) => { setSelectedPayer(i); setTab(1); }} />}
-        {tab === 1 && (
-          <ContractBenchmarking
-            payerIndex={selectedPayer}
-            onSelectPayer={setSelectedPayer}
-          />
+        {activeTab === "audit" && <AuditReport />}
+        {activeTab === "trends" && <TrendsTab />}
+        {activeTab === "appeals" && (
+          <AppealsTab expanded={expandedAppeal} onToggle={(i) => setExpandedAppeal(expandedAppeal === i ? null : i)} />
         )}
-        {tab === 2 && (
-          <DenialIntelligence
-            payerIndex={selectedDenialPayer}
-            onSelectPayer={setSelectedDenialPayer}
-            onViewAppeal={() => setTab(3)}
-          />
-        )}
-        {tab === 3 && (
-          <SampleAppeal
-            expandedPath={expandedPath}
-            onTogglePath={(i) => setExpandedPath(expandedPath === i ? null : i)}
-          />
-        )}
-        {tab === 4 && <RevenueRecovery />}
+        {activeTab === "intel" && <IntelTab />}
       </main>
-    </div>
-  );
-}
 
-// ---------------------------------------------------------------------------
-// Screen 1: Practice Overview
-// ---------------------------------------------------------------------------
-
-function PracticeOverview({ onDrillPayer }) {
-  return (
-    <div>
-      <h2 style={{ ...h2Style, marginBottom: "28px" }}>Practice Overview</h2>
-
-      {/* Top stats */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-          gap: "16px",
-          marginBottom: "32px",
-        }}
-      >
-        <StatCard label="Annual Revenue" value={fmt(PRACTICE.annualRevenue)} />
-        <StatCard label="Revenue Gap" value={fmt(PRACTICE.revenueGap)} sub="Contract shortfalls" accent />
-        <StatCard
-          label="Denial Rate"
-          value={`${PRACTICE.denialRate}%`}
-          sub={`Benchmark: ${PRACTICE.denialBenchmark}`}
-          accent
-        />
-        <StatCard label="Denied Revenue" value={fmt(PRACTICE.deniedRevenue)} sub="At risk" />
-        <StatCard
-          label="Total Recovery"
-          value={fmt(PRACTICE.totalRecovery)}
-          sub="Opportunity"
-          accent
-        />
-      </div>
-
-      {/* Payer performance cards */}
-      <h3 style={{ ...h3Style, marginBottom: "16px" }}>Payer Performance</h3>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "16px",
-        }}
-      >
-        {PAYERS.map((p, i) => (
-          <div
-            key={p.name}
-            style={{
-              ...cardStyle,
-              cursor: "pointer",
-              transition: "all 0.2s",
-            }}
-            onClick={() => onDrillPayer(i)}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(59,130,246,0.3)";
-              e.currentTarget.style.background = "rgba(59,130,246,0.04)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-              e.currentTarget.style.background = "rgba(255,255,255,0.02)";
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "12px",
-              }}
-            >
-              <span style={{ fontSize: "16px", fontWeight: "600", color: "#e2e8f0" }}>
-                {p.name}
-              </span>
-              <span
-                style={{
-                  fontSize: "11px",
-                  fontWeight: "600",
-                  padding: "3px 10px",
-                  borderRadius: "10px",
-                  background: statusBg(p.status),
-                  color: statusColor(p.status),
-                }}
-              >
-                {p.statusLabel}
-              </span>
-            </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "12px",
-                fontSize: "13px",
-              }}
-            >
-              <div>
-                <div style={{ color: "#64748b", fontSize: "11px", marginBottom: "2px" }}>
-                  Rates vs Medicare
-                </div>
-                <div
-                  style={{
-                    fontWeight: "600",
-                    color: p.avgVsMedicare > 0 ? "#4ade80" : "#f87171",
-                  }}
-                >
-                  {p.avgVsMedicare > 0 ? "+" : ""}{p.avgVsMedicare}% avg
-                </div>
-              </div>
-              <div>
-                <div style={{ color: "#64748b", fontSize: "11px", marginBottom: "2px" }}>
-                  Denial Rate
-                </div>
-                <div
-                  style={{
-                    fontWeight: "600",
-                    color: p.denialRate > 10 ? "#f87171" : p.denialRate > 7 ? "#fbbf24" : "#4ade80",
-                  }}
-                >
-                  {p.denialRate}%
-                </div>
-              </div>
-              <div>
-                <div style={{ color: "#64748b", fontSize: "11px", marginBottom: "2px" }}>
-                  Revenue Gap
-                </div>
-                <div style={{ fontWeight: "600", color: p.revenueGap > 0 ? "#f87171" : "#4ade80" }}>
-                  {p.revenueGap > 0 ? fmt(p.revenueGap) : "\u2014"}
-                </div>
-              </div>
-              <div>
-                <div style={{ color: "#64748b", fontSize: "11px", marginBottom: "2px" }}>
-                  Denials
-                </div>
-                <div style={{ fontWeight: "600" }}>
-                  {p.denials}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Screen 2: Contract Benchmarking
-// ---------------------------------------------------------------------------
-
-function ContractBenchmarking({ payerIndex, onSelectPayer }) {
-  const payer = PAYERS[payerIndex];
-
-  return (
-    <div>
-      {/* Payer selector */}
-      <div style={{ display: "flex", gap: "8px", marginBottom: "28px" }}>
-        {PAYERS.map((p, i) => (
-          <button
-            key={p.name}
-            onClick={() => onSelectPayer(i)}
-            style={{
-              padding: "6px 14px",
-              fontSize: "12px",
-              fontWeight: i === payerIndex ? "600" : "400",
-              background: i === payerIndex ? "rgba(59,130,246,0.2)" : "rgba(255,255,255,0.04)",
-              color: i === payerIndex ? "#60a5fa" : "#94a3b8",
-              border: `1px solid ${i === payerIndex ? "rgba(59,130,246,0.4)" : "rgba(255,255,255,0.08)"}`,
-              borderRadius: "6px",
-              cursor: "pointer",
-              fontFamily: "inherit",
-            }}
-          >
-            {p.short}
-          </button>
-        ))}
-      </div>
-
-      <h2 style={{ ...h2Style, marginBottom: "8px" }}>
-        {payer.name} Contract Rates
-      </h2>
-      <p style={{ fontSize: "14px", color: "#64748b", marginBottom: "28px" }}>
-        CPT-by-CPT comparison against Medicare and other payers.
-      </p>
-
-      {/* Rate comparison table */}
-      <div style={cardStyle}>
-        <div style={{ overflowX: "auto" }}>
-          <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>CPT</th>
-                <th style={thStyle}>Description</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Medicare</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>BCBS</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Aetna</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>UHC</th>
-              </tr>
-            </thead>
-            <tbody>
-              {FEE_SCHEDULE.slice(0, 8).map((row, idx) => (
-                <tr key={idx}>
-                  <td style={{ ...tdStyle, fontFamily: "monospace", color: "#60a5fa" }}>{row.cpt}</td>
-                  <td style={tdStyle}>{row.desc}</td>
-                  <td style={{ ...tdStyle, textAlign: "right", color: "#64748b" }}>${row.medicare}</td>
-                  <td style={{ ...tdStyle, textAlign: "right" }}>
-                    <RateCell rate={row.bcbs} benchmark={row.medicare} />
-                  </td>
-                  <td style={{ ...tdStyle, textAlign: "right" }}>
-                    <RateCell rate={row.aetna} benchmark={row.medicare} />
-                  </td>
-                  <td style={{ ...tdStyle, textAlign: "right" }}>
-                    <RateCell rate={row.uhc} benchmark={row.medicare} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Bottom CTA */}
+      <div style={{
+        maxWidth: "1100px", margin: "0 auto", padding: "0 24px 48px",
+        textAlign: "center",
+      }}>
+        <div style={{
+          background: "rgba(59,130,246,0.06)",
+          border: "1px solid rgba(59,130,246,0.15)",
+          borderRadius: "12px",
+          padding: "28px",
+        }}>
+          <p style={{ fontSize: "15px", color: "#94a3b8", margin: "0 0 16px" }}>
+            This is what Parity Provider finds. Start with a free audit using your own data — no cost, no commitment.
+          </p>
+          <Link to="/audit" style={{
+            display: "inline-block", background: "#3b82f6", color: "#fff",
+            padding: "12px 28px", borderRadius: "8px", fontWeight: "600",
+            fontSize: "15px", textDecoration: "none",
+          }}>
+            Start Your Free Audit &rarr;
+          </Link>
         </div>
       </div>
+    </div>
+  );
+}
 
-      {/* Revenue gap detail — only for Aetna */}
-      {payerIndex === 1 && (
-        <div style={{ marginTop: "28px" }}>
-          <div
-            style={{
-              ...cardStyle,
-              background: "rgba(239,68,68,0.04)",
-              borderColor: "rgba(239,68,68,0.15)",
-            }}
-          >
-            <h3 style={h3Style}>Revenue Gap: Aetna \u2014 ${(127000).toLocaleString()}</h3>
-            <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "16px" }}>
-              Aetna pays 8\u201311% below Medicare across E&M codes. Top 5 codes driving the gap:
-            </p>
-            <div style={{ overflowX: "auto" }}>
+// ---------------------------------------------------------------------------
+// Tab 1: Audit Report
+// ---------------------------------------------------------------------------
+
+function AuditReport() {
+  return (
+    <div>
+      <h2 style={h2Style}>Audit Report — {PRACTICE.name}</h2>
+      <p style={{ fontSize: "13px", color: "#64748b", marginBottom: "28px" }}>
+        Period: February 2026 &middot; 3 payers analyzed &middot; Report generated March 1, 2026
+      </p>
+
+      {/* Summary stats */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "16px", marginBottom: "32px" }}>
+        <StatCard label="Total Billed" value={fmt(AUDIT_SUMMARY.totalBilled)} />
+        <StatCard label="Total Paid" value={fmt(AUDIT_SUMMARY.totalPaid)} />
+        <StatCard label="Underpayments" value={fmt(AUDIT_SUMMARY.totalUnderpayment)} accent="#EF4444" />
+        <StatCard label="Denied Revenue" value={fmt(AUDIT_SUMMARY.totalDenied)} accent="#F59E0B" />
+        <StatCard label="Monthly Gap" value={fmt(AUDIT_SUMMARY.monthlyGap)} accent="#EF4444" />
+        <StatCard label="Annualized Gap" value={fmt(AUDIT_SUMMARY.annualizedGap)} accent="#EF4444" />
+      </div>
+
+      {/* Executive Summary */}
+      <div style={{ ...cardStyle, marginBottom: "28px" }}>
+        <h3 style={h3Style}>AI Executive Summary</h3>
+        <p style={{ fontSize: "14px", lineHeight: "1.8", color: "#94a3b8" }}>
+          {AUDIT_SUMMARY.execSummary}
+        </p>
+      </div>
+
+      {/* Recommended Actions */}
+      <div style={{ ...cardStyle, marginBottom: "32px" }}>
+        <h3 style={h3Style}>Recommended Actions</h3>
+        <ol style={{ margin: 0, paddingLeft: "20px", fontSize: "14px", lineHeight: "2", color: "#94a3b8" }}>
+          {AUDIT_SUMMARY.recommendedActions.map((a, i) => <li key={i}>{a}</li>)}
+        </ol>
+      </div>
+
+      {/* Per-payer breakdown */}
+      {AUDIT_PAYERS.map((p) => (
+        <div key={p.short} style={{ ...cardStyle, marginBottom: "20px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "8px" }}>
+            <h3 style={{ ...h3Style, margin: 0 }}>{p.name}</h3>
+            <div style={{ display: "flex", gap: "16px", fontSize: "13px" }}>
+              <span style={{ color: "#94a3b8" }}>Clean claim rate: <strong style={{ color: p.cleanClaimRate >= 90 ? "#22C55E" : p.cleanClaimRate >= 80 ? "#F59E0B" : "#EF4444" }}>{p.cleanClaimRate}%</strong></span>
+              <span style={{ color: "#94a3b8" }}>Denial rate: <strong style={{ color: p.denialRate <= 5 ? "#22C55E" : p.denialRate <= 15 ? "#F59E0B" : "#EF4444" }}>{p.denialRate}%</strong></span>
+            </div>
+          </div>
+
+          {p.underpayments.length > 0 && (
+            <>
+              <div style={{ fontSize: "12px", fontWeight: "600", color: "#EF4444", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
+                Underpayments ({fmt(p.underpaymentTotal)})
+              </div>
               <table style={tableStyle}>
                 <thead>
                   <tr>
-                    <th style={thStyle}>CPT</th>
-                    <th style={thStyle}>Description</th>
-                    <th style={{ ...thStyle, textAlign: "right" }}>Volume</th>
-                    <th style={{ ...thStyle, textAlign: "right" }}>Your Rate</th>
-                    <th style={{ ...thStyle, textAlign: "right" }}>Medicare</th>
-                    <th style={{ ...thStyle, textAlign: "right" }}>Annual Gap</th>
+                    {["CPT", "Description", "Billed", "Paid", "Contracted", "Variance", "Flag"].map(h => (
+                      <th key={h} style={thStyle}>{h}</th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {AETNA_GAP_DETAIL.map((row) => (
-                    <tr key={row.cpt}>
-                      <td style={{ ...tdStyle, fontFamily: "monospace", color: "#60a5fa" }}>{row.cpt}</td>
-                      <td style={tdStyle}>{row.desc}</td>
-                      <td style={{ ...tdStyle, textAlign: "right" }}>{row.volume}</td>
-                      <td style={{ ...tdStyle, textAlign: "right", color: "#f87171" }}>${row.yourRate}</td>
-                      <td style={{ ...tdStyle, textAlign: "right", color: "#64748b" }}>${row.medicare}</td>
-                      <td style={{ ...tdStyle, textAlign: "right", color: "#f87171", fontWeight: "600" }}>
-                        ${row.gap.toLocaleString()}
+                  {p.underpayments.map((u, i) => (
+                    <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                      <td style={tdStyle}>{u.cpt}</td>
+                      <td style={{ ...tdStyle, color: "#94a3b8" }}>{u.desc}</td>
+                      <td style={tdStyleR}>{fmt(u.billed)}</td>
+                      <td style={tdStyleR}>{fmt(u.paid)}</td>
+                      <td style={tdStyleR}>{fmt(u.contracted)}</td>
+                      <td style={{ ...tdStyleR, color: "#EF4444" }}>{fmt(u.variance)}</td>
+                      <td style={{ ...tdStyle, color: "#EF4444", fontWeight: "600", fontSize: "11px" }}>{u.flag}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+
+          {p.denials.length > 0 && (
+            <>
+              <div style={{ fontSize: "12px", fontWeight: "600", color: "#F59E0B", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px", marginTop: p.underpayments.length > 0 ? "20px" : 0 }}>
+                Denials ({fmt(p.denialTotal)})
+              </div>
+              <table style={tableStyle}>
+                <thead>
+                  <tr>
+                    {["CPT", "Description", "Billed", "Reason Code", "Reason", "Appeal Score"].map(h => (
+                      <th key={h} style={thStyle}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {p.denials.map((d, i) => (
+                    <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                      <td style={tdStyle}>{d.cpt}</td>
+                      <td style={{ ...tdStyle, color: "#94a3b8" }}>{d.desc}</td>
+                      <td style={tdStyleR}>{fmt(d.billed)}</td>
+                      <td style={{ ...tdStyle, color: "#F59E0B", fontWeight: "600" }}>{d.reasonCode}</td>
+                      <td style={{ ...tdStyle, color: "#94a3b8", fontSize: "12px" }}>{d.reason}</td>
+                      <td style={{ ...tdStyle, textAlign: "center" }}>
+                        <span style={{
+                          display: "inline-block", padding: "2px 8px", borderRadius: "10px", fontSize: "11px", fontWeight: "600",
+                          background: d.appealScore >= 8 ? "rgba(34,197,94,0.15)" : "rgba(59,130,246,0.15)",
+                          color: d.appealScore >= 8 ? "#22C55E" : "#60a5fa",
+                        }}>{d.appealScore}/10</span>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-            </div>
-          </div>
+            </>
+          )}
 
-          {/* Negotiation brief */}
-          <div
-            style={{
-              ...cardStyle,
-              marginTop: "16px",
-              background: "rgba(59,130,246,0.04)",
-              borderColor: "rgba(59,130,246,0.15)",
-            }}
-          >
-            <h4 style={{ fontSize: "14px", fontWeight: "600", color: "#60a5fa", marginBottom: "8px" }}>
-              Negotiation Brief Preview
-            </h4>
-            <p style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.7" }}>
-              Your Aetna contract rates for E&M codes are systematically 8\u201311% below the
-              2026 Medicare Fee Schedule. CPT 99214 alone accounts for $42K of the $127K
-              annual gap across 420 encounters. A rate adjustment to Medicare parity on
-              your top 5 E&M codes would recover $127K annually with no change in volume
-              or practice patterns.
-            </p>
-          </div>
+          {p.underpayments.length === 0 && p.denials.length === 0 && (
+            <p style={{ fontSize: "13px", color: "#64748b" }}>No underpayments or notable denials this period.</p>
+          )}
         </div>
-      )}
+      ))}
     </div>
   );
 }
 
-function RateCell({ rate, benchmark }) {
-  const pct = Math.round(((rate - benchmark) / benchmark) * 100);
-  const color = pct > 0 ? "#4ade80" : pct < -5 ? "#f87171" : "#fbbf24";
-  return (
-    <span>
-      ${rate}{" "}
-      <span style={{ fontSize: "11px", color }}>
-        ({pct > 0 ? "+" : ""}{pct}%)
-      </span>
-    </span>
-  );
-}
-
 // ---------------------------------------------------------------------------
-// Screen 3: Denial Intelligence
+// Tab 2: Month-Over-Month Trends
 // ---------------------------------------------------------------------------
 
-function DenialIntelligence({ payerIndex, onSelectPayer, onViewAppeal }) {
-  const payer = PAYERS[payerIndex];
-
+function TrendsTab() {
   return (
     <div>
-      {/* Payer selector */}
-      <div style={{ display: "flex", gap: "8px", marginBottom: "28px" }}>
-        {PAYERS.map((p, i) => (
-          <button
-            key={p.name}
-            onClick={() => onSelectPayer(i)}
-            style={{
-              padding: "6px 14px",
-              fontSize: "12px",
-              fontWeight: i === payerIndex ? "600" : "400",
-              background: i === payerIndex ? "rgba(59,130,246,0.2)" : "rgba(255,255,255,0.04)",
-              color: i === payerIndex ? "#60a5fa" : "#94a3b8",
-              border: `1px solid ${i === payerIndex ? "rgba(59,130,246,0.4)" : "rgba(255,255,255,0.08)"}`,
-              borderRadius: "6px",
-              cursor: "pointer",
-              fontFamily: "inherit",
-            }}
-          >
-            {p.short}
-          </button>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px", flexWrap: "wrap", gap: "8px" }}>
+        <h2 style={{ ...h2Style, margin: 0 }}>Month-Over-Month Trends</h2>
+        <span style={liveBadge}>LIVE — Available now with monitoring subscription</span>
+      </div>
+
+      {/* Trend cards */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginBottom: "32px" }}>
+        {Object.values(TREND_DATA).map((t) => (
+          <div key={t.label} style={cardStyle}>
+            <div style={{ fontSize: "12px", fontWeight: "600", color: "#94a3b8", marginBottom: "8px" }}>{t.label}</div>
+            <div style={{ display: "flex", gap: "12px", alignItems: "flex-end", marginBottom: "8px" }}>
+              {t.values.map((v, i) => (
+                <div key={i} style={{ flex: 1, textAlign: "center" }}>
+                  <div style={{ fontSize: "20px", fontWeight: "700", color: i === t.values.length - 1 ? t.color : "#94a3b8" }}>
+                    {t.unit === "%" ? `${v}%` : v === 0 ? "—" : `$${v}`}
+                  </div>
+                  <div style={{ fontSize: "10px", color: "#64748b", marginTop: "4px" }}>{TREND_MONTHS[i].split(" ")[0].slice(0, 3)}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{
+              fontSize: "11px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "0.06em",
+              color: t.direction === "improving" ? "#22C55E" : t.direction === "new" ? "#F59E0B" : "#EF4444",
+            }}>
+              {t.direction === "improving" ? "\u2193 Improving" : t.direction === "new" ? "\u26A0 New Pattern" : "\u2191 Worsening"}
+            </div>
+          </div>
         ))}
       </div>
 
-      <h2 style={{ ...h2Style, marginBottom: "8px" }}>
-        Denial Patterns: {payer.name}
-      </h2>
-      <div style={{ display: "flex", gap: "24px", fontSize: "13px", color: "#64748b", marginBottom: "28px", flexWrap: "wrap" }}>
-        <span>Denial Rate: <strong style={{ color: payer.denialRate > 10 ? "#f87171" : "#fbbf24" }}>{payer.denialRate}%</strong></span>
-        <span>Total Denials: <strong style={{ color: "#e2e8f0" }}>{payer.denials}</strong></span>
-        <span>Benchmark: <strong style={{ color: "#4ade80" }}>5\u201310%</strong></span>
-      </div>
-
-      {/* Denial patterns */}
-      <div style={cardStyle}>
-        <h3 style={h3Style}>Denial Breakdown</h3>
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          {payer.denialPatterns.map((d, i) => {
-            const pct = Math.round((d.count / payer.denials) * 100);
+      {/* Revenue gap chart (simplified bar representation) */}
+      <div style={{ ...cardStyle, marginBottom: "28px" }}>
+        <h3 style={h3Style}>Revenue Gap Trend</h3>
+        <div style={{ display: "flex", gap: "16px", alignItems: "flex-end", height: "140px", padding: "20px 0" }}>
+          {TREND_DATA.monthlyGap.values.map((v, i) => {
+            const maxVal = Math.max(...TREND_DATA.monthlyGap.values);
+            const height = (v / maxVal) * 100;
             return (
-              <div key={i}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px", fontSize: "13px" }}>
-                  <span style={{ color: "#e2e8f0" }}>{d.reason}</span>
-                  <span style={{ color: "#94a3b8" }}>
-                    {d.count} ({pct}%)
-                  </span>
-                </div>
-                <div
-                  style={{
-                    height: "8px",
-                    background: "rgba(255,255,255,0.04)",
-                    borderRadius: "4px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "100%",
-                      width: `${pct}%`,
-                      background: pct > 30 ? "rgba(239,68,68,0.6)" : "rgba(251,191,36,0.6)",
-                      borderRadius: "4px",
-                    }}
-                  />
-                </div>
-                <div style={{ fontSize: "11px", color: "#475569", marginTop: "2px" }}>
-                  Reason code: {d.reasonCode}
-                </div>
+              <div key={i} style={{ flex: 1, textAlign: "center" }}>
+                <div style={{ fontSize: "13px", fontWeight: "600", color: "#EF4444", marginBottom: "6px" }}>{fmt(v)}</div>
+                <div style={{
+                  height: `${height}px`, background: "rgba(239,68,68,0.3)",
+                  border: "1px solid rgba(239,68,68,0.5)", borderRadius: "4px 4px 0 0",
+                }} />
+                <div style={{ fontSize: "12px", color: "#64748b", marginTop: "6px" }}>{TREND_MONTHS[i]}</div>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Root cause analysis — show for UHC echocardiogram denials */}
-      {payerIndex === 2 && (
-        <div style={{ marginTop: "24px" }}>
-          <div
-            style={{
-              ...cardStyle,
-              background: "rgba(239,68,68,0.04)",
-              borderColor: "rgba(239,68,68,0.15)",
-            }}
-          >
-            <h3 style={{ ...h3Style, color: "#f87171" }}>Root Cause Analysis: Echo Denials (CPT 93306)</h3>
-            <p style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.7", marginBottom: "20px" }}>
-              12 denials, same reason code (CO-50), same CPT code, spanning 6 months. UHC is
-              applying a medical necessity algorithm that requires a documented change in
-              clinical status within 90 days of the prior echocardiogram.{" "}
-              <strong style={{ color: "#fbbf24" }}>
-                9 of 12 denied claims had a documented change
-              </strong>{" "}
-              — the denial appears to be systematic, not case-by-case.
-            </p>
-
-            {/* Analytical Paths */}
-            <h4 style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", marginBottom: "12px" }}>
-              Analytical Paths Breakdown
-            </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" }}>
-              {SAMPLE_APPEAL.analyticalPaths.map((ap, i) => (
-                <div
-                  key={i}
-                  style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: "8px",
-                    padding: "14px 16px",
-                  }}
-                >
-                  <div style={{ fontSize: "11px", fontWeight: "600", color: "#60a5fa", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
-                    Choice {i + 1}
-                  </div>
-                  <div style={{ fontSize: "13px", color: "#e2e8f0", marginBottom: "6px" }}>
-                    {ap.choice}
-                  </div>
-                  <div style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.6" }}>
-                    {ap.finding}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div
-              style={{
-                background: "rgba(34,197,94,0.06)",
-                border: "1px solid rgba(34,197,94,0.2)",
-                borderRadius: "8px",
-                padding: "14px 16px",
-              }}
-            >
-              <div style={{ fontSize: "11px", fontWeight: "600", color: "#4ade80", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
-                Suggested Appeal Strategy
-              </div>
-              <p style={{ fontSize: "13px", color: "#cbd5e1", lineHeight: "1.6" }}>
-                Challenge the frequency limit application by citing the documented clinical
-                changes. Reference ACC/AHA Appropriate Use Criteria for repeat
-                echocardiography. Target all 9 claims with documented changes for batch appeal.
-              </p>
-            </div>
-
-            <button
-              onClick={onViewAppeal}
-              style={{
-                marginTop: "16px",
-                padding: "10px 24px",
-                fontSize: "13px",
-                fontWeight: "600",
-                background: "#3b82f6",
-                color: "#fff",
-                border: "none",
-                borderRadius: "8px",
-                cursor: "pointer",
-                fontFamily: "inherit",
-                transition: "background 0.2s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
-            >
-              View Sample Appeal Letter &rarr;
-            </button>
-          </div>
-        </div>
-      )}
+      {/* AI Trend Narrative */}
+      <div style={cardStyle}>
+        <h3 style={h3Style}>AI Trend Analysis</h3>
+        {TREND_NARRATIVE.split("\n\n").map((p, i) => (
+          <p key={i} style={{ fontSize: "14px", lineHeight: "1.8", color: "#94a3b8", marginBottom: "12px", whiteSpace: "pre-line" }}>
+            {p}
+          </p>
+        ))}
+      </div>
     </div>
   );
 }
 
 // ---------------------------------------------------------------------------
-// Screen 4: Sample Denial Appeal
+// Tab 3: Appeal Letters
 // ---------------------------------------------------------------------------
 
-function SampleAppeal({ expandedPath, onTogglePath }) {
-  const a = SAMPLE_APPEAL;
-
+function AppealsTab({ expanded, onToggle }) {
   return (
     <div>
-      <h2 style={{ ...h2Style, marginBottom: "28px" }}>Sample Denial Appeal</h2>
-
-      {/* Claim details */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-          gap: "16px",
-          marginBottom: "28px",
-        }}
-      >
-        <StatCard label="Claim Number" value={a.claimNumber} small />
-        <StatCard label="CPT Code" value={a.cpt} small />
-        <StatCard label="Date of Service" value={a.dateOfService} small />
-        <StatCard label="Billed Amount" value={`$${a.billedAmount}`} small />
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px", flexWrap: "wrap", gap: "8px" }}>
+        <h2 style={{ ...h2Style, margin: 0 }}>Appeal Letters</h2>
+        <span style={liveBadge}>LIVE — Available now</span>
       </div>
 
-      {/* Denial reason */}
-      <div
-        style={{
-          ...cardStyle,
-          background: "rgba(239,68,68,0.04)",
-          borderColor: "rgba(239,68,68,0.15)",
-          marginBottom: "24px",
-        }}
-      >
-        <div style={{ fontSize: "11px", fontWeight: "600", color: "#f87171", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "6px" }}>
-          Denial Reason
-        </div>
-        <p style={{ fontSize: "14px", color: "#e2e8f0", lineHeight: "1.6" }}>
-          {a.denialReason}
-        </p>
-      </div>
+      <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "24px", lineHeight: "1.7" }}>
+        Each denial from your audit has a draft appeal letter ready to review, edit, and send.
+        Letters cite specific CMS guidelines and your contract terms.
+      </p>
 
-      {/* Analytical Paths */}
-      <div style={{ ...cardStyle, marginBottom: "24px" }}>
-        <h3 style={{ ...h3Style, color: "#60a5fa" }}>Analytical Paths Analysis</h3>
-        <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "16px", lineHeight: "1.6" }}>
-          Each "choice" represents a specific analytical decision the payer made when processing this claim.
-          The appeal challenges each decision with documented evidence.
-        </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          {a.analyticalPaths.map((ap, i) => (
-            <div
-              key={i}
+      {APPEAL_LETTERS.map((a, i) => (
+        <div key={i} style={{ ...cardStyle, marginBottom: "16px" }}>
+          {/* Summary row */}
+          <div
+            style={{ display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", flexWrap: "wrap", gap: "8px" }}
+            onClick={() => onToggle(i)}
+          >
+            <div>
+              <span style={{ fontSize: "14px", fontWeight: "600", color: "#e2e8f0" }}>
+                {a.payer} — {a.reasonCode} on CPT {a.cpt}
+              </span>
+              <span style={{ fontSize: "13px", color: "#64748b", marginLeft: "12px" }}>
+                {fmt(a.amount)} &middot; DOS {a.dos}
+              </span>
+            </div>
+            <button
               style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "8px",
-                overflow: "hidden",
+                padding: "6px 16px", borderRadius: "6px", fontSize: "12px", fontWeight: "600",
+                border: "1px solid #3b82f6", background: expanded === i ? "#3b82f6" : "transparent",
+                color: expanded === i ? "#fff" : "#60a5fa", cursor: "pointer", fontFamily: "inherit",
               }}
             >
-              <div
-                onClick={() => onTogglePath(i)}
-                style={{
-                  padding: "14px 16px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  background: expandedPath === i ? "rgba(59,130,246,0.06)" : "rgba(255,255,255,0.02)",
-                }}
-              >
-                <div>
-                  <span style={{ fontSize: "11px", fontWeight: "600", color: "#60a5fa", marginRight: "8px" }}>
-                    CHOICE {i + 1}
-                  </span>
-                  <span style={{ fontSize: "13px", color: "#e2e8f0" }}>{ap.choice}</span>
-                </div>
-                <span style={{ color: "#64748b", fontSize: "18px" }}>
-                  {expandedPath === i ? "\u2212" : "+"}
-                </span>
+              {expanded === i ? "Hide Letter" : "View Appeal Letter"}
+            </button>
+          </div>
+
+          {/* Expanded letter */}
+          {expanded === i && (
+            <div style={{
+              marginTop: "16px", padding: "20px",
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: "8px",
+            }}>
+              <div style={{ fontSize: "11px", color: "#64748b", marginBottom: "12px" }}>
+                Claim ID: {a.claimId}
               </div>
-              {expandedPath === i && (
-                <div
-                  style={{
-                    padding: "14px 16px",
-                    borderTop: "1px solid rgba(255,255,255,0.06)",
-                    background: "rgba(255,255,255,0.01)",
-                  }}
-                >
-                  <div style={{ fontSize: "11px", fontWeight: "600", color: "#4ade80", marginBottom: "6px" }}>
-                    FINDING
-                  </div>
-                  <p style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.6" }}>
-                    {ap.finding}
-                  </p>
-                </div>
-              )}
+              <pre style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "13px",
+                lineHeight: "1.8",
+                color: "#cbd5e1",
+                whiteSpace: "pre-wrap",
+                margin: 0,
+              }}>
+                {a.letter}
+              </pre>
+              <div style={{ display: "flex", gap: "12px", marginTop: "16px" }}>
+                <button style={{
+                  padding: "8px 20px", borderRadius: "6px", fontSize: "13px", fontWeight: "600",
+                  background: "#3b82f6", color: "#fff", border: "none", cursor: "pointer", fontFamily: "inherit",
+                }}>
+                  Copy to Clipboard
+                </button>
+                <button style={{
+                  padding: "8px 20px", borderRadius: "6px", fontSize: "13px", fontWeight: "600",
+                  background: "transparent", color: "#60a5fa", border: "1px solid rgba(59,130,246,0.3)",
+                  cursor: "pointer", fontFamily: "inherit",
+                }}>
+                  Download PDF
+                </button>
+              </div>
             </div>
-          ))}
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Tab 4: Payer Intelligence (Coming Soon)
+// ---------------------------------------------------------------------------
+
+function IntelTab() {
+  return (
+    <div style={{ position: "relative" }}>
+      {/* Coming soon overlay */}
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 10,
+        background: "rgba(10,22,40,0.7)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        borderRadius: "12px",
+      }}>
+        <div style={{ textAlign: "center", padding: "40px" }}>
+          <div style={{ fontSize: "32px", marginBottom: "16px" }}>{"\uD83D\uDD2E"}</div>
+          <h3 style={{ fontSize: "20px", fontWeight: "600", color: "#f1f5f9", marginBottom: "8px" }}>Coming Soon</h3>
+          <p style={{ fontSize: "14px", color: "#94a3b8", maxWidth: "400px", lineHeight: "1.7" }}>
+            Payer intelligence and benchmark comparisons become available as more practices join.
+            Early adopters get priority access.
+          </p>
+          <Link to="/audit" style={{
+            display: "inline-block", marginTop: "20px",
+            background: "#3b82f6", color: "#fff", padding: "10px 24px",
+            borderRadius: "8px", fontWeight: "600", fontSize: "14px", textDecoration: "none",
+          }}>
+            Start Your Free Audit &rarr;
+          </Link>
         </div>
       </div>
 
-      {/* Appeal letter */}
-      <div style={cardStyle}>
-        <h3 style={{ ...h3Style, color: "#4ade80" }}>Generated Appeal Letter</h3>
-        <div
-          style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: "8px",
-            padding: "24px",
-            fontFamily: "'DM Sans', monospace",
-            fontSize: "13px",
-            lineHeight: "1.8",
-            color: "#cbd5e1",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {a.appealLetter}
+      {/* Mockup content (visible but blurred behind overlay) */}
+      <div style={{ filter: "blur(2px)", pointerEvents: "none" }}>
+        <h2 style={h2Style}>Payer Intelligence — Aetna</h2>
+        <p style={{ fontSize: "13px", color: "#64748b", marginBottom: "28px" }}>
+          Your Aetna rates vs. Internal Medicine practices in Tampa metro
+        </p>
+
+        {/* Rate comparison table */}
+        <div style={{ ...cardStyle, marginBottom: "28px" }}>
+          <h3 style={h3Style}>Contract Rate Benchmarks</h3>
+          <table style={tableStyle}>
+            <thead>
+              <tr>
+                {["CPT", "Description", "Your Rate", "Market Median", "Percentile"].map(h => (
+                  <th key={h} style={thStyle}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {BENCHMARK_DATA.map((r) => (
+                <tr key={r.cpt} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                  <td style={tdStyle}>{r.cpt}</td>
+                  <td style={{ ...tdStyle, color: "#94a3b8" }}>{r.desc}</td>
+                  <td style={tdStyleR}>{fmt(r.yourRate)}</td>
+                  <td style={tdStyleR}>{fmt(r.marketMedian)}</td>
+                  <td style={{ ...tdStyle, textAlign: "center" }}>
+                    <span style={{
+                      display: "inline-block", padding: "2px 8px", borderRadius: "10px",
+                      fontSize: "11px", fontWeight: "600",
+                      background: "rgba(239,68,68,0.15)", color: "#EF4444",
+                    }}>{r.percentile}th</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", marginTop: "16px" }}>
+            Your Aetna rates are below the 35th percentile across your top codes. At your next
+            contract renewal, this data supports requesting a 10-15% rate increase.
+          </p>
         </div>
-        <div
-          style={{
-            marginTop: "16px",
-            background: "rgba(59,130,246,0.06)",
-            border: "1px solid rgba(59,130,246,0.15)",
-            borderRadius: "8px",
-            padding: "14px 16px",
-          }}
-        >
-          <p style={{ fontSize: "13px", color: "#93c5fd", lineHeight: "1.6" }}>
-            {a.successRate}
+
+        {/* Coding distribution */}
+        <div style={cardStyle}>
+          <h3 style={h3Style}>E&M Coding Distribution vs. Specialty Peers</h3>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "16px", marginBottom: "16px" }}>
+            {CODING_DIST.map((c) => (
+              <div key={c.code} style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "12px", color: "#64748b", marginBottom: "8px" }}>{c.code}</div>
+                <div style={{ display: "flex", gap: "4px", justifyContent: "center", alignItems: "flex-end", height: "60px" }}>
+                  <div style={{
+                    width: "24px", height: `${c.yours * 0.8}px`,
+                    background: "rgba(59,130,246,0.4)", borderRadius: "3px 3px 0 0",
+                  }} />
+                  <div style={{
+                    width: "24px", height: `${c.peers * 0.8}px`,
+                    background: "rgba(148,163,184,0.3)", borderRadius: "3px 3px 0 0",
+                  }} />
+                </div>
+                <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginTop: "4px", fontSize: "11px" }}>
+                  <span style={{ color: "#60a5fa" }}>{c.yours}%</span>
+                  <span style={{ color: "#64748b" }}>{c.peers}%</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: "flex", gap: "16px", fontSize: "11px", justifyContent: "center" }}>
+            <span><span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "2px", background: "rgba(59,130,246,0.4)", marginRight: "4px", verticalAlign: "middle" }} />Your practice</span>
+            <span><span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "2px", background: "rgba(148,163,184,0.3)", marginRight: "4px", verticalAlign: "middle" }} />Specialty peers</span>
+          </div>
+          <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", marginTop: "16px" }}>
+            Your practice bills 99213 at 65% vs. a peer average of 48%, and 99214 at only 25% vs. 35%.
+            This suggests potential undercoding — a coding optimization review could shift 10-15% of your
+            99213 visits to 99214, increasing revenue by an estimated $8,000-12,000 annually.
           </p>
         </div>
       </div>
@@ -938,193 +779,22 @@ function SampleAppeal({ expandedPath, onTogglePath }) {
 }
 
 // ---------------------------------------------------------------------------
-// Screen 5: Revenue Recovery
+// Shared styles and helpers
 // ---------------------------------------------------------------------------
-
-function RevenueRecovery() {
-  const totalRecovered = RECOVERY_MONTHS.reduce((s, m) => s + m.recovered, 0);
-  const totalAppealed = RECOVERY_MONTHS.reduce((s, m) => s + m.appealed, 0);
-  const totalWon = RECOVERY_MONTHS.reduce((s, m) => s + m.won, 0);
-  const overturnRate = Math.round((totalWon / totalAppealed) * 100);
-
-  return (
-    <div>
-      <h2 style={{ ...h2Style, marginBottom: "28px" }}>Revenue Recovery Tracker</h2>
-
-      {/* Summary stats */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-          gap: "16px",
-          marginBottom: "32px",
-        }}
-      >
-        <StatCard label="Total Recovered" value={fmt(totalRecovered)} accent />
-        <StatCard label="Appeals Sent" value={String(totalAppealed)} />
-        <StatCard label="Appeals Won" value={String(totalWon)} />
-        <StatCard label="Overturn Rate" value={`${overturnRate}%`} accent />
-      </div>
-
-      {/* Monthly chart */}
-      <div style={cardStyle}>
-        <h3 style={h3Style}>Monthly Recovery (3-month pilot)</h3>
-        <div style={{ overflowX: "auto" }}>
-          <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>Month</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Denials</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Appeals Sent</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Appeals Won</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Overturn Rate</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Recovered</th>
-              </tr>
-            </thead>
-            <tbody>
-              {RECOVERY_MONTHS.map((m) => {
-                const rate = m.appealed > 0 ? Math.round((m.won / m.appealed) * 100) : 0;
-                return (
-                  <tr key={m.month}>
-                    <td style={tdStyle}>{m.month}</td>
-                    <td style={{ ...tdStyle, textAlign: "right" }}>{m.denied}</td>
-                    <td style={{ ...tdStyle, textAlign: "right" }}>{m.appealed}</td>
-                    <td style={{ ...tdStyle, textAlign: "right", color: "#4ade80" }}>{m.won}</td>
-                    <td style={{ ...tdStyle, textAlign: "right", color: rate > 50 ? "#4ade80" : "#fbbf24" }}>
-                      {rate}%
-                    </td>
-                    <td style={{ ...tdStyle, textAlign: "right", fontWeight: "600", color: "#4ade80" }}>
-                      {fmt(m.recovered)}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Visual bars */}
-        <div style={{ marginTop: "24px" }}>
-          {RECOVERY_MONTHS.map((m) => {
-            const maxDenied = Math.max(...RECOVERY_MONTHS.map((x) => x.denied));
-            return (
-              <div key={m.month} style={{ marginBottom: "12px" }}>
-                <div style={{ fontSize: "12px", color: "#94a3b8", marginBottom: "4px" }}>{m.month}</div>
-                <div style={{ display: "flex", gap: "4px", height: "14px" }}>
-                  <div
-                    style={{
-                      width: `${(m.denied / maxDenied) * 100}%`,
-                      background: "rgba(239,68,68,0.4)",
-                      borderRadius: "3px",
-                    }}
-                    title={`${m.denied} denials`}
-                  />
-                  <div
-                    style={{
-                      width: `${(m.appealed / maxDenied) * 100}%`,
-                      background: "rgba(59,130,246,0.5)",
-                      borderRadius: "3px",
-                    }}
-                    title={`${m.appealed} appealed`}
-                  />
-                  <div
-                    style={{
-                      width: `${(m.won / maxDenied) * 100}%`,
-                      background: "rgba(34,197,94,0.6)",
-                      borderRadius: "3px",
-                    }}
-                    title={`${m.won} won`}
-                  />
-                </div>
-              </div>
-            );
-          })}
-          <div style={{ display: "flex", gap: "16px", fontSize: "11px", color: "#64748b", marginTop: "8px" }}>
-            <span><span style={{ display: "inline-block", width: "10px", height: "10px", background: "rgba(239,68,68,0.5)", borderRadius: "2px", marginRight: "4px" }} />Denials</span>
-            <span><span style={{ display: "inline-block", width: "10px", height: "10px", background: "rgba(59,130,246,0.5)", borderRadius: "2px", marginRight: "4px" }} />Appealed</span>
-            <span><span style={{ display: "inline-block", width: "10px", height: "10px", background: "rgba(34,197,94,0.6)", borderRadius: "2px", marginRight: "4px" }} />Won</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Improvement callout */}
-      <div
-        style={{
-          marginTop: "24px",
-          background: "rgba(34,197,94,0.06)",
-          border: "1px solid rgba(34,197,94,0.2)",
-          borderRadius: "12px",
-          padding: "24px",
-          textAlign: "center",
-        }}
-      >
-        <p style={{ fontSize: "15px", color: "#cbd5e1", lineHeight: "1.7" }}>
-          Since implementing targeted appeals: denial overturn rate improved from{" "}
-          <strong style={{ color: "#fbbf24" }}>28%</strong> to{" "}
-          <strong style={{ color: "#4ade80" }}>62%</strong>, recovering{" "}
-          <strong style={{ color: "#4ade80" }}>{fmt(totalRecovered)}</strong>{" "}
-          in previously lost revenue over 3 months.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Shared
-// ---------------------------------------------------------------------------
-
-function StatCard({ label, value, accent, sub, small }) {
-  return (
-    <div
-      style={{
-        background: accent ? "rgba(59,130,246,0.08)" : "rgba(255,255,255,0.03)",
-        border: `1px solid ${accent ? "rgba(59,130,246,0.25)" : "rgba(255,255,255,0.06)"}`,
-        borderRadius: "12px",
-        padding: small ? "14px" : "20px",
-      }}
-    >
-      <div style={{ fontSize: "11px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
-        {label}
-      </div>
-      <div style={{ fontSize: small ? "15px" : "22px", fontWeight: "700", color: accent ? "#60a5fa" : "#f1f5f9", wordBreak: "break-all" }}>
-        {value}
-      </div>
-      {sub && <div style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>{sub}</div>}
-    </div>
-  );
-}
-
-function statusBg(s) {
-  if (s === "good") return "rgba(34,197,94,0.15)";
-  if (s === "warning") return "rgba(251,191,36,0.15)";
-  return "rgba(239,68,68,0.15)";
-}
-
-function statusColor(s) {
-  if (s === "good") return "#4ade80";
-  if (s === "warning") return "#fbbf24";
-  return "#f87171";
-}
-
-function fmt(n) {
-  if (typeof n === "string") return n;
-  if (n >= 1000000) return "$" + (n / 1000000).toFixed(1) + "M";
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(n);
-}
 
 const h2Style = {
   fontFamily: "'DM Serif Display', serif",
   fontSize: "24px",
   fontWeight: "400",
   color: "#f1f5f9",
+  marginBottom: "16px",
 };
 
 const h3Style = {
   fontSize: "15px",
   fontWeight: "600",
   color: "#e2e8f0",
-  marginBottom: "16px",
+  marginBottom: "12px",
 };
 
 const cardStyle = {
@@ -1141,18 +811,50 @@ const tableStyle = {
 };
 
 const thStyle = {
+  padding: "8px 10px",
   textAlign: "left",
-  padding: "8px 12px 8px 0",
   fontSize: "11px",
   fontWeight: "600",
   color: "#64748b",
   textTransform: "uppercase",
   letterSpacing: "0.06em",
-  borderBottom: "1px solid rgba(255,255,255,0.06)",
+  borderBottom: "1px solid rgba(255,255,255,0.08)",
 };
 
 const tdStyle = {
-  padding: "10px 12px 10px 0",
+  padding: "8px 10px",
   color: "#e2e8f0",
-  borderBottom: "1px solid rgba(255,255,255,0.04)",
 };
+
+const tdStyleR = {
+  ...tdStyle,
+  textAlign: "right",
+};
+
+const liveBadge = {
+  display: "inline-block",
+  fontSize: "11px",
+  fontWeight: "600",
+  padding: "4px 10px",
+  borderRadius: "6px",
+  background: "rgba(34,197,94,0.12)",
+  color: "#22C55E",
+  textTransform: "uppercase",
+  letterSpacing: "0.04em",
+};
+
+function fmt(n) {
+  if (n == null) return "—";
+  if (n < 0) return `-$${Math.abs(n).toLocaleString()}`;
+  return `$${n.toLocaleString()}`;
+}
+
+function StatCard({ label, value, sub, accent }) {
+  return (
+    <div style={cardStyle}>
+      <div style={{ fontSize: "12px", color: "#64748b", marginBottom: "4px" }}>{label}</div>
+      <div style={{ fontSize: "22px", fontWeight: "700", color: accent || "#e2e8f0" }}>{value}</div>
+      {sub && <div style={{ fontSize: "11px", color: "#475569", marginTop: "2px" }}>{sub}</div>}
+    </div>
+  );
+}
