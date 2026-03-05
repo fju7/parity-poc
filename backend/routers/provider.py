@@ -27,7 +27,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
 from supabase import create_client
@@ -136,6 +136,43 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
         return None
 
 
+def _call_claude_text(system_prompt: str, user_content, max_tokens: int = 4096) -> str | None:
+    """Call Claude API and return raw text (not JSON). Used for narrative sections."""
+    client = _get_claude()
+    backoff_delays = [2, 5, 10]
+    response = None
+
+    for attempt in range(len(backoff_delays) + 1):
+        try:
+            response = client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=max_tokens,
+                temperature=0.3,
+                system=system_prompt,
+                messages=[{"role": "user", "content": user_content}],
+            )
+            break
+        except Exception as exc:
+            err_str = str(exc)
+            if "529" in err_str and attempt < len(backoff_delays):
+                delay = backoff_delays[attempt]
+                print(f"[Provider AI] Claude overloaded (529), retry {attempt + 1}/{len(backoff_delays)} in {delay}s...")
+                time.sleep(delay)
+                continue
+            print(f"[Provider AI] API error: {exc}")
+            return None
+
+    if response is None:
+        return None
+
+    raw_text = ""
+    for block in response.content:
+        if hasattr(block, "text"):
+            raw_text += block.text
+
+    return raw_text.strip()
+
+
 # ---------------------------------------------------------------------------
 # Models
 # ---------------------------------------------------------------------------
@@ -209,6 +246,24 @@ class CalculateMedicarePercentageRequest(BaseModel):
     percentage: float  # e.g., 115 for 115%
     zip_code: str
     effective_date: str = ""
+
+
+class AuditReportRequest(BaseModel):
+    audit_id: Optional[str] = None
+    analysis_data: Optional[dict] = None  # inline data for immediate report
+
+
+class SubmitAuditRequest(BaseModel):
+    practice_name: str
+    specialty: str = ""
+    num_providers: int = 1
+    billing_company: str = ""
+    contact_email: str
+    contact_phone: str = ""
+    payer_list: list = []
+    remittance_summary: dict = {}
+    consent: bool = False
+    user_id: Optional[str] = None
 
 
 # ---------------------------------------------------------------------------
@@ -1052,3 +1107,475 @@ async def analyze_denials(req: AnalyzeDenialsRequest):
         }
 
     return result
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/audit-report  (PDF generation with ReportLab)
+# ---------------------------------------------------------------------------
+
+@router.post("/audit-report")
+async def generate_audit_report(req: AuditReportRequest):
+    """Generate a branded Parity Audit PDF report."""
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import letter
+    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+    from reportlab.lib.units import inch
+    from reportlab.platypus import (
+        Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle,
+        PageBreak, HRFlowable,
+    )
+    from datetime import datetime
+
+    # Resolve data source
+    data = None
+    if req.analysis_data:
+        data = req.analysis_data
+    elif req.audit_id:
+        try:
+            sb = _get_supabase()
+            row = sb.table("provider_audits").select("*").eq("id", req.audit_id).single().execute()
+            if row.data:
+                data = row.data
+        except Exception as exc:
+            print(f"[AuditReport] Failed to fetch audit: {exc}")
+
+    if not data:
+        raise HTTPException(status_code=400, detail="No audit data provided or found")
+
+    practice_name = data.get("practice_name", "Practice")
+    report_date = data.get("report_date", datetime.now().strftime("%B %d, %Y"))
+    date_range = data.get("date_range", "")
+    payer_results = data.get("payer_results", [])
+
+    # --- AI-generated narrative sections ---
+    summary_input = json.dumps({
+        "practice_name": practice_name,
+        "date_range": date_range,
+        "payer_count": len(payer_results),
+        "payers": [
+            {
+                "name": pr.get("payer_name", ""),
+                "total_underpayment": pr.get("summary", {}).get("total_underpayment", 0),
+                "denied_count": pr.get("summary", {}).get("denied_count", 0),
+                "adherence_rate": pr.get("summary", {}).get("adherence_rate", 0),
+                "line_count": pr.get("summary", {}).get("line_count", 0),
+            }
+            for pr in payer_results
+        ],
+    })
+
+    exec_summary = _call_claude_text(
+        system_prompt=(
+            "You are a healthcare revenue cycle analyst writing an executive summary "
+            "for a payer contract audit report. Write 3-4 sentences summarizing the "
+            "key findings. Be specific about dollar amounts and percentages. "
+            "Use a professional, factual tone. Do not use markdown formatting."
+        ),
+        user_content=summary_input,
+        max_tokens=512,
+    ) or "Executive summary generation unavailable. See detailed findings below."
+
+    recommended_actions = _call_claude_text(
+        system_prompt=(
+            "You are a healthcare revenue cycle consultant. Given audit findings, "
+            "write 4-6 prioritized recommended actions. Number each one. Be specific "
+            "and actionable. Each action should be 1-2 sentences. Do not use markdown."
+        ),
+        user_content=summary_input,
+        max_tokens=1024,
+    ) or "1. Review underpaid claims and file payer disputes.\n2. Address denied claims with appeal letters.\n3. Update chargemaster for codes billed below contract.\n4. Schedule quarterly contract audits."
+
+    billing_assessment = _call_claude_text(
+        system_prompt=(
+            "You are a healthcare billing consultant assessing a billing contractor's "
+            "performance. Given audit metrics, write 2-3 sentences about the billing "
+            "contractor's performance based on clean claim rate, denial rate, and "
+            "preventable denial patterns. Be constructive and factual. Do not use markdown."
+        ),
+        user_content=summary_input,
+        max_tokens=512,
+    ) or "Billing contractor assessment requires additional data."
+
+    # --- Build PDF ---
+    TEAL = colors.HexColor("#0D9488")
+    NAVY = colors.HexColor("#1E293B")
+    LIGHT_TEAL = colors.HexColor("#F0FDFA")
+    LIGHT_GRAY = colors.HexColor("#F8FAFC")
+    RED = colors.HexColor("#DC2626")
+    WHITE = colors.white
+
+    styles = getSampleStyleSheet()
+    s_title = ParagraphStyle("AuditTitle", parent=styles["Title"], textColor=NAVY, fontSize=24, spaceAfter=6)
+    s_subtitle = ParagraphStyle("AuditSubtitle", parent=styles["Normal"], textColor=TEAL, fontSize=14, spaceAfter=20)
+    s_heading = ParagraphStyle("AuditH2", parent=styles["Heading2"], textColor=NAVY, fontSize=16, spaceBefore=20, spaceAfter=10)
+    s_body = ParagraphStyle("AuditBody", parent=styles["Normal"], fontSize=11, leading=16, textColor=NAVY)
+    s_small = ParagraphStyle("AuditSmall", parent=styles["Normal"], fontSize=9, leading=12, textColor=colors.HexColor("#64748B"))
+
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buf, pagesize=letter,
+        leftMargin=0.75 * inch, rightMargin=0.75 * inch,
+        topMargin=0.75 * inch, bottomMargin=0.75 * inch,
+    )
+
+    story = []
+
+    # === 1. Cover Page ===
+    story.append(Spacer(1, 1.5 * inch))
+    story.append(Paragraph("PARITY AUDIT", ParagraphStyle("CoverTitle", parent=s_title, fontSize=36, textColor=TEAL)))
+    story.append(Paragraph("Contract Integrity Report", ParagraphStyle("CoverSub", parent=s_subtitle, fontSize=18, textColor=NAVY)))
+    story.append(Spacer(1, 0.5 * inch))
+    story.append(HRFlowable(width="100%", thickness=2, color=TEAL, spaceAfter=20))
+    story.append(Paragraph(f"<b>Practice:</b> {practice_name}", s_body))
+    if date_range:
+        story.append(Paragraph(f"<b>Period:</b> {date_range}", s_body))
+    story.append(Paragraph(f"<b>Report Date:</b> {report_date}", s_body))
+    story.append(Paragraph(f"<b>Payers Analyzed:</b> {len(payer_results)}", s_body))
+    story.append(Spacer(1, 1.5 * inch))
+    story.append(Paragraph("Prepared by CivicScale Parity Audit", s_small))
+    story.append(Paragraph("Benchmark comparisons use publicly available CMS Medicare data.", s_small))
+    story.append(PageBreak())
+
+    # === 2. Executive Summary ===
+    story.append(Paragraph("Executive Summary", s_heading))
+    for line in exec_summary.split("\n"):
+        if line.strip():
+            story.append(Paragraph(line.strip(), s_body))
+            story.append(Spacer(1, 6))
+    story.append(Spacer(1, 12))
+
+    # === 3. Contract Integrity Findings ===
+    story.append(Paragraph("Contract Integrity Findings", s_heading))
+
+    for pr in payer_results:
+        payer_name = pr.get("payer_name", "Unknown")
+        summary = pr.get("summary", {})
+        line_items = pr.get("line_items", [])
+
+        story.append(Paragraph(f"<b>{payer_name}</b>", ParagraphStyle("PayerH", parent=s_body, fontSize=13, spaceBefore=14, spaceAfter=6)))
+
+        # Summary row
+        summary_data = [
+            ["Total Contracted", "Total Paid", "Underpayment", "Adherence Rate"],
+            [
+                f"${summary.get('total_contracted', 0):,.2f}",
+                f"${summary.get('total_paid', 0):,.2f}",
+                f"${summary.get('total_underpayment', 0):,.2f}",
+                f"{summary.get('adherence_rate', 0)}%",
+            ],
+        ]
+        st = Table(summary_data, colWidths=[1.65 * inch] * 4)
+        st.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, 0), TEAL),
+            ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
+            ("FONTSIZE", (0, 0), (-1, -1), 9),
+            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
+            ("BACKGROUND", (0, 1), (-1, 1), LIGHT_TEAL),
+            ("TOPPADDING", (0, 0), (-1, -1), 6),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ]))
+        story.append(st)
+        story.append(Spacer(1, 8))
+
+        # Line items table (top 30 to fit)
+        if line_items:
+            header = ["CPT", "Billed", "Paid", "Expected", "Variance", "Flag"]
+            rows_data = [header]
+            for li in line_items[:30]:
+                variance = li.get("variance")
+                var_str = f"${variance:+,.2f}" if variance is not None else "—"
+                rows_data.append([
+                    li.get("cpt_code", ""),
+                    f"${li.get('billed_amount', 0):,.2f}",
+                    f"${li.get('paid_amount', 0):,.2f}",
+                    f"${li.get('expected_payment', 0):,.2f}" if li.get("expected_payment") is not None else "—",
+                    var_str,
+                    li.get("flag", ""),
+                ])
+            lt = Table(rows_data, colWidths=[0.8 * inch, 1.0 * inch, 1.0 * inch, 1.0 * inch, 1.0 * inch, 1.0 * inch])
+            row_styles = [
+                ("BACKGROUND", (0, 0), (-1, 0), NAVY),
+                ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
+                ("FONTSIZE", (0, 0), (-1, -1), 8),
+                ("ALIGN", (1, 0), (-1, -1), "RIGHT"),
+                ("ALIGN", (0, 0), (0, -1), "LEFT"),
+                ("ALIGN", (-1, 0), (-1, -1), "CENTER"),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
+                ("TOPPADDING", (0, 0), (-1, -1), 4),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+            ]
+            # Highlight underpaid/denied rows
+            for ri, li in enumerate(line_items[:30], start=1):
+                flag = li.get("flag", "")
+                if flag == "UNDERPAID":
+                    row_styles.append(("BACKGROUND", (0, ri), (-1, ri), colors.HexColor("#FEF2F2")))
+                elif flag == "DENIED":
+                    row_styles.append(("BACKGROUND", (0, ri), (-1, ri), colors.HexColor("#FFFBEB")))
+                elif ri % 2 == 0:
+                    row_styles.append(("BACKGROUND", (0, ri), (-1, ri), LIGHT_GRAY))
+            lt.setStyle(TableStyle(row_styles))
+            story.append(lt)
+            if len(line_items) > 30:
+                story.append(Paragraph(f"Showing 30 of {len(line_items)} line items", s_small))
+            story.append(Spacer(1, 12))
+
+    # === 4. Denial Pattern Analysis ===
+    has_denials = any(pr.get("denial_intel") for pr in payer_results)
+    if has_denials:
+        story.append(Paragraph("Denial Pattern Analysis", s_heading))
+        for pr in payer_results:
+            intel = pr.get("denial_intel")
+            if not intel or not intel.get("denial_types"):
+                continue
+            story.append(Paragraph(f"<b>{pr.get('payer_name', '')}</b>", s_body))
+            for dt in intel["denial_types"][:5]:
+                story.append(Paragraph(
+                    f"<b>{dt.get('adjustment_code', '')}:</b> {dt.get('plain_language', '')} "
+                    f"({dt.get('count', 0)} occurrences, ${dt.get('total_value', 0):,.2f})",
+                    s_body,
+                ))
+            if intel.get("pattern_summary"):
+                story.append(Paragraph(f"<i>{intel['pattern_summary']}</i>", s_small))
+            story.append(Spacer(1, 10))
+
+    # === 5. Revenue Gap Estimate ===
+    story.append(Paragraph("Revenue Gap Estimate", s_heading))
+    total_underpayment = sum(
+        pr.get("summary", {}).get("total_underpayment", 0) for pr in payer_results
+    )
+    total_denied_value = sum(
+        pr.get("denial_intel", {}).get("total_recoverable_value", 0)
+        for pr in payer_results if pr.get("denial_intel")
+    )
+    monthly = total_underpayment
+    annualized = monthly * 12
+
+    gap_data = [
+        ["Category", "Identified Amount", "Annualized (×12)"],
+        ["Underpayments", f"${total_underpayment:,.2f}", f"${annualized:,.2f}"],
+        ["Estimated Denial Recovery", f"${total_denied_value:,.2f}", f"${total_denied_value * 12:,.2f}"],
+        ["Total Revenue Gap", f"${total_underpayment + total_denied_value:,.2f}",
+         f"${(total_underpayment + total_denied_value) * 12:,.2f}"],
+    ]
+    gt = Table(gap_data, colWidths=[2.2 * inch, 2.0 * inch, 2.0 * inch])
+    gt.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), TEAL),
+        ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
+        ("BACKGROUND", (0, -1), (-1, -1), NAVY),
+        ("TEXTCOLOR", (0, -1), (-1, -1), WHITE),
+        ("FONTSIZE", (0, 0), (-1, -1), 10),
+        ("ALIGN", (1, 0), (-1, -1), "RIGHT"),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+    ]))
+    story.append(gt)
+
+    # Per-payer breakdown
+    if len(payer_results) > 1:
+        story.append(Spacer(1, 10))
+        story.append(Paragraph("<b>By Payer:</b>", s_body))
+        for pr in payer_results:
+            s = pr.get("summary", {})
+            story.append(Paragraph(
+                f"  {pr.get('payer_name', '')}: ${s.get('total_underpayment', 0):,.2f} underpayment, "
+                f"{s.get('denied_count', 0)} denied claims",
+                s_small,
+            ))
+    story.append(Spacer(1, 12))
+
+    # === 6. Billing Contractor Assessment ===
+    story.append(Paragraph("Billing Contractor Assessment", s_heading))
+    for line in billing_assessment.split("\n"):
+        if line.strip():
+            story.append(Paragraph(line.strip(), s_body))
+            story.append(Spacer(1, 4))
+
+    # Scorecard metrics
+    for pr in payer_results:
+        sc = pr.get("scorecard", {})
+        if sc.get("clean_claim_rate") is not None:
+            story.append(Paragraph(f"<b>{pr.get('payer_name', '')}:</b>", s_body))
+            story.append(Paragraph(
+                f"Clean Claim Rate: {sc.get('clean_claim_rate', 0)}% | "
+                f"Denial Rate: {sc.get('denial_rate', 0)}% | "
+                f"Preventable Denials: {sc.get('preventable_denial_rate', 0)}%",
+                s_small,
+            ))
+    story.append(Spacer(1, 12))
+
+    # === 7. Recommended Actions ===
+    story.append(Paragraph("Recommended Actions", s_heading))
+    for line in recommended_actions.split("\n"):
+        if line.strip():
+            story.append(Paragraph(line.strip(), s_body))
+            story.append(Spacer(1, 4))
+    story.append(Spacer(1, 12))
+
+    # === 8. Methodology ===
+    story.append(Paragraph("Methodology", s_heading))
+    methodology = (
+        f"This audit analyzed remittance data for {practice_name} across "
+        f"{len(payer_results)} payer(s){f' for the period {date_range}' if date_range else ''}. "
+        "Contract rates were compared against actual paid amounts from 835 Electronic Remittance Advice files. "
+        "Medicare benchmark rates are sourced from the CMS 2026 Physician Fee Schedule, "
+        "geographically adjusted using the CMS carrier/locality crosswalk. "
+        "Denial patterns were analyzed using ANSI X12 adjustment reason codes. "
+        "All dollar amounts are based on the data provided and should be verified against original payer contracts."
+    )
+    story.append(Paragraph(methodology, s_body))
+    story.append(Spacer(1, 12))
+
+    # === 9. Next Steps ===
+    story.append(Paragraph("Next Steps", s_heading))
+    next_steps = (
+        "This report represents a point-in-time audit of your payer contracts. "
+        "For ongoing revenue protection, we recommend quarterly audits as new remittance data becomes available. "
+        "CivicScale Parity Audit can automate this process with monthly monitoring, "
+        "real-time underpayment alerts, and automated appeal letter generation. "
+        "Contact your Parity representative or visit civicscale.ai/provider to learn more."
+    )
+    story.append(Paragraph(next_steps, s_body))
+    story.append(Spacer(1, 24))
+
+    # Footer
+    story.append(HRFlowable(width="100%", thickness=1, color=TEAL, spaceBefore=20, spaceAfter=10))
+    story.append(Paragraph(
+        "Parity Audit by CivicScale. Benchmark comparisons use publicly available CMS Medicare data. "
+        "This report is not legal or financial advice. Verify all findings with your payer contracts "
+        "and consult a billing specialist before taking action.",
+        s_small,
+    ))
+
+    doc.build(story)
+    buf.seek(0)
+
+    filename = f"Parity_Audit_{practice_name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d')}.pdf"
+
+    return StreamingResponse(
+        buf,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/submit-audit  (Submit audit + send emails)
+# ---------------------------------------------------------------------------
+
+@router.post("/submit-audit")
+async def submit_audit(req: SubmitAuditRequest):
+    """Submit a new Parity Audit request and send confirmation emails."""
+    if not req.consent:
+        raise HTTPException(status_code=400, detail="Consent is required to submit an audit")
+
+    if not req.contact_email or "@" not in req.contact_email:
+        raise HTTPException(status_code=400, detail="Valid contact email required")
+
+    if not req.practice_name.strip():
+        raise HTTPException(status_code=400, detail="Practice name required")
+
+    # Save to Supabase
+    audit_id = None
+    try:
+        sb = _get_supabase()
+        row = sb.table("provider_audits").insert({
+            "user_id": req.user_id if req.user_id else None,
+            "practice_name": req.practice_name.strip(),
+            "practice_specialty": req.specialty,
+            "num_providers": req.num_providers,
+            "billing_company": req.billing_company,
+            "contact_email": req.contact_email.strip(),
+            "payer_list": req.payer_list,
+            "status": "submitted",
+        }).execute()
+
+        if row.data and len(row.data) > 0:
+            audit_id = row.data[0].get("id")
+    except Exception as exc:
+        print(f"[SubmitAudit] Failed to save to Supabase: {exc}")
+        # Continue — email is more important than DB save
+
+    # Send confirmation emails
+    try:
+        import resend
+        resend_key = os.environ.get("RESEND_API_KEY")
+        if not resend_key:
+            print("[SubmitAudit] RESEND_API_KEY not configured, skipping emails")
+        else:
+            resend.api_key = resend_key
+
+            payer_names = ", ".join(
+                p.get("payer_name", "Unknown") for p in req.payer_list
+            ) or "None specified"
+
+            # Email to practice
+            practice_html = f"""
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background: #0D9488; padding: 24px; text-align: center;">
+                    <h1 style="color: #fff; margin: 0; font-size: 24px;">Parity Audit</h1>
+                    <p style="color: #CCFBF1; margin: 4px 0 0; font-size: 14px;">by CivicScale</p>
+                </div>
+                <div style="padding: 32px 24px;">
+                    <h2 style="color: #1E293B; margin-top: 0;">Your audit has been submitted</h2>
+                    <p style="color: #475569;">Thank you for submitting your Parity Audit for <strong>{req.practice_name}</strong>.</p>
+                    <div style="background: #F0FDFA; border: 1px solid #99F6E4; border-radius: 8px; padding: 16px; margin: 20px 0;">
+                        <p style="margin: 0 0 8px; color: #1E293B;"><strong>Audit Details:</strong></p>
+                        <p style="margin: 4px 0; color: #475569; font-size: 14px;">Payers: {payer_names}</p>
+                        {f'<p style="margin: 4px 0; color: #475569; font-size: 14px;">Audit ID: {audit_id}</p>' if audit_id else ''}
+                    </div>
+                    <p style="color: #475569;"><strong>What happens next:</strong></p>
+                    <ul style="color: #475569; font-size: 14px;">
+                        <li>Our team will review your submitted data within 1-2 business days</li>
+                        <li>We'll run a full contract integrity analysis across all payers</li>
+                        <li>You'll receive your complete audit report within 5-7 business days</li>
+                    </ul>
+                    <p style="color: #475569; font-size: 14px;">
+                        Questions? Reply to this email or contact us at support@civicscale.ai.
+                    </p>
+                </div>
+                <div style="background: #F8FAFC; padding: 16px 24px; text-align: center; border-top: 1px solid #E2E8F0;">
+                    <p style="color: #94A3B8; font-size: 12px; margin: 0;">
+                        Parity Audit by CivicScale &middot; civicscale.ai
+                    </p>
+                </div>
+            </div>
+            """
+            resend.Emails.send({
+                "from": "Parity Provider <notifications@civicscale.ai>",
+                "to": [req.contact_email.strip()],
+                "subject": f"Your Parity Audit has been submitted — {req.practice_name}",
+                "html": practice_html,
+            })
+            print(f"[SubmitAudit] Confirmation email sent to {req.contact_email}")
+
+            # Email to admin
+            admin_html = f"""
+            <h2>New Parity Audit Submitted</h2>
+            <p><strong>Practice:</strong> {req.practice_name}</p>
+            <p><strong>Specialty:</strong> {req.specialty or 'Not specified'}</p>
+            <p><strong>Providers:</strong> {req.num_providers}</p>
+            <p><strong>Billing Company:</strong> {req.billing_company or 'Not specified'}</p>
+            <p><strong>Contact:</strong> {req.contact_email} {f'/ {req.contact_phone}' if req.contact_phone else ''}</p>
+            <p><strong>Payers:</strong> {payer_names}</p>
+            {f'<p><strong>Audit ID:</strong> {audit_id}</p>' if audit_id else ''}
+            <hr>
+            <p style="color:#666;font-size:12px;">Parity Audit by CivicScale</p>
+            """
+            resend.Emails.send({
+                "from": "Parity Provider <notifications@civicscale.ai>",
+                "to": ["fred@civicscale.ai"],
+                "subject": f"New Parity Audit: {req.practice_name}",
+                "html": admin_html,
+            })
+            print(f"[SubmitAudit] Admin notification sent")
+
+    except Exception as exc:
+        print(f"[SubmitAudit] Failed to send emails: {exc}")
+
+    return {
+        "audit_id": audit_id or "pending",
+        "status": "submitted",
+        "message": f"Audit submitted for {req.practice_name}. Confirmation sent to {req.contact_email}.",
+    }

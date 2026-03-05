@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { supabase } from "./lib/supabase.js";
 import { LogoIcon } from "./components/CivicScaleHomepage.jsx";
+import ProviderAuditPage from "./components/ProviderAuditPage.jsx";
+import ProviderAuditReport from "./components/ProviderAuditReport.jsx";
 import "./components/CivicScaleHomepage.css";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -19,8 +21,11 @@ const SPECIALTIES = [
 ];
 
 export default function ProviderApp() {
+  const location = useLocation();
+
   // "landing" | "sent" | "onboarding" | "dashboard"
   const [view, setView] = useState(null);
+  const [showAuditReport, setShowAuditReport] = useState(false);
   const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
   const [email, setEmail] = useState("");
@@ -842,6 +847,27 @@ export default function ProviderApp() {
     </nav>
   );
 
+  // Route: /provider/audit → dedicated audit landing page + wizard
+  if (location.pathname.includes("/provider/audit")) {
+    return <ProviderAuditPage session={session} profile={profile} />;
+  }
+
+  // Audit report view (triggered from dashboard)
+  if (showAuditReport && analysisResults.length > 0) {
+    return (
+      <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
+        {nav}
+        <div style={{ paddingTop: 80 }}>
+          <ProviderAuditReport
+            analysisResults={analysisResults}
+            practiceInfo={profile}
+            onClose={() => setShowAuditReport(false)}
+          />
+        </div>
+      </div>
+    );
+  }
+
   // Don't render until auth check completes
   if (view === null) {
     return (
@@ -1178,6 +1204,7 @@ export default function ProviderApp() {
             onRemovePayer={handleRemovePayer}
             onFilePayerAssign={(filename, payer) => setFilePayerMap(prev => ({ ...prev, [filename]: payer }))}
             onSelectPayerResult={selectPayerResult}
+            onGenerateReport={() => setShowAuditReport(true)}
           />
           </div>
         ) : (
@@ -1235,6 +1262,7 @@ function ContractIntegrityTab({
   onRunAnalysis, onSort, getSortedLines, onReset,
   onSetRatesMethod, onRatesPdfUpload, onRatesImageUpload, onRatesTextExtract, onMedicarePercentage,
   onRemovePayer, onFilePayerAssign, onSelectPayerResult,
+  onGenerateReport,
 }) {
   // ── Loading / analyzing overlays ──
   if (step === "parsing-835") {
@@ -1560,8 +1588,13 @@ function ContractIntegrityTab({
 
         {/* Action buttons */}
         <div className="no-print" style={{ display: "flex", gap: 12 }}>
-          <button onClick={() => window.print()} style={btnPrimary}>
-            Download Report
+          {onGenerateReport && (
+            <button onClick={onGenerateReport} style={btnPrimary}>
+              Generate Report
+            </button>
+          )}
+          <button onClick={() => window.print()} style={btnOutline}>
+            Print
           </button>
           <button onClick={onReset} style={btnOutline}>
             Start Over
