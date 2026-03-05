@@ -353,7 +353,7 @@ export default function ProviderAuditPage({ session, profile }) {
           payer_name: filePayerMap[r.filename] || r.payer_name || "",
           claims: (r.claims || []).map(c => ({
             claim_id: c.claim_id || "",
-            lines: (c.lines || []).map(l => ({
+            lines: (c.line_items || c.lines || []).map(l => ({
               cpt_code: l.cpt_code || l.procedure_code || "",
               billed_amount: l.billed_amount || l.charge_amount || 0,
               paid_amount: l.paid_amount || 0,
