@@ -2007,12 +2007,30 @@ async def my_audits(request: Request):
 
     sb = _get_supabase()
     result = sb.table("provider_audits") \
-        .select("id, practice_name, status, created_at, report_token") \
+        .select("id, practice_name, status, created_at, report_token, analysis_ids") \
         .eq("contact_email", email) \
+        .eq("archived", False) \
         .order("created_at", desc=True) \
         .execute()
 
-    return {"audits": result.data or []}
+    # Compute total underpayment for delivered audits (for monitoring CTA)
+    audits_out = []
+    for audit in (result.data or []):
+        a = {**audit}
+        if audit.get("status") == "delivered" and audit.get("analysis_ids"):
+            total = 0
+            for aid in audit["analysis_ids"][:10]:
+                try:
+                    row = sb.table("provider_analyses").select("result_json").eq("id", aid).execute()
+                    if row.data:
+                        total += row.data[0].get("result_json", {}).get("summary", {}).get("total_underpayment", 0)
+                except Exception:
+                    pass
+            a["total_underpayment"] = total
+        a.pop("analysis_ids", None)
+        audits_out.append(a)
+
+    return {"audits": audits_out}
 
 
 # ---------------------------------------------------------------------------

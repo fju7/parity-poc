@@ -336,7 +336,7 @@ export default function AuditAccount() {
               </thead>
               <tbody>
                 {audits.map((a) => (
-                  <tr key={a.id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                  <tr key={a.id} style={{ borderBottom: "1px solid #F1F5F9", verticalAlign: "top" }}>
                     <td style={tdStyle}>
                       <span style={{ fontWeight: 600, color: "#1E293B" }}>{a.practice_name}</span>
                     </td>
@@ -368,27 +368,26 @@ export default function AuditAccount() {
             </table>
           </div>
 
-          {/* Monitoring CTA for delivered audits without active subscription */}
-          {!subscription && audits.some(a => a.status === "delivered") && (
-            <div style={{
-              marginTop: 20, padding: 20, borderRadius: 12,
+          {/* Monitoring CTA for each delivered audit without active subscription */}
+          {!subscription && audits.filter(a => a.status === "delivered").map((a) => (
+            <div key={`cta-${a.id}`} style={{
+              marginTop: 16, padding: 20, borderRadius: 12,
               background: "linear-gradient(135deg, #FAF5FF, #F0FDFA)",
               border: "1px solid #C4B5FD",
             }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
                 <div>
                   <h3 style={{ fontSize: 16, fontWeight: 700, color: "#1E293B", margin: "0 0 4px" }}>
-                    Keep watching your revenue
+                    {a.total_underpayment > 0
+                      ? `Your audit found $${a.total_underpayment.toLocaleString()} in recoverable revenue.`
+                      : "Your audit is complete."}
                   </h3>
                   <p style={{ fontSize: 14, color: "#64748B", margin: 0 }}>
-                    Your audit found underpayments. Monthly monitoring catches new ones for $300/month.
+                    Keep watching your payer payments — $300/month.
                   </p>
                 </div>
                 <button
-                  onClick={() => {
-                    const delivered = audits.find(a => a.status === "delivered");
-                    if (delivered) handleStartMonitoring(delivered.id);
-                  }}
+                  onClick={() => handleStartMonitoring(a.id)}
                   disabled={checkoutLoading}
                   style={{
                     padding: "10px 24px", borderRadius: 8, fontSize: 14, fontWeight: 600,
@@ -397,11 +396,11 @@ export default function AuditAccount() {
                     opacity: checkoutLoading ? 0.7 : 1, whiteSpace: "nowrap",
                   }}
                 >
-                  {checkoutLoading ? "Redirecting..." : "Start Monthly Monitoring"}
+                  {checkoutLoading ? "Redirecting..." : "Start Monthly Monitoring \u2192"}
                 </button>
               </div>
             </div>
-          )}
+          ))}
           </>
         )}
       </div>
