@@ -41,6 +41,10 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
   const [showNotes, setShowNotes] = useState(false);
   const [analysisRunning, setAnalysisRunning] = useState(false);
   const [viewResults, setViewResults] = useState(null); // fetched payer_results
+  const [showBackfill, setShowBackfill] = useState(false);
+  const [backfillZip, setBackfillZip] = useState("");
+  const [backfillPct, setBackfillPct] = useState("120");
+  const [uploading835, setUploading835] = useState(false);
 
   async function adminAction(endpoint, body) {
     setLoading(true);
@@ -146,9 +150,121 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
                   <span style={{ fontWeight: 500, color: NAVY }}>{p.payer_name}</span>
                   <span style={{ color: SLATE }}>
                     {p.fee_schedule_method || p.method || "—"} &middot; {p.code_count || "?"} codes
+                    {p.fee_schedule_data && Object.keys(p.fee_schedule_data).length > 0
+                      ? <span style={{ color: "#059669", marginLeft: 8 }}>rates stored</span>
+                      : <span style={{ color: "#DC2626", marginLeft: 8 }}>no rates stored</span>}
                   </span>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* Remittance data status */}
+          <div style={{ marginBottom: 16, fontSize: 12 }}>
+            <span style={{ fontWeight: 600, color: NAVY }}>835 Remittance: </span>
+            {(audit.remittance_data || []).length > 0 ? (
+              <span style={{ color: "#059669" }}>
+                {audit.remittance_data.length} file(s) stored
+                ({audit.remittance_data.reduce((n, f) => n + (f.claims || []).reduce((n2, c) => n2 + (c.lines || []).length, 0), 0)} lines)
+              </span>
+            ) : (
+              <span style={{ color: "#DC2626" }}>No 835 data stored — upload below</span>
+            )}
+          </div>
+
+          {/* Backfill panel — upload 835 and configure analysis */}
+          {showBackfill && (
+            <div style={{
+              padding: 16, borderRadius: 8, background: "#FEFCE8",
+              border: "1px solid #FDE68A", marginBottom: 16,
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#92400E", marginBottom: 12 }}>
+                Backfill Data for Analysis
+              </div>
+
+              {/* Upload 835 */}
+              <div style={{ marginBottom: 12 }}>
+                <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: NAVY, marginBottom: 4 }}>
+                  Upload 835 File
+                </label>
+                <input
+                  type="file"
+                  accept=".835,.edi,.txt"
+                  disabled={uploading835}
+                  onChange={async (e) => {
+                    const f = e.target.files?.[0];
+                    if (!f) return;
+                    setUploading835(true);
+                    try {
+                      const formData = new FormData();
+                      formData.append("file", f);
+                      formData.append("audit_id", audit.id);
+                      // Auto-assign payer from first payer in list
+                      const firstPayer = payers[0]?.payer_name || "";
+                      formData.append("payer_name", firstPayer);
+                      const res = await fetch(`${API_BASE}/api/provider/admin/audits/upload-835?audit_id=${audit.id}&payer_name=${encodeURIComponent(firstPayer)}`, {
+                        method: "POST",
+                        headers: authHeaders,
+                        body: formData,
+                      });
+                      if (!res.ok) {
+                        const data = await res.json().catch(() => ({}));
+                        alert(data.detail || "Upload failed");
+                        return;
+                      }
+                      const result = await res.json();
+                      alert(`835 uploaded: ${result.claims_parsed} claims, ${result.total_lines} lines parsed.`);
+                      onRefresh();
+                    } catch (err) {
+                      alert(err.message);
+                    } finally {
+                      setUploading835(false);
+                    }
+                  }}
+                  style={{ fontSize: 13 }}
+                />
+                {uploading835 && <div style={{ fontSize: 12, color: TEAL, marginTop: 4 }}>Uploading and parsing...</div>}
+              </div>
+
+              {/* ZIP + Percentage for medicare-pct fallback */}
+              {payers.some(p => (p.fee_schedule_method || p.method) === "medicare-pct" && !p.fee_schedule_data) && (
+                <div style={{ marginBottom: 12 }}>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: NAVY, marginBottom: 4 }}>
+                    Medicare Percentage Settings (for rate regeneration)
+                  </label>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <input
+                      value={backfillZip}
+                      onChange={e => setBackfillZip(e.target.value)}
+                      placeholder="ZIP code"
+                      style={{
+                        padding: "6px 10px", borderRadius: 6, border: "1px solid #CBD5E1",
+                        fontSize: 13, width: 100,
+                      }}
+                    />
+                    <input
+                      value={backfillPct}
+                      onChange={e => setBackfillPct(e.target.value)}
+                      placeholder="% of Medicare"
+                      style={{
+                        padding: "6px 10px", borderRadius: 6, border: "1px solid #CBD5E1",
+                        fontSize: 13, width: 120,
+                      }}
+                    />
+                    <span style={{ fontSize: 12, color: SLATE, alignSelf: "center" }}>% of Medicare</span>
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={() => setShowBackfill(false)}
+                style={{
+                  padding: "6px 14px", borderRadius: 6, border: `1px solid ${SLATE}`,
+                  background: "none", color: SLATE, fontSize: 12, cursor: "pointer",
+                }}
+              >
+                Close
+              </button>
             </div>
           )}
 
@@ -221,6 +337,15 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
               />
             )}
 
+            {/* Backfill Data — for pre-fix audits missing 835 or fee schedule data */}
+            <ActionButton
+              label={showBackfill ? "Hide Backfill" : "Backfill Data"}
+              loading={false}
+              color="#D97706"
+              outline
+              onClick={() => setShowBackfill(!showBackfill)}
+            />
+
             {/* Run Analysis — available when audit has data to analyze */}
             <ActionButton
               label={analysisRunning ? "Running Analysis..." : "Run Analysis"}
@@ -230,10 +355,13 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
                 if (!confirm("Run the full analysis pipeline (contract integrity + denial intelligence) for this audit? This may take 1-2 minutes.")) return;
                 setAnalysisRunning(true);
                 try {
+                  const payload = { audit_id: audit.id };
+                  if (backfillZip) payload.zip_code = backfillZip;
+                  if (backfillPct) payload.percentage = parseFloat(backfillPct) || 120;
                   const res = await fetch(`${API_BASE}/api/provider/admin/audits/run-analysis`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json", ...authHeaders },
-                    body: JSON.stringify({ audit_id: audit.id }),
+                    body: JSON.stringify(payload),
                   });
                   if (!res.ok) {
                     const data = await res.json().catch(() => ({}));

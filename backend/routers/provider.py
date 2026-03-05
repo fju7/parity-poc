@@ -1916,6 +1916,66 @@ async def admin_list_audits(request: Request, status: Optional[str] = None):
 
 class AdminRunAnalysisBody(BaseModel):
     audit_id: str
+    zip_code: str = ""       # optional override for Medicare locality
+    percentage: float = 0    # optional override for medicare-pct method
+
+
+@router.post("/admin/audits/upload-835")
+async def admin_upload_835(
+    request: Request,
+    audit_id: str = "",
+    payer_name: str = "",
+    file: UploadFile = File(...),
+):
+    """Upload an 835 file to backfill remittance_data on an existing audit (admin only)."""
+    await _verify_admin(request)
+    if not audit_id:
+        raise HTTPException(status_code=400, detail="audit_id required")
+
+    sb = _get_supabase()
+    audit_row = sb.table("provider_audits").select("*").eq("id", audit_id).execute()
+    if not audit_row.data:
+        raise HTTPException(status_code=404, detail="Audit not found")
+
+    content = await file.read()
+    raw = content.decode("utf-8", errors="replace")
+    claims = parse_835(raw)
+
+    # Build remittance entry
+    entry = {
+        "filename": file.filename or "uploaded.835",
+        "payer_name": payer_name or "",
+        "claims": [
+            {
+                "claim_id": c.get("claim_id", ""),
+                "lines": [
+                    {
+                        "cpt_code": li.get("cpt_code") or li.get("procedure_code", ""),
+                        "billed_amount": li.get("billed_amount") or li.get("charge_amount", 0),
+                        "paid_amount": li.get("paid_amount", 0),
+                        "units": li.get("units", 1),
+                        "adjustments": li.get("adjustments") or li.get("adjustment_codes", ""),
+                    }
+                    for li in c.get("line_items", [])
+                ],
+            }
+            for c in claims
+        ],
+    }
+
+    # Append to existing remittance_data
+    existing = audit_row.data[0].get("remittance_data", []) or []
+    existing.append(entry)
+    sb.table("provider_audits").update({"remittance_data": existing}).eq("id", audit_id).execute()
+
+    total_lines = sum(len(cl.get("lines", [])) for cl in entry["claims"])
+    return {
+        "status": "ok",
+        "filename": entry["filename"],
+        "claims_parsed": len(entry["claims"]),
+        "total_lines": total_lines,
+        "payer_name": payer_name,
+    }
 
 
 @router.post("/admin/audits/run-analysis")
@@ -1925,6 +1985,9 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     Reads stored fee schedules + 835 data from the audit record, runs
     analyze-contract for each payer, runs denial intelligence, stores results
     as provider_analyses records, and links analysis_ids back to the audit.
+
+    If fee_schedule_data is missing but fee_schedule_method is 'medicare-pct',
+    auto-regenerates rates using the percentage and zip_code (from body or audit).
     """
     await _verify_admin(request)
 
@@ -1941,9 +2004,27 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
 
     if not payer_list:
         raise HTTPException(status_code=400, detail="No payers in this audit")
+    if not remittance_data:
+        raise HTTPException(
+            status_code=400,
+            detail="No remittance (835) data on this audit. Upload 835 files first via /admin/audits/upload-835.",
+        )
 
     # Update status to processing
     sb.table("provider_audits").update({"status": "processing"}).eq("id", body.audit_id).execute()
+
+    # Resolve ZIP for Medicare percentage fallback
+    fallback_zip = body.zip_code or audit.get("zip_code", "") or ""
+    if not fallback_zip:
+        # Try user profile
+        user_id = audit.get("user_id")
+        if user_id:
+            try:
+                prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).maybeSingle().execute()
+                if prof.data:
+                    fallback_zip = prof.data.get("zip_code", "")
+            except Exception:
+                pass
 
     # Build payer rates lookup: {payer_name: {cpt: rate}}
     payer_rates = {}
@@ -1952,6 +2033,21 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
         rates = p.get("fee_schedule_data", {})
         if rates:
             payer_rates[payer_name] = {str(k): float(v) for k, v in rates.items()}
+        elif p.get("fee_schedule_method") == "medicare-pct" and fallback_zip:
+            # Auto-regenerate rates from Medicare PFS × percentage
+            pct = body.percentage or 120  # default 120% if not specified
+            carrier, loc = resolve_locality(fallback_zip)
+            if carrier and loc:
+                all_rates = get_all_pfs_rates_for_locality(carrier, loc)
+                multiplier = pct / 100.0
+                regenerated = {}
+                for r in all_rates:
+                    med_rate = r.get("nonfacility_amount")
+                    if med_rate and med_rate > 0:
+                        regenerated[str(r["cpt_code"])] = round(float(med_rate) * multiplier, 2)
+                if regenerated:
+                    payer_rates[payer_name] = regenerated
+                    print(f"[RunAnalysis] Auto-regenerated {len(regenerated)} rates for {payer_name} at {pct}% Medicare (ZIP {fallback_zip})")
 
     # Build remittance lines per payer
     payer_lines = {}  # {payer_name: [RemittanceLine-like dicts]}
@@ -2203,6 +2299,7 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     return {
         "status": "review",
         "audit_id": body.audit_id,
+        "payer_count": len(payer_results),
         "payer_results": payer_results,
         "analysis_ids": analysis_ids,
     }
