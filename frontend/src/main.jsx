@@ -19,6 +19,7 @@ import ProviderDemoPage from './components/ProviderDemoPage.jsx'
 import ProviderApp from './ProviderApp.jsx'
 import SignalApp from './SignalApp.jsx'
 import AuditStandalone from './components/AuditStandalone.jsx'
+import PublicAuditReport from './components/PublicAuditReport.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -38,6 +39,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/employer/login" element={<EmployerLoginPage />} />
         <Route path="/employer/auth/callback" element={<EmployerAuthCallback />} />
         <Route path="/employer/dashboard" element={<EmployerDashboard />} />
+        <Route path="/report/:token" element={<PublicAuditReport />} />
         <Route path="/provider/*" element={<ProviderApp />} />
         <Route path="/signal/*" element={<SignalApp />} />
         <Route path="/parity-health/*" element={<App />} />

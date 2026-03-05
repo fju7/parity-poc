@@ -123,15 +123,17 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px", fontFamily: "'DM Sans', Arial, sans-serif" }}>
       {/* Action bar */}
       <div className="no-print" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
-        <button
-          onClick={onClose}
-          style={{
-            background: "none", border: `1px solid ${SLATE}`, borderRadius: 8,
-            padding: "8px 20px", fontSize: 14, color: SLATE, cursor: "pointer",
-          }}
-        >
-          &larr; Back to Dashboard
-        </button>
+        {onClose ? (
+          <button
+            onClick={onClose}
+            style={{
+              background: "none", border: `1px solid ${SLATE}`, borderRadius: 8,
+              padding: "8px 20px", fontSize: 14, color: SLATE, cursor: "pointer",
+            }}
+          >
+            &larr; Back to Dashboard
+          </button>
+        ) : <div />}
         <button
           onClick={handleDownloadPdf}
           disabled={downloading}

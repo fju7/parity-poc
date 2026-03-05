@@ -1790,7 +1790,7 @@ def _send_submission_confirmation(audit: dict):
         print(f"[AuditEmail] Submission confirmation failed: {exc}")
 
 
-def _send_delivery_email(audit: dict, admin_notes: str = ""):
+def _send_delivery_email(audit: dict, admin_notes: str = "", report_token: str = ""):
     """Email 2: Report delivery — sent when admin clicks 'Deliver Report'."""
     try:
         import resend
@@ -1844,7 +1844,7 @@ def _send_delivery_email(audit: dict, admin_notes: str = ""):
         in potential recoverable revenue.</p>
 
         <div style="text-align: center; margin: 28px 0;">
-            <a href="{frontend_url}/provider" style="
+            <a href="{frontend_url}/report/{report_token}" style="
                 display: inline-block; padding: 14px 32px; border-radius: 8px;
                 background: #0D9488; color: #fff; font-weight: 600; font-size: 15px;
                 text-decoration: none;
@@ -1893,6 +1893,8 @@ def _send_followup_email(audit: dict):
         contact_email = audit.get("contact_email", "")
         payer_list = audit.get("payer_list", [])
         payer_count = len(payer_list)
+        report_token = audit.get("report_token", "")
+        frontend_url = os.environ.get("FRONTEND_URL", "https://civicscale.ai")
 
         # Get total underpayment for messaging
         total_underpayment = 0
@@ -1911,11 +1913,25 @@ def _send_followup_email(audit: dict):
         annualized = total_underpayment * 12
         underpayment_str = f"${annualized:,.2f}" if annualized > 0 else "significant potential"
 
+        report_link_section = ""
+        if report_token:
+            report_link_section = f"""
+            <div style="text-align: center; margin: 24px 0;">
+                <a href="{frontend_url}/report/{report_token}" style="
+                    display: inline-block; padding: 14px 32px; border-radius: 8px;
+                    background: #0D9488; color: #fff; font-weight: 600; font-size: 15px;
+                    text-decoration: none;
+                ">View Your Report &rarr;</a>
+            </div>
+            """
+
         inner = f"""
         <h2 style="color: #1E293B; margin-top: 0;">Following up on your Parity Audit</h2>
         <p>We delivered your Parity Audit Report a few days ago. We identified
         <strong>{underpayment_str}</strong> in potential annual recoverable revenue across
         <strong>{payer_count}</strong> payer{"s" if payer_count != 1 else ""}.</p>
+
+        {report_link_section}
 
         <p>Have you had a chance to review the findings? If you would like to discuss:</p>
         <ul style="color: #475569; font-size: 14px; line-height: 1.8;">
@@ -1955,6 +1971,65 @@ def _send_followup_email(audit: dict):
 
     except Exception as exc:
         print(f"[AuditEmail] Follow-up email failed: {exc}")
+
+
+# ---------------------------------------------------------------------------
+# Public Report Access (token-based, no auth required)
+# ---------------------------------------------------------------------------
+
+@router.get("/report/{token}")
+async def public_report(token: str):
+    """Public report viewer — accessed via signed token link in delivery email."""
+    from uuid import UUID
+
+    # Validate token format
+    try:
+        UUID(token)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    sb = _get_supabase()
+
+    # Lookup audit by report_token
+    result = sb.table("provider_audits").select("*").eq("report_token", token).execute()
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    audit = result.data[0]
+
+    if audit.get("status") != "delivered":
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    analysis_ids = audit.get("analysis_ids", [])
+    if not analysis_ids:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    # Fetch analysis results (same logic as admin_get_results)
+    payer_results = []
+    for aid in analysis_ids:
+        try:
+            row = sb.table("provider_analyses").select("*").eq("id", aid).execute()
+            if row.data:
+                rec = row.data[0]
+                rj = rec.get("result_json", {})
+                payer_results.append({
+                    "payer_name": rec.get("payer_name", ""),
+                    "result": {
+                        "summary": rj.get("summary", {}),
+                        "scorecard": rj.get("scorecard", {}),
+                        "line_items": rj.get("line_items", []),
+                        "top_underpaid": rj.get("top_underpaid", []),
+                    },
+                    "denial_intel": rj.get("denial_intel"),
+                })
+        except Exception as exc:
+            print(f"[PublicReport] Failed to fetch analysis {aid}: {exc}")
+
+    return {
+        "practice_name": audit.get("practice_name", ""),
+        "practice_specialty": audit.get("practice_specialty", ""),
+        "payer_results": payer_results,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -2511,6 +2586,7 @@ async def admin_deliver_report(body: AdminDeliverBody, request: Request):
 
     sb = _get_supabase()
     from datetime import datetime
+    from uuid import uuid4
 
     # Fetch audit
     result = sb.table("provider_audits").select("*").eq("id", body.audit_id).execute()
@@ -2519,14 +2595,18 @@ async def admin_deliver_report(body: AdminDeliverBody, request: Request):
 
     audit = result.data[0]
 
+    # Generate report token for public access link
+    report_token = str(uuid4())
+
     # Update status
     sb.table("provider_audits").update({
         "status": "delivered",
         "delivered_at": datetime.utcnow().isoformat(),
+        "report_token": report_token,
     }).eq("id", body.audit_id).execute()
 
     # Send delivery email (Email 2)
-    _send_delivery_email(audit, admin_notes=audit.get("admin_notes", ""))
+    _send_delivery_email(audit, admin_notes=audit.get("admin_notes", ""), report_token=report_token)
 
     return {"status": "delivered", "audit_id": body.audit_id}
 

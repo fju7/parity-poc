@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { supabase } from "./lib/supabase.js";
 import { LogoIcon } from "./components/CivicScaleHomepage.jsx";
@@ -23,6 +23,9 @@ const SPECIALTIES = [
 
 export default function ProviderApp() {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const returnTo = searchParams.get("returnTo");
 
   // "landing" | "sent" | "onboarding" | "dashboard"
   const [view, setView] = useState(null);
@@ -113,6 +116,13 @@ export default function ProviderApp() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Redirect to returnTo path after successful auth
+  useEffect(() => {
+    if (returnTo && session) {
+      navigate(returnTo, { replace: true });
+    }
+  }, [returnTo, session, navigate]);
+
   async function loadProfile(userId) {
     const { data, error } = await supabase
       .from("provider_profiles")
@@ -146,7 +156,7 @@ export default function ProviderApp() {
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: origin + "/provider" },
+      options: { emailRedirectTo: origin + (returnTo || "/provider") },
     });
 
     setSending(false);
@@ -155,7 +165,7 @@ export default function ProviderApp() {
     } else {
       setView("sent");
     }
-  }, [email]);
+  }, [email, returnTo]);
 
   // Onboarding submit
   const handleOnboardingSubmit = useCallback(async (e) => {
