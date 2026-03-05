@@ -49,6 +49,8 @@ export default function ProviderApp() {
   const [parsedRemittance, setParsedRemittance] = useState(null);
   const [parsedRemittances, setParsedRemittances] = useState([]); // multi-file results
   const [uploadProgress, setUploadProgress] = useState(null); // { total, done, errors[] }
+  const [ratesMethod, setRatesMethod] = useState(null); // null | "excel" | "pdf" | "medicare-pct" | "paste" | "photo"
+  const [extractingRates, setExtractingRates] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [sortField, setSortField] = useState(null);
   const [sortDir, setSortDir] = useState("asc");
@@ -199,6 +201,8 @@ export default function ProviderApp() {
     setDenialLoading(false);
     setSortField(null);
     setSortDir("asc");
+    setRatesMethod(null);
+    setExtractingRates(false);
   }
 
   async function handleDownloadTemplate() {
@@ -278,6 +282,114 @@ export default function ProviderApp() {
       }
     };
     reader.readAsArrayBuffer(file);
+  }
+
+  // Convert extraction API response to parsedRates format
+  function applyExtractedRates(data) {
+    const payerName = data.payer_name || "Payer";
+    const rows = (data.rates || []).map(r => ({
+      cpt: r.cpt,
+      description: r.description || "",
+      rates: { [payerName]: r.rate },
+    }));
+    if (rows.length === 0) {
+      setContractError("No CPT codes with rates were found. Please try a different input method.");
+      return;
+    }
+    setParsedRates({ payers: [payerName], rows });
+    setContractStep("preview-rates");
+  }
+
+  async function handleRatesPdfUpload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setExtractingRates(true);
+    setContractError("");
+    const body = new FormData();
+    body.append("file", file);
+    try {
+      const resp = await fetch(`${API_BASE}/api/provider/extract-fee-schedule-pdf`, {
+        method: "POST",
+        body,
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.detail || "Failed to extract rates from PDF");
+      }
+      applyExtractedRates(await resp.json());
+    } catch (err) {
+      setContractError("PDF extraction failed: " + err.message);
+    }
+    setExtractingRates(false);
+  }
+
+  async function handleRatesImageUpload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setExtractingRates(true);
+    setContractError("");
+    const body = new FormData();
+    body.append("file", file);
+    try {
+      const resp = await fetch(`${API_BASE}/api/provider/extract-fee-schedule-image`, {
+        method: "POST",
+        body,
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.detail || "Failed to extract rates from image");
+      }
+      applyExtractedRates(await resp.json());
+    } catch (err) {
+      setContractError("Image extraction failed: " + err.message);
+    }
+    setExtractingRates(false);
+  }
+
+  async function handleRatesTextExtract(text) {
+    setExtractingRates(true);
+    setContractError("");
+    try {
+      const resp = await fetch(`${API_BASE}/api/provider/extract-fee-schedule-text`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.detail || "Failed to extract rates from text");
+      }
+      applyExtractedRates(await resp.json());
+    } catch (err) {
+      setContractError("Text extraction failed: " + err.message);
+    }
+    setExtractingRates(false);
+  }
+
+  async function handleMedicarePercentage(payerName, percentage, zipCode, effectiveDate) {
+    setExtractingRates(true);
+    setContractError("");
+    try {
+      const resp = await fetch(`${API_BASE}/api/provider/calculate-medicare-percentage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          payer_name: payerName,
+          percentage,
+          zip_code: zipCode,
+          effective_date: effectiveDate || "",
+        }),
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.detail || "Failed to calculate rates");
+      }
+      const data = await resp.json();
+      applyExtractedRates(data);
+    } catch (err) {
+      setContractError("Rate calculation failed: " + err.message);
+    }
+    setExtractingRates(false);
   }
 
   async function handleSaveRates() {
@@ -926,6 +1038,9 @@ export default function ProviderApp() {
             denialLoading={denialLoading}
             sortField={sortField}
             sortDir={sortDir}
+            ratesMethod={ratesMethod}
+            extractingRates={extractingRates}
+            zipCode={profile?.zip_code || ""}
             onDownloadTemplate={handleDownloadTemplate}
             onRatesFileUpload={handleRatesFileUpload}
             onSaveRates={handleSaveRates}
@@ -934,6 +1049,11 @@ export default function ProviderApp() {
             onSort={handleSort}
             getSortedLines={getSortedLines}
             onReset={resetContract}
+            onSetRatesMethod={setRatesMethod}
+            onRatesPdfUpload={handleRatesPdfUpload}
+            onRatesImageUpload={handleRatesImageUpload}
+            onRatesTextExtract={handleRatesTextExtract}
+            onMedicarePercentage={handleMedicarePercentage}
           />
           </div>
         ) : (
@@ -985,8 +1105,10 @@ function ContractIntegrityTab({
   step, error, parsedRates, savingRates, saveSuccess, parsedRemittance, parsedRemittances, uploadProgress, analysisResult,
   denialIntel, denialLoading,
   sortField, sortDir,
+  ratesMethod, extractingRates, zipCode,
   onDownloadTemplate, onRatesFileUpload, onSaveRates, on835Upload,
   onRunAnalysis, onSort, getSortedLines, onReset,
+  onSetRatesMethod, onRatesPdfUpload, onRatesImageUpload, onRatesTextExtract, onMedicarePercentage,
 }) {
   // ── Loading / analyzing overlays ──
   if (step === "parsing-835") {
@@ -1326,26 +1448,111 @@ function ContractIntegrityTab({
           </>
         ) : (
           <>
-            <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 24 }}>
-              Download our template, fill in your contracted rates for each payer, then upload the completed file.
-            </p>
-
-            <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
-              <button onClick={onDownloadTemplate} style={btnOutline}>
-                <DownloadIcon /> Download Template
-              </button>
-            </div>
-
-            <DropZone accept=".xlsx,.xls" onChange={onRatesFileUpload}>
-              Upload your completed contract rates spreadsheet (.xlsx)
-            </DropZone>
-
-            <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
-              <strong style={{ color: "var(--cs-navy)" }}>Template format:</strong> Row 4 contains payer names (columns D onward).
-              Rows 5+ contain CPT codes (column A), descriptions (column B), and contracted rates under each payer column.
-            </div>
+            {extractingRates ? (
+              <div style={{ textAlign: "center", padding: 32 }}>
+                <Spinner />
+                <p style={{ color: "var(--cs-navy)", fontWeight: 600, marginTop: 16, fontSize: 16 }}>
+                  Extracting fee schedule rates...
+                </p>
+                <p style={{ color: "var(--cs-slate)", fontSize: 14 }}>
+                  This may take a moment for large documents.
+                </p>
+              </div>
+            ) : !ratesMethod ? (
+              <>
+                <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 20 }}>
+                  Choose how you&rsquo;d like to enter your contract rates:
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
+                  {[
+                    { key: "excel", title: "Excel/CSV Upload", desc: "Upload filled template with CPT codes and rates" },
+                    { key: "pdf", title: "PDF Contract", desc: "AI extracts rates from your payer contract PDF" },
+                    { key: "medicare-pct", title: "Percentage of Medicare", desc: "Enter payer's % of Medicare PFS rates (e.g., 115%)" },
+                    { key: "paste", title: "Paste Text", desc: "Copy and paste rate table from email or portal" },
+                    { key: "photo", title: "Photo / Screenshot", desc: "Upload an image of your fee schedule" },
+                  ].map(m => (
+                    <button
+                      key={m.key}
+                      onClick={() => onSetRatesMethod(m.key)}
+                      style={{
+                        display: "flex", alignItems: "center", padding: "14px 16px",
+                        border: "1px solid var(--cs-border)", borderRadius: 8,
+                        background: "#fff", cursor: "pointer", textAlign: "left",
+                        transition: "border-color 0.15s",
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.borderColor = "var(--cs-teal)"}
+                      onMouseLeave={e => e.currentTarget.style.borderColor = "var(--cs-border)"}
+                    >
+                      <div>
+                        <div style={{ fontWeight: 600, color: "var(--cs-navy)", fontSize: 14 }}>{m.title}</div>
+                        <div style={{ fontSize: 12, color: "var(--cs-slate)", marginTop: 2 }}>{m.desc}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <HelpSectionFeeSchedule />
+              </>
+            ) : ratesMethod === "excel" ? (
+              <>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                  <button onClick={() => onSetRatesMethod(null)} style={{ ...btnOutline, padding: "6px 14px", fontSize: 13 }}>&larr; Back</button>
+                  <span style={{ fontWeight: 600, color: "var(--cs-navy)", fontSize: 15 }}>Excel/CSV Upload</span>
+                </div>
+                <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
+                  <button onClick={onDownloadTemplate} style={btnOutline}>
+                    <DownloadIcon /> Download Template
+                  </button>
+                </div>
+                <DropZone accept=".xlsx,.xls" onChange={onRatesFileUpload}>
+                  Upload your completed contract rates spreadsheet (.xlsx)
+                </DropZone>
+                <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
+                  <strong style={{ color: "var(--cs-navy)" }}>Template format:</strong> Row 4 contains payer names (columns D onward).
+                  Rows 5+ contain CPT codes (column A), descriptions (column B), and contracted rates under each payer column.
+                </div>
+              </>
+            ) : ratesMethod === "pdf" ? (
+              <>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                  <button onClick={() => onSetRatesMethod(null)} style={{ ...btnOutline, padding: "6px 14px", fontSize: 13 }}>&larr; Back</button>
+                  <span style={{ fontWeight: 600, color: "var(--cs-navy)", fontSize: 15 }}>Extract from PDF Contract</span>
+                </div>
+                <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 16 }}>
+                  Upload your payer contract PDF. AI will identify and extract fee schedule tables with CPT codes and rates.
+                </p>
+                <DropZone accept=".pdf,application/pdf" onChange={onRatesPdfUpload}>
+                  Upload payer contract PDF
+                </DropZone>
+              </>
+            ) : ratesMethod === "medicare-pct" ? (
+              <MedicarePercentageForm
+                onBack={() => onSetRatesMethod(null)}
+                onSubmit={onMedicarePercentage}
+                defaultZip={zipCode}
+              />
+            ) : ratesMethod === "paste" ? (
+              <PasteTextForm
+                onBack={() => onSetRatesMethod(null)}
+                onSubmit={onRatesTextExtract}
+              />
+            ) : ratesMethod === "photo" ? (
+              <>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                  <button onClick={() => onSetRatesMethod(null)} style={{ ...btnOutline, padding: "6px 14px", fontSize: 13 }}>&larr; Back</button>
+                  <span style={{ fontWeight: 600, color: "var(--cs-navy)", fontSize: 15 }}>Photo / Screenshot</span>
+                </div>
+                <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 16 }}>
+                  Upload a photo of a printed fee schedule or a screenshot from your PM system.
+                </p>
+                <DropZone accept="image/*" onChange={onRatesImageUpload}>
+                  Upload fee schedule image (JPG, PNG, etc.)
+                </DropZone>
+              </>
+            ) : null}
           </>
         )}
+
+        {error && !extractingRates && <ErrorBanner message={error} />}
       </div>
 
       {/* ── STEP 2: 835 Remittance ── */}
@@ -2345,6 +2552,130 @@ function HelpSection835() {
           <p style={{ margin: 0 }}>
             <strong>From your billing company:</strong> If you outsource billing, ask your billing company to export
             the raw 835 remittance files for the month you want audited.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MedicarePercentageForm({ onBack, onSubmit, defaultZip }) {
+  const [payer, setPayer] = useState("");
+  const [pct, setPct] = useState("115");
+  const [zip, setZip] = useState(defaultZip || "");
+  const [effectiveDate, setEffectiveDate] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!payer.trim() || !pct || isNaN(parseFloat(pct)) || !zip.trim() || zip.trim().length < 5) return;
+    onSubmit(payer.trim(), parseFloat(pct), zip.trim(), effectiveDate);
+  }
+
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+        <button onClick={onBack} style={{ ...btnOutline, padding: "6px 14px", fontSize: 13 }}>&larr; Back</button>
+        <span style={{ fontWeight: 600, color: "var(--cs-navy)", fontSize: 15 }}>Percentage of Medicare</span>
+      </div>
+      <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 16 }}>
+        Many contracts pay a percentage of the Medicare Physician Fee Schedule.
+        Enter your payer&rsquo;s percentage and we&rsquo;ll calculate rates for all CPT codes in your area.
+      </p>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 400 }}>
+        <div>
+          <label style={labelStyle}>Payer Name</label>
+          <input value={payer} onChange={e => setPayer(e.target.value)} placeholder="e.g., Aetna" style={inputStyle} required />
+        </div>
+        <div>
+          <label style={labelStyle}>Percentage of Medicare (%)</label>
+          <input type="number" value={pct} onChange={e => setPct(e.target.value)} placeholder="115" min="1" max="500" step="0.1" style={inputStyle} required />
+          <p style={{ fontSize: 12, color: "var(--cs-slate)", marginTop: 4, marginBottom: 0 }}>
+            e.g., 115 means the payer pays 115% of Medicare rates
+          </p>
+        </div>
+        <div>
+          <label style={labelStyle}>Practice ZIP Code</label>
+          <input value={zip} onChange={e => setZip(e.target.value)} placeholder="33701" maxLength={5} style={inputStyle} required />
+          <p style={{ fontSize: 12, color: "var(--cs-slate)", marginTop: 4, marginBottom: 0 }}>
+            Used to look up geographic Medicare rates for your area
+          </p>
+        </div>
+        <div>
+          <label style={labelStyle}>Effective Date (optional)</label>
+          <input type="date" value={effectiveDate} onChange={e => setEffectiveDate(e.target.value)} style={inputStyle} />
+        </div>
+        <button type="submit" style={btnPrimary}>Calculate Rates</button>
+      </form>
+    </div>
+  );
+}
+
+function PasteTextForm({ onBack, onSubmit }) {
+  const [text, setText] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onSubmit(text.trim());
+  }
+
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+        <button onClick={onBack} style={{ ...btnOutline, padding: "6px 14px", fontSize: 13 }}>&larr; Back</button>
+        <span style={{ fontWeight: 600, color: "var(--cs-navy)", fontSize: 15 }}>Paste Text</span>
+      </div>
+      <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 16 }}>
+        Paste fee schedule text from your payer portal, email, or any document. AI will extract CPT codes and rates.
+      </p>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <textarea
+          value={text}
+          onChange={e => setText(e.target.value)}
+          placeholder={"Paste fee schedule text here...\n\nExample:\n99213  Office Visit, Est. Patient, Level 3  $95.00\n99214  Office Visit, Est. Patient, Level 4  $135.00"}
+          rows={10}
+          style={{
+            ...inputStyle, resize: "vertical", fontFamily: "monospace", fontSize: 13,
+            minHeight: 150,
+          }}
+          required
+        />
+        <button type="submit" style={btnPrimary}>Extract Rates</button>
+      </form>
+    </div>
+  );
+}
+
+function HelpSectionFeeSchedule() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ marginTop: 4 }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          background: "none", border: "none", cursor: "pointer", padding: 0,
+          fontSize: 13, color: "var(--cs-teal)", fontWeight: 600,
+        }}
+      >
+        {open ? "\u25BE" : "\u25B8"} Where to find your fee schedules
+      </button>
+      {open && (
+        <div style={{ marginTop: 12, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)", lineHeight: 1.6 }}>
+          <p style={{ margin: "0 0 10px" }}>
+            <strong>Check your contract:</strong> Your payer contract should include a fee schedule or state a percentage of Medicare.
+            Look for an exhibit or attachment labeled &quot;Fee Schedule&quot; or &quot;Reimbursement Rates.&quot;
+          </p>
+          <p style={{ margin: "0 0 10px" }}>
+            <strong>Payer portal:</strong> Many payers (Aetna, UHC, BCBS, Cigna) publish fee schedules in their provider portals.
+            Look under &quot;Contracts&quot; or &quot;Fee Schedules.&quot;
+          </p>
+          <p style={{ margin: "0 0 10px" }}>
+            <strong>Percentage of Medicare:</strong> If your contract says something like &quot;115% of Medicare PFS,&quot;
+            use the Percentage of Medicare option &mdash; no file needed.
+          </p>
+          <p style={{ margin: 0 }}>
+            <strong>Ask your billing company:</strong> If you outsource billing, your billing company should have copies
+            of your payer fee schedules or know the contracted percentages.
           </p>
         </div>
       )}

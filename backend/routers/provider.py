@@ -1,16 +1,21 @@
 """
 Provider dashboard endpoints:
-  GET  /api/provider/contract-template  — download contract rates Excel template
-  POST /api/provider/save-rates         — save parsed contract rates
-  POST /api/provider/parse-835          — parse an uploaded 835 EDI file
-  POST /api/provider/parse-835-batch    — parse multiple 835 files (including zip)
-  POST /api/provider/analyze-contract   — compare remittance vs contracted rates
-  POST /api/provider/analyze-coding     — coding pattern analysis (E&M distribution)
-  POST /api/provider/analyze-denials    — AI-powered denial interpretation + appeal letters
+  GET  /api/provider/contract-template       — download contract rates Excel template
+  POST /api/provider/save-rates              — save parsed contract rates
+  POST /api/provider/parse-835               — parse an uploaded 835 EDI file
+  POST /api/provider/parse-835-batch         — parse multiple 835 files (including zip)
+  POST /api/provider/extract-fee-schedule-pdf   — extract rates from payer contract PDF (Claude vision)
+  POST /api/provider/extract-fee-schedule-text  — extract rates from pasted text (Claude)
+  POST /api/provider/extract-fee-schedule-image — extract rates from photo/screenshot (Claude vision)
+  POST /api/provider/calculate-medicare-percentage — calculate rates as % of Medicare PFS
+  POST /api/provider/analyze-contract        — compare remittance vs contracted rates
+  POST /api/provider/analyze-coding          — coding pattern analysis (E&M distribution)
+  POST /api/provider/analyze-denials         — AI-powered denial interpretation + appeal letters
 
 No PHI is stored. Contract rates and analysis results are tied to user_id.
 """
 
+import base64
 import io
 import json
 import os
@@ -27,7 +32,7 @@ from pydantic import BaseModel
 
 from supabase import create_client
 
-from routers.benchmark import resolve_locality, lookup_rate
+from routers.benchmark import resolve_locality, lookup_rate, get_all_pfs_rates_for_locality
 from utils.parse_835 import parse_835
 
 router = APIRouter(prefix="/api/provider", tags=["provider"])
@@ -79,8 +84,11 @@ def _get_claude():
     return _anthropic_client
 
 
-def _call_claude(system_prompt: str, user_content: str, max_tokens: int = 4096) -> dict:
-    """Call Claude API with retry on 529, return parsed JSON."""
+def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> dict:
+    """Call Claude API with retry on 529, return parsed JSON.
+
+    user_content can be a string or a list of content blocks (for multimodal).
+    """
     client = _get_claude()
     backoff_delays = [2, 5, 10]
     response = None
@@ -190,6 +198,42 @@ class DenialLine(BaseModel):
 class AnalyzeDenialsRequest(BaseModel):
     payer_name: str
     denied_lines: List[DenialLine]
+
+
+class ExtractFeeScheduleTextRequest(BaseModel):
+    text: str
+
+
+class CalculateMedicarePercentageRequest(BaseModel):
+    payer_name: str
+    percentage: float  # e.g., 115 for 115%
+    zip_code: str
+    effective_date: str = ""
+
+
+# ---------------------------------------------------------------------------
+# Fee schedule extraction prompt (shared by PDF, text, and image endpoints)
+# ---------------------------------------------------------------------------
+
+FEE_SCHEDULE_EXTRACTION_PROMPT = """You are a medical billing data extraction specialist. You will receive a document containing a payer fee schedule or contract rate table. Extract all CPT/HCPCS codes and their corresponding contracted reimbursement rates.
+
+Return ONLY valid JSON matching this exact structure:
+{
+  "payer_name": "extracted payer name or empty string if not found",
+  "effective_date": "YYYY-MM-DD or empty string if not found",
+  "rates": [
+    {"cpt": "99213", "rate": 95.50, "description": "Office visit, est. patient, level 3"}
+  ]
+}
+
+Rules:
+- Extract every CPT/HCPCS code visible in the document
+- Rate should be the dollar amount per unit
+- If multiple rates exist per code (e.g., facility/non-facility), use the non-facility rate
+- If a code has no rate (N/A, blank, $0), skip it
+- Description can be brief or empty string if not available
+- Do not invent or estimate rates — only extract what is explicitly shown
+- If no CPT codes or rates are found, return an empty rates array"""
 
 
 # ---------------------------------------------------------------------------
@@ -344,6 +388,187 @@ async def parse_835_batch(files: List[UploadFile] = File(...)):
         "total_files": len(results),
         "successful": len(successful),
         "failed": len(failed),
+    }
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/extract-fee-schedule-pdf
+# ---------------------------------------------------------------------------
+
+@router.post("/extract-fee-schedule-pdf")
+async def extract_fee_schedule_pdf(file: UploadFile = File(...)):
+    """Extract fee schedule rates from a payer contract PDF using Claude vision."""
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No file uploaded")
+
+    content = await file.read()
+    if len(content) > 20 * 1024 * 1024:  # 20MB limit
+        raise HTTPException(status_code=400, detail="File too large (max 20MB)")
+
+    b64 = base64.standard_b64encode(content).decode("utf-8")
+
+    content_blocks = [
+        {
+            "type": "document",
+            "source": {
+                "type": "base64",
+                "media_type": "application/pdf",
+                "data": b64,
+            },
+        },
+        {
+            "type": "text",
+            "text": "Extract all CPT/HCPCS codes and their contracted reimbursement rates from this fee schedule document.",
+        },
+    ]
+
+    result = _call_claude(
+        system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
+        user_content=content_blocks,
+        max_tokens=8192,
+    )
+
+    if result is None:
+        raise HTTPException(
+            status_code=502,
+            detail="Could not extract rates from PDF. The document may not contain a recognizable fee schedule.",
+        )
+
+    return result
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/extract-fee-schedule-text
+# ---------------------------------------------------------------------------
+
+@router.post("/extract-fee-schedule-text")
+async def extract_fee_schedule_text(req: ExtractFeeScheduleTextRequest):
+    """Extract fee schedule rates from pasted text using Claude."""
+    if not req.text.strip():
+        raise HTTPException(status_code=400, detail="No text provided")
+
+    if len(req.text) > 50000:
+        raise HTTPException(status_code=400, detail="Text too long (max 50,000 characters)")
+
+    result = _call_claude(
+        system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
+        user_content=f"Extract all CPT/HCPCS codes and rates from this fee schedule text:\n\n{req.text}",
+        max_tokens=8192,
+    )
+
+    if result is None:
+        raise HTTPException(
+            status_code=502,
+            detail="Could not extract rates from text. Please check that the text contains CPT codes and dollar amounts.",
+        )
+
+    return result
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/extract-fee-schedule-image
+# ---------------------------------------------------------------------------
+
+@router.post("/extract-fee-schedule-image")
+async def extract_fee_schedule_image(file: UploadFile = File(...)):
+    """Extract fee schedule rates from a photo/screenshot using Claude vision."""
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No file uploaded")
+
+    content = await file.read()
+    if len(content) > 10 * 1024 * 1024:  # 10MB limit
+        raise HTTPException(status_code=400, detail="Image too large (max 10MB)")
+
+    # Determine media type
+    fname = (file.filename or "").lower()
+    if fname.endswith(".png"):
+        media_type = "image/png"
+    elif fname.endswith(".gif"):
+        media_type = "image/gif"
+    elif fname.endswith(".webp"):
+        media_type = "image/webp"
+    else:
+        media_type = "image/jpeg"
+
+    b64 = base64.standard_b64encode(content).decode("utf-8")
+
+    content_blocks = [
+        {
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": media_type,
+                "data": b64,
+            },
+        },
+        {
+            "type": "text",
+            "text": "Extract all CPT/HCPCS codes and their contracted reimbursement rates from this fee schedule image.",
+        },
+    ]
+
+    result = _call_claude(
+        system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
+        user_content=content_blocks,
+        max_tokens=8192,
+    )
+
+    if result is None:
+        raise HTTPException(
+            status_code=502,
+            detail="Could not extract rates from image. Please ensure the image clearly shows CPT codes and rates.",
+        )
+
+    return result
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/calculate-medicare-percentage
+# ---------------------------------------------------------------------------
+
+@router.post("/calculate-medicare-percentage")
+async def calculate_medicare_percentage(req: CalculateMedicarePercentageRequest):
+    """Calculate contracted rates as a percentage of Medicare PFS rates."""
+    if req.percentage < 1 or req.percentage > 500:
+        raise HTTPException(status_code=400, detail="Percentage must be between 1 and 500")
+
+    if not req.zip_code or len(req.zip_code.strip()) < 5:
+        raise HTTPException(status_code=400, detail="Valid 5-digit ZIP code required")
+
+    carrier, locality = resolve_locality(req.zip_code.strip())
+    if not carrier or not locality:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No Medicare locality found for ZIP code {req.zip_code}. Please check the ZIP code.",
+        )
+
+    all_rates = get_all_pfs_rates_for_locality(carrier, locality)
+    if not all_rates:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No Medicare rates found for locality {carrier}/{locality}.",
+        )
+
+    multiplier = req.percentage / 100.0
+    rates = []
+    for r in all_rates:
+        # Use nonfacility_amount for office-based physician practices
+        medicare_rate = r["nonfacility_amount"]
+        if medicare_rate and medicare_rate > 0:
+            rates.append({
+                "cpt": r["cpt_code"],
+                "rate": round(medicare_rate * multiplier, 2),
+                "description": "",
+                "medicare_rate": medicare_rate,
+            })
+
+    return {
+        "payer_name": req.payer_name,
+        "effective_date": req.effective_date,
+        "percentage": req.percentage,
+        "locality": f"{carrier}/{locality}",
+        "total_codes": len(rates),
+        "rates": rates,
     }
 
 

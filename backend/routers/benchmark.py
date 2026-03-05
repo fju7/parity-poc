@@ -369,6 +369,25 @@ def lookup_clfs(code: str) -> Optional[float]:
     return None
 
 
+def get_all_pfs_rates_for_locality(carrier: str, locality: str) -> list[dict]:
+    """Get all PFS rates for a given carrier/locality.
+
+    Returns list of {cpt_code, nonfacility_amount, facility_amount}.
+    """
+    try:
+        idx = pd.IndexSlice
+        subset = pfs_rates.loc[idx[:, carrier, locality], :].copy()
+        subset = subset.reset_index()
+        mask = (subset["nonfacility_amount"] > 0) | (subset["facility_amount"] > 0)
+        subset = subset[mask]
+        subset["nonfacility_amount"] = subset["nonfacility_amount"].round(2)
+        subset["facility_amount"] = subset["facility_amount"].round(2)
+        subset["cpt_code"] = subset["cpt_code"].astype(str)
+        return subset[["cpt_code", "nonfacility_amount", "facility_amount"]].to_dict("records")
+    except (KeyError, TypeError):
+        return []
+
+
 # ---------------------------------------------------------------------------
 # Historical rate lookup (Supabase-backed)
 # ---------------------------------------------------------------------------
