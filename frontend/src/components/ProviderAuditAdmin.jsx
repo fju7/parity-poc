@@ -655,7 +655,7 @@ export default function ProviderAuditAdmin({ session }) {
     ? { "X-Cron-Secret": secret }
     : null;
 
-  function fetchAudits() {
+  function fetchAudits(silent = false) {
     const headers = token
       ? { Authorization: `Bearer ${token}` }
       : secret
@@ -663,7 +663,7 @@ export default function ProviderAuditAdmin({ session }) {
       : null;
 
     if (!headers) return;
-    setLoading(true);
+    if (!silent) setLoading(true);
     setError(null);
 
     const params = new URLSearchParams();
@@ -826,7 +826,7 @@ export default function ProviderAuditAdmin({ session }) {
             key={audit.id}
             audit={audit}
             authHeaders={authHeaders}
-            onRefresh={fetchAudits}
+            onRefresh={() => fetchAudits(true)}
           />
         ))
       )}

@@ -2175,7 +2175,9 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
 
         for claim in rem_file.get("claims", []):
             claim_id = claim.get("claim_id", "")
-            for line in claim.get("lines", []):
+            # Support both "lines" (wizard-submitted) and "line_items" (raw parse_835 format)
+            claim_lines = claim.get("lines") or claim.get("line_items") or []
+            for line in claim_lines:
                 cpt = line.get("cpt_code", "")
                 if not cpt:
                     continue
