@@ -1939,7 +1939,12 @@ async def admin_upload_835(
 
     content = await file.read()
     raw = content.decode("utf-8", errors="replace")
-    claims = parse_835(raw)
+    parsed = parse_835(raw)  # Returns dict with "claims", "payer_name", etc.
+    claims_list = parsed.get("claims", [])
+
+    # Auto-detect payer from 835 if not provided
+    if not payer_name and parsed.get("payer_name"):
+        payer_name = parsed["payer_name"]
 
     # Build remittance entry
     entry = {
@@ -1959,7 +1964,7 @@ async def admin_upload_835(
                     for li in c.get("line_items", [])
                 ],
             }
-            for c in claims
+            for c in claims_list
         ],
     }
 
@@ -1972,9 +1977,9 @@ async def admin_upload_835(
     return {
         "status": "ok",
         "filename": entry["filename"],
-        "claims_parsed": len(entry["claims"]),
+        "claims_parsed": len(claims_list),
         "total_lines": total_lines,
-        "payer_name": payer_name,
+        "payer_name": payer_name or entry["payer_name"],
     }
 
 
