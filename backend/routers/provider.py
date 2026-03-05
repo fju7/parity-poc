@@ -23,6 +23,14 @@ Admin endpoints (ADMIN_USER_ID or CRON_SECRET protected):
   POST /api/provider/admin/audits/deliver    — deliver report + send email to practice
   POST /api/provider/admin/audits/follow-up  — send follow-up email
   GET  /api/provider/admin/audits/cron-followup — auto-send follow-ups 3 days after delivery
+  POST /api/provider/admin/audits/convert-subscription — convert delivered audit to subscription
+  GET  /api/provider/admin/subscriptions — list all subscriptions
+  POST /api/provider/admin/subscriptions/add-month — add monthly analysis to subscription
+
+Subscription endpoints (authenticated user):
+  POST /api/provider/subscription/checkout — create Stripe checkout for monitoring subscription
+  POST /api/provider/subscription/webhook — Stripe webhook for subscription events
+  GET  /api/provider/my-subscription — get user's subscription data
 
 No PHI is stored. Contract rates and analysis results are tied to user_id.
 """
@@ -70,6 +78,7 @@ def _get_supabase():
 
 
 ADMIN_USER_ID = os.environ.get("ADMIN_USER_ID", "")
+STRIPE_PRICE_PROVIDER_MONTHLY = os.environ.get("STRIPE_PRICE_PROVIDER_MONTHLY", "")
 
 
 async def _get_authenticated_user(request: Request):
@@ -2721,3 +2730,471 @@ async def admin_cron_followup(request: Request):
         sent += 1
 
     return {"follow_ups_sent": sent}
+
+
+# ---------------------------------------------------------------------------
+# Provider Subscriptions — Audit-to-Subscription Conversion
+# ---------------------------------------------------------------------------
+
+SUBSCRIPTION_STATUS_COLORS = {
+    "active": "green",
+    "canceled": "gray",
+    "past_due": "red",
+}
+
+
+def _send_conversion_email(subscription: dict, audit: dict):
+    """Email: Sent when audit is converted to monitoring subscription."""
+    try:
+        import resend
+        resend_key = os.environ.get("RESEND_API_KEY")
+        if not resend_key:
+            print("[SubEmail] RESEND_API_KEY not configured, skipping")
+            return
+        resend.api_key = resend_key
+
+        practice_name = subscription.get("practice_name", "Practice")
+        contact_email = subscription.get("contact_email", "")
+        frontend_url = os.environ.get("FRONTEND_URL", "https://civicscale.ai")
+
+        # Get underpayment total from source audit
+        total_underpayment = 0
+        analysis_ids = audit.get("analysis_ids", []) or []
+        if analysis_ids:
+            try:
+                sb = _get_supabase()
+                for aid in analysis_ids[:10]:
+                    row = sb.table("provider_analyses").select("result_json").eq("id", aid).execute()
+                    if row.data:
+                        rj = row.data[0].get("result_json", {})
+                        total_underpayment += rj.get("summary", {}).get("total_underpayment", 0)
+            except Exception:
+                pass
+
+        baseline_str = f"${total_underpayment:,.2f}" if total_underpayment > 0 else "your audit findings"
+
+        inner = f"""
+        <h2 style="color: #1E293B; margin-top: 0;">Your Parity monitoring is now active</h2>
+        <p>Thank you for subscribing to Parity Provider Monitoring for <strong>{practice_name}</strong>.</p>
+
+        <div style="background: #F0FDFA; border: 1px solid #99F6E4; border-radius: 8px; padding: 16px; margin: 20px 0;">
+            <p style="margin: 0 0 8px; font-weight: 600; color: #0D9488;">Your baseline</p>
+            <p style="margin: 0; font-size: 14px; color: #475569;">
+                Your audit identified <strong>{baseline_str}</strong> in recoverable revenue.
+                This is your baseline. Each month, we'll analyze your new remittance data
+                and alert you to new underpayments and denial patterns.
+            </p>
+        </div>
+
+        <p><strong>Next step:</strong> When your next month's remittance files (835s) are ready,
+        send them to <a href="mailto:fred@civicscale.ai" style="color: #0D9488;">fred@civicscale.ai</a>
+        and we'll run your monthly analysis.</p>
+
+        <div style="text-align: center; margin: 28px 0;">
+            <a href="{frontend_url}/audit/account" style="
+                display: inline-block; padding: 14px 32px; border-radius: 8px;
+                background: #0D9488; color: #fff; font-weight: 600; font-size: 15px;
+                text-decoration: none;
+            ">View Your Dashboard &rarr;</a>
+        </div>
+
+        <p>Questions? Reply to this email or contact
+        <a href="mailto:fred@civicscale.ai" style="color: #0D9488;">fred@civicscale.ai</a>.</p>
+        """
+
+        resend.Emails.send({
+            "from": "Parity Provider <notifications@civicscale.ai>",
+            "to": [contact_email],
+            "subject": f"Parity monitoring is active — {practice_name}",
+            "html": _email_wrapper(inner),
+        })
+        print(f"[SubEmail] Conversion email sent to {contact_email}")
+
+        # Admin notification
+        resend.Emails.send({
+            "from": "Parity Provider <notifications@civicscale.ai>",
+            "to": ["fred@civicscale.ai"],
+            "subject": f"New Subscription: {practice_name}",
+            "html": f"<p>Subscription activated for {practice_name} ({contact_email}).</p>"
+                     f"<p>Source audit: {audit.get('id', 'unknown')}</p>"
+                     f"<p>Baseline underpayment: {baseline_str}</p>",
+        })
+
+    except Exception as exc:
+        print(f"[SubEmail] Conversion email failed: {exc}")
+
+
+def _convert_audit_to_subscription(audit: dict, sb=None) -> dict:
+    """Core conversion logic: create provider_subscriptions row from a delivered audit."""
+    if sb is None:
+        sb = _get_supabase()
+
+    from datetime import datetime
+
+    # Build first monthly_analyses entry from audit's analysis_ids
+    first_month = {
+        "month": datetime.utcnow().strftime("%Y-%m"),
+        "label": "Baseline (from audit)",
+        "analysis_ids": audit.get("analysis_ids", []) or [],
+        "added_at": datetime.utcnow().isoformat(),
+    }
+
+    sub_data = {
+        "practice_name": audit.get("practice_name", ""),
+        "practice_specialty": audit.get("practice_specialty", ""),
+        "num_providers": audit.get("num_providers", 1),
+        "billing_company": audit.get("billing_company", ""),
+        "contact_email": audit.get("contact_email", ""),
+        "user_id": audit.get("user_id"),
+        "payer_data": audit.get("payer_list", []),
+        "remittance_data": audit.get("remittance_data", []),
+        "source_audit_id": audit.get("id"),
+        "status": "active",
+        "monthly_analyses": [first_month],
+    }
+
+    result = sb.table("provider_subscriptions").insert(sub_data).execute()
+    if not result.data:
+        raise HTTPException(status_code=500, detail="Failed to create subscription")
+
+    return result.data[0]
+
+
+class AdminConvertBody(BaseModel):
+    audit_id: str
+
+
+@router.post("/admin/audits/convert-subscription")
+async def admin_convert_to_subscription(body: AdminConvertBody, request: Request):
+    """Convert a delivered audit to an active monitoring subscription (admin only)."""
+    await _verify_admin(request)
+
+    sb = _get_supabase()
+
+    # Fetch audit
+    result = sb.table("provider_audits").select("*").eq("id", body.audit_id).execute()
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Audit not found")
+
+    audit = result.data[0]
+    if audit.get("status") != "delivered":
+        raise HTTPException(status_code=400, detail="Audit must be delivered before converting to subscription")
+
+    # Check for existing subscription from this audit
+    existing = sb.table("provider_subscriptions").select("id").eq("source_audit_id", body.audit_id).execute()
+    if existing.data:
+        raise HTTPException(status_code=400, detail="Subscription already exists for this audit")
+
+    subscription = _convert_audit_to_subscription(audit, sb)
+
+    # Send conversion email
+    _send_conversion_email(subscription, audit)
+
+    return {"status": "ok", "subscription_id": subscription["id"]}
+
+
+# ---------------------------------------------------------------------------
+# Subscription Checkout (Stripe) — Authenticated User
+# ---------------------------------------------------------------------------
+
+class SubscriptionCheckoutBody(BaseModel):
+    audit_id: str
+
+
+@router.post("/subscription/checkout")
+async def subscription_checkout(body: SubscriptionCheckoutBody, request: Request):
+    """Create a Stripe checkout session for Provider monitoring subscription."""
+    import stripe as stripe_lib
+
+    stripe_key = os.environ.get("STRIPE_SECRET_KEY", "")
+    if not stripe_key:
+        raise HTTPException(status_code=503, detail="Stripe not configured")
+    stripe_lib.api_key = stripe_key
+
+    if not STRIPE_PRICE_PROVIDER_MONTHLY:
+        raise HTTPException(status_code=503, detail="Provider price not configured")
+
+    user = await _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    # Verify audit belongs to user and is delivered
+    audit_result = sb.table("provider_audits").select("*").eq("id", body.audit_id).execute()
+    if not audit_result.data:
+        raise HTTPException(status_code=404, detail="Audit not found")
+
+    audit = audit_result.data[0]
+    if audit.get("status") != "delivered":
+        raise HTTPException(status_code=400, detail="Audit must be delivered first")
+
+    # Verify user owns this audit (by email)
+    user_email = user.email or ""
+    if user_email.lower() != (audit.get("contact_email") or "").lower():
+        raise HTTPException(status_code=403, detail="This audit does not belong to your account")
+
+    # Get or create Stripe customer
+    customer_id = None
+    existing = sb.table("provider_subscriptions").select("stripe_customer_id").eq(
+        "contact_email", user_email
+    ).execute()
+    if existing.data and existing.data[0].get("stripe_customer_id"):
+        customer_id = existing.data[0]["stripe_customer_id"]
+
+    if not customer_id:
+        # Also check signal_subscriptions (shared Stripe customers)
+        sig_result = sb.table("signal_subscriptions").select("stripe_customer_id").eq(
+            "user_id", str(user.id)
+        ).execute()
+        if sig_result.data and sig_result.data[0].get("stripe_customer_id"):
+            customer_id = sig_result.data[0]["stripe_customer_id"]
+
+    if not customer_id:
+        customer = stripe_lib.Customer.create(
+            email=user_email,
+            metadata={"supabase_user_id": str(user.id)},
+        )
+        customer_id = customer.id
+
+    frontend_url = os.environ.get("FRONTEND_URL", "https://civicscale.ai")
+
+    session = stripe_lib.checkout.Session.create(
+        customer=customer_id,
+        mode="subscription",
+        line_items=[{"price": STRIPE_PRICE_PROVIDER_MONTHLY, "quantity": 1}],
+        success_url=f"{frontend_url}/audit/account?checkout_success=1",
+        cancel_url=f"{frontend_url}/audit/account",
+        metadata={
+            "supabase_user_id": str(user.id),
+            "audit_id": body.audit_id,
+            "type": "provider_monitoring",
+        },
+    )
+
+    return {"checkout_url": session.url}
+
+
+# ---------------------------------------------------------------------------
+# Subscription Webhook (Stripe)
+# ---------------------------------------------------------------------------
+
+@router.post("/subscription/webhook")
+async def subscription_webhook(request: Request):
+    """Process Stripe webhook events for Provider monitoring subscriptions."""
+    import stripe as stripe_lib
+
+    stripe_key = os.environ.get("STRIPE_SECRET_KEY", "")
+    webhook_secret = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
+
+    if not stripe_key or not webhook_secret:
+        return JSONResponse({"error": "Stripe not configured"}, status_code=500)
+
+    stripe_lib.api_key = stripe_key
+
+    payload = await request.body()
+    sig = request.headers.get("stripe-signature", "")
+
+    try:
+        event = stripe_lib.Webhook.construct_event(payload, sig, webhook_secret)
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Invalid signature: {exc}")
+
+    sb = _get_supabase()
+    event_type = event["type"]
+    obj = event["data"]["object"]
+
+    if event_type == "checkout.session.completed":
+        metadata = obj.get("metadata", {})
+        # Only handle provider_monitoring type
+        if metadata.get("type") != "provider_monitoring":
+            return {"status": "ok", "skipped": True}
+
+        audit_id = metadata.get("audit_id")
+        user_id = metadata.get("supabase_user_id")
+        subscription_id = obj.get("subscription")
+        customer_id = obj.get("customer")
+
+        if audit_id and subscription_id:
+            # Check if subscription already exists for this audit
+            existing = sb.table("provider_subscriptions").select("id").eq(
+                "source_audit_id", audit_id
+            ).execute()
+
+            if existing.data:
+                # Update existing with Stripe IDs
+                sb.table("provider_subscriptions").update({
+                    "stripe_customer_id": customer_id,
+                    "stripe_subscription_id": subscription_id,
+                }).eq("source_audit_id", audit_id).execute()
+            else:
+                # Convert audit to subscription
+                audit_result = sb.table("provider_audits").select("*").eq("id", audit_id).execute()
+                if audit_result.data:
+                    audit = audit_result.data[0]
+                    subscription = _convert_audit_to_subscription(audit, sb)
+                    # Update with Stripe IDs
+                    sb.table("provider_subscriptions").update({
+                        "stripe_customer_id": customer_id,
+                        "stripe_subscription_id": subscription_id,
+                    }).eq("id", subscription["id"]).execute()
+                    # Send conversion email
+                    _send_conversion_email(subscription, audit)
+
+    elif event_type == "customer.subscription.deleted":
+        subscription_id = obj.get("id")
+        if subscription_id:
+            from datetime import datetime
+            sb.table("provider_subscriptions").update({
+                "status": "canceled",
+                "canceled_at": datetime.utcnow().isoformat(),
+            }).eq("stripe_subscription_id", subscription_id).execute()
+
+    elif event_type == "invoice.payment_failed":
+        subscription_id = obj.get("subscription")
+        if subscription_id:
+            sb.table("provider_subscriptions").update({
+                "status": "past_due",
+            }).eq("stripe_subscription_id", subscription_id).execute()
+
+    return {"status": "ok"}
+
+
+# ---------------------------------------------------------------------------
+# Admin: Add Monthly Analysis to Subscription
+# ---------------------------------------------------------------------------
+
+class AdminAddMonthBody(BaseModel):
+    subscription_id: str
+
+
+@router.post("/admin/subscriptions/add-month")
+async def admin_add_month(
+    request: Request,
+    subscription_id: str = "",
+    file: UploadFile = File(...),
+):
+    """Upload 835 files and run monthly analysis for a subscription (admin only)."""
+    await _verify_admin(request)
+
+    if not subscription_id:
+        raise HTTPException(status_code=400, detail="subscription_id required")
+
+    sb = _get_supabase()
+
+    # Fetch subscription
+    sub_result = sb.table("provider_subscriptions").select("*").eq("id", subscription_id).execute()
+    if not sub_result.data:
+        raise HTTPException(status_code=404, detail="Subscription not found")
+
+    sub = sub_result.data[0]
+
+    # Parse 835
+    content = await file.read()
+    raw = content.decode("utf-8", errors="replace")
+    parsed = parse_835(raw)
+    claims_list = parsed.get("claims", [])
+    payer_name = parsed.get("payer_name", "")
+
+    # Build remittance entry
+    entry = {
+        "filename": file.filename or "uploaded.835",
+        "payer_name": payer_name,
+        "claims": [
+            {
+                "claim_id": c.get("claim_id", ""),
+                "lines": [
+                    {
+                        "cpt_code": li.get("cpt_code") or li.get("procedure_code", ""),
+                        "billed_amount": li.get("billed_amount") or li.get("charge_amount", 0),
+                        "paid_amount": li.get("paid_amount", 0),
+                        "units": li.get("units", 1),
+                        "adjustments": li.get("adjustments") or li.get("adjustment_codes", ""),
+                    }
+                    for li in c.get("line_items", [])
+                ],
+            }
+            for c in claims_list
+        ],
+    }
+
+    # Append to remittance_data
+    existing_rem = sub.get("remittance_data", []) or []
+    existing_rem.append(entry)
+    sb.table("provider_subscriptions").update({"remittance_data": existing_rem}).eq("id", subscription_id).execute()
+
+    # Add monthly_analyses entry
+    from datetime import datetime
+    monthly = sub.get("monthly_analyses", []) or []
+    month_label = datetime.utcnow().strftime("%Y-%m")
+    new_month = {
+        "month": month_label,
+        "label": f"Month {len(monthly) + 1}",
+        "filename": file.filename or "uploaded.835",
+        "payer_name": payer_name,
+        "claims_count": len(claims_list),
+        "lines_count": sum(len(c.get("line_items", [])) for c in claims_list),
+        "added_at": datetime.utcnow().isoformat(),
+    }
+    monthly.append(new_month)
+    sb.table("provider_subscriptions").update({"monthly_analyses": monthly}).eq("id", subscription_id).execute()
+
+    return {
+        "status": "ok",
+        "month": month_label,
+        "claims_parsed": len(claims_list),
+        "total_lines": new_month["lines_count"],
+        "payer_name": payer_name,
+    }
+
+
+# ---------------------------------------------------------------------------
+# User: My Subscription
+# ---------------------------------------------------------------------------
+
+@router.get("/my-subscription")
+async def my_subscription(request: Request):
+    """Return the authenticated user's Provider monitoring subscription."""
+    user = await _get_authenticated_user(request)
+    email = user.email
+    if not email:
+        raise HTTPException(status_code=400, detail="No email on account")
+
+    sb = _get_supabase()
+    result = sb.table("provider_subscriptions") \
+        .select("*") \
+        .eq("contact_email", email) \
+        .order("created_at", desc=True) \
+        .limit(1) \
+        .execute()
+
+    if not result.data:
+        return {"subscription": None}
+
+    sub = result.data[0]
+    return {
+        "subscription": {
+            "id": sub["id"],
+            "practice_name": sub.get("practice_name", ""),
+            "status": sub.get("status", "active"),
+            "monthly_analyses": sub.get("monthly_analyses", []),
+            "source_audit_id": sub.get("source_audit_id"),
+            "created_at": sub.get("created_at"),
+            "stripe_subscription_id": sub.get("stripe_subscription_id"),
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
+# Admin: List Subscriptions
+# ---------------------------------------------------------------------------
+
+@router.get("/admin/subscriptions")
+async def admin_list_subscriptions(request: Request):
+    """List all provider subscriptions (admin only)."""
+    await _verify_admin(request)
+
+    sb = _get_supabase()
+    result = sb.table("provider_subscriptions") \
+        .select("*") \
+        .order("created_at", desc=True) \
+        .execute()
+
+    return {"subscriptions": result.data or []}

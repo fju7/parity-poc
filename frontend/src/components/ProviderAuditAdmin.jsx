@@ -515,6 +515,19 @@ function AuditRow({ audit, authHeaders, onRefresh }) {
               />
             )}
 
+            {audit.status === "delivered" && (
+              <ActionButton
+                label="Convert to Subscription"
+                loading={loading}
+                color="#7C3AED"
+                onClick={() => {
+                  if (confirm(`Convert ${audit.practice_name} to a monitoring subscription?`)) {
+                    adminAction("convert-subscription", { audit_id: audit.id });
+                  }
+                }}
+              />
+            )}
+
             <ActionButton
               label="Generate PDF"
               loading={loading}
@@ -639,11 +652,68 @@ function ActionButton({ label, loading, color, outline, onClick }) {
   );
 }
 
+function SubscriptionRow({ sub }) {
+  const months = sub.monthly_analyses || [];
+  const createdAt = sub.created_at
+    ? new Date(sub.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+    : "—";
+  const statusColor = sub.status === "active"
+    ? { bg: "#ECFDF5", text: "#059669", border: "#A7F3D0" }
+    : sub.status === "past_due"
+    ? { bg: "#FEF2F2", text: "#DC2626", border: "#FECACA" }
+    : { bg: "#F3F4F6", text: "#6B7280", border: "#D1D5DB" };
+
+  return (
+    <div style={{
+      border: "1px solid #E2E8F0", borderRadius: 12, marginBottom: 12,
+      background: "#fff", padding: "16px 20px",
+    }}>
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 12, alignItems: "center" }}>
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: NAVY }}>{sub.practice_name}</div>
+          <div style={{ fontSize: 12, color: SLATE }}>{sub.contact_email}</div>
+        </div>
+        <div>
+          <span style={{
+            display: "inline-block", fontSize: 11, fontWeight: 600,
+            padding: "3px 10px", borderRadius: 20,
+            background: statusColor.bg, color: statusColor.text, border: `1px solid ${statusColor.border}`,
+          }}>
+            {sub.status}
+          </span>
+        </div>
+        <div style={{ fontSize: 13, color: SLATE }}>
+          {months.length} month{months.length !== 1 ? "s" : ""}
+        </div>
+        <div style={{ fontSize: 13, color: SLATE }}>{createdAt}</div>
+      </div>
+      {months.length > 0 && (
+        <div style={{ marginTop: 12, borderTop: "1px solid #F1F5F9", paddingTop: 10 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, color: SLATE, marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>
+            Monthly Analyses
+          </div>
+          {months.map((m, i) => (
+            <div key={i} style={{ fontSize: 13, color: NAVY, padding: "3px 0" }}>
+              {m.label || m.month} — {m.claims_count != null ? `${m.claims_count} claims` : (m.analysis_ids?.length ? `${m.analysis_ids.length} analyses` : "baseline")}
+              <span style={{ color: SLATE, marginLeft: 8 }}>
+                {m.added_at ? new Date(m.added_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : ""}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ProviderAuditAdmin({ session }) {
   const [audits, setAudits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterStatus, setFilterStatus] = useState("");
+  const [activeTab, setActiveTab] = useState("audits"); // "audits" | "subscriptions"
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [subsLoading, setSubsLoading] = useState(false);
   const [searchParams] = useSearchParams();
 
   const secret = searchParams.get("secret");
@@ -691,9 +761,29 @@ export default function ProviderAuditAdmin({ session }) {
       });
   }
 
+  function fetchSubscriptions() {
+    const headers = authHeaders;
+    if (!headers) return;
+    setSubsLoading(true);
+    fetch(`${API_BASE}/api/provider/admin/subscriptions`, { headers })
+      .then(r => {
+        if (!r.ok) throw new Error("Failed to load subscriptions");
+        return r.json();
+      })
+      .then(data => {
+        setSubscriptions(data.subscriptions || []);
+        setSubsLoading(false);
+      })
+      .catch(() => setSubsLoading(false));
+  }
+
   useEffect(() => {
-    fetchAudits();
-  }, [token, secret, filterStatus]);
+    if (activeTab === "subscriptions") {
+      fetchSubscriptions();
+    } else {
+      fetchAudits();
+    }
+  }, [token, secret, filterStatus, activeTab]);
 
   if (!authHeaders) {
     return (
@@ -737,7 +827,7 @@ export default function ProviderAuditAdmin({ session }) {
           <p style={{ fontSize: 12, color: SLATE, marginTop: 4 }}>Manage submitted audits</p>
         </div>
         <button
-          onClick={fetchAudits}
+          onClick={() => activeTab === "subscriptions" ? fetchSubscriptions() : fetchAudits()}
           style={{
             padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600,
             border: `1px solid #CBD5E1`, background: "#fff", color: NAVY,
@@ -748,6 +838,76 @@ export default function ProviderAuditAdmin({ session }) {
         </button>
       </div>
 
+      {/* Main tabs: Audits vs Subscriptions */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 20, borderBottom: "2px solid #E2E8F0" }}>
+        {[
+          { key: "audits", label: "Audits" },
+          { key: "subscriptions", label: "Subscriptions" },
+        ].map(tab => (
+          <button
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            style={{
+              padding: "10px 20px", fontSize: 13, fontWeight: 600,
+              border: "none", borderBottom: activeTab === tab.key ? "2px solid #7C3AED" : "2px solid transparent",
+              background: "none", color: activeTab === tab.key ? "#7C3AED" : SLATE,
+              cursor: "pointer", marginBottom: -2,
+            }}
+          >
+            {tab.label}
+            {tab.key === "subscriptions" && subscriptions.length > 0 && (
+              <span style={{
+                marginLeft: 6, fontSize: 11, background: "#EDE9FE", color: "#7C3AED",
+                padding: "1px 6px", borderRadius: 10,
+              }}>
+                {subscriptions.length}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {activeTab === "subscriptions" ? (
+        /* ===== Subscriptions Tab ===== */
+        <div>
+          <div style={{
+            display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr",
+            gap: 12, padding: "10px 20px", marginBottom: 4,
+            fontSize: 11, fontWeight: 600, color: SLATE,
+            textTransform: "uppercase", letterSpacing: 1,
+          }}>
+            <div>Practice</div>
+            <div>Status</div>
+            <div>Months</div>
+            <div>Created</div>
+          </div>
+          {subsLoading ? (
+            <div style={{ textAlign: "center", padding: 48 }}>
+              <div style={{
+                width: 40, height: 40, border: "3px solid #E2E8F0",
+                borderTopColor: "#7C3AED", borderRadius: "50%",
+                margin: "0 auto", animation: "spin 0.8s linear infinite",
+              }}>
+                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+              </div>
+              <p style={{ color: SLATE, marginTop: 12, fontSize: 14 }}>Loading subscriptions...</p>
+            </div>
+          ) : subscriptions.length === 0 ? (
+            <div style={{
+              textAlign: "center", padding: 48, color: SLATE, fontSize: 14,
+              border: "1px solid #E2E8F0", borderRadius: 12,
+            }}>
+              No subscriptions yet. Convert a delivered audit to create one.
+            </div>
+          ) : (
+            subscriptions.map(sub => (
+              <SubscriptionRow key={sub.id} sub={sub} />
+            ))
+          )}
+        </div>
+      ) : (
+        /* ===== Audits Tab ===== */
+        <>
       {/* Status filter tabs */}
       <div style={{ display: "flex", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
         {[
@@ -829,6 +989,8 @@ export default function ProviderAuditAdmin({ session }) {
             onRefresh={() => fetchAudits(true)}
           />
         ))
+      )}
+        </>
       )}
 
       {/* Footer */}
