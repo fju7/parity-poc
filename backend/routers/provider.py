@@ -3,6 +3,7 @@ Provider dashboard endpoints:
   GET  /api/provider/contract-template  — download contract rates Excel template
   POST /api/provider/save-rates         — save parsed contract rates
   POST /api/provider/parse-835          — parse an uploaded 835 EDI file
+  POST /api/provider/parse-835-batch    — parse multiple 835 files (including zip)
   POST /api/provider/analyze-contract   — compare remittance vs contracted rates
   POST /api/provider/analyze-coding     — coding pattern analysis (E&M distribution)
   POST /api/provider/analyze-denials    — AI-powered denial interpretation + appeal letters
@@ -10,10 +11,12 @@ Provider dashboard endpoints:
 No PHI is stored. Contract rates and analysis results are tied to user_id.
 """
 
+import io
 import json
 import os
 import re
 import time
+import zipfile
 from collections import Counter
 from pathlib import Path
 from typing import List, Optional
@@ -275,6 +278,73 @@ async def parse_835_endpoint(file: UploadFile = File(...)):
     result = parse_835(text)
 
     return result
+
+
+def _parse_single_835(content: bytes, filename: str) -> dict:
+    """Parse a single 835 file from raw bytes. Returns result dict or error dict."""
+    try:
+        try:
+            text = content.decode("utf-8")
+        except UnicodeDecodeError:
+            text = content.decode("latin-1")
+
+        if not text.strip():
+            return {"filename": filename, "error": "File is empty"}
+
+        if "ISA" not in text[:500]:
+            return {"filename": filename, "error": "Not a valid 835/EDI file (no ISA segment)"}
+
+        result = parse_835(text)
+        result["filename"] = filename
+        return result
+    except Exception as exc:
+        return {"filename": filename, "error": str(exc)}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/provider/parse-835-batch
+# ---------------------------------------------------------------------------
+
+@router.post("/parse-835-batch")
+async def parse_835_batch(files: List[UploadFile] = File(...)):
+    """Parse multiple 835 files. Accepts .835, .edi, .txt, and .zip files.
+    Zip files are extracted and each contained 835 is parsed individually."""
+
+    results = []
+
+    for upload in files:
+        content = await upload.read()
+        fname = upload.filename or "unknown"
+        ext = fname.rsplit(".", 1)[-1].lower() if "." in fname else ""
+
+        if ext == "zip":
+            # Extract and parse each file in the zip
+            try:
+                with zipfile.ZipFile(io.BytesIO(content)) as zf:
+                    for name in zf.namelist():
+                        # Skip directories and hidden files
+                        if name.endswith("/") or name.startswith("__MACOSX"):
+                            continue
+                        inner_ext = name.rsplit(".", 1)[-1].lower() if "." in name else ""
+                        if inner_ext not in ("835", "edi", "txt", ""):
+                            continue
+                        inner_content = zf.read(name)
+                        results.append(_parse_single_835(inner_content, name))
+            except zipfile.BadZipFile:
+                results.append({"filename": fname, "error": "Invalid zip file"})
+        else:
+            results.append(_parse_single_835(content, fname))
+
+    successful = [r for r in results if "error" not in r]
+    failed = [r for r in results if "error" in r]
+
+    return {
+        "results": successful,
+        "errors": failed,
+        "total_files": len(results),
+        "successful": len(successful),
+        "failed": len(failed),
+    }
 
 
 # ---------------------------------------------------------------------------

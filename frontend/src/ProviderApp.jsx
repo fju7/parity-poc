@@ -47,6 +47,8 @@ export default function ProviderApp() {
   const [savedContractRates, setSavedContractRates] = useState({}); // {cpt: rate}
   const [savedPayerName, setSavedPayerName] = useState("");
   const [parsedRemittance, setParsedRemittance] = useState(null);
+  const [parsedRemittances, setParsedRemittances] = useState([]); // multi-file results
+  const [uploadProgress, setUploadProgress] = useState(null); // { total, done, errors[] }
   const [analysisResult, setAnalysisResult] = useState(null);
   const [sortField, setSortField] = useState(null);
   const [sortDir, setSortDir] = useState("asc");
@@ -321,25 +323,55 @@ export default function ProviderApp() {
   }
 
   async function handle835Upload(e) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const fileList = e.target.files;
+    if (!fileList || fileList.length === 0) return;
     setContractError("");
     setContractStep("parsing-835");
 
+    const files = Array.from(fileList);
+    setUploadProgress({ total: files.length, done: 0, errors: [] });
+
     const body = new FormData();
-    body.append("file", file);
+    for (const f of files) {
+      body.append("files", f);
+    }
 
     try {
-      const resp = await fetch(`${API_BASE}/api/provider/parse-835`, {
+      const resp = await fetch(`${API_BASE}/api/provider/parse-835-batch`, {
         method: "POST",
         body,
       });
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
-        throw new Error(err.detail || "Failed to parse 835 file");
+        throw new Error(err.detail || "Failed to parse 835 files");
       }
       const data = await resp.json();
-      setParsedRemittance(data);
+      setUploadProgress({ total: data.total_files, done: data.successful, errors: data.errors });
+
+      if (data.results.length === 0) {
+        throw new Error(
+          data.errors.length > 0
+            ? `All files failed: ${data.errors.map(e => `${e.filename}: ${e.error}`).join("; ")}`
+            : "No valid 835 files found"
+        );
+      }
+
+      setParsedRemittances(data.results);
+
+      // Merge all results into a combined parsedRemittance for backward compat
+      const merged = {
+        payer_name: data.results[0].payer_name,
+        payee_name: data.results[0].payee_name,
+        production_date: data.results[0].production_date,
+        total_billed: data.results.reduce((s, r) => s + (r.total_billed || 0), 0),
+        total_paid: data.results.reduce((s, r) => s + (r.total_paid || 0), 0),
+        claim_count: data.results.reduce((s, r) => s + (r.claim_count || 0), 0),
+        claims: data.results.flatMap(r => r.claims || []),
+        line_items: data.results.flatMap(r => r.line_items || []),
+        _file_count: data.results.length,
+        _payers: [...new Set(data.results.map(r => r.payer_name).filter(Boolean))],
+      };
+      setParsedRemittance(merged);
       setContractStep("preview-835");
     } catch (err) {
       setContractError(err.message);
@@ -887,6 +919,8 @@ export default function ProviderApp() {
             savingRates={savingRates}
             saveSuccess={saveSuccess}
             parsedRemittance={parsedRemittance}
+            parsedRemittances={parsedRemittances}
+            uploadProgress={uploadProgress}
             analysisResult={analysisResult}
             denialIntel={denialIntel}
             denialLoading={denialLoading}
@@ -948,7 +982,7 @@ export default function ProviderApp() {
 // ═══════════════════════════════════════════════════════════════════
 
 function ContractIntegrityTab({
-  step, error, parsedRates, savingRates, saveSuccess, parsedRemittance, analysisResult,
+  step, error, parsedRates, savingRates, saveSuccess, parsedRemittance, parsedRemittances, uploadProgress, analysisResult,
   denialIntel, denialLoading,
   sortField, sortDir,
   onDownloadTemplate, onRatesFileUpload, onSaveRates, on835Upload,
@@ -960,10 +994,10 @@ function ContractIntegrityTab({
       <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 48, textAlign: "center", background: "#fff" }}>
         <Spinner />
         <p style={{ color: "var(--cs-navy)", fontWeight: 600, marginTop: 16, fontSize: 16 }}>
-          Parsing remittance file...
+          Parsing remittance files...
         </p>
         <p style={{ color: "var(--cs-slate)", fontSize: 14 }}>
-          Reading claims and payment data from the 835 file.
+          Reading claims and payment data from 835 files.
         </p>
       </div>
     );
@@ -1327,12 +1361,39 @@ function ContractIntegrityTab({
               padding: 12, borderRadius: 8, background: "var(--cs-teal-pale)",
               border: "1px solid var(--cs-teal)", marginBottom: 20, fontSize: 14,
             }}>
+              {parsedRemittance._file_count > 1 && (
+                <div style={{ marginBottom: 6, fontWeight: 600, color: "var(--cs-navy)" }}>
+                  {parsedRemittance._file_count} files parsed
+                  {parsedRemittance._payers?.length > 1 && <> from {parsedRemittance._payers.length} payers: {parsedRemittance._payers.join(", ")}</>}
+                </div>
+              )}
               Found <strong>{parsedRemittance.claim_count}</strong> claims,{" "}
               <strong>{(parsedRemittance.line_items || []).length}</strong> line items,{" "}
               <strong>${(parsedRemittance.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</strong> total paid
-              {parsedRemittance.payer_name && <> — from <strong>{parsedRemittance.payer_name}</strong></>}
-              {parsedRemittance.production_date && <> ({parsedRemittance.production_date})</>}
+              {parsedRemittance._file_count <= 1 && parsedRemittance.payer_name && <> — from <strong>{parsedRemittance.payer_name}</strong></>}
+              {parsedRemittance._file_count <= 1 && parsedRemittance.production_date && <> ({parsedRemittance.production_date})</>}
             </div>
+
+            {/* Per-file breakdown for multi-file uploads */}
+            {parsedRemittances.length > 1 && (
+              <div style={{ marginBottom: 20 }}>
+                <details>
+                  <summary style={{ cursor: "pointer", fontSize: 13, color: "var(--cs-teal)", fontWeight: 600, marginBottom: 8 }}>
+                    View per-file breakdown
+                  </summary>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 8 }}>
+                    {parsedRemittances.map((r, i) => (
+                      <div key={i} style={{ fontSize: 13, padding: 8, borderRadius: 6, background: "var(--cs-mist)", display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "var(--cs-navy)", fontWeight: 500 }}>{r.filename}</span>
+                        <span style={{ color: "var(--cs-slate)" }}>
+                          {r.payer_name} &middot; {r.claim_count} claims &middot; ${(r.total_paid || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              </div>
+            )}
 
             <div style={{ overflowX: "auto", marginBottom: 20 }}>
               <table style={tableStyle}>
@@ -1375,8 +1436,8 @@ function ContractIntegrityTab({
                 Run Analysis
               </button>
               <label style={{ ...btnOutline, display: "inline-flex", alignItems: "center", cursor: "pointer" }}>
-                Upload Different File
-                <input type="file" accept=".txt,.835,.edi,text/plain" onChange={on835Upload} style={{ display: "none" }} />
+                Upload Different Files
+                <input type="file" accept=".txt,.835,.edi,.zip,text/plain,application/zip" multiple onChange={on835Upload} style={{ display: "none" }} />
               </label>
               {!ratesReady && (
                 <span style={{ fontSize: 13, color: "var(--cs-slate)" }}>Upload contract rates first to run analysis</span>
@@ -1386,17 +1447,25 @@ function ContractIntegrityTab({
         ) : (
           <>
             <p style={{ color: "var(--cs-slate)", fontSize: 14, marginBottom: 24 }}>
-              Upload an Electronic Remittance Advice (ERA/835) file from your clearinghouse or payer portal.
+              Upload one or more Electronic Remittance Advice (ERA/835) files. You can select multiple files at once or upload a .zip archive.
             </p>
 
-            <DropZone accept=".txt,.835,.edi,text/plain" onChange={on835Upload}>
-              Accepted formats: .835, .txt, .edi
+            <DropZone accept=".txt,.835,.edi,.zip,text/plain,application/zip" onChange={on835Upload} multiple>
+              Accepted formats: .835, .edi, .txt, .zip &mdash; select multiple files or drop a zip
             </DropZone>
 
-            <div style={{ marginTop: 20, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)" }}>
-              <strong style={{ color: "var(--cs-navy)" }}>Where to find 835 files:</strong> Your clearinghouse (e.g., Availity, Trizetto, Office Ally)
-              typically provides ERA/835 files for download. Check your payer portal under "Remittance" or "Payment" sections.
-            </div>
+            {uploadProgress && uploadProgress.errors.length > 0 && (
+              <div style={{ marginTop: 16, padding: 12, borderRadius: 8, background: "#fef2f2", border: "1px solid #fecaca", fontSize: 13 }}>
+                <strong style={{ color: "#991b1b" }}>{uploadProgress.errors.length} file{uploadProgress.errors.length !== 1 ? "s" : ""} failed:</strong>
+                <ul style={{ margin: "8px 0 0", paddingLeft: 20 }}>
+                  {uploadProgress.errors.map((e, i) => (
+                    <li key={i} style={{ color: "#991b1b" }}>{e.filename}: {e.error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <HelpSection835 />
           </>
         )}
       </div>
@@ -2249,6 +2318,40 @@ function SortTh({ field, label, current, dir, onSort, align = "left" }) {
   );
 }
 
+function HelpSection835() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ marginTop: 20 }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          background: "none", border: "none", cursor: "pointer", padding: 0,
+          fontSize: 13, color: "var(--cs-teal)", fontWeight: 600,
+        }}
+      >
+        {open ? "▾" : "▸"} Need help finding your 835 files?
+      </button>
+      {open && (
+        <div style={{ marginTop: 12, padding: 16, borderRadius: 8, background: "var(--cs-mist)", fontSize: 13, color: "var(--cs-slate)", lineHeight: 1.6 }}>
+          <p style={{ margin: "0 0 12px", fontWeight: 600, color: "var(--cs-navy)" }}>Where to find 835 files:</p>
+          <p style={{ margin: "0 0 10px" }}>
+            <strong>From your clearinghouse:</strong> Log into Availity, Office Ally, Change Healthcare, or your clearinghouse portal.
+            Look for &quot;ERA Downloads&quot; or &quot;835 Downloads.&quot; Download files for the month you want audited.
+          </p>
+          <p style={{ margin: "0 0 10px" }}>
+            <strong>From your PM system:</strong> Some systems (Athena, Kareo, eClinicalWorks) can export raw 835 files.
+            Check your reports or billing section.
+          </p>
+          <p style={{ margin: 0 }}>
+            <strong>From your billing company:</strong> If you outsource billing, ask your billing company to export
+            the raw 835 remittance files for the month you want audited.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ErrorBanner({ message }) {
   return (
     <div style={{
@@ -2272,7 +2375,7 @@ function Spinner() {
   );
 }
 
-function DropZone({ accept, onChange, children }) {
+function DropZone({ accept, onChange, children, multiple = false }) {
   const [dragging, setDragging] = useState(false);
 
   function handleDragOver(e) {
@@ -2291,10 +2394,9 @@ function DropZone({ accept, onChange, children }) {
     e.preventDefault();
     e.stopPropagation();
     setDragging(false);
-    const file = e.dataTransfer?.files?.[0];
-    if (file) {
-      // Synthesize an event-like object for the existing onChange handlers
-      onChange({ target: { files: [file] } });
+    const dropped = e.dataTransfer?.files;
+    if (dropped?.length) {
+      onChange({ target: { files: multiple ? dropped : [dropped[0]] } });
     }
   }
 
@@ -2321,12 +2423,12 @@ function DropZone({ accept, onChange, children }) {
         background: "var(--cs-navy)", color: "#fff", fontSize: 14, fontWeight: 600,
         cursor: "pointer",
       }}>
-        Choose File
-        <input type="file" accept={accept} onChange={onChange} style={{ display: "none" }} />
+        {multiple ? "Choose Files" : "Choose File"}
+        <input type="file" accept={accept} multiple={multiple} onChange={onChange} style={{ display: "none" }} />
       </label>
       {dragging && (
         <p style={{ color: "var(--cs-teal)", fontSize: 13, fontWeight: 600, marginTop: 8, marginBottom: 0 }}>
-          Drop file here
+          Drop {multiple ? "files" : "file"} here
         </p>
       )}
     </div>
