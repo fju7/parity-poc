@@ -370,39 +370,61 @@ export default function AuditAccount() {
             </table>
           </div>
 
-          {/* Monitoring CTA for each delivered audit not yet converted to a subscription */}
-          {audits.filter(a => a.status === "delivered" && !subscriptions.some(s => s.source_audit_id === a.id)).map((a) => (
-            <div key={`cta-${a.id}`} style={{
-              marginTop: 16, padding: 20, borderRadius: 12,
-              background: "linear-gradient(135deg, #FAF5FF, #F0FDFA)",
-              border: "1px solid #C4B5FD",
-            }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-                <div>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: "#1E293B", margin: "0 0 4px" }}>
-                    {a.total_underpayment > 0
-                      ? `Your audit found $${a.total_underpayment.toLocaleString()} in recoverable revenue.`
-                      : "Your audit is complete."}
-                  </h3>
-                  <p style={{ fontSize: 14, color: "#64748B", margin: 0 }}>
-                    Keep watching your payer payments — $300/month.
-                  </p>
+          {/* Per-practice monitoring CTA or "Already Monitoring" badge */}
+          {(() => {
+            const monitoredPractices = new Set(subscriptions.map(s => s.practice_name));
+            // Group delivered audits by practice, pick most recent (first, since sorted desc)
+            const seen = new Set();
+            const deliveredByPractice = audits.filter(a => {
+              if (a.status !== "delivered" || seen.has(a.practice_name)) return false;
+              seen.add(a.practice_name);
+              return true;
+            });
+            return deliveredByPractice.map((a) => {
+              const alreadyMonitoring = monitoredPractices.has(a.practice_name);
+              return (
+                <div key={`cta-${a.id}`} style={{
+                  marginTop: 16, padding: 20, borderRadius: 12,
+                  background: alreadyMonitoring ? "#F8FAFC" : "linear-gradient(135deg, #FAF5FF, #F0FDFA)",
+                  border: alreadyMonitoring ? "1px solid #E2E8F0" : "1px solid #C4B5FD",
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+                    <div>
+                      <h3 style={{ fontSize: 15, fontWeight: 700, color: "#1E293B", margin: "0 0 4px" }}>
+                        {a.practice_name}
+                      </h3>
+                      {alreadyMonitoring ? (
+                        <p style={{ fontSize: 14, color: "#059669", margin: 0, fontWeight: 600 }}>
+                          Already Monitoring
+                        </p>
+                      ) : (
+                        <p style={{ fontSize: 14, color: "#64748B", margin: 0 }}>
+                          {a.total_underpayment > 0
+                            ? `Your audit found $${a.total_underpayment.toLocaleString()} in recoverable revenue. `
+                            : ""}
+                          Keep watching your payer payments — $300/month.
+                        </p>
+                      )}
+                    </div>
+                    {!alreadyMonitoring && (
+                      <button
+                        onClick={() => handleStartMonitoring(a.id)}
+                        disabled={checkoutLoading}
+                        style={{
+                          padding: "10px 24px", borderRadius: 8, fontSize: 14, fontWeight: 600,
+                          border: "none", background: "#7C3AED", color: "#fff",
+                          cursor: checkoutLoading ? "not-allowed" : "pointer",
+                          opacity: checkoutLoading ? 0.7 : 1, whiteSpace: "nowrap",
+                        }}
+                      >
+                        {checkoutLoading ? "Redirecting..." : "Start Monthly Monitoring \u2192"}
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <button
-                  onClick={() => handleStartMonitoring(a.id)}
-                  disabled={checkoutLoading}
-                  style={{
-                    padding: "10px 24px", borderRadius: 8, fontSize: 14, fontWeight: 600,
-                    border: "none", background: "#7C3AED", color: "#fff",
-                    cursor: checkoutLoading ? "not-allowed" : "pointer",
-                    opacity: checkoutLoading ? 0.7 : 1, whiteSpace: "nowrap",
-                  }}
-                >
-                  {checkoutLoading ? "Redirecting..." : "Start Monthly Monitoring \u2192"}
-                </button>
-              </div>
-            </div>
-          ))}
+              );
+            });
+          })()}
           </>
         )}
       </div>
