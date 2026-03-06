@@ -313,6 +313,7 @@ class CalculateMedicarePercentageRequest(BaseModel):
 class AuditReportRequest(BaseModel):
     audit_id: Optional[str] = None
     analysis_data: Optional[dict] = None  # inline data for immediate report
+    trend_data: Optional[dict] = None  # optional trend data for month 2+ reports
 
 
 class SubmitAuditRequest(BaseModel):
@@ -1392,6 +1393,59 @@ async def generate_audit_report(req: AuditReportRequest):
             story.append(Spacer(1, 6))
     story.append(Spacer(1, 12))
 
+    # === 2b. Changes Since Last Month (only when trend_data provided) ===
+    td = req.trend_data
+    if td and td.get("alerts"):
+        story.append(Paragraph("Changes Since Last Month", s_heading))
+
+        # AI narrative in italics
+        narrative = td.get("trend_narrative", "")
+        if narrative:
+            s_italic = ParagraphStyle("AuditItalic", parent=s_body, fontName="Helvetica-Oblique", textColor=colors.HexColor("#475569"))
+            story.append(Paragraph(narrative, s_italic))
+            story.append(Spacer(1, 10))
+
+        trend_alerts = td.get("alerts", [])
+        new_worsening = [a for a in trend_alerts if a.get("severity") == "high"]
+        resolved = [a for a in trend_alerts if a.get("severity") == "positive"]
+
+        if new_worsening:
+            story.append(Paragraph("New &amp; Worsening Issues", ParagraphStyle(
+                "TrendRedH", parent=s_body, fontSize=12, textColor=RED, spaceBefore=8, spaceAfter=4,
+            )))
+            for a in new_worsening:
+                detail = a.get("detail", "")
+                impact = a.get("financial_impact")
+                impact_str = f" (${impact:,.2f} impact)" if impact else ""
+                story.append(Paragraph(f"• {detail}{impact_str}", s_body))
+                story.append(Spacer(1, 3))
+
+        if resolved:
+            s_green = ParagraphStyle("TrendGreenH", parent=s_body, fontSize=12, textColor=colors.HexColor("#059669"), spaceBefore=8, spaceAfter=4)
+            story.append(Paragraph("Resolved Issues", s_green))
+            for a in resolved:
+                story.append(Paragraph(f"• {a.get('detail', '')}", s_body))
+                story.append(Spacer(1, 3))
+
+        # Revenue gap trajectory callout
+        trajectory = next((a for a in trend_alerts if a.get("type") == "revenue_gap_trajectory"), None)
+        if trajectory and trajectory.get("financial_impact"):
+            projected = trajectory["financial_impact"]
+            traj_style = ParagraphStyle("TrajBox", parent=s_body, textColor=WHITE, fontSize=12, leading=16)
+            traj_data = [[Paragraph(f"Projected Annual Revenue Gap: <b>${projected:,.2f}</b>", traj_style)]]
+            traj_table = Table(traj_data, colWidths=[6.5 * inch])
+            traj_table.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, -1), NAVY),
+                ("TOPPADDING", (0, 0), (-1, -1), 12),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 12),
+                ("LEFTPADDING", (0, 0), (-1, -1), 16),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+            ]))
+            story.append(Spacer(1, 10))
+            story.append(traj_table)
+
+        story.append(Spacer(1, 16))
+
     # === 3. Contract Integrity Findings ===
     story.append(Paragraph("Contract Integrity Findings", s_heading))
 
@@ -2372,178 +2426,24 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
         if not lines:
             continue
 
-        # Run contract integrity analysis (inline — mirrors analyze-contract logic)
-        enriched_lines = []
-        total_contracted = 0.0
-        total_paid = 0.0
-        total_underpayment = 0.0
-        correct_count = 0
-        underpaid_count = 0
-        denied_count = 0
-        overpaid_count = 0
-        no_contract_count = 0
-        billed_below_count = 0
-        total_chargemaster_gap = 0.0
-        denial_adj_codes = []
+        result = _run_analysis_for_payer(
+            payer_name=payer_name,
+            rates=rates,
+            lines=lines,
+            user_id=audit.get("user_id"),
+            carrier=carrier,
+            locality=locality,
+            sb=sb,
+        )
 
-        for line in lines:
-            contracted_rate = rates.get(line["cpt_code"])
-            expected_payment = None
-            variance = None
-            flag = "NO_CONTRACT"
-            chargemaster_gap = None
-
-            if contracted_rate is not None:
-                contracted_rate = float(contracted_rate)
-                expected_payment = round(contracted_rate * line["units"], 2)
-                variance = round(line["paid_amount"] - expected_payment, 2)
-
-                if line["billed_amount"] < contracted_rate:
-                    chargemaster_gap = round((contracted_rate - line["billed_amount"]) * line["units"], 2)
-                    billed_below_count += 1
-                    total_chargemaster_gap += chargemaster_gap
-                    flag = "BILLED_BELOW"
-                elif line["paid_amount"] == 0 and expected_payment > 0:
-                    flag = "DENIED"
-                    denied_count += 1
-                    denial_adj_codes.append(line.get("adjustments", ""))
-                elif variance < -0.50:
-                    flag = "UNDERPAID"
-                    underpaid_count += 1
-                    total_underpayment += abs(variance)
-                elif variance > 0.50:
-                    flag = "OVERPAID"
-                    overpaid_count += 1
-                else:
-                    flag = "CORRECT"
-                    correct_count += 1
-
-                total_contracted += expected_payment
-            else:
-                no_contract_count += 1
-
-            total_paid += line["paid_amount"]
-
-            # Medicare benchmark
-            medicare_rate = None
-            medicare_source = None
-            if carrier and locality:
-                rate, source, _, _ = lookup_rate(line["cpt_code"], "CPT", carrier, locality)
-                if rate is not None:
-                    medicare_rate = rate
-                    medicare_source = source
-
-            enriched_lines.append({
-                "cpt_code": line["cpt_code"],
-                "billed_amount": line["billed_amount"],
-                "paid_amount": line["paid_amount"],
-                "units": line["units"],
-                "contracted_rate": contracted_rate,
-                "expected_payment": expected_payment,
-                "variance": variance,
-                "flag": flag,
-                "chargemaster_gap": chargemaster_gap,
-                "adjustments": line.get("adjustments", ""),
-                "claim_id": line.get("claim_id", ""),
-                "medicare_rate": medicare_rate,
-                "medicare_source": medicare_source,
-            })
-
-        lines_with_contract = correct_count + underpaid_count + denied_count + overpaid_count + billed_below_count
-        # Adherence = paid at or above contracted rate (correct + overpaid)
-        adherent_count = correct_count + overpaid_count
-        adherence_rate = round((adherent_count / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
-
-        # Scorecard
-        clean_claim_rate = round(((correct_count + overpaid_count) / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
-        denial_rate = round((denied_count / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 0.0
-        preventable_codes = {"CO-16", "CO-97", "16", "97"}
-        preventable_denial_count = 0
-        for adj_str in denial_adj_codes:
-            codes = [c.strip() for c in adj_str.split(",")]
-            if any(c in preventable_codes for c in codes):
-                preventable_denial_count += 1
-        preventable_denial_rate = round((preventable_denial_count / denied_count) * 100, 1) if denied_count > 0 else 0.0
-
-        summary = {
-            "total_contracted": round(total_contracted, 2),
-            "total_paid": round(total_paid, 2),
-            "total_underpayment": round(total_underpayment, 2),
-            "adherence_rate": adherence_rate,
-            "line_count": len(enriched_lines),
-            "correct_count": correct_count,
-            "underpaid_count": underpaid_count,
-            "denied_count": denied_count,
-            "overpaid_count": overpaid_count,
-            "no_contract_count": no_contract_count,
-            "billed_below_count": billed_below_count,
-            "total_chargemaster_gap": round(total_chargemaster_gap, 2),
-        }
-
-        scorecard = {
-            "clean_claim_rate": clean_claim_rate,
-            "denial_rate": denial_rate,
-            "payer_adherence_rate": adherence_rate,
-            "preventable_denial_rate": preventable_denial_rate,
-            "narrative": None,
-        }
-
-        # Run denial intelligence for denied lines
-        denial_intel = None
-        denied_lines_data = [
-            {"cpt_code": l["cpt_code"], "billed_amount": l["billed_amount"],
-             "adjustment_codes": l["adjustments"], "claim_id": l.get("claim_id", "")}
-            for l in enriched_lines if l["flag"] == "DENIED"
-        ]
-        if denied_lines_data:
-            denial_input = json.dumps({
-                "payer_name": payer_name,
-                "denied_lines": denied_lines_data,
-                "total_denied_count": len(denied_lines_data),
-            })
-            denial_intel = _call_claude(
-                system_prompt=DENIAL_SYSTEM_PROMPT,
-                user_content=denial_input,
-                max_tokens=4096,
-            )
-
-        # Save analysis to provider_analyses
-        analysis_record = {
-            "user_id": audit.get("user_id"),
-            "payer_name": payer_name,
-            "production_date": "",
-            "total_billed": summary["total_contracted"],
-            "total_paid": summary["total_paid"],
-            "underpayment": summary["total_underpayment"],
-            "adherence_rate": summary["adherence_rate"],
-            "result_json": {
-                "summary": summary,
-                "scorecard": scorecard,
-                "line_items": enriched_lines,
-                "top_underpaid": sorted(
-                    [
-                        {"cpt_code": cpt, "total_underpayment": round(amt, 2)}
-                        for cpt, amt in _aggregate_underpayments(enriched_lines).items()
-                    ],
-                    key=lambda x: x["total_underpayment"],
-                    reverse=True,
-                )[:10],
-                "denial_intel": denial_intel,
-            },
-        }
-
-        try:
-            ins = sb.table("provider_analyses").insert(analysis_record).execute()
-            if ins.data and len(ins.data) > 0:
-                analysis_ids.append(ins.data[0]["id"])
-        except Exception as exc:
-            print(f"[RunAnalysis] Failed to save analysis for {payer_name}: {exc}")
+        if result["analysis_id"]:
+            analysis_ids.append(result["analysis_id"])
 
         payer_results.append({
             "payer_name": payer_name,
-            "summary": summary,
-            "line_count": len(enriched_lines),
-            "underpayment": summary["total_underpayment"],
+            "summary": result["summary"],
+            "line_count": result["summary"]["line_count"],
+            "underpayment": result["summary"]["total_underpayment"],
         })
 
     # Update audit with analysis_ids and status
@@ -2569,6 +2469,582 @@ def _aggregate_underpayments(enriched_lines: list) -> dict:
             cpt = line["cpt_code"]
             result[cpt] = result.get(cpt, 0) + abs(line["variance"])
     return result
+
+
+def _run_analysis_for_payer(
+    payer_name: str,
+    rates: dict,
+    lines: list,
+    user_id: str,
+    carrier: str = None,
+    locality: str = None,
+    sb=None,
+) -> dict:
+    """Run contract integrity + denial intelligence analysis for a single payer.
+
+    Returns dict with keys: analysis_id, summary, scorecard, line_items, denial_intel, top_underpaid.
+    """
+    if sb is None:
+        sb = _get_supabase()
+
+    enriched_lines = []
+    total_contracted = 0.0
+    total_paid = 0.0
+    total_underpayment = 0.0
+    correct_count = 0
+    underpaid_count = 0
+    denied_count = 0
+    overpaid_count = 0
+    no_contract_count = 0
+    billed_below_count = 0
+    total_chargemaster_gap = 0.0
+    denial_adj_codes = []
+
+    for line in lines:
+        contracted_rate = rates.get(line["cpt_code"])
+        expected_payment = None
+        variance = None
+        flag = "NO_CONTRACT"
+        chargemaster_gap = None
+
+        if contracted_rate is not None:
+            contracted_rate = float(contracted_rate)
+            expected_payment = round(contracted_rate * line["units"], 2)
+            variance = round(line["paid_amount"] - expected_payment, 2)
+
+            if line["billed_amount"] < contracted_rate:
+                chargemaster_gap = round((contracted_rate - line["billed_amount"]) * line["units"], 2)
+                billed_below_count += 1
+                total_chargemaster_gap += chargemaster_gap
+                flag = "BILLED_BELOW"
+            elif line["paid_amount"] == 0 and expected_payment > 0:
+                flag = "DENIED"
+                denied_count += 1
+                denial_adj_codes.append(line.get("adjustments", ""))
+            elif variance < -0.50:
+                flag = "UNDERPAID"
+                underpaid_count += 1
+                total_underpayment += abs(variance)
+            elif variance > 0.50:
+                flag = "OVERPAID"
+                overpaid_count += 1
+            else:
+                flag = "CORRECT"
+                correct_count += 1
+
+            total_contracted += expected_payment
+        else:
+            no_contract_count += 1
+
+        total_paid += line["paid_amount"]
+
+        # Medicare benchmark
+        medicare_rate = None
+        medicare_source = None
+        if carrier and locality:
+            rate_val, source, _, _ = lookup_rate(line["cpt_code"], "CPT", carrier, locality)
+            if rate_val is not None:
+                medicare_rate = rate_val
+                medicare_source = source
+
+        enriched_lines.append({
+            "cpt_code": line["cpt_code"],
+            "billed_amount": line["billed_amount"],
+            "paid_amount": line["paid_amount"],
+            "units": line["units"],
+            "contracted_rate": contracted_rate,
+            "expected_payment": expected_payment,
+            "variance": variance,
+            "flag": flag,
+            "chargemaster_gap": chargemaster_gap,
+            "adjustments": line.get("adjustments", ""),
+            "claim_id": line.get("claim_id", ""),
+            "medicare_rate": medicare_rate,
+            "medicare_source": medicare_source,
+        })
+
+    lines_with_contract = correct_count + underpaid_count + denied_count + overpaid_count + billed_below_count
+    adherent_count = correct_count + overpaid_count
+    adherence_rate = round((adherent_count / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
+
+    clean_claim_rate = round(((correct_count + overpaid_count) / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 100.0
+    denial_rate = round((denied_count / lines_with_contract) * 100, 1) if lines_with_contract > 0 else 0.0
+    preventable_codes = {"CO-16", "CO-97", "16", "97"}
+    preventable_denial_count = 0
+    for adj_str in denial_adj_codes:
+        codes = [c.strip() for c in adj_str.split(",")]
+        if any(c in preventable_codes for c in codes):
+            preventable_denial_count += 1
+    preventable_denial_rate = round((preventable_denial_count / denied_count) * 100, 1) if denied_count > 0 else 0.0
+
+    summary = {
+        "total_contracted": round(total_contracted, 2),
+        "total_paid": round(total_paid, 2),
+        "total_underpayment": round(total_underpayment, 2),
+        "adherence_rate": adherence_rate,
+        "line_count": len(enriched_lines),
+        "correct_count": correct_count,
+        "underpaid_count": underpaid_count,
+        "denied_count": denied_count,
+        "overpaid_count": overpaid_count,
+        "no_contract_count": no_contract_count,
+        "billed_below_count": billed_below_count,
+        "total_chargemaster_gap": round(total_chargemaster_gap, 2),
+    }
+
+    scorecard = {
+        "clean_claim_rate": clean_claim_rate,
+        "denial_rate": denial_rate,
+        "payer_adherence_rate": adherence_rate,
+        "preventable_denial_rate": preventable_denial_rate,
+        "narrative": None,
+    }
+
+    # Run denial intelligence for denied lines
+    denial_intel = None
+    denied_lines_data = [
+        {"cpt_code": l["cpt_code"], "billed_amount": l["billed_amount"],
+         "adjustment_codes": l["adjustments"], "claim_id": l.get("claim_id", "")}
+        for l in enriched_lines if l["flag"] == "DENIED"
+    ]
+    if denied_lines_data:
+        denial_input = json.dumps({
+            "payer_name": payer_name,
+            "denied_lines": denied_lines_data,
+            "total_denied_count": len(denied_lines_data),
+        })
+        denial_intel = _call_claude(
+            system_prompt=DENIAL_SYSTEM_PROMPT,
+            user_content=denial_input,
+            max_tokens=4096,
+        )
+
+    top_underpaid = sorted(
+        [
+            {"cpt_code": cpt, "total_underpayment": round(amt, 2)}
+            for cpt, amt in _aggregate_underpayments(enriched_lines).items()
+        ],
+        key=lambda x: x["total_underpayment"],
+        reverse=True,
+    )[:10]
+
+    # Save analysis to provider_analyses
+    analysis_record = {
+        "user_id": user_id,
+        "payer_name": payer_name,
+        "production_date": "",
+        "total_billed": summary["total_contracted"],
+        "total_paid": summary["total_paid"],
+        "underpayment": summary["total_underpayment"],
+        "adherence_rate": summary["adherence_rate"],
+        "result_json": {
+            "summary": summary,
+            "scorecard": scorecard,
+            "line_items": enriched_lines,
+            "top_underpaid": top_underpaid,
+            "denial_intel": denial_intel,
+        },
+    }
+
+    analysis_id = None
+    try:
+        ins = sb.table("provider_analyses").insert(analysis_record).execute()
+        if ins.data and len(ins.data) > 0:
+            analysis_id = ins.data[0]["id"]
+    except Exception as exc:
+        print(f"[RunAnalysis] Failed to save analysis for {payer_name}: {exc}")
+
+    return {
+        "analysis_id": analysis_id,
+        "summary": summary,
+        "scorecard": scorecard,
+        "line_items": enriched_lines,
+        "denial_intel": denial_intel,
+        "top_underpaid": top_underpaid,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Trend Detection Engine
+# ---------------------------------------------------------------------------
+
+def _aggregate_cpt_flags(line_items: list) -> dict:
+    """Group line items by CPT, return {cpt: {flag, avg_variance, count, total_paid, total_expected}}."""
+    cpt_data = {}
+    for li in line_items:
+        cpt = li.get("cpt_code", "")
+        if not cpt:
+            continue
+        if cpt not in cpt_data:
+            cpt_data[cpt] = {"flags": [], "variances": [], "paid": [], "expected": [], "count": 0}
+        cpt_data[cpt]["flags"].append(li.get("flag", ""))
+        if li.get("variance") is not None:
+            cpt_data[cpt]["variances"].append(li["variance"])
+        cpt_data[cpt]["paid"].append(li.get("paid_amount", 0))
+        cpt_data[cpt]["expected"].append(li.get("expected_payment") or 0)
+        cpt_data[cpt]["count"] += 1
+
+    result = {}
+    for cpt, d in cpt_data.items():
+        # Predominant flag = most common
+        flag_counts = Counter(d["flags"])
+        predominant_flag = flag_counts.most_common(1)[0][0] if flag_counts else "UNKNOWN"
+        avg_variance = round(sum(d["variances"]) / len(d["variances"]), 2) if d["variances"] else 0
+        result[cpt] = {
+            "flag": predominant_flag,
+            "avg_variance": avg_variance,
+            "count": d["count"],
+            "total_paid": round(sum(d["paid"]), 2),
+            "total_expected": round(sum(d["expected"]), 2),
+        }
+    return result
+
+
+def _extract_denial_codes(denial_intel: dict) -> set:
+    """Extract adjustment/reason codes from denial intelligence result."""
+    codes = set()
+    if not denial_intel:
+        return codes
+    for dt in denial_intel.get("denial_types", []):
+        rc = dt.get("reason_code", "")
+        if rc:
+            codes.add(rc)
+    for dl in denial_intel.get("denied_lines", []):
+        adj = dl.get("adjustment_codes", "")
+        if adj:
+            for part in adj.split(","):
+                codes.add(part.strip())
+    return codes
+
+
+def _compute_trends(subscription_id: str, sb=None) -> dict:
+    """Compute month-over-month trends for a subscription.
+
+    Returns: {monthly_summary, per_payer_trends, alerts}
+    """
+    if sb is None:
+        sb = _get_supabase()
+
+    sub_result = sb.table("provider_subscriptions").select("*").eq("id", subscription_id).execute()
+    if not sub_result.data:
+        return {"monthly_summary": [], "per_payer_trends": [], "alerts": []}
+
+    sub = sub_result.data[0]
+    monthly_analyses = sub.get("monthly_analyses", []) or []
+
+    if not monthly_analyses:
+        return {"monthly_summary": [], "per_payer_trends": [], "alerts": []}
+
+    # Fetch all analysis records for all months
+    month_data = []  # [{month, label, analyses: [{payer_name, summary, line_items, denial_intel}]}]
+    for ma in monthly_analyses:
+        aids = ma.get("analysis_ids", []) or []
+        analyses = []
+        for aid in aids:
+            try:
+                row = sb.table("provider_analyses").select("*").eq("id", aid).execute()
+                if row.data:
+                    rec = row.data[0]
+                    rj = rec.get("result_json", {})
+                    analyses.append({
+                        "payer_name": rec.get("payer_name", ""),
+                        "summary": rj.get("summary", {}),
+                        "line_items": rj.get("line_items", []),
+                        "denial_intel": rj.get("denial_intel"),
+                        "scorecard": rj.get("scorecard", {}),
+                    })
+            except Exception:
+                pass
+        month_data.append({
+            "month": ma.get("month", ""),
+            "label": ma.get("label", ""),
+            "analyses": analyses,
+        })
+
+    # Build monthly_summary: per-month, per-payer totals
+    monthly_summary = []
+    for md in month_data:
+        payers = []
+        for a in md["analyses"]:
+            s = a["summary"]
+            sc = a.get("scorecard", {})
+            payers.append({
+                "payer_name": a["payer_name"],
+                "total_contracted": s.get("total_contracted", 0),
+                "total_paid": s.get("total_paid", 0),
+                "total_underpayment": s.get("total_underpayment", 0),
+                "adherence_rate": s.get("adherence_rate", 0),
+                "denial_rate": sc.get("denial_rate", 0),
+                "line_count": s.get("line_count", 0),
+                "underpaid_count": s.get("underpaid_count", 0),
+                "denied_count": s.get("denied_count", 0),
+                "correct_count": s.get("correct_count", 0),
+            })
+        monthly_summary.append({
+            "month": md["month"],
+            "label": md["label"],
+            "payers": payers,
+        })
+
+    # Build per_payer_trends: per-payer, per-CPT across months
+    all_payers = set()
+    for md in month_data:
+        for a in md["analyses"]:
+            all_payers.add(a["payer_name"])
+
+    per_payer_trends = []
+    for payer in sorted(all_payers):
+        payer_months = []
+        payer_cpt_by_month = []  # [{month, cpt_flags: {cpt: {flag, avg_variance, ...}}}]
+
+        for md in month_data:
+            payer_analysis = None
+            for a in md["analyses"]:
+                if a["payer_name"] == payer:
+                    payer_analysis = a
+                    break
+            if not payer_analysis:
+                continue
+
+            s = payer_analysis["summary"]
+            sc = payer_analysis.get("scorecard", {})
+            payer_months.append({
+                "month": md["month"],
+                "total_underpayment": s.get("total_underpayment", 0),
+                "adherence_rate": s.get("adherence_rate", 0),
+                "denial_rate": sc.get("denial_rate", 0),
+                "total_contracted": s.get("total_contracted", 0),
+                "total_paid": s.get("total_paid", 0),
+                "line_count": s.get("line_count", 0),
+            })
+
+            cpt_flags = _aggregate_cpt_flags(payer_analysis.get("line_items", []))
+            payer_cpt_by_month.append({
+                "month": md["month"],
+                "cpt_flags": cpt_flags,
+                "denial_codes": _extract_denial_codes(payer_analysis.get("denial_intel")),
+            })
+
+        # Build CPT trends
+        all_cpts = set()
+        for pcm in payer_cpt_by_month:
+            all_cpts.update(pcm["cpt_flags"].keys())
+
+        cpt_trends = []
+        for cpt in sorted(all_cpts):
+            cpt_month_data = []
+            for pcm in payer_cpt_by_month:
+                cf = pcm["cpt_flags"].get(cpt)
+                if cf:
+                    cpt_month_data.append({
+                        "month": pcm["month"],
+                        "paid_amount": cf["total_paid"],
+                        "expected_amount": cf["total_expected"],
+                        "variance": cf["avg_variance"],
+                        "flag": cf["flag"],
+                        "count": cf["count"],
+                    })
+            if cpt_month_data:
+                cpt_trends.append({"cpt_code": cpt, "months": cpt_month_data})
+
+        per_payer_trends.append({
+            "payer_name": payer,
+            "months": payer_months,
+            "cpt_trends": cpt_trends,
+        })
+
+    # Generate alerts by comparing last two months
+    alerts = []
+    if len(month_data) >= 2:
+        prev_md = month_data[-2]
+        curr_md = month_data[-1]
+
+        for payer in all_payers:
+            prev_analysis = next((a for a in prev_md["analyses"] if a["payer_name"] == payer), None)
+            curr_analysis = next((a for a in curr_md["analyses"] if a["payer_name"] == payer), None)
+
+            if not prev_analysis or not curr_analysis:
+                continue
+
+            prev_cpt = _aggregate_cpt_flags(prev_analysis.get("line_items", []))
+            curr_cpt = _aggregate_cpt_flags(curr_analysis.get("line_items", []))
+
+            # New underpayment: CPT was CORRECT last month, UNDERPAID this month
+            for cpt, curr_info in curr_cpt.items():
+                prev_info = prev_cpt.get(cpt)
+                if curr_info["flag"] == "UNDERPAID":
+                    if prev_info and prev_info["flag"] == "CORRECT":
+                        alerts.append({
+                            "type": "new_underpayment",
+                            "severity": "high",
+                            "payer_name": payer,
+                            "cpt_code": cpt,
+                            "detail": f"CPT {cpt} was correctly paid last month but is now underpaid (avg variance: ${curr_info['avg_variance']:+.2f})",
+                            "financial_impact": round(abs(curr_info["avg_variance"]) * curr_info["count"], 2),
+                            "month": curr_md["month"],
+                        })
+                    elif prev_info and prev_info["flag"] == "UNDERPAID":
+                        # Worsening underpayment
+                        if curr_info["avg_variance"] < prev_info["avg_variance"] - 0.50:
+                            alerts.append({
+                                "type": "worsening_underpayment",
+                                "severity": "high",
+                                "payer_name": payer,
+                                "cpt_code": cpt,
+                                "detail": f"CPT {cpt} underpayment worsened from ${prev_info['avg_variance']:+.2f} to ${curr_info['avg_variance']:+.2f}",
+                                "financial_impact": round(abs(curr_info["avg_variance"] - prev_info["avg_variance"]) * curr_info["count"], 2),
+                                "month": curr_md["month"],
+                            })
+
+            # Resolved underpayment: was UNDERPAID, now CORRECT
+            for cpt, prev_info in prev_cpt.items():
+                curr_info = curr_cpt.get(cpt)
+                if prev_info["flag"] == "UNDERPAID" and curr_info and curr_info["flag"] == "CORRECT":
+                    alerts.append({
+                        "type": "resolved_underpayment",
+                        "severity": "positive",
+                        "payer_name": payer,
+                        "cpt_code": cpt,
+                        "detail": f"CPT {cpt} underpayment has been resolved — now paying at contracted rate",
+                        "financial_impact": round(abs(prev_info["avg_variance"]) * prev_info["count"], 2),
+                        "month": curr_md["month"],
+                    })
+
+            # Denial code changes
+            prev_denial_codes = _extract_denial_codes(prev_analysis.get("denial_intel"))
+            curr_denial_codes = _extract_denial_codes(curr_analysis.get("denial_intel"))
+            new_denial_codes = curr_denial_codes - prev_denial_codes
+            for code in new_denial_codes:
+                alerts.append({
+                    "type": "new_denial_pattern",
+                    "severity": "medium",
+                    "payer_name": payer,
+                    "cpt_code": None,
+                    "detail": f"New denial reason code {code} appeared this month for {payer}",
+                    "financial_impact": None,
+                    "month": curr_md["month"],
+                })
+
+            # Denial rate change (>=2 percentage points)
+            prev_sc = prev_analysis.get("scorecard", {})
+            curr_sc = curr_analysis.get("scorecard", {})
+            prev_dr = prev_sc.get("denial_rate", 0)
+            curr_dr = curr_sc.get("denial_rate", 0)
+            if abs(curr_dr - prev_dr) >= 2.0:
+                severity = "high" if curr_dr > prev_dr else "positive"
+                direction = "increased" if curr_dr > prev_dr else "decreased"
+                alerts.append({
+                    "type": "denial_rate_change",
+                    "severity": severity,
+                    "payer_name": payer,
+                    "cpt_code": None,
+                    "detail": f"{payer} denial rate {direction} from {prev_dr}% to {curr_dr}%",
+                    "financial_impact": None,
+                    "month": curr_md["month"],
+                })
+
+        # Revenue gap trajectory (cumulative across all months and payers)
+        cumulative_underpayment = 0
+        months_count = len(month_data)
+        for md in month_data:
+            for a in md["analyses"]:
+                cumulative_underpayment += a["summary"].get("total_underpayment", 0)
+
+        if cumulative_underpayment > 0 and months_count > 0:
+            monthly_avg = cumulative_underpayment / months_count
+            projected_annual = round(monthly_avg * 12, 2)
+            severity = "high" if projected_annual > 10000 else "medium"
+            alerts.append({
+                "type": "revenue_gap_trajectory",
+                "severity": severity,
+                "payer_name": None,
+                "cpt_code": None,
+                "detail": f"Cumulative underpayment of ${cumulative_underpayment:,.2f} over {months_count} month(s). Projected annual revenue gap: ${projected_annual:,.2f}",
+                "financial_impact": projected_annual,
+                "month": curr_md["month"] if len(month_data) >= 2 else month_data[-1]["month"],
+            })
+
+    return {
+        "monthly_summary": monthly_summary,
+        "per_payer_trends": per_payer_trends,
+        "alerts": alerts,
+    }
+
+
+def _generate_trend_narrative(sub: dict, monthly_summary: list, alerts: list) -> str:
+    """Generate AI narrative summarizing month-over-month trends."""
+    months_count = len(monthly_summary)
+    if months_count < 2:
+        return ""
+
+    # Build context for Claude
+    high_alerts = [a for a in alerts if a.get("severity") == "high"]
+    positive_alerts = [a for a in alerts if a.get("severity") == "positive"]
+    medium_alerts = [a for a in alerts if a.get("severity") == "medium"]
+
+    # Calculate total underpayment trend
+    month_totals = []
+    for ms in monthly_summary:
+        total_underpayment = sum(p.get("total_underpayment", 0) for p in ms.get("payers", []))
+        month_totals.append({"month": ms.get("month"), "label": ms.get("label"), "total_underpayment": total_underpayment})
+
+    practice_name = sub.get("practice_name", "the practice")
+
+    prompt_data = json.dumps({
+        "practice_name": practice_name,
+        "months_analyzed": months_count,
+        "month_totals": month_totals,
+        "high_severity_alerts": [a["detail"] for a in high_alerts[:5]],
+        "positive_alerts": [a["detail"] for a in positive_alerts[:3]],
+        "medium_alerts": [a["detail"] for a in medium_alerts[:3]],
+        "latest_month": monthly_summary[-1] if monthly_summary else {},
+    }, default=str)
+
+    system_prompt = (
+        "You are a medical billing analytics expert writing a trend summary for a healthcare practice. "
+        "Write a 3-5 sentence professional narrative paragraph. "
+        "Open with the biggest financial impact finding. "
+        "Highlight worsening patterns that need immediate action. "
+        "Acknowledge any resolved issues. "
+        "Close with the projected annual impact. "
+        f"{'Note that this is based on only ' + str(months_count) + ' months of data (preliminary trends). ' if months_count <= 2 else ''}"
+        "Use specific dollar amounts and percentages. Be direct and actionable. Do not use markdown formatting."
+    )
+
+    narrative = _call_claude_text(
+        system_prompt=system_prompt,
+        user_content=prompt_data,
+        max_tokens=512,
+    )
+
+    return narrative or ""
+
+
+def _compute_and_cache_trends(subscription_id: str, sb=None) -> dict:
+    """Compute trends and cache the AI narrative on the subscription."""
+    if sb is None:
+        sb = _get_supabase()
+    from datetime import datetime
+
+    trends = _compute_trends(subscription_id, sb=sb)
+
+    # Fetch subscription for narrative generation
+    sub_result = sb.table("provider_subscriptions").select("*").eq("id", subscription_id).execute()
+    if not sub_result.data:
+        return trends
+
+    sub = sub_result.data[0]
+
+    narrative = _generate_trend_narrative(sub, trends["monthly_summary"], trends["alerts"])
+
+    if narrative:
+        sb.table("provider_subscriptions").update({
+            "trend_narrative": narrative,
+            "trend_narrative_updated_at": datetime.utcnow().isoformat(),
+        }).eq("id", subscription_id).execute()
+
+    trends["trend_narrative"] = narrative
+    return trends
 
 
 @router.get("/admin/audits/results")
@@ -3151,8 +3627,111 @@ async def admin_add_month(
         "lines_count": sum(len(c.get("line_items", [])) for c in claims_list),
         "added_at": datetime.utcnow().isoformat(),
     }
+
+    # --- Run analysis pipeline for this month's data ---
+    payer_data = sub.get("payer_data", []) or []
+    user_id = sub.get("user_id", "")
+
+    # Build payer_rates from subscription's payer_data
+    payer_rates = {}
+    fallback_zip = ""
+    # Try to resolve ZIP from user profile
+    if user_id:
+        try:
+            prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).maybeSingle().execute()
+            if prof.data:
+                fallback_zip = prof.data.get("zip_code", "")
+        except Exception:
+            pass
+
+    for p in payer_data:
+        pn = p.get("payer_name", "")
+        rates = p.get("fee_schedule_data", {})
+        if rates:
+            payer_rates[pn] = {str(k): float(v) for k, v in rates.items()}
+        elif p.get("fee_schedule_method") == "medicare-pct" and fallback_zip:
+            pct = p.get("medicare_percentage") or 120
+            c, l = resolve_locality(fallback_zip)
+            if c and l:
+                all_rates = get_all_pfs_rates_for_locality(c, l)
+                multiplier = float(pct) / 100.0
+                regenerated = {}
+                for r in all_rates:
+                    med_rate = r.get("nonfacility_amount")
+                    if med_rate and med_rate > 0:
+                        regenerated[str(r["cpt_code"])] = round(float(med_rate) * multiplier, 2)
+                if regenerated:
+                    payer_rates[pn] = regenerated
+
+    # Build payer_lines from the newly-parsed 835 only
+    month_payer_lines = {}
+    for claim in entry.get("claims", []):
+        for line in claim.get("lines", []):
+            cpt = line.get("cpt_code", "")
+            if not cpt:
+                continue
+            adj = line.get("adjustments", "")
+            if isinstance(adj, list):
+                adj_parts = []
+                for a in adj:
+                    if isinstance(a, dict):
+                        gc = a.get("group_code", "")
+                        rc = a.get("reason_code", "")
+                        adj_parts.append(f"{gc}-{rc}" if gc else rc)
+                    else:
+                        adj_parts.append(str(a))
+                adj = ", ".join(adj_parts)
+            # Use the 835 payer_name as key
+            month_payer_lines.setdefault(payer_name, []).append({
+                "cpt_code": cpt,
+                "code_type": "CPT",
+                "billed_amount": float(line.get("billed_amount", 0)),
+                "paid_amount": float(line.get("paid_amount", 0)),
+                "units": int(line.get("units", 1)),
+                "adjustments": adj,
+                "claim_id": claim.get("claim_id", ""),
+            })
+
+    # Resolve carrier/locality for Medicare benchmarks
+    carrier, locality = None, None
+    if fallback_zip:
+        carrier, locality = resolve_locality(fallback_zip)
+
+    # Run analysis for each payer with both rates and lines
+    month_analysis_ids = []
+    for pn, rates in payer_rates.items():
+        lines = month_payer_lines.get(pn, [])
+        if not lines:
+            # Try case-insensitive match
+            for rp, rl in month_payer_lines.items():
+                if rp.lower() == pn.lower():
+                    lines = rl
+                    break
+        if not lines:
+            continue
+
+        result = _run_analysis_for_payer(
+            payer_name=pn,
+            rates=rates,
+            lines=lines,
+            user_id=user_id,
+            carrier=carrier,
+            locality=locality,
+            sb=sb,
+        )
+        if result["analysis_id"]:
+            month_analysis_ids.append(result["analysis_id"])
+
+    new_month["analysis_ids"] = month_analysis_ids
     monthly.append(new_month)
     sb.table("provider_subscriptions").update({"monthly_analyses": monthly}).eq("id", subscription_id).execute()
+
+    # Compute trends and cache AI narrative if we have 2+ months
+    if len(monthly) >= 2:
+        try:
+            _compute_and_cache_trends(subscription_id, sb=sb)
+        except Exception as exc:
+            print(f"[AddMonth] Trend computation failed: {exc}")
 
     return {
         "status": "ok",
@@ -3160,6 +3739,57 @@ async def admin_add_month(
         "claims_parsed": len(claims_list),
         "total_lines": new_month["lines_count"],
         "payer_name": payer_name,
+        "analysis_ids": month_analysis_ids,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Subscription Trends
+# ---------------------------------------------------------------------------
+
+@router.get("/subscription/{subscription_id}/trends")
+async def subscription_trends(subscription_id: str, request: Request):
+    """Get month-over-month trend data for a subscription.
+
+    Auth: Admin (via _verify_admin) OR authenticated user whose ID matches subscription's user_id.
+    """
+    sb = _get_supabase()
+
+    # Try admin auth first
+    is_admin = False
+    try:
+        await _verify_admin(request)
+        is_admin = True
+    except Exception:
+        pass
+
+    if not is_admin:
+        # Fall back to user auth — user_id must match subscription
+        user = await _get_authenticated_user(request)
+        sub_check = sb.table("provider_subscriptions").select("user_id").eq("id", subscription_id).execute()
+        if not sub_check.data:
+            raise HTTPException(status_code=404, detail="Subscription not found")
+        if sub_check.data[0].get("user_id") != user.id:
+            raise HTTPException(status_code=403, detail="Not authorized to view this subscription")
+
+    # Compute trends
+    trends = _compute_trends(subscription_id, sb=sb)
+
+    # Get cached narrative
+    sub_result = sb.table("provider_subscriptions").select("trend_narrative, monthly_analyses").eq("id", subscription_id).execute()
+    narrative = ""
+    months_analyzed = 0
+    if sub_result.data:
+        narrative = sub_result.data[0].get("trend_narrative") or ""
+        months_analyzed = len(sub_result.data[0].get("monthly_analyses", []) or [])
+
+    return {
+        "subscription_id": subscription_id,
+        "months_analyzed": months_analyzed,
+        "trend_narrative": narrative,
+        "monthly_summary": trends["monthly_summary"],
+        "per_payer_trends": trends["per_payer_trends"],
+        "alerts": trends["alerts"],
     }
 
 

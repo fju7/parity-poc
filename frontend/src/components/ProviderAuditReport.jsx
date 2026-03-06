@@ -60,7 +60,7 @@ function flagColor(flag) {
   return { bg: "#F3F4F6", text: "#6B7280" };
 }
 
-export default function ProviderAuditReport({ analysisResults, practiceInfo, onClose }) {
+export default function ProviderAuditReport({ analysisResults, practiceInfo, onClose, trendData }) {
   const [downloading, setDownloading] = useState(false);
 
   const practiceName = practiceInfo?.practice_name || practiceInfo?.name || "Practice";
@@ -178,6 +178,54 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           {" "}The full AI-generated executive summary and recommended actions are included in the downloadable PDF report.
         </p>
       </div>
+
+      {/* === 2b. Changes Since Last Month (only when trendData provided with alerts) === */}
+      {trendData && trendData.alerts && trendData.alerts.length > 0 && (
+        <div style={sectionStyle}>
+          <h2 style={headingStyle}>Changes Since Last Month</h2>
+          {trendData.trend_narrative && (
+            <p style={{ ...bodyStyle, fontStyle: "italic", color: SLATE, marginBottom: 16 }}>
+              {trendData.trend_narrative}
+            </p>
+          )}
+          {(() => {
+            const highAlerts = trendData.alerts.filter(a => a.severity === "high");
+            const positiveAlerts = trendData.alerts.filter(a => a.severity === "positive");
+            const trajectory = trendData.alerts.find(a => a.type === "revenue_gap_trajectory");
+            return (
+              <>
+                {highAlerts.length > 0 && (
+                  <div style={{ marginBottom: 12 }}>
+                    <h3 style={{ fontSize: 14, fontWeight: 700, color: RED, margin: "0 0 8px" }}>New &amp; Worsening Issues</h3>
+                    {highAlerts.map((a, i) => (
+                      <div key={i} style={{ background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 6, padding: "8px 12px", marginBottom: 6, fontSize: 13 }}>
+                        {a.detail}
+                        {a.financial_impact != null && <span style={{ fontWeight: 600, color: RED, marginLeft: 8 }}>(${a.financial_impact.toLocaleString("en-US", { minimumFractionDigits: 2 })})</span>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {positiveAlerts.length > 0 && (
+                  <div style={{ marginBottom: 12 }}>
+                    <h3 style={{ fontSize: 14, fontWeight: 700, color: GREEN, margin: "0 0 8px" }}>Resolved Issues</h3>
+                    {positiveAlerts.map((a, i) => (
+                      <div key={i} style={{ background: "#F0FDF4", border: "1px solid #BBF7D0", borderRadius: 6, padding: "8px 12px", marginBottom: 6, fontSize: 13 }}>
+                        {a.detail}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {trajectory && trajectory.financial_impact && (
+                  <div style={{ background: NAVY, color: "#fff", borderRadius: 8, padding: 16, textAlign: "center", marginTop: 12 }}>
+                    <div style={{ fontSize: 13, opacity: 0.8, marginBottom: 4 }}>Projected Annual Revenue Gap</div>
+                    <div style={{ fontSize: 24, fontWeight: 700 }}>${trajectory.financial_impact.toLocaleString("en-US", { minimumFractionDigits: 2 })}</div>
+                  </div>
+                )}
+              </>
+            );
+          })()}
+        </div>
+      )}
 
       {/* === 3. Contract Integrity Findings === */}
       <div style={sectionStyle}>

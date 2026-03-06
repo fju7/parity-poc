@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { Link, useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { supabase } from "./lib/supabase.js";
@@ -7,6 +7,7 @@ import { LogoIcon } from "./components/CivicScaleHomepage.jsx";
 import ProviderAuditPage from "./components/ProviderAuditPage.jsx";
 import ProviderAuditReport from "./components/ProviderAuditReport.jsx";
 import ProviderAuditAdmin from "./components/ProviderAuditAdmin.jsx";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import "./components/CivicScaleHomepage.css";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -92,6 +93,12 @@ export default function ProviderApp() {
   const [historicalReport, setHistoricalReport] = useState(null); // full analysis record
   const [historicalLoading, setHistoricalLoading] = useState(false);
 
+  // ── Trends state ──
+  const [trendsData, setTrendsData] = useState(null);
+  const [trendsLoading, setTrendsLoading] = useState(false);
+  const [trendsError, setTrendsError] = useState("");
+  const [subscriptionId, setSubscriptionId] = useState(null);
+
   // Auth bootstrap
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session: s } }) => {
@@ -140,8 +147,28 @@ export default function ProviderApp() {
     if (data) {
       setProfile(data);
       setView("dashboard");
+      // Load subscription ID for trends
+      loadSubscriptionId();
     } else {
       setView("onboarding");
+    }
+  }
+
+  async function loadSubscriptionId() {
+    try {
+      const { data: { session: s } } = await supabase.auth.getSession();
+      if (!s) return;
+      const res = await fetch(`${API_BASE}/api/provider/my-subscription`, {
+        headers: { Authorization: `Bearer ${s.access_token}` },
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json.subscription?.id) {
+          setSubscriptionId(json.subscription.id);
+        }
+      }
+    } catch (err) {
+      console.error("[ProviderApp] Error loading subscription:", err);
     }
   }
 
@@ -1120,7 +1147,7 @@ export default function ProviderApp() {
 
         {/* Tab buttons */}
         <div style={{ display: "flex", gap: 8, marginBottom: 32 }}>
-          {["home", "contract", "coding"].map(tab => (
+          {["home", "contract", "coding", "trends"].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -1133,7 +1160,7 @@ export default function ProviderApp() {
                 ),
               }}
             >
-              {tab === "home" ? "Dashboard" : tab === "contract" ? "Contract Integrity" : "Coding Analysis"}
+              {tab === "home" ? "Dashboard" : tab === "contract" ? "Contract Integrity" : tab === "coding" ? "Coding Analysis" : "Trends"}
             </button>
           ))}
         </div>
@@ -1208,6 +1235,30 @@ export default function ProviderApp() {
             onGenerateReport={() => setShowAuditReport(true)}
           />
           </div>
+        ) : activeTab === "trends" ? (
+          <TrendsTab
+            data={trendsData}
+            loading={trendsLoading}
+            error={trendsError}
+            subscriptionId={subscriptionId}
+            onLoad={async () => {
+              if (trendsData || trendsLoading || !subscriptionId) return;
+              setTrendsLoading(true);
+              setTrendsError("");
+              try {
+                const { data: { session: s } } = await supabase.auth.getSession();
+                const res = await fetch(`${API_BASE}/api/provider/subscription/${subscriptionId}/trends`, {
+                  headers: { Authorization: `Bearer ${s.access_token}` },
+                });
+                if (!res.ok) throw new Error("Failed to load trends");
+                setTrendsData(await res.json());
+              } catch (err) {
+                setTrendsError(err.message);
+              } finally {
+                setTrendsLoading(false);
+              }
+            }}
+          />
         ) : (
           <div>
             <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 0, marginBottom: 24, lineHeight: 1.6 }}>
@@ -2159,6 +2210,225 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding, 
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// Trends Tab Component
+// ═══════════════════════════════════════════════════════════════════
+
+const TREND_COLORS = ["#1B3A5C", "#0D7377", "#7C3AED", "#D97706", "#DC2626", "#059669"];
+
+function TrendsTab({ data, loading, error, subscriptionId, onLoad }) {
+  const [expandedPayer, setExpandedPayer] = useState(null);
+
+  useEffect(() => {
+    onLoad();
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!subscriptionId) {
+    return (
+      <div style={{ textAlign: "center", padding: 48, color: "var(--cs-slate)" }}>
+        <p style={{ fontSize: 16 }}>No active subscription found.</p>
+        <p style={{ fontSize: 14 }}>Subscribe to monthly monitoring to access trend analysis.</p>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", padding: 48 }}>
+        <div style={{ width: 40, height: 40, border: "3px solid var(--cs-border)", borderTopColor: "var(--cs-teal)", borderRadius: "50%", margin: "0 auto 16px", animation: "spin 0.8s linear infinite" }} />
+        <p style={{ color: "var(--cs-slate)" }}>Loading trend data...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: 24, background: "#FEF2F2", borderRadius: 8, color: "#DC2626" }}>
+        Failed to load trends: {error}
+      </div>
+    );
+  }
+
+  if (!data || data.months_analyzed < 2) {
+    return (
+      <div style={{ textAlign: "center", padding: 48, color: "var(--cs-slate)" }}>
+        <div style={{ fontSize: 48, marginBottom: 16 }}>&#x1F4C8;</div>
+        <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>Trend analysis requires at least 2 months of data.</p>
+        <p style={{ fontSize: 14 }}>Upload your next month's 835 file to begin tracking trends.</p>
+      </div>
+    );
+  }
+
+  // Build chart data
+  const chartData = (data.monthly_summary || []).map(ms => {
+    const point = { month: ms.label || ms.month };
+    (ms.payers || []).forEach(p => { point[p.payer_name] = p.total_underpayment; });
+    return point;
+  });
+
+  const allPayers = [...new Set((data.monthly_summary || []).flatMap(ms => (ms.payers || []).map(p => p.payer_name)))];
+
+  const highAlerts = (data.alerts || []).filter(a => a.severity === "high");
+  const mediumAlerts = (data.alerts || []).filter(a => a.severity === "medium");
+  const positiveAlerts = (data.alerts || []).filter(a => a.severity === "positive");
+
+  return (
+    <div>
+      {/* AI Narrative */}
+      {data.trend_narrative && (
+        <div style={{
+          background: "linear-gradient(135deg, #1B3A5C 0%, #0D7377 100%)",
+          borderRadius: 12, padding: 24, marginBottom: 24, color: "#fff",
+        }}>
+          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 8, opacity: 0.8 }}>
+            AI Trend Analysis
+          </div>
+          <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0 }}>{data.trend_narrative}</p>
+        </div>
+      )}
+
+      {/* Timeline Chart */}
+      {chartData.length > 1 && (
+        <div style={{ background: "#fff", border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, marginBottom: 24 }}>
+          <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 600, color: "var(--cs-navy)" }}>
+            Monthly Revenue Gap by Payer
+          </h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+              <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} tickFormatter={v => `$${v.toLocaleString()}`} />
+              <Tooltip formatter={(v) => [`$${Number(v).toLocaleString(undefined, { minimumFractionDigits: 2 })}`, undefined]} />
+              <Legend />
+              {allPayers.map((payer, i) => (
+                <Line key={payer} type="monotone" dataKey={payer} stroke={TREND_COLORS[i % TREND_COLORS.length]} strokeWidth={2} dot={{ r: 4 }} />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+
+      {/* Trend Alerts */}
+      {(highAlerts.length > 0 || mediumAlerts.length > 0 || positiveAlerts.length > 0) && (
+        <div style={{ marginBottom: 24 }}>
+          <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 600, color: "var(--cs-navy)" }}>
+            Trend Alerts
+          </h3>
+          {highAlerts.map((a, i) => (
+            <div key={`high-${i}`} style={{
+              background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 8, padding: 12, marginBottom: 8,
+            }}>
+              <span style={{ display: "inline-block", background: "#DC2626", color: "#fff", fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 4, marginRight: 8 }}>
+                {a.type === "new_underpayment" ? "NEW" : a.type === "worsening_underpayment" ? "WORSENING" : a.type === "denial_rate_change" ? "DENIAL RATE" : "HIGH"}
+              </span>
+              <span style={{ fontSize: 14, color: "#1E293B" }}>{a.detail}</span>
+              {a.financial_impact != null && (
+                <span style={{ float: "right", fontWeight: 600, color: "#DC2626" }}>${a.financial_impact.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              )}
+            </div>
+          ))}
+          {mediumAlerts.map((a, i) => (
+            <div key={`med-${i}`} style={{
+              background: "#FFFBEB", border: "1px solid #FDE68A", borderRadius: 8, padding: 12, marginBottom: 8,
+            }}>
+              <span style={{ display: "inline-block", background: "#D97706", color: "#fff", fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 4, marginRight: 8 }}>
+                {a.type === "new_denial_pattern" ? "NEW DENIAL" : "MEDIUM"}
+              </span>
+              <span style={{ fontSize: 14, color: "#1E293B" }}>{a.detail}</span>
+            </div>
+          ))}
+          {positiveAlerts.map((a, i) => (
+            <div key={`pos-${i}`} style={{
+              background: "#F0FDF4", border: "1px solid #BBF7D0", borderRadius: 8, padding: 12, marginBottom: 8,
+            }}>
+              <span style={{ display: "inline-block", background: "#059669", color: "#fff", fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 4, marginRight: 8 }}>
+                {a.type === "resolved_underpayment" ? "RESOLVED" : a.type === "denial_rate_change" ? "IMPROVED" : "POSITIVE"}
+              </span>
+              <span style={{ fontSize: 14, color: "#1E293B" }}>{a.detail}</span>
+              {a.financial_impact != null && (
+                <span style={{ float: "right", fontWeight: 600, color: "#059669" }}>${a.financial_impact.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Per-Payer Breakdown */}
+      {(data.per_payer_trends || []).length > 0 && (
+        <div>
+          <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 600, color: "var(--cs-navy)" }}>
+            Per-Payer Breakdown
+          </h3>
+          {data.per_payer_trends.map((pt, idx) => (
+            <div key={pt.payer_name} style={{ border: "1px solid var(--cs-border)", borderRadius: 8, marginBottom: 8, overflow: "hidden" }}>
+              <button
+                onClick={() => setExpandedPayer(expandedPayer === idx ? null : idx)}
+                style={{
+                  width: "100%", padding: "12px 16px", background: expandedPayer === idx ? "#F0FDFA" : "#fff",
+                  border: "none", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center",
+                  fontSize: 14, fontWeight: 600, color: "var(--cs-navy)",
+                }}
+              >
+                <span>{pt.payer_name}</span>
+                <span style={{ fontSize: 12, color: "var(--cs-slate)" }}>
+                  {pt.months?.length || 0} month(s) &middot; {pt.cpt_trends?.length || 0} CPT codes
+                  {expandedPayer === idx ? " ▲" : " ▼"}
+                </span>
+              </button>
+              {expandedPayer === idx && pt.cpt_trends && pt.cpt_trends.length > 0 && (
+                <div style={{ padding: 16, borderTop: "1px solid var(--cs-border)" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                    <thead>
+                      <tr style={{ background: "#1B3A5C", color: "#fff" }}>
+                        <th style={{ padding: "8px 12px", textAlign: "left" }}>CPT</th>
+                        {pt.cpt_trends[0]?.months?.map(m => (
+                          <th key={m.month} colSpan={3} style={{ padding: "8px 12px", textAlign: "center" }}>{m.month}</th>
+                        ))}
+                      </tr>
+                      <tr style={{ background: "#F8FAFC", fontSize: 11 }}>
+                        <th style={{ padding: "4px 12px" }}></th>
+                        {pt.cpt_trends[0]?.months?.map(m => (
+                          <Fragment key={`sub-${m.month}`}>
+                            <th style={{ padding: "4px 8px", textAlign: "right" }}>Paid</th>
+                            <th style={{ padding: "4px 8px", textAlign: "right" }}>Expected</th>
+                            <th style={{ padding: "4px 8px", textAlign: "center" }}>Δ</th>
+                          </Fragment>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pt.cpt_trends.slice(0, 30).map((ct, ci) => (
+                        <tr key={ct.cpt_code} style={{ background: ci % 2 === 0 ? "#fff" : "#F8FAFC" }}>
+                          <td style={{ padding: "6px 12px", fontWeight: 600 }}>{ct.cpt_code}</td>
+                          {ct.months.map((m, mi) => {
+                            const prevMonth = mi > 0 ? ct.months[mi - 1] : null;
+                            const improved = prevMonth && m.variance > prevMonth.variance;
+                            const worsened = prevMonth && m.variance < prevMonth.variance - 0.50;
+                            return (
+                              <Fragment key={m.month}>
+                                <td style={{ padding: "6px 8px", textAlign: "right" }}>${m.paid_amount?.toFixed(2)}</td>
+                                <td style={{ padding: "6px 8px", textAlign: "right" }}>${m.expected_amount?.toFixed(2)}</td>
+                                <td style={{ padding: "6px 8px", textAlign: "center", color: worsened ? "#DC2626" : improved ? "#059669" : "var(--cs-slate)" }}>
+                                  {worsened ? "↓" : improved ? "↑" : "—"}
+                                </td>
+                              </Fragment>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
