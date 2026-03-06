@@ -1,14 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
-
-const PROD_ORIGIN = "https://civicscale.ai";
-
-function getRedirectOrigin() {
-  return window.location.hostname === "localhost"
-    ? window.location.origin
-    : PROD_ORIGIN;
-}
+import { getRedirectOrigin } from "../../lib/redirectOrigin.js";
 
 export default function SignalLogin() {
   const navigate = useNavigate();

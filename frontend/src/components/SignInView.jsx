@@ -1,14 +1,7 @@
 import { useState, useCallback } from "react";
 import { supabase } from "../lib/supabase.js";
+import { getRedirectOrigin } from "../lib/redirectOrigin.js";
 import { Footer } from "./UploadView.jsx";
-
-const PROD_ORIGIN = "https://civicscale.ai";
-
-function getRedirectOrigin() {
-  return window.location.hostname === "localhost"
-    ? window.location.origin
-    : PROD_ORIGIN;
-}
 
 export default function SignInView() {
   const [email, setEmail] = useState("");

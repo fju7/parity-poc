@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase.js";
+import { getRedirectOrigin } from "../lib/redirectOrigin.js";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
@@ -38,12 +39,7 @@ export default function EmployerLoginPage() {
     setStatus("sending");
     setErrorMsg("");
 
-    // Hardcode to non-www to match Supabase allowlist exactly
-    // (window.location.origin may be www.civicscale.ai which won't match)
-    const origin = window.location.hostname === "localhost"
-      ? window.location.origin
-      : "https://civicscale.ai";
-    const redirectUrl = origin + "/employer/auth/callback";
+    const redirectUrl = getRedirectOrigin() + "/employer/auth/callback";
     console.log("[EmployerLogin] Sending magic link with redirect:", redirectUrl);
 
     const { error } = await supabase.auth.signInWithOtp({

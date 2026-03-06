@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { supabase } from "./lib/supabase.js";
+import { getRedirectOrigin } from "./lib/redirectOrigin.js";
 import { LogoIcon } from "./components/CivicScaleHomepage.jsx";
 import ProviderAuditPage from "./components/ProviderAuditPage.jsx";
 import ProviderAuditReport from "./components/ProviderAuditReport.jsx";
@@ -150,13 +151,9 @@ export default function ProviderApp() {
     setSending(true);
     setAuthError("");
 
-    const origin = window.location.hostname === "localhost"
-      ? window.location.origin
-      : "https://civicscale.ai";
-
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: origin + (returnTo || "/provider") },
+      options: { emailRedirectTo: getRedirectOrigin() + (returnTo || "/provider") },
     });
 
     setSending(false);

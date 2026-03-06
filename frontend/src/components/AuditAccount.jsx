@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabase.js";
+import { getRedirectOrigin } from "../lib/redirectOrigin.js";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
@@ -165,13 +166,9 @@ export default function AuditAccount() {
     setSending(true);
     setAuthError("");
 
-    const origin = window.location.hostname === "localhost"
-      ? window.location.origin
-      : "https://civicscale.ai";
-
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: origin + "/audit/account" },
+      options: { emailRedirectTo: getRedirectOrigin() + "/audit/account" },
     });
 
     setSending(false);
