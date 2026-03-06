@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabase.js";
-import { getRedirectOrigin } from "../lib/redirectOrigin.js";
+import EmailOtpInput from "./EmailOtpInput.jsx";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
@@ -35,7 +35,7 @@ export default function AuditAccount() {
   // Login form state
   const [email, setEmail] = useState("");
   const [sending, setSending] = useState(false);
-  const [linkSent, setLinkSent] = useState(false);
+  const [codeSent, setCodeSent] = useState(false);
   const [authError, setAuthError] = useState("");
 
   // Auth bootstrap
@@ -178,21 +178,20 @@ export default function AuditAccount() {
     }
   }
 
-  const handleSendLink = useCallback(async (e) => {
+  const handleSendCode = useCallback(async (e) => {
     e.preventDefault();
     setSending(true);
     setAuthError("");
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: getRedirectOrigin() + "/audit/account" },
     });
 
     setSending(false);
     if (error) {
       setAuthError(error.message);
     } else {
-      setLinkSent(true);
+      setCodeSent(true);
     }
   }, [email]);
 
@@ -227,19 +226,18 @@ export default function AuditAccount() {
             Enter the email you used to submit your audit.
           </p>
 
-          {linkSent ? (
+          {codeSent ? (
             <div style={{
               background: "#F0FDFA", border: "1px solid #99F6E4", borderRadius: 12,
               padding: 24, textAlign: "center",
             }}>
-              <div style={{ fontSize: 32, marginBottom: 12 }}>&#9993;</div>
-              <h3 style={{ color: "#1E293B", margin: "0 0 8px" }}>Check your email</h3>
-              <p style={{ color: "#64748B", fontSize: 14, lineHeight: 1.6 }}>
-                We sent a sign-in link to <strong>{email}</strong>. Click the link in your email to access your account.
-              </p>
+              <EmailOtpInput
+                email={email}
+                onBack={() => { setCodeSent(false); setAuthError(""); }}
+              />
             </div>
           ) : (
-            <form onSubmit={handleSendLink}>
+            <form onSubmit={handleSendCode}>
               <input
                 type="email"
                 required
@@ -266,7 +264,7 @@ export default function AuditAccount() {
                   opacity: sending ? 0.7 : 1,
                 }}
               >
-                {sending ? "Sending..." : "Send sign-in link"}
+                {sending ? "Sending..." : "Send Code"}
               </button>
             </form>
           )}

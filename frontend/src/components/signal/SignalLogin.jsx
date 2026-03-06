@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
-import { getRedirectOrigin } from "../../lib/redirectOrigin.js";
+import EmailOtpInput from "../EmailOtpInput.jsx";
 
 export default function SignalLogin() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ export default function SignalLogin() {
 
   // Flow state
   const [method, setMethod] = useState("email"); // phone | email
-  const [step, setStep] = useState("input"); // input | code | sent
+  const [step, setStep] = useState("input"); // input | code
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
   const [resent, setResent] = useState(false);
@@ -174,7 +174,7 @@ export default function SignalLogin() {
 
   // ── Email helpers ──
 
-  async function handleSendMagicLink() {
+  async function handleSendEmailCode() {
     if (!email || !email.includes("@")) {
       setError("Please enter a valid email address.");
       return;
@@ -185,9 +185,6 @@ export default function SignalLogin() {
 
     const { error: otpError } = await supabase.auth.signInWithOtp({
       email,
-      options: {
-        emailRedirectTo: getRedirectOrigin() + (returnTo || "/signal"),
-      },
     });
 
     setSending(false);
@@ -197,7 +194,7 @@ export default function SignalLogin() {
       return;
     }
 
-    setStep("sent");
+    setStep("code");
   }
 
   // ── Render ──
@@ -364,18 +361,18 @@ export default function SignalLogin() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") handleSendMagicLink();
+                  if (e.key === "Enter") handleSendEmailCode();
                 }}
                 className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0D7377]/30 focus:border-[#0D7377] transition mb-4"
                 autoFocus
               />
 
               <button
-                onClick={handleSendMagicLink}
+                onClick={handleSendEmailCode}
                 disabled={sending || !email.includes("@")}
                 className="w-full py-2.5 rounded-lg text-sm font-semibold text-white bg-[#0D7377] hover:bg-[#0B6265] disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
-                {sending ? "Sending..." : "Send Magic Link"}
+                {sending ? "Sending..." : "Send Code"}
               </button>
 
               <div className="mt-4 text-center">
@@ -393,40 +390,15 @@ export default function SignalLogin() {
             </>
           )}
 
-          {/* ── Email: sent confirmation ── */}
-          {method === "email" && step === "sent" && (
-            <div className="text-center py-4">
-              <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#0D7377]/10 flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-[#0D7377]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-lg font-semibold text-[#1B3A5C] mb-1">
-                Check your email
-              </h2>
-              <p className="text-sm text-gray-500 mb-4">
-                We sent a sign-in link to <strong>{email}</strong>
-              </p>
-              <button
-                onClick={() => {
-                  setStep("input");
-                  setError(null);
-                }}
-                className="text-xs text-gray-400 hover:text-gray-600 bg-transparent border-none cursor-pointer transition"
-              >
-                Try a different email
-              </button>
-            </div>
+          {/* ── Email: code entry ── */}
+          {method === "email" && step === "code" && (
+            <EmailOtpInput
+              email={email}
+              onBack={() => {
+                setStep("input");
+                setError(null);
+              }}
+            />
           )}
         </div>
 

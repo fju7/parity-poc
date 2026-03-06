@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase.js";
-import { getRedirectOrigin } from "../lib/redirectOrigin.js";
+import EmailOtpInput from "./EmailOtpInput.jsx";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
@@ -14,7 +14,7 @@ export default function EmployerLoginPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [status, setStatus] = useState("idle"); // idle | sending | code | verifying | error
   const [errorMsg, setErrorMsg] = useState("");
 
   // Check for error params from callback redirect
@@ -34,24 +34,54 @@ export default function EmployerLoginPage() {
     }
   }, [navigate]);
 
+  // After OTP verification succeeds, Supabase fires onAuthStateChange.
+  // We listen for it here to verify employer access inline.
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session && status === "code") {
+        setStatus("verifying");
+        try {
+          const { data } = await supabase
+            .from("employer_users")
+            .select("employer_id, employer_accounts(company_name)")
+            .eq("email", session.user.email)
+            .single();
+
+          if (data && data.employer_id) {
+            const companyName = data.employer_accounts?.company_name || "Your Company";
+            localStorage.setItem("employer_session", JSON.stringify({
+              employer_id: data.employer_id,
+              company_name: companyName,
+              email: session.user.email,
+            }));
+            navigate("/employer/dashboard");
+          } else {
+            setStatus("error");
+            setErrorMsg(ERROR_MESSAGES.not_registered);
+          }
+        } catch {
+          setStatus("error");
+          setErrorMsg(ERROR_MESSAGES.not_registered);
+        }
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [navigate, status]);
+
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     setStatus("sending");
     setErrorMsg("");
 
-    const redirectUrl = getRedirectOrigin() + "/employer/auth/callback";
-    console.log("[EmployerLogin] Sending magic link with redirect:", redirectUrl);
-
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: redirectUrl },
     });
 
     if (error) {
       setStatus("error");
       setErrorMsg(error.message);
     } else {
-      setStatus("sent");
+      setStatus("code");
     }
   }, [email]);
 
@@ -80,27 +110,26 @@ export default function EmployerLoginPage() {
             </p>
           </div>
 
-          {status === "sent" ? (
+          {status === "verifying" ? (
+            <div style={{ textAlign: "center", padding: 32 }}>
+              <div style={{
+                width: 40, height: 40, border: "3px solid #e2e8f0", borderTopColor: "#0D7377",
+                borderRadius: "50%", animation: "cs-spin 0.8s linear infinite", margin: "0 auto 16px",
+              }} />
+              <p style={{ color: "#1B3A5C", fontWeight: 600, fontSize: 15 }}>
+                Verifying employer access...
+              </p>
+              <style>{`@keyframes cs-spin { to { transform: rotate(360deg); } }`}</style>
+            </div>
+          ) : status === "code" ? (
             <div style={{
               padding: 24, borderRadius: 12, border: "1px solid var(--cs-teal)",
               background: "var(--cs-teal-pale)", textAlign: "center"
             }}>
-              <p style={{ color: "var(--cs-navy)", fontWeight: 600, marginBottom: 4 }}>
-                Check your email
-              </p>
-              <p style={{ color: "var(--cs-slate)", fontSize: 14 }}>
-                We sent a login link to <strong>{email}</strong>. Click it to sign in.
-              </p>
-              <button
-                onClick={() => setStatus("idle")}
-                style={{
-                  marginTop: 16, background: "none", border: "none",
-                  color: "var(--cs-teal)", cursor: "pointer", fontSize: 14,
-                  textDecoration: "underline",
-                }}
-              >
-                Use a different email
-              </button>
+              <EmailOtpInput
+                email={email}
+                onBack={() => { setStatus("idle"); setErrorMsg(""); }}
+              />
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
@@ -143,11 +172,11 @@ export default function EmployerLoginPage() {
                   opacity: status === "sending" ? 0.6 : 1,
                 }}
               >
-                {status === "sending" ? "Sending..." : "Send Magic Link"}
+                {status === "sending" ? "Sending..." : "Send Code"}
               </button>
 
               <p style={{ textAlign: "center", fontSize: 13, color: "var(--cs-slate)", marginTop: 16 }}>
-                We'll send you a secure login link — no password needed.
+                We'll send you a secure code — no password needed.
               </p>
             </form>
           )}

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { supabase } from "./lib/supabase.js";
-import { getRedirectOrigin } from "./lib/redirectOrigin.js";
+import EmailOtpInput from "./components/EmailOtpInput.jsx";
 import { LogoIcon } from "./components/CivicScaleHomepage.jsx";
 import ProviderAuditPage from "./components/ProviderAuditPage.jsx";
 import ProviderAuditReport from "./components/ProviderAuditReport.jsx";
@@ -145,24 +145,23 @@ export default function ProviderApp() {
     }
   }
 
-  // Magic link send
-  const handleSendLink = useCallback(async (e) => {
+  // Send OTP code
+  const handleSendCode = useCallback(async (e) => {
     e.preventDefault();
     setSending(true);
     setAuthError("");
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: getRedirectOrigin() + (returnTo || "/provider") },
     });
 
     setSending(false);
     if (error) {
       setAuthError(error.message);
     } else {
-      setView("sent");
+      setView("code");
     }
-  }, [email, returnTo]);
+  }, [email]);
 
   // Onboarding submit
   const handleOnboardingSubmit = useCallback(async (e) => {
@@ -895,7 +894,7 @@ export default function ProviderApp() {
   }
 
   // ── LANDING VIEW ──
-  if (view === "landing" || view === "sent") {
+  if (view === "landing" || view === "code") {
     return (
       <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
         {nav}
@@ -910,30 +909,18 @@ export default function ProviderApp() {
               </p>
             </div>
 
-            {view === "sent" ? (
+            {view === "code" ? (
               <div style={{
                 padding: 24, borderRadius: 12, border: "1px solid var(--cs-teal)",
                 background: "var(--cs-teal-pale)", textAlign: "center"
               }}>
-                <p style={{ color: "var(--cs-navy)", fontWeight: 600, marginBottom: 4 }}>
-                  Check your email
-                </p>
-                <p style={{ color: "var(--cs-slate)", fontSize: 14 }}>
-                  We sent a login link to <strong>{email}</strong>. Click it to sign in.
-                </p>
-                <button
-                  onClick={() => setView("landing")}
-                  style={{
-                    marginTop: 16, background: "none", border: "none",
-                    color: "var(--cs-teal)", cursor: "pointer", fontSize: 14,
-                    textDecoration: "underline",
-                  }}
-                >
-                  Use a different email
-                </button>
+                <EmailOtpInput
+                  email={email}
+                  onBack={() => { setView("landing"); setAuthError(""); }}
+                />
               </div>
             ) : (
-              <form onSubmit={handleSendLink}>
+              <form onSubmit={handleSendCode}>
                 <div style={{ marginBottom: 16 }}>
                   <label style={{
                     display: "block", fontSize: 14, fontWeight: 500,
@@ -973,11 +960,11 @@ export default function ProviderApp() {
                     opacity: sending ? 0.6 : 1,
                   }}
                 >
-                  {sending ? "Sending..." : "Send Login Link"}
+                  {sending ? "Sending..." : "Send Code"}
                 </button>
 
                 <p style={{ textAlign: "center", fontSize: 13, color: "var(--cs-slate)", marginTop: 16 }}>
-                  We'll send you a secure login link — no password needed.
+                  We'll send you a secure code — no password needed.
                 </p>
               </form>
             )}

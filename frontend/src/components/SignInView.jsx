@@ -1,11 +1,11 @@
 import { useState, useCallback } from "react";
 import { supabase } from "../lib/supabase.js";
-import { getRedirectOrigin } from "../lib/redirectOrigin.js";
+import EmailOtpInput from "./EmailOtpInput.jsx";
 import { Footer } from "./UploadView.jsx";
 
 export default function SignInView() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [status, setStatus] = useState("idle"); // idle | sending | code | error
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = useCallback(
@@ -16,14 +16,13 @@ export default function SignInView() {
 
       const { error } = await supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: getRedirectOrigin() + "/parity-health/" },
       });
 
       if (error) {
         setStatus("error");
         setErrorMsg(error.message);
       } else {
-        setStatus("sent");
+        setStatus("code");
       }
     },
     [email]
@@ -38,34 +37,12 @@ export default function SignInView() {
         </h1>
         <p className="text-lg text-gray-500 mb-10">Bill Analysis</p>
 
-        {status === "sent" ? (
+        {status === "code" ? (
           <div className="bg-[#0D7377]/5 border border-[#0D7377]/20 rounded-xl p-6">
-            <svg
-              className="w-10 h-10 text-[#0D7377] mx-auto mb-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
-              />
-            </svg>
-            <p className="text-[#1B3A5C] font-semibold mb-1">
-              Check your email
-            </p>
-            <p className="text-sm text-gray-500">
-              We sent a login link to <strong>{email}</strong>. Click it to sign
-              in.
-            </p>
-            <button
-              onClick={() => setStatus("idle")}
-              className="mt-4 text-sm text-[#0D7377] hover:underline cursor-pointer"
-            >
-              Use a different email
-            </button>
+            <EmailOtpInput
+              email={email}
+              onBack={() => { setStatus("idle"); setErrorMsg(""); }}
+            />
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -92,11 +69,11 @@ export default function SignInView() {
               disabled={status === "sending"}
               className="w-full py-3 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {status === "sending" ? "Sending..." : "Send Magic Link"}
+              {status === "sending" ? "Sending..." : "Send Code"}
             </button>
 
             <p className="text-xs text-gray-400">
-              We'll send you a secure login link — no password needed.
+              We'll send you a secure code — no password needed.
             </p>
           </form>
         )}
