@@ -56,26 +56,43 @@ export default function AuditAccount() {
   // Fetch audits + subscription when session is available
   useEffect(() => {
     if (!session) return;
-    setDataLoading(true);
-    Promise.all([
-      fetchAudits(session.access_token),
-      fetchSubscription(session.access_token),
-    ]).finally(() => setDataLoading(false));
-  }, [session]);
+    const isCheckoutReturn = new URLSearchParams(window.location.search).get("checkout_success");
 
-  // Re-fetch after Stripe checkout return
-  useEffect(() => {
-    if (!session) return;
-    const params = new URLSearchParams(window.location.search);
-    if (!params.get("checkout_success")) return;
-    // Small delay to let webhook process, then re-fetch
-    const timer = setTimeout(() => {
-      Promise.all([
+    async function loadData() {
+      setDataLoading(true);
+      await Promise.all([
         fetchAudits(session.access_token),
         fetchSubscription(session.access_token),
       ]);
-    }, 2000);
-    return () => clearTimeout(timer);
+      setDataLoading(false);
+
+      // After checkout, the webhook may not have created the subscription yet.
+      // Poll a few times with increasing delays until the new subscription appears.
+      if (isCheckoutReturn) {
+        const delays = [2000, 3000, 5000];
+        for (const delay of delays) {
+          await new Promise((r) => setTimeout(r, delay));
+          const res = await fetch(`${API_BASE}/api/provider/my-subscription`, {
+            headers: { Authorization: `Bearer ${session.access_token}` },
+          });
+          if (!res.ok) continue;
+          const json = await res.json();
+          const subs = json.subscriptions || [];
+          setSubscription(subs[0] || null);
+          setSubscriptions(subs);
+          // Also refresh audits to get updated state
+          await fetchAudits(session.access_token);
+          // Stop polling once we have more subscriptions than before
+          // or if any subscription was created in the last 60 seconds
+          const recent = subs.some((s) => {
+            const age = Date.now() - new Date(s.created_at).getTime();
+            return age < 60000;
+          });
+          if (recent) break;
+        }
+      }
+    }
+    loadData();
   }, [session]);
 
   async function fetchAudits(token) {
