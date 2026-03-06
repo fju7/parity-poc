@@ -3164,6 +3164,49 @@ async def admin_add_month(
 
 
 # ---------------------------------------------------------------------------
+# Subscription Portal (Stripe) — Authenticated User
+# ---------------------------------------------------------------------------
+
+@router.post("/subscription/portal")
+async def subscription_portal(request: Request):
+    """Create a Stripe Customer Portal session for Provider subscription management."""
+    import stripe as stripe_lib
+
+    stripe_key = os.environ.get("STRIPE_SECRET_KEY", "")
+    if not stripe_key:
+        raise HTTPException(status_code=503, detail="Stripe not configured")
+    stripe_lib.api_key = stripe_key
+
+    user = await _get_authenticated_user(request)
+    email = user.email
+    if not email:
+        raise HTTPException(status_code=400, detail="No email on account")
+
+    sb = _get_supabase()
+
+    # Find the user's stripe_customer_id from their subscription
+    result = sb.table("provider_subscriptions") \
+        .select("stripe_customer_id") \
+        .eq("contact_email", email) \
+        .not_.is_("stripe_customer_id", "null") \
+        .limit(1) \
+        .execute()
+
+    if not result.data or not result.data[0].get("stripe_customer_id"):
+        raise HTTPException(status_code=404, detail="No billing record found")
+
+    customer_id = result.data[0]["stripe_customer_id"]
+    frontend_url = os.environ.get("FRONTEND_URL", "http://localhost:5173")
+
+    portal_session = stripe_lib.billing_portal.Session.create(
+        customer=customer_id,
+        return_url=f"{frontend_url}/audit/account",
+    )
+
+    return {"portal_url": portal_session.url}
+
+
+# ---------------------------------------------------------------------------
 # User: My Subscription
 # ---------------------------------------------------------------------------
 

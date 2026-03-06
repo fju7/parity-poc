@@ -28,6 +28,8 @@ export default function AuditAccount() {
   const [subscription, setSubscription] = useState(null);
   const [subscriptions, setSubscriptions] = useState([]);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(true);
+  const [portalLoading, setPortalLoading] = useState(false);
 
   // Login form state
   const [email, setEmail] = useState("");
@@ -53,8 +55,26 @@ export default function AuditAccount() {
   // Fetch audits + subscription when session is available
   useEffect(() => {
     if (!session) return;
-    fetchAudits(session.access_token);
-    fetchSubscription(session.access_token);
+    setDataLoading(true);
+    Promise.all([
+      fetchAudits(session.access_token),
+      fetchSubscription(session.access_token),
+    ]).finally(() => setDataLoading(false));
+  }, [session]);
+
+  // Re-fetch after Stripe checkout return
+  useEffect(() => {
+    if (!session) return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get("checkout_success")) return;
+    // Small delay to let webhook process, then re-fetch
+    const timer = setTimeout(() => {
+      Promise.all([
+        fetchAudits(session.access_token),
+        fetchSubscription(session.access_token),
+      ]);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, [session]);
 
   async function fetchAudits(token) {
@@ -82,6 +102,33 @@ export default function AuditAccount() {
       setSubscriptions(json.subscriptions || []);
     } catch (e) {
       console.error("[AuditAccount] Subscription fetch failed:", e);
+    }
+  }
+
+  async function handleManageSubscription() {
+    if (!session) return;
+    setPortalLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/provider/subscription/portal`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        alert(data.detail || "Failed to open billing portal");
+        return;
+      }
+      const json = await res.json();
+      if (json.portal_url) {
+        window.location.href = json.portal_url;
+      }
+    } catch (e) {
+      alert(e.message);
+    } finally {
+      setPortalLoading(false);
     }
   }
 
@@ -253,14 +300,17 @@ export default function AuditAccount() {
               </div>
               {subscription.stripe_subscription_id && (
                 <button
-                  onClick={() => window.open("https://billing.stripe.com/p/login/test", "_blank")}
+                  onClick={handleManageSubscription}
+                  disabled={portalLoading}
                   style={{
                     padding: "6px 14px", fontSize: 12, fontWeight: 600,
                     border: "1px solid #C4B5FD", borderRadius: 6,
-                    background: "#fff", color: "#7C3AED", cursor: "pointer",
+                    background: "#fff", color: "#7C3AED",
+                    cursor: portalLoading ? "not-allowed" : "pointer",
+                    opacity: portalLoading ? 0.7 : 1,
                   }}
                 >
-                  Manage Subscription
+                  {portalLoading ? "Loading..." : "Manage Subscription"}
                 </button>
               )}
             </div>
@@ -306,7 +356,12 @@ export default function AuditAccount() {
           </div>
         )}
 
-        {audits.length === 0 && !fetchError ? (
+        {dataLoading ? (
+          <div style={{ textAlign: "center", padding: "48px 0" }}>
+            <Spinner />
+            <p style={{ color: "#64748B", fontSize: 14 }}>Loading your audits...</p>
+          </div>
+        ) : audits.length === 0 && !fetchError ? (
           <div style={{ textAlign: "center", padding: "48px 0" }}>
             <div style={{ fontSize: 48, marginBottom: 16 }}>&#128203;</div>
             <h3 style={{ color: "#1E293B", margin: "0 0 8px" }}>No audits yet</h3>
