@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "../lib/supabase.js";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -62,6 +63,8 @@ function flagColor(flag) {
 
 export default function ProviderAuditReport({ analysisResults, practiceInfo, onClose, trendData }) {
   const [downloading, setDownloading] = useState(false);
+  const [appealModal, setAppealModal] = useState(null); // {loading, letter_html, letter_text, pdf_base64, appeal_strength, appeal_strength_reason, cms_references, editText}
+  const [appealGenerating, setAppealGenerating] = useState(null); // key of denial being generated
 
   const practiceName = practiceInfo?.practice_name || practiceInfo?.name || "Practice";
   const reportDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -119,8 +122,168 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
     }
   }
 
+  async function handleDraftAppeal(denialType, payerName) {
+    const key = `${payerName}-${denialType.adjustment_code}`;
+    setAppealGenerating(key);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { alert("Please log in to generate appeals."); return; }
+
+      const res = await fetch(`${API_BASE}/api/provider/generate-appeal`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          claim_id: denialType.adjustment_code,
+          denial_code: denialType.adjustment_code,
+          cpt_code: "",
+          billed_amount: denialType.total_value || 0,
+          payer_name: payerName,
+          date_of_service: "",
+          practice_name: practiceName,
+          practice_address: practiceInfo?.practice_address || "",
+          provider_name: practiceInfo?.provider_name || "",
+          npi: practiceInfo?.npi || "",
+          patient_name: "",
+          audit_id: practiceInfo?.audit_id || null,
+          subscription_id: practiceInfo?.subscription_id || null,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to generate appeal");
+      const data = await res.json();
+      setAppealModal({
+        ...data,
+        editText: data.letter_text || "",
+        payer_name: payerName,
+        denial_code: denialType.adjustment_code,
+      });
+    } catch (err) {
+      console.error("Appeal generation error:", err);
+      alert("Failed to generate appeal letter. Please try again.");
+    } finally {
+      setAppealGenerating(null);
+    }
+  }
+
+  function handleCopyAppeal() {
+    if (!appealModal?.editText) return;
+    navigator.clipboard.writeText(appealModal.editText).then(() => {
+      alert("Appeal letter copied to clipboard.");
+    });
+  }
+
+  function handleDownloadAppealPdf() {
+    if (!appealModal?.pdf_base64) return;
+    const byteChars = atob(appealModal.pdf_base64);
+    const byteArray = new Uint8Array(byteChars.length);
+    for (let i = 0; i < byteChars.length; i++) byteArray[i] = byteChars.charCodeAt(i);
+    const blob = new Blob([byteArray], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Appeal_${appealModal.payer_name}_${appealModal.denial_code}.pdf`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function handlePrintAppeal() {
+    if (!appealModal?.editText) return;
+    const w = window.open("", "_blank");
+    w.document.write(`<html><head><title>Appeal Letter</title><style>body{font-family:Arial,sans-serif;font-size:12px;line-height:1.6;padding:40px;max-width:700px;margin:0 auto;}</style></head><body><pre style="white-space:pre-wrap;font-family:Arial,sans-serif;">${appealModal.editText}</pre></body></html>`);
+    w.document.close();
+    w.print();
+  }
+
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px", fontFamily: "'DM Sans', Arial, sans-serif" }}>
+      {/* Appeal Modal */}
+      {appealModal && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+          background: "rgba(0,0,0,0.5)", zIndex: 1000,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          padding: 24,
+        }} onClick={() => setAppealModal(null)}>
+          <div style={{
+            background: "#fff", borderRadius: 12, maxWidth: 800, width: "100%",
+            maxHeight: "90vh", overflow: "auto", padding: 32,
+          }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <h2 style={{ margin: 0, fontSize: 18, color: NAVY }}>
+                Appeal Letter — {appealModal.payer_name} ({appealModal.denial_code})
+              </h2>
+              <button onClick={() => setAppealModal(null)} style={{
+                background: "none", border: "none", fontSize: 24, cursor: "pointer", color: SLATE,
+              }}>&times;</button>
+            </div>
+
+            {/* Appeal strength badge */}
+            {appealModal.appeal_strength && (
+              <div style={{ marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{
+                  padding: "4px 12px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+                  background: appealModal.appeal_strength === "high" ? "#ECFDF5" : appealModal.appeal_strength === "medium" ? "#FFFBEB" : "#FEF2F2",
+                  color: appealModal.appeal_strength === "high" ? GREEN : appealModal.appeal_strength === "medium" ? AMBER : RED,
+                }}>
+                  Appeal Strength: {appealModal.appeal_strength}
+                </span>
+                {appealModal.appeal_strength_reason && (
+                  <span style={{ fontSize: 13, color: SLATE }}>{appealModal.appeal_strength_reason}</span>
+                )}
+              </div>
+            )}
+
+            {/* CMS references */}
+            {appealModal.cms_references?.length > 0 && (
+              <div style={{ marginBottom: 16, padding: 12, background: LIGHT_TEAL, borderRadius: 8, fontSize: 12 }}>
+                <strong style={{ color: NAVY }}>CMS References:</strong>
+                <ul style={{ margin: "4px 0 0 16px", padding: 0 }}>
+                  {appealModal.cms_references.map((ref, i) => (
+                    <li key={i} style={{ color: SLATE, marginBottom: 2 }}>{ref}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Editable letter text */}
+            <textarea
+              value={appealModal.editText}
+              onChange={e => setAppealModal(prev => ({ ...prev, editText: e.target.value }))}
+              style={{
+                width: "100%", minHeight: 400, padding: 16, borderRadius: 8,
+                border: "1px solid #CBD5E1", fontFamily: "Arial, sans-serif",
+                fontSize: 13, lineHeight: 1.6, resize: "vertical", color: NAVY,
+              }}
+            />
+
+            {/* Action buttons */}
+            <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
+              <button onClick={handleCopyAppeal} style={{
+                padding: "10px 20px", borderRadius: 8, border: "1px solid #CBD5E1",
+                background: "#fff", cursor: "pointer", fontSize: 13, fontWeight: 600, color: NAVY,
+              }}>
+                Copy
+              </button>
+              <button onClick={handleDownloadAppealPdf} style={{
+                padding: "10px 20px", borderRadius: 8, border: "none",
+                background: TEAL, color: "#fff", cursor: "pointer", fontSize: 13, fontWeight: 600,
+              }}>
+                Download PDF
+              </button>
+              <button onClick={handlePrintAppeal} style={{
+                padding: "10px 20px", borderRadius: 8, border: "1px solid #CBD5E1",
+                background: "#fff", cursor: "pointer", fontSize: 13, fontWeight: 600, color: NAVY,
+              }}>
+                Print
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Action bar */}
       <div className="no-print" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
         {onClose ? (
@@ -356,10 +519,13 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                       <th style={{ ...thStyle, textAlign: "center" }}>Count</th>
                       <th style={{ ...thStyle, textAlign: "right" }}>Value</th>
                       <th style={{ ...thStyle, textAlign: "center" }}>Appeal Worth</th>
+                      <th style={{ ...thStyle, textAlign: "center" }}>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {intel.denial_types.slice(0, 5).map((dt, di) => (
+                    {intel.denial_types.slice(0, 5).map((dt, di) => {
+                      const genKey = `${ar.payer_name}-${dt.adjustment_code}`;
+                      return (
                       <tr key={di} style={{ background: di % 2 === 0 ? "#fff" : "#F8FAFC" }}>
                         <td style={{ ...tdStyle, fontWeight: 600 }}>{dt.adjustment_code}</td>
                         <td style={{ ...tdStyle, maxWidth: 300 }}>{dt.plain_language}</td>
@@ -374,8 +540,24 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                             {dt.appeal_worthiness}
                           </span>
                         </td>
+                        <td style={{ ...tdStyle, textAlign: "center" }}>
+                          <button
+                            onClick={() => handleDraftAppeal(dt, ar.payer_name)}
+                            disabled={appealGenerating === genKey}
+                            style={{
+                              padding: "4px 12px", borderRadius: 6, border: "none",
+                              background: TEAL, color: "#fff", fontSize: 11, fontWeight: 600,
+                              cursor: appealGenerating === genKey ? "wait" : "pointer",
+                              opacity: appealGenerating === genKey ? 0.6 : 1,
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {appealGenerating === genKey ? "Drafting..." : "Draft Appeal"}
+                          </button>
+                        </td>
                       </tr>
-                    ))}
+                      );
+                    })}
                   </tbody>
                 </table>
                 {intel.pattern_summary && (

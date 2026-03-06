@@ -99,6 +99,10 @@ export default function ProviderApp() {
   const [trendsError, setTrendsError] = useState("");
   const [subscriptionId, setSubscriptionId] = useState(null);
 
+  // ── Appeals state ──
+  const [appealsData, setAppealsData] = useState(null);
+  const [appealsLoading, setAppealsLoading] = useState(false);
+
   // Auth bootstrap
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session: s } }) => {
@@ -1147,7 +1151,7 @@ export default function ProviderApp() {
 
         {/* Tab buttons */}
         <div style={{ display: "flex", gap: 8, marginBottom: 32 }}>
-          {["home", "contract", "coding", "trends"].map(tab => (
+          {["home", "contract", "coding", "trends", "appeals"].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -1160,7 +1164,7 @@ export default function ProviderApp() {
                 ),
               }}
             >
-              {tab === "home" ? "Dashboard" : tab === "contract" ? "Contract Integrity" : tab === "coding" ? "Coding Analysis" : "Trends"}
+              {tab === "home" ? "Dashboard" : tab === "contract" ? "Contract Integrity" : tab === "coding" ? "Coding Analysis" : tab === "trends" ? "Trends" : "Appeals"}
             </button>
           ))}
         </div>
@@ -1256,6 +1260,46 @@ export default function ProviderApp() {
                 setTrendsError(err.message);
               } finally {
                 setTrendsLoading(false);
+              }
+            }}
+            onDraftAppeals={async (alerts) => {
+              setActiveTab("appeals");
+            }}
+          />
+        ) : activeTab === "appeals" ? (
+          <AppealsTab
+            appeals={appealsData}
+            loading={appealsLoading}
+            onLoad={async () => {
+              if (appealsData || appealsLoading) return;
+              setAppealsLoading(true);
+              try {
+                const { data: { session: s } } = await supabase.auth.getSession();
+                const res = await fetch(`${API_BASE}/api/provider/appeals`, {
+                  headers: { Authorization: `Bearer ${s.access_token}` },
+                });
+                if (res.ok) setAppealsData(await res.json());
+              } catch (err) {
+                console.error("Failed to load appeals:", err);
+              } finally {
+                setAppealsLoading(false);
+              }
+            }}
+            onUpdateStatus={async (appealId, newStatus) => {
+              try {
+                const { data: { session: s } } = await supabase.auth.getSession();
+                await fetch(`${API_BASE}/api/provider/appeals/update-status`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json", Authorization: `Bearer ${s.access_token}` },
+                  body: JSON.stringify({ appeal_id: appealId, status: newStatus }),
+                });
+                // Refresh
+                const res = await fetch(`${API_BASE}/api/provider/appeals`, {
+                  headers: { Authorization: `Bearer ${s.access_token}` },
+                });
+                if (res.ok) setAppealsData(await res.json());
+              } catch (err) {
+                console.error("Failed to update appeal:", err);
               }
             }}
           />
@@ -2216,12 +2260,187 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding, 
 
 
 // ═══════════════════════════════════════════════════════════════════
+// Appeals Tab Component
+// ═══════════════════════════════════════════════════════════════════
+
+const APPEAL_STATUS_COLORS = {
+  drafted: { bg: "#F3F4F6", text: "#6B7280" },
+  sent: { bg: "#DBEAFE", text: "#1D4ED8" },
+  pending: { bg: "#FFFBEB", text: "#D97706" },
+  won: { bg: "#ECFDF5", text: "#059669" },
+  lost: { bg: "#FEF2F2", text: "#DC2626" },
+};
+
+function AppealsTab({ appeals, loading, onLoad, onUpdateStatus }) {
+  useEffect(() => { onLoad(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", padding: 48 }}>
+        <div style={{ width: 40, height: 40, border: "3px solid var(--cs-border)", borderTopColor: "var(--cs-teal)", borderRadius: "50%", margin: "0 auto 16px", animation: "spin 0.8s linear infinite" }} />
+        <p style={{ color: "var(--cs-slate)" }}>Loading appeals...</p>
+      </div>
+    );
+  }
+
+  const list = appeals?.appeals || [];
+
+  if (list.length === 0) {
+    return (
+      <div style={{ textAlign: "center", padding: 48, color: "var(--cs-slate)" }}>
+        <div style={{ fontSize: 48, marginBottom: 16 }}>&#x1F4DD;</div>
+        <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>No appeals drafted yet.</p>
+        <p style={{ fontSize: 14 }}>Click "Draft Appeal" on any denied claim in your audit report or trends view to get started.</p>
+      </div>
+    );
+  }
+
+  // Summary stats
+  const stats = { drafted: 0, sent: 0, pending: 0, won: 0, lost: 0, total_amount: 0, won_amount: 0 };
+  list.forEach(a => {
+    stats[a.status] = (stats[a.status] || 0) + 1;
+    stats.total_amount += a.amount || 0;
+    if (a.status === "won") stats.won_amount += a.outcome_amount || a.amount || 0;
+  });
+
+  return (
+    <div>
+      {/* Summary cards */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 24 }}>
+        {[
+          { label: "Total Appeals", value: list.length, color: "var(--cs-navy)" },
+          { label: "Drafted", value: stats.drafted, color: "#6B7280" },
+          { label: "Sent", value: stats.sent, color: "#1D4ED8" },
+          { label: "Won", value: stats.won, color: "#059669" },
+          { label: "Lost", value: stats.lost, color: "#DC2626" },
+          { label: "Won Amount", value: `$${stats.won_amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}`, color: "#059669" },
+        ].map((card, i) => (
+          <div key={i} style={{
+            background: "#fff", border: "1px solid var(--cs-border)", borderRadius: 8, padding: 16, textAlign: "center",
+          }}>
+            <div style={{ fontSize: 12, color: "var(--cs-slate)", marginBottom: 4 }}>{card.label}</div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: card.color }}>{card.value}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Appeals list */}
+      <div style={{ background: "#fff", border: "1px solid var(--cs-border)", borderRadius: 12, overflow: "hidden" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+          <thead>
+            <tr style={{ background: "#1B3A5C", color: "#fff" }}>
+              <th style={{ padding: "10px 12px", textAlign: "left" }}>Payer</th>
+              <th style={{ padding: "10px 12px", textAlign: "left" }}>Denial Code</th>
+              <th style={{ padding: "10px 12px", textAlign: "left" }}>CPT</th>
+              <th style={{ padding: "10px 12px", textAlign: "right" }}>Amount</th>
+              <th style={{ padding: "10px 12px", textAlign: "center" }}>Strength</th>
+              <th style={{ padding: "10px 12px", textAlign: "center" }}>Status</th>
+              <th style={{ padding: "10px 12px", textAlign: "center" }}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {list.map((a, i) => {
+              const sc = APPEAL_STATUS_COLORS[a.status] || APPEAL_STATUS_COLORS.drafted;
+              return (
+                <tr key={a.id || i} style={{ background: i % 2 === 0 ? "#fff" : "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+                  <td style={{ padding: "10px 12px", fontWeight: 600 }}>{a.payer_name}</td>
+                  <td style={{ padding: "10px 12px" }}>{a.denial_code}</td>
+                  <td style={{ padding: "10px 12px" }}>{a.cpt_code || "—"}</td>
+                  <td style={{ padding: "10px 12px", textAlign: "right" }}>${(a.amount || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
+                  <td style={{ padding: "10px 12px", textAlign: "center" }}>
+                    {a.appeal_strength && (
+                      <span style={{
+                        padding: "2px 8px", borderRadius: 4, fontSize: 11, fontWeight: 600,
+                        color: a.appeal_strength === "high" ? "#059669" : a.appeal_strength === "medium" ? "#D97706" : "#6B7280",
+                      }}>
+                        {a.appeal_strength}
+                      </span>
+                    )}
+                  </td>
+                  <td style={{ padding: "10px 12px", textAlign: "center" }}>
+                    <select
+                      value={a.status}
+                      onChange={e => onUpdateStatus(a.id, e.target.value)}
+                      style={{
+                        padding: "4px 8px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+                        border: "1px solid #CBD5E1", background: sc.bg, color: sc.text, cursor: "pointer",
+                      }}
+                    >
+                      <option value="drafted">Drafted</option>
+                      <option value="sent">Sent</option>
+                      <option value="pending">Pending</option>
+                      <option value="won">Won</option>
+                      <option value="lost">Lost</option>
+                    </select>
+                  </td>
+                  <td style={{ padding: "10px 12px", textAlign: "center" }}>
+                    {a.letter_text && (
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(a.letter_text);
+                          alert("Appeal letter copied to clipboard.");
+                        }}
+                        style={{
+                          padding: "4px 10px", borderRadius: 4, border: "1px solid #CBD5E1",
+                          background: "#fff", fontSize: 11, cursor: "pointer", color: "var(--cs-navy)",
+                        }}
+                      >
+                        Copy
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Success rates by payer */}
+      {stats.won + stats.lost > 0 && (
+        <div style={{ marginTop: 24 }}>
+          <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 600, color: "var(--cs-navy)" }}>
+            Appeal Success Rates
+          </h3>
+          {(() => {
+            const byPayer = {};
+            list.forEach(a => {
+              if (a.status === "won" || a.status === "lost") {
+                if (!byPayer[a.payer_name]) byPayer[a.payer_name] = { won: 0, lost: 0, won_amount: 0 };
+                byPayer[a.payer_name][a.status]++;
+                if (a.status === "won") byPayer[a.payer_name].won_amount += a.outcome_amount || a.amount || 0;
+              }
+            });
+            return Object.entries(byPayer).map(([payer, data]) => {
+              const rate = Math.round((data.won / (data.won + data.lost)) * 100);
+              return (
+                <div key={payer} style={{
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                  padding: "10px 16px", background: "#fff", border: "1px solid var(--cs-border)",
+                  borderRadius: 8, marginBottom: 6,
+                }}>
+                  <span style={{ fontWeight: 600, color: "var(--cs-navy)" }}>{payer}</span>
+                  <span style={{ color: rate >= 50 ? "#059669" : "#DC2626", fontWeight: 600 }}>
+                    {rate}% success ({data.won}W / {data.lost}L) &middot; ${data.won_amount.toLocaleString("en-US", { minimumFractionDigits: 2 })} recovered
+                  </span>
+                </div>
+              );
+            });
+          })()}
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
 // Trends Tab Component
 // ═══════════════════════════════════════════════════════════════════
 
 const TREND_COLORS = ["#1B3A5C", "#0D7377", "#7C3AED", "#D97706", "#DC2626", "#059669"];
 
-function TrendsTab({ data, loading, error, subscriptionId, onLoad }) {
+function TrendsTab({ data, loading, error, subscriptionId, onLoad, onDraftAppeals }) {
   const [expandedPayer, setExpandedPayer] = useState(null);
 
   useEffect(() => {
@@ -2335,11 +2554,26 @@ function TrendsTab({ data, loading, error, subscriptionId, onLoad }) {
           {mediumAlerts.map((a, i) => (
             <div key={`med-${i}`} style={{
               background: "#FFFBEB", border: "1px solid #FDE68A", borderRadius: 8, padding: 12, marginBottom: 8,
+              display: "flex", justifyContent: "space-between", alignItems: "center",
             }}>
-              <span style={{ display: "inline-block", background: "#D97706", color: "#fff", fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 4, marginRight: 8 }}>
-                {a.type === "new_denial_pattern" ? "NEW DENIAL" : "MEDIUM"}
-              </span>
-              <span style={{ fontSize: 14, color: "#1E293B" }}>{a.detail}</span>
+              <div>
+                <span style={{ display: "inline-block", background: "#D97706", color: "#fff", fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 4, marginRight: 8 }}>
+                  {a.type === "new_denial_pattern" ? "NEW DENIAL" : "MEDIUM"}
+                </span>
+                <span style={{ fontSize: 14, color: "#1E293B" }}>{a.detail}</span>
+              </div>
+              {a.type === "new_denial_pattern" && onDraftAppeals && (
+                <button
+                  onClick={() => onDraftAppeals([a])}
+                  style={{
+                    padding: "4px 12px", borderRadius: 6, border: "none", marginLeft: 8,
+                    background: "#0D7377", color: "#fff", fontSize: 11, fontWeight: 600,
+                    cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0,
+                  }}
+                >
+                  Draft Appeals
+                </button>
+              )}
             </div>
           ))}
           {positiveAlerts.map((a, i) => (
