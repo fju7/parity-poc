@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { supabase } from "../lib/supabase.js";
 
 /**
- * Shared 6-digit OTP code input for email sign-in.
+ * Shared 8-digit OTP code input for email sign-in.
  * Adapted from SignalLogin.jsx phone OTP pattern.
  *
  * Props:
@@ -10,7 +10,7 @@ import { supabase } from "../lib/supabase.js";
  *   onBack   — callback to return to the email input step
  */
 export default function EmailOtpInput({ email, onBack }) {
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otp, setOtp] = useState(["", "", "", "", "", "", "", ""]);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
   const [resendCountdown, setResendCountdown] = useState(60);
@@ -35,7 +35,7 @@ export default function EmailOtpInput({ email, onBack }) {
     next[index] = digit;
     setOtp(next);
 
-    if (digit && index < 5) {
+    if (digit && index < 7) {
       otpRefs.current[index + 1]?.focus();
     }
 
@@ -52,19 +52,19 @@ export default function EmailOtpInput({ email, onBack }) {
 
   function handleOtpPaste(e) {
     e.preventDefault();
-    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 8);
     if (!pasted) return;
 
     const next = [...otp];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 8; i++) {
       next[i] = pasted[i] || "";
     }
     setOtp(next);
 
-    const focusIdx = Math.min(pasted.length, 5);
+    const focusIdx = Math.min(pasted.length, 7);
     otpRefs.current[focusIdx]?.focus();
 
-    if (pasted.length === 6) {
+    if (pasted.length === 8) {
       verifyOtp(pasted);
     }
   }
@@ -83,7 +83,7 @@ export default function EmailOtpInput({ email, onBack }) {
 
     if (verifyError) {
       setError(verifyError.message);
-      setOtp(["", "", "", "", "", ""]);
+      setOtp(["", "", "", "", "", "", "", ""]);
       otpRefs.current[0]?.focus();
     }
     // Success is handled by onAuthStateChange listener in the parent
@@ -107,7 +107,7 @@ export default function EmailOtpInput({ email, onBack }) {
     }
 
     setResendCountdown(60);
-    setOtp(["", "", "", "", "", ""]);
+    setOtp(["", "", "", "", "", "", "", ""]);
     setResent(true);
     setTimeout(() => setResent(false), 3000);
     otpRefs.current[0]?.focus();
@@ -116,7 +116,7 @@ export default function EmailOtpInput({ email, onBack }) {
   return (
     <div className="text-center py-2">
       <p className="text-sm text-gray-600 mb-1">
-        We sent a 6-digit code to <strong>{email}</strong>.
+        We sent an 8-digit code to <strong>{email}</strong>.
       </p>
       <p className="text-xs text-gray-400 mb-4">
         Check your inbox and enter it below. The code expires in 10 minutes.
@@ -128,7 +128,7 @@ export default function EmailOtpInput({ email, onBack }) {
         </div>
       )}
 
-      <div className="flex justify-center gap-2 mb-4" onPaste={handleOtpPaste}>
+      <div className="flex justify-center gap-1.5 mb-4" onPaste={handleOtpPaste}>
         {otp.map((digit, i) => (
           <input
             key={i}
@@ -139,7 +139,7 @@ export default function EmailOtpInput({ email, onBack }) {
             value={digit}
             onChange={(e) => handleOtpChange(i, e.target.value)}
             onKeyDown={(e) => handleOtpKeyDown(i, e)}
-            className="w-10 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D7377]/30 focus:border-[#0D7377] transition"
+            className="w-9 h-11 text-center text-base font-semibold border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D7377]/30 focus:border-[#0D7377] transition"
           />
         ))}
       </div>
