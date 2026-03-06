@@ -258,6 +258,11 @@ export default function SignalLogin() {
                 />
               </div>
 
+              <p className="text-[10px] text-gray-400 leading-snug mb-4">
+                By entering your phone number, you consent to receive a one-time verification code via SMS from CivicScale. Message and data rates may apply. Message frequency: 1 per login attempt. Reply STOP to opt out. See our{" "}
+                <a href="/privacy" className="underline hover:text-gray-500">Privacy Policy</a>.
+              </p>
+
               <button
                 onClick={handleSendCode}
                 disabled={sending || phone.replace(/\D/g, "").length !== 10}
