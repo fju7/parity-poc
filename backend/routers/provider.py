@@ -198,7 +198,7 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
         return None
 
 
-def _call_claude_text(system_prompt: str, user_content, max_tokens: int = 4096) -> str | None:
+def _call_claude_text(system_prompt: str, user_content, max_tokens: int = 4096) -> Optional[str]:
     """Call Claude API and return raw text (not JSON). Used for narrative sections."""
     client = _get_claude()
     backoff_delays = [2, 5, 10]
