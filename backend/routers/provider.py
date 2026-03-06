@@ -1312,7 +1312,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     result = _call_claude(
         system_prompt=APPEAL_SYSTEM_PROMPT,
         user_content=prompt_data,
-        max_tokens=4096,
+        max_tokens=8192,
     )
 
     if not result:
@@ -1388,7 +1388,7 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
         result = _call_claude(
             system_prompt=APPEAL_SYSTEM_PROMPT,
             user_content=prompt_data,
-            max_tokens=4096,
+            max_tokens=8192,
         )
 
         if not result:
