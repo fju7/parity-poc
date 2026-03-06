@@ -26,6 +26,7 @@ export default function AuditAccount() {
   const [audits, setAudits] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [subscription, setSubscription] = useState(null);
+  const [subscriptions, setSubscriptions] = useState([]);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   // Login form state
@@ -78,6 +79,7 @@ export default function AuditAccount() {
       if (!res.ok) return;
       const json = await res.json();
       setSubscription(json.subscription || null);
+      setSubscriptions(json.subscriptions || []);
     } catch (e) {
       console.error("[AuditAccount] Subscription fetch failed:", e);
     }
@@ -368,8 +370,8 @@ export default function AuditAccount() {
             </table>
           </div>
 
-          {/* Monitoring CTA for each delivered audit without active subscription */}
-          {!subscription && audits.filter(a => a.status === "delivered").map((a) => (
+          {/* Monitoring CTA for each delivered audit not yet converted to a subscription */}
+          {audits.filter(a => a.status === "delivered" && !subscriptions.some(s => s.source_audit_id === a.id)).map((a) => (
             <div key={`cta-${a.id}`} style={{
               marginTop: 16, padding: 20, borderRadius: 12,
               background: "linear-gradient(135deg, #FAF5FF, #F0FDFA)",

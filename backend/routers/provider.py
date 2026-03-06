@@ -3169,7 +3169,7 @@ async def admin_add_month(
 
 @router.get("/my-subscription")
 async def my_subscription(request: Request):
-    """Return the authenticated user's Provider monitoring subscription."""
+    """Return the authenticated user's Provider monitoring subscriptions."""
     user = await _get_authenticated_user(request)
     email = user.email
     if not email:
@@ -3180,15 +3180,11 @@ async def my_subscription(request: Request):
         .select("*") \
         .eq("contact_email", email) \
         .order("created_at", desc=True) \
-        .limit(1) \
         .execute()
 
-    if not result.data:
-        return {"subscription": None}
-
-    sub = result.data[0]
-    return {
-        "subscription": {
+    subs = []
+    for sub in (result.data or []):
+        subs.append({
             "id": sub["id"],
             "practice_name": sub.get("practice_name", ""),
             "status": sub.get("status", "active"),
@@ -3196,7 +3192,12 @@ async def my_subscription(request: Request):
             "source_audit_id": sub.get("source_audit_id"),
             "created_at": sub.get("created_at"),
             "stripe_subscription_id": sub.get("stripe_subscription_id"),
-        },
+        })
+
+    # Backward-compat: return first as "subscription", plus full list
+    return {
+        "subscription": subs[0] if subs else None,
+        "subscriptions": subs,
     }
 
 
