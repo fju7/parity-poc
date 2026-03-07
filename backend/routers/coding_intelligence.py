@@ -6,8 +6,11 @@ NCCI edits (~2.2M rows) are queried from Supabase on demand per request
 to avoid OOM on memory-constrained hosts.
 """
 
+from __future__ import annotations
+
 from collections import Counter
 from itertools import combinations
+from typing import Dict, List
 
 # In-memory lookup dicts
 mue_limits: dict = {}   # code -> {"practitioner_mue": int, "facility_mue": int}
@@ -64,7 +67,7 @@ def load_coding_data():
     print("Coding intelligence: NCCI edits will be queried per-request from Supabase")
 
 
-def check_ncci_edits(codes: list[str]) -> list[dict]:
+def check_ncci_edits(codes: List[str]) -> List[dict]:
     """Check all unique code pairs for NCCI edit violations.
 
     Queries Supabase for only the relevant codes on this bill,
@@ -136,7 +139,7 @@ def check_ncci_edits(codes: list[str]) -> list[dict]:
     return alerts
 
 
-def check_mue_limits(codes: list[str]) -> list[dict]:
+def check_mue_limits(codes: List[str]) -> List[dict]:
     """Check code frequencies against MUE unit limits."""
     if not mue_limits:
         return []
@@ -166,7 +169,7 @@ def check_mue_limits(codes: list[str]) -> list[dict]:
     return alerts
 
 
-def run_coding_checks(codes: list[str]) -> list[dict]:
+def run_coding_checks(codes: List[str]) -> List[dict]:
     """Run all backend coding intelligence checks.
 
     Returns a list of alert dicts, each with:

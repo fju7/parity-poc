@@ -12,10 +12,12 @@ Supabase for historical rate data and falls back to current rates
 with a warning if none is loaded yet.
 """
 
+from __future__ import annotations
+
 import gc
 import os
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 import pandas as pd
 from fastapi import APIRouter
@@ -176,7 +178,7 @@ class LineItemRequest(BaseModel):
 
 class BenchmarkRequest(BaseModel):
     zipCode: str
-    lineItems: list[LineItemRequest]
+    lineItems: List[LineItemRequest]
     serviceDate: Optional[str] = None  # MM/DD/YYYY or YYYY-MM-DD
 
 
@@ -195,7 +197,7 @@ class LineItemResponse(BaseModel):
 
 class CodingAlert(BaseModel):
     checkType: str
-    codes: list[str]
+    codes: List[str]
     confidence: str
     severity: str
     message: str
@@ -203,8 +205,8 @@ class CodingAlert(BaseModel):
 
 
 class BenchmarkResponse(BaseModel):
-    lineItems: list[LineItemResponse]
-    codingAlerts: list[CodingAlert] = []
+    lineItems: List[LineItemResponse]
+    codingAlerts: List[CodingAlert] = []
 
 
 # ---------------------------------------------------------------------------
@@ -369,7 +371,7 @@ def lookup_clfs(code: str) -> Optional[float]:
     return None
 
 
-def get_all_pfs_rates_for_locality(carrier: str, locality: str) -> list[dict]:
+def get_all_pfs_rates_for_locality(carrier: str, locality: str) -> List[dict]:
     """Get all PFS rates for a given carrier/locality.
 
     Returns list of {cpt_code, nonfacility_amount, facility_amount}.

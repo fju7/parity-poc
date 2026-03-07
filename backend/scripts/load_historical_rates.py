@@ -14,12 +14,15 @@ Usage:
     python scripts/load_historical_rates.py --help
 """
 
+from __future__ import annotations
+
 import argparse
 import csv
 import os
 import sys
 from datetime import date, datetime
 from pathlib import Path
+from typing import List, Optional, Tuple
 
 # ---------------------------------------------------------------------------
 # Supabase client
@@ -89,7 +92,7 @@ BATCH_SIZE = 500
 # ---------------------------------------------------------------------------
 
 
-def validate_file(filepath: Path, schedule_type: str) -> tuple[list[str], int]:
+def validate_file(filepath: Path, schedule_type: str) -> Tuple[List[str], int]:
     """Validate that the CSV has the expected columns.
 
     Returns (header_list, row_count).
@@ -114,7 +117,7 @@ def validate_file(filepath: Path, schedule_type: str) -> tuple[list[str], int]:
 
 
 def create_version(
-    schedule_type: str, year: int, quarter: int | None, filepath: Path, row_count: int
+    schedule_type: str, year: int, quarter: Optional[int], filepath: Path, row_count: int
 ) -> str:
     """Insert a new rate_schedule_versions row and return the version_id."""
     sb = _get_supabase()
@@ -146,7 +149,7 @@ def create_version(
     return version_id
 
 
-def update_previous_expiry(schedule_type: str, year: int, quarter: int | None, new_version_id: str):
+def update_previous_expiry(schedule_type: str, year: int, quarter: Optional[int], new_version_id: str):
     """Set expiry_date on the previous version for the same schedule type."""
     sb = _get_supabase()
 

@@ -5,8 +5,11 @@ sends them via Resend, and stamps delivered_at. Intended to be called
 by a cron job or manually.
 """
 
+from __future__ import annotations
+
 import os
 from datetime import datetime, timezone
+from typing import Dict
 
 from fastapi import APIRouter, HTTPException, Request
 
@@ -68,7 +71,7 @@ async def deliver_email_notifications(request: Request):
 
     # 2. Collect unique user_ids and fetch emails
     unique_user_ids = list({row["user_id"] for row in pending})
-    user_emails: dict[str, str] = {}
+    user_emails: Dict[str, str] = {}
 
     for uid in unique_user_ids:
         try:

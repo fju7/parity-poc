@@ -265,6 +265,7 @@ const CODING_DIST = [
 // ---------------------------------------------------------------------------
 
 const TABS = [
+  { key: "start", label: "Getting Started" },
   { key: "audit", label: "Your Audit Report" },
   { key: "trends", label: "Month-Over-Month Trends" },
   { key: "appeals", label: "Appeal Letters" },
@@ -272,7 +273,7 @@ const TABS = [
 ];
 
 export default function ProviderDemoPage() {
-  const [activeTab, setActiveTab] = useState("audit");
+  const [activeTab, setActiveTab] = useState("start");
   const [expandedAppeal, setExpandedAppeal] = useState(null);
 
   return (
@@ -350,6 +351,7 @@ export default function ProviderDemoPage() {
 
       {/* Content */}
       <main style={{ padding: "32px 24px", maxWidth: "1100px", margin: "0 auto" }}>
+        {activeTab === "start" && <GettingStartedTab onNavigate={setActiveTab} />}
         {activeTab === "audit" && <AuditReport />}
         {activeTab === "trends" && <TrendsTab />}
         {activeTab === "appeals" && (
@@ -384,6 +386,291 @@ export default function ProviderDemoPage() {
     </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+// Tab 0: Getting Started
+// ---------------------------------------------------------------------------
+
+const FEE_METHODS = [
+  { id: "excel", label: "Upload Excel file" },
+  { id: "pdf", label: "Upload PDF contract" },
+  { id: "paste", label: "Paste or type rates" },
+  { id: "photo", label: "Upload photo of contract page" },
+  { id: "medicare", label: "% of Medicare" },
+];
+
+const SAMPLE_FILES = [
+  "Aetna_ERA_Jan2026.835",
+  "BCBS_ERA_Jan2026.edi",
+  "UHC_Remit_Jan.835",
+];
+
+const mockInput = {
+  background: "#fff",
+  border: "1px solid #CBD5E1",
+  borderRadius: "6px",
+  padding: "8px 12px",
+  fontSize: "13px",
+  color: "#1E293B",
+  width: "100%",
+  boxSizing: "border-box",
+  cursor: "default",
+};
+
+function GettingStartedTab({ onNavigate }) {
+  return (
+    <div>
+      <div style={{ textAlign: "center", marginBottom: "36px" }}>
+        <h2 style={{ ...h2Style, marginBottom: "10px" }}>
+          Two steps. Five minutes. No data entry.
+        </h2>
+        <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", maxWidth: "560px", margin: "0 auto" }}>
+          That's all it takes to find out if your payers are paying what they owe you.
+        </p>
+      </div>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+        gap: "24px",
+        marginBottom: "40px",
+      }}>
+        {/* Step 1 */}
+        <div style={stepCardOuter}>
+          <div style={stepLabel}>Step 1 — 30 seconds</div>
+          <h3 style={stepTitle}>Tell us your payers</h3>
+
+          {/* Payer dropdown */}
+          <div style={{ marginBottom: "16px" }}>
+            <div style={fieldLabel}>Payer</div>
+            <div style={{ ...mockInput, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span>Aetna</span>
+              <span style={{ color: "#94a3b8", fontSize: "11px" }}>{"\u25BC"}</span>
+            </div>
+          </div>
+
+          {/* Fee schedule methods */}
+          <div style={{ marginBottom: "16px" }}>
+            <div style={fieldLabel}>How would you like to provide your fee schedule?</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {FEE_METHODS.map((m) => {
+                const selected = m.id === "medicare";
+                return (
+                  <div
+                    key={m.id}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      padding: "10px 14px",
+                      borderRadius: "8px",
+                      border: selected ? "2px solid #0D9488" : "1px solid #E2E8F0",
+                      background: selected ? "rgba(13,148,136,0.04)" : "#fff",
+                      cursor: "default",
+                      position: "relative",
+                    }}
+                  >
+                    <div style={{
+                      width: "16px", height: "16px", borderRadius: "50%",
+                      border: selected ? "5px solid #0D9488" : "2px solid #CBD5E1",
+                      boxSizing: "border-box", flexShrink: 0,
+                    }} />
+                    <span style={{ fontSize: "13px", color: "#1E293B", fontWeight: selected ? "600" : "400" }}>
+                      {m.label}
+                    </span>
+                    {selected && (
+                      <span style={{
+                        marginLeft: "auto",
+                        fontSize: "10px", fontWeight: "700", textTransform: "uppercase",
+                        letterSpacing: "0.04em",
+                        background: "#0D9488", color: "#fff",
+                        padding: "3px 8px", borderRadius: "4px",
+                      }}>Easiest</span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* % of Medicare inputs */}
+          <div style={{
+            background: "#F0FDFA", border: "1px solid #99F6E4",
+            borderRadius: "10px", padding: "16px", marginBottom: "16px",
+          }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "14px" }}>
+              <div>
+                <div style={fieldLabel}>Percentage of Medicare</div>
+                <div style={{ ...mockInput, background: "#fff" }}>120%</div>
+              </div>
+              <div>
+                <div style={fieldLabel}>Practice ZIP Code</div>
+                <div style={{ ...mockInput, background: "#fff" }}>33611</div>
+              </div>
+            </div>
+            <div style={{
+              display: "flex", alignItems: "flex-start", gap: "8px",
+              background: "#fff", borderRadius: "8px", padding: "12px",
+              border: "1px solid #99F6E4",
+            }}>
+              <span style={{ color: "#0D9488", fontSize: "16px", lineHeight: "1", flexShrink: 0 }}>{"\u2713"}</span>
+              <span style={{ fontSize: "12px", color: "#1E293B", lineHeight: "1.5" }}>
+                <strong>7,718 CPT codes</strong> generated instantly from 2026 CMS Medicare Fee Schedule, adjusted for Tampa, FL locality
+              </span>
+            </div>
+          </div>
+
+          <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", margin: 0 }}>
+            Most contracts are structured as a percentage of Medicare. If yours is, you don't need to upload anything — just enter the percentage and your ZIP code. We do the rest.
+          </p>
+        </div>
+
+        {/* Step 2 */}
+        <div style={stepCardOuter}>
+          <div style={stepLabel}>Step 2 — 60 seconds</div>
+          <h3 style={stepTitle}>Upload your 835 files</h3>
+
+          {/* Drop zone */}
+          <div style={{
+            border: "2px dashed #CBD5E1",
+            borderRadius: "10px",
+            padding: "28px 20px",
+            textAlign: "center",
+            marginBottom: "16px",
+            background: "#F8FAFC",
+          }}>
+            <div style={{ fontSize: "28px", marginBottom: "8px", color: "#94a3b8" }}>{"\u2B06"}</div>
+            <div style={{ fontSize: "13px", color: "#64748b", marginBottom: "4px" }}>
+              Drag & drop your remittance files here
+            </div>
+            <div style={{ fontSize: "12px", color: "#94a3b8" }}>
+              3 files selected
+            </div>
+          </div>
+
+          {/* File chips */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "12px" }}>
+            {SAMPLE_FILES.map((f) => (
+              <div key={f} style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                background: "#EFF6FF", border: "1px solid #BFDBFE",
+                borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
+              }}>
+                <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
+                {f}
+              </div>
+            ))}
+          </div>
+
+          <p style={{ fontSize: "11px", color: "#94a3b8", marginBottom: "16px" }}>
+            Accepted formats: .835, .edi, .txt, or .zip containing multiple files
+          </p>
+
+          <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", marginBottom: "20px" }}>
+            Your clearinghouse (Availity, Office Ally, Change Healthcare) sends these to you monthly. Download them from your clearinghouse portal and upload here — or just forward the email to us.
+          </p>
+
+          {/* Progress indicator */}
+          <div style={{
+            background: "#F8FAFC", borderRadius: "8px", padding: "14px",
+            border: "1px solid #E2E8F0", marginBottom: "12px",
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+              <span style={{ fontSize: "12px", color: "#64748b" }}>Processing...</span>
+              <span style={{ fontSize: "12px", color: "#3B82F6", fontWeight: "600" }}>100%</span>
+            </div>
+            <div style={{ height: "4px", borderRadius: "2px", background: "#E2E8F0" }}>
+              <div style={{ height: "4px", borderRadius: "2px", background: "#3B82F6", width: "100%" }} />
+            </div>
+            <div style={{ fontSize: "11px", color: "#64748b", marginTop: "6px" }}>
+              247 payment lines identified across 3 payers
+            </div>
+          </div>
+
+          {/* Success state */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: "8px",
+            background: "#F0FDF4", border: "1px solid #BBF7D0",
+            borderRadius: "8px", padding: "12px 14px",
+          }}>
+            <span style={{ color: "#10B981", fontSize: "18px", flexShrink: 0 }}>{"\u2713"}</span>
+            <span style={{ fontSize: "13px", color: "#166534", fontWeight: "600" }}>
+              Analysis complete — your report is ready
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Transition / CTA */}
+      <div style={{ textAlign: "center", marginBottom: "8px" }}>
+        <div style={{
+          display: "inline-flex", alignItems: "center", gap: "10px",
+          fontSize: "22px", color: "#3B82F6", marginBottom: "20px",
+        }}>
+          <span>{"\u2501\u2501"}</span>
+          <span>{"\u25B6"}</span>
+          <span>{"\u2501\u2501"}</span>
+        </div>
+        <p style={{
+          fontSize: "15px", color: "#94a3b8", lineHeight: "1.8",
+          maxWidth: "640px", margin: "0 auto 24px",
+        }}>
+          That's it. From here, our AI analyzes every payment line against your contracted rates,
+          interprets every denial code in plain English, and delivers a complete report.
+          Here's what {PRACTICE.name}'s report looked like:
+        </p>
+        <button
+          onClick={() => onNavigate("audit")}
+          style={{
+            display: "inline-block",
+            background: "#3b82f6", color: "#fff",
+            padding: "12px 28px", borderRadius: "8px",
+            fontWeight: "600", fontSize: "15px",
+            border: "none", cursor: "pointer",
+            fontFamily: "inherit",
+            transition: "background 0.2s",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
+        >
+          See the Audit Report &rarr;
+        </button>
+      </div>
+    </div>
+  );
+}
+
+const stepCardOuter = {
+  background: "#fff",
+  borderRadius: "14px",
+  padding: "28px",
+  boxShadow: "0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)",
+};
+
+const stepLabel = {
+  fontSize: "11px",
+  fontWeight: "600",
+  textTransform: "uppercase",
+  letterSpacing: "0.06em",
+  color: "#0D9488",
+  marginBottom: "6px",
+};
+
+const stepTitle = {
+  fontSize: "18px",
+  fontWeight: "600",
+  color: "#1E293B",
+  marginBottom: "20px",
+};
+
+const fieldLabel = {
+  fontSize: "11px",
+  fontWeight: "600",
+  color: "#64748b",
+  textTransform: "uppercase",
+  letterSpacing: "0.04em",
+  marginBottom: "6px",
+};
 
 // ---------------------------------------------------------------------------
 // Tab 1: Audit Report
