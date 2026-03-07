@@ -470,6 +470,8 @@ async def analyze_contract(req: AnalyzeRequest):
         })
 
     # Adherence rate: % of lines paid at or above contracted rate
+    # Correct + Overpaid = adherent (payer met or exceeded obligation)
+    # Underpaid + Denied = non-adherent
     lines_with_contract = (correct_count + underpaid_count + denied_count
                            + overpaid_count + billed_below_count)
     adherent_count = correct_count + overpaid_count
@@ -492,6 +494,7 @@ async def analyze_contract(req: AnalyzeRequest):
     )
 
     # Preventable denials: CO-16 (missing info) and CO-97 (bundled)
+    # CO-45 (contractual adjustment) is NOT preventable
     preventable_codes = {"CO-16", "CO-97", "16", "97"}
     preventable_denial_count = 0
     for adj_str in denial_adj_codes:
@@ -792,6 +795,7 @@ async def analyze_denials(req: AnalyzeDenialsRequest):
     return result
 
 
+
 # ---------------------------------------------------------------------------
 # POST /audit-report  (PDF generation with ReportLab)
 # ---------------------------------------------------------------------------
@@ -856,6 +860,7 @@ async def generate_audit_report(req: AuditReportRequest):
     payer_results = data.get("payer_results", [])
 
     # --- AI-generated narrative sections ---
+    # Enrich summary input with per-payer detail for tone calibration
     total_underpayment_all = sum(
         pr.get("summary", {}).get("total_underpayment", 0) for pr in payer_results
     )
@@ -1033,14 +1038,14 @@ async def generate_audit_report(req: AuditReportRequest):
                 detail = a.get("detail", "")
                 impact = a.get("financial_impact")
                 impact_str = f" (${impact:,.2f} impact)" if impact else ""
-                story.append(Paragraph(f"• {detail}{impact_str}", s_body))
+                story.append(Paragraph(f"&#8226; {detail}{impact_str}", s_body))
                 story.append(Spacer(1, 3))
 
         if resolved:
             s_green = ParagraphStyle("TrendGreenH", parent=s_body, fontSize=12, textColor=colors.HexColor("#059669"), spaceBefore=8, spaceAfter=4)
             story.append(Paragraph("Resolved Issues", s_green))
             for a in resolved:
-                story.append(Paragraph(f"• {a.get('detail', '')}", s_body))
+                story.append(Paragraph(f"&#8226; {a.get('detail', '')}", s_body))
                 story.append(Spacer(1, 3))
 
         # Revenue gap trajectory callout
@@ -1102,12 +1107,12 @@ async def generate_audit_report(req: AuditReportRequest):
             rows_data = [header]
             for li in line_items[:30]:
                 variance = li.get("variance")
-                var_str = f"${variance:+,.2f}" if variance is not None else "—"
+                var_str = f"${variance:+,.2f}" if variance is not None else "\u2014"
                 rows_data.append([
                     li.get("cpt_code", ""),
                     f"${li.get('billed_amount', 0):,.2f}",
                     f"${li.get('paid_amount', 0):,.2f}",
-                    f"${li.get('expected_payment', 0):,.2f}" if li.get("expected_payment") is not None else "—",
+                    f"${li.get('expected_payment', 0):,.2f}" if li.get("expected_payment") is not None else "\u2014",
                     var_str,
                     li.get("flag", ""),
                 ])
@@ -1170,7 +1175,7 @@ async def generate_audit_report(req: AuditReportRequest):
     annualized = monthly * 12
 
     gap_data = [
-        ["Category", "Identified Amount", "Annualized (×12)"],
+        ["Category", "Identified Amount", "Annualized (\u00d712)"],
         ["Underpayments", f"${total_underpayment:,.2f}", f"${annualized:,.2f}"],
         ["Estimated Denial Recovery", f"${total_denied_value:,.2f}", f"${total_denied_value * 12:,.2f}"],
         ["Total Revenue Gap", f"${total_underpayment + total_denied_value:,.2f}",
@@ -1276,6 +1281,7 @@ async def generate_audit_report(req: AuditReportRequest):
         media_type="application/pdf",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
+
 
 
 # ---------------------------------------------------------------------------
@@ -1578,7 +1584,7 @@ async def admin_upload_835(
 
     content = await file.read()
     raw = content.decode("utf-8", errors="replace")
-    parsed = parse_835(raw)
+    parsed = parse_835(raw)  # Returns dict with "claims", "payer_name", etc.
     claims_list = parsed.get("claims", [])
 
     # Auto-detect payer from 835 if not provided
@@ -1624,7 +1630,15 @@ async def admin_upload_835(
 
 @router.post("/admin/audits/run-analysis")
 async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
-    """Run the full analysis pipeline for an audit (admin only)."""
+    """Run the full analysis pipeline for an audit (admin only).
+
+    Reads stored fee schedules + 835 data from the audit record, runs
+    analyze-contract for each payer, runs denial intelligence, stores results
+    as provider_analyses records, and links analysis_ids back to the audit.
+
+    If fee_schedule_data is missing but fee_schedule_method is 'medicare-pct',
+    auto-regenerates rates using the percentage and zip_code (from body or audit).
+    """
     await _verify_admin(request)
 
     sb = _get_supabase()
@@ -1652,6 +1666,7 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     # Resolve ZIP for Medicare percentage fallback
     fallback_zip = body.zip_code or audit.get("zip_code", "") or ""
     if not fallback_zip:
+        # Try user profile
         user_id = audit.get("user_id")
         if user_id:
             try:
@@ -1664,15 +1679,16 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     # Build payer rates lookup: {payer_name: {cpt: rate}}
     payer_rates = {}
     for p in payer_list:
-        payer_name_local = p.get("payer_name", "")
+        payer_name = p.get("payer_name", "")
         rates = p.get("fee_schedule_data", {})
         if rates:
-            payer_rates[payer_name_local] = {str(k): float(v) for k, v in rates.items()}
+            payer_rates[payer_name] = {str(k): float(v) for k, v in rates.items()}
         elif p.get("fee_schedule_method") == "medicare-pct" and fallback_zip:
-            pct = body.percentage or 120
-            carrier_loc, loc = resolve_locality(fallback_zip)
-            if carrier_loc and loc:
-                all_rates = get_all_pfs_rates_for_locality(carrier_loc, loc)
+            # Auto-regenerate rates from Medicare PFS x percentage
+            pct = body.percentage or 120  # default 120% if not specified
+            carrier, loc = resolve_locality(fallback_zip)
+            if carrier and loc:
+                all_rates = get_all_pfs_rates_for_locality(carrier, loc)
                 multiplier = pct / 100.0
                 regenerated = {}
                 for r in all_rates:
@@ -1680,11 +1696,11 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
                     if med_rate and med_rate > 0:
                         regenerated[str(r["cpt_code"])] = round(float(med_rate) * multiplier, 2)
                 if regenerated:
-                    payer_rates[payer_name_local] = regenerated
-                    print(f"[RunAnalysis] Auto-regenerated {len(regenerated)} rates for {payer_name_local} at {pct}% Medicare (ZIP {fallback_zip})")
+                    payer_rates[payer_name] = regenerated
+                    print(f"[RunAnalysis] Auto-regenerated {len(regenerated)} rates for {payer_name} at {pct}% Medicare (ZIP {fallback_zip})")
 
     # Build remittance lines per payer
-    payer_lines = {}
+    payer_lines = {}  # {payer_name: [RemittanceLine-like dicts]}
     for rem_file in remittance_data:
         assigned_payer = rem_file.get("payer_name", "")
         if not assigned_payer:
@@ -1692,12 +1708,14 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
 
         for claim in rem_file.get("claims", []):
             claim_id = claim.get("claim_id", "")
+            # Support both "lines" (wizard-submitted) and "line_items" (raw parse_835 format)
             claim_lines = claim.get("lines") or claim.get("line_items") or []
             for line in claim_lines:
                 cpt = line.get("cpt_code", "")
                 if not cpt:
                     continue
 
+                # Build adjustment string from list or use string directly
                 adj = line.get("adjustments", "")
                 if isinstance(adj, list):
                     adj_parts = []
@@ -1722,6 +1740,7 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
 
     # Resolve locality from practice ZIP (for Medicare benchmarks)
     zip_code = audit.get("zip_code", "") or ""
+    # Try to find ZIP from user profile
     user_id = audit.get("user_id")
     if not zip_code and user_id:
         try:
@@ -1739,11 +1758,12 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     analysis_ids = []
     payer_results = []
 
-    for payer_name_local, rates in payer_rates.items():
-        lines = payer_lines.get(payer_name_local, [])
+    for payer_name, rates in payer_rates.items():
+        lines = payer_lines.get(payer_name, [])
         if not lines:
+            # Try case-insensitive match
             for rp, rl in payer_lines.items():
-                if rp.lower() == payer_name_local.lower():
+                if rp.lower() == payer_name.lower():
                     lines = rl
                     break
 
@@ -1751,7 +1771,7 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
             continue
 
         result = _run_analysis_for_payer(
-            payer_name=payer_name_local,
+            payer_name=payer_name,
             rates=rates,
             lines=lines,
             user_id=audit.get("user_id"),
@@ -1764,7 +1784,7 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
             analysis_ids.append(result["analysis_id"])
 
         payer_results.append({
-            "payer_name": payer_name_local,
+            "payer_name": payer_name,
             "summary": result["summary"],
             "line_count": result["summary"]["line_count"],
             "underpayment": result["summary"]["total_underpayment"],
