@@ -288,6 +288,99 @@ export default function ProviderProductPage() {
         </div>
       </section>
 
+      {/* Intelligence, Not Just Data */}
+      <section
+        style={{
+          background: "#F8FAFC",
+          padding: "72px 24px",
+        }}
+      >
+        <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+          <h2
+            style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "28px",
+              fontWeight: "400",
+              color: "#1E293B",
+              textAlign: "center",
+              marginBottom: "12px",
+            }}
+          >
+            Intelligence, Not Just Data
+          </h2>
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "16px",
+              color: "#64748b",
+              marginBottom: "40px",
+              lineHeight: "1.7",
+            }}
+          >
+            Your billing system shows you what happened. We tell you what it means.
+          </p>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "24px",
+              marginBottom: "36px",
+            }}
+          >
+            {INTEL_CARDS.map((card) => (
+              <div
+                key={card.title}
+                style={{
+                  background: "#fff",
+                  borderRadius: "14px",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)",
+                  overflow: "hidden",
+                }}
+              >
+                <div style={{ padding: "20px 24px 12px", fontSize: "15px", fontWeight: "600", color: "#1E293B" }}>
+                  {card.title}
+                </div>
+                {/* Dashboard side */}
+                <div style={{ background: "#F1F5F9", padding: "16px 24px" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "0.06em", color: "#94a3b8", marginBottom: "8px" }}>
+                    What a dashboard shows
+                  </div>
+                  <p style={{ fontSize: "13px", fontFamily: "'Courier New', Courier, monospace", color: "#64748B", lineHeight: "1.6", margin: 0 }}>
+                    {card.dashboard}
+                  </p>
+                </div>
+                {/* CivicScale side */}
+                <div style={{ borderLeft: "3px solid #0D9488", padding: "16px 24px", background: "#fff" }}>
+                  <div style={{ fontSize: "10px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "0.06em", color: "#0D9488", marginBottom: "8px" }}>
+                    What CivicScale tells you
+                  </div>
+                  <p style={{ fontSize: "13px", color: "#1E293B", lineHeight: "1.7", margin: 0 }}>
+                    {card.civicscale}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p
+            style={{
+              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "#475569",
+              textAlign: "center",
+              maxWidth: "780px",
+              margin: "0 auto",
+            }}
+          >
+            This is possible because CivicScale was built from the ground up around AI — not bolted
+            onto a legacy billing platform. The same intelligence that only large hospital systems
+            could afford is now available to your practice for $300/month. No enterprise contract.
+            No IT integration. Just intelligence delivered to your inbox every month.
+          </p>
+        </div>
+      </section>
+
       {/* Month-Over-Month Intelligence */}
       <section
         className="cs-home-section"
@@ -684,6 +777,27 @@ const FIND_CARDS = [
     icon: "\u2709",
     title: "Appeal Letters",
     text: "One-click appeal drafts citing specific CMS guidelines and your contract terms. Review, edit, and send \u2014 cutting hours from your denial workflow.",
+  },
+];
+
+const INTEL_CARDS = [
+  {
+    title: "Denial Interpretation",
+    dashboard: "CO-16 denial — $185.00",
+    civicscale:
+      "Aetna rejected CPT 99213 because a required field was missing. This is an administrative error — not clinical. Appeal success rate for CO-16 with complete documentation: 78%. We\u2019ve drafted your appeal letter.",
+  },
+  {
+    title: "Underpayment Context",
+    dashboard: "99214 variance: -$14.00",
+    civicscale:
+      "Aetna paid $148 for 99214 but your contract specifies $162. This underpayment appeared for the first time last month and increased by $4 this month. At current volume, this costs you $2,400/year.",
+  },
+  {
+    title: "Pattern Detection",
+    dashboard: "Denial rate: 18%",
+    civicscale:
+      "Your Aetna denial rate jumped from 8% to 18% this month. 80% of new denials are CO-197 (prior auth). This suggests Aetna changed their prior auth requirements for E&M codes — check their latest provider bulletin.",
   },
 ];
 
