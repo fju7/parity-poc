@@ -14,10 +14,13 @@ MUE files: CSV with ~9-line copyright header.
   - Practitioner and Facility files merged into one table.
 """
 
+from __future__ import annotations
+
 import argparse
 import glob
 import sys
 from pathlib import Path
+from typing import List
 
 import pandas as pd
 
@@ -29,7 +32,7 @@ from supabase_client import supabase as sb  # noqa: E402
 BATCH_SIZE = 500
 
 
-def upsert_batches(table: str, records: list[dict], batch_size: int = BATCH_SIZE):
+def upsert_batches(table: str, records: List[dict], batch_size: int = BATCH_SIZE):
     """Upsert records into a Supabase table in batches."""
     total = len(records)
     for i in range(0, total, batch_size):
@@ -81,7 +84,7 @@ def load_ncci_dir(ncci_dir: str):
     print("NCCI edits loaded successfully\n")
 
 
-def parse_ptp_file(txt_path: Path, source: str) -> list[dict]:
+def parse_ptp_file(txt_path: Path, source: str) -> List[dict]:
     """Parse a single CMS PTP edit .txt file (tab-delimited, 6 header lines)."""
     df = pd.read_csv(
         txt_path,

@@ -7,6 +7,8 @@ Stores anonymized data points from completed bill analyses. No user_id,
 no patient info, no provider names, no exact dates, no full ZIP codes.
 """
 
+from __future__ import annotations
+
 import os
 from collections import Counter
 from typing import List, Optional
@@ -188,7 +190,7 @@ CPT_SPECIALTY_MAP = {
 }
 
 
-def infer_specialty(cpt_codes: list[str]) -> str:
+def infer_specialty(cpt_codes: List[str]) -> str:
     """Infer provider specialty from the most common specialty across CPT codes."""
     specialties = [CPT_SPECIALTY_MAP.get(code, "unknown") for code in cpt_codes]
     specialties = [s for s in specialties if s != "unknown"]

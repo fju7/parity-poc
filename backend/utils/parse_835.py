@@ -11,7 +11,9 @@ Parses X12 835 transaction sets to extract:
 No external EDI libraries required.
 """
 
-from typing import Optional
+from __future__ import annotations
+
+from typing import List, Optional
 
 
 def parse_835(content: str) -> dict:
@@ -140,7 +142,7 @@ def _detect_segment_delimiter(content: str) -> str:
     return "\n"
 
 
-def _detect_element_delimiter(segments: list[str]) -> str:
+def _detect_element_delimiter(segments: List[str]) -> str:
     """Detect element delimiter from ISA segment."""
     for seg in segments:
         if seg.startswith("ISA"):
@@ -179,7 +181,7 @@ def _safe_int(value: str) -> int:
         return 0
 
 
-def _parse_clp(elements: list[str]) -> dict:
+def _parse_clp(elements: List[str]) -> dict:
     """Parse a CLP (claim-level) segment.
 
     CLP*claim_id*status*billed*paid*patient_resp*...
@@ -211,7 +213,7 @@ def _parse_clp(elements: list[str]) -> dict:
     return claim
 
 
-def _parse_svc(elements: list[str]) -> dict:
+def _parse_svc(elements: List[str]) -> dict:
     """Parse a SVC (service line) segment.
 
     SVC*qualifier:code*billed*paid*...*units
@@ -240,7 +242,7 @@ def _parse_svc(elements: list[str]) -> dict:
     }
 
 
-def _parse_cas(elements: list[str]) -> list[dict]:
+def _parse_cas(elements: List[str]) -> List[dict]:
     """Parse a CAS (adjustment) segment.
 
     CAS*group*reason1*amount1*quantity1*reason2*amount2*...
