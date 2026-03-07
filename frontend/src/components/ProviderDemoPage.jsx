@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 // ---------------------------------------------------------------------------
@@ -417,9 +417,133 @@ const mockInput = {
   cursor: "default",
 };
 
+// Module-level flag persists across unmount/remount so animation only plays once
+let gsAnimationPlayed = false;
+
 function GettingStartedTab({ onNavigate }) {
+  const timers = useRef([]);
+
+  // Animation state — all start false/empty, filled in by sequenced timeouts
+  const [payerVisible, setPayerVisible] = useState(false);
+  const [medicareHighlighted, setMedicareHighlighted] = useState(false);
+  const [percentText, setPercentText] = useState("");
+  const [zipText, setZipText] = useState("");
+  const [cptCalloutVisible, setCptCalloutVisible] = useState(false);
+  const [visibleChips, setVisibleChips] = useState(0);
+  const [progressPercent, setProgressPercent] = useState(0);
+  const [linesVisible, setLinesVisible] = useState(false);
+  const [analysisComplete, setAnalysisComplete] = useState(false);
+  const [ctaVisible, setCtaVisible] = useState(false);
+  const [buttonPulse, setButtonPulse] = useState(false);
+
+  // If animation already played, snap to final state immediately
+  useEffect(() => {
+    if (gsAnimationPlayed) {
+      setPayerVisible(true);
+      setMedicareHighlighted(true);
+      setPercentText("120");
+      setZipText("33611");
+      setCptCalloutVisible(true);
+      setVisibleChips(3);
+      setProgressPercent(100);
+      setLinesVisible(true);
+      setAnalysisComplete(true);
+      setCtaVisible(true);
+      setButtonPulse(true);
+      return;
+    }
+
+    gsAnimationPlayed = true;
+
+    const t = (fn, ms) => {
+      const id = setTimeout(fn, ms);
+      timers.current.push(id);
+      return id;
+    };
+
+    // --- Step 1 timeline ---
+    // t=1000: payer fades in
+    t(() => setPayerVisible(true), 1000);
+
+    // t=1500: medicare option highlighted
+    t(() => setMedicareHighlighted(true), 1500);
+
+    // t=1800: type "120" (3 chars, ~167ms each)
+    const pctChars = "120".split("");
+    pctChars.forEach((ch, i) => {
+      t(() => setPercentText((prev) => prev + ch), 1800 + i * 167);
+    });
+
+    // t=2300: type "33611" (5 chars, ~100ms each)
+    const zipChars = "33611".split("");
+    zipChars.forEach((ch, i) => {
+      t(() => setZipText((prev) => prev + ch), 2300 + i * 100);
+    });
+
+    // t=2800: CPT callout fades in with scale
+    t(() => setCptCalloutVisible(true), 2800);
+
+    // --- Step 2 timeline (starts at t=3800, 0.5s after Step 1 ends at ~3300) ---
+    // File chips drop in one at a time
+    t(() => setVisibleChips(1), 3800);
+    t(() => setVisibleChips(2), 4100);
+    t(() => setVisibleChips(3), 4400);
+
+    // Progress bar: 0→100% over 1.5s (t=4700 to t=6200)
+    const progressStart = 4700;
+    const progressDuration = 1500;
+    const progressSteps = 30;
+    const stepInterval = progressDuration / progressSteps;
+    for (let i = 1; i <= progressSteps; i++) {
+      const pct = Math.round((i / progressSteps) * 100);
+      t(() => setProgressPercent(pct), progressStart + i * stepInterval);
+    }
+
+    // "247 payment lines" at ~50% progress
+    t(() => setLinesVisible(true), progressStart + progressDuration * 0.5);
+
+    // Analysis complete at 100%
+    t(() => setAnalysisComplete(true), progressStart + progressDuration);
+
+    // --- CTA (0.5s after Step 2 completes) ---
+    t(() => {
+      setCtaVisible(true);
+      // Slight delay before pulse starts
+      t(() => setButtonPulse(true), 300);
+    }, progressStart + progressDuration + 500);
+
+    return () => {
+      timers.current.forEach(clearTimeout);
+      timers.current = [];
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const progressColor = progressPercent >= 100 ? "#10B981" : "#3B82F6";
+
   return (
     <div>
+      {/* Inject keyframes for animations */}
+      <style>{`
+        @keyframes gsTypeCursor {
+          0%, 100% { border-right-color: #1E293B; }
+          50% { border-right-color: transparent; }
+        }
+        @keyframes gsChipBounce {
+          0% { opacity: 0; transform: translateY(-12px) scale(0.95); }
+          60% { opacity: 1; transform: translateY(3px) scale(1.02); }
+          80% { transform: translateY(-1px) scale(1); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes gsScaleIn {
+          0% { opacity: 0; transform: scale(0.92); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes gsPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.5); }
+          50% { box-shadow: 0 0 0 8px rgba(59,130,246,0); }
+        }
+      `}</style>
+
       <div style={{ textAlign: "center", marginBottom: "36px" }}>
         <h2 style={{ ...h2Style, marginBottom: "10px" }}>
           Two steps. Five minutes. No data entry.
@@ -440,11 +564,14 @@ function GettingStartedTab({ onNavigate }) {
           <div style={stepLabel}>Step 1 — 30 seconds</div>
           <h3 style={stepTitle}>Tell us your payers</h3>
 
-          {/* Payer dropdown */}
+          {/* Payer dropdown — fades in */}
           <div style={{ marginBottom: "16px" }}>
             <div style={fieldLabel}>Payer</div>
             <div style={{ ...mockInput, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span>Aetna</span>
+              <span style={{
+                opacity: payerVisible ? 1 : 0,
+                transition: "opacity 0.5s ease",
+              }}>Aetna</span>
               <span style={{ color: "#94a3b8", fontSize: "11px" }}>{"\u25BC"}</span>
             </div>
           </div>
@@ -454,7 +581,8 @@ function GettingStartedTab({ onNavigate }) {
             <div style={fieldLabel}>How would you like to provide your fee schedule?</div>
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
               {FEE_METHODS.map((m) => {
-                const selected = m.id === "medicare";
+                const isMedicare = m.id === "medicare";
+                const selected = isMedicare && medicareHighlighted;
                 return (
                   <div
                     key={m.id}
@@ -468,14 +596,20 @@ function GettingStartedTab({ onNavigate }) {
                       background: selected ? "rgba(13,148,136,0.04)" : "#fff",
                       cursor: "default",
                       position: "relative",
+                      transition: "border 0.3s ease, background 0.3s ease",
                     }}
                   >
                     <div style={{
                       width: "16px", height: "16px", borderRadius: "50%",
                       border: selected ? "5px solid #0D9488" : "2px solid #CBD5E1",
                       boxSizing: "border-box", flexShrink: 0,
+                      transition: "border 0.3s ease",
                     }} />
-                    <span style={{ fontSize: "13px", color: "#1E293B", fontWeight: selected ? "600" : "400" }}>
+                    <span style={{
+                      fontSize: "13px", color: "#1E293B",
+                      fontWeight: selected ? "600" : "400",
+                      transition: "font-weight 0.3s ease",
+                    }}>
                       {m.label}
                     </span>
                     {selected && (
@@ -485,6 +619,7 @@ function GettingStartedTab({ onNavigate }) {
                         letterSpacing: "0.04em",
                         background: "#0D9488", color: "#fff",
                         padding: "3px 8px", borderRadius: "4px",
+                        animation: "gsScaleIn 0.3s ease forwards",
                       }}>Easiest</span>
                     )}
                   </div>
@@ -493,27 +628,49 @@ function GettingStartedTab({ onNavigate }) {
             </div>
           </div>
 
-          {/* % of Medicare inputs */}
+          {/* % of Medicare inputs — typing effect */}
           <div style={{
             background: "#F0FDFA", border: "1px solid #99F6E4",
             borderRadius: "10px", padding: "16px", marginBottom: "16px",
+            opacity: medicareHighlighted ? 1 : 0.4,
+            transition: "opacity 0.4s ease",
           }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "14px" }}>
               <div>
                 <div style={fieldLabel}>Percentage of Medicare</div>
-                <div style={{ ...mockInput, background: "#fff" }}>120%</div>
+                <div style={{
+                  ...mockInput, background: "#fff",
+                  borderRight: percentText.length > 0 && percentText.length < 3 ? "2px solid #1E293B" : undefined,
+                  animation: percentText.length > 0 && percentText.length < 3 ? "gsTypeCursor 0.6s step-end infinite" : undefined,
+                }}>
+                  {percentText ? `${percentText}%` : "\u00A0"}
+                </div>
               </div>
               <div>
                 <div style={fieldLabel}>Practice ZIP Code</div>
-                <div style={{ ...mockInput, background: "#fff" }}>33611</div>
+                <div style={{
+                  ...mockInput, background: "#fff",
+                  borderRight: zipText.length > 0 && zipText.length < 5 ? "2px solid #1E293B" : undefined,
+                  animation: zipText.length > 0 && zipText.length < 5 ? "gsTypeCursor 0.6s step-end infinite" : undefined,
+                }}>
+                  {zipText || "\u00A0"}
+                </div>
               </div>
             </div>
+            {/* CPT callout — scale-in with fade */}
             <div style={{
               display: "flex", alignItems: "flex-start", gap: "8px",
               background: "#fff", borderRadius: "8px", padding: "12px",
               border: "1px solid #99F6E4",
+              opacity: cptCalloutVisible ? 1 : 0,
+              transform: cptCalloutVisible ? "scale(1)" : "scale(0.92)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
             }}>
-              <span style={{ color: "#0D9488", fontSize: "16px", lineHeight: "1", flexShrink: 0 }}>{"\u2713"}</span>
+              <span style={{
+                color: "#0D9488", fontSize: "16px", lineHeight: "1", flexShrink: 0,
+                opacity: cptCalloutVisible ? 1 : 0,
+                transition: "opacity 0.3s ease 0.2s",
+              }}>{"\u2713"}</span>
               <span style={{ fontSize: "12px", color: "#1E293B", lineHeight: "1.5" }}>
                 <strong>7,718 CPT codes</strong> generated instantly from 2026 CMS Medicare Fee Schedule, adjusted for Tampa, FL locality
               </span>
@@ -544,18 +701,23 @@ function GettingStartedTab({ onNavigate }) {
               Drag & drop your remittance files here
             </div>
             <div style={{ fontSize: "12px", color: "#94a3b8" }}>
-              3 files selected
+              {visibleChips > 0 ? `${visibleChips} file${visibleChips !== 1 ? "s" : ""} selected` : "\u00A0"}
             </div>
           </div>
 
-          {/* File chips */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "12px" }}>
-            {SAMPLE_FILES.map((f) => (
-              <div key={f} style={{
-                display: "inline-flex", alignItems: "center", gap: "6px",
-                background: "#EFF6FF", border: "1px solid #BFDBFE",
-                borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
-              }}>
+          {/* File chips — bounce in one at a time */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "12px", minHeight: "32px" }}>
+            {SAMPLE_FILES.map((f, idx) => (
+              <div
+                key={f}
+                style={{
+                  display: idx < visibleChips ? "inline-flex" : "none",
+                  alignItems: "center", gap: "6px",
+                  background: "#EFF6FF", border: "1px solid #BFDBFE",
+                  borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
+                  animation: "gsChipBounce 0.4s ease forwards",
+                }}
+              >
                 <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
                 {f}
               </div>
@@ -574,15 +736,30 @@ function GettingStartedTab({ onNavigate }) {
           <div style={{
             background: "#F8FAFC", borderRadius: "8px", padding: "14px",
             border: "1px solid #E2E8F0", marginBottom: "12px",
+            opacity: visibleChips >= 3 ? 1 : 0.3,
+            transition: "opacity 0.4s ease",
           }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-              <span style={{ fontSize: "12px", color: "#64748b" }}>Processing...</span>
-              <span style={{ fontSize: "12px", color: "#3B82F6", fontWeight: "600" }}>100%</span>
+              <span style={{ fontSize: "12px", color: "#64748b" }}>
+                {progressPercent > 0 ? "Processing..." : "\u00A0"}
+              </span>
+              <span style={{ fontSize: "12px", color: progressColor, fontWeight: "600", transition: "color 0.3s" }}>
+                {progressPercent > 0 ? `${progressPercent}%` : "\u00A0"}
+              </span>
             </div>
             <div style={{ height: "4px", borderRadius: "2px", background: "#E2E8F0" }}>
-              <div style={{ height: "4px", borderRadius: "2px", background: "#3B82F6", width: "100%" }} />
+              <div style={{
+                height: "4px", borderRadius: "2px",
+                background: progressColor,
+                width: `${progressPercent}%`,
+                transition: "width 50ms linear, background 0.3s ease",
+              }} />
             </div>
-            <div style={{ fontSize: "11px", color: "#64748b", marginTop: "6px" }}>
+            <div style={{
+              fontSize: "11px", color: "#64748b", marginTop: "6px",
+              opacity: linesVisible ? 1 : 0,
+              transition: "opacity 0.4s ease",
+            }}>
               247 payment lines identified across 3 payers
             </div>
           </div>
@@ -592,6 +769,9 @@ function GettingStartedTab({ onNavigate }) {
             display: "flex", alignItems: "center", gap: "8px",
             background: "#F0FDF4", border: "1px solid #BBF7D0",
             borderRadius: "8px", padding: "12px 14px",
+            opacity: analysisComplete ? 1 : 0,
+            transform: analysisComplete ? "translateY(0)" : "translateY(6px)",
+            transition: "opacity 0.4s ease, transform 0.4s ease",
           }}>
             <span style={{ color: "#10B981", fontSize: "18px", flexShrink: 0 }}>{"\u2713"}</span>
             <span style={{ fontSize: "13px", color: "#166534", fontWeight: "600" }}>
@@ -601,8 +781,13 @@ function GettingStartedTab({ onNavigate }) {
         </div>
       </div>
 
-      {/* Transition / CTA */}
-      <div style={{ textAlign: "center", marginBottom: "8px" }}>
+      {/* Transition / CTA — fades in after both steps */}
+      <div style={{
+        textAlign: "center", marginBottom: "8px",
+        opacity: ctaVisible ? 1 : 0,
+        transform: ctaVisible ? "translateY(0)" : "translateY(12px)",
+        transition: "opacity 0.5s ease, transform 0.5s ease",
+      }}>
         <div style={{
           display: "inline-flex", alignItems: "center", gap: "10px",
           fontSize: "22px", color: "#3B82F6", marginBottom: "20px",
@@ -629,6 +814,7 @@ function GettingStartedTab({ onNavigate }) {
             border: "none", cursor: "pointer",
             fontFamily: "inherit",
             transition: "background 0.2s",
+            animation: buttonPulse ? "gsPulse 2s ease-in-out infinite" : "none",
           }}
           onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
