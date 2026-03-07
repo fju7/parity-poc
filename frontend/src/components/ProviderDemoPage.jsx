@@ -360,8 +360,8 @@ export default function ProviderDemoPage() {
         {activeTab === "intel" && <IntelTab />}
       </main>
 
-      {/* Bottom CTA */}
-      <div style={{
+      {/* Bottom CTA — hidden on Getting Started tab which has its own transition CTA */}
+      {activeTab !== "start" && <div style={{
         maxWidth: "1100px", margin: "0 auto", padding: "0 24px 48px",
         textAlign: "center",
       }}>
@@ -382,7 +382,7 @@ export default function ProviderDemoPage() {
             Start Your Free Audit &rarr;
           </Link>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
