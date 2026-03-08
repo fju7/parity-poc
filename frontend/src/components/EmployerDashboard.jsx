@@ -35,6 +35,49 @@ export default function EmployerDashboard() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [trends, setTrends] = useState(null);
+  const [trendsLoading, setTrendsLoading] = useState(false);
+  const [trendsRefreshing, setTrendsRefreshing] = useState(false);
+
+  const fetchTrends = async (email) => {
+    if (!email) return;
+    setTrendsLoading(true);
+    try {
+      // Look up subscription by email to get subscription_id
+      const subRes = await fetch(`${API_BASE}/api/employer/subscription-status?email=${encodeURIComponent(email)}`);
+      if (!subRes.ok) return;
+      const subData = await subRes.json();
+      if (!subData.active || !subData.subscription?.id) return;
+
+      const trendRes = await fetch(`${API_BASE}/api/employer/trends/${subData.subscription.id}`);
+      if (trendRes.ok) {
+        const trendData = await trendRes.json();
+        trendData._subscription_id = subData.subscription.id;
+        setTrends(trendData);
+      }
+    } catch (err) {
+      console.log("[Trends] fetch failed:", err.message);
+    } finally {
+      setTrendsLoading(false);
+    }
+  };
+
+  const refreshTrends = async () => {
+    if (!trends?._subscription_id) return;
+    setTrendsRefreshing(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/employer/trends/${trends._subscription_id}/refresh`, { method: "POST" });
+      if (res.ok) {
+        const data = await res.json();
+        data._subscription_id = trends._subscription_id;
+        setTrends(data);
+      }
+    } catch (err) {
+      console.log("[Trends] refresh failed:", err.message);
+    } finally {
+      setTrendsRefreshing(false);
+    }
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem("employer_session");
@@ -45,6 +88,7 @@ export default function EmployerDashboard() {
     const parsed = JSON.parse(stored);
     setSession(parsed);
     fetchDashboard(parsed.employer_id);
+    fetchTrends(parsed.email);
   }, [navigate]);
 
   // Backend keepalive: ping every 4 min while tab is visible
@@ -327,6 +371,124 @@ export default function EmployerDashboard() {
                 </Card>
               </section>
             )}
+
+            {/* Panel 7: PEPM Trend Analysis */}
+            <section>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                <SectionTitle>PEPM Trend Analysis</SectionTitle>
+                {trends && trends.months_available >= 2 && (
+                  <button
+                    onClick={refreshTrends}
+                    disabled={trendsRefreshing}
+                    style={{
+                      background: "#fff", border: "1px solid #e2e8f0", borderRadius: 6,
+                      padding: "6px 14px", fontSize: 13, cursor: trendsRefreshing ? "not-allowed" : "pointer",
+                      color: "#4a5568", fontWeight: 500, opacity: trendsRefreshing ? 0.6 : 1,
+                    }}
+                  >
+                    {trendsRefreshing ? "Refreshing..." : "Refresh"}
+                  </button>
+                )}
+              </div>
+
+              {trendsLoading && (
+                <Card>
+                  <div style={{ textAlign: "center", padding: 32, color: "#4a5568", fontSize: 14 }}>
+                    Loading trend data...
+                  </div>
+                </Card>
+              )}
+
+              {!trendsLoading && (!trends || trends.months_available < 2) && (
+                <Card>
+                  <div style={{ textAlign: "center", padding: 32, color: "#4a5568", fontSize: 14 }}>
+                    Trend analysis will appear after your second monthly upload.
+                  </div>
+                </Card>
+              )}
+
+              {!trendsLoading && trends && trends.months_available >= 2 && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  {/* PEPM Trend Bars */}
+                  <Card>
+                    <h4 style={{ fontSize: 14, fontWeight: 600, color: "#4a5568", margin: "0 0 16px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                      Per Employee Per Month (PEPM)
+                    </h4>
+                    {trends.monthly_summary.map((m, i) => {
+                      const maxPepm = Math.max(...trends.monthly_summary.map(x => x.pepm));
+                      const widthPct = maxPepm > 0 ? (m.pepm / maxPepm) * 100 : 0;
+                      return (
+                        <div key={i} style={{ marginBottom: 10 }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, marginBottom: 4 }}>
+                            <span style={{ color: "#4a5568", fontWeight: 500 }}>{m.label}</span>
+                            <span style={{ fontWeight: 700, color: "#1B3A5C" }}>{fmt$(m.pepm)}</span>
+                          </div>
+                          <div style={{ background: "#f1f5f9", borderRadius: 6, height: 24, overflow: "hidden" }}>
+                            <div style={{
+                              width: `${widthPct}%`, height: "100%",
+                              background: i === trends.monthly_summary.length - 1 ? "#1B3A5C" : "#0D7377",
+                              borderRadius: 6, transition: "width 0.5s ease",
+                            }} />
+                          </div>
+                          {m.pepm_delta_pct != null && (
+                            <div style={{ fontSize: 11, color: m.pepm_delta_pct > 0 ? "#991b1b" : "#059669", marginTop: 2, fontWeight: 600 }}>
+                              {m.pepm_delta_pct > 0 ? "+" : ""}{m.pepm_delta_pct}% vs prior month
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </Card>
+
+                  {/* Alert Cards */}
+                  {trends.alerts && trends.alerts.length > 0 && (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {trends.alerts.map((alert, i) => {
+                        const isHigh = alert.severity === "high";
+                        const isPositive = alert.severity === "positive";
+                        const borderColor = isPositive ? "#059669" : isHigh ? "#EF4444" : "#F59E0B";
+                        const bgColor = isPositive ? "#f0fdf4" : isHigh ? "#fef2f2" : "#fefce8";
+                        const textColor = isPositive ? "#065f46" : isHigh ? "#991b1b" : "#92400e";
+                        return (
+                          <div key={i} style={{
+                            background: bgColor, borderLeft: `4px solid ${borderColor}`,
+                            borderRadius: 8, padding: "12px 16px",
+                          }}>
+                            <div style={{ fontSize: 11, fontWeight: 600, color: borderColor, textTransform: "uppercase", marginBottom: 4 }}>
+                              {alert.type.replace(/_/g, " ")}
+                            </div>
+                            <div style={{ fontSize: 14, color: textColor, lineHeight: 1.5 }}>
+                              {alert.detail}
+                            </div>
+                            {alert.financial_impact != null && (
+                              <div style={{ fontSize: 12, color: "#4a5568", marginTop: 4 }}>
+                                Financial impact: {fmt$(alert.financial_impact)}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* AI Narrative */}
+                  {trends.trend_narrative && (
+                    <div style={{
+                      background: "#fff", borderLeft: "4px solid #3b82f6",
+                      borderRadius: 8, padding: 20, border: "1px solid #e2e8f0",
+                      borderLeftColor: "#3b82f6",
+                    }}>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: "#3b82f6", marginBottom: 10, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+                        AI TREND SUMMARY
+                      </div>
+                      <div style={{ fontSize: 15, color: "#1e293b", fontWeight: 400, lineHeight: 1.6 }}>
+                        {trends.trend_narrative}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </section>
           </div>
         )}
       </main>

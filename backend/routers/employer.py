@@ -7,6 +7,7 @@ All endpoint implementations are in:
   - employer_claims.py        — claims file analysis
   - employer_scorecard.py     — plan grading / scorecard
   - employer_subscription.py  — Stripe checkout, webhook, subscription status
+  - employer_trends.py        — month-over-month trend engine
   - employer_shared.py        — shared helpers, constants, Pydantic models
 
 No PHI is stored. User IDs are SHA-256 hashed before persistence.
@@ -26,6 +27,7 @@ from routers.employer_benchmark import router as benchmark_router
 from routers.employer_claims import router as claims_router
 from routers.employer_scorecard import router as scorecard_router
 from routers.employer_subscription import router as subscription_router
+from routers.employer_trends import router as trends_router
 
 router = APIRouter(prefix="/api/employer", tags=["employer"])
 
@@ -35,6 +37,7 @@ router.include_router(benchmark_router)
 router.include_router(claims_router)
 router.include_router(scorecard_router)
 router.include_router(subscription_router)
+router.include_router(trends_router)
 
 # ---------------------------------------------------------------------------
 # Supabase client (service role for server-side access)
