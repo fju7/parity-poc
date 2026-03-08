@@ -19,6 +19,7 @@ from routers.signal_topic_request import router as signal_topic_request_router
 from routers.signal_notify_deliver import router as signal_notify_deliver_router
 from routers.health_analyze import router as health_analyze_router
 from routers.benchmark_observations import router as benchmark_observations_router
+from routers.broker import router as broker_router
 
 
 @asynccontextmanager
@@ -76,6 +77,7 @@ app.include_router(signal_topic_request_router)
 app.include_router(signal_notify_deliver_router)
 app.include_router(health_analyze_router)
 app.include_router(benchmark_observations_router)
+app.include_router(broker_router)
 
 
 @app.get("/")
