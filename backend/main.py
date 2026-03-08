@@ -9,6 +9,7 @@ from routers.ai_parse import router as ai_parse_router
 from routers.eob_parse import router as eob_parse_router
 from routers.coding_intelligence import load_coding_data
 from routers.employer import router as employer_router
+from routers.employer_shared import load_employer_benchmarks
 from routers.provider import router as provider_router
 from routers.signal_events import router as signal_events_router
 from routers.signal_stripe import router as signal_stripe_router
@@ -28,6 +29,11 @@ async def lifespan(app: FastAPI):
     except Exception as exc:
         print(f"WARNING: Coding intelligence startup failed — {exc}")
         print("The server will continue without coding intelligence checks.")
+    try:
+        load_employer_benchmarks()
+    except Exception as exc:
+        print(f"WARNING: Employer benchmark startup failed — {exc}")
+        print("The server will continue without employer benchmarks.")
     yield
 
 
