@@ -167,6 +167,27 @@ export default function ProviderProductPage() {
             See the Demo &rarr;
           </Link>
         </div>
+
+        {/* Video embed */}
+        <div style={{
+          marginTop: "40px",
+          maxWidth: "720px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          borderRadius: "12px",
+          overflow: "hidden",
+          border: "1px solid rgba(255,255,255,0.08)",
+          boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+        }}>
+          <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
+            <iframe
+              src="https://share.descript.com/embed/eQ53a6PuNPu"
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+              allowFullScreen
+              title="Parity Provider demo video"
+            />
+          </div>
+        </div>
       </section>
 
       {/* How It Works */}
