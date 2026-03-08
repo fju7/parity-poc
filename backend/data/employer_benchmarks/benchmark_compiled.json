@@ -1,0 +1,337 @@
+{
+  "metadata": {
+    "sources": [
+      "MEPS-IC 2024 (Agency for Healthcare Research and Quality)",
+      "KFF Employer Health Benefits Survey 2025",
+      "BLS Employer Costs for Employee Compensation Sept 2025"
+    ],
+    "compiled_date": "2026-03-08",
+    "notes": {
+      "pepm": "Per Employee Per Month = annual employer premium portion / 12",
+      "employer_share": "National avg employer share: 78.9% single, 70.6% family",
+      "percentile_estimation": "Industry and size band percentiles estimated from national p25/p50/p75 ratios",
+      "size_bands": "10-199 mapped to MEPS 'Less than 50 employees'; 200+ mapped to '50 or more employees'"
+    }
+  },
+  "national_averages": {
+    "single_premium_annual": 8486.07,
+    "family_premium_annual": 24540.03,
+    "employer_single_annual": 6696.6,
+    "employer_family_annual": 17324.06,
+    "employer_single_monthly_pepm": 558.05,
+    "employer_family_monthly_pepm": 1443.67,
+    "ee_single_annual": 1789.46,
+    "ee_family_annual": 7215.98,
+    "employer_share_single_pct": 78.9,
+    "employer_share_family_pct": 70.6,
+    "p10_pepm": 341.96,
+    "p25_pepm": 440.6,
+    "p50_pepm": 552.39,
+    "p75_pepm": 657.61,
+    "p90_pepm": 789.13
+  },
+  "by_industry": {
+    "Ag/forestry/fishing": {
+      "single_premium_annual": 7828.44,
+      "family_premium_annual": 17845.32,
+      "employer_single_pepm": 514.8,
+      "employer_family_pepm": 1049.83,
+      "p25_pepm": 406.69,
+      "p50_pepm": 514.8,
+      "p75_pepm": 612.61,
+      "ecec_monthly": 630.92,
+      "top_cost_drivers": []
+    },
+    "Construction": {
+      "single_premium_annual": 7109.05,
+      "family_premium_annual": 21442.85,
+      "employer_single_pepm": 467.5,
+      "employer_family_pepm": 1261.47,
+      "p25_pepm": 369.32,
+      "p50_pepm": 467.5,
+      "p75_pepm": 556.32,
+      "ecec_monthly": 630.92,
+      "top_cost_drivers": []
+    },
+    "Fin. svs. and real est.": {
+      "single_premium_annual": 8763.63,
+      "family_premium_annual": 26350.47,
+      "employer_single_pepm": 576.3,
+      "employer_family_pepm": 1550.18,
+      "p25_pepm": 455.28,
+      "p50_pepm": 576.3,
+      "p75_pepm": 685.8,
+      "ecec_monthly": 1041.71,
+      "top_cost_drivers": []
+    },
+    "Mining and manufacturing": {
+      "single_premium_annual": 8056.89,
+      "family_premium_annual": 23426.27,
+      "employer_single_pepm": 529.83,
+      "employer_family_pepm": 1378.15,
+      "p25_pepm": 418.57,
+      "p50_pepm": 529.83,
+      "p75_pepm": 630.5,
+      "ecec_monthly": 759.19,
+      "top_cost_drivers": []
+    },
+    "Other services": {
+      "single_premium_annual": 8825.46,
+      "family_premium_annual": 23213.63,
+      "employer_single_pepm": 580.37,
+      "employer_family_pepm": 1365.64,
+      "p25_pepm": 458.49,
+      "p50_pepm": 580.37,
+      "p75_pepm": 690.64,
+      "ecec_monthly": 388.26,
+      "top_cost_drivers": []
+    },
+    "Professional services": {
+      "single_premium_annual": 8963.01,
+      "family_premium_annual": 25745.9,
+      "employer_single_pepm": 589.41,
+      "employer_family_pepm": 1514.61,
+      "p25_pepm": 465.63,
+      "p50_pepm": 589.41,
+      "p75_pepm": 701.4,
+      "ecec_monthly": 701.99,
+      "top_cost_drivers": []
+    },
+    "Retail trade": {
+      "single_premium_annual": 7708.59,
+      "family_premium_annual": 23869.41,
+      "employer_single_pepm": 506.92,
+      "employer_family_pepm": 1404.22,
+      "p25_pepm": 400.47,
+      "p50_pepm": 506.92,
+      "p75_pepm": 603.23,
+      "ecec_monthly": 263.46,
+      "top_cost_drivers": []
+    },
+    "Utilities and transportation": {
+      "single_premium_annual": 8207.93,
+      "family_premium_annual": 24963.98,
+      "employer_single_pepm": 539.76,
+      "employer_family_pepm": 1468.61,
+      "p25_pepm": 426.41,
+      "p50_pepm": 539.76,
+      "p75_pepm": 642.31,
+      "ecec_monthly": 948.12,
+      "top_cost_drivers": []
+    },
+    "Wholesale trade": {
+      "single_premium_annual": 8512.69,
+      "family_premium_annual": 23945.29,
+      "employer_single_pepm": 559.8,
+      "employer_family_pepm": 1408.68,
+      "p25_pepm": 442.24,
+      "p50_pepm": 559.8,
+      "p75_pepm": 666.16,
+      "ecec_monthly": 634.39,
+      "top_cost_drivers": []
+    }
+  },
+  "by_state": {
+    "FL": {
+      "single_premium_annual": 9016.0,
+      "family_premium_annual": 24807.0,
+      "employer_single_monthly_pepm": 603.08,
+      "employer_family_monthly_pepm": 1331.33,
+      "p50_pepm": 603.08,
+      "cost_index": 1.062
+    },
+    "US": {
+      "single_premium_annual": 8486.0,
+      "family_premium_annual": 24540.0,
+      "employer_single_monthly_pepm": 558.08,
+      "employer_family_monthly_pepm": 1443.67,
+      "p50_pepm": 558.08,
+      "cost_index": 1.0
+    }
+  },
+  "by_size": {
+    "10-199": {
+      "single_premium_annual": 8214.81,
+      "family_premium_annual": 23169.96,
+      "employer_single_pepm": 538.32,
+      "p25_pepm": 425.27,
+      "p50_pepm": 538.32,
+      "p75_pepm": 640.6,
+      "avg_deductible_single": null,
+      "avg_oop_max_single": null
+    },
+    "200+": {
+      "single_premium_annual": 8540.48,
+      "family_premium_annual": 24734.16,
+      "employer_single_pepm": 562.01,
+      "p25_pepm": 443.99,
+      "p50_pepm": 562.01,
+      "p75_pepm": 668.79,
+      "avg_deductible_single": null,
+      "avg_oop_max_single": null
+    }
+  },
+  "kff_deductibles": {
+    "single_coverage_2025": {
+      "small_firms": 2631.0,
+      "large_firms": 1670.0,
+      "all_firms": 1886.0
+    },
+    "oop_max_single_2025": {
+      "small_firms": null,
+      "large_firms": null,
+      "all_firms": 4423.0
+    }
+  },
+  "kff_plan_types": {
+    "small_firms_plan_types": {
+      "conventional": null,
+      "hmo": 9.0,
+      "ppo": 27.0,
+      "pos": 12.0,
+      "hdhp_so": 35.0
+    },
+    "large_firms_plan_types": {
+      "conventional": 1.0,
+      "hmo": 17.0,
+      "ppo": 60.0,
+      "pos": 16.0,
+      "hdhp_so": 62.0
+    },
+    "all_firms_plan_types": {
+      "conventional": null,
+      "hmo": 9.0,
+      "ppo": 29.0,
+      "pos": 12.0,
+      "hdhp_so": 36.0
+    }
+  },
+  "kff_self_funding": {
+    "self_funded_10_49": 18.0,
+    "self_funded_50_199": 34.0,
+    "self_funded_200_999": 57.0,
+    "self_funded_1000_4999": 82.0,
+    "self_funded_5000_plus": 87.0,
+    "self_funded_all": 67.0
+  },
+  "kff_rx_cost_sharing": {
+    "rx_copay_fourth_tier": {
+      "copay": 123.0,
+      "coinsurance": 31.0
+    }
+  },
+  "ecec_insurance_costs": {
+    "private_industry_avg_per_hour": 3.46,
+    "private_industry_avg_monthly": 599.72,
+    "by_industry": {
+      "Construction": {
+        "insurance_cost_per_hour": 3.64,
+        "insurance_cost_monthly": 630.92
+      },
+      "Manufacturing": {
+        "insurance_cost_per_hour": 4.38,
+        "insurance_cost_monthly": 759.19
+      },
+      "Aircraft manufacturing": {
+        "insurance_cost_per_hour": 7.99,
+        "insurance_cost_monthly": 1384.91
+      },
+      "Trade, transportation, and utilities": {
+        "insurance_cost_per_hour": 3.03,
+        "insurance_cost_monthly": 525.19
+      },
+      "Wholesale trade": {
+        "insurance_cost_per_hour": 3.66,
+        "insurance_cost_monthly": 634.39
+      },
+      "Retail trade": {
+        "insurance_cost_per_hour": 1.52,
+        "insurance_cost_monthly": 263.46
+      },
+      "Transportation and warehousing": {
+        "insurance_cost_per_hour": 5.47,
+        "insurance_cost_monthly": 948.12
+      },
+      "Utilities": {
+        "insurance_cost_per_hour": 7.55,
+        "insurance_cost_monthly": 1308.64
+      },
+      "Information": {
+        "insurance_cost_per_hour": 7.64,
+        "insurance_cost_monthly": 1324.24
+      },
+      "Financial activities": {
+        "insurance_cost_per_hour": 6.01,
+        "insurance_cost_monthly": 1041.71
+      },
+      "Finance and insurance": {
+        "insurance_cost_per_hour": 6.76,
+        "insurance_cost_monthly": 1171.71
+      },
+      "Credit intermediation and related activities": {
+        "insurance_cost_per_hour": 6.34,
+        "insurance_cost_monthly": 1098.91
+      },
+      "Insurance carriers and related activities": {
+        "insurance_cost_per_hour": 6.58,
+        "insurance_cost_monthly": 1140.51
+      },
+      "Real estate and rental and leasing": {
+        "insurance_cost_per_hour": 3.75,
+        "insurance_cost_monthly": 649.99
+      },
+      "Professional and business services": {
+        "insurance_cost_per_hour": 4.05,
+        "insurance_cost_monthly": 701.99
+      },
+      "Professional, scientific, and technical services": {
+        "insurance_cost_per_hour": 4.99,
+        "insurance_cost_monthly": 864.92
+      },
+      "Administrative and waste services": {
+        "insurance_cost_per_hour": 2.22,
+        "insurance_cost_monthly": 384.79
+      },
+      "Education and health services": {
+        "insurance_cost_per_hour": 3.62,
+        "insurance_cost_monthly": 627.45
+      },
+      "Educational services": {
+        "insurance_cost_per_hour": 4.32,
+        "insurance_cost_monthly": 748.79
+      },
+      "Junior colleges, colleges, universities and professional schools": {
+        "insurance_cost_per_hour": 6.46,
+        "insurance_cost_monthly": 1119.71
+      },
+      "Health care and social assistance": {
+        "insurance_cost_per_hour": 3.53,
+        "insurance_cost_monthly": 611.85
+      },
+      "Hospitals": {
+        "insurance_cost_per_hour": 5.94,
+        "insurance_cost_monthly": 1029.58
+      },
+      "Nursing and residential care facilities": {
+        "insurance_cost_per_hour": 2.58,
+        "insurance_cost_monthly": 447.19
+      },
+      "Nursing care facilities": {
+        "insurance_cost_per_hour": 2.57,
+        "insurance_cost_monthly": 445.46
+      },
+      "Leisure and hospitality": {
+        "insurance_cost_per_hour": 0.72,
+        "insurance_cost_monthly": 124.8
+      },
+      "Accommodation and food services": {
+        "insurance_cost_per_hour": 0.69,
+        "insurance_cost_monthly": 119.6
+      },
+      "Other services": {
+        "insurance_cost_per_hour": 2.24,
+        "insurance_cost_monthly": 388.26
+      }
+    }
+  }
+}
