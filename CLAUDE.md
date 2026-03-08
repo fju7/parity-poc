@@ -83,6 +83,12 @@ Three live products + one in development:
 - backend/data/employer_benchmarks/benchmark_compiled.json — runtime
   benchmark lookup data
 - backend/main.py — FastAPI app, router registration, lifespan
+- backend/data/sample/Midwest_Manufacturing_Dec2024.835 — sample 835 EDI
+  file (970 claims, ~$623K paid) for demo video
+- backend/data/sample/Midwest_Manufacturing_SBC_2025.pdf — sample SBC PDF
+  (Cigna PPO, produces C+ scorecard grade) for demo video
+- backend/data/sample/generate_835.py — reproducible 835 generator script
+- backend/data/sample/generate_sbc_pdf.py — reproducible SBC PDF generator
 
 ## Key frontend files
 - frontend/src/main.jsx — all routes (66 lines)
