@@ -454,6 +454,22 @@ export default function EmployerRBPCalculator() {
             {/* Next Steps */}
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "24px" }}>
               <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px" }}>Next Steps</h3>
+              <Link
+                to="/billing/employer/scorecard"
+                style={{
+                  display: "block",
+                  background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(16,185,129,0.06))",
+                  border: "1px solid rgba(16,185,129,0.35)",
+                  borderRadius: "12px", padding: "24px", textDecoration: "none",
+                  textAlign: "center", color: "#e2e8f0", marginBottom: "12px",
+                }}
+              >
+                <div style={{ fontSize: "28px", marginBottom: "8px" }}>&#128203;</div>
+                <div style={{ fontSize: "16px", fontWeight: "700", color: "#10b981", marginBottom: "6px" }}>
+                  Grade Your Plan Design &rarr;
+                </div>
+                <div style={{ fontSize: "13px", color: "#94a3b8" }}>Upload your SBC to see how your plan design scores — and where to improve</div>
+              </Link>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                 <button
                   onClick={handleDownloadPdf}
@@ -470,24 +486,8 @@ export default function EmployerRBPCalculator() {
                   </div>
                   <div style={{ fontSize: "11px", color: "#64748b" }}>Share with your broker</div>
                 </button>
-                <a
-                  href="https://www.imagine360.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)",
-                    borderRadius: "10px", padding: "20px 16px", textDecoration: "none",
-                    textAlign: "center", color: "#e2e8f0", display: "block",
-                  }}
-                >
-                  <div style={{ fontSize: "24px", marginBottom: "8px" }}>&#127891;</div>
-                  <div style={{ fontSize: "14px", fontWeight: "600", color: "#60a5fa", marginBottom: "4px" }}>
-                    Imagine360 &rarr;
-                  </div>
-                  <div style={{ fontSize: "11px", color: "#64748b" }}>RBP-specialized TPA</div>
-                </a>
                 <Link
-                  to="/billing/employer/demo"
+                  to="/billing/employer/claims-check"
                   style={{
                     background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)",
                     borderRadius: "10px", padding: "20px 16px", textDecoration: "none",
@@ -499,20 +499,6 @@ export default function EmployerRBPCalculator() {
                     Back to Full Analysis &rarr;
                   </div>
                   <div style={{ fontSize: "11px", color: "#64748b" }}>See other savings levers</div>
-                </Link>
-                <Link
-                  to="/billing/employer/scorecard"
-                  style={{
-                    background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.25)",
-                    borderRadius: "10px", padding: "20px 16px", textDecoration: "none",
-                    textAlign: "center", color: "#e2e8f0", display: "block",
-                  }}
-                >
-                  <div style={{ fontSize: "24px", marginBottom: "8px" }}>&#128203;</div>
-                  <div style={{ fontSize: "14px", fontWeight: "600", color: "#10b981", marginBottom: "4px" }}>
-                    Grade Your Plan Design &rarr;
-                  </div>
-                  <div style={{ fontSize: "11px", color: "#64748b" }}>Upload your SBC for a plan scorecard</div>
                 </Link>
               </div>
             </div>
