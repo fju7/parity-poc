@@ -25,6 +25,7 @@ import EmployerBenchmark from './components/EmployerBenchmark.jsx'
 import EmployerClaimsCheck from './components/EmployerClaimsCheck.jsx'
 import EmployerScorecard from './components/EmployerScorecard.jsx'
 import EmployerSubscribe from './components/EmployerSubscribe.jsx'
+import EmployerContractParser from './components/EmployerContractParser.jsx'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -50,6 +51,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/billing/employer/claims-check" element={<EmployerClaimsCheck />} />
         <Route path="/billing/employer/scorecard" element={<EmployerScorecard />} />
         <Route path="/billing/employer/subscribe" element={<EmployerSubscribe />} />
+        <Route path="/billing/employer/contract-parse" element={<EmployerContractParser />} />
         <Route path="/billing/employer/demo" element={<EmployerDemoPage />} />
         <Route path="/billing/provider/demo" element={<ProviderDemoPage />} />
         <Route path="/employer" element={<EmployerLandingPage />} />

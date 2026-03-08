@@ -1,6 +1,7 @@
 """Employer claims-check endpoint — upload CSV/Excel/835 EDI claims and compare against CMS Medicare rates.
 
 POST /claims-check — accepts multipart file upload + optional column mapping.
+POST /contract-parse — accepts carrier contract PDF, extracts rates, compares to Medicare.
 Uses Claude AI for intelligent column mapping when headers are ambiguous.
 Supports 835 EDI files (parsed via parse_835) and ZIP archives of 835 files.
 Reuses the existing CMS Medicare rate database from benchmark.py.
@@ -8,8 +9,12 @@ Reuses the existing CMS Medicare rate database from benchmark.py.
 
 from __future__ import annotations
 
+import base64
 import io
 import json
+import os
+import re
+import time
 import zipfile
 from typing import Optional
 
@@ -339,8 +344,229 @@ async def employer_claims_check(
 
 
 # ---------------------------------------------------------------------------
+# Contract parsing prompt
+# ---------------------------------------------------------------------------
+
+CONTRACT_PARSE_PROMPT = """You are a healthcare contract analyst. Extract all negotiated rate information from this carrier contract or fee schedule. For each procedure or rate category found, identify:
+- CPT code or procedure category name
+- Negotiated rate (dollar amount or percentage of Medicare)
+- Any modifiers or conditions
+
+Return ONLY valid JSON in this exact structure:
+{
+  "carrier_name": "name of insurance carrier if found",
+  "contract_effective_date": "date if found, else null",
+  "rate_basis": "fee_schedule" | "percent_medicare" | "mixed" | "unknown",
+  "medicare_percentage": 110,
+  "line_items": [
+    {
+      "cpt_code": "99213",
+      "description": "Office visit, established patient",
+      "negotiated_rate": 125.00,
+      "rate_type": "fixed" | "percent_medicare"
+    }
+  ],
+  "notes": "any relevant observations about the contract structure"
+}
+
+If the document is not a carrier contract or fee schedule, return:
+{"error": "Not a carrier contract or fee schedule"}"""
+
+# Top 20 common CPT codes for percent-of-Medicare benchmark comparison
+COMMON_CPT_CODES = [
+    "99213", "99214", "99215", "99212", "99211",
+    "99203", "99204", "99205", "99232", "99233",
+    "99291", "99223", "99222", "99221", "99238",
+    "36415", "85025", "80053", "93000", "71046",
+]
+
+
+# ---------------------------------------------------------------------------
+# POST /contract-parse
+# ---------------------------------------------------------------------------
+
+@router.post("/contract-parse")
+async def employer_contract_parse(
+    request: Request,
+    file: UploadFile = File(...),
+    zip_code: str = Form(...),
+):
+    """Parse a carrier contract PDF and compare rates against CMS Medicare benchmarks."""
+    check_rate_limit(request, max_requests=3)
+
+    content = await file.read()
+    if len(content) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File exceeds 10 MB limit")
+
+    filename = (file.filename or "upload").lower()
+    if not filename.endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Only PDF files are accepted")
+
+    # Validate it looks like a PDF
+    if not content[:5] == b"%PDF-":
+        raise HTTPException(status_code=400, detail="File does not appear to be a valid PDF")
+
+    # Resolve locality for Medicare rate lookups
+    carrier, locality = resolve_locality(zip_code)
+    if not carrier or not locality:
+        raise HTTPException(status_code=400, detail=f"Could not resolve locality for ZIP {zip_code}")
+
+    # --- Send PDF to Claude for contract extraction ---
+    try:
+        parsed = _parse_contract_pdf(content)
+    except Exception as exc:
+        print(f"[Contract Parse] AI extraction failed: {exc}")
+        raise HTTPException(status_code=400, detail="Could not extract rate information from this document. Please ensure it is a carrier contract or fee schedule.")
+
+    if parsed.get("error"):
+        raise HTTPException(status_code=400, detail=parsed["error"])
+
+    rate_basis = parsed.get("rate_basis", "unknown")
+    line_items = parsed.get("line_items", [])
+    medicare_percentage = parsed.get("medicare_percentage")
+
+    # --- Benchmark comparison for fixed-rate line items ---
+    for item in line_items:
+        if item.get("rate_type") == "fixed" and item.get("cpt_code"):
+            rate_val, source, _, _ = lookup_rate(item["cpt_code"], "CPT", carrier, locality)
+            item["medicare_rate"] = rate_val
+            item["medicare_source"] = source if rate_val else None
+            if rate_val and rate_val > 0 and item.get("negotiated_rate", 0) > 0:
+                item["markup_ratio"] = round(item["negotiated_rate"] / rate_val, 2)
+                item["variance_pct"] = round((item["negotiated_rate"] - rate_val) / rate_val * 100, 1)
+            else:
+                item["markup_ratio"] = None
+                item["variance_pct"] = None
+
+    # --- Benchmark comparison for percent-of-Medicare contracts ---
+    benchmark_comparison = []
+    if rate_basis == "percent_medicare" and medicare_percentage:
+        for cpt in COMMON_CPT_CODES:
+            rate_val, source, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
+            if rate_val and rate_val > 0:
+                contracted_rate = round(rate_val * medicare_percentage / 100, 2)
+                benchmark_comparison.append({
+                    "cpt_code": cpt,
+                    "medicare_rate": rate_val,
+                    "contracted_rate": contracted_rate,
+                    "percentage": medicare_percentage,
+                })
+
+    # --- Contract narrative ---
+    contract_narrative = None
+    try:
+        rate_items_with_benchmark = [i for i in line_items if i.get("markup_ratio")]
+        if rate_items_with_benchmark:
+            avg_markup = sum(i["markup_ratio"] for i in rate_items_with_benchmark) / len(rate_items_with_benchmark)
+            worst_items = sorted(rate_items_with_benchmark, key=lambda x: x.get("markup_ratio", 0), reverse=True)[:3]
+            worst_summary = "; ".join(
+                f"CPT {i['cpt_code']} ({i.get('description', 'N/A')}): {i['markup_ratio']}x Medicare"
+                for i in worst_items
+            )
+            narrative_prompt = (
+                "You are a healthcare benefits analyst writing for a CFO or HR director. "
+                "Based on this carrier contract analysis, write a 2-3 sentence observation about "
+                "contract competitiveness. Be specific about percentages. Do not use jargon. "
+                "Do not recommend specific vendors.\n\n"
+                f"Rate basis: {rate_basis}\n"
+                f"Carrier: {parsed.get('carrier_name', 'Unknown')}\n"
+                f"Total rates extracted: {len(line_items)}\n"
+                f"Average markup vs Medicare: {avg_markup:.1f}x\n"
+                f"Highest markup rates: {worst_summary}\n\n"
+                "Write only the summary paragraph. No headers, no bullet points, no preamble."
+            )
+            contract_narrative = _generate_narrative(narrative_prompt)
+        elif rate_basis == "percent_medicare" and medicare_percentage:
+            narrative_prompt = (
+                "You are a healthcare benefits analyst writing for a CFO or HR director. "
+                "Based on this carrier contract analysis, write a 2-3 sentence observation. "
+                "Do not use jargon. Do not recommend specific vendors.\n\n"
+                f"Carrier: {parsed.get('carrier_name', 'Unknown')}\n"
+                f"Rate basis: Percentage of Medicare at {medicare_percentage}%\n\n"
+                "Write only the summary paragraph. No headers, no bullet points, no preamble."
+            )
+            contract_narrative = _generate_narrative(narrative_prompt)
+    except Exception as exc:
+        print(f"[Contract Parse] Narrative generation failed (non-fatal): {exc}")
+
+    return {
+        "carrier_name": parsed.get("carrier_name"),
+        "contract_effective_date": parsed.get("contract_effective_date"),
+        "rate_basis": rate_basis,
+        "medicare_percentage": medicare_percentage,
+        "line_items": line_items,
+        "benchmark_comparison": benchmark_comparison,
+        "contract_narrative": contract_narrative,
+        "notes": parsed.get("notes"),
+        "locality": {"carrier": carrier, "locality_code": locality, "zip_code": zip_code},
+    }
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+def _parse_contract_pdf(content: bytes) -> dict:
+    """Send PDF to Claude document API and extract contract rate data."""
+    try:
+        import anthropic
+    except ImportError:
+        raise RuntimeError("anthropic package not installed")
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise RuntimeError("ANTHROPIC_API_KEY not set")
+
+    b64_data = base64.b64encode(content).decode("utf-8")
+    client = anthropic.Anthropic(api_key=api_key)
+
+    backoff_delays = [2, 5, 10]
+    response = None
+    for attempt in range(len(backoff_delays) + 1):
+        try:
+            response = client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=4096,
+                temperature=0,
+                system=CONTRACT_PARSE_PROMPT,
+                messages=[{
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "document",
+                            "source": {
+                                "type": "base64",
+                                "media_type": "application/pdf",
+                                "data": b64_data,
+                            },
+                        },
+                        {
+                            "type": "text",
+                            "text": "Extract all negotiated rate information from this carrier contract or fee schedule.",
+                        },
+                    ],
+                }],
+            )
+            break
+        except Exception as exc:
+            err_str = str(exc)
+            if "529" in err_str and attempt < len(backoff_delays):
+                time.sleep(backoff_delays[attempt])
+                continue
+            raise
+
+    raw_text = ""
+    for block in response.content:
+        if hasattr(block, "text"):
+            raw_text += block.text
+
+    raw_text = raw_text.strip()
+    if raw_text.startswith("```"):
+        raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
+        raw_text = re.sub(r"\s*```\s*$", "", raw_text)
+    raw_text = raw_text.strip()
+
+    return json.loads(raw_text)
+
 
 def _generate_narrative(prompt: str) -> str | None:
     """Call Claude API and return raw text (not JSON-parsed). Returns None on failure."""
