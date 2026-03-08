@@ -189,7 +189,7 @@ export default function EmployerProductPage() {
               e.currentTarget.style.background = "transparent";
             }}
           >
-            Sign In
+            View Interactive Demo &rarr;
           </Link>
         </div>
       </section>

@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+// Module-level flag persists across unmount/remount so animation only plays once
+let gsAnimationPlayed = false;
 
 // ---------------------------------------------------------------------------
 // Sample data — Midwest Manufacturing Co.
@@ -429,100 +432,378 @@ export default function EmployerDemoPage() {
 // ---------------------------------------------------------------------------
 
 function GettingStartedTab({ onNavigate }) {
-  const navButtons = [
-    { key: "benchmark", label: "Benefits Benchmark", desc: "See how your PEPM compares to industry medians" },
-    { key: "claims", label: "Claims Spot Check", desc: "Review flagged procedures with excessive markups" },
-    { key: "scorecard", label: "Plan Design Scorecard", desc: "Grade your plan design against 10 best-practice criteria" },
-    { key: "monitoring", label: "Monitoring Dashboard", desc: "Preview ongoing monitoring and renewal prep tools" },
-  ];
+  const timers = useRef([]);
+
+  // Animation state
+  const [field1Visible, setField1Visible] = useState(false);
+  const [field2Visible, setField2Visible] = useState(false);
+  const [field3Visible, setField3Visible] = useState(false);
+  const [field4Visible, setField4Visible] = useState(false);
+  const [pepmText, setPepmText] = useState("");
+  const [fileChip1, setFileChip1] = useState(false);
+  const [fileChip2, setFileChip2] = useState(false);
+  const [progressPercent, setProgressPercent] = useState(0);
+  const [analysisLabel, setAnalysisLabel] = useState(false);
+  const [pdfChipVisible, setPdfChipVisible] = useState(false);
+  const [ctaVisible, setCtaVisible] = useState(false);
+  const [buttonPulse, setButtonPulse] = useState(false);
+
+  useEffect(() => {
+    if (gsAnimationPlayed) {
+      setField1Visible(true);
+      setField2Visible(true);
+      setField3Visible(true);
+      setField4Visible(true);
+      setPepmText("$1,246");
+      setFileChip1(true);
+      setFileChip2(true);
+      setProgressPercent(100);
+      setAnalysisLabel(true);
+      setPdfChipVisible(true);
+      setCtaVisible(true);
+      setButtonPulse(true);
+      return;
+    }
+
+    gsAnimationPlayed = true;
+
+    const t = (fn, ms) => {
+      const id = setTimeout(fn, ms);
+      timers.current.push(id);
+      return id;
+    };
+
+    // Step 1 — form fields scale in
+    t(() => setField1Visible(true), 400);
+    t(() => setField2Visible(true), 900);
+    t(() => setField3Visible(true), 1400);
+    t(() => setField4Visible(true), 1900);
+
+    // PEPM typewriter
+    const pepmChars = "$1,246".split("");
+    pepmChars.forEach((ch, i) => {
+      t(() => setPepmText((prev) => prev + ch), 2200 + i * 120);
+    });
+
+    // Step 2 — file chips
+    t(() => setFileChip1(true), 3800);
+    t(() => setFileChip2(true), 4200);
+
+    // Progress bar 0→100% from t=4600 to t=6600
+    const progressStart = 4600;
+    const progressDuration = 2000;
+    const progressSteps = 30;
+    const stepInterval = progressDuration / progressSteps;
+    for (let i = 1; i <= progressSteps; i++) {
+      const pct = Math.round((i / progressSteps) * 100);
+      t(() => setProgressPercent(pct), progressStart + i * stepInterval);
+    }
+    t(() => setAnalysisLabel(true), progressStart + progressDuration * 0.5);
+
+    // Step 3 — PDF chip
+    t(() => setPdfChipVisible(true), 7200);
+
+    // CTA
+    t(() => {
+      setCtaVisible(true);
+      t(() => setButtonPulse(true), 300);
+    }, 8200);
+
+    return () => {
+      timers.current.forEach(clearTimeout);
+      timers.current = [];
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const progressColor = progressPercent >= 100 ? "#10B981" : "#3B82F6";
 
   return (
     <div>
-      <h2 style={{ ...h2Style, marginBottom: "8px" }}>
-        {COMPANY.name} &mdash; Interactive Demo
-      </h2>
-      <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", marginBottom: "32px" }}>
-        Explore how Parity Employer found {fmt(COMPANY.potentialSavings)} in potential savings
-        for a {COMPANY.lives}-person manufacturing company.
-      </p>
+      {/* Inject keyframes */}
+      <style>{`
+        @keyframes gsTypeCursor {
+          0%, 100% { border-right-color: #1E293B; }
+          50% { border-right-color: transparent; }
+        }
+        @keyframes gsChipBounce {
+          0% { opacity: 0; transform: translateY(-12px) scale(0.95); }
+          60% { opacity: 1; transform: translateY(3px) scale(1.02); }
+          80% { transform: translateY(-1px) scale(1); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes gsScaleIn {
+          0% { opacity: 0; transform: scale(0.92); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes gsPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.5); }
+          50% { box-shadow: 0 0 0 8px rgba(59,130,246,0); }
+        }
+      `}</style>
 
-      {/* Company snapshot */}
-      <div style={cardStyle}>
-        <h3 style={h3Style}>Company Snapshot</h3>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {[
-            { label: "Employees", value: COMPANY.lives.toLocaleString() },
-            { label: "Industry", value: COMPANY.industry },
-            { label: "State", value: COMPANY.state },
-            { label: "Network", value: `${COMPANY.tpa} ${COMPANY.planType}` },
-            { label: "Plan Year", value: COMPANY.planYear },
-            { label: "Total Health Spend", value: fmt(COMPANY.totalSpend) },
-          ].map((item) => (
-            <div key={item.label}>
-              <div style={fieldLabel}>{item.label}</div>
-              <div style={{ fontSize: "16px", fontWeight: "600", color: "#f1f5f9" }}>
-                {item.value}
+      <div style={{ textAlign: "center", marginBottom: "36px" }}>
+        <h2 style={{ ...h2Style, marginBottom: "10px" }}>
+          Three steps. Under five minutes. No consultants.
+        </h2>
+        <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", maxWidth: "600px", margin: "0 auto" }}>
+          See exactly where {COMPANY.name}&apos;s health spend is going &mdash;
+          benchmarked against 841,000 public Medicare rates, peer employer data, and
+          10 best-practice plan design criteria.
+        </p>
+      </div>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        gap: "24px",
+        marginBottom: "40px",
+      }}>
+        {/* Step 1 — Benefits Benchmark */}
+        <div style={stepCardOuter}>
+          <div style={stepLabel}>Step 1 &mdash; 60 seconds</div>
+          <h3 style={stepTitle}>Enter your plan details</h3>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "16px" }}>
+            {/* Field 1: Industry */}
+            <div style={{
+              animation: field1Visible ? "gsScaleIn 0.4s ease forwards" : "none",
+              opacity: field1Visible ? 1 : 0,
+            }}>
+              <div style={gsFieldLabel}>Industry</div>
+              <div style={gsMockInput}>
+                <span>Manufacturing</span>
+                <span style={{ color: "#94a3b8", fontSize: "11px" }}>{"\u25BC"}</span>
               </div>
             </div>
-          ))}
+
+            {/* Field 2: Company size */}
+            <div style={{
+              animation: field2Visible ? "gsScaleIn 0.4s ease forwards" : "none",
+              opacity: field2Visible ? 1 : 0,
+            }}>
+              <div style={gsFieldLabel}>Company Size</div>
+              <div style={gsMockInput}>
+                <span>101&ndash;500 employees</span>
+                <span style={{ color: "#94a3b8", fontSize: "11px" }}>{"\u25BC"}</span>
+              </div>
+            </div>
+
+            {/* Field 3: State */}
+            <div style={{
+              animation: field3Visible ? "gsScaleIn 0.4s ease forwards" : "none",
+              opacity: field3Visible ? 1 : 0,
+            }}>
+              <div style={gsFieldLabel}>State</div>
+              <div style={gsMockInput}>
+                <span>Illinois</span>
+                <span style={{ color: "#94a3b8", fontSize: "11px" }}>{"\u25BC"}</span>
+              </div>
+            </div>
+
+            {/* Field 4: PEPM with typewriter */}
+            <div style={{
+              animation: field4Visible ? "gsScaleIn 0.4s ease forwards" : "none",
+              opacity: field4Visible ? 1 : 0,
+            }}>
+              <div style={gsFieldLabel}>Current PEPM Cost</div>
+              <div style={{
+                ...gsMockInput,
+                borderRight: pepmText.length > 0 && pepmText.length < 6 ? "2px solid #1E293B" : undefined,
+                animation: pepmText.length > 0 && pepmText.length < 6 ? "gsTypeCursor 0.6s step-end infinite" : undefined,
+              }}>
+                {pepmText || "\u00A0"}
+              </div>
+            </div>
+          </div>
+
+          <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", margin: 0 }}>
+            No files needed. We compare your costs against 841,000 Medicare procedure rates
+            and peer employer benchmarks from KFF, MEPS-IC, and BLS.
+          </p>
+        </div>
+
+        {/* Step 2 — Claims Spot Check */}
+        <div style={stepCardOuter}>
+          <div style={stepLabel}>Step 2 &mdash; 2 minutes</div>
+          <h3 style={stepTitle}>Upload one month of claims</h3>
+
+          {/* Drop zone */}
+          <div style={{
+            border: "2px dashed #CBD5E1",
+            borderRadius: "10px",
+            padding: "28px 20px",
+            textAlign: "center",
+            marginBottom: "16px",
+            background: "#F8FAFC",
+          }}>
+            <div style={{ fontSize: "28px", marginBottom: "8px", color: "#94a3b8" }}>{"\u2B06"}</div>
+            <div style={{ fontSize: "13px", color: "#64748b", marginBottom: "4px" }}>
+              Drag &amp; drop your claims file here
+            </div>
+            <div style={{ fontSize: "12px", color: "#94a3b8" }}>
+              {fileChip1 ? "1 file selected" : "\u00A0"}
+            </div>
+          </div>
+
+          {/* File chips */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px", minHeight: "32px" }}>
+            {fileChip1 && (
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                background: "#EFF6FF", border: "1px solid #BFDBFE",
+                borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
+                animation: "gsChipBounce 0.4s ease forwards",
+              }}>
+                <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
+                Cigna_Claims_Dec2024.xlsx
+              </div>
+            )}
+            {fileChip2 && (
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                background: "#F0FDF4", border: "1px solid #BBF7D0",
+                borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#166534",
+                animation: "gsChipBounce 0.4s ease forwards",
+              }}>
+                <span style={{ fontSize: "14px" }}>{"\u2713"}</span>
+                500 employees &middot; 847 claims
+              </div>
+            )}
+          </div>
+
+          {/* Progress bar */}
+          <div style={{
+            background: "#F8FAFC", borderRadius: "8px", padding: "14px",
+            border: "1px solid #E2E8F0", marginBottom: "16px",
+            opacity: fileChip2 ? 1 : 0.3,
+            transition: "opacity 0.4s ease",
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+              <span style={{ fontSize: "12px", color: "#64748b" }}>
+                {progressPercent > 0 ? "Analyzing against Medicare rates..." : "\u00A0"}
+              </span>
+              <span style={{ fontSize: "12px", color: progressColor, fontWeight: "600", transition: "color 0.3s" }}>
+                {progressPercent > 0 ? `${progressPercent}%` : "\u00A0"}
+              </span>
+            </div>
+            <div style={{ height: "4px", borderRadius: "2px", background: "#E2E8F0" }}>
+              <div style={{
+                height: "4px", borderRadius: "2px",
+                background: progressColor,
+                width: `${progressPercent}%`,
+                transition: "width 50ms linear, background 0.3s ease",
+              }} />
+            </div>
+            <div style={{
+              fontSize: "11px", color: "#64748b", marginTop: "6px",
+              opacity: analysisLabel ? 1 : 0,
+              transition: "opacity 0.4s ease",
+            }}>
+              847 claims matched across 10 procedure categories
+            </div>
+          </div>
+
+          <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", margin: 0 }}>
+            Download this file from your carrier portal (Cigna, Aetna, United, BCBS)
+            or ask your TPA. We accept any format &mdash; our AI identifies the right
+            columns automatically.
+          </p>
+        </div>
+
+        {/* Step 3 — Plan Design Scorecard */}
+        <div style={stepCardOuter}>
+          <div style={stepLabel}>Step 3 &mdash; 1 minute</div>
+          <h3 style={stepTitle}>Upload your Summary of Benefits</h3>
+
+          {/* Drop zone */}
+          <div style={{
+            border: "2px dashed #CBD5E1",
+            borderRadius: "10px",
+            padding: "28px 20px",
+            textAlign: "center",
+            marginBottom: "16px",
+            background: "#F8FAFC",
+          }}>
+            <div style={{ fontSize: "28px", marginBottom: "8px", color: "#94a3b8" }}>{"\uD83D\uDCC4"}</div>
+            <div style={{ fontSize: "13px", color: "#64748b", marginBottom: "4px" }}>
+              Drag &amp; drop your SBC document here
+            </div>
+            <div style={{ fontSize: "12px", color: "#94a3b8" }}>
+              {pdfChipVisible ? "1 file selected" : "\u00A0"}
+            </div>
+          </div>
+
+          {/* PDF chip */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px", minHeight: "32px" }}>
+            {pdfChipVisible && (
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                background: "#EFF6FF", border: "1px solid #BFDBFE",
+                borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
+                animation: "gsChipBounce 0.4s ease forwards",
+              }}>
+                <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
+                Cigna_SBC_2025.pdf
+              </div>
+            )}
+            {pdfChipVisible && (
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                background: "#F0FDF4", border: "1px solid #BBF7D0",
+                borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#166534",
+                animation: "gsChipBounce 0.4s ease forwards",
+              }}>
+                <span style={{ fontSize: "14px" }}>{"\u2713"}</span>
+                Summary of Benefits and Coverage &middot; 4 pages
+              </div>
+            )}
+          </div>
+
+          <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", margin: 0 }}>
+            Your SBC is the standardized 2&ndash;4 page document your carrier is required by
+            law to provide. Request it from your broker or download it from your carrier portal.
+          </p>
         </div>
       </div>
 
-      <p
-        style={{
-          fontSize: "13px",
-          fontStyle: "italic",
-          color: "#64748b",
-          lineHeight: "1.7",
-          marginTop: "20px",
-          marginBottom: "0",
-        }}
-      >
-        This demo shows how Parity Employer analyzed Midwest Manufacturing&apos;s health spend
-        using 841,000 public Medicare procedure rates &mdash; the same data your carriers use,
-        but rarely share. No carrier relationships. No commissions. Just the numbers.
-      </p>
-
-      {/* Navigation buttons */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "16px",
-          marginTop: "28px",
-        }}
-      >
-        {navButtons.map((btn) => (
-          <button
-            key={btn.key}
-            onClick={() => onNavigate(btn.key)}
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: "12px",
-              padding: "20px",
-              textAlign: "left",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              transition: "border-color 0.2s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(59,130,246,0.4)")}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)")}
+      {/* CTA — fades in after all steps */}
+      <div style={{
+        textAlign: "center", marginBottom: "8px",
+        opacity: ctaVisible ? 1 : 0,
+        transform: ctaVisible ? "translateY(0)" : "translateY(12px)",
+        transition: "opacity 0.5s ease, transform 0.5s ease",
+      }}>
+        <p style={{
+          fontSize: "15px", color: "#94a3b8", lineHeight: "1.8",
+          maxWidth: "640px", margin: "0 auto 24px",
+        }}>
+          Three steps. Under five minutes. See exactly where your health spend is going.
+        </p>
+        <button
+          onClick={() => onNavigate("benchmark")}
+          style={{
+            display: "inline-block",
+            background: "#3b82f6", color: "#fff",
+            padding: "12px 28px", borderRadius: "8px",
+            fontWeight: "600", fontSize: "15px",
+            border: "none", cursor: "pointer",
+            fontFamily: "inherit",
+            transition: "background 0.2s",
+            animation: buttonPulse ? "gsPulse 2s ease-in-out infinite" : "none",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
+        >
+          See {COMPANY.name}&apos;s Results &rarr;
+        </button>
+        <div style={{ marginTop: "12px" }}>
+          <Link
+            to="/billing/employer/benchmark"
+            style={{ fontSize: "13px", color: "#64748b", textDecoration: "none" }}
           >
-            <div style={{ fontSize: "14px", fontWeight: "600", color: "#60a5fa", marginBottom: "6px" }}>
-              {btn.label} &rarr;
-            </div>
-            <div style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.5" }}>
-              {btn.desc}
-            </div>
-          </button>
-        ))}
+            This demo uses sample data. Start your free benchmark with your own numbers &rarr;
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -1259,6 +1540,50 @@ const fieldLabel = {
   textTransform: "uppercase",
   letterSpacing: "0.04em",
   marginBottom: "6px",
+};
+
+const stepCardOuter = {
+  background: "#fff",
+  borderRadius: "14px",
+  padding: "28px",
+  boxShadow: "0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)",
+};
+
+const stepLabel = {
+  fontSize: "11px",
+  fontWeight: "600",
+  textTransform: "uppercase",
+  letterSpacing: "0.06em",
+  color: "#0D9488",
+  marginBottom: "6px",
+};
+
+const stepTitle = {
+  fontSize: "18px",
+  fontWeight: "600",
+  color: "#1E293B",
+  marginBottom: "20px",
+};
+
+const gsFieldLabel = {
+  fontSize: "11px",
+  fontWeight: "600",
+  color: "#64748b",
+  textTransform: "uppercase",
+  letterSpacing: "0.04em",
+  marginBottom: "4px",
+};
+
+const gsMockInput = {
+  background: "#fff",
+  border: "1px solid #CBD5E1",
+  borderRadius: "6px",
+  padding: "8px 12px",
+  fontSize: "13px",
+  color: "#1E293B",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
 };
 
 const cardStyle = {
