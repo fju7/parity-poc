@@ -24,7 +24,6 @@ const TIERS = [
     period: "/mo",
     employees: "100\u20131,000 employees",
     tier: "standard",
-    popular: true,
     features: [
       "Everything in Small, plus:",
       "Unlimited claims uploads",
@@ -160,19 +159,14 @@ export default function EmployerSubscribe() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", marginBottom: "48px" }}>
           {TIERS.map((tier) => (
             <div key={tier.tier} style={{
-              background: tier.popular ? "rgba(59,130,246,0.06)" : "rgba(255,255,255,0.02)",
-              border: `1px solid ${tier.popular ? "rgba(59,130,246,0.35)" : "rgba(59,130,246,0.18)"}`,
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(59,130,246,0.18)",
               borderRadius: "16px",
               padding: "32px 28px",
               position: "relative",
               display: "flex",
               flexDirection: "column",
             }}>
-              {tier.popular && (
-                <div style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)", background: "#3b82f6", color: "#fff", fontSize: "11px", fontWeight: "700", padding: "4px 14px", borderRadius: "12px", letterSpacing: "0.05em" }}>
-                  MOST POPULAR
-                </div>
-              )}
               <div style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", marginBottom: "8px" }}>{tier.name}</div>
               <div style={{ marginBottom: "4px" }}>
                 <span style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>{tier.price}</span>
@@ -192,9 +186,9 @@ export default function EmployerSubscribe() {
                 disabled={loadingTier === tier.tier}
                 style={{
                   width: "100%",
-                  background: tier.popular ? "#3b82f6" : "transparent",
-                  color: tier.popular ? "#fff" : "#60a5fa",
-                  border: tier.popular ? "none" : "1px solid rgba(59,130,246,0.4)",
+                  background: "transparent",
+                  color: "#60a5fa",
+                  border: "1px solid rgba(59,130,246,0.4)",
                   borderRadius: "8px",
                   padding: "12px",
                   fontWeight: "600",

@@ -32,6 +32,7 @@ export default function EmployerBenchmark() {
   const [view, setView] = useState("form"); // form, email, results, loading
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [methodOpen, setMethodOpen] = useState(false);
 
   const formValid = industry && companySize && state && pepm && parseFloat(pepm) > 0;
 
@@ -255,6 +256,41 @@ export default function EmployerBenchmark() {
               <div style={{ height: "8px", background: "rgba(255,255,255,0.06)", borderRadius: "4px", position: "relative" }}>
                 <div style={{ position: "absolute", left: `${Math.min(result.result.percentile, 98)}%`, top: "-4px", width: "16px", height: "16px", borderRadius: "50%", background: pctColor(result.result.percentile), transform: "translateX(-50%)" }} />
               </div>
+            </div>
+
+            {/* Methodology */}
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.12)", borderRadius: "12px", marginBottom: "32px", overflow: "hidden" }}>
+              <button
+                onClick={() => setMethodOpen(!methodOpen)}
+                style={{ width: "100%", background: "none", border: "none", padding: "16px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", color: "#94a3b8" }}
+              >
+                <span style={{ fontSize: "13px", fontWeight: "600", letterSpacing: "0.02em" }}>How We Calculate This</span>
+                <span style={{ fontSize: "18px", transform: methodOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>{"\u25BE"}</span>
+              </button>
+              {methodOpen && (
+                <div style={{ padding: "0 20px 20px", fontSize: "13px", color: "#94a3b8", lineHeight: "1.7" }}>
+                  <div style={{ marginBottom: "16px" }}>
+                    <div style={{ fontWeight: "600", color: "#cbd5e1", marginBottom: "6px" }}>Your percentile ranking</div>
+                    <p style={{ margin: 0 }}>
+                      We compare your per-employee-per-month (PEPM) health cost against {result.benchmarks?.sample_note || "thousands of"} employers in your industry and region using data from the Medical Expenditure Panel Survey (MEPS-IC 2024), the KFF Employer Health Benefits Survey (2025), and the Bureau of Labor Statistics. Your percentile shows where you rank — {Math.round(result.result.percentile)}th percentile means you spend more than {Math.round(result.result.percentile)}% of similar employers.
+                    </p>
+                  </div>
+                  <div style={{ marginBottom: "16px" }}>
+                    <div style={{ fontWeight: "600", color: "#cbd5e1", marginBottom: "6px" }}>Your dollar gap</div>
+                    <p style={{ margin: 0 }}>
+                      The dollar gap is the difference between your current PEPM cost and the median (50th percentile) for your industry and company size. We multiply this by your employee count to show the annual impact.
+                    </p>
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: "600", color: "#cbd5e1", marginBottom: "10px" }}>Data sources</div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                      <span style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", borderRadius: "6px", padding: "5px 10px", fontSize: "11px", color: "#60a5fa", whiteSpace: "nowrap" }}>MEPS-IC 2024 · 50 States</span>
+                      <span style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", borderRadius: "6px", padding: "5px 10px", fontSize: "11px", color: "#60a5fa", whiteSpace: "nowrap" }}>KFF EHBS 2025 · 1,862 Employers Surveyed</span>
+                      <span style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", borderRadius: "6px", padding: "5px 10px", fontSize: "11px", color: "#60a5fa", whiteSpace: "nowrap" }}>BLS ECEC 2024 · National Compensation Survey</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* CTAs */}
