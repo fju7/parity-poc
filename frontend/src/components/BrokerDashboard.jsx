@@ -53,6 +53,7 @@ export default function BrokerDashboard() {
   const [shareLoading, setShareLoading] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
   const [notifySent, setNotifySent] = useState(false);
+  const [upgradeSent, setUpgradeSent] = useState(false);
 
   // Auth check
   useEffect(() => {
@@ -99,6 +100,7 @@ export default function BrokerDashboard() {
     setOnboardResult(null);
     setNotifySent(false);
     setShareCopied(false);
+    setUpgradeSent(false);
     fetchSummary(client.employer_email);
   };
 
@@ -159,6 +161,22 @@ export default function BrokerDashboard() {
       const data = await res.json();
       if (data.sent) setNotifySent(true);
     } catch (err) { console.error("Notify failed:", err); }
+    setShareLoading(false);
+  };
+
+  // Suggest upgrade
+  const handleSuggestUpgrade = async (employerEmail) => {
+    if (!broker) return;
+    setShareLoading(true);
+    try {
+      const res = await fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/notify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ broker_email: broker.email, message_type: "upgrade" }),
+      });
+      const data = await res.json();
+      if (data.sent) setUpgradeSent(true);
+    } catch (err) { console.error("Upgrade suggest failed:", err); }
     setShareLoading(false);
   };
 
@@ -405,6 +423,11 @@ export default function BrokerDashboard() {
                     <span style={{ padding: "4px 12px", borderRadius: 16, fontSize: 12, fontWeight: 600, background: clientSummary.subscription.status === "active" ? "#dcfce7" : "#f1f5f9", color: clientSummary.subscription.status === "active" ? "#166534" : "#64748b" }}>
                       {clientSummary.subscription.tier} · {clientSummary.subscription.status}
                     </span>
+                    {clientSummary.subscription.status !== "active" && selectedClient.employer_email && !selectedClient.employer_email.includes("@broker-onboarded") && (
+                      <button onClick={() => handleSuggestUpgrade(selectedClient.employer_email)} disabled={shareLoading || upgradeSent} style={{ background: upgradeSent ? "#dcfce7" : "#fef3c7", color: upgradeSent ? "#166534" : "#92400e", border: "1px solid " + (upgradeSent ? "#bbf7d0" : "#fde68a"), borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: upgradeSent ? "default" : "pointer" }}>
+                        {upgradeSent ? "Upgrade email sent" : shareLoading ? "Sending..." : "Suggest Upgrade"}
+                      </button>
+                    )}
                     <button onClick={() => handleRemoveClient(clientSummary.employer_email)} style={{ background: "none", border: "1px solid #fecaca", borderRadius: 6, padding: "4px 10px", fontSize: 11, color: "#991b1b", cursor: "pointer" }}>
                       Remove
                     </button>
@@ -425,6 +448,37 @@ export default function BrokerDashboard() {
                     </div>
                   ))}
                 </div>
+
+                {/* Gated Features — show lock icons for non-subscribers */}
+                {clientSummary.subscription.status !== "active" && (
+                  <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 16px" }}>Available with Subscription</h3>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                      {[
+                        { label: "Unlimited Claims Analysis", desc: "Compare every claim against Medicare benchmarks" },
+                        { label: "RBP Calculator", desc: "Model reference-based pricing savings" },
+                        { label: "Contract Parser", desc: "Extract and benchmark carrier rates" },
+                        { label: "Trend Monitoring", desc: "Monthly PEPM tracking with AI alerts" },
+                      ].map((feat) => (
+                        <div key={feat.label} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: 12, background: "#f8fafc", borderRadius: 8, border: "1px solid #e2e8f0" }}>
+                          <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>&#128274;</span>
+                          <div>
+                            <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#475569" }}>{feat.label}</p>
+                            <p style={{ margin: "2px 0 0", fontSize: 11, color: "#94a3b8" }}>{feat.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <p style={{ margin: "14px 0 0", fontSize: 12, color: "#94a3b8" }}>
+                      Free tier: benchmark + scorecard + 1 claims check per quarter.
+                      {selectedClient.employer_email && !selectedClient.employer_email.includes("@broker-onboarded") && (
+                        <button onClick={() => handleSuggestUpgrade(selectedClient.employer_email)} disabled={shareLoading || upgradeSent} style={{ background: "none", border: "none", color: "#0D7377", fontWeight: 600, cursor: "pointer", fontSize: 12, marginLeft: 4 }}>
+                          {upgradeSent ? "Upgrade email sent" : "Suggest upgrade to client"}
+                        </button>
+                      )}
+                    </p>
+                  </div>
+                )}
 
                 {/* Activity Timeline */}
                 {clientActivity && clientActivity.events && clientActivity.events.length > 0 && (

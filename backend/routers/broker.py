@@ -65,6 +65,7 @@ class BrokerOnboardRequest(BaseModel):
 
 class NotifyClientRequest(BaseModel):
     broker_email: str
+    message_type: Optional[str] = "benchmark"  # "benchmark" or "upgrade"
 
 
 # ---------------------------------------------------------------------------
@@ -722,10 +723,77 @@ async def notify_client(employer_email: str, req: NotifyClientRequest, request: 
     company_name = bench.data[0].get("company_name") or link.data[0].get("company_name") or "your company"
     site_url = os.environ.get("VITE_SITE_URL", "https://civicscale.ai")
     share_url = f"{site_url}/employer/shared-report/{share_token}"
+    subscribe_url = f"{site_url}/billing/employer/subscribe"
 
     # Send email via Resend
     if e_email.endswith("@broker-onboarded"):
         return {"sent": False, "reason": "No real employer email on file."}
+
+    message_type = req.message_type or "benchmark"
+
+    if message_type == "upgrade":
+        subject = f"{firm_name} recommends upgrading your Parity Employer plan"
+        html_body = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
+            <h2 style="color: #1B3A5C; margin-bottom: 8px;">Unlock Deeper Savings Insights</h2>
+            <p style="color: #475569; font-size: 15px; line-height: 1.7;">
+                Hi — {firm_name} has been reviewing your benefits data on the Parity Employer
+                platform and recommends upgrading to get access to advanced analytics that
+                could help {company_name} identify significant cost savings.
+            </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.7;">
+                With a subscription, you'll unlock:
+            </p>
+            <ul style="color: #475569; font-size: 14px; line-height: 1.8; padding-left: 20px;">
+                <li>Unlimited claims analysis</li>
+                <li>Reference-based pricing calculator</li>
+                <li>Contract rate parser</li>
+                <li>Monthly trend monitoring with AI alerts</li>
+            </ul>
+            <div style="text-align: center; margin: 28px 0;">
+                <a href="{subscribe_url}" style="display: inline-block; background: #0D7377; color: #fff;
+                   padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;
+                   font-size: 15px;">
+                    View Plans &amp; Subscribe
+                </a>
+            </div>
+            <p style="color: #64748b; font-size: 13px;">
+                Plans start at $149/month with a 3x savings guarantee.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
+            <p style="color: #94a3b8; font-size: 12px;">
+                This recommendation was sent by {firm_name} via the Parity Employer platform
+                by CivicScale. Questions? Reply to your broker directly.
+            </p>
+        </div>
+        """
+    else:
+        subject = f"Your benefits benchmark is ready — from {firm_name}"
+        html_body = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
+            <h2 style="color: #1B3A5C; margin-bottom: 8px;">Your Benefits Benchmark is Ready</h2>
+            <p style="color: #475569; font-size: 15px; line-height: 1.7;">
+                Hi — {firm_name} ran a benefits benchmark for {company_name} using
+                Parity Employer's analytics platform. The report compares your health plan
+                costs to similar employers in your industry and state.
+            </p>
+            <div style="text-align: center; margin: 28px 0;">
+                <a href="{share_url}" style="display: inline-block; background: #0D7377; color: #fff;
+                   padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;
+                   font-size: 15px;">
+                    View Your Benchmark Report
+                </a>
+            </div>
+            <p style="color: #64748b; font-size: 13px;">
+                No login required — click the link above to see your results.
+            </p>
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
+            <p style="color: #94a3b8; font-size: 12px;">
+                This report was prepared by {firm_name} using the Parity Employer
+                benchmarking platform by CivicScale. Questions? Reply to your broker directly.
+            </p>
+        </div>
+        """
 
     try:
         import resend
@@ -738,34 +806,10 @@ async def notify_client(employer_email: str, req: NotifyClientRequest, request: 
         resend.Emails.send({
             "from": "Parity Employer <notifications@civicscale.ai>",
             "to": [e_email],
-            "subject": f"Your benefits benchmark is ready — from {firm_name}",
-            "html": f"""
-            <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
-                <h2 style="color: #1B3A5C; margin-bottom: 8px;">Your Benefits Benchmark is Ready</h2>
-                <p style="color: #475569; font-size: 15px; line-height: 1.7;">
-                    Hi — {firm_name} ran a benefits benchmark for {company_name} using
-                    Parity Employer's analytics platform. The report compares your health plan
-                    costs to similar employers in your industry and state.
-                </p>
-                <div style="text-align: center; margin: 28px 0;">
-                    <a href="{share_url}" style="display: inline-block; background: #0D7377; color: #fff;
-                       padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;
-                       font-size: 15px;">
-                        View Your Benchmark Report
-                    </a>
-                </div>
-                <p style="color: #64748b; font-size: 13px;">
-                    No login required — click the link above to see your results.
-                </p>
-                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
-                <p style="color: #94a3b8; font-size: 12px;">
-                    This report was prepared by {firm_name} using the Parity Employer
-                    benchmarking platform by CivicScale. Questions? Reply to your broker directly.
-                </p>
-            </div>
-            """,
+            "subject": subject,
+            "html": html_body,
         })
-        print(f"[BrokerNotify] Sent benchmark email to {e_email}")
+        print(f"[BrokerNotify] Sent {message_type} email to {e_email}")
         return {"sent": True}
     except Exception as exc:
         print(f"[BrokerNotify] Email send failed: {exc}")

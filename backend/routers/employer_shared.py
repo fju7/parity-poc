@@ -202,6 +202,42 @@ def assign_pricing_tier(annual_excess: float) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Subscription check helper
+# ---------------------------------------------------------------------------
+
+def _check_subscription(email: str, sb=None) -> dict:
+    """Check if an employer has an active subscription.
+
+    Returns: {"active": bool, "tier": str, "subscription_id": str | None}
+    """
+    if not email:
+        return {"active": False, "tier": "free", "subscription_id": None}
+
+    if sb is None:
+        sb = _get_supabase()
+
+    result = (
+        sb.table("employer_subscriptions")
+        .select("id, tier, status")
+        .eq("email", email)
+        .eq("status", "active")
+        .order("created_at", desc=True)
+        .limit(1)
+        .execute()
+    )
+
+    if result.data:
+        row = result.data[0]
+        return {
+            "active": True,
+            "tier": row.get("tier", "starter"),
+            "subscription_id": row.get("id"),
+        }
+
+    return {"active": False, "tier": "free", "subscription_id": None}
+
+
+# ---------------------------------------------------------------------------
 # Pydantic models
 # ---------------------------------------------------------------------------
 

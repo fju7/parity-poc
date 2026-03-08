@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException
 
-from routers.employer_shared import _get_supabase
+from routers.employer_shared import _get_supabase, _check_subscription
 from routers.employer_claims import _generate_narrative
 
 router = APIRouter(tags=["employer"])
@@ -299,6 +299,16 @@ def _get_cached_trends(subscription_id: str, sb=None) -> dict | None:
 async def get_employer_trends(subscription_id: str):
     """Return cached or freshly computed employer trends."""
     sb = _get_supabase()
+
+    # --- Subscription required for trends ---
+    sub_result = sb.table("employer_subscriptions").select("email, status").eq("id", subscription_id).limit(1).execute()
+    if sub_result.data:
+        sub_row = sub_result.data[0]
+        if sub_row.get("status") != "active":
+            raise HTTPException(
+                status_code=402,
+                detail="Trend monitoring requires an active subscription.",
+            )
 
     # Check cache first
     cached = _get_cached_trends(subscription_id, sb=sb)

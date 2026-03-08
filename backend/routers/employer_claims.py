@@ -24,7 +24,7 @@ from pydantic import BaseModel
 
 from routers.employer_shared import (
     _get_supabase, _call_claude, check_rate_limit, assign_pricing_tier,
-    EMPLOYER_PRICE_TIERS,
+    EMPLOYER_PRICE_TIERS, _check_subscription,
 )
 from routers.benchmark import resolve_locality, lookup_rate
 from utils.parse_835 import parse_835
@@ -106,6 +106,27 @@ async def employer_claims_check(
 ):
     """Analyze an employer claims file against CMS Medicare benchmarks."""
     check_rate_limit(request, max_requests=5)
+
+    # --- Free tier enforcement: 1 claims check per quarter without subscription ---
+    if email:
+        sub_info = _check_subscription(email)
+        if not sub_info["active"]:
+            sb = _get_supabase()
+            from datetime import datetime, timezone, timedelta
+            cutoff = (datetime.now(timezone.utc) - timedelta(days=90)).isoformat()
+            existing = (
+                sb.table("employer_claims_uploads")
+                .select("id", count="exact")
+                .eq("email", email)
+                .gte("created_at", cutoff)
+                .execute()
+            )
+            upload_count = existing.count if existing.count is not None else 0
+            if upload_count >= 1:
+                raise HTTPException(
+                    status_code=402,
+                    detail="Free tier limit reached — 1 claims check per quarter. Subscribe to unlock unlimited claims analysis.",
+                )
 
     # --- Parse file ---
     content = await file.read()
@@ -416,6 +437,18 @@ async def employer_rbp_calculate(body: RBPRequest, request: Request):
     check_rate_limit(request, max_requests=5)
 
     sb = _get_supabase()
+
+    # --- Subscription required for RBP calculator ---
+    session_check = sb.table("employer_claims_uploads").select("email").eq("id", body.claims_session_id).limit(1).execute()
+    if session_check.data:
+        session_email = session_check.data[0].get("email", "")
+        if session_email:
+            sub_info = _check_subscription(session_email, sb)
+            if not sub_info["active"]:
+                raise HTTPException(
+                    status_code=402,
+                    detail="RBP calculator requires an active subscription.",
+                )
 
     # Load stored claims session
     result = sb.table("employer_claims_uploads").select("*").eq("id", body.claims_session_id).execute()
@@ -896,9 +929,19 @@ async def employer_contract_parse(
     request: Request,
     file: UploadFile = File(...),
     zip_code: str = Form(...),
+    email: Optional[str] = Form(None),
 ):
     """Parse a carrier contract PDF and compare rates against CMS Medicare benchmarks."""
     check_rate_limit(request, max_requests=3)
+
+    # --- Subscription required for contract parser ---
+    if email:
+        sub_info = _check_subscription(email)
+        if not sub_info["active"]:
+            raise HTTPException(
+                status_code=402,
+                detail="Contract parser requires an active subscription.",
+            )
 
     content = await file.read()
     if len(content) > 10 * 1024 * 1024:

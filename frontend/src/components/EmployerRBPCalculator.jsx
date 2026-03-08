@@ -83,6 +83,11 @@ export default function EmployerRBPCalculator() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
+        if (res.status === 402) {
+          setError("subscription_required");
+          setView("error");
+          return;
+        }
         throw new Error(data.detail || `API error: ${res.status}`);
       }
 
@@ -246,8 +251,34 @@ export default function EmployerRBPCalculator() {
           </div>
         )}
 
-        {/* Error View */}
-        {view === "error" && (
+        {/* Error View — Subscription gate */}
+        {view === "error" && error === "subscription_required" && (
+          <div style={{ textAlign: "center", paddingTop: "60px" }}>
+            <div style={{ fontSize: "40px", marginBottom: "16px" }}>&#128274;</div>
+            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "26px", fontWeight: "400", color: "#f1f5f9", marginBottom: "12px" }}>
+              Subscription Required
+            </h2>
+            <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", maxWidth: "480px", margin: "0 auto 24px" }}>
+              The RBP calculator is available with an active Parity Employer subscription. Subscribe to unlock RBP analysis, unlimited claims checks, contract parsing, and trend monitoring.
+            </p>
+            <div style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.25)", borderRadius: "14px", padding: "24px", maxWidth: "400px", margin: "0 auto 24px" }}>
+              <div style={{ fontSize: "13px", color: "#10b981", fontWeight: "600", marginBottom: "8px" }}>PLANS START AT</div>
+              <div style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>$149<span style={{ fontSize: "16px", fontWeight: "400", color: "#94a3b8" }}>/mo</span></div>
+              <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>3x savings guarantee</div>
+            </div>
+            <Link to="/billing/employer/subscribe" style={{ ...btnPrimary, display: "inline-block", textDecoration: "none", width: "auto", padding: "14px 36px", background: "#10b981" }}>
+              View Plans & Subscribe
+            </Link>
+            <div style={{ marginTop: "16px" }}>
+              <button onClick={() => setView("input")} style={{ background: "none", border: "none", color: "#64748b", fontSize: "14px", cursor: "pointer" }}>
+                &larr; Back
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Error View — General */}
+        {view === "error" && error !== "subscription_required" && (
           <div style={{ textAlign: "center", paddingTop: "80px" }}>
             <div style={{ fontSize: "40px", marginBottom: "16px" }}>!</div>
             <h2 style={{ fontSize: "22px", fontWeight: "600", color: "#f1f5f9", marginBottom: "12px" }}>Calculation failed</h2>
