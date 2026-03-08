@@ -63,6 +63,10 @@ export default function EmployerClaimsCheck() {
 
       const data = await res.json();
       setResult(data);
+      if (data.session_id) {
+        localStorage.setItem("employer_claims_session_id", data.session_id);
+        localStorage.setItem("employer_claims_zip_code", zipCode);
+      }
       setView("results");
     } catch (err) {
       clearInterval(progressInterval);
@@ -289,7 +293,10 @@ export default function EmployerClaimsCheck() {
 
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <Link to="/billing/employer/scorecard" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>
+              <Link to="/billing/employer/rbp-calculator" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>
+                Calculate RBP Savings &rarr;
+              </Link>
+              <Link to="/billing/employer/scorecard" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none", background: "#1e3a5f" }}>
                 Grade Your Plan Design &rarr;
               </Link>
               <Link to="/billing/employer/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>

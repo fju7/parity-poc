@@ -20,6 +20,7 @@ from typing import Optional
 
 import pandas as pd
 from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
+from pydantic import BaseModel
 
 from routers.employer_shared import (
     _get_supabase, _call_claude, check_rate_limit,
@@ -324,9 +325,10 @@ async def employer_claims_check(
     }
 
     # --- Persist to Supabase ---
+    session_id = None
     try:
         sb = _get_supabase()
-        sb.table("employer_claims_uploads").insert({
+        insert_result = sb.table("employer_claims_uploads").insert({
             "email": email,
             "filename_original": filename,
             "total_claims": len(results),
@@ -335,12 +337,206 @@ async def employer_claims_check(
             "top_flagged_cpt": top_flagged_cpt,
             "top_flagged_excess": float(top_flagged_excess),
             "column_mapping_json": mapping,
-            "results_json": summary,
+            "results_json": {**summary, "line_items": results[:500]},
         }).execute()
+        if insert_result.data:
+            session_id = insert_result.data[0].get("id")
     except Exception as exc:
         print(f"[Employer Claims] Failed to save session: {exc}")
 
+    response["session_id"] = session_id
     return response
+
+
+# ---------------------------------------------------------------------------
+# POST /rbp-calculate — Reference-Based Pricing calculator
+# ---------------------------------------------------------------------------
+
+CPT_CATEGORIES = {
+    "E&M": (99000, 99999),
+    "Surgery": (10000, 69999),
+    "Radiology": (70000, 79999),
+    "Lab": (80000, 89999),
+    "Medicine": (90000, 98999),
+}
+
+
+def _cpt_category(cpt_code: str) -> str:
+    """Map a CPT code to a category name."""
+    try:
+        num = int(re.sub(r"[^0-9]", "", cpt_code))
+    except (ValueError, TypeError):
+        return "Other"
+    for cat, (lo, hi) in CPT_CATEGORIES.items():
+        if lo <= num <= hi:
+            return cat
+    return "Other"
+
+
+class RBPRequest(BaseModel):
+    claims_session_id: str
+    medicare_multiplier: float = 1.40
+    zip_code: Optional[str] = None
+
+
+@router.post("/rbp-calculate")
+async def employer_rbp_calculate(body: RBPRequest, request: Request):
+    """Calculate reference-based pricing savings against a stored claims session."""
+    check_rate_limit(request, max_requests=5)
+
+    sb = _get_supabase()
+
+    # Load stored claims session
+    result = sb.table("employer_claims_uploads").select("*").eq("id", body.claims_session_id).execute()
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Claims session not found")
+
+    session = result.data[0]
+    results_json = session.get("results_json", {})
+    line_items = results_json.get("line_items", [])
+    if not line_items:
+        raise HTTPException(status_code=400, detail="No line items found in stored session")
+
+    # Resolve locality — use provided zip or fall back to session locality
+    zip_code = body.zip_code
+    if not zip_code:
+        locality_info = results_json.get("locality", {})
+        zip_code = locality_info.get("zip_code")
+    if not zip_code:
+        raise HTTPException(status_code=400, detail="ZIP code required (not found in session)")
+
+    carrier, locality = resolve_locality(zip_code)
+    if not carrier or not locality:
+        raise HTTPException(status_code=400, detail=f"Could not resolve locality for ZIP {zip_code}")
+
+    multiplier = body.medicare_multiplier
+
+    # Analyze each line item
+    rbp_lines = []
+    total_actual = 0.0
+    total_rbp = 0.0
+    category_data = {}  # {category: {actual, rbp, count}}
+
+    for item in line_items:
+        cpt = item.get("cpt_code", "")
+        actual_paid = item.get("paid_amount") or 0
+        if not cpt or actual_paid <= 0:
+            continue
+
+        medicare_rate = item.get("medicare_rate")
+        if medicare_rate is None or medicare_rate <= 0:
+            # Re-lookup if not stored
+            rate_val, _, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
+            medicare_rate = rate_val
+
+        if not medicare_rate or medicare_rate <= 0:
+            continue
+
+        rbp_rate = round(medicare_rate * multiplier, 2)
+        savings = round(actual_paid - rbp_rate, 2)
+        savings_pct = round(savings / actual_paid * 100, 1) if actual_paid > 0 else 0
+
+        rbp_lines.append({
+            "cpt_code": cpt,
+            "actual_paid": actual_paid,
+            "medicare_rate": medicare_rate,
+            "rbp_rate": rbp_rate,
+            "rbp_savings": savings,
+            "savings_pct": savings_pct,
+        })
+
+        total_actual += actual_paid
+        total_rbp += rbp_rate
+
+        cat = _cpt_category(cpt)
+        if cat not in category_data:
+            category_data[cat] = {"actual": 0, "rbp": 0, "count": 0}
+        category_data[cat]["actual"] += actual_paid
+        category_data[cat]["rbp"] += rbp_rate
+        category_data[cat]["count"] += 1
+
+    total_savings = round(total_actual - total_rbp, 2)
+    savings_pct_overall = round(total_savings / total_actual * 100, 1) if total_actual > 0 else 0
+
+    # Top 10 by savings
+    top_procedures = sorted(rbp_lines, key=lambda x: x["rbp_savings"], reverse=True)[:10]
+
+    # Aggregate top procedures by CPT
+    cpt_agg = {}
+    for line in rbp_lines:
+        cpt = line["cpt_code"]
+        if cpt not in cpt_agg:
+            cpt_agg[cpt] = {"total_actual": 0, "total_rbp": 0, "total_savings": 0, "count": 0, "rbp_rate": line["rbp_rate"], "medicare_rate": line["medicare_rate"]}
+        cpt_agg[cpt]["total_actual"] += line["actual_paid"]
+        cpt_agg[cpt]["total_rbp"] += line["rbp_rate"]
+        cpt_agg[cpt]["total_savings"] += line["rbp_savings"]
+        cpt_agg[cpt]["count"] += 1
+
+    top_by_total_savings = sorted(cpt_agg.items(), key=lambda x: x[1]["total_savings"], reverse=True)[:10]
+    top_procedures_agg = [
+        {
+            "cpt_code": cpt,
+            "actual_paid_avg": round(d["total_actual"] / d["count"], 2),
+            "rbp_rate": d["rbp_rate"],
+            "savings_per_claim": round(d["total_savings"] / d["count"], 2),
+            "claims_count": d["count"],
+            "total_savings": round(d["total_savings"], 2),
+        }
+        for cpt, d in top_by_total_savings
+    ]
+
+    # Category breakdown
+    categories = sorted(
+        [
+            {
+                "category": cat,
+                "actual_paid": round(d["actual"], 2),
+                "rbp_equivalent": round(d["rbp"], 2),
+                "savings": round(d["actual"] - d["rbp"], 2),
+                "savings_pct": round((d["actual"] - d["rbp"]) / d["actual"] * 100, 1) if d["actual"] > 0 else 0,
+                "claim_count": d["count"],
+            }
+            for cat, d in category_data.items()
+        ],
+        key=lambda x: x["savings"],
+        reverse=True,
+    )
+
+    # AI narrative
+    rbp_narrative = None
+    try:
+        multiplier_pct = int(multiplier * 100)
+        top_cat = categories[0]["category"] if categories else "N/A"
+        narrative_prompt = (
+            f"You are a healthcare benefits consultant. Write a 3-4 sentence summary explaining "
+            f"what reference-based pricing at {multiplier_pct}% of Medicare would have meant for "
+            f"this employer's claims. Be specific about total savings and top categories. "
+            f"End with one sentence about implementation considerations. Write for a CFO. "
+            f"No jargon, no bullet points.\n\n"
+            f"Total claims analyzed: {len(rbp_lines)}\n"
+            f"Total actual paid: ${total_actual:,.0f}\n"
+            f"Total RBP equivalent: ${total_rbp:,.0f}\n"
+            f"Total potential savings: ${total_savings:,.0f} ({savings_pct_overall}%)\n"
+            f"Top savings category: {top_cat}\n"
+            f"Top 3 procedures by savings: "
+            + ", ".join(f"CPT {p['cpt_code']} (${p['total_savings']:,.0f})" for p in top_procedures_agg[:3])
+            + "\n\nWrite only the summary paragraph."
+        )
+        rbp_narrative = _generate_narrative(narrative_prompt)
+    except Exception as exc:
+        print(f"[RBP Calculate] Narrative failed (non-fatal): {exc}")
+
+    return {
+        "total_actual_paid": round(total_actual, 2),
+        "total_rbp_equivalent": round(total_rbp, 2),
+        "total_potential_savings": total_savings,
+        "savings_pct_overall": savings_pct_overall,
+        "medicare_multiplier": multiplier,
+        "claims_analyzed": len(rbp_lines),
+        "top_procedures": top_procedures_agg,
+        "categories": categories,
+        "rbp_narrative": rbp_narrative,
+    }
 
 
 # ---------------------------------------------------------------------------

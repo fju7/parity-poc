@@ -224,6 +224,31 @@ export default function EmployerDashboard() {
               </div>
             </section>
 
+            {/* Quick Tools */}
+            <section>
+              <SectionTitle>Analysis Tools</SectionTitle>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+                <Link to="/billing/employer/rbp-calculator" style={{ textDecoration: "none" }}>
+                  <Card style={{ cursor: "pointer", transition: "border-color 0.2s" }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "#1B3A5C", marginBottom: 4 }}>RBP Calculator</div>
+                    <div style={{ fontSize: 12, color: "#4a5568", lineHeight: 1.5 }}>See what you'd pay under reference-based pricing</div>
+                  </Card>
+                </Link>
+                <Link to="/billing/employer/claims-check" style={{ textDecoration: "none" }}>
+                  <Card style={{ cursor: "pointer", transition: "border-color 0.2s" }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "#1B3A5C", marginBottom: 4 }}>Claims Check</div>
+                    <div style={{ fontSize: 12, color: "#4a5568", lineHeight: 1.5 }}>Upload claims and benchmark against Medicare</div>
+                  </Card>
+                </Link>
+                <Link to="/billing/employer/scorecard" style={{ textDecoration: "none" }}>
+                  <Card style={{ cursor: "pointer", transition: "border-color 0.2s" }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "#1B3A5C", marginBottom: 4 }}>Plan Scorecard</div>
+                    <div style={{ fontSize: 12, color: "#4a5568", lineHeight: 1.5 }}>Grade your plan design and benefits structure</div>
+                  </Card>
+                </Link>
+              </div>
+            </section>
+
             {/* Panel 2: Top Flagged Providers */}
             {data.topProviders.length > 0 && (
               <section>
