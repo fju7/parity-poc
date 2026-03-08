@@ -54,6 +54,7 @@ export default function BrokerDashboard() {
   const [shareCopied, setShareCopied] = useState(false);
   const [notifySent, setNotifySent] = useState(false);
   const [upgradeSent, setUpgradeSent] = useState(false);
+  const [brokerNotesOpen, setBrokerNotesOpen] = useState(false);
 
   // Auth check
   useEffect(() => {
@@ -432,6 +433,50 @@ export default function BrokerDashboard() {
                       Remove
                     </button>
                   </div>
+                </div>
+
+                {/* Broker Notes — How to present this to your client */}
+                <div style={{ background: "#eff6ff", border: "1px solid #bfdbfe", borderRadius: 12, overflow: "hidden" }}>
+                  <button
+                    onClick={() => setBrokerNotesOpen(!brokerNotesOpen)}
+                    style={{ width: "100%", background: "none", border: "none", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: "#3b82f6", letterSpacing: "0.08em", textTransform: "uppercase" }}>BROKER NOTES</span>
+                      <span style={{ fontSize: 14, fontWeight: 600, color: "#1B3A5C" }}>How to present this to your client</span>
+                    </div>
+                    <span style={{ fontSize: 16, color: "#64748b", transform: brokerNotesOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>{"\u25BE"}</span>
+                  </button>
+                  {brokerNotesOpen && (
+                    <div style={{ padding: "0 24px 20px" }}>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                        <div style={{ display: "flex", gap: 10 }}>
+                          <span style={{ width: 22, height: 22, borderRadius: "50%", background: "#dbeafe", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#1d4ed8", flexShrink: 0 }}>1</span>
+                          <p style={{ margin: 0, fontSize: 13, color: "#475569", lineHeight: 1.6 }}>
+                            <strong>Lead with opportunity, not blame.</strong> Frame the benchmark as a tool to find savings at renewal — not evidence that the employer chose a bad plan. "This shows where you have the most leverage" is better than "you're overpaying."
+                          </p>
+                        </div>
+                        <div style={{ display: "flex", gap: 10 }}>
+                          <span style={{ width: 22, height: 22, borderRadius: "50%", background: "#dbeafe", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#1d4ed8", flexShrink: 0 }}>2</span>
+                          <p style={{ margin: 0, fontSize: 13, color: "#475569", lineHeight: 1.6 }}>
+                            <strong>Normalize the percentile.</strong> Most employers land between the 40th and 70th percentile. Being above median is extremely common — especially in high-cost states or industries with older workforces.
+                          </p>
+                        </div>
+                        <div style={{ display: "flex", gap: 10 }}>
+                          <span style={{ width: 22, height: 22, borderRadius: "50%", background: "#dbeafe", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#1d4ed8", flexShrink: 0 }}>3</span>
+                          <p style={{ margin: 0, fontSize: 13, color: "#475569", lineHeight: 1.6 }}>
+                            <strong>Point to the cost drivers, not the total.</strong> The top cost drivers section is designed to shift the conversation from "how much" to "where" — focus on the specific categories (specialist rates, imaging, pharmacy) where you can negotiate or restructure.
+                          </p>
+                        </div>
+                        <div style={{ display: "flex", gap: 10 }}>
+                          <span style={{ width: 22, height: 22, borderRadius: "50%", background: "#dbeafe", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#1d4ed8", flexShrink: 0 }}>4</span>
+                          <p style={{ margin: 0, fontSize: 13, color: "#475569", lineHeight: 1.6 }}>
+                            <strong>Suggest the next step immediately.</strong> Recommend uploading one month of claims data or running the plan scorecard — this turns the conversation from a static report into an action plan that positions you as the guide.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Claims Summary Cards */}

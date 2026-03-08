@@ -223,9 +223,9 @@ export default function EmployerSharedReport() {
           <p style={{ fontSize: 14, color: "#92400e", lineHeight: 1.7, margin: 0 }}>
             This benchmark reflects where your health spend sits relative to {data.industry || "similar"} employers
             in {data.state || "your state"} — it's a starting point for your renewal conversation, not a report card
-            on your current plan. Costs above median are common and driven by many factors: which providers your employees
-            use, your plan's network structure, and regional market pricing. The analysis above shows where the
-            highest-leverage opportunities typically are.
+            on your current plan. Costs above the median are common and driven by many factors including which providers
+            your employees use, your plan's network structure, and regional market pricing. Your broker prepared this
+            report to help identify the highest-leverage opportunities for your next renewal cycle.
           </p>
         </div>
 
@@ -268,6 +268,9 @@ export default function EmployerSharedReport() {
 
         {/* Footer */}
         <div style={{ textAlign: "center", marginTop: 48 }}>
+          <p style={{ fontSize: 13, color: "#64748b", marginBottom: 8 }}>
+            Questions about this report? Contact {data.broker_firm || "your broker"}{data.broker_email ? ` or reply to the email they sent you` : ""}.
+          </p>
           <p style={{ fontSize: 12, color: "#94a3b8" }}>
             Powered by <Link to="/" style={{ color: "#0D7377", textDecoration: "none" }}>CivicScale</Link> · Parity Employer Benchmarking Platform
           </p>

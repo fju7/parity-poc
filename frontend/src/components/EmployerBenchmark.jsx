@@ -258,6 +258,42 @@ export default function EmployerBenchmark() {
               </div>
             </div>
 
+            {/* Contextual Framing — shown when above 50th percentile */}
+            {result.result.percentile > 50 && (
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(245,158,11,0.25)", borderRadius: "12px", padding: "24px", marginBottom: "20px" }}>
+                <div style={{ fontSize: "13px", fontWeight: "600", color: "#f59e0b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px" }}>What This Means</div>
+                <p style={{ fontSize: "14px", color: "#cbd5e1", lineHeight: "1.7", margin: "0 0 16px" }}>
+                  Being above the median doesn't mean your plan is poorly managed — it means there may be opportunities
+                  to negotiate better rates at your next renewal. Many employers in this range find savings by adjusting
+                  network contracts, plan design, or pharmacy benefits.
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {result.result.percentile > 65 && (
+                    <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                      <span style={{ color: "#f59e0b", fontSize: "14px", flexShrink: 0 }}>&#9679;</span>
+                      <p style={{ margin: 0, fontSize: "13px", color: "#94a3b8", lineHeight: "1.6" }}>
+                        <strong style={{ color: "#cbd5e1" }}>Orthopedics &amp; specialist costs</strong> — Employers above the 65th percentile often see outsized spending on musculoskeletal procedures and specialist visits. Site-of-care steering and centers of excellence programs can reduce these costs by 15–30%.
+                      </p>
+                    </div>
+                  )}
+                  {result.result.percentile > 55 && (
+                    <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                      <span style={{ color: "#f59e0b", fontSize: "14px", flexShrink: 0 }}>&#9679;</span>
+                      <p style={{ margin: 0, fontSize: "13px", color: "#94a3b8", lineHeight: "1.6" }}>
+                        <strong style={{ color: "#cbd5e1" }}>Imaging &amp; diagnostics</strong> — Advanced imaging (MRI, CT) costs vary 3–10x depending on where employees receive care. Freestanding imaging centers often charge 50–70% less than hospital outpatient departments.
+                      </p>
+                    </div>
+                  )}
+                  <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                    <span style={{ color: "#f59e0b", fontSize: "14px", flexShrink: 0 }}>&#9679;</span>
+                    <p style={{ margin: 0, fontSize: "13px", color: "#94a3b8", lineHeight: "1.6" }}>
+                      <strong style={{ color: "#cbd5e1" }}>Pharmacy &amp; specialty drugs</strong> — Pharmacy costs are the fastest-growing component of employer health spend. GLP-1 drugs, biologics, and specialty medications can account for 30–40% of total plan costs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Methodology */}
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.12)", borderRadius: "12px", marginBottom: "32px", overflow: "hidden" }}>
               <button
