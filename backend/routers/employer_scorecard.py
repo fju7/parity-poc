@@ -154,7 +154,7 @@ async def employer_scorecard(
     network_type: Optional[str] = Form(None),
 ):
     """Parse an SBC PDF and return a scored plan grading."""
-    check_rate_limit(request, max_requests=5)
+    check_rate_limit(request, max_requests=20)
 
     content = await file.read()
     if len(content) > 10 * 1024 * 1024:

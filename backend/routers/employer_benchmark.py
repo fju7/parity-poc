@@ -23,7 +23,7 @@ router = APIRouter(tags=["employer"])
 @router.post("/benchmark")
 async def employer_benchmark(req: BenchmarkRequest, request: Request):
     """Compare employer PEPM against industry/size benchmarks."""
-    check_rate_limit(request, max_requests=10)
+    check_rate_limit(request, max_requests=30)
     benchmarks = get_benchmarks()
     if not benchmarks:
         raise HTTPException(status_code=503, detail="Benchmark data not loaded")

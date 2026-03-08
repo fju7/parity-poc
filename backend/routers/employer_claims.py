@@ -436,7 +436,7 @@ class RBPRequest(BaseModel):
 @router.post("/rbp-calculate")
 async def employer_rbp_calculate(body: RBPRequest, request: Request):
     """Calculate reference-based pricing savings against a stored claims session."""
-    check_rate_limit(request, max_requests=5)
+    check_rate_limit(request, max_requests=20)
 
     sb = _get_supabase()
 
@@ -750,7 +750,7 @@ class RBPPdfRequest(BaseModel):
 @router.post("/rbp-pdf")
 async def employer_rbp_pdf(body: RBPPdfRequest, request: Request):
     """Generate a one-page broker summary PDF from RBP results."""
-    check_rate_limit(request, max_requests=5)
+    check_rate_limit(request, max_requests=20)
 
     from datetime import date
     from fastapi.responses import Response
@@ -934,7 +934,7 @@ async def employer_contract_parse(
     email: Optional[str] = Form(None),
 ):
     """Parse a carrier contract PDF and compare rates against CMS Medicare benchmarks."""
-    check_rate_limit(request, max_requests=3)
+    check_rate_limit(request, max_requests=20)
 
     # --- Subscription required for contract parser ---
     if email:
