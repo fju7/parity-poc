@@ -474,6 +474,21 @@ function GettingStartedTab({ onNavigate }) {
         </div>
       </div>
 
+      <p
+        style={{
+          fontSize: "13px",
+          fontStyle: "italic",
+          color: "#64748b",
+          lineHeight: "1.7",
+          marginTop: "20px",
+          marginBottom: "0",
+        }}
+      >
+        This demo shows how Parity Employer analyzed Midwest Manufacturing&apos;s health spend
+        using 841,000 public Medicare procedure rates &mdash; the same data your carriers use,
+        but rarely share. No carrier relationships. No commissions. Just the numbers.
+      </p>
+
       {/* Navigation buttons */}
       <div
         style={{
@@ -997,60 +1012,134 @@ function ScorecardTab() {
 // ---------------------------------------------------------------------------
 
 function MonitoringTab() {
+  const alerts = [
+    {
+      color: "#ef4444",
+      label: "New Outlier Detected",
+      body: "CT scans at Midwest Radiology averaged 4.8x Medicare in December (3 claims, $1,840 paid vs. $383 Medicare rate). This provider was at 2.9x in November. Recommend reviewing whether plan network terms allow steering or referral guidance.",
+    },
+    {
+      color: "#f59e0b",
+      label: "Spend Drift \u2014 Orthopedics",
+      body: "Orthopedic spend increased 6.2% vs. November. Lakeview Orthopedics added 4 new claims at an average markup of 38% above benchmark. Cumulative 3-month trend is upward. Renewal is 47 days out \u2014 this data is included in your renewal prep report.",
+    },
+    {
+      color: "#22c55e",
+      label: "Cardiology Holding Steady",
+      body: "Cardiology spend was flat vs. November. Prairie Heart Institute continues to perform at benchmark. No action needed.",
+    },
+  ];
+
+  const renewalBullets = [
+    "Orthopedic spend is 38% above industry benchmark \u2014 flagged with 12 months of claims evidence",
+    "MRI and CT imaging: consistent 4\u20136x Medicare markups across 26 claims this year",
+    "Plan design gap: no pharmacy carve-out costs an estimated $40\u201380 PEPM vs. best-in-class",
+  ];
+
+  const comparisonRows = [
+    { dimension: "Review frequency", broker: "Annual renewal", parity: "Monthly" },
+    { dimension: "Benchmark source", broker: "Carrier \u201cmarket rates\u201d", parity: "841,000 Medicare procedure rates \u2014 public and verifiable" },
+    { dimension: "Conflicts of interest", broker: "Paid by carriers", parity: "No carrier relationships, no commissions" },
+    { dimension: "Cost", broker: "$150K\u2013$300K/year (mid-market)", parity: "$799/month" },
+  ];
+
   return (
     <div>
-      <h2 style={{ ...h2Style, marginBottom: "8px" }}>What Ongoing Monitoring Delivers</h2>
-      <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", marginBottom: "32px" }}>
-        Parity Employer subscribers receive monthly intelligence reports that keep your
-        benefits spend under control year-round.
-      </p>
+      {/* Header */}
+      <div style={{ marginBottom: "28px" }}>
+        <span
+          style={{
+            display: "inline-block",
+            fontSize: "11px",
+            fontWeight: "600",
+            padding: "4px 10px",
+            borderRadius: "6px",
+            background: "rgba(59,130,246,0.15)",
+            color: "#60a5fa",
+            textTransform: "uppercase",
+            letterSpacing: "0.04em",
+            marginBottom: "12px",
+          }}
+        >
+          Subscriber Report
+        </span>
+        <h2 style={{ ...h2Style, marginBottom: "6px" }}>
+          Month 1 Monitoring Report &mdash; {COMPANY.name}
+        </h2>
+        <p style={{ fontSize: "14px", color: "#64748b" }}>
+          December 2024 &middot; Generated January 3, 2025
+        </p>
+      </div>
 
-      {/* Feature cards */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "16px",
-          marginBottom: "36px",
-        }}
-      >
-        {MONITORING_FEATURES.map((feat, i) => (
-          <div key={feat.title} style={cardStyle}>
-            <div
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                background: "rgba(59,130,246,0.15)",
-                color: "#60a5fa",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "14px",
-                fontWeight: "700",
-                marginBottom: "14px",
-              }}
-            >
-              {i + 1}
+      {/* Alert cards */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "36px" }}>
+        {alerts.map((a) => (
+          <div
+            key={a.label}
+            style={{
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderLeft: `4px solid ${a.color}`,
+              borderRadius: "12px",
+              padding: "20px 24px",
+            }}
+          >
+            <div style={{ fontSize: "14px", fontWeight: "600", color: a.color, marginBottom: "8px" }}>
+              {a.label}
             </div>
-            <h4
-              style={{
-                fontSize: "15px",
-                fontWeight: "600",
-                color: "#e2e8f0",
-                marginBottom: "8px",
-              }}
-            >
-              {feat.title}
-            </h4>
-            <p style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.6" }}>
-              {feat.description}
+            <p style={{ fontSize: "13px", lineHeight: "1.7", color: "#94a3b8", margin: 0 }}>
+              {a.body}
             </p>
           </div>
         ))}
       </div>
 
-      {/* Pricing CTA */}
+      {/* Renewal prep */}
+      <div style={cardStyle}>
+        <h3 style={h3Style}>Renewal Prep Report &mdash; Ready Now</h3>
+        <p style={{ fontSize: "13px", color: "#64748b", marginBottom: "16px" }}>
+          Your renewal is January 20, 2025. Your broker meeting is in 3 weeks.
+        </p>
+        <ul style={{ margin: 0, paddingLeft: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          {renewalBullets.map((b, i) => (
+            <li key={i} style={{ fontSize: "13px", lineHeight: "1.6", color: "#e2e8f0" }}>
+              {b}
+            </li>
+          ))}
+        </ul>
+        <p style={{ fontSize: "12px", fontStyle: "italic", color: "#64748b", marginTop: "16px", marginBottom: 0 }}>
+          This report is designed to be shared directly with your broker.
+        </p>
+      </div>
+
+      {/* Comparison table */}
+      <div style={{ ...cardStyle, marginTop: "24px" }}>
+        <h3 style={h3Style}>What makes this different</h3>
+        <div style={{ overflowX: "auto" }}>
+          <table style={tableStyle}>
+            <thead>
+              <tr>
+                <th style={thStyle}>&nbsp;</th>
+                <th style={thStyle}>Your Broker</th>
+                <th style={thStyle}>Parity Employer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((r) => (
+                <tr key={r.dimension}>
+                  <td style={{ ...tdStyle, fontWeight: "500", color: "#94a3b8", whiteSpace: "nowrap" }}>
+                    {r.dimension}
+                  </td>
+                  <td style={{ ...tdStyle, color: "#64748b" }}>{r.broker}</td>
+                  <td style={{ ...tdStyle, color: "#e2e8f0" }}>{r.parity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* CTA */}
       <div
         style={{
           background: "rgba(59,130,246,0.06)",
@@ -1058,6 +1147,7 @@ function MonitoringTab() {
           borderRadius: "12px",
           padding: "28px",
           textAlign: "center",
+          marginTop: "36px",
         }}
       >
         <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "8px" }}>
