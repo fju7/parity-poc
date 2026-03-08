@@ -1,298 +1,420 @@
-# Parity Health — Bill Analysis Tool
-## POC Build (Phase 0)
+# CivicScale Platform — Parity Engine Monorepo
+
+## Overview
+
+This monorepo contains the **CivicScale** platform — a benchmark intelligence system with multiple product verticals all sharing a single React frontend and FastAPI backend. The platform is live at **civicscale.ai**.
 
 ### Brand Architecture
 
 - **CivicScale** — parent infrastructure company (civicscale.ai). Builds the benchmark intelligence platform.
-- **Parity** — the benchmark intelligence engine that powers all verticals.
-- **Parity Health** — the healthcare product (first vertical). This codebase.
-- Future verticals: **Parity Property**, **Parity Insurance**, **Parity Finance**.
+- **Parity** — the benchmark intelligence engine powering all verticals.
+- **Parity Health** — consumer medical bill analysis tool (first vertical). Route: `/parity-health/*`
+- **Parity Provider** — provider-facing reimbursement monitoring and audit tool. Route: `/provider/*`
+- **Parity Employer** — employer benefits analytics dashboard. Route: `/employer/*`
+- **Parity Signal** — AI-powered claim intelligence for public issues (e.g., GLP-1 drugs). Route: `/signal/*`
 
-In the UI the product is always referred to as "Parity Health". The header shows "Parity Health" with a smaller "by CivicScale" subtitle. The footer references CivicScale benchmark infrastructure.
-
-### What This Project Is
-
-Parity Health is a browser-based medical bill analysis tool that compares itemized hospital bills against CMS Medicare benchmark rates and flags potentially anomalous line items. It is the Phase 0 proof of concept for a larger financial advocacy platform.
-
-**The single most important architectural constraint:** The patient's PDF document must never be uploaded to any server. All document processing happens in the browser (client-side). Only CPT codes and a zip code are ever sent to the backend API. This is a non-negotiable privacy-by-architecture design.
+The CivicScale homepage (`/`) serves as the platform landing page. Legal pages (`/terms`, `/privacy`) and an investor page (`/investors`) are also top-level routes.
 
 ---
 
-### Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | React 18 + Vite + Tailwind CSS |
-| PDF Parsing | PDF.js (Mozilla, browser-side) |
+| Frontend | React 19 + Vite 7 + Tailwind CSS 4 |
+| Routing | React Router v7 (BrowserRouter) |
+| PDF Parsing | PDF.js (Mozilla, browser-side only) |
+| Charts | Recharts |
+| Spreadsheet Parsing | xlsx (SheetJS) |
 | Backend API | Python 3.11 + FastAPI |
-| Data Processing | Python + Pandas |
-| Rate Database | CMS Medicare PFS + OPPS (CSV flat files at POC stage) |
+| Data Processing | Pandas + openpyxl |
+| AI | Anthropic Claude API (`anthropic` Python SDK) |
+| Database | Supabase (PostgreSQL) with Row Level Security |
+| Auth | Supabase Auth (magic link via Resend, email OTP) |
+| Payments | Stripe (Signal subscriptions, Provider monitoring) |
+| Email Delivery | Resend |
+| Rate Database | CMS Medicare PFS + OPPS + CLFS (CSV flat files) |
 | Frontend Hosting | Vercel |
 | Backend Hosting | Render.com |
-| Version Control | GitHub |
+| Testing | Vitest + jsdom (frontend) |
+| Linting | ESLint 9 (flat config) |
 
 ---
 
-### Directory Structure
+## Directory Structure
 
 ```
 parity-poc/
-├── CLAUDE.md                  ← this file
+├── CLAUDE.md                           ← this file
+├── PARITY_SIGNAL_HANDOFF.md            ← Signal product design doc
 ├── README.md
-├── frontend/                  ← React app (Vite)
+├── supabase-schema.sql                 ← base profiles table schema
+├── .gitignore
+│
+├── frontend/                           ← React SPA (Vite)
 │   ├── src/
+│   │   ├── main.jsx                    ← top-level router (all product routes)
+│   │   ├── App.jsx                     ← Parity Health app (/parity-health/*)
+│   │   ├── ProviderApp.jsx             ← Parity Provider app (/provider/*)
+│   │   ├── SignalApp.jsx               ← Parity Signal app (/signal/*)
+│   │   ├── index.css                   ← Tailwind import + print styles
+│   │   ├── components/
+│   │   │   ├── CivicScaleHomepage.jsx  ← platform landing page (/)
+│   │   │   ├── CivicScaleHomepage.css  ← (exception: custom CSS for homepage)
+│   │   │   ├── UploadView.jsx          ← bill upload (drag-drop + sample bill)
+│   │   │   ├── ProcessingView.jsx      ← animated processing status
+│   │   │   ├── ReportView.jsx          ← bill analysis report
+│   │   │   ├── SignInView.jsx          ← Parity Health auth
+│   │   │   ├── ConsentView.jsx         ← HIPAA-style consent
+│   │   │   ├── OnboardingView.jsx      ← user profile collection
+│   │   │   ├── ManualEntryView.jsx     ← manual CPT code entry
+│   │   │   ├── PasteTextView.jsx       ← paste bill text
+│   │   │   ├── ImageUploadView.jsx     ← image-based bill upload
+│   │   │   ├── AIParseModal.jsx        ← AI-assisted bill parsing
+│   │   │   ├── EOBDetectedView.jsx     ← EOB detection handling
+│   │   │   ├── BillHistoryView.jsx     ← saved bill history
+│   │   │   ├── ErrorView.jsx           ← error states
+│   │   │   ├── AppHeader.jsx           ← Parity Health header
+│   │   │   ├── Toast.jsx               ← toast notifications
+│   │   │   ├── EmployerDashboard.jsx   ← employer analytics
+│   │   │   ├── EmployerLandingPage.jsx ← employer marketing
+│   │   │   ├── EmployerLoginPage.jsx   ← employer auth
+│   │   │   ├── ProviderAuditPage.jsx   ← provider audit workflow
+│   │   │   ├── ProviderAuditReport.jsx ← audit report display
+│   │   │   ├── ProviderAuditAdmin.jsx  ← admin audit management
+│   │   │   ├── PublicAuditReport.jsx   ← shareable audit report (/report/:token)
+│   │   │   ├── AuditAccount.jsx        ← audit account management
+│   │   │   ├── AuditStandalone.jsx     ← standalone audit entry (/audit)
+│   │   │   ├── BillingLanding.jsx      ← billing products hub (/billing)
+│   │   │   ├── InvestorsPage.jsx       ← investor deck page
+│   │   │   ├── TermsPage.jsx           ← terms of service
+│   │   │   ├── PrivacyPage.jsx         ← privacy policy
+│   │   │   └── EmailOtpInput.jsx       ← email OTP component
+│   │   ├── components/signal/          ← Signal-specific components
+│   │   │   ├── SignalLanding.jsx       ← Signal homepage
+│   │   │   ├── SignalHeader.jsx        ← Signal navigation
+│   │   │   ├── SignalFooter.jsx        ← Signal footer
+│   │   │   ├── SignalLogin.jsx         ← Signal auth
+│   │   │   ├── IssueDashboard.jsx      ← topic dashboard with claims
+│   │   │   ├── ClaimCard.jsx           ← individual claim display
+│   │   │   ├── ClaimDetail.jsx         ← expanded claim view
+│   │   │   ├── CategoryTabs.jsx        ← swipeable category tabs
+│   │   │   ├── ScoreBadge.jsx          ← evidence score badge
+│   │   │   ├── EvidenceBadge.jsx       ← evidence category badge
+│   │   │   ├── EvidenceQA.jsx          ← evidence-grounded Q&A
+│   │   │   ├── ConsensusIndicator.jsx  ← consensus status display
+│   │   │   ├── SourceCard.jsx          ← source citation card
+│   │   │   ├── GlossaryText.jsx        ← inline glossary
+│   │   │   ├── WeightAdjuster.jsx      ← analytical paths weight UI
+│   │   │   ├── TierGate.jsx            ← subscription tier gating
+│   │   │   ├── TopicRequestForm.jsx    ← premium topic request
+│   │   │   ├── PricingView.jsx         ← subscription pricing page
+│   │   │   ├── AccountView.jsx         ← user account management
+│   │   │   ├── MethodologyView.jsx     ← scoring methodology page
+│   │   │   └── AdminRequestsDashboard.jsx ← admin topic requests
 │   │   ├── modules/
-│   │   │   ├── extractBillData.js     ← PDF extraction (Task 3)
-│   │   │   └── scoreAnomalies.js      ← Anomaly scoring (Task 5)
-│   │   ├── components/                ← React UI components (Task 6)
-│   │   ├── App.jsx                    ← Main app with 3-screen state
-│   │   └── main.jsx
+│   │   │   ├── extractBillData.js      ← PDF extraction (browser-side)
+│   │   │   ├── extractBillData.test.js ← extraction tests
+│   │   │   ├── scoreAnomalies.js       ← anomaly scoring engine
+│   │   │   ├── scoreAnomalies.test.js  ← scoring tests
+│   │   │   ├── eobExtractor.js         ← EOB detection
+│   │   │   ├── codingIntelligence.js   ← coding validation client
+│   │   │   └── nppesLookup.js          ← NPPES provider lookup
+│   │   ├── lib/
+│   │   │   ├── supabase.js             ← Supabase client singleton
+│   │   │   ├── localBillStore.js       ← localStorage bill persistence
+│   │   │   ├── redirectOrigin.js       ← auth redirect helper
+│   │   │   └── signalAnalytics.js      ← Signal event tracking
+│   │   └── test-setup.js              ← Vitest setup
 │   ├── public/
 │   ├── index.html
 │   ├── package.json
-│   └── vite.config.js
-├── backend/                   ← FastAPI Python API
-│   ├── main.py                        ← FastAPI app entry point
-│   ├── routers/
-│   │   └── benchmark.py               ← /api/benchmark endpoint (Task 4)
-│   ├── data/
-│   │   ├── pfs_rates.csv              ← Processed CMS PFS output (Task 2)
-│   │   ├── opps_rates.csv             ← Processed CMS OPPS output (Task 2)
-│   │   └── zip_locality.csv           ← ZIP to CMS locality crosswalk (Task 2)
-│   ├── scripts/
-│   │   ├── process_pfs.py             ← CMS PFS processor (Task 2)
-│   │   └── process_opps.py            ← CMS OPPS processor (Task 2)
+│   ├── vite.config.js
+│   ├── eslint.config.js
+│   ├── vercel.json                     ← SPA rewrites for Vercel
+│   ├── .env.example
+│   └── .env.production
+│
+├── backend/                            ← FastAPI Python API
+│   ├── main.py                         ← app entry point, CORS, router registration
+│   ├── supabase_client.py              ← shared Supabase service-role client
 │   ├── requirements.txt
-│   └── .env.example
-└── data/
-    ├── cms-pfs/               ← Raw CMS PFS downloads (not committed to git)
-    │   ├── cy2026-carrier-files-nonqp-updated-12-29-2025.zip  ← PRIMARY: pre-calc rates
-    │   ├── ZIP5_APR2026.xlsx  ← ZIP-to-locality crosswalk, Q2 2026
-    │   └── RVU26A.zip         ← BACKUP: raw RVUs + GPCI file inside
-    ├── cms-opps/              ← Raw CMS OPPS downloads (not committed to git)
-    └── test-bills/            ← Real test bills (NEVER committed to git)
+│   ├── runtime.txt                     ← Python 3.11.9
+│   ├── render.yaml                     ← Render.com deployment config
+│   ├── .env.example
+│   ├── routers/
+│   │   ├── benchmark.py                ← POST /api/benchmark (CMS rate lookup)
+│   │   ├── ai_parse.py                 ← AI-assisted bill parsing
+│   │   ├── eob_parse.py                ← EOB document parsing
+│   │   ├── coding_intelligence.py      ← CPT coding validation
+│   │   ├── health_analyze.py           ← bill analysis orchestration
+│   │   ├── employer.py                 ← /api/employer/* endpoints
+│   │   ├── provider.py                 ← /api/provider/* (meta-router)
+│   │   ├── provider_audit.py           ← audit CRUD, analysis, reports
+│   │   ├── provider_appeals.py         ← appeal letter generation
+│   │   ├── provider_subscription.py    ← provider Stripe integration
+│   │   ├── provider_trends.py          ← trend computation helpers
+│   │   ├── provider_shared.py          ← shared constants, models
+│   │   ├── benchmark_observations.py   ← benchmark data observations
+│   │   ├── signal_events.py            ← Signal event capture
+│   │   ├── signal_stripe.py            ← Signal Stripe integration
+│   │   ├── signal_metrics.py           ← Signal platform metrics
+│   │   ├── signal_qa.py                ← Signal evidence-grounded Q&A
+│   │   ├── signal_topic_request.py     ← Signal topic requests
+│   │   └── signal_notify_deliver.py    ← Signal notification delivery
+│   ├── utils/
+│   │   ├── rate_versioning.py          ← historical rate version support
+│   │   └── parse_835.py                ← ANSI 835 remittance parser
+│   ├── data/
+│   │   ├── pfs_rates.csv               ← CMS PFS rates (~841K rows)
+│   │   ├── opps_rates.csv              ← CMS OPPS rates (~7.3K rows)
+│   │   ├── clfs_rates.csv              ← CMS CLFS rates (~2K rows)
+│   │   └── zip_locality.csv            ← ZIP-to-locality crosswalk (~43K rows)
+│   ├── scripts/
+│   │   ├── process_pfs.py              ← CMS PFS data processor
+│   │   ├── process_opps.py             ← CMS OPPS data processor
+│   │   ├── process_clfs.py             ← CMS CLFS data processor
+│   │   ├── load_historical_rates.py    ← historical rate loader
+│   │   ├── load_coding_data.py         ← coding intelligence data
+│   │   ├── seed_employer_data.py       ← employer demo data seeder
+│   │   ├── seed_provider_demo.py       ← provider demo data seeder
+│   │   ├── signal/                     ← Signal pipeline scripts
+│   │   │   ├── run_pipeline.py         ← full pipeline orchestrator
+│   │   │   ├── run_full_topic.py       ← single topic pipeline
+│   │   │   ├── 00_discover_sources.py  ← web source discovery
+│   │   │   ├── collect_sources.py      ← source collection
+│   │   │   ├── extract_claims.py       ← AI claim extraction
+│   │   │   ├── score_claims.py         ← AI evidence scoring
+│   │   │   ├── map_consensus.py        ← consensus mapping
+│   │   │   ├── generate_summary.py     ← summary generation
+│   │   │   ├── generate_notifications.py ← notification generation
+│   │   │   ├── detect_changes.py       ← evidence change detection
+│   │   │   └── topic_config.py         ← topic configuration
+│   │   └── README_rate_versioning.md
+│   ├── migrations/                     ← Supabase SQL migrations (002–018)
+│   └── static/
+│       └── contract_rates_template.xlsx ← provider rate upload template
+│
+├── docs/                               ← design docs and build plans
+│   ├── build-plans/                    ← detailed build specifications
+│   └── *.md                            ← various spec documents
+│
+└── data/                               ← raw data (NOT committed to git)
+    ├── cms-pfs/                        ← raw CMS PFS downloads
+    ├── cms-opps/                       ← raw CMS OPPS downloads
+    ├── cms-clfs/                       ← raw CMS CLFS downloads
+    ├── signal/sources/                 ← Signal source data
+    └── test-bills/                     ← real test bills (NEVER in git)
 ```
 
 ---
 
-### Critical Rules (Never Violate These)
+## Critical Rules (Never Violate These)
 
-1. **No PHI to server.** The `/api/benchmark` endpoint accepts only: `zipCode` (string), `lineItems` array of `{code, codeType, billedAmount}`. No names, dates of birth, diagnosis codes, insurance IDs, or provider addresses. Ever.
+1. **No PHI to server.** The `/api/benchmark` endpoint accepts only: `zipCode`, `lineItems` array of `{code, codeType, billedAmount}`, and optionally `serviceDate`. No names, dates of birth, diagnosis codes, insurance IDs, or provider addresses. Ever. The patient's PDF is parsed entirely in the browser.
 
-2. **No test bills in git.** The `data/test-bills/` directory must be in `.gitignore`. Real medical bills must never be committed to version control.
+2. **No test bills in git.** The `data/test-bills/` directory is in `.gitignore`. Real medical bills must never be committed.
 
-3. **Raw CMS files not committed.** The `data/cms-pfs/` and `data/cms-opps/` directories contain large CMS downloads that must also be in `.gitignore`. Only the processed output CSVs go in `backend/data/`.
+3. **Raw CMS files not committed.** `data/cms-pfs/`, `data/cms-opps/`, `data/cms-clfs/` contain large downloads — `.gitignore`d. Only processed CSVs in `backend/data/` are committed.
 
-4. **Brand colors.** The UI must use: primary navy `#1B3A5C`, accent teal `#0D7377`, clean white backgrounds, Arial font family. This is investor-demo quality, not a prototype.
+4. **Brand colors.** Primary navy `#1B3A5C`, accent teal `#0D7377`, clean white backgrounds, Arial font family. Amber `#F59E0B` for warnings, red `#EF4444` for severe anomaly flags (>3x benchmark).
 
-5. **Tailwind only.** Do not write custom CSS. Use Tailwind utility classes throughout.
+5. **Tailwind only.** Do not write custom CSS except for the CivicScale homepage (`CivicScaleHomepage.css`), the Investors page (`InvestorsPage.css`), print styles, and scrollbar-hide utilities in `index.css`.
 
----
+6. **No PHI in Supabase.** Employer user IDs are SHA-256 hashed before storage. Provider data is tied to `user_id` only — no patient-identifiable information.
 
-### The Eight Build Tasks (Work Through These in Order)
-
-#### TASK 1 — Project Setup (~1 hour)
-Initialize the Vite React frontend and FastAPI backend. Set up GitHub. Deploy empty shells to Vercel and Render to confirm the deployment pipeline before writing any real code.
-
-**Done when:** `http://localhost:5173` shows a React page. `http://localhost:8000` returns `{"status": "ok"}` from FastAPI.
+7. **Work on main branch.** This repo uses a single-branch workflow. Commit and push directly to main unless instructed otherwise.
 
 ---
 
-#### TASK 2 — CMS Data Processor (~3 hours)
-Write `backend/scripts/process_pfs.py` and `backend/scripts/process_opps.py`. These scripts read raw CMS downloads from `data/cms-pfs/` and `data/cms-opps/` and produce clean lookup CSVs in `backend/data/`.
+## Architecture Notes
 
-**Source files (already downloaded, saved in `data/cms-pfs/`):**
+### Frontend Routing
 
-- `cy2026-carrier-files-nonqp-updated-12-29-2025.zip` — **(PRIMARY SOURCE — use this)** The pre-calculated 2026 Physician Fee Schedule amounts for all CPT codes in all carrier/localities. Downloaded from CMS Carrier Specific Files page. 11MB. These are final dollar amounts with GPCI math already applied — no calculation needed. Contains both nonfacility and facility amounts. Updated 12/29/2025.
-  - Download URL: `https://www.cms.gov/files/zip/cy2026-carrier-files-nonqp-updated-12-29-2025.zip`
+The app uses React Router v7 with a flat route structure in `main.jsx`:
 
-- `ZIP5_APR2026.xlsx` — the ZIP-to-locality crosswalk file (42,957 rows, Q2 2026). Columns: `STATE`, `ZIP CODE`, `CARRIER`, `LOCALITY`, `RURAL IND`, `LAB CB LOCALITY`, `RURAL IND2`, `PLUS 4 FLAG`, `PART B DRUG INDICATOR`, `YEAR/QTR`. The key columns for lookup are `ZIP CODE`, `CARRIER`, and `LOCALITY`.
+| Route Pattern | Component | Description |
+|---|---|---|
+| `/` | `CivicScaleHomepage` | Platform landing page |
+| `/parity-health/*` | `App` (health) | Consumer bill analysis tool |
+| `/provider/*` | `ProviderApp` | Provider reimbursement dashboard |
+| `/signal/*` | `SignalApp` | Claim intelligence platform |
+| `/employer/*` | Employer pages | Employer benefits analytics |
+| `/billing/*` | Billing landing + product pages | Product marketing pages |
+| `/audit`, `/audit/account` | Audit pages | Standalone audit entry |
+| `/report/:token` | `PublicAuditReport` | Shareable audit reports |
+| `/terms`, `/privacy`, `/investors` | Legal/marketing pages | Static content |
 
-- `RVU26A.zip` — **(BACKUP/REFERENCE ONLY)** The raw RVU file with relative value units. The ZIP contains two files: the RVU data file (use the `-nonQP` variant) and a separate GPCI file with geographic adjustment factors. Only needed if the Carrier Files approach fails. If used, apply formula: `[(Work RVU × Work GPCI) + (Nonfacility PE RVU × PE GPCI) + (MP RVU × MP GPCI)] × $33.4009`
+### Backend API Routes
 
-**Output files to produce in `backend/data/`:**
+All routers are registered in `backend/main.py`:
 
-`pfs_rates.csv` columns: `cpt_code, carrier, locality_code, nonfacility_amount, facility_amount` — produced by processing the Carrier Files ZIP
-`opps_rates.csv` columns: `apc_code, payment_rate, description`
-`zip_locality.csv` columns: `zip_code, carrier, locality_code, state` — produced by processing `ZIP5_APR2026.xlsx`
+| Prefix | Router | Description |
+|---|---|---|
+| `/api/benchmark` | `benchmark.py` | CMS rate lookup (POST) |
+| `/api/ai-parse` | `ai_parse.py` | AI bill text parsing |
+| `/api/eob-parse` | `eob_parse.py` | EOB document parsing |
+| `/api/employer/*` | `employer.py` | Employer dashboard |
+| `/api/provider/*` | `provider.py` | Provider hub (audit, appeals, subscriptions) |
+| `/api/signal/*` | Signal routers | Events, Stripe, metrics, Q&A, topics, notifications |
+| `/api/health-analyze` | `health_analyze.py` | Bill analysis |
+| `/api/benchmark-observations` | `benchmark_observations.py` | Benchmark data |
 
-**ZIP-to-locality lookup logic:** Given a provider's 5-digit zip code, look it up in `zip_locality.csv` to get the `carrier` and `locality_code`. Then look up `(carrier, locality_code)` in `pfs_rates.csv` to get the benchmark rate. Use `nonfacility_amount` for physician office visits; use `facility_amount` for hospital-billed services.
+### Data Flow — Parity Health (Bill Analysis)
 
-**Done when:** CPT code `99213` in `pfs_rates.csv` shows the expected rate for at least two different locality codes, verified against CMS published tables.
+1. User drops PDF in browser
+2. `extractBillData.js` parses PDF using PDF.js (no server call)
+3. Extracted CPT codes + ZIP sent to `POST /api/benchmark`
+4. Backend looks up rates: ZIP → locality via `zip_locality.csv`, then locality → rates via `pfs_rates.csv` / `opps_rates.csv` / `clfs_rates.csv`
+5. Optional: `codingIntelligence.js` runs coding validation checks
+6. `scoreAnomalies.js` computes anomaly scores (billed ÷ benchmark)
+7. Report rendered with flagged items
 
----
+### Data Flow — Parity Signal
 
-#### TASK 3 — PDF Extraction Module (~3 hours)
-Write `frontend/src/modules/extractBillData.js`. This module uses PDF.js to parse a PDF File object entirely in the browser and returns a structured object. No server call at this step.
+1. Pipeline scripts (`backend/scripts/signal/`) discover sources, extract claims via Claude API, score evidence, map consensus, generate summaries
+2. All data stored in Supabase (`signal_*` tables)
+3. Frontend fetches from Supabase directly (RLS-enabled public read)
+4. Stripe integration handles subscriptions with four tiers: free, basic, standard, premium
 
-**Return shape:**
-```javascript
-{
-  provider: { name: string, zip: string, npi: string|null },
-  serviceDate: string,
-  lineItems: [
-    { code: string, codeType: "CPT"|"REVENUE"|"UNKNOWN", description: string, billedAmount: number }
-  ]
-}
-```
+### Database (Supabase)
 
-CPT code pattern: 5-digit numeric (`\b\d{5}\b`), typically following keywords like "CPT", "Procedure", or a service description.
-Revenue code pattern: 4-digit numeric (`\b\d{4}\b`) on facility bills.
-Dollar amounts: match `$X,XXX.XX` and similar currency patterns.
+- Base schema in `supabase-schema.sql` (profiles table)
+- Migrations in `backend/migrations/002-018.sql` (run manually in Supabase SQL Editor)
+- Row Level Security enabled on all tables (migration 009)
+- Key table groups:
+  - `profiles` — user profiles
+  - `provider_*` — provider profiles, contracts, audits, appeals, subscriptions
+  - `signal_*` — issues, sources, claims, scores, consensus, subscriptions, events
+  - `employer_*` — employer codes, contributions
+  - `benchmark_*` — rate observations and versioning
 
-**Done when:** `extractBillData(file)` called on a real medical bill returns at least one correctly identified CPT code and a matching dollar amount.
+### Authentication
 
----
+- **Supabase Auth** with magic links (Resend) and email OTP
+- Frontend client in `frontend/src/lib/supabase.js`
+- Backend service-role client in `backend/supabase_client.py`
+- Provider and Signal apps have their own auth flows
+- Employer uses code-based access (no Supabase auth)
 
-#### TASK 4 — Benchmark API (~3 hours)
-Write `backend/routers/benchmark.py`. A single POST endpoint at `/api/benchmark`.
+### External Services
 
-**Request body:**
-```json
-{
-  "zipCode": "33701",
-  "lineItems": [
-    { "code": "99213", "codeType": "CPT", "billedAmount": 250.00 }
-  ]
-}
-```
-
-**Response:**
-```json
-{
-  "lineItems": [
-    {
-      "code": "99213",
-      "codeType": "CPT",
-      "billedAmount": 250.00,
-      "benchmarkRate": 78.05,
-      "benchmarkSource": "CMS_PFS_2026",
-      "localityCode": "01"
-    }
-  ]
-}
-```
-
-- Items not found in either rate file: return `benchmarkRate: null, benchmarkSource: "NOT_FOUND"`. Not an error.
-- Load CSVs into Pandas DataFrames on app startup (not per-request).
-- Add CORS middleware: allow `http://localhost:5173` and the Vercel production domain.
-- Target response time: under 500ms for 50 line items.
-
-**Done when:** `curl -X POST http://localhost:8000/api/benchmark` with CPT 99213 and zip 33701 returns the correct geographically adjusted Medicare rate.
+| Service | Purpose | Config |
+|---|---|---|
+| Supabase | Database + Auth | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` (backend), `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (frontend) |
+| Stripe | Payments | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, various `STRIPE_PRICE_*` keys |
+| Anthropic Claude | AI parsing + Signal pipeline | `ANTHROPIC_API_KEY` (implicit in anthropic SDK) |
+| Resend | Email delivery | `RESEND_API_KEY` |
+| NPPES API | Provider NPI lookup | No key needed (public API) |
 
 ---
 
-#### TASK 5 — Anomaly Scoring Engine (~2 hours)
-Write `frontend/src/modules/scoreAnomalies.js`. Takes line items from extraction + benchmark rates from API and computes anomaly scores.
-
-**Anomaly score** = `billedAmount / benchmarkRate`. Score of 1.0 = matches benchmark. Score of 2.5 = billed at 2.5× benchmark.
-
-**Flag a line item if any of:**
-- Anomaly score > 2.0 (configurable, default 2.0)
-- Same CPT code appears more than once on same service date (duplicate billing)
-- A group of CPT codes matches a known CMS bundled code set and appears as separate charges (unbundling)
-
-**Return:** enriched line items with `anomalyScore`, `flagged` (boolean), `flagReason` (string), `estimatedDiscrepancy` (billedAmount - benchmarkRate). Plus summary: `{ totalBilled, totalBenchmark, totalPotentialDiscrepancy, flaggedItemCount }`.
-
-**Done when:** Test with 3 synthetic items — one at 1.5× (not flagged), one at 3.0× (flagged), one duplicate CPT (flagged) — produces correct flags and correct summary totals.
-
----
-
-#### TASK 6 — User Interface (~4 hours)
-Build the complete React UI in `frontend/src/`. Three views managed by React `useState` (no router needed):
-
-**Upload View:**
-- Parity Health logo (text wordmark, navy, bold, large)
-- Drag-and-drop zone (large, teal border, accepts PDF)
-- Three-point privacy explanation: "Your document never leaves your device", "Only procedure codes are analyzed in the cloud", "No names, dates, or diagnoses are ever transmitted"
-- Disclaimer: "Parity Health provides benchmark comparisons only. This is not legal advice. Consult a billing specialist or attorney before taking action."
-
-**Processing View:**
-- Animated progress indicator (Tailwind animate-pulse or similar)
-- Sequential status messages: "Reading your document...", "Looking up benchmark rates...", "Analyzing charges..."
-
-**Report View:**
-- Bill summary header: provider name, service date, total billed, total benchmark, total discrepancy
-- Anomaly meter: visual bar showing ratio of flagged to total charges
-- Line items table: all items, flagged ones highlighted in amber/red, with columns: Code, Description, Billed, Benchmark, Anomaly Score, Flag Reason
-- Expandable detail panel per flagged item showing benchmark source citation
-- Total potential discrepancy callout box (prominent, navy background, white text)
-- Next steps section: "Contact the billing department" (with guidance text) + "Connect with a billing specialist" (placeholder button, teal)
-
-Colors: primary `#1B3A5C`, accent `#0D7377`, flags `#F59E0B` (amber) or `#EF4444` (red) for scores >3×. Font: Arial throughout.
-
-**Done when:** The UI renders all three views correctly with mock data. Looks professional enough to show an investor without apology.
-
----
-
-#### TASK 7 — Integration (~2 hours)
-Wire Tasks 3, 4, 5, and 6 together in `App.jsx`.
-
-**Flow:** File drop → `extractBillData(file)` → POST to `/api/benchmark` → `scoreAnomalies(lineItems, benchmarkResponse)` → update state → render Report view.
-
-**Error states to handle:**
-- Empty extraction (no CPT codes found): show message "This appears to be a summary bill. Please upload an itemized bill showing individual procedure codes."
-- API timeout (>10s): retry once, then show "Rate lookup is temporarily unavailable. Please try again in a moment."
-- All-null benchmarks: show partial report with note "X of Y procedure codes could not be benchmarked against current CMS data."
-
-**Done when:** Dropping a real medical bill produces a complete report with line items, anomaly scores, and a discrepancy estimate.
-
----
-
-#### TASK 8 — Demo Polish and Deployment (~3 hours)
-Final investor-demo finishing work:
-
-1. **Sample bill mode:** Add a "Try a Sample Bill" button on the Upload view. It loads a pre-built JavaScript object (no PDF needed) representing a fictional but realistic hospital bill with 8 line items, 3 of which are flagged. This is the primary investor demo path.
-
-2. **Report download:** Add "Download Report" button on Report view. Use browser `window.print()` with a print-specific CSS class that renders a clean, single-column report with: Parity Health logo, date, disclaimer, all line items, flagged items highlighted, benchmark source citations. Add a `@media print` CSS block.
-
-3. **Footer:** Add to every view: "Parity Health is powered by CivicScale benchmark infrastructure. Benchmark comparisons use publicly available CMS Medicare data. Not legal advice. © CivicScale 2026."
-
-4. **Production deployment:** Deploy frontend to Vercel, backend to Render. Update CORS in `backend/main.py` with the production Vercel URL. Confirm end-to-end works on production URLs.
-
-**Done when:** The sample bill loads instantly and shows a professional report. The Download Report button produces a clean printable PDF. The app is live on Vercel and accessible by URL.
-
----
-
-### Development Commands
+## Development Commands
 
 ```bash
 # Frontend
 cd frontend
 npm install
 npm run dev          # starts on http://localhost:5173
+npm run build        # production build
+npm run lint         # ESLint
+npx vitest           # run tests
+npx vitest run       # run tests once (CI mode)
 
 # Backend
 cd backend
 python -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
+source venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app --reload  # starts on http://localhost:8000
 
-# Data processing (run from backend/ after activating venv)
-# Uses cy2026-carrier-files-nonqp + ZIP5_APR2026.xlsx as primary sources
-python scripts/process_pfs.py      # reads Carrier Files ZIP + ZIP5_APR2026.xlsx
-python scripts/process_opps.py     # reads OPPS Addendum B
+# Data processing (run from backend/ with venv active)
+python scripts/process_pfs.py      # process CMS PFS carrier files
+python scripts/process_opps.py     # process CMS OPPS rates
+python scripts/process_clfs.py     # process CMS CLFS rates
+
+# Signal pipeline (run from backend/ with venv active)
+python scripts/signal/run_pipeline.py      # full pipeline
+python scripts/signal/run_full_topic.py    # single topic
 ```
 
+### Environment Variables
+
+Copy `.env.example` files in both `frontend/` and `backend/` to `.env` and fill in values. See `.env.example` files for the full list. Key variables:
+
+- **Frontend:** `VITE_API_URL`, `VITE_SITE_URL`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+- **Backend:** `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`, `CRON_SECRET`
+
+Production frontend env is in `frontend/.env.production` (API URL: `https://parity-poc-api.onrender.com`).
+
 ---
 
-### Validation Gate (Phase 0 Complete When)
+## Deployment
 
-- Detection rate ≥ 80% on known test bills (true positive rate)
-- False positive rate < 15%
-- Full end-to-end flow works on real medical bills
-- Sample bill demo runs cleanly for investor presentation
-- App deployed and accessible by URL
+| Component | Platform | Config |
+|---|---|---|
+| Frontend | Vercel | `frontend/vercel.json` — SPA rewrites for all routes |
+| Backend | Render.com | `backend/render.yaml` — Python 3.11.9, uvicorn |
+| Database | Supabase | Hosted PostgreSQL with RLS |
+
+Production URLs:
+- Frontend: `https://civicscale.ai` (Vercel)
+- Backend API: `https://parity-poc-api.onrender.com` (Render)
+- CORS allows: `localhost:5173`, `civicscale.ai`, `www.civicscale.ai`, any `*.vercel.app` preview
 
 ---
 
-### What Comes Next (Phase 1 — Not In Scope Here)
+## CMS Rate Data
 
-- Turquoise Health Clear Rates API integration (replaces CMS-only benchmarks)
-- User accounts and bill history
-- Employer claims feed integration
-- Attorney referral network integration
+The backend serves three CMS rate datasets, loaded into Pandas DataFrames at startup:
 
-Do not build Phase 1 features during this sprint. If an architectural decision would require significant rework to add these features later, flag it and ask before proceeding.
+| File | Rows | Source | Columns |
+|---|---|---|---|
+| `pfs_rates.csv` | ~841K | CMS Physician Fee Schedule 2026 | `cpt_code, carrier, locality_code, nonfacility_amount, facility_amount` |
+| `opps_rates.csv` | ~7.3K | CMS OPPS 2026 | `apc_code, hcpcs_code, payment_rate, description` |
+| `clfs_rates.csv` | ~2K | CMS CLFS 2026 Q1 | `hcpcs_code, payment_rate, description` |
+| `zip_locality.csv` | ~43K | CMS ZIP-to-locality crosswalk | `zip_code, carrier, locality_code, state` |
+
+**Lookup logic:** ZIP code → `zip_locality.csv` → `(carrier, locality_code)` → `pfs_rates.csv` → geographically adjusted rate.
+
+Rate versioning is supported via `utils/rate_versioning.py` for historical bill dates.
+
+---
+
+## Testing
+
+Frontend tests use Vitest with jsdom environment:
+
+```bash
+cd frontend
+npx vitest run                    # run all tests
+npx vitest run src/modules/       # run module tests only
+```
+
+Test files follow `*.test.js` naming convention alongside source files.
+
+---
+
+## Parity Signal — Design Principles
+
+Signal has its own detailed design document in `PARITY_SIGNAL_HANDOFF.md`. Key architectural constraints:
+
+1. **Score claims, not articles.** Extract individual assertions and score each one.
+2. **No truth/false declarations.** Score evidence strength with transparent methodology.
+3. **Per-dimension scores required.** Six dimensions (source quality, data support, reproducibility, consensus, recency, rigor) stored separately — never just composites. Required for Analytical Paths feature.
+4. **All weights disclosed.** Default weights are published in methodology.
+5. **Mobile-first design.** Signal is phone-optimized (unlike billing products which are laptop-first).
+6. **Event capture from day one.** Every interaction logged via `signal_events` table.
+
+---
+
+## What NOT to Do
+
+- Do not send PHI (names, DOB, diagnoses, insurance IDs) to any backend endpoint
+- Do not commit real medical bills or raw CMS data files to git
+- Do not write custom CSS — use Tailwind utilities (exceptions: homepage, investors page, print styles)
+- Do not hardcode Signal scoring weights — they must be configurable JSONB
+- Do not store only composite scores in Signal — per-dimension scores are required
+- Do not skip event capture in Signal features
+- Do not design Signal UI for desktop first — it is mobile-first
+- Do not build Phase 1 features (Turquoise Health API, user accounts for Health, employer claims feeds) unless explicitly approved
