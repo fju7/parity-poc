@@ -1,10 +1,17 @@
 """Generate a sample 835 EDI file for Midwest Manufacturing Co (Dec 2024).
 
-Produces Midwest_Manufacturing_Dec2024.835 with realistic Medicare multiples:
-- Routine procedures at 1.0-1.8x Medicare (normal commercial rates)
-- Flagged procedures at 2.5-6.5x Medicare (the problem claims)
+Reads actual Medicare rates from the backend's CMS data files (pfs_rates.csv,
+clfs_rates.csv, opps_rates.csv) to ensure the multiples shown in the claims
+check UI match exactly what this generator intends.
+
+Pricing strategy:
+- Routine procedures at 1.2-1.6x Medicare (normal commercial rates)
+- Flagged procedures at 2.0-6.5x Medicare (the problem claims)
+
+Uses ZIP 60601 (Chicago, IL) → carrier 06102, locality 16.
 """
 
+import csv
 import os
 import random
 import sys
@@ -12,83 +19,117 @@ import sys
 random.seed(42)
 
 # Output path (same directory as this script)
-OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_FILE = os.path.join(OUTPUT_DIR, "Midwest_Manufacturing_Dec2024.835")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(SCRIPT_DIR, "..", "..")  # backend/
+OUTPUT_FILE = os.path.join(SCRIPT_DIR, "Midwest_Manufacturing_Dec2024.835")
 
-# Medicare rates for reference
-MEDICARE_RATES = {
-    # Routine
-    "99213": 99.63,
-    "99214": 145.62,
-    "99395": 198.00,
-    "99396": 218.00,
-    "80053": 11.00,
-    "85025": 7.77,
-    "93000": 16.22,
-    "36415": 9.34,
-    "99283": 78.55,
-    "99232": 76.16,
-    # Flagged
-    "27447": 1543.00,
-    "29881": 748.00,
-    "73721": 283.00,
-    "27130": 1489.00,
-    "93306": 225.00,
-    "75571": 107.00,
-    "22551": 1876.00,
-    "93350": 272.00,
-    "75574": 534.00,
-    "20610": 73.00,
-}
+# Locality for Midwest Manufacturing (Chicago, IL 60601)
+CARRIER = "06102"
+LOCALITY = "16"
 
-# Flagged CPT codes: (cpt, count, avg_paid) — these are the problem claims (3-7x Medicare)
-FLAGGED = [
-    ("27447", 8, 4200),    # total knee — 2.7x Medicare
-    ("29881", 12, 1950),   # knee arthroscopy — 2.6x Medicare
-    ("73721", 14, 1840),   # MRI knee — 6.5x Medicare (key finding)
-    ("27130", 5, 3800),    # total hip — 2.6x Medicare
-    ("93306", 18, 420),    # echo complete — 1.9x Medicare
-    ("75571", 12, 310),    # cardiac CT — 2.9x Medicare
-    ("22551", 4, 5100),    # cervical disc — 2.7x Medicare
-    ("93350", 8, 680),     # stress echo — 2.5x Medicare
-    ("75574", 6, 2100),    # cardiac MRI — 3.9x Medicare
-    ("20610", 16, 280),    # joint injection — 3.8x Medicare
+
+def _load_backend_rates():
+    """Load Medicare rates from the backend's actual CMS data files.
+
+    Uses the same lookup logic as backend/routers/benchmark.py:
+    1. PFS (Physician Fee Schedule) → max(facility, nonfacility)
+    2. OPPS (Outpatient Prospective Payment System)
+    3. CLFS (Clinical Laboratory Fee Schedule)
+    """
+    rates = {}
+
+    # PFS rates
+    pfs_path = os.path.join(DATA_DIR, "data", "pfs_rates.csv")
+    with open(pfs_path, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            if row["carrier"] == CARRIER and row["locality_code"] == LOCALITY:
+                cpt = row["cpt_code"]
+                fac = float(row["facility_amount"])
+                nonfac = float(row["nonfacility_amount"])
+                rates[cpt] = ("PFS", max(fac, nonfac))
+
+    # CLFS rates (for codes not in PFS)
+    clfs_path = os.path.join(DATA_DIR, "data", "clfs_rates.csv")
+    with open(clfs_path, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            code = row["hcpcs_code"]
+            if code not in rates:
+                rate = float(row["payment_rate"])
+                if rate > 0:
+                    rates[code] = ("CLFS", rate)
+
+    # OPPS rates (for codes not in PFS or CLFS)
+    opps_path = os.path.join(DATA_DIR, "data", "opps_rates.csv")
+    with open(opps_path, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            code = row["hcpcs_code"]
+            if code not in rates:
+                rate = float(row["payment_rate"])
+                if rate > 0:
+                    rates[code] = ("OPPS", rate)
+
+    return rates
+
+
+# Target multiples for each CPT code
+# Flagged procedures — these are the problem claims the tool should identify
+FLAGGED_SPECS = [
+    # (cpt, count, target_multiple)
+    ("27447", 8, 3.0),    # total knee replacement
+    ("29881", 12, 3.5),   # knee arthroscopy
+    ("73721", 14, 6.5),   # MRI knee ← KEY FINDING for demo video
+    ("27130", 5, 2.8),    # total hip replacement
+    ("93306", 18, 2.0),   # echocardiogram complete
+    ("75571", 12, 2.9),   # cardiac CT calcium scoring
+    ("22551", 4, 2.7),    # anterior cervical discectomy
+    ("93350", 8, 2.5),    # stress echocardiogram
+    ("75574", 6, 4.0),    # CTA coronary arteries
+    ("20610", 16, 3.8),   # joint injection major
 ]
 
-# Routine CPT codes: (cpt, count, paid_low, paid_high) — realistic 1.0-1.8x Medicare
-ROUTINE = [
-    ("99213", 200, 130, 160),    # office visit — 1.3-1.6x
-    ("99214", 150, 185, 220),    # office visit — 1.3-1.5x
-    ("99395", 80, 220, 260),     # preventive 18-39 — 1.1-1.3x
-    ("99396", 70, 240, 280),     # preventive 40-64 — 1.1-1.3x
-    ("80053", 120, 14, 18),      # metabolic panel — 1.3-1.6x
-    ("85025", 120, 10, 13),      # CBC — 1.3-1.7x
-    ("93000", 60, 22, 30),       # ECG — 1.4-1.8x
-    ("36415", 100, 12, 16),      # venipuncture — 1.3-1.7x
-    ("99283", 35, 95, 130),      # ED moderate — 1.2-1.7x
-    ("99232", 45, 95, 120),      # hospital f/u — 1.2-1.6x
+# Routine procedures — normal commercial rates, should NOT be flagged
+ROUTINE_SPECS = [
+    # (cpt, count, target_multiple)
+    ("99213", 200, 1.4),  # office visit established level 3
+    ("99214", 150, 1.4),  # office visit established level 4
+    ("99204", 80, 1.3),   # new patient visit level 4 (replaces 99395 which isn't in CMS data)
+    ("99205", 70, 1.3),   # new patient visit level 5 (replaces 99396 which isn't in CMS data)
+    ("80053", 120, 1.5),  # comprehensive metabolic panel
+    ("85025", 120, 1.5),  # CBC with differential
+    ("93000", 60, 1.4),   # ECG complete
+    ("36415", 100, 1.4),  # venipuncture
+    ("99283", 35, 1.3),   # ED visit moderate
+    ("99232", 45, 1.3),   # subsequent hospital care
 ]
 
-BILLED_MULTIPLIER = 1.4  # billed amount is 1.4x paid (standard)
+BILLED_MULTIPLIER = 1.4  # billed = paid × 1.4 (standard commercial markup)
 
 
-def _vary_range(low: float, high: float) -> float:
-    """Pick a random value in the range [low, high]."""
-    return round(random.uniform(low, high), 2)
+def _vary(amount: float, pct: float = 0.05) -> float:
+    """Apply +/- pct random variance."""
+    return round(amount * random.uniform(1 - pct, 1 + pct), 2)
 
 
-def _vary(amount: float) -> float:
-    """Apply +/-5% random variance."""
-    return round(amount * random.uniform(0.95, 1.05), 2)
-
-
-def _build_claims():
-    """Build all claim records with realistic pricing."""
+def _build_claims(backend_rates):
+    """Build all claim records using actual backend Medicare rates."""
     claims = []
     claim_num = 1
+    missing = []
 
-    # 1) Flagged claims at spec averages with +/-5% variance
-    for cpt, count, avg_paid in FLAGGED:
+    all_specs = [(cpt, count, mult, "flagged") for cpt, count, mult in FLAGGED_SPECS]
+    all_specs += [(cpt, count, mult, "routine") for cpt, count, mult in ROUTINE_SPECS]
+
+    for cpt, count, target_mult, category in all_specs:
+        if cpt not in backend_rates:
+            missing.append(cpt)
+            continue
+
+        source, medicare_rate = backend_rates[cpt]
+        avg_paid = medicare_rate * target_mult
+
         for _ in range(count):
             paid = _vary(avg_paid)
             billed = round(paid * BILLED_MULTIPLIER, 2)
@@ -103,29 +144,18 @@ def _build_claims():
                 "paid": paid,
                 "adjustment": adjustment,
                 "service_date": service_date,
+                "medicare_rate": medicare_rate,
+                "target_mult": target_mult,
+                "category": category,
+                "source": source,
             })
             claim_num += 1
 
-    # 2) Routine claims at realistic ranges (1.0-1.8x Medicare)
-    for cpt, count, paid_low, paid_high in ROUTINE:
-        for _ in range(count):
-            paid = _vary_range(paid_low, paid_high)
-            billed = round(paid * BILLED_MULTIPLIER, 2)
-            adjustment = round(billed - paid, 2)
-            claim_id = f"MMC2024{claim_num:06d}"
-            day = random.randint(1, 28)
-            service_date = f"202412{day:02d}"
-            claims.append({
-                "claim_id": claim_id,
-                "cpt": cpt,
-                "billed": billed,
-                "paid": paid,
-                "adjustment": adjustment,
-                "service_date": service_date,
-            })
-            claim_num += 1
+    if missing:
+        print(f"WARNING: CPT codes not found in backend data: {missing}")
+        print("These codes will be skipped. Update the specs to use codes that exist.")
 
-    # Shuffle so flagged claims aren't all at the top
+    # Shuffle so flagged claims aren't grouped together
     random.shuffle(claims)
     return claims
 
@@ -206,68 +236,91 @@ def _build_835(claims):
 
 
 def _verify(claims):
-    """Print verification summary with Medicare multiples."""
+    """Print verification summary showing actual vs target multiples."""
     from collections import defaultdict
 
     by_cpt = defaultdict(list)
     for c in claims:
-        by_cpt[c["cpt"]].append(c["paid"])
+        by_cpt[c["cpt"]].append(c)
 
     total_paid = sum(c["paid"] for c in claims)
-    print(f"\n{'='*70}")
-    print(f"VERIFICATION SUMMARY")
-    print(f"{'='*70}")
+    print(f"\n{'=' * 78}")
+    print("VERIFICATION SUMMARY")
+    print(f"{'=' * 78}")
     print(f"Total claims: {len(claims)}")
     print(f"Total paid:   ${total_paid:,.2f}")
 
-    flagged_cpts = {cpt for cpt, _, _ in FLAGGED}
-    routine_cpts = {cpt for cpt, _, _, _ in ROUTINE}
+    flagged_cpts = {cpt for cpt, _, _ in FLAGGED_SPECS}
+    routine_cpts = {cpt for cpt, _, _ in ROUTINE_SPECS}
 
-    print(f"\n{'─'*70}")
-    print(f"FLAGGED PROCEDURES (should be 2.5-7x Medicare)")
-    print(f"{'─'*70}")
-    print(f"{'CPT':<8} {'Count':>6} {'Avg Paid':>10} {'Medicare':>10} {'Multiple':>10}")
-    for cpt in sorted(flagged_cpts):
-        payments = by_cpt[cpt]
-        avg = sum(payments) / len(payments)
-        medicare = MEDICARE_RATES[cpt]
-        mult = avg / medicare
-        print(f"{cpt:<8} {len(payments):>6} {avg:>10.2f} {medicare:>10.2f} {mult:>10.1f}x")
-
-    print(f"\n{'─'*70}")
-    print(f"ROUTINE PROCEDURES (must be under 2.0x Medicare)")
-    print(f"{'─'*70}")
-    print(f"{'CPT':<8} {'Count':>6} {'Avg Paid':>10} {'Medicare':>10} {'Multiple':>10} {'Status':>8}")
     all_ok = True
-    for cpt in sorted(routine_cpts):
-        payments = by_cpt[cpt]
-        avg = sum(payments) / len(payments)
-        medicare = MEDICARE_RATES[cpt]
-        mult = avg / medicare
-        status = "OK" if mult < 2.0 else "FAIL"
-        if mult >= 2.0:
-            all_ok = False
-        print(f"{cpt:<8} {len(payments):>6} {avg:>10.2f} {medicare:>10.2f} {mult:>10.1f}x {status:>8}")
 
-    print(f"\n{'='*70}")
+    print(f"\n{'─' * 78}")
+    print("FLAGGED PROCEDURES (target 2.0-6.5x Medicare)")
+    print(f"{'─' * 78}")
+    hdr = f"{'CPT':<8} {'Count':>6} {'Avg Paid':>10} {'Medicare':>10} {'Actual':>8} {'Target':>8} {'Source':>6}"
+    print(hdr)
+    for cpt in sorted(flagged_cpts):
+        if cpt not in by_cpt:
+            continue
+        items = by_cpt[cpt]
+        avg = sum(c["paid"] for c in items) / len(items)
+        medicare = items[0]["medicare_rate"]
+        actual = avg / medicare
+        target = items[0]["target_mult"]
+        src = items[0]["source"]
+        print(f"{cpt:<8} {len(items):>6} {avg:>10.2f} {medicare:>10.2f} {actual:>7.1f}x {target:>7.1f}x {src:>6}")
+
+    print(f"\n{'─' * 78}")
+    print("ROUTINE PROCEDURES (must be under 2.0x Medicare)")
+    print(f"{'─' * 78}")
+    hdr = f"{'CPT':<8} {'Count':>6} {'Avg Paid':>10} {'Medicare':>10} {'Actual':>8} {'Target':>8} {'Source':>6} {'OK?':>5}"
+    print(hdr)
+    for cpt in sorted(routine_cpts):
+        if cpt not in by_cpt:
+            continue
+        items = by_cpt[cpt]
+        avg = sum(c["paid"] for c in items) / len(items)
+        medicare = items[0]["medicare_rate"]
+        actual = avg / medicare
+        target = items[0]["target_mult"]
+        src = items[0]["source"]
+        ok = actual < 2.0
+        if not ok:
+            all_ok = False
+        print(f"{cpt:<8} {len(items):>6} {avg:>10.2f} {medicare:>10.2f} {actual:>7.1f}x {target:>7.1f}x {src:>6} {'OK' if ok else 'FAIL':>5}")
+
+    print(f"\n{'=' * 78}")
     if all_ok:
         print("ALL ROUTINE MULTIPLES UNDER 2.0x — PASS")
     else:
         print("SOME ROUTINE MULTIPLES ABOVE 2.0x — FAIL")
-    print(f"{'='*70}\n")
+    print(f"{'=' * 78}\n")
 
     return all_ok
 
 
 def main():
-    claims = _build_claims()
+    print("Loading backend Medicare rates...")
+    backend_rates = _load_backend_rates()
+
+    # Verify all required codes exist
+    all_cpts = [cpt for cpt, _, _ in FLAGGED_SPECS] + [cpt for cpt, _, _ in ROUTINE_SPECS]
+    for cpt in all_cpts:
+        if cpt not in backend_rates:
+            print(f"ERROR: CPT {cpt} not found in backend CMS data files!")
+            sys.exit(1)
+        source, rate = backend_rates[cpt]
+        print(f"  {cpt}: ${rate:.2f} ({source})")
+
+    claims = _build_claims(backend_rates)
     content = _build_835(claims)
 
     with open(OUTPUT_FILE, "w") as f:
         f.write(content)
 
     total_paid = sum(c["paid"] for c in claims)
-    print(f"Generated {OUTPUT_FILE}")
+    print(f"\nGenerated {OUTPUT_FILE}")
     print(f"  Claims: {len(claims)}")
     print(f"  Total paid: ${total_paid:,.2f}")
 
