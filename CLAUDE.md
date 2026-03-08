@@ -3,9 +3,30 @@
 ## Repo
 - GitHub: https://github.com/fju7/parity-poc
 - Local: /Users/fredugast/Desktop/AI Projects/Parity Medical/parity-poc-repo
-- Branch rule: ALWAYS work on main branch. Never create feature branches.
-  Claude Code's default branch behavior creates feature branches — always
-  merge back to main and push before finishing.
+## CRITICAL BRANCH AND PUSH RULES — READ FIRST
+
+NEVER create feature branches. ALWAYS push directly to main.
+
+Claude Code's default behavior creates feature branches like `claude/review-changes-xxx`. This is FORBIDDEN in this repo. Every single commit must go directly to `origin/main`.
+
+The correct git workflow for EVERY task is:
+1. Make your changes
+2. `git add <files>`
+3. `git commit -m "descriptive message"`
+4. `git push origin main`
+
+That's it. No branch creation. No pull requests. No feature branches.
+
+If you find yourself on a feature branch, immediately:
+1. `git checkout main`
+2. `git merge <feature-branch>`
+3. `git push origin main`
+
+NEVER end a session without confirming `git log --oneline -1` shows your commit on main AND `git push origin main` succeeded with actual objects transferred (not "Everything up-to-date" after a failed push).
+
+Verify your push worked by checking the output says something like:
+`226ecfd..abc1234  main -> main`
+If it says "Everything up-to-date" without that line, the push failed.
 
 ## Stack
 - Frontend: React/Vite → Vercel (auto-deploys from main)

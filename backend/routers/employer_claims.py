@@ -275,6 +275,9 @@ async def employer_claims_check(
             line["ratio"] = ratio
             if ratio > 3.0:
                 line["flag"] = "SEVERE"
+                excess = round(paid - (rate_val * 2), 2)
+                line["excess_amount"] = excess
+                total_excess_2x += excess
             elif ratio > 2.0:
                 line["flag"] = "HIGH"
                 excess = round(paid - (rate_val * 2), 2)
@@ -291,15 +294,14 @@ async def employer_claims_check(
         total_paid += paid
         results.append(line)
 
-    # --- Top flagged CPT ---
-    top_flagged_cpt = max(flag_counts, key=flag_counts.get) if flag_counts else None
-    top_flagged_excess = 0.0
-    if top_flagged_cpt:
-        top_flagged_excess = sum(
-            r.get("excess_amount", 0) or 0
-            for r in results
-            if r["cpt_code"] == top_flagged_cpt
-        )
+    # --- Top flagged CPT (by total excess dollars) ---
+    excess_by_cpt = {}
+    for r in results:
+        ex = r.get("excess_amount") or 0
+        if ex > 0:
+            excess_by_cpt[r["cpt_code"]] = excess_by_cpt.get(r["cpt_code"], 0) + ex
+    top_flagged_cpt = max(excess_by_cpt, key=excess_by_cpt.get) if excess_by_cpt else None
+    top_flagged_excess = round(excess_by_cpt.get(top_flagged_cpt, 0), 2) if top_flagged_cpt else 0.0
 
     # --- Summary ---
     flagged_lines = [r for r in results if r.get("flag")]
