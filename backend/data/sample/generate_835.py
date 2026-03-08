@@ -1,10 +1,13 @@
 """Generate a sample 835 EDI file for Midwest Manufacturing Co (Dec 2024).
 
-Produces Midwest_Manufacturing_Dec2024.835 with 970 claims totaling ~$623,000 paid.
+Produces Midwest_Manufacturing_Dec2024.835 with realistic Medicare multiples:
+- Routine procedures at 1.0-1.8x Medicare (normal commercial rates)
+- Flagged procedures at 2.5-6.5x Medicare (the problem claims)
 """
 
 import os
 import random
+import sys
 
 random.seed(42)
 
@@ -12,58 +15,82 @@ random.seed(42)
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "Midwest_Manufacturing_Dec2024.835")
 
-# Target totals
-TARGET_CLAIMS = 970
-TARGET_TOTAL_PAID = 623_000
+# Medicare rates for reference
+MEDICARE_RATES = {
+    # Routine
+    "99213": 99.63,
+    "99214": 145.62,
+    "99395": 198.00,
+    "99396": 218.00,
+    "80053": 11.00,
+    "85025": 7.77,
+    "93000": 16.22,
+    "36415": 9.34,
+    "99283": 78.55,
+    "99232": 76.16,
+    # Flagged
+    "27447": 1543.00,
+    "29881": 748.00,
+    "73721": 283.00,
+    "27130": 1489.00,
+    "93306": 225.00,
+    "75571": 107.00,
+    "22551": 1876.00,
+    "93350": 272.00,
+    "75574": 534.00,
+    "20610": 73.00,
+}
 
-# Flagged CPT codes: (cpt, count, avg_paid) — exact specs
+# Flagged CPT codes: (cpt, count, avg_paid) — these are the problem claims (3-7x Medicare)
 FLAGGED = [
-    ("27447", 8, 4200),
-    ("29881", 12, 1950),
-    ("73721", 14, 1840),
-    ("27130", 5, 3800),
-    ("93306", 18, 420),
-    ("75571", 12, 310),
-    ("22551", 4, 5100),
-    ("93350", 8, 680),
-    ("75574", 6, 2100),
-    ("20610", 16, 280),
+    ("27447", 8, 4200),    # total knee — 2.7x Medicare
+    ("29881", 12, 1950),   # knee arthroscopy — 2.6x Medicare
+    ("73721", 14, 1840),   # MRI knee — 6.5x Medicare (key finding)
+    ("27130", 5, 3800),    # total hip — 2.6x Medicare
+    ("93306", 18, 420),    # echo complete — 1.9x Medicare
+    ("75571", 12, 310),    # cardiac CT — 2.9x Medicare
+    ("22551", 4, 5100),    # cervical disc — 2.7x Medicare
+    ("93350", 8, 680),     # stress echo — 2.5x Medicare
+    ("75574", 6, 2100),    # cardiac MRI — 3.9x Medicare
+    ("20610", 16, 280),    # joint injection — 3.8x Medicare
 ]
 
-# Routine CPT codes: (cpt, base_count, avg_paid)
-# Counts scaled proportionally to fill remaining slots; averages scaled to hit target total.
-ROUTINE_BASE = [
-    ("99213", 180, 105),
-    ("99214", 120, 148),
-    ("99395", 60, 210),
-    ("99396", 50, 240),
-    ("80053", 90, 45),
-    ("85025", 90, 38),
-    ("93000", 45, 85),
-    ("36415", 80, 18),
-    ("99283", 25, 380),
-    ("99232", 30, 180),
+# Routine CPT codes: (cpt, count, paid_low, paid_high) — realistic 1.0-1.8x Medicare
+ROUTINE = [
+    ("99213", 200, 130, 160),    # office visit — 1.3-1.6x
+    ("99214", 150, 185, 220),    # office visit — 1.3-1.5x
+    ("99395", 80, 220, 260),     # preventive 18-39 — 1.1-1.3x
+    ("99396", 70, 240, 280),     # preventive 40-64 — 1.1-1.3x
+    ("80053", 120, 14, 18),      # metabolic panel — 1.3-1.6x
+    ("85025", 120, 10, 13),      # CBC — 1.3-1.7x
+    ("93000", 60, 22, 30),       # ECG — 1.4-1.8x
+    ("36415", 100, 12, 16),      # venipuncture — 1.3-1.7x
+    ("99283", 35, 95, 130),      # ED moderate — 1.2-1.7x
+    ("99232", 45, 95, 120),      # hospital f/u — 1.2-1.6x
 ]
 
-BILLED_MULTIPLIER = 1.4
+BILLED_MULTIPLIER = 1.4  # billed amount is 1.4x paid (standard)
+
+
+def _vary_range(low: float, high: float) -> float:
+    """Pick a random value in the range [low, high]."""
+    return round(random.uniform(low, high), 2)
 
 
 def _vary(amount: float) -> float:
-    """Apply ±5% random variance."""
+    """Apply +/-5% random variance."""
     return round(amount * random.uniform(0.95, 1.05), 2)
 
 
 def _build_claims():
-    """Build all claim records, hitting target claim count and total paid."""
+    """Build all claim records with realistic pricing."""
     claims = []
     claim_num = 1
 
-    # 1) Flagged claims at exact specs
-    flagged_total = 0
+    # 1) Flagged claims at spec averages with +/-5% variance
     for cpt, count, avg_paid in FLAGGED:
         for _ in range(count):
             paid = _vary(avg_paid)
-            flagged_total += paid
             billed = round(paid * BILLED_MULTIPLIER, 2)
             adjustment = round(billed - paid, 2)
             claim_id = f"MMC2024{claim_num:06d}"
@@ -79,33 +106,10 @@ def _build_claims():
             })
             claim_num += 1
 
-    flagged_count = sum(c for _, c, _ in FLAGGED)  # 103
-
-    # 2) Routine claims — scale counts to fill remaining slots
-    routine_slots = TARGET_CLAIMS - flagged_count  # 867
-    base_total_count = sum(c for _, c, _ in ROUTINE_BASE)  # 770
-    scale_factor = routine_slots / base_total_count
-
-    # Scale counts proportionally, fix rounding to hit exactly routine_slots
-    routine_counts = []
-    for cpt, base_count, avg in ROUTINE_BASE:
-        routine_counts.append((cpt, round(base_count * scale_factor), avg))
-
-    # Adjust last entry to hit exact slot count
-    current_sum = sum(c for _, c, _ in routine_counts)
-    diff = routine_slots - current_sum
-    last_cpt, last_count, last_avg = routine_counts[-1]
-    routine_counts[-1] = (last_cpt, last_count + diff, last_avg)
-
-    # 3) Scale routine averages to hit target total
-    routine_paid_needed = TARGET_TOTAL_PAID - flagged_total
-    routine_base_paid = sum(count * avg for _, count, avg in routine_counts)
-    avg_scale = routine_paid_needed / routine_base_paid
-
-    for cpt, count, base_avg in routine_counts:
-        scaled_avg = base_avg * avg_scale
+    # 2) Routine claims at realistic ranges (1.0-1.8x Medicare)
+    for cpt, count, paid_low, paid_high in ROUTINE:
         for _ in range(count):
-            paid = _vary(scaled_avg)
+            paid = _vary_range(paid_low, paid_high)
             billed = round(paid * BILLED_MULTIPLIER, 2)
             adjustment = round(billed - paid, 2)
             claim_id = f"MMC2024{claim_num:06d}"
@@ -201,6 +205,60 @@ def _build_835(claims):
     return "~\n".join(segments) + "~\n"
 
 
+def _verify(claims):
+    """Print verification summary with Medicare multiples."""
+    from collections import defaultdict
+
+    by_cpt = defaultdict(list)
+    for c in claims:
+        by_cpt[c["cpt"]].append(c["paid"])
+
+    total_paid = sum(c["paid"] for c in claims)
+    print(f"\n{'='*70}")
+    print(f"VERIFICATION SUMMARY")
+    print(f"{'='*70}")
+    print(f"Total claims: {len(claims)}")
+    print(f"Total paid:   ${total_paid:,.2f}")
+
+    flagged_cpts = {cpt for cpt, _, _ in FLAGGED}
+    routine_cpts = {cpt for cpt, _, _, _ in ROUTINE}
+
+    print(f"\n{'─'*70}")
+    print(f"FLAGGED PROCEDURES (should be 2.5-7x Medicare)")
+    print(f"{'─'*70}")
+    print(f"{'CPT':<8} {'Count':>6} {'Avg Paid':>10} {'Medicare':>10} {'Multiple':>10}")
+    for cpt in sorted(flagged_cpts):
+        payments = by_cpt[cpt]
+        avg = sum(payments) / len(payments)
+        medicare = MEDICARE_RATES[cpt]
+        mult = avg / medicare
+        print(f"{cpt:<8} {len(payments):>6} {avg:>10.2f} {medicare:>10.2f} {mult:>10.1f}x")
+
+    print(f"\n{'─'*70}")
+    print(f"ROUTINE PROCEDURES (must be under 2.0x Medicare)")
+    print(f"{'─'*70}")
+    print(f"{'CPT':<8} {'Count':>6} {'Avg Paid':>10} {'Medicare':>10} {'Multiple':>10} {'Status':>8}")
+    all_ok = True
+    for cpt in sorted(routine_cpts):
+        payments = by_cpt[cpt]
+        avg = sum(payments) / len(payments)
+        medicare = MEDICARE_RATES[cpt]
+        mult = avg / medicare
+        status = "OK" if mult < 2.0 else "FAIL"
+        if mult >= 2.0:
+            all_ok = False
+        print(f"{cpt:<8} {len(payments):>6} {avg:>10.2f} {medicare:>10.2f} {mult:>10.1f}x {status:>8}")
+
+    print(f"\n{'='*70}")
+    if all_ok:
+        print("ALL ROUTINE MULTIPLES UNDER 2.0x — PASS")
+    else:
+        print("SOME ROUTINE MULTIPLES ABOVE 2.0x — FAIL")
+    print(f"{'='*70}\n")
+
+    return all_ok
+
+
 def main():
     claims = _build_claims()
     content = _build_835(claims)
@@ -212,6 +270,11 @@ def main():
     print(f"Generated {OUTPUT_FILE}")
     print(f"  Claims: {len(claims)}")
     print(f"  Total paid: ${total_paid:,.2f}")
+
+    ok = _verify(claims)
+    if not ok:
+        print("ERROR: Routine multiples check failed!")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
