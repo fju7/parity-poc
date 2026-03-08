@@ -454,7 +454,7 @@ export default function EmployerRBPCalculator() {
             {/* Next Steps */}
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "24px" }}>
               <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px" }}>Next Steps</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                 <button
                   onClick={handleDownloadPdf}
                   disabled={pdfLoading}
@@ -499,6 +499,20 @@ export default function EmployerRBPCalculator() {
                     Back to Full Analysis &rarr;
                   </div>
                   <div style={{ fontSize: "11px", color: "#64748b" }}>See other savings levers</div>
+                </Link>
+                <Link
+                  to="/billing/employer/scorecard"
+                  style={{
+                    background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.25)",
+                    borderRadius: "10px", padding: "20px 16px", textDecoration: "none",
+                    textAlign: "center", color: "#e2e8f0", display: "block",
+                  }}
+                >
+                  <div style={{ fontSize: "24px", marginBottom: "8px" }}>&#128203;</div>
+                  <div style={{ fontSize: "14px", fontWeight: "600", color: "#10b981", marginBottom: "4px" }}>
+                    Grade Your Plan Design &rarr;
+                  </div>
+                  <div style={{ fontSize: "11px", color: "#64748b" }}>Upload your SBC for a plan scorecard</div>
                 </Link>
               </div>
             </div>
