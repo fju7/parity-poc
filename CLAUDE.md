@@ -82,6 +82,9 @@ Three live products + one in development:
 - backend/utils/parse_835.py — pure Python 835 EDI parser
 - backend/data/employer_benchmarks/benchmark_compiled.json — runtime
   benchmark lookup data
+- backend/data/sample/Midwest_Manufacturing_Dec2024.835 — sample 835 EDI
+  remittance file (970 claims, ~$623K paid, Dec 2024, Cigna/Midwest Mfg)
+- backend/data/sample/generate_835.py — script that generated the sample 835
 - backend/main.py — FastAPI app, router registration, lifespan
 
 ## Key frontend files
