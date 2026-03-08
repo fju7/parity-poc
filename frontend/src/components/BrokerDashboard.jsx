@@ -4,6 +4,30 @@ import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const SITE_URL = import.meta.env.VITE_SITE_URL || "https://civicscale.ai";
+
+const INDUSTRIES = ["Manufacturing", "Healthcare", "Retail", "Technology", "Education", "Finance", "Other"];
+const EMPLOYEE_RANGES = ["<100", "100-250", "250-500", "500-1000", "1000+"];
+const EMPLOYEE_LABELS = {
+  "<100": "<100 employees",
+  "100-250": "100–250 employees",
+  "250-500": "250–500 employees",
+  "500-1000": "500–1,000 employees",
+  "1000+": "1,000+ employees",
+};
+const US_STATES = [
+  "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD",
+  "MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC",
+  "SD","TN","TX","UT","VT","VA","WA","WV","WI","WY",
+];
+const CARRIER_SUGGESTIONS = ["Cigna", "Aetna", "UnitedHealth", "BCBS", "Humana", "Self-insured/TPA", "Other"];
+
+const ACTIVITY_DOT = {
+  subscriber: { color: "#22c55e", label: "Active subscriber" },
+  uploaded: { color: "#3b82f6", label: "Uploaded files" },
+  viewed: { color: "#f59e0b", label: "Viewed report" },
+  benchmark_only: { color: "#94a3b8", label: "Benchmark only" },
+};
 
 export default function BrokerDashboard() {
   const navigate = useNavigate();
@@ -13,27 +37,29 @@ export default function BrokerDashboard() {
   const [selectedClient, setSelectedClient] = useState(null);
   const [clientSummary, setClientSummary] = useState(null);
   const [summaryLoading, setSummaryLoading] = useState(false);
+  const [clientActivity, setClientActivity] = useState(null);
 
-  // Add client form state
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [addEmail, setAddEmail] = useState("");
+  // Add client panel state
+  const [showAddPanel, setShowAddPanel] = useState(false);
+  const [addForm, setAddForm] = useState({
+    company_name: "", employee_count_range: "<100", industry: "Manufacturing",
+    state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "",
+  });
   const [addLoading, setAddLoading] = useState(false);
   const [addError, setAddError] = useState("");
-  const [addSuccess, setAddSuccess] = useState("");
+  const [onboardResult, setOnboardResult] = useState(null);
+
+  // Share / notify state
+  const [shareLoading, setShareLoading] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
+  const [notifySent, setNotifySent] = useState(false);
 
   // Auth check
   useEffect(() => {
     const stored = localStorage.getItem("broker_session");
-    if (!stored) {
-      navigate("/broker/login");
-      return;
-    }
-    try {
-      setBroker(JSON.parse(stored));
-    } catch {
-      localStorage.removeItem("broker_session");
-      navigate("/broker/login");
-    }
+    if (!stored) { navigate("/broker/login"); return; }
+    try { setBroker(JSON.parse(stored)); }
+    catch { localStorage.removeItem("broker_session"); navigate("/broker/login"); }
   }, [navigate]);
 
   // Fetch clients
@@ -45,9 +71,7 @@ export default function BrokerDashboard() {
       if (!res.ok) throw new Error("Failed to load clients");
       const data = await res.json();
       setClients(data.clients || []);
-    } catch (err) {
-      console.error("Failed to fetch clients:", err);
-    }
+    } catch (err) { console.error("Failed to fetch clients:", err); }
     setLoading(false);
   }, [broker]);
 
@@ -58,62 +82,89 @@ export default function BrokerDashboard() {
     if (!broker) return;
     setSummaryLoading(true);
     setClientSummary(null);
+    setClientActivity(null);
     try {
-      const res = await fetch(
-        `${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/summary?broker_email=${encodeURIComponent(broker.email)}`
-      );
-      if (!res.ok) throw new Error("Failed to load summary");
-      const data = await res.json();
-      setClientSummary(data);
-    } catch (err) {
-      console.error("Failed to fetch summary:", err);
-    }
+      const [summaryRes, activityRes] = await Promise.all([
+        fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/summary?broker_email=${encodeURIComponent(broker.email)}`),
+        fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/activity?broker_email=${encodeURIComponent(broker.email)}`),
+      ]);
+      if (summaryRes.ok) setClientSummary(await summaryRes.json());
+      if (activityRes.ok) setClientActivity(await activityRes.json());
+    } catch (err) { console.error("Failed to fetch summary:", err); }
     setSummaryLoading(false);
   }, [broker]);
 
-  // Select client
   const handleSelectClient = (client) => {
     setSelectedClient(client);
+    setOnboardResult(null);
+    setNotifySent(false);
+    setShareCopied(false);
     fetchSummary(client.employer_email);
   };
 
-  // Add client
-  const handleAddClient = async (e) => {
+  // Onboard new client
+  const handleOnboard = async (e) => {
     e.preventDefault();
     setAddLoading(true);
     setAddError("");
-    setAddSuccess("");
+    setOnboardResult(null);
 
     try {
-      const res = await fetch(`${API}/api/broker/clients/add`, {
+      const body = {
+        broker_email: broker.email,
+        company_name: addForm.company_name,
+        employee_count_range: addForm.employee_count_range,
+        industry: addForm.industry,
+        state: addForm.state,
+        carrier: addForm.carrier,
+        employer_email: addForm.employer_email || null,
+        estimated_pepm: addForm.estimated_pepm ? parseFloat(addForm.estimated_pepm) : null,
+        estimated_annual_spend: addForm.estimated_annual_spend ? parseFloat(addForm.estimated_annual_spend) : null,
+      };
+
+      const res = await fetch(`${API}/api/broker/clients/onboard`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ broker_email: broker.email, employer_email: addEmail }),
+        body: JSON.stringify(body),
       });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed to onboard client.");
 
-      if (!res.ok) {
-        throw new Error(data.detail || "Failed to add client.");
-      }
-
-      if (data.added) {
-        setAddSuccess("Client added successfully.");
-        setAddEmail("");
-        setShowAddForm(false);
-        fetchClients();
-      } else {
-        setAddError(data.message || "Client already linked.");
-      }
-    } catch (err) {
-      setAddError(err.message);
-    }
+      setOnboardResult(data);
+      fetchClients();
+    } catch (err) { setAddError(err.message); }
     setAddLoading(false);
+  };
+
+  // Share link
+  const handleCopyShareLink = async (shareToken) => {
+    const url = `${SITE_URL}/employer/shared-report/${shareToken}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 3000);
+    } catch { /* fallback */ }
+  };
+
+  // Notify employer
+  const handleNotify = async (employerEmail) => {
+    if (!broker) return;
+    setShareLoading(true);
+    try {
+      const res = await fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/notify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ broker_email: broker.email }),
+      });
+      const data = await res.json();
+      if (data.sent) setNotifySent(true);
+    } catch (err) { console.error("Notify failed:", err); }
+    setShareLoading(false);
   };
 
   // Remove client
   const handleRemoveClient = async (employerEmail) => {
     if (!confirm("Remove this employer from your client list?")) return;
-
     try {
       const res = await fetch(
         `${API}/api/broker/clients/${encodeURIComponent(employerEmail)}?broker_email=${encodeURIComponent(broker.email)}`,
@@ -126,12 +177,9 @@ export default function BrokerDashboard() {
           setClientSummary(null);
         }
       }
-    } catch (err) {
-      console.error("Failed to remove client:", err);
-    }
+    } catch (err) { console.error("Failed to remove client:", err); }
   };
 
-  // Logout
   const handleLogout = () => {
     localStorage.removeItem("broker_session");
     navigate("/broker/login");
@@ -151,13 +199,7 @@ export default function BrokerDashboard() {
         </Link>
         <div className="cs-nav-links">
           <span style={{ fontSize: 14, color: "#64748b" }}>{broker.firm_name}</span>
-          <button
-            onClick={handleLogout}
-            style={{
-              background: "none", border: "1px solid #e2e8f0", borderRadius: 6,
-              padding: "6px 14px", fontSize: 13, color: "#64748b", cursor: "pointer",
-            }}
-          >
+          <button onClick={handleLogout} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 14px", fontSize: 13, color: "#64748b", cursor: "pointer" }}>
             Sign Out
           </button>
         </div>
@@ -167,77 +209,85 @@ export default function BrokerDashboard() {
         {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
           <div>
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
-              Broker Dashboard
-            </h1>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>Broker Dashboard</h1>
             <p style={{ color: "#64748b", fontSize: 15, marginTop: 4 }}>
               {broker.contact_name ? `${broker.contact_name} · ` : ""}{broker.firm_name}
             </p>
           </div>
           <button
-            onClick={() => { setShowAddForm(true); setAddError(""); setAddSuccess(""); }}
-            style={{
-              background: "#0D7377", color: "#fff", border: "none", borderRadius: 8,
-              padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer",
-            }}
+            onClick={() => { setShowAddPanel(true); setAddError(""); setOnboardResult(null); setAddForm({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "" }); }}
+            style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
           >
             + Add Client
           </button>
         </div>
 
-        {/* Add Client Form */}
-        {showAddForm && (
-          <div style={{
-            background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-            padding: 24, marginBottom: 24,
-          }}>
-            <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 16px" }}>
-              Link an Employer Client
-            </h3>
-            <form onSubmit={handleAddClient} style={{ display: "flex", gap: 12, alignItems: "flex-end" }}>
-              <div style={{ flex: 1 }}>
-                <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#475569", marginBottom: 4 }}>
-                  Employer email
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={addEmail}
-                  onChange={(e) => setAddEmail(e.target.value)}
-                  placeholder="hr@employer.com"
-                  style={{
-                    width: "100%", padding: "8px 12px", borderRadius: 8,
-                    border: "1px solid #e2e8f0", fontSize: 14, outline: "none", boxSizing: "border-box",
-                  }}
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={addLoading}
-                style={{
-                  background: "#1B3A5C", color: "#fff", border: "none", borderRadius: 8,
-                  padding: "8px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer",
-                  opacity: addLoading ? 0.6 : 1,
-                }}
-              >
-                {addLoading ? "Adding..." : "Add"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setShowAddForm(false)}
-                style={{
-                  background: "none", border: "1px solid #e2e8f0", borderRadius: 8,
-                  padding: "8px 16px", fontSize: 14, color: "#64748b", cursor: "pointer",
-                }}
-              >
-                Cancel
-              </button>
-            </form>
-            {addError && (
-              <p style={{ color: "#991b1b", fontSize: 13, marginTop: 8 }}>{addError}</p>
-            )}
-            {addSuccess && (
-              <p style={{ color: "#0D7377", fontSize: 13, marginTop: 8 }}>{addSuccess}</p>
+        {/* Add Client Panel */}
+        {showAddPanel && (
+          <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 28, marginBottom: 24 }}>
+            {!onboardResult ? (
+              <>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                  <h3 style={{ fontSize: 18, fontWeight: 600, color: "#1B3A5C", margin: 0 }}>Add New Client</h3>
+                  <button onClick={() => setShowAddPanel(false)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "4px 12px", fontSize: 13, color: "#64748b", cursor: "pointer" }}>Cancel</button>
+                </div>
+                <form onSubmit={handleOnboard}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+                    <FormField label="Company name" required>
+                      <input type="text" required value={addForm.company_name} onChange={(e) => setAddForm({ ...addForm, company_name: e.target.value })} placeholder="Acme Corp" style={inputStyle} />
+                    </FormField>
+                    <FormField label="Employee count">
+                      <select value={addForm.employee_count_range} onChange={(e) => setAddForm({ ...addForm, employee_count_range: e.target.value })} style={inputStyle}>
+                        {EMPLOYEE_RANGES.map((r) => <option key={r} value={r}>{EMPLOYEE_LABELS[r]}</option>)}
+                      </select>
+                    </FormField>
+                    <FormField label="Industry">
+                      <select value={addForm.industry} onChange={(e) => setAddForm({ ...addForm, industry: e.target.value })} style={inputStyle}>
+                        {INDUSTRIES.map((i) => <option key={i} value={i}>{i}</option>)}
+                      </select>
+                    </FormField>
+                    <FormField label="State">
+                      <select value={addForm.state} onChange={(e) => setAddForm({ ...addForm, state: e.target.value })} style={inputStyle}>
+                        {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </FormField>
+                    <FormField label="Current carrier/TPA">
+                      <input type="text" value={addForm.carrier} onChange={(e) => setAddForm({ ...addForm, carrier: e.target.value })} placeholder="e.g. Cigna, BCBS, Self-insured" list="carrier-suggestions" style={inputStyle} />
+                      <datalist id="carrier-suggestions">
+                        {CARRIER_SUGGESTIONS.map((c) => <option key={c} value={c} />)}
+                      </datalist>
+                    </FormField>
+                    <FormField label="Employer email (optional)">
+                      <input type="email" value={addForm.employer_email} onChange={(e) => setAddForm({ ...addForm, employer_email: e.target.value })} placeholder="hr@employer.com" style={inputStyle} />
+                    </FormField>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
+                    <FormField label="Estimated monthly PEPM (optional)" hint="Improves benchmark accuracy">
+                      <input type="number" step="0.01" min="0" value={addForm.estimated_pepm} onChange={(e) => setAddForm({ ...addForm, estimated_pepm: e.target.value })} placeholder="e.g. 620" style={inputStyle} />
+                    </FormField>
+                    <FormField label="Estimated annual spend (optional)" hint="Or use this instead of PEPM">
+                      <input type="number" step="1" min="0" value={addForm.estimated_annual_spend} onChange={(e) => setAddForm({ ...addForm, estimated_annual_spend: e.target.value })} placeholder="e.g. 2400000" style={inputStyle} />
+                    </FormField>
+                  </div>
+                  {addError && <p style={{ color: "#991b1b", fontSize: 13, marginBottom: 12 }}>{addError}</p>}
+                  <button type="submit" disabled={addLoading || !addForm.company_name} style={{ background: "#1B3A5C", color: "#fff", border: "none", borderRadius: 8, padding: "12px 28px", fontSize: 14, fontWeight: 600, cursor: "pointer", opacity: addLoading ? 0.6 : 1 }}>
+                    {addLoading ? "Running benchmark..." : "Add Client & Run Benchmark"}
+                  </button>
+                </form>
+              </>
+            ) : (
+              /* Onboard Success */
+              <OnboardSuccess
+                result={onboardResult}
+                brokerEmail={broker.email}
+                onCopyLink={handleCopyShareLink}
+                onNotify={handleNotify}
+                shareCopied={shareCopied}
+                notifySent={notifySent}
+                shareLoading={shareLoading}
+                onDone={() => { setShowAddPanel(false); setOnboardResult(null); }}
+                fmt={fmt}
+              />
             )}
           </div>
         )}
@@ -245,29 +295,22 @@ export default function BrokerDashboard() {
         {/* Main Layout: Client List + Detail Panel */}
         <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
           {/* Client List */}
-          <div style={{ width: 380, flexShrink: 0 }}>
-            <div style={{
-              background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-              overflow: "hidden",
-            }}>
-              <div style={{
-                padding: "16px 20px", borderBottom: "1px solid #e2e8f0",
-                fontSize: 14, fontWeight: 600, color: "#1B3A5C",
-              }}>
+          <div style={{ width: 400, flexShrink: 0 }}>
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden" }}>
+              <div style={{ padding: "16px 20px", borderBottom: "1px solid #e2e8f0", fontSize: 14, fontWeight: 600, color: "#1B3A5C" }}>
                 Employer Clients ({clients.length})
               </div>
 
               {loading ? (
-                <div style={{ padding: 32, textAlign: "center", color: "#94a3b8" }}>
-                  Loading clients...
-                </div>
+                <div style={{ padding: 32, textAlign: "center", color: "#94a3b8" }}>Loading clients...</div>
               ) : clients.length === 0 ? (
                 <div style={{ padding: 32, textAlign: "center", color: "#94a3b8", fontSize: 14 }}>
-                  No clients linked yet. Click "Add Client" to get started.
+                  No clients yet. Click "Add Client" to get started.
                 </div>
               ) : (
                 clients.map((client) => {
                   const isSelected = selectedClient?.employer_email === client.employer_email;
+                  const dot = ACTIVITY_DOT[client.activity_status] || ACTIVITY_DOT.benchmark_only;
                   return (
                     <div
                       key={client.employer_email}
@@ -282,26 +325,30 @@ export default function BrokerDashboard() {
                       onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.background = "#fff"; }}
                     >
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div>
-                          <p style={{ margin: 0, fontWeight: 600, fontSize: 14, color: "#1B3A5C" }}>
-                            {client.company_name}
-                          </p>
-                          <p style={{ margin: "2px 0 0", fontSize: 12, color: "#94a3b8" }}>
-                            {client.employer_email}
-                          </p>
+                        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                          <div style={{ width: 10, height: 10, borderRadius: "50%", background: dot.color, flexShrink: 0 }} title={dot.label} />
+                          <div>
+                            <p style={{ margin: 0, fontWeight: 600, fontSize: 14, color: "#1B3A5C" }}>
+                              {client.company_name}
+                            </p>
+                            <p style={{ margin: "2px 0 0", fontSize: 12, color: "#94a3b8" }}>
+                              {client.employer_email.includes("@broker-onboarded") ? "No email on file" : client.employer_email}
+                            </p>
+                          </div>
                         </div>
                         <div style={{ textAlign: "right" }}>
                           <span style={{
-                            display: "inline-block", padding: "2px 8px", borderRadius: 12,
-                            fontSize: 11, fontWeight: 600,
-                            background: client.subscription_status === "active" ? "#dcfce7" : "#f1f5f9",
-                            color: client.subscription_status === "active" ? "#166534" : "#64748b",
+                            display: "inline-block", padding: "2px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600,
+                            background: client.subscription_status === "active" ? "#dcfce7" : client.has_benchmark ? "#eff6ff" : "#f1f5f9",
+                            color: client.subscription_status === "active" ? "#166534" : client.has_benchmark ? "#1d4ed8" : "#64748b",
                           }}>
-                            {client.tier || "free"}
+                            {client.subscription_status === "active" ? client.tier : client.has_benchmark ? "benchmarked" : "free"}
                           </span>
-                          <p style={{ margin: "4px 0 0", fontSize: 11, color: "#94a3b8" }}>
-                            {client.claims_uploads} upload{client.claims_uploads !== 1 ? "s" : ""}
-                          </p>
+                          {client.claims_uploads > 0 && (
+                            <p style={{ margin: "4px 0 0", fontSize: 11, color: "#94a3b8" }}>
+                              {client.claims_uploads} upload{client.claims_uploads !== 1 ? "s" : ""}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -309,59 +356,56 @@ export default function BrokerDashboard() {
                 })
               )}
             </div>
+
+            {/* Activity Legend */}
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 12, padding: "0 4px" }}>
+              {Object.entries(ACTIVITY_DOT).map(([key, { color, label }]) => (
+                <div key={key} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, color: "#94a3b8" }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: color }} />
+                  {label}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Detail Panel */}
           <div style={{ flex: 1, minWidth: 0 }}>
             {!selectedClient ? (
-              <div style={{
-                background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-                padding: 48, textAlign: "center", color: "#94a3b8",
-              }}>
+              <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 48, textAlign: "center", color: "#94a3b8" }}>
                 <p style={{ fontSize: 16, margin: "0 0 8px" }}>Select a client to view details</p>
-                <p style={{ fontSize: 13 }}>Click on an employer from the list to see their claims summary and analytics.</p>
+                <p style={{ fontSize: 13 }}>Click on an employer from the list to see their benchmark, claims, and activity.</p>
               </div>
             ) : summaryLoading ? (
-              <div style={{
-                background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-                padding: 48, textAlign: "center",
-              }}>
-                <div style={{
-                  width: 36, height: 36, border: "3px solid #e2e8f0", borderTopColor: "#0D7377",
-                  borderRadius: "50%", animation: "cs-spin 0.8s linear infinite",
-                  margin: "0 auto 16px",
-                }} />
+              <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 48, textAlign: "center" }}>
+                <div style={{ width: 36, height: 36, border: "3px solid #e2e8f0", borderTopColor: "#0D7377", borderRadius: "50%", animation: "cs-spin 0.8s linear infinite", margin: "0 auto 16px" }} />
                 <p style={{ color: "#64748b", fontSize: 14 }}>Loading summary...</p>
                 <style>{`@keyframes cs-spin { to { transform: rotate(360deg); } }`}</style>
               </div>
             ) : clientSummary ? (
               <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                 {/* Client Header */}
-                <div style={{
-                  background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-                  padding: 24, display: "flex", justifyContent: "space-between", alignItems: "center",
-                }}>
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
                   <div>
-                    <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
-                      {clientSummary.company_name}
-                    </h2>
+                    <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.company_name}</h2>
                     <p style={{ fontSize: 13, color: "#94a3b8", marginTop: 4 }}>{clientSummary.employer_email}</p>
                   </div>
                   <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{
-                      padding: "4px 12px", borderRadius: 16, fontSize: 12, fontWeight: 600,
-                      background: clientSummary.subscription.status === "active" ? "#dcfce7" : "#f1f5f9",
-                      color: clientSummary.subscription.status === "active" ? "#166534" : "#64748b",
-                    }}>
+                    {selectedClient.share_token && (
+                      <>
+                        <button onClick={() => handleCopyShareLink(selectedClient.share_token)} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                          {shareCopied ? "Copied!" : "Copy Share Link"}
+                        </button>
+                        {selectedClient.employer_email && !selectedClient.employer_email.includes("@broker-onboarded") && (
+                          <button onClick={() => handleNotify(selectedClient.employer_email)} disabled={shareLoading || notifySent} style={{ background: notifySent ? "#dcfce7" : "#f0f9ff", color: notifySent ? "#166534" : "#1d4ed8", border: "1px solid " + (notifySent ? "#bbf7d0" : "#bfdbfe"), borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: notifySent ? "default" : "pointer" }}>
+                            {notifySent ? "Email Sent" : shareLoading ? "Sending..." : "Email Report"}
+                          </button>
+                        )}
+                      </>
+                    )}
+                    <span style={{ padding: "4px 12px", borderRadius: 16, fontSize: 12, fontWeight: 600, background: clientSummary.subscription.status === "active" ? "#dcfce7" : "#f1f5f9", color: clientSummary.subscription.status === "active" ? "#166534" : "#64748b" }}>
                       {clientSummary.subscription.tier} · {clientSummary.subscription.status}
                     </span>
-                    <button
-                      onClick={() => handleRemoveClient(clientSummary.employer_email)}
-                      style={{
-                        background: "none", border: "1px solid #fecaca", borderRadius: 6,
-                        padding: "4px 10px", fontSize: 11, color: "#991b1b", cursor: "pointer",
-                      }}
-                    >
+                    <button onClick={() => handleRemoveClient(clientSummary.employer_email)} style={{ background: "none", border: "1px solid #fecaca", borderRadius: 6, padding: "4px 10px", fontSize: 11, color: "#991b1b", cursor: "pointer" }}>
                       Remove
                     </button>
                   </div>
@@ -375,64 +419,57 @@ export default function BrokerDashboard() {
                     { label: "Total Paid", value: fmt(clientSummary.claims_summary.total_paid) },
                     { label: "Excess > 2x", value: fmt(clientSummary.claims_summary.total_excess_2x), color: clientSummary.claims_summary.total_excess_2x > 0 ? "#EF4444" : "#1B3A5C" },
                   ].map((card) => (
-                    <div key={card.label} style={{
-                      background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-                      padding: 20, textAlign: "center",
-                    }}>
-                      <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 8px", fontWeight: 500 }}>
-                        {card.label}
-                      </p>
-                      <p style={{
-                        fontSize: 22, fontWeight: 700, margin: 0,
-                        color: card.color || "#1B3A5C",
-                      }}>
-                        {card.value}
-                      </p>
+                    <div key={card.label} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, textAlign: "center" }}>
+                      <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 8px", fontWeight: 500 }}>{card.label}</p>
+                      <p style={{ fontSize: 22, fontWeight: 700, margin: 0, color: card.color || "#1B3A5C" }}>{card.value}</p>
                     </div>
                   ))}
                 </div>
 
+                {/* Activity Timeline */}
+                {clientActivity && clientActivity.events && clientActivity.events.length > 0 && (
+                  <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 16px" }}>Activity Timeline</h3>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+                      {clientActivity.events.slice(0, 10).map((ev, i) => (
+                        <div key={i} style={{ display: "flex", gap: 12, padding: "10px 0", borderBottom: i < clientActivity.events.length - 1 ? "1px solid #f1f5f9" : "none" }}>
+                          <div style={{ width: 8, height: 8, borderRadius: "50%", marginTop: 5, flexShrink: 0, background: ev.type === "subscribed" ? "#22c55e" : ev.type === "claims_uploaded" ? "#3b82f6" : ev.type === "report_viewed" ? "#f59e0b" : "#94a3b8" }} />
+                          <div style={{ flex: 1 }}>
+                            <p style={{ margin: 0, fontSize: 13, color: "#475569" }}>{ev.label}</p>
+                            <p style={{ margin: "2px 0 0", fontSize: 11, color: "#94a3b8" }}>
+                              {new Date(ev.timestamp).toLocaleDateString()} at {new Date(ev.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Upload Timeline */}
                 {clientSummary.upload_timeline && clientSummary.upload_timeline.length > 0 && (
-                  <div style={{
-                    background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-                    padding: 24,
-                  }}>
-                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 16px" }}>
-                      Claims Upload History
-                    </h3>
+                  <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 16px" }}>Claims Upload History</h3>
                     <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
                       <thead>
                         <tr style={{ borderBottom: "2px solid #e2e8f0" }}>
-                          <th style={{ textAlign: "left", padding: "8px 12px", color: "#64748b", fontWeight: 600 }}>Date</th>
-                          <th style={{ textAlign: "left", padding: "8px 12px", color: "#64748b", fontWeight: 600 }}>File</th>
-                          <th style={{ textAlign: "right", padding: "8px 12px", color: "#64748b", fontWeight: 600 }}>Claims</th>
-                          <th style={{ textAlign: "right", padding: "8px 12px", color: "#64748b", fontWeight: 600 }}>Total Paid</th>
-                          <th style={{ textAlign: "right", padding: "8px 12px", color: "#64748b", fontWeight: 600 }}>Excess &gt; 2x</th>
-                          <th style={{ textAlign: "left", padding: "8px 12px", color: "#64748b", fontWeight: 600 }}>Top CPT</th>
+                          <th style={thStyle}>Date</th>
+                          <th style={thStyle}>File</th>
+                          <th style={{ ...thStyle, textAlign: "right" }}>Claims</th>
+                          <th style={{ ...thStyle, textAlign: "right" }}>Total Paid</th>
+                          <th style={{ ...thStyle, textAlign: "right" }}>Excess &gt; 2x</th>
+                          <th style={thStyle}>Top CPT</th>
                         </tr>
                       </thead>
                       <tbody>
                         {clientSummary.upload_timeline.map((u) => (
                           <tr key={u.id} style={{ borderBottom: "1px solid #f1f5f9" }}>
-                            <td style={{ padding: "10px 12px", color: "#475569" }}>
-                              {new Date(u.created_at).toLocaleDateString()}
-                            </td>
-                            <td style={{ padding: "10px 12px", color: "#475569", maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                              {u.filename || "—"}
-                            </td>
-                            <td style={{ padding: "10px 12px", textAlign: "right", color: "#475569" }}>
-                              {(u.total_claims || 0).toLocaleString()}
-                            </td>
-                            <td style={{ padding: "10px 12px", textAlign: "right", color: "#475569" }}>
-                              {fmt(u.total_paid)}
-                            </td>
-                            <td style={{ padding: "10px 12px", textAlign: "right", color: u.total_excess_2x > 0 ? "#EF4444" : "#475569", fontWeight: u.total_excess_2x > 0 ? 600 : 400 }}>
-                              {fmt(u.total_excess_2x)}
-                            </td>
-                            <td style={{ padding: "10px 12px", color: "#475569" }}>
-                              {u.top_flagged_cpt || "—"}
-                            </td>
+                            <td style={tdStyle}>{new Date(u.created_at).toLocaleDateString()}</td>
+                            <td style={{ ...tdStyle, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{u.filename || "—"}</td>
+                            <td style={{ ...tdStyle, textAlign: "right" }}>{(u.total_claims || 0).toLocaleString()}</td>
+                            <td style={{ ...tdStyle, textAlign: "right" }}>{fmt(u.total_paid)}</td>
+                            <td style={{ ...tdStyle, textAlign: "right", color: u.total_excess_2x > 0 ? "#EF4444" : "#475569", fontWeight: u.total_excess_2x > 0 ? 600 : 400 }}>{fmt(u.total_excess_2x)}</td>
+                            <td style={tdStyle}>{u.top_flagged_cpt || "—"}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -442,43 +479,26 @@ export default function BrokerDashboard() {
 
                 {/* Trends Summary */}
                 {clientSummary.trends && (
-                  <div style={{
-                    background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-                    padding: 24,
-                  }}>
-                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>
-                      PEPM Trend Summary
-                    </h3>
+                  <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>PEPM Trend Summary</h3>
                     {clientSummary.trends_computed_at && (
                       <p style={{ fontSize: 11, color: "#94a3b8", margin: "0 0 16px" }}>
                         Computed {new Date(clientSummary.trends_computed_at).toLocaleDateString()}
                       </p>
                     )}
-
                     {clientSummary.trends.months && clientSummary.trends.months.length > 0 && (
                       <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                         {clientSummary.trends.months.slice(-6).map((m) => (
-                          <div key={m.month} style={{
-                            padding: "12px 16px", background: "#f8fafc", borderRadius: 8,
-                            border: "1px solid #e2e8f0", minWidth: 100, textAlign: "center",
-                          }}>
+                          <div key={m.month} style={{ padding: "12px 16px", background: "#f8fafc", borderRadius: 8, border: "1px solid #e2e8f0", minWidth: 100, textAlign: "center" }}>
                             <p style={{ fontSize: 11, color: "#94a3b8", margin: "0 0 4px" }}>{m.month}</p>
-                            <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
-                              ${(m.pepm || 0).toFixed(0)}
-                            </p>
-                            <p style={{ fontSize: 11, color: "#64748b", margin: "2px 0 0" }}>
-                              PEPM
-                            </p>
+                            <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>${(m.pepm || 0).toFixed(0)}</p>
+                            <p style={{ fontSize: 11, color: "#64748b", margin: "2px 0 0" }}>PEPM</p>
                           </div>
                         ))}
                       </div>
                     )}
-
                     {clientSummary.trends.narrative && (
-                      <div style={{
-                        marginTop: 16, padding: 16, background: "#f0fdfa", borderRadius: 8,
-                        border: "1px solid #99f6e4", fontSize: 13, color: "#1B3A5C", lineHeight: 1.6,
-                      }}>
+                      <div style={{ marginTop: 16, padding: 16, background: "#f0fdfa", borderRadius: 8, border: "1px solid #99f6e4", fontSize: 13, color: "#1B3A5C", lineHeight: 1.6 }}>
                         {clientSummary.trends.narrative}
                       </div>
                     )}
@@ -487,30 +507,18 @@ export default function BrokerDashboard() {
 
                 {/* Subscription Info */}
                 {clientSummary.subscription.employee_count && (
-                  <div style={{
-                    background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12,
-                    padding: 20, display: "flex", gap: 32,
-                  }}>
+                  <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, display: "flex", gap: 32 }}>
                     <div>
                       <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 4px" }}>Employee Count</p>
-                      <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
-                        {clientSummary.subscription.employee_count.toLocaleString()}
-                      </p>
+                      <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.subscription.employee_count.toLocaleString()}</p>
                     </div>
                     <div>
                       <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 4px" }}>Subscription Tier</p>
-                      <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
-                        {clientSummary.subscription.tier}
-                      </p>
+                      <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.subscription.tier}</p>
                     </div>
                     <div>
                       <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 4px" }}>Status</p>
-                      <p style={{
-                        fontSize: 18, fontWeight: 700, margin: 0,
-                        color: clientSummary.subscription.status === "active" ? "#0D7377" : "#64748b",
-                      }}>
-                        {clientSummary.subscription.status}
-                      </p>
+                      <p style={{ fontSize: 18, fontWeight: 700, margin: 0, color: clientSummary.subscription.status === "active" ? "#0D7377" : "#64748b" }}>{clientSummary.subscription.status}</p>
                     </div>
                   </div>
                 )}
@@ -522,3 +530,111 @@ export default function BrokerDashboard() {
     </div>
   );
 }
+
+
+// ---------------------------------------------------------------------------
+// OnboardSuccess — shown after successful client onboard + benchmark
+// ---------------------------------------------------------------------------
+
+function OnboardSuccess({ result, brokerEmail, onCopyLink, onNotify, shareCopied, notifySent, shareLoading, onDone, fmt }) {
+  const bench = result.benchmark_result || {};
+  const res = bench.result || {};
+  const dist = bench.distribution || {};
+  const benchmarks = bench.benchmarks || {};
+
+  const percentile = res.percentile || 50;
+  const pepm = bench.input?.pepm_input || 0;
+  const gapMonthly = res.dollar_gap_monthly || 0;
+  const gapAnnual = res.dollar_gap_annual || 0;
+
+  const hasEmail = result.employer_email && !result.employer_email.includes("@broker-onboarded");
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+        <h3 style={{ fontSize: 18, fontWeight: 600, color: "#1B3A5C", margin: 0 }}>
+          Benchmark Complete — {result.company_name}
+        </h3>
+        <button onClick={onDone} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "8px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+          Done
+        </button>
+      </div>
+
+      {/* Percentile Gauge */}
+      <div style={{ display: "flex", gap: 20, marginBottom: 20, flexWrap: "wrap" }}>
+        <div style={{ flex: 1, minWidth: 260, background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, textAlign: "center" }}>
+          <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 8px" }}>PEPM Percentile</p>
+          <p style={{ fontSize: 42, fontWeight: 700, color: percentile > 60 ? "#EF4444" : percentile > 40 ? "#f59e0b" : "#22c55e", margin: 0 }}>
+            {Math.round(percentile)}th
+          </p>
+          <p style={{ fontSize: 13, color: "#64748b", marginTop: 4 }}>{res.interpretation}</p>
+        </div>
+        <div style={{ flex: 1, minWidth: 260, background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, textAlign: "center" }}>
+          <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 8px" }}>Monthly Gap vs Median</p>
+          <p style={{ fontSize: 42, fontWeight: 700, color: gapMonthly > 0 ? "#EF4444" : "#22c55e", margin: 0 }}>
+            {gapMonthly > 0 ? "+" : ""}{fmt(gapMonthly)}
+          </p>
+          <p style={{ fontSize: 13, color: "#64748b", marginTop: 4 }}>
+            {fmt(pepm)} PEPM vs {fmt(benchmarks.adjusted_median_pepm)} median
+          </p>
+        </div>
+      </div>
+
+      {gapAnnual > 0 && (
+        <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, padding: "16px 20px", marginBottom: 20, textAlign: "center" }}>
+          <p style={{ fontSize: 13, color: "#991b1b", margin: 0 }}>
+            Estimated annual excess: <strong>{fmt(gapAnnual)}</strong> per employee above median.
+          </p>
+        </div>
+      )}
+
+      {/* Share Actions */}
+      <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 12, padding: 20 }}>
+        <p style={{ fontSize: 14, fontWeight: 600, color: "#0D7377", margin: "0 0 12px" }}>Share with your client</p>
+        <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 12, flexWrap: "wrap" }}>
+          <input
+            readOnly
+            value={result.share_url}
+            style={{ flex: 1, minWidth: 200, padding: "8px 12px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 13, color: "#475569", background: "#fff" }}
+            onFocus={(e) => e.target.select()}
+          />
+          <button onClick={() => onCopyLink(result.share_token)} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+            {shareCopied ? "Copied!" : "Copy Link"}
+          </button>
+        </div>
+        {hasEmail && (
+          <button onClick={() => onNotify(result.employer_email)} disabled={shareLoading || notifySent} style={{ background: notifySent ? "#dcfce7" : "#fff", color: notifySent ? "#166534" : "#1B3A5C", border: "1px solid " + (notifySent ? "#bbf7d0" : "#e2e8f0"), borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 600, cursor: notifySent ? "default" : "pointer" }}>
+            {notifySent ? "Email sent to client" : shareLoading ? "Sending..." : `Email report to ${result.employer_email}`}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+// ---------------------------------------------------------------------------
+// FormField helper
+// ---------------------------------------------------------------------------
+
+function FormField({ label, hint, required, children }) {
+  return (
+    <div>
+      <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#475569", marginBottom: 4 }}>
+        {label}{required && <span style={{ color: "#EF4444" }}> *</span>}
+      </label>
+      {children}
+      {hint && <p style={{ fontSize: 11, color: "#94a3b8", margin: "4px 0 0" }}>{hint}</p>}
+    </div>
+  );
+}
+
+
+const inputStyle = {
+  width: "100%", padding: "8px 12px", borderRadius: 8,
+  border: "1px solid #e2e8f0", fontSize: 14, outline: "none", boxSizing: "border-box",
+  background: "#fff", color: "#1e293b",
+};
+
+const thStyle = { textAlign: "left", padding: "8px 12px", color: "#64748b", fontWeight: 600 };
+const tdStyle = { padding: "10px 12px", color: "#475569" };

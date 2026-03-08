@@ -29,6 +29,7 @@ import EmployerContractParser from './components/EmployerContractParser.jsx'
 import EmployerRBPCalculator from './components/EmployerRBPCalculator.jsx'
 import BrokerLoginPage from './components/BrokerLoginPage.jsx'
 import BrokerDashboard from './components/BrokerDashboard.jsx'
+import EmployerSharedReport from './components/EmployerSharedReport.jsx'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -64,6 +65,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/employer/dashboard" element={<EmployerDashboard />} />
         <Route path="/broker/login" element={<BrokerLoginPage />} />
         <Route path="/broker/dashboard" element={<BrokerDashboard />} />
+        <Route path="/employer/shared-report/:shareToken" element={<EmployerSharedReport />} />
         <Route path="/report/:token" element={<PublicAuditReport />} />
         <Route path="/provider/*" element={<ProviderApp />} />
         <Route path="/signal/*" element={<SignalApp />} />

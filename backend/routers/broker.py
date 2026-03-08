@@ -1,5 +1,5 @@
 """
-Broker Portal endpoints — custom OTP auth + client management.
+Broker Portal endpoints — custom OTP auth + client management + freemium onboarding.
 
 Endpoints:
   POST /api/broker/auth/send-otp     — send 6-digit OTP to broker email
@@ -8,18 +8,23 @@ Endpoints:
   POST /api/broker/clients/add       — link an employer to this broker
   DELETE /api/broker/clients/{employer_email} — unlink an employer
   GET  /api/broker/clients/{employer_email}/summary — aggregated employer summary
+  POST /api/broker/clients/onboard   — add client + run benchmark (no employer account required)
+  GET  /api/broker/clients/{employer_email}/share-link — get/generate share link
+  POST /api/broker/clients/{employer_email}/notify — send benchmark email to employer
+  GET  /api/broker/clients/{employer_email}/activity — employer activity timeline
 """
 
 import os
 import random
 import string
+import uuid
 from datetime import datetime, timezone, timedelta
 
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Optional
 
-from routers.employer_shared import _get_supabase, check_rate_limit
+from routers.employer_shared import _get_supabase, check_rate_limit, get_benchmarks
 
 router = APIRouter(prefix="/api/broker", tags=["broker"])
 
@@ -43,6 +48,22 @@ class AddClientRequest(BaseModel):
 
 
 class ClientsListRequest(BaseModel):
+    broker_email: str
+
+
+class BrokerOnboardRequest(BaseModel):
+    broker_email: str
+    company_name: str
+    employee_count_range: str  # "<100", "100-250", "250-500", "500-1000", "1000+"
+    industry: str
+    state: str
+    carrier: str
+    employer_email: Optional[str] = None
+    estimated_pepm: Optional[float] = None
+    estimated_annual_spend: Optional[float] = None
+
+
+class NotifyClientRequest(BaseModel):
     broker_email: str
 
 
@@ -193,7 +214,7 @@ async def list_clients(broker_email: str):
     # Get linked employers
     links = (
         sb.table("broker_employer_links")
-        .select("employer_email, linked_at")
+        .select("employer_email, linked_at, status, company_name, employee_count_range, industry, state, carrier")
         .eq("broker_email", email)
         .order("linked_at", desc=True)
         .execute()
@@ -222,14 +243,45 @@ async def list_clients(broker_email: str):
         )
 
         sub_data = sub.data[0] if sub.data else {}
+
+        # Check for broker-run benchmark
+        bench = (
+            sb.table("broker_client_benchmarks")
+            .select("id, share_token, view_count, created_at")
+            .eq("broker_email", email)
+            .eq("employer_email", emp_email)
+            .order("created_at", desc=True)
+            .limit(1)
+            .execute()
+        )
+        bench_data = bench.data[0] if bench.data else None
+
+        # Determine activity status
+        uploads_count = uploads.count if uploads.count is not None else 0
+        sub_status = sub_data.get("status", "none")
+        has_viewed = bench_data and bench_data.get("view_count", 0) > 0
+
+        if sub_status == "active":
+            activity_status = "subscriber"
+        elif uploads_count > 0:
+            activity_status = "uploaded"
+        elif has_viewed:
+            activity_status = "viewed"
+        else:
+            activity_status = "benchmark_only"
+
         clients.append({
             "employer_email": emp_email,
-            "company_name": sub_data.get("company_name", emp_email),
+            "company_name": sub_data.get("company_name") or link.get("company_name") or emp_email,
             "employee_count": sub_data.get("employee_count"),
             "tier": sub_data.get("tier", "none"),
-            "subscription_status": sub_data.get("status", "none"),
-            "claims_uploads": uploads.count if uploads.count is not None else 0,
+            "subscription_status": sub_status,
+            "claims_uploads": uploads_count,
             "linked_at": link["linked_at"],
+            "onboard_status": link.get("status", "linked"),
+            "activity_status": activity_status,
+            "has_benchmark": bench_data is not None,
+            "share_token": bench_data.get("share_token") if bench_data else None,
         })
 
     return {"clients": clients}
@@ -395,3 +447,427 @@ async def client_summary(employer_email: str, broker_email: str):
         "trends": trends_data.get("trend_data") if trends_data else None,
         "trends_computed_at": trends_data.get("computed_at") if trends_data else None,
     }
+
+
+# ---------------------------------------------------------------------------
+# Benchmark computation helper (reuses employer_benchmark logic)
+# ---------------------------------------------------------------------------
+
+def _employee_range_midpoint(range_str: str) -> int:
+    """Convert employee count range to a midpoint integer."""
+    mapping = {
+        "<100": 50,
+        "100-250": 175,
+        "250-500": 375,
+        "500-1000": 750,
+        "1000+": 1500,
+    }
+    return mapping.get(range_str, 200)
+
+
+def _range_to_size_band(range_str: str) -> str:
+    """Map employee range to benchmark company_size band."""
+    mapping = {
+        "<100": "10-49",
+        "100-250": "50-199",
+        "250-500": "200-999",
+        "500-1000": "200-999",
+        "1000+": "1000+",
+    }
+    return mapping.get(range_str, "50-199")
+
+
+def _run_benchmark(industry: str, company_size: str, state: str, pepm_input: float) -> dict:
+    """Run benchmark computation inline — same logic as employer_benchmark.py."""
+    from routers.employer_benchmark import _estimate_percentile, _interpret_percentile
+
+    benchmarks = get_benchmarks()
+    if not benchmarks:
+        return {"error": "Benchmark data not loaded"}
+
+    national = benchmarks.get("national_averages", {})
+    by_industry = benchmarks.get("by_industry", {})
+    by_size = benchmarks.get("by_company_size", {})
+    by_state = benchmarks.get("by_state", {})
+
+    industry_data = by_industry.get(industry, {})
+    industry_median = industry_data.get("employer_single_pepm") or national.get("employer_single_monthly_pepm", 558)
+
+    size_data = by_size.get(company_size, {})
+    size_median = size_data.get("employer_single_pepm") or industry_median
+
+    state_data = by_state.get(state, {})
+    state_factor = state_data.get("cost_index", 1.0)
+
+    adjusted_median = round(industry_median * state_factor, 2)
+
+    p10 = national.get("p10_pepm", 342) * state_factor
+    p25 = national.get("p25_pepm", 441) * state_factor
+    p50 = national.get("p50_pepm", 552) * state_factor
+    p75 = national.get("p75_pepm", 658) * state_factor
+    p90 = national.get("p90_pepm", 789) * state_factor
+
+    percentile = _estimate_percentile(pepm_input, p10, p25, p50, p75, p90)
+    dollar_gap_monthly = round(pepm_input - adjusted_median, 2)
+    dollar_gap_annual = round(dollar_gap_monthly * 12, 2)
+
+    return {
+        "input": {
+            "industry": industry,
+            "company_size": company_size,
+            "state": state,
+            "pepm_input": pepm_input,
+        },
+        "benchmarks": {
+            "national_median_pepm": round(p50, 2),
+            "industry_median_pepm": round(industry_median, 2),
+            "adjusted_median_pepm": adjusted_median,
+            "size_band_median_pepm": round(size_median, 2),
+            "state_cost_index": state_factor,
+        },
+        "result": {
+            "percentile": round(percentile, 1),
+            "dollar_gap_monthly": dollar_gap_monthly,
+            "dollar_gap_annual": dollar_gap_annual,
+            "interpretation": _interpret_percentile(percentile),
+        },
+        "distribution": {
+            "p10": round(p10, 2),
+            "p25": round(p25, 2),
+            "p50": round(p50, 2),
+            "p75": round(p75, 2),
+            "p90": round(p90, 2),
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/clients/onboard — add client + run benchmark immediately
+# ---------------------------------------------------------------------------
+
+@router.post("/clients/onboard")
+async def onboard_client(req: BrokerOnboardRequest, request: Request):
+    check_rate_limit(request, max_requests=10)
+
+    sb = _get_supabase()
+    broker_email = req.broker_email.strip().lower()
+    employer_email = (req.employer_email or "").strip().lower() or None
+
+    # Verify broker exists
+    broker = sb.table("broker_accounts").select("id, firm_name").eq("email", broker_email).execute()
+    if not broker.data:
+        raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    firm_name = broker.data[0].get("firm_name", "")
+
+    # Create or update broker-employer link (no employer account required)
+    link_email = employer_email or f"pending-{uuid.uuid4().hex[:8]}@broker-onboarded"
+    existing = (
+        sb.table("broker_employer_links")
+        .select("id")
+        .eq("broker_email", broker_email)
+        .eq("employer_email", link_email)
+        .execute()
+    )
+
+    link_data = {
+        "broker_email": broker_email,
+        "employer_email": link_email,
+        "status": "onboarded",
+        "company_name": req.company_name,
+        "employee_count_range": req.employee_count_range,
+        "industry": req.industry,
+        "state": req.state,
+        "carrier": req.carrier,
+    }
+
+    if existing.data:
+        sb.table("broker_employer_links").update(link_data).eq("id", existing.data[0]["id"]).execute()
+    else:
+        sb.table("broker_employer_links").insert(link_data).execute()
+
+    # Compute PEPM estimate
+    employee_count = _employee_range_midpoint(req.employee_count_range)
+    pepm = req.estimated_pepm
+    if not pepm and req.estimated_annual_spend:
+        pepm = round(req.estimated_annual_spend / (employee_count * 12), 2)
+    if not pepm:
+        # Use national median as fallback
+        benchmarks = get_benchmarks() or {}
+        national = benchmarks.get("national_averages", {})
+        pepm = national.get("employer_single_monthly_pepm", 558)
+
+    # Run benchmark
+    size_band = _range_to_size_band(req.employee_count_range)
+    benchmark_result = _run_benchmark(req.industry, size_band, req.state, pepm)
+
+    # Store in broker_client_benchmarks
+    share_token = str(uuid.uuid4())
+    insert_data = {
+        "broker_email": broker_email,
+        "employer_email": link_email,
+        "company_name": req.company_name,
+        "employee_count": employee_count,
+        "industry": req.industry,
+        "state": req.state,
+        "carrier": req.carrier,
+        "estimated_pepm": pepm,
+        "benchmark_result": benchmark_result,
+        "share_token": share_token,
+    }
+
+    result = sb.table("broker_client_benchmarks").insert(insert_data).execute()
+    benchmark_id = result.data[0]["id"] if result.data else None
+
+    site_url = os.environ.get("VITE_SITE_URL", "https://civicscale.ai")
+    share_url = f"{site_url}/employer/shared-report/{share_token}"
+
+    return {
+        "benchmark_id": benchmark_id,
+        "benchmark_result": benchmark_result,
+        "share_token": share_token,
+        "share_url": share_url,
+        "employer_email": link_email,
+        "company_name": req.company_name,
+        "firm_name": firm_name,
+    }
+
+
+# ---------------------------------------------------------------------------
+# GET /api/broker/clients/{employer_email}/share-link?broker_email=...
+# ---------------------------------------------------------------------------
+
+@router.get("/clients/{employer_email}/share-link")
+async def get_share_link(employer_email: str, broker_email: str):
+    sb = _get_supabase()
+    b_email = broker_email.strip().lower()
+    e_email = employer_email.strip().lower()
+
+    # Verify broker-employer link
+    link = (
+        sb.table("broker_employer_links")
+        .select("id")
+        .eq("broker_email", b_email)
+        .eq("employer_email", e_email)
+        .execute()
+    )
+    if not link.data:
+        raise HTTPException(status_code=403, detail="No access to this employer.")
+
+    # Find most recent benchmark
+    bench = (
+        sb.table("broker_client_benchmarks")
+        .select("id, share_token, share_token_created_at")
+        .eq("broker_email", b_email)
+        .eq("employer_email", e_email)
+        .order("created_at", desc=True)
+        .limit(1)
+        .execute()
+    )
+
+    if bench.data:
+        token = bench.data[0]["share_token"]
+    else:
+        # No benchmark exists — generate a placeholder (shouldn't happen in normal flow)
+        raise HTTPException(status_code=404, detail="No benchmark found for this client. Run a benchmark first.")
+
+    site_url = os.environ.get("VITE_SITE_URL", "https://civicscale.ai")
+    return {
+        "share_token": token,
+        "share_url": f"{site_url}/employer/shared-report/{token}",
+    }
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/clients/{employer_email}/notify?broker_email=...
+# ---------------------------------------------------------------------------
+
+@router.post("/clients/{employer_email}/notify")
+async def notify_client(employer_email: str, req: NotifyClientRequest, request: Request):
+    check_rate_limit(request, max_requests=10)
+
+    sb = _get_supabase()
+    b_email = req.broker_email.strip().lower()
+    e_email = employer_email.strip().lower()
+
+    # Verify broker-employer link
+    link = (
+        sb.table("broker_employer_links")
+        .select("id, company_name")
+        .eq("broker_email", b_email)
+        .eq("employer_email", e_email)
+        .execute()
+    )
+    if not link.data:
+        raise HTTPException(status_code=403, detail="No access to this employer.")
+
+    # Get broker info
+    broker = sb.table("broker_accounts").select("firm_name, contact_name").eq("email", b_email).execute()
+    firm_name = broker.data[0].get("firm_name", "your broker") if broker.data else "your broker"
+
+    # Get share token
+    bench = (
+        sb.table("broker_client_benchmarks")
+        .select("share_token, company_name")
+        .eq("broker_email", b_email)
+        .eq("employer_email", e_email)
+        .order("created_at", desc=True)
+        .limit(1)
+        .execute()
+    )
+    if not bench.data:
+        raise HTTPException(status_code=404, detail="No benchmark found. Run a benchmark first.")
+
+    share_token = bench.data[0]["share_token"]
+    company_name = bench.data[0].get("company_name") or link.data[0].get("company_name") or "your company"
+    site_url = os.environ.get("VITE_SITE_URL", "https://civicscale.ai")
+    share_url = f"{site_url}/employer/shared-report/{share_token}"
+
+    # Send email via Resend
+    if e_email.endswith("@broker-onboarded"):
+        return {"sent": False, "reason": "No real employer email on file."}
+
+    try:
+        import resend
+        resend_key = os.environ.get("RESEND_API_KEY")
+        if not resend_key:
+            print(f"[BrokerNotify] RESEND_API_KEY not set, would send to {e_email}")
+            return {"sent": False, "reason": "Email service not configured."}
+
+        resend.api_key = resend_key
+        resend.Emails.send({
+            "from": "Parity Employer <notifications@civicscale.ai>",
+            "to": [e_email],
+            "subject": f"Your benefits benchmark is ready — from {firm_name}",
+            "html": f"""
+            <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
+                <h2 style="color: #1B3A5C; margin-bottom: 8px;">Your Benefits Benchmark is Ready</h2>
+                <p style="color: #475569; font-size: 15px; line-height: 1.7;">
+                    Hi — {firm_name} ran a benefits benchmark for {company_name} using
+                    Parity Employer's analytics platform. The report compares your health plan
+                    costs to similar employers in your industry and state.
+                </p>
+                <div style="text-align: center; margin: 28px 0;">
+                    <a href="{share_url}" style="display: inline-block; background: #0D7377; color: #fff;
+                       padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;
+                       font-size: 15px;">
+                        View Your Benchmark Report
+                    </a>
+                </div>
+                <p style="color: #64748b; font-size: 13px;">
+                    No login required — click the link above to see your results.
+                </p>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
+                <p style="color: #94a3b8; font-size: 12px;">
+                    This report was prepared by {firm_name} using the Parity Employer
+                    benchmarking platform by CivicScale. Questions? Reply to your broker directly.
+                </p>
+            </div>
+            """,
+        })
+        print(f"[BrokerNotify] Sent benchmark email to {e_email}")
+        return {"sent": True}
+    except Exception as exc:
+        print(f"[BrokerNotify] Email send failed: {exc}")
+        return {"sent": False, "reason": str(exc)}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/broker/clients/{employer_email}/activity?broker_email=...
+# ---------------------------------------------------------------------------
+
+@router.get("/clients/{employer_email}/activity")
+async def client_activity(employer_email: str, broker_email: str):
+    sb = _get_supabase()
+    b_email = broker_email.strip().lower()
+    e_email = employer_email.strip().lower()
+
+    # Verify broker-employer link
+    link = (
+        sb.table("broker_employer_links")
+        .select("id")
+        .eq("broker_email", b_email)
+        .eq("employer_email", e_email)
+        .execute()
+    )
+    if not link.data:
+        raise HTTPException(status_code=403, detail="No access to this employer.")
+
+    events = []
+
+    # Broker benchmarks
+    benchmarks = (
+        sb.table("broker_client_benchmarks")
+        .select("id, created_at, view_count, first_viewed_at")
+        .eq("employer_email", e_email)
+        .order("created_at", desc=True)
+        .execute()
+    )
+    for b in (benchmarks.data or []):
+        events.append({
+            "type": "benchmark_created",
+            "label": "Broker benchmark created",
+            "timestamp": b["created_at"],
+        })
+        if b.get("first_viewed_at"):
+            events.append({
+                "type": "report_viewed",
+                "label": f"Shared report viewed ({b.get('view_count', 1)}x)",
+                "timestamp": b["first_viewed_at"],
+            })
+
+    # Claims uploads
+    claims = (
+        sb.table("employer_claims_uploads")
+        .select("id, filename_original, created_at")
+        .eq("email", e_email)
+        .order("created_at", desc=True)
+        .limit(20)
+        .execute()
+    )
+    for c in (claims.data or []):
+        events.append({
+            "type": "claims_uploaded",
+            "label": f"Claims uploaded: {c.get('filename_original', 'file')}",
+            "timestamp": c["created_at"],
+        })
+
+    # Scorecard sessions
+    try:
+        scorecards = (
+            sb.table("employer_scorecard_sessions")
+            .select("id, created_at")
+            .eq("email", e_email)
+            .order("created_at", desc=True)
+            .limit(10)
+            .execute()
+        )
+        for s in (scorecards.data or []):
+            events.append({
+                "type": "scorecard_run",
+                "label": "Plan scorecard generated",
+                "timestamp": s["created_at"],
+            })
+    except Exception:
+        pass  # Table may not exist
+
+    # Subscriptions
+    subs = (
+        sb.table("employer_subscriptions")
+        .select("id, tier, status, created_at")
+        .eq("email", e_email)
+        .order("created_at", desc=True)
+        .limit(5)
+        .execute()
+    )
+    for s in (subs.data or []):
+        events.append({
+            "type": "subscribed",
+            "label": f"Subscribed: {s.get('tier', 'unknown')} ({s.get('status', 'unknown')})",
+            "timestamp": s["created_at"],
+        })
+
+    # Sort all events by timestamp descending
+    events.sort(key=lambda e: e.get("timestamp", ""), reverse=True)
+
+    return {"events": events}
