@@ -15,9 +15,7 @@ from fastapi.responses import JSONResponse
 
 from routers.employer_shared import (
     _get_supabase,
-    STRIPE_PRICE_EMPLOYER_SMALL,
-    STRIPE_PRICE_EMPLOYER_MID,
-    STRIPE_PRICE_EMPLOYER_LARGE,
+    EMPLOYER_PRICE_TIERS,
     EmployerCheckoutRequest,
 )
 
@@ -38,13 +36,9 @@ async def employer_create_checkout(req: EmployerCheckoutRequest):
         raise HTTPException(status_code=503, detail="Stripe not configured")
     stripe_lib.api_key = stripe_key
 
-    # Select price ID by tier
-    tier_price_map = {
-        "small": STRIPE_PRICE_EMPLOYER_SMALL,
-        "standard": STRIPE_PRICE_EMPLOYER_MID,
-        "premium": STRIPE_PRICE_EMPLOYER_LARGE,
-    }
-    price_id = tier_price_map.get(req.tier, "")
+    # Select price ID by value tier (starter / growth / scale)
+    tier_info = EMPLOYER_PRICE_TIERS.get(req.tier)
+    price_id = tier_info["stripe_price_id"] if tier_info else ""
 
     if not price_id:
         raise HTTPException(status_code=503, detail="Employer price not configured")

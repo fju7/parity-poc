@@ -23,7 +23,8 @@ from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 from pydantic import BaseModel
 
 from routers.employer_shared import (
-    _get_supabase, _call_claude, check_rate_limit,
+    _get_supabase, _call_claude, check_rate_limit, assign_pricing_tier,
+    EMPLOYER_PRICE_TIERS,
 )
 from routers.benchmark import resolve_locality, lookup_rate
 from utils.parse_835 import parse_835
@@ -68,6 +69,27 @@ Rules:
 - Common aliases: "Proc Code" = cpt_code, "Allowed Amount" = paid_amount, "Charge Amount" = billed_amount
 - If a required field cannot be mapped, include it in unmapped_required
 - Do not guess — only map when you are confident"""
+
+
+# ---------------------------------------------------------------------------
+# GET /pricing-tiers — expose tier details to frontend
+# ---------------------------------------------------------------------------
+
+@router.get("/pricing-tiers")
+async def employer_pricing_tiers():
+    """Return value-tiered pricing info for frontend display."""
+    return {
+        "tiers": {
+            key: {
+                "label": t["label"],
+                "price_monthly": t["price_monthly"],
+                "description": t["description"],
+                "max_annual_excess": t["max_annual_excess"],
+            }
+            for key, t in EMPLOYER_PRICE_TIERS.items()
+        },
+        "guarantee": "If your claims analysis doesn't identify at least 3x your subscription cost in annual excess spend, we'll refund your first 3 months.",
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -315,6 +337,11 @@ async def employer_claims_check(
     except Exception as exc:
         print(f"[Employer Claims] Narrative generation failed (non-fatal): {exc}")
 
+    # Assign value-based pricing tier from annualized excess
+    annualized_excess = total_excess_2x * 12
+    pricing_tier = assign_pricing_tier(annualized_excess)
+    tier_info = EMPLOYER_PRICE_TIERS[pricing_tier]
+
     response = {
         "summary": summary,
         "narrative": narrative,
@@ -322,6 +349,10 @@ async def employer_claims_check(
         "column_mapping": mapping,
         "total_lines_analyzed": len(results),
         "source_format": source_format,
+        "pricing_tier": pricing_tier,
+        "pricing_tier_label": tier_info["label"],
+        "pricing_tier_price": tier_info["price_monthly"],
+        "annualized_excess": round(annualized_excess, 2),
     }
 
     # --- Persist to Supabase ---
@@ -548,6 +579,12 @@ async def employer_rbp_calculate(body: RBPRequest, request: Request):
     except Exception as exc:
         print(f"[RBP Calculate] Eligibility assessment failed (non-fatal): {exc}")
 
+    # Assign value-based pricing tier from session's annualized excess
+    session_excess = session.get("total_excess_2x") or 0
+    annualized_excess = session_excess * 12
+    pricing_tier = assign_pricing_tier(annualized_excess)
+    tier_info = EMPLOYER_PRICE_TIERS[pricing_tier]
+
     return {
         "total_actual_paid": round(total_actual, 2),
         "total_rbp_equivalent": round(total_rbp, 2),
@@ -559,6 +596,10 @@ async def employer_rbp_calculate(body: RBPRequest, request: Request):
         "categories": categories,
         "rbp_narrative": rbp_narrative,
         "eligibility": eligibility,
+        "pricing_tier": pricing_tier,
+        "pricing_tier_label": tier_info["label"],
+        "pricing_tier_price": tier_info["price_monthly"],
+        "annualized_excess": round(annualized_excess, 2),
     }
 
 

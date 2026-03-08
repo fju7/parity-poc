@@ -67,6 +67,10 @@ export default function EmployerClaimsCheck() {
         localStorage.setItem("employer_claims_session_id", data.session_id);
         localStorage.setItem("employer_claims_zip_code", zipCode);
       }
+      if (data.pricing_tier) {
+        localStorage.setItem("employer_pricing_tier", data.pricing_tier);
+        localStorage.setItem("employer_annualized_excess", String(data.annualized_excess || 0));
+      }
       setView("results");
     } catch (err) {
       clearInterval(progressInterval);
@@ -249,6 +253,37 @@ export default function EmployerClaimsCheck() {
               </div>
             )}
 
+            {/* Pricing Tier Recommendation */}
+            {result.pricing_tier && (
+              <div style={{
+                background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.25)",
+                borderRadius: "14px", padding: "24px", marginBottom: "24px",
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                flexWrap: "wrap", gap: "16px",
+              }}>
+                <div>
+                  <div style={{ fontSize: "11px", fontWeight: "600", color: "#10b981", letterSpacing: "0.05em", marginBottom: "6px" }}>RECOMMENDED PLAN</div>
+                  <div style={{ fontSize: "22px", fontWeight: "700", color: "#f1f5f9", marginBottom: "4px" }}>
+                    {result.pricing_tier_label} &mdash; ${result.pricing_tier_price}/mo
+                  </div>
+                  <div style={{ fontSize: "13px", color: "#94a3b8" }}>
+                    Based on ${Math.round(result.annualized_excess).toLocaleString()} annual excess identified.
+                    Your subscription pays for itself {Math.round(result.annualized_excess / (result.pricing_tier_price * 12))}x over.
+                  </div>
+                </div>
+                <Link
+                  to={`/billing/employer/subscribe`}
+                  style={{
+                    background: "#10b981", color: "#fff", padding: "12px 24px",
+                    borderRadius: "8px", fontWeight: "600", fontSize: "14px",
+                    textDecoration: "none", whiteSpace: "nowrap",
+                  }}
+                >
+                  Subscribe &rarr;
+                </Link>
+              </div>
+            )}
+
             {/* AI Narrative Summary */}
             {result.narrative && (
               <div style={{ background: "rgba(255,255,255,0.02)", borderLeft: "4px solid #3b82f6", borderRadius: "8px", padding: "20px", marginBottom: "24px" }}>
@@ -300,7 +335,7 @@ export default function EmployerClaimsCheck() {
                 Grade Your Plan Design &rarr;
               </Link>
               <Link to="/billing/employer/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>
-                Get ongoing monitoring &rarr;
+                {result.pricing_tier ? `Subscribe — ${result.pricing_tier_label} from $${result.pricing_tier_price}/mo` : "Get ongoing monitoring"} &rarr;
               </Link>
               <Link to="/billing/employer" style={{ textAlign: "center", color: "#64748b", fontSize: "14px", textDecoration: "none" }}>
                 &larr; Back to Parity Employer

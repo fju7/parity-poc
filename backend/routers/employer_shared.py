@@ -163,12 +163,42 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
 
 
 # ---------------------------------------------------------------------------
-# Stripe config
+# Stripe config — value-tiered pricing based on identified savings potential
 # ---------------------------------------------------------------------------
 
-STRIPE_PRICE_EMPLOYER_SMALL = os.environ.get("STRIPE_PRICE_EMPLOYER_SMALL", "")
-STRIPE_PRICE_EMPLOYER_MID = os.environ.get("STRIPE_PRICE_EMPLOYER_MID", "")
-STRIPE_PRICE_EMPLOYER_LARGE = os.environ.get("STRIPE_PRICE_EMPLOYER_LARGE", "")
+EMPLOYER_PRICE_TIERS = {
+    "starter": {
+        "stripe_price_id": os.environ.get("STRIPE_PRICE_EMPLOYER_STARTER", ""),
+        "price_monthly": 149,
+        "label": "Starter",
+        "max_annual_excess": 200_000,
+        "description": "Under $200K identified annual excess",
+    },
+    "growth": {
+        "stripe_price_id": os.environ.get("STRIPE_PRICE_EMPLOYER_GROWTH", ""),
+        "price_monthly": 349,
+        "label": "Growth",
+        "max_annual_excess": 750_000,
+        "description": "$200K–$750K identified annual excess",
+    },
+    "scale": {
+        "stripe_price_id": os.environ.get("STRIPE_PRICE_EMPLOYER_SCALE", ""),
+        "price_monthly": 699,
+        "label": "Scale",
+        "max_annual_excess": None,  # unlimited
+        "description": "Over $750K identified annual excess",
+    },
+}
+
+
+def assign_pricing_tier(annual_excess: float) -> str:
+    """Return the tier key (starter/growth/scale) based on annualized excess spend."""
+    if annual_excess < 200_000:
+        return "starter"
+    elif annual_excess <= 750_000:
+        return "growth"
+    else:
+        return "scale"
 
 
 # ---------------------------------------------------------------------------

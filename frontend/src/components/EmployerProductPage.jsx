@@ -680,11 +680,14 @@ export default function EmployerProductPage() {
             fontWeight: "400",
             color: "#f1f5f9",
             textAlign: "center",
-            marginBottom: "40px",
+            marginBottom: "12px",
           }}
         >
-          Pricing
+          Value-Based Pricing
         </h2>
+        <p style={{ fontSize: "14px", color: "#94a3b8", textAlign: "center", marginBottom: "40px", maxWidth: "520px", marginLeft: "auto", marginRight: "auto" }}>
+          Your tier is based on how much excess spend our analysis identifies — not your headcount. Every plan pays for itself.
+        </p>
         <div
           style={{
             display: "grid",
@@ -733,6 +736,15 @@ export default function EmployerProductPage() {
               </Link>
             </div>
           ))}
+        </div>
+        <div style={{
+          background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.2)",
+          borderRadius: "12px", padding: "16px 24px", marginTop: "24px", textAlign: "center",
+        }}>
+          <p style={{ fontSize: "14px", color: "#10b981", fontWeight: "600", marginBottom: "4px" }}>3x Savings Guarantee</p>
+          <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>
+            If your claims analysis doesn't identify at least 3x your subscription cost in annual excess spend, we'll refund your first 3 months.
+          </p>
         </div>
       </section>
 
@@ -896,20 +908,20 @@ const ROADMAP = [
 
 const PRICING = [
   {
-    name: "Small",
-    price: "$299",
-    text: "Up to 100 employees. Monthly benchmarking, claims analysis, and plan scorecard.",
+    name: "Starter",
+    price: "$149",
+    text: "Under $200K identified annual excess. Claims benchmarking, RBP calculator, contract parser, plan scorecard, and monthly monitoring.",
   },
   {
-    name: "Mid-Market",
-    price: "$799",
+    name: "Growth",
+    price: "$349",
     popular: true,
-    text: "100\u20131,000 employees. Unlimited uploads, provider-level analysis, quarterly savings reports.",
+    text: "$200K\u2013$750K identified annual excess. Everything in Starter plus unlimited uploads, provider-level analysis, and quarterly trend reports.",
   },
   {
-    name: "Employer+",
-    price: "$1,999",
-    text: "1,000+ employees. Dedicated account manager, custom cohorts, EDI integration, API access.",
+    name: "Scale",
+    price: "$699",
+    text: "Over $750K identified annual excess. Everything in Growth plus dedicated account manager, custom cohorts, EDI integration, and board-ready decks.",
   },
 ];
 

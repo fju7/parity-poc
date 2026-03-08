@@ -445,8 +445,11 @@ export default function EmployerDemoPage() {
             textAlign: "center",
             marginTop: "36px",
           }}>
-            <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "16px", lineHeight: "1.7" }}>
+            <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "8px", lineHeight: "1.7" }}>
               This demo uses sample data for {COMPANY.name}. Start your free benchmark with your own numbers &mdash; no credit card required.
+            </p>
+            <p style={{ fontSize: "13px", color: "#10b981", marginBottom: "16px" }}>
+              Plans from $149/mo &middot; 3x savings guarantee
             </p>
             <Link
               to="/billing/employer/benchmark"
@@ -1723,7 +1726,7 @@ function MonitoringTab() {
     { dimension: "Review frequency", broker: "Annual renewal", parity: "Monthly" },
     { dimension: "Benchmark source", broker: "Carrier \u201cmarket rates\u201d", parity: "841,000 Medicare procedure rates \u2014 public and verifiable" },
     { dimension: "Conflicts of interest", broker: "Paid by carriers", parity: "No carrier relationships, no commissions" },
-    { dimension: "Cost", broker: "$150K\u2013$300K/year (mid-market)", parity: "$799/month" },
+    { dimension: "Cost", broker: "$150K\u2013$300K/year (mid-market)", parity: "From $149/month" },
   ];
 
   return (
