@@ -77,6 +77,8 @@ async def employer_claims_check(
 
     # --- Parse file ---
     content = await file.read()
+    if len(content) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File exceeds 10 MB limit")
     filename = file.filename or "upload"
 
     try:

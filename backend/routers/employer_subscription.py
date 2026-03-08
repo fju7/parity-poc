@@ -15,8 +15,9 @@ from fastapi.responses import JSONResponse
 
 from routers.employer_shared import (
     _get_supabase,
-    STRIPE_PRICE_EMPLOYER_MONTHLY,
-    STRIPE_PRICE_EMPLOYER_ANNUAL,
+    STRIPE_PRICE_EMPLOYER_SMALL,
+    STRIPE_PRICE_EMPLOYER_MID,
+    STRIPE_PRICE_EMPLOYER_LARGE,
     EmployerCheckoutRequest,
 )
 
@@ -37,18 +38,20 @@ async def employer_create_checkout(req: EmployerCheckoutRequest):
         raise HTTPException(status_code=503, detail="Stripe not configured")
     stripe_lib.api_key = stripe_key
 
-    # Select price ID
-    if req.billing_period == "annual":
-        price_id = STRIPE_PRICE_EMPLOYER_ANNUAL
-    else:
-        price_id = STRIPE_PRICE_EMPLOYER_MONTHLY
+    # Select price ID by tier
+    tier_price_map = {
+        "small": STRIPE_PRICE_EMPLOYER_SMALL,
+        "standard": STRIPE_PRICE_EMPLOYER_MID,
+        "premium": STRIPE_PRICE_EMPLOYER_LARGE,
+    }
+    price_id = tier_price_map.get(req.tier, "")
 
     if not price_id:
         raise HTTPException(status_code=503, detail="Employer price not configured")
 
     frontend_url = os.environ.get("FRONTEND_URL", "https://civicscale.ai")
-    success_url = req.success_url or f"{frontend_url}/employer/dashboard?checkout_success=1"
-    cancel_url = req.cancel_url or f"{frontend_url}/employer/pricing"
+    success_url = req.success_url or f"{frontend_url}/billing/employer/subscribe?checkout_success=1"
+    cancel_url = req.cancel_url or f"{frontend_url}/billing/employer/subscribe"
 
     # Check for existing Stripe customer
     sb = _get_supabase()

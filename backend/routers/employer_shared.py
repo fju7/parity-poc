@@ -139,8 +139,9 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
 # Stripe config
 # ---------------------------------------------------------------------------
 
-STRIPE_PRICE_EMPLOYER_MONTHLY = os.environ.get("STRIPE_PRICE_EMPLOYER_MONTHLY", "")
-STRIPE_PRICE_EMPLOYER_ANNUAL = os.environ.get("STRIPE_PRICE_EMPLOYER_ANNUAL", "")
+STRIPE_PRICE_EMPLOYER_SMALL = os.environ.get("STRIPE_PRICE_EMPLOYER_SMALL", "")
+STRIPE_PRICE_EMPLOYER_MID = os.environ.get("STRIPE_PRICE_EMPLOYER_MID", "")
+STRIPE_PRICE_EMPLOYER_LARGE = os.environ.get("STRIPE_PRICE_EMPLOYER_LARGE", "")
 
 
 # ---------------------------------------------------------------------------
