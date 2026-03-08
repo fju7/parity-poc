@@ -434,6 +434,9 @@ export default function BrokerDashboard() {
                   </div>
                 </div>
 
+                {/* Broker Notes — how to present to client */}
+                <BrokerNotes />
+
                 {/* Claims Summary Cards */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
                   {[
@@ -581,6 +584,56 @@ export default function BrokerDashboard() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+
+// ---------------------------------------------------------------------------
+// BrokerNotes — collapsible "how to present this" section (broker-only)
+// ---------------------------------------------------------------------------
+
+function BrokerNotes() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div style={{ background: "#eff6ff", border: "1px solid #bfdbfe", borderRadius: 12, overflow: "hidden" }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%", background: "none", border: "none", padding: "14px 20px",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          cursor: "pointer", color: "#1B3A5C",
+        }}
+      >
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", color: "#3b82f6" }}>BROKER NOTES</span>
+        <span style={{ fontSize: 13, color: "#64748b" }}>
+          {open ? "Hide" : "How to present this to your client"}
+          <span style={{ marginLeft: 6, display: "inline-block", transform: open ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>{"\u25BE"}</span>
+        </span>
+      </button>
+      {open && (
+        <div style={{ padding: "0 20px 20px" }}>
+          <ol style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: "#1e293b", lineHeight: 1.8 }}>
+            <li style={{ marginBottom: 10 }}>
+              <strong>Lead with the benchmark as a baseline, not a problem:</strong>{" "}
+              &ldquo;Here&rsquo;s where you stand going into renewal &mdash; let&rsquo;s use this to negotiate from a position of data.&rdquo;
+            </li>
+            <li style={{ marginBottom: 10 }}>
+              <strong>Separate what drives costs from what&rsquo;s negotiable:</strong>{" "}
+              provider utilization and facility choice are behavioral; network rates and plan design are what we can change at renewal.
+            </li>
+            <li style={{ marginBottom: 10 }}>
+              <strong>The guarantee removes the risk objection:</strong>{" "}
+              &ldquo;If Parity doesn&rsquo;t find savings that exceed the subscription cost, they refund the difference.&rdquo;
+            </li>
+            <li>
+              <strong>The next step is always the claims check:</strong>{" "}
+              &ldquo;If you can pull one month of claims from your TPA portal, we can show you exactly which procedures and providers are driving this.&rdquo;
+            </li>
+          </ol>
+        </div>
+      )}
     </div>
   );
 }

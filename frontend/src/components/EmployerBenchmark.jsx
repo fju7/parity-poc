@@ -243,6 +243,41 @@ export default function EmployerBenchmark() {
               </div>
             </div>
 
+            {/* Contextual Framing — only above 50th percentile */}
+            {result.result.percentile > 50 && (
+              <div style={{ border: "1px solid rgba(148,163,184,0.25)", borderRadius: "12px", padding: "20px", marginBottom: "20px" }}>
+                <p style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.7", margin: "0 0 16px" }}>
+                  Being above the median is common and doesn&rsquo;t mean your plan is poorly designed. Health spend varies significantly by workforce age, geographic market, and which providers employees use. The analysis below shows where the highest-leverage opportunities typically are &mdash; these are the starting points for your next renewal conversation.
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {result.result.cost_drivers?.includes("orthopedics") && (
+                    <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                      <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#64748b", marginTop: "7px", flexShrink: 0 }} />
+                      <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: "1.6", margin: 0 }}>
+                        Orthopedic procedures (joint replacements, arthroscopy) are among the highest-variance items in any claims pool &mdash; provider choice and facility type can change costs by 200-300%.
+                      </p>
+                    </div>
+                  )}
+                  {result.result.cost_drivers?.includes("imaging") && (
+                    <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                      <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#64748b", marginTop: "7px", flexShrink: 0 }} />
+                      <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: "1.6", margin: 0 }}>
+                        MRI and CT imaging vary more than almost any other procedure by facility &mdash; hospital outpatient rates are typically 3-5x what a freestanding imaging center charges for identical scans.
+                      </p>
+                    </div>
+                  )}
+                  {result.result.cost_drivers?.includes("pharmacy") && (
+                    <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                      <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#64748b", marginTop: "7px", flexShrink: 0 }} />
+                      <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: "1.6", margin: 0 }}>
+                        Specialty pharmacy, including GLP-1 weight loss medications, is the fastest-growing cost driver for most employers &mdash; a pharmacy carve-out or formulary review is often the highest-ROI intervention available.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Distribution */}
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "12px", padding: "20px", marginBottom: "32px" }}>
               <div style={{ fontSize: "13px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px" }}>PEPM Distribution</div>

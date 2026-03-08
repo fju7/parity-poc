@@ -731,6 +731,33 @@ async def notify_client(employer_email: str, req: NotifyClientRequest, request: 
 
     message_type = req.message_type or "benchmark"
 
+    # Fetch benchmark data for email content
+    bench_detail = bench.data[0] if bench.data else {}
+    bench_result = {}
+    if isinstance(bench_detail, dict):
+        full_bench = (
+            sb.table("broker_client_benchmarks")
+            .select("benchmark_result, industry, state")
+            .eq("share_token", share_token)
+            .limit(1)
+            .execute()
+        )
+        if full_bench.data:
+            bench_result = full_bench.data[0].get("benchmark_result") or {}
+            bench_industry = full_bench.data[0].get("industry", "")
+            bench_state = full_bench.data[0].get("state", "")
+        else:
+            bench_industry = ""
+            bench_state = ""
+    else:
+        bench_industry = ""
+        bench_state = ""
+
+    # Extract percentile and gap for email summary
+    email_percentile = bench_result.get("result", {}).get("percentile", "")
+    email_gap_annual = bench_result.get("result", {}).get("dollar_gap_annual", 0)
+    email_gap_str = f"${abs(int(email_gap_annual)):,}" if email_gap_annual else ""
+
     if message_type == "upgrade":
         subject = f"{firm_name} recommends upgrading your Parity Employer plan"
         html_body = f"""
@@ -769,28 +796,51 @@ async def notify_client(employer_email: str, req: NotifyClientRequest, request: 
         """
     else:
         subject = f"Your benefits benchmark is ready — from {firm_name}"
+
+        # Build result summary line
+        result_line = ""
+        if email_percentile and email_gap_str:
+            result_line = f"""
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;
+                        padding: 16px 20px; margin: 20px 0; text-align: center;">
+                <p style="color: #1B3A5C; font-size: 16px; font-weight: 600; margin: 0;">
+                    {int(email_percentile)}th percentile &middot; {email_gap_str}/year {'above' if email_gap_annual > 0 else 'below'} median
+                </p>
+            </div>
+            """
+
+        # Industry/state for framing
+        industry_label = bench_industry or "similar"
+        state_label = bench_state or "your state"
+
         html_body = f"""
         <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
             <h2 style="color: #1B3A5C; margin-bottom: 8px;">Your Benefits Benchmark is Ready</h2>
             <p style="color: #475569; font-size: 15px; line-height: 1.7;">
-                Hi — {firm_name} ran a benefits benchmark for {company_name} using
-                Parity Employer's analytics platform. The report compares your health plan
-                costs to similar employers in your industry and state.
+                Your broker, {firm_name}, ran a benefits benchmark for {company_name} using
+                841,000 public Medicare procedure rates and industry benchmark data from
+                KFF, MEPS-IC, and BLS.
             </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.7;">
+                This benchmark shows where your health spend stands relative to {industry_label} peers
+                in {state_label} &mdash; it's a starting point for your renewal strategy,
+                not a report card on your current plan.
+            </p>
+            {result_line}
             <div style="text-align: center; margin: 28px 0;">
                 <a href="{share_url}" style="display: inline-block; background: #0D7377; color: #fff;
                    padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;
                    font-size: 15px;">
-                    View Your Benchmark Report
+                    View Your Full Benchmark Report &rarr;
                 </a>
             </div>
             <p style="color: #64748b; font-size: 13px;">
-                No login required — click the link above to see your results.
+                No login required &mdash; click the link above to see your results.
             </p>
             <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
             <p style="color: #94a3b8; font-size: 12px;">
-                This report was prepared by {firm_name} using the Parity Employer
-                benchmarking platform by CivicScale. Questions? Reply to your broker directly.
+                This report was prepared by {firm_name} using Parity Employer.
+                Parity Employer is independent &mdash; no carrier relationships, no commissions.
             </p>
         </div>
         """

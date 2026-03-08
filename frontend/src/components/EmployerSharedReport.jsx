@@ -221,11 +221,12 @@ export default function EmployerSharedReport() {
         {/* Framing Note */}
         <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 14, padding: 20, marginBottom: 32 }}>
           <p style={{ fontSize: 14, color: "#92400e", lineHeight: 1.7, margin: 0 }}>
-            This benchmark reflects where your health spend sits relative to {data.industry || "similar"} employers
-            in {data.state || "your state"} — it's a starting point for your renewal conversation, not a report card
-            on your current plan. Costs above median are common and driven by many factors: which providers your employees
-            use, your plan's network structure, and regional market pricing. The analysis above shows where the
-            highest-leverage opportunities typically are.
+            This benchmark shows where your health spend stands relative to {data.industry || "similar"} peers
+            in {data.state || "your state"} &mdash; it&rsquo;s a starting point for your renewal strategy,
+            not a report card on your current plan. Being above the median is common and doesn&rsquo;t mean
+            your plan is poorly designed. Health spend varies significantly by workforce age, geographic market,
+            and which providers employees use. The analysis above shows where the highest-leverage opportunities
+            typically are &mdash; these are the starting points for your next renewal conversation.
           </p>
         </div>
 
@@ -268,6 +269,9 @@ export default function EmployerSharedReport() {
 
         {/* Footer */}
         <div style={{ textAlign: "center", marginTop: 48 }}>
+          <p style={{ fontSize: 13, color: "#64748b", marginBottom: 8 }}>
+            Questions about this report? Contact {data.broker_firm || "your broker"}{data.broker_email ? "" : ""} or reply to the email they sent you.
+          </p>
           <p style={{ fontSize: 12, color: "#94a3b8" }}>
             Powered by <Link to="/" style={{ color: "#0D7377", textDecoration: "none" }}>CivicScale</Link> · Parity Employer Benchmarking Platform
           </p>
