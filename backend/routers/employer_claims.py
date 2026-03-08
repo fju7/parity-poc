@@ -267,8 +267,51 @@ async def employer_claims_check(
         "locality": {"carrier": carrier, "locality_code": locality, "zip_code": zip_code},
     }
 
+    # --- AI narrative executive summary ---
+    narrative = None
+    try:
+        # Build top 5 flagged procedures for the prompt
+        top_findings_lines = []
+        flagged_sorted = sorted(
+            [r for r in results if r.get("flag")],
+            key=lambda r: r.get("ratio") or 0,
+            reverse=True,
+        )
+        seen_cpts = set()
+        for r in flagged_sorted:
+            cpt = r["cpt_code"]
+            if cpt in seen_cpts:
+                continue
+            seen_cpts.add(cpt)
+            count = sum(1 for x in results if x["cpt_code"] == cpt and x.get("flag"))
+            avg_paid = sum(x["paid_amount"] for x in results if x["cpt_code"] == cpt) / max(count, 1)
+            top_findings_lines.append(
+                f"CPT {cpt}: avg paid ${avg_paid:,.0f}, Medicare rate ${r.get('medicare_rate', 0) or 0:,.0f}, "
+                f"markup {r.get('ratio', 0)}x, {count} claim(s), flag={r.get('flag')}"
+            )
+            if len(top_findings_lines) >= 5:
+                break
+
+        narrative_prompt = (
+            "You are a healthcare benefits analyst writing for a CFO or HR director. "
+            "Based on this claims analysis, write a 3-4 sentence executive summary. "
+            "Be specific about dollar amounts and procedure names. Do not use jargon. "
+            "Do not recommend specific vendors. End with one sentence about what action "
+            "this finding suggests.\n\n"
+            f"Claims analyzed: {len(results)}\n"
+            f"Total paid: ${total_paid:,.0f}\n"
+            f"Excess vs 2x Medicare benchmark: ${total_excess_2x:,.0f}\n"
+            f"Top findings:\n" + "\n".join(top_findings_lines) + "\n\n"
+            "Write only the summary paragraph. No headers, no bullet points, no preamble."
+        )
+
+        narrative = _generate_narrative(narrative_prompt)
+    except Exception as exc:
+        print(f"[Employer Claims] Narrative generation failed (non-fatal): {exc}")
+
     response = {
         "summary": summary,
+        "narrative": narrative,
         "line_items": results[:500],  # Cap at 500 for response size
         "column_mapping": mapping,
         "total_lines_analyzed": len(results),
@@ -298,6 +341,31 @@ async def employer_claims_check(
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+def _generate_narrative(prompt: str) -> str | None:
+    """Call Claude API and return raw text (not JSON-parsed). Returns None on failure."""
+    import os
+    try:
+        import anthropic
+    except ImportError:
+        return None
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        return None
+    client = anthropic.Anthropic(api_key=api_key)
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=512,
+        temperature=0,
+        system="You are a concise healthcare benefits analyst.",
+        messages=[{"role": "user", "content": prompt}],
+    )
+    text = ""
+    for block in response.content:
+        if hasattr(block, "text"):
+            text += block.text
+    return text.strip() or None
+
 
 def _edi_items_to_df(line_items: list, default_provider: str = "") -> pd.DataFrame:
     """Convert parse_835 line_items into a standardized DataFrame."""

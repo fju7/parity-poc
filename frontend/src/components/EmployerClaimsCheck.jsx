@@ -245,6 +245,14 @@ export default function EmployerClaimsCheck() {
               </div>
             )}
 
+            {/* AI Narrative Summary */}
+            {result.narrative && (
+              <div style={{ background: "rgba(255,255,255,0.02)", borderLeft: "4px solid #3b82f6", borderRadius: "8px", padding: "20px", marginBottom: "24px" }}>
+                <div style={{ fontSize: "11px", fontWeight: "600", color: "#60a5fa", marginBottom: "10px", letterSpacing: "0.05em" }}>AI SUMMARY</div>
+                <div style={{ fontSize: "15px", color: "#e2e8f0", fontWeight: "400", lineHeight: "1.6" }}>{result.narrative}</div>
+              </div>
+            )}
+
             {/* Top 10 Flagged Procedures Table */}
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "32px" }}>
               <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px" }}>Top Flagged Procedures</h3>
