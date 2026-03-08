@@ -16,7 +16,6 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
 from routers.employer_shared import (
     _get_supabase, _call_claude,
-    ClaimsCheckRequest,
 )
 from routers.benchmark import resolve_locality, lookup_rate
 

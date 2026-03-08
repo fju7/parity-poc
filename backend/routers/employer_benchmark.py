@@ -6,8 +6,6 @@ Returns percentile ranking, dollar gap, and contextual benchmarks.
 
 from __future__ import annotations
 
-import math
-
 from fastapi import APIRouter, HTTPException
 
 from routers.employer_shared import (
