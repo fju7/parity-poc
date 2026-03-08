@@ -223,7 +223,7 @@ parity-poc/
 
 6. **No PHI in Supabase.** Employer user IDs are SHA-256 hashed before storage. Provider data is tied to `user_id` only — no patient-identifiable information.
 
-7. **Work on main branch.** This repo uses a single-branch workflow. Commit and push directly to main unless instructed otherwise.
+7. **Branch workflow.** Claude Code cannot push directly to main. Instead, push to a feature branch (e.g. `claude/...`) and the repo owner merges to main locally. Always develop on the branch specified in the task instructions.
 
 ---
 

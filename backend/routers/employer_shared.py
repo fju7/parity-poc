@@ -6,11 +6,38 @@ import json
 import os
 import re
 import time
+from collections import defaultdict
 from pathlib import Path
 from typing import Optional
 
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
 from pydantic import BaseModel
+
+
+# ---------------------------------------------------------------------------
+# In-memory IP rate limiter
+# ---------------------------------------------------------------------------
+
+_rate_limit_store: dict[str, list[float]] = defaultdict(list)
+
+
+def check_rate_limit(request: Request, max_requests: int, window_seconds: int = 3600):
+    """Raise 429 if the client IP exceeds max_requests within window_seconds."""
+    ip = request.client.host if request.client else "unknown"
+    now = time.time()
+    cutoff = now - window_seconds
+
+    # Prune old entries
+    hits = _rate_limit_store[ip]
+    _rate_limit_store[ip] = [t for t in hits if t > cutoff]
+
+    if len(_rate_limit_store[ip]) >= max_requests:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Rate limit exceeded. Max {max_requests} requests per hour.",
+        )
+
+    _rate_limit_store[ip].append(now)
 
 from supabase import create_client
 

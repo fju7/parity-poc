@@ -6,11 +6,11 @@ Returns percentile ranking, dollar gap, and contextual benchmarks.
 
 from __future__ import annotations
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 
 from routers.employer_shared import (
     _get_supabase, get_benchmarks,
-    BenchmarkRequest,
+    BenchmarkRequest, check_rate_limit,
 )
 
 router = APIRouter(tags=["employer"])
@@ -21,8 +21,9 @@ router = APIRouter(tags=["employer"])
 # ---------------------------------------------------------------------------
 
 @router.post("/benchmark")
-async def employer_benchmark(req: BenchmarkRequest):
+async def employer_benchmark(req: BenchmarkRequest, request: Request):
     """Compare employer PEPM against industry/size benchmarks."""
+    check_rate_limit(request, max_requests=10)
     benchmarks = get_benchmarks()
     if not benchmarks:
         raise HTTPException(status_code=503, detail="Benchmark data not loaded")

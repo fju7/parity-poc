@@ -10,10 +10,10 @@ import base64
 import json
 from typing import Optional
 
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 
 from routers.employer_shared import (
-    _get_supabase, _call_claude,
+    _get_supabase, _call_claude, check_rate_limit,
 )
 
 router = APIRouter(tags=["employer"])
@@ -147,12 +147,14 @@ SCORING_CRITERIA = [
 
 @router.post("/scorecard")
 async def employer_scorecard(
+    request: Request,
     file: UploadFile = File(...),
     email: Optional[str] = Form(None),
     plan_name: Optional[str] = Form(None),
     network_type: Optional[str] = Form(None),
 ):
     """Parse an SBC PDF and return a scored plan grading."""
+    check_rate_limit(request, max_requests=5)
 
     content = await file.read()
     if len(content) > 10 * 1024 * 1024:

@@ -12,10 +12,10 @@ import json
 from typing import Optional
 
 import pandas as pd
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 
 from routers.employer_shared import (
-    _get_supabase, _call_claude,
+    _get_supabase, _call_claude, check_rate_limit,
 )
 from routers.benchmark import resolve_locality, lookup_rate
 
@@ -67,12 +67,14 @@ Rules:
 
 @router.post("/claims-check")
 async def employer_claims_check(
+    request: Request,
     file: UploadFile = File(...),
     zip_code: str = Form(...),
     email: Optional[str] = Form(None),
     column_mapping: Optional[str] = Form(None),  # JSON string
 ):
     """Analyze an employer claims file against CMS Medicare benchmarks."""
+    check_rate_limit(request, max_requests=5)
 
     # --- Parse file ---
     content = await file.read()

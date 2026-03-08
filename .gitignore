@@ -3,6 +3,9 @@ data/cms-pfs/
 data/cms-opps/
 data/cms-clfs/
 
+# Employer benchmark raw Excel files (compiled JSON is what the code uses)
+backend/data/employer_benchmarks/*.xlsx
+
 # Signal pipeline data (lives in Supabase, not git)
 data/signal/sources/
 backend/data/signal/
