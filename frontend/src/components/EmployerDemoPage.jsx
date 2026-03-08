@@ -257,19 +257,19 @@ const SCORECARD = {
 const MONITORING_FEATURES = [
   {
     title: "Monthly Spend Drift Report",
-    description: "Track how your PEPM and category spend shifts month over month",
+    description: "We re-run your claims against the Medicare benchmark every month and flag any new outliers or worsening markup ratios before they compound.",
   },
   {
     title: "New Outlier Alerts",
-    description: "Get notified when new high-markup procedures appear in your claims",
+    description: "When a new high-markup procedure appears in your claims data, you\u2019re notified within 30 days \u2014 not at annual renewal.",
   },
   {
     title: "Renewal Negotiation Prep",
-    description: "Receive a pre-renewal briefing with benchmark comparisons to take to your broker",
+    description: "30 days before your renewal date, we deliver a benchmark comparison report you can take directly to your broker to negotiate from a position of data.",
   },
   {
-    title: "Plan Design Optimization",
-    description: "Annual scorecard re-run with updated benchmarks and savings estimates",
+    title: "Annual Plan Design Re-Score",
+    description: "Your plan design is re-scored every year against updated benchmarks. You\u2019ll see exactly which criteria improved and which new gaps emerged.",
   },
 ];
 
@@ -556,11 +556,11 @@ function BenchmarkTab() {
               marginBottom: "6px",
             }}
           >
-            <span>0th</span>
-            <span>25th</span>
-            <span>50th (median)</span>
-            <span>75th</span>
-            <span>100th</span>
+            <span>{ordinal(0)}</span>
+            <span>{ordinal(25)}</span>
+            <span>{ordinal(50)} (median)</span>
+            <span>{ordinal(75)}</span>
+            <span>{ordinal(100)}</span>
           </div>
           <div
             style={{
@@ -618,7 +618,7 @@ function BenchmarkTab() {
                 color: barColor,
               }}
             >
-              {pct}th
+              {ordinal(pct)}
             </span>
             <span style={{ fontSize: "14px", color: "#94a3b8", marginLeft: "8px" }}>
               percentile &mdash; above median, in the warning zone
@@ -999,143 +999,88 @@ function ScorecardTab() {
 function MonitoringTab() {
   return (
     <div>
-      <div style={{ position: "relative" }}>
-        {/* Overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 10,
-            background: "rgba(10,22,40,0.7)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: "12px",
-          }}
-        >
-          <div style={{ textAlign: "center", padding: "40px" }}>
+      <h2 style={{ ...h2Style, marginBottom: "8px" }}>What Ongoing Monitoring Delivers</h2>
+      <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", marginBottom: "32px" }}>
+        Parity Employer subscribers receive monthly intelligence reports that keep your
+        benefits spend under control year-round.
+      </p>
+
+      {/* Feature cards */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "16px",
+          marginBottom: "36px",
+        }}
+      >
+        {MONITORING_FEATURES.map((feat, i) => (
+          <div key={feat.title} style={cardStyle}>
             <div
               style={{
-                display: "inline-block",
-                fontSize: "11px",
-                fontWeight: "600",
-                padding: "4px 10px",
-                borderRadius: "6px",
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
                 background: "rgba(59,130,246,0.15)",
                 color: "#60a5fa",
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
-                marginBottom: "16px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "14px",
+                fontWeight: "700",
+                marginBottom: "14px",
               }}
             >
-              Coming Soon
+              {i + 1}
             </div>
-            <h3
+            <h4
               style={{
-                fontSize: "20px",
+                fontSize: "15px",
                 fontWeight: "600",
-                color: "#f1f5f9",
+                color: "#e2e8f0",
                 marginBottom: "8px",
               }}
             >
-              Ongoing Benefits Monitoring
-            </h3>
-            <p
-              style={{
-                fontSize: "14px",
-                color: "#94a3b8",
-                maxWidth: "440px",
-                lineHeight: "1.7",
-                margin: "0 auto",
-              }}
-            >
-              Subscribers receive monthly intelligence reports tracking spend drift,
-              new outlier alerts, and renewal negotiation prep.
+              {feat.title}
+            </h4>
+            <p style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.6" }}>
+              {feat.description}
             </p>
-            <Link
-              to="/billing/employer/subscribe"
-              style={{
-                display: "inline-block",
-                marginTop: "20px",
-                background: "#3b82f6",
-                color: "#fff",
-                padding: "10px 24px",
-                borderRadius: "8px",
-                fontWeight: "600",
-                fontSize: "14px",
-                textDecoration: "none",
-              }}
-            >
-              Subscribe to unlock monitoring &rarr; $799/month
-            </Link>
           </div>
-        </div>
+        ))}
+      </div>
 
-        {/* Blurred content underneath */}
-        <div style={{ filter: "blur(2px)", pointerEvents: "none" }}>
-          <h2 style={{ ...h2Style, marginBottom: "28px" }}>Monitoring Dashboard</h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-              gap: "16px",
-            }}
-          >
-            {MONITORING_FEATURES.map((feat) => (
-              <div key={feat.title} style={cardStyle}>
-                <div
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "10px",
-                    background: "rgba(59,130,246,0.1)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: "14px",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "18px",
-                      height: "18px",
-                      borderRadius: "50%",
-                      background: "rgba(59,130,246,0.3)",
-                    }}
-                  />
-                </div>
-                <h4
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    color: "#e2e8f0",
-                    marginBottom: "6px",
-                  }}
-                >
-                  {feat.title}
-                </h4>
-                <p style={{ fontSize: "13px", color: "#94a3b8", lineHeight: "1.5" }}>
-                  {feat.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Fake stats row for visual fill */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-              gap: "16px",
-              marginTop: "24px",
-            }}
-          >
-            <StatCard label="Monthly PEPM" value="$1,246" sub="vs. $896 median" />
-            <StatCard label="Active Alerts" value="3" sub="new this month" />
-            <StatCard label="Next Renewal" value="Oct 2025" sub="187 days" />
-            <StatCard label="Savings Captured" value="$0" sub="start monitoring" />
-          </div>
+      {/* Pricing CTA */}
+      <div
+        style={{
+          background: "rgba(59,130,246,0.06)",
+          border: "1px solid rgba(59,130,246,0.2)",
+          borderRadius: "12px",
+          padding: "28px",
+          textAlign: "center",
+        }}
+      >
+        <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "8px" }}>
+          {COMPANY.name} qualifies for the <strong style={{ color: "#e2e8f0" }}>Mid-Market tier</strong> &mdash; 101&ndash;500 employees
+        </p>
+        <div style={{ fontSize: "32px", fontWeight: "700", color: "#f1f5f9", marginBottom: "16px" }}>
+          $799<span style={{ fontSize: "16px", fontWeight: "400", color: "#64748b" }}>/month</span>
         </div>
+        <Link
+          to="/billing/employer/subscribe"
+          style={{
+            display: "inline-block",
+            background: "#3b82f6",
+            color: "#fff",
+            padding: "12px 28px",
+            borderRadius: "8px",
+            fontWeight: "600",
+            fontSize: "14px",
+            textDecoration: "none",
+          }}
+        >
+          Start Monitoring Subscription &rarr;
+        </Link>
       </div>
     </div>
   );
@@ -1183,6 +1128,12 @@ function StatCard({ label, value, accent, sub }) {
       )}
     </div>
   );
+}
+
+function ordinal(n) {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
 function fmt(n) {
