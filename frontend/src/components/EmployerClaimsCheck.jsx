@@ -27,7 +27,7 @@ export default function EmployerClaimsCheck() {
 
   const isValidFile = (f) => {
     const ext = f.name.toLowerCase();
-    return ext.endsWith(".csv") || ext.endsWith(".xlsx") || ext.endsWith(".xls");
+    return ext.endsWith(".csv") || ext.endsWith(".xlsx") || ext.endsWith(".xls") || ext.endsWith(".835") || ext.endsWith(".edi") || ext.endsWith(".zip");
   };
 
   const handleSubmit = async (e) => {
@@ -128,7 +128,7 @@ export default function EmployerClaimsCheck() {
                   transition: "all 0.2s",
                 }}
               >
-                <input id="claims-file-input" type="file" accept=".csv,.xlsx,.xls" onChange={handleFileInput} style={{ display: "none" }} />
+                <input id="claims-file-input" type="file" accept=".csv,.xlsx,.xls,.835,.edi,.zip" onChange={handleFileInput} style={{ display: "none" }} />
                 {file ? (
                   <>
                     <div style={{ fontSize: "28px", marginBottom: "8px" }}>&#10003;</div>
@@ -139,7 +139,7 @@ export default function EmployerClaimsCheck() {
                   <>
                     <div style={{ fontSize: "28px", marginBottom: "8px" }}>&#8593;</div>
                     <div style={{ fontSize: "16px", fontWeight: "500", color: "#cbd5e1" }}>Drop your claims file here</div>
-                    <div style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>CSV or Excel &middot; Max 10MB</div>
+                    <div style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>Supports CSV, Excel, 835 EDI, and ZIP files &middot; Max 10MB</div>
                   </>
                 )}
               </div>
@@ -201,7 +201,14 @@ export default function EmployerClaimsCheck() {
               <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "28px", fontWeight: "400", color: "#f1f5f9", marginBottom: "8px" }}>
                 Claims Analysis Complete
               </h2>
-              <p style={{ fontSize: "14px", color: "#64748b" }}>{result.total_lines_analyzed} claims analyzed &middot; {file?.name}</p>
+              <p style={{ fontSize: "14px", color: "#64748b" }}>
+                {result.total_lines_analyzed} claims analyzed &middot; {file?.name}
+                {result.source_format?.startsWith("835") && (
+                  <span style={{ display: "inline-block", marginLeft: "8px", background: "rgba(59,130,246,0.15)", color: "#60a5fa", fontSize: "11px", fontWeight: "600", padding: "2px 8px", borderRadius: "4px" }}>
+                    Parsed from 835 EDI
+                  </span>
+                )}
+              </p>
             </div>
 
             {/* Summary Banner */}

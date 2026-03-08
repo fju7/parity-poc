@@ -1,7 +1,8 @@
-"""Employer claims-check endpoint — upload CSV/Excel claims and compare against CMS Medicare rates.
+"""Employer claims-check endpoint — upload CSV/Excel/835 EDI claims and compare against CMS Medicare rates.
 
 POST /claims-check — accepts multipart file upload + optional column mapping.
 Uses Claude AI for intelligent column mapping when headers are ambiguous.
+Supports 835 EDI files (parsed via parse_835) and ZIP archives of 835 files.
 Reuses the existing CMS Medicare rate database from benchmark.py.
 """
 
@@ -9,6 +10,7 @@ from __future__ import annotations
 
 import io
 import json
+import zipfile
 from typing import Optional
 
 import pandas as pd
@@ -18,6 +20,7 @@ from routers.employer_shared import (
     _get_supabase, _call_claude, check_rate_limit,
 )
 from routers.benchmark import resolve_locality, lookup_rate
+from utils.parse_835 import parse_835
 
 router = APIRouter(tags=["employer"])
 
@@ -82,58 +85,108 @@ async def employer_claims_check(
         raise HTTPException(status_code=400, detail="File exceeds 10 MB limit")
     filename = file.filename or "upload"
 
-    try:
-        if filename.lower().endswith((".xlsx", ".xls")):
-            df = pd.read_excel(io.BytesIO(content))
-        else:
-            df = pd.read_csv(io.BytesIO(content))
-    except Exception as exc:
-        raise HTTPException(status_code=400, detail=f"Could not parse file: {exc}")
+    # Detect file type
+    fname = filename.lower()
+    is_835 = fname.endswith((".835", ".edi")) or (fname.endswith(".txt") and b"ISA" in content[:200])
+    is_zip = fname.endswith(".zip")
+
+    source_format = "csv_excel"
+    mapping = None
+
+    if is_835:
+        # --- 835 EDI file ---
+        source_format = "835_edi"
+        text = content.decode("utf-8", errors="replace")
+        if "ISA" not in text[:200]:
+            raise HTTPException(status_code=400, detail="File does not appear to be a valid 835 EDI file (missing ISA segment)")
+        parsed = parse_835(text)
+        if not parsed.get("line_items"):
+            raise HTTPException(status_code=400, detail="No line items found in 835 EDI file")
+        df = _edi_items_to_df(parsed["line_items"], parsed.get("payee_name", ""))
+
+    elif is_zip:
+        # --- ZIP archive of 835/EDI files ---
+        source_format = "835_zip"
+        all_items = []
+        try:
+            with zipfile.ZipFile(io.BytesIO(content)) as zf:
+                edi_names = [n for n in zf.namelist() if n.lower().endswith((".835", ".edi"))]
+                if not edi_names:
+                    raise HTTPException(status_code=400, detail="ZIP file contains no .835 or .edi files")
+                for name in edi_names:
+                    raw = zf.read(name).decode("utf-8", errors="replace")
+                    if "ISA" not in raw[:200]:
+                        continue
+                    parsed = parse_835(raw)
+                    for item in parsed.get("line_items", []):
+                        item["_provider"] = parsed.get("payee_name", "")
+                    all_items.extend(parsed.get("line_items", []))
+        except zipfile.BadZipFile:
+            raise HTTPException(status_code=400, detail="Invalid ZIP file")
+        if not all_items:
+            raise HTTPException(status_code=400, detail="No valid 835 line items found in ZIP archive")
+        df = _edi_items_to_df(all_items)
+
+    else:
+        # --- CSV / Excel (existing behavior) ---
+        try:
+            if fname.endswith((".xlsx", ".xls")):
+                df = pd.read_excel(io.BytesIO(content))
+            else:
+                df = pd.read_csv(io.BytesIO(content))
+        except Exception as exc:
+            raise HTTPException(status_code=400, detail=f"Could not parse file: {exc}")
 
     if df.empty:
         raise HTTPException(status_code=400, detail="File contains no data")
 
-    columns = list(df.columns)
+    # --- Column mapping (only for CSV/Excel — 835 columns are already standard) ---
+    if source_format == "csv_excel":
+        columns = list(df.columns)
 
-    # --- Column mapping ---
-    mapping = None
-    if column_mapping:
-        try:
-            mapping = json.loads(column_mapping)
-        except json.JSONDecodeError:
-            pass
+        if column_mapping:
+            try:
+                mapping = json.loads(column_mapping)
+            except json.JSONDecodeError:
+                pass
 
-    if not mapping:
-        # Use Claude AI to map columns
-        mapping_result = _call_claude(
-            system_prompt=COLUMN_MAPPING_PROMPT,
-            user_content=json.dumps({
-                "columns": columns,
-                "sample_rows": df.head(5).to_dict(orient="records"),
-            }),
-            max_tokens=1024,
-        )
-        if mapping_result and mapping_result.get("mappings"):
-            mapping = mapping_result["mappings"]
-        else:
-            raise HTTPException(
-                status_code=422,
-                detail={
-                    "error": "Could not auto-map columns",
+        if not mapping:
+            # Use Claude AI to map columns
+            mapping_result = _call_claude(
+                system_prompt=COLUMN_MAPPING_PROMPT,
+                user_content=json.dumps({
                     "columns": columns,
-                    "hint": "Please provide a column_mapping JSON with keys: cpt_code, paid_amount",
-                },
+                    "sample_rows": df.head(5).to_dict(orient="records"),
+                }),
+                max_tokens=1024,
             )
+            if mapping_result and mapping_result.get("mappings"):
+                mapping = mapping_result["mappings"]
+            else:
+                raise HTTPException(
+                    status_code=422,
+                    detail={
+                        "error": "Could not auto-map columns",
+                        "columns": columns,
+                        "hint": "Please provide a column_mapping JSON with keys: cpt_code, paid_amount",
+                    },
+                )
 
-    # Validate required mappings
-    cpt_col = mapping.get("cpt_code")
-    paid_col = mapping.get("paid_amount")
-    billed_col = mapping.get("billed_amount")
+        # Validate required mappings
+        cpt_col = mapping.get("cpt_code")
+        paid_col = mapping.get("paid_amount")
+        billed_col = mapping.get("billed_amount")
 
-    if not cpt_col or cpt_col not in df.columns:
-        raise HTTPException(status_code=422, detail=f"CPT code column '{cpt_col}' not found in file")
-    if not paid_col or paid_col not in df.columns:
-        raise HTTPException(status_code=422, detail=f"Paid amount column '{paid_col}' not found in file")
+        if not cpt_col or cpt_col not in df.columns:
+            raise HTTPException(status_code=422, detail=f"CPT code column '{cpt_col}' not found in file")
+        if not paid_col or paid_col not in df.columns:
+            raise HTTPException(status_code=422, detail=f"Paid amount column '{paid_col}' not found in file")
+    else:
+        # 835/ZIP: columns are already standardized
+        cpt_col = "cpt_code"
+        paid_col = "paid_amount"
+        billed_col = "billed_amount"
+        mapping = {"cpt_code": "cpt_code", "paid_amount": "paid_amount", "billed_amount": "billed_amount"}
 
     # --- Resolve locality for Medicare rate lookup ---
     carrier, locality = resolve_locality(zip_code)
@@ -219,6 +272,7 @@ async def employer_claims_check(
         "line_items": results[:500],  # Cap at 500 for response size
         "column_mapping": mapping,
         "total_lines_analyzed": len(results),
+        "source_format": source_format,
     }
 
     # --- Persist to Supabase ---
@@ -244,6 +298,20 @@ async def employer_claims_check(
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+def _edi_items_to_df(line_items: list, default_provider: str = "") -> pd.DataFrame:
+    """Convert parse_835 line_items into a standardized DataFrame."""
+    rows = []
+    for item in line_items:
+        rows.append({
+            "cpt_code": item.get("cpt_code", ""),
+            "paid_amount": item.get("paid_amount", 0),
+            "billed_amount": item.get("billed_amount", 0),
+            "provider_name": item.get("_provider", default_provider),
+            "service_date": item.get("service_date", ""),
+        })
+    return pd.DataFrame(rows)
+
 
 def _safe_float(val) -> float:
     """Convert a value to float, handling currency strings and NaN."""
