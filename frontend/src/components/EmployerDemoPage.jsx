@@ -274,6 +274,14 @@ const MONITORING_FEATURES = [
     title: "Annual Plan Design Re-Score",
     description: "Your plan design is re-scored every year against updated benchmarks. You\u2019ll see exactly which criteria improved and which new gaps emerged.",
   },
+  {
+    title: "RBP Savings Tracking",
+    description: "We re-run your RBP savings estimate monthly as new claims come in \u2014 so you can see whether your savings opportunity is growing or shrinking before renewal.",
+  },
+  {
+    title: "Contract Competitiveness Alerts",
+    description: "When your carrier contract comes up for renewal, we re-parse your fee schedule and flag any rates that have drifted further above Medicare benchmarks since your last analysis.",
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -285,6 +293,8 @@ const TABS = [
   { key: "benchmark", label: "Benefits Benchmark" },
   { key: "claims", label: "Claims Spot Check" },
   { key: "scorecard", label: "Plan Design Scorecard" },
+  { key: "rbp", label: "RBP Calculator" },
+  { key: "contract", label: "Contract Parser" },
   { key: "monitoring", label: "Monitoring Dashboard" },
 ];
 
@@ -421,7 +431,48 @@ export default function EmployerDemoPage() {
         {activeTab === "benchmark" && <BenchmarkTab />}
         {activeTab === "claims" && <ClaimsSpotCheckTab />}
         {activeTab === "scorecard" && <ScorecardTab />}
+        {activeTab === "rbp" && <RBPCalculatorTab />}
+        {activeTab === "contract" && <ContractParserTab />}
         {activeTab === "monitoring" && <MonitoringTab />}
+
+        {/* Bottom CTA — all tabs except Getting Started */}
+        {activeTab !== "start" && (
+          <div style={{
+            background: "rgba(59,130,246,0.06)",
+            border: "1px solid rgba(59,130,246,0.2)",
+            borderRadius: "12px",
+            padding: "28px",
+            textAlign: "center",
+            marginTop: "36px",
+          }}>
+            <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "16px", lineHeight: "1.7" }}>
+              This demo uses sample data for {COMPANY.name}. Start your free benchmark with your own numbers &mdash; no credit card required.
+            </p>
+            <Link
+              to="/billing/employer/benchmark"
+              style={{
+                display: "inline-block",
+                background: "#3b82f6",
+                color: "#fff",
+                padding: "12px 28px",
+                borderRadius: "8px",
+                fontWeight: "600",
+                fontSize: "14px",
+                textDecoration: "none",
+              }}
+            >
+              Start Free Benchmark &rarr;
+            </Link>
+            <div style={{ marginTop: "12px" }}>
+              <Link
+                to="/broker/login"
+                style={{ fontSize: "13px", color: "#64748b", textDecoration: "none" }}
+              >
+                View broker portal &rarr;
+              </Link>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
@@ -545,10 +596,12 @@ function GettingStartedTab({ onNavigate }) {
         <h2 style={{ ...h2Style, marginBottom: "10px" }}>
           Three steps. Under five minutes. No consultants.
         </h2>
-        <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", maxWidth: "600px", margin: "0 auto" }}>
-          See exactly where {COMPANY.name}&apos;s health spend is going &mdash;
-          benchmarked against 841,000 public Medicare rates, peer employer data, and
-          10 best-practice plan design criteria.
+        <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", maxWidth: "640px", margin: "0 auto", fontStyle: "italic" }}>
+          This demo shows how Parity Employer analyzed Midwest Manufacturing&apos;s health spend
+          using 841,000 public Medicare procedure rates &mdash; the same data your carriers use,
+          but rarely share. Start with a free benchmark, upload one month of claims, and get a
+          complete action plan including an RBP savings estimate and broker-ready PDF. No carrier
+          relationships. No commissions. Just the numbers.
         </p>
       </div>
 
@@ -655,7 +708,18 @@ function GettingStartedTab({ onNavigate }) {
                 animation: "gsChipBounce 0.4s ease forwards",
               }}>
                 <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
-                Cigna_Claims_Dec2024.xlsx
+                Cigna_Claims_Dec2024.835
+              </div>
+            )}
+            {fileChip1 && (
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                background: "#FFFBEB", border: "1px solid #FDE68A",
+                borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#92400E",
+                animation: "gsChipBounce 0.4s ease forwards",
+              }}>
+                <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
+                Cigna_Claims_Dec2024.xlsx <span style={{ color: "#B45309", fontStyle: "italic" }}>(CSV also accepted)</span>
               </div>
             )}
             {fileChip2 && (
@@ -704,9 +768,8 @@ function GettingStartedTab({ onNavigate }) {
           </div>
 
           <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", margin: 0 }}>
-            Download this file from your carrier portal (Cigna, Aetna, United, BCBS)
-            or ask your TPA. We accept any format &mdash; our AI identifies the right
-            columns automatically.
+            Accepts 835 EDI remittance files, CSV, Excel, or ZIP archives. Our AI maps
+            your columns automatically &mdash; no manual field matching required.
           </p>
         </div>
 
@@ -794,7 +857,7 @@ function GettingStartedTab({ onNavigate }) {
           onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
         >
-          See {COMPANY.name}&apos;s Results &rarr;
+          See {COMPANY.name}&apos;s Full Analysis &rarr;
         </button>
         <div style={{ marginTop: "12px" }}>
           <Link
@@ -1289,7 +1352,346 @@ function ScorecardTab() {
 }
 
 // ---------------------------------------------------------------------------
-// Tab 5: Monitoring Dashboard (Coming Soon)
+// Tab 5: RBP Calculator
+// ---------------------------------------------------------------------------
+
+function RBPCalculatorTab() {
+  const rbpCategories = [
+    { name: "Orthopedics", actual: 1200000, rbp: 720000, savings: 480000, pct: 40 },
+    { name: "Radiology", actual: 640000, rbp: 310000, savings: 330000, pct: 52 },
+    { name: "Cardiology", actual: 890000, rbp: 620000, savings: 270000, pct: 30 },
+    { name: "Surgery", actual: 1450000, rbp: 1160000, savings: 290000, pct: 20 },
+    { name: "E&M / Primary Care", actual: 1800000, rbp: 1710000, savings: 90000, pct: 5 },
+  ];
+
+  const pctColor = (pct) => pct > 25 ? "#22c55e" : pct >= 10 ? "#f59e0b" : "#64748b";
+
+  return (
+    <div>
+      <h2 style={{ ...h2Style, marginBottom: "6px" }}>
+        Reference-Based Pricing Analysis &mdash; {COMPANY.name}
+      </h2>
+      <p style={{ fontSize: "14px", color: "#64748b", marginBottom: "28px" }}>
+        At 140% of Medicare &middot; Based on December 2024 claims
+      </p>
+
+      {/* Eligibility panel */}
+      <div style={{
+        ...cardStyle,
+        marginBottom: "24px",
+        borderLeft: "4px solid #f59e0b",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+          <span style={{
+            display: "inline-block", padding: "4px 12px", borderRadius: "16px",
+            fontSize: "12px", fontWeight: "700", background: "rgba(245,158,11,0.15)",
+            color: "#fbbf24",
+          }}>
+            Possible Fit
+          </span>
+          <span style={{ fontSize: "13px", color: "#94a3b8" }}>RBP Eligibility Assessment</span>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+            <span style={{ fontSize: "16px", flexShrink: 0 }}>{"\uD83D\uDFE1"}</span>
+            <div>
+              <span style={{ fontSize: "13px", fontWeight: "600", color: "#e2e8f0" }}>Company size: </span>
+              <span style={{ fontSize: "13px", color: "#94a3b8" }}>500 employees &mdash; viable, administrative burden is manageable at this size</span>
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+            <span style={{ fontSize: "16px", flexShrink: 0 }}>{"\uD83D\uDFE1"}</span>
+            <div>
+              <span style={{ fontSize: "13px", fontWeight: "600", color: "#e2e8f0" }}>Plan funding: </span>
+              <span style={{ fontSize: "13px", color: "#94a3b8" }}>Cigna PPO &mdash; fully insured. Moving to self-insurance is a prerequisite for RBP. Most 500-person employers qualify.</span>
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+            <span style={{ fontSize: "16px", flexShrink: 0 }}>{"\uD83D\uDFE2"}</span>
+            <div>
+              <span style={{ fontSize: "13px", fontWeight: "600", color: "#e2e8f0" }}>Geographic concentration: </span>
+              <span style={{ fontSize: "13px", color: "#94a3b8" }}>Illinois &mdash; geographically concentrated workforce simplifies RBP vendor relationships with local hospitals</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Savings summary callout */}
+      <div style={{
+        background: "rgba(34,197,94,0.06)",
+        border: "1px solid rgba(34,197,94,0.2)",
+        borderRadius: "12px",
+        padding: "28px",
+        marginBottom: "24px",
+      }}>
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          gap: "20px", marginBottom: "16px",
+        }}>
+          <div>
+            <div style={{ fontSize: "11px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
+              Actual Annual Spend
+            </div>
+            <div style={{ fontSize: "24px", fontWeight: "700", color: "#f1f5f9" }}>$7,480,000</div>
+          </div>
+          <div>
+            <div style={{ fontSize: "11px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
+              RBP Equivalent at 140% Medicare
+            </div>
+            <div style={{ fontSize: "24px", fontWeight: "700", color: "#f1f5f9" }}>$5,240,000</div>
+          </div>
+          <div>
+            <div style={{ fontSize: "11px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
+              Potential Annual Savings
+            </div>
+            <div style={{ fontSize: "24px", fontWeight: "700", color: "#4ade80" }}>
+              $2,240,000 <span style={{ fontSize: "14px", fontWeight: "500" }}>(30%)</span>
+            </div>
+          </div>
+        </div>
+        <p style={{ fontSize: "12px", color: "#64748b", margin: 0, fontStyle: "italic" }}>
+          Estimated. Actual savings depend on plan design, employee behavior, and vendor implementation.
+        </p>
+      </div>
+
+      {/* Category breakdown table */}
+      <div style={cardStyle}>
+        <h3 style={h3Style}>Category Breakdown</h3>
+        <div style={{ overflowX: "auto" }}>
+          <table style={tableStyle}>
+            <thead>
+              <tr>
+                <th style={thStyle}>Category</th>
+                <th style={{ ...thStyle, textAlign: "right" }}>Actual Paid</th>
+                <th style={{ ...thStyle, textAlign: "right" }}>RBP Equivalent</th>
+                <th style={{ ...thStyle, textAlign: "right" }}>Savings</th>
+                <th style={{ ...thStyle, textAlign: "right" }}>Savings %</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rbpCategories.map((c) => (
+                <tr key={c.name}>
+                  <td style={{ ...tdStyle, fontWeight: "500" }}>{c.name}</td>
+                  <td style={{ ...tdStyle, textAlign: "right" }}>{fmt(c.actual)}</td>
+                  <td style={{ ...tdStyle, textAlign: "right" }}>{fmt(c.rbp)}</td>
+                  <td style={{ ...tdStyle, textAlign: "right", fontWeight: "600", color: "#4ade80" }}>{fmt(c.savings)}</td>
+                  <td style={{ ...tdStyle, textAlign: "right", fontWeight: "600", color: pctColor(c.pct) }}>{c.pct}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* AI narrative */}
+      <div style={{
+        ...cardStyle,
+        marginTop: "24px",
+        borderLeft: "4px solid #3b82f6",
+      }}>
+        <div style={{
+          fontSize: "11px", fontWeight: "600", color: "#60a5fa",
+          textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "10px",
+        }}>
+          RBP Analysis
+        </div>
+        <p style={{ fontSize: "14px", lineHeight: "1.8", color: "#94a3b8", margin: 0 }}>
+          Midwest Manufacturing&apos;s highest RBP savings opportunity is in Radiology, where imaging
+          procedures average 52% above a 140% Medicare benchmark &mdash; driven primarily by MRI and CT
+          scans billed at hospital outpatient rates. Orthopedics follows at 40% excess, concentrated in
+          two surgical providers. Primary care is already close to benchmark and would see minimal savings
+          under RBP. The estimated $2.24M annual savings assumes full implementation &mdash; a conservative
+          first-year target accounting for transition friction would be $1.1M&ndash;$1.5M.
+        </p>
+      </div>
+
+      {/* Next steps */}
+      <div style={{
+        display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        gap: "16px", marginTop: "24px",
+      }}>
+        <div style={{
+          ...cardStyle,
+          opacity: 0.5,
+          textAlign: "center",
+          padding: "20px",
+        }}>
+          <div style={{ fontSize: "24px", marginBottom: "8px" }}>{"\uD83D\uDCC4"}</div>
+          <div style={{ fontSize: "14px", fontWeight: "600", color: "#e2e8f0", marginBottom: "4px" }}>
+            Download broker summary PDF
+          </div>
+          <div style={{ fontSize: "11px", color: "#64748b", fontStyle: "italic" }}>
+            Available in full product
+          </div>
+        </div>
+        <a
+          href="https://www.imagine360.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            ...cardStyle,
+            textAlign: "center",
+            padding: "20px",
+            textDecoration: "none",
+            cursor: "pointer",
+          }}
+        >
+          <div style={{ fontSize: "24px", marginBottom: "8px" }}>{"\uD83D\uDD17"}</div>
+          <div style={{ fontSize: "14px", fontWeight: "600", color: "#e2e8f0", marginBottom: "4px" }}>
+            Talk to an RBP specialist &mdash; Imagine360 &rarr;
+          </div>
+          <div style={{ fontSize: "11px", color: "#64748b" }}>
+            External partner link
+          </div>
+        </a>
+        <Link
+          to="/billing/employer/demo"
+          style={{
+            ...cardStyle,
+            textAlign: "center",
+            padding: "20px",
+            textDecoration: "none",
+          }}
+        >
+          <div style={{ fontSize: "24px", marginBottom: "8px" }}>{"\u2190"}</div>
+          <div style={{ fontSize: "14px", fontWeight: "600", color: "#e2e8f0", marginBottom: "4px" }}>
+            Back to full analysis &rarr;
+          </div>
+          <div style={{ fontSize: "11px", color: "#64748b" }}>
+            Return to demo overview
+          </div>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Tab 6: Contract Parser
+// ---------------------------------------------------------------------------
+
+function ContractParserTab() {
+  const contractRates = [
+    { procedure: "MRI knee without contrast", cpt: "73721", contracted: 1240, medicare: 285, variance: 335 },
+    { procedure: "Cardiac MRI", cpt: "75574", contracted: 1890, medicare: 612, variance: 209 },
+    { procedure: "Cardiac CT, calcium scoring", cpt: "75571", contracted: 285, medicare: 98, variance: 191 },
+    { procedure: "Total knee arthroplasty", cpt: "27447", contracted: 4200, medicare: 1520, variance: 176 },
+    { procedure: "Anterior cervical discectomy", cpt: "22551", contracted: 4800, medicare: 1843, variance: 160 },
+    { procedure: "Total hip arthroplasty", cpt: "27130", contracted: 3600, medicare: 1487, variance: 142 },
+    { procedure: "Stress echocardiogram", cpt: "93350", contracted: 580, medicare: 245, variance: 137 },
+    { procedure: "Echocardiogram, complete", cpt: "93306", contracted: 390, medicare: 187, variance: 109 },
+    { procedure: "Office visit, est. moderate", cpt: "99214", contracted: 165, medicare: 138, variance: 20 },
+    { procedure: "Preventive visit, 40-64", cpt: "99396", contracted: 265, medicare: 250, variance: 6 },
+  ];
+
+  const varianceColor = (v) => v > 100 ? "#f87171" : v >= 20 ? "#fbbf24" : "#22c55e";
+
+  return (
+    <div>
+      <h2 style={{ ...h2Style, marginBottom: "6px" }}>
+        Carrier Contract Analysis &mdash; {COMPANY.name}
+      </h2>
+      <p style={{ fontSize: "14px", color: "#64748b", marginBottom: "28px" }}>
+        Cigna PPO Fee Schedule &middot; Effective January 1, 2025 &middot; Parsed January 3, 2025
+      </p>
+
+      {/* Contract summary card */}
+      <div style={{
+        ...cardStyle,
+        marginBottom: "24px",
+      }}>
+        <h3 style={h3Style}>Contract Summary</h3>
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+          gap: "16px",
+        }}>
+          <div>
+            <div style={{ fontSize: "11px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
+              Carrier
+            </div>
+            <div style={{ fontSize: "16px", fontWeight: "600", color: "#f1f5f9" }}>Cigna</div>
+          </div>
+          <div>
+            <div style={{ fontSize: "11px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
+              Effective Date
+            </div>
+            <div style={{ fontSize: "16px", fontWeight: "600", color: "#f1f5f9" }}>January 1, 2025</div>
+          </div>
+          <div>
+            <div style={{ fontSize: "11px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
+              Rate Basis
+            </div>
+            <div style={{ fontSize: "16px", fontWeight: "600", color: "#f1f5f9" }}>Fixed fee schedule</div>
+          </div>
+          <div>
+            <div style={{ fontSize: "11px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>
+              Total Procedures Parsed
+            </div>
+            <div style={{ fontSize: "16px", fontWeight: "600", color: "#f1f5f9" }}>847</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Rate comparison table */}
+      <div style={cardStyle}>
+        <h3 style={h3Style}>Rate Comparison &mdash; Top 10 by Variance</h3>
+        <div style={{ overflowX: "auto" }}>
+          <table style={tableStyle}>
+            <thead>
+              <tr>
+                <th style={thStyle}>Procedure</th>
+                <th style={thStyle}>CPT</th>
+                <th style={{ ...thStyle, textAlign: "right" }}>Contracted Rate</th>
+                <th style={{ ...thStyle, textAlign: "right" }}>Medicare Rate</th>
+                <th style={{ ...thStyle, textAlign: "right" }}>Variance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contractRates.map((r) => (
+                <tr key={r.cpt} style={{
+                  background: r.variance > 100 ? "rgba(239,68,68,0.06)" : "transparent",
+                }}>
+                  <td style={tdStyle}>{r.procedure}</td>
+                  <td style={{ ...tdStyle, fontFamily: "monospace", color: "#60a5fa" }}>{r.cpt}</td>
+                  <td style={{ ...tdStyle, textAlign: "right" }}>{fmt(r.contracted)}</td>
+                  <td style={{ ...tdStyle, textAlign: "right", color: "#64748b" }}>{fmt(r.medicare)}</td>
+                  <td style={{ ...tdStyle, textAlign: "right", fontWeight: "600", color: varianceColor(r.variance) }}>
+                    +{r.variance}%
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* AI narrative */}
+      <div style={{
+        ...cardStyle,
+        marginTop: "24px",
+        borderLeft: "4px solid #3b82f6",
+      }}>
+        <div style={{
+          fontSize: "11px", fontWeight: "600", color: "#60a5fa",
+          textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "10px",
+        }}>
+          Contract Analysis
+        </div>
+        <p style={{ fontSize: "14px", lineHeight: "1.8", color: "#94a3b8", margin: 0 }}>
+          Midwest Manufacturing&apos;s Cigna fee schedule shows contracted rates that are 2&ndash;4x Medicare
+          for imaging and orthopedic procedures &mdash; the same categories driving your highest claims spend.
+          This is not unusual for a standard PPO contract, but it confirms that your excess claims spend is a
+          network pricing issue, not a utilization issue. Primary care contracted rates are competitive and close
+          to Medicare. The highest leverage point for renegotiation is imaging: MRI rates at 335% of Medicare are
+          well above what reference-based pricing or a direct imaging center contract could deliver.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Tab 7: Monitoring Dashboard (Coming Soon)
 // ---------------------------------------------------------------------------
 
 function MonitoringTab() {
@@ -1420,38 +1822,31 @@ function MonitoringTab() {
         </div>
       </div>
 
-      {/* CTA */}
-      <div
-        style={{
-          background: "rgba(59,130,246,0.06)",
-          border: "1px solid rgba(59,130,246,0.2)",
-          borderRadius: "12px",
-          padding: "28px",
-          textAlign: "center",
-          marginTop: "36px",
-        }}
-      >
-        <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "8px" }}>
-          {COMPANY.name} qualifies for the <strong style={{ color: "#e2e8f0" }}>Mid-Market tier</strong> &mdash; 101&ndash;500 employees
-        </p>
-        <div style={{ fontSize: "32px", fontWeight: "700", color: "#f1f5f9", marginBottom: "16px" }}>
-          $799<span style={{ fontSize: "16px", fontWeight: "400", color: "#64748b" }}>/month</span>
+      {/* Feature preview cards */}
+      <div style={{ marginTop: "36px" }}>
+        <h3 style={{ ...h3Style, marginBottom: "20px" }}>What subscribers get</h3>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "16px",
+        }}>
+          {MONITORING_FEATURES.map((f) => (
+            <div
+              key={f.title}
+              style={{
+                ...cardStyle,
+                padding: "20px",
+              }}
+            >
+              <div style={{ fontSize: "14px", fontWeight: "600", color: "#e2e8f0", marginBottom: "8px" }}>
+                {f.title}
+              </div>
+              <p style={{ fontSize: "13px", lineHeight: "1.6", color: "#94a3b8", margin: 0 }}>
+                {f.description}
+              </p>
+            </div>
+          ))}
         </div>
-        <Link
-          to="/billing/employer/subscribe"
-          style={{
-            display: "inline-block",
-            background: "#3b82f6",
-            color: "#fff",
-            padding: "12px 28px",
-            borderRadius: "8px",
-            fontWeight: "600",
-            fontSize: "14px",
-            textDecoration: "none",
-          }}
-        >
-          Start Monitoring Subscription &rarr;
-        </Link>
       </div>
     </div>
   );
