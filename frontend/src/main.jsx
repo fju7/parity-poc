@@ -21,6 +21,10 @@ import SignalApp from './SignalApp.jsx'
 import AuditAccount from './components/AuditAccount.jsx'
 import AuditStandalone from './components/AuditStandalone.jsx'
 import PublicAuditReport from './components/PublicAuditReport.jsx'
+import EmployerBenchmark from './components/EmployerBenchmark.jsx'
+import EmployerClaimsCheck from './components/EmployerClaimsCheck.jsx'
+import EmployerScorecard from './components/EmployerScorecard.jsx'
+import EmployerSubscribe from './components/EmployerSubscribe.jsx'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -42,6 +46,10 @@ createRoot(document.getElementById('root')).render(
         <Route path="/billing" element={<BillingLanding />} />
         <Route path="/billing/employer" element={<EmployerProductPage />} />
         <Route path="/billing/provider" element={<ProviderProductPage />} />
+        <Route path="/billing/employer/benchmark" element={<EmployerBenchmark />} />
+        <Route path="/billing/employer/claims-check" element={<EmployerClaimsCheck />} />
+        <Route path="/billing/employer/scorecard" element={<EmployerScorecard />} />
+        <Route path="/billing/employer/subscribe" element={<EmployerSubscribe />} />
         <Route path="/billing/employer/demo" element={<EmployerDemoPage />} />
         <Route path="/billing/provider/demo" element={<ProviderDemoPage />} />
         <Route path="/employer" element={<EmployerLandingPage />} />

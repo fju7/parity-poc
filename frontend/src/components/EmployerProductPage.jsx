@@ -124,9 +124,9 @@ export default function EmployerProductPage() {
             letterSpacing: "-0.02em",
           }}
         >
-          See what your health plan
+          Your health plan is costing you
           <br />
-          <span style={{ color: "#60a5fa" }}>is really costing you.</span>
+          <span style={{ color: "#60a5fa" }}>more than it should.</span>
         </h1>
         <p
           style={{
@@ -137,9 +137,9 @@ export default function EmployerProductPage() {
             margin: "0 auto 32px",
           }}
         >
-          AI-powered claims benchmarking that tells you exactly where your
-          self-insured plan is overpaying — by category, by provider, by
-          procedure.
+          We can show you exactly how much. AI-powered benchmarking, claims
+          analysis, and plan grading that tells you where your self-insured
+          plan is overpaying — by category, by provider, by procedure.
         </p>
         <div
           style={{
@@ -150,7 +150,7 @@ export default function EmployerProductPage() {
           }}
         >
           <Link
-            to="/billing/employer/demo"
+            to="/billing/employer/benchmark"
             style={{
               display: "inline-block",
               background: "#3b82f6",
@@ -165,10 +165,10 @@ export default function EmployerProductPage() {
             onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
           >
-            Try the Demo
+            Get Your Free Benchmark &rarr;
           </Link>
           <Link
-            to="/employer/login"
+            to="/billing/employer/demo"
             style={{
               display: "inline-block",
               border: "1px solid rgba(59,130,246,0.4)",
@@ -464,10 +464,16 @@ export default function EmployerProductPage() {
                   fontSize: "14px",
                   lineHeight: "1.7",
                   color: "#94a3b8",
+                  marginBottom: s.link ? "12px" : "0",
                 }}
               >
                 {s.text}
               </p>
+              {s.link && (
+                <Link to={s.link} style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", textDecoration: "none" }}>
+                  {s.linkText}
+                </Link>
+              )}
             </div>
           ))}
         </div>
@@ -658,6 +664,78 @@ export default function EmployerProductPage() {
         </div>
       </section>
 
+      {/* Pricing */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "960px",
+          margin: "0 auto",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "28px",
+            fontWeight: "400",
+            color: "#f1f5f9",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          Pricing
+        </h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "24px",
+          }}
+        >
+          {PRICING.map((p) => (
+            <div
+              key={p.name}
+              style={{
+                background: p.popular ? "rgba(59,130,246,0.06)" : "rgba(255,255,255,0.02)",
+                border: `1px solid ${p.popular ? "rgba(59,130,246,0.35)" : "rgba(59,130,246,0.18)"}`,
+                borderRadius: "14px",
+                padding: "28px",
+                position: "relative",
+              }}
+            >
+              {p.popular && (
+                <div style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)", background: "#3b82f6", color: "#fff", fontSize: "11px", fontWeight: "700", padding: "4px 14px", borderRadius: "12px" }}>
+                  MOST POPULAR
+                </div>
+              )}
+              <div style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", marginBottom: "8px" }}>{p.name}</div>
+              <div style={{ marginBottom: "16px" }}>
+                <span style={{ fontSize: "32px", fontWeight: "700", color: "#f1f5f9" }}>{p.price}</span>
+                <span style={{ fontSize: "14px", color: "#64748b" }}>/mo</span>
+              </div>
+              <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "20px" }}>{p.text}</p>
+              <Link
+                to="/billing/employer/subscribe"
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  background: p.popular ? "#3b82f6" : "transparent",
+                  color: p.popular ? "#fff" : "#60a5fa",
+                  border: p.popular ? "none" : "1px solid rgba(59,130,246,0.4)",
+                  borderRadius: "8px",
+                  padding: "10px",
+                  fontWeight: "600",
+                  fontSize: "14px",
+                  textDecoration: "none",
+                }}
+              >
+                Get Started
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section
         className="cs-home-section"
@@ -677,7 +755,7 @@ export default function EmployerProductPage() {
             marginBottom: "16px",
           }}
         >
-          See the demo in action
+          Start with a free benchmark
         </h2>
         <p
           style={{
@@ -687,11 +765,11 @@ export default function EmployerProductPage() {
             lineHeight: "1.7",
           }}
         >
-          Explore a sample employer dashboard pre-loaded with realistic claims
-          data, benchmark comparisons, and savings opportunities.
+          See how your health plan costs compare to employers in your industry
+          and state — no signup required.
         </p>
         <Link
-          to="/billing/employer/demo"
+          to="/billing/employer/benchmark"
           style={{
             display: "inline-block",
             background: "#3b82f6",
@@ -706,7 +784,7 @@ export default function EmployerProductPage() {
           onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
         >
-          Try the Demo &rarr;
+          Get Your Free Benchmark &rarr;
         </Link>
       </section>
 
@@ -773,16 +851,22 @@ const DIFF_CARDS = [
 
 const STEPS = [
   {
-    title: "Upload your claims data",
-    text: "Export your claims file from your TPA or benefits administrator. We accept standard EDI 837/835 formats, CSV exports, or Excel files.",
+    title: "Benchmark your costs",
+    text: "Enter your industry, company size, and current PEPM. Instantly see where you rank against national and regional employer benchmarks.",
+    link: "/billing/employer/benchmark",
+    linkText: "Try it free \u2192",
   },
   {
-    title: "We benchmark every line",
-    text: "Each claim is compared against Medicare fee schedules adjusted for your geography, regional commercial rates, and national averages. We flag anomalies and quantify variances.",
+    title: "Check your claims",
+    text: "Upload your claims file (CSV or Excel) and we\u2019ll compare every line against CMS Medicare rates for your geography. AI auto-detects your column headers.",
+    link: "/billing/employer/claims-check",
+    linkText: "Upload claims \u2192",
   },
   {
-    title: "Review your insights",
-    text: "Your dashboard shows cost variances by category, provider, and procedure \u2014 with specific dollar amounts and percentage differences. Export reports for your broker or benefits committee.",
+    title: "Get ongoing monitoring",
+    text: "Subscribe for continuous analysis, quarterly savings reports, and alerts when new cost anomalies appear in your claims data.",
+    link: "/billing/employer/subscribe",
+    linkText: "See pricing \u2192",
   },
 ];
 
@@ -807,6 +891,25 @@ const ROADMAP = [
     text: "Direct TPA integration for automated data refresh, network optimization modeling, pharmacy benefit benchmarking.",
     borderColor: "rgba(148,163,184,0.2)",
     labelColor: "#94a3b8",
+  },
+];
+
+const PRICING = [
+  {
+    name: "Small",
+    price: "$299",
+    text: "Up to 100 employees. Monthly benchmarking, claims analysis, and plan scorecard.",
+  },
+  {
+    name: "Mid-Market",
+    price: "$799",
+    popular: true,
+    text: "100\u20131,000 employees. Unlimited uploads, provider-level analysis, quarterly savings reports.",
+  },
+  {
+    name: "Employer+",
+    price: "$1,999",
+    text: "1,000+ employees. Dedicated account manager, custom cohorts, EDI integration, API access.",
   },
 ];
 
