@@ -46,6 +46,7 @@ export default function EmployerRBPCalculator() {
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [pdfLoading, setPdfLoading] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem("employer_claims_session_id");
@@ -92,6 +93,32 @@ export default function EmployerRBPCalculator() {
       clearInterval(progressInterval);
       setError(err.message);
       setView("error");
+    }
+  };
+
+  const handleDownloadPdf = async () => {
+    if (!result) return;
+    setPdfLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/employer/rbp-pdf`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result),
+      });
+      if (!res.ok) throw new Error("PDF generation failed");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "parity_rbp_analysis.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("[RBP PDF] download failed:", err);
+    } finally {
+      setPdfLoading(false);
     }
   };
 
@@ -272,6 +299,48 @@ export default function EmployerRBPCalculator() {
               </div>
             </div>
 
+            {/* Eligibility Assessment */}
+            {result.eligibility && (
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "24px" }}>
+                <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px" }}>RBP Viability for Your Company</h3>
+                {(() => {
+                  const v = result.eligibility.verdict;
+                  const bg = v === "strong_fit" ? "rgba(34,197,94,0.1)" : v === "possible_fit" ? "rgba(59,130,246,0.1)" : v === "borderline" ? "rgba(245,158,11,0.1)" : "rgba(239,68,68,0.1)";
+                  const border = v === "strong_fit" ? "rgba(34,197,94,0.3)" : v === "possible_fit" ? "rgba(59,130,246,0.3)" : v === "borderline" ? "rgba(245,158,11,0.3)" : "rgba(239,68,68,0.3)";
+                  const color = v === "strong_fit" ? "#22c55e" : v === "possible_fit" ? "#60a5fa" : v === "borderline" ? "#f59e0b" : "#ef4444";
+                  return (
+                    <div style={{ background: bg, border: `1px solid ${border}`, borderRadius: "10px", padding: "16px", marginBottom: "16px" }}>
+                      <div style={{ fontSize: "16px", fontWeight: "600", color }}>{result.eligibility.verdict_text}</div>
+                    </div>
+                  );
+                })()}
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {result.eligibility.criteria.map((c, i) => {
+                    const dotColor = c.status === "green" ? "#22c55e" : c.status === "red" ? "#ef4444" : "#f59e0b";
+                    return (
+                      <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                        <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: dotColor, marginTop: "5px", flexShrink: 0 }} />
+                        <div>
+                          <span style={{ fontWeight: "600", color: "#f1f5f9", fontSize: "14px" }}>{c.criterion}: </span>
+                          <span style={{ color: "#94a3b8", fontSize: "13px" }}>{c.note}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                {result.eligibility.alternative_levers && result.eligibility.alternative_levers.length > 0 && (
+                  <div style={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                    <div style={{ fontSize: "13px", fontWeight: "600", color: "#cbd5e1", marginBottom: "8px" }}>Other savings levers to consider:</div>
+                    <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "13px", color: "#94a3b8", lineHeight: "1.8" }}>
+                      {result.eligibility.alternative_levers.map((lever, i) => (
+                        <li key={i}>{lever}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Section 2: Category Breakdown */}
             {result.categories && result.categories.length > 0 && (
               <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "24px" }}>
@@ -351,14 +420,63 @@ export default function EmployerRBPCalculator() {
               </div>
             )}
 
-            {/* Recalculate + CTAs */}
+            {/* Next Steps */}
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "24px" }}>
+              <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px" }}>Next Steps</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px" }}>
+                <button
+                  onClick={handleDownloadPdf}
+                  disabled={pdfLoading}
+                  style={{
+                    background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)",
+                    borderRadius: "10px", padding: "20px 16px", cursor: pdfLoading ? "wait" : "pointer",
+                    textAlign: "center", color: "#e2e8f0",
+                  }}
+                >
+                  <div style={{ fontSize: "24px", marginBottom: "8px" }}>&#128196;</div>
+                  <div style={{ fontSize: "14px", fontWeight: "600", color: "#60a5fa", marginBottom: "4px" }}>
+                    {pdfLoading ? "Generating..." : "Download One-Page PDF"}
+                  </div>
+                  <div style={{ fontSize: "11px", color: "#64748b" }}>Share with your broker</div>
+                </button>
+                <a
+                  href="https://www.imagine360.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)",
+                    borderRadius: "10px", padding: "20px 16px", textDecoration: "none",
+                    textAlign: "center", color: "#e2e8f0", display: "block",
+                  }}
+                >
+                  <div style={{ fontSize: "24px", marginBottom: "8px" }}>&#127891;</div>
+                  <div style={{ fontSize: "14px", fontWeight: "600", color: "#60a5fa", marginBottom: "4px" }}>
+                    Imagine360 &rarr;
+                  </div>
+                  <div style={{ fontSize: "11px", color: "#64748b" }}>RBP-specialized TPA</div>
+                </a>
+                <Link
+                  to="/billing/employer/demo"
+                  style={{
+                    background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)",
+                    borderRadius: "10px", padding: "20px 16px", textDecoration: "none",
+                    textAlign: "center", color: "#e2e8f0", display: "block",
+                  }}
+                >
+                  <div style={{ fontSize: "24px", marginBottom: "8px" }}>&#128200;</div>
+                  <div style={{ fontSize: "14px", fontWeight: "600", color: "#60a5fa", marginBottom: "4px" }}>
+                    Back to Full Analysis &rarr;
+                  </div>
+                  <div style={{ fontSize: "11px", color: "#64748b" }}>See other savings levers</div>
+                </Link>
+              </div>
+            </div>
+
+            {/* Recalculate */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <button onClick={() => setView("input")} style={btnPrimary}>
                 Recalculate with Different Multiplier
               </button>
-              <Link to="/billing/employer/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>
-                Get ongoing monitoring &rarr;
-              </Link>
               <Link to="/billing/employer" style={{ textAlign: "center", color: "#64748b", fontSize: "14px", textDecoration: "none" }}>
                 &larr; Back to Parity Employer
               </Link>

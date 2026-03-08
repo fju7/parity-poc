@@ -526,6 +526,28 @@ async def employer_rbp_calculate(body: RBPRequest, request: Request):
     except Exception as exc:
         print(f"[RBP Calculate] Narrative failed (non-fatal): {exc}")
 
+    # Eligibility assessment
+    eligibility = None
+    try:
+        # Try to get employee count and company info from subscription
+        email = session.get("email", "")
+        employee_count = 0
+        plan_type = ""
+        company_name = ""
+        if email:
+            sub_result = sb.table("employer_subscriptions").select("*").eq("email", email).order(
+                "created_at", desc=True
+            ).limit(1).execute()
+            if sub_result.data:
+                sub = sub_result.data[0]
+                employee_count = sub.get("employee_count") or 0
+                company_name = sub.get("company_name") or ""
+        state = _zip_to_state(zip_code)
+        eligibility = _assess_rbp_eligibility(employee_count, state, plan_type, multiplier)
+        eligibility["company_name"] = company_name
+    except Exception as exc:
+        print(f"[RBP Calculate] Eligibility assessment failed (non-fatal): {exc}")
+
     return {
         "total_actual_paid": round(total_actual, 2),
         "total_rbp_equivalent": round(total_rbp, 2),
@@ -536,7 +558,254 @@ async def employer_rbp_calculate(body: RBPRequest, request: Request):
         "top_procedures": top_procedures_agg,
         "categories": categories,
         "rbp_narrative": rbp_narrative,
+        "eligibility": eligibility,
     }
+
+
+# ---------------------------------------------------------------------------
+# RBP eligibility assessment
+# ---------------------------------------------------------------------------
+
+def _zip_to_state(zip_code: str) -> str:
+    """Look up state from zip_locality.csv for a ZIP code."""
+    try:
+        csv_path = os.path.join(os.path.dirname(__file__), "..", "data", "zip_locality.csv")
+        df = pd.read_csv(csv_path, usecols=["zip_code", "state"], dtype=str, nrows=50000)
+        df["zip_code"] = df["zip_code"].str.strip().str.zfill(5)
+        match = df[df["zip_code"] == zip_code.strip().zfill(5)]
+        if not match.empty:
+            return match.iloc[0]["state"]
+    except Exception:
+        pass
+    return ""
+
+
+def _assess_rbp_eligibility(employee_count: int, state: str, plan_type: str, multiplier: float) -> dict:
+    """Assess RBP viability for this employer."""
+    criteria = []
+
+    # Criterion 1: Size
+    if employee_count >= 250:
+        size_status = "green"
+        size_note = f"{employee_count} employees — strong fit for RBP"
+    elif employee_count >= 150:
+        size_status = "yellow"
+        size_note = f"{employee_count} employees — viable but administrative burden is higher at this size"
+    elif employee_count > 0:
+        size_status = "red"
+        size_note = f"{employee_count} employees — RBP is typically not cost-effective below 150 lives"
+    else:
+        size_status = "yellow"
+        size_note = "Employee count unknown — confirm your headcount to assess RBP viability"
+
+    criteria.append({"criterion": "Company size", "status": size_status, "note": size_note})
+
+    # Criterion 2: Self-insured status
+    if plan_type and "self" in plan_type.lower():
+        ins_status = "green"
+        ins_note = "Already self-insured — RBP can be implemented without changing funding structure"
+    elif plan_type and any(c in plan_type.lower() for c in ["cigna", "aetna", "united", "bcbs", "anthem", "humana"]):
+        ins_status = "yellow"
+        ins_note = "Fully-insured plan — moving to self-insurance is a prerequisite for RBP. Most employers your size qualify."
+    else:
+        ins_status = "yellow"
+        ins_note = "Plan funding type unknown — confirm whether you are fully-insured or self-insured with your broker"
+
+    criteria.append({"criterion": "Plan funding type", "status": ins_status, "note": ins_note})
+
+    # Criterion 3: Geographic concentration
+    if state:
+        geo_status = "green"
+        geo_note = f"Employees in {state} — geographically concentrated workforce simplifies RBP vendor relationships with local hospitals"
+    else:
+        geo_status = "yellow"
+        geo_note = "Geographic concentration unknown — RBP works best when employees are concentrated in one or two states"
+
+    criteria.append({"criterion": "Geographic concentration", "status": geo_status, "note": geo_note})
+
+    # Overall verdict
+    reds = sum(1 for c in criteria if c["status"] == "red")
+    yellows = sum(1 for c in criteria if c["status"] == "yellow")
+
+    if reds == 0 and yellows <= 1:
+        verdict = "strong_fit"
+        verdict_text = "RBP looks like a strong fit based on your profile."
+    elif reds == 0:
+        verdict = "possible_fit"
+        verdict_text = "RBP may be viable — a few factors to resolve with your broker first."
+    elif reds == 1 and employee_count >= 150:
+        verdict = "borderline"
+        verdict_text = "RBP has meaningful barriers for your situation — review the criteria below before pursuing."
+    else:
+        verdict = "poor_fit"
+        verdict_text = "RBP is likely not the right lever right now — see alternative savings options below."
+
+    return {
+        "verdict": verdict,
+        "verdict_text": verdict_text,
+        "criteria": criteria,
+        "alternative_levers": [] if verdict in ("strong_fit", "possible_fit") else [
+            "Pharmacy carve-out — separate your pharmacy benefit for transparent PBM pricing",
+            "Reference pricing for specific high-cost procedures (imaging, labs)",
+            "Center-of-excellence routing for orthopedic and cardiac procedures",
+            "Plan design optimization — our scorecard identified specific gaps",
+        ],
+    }
+
+
+# ---------------------------------------------------------------------------
+# POST /rbp-pdf — Generate broker summary PDF
+# ---------------------------------------------------------------------------
+
+class RBPPdfRequest(BaseModel):
+    total_actual_paid: float
+    total_rbp_equivalent: float
+    total_potential_savings: float
+    savings_pct_overall: float
+    medicare_multiplier: float
+    claims_analyzed: int
+    top_procedures: list = []
+    categories: list = []
+    rbp_narrative: Optional[str] = None
+    eligibility: Optional[dict] = None
+    company_name: Optional[str] = None
+
+
+@router.post("/rbp-pdf")
+async def employer_rbp_pdf(body: RBPPdfRequest, request: Request):
+    """Generate a one-page broker summary PDF from RBP results."""
+    check_rate_limit(request, max_requests=5)
+
+    from datetime import date
+    from fastapi.responses import Response
+
+    try:
+        from reportlab.lib.pagesizes import letter
+        from reportlab.lib.units import inch
+        from reportlab.lib.colors import HexColor
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    except ImportError:
+        raise HTTPException(status_code=500, detail="PDF generation library not available")
+
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(buf, pagesize=letter, leftMargin=0.75 * inch, rightMargin=0.75 * inch,
+                            topMargin=0.6 * inch, bottomMargin=0.6 * inch)
+
+    styles = getSampleStyleSheet()
+    navy = HexColor("#1B3A5C")
+    teal = HexColor("#0D7377")
+    light_gray = HexColor("#f7f9fc")
+
+    title_style = ParagraphStyle("Title", parent=styles["Heading1"], fontSize=16, textColor=navy, spaceAfter=4)
+    subtitle_style = ParagraphStyle("Subtitle", parent=styles["Normal"], fontSize=9, textColor=HexColor("#64748b"), spaceAfter=12)
+    section_style = ParagraphStyle("Section", parent=styles["Heading2"], fontSize=12, textColor=navy, spaceAfter=6, spaceBefore=14)
+    body_style = ParagraphStyle("Body", parent=styles["Normal"], fontSize=10, textColor=HexColor("#1e293b"), leading=14, spaceAfter=4)
+    small_style = ParagraphStyle("Small", parent=styles["Normal"], fontSize=8, textColor=HexColor("#64748b"), leading=10)
+    bold_style = ParagraphStyle("Bold", parent=styles["Normal"], fontSize=10, textColor=navy, leading=14, spaceAfter=2)
+
+    elements = []
+
+    # Header
+    company = body.company_name or "Employer"
+    multiplier_pct = int(body.medicare_multiplier * 100)
+    elements.append(Paragraph("Parity Employer — Reference-Based Pricing Analysis", title_style))
+    elements.append(Paragraph(
+        f"{company}  |  Generated {date.today().strftime('%B %d, %Y')}  |  CONFIDENTIAL — For Broker Discussion",
+        subtitle_style
+    ))
+
+    # Section 1: Savings Summary
+    elements.append(Paragraph("Savings Summary", section_style))
+    annual_actual = body.total_actual_paid * 12
+    annual_rbp = body.total_rbp_equivalent * 12
+    annual_savings = body.total_potential_savings * 12
+
+    summary_data = [
+        ["Current annual spend (est.)", f"${annual_actual:,.0f}"],
+        [f"RBP equivalent at {multiplier_pct}% of Medicare", f"${annual_rbp:,.0f}"],
+        ["Potential annual savings", f"${annual_savings:,.0f} ({body.savings_pct_overall}%)"],
+    ]
+    summary_table = Table(summary_data, colWidths=[3.5 * inch, 2.5 * inch])
+    summary_table.setStyle(TableStyle([
+        ("TEXTCOLOR", (0, 0), (-1, -1), navy),
+        ("FONTSIZE", (0, 0), (-1, -1), 10),
+        ("FONTNAME", (0, 2), (-1, 2), "Helvetica-Bold"),
+        ("TEXTCOLOR", (1, 2), (1, 2), teal),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ("TOPPADDING", (0, 0), (-1, -1), 4),
+        ("LINEBELOW", (0, -1), (-1, -1), 0.5, navy),
+    ]))
+    elements.append(summary_table)
+    elements.append(Spacer(1, 8))
+
+    # Section 2: Top 3 categories
+    top_cats = (body.categories or [])[:3]
+    if top_cats:
+        elements.append(Paragraph("Top Categories by Savings", section_style))
+        cat_data = [["Category", "Actual", "RBP Equivalent", "Savings"]]
+        for c in top_cats:
+            cat_data.append([
+                c.get("category", ""),
+                f"${c.get('actual_paid', 0):,.0f}",
+                f"${c.get('rbp_equivalent', 0):,.0f}",
+                f"${c.get('savings', 0):,.0f}",
+            ])
+        cat_table = Table(cat_data, colWidths=[2 * inch, 1.5 * inch, 1.5 * inch, 1.5 * inch])
+        cat_table.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, 0), HexColor("#e2e8f0")),
+            ("TEXTCOLOR", (0, 0), (-1, 0), navy),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTSIZE", (0, 0), (-1, -1), 9),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+            ("TOPPADDING", (0, 0), (-1, -1), 4),
+            ("GRID", (0, 0), (-1, -1), 0.25, HexColor("#e2e8f0")),
+        ]))
+        elements.append(cat_table)
+        elements.append(Spacer(1, 8))
+
+    # Section 3: Eligibility Assessment
+    elig = body.eligibility
+    if elig and elig.get("criteria"):
+        elements.append(Paragraph("Eligibility Assessment", section_style))
+        elements.append(Paragraph(elig.get("verdict_text", ""), bold_style))
+        for c in elig["criteria"]:
+            status = c.get("status", "yellow")
+            symbol = {"green": "\u2713", "yellow": "\u26A0", "red": "\u2717"}.get(status, "?")
+            elements.append(Paragraph(f"{symbol}  <b>{c['criterion']}</b>: {c['note']}", body_style))
+        elements.append(Spacer(1, 8))
+
+    # Section 4: Next Steps
+    elements.append(Paragraph("Suggested Next Steps", section_style))
+    steps = [
+        "1. Share this analysis with your benefits broker",
+        "2. Ask your broker: Are we currently self-insured or fully-insured?",
+        "3. Request quotes from RBP-specialized TPAs (Imagine360, Firsthand, or your broker's preferred vendor)",
+        "4. Request a full Parity Employer monitoring subscription to track savings over time",
+    ]
+    for s in steps:
+        elements.append(Paragraph(s, body_style))
+    elements.append(Spacer(1, 16))
+
+    # Footer
+    elements.append(Paragraph(
+        f"Generated by Parity Employer · civicscale.ai · Data based on {body.claims_analyzed} claims",
+        small_style
+    ))
+    elements.append(Paragraph(
+        "This analysis is for informational purposes. Actual savings depend on plan design, employee behavior, and vendor implementation.",
+        small_style
+    ))
+
+    doc.build(elements)
+    pdf_bytes = buf.getvalue()
+    buf.close()
+
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": 'attachment; filename="parity_rbp_analysis.pdf"'},
+    )
 
 
 # ---------------------------------------------------------------------------
