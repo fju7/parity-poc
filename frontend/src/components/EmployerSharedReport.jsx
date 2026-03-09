@@ -106,6 +106,32 @@ export default function EmployerSharedReport() {
   return (
     <Page>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "40px 24px 80px" }}>
+        {/* Broker Attribution Header */}
+        {(data.broker_firm || data.broker_name) && (
+          <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: "14px 20px", marginBottom: 28, display: "flex", alignItems: "center", gap: 14 }}>
+            {data.broker_logo_url ? (
+              <img src={data.broker_logo_url} alt="" style={{ height: 32, width: "auto", objectFit: "contain", borderRadius: 4 }} />
+            ) : (
+              <div style={{ width: 36, height: 36, borderRadius: 8, background: "#f0fdfa", border: "1px solid #99f6e4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0D7377", flexShrink: 0 }}>
+                {(data.broker_firm || "B")[0].toUpperCase()}
+              </div>
+            )}
+            <div>
+              <p style={{ margin: 0, fontSize: 13, color: "#475569" }}>
+                Benefits analysis prepared by{" "}
+                <strong>{data.broker_name || data.broker_firm}</strong>
+                {data.broker_name && data.broker_firm && ` \u00B7 ${data.broker_firm}`}
+              </p>
+              {data.broker_email && (
+                <p style={{ margin: "2px 0 0", fontSize: 12, color: "#94a3b8" }}>
+                  Questions? Contact{" "}
+                  <a href={`mailto:${data.broker_email}`} style={{ color: "#0D7377", textDecoration: "none" }}>{data.broker_email}</a>
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 40 }}>
           <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: "0 0 8px" }}>
@@ -272,7 +298,7 @@ export default function EmployerSharedReport() {
             Questions about this report? Contact {data.broker_firm || "your broker"}{data.broker_email ? ` or reply to the email they sent you` : ""}.
           </p>
           <p style={{ fontSize: 12, color: "#94a3b8" }}>
-            Powered by <Link to="/" style={{ color: "#0D7377", textDecoration: "none" }}>CivicScale</Link> · Parity Employer Benchmarking Platform
+            This analysis was prepared by {data.broker_firm || "your broker"} using <Link to="/" style={{ color: "#0D7377", textDecoration: "none" }}>Parity Employer</Link>, an independent benchmarking platform with no carrier relationships or commissions.
           </p>
         </div>
       </div>

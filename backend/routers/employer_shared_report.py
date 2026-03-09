@@ -36,13 +36,17 @@ async def get_shared_report(share_token: str):
 
     sb.table("broker_client_benchmarks").update(update_data).eq("id", row["id"]).execute()
 
-    # Fetch broker firm name
+    # Fetch broker info
     broker_email = row.get("broker_email", "")
+    broker_name = ""
     firm_name = ""
+    broker_logo_url = None
     if broker_email:
-        broker = sb.table("broker_accounts").select("firm_name, contact_name, email").eq("email", broker_email).execute()
+        broker = sb.table("broker_accounts").select("firm_name, contact_name, email, logo_url").eq("email", broker_email).execute()
         if broker.data:
             firm_name = broker.data[0].get("firm_name", "")
+            broker_name = broker.data[0].get("contact_name", "")
+            broker_logo_url = broker.data[0].get("logo_url")
 
     return {
         "company_name": row["company_name"],
@@ -52,7 +56,9 @@ async def get_shared_report(share_token: str):
         "employee_count": row.get("employee_count"),
         "estimated_pepm": row.get("estimated_pepm"),
         "benchmark_result": row.get("benchmark_result"),
+        "broker_name": broker_name,
         "broker_firm": firm_name,
         "broker_email": broker_email,
+        "broker_logo_url": broker_logo_url,
         "created_at": row.get("created_at"),
     }
