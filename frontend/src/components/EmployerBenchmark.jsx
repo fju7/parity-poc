@@ -29,6 +29,12 @@ const STATES = [
   "VA","WA","WV","WI","WY","DC",
 ];
 
+function ordinalSuffix(n) {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return s[(v - 20) % 10] || s[v] || s[0];
+}
+
 export default function EmployerBenchmark() {
   const [industry, setIndustry] = useState("");
   const [companySize, setCompanySize] = useState("");
@@ -219,7 +225,7 @@ export default function EmployerBenchmark() {
               <div style={{ fontSize: "13px", fontWeight: "600", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px" }}>Your Percentile</div>
               <div style={{ fontSize: "56px", fontWeight: "700", color: pctColor(result.result.percentile), lineHeight: "1" }}>
                 {Math.round(result.result.percentile)}
-                <span style={{ fontSize: "24px", fontWeight: "400", verticalAlign: "super" }}>th</span>
+                <span style={{ fontSize: "24px", fontWeight: "400", verticalAlign: "super" }}>{ordinalSuffix(Math.round(result.result.percentile))}</span>
               </div>
               <p style={{ fontSize: "14px", color: "#94a3b8", marginTop: "12px", lineHeight: "1.6", maxWidth: "400px", margin: "12px auto 0" }}>
                 {result.result.interpretation}
@@ -314,7 +320,7 @@ export default function EmployerBenchmark() {
                   <div style={{ marginBottom: "16px" }}>
                     <div style={{ fontWeight: "600", color: "#cbd5e1", marginBottom: "6px" }}>Your percentile ranking</div>
                     <p style={{ margin: 0 }}>
-                      We compare your per-employee-per-month (PEPM) health cost against {result.benchmarks?.sample_note || "thousands of"} employers in your industry and region using data from the Medical Expenditure Panel Survey (MEPS-IC 2024), the KFF Employer Health Benefits Survey (2025), and the Bureau of Labor Statistics. Your percentile shows where you rank — {Math.round(result.result.percentile)}th percentile means you spend more than {Math.round(result.result.percentile)}% of similar employers.
+                      We compare your per-employee-per-month (PEPM) health cost against {result.benchmarks?.sample_note || "thousands of"} employers in your industry and region using data from the Medical Expenditure Panel Survey (MEPS-IC 2024), the KFF Employer Health Benefits Survey (2025), and the Bureau of Labor Statistics. Your percentile shows where you rank — {Math.round(result.result.percentile)}{ordinalSuffix(Math.round(result.result.percentile))} percentile means you spend more than {Math.round(result.result.percentile)}% of similar employers.
                     </p>
                   </div>
                   <div style={{ marginBottom: "16px" }}>
