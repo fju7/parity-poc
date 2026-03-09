@@ -192,6 +192,27 @@ export default function EmployerProductPage() {
             View Interactive Demo &rarr;
           </Link>
         </div>
+
+        {/* Video embed */}
+        <div style={{
+          marginTop: "40px",
+          maxWidth: "720px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          borderRadius: "12px",
+          overflow: "hidden",
+          border: "1px solid rgba(255,255,255,0.08)",
+          boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+        }}>
+          <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
+            <iframe
+              src="https://share.descript.com/embed/u5IZjWgMnJZ"
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+              allowFullScreen
+              title="Parity Employer demo video"
+            />
+          </div>
+        </div>
       </section>
 
       {/* Why AI Changes Everything */}
