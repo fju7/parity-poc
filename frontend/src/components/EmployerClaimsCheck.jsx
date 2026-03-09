@@ -12,6 +12,7 @@ export default function EmployerClaimsCheck() {
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [caaOpen, setCaaOpen] = useState(false);
 
   const handleDrop = useCallback((e) => {
     e.preventDefault();
@@ -122,6 +123,39 @@ export default function EmployerClaimsCheck() {
               <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", maxWidth: "560px", margin: "0 auto" }}>
                 Upload your claims file and we'll compare every line against CMS Medicare benchmarks for your geography.
               </p>
+            </div>
+
+            {/* CAA collapsible section */}
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.12)", borderRadius: "12px", marginBottom: "20px", overflow: "hidden" }}>
+              <button
+                onClick={() => setCaaOpen(!caaOpen)}
+                style={{ width: "100%", background: "none", border: "none", padding: "16px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", color: "#94a3b8" }}
+              >
+                <span style={{ fontSize: "14px", fontWeight: "600", color: "#cbd5e1" }}>Don't have claims data yet?</span>
+                <span style={{ fontSize: "18px", transform: caaOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>{"\u25BE"}</span>
+              </button>
+              {caaOpen && (
+                <div style={{ padding: "0 20px 20px", fontSize: "14px", color: "#94a3b8", lineHeight: "1.8" }}>
+                  <p style={{ margin: "0 0 14px" }}>
+                    If your company is fully insured (your carrier pays claims directly), you may not have received claims data automatically &mdash; but you have a legal right to it.
+                  </p>
+                  <p style={{ margin: "0 0 14px" }}>
+                    The Consolidated Appropriations Act of 2021 requires your carrier to provide machine-readable claims data upon request. This is your data, about your employees' healthcare, paid with your premium dollars.
+                  </p>
+                  <div style={{ fontWeight: "600", color: "#cbd5e1", marginBottom: "8px" }}>What to do:</div>
+                  <ol style={{ margin: "0 0 14px", paddingLeft: "20px" }}>
+                    <li style={{ marginBottom: "6px" }}>Contact your benefits broker and ask them to submit a CAA Section 201 data request to your carrier on your behalf</li>
+                    <li style={{ marginBottom: "6px" }}>If you don't have a broker, contact your carrier's employer services team directly and reference "CAA Section 201 claims data request"</li>
+                    <li>Once you receive the data, return here to upload it</li>
+                  </ol>
+                  <p style={{ margin: "0 0 14px", fontSize: "13px", color: "#64748b" }}>
+                    If you're self-insured, your TPA should be able to provide 835 transaction files directly &mdash; ask your administrator for claims data in 835 EDI format.
+                  </p>
+                  <Link to="/broker/caa-guide" style={{ color: "#60a5fa", fontSize: "13px", textDecoration: "none", fontWeight: "500" }}>
+                    Broker guide: How to request claims data from major carriers &rarr;
+                  </Link>
+                </div>
+              )}
             </div>
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>

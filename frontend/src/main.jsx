@@ -32,6 +32,7 @@ import BrokerLandingPage from './components/BrokerLandingPage.jsx'
 import BrokerLoginPage from './components/BrokerLoginPage.jsx'
 import BrokerSignupPage from './components/BrokerSignupPage.jsx'
 import BrokerDashboard from './components/BrokerDashboard.jsx'
+import CAABrokerGuide from './components/CAABrokerGuide.jsx'
 import EmployerSharedReport from './components/EmployerSharedReport.jsx'
 
 function ScrollToTop() {
@@ -70,6 +71,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/broker/login" element={<BrokerLoginPage />} />
         <Route path="/broker/signup" element={<BrokerSignupPage />} />
         <Route path="/broker/dashboard" element={<BrokerDashboard />} />
+        <Route path="/broker/caa-guide" element={<CAABrokerGuide />} />
         <Route path="/employer/shared-report/:shareToken" element={<EmployerSharedReport />} />
         <Route path="/report/:token" element={<PublicAuditReport />} />
         <Route path="/provider/*" element={<ProviderApp />} />

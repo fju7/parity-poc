@@ -402,6 +402,7 @@ export default function BrokerDashboard() {
             <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>Broker Dashboard</h1>
             <p style={{ color: "#64748b", fontSize: 15, marginTop: 4 }}>
               {broker.contact_name ? `${broker.contact_name} · ` : ""}{broker.firm_name}
+              <Link to="/broker/caa-guide" style={{ color: "#0D7377", fontSize: 13, marginLeft: 12, textDecoration: "none" }}>Claims Data Guide</Link>
             </p>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
