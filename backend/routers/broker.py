@@ -14,6 +14,7 @@ Endpoints:
   GET  /api/broker/clients/{employer_email}/activity — employer activity timeline
   GET  /api/broker/renewal-pipeline — renewal timeline with checklist status
   GET  /api/broker/renewal-prep/{company_name} — assembled renewal prep report data
+  POST /api/broker/send-renewal-reminders — cron-triggered 90-day renewal reminders
 """
 
 import os
@@ -27,6 +28,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 from routers.employer_shared import _get_supabase, check_rate_limit, get_benchmarks
+from utils.email import send_email
 
 router = APIRouter(prefix="/api/broker", tags=["broker"])
 
@@ -166,6 +168,42 @@ def _send_signup_otp_email(email: str, name: str, firm_name: str, code: str):
         print(f"[BrokerSignup] Email send failed: {exc}")
 
 
+def _send_broker_welcome_email(email: str, contact_name: str):
+    """Send onboarding welcome email after broker verifies their account."""
+    name = contact_name or "there"
+    send_email(
+        to=email,
+        subject="Welcome to Parity Employer \u2014 here\u2019s how to get started",
+        html=f"""
+        <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
+            <h2 style="color: #1B3A5C; margin-bottom: 16px;">Welcome to Parity Employer</h2>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">Hi {name},</p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                Your Parity Employer broker account is ready.
+            </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                Here's how to get the most out of it in the next 10 minutes:
+            </p>
+            <ol style="color: #475569; font-size: 15px; line-height: 2.0; padding-left: 20px;">
+                <li><strong>Add your first client</strong> &rarr; <a href="https://civicscale.ai/broker/dashboard" style="color: #0D7377;">civicscale.ai/broker/dashboard</a></li>
+                <li><strong>Run a benchmark</strong> &mdash; enter their size, industry, state, and estimated PEPM</li>
+                <li><strong>Share the results</strong> &mdash; send them a link directly from your dashboard</li>
+            </ol>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                If you have clients' claims files (835 EDI format) or Summary of Benefits PDFs,
+                you can run a deeper analysis from the claims check and plan scorecard tools.
+            </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                Questions? Reply to this email.
+            </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                &mdash; The CivicScale Team
+            </p>
+        </div>
+        """,
+    )
+
+
 # ---------------------------------------------------------------------------
 # POST /api/broker/auth/send-otp
 # ---------------------------------------------------------------------------
@@ -244,9 +282,13 @@ async def verify_otp(req: VerifyOtpRequest, request: Request):
     # Fetch broker info
     broker = sb.table("broker_accounts").select("id, email, firm_name, contact_name, status").eq("email", email).single().execute()
 
-    # If broker was pending verification, activate them
+    # If broker was pending verification, activate them and send welcome email
     if broker.data and broker.data.get("status") == "pending_verification":
         sb.table("broker_accounts").update({"status": "active"}).eq("id", broker.data["id"]).execute()
+        _send_broker_welcome_email(
+            broker.data.get("email", email),
+            broker.data.get("contact_name", ""),
+        )
 
     return {
         "verified": True,
@@ -914,6 +956,34 @@ async def bulk_onboard(req: BulkOnboardRequest, request: Request):
 
     succeeded = sum(1 for r in results if r["success"])
     failed = sum(1 for r in results if not r["success"])
+
+    # Send bulk onboard summary email
+    broker_acct = sb.table("broker_accounts").select("contact_name").eq("email", broker_email).execute()
+    b_name = broker_acct.data[0].get("contact_name", "there") if broker_acct.data else "there"
+    failed_line = f"<br/>{failed} failed" if failed > 0 else ""
+    send_email(
+        to=broker_email,
+        subject=f"Your bulk benchmark is ready \u2014 {succeeded} client{'s' if succeeded != 1 else ''} analyzed",
+        html=f"""
+        <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
+            <h2 style="color: #1B3A5C; margin-bottom: 16px;">Bulk Benchmark Complete</h2>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">Hi {b_name},</p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                Your bulk benchmark job is complete.
+            </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                {succeeded} client{'s' if succeeded != 1 else ''} benchmarked successfully{failed_line}
+            </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                View your book of business: <a href="https://civicscale.ai/broker/dashboard" style="color: #0D7377;">civicscale.ai/broker/dashboard</a>
+            </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                &mdash; CivicScale
+            </p>
+        </div>
+        """,
+    )
+
     return {"results": results, "total": len(results), "succeeded": succeeded, "failed": failed, "firm_name": firm_name}
 
 
@@ -1643,3 +1713,109 @@ async def upload_broker_logo(
     except Exception as exc:
         print(f"[BrokerLogo] Upload failed: {exc}")
         raise HTTPException(status_code=500, detail=f"Failed to upload logo: {str(exc)}")
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/send-renewal-reminders — cron-triggered 90-day reminders
+# ---------------------------------------------------------------------------
+
+@router.post("/send-renewal-reminders")
+async def send_renewal_reminders(request: Request):
+    """Send 90-day renewal reminder emails. Protected by X-Cron-Secret header."""
+    cron_secret = os.environ.get("CRON_SECRET")
+    if not cron_secret or request.headers.get("X-Cron-Secret") != cron_secret:
+        raise HTTPException(status_code=403, detail="Unauthorized.")
+
+    sb = _get_supabase()
+    now = datetime.now(timezone.utc)
+    target_date = now + timedelta(days=90)
+
+    # Find all links with renewal_month ~90 days from now (within a 7-day window)
+    window_start = (target_date - timedelta(days=3)).strftime("%Y-%m-%d")
+    window_end = (target_date + timedelta(days=4)).strftime("%Y-%m-%d")
+
+    links = (
+        sb.table("broker_employer_links")
+        .select("id, broker_email, employer_email, company_name, renewal_month, reminder_sent_90d")
+        .gte("renewal_month", window_start)
+        .lte("renewal_month", window_end)
+        .execute()
+    )
+
+    sent_count = 0
+    for link in (links.data or []):
+        if link.get("reminder_sent_90d"):
+            continue
+
+        broker_email = link.get("broker_email", "")
+        emp_email = link.get("employer_email", "")
+        company = link.get("company_name") or emp_email
+        renewal_month = link.get("renewal_month", "")
+
+        # Get broker name
+        broker = sb.table("broker_accounts").select("contact_name").eq("email", broker_email).execute()
+        broker_name = broker.data[0].get("contact_name", "there") if broker.data else "there"
+
+        # Build checklist status
+        has_benchmark = bool(
+            sb.table("broker_client_benchmarks").select("id").eq("broker_email", broker_email).eq("employer_email", emp_email).limit(1).execute().data
+        )
+        has_claims = bool(
+            sb.table("employer_claims_uploads").select("id").eq("email", emp_email).limit(1).execute().data
+        )
+        try:
+            has_scorecard = bool(
+                sb.table("employer_scorecard_sessions").select("id").eq("email", emp_email).limit(1).execute().data
+            )
+        except Exception:
+            has_scorecard = False
+
+        check = lambda done: "\u2713" if done else "\u25CB"
+        slug = company.lower().replace(" ", "-")
+        renewal_display = ""
+        try:
+            rd = datetime.fromisoformat(renewal_month.replace("Z", "+00:00")) if isinstance(renewal_month, str) else renewal_month
+            renewal_display = rd.strftime("%B %Y")
+        except (ValueError, TypeError, AttributeError):
+            renewal_display = renewal_month or "upcoming"
+
+        send_email(
+            to=broker_email,
+            subject=f"{company} renews in 90 days \u2014 are you ready?",
+            html=f"""
+            <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
+                <h2 style="color: #1B3A5C; margin-bottom: 16px;">Renewal Reminder</h2>
+                <p style="color: #475569; font-size: 15px; line-height: 1.8;">Hi {broker_name},</p>
+                <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                    <strong>{company}</strong>'s health plan renews in approximately 90 days ({renewal_display}).
+                </p>
+                <p style="color: #475569; font-size: 15px; line-height: 1.8; font-weight: 600;">
+                    Renewal prep checklist:
+                </p>
+                <p style="color: #475569; font-size: 15px; line-height: 2.0; margin: 0;">
+                    {check(has_benchmark)} Benchmark run<br/>
+                    {check(has_claims)} Claims data analyzed<br/>
+                    {check(has_scorecard)} Plan scorecard graded<br/>
+                    \u25CB Renewal prep report generated
+                </p>
+                <p style="margin-top: 16px;">
+                    <a href="https://civicscale.ai/broker/renewal-prep/{slug}?broker_email={broker_email}"
+                       style="color: #0D7377; font-weight: 600; text-decoration: none;">
+                        View renewal prep report &rarr;
+                    </a>
+                </p>
+                <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                    Brokers who arrive at renewal with independent data get better outcomes for their clients.
+                </p>
+                <p style="color: #475569; font-size: 15px; line-height: 1.8;">
+                    &mdash; CivicScale
+                </p>
+            </div>
+            """,
+        )
+
+        # Mark as sent
+        sb.table("broker_employer_links").update({"reminder_sent_90d": True}).eq("id", link["id"]).execute()
+        sent_count += 1
+
+    return {"sent": sent_count}
