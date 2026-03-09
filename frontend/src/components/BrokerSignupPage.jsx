@@ -5,9 +5,12 @@ import "./CivicScaleHomepage.css";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-export default function BrokerLoginPage() {
+export default function BrokerSignupPage() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [firmName, setFirmName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [status, setStatus] = useState("idle"); // idle | sending | code | verifying | error
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -25,15 +28,15 @@ export default function BrokerLoginPage() {
     setErrorMsg("");
 
     try {
-      const res = await fetch(`${API}/api/broker/auth/send-otp`, {
+      const res = await fetch(`${API}/api/broker/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, name, firm_name: firmName, phone: phone || null }),
       });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.detail || "Failed to send code.");
+        throw new Error(data.detail || "Failed to create account.");
       }
 
       setStatus("code");
@@ -41,7 +44,7 @@ export default function BrokerLoginPage() {
       setStatus("error");
       setErrorMsg(err.message);
     }
-  }, [email]);
+  }, [email, name, firmName, phone]);
 
   return (
     <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
@@ -56,15 +59,15 @@ export default function BrokerLoginPage() {
         </div>
       </nav>
 
-      {/* LOGIN FORM */}
+      {/* SIGNUP FORM */}
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 64 }}>
-        <div style={{ width: "100%", maxWidth: 400, padding: "0 16px" }}>
-          <div style={{ textAlign: "center", marginBottom: 40 }}>
+        <div style={{ width: "100%", maxWidth: 420, padding: "0 16px" }}>
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
             <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
-              Broker Portal
+              Join Parity Employer
             </h1>
-            <p style={{ color: "#64748b", marginTop: 8, fontSize: 15 }}>
-              Sign in to manage your employer clients
+            <p style={{ color: "#64748b", marginTop: 8, fontSize: 15, lineHeight: 1.6 }}>
+              Free for benefits brokers. Benchmark your clients' plans and share results before renewal.
             </p>
           </div>
 
@@ -75,12 +78,12 @@ export default function BrokerLoginPage() {
                 borderRadius: "50%", animation: "cs-spin 0.8s linear infinite", margin: "0 auto 16px",
               }} />
               <p style={{ color: "#1B3A5C", fontWeight: 600, fontSize: 15 }}>
-                Verifying broker access...
+                Verifying your account...
               </p>
               <style>{`@keyframes cs-spin { to { transform: rotate(360deg); } }`}</style>
             </div>
           ) : status === "code" ? (
-            <BrokerOtpInput
+            <SignupOtpInput
               email={email}
               onVerified={(broker) => {
                 localStorage.setItem("broker_session", JSON.stringify(broker));
@@ -89,60 +92,102 @@ export default function BrokerLoginPage() {
               onBack={() => { setStatus("idle"); setErrorMsg(""); }}
             />
           ) : (
-            <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: 16 }}>
-                <label style={{
-                  display: "block", fontSize: 14, fontWeight: 500,
-                  color: "#1B3A5C", marginBottom: 6,
-                }}>
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="broker@yourfirm.com"
-                  style={{
-                    width: "100%", padding: "10px 12px", borderRadius: 8,
-                    border: "1px solid #e2e8f0", fontSize: 15,
-                    outline: "none", boxSizing: "border-box",
-                  }}
-                />
-              </div>
-
-              {status === "error" && (
-                <div style={{
-                  padding: 12, borderRadius: 8, background: "#fef2f2",
-                  border: "1px solid #fecaca", marginBottom: 16,
-                }}>
-                  <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{errorMsg}</p>
+            <>
+              <form onSubmit={handleSubmit}>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                    Full name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Jane Smith"
+                    style={inputStyle}
+                  />
                 </div>
-              )}
 
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="cs-btn-primary"
-                style={{
-                  width: "100%", justifyContent: "center",
-                  opacity: status === "sending" ? 0.6 : 1,
-                }}
-              >
-                {status === "sending" ? "Sending..." : "Send Code"}
-              </button>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                    Firm name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={firmName}
+                    onChange={(e) => setFirmName(e.target.value)}
+                    placeholder="Acme Benefits Group"
+                    style={inputStyle}
+                  />
+                </div>
 
-              <p style={{ textAlign: "center", fontSize: 13, color: "#64748b", marginTop: 16 }}>
-                We'll send you a 6-digit code — no password needed.
-              </p>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="jane@acmebenefits.com"
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div style={{ marginBottom: 20 }}>
+                  <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                    Phone <span style={{ color: "#94a3b8", fontWeight: 400 }}>(optional)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="(555) 123-4567"
+                    style={inputStyle}
+                  />
+                </div>
+
+                {status === "error" && (
+                  <div style={{
+                    padding: 12, borderRadius: 8, background: "#fef2f2",
+                    border: "1px solid #fecaca", marginBottom: 16,
+                  }}>
+                    <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{errorMsg}</p>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="cs-btn-primary"
+                  style={{
+                    width: "100%", justifyContent: "center",
+                    opacity: status === "sending" ? 0.6 : 1,
+                  }}
+                >
+                  {status === "sending" ? "Creating account..." : "Create Free Account \u2192"}
+                </button>
+              </form>
 
               <p style={{ textAlign: "center", fontSize: 14, color: "#64748b", marginTop: 20 }}>
-                New to Parity Employer?{" "}
-                <Link to="/broker/signup" style={{ color: "#0D7377", textDecoration: "none", fontWeight: 600 }}>
-                  Create a free broker account &rarr;
+                Already have an account?{" "}
+                <Link to="/broker/login" style={{ color: "#0D7377", textDecoration: "none", fontWeight: 600 }}>
+                  Sign in &rarr;
                 </Link>
               </p>
-            </form>
+
+              <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
+                {[
+                  "\u2713 Free for brokers \u2014 your clients pay if they subscribe",
+                  "\u2713 Benchmark any employer in 60 seconds",
+                  "\u2713 Share results with no login required for your clients",
+                ].map((text) => (
+                  <p key={text} style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>{text}</p>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -150,13 +195,20 @@ export default function BrokerLoginPage() {
   );
 }
 
+const inputStyle = {
+  width: "100%", padding: "10px 12px", borderRadius: 8,
+  border: "1px solid #e2e8f0", fontSize: 15,
+  outline: "none", boxSizing: "border-box",
+};
+
 
 // ---------------------------------------------------------------------------
-// BrokerOtpInput — custom OTP component using backend endpoints (not Supabase)
+// SignupOtpInput — 8-digit OTP verification for signup flow
 // ---------------------------------------------------------------------------
 
-function BrokerOtpInput({ email, onVerified, onBack }) {
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+function SignupOtpInput({ email, onVerified, onBack }) {
+  const OTP_LENGTH = 8;
+  const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(""));
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
   const [resendCountdown, setResendCountdown] = useState(60);
@@ -179,7 +231,7 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
     next[index] = digit;
     setOtp(next);
 
-    if (digit && index < 5) {
+    if (digit && index < OTP_LENGTH - 1) {
       otpRefs.current[index + 1]?.focus();
     }
 
@@ -196,19 +248,19 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
 
   function handleOtpPaste(e) {
     e.preventDefault();
-    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, OTP_LENGTH);
     if (!pasted) return;
 
     const next = [...otp];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < OTP_LENGTH; i++) {
       next[i] = pasted[i] || "";
     }
     setOtp(next);
 
-    const focusIdx = Math.min(pasted.length, 5);
+    const focusIdx = Math.min(pasted.length, OTP_LENGTH - 1);
     otpRefs.current[focusIdx]?.focus();
 
-    if (pasted.length === 6) {
+    if (pasted.length === OTP_LENGTH) {
       verifyOtp(pasted);
     }
   }
@@ -235,7 +287,7 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
     } catch (err) {
       setSending(false);
       setError(err.message);
-      setOtp(["", "", "", "", "", ""]);
+      setOtp(Array(OTP_LENGTH).fill(""));
       otpRefs.current[0]?.focus();
     }
   }
@@ -246,7 +298,7 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
     setError(null);
 
     try {
-      const res = await fetch(`${API}/api/broker/auth/send-otp`, {
+      const res = await fetch(`${API}/api/broker/auth/resend-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -258,7 +310,7 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
       }
 
       setResendCountdown(60);
-      setOtp(["", "", "", "", "", ""]);
+      setOtp(Array(OTP_LENGTH).fill(""));
       setResent(true);
       setTimeout(() => setResent(false), 3000);
       otpRefs.current[0]?.focus();
@@ -268,8 +320,8 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
     setSending(false);
   }
 
-  const inputStyle = {
-    width: 42, height: 48, textAlign: "center", fontSize: 18, fontWeight: 600,
+  const otpInputStyle = {
+    width: 36, height: 44, textAlign: "center", fontSize: 17, fontWeight: 600,
     border: "1px solid #cbd5e1", borderRadius: 8, outline: "none",
     transition: "border-color 0.2s",
   };
@@ -279,11 +331,14 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
       padding: 24, borderRadius: 12, border: "1px solid #0D7377",
       background: "#f0fdfa", textAlign: "center",
     }}>
+      <h3 style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: "0 0 8px" }}>
+        Check your email
+      </h3>
       <p style={{ fontSize: 14, color: "#475569", marginBottom: 4 }}>
-        We sent a 6-digit code to <strong>{email}</strong>.
+        We sent an 8-digit code to <strong>{email}</strong>.
       </p>
       <p style={{ fontSize: 12, color: "#94a3b8", marginBottom: 20 }}>
-        Check your inbox and enter it below. The code expires in 10 minutes.
+        Enter it below to verify your account. The code expires in 10 minutes.
       </p>
 
       {error && (
@@ -295,7 +350,7 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
         </div>
       )}
 
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 16 }} onPaste={handleOtpPaste}>
+      <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 16 }} onPaste={handleOtpPaste}>
         {otp.map((digit, i) => (
           <input
             key={i}
@@ -306,7 +361,7 @@ function BrokerOtpInput({ email, onVerified, onBack }) {
             value={digit}
             onChange={(e) => handleOtpChange(i, e.target.value)}
             onKeyDown={(e) => handleOtpKeyDown(i, e)}
-            style={inputStyle}
+            style={otpInputStyle}
             onFocus={(e) => { e.target.style.borderColor = "#0D7377"; }}
             onBlur={(e) => { e.target.style.borderColor = "#cbd5e1"; }}
           />

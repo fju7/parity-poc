@@ -29,6 +29,7 @@ import EmployerContractParser from './components/EmployerContractParser.jsx'
 import EmployerRBPCalculator from './components/EmployerRBPCalculator.jsx'
 import ParityHealthLandingPage from './components/ParityHealthLandingPage.jsx'
 import BrokerLoginPage from './components/BrokerLoginPage.jsx'
+import BrokerSignupPage from './components/BrokerSignupPage.jsx'
 import BrokerDashboard from './components/BrokerDashboard.jsx'
 import EmployerSharedReport from './components/EmployerSharedReport.jsx'
 
@@ -65,6 +66,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/employer/auth/callback" element={<EmployerAuthCallback />} />
         <Route path="/employer/dashboard" element={<EmployerDashboard />} />
         <Route path="/broker/login" element={<BrokerLoginPage />} />
+        <Route path="/broker/signup" element={<BrokerSignupPage />} />
         <Route path="/broker/dashboard" element={<BrokerDashboard />} />
         <Route path="/employer/shared-report/:shareToken" element={<EmployerSharedReport />} />
         <Route path="/report/:token" element={<PublicAuditReport />} />

@@ -68,6 +68,13 @@ class NotifyClientRequest(BaseModel):
     message_type: Optional[str] = "benchmark"  # "benchmark" or "upgrade"
 
 
+class BrokerSignupRequest(BaseModel):
+    email: str
+    name: str
+    firm_name: str
+    phone: Optional[str] = None
+
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -112,6 +119,48 @@ def _send_otp_email(email: str, code: str):
         print(f"[BrokerOTP] Code sent to {email}")
     except Exception as exc:
         print(f"[BrokerOTP] Email send failed: {exc}")
+
+
+def _send_signup_otp_email(email: str, name: str, firm_name: str, code: str):
+    """Send welcome + OTP verification email via Resend."""
+    try:
+        import resend
+        resend_key = os.environ.get("RESEND_API_KEY")
+        if not resend_key:
+            print(f"[BrokerSignup] RESEND_API_KEY not set, code for {email}: {code}")
+            return
+        resend.api_key = resend_key
+
+        resend.Emails.send({
+            "from": "Parity Employer <notifications@civicscale.ai>",
+            "to": [email],
+            "subject": "Welcome to Parity Employer — verify your email",
+            "html": f"""
+            <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
+                <h2 style="color: #1B3A5C; margin-bottom: 8px;">Welcome {name} from {firm_name}</h2>
+                <p style="color: #475569; font-size: 15px; line-height: 1.7;">
+                    Thanks for creating a Parity Employer broker account. Enter the code below
+                    to verify your email and get started.
+                </p>
+                <div style="background: #f0fdfa; border: 2px solid #0D7377; border-radius: 12px;
+                            padding: 24px; text-align: center; margin: 24px 0;">
+                    <p style="color: #475569; font-size: 13px; margin: 0 0 8px;">Your verification code is:</p>
+                    <span style="font-size: 32px; font-weight: 700; letter-spacing: 6px; color: #1B3A5C;">
+                        {code}
+                    </span>
+                </div>
+                <p style="color: #94a3b8; font-size: 13px;">
+                    This code expires in 10 minutes.
+                </p>
+                <p style="color: #475569; font-size: 14px; line-height: 1.7;">
+                    After verifying, you can start adding clients and running benchmarks immediately.
+                </p>
+            </div>
+            """,
+        })
+        print(f"[BrokerSignup] Welcome + OTP sent to {email}")
+    except Exception as exc:
+        print(f"[BrokerSignup] Email send failed: {exc}")
 
 
 # ---------------------------------------------------------------------------
@@ -190,12 +239,101 @@ async def verify_otp(req: VerifyOtpRequest, request: Request):
     sb.table("otp_codes").update({"used": True}).eq("id", otp_row["id"]).execute()
 
     # Fetch broker info
-    broker = sb.table("broker_accounts").select("id, email, firm_name, contact_name").eq("email", email).single().execute()
+    broker = sb.table("broker_accounts").select("id, email, firm_name, contact_name, status").eq("email", email).single().execute()
+
+    # If broker was pending verification, activate them
+    if broker.data and broker.data.get("status") == "pending_verification":
+        sb.table("broker_accounts").update({"status": "active"}).eq("id", broker.data["id"]).execute()
 
     return {
         "verified": True,
         "broker": broker.data,
     }
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/auth/signup
+# ---------------------------------------------------------------------------
+
+@router.post("/auth/signup")
+async def broker_signup(req: BrokerSignupRequest, request: Request):
+    check_rate_limit(request, max_requests=10, window_seconds=3600)
+
+    sb = _get_supabase()
+    email = req.email.strip().lower()
+    name = req.name.strip()
+    firm_name = req.firm_name.strip()
+    phone = (req.phone or "").strip() or None
+
+    # Check if email already exists
+    existing = sb.table("broker_accounts").select("id").eq("email", email).execute()
+    if existing.data:
+        raise HTTPException(
+            status_code=409,
+            detail="An account with this email already exists. Use the login page to sign in.",
+        )
+
+    # Insert new broker account
+    sb.table("broker_accounts").insert({
+        "email": email,
+        "contact_name": name,
+        "firm_name": firm_name,
+        "phone": phone,
+        "status": "pending_verification",
+        "is_active": True,
+    }).execute()
+
+    # Generate and store OTP (8-digit)
+    code = _generate_otp(length=8)
+    expires_at = (datetime.now(timezone.utc) + timedelta(minutes=10)).isoformat()
+
+    sb.table("otp_codes").insert({
+        "email": email,
+        "code": code,
+        "expires_at": expires_at,
+        "used": False,
+    }).execute()
+
+    # Send welcome + OTP email
+    _send_signup_otp_email(email, name, firm_name, code)
+
+    return {"message": "Verification code sent", "email": email}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/auth/resend-otp
+# ---------------------------------------------------------------------------
+
+@router.post("/auth/resend-otp")
+async def resend_otp(req: SendOtpRequest, request: Request):
+    check_rate_limit(request, max_requests=10, window_seconds=3600)
+
+    sb = _get_supabase()
+    email = req.email.strip().lower()
+
+    # Verify broker account exists
+    result = sb.table("broker_accounts").select("id, contact_name, firm_name").eq("email", email).execute()
+    if not result.data:
+        raise HTTPException(status_code=404, detail="No account found with this email.")
+
+    # Invalidate previous codes
+    sb.table("otp_codes").update({"used": True}).eq("email", email).eq("used", False).execute()
+
+    # Generate and store new OTP (8-digit)
+    code = _generate_otp(length=8)
+    expires_at = (datetime.now(timezone.utc) + timedelta(minutes=10)).isoformat()
+
+    sb.table("otp_codes").insert({
+        "email": email,
+        "code": code,
+        "expires_at": expires_at,
+        "used": False,
+    }).execute()
+
+    # Send OTP email
+    _send_otp_email(email, code)
+
+    return {"sent": True}
 
 
 # ---------------------------------------------------------------------------

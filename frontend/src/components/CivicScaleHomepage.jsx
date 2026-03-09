@@ -118,6 +118,7 @@ export default function CivicScaleHomepage() {
           <Link to="/billing" style={{ color: "inherit", textDecoration: "none" }}>Billing Products</Link>
           <Link to="/signal" style={{ color: "inherit", textDecoration: "none" }}>Parity Signal</Link>
           <Link to="/investors" style={{ color: "inherit", textDecoration: "none" }}>About</Link>
+          <Link to="/broker/signup" style={{ color: "inherit", textDecoration: "none" }}>Broker Portal</Link>
           <SignInDropdown />
         </nav>
       </header>
