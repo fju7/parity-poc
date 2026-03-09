@@ -53,6 +53,16 @@ export default function BrokerDashboard() {
   const [addError, setAddError] = useState("");
   const [onboardResult, setOnboardResult] = useState(null);
 
+  // Bulk add state
+  const [showBulkPanel, setShowBulkPanel] = useState(false);
+  const EMPTY_ROW = () => ({ company_name: "", employee_count_range: "", industry: "", state: "", carrier: "", estimated_pepm: "", renewal_month: "", renewal_year: "" });
+  const [bulkRows, setBulkRows] = useState(() => Array.from({ length: 5 }, EMPTY_ROW));
+  const [bulkErrors, setBulkErrors] = useState({});
+  const [bulkRunning, setBulkRunning] = useState(false);
+  const [bulkProgress, setBulkProgress] = useState(0);
+  const [bulkTotal, setBulkTotal] = useState(0);
+  const [bulkResults, setBulkResults] = useState(null);
+
   // Portfolio state
   const [portfolio, setPortfolio] = useState(null);
   const [sortColumn, setSortColumn] = useState("annual_gap");
@@ -229,6 +239,88 @@ export default function BrokerDashboard() {
     navigate("/broker/login");
   };
 
+  // Bulk add handlers
+  const updateBulkRow = (idx, field, value) => {
+    setBulkRows(prev => prev.map((r, i) => i === idx ? { ...r, [field]: value } : r));
+    if (bulkErrors[`${idx}-${field}`]) {
+      setBulkErrors(prev => { const n = { ...prev }; delete n[`${idx}-${field}`]; return n; });
+    }
+  };
+
+  const handleBulkPaste = (e, rowIdx, colIdx) => {
+    const text = e.clipboardData.getData("text/plain");
+    if (!text.includes("\t") && !text.includes("\n")) return;
+    e.preventDefault();
+    const colFields = ["company_name", "employee_count_range", "industry", "state", "carrier", "estimated_pepm", "renewal_month"];
+    const pastedRows = text.trim().split(/\r?\n/).map(line => line.split("\t"));
+    setBulkRows(prev => {
+      const updated = [...prev];
+      for (let ri = 0; ri < pastedRows.length; ri++) {
+        const targetRow = rowIdx + ri;
+        if (targetRow >= 50) break;
+        while (updated.length <= targetRow) updated.push(EMPTY_ROW());
+        for (let ci = 0; ci < pastedRows[ri].length; ci++) {
+          const targetCol = colIdx + ci;
+          if (targetCol < colFields.length) {
+            updated[targetRow] = { ...updated[targetRow], [colFields[targetCol]]: pastedRows[ri][ci].trim() };
+          }
+        }
+      }
+      return updated;
+    });
+  };
+
+  const handleBulkSubmit = async () => {
+    // Validate required fields
+    const errors = {};
+    const validRows = [];
+    bulkRows.forEach((row, i) => {
+      const hasAny = row.company_name || row.industry || row.state || row.employee_count_range;
+      if (!hasAny) return;
+      let hasError = false;
+      if (!row.company_name.trim()) { errors[`${i}-company_name`] = true; hasError = true; }
+      if (!row.employee_count_range.trim()) { errors[`${i}-employee_count_range`] = true; hasError = true; }
+      if (!row.industry.trim()) { errors[`${i}-industry`] = true; hasError = true; }
+      if (!row.state.trim()) { errors[`${i}-state`] = true; hasError = true; }
+      if (!hasError) validRows.push(row);
+    });
+    setBulkErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+    if (validRows.length === 0) return;
+
+    setBulkRunning(true);
+    setBulkTotal(validRows.length);
+    setBulkProgress(0);
+    setBulkResults(null);
+
+    try {
+      const clients = validRows.map(r => ({
+        company_name: r.company_name.trim(),
+        employee_count_range: r.employee_count_range,
+        industry: r.industry,
+        state: r.state,
+        carrier: r.carrier || null,
+        estimated_pepm: r.estimated_pepm ? parseFloat(r.estimated_pepm) : null,
+        renewal_month: r.renewal_month && r.renewal_year ? `${r.renewal_year}-${r.renewal_month}` : null,
+      }));
+      const res = await fetch(`${API}/api/broker/clients/bulk-onboard`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ broker_email: broker.email, clients }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail?.message || data.detail || "Bulk onboard failed");
+      setBulkProgress(validRows.length);
+      setBulkResults(data.results);
+      fetchClients();
+    } catch (err) {
+      setBulkResults([{ company_name: "Error", success: false, error: err.message }]);
+    }
+    setBulkRunning(false);
+  };
+
+  const bulkHasRequired = bulkRows.some(r => r.company_name && r.employee_count_range && r.industry && r.state);
+
   // Logo upload
   const handleLogoUpload = async (e) => {
     const file = e.target.files?.[0];
@@ -307,12 +399,20 @@ export default function BrokerDashboard() {
               {broker.contact_name ? `${broker.contact_name} · ` : ""}{broker.firm_name}
             </p>
           </div>
-          <button
-            onClick={() => { setShowAddPanel(true); setAddError(""); setOnboardResult(null); setAddForm({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "", renewal_month: "", renewal_year: "" }); }}
-            style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
-          >
-            + Add Client
-          </button>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button
+              onClick={() => { setShowBulkPanel(true); setBulkErrors({}); setBulkResults(null); setBulkRunning(false); setBulkRows(Array.from({ length: 5 }, EMPTY_ROW)); }}
+              style={{ background: "#fff", color: "#0D7377", border: "1px solid #0D7377", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
+            >
+              Bulk Add Clients
+            </button>
+            <button
+              onClick={() => { setShowAddPanel(true); setAddError(""); setOnboardResult(null); setAddForm({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "", renewal_month: "", renewal_year: "" }); }}
+              style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
+            >
+              + Add Client
+            </button>
+          </div>
         </div>
 
         {/* Profile Panel */}
@@ -472,6 +572,144 @@ export default function BrokerDashboard() {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Bulk Add Panel */}
+        {showBulkPanel && (
+          <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 28, marginBottom: 24 }}>
+            {bulkResults ? (
+              /* Results summary */
+              <div>
+                <h3 style={{ fontSize: 18, fontWeight: 600, color: "#1B3A5C", margin: "0 0 16px" }}>Bulk Import Complete</h3>
+                <div style={{ display: "flex", gap: 16, marginBottom: 20 }}>
+                  <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 10, padding: "16px 24px", flex: 1, textAlign: "center" }}>
+                    <p style={{ fontSize: 28, fontWeight: 700, color: "#22c55e", margin: 0 }}>{bulkResults.filter(r => r.success).length}</p>
+                    <p style={{ fontSize: 13, color: "#475569", margin: "4px 0 0" }}>clients added successfully</p>
+                  </div>
+                  {bulkResults.some(r => !r.success) && (
+                    <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, padding: "16px 24px", flex: 1, textAlign: "center" }}>
+                      <p style={{ fontSize: 28, fontWeight: 700, color: "#EF4444", margin: 0 }}>{bulkResults.filter(r => !r.success).length}</p>
+                      <p style={{ fontSize: 13, color: "#475569", margin: "4px 0 0" }}>rows had errors</p>
+                    </div>
+                  )}
+                </div>
+                {bulkResults.filter(r => !r.success).length > 0 && (
+                  <div style={{ marginBottom: 16 }}>
+                    {bulkResults.filter(r => !r.success).map((r, i) => (
+                      <p key={i} style={{ fontSize: 13, color: "#991b1b", margin: "4px 0" }}>
+                        {r.company_name}: {r.error}
+                      </p>
+                    ))}
+                  </div>
+                )}
+                <button onClick={() => { setShowBulkPanel(false); setBulkResults(null); }} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
+                  View Your Book of Business &rarr;
+                </button>
+              </div>
+            ) : (
+              /* Entry grid */
+              <div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+                  <div>
+                    <h3 style={{ fontSize: 18, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Add Multiple Clients</h3>
+                    <p style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>Enter your client data below. Tip: you can paste directly from Excel.</p>
+                  </div>
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <button onClick={() => setShowBulkPanel(false)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 14px", fontSize: 13, color: "#64748b", cursor: "pointer", textDecoration: "none" }}>
+                      Back to Dashboard
+                    </button>
+                    <button onClick={handleBulkSubmit} disabled={bulkRunning || !bulkHasRequired} style={{ background: bulkHasRequired && !bulkRunning ? "#1B3A5C" : "#94a3b8", color: "#fff", border: "none", borderRadius: 8, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: bulkHasRequired && !bulkRunning ? "pointer" : "default", opacity: bulkRunning ? 0.6 : 1 }}>
+                      {bulkRunning ? `Running benchmarks... ${bulkProgress}/${bulkTotal}` : "Run Benchmarks \u2192"}
+                    </button>
+                  </div>
+                </div>
+
+                {bulkRunning && (
+                  <div style={{ marginBottom: 16 }}>
+                    <div style={{ background: "#e2e8f0", borderRadius: 8, height: 8, overflow: "hidden" }}>
+                      <div style={{ background: "#0D7377", height: "100%", width: `${bulkTotal ? (bulkProgress / bulkTotal) * 100 : 0}%`, transition: "width 0.3s", borderRadius: 8 }} />
+                    </div>
+                    <p style={{ fontSize: 12, color: "#64748b", marginTop: 6 }}>Running benchmarks... {bulkProgress}/{bulkTotal} complete</p>
+                  </div>
+                )}
+
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 900 }}>
+                    <thead>
+                      <tr style={{ borderBottom: "2px solid #e2e8f0" }}>
+                        <th style={thStyle}>Company Name <span style={{ color: "#EF4444" }}>*</span></th>
+                        <th style={thStyle}>Employees <span style={{ color: "#EF4444" }}>*</span></th>
+                        <th style={thStyle}>Industry <span style={{ color: "#EF4444" }}>*</span></th>
+                        <th style={thStyle}>State <span style={{ color: "#EF4444" }}>*</span></th>
+                        <th style={thStyle}>Carrier</th>
+                        <th style={thStyle}>Est. PEPM</th>
+                        <th style={thStyle}>Renewal</th>
+                        <th style={{ ...thStyle, width: 36 }}></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {bulkRows.map((row, i) => (
+                        <tr key={i} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                          <td style={{ padding: 4 }}>
+                            <input value={row.company_name} onChange={e => updateBulkRow(i, "company_name", e.target.value)} onPaste={e => handleBulkPaste(e, i, 0)} placeholder="Acme Corp" style={{ ...inputStyle, borderColor: bulkErrors[`${i}-company_name`] ? "#EF4444" : "#e2e8f0" }} />
+                          </td>
+                          <td style={{ padding: 4 }}>
+                            <select value={row.employee_count_range} onChange={e => updateBulkRow(i, "employee_count_range", e.target.value)} onPaste={e => handleBulkPaste(e, i, 1)} style={{ ...inputStyle, borderColor: bulkErrors[`${i}-employee_count_range`] ? "#EF4444" : "#e2e8f0" }}>
+                              <option value="">Select</option>
+                              {EMPLOYEE_RANGES.map(r => <option key={r} value={r}>{r}</option>)}
+                            </select>
+                          </td>
+                          <td style={{ padding: 4 }}>
+                            <select value={row.industry} onChange={e => updateBulkRow(i, "industry", e.target.value)} onPaste={e => handleBulkPaste(e, i, 2)} style={{ ...inputStyle, borderColor: bulkErrors[`${i}-industry`] ? "#EF4444" : "#e2e8f0" }}>
+                              <option value="">Select</option>
+                              {INDUSTRIES.map(ind => <option key={ind} value={ind}>{ind}</option>)}
+                            </select>
+                          </td>
+                          <td style={{ padding: 4 }}>
+                            <select value={row.state} onChange={e => updateBulkRow(i, "state", e.target.value)} onPaste={e => handleBulkPaste(e, i, 3)} style={{ ...inputStyle, borderColor: bulkErrors[`${i}-state`] ? "#EF4444" : "#e2e8f0" }}>
+                              <option value="">Select</option>
+                              {US_STATES.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                          </td>
+                          <td style={{ padding: 4 }}>
+                            <input value={row.carrier} onChange={e => updateBulkRow(i, "carrier", e.target.value)} onPaste={e => handleBulkPaste(e, i, 4)} placeholder="Optional" style={inputStyle} />
+                          </td>
+                          <td style={{ padding: 4 }}>
+                            <input type="number" value={row.estimated_pepm} onChange={e => updateBulkRow(i, "estimated_pepm", e.target.value)} onPaste={e => handleBulkPaste(e, i, 5)} placeholder="$" style={{ ...inputStyle, width: 80 }} />
+                          </td>
+                          <td style={{ padding: 4 }}>
+                            <div style={{ display: "flex", gap: 4 }}>
+                              <select value={row.renewal_month} onChange={e => updateBulkRow(i, "renewal_month", e.target.value)} style={{ ...inputStyle, flex: 1, minWidth: 60 }}>
+                                <option value="">Mo</option>
+                                {MONTHS.map((m, mi) => <option key={m} value={String(mi + 1).padStart(2, "0")}>{m.slice(0, 3)}</option>)}
+                              </select>
+                              <select value={row.renewal_year} onChange={e => updateBulkRow(i, "renewal_year", e.target.value)} style={{ ...inputStyle, flex: 1, minWidth: 60 }}>
+                                <option value="">Yr</option>
+                                {YEARS.map(y => <option key={y} value={y}>{y}</option>)}
+                              </select>
+                            </div>
+                          </td>
+                          <td style={{ padding: 4, textAlign: "center" }}>
+                            {bulkRows.length > 1 && (
+                              <button onClick={() => setBulkRows(prev => prev.filter((_, j) => j !== i))} style={{ background: "none", border: "none", color: "#94a3b8", fontSize: 18, cursor: "pointer", padding: "0 4px", lineHeight: 1 }} title="Remove row">&times;</button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {bulkRows.length < 50 && (
+                  <button onClick={() => setBulkRows(prev => [...prev, EMPTY_ROW()])} style={{ background: "none", border: "1px dashed #e2e8f0", borderRadius: 8, padding: "8px 16px", fontSize: 13, color: "#64748b", cursor: "pointer", marginTop: 8, width: "100%" }}>
+                    + Add Row
+                  </button>
+                )}
+                {Object.keys(bulkErrors).length > 0 && (
+                  <p style={{ color: "#991b1b", fontSize: 13, marginTop: 12 }}>Please fill in all required fields (highlighted in red) before submitting.</p>
+                )}
+              </div>
+            )}
           </div>
         )}
 

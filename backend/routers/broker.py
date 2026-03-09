@@ -776,6 +776,130 @@ async def onboard_client(req: BrokerOnboardRequest, request: Request):
 
 
 # ---------------------------------------------------------------------------
+# POST /api/broker/clients/bulk-onboard — add multiple clients at once
+# ---------------------------------------------------------------------------
+
+class BulkOnboardRow(BaseModel):
+    company_name: str
+    employee_count_range: str
+    industry: str
+    state: str
+    carrier: Optional[str] = None
+    estimated_pepm: Optional[float] = None
+    renewal_month: Optional[str] = None  # format: "YYYY-MM"
+
+
+class BulkOnboardRequest(BaseModel):
+    broker_email: str
+    clients: list[BulkOnboardRow]
+
+
+@router.post("/clients/bulk-onboard")
+async def bulk_onboard(req: BulkOnboardRequest, request: Request):
+    check_rate_limit(request, max_requests=5)
+
+    sb = _get_supabase()
+    broker_email = req.broker_email.strip().lower()
+
+    # Verify broker exists
+    broker = sb.table("broker_accounts").select("id, firm_name").eq("email", broker_email).execute()
+    if not broker.data:
+        raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    firm_name = broker.data[0].get("firm_name", "")
+
+    if len(req.clients) > 50:
+        raise HTTPException(status_code=400, detail="Maximum 50 clients per bulk upload.")
+
+    # Validate all rows first
+    row_errors = []
+    for i, row in enumerate(req.clients):
+        missing = []
+        if not row.company_name.strip():
+            missing.append("company_name")
+        if not row.employee_count_range.strip():
+            missing.append("employee_count_range")
+        if not row.industry.strip():
+            missing.append("industry")
+        if not row.state.strip():
+            missing.append("state")
+        if missing:
+            row_errors.append({"row": i, "company_name": row.company_name, "missing_fields": missing})
+
+    if row_errors:
+        raise HTTPException(status_code=400, detail={"message": "Validation failed", "errors": row_errors})
+
+    site_url = os.environ.get("VITE_SITE_URL", "https://civicscale.ai")
+    results = []
+
+    for row in req.clients:
+        try:
+            link_email = f"pending-{uuid.uuid4().hex[:8]}@broker-onboarded"
+
+            link_data = {
+                "broker_email": broker_email,
+                "employer_email": link_email,
+                "status": "onboarded",
+                "company_name": row.company_name.strip(),
+                "employee_count_range": row.employee_count_range,
+                "industry": row.industry,
+                "state": row.state,
+                "carrier": row.carrier or "",
+            }
+            if row.renewal_month:
+                link_data["renewal_month"] = f"{row.renewal_month}-01"
+
+            sb.table("broker_employer_links").insert(link_data).execute()
+
+            # Compute PEPM
+            employee_count = _employee_range_midpoint(row.employee_count_range)
+            pepm = row.estimated_pepm
+            if not pepm:
+                benchmarks = get_benchmarks() or {}
+                national = benchmarks.get("national_averages", {})
+                pepm = national.get("employer_single_monthly_pepm", 558)
+
+            # Run benchmark
+            size_band = _range_to_size_band(row.employee_count_range)
+            benchmark_result = _run_benchmark(row.industry, size_band, row.state, pepm)
+
+            # Store benchmark
+            share_token = str(uuid.uuid4())
+            insert_data = {
+                "broker_email": broker_email,
+                "employer_email": link_email,
+                "company_name": row.company_name.strip(),
+                "employee_count": employee_count,
+                "industry": row.industry,
+                "state": row.state,
+                "carrier": row.carrier or "",
+                "estimated_pepm": pepm,
+                "benchmark_result": benchmark_result,
+                "share_token": share_token,
+            }
+            sb.table("broker_client_benchmarks").insert(insert_data).execute()
+
+            share_url = f"{site_url}/employer/shared-report/{share_token}"
+            results.append({
+                "company_name": row.company_name.strip(),
+                "success": True,
+                "share_url": share_url,
+                "benchmark_result": benchmark_result,
+                "error": None,
+            })
+        except Exception as exc:
+            results.append({
+                "company_name": row.company_name.strip(),
+                "success": False,
+                "share_url": None,
+                "benchmark_result": None,
+                "error": str(exc),
+            })
+
+    return {"results": results, "firm_name": firm_name}
+
+
+# ---------------------------------------------------------------------------
 # GET /api/broker/clients/{employer_email}/share-link?broker_email=...
 # ---------------------------------------------------------------------------
 
