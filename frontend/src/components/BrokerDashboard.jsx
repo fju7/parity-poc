@@ -85,9 +85,17 @@ export default function BrokerDashboard() {
   const logoInputRef = useRef(null);
 
   // Tab state
-  const [activeTab, setActiveTab] = useState("book"); // "book" or "renewals"
+  const [activeTab, setActiveTab] = useState("book"); // "book", "renewals", or "prospects"
   const [renewalData, setRenewalData] = useState(null);
   const [renewalLoading, setRenewalLoading] = useState(false);
+
+  // Prospect state
+  const [prospectForm, setProspectForm] = useState({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "" });
+  const [prospectLoading, setProspectLoading] = useState(false);
+  const [prospectResult, setProspectResult] = useState(null);
+  const [prospectError, setProspectError] = useState("");
+  const [recentProspects, setRecentProspects] = useState([]);
+  const [prospectsLoaded, setProspectsLoaded] = useState(false);
 
   // Share / notify state
   const [shareLoading, setShareLoading] = useState(false);
@@ -138,6 +146,52 @@ export default function BrokerDashboard() {
   }, [broker]);
 
   useEffect(() => { if (activeTab === "renewals") fetchRenewals(); }, [activeTab, fetchRenewals]);
+
+  const fetchProspects = useCallback(async () => {
+    if (!broker) return;
+    try {
+      const res = await fetch(`${API}/api/broker/prospects?broker_email=${encodeURIComponent(broker.email)}`);
+      if (res.ok) { const data = await res.json(); setRecentProspects(data.prospects || []); }
+    } catch (err) { console.error("Failed to fetch prospects:", err); }
+    setProspectsLoaded(true);
+  }, [broker]);
+
+  useEffect(() => { if (activeTab === "prospects" && !prospectsLoaded) fetchProspects(); }, [activeTab, prospectsLoaded, fetchProspects]);
+
+  const handleProspectSubmit = async (e) => {
+    e.preventDefault();
+    if (!prospectForm.company_name.trim()) return;
+    setProspectLoading(true);
+    setProspectError("");
+    setProspectResult(null);
+    try {
+      const res = await fetch(`${API}/api/broker/prospect-benchmark`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ broker_email: broker.email, ...prospectForm }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed to run prospect benchmark.");
+      setProspectResult(data);
+      fetchProspects();
+    } catch (err) { setProspectError(err.message); }
+    setProspectLoading(false);
+  };
+
+  const addProspectAsClient = (prospect) => {
+    setAddForm({
+      company_name: prospect.company_name || "",
+      employee_count_range: prospect.employee_count_range || "<100",
+      industry: prospect.industry || "Manufacturing",
+      state: prospect.state || "NY",
+      carrier: prospect.carrier || "",
+      employer_email: "", estimated_pepm: "", estimated_annual_spend: "", renewal_month: "", renewal_year: "",
+    });
+    setShowAddPanel(true);
+    setAddError("");
+    setOnboardResult(null);
+    setActiveTab("book");
+  };
 
   // Fetch client summary
   const fetchSummary = useCallback(async (employerEmail) => {
@@ -450,6 +504,7 @@ export default function BrokerDashboard() {
           {[
             { key: "book", label: "Book of Business" },
             { key: "renewals", label: "Renewals" },
+            { key: "prospects", label: "Prospects" },
           ].map((tab) => (
             <button
               key={tab.key}
@@ -563,6 +618,149 @@ export default function BrokerDashboard() {
                 )}
               </div>
             ) : null}
+          </div>
+        )}
+
+        {/* ==================== PROSPECTS TAB ==================== */}
+        {activeTab === "prospects" && (
+          <div>
+            {/* Prospect form */}
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, marginBottom: 24 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 16px" }}>Run a Prospect Assessment</h3>
+              <p style={{ fontSize: 13, color: "#64748b", margin: "0 0 16px", lineHeight: 1.6 }}>
+                Generate a preliminary benchmark for a potential client using only publicly available information. Use this as a conversation starter in your first meeting.
+              </p>
+              <form onSubmit={handleProspectSubmit}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 12 }}>
+                  <div>
+                    <label style={{ fontSize: 12, color: "#64748b", fontWeight: 500 }}>Company Name *</label>
+                    <input value={prospectForm.company_name} onChange={e => setProspectForm({ ...prospectForm, company_name: e.target.value })} placeholder="Acme Corp" required style={{ width: "100%", padding: "8px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, marginTop: 4, boxSizing: "border-box" }} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, color: "#64748b", fontWeight: 500 }}>Employees *</label>
+                    <select value={prospectForm.employee_count_range} onChange={e => setProspectForm({ ...prospectForm, employee_count_range: e.target.value })} style={{ width: "100%", padding: "8px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, marginTop: 4, boxSizing: "border-box" }}>
+                      {EMPLOYEE_RANGES.map(r => <option key={r} value={r}>{EMPLOYEE_LABELS[r]}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, color: "#64748b", fontWeight: 500 }}>Industry *</label>
+                    <select value={prospectForm.industry} onChange={e => setProspectForm({ ...prospectForm, industry: e.target.value })} style={{ width: "100%", padding: "8px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, marginTop: 4, boxSizing: "border-box" }}>
+                      {INDUSTRIES.map(i => <option key={i} value={i}>{i}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 16 }}>
+                  <div>
+                    <label style={{ fontSize: 12, color: "#64748b", fontWeight: 500 }}>State *</label>
+                    <select value={prospectForm.state} onChange={e => setProspectForm({ ...prospectForm, state: e.target.value })} style={{ width: "100%", padding: "8px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, marginTop: 4, boxSizing: "border-box" }}>
+                      {US_STATES.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, color: "#64748b", fontWeight: 500 }}>Current Carrier (optional)</label>
+                    <input value={prospectForm.carrier} onChange={e => setProspectForm({ ...prospectForm, carrier: e.target.value })} placeholder="e.g. Cigna, BCBS" style={{ width: "100%", padding: "8px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, marginTop: 4, boxSizing: "border-box" }} />
+                  </div>
+                  <div style={{ display: "flex", alignItems: "flex-end" }}>
+                    <button type="submit" disabled={prospectLoading || !prospectForm.company_name.trim()} style={{ width: "100%", background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "9px 16px", fontSize: 14, fontWeight: 600, cursor: prospectLoading ? "wait" : "pointer", opacity: prospectLoading ? 0.6 : 1 }}>
+                      {prospectLoading ? "Running..." : "Run Prospect Assessment \u2192"}
+                    </button>
+                  </div>
+                </div>
+                {prospectError && <p style={{ color: "#EF4444", fontSize: 13, margin: "0 0 8px" }}>{prospectError}</p>}
+              </form>
+            </div>
+
+            {/* Prospect results */}
+            {prospectResult && (
+              <div id="prospect-result" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, marginBottom: 24 }}>
+                <h3 style={{ fontSize: 18, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>
+                  {prospectResult.company_name} &mdash; Preliminary Assessment
+                </h3>
+                <p style={{ fontSize: 13, color: "#64748b", margin: "0 0 16px" }}>{prospectResult.segment}</p>
+
+                {/* Disclaimer */}
+                <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 10, padding: "12px 16px", marginBottom: 20 }}>
+                  <p style={{ margin: 0, fontSize: 13, color: "#92400e", lineHeight: 1.6 }}>{prospectResult.disclaimer}</p>
+                </div>
+
+                {/* Typical range */}
+                <p style={{ fontSize: 13, color: "#64748b", fontWeight: 500, margin: "0 0 10px" }}>Typical cost range for {prospectResult.segment}</p>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 20 }}>
+                  <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 10, padding: "16px 12px", textAlign: "center" }}>
+                    <p style={{ fontSize: 11, color: "#166534", margin: "0 0 4px", fontWeight: 500 }}>25th Percentile</p>
+                    <p style={{ fontSize: 24, fontWeight: 700, color: "#166534", margin: 0 }}>${Math.round(prospectResult.typical_range.p25)}</p>
+                    <p style={{ fontSize: 11, color: "#64748b", margin: "4px 0 0" }}>PEPM</p>
+                  </div>
+                  <div style={{ background: "#eff6ff", border: "1px solid #bfdbfe", borderRadius: 10, padding: "16px 12px", textAlign: "center" }}>
+                    <p style={{ fontSize: 11, color: "#1d4ed8", margin: "0 0 4px", fontWeight: 500 }}>Median</p>
+                    <p style={{ fontSize: 24, fontWeight: 700, color: "#1d4ed8", margin: 0 }}>${Math.round(prospectResult.typical_range.p50)}</p>
+                    <p style={{ fontSize: 11, color: "#64748b", margin: "4px 0 0" }}>PEPM</p>
+                  </div>
+                  <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, padding: "16px 12px", textAlign: "center" }}>
+                    <p style={{ fontSize: 11, color: "#991b1b", margin: "0 0 4px", fontWeight: 500 }}>75th Percentile</p>
+                    <p style={{ fontSize: 24, fontWeight: 700, color: "#991b1b", margin: 0 }}>${Math.round(prospectResult.typical_range.p75)}</p>
+                    <p style={{ fontSize: 11, color: "#64748b", margin: "4px 0 0" }}>PEPM</p>
+                  </div>
+                </div>
+
+                {/* Talking points */}
+                <p style={{ fontSize: 13, color: "#64748b", fontWeight: 500, margin: "0 0 10px" }}>Talking Points</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
+                  {prospectResult.talking_points.map((tp, i) => (
+                    <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                      <div style={{ width: 20, height: 20, borderRadius: "50%", background: "#f0fdfa", border: "1px solid #99f6e4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#0D7377", flexShrink: 0 }}>{i + 1}</div>
+                      <p style={{ margin: 0, fontSize: 14, color: "#475569", lineHeight: 1.7 }}>{tp}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action buttons */}
+                <div style={{ display: "flex", gap: 12 }}>
+                  <button onClick={() => addProspectAsClient(prospectResult)} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
+                    Add as Client &rarr;
+                  </button>
+                  <button onClick={() => { const el = document.getElementById("prospect-result"); if (el) { el.style.padding = "32px"; window.print(); el.style.padding = "24px"; }}} style={{ background: "#fff", color: "#0D7377", border: "1px solid #0D7377", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
+                    Download One-Pager &rarr;
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Recent prospect assessments */}
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden" }}>
+              <div style={{ padding: "16px 20px", borderBottom: "1px solid #e2e8f0" }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, color: "#1B3A5C", margin: 0 }}>Recent Prospect Assessments</h3>
+              </div>
+              {recentProspects.length === 0 ? (
+                <div style={{ padding: 32, textAlign: "center", color: "#94a3b8", fontSize: 14 }}>
+                  No prospect assessments yet. Use the form above to assess a potential client before your first meeting.
+                </div>
+              ) : (
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <thead>
+                    <tr style={{ background: "#f8fafc" }}>
+                      <th style={{ padding: "10px 16px", textAlign: "left", fontSize: 12, color: "#64748b", fontWeight: 500 }}>Company</th>
+                      <th style={{ padding: "10px 16px", textAlign: "left", fontSize: 12, color: "#64748b", fontWeight: 500 }}>Segment</th>
+                      <th style={{ padding: "10px 16px", textAlign: "left", fontSize: 12, color: "#64748b", fontWeight: 500 }}>Date</th>
+                      <th style={{ padding: "10px 16px", textAlign: "right", fontSize: 12, color: "#64748b", fontWeight: 500 }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {recentProspects.map((p) => (
+                      <tr key={p.id} style={{ borderTop: "1px solid #f1f5f9" }}>
+                        <td style={{ padding: "10px 16px", fontSize: 14, fontWeight: 500, color: "#1B3A5C" }}>{p.company_name}</td>
+                        <td style={{ padding: "10px 16px", fontSize: 13, color: "#64748b" }}>{p.result_json?.segment || `${p.industry} \u00B7 ${p.state}`}</td>
+                        <td style={{ padding: "10px 16px", fontSize: 13, color: "#64748b" }}>{new Date(p.created_at).toLocaleDateString()}</td>
+                        <td style={{ padding: "10px 16px", textAlign: "right" }}>
+                          <button onClick={() => setProspectResult(p.result_json)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "4px 10px", fontSize: 12, color: "#475569", cursor: "pointer", marginRight: 6 }}>View</button>
+                          <button onClick={() => addProspectAsClient(p)} style={{ background: "none", border: "1px solid #0D7377", borderRadius: 6, padding: "4px 10px", fontSize: 12, color: "#0D7377", fontWeight: 500, cursor: "pointer" }}>Add as Client</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
           </div>
         )}
 

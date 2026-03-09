@@ -15,6 +15,8 @@ Endpoints:
   GET  /api/broker/renewal-pipeline — renewal timeline with checklist status
   GET  /api/broker/renewal-prep/{company_name} — assembled renewal prep report data
   POST /api/broker/send-renewal-reminders — cron-triggered 90-day renewal reminders
+  POST /api/broker/prospect-benchmark — preliminary benchmark for a prospect
+  GET  /api/broker/prospects — list recent prospect benchmarks
 """
 
 import os
@@ -1819,3 +1821,139 @@ async def send_renewal_reminders(request: Request):
         sent_count += 1
 
     return {"sent": sent_count}
+
+
+# ---------------------------------------------------------------------------
+# Prospect benchmarking — preliminary assessments for potential clients
+# ---------------------------------------------------------------------------
+
+class ProspectBenchmarkRequest(BaseModel):
+    broker_email: str
+    company_name: str
+    employee_count_range: str
+    industry: str
+    state: str
+    carrier: Optional[str] = None
+
+
+@router.post("/prospect-benchmark")
+async def prospect_benchmark(req: ProspectBenchmarkRequest, request: Request):
+    """Run a preliminary benchmark for a prospect using only segment data (no PEPM)."""
+    check_rate_limit(request, max_requests=20)
+
+    sb = _get_supabase()
+    broker_email = req.broker_email.strip().lower()
+
+    # Verify broker exists
+    broker = sb.table("broker_accounts").select("id").eq("email", broker_email).execute()
+    if not broker.data:
+        raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    # Build segment distribution
+    from routers.employer_benchmark import _interpret_percentile
+    from data.employer_benchmarks.industry_mapping import resolve_industry
+
+    benchmarks = get_benchmarks()
+    if not benchmarks:
+        raise HTTPException(status_code=500, detail="Benchmark data not loaded.")
+
+    national = benchmarks.get("national_averages", {})
+    by_industry = benchmarks.get("by_industry", {})
+    by_state = benchmarks.get("by_state", {})
+
+    meps_industry = resolve_industry(req.industry)
+    industry_data = by_industry.get(meps_industry, {})
+    industry_median = industry_data.get("employer_single_pepm") or national.get("employer_single_monthly_pepm", 558)
+
+    state_data = by_state.get(req.state, {})
+    state_factor = state_data.get("cost_index", 1.0)
+
+    # Build percentile distribution
+    has_industry_pctiles = bool(industry_data.get("p10_pepm"))
+    if has_industry_pctiles:
+        p10 = round(industry_data["p10_pepm"] * state_factor, 2)
+        p25 = round(industry_data["p25_pepm"] * state_factor, 2)
+        p50 = round(industry_data["p50_pepm"] * state_factor, 2)
+        p75 = round(industry_data["p75_pepm"] * state_factor, 2)
+        p90 = round(industry_data["p90_pepm"] * state_factor, 2)
+    else:
+        p10 = round(national.get("p10_pepm", 342) * state_factor, 2)
+        p25 = round(national.get("p25_pepm", 441) * state_factor, 2)
+        p50 = round(national.get("p50_pepm", 552) * state_factor, 2)
+        p75 = round(national.get("p75_pepm", 658) * state_factor, 2)
+        p90 = round(national.get("p90_pepm", 789) * state_factor, 2)
+
+    size_band = _range_to_size_band(req.employee_count_range)
+    segment = f"{req.industry} \u00B7 {size_band} \u00B7 {req.state}"
+
+    # Talking points
+    talking_points = [
+        f"Employers in {req.industry} in {req.state} typically spend between ${int(p25)} and ${int(p75)} per employee per month on health coverage.",
+    ]
+
+    if req.industry in ("Construction", "Manufacturing"):
+        talking_points.append(
+            "Physical labor industries tend to have higher-than-average orthopedic and injury-related costs \u2014 procedure-level analysis often identifies significant savings opportunities."
+        )
+    elif req.industry in ("Professional Services", "Finance / Real Estate / Insurance"):
+        talking_points.append(
+            "White-collar employers often have higher specialty and mental health utilization \u2014 pharmacy costs are frequently the fastest-growing line item."
+        )
+
+    if req.employee_count_range in ("250-500", "500-1000", "1000+"):
+        talking_points.append(
+            "Employers your size are typically self-insured or could benefit from self-funding analysis \u2014 reference-based pricing programs have shown 15\u201325% savings in this segment."
+        )
+
+    talking_points.append(
+        "Without seeing your actual claims data, we can\u2019t confirm where you fall in this range \u2014 but this gives us a starting point for your renewal conversation."
+    )
+
+    result_json = {
+        "company_name": req.company_name,
+        "segment": segment,
+        "typical_range": {"p25": p25, "p50": p50, "p75": p75},
+        "full_distribution": {"p10": p10, "p25": p25, "p50": p50, "p75": p75, "p90": p90},
+        "industry_median": round(industry_median, 2),
+        "state_cost_index": state_factor,
+        "talking_points": talking_points,
+        "disclaimer": "This is a preliminary assessment based on industry benchmarks for similar employers. Actual costs require plan data to confirm.",
+    }
+
+    # Persist
+    try:
+        sb.table("broker_prospect_benchmarks").insert({
+            "broker_email": broker_email,
+            "company_name": req.company_name,
+            "employee_count_range": req.employee_count_range,
+            "industry": req.industry,
+            "state": req.state,
+            "carrier": req.carrier or "",
+            "result_json": result_json,
+        }).execute()
+    except Exception as exc:
+        print(f"[ProspectBenchmark] Failed to save: {exc}")
+
+    return result_json
+
+
+@router.get("/prospects")
+async def list_prospects(broker_email: str):
+    """Return recent prospect benchmarks for a broker."""
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+
+    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
+    if not broker.data:
+        raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    prospects = (
+        sb.table("broker_prospect_benchmarks")
+        .select("id, company_name, employee_count_range, industry, state, carrier, result_json, created_at")
+        .eq("broker_email", email)
+        .order("created_at", desc=True)
+        .limit(50)
+        .execute()
+    )
+
+    return {"prospects": prospects.data or []}
