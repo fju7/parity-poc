@@ -54,33 +54,68 @@ const CARRIERS = [
   },
 ];
 
-const TEMPLATE = `Subject: CAA Section 201 Claims Data Request \u2014 [Company Name] Plan Year [YEAR]
+const CARRIER_OPTIONS = ["UnitedHealthcare", "Cigna", "Aetna / CVS Health", "Anthem / Elevance Health", "BCBS", "Other"];
 
-Dear [Carrier] Client Services / Account Team,
+function buildLetterText(f) {
+  const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  return `${today}
 
-Pursuant to Section 201 of the Consolidated Appropriations Act of 2021 and its implementing regulations, I am formally requesting machine-readable claims data for the following plan:
+${f.carrier}${f.carrier === "Other" && f.carrierOther ? ` (${f.carrierOther})` : ""} \u2014 Employer Services / Client Relations
 
-Plan Sponsor: [Employer Name]
-Group Number: [Group ID]
-Plan Year: [YEAR]
-Requested Format: 835 EDI transaction files or equivalent HIPAA-compliant machine-readable format
-Scope: All medical and pharmacy claims for the requested plan year
+RE: CAA Section 201 Claims Data Request
+Plan Sponsor: ${f.companyName}
+Group/Policy Number: ${f.policyNumber}
+Plan Year: ${f.planYear}
 
-Please confirm receipt of this request and provide an expected delivery timeline. If there are any questions or additional authorization requirements, please contact me directly.
+To Whom It May Concern:
 
-[Broker Name]
-[Firm]
-[Email / Phone]`;
+Pursuant to Section 201 of the Consolidated Appropriations Act of 2021 and its implementing regulations, I am formally requesting machine-readable claims data for the above-referenced plan.
+
+Requested format: 835 EDI transaction files or equivalent HIPAA-compliant machine-readable format
+Scope: All medical and pharmacy claims for plan year ${f.planYear}
+
+Please confirm receipt of this request and provide an expected delivery timeline. Federal regulations require a response within 30 days.
+
+If there are any questions or additional authorization requirements, please contact me directly.
+
+Sincerely,
+
+${f.brokerName}
+${f.brokerFirm}
+${f.brokerEmail}${f.brokerPhone ? "\n" + f.brokerPhone : ""}`;
+}
 
 export default function CAABrokerGuide() {
+  const [form, setForm] = useState({
+    companyName: "", policyNumber: "", carrier: "UnitedHealthcare", carrierOther: "",
+    planYear: "2025", brokerName: "", brokerFirm: "", brokerEmail: "", brokerPhone: "",
+  });
   const [copied, setCopied] = useState(false);
 
-  const copyTemplate = () => {
-    navigator.clipboard.writeText(TEMPLATE).then(() => {
+  const u = (field, val) => setForm({ ...form, [field]: val });
+  const isComplete = form.companyName.trim() && form.policyNumber.trim() && form.carrier && form.planYear;
+  const letterText = isComplete ? buildLetterText(form) : "";
+
+  const copyLetter = () => {
+    navigator.clipboard.writeText(letterText).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   };
+
+  const downloadLetter = () => {
+    const safeName = form.companyName.replace(/[^a-zA-Z0-9]/g, "-").replace(/-+/g, "-");
+    const blob = new Blob([letterText], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `CAA-Request-${safeName}-${form.planYear}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const inputStyle = { width: "100%", padding: "8px 12px", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "8px", fontSize: "14px", background: "rgba(255,255,255,0.04)", color: "#e2e8f0", boxSizing: "border-box" };
+  const labelStyle = { fontSize: "12px", color: "#94a3b8", fontWeight: "500", marginBottom: "4px", display: "block" };
 
   return (
     <div style={{ minHeight: "100vh", background: "#0a1628", color: "#e2e8f0", fontFamily: "'DM Sans', sans-serif" }}>
@@ -153,29 +188,84 @@ export default function CAABrokerGuide() {
           </div>
         ))}
 
-        {/* Sample Request Letter */}
+        {/* Letter Generator */}
         <div style={{ marginTop: "40px", marginBottom: "40px" }}>
-          <div style={{ fontSize: "20px", fontWeight: "600", color: "#f1f5f9", marginBottom: "8px" }}>Sample Request Letter</div>
+          <div style={{ fontSize: "20px", fontWeight: "600", color: "#f1f5f9", marginBottom: "8px" }}>Generate Your Request Letter</div>
           <p style={{ fontSize: "14px", color: "#64748b", marginBottom: "16px" }}>
-            Copy and customize this template. Send via email and follow up in writing if no response within 10 business days.
+            Fill in the details below to generate a pre-filled CAA Section 201 request letter. Send via email and follow up in writing if no response within 10 business days.
           </p>
-          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "20px", position: "relative" }}>
-            <pre style={{ margin: 0, fontSize: "13px", color: "#cbd5e1", lineHeight: "1.7", whiteSpace: "pre-wrap", wordWrap: "break-word", fontFamily: "'DM Sans', sans-serif" }}>
-              {TEMPLATE}
-            </pre>
-            <button
-              onClick={copyTemplate}
-              style={{
-                position: "absolute", top: "12px", right: "12px",
-                background: copied ? "#10b981" : "#3b82f6",
-                color: "#fff", border: "none", borderRadius: "6px",
-                padding: "8px 16px", fontSize: "13px", fontWeight: "600",
-                cursor: "pointer", transition: "background 0.2s",
-              }}
-            >
-              {copied ? "Copied!" : "Copy Template"}
-            </button>
+
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", padding: "24px", marginBottom: "20px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
+              <div>
+                <label style={labelStyle}>Employer/Plan Sponsor Name *</label>
+                <input value={form.companyName} onChange={e => u("companyName", e.target.value)} placeholder="Acme Corp" style={inputStyle} />
+              </div>
+              <div>
+                <label style={labelStyle}>Group/Policy Number *</label>
+                <input value={form.policyNumber} onChange={e => u("policyNumber", e.target.value)} placeholder="GRP-12345" style={inputStyle} />
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
+              <div>
+                <label style={labelStyle}>Carrier *</label>
+                <select value={form.carrier} onChange={e => u("carrier", e.target.value)} style={inputStyle}>
+                  {CARRIER_OPTIONS.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+                {form.carrier === "Other" && (
+                  <input value={form.carrierOther} onChange={e => u("carrierOther", e.target.value)} placeholder="Carrier name" style={{ ...inputStyle, marginTop: "6px" }} />
+                )}
+              </div>
+              <div>
+                <label style={labelStyle}>Plan Year *</label>
+                <select value={form.planYear} onChange={e => u("planYear", e.target.value)} style={inputStyle}>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                </select>
+              </div>
+            </div>
+            <div style={{ fontSize: "13px", fontWeight: "600", color: "#cbd5e1", margin: "16px 0 8px" }}>Your signature (optional)</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
+              <div>
+                <label style={labelStyle}>Broker Name</label>
+                <input value={form.brokerName} onChange={e => u("brokerName", e.target.value)} placeholder="Jane Smith" style={inputStyle} />
+              </div>
+              <div>
+                <label style={labelStyle}>Broker Firm</label>
+                <input value={form.brokerFirm} onChange={e => u("brokerFirm", e.target.value)} placeholder="Smith Benefits Group" style={inputStyle} />
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+              <div>
+                <label style={labelStyle}>Broker Email</label>
+                <input value={form.brokerEmail} onChange={e => u("brokerEmail", e.target.value)} placeholder="jane@smithbenefits.com" style={inputStyle} />
+              </div>
+              <div>
+                <label style={labelStyle}>Broker Phone (optional)</label>
+                <input value={form.brokerPhone} onChange={e => u("brokerPhone", e.target.value)} placeholder="(555) 123-4567" style={inputStyle} />
+              </div>
+            </div>
           </div>
+
+          {isComplete && (
+            <div style={{ background: "#fff", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "10px", padding: "28px 32px", marginBottom: "16px" }}>
+              <pre style={{ margin: 0, fontSize: "13px", color: "#334155", lineHeight: "1.8", whiteSpace: "pre-wrap", wordWrap: "break-word", fontFamily: "Georgia, 'Times New Roman', serif" }}>
+                {letterText}
+              </pre>
+            </div>
+          )}
+
+          {isComplete && (
+            <div style={{ display: "flex", gap: "12px" }}>
+              <button onClick={copyLetter} style={{ background: copied ? "#10b981" : "#3b82f6", color: "#fff", border: "none", borderRadius: "8px", padding: "10px 20px", fontSize: "14px", fontWeight: "600", cursor: "pointer", transition: "background 0.2s" }}>
+                {copied ? "Copied \u2713" : "Copy Letter"}
+              </button>
+              <button onClick={downloadLetter} style={{ background: "rgba(255,255,255,0.06)", color: "#e2e8f0", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "10px 20px", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>
+                Download as .txt
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Once you have the data */}

@@ -13,6 +13,39 @@ export default function EmployerClaimsCheck() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [caaOpen, setCaaOpen] = useState(false);
+  const [caaForm, setCaaForm] = useState({
+    companyName: "", policyNumber: "", carrier: "UnitedHealthcare", carrierOther: "",
+    planYear: "2025", contactName: "", contactEmail: "", contactPhone: "",
+  });
+  const [caaCopied, setCaaCopied] = useState(false);
+
+  const caaU = (field, val) => setCaaForm({ ...caaForm, [field]: val });
+  const caaCarrierOptions = ["UnitedHealthcare", "Cigna", "Aetna / CVS Health", "Anthem / Elevance Health", "BCBS", "Other"];
+  const caaIsComplete = caaForm.companyName.trim() && caaForm.policyNumber.trim() && caaForm.carrier && caaForm.planYear;
+
+  const buildCaaLetter = () => {
+    const f = caaForm;
+    const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    return `${today}\n\n${f.carrier}${f.carrier === "Other" && f.carrierOther ? ` (${f.carrierOther})` : ""} \u2014 Employer Services / Client Relations\n\nRE: CAA Section 201 Claims Data Request\nPlan Sponsor: ${f.companyName}\nGroup/Policy Number: ${f.policyNumber}\nPlan Year: ${f.planYear}\n\nTo Whom It May Concern:\n\nI am the plan sponsor / authorized representative for the above-referenced employer health plan and am formally requesting machine-readable claims data pursuant to Section 201 of the Consolidated Appropriations Act of 2021 and its implementing regulations.\n\nRequested format: 835 EDI transaction files or equivalent HIPAA-compliant machine-readable format\nScope: All medical and pharmacy claims for plan year ${f.planYear}\n\nPlease confirm receipt of this request and provide an expected delivery timeline. Federal regulations require a response within 30 days.\n\nIf there are any questions or additional authorization requirements, please contact me directly.\n\nSincerely,\n\n${f.contactName}${f.contactEmail ? "\n" + f.contactEmail : ""}${f.contactPhone ? "\n" + f.contactPhone : ""}`;
+  };
+
+  const copyCaaLetter = () => {
+    navigator.clipboard.writeText(buildCaaLetter()).then(() => {
+      setCaaCopied(true);
+      setTimeout(() => setCaaCopied(false), 2000);
+    });
+  };
+
+  const downloadCaaLetter = () => {
+    const safeName = caaForm.companyName.replace(/[^a-zA-Z0-9]/g, "-").replace(/-+/g, "-");
+    const blob = new Blob([buildCaaLetter()], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `CAA-Request-${safeName}-${caaForm.planYear}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const handleDrop = useCallback((e) => {
     e.preventDefault();
@@ -140,17 +173,77 @@ export default function EmployerClaimsCheck() {
                     If your company is fully insured (your carrier pays claims directly), you may not have received claims data automatically &mdash; but you have a legal right to it.
                   </p>
                   <p style={{ margin: "0 0 14px" }}>
-                    The Consolidated Appropriations Act of 2021 requires your carrier to provide machine-readable claims data upon request. This is your data, about your employees' healthcare, paid with your premium dollars.
+                    The Consolidated Appropriations Act of 2021 requires your carrier to provide machine-readable claims data upon request. Fill in the form below to generate a request letter you can send directly.
                   </p>
-                  <div style={{ fontWeight: "600", color: "#cbd5e1", marginBottom: "8px" }}>What to do:</div>
-                  <ol style={{ margin: "0 0 14px", paddingLeft: "20px" }}>
-                    <li style={{ marginBottom: "6px" }}>Contact your benefits broker and ask them to submit a CAA Section 201 data request to your carrier on your behalf</li>
-                    <li style={{ marginBottom: "6px" }}>If you don't have a broker, contact your carrier's employer services team directly and reference "CAA Section 201 claims data request"</li>
-                    <li>Once you receive the data, return here to upload it</li>
-                  </ol>
                   <p style={{ margin: "0 0 14px", fontSize: "13px", color: "#64748b" }}>
                     If you're self-insured, your TPA should be able to provide 835 transaction files directly &mdash; ask your administrator for claims data in 835 EDI format.
                   </p>
+
+                  {/* Letter generator form */}
+                  <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "16px", marginBottom: "14px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
+                      <div>
+                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Your Company Name *</label>
+                        <input value={caaForm.companyName} onChange={e => caaU("companyName", e.target.value)} placeholder="Acme Corp" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Group/Policy Number *</label>
+                        <input value={caaForm.policyNumber} onChange={e => caaU("policyNumber", e.target.value)} placeholder="GRP-12345" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
+                      </div>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
+                      <div>
+                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Carrier *</label>
+                        <select value={caaForm.carrier} onChange={e => caaU("carrier", e.target.value)} style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }}>
+                          {caaCarrierOptions.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                        {caaForm.carrier === "Other" && (
+                          <input value={caaForm.carrierOther} onChange={e => caaU("carrierOther", e.target.value)} placeholder="Carrier name" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box", marginTop: "6px" }} />
+                        )}
+                      </div>
+                      <div>
+                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Plan Year *</label>
+                        <select value={caaForm.planYear} onChange={e => caaU("planYear", e.target.value)} style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }}>
+                          <option value="2024">2024</option>
+                          <option value="2025">2025</option>
+                          <option value="2026">2026</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px" }}>
+                      <div>
+                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Contact Name</label>
+                        <input value={caaForm.contactName} onChange={e => caaU("contactName", e.target.value)} placeholder="Your name" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Contact Email</label>
+                        <input value={caaForm.contactEmail} onChange={e => caaU("contactEmail", e.target.value)} placeholder="you@company.com" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Phone (optional)</label>
+                        <input value={caaForm.contactPhone} onChange={e => caaU("contactPhone", e.target.value)} placeholder="(555) 123-4567" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {caaIsComplete && (
+                    <>
+                      <div style={{ background: "#fff", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "20px 24px", marginBottom: "12px" }}>
+                        <pre style={{ margin: 0, fontSize: "12px", color: "#334155", lineHeight: "1.8", whiteSpace: "pre-wrap", wordWrap: "break-word", fontFamily: "Georgia, 'Times New Roman', serif" }}>
+                          {buildCaaLetter()}
+                        </pre>
+                      </div>
+                      <div style={{ display: "flex", gap: "10px", marginBottom: "14px" }}>
+                        <button onClick={copyCaaLetter} style={{ background: caaCopied ? "#10b981" : "#3b82f6", color: "#fff", border: "none", borderRadius: "6px", padding: "8px 16px", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
+                          {caaCopied ? "Copied \u2713" : "Copy Letter"}
+                        </button>
+                        <button onClick={downloadCaaLetter} style={{ background: "rgba(255,255,255,0.06)", color: "#e2e8f0", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "6px", padding: "8px 16px", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
+                          Download as .txt
+                        </button>
+                      </div>
+                    </>
+                  )}
+
                   <Link to="/broker/caa-guide" style={{ color: "#60a5fa", fontSize: "13px", textDecoration: "none", fontWeight: "500" }}>
                     Broker guide: How to request claims data from major carriers &rarr;
                   </Link>
