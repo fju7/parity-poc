@@ -27,6 +27,7 @@ import EmployerScorecard from './components/EmployerScorecard.jsx'
 import EmployerSubscribe from './components/EmployerSubscribe.jsx'
 import EmployerContractParser from './components/EmployerContractParser.jsx'
 import EmployerRBPCalculator from './components/EmployerRBPCalculator.jsx'
+import ParityHealthLandingPage from './components/ParityHealthLandingPage.jsx'
 import BrokerLoginPage from './components/BrokerLoginPage.jsx'
 import BrokerDashboard from './components/BrokerDashboard.jsx'
 import EmployerSharedReport from './components/EmployerSharedReport.jsx'
@@ -69,6 +70,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/report/:token" element={<PublicAuditReport />} />
         <Route path="/provider/*" element={<ProviderApp />} />
         <Route path="/signal/*" element={<SignalApp />} />
+        <Route path="/parity-health" element={<ParityHealthLandingPage />} />
         <Route path="/parity-health/*" element={<App />} />
       </Routes>
     </BrowserRouter>

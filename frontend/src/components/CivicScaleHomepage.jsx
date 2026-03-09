@@ -135,10 +135,6 @@ export default function CivicScaleHomepage() {
           background: "radial-gradient(ellipse, rgba(20,184,166,0.08) 0%, transparent 70%)",
           pointerEvents: "none"
         }} />
-        <p style={{
-          fontSize: "13px", fontWeight: "500", letterSpacing: "0.12em",
-          textTransform: "uppercase", color: "#14b8a6", marginBottom: "24px"
-        }}>AI-Powered Benchmark Intelligence</p>
         <h1 style={{
           fontFamily: "'DM Serif Display', serif",
           fontSize: "clamp(36px, 5vw, 62px)",
@@ -146,33 +142,18 @@ export default function CivicScaleHomepage() {
           color: "#f1f5f9", marginBottom: "28px",
           letterSpacing: "-0.02em"
         }}>
-          The evidence should be clear.<br />
-          <span style={{ color: "#14b8a6" }}>The numbers should be right.</span>
+          Most employers overpay for healthcare.<br />
+          Most physicians get underpaid.<br />
+          <span style={{ color: "#14b8a6" }}>Most patients can't read their bills.</span>
         </h1>
         <p style={{
           fontSize: "18px", lineHeight: "1.7", color: "#94a3b8",
-          maxWidth: "680px", margin: "0 auto 48px"
+          maxWidth: "680px", margin: "0 auto"
         }}>
-          CivicScale builds AI tools that surface what's hidden — in medical bills,
-          insurance claims, and public evidence. We make invisible analytical choices
-          visible so individuals and organizations can make informed decisions.
+          CivicScale gives patients, physicians, and employers clear data on what healthcare
+          actually costs — so you can make better decisions, ask better questions,
+          and get better outcomes.
         </p>
-        <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
-          <Link to="/signal" style={{
-            background: "linear-gradient(135deg, #0d9488, #14b8a6)",
-            color: "#0a1628", border: "none", borderRadius: "8px",
-            padding: "14px 28px", fontSize: "15px", fontWeight: "600",
-            cursor: "pointer", fontFamily: "inherit", textDecoration: "none",
-            display: "inline-block"
-          }}>Explore Parity Signal &rarr;</Link>
-          <Link to="/billing" style={{
-            background: "linear-gradient(135deg, #2563eb, #3b82f6)",
-            color: "#0a1628", border: "none", borderRadius: "8px",
-            padding: "14px 28px", fontSize: "15px", fontWeight: "600",
-            cursor: "pointer", fontFamily: "inherit", textDecoration: "none",
-            display: "inline-block"
-          }}>Billing Products &rarr;</Link>
-        </div>
       </section>
 
       <section className="cs-home-section" style={{
@@ -196,92 +177,80 @@ export default function CivicScaleHomepage() {
         </div>
       </section>
 
-      <div className="cs-home-section" style={{
-        display: "flex", alignItems: "center", gap: "20px",
-        maxWidth: "1100px", margin: "0 auto", paddingTop: "0", paddingBottom: "48px"
+      <section className="cs-home-section" style={{
+        paddingTop: "0", paddingBottom: "80px", maxWidth: "1100px", margin: "0 auto"
       }}>
-        <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
-        <span style={{
-          fontSize: "12px", fontWeight: "600", letterSpacing: "0.1em",
-          textTransform: "uppercase", color: "#64748b"
-        }}>Two Product Lines, One Engine</span>
-        <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
-      </div>
-
-      <section className="cs-home-products-grid cs-home-section" style={{
-        paddingTop: "0", paddingBottom: "100px", maxWidth: "1100px", margin: "0 auto"
-      }}>
-        <Link to="/signal" style={{ textDecoration: "none", color: "inherit", display: "flex" }}
-          onMouseEnter={() => setHoveredProduct("signal")} onMouseLeave={() => setHoveredProduct(null)}>
-          <div style={{
-            background: hoveredProduct === "signal" ? "rgba(20,184,166,0.06)" : "rgba(255,255,255,0.02)",
-            border: hoveredProduct === "signal" ? "1px solid rgba(20,184,166,0.25)" : "1px solid rgba(255,255,255,0.06)",
-            borderRadius: "16px", padding: "40px", transition: "all 0.3s ease",
-            cursor: "pointer", display: "flex", flexDirection: "column", width: "100%"
-          }}>
-            <div style={{ display: "inline-block", background: "rgba(20,184,166,0.12)", borderRadius: "8px", padding: "8px 14px", marginBottom: "20px", alignSelf: "flex-start" }}>
-              <span style={{ fontSize: "13px", fontWeight: "600", color: "#14b8a6" }}>PARITY SIGNAL</span>
-            </div>
-            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "28px", fontWeight: "400", color: "#f1f5f9", marginBottom: "16px" }}>Evidence Intelligence</h2>
-            <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "28px" }}>
-              AI-scored evidence analysis for complex public issues. Subscribe to topics that matter to you and get transparent, grounded assessments of what the evidence actually says — from drug safety to public policy.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "28px" }}>
-              {["GLP-1 Drugs", "Breast Cancer Therapies", "Social Media & Teen Mental Health"].map(t => (
-                <span key={t} style={{ fontSize: "12px", padding: "5px 12px", borderRadius: "20px", background: "rgba(20,184,166,0.1)", color: "#5eead4", border: "1px solid rgba(20,184,166,0.2)" }}>{t}</span>
-              ))}
-              <span style={{ fontSize: "12px", padding: "5px 12px", borderRadius: "20px", background: "rgba(255,255,255,0.04)", color: "#64748b", fontStyle: "italic" }}>+ more coming</span>
-            </div>
-            <div style={{ display: "flex", gap: "24px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "20px" }}>
-              {[{ n: "559+", l: "Claims Scored" }, { n: "124", l: "Sources" }, { n: "6", l: "Dimensions" }].map(s => (
-                <div key={s.l}>
-                  <div style={{ fontSize: "20px", fontWeight: "600", color: "#14b8a6" }}>{s.n}</div>
-                  <div style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>{s.l}</div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "24px",
+        }}>
+          {AUDIENCE_CARDS.map((card) => (
+            <Link key={card.label} to={card.to} style={{ textDecoration: "none", color: "inherit", display: "flex" }}
+              onMouseEnter={() => setHoveredProduct(card.key)} onMouseLeave={() => setHoveredProduct(null)}>
+              <div style={{
+                background: hoveredProduct === card.key ? card.hoverBg : "rgba(255,255,255,0.02)",
+                border: hoveredProduct === card.key ? `1px solid ${card.hoverBorder}` : "1px solid rgba(255,255,255,0.06)",
+                borderRadius: "16px", padding: "36px", transition: "all 0.3s ease",
+                cursor: "pointer", display: "flex", flexDirection: "column", width: "100%"
+              }}>
+                <div style={{ display: "inline-block", background: card.labelBg, borderRadius: "8px", padding: "8px 14px", marginBottom: "20px", alignSelf: "flex-start" }}>
+                  <span style={{ fontSize: "13px", fontWeight: "600", color: card.accent }}>{card.label}</span>
                 </div>
-              ))}
-            </div>
-            <div style={{ marginTop: "auto", paddingTop: "24px" }}>
-              <span style={{ fontSize: "14px", fontWeight: "500", color: "#14b8a6" }}>Explore Signal &rarr;</span>
-            </div>
-          </div>
-        </Link>
-
-        <Link to="/billing" style={{ textDecoration: "none", color: "inherit", display: "flex" }}
-          onMouseEnter={() => setHoveredProduct("billing")} onMouseLeave={() => setHoveredProduct(null)}>
-          <div style={{
-            background: hoveredProduct === "billing" ? "rgba(59,130,246,0.06)" : "rgba(255,255,255,0.02)",
-            border: hoveredProduct === "billing" ? "1px solid rgba(59,130,246,0.25)" : "1px solid rgba(255,255,255,0.06)",
-            borderRadius: "16px", padding: "40px", transition: "all 0.3s ease",
-            cursor: "pointer", display: "flex", flexDirection: "column", width: "100%"
-          }}>
-            <div style={{ display: "inline-block", background: "rgba(59,130,246,0.12)", borderRadius: "8px", padding: "8px 14px", marginBottom: "20px", alignSelf: "flex-start" }}>
-              <span style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa" }}>BILLING INTELLIGENCE</span>
-            </div>
-            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "28px", fontWeight: "400", color: "#f1f5f9", marginBottom: "16px" }}>Healthcare Billing Analysis</h2>
-            <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "28px" }}>
-              AI-powered benchmark analysis for medical bills, insurance claims, and provider contracts. We surface the analytical choices that drive billing outcomes — for consumers, employers, and physician practices.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "28px" }}>
-              {[{ name: "Parity Health", desc: "Consumer bill analysis", to: "/parity-health/" }, { name: "Parity Employer", desc: "Self-insured employer analytics", to: "/employer" }, { name: "Parity Provider", desc: "Practice contract & denial intelligence", to: "/provider" }].map(p => (
-                <div key={p.name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", borderRadius: "8px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)" }}>
-                  <div>
-                    <div style={{ fontSize: "14px", fontWeight: "600", color: "#e2e8f0" }}>{p.name}</div>
-                    <div style={{ fontSize: "12px", color: "#64748b", marginTop: "2px" }}>{p.desc}</div>
-                  </div>
-                  <span style={{ fontSize: "13px", color: "#60a5fa" }}>&rarr;</span>
+                <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "24px", fontWeight: "400", color: "#f1f5f9", marginBottom: "14px" }}>{card.heading}</h2>
+                <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "28px", flex: 1 }}>{card.body}</p>
+                <div style={{ marginTop: "auto" }}>
+                  <span style={{ fontSize: "14px", fontWeight: "600", color: card.accent }}>{card.cta}</span>
+                  {card.badge && (
+                    <div style={{ fontSize: "12px", color: "#64748b", marginTop: "6px" }}>{card.badge}</div>
+                  )}
                 </div>
-              ))}
-            </div>
-            <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "20px" }}>
-              <div style={{ fontSize: "15px", color: "#94a3b8" }}>
-                <span style={{ color: "#60a5fa", fontWeight: "600" }}>$300B+</span> in estimated annual billing errors
               </div>
-            </div>
-            <div style={{ marginTop: "auto", paddingTop: "24px" }}>
-              <span style={{ fontSize: "14px", fontWeight: "500", color: "#60a5fa" }}>View Billing Products &rarr;</span>
-            </div>
-          </div>
-        </Link>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Connective tissue — One claim. Three perspectives. */}
+      <section style={{
+        paddingTop: "0", paddingBottom: "80px",
+        maxWidth: "900px", margin: "0 auto", textAlign: "center"
+      }}>
+        <div style={{
+          background: "linear-gradient(135deg, rgba(20,184,166,0.05), rgba(59,130,246,0.05))",
+          border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: "16px", padding: "48px"
+        }}>
+          <h2 style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "32px", fontWeight: "400",
+            color: "#f1f5f9", marginBottom: "24px"
+          }}>One claim. Three perspectives.</h2>
+          <p style={{
+            fontSize: "16px", lineHeight: "1.8", color: "#94a3b8",
+            maxWidth: "640px", margin: "0 auto 24px"
+          }}>
+            A single healthcare claim touches a patient, a physician, and an employer —
+            each seeing a different piece of the same transaction, none of them
+            with the full picture.
+          </p>
+          <p style={{
+            fontSize: "16px", lineHeight: "1.8", color: "#94a3b8",
+            maxWidth: "640px", margin: "0 auto 24px"
+          }}>
+            The patient gets a bill they may not fully understand. The physician receives
+            a payment that may not match their contracted rate. The employer's plan pays
+            a price that may be well above what comparable plans pay for the same procedure.
+          </p>
+          <p style={{
+            fontSize: "15px", lineHeight: "1.7", color: "#64748b",
+            maxWidth: "560px", margin: "0 auto",
+            fontStyle: "italic"
+          }}>
+            CivicScale sits at all three points — independent data, no carrier
+            relationships, no conflicts of interest.
+          </p>
+        </div>
       </section>
 
       {/* Parity Audit CTA */}
@@ -401,3 +370,44 @@ export default function CivicScaleHomepage() {
     </div>
   );
 }
+
+const AUDIENCE_CARDS = [
+  {
+    key: "health",
+    label: "PARITY HEALTH",
+    accent: "#14b8a6",
+    labelBg: "rgba(20,184,166,0.12)",
+    hoverBg: "rgba(20,184,166,0.06)",
+    hoverBorder: "rgba(20,184,166,0.25)",
+    heading: "Received a medical bill or denial?",
+    body: "We translate medical bills and Explanations of Benefits into plain English — what was charged, what your plan covered, and what your options are if something was denied.",
+    cta: "Understand My Bill \u2192",
+    to: "/parity-health",
+  },
+  {
+    key: "employer",
+    label: "PARITY EMPLOYER",
+    accent: "#3b82f6",
+    labelBg: "rgba(59,130,246,0.12)",
+    hoverBg: "rgba(59,130,246,0.06)",
+    hoverBorder: "rgba(59,130,246,0.25)",
+    heading: "Managing employee benefits?",
+    body: "The typical employer pays 3\u20135x Medicare rates for common procedures. We benchmark your plan against comparable employers and analyze your claims data to show you exactly where costs exceed market norms.",
+    cta: "Benchmark My Plan \u2192",
+    badge: "Free benchmark",
+    to: "/billing/employer",
+  },
+  {
+    key: "provider",
+    label: "PARITY PROVIDER",
+    accent: "#8b5cf6",
+    labelBg: "rgba(139,92,246,0.12)",
+    hoverBg: "rgba(139,92,246,0.06)",
+    hoverBorder: "rgba(139,92,246,0.25)",
+    heading: "Running a medical practice?",
+    body: "Payer contracts are complex and remittance errors are common. We analyze your claims data to surface underpayments, denial patterns, and contract discrepancies worth reviewing.",
+    cta: "Analyze My Contracts \u2192",
+    badge: "Free audit",
+    to: "/billing/provider",
+  },
+];
