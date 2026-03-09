@@ -20,7 +20,7 @@ import string
 import uuid
 from datetime import datetime, timezone, timedelta
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
 from pydantic import BaseModel
 from typing import Optional
 
@@ -61,6 +61,7 @@ class BrokerOnboardRequest(BaseModel):
     employer_email: Optional[str] = None
     estimated_pepm: Optional[float] = None
     estimated_annual_spend: Optional[float] = None
+    renewal_month: Optional[str] = None  # ISO date string, e.g. "2026-01-01"
 
 
 class NotifyClientRequest(BaseModel):
@@ -719,6 +720,8 @@ async def onboard_client(req: BrokerOnboardRequest, request: Request):
         "state": req.state,
         "carrier": req.carrier,
     }
+    if req.renewal_month:
+        link_data["renewal_month"] = req.renewal_month
 
     if existing.data:
         sb.table("broker_employer_links").update(link_data).eq("id", existing.data[0]["id"]).execute()
@@ -1062,3 +1065,193 @@ async def client_activity(employer_email: str, broker_email: str):
     events.sort(key=lambda e: e.get("timestamp", ""), reverse=True)
 
     return {"events": events}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/broker/portfolio?broker_email=...
+# ---------------------------------------------------------------------------
+
+@router.get("/portfolio")
+async def broker_portfolio(broker_email: str):
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+
+    # Verify broker exists
+    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
+    if not broker.data:
+        raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    # Get all linked clients
+    links = (
+        sb.table("broker_employer_links")
+        .select("employer_email, company_name, employee_count_range, industry, state, carrier, renewal_month, linked_at")
+        .eq("broker_email", email)
+        .order("linked_at", desc=True)
+        .execute()
+    )
+
+    clients = []
+    total_annual_excess = 0
+    subscribers_count = 0
+    now = datetime.now(timezone.utc)
+    ninety_days = now + timedelta(days=90)
+    clients_renewing_90 = 0
+
+    for link in (links.data or []):
+        emp_email = link["employer_email"]
+
+        # Most recent benchmark
+        bench = (
+            sb.table("broker_client_benchmarks")
+            .select("benchmark_result, share_token, view_count, created_at")
+            .eq("broker_email", email)
+            .eq("employer_email", emp_email)
+            .order("created_at", desc=True)
+            .limit(1)
+            .execute()
+        )
+        bench_data = bench.data[0] if bench.data else None
+
+        # Subscription status
+        sub = (
+            sb.table("employer_subscriptions")
+            .select("status")
+            .eq("email", emp_email)
+            .order("created_at", desc=True)
+            .limit(1)
+            .execute()
+        )
+        sub_status = sub.data[0].get("status") if sub.data else "none"
+
+        # Claims uploads count
+        uploads = (
+            sb.table("employer_claims_uploads")
+            .select("id", count="exact")
+            .eq("email", emp_email)
+            .execute()
+        )
+        uploads_count = uploads.count if uploads.count is not None else 0
+
+        # Determine activity status
+        has_viewed = bench_data and bench_data.get("view_count", 0) > 0
+        if sub_status == "active":
+            activity_status = "subscriber"
+            subscribers_count += 1
+        elif uploads_count > 0:
+            activity_status = "uploaded"
+        elif has_viewed:
+            activity_status = "viewed"
+        else:
+            activity_status = "benchmark_only"
+
+        # Extract benchmark result data
+        pepm = None
+        percentile = None
+        gap_per_employee = None
+        annual_gap = None
+        if bench_data and bench_data.get("benchmark_result"):
+            br = bench_data["benchmark_result"]
+            br_input = br.get("input", {})
+            br_result = br.get("result", {})
+            pepm = br_input.get("pepm_input")
+            percentile = br_result.get("percentile")
+            gap_per_employee = br_result.get("dollar_gap_monthly")
+            annual_gap = br_result.get("dollar_gap_annual")
+            if annual_gap and annual_gap > 0:
+                total_annual_excess += annual_gap
+
+        # Renewal check
+        renewal_month = link.get("renewal_month")
+        if renewal_month:
+            try:
+                rd = datetime.fromisoformat(renewal_month.replace("Z", "+00:00")) if isinstance(renewal_month, str) else renewal_month
+                if hasattr(rd, 'tzinfo') and rd.tzinfo is None:
+                    from datetime import timezone as tz
+                    rd = rd.replace(tzinfo=tz.utc)
+                if now <= rd <= ninety_days:
+                    clients_renewing_90 += 1
+            except (ValueError, TypeError):
+                pass
+
+        # Last activity timestamp
+        last_activity = bench_data.get("created_at") if bench_data else link.get("linked_at")
+
+        clients.append({
+            "employer_email": emp_email,
+            "company_name": link.get("company_name") or emp_email,
+            "employee_count_range": link.get("employee_count_range"),
+            "industry": link.get("industry"),
+            "state": link.get("state"),
+            "carrier": link.get("carrier"),
+            "renewal_month": renewal_month,
+            "pepm": pepm,
+            "percentile": percentile,
+            "gap_per_employee": gap_per_employee,
+            "annual_gap": annual_gap,
+            "activity_status": activity_status,
+            "share_token": bench_data.get("share_token") if bench_data else None,
+            "last_activity_at": last_activity,
+        })
+
+    return {
+        "clients": clients,
+        "summary": {
+            "total_clients": len(clients),
+            "total_annual_excess": round(total_annual_excess, 2),
+            "clients_renewing_90_days": clients_renewing_90,
+            "subscribers_count": subscribers_count,
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/profile/logo — upload broker logo to Supabase storage
+# ---------------------------------------------------------------------------
+
+@router.post("/profile/logo")
+async def upload_broker_logo(
+    broker_email: str = Form(...),
+    file: UploadFile = File(...),
+):
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+
+    # Verify broker exists
+    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
+    if not broker.data:
+        raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    # Validate file type
+    allowed = {"image/png", "image/jpeg", "image/gif", "image/webp", "image/svg+xml"}
+    if file.content_type not in allowed:
+        raise HTTPException(status_code=400, detail="Invalid file type. Please upload a PNG, JPG, GIF, or WebP image.")
+
+    # Read file content
+    content = await file.read()
+    if len(content) > 2 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Maximum 2MB.")
+
+    # Determine extension
+    ext_map = {"image/png": "png", "image/jpeg": "jpg", "image/gif": "gif", "image/webp": "webp", "image/svg+xml": "svg"}
+    ext = ext_map.get(file.content_type, "png")
+    safe_email = email.replace("@", "_at_").replace(".", "_")
+    storage_path = f"broker-logos/{safe_email}/logo.{ext}"
+
+    try:
+        # Upload to Supabase storage (upsert)
+        try:
+            sb.storage.from_("broker-assets").remove([storage_path])
+        except Exception:
+            pass
+        sb.storage.from_("broker-assets").upload(storage_path, content, {"content-type": file.content_type})
+
+        # Get public URL
+        public_url = sb.storage.from_("broker-assets").get_public_url(storage_path)
+
+        # Update broker_accounts
+        sb.table("broker_accounts").update({"logo_url": public_url}).eq("id", broker.data[0]["id"]).execute()
+
+        return {"logo_url": public_url}
+    except Exception as exc:
+        print(f"[BrokerLogo] Upload failed: {exc}")
+        raise HTTPException(status_code=500, detail=f"Failed to upload logo: {str(exc)}")

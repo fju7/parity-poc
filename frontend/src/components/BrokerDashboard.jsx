@@ -1,10 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const SITE_URL = import.meta.env.VITE_SITE_URL || "https://civicscale.ai";
+
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const YEARS = Array.from({ length: 5 }, (_, i) => 2025 + i);
 
 const INDUSTRIES = ["Manufacturing", "Healthcare", "Retail", "Technology", "Education", "Finance", "Other"];
 const EMPLOYEE_RANGES = ["<100", "100-250", "250-500", "500-1000", "1000+"];
@@ -44,10 +47,21 @@ export default function BrokerDashboard() {
   const [addForm, setAddForm] = useState({
     company_name: "", employee_count_range: "<100", industry: "Manufacturing",
     state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "",
+    renewal_month: "", renewal_year: "",
   });
   const [addLoading, setAddLoading] = useState(false);
   const [addError, setAddError] = useState("");
   const [onboardResult, setOnboardResult] = useState(null);
+
+  // Portfolio state
+  const [portfolio, setPortfolio] = useState(null);
+  const [sortColumn, setSortColumn] = useState("annual_gap");
+  const [sortDir, setSortDir] = useState("desc");
+
+  // Profile state
+  const [showProfile, setShowProfile] = useState(false);
+  const [logoUploading, setLogoUploading] = useState(false);
+  const logoInputRef = useRef(null);
 
   // Share / notify state
   const [shareLoading, setShareLoading] = useState(false);
@@ -64,15 +78,22 @@ export default function BrokerDashboard() {
     catch { localStorage.removeItem("broker_session"); navigate("/broker/login"); }
   }, [navigate]);
 
-  // Fetch clients
+  // Fetch clients + portfolio
   const fetchClients = useCallback(async () => {
     if (!broker) return;
     setLoading(true);
     try {
-      const res = await fetch(`${API}/api/broker/clients?broker_email=${encodeURIComponent(broker.email)}`);
-      if (!res.ok) throw new Error("Failed to load clients");
-      const data = await res.json();
-      setClients(data.clients || []);
+      const [clientsRes, portfolioRes] = await Promise.all([
+        fetch(`${API}/api/broker/clients?broker_email=${encodeURIComponent(broker.email)}`),
+        fetch(`${API}/api/broker/portfolio?broker_email=${encodeURIComponent(broker.email)}`),
+      ]);
+      if (clientsRes.ok) {
+        const data = await clientsRes.json();
+        setClients(data.clients || []);
+      }
+      if (portfolioRes.ok) {
+        setPortfolio(await portfolioRes.json());
+      }
     } catch (err) { console.error("Failed to fetch clients:", err); }
     setLoading(false);
   }, [broker]);
@@ -113,6 +134,9 @@ export default function BrokerDashboard() {
     setOnboardResult(null);
 
     try {
+      const renewalDate = addForm.renewal_month && addForm.renewal_year
+        ? `${addForm.renewal_year}-${addForm.renewal_month}-01`
+        : null;
       const body = {
         broker_email: broker.email,
         company_name: addForm.company_name,
@@ -123,6 +147,7 @@ export default function BrokerDashboard() {
         employer_email: addForm.employer_email || null,
         estimated_pepm: addForm.estimated_pepm ? parseFloat(addForm.estimated_pepm) : null,
         estimated_annual_spend: addForm.estimated_annual_spend ? parseFloat(addForm.estimated_annual_spend) : null,
+        renewal_month: renewalDate,
       };
 
       const res = await fetch(`${API}/api/broker/clients/onboard`, {
@@ -204,6 +229,52 @@ export default function BrokerDashboard() {
     navigate("/broker/login");
   };
 
+  // Logo upload
+  const handleLogoUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !broker) return;
+    setLogoUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("broker_email", broker.email);
+      formData.append("file", file);
+      const res = await fetch(`${API}/api/broker/profile/logo`, { method: "POST", body: formData });
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+      const updated = { ...broker, logo_url: data.logo_url };
+      setBroker(updated);
+      localStorage.setItem("broker_session", JSON.stringify(updated));
+    } catch (err) { console.error("Logo upload failed:", err); }
+    setLogoUploading(false);
+  };
+
+  // Sorting helpers
+  const handleSort = (col) => {
+    if (sortColumn === col) { setSortDir(d => d === "asc" ? "desc" : "asc"); }
+    else { setSortColumn(col); setSortDir("desc"); }
+  };
+  const sortArrow = (col) => sortColumn === col ? (sortDir === "asc" ? " \u25B2" : " \u25BC") : "";
+
+  const portfolioClients = (portfolio?.clients || []).slice().sort((a, b) => {
+    let av = a[sortColumn], bv = b[sortColumn];
+    if (av == null) av = sortDir === "asc" ? Infinity : -Infinity;
+    if (bv == null) bv = sortDir === "asc" ? Infinity : -Infinity;
+    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === "asc" ? av - bv : bv - av;
+  });
+
+  const isRenewing90 = (rm) => {
+    if (!rm) return false;
+    try {
+      const d = new Date(rm);
+      const now = new Date();
+      const in90 = new Date(now.getTime() + 90 * 24 * 3600 * 1000);
+      return d >= now && d <= in90;
+    } catch { return false; }
+  };
+
+  const renewingClients = portfolioClients.filter(c => isRenewing90(c.renewal_month));
+
   const fmt = (n) => n != null ? n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "—";
 
   if (!broker) return null;
@@ -218,6 +289,9 @@ export default function BrokerDashboard() {
         </Link>
         <div className="cs-nav-links">
           <span style={{ fontSize: 14, color: "#64748b" }}>{broker.firm_name}</span>
+          <button onClick={() => setShowProfile(!showProfile)} title="Profile" style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 10px", fontSize: 16, color: "#64748b", cursor: "pointer", lineHeight: 1 }}>
+            &#9881;
+          </button>
           <button onClick={handleLogout} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 14px", fontSize: 13, color: "#64748b", cursor: "pointer" }}>
             Sign Out
           </button>
@@ -234,12 +308,172 @@ export default function BrokerDashboard() {
             </p>
           </div>
           <button
-            onClick={() => { setShowAddPanel(true); setAddError(""); setOnboardResult(null); setAddForm({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "" }); }}
+            onClick={() => { setShowAddPanel(true); setAddError(""); setOnboardResult(null); setAddForm({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "", renewal_month: "", renewal_year: "" }); }}
             style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
           >
             + Add Client
           </button>
         </div>
+
+        {/* Profile Panel */}
+        {showProfile && (
+          <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, marginBottom: 24 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: 0 }}>Profile</h3>
+              <button onClick={() => setShowProfile(false)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "4px 12px", fontSize: 13, color: "#64748b", cursor: "pointer" }}>Close</button>
+            </div>
+            <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+              <div style={{ position: "relative" }}>
+                {broker.logo_url ? (
+                  <img src={broker.logo_url} alt="Logo" style={{ width: 64, height: 64, borderRadius: 12, objectFit: "contain", border: "1px solid #e2e8f0" }} />
+                ) : (
+                  <div style={{ width: 64, height: 64, borderRadius: 12, background: "#f0fdfa", border: "1px solid #99f6e4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, fontWeight: 700, color: "#0D7377" }}>
+                    {(broker.firm_name || "B")[0].toUpperCase()}
+                  </div>
+                )}
+                <input ref={logoInputRef} type="file" accept="image/*" onChange={handleLogoUpload} style={{ display: "none" }} />
+                <button onClick={() => logoInputRef.current?.click()} disabled={logoUploading} style={{ position: "absolute", bottom: -4, right: -4, width: 24, height: 24, borderRadius: "50%", background: "#0D7377", color: "#fff", border: "2px solid #fff", fontSize: 12, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {logoUploading ? "..." : "+"}
+                </button>
+              </div>
+              <div>
+                <p style={{ margin: 0, fontSize: 16, fontWeight: 600, color: "#1B3A5C" }}>{broker.contact_name || "—"}</p>
+                <p style={{ margin: "2px 0 0", fontSize: 14, color: "#64748b" }}>{broker.firm_name}</p>
+                <p style={{ margin: "2px 0 0", fontSize: 13, color: "#94a3b8" }}>{broker.email}</p>
+              </div>
+            </div>
+            <p style={{ margin: "12px 0 0", fontSize: 12, color: "#94a3b8" }}>
+              Upload your firm logo to brand shared reports sent to clients.
+            </p>
+          </div>
+        )}
+
+        {/* Portfolio Summary */}
+        {portfolio && portfolio.summary && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 24 }}>
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, textAlign: "center" }}>
+              <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 6px", fontWeight: 500 }}>Total Clients</p>
+              <p style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{portfolio.summary.total_clients}</p>
+            </div>
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, textAlign: "center" }}>
+              <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 6px", fontWeight: 500 }}>Total Identified Excess</p>
+              <p style={{ fontSize: 28, fontWeight: 700, color: portfolio.summary.total_annual_excess > 0 ? "#EF4444" : "#1B3A5C", margin: 0 }}>
+                {portfolio.summary.total_annual_excess >= 1000000
+                  ? `$${(portfolio.summary.total_annual_excess / 1000000).toFixed(1)}M`
+                  : fmt(portfolio.summary.total_annual_excess)}{" "}
+                <span style={{ fontSize: 13, fontWeight: 400, color: "#94a3b8" }}>across book</span>
+              </p>
+            </div>
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, textAlign: "center" }}>
+              <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 6px", fontWeight: 500 }}>Renewals in 90 Days</p>
+              <p style={{ fontSize: 28, fontWeight: 700, color: portfolio.summary.clients_renewing_90_days > 0 ? "#f59e0b" : "#1B3A5C", margin: 0 }}>
+                {portfolio.summary.clients_renewing_90_days}{" "}
+                <span style={{ fontSize: 13, fontWeight: 400, color: "#94a3b8" }}>clients</span>
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Book of Business Table */}
+        {portfolio && portfolioClients.length > 0 && (
+          <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, marginBottom: 24, overflow: "hidden" }}>
+            <div style={{ padding: "16px 20px", borderBottom: "1px solid #e2e8f0", fontSize: 14, fontWeight: 600, color: "#1B3A5C" }}>
+              Book of Business
+            </div>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                <thead>
+                  <tr style={{ borderBottom: "2px solid #e2e8f0" }}>
+                    <th style={{ ...thStyle, cursor: "pointer" }} onClick={() => handleSort("company_name")}>Company{sortArrow("company_name")}</th>
+                    <th style={{ ...thStyle, cursor: "pointer" }} onClick={() => handleSort("employee_count_range")}>Size{sortArrow("employee_count_range")}</th>
+                    <th style={{ ...thStyle, textAlign: "right", cursor: "pointer" }} onClick={() => handleSort("pepm")}>PEPM{sortArrow("pepm")}</th>
+                    <th style={{ ...thStyle, textAlign: "center", cursor: "pointer" }} onClick={() => handleSort("percentile")}>Percentile{sortArrow("percentile")}</th>
+                    <th style={{ ...thStyle, textAlign: "right", cursor: "pointer" }} onClick={() => handleSort("annual_gap")}>Annual Gap{sortArrow("annual_gap")}</th>
+                    <th style={{ ...thStyle, cursor: "pointer" }} onClick={() => handleSort("renewal_month")}>Renewal{sortArrow("renewal_month")}</th>
+                    <th style={{ ...thStyle, textAlign: "center" }}>Status</th>
+                    <th style={thStyle}>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {portfolioClients.map((c) => {
+                    const dot = ACTIVITY_DOT[c.activity_status] || ACTIVITY_DOT.benchmark_only;
+                    const renewing = isRenewing90(c.renewal_month);
+                    const pctColor = c.percentile == null ? "#64748b" : c.percentile > 75 ? "#EF4444" : c.percentile > 50 ? "#f59e0b" : "#22c55e";
+                    const pctBg = c.percentile == null ? "#f1f5f9" : c.percentile > 75 ? "#fef2f2" : c.percentile > 50 ? "#fffbeb" : "#f0fdf4";
+                    return (
+                      <tr key={c.employer_email} style={{ borderBottom: "1px solid #f1f5f9", borderLeft: renewing ? "3px solid #f59e0b" : "3px solid transparent" }}>
+                        <td style={tdStyle}>
+                          <p style={{ margin: 0, fontWeight: 600, color: "#1B3A5C" }}>{c.company_name}</p>
+                          {c.industry && <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 8, background: "#f1f5f9", color: "#64748b" }}>{c.industry}</span>}
+                        </td>
+                        <td style={tdStyle}>{c.employee_count_range || "—"}</td>
+                        <td style={{ ...tdStyle, textAlign: "right", fontWeight: 600 }}>{c.pepm != null ? fmt(c.pepm) : "—"}</td>
+                        <td style={{ ...tdStyle, textAlign: "center" }}>
+                          {c.percentile != null ? (
+                            <span style={{ display: "inline-block", padding: "2px 10px", borderRadius: 12, fontSize: 12, fontWeight: 600, background: pctBg, color: pctColor }}>
+                              {Math.round(c.percentile)}th
+                            </span>
+                          ) : "—"}
+                        </td>
+                        <td style={{ ...tdStyle, textAlign: "right", fontWeight: 600, color: c.annual_gap > 0 ? "#EF4444" : "#475569" }}>
+                          {c.annual_gap != null ? (c.annual_gap > 0 ? "+" : "") + fmt(c.annual_gap) : "—"}
+                        </td>
+                        <td style={tdStyle}>
+                          {c.renewal_month ? new Date(c.renewal_month).toLocaleDateString("en-US", { month: "short", year: "numeric" }) : "Unknown"}
+                        </td>
+                        <td style={{ ...tdStyle, textAlign: "center" }}>
+                          <div style={{ width: 10, height: 10, borderRadius: "50%", background: dot.color, margin: "0 auto" }} title={dot.label} />
+                        </td>
+                        <td style={tdStyle}>
+                          <div style={{ display: "flex", gap: 4 }}>
+                            {c.share_token && (
+                              <button onClick={() => handleCopyShareLink(c.share_token)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#0D7377", cursor: "pointer" }}>Share</button>
+                            )}
+                            {c.employer_email && !c.employer_email.includes("@broker-onboarded") && c.share_token && (
+                              <button onClick={() => handleNotify(c.employer_email)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#1d4ed8", cursor: "pointer" }}>Notify</button>
+                            )}
+                            <button onClick={() => {
+                              const match = clients.find(cl => cl.employer_email === c.employer_email);
+                              if (match) handleSelectClient(match);
+                            }} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#475569", cursor: "pointer" }}>Detail</button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Renewal Pipeline */}
+        {renewingClients.length > 0 && (
+          <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 12, padding: 20, marginBottom: 24 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, color: "#92400e", margin: "0 0 12px" }}>
+              Upcoming Renewals ({renewingClients.length})
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {renewingClients.map((c) => (
+                <div key={c.employer_email} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff", border: "1px solid #fde68a", borderRadius: 8, padding: "10px 16px" }}>
+                  <div>
+                    <p style={{ margin: 0, fontWeight: 600, fontSize: 14, color: "#1B3A5C" }}>{c.company_name}</p>
+                    <p style={{ margin: "2px 0 0", fontSize: 12, color: "#92400e" }}>
+                      Renews {new Date(c.renewal_month).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                      {c.annual_gap > 0 && ` · ${fmt(c.annual_gap)} annual gap`}
+                    </p>
+                  </div>
+                  <button onClick={() => {
+                    const match = clients.find(cl => cl.employer_email === c.employer_email);
+                    if (match) handleSelectClient(match);
+                  }} style={{ background: "#92400e", color: "#fff", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>
+                    Prepare Renewal Report &rarr;
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Add Client Panel */}
         {showAddPanel && (
@@ -278,6 +512,18 @@ export default function BrokerDashboard() {
                     </FormField>
                     <FormField label="Employer email (optional)">
                       <input type="email" value={addForm.employer_email} onChange={(e) => setAddForm({ ...addForm, employer_email: e.target.value })} placeholder="hr@employer.com" style={inputStyle} />
+                    </FormField>
+                    <FormField label="Renewal month (optional)">
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <select value={addForm.renewal_month} onChange={(e) => setAddForm({ ...addForm, renewal_month: e.target.value })} style={{ ...inputStyle, flex: 1 }}>
+                          <option value="">Month</option>
+                          {MONTHS.map((m, i) => <option key={m} value={String(i + 1).padStart(2, "0")}>{m}</option>)}
+                        </select>
+                        <select value={addForm.renewal_year} onChange={(e) => setAddForm({ ...addForm, renewal_year: e.target.value })} style={{ ...inputStyle, flex: 1 }}>
+                          <option value="">Year</option>
+                          {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
+                        </select>
+                      </div>
                     </FormField>
                   </div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
