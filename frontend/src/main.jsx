@@ -28,6 +28,7 @@ import EmployerSubscribe from './components/EmployerSubscribe.jsx'
 import EmployerContractParser from './components/EmployerContractParser.jsx'
 import EmployerRBPCalculator from './components/EmployerRBPCalculator.jsx'
 import ParityHealthLandingPage from './components/ParityHealthLandingPage.jsx'
+import BrokerLandingPage from './components/BrokerLandingPage.jsx'
 import BrokerLoginPage from './components/BrokerLoginPage.jsx'
 import BrokerSignupPage from './components/BrokerSignupPage.jsx'
 import BrokerDashboard from './components/BrokerDashboard.jsx'
@@ -65,6 +66,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/employer/login" element={<EmployerLoginPage />} />
         <Route path="/employer/auth/callback" element={<EmployerAuthCallback />} />
         <Route path="/employer/dashboard" element={<EmployerDashboard />} />
+        <Route path="/broker" element={<BrokerLandingPage />} />
         <Route path="/broker/login" element={<BrokerLoginPage />} />
         <Route path="/broker/signup" element={<BrokerSignupPage />} />
         <Route path="/broker/dashboard" element={<BrokerDashboard />} />
