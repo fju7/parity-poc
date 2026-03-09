@@ -63,13 +63,11 @@ export default function CivicScaleHomepage() {
           </span>
         </Link>
         <nav className="cs-home-nav">
-          <Link to="/audit" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: "600" }}>Free Audit</Link>
-          <Link to="/billing" style={{ color: "inherit", textDecoration: "none" }}>Billing Products</Link>
+          <Link to="/billing/employer" style={{ color: "inherit", textDecoration: "none" }}>Parity Employer</Link>
+          <Link to="/billing/provider" style={{ color: "inherit", textDecoration: "none" }}>Parity Provider</Link>
           <Link to="/signal" style={{ color: "inherit", textDecoration: "none" }}>Parity Signal</Link>
-          <Link to="/investors" style={{ color: "inherit", textDecoration: "none" }}>About</Link>
           <Link to="/broker" style={{ color: "inherit", textDecoration: "none" }}>Broker Portal</Link>
-          <Link to="/broker/login" style={{ color: "inherit", textDecoration: "none" }}>Broker Login</Link>
-          <Link to="/employer/login" style={{ color: "inherit", textDecoration: "none" }}>Employer Login</Link>
+          <Link to="/broker/login" style={{ color: "#14b8a6", textDecoration: "none", border: "1px solid #14b8a6", borderRadius: "6px", padding: "6px 16px" }}>Broker Login</Link>
         </nav>
       </header>
 

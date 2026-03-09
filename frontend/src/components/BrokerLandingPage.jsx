@@ -180,27 +180,6 @@ export default function BrokerLandingPage() {
         </div>
       </section>
 
-      {/* Social proof placeholder */}
-      <section className="cs-home-section" style={{
-        paddingBottom: "48px", maxWidth: "900px", margin: "0 auto", textAlign: "center",
-      }}>
-        <p style={{ fontSize: "15px", color: "#64748b", marginBottom: "24px" }}>
-          Trusted by benefits brokers across [X] states
-        </p>
-        <div style={{
-          display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap",
-        }}>
-          {["KFF", "MEPS-IC", "BLS", "CMS"].map((src) => (
-            <span key={src} style={{
-              fontSize: "13px", padding: "8px 16px", borderRadius: "8px",
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              color: "#94a3b8",
-            }}>{src}</span>
-          ))}
-        </div>
-      </section>
-
       {/* Bottom CTA */}
       <section className="cs-home-section" style={{
         paddingBottom: "80px", maxWidth: "600px", margin: "0 auto", textAlign: "center",
