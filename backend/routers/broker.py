@@ -12,6 +12,7 @@ Endpoints:
   GET  /api/broker/clients/{employer_email}/share-link — get/generate share link
   POST /api/broker/clients/{employer_email}/notify — send benchmark email to employer
   GET  /api/broker/clients/{employer_email}/activity — employer activity timeline
+  GET  /api/broker/renewal-pipeline — renewal timeline with checklist status
 """
 
 import os
@@ -1341,6 +1342,120 @@ async def broker_portfolio(broker_email: str):
             "clients_renewing_90_days": clients_renewing_90,
             "subscribers_count": subscribers_count,
         },
+    }
+
+
+# ---------------------------------------------------------------------------
+# GET /api/broker/renewal-pipeline — renewal timeline with checklist status
+# ---------------------------------------------------------------------------
+
+@router.get("/renewal-pipeline")
+async def renewal_pipeline(broker_email: str):
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+
+    # Verify broker exists
+    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
+    if not broker.data:
+        raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    # Get all linked clients
+    links = (
+        sb.table("broker_employer_links")
+        .select("employer_email, company_name, employee_count_range, industry, state, carrier, renewal_month")
+        .eq("broker_email", email)
+        .order("renewal_month")
+        .execute()
+    )
+
+    now = datetime.now(timezone.utc)
+
+    renewing_soon = []      # <=90 days
+    renewing_upcoming = []  # 91-180 days
+    renewing_later = []     # >180 days
+    no_renewal_date = []
+
+    for link in (links.data or []):
+        emp_email = link["employer_email"]
+
+        # Check benchmark exists
+        bench = (
+            sb.table("broker_client_benchmarks")
+            .select("id")
+            .eq("broker_email", email)
+            .eq("employer_email", emp_email)
+            .limit(1)
+            .execute()
+        )
+        has_benchmark = bool(bench.data)
+
+        # Check claims upload exists
+        claims = (
+            sb.table("employer_claims_uploads")
+            .select("id")
+            .eq("email", emp_email)
+            .limit(1)
+            .execute()
+        )
+        has_claims = bool(claims.data)
+
+        # Check scorecard exists
+        try:
+            scorecard = (
+                sb.table("employer_scorecard_sessions")
+                .select("id")
+                .eq("email", emp_email)
+                .limit(1)
+                .execute()
+            )
+            has_scorecard = bool(scorecard.data)
+        except Exception:
+            has_scorecard = False
+
+        client_entry = {
+            "employer_email": emp_email,
+            "company_name": link.get("company_name") or emp_email,
+            "employee_count_range": link.get("employee_count_range"),
+            "renewal_month": link.get("renewal_month"),
+            "checklist": {
+                "benchmark_run": has_benchmark,
+                "claims_check": has_claims,
+                "scorecard_graded": has_scorecard,
+                "renewal_prep_report": False,
+            },
+        }
+
+        renewal_month = link.get("renewal_month")
+        if not renewal_month:
+            no_renewal_date.append(client_entry)
+            continue
+
+        try:
+            rd = datetime.fromisoformat(renewal_month.replace("Z", "+00:00")) if isinstance(renewal_month, str) else renewal_month
+            if hasattr(rd, "tzinfo") and rd.tzinfo is None:
+                rd = rd.replace(tzinfo=timezone.utc)
+            days_until = (rd - now).days
+            client_entry["days_until_renewal"] = days_until
+
+            if days_until <= 90:
+                renewing_soon.append(client_entry)
+            elif days_until <= 180:
+                renewing_upcoming.append(client_entry)
+            else:
+                renewing_later.append(client_entry)
+        except (ValueError, TypeError):
+            no_renewal_date.append(client_entry)
+
+    # Sort each bucket by days_until_renewal ascending
+    renewing_soon.sort(key=lambda c: c.get("days_until_renewal", 9999))
+    renewing_upcoming.sort(key=lambda c: c.get("days_until_renewal", 9999))
+    renewing_later.sort(key=lambda c: c.get("days_until_renewal", 9999))
+
+    return {
+        "renewing_soon": renewing_soon,
+        "renewing_upcoming": renewing_upcoming,
+        "renewing_later": renewing_later,
+        "no_renewal_date": no_renewal_date,
     }
 
 

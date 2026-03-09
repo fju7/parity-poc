@@ -78,6 +78,11 @@ export default function BrokerDashboard() {
   const [logoUploading, setLogoUploading] = useState(false);
   const logoInputRef = useRef(null);
 
+  // Tab state
+  const [activeTab, setActiveTab] = useState("book"); // "book" or "renewals"
+  const [renewalData, setRenewalData] = useState(null);
+  const [renewalLoading, setRenewalLoading] = useState(false);
+
   // Share / notify state
   const [shareLoading, setShareLoading] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
@@ -114,6 +119,19 @@ export default function BrokerDashboard() {
   }, [broker]);
 
   useEffect(() => { fetchClients(); }, [fetchClients]);
+
+  // Fetch renewal pipeline
+  const fetchRenewals = useCallback(async () => {
+    if (!broker) return;
+    setRenewalLoading(true);
+    try {
+      const res = await fetch(`${API}/api/broker/renewal-pipeline?broker_email=${encodeURIComponent(broker.email)}`);
+      if (res.ok) setRenewalData(await res.json());
+    } catch (err) { console.error("Failed to fetch renewals:", err); }
+    setRenewalLoading(false);
+  }, [broker]);
+
+  useEffect(() => { if (activeTab === "renewals") fetchRenewals(); }, [activeTab, fetchRenewals]);
 
   // Fetch client summary
   const fetchSummary = useCallback(async (employerEmail) => {
@@ -421,6 +439,26 @@ export default function BrokerDashboard() {
           </div>
         </div>
 
+        {/* Tab Switcher */}
+        <div style={{ display: "flex", gap: 0, marginBottom: 24, borderBottom: "2px solid #e2e8f0" }}>
+          {[
+            { key: "book", label: "Book of Business" },
+            { key: "renewals", label: "Renewals" },
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              style={{
+                background: "none", border: "none", borderBottom: activeTab === tab.key ? "2px solid #0D7377" : "2px solid transparent",
+                padding: "10px 20px", fontSize: 14, fontWeight: activeTab === tab.key ? 600 : 400,
+                color: activeTab === tab.key ? "#0D7377" : "#64748b", cursor: "pointer", marginBottom: -2,
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         {/* Profile Panel */}
         {showProfile && (
           <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, marginBottom: 24 }}>
@@ -453,6 +491,74 @@ export default function BrokerDashboard() {
             </p>
           </div>
         )}
+
+        {/* ==================== RENEWALS TAB ==================== */}
+        {activeTab === "renewals" && (
+          <div>
+            {renewalLoading ? (
+              <div style={{ textAlign: "center", padding: 48 }}>
+                <div style={{ width: 36, height: 36, border: "3px solid #e2e8f0", borderTopColor: "#0D7377", borderRadius: "50%", animation: "cs-spin 0.8s linear infinite", margin: "0 auto 16px" }} />
+                <p style={{ color: "#64748b", fontSize: 14 }}>Loading renewal pipeline...</p>
+                <style>{`@keyframes cs-spin { to { transform: rotate(360deg); } }`}</style>
+              </div>
+            ) : renewalData && (renewalData.renewing_soon.length + renewalData.renewing_upcoming.length + renewalData.renewing_later.length + renewalData.no_renewal_date.length === 0) ? (
+              <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 48, textAlign: "center" }}>
+                <p style={{ fontSize: 16, color: "#475569", margin: "0 0 8px" }}>No clients yet</p>
+                <p style={{ fontSize: 13, color: "#94a3b8" }}>Add clients to your book of business to track their renewal pipeline.</p>
+              </div>
+            ) : renewalData && (renewalData.renewing_soon.length + renewalData.renewing_upcoming.length + renewalData.renewing_later.length === 0) ? (
+              <div>
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 32, textAlign: "center", marginBottom: 24 }}>
+                  <p style={{ fontSize: 16, color: "#475569", margin: "0 0 8px" }}>Add renewal dates to your clients to track your pipeline.</p>
+                  <p style={{ fontSize: 13, color: "#94a3b8" }}>Edit any client in your book of business to add their renewal month.</p>
+                </div>
+                <RenewalNoDateSection clients={renewalData.no_renewal_date} onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }} />
+              </div>
+            ) : renewalData ? (
+              <div>
+                {/* Three-column pipeline */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 24 }}>
+                  <RenewalColumn
+                    title="Renewing in 90 days"
+                    subtitle="Urgent"
+                    clients={renewalData.renewing_soon}
+                    borderColor="#f59e0b"
+                    titleColor="#92400e"
+                    bgColor="#fffbeb"
+                    onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
+                  />
+                  <RenewalColumn
+                    title="91\u2013180 days"
+                    subtitle="Upcoming"
+                    clients={renewalData.renewing_upcoming}
+                    borderColor="#3b82f6"
+                    titleColor="#1d4ed8"
+                    bgColor="#eff6ff"
+                    onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
+                  />
+                  <RenewalColumn
+                    title="Beyond 180 days"
+                    subtitle="Future"
+                    clients={renewalData.renewing_later}
+                    borderColor="#94a3b8"
+                    titleColor="#64748b"
+                    bgColor="#f8fafc"
+                    muted
+                    onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
+                  />
+                </div>
+
+                {/* No renewal date section */}
+                {renewalData.no_renewal_date.length > 0 && (
+                  <RenewalNoDateSection clients={renewalData.no_renewal_date} onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }} />
+                )}
+              </div>
+            ) : null}
+          </div>
+        )}
+
+        {/* ==================== BOOK OF BUSINESS TAB ==================== */}
+        {activeTab === "book" && <>
 
         {/* Portfolio Summary */}
         {portfolio && portfolio.summary && (
@@ -1124,7 +1230,102 @@ export default function BrokerDashboard() {
             ) : null}
           </div>
         </div>
+
+        </>}
       </div>
+    </div>
+  );
+}
+
+
+// ---------------------------------------------------------------------------
+// RenewalColumn — one column of the renewal pipeline
+// ---------------------------------------------------------------------------
+
+function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, titleColor, bgColor, muted, onSelectClient }) {
+  return (
+    <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden" }}>
+      <div style={{ padding: "14px 16px", borderBottom: `3px solid ${borderColor}`, background: bgColor }}>
+        <div style={{ fontSize: 14, fontWeight: 600, color: titleColor }}>{title}</div>
+        <div style={{ fontSize: 12, color: "#94a3b8" }}>{subtitle} &middot; {columnClients.length} client{columnClients.length !== 1 ? "s" : ""}</div>
+      </div>
+      {columnClients.length === 0 ? (
+        <div style={{ padding: 24, textAlign: "center", color: "#94a3b8", fontSize: 13 }}>No clients</div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          {columnClients.map((c) => (
+            <div key={c.employer_email} style={{ padding: "14px 16px", borderBottom: "1px solid #f1f5f9", opacity: muted ? 0.7 : 1 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
+                <div>
+                  <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#1B3A5C" }}>{c.company_name}</p>
+                  <p style={{ margin: "2px 0 0", fontSize: 12, color: "#64748b" }}>
+                    {c.renewal_month ? new Date(c.renewal_month).toLocaleDateString("en-US", { month: "long", year: "numeric" }) : ""}
+                    {c.employee_count_range ? ` \u00B7 ${c.employee_count_range}` : ""}
+                  </p>
+                </div>
+                {c.days_until_renewal != null && (
+                  <span style={{ fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 10, background: c.days_until_renewal <= 30 ? "#fef2f2" : c.days_until_renewal <= 90 ? "#fffbeb" : "#f1f5f9", color: c.days_until_renewal <= 30 ? "#991b1b" : c.days_until_renewal <= 90 ? "#92400e" : "#64748b", whiteSpace: "nowrap" }}>
+                    {c.days_until_renewal <= 0 ? "Past due" : `${c.days_until_renewal}d`}
+                  </span>
+                )}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px", fontSize: 12 }}>
+                <ChecklistItem label="Benchmark run" done={c.checklist.benchmark_run} />
+                <ChecklistItem label="Claims check" done={c.checklist.claims_check} />
+                <ChecklistItem label="Scorecard graded" done={c.checklist.scorecard_graded} />
+                <ChecklistItem label="Renewal prep report" done={c.checklist.renewal_prep_report} comingSoon />
+              </div>
+              <button onClick={() => onSelectClient(c.employer_email)} style={{ marginTop: 8, background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "4px 10px", fontSize: 11, color: "#475569", cursor: "pointer" }}>
+                View details
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+// ---------------------------------------------------------------------------
+// RenewalNoDateSection — clients without renewal dates
+// ---------------------------------------------------------------------------
+
+function RenewalNoDateSection({ clients: noDateClients, onSelectClient }) {
+  if (noDateClients.length === 0) return null;
+  return (
+    <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden" }}>
+      <div style={{ padding: "14px 16px", borderBottom: "1px solid #e2e8f0" }}>
+        <div style={{ fontSize: 14, fontWeight: 600, color: "#64748b" }}>No renewal date set ({noDateClients.length})</div>
+        <div style={{ fontSize: 12, color: "#94a3b8" }}>Edit these clients to add a renewal month</div>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, padding: 16 }}>
+        {noDateClients.map((c) => (
+          <button
+            key={c.employer_email}
+            onClick={() => onSelectClient(c.employer_email)}
+            style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 8, padding: "8px 14px", fontSize: 13, color: "#475569", cursor: "pointer" }}
+          >
+            {c.company_name}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+// ---------------------------------------------------------------------------
+// ChecklistItem — single checklist row
+// ---------------------------------------------------------------------------
+
+function ChecklistItem({ label, done, comingSoon }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+      <span style={{ fontSize: 13, color: done ? "#22c55e" : "#cbd5e1" }}>{done ? "\u2713" : "\u25CB"}</span>
+      <span style={{ color: comingSoon ? "#cbd5e1" : done ? "#475569" : "#94a3b8", fontStyle: comingSoon ? "italic" : "normal" }}>
+        {label}{comingSoon && " (coming soon)"}
+      </span>
     </div>
   );
 }
