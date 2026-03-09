@@ -30,6 +30,12 @@ const US_STATES = [
 ];
 const CARRIER_SUGGESTIONS = ["Cigna", "Aetna", "UnitedHealth", "BCBS", "Humana", "Self-insured/TPA", "Other"];
 
+function ordinalSuffix(n) {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return s[(v - 20) % 10] || s[v] || s[0];
+}
+
 const ACTIVITY_DOT = {
   subscriber: { color: "#22c55e", label: "Active subscriber" },
   uploaded: { color: "#3b82f6", label: "Uploaded files" },
@@ -623,7 +629,7 @@ export default function BrokerDashboard() {
                         <td style={{ ...tdStyle, textAlign: "center" }}>
                           {c.percentile != null ? (
                             <span style={{ display: "inline-block", padding: "2px 10px", borderRadius: 12, fontSize: 12, fontWeight: 600, background: pctBg, color: pctColor }}>
-                              {Math.round(c.percentile)}th
+                              {Math.round(c.percentile)}{ordinalSuffix(Math.round(c.percentile))}
                             </span>
                           ) : "—"}
                         </td>
@@ -644,6 +650,7 @@ export default function BrokerDashboard() {
                             {c.employer_email && !c.employer_email.includes("@broker-onboarded") && c.share_token && (
                               <button onClick={() => handleNotify(c.employer_email)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#1d4ed8", cursor: "pointer" }}>Notify</button>
                             )}
+                            <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}?broker_email=${encodeURIComponent(broker.email)}`} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#92400e", cursor: "pointer", textDecoration: "none", display: "inline-block" }}>Report</Link>
                             <button onClick={() => {
                               const match = clients.find(cl => cl.employer_email === c.employer_email);
                               if (match) handleSelectClient(match);
@@ -675,12 +682,9 @@ export default function BrokerDashboard() {
                       {c.annual_gap > 0 && ` · ${fmt(c.annual_gap)} annual gap`}
                     </p>
                   </div>
-                  <button onClick={() => {
-                    const match = clients.find(cl => cl.employer_email === c.employer_email);
-                    if (match) handleSelectClient(match);
-                  }} style={{ background: "#92400e", color: "#fff", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>
+                  <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}?broker_email=${encodeURIComponent(broker.email)}`} style={{ background: "#92400e", color: "#fff", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap", textDecoration: "none", display: "inline-block" }}>
                     Prepare Renewal Report &rarr;
-                  </button>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -1364,7 +1368,7 @@ function OnboardSuccess({ result, brokerEmail, onCopyLink, onNotify, shareCopied
         <div style={{ flex: 1, minWidth: 260, background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, textAlign: "center" }}>
           <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 8px" }}>PEPM Percentile</p>
           <p style={{ fontSize: 42, fontWeight: 700, color: percentile > 60 ? "#EF4444" : percentile > 40 ? "#f59e0b" : "#22c55e", margin: 0 }}>
-            {Math.round(percentile)}th
+            {Math.round(percentile)}{ordinalSuffix(Math.round(percentile))}
           </p>
           <p style={{ fontSize: 13, color: "#64748b", marginTop: 4 }}>{res.interpretation}</p>
         </div>

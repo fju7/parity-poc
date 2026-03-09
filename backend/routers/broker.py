@@ -13,6 +13,7 @@ Endpoints:
   POST /api/broker/clients/{employer_email}/notify — send benchmark email to employer
   GET  /api/broker/clients/{employer_email}/activity — employer activity timeline
   GET  /api/broker/renewal-pipeline — renewal timeline with checklist status
+  GET  /api/broker/renewal-prep/{company_name} — assembled renewal prep report data
 """
 
 import os
@@ -1456,6 +1457,138 @@ async def renewal_pipeline(broker_email: str):
         "renewing_upcoming": renewing_upcoming,
         "renewing_later": renewing_later,
         "no_renewal_date": no_renewal_date,
+    }
+
+
+# ---------------------------------------------------------------------------
+# GET /api/broker/renewal-prep/{company_name} — assembled renewal prep data
+# ---------------------------------------------------------------------------
+
+@router.get("/renewal-prep/{company_name}")
+async def renewal_prep(company_name: str, broker_email: str):
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+    decoded_name = company_name.replace("-", " ")
+
+    # Verify broker exists and get info
+    broker = sb.table("broker_accounts").select("id, firm_name, contact_name").eq("email", email).execute()
+    if not broker.data:
+        raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    broker_info = broker.data[0]
+
+    # Find matching client link (case-insensitive match on company name)
+    links = (
+        sb.table("broker_employer_links")
+        .select("employer_email, company_name, employee_count_range, industry, state, carrier, renewal_month")
+        .eq("broker_email", email)
+        .execute()
+    )
+
+    link = None
+    for l in (links.data or []):
+        if (l.get("company_name") or "").lower() == decoded_name.lower():
+            link = l
+            break
+
+    if not link:
+        raise HTTPException(status_code=404, detail=f"Client '{decoded_name}' not found in your book of business.")
+
+    emp_email = link["employer_email"]
+
+    # Most recent benchmark
+    bench = (
+        sb.table("broker_client_benchmarks")
+        .select("benchmark_result, estimated_pepm, share_token, created_at")
+        .eq("broker_email", email)
+        .eq("employer_email", emp_email)
+        .order("created_at", desc=True)
+        .limit(1)
+        .execute()
+    )
+    bench_data = bench.data[0] if bench.data else None
+
+    # Build benchmark section
+    benchmark_section = {"available": False}
+    if bench_data and bench_data.get("benchmark_result"):
+        br = bench_data["benchmark_result"]
+        br_result = br.get("result", {})
+        br_input = br.get("input", {})
+        br_benchmarks = br.get("benchmarks", {})
+        br_dist = br.get("distribution", {})
+
+        site_url = os.environ.get("VITE_SITE_URL", "https://civicscale.ai")
+        benchmark_section = {
+            "available": True,
+            "pepm": br_input.get("pepm_input") or bench_data.get("estimated_pepm"),
+            "percentile": br_result.get("percentile"),
+            "adjusted_median": br_benchmarks.get("adjusted_median_pepm"),
+            "annual_gap": br_result.get("dollar_gap_annual"),
+            "monthly_gap": br_result.get("dollar_gap_monthly"),
+            "interpretation": br_result.get("interpretation"),
+            "share_url": f"{site_url}/employer/shared-report/{bench_data.get('share_token', '')}",
+            "distribution": br_dist,
+        }
+
+    # Most recent claims upload
+    claims_upload = (
+        sb.table("employer_claims_uploads")
+        .select("total_claims, total_paid, total_excess_2x, top_flagged_cpt, top_flagged_excess, created_at")
+        .eq("email", emp_email)
+        .order("created_at", desc=True)
+        .limit(1)
+        .execute()
+    )
+    claims_section = {"available": False}
+    if claims_upload.data:
+        cu = claims_upload.data[0]
+        claims_section = {
+            "available": True,
+            "total_claims": cu.get("total_claims", 0),
+            "total_paid": cu.get("total_paid", 0),
+            "excess_amount": cu.get("total_excess_2x", 0),
+            "top_cpt": cu.get("top_flagged_cpt", ""),
+        }
+
+    # Most recent scorecard
+    scorecard_section = {"available": False}
+    try:
+        scorecard = (
+            sb.table("employer_scorecard_sessions")
+            .select("results_json, created_at")
+            .eq("email", emp_email)
+            .order("created_at", desc=True)
+            .limit(1)
+            .execute()
+        )
+        if scorecard.data and scorecard.data[0].get("results_json"):
+            sc = scorecard.data[0]["results_json"]
+            scorecard_section = {
+                "available": True,
+                "grade": sc.get("grade", ""),
+                "score": sc.get("score"),
+                "savings_potential": sc.get("savings_potential_pepm"),
+            }
+    except Exception:
+        pass
+
+    return {
+        "broker": {
+            "firm_name": broker_info.get("firm_name", ""),
+            "contact_name": broker_info.get("contact_name", ""),
+        },
+        "client": {
+            "company_name": link.get("company_name") or decoded_name,
+            "industry": link.get("industry", ""),
+            "state": link.get("state", ""),
+            "employee_count_range": link.get("employee_count_range", ""),
+            "carrier": link.get("carrier", ""),
+            "renewal_month": link.get("renewal_month"),
+        },
+        "benchmark": benchmark_section,
+        "claims": claims_section,
+        "scorecard": scorecard_section,
+        "generated_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
     }
 
 
