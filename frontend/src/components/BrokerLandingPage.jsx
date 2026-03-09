@@ -70,7 +70,7 @@ export default function BrokerLandingPage() {
           >
             Create Free Broker Account &rarr;
           </Link>
-          <Link to="/employer/shared-report/a1b2c3d4-e5f6-7890-abcd-ef1234567890" style={{
+          <Link to="/employer/shared-report/a1b2c3d4-e5f6-7890-abcd-ef1234567890?demo=true" style={{
             display: "inline-block", border: "1px solid rgba(20,184,166,0.4)",
             color: "#14b8a6", padding: "12px 28px", borderRadius: "8px",
             fontWeight: "600", fontSize: "15px", textDecoration: "none",

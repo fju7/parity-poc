@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useSearchParams, Link } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function EmployerSharedReport() {
   const { shareToken } = useParams();
+  const [searchParams] = useSearchParams();
+  const isDemo = searchParams.get('demo') === 'true';
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -107,7 +109,14 @@ export default function EmployerSharedReport() {
     <Page>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "40px 24px 80px" }}>
         {/* Broker Attribution Header */}
-        {(data.broker_firm || data.broker_name) && (
+        {isDemo ? (
+          <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 10, padding: "14px 20px", marginBottom: 28, display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ width: 36, height: 36, borderRadius: 8, background: "#fff", border: "1px solid #99f6e4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0D7377", flexShrink: 0 }}>P</div>
+            <p style={{ margin: 0, fontSize: 13, color: "#475569" }}>
+              <strong>Sample report</strong> — prepared by Parity Employer
+            </p>
+          </div>
+        ) : (data.broker_firm || data.broker_name) && (
           <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: "14px 20px", marginBottom: 28, display: "flex", alignItems: "center", gap: 14 }}>
             {data.broker_logo_url ? (
               <img src={data.broker_logo_url} alt="" style={{ height: 32, width: "auto", objectFit: "contain", borderRadius: 4 }} />
@@ -259,36 +268,81 @@ export default function EmployerSharedReport() {
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Next Steps</h3>
 
-          <Link to="/billing/employer/scorecard" style={{ textDecoration: "none" }}>
-            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
-              <div>
-                <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#1B3A5C" }}>Upload your Summary of Benefits PDF</p>
-                <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>Get your plan design grade in 60 seconds</p>
-              </div>
-              <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>&rarr;</span>
-            </div>
-          </Link>
-
-          <Link to="/billing/employer/claims-check" style={{ textDecoration: "none" }}>
-            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
-              <div>
-                <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#1B3A5C" }}>Upload one month of claims</p>
-                <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>See exactly which procedures are driving your costs</p>
-              </div>
-              <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>&rarr;</span>
-            </div>
-          </Link>
-
-          {data.broker_email && (
-            <a href={`mailto:${data.broker_email}?subject=Questions about my Parity benchmark report&body=Hi — I reviewed the benchmark report for ${data.company_name}. I had some questions about the results.`} style={{ textDecoration: "none" }}>
-              <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
-                <div>
-                  <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#0D7377" }}>Talk to your broker</p>
-                  <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>Share questions about this report with {data.broker_firm || "your broker"}</p>
+          {isDemo ? (
+            <>
+              <Link to="/broker/dashboard" style={{ textDecoration: "none" }}>
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
+                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                    <span style={{ fontSize: 20 }}>📊</span>
+                    <div>
+                      <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#1B3A5C" }}>Benchmark your clients</p>
+                      <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>Add your book of business and get every client benchmarked in minutes</p>
+                    </div>
+                  </div>
+                  <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>Go to Broker Dashboard &rarr;</span>
                 </div>
-                <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>&rarr;</span>
-              </div>
-            </a>
+              </Link>
+
+              <Link to="/broker/signup" style={{ textDecoration: "none" }}>
+                <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
+                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                    <span style={{ fontSize: 20 }}>🚀</span>
+                    <div>
+                      <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#0D7377" }}>Create a free broker account</p>
+                      <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>Free to use — your clients pay only if they subscribe to monthly monitoring</p>
+                    </div>
+                  </div>
+                  <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>Sign Up Free &rarr;</span>
+                </div>
+              </Link>
+
+              <Link to="/billing/employer/demo" style={{ textDecoration: "none" }}>
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
+                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                    <span style={{ fontSize: 20 }}>📋</span>
+                    <div>
+                      <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#1B3A5C" }}>See the full platform</p>
+                      <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>Walk through every feature — benchmark, claims analysis, plan scorecard, and RBP calculator</p>
+                    </div>
+                  </div>
+                  <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>View Full Demo &rarr;</span>
+                </div>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/billing/employer/scorecard" style={{ textDecoration: "none" }}>
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
+                  <div>
+                    <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#1B3A5C" }}>Upload your Summary of Benefits PDF</p>
+                    <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>Get your plan design grade in 60 seconds</p>
+                  </div>
+                  <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>&rarr;</span>
+                </div>
+              </Link>
+
+              <Link to="/billing/employer/claims-check" style={{ textDecoration: "none" }}>
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
+                  <div>
+                    <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#1B3A5C" }}>Upload one month of claims</p>
+                    <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>See exactly which procedures are driving your costs</p>
+                  </div>
+                  <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>&rarr;</span>
+                </div>
+              </Link>
+
+              {data.broker_email && (
+                <a href={`mailto:${data.broker_email}?subject=Questions about my Parity benchmark report&body=Hi — I reviewed the benchmark report for ${data.company_name}. I had some questions about the results.`} style={{ textDecoration: "none" }}>
+                  <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 12, padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
+                    <div>
+                      <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#0D7377" }}>Talk to your broker</p>
+                      <p style={{ margin: "4px 0 0", fontSize: 13, color: "#64748b" }}>Share questions about this report with {data.broker_firm || "your broker"}</p>
+                    </div>
+                    <span style={{ color: "#0D7377", fontWeight: 600, fontSize: 14 }}>&rarr;</span>
+                  </div>
+                </a>
+              )}
+            </>
           )}
         </div>
 
