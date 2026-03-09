@@ -84,6 +84,10 @@ Three live products + one in development:
 - Free for brokers — they add employer clients, run benchmarks,
   share read-only reports. Employers pay subscriptions.
 - Shared reports: /employer/shared-report/:shareToken (no auth required)
+- Three dashboard tabs: Book of Business, Renewals, Prospects
+- Renewal prep reports: /broker/renewal-prep/:companySlug (print-optimized)
+- CAA guide: /broker/caa-guide (carrier-specific claims data request instructions)
+- Prospect benchmarking: segment-based assessment without PEPM data
 
 ### Parity Signal
 - Route: /signal/*
@@ -98,11 +102,20 @@ Three live products + one in development:
   contract parser, free tier enforcement (1 free claims check/90 days)
 - backend/routers/employer_trends.py — month-over-month trend engine
 - backend/routers/employer_subscription.py — Stripe checkout + webhook
-- backend/routers/broker.py — broker portal endpoints
+- backend/routers/employer_scorecard.py — AI-powered SBC scoring with
+  broker-protective _grade_interpretation() framing
+- backend/routers/employer_shared_report.py — public shared report endpoint
+  with first-view broker notification
+- backend/routers/broker.py — broker portal endpoints (OTP auth, client
+  management, onboard, bulk onboard, share links, notifications, renewal
+  pipeline, renewal prep, prospect benchmarks, cron renewal reminders)
 - backend/routers/provider_audit.py — 835 parsing endpoint
 - backend/utils/parse_835.py — pure Python 835 EDI parser
+- backend/utils/email.py — shared Resend email helper (send_email)
 - backend/data/employer_benchmarks/benchmark_compiled.json — runtime
   benchmark lookup data
+- backend/data/employer_benchmarks/industry_mapping.py — MEPS-IC industry
+  name mapping with resolve_industry() helper
 - backend/main.py — FastAPI app, router registration, lifespan
 - backend/data/sample/Midwest_Manufacturing_Dec2024.835 — sample 835 EDI
   file (970 claims, ~$623K paid) for demo video
@@ -112,11 +125,18 @@ Three live products + one in development:
 - backend/data/sample/generate_sbc_pdf.py — reproducible SBC PDF generator
 
 ## Key frontend files
-- frontend/src/main.jsx — all routes (66 lines)
+- frontend/src/main.jsx — all routes
 - frontend/src/components/EmployerDemoPage.jsx — 7-tab demo
   (Getting Started animated wizard, Benchmark, Claims, Scorecard,
   RBP Calculator, Contract Parser, Monitoring Dashboard)
-- frontend/src/components/BrokerDashboard.jsx — broker portal
+- frontend/src/components/BrokerDashboard.jsx — broker portal (3 tabs:
+  Book of Business, Renewals, Prospects)
+- frontend/src/components/RenewalPrepReport.jsx — print-optimized renewal
+  report at /broker/renewal-prep/:companySlug
+- frontend/src/components/CAABrokerGuide.jsx — CAA claims data guide
+  with carrier-specific request instructions
+- frontend/src/components/EmployerScorecard.jsx — plan scorecard with
+  broker-protective interpretation text
 - frontend/src/components/EmployerSharedReport.jsx — public shared
   report page (no auth)
 
@@ -128,7 +148,9 @@ Three live products + one in development:
 - employer_trends_cache — cached trend computations
 - broker_accounts — broker login records
 - broker_employer_links — broker→employer relationships
+  (includes reminder_sent_90d boolean for cron dedup)
 - broker_client_benchmarks — broker-run benchmarks with share tokens
+- broker_prospect_benchmarks — prospect assessments (not linked clients)
 - otp_codes — OTP codes for broker auth (6-digit, 10-min expiry)
 
 ## Migrations
@@ -147,6 +169,34 @@ Fred runs migrations manually in Supabase SQL Editor.
 - STRIPE_PRICE_EMPLOYER_GROWTH
 - STRIPE_PRICE_EMPLOYER_SCALE
 - RESEND_API_KEY
+- CRON_SECRET — protects POST /api/broker/send-renewal-reminders
+
+## Broker Portal — Phase 2 Complete
+Features built in this phase:
+- Renewal Timeline Tracker — three-column pipeline view (90d/91-180d/180d+)
+  with checklist status per client
+- Renewal Prep Report — print-optimized white report at
+  /broker/renewal-prep/:companySlug with benchmark, claims, scorecard
+  sections and auto-generated talking points
+- Prospect Benchmarking Tool — Prospects tab in broker dashboard,
+  segment-based benchmark without PEPM, talking points, Add as Client flow
+- Email notifications — welcome, shared report viewed, renewal reminder
+  (cron), bulk onboard complete (via backend/utils/email.py)
+- CAA Claims Data Guide — broker guide at /broker/caa-guide with carrier
+  cards and request template
+- Scorecard broker-protective framing — _grade_interpretation() positions
+  broker as solution, not problem
+- Industry benchmark fix — 9 MEPS industries now correctly mapped via
+  industry_mapping.py, industry-specific percentiles (p10-p90),
+  50-state + DC cost indices
+- Ordinal suffix fix — percentile displays show 1st/2nd/3rd correctly
+  throughout (EmployerBenchmark, BrokerDashboard)
+
+### Infrastructure
+- Cron endpoint: POST /api/broker/send-renewal-reminders (daily 8am,
+  protected by X-Cron-Secret header, CRON_SECRET env var)
+- New Supabase tables: broker_prospect_benchmarks
+- New column: broker_employer_links.reminder_sent_90d (boolean)
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
