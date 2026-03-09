@@ -531,6 +531,7 @@ export default function BrokerDashboard() {
                     borderColor="#f59e0b"
                     titleColor="#92400e"
                     bgColor="#fffbeb"
+                    brokerEmail={broker.email}
                     onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
                   />
                   <RenewalColumn
@@ -540,6 +541,7 @@ export default function BrokerDashboard() {
                     borderColor="#3b82f6"
                     titleColor="#1d4ed8"
                     bgColor="#eff6ff"
+                    brokerEmail={broker.email}
                     onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
                   />
                   <RenewalColumn
@@ -550,6 +552,7 @@ export default function BrokerDashboard() {
                     titleColor="#64748b"
                     bgColor="#f8fafc"
                     muted
+                    brokerEmail={broker.email}
                     onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
                   />
                 </div>
@@ -1246,7 +1249,7 @@ export default function BrokerDashboard() {
 // RenewalColumn — one column of the renewal pipeline
 // ---------------------------------------------------------------------------
 
-function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, titleColor, bgColor, muted, onSelectClient }) {
+function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, titleColor, bgColor, muted, brokerEmail }) {
   return (
     <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden" }}>
       <div style={{ padding: "14px 16px", borderBottom: `3px solid ${borderColor}`, background: bgColor }}>
@@ -1277,11 +1280,10 @@ function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, t
                 <ChecklistItem label="Benchmark run" done={c.checklist.benchmark_run} />
                 <ChecklistItem label="Claims check" done={c.checklist.claims_check} />
                 <ChecklistItem label="Scorecard graded" done={c.checklist.scorecard_graded} />
-                <ChecklistItem label="Renewal prep report" done={c.checklist.renewal_prep_report} comingSoon />
+                <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}?broker_email=${encodeURIComponent(brokerEmail)}`} style={{ display: "flex", alignItems: "center", gap: 6, color: "#0D7377", fontWeight: 600, textDecoration: "none", fontSize: 12 }}>
+                  Prepare Renewal Report &rarr;
+                </Link>
               </div>
-              <button onClick={() => onSelectClient(c.employer_email)} style={{ marginTop: 8, background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "4px 10px", fontSize: 11, color: "#475569", cursor: "pointer" }}>
-                View details
-              </button>
             </div>
           ))}
         </div>
