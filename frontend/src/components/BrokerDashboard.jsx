@@ -588,21 +588,26 @@ export default function BrokerDashboard() {
                     <p style={{ fontSize: 13, color: "#475569", margin: "4px 0 0" }}>clients added successfully</p>
                   </div>
                   {bulkResults.some(r => !r.success) && (
-                    <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, padding: "16px 24px", flex: 1, textAlign: "center" }}>
-                      <p style={{ fontSize: 28, fontWeight: 700, color: "#EF4444", margin: 0 }}>{bulkResults.filter(r => !r.success).length}</p>
+                    <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 10, padding: "16px 24px", flex: 1, textAlign: "center" }}>
+                      <p style={{ fontSize: 28, fontWeight: 700, color: "#d97706", margin: 0 }}>{bulkResults.filter(r => !r.success).length}</p>
                       <p style={{ fontSize: 13, color: "#475569", margin: "4px 0 0" }}>rows had errors</p>
                     </div>
                   )}
                 </div>
-                {bulkResults.filter(r => !r.success).length > 0 && (
-                  <div style={{ marginBottom: 16 }}>
-                    {bulkResults.filter(r => !r.success).map((r, i) => (
-                      <p key={i} style={{ fontSize: 13, color: "#991b1b", margin: "4px 0" }}>
-                        {r.company_name}: {r.error}
-                      </p>
-                    ))}
-                  </div>
-                )}
+                {/* Per-row results */}
+                <div style={{ marginBottom: 20, maxHeight: 300, overflowY: "auto" }}>
+                  {bulkResults.map((r, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", borderBottom: "1px solid #f1f5f9" }}>
+                      <span style={{ fontSize: 16 }}>{r.success ? "\u2713" : "\u2717"}</span>
+                      <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: "#1B3A5C" }}>{r.company_name}</span>
+                      {r.success ? (
+                        <span style={{ fontSize: 12, color: "#22c55e" }}>Benchmarked</span>
+                      ) : (
+                        <span style={{ fontSize: 12, color: "#d97706" }}>{r.error}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
                 <button onClick={() => { setShowBulkPanel(false); setBulkResults(null); }} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
                   View Your Book of Business &rarr;
                 </button>
@@ -613,11 +618,11 @@ export default function BrokerDashboard() {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
                   <div>
                     <h3 style={{ fontSize: 18, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Add Multiple Clients</h3>
-                    <p style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>Enter your client data below. Tip: you can paste directly from Excel.</p>
+                    <p style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>Enter your client data below. Tip: you can copy a range from Excel and paste it directly into the grid.</p>
                   </div>
                   <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                     <button onClick={() => setShowBulkPanel(false)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 14px", fontSize: 13, color: "#64748b", cursor: "pointer", textDecoration: "none" }}>
-                      Back to Dashboard
+                      &larr; Back to Dashboard
                     </button>
                     <button onClick={handleBulkSubmit} disabled={bulkRunning || !bulkHasRequired} style={{ background: bulkHasRequired && !bulkRunning ? "#1B3A5C" : "#94a3b8", color: "#fff", border: "none", borderRadius: 8, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: bulkHasRequired && !bulkRunning ? "pointer" : "default", opacity: bulkRunning ? 0.6 : 1 }}>
                       {bulkRunning ? `Running benchmarks... ${bulkProgress}/${bulkTotal}` : "Run Benchmarks \u2192"}
@@ -627,13 +632,17 @@ export default function BrokerDashboard() {
 
                 {bulkRunning && (
                   <div style={{ marginBottom: 16 }}>
-                    <div style={{ background: "#e2e8f0", borderRadius: 8, height: 8, overflow: "hidden" }}>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#1B3A5C", margin: "0 0 8px" }}>Running benchmarks for {bulkTotal} clients...</p>
+                    <div style={{ background: "#e2e8f0", borderRadius: 8, height: 8, overflow: "hidden", marginBottom: 8 }}>
                       <div style={{ background: "#0D7377", height: "100%", width: `${bulkTotal ? (bulkProgress / bulkTotal) * 100 : 0}%`, transition: "width 0.3s", borderRadius: 8 }} />
                     </div>
-                    <p style={{ fontSize: 12, color: "#64748b", marginTop: 6 }}>Running benchmarks... {bulkProgress}/{bulkTotal} complete</p>
+                    <p style={{ fontSize: 12, color: "#64748b", margin: 0 }}>{bulkProgress}/{bulkTotal} complete</p>
                   </div>
                 )}
 
+                <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 12px", fontStyle: "italic" }}>
+                  Your client data is used only to run the benchmarks you request. We never contact your clients directly.
+                </p>
                 <div style={{ overflowX: "auto" }}>
                   <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 900 }}>
                     <thead>

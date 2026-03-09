@@ -896,7 +896,9 @@ async def bulk_onboard(req: BulkOnboardRequest, request: Request):
                 "error": str(exc),
             })
 
-    return {"results": results, "firm_name": firm_name}
+    succeeded = sum(1 for r in results if r["success"])
+    failed = sum(1 for r in results if not r["success"])
+    return {"results": results, "total": len(results), "succeeded": succeeded, "failed": failed, "firm_name": firm_name}
 
 
 # ---------------------------------------------------------------------------

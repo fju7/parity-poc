@@ -180,6 +180,44 @@ export default function BrokerLandingPage() {
         </div>
       </section>
 
+      {/* Data Protection */}
+      <section className="cs-home-section" style={{
+        paddingBottom: "72px", maxWidth: "780px", margin: "0 auto",
+      }}>
+        <div style={{
+          background: "rgba(255,255,255,0.02)",
+          border: "1px solid rgba(20,184,166,0.18)",
+          borderRadius: "16px", padding: "36px",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
+            <span style={{ fontSize: "28px" }}>&#128737;&#65039;</span>
+            <h2 style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "24px", fontWeight: "400", color: "#f1f5f9", margin: 0,
+            }}>Your client relationships are protected.</h2>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {[
+              "We will never directly contact any employer you add to your portal \u2014 not by email, phone, or any other channel.",
+              "Your client list is never shared with other brokers, carriers, or third parties.",
+              "Your clients only see Parity Employer if you choose to share a report with them.",
+            ].map((text, i) => (
+              <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                <span style={{ color: "#14b8a6", fontSize: "16px", flexShrink: 0, marginTop: "1px" }}>&#10003;</span>
+                <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", margin: 0 }}>{text}</p>
+              </div>
+            ))}
+          </div>
+          <p style={{
+            fontSize: "16px", fontWeight: "600", color: "#f1f5f9",
+            marginTop: "24px", marginBottom: 0, paddingTop: "16px",
+            borderTop: "1px solid rgba(20,184,166,0.12)",
+          }}>
+            You control the relationship. We provide the data.
+          </p>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section className="cs-home-section" style={{
         paddingBottom: "80px", maxWidth: "600px", margin: "0 auto", textAlign: "center",

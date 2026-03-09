@@ -158,6 +158,10 @@ export default function BrokerSignupPage() {
                   </div>
                 )}
 
+                <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 12px", textAlign: "center" }}>
+                  We will never contact your clients directly. Your book of business is yours.
+                </p>
+
                 <button
                   type="submit"
                   disabled={status === "sending"}
