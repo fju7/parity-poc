@@ -12,6 +12,7 @@ from routers.employer_shared import (
     _get_supabase, get_benchmarks,
     BenchmarkRequest, check_rate_limit,
 )
+from data.employer_benchmarks.industry_mapping import resolve_industry
 
 router = APIRouter(tags=["employer"])
 
@@ -33,8 +34,9 @@ async def employer_benchmark(req: BenchmarkRequest, request: Request):
     by_size = benchmarks.get("by_company_size", {})
     by_state = benchmarks.get("by_state", {})
 
-    # --- Industry lookup ---
-    industry_data = by_industry.get(req.industry, {})
+    # --- Industry lookup (map display name → MEPS key) ---
+    meps_industry = resolve_industry(req.industry)
+    industry_data = by_industry.get(meps_industry, {})
     industry_median = industry_data.get("employer_single_pepm") or national.get("employer_single_monthly_pepm", 558)
 
     # --- Size band lookup ---
@@ -49,12 +51,22 @@ async def employer_benchmark(req: BenchmarkRequest, request: Request):
     adjusted_median = round(industry_median * state_factor, 2)
 
     # --- Percentile estimation ---
-    # Use national percentile distribution to estimate where the input falls
-    p10 = national.get("p10_pepm", 342)
-    p25 = national.get("p25_pepm", 441)
-    p50 = national.get("p50_pepm", 552)
-    p75 = national.get("p75_pepm", 658)
-    p90 = national.get("p90_pepm", 789)
+    # Prefer industry-specific percentiles; fall back to national
+    has_industry_pctiles = bool(industry_data.get("p10_pepm"))
+    if has_industry_pctiles:
+        p10 = industry_data["p10_pepm"]
+        p25 = industry_data["p25_pepm"]
+        p50 = industry_data["p50_pepm"]
+        p75 = industry_data["p75_pepm"]
+        p90 = industry_data["p90_pepm"]
+        percentile_source = "industry"
+    else:
+        p10 = national.get("p10_pepm", 342)
+        p25 = national.get("p25_pepm", 441)
+        p50 = national.get("p50_pepm", 552)
+        p75 = national.get("p75_pepm", 658)
+        p90 = national.get("p90_pepm", 789)
+        percentile_source = "national"
 
     # Scale percentiles by state factor
     p10 *= state_factor
@@ -90,6 +102,7 @@ async def employer_benchmark(req: BenchmarkRequest, request: Request):
             "dollar_gap_monthly": dollar_gap_monthly,
             "dollar_gap_annual": dollar_gap_annual,
             "interpretation": _interpret_percentile(percentile),
+            "percentile_source": percentile_source,
         },
         "distribution": {
             "p10": round(p10, 2),

@@ -620,6 +620,7 @@ def _range_to_size_band(range_str: str) -> str:
 def _run_benchmark(industry: str, company_size: str, state: str, pepm_input: float) -> dict:
     """Run benchmark computation inline — same logic as employer_benchmark.py."""
     from routers.employer_benchmark import _estimate_percentile, _interpret_percentile
+    from data.employer_benchmarks.industry_mapping import resolve_industry
 
     benchmarks = get_benchmarks()
     if not benchmarks:
@@ -630,7 +631,8 @@ def _run_benchmark(industry: str, company_size: str, state: str, pepm_input: flo
     by_size = benchmarks.get("by_company_size", {})
     by_state = benchmarks.get("by_state", {})
 
-    industry_data = by_industry.get(industry, {})
+    meps_industry = resolve_industry(industry)
+    industry_data = by_industry.get(meps_industry, {})
     industry_median = industry_data.get("employer_single_pepm") or national.get("employer_single_monthly_pepm", 558)
 
     size_data = by_size.get(company_size, {})
@@ -641,11 +643,22 @@ def _run_benchmark(industry: str, company_size: str, state: str, pepm_input: flo
 
     adjusted_median = round(industry_median * state_factor, 2)
 
-    p10 = national.get("p10_pepm", 342) * state_factor
-    p25 = national.get("p25_pepm", 441) * state_factor
-    p50 = national.get("p50_pepm", 552) * state_factor
-    p75 = national.get("p75_pepm", 658) * state_factor
-    p90 = national.get("p90_pepm", 789) * state_factor
+    # Prefer industry-specific percentiles; fall back to national
+    has_industry_pctiles = bool(industry_data.get("p10_pepm"))
+    if has_industry_pctiles:
+        p10 = industry_data["p10_pepm"] * state_factor
+        p25 = industry_data["p25_pepm"] * state_factor
+        p50 = industry_data["p50_pepm"] * state_factor
+        p75 = industry_data["p75_pepm"] * state_factor
+        p90 = industry_data["p90_pepm"] * state_factor
+        percentile_source = "industry"
+    else:
+        p10 = national.get("p10_pepm", 342) * state_factor
+        p25 = national.get("p25_pepm", 441) * state_factor
+        p50 = national.get("p50_pepm", 552) * state_factor
+        p75 = national.get("p75_pepm", 658) * state_factor
+        p90 = national.get("p90_pepm", 789) * state_factor
+        percentile_source = "national"
 
     percentile = _estimate_percentile(pepm_input, p10, p25, p50, p75, p90)
     dollar_gap_monthly = round(pepm_input - adjusted_median, 2)
@@ -670,6 +683,7 @@ def _run_benchmark(industry: str, company_size: str, state: str, pepm_input: flo
             "dollar_gap_monthly": dollar_gap_monthly,
             "dollar_gap_annual": dollar_gap_annual,
             "interpretation": _interpret_percentile(percentile),
+            "percentile_source": percentile_source,
         },
         "distribution": {
             "p10": round(p10, 2),

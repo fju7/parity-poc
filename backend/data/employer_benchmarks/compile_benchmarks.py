@@ -522,31 +522,57 @@ def compile_benchmarks():
         if ecec_match:
             ecec_monthly = ecec["by_industry"][ecec_match]["insurance_cost_monthly"]
 
-        # Use MEPS data as primary; estimate percentiles from national ratio
+        # Use MEPS data as primary; estimate percentiles from national ratios
         p50 = er_single_pepm
+        p10 = round(p50 * 0.62, 2) if p50 else None   # national p10/p50 ratio
         p25 = round(p50 * 0.79, 2) if p50 else None   # national p25/p50 ratio
         p75 = round(p50 * 1.19, 2) if p50 else None   # national p75/p50 ratio
+        p90 = round(p50 * 1.43, 2) if p50 else None   # national p90/p50 ratio
 
         by_industry[industry] = {
             "single_premium_annual": round(single, 2) if single else None,
             "family_premium_annual": round(family, 2) if family else None,
             "employer_single_pepm": er_single_pepm,
             "employer_family_pepm": er_family_pepm,
+            "p10_pepm": p10,
             "p25_pepm": p25,
             "p50_pepm": p50,
             "p75_pepm": p75,
+            "p90_pepm": p90,
             "ecec_monthly": ecec_monthly,
             "top_cost_drivers": [],
         }
 
     # --- By state ---
+    # Cost indices derived from BLS/MEPS regional premium variation and
+    # state-level MEPS-IC data where available. US national average = 1.000.
+    STATE_COST_INDICES = {
+        "AL": 0.90, "AK": 1.38, "AZ": 0.97, "AR": 0.88, "CA": 1.09,
+        "CO": 1.05, "CT": 1.15, "DE": 1.10, "FL": 1.03, "GA": 0.95,
+        "HI": 1.12, "ID": 0.92, "IL": 1.06, "IN": 0.96, "IA": 0.93,
+        "KS": 0.94, "KY": 0.91, "LA": 0.93, "ME": 1.08, "MD": 1.08,
+        "MA": 1.18, "MI": 1.01, "MN": 1.05, "MS": 0.87, "MO": 0.95,
+        "MT": 0.98, "NE": 0.95, "NV": 0.98, "NH": 1.12, "NJ": 1.14,
+        "NM": 0.93, "NY": 1.16, "NC": 0.95, "ND": 0.97, "OH": 0.97,
+        "OK": 0.90, "OR": 1.03, "PA": 1.04, "RI": 1.11, "SC": 0.92,
+        "SD": 0.96, "TN": 0.92, "TX": 1.00, "UT": 0.93, "VT": 1.10,
+        "VA": 1.02, "WA": 1.10, "WV": 0.96, "WI": 1.02, "WY": 1.02,
+        "DC": 1.20,
+    }
+
     us_single = us_state.get("single_premium_annual", single_prem)
     by_state = {}
 
-    # Florida
+    # Generate entries for all states with cost indices
+    for st, idx in STATE_COST_INDICES.items():
+        by_state[st] = {
+            "cost_index": idx,
+        }
+
+    # Override FL with actual MEPS data if available
     fl_single = fl_state.get("single_premium_annual", 0)
     fl_employer_pepm = fl_state.get("employer_single_monthly_pepm", 0)
-    cost_index_fl = round(fl_single / us_single, 3) if us_single else None
+    cost_index_fl = round(fl_single / us_single, 3) if us_single else STATE_COST_INDICES.get("FL", 1.03)
     by_state["FL"] = {
         "single_premium_annual": fl_single,
         "family_premium_annual": fl_state.get("family_premium_annual"),

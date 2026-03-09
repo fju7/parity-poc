@@ -4,9 +4,15 @@ import { Link } from "react-router-dom";
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const INDUSTRIES = [
-  "Ag/forestry/fishing", "Construction", "Manufacturing",
-  "Transportation/utilities", "Wholesale", "Retail",
-  "Finance", "Services", "State/local government", "Health care",
+  "Agriculture / Forestry / Fishing",
+  "Construction",
+  "Finance / Real Estate / Insurance",
+  "Manufacturing",
+  "Other Services",
+  "Professional Services",
+  "Retail Trade",
+  "Transportation / Utilities",
+  "Wholesale Trade",
 ];
 
 const COMPANY_SIZES = [

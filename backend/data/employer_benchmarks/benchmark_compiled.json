@@ -40,7 +40,9 @@
       "p50_pepm": 514.8,
       "p75_pepm": 612.61,
       "ecec_monthly": 630.92,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 319.18,
+      "p90_pepm": 736.16
     },
     "Construction": {
       "single_premium_annual": 7109.05,
@@ -51,7 +53,9 @@
       "p50_pepm": 467.5,
       "p75_pepm": 556.32,
       "ecec_monthly": 630.92,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 289.85,
+      "p90_pepm": 668.52
     },
     "Fin. svs. and real est.": {
       "single_premium_annual": 8763.63,
@@ -62,7 +66,9 @@
       "p50_pepm": 576.3,
       "p75_pepm": 685.8,
       "ecec_monthly": 1041.71,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 357.31,
+      "p90_pepm": 824.11
     },
     "Mining and manufacturing": {
       "single_premium_annual": 8056.89,
@@ -73,7 +79,9 @@
       "p50_pepm": 529.83,
       "p75_pepm": 630.5,
       "ecec_monthly": 759.19,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 328.49,
+      "p90_pepm": 757.66
     },
     "Other services": {
       "single_premium_annual": 8825.46,
@@ -84,7 +92,9 @@
       "p50_pepm": 580.37,
       "p75_pepm": 690.64,
       "ecec_monthly": 388.26,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 359.83,
+      "p90_pepm": 829.93
     },
     "Professional services": {
       "single_premium_annual": 8963.01,
@@ -95,7 +105,9 @@
       "p50_pepm": 589.41,
       "p75_pepm": 701.4,
       "ecec_monthly": 701.99,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 365.43,
+      "p90_pepm": 842.86
     },
     "Retail trade": {
       "single_premium_annual": 7708.59,
@@ -106,7 +118,9 @@
       "p50_pepm": 506.92,
       "p75_pepm": 603.23,
       "ecec_monthly": 263.46,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 314.29,
+      "p90_pepm": 724.9
     },
     "Utilities and transportation": {
       "single_premium_annual": 8207.93,
@@ -117,7 +131,9 @@
       "p50_pepm": 539.76,
       "p75_pepm": 642.31,
       "ecec_monthly": 948.12,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 334.65,
+      "p90_pepm": 771.86
     },
     "Wholesale trade": {
       "single_premium_annual": 8512.69,
@@ -128,7 +144,9 @@
       "p50_pepm": 559.8,
       "p75_pepm": 666.16,
       "ecec_monthly": 634.39,
-      "top_cost_drivers": []
+      "top_cost_drivers": [],
+      "p10_pepm": 347.08,
+      "p90_pepm": 800.51
     }
   },
   "by_state": {
@@ -138,7 +156,7 @@
       "employer_single_monthly_pepm": 603.08,
       "employer_family_monthly_pepm": 1331.33,
       "p50_pepm": 603.08,
-      "cost_index": 1.062
+      "cost_index": 1.03
     },
     "US": {
       "single_premium_annual": 8486.0,
@@ -147,6 +165,156 @@
       "employer_family_monthly_pepm": 1443.67,
       "p50_pepm": 558.08,
       "cost_index": 1.0
+    },
+    "AL": {
+      "cost_index": 0.9
+    },
+    "AK": {
+      "cost_index": 1.38
+    },
+    "AZ": {
+      "cost_index": 0.97
+    },
+    "AR": {
+      "cost_index": 0.88
+    },
+    "CA": {
+      "cost_index": 1.09
+    },
+    "CO": {
+      "cost_index": 1.05
+    },
+    "CT": {
+      "cost_index": 1.15
+    },
+    "DE": {
+      "cost_index": 1.1
+    },
+    "GA": {
+      "cost_index": 0.95
+    },
+    "HI": {
+      "cost_index": 1.12
+    },
+    "ID": {
+      "cost_index": 0.92
+    },
+    "IL": {
+      "cost_index": 1.06
+    },
+    "IN": {
+      "cost_index": 0.96
+    },
+    "IA": {
+      "cost_index": 0.93
+    },
+    "KS": {
+      "cost_index": 0.94
+    },
+    "KY": {
+      "cost_index": 0.91
+    },
+    "LA": {
+      "cost_index": 0.93
+    },
+    "ME": {
+      "cost_index": 1.08
+    },
+    "MD": {
+      "cost_index": 1.08
+    },
+    "MA": {
+      "cost_index": 1.18
+    },
+    "MI": {
+      "cost_index": 1.01
+    },
+    "MN": {
+      "cost_index": 1.05
+    },
+    "MS": {
+      "cost_index": 0.87
+    },
+    "MO": {
+      "cost_index": 0.95
+    },
+    "MT": {
+      "cost_index": 0.98
+    },
+    "NE": {
+      "cost_index": 0.95
+    },
+    "NV": {
+      "cost_index": 0.98
+    },
+    "NH": {
+      "cost_index": 1.12
+    },
+    "NJ": {
+      "cost_index": 1.14
+    },
+    "NM": {
+      "cost_index": 0.93
+    },
+    "NY": {
+      "cost_index": 1.16
+    },
+    "NC": {
+      "cost_index": 0.95
+    },
+    "ND": {
+      "cost_index": 0.97
+    },
+    "OH": {
+      "cost_index": 0.97
+    },
+    "OK": {
+      "cost_index": 0.9
+    },
+    "OR": {
+      "cost_index": 1.03
+    },
+    "PA": {
+      "cost_index": 1.04
+    },
+    "RI": {
+      "cost_index": 1.11
+    },
+    "SC": {
+      "cost_index": 0.92
+    },
+    "SD": {
+      "cost_index": 0.96
+    },
+    "TN": {
+      "cost_index": 0.92
+    },
+    "TX": {
+      "cost_index": 1.0
+    },
+    "UT": {
+      "cost_index": 0.93
+    },
+    "VT": {
+      "cost_index": 1.1
+    },
+    "VA": {
+      "cost_index": 1.02
+    },
+    "WA": {
+      "cost_index": 1.1
+    },
+    "WV": {
+      "cost_index": 0.96
+    },
+    "WI": {
+      "cost_index": 1.02
+    },
+    "WY": {
+      "cost_index": 1.02
+    },
+    "DC": {
+      "cost_index": 1.2
     }
   },
   "by_size": {

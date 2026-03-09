@@ -9,7 +9,12 @@ const SITE_URL = import.meta.env.VITE_SITE_URL || "https://civicscale.ai";
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const YEARS = Array.from({ length: 5 }, (_, i) => 2025 + i);
 
-const INDUSTRIES = ["Manufacturing", "Healthcare", "Retail", "Technology", "Education", "Finance", "Other"];
+const INDUSTRIES = [
+  "Agriculture / Forestry / Fishing", "Construction",
+  "Finance / Real Estate / Insurance", "Manufacturing",
+  "Other Services", "Professional Services",
+  "Retail Trade", "Transportation / Utilities", "Wholesale Trade",
+];
 const EMPLOYEE_RANGES = ["<100", "100-250", "250-500", "500-1000", "1000+"];
 const EMPLOYEE_LABELS = {
   "<100": "<100 employees",
