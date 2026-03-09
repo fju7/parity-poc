@@ -81,6 +81,10 @@ export default function RenewalPrepReport() {
   if (claims.available && claims.excess_amount > 0) {
     talkingPoints.push(`Claims analysis identified ${fmt(claims.excess_amount)} in potential excess spend. Use specific procedure findings as leverage in rate negotiations.`);
   }
+  if (scorecard.available && scorecard.grade && !["A", "B+", "B"].includes(scorecard.grade)) {
+    const improvementCount = scorecard.scored_criteria ? scorecard.scored_criteria.filter(c => c.score < 60).length : 0;
+    talkingPoints.push(`Plan design analysis identified ${improvementCount || "several"} improvement opportunities. These are common findings in plans due for renewal review and represent negotiable terms your advisor can address.`);
+  }
 
   const pctColor = percentile == null ? "#64748b" : percentile > 75 ? "#EF4444" : percentile > 50 ? "#f59e0b" : "#22c55e";
 
@@ -196,7 +200,12 @@ export default function RenewalPrepReport() {
               </div>
               <div>
                 {scorecard.score != null && <p style={{ margin: "0 0 4px", fontSize: 14, color: "#475569" }}>Score: <strong>{scorecard.score}/100</strong></p>}
-                {scorecard.savings_potential != null && <p style={{ margin: 0, fontSize: 14, color: "#475569" }}>Estimated savings potential: <strong>{fmt(scorecard.savings_potential)}</strong> per employee per year</p>}
+                {scorecard.savings_potential != null && <p style={{ margin: "0 0 8px", fontSize: 14, color: "#475569" }}>Estimated savings potential: <strong>{fmt(scorecard.savings_potential)}</strong> per employee per year</p>}
+                {scorecard.interpretation && (
+                  <p style={{ margin: 0, fontSize: 13, color: "#64748b", lineHeight: 1.7 }}>
+                    {scorecard.interpretation.context}
+                  </p>
+                )}
               </div>
             </div>
           ) : (

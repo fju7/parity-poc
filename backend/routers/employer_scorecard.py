@@ -220,6 +220,7 @@ async def employer_scorecard(
 
     overall_score = round((total_weighted_score / total_weight) * 100, 1) if total_weight > 0 else 50.0
     grade = _score_to_grade(overall_score)
+    interpretation = _grade_interpretation(grade, overall_score)
 
     # --- Savings estimate ---
     savings_per_ee = _estimate_savings(parsed, overall_score)
@@ -232,6 +233,7 @@ async def employer_scorecard(
         "savings_estimate_per_ee": savings_per_ee,
         "parsed_plan": parsed,
         "scored_criteria": scored_criteria,
+        "interpretation": interpretation,
     }
 
     # --- Persist to Supabase ---
@@ -277,6 +279,28 @@ def _score_range(value, best, good, fair, poor) -> float:
 def _score_range_inverse(value, best, good, fair, poor) -> float:
     """Score where lower is better (coinsurance percentage)."""
     return _score_range(value, best, good, fair, poor)
+
+
+def _grade_interpretation(grade: str, score: float) -> dict:
+    """Return broker-protective interpretation text based on grade."""
+    if grade in ("A", "B+", "B"):
+        return {
+            "context": "This plan scores well against national benchmarks. Your current plan design is competitive \u2014 focus at renewal should be on maintaining these terms and protecting network quality.",
+            "action": "Share this scorecard with your broker to document your plan\u2019s strengths heading into renewal negotiations.",
+            "broker_framing": "positive",
+        }
+    elif grade in ("C+", "C"):
+        return {
+            "context": "This plan has room for improvement in several areas. The findings below reflect opportunities that are common across employer plans \u2014 most can be addressed at renewal through plan design adjustments or network changes.",
+            "action": "Share this scorecard with your broker. The specific findings below give your broker concrete talking points for your next renewal negotiation.",
+            "broker_framing": "opportunity",
+        }
+    else:  # D or F
+        return {
+            "context": "This plan has significant design gaps compared to benchmarks. These findings are common in plans that haven\u2019t been reviewed against current market standards \u2014 they represent negotiable terms, not permanent features of your coverage.",
+            "action": "Bring this scorecard to your broker before your next renewal. A benefits advisor can use these findings to negotiate specific improvements with your carrier or identify alternative plan structures.",
+            "broker_framing": "urgent",
+        }
 
 
 def _score_to_grade(score: float) -> str:

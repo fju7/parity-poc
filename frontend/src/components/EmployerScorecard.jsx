@@ -212,7 +212,21 @@ export default function EmployerScorecard() {
               <div style={{ fontSize: "14px", color: "#94a3b8", marginTop: "8px" }}>
                 Overall Score: {result.score}/100
               </div>
+              {result.interpretation && (
+                <p style={{ fontSize: "14px", color: "#94a3b8", marginTop: "16px", lineHeight: "1.7", maxWidth: "480px", margin: "16px auto 0", textAlign: "left" }}>
+                  {result.interpretation.context}
+                </p>
+              )}
             </div>
+
+            {/* Action recommendation */}
+            {result.interpretation && (
+              <div style={{ borderLeft: "3px solid #0d9488", paddingLeft: "16px", marginBottom: "20px" }}>
+                <p style={{ fontSize: "14px", color: "#cbd5e1", lineHeight: "1.6", margin: 0 }}>
+                  {result.interpretation.action}
+                </p>
+              </div>
+            )}
 
             {/* Savings Estimate */}
             {result.savings_estimate_per_ee > 0 && (
@@ -222,7 +236,7 @@ export default function EmployerScorecard() {
                   ${result.savings_estimate_per_ee.toLocaleString()}/yr per employee
                 </div>
                 <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>
-                  Based on plan design inefficiencies identified in the scorecard
+                  Based on plan design opportunities identified &mdash; these are negotiable at renewal
                 </div>
               </div>
             )}
