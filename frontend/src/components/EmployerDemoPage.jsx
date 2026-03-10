@@ -449,7 +449,7 @@ export default function EmployerDemoPage() {
               This demo uses sample data for {COMPANY.name}. Start your free benchmark with your own numbers &mdash; no credit card required.
             </p>
             <p style={{ fontSize: "13px", color: "#10b981", marginBottom: "16px" }}>
-              Plans from $149/mo &middot; 3x savings guarantee
+              Plans from $149/mo &middot; Savings guarantee
             </p>
             <Link
               to="/billing/employer/benchmark"

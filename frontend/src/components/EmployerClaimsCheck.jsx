@@ -151,7 +151,7 @@ export default function EmployerClaimsCheck() {
                 <span style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa" }}>CLAIMS CHECK</span>
               </div>
               <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(26px, 3.5vw, 36px)", fontWeight: "400", color: "#f1f5f9", marginBottom: "12px", lineHeight: "1.2" }}>
-                Find what your plan is overpaying
+                Find where your plan costs may exceed benchmarks
               </h1>
               <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", maxWidth: "560px", margin: "0 auto" }}>
                 Upload your claims file and we'll compare every line against CMS Medicare benchmarks for your geography.
@@ -337,7 +337,7 @@ export default function EmployerClaimsCheck() {
             <div style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.25)", borderRadius: "14px", padding: "24px", maxWidth: "400px", margin: "0 auto 24px" }}>
               <div style={{ fontSize: "13px", color: "#10b981", fontWeight: "600", marginBottom: "8px" }}>PLANS START AT</div>
               <div style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>$149<span style={{ fontSize: "16px", fontWeight: "400", color: "#94a3b8" }}>/mo</span></div>
-              <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>3x savings guarantee</div>
+              <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>Savings guarantee</div>
             </div>
             <Link to="/billing/employer/subscribe" style={{ ...btnPrimary, display: "inline-block", textDecoration: "none", width: "auto", padding: "14px 36px", background: "#10b981" }}>
               View Plans & Subscribe

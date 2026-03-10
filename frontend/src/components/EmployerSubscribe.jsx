@@ -225,15 +225,6 @@ export default function EmployerSubscribe() {
                     Your Plan
                   </div>
                 )}
-                {!isRecommended && tier.highlight && (
-                  <div style={{
-                    position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)",
-                    background: "rgba(59,130,246,0.15)", color: "#60a5fa", fontSize: "11px", fontWeight: "700",
-                    padding: "4px 14px", borderRadius: "20px", textTransform: "uppercase", letterSpacing: "0.5px",
-                  }}>
-                    Most Popular
-                  </div>
-                )}
                 <div style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", marginBottom: "8px" }}>{tier.name}</div>
                 <div style={{ marginBottom: "4px" }}>
                   <span style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>{tier.price}</span>
@@ -282,10 +273,10 @@ export default function EmployerSubscribe() {
           borderRadius: "12px", padding: "20px 28px", marginBottom: "32px", textAlign: "center",
         }}>
           <p style={{ fontSize: "15px", color: "#10b981", fontWeight: "600", marginBottom: "6px" }}>
-            3x Savings Guarantee
+            Savings Guarantee
           </p>
           <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0, maxWidth: "560px", marginLeft: "auto", marginRight: "auto" }}>
-            If your claims analysis doesn't identify at least 3x your subscription cost in annual excess spend, we'll refund your first 3 months. No questions asked.
+            If the savings we identify don't exceed your subscription cost, we'll refund the difference. No questions asked.
           </p>
         </div>
 

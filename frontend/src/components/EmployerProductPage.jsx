@@ -137,9 +137,7 @@ export default function EmployerProductPage() {
             margin: "0 auto 32px",
           }}
         >
-          We can show you exactly how much. AI-powered benchmarking, claims
-          analysis, and plan grading that tells you where your self-insured
-          plan is overpaying — by category, by provider, by procedure.
+          More than half of employers pay above the median for their industry and size — most don't know where they stand. AI-powered benchmarking, claims analysis, and plan grading that shows you exactly where you are — by category, by provider, by procedure.
         </p>
         <div
           style={{
@@ -762,9 +760,9 @@ export default function EmployerProductPage() {
           background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.2)",
           borderRadius: "12px", padding: "16px 24px", marginTop: "24px", textAlign: "center",
         }}>
-          <p style={{ fontSize: "14px", color: "#10b981", fontWeight: "600", marginBottom: "4px" }}>3x Savings Guarantee</p>
+          <p style={{ fontSize: "14px", color: "#10b981", fontWeight: "600", marginBottom: "4px" }}>Savings Guarantee</p>
           <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>
-            If your claims analysis doesn't identify at least 3x your subscription cost in annual excess spend, we'll refund your first 3 months.
+            If the savings we identify don't exceed your subscription cost, we'll refund the difference. No questions asked.
           </p>
         </div>
       </section>
@@ -863,7 +861,7 @@ const CARDS = [
   {
     icon: "\u2193",
     title: "Actionable Savings Report",
-    text: "Get a prioritized list of savings opportunities ranked by dollar impact. Each recommendation includes the data behind it \u2014 not just \u2018you\u2019re overpaying\u2019 but exactly how much, on which procedures, at which providers.",
+    text: "Get a prioritized list of savings opportunities ranked by dollar impact. Each recommendation includes the data behind it \u2014 not just \u2018here\u2019s your benchmark\u2019 but exactly how much opportunity exists, on which procedures, at which providers.",
   },
 ];
 
