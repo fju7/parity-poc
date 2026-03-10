@@ -93,6 +93,10 @@ Three live products + one in development:
 - Route: /signal/*
 - Backend: backend/routers/signal_*.py
 - Separate product — AI-powered claim intelligence
+- Key feature: Analytical Profiles — 4 named scoring profiles (Balanced,
+  Regulatory, Clinical, Patient) with divergence highlighting (premium-only)
+- Backend: signal_profiles.py (GET /profiles, POST /profiles/score)
+- Frontend: ProfileSelector.jsx integrated into IssueDashboard
 
 ## Key backend files
 - backend/routers/employer_shared.py — shared utilities, rate limiting,
@@ -159,8 +163,8 @@ Three live products + one in development:
 - otp_codes — OTP codes for auth (8-digit employer/provider, 6-digit broker)
 
 ## Migrations
-Numbered sequentially: backend/migrations/001_*.sql through 028_*.sql
-Next migration number: 029
+Numbered sequentially: backend/migrations/001_*.sql through 029_*.sql
+Next migration number: 030
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -213,6 +217,17 @@ Features built in this phase:
   table, sends confirmation email to user, internal notification to
   admin@civicscale.ai. Requires admin role + company name confirmation.
 - Migration 028: deletion_requests table
+
+## Session E-Signal — Analytical Profiles (Complete)
+- 4 analytical profiles seeded: Balanced (default), Regulatory, Clinical, Patient
+- Backend: signal_profiles.py with GET /api/signal/profiles and
+  POST /api/signal/profiles/score?profile_id=&issue_id=
+- Frontend: ProfileSelector.jsx — profile selector dropdown in IssueDashboard
+  with trade-off summary callouts and divergence highlighting
+- ClaimCard.jsx — divergent prop adds amber border + badge for claims
+  where profile and default scoring reach different evidence categories
+- Premium-only feature: gated by userTier === "premium" check
+- Migration 029: seed data for signal_analytical_profiles table
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

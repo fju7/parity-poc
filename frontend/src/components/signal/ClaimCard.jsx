@@ -5,7 +5,7 @@ import ClaimDetail from "./ClaimDetail";
 import { evidenceCategory as getEvidenceCategory } from "./WeightAdjuster";
 import { trackEvent } from "../../lib/signalAnalytics";
 
-export default function ClaimCard({ claim, composite, customScore }) {
+export default function ClaimCard({ claim, composite, customScore, divergent }) {
   const [expanded, setExpanded] = useState(false);
 
   const score = customScore != null ? customScore : composite?.composite_score;
@@ -13,7 +13,9 @@ export default function ClaimCard({ claim, composite, customScore }) {
   const sourceCount = claim._sourceCount || 0;
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden transition-shadow hover:shadow-sm font-[Arial,sans-serif]">
+    <div className={`rounded-xl overflow-hidden transition-shadow hover:shadow-sm font-[Arial,sans-serif] ${
+      divergent ? "border-2 border-amber-300 ring-1 ring-amber-100" : "border border-gray-200"
+    }`}>
       {/* Collapsed header — tap to expand */}
       <button
         onClick={() => {
@@ -48,6 +50,11 @@ export default function ClaimCard({ claim, composite, customScore }) {
             {sourceCount > 0 && (
               <span className="text-xs text-gray-400">
                 {sourceCount} source{sourceCount !== 1 ? "s" : ""}
+              </span>
+            )}
+            {divergent && (
+              <span className="text-[10px] font-semibold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full">
+                Profile divergence
               </span>
             )}
           </div>
