@@ -1,259 +1,547 @@
-# CivicScale Claude Code Handoff — Session B: Broker Auth Migration
-**Date:** March 10, 2026  
+# CivicScale Session Handoff Document
+**Last updated:** March 10, 2026  
 **Repo:** https://github.com/fju7/parity-poc  
 **Local path:** `/Users/fredugast/Desktop/AI Projects/Parity Medical/parity-poc-repo`  
-**Rules:** python3/pip3 only · commit directly to main · no feature branches
+**Rules:** python3/pip3 only · commit directly to main · Claude Code only on main branch  
 
 ---
 
-## MISSION
+## SESSION STATUS
 
-Migrate the Broker Portal from its current email-only localStorage auth to the unified auth system (companies + company_users + sessions tables) built in Session A. After this migration, broker firms become first-class `companies` with `type = 'broker'`, multiple brokers at the same firm share a book of business, and broker commission tracking for employer referrals is wired up.
-
----
-
-## UNIFIED AUTH SYSTEM — WHAT ALREADY EXISTS (Session A)
-
-Do not rebuild any of this. It is live and working.
-
-### Database tables (already in Supabase):
-- `companies` — core org unit. Columns include: `id`, `name`, `type` (employer/broker/provider), `plan`, `stripe_customer_id`, `stripe_subscription_id`, `trial_ends_at`, `trial_started_at`, `plan_locked_until`, `created_at`
-- `company_users` — people in companies. Columns: `id`, `company_id`, `email`, `role` (admin/member/viewer), `name`, `created_at`
-- `sessions` — UUID tokens. Columns: `id` (UUID token), `company_user_id`, `expires_at`, `created_at`
-- `company_invitations` — invite tokens. Columns: `id`, `company_id`, `email`, `role`, `token`, `expires_at`, `invited_by`, `accepted_at`
-
-### Backend (already deployed):
-- `backend/routers/auth.py` — full unified auth router
-- `get_current_user(authorization, sb)` — shared auth helper, import this in any router
-- Endpoints: `/api/auth/send-otp`, `/api/auth/verify-otp`, `/api/auth/me`, `/api/auth/logout`, `/api/auth/company`, `/api/auth/invite`, `/api/auth/accept-invite`
-
-### Frontend (already deployed):
-- `frontend/src/context/AuthContext.jsx` — `useAuth()` hook. Provides: `token, user, company, login, logout, isAdmin, isMember, isAuthenticated, refetch`
-- `frontend/src/components/AuthGate.jsx` — wraps protected pages, handles OTP inline
-- `frontend/src/components/EmployerSignupPage.jsx` — reference implementation of the full signup flow
-- `frontend/src/components/EmployerDashboard.jsx` — reference implementation of a protected dashboard
-
-### localStorage key:
-- `cs_session_token` — single key used across all products
+| Session | Status | Summary |
+|---------|--------|---------|
+| A | ✅ Complete | Unified auth architecture |
+| B | ✅ Complete | Broker auth migration + website redesign strategy |
+| C | ✅ Complete | Provider auth migration |
+| D | ✅ Complete | Account pages polish |
+| E-Signal | 🔜 Next | Analytical profiles build-out |
+| E-Health | Queued | Parity Health MVP — denial appeals |
+| F | Queued | Website redesign + investor page |
+| G | Queued | Go live |
 
 ---
 
-## CURRENT BROKER AUTH STATE (what needs to be replaced)
+## INFRASTRUCTURE
 
-The broker portal currently uses a **separate, old auth system**:
-- Email stored directly in `localStorage` (key unknown — check `BrokerLoginPage.jsx` and `BrokerSignupPage.jsx`)
-- `broker_accounts` table in Supabase — separate from `companies`
-- Plan field on `broker_accounts`: `starter` | `pro` | `pro_cancelling`
-- Stripe price: `STRIPE_PRICE_BROKER_PRO` (already in Render env vars)
-
-### Files to inspect before touching anything:
-- `frontend/src/components/BrokerSignupPage.jsx`
-- `frontend/src/components/BrokerLoginPage.jsx`
-- `frontend/src/components/BrokerDashboard.jsx`
-- `frontend/src/components/BrokerAccountPage.jsx`
-- `frontend/src/components/CAABrokerGuide.jsx`
-- `frontend/src/components/RenewalPrepReport.jsx`
-- `backend/routers/broker.py` (or wherever broker API routes live — verify filename)
-- Any Stripe webhook handler that references `broker_accounts`
-
-Read all of these files before writing any code.
+- **Frontend:** React/Vite → Vercel (auto-deploys main)
+- **Backend:** FastAPI Python 3.11 → Render at `parity-poc-api.onrender.com`
+- **Database:** Supabase (paid plan)
+- **Payments:** Stripe (test mode — going live requires key swap in Render)
+- **Email:** Resend (`noreply@civicscale.ai`)
+- **Auth:** Unified OTP system (8-digit codes) — see Session A below
 
 ---
 
-## WHAT TO BUILD — SESSION B SCOPE
+## WHAT WAS BUILT — SESSION A ✅
+**Unified Auth Architecture**  
+Commit: `61a4bb5` on main
 
-### 1. Database migration: `003_broker_auth_migration.sql`
+**New tables (migration `001_unified_auth.sql` — ALREADY RUN):**
+- `companies` — core organizational unit (employer/broker/provider)
+- `company_users` — people belonging to companies, with roles (admin/member/viewer)
+- `sessions` — UUID token-based auth, 30-day expiry
+- `company_invitations` — admin-controlled invite flow with 7-day token expiry
 
-Create this file at `backend/migrations/003_broker_auth_migration.sql`. Do NOT run it — Fred will paste it into Supabase SQL Editor manually.
+**Backend:**
+- `backend/routers/auth.py` — full unified auth module
+  - `POST /api/auth/send-otp`
+  - `POST /api/auth/verify-otp` — returns token + user + company, or `needs_company: true`
+  - `GET /api/auth/me` — validates Bearer token
+  - `POST /api/auth/logout`
+  - `POST /api/auth/company` — creates company + admin user + auto-creates session
+  - `POST /api/auth/invite` — admin invites team member
+  - `POST /api/auth/accept-invite` — accepts invitation via token
+  - `GET/PATCH /api/auth/company` — get/update company details
+  - `GET /api/auth/users` — list company members
+  - `PATCH/DELETE /api/auth/users/{id}` — admin manages team
+  - `get_current_user(authorization, sb)` — shared helper, import in any router
 
-```sql
--- Broker firms become companies with type = 'broker'
--- Migrate existing broker_accounts rows into companies + company_users
+**Frontend:**
+- `frontend/src/context/AuthContext.jsx` — React context, `useAuth()` hook
+  - Stores `cs_session_token` in localStorage
+  - Provides: `token, user, company, login, logout, isAdmin, isMember, isAuthenticated, refetch`
+- `frontend/src/components/AuthGate.jsx` — wraps protected pages, inline OTP login
+- `frontend/src/components/EmployerSignupPage.jsx` — `/billing/employer/signup`
+- `frontend/src/components/EmployerDashboard.jsx` — `/billing/employer/dashboard`
+- `frontend/src/components/EmployerAccountPage.jsx` — `/billing/employer/account`
+- `frontend/src/components/AcceptInvitePage.jsx` — `/accept-invite?token=`
 
--- Step 1: Insert broker firms into companies
-INSERT INTO companies (id, name, type, plan, stripe_customer_id, stripe_subscription_id, created_at)
-SELECT 
-  gen_random_uuid(),
-  firm_name,           -- adjust column name to match actual broker_accounts schema
-  'broker',
-  plan,                -- map starter/pro/pro_cancelling
-  stripe_customer_id,  -- adjust to match actual column name
-  stripe_subscription_id, -- adjust to match actual column name
-  created_at
-FROM broker_accounts;
+---
 
--- Step 2: Insert broker users into company_users as admins
-INSERT INTO company_users (id, company_id, email, role, name, created_at)
-SELECT
-  gen_random_uuid(),
-  c.id,
-  ba.email,            -- adjust to match actual column name
-  'admin',
-  ba.contact_name,     -- adjust to match actual column name, or use email if no name field
-  ba.created_at
-FROM broker_accounts ba
-JOIN companies c ON c.name = ba.firm_name AND c.type = 'broker';
+## WHAT WAS BUILT — SESSION B ✅
+**Broker Auth Migration + Website Redesign Strategy**
 
--- Step 3: Add broker-specific columns to companies (if not already present)
-ALTER TABLE companies ADD COLUMN IF NOT EXISTS broker_client_limit int DEFAULT 10;
-ALTER TABLE companies ADD COLUMN IF NOT EXISTS broker_commission_rate numeric DEFAULT 0.20;
+- Migrated broker auth from email-only localStorage to unified `sessions` + `companies` tables
+- Broker firms are now `companies` with `type = 'broker'`
+- Multi-broker firm support (shared book of business)
+- Broker-controlled employer invitation flow ("Invite Client" button)
+- Broker commission tracking (20% for 12 months on employer referrals, starting first paid month)
+- Website redesign strategy session (see Strategic Context section below)
+
+---
+
+## WHAT WAS BUILT — SESSION C ✅
+**Provider Auth Migration**
+
+**Backend (4 files modified):**
+- `provider_shared.py` — Replaced `_get_authenticated_user` with unified auth via `get_current_user()`, added `_AuthUser` wrapper for `.id`/`.email` backward compat, updated `_verify_admin` to use role-based check
+- `provider_audit.py` — Removed `await` from auth call, added 4 new API endpoints (`/my-profile`, `/save-profile`, `/my-analyses`, `/analysis/{id}`) to replace direct Supabase queries from frontend
+- `provider_appeals.py` — Removed `await` from 4 auth calls
+- `provider_subscription.py` — Removed `await` from 4 auth calls
+
+**Frontend (5 files modified):**
+- `ProviderApp.jsx` — Full migration from Supabase auth to `useAuth()`/`AuthGate`, removed login views
+- `AuditAccount.jsx` — Full rewrite: replaced Supabase OTP flow with `AuthGate` wrapper + `useAuth()` hook
+- `ProviderAuditAdmin.jsx` — Replaced `session` prop with `useAuth()` hook
+- `ProviderAuditReport.jsx` — Replaced `supabase.auth.getSession()` with `useAuth()` token
+- `AuditStandalone.jsx` — Removed `session={null}` prop from `ProviderAuditPage`
+
+**Routes:** `/provider/*` protected by AuthGate in ProviderApp · `/audit/account` protected by AuthGate in AuditAccount · `/audit` remains public (free audit form)
+
+---
+
+## WHAT WAS BUILT — SESSION D ✅
+**Account Pages Polish**
+
+**Backend (1 file modified):**
+- `auth.py` — Added `POST /api/auth/deletion-request` endpoint. Requires admin role + company name confirmation. Records request in `deletion_requests` table, sends confirmation email to user and internal notification to `admin@civicscale.ai`.
+
+**Frontend (2 files modified):**
+- `EmployerAccountPage.jsx` — Fixed billing portal URL (`/api/employer/billing-portal`), replaced mailto link with real deletion request modal (type company name to confirm)
+- `BrokerAccountPage.jsx` — Wrapped with `AuthGate`, added role change dropdown and remove button for team members, added role selector to invite form, added data deletion request modal
+
+**Migration:** `028_deletion_requests.sql` — run in Supabase ✅ · Render redeployed ✅
+
+---
+
+## PENDING WORK — SESSION E-SIGNAL (QUEUED)
+**Analytical Profiles Build-out**
+
+Read `CLAUDE.md` first. Then read the full handoff document before writing any code.
+
+**Context:** Parity Signal already has a multi-dimensional claim scoring system — each claim is scored across 6 dimensions (`source_quality`, `data_support`, `reproducibility`, `consensus`, `recency`, `rigor`) with weights stored in `signal_claim_composites.weights_used`. The `signal_analytical_profiles` table already exists in the schema (migration `005_signal_tables.sql`) but is empty and not wired into the scoring pipeline.
+
+**What to build:**
+
+1. **Seed analytical profiles** — populate `signal_analytical_profiles` with at least 3 named profiles, each with a different `weights JSONB` configuration and a plain-English `trade_off_summary`. Suggested profiles:
+   - `Regulatory` — heavily weights `source_quality` and `consensus` (FDA/CMS sources dominate)
+   - `Clinical` — heavily weights `reproducibility` and `rigor` (peer-reviewed trials dominate)
+   - `Patient` — heavily weights `recency` and `data_support` (what's known now, practically)
+
+2. **Backend endpoints:**
+   - `GET /api/signal/profiles` — returns all profiles
+   - `POST /api/signal/score?profile_id=` — re-scores a claim set using the named profile's weights instead of defaults. Returns composite scores AND a `divergence` field showing where this profile's conclusion differs from the default scoring.
+
+3. **Frontend UI** — On the Signal topic/issue page, add a profile selector (dropdown or toggle). When user switches profiles, claim scores and evidence categories update to reflect that profile's weighting. Show a small callout explaining the trade-off in plain English (use `trade_off_summary` from the profile record). **Premium-only feature — gate behind tier check.**
+
+4. **Divergence highlighting** — Claims where different profiles reach different `evidence_category` conclusions (e.g. `moderate` vs `weak`) should be visually flagged. This is the core investor-demo feature — it makes the "we show you how conclusions differ" story tangible.
+
+**Do not touch:** Auth system, employer/broker/provider routers, Stripe logic.
+
+**Commit directly to main. No feature branches.**
+
+---
+
+## PENDING WORK — SESSION E-HEALTH (QUEUED)
+**Parity Health Enhancements: CPT Labels + Denial Appeals**
+
+Read `CLAUDE.md` first. Then read the full handoff document before writing any code.
+
+**Context:** Parity Health is substantially built. The following already exist and should not be touched unless directly relevant to the tasks below:
+- `ParityHealthLandingPage.jsx` — landing page at `/parity-health`
+- `UploadView.jsx` — drag/drop PDF upload, privacy-first design
+- `ReportView.jsx` — full bill analysis report with anomaly scoring, coding pattern analysis, what-to-do-next
+- `BillHistoryView.jsx` — local bill history with export
+- `extractBillData.js` — browser-side PDF extraction
+- `localBillStore.js` — local storage for bill history
+- `backend/routers/health_analyze.py` — AI extraction endpoints for text and image input (`/api/health/analyze-text`, `/api/health/analyze-image`)
+- `ImageUploadView.jsx`, `ItemizedBillRequestView.jsx` — supporting views
+
+**Four things to build, in this order:**
+
+---
+
+### 1. CPT Plain-English Labels in ReportView
+
+**Problem:** The Description column in the line items table shows whatever text was extracted from the PDF — often blank, truncated, or using internal billing shorthand. The employer codebase already has a `cptLabel()` helper that maps CPT codes to plain-English procedure names.
+
+**What to do:**
+- Find the `cptLabel()` helper in the employer codebase — likely in `frontend/src/lib/` or `frontend/src/utils/`. Verify the exact file path before doing anything.
+- Import it into `ReportView.jsx`
+- In the `LineItemRow` component, use `cptLabel(item.code)` as a fallback when `item.description` is blank or very short (under 5 characters). Display format: show the plain-English label, with the original extracted description beneath it in smaller gray text if both exist.
+- If the code is a REVENUE code (`item.codeType === "REVENUE"`), do not apply cptLabel — revenue codes have a different lookup. Leave those as-is.
+
+---
+
+### 2. Denial/EOB Analysis Flow
+
+**Problem:** There is no path for a user who received an insurance denial. Denial appeals is a distinct high-value use case — different document type, different analytical questions, different output.
+
+**Frontend — new upload entry point:**
+- Add a second option to the existing `UploadView.jsx` — below the current drop zone, add a clearly separated section: "Received a denial? Analyze it here →" as a button/link navigating to `/parity-health/denial`
+- Create `DenialUploadView.jsx` at `/parity-health/denial` — same visual style as `UploadView.jsx` but with empathetic copy ("Insurance denied your claim. Let's find out why — and what you can do about it."). Accept PDF upload or text paste. No image upload needed for MVP.
+
+**Backend — new endpoint in `health_analyze.py`:**
+- Add `POST /api/health/analyze-denial`
+- Accepts `{ text: string }` — extracted text from a denial letter or EOB
+- Sends to Claude with this system prompt:
+```
+You are a medical insurance denial analyst. Analyze this insurance denial letter or Explanation of Benefits (EOB) and extract the following as JSON only, no other text:
+{
+  "denial_reason_code": "the specific reason code if present (e.g. CO-97, PR-96)",
+  "denial_reason_plain": "plain English explanation of why the claim was denied",
+  "denial_type": "clinical (medical necessity) | administrative (paperwork/auth) | coverage (not covered) | other",
+  "specific_criterion": "the exact criterion, policy, or rule the carrier cited to deny",
+  "weakness": "any apparent weakness in the denial reasoning — e.g. if the criterion cited is vague, inconsistently applied, or contradicted by the clinical record. Return null if the denial appears straightforward.",
+  "supporting_documentation": ["list of specific documents or evidence that would strengthen an appeal"],
+  "appeal_deadline_hint": "any appeal deadline mentioned, or null",
+  "confidence": "high if denial reason is clearly stated, medium if partially clear, low if ambiguous"
+}
+```
+- Returns structured JSON matching the above shape
+
+**Frontend — denial result view:**
+- Create `DenialReportView.jsx` — displays the structured analysis in plain English
+- Sections:
+  - **Why it was denied** — `denial_reason_plain` in large readable text, denial type badge (Clinical / Administrative / Coverage)
+  - **What they cited** — `specific_criterion` with a brief explanation of what that means
+  - **Weakness in their reasoning** — only show if `weakness` is not null. Highlight this clearly — it is the most valuable section.
+  - **What to include in your appeal** — `supporting_documentation` as a printable checklist
+  - **Appeal deadline** — if present, show prominently in amber
+- Below the analysis: "Generate an Appeal Letter" button → calls the appeal letter endpoint (item 3)
+- Same "Download Report" / print functionality as `ReportView.jsx`
+
+---
+
+### 3. Appeal Letter Generator
+
+**Backend — new endpoint in `health_analyze.py`:**
+- Add `POST /api/health/generate-appeal`
+- Accepts the full denial analysis JSON from step 2 plus optional `{ patient_name: string, provider_name: string, claim_number: string }`
+- Sends to Claude with this system prompt:
+```
+You are a medical billing advocate writing a formal insurance appeal letter on behalf of a patient. Using the denial analysis provided, write a professional, assertive appeal letter that:
+- Opens with the specific claim/denial reference
+- States clearly that the patient is appealing the denial
+- Directly addresses the specific criterion the carrier cited
+- If a weakness was identified in the denial reasoning, leads with that as the primary argument
+- Lists the supporting documentation the patient will provide
+- Closes with a clear request for reconsideration and a deadline expectation
+- Uses professional but plain language — not legal jargon
+- Is formatted as a real letter (date, addresses, subject line, body, closing)
+Return only the letter text, no explanation or commentary.
+```
+- Returns `{ letter_text: string }`
+
+**Frontend:**
+- Add a letter display section to `DenialReportView.jsx` — shown after user clicks "Generate Appeal Letter"
+- Show the letter in a clean readable format with "Copy to Clipboard" and "Download as PDF" buttons (use browser print to PDF, same pattern as existing report download)
+- Add small editable fields above the letter: Patient Name, Provider Name, Claim Number — passed to backend and inserted into letter
+
+---
+
+### 4. Subdomain Routing — `health.civicscale.ai`
+
+- Add a Vercel routing rule so `health.civicscale.ai` serves the React app with `/parity-health` as the root path
+- Verify the Vercel config file path before editing — do not assume the filename
+- Existing `/parity-health` routes continue to work unchanged — subdomain is additive
+
+---
+
+**After Claude Code completes, Fred needs to:**
+1. Test CPT label display on a real bill upload — verify labels appear correctly and revenue codes are unaffected
+2. Test the denial upload flow with a pasted denial letter — verify analysis JSON returns correctly
+3. Test the appeal letter generator — verify the letter is coherent and references the specific denial
+4. Verify `health.civicscale.ai` resolves correctly in Vercel
+
+**Do not touch:** Signal, broker, employer, or provider routers. Auth system untouched — all Parity Health features remain anonymous for this session.
+
+**Commit directly to main. No feature branches.**
+
+---
+
+## PENDING WORK — SESSION F (QUEUED)
+**Website Redesign + Investor Page**
+
+To be designed in Claude.ai first, then handed off to Claude Code.
+
+**What to build:**
+- Updated `civicscale.ai` homepage — mission statement, employer/broker two-path routing, Signal footer attribution, investor nav link
+- `investors.civicscale.ai` subdomain — full platform story page, public-facing, single long-scroll
+- `health.civicscale.ai` entry point (if not built in E-Health)
+- Consistent CTA language and design conventions across all products
+
+**Design conventions to apply everywhere:**
+
+| Element | Standard |
+|---------|----------|
+| Primary CTA | "Start Free Trial" (employer) / "Get Started Free" (broker) |
+| Trust line | "No credit card required for first 30 days · Cancel anytime" |
+| Secondary CTA | Always "See a Demo" |
+| Value prop format | 3 outcome bullets, not feature bullets |
+| Tone | Direct, data-confident — never salesy |
+
+**Subdomain architecture:**
+```
+civicscale.ai              → Main site: Employer + Broker + mission
+provider.civicscale.ai     → Standalone Provider entry point
+health.civicscale.ai       → Parity Health consumer app
+investors.civicscale.ai    → Investor-facing narrative site
 ```
 
-**IMPORTANT:** Before writing this migration, read the actual `broker_accounts` table schema by looking at any existing migration files or the broker router to determine the real column names. Adjust the SQL above to match actual column names. Do not guess.
+**Note:** Do not begin Session F until E-Signal and E-Health are complete. The investor copy depends on analytical profiles being real and Parity Health being a working product, not a landing page.
 
-### 2. Add commission tracking table
+---
 
-Add to `003_broker_auth_migration.sql`:
+## PENDING WORK — SESSION G (QUEUED)
+**Go Live**
 
-```sql
-CREATE TABLE IF NOT EXISTS broker_commissions (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  broker_company_id uuid REFERENCES companies(id),
-  employer_company_id uuid REFERENCES companies(id),
-  referral_date timestamptz DEFAULT now(),
-  commission_rate numeric DEFAULT 0.20,
-  commission_months int DEFAULT 12,
-  first_paid_month timestamptz,      -- null until employer converts to paid
-  status text DEFAULT 'pending'      -- pending / active / completed / cancelled
-    CHECK (status IN ('pending', 'active', 'completed', 'cancelled')),
-  created_at timestamptz DEFAULT now()
-);
+- Swap Stripe test keys for live keys across all three products (env var swap in Render only)
+- Verify all webhooks fire correctly in live mode
+- Smoke test all checkout flows
+- Half-session — mostly env var swaps and verification
+
+---
+
+## BROKER PORTAL — FULLY BUILT & DEPLOYED
+
+### Features complete:
+- OTP auth (8-digit codes) — migrated to unified auth (Session B)
+- Book of Business dashboard with three tabs: Book of Business / Renewals / Prospects
+- Renewal Timeline Tracker (≤90d amber / 91-180d blue / 180d+ muted)
+- Renewal Prep Report at `/broker/renewal-prep/:companySlug`
+- Prospect Benchmarking Tool
+- CAA Claims Data Guide at `/broker/caa-guide` with dynamic letter generator
+- Email notifications (welcome, renewal reminders, shared report viewed)
+- Broker account page at `/broker/account`
+- Level 2 Insights in broker dashboard and renewal prep report
+- Multi-broker firm support (shared book of business)
+- Broker-controlled employer invitation flow
+
+### Broker freemium tier:
+- Starter: free, up to 10 clients
+- Pro: $99/mo, unlimited clients
+- `broker_accounts.plan` field: `starter` | `pro` | `pro_cancelling`
+- Stripe price: `STRIPE_PRICE_BROKER_PRO` (already in Render)
+
+---
+
+## PARITY EMPLOYER — PRODUCT FEATURES
+
+### Fully built:
+- `/billing/employer` — product landing page
+- `/billing/employer/benchmark` — free benchmark tool (no auth required)
+- `/billing/employer/claims-check` — claims upload + Level 1 + Level 2 analysis
+- `/billing/employer/scorecard` — plan grading
+- `/billing/employer/rbp-calculator` — RBP savings calculator
+- `/billing/employer/contract-parse` — contract parser
+- `/billing/employer/demo` — demo page
+- `/employer/shared-report/:shareToken` — broker-shared report
+- 30-day free trial ($99/mo after, introductory price locked 24 months)
+- Read-only access preserved after cancellation
+
+### Employer pricing:
+- Single plan: 30-day free trial (card required upfront) → $99/mo
+- Stripe price: `STRIPE_PRICE_EMPLOYER_PRO` (in Render)
+
+### Level 2 Claims Analytics:
+- Provider price variation (anonymized)
+- Site of care opportunities (hospital vs non-hospital)
+- Network leakage detection
+- Carrier effective rate vs Medicare multiples
+- CPT descriptions via `cptLabel()` helper
+- Requires 835 EDI format (CSV uploads get Level 1 only)
+
+### Sample 835 file:
+`backend/data/sample/Midwest_Manufacturing_Dec2024.835`
+- 1083 claims, 2166 NM1 segments, provider data included
+
+---
+
+## PARITY PROVIDER — STATUS
+
+Full product exists, now on unified auth (Session C):
+- `ProviderAuditPage.jsx` — audit submission
+- `ProviderAuditReport.jsx` — report display
+- `ProviderAuditAdmin.jsx` — admin view
+- `ProviderDemoPage.jsx` — demo
+- `AuditAccount.jsx` — account page
+- All routes protected by AuthGate
+- No real users exist
+
+---
+
+## PARITY SIGNAL — STATUS
+
+Evidence intelligence platform. Multi-dimensional claim scoring across 6 dimensions. Analytical profiles table exists but not yet wired in (Session E-Signal).
+
+**What's built and operational:**
+- Multi-dimensional scoring: `source_quality`, `data_support`, `reproducibility`, `consensus`, `recency`, `rigor`
+- Composite scores stored with `weights_used JSONB` — the weighting used to reach each conclusion is recorded
+- `signal_consensus` table tracks `arguments_for` and `arguments_against` for debated claims
+- Q&A endpoint — premium users can ask questions about topics, answered by Claude with scored evidence context
+- Live metrics endpoint — claims scored, topics tracked, sources monitored, updates this month
+- Subscription tiers: free / standard / premium
+- Topic requests (premium feature)
+- Evidence update notifications
+
+**What's built but not yet wired in (Session E-Signal):**
+- `signal_analytical_profiles` table — named profiles with different weightings showing how different conclusions arise. Marked "Phase 1 — create table now for readiness." Table exists, not populated.
+
+---
+
+## UNIFIED AUTH — DESIGN DECISIONS
+
+| Decision | Choice |
+|----------|--------|
+| Session tokens | UUID stored in `sessions` table, 30-day expiry |
+| Company membership | Admin-only invites — no auto domain matching |
+| Broker firms | Same companies/company_users model as employers |
+| Employer invitations from broker | Broker-controlled "Invite Client" button |
+| Company types | employer / broker / provider |
+| localStorage key | `cs_session_token` (single key across all products) |
+| API auth header | `Authorization: Bearer {token}` |
+| Role model | admin / member / viewer |
+
+---
+
+## ENVIRONMENT VARIABLES (Render — current)
+
+```
+ANTHROPIC_API_KEY
+SUPABASE_URL
+SUPABASE_SERVICE_ROLE_KEY
+STRIPE_SECRET_KEY
+STRIPE_WEBHOOK_SECRET (used by signal_stripe.py)
+STRIPE_EMPLOYER_WEBHOOK_SECRET (employer/broker webhook)
+STRIPE_PRICE_BROKER_PRO
+STRIPE_PRICE_EMPLOYER_PRO
+RESEND_API_KEY
+CRON_SECRET = notify-deliver-2026
 ```
 
-### 3. Backend — broker router migration
-
-In `backend/routers/broker.py` (or equivalent):
-
-- Replace any `broker_accounts` auth checks with `get_current_user(authorization, sb)` from `auth.py`
-- Any endpoint that currently checks "is this a valid broker session" should now validate via the unified sessions table
-- Any endpoint that queries `broker_accounts` for plan/stripe info should now query `companies` where `type = 'broker'`
-- Keep all existing broker business logic (book of business, renewals, prospects, CAA guide) — only swap the auth layer
-
-Pattern to follow (import and use this in broker router):
-```python
-from .auth import get_current_user
-
-@router.get("/api/broker/dashboard")
-async def broker_dashboard(
-    authorization: str = Header(None),
-    sb = Depends(get_supabase)
-):
-    user = await get_current_user(authorization, sb)
-    if user["company"]["type"] != "broker":
-        raise HTTPException(status_code=403, detail="Broker access only")
-    # ... rest of handler
+**Obsolete (remove after confirming no references):**
+```
+STRIPE_PRICE_EMPLOYER_STARTER
+STRIPE_PRICE_EMPLOYER_GROWTH
+STRIPE_PRICE_EMPLOYER_SCALE
 ```
 
-### 4. Frontend — broker signup flow
+---
 
-Replace `BrokerSignupPage.jsx` with a flow that mirrors `EmployerSignupPage.jsx`:
+## STRIPE WEBHOOKS (registered)
 
-**Flow:**
-1. Enter email → send OTP (`/api/auth/send-otp`)
-2. Enter OTP → verify (`/api/auth/verify-otp`)
-   - If existing broker firm found → auto-login → redirect to `/broker/dashboard`
-   - If new user (`needs_company: true`) → show firm setup form
-3. Firm setup: Firm name, contact name, phone (optional)
-   - POST to `/api/auth/company` with `{ name: firmName, type: 'broker' }`
-   - This creates the company + sets current user as admin + auto-creates session
-4. Auto-login → redirect to `/broker/dashboard`
-
-**Route:** Keep at `/broker/signup`
-
-### 5. Frontend — broker login flow
-
-Replace `BrokerLoginPage.jsx`:
-
-**Flow:**
-1. Enter email → send OTP
-2. Enter OTP → verify → auto-login → redirect to dashboard
-   - If `needs_company: true` → redirect to `/broker/signup` to complete firm setup
-
-**Route:** Keep at `/broker/login`
-
-### 6. Frontend — broker dashboard auth
-
-In `BrokerDashboard.jsx`:
-- Replace any localStorage email reads with `useAuth()` hook
-- Wrap with `<AuthGate>` or equivalent so unauthenticated users see the OTP login inline
-- All API calls should pass `Authorization: Bearer ${token}` header (token from `useAuth()`)
-- Plan/upgrade state should come from `company.plan` (from auth context) not `broker_accounts`
-
-### 7. Frontend — broker account page
-
-In `BrokerAccountPage.jsx`:
-- Replace old auth with `useAuth()` hook
-- Show: firm name, admin email, team members (if multi-broker), plan, billing portal link
-- Team management: if `isAdmin`, show invite form — POST to `/api/auth/invite` with `{ email, role: 'member' }`
-
-### 8. Broker → Employer "Invite Client" button
-
-Add an "Invite Client" button to the broker dashboard (Book of Business tab). When clicked:
-- Opens a modal: enter employer contact email
-- POST to a new endpoint `/api/broker/invite-employer` with `{ email }` and broker auth header
-- Backend creates a `company_invitations` row with `type = 'employer_referral'` and records the referring broker's `company_id`
-- Sends invite email via Resend to the employer contact
-
-This is the mechanism that triggers commission tracking. When the invited employer signs up and converts to paid, a `broker_commissions` row becomes `active`.
-
-### 9. Commission tracking — backend wiring
-
-In the Stripe webhook handler (wherever `checkout.session.completed` for employers is handled):
-- After employer converts to paid, check `company_invitations` for a matching employer referral from a broker
-- If found, update `broker_commissions` row: set `status = 'active'`, `first_paid_month = now()`
+1. Provider webhook: `https://parity-poc-api.onrender.com/api/provider/subscription/webhook`
+2. Signal webhook: `https://parity-poc-api.onrender.com/api/signal/stripe/webhooks`
+3. Employer/Broker webhook: `https://parity-poc-api.onrender.com/api/employer/webhook`
+   - Events: `checkout.session.completed`, `customer.subscription.deleted`, `customer.subscription.updated`
+   - Secret: `STRIPE_EMPLOYER_WEBHOOK_SECRET`
 
 ---
 
-## FILES TO LEAVE UNTOUCHED
+## ROUTES (complete list)
 
-- `backend/routers/auth.py` — do not modify
-- `frontend/src/context/AuthContext.jsx` — do not modify
-- `frontend/src/components/AuthGate.jsx` — do not modify
-- `frontend/src/components/AcceptInvitePage.jsx` — do not modify
-- All employer components — do not touch
-- All provider components — do not touch
-- `backend/migrations/001_unified_auth.sql` — do not touch
-- `backend/migrations/002_employer_trial.sql` — do not touch
+```
+/                                    → CivicScaleHomepage
+/parity-health                       → ParityHealthLandingPage (to be replaced in E-Health)
+/accept-invite                       → AcceptInvitePage
 
----
+/billing/employer                    → EmployerProductPage
+/billing/employer/signup             → EmployerSignupPage
+/billing/employer/dashboard          → EmployerDashboard (auth protected)
+/billing/employer/account            → EmployerAccountPage (auth protected)
+/billing/employer/benchmark          → EmployerBenchmark
+/billing/employer/claims-check       → EmployerClaimsCheck
+/billing/employer/scorecard          → EmployerScorecard
+/billing/employer/subscribe          → EmployerSubscribe (redirects to dashboard)
+/billing/employer/rbp-calculator     → EmployerRBPCalculator
+/billing/employer/contract-parse     → EmployerContractParser
+/billing/employer/demo               → EmployerDemoPage
 
-## AFTER CLAUDE CODE COMPLETES — FRED'S STEPS
+/billing/provider                    → ProviderProductPage
+/billing/provider/demo               → ProviderDemoPage
+/provider/*                          → ProviderApp (unified auth — Session C complete)
+/audit                               → AuditStandalone (public)
+/audit/account                       → AuditAccount (auth protected)
 
-1. Merge feature branch: (Claude Code will provide exact merge command)
-2. Run `003_broker_auth_migration.sql` in Supabase SQL Editor
-3. Verify existing broker accounts migrated correctly (spot check companies + company_users tables)
-4. Test full broker signup flow at `/broker/signup`
-5. Test broker login at `/broker/login`
-6. Test "Invite Client" button on dashboard
-7. Trigger manual Render deploy if not auto-deployed
+/employer/shared-report/:shareToken  → EmployerSharedReport
 
----
-
-## ENVIRONMENT VARIABLES (no new ones needed for Session B)
-
-All required env vars are already in Render:
-- `STRIPE_PRICE_BROKER_PRO` ✅
-- `STRIPE_EMPLOYER_WEBHOOK_SECRET` ✅
-- `RESEND_API_KEY` ✅
-
----
-
-## STRATEGIC CONTEXT (for Claude Code awareness)
-
-- Broker portal is the primary acquisition channel — this migration is high priority
-- "We will never contact your clients directly" — employer invites must come from the broker, not CivicScale
-- Broker commission: 20% recurring for 12 months, starts at employer's first paid month
-- Broker freemium: Starter (free, ≤10 clients) / Pro ($99/mo, unlimited)
-- Existing broker users should experience zero disruption — migration must be non-breaking
+/broker                              → BrokerLandingPage
+/broker/signup                       → BrokerSignupPage
+/broker/login                        → BrokerLoginPage
+/broker/dashboard                    → BrokerDashboard
+/broker/account                      → BrokerAccountPage
+/broker/caa-guide                    → CAABrokerGuide
+/broker/renewal-prep/:companySlug    → RenewalPrepReport
+```
 
 ---
 
-## TECH STACK REMINDER
+## MIGRATIONS (run status)
 
-- Python3 / pip3 (never python / pip)
-- FastAPI backend on Render (`parity-poc-api.onrender.com`)
-- React/Vite frontend on Vercel (auto-deploys main)
+| File | Status |
+|------|--------|
+| `001_unified_auth.sql` | ✅ Run |
+| `002_employer_trial.sql` | ✅ Run |
+| `028_deletion_requests.sql` | ✅ Run |
+| `005_signal_tables.sql` | ✅ Run |
+| `006_signal_public_read.sql` | ✅ Run |
+| `007_signal_topic_requests.sql` | ✅ Run |
+
+---
+
+## STRATEGIC CONTEXT
+
+### Brand architecture
+```
+civicscale.ai              → Main site: Employer + Broker + mission
+provider.civicscale.ai     → Standalone Provider entry point (separate nav/hero)
+health.civicscale.ai       → Parity Health consumer app
+investors.civicscale.ai    → Investor-facing narrative site
+```
+
+### Product audience map
+| Product | Who buys | Their goal | Their adversary |
+|---------|----------|------------|-----------------|
+| Parity Employer | HR/benefits directors | Reduce cost, benchmark, understand carrier data | Their carrier |
+| Parity Provider | Practice managers, billing directors, CFOs | Get paid correctly, fight denials | Their payers/carriers |
+| Parity Health | Individual consumers | Understand bills, appeal denials | Their insurer + provider |
+| Parity Signal | Enterprise, researchers, policy orgs | Systemic intelligence | Opacity itself |
+
+### The platform thesis (for investor conversations)
+CivicScale is not a healthcare company. It is an information asymmetry engine deployed in healthcare first because the conditions there are uniquely favorable: a public reference price exists (Medicare), data is available due to price transparency regulations, the problem is visceral, and regulatory tailwinds (CAA, No Surprises Act) are forcing data into the open.
+
+The real thesis: **any market where a discoverable truth exists but powerful intermediaries profit from hiding it is a Parity Signal market.**
+
+What makes Parity Signal genuinely differentiated: it doesn't just find the gap between what things cost and what institutions claim they cost. It scores claims across multiple dimensions with recorded weights, tracks divergent arguments on contested claims, and is architected to support named analytical profiles that make competing conclusions legible — showing not just what is true but how different weightings of the same evidence produce different conclusions, and what it would take to change a decision.
+
+### Go-to-market
+- **Primary channel:** Independent benefits brokers (beachhead)
+- **Broker value prop:** "Your clients' carriers have a data team. Now you do too."
+- **Employer value prop:** Transparent benchmarking, not black-box consultant
+- **Pricing:** Broker free (10 clients) / Pro $99/mo · Employer 30-day trial / $99/mo intro locked 24 months
+- **Broker commission:** 20% recurring for 12 months on employer referrals, starts at first paid month
+- **Data commitment:** "We will never contact your clients directly"
+- **Key differentiator:** Independent data (not carrier-sourced), procedure-level Medicare benchmarking
+
+### CTA conventions (to apply consistently across all products)
+| Element | Standard |
+|---------|----------|
+| Primary CTA | "Start Free Trial" (employer) / "Get Started Free" (broker) |
+| Trust line | "No credit card required for first 30 days · Cancel anytime" |
+| Secondary CTA | Always "See a Demo" |
+| Value prop format | 3 outcome bullets, not feature bullets |
+| Tone | Direct, data-confident — never salesy |
+
+---
+
+## TECH STACK
+
+- Python3 / pip3 (never python/pip)
+- FastAPI backend on Render
+- React/Vite frontend on Vercel
 - Supabase PostgreSQL
-- Stripe (test mode)
-- Resend email (`noreply@civicscale.ai`)
+- Stripe (test mode — Session G swaps to live)
+- Resend email
+- Anthropic Claude API (`claude-sonnet-4-6`) for AI features
 - No feature branches — commit directly to main
