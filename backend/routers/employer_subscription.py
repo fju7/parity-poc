@@ -96,7 +96,7 @@ async def employer_webhook(request: Request):
     import stripe as stripe_lib
 
     stripe_key = os.environ.get("STRIPE_SECRET_KEY", "")
-    webhook_secret = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
+    webhook_secret = os.environ.get("STRIPE_EMPLOYER_WEBHOOK_SECRET") or os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 
     if not stripe_key or not webhook_secret:
         return JSONResponse({"error": "Stripe not configured"}, status_code=500)
