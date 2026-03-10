@@ -725,7 +725,7 @@ export default function EmployerProductPage() {
                 position: "relative",
               }}
             >
-              {p.popular && (
+              {false && p.popular && (
                 <div style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)", background: "#3b82f6", color: "#fff", fontSize: "11px", fontWeight: "700", padding: "4px 14px", borderRadius: "12px" }}>
                   MOST POPULAR
                 </div>
@@ -855,8 +855,13 @@ const CARDS = [
   },
   {
     icon: "\u2316",
-    title: "Provider-Level Analysis",
-    text: "Drill into individual providers to see who charges above market rates. Identify high-cost outliers and quantify the savings from steering to fairly-priced alternatives.",
+    title: "Provider & Site-of-Care Analysis",
+    text: "Drill into individual providers to see who charges above-market rates. Identify when the same procedure costs 2\u20133x more at a hospital outpatient facility vs. a freestanding center \u2014 and quantify the savings from steering to lower-cost alternatives.",
+  },
+  {
+    icon: "\uD83D\uDD17",
+    title: "Network & Carrier Rate Intelligence",
+    text: "See how your carrier\u2019s negotiated rates compare to Medicare benchmarks by procedure. Detect potential network leakage \u2014 claims with minimal discounts that suggest out-of-network pricing \u2014 and identify where your network contract may be underperforming.",
   },
   {
     icon: "\u2193",
@@ -889,7 +894,7 @@ const STEPS = [
   },
   {
     title: "Check your claims",
-    text: "Upload your claims file (CSV or Excel) and we\u2019ll compare every line against CMS Medicare rates for your geography. AI auto-detects your column headers.",
+    text: "Upload your claims file (CSV, Excel, or EDI 835) and we\u2019ll compare every line against CMS Medicare rates for your geography. EDI files unlock Level 2 analysis: provider variation, site-of-care comparison, and network rate intelligence.",
     link: "/billing/employer/claims-check",
     linkText: "Upload claims \u2192",
   },
@@ -905,7 +910,7 @@ const ROADMAP = [
   {
     icon: "\u2705",
     label: "Available now",
-    text: "Medicare fee schedule benchmarking for every CPT code, geographic adjustment, category-level cost analysis, provider-level variance identification.",
+    text: "Medicare fee schedule benchmarking for every CPT code, geographic adjustment, category-level cost analysis, provider price variation detection, site-of-care cost comparison, network leakage screening.",
     borderColor: "rgba(34,197,94,0.25)",
     labelColor: "#4ade80",
   },
