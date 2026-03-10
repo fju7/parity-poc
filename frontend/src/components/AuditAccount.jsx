@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "../lib/supabase.js";
-import EmailOtpInput from "./EmailOtpInput.jsx";
+import { useAuth } from "../context/AuthContext";
+import AuthGate from "./AuthGate";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
@@ -21,9 +21,8 @@ const STATUS_LABELS = {
   delivered: "Delivered",
 };
 
-export default function AuditAccount() {
-  const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState(true);
+function AuditAccountInner() {
+  const { token, user, logout: authLogout } = useAuth();
   const [audits, setAudits] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [subscription, setSubscription] = useState(null);
@@ -32,37 +31,18 @@ export default function AuditAccount() {
   const [dataLoading, setDataLoading] = useState(true);
   const [portalLoading, setPortalLoading] = useState(false);
 
-  // Login form state
-  const [email, setEmail] = useState("");
-  const [sending, setSending] = useState(false);
-  const [codeSent, setCodeSent] = useState(false);
-  const [authError, setAuthError] = useState("");
+  const authHeaders = { Authorization: `Bearer ${token}` };
 
-  // Auth bootstrap
+  // Fetch audits + subscription when token is available
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setLoading(false);
-    });
-
-    const { data: { subscription: authSub } } = supabase.auth.onAuthStateChange((_event, s) => {
-      setSession(s);
-      setLoading(false);
-    });
-
-    return () => authSub.unsubscribe();
-  }, []);
-
-  // Fetch audits + subscription when session is available
-  useEffect(() => {
-    if (!session) return;
+    if (!token) return;
     const isCheckoutReturn = new URLSearchParams(window.location.search).get("checkout_success");
 
     async function loadData() {
       setDataLoading(true);
       await Promise.all([
-        fetchAudits(session.access_token),
-        fetchSubscription(session.access_token),
+        fetchAudits(),
+        fetchSubscription(),
       ]);
       setDataLoading(false);
 
@@ -73,7 +53,7 @@ export default function AuditAccount() {
         for (const delay of delays) {
           await new Promise((r) => setTimeout(r, delay));
           const res = await fetch(`${API_BASE}/api/provider/my-subscription`, {
-            headers: { Authorization: `Bearer ${session.access_token}` },
+            headers: authHeaders,
           });
           if (!res.ok) continue;
           const json = await res.json();
@@ -81,9 +61,8 @@ export default function AuditAccount() {
           setSubscription(subs[0] || null);
           setSubscriptions(subs);
           // Also refresh audits to get updated state
-          await fetchAudits(session.access_token);
-          // Stop polling once we have more subscriptions than before
-          // or if any subscription was created in the last 60 seconds
+          await fetchAudits();
+          // Stop polling once we have a recently created subscription
           const recent = subs.some((s) => {
             const age = Date.now() - new Date(s.created_at).getTime();
             return age < 60000;
@@ -93,12 +72,12 @@ export default function AuditAccount() {
       }
     }
     loadData();
-  }, [session]);
+  }, [token]);
 
-  async function fetchAudits(token) {
+  async function fetchAudits() {
     try {
       const res = await fetch(`${API_BASE}/api/provider/my-audits`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: authHeaders,
       });
       if (!res.ok) throw new Error("Failed to load audits");
       const json = await res.json();
@@ -109,10 +88,10 @@ export default function AuditAccount() {
     }
   }
 
-  async function fetchSubscription(token) {
+  async function fetchSubscription() {
     try {
       const res = await fetch(`${API_BASE}/api/provider/my-subscription`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: authHeaders,
       });
       if (!res.ok) return;
       const json = await res.json();
@@ -124,15 +103,11 @@ export default function AuditAccount() {
   }
 
   async function handleManageSubscription() {
-    if (!session) return;
     setPortalLoading(true);
     try {
       const res = await fetch(`${API_BASE}/api/provider/subscription/portal`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.access_token}`,
-        },
+        headers: { "Content-Type": "application/json", ...authHeaders },
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -151,15 +126,11 @@ export default function AuditAccount() {
   }
 
   async function handleStartMonitoring(auditId) {
-    if (!session) return;
     setCheckoutLoading(true);
     try {
       const res = await fetch(`${API_BASE}/api/provider/subscription/checkout`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.access_token}`,
-        },
+        headers: { "Content-Type": "application/json", ...authHeaders },
         body: JSON.stringify({ audit_id: auditId }),
       });
       if (!res.ok) {
@@ -178,108 +149,16 @@ export default function AuditAccount() {
     }
   }
 
-  const handleSendCode = useCallback(async (e) => {
-    e.preventDefault();
-    setSending(true);
-    setAuthError("");
-
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-    });
-
-    setSending(false);
-    if (error) {
-      setAuthError(error.message);
-    } else {
-      setCodeSent(true);
-    }
-  }, [email]);
-
-  const handleSignOut = useCallback(async () => {
-    await supabase.auth.signOut();
-    setSession(null);
-    setAudits([]);
-  }, []);
-
-  if (loading) {
-    return (
-      <div>
-        <Nav />
-        <div style={{ textAlign: "center", padding: "120px 24px" }}>
-          <Spinner />
-          <p style={{ color: "#64748B", fontSize: 16 }}>Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Not logged in — show magic link form
-  if (!session) {
-    return (
-      <div>
-        <Nav />
-        <div style={{ maxWidth: 420, margin: "80px auto", padding: "0 24px" }}>
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: "#1E293B", margin: "0 0 8px", textAlign: "center" }}>
-            Sign in to your account
-          </h1>
-          <p style={{ color: "#64748B", fontSize: 15, textAlign: "center", margin: "0 0 32px" }}>
-            Enter the email you used to submit your audit.
-          </p>
-
-          {codeSent ? (
-            <div style={{
-              background: "#F0FDFA", border: "1px solid #99F6E4", borderRadius: 12,
-              padding: 24, textAlign: "center",
-            }}>
-              <EmailOtpInput
-                email={email}
-                onBack={() => { setCodeSent(false); setAuthError(""); }}
-              />
-            </div>
-          ) : (
-            <form onSubmit={handleSendCode}>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@practice.com"
-                style={{
-                  width: "100%", padding: "12px 16px", fontSize: 15,
-                  border: "1px solid #CBD5E1", borderRadius: 8,
-                  outline: "none", boxSizing: "border-box",
-                }}
-              />
-              {authError && (
-                <p style={{ color: "#EF4444", fontSize: 13, margin: "8px 0 0" }}>{authError}</p>
-              )}
-              <button
-                type="submit"
-                disabled={sending}
-                style={{
-                  width: "100%", marginTop: 16, padding: "12px 0",
-                  background: "#0D9488", color: "#fff", fontWeight: 600,
-                  fontSize: 15, border: "none", borderRadius: 8,
-                  cursor: sending ? "not-allowed" : "pointer",
-                  opacity: sending ? 0.7 : 1,
-                }}
-              >
-                {sending ? "Sending..." : "Send Code"}
-              </button>
-            </form>
-          )}
-        </div>
-      </div>
-    );
+  function handleSignOut() {
+    authLogout();
   }
 
   // Check for checkout_success param
   const checkoutSuccess = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("checkout_success");
 
-  // Logged in — show audits + subscription
   return (
     <div>
-      <Nav onSignOut={handleSignOut} userEmail={session.user?.email} />
+      <Nav onSignOut={handleSignOut} userEmail={user?.email} />
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "40px 24px" }}>
 
         {checkoutSuccess && (
@@ -440,7 +319,6 @@ export default function AuditAccount() {
           {/* Per-practice monitoring CTA or "Already Monitoring" badge */}
           {(() => {
             const monitoredPractices = new Set(subscriptions.map(s => s.practice_name));
-            // Group delivered audits by practice, pick most recent (first, since sorted desc)
             const seen = new Set();
             const deliveredByPractice = audits.filter(a => {
               if (a.status !== "delivered" || seen.has(a.practice_name)) return false;
@@ -496,6 +374,14 @@ export default function AuditAccount() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function AuditAccount() {
+  return (
+    <AuthGate product="provider">
+      <AuditAccountInner />
+    </AuthGate>
   );
 }
 

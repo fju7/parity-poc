@@ -26,7 +26,7 @@ export default function AuditStandalone() {
           <Link to="/signal">Parity Signal</Link>
         </div>
       </nav>
-      <ProviderAuditPage session={null} profile={null} />
+      <ProviderAuditPage />
     </div>
   );
 }

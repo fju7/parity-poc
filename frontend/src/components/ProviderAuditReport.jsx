@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "../lib/supabase.js";
+import { useAuth } from "../context/AuthContext";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -62,6 +62,7 @@ function flagColor(flag) {
 }
 
 export default function ProviderAuditReport({ analysisResults, practiceInfo, onClose, trendData }) {
+  const { token } = useAuth();
   const [downloading, setDownloading] = useState(false);
   const [appealModal, setAppealModal] = useState(null); // {loading, letter_html, letter_text, pdf_base64, appeal_strength, appeal_strength_reason, cms_references, editText}
   const [appealGenerating, setAppealGenerating] = useState(null); // key of denial being generated
@@ -126,14 +127,13 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
     const key = `${payerName}-${denialType.adjustment_code}`;
     setAppealGenerating(key);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { alert("Please log in to generate appeals."); return; }
+      if (!token) { alert("Please log in to generate appeals."); return; }
 
       const res = await fetch(`${API_BASE}/api/provider/generate-appeal`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${session.access_token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           claim_id: denialType.adjustment_code,

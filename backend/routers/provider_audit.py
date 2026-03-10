@@ -1413,7 +1413,7 @@ async def submit_audit(req: SubmitAuditRequest):
 @router.get("/my-audits")
 async def my_audits(request: Request):
     """Return audits belonging to the authenticated user (by email)."""
-    user = await _get_authenticated_user(request)
+    user = _get_authenticated_user(request)
     email = user.email
     if not email:
         raise HTTPException(status_code=400, detail="No email on account")
@@ -1444,6 +1444,109 @@ async def my_audits(request: Request):
         audits_out.append(a)
 
     return {"audits": audits_out}
+
+
+# ---------------------------------------------------------------------------
+# User Account — Profile (unified auth)
+# ---------------------------------------------------------------------------
+
+@router.get("/my-profile")
+async def my_profile(request: Request):
+    """Return provider profile for the authenticated user's company."""
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    result = sb.table("provider_profiles") \
+        .select("*") \
+        .eq("user_id", str(user.id)) \
+        .maybeSingle() \
+        .execute()
+
+    return {"profile": result.data}
+
+
+class SaveProfileRequest(BaseModel):
+    practice_name: str
+    specialty: str = ""
+    npi: str = ""
+    zip_code: str = ""
+
+
+@router.post("/save-profile")
+async def save_profile(body: SaveProfileRequest, request: Request):
+    """Create or update provider profile."""
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    # Check if profile already exists
+    existing = sb.table("provider_profiles") \
+        .select("id") \
+        .eq("user_id", str(user.id)) \
+        .maybeSingle() \
+        .execute()
+
+    profile_data = {
+        "user_id": str(user.id),
+        "practice_name": body.practice_name,
+        "specialty": body.specialty or None,
+        "npi": body.npi or None,
+        "zip_code": body.zip_code or None,
+    }
+
+    if existing.data:
+        result = sb.table("provider_profiles") \
+            .update(profile_data) \
+            .eq("id", existing.data["id"]) \
+            .select() \
+            .execute()
+    else:
+        result = sb.table("provider_profiles") \
+            .insert(profile_data) \
+            .select() \
+            .execute()
+
+    if not result.data:
+        raise HTTPException(status_code=500, detail="Failed to save profile")
+
+    return {"profile": result.data[0]}
+
+
+# ---------------------------------------------------------------------------
+# User Account — Analyses (unified auth)
+# ---------------------------------------------------------------------------
+
+@router.get("/my-analyses")
+async def my_analyses(request: Request, limit: int = 5):
+    """Return recent analyses for the authenticated user."""
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    result = sb.table("provider_analyses") \
+        .select("id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate") \
+        .eq("user_id", str(user.id)) \
+        .order("production_date", desc=True) \
+        .limit(limit) \
+        .execute()
+
+    return {"analyses": result.data or []}
+
+
+@router.get("/analysis/{analysis_id}")
+async def get_analysis(analysis_id: str, request: Request):
+    """Return a single analysis by ID."""
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    result = sb.table("provider_analyses") \
+        .select("*") \
+        .eq("id", analysis_id) \
+        .eq("user_id", str(user.id)) \
+        .execute()
+
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+
+    return result.data[0]
 
 
 # ---------------------------------------------------------------------------

@@ -195,7 +195,7 @@ async def subscription_checkout(body: SubscriptionCheckoutBody, request: Request
     if not STRIPE_PRICE_PROVIDER_MONTHLY:
         raise HTTPException(status_code=503, detail="Provider price not configured")
 
-    user = await _get_authenticated_user(request)
+    user = _get_authenticated_user(request)
     sb = _get_supabase()
 
     # Verify audit belongs to user and is delivered
@@ -548,7 +548,7 @@ async def subscription_trends(subscription_id: str, request: Request):
 
     if not is_admin:
         # Fall back to user auth — user_id must match subscription
-        user = await _get_authenticated_user(request)
+        user = _get_authenticated_user(request)
         sub_check = sb.table("provider_subscriptions").select("user_id").eq("id", subscription_id).execute()
         if not sub_check.data:
             raise HTTPException(status_code=404, detail="Subscription not found")
@@ -590,7 +590,7 @@ async def subscription_portal(request: Request):
         raise HTTPException(status_code=503, detail="Stripe not configured")
     stripe_lib.api_key = stripe_key
 
-    user = await _get_authenticated_user(request)
+    user = _get_authenticated_user(request)
     email = user.email
     if not email:
         raise HTTPException(status_code=400, detail="No email on account")
@@ -626,7 +626,7 @@ async def subscription_portal(request: Request):
 @router.get("/my-subscription")
 async def my_subscription(request: Request):
     """Return the authenticated user's Provider monitoring subscriptions."""
-    user = await _get_authenticated_user(request)
+    user = _get_authenticated_user(request)
     email = user.email
     if not email:
         raise HTTPException(status_code=400, detail="No email on account")

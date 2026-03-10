@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProviderAuditReport from "./ProviderAuditReport";
+import { useAuth } from "../context/AuthContext";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -706,7 +707,8 @@ function SubscriptionRow({ sub }) {
   );
 }
 
-export default function ProviderAuditAdmin({ session }) {
+export default function ProviderAuditAdmin() {
+  const { token } = useAuth();
   const [audits, setAudits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -717,7 +719,6 @@ export default function ProviderAuditAdmin({ session }) {
   const [searchParams] = useSearchParams();
 
   const secret = searchParams.get("secret");
-  const token = session?.access_token;
 
   const authHeaders = token
     ? { Authorization: `Bearer ${token}` }

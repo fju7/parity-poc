@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { Link, useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
-import { supabase } from "./lib/supabase.js";
-import EmailOtpInput from "./components/EmailOtpInput.jsx";
+import { useAuth } from "./context/AuthContext";
+import AuthGate from "./components/AuthGate.jsx";
 import { LogoIcon } from "./components/CivicScaleHomepage.jsx";
 import ProviderAuditPage from "./components/ProviderAuditPage.jsx";
 import ProviderAuditReport from "./components/ProviderAuditReport.jsx";
@@ -23,20 +23,17 @@ const SPECIALTIES = [
   "Other",
 ];
 
-export default function ProviderApp() {
+function ProviderAppInner() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { token, user, company, logout: authLogout } = useAuth();
   const returnTo = searchParams.get("returnTo");
 
-  // "landing" | "sent" | "onboarding" | "dashboard"
+  // "onboarding" | "dashboard"
   const [view, setView] = useState(null);
   const [showAuditReport, setShowAuditReport] = useState(false);
-  const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [email, setEmail] = useState("");
-  const [sending, setSending] = useState(false);
-  const [authError, setAuthError] = useState("");
   const [activeTab, setActiveTab] = useState("home");
 
   // Onboarding form state
@@ -103,67 +100,41 @@ export default function ProviderApp() {
   const [appealsData, setAppealsData] = useState(null);
   const [appealsLoading, setAppealsLoading] = useState(false);
 
-  // Auth bootstrap
+  const authHeaders = { Authorization: `Bearer ${token}` };
+
+  // Load profile when authenticated
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      if (s) {
-        setSession(s);
-        loadProfile(s.user.id);
+    if (!token || !company) return;
+    if (returnTo) { navigate(returnTo, { replace: true }); return; }
+    loadProfile();
+  }, [token, company]);
+
+  async function loadProfile() {
+    try {
+      const res = await fetch(`${API_BASE}/api/provider/my-profile`, {
+        headers: authHeaders,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.profile) {
+          setProfile(data.profile);
+          setView("dashboard");
+          loadSubscriptionId();
+        } else {
+          setView("onboarding");
+        }
       } else {
-        setView("landing");
+        setView("onboarding");
       }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, s) => {
-      if (s) {
-        setSession(s);
-        loadProfile(s.user.id);
-      } else {
-        setSession(null);
-        setProfile(null);
-        setView("landing");
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  // Redirect to returnTo path after successful auth
-  useEffect(() => {
-    if (returnTo && session) {
-      navigate(returnTo, { replace: true });
-    }
-  }, [returnTo, session, navigate]);
-
-  async function loadProfile(userId) {
-    const { data, error } = await supabase
-      .from("provider_profiles")
-      .select("*")
-      .eq("user_id", userId)
-      .maybeSingle();
-
-    if (error) {
-      console.error("[ProviderApp] Error loading profile:", error);
-      setView("onboarding");
-      return;
-    }
-
-    if (data) {
-      setProfile(data);
-      setView("dashboard");
-      // Load subscription ID for trends
-      loadSubscriptionId();
-    } else {
+    } catch {
       setView("onboarding");
     }
   }
 
   async function loadSubscriptionId() {
     try {
-      const { data: { session: s } } = await supabase.auth.getSession();
-      if (!s) return;
       const res = await fetch(`${API_BASE}/api/provider/my-subscription`, {
-        headers: { Authorization: `Bearer ${s.access_token}` },
+        headers: authHeaders,
       });
       if (res.ok) {
         const json = await res.json();
@@ -176,24 +147,6 @@ export default function ProviderApp() {
     }
   }
 
-  // Send OTP code
-  const handleSendCode = useCallback(async (e) => {
-    e.preventDefault();
-    setSending(true);
-    setAuthError("");
-
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-    });
-
-    setSending(false);
-    if (error) {
-      setAuthError(error.message);
-    } else {
-      setView("code");
-    }
-  }, [email]);
-
   // Onboarding submit
   const handleOnboardingSubmit = useCallback(async (e) => {
     e.preventDefault();
@@ -204,34 +157,32 @@ export default function ProviderApp() {
     setFormSaving(true);
     setFormError("");
 
-    const { data, error } = await supabase
-      .from("provider_profiles")
-      .insert({
-        user_id: session.user.id,
-        practice_name: formData.practice_name.trim(),
-        specialty: formData.specialty || null,
-        npi: formData.npi.trim() || null,
-        zip_code: formData.zip_code.trim() || null,
-      })
-      .select()
-      .single();
-
-    setFormSaving(false);
-    if (error) {
-      setFormError(error.message);
-    } else {
-      setProfile(data);
+    try {
+      const res = await fetch(`${API_BASE}/api/provider/save-profile`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify({
+          practice_name: formData.practice_name.trim(),
+          specialty: formData.specialty || "",
+          npi: formData.npi.trim() || "",
+          zip_code: formData.zip_code.trim() || "",
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to save profile");
+      const data = await res.json();
+      setProfile(data.profile || data);
       setView("dashboard");
+    } catch (err) {
+      setFormError(err.message);
     }
-  }, [session, formData]);
+    setFormSaving(false);
+  }, [token, formData]);
 
   // Sign out
   const handleSignOut = useCallback(async () => {
-    await supabase.auth.signOut();
-    setSession(null);
+    authLogout();
     setProfile(null);
-    setView("landing");
-  }, []);
+  }, [authLogout]);
 
   // ── Contract Integrity handlers ──
 
@@ -444,7 +395,7 @@ export default function ProviderApp() {
   }
 
   async function handleSaveRates() {
-    if (!parsedRates || !session) return;
+    if (!parsedRates || !token) return;
     setSavingRates(true);
     setContractError("");
     setSaveSuccess("");
@@ -461,7 +412,7 @@ export default function ProviderApp() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_id: session.user.id,
+          user_id: company?.id || "",
           payer_name: firstPayer,
           rates: ratesPayload,
         }),
@@ -581,7 +532,7 @@ export default function ProviderApp() {
   }
 
   async function handleRunAnalysis() {
-    if (!parsedRemittance || !session) return;
+    if (!parsedRemittance || !token) return;
     setContractStep("analyzing");
     setContractError("");
     setDenialIntel(null);
@@ -604,7 +555,7 @@ export default function ProviderApp() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_id: session.user.id,
+          user_id: company?.id || "",
           payer_name: payerName,
           zip_code: profile?.zip_code || "",
           contract_rates: rates,
@@ -790,7 +741,7 @@ export default function ProviderApp() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_id: session.user.id,
+          user_id: company?.id || "",
           specialty: codingSpecialty || profile?.specialty || "",
           date_range: codingDateStart && codingDateEnd ? `${codingDateStart} to ${codingDateEnd}` : "",
           lines: validLines.map(l => ({
@@ -812,16 +763,16 @@ export default function ProviderApp() {
   // ── Dashboard home: load recent analyses ──
 
   async function loadRecentAnalyses() {
-    if (!session) return;
+    if (!token) return;
     setLoadingRecent(true);
     try {
-      const { data, error } = await supabase
-        .from("provider_analyses")
-        .select("id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate")
-        .eq("user_id", session.user.id)
-        .order("production_date", { ascending: false })
-        .limit(5);
-      if (!error) setRecentAnalyses(data || []);
+      const res = await fetch(`${API_BASE}/api/provider/my-analyses?limit=5`, {
+        headers: authHeaders,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setRecentAnalyses(data.analyses || []);
+      }
     } catch {
       // Non-fatal
     }
@@ -837,12 +788,11 @@ export default function ProviderApp() {
   async function loadHistoricalReport(analysisId) {
     setHistoricalLoading(true);
     try {
-      const { data, error } = await supabase
-        .from("provider_analyses")
-        .select("*")
-        .eq("id", analysisId)
-        .single();
-      if (!error && data) {
+      const res = await fetch(`${API_BASE}/api/provider/analysis/${analysisId}`, {
+        headers: authHeaders,
+      });
+      if (res.ok) {
+        const data = await res.json();
         setHistoricalReport(data);
       }
     } catch {
@@ -888,12 +838,12 @@ export default function ProviderApp() {
 
   // Route: /provider/admin/audits → admin audit dashboard
   if (location.pathname.includes("/provider/admin/audits")) {
-    return <ProviderAuditAdmin session={session} />;
+    return <ProviderAuditAdmin />;
   }
 
   // Route: /provider/audit → dedicated audit landing page + wizard
   if (location.pathname.includes("/provider/audit")) {
-    return <ProviderAuditPage session={session} profile={profile} />;
+    return <ProviderAuditPage />;
   }
 
   // Audit report view (triggered from dashboard)
@@ -912,94 +862,13 @@ export default function ProviderApp() {
     );
   }
 
-  // Don't render until auth check completes
+  // Don't render until profile check completes
   if (view === null) {
     return (
       <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
         {nav}
         <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <p style={{ color: "var(--cs-slate)" }}>Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // ── LANDING VIEW ──
-  if (view === "landing" || view === "code") {
-    return (
-      <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
-        {nav}
-        <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 64 }}>
-          <div style={{ width: "100%", maxWidth: 420, padding: "0 16px" }}>
-            <div style={{ textAlign: "center", marginBottom: 40 }}>
-              <h1 style={{ fontSize: 28, fontWeight: 700, color: "var(--cs-navy)", margin: 0 }}>
-                Parity Provider
-              </h1>
-              <p style={{ color: "var(--cs-slate)", marginTop: 8, fontSize: 15 }}>
-                Audit your payer contracts. Find what they owe you.
-              </p>
-            </div>
-
-            {view === "code" ? (
-              <div style={{
-                padding: 24, borderRadius: 12, border: "1px solid var(--cs-teal)",
-                background: "var(--cs-teal-pale)", textAlign: "center"
-              }}>
-                <EmailOtpInput
-                  email={email}
-                  onBack={() => { setView("landing"); setAuthError(""); }}
-                />
-              </div>
-            ) : (
-              <form onSubmit={handleSendCode}>
-                <div style={{ marginBottom: 16 }}>
-                  <label style={{
-                    display: "block", fontSize: 14, fontWeight: 500,
-                    color: "var(--cs-navy)", marginBottom: 6,
-                  }}>
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="doctor@yourpractice.com"
-                    style={{
-                      width: "100%", padding: "10px 12px", borderRadius: 8,
-                      border: "1px solid var(--cs-border)", fontSize: 15,
-                      outline: "none", boxSizing: "border-box",
-                    }}
-                  />
-                </div>
-
-                {authError && (
-                  <div style={{
-                    padding: 12, borderRadius: 8, background: "#fef2f2",
-                    border: "1px solid #fecaca", marginBottom: 16,
-                  }}>
-                    <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{authError}</p>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={sending}
-                  className="cs-btn-primary"
-                  style={{
-                    width: "100%", justifyContent: "center",
-                    opacity: sending ? 0.6 : 1,
-                  }}
-                >
-                  {sending ? "Sending..." : "Send Code"}
-                </button>
-
-                <p style={{ textAlign: "center", fontSize: 13, color: "var(--cs-slate)", marginTop: 16 }}>
-                  We'll send you a secure code — no password needed.
-                </p>
-              </form>
-            )}
-          </div>
         </div>
       </div>
     );
@@ -1250,9 +1119,8 @@ export default function ProviderApp() {
               setTrendsLoading(true);
               setTrendsError("");
               try {
-                const { data: { session: s } } = await supabase.auth.getSession();
                 const res = await fetch(`${API_BASE}/api/provider/subscription/${subscriptionId}/trends`, {
-                  headers: { Authorization: `Bearer ${s.access_token}` },
+                  headers: authHeaders,
                 });
                 if (!res.ok) throw new Error("Failed to load trends");
                 setTrendsData(await res.json());
@@ -1274,9 +1142,8 @@ export default function ProviderApp() {
               if (appealsData || appealsLoading) return;
               setAppealsLoading(true);
               try {
-                const { data: { session: s } } = await supabase.auth.getSession();
                 const res = await fetch(`${API_BASE}/api/provider/appeals`, {
-                  headers: { Authorization: `Bearer ${s.access_token}` },
+                  headers: authHeaders,
                 });
                 if (res.ok) setAppealsData(await res.json());
               } catch (err) {
@@ -1287,15 +1154,14 @@ export default function ProviderApp() {
             }}
             onUpdateStatus={async (appealId, newStatus) => {
               try {
-                const { data: { session: s } } = await supabase.auth.getSession();
                 await fetch(`${API_BASE}/api/provider/appeals/update-status`, {
                   method: "POST",
-                  headers: { "Content-Type": "application/json", Authorization: `Bearer ${s.access_token}` },
+                  headers: { "Content-Type": "application/json", ...authHeaders },
                   body: JSON.stringify({ appeal_id: appealId, status: newStatus }),
                 });
                 // Refresh
                 const res = await fetch(`${API_BASE}/api/provider/appeals`, {
-                  headers: { Authorization: `Bearer ${s.access_token}` },
+                  headers: authHeaders,
                 });
                 if (res.ok) setAppealsData(await res.json());
               } catch (err) {
@@ -3791,3 +3657,11 @@ const inputStyle = {
   border: "1px solid var(--cs-border)", fontSize: 15,
   outline: "none", boxSizing: "border-box",
 };
+
+export default function ProviderApp() {
+  return (
+    <AuthGate product="provider">
+      <ProviderAppInner />
+    </AuthGate>
+  );
+}

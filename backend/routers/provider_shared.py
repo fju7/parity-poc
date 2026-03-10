@@ -39,44 +39,43 @@ def _get_supabase():
     return _supabase
 
 
-ADMIN_USER_ID = os.environ.get("ADMIN_USER_ID", "")
 STRIPE_PRICE_PROVIDER_MONTHLY = os.environ.get("STRIPE_PRICE_PROVIDER_MONTHLY", "")
 
 
-async def _get_authenticated_user(request: Request):
-    """Extract Bearer token and validate via Supabase auth."""
+class _AuthUser:
+    """Thin wrapper so legacy code can do user.id and user.email."""
+    def __init__(self, data: dict):
+        self._data = data
+        self.id = data["company_id"]
+        self.email = data.get("email", "")
+        self.role = data.get("role", "member")
+        self.company = data.get("company")
+        self.full_name = data.get("full_name")
+
+
+def _get_authenticated_user(request: Request):
+    """Validate Bearer token via unified auth. Returns _AuthUser with .id, .email compat."""
+    from routers.auth import get_current_user
     auth_header = request.headers.get("authorization", "")
-    if not auth_header.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Missing authorization token")
-
-    token = auth_header.split(" ", 1)[1]
     sb = _get_supabase()
-
-    try:
-        user_response = sb.auth.get_user(token)
-        user = user_response.user
-        if not user:
-            raise HTTPException(status_code=401, detail="Invalid token")
-        return user
-    except Exception as exc:
-        raise HTTPException(status_code=401, detail=f"Auth failed: {exc}")
+    user_data = get_current_user(auth_header, sb)
+    return _AuthUser(user_data)
 
 
 async def _verify_admin(request: Request):
-    """Verify request comes from admin (CRON_SECRET header or admin Bearer token)."""
+    """Verify request comes from admin (CRON_SECRET header or unified auth admin role)."""
     # Option 1: CRON_SECRET header (for server-to-server / cron jobs)
     cron_secret = os.environ.get("CRON_SECRET")
     if cron_secret and request.headers.get("X-Cron-Secret") == cron_secret:
         return
 
-    # Option 2: Bearer token from ADMIN_USER_ID (for frontend admin dashboard)
-    if ADMIN_USER_ID:
-        try:
-            user = await _get_authenticated_user(request)
-            if str(user.id) == ADMIN_USER_ID:
-                return
-        except Exception:
-            pass
+    # Option 2: Bearer token with admin role via unified auth
+    try:
+        user = _get_authenticated_user(request)
+        if user.role == "admin":
+            return
+    except Exception:
+        pass
 
     raise HTTPException(status_code=401, detail="Unauthorized")
 

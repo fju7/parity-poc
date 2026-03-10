@@ -105,7 +105,7 @@ def _generate_appeal_pdf(letter_text: str, practice_name: str, payer_name: str, 
 @router.post("/generate-appeal")
 async def generate_appeal(req: GenerateAppealRequest, request: Request):
     """Generate a formal appeal letter for a denied or underpaid claim."""
-    user = await _get_authenticated_user(request)
+    user = _get_authenticated_user(request)
 
     prompt_data = json.dumps({
         "claim_id": req.claim_id,
@@ -179,7 +179,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
 @router.post("/generate-appeal-batch")
 async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Request):
     """Generate appeal letters for multiple denials at once."""
-    user = await _get_authenticated_user(request)
+    user = _get_authenticated_user(request)
 
     results = []
     for denial in req.denials:
@@ -259,7 +259,7 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
 @router.get("/appeals")
 async def list_appeals(request: Request):
     """List all appeals for the authenticated user."""
-    user = await _get_authenticated_user(request)
+    user = _get_authenticated_user(request)
 
     sb = _get_supabase()
     result = sb.table("provider_appeals") \
@@ -274,7 +274,7 @@ async def list_appeals(request: Request):
 @router.post("/appeals/update-status")
 async def update_appeal_status(req: UpdateAppealStatusRequest, request: Request):
     """Update the status of an appeal (drafted, sent, won, lost, pending)."""
-    user = await _get_authenticated_user(request)
+    user = _get_authenticated_user(request)
 
     valid_statuses = {"drafted", "sent", "won", "lost", "pending"}
     if req.status not in valid_statuses:
