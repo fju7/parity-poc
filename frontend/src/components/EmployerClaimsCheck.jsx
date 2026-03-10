@@ -3,6 +3,32 @@ import { Link } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
+const CPT_DESCRIPTIONS = {
+  "27447": "Total Knee Replacement",
+  "29881": "Knee Arthroscopy",
+  "73721": "MRI, Joint of Lower Extremity",
+  "75574": "CT Heart Artery w/Contrast",
+  "20610": "Joint Injection, Large",
+  "22551": "Cervical Spine Fusion",
+  "70553": "MRI Brain w/Contrast",
+  "99213": "Office Visit, Established (Low)",
+  "99214": "Office Visit, Established (Moderate)",
+  "99215": "Office Visit, Established (High)",
+  "85025": "Complete Blood Count",
+  "80053": "Comprehensive Metabolic Panel",
+  "36415": "Blood Draw",
+  "99204": "Office Visit, New (Moderate)",
+  "99205": "Office Visit, New (High)",
+  "93000": "Electrocardiogram",
+  "99232": "Hospital Visit, Subsequent",
+  "99283": "Emergency Dept Visit, Moderate",
+};
+
+const cptLabel = (code) => {
+  const desc = CPT_DESCRIPTIONS[String(code)];
+  return desc ? `CPT ${code} — ${desc}` : `CPT ${code}`;
+};
+
 export default function EmployerClaimsCheck() {
   const [file, setFile] = useState(null);
   const [zipCode, setZipCode] = useState("");
@@ -511,15 +537,16 @@ export default function EmployerClaimsCheck() {
                   </h3>
                   {result.level2.provider_variation.flagged_cpts.length > 0 ? (
                     <>
+                      <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "12px" }}>Significant price variation exists for the same procedures across providers</p>
                       {result.level2.provider_variation.flagged_cpts.slice(0, 3).map((v, i) => (
                         <div key={i} style={{ padding: "10px 0", borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
                           <div style={{ fontSize: "13px", color: "#e2e8f0" }}>
-                            <strong>CPT {v.cpt_code}</strong> &mdash; {v.low_provider.name} <span style={{ color: "#22c55e" }}>${v.low_provider.avg_paid.toLocaleString()}</span> vs {v.high_provider.name} <span style={{ color: "#f59e0b" }}>${v.high_provider.avg_paid.toLocaleString()}</span> &middot; <span style={{ color: "#ef4444" }}>{v.variation_ratio}x variation</span>
+                            <strong>{cptLabel(v.cpt_code)}</strong> &mdash; Lowest-cost provider <span style={{ color: "#22c55e" }}>${v.low_provider.avg_paid.toLocaleString()}</span> vs Highest-cost provider <span style={{ color: "#f59e0b" }}>${v.high_provider.avg_paid.toLocaleString()}</span> &middot; <span style={{ color: "#ef4444" }}>{v.variation_ratio}x variation</span>
                           </div>
                         </div>
                       ))}
                       <div style={{ marginTop: "12px", fontSize: "13px", color: "#10b981", fontWeight: "500" }}>
-                        Up to ${result.level2.provider_variation.total_variation_opportunity.toLocaleString()}/yr in savings by steering to lower-cost providers
+                        Estimated cost reduction opportunity: up to ${result.level2.provider_variation.total_variation_opportunity.toLocaleString()} if members select lower-cost providers
                       </div>
                     </>
                   ) : (
@@ -534,16 +561,16 @@ export default function EmployerClaimsCheck() {
                   </h3>
                   {result.level2.site_of_care.has_hospital_outpatient && result.level2.site_of_care.flagged_cpts.length > 0 ? (
                     <>
-                      <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "12px" }}>Some procedures are being performed in hospital outpatient settings where costs are significantly higher</p>
+                      <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "12px" }}>Some procedures are performed in hospital settings where costs are substantially higher for the same service</p>
                       {result.level2.site_of_care.flagged_cpts.slice(0, 3).map((s, i) => (
                         <div key={i} style={{ padding: "10px 0", borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
                           <div style={{ fontSize: "13px", color: "#e2e8f0" }}>
-                            <strong>CPT {s.cpt_code}</strong> &mdash; Hospital <span style={{ color: "#f59e0b" }}>${s.hospital_avg.toLocaleString()}</span> vs Non-hospital <span style={{ color: "#22c55e" }}>${s.non_hospital_avg.toLocaleString()}</span> &middot; {s.hospital_claims} hospital claim{s.hospital_claims !== 1 ? "s" : ""}
+                            <strong>{cptLabel(s.cpt_code)}</strong> &mdash; Hospital <span style={{ color: "#f59e0b" }}>${s.hospital_avg.toLocaleString()}</span> vs Non-hospital <span style={{ color: "#22c55e" }}>${s.non_hospital_avg.toLocaleString()}</span> &middot; {s.hospital_claims} hospital claim{s.hospital_claims !== 1 ? "s" : ""}
                           </div>
                         </div>
                       ))}
                       <div style={{ marginTop: "12px", fontSize: "13px", color: "#10b981", fontWeight: "500" }}>
-                        Up to ${result.level2.site_of_care.total_site_opportunity.toLocaleString()}/yr by redirecting to lower-cost sites
+                        Estimated opportunity: up to ${result.level2.site_of_care.total_site_opportunity.toLocaleString()} if members choose lower-cost care settings
                       </div>
                     </>
                   ) : (
@@ -599,7 +626,7 @@ export default function EmployerClaimsCheck() {
                           <tbody>
                             {result.level2.carrier_rates.top_cpts.slice(0, 10).map((r, i) => (
                               <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                                <td style={tdStyle}>{r.cpt_code}</td>
+                                <td style={tdStyle}>{cptLabel(r.cpt_code)}</td>
                                 <td style={tdStyle}>{r.claim_count}</td>
                                 <td style={tdStyle}>${r.avg_allowed.toLocaleString()}</td>
                                 <td style={tdStyle}>${r.medicare_rate.toLocaleString()}</td>
@@ -616,6 +643,22 @@ export default function EmployerClaimsCheck() {
                   ) : (
                     <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>Insufficient claims volume for carrier rate analysis</p>
                   )}
+                </div>
+
+                {/* Help Your Employees CTA */}
+                <div style={{ background: "rgba(13,148,136,0.08)", border: "1px solid rgba(13,148,136,0.25)", borderRadius: "14px", padding: "28px", marginBottom: "32px" }}>
+                  <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#f1f5f9", marginBottom: "10px" }}>
+                    Help Your Employees Make Informed Choices
+                  </h3>
+                  <p style={{ fontSize: "14px", color: "#94a3b8", lineHeight: "1.7", marginBottom: "16px" }}>
+                    Employer-level analysis shows where the opportunities are &mdash; but cost reduction happens when individual employees choose lower-cost providers and care settings before elective procedures. Parity Health gives your employees the same benchmarking tools at the individual claim level: they can look up fair prices for procedures in their area, compare providers, and understand their bills.
+                  </p>
+                  <Link to="/parity-health" style={{ display: "inline-block", background: "#0d9488", color: "#fff", padding: "10px 22px", borderRadius: "8px", fontWeight: "600", fontSize: "14px", textDecoration: "none" }}>
+                    Learn About Parity Health &rarr;
+                  </Link>
+                  <p style={{ fontSize: "12px", color: "#64748b", marginTop: "12px", marginBottom: 0 }}>
+                    Employees who shop on price before elective care reduce plan costs over time &mdash; which directly affects your renewal rates.
+                  </p>
                 </div>
               </>
             )}
