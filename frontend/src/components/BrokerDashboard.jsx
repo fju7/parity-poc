@@ -93,6 +93,7 @@ export default function BrokerDashboard() {
   const [planInfo, setPlanInfo] = useState(null);
   const [upgradeBannerDismissed, setUpgradeBannerDismissed] = useState(false);
   const [upgradeToast, setUpgradeToast] = useState(false);
+  const [upgradeMessage, setUpgradeMessage] = useState("Welcome to Broker Pro! Your account has been upgraded.");
 
   // Prospect state
   const [prospectForm, setProspectForm] = useState({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "" });
@@ -117,15 +118,36 @@ export default function BrokerDashboard() {
     catch { localStorage.removeItem("broker_session"); navigate("/broker/login"); }
   }, [navigate]);
 
-  // Handle ?upgraded=true toast
+  // Handle ?upgraded=true — poll until plan shows "pro"
   useEffect(() => {
+    if (!broker) return;
     const params = new URLSearchParams(window.location.search);
     if (params.get("upgraded") === "true") {
-      setUpgradeToast(true);
-      setTimeout(() => setUpgradeToast(false), 5000);
-      window.history.replaceState({}, "", window.location.pathname);
+      window.history.replaceState({}, "", "/broker/dashboard");
+      let attempts = 0;
+      const poll = setInterval(async () => {
+        attempts++;
+        try {
+          const res = await fetch(`${API}/api/broker/plan?broker_email=${encodeURIComponent(broker.email)}`);
+          const data = await res.json();
+          if (data.plan === "pro" || data.plan === "pro_cancelling") {
+            setPlanInfo(data);
+            setUpgradeMessage("Welcome to Broker Pro! Your account has been upgraded.");
+            setUpgradeToast(true);
+            setTimeout(() => setUpgradeToast(false), 5000);
+            clearInterval(poll);
+          } else if (attempts >= 10) {
+            setUpgradeMessage("Upgrade processing \u2014 your plan will update shortly. Refresh in a moment if it hasn\u2019t changed.");
+            setUpgradeToast(true);
+            setTimeout(() => setUpgradeToast(false), 8000);
+            clearInterval(poll);
+          }
+        } catch {
+          clearInterval(poll);
+        }
+      }, 2000);
     }
-  }, []);
+  }, [broker]);
 
   // Fetch clients + portfolio + plan
   const fetchClients = useCallback(async () => {
@@ -539,7 +561,7 @@ export default function BrokerDashboard() {
         {/* Upgrade Toast */}
         {upgradeToast && (
           <div style={{ position: "fixed", top: 20, right: 24, zIndex: 1000, background: "#0D7377", color: "#fff", borderRadius: 10, padding: "14px 24px", fontSize: 14, fontWeight: 600, boxShadow: "0 4px 20px rgba(0,0,0,0.15)", display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 18 }}>&#10003;</span> Welcome to Broker Pro! Your account has been upgraded.
+            <span style={{ fontSize: 18 }}>&#10003;</span> {upgradeMessage}
           </div>
         )}
 

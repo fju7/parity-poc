@@ -18,6 +18,10 @@ export default function BrokerAccountPage() {
   const [firmName, setFirmName] = useState("");
   const [phone, setPhone] = useState("");
 
+  // Upgrade toast
+  const [upgradeToast, setUpgradeToast] = useState(false);
+  const [upgradeMessage, setUpgradeMessage] = useState("Welcome to Broker Pro! Your account has been upgraded.");
+
   // Cancel modal
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [cancelLoading, setCancelLoading] = useState(false);
@@ -32,6 +36,37 @@ export default function BrokerAccountPage() {
     setBroker(session);
     fetchAccount(session.email);
   }, []);
+
+  // Handle ?upgraded=true — poll until plan shows "pro"
+  useEffect(() => {
+    if (!broker) return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("upgraded") === "true") {
+      window.history.replaceState({}, "", "/broker/account");
+      let attempts = 0;
+      const poll = setInterval(async () => {
+        attempts++;
+        try {
+          const res = await fetch(`${API}/api/broker/plan?broker_email=${encodeURIComponent(broker.email)}`);
+          const data = await res.json();
+          if (data.plan === "pro" || data.plan === "pro_cancelling") {
+            setAccount(prev => ({ ...prev, plan: data.plan, client_count: data.client_count, client_limit: data.client_limit, subscription_period_end: data.subscription_period_end }));
+            setUpgradeMessage("Welcome to Broker Pro! Your account has been upgraded.");
+            setUpgradeToast(true);
+            setTimeout(() => setUpgradeToast(false), 5000);
+            clearInterval(poll);
+          } else if (attempts >= 10) {
+            setUpgradeMessage("Upgrade processing \u2014 your plan will update shortly. Refresh in a moment if it hasn\u2019t changed.");
+            setUpgradeToast(true);
+            setTimeout(() => setUpgradeToast(false), 8000);
+            clearInterval(poll);
+          }
+        } catch {
+          clearInterval(poll);
+        }
+      }, 2000);
+    }
+  }, [broker]);
 
   const fetchAccount = async (email) => {
     setLoading(true);
@@ -152,6 +187,13 @@ export default function BrokerAccountPage() {
       </nav>
 
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "88px 24px 48px" }}>
+        {/* Upgrade Toast */}
+        {upgradeToast && (
+          <div style={{ position: "fixed", top: 20, right: 24, zIndex: 1000, background: "#0D7377", color: "#fff", borderRadius: 10, padding: "14px 24px", fontSize: 14, fontWeight: 600, boxShadow: "0 4px 20px rgba(0,0,0,0.15)", display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontSize: 18 }}>&#10003;</span> {upgradeMessage}
+          </div>
+        )}
+
         <h1 style={{ fontSize: 24, fontWeight: 700, color: "#1B3A5C", margin: "0 0 8px" }}>Account Settings</h1>
         <p style={{ color: "#64748b", fontSize: 14, marginBottom: 32 }}>{broker.email}</p>
 
