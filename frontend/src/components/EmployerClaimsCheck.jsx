@@ -140,6 +140,16 @@ export default function EmployerClaimsCheck() {
 
       <div className="cs-home-section" style={{ maxWidth: "800px", margin: "0 auto", paddingTop: "60px", paddingBottom: "80px" }}>
 
+        {/* Tab toggle — Medical / Pharmacy */}
+        <div style={{ display: "flex", gap: "4px", background: "rgba(255,255,255,0.04)", borderRadius: "10px", padding: "4px", marginBottom: "28px", maxWidth: "320px", margin: "0 auto 28px" }}>
+          <div style={{ flex: 1, textAlign: "center", padding: "10px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: "600", color: "#f1f5f9", background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.3)" }}>
+            Medical Claims
+          </div>
+          <Link to="/billing/employer/pharmacy" style={{ flex: 1, textAlign: "center", padding: "10px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: "600", color: "#94a3b8", textDecoration: "none", background: "transparent" }}>
+            Pharmacy Claims
+          </Link>
+        </div>
+
         {/* Upload View */}
         {view === "upload" && (
           <>

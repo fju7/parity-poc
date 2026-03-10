@@ -1,0 +1,56 @@
+member_id,fill_date,ndc_code,drug_name,generic_name,brand_or_generic,days_supply,quantity,billed_amount,plan_paid,member_paid,pharmacy_name,prescriber_npi,therapeutic_class
+M1001,2024-12-02,00378395105,Metformin HCl 500mg,metformin,generic,30,60,45.00,32.50,12.50,CVS Pharmacy,1234567890,Antidiabetic
+M1002,2024-12-03,00071015523,Lipitor 20mg,atorvastatin,brand,30,30,385.00,310.00,75.00,Walgreens,1234567891,Statin
+M1003,2024-12-03,65862019930,Atorvastatin 20mg,atorvastatin,generic,30,30,28.00,18.50,9.50,CVS Pharmacy,1234567891,Statin
+M1004,2024-12-04,00006027531,Januvia 100mg,sitagliptin,brand,30,30,520.00,425.00,95.00,Walgreens,1234567892,Antidiabetic
+M1005,2024-12-04,00093721298,Lisinopril 10mg,lisinopril,generic,30,30,18.00,12.00,6.00,Rite Aid,1234567893,ACE Inhibitor
+M1006,2024-12-05,00074422902,Humira 40mg/0.8mL,adalimumab,brand,28,2,6850.00,6200.00,650.00,CVS Specialty,1234567894,Biologic - TNF Inhibitor
+M1007,2024-12-05,59148004690,Eliquis 5mg,apixaban,brand,30,60,580.00,475.00,105.00,CVS Pharmacy,1234567895,Anticoagulant
+M1008,2024-12-06,00169413012,Ozempic 1mg/dose,semaglutide,brand,28,1,1050.00,890.00,160.00,Walgreens,1234567896,GLP-1 Agonist
+M1009,2024-12-06,00378180110,Omeprazole 20mg,omeprazole,generic,30,30,22.00,14.50,7.50,CVS Pharmacy,1234567897,Proton Pump Inhibitor
+M1010,2024-12-07,68180072003,Amlodipine 5mg,amlodipine,generic,30,30,15.00,9.80,5.20,Rite Aid,1234567898,Calcium Channel Blocker
+M1011,2024-12-07,00002771559,Trulicity 1.5mg/0.5mL,dulaglutide,brand,28,4,980.00,820.00,160.00,Walgreens,1234567896,GLP-1 Agonist
+M1012,2024-12-08,00093505698,Sertraline 50mg,sertraline,generic,30,30,20.00,13.00,7.00,CVS Pharmacy,1234567899,SSRI Antidepressant
+M1013,2024-12-08,51991070601,Gabapentin 300mg,gabapentin,generic,30,90,35.00,24.00,11.00,Rite Aid,1234567900,Anticonvulsant
+M1014,2024-12-09,00074406102,Rinvoq 15mg,upadacitinib,brand,30,30,5800.00,5250.00,550.00,CVS Specialty,1234567894,JAK Inhibitor
+M1015,2024-12-09,65862069790,Losartan 50mg,losartan,generic,30,30,19.00,12.50,6.50,CVS Pharmacy,1234567893,ARB
+M1016,2024-12-10,00186036820,Symbicort 160/4.5mcg,budesonide/formoterol,brand,30,1,380.00,305.00,75.00,Walgreens,1234567901,Inhaled Corticosteroid Combo
+M1017,2024-12-10,00378523193,Levothyroxine 50mcg,levothyroxine,generic,30,30,16.00,10.50,5.50,CVS Pharmacy,1234567902,Thyroid Hormone
+M1018,2024-12-11,59762190001,Montelukast 10mg,montelukast,generic,30,30,22.00,14.50,7.50,Rite Aid,1234567901,Leukotriene Modifier
+M1019,2024-12-11,00074309360,Skyrizi 150mg/mL,risankizumab,brand,28,1,7200.00,6500.00,700.00,CVS Specialty,1234567894,Biologic - IL-23 Inhibitor
+M1020,2024-12-12,00591044101,Escitalopram 10mg,escitalopram,generic,30,30,18.00,11.50,6.50,CVS Pharmacy,1234567899,SSRI Antidepressant
+M1021,2024-12-12,68382013210,Pantoprazole 40mg,pantoprazole,generic,30,30,24.00,16.00,8.00,Walgreens,1234567897,Proton Pump Inhibitor
+M1022,2024-12-13,00591524601,Hydrochlorothiazide 25mg,hydrochlorothiazide,generic,30,30,12.00,7.50,4.50,Rite Aid,1234567898,Thiazide Diuretic
+M1023,2024-12-13,00078069720,Entresto 97/103mg,sacubitril/valsartan,brand,30,60,620.00,510.00,110.00,CVS Pharmacy,1234567903,ARB/Neprilysin Inhibitor
+M1024,2024-12-14,00378180510,Omeprazole 40mg,omeprazole,generic,30,30,28.00,18.50,9.50,Walgreens,1234567897,Proton Pump Inhibitor
+M1025,2024-12-14,00002141580,Cymbalta 60mg,duloxetine,brand,30,30,420.00,340.00,80.00,CVS Pharmacy,1234567899,SNRI Antidepressant
+M1026,2024-12-15,65862056090,Duloxetine 60mg,duloxetine,generic,30,30,32.00,22.00,10.00,Rite Aid,1234567899,SNRI Antidepressant
+M1027,2024-12-15,00169414112,Wegovy 2.4mg/0.75mL,semaglutide,brand,28,4,1350.00,1150.00,200.00,CVS Specialty,1234567896,GLP-1 Agonist (Weight)
+M1028,2024-12-16,68462039490,Rosuvastatin 10mg,rosuvastatin,generic,30,30,22.00,14.50,7.50,CVS Pharmacy,1234567891,Statin
+M1029,2024-12-16,00023587402,Xarelto 20mg,rivaroxaban,brand,30,30,560.00,455.00,105.00,Walgreens,1234567895,Anticoagulant
+M1030,2024-12-17,63304082805,Clopidogrel 75mg,clopidogrel,generic,30,30,24.00,16.00,8.00,CVS Pharmacy,1234567903,Antiplatelet
+M1031,2024-12-17,00074322260,Mavyret 100/40mg,glecaprevir/pibrentasvir,brand,28,84,6950.00,6300.00,650.00,CVS Specialty,1234567904,Hepatitis C Antiviral
+M1032,2024-12-18,00378395205,Metformin HCl 1000mg,metformin,generic,30,60,48.00,34.00,14.00,Walgreens,1234567890,Antidiabetic
+M1033,2024-12-18,00591037101,Metoprolol Succinate 50mg,metoprolol,generic,30,30,20.00,13.00,7.00,Rite Aid,1234567903,Beta Blocker
+M1034,2024-12-19,00378140501,Fluoxetine 20mg,fluoxetine,generic,30,30,16.00,10.00,6.00,CVS Pharmacy,1234567899,SSRI Antidepressant
+M1035,2024-12-19,50090286800,Jardiance 25mg,empagliflozin,brand,30,30,580.00,470.00,110.00,Walgreens,1234567892,SGLT2 Inhibitor
+M1036,2024-12-20,00093721598,Lisinopril 20mg,lisinopril,generic,30,30,20.00,13.00,7.00,CVS Pharmacy,1234567893,ACE Inhibitor
+M1037,2024-12-20,00310075139,Farxiga 10mg,dapagliflozin,brand,30,30,560.00,455.00,105.00,Rite Aid,1234567892,SGLT2 Inhibitor
+M1038,2024-12-21,69315090010,Albuterol HFA 90mcg,albuterol,generic,30,1,38.00,25.00,13.00,CVS Pharmacy,1234567901,Short-Acting Beta Agonist
+M1039,2024-12-21,00054327099,Prednisone 10mg,prednisone,generic,7,21,12.00,8.00,4.00,Walgreens,1234567894,Corticosteroid
+M1040,2024-12-22,00093547501,Tamsulosin 0.4mg,tamsulosin,generic,30,30,18.00,11.50,6.50,Rite Aid,1234567905,Alpha Blocker
+M1041,2024-12-22,00074303360,Venclexta 100mg,venetoclax,brand,28,28,14200.00,13000.00,1200.00,CVS Specialty,1234567906,BCL-2 Inhibitor
+M1042,2024-12-23,65862001705,Amoxicillin 500mg,amoxicillin,generic,10,30,15.00,10.00,5.00,CVS Pharmacy,1234567907,Antibiotic
+M1043,2024-12-23,00054418925,Warfarin 5mg,warfarin,generic,30,30,18.00,11.50,6.50,Walgreens,1234567895,Anticoagulant
+M1044,2024-12-24,00093315101,Citalopram 20mg,citalopram,generic,30,30,16.00,10.00,6.00,Rite Aid,1234567899,SSRI Antidepressant
+M1045,2024-12-24,16729018217,Bupropion XL 150mg,bupropion,generic,30,30,28.00,18.50,9.50,CVS Pharmacy,1234567899,NDRI Antidepressant
+M1046,2024-12-26,00074262028,Humira 40mg/0.8mL,adalimumab,brand,28,2,6850.00,6200.00,650.00,CVS Specialty,1234567894,Biologic - TNF Inhibitor
+M1047,2024-12-26,00378180110,Omeprazole 20mg,omeprazole,generic,30,30,22.00,14.50,7.50,CVS Pharmacy,1234567897,Proton Pump Inhibitor
+M1048,2024-12-27,00169413012,Ozempic 1mg/dose,semaglutide,brand,28,1,1050.00,890.00,160.00,Walgreens,1234567896,GLP-1 Agonist
+M1049,2024-12-27,68180072003,Amlodipine 5mg,amlodipine,generic,30,30,15.00,9.80,5.20,Rite Aid,1234567898,Calcium Channel Blocker
+M1050,2024-12-28,00093721298,Lisinopril 10mg,lisinopril,generic,30,30,18.00,12.00,6.00,CVS Pharmacy,1234567893,ACE Inhibitor
+M1051,2024-12-28,59148004690,Eliquis 5mg,apixaban,brand,30,60,580.00,475.00,105.00,CVS Pharmacy,1234567895,Anticoagulant
+M1052,2024-12-29,65862019930,Atorvastatin 20mg,atorvastatin,generic,30,30,28.00,18.50,9.50,Walgreens,1234567891,Statin
+M1053,2024-12-29,00378395105,Metformin HCl 500mg,metformin,generic,30,60,45.00,32.50,12.50,Rite Aid,1234567890,Antidiabetic
+M1054,2024-12-30,00591037101,Metoprolol Succinate 50mg,metoprolol,generic,30,30,20.00,13.00,7.00,CVS Pharmacy,1234567903,Beta Blocker
+M1055,2024-12-30,65862056090,Duloxetine 60mg,duloxetine,generic,30,30,32.00,22.00,10.00,Walgreens,1234567899,SNRI Antidepressant

@@ -31,6 +31,7 @@ import EmployerScorecard from './components/EmployerScorecard.jsx'
 import EmployerSubscribe from './components/EmployerSubscribe.jsx'
 import EmployerContractParser from './components/EmployerContractParser.jsx'
 import EmployerRBPCalculator from './components/EmployerRBPCalculator.jsx'
+import EmployerPharmacy from './components/EmployerPharmacy.jsx'
 import ParityHealthLandingPage from './components/ParityHealthLandingPage.jsx'
 import BrokerLandingPage from './components/BrokerLandingPage.jsx'
 import BrokerLoginPage from './components/BrokerLoginPage.jsx'
@@ -78,6 +79,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/billing/employer/subscribe" element={<EmployerSubscribe />} />
         <Route path="/billing/employer/contract-parse" element={<EmployerContractParser />} />
         <Route path="/billing/employer/rbp-calculator" element={<EmployerRBPCalculator />} />
+        <Route path="/billing/employer/pharmacy" element={<EmployerPharmacy />} />
         <Route path="/billing/employer/demo" element={<EmployerDemoPage />} />
         <Route path="/billing/provider/demo" element={<ProviderDemoPage />} />
         <Route path="/billing/employer/signup" element={<EmployerSignupPage />} />
