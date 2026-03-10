@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import CategoryTabs from "./CategoryTabs";
 import ConsensusIndicator from "./ConsensusIndicator";
 import ClaimCard from "./ClaimCard";
@@ -6,6 +6,7 @@ import ScoreBadge from "./ScoreBadge";
 import EvidenceQA from "./EvidenceQA";
 import GlossaryText from "./GlossaryText";
 import WeightAdjuster, { computeCustomComposite, evidenceCategory } from "./WeightAdjuster";
+import ProfileSelector from "./ProfileSelector";
 import { trackEvent } from "../../lib/signalAnalytics";
 
 /** Format a snake_case category key into a display name. */
@@ -382,6 +383,27 @@ export default function IssueDashboard({
   const [claimsExpanded, setClaimsExpanded] = useState(false);
   const [customWeights, setCustomWeights] = useState(null);
   const [weightsOpen, setWeightsOpen] = useState(false);
+  const [profileScoreData, setProfileScoreData] = useState(null);
+
+  // Build a set of divergent claim IDs for visual flagging
+  const divergentClaimIds = useMemo(() => {
+    const set = new Set();
+    if (profileScoreData?.divergences) {
+      for (const d of profileScoreData.divergences) {
+        set.add(d.claim_id);
+      }
+    }
+    return set;
+  }, [profileScoreData]);
+
+  const handleProfileWeightsChange = useCallback((weights) => {
+    setCustomWeights(weights);
+    if (!weights) setProfileScoreData(null);
+  }, []);
+
+  const handleProfileScoresChange = useCallback((data) => {
+    setProfileScoreData(data);
+  }, []);
 
   // Track issue_viewed once on mount when data is ready
   const trackedIssueRef = useRef(null);
@@ -601,6 +623,16 @@ export default function IssueDashboard({
         </div>
       )}
 
+      {/* Analytical Profiles — premium profile selector with divergence */}
+      {issue && dimensionScores && dimensionScores.size > 0 && (
+        <ProfileSelector
+          issueId={issue.id}
+          userTier={userTier}
+          onProfileWeightsChange={handleProfileWeightsChange}
+          onProfileScoresChange={handleProfileScoresChange}
+        />
+      )}
+
       {/* Analytical Paths — weight adjustment */}
       {dimensionScores && dimensionScores.size > 0 && (
         <WeightAdjuster
@@ -714,6 +746,7 @@ export default function IssueDashboard({
                   claim={claim}
                   composite={compositeMap.get(claim.id)}
                   customScore={customWeights ? computeCustomComposite(claim.id, customWeights, dimensionScores) : undefined}
+                  divergent={divergentClaimIds.has(claim.id)}
                 />
               ))}
             </div>
