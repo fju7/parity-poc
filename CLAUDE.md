@@ -104,6 +104,8 @@ Three live products + one in development:
 - backend/routers/employer_benchmark.py — benchmark endpoint
 - backend/routers/employer_claims.py — claims check, RBP calculator,
   contract parser, free tier enforcement (1 free claims check/90 days)
+- backend/routers/employer_pharmacy.py — pharmacy claims analysis,
+  NADAC benchmarking, PBM spread estimation, generic opportunity detection
 - backend/routers/employer_trends.py — month-over-month trend engine
 - backend/routers/employer_subscription.py — Stripe checkout + webhook
 - backend/routers/employer_scorecard.py — AI-powered SBC scoring with
@@ -141,6 +143,9 @@ Three live products + one in development:
   with carrier-specific request instructions
 - frontend/src/components/EmployerScorecard.jsx — plan scorecard with
   broker-protective interpretation text
+- frontend/src/components/EmployerPharmacy.jsx — pharmacy claims analysis
+  page with NADAC benchmarking, generic opportunity, specialty spend,
+  PBM spread placeholder
 - frontend/src/components/EmployerSharedReport.jsx — public shared
   report page (no auth)
 
@@ -161,10 +166,12 @@ Three live products + one in development:
 - broker_client_benchmarks — broker-run benchmarks with share tokens
 - broker_prospect_benchmarks — prospect assessments (not linked clients)
 - otp_codes — OTP codes for auth (8-digit employer/provider, 6-digit broker)
+- pharmacy_nadac — NADAC drug pricing reference (ndc_code, nadac_per_unit)
+- pharmacy_benchmarks — pharmacy analysis results (company_id, analysis_json)
 
 ## Migrations
 Numbered sequentially: backend/migrations/001_*.sql through 029_*.sql
-Next migration number: 030
+Next migration number: 031
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -250,6 +257,26 @@ Features built in this phase:
     directly when on health.civicscale.ai (no /parity-health prefix needed)
   - App.jsx viewFromPath: handles paths with or without /parity-health prefix
   - Fred action: add health.civicscale.ai as domain in Vercel project settings
+
+## Session E-Pharmacy — Pharmacy Benefit Benchmarking (Complete)
+- New backend router: employer_pharmacy.py with POST /api/employer/pharmacy/analyze
+  - Two-stage parsing: 835 EDI (N4 qualifier for NDC) → CSV/Excel auto-detect → AI extraction
+  - Benchmarks against NADAC (National Average Drug Acquisition Cost)
+  - Returns: summary, top_drugs, generic_opportunity, specialty_drugs, benchmarks,
+    pbm_spread_estimate (null if NADAC unavailable), therapeutic_alternatives (null, future hook)
+  - Saves results to pharmacy_benchmarks table
+- Migration 030: pharmacy_nadac + pharmacy_benchmarks tables
+- NADAC loader script: backend/scripts/load_nadac.py (manual run, downloads from CMS API)
+- Frontend: EmployerPharmacy.jsx at /billing/employer/pharmacy
+  - Same dark UI design as EmployerClaimsCheck
+  - Tab toggle between Medical Claims and Pharmacy Claims on both pages
+  - Upload → processing → results with 4 sections:
+    Summary stats, Top Drugs by Cost (NADAC benchmark + spread),
+    Generic Substitution Opportunities, Specialty Drug Spend
+  - PBM Spread placeholder card when data unavailable
+  - "What This Means" callout with generic rate and specialty spend benchmarks
+- Synthetic test file: backend/data/sample/Midwest_Manufacturing_Pharmacy_Dec2024.csv
+  (55 rows, mix of brand/generic/specialty, realistic NDC codes and pricing)
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

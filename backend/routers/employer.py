@@ -28,6 +28,7 @@ from routers.employer_claims import router as claims_router
 from routers.employer_scorecard import router as scorecard_router
 from routers.employer_subscription import router as subscription_router
 from routers.employer_trends import router as trends_router
+from routers.employer_pharmacy import router as pharmacy_router
 
 router = APIRouter(prefix="/api/employer", tags=["employer"])
 
@@ -38,6 +39,7 @@ router.include_router(claims_router)
 router.include_router(scorecard_router)
 router.include_router(subscription_router)
 router.include_router(trends_router)
+router.include_router(pharmacy_router)
 
 # ---------------------------------------------------------------------------
 # Supabase client (service role for server-side access)
