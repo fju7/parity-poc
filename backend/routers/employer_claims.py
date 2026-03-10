@@ -347,8 +347,10 @@ async def employer_claims_check(
             "You are a healthcare benefits analyst writing for a CFO or HR director. "
             "Based on this claims analysis, write a 3-4 sentence executive summary. "
             "Be specific about dollar amounts and procedure names. Do not use jargon. "
-            "Do not recommend specific vendors. End with one sentence about what action "
-            "this finding suggests.\n\n"
+            "Do not recommend specific vendors. "
+            "Use neutral, factual language — avoid phrases like 'your plan overpaid', 'overcharged', or 'immediately review'. "
+            "Instead describe what the data shows: costs above benchmark, procedures with elevated markups, areas worth examining. "
+            "End with one sentence about what this finding suggests the employer consider — framed as an opportunity, not an accusation.\n\n"
             f"Claims analyzed: {len(results)}\n"
             f"Total paid: ${total_paid:,.0f}\n"
             f"Excess vs 2x Medicare benchmark: ${total_excess_2x:,.0f}\n"
@@ -1142,7 +1144,7 @@ def _generate_narrative(prompt: str) -> str | None:
         model="claude-sonnet-4-6",
         max_tokens=512,
         temperature=0,
-        system="You are a concise healthcare benefits analyst.",
+        system="You are a concise healthcare benefits analyst. Use neutral, factual language. Never imply fraud or wrongdoing. Describe findings as benchmarking observations, not accusations.",
         messages=[{"role": "user", "content": prompt}],
     )
     text = ""
