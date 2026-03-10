@@ -10,16 +10,17 @@ function EmployerAccountInner() {
   const navigate = useNavigate();
   const { user, company, token, logout, isAdmin, refetch } = useAuth();
   const [subscription, setSubscription] = useState(null);
+  const [subActive, setSubActive] = useState(false);
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState("");
 
-  // Company edit fields
-  const [companyName, setCompanyName] = useState("");
-  const [industry, setIndustry] = useState("");
-  const [state, setState] = useState("");
-  const [sizeBand, setSizeBand] = useState("");
+  // Company edit fields — pre-populated from auth context
+  const [companyName, setCompanyName] = useState(company?.name || "");
+  const [industry, setIndustry] = useState(company?.industry || "");
+  const [state, setState] = useState(company?.state || "");
+  const [sizeBand, setSizeBand] = useState(company?.size_band || "");
 
   // Invite modal
   const [showInviteModal, setShowInviteModal] = useState(false);
@@ -48,6 +49,7 @@ function EmployerAccountInner() {
       const subData = await subRes.json();
       const usersData = await usersRes.json();
       setSubscription(subData.subscription);
+      setSubActive(subData.active === true);
       setTeamMembers(usersData.users || []);
     } catch (err) {
       console.error("Failed to fetch account data:", err);
@@ -224,32 +226,40 @@ function EmployerAccountInner() {
           <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
             Plan & Billing
           </h2>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-            <span style={{ background: tierColor, color: "white", fontSize: 12, fontWeight: 700,
-                           padding: "3px 12px", borderRadius: 20 }}>{tierLabel}</span>
-            <span style={{ color: subscription?.status === "active" ? "#10B981" : "#EF4444", fontWeight: 600, fontSize: 14 }}>
-              {subscription?.status === "active" ? "Active" : "Inactive"}
-            </span>
-          </div>
-          {subscription?.current_period_end && (
-            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, marginBottom: 12 }}>
-              Renews {new Date(subscription.current_period_end).toLocaleDateString()}
-            </p>
-          )}
-          {subscription ? (
-            <button onClick={handleBillingPortal}
-              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
-                       borderRadius: 8, padding: "10px 20px", color: "white", fontSize: 14,
-                       fontWeight: 600, cursor: "pointer" }}>
-              Manage Billing
-            </button>
+          {!subActive ? (
+            <div>
+              <div style={{ color: "rgba(255,255,255,0.5)", marginBottom: 16 }}>
+                No active subscription
+              </div>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 20 }}>
+                Subscribe to unlock claims analysis, benchmarking, and plan grading.
+              </p>
+              <Link to="/billing/employer"
+                style={{ display: "inline-block", background: "#0d9488", color: "white",
+                         padding: "10px 20px", borderRadius: 8, textDecoration: "none",
+                         fontWeight: 600, fontSize: 14 }}>
+                View Plans
+              </Link>
+            </div>
           ) : (
-            <Link to="/billing/employer/subscribe"
-              style={{ display: "inline-block", background: "#0d9488", color: "white",
-                       borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600,
-                       textDecoration: "none" }}>
-              Subscribe
-            </Link>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                <span style={{ background: tierColor, color: "white", fontSize: 12, fontWeight: 700,
+                               padding: "3px 12px", borderRadius: 20 }}>{tierLabel}</span>
+                <span style={{ color: "#10B981", fontWeight: 600, fontSize: 14 }}>Active</span>
+              </div>
+              {subscription?.current_period_end && (
+                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, marginBottom: 12 }}>
+                  Renews {new Date(subscription.current_period_end).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                </p>
+              )}
+              <button onClick={handleBillingPortal}
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
+                         borderRadius: 8, padding: "10px 20px", color: "white", fontSize: 14,
+                         fontWeight: 600, cursor: "pointer" }}>
+                Manage Billing
+              </button>
+            </div>
           )}
         </div>
 

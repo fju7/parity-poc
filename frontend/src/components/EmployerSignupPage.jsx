@@ -36,7 +36,7 @@ export default function EmployerSignupPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  // Step: "email" | "otp" | "company" | "confirm-otp"
+  // Step: "email" | "otp" | "company"
   const [step, setStep] = useState("email");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -120,41 +120,13 @@ export default function EmployerSignupPage() {
       const data = await res.json();
       if (!res.ok) { setErrorMsg(data.detail || "Failed to create account."); return; }
 
-      // Company created — now send OTP again silently to create session
-      await fetch(`${API}/api/auth/send-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), product: "employer" }),
-      });
-
-      setCode("");
-      setStep("confirm-otp");
+      // Token returned from company creation — log in immediately
+      login(data.token, data.user, data.company);
+      navigate("/billing/employer/dashboard");
     } catch {
       setErrorMsg("Failed to create account. Please try again.");
     } finally {
       setCreating(false);
-    }
-  };
-
-  const handleConfirmOtp = async () => {
-    if (code.length !== 8) { setErrorMsg("Enter the 8-digit code from your email."); return; }
-    setVerifying(true);
-    setErrorMsg("");
-    try {
-      const res = await fetch(`${API}/api/auth/verify-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), code: code.trim(), product: "employer" }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setErrorMsg(data.detail || "Invalid code."); return; }
-
-      login(data.token, data.user, data.company);
-      navigate("/billing/employer/dashboard");
-    } catch {
-      setErrorMsg("Verification failed. Please try again.");
-    } finally {
-      setVerifying(false);
     }
   };
 
@@ -260,25 +232,6 @@ export default function EmployerSignupPage() {
             </select>
             <button onClick={handleCreateCompany} disabled={creating} style={btnStyle(creating)}>
               {creating ? "Creating..." : "Create Account"}
-            </button>
-          </>
-        )}
-
-        {step === "confirm-otp" && (
-          <>
-            <h2 style={{ color: "white", fontSize: 24, fontWeight: 700, marginBottom: 8 }}>
-              One more step
-            </h2>
-            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, marginBottom: 32 }}>
-              Enter the code we just sent to {email} to confirm your account.
-            </p>
-            <input type="text" placeholder="12345678" value={code}
-              onChange={e => setCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
-              onKeyDown={e => e.key === "Enter" && handleConfirmOtp()}
-              maxLength={8}
-              style={{ ...inputStyle, fontSize: 24, letterSpacing: 8, textAlign: "center" }} />
-            <button onClick={handleConfirmOtp} disabled={verifying} style={btnStyle(verifying)}>
-              {verifying ? "Signing in..." : "Sign In"}
             </button>
           </>
         )}

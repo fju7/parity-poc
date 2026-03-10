@@ -377,11 +377,41 @@ async def create_company(req: CreateCompanyRequest):
         "status": "active",
     }).execute()
 
+    # Auto-create session after company creation — no second OTP needed
+    now = datetime.now(timezone.utc)
+    session_id = str(uuid.uuid4())
+    expires_at = (now + timedelta(days=SESSION_EXPIRY_DAYS)).isoformat()
+
+    sb.table("sessions").insert({
+        "id": session_id,
+        "email": email,
+        "company_id": company_id,
+        "product": company_type,
+        "expires_at": expires_at,
+        "last_active_at": now.isoformat(),
+    }).execute()
+
     return {
         "created": True,
+        "token": session_id,
+        "email": email,
         "company_id": company_id,
         "company_name": req.company_name,
+        "company_type": company_type,
         "role": "admin",
+        "user": {
+            "email": email,
+            "full_name": req.full_name.strip(),
+            "role": "admin",
+        },
+        "company": {
+            "id": company_id,
+            "name": req.company_name.strip(),
+            "type": company_type,
+            "industry": req.industry,
+            "state": req.state,
+            "size_band": req.size_band,
+        },
     }
 
 
