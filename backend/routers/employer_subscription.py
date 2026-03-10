@@ -161,6 +161,31 @@ async def employer_webhook(request: Request):
                     "status": "active",
                 }).execute()
 
+            # Send welcome email with dashboard link
+            employer_email = email
+            tier = metadata.get("tier", "standard")
+            try:
+                from utils.email import send_email
+                send_email(
+                    to=employer_email,
+                    subject="Your Parity Employer subscription is active",
+                    html=f"""
+                    <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
+                      <h2 style="color: #0d9488;">Welcome to Parity Employer</h2>
+                      <p>Your {tier} subscription is now active.</p>
+                      <p>Sign in to your dashboard to upload claims, run benchmarks, and track your savings opportunities:</p>
+                      <a href="https://civicscale.ai/billing/employer/dashboard"
+                          style="display: inline-block; background: #0d9488; color: white; padding: 12px 24px;
+                                 border-radius: 8px; text-decoration: none; font-weight: bold; margin: 16px 0;">
+                        Go to Dashboard &rarr;
+                      </a>
+                      <p style="color: #999; font-size: 12px;">CivicScale &middot; civicscale.ai</p>
+                    </div>
+                    """,
+                )
+            except Exception as exc:
+                print(f"WARNING: Failed to send employer welcome email: {exc}")
+
     elif event_type == "customer.subscription.deleted":
         subscription_id = obj.get("id")
         if subscription_id:
@@ -218,6 +243,30 @@ async def employer_webhook(request: Request):
             ).execute()
 
     return {"status": "ok"}
+
+
+# ---------------------------------------------------------------------------
+# POST /billing-portal
+# ---------------------------------------------------------------------------
+
+@router.post("/billing-portal")
+async def employer_billing_portal(email: str = Query(...)):
+    import stripe as stripe_lib
+    stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY")
+    sb = _get_supabase()
+
+    result = sb.table("employer_subscriptions").select(
+        "stripe_customer_id"
+    ).eq("email", email.strip().lower()).order("created_at", desc=True).limit(1).execute()
+
+    if not result.data or not result.data[0].get("stripe_customer_id"):
+        raise HTTPException(status_code=404, detail="No billing account found")
+
+    session = stripe_lib.billing_portal.Session.create(
+        customer=result.data[0]["stripe_customer_id"],
+        return_url="https://civicscale.ai/billing/employer/account",
+    )
+    return {"portal_url": session.url}
 
 
 # ---------------------------------------------------------------------------

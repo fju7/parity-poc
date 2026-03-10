@@ -19,7 +19,7 @@ import zipfile
 from typing import Optional
 
 import pandas as pd
-from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
+from fastapi import APIRouter, File, Form, HTTPException, Query, Request, UploadFile
 from pydantic import BaseModel
 
 from routers.employer_shared import (
@@ -1402,3 +1402,16 @@ def _safe_float(val) -> float:
         return float(s)
     except (ValueError, TypeError):
         return 0.0
+
+
+# ---------------------------------------------------------------------------
+# GET /claims-history
+# ---------------------------------------------------------------------------
+
+@router.get("/claims-history")
+async def employer_claims_history(email: str = Query(...)):
+    sb = _get_supabase()
+    result = sb.table("employer_claims_uploads").select(
+        "id, created_at, file_name, claim_count, total_excess"
+    ).eq("email", email.strip().lower()).order("created_at", desc=True).limit(10).execute()
+    return {"uploads": result.data or []}

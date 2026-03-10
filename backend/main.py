@@ -21,6 +21,7 @@ from routers.health_analyze import router as health_analyze_router
 from routers.benchmark_observations import router as benchmark_observations_router
 from routers.broker import router as broker_router
 from routers.employer_shared_report import router as employer_shared_report_router
+from routers.auth import router as auth_router
 
 
 @asynccontextmanager
@@ -80,6 +81,7 @@ app.include_router(health_analyze_router)
 app.include_router(benchmark_observations_router)
 app.include_router(broker_router)
 app.include_router(employer_shared_report_router)
+app.include_router(auth_router)
 
 
 @app.get("/")

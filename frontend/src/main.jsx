@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
+import { AuthProvider } from './context/AuthContext'
 import CivicScaleHomepage from './components/CivicScaleHomepage.jsx'
 import TermsPage from './components/TermsPage.jsx'
 import PrivacyPage from './components/PrivacyPage.jsx'
@@ -11,6 +12,9 @@ import EmployerLandingPage from './components/EmployerLandingPage.jsx'
 import EmployerLoginPage from './components/EmployerLoginPage.jsx'
 import EmployerDashboard from './components/EmployerDashboard.jsx'
 import EmployerAuthCallback from './components/EmployerAuthCallback.jsx'
+import EmployerSignupPage from './components/EmployerSignupPage.jsx'
+import EmployerAccountPage from './components/EmployerAccountPage.jsx'
+import AcceptInvitePage from './components/AcceptInvitePage.jsx'
 import BillingLanding from './components/BillingLanding.jsx'
 import EmployerProductPage from './components/EmployerProductPage.jsx'
 import ProviderProductPage from './components/ProviderProductPage.jsx'
@@ -45,6 +49,7 @@ function ScrollToTop() {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <AuthProvider>
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
@@ -65,6 +70,10 @@ createRoot(document.getElementById('root')).render(
         <Route path="/billing/employer/rbp-calculator" element={<EmployerRBPCalculator />} />
         <Route path="/billing/employer/demo" element={<EmployerDemoPage />} />
         <Route path="/billing/provider/demo" element={<ProviderDemoPage />} />
+        <Route path="/billing/employer/signup" element={<EmployerSignupPage />} />
+        <Route path="/billing/employer/dashboard" element={<EmployerDashboard />} />
+        <Route path="/billing/employer/account" element={<EmployerAccountPage />} />
+        <Route path="/accept-invite" element={<AcceptInvitePage />} />
         <Route path="/employer" element={<EmployerLandingPage />} />
         <Route path="/employer/login" element={<EmployerLoginPage />} />
         <Route path="/employer/auth/callback" element={<EmployerAuthCallback />} />
@@ -84,5 +93,6 @@ createRoot(document.getElementById('root')).render(
         <Route path="/parity-health/*" element={<App />} />
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   </StrictMode>,
 )
