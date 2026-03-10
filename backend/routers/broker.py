@@ -588,6 +588,12 @@ async def client_summary(employer_email: str, broker_email: str):
     total_paid = sum(u.get("total_paid") or 0 for u in upload_rows)
     total_excess = sum(u.get("total_excess_2x") or 0 for u in upload_rows)
 
+    # Extract level2 from most recent upload's results_json
+    latest_level2 = None
+    if upload_rows:
+        latest_results = upload_rows[0].get("results_json") or {}
+        latest_level2 = latest_results.get("level2")
+
     # Trends cache if available
     if sub_data:
         trends = (
@@ -628,6 +634,7 @@ async def client_summary(employer_email: str, broker_email: str):
             "total_claims": total_claims,
             "total_paid": round(total_paid, 2),
             "total_excess_2x": round(total_excess, 2),
+            "level2": latest_level2,
         },
         "upload_timeline": upload_timeline,
         "trends": trends_data.get("trend_data") if trends_data else None,
@@ -1614,12 +1621,14 @@ async def renewal_prep(company_name: str, broker_email: str):
     claims_section = {"available": False}
     if claims_upload.data:
         cu = claims_upload.data[0]
+        results_json = cu.get("results_json") or {}
         claims_section = {
             "available": True,
             "total_claims": cu.get("total_claims", 0),
             "total_paid": cu.get("total_paid", 0),
             "excess_amount": cu.get("total_excess_2x", 0),
             "top_cpt": cu.get("top_flagged_cpt", ""),
+            "level2": results_json.get("level2"),
         }
 
     # Most recent scorecard

@@ -7,6 +7,9 @@ Parses X12 835 transaction sets to extract:
 - Claim-level data (CLP segments)
 - Service line items (SVC segments)
 - Adjustment codes (CAS segments)
+- Provider NPI and name (NM1 segments)
+- Place of service (CLM segments)
+- Allowed amounts (computed from paid + adjustments)
 
 No external EDI libraries required.
 """
@@ -14,6 +17,20 @@ No external EDI libraries required.
 from __future__ import annotations
 
 from typing import List, Optional
+
+
+PLACE_OF_SERVICE = {
+    "11": "Physician Office",
+    "19": "Off-Campus Outpatient Hospital",
+    "21": "Inpatient Hospital",
+    "22": "On-Campus Outpatient Hospital",
+    "23": "Emergency Room",
+    "24": "Ambulatory Surgical Center",
+    "31": "Skilled Nursing Facility",
+    "32": "Nursing Facility",
+    "81": "Independent Laboratory",
+    "99": "Other",
+}
 
 
 def parse_835(content: str) -> dict:
@@ -72,6 +89,31 @@ def parse_835(content: str) -> dict:
             current_claim = _parse_clp(elements)
             current_svc = None
 
+        elif seg_id == "NM1" and current_claim is not None:
+            qualifier = elements[1] if len(elements) > 1 else ""
+            # 82 = rendering provider, 77 = service facility, 71 = attending
+            if qualifier in ("82", "77", "71"):
+                name_parts = []
+                if len(elements) > 3 and elements[3]:
+                    name_parts.append(elements[3])  # last name
+                if len(elements) > 4 and elements[4]:
+                    name_parts.append(elements[4])  # first name
+                name = " ".join(name_parts) if name_parts else (elements[2] if len(elements) > 2 else "")
+                npi = elements[9] if len(elements) > 9 else ""
+                if qualifier == "82":
+                    current_claim["rendering_provider_name"] = name
+                    current_claim["rendering_provider_npi"] = npi
+                elif qualifier == "77":
+                    current_claim["service_facility_name"] = name
+                    current_claim["service_facility_npi"] = npi
+
+        elif seg_id == "CLM" and current_claim is not None:
+            # CLM*claim_id*amount**place_of_service_composite*...
+            if len(elements) > 5:
+                pos_composite = elements[5]
+                pos_parts = pos_composite.split(":")
+                current_claim["place_of_service"] = pos_parts[0] if pos_parts else ""
+
         elif seg_id == "SVC" and current_claim is not None:
             # Save previous SVC if any
             if current_svc is not None:
@@ -85,6 +127,12 @@ def parse_835(content: str) -> dict:
                 current_svc.setdefault("adjustments", []).extend(adjustments)
             else:
                 current_claim.setdefault("claim_adjustments", []).extend(adjustments)
+            # Update allowed amount with CO adjustments
+            for adj in adjustments:
+                if adj["group_code"] == "CO":
+                    current_claim["allowed_amount"] = round(
+                        current_claim.get("allowed_amount", 0) + adj["amount"], 2
+                    )
 
         elif seg_id == "DTM" and current_svc is not None and len(elements) > 2:
             qualifier = elements[1]
@@ -105,6 +153,15 @@ def parse_835(content: str) -> dict:
     for claim in claims:
         for item in claim.get("line_items", []):
             item["claim_id"] = claim.get("claim_id", "")
+            item["rendering_provider_name"] = claim.get("rendering_provider_name", "")
+            item["rendering_provider_npi"] = claim.get("rendering_provider_npi", "")
+            item["service_facility_name"] = claim.get("service_facility_name", "")
+            item["service_facility_npi"] = claim.get("service_facility_npi", "")
+            item["place_of_service"] = claim.get("place_of_service", "")
+            item["place_of_service_label"] = PLACE_OF_SERVICE.get(
+                claim.get("place_of_service", ""), "Unknown"
+            )
+            item["allowed_amount"] = claim.get("allowed_amount", item.get("paid_amount", 0))
             all_line_items.append(item)
 
         total_billed += claim.get("billed_amount", 0)
@@ -195,6 +252,9 @@ def _parse_clp(elements: List[str]) -> dict:
         "line_items": [],
         "claim_adjustments": [],
     }
+
+    # Allowed = paid + patient_responsibility (CO adjustments added later)
+    claim["allowed_amount"] = claim["paid_amount"] + claim["patient_responsibility"]
 
     # Map status codes
     status_map = {

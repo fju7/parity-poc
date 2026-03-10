@@ -1304,6 +1304,22 @@ export default function BrokerDashboard() {
                   ))}
                 </div>
 
+                {/* Level 2 Insights */}
+                {clientSummary.claims_summary.level2 && clientSummary.claims_summary.level2.has_level2 && (
+                  <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 12, padding: "16px 20px" }}>
+                    <p style={{ fontSize: 12, fontWeight: 600, color: "#0D7377", margin: "0 0 8px" }}>LEVEL 2 INSIGHTS</p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4, fontSize: 13, color: "#475569" }}>
+                      {clientSummary.claims_summary.level2.provider_variation.total_variation_opportunity > 0 && (
+                        <p style={{ margin: 0 }}>Provider variation: <strong style={{ color: "#0D7377" }}>{fmt(clientSummary.claims_summary.level2.provider_variation.total_variation_opportunity)}</strong> opportunity</p>
+                      )}
+                      {clientSummary.claims_summary.level2.site_of_care.total_site_opportunity > 0 && (
+                        <p style={{ margin: 0 }}>Site of care: <strong style={{ color: "#0D7377" }}>{fmt(clientSummary.claims_summary.level2.site_of_care.total_site_opportunity)}</strong> opportunity</p>
+                      )}
+                      <p style={{ margin: 0 }}>Network: <strong style={{ color: clientSummary.claims_summary.level2.network_leakage.flag === "HIGH" ? "#EF4444" : clientSummary.claims_summary.level2.network_leakage.flag === "MODERATE" ? "#f59e0b" : "#22c55e" }}>{clientSummary.claims_summary.level2.network_leakage.flag}</strong> out-of-network</p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Gated Features — show lock icons for non-subscribers */}
                 {clientSummary.subscription.status !== "active" && (
                   <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>

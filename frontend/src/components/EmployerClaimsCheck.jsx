@@ -494,6 +494,141 @@ export default function EmployerClaimsCheck() {
               </div>
             </div>
 
+            {/* Level 2 Analysis */}
+            {result.level2 && result.level2.has_level2 && (
+              <>
+                <div style={{ textAlign: "center", marginBottom: "16px", marginTop: "8px" }}>
+                  <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "22px", fontWeight: "400", color: "#f1f5f9", marginBottom: "6px" }}>
+                    Level 2 Analysis
+                  </h3>
+                  <p style={{ fontSize: "12px", color: "#64748b" }}>Available because your file included 835 EDI provider data</p>
+                </div>
+
+                {/* Card 1 — Provider Price Variation */}
+                <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "16px" }}>
+                  <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span style={{ fontSize: "18px" }}>&#127973;</span> Provider Price Variation
+                  </h3>
+                  {result.level2.provider_variation.flagged_cpts.length > 0 ? (
+                    <>
+                      {result.level2.provider_variation.flagged_cpts.slice(0, 3).map((v, i) => (
+                        <div key={i} style={{ padding: "10px 0", borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
+                          <div style={{ fontSize: "13px", color: "#e2e8f0" }}>
+                            <strong>CPT {v.cpt_code}</strong> &mdash; {v.low_provider.name} <span style={{ color: "#22c55e" }}>${v.low_provider.avg_paid.toLocaleString()}</span> vs {v.high_provider.name} <span style={{ color: "#f59e0b" }}>${v.high_provider.avg_paid.toLocaleString()}</span> &middot; <span style={{ color: "#ef4444" }}>{v.variation_ratio}x variation</span>
+                          </div>
+                        </div>
+                      ))}
+                      <div style={{ marginTop: "12px", fontSize: "13px", color: "#10b981", fontWeight: "500" }}>
+                        Up to ${result.level2.provider_variation.total_variation_opportunity.toLocaleString()}/yr in savings by steering to lower-cost providers
+                      </div>
+                    </>
+                  ) : (
+                    <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>Consistent pricing across providers &mdash; no significant variation detected</p>
+                  )}
+                </div>
+
+                {/* Card 2 — Site of Care */}
+                <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "16px" }}>
+                  <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span style={{ fontSize: "18px" }}>&#128205;</span> Site of Care Opportunities
+                  </h3>
+                  {result.level2.site_of_care.has_hospital_outpatient && result.level2.site_of_care.flagged_cpts.length > 0 ? (
+                    <>
+                      <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "12px" }}>Some procedures are being performed in hospital outpatient settings where costs are significantly higher</p>
+                      {result.level2.site_of_care.flagged_cpts.slice(0, 3).map((s, i) => (
+                        <div key={i} style={{ padding: "10px 0", borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
+                          <div style={{ fontSize: "13px", color: "#e2e8f0" }}>
+                            <strong>CPT {s.cpt_code}</strong> &mdash; Hospital <span style={{ color: "#f59e0b" }}>${s.hospital_avg.toLocaleString()}</span> vs Non-hospital <span style={{ color: "#22c55e" }}>${s.non_hospital_avg.toLocaleString()}</span> &middot; {s.hospital_claims} hospital claim{s.hospital_claims !== 1 ? "s" : ""}
+                          </div>
+                        </div>
+                      ))}
+                      <div style={{ marginTop: "12px", fontSize: "13px", color: "#10b981", fontWeight: "500" }}>
+                        Up to ${result.level2.site_of_care.total_site_opportunity.toLocaleString()}/yr by redirecting to lower-cost sites
+                      </div>
+                    </>
+                  ) : (
+                    <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>No hospital outpatient site-of-care issues detected</p>
+                  )}
+                </div>
+
+                {/* Card 3 — Network Analysis */}
+                <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "16px" }}>
+                  <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span style={{ fontSize: "18px" }}>&#128279;</span> Network Coverage
+                  </h3>
+                  <div style={{ marginBottom: "12px" }}>
+                    {result.level2.network_leakage.flag === "LOW" && (
+                      <p style={{ fontSize: "13px", color: "#22c55e", margin: 0, fontWeight: "500" }}>Network utilization looks healthy &mdash; less than 5% of spend is out-of-network</p>
+                    )}
+                    {result.level2.network_leakage.flag === "MODERATE" && (
+                      <p style={{ fontSize: "13px", color: "#f59e0b", margin: 0, fontWeight: "500" }}>{result.level2.network_leakage.out_of_network_pct}% of spend (${result.level2.network_leakage.out_of_network_paid.toLocaleString()}) appears out-of-network &mdash; review network adequacy</p>
+                    )}
+                    {result.level2.network_leakage.flag === "HIGH" && (
+                      <p style={{ fontSize: "13px", color: "#ef4444", margin: 0, fontWeight: "500" }}>{result.level2.network_leakage.out_of_network_pct}% of spend (${result.level2.network_leakage.out_of_network_paid.toLocaleString()}) is out-of-network &mdash; significant network leakage detected</p>
+                    )}
+                  </div>
+                  <div>
+                    {result.level2.denial_rate.flag === "NORMAL" && (
+                      <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>Claim denial rate is within normal range ({result.level2.denial_rate.rate_pct}%)</p>
+                    )}
+                    {result.level2.denial_rate.flag === "ELEVATED" && (
+                      <p style={{ fontSize: "13px", color: "#f59e0b", margin: 0 }}>Elevated denial rate ({result.level2.denial_rate.rate_pct}%) &mdash; may indicate network or authorization issues</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Card 4 — Carrier Rate Summary */}
+                <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "32px" }}>
+                  <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span style={{ fontSize: "18px" }}>&#128202;</span> Your Carrier's Effective Rates
+                  </h3>
+                  {result.level2.carrier_rates.top_cpts.length > 0 ? (
+                    <>
+                      <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "12px" }}>Based on your claims data, here's what your carrier is actually paying for high-volume procedures:</p>
+                      <div style={{ overflowX: "auto" }}>
+                        <table style={{ width: "100%", fontSize: "13px", borderCollapse: "collapse" }}>
+                          <thead>
+                            <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+                              <th style={thStyle}>CPT</th>
+                              <th style={thStyle}>Claims</th>
+                              <th style={thStyle}>Avg Allowed</th>
+                              <th style={thStyle}>Medicare</th>
+                              <th style={thStyle}>Multiple</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {result.level2.carrier_rates.top_cpts.slice(0, 10).map((r, i) => (
+                              <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                                <td style={tdStyle}>{r.cpt_code}</td>
+                                <td style={tdStyle}>{r.claim_count}</td>
+                                <td style={tdStyle}>${r.avg_allowed.toLocaleString()}</td>
+                                <td style={tdStyle}>${r.medicare_rate.toLocaleString()}</td>
+                                <td style={{ ...tdStyle, color: r.multiple > 2 ? "#ef4444" : r.multiple > 1.5 ? "#f59e0b" : "#e2e8f0", fontWeight: "600" }}>{r.multiple}x</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div style={{ marginTop: "12px", fontSize: "13px", color: "#60a5fa", fontWeight: "500" }}>
+                        Average across top procedures: {result.level2.carrier_rates.avg_multiple_vs_medicare}x Medicare
+                      </div>
+                    </>
+                  ) : (
+                    <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>Insufficient claims volume for carrier rate analysis</p>
+                  )}
+                </div>
+              </>
+            )}
+
+            {/* Level 2 unavailable notice */}
+            {result.level2 && !result.level2.has_level2 && (
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "14px", padding: "24px", marginBottom: "32px", textAlign: "center" }}>
+                <p style={{ fontSize: "13px", color: "#64748b", margin: 0, lineHeight: "1.7" }}>
+                  Level 2 analysis (provider variation, site of care, carrier rates) requires 835 EDI format with provider data. CSV uploads support Level 1 Medicare benchmarking only.
+                </p>
+              </div>
+            )}
+
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <Link to="/billing/employer/rbp-calculator" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>

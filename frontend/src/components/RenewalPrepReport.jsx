@@ -81,6 +81,14 @@ export default function RenewalPrepReport() {
   if (claims.available && claims.excess_amount > 0) {
     talkingPoints.push(`Claims analysis identified ${fmt(claims.excess_amount)} in potential excess spend. Use specific procedure findings as leverage in rate negotiations.`);
   }
+  if (claims.available && claims.level2 && claims.level2.has_level2) {
+    if (claims.level2.provider_variation.total_variation_opportunity > 0) {
+      talkingPoints.push(`Level 2 analysis found ${fmt(claims.level2.provider_variation.total_variation_opportunity)} in provider price variation — steering to lower-cost providers for the same procedures can reduce costs.`);
+    }
+    if (claims.level2.network_leakage.flag !== "LOW") {
+      talkingPoints.push(`Network leakage is ${claims.level2.network_leakage.flag.toLowerCase()} — ${claims.level2.network_leakage.out_of_network_pct}% of spend appears out-of-network. Review network adequacy with your carrier.`);
+    }
+  }
   if (scorecard.available && scorecard.grade && !["A", "B+", "B"].includes(scorecard.grade)) {
     const improvementCount = scorecard.scored_criteria ? scorecard.scored_criteria.filter(c => c.score < 60).length : 0;
     talkingPoints.push(`Plan design analysis identified ${improvementCount || "several"} improvement opportunities. These are common findings in plans due for renewal review and represent negotiable terms your advisor can address.`);
@@ -180,12 +188,31 @@ export default function RenewalPrepReport() {
         {/* Section 3 — Claims Analysis */}
         <Section title="Claims Analysis">
           {claims.available ? (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12 }}>
-              <StatCard label="Total Claims" value={claims.total_claims.toLocaleString()} small />
-              <StatCard label="Total Paid" value={fmt(claims.total_paid)} small />
-              <StatCard label="Excess Identified" value={fmt(claims.excess_amount)} color={claims.excess_amount > 0 ? "#EF4444" : "#475569"} small />
-              <StatCard label="Top Procedure" value={claims.top_cpt || "\u2014"} small />
-            </div>
+            <>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12, marginBottom: claims.level2 && claims.level2.has_level2 ? 16 : 0 }}>
+                <StatCard label="Total Claims" value={claims.total_claims.toLocaleString()} small />
+                <StatCard label="Total Paid" value={fmt(claims.total_paid)} small />
+                <StatCard label="Excess Identified" value={fmt(claims.excess_amount)} color={claims.excess_amount > 0 ? "#EF4444" : "#475569"} small />
+                <StatCard label="Top Procedure" value={claims.top_cpt || "\u2014"} small />
+              </div>
+              {claims.level2 && claims.level2.has_level2 && (
+                <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 10, padding: "14px 20px" }}>
+                  <p style={{ fontSize: 12, fontWeight: 600, color: "#0D7377", margin: "0 0 8px" }}>KEY FINDINGS</p>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#475569", lineHeight: 1.8 }}>
+                    {claims.level2.provider_variation.flagged_cpts.length > 0 && (
+                      <li>Provider variation: {fmt(claims.level2.provider_variation.total_variation_opportunity)} in savings opportunity by steering to lower-cost providers</li>
+                    )}
+                    {claims.level2.site_of_care.total_site_opportunity > 0 && (
+                      <li>Site of care: {fmt(claims.level2.site_of_care.total_site_opportunity)} opportunity by redirecting procedures from hospital outpatient to ambulatory settings</li>
+                    )}
+                    <li>Network leakage: <strong style={{ color: claims.level2.network_leakage.flag === "HIGH" ? "#EF4444" : claims.level2.network_leakage.flag === "MODERATE" ? "#f59e0b" : "#166534" }}>{claims.level2.network_leakage.flag}</strong> ({claims.level2.network_leakage.out_of_network_pct}% out-of-network)</li>
+                    {claims.level2.carrier_rates.avg_multiple_vs_medicare > 0 && (
+                      <li>Average procedures paid at <strong>{claims.level2.carrier_rates.avg_multiple_vs_medicare}x Medicare</strong></li>
+                    )}
+                  </ul>
+                </div>
+              )}
+            </>
           ) : (
             <Placeholder text="Not yet analyzed." cta="Upload claims data to complete this section" ctaLink="/billing/employer/claims-check" />
           )}

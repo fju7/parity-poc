@@ -360,6 +360,13 @@ async def employer_claims_check(
     except Exception as exc:
         print(f"[Employer Claims] Narrative generation failed (non-fatal): {exc}")
 
+    # --- Level 2 analytics (835 EDI only) ---
+    level2 = None
+    try:
+        level2 = _run_level2_analytics(df, results)
+    except Exception as exc:
+        print(f"[Employer Claims] Level 2 analytics failed (non-fatal): {exc}")
+
     # Assign value-based pricing tier from annualized excess
     annualized_excess = total_excess_2x * 12
     pricing_tier = assign_pricing_tier(annualized_excess)
@@ -376,6 +383,7 @@ async def employer_claims_check(
         "pricing_tier_label": tier_info["label"],
         "pricing_tier_price": tier_info["price_monthly"],
         "annualized_excess": round(annualized_excess, 2),
+        "level2": level2,
     }
 
     # --- Persist to Supabase ---
@@ -391,7 +399,7 @@ async def employer_claims_check(
             "top_flagged_cpt": top_flagged_cpt,
             "top_flagged_excess": float(top_flagged_excess),
             "column_mapping_json": mapping,
-            "results_json": {**summary, "line_items": results[:500]},
+            "results_json": {**summary, "line_items": results[:500], "level2": level2},
         }).execute()
         if insert_result.data:
             session_id = insert_result.data[0].get("id")
@@ -1154,8 +1162,230 @@ def _edi_items_to_df(line_items: list, default_provider: str = "") -> pd.DataFra
             "billed_amount": item.get("billed_amount", 0),
             "provider_name": item.get("_provider", default_provider),
             "service_date": item.get("service_date", ""),
+            "rendering_provider_name": item.get("rendering_provider_name", ""),
+            "rendering_provider_npi": item.get("rendering_provider_npi", ""),
+            "service_facility_name": item.get("service_facility_name", ""),
+            "place_of_service": item.get("place_of_service", ""),
+            "place_of_service_label": item.get("place_of_service_label", ""),
+            "allowed_amount": item.get("allowed_amount", 0),
         })
     return pd.DataFrame(rows)
+
+
+def _run_level2_analytics(df: pd.DataFrame, flagged_results: list) -> dict:
+    """Run Level 2 analytics: provider variation, site of care, carrier rates, network leakage, denials.
+
+    Requires 835 EDI data with rendering_provider_name field populated.
+    Returns has_level2: False if provider data is missing (CSV uploads).
+    """
+    # Check if we have provider data (835 EDI only)
+    has_provider_data = (
+        "rendering_provider_name" in df.columns
+        and df["rendering_provider_name"].notna().any()
+        and (df["rendering_provider_name"] != "").any()
+    )
+
+    if not has_provider_data:
+        return {
+            "has_level2": False,
+            "message": "Level 2 analysis requires 835 EDI format with provider data. CSV uploads support Level 1 Medicare benchmarking only.",
+        }
+
+    # --- A. Provider price variation ---
+    provider_variation = {"flagged_cpts": [], "total_variation_opportunity": 0.0, "providers_analyzed": 0}
+    try:
+        providers_with_data = df[df["rendering_provider_name"] != ""]
+        provider_variation["providers_analyzed"] = providers_with_data["rendering_provider_name"].nunique()
+
+        # Group by CPT + provider, compute avg paid
+        cpt_provider = (
+            providers_with_data.groupby(["cpt_code", "rendering_provider_name"])
+            .agg(avg_paid=("paid_amount", "mean"), claim_count=("paid_amount", "count"))
+            .reset_index()
+        )
+
+        # Find CPTs with 2+ distinct providers
+        cpt_provider_counts = cpt_provider.groupby("cpt_code")["rendering_provider_name"].nunique()
+        multi_provider_cpts = cpt_provider_counts[cpt_provider_counts >= 2].index
+
+        variations = []
+        for cpt in multi_provider_cpts:
+            cpt_data = cpt_provider[cpt_provider["cpt_code"] == cpt]
+            min_row = cpt_data.loc[cpt_data["avg_paid"].idxmin()]
+            max_row = cpt_data.loc[cpt_data["avg_paid"].idxmax()]
+
+            if min_row["avg_paid"] > 0:
+                ratio = round(max_row["avg_paid"] / min_row["avg_paid"], 2)
+                if ratio > 1.5:
+                    # Potential savings if all claims went to low-cost provider
+                    total_at_high = providers_with_data[
+                        (providers_with_data["cpt_code"] == cpt)
+                        & (providers_with_data["rendering_provider_name"] == max_row["rendering_provider_name"])
+                    ]["paid_amount"].sum()
+                    count_at_high = len(providers_with_data[
+                        (providers_with_data["cpt_code"] == cpt)
+                        & (providers_with_data["rendering_provider_name"] == max_row["rendering_provider_name"])
+                    ])
+                    potential_savings = round(total_at_high - (min_row["avg_paid"] * count_at_high), 2)
+
+                    variations.append({
+                        "cpt_code": cpt,
+                        "low_provider": {"name": min_row["rendering_provider_name"], "avg_paid": round(min_row["avg_paid"], 2)},
+                        "high_provider": {"name": max_row["rendering_provider_name"], "avg_paid": round(max_row["avg_paid"], 2)},
+                        "variation_ratio": ratio,
+                        "potential_savings": max(potential_savings, 0),
+                    })
+
+        variations.sort(key=lambda x: x["potential_savings"], reverse=True)
+        provider_variation["flagged_cpts"] = variations[:5]
+        provider_variation["total_variation_opportunity"] = round(
+            sum(v["potential_savings"] for v in variations), 2
+        )
+    except Exception as exc:
+        print(f"[Level2] Provider variation analysis failed: {exc}")
+
+    # --- B. Site of care analysis ---
+    site_of_care = {"flagged_cpts": [], "total_site_opportunity": 0.0, "has_hospital_outpatient": False}
+    try:
+        if "place_of_service" in df.columns:
+            hospital_pos = {"19", "22"}
+            non_hospital_pos = {"11", "24"}
+
+            df_with_pos = df[df["place_of_service"] != ""]
+            if not df_with_pos.empty:
+                df_hosp = df_with_pos[df_with_pos["place_of_service"].isin(hospital_pos)]
+                df_non_hosp = df_with_pos[df_with_pos["place_of_service"].isin(non_hospital_pos)]
+
+                site_of_care["has_hospital_outpatient"] = len(df_hosp) > 0
+
+                if not df_hosp.empty and not df_non_hosp.empty:
+                    hosp_cpts = set(df_hosp["cpt_code"].unique())
+                    non_hosp_cpts = set(df_non_hosp["cpt_code"].unique())
+                    shared_cpts = hosp_cpts & non_hosp_cpts
+
+                    site_findings = []
+                    for cpt in shared_cpts:
+                        hosp_avg = df_hosp[df_hosp["cpt_code"] == cpt]["paid_amount"].mean()
+                        non_hosp_avg = df_non_hosp[df_non_hosp["cpt_code"] == cpt]["paid_amount"].mean()
+
+                        if non_hosp_avg > 0:
+                            ratio = round(hosp_avg / non_hosp_avg, 2)
+                            if ratio > 1.5:
+                                hosp_count = len(df_hosp[df_hosp["cpt_code"] == cpt])
+                                savings = round((hosp_avg - non_hosp_avg) * hosp_count, 2)
+                                site_findings.append({
+                                    "cpt_code": cpt,
+                                    "hospital_avg": round(hosp_avg, 2),
+                                    "non_hospital_avg": round(non_hosp_avg, 2),
+                                    "ratio": ratio,
+                                    "hospital_claims": hosp_count,
+                                    "potential_savings": max(savings, 0),
+                                })
+
+                    site_findings.sort(key=lambda x: x["potential_savings"], reverse=True)
+                    site_of_care["flagged_cpts"] = site_findings[:5]
+                    site_of_care["total_site_opportunity"] = round(
+                        sum(f["potential_savings"] for f in site_findings), 2
+                    )
+    except Exception as exc:
+        print(f"[Level2] Site of care analysis failed: {exc}")
+
+    # --- C. Carrier rate reconstruction ---
+    carrier_rates = {"top_cpts": [], "avg_multiple_vs_medicare": 0.0}
+    try:
+        if "allowed_amount" in df.columns:
+            # Use flagged_results which already have medicare_rate
+            rate_lookup = {}
+            for r in flagged_results:
+                if r.get("medicare_rate") and r["medicare_rate"] > 0:
+                    rate_lookup[r["cpt_code"]] = r["medicare_rate"]
+
+            cpt_counts = df["cpt_code"].value_counts()
+            high_volume_cpts = cpt_counts[cpt_counts >= 3].index
+
+            rate_comparisons = []
+            for cpt in high_volume_cpts:
+                if cpt not in rate_lookup:
+                    continue
+                medicare_rate = rate_lookup[cpt]
+                cpt_data = df[df["cpt_code"] == cpt]
+                avg_allowed = cpt_data["allowed_amount"].mean()
+                units = cpt_data.get("units", pd.Series([1] * len(cpt_data))).mean() if "units" in cpt_data.columns else 1
+                effective_rate = avg_allowed / max(units, 1) if units else avg_allowed
+                multiple = round(effective_rate / medicare_rate, 2) if medicare_rate > 0 else 0
+
+                rate_comparisons.append({
+                    "cpt_code": cpt,
+                    "claim_count": int(cpt_counts[cpt]),
+                    "avg_allowed": round(avg_allowed, 2),
+                    "medicare_rate": round(medicare_rate, 2),
+                    "multiple": multiple,
+                })
+
+            rate_comparisons.sort(key=lambda x: x["claim_count"], reverse=True)
+            carrier_rates["top_cpts"] = rate_comparisons[:10]
+            if rate_comparisons:
+                carrier_rates["avg_multiple_vs_medicare"] = round(
+                    sum(r["multiple"] for r in rate_comparisons) / len(rate_comparisons), 2
+                )
+    except Exception as exc:
+        print(f"[Level2] Carrier rate analysis failed: {exc}")
+
+    # --- D. Network leakage detection ---
+    network_leakage = {"out_of_network_pct": 0.0, "out_of_network_paid": 0.0, "out_of_network_count": 0, "flag": "LOW"}
+    try:
+        total_paid = df["paid_amount"].sum()
+        if total_paid > 0 and "billed_amount" in df.columns:
+            # Out-of-network indicator: CO adjustment is zero or very small (< 5% of billed)
+            # AND billed > $500
+            high_billed = df[df["billed_amount"] > 500].copy()
+            if not high_billed.empty:
+                high_billed["discount_pct"] = (
+                    (high_billed["billed_amount"] - high_billed["paid_amount"]) / high_billed["billed_amount"]
+                ).clip(lower=0)
+                oon_claims = high_billed[high_billed["discount_pct"] < 0.05]
+                oon_paid = oon_claims["paid_amount"].sum()
+                oon_pct = round(oon_paid / total_paid * 100, 1)
+
+                network_leakage["out_of_network_count"] = len(oon_claims)
+                network_leakage["out_of_network_paid"] = round(oon_paid, 2)
+                network_leakage["out_of_network_pct"] = oon_pct
+
+                if oon_pct > 10:
+                    network_leakage["flag"] = "HIGH"
+                elif oon_pct > 5:
+                    network_leakage["flag"] = "MODERATE"
+                else:
+                    network_leakage["flag"] = "LOW"
+    except Exception as exc:
+        print(f"[Level2] Network leakage analysis failed: {exc}")
+
+    # --- E. Denial analysis ---
+    denial_rate = {"rate_pct": 0.0, "denial_count": 0, "flag": "NORMAL"}
+    try:
+        # Use claims data from the original results to check status
+        # We check claim-level status from the parsed 835 data
+        # For now, check if any claims have very low paid vs billed ratio (proxy for denials)
+        total_claims = len(df)
+        if total_claims > 0:
+            denied = df[df["paid_amount"] == 0]
+            denial_count = len(denied)
+            denial_pct = round(denial_count / total_claims * 100, 1)
+            denial_rate["denial_count"] = denial_count
+            denial_rate["rate_pct"] = denial_pct
+            if denial_pct > 5:
+                denial_rate["flag"] = "ELEVATED"
+    except Exception as exc:
+        print(f"[Level2] Denial analysis failed: {exc}")
+
+    return {
+        "has_level2": True,
+        "provider_variation": provider_variation,
+        "site_of_care": site_of_care,
+        "carrier_rates": carrier_rates,
+        "network_leakage": network_leakage,
+        "denial_rate": denial_rate,
+    }
 
 
 def _safe_float(val) -> float:
