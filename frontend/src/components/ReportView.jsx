@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Footer } from "./UploadView.jsx";
+import { cptDescription } from "../lib/cptLabel";
 
 export default function ReportView({ report, provider, serviceDate, onReset }) {
   const { lineItems, summary } = report;
@@ -364,8 +365,23 @@ function LineItemRow({ item }) {
             {item.codeType}
           </span>
         </td>
-        <td className="px-6 py-3 text-gray-600 max-w-xs truncate">
-          {item.description}
+        <td className="px-6 py-3 text-gray-600 max-w-xs">
+          {(() => {
+            const hasDescription = item.description && item.description.trim().length >= 5;
+            const plainLabel = item.codeType !== "REVENUE" ? cptDescription(item.code) : null;
+            if (plainLabel && !hasDescription) {
+              return <span className="truncate block">{plainLabel}</span>;
+            }
+            if (plainLabel && hasDescription) {
+              return (
+                <div>
+                  <span className="truncate block">{plainLabel}</span>
+                  <span className="text-xs text-gray-400 truncate block">{item.description}</span>
+                </div>
+              );
+            }
+            return <span className="truncate block">{item.description}</span>;
+          })()}
         </td>
         <td className="px-6 py-3 text-right font-mono text-[#1B3A5C]">
           {formatCurrency(item.billedAmount)}

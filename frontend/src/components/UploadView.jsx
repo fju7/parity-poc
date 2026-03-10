@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, onHavingTrouble }) {
+export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, onHavingTrouble, onDenialAnalysis }) {
   const [dragOver, setDragOver] = useState(false);
 
   const handleDragOver = useCallback((e) => {
@@ -114,6 +114,21 @@ export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, 
             )}
           </div>
         </div>
+
+        {/* Denial analysis entry point */}
+        {onDenialAnalysis && (
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <button
+              onClick={onDenialAnalysis}
+              className="text-[#0D7377] font-medium hover:underline cursor-pointer text-sm flex items-center gap-1.5 mx-auto"
+            >
+              Received a denial? Analyze it here
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
+        )}
 
         {/* Privacy points */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">

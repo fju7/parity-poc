@@ -229,6 +229,28 @@ Features built in this phase:
 - Premium-only feature: gated by userTier === "premium" check
 - Migration 029: seed data for signal_analytical_profiles table
 
+## Session E-Health — Parity Health Enhancements (Complete)
+- Extracted cptLabel() into shared utility: frontend/src/lib/cptLabel.js
+  (exports cptLabel, cptDescription; ~70+ CPT codes)
+- EmployerClaimsCheck.jsx now imports from shared lib instead of inline
+- ReportView.jsx shows CPT plain-English labels (skips REVENUE codes)
+- Denial/EOB analysis flow:
+  - Backend: health_analyze.py added POST /api/health/analyze-denial
+    (DENIAL_SYSTEM_PROMPT → structured JSON) and POST /api/health/generate-appeal
+    (APPEAL_SYSTEM_PROMPT → formal letter text)
+  - Frontend: DenialUploadView.jsx (text paste + file upload for denial letters)
+  - Frontend: DenialReportView.jsx (denial type badge, weakness highlight,
+    supporting docs checklist, appeal deadline, appeal letter generation
+    with copy/print)
+  - UploadView.jsx: "Received a denial? Analyze it here →" entry point
+  - App.jsx: denial-upload and denial-report views wired into viewFromPath,
+    new state (denialAnalysis, denialOriginalText), navigate to /parity-health/denial
+- Subdomain routing: health.civicscale.ai
+  - main.jsx: hostname detection renders ParityHealthLandingPage + App
+    directly when on health.civicscale.ai (no /parity-health prefix needed)
+  - App.jsx viewFromPath: handles paths with or without /parity-health prefix
+  - Fred action: add health.civicscale.ai as domain in Vercel project settings
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

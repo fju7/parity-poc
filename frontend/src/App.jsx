@@ -25,6 +25,8 @@ import { lookupNPPES } from "./modules/nppesLookup.js";
 import scoreAnomalies from "./modules/scoreAnomalies.js";
 import runCodingIntelligence from "./modules/codingIntelligence.js";
 import EOBDetectedView from "./components/EOBDetectedView.jsx";
+import DenialUploadView from "./components/DenialUploadView.jsx";
+import DenialReportView from "./components/DenialReportView.jsx";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const API_TIMEOUT_MS = 60000;
@@ -56,12 +58,14 @@ const SAMPLE_BILL = {
 
 // Map URL pathname (relative to /parity-health) to view name
 function viewFromPath(pathname) {
-  const rel = pathname.replace(/^\/parity-health\/?/, "").replace(/\/$/, "");
+  // Strip /parity-health prefix (main site) or leading slash (health subdomain)
+  const rel = pathname.replace(/^\/parity-health\/?/, "").replace(/^\//, "").replace(/\/$/, "");
   if (rel === "history") return "history";
   if (rel === "account") return "account";
   if (rel === "manual-entry") return "manual-entry";
   if (rel === "paste-text") return "paste-text";
   if (rel === "image-upload") return "image-upload";
+  if (rel === "denial") return "denial-upload";
   return "onboarding"; // default — auth flow will override
 }
 
@@ -89,6 +93,8 @@ export default function App() {
   const [nppesLoading, setNppesLoading] = useState(false);
   const [itemizedReason, setItemizedReason] = useState(null);
   const [toast, setToast] = useState({ message: "", visible: false });
+  const [denialAnalysis, setDenialAnalysis] = useState(null);
+  const [denialOriginalText, setDenialOriginalText] = useState("");
   const [hasCompletedConsent, setHasCompletedConsent] = useState(false);
   const [consentData, setConsentData] = useState({ consentAnalytics: true, consentEmployer: false });
   const [onboardingData, setOnboardingData] = useState({
@@ -1082,6 +1088,37 @@ export default function App() {
         reason={itemizedReason}
       />
     );
+  } else if (view === "denial-upload") {
+    viewContent = (
+      <DenialUploadView
+        onAnalysisComplete={(analysis, originalText) => {
+          setDenialAnalysis(analysis);
+          setDenialOriginalText(originalText);
+          setView("denial-report");
+        }}
+        onBack={() => {
+          setView("upload");
+          navigate("/parity-health");
+        }}
+      />
+    );
+  } else if (view === "denial-report" && denialAnalysis) {
+    viewContent = (
+      <DenialReportView
+        analysis={denialAnalysis}
+        originalText={denialOriginalText}
+        onReset={() => {
+          setDenialAnalysis(null);
+          setDenialOriginalText("");
+          setView("denial-upload");
+          navigate("/parity-health/denial");
+        }}
+        onBack={() => {
+          setView("upload");
+          navigate("/parity-health");
+        }}
+      />
+    );
   } else if (view === "report" && report) {
     viewContent = (
       <ReportView
@@ -1154,6 +1191,10 @@ export default function App() {
         onSampleBill={handleSampleBill}
         onManualEntry={handleManualEntry}
         onHavingTrouble={handleHavingTrouble}
+        onDenialAnalysis={() => {
+          setView("denial-upload");
+          navigate("/parity-health/denial");
+        }}
       />
     );
   } else {
