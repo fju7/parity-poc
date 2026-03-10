@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AuthGate from "./AuthGate";
+import EmployerTrialBanner from "./EmployerTrialBanner";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 
 const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
@@ -9,8 +10,6 @@ const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com
 function EmployerAccountInner() {
   const navigate = useNavigate();
   const { user, company, token, logout, isAdmin, refetch } = useAuth();
-  const [subscription, setSubscription] = useState(null);
-  const [subActive, setSubActive] = useState(false);
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -42,14 +41,8 @@ function EmployerAccountInner() {
     if (!user?.email || !token) return;
     setLoading(true);
     try {
-      const [subRes, usersRes] = await Promise.all([
-        fetch(`${API}/subscription-status?email=${encodeURIComponent(user.email)}`),
-        fetch(`${API}/api/auth/users`, { headers: { Authorization: `Bearer ${token}` } }),
-      ]);
-      const subData = await subRes.json();
+      const usersRes = await fetch(`${API}/api/auth/users`, { headers: { Authorization: `Bearer ${token}` } });
       const usersData = await usersRes.json();
-      setSubscription(subData.subscription);
-      setSubActive(subData.active === true);
       setTeamMembers(usersData.users || []);
     } catch (err) {
       console.error("Failed to fetch account data:", err);
@@ -158,10 +151,6 @@ function EmployerAccountInner() {
     borderRadius: 12, padding: 24, marginBottom: 24,
   };
 
-  const tierColors = { starter: "#3B82F6", growth: "#8B5CF6", scale: "#F59E0B" };
-  const tierLabel = subscription?.tier ? subscription.tier.charAt(0).toUpperCase() + subscription.tier.slice(1) : "Free";
-  const tierColor = tierColors[subscription?.tier] || "#6B7280";
-
   return (
     <div style={{ minHeight: "100vh", background: "#0a0f1e", color: "white" }}>
       {/* Header */}
@@ -226,40 +215,14 @@ function EmployerAccountInner() {
           <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
             Plan & Billing
           </h2>
-          {!subActive ? (
-            <div>
-              <div style={{ color: "rgba(255,255,255,0.5)", marginBottom: 16 }}>
-                No active subscription
-              </div>
-              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 20 }}>
-                Subscribe to unlock claims analysis, benchmarking, and plan grading.
-              </p>
-              <Link to="/billing/employer"
-                style={{ display: "inline-block", background: "#0d9488", color: "white",
-                         padding: "10px 20px", borderRadius: 8, textDecoration: "none",
-                         fontWeight: 600, fontSize: 14 }}>
-                View Plans
-              </Link>
-            </div>
-          ) : (
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-                <span style={{ background: tierColor, color: "white", fontSize: 12, fontWeight: 700,
-                               padding: "3px 12px", borderRadius: 20 }}>{tierLabel}</span>
-                <span style={{ color: "#10B981", fontWeight: 600, fontSize: 14 }}>Active</span>
-              </div>
-              {subscription?.current_period_end && (
-                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, marginBottom: 12 }}>
-                  Renews {new Date(subscription.current_period_end).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                </p>
-              )}
-              <button onClick={handleBillingPortal}
-                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
-                         borderRadius: 8, padding: "10px 20px", color: "white", fontSize: 14,
-                         fontWeight: 600, cursor: "pointer" }}>
-                Manage Billing
-              </button>
-            </div>
+          <EmployerTrialBanner />
+          {(company?.plan === "trial" || company?.plan === "pro") && (
+            <button onClick={handleBillingPortal}
+              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
+                       borderRadius: 8, padding: "10px 20px", color: "white", fontSize: 14,
+                       fontWeight: 600, cursor: "pointer", marginTop: 12 }}>
+              Manage Billing
+            </button>
           )}
         </div>
 
@@ -321,9 +284,12 @@ function EmployerAccountInner() {
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, lineHeight: 1.6 }}>
             Your claims data and benchmark results are encrypted at rest and in transit. We use Supabase
             (PostgreSQL) with row-level security policies. Your data is never shared with third parties
-            or used to train AI models. You can request a full data export or account deletion at any time
-            by contacting support@civicscale.ai.
+            or used to train AI models. You can request a full data export or account deletion at any time.
           </p>
+          <a href="mailto:support@civicscale.ai?subject=Data%20Deletion%20Request&body=Please%20delete%20all%20data%20associated%20with%20my%20account."
+            style={{ color: "#f87171", fontSize: 13, textDecoration: "none", fontWeight: 600 }}>
+            Request Data Deletion
+          </a>
         </div>
       </div>
 

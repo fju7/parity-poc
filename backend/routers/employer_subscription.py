@@ -10,7 +10,7 @@ from __future__ import annotations
 import os
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, HTTPException, Query, Request
+from fastapi import APIRouter, HTTPException, Header, Query, Request
 from fastapi.responses import JSONResponse
 
 from routers.employer_shared import (
@@ -118,6 +118,55 @@ async def employer_webhook(request: Request):
     if event_type == "checkout.session.completed":
         metadata = obj.get("metadata", {})
 
+        # --- Employer Pro trial ---
+        if metadata.get("product") == "employer_pro":
+            company_id = metadata.get("company_id")
+            email = metadata.get("email")
+            subscription_id = obj.get("subscription")
+
+            if company_id:
+                from datetime import timedelta
+                now = datetime.now(timezone.utc)
+                trial_ends = (now + timedelta(days=30)).isoformat()
+                locked_until = (now + timedelta(days=730)).isoformat()  # 24 months
+
+                sb.table("companies").update({
+                    "plan": "trial",
+                    "trial_started_at": now.isoformat(),
+                    "trial_ends_at": trial_ends,
+                    "stripe_subscription_id": subscription_id,
+                    "plan_locked_until": locked_until,
+                }).eq("id", company_id).execute()
+
+                # Welcome email
+                try:
+                    from utils.email import send_email
+                    send_email(
+                        to=email,
+                        subject="Your 30-day Parity Employer trial has started",
+                        html=f"""
+                        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
+                          <h2 style="color: #0d9488;">Your trial is active</h2>
+                          <p>You have full access to Parity Employer for the next 30 days &mdash;
+                              claims analysis, benchmarking, plan grading, and Level 2 analytics.</p>
+                          <p>After your trial, you'll be charged $99/mo. This introductory price
+                              is locked for 24 months.</p>
+                          <p>Cancel anytime before your trial ends &mdash; no charge.</p>
+                          <a href="https://civicscale.ai/billing/employer/dashboard"
+                             style="display: inline-block; background: #0d9488; color: white;
+                                    padding: 12px 24px; border-radius: 8px; text-decoration: none;
+                                    font-weight: bold; margin: 16px 0;">
+                            Go to Dashboard &rarr;
+                          </a>
+                          <p style="color: #999; font-size: 12px;">CivicScale &middot; civicscale.ai</p>
+                        </div>
+                        """,
+                    )
+                except Exception as exc:
+                    print(f"WARNING: Failed to send employer trial email: {exc}")
+
+            return {"status": "ok", "employer_pro": True}
+
         # --- Broker Pro upgrade ---
         if metadata.get("product") == "broker_pro":
             broker_email = metadata.get("broker_email")
@@ -189,22 +238,32 @@ async def employer_webhook(request: Request):
     elif event_type == "customer.subscription.deleted":
         subscription_id = obj.get("id")
         if subscription_id:
-            # Check if this is a broker Pro subscription
-            broker_result = sb.table("broker_accounts").select("email").eq(
+            # Check if this is an employer pro subscription (companies table)
+            company_result = sb.table("companies").select("id, plan").eq(
                 "stripe_subscription_id", subscription_id
             ).execute()
-            if broker_result.data:
-                # Revert broker to starter plan
-                sb.table("broker_accounts").update({
-                    "plan": "starter",
+            if company_result.data:
+                sb.table("companies").update({
+                    "plan": "read_only",
                     "stripe_subscription_id": None,
-                    "subscription_period_end": None,
-                }).eq("stripe_subscription_id", subscription_id).execute()
+                }).eq("id", company_result.data[0]["id"]).execute()
             else:
-                sb.table("employer_subscriptions").update({
-                    "status": "canceled",
-                    "updated_at": datetime.now(timezone.utc).isoformat(),
-                }).eq("stripe_subscription_id", subscription_id).execute()
+                # Check if this is a broker Pro subscription
+                broker_result = sb.table("broker_accounts").select("email").eq(
+                    "stripe_subscription_id", subscription_id
+                ).execute()
+                if broker_result.data:
+                    # Revert broker to starter plan
+                    sb.table("broker_accounts").update({
+                        "plan": "starter",
+                        "stripe_subscription_id": None,
+                        "subscription_period_end": None,
+                    }).eq("stripe_subscription_id", subscription_id).execute()
+                else:
+                    sb.table("employer_subscriptions").update({
+                        "status": "canceled",
+                        "updated_at": datetime.now(timezone.utc).isoformat(),
+                    }).eq("stripe_subscription_id", subscription_id).execute()
 
     elif event_type == "invoice.payment_failed":
         subscription_id = obj.get("subscription")
@@ -216,7 +275,18 @@ async def employer_webhook(request: Request):
 
     elif event_type == "customer.subscription.updated":
         subscription_id = obj.get("id")
+        status = obj.get("status")
         if subscription_id:
+            # Check if this is an employer pro subscription (companies table)
+            company_result = sb.table("companies").select("id").eq(
+                "stripe_subscription_id", subscription_id
+            ).execute()
+            if company_result.data and status == "active":
+                # Trial converted to paid
+                sb.table("companies").update({
+                    "plan": "pro"
+                }).eq("id", company_result.data[0]["id"]).execute()
+
             # Extract current_period_end
             period_end = None
             try:
@@ -297,3 +367,99 @@ async def employer_subscription_status(email: str = Query(...)):
             "created_at": sub.get("created_at"),
         },
     }
+
+
+# ---------------------------------------------------------------------------
+# POST /start-trial
+# ---------------------------------------------------------------------------
+
+@router.post("/start-trial")
+async def employer_start_trial(authorization: str = Header(None)):
+    """Create Stripe checkout session with 30-day free trial."""
+    import stripe as stripe_lib
+    from routers.auth import get_current_user
+    stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY")
+    price_id = os.environ.get("STRIPE_PRICE_EMPLOYER_PRO")
+
+    sb = _get_supabase()
+    user = get_current_user(authorization, sb)
+
+    company = user["company"]
+    email = user["email"]
+    company_id = user["company_id"]
+
+    # Check not already on trial or pro
+    if company.get("plan") in ("trial", "pro"):
+        return {"already_active": True}
+
+    # Get or create Stripe customer
+    customer_id = company.get("stripe_customer_id")
+    if not customer_id:
+        customer = stripe_lib.Customer.create(
+            email=email,
+            name=company.get("name", ""),
+            metadata={"company_id": company_id}
+        )
+        customer_id = customer.id
+        sb.table("companies").update({
+            "stripe_customer_id": customer_id
+        }).eq("id", company_id).execute()
+
+    session = stripe_lib.checkout.Session.create(
+        customer=customer_id,
+        payment_method_types=["card"],
+        line_items=[{"price": price_id, "quantity": 1}],
+        mode="subscription",
+        subscription_data={
+            "trial_period_days": 30,
+            "metadata": {
+                "company_id": company_id,
+                "product": "employer_pro",
+                "email": email,
+            }
+        },
+        success_url="https://civicscale.ai/billing/employer/dashboard?trial_started=true",
+        cancel_url="https://civicscale.ai/billing/employer/dashboard",
+        metadata={
+            "company_id": company_id,
+            "product": "employer_pro",
+            "email": email,
+        },
+    )
+
+    return {"checkout_url": session.url}
+
+
+# ---------------------------------------------------------------------------
+# POST /cancel-trial
+# ---------------------------------------------------------------------------
+
+@router.post("/cancel-trial")
+async def employer_cancel_trial(authorization: str = Header(None)):
+    """Cancel employer trial or subscription at period end."""
+    import stripe as stripe_lib
+    from routers.auth import get_current_user
+    stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY")
+
+    sb = _get_supabase()
+    user = get_current_user(authorization, sb)
+    company_id = user["company_id"]
+
+    company = sb.table("companies").select(
+        "stripe_subscription_id, plan"
+    ).eq("id", company_id).execute()
+
+    if not company.data:
+        raise HTTPException(status_code=404, detail="Company not found")
+
+    c = company.data[0]
+    sub_id = c.get("stripe_subscription_id")
+
+    if sub_id:
+        stripe_lib.Subscription.modify(sub_id, cancel_at_period_end=True)
+
+    sb.table("companies").update({
+        "plan": "cancelled"
+    }).eq("id", company_id).execute()
+
+    return {"cancelled": True}

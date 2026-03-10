@@ -688,7 +688,7 @@ export default function EmployerProductPage() {
         className="cs-home-section"
         style={{
           paddingBottom: "72px",
-          maxWidth: "960px",
+          maxWidth: "600px",
           margin: "0 auto",
         }}
       >
@@ -702,67 +702,48 @@ export default function EmployerProductPage() {
             marginBottom: "12px",
           }}
         >
-          Value-Based Pricing
+          Simple Pricing
         </h2>
         <p style={{ fontSize: "14px", color: "#94a3b8", textAlign: "center", marginBottom: "40px", maxWidth: "520px", marginLeft: "auto", marginRight: "auto" }}>
-          Your tier is based on how much excess spend our analysis identifies — not your headcount. Every plan pays for itself.
+          One plan. Full access. Try free for 30 days.
         </p>
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "24px",
+            background: "rgba(59,130,246,0.06)",
+            border: "1px solid rgba(59,130,246,0.35)",
+            borderRadius: "14px",
+            padding: "36px",
+            textAlign: "center",
           }}
         >
-          {PRICING.map((p) => (
-            <div
-              key={p.name}
-              style={{
-                background: p.popular ? "rgba(59,130,246,0.06)" : "rgba(255,255,255,0.02)",
-                border: `1px solid ${p.popular ? "rgba(59,130,246,0.35)" : "rgba(59,130,246,0.18)"}`,
-                borderRadius: "14px",
-                padding: "28px",
-                position: "relative",
-              }}
-            >
-              {false && p.popular && (
-                <div style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)", background: "#3b82f6", color: "#fff", fontSize: "11px", fontWeight: "700", padding: "4px 14px", borderRadius: "12px" }}>
-                  MOST POPULAR
-                </div>
-              )}
-              <div style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", marginBottom: "8px" }}>{p.name}</div>
-              <div style={{ marginBottom: "16px" }}>
-                <span style={{ fontSize: "32px", fontWeight: "700", color: "#f1f5f9" }}>{p.price}</span>
-                <span style={{ fontSize: "14px", color: "#64748b" }}>/mo</span>
-              </div>
-              <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "20px" }}>{p.text}</p>
-              <Link
-                to="/billing/employer/subscribe"
-                style={{
-                  display: "block",
-                  textAlign: "center",
-                  background: p.popular ? "#3b82f6" : "transparent",
-                  color: p.popular ? "#fff" : "#60a5fa",
-                  border: p.popular ? "none" : "1px solid rgba(59,130,246,0.4)",
-                  borderRadius: "8px",
-                  padding: "10px",
-                  fontWeight: "600",
-                  fontSize: "14px",
-                  textDecoration: "none",
-                }}
-              >
-                Get Started
-              </Link>
-            </div>
-          ))}
-        </div>
-        <div style={{
-          background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.2)",
-          borderRadius: "12px", padding: "16px 24px", marginTop: "24px", textAlign: "center",
-        }}>
-          <p style={{ fontSize: "14px", color: "#10b981", fontWeight: "600", marginBottom: "4px" }}>Savings Guarantee</p>
-          <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>
-            If the savings we identify don't exceed your subscription cost, we'll refund the difference. No questions asked.
+          <div style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", marginBottom: "8px" }}>PARITY EMPLOYER PRO</div>
+          <div style={{ marginBottom: "8px" }}>
+            <span style={{ fontSize: "40px", fontWeight: "700", color: "#f1f5f9" }}>$99</span>
+            <span style={{ fontSize: "14px", color: "#64748b" }}>/mo</span>
+          </div>
+          <div style={{ fontSize: "14px", color: "#60a5fa", fontWeight: "600", marginBottom: "20px" }}>
+            30-day free trial &mdash; cancel anytime
+          </div>
+          <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "24px", maxWidth: "420px", marginLeft: "auto", marginRight: "auto" }}>
+            Claims benchmarking, RBP calculator, contract parser, plan scorecard, provider-level analysis, trend monitoring, and unlimited uploads.
+          </p>
+          <Link
+            to="/billing/employer/signup"
+            style={{
+              display: "inline-block",
+              background: "#3b82f6",
+              color: "#fff",
+              borderRadius: "8px",
+              padding: "12px 32px",
+              fontWeight: "600",
+              fontSize: "15px",
+              textDecoration: "none",
+            }}
+          >
+            Start Free Trial &rarr;
+          </Link>
+          <p style={{ fontSize: "12px", color: "#64748b", marginTop: "16px" }}>
+            Introductory price locked for 24 months. No charge during trial.
           </p>
         </div>
       </section>
@@ -901,8 +882,8 @@ const STEPS = [
   {
     title: "Get ongoing monitoring",
     text: "Subscribe for continuous analysis, quarterly savings reports, and alerts when new cost anomalies appear in your claims data.",
-    link: "/billing/employer/subscribe",
-    linkText: "See pricing \u2192",
+    link: "/billing/employer/signup",
+    linkText: "Start free trial \u2192",
   },
 ];
 
@@ -927,25 +908,6 @@ const ROADMAP = [
     text: "Direct TPA integration for automated data refresh, network optimization modeling, pharmacy benefit benchmarking.",
     borderColor: "rgba(148,163,184,0.2)",
     labelColor: "#94a3b8",
-  },
-];
-
-const PRICING = [
-  {
-    name: "Starter",
-    price: "$149",
-    text: "Under $200K identified annual excess. Claims benchmarking, RBP calculator, contract parser, plan scorecard, and monthly monitoring.",
-  },
-  {
-    name: "Growth",
-    price: "$349",
-    popular: true,
-    text: "$200K\u2013$750K identified annual excess. Everything in Starter plus unlimited uploads, provider-level analysis, and quarterly trend reports.",
-  },
-  {
-    name: "Scale",
-    price: "$699",
-    text: "Over $750K identified annual excess. Everything in Growth plus dedicated account manager, custom cohorts, EDI integration, and board-ready decks.",
   },
 ];
 

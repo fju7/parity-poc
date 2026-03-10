@@ -132,10 +132,6 @@ export default function EmployerClaimsCheck() {
         localStorage.setItem("employer_claims_session_id", data.session_id);
         localStorage.setItem("employer_claims_zip_code", zipCode);
       }
-      if (data.pricing_tier) {
-        localStorage.setItem("employer_pricing_tier", data.pricing_tier);
-        localStorage.setItem("employer_annualized_excess", String(data.annualized_excess || 0));
-      }
       setView("results");
     } catch (err) {
       clearInterval(progressInterval);

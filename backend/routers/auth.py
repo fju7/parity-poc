@@ -142,6 +142,32 @@ def require_admin(user: dict):
         raise HTTPException(status_code=403, detail="Admin access required.")
 
 
+def get_employer_access(company: dict) -> dict:
+    """
+    Returns access level for an employer company.
+    Used to gate features based on plan status.
+    """
+    plan = company.get("plan", "free")
+    trial_ends_at = company.get("trial_ends_at")
+
+    # Check if trial has expired
+    if plan == "trial" and trial_ends_at:
+        now = datetime.now(timezone.utc)
+        ends = datetime.fromisoformat(trial_ends_at.replace("Z", "+00:00"))
+        if now > ends:
+            plan = "read_only"
+
+    return {
+        "plan": plan,
+        "can_upload": plan in ("trial", "pro"),
+        "can_analyze": plan in ("trial", "pro"),
+        "can_export": plan in ("trial", "pro", "read_only"),
+        "is_read_only": plan == "read_only",
+        "is_active": plan in ("trial", "pro"),
+        "trial_ends_at": trial_ends_at,
+    }
+
+
 # ---------------------------------------------------------------------------
 # OTP helpers
 # ---------------------------------------------------------------------------
