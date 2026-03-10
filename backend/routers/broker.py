@@ -6,6 +6,7 @@ ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS plan text DEFAULT 'starter'
 ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS stripe_customer_id text;
 ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS stripe_subscription_id text;
 ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS referral_code text UNIQUE;
+ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS subscription_period_end timestamptz;
 
 CREATE TABLE IF NOT EXISTS broker_referral_credits (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -232,20 +233,24 @@ STARTER_LIMIT = 10
 
 
 def _get_broker_plan(sb, broker_email: str) -> dict:
-    """Returns broker plan info: plan, client_count, at_limit."""
-    broker = sb.table("broker_accounts").select("plan").eq("email", broker_email).execute()
+    """Returns broker plan info: plan, client_count, at_limit, subscription_period_end."""
+    broker = sb.table("broker_accounts").select("plan, subscription_period_end").eq("email", broker_email).execute()
     plan = broker.data[0].get("plan", "starter") if broker.data else "starter"
+    period_end = broker.data[0].get("subscription_period_end") if broker.data else None
 
     count_result = sb.table("broker_employer_links").select("id", count="exact").eq("broker_email", broker_email).execute()
     client_count = count_result.count or 0
 
-    at_limit = plan == "starter" and client_count >= STARTER_LIMIT
+    # pro_cancelling still has Pro access until period end
+    effective_plan = "pro" if plan == "pro_cancelling" else plan
+    at_limit = effective_plan == "starter" and client_count >= STARTER_LIMIT
 
     return {
         "plan": plan,
         "client_count": client_count,
-        "client_limit": STARTER_LIMIT if plan == "starter" else None,
+        "client_limit": STARTER_LIMIT if effective_plan == "starter" else None,
         "at_limit": at_limit,
+        "subscription_period_end": period_end,
     }
 
 
@@ -300,6 +305,146 @@ async def broker_subscribe(broker_email: str):
     )
 
     return {"checkout_url": session.url}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/cancel-subscription — cancel Pro at period end
+# ---------------------------------------------------------------------------
+
+@router.post("/cancel-subscription")
+async def broker_cancel_subscription(broker_email: str):
+    """Cancel broker Pro subscription at end of current billing period."""
+    import stripe
+    stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+    broker = sb.table("broker_accounts").select("plan, stripe_subscription_id").eq("email", email).execute()
+
+    if not broker.data:
+        raise HTTPException(status_code=404, detail="Broker not found")
+
+    b = broker.data[0]
+    if b.get("plan") not in ("pro", "pro_cancelling"):
+        raise HTTPException(status_code=400, detail="No active Pro subscription to cancel")
+
+    sub_id = b.get("stripe_subscription_id")
+    if not sub_id:
+        raise HTTPException(status_code=400, detail="No Stripe subscription found")
+
+    # Cancel at period end (not immediately)
+    sub = stripe.Subscription.modify(sub_id, cancel_at_period_end=True)
+    period_end = datetime.fromtimestamp(sub.current_period_end, tz=timezone.utc).isoformat()
+
+    sb.table("broker_accounts").update({
+        "plan": "pro_cancelling",
+        "subscription_period_end": period_end,
+    }).eq("email", email).execute()
+
+    return {"status": "cancelled", "period_end": period_end}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/reactivate-subscription — undo pending cancellation
+# ---------------------------------------------------------------------------
+
+@router.post("/reactivate-subscription")
+async def broker_reactivate_subscription(broker_email: str):
+    """Reactivate a Pro subscription that was set to cancel at period end."""
+    import stripe
+    stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+    broker = sb.table("broker_accounts").select("plan, stripe_subscription_id").eq("email", email).execute()
+
+    if not broker.data:
+        raise HTTPException(status_code=404, detail="Broker not found")
+
+    b = broker.data[0]
+    if b.get("plan") != "pro_cancelling":
+        raise HTTPException(status_code=400, detail="Subscription is not pending cancellation")
+
+    sub_id = b.get("stripe_subscription_id")
+    if not sub_id:
+        raise HTTPException(status_code=400, detail="No Stripe subscription found")
+
+    stripe.Subscription.modify(sub_id, cancel_at_period_end=False)
+
+    sb.table("broker_accounts").update({
+        "plan": "pro",
+        "subscription_period_end": None,
+    }).eq("email", email).execute()
+
+    return {"status": "reactivated"}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/broker/account — return broker account details
+# ---------------------------------------------------------------------------
+
+@router.get("/account")
+async def get_broker_account(broker_email: str):
+    """Return broker account info for the account page."""
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+    broker = sb.table("broker_accounts").select(
+        "email, contact_name, firm_name, phone, plan, stripe_subscription_id, subscription_period_end, created_at"
+    ).eq("email", email).execute()
+
+    if not broker.data:
+        raise HTTPException(status_code=404, detail="Broker not found")
+
+    b = broker.data[0]
+    plan_info = _get_broker_plan(sb, email)
+
+    return {
+        "email": b.get("email"),
+        "contact_name": b.get("contact_name"),
+        "firm_name": b.get("firm_name"),
+        "phone": b.get("phone"),
+        "plan": plan_info["plan"],
+        "client_count": plan_info["client_count"],
+        "client_limit": plan_info["client_limit"],
+        "subscription_period_end": b.get("subscription_period_end"),
+        "created_at": b.get("created_at"),
+    }
+
+
+# ---------------------------------------------------------------------------
+# PATCH /api/broker/account — update broker account details
+# ---------------------------------------------------------------------------
+
+class UpdateBrokerAccountRequest(BaseModel):
+    broker_email: str
+    contact_name: Optional[str] = None
+    firm_name: Optional[str] = None
+    phone: Optional[str] = None
+
+
+@router.patch("/account")
+async def update_broker_account(req: UpdateBrokerAccountRequest):
+    """Update broker account info (name, firm, phone)."""
+    sb = _get_supabase()
+    email = req.broker_email.strip().lower()
+
+    update_data = {}
+    if req.contact_name is not None:
+        update_data["contact_name"] = req.contact_name.strip()
+    if req.firm_name is not None:
+        update_data["firm_name"] = req.firm_name.strip()
+    if req.phone is not None:
+        update_data["phone"] = req.phone.strip()
+
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No fields to update")
+
+    result = sb.table("broker_accounts").update(update_data).eq("email", email).execute()
+
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Broker not found")
+
+    return {"status": "updated", "updated_fields": list(update_data.keys())}
 
 
 # ---------------------------------------------------------------------------

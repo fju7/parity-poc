@@ -164,10 +164,22 @@ async def employer_webhook(request: Request):
     elif event_type == "customer.subscription.deleted":
         subscription_id = obj.get("id")
         if subscription_id:
-            sb.table("employer_subscriptions").update({
-                "status": "canceled",
-                "updated_at": datetime.now(timezone.utc).isoformat(),
-            }).eq("stripe_subscription_id", subscription_id).execute()
+            # Check if this is a broker Pro subscription
+            broker_result = sb.table("broker_accounts").select("email").eq(
+                "stripe_subscription_id", subscription_id
+            ).execute()
+            if broker_result.data:
+                # Revert broker to starter plan
+                sb.table("broker_accounts").update({
+                    "plan": "starter",
+                    "stripe_subscription_id": None,
+                    "subscription_period_end": None,
+                }).eq("stripe_subscription_id", subscription_id).execute()
+            else:
+                sb.table("employer_subscriptions").update({
+                    "status": "canceled",
+                    "updated_at": datetime.now(timezone.utc).isoformat(),
+                }).eq("stripe_subscription_id", subscription_id).execute()
 
     elif event_type == "invoice.payment_failed":
         subscription_id = obj.get("subscription")

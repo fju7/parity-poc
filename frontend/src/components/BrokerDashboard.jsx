@@ -501,7 +501,7 @@ export default function BrokerDashboard() {
         </Link>
         <div className="cs-nav-links">
           <span style={{ fontSize: 14, color: "#64748b" }}>{broker.firm_name}</span>
-          <button onClick={() => setShowProfile(!showProfile)} title="Profile" style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 10px", fontSize: 16, color: "#64748b", cursor: "pointer", lineHeight: 1 }}>
+          <button onClick={() => navigate("/broker/account")} title="Account Settings" style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 10px", fontSize: 16, color: "#64748b", cursor: "pointer", lineHeight: 1 }}>
             &#9881;
           </button>
           <button onClick={handleLogout} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 14px", fontSize: 13, color: "#64748b", cursor: "pointer" }}>
@@ -550,6 +550,13 @@ export default function BrokerDashboard() {
               <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 10, padding: "10px 20px", display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#0D7377", fontWeight: 600 }}>
                 <span style={{ fontSize: 16 }}>&#10003;</span> Pro Plan &mdash; Unlimited clients
               </div>
+            ) : planInfo.plan === "pro_cancelling" ? (
+              <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 10, padding: "10px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 13, color: "#92400e", fontWeight: 600 }}>
+                <span>Pro Plan &mdash; Cancelling {planInfo.subscription_period_end ? `(access until ${new Date(planInfo.subscription_period_end).toLocaleDateString("en-US", { month: "short", day: "numeric" })})` : ""}</span>
+                <button onClick={async () => { try { const res = await fetch(`${API}/api/broker/reactivate-subscription?broker_email=${encodeURIComponent(broker.email)}`, { method: "POST" }); const data = await res.json(); if (data.status === "reactivated") setPlanInfo(prev => ({ ...prev, plan: "pro", subscription_period_end: null })); } catch {} }} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "5px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                  Reactivate Pro
+                </button>
+              </div>
             ) : (
               <div style={{ background: planInfo.client_count >= 10 ? "#fef2f2" : planInfo.client_count >= 8 ? "#fffbeb" : "#f8fafc", border: `1px solid ${planInfo.client_count >= 10 ? "#fecaca" : planInfo.client_count >= 8 ? "#fde68a" : "#e2e8f0"}`, borderRadius: 10, padding: "10px 20px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
@@ -557,11 +564,9 @@ export default function BrokerDashboard() {
                     Starter Plan &mdash; {planInfo.client_count} of {planInfo.client_limit} clients used
                     {planInfo.client_count >= 10 && " · Limit reached"}
                   </span>
-                  {planInfo.client_count >= 8 && (
-                    <button onClick={handleUpgrade} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "5px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                      Upgrade to Pro &rarr;
-                    </button>
-                  )}
+                  <button onClick={handleUpgrade} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "5px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                    Upgrade to Pro &rarr;
+                  </button>
                 </div>
                 <div style={{ height: 6, background: "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
                   <div style={{ height: "100%", width: `${Math.min((planInfo.client_count / planInfo.client_limit) * 100, 100)}%`, background: planInfo.client_count >= 10 ? "#ef4444" : planInfo.client_count >= 8 ? "#f59e0b" : "#0D7377", borderRadius: 3, transition: "width 0.3s" }} />
