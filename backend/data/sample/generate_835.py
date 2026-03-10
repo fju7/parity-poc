@@ -8,6 +8,9 @@ Pricing strategy:
 - Routine procedures at 1.2-1.6x Medicare (normal commercial rates)
 - Flagged procedures at 2.0-6.5x Medicare (the problem claims)
 
+Includes NM1 provider segments and CLM place-of-service data for Level 2
+analytics testing (provider variation, site of care, carrier rates, network).
+
 Uses ZIP 60601 (Chicago, IL) → carrier 06102, locality 16.
 """
 
@@ -26,6 +29,43 @@ OUTPUT_FILE = os.path.join(SCRIPT_DIR, "Midwest_Manufacturing_Dec2024.835")
 # Locality for Midwest Manufacturing (Chicago, IL 60601)
 CARRIER = "06102"
 LOCALITY = "16"
+
+# Rendering providers (pool of 8)
+PROVIDERS = [
+    {"last": "MARTINEZ", "first": "CARLOS", "npi": "1234567890"},
+    {"last": "JOHNSON", "first": "SARAH", "npi": "2345678901"},
+    {"last": "PATEL", "first": "RAJ", "npi": "3456789012"},
+    {"last": "WILLIAMS", "first": "JAMES", "npi": "4567890123"},
+    {"last": "CHEN", "first": "LISA", "npi": "5678901234"},
+    {"last": "THOMPSON", "first": "MICHAEL", "npi": "6789012345"},
+    {"last": "GARCIA", "first": "MARIA", "npi": "7890123456"},
+    {"last": "ANDERSON", "first": "DAVID", "npi": "8901234567"},
+]
+
+# Service facilities — weighted mix for site-of-care analysis
+FACILITIES = [
+    {"name": "MIDWEST GENERAL HOSPITAL", "npi": "1111111111", "pos": "22"},   # hospital outpatient
+    {"name": "MIDWEST GENERAL HOSPITAL", "npi": "1111111111", "pos": "22"},   # hospital outpatient (weighted)
+    {"name": "ADVANCED IMAGING CENTER", "npi": "2222222222", "pos": "11"},    # office
+    {"name": "ORTHO SURGICAL CENTER", "npi": "3333333333", "pos": "24"},      # ASC
+    {"name": "REGIONAL MEDICAL CENTER", "npi": "4444444444", "pos": "22"},    # hospital outpatient
+    {"name": "COMMUNITY IMAGING LLC", "npi": "5555555555", "pos": "11"},      # office
+    {"name": "NORTHWEST SURGICAL ASC", "npi": "6666666666", "pos": "24"},     # ASC
+    {"name": "ST LUKE OUTPATIENT", "npi": "7777777777", "pos": "19"},         # off-campus outpatient
+]
+
+# Facility subsets by category
+HOSPITAL_FACILITIES = [f for f in FACILITIES if f["pos"] in ("22", "19")]
+OFFICE_FACILITIES = [f for f in FACILITIES if f["pos"] == "11"]
+ASC_FACILITIES = [f for f in FACILITIES if f["pos"] == "24"]
+NON_HOSPITAL_FACILITIES = OFFICE_FACILITIES + ASC_FACILITIES
+
+# CPT category sets for facility assignment
+IMAGING_CPTS = {"73721", "75574", "70553", "75571"}
+SURGICAL_CPTS = {"29881", "27447", "22551", "27130"}
+LAB_CPTS = {"80053", "85025", "36415"}
+# High-volume CPTs that need both hospital and non-hospital claims for variation testing
+VARIATION_CPTS = {"73721", "75574", "20610", "29881", "27447"}
 
 
 def _load_backend_rates():
@@ -113,6 +153,55 @@ def _vary(amount: float, pct: float = 0.05) -> float:
     return round(amount * random.uniform(1 - pct, 1 + pct), 2)
 
 
+def _assign_facility(cpt, claim_index):
+    """Assign a facility based on CPT category with realistic distribution."""
+    if cpt in IMAGING_CPTS:
+        # 60% hospital outpatient, 40% imaging center
+        if random.random() < 0.6:
+            return random.choice(HOSPITAL_FACILITIES)
+        else:
+            return random.choice(OFFICE_FACILITIES)
+    elif cpt in SURGICAL_CPTS:
+        # 70% ASC or hospital, 30% office
+        if random.random() < 0.4:
+            return random.choice(HOSPITAL_FACILITIES)
+        elif random.random() < 0.6:
+            return random.choice(ASC_FACILITIES)
+        else:
+            return random.choice(OFFICE_FACILITIES)
+    elif cpt in LAB_CPTS:
+        # 80% office, 20% hospital outpatient
+        if random.random() < 0.8:
+            return random.choice(OFFICE_FACILITIES)
+        else:
+            return random.choice(HOSPITAL_FACILITIES)
+    else:
+        # Random from full pool
+        return random.choice(FACILITIES)
+
+
+def _adjust_paid_for_facility(paid, cpt, facility):
+    """Adjust paid amount based on facility type to create realistic variation.
+
+    Hospital outpatient claims should be 2-3x higher than office/ASC for
+    imaging and surgical procedures — this is realistic and triggers variation detection.
+    """
+    pos = facility["pos"]
+
+    if cpt in VARIATION_CPTS:
+        if pos in ("22", "19"):
+            # Hospital outpatient: inflate paid by 1.8-2.5x
+            return round(paid * random.uniform(1.8, 2.5), 2)
+        elif pos == "11":
+            # Office: reduce paid by 0.35-0.50x (imaging centers are cheaper)
+            return round(paid * random.uniform(0.35, 0.50), 2)
+        elif pos == "24":
+            # ASC: slightly below base
+            return round(paid * random.uniform(0.55, 0.75), 2)
+
+    return paid
+
+
 def _build_claims(backend_rates):
     """Build all claim records using actual backend Medicare rates."""
     claims = []
@@ -130,8 +219,14 @@ def _build_claims(backend_rates):
         source, medicare_rate = backend_rates[cpt]
         avg_paid = medicare_rate * target_mult
 
-        for _ in range(count):
+        for i in range(count):
             paid = _vary(avg_paid)
+            facility = _assign_facility(cpt, claim_num)
+            provider = PROVIDERS[claim_num % len(PROVIDERS)]
+
+            # Adjust paid amount based on facility for variation CPTs
+            paid = _adjust_paid_for_facility(paid, cpt, facility)
+
             billed = round(paid * BILLED_MULTIPLIER, 2)
             adjustment = round(billed - paid, 2)
             claim_id = f"MMC2024{claim_num:06d}"
@@ -148,6 +243,8 @@ def _build_claims(backend_rates):
                 "target_mult": target_mult,
                 "category": category,
                 "source": source,
+                "provider": provider,
+                "facility": facility,
             })
             claim_num += 1
 
@@ -204,10 +301,29 @@ def _build_835(claims):
 
     # Claims
     for claim in claims:
+        provider = claim["provider"]
+        facility = claim["facility"]
+        pos = facility["pos"]
+
         # CLP - Claim Level
         segments.append(
             f"CLP*{claim['claim_id']}*1*{claim['billed']:.2f}"
             f"*{claim['paid']:.2f}*0*12*CLAIMREF001*11"
+        )
+
+        # CLM - Claim with place of service
+        segments.append(
+            f"CLM*{claim['claim_id']}*{claim['billed']:.2f}***{pos}:B:1*Y*A*Y*I"
+        )
+
+        # NM1*82 - Rendering Provider
+        segments.append(
+            f"NM1*82*1*{provider['last']}*{provider['first']}***XX*{provider['npi']}"
+        )
+
+        # NM1*77 - Service Facility
+        segments.append(
+            f"NM1*77*2*{facility['name']}****XX*{facility['npi']}"
         )
 
         # CAS - Contractual adjustment
@@ -289,6 +405,39 @@ def _verify(claims):
         if not ok:
             all_ok = False
         print(f"{cpt:<8} {len(items):>6} {avg:>10.2f} {medicare:>10.2f} {actual:>7.1f}x {target:>7.1f}x {src:>6} {'OK' if ok else 'FAIL':>5}")
+
+    # Provider & facility summary
+    print(f"\n{'─' * 78}")
+    print("PROVIDER / FACILITY SUMMARY")
+    print(f"{'─' * 78}")
+    provider_names = set()
+    facility_names = set()
+    pos_counts = defaultdict(int)
+    for c in claims:
+        provider_names.add(f"{c['provider']['last']}, {c['provider']['first']}")
+        facility_names.add(c['facility']['name'])
+        pos_counts[c['facility']['pos']] += 1
+    print(f"Unique providers: {len(provider_names)}")
+    print(f"Unique facilities: {len(facility_names)}")
+    for pos, cnt in sorted(pos_counts.items()):
+        pos_labels = {"11": "Office", "19": "Off-Campus Outpatient", "22": "Hospital Outpatient", "24": "ASC"}
+        print(f"  POS {pos} ({pos_labels.get(pos, 'Other')}): {cnt} claims")
+
+    # Variation CPT summary
+    print(f"\n{'─' * 78}")
+    print("VARIATION CPT PRICE RANGES (for Level 2 testing)")
+    print(f"{'─' * 78}")
+    for cpt in sorted(VARIATION_CPTS):
+        if cpt not in by_cpt:
+            continue
+        items = by_cpt[cpt]
+        by_facility = defaultdict(list)
+        for c in items:
+            by_facility[c['facility']['name']].append(c['paid'])
+        print(f"CPT {cpt}:")
+        for fname, paids in sorted(by_facility.items()):
+            avg_p = sum(paids) / len(paids)
+            print(f"  {fname}: {len(paids)} claims, avg ${avg_p:,.2f} (range ${min(paids):,.2f}-${max(paids):,.2f})")
 
     print(f"\n{'=' * 78}")
     if all_ok:
