@@ -1,33 +1,8 @@
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { cptLabel } from "../lib/cptLabel";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
-const CPT_DESCRIPTIONS = {
-  "27447": "Total Knee Replacement",
-  "29881": "Knee Arthroscopy",
-  "73721": "MRI, Joint of Lower Extremity",
-  "75574": "CT Heart Artery w/Contrast",
-  "20610": "Joint Injection, Large",
-  "22551": "Cervical Spine Fusion",
-  "70553": "MRI Brain w/Contrast",
-  "99213": "Office Visit, Established (Low)",
-  "99214": "Office Visit, Established (Moderate)",
-  "99215": "Office Visit, Established (High)",
-  "85025": "Complete Blood Count",
-  "80053": "Comprehensive Metabolic Panel",
-  "36415": "Blood Draw",
-  "99204": "Office Visit, New (Moderate)",
-  "99205": "Office Visit, New (High)",
-  "93000": "Electrocardiogram",
-  "99232": "Hospital Visit, Subsequent",
-  "99283": "Emergency Dept Visit, Moderate",
-};
-
-const cptLabel = (code) => {
-  const desc = CPT_DESCRIPTIONS[String(code)];
-  return desc ? `CPT ${code} — ${desc}` : `CPT ${code}`;
-};
 
 export default function EmployerClaimsCheck() {
   const [file, setFile] = useState(null);

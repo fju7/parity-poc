@@ -57,6 +57,17 @@ class AnalyzeImageRequest(BaseModel):
     pages: List[str]  # base64-encoded images
 
 
+class DenialAnalyzeRequest(BaseModel):
+    text: str
+
+
+class AppealGenerateRequest(BaseModel):
+    denial_analysis: dict
+    patient_name: Optional[str] = None
+    provider_name: Optional[str] = None
+    claim_number: Optional[str] = None
+
+
 class AnalyzeLineItem(BaseModel):
     cpt_code: Optional[str] = None
     revenue_code: Optional[str] = None
@@ -302,3 +313,115 @@ def _parse_response(response):
         total_billed=parsed.get("total_billed"),
         parsing_confidence=confidence,
     )
+
+
+# ---------------------------------------------------------------------------
+# POST /api/health/analyze-denial
+# ---------------------------------------------------------------------------
+
+DENIAL_SYSTEM_PROMPT = """You are a medical insurance denial analyst. Analyze this insurance denial letter or Explanation of Benefits (EOB) and extract the following as JSON only, no other text:
+{
+  "denial_reason_code": "the specific reason code if present (e.g. CO-97, PR-96)",
+  "denial_reason_plain": "plain English explanation of why the claim was denied",
+  "denial_type": "clinical | administrative | coverage | other",
+  "specific_criterion": "the exact criterion, policy, or rule the carrier cited to deny",
+  "weakness": "any apparent weakness in the denial reasoning, or null if denial appears straightforward",
+  "supporting_documentation": ["list of specific documents that would strengthen an appeal"],
+  "appeal_deadline_hint": "any appeal deadline mentioned, or null",
+  "confidence": "high | medium | low"
+}"""
+
+
+@router.post("/api/health/analyze-denial")
+def analyze_denial(req: DenialAnalyzeRequest):
+    if not req.text or len(req.text.strip()) < 20:
+        raise HTTPException(status_code=400, detail="Insufficient text provided.")
+
+    client = _get_client()
+
+    print(f"[health/analyze-denial] Parsing {len(req.text)} chars of denial text")
+
+    content = [
+        {
+            "type": "text",
+            "text": (
+                "Analyze this insurance denial letter or EOB. "
+                "Return only the JSON structure specified in the system prompt.\n\n"
+                f"---\n{req.text}\n---"
+            ),
+        }
+    ]
+
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=2048,
+        temperature=0,
+        system=DENIAL_SYSTEM_PROMPT,
+        messages=[{"role": "user", "content": content}],
+    )
+
+    raw_text = ""
+    for block in response.content:
+        if hasattr(block, "text"):
+            raw_text += block.text
+
+    raw_text = raw_text.strip()
+    if raw_text.startswith("```"):
+        raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
+        raw_text = re.sub(r"\s*```\s*$", "", raw_text)
+    raw_text = raw_text.strip()
+
+    try:
+        parsed = json.loads(raw_text)
+    except json.JSONDecodeError:
+        print(f"[health/analyze-denial] Invalid JSON: {raw_text[:500]}")
+        raise HTTPException(status_code=502, detail="AI analysis encountered an error. Please try again.")
+
+    return parsed
+
+
+# ---------------------------------------------------------------------------
+# POST /api/health/generate-appeal
+# ---------------------------------------------------------------------------
+
+APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal insurance appeal letter on behalf of a patient. Using the denial analysis provided, write a professional, assertive appeal letter that:
+- Opens with the specific claim/denial reference
+- States clearly that the patient is appealing the denial
+- Directly addresses the specific criterion the carrier cited
+- If a weakness was identified in the denial reasoning, leads with that as the primary argument
+- Lists the supporting documentation the patient will provide
+- Closes with a clear request for reconsideration and a deadline expectation
+- Uses professional but plain language — not legal jargon
+- Is formatted as a real letter (date, addresses, subject line, body, closing)
+
+Return only the letter text, no explanation or commentary."""
+
+
+@router.post("/api/health/generate-appeal")
+def generate_appeal(req: AppealGenerateRequest):
+    client = _get_client()
+
+    context_parts = [f"Denial analysis:\n{json.dumps(req.denial_analysis, indent=2)}"]
+    if req.patient_name:
+        context_parts.append(f"Patient name: {req.patient_name}")
+    if req.provider_name:
+        context_parts.append(f"Provider name: {req.provider_name}")
+    if req.claim_number:
+        context_parts.append(f"Claim number: {req.claim_number}")
+
+    content = [{"type": "text", "text": "\n\n".join(context_parts)}]
+
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=4096,
+        temperature=0.3,
+        system=APPEAL_SYSTEM_PROMPT,
+        messages=[{"role": "user", "content": content}],
+    )
+
+    raw_text = ""
+    for block in response.content:
+        if hasattr(block, "text"):
+            raw_text += block.text
+
+    return {"letter_text": raw_text.strip()}
