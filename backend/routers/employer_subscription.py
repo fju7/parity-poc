@@ -165,17 +165,50 @@ async def employer_webhook(request: Request):
                 except Exception as exc:
                     print(f"WARNING: Failed to send employer trial email: {exc}")
 
+            # Check for broker referral — activate commission if found
+            if company_id and email:
+                try:
+                    referral = sb.table("company_invitations").select(
+                        "referring_company_id"
+                    ).eq("invited_email", email).eq(
+                        "invitation_type", "employer_referral"
+                    ).limit(1).execute()
+
+                    if referral.data and referral.data[0].get("referring_company_id"):
+                        broker_company_id = referral.data[0]["referring_company_id"]
+                        # Find or create the commission record
+                        existing_commission = sb.table("broker_commissions").select("id").eq(
+                            "broker_company_id", broker_company_id
+                        ).eq("employer_company_id", company_id).limit(1).execute()
+
+                        now_ts = datetime.now(timezone.utc).isoformat()
+                        if existing_commission.data:
+                            sb.table("broker_commissions").update({
+                                "status": "active",
+                                "first_paid_month": now_ts,
+                                "employer_company_id": company_id,
+                            }).eq("id", existing_commission.data[0]["id"]).execute()
+                        else:
+                            sb.table("broker_commissions").insert({
+                                "broker_company_id": broker_company_id,
+                                "employer_company_id": company_id,
+                                "status": "active",
+                                "first_paid_month": now_ts,
+                            }).execute()
+                except Exception as exc:
+                    print(f"WARNING: Failed to activate broker commission: {exc}")
+
             return {"status": "ok", "employer_pro": True}
 
         # --- Broker Pro upgrade ---
         if metadata.get("product") == "broker_pro":
-            broker_email = metadata.get("broker_email")
+            company_id = metadata.get("company_id")
             subscription_id = obj.get("subscription")
-            if broker_email:
-                sb.table("broker_accounts").update({
+            if company_id:
+                sb.table("companies").update({
                     "plan": "pro",
                     "stripe_subscription_id": subscription_id,
-                }).eq("email", broker_email).execute()
+                }).eq("id", company_id).execute()
             return {"status": "ok", "broker_pro": True}
 
         if metadata.get("type") != "employer_subscription":
@@ -243,27 +276,27 @@ async def employer_webhook(request: Request):
                 "stripe_subscription_id", subscription_id
             ).execute()
             if company_result.data:
-                sb.table("companies").update({
-                    "plan": "read_only",
-                    "stripe_subscription_id": None,
-                }).eq("id", company_result.data[0]["id"]).execute()
-            else:
-                # Check if this is a broker Pro subscription
-                broker_result = sb.table("broker_accounts").select("email").eq(
-                    "stripe_subscription_id", subscription_id
-                ).execute()
-                if broker_result.data:
-                    # Revert broker to starter plan
-                    sb.table("broker_accounts").update({
-                        "plan": "starter",
+                c = company_result.data[0]
+                # Broker companies revert to starter; employer companies to read_only
+                if c.get("plan") in ("pro", "pro_cancelling"):
+                    # Check company type to determine revert plan
+                    company_full = sb.table("companies").select("type").eq("id", c["id"]).execute()
+                    company_type = company_full.data[0].get("type") if company_full.data else "employer"
+                    revert_plan = "starter" if company_type == "broker" else "read_only"
+                    sb.table("companies").update({
+                        "plan": revert_plan,
                         "stripe_subscription_id": None,
-                        "subscription_period_end": None,
-                    }).eq("stripe_subscription_id", subscription_id).execute()
+                    }).eq("id", c["id"]).execute()
                 else:
-                    sb.table("employer_subscriptions").update({
-                        "status": "canceled",
-                        "updated_at": datetime.now(timezone.utc).isoformat(),
-                    }).eq("stripe_subscription_id", subscription_id).execute()
+                    sb.table("companies").update({
+                        "plan": "read_only",
+                        "stripe_subscription_id": None,
+                    }).eq("id", c["id"]).execute()
+            else:
+                sb.table("employer_subscriptions").update({
+                    "status": "canceled",
+                    "updated_at": datetime.now(timezone.utc).isoformat(),
+                }).eq("stripe_subscription_id", subscription_id).execute()
 
     elif event_type == "invoice.payment_failed":
         subscription_id = obj.get("subscription")

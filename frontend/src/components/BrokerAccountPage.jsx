@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
@@ -7,7 +8,14 @@ const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function BrokerAccountPage() {
   const navigate = useNavigate();
-  const [broker, setBroker] = useState(null);
+  const { token, user, company, logout: authLogout, isAuthenticated, refetch } = useAuth();
+
+  // Redirect if not authenticated as broker
+  useEffect(() => {
+    if (!isAuthenticated) { navigate("/broker/login"); }
+    else if (company?.type !== "broker") { navigate("/"); }
+  }, [isAuthenticated, company]);
+
   const [account, setAccount] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -29,17 +37,23 @@ export default function BrokerAccountPage() {
   // Reactivate
   const [reactivateLoading, setReactivateLoading] = useState(false);
 
+  // Team management
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteLoading, setInviteLoading] = useState(false);
+  const [inviteMsg, setInviteMsg] = useState("");
+
+  const authHeaders = { Authorization: `Bearer ${token}` };
+
   useEffect(() => {
-    const stored = localStorage.getItem("broker_session");
-    if (!stored) { navigate("/broker/login"); return; }
-    const session = JSON.parse(stored);
-    setBroker(session);
-    fetchAccount(session.email);
-  }, []);
+    if (!token) return;
+    fetchAccount();
+    fetchTeam();
+  }, [token]);
 
   // Handle ?upgraded=true — poll until plan shows "pro"
   useEffect(() => {
-    if (!broker) return;
+    if (!token) return;
     const params = new URLSearchParams(window.location.search);
     if (params.get("upgraded") === "true") {
       window.history.replaceState({}, "", "/broker/account");
@@ -47,7 +61,7 @@ export default function BrokerAccountPage() {
       const poll = setInterval(async () => {
         attempts++;
         try {
-          const res = await fetch(`${API}/api/broker/plan?broker_email=${encodeURIComponent(broker.email)}`);
+          const res = await fetch(`${API}/api/broker/plan`, { headers: authHeaders });
           const data = await res.json();
           if (data.plan === "pro" || data.plan === "pro_cancelling") {
             setAccount(prev => ({ ...prev, plan: data.plan, client_count: data.client_count, client_limit: data.client_limit, subscription_period_end: data.subscription_period_end }));
@@ -66,12 +80,12 @@ export default function BrokerAccountPage() {
         }
       }, 2000);
     }
-  }, [broker]);
+  }, [token]);
 
-  const fetchAccount = async (email) => {
+  const fetchAccount = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/api/broker/account?broker_email=${encodeURIComponent(email)}`);
+      const res = await fetch(`${API}/api/broker/account`, { headers: authHeaders });
       const data = await res.json();
       setAccount(data);
       setContactName(data.contact_name || "");
@@ -81,16 +95,25 @@ export default function BrokerAccountPage() {
     setLoading(false);
   };
 
+  const fetchTeam = async () => {
+    try {
+      const res = await fetch(`${API}/api/auth/users`, { headers: authHeaders });
+      if (res.ok) {
+        const data = await res.json();
+        setTeamMembers(data.users || []);
+      }
+    } catch (err) { console.error("Failed to load team:", err); }
+  };
+
   const handleSave = async () => {
-    if (!broker) return;
+    if (!token) return;
     setSaving(true);
     setSaveMsg("");
     try {
       const res = await fetch(`${API}/api/broker/account`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders },
         body: JSON.stringify({
-          broker_email: broker.email,
           contact_name: contactName,
           firm_name: firmName,
           phone: phone,
@@ -98,11 +121,7 @@ export default function BrokerAccountPage() {
       });
       if (res.ok) {
         setSaveMsg("Changes saved.");
-        // Update local session
-        const session = JSON.parse(localStorage.getItem("broker_session") || "{}");
-        session.contact_name = contactName;
-        session.firm_name = firmName;
-        localStorage.setItem("broker_session", JSON.stringify(session));
+        refetch();
         setTimeout(() => setSaveMsg(""), 3000);
       } else {
         setSaveMsg("Failed to save changes.");
@@ -112,10 +131,13 @@ export default function BrokerAccountPage() {
   };
 
   const handleCancel = async () => {
-    if (!broker) return;
+    if (!token) return;
     setCancelLoading(true);
     try {
-      const res = await fetch(`${API}/api/broker/cancel-subscription?broker_email=${encodeURIComponent(broker.email)}`, { method: "POST" });
+      const res = await fetch(`${API}/api/broker/cancel-subscription`, {
+        method: "POST",
+        headers: authHeaders,
+      });
       const data = await res.json();
       if (data.status === "cancelled") {
         setAccount(prev => ({ ...prev, plan: "pro_cancelling", subscription_period_end: data.period_end }));
@@ -126,10 +148,13 @@ export default function BrokerAccountPage() {
   };
 
   const handleReactivate = async () => {
-    if (!broker) return;
+    if (!token) return;
     setReactivateLoading(true);
     try {
-      const res = await fetch(`${API}/api/broker/reactivate-subscription?broker_email=${encodeURIComponent(broker.email)}`, { method: "POST" });
+      const res = await fetch(`${API}/api/broker/reactivate-subscription`, {
+        method: "POST",
+        headers: authHeaders,
+      });
       const data = await res.json();
       if (data.status === "reactivated") {
         setAccount(prev => ({ ...prev, plan: "pro", subscription_period_end: null }));
@@ -139,16 +164,42 @@ export default function BrokerAccountPage() {
   };
 
   const handleUpgrade = async () => {
-    if (!broker) return;
+    if (!token) return;
     try {
-      const res = await fetch(`${API}/api/broker/subscribe?broker_email=${encodeURIComponent(broker.email)}`, { method: "POST" });
+      const res = await fetch(`${API}/api/broker/subscribe`, {
+        method: "POST",
+        headers: authHeaders,
+      });
       const data = await res.json();
       if (data.checkout_url) window.location.href = data.checkout_url;
     } catch (err) { console.error("Upgrade failed:", err); }
   };
 
+  const handleInviteTeamMember = async () => {
+    if (!inviteEmail.includes("@")) { setInviteMsg("Enter a valid email."); return; }
+    setInviteLoading(true);
+    setInviteMsg("");
+    try {
+      const res = await fetch(`${API}/api/auth/invite`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify({ email: inviteEmail.trim().toLowerCase(), role: "member" }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setInviteMsg("Invitation sent!");
+        setInviteEmail("");
+        fetchTeam();
+        setTimeout(() => setInviteMsg(""), 3000);
+      } else {
+        setInviteMsg(data.detail || "Failed to send invite.");
+      }
+    } catch { setInviteMsg("Failed to send invite."); }
+    setInviteLoading(false);
+  };
+
   const handleLogout = () => {
-    localStorage.removeItem("broker_session");
+    authLogout();
     navigate("/broker/login");
   };
 
@@ -158,7 +209,7 @@ export default function BrokerAccountPage() {
     return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   };
 
-  if (!broker || loading) return (
+  if (!token || loading) return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'DM Sans', sans-serif" }}>
       <p style={{ color: "#64748b" }}>Loading...</p>
     </div>
@@ -167,6 +218,7 @@ export default function BrokerAccountPage() {
   const isPro = account?.plan === "pro";
   const isCancelling = account?.plan === "pro_cancelling";
   const isStarter = !isPro && !isCancelling;
+  const isAdmin = user?.role === "admin";
 
   return (
     <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", minHeight: "100vh", background: "#f8fafc" }}>
@@ -195,7 +247,7 @@ export default function BrokerAccountPage() {
         )}
 
         <h1 style={{ fontSize: 24, fontWeight: 700, color: "#1B3A5C", margin: "0 0 8px" }}>Account Settings</h1>
-        <p style={{ color: "#64748b", fontSize: 14, marginBottom: 32 }}>{broker.email}</p>
+        <p style={{ color: "#64748b", fontSize: 14, marginBottom: 32 }}>{user?.email}</p>
 
         {/* Account Info Section */}
         <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
@@ -230,7 +282,7 @@ export default function BrokerAccountPage() {
             <div>
               <label style={{ fontSize: 13, fontWeight: 600, color: "#475569", display: "block", marginBottom: 4 }}>Email</label>
               <input
-                value={broker.email}
+                value={user?.email || ""}
                 disabled
                 style={{ width: "100%", padding: "10px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, fontFamily: "inherit", background: "#f8fafc", color: "#94a3b8", boxSizing: "border-box" }}
               />
@@ -248,6 +300,61 @@ export default function BrokerAccountPage() {
             {saveMsg && <span style={{ fontSize: 13, color: saveMsg.includes("Failed") ? "#dc2626" : "#16a34a", fontWeight: 500 }}>{saveMsg}</span>}
           </div>
         </div>
+
+        {/* Team Management Section (admin only) */}
+        {isAdmin && (
+          <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1B3A5C", margin: "0 0 20px" }}>Team Members</h2>
+
+            {/* Current members */}
+            <div style={{ marginBottom: 20 }}>
+              {teamMembers.map((m) => (
+                <div key={m.id || m.email} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: "1px solid #f1f5f9" }}>
+                  <div>
+                    <p style={{ margin: 0, fontSize: 14, fontWeight: 500, color: "#1B3A5C" }}>{m.full_name || m.email}</p>
+                    <p style={{ margin: "2px 0 0", fontSize: 12, color: "#94a3b8" }}>{m.email}</p>
+                  </div>
+                  <span style={{
+                    fontSize: 11, fontWeight: 600, textTransform: "uppercase",
+                    padding: "2px 8px", borderRadius: 10,
+                    background: m.role === "admin" ? "#f0fdfa" : "#f1f5f9",
+                    color: m.role === "admin" ? "#0D7377" : "#64748b",
+                  }}>
+                    {m.role}
+                  </span>
+                </div>
+              ))}
+              {teamMembers.length === 0 && (
+                <p style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>No team members yet.</p>
+              )}
+            </div>
+
+            {/* Invite form */}
+            <div style={{ display: "flex", gap: 10, alignItems: "flex-end" }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: 13, fontWeight: 600, color: "#475569", display: "block", marginBottom: 4 }}>Invite team member</label>
+                <input
+                  type="email"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleInviteTeamMember()}
+                  placeholder="colleague@firm.com"
+                  style={{ width: "100%", padding: "10px 12px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 14, fontFamily: "inherit", boxSizing: "border-box" }}
+                />
+              </div>
+              <button
+                onClick={handleInviteTeamMember}
+                disabled={inviteLoading}
+                style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: inviteLoading ? "default" : "pointer", opacity: inviteLoading ? 0.7 : 1, whiteSpace: "nowrap" }}
+              >
+                {inviteLoading ? "Sending..." : "Send Invite"}
+              </button>
+            </div>
+            {inviteMsg && (
+              <p style={{ fontSize: 13, marginTop: 8, marginBottom: 0, color: inviteMsg.includes("Failed") || inviteMsg.includes("valid") ? "#dc2626" : "#16a34a", fontWeight: 500 }}>{inviteMsg}</p>
+            )}
+          </div>
+        )}
 
         {/* Plan & Billing Section */}
         <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>

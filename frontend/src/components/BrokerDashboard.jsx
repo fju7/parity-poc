@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import AuthGate from "./AuthGate";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
@@ -43,9 +45,16 @@ const ACTIVITY_DOT = {
   benchmark_only: { color: "#94a3b8", label: "Benchmark only" },
 };
 
-export default function BrokerDashboard() {
+function BrokerDashboardInner() {
   const navigate = useNavigate();
-  const [broker, setBroker] = useState(null);
+  const { token, user, company, logout: authLogout } = useAuth();
+  const broker = {
+    email: user?.email || "",
+    firm_name: company?.name || "",
+    contact_name: user?.full_name || "",
+    logo_url: company?.logo_url || null,
+  };
+  const authHeaders = { Authorization: `Bearer ${token}` };
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedClient, setSelectedClient] = useState(null);
@@ -110,17 +119,15 @@ export default function BrokerDashboard() {
   const [upgradeSent, setUpgradeSent] = useState(false);
   const [brokerNotesOpen, setBrokerNotesOpen] = useState(false);
 
-  // Auth check
-  useEffect(() => {
-    const stored = localStorage.getItem("broker_session");
-    if (!stored) { navigate("/broker/login"); return; }
-    try { setBroker(JSON.parse(stored)); }
-    catch { localStorage.removeItem("broker_session"); navigate("/broker/login"); }
-  }, [navigate]);
+  // Invite employer modal state
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteLoading, setInviteLoading] = useState(false);
+  const [inviteResult, setInviteResult] = useState(null);
 
   // Handle ?upgraded=true — poll until plan shows "pro"
   useEffect(() => {
-    if (!broker) return;
+    if (!token) return;
     const params = new URLSearchParams(window.location.search);
     if (params.get("upgraded") === "true") {
       window.history.replaceState({}, "", "/broker/dashboard");
@@ -128,7 +135,7 @@ export default function BrokerDashboard() {
       const poll = setInterval(async () => {
         attempts++;
         try {
-          const res = await fetch(`${API}/api/broker/plan?broker_email=${encodeURIComponent(broker.email)}`);
+          const res = await fetch(`${API}/api/broker/plan`, { headers: authHeaders });
           const data = await res.json();
           if (data.plan === "pro" || data.plan === "pro_cancelling") {
             setPlanInfo(data);
@@ -147,17 +154,17 @@ export default function BrokerDashboard() {
         }
       }, 2000);
     }
-  }, [broker]);
+  }, [token]);
 
   // Fetch clients + portfolio + plan
   const fetchClients = useCallback(async () => {
-    if (!broker) return;
+    if (!token) return;
     setLoading(true);
     try {
       const [clientsRes, portfolioRes, planRes] = await Promise.all([
-        fetch(`${API}/api/broker/clients?broker_email=${encodeURIComponent(broker.email)}`),
-        fetch(`${API}/api/broker/portfolio?broker_email=${encodeURIComponent(broker.email)}`),
-        fetch(`${API}/api/broker/plan?broker_email=${encodeURIComponent(broker.email)}`),
+        fetch(`${API}/api/broker/clients`, { headers: authHeaders }),
+        fetch(`${API}/api/broker/portfolio`, { headers: authHeaders }),
+        fetch(`${API}/api/broker/plan`, { headers: authHeaders }),
       ]);
       if (clientsRes.ok) {
         const data = await clientsRes.json();
@@ -171,31 +178,31 @@ export default function BrokerDashboard() {
       }
     } catch (err) { console.error("Failed to fetch clients:", err); }
     setLoading(false);
-  }, [broker]);
+  }, [token]);
 
   useEffect(() => { fetchClients(); }, [fetchClients]);
 
   // Fetch renewal pipeline
   const fetchRenewals = useCallback(async () => {
-    if (!broker) return;
+    if (!token) return;
     setRenewalLoading(true);
     try {
-      const res = await fetch(`${API}/api/broker/renewal-pipeline?broker_email=${encodeURIComponent(broker.email)}`);
+      const res = await fetch(`${API}/api/broker/renewal-pipeline`, { headers: authHeaders });
       if (res.ok) setRenewalData(await res.json());
     } catch (err) { console.error("Failed to fetch renewals:", err); }
     setRenewalLoading(false);
-  }, [broker]);
+  }, [token]);
 
   useEffect(() => { if (activeTab === "renewals") fetchRenewals(); }, [activeTab, fetchRenewals]);
 
   const fetchProspects = useCallback(async () => {
-    if (!broker) return;
+    if (!token) return;
     try {
-      const res = await fetch(`${API}/api/broker/prospects?broker_email=${encodeURIComponent(broker.email)}`);
+      const res = await fetch(`${API}/api/broker/prospects`, { headers: authHeaders });
       if (res.ok) { const data = await res.json(); setRecentProspects(data.prospects || []); }
     } catch (err) { console.error("Failed to fetch prospects:", err); }
     setProspectsLoaded(true);
-  }, [broker]);
+  }, [token]);
 
   useEffect(() => { if (activeTab === "prospects" && !prospectsLoaded) fetchProspects(); }, [activeTab, prospectsLoaded, fetchProspects]);
 
@@ -208,8 +215,8 @@ export default function BrokerDashboard() {
     try {
       const res = await fetch(`${API}/api/broker/prospect-benchmark`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ broker_email: broker.email, ...prospectForm }),
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify(prospectForm),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail || "Failed to run prospect benchmark.");
@@ -236,20 +243,20 @@ export default function BrokerDashboard() {
 
   // Fetch client summary
   const fetchSummary = useCallback(async (employerEmail) => {
-    if (!broker) return;
+    if (!token) return;
     setSummaryLoading(true);
     setClientSummary(null);
     setClientActivity(null);
     try {
       const [summaryRes, activityRes] = await Promise.all([
-        fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/summary?broker_email=${encodeURIComponent(broker.email)}`),
-        fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/activity?broker_email=${encodeURIComponent(broker.email)}`),
+        fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/summary`, { headers: authHeaders }),
+        fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/activity`, { headers: authHeaders }),
       ]);
       if (summaryRes.ok) setClientSummary(await summaryRes.json());
       if (activityRes.ok) setClientActivity(await activityRes.json());
     } catch (err) { console.error("Failed to fetch summary:", err); }
     setSummaryLoading(false);
-  }, [broker]);
+  }, [token]);
 
   const handleSelectClient = (client) => {
     setSelectedClient(client);
@@ -272,7 +279,6 @@ export default function BrokerDashboard() {
         ? `${addForm.renewal_year}-${addForm.renewal_month}-01`
         : null;
       const body = {
-        broker_email: broker.email,
         company_name: addForm.company_name,
         employee_count_range: addForm.employee_count_range,
         industry: addForm.industry,
@@ -286,7 +292,7 @@ export default function BrokerDashboard() {
 
       const res = await fetch(`${API}/api/broker/clients/onboard`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders },
         body: JSON.stringify(body),
       });
       const data = await res.json();
@@ -309,7 +315,7 @@ export default function BrokerDashboard() {
   // Upgrade to Pro
   const handleUpgrade = async () => {
     try {
-      const res = await fetch(`${API}/api/broker/subscribe?broker_email=${encodeURIComponent(broker.email)}`, { method: "POST" });
+      const res = await fetch(`${API}/api/broker/subscribe`, { method: "POST", headers: authHeaders });
       const data = await res.json();
       if (data.checkout_url) window.location.href = data.checkout_url;
       if (data.already_subscribed) { setPlanInfo(prev => ({ ...prev, plan: "pro", at_limit: false, client_limit: null })); }
@@ -328,13 +334,13 @@ export default function BrokerDashboard() {
 
   // Notify employer
   const handleNotify = async (employerEmail) => {
-    if (!broker) return;
+    if (!token) return;
     setShareLoading(true);
     try {
       const res = await fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/notify`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ broker_email: broker.email }),
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify({}),
       });
       const data = await res.json();
       if (data.sent) setNotifySent(true);
@@ -344,13 +350,13 @@ export default function BrokerDashboard() {
 
   // Suggest upgrade
   const handleSuggestUpgrade = async (employerEmail) => {
-    if (!broker) return;
+    if (!token) return;
     setShareLoading(true);
     try {
       const res = await fetch(`${API}/api/broker/clients/${encodeURIComponent(employerEmail)}/notify`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ broker_email: broker.email, message_type: "upgrade" }),
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify({ message_type: "upgrade" }),
       });
       const data = await res.json();
       if (data.sent) setUpgradeSent(true);
@@ -363,8 +369,8 @@ export default function BrokerDashboard() {
     if (!confirm("Remove this employer from your client list?")) return;
     try {
       const res = await fetch(
-        `${API}/api/broker/clients/${encodeURIComponent(employerEmail)}?broker_email=${encodeURIComponent(broker.email)}`,
-        { method: "DELETE" }
+        `${API}/api/broker/clients/${encodeURIComponent(employerEmail)}`,
+        { method: "DELETE", headers: authHeaders }
       );
       if (res.ok) {
         setClients((prev) => prev.filter((c) => c.employer_email !== employerEmail));
@@ -376,8 +382,8 @@ export default function BrokerDashboard() {
     } catch (err) { console.error("Failed to remove client:", err); }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("broker_session");
+  const handleLogout = async () => {
+    await authLogout();
     navigate("/broker/login");
   };
 
@@ -447,8 +453,8 @@ export default function BrokerDashboard() {
       }));
       const res = await fetch(`${API}/api/broker/clients/bulk-onboard`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ broker_email: broker.email, clients }),
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify({ clients }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail?.message || data.detail || "Bulk onboard failed");
@@ -470,14 +476,11 @@ export default function BrokerDashboard() {
     setLogoUploading(true);
     try {
       const formData = new FormData();
-      formData.append("broker_email", broker.email);
       formData.append("file", file);
-      const res = await fetch(`${API}/api/broker/profile/logo`, { method: "POST", body: formData });
+      const res = await fetch(`${API}/api/broker/profile/logo`, { method: "POST", headers: authHeaders, body: formData });
       if (!res.ok) throw new Error("Upload failed");
       const data = await res.json();
-      const updated = { ...broker, logo_url: data.logo_url };
-      setBroker(updated);
-      localStorage.setItem("broker_session", JSON.stringify(updated));
+      // Logo uploaded successfully — will reflect on next page load
     } catch (err) { console.error("Logo upload failed:", err); }
     setLogoUploading(false);
   };
@@ -511,7 +514,7 @@ export default function BrokerDashboard() {
 
   const fmt = (n) => n != null ? n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "—";
 
-  if (!broker) return null;
+  if (!token || !user) return null;
 
   return (
     <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden", minHeight: "100vh", background: "#f8fafc" }}>
@@ -544,6 +547,12 @@ export default function BrokerDashboard() {
           </div>
           <div style={{ display: "flex", gap: 8 }}>
             <button
+              onClick={() => { setShowInviteModal(true); setInviteEmail(""); setInviteResult(null); }}
+              style={{ background: "#fff", color: "#1B3A5C", border: "1px solid #e2e8f0", borderRadius: 8, padding: "10px 16px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
+            >
+              Invite Client
+            </button>
+            <button
               onClick={() => { setShowBulkPanel(true); setBulkErrors({}); setBulkResults(null); setBulkRunning(false); setBulkRows(Array.from({ length: 5 }, EMPTY_ROW)); }}
               style={{ background: "#fff", color: "#0D7377", border: "1px solid #0D7377", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
             >
@@ -575,7 +584,7 @@ export default function BrokerDashboard() {
             ) : planInfo.plan === "pro_cancelling" ? (
               <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 10, padding: "10px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 13, color: "#92400e", fontWeight: 600 }}>
                 <span>Pro Plan &mdash; Cancelling {planInfo.subscription_period_end ? `(access until ${new Date(planInfo.subscription_period_end).toLocaleDateString("en-US", { month: "short", day: "numeric" })})` : ""}</span>
-                <button onClick={async () => { try { const res = await fetch(`${API}/api/broker/reactivate-subscription?broker_email=${encodeURIComponent(broker.email)}`, { method: "POST" }); const data = await res.json(); if (data.status === "reactivated") setPlanInfo(prev => ({ ...prev, plan: "pro", subscription_period_end: null })); } catch {} }} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "5px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                <button onClick={async () => { try { const res = await fetch(`${API}/api/broker/reactivate-subscription`, { method: "POST", headers: authHeaders }); const data = await res.json(); if (data.status === "reactivated") setPlanInfo(prev => ({ ...prev, plan: "pro", subscription_period_end: null })); } catch {} }} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "5px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
                   Reactivate Pro
                 </button>
               </div>
@@ -967,7 +976,7 @@ export default function BrokerDashboard() {
                             {c.employer_email && !c.employer_email.includes("@broker-onboarded") && c.share_token && (
                               <button onClick={() => handleNotify(c.employer_email)} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#1d4ed8", cursor: "pointer" }}>Notify</button>
                             )}
-                            <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}?broker_email=${encodeURIComponent(broker.email)}`} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#92400e", cursor: "pointer", textDecoration: "none", display: "inline-block" }}>Report</Link>
+                            <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}`} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#92400e", cursor: "pointer", textDecoration: "none", display: "inline-block" }}>Report</Link>
                             <button onClick={() => {
                               const match = clients.find(cl => cl.employer_email === c.employer_email);
                               if (match) handleSelectClient(match);
@@ -999,7 +1008,7 @@ export default function BrokerDashboard() {
                       {c.annual_gap > 0 && ` · ${fmt(c.annual_gap)} annual gap`}
                     </p>
                   </div>
-                  <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}?broker_email=${encodeURIComponent(broker.email)}`} style={{ background: "#92400e", color: "#fff", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap", textDecoration: "none", display: "inline-block" }}>
+                  <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}`} style={{ background: "#92400e", color: "#fff", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap", textDecoration: "none", display: "inline-block" }}>
                     Prepare Renewal Report &rarr;
                   </Link>
                 </div>
@@ -1577,7 +1586,101 @@ export default function BrokerDashboard() {
 
         </>}
       </div>
+
+      {/* Invite Employer Modal */}
+      {showInviteModal && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ background: "#fff", borderRadius: 16, padding: 32, maxWidth: 440, width: "90%", boxShadow: "0 20px 60px rgba(0,0,0,0.15)" }}>
+            <h3 style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: "0 0 12px" }}>Invite an Employer Client</h3>
+            <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.6, margin: "0 0 20px" }}>
+              Send a Parity Employer invitation to your client. They'll receive an email with a link to start a 30-day free trial.
+            </p>
+
+            {inviteResult ? (
+              <div style={{ textAlign: "center" }}>
+                {inviteResult.invited ? (
+                  <div style={{ padding: 16, background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8, marginBottom: 16 }}>
+                    <p style={{ color: "#0D7377", fontWeight: 600, fontSize: 14, margin: 0 }}>
+                      Invitation sent to {inviteResult.email}
+                    </p>
+                  </div>
+                ) : (
+                  <div style={{ padding: 16, background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, marginBottom: 16 }}>
+                    <p style={{ color: "#92400e", fontSize: 14, margin: 0 }}>
+                      {inviteResult.reason || "This employer has already been invited."}
+                    </p>
+                  </div>
+                )}
+                <button
+                  onClick={() => setShowInviteModal(false)}
+                  style={{ background: "#f1f5f9", color: "#475569", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
+                >
+                  Close
+                </button>
+              </div>
+            ) : (
+              <>
+                <div style={{ marginBottom: 16 }}>
+                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#475569", marginBottom: 4 }}>Employer contact email</label>
+                  <input
+                    type="email"
+                    value={inviteEmail}
+                    onChange={(e) => setInviteEmail(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && !inviteLoading && inviteEmail.includes("@") && (async () => {
+                      setInviteLoading(true);
+                      try {
+                        const res = await fetch(`${API}/api/broker/invite-employer`, {
+                          method: "POST", headers: { "Content-Type": "application/json", ...authHeaders },
+                          body: JSON.stringify({ email: inviteEmail.trim() }),
+                        });
+                        setInviteResult(await res.json());
+                      } catch { setInviteResult({ invited: false, reason: "Failed to send invitation." }); }
+                      setInviteLoading(false);
+                    })()}
+                    placeholder="employer@company.com"
+                    style={{ width: "100%", padding: "10px 12px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 14, fontFamily: "inherit", boxSizing: "border-box" }}
+                  />
+                </div>
+                <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+                  <button
+                    onClick={() => setShowInviteModal(false)}
+                    style={{ background: "#f1f5f9", color: "#475569", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={async () => {
+                      if (!inviteEmail.includes("@")) return;
+                      setInviteLoading(true);
+                      try {
+                        const res = await fetch(`${API}/api/broker/invite-employer`, {
+                          method: "POST", headers: { "Content-Type": "application/json", ...authHeaders },
+                          body: JSON.stringify({ email: inviteEmail.trim() }),
+                        });
+                        setInviteResult(await res.json());
+                      } catch { setInviteResult({ invited: false, reason: "Failed to send invitation." }); }
+                      setInviteLoading(false);
+                    }}
+                    disabled={inviteLoading || !inviteEmail.includes("@")}
+                    style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: inviteLoading ? "default" : "pointer", opacity: inviteLoading ? 0.7 : 1 }}
+                  >
+                    {inviteLoading ? "Sending..." : "Send Invitation"}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+export default function BrokerDashboard() {
+  return (
+    <AuthGate product="broker" onNeedsCompany={() => { window.location.href = "/broker/signup"; }}>
+      <BrokerDashboardInner />
+    </AuthGate>
   );
 }
 
@@ -1617,7 +1720,7 @@ function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, t
                 <ChecklistItem label="Benchmark run" done={c.checklist.benchmark_run} />
                 <ChecklistItem label="Claims check" done={c.checklist.claims_check} />
                 <ChecklistItem label="Scorecard graded" done={c.checklist.scorecard_graded} />
-                <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}?broker_email=${encodeURIComponent(brokerEmail)}`} style={{ display: "flex", alignItems: "center", gap: 6, color: "#0D7377", fontWeight: 600, textDecoration: "none", fontSize: 12 }}>
+                <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}`} style={{ display: "flex", alignItems: "center", gap: 6, color: "#0D7377", fontWeight: 600, textDecoration: "none", fontSize: 12 }}>
                   Prepare Renewal Report &rarr;
                 </Link>
               </div>

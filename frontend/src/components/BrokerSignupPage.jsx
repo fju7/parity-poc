@@ -1,5 +1,6 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
@@ -7,44 +8,108 @@ const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function BrokerSignupPage() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [firmName, setFirmName] = useState("");
+  const { login, isAuthenticated, company } = useAuth();
+
+  // If already authenticated as broker, go to dashboard
+  if (isAuthenticated && company?.type === "broker") {
+    navigate("/broker/dashboard");
+    return null;
+  }
+
+  // Step: "email" | "otp" | "company"
+  const [step, setStep] = useState("email");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | sending | code | verifying | error
+  const [code, setCode] = useState("");
+  const [sending, setSending] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [creating, setCreating] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // If there's already a broker session, go to dashboard
-  useEffect(() => {
-    const stored = localStorage.getItem("broker_session");
-    if (stored) {
-      navigate("/broker/dashboard");
-    }
-  }, [navigate]);
+  // Company fields
+  const [fullName, setFullName] = useState("");
+  const [firmName, setFirmName] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    setStatus("sending");
+  const handleSendOtp = async () => {
+    if (!email.includes("@")) { setErrorMsg("Enter a valid email address."); return; }
+    setSending(true);
     setErrorMsg("");
-
     try {
-      const res = await fetch(`${API}/api/broker/auth/signup`, {
+      const res = await fetch(`${API}/api/auth/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name, firm_name: firmName, phone: phone || null }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), product: "broker" }),
       });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.detail || "Failed to create account.");
-      }
-
-      setStatus("code");
-    } catch (err) {
-      setStatus("error");
-      setErrorMsg(err.message);
+      if (!res.ok) throw new Error();
+      setStep("otp");
+    } catch {
+      setErrorMsg("Failed to send code. Please try again.");
+    } finally {
+      setSending(false);
     }
-  }, [email, name, firmName, phone]);
+  };
+
+  const handleVerifyOtp = async () => {
+    if (code.length !== 8) { setErrorMsg("Enter the 8-digit code from your email."); return; }
+    setVerifying(true);
+    setErrorMsg("");
+    try {
+      const res = await fetch(`${API}/api/auth/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), code: code.trim(), product: "broker" }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setErrorMsg(data.detail || "Invalid code."); return; }
+
+      if (data.needs_company) {
+        setStep("company");
+      } else {
+        // Already has a broker firm — log in and redirect
+        login(data.token, data.user, data.company);
+        navigate("/broker/dashboard");
+      }
+    } catch {
+      setErrorMsg("Verification failed. Please try again.");
+    } finally {
+      setVerifying(false);
+    }
+  };
+
+  const handleCreateCompany = async () => {
+    if (!fullName.trim()) { setErrorMsg("Enter your full name."); return; }
+    if (!firmName.trim()) { setErrorMsg("Enter your firm name."); return; }
+    setCreating(true);
+    setErrorMsg("");
+    try {
+      const res = await fetch(`${API}/api/auth/company`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.trim().toLowerCase(),
+          full_name: fullName.trim(),
+          company_name: firmName.trim(),
+          company_type: "broker",
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setErrorMsg(data.detail || "Failed to create account."); return; }
+
+      // Token returned from company creation — log in immediately
+      login(data.token, data.user, data.company);
+      navigate("/broker/dashboard");
+    } catch {
+      setErrorMsg("Failed to create account. Please try again.");
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  const inputStyle = {
+    width: "100%", padding: "10px 12px", borderRadius: 8,
+    border: "1px solid #e2e8f0", fontSize: 15,
+    outline: "none", boxSizing: "border-box",
+  };
 
   return (
     <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
@@ -71,109 +136,38 @@ export default function BrokerSignupPage() {
             </p>
           </div>
 
-          {status === "verifying" ? (
-            <div style={{ textAlign: "center", padding: 32 }}>
-              <div style={{
-                width: 40, height: 40, border: "3px solid #e2e8f0", borderTopColor: "#0D7377",
-                borderRadius: "50%", animation: "cs-spin 0.8s linear infinite", margin: "0 auto 16px",
-              }} />
-              <p style={{ color: "#1B3A5C", fontWeight: 600, fontSize: 15 }}>
-                Verifying your account...
-              </p>
-              <style>{`@keyframes cs-spin { to { transform: rotate(360deg); } }`}</style>
-            </div>
-          ) : status === "code" ? (
-            <SignupOtpInput
-              email={email}
-              onVerified={(broker) => {
-                localStorage.setItem("broker_session", JSON.stringify(broker));
-                navigate("/broker/dashboard");
-              }}
-              onBack={() => { setStatus("idle"); setErrorMsg(""); }}
-            />
-          ) : (
+          {step === "email" && (
             <>
-              <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: 14 }}>
-                  <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
-                    Full name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Jane Smith"
-                    style={inputStyle}
-                  />
-                </div>
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSendOtp()}
+                  placeholder="jane@acmebenefits.com"
+                  style={inputStyle}
+                />
+              </div>
 
-                <div style={{ marginBottom: 14 }}>
-                  <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
-                    Firm name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={firmName}
-                    onChange={(e) => setFirmName(e.target.value)}
-                    placeholder="Acme Benefits Group"
-                    style={inputStyle}
-                  />
-                </div>
+              <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 12px", textAlign: "center" }}>
+                We will never contact your clients directly. Your book of business is yours.
+              </p>
 
-                <div style={{ marginBottom: 14 }}>
-                  <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="jane@acmebenefits.com"
-                    style={inputStyle}
-                  />
-                </div>
-
-                <div style={{ marginBottom: 20 }}>
-                  <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
-                    Phone <span style={{ color: "#94a3b8", fontWeight: 400 }}>(optional)</span>
-                  </label>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="(555) 123-4567"
-                    style={inputStyle}
-                  />
-                </div>
-
-                {status === "error" && (
-                  <div style={{
-                    padding: 12, borderRadius: 8, background: "#fef2f2",
-                    border: "1px solid #fecaca", marginBottom: 16,
-                  }}>
-                    <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{errorMsg}</p>
-                  </div>
-                )}
-
-                <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 12px", textAlign: "center" }}>
-                  We will never contact your clients directly. Your book of business is yours.
-                </p>
-
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="cs-btn-primary"
-                  style={{
-                    width: "100%", justifyContent: "center",
-                    opacity: status === "sending" ? 0.6 : 1,
-                  }}
-                >
-                  {status === "sending" ? "Creating account..." : "Create Free Account \u2192"}
-                </button>
-              </form>
+              <button
+                onClick={handleSendOtp}
+                disabled={sending}
+                className="cs-btn-primary"
+                style={{
+                  width: "100%", justifyContent: "center",
+                  opacity: sending ? 0.6 : 1,
+                }}
+              >
+                {sending ? "Sending code..." : "Continue \u2192"}
+              </button>
 
               <p style={{ textAlign: "center", fontSize: 14, color: "#64748b", marginTop: 20 }}>
                 Already have an account?{" "}
@@ -193,219 +187,134 @@ export default function BrokerSignupPage() {
               </div>
             </>
           )}
+
+          {step === "otp" && (
+            <div style={{
+              padding: 24, borderRadius: 12, border: "1px solid #0D7377",
+              background: "#f0fdfa", textAlign: "center",
+            }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: "0 0 8px" }}>
+                Check your email
+              </h3>
+              <p style={{ fontSize: 14, color: "#475569", marginBottom: 4 }}>
+                We sent an 8-digit code to <strong>{email}</strong>.
+              </p>
+              <p style={{ fontSize: 12, color: "#94a3b8", marginBottom: 20 }}>
+                Enter it below to verify your account. The code expires in 10 minutes.
+              </p>
+
+              <input
+                type="text"
+                placeholder="12345678"
+                value={code}
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                onKeyDown={(e) => e.key === "Enter" && handleVerifyOtp()}
+                maxLength={8}
+                style={{
+                  width: "100%", padding: "12px 16px", fontSize: 24, letterSpacing: 8,
+                  textAlign: "center", border: "1px solid #cbd5e1", borderRadius: 8,
+                  outline: "none", boxSizing: "border-box", marginBottom: 12,
+                }}
+              />
+
+              <button
+                onClick={handleVerifyOtp}
+                disabled={verifying}
+                className="cs-btn-primary"
+                style={{
+                  width: "100%", justifyContent: "center",
+                  opacity: verifying ? 0.6 : 1,
+                }}
+              >
+                {verifying ? "Verifying..." : "Verify Code"}
+              </button>
+
+              <button
+                onClick={() => { setStep("email"); setCode(""); setErrorMsg(""); }}
+                style={{
+                  fontSize: 12, color: "#94a3b8", background: "none",
+                  border: "none", cursor: "pointer", marginTop: 12,
+                }}
+              >
+                Use a different email
+              </button>
+            </div>
+          )}
+
+          {step === "company" && (
+            <>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: "0 0 4px", textAlign: "center" }}>
+                Set up your broker account
+              </h3>
+              <p style={{ fontSize: 14, color: "#64748b", textAlign: "center", marginBottom: 20 }}>
+                Tell us about yourself and your firm.
+              </p>
+
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                  Full name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Jane Smith"
+                  style={inputStyle}
+                />
+              </div>
+
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                  Firm name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={firmName}
+                  onChange={(e) => setFirmName(e.target.value)}
+                  placeholder="Acme Benefits Group"
+                  style={inputStyle}
+                />
+              </div>
+
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                  Phone <span style={{ color: "#94a3b8", fontWeight: 400 }}>(optional)</span>
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="(555) 123-4567"
+                  style={inputStyle}
+                />
+              </div>
+
+              <button
+                onClick={handleCreateCompany}
+                disabled={creating}
+                className="cs-btn-primary"
+                style={{
+                  width: "100%", justifyContent: "center",
+                  opacity: creating ? 0.6 : 1,
+                }}
+              >
+                {creating ? "Creating account..." : "Create Free Account \u2192"}
+              </button>
+            </>
+          )}
+
+          {errorMsg && (
+            <div style={{
+              padding: 12, borderRadius: 8, background: "#fef2f2",
+              border: "1px solid #fecaca", marginTop: 16,
+            }}>
+              <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{errorMsg}</p>
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  );
-}
-
-const inputStyle = {
-  width: "100%", padding: "10px 12px", borderRadius: 8,
-  border: "1px solid #e2e8f0", fontSize: 15,
-  outline: "none", boxSizing: "border-box",
-};
-
-
-// ---------------------------------------------------------------------------
-// SignupOtpInput — 8-digit OTP verification for signup flow
-// ---------------------------------------------------------------------------
-
-function SignupOtpInput({ email, onVerified, onBack }) {
-  const OTP_LENGTH = 8;
-  const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(""));
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState(null);
-  const [resendCountdown, setResendCountdown] = useState(60);
-  const [resent, setResent] = useState(false);
-  const otpRefs = useRef([]);
-
-  useEffect(() => {
-    if (resendCountdown <= 0) return;
-    const t = setTimeout(() => setResendCountdown((c) => c - 1), 1000);
-    return () => clearTimeout(t);
-  }, [resendCountdown]);
-
-  useEffect(() => {
-    setTimeout(() => otpRefs.current[0]?.focus(), 50);
-  }, []);
-
-  function handleOtpChange(index, value) {
-    const digit = value.replace(/\D/g, "").slice(-1);
-    const next = [...otp];
-    next[index] = digit;
-    setOtp(next);
-
-    if (digit && index < OTP_LENGTH - 1) {
-      otpRefs.current[index + 1]?.focus();
-    }
-
-    if (next.every((d) => d)) {
-      verifyOtp(next.join(""));
-    }
-  }
-
-  function handleOtpKeyDown(index, e) {
-    if (e.key === "Backspace" && !otp[index] && index > 0) {
-      otpRefs.current[index - 1]?.focus();
-    }
-  }
-
-  function handleOtpPaste(e) {
-    e.preventDefault();
-    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, OTP_LENGTH);
-    if (!pasted) return;
-
-    const next = [...otp];
-    for (let i = 0; i < OTP_LENGTH; i++) {
-      next[i] = pasted[i] || "";
-    }
-    setOtp(next);
-
-    const focusIdx = Math.min(pasted.length, OTP_LENGTH - 1);
-    otpRefs.current[focusIdx]?.focus();
-
-    if (pasted.length === OTP_LENGTH) {
-      verifyOtp(pasted);
-    }
-  }
-
-  async function verifyOtp(code) {
-    setSending(true);
-    setError(null);
-
-    try {
-      const res = await fetch(`${API}/api/broker/auth/verify-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.detail || "Invalid code.");
-      }
-
-      const data = await res.json();
-      setSending(false);
-      onVerified(data.broker);
-    } catch (err) {
-      setSending(false);
-      setError(err.message);
-      setOtp(Array(OTP_LENGTH).fill(""));
-      otpRefs.current[0]?.focus();
-    }
-  }
-
-  async function handleResend() {
-    if (resendCountdown > 0) return;
-    setSending(true);
-    setError(null);
-
-    try {
-      const res = await fetch(`${API}/api/broker/auth/resend-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.detail || "Failed to resend.");
-      }
-
-      setResendCountdown(60);
-      setOtp(Array(OTP_LENGTH).fill(""));
-      setResent(true);
-      setTimeout(() => setResent(false), 3000);
-      otpRefs.current[0]?.focus();
-    } catch (err) {
-      setError(err.message);
-    }
-    setSending(false);
-  }
-
-  const otpInputStyle = {
-    width: 36, height: 44, textAlign: "center", fontSize: 17, fontWeight: 600,
-    border: "1px solid #cbd5e1", borderRadius: 8, outline: "none",
-    transition: "border-color 0.2s",
-  };
-
-  return (
-    <div style={{
-      padding: 24, borderRadius: 12, border: "1px solid #0D7377",
-      background: "#f0fdfa", textAlign: "center",
-    }}>
-      <h3 style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: "0 0 8px" }}>
-        Check your email
-      </h3>
-      <p style={{ fontSize: 14, color: "#475569", marginBottom: 4 }}>
-        We sent an 8-digit code to <strong>{email}</strong>.
-      </p>
-      <p style={{ fontSize: 12, color: "#94a3b8", marginBottom: 20 }}>
-        Enter it below to verify your account. The code expires in 10 minutes.
-      </p>
-
-      {error && (
-        <div style={{
-          marginBottom: 16, padding: 10, background: "#fef2f2",
-          border: "1px solid #fecaca", borderRadius: 8, fontSize: 13, color: "#991b1b",
-        }}>
-          {error}
-        </div>
-      )}
-
-      <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 16 }} onPaste={handleOtpPaste}>
-        {otp.map((digit, i) => (
-          <input
-            key={i}
-            ref={(el) => (otpRefs.current[i] = el)}
-            type="text"
-            inputMode="numeric"
-            maxLength={1}
-            value={digit}
-            onChange={(e) => handleOtpChange(i, e.target.value)}
-            onKeyDown={(e) => handleOtpKeyDown(i, e)}
-            style={otpInputStyle}
-            onFocus={(e) => { e.target.style.borderColor = "#0D7377"; }}
-            onBlur={(e) => { e.target.style.borderColor = "#cbd5e1"; }}
-          />
-        ))}
-      </div>
-
-      {sending && (
-        <p style={{ fontSize: 14, color: "#94a3b8", marginBottom: 12 }}>Verifying...</p>
-      )}
-
-      {resent && !error && (
-        <p style={{ fontSize: 14, color: "#0D7377", marginBottom: 12 }}>New code sent!</p>
-      )}
-
-      <div style={{ fontSize: 14, marginBottom: 12 }}>
-        {resendCountdown > 0 ? (
-          <span style={{ color: "#94a3b8" }}>Resend code in {resendCountdown}s</span>
-        ) : (
-          <button
-            onClick={handleResend}
-            disabled={sending}
-            style={{
-              color: "#0D7377", background: "none", border: "none",
-              cursor: "pointer", fontSize: 14, textDecoration: "underline",
-            }}
-          >
-            {sending ? "Sending..." : "Resend code"}
-          </button>
-        )}
-      </div>
-
-      <button
-        onClick={onBack}
-        style={{
-          fontSize: 12, color: "#94a3b8", background: "none",
-          border: "none", cursor: "pointer",
-        }}
-      >
-        Use a different email
-      </button>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, useSearchParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -15,17 +16,18 @@ const fmt = (n) => n != null ? n.toLocaleString("en-US", { style: "currency", cu
 
 export default function RenewalPrepReport() {
   const { companySlug } = useParams();
-  const [searchParams] = useSearchParams();
-  const brokerEmail = searchParams.get("broker_email") || "";
+  const { token } = useAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!companySlug || !brokerEmail) return;
+    if (!companySlug || !token) return;
     (async () => {
       try {
-        const res = await fetch(`${API}/api/broker/renewal-prep/${encodeURIComponent(companySlug)}?broker_email=${encodeURIComponent(brokerEmail)}`);
+        const res = await fetch(`${API}/api/broker/renewal-prep/${encodeURIComponent(companySlug)}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (!res.ok) {
           const body = await res.json().catch(() => ({}));
           throw new Error(body.detail || "Failed to load report");
@@ -34,7 +36,7 @@ export default function RenewalPrepReport() {
       } catch (err) { setError(err.message); }
       setLoading(false);
     })();
-  }, [companySlug, brokerEmail]);
+  }, [companySlug, token]);
 
   if (loading) {
     return (

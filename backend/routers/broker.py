@@ -1,28 +1,7 @@
 """
-Broker Portal endpoints — custom OTP auth + client management + freemium onboarding.
-
--- MIGRATION: run in Supabase SQL Editor --
-ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS plan text DEFAULT 'starter';
-ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS stripe_customer_id text;
-ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS stripe_subscription_id text;
-ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS referral_code text UNIQUE;
-ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS subscription_period_end timestamptz;
-
-CREATE TABLE IF NOT EXISTS broker_referral_credits (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  broker_email text NOT NULL,
-  employer_email text NOT NULL,
-  employer_subscription_id text,
-  monthly_commission numeric DEFAULT 0,
-  months_remaining integer DEFAULT 12,
-  created_at timestamptz DEFAULT now(),
-  last_paid_at timestamptz
-);
--- END MIGRATION --
+Broker Portal endpoints — unified auth + client management + freemium onboarding.
 
 Endpoints:
-  POST /api/broker/auth/send-otp     — send 6-digit OTP to broker email
-  POST /api/broker/auth/verify-otp   — verify OTP, return broker session
   GET  /api/broker/clients           — list linked employer clients
   POST /api/broker/clients/add       — link an employer to this broker
   DELETE /api/broker/clients/{employer_email} — unlink an employer
@@ -36,19 +15,26 @@ Endpoints:
   POST /api/broker/send-renewal-reminders — cron-triggered 90-day renewal reminders
   POST /api/broker/prospect-benchmark — preliminary benchmark for a prospect
   GET  /api/broker/prospects — list recent prospect benchmarks
+  GET  /api/broker/plan — return broker plan info
+  POST /api/broker/subscribe — create Stripe checkout for Pro upgrade
+  POST /api/broker/cancel-subscription — cancel Pro at period end
+  POST /api/broker/reactivate-subscription — undo pending cancellation
+  GET  /api/broker/account — return broker account details
+  PATCH /api/broker/account — update broker account details
+  POST /api/broker/profile/logo — upload broker logo
+  POST /api/broker/invite-employer — invite employer client (triggers commission tracking)
 """
 
 import os
-import random
-import string
 import uuid
 from datetime import datetime, timezone, timedelta
 
-from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
+from fastapi import APIRouter, HTTPException, Request, Header, UploadFile, File, Form
 from pydantic import BaseModel
 from typing import Optional
 
 from routers.employer_shared import _get_supabase, check_rate_limit, get_benchmarks
+from routers.auth import get_current_user
 from utils.email import send_email
 
 router = APIRouter(prefix="/api/broker", tags=["broker"])
@@ -58,26 +44,7 @@ router = APIRouter(prefix="/api/broker", tags=["broker"])
 # Pydantic models
 # ---------------------------------------------------------------------------
 
-class SendOtpRequest(BaseModel):
-    email: str
-
-
-class VerifyOtpRequest(BaseModel):
-    email: str
-    code: str
-
-
-class AddClientRequest(BaseModel):
-    broker_email: str
-    employer_email: str
-
-
-class ClientsListRequest(BaseModel):
-    broker_email: str
-
-
 class BrokerOnboardRequest(BaseModel):
-    broker_email: str
     company_name: str
     employee_count_range: str  # "<100", "100-250", "250-500", "500-1000", "1000+"
     industry: str
@@ -90,139 +57,53 @@ class BrokerOnboardRequest(BaseModel):
 
 
 class NotifyClientRequest(BaseModel):
-    broker_email: str
     message_type: Optional[str] = "benchmark"  # "benchmark" or "upgrade"
 
 
-class BrokerSignupRequest(BaseModel):
-    email: str
-    name: str
-    firm_name: str
+class UpdateBrokerAccountRequest(BaseModel):
+    contact_name: Optional[str] = None
+    firm_name: Optional[str] = None
     phone: Optional[str] = None
 
 
+class BulkOnboardRow(BaseModel):
+    company_name: str
+    employee_count_range: str
+    industry: str
+    state: str
+    carrier: Optional[str] = None
+    estimated_pepm: Optional[float] = None
+    renewal_month: Optional[str] = None  # format: "YYYY-MM"
+
+
+class BulkOnboardRequest(BaseModel):
+    clients: list[BulkOnboardRow]
+
+
+class ProspectBenchmarkRequest(BaseModel):
+    company_name: str
+    employee_count_range: str
+    industry: str
+    state: str
+    carrier: Optional[str] = None
+
+
+class InviteEmployerRequest(BaseModel):
+    email: str
+
+
 # ---------------------------------------------------------------------------
-# Helpers
+# Auth helper — validates Bearer token and ensures broker company type
 # ---------------------------------------------------------------------------
 
-def _generate_otp(length: int = 6) -> str:
-    """Generate a random numeric OTP code."""
-    return "".join(random.choices(string.digits, k=length))
-
-
-def _send_otp_email(email: str, code: str):
-    """Send OTP code via Resend."""
-    try:
-        import resend
-        resend_key = os.environ.get("RESEND_API_KEY")
-        if not resend_key:
-            print(f"[BrokerOTP] RESEND_API_KEY not set, code for {email}: {code}")
-            return
-        resend.api_key = resend_key
-
-        resend.Emails.send({
-            "from": "Parity Employer <notifications@civicscale.ai>",
-            "to": [email],
-            "subject": f"Your Parity Broker login code: {code}",
-            "html": f"""
-            <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
-                <h2 style="color: #1B3A5C; margin-bottom: 8px;">Broker Portal Login</h2>
-                <p style="color: #64748b; font-size: 15px;">
-                    Use the code below to sign in to your Parity broker dashboard.
-                </p>
-                <div style="background: #f0fdfa; border: 2px solid #0D7377; border-radius: 12px;
-                            padding: 24px; text-align: center; margin: 24px 0;">
-                    <span style="font-size: 32px; font-weight: 700; letter-spacing: 6px; color: #1B3A5C;">
-                        {code}
-                    </span>
-                </div>
-                <p style="color: #94a3b8; font-size: 13px;">
-                    This code expires in 10 minutes. If you didn't request this, you can ignore this email.
-                </p>
-            </div>
-            """,
-        })
-        print(f"[BrokerOTP] Code sent to {email}")
-    except Exception as exc:
-        print(f"[BrokerOTP] Email send failed: {exc}")
-
-
-def _send_signup_otp_email(email: str, name: str, firm_name: str, code: str):
-    """Send welcome + OTP verification email via Resend."""
-    try:
-        import resend
-        resend_key = os.environ.get("RESEND_API_KEY")
-        if not resend_key:
-            print(f"[BrokerSignup] RESEND_API_KEY not set, code for {email}: {code}")
-            return
-        resend.api_key = resend_key
-
-        resend.Emails.send({
-            "from": "Parity Employer <notifications@civicscale.ai>",
-            "to": [email],
-            "subject": "Welcome to Parity Employer — verify your email",
-            "html": f"""
-            <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
-                <h2 style="color: #1B3A5C; margin-bottom: 8px;">Welcome {name} from {firm_name}</h2>
-                <p style="color: #475569; font-size: 15px; line-height: 1.7;">
-                    Thanks for creating a Parity Employer broker account. Enter the code below
-                    to verify your email and get started.
-                </p>
-                <div style="background: #f0fdfa; border: 2px solid #0D7377; border-radius: 12px;
-                            padding: 24px; text-align: center; margin: 24px 0;">
-                    <p style="color: #475569; font-size: 13px; margin: 0 0 8px;">Your verification code is:</p>
-                    <span style="font-size: 32px; font-weight: 700; letter-spacing: 6px; color: #1B3A5C;">
-                        {code}
-                    </span>
-                </div>
-                <p style="color: #94a3b8; font-size: 13px;">
-                    This code expires in 10 minutes.
-                </p>
-                <p style="color: #475569; font-size: 14px; line-height: 1.7;">
-                    After verifying, you can start adding clients and running benchmarks immediately.
-                </p>
-            </div>
-            """,
-        })
-        print(f"[BrokerSignup] Welcome + OTP sent to {email}")
-    except Exception as exc:
-        print(f"[BrokerSignup] Email send failed: {exc}")
-
-
-def _send_broker_welcome_email(email: str, contact_name: str):
-    """Send onboarding welcome email after broker verifies their account."""
-    name = contact_name or "there"
-    send_email(
-        to=email,
-        subject="Welcome to Parity Employer \u2014 here\u2019s how to get started",
-        html=f"""
-        <div style="font-family: Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
-            <h2 style="color: #1B3A5C; margin-bottom: 16px;">Welcome to Parity Employer</h2>
-            <p style="color: #475569; font-size: 15px; line-height: 1.8;">Hi {name},</p>
-            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
-                Your Parity Employer broker account is ready.
-            </p>
-            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
-                Here's how to get the most out of it in the next 10 minutes:
-            </p>
-            <ol style="color: #475569; font-size: 15px; line-height: 2.0; padding-left: 20px;">
-                <li><strong>Add your first client</strong> &rarr; <a href="https://civicscale.ai/broker/dashboard" style="color: #0D7377;">civicscale.ai/broker/dashboard</a></li>
-                <li><strong>Run a benchmark</strong> &mdash; enter their size, industry, state, and estimated PEPM</li>
-                <li><strong>Share the results</strong> &mdash; send them a link directly from your dashboard</li>
-            </ol>
-            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
-                If you have clients' claims files (835 EDI format) or Summary of Benefits PDFs,
-                you can run a deeper analysis from the claims check and plan scorecard tools.
-            </p>
-            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
-                Questions? Reply to this email.
-            </p>
-            <p style="color: #475569; font-size: 15px; line-height: 1.8;">
-                &mdash; The CivicScale Team
-            </p>
-        </div>
-        """,
-    )
+def _require_broker(authorization: str, sb=None):
+    """Validate auth and ensure user belongs to a broker company."""
+    if not sb:
+        sb = _get_supabase()
+    user = get_current_user(authorization, sb)
+    if user["company"]["type"] != "broker":
+        raise HTTPException(status_code=403, detail="Broker access only")
+    return user, sb
 
 
 # ---------------------------------------------------------------------------
@@ -232,18 +113,30 @@ def _send_broker_welcome_email(email: str, contact_name: str):
 STARTER_LIMIT = 10
 
 
-def _get_broker_plan(sb, broker_email: str) -> dict:
+def _get_broker_plan(sb, company_id: str) -> dict:
     """Returns broker plan info: plan, client_count, at_limit, subscription_period_end."""
-    broker = sb.table("broker_accounts").select("plan, subscription_period_end").eq("email", broker_email).execute()
-    plan = broker.data[0].get("plan", "starter") if broker.data else "starter"
-    period_end = broker.data[0].get("subscription_period_end") if broker.data else None
+    company = sb.table("companies").select("plan, stripe_subscription_id").eq("id", company_id).execute()
+    plan = company.data[0].get("plan", "starter") if company.data else "starter"
 
-    count_result = sb.table("broker_employer_links").select("id", count="exact").eq("broker_email", broker_email).execute()
-    client_count = count_result.count or 0
+    # Get broker email(s) for this company to count clients
+    users = sb.table("company_users").select("email").eq("company_id", company_id).eq("status", "active").execute()
+    broker_emails = [u["email"] for u in (users.data or [])]
+
+    # Count clients across all broker users in this firm
+    client_count = 0
+    for be in broker_emails:
+        count_result = sb.table("broker_employer_links").select("id", count="exact").eq("broker_email", be).execute()
+        client_count += count_result.count or 0
 
     # pro_cancelling still has Pro access until period end
     effective_plan = "pro" if plan == "pro_cancelling" else plan
     at_limit = effective_plan == "starter" and client_count >= STARTER_LIMIT
+
+    # Get subscription_period_end from Stripe if available
+    period_end = None
+    if company.data and company.data[0].get("stripe_subscription_id") and plan == "pro_cancelling":
+        # We don't store period_end on companies table, check if needed
+        period_end = None  # Will be set by cancel-subscription endpoint response
 
     return {
         "plan": plan,
@@ -259,10 +152,9 @@ def _get_broker_plan(sb, broker_email: str) -> dict:
 # ---------------------------------------------------------------------------
 
 @router.get("/plan")
-async def get_broker_plan(broker_email: str):
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-    return _get_broker_plan(sb, email)
+async def get_broker_plan_endpoint(authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    return _get_broker_plan(sb, user["company_id"])
 
 
 # ---------------------------------------------------------------------------
@@ -270,29 +162,26 @@ async def get_broker_plan(broker_email: str):
 # ---------------------------------------------------------------------------
 
 @router.post("/subscribe")
-async def broker_subscribe(broker_email: str):
+async def broker_subscribe(authorization: str = Header(None)):
     """Create Stripe checkout session for broker Pro upgrade."""
     import stripe
     stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
     price_id = os.environ.get("STRIPE_PRICE_BROKER_PRO")
 
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-    broker = sb.table("broker_accounts").select("id, contact_name, firm_name, stripe_customer_id, plan").eq("email", email).execute()
+    user, sb = _require_broker(authorization)
+    company = user["company"]
+    company_id = user["company_id"]
+    email = user["email"]
 
-    if not broker.data:
-        raise HTTPException(status_code=404, detail="Broker not found")
-
-    b = broker.data[0]
-    if b.get("plan") == "pro":
+    if company.get("plan") == "pro":
         return {"already_subscribed": True}
 
     # Get or create Stripe customer
-    customer_id = b.get("stripe_customer_id")
+    customer_id = company.get("stripe_customer_id")
     if not customer_id:
-        customer = stripe.Customer.create(email=email, name=b.get("firm_name", ""))
+        customer = stripe.Customer.create(email=email, name=company.get("name", ""))
         customer_id = customer.id
-        sb.table("broker_accounts").update({"stripe_customer_id": customer_id}).eq("email", email).execute()
+        sb.table("companies").update({"stripe_customer_id": customer_id}).eq("id", company_id).execute()
 
     session = stripe.checkout.Session.create(
         customer=customer_id,
@@ -301,7 +190,7 @@ async def broker_subscribe(broker_email: str):
         mode="subscription",
         success_url="https://civicscale.ai/broker/dashboard?upgraded=true",
         cancel_url="https://civicscale.ai/broker/dashboard?upgrade_cancelled=true",
-        metadata={"broker_email": email, "product": "broker_pro"},
+        metadata={"company_id": company_id, "broker_email": email, "product": "broker_pro"},
     )
 
     return {"checkout_url": session.url}
@@ -312,23 +201,19 @@ async def broker_subscribe(broker_email: str):
 # ---------------------------------------------------------------------------
 
 @router.post("/cancel-subscription")
-async def broker_cancel_subscription(broker_email: str):
+async def broker_cancel_subscription(authorization: str = Header(None)):
     """Cancel broker Pro subscription at end of current billing period."""
     import stripe
     stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-    broker = sb.table("broker_accounts").select("plan, stripe_subscription_id").eq("email", email).execute()
+    user, sb = _require_broker(authorization)
+    company = user["company"]
+    company_id = user["company_id"]
 
-    if not broker.data:
-        raise HTTPException(status_code=404, detail="Broker not found")
-
-    b = broker.data[0]
-    if b.get("plan") not in ("pro", "pro_cancelling"):
+    if company.get("plan") not in ("pro", "pro_cancelling"):
         raise HTTPException(status_code=400, detail="No active Pro subscription to cancel")
 
-    sub_id = b.get("stripe_subscription_id")
+    sub_id = company.get("stripe_subscription_id")
     if not sub_id:
         raise HTTPException(status_code=400, detail="No Stripe subscription found")
 
@@ -336,10 +221,9 @@ async def broker_cancel_subscription(broker_email: str):
     sub = stripe.Subscription.modify(sub_id, cancel_at_period_end=True)
     period_end = datetime.fromtimestamp(sub.current_period_end, tz=timezone.utc).isoformat()
 
-    sb.table("broker_accounts").update({
+    sb.table("companies").update({
         "plan": "pro_cancelling",
-        "subscription_period_end": period_end,
-    }).eq("email", email).execute()
+    }).eq("id", company_id).execute()
 
     return {"status": "cancelled", "period_end": period_end}
 
@@ -349,32 +233,27 @@ async def broker_cancel_subscription(broker_email: str):
 # ---------------------------------------------------------------------------
 
 @router.post("/reactivate-subscription")
-async def broker_reactivate_subscription(broker_email: str):
+async def broker_reactivate_subscription(authorization: str = Header(None)):
     """Reactivate a Pro subscription that was set to cancel at period end."""
     import stripe
     stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-    broker = sb.table("broker_accounts").select("plan, stripe_subscription_id").eq("email", email).execute()
+    user, sb = _require_broker(authorization)
+    company = user["company"]
+    company_id = user["company_id"]
 
-    if not broker.data:
-        raise HTTPException(status_code=404, detail="Broker not found")
-
-    b = broker.data[0]
-    if b.get("plan") != "pro_cancelling":
+    if company.get("plan") != "pro_cancelling":
         raise HTTPException(status_code=400, detail="Subscription is not pending cancellation")
 
-    sub_id = b.get("stripe_subscription_id")
+    sub_id = company.get("stripe_subscription_id")
     if not sub_id:
         raise HTTPException(status_code=400, detail="No Stripe subscription found")
 
     stripe.Subscription.modify(sub_id, cancel_at_period_end=False)
 
-    sb.table("broker_accounts").update({
+    sb.table("companies").update({
         "plan": "pro",
-        "subscription_period_end": None,
-    }).eq("email", email).execute()
+    }).eq("id", company_id).execute()
 
     return {"status": "reactivated"}
 
@@ -384,30 +263,24 @@ async def broker_reactivate_subscription(broker_email: str):
 # ---------------------------------------------------------------------------
 
 @router.get("/account")
-async def get_broker_account(broker_email: str):
+async def get_broker_account(authorization: str = Header(None)):
     """Return broker account info for the account page."""
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-    broker = sb.table("broker_accounts").select(
-        "email, contact_name, firm_name, phone, plan, stripe_subscription_id, subscription_period_end, created_at"
-    ).eq("email", email).execute()
+    user, sb = _require_broker(authorization)
+    company = user["company"]
+    company_id = user["company_id"]
 
-    if not broker.data:
-        raise HTTPException(status_code=404, detail="Broker not found")
-
-    b = broker.data[0]
-    plan_info = _get_broker_plan(sb, email)
+    plan_info = _get_broker_plan(sb, company_id)
 
     return {
-        "email": b.get("email"),
-        "contact_name": b.get("contact_name"),
-        "firm_name": b.get("firm_name"),
-        "phone": b.get("phone"),
+        "email": user["email"],
+        "contact_name": user.get("full_name", ""),
+        "firm_name": company.get("name", ""),
+        "phone": company.get("phone", ""),
         "plan": plan_info["plan"],
         "client_count": plan_info["client_count"],
         "client_limit": plan_info["client_limit"],
-        "subscription_period_end": b.get("subscription_period_end"),
-        "created_at": b.get("created_at"),
+        "subscription_period_end": plan_info.get("subscription_period_end"),
+        "created_at": company.get("created_at"),
     }
 
 
@@ -415,234 +288,51 @@ async def get_broker_account(broker_email: str):
 # PATCH /api/broker/account — update broker account details
 # ---------------------------------------------------------------------------
 
-class UpdateBrokerAccountRequest(BaseModel):
-    broker_email: str
-    contact_name: Optional[str] = None
-    firm_name: Optional[str] = None
-    phone: Optional[str] = None
-
-
 @router.patch("/account")
-async def update_broker_account(req: UpdateBrokerAccountRequest):
+async def update_broker_account(req: UpdateBrokerAccountRequest, authorization: str = Header(None)):
     """Update broker account info (name, firm, phone)."""
-    sb = _get_supabase()
-    email = req.broker_email.strip().lower()
+    user, sb = _require_broker(authorization)
+    company_id = user["company_id"]
 
-    update_data = {}
-    if req.contact_name is not None:
-        update_data["contact_name"] = req.contact_name.strip()
+    company_updates = {}
+    user_updates = {}
+
     if req.firm_name is not None:
-        update_data["firm_name"] = req.firm_name.strip()
+        company_updates["name"] = req.firm_name.strip()
     if req.phone is not None:
-        update_data["phone"] = req.phone.strip()
+        company_updates["phone"] = req.phone.strip()
+    if req.contact_name is not None:
+        user_updates["full_name"] = req.contact_name.strip()
 
-    if not update_data:
+    if not company_updates and not user_updates:
         raise HTTPException(status_code=400, detail="No fields to update")
 
-    result = sb.table("broker_accounts").update(update_data).eq("email", email).execute()
+    if company_updates:
+        sb.table("companies").update(company_updates).eq("id", company_id).execute()
 
-    if not result.data:
-        raise HTTPException(status_code=404, detail="Broker not found")
+    if user_updates:
+        # Update the company_user's full_name
+        sb.table("company_users").update(user_updates).eq(
+            "company_id", company_id
+        ).eq("email", user["email"]).execute()
 
-    return {"status": "updated", "updated_fields": list(update_data.keys())}
-
-
-# ---------------------------------------------------------------------------
-# POST /api/broker/auth/send-otp
-# ---------------------------------------------------------------------------
-
-@router.post("/auth/send-otp")
-async def send_otp(req: SendOtpRequest, request: Request):
-    check_rate_limit(request, max_requests=10, window_seconds=3600)
-
-    sb = _get_supabase()
-    email = req.email.strip().lower()
-
-    # Verify broker account exists and is active
-    result = sb.table("broker_accounts").select("id, firm_name, is_active").eq("email", email).execute()
-    if not result.data or not result.data[0].get("is_active", True):
-        raise HTTPException(status_code=403, detail="This email is not registered as a broker account.")
-
-    # Generate and store OTP
-    code = _generate_otp()
-    expires_at = (datetime.now(timezone.utc) + timedelta(minutes=10)).isoformat()
-
-    # Invalidate any previous unused codes for this email
-    sb.table("otp_codes").update({"used": True}).eq("email", email).eq("used", False).execute()
-
-    # Insert new code
-    sb.table("otp_codes").insert({
-        "email": email,
-        "code": code,
-        "expires_at": expires_at,
-        "used": False,
-    }).execute()
-
-    # Send email
-    _send_otp_email(email, code)
-
-    return {"sent": True}
+    return {"status": "updated", "updated_fields": list(company_updates.keys()) + list(user_updates.keys())}
 
 
 # ---------------------------------------------------------------------------
-# POST /api/broker/auth/verify-otp
-# ---------------------------------------------------------------------------
-
-@router.post("/auth/verify-otp")
-async def verify_otp(req: VerifyOtpRequest, request: Request):
-    check_rate_limit(request, max_requests=20, window_seconds=3600)
-
-    sb = _get_supabase()
-    email = req.email.strip().lower()
-    code = req.code.strip()
-
-    # Look up the OTP
-    result = (
-        sb.table("otp_codes")
-        .select("id, expires_at, used")
-        .eq("email", email)
-        .eq("code", code)
-        .eq("used", False)
-        .order("created_at", desc=True)
-        .limit(1)
-        .execute()
-    )
-
-    if not result.data:
-        raise HTTPException(status_code=401, detail="Invalid or expired code.")
-
-    otp_row = result.data[0]
-
-    # Check expiry
-    expires_at = datetime.fromisoformat(otp_row["expires_at"].replace("Z", "+00:00"))
-    if datetime.now(timezone.utc) > expires_at:
-        sb.table("otp_codes").update({"used": True}).eq("id", otp_row["id"]).execute()
-        raise HTTPException(status_code=401, detail="Code has expired. Please request a new one.")
-
-    # Mark used
-    sb.table("otp_codes").update({"used": True}).eq("id", otp_row["id"]).execute()
-
-    # Fetch broker info
-    broker = sb.table("broker_accounts").select("id, email, firm_name, contact_name, status").eq("email", email).single().execute()
-
-    # If broker was pending verification, activate them and send welcome email
-    if broker.data and broker.data.get("status") == "pending_verification":
-        sb.table("broker_accounts").update({"status": "active"}).eq("id", broker.data["id"]).execute()
-        _send_broker_welcome_email(
-            broker.data.get("email", email),
-            broker.data.get("contact_name", ""),
-        )
-
-    return {
-        "verified": True,
-        "broker": broker.data,
-    }
-
-
-# ---------------------------------------------------------------------------
-# POST /api/broker/auth/signup
-# ---------------------------------------------------------------------------
-
-@router.post("/auth/signup")
-async def broker_signup(req: BrokerSignupRequest, request: Request):
-    check_rate_limit(request, max_requests=10, window_seconds=3600)
-
-    sb = _get_supabase()
-    email = req.email.strip().lower()
-    name = req.name.strip()
-    firm_name = req.firm_name.strip()
-    phone = (req.phone or "").strip() or None
-
-    # Check if email already exists
-    existing = sb.table("broker_accounts").select("id").eq("email", email).execute()
-    if existing.data:
-        raise HTTPException(
-            status_code=409,
-            detail="An account with this email already exists. Use the login page to sign in.",
-        )
-
-    # Insert new broker account
-    sb.table("broker_accounts").insert({
-        "email": email,
-        "contact_name": name,
-        "firm_name": firm_name,
-        "phone": phone,
-        "status": "pending_verification",
-        "is_active": True,
-    }).execute()
-
-    # Generate and store OTP (8-digit)
-    code = _generate_otp(length=8)
-    expires_at = (datetime.now(timezone.utc) + timedelta(minutes=10)).isoformat()
-
-    sb.table("otp_codes").insert({
-        "email": email,
-        "code": code,
-        "expires_at": expires_at,
-        "used": False,
-    }).execute()
-
-    # Send welcome + OTP email
-    _send_signup_otp_email(email, name, firm_name, code)
-
-    return {"message": "Verification code sent", "email": email}
-
-
-# ---------------------------------------------------------------------------
-# POST /api/broker/auth/resend-otp
-# ---------------------------------------------------------------------------
-
-@router.post("/auth/resend-otp")
-async def resend_otp(req: SendOtpRequest, request: Request):
-    check_rate_limit(request, max_requests=10, window_seconds=3600)
-
-    sb = _get_supabase()
-    email = req.email.strip().lower()
-
-    # Verify broker account exists
-    result = sb.table("broker_accounts").select("id, contact_name, firm_name").eq("email", email).execute()
-    if not result.data:
-        raise HTTPException(status_code=404, detail="No account found with this email.")
-
-    # Invalidate previous codes
-    sb.table("otp_codes").update({"used": True}).eq("email", email).eq("used", False).execute()
-
-    # Generate and store new OTP (8-digit)
-    code = _generate_otp(length=8)
-    expires_at = (datetime.now(timezone.utc) + timedelta(minutes=10)).isoformat()
-
-    sb.table("otp_codes").insert({
-        "email": email,
-        "code": code,
-        "expires_at": expires_at,
-        "used": False,
-    }).execute()
-
-    # Send OTP email
-    _send_otp_email(email, code)
-
-    return {"sent": True}
-
-
-# ---------------------------------------------------------------------------
-# GET /api/broker/clients?broker_email=...
+# GET /api/broker/clients
 # ---------------------------------------------------------------------------
 
 @router.get("/clients")
-async def list_clients(broker_email: str):
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-
-    # Verify broker exists
-    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
+async def list_clients(authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
 
     # Get linked employers
     links = (
         sb.table("broker_employer_links")
         .select("employer_email, linked_at, status, company_name, employee_count_range, industry, state, carrier")
-        .eq("broker_email", email)
+        .eq("broker_email", broker_email)
         .order("linked_at", desc=True)
         .execute()
     )
@@ -675,7 +365,7 @@ async def list_clients(broker_email: str):
         bench = (
             sb.table("broker_client_benchmarks")
             .select("id, share_token, view_count, created_at")
-            .eq("broker_email", email)
+            .eq("broker_email", broker_email)
             .eq("employer_email", emp_email)
             .order("created_at", desc=True)
             .limit(1)
@@ -718,19 +408,18 @@ async def list_clients(broker_email: str):
 # POST /api/broker/clients/add
 # ---------------------------------------------------------------------------
 
+class AddClientRequest(BaseModel):
+    employer_email: str
+
+
 @router.post("/clients/add")
-async def add_client(req: AddClientRequest):
-    sb = _get_supabase()
-    broker_email = req.broker_email.strip().lower()
+async def add_client(req: AddClientRequest, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
     employer_email = req.employer_email.strip().lower()
 
-    # Verify broker exists
-    broker = sb.table("broker_accounts").select("id").eq("email", broker_email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
-
     # Check plan limit
-    plan_info = _get_broker_plan(sb, broker_email)
+    plan_info = _get_broker_plan(sb, user["company_id"])
     if plan_info["at_limit"]:
         raise HTTPException(status_code=403, detail="CLIENT_LIMIT_REACHED")
 
@@ -765,19 +454,19 @@ async def add_client(req: AddClientRequest):
 
 
 # ---------------------------------------------------------------------------
-# DELETE /api/broker/clients/{employer_email}?broker_email=...
+# DELETE /api/broker/clients/{employer_email}
 # ---------------------------------------------------------------------------
 
 @router.delete("/clients/{employer_email}")
-async def remove_client(employer_email: str, broker_email: str):
-    sb = _get_supabase()
-    b_email = broker_email.strip().lower()
+async def remove_client(employer_email: str, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
     e_email = employer_email.strip().lower()
 
     result = (
         sb.table("broker_employer_links")
         .delete()
-        .eq("broker_email", b_email)
+        .eq("broker_email", broker_email)
         .eq("employer_email", e_email)
         .execute()
     )
@@ -787,20 +476,20 @@ async def remove_client(employer_email: str, broker_email: str):
 
 
 # ---------------------------------------------------------------------------
-# GET /api/broker/clients/{employer_email}/summary?broker_email=...
+# GET /api/broker/clients/{employer_email}/summary
 # ---------------------------------------------------------------------------
 
 @router.get("/clients/{employer_email}/summary")
-async def client_summary(employer_email: str, broker_email: str):
-    sb = _get_supabase()
-    b_email = broker_email.strip().lower()
+async def client_summary(employer_email: str, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
     e_email = employer_email.strip().lower()
 
     # Verify broker-employer link exists
     link = (
         sb.table("broker_employer_links")
         .select("id")
-        .eq("broker_email", b_email)
+        .eq("broker_email", broker_email)
         .eq("employer_email", e_email)
         .execute()
     )
@@ -999,24 +688,16 @@ def _run_benchmark(industry: str, company_size: str, state: str, pepm_input: flo
 # ---------------------------------------------------------------------------
 
 @router.post("/clients/onboard")
-async def onboard_client(req: BrokerOnboardRequest, request: Request):
-    check_rate_limit(request, max_requests=10)
-
-    sb = _get_supabase()
-    broker_email = req.broker_email.strip().lower()
+async def onboard_client(req: BrokerOnboardRequest, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
     employer_email = (req.employer_email or "").strip().lower() or None
-
-    # Verify broker exists
-    broker = sb.table("broker_accounts").select("id, firm_name").eq("email", broker_email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
+    firm_name = user["company"].get("name", "")
 
     # Check plan limit
-    plan_info = _get_broker_plan(sb, broker_email)
+    plan_info = _get_broker_plan(sb, user["company_id"])
     if plan_info["at_limit"]:
         raise HTTPException(status_code=403, detail="CLIENT_LIMIT_REACHED")
-
-    firm_name = broker.data[0].get("firm_name", "")
 
     # Create or update broker-employer link (no employer account required)
     link_email = employer_email or f"pending-{uuid.uuid4().hex[:8]}@broker-onboarded"
@@ -1097,34 +778,11 @@ async def onboard_client(req: BrokerOnboardRequest, request: Request):
 # POST /api/broker/clients/bulk-onboard — add multiple clients at once
 # ---------------------------------------------------------------------------
 
-class BulkOnboardRow(BaseModel):
-    company_name: str
-    employee_count_range: str
-    industry: str
-    state: str
-    carrier: Optional[str] = None
-    estimated_pepm: Optional[float] = None
-    renewal_month: Optional[str] = None  # format: "YYYY-MM"
-
-
-class BulkOnboardRequest(BaseModel):
-    broker_email: str
-    clients: list[BulkOnboardRow]
-
-
 @router.post("/clients/bulk-onboard")
-async def bulk_onboard(req: BulkOnboardRequest, request: Request):
-    check_rate_limit(request, max_requests=5)
-
-    sb = _get_supabase()
-    broker_email = req.broker_email.strip().lower()
-
-    # Verify broker exists
-    broker = sb.table("broker_accounts").select("id, firm_name").eq("email", broker_email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
-
-    firm_name = broker.data[0].get("firm_name", "")
+async def bulk_onboard(req: BulkOnboardRequest, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
+    firm_name = user["company"].get("name", "")
 
     if len(req.clients) > 50:
         raise HTTPException(status_code=400, detail="Maximum 50 clients per bulk upload.")
@@ -1218,8 +876,7 @@ async def bulk_onboard(req: BulkOnboardRequest, request: Request):
     failed = sum(1 for r in results if not r["success"])
 
     # Send bulk onboard summary email
-    broker_acct = sb.table("broker_accounts").select("contact_name").eq("email", broker_email).execute()
-    b_name = broker_acct.data[0].get("contact_name", "there") if broker_acct.data else "there"
+    b_name = user.get("full_name") or "there"
     failed_line = f"<br/>{failed} failed" if failed > 0 else ""
     send_email(
         to=broker_email,
@@ -1248,20 +905,20 @@ async def bulk_onboard(req: BulkOnboardRequest, request: Request):
 
 
 # ---------------------------------------------------------------------------
-# GET /api/broker/clients/{employer_email}/share-link?broker_email=...
+# GET /api/broker/clients/{employer_email}/share-link
 # ---------------------------------------------------------------------------
 
 @router.get("/clients/{employer_email}/share-link")
-async def get_share_link(employer_email: str, broker_email: str):
-    sb = _get_supabase()
-    b_email = broker_email.strip().lower()
+async def get_share_link(employer_email: str, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
     e_email = employer_email.strip().lower()
 
     # Verify broker-employer link
     link = (
         sb.table("broker_employer_links")
         .select("id")
-        .eq("broker_email", b_email)
+        .eq("broker_email", broker_email)
         .eq("employer_email", e_email)
         .execute()
     )
@@ -1272,7 +929,7 @@ async def get_share_link(employer_email: str, broker_email: str):
     bench = (
         sb.table("broker_client_benchmarks")
         .select("id, share_token, share_token_created_at")
-        .eq("broker_email", b_email)
+        .eq("broker_email", broker_email)
         .eq("employer_email", e_email)
         .order("created_at", desc=True)
         .limit(1)
@@ -1282,7 +939,6 @@ async def get_share_link(employer_email: str, broker_email: str):
     if bench.data:
         token = bench.data[0]["share_token"]
     else:
-        # No benchmark exists — generate a placeholder (shouldn't happen in normal flow)
         raise HTTPException(status_code=404, detail="No benchmark found for this client. Run a benchmark first.")
 
     site_url = os.environ.get("VITE_SITE_URL", "https://civicscale.ai")
@@ -1293,37 +949,33 @@ async def get_share_link(employer_email: str, broker_email: str):
 
 
 # ---------------------------------------------------------------------------
-# POST /api/broker/clients/{employer_email}/notify?broker_email=...
+# POST /api/broker/clients/{employer_email}/notify
 # ---------------------------------------------------------------------------
 
 @router.post("/clients/{employer_email}/notify")
-async def notify_client(employer_email: str, req: NotifyClientRequest, request: Request):
-    check_rate_limit(request, max_requests=10)
-
-    sb = _get_supabase()
-    b_email = req.broker_email.strip().lower()
+async def notify_client(employer_email: str, req: NotifyClientRequest, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
     e_email = employer_email.strip().lower()
 
     # Verify broker-employer link
     link = (
         sb.table("broker_employer_links")
         .select("id, company_name")
-        .eq("broker_email", b_email)
+        .eq("broker_email", broker_email)
         .eq("employer_email", e_email)
         .execute()
     )
     if not link.data:
         raise HTTPException(status_code=403, detail="No access to this employer.")
 
-    # Get broker info
-    broker = sb.table("broker_accounts").select("firm_name, contact_name").eq("email", b_email).execute()
-    firm_name = broker.data[0].get("firm_name", "your broker") if broker.data else "your broker"
+    firm_name = user["company"].get("name", "your broker")
 
     # Get share token
     bench = (
         sb.table("broker_client_benchmarks")
         .select("share_token, company_name")
-        .eq("broker_email", b_email)
+        .eq("broker_email", broker_email)
         .eq("employer_email", e_email)
         .order("created_at", desc=True)
         .limit(1)
@@ -1371,7 +1023,7 @@ async def notify_client(employer_email: str, req: NotifyClientRequest, request: 
                 </a>
             </div>
             <p style="color: #64748b; font-size: 13px;">
-                Plans start at $149/month with a 3x savings guarantee.
+                Plans start at $99/month with a 30-day free trial.
             </p>
             <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
             <p style="color: #94a3b8; font-size: 12px;">
@@ -1439,20 +1091,20 @@ async def notify_client(employer_email: str, req: NotifyClientRequest, request: 
 
 
 # ---------------------------------------------------------------------------
-# GET /api/broker/clients/{employer_email}/activity?broker_email=...
+# GET /api/broker/clients/{employer_email}/activity
 # ---------------------------------------------------------------------------
 
 @router.get("/clients/{employer_email}/activity")
-async def client_activity(employer_email: str, broker_email: str):
-    sb = _get_supabase()
-    b_email = broker_email.strip().lower()
+async def client_activity(employer_email: str, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
     e_email = employer_email.strip().lower()
 
     # Verify broker-employer link
     link = (
         sb.table("broker_employer_links")
         .select("id")
-        .eq("broker_email", b_email)
+        .eq("broker_email", broker_email)
         .eq("employer_email", e_email)
         .execute()
     )
@@ -1540,24 +1192,19 @@ async def client_activity(employer_email: str, broker_email: str):
 
 
 # ---------------------------------------------------------------------------
-# GET /api/broker/portfolio?broker_email=...
+# GET /api/broker/portfolio
 # ---------------------------------------------------------------------------
 
 @router.get("/portfolio")
-async def broker_portfolio(broker_email: str):
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-
-    # Verify broker exists
-    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
+async def broker_portfolio(authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
 
     # Get all linked clients
     links = (
         sb.table("broker_employer_links")
         .select("employer_email, company_name, employee_count_range, industry, state, carrier, renewal_month, linked_at")
-        .eq("broker_email", email)
+        .eq("broker_email", broker_email)
         .order("linked_at", desc=True)
         .execute()
     )
@@ -1576,7 +1223,7 @@ async def broker_portfolio(broker_email: str):
         bench = (
             sb.table("broker_client_benchmarks")
             .select("benchmark_result, share_token, view_count, created_at")
-            .eq("broker_email", email)
+            .eq("broker_email", broker_email)
             .eq("employer_email", emp_email)
             .order("created_at", desc=True)
             .limit(1)
@@ -1681,20 +1328,15 @@ async def broker_portfolio(broker_email: str):
 # ---------------------------------------------------------------------------
 
 @router.get("/renewal-pipeline")
-async def renewal_pipeline(broker_email: str):
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-
-    # Verify broker exists
-    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
+async def renewal_pipeline(authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
 
     # Get all linked clients
     links = (
         sb.table("broker_employer_links")
         .select("employer_email, company_name, employee_count_range, industry, state, carrier, renewal_month")
-        .eq("broker_email", email)
+        .eq("broker_email", broker_email)
         .order("renewal_month")
         .execute()
     )
@@ -1713,7 +1355,7 @@ async def renewal_pipeline(broker_email: str):
         bench = (
             sb.table("broker_client_benchmarks")
             .select("id")
-            .eq("broker_email", email)
+            .eq("broker_email", broker_email)
             .eq("employer_email", emp_email)
             .limit(1)
             .execute()
@@ -1795,23 +1437,21 @@ async def renewal_pipeline(broker_email: str):
 # ---------------------------------------------------------------------------
 
 @router.get("/renewal-prep/{company_name}")
-async def renewal_prep(company_name: str, broker_email: str):
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
+async def renewal_prep(company_name: str, authorization: str = Header(None)):
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
     decoded_name = company_name.replace("-", " ")
 
-    # Verify broker exists and get info
-    broker = sb.table("broker_accounts").select("id, firm_name, contact_name").eq("email", email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
-
-    broker_info = broker.data[0]
+    broker_info = {
+        "firm_name": user["company"].get("name", ""),
+        "contact_name": user.get("full_name", ""),
+    }
 
     # Find matching client link (case-insensitive match on company name)
     links = (
         sb.table("broker_employer_links")
         .select("employer_email, company_name, employee_count_range, industry, state, carrier, renewal_month")
-        .eq("broker_email", email)
+        .eq("broker_email", broker_email)
         .execute()
     )
 
@@ -1830,7 +1470,7 @@ async def renewal_prep(company_name: str, broker_email: str):
     bench = (
         sb.table("broker_client_benchmarks")
         .select("benchmark_result, estimated_pepm, share_token, created_at")
-        .eq("broker_email", email)
+        .eq("broker_email", broker_email)
         .eq("employer_email", emp_email)
         .order("created_at", desc=True)
         .limit(1)
@@ -1905,10 +1545,7 @@ async def renewal_prep(company_name: str, broker_email: str):
         pass
 
     return {
-        "broker": {
-            "firm_name": broker_info.get("firm_name", ""),
-            "contact_name": broker_info.get("contact_name", ""),
-        },
+        "broker": broker_info,
         "client": {
             "company_name": link.get("company_name") or decoded_name,
             "industry": link.get("industry", ""),
@@ -1930,16 +1567,11 @@ async def renewal_prep(company_name: str, broker_email: str):
 
 @router.post("/profile/logo")
 async def upload_broker_logo(
-    broker_email: str = Form(...),
     file: UploadFile = File(...),
+    authorization: str = Header(None),
 ):
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-
-    # Verify broker exists
-    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
+    user, sb = _require_broker(authorization)
+    company_id = user["company_id"]
 
     # Validate file type
     allowed = {"image/png", "image/jpeg", "image/gif", "image/webp", "image/svg+xml"}
@@ -1954,8 +1586,7 @@ async def upload_broker_logo(
     # Determine extension
     ext_map = {"image/png": "png", "image/jpeg": "jpg", "image/gif": "gif", "image/webp": "webp", "image/svg+xml": "svg"}
     ext = ext_map.get(file.content_type, "png")
-    safe_email = email.replace("@", "_at_").replace(".", "_")
-    storage_path = f"broker-logos/{safe_email}/logo.{ext}"
+    storage_path = f"broker-logos/{company_id}/logo.{ext}"
 
     try:
         # Upload to Supabase storage (upsert)
@@ -1968,8 +1599,8 @@ async def upload_broker_logo(
         # Get public URL
         public_url = sb.storage.from_("broker-assets").get_public_url(storage_path)
 
-        # Update broker_accounts
-        sb.table("broker_accounts").update({"logo_url": public_url}).eq("id", broker.data[0]["id"]).execute()
+        # Update companies table
+        sb.table("companies").update({"logo_url": public_url}).eq("id", company_id).execute()
 
         return {"logo_url": public_url}
     except Exception as exc:
@@ -2014,9 +1645,9 @@ async def send_renewal_reminders(request: Request):
         company = link.get("company_name") or emp_email
         renewal_month = link.get("renewal_month", "")
 
-        # Get broker name
-        broker = sb.table("broker_accounts").select("contact_name").eq("email", broker_email).execute()
-        broker_name = broker.data[0].get("contact_name", "there") if broker.data else "there"
+        # Get broker name from company_users
+        cu = sb.table("company_users").select("full_name").eq("email", broker_email).limit(1).execute()
+        broker_name = cu.data[0].get("full_name", "there") if cu.data else "there"
 
         # Build checklist status
         has_benchmark = bool(
@@ -2087,27 +1718,11 @@ async def send_renewal_reminders(request: Request):
 # Prospect benchmarking — preliminary assessments for potential clients
 # ---------------------------------------------------------------------------
 
-class ProspectBenchmarkRequest(BaseModel):
-    broker_email: str
-    company_name: str
-    employee_count_range: str
-    industry: str
-    state: str
-    carrier: Optional[str] = None
-
-
 @router.post("/prospect-benchmark")
-async def prospect_benchmark(req: ProspectBenchmarkRequest, request: Request):
+async def prospect_benchmark(req: ProspectBenchmarkRequest, authorization: str = Header(None)):
     """Run a preliminary benchmark for a prospect using only segment data (no PEPM)."""
-    check_rate_limit(request, max_requests=20)
-
-    sb = _get_supabase()
-    broker_email = req.broker_email.strip().lower()
-
-    # Verify broker exists
-    broker = sb.table("broker_accounts").select("id").eq("email", broker_email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
 
     # Build segment distribution
     from routers.employer_benchmark import _interpret_percentile
@@ -2198,22 +1813,91 @@ async def prospect_benchmark(req: ProspectBenchmarkRequest, request: Request):
 
 
 @router.get("/prospects")
-async def list_prospects(broker_email: str):
+async def list_prospects(authorization: str = Header(None)):
     """Return recent prospect benchmarks for a broker."""
-    sb = _get_supabase()
-    email = broker_email.strip().lower()
-
-    broker = sb.table("broker_accounts").select("id").eq("email", email).execute()
-    if not broker.data:
-        raise HTTPException(status_code=403, detail="Broker account not found.")
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
 
     prospects = (
         sb.table("broker_prospect_benchmarks")
         .select("id, company_name, employee_count_range, industry, state, carrier, result_json, created_at")
-        .eq("broker_email", email)
+        .eq("broker_email", broker_email)
         .order("created_at", desc=True)
         .limit(50)
         .execute()
     )
 
     return {"prospects": prospects.data or []}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/invite-employer — invite employer client (commission tracking)
+# ---------------------------------------------------------------------------
+
+@router.post("/invite-employer")
+async def invite_employer(req: InviteEmployerRequest, authorization: str = Header(None)):
+    """Invite an employer client. Creates invitation + commission tracking record."""
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
+    company_id = user["company_id"]
+    employer_email = req.email.strip().lower()
+
+    firm_name = user["company"].get("name", "your broker")
+    inviter_name = user.get("full_name") or broker_email
+
+    # Check if already invited
+    existing = sb.table("company_invitations").select("id").eq(
+        "invited_email", employer_email
+    ).eq("referring_company_id", company_id).eq("status", "pending").execute()
+
+    if existing.data:
+        return {"invited": False, "reason": "This employer has already been invited."}
+
+    # Create company_invitation with employer_referral type
+    invite = sb.table("company_invitations").insert({
+        "company_id": company_id,  # broker's company
+        "invited_email": employer_email,
+        "invited_by_email": broker_email,
+        "role": "admin",  # employer will be admin of their own company
+        "invitation_type": "employer_referral",
+        "referring_company_id": company_id,
+    }).execute()
+
+    # Create pending commission record
+    sb.table("broker_commissions").insert({
+        "broker_company_id": company_id,
+        "commission_rate": user["company"].get("broker_commission_rate", 0.20),
+        "status": "pending",
+    }).execute()
+
+    # Send invitation email
+    signup_url = "https://civicscale.ai/billing/employer/signup"
+    send_email(
+        to=employer_email,
+        subject=f"{inviter_name} from {firm_name} invites you to Parity Employer",
+        html=f"""
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
+            <h2 style="color: #0d9488;">You've been invited to Parity Employer</h2>
+            <p style="color: #475569; font-size: 15px; line-height: 1.7;">
+                {inviter_name} from {firm_name} is inviting you to try Parity Employer — a platform
+                that helps self-insured employers identify excess health plan spend through
+                claims analysis, benchmarking, and plan grading.
+            </p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.7;">
+                Get started with a 30-day free trial — no credit card required to explore.
+            </p>
+            <a href="{signup_url}" style="display: inline-block; background: #0d9488; color: white;
+                padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold;
+                font-size: 15px; margin: 16px 0;">
+                Start Free Trial &rarr;
+            </a>
+            <p style="color: #64748b; font-size: 13px; margin-top: 16px;">
+                Questions about this invitation? Contact {firm_name} directly — they can
+                walk you through the platform.
+            </p>
+            <p style="color: #999; font-size: 12px;">CivicScale &middot; civicscale.ai</p>
+        </div>
+        """,
+    )
+
+    return {"invited": True, "email": employer_email}
