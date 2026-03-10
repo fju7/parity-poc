@@ -1,20 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import AuthGate from "./AuthGate";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-export default function BrokerAccountPage() {
+function BrokerAccountInner() {
   const navigate = useNavigate();
-  const { token, user, company, logout: authLogout, isAuthenticated, refetch } = useAuth();
-
-  // Redirect if not authenticated as broker
-  useEffect(() => {
-    if (!isAuthenticated) { navigate("/broker/login"); }
-    else if (company?.type !== "broker") { navigate("/"); }
-  }, [isAuthenticated, company]);
+  const { token, user, company, logout: authLogout, refetch } = useAuth();
 
   const [account, setAccount] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -40,8 +35,15 @@ export default function BrokerAccountPage() {
   // Team management
   const [teamMembers, setTeamMembers] = useState([]);
   const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState("member");
   const [inviteLoading, setInviteLoading] = useState(false);
   const [inviteMsg, setInviteMsg] = useState("");
+
+  // Deletion modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteConfirmName, setDeleteConfirmName] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [deleteMsg, setDeleteMsg] = useState("");
 
   const authHeaders = { Authorization: `Bearer ${token}` };
 
@@ -183,12 +185,13 @@ export default function BrokerAccountPage() {
       const res = await fetch(`${API}/api/auth/invite`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...authHeaders },
-        body: JSON.stringify({ email: inviteEmail.trim().toLowerCase(), role: "member" }),
+        body: JSON.stringify({ invited_email: inviteEmail.trim().toLowerCase(), role: inviteRole }),
       });
       const data = await res.json();
       if (res.ok) {
         setInviteMsg("Invitation sent!");
         setInviteEmail("");
+        setInviteRole("member");
         fetchTeam();
         setTimeout(() => setInviteMsg(""), 3000);
       } else {
@@ -196,6 +199,48 @@ export default function BrokerAccountPage() {
       }
     } catch { setInviteMsg("Failed to send invite."); }
     setInviteLoading(false);
+  };
+
+  const handleUpdateRole = async (userId, newRole) => {
+    try {
+      await fetch(`${API}/api/auth/users/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify({ role: newRole }),
+      });
+      fetchTeam();
+    } catch { /* ignore */ }
+  };
+
+  const handleRemoveUser = async (userId, email) => {
+    if (!confirm(`Remove ${email} from this account?`)) return;
+    try {
+      await fetch(`${API}/api/auth/users/${userId}`, {
+        method: "DELETE",
+        headers: authHeaders,
+      });
+      fetchTeam();
+    } catch { /* ignore */ }
+  };
+
+  const handleDeletionRequest = async () => {
+    setDeleting(true);
+    setDeleteMsg("");
+    try {
+      const res = await fetch(`${API}/api/auth/deletion-request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify({ confirm_company_name: deleteConfirmName }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setDeleteMsg(data.detail || "Request failed."); return; }
+      setDeleteMsg("Deletion request submitted. Check your email for confirmation.");
+      setTimeout(() => { setShowDeleteModal(false); setDeleteMsg(""); setDeleteConfirmName(""); }, 4000);
+    } catch {
+      setDeleteMsg("Failed to submit request.");
+    } finally {
+      setDeleting(false);
+    }
   };
 
   const handleLogout = () => {
@@ -301,60 +346,87 @@ export default function BrokerAccountPage() {
           </div>
         </div>
 
-        {/* Team Management Section (admin only) */}
-        {isAdmin && (
-          <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
-            <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1B3A5C", margin: "0 0 20px" }}>Team Members</h2>
+        {/* Team Management Section */}
+        <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
+          <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1B3A5C", margin: "0 0 20px" }}>Team Members</h2>
 
-            {/* Current members */}
-            <div style={{ marginBottom: 20 }}>
-              {teamMembers.map((m) => (
-                <div key={m.id || m.email} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: "1px solid #f1f5f9" }}>
-                  <div>
-                    <p style={{ margin: 0, fontSize: 14, fontWeight: 500, color: "#1B3A5C" }}>{m.full_name || m.email}</p>
-                    <p style={{ margin: "2px 0 0", fontSize: 12, color: "#94a3b8" }}>{m.email}</p>
-                  </div>
-                  <span style={{
-                    fontSize: 11, fontWeight: 600, textTransform: "uppercase",
-                    padding: "2px 8px", borderRadius: 10,
-                    background: m.role === "admin" ? "#f0fdfa" : "#f1f5f9",
-                    color: m.role === "admin" ? "#0D7377" : "#64748b",
-                  }}>
-                    {m.role}
-                  </span>
+          {/* Current members */}
+          <div style={{ marginBottom: 20 }}>
+            {teamMembers.map((m) => (
+              <div key={m.id || m.email} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: "1px solid #f1f5f9" }}>
+                <div>
+                  <p style={{ margin: 0, fontSize: 14, fontWeight: 500, color: "#1B3A5C" }}>{m.full_name || m.email}</p>
+                  <p style={{ margin: "2px 0 0", fontSize: 12, color: "#94a3b8" }}>{m.email}</p>
                 </div>
-              ))}
-              {teamMembers.length === 0 && (
-                <p style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>No team members yet.</p>
-              )}
-            </div>
-
-            {/* Invite form */}
-            <div style={{ display: "flex", gap: 10, alignItems: "flex-end" }}>
-              <div style={{ flex: 1 }}>
-                <label style={{ fontSize: 13, fontWeight: 600, color: "#475569", display: "block", marginBottom: 4 }}>Invite team member</label>
-                <input
-                  type="email"
-                  value={inviteEmail}
-                  onChange={(e) => setInviteEmail(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleInviteTeamMember()}
-                  placeholder="colleague@firm.com"
-                  style={{ width: "100%", padding: "10px 12px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 14, fontFamily: "inherit", boxSizing: "border-box" }}
-                />
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  {isAdmin && m.email !== user?.email ? (
+                    <>
+                      <select value={m.role} onChange={e => handleUpdateRole(m.id, e.target.value)}
+                        style={{ border: "1px solid #d1d5db", borderRadius: 6, fontSize: 12, padding: "4px 8px",
+                                 background: "#fff", color: "#475569" }}>
+                        <option value="admin">Admin</option>
+                        <option value="member">Member</option>
+                        <option value="viewer">Viewer</option>
+                      </select>
+                      <button onClick={() => handleRemoveUser(m.id, m.email)}
+                        style={{ background: "none", border: "none", color: "#dc2626", fontSize: 12,
+                                 cursor: "pointer", padding: "4px 8px" }}>
+                        Remove
+                      </button>
+                    </>
+                  ) : (
+                    <span style={{
+                      fontSize: 11, fontWeight: 600, textTransform: "uppercase",
+                      padding: "2px 8px", borderRadius: 10,
+                      background: m.role === "admin" ? "#f0fdfa" : "#f1f5f9",
+                      color: m.role === "admin" ? "#0D7377" : "#64748b",
+                    }}>
+                      {m.role}
+                    </span>
+                  )}
+                </div>
               </div>
-              <button
-                onClick={handleInviteTeamMember}
-                disabled={inviteLoading}
-                style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: inviteLoading ? "default" : "pointer", opacity: inviteLoading ? 0.7 : 1, whiteSpace: "nowrap" }}
-              >
-                {inviteLoading ? "Sending..." : "Send Invite"}
-              </button>
-            </div>
-            {inviteMsg && (
-              <p style={{ fontSize: 13, marginTop: 8, marginBottom: 0, color: inviteMsg.includes("Failed") || inviteMsg.includes("valid") ? "#dc2626" : "#16a34a", fontWeight: 500 }}>{inviteMsg}</p>
+            ))}
+            {teamMembers.length === 0 && (
+              <p style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>No team members yet.</p>
             )}
           </div>
-        )}
+
+          {/* Invite form (admin only) */}
+          {isAdmin && (
+            <>
+              <div style={{ display: "flex", gap: 10, alignItems: "flex-end" }}>
+                <div style={{ flex: 1 }}>
+                  <label style={{ fontSize: 13, fontWeight: 600, color: "#475569", display: "block", marginBottom: 4 }}>Invite team member</label>
+                  <input
+                    type="email"
+                    value={inviteEmail}
+                    onChange={(e) => setInviteEmail(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleInviteTeamMember()}
+                    placeholder="colleague@firm.com"
+                    style={{ width: "100%", padding: "10px 12px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 14, fontFamily: "inherit", boxSizing: "border-box" }}
+                  />
+                </div>
+                <select value={inviteRole} onChange={e => setInviteRole(e.target.value)}
+                  style={{ padding: "10px 12px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 14, background: "#fff" }}>
+                  <option value="member">Member</option>
+                  <option value="viewer">Viewer</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <button
+                  onClick={handleInviteTeamMember}
+                  disabled={inviteLoading}
+                  style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: inviteLoading ? "default" : "pointer", opacity: inviteLoading ? 0.7 : 1, whiteSpace: "nowrap" }}
+                >
+                  {inviteLoading ? "Sending..." : "Send Invite"}
+                </button>
+              </div>
+              {inviteMsg && (
+                <p style={{ fontSize: 13, marginTop: 8, marginBottom: 0, color: inviteMsg.includes("Failed") || inviteMsg.includes("valid") ? "#dc2626" : "#16a34a", fontWeight: 500 }}>{inviteMsg}</p>
+              )}
+            </>
+          )}
+        </div>
 
         {/* Plan & Billing Section */}
         <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
@@ -423,10 +495,18 @@ export default function BrokerAccountPage() {
         {/* Data & Privacy Section */}
         <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1B3A5C", margin: "0 0 12px" }}>Data & Privacy</h2>
-          <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: 0 }}>
+          <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: "0 0 16px" }}>
             Your data is stored securely and never shared with third parties.
-            To request data export or account deletion, contact <a href="mailto:support@civicscale.ai" style={{ color: "#0D7377" }}>support@civicscale.ai</a>.
+            You can request a full data export or account deletion at any time.
           </p>
+          {isAdmin && (
+            <button onClick={() => setShowDeleteModal(true)}
+              style={{ background: "none", border: "1px solid #fecaca", borderRadius: 8,
+                       padding: "8px 16px", color: "#dc2626", fontSize: 13, fontWeight: 600,
+                       cursor: "pointer" }}>
+              Request Data Deletion
+            </button>
+          )}
         </div>
 
         {/* Account created */}
@@ -468,6 +548,57 @@ export default function BrokerAccountPage() {
           </div>
         </div>
       )}
+
+      {/* Deletion Confirmation Modal */}
+      {showDeleteModal && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center" }}
+             onClick={() => { setShowDeleteModal(false); setDeleteMsg(""); setDeleteConfirmName(""); }}>
+          <div onClick={e => e.stopPropagation()}
+               style={{ background: "#fff", borderRadius: 16, padding: 32, maxWidth: 440, width: "90%", boxShadow: "0 20px 60px rgba(0,0,0,0.15)" }}>
+            <h3 style={{ fontSize: 18, fontWeight: 700, color: "#dc2626", margin: "0 0 8px" }}>
+              Request Data Deletion
+            </h3>
+            <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.6, marginBottom: 16 }}>
+              This will permanently delete all your firm's data including client benchmarks,
+              reports, and team accounts. This action cannot be undone.
+            </p>
+            <p style={{ fontSize: 13, color: "#64748b", marginBottom: 8 }}>
+              Type <strong style={{ color: "#1B3A5C" }}>{company?.name}</strong> to confirm:
+            </p>
+            <input value={deleteConfirmName} onChange={e => setDeleteConfirmName(e.target.value)}
+              placeholder="Type company name"
+              style={{ width: "100%", padding: "10px 12px", border: "1px solid #d1d5db", borderRadius: 8,
+                       fontSize: 14, marginBottom: 16, boxSizing: "border-box" }} />
+            <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+              <button onClick={() => { setShowDeleteModal(false); setDeleteMsg(""); setDeleteConfirmName(""); }}
+                style={{ background: "#f1f5f9", color: "#475569", border: "none", borderRadius: 8,
+                         padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
+                Cancel
+              </button>
+              <button onClick={handleDeletionRequest}
+                disabled={deleting || deleteConfirmName.trim().toLowerCase() !== (company?.name || "").trim().toLowerCase()}
+                style={{ background: "#dc2626", color: "#fff", border: "none", borderRadius: 8,
+                         padding: "10px 20px", fontSize: 14, fontWeight: 600,
+                         cursor: deleting ? "not-allowed" : "pointer",
+                         opacity: (deleting || deleteConfirmName.trim().toLowerCase() !== (company?.name || "").trim().toLowerCase()) ? 0.5 : 1 }}>
+                {deleting ? "Submitting..." : "Delete All Data"}
+              </button>
+            </div>
+            {deleteMsg && (
+              <p style={{ fontSize: 13, textAlign: "center", marginTop: 12,
+                          color: deleteMsg.includes("submitted") ? "#16a34a" : "#dc2626", fontWeight: 500 }}>{deleteMsg}</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+export default function BrokerAccountPage() {
+  return (
+    <AuthGate product="broker">
+      <BrokerAccountInner />
+    </AuthGate>
   );
 }

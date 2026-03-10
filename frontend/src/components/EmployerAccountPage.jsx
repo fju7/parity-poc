@@ -28,6 +28,12 @@ function EmployerAccountInner() {
   const [inviting, setInviting] = useState(false);
   const [inviteMsg, setInviteMsg] = useState("");
 
+  // Deletion modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteConfirmName, setDeleteConfirmName] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [deleteMsg, setDeleteMsg] = useState("");
+
   useEffect(() => {
     if (company) {
       setCompanyName(company.name || "");
@@ -79,8 +85,9 @@ function EmployerAccountInner() {
 
   const handleBillingPortal = async () => {
     try {
-      const res = await fetch(`${API}/billing-portal?email=${encodeURIComponent(user.email)}`, {
+      const res = await fetch(`${API}/api/employer/billing-portal?email=${encodeURIComponent(user.email)}`, {
         method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
       if (data.portal_url) window.location.href = data.portal_url;
@@ -110,6 +117,26 @@ function EmployerAccountInner() {
       setInviteMsg("Failed to send invite.");
     } finally {
       setInviting(false);
+    }
+  };
+
+  const handleDeletionRequest = async () => {
+    setDeleting(true);
+    setDeleteMsg("");
+    try {
+      const res = await fetch(`${API}/api/auth/deletion-request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ confirm_company_name: deleteConfirmName }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setDeleteMsg(data.detail || "Request failed."); return; }
+      setDeleteMsg("Deletion request submitted. Check your email for confirmation.");
+      setTimeout(() => { setShowDeleteModal(false); setDeleteMsg(""); setDeleteConfirmName(""); }, 4000);
+    } catch {
+      setDeleteMsg("Failed to submit request.");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -286,10 +313,14 @@ function EmployerAccountInner() {
             (PostgreSQL) with row-level security policies. Your data is never shared with third parties
             or used to train AI models. You can request a full data export or account deletion at any time.
           </p>
-          <a href="mailto:support@civicscale.ai?subject=Data%20Deletion%20Request&body=Please%20delete%20all%20data%20associated%20with%20my%20account."
-            style={{ color: "#f87171", fontSize: 13, textDecoration: "none", fontWeight: 600 }}>
-            Request Data Deletion
-          </a>
+          {isAdmin && (
+            <button onClick={() => setShowDeleteModal(true)}
+              style={{ background: "none", border: "1px solid rgba(248,113,113,0.3)", borderRadius: 8,
+                       padding: "8px 16px", color: "#f87171", fontSize: 13, fontWeight: 600,
+                       cursor: "pointer", marginTop: 8 }}>
+              Request Data Deletion
+            </button>
+          )}
         </div>
       </div>
 
@@ -326,6 +357,52 @@ function EmployerAccountInner() {
             {inviteMsg && (
               <p style={{ color: inviteMsg.includes("sent") ? "#10B981" : "#f87171",
                           fontSize: 13, textAlign: "center", marginTop: 12 }}>{inviteMsg}</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Deletion Confirmation Modal */}
+      {showDeleteModal && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 1000,
+                      display: "flex", alignItems: "center", justifyContent: "center" }}
+             onClick={() => { setShowDeleteModal(false); setDeleteMsg(""); setDeleteConfirmName(""); }}>
+          <div onClick={e => e.stopPropagation()}
+               style={{ background: "#1a1f2e", border: "1px solid rgba(255,255,255,0.1)",
+                        borderRadius: 16, padding: 32, maxWidth: 440, width: "100%" }}>
+            <h3 style={{ color: "#f87171", fontSize: 18, fontWeight: 600, marginBottom: 8, marginTop: 0 }}>
+              Request Data Deletion
+            </h3>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>
+              This will permanently delete all your company data including benchmark results,
+              claims analyses, scorecards, and team accounts. This action cannot be undone.
+            </p>
+            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, marginBottom: 8 }}>
+              Type <strong style={{ color: "white" }}>{company?.name}</strong> to confirm:
+            </p>
+            <input value={deleteConfirmName} onChange={e => setDeleteConfirmName(e.target.value)}
+              placeholder="Type company name"
+              style={{ width: "100%", padding: "12px 16px", background: "rgba(255,255,255,0.05)",
+                       border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "white",
+                       fontSize: 14, marginBottom: 16, boxSizing: "border-box" }} />
+            <div style={{ display: "flex", gap: 8 }}>
+              <button onClick={() => { setShowDeleteModal(false); setDeleteMsg(""); setDeleteConfirmName(""); }}
+                style={{ flex: 1, padding: 12, background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)",
+                         border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, fontSize: 14, cursor: "pointer" }}>
+                Cancel
+              </button>
+              <button onClick={handleDeletionRequest}
+                disabled={deleting || deleteConfirmName.trim().toLowerCase() !== (company?.name || "").trim().toLowerCase()}
+                style={{ flex: 1, padding: 12, background: "#DC2626", color: "white",
+                         border: "none", borderRadius: 8, fontSize: 14, fontWeight: 600,
+                         cursor: deleting ? "not-allowed" : "pointer",
+                         opacity: (deleting || deleteConfirmName.trim().toLowerCase() !== (company?.name || "").trim().toLowerCase()) ? 0.5 : 1 }}>
+                {deleting ? "Submitting..." : "Delete All Data"}
+              </button>
+            </div>
+            {deleteMsg && (
+              <p style={{ color: deleteMsg.includes("submitted") ? "#10B981" : "#f87171",
+                          fontSize: 13, textAlign: "center", marginTop: 12 }}>{deleteMsg}</p>
             )}
           </div>
         </div>

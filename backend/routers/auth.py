@@ -76,6 +76,9 @@ class UpdateCompanyRequest(BaseModel):
     state: Optional[str] = None
     size_band: Optional[str] = None
 
+class DeletionRequestBody(BaseModel):
+    confirm_company_name: str
+
 
 # ---------------------------------------------------------------------------
 # Auth helper — call this from any router to get current user
@@ -665,3 +668,69 @@ async def remove_user(user_id: str, authorization: str = Header(None)):
     sb.table("company_users").delete().eq("id", user_id).execute()
 
     return {"removed": True}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/auth/deletion-request
+# ---------------------------------------------------------------------------
+
+@router.post("/deletion-request")
+async def request_deletion(req: DeletionRequestBody, authorization: str = Header(None)):
+    sb = _get_supabase()
+    user = get_current_user(authorization, sb)
+    require_admin(user)
+
+    company_name = user["company"]["name"]
+    if req.confirm_company_name.strip().lower() != company_name.strip().lower():
+        raise HTTPException(
+            status_code=400,
+            detail="Company name does not match. Please type your company name exactly to confirm."
+        )
+
+    # Get user_id from company_users
+    cu = sb.table("company_users").select("id").eq(
+        "company_id", user["company_id"]
+    ).eq("email", user["email"]).execute()
+    cu_id = cu.data[0]["id"] if cu.data else None
+
+    # Insert deletion request
+    sb.table("deletion_requests").insert({
+        "company_id": user["company_id"],
+        "requested_by": cu_id,
+        "status": "pending",
+    }).execute()
+
+    # Send confirmation email to user
+    send_email(
+        to=user["email"],
+        subject="Data Deletion Request Received — CivicScale",
+        html=f"""
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
+          <h2 style="color: #0d9488;">Data Deletion Request Received</h2>
+          <p>We've received your request to delete all data for <strong>{company_name}</strong>.</p>
+          <p>Our team will process this within 30 days as required by applicable regulations.
+             You'll receive a confirmation email once the deletion is complete.</p>
+          <p style="color: #666; font-size: 14px;">If you did not request this, please contact us
+             immediately at support@civicscale.ai.</p>
+          <p style="color: #999; font-size: 12px;">CivicScale &middot; civicscale.ai</p>
+        </div>
+        """,
+    )
+
+    # Send internal notification to admin
+    send_email(
+        to="admin@civicscale.ai",
+        subject=f"Data Deletion Request: {company_name}",
+        html=f"""
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
+          <h2 style="color: #DC2626;">Data Deletion Request</h2>
+          <p><strong>Company:</strong> {company_name}</p>
+          <p><strong>Company ID:</strong> {user["company_id"]}</p>
+          <p><strong>Requested by:</strong> {user["email"]}</p>
+          <p><strong>Product:</strong> {user["company"].get("type", "unknown")}</p>
+          <p>Please process this deletion request within 30 days.</p>
+        </div>
+        """,
+    )
+
+    return {"requested": True, "company_name": company_name}

@@ -141,6 +141,11 @@ Three live products + one in development:
   report page (no auth)
 
 ## Supabase tables (key ones)
+- companies — unified company records (employer/broker/provider)
+- company_users — users within companies (email, role, status)
+- company_invitations — pending team invitations with tokens
+- sessions — auth sessions (UUID tokens, cs_session_token)
+- deletion_requests — data deletion requests (company_id, status)
 - employer_benchmark_sessions — benchmark results
 - employer_claims_uploads — claims check sessions + results_json
 - employer_scorecard_sessions — scorecard results
@@ -151,11 +156,11 @@ Three live products + one in development:
   (includes reminder_sent_90d boolean for cron dedup)
 - broker_client_benchmarks — broker-run benchmarks with share tokens
 - broker_prospect_benchmarks — prospect assessments (not linked clients)
-- otp_codes — OTP codes for broker auth (6-digit, 10-min expiry)
+- otp_codes — OTP codes for auth (8-digit employer/provider, 6-digit broker)
 
 ## Migrations
-Numbered sequentially: backend/migrations/001_*.sql through 025_*.sql
-Next migration number: 026
+Numbered sequentially: backend/migrations/001_*.sql through 028_*.sql
+Next migration number: 029
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -197,6 +202,17 @@ Features built in this phase:
   protected by X-Cron-Secret header, CRON_SECRET env var)
 - New Supabase tables: broker_prospect_benchmarks
 - New column: broker_employer_links.reminder_sent_90d (boolean)
+
+## Session D — Account Pages Polish (Complete)
+- EmployerAccountPage: team management (role change, removal, invite),
+  billing portal (fixed URL), plan status (via EmployerTrialBanner),
+  data deletion request (modal with company name confirmation)
+- BrokerAccountPage: wrapped with AuthGate, added role change/removal
+  for team members, role selector on invite, data deletion request modal
+- POST /api/auth/deletion-request — records request in deletion_requests
+  table, sends confirmation email to user, internal notification to
+  admin@civicscale.ai. Requires admin role + company name confirmation.
+- Migration 028: deletion_requests table
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
