@@ -1,6 +1,24 @@
 """
 Broker Portal endpoints — custom OTP auth + client management + freemium onboarding.
 
+-- MIGRATION: run in Supabase SQL Editor --
+ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS plan text DEFAULT 'starter';
+ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS stripe_customer_id text;
+ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS stripe_subscription_id text;
+ALTER TABLE broker_accounts ADD COLUMN IF NOT EXISTS referral_code text UNIQUE;
+
+CREATE TABLE IF NOT EXISTS broker_referral_credits (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  broker_email text NOT NULL,
+  employer_email text NOT NULL,
+  employer_subscription_id text,
+  monthly_commission numeric DEFAULT 0,
+  months_remaining integer DEFAULT 12,
+  created_at timestamptz DEFAULT now(),
+  last_paid_at timestamptz
+);
+-- END MIGRATION --
+
 Endpoints:
   POST /api/broker/auth/send-otp     — send 6-digit OTP to broker email
   POST /api/broker/auth/verify-otp   — verify OTP, return broker session
@@ -204,6 +222,84 @@ def _send_broker_welcome_email(email: str, contact_name: str):
         </div>
         """,
     )
+
+
+# ---------------------------------------------------------------------------
+# Plan helpers — Starter (free, 10 clients) / Pro ($99/mo, unlimited)
+# ---------------------------------------------------------------------------
+
+STARTER_LIMIT = 10
+
+
+def _get_broker_plan(sb, broker_email: str) -> dict:
+    """Returns broker plan info: plan, client_count, at_limit."""
+    broker = sb.table("broker_accounts").select("plan").eq("email", broker_email).execute()
+    plan = broker.data[0].get("plan", "starter") if broker.data else "starter"
+
+    count_result = sb.table("broker_employer_links").select("id", count="exact").eq("broker_email", broker_email).execute()
+    client_count = count_result.count or 0
+
+    at_limit = plan == "starter" and client_count >= STARTER_LIMIT
+
+    return {
+        "plan": plan,
+        "client_count": client_count,
+        "client_limit": STARTER_LIMIT if plan == "starter" else None,
+        "at_limit": at_limit,
+    }
+
+
+# ---------------------------------------------------------------------------
+# GET /api/broker/plan — return broker plan info
+# ---------------------------------------------------------------------------
+
+@router.get("/plan")
+async def get_broker_plan(broker_email: str):
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+    return _get_broker_plan(sb, email)
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/subscribe — create Stripe checkout for broker Pro upgrade
+# ---------------------------------------------------------------------------
+
+@router.post("/subscribe")
+async def broker_subscribe(broker_email: str):
+    """Create Stripe checkout session for broker Pro upgrade."""
+    import stripe
+    stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+    price_id = os.environ.get("STRIPE_PRICE_BROKER_PRO")
+
+    sb = _get_supabase()
+    email = broker_email.strip().lower()
+    broker = sb.table("broker_accounts").select("id, contact_name, firm_name, stripe_customer_id, plan").eq("email", email).execute()
+
+    if not broker.data:
+        raise HTTPException(status_code=404, detail="Broker not found")
+
+    b = broker.data[0]
+    if b.get("plan") == "pro":
+        return {"already_subscribed": True}
+
+    # Get or create Stripe customer
+    customer_id = b.get("stripe_customer_id")
+    if not customer_id:
+        customer = stripe.Customer.create(email=email, name=b.get("firm_name", ""))
+        customer_id = customer.id
+        sb.table("broker_accounts").update({"stripe_customer_id": customer_id}).eq("email", email).execute()
+
+    session = stripe.checkout.Session.create(
+        customer=customer_id,
+        payment_method_types=["card"],
+        line_items=[{"price": price_id, "quantity": 1}],
+        mode="subscription",
+        success_url="https://civicscale.ai/broker/dashboard?upgraded=true",
+        cancel_url="https://civicscale.ai/broker/dashboard?upgrade_cancelled=true",
+        metadata={"broker_email": email, "product": "broker_pro"},
+    )
+
+    return {"checkout_url": session.url}
 
 
 # ---------------------------------------------------------------------------
@@ -488,6 +584,11 @@ async def add_client(req: AddClientRequest):
     if not broker.data:
         raise HTTPException(status_code=403, detail="Broker account not found.")
 
+    # Check plan limit
+    plan_info = _get_broker_plan(sb, broker_email)
+    if plan_info["at_limit"]:
+        raise HTTPException(status_code=403, detail="CLIENT_LIMIT_REACHED")
+
     # Verify employer has a subscription or claims upload (they exist in the system)
     emp_sub = sb.table("employer_subscriptions").select("id").eq("email", employer_email).limit(1).execute()
     emp_claims = sb.table("employer_claims_uploads").select("id").eq("email", employer_email).limit(1).execute()
@@ -764,6 +865,11 @@ async def onboard_client(req: BrokerOnboardRequest, request: Request):
     broker = sb.table("broker_accounts").select("id, firm_name").eq("email", broker_email).execute()
     if not broker.data:
         raise HTTPException(status_code=403, detail="Broker account not found.")
+
+    # Check plan limit
+    plan_info = _get_broker_plan(sb, broker_email)
+    if plan_info["at_limit"]:
+        raise HTTPException(status_code=403, detail="CLIENT_LIMIT_REACHED")
 
     firm_name = broker.data[0].get("firm_name", "")
 

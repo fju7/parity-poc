@@ -117,6 +117,18 @@ async def employer_webhook(request: Request):
 
     if event_type == "checkout.session.completed":
         metadata = obj.get("metadata", {})
+
+        # --- Broker Pro upgrade ---
+        if metadata.get("product") == "broker_pro":
+            broker_email = metadata.get("broker_email")
+            subscription_id = obj.get("subscription")
+            if broker_email:
+                sb.table("broker_accounts").update({
+                    "plan": "pro",
+                    "stripe_subscription_id": subscription_id,
+                }).eq("email", broker_email).execute()
+            return {"status": "ok", "broker_pro": True}
+
         if metadata.get("type") != "employer_subscription":
             return {"status": "ok", "skipped": True}
 

@@ -89,6 +89,11 @@ export default function BrokerDashboard() {
   const [renewalData, setRenewalData] = useState(null);
   const [renewalLoading, setRenewalLoading] = useState(false);
 
+  // Plan state
+  const [planInfo, setPlanInfo] = useState(null);
+  const [upgradeBannerDismissed, setUpgradeBannerDismissed] = useState(false);
+  const [upgradeToast, setUpgradeToast] = useState(false);
+
   // Prospect state
   const [prospectForm, setProspectForm] = useState({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "" });
   const [prospectLoading, setProspectLoading] = useState(false);
@@ -112,14 +117,25 @@ export default function BrokerDashboard() {
     catch { localStorage.removeItem("broker_session"); navigate("/broker/login"); }
   }, [navigate]);
 
-  // Fetch clients + portfolio
+  // Handle ?upgraded=true toast
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("upgraded") === "true") {
+      setUpgradeToast(true);
+      setTimeout(() => setUpgradeToast(false), 5000);
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, []);
+
+  // Fetch clients + portfolio + plan
   const fetchClients = useCallback(async () => {
     if (!broker) return;
     setLoading(true);
     try {
-      const [clientsRes, portfolioRes] = await Promise.all([
+      const [clientsRes, portfolioRes, planRes] = await Promise.all([
         fetch(`${API}/api/broker/clients?broker_email=${encodeURIComponent(broker.email)}`),
         fetch(`${API}/api/broker/portfolio?broker_email=${encodeURIComponent(broker.email)}`),
+        fetch(`${API}/api/broker/plan?broker_email=${encodeURIComponent(broker.email)}`),
       ]);
       if (clientsRes.ok) {
         const data = await clientsRes.json();
@@ -127,6 +143,9 @@ export default function BrokerDashboard() {
       }
       if (portfolioRes.ok) {
         setPortfolio(await portfolioRes.json());
+      }
+      if (planRes.ok) {
+        setPlanInfo(await planRes.json());
       }
     } catch (err) { console.error("Failed to fetch clients:", err); }
     setLoading(false);
@@ -249,12 +268,30 @@ export default function BrokerDashboard() {
         body: JSON.stringify(body),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || "Failed to onboard client.");
+      if (!res.ok) {
+        if (data.detail === "CLIENT_LIMIT_REACHED") {
+          setAddError("CLIENT_LIMIT_REACHED");
+        } else {
+          throw new Error(data.detail || "Failed to onboard client.");
+        }
+        setAddLoading(false);
+        return;
+      }
 
       setOnboardResult(data);
       fetchClients();
     } catch (err) { setAddError(err.message); }
     setAddLoading(false);
+  };
+
+  // Upgrade to Pro
+  const handleUpgrade = async () => {
+    try {
+      const res = await fetch(`${API}/api/broker/subscribe?broker_email=${encodeURIComponent(broker.email)}`, { method: "POST" });
+      const data = await res.json();
+      if (data.checkout_url) window.location.href = data.checkout_url;
+      if (data.already_subscribed) { setPlanInfo(prev => ({ ...prev, plan: "pro", at_limit: false, client_limit: null })); }
+    } catch (err) { console.error("Upgrade failed:", err); }
   };
 
   // Share link
@@ -498,6 +535,58 @@ export default function BrokerDashboard() {
             </button>
           </div>
         </div>
+
+        {/* Upgrade Toast */}
+        {upgradeToast && (
+          <div style={{ position: "fixed", top: 20, right: 24, zIndex: 1000, background: "#0D7377", color: "#fff", borderRadius: 10, padding: "14px 24px", fontSize: 14, fontWeight: 600, boxShadow: "0 4px 20px rgba(0,0,0,0.15)", display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontSize: 18 }}>&#10003;</span> Welcome to Broker Pro! Your account has been upgraded.
+          </div>
+        )}
+
+        {/* Plan Status Bar */}
+        {planInfo && (
+          <div style={{ marginBottom: 16 }}>
+            {planInfo.plan === "pro" ? (
+              <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 10, padding: "10px 20px", display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#0D7377", fontWeight: 600 }}>
+                <span style={{ fontSize: 16 }}>&#10003;</span> Pro Plan &mdash; Unlimited clients
+              </div>
+            ) : (
+              <div style={{ background: planInfo.client_count >= 10 ? "#fef2f2" : planInfo.client_count >= 8 ? "#fffbeb" : "#f8fafc", border: `1px solid ${planInfo.client_count >= 10 ? "#fecaca" : planInfo.client_count >= 8 ? "#fde68a" : "#e2e8f0"}`, borderRadius: 10, padding: "10px 20px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: planInfo.client_count >= 10 ? "#991b1b" : "#475569" }}>
+                    Starter Plan &mdash; {planInfo.client_count} of {planInfo.client_limit} clients used
+                    {planInfo.client_count >= 10 && " · Limit reached"}
+                  </span>
+                  {planInfo.client_count >= 8 && (
+                    <button onClick={handleUpgrade} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "5px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                      Upgrade to Pro &rarr;
+                    </button>
+                  )}
+                </div>
+                <div style={{ height: 6, background: "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${Math.min((planInfo.client_count / planInfo.client_limit) * 100, 100)}%`, background: planInfo.client_count >= 10 ? "#ef4444" : planInfo.client_count >= 8 ? "#f59e0b" : "#0D7377", borderRadius: 3, transition: "width 0.3s" }} />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Upgrade Banner */}
+        {planInfo && planInfo.at_limit && !upgradeBannerDismissed && (
+          <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 10, padding: "14px 20px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+            <div style={{ fontSize: 13, color: "#92400e", lineHeight: 1.6 }}>
+              You've reached the 10-client limit on the Starter plan. Upgrade to Pro for $99/mo &mdash; unlimited clients, renewal prep reports, and Level 2 insights.
+            </div>
+            <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+              <button onClick={handleUpgrade} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "8px 16px", fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>
+                Upgrade to Pro &rarr;
+              </button>
+              <button onClick={() => setUpgradeBannerDismissed(true)} style={{ background: "none", border: "none", color: "#92400e", fontSize: 16, cursor: "pointer", padding: "4px 8px" }}>
+                &times;
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Tab Switcher */}
         <div style={{ display: "flex", gap: 0, marginBottom: 24, borderBottom: "2px solid #e2e8f0" }}>
@@ -1098,7 +1187,14 @@ export default function BrokerDashboard() {
                       <input type="number" step="1" min="0" value={addForm.estimated_annual_spend} onChange={(e) => setAddForm({ ...addForm, estimated_annual_spend: e.target.value })} placeholder="e.g. 2400000" style={inputStyle} />
                     </FormField>
                   </div>
-                  {addError && <p style={{ color: "#991b1b", fontSize: 13, marginBottom: 12 }}>{addError}</p>}
+                  {addError && addError === "CLIENT_LIMIT_REACHED" ? (
+                    <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 8, padding: "12px 16px", marginBottom: 12 }}>
+                      <p style={{ color: "#991b1b", fontSize: 13, margin: "0 0 8px", fontWeight: 500 }}>You've reached the 10-client limit. Upgrade to Pro to add more clients.</p>
+                      <button onClick={handleUpgrade} style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>Upgrade to Pro &mdash; $99/mo &rarr;</button>
+                    </div>
+                  ) : addError ? (
+                    <p style={{ color: "#991b1b", fontSize: 13, marginBottom: 12 }}>{addError}</p>
+                  ) : null}
                   <button type="submit" disabled={addLoading || !addForm.company_name} style={{ background: "#1B3A5C", color: "#fff", border: "none", borderRadius: 8, padding: "12px 28px", fontSize: 14, fontWeight: 600, cursor: "pointer", opacity: addLoading ? 0.6 : 1 }}>
                     {addLoading ? "Running benchmark..." : "Add Client & Run Benchmark"}
                   </button>

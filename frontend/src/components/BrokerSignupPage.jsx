@@ -67,7 +67,7 @@ export default function BrokerSignupPage() {
               Join Parity Employer
             </h1>
             <p style={{ color: "#64748b", marginTop: 8, fontSize: 15, lineHeight: 1.6 }}>
-              Free for benefits brokers. Benchmark your clients' plans and share results before renewal.
+              Start free &mdash; first 10 clients included. Upgrade to Pro at $99/mo for unlimited clients.
             </p>
           </div>
 
@@ -184,9 +184,9 @@ export default function BrokerSignupPage() {
 
               <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
                 {[
-                  "\u2713 Free for brokers \u2014 your clients pay if they subscribe",
+                  "\u2713 Free Starter plan \u2014 up to 10 clients at no cost",
                   "\u2713 Benchmark any employer in 60 seconds",
-                  "\u2713 Share results with no login required for your clients",
+                  "\u2713 Pro at $99/mo \u2014 unlimited clients, renewal prep, Level 2 insights",
                 ].map((text) => (
                   <p key={text} style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>{text}</p>
                 ))}

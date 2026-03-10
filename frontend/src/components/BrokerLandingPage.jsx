@@ -56,8 +56,8 @@ export default function BrokerLandingPage() {
           fontSize: "17px", lineHeight: "1.7", color: "#94a3b8",
           maxWidth: "640px", margin: "0 auto 32px",
         }}>
-          Parity Employer gives benefits brokers independent benchmarking and claims analysis
-          for their entire book — free to use, no carrier relationships, no conflicts of interest.
+          Free to start &mdash; up to 10 clients at no cost. Pro plan at $99/mo unlocks unlimited clients,
+          renewal prep reports, and Level 2 claims insights. No carrier relationships, no conflicts of interest.
         </p>
         <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
           <Link to="/broker/signup" style={{
@@ -154,29 +154,54 @@ export default function BrokerLandingPage() {
       <section className="cs-home-section" style={{
         paddingBottom: "72px", maxWidth: "780px", margin: "0 auto",
       }}>
-        <div style={{
-          background: "rgba(20,184,166,0.04)",
-          border: "1px solid rgba(20,184,166,0.12)",
-          borderRadius: "16px", padding: "36px", textAlign: "center",
-        }}>
-          <h2 style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "28px", fontWeight: "400", color: "#f1f5f9",
-            marginBottom: "20px",
-          }}>Free for brokers — always.</h2>
-          <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#94a3b8", marginBottom: "16px", maxWidth: "600px", marginLeft: "auto", marginRight: "auto" }}>
-            Your clients subscribe if they want monthly monitoring, trend alerts, and renewal prep
-            reports. Starter from $149/mo. Your clients pay only if they see value.
-          </p>
+        <h2 style={{
+          fontFamily: "'DM Serif Display', serif",
+          fontSize: "28px", fontWeight: "400", color: "#f1f5f9",
+          textAlign: "center", marginBottom: "32px",
+        }}>Simple pricing for brokers</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+          {/* Starter */}
           <div style={{
-            background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.2)",
-            borderRadius: "12px", padding: "16px 24px", marginTop: "20px",
+            background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.12)",
+            borderRadius: "14px", padding: "28px",
           }}>
-            <p style={{ fontSize: "14px", color: "#10b981", fontWeight: "600", marginBottom: "4px" }}>Savings Guarantee</p>
-            <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>
-              If identified savings don't exceed the annual subscription cost, we refund the difference.
-            </p>
+            <div style={{ fontSize: "13px", fontWeight: "600", color: "#94a3b8", marginBottom: "8px" }}>STARTER</div>
+            <div style={{ fontSize: "32px", fontWeight: "700", color: "#f1f5f9", marginBottom: "16px" }}>Free</div>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              {["Up to 10 clients", "Benchmark tool", "Shared reports", "Prospect benchmarking"].map(f => (
+                <li key={f} style={{ fontSize: "14px", color: "#94a3b8", display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ color: "#14b8a6" }}>&#10003;</span> {f}
+                </li>
+              ))}
+            </ul>
           </div>
+          {/* Pro */}
+          <div style={{
+            background: "rgba(20,184,166,0.06)", border: "1px solid rgba(20,184,166,0.3)",
+            borderRadius: "14px", padding: "28px",
+          }}>
+            <div style={{ fontSize: "13px", fontWeight: "600", color: "#14b8a6", marginBottom: "8px" }}>PRO</div>
+            <div style={{ marginBottom: "16px" }}>
+              <span style={{ fontSize: "32px", fontWeight: "700", color: "#f1f5f9" }}>$99</span>
+              <span style={{ fontSize: "14px", color: "#64748b" }}>/mo</span>
+            </div>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              {["Unlimited clients", "Everything in Starter", "Renewal prep reports", "Level 2 claims insights", "Bulk onboarding", "Priority support"].map(f => (
+                <li key={f} style={{ fontSize: "14px", color: "#94a3b8", display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ color: "#14b8a6" }}>&#10003;</span> {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div style={{
+          background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.2)",
+          borderRadius: "12px", padding: "16px 24px", marginTop: "20px", textAlign: "center",
+        }}>
+          <p style={{ fontSize: "14px", color: "#10b981", fontWeight: "600", marginBottom: "4px" }}>Employer Savings Guarantee</p>
+          <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>
+            Your clients subscribe separately from $149/mo. If identified savings don't exceed their subscription cost, we refund the difference.
+          </p>
         </div>
       </section>
 
