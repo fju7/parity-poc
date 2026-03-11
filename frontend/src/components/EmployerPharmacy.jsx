@@ -1,11 +1,16 @@
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function EmployerPharmacy() {
+  const { isAuthenticated, user } = useAuth();
   const [file, setFile] = useState(null);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => sessionStorage.getItem("cs_anon_email") || "");
+  const [wantsCopy, setWantsCopy] = useState(false);
+  const anonEmailKnown = !isAuthenticated && !!sessionStorage.getItem("cs_anon_email");
+  const showEmailField = !isAuthenticated && !anonEmailKnown;
   const [dragOver, setDragOver] = useState(false);
   const [view, setView] = useState("upload");
   const [progress, setProgress] = useState(0);
@@ -39,7 +44,9 @@ export default function EmployerPharmacy() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      if (email) formData.append("email", email);
+      const resolvedEmail = isAuthenticated ? (user?.email || null) : (email || sessionStorage.getItem("cs_anon_email") || null);
+      if (resolvedEmail) formData.append("email", resolvedEmail);
+      if (email && !isAuthenticated) sessionStorage.setItem("cs_anon_email", email);
 
       const res = await fetch(`${API_BASE}/api/employer/pharmacy/analyze`, {
         method: "POST",
@@ -137,10 +144,12 @@ export default function EmployerPharmacy() {
                 )}
               </div>
 
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <span style={{ fontSize: "14px", fontWeight: "500", color: "#cbd5e1" }}>Email (optional)</span>
-                <input type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
-              </label>
+              {showEmailField && (
+                <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <span style={{ fontSize: "14px", fontWeight: "500", color: "#cbd5e1" }}>Email (optional)</span>
+                  <input type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
+                </label>
+              )}
 
               <button type="submit" disabled={!file} style={{ ...btnPrimary, background: "#10b981", opacity: file ? 1 : 0.5, cursor: file ? "pointer" : "not-allowed" }}>
                 Analyze Pharmacy Claims
@@ -364,6 +373,14 @@ export default function EmployerPharmacy() {
                 )}
               </div>
             </div>
+
+            {/* Email copy checkbox */}
+            {(isAuthenticated || sessionStorage.getItem("cs_anon_email")) && (
+              <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer", marginBottom: "8px" }}>
+                <input type="checkbox" checked={wantsCopy} onChange={(e) => setWantsCopy(e.target.checked)} style={{ accentColor: "#10b981", width: "16px", height: "16px" }} />
+                <span style={{ fontSize: "14px", color: "#94a3b8" }}>Email me a copy of this report</span>
+              </label>
+            )}
 
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
