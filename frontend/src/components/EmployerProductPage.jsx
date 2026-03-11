@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 // ─── Synthetic claims data ───────────────────────────────────────────────────
 const MEDICAL_CLAIMS = [
@@ -96,6 +97,7 @@ export default function EmployerProductPage() {
   const [showLetter, setShowLetter] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [showConversion, setShowConversion] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   const handleTabSwitch = useCallback((tab) => {
     setDemoTab(tab);
@@ -127,14 +129,21 @@ export default function EmployerProductPage() {
         background: "rgba(10,22,40,0.92)", backdropFilter: "blur(16px)",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}>
-        <Link to="/" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
+        <a href="https://civicscale.ai" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
           <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #0d9488, #14b8a6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0a1628" }}>C</div>
           <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em" }}>CivicScale</span>
-        </Link>
-        <nav style={{ display: "flex", gap: 24, alignItems: "center", fontSize: 14 }}>
-          <Link to="/" style={{ color: "#94a3b8", textDecoration: "none" }}>Home</Link>
-          <Link to="/broker" style={{ color: "#94a3b8", textDecoration: "none" }}>Broker Portal</Link>
-          <Link to="/employer/login" style={{ color: "#60a5fa", textDecoration: "none", border: "1px solid rgba(59,130,246,0.4)", borderRadius: 6, padding: "6px 16px" }}>Sign In</Link>
+        </a>
+        <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 14 }}>
+          {isAuthenticated ? (
+            <>
+              <Link to="/billing/employer/dashboard" style={{ color: "#94a3b8", textDecoration: "none" }}>Dashboard</Link>
+              <Link to="/billing/employer/account" style={{ color: "#94a3b8", textDecoration: "none" }}>Account</Link>
+            </>
+          ) : (
+            <Link to="/billing/employer/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
+              Start Free Trial
+            </Link>
+          )}
         </nav>
       </header>
 
@@ -143,12 +152,15 @@ export default function EmployerProductPage() {
         <div style={{ display: "inline-block", background: "rgba(59,130,246,0.12)", borderRadius: 8, padding: "8px 14px", marginBottom: 24 }}>
           <span style={{ fontSize: 13, fontWeight: 600, color: "#60a5fa" }}>PARITY EMPLOYER</span>
         </div>
-        <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(30px, 4vw, 46px)", lineHeight: 1.15, fontWeight: 400, color: "#f1f5f9", marginBottom: 20, letterSpacing: "-0.02em" }}>
-          Your health plan is costing you<br />
-          <span style={{ color: "#60a5fa" }}>more than it should.</span>
+        <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(30px, 4vw, 46px)", lineHeight: 1.15, fontWeight: 400, color: "#f1f5f9", marginBottom: 12, letterSpacing: "-0.02em" }}>
+          Most employers never see what's actually<br />
+          <span style={{ color: "#60a5fa" }}>in their claims data.</span>
         </h1>
+        <p style={{ fontSize: 20, fontWeight: 500, color: "#60a5fa", marginBottom: 20 }}>
+          For the first time, you can.
+        </p>
         <p style={{ fontSize: 17, lineHeight: 1.7, color: "#94a3b8", maxWidth: 640, margin: "0 auto 32px" }}>
-          The typical employer pays 3–5x Medicare rates for common procedures — most don't know where they stand. AI-powered claims analysis that shows you exactly where costs exceed market norms, by category, by provider, by procedure.
+          Parity Employer benchmarks your 835 claims against Medicare rates, flags variance, analyzes your pharmacy spend against actual drug acquisition costs, and delivers a plain-language report your CFO can act on. In minutes.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
           <Link to="/billing/employer/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
@@ -357,14 +369,15 @@ export default function EmployerProductPage() {
         </div>
       )}
 
-      {/* ── How We're Different ── */}
+      {/* ── The Regulatory Record ── */}
       <section style={{ padding: "0 24px 72px", maxWidth: 960, margin: "0 auto" }}>
-        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 400, color: "#f1f5f9", textAlign: "center", marginBottom: 40 }}>How We're Different</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
-          {DIFF_CARDS.map((c) => (
-            <div key={c.title} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: 14, padding: 28 }}>
-              <h3 style={{ fontSize: 15, fontWeight: 600, color: "#60a5fa", marginBottom: 12 }}>{c.title}</h3>
-              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#94a3b8" }}>{c.text}</p>
+        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 400, color: "#f1f5f9", textAlign: "center", marginBottom: 40 }}>The Regulatory Record</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
+          {REGULATORY_CARDS.map((c) => (
+            <div key={c.title} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: 14, padding: 28, display: "flex", flexDirection: "column" }}>
+              <h3 style={{ fontSize: 17, fontWeight: 600, color: "#60a5fa", marginBottom: 14 }}>{c.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#94a3b8", flex: 1 }}>{c.text}</p>
+              <p style={{ fontSize: 12, lineHeight: 1.6, color: "#64748b", fontStyle: "italic", marginTop: 16, borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 12 }}>{c.source}</p>
             </div>
           ))}
         </div>
@@ -440,8 +453,20 @@ const FEATURE_CARDS = [
   { icon: "\u2193", title: "Actionable Savings Report", text: "Get a prioritized list of savings opportunities ranked by dollar impact. Each recommendation includes the data behind it — not just a benchmark but exactly how much opportunity exists." },
 ];
 
-const DIFF_CARDS = [
-  { title: "vs. Your Benefits Consultant", text: "Consultants review summary-level data and rely on proprietary benchmarks you can\u2019t verify. They bill $50\u2013150K annually for a few pivot tables and some industry averages. Parity Employer analyzes every claim, uses transparent benchmarks, and costs a fraction of traditional consulting." },
-  { title: "vs. TPA Reports", text: "Your TPA manages the same claims they\u2019re reporting on \u2014 that\u2019s a structural conflict of interest. Their reports tell you what happened but not whether it was fair. Parity Employer provides independent analysis against external benchmarks." },
-  { title: "vs. Other Analytics Platforms", text: "Most claims analytics platforms require a 6-month implementation, EDI integration, and a six-figure contract. Parity Employer works with the claims export you already have. Upload your data and get results the same day." },
+const REGULATORY_CARDS = [
+  {
+    title: "The FTC agrees",
+    text: "The Federal Trade Commission\u2019s 2024 interim staff report documented PBM-affiliated pharmacies charging plan sponsors multiples of the National Average Drug Acquisition Cost \u2014 retaining nearly $1.6 billion in excess dispensing revenue for just two case study drugs over two years.",
+    source: "Source: FTC Interim Staff Report on Pharmacy Benefit Managers, July 2024",
+  },
+  {
+    title: "Employers are suing their TPAs",
+    text: "Huntsman International, W.W. Grainger, and Kraft Heinz have each filed suit against their third-party administrators alleging approval of improper claims, cross-plan offsetting, and application of less rigorous adjudication standards to self-funded plans than to the TPA\u2019s fully-insured clients.",
+    source: "Source: The Source on Healthcare Price and Competition, 2024",
+  },
+  {
+    title: "The data was always there",
+    text: "Federal price transparency rules and the Consolidated Appropriations Act now require carriers and TPAs to provide the underlying data that makes this analysis possible. Most self-insured employers have never reviewed it.",
+    source: "Source: CAA 2021; CMS Transparency in Coverage Rule 2020",
+  },
 ];
