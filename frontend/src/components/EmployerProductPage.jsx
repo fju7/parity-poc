@@ -170,7 +170,7 @@ export default function EmployerProductPage() {
             See the Demo Below &darr;
           </a>
         </div>
-        <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>No credit card required for first 30 days &middot; Cancel anytime</p>
+        <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>30-day free trial &middot; Cancel anytime</p>
       </section>
 
       {/* ── What You Get ── */}
