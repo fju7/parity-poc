@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -30,9 +31,13 @@ const cptLabel = (code) => {
 };
 
 export default function EmployerClaimsCheck() {
+  const { isAuthenticated, user } = useAuth();
   const [file, setFile] = useState(null);
   const [zipCode, setZipCode] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => sessionStorage.getItem("cs_anon_email") || "");
+  const [wantsCopy, setWantsCopy] = useState(false);
+  const anonEmailKnown = !isAuthenticated && !!sessionStorage.getItem("cs_anon_email");
+  const showEmailField = !isAuthenticated && !anonEmailKnown;
   const [dragOver, setDragOver] = useState(false);
   const [view, setView] = useState("upload"); // upload, processing, results, error
   const [progress, setProgress] = useState(0);
@@ -106,7 +111,9 @@ export default function EmployerClaimsCheck() {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("zip_code", zipCode);
-      if (email) formData.append("email", email);
+      const resolvedEmail = isAuthenticated ? (user?.email || null) : (email || sessionStorage.getItem("cs_anon_email") || null);
+      if (resolvedEmail) formData.append("email", resolvedEmail);
+      if (email && !isAuthenticated) sessionStorage.setItem("cs_anon_email", email);
 
       const res = await fetch(`${API_BASE}/api/employer/claims-check`, {
         method: "POST",
@@ -306,15 +313,17 @@ export default function EmployerClaimsCheck() {
                 )}
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: showEmailField ? "1fr 1fr" : "1fr", gap: "16px" }}>
                 <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                   <span style={{ fontSize: "14px", fontWeight: "500", color: "#cbd5e1" }}>Provider ZIP code</span>
                   <input type="text" maxLength={5} pattern="[0-9]{5}" placeholder="e.g. 33701" value={zipCode} onChange={(e) => setZipCode(e.target.value)} style={inputStyle} />
                 </label>
-                <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                  <span style={{ fontSize: "14px", fontWeight: "500", color: "#cbd5e1" }}>Email (optional)</span>
-                  <input type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
-                </label>
+                {showEmailField && (
+                  <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    <span style={{ fontSize: "14px", fontWeight: "500", color: "#cbd5e1" }}>Email (optional)</span>
+                    <input type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
+                  </label>
+                )}
               </div>
 
               <button type="submit" disabled={!file || !zipCode || zipCode.length < 5} style={{ ...btnPrimary, opacity: file && zipCode.length >= 5 ? 1 : 0.5, cursor: file && zipCode.length >= 5 ? "pointer" : "not-allowed" }}>
@@ -666,6 +675,14 @@ export default function EmployerClaimsCheck() {
                   Level 2 analysis (provider variation, site of care, carrier rates) requires 835 EDI format with provider data. CSV uploads support Level 1 Medicare benchmarking only.
                 </p>
               </div>
+            )}
+
+            {/* Email copy checkbox */}
+            {(isAuthenticated || sessionStorage.getItem("cs_anon_email")) && (
+              <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer", marginBottom: "8px" }}>
+                <input type="checkbox" checked={wantsCopy} onChange={(e) => setWantsCopy(e.target.checked)} style={{ accentColor: "#3b82f6", width: "16px", height: "16px" }} />
+                <span style={{ fontSize: "14px", color: "#94a3b8" }}>Email me a copy of this report</span>
+              </label>
             )}
 
             {/* CTAs */}

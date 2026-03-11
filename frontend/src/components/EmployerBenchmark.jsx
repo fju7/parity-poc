@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -40,22 +41,36 @@ export default function EmployerBenchmark() {
   const [companySize, setCompanySize] = useState("");
   const [state, setState] = useState("");
   const [pepm, setPepm] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => sessionStorage.getItem("cs_anon_email") || "");
   const [view, setView] = useState("form"); // form, email, results, loading
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [methodOpen, setMethodOpen] = useState(false);
+  const [wantsCopy, setWantsCopy] = useState(false);
+  const { isAuthenticated, user } = useAuth();
 
   const formValid = industry && companySize && state && pepm && parseFloat(pepm) > 0;
+
+  const resolvedEmail = isAuthenticated ? (user?.email || null) : (email || sessionStorage.getItem("cs_anon_email") || null);
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (!formValid) return;
-    setView("email");
+    // Signed-in or email already known → skip email step
+    if (isAuthenticated || sessionStorage.getItem("cs_anon_email")) {
+      runBenchmark();
+    } else {
+      setView("email");
+    }
   };
 
   const handleSubmitEmail = async (e) => {
     e.preventDefault();
+    if (email) sessionStorage.setItem("cs_anon_email", email);
+    runBenchmark();
+  };
+
+  const runBenchmark = async () => {
     setView("loading");
     setError(null);
 
@@ -68,13 +83,14 @@ export default function EmployerBenchmark() {
           company_size: companySize,
           state,
           pepm_input: parseFloat(pepm),
-          email: email || null,
+          email: resolvedEmail,
         }),
       });
 
       if (!res.ok) throw new Error(`API error: ${res.status}`);
       const data = await res.json();
       setResult(data);
+      setWantsCopy(!!resolvedEmail);
       setView("results");
     } catch (err) {
       setError(err.message);
@@ -340,6 +356,12 @@ export default function EmployerBenchmark() {
                 </div>
               )}
             </div>
+
+            {/* Email copy checkbox */}
+            <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#94a3b8", cursor: "pointer", marginBottom: "8px" }}>
+              <input type="checkbox" checked={wantsCopy} onChange={(e) => setWantsCopy(e.target.checked)} style={{ accentColor: "#3b82f6" }} />
+              Email me a copy of this report
+            </label>
 
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
