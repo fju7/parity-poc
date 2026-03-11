@@ -578,7 +578,7 @@ async def client_summary(employer_email: str, authorization: str = Header(None))
 
     return {
         "employer_email": e_email,
-        "company_name": sub_data.get("company_name", e_email) if sub_data else e_email,
+        "company_name": sub_data.get("company_name") or (e_email if not e_email.startswith("pending-") else "Unknown Company") if sub_data else (e_email if not e_email.startswith("pending-") else "Unknown Company"),
         "subscription": {
             "tier": sub_data.get("tier", "none") if sub_data else "none",
             "status": sub_data.get("status", "none") if sub_data else "none",
