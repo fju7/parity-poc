@@ -23,19 +23,39 @@ Endpoints:
   PATCH /api/broker/account — update broker account details
   POST /api/broker/profile/logo — upload broker logo
   POST /api/broker/invite-employer — invite employer client (triggers commission tracking)
+  POST /api/broker/clients/{employer_email}/claims-upload — broker uploads claims on behalf of client
+  POST /api/broker/clients/{employer_email}/scorecard-upload — broker uploads SBC on behalf of client
 """
 
+import base64
+import io
+import json
 import os
 import uuid
+import zipfile
 from datetime import datetime, timezone, timedelta
+
+import pandas as pd
 
 from fastapi import APIRouter, HTTPException, Request, Header, UploadFile, File, Form
 from pydantic import BaseModel
 from typing import Optional
 
-from routers.employer_shared import _get_supabase, check_rate_limit, get_benchmarks
+from routers.employer_shared import _get_supabase, _call_claude, check_rate_limit, get_benchmarks, assign_pricing_tier, EMPLOYER_PRICE_TIERS
 from routers.auth import get_current_user
 from utils.email import send_email
+
+# Imports for broker claims/scorecard upload reuse
+from routers.employer_claims import (
+    _edi_items_to_df, _safe_float, _generate_narrative,
+    _run_level2_analytics, COLUMN_MAPPING_PROMPT,
+)
+from routers.employer_scorecard import (
+    SBC_EXTRACTION_PROMPT, SCORING_CRITERIA,
+    _score_range, _score_to_grade, _grade_interpretation, _estimate_savings,
+)
+from routers.benchmark import resolve_locality, lookup_rate
+from utils.parse_835 import parse_835
 
 router = APIRouter(prefix="/api/broker", tags=["broker"])
 
@@ -1553,6 +1573,7 @@ async def renewal_prep(company_name: str, authorization: str = Header(None)):
             "employee_count_range": link.get("employee_count_range", ""),
             "carrier": link.get("carrier", ""),
             "renewal_month": link.get("renewal_month"),
+            "employer_email": emp_email,
         },
         "benchmark": benchmark_section,
         "claims": claims_section,
@@ -1901,3 +1922,395 @@ async def invite_employer(req: InviteEmployerRequest, authorization: str = Heade
     )
 
     return {"invited": True, "email": employer_email}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/clients/{employer_email}/claims-upload
+# ---------------------------------------------------------------------------
+
+@router.post("/clients/{employer_email}/claims-upload")
+async def broker_claims_upload(
+    employer_email: str,
+    request: Request,
+    file: UploadFile = File(...),
+    zip_code: str = Form(...),
+    column_mapping: Optional[str] = Form(None),
+    authorization: str = Header(None),
+):
+    """Broker uploads claims file on behalf of an employer client.
+    Reuses employer_claims analysis logic. Stores results tagged with employer_email."""
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
+    e_email = employer_email.strip().lower()
+
+    # Verify broker-employer link
+    link = (
+        sb.table("broker_employer_links")
+        .select("id")
+        .eq("broker_email", broker_email)
+        .eq("employer_email", e_email)
+        .execute()
+    )
+    if not link.data:
+        raise HTTPException(status_code=403, detail="You do not have access to this employer's data.")
+
+    check_rate_limit(request, max_requests=10)
+
+    # --- Parse file ---
+    content = await file.read()
+    if len(content) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File exceeds 10 MB limit")
+    filename = file.filename or "upload"
+
+    fname = filename.lower()
+    is_835 = fname.endswith((".835", ".edi")) or (fname.endswith(".txt") and b"ISA" in content[:200])
+    is_zip = fname.endswith(".zip")
+
+    source_format = "csv_excel"
+    mapping = None
+
+    if is_835:
+        source_format = "835_edi"
+        text = content.decode("utf-8", errors="replace")
+        if "ISA" not in text[:200]:
+            raise HTTPException(status_code=400, detail="File does not appear to be a valid 835 EDI file")
+        parsed = parse_835(text)
+        if not parsed.get("line_items"):
+            raise HTTPException(status_code=400, detail="No line items found in 835 EDI file")
+        df = _edi_items_to_df(parsed["line_items"], parsed.get("payee_name", ""))
+
+    elif is_zip:
+        source_format = "835_zip"
+        all_items = []
+        try:
+            with zipfile.ZipFile(io.BytesIO(content)) as zf:
+                edi_names = [n for n in zf.namelist() if n.lower().endswith((".835", ".edi"))]
+                if not edi_names:
+                    raise HTTPException(status_code=400, detail="ZIP contains no .835 or .edi files")
+                for name in edi_names:
+                    raw = zf.read(name).decode("utf-8", errors="replace")
+                    if "ISA" not in raw[:200]:
+                        continue
+                    parsed = parse_835(raw)
+                    for item in parsed.get("line_items", []):
+                        item["_provider"] = parsed.get("payee_name", "")
+                    all_items.extend(parsed.get("line_items", []))
+        except zipfile.BadZipFile:
+            raise HTTPException(status_code=400, detail="Invalid ZIP file")
+        if not all_items:
+            raise HTTPException(status_code=400, detail="No valid 835 line items found in ZIP")
+        df = _edi_items_to_df(all_items)
+
+    else:
+        try:
+            if fname.endswith((".xlsx", ".xls")):
+                df = pd.read_excel(io.BytesIO(content))
+            else:
+                df = pd.read_csv(io.BytesIO(content))
+        except Exception as exc:
+            raise HTTPException(status_code=400, detail=f"Could not parse file: {exc}")
+
+    if df.empty:
+        raise HTTPException(status_code=400, detail="File contains no data")
+
+    # --- Column mapping (CSV/Excel only) ---
+    if source_format == "csv_excel":
+        columns = list(df.columns)
+        if column_mapping:
+            try:
+                mapping = json.loads(column_mapping)
+            except json.JSONDecodeError:
+                pass
+        if not mapping:
+            mapping_result = _call_claude(
+                system_prompt=COLUMN_MAPPING_PROMPT,
+                user_content=json.dumps({"columns": columns, "sample_rows": df.head(5).to_dict(orient="records")}),
+                max_tokens=1024,
+            )
+            if mapping_result and mapping_result.get("mappings"):
+                mapping = mapping_result["mappings"]
+            else:
+                raise HTTPException(status_code=422, detail={"error": "Could not auto-map columns", "columns": columns})
+        cpt_col = mapping.get("cpt_code")
+        paid_col = mapping.get("paid_amount")
+        billed_col = mapping.get("billed_amount")
+        if not cpt_col or cpt_col not in df.columns:
+            raise HTTPException(status_code=422, detail=f"CPT code column '{cpt_col}' not found")
+        if not paid_col or paid_col not in df.columns:
+            raise HTTPException(status_code=422, detail=f"Paid amount column '{paid_col}' not found")
+    else:
+        cpt_col = "cpt_code"
+        paid_col = "paid_amount"
+        billed_col = "billed_amount"
+        mapping = {"cpt_code": "cpt_code", "paid_amount": "paid_amount", "billed_amount": "billed_amount"}
+
+    # --- Resolve locality ---
+    carrier, locality = resolve_locality(zip_code)
+    if not carrier or not locality:
+        raise HTTPException(status_code=400, detail=f"Could not resolve locality for ZIP {zip_code}")
+
+    # --- Analyze each claim ---
+    results = []
+    total_paid = 0.0
+    total_excess_2x = 0.0
+
+    for _, row in df.iterrows():
+        cpt = str(row.get(cpt_col, "")).strip()
+        if not cpt:
+            continue
+        paid = _safe_float(row.get(paid_col, 0))
+        billed = _safe_float(row.get(billed_col, 0)) if billed_col and billed_col in df.columns else None
+        rate_val, source, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
+
+        line = {
+            "cpt_code": cpt, "paid_amount": paid, "billed_amount": billed,
+            "medicare_rate": rate_val, "medicare_source": source if rate_val else None,
+            "ratio": None, "flag": None, "excess_amount": None,
+        }
+
+        if rate_val and rate_val > 0 and paid > 0:
+            ratio = round(paid / rate_val, 2)
+            line["ratio"] = ratio
+            if ratio > 3.0:
+                line["flag"] = "SEVERE"
+                excess = round(paid - (rate_val * 2), 2)
+                line["excess_amount"] = excess
+                total_excess_2x += excess
+            elif ratio > 2.0:
+                line["flag"] = "HIGH"
+                excess = round(paid - (rate_val * 2), 2)
+                line["excess_amount"] = excess
+                total_excess_2x += excess
+            elif ratio > 1.5:
+                line["flag"] = "ELEVATED"
+            elif ratio < 0.5:
+                line["flag"] = "LOW"
+
+        total_paid += paid
+        results.append(line)
+
+    # --- Summary ---
+    excess_by_cpt = {}
+    for r in results:
+        ex = r.get("excess_amount") or 0
+        if ex > 0:
+            excess_by_cpt[r["cpt_code"]] = excess_by_cpt.get(r["cpt_code"], 0) + ex
+    top_flagged_cpt = max(excess_by_cpt, key=excess_by_cpt.get) if excess_by_cpt else None
+    top_flagged_excess = round(excess_by_cpt.get(top_flagged_cpt, 0), 2) if top_flagged_cpt else 0.0
+
+    flagged_lines = [r for r in results if r.get("flag")]
+    summary = {
+        "total_claims": len(results),
+        "total_paid": round(total_paid, 2),
+        "total_excess_2x": round(total_excess_2x, 2),
+        "flagged_count": len(flagged_lines),
+        "severe_count": len([r for r in results if r.get("flag") == "SEVERE"]),
+        "high_count": len([r for r in results if r.get("flag") == "HIGH"]),
+        "elevated_count": len([r for r in results if r.get("flag") == "ELEVATED"]),
+        "top_flagged_cpt": top_flagged_cpt,
+        "top_flagged_excess": round(top_flagged_excess, 2),
+        "locality": {"carrier": carrier, "locality_code": locality, "zip_code": zip_code},
+    }
+
+    # --- AI narrative ---
+    narrative = None
+    try:
+        top_findings_lines = []
+        flagged_sorted = sorted([r for r in results if r.get("flag")], key=lambda r: r.get("ratio") or 0, reverse=True)
+        seen_cpts = set()
+        for r in flagged_sorted:
+            cpt = r["cpt_code"]
+            if cpt in seen_cpts:
+                continue
+            seen_cpts.add(cpt)
+            count = sum(1 for x in results if x["cpt_code"] == cpt and x.get("flag"))
+            avg_paid = sum(x["paid_amount"] for x in results if x["cpt_code"] == cpt) / max(count, 1)
+            top_findings_lines.append(
+                f"CPT {cpt}: avg paid ${avg_paid:,.0f}, Medicare rate ${r.get('medicare_rate', 0) or 0:,.0f}, "
+                f"markup {r.get('ratio', 0)}x, {count} claim(s), flag={r.get('flag')}"
+            )
+            if len(top_findings_lines) >= 5:
+                break
+        narrative_prompt = (
+            "You are a healthcare benefits analyst writing for a CFO or HR director. "
+            "Based on this claims analysis, write a 3-4 sentence executive summary. "
+            "Be specific about dollar amounts and procedure names. Do not use jargon. "
+            "Do not recommend specific vendors. "
+            "Use neutral, factual language.\n\n"
+            f"Claims analyzed: {len(results)}\nTotal paid: ${total_paid:,.0f}\n"
+            f"Excess vs 2x Medicare benchmark: ${total_excess_2x:,.0f}\n"
+            f"Top findings:\n" + "\n".join(top_findings_lines) + "\n\n"
+            "Write only the summary paragraph."
+        )
+        narrative = _generate_narrative(narrative_prompt)
+    except Exception as exc:
+        print(f"[Broker Claims Upload] Narrative generation failed (non-fatal): {exc}")
+
+    # --- Level 2 analytics ---
+    level2 = None
+    try:
+        level2 = _run_level2_analytics(df, results)
+    except Exception as exc:
+        print(f"[Broker Claims Upload] Level 2 analytics failed (non-fatal): {exc}")
+
+    # Pricing tier
+    annualized_excess = total_excess_2x * 12
+    pricing_tier = assign_pricing_tier(annualized_excess)
+    tier_info = EMPLOYER_PRICE_TIERS[pricing_tier]
+
+    response = {
+        "summary": summary,
+        "narrative": narrative,
+        "line_items": results[:500],
+        "column_mapping": mapping,
+        "total_lines_analyzed": len(results),
+        "source_format": source_format,
+        "pricing_tier": pricing_tier,
+        "pricing_tier_label": tier_info["label"],
+        "pricing_tier_price": tier_info["price_monthly"],
+        "annualized_excess": round(annualized_excess, 2),
+        "level2": level2,
+    }
+
+    # --- Persist ---
+    session_id = None
+    try:
+        insert_result = sb.table("employer_claims_uploads").insert({
+            "email": e_email,
+            "filename_original": filename,
+            "total_claims": len(results),
+            "total_paid": float(total_paid),
+            "total_excess_2x": float(total_excess_2x),
+            "top_flagged_cpt": top_flagged_cpt,
+            "top_flagged_excess": float(top_flagged_excess),
+            "column_mapping_json": mapping,
+            "results_json": {**summary, "line_items": results[:500], "level2": level2},
+        }).execute()
+        if insert_result.data:
+            session_id = insert_result.data[0].get("id")
+    except Exception as exc:
+        print(f"[Broker Claims Upload] Failed to save session: {exc}")
+
+    response["session_id"] = session_id
+    response["uploaded_by_broker"] = broker_email
+    return response
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/clients/{employer_email}/scorecard-upload
+# ---------------------------------------------------------------------------
+
+@router.post("/clients/{employer_email}/scorecard-upload")
+async def broker_scorecard_upload(
+    employer_email: str,
+    request: Request,
+    file: UploadFile = File(...),
+    plan_name: Optional[str] = Form(None),
+    network_type: Optional[str] = Form(None),
+    authorization: str = Header(None),
+):
+    """Broker uploads SBC PDF on behalf of an employer client.
+    Reuses employer_scorecard scoring logic. Stores results tagged with employer_email."""
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
+    e_email = employer_email.strip().lower()
+
+    # Verify broker-employer link
+    link = (
+        sb.table("broker_employer_links")
+        .select("id")
+        .eq("broker_email", broker_email)
+        .eq("employer_email", e_email)
+        .execute()
+    )
+    if not link.data:
+        raise HTTPException(status_code=403, detail="You do not have access to this employer's data.")
+
+    check_rate_limit(request, max_requests=20)
+
+    content = await file.read()
+    if len(content) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large (max 10MB)")
+
+    # Encode PDF for Claude vision
+    b64_content = base64.b64encode(content).decode("utf-8")
+
+    parsed = _call_claude(
+        system_prompt=SBC_EXTRACTION_PROMPT,
+        user_content=[
+            {
+                "type": "document",
+                "source": {"type": "base64", "media_type": "application/pdf", "data": b64_content},
+            },
+            {
+                "type": "text",
+                "text": "Please extract the plan details from this Summary of Benefits and Coverage document.",
+            },
+        ],
+        max_tokens=2048,
+    )
+
+    if not parsed:
+        raise HTTPException(status_code=422, detail="Could not parse the SBC document. Please try a clearer PDF.")
+
+    if plan_name:
+        parsed["plan_name"] = plan_name
+    if network_type:
+        parsed["network_type"] = network_type
+
+    # --- Score the plan ---
+    scored_criteria = []
+    total_weighted_score = 0.0
+    total_weight = 0
+
+    for criterion in SCORING_CRITERIA:
+        try:
+            score = criterion["evaluate"](parsed)
+        except Exception:
+            score = 50
+        if score is None:
+            score = 50
+        weighted = score * criterion["weight"] / 100
+        total_weighted_score += weighted
+        total_weight += criterion["weight"]
+        scored_criteria.append({
+            "id": criterion["id"],
+            "label": criterion["label"],
+            "weight": criterion["weight"],
+            "score": round(score, 1),
+            "weighted_score": round(weighted, 2),
+        })
+
+    overall_score = round((total_weighted_score / total_weight) * 100, 1) if total_weight > 0 else 50.0
+    grade = _score_to_grade(overall_score)
+    interpretation = _grade_interpretation(grade, overall_score)
+    savings_per_ee = _estimate_savings(parsed, overall_score)
+
+    result = {
+        "plan_name": parsed.get("plan_name", plan_name or "Unknown Plan"),
+        "network_type": parsed.get("network_type", network_type or "Unknown"),
+        "grade": grade,
+        "score": overall_score,
+        "savings_estimate_per_ee": savings_per_ee,
+        "parsed_plan": parsed,
+        "scored_criteria": scored_criteria,
+        "interpretation": interpretation,
+        "uploaded_by_broker": broker_email,
+    }
+
+    # --- Persist ---
+    try:
+        sb.table("employer_scorecard_sessions").insert({
+            "email": e_email,
+            "plan_name": result["plan_name"],
+            "network_type": result["network_type"],
+            "grade": grade,
+            "score": float(overall_score),
+            "savings_estimate_per_ee": float(savings_per_ee) if savings_per_ee else None,
+            "parsed_plan_json": parsed,
+            "scored_criteria_json": scored_criteria,
+        }).execute()
+    except Exception as exc:
+        print(f"[Broker Scorecard Upload] Failed to save session: {exc}")
+
+    return result
