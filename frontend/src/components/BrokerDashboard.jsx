@@ -1454,7 +1454,7 @@ function BrokerDashboardInner() {
                       </>
                     )}
                     <span style={{ padding: "4px 12px", borderRadius: 16, fontSize: 12, fontWeight: 600, background: clientSummary.subscription.status === "active" ? "#dcfce7" : "#f1f5f9", color: clientSummary.subscription.status === "active" ? "#166534" : "#64748b" }}>
-                      {clientSummary.subscription.tier} · {clientSummary.subscription.status}
+                      {clientSummary.subscription.tier?.includes("@") ? "No subscription" : clientSummary.subscription.tier} · {clientSummary.subscription.status}
                     </span>
                     {clientSummary.subscription.status !== "active" && selectedClient.employer_email && !selectedClient.employer_email.includes("@broker-onboarded") && (
                       <button onClick={() => handleSuggestUpgrade(selectedClient.employer_email)} disabled={shareLoading || upgradeSent} style={{ background: upgradeSent ? "#dcfce7" : "#fef3c7", color: upgradeSent ? "#166534" : "#92400e", border: "1px solid " + (upgradeSent ? "#bbf7d0" : "#fde68a"), borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: upgradeSent ? "default" : "pointer" }}>
@@ -1652,67 +1652,6 @@ function BrokerDashboardInner() {
                       </p>
                       {scorecardUploadResult.interpretation && (
                         <p style={{ fontSize: 12, color: "#475569", margin: "6px 0 0", lineHeight: 1.5 }}>{scorecardUploadResult.interpretation}</p>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* ── Claims Upload Section ── */}
-                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Upload Claims Data</h3>
-                  <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 16px" }}>Upload 835 EDI, CSV, Excel, or ZIP of 835 files for this client.</p>
-                  <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
-                    <div style={{ flex: 1, minWidth: 200 }}>
-                      <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>Claims file *</label>
-                      <div
-                        onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#0d9488"; e.currentTarget.style.background = "#f0fdfa"; }}
-                        onDragLeave={(e) => { e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; }}
-                        onDrop={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; const f = e.dataTransfer.files?.[0]; if (f) { setClaimsFile(f); setClaimsUploadResult(null); setClaimsUploadError(""); } }}
-                        onClick={() => document.getElementById("claims-file-input-dashboard").click()}
-                        style={{ border: "2px dashed #cbd5e1", borderRadius: 8, padding: "10px 14px", background: "#f8fafc", cursor: "pointer", textAlign: "center", fontSize: 12, color: "#94a3b8", transition: "all 0.15s" }}
-                      >
-                        {claimsFile ? <span style={{ color: "#0d9488", fontWeight: 500 }}>{claimsFile.name}</span> : "Drop file here or click to browse"}
-                      </div>
-                      <input id="claims-file-input-dashboard" type="file" accept=".835,.edi,.csv,.xlsx,.xls,.zip,.txt" onChange={(e) => { setClaimsFile(e.target.files?.[0] || null); setClaimsUploadResult(null); setClaimsUploadError(""); }} style={{ display: "none" }} />
-                    </div>
-                    <div style={{ width: 120 }}>
-                      <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>ZIP code *</label>
-                      <input
-                        type="text"
-                        maxLength={5}
-                        value={claimsZip}
-                        onChange={(e) => setClaimsZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                        placeholder="10001"
-                        style={{ width: "100%", padding: "6px 10px", borderRadius: 6, border: "1px solid #e2e8f0", fontSize: 13, boxSizing: "border-box" }}
-                      />
-                    </div>
-                    <button
-                      onClick={handleClaimsUpload}
-                      disabled={claimsUploading || !claimsFile || claimsZip.length !== 5}
-                      style={{
-                        padding: "8px 20px", borderRadius: 8, border: "none", cursor: "pointer",
-                        background: claimsUploading || !claimsFile || claimsZip.length !== 5 ? "#cbd5e1" : "#0D7377",
-                        color: "#fff", fontWeight: 600, fontSize: 13, whiteSpace: "nowrap",
-                      }}
-                    >
-                      {claimsUploading ? "Analyzing..." : "Upload & Analyze"}
-                    </button>
-                  </div>
-                  {claimsUploadError && (
-                    <div style={{ marginTop: 12, padding: 10, background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 8 }}>
-                      <p style={{ color: "#991b1b", fontSize: 12, margin: 0 }}>{claimsUploadError}</p>
-                    </div>
-                  )}
-                  {claimsUploadResult && (
-                    <div style={{ marginTop: 12, padding: 12, background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8 }}>
-                      <p style={{ fontSize: 13, fontWeight: 600, color: "#0D7377", margin: "0 0 6px" }}>Claims analysis complete</p>
-                      <div style={{ display: "flex", gap: 16, flexWrap: "wrap", fontSize: 12, color: "#475569" }}>
-                        <span><strong>{claimsUploadResult.summary.total_claims}</strong> claims</span>
-                        <span>Total paid: <strong>{fmt(claimsUploadResult.summary.total_paid)}</strong></span>
-                        <span>Excess &gt;2x: <strong style={{ color: claimsUploadResult.summary.total_excess_2x > 0 ? "#EF4444" : "#475569" }}>{fmt(claimsUploadResult.summary.total_excess_2x)}</strong></span>
-                      </div>
-                      {claimsUploadResult.narrative && (
-                        <p style={{ fontSize: 12, color: "#475569", margin: "8px 0 0", lineHeight: 1.5 }}>{claimsUploadResult.narrative}</p>
                       )}
                     </div>
                   )}
