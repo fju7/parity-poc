@@ -1453,9 +1453,11 @@ function BrokerDashboardInner() {
                         )}
                       </>
                     )}
-                    <span style={{ padding: "4px 12px", borderRadius: 16, fontSize: 12, fontWeight: 600, background: clientSummary.subscription.status === "active" ? "#dcfce7" : "#f1f5f9", color: clientSummary.subscription.status === "active" ? "#166534" : "#64748b" }}>
-                      {clientSummary.subscription.tier?.includes("@") ? "No subscription" : clientSummary.subscription.tier} · {clientSummary.subscription.status}
-                    </span>
+                    {clientSummary.subscription.status === "active" && (
+                      <span style={{ padding: "4px 12px", borderRadius: 16, fontSize: 12, fontWeight: 600, background: "#dcfce7", color: "#166534" }}>
+                        {clientSummary.subscription.tier} · Active
+                      </span>
+                    )}
                     {clientSummary.subscription.status !== "active" && selectedClient.employer_email && !selectedClient.employer_email.includes("@broker-onboarded") && (
                       <button onClick={() => handleSuggestUpgrade(selectedClient.employer_email)} disabled={shareLoading || upgradeSent} style={{ background: upgradeSent ? "#dcfce7" : "#fef3c7", color: upgradeSent ? "#166534" : "#92400e", border: "1px solid " + (upgradeSent ? "#bbf7d0" : "#fde68a"), borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: upgradeSent ? "default" : "pointer" }}>
                         {upgradeSent ? "Upgrade email sent" : shareLoading ? "Sending..." : "Suggest Upgrade"}
