@@ -212,10 +212,10 @@ export default function BrokerLandingPage() {
           <span style={{ fontSize: 13, fontWeight: 600, color: "#14b8a6" }}>PARITY BROKER</span>
         </div>
         <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(30px, 4vw, 46px)", lineHeight: 1.15, fontWeight: 400, color: "#f1f5f9", marginBottom: 8, letterSpacing: "-0.02em" }}>
-          Every renewal is a test of whether you brought better data than the carrier did.
+          For the first time, you can walk into every renewal with an independent benchmark for every client.
         </h1>
         <p style={{ fontSize: 22, fontWeight: 500, color: "#14b8a6", marginBottom: 20 }}>
-          Now you always will.
+          That changes what's possible.
         </p>
         <p style={{ fontSize: 17, lineHeight: 1.7, color: "#94a3b8", maxWidth: 680, margin: "0 auto 32px" }}>
           Parity Broker benchmarks every client's plan against Medicare rates and NADAC drug costs, generates CAA-compliant data request letters automatically, and tracks your entire book of business in one dashboard. Walk into every renewal meeting with findings your clients have never seen.
@@ -235,11 +235,11 @@ export default function BrokerLandingPage() {
       <section style={{ padding: "0 24px 72px", maxWidth: 780, margin: "0 auto" }}>
         <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(20,184,166,0.15)", borderRadius: 16, padding: "36px 40px" }}>
           <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 24, fontWeight: 400, color: "#f1f5f9", marginBottom: 20 }}>
-            What renewal season looks like without this
+            What renewal season looks like now
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 16, fontSize: 15, lineHeight: 1.75, color: "#94a3b8" }}>
             <p style={{ margin: 0 }}>
-              Every year, carriers bring renewal numbers to the table. Those numbers reflect the carrier's analysis of the plan data — claims experience, utilization patterns, cost trends. The analysis is real. The question is whether it's the only analysis in the room.
+              Every year, carriers bring renewal numbers to the table. Those numbers reflect the carrier's analysis of the plan data — claims experience, utilization patterns, cost trends. The analysis is real. Until now, it was usually the only analysis in the room.
             </p>
             <p style={{ margin: 0 }}>
               Most of the time, it is. The employer doesn't have an independent benchmark. The broker doesn't have time to build one for every client before renewal season hits. The carrier's numbers become the conversation.
