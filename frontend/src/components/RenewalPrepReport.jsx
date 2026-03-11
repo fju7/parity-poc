@@ -262,7 +262,7 @@ export default function RenewalPrepReport() {
               )}
             </>
           ) : (
-            {claimsResult ? (
+            <>{claimsResult ? (
               <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 10, padding: 16 }}>
                 <p style={{ fontSize: 14, fontWeight: 600, color: "#0D7377", margin: "0 0 8px" }}>Claims analysis complete</p>
                 <div style={{ display: "flex", gap: 24, fontSize: 13, color: "#475569" }}>
@@ -290,7 +290,7 @@ export default function RenewalPrepReport() {
                 </div>
                 {claimsError && <p style={{ color: "#991b1b", fontSize: 12, marginTop: 8, textAlign: "center" }}>{claimsError}</p>}
               </div>
-            )}
+            )}</>
           )}
         </Section>
 
@@ -312,7 +312,7 @@ export default function RenewalPrepReport() {
               </div>
             </div>
           ) : (
-            {scorecardResult ? (
+            <>{scorecardResult ? (
               <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 10, padding: 16 }}>
                 <p style={{ fontSize: 13, fontWeight: 600, color: "#0D7377", margin: "0 0 6px" }}>
                   Plan grade: <span style={{ fontSize: 20 }}>{scorecardResult.grade}</span>
@@ -335,7 +335,7 @@ export default function RenewalPrepReport() {
                 </div>
                 {scorecardError && <p style={{ color: "#991b1b", fontSize: 12, marginTop: 8, textAlign: "center" }}>{scorecardError}</p>}
               </div>
-            )}
+            )}</>
           )}
         </Section>
 
