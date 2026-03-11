@@ -70,6 +70,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
         <Route path="/audit/account" element={<AuditAccount />} />
+        <Route path="/provider/signup" element={<ProviderSignupPage />} />
         <Route path="/audit" element={<AuditStandalone />} />
         <Route path="/billing" element={<BillingLanding />} />
         <Route path="/billing/employer" element={<EmployerProductPage />} />
