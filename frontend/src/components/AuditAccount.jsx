@@ -426,7 +426,7 @@ function Nav({ onSignOut, userEmail }) {
           </button>
         )}
       </div>
-    </nav>
+    </header>
   );
 }
 
