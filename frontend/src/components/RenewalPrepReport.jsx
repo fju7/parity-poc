@@ -216,7 +216,7 @@ export default function RenewalPrepReport() {
               )}
             </>
           ) : (
-            <Placeholder text="Not yet analyzed." cta="Upload claims data to complete this section" ctaLink="/billing/employer/claims-check" />
+            <Placeholder text="Not yet analyzed." cta="Upload claims data to complete this section" ctaLink={`/broker/dashboard?client=${encodeURIComponent(client.employer_email || "")}`} />
           )}
         </Section>
 
@@ -238,7 +238,7 @@ export default function RenewalPrepReport() {
               </div>
             </div>
           ) : (
-            <Placeholder text="Not yet graded." cta="Complete plan scorecard to add this section" ctaLink="/billing/employer/scorecard" />
+            <Placeholder text="Not yet graded." cta="Complete plan scorecard to add this section" ctaLink={`/broker/dashboard?client=${encodeURIComponent(client.employer_email || "")}`} />
           )}
         </Section>
 

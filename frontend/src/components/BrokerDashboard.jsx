@@ -125,6 +125,17 @@ function BrokerDashboardInner() {
   const [inviteLoading, setInviteLoading] = useState(false);
   const [inviteResult, setInviteResult] = useState(null);
 
+  // Upload state — broker uploads claims/scorecard on behalf of client
+  const [claimsFile, setClaimsFile] = useState(null);
+  const [claimsZip, setClaimsZip] = useState("");
+  const [claimsUploading, setClaimsUploading] = useState(false);
+  const [claimsUploadResult, setClaimsUploadResult] = useState(null);
+  const [claimsUploadError, setClaimsUploadError] = useState("");
+  const [scorecardFile, setScorecardFile] = useState(null);
+  const [scorecardUploading, setScorecardUploading] = useState(false);
+  const [scorecardUploadResult, setScorecardUploadResult] = useState(null);
+  const [scorecardUploadError, setScorecardUploadError] = useState("");
+
   // Handle ?upgraded=true — poll until plan shows "pro"
   useEffect(() => {
     if (!token) return;
@@ -181,6 +192,20 @@ function BrokerDashboardInner() {
   }, [token]);
 
   useEffect(() => { fetchClients(); }, [fetchClients]);
+
+  // Auto-select client from ?client= query param (e.g. from renewal prep report)
+  useEffect(() => {
+    if (!clients.length) return;
+    const params = new URLSearchParams(window.location.search);
+    const clientParam = params.get("client");
+    if (clientParam && !selectedClient) {
+      const match = clients.find((c) => c.employer_email === clientParam);
+      if (match) {
+        handleSelectClient(match);
+        window.history.replaceState({}, "", "/broker/dashboard");
+      }
+    }
+  }, [clients]);
 
   // Fetch renewal pipeline
   const fetchRenewals = useCallback(async () => {
@@ -264,6 +289,8 @@ function BrokerDashboardInner() {
     setNotifySent(false);
     setShareCopied(false);
     setUpgradeSent(false);
+    setClaimsFile(null); setClaimsUploadResult(null); setClaimsUploadError("");
+    setScorecardFile(null); setScorecardUploadResult(null); setScorecardUploadError("");
     fetchSummary(client.employer_email);
   };
 
@@ -513,6 +540,65 @@ function BrokerDashboardInner() {
   const renewingClients = portfolioClients.filter(c => isRenewing90(c.renewal_month));
 
   const fmt = (n) => n != null ? n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "—";
+
+  // --- Broker claims upload handler ---
+  const handleClaimsUpload = async () => {
+    if (!claimsFile || !claimsZip || !selectedClient?.employer_email) return;
+    setClaimsUploading(true);
+    setClaimsUploadError("");
+    setClaimsUploadResult(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", claimsFile);
+      fd.append("zip_code", claimsZip.trim());
+      const res = await fetch(
+        `${API}/api/broker/clients/${encodeURIComponent(selectedClient.employer_email)}/claims-upload`,
+        { method: "POST", headers: authHeaders, body: fd }
+      );
+      const data = await res.json();
+      if (!res.ok) { setClaimsUploadError(data.detail || "Upload failed"); return; }
+      setClaimsUploadResult(data);
+      setClaimsFile(null);
+      // Refresh client summary to show new upload
+      try {
+        const sr = await fetch(`${API}/api/broker/clients/${encodeURIComponent(selectedClient.employer_email)}/summary`, { headers: authHeaders });
+        if (sr.ok) setClientSummary(await sr.json());
+      } catch {}
+    } catch (err) {
+      setClaimsUploadError("Upload failed. Please try again.");
+    } finally {
+      setClaimsUploading(false);
+    }
+  };
+
+  // --- Broker scorecard upload handler ---
+  const handleScorecardUpload = async () => {
+    if (!scorecardFile || !selectedClient?.employer_email) return;
+    setScorecardUploading(true);
+    setScorecardUploadError("");
+    setScorecardUploadResult(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", scorecardFile);
+      const res = await fetch(
+        `${API}/api/broker/clients/${encodeURIComponent(selectedClient.employer_email)}/scorecard-upload`,
+        { method: "POST", headers: authHeaders, body: fd }
+      );
+      const data = await res.json();
+      if (!res.ok) { setScorecardUploadError(data.detail || "Upload failed"); return; }
+      setScorecardUploadResult(data);
+      setScorecardFile(null);
+      // Refresh client summary
+      try {
+        const sr = await fetch(`${API}/api/broker/clients/${encodeURIComponent(selectedClient.employer_email)}/summary`, { headers: authHeaders });
+        if (sr.ok) setClientSummary(await sr.json());
+      } catch {}
+    } catch (err) {
+      setScorecardUploadError("Upload failed. Please try again.");
+    } finally {
+      setScorecardUploading(false);
+    }
+  };
 
   if (!token || !user) return null;
 
@@ -1482,6 +1568,113 @@ function BrokerDashboardInner() {
                     </p>
                   </div>
                 )}
+
+                {/* ── Claims Upload Section ── */}
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Upload Claims Data</h3>
+                  <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 16px" }}>Upload 835 EDI, CSV, Excel, or ZIP of 835 files for this client.</p>
+                  <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
+                    <div style={{ flex: 1, minWidth: 180 }}>
+                      <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>Claims file *</label>
+                      <input
+                        type="file"
+                        accept=".835,.edi,.csv,.xlsx,.xls,.zip,.txt"
+                        onChange={(e) => { setClaimsFile(e.target.files?.[0] || null); setClaimsUploadResult(null); setClaimsUploadError(""); }}
+                        style={{ fontSize: 13, color: "#475569" }}
+                      />
+                    </div>
+                    <div style={{ width: 120 }}>
+                      <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>ZIP code *</label>
+                      <input
+                        type="text"
+                        maxLength={5}
+                        value={claimsZip}
+                        onChange={(e) => setClaimsZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                        placeholder="10001"
+                        style={{ width: "100%", padding: "6px 10px", borderRadius: 6, border: "1px solid #e2e8f0", fontSize: 13, boxSizing: "border-box" }}
+                      />
+                    </div>
+                    <button
+                      onClick={handleClaimsUpload}
+                      disabled={claimsUploading || !claimsFile || claimsZip.length !== 5}
+                      style={{
+                        padding: "8px 20px", borderRadius: 8, border: "none", cursor: "pointer",
+                        background: claimsUploading || !claimsFile || claimsZip.length !== 5 ? "#cbd5e1" : "#0D7377",
+                        color: "#fff", fontWeight: 600, fontSize: 13, whiteSpace: "nowrap",
+                      }}
+                    >
+                      {claimsUploading ? "Analyzing..." : "Upload & Analyze"}
+                    </button>
+                  </div>
+                  {claimsUploadError && (
+                    <div style={{ marginTop: 12, padding: 10, background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 8 }}>
+                      <p style={{ color: "#991b1b", fontSize: 12, margin: 0 }}>{claimsUploadError}</p>
+                    </div>
+                  )}
+                  {claimsUploadResult && (
+                    <div style={{ marginTop: 12, padding: 12, background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8 }}>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: "#0D7377", margin: "0 0 6px" }}>Claims analysis complete</p>
+                      <div style={{ display: "flex", gap: 16, flexWrap: "wrap", fontSize: 12, color: "#475569" }}>
+                        <span><strong>{claimsUploadResult.summary.total_claims}</strong> claims</span>
+                        <span>Total paid: <strong>{fmt(claimsUploadResult.summary.total_paid)}</strong></span>
+                        <span>Excess &gt;2x: <strong style={{ color: claimsUploadResult.summary.total_excess_2x > 0 ? "#EF4444" : "#475569" }}>{fmt(claimsUploadResult.summary.total_excess_2x)}</strong></span>
+                      </div>
+                      {claimsUploadResult.narrative && (
+                        <p style={{ fontSize: 12, color: "#475569", margin: "8px 0 0", lineHeight: 1.5 }}>{claimsUploadResult.narrative}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* ── Scorecard Upload Section ── */}
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Upload Plan Scorecard (SBC)</h3>
+                  <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 16px" }}>Upload a Summary of Benefits and Coverage PDF to grade this client's plan.</p>
+                  <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
+                    <div style={{ flex: 1, minWidth: 180 }}>
+                      <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>SBC PDF *</label>
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        onChange={(e) => { setScorecardFile(e.target.files?.[0] || null); setScorecardUploadResult(null); setScorecardUploadError(""); }}
+                        style={{ fontSize: 13, color: "#475569" }}
+                      />
+                    </div>
+                    <button
+                      onClick={handleScorecardUpload}
+                      disabled={scorecardUploading || !scorecardFile}
+                      style={{
+                        padding: "8px 20px", borderRadius: 8, border: "none", cursor: "pointer",
+                        background: scorecardUploading || !scorecardFile ? "#cbd5e1" : "#0D7377",
+                        color: "#fff", fontWeight: 600, fontSize: 13, whiteSpace: "nowrap",
+                      }}
+                    >
+                      {scorecardUploading ? "Grading..." : "Upload & Grade"}
+                    </button>
+                  </div>
+                  {scorecardUploadError && (
+                    <div style={{ marginTop: 12, padding: 10, background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 8 }}>
+                      <p style={{ color: "#991b1b", fontSize: 12, margin: 0 }}>{scorecardUploadError}</p>
+                    </div>
+                  )}
+                  {scorecardUploadResult && (
+                    <div style={{ marginTop: 12, padding: 12, background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8 }}>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: "#0D7377", margin: "0 0 6px" }}>
+                        Plan grade: <span style={{ fontSize: 18 }}>{scorecardUploadResult.grade}</span>
+                        <span style={{ fontWeight: 400, color: "#475569", marginLeft: 8 }}>({scorecardUploadResult.score}/100)</span>
+                      </p>
+                      <p style={{ fontSize: 12, color: "#475569", margin: 0 }}>
+                        {scorecardUploadResult.plan_name} ({scorecardUploadResult.network_type})
+                        {scorecardUploadResult.savings_estimate_per_ee && (
+                          <span> &mdash; est. savings: <strong>{fmt(scorecardUploadResult.savings_estimate_per_ee)}</strong>/employee/year</span>
+                        )}
+                      </p>
+                      {scorecardUploadResult.interpretation && (
+                        <p style={{ fontSize: 12, color: "#475569", margin: "6px 0 0", lineHeight: 1.5 }}>{scorecardUploadResult.interpretation}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 {/* Activity Timeline */}
                 {clientActivity && clientActivity.events && clientActivity.events.length > 0 && (
