@@ -12,9 +12,9 @@ export function LogoIcon({ footer }) {
           <div className="cs-bar cs-bar-short" style={{ background: "rgba(255,255,255,0.4)" }} />
         </div>
         <div className="cs-bar-col">
-          <div className="cs-bar cs-bar-short" style={{ background: "var(--cs-teal-light)", opacity: 0.7 }} />
-          <div className="cs-bar cs-bar-mid" style={{ background: "rgba(255,255,255,0.4)" }} />
-          <div className="cs-bar cs-bar-tall" style={{ background: "var(--cs-teal-light)", opacity: 0.7 }} />
+          <div className="cs-bar cs-bar-teal cs-bar-short" style={{ opacity: 0.7 }} />
+          <div className="cs-bar cs-bar-short" style={{ background: "rgba(255,255,255,0.4)" }} />
+          <div className="cs-bar cs-bar-teal cs-bar-tall" style={{ opacity: 0.7 }} />
         </div>
       </div>
     );
@@ -41,322 +41,482 @@ export default function CivicScaleHomepage() {
   const [hoveredProduct, setHoveredProduct] = useState(null);
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "#0a1628",
-      color: "#e2e8f0",
-      fontFamily: "'DM Sans', sans-serif",
-      overflowX: "hidden"
-    }}>
+    <div className="cs-home-root">
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
 
+      {/* ── Section 1: Navigation ── */}
       <header className="cs-home-header">
-        <Link to="/" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
-          <div style={{
-            width: "32px", height: "32px", borderRadius: "8px",
-            background: "linear-gradient(135deg, #0d9488, #14b8a6)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: "16px", fontWeight: "700", color: "#0a1628"
-          }}>C</div>
-          <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "-0.02em" }}>
-            CivicScale
-          </span>
+        <Link to="/" className="cs-home-logo-link">
+          <div className="cs-home-logo-mark">C</div>
+          <span className="cs-home-wordmark">CivicScale</span>
         </Link>
         <nav className="cs-home-nav">
-          <Link to="/billing/employer" style={{ color: "inherit", textDecoration: "none" }}>Parity Employer</Link>
-          <Link to="/billing/provider" style={{ color: "inherit", textDecoration: "none" }}>Parity Provider</Link>
-          <Link to="/signal" style={{ color: "inherit", textDecoration: "none" }}>Parity Signal</Link>
-          <Link to="/broker" style={{ color: "inherit", textDecoration: "none" }}>Broker Portal</Link>
-          <Link to="/broker/login" style={{ color: "#14b8a6", textDecoration: "none", border: "1px solid #14b8a6", borderRadius: "6px", padding: "6px 16px" }}>Broker Login</Link>
+          <Link to="/billing/employer" className="cs-home-nav-link">Employer</Link>
+          <Link to="/broker" className="cs-home-nav-link">Broker</Link>
+          <Link to="/billing/provider" className="cs-home-nav-link">Provider</Link>
+          <Link to="/parity-health" className="cs-home-nav-link">Health</Link>
+          <Link to="/signal" className="cs-home-nav-link">Signal</Link>
+          <Link to="/investors" className="cs-home-nav-link cs-home-nav-investors">Investors</Link>
         </nav>
+        <div className="cs-home-nav-actions">
+          <Link to="/billing/employer/signup" className="cs-home-nav-cta">Start Free Trial</Link>
+        </div>
+        <button className="cs-home-mobile-toggle" onClick={() => {
+          document.querySelector('.cs-home-nav').classList.toggle('cs-home-nav--open');
+        }} aria-label="Toggle navigation">
+          <span /><span /><span />
+        </button>
       </header>
 
-      <section className="cs-home-section" style={{
-        paddingTop: "100px", paddingBottom: "80px",
-        maxWidth: "1100px",
-        margin: "0 auto",
-        textAlign: "center",
-        position: "relative"
-      }}>
-        <div style={{
-          position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)",
-          width: "600px", height: "400px",
-          background: "radial-gradient(ellipse, rgba(20,184,166,0.08) 0%, transparent 70%)",
-          pointerEvents: "none"
-        }} />
-        <h1 style={{
-          fontFamily: "'DM Serif Display', serif",
-          fontSize: "clamp(36px, 5vw, 62px)",
-          lineHeight: "1.1", fontWeight: "400",
-          color: "#f1f5f9", marginBottom: "28px",
-          letterSpacing: "-0.02em"
-        }}>
-          Most employers overpay for healthcare.<br />
-          Most physicians get underpaid.<br />
-          <span style={{ color: "#14b8a6" }}>Most patients can't read their bills.</span>
-        </h1>
-        <p style={{
-          fontSize: "18px", lineHeight: "1.7", color: "#94a3b8",
-          maxWidth: "680px", margin: "0 auto"
-        }}>
-          CivicScale gives patients, physicians, and employers clear data on what healthcare
-          actually costs — so you can make better decisions, ask better questions,
-          and get better outcomes.
-        </p>
-      </section>
-
-      <section className="cs-home-section" style={{
-        paddingTop: "0", paddingBottom: "80px", maxWidth: "900px",
-        margin: "0 auto", textAlign: "center"
-      }}>
-        <div className="cs-home-quote-box" style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: "16px"
-        }}>
-          <p style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "20px", fontStyle: "italic",
-            color: "#cbd5e1", lineHeight: "1.7"
-          }}>
-            Most disagreements aren't about the facts — they're about which facts to
-            emphasize. Sources make invisible choices about what to weight and what to
-            ignore. The Parity Engine makes those choices visible.
+      {/* ── Section 2: Hero ── */}
+      <section className="cs-home-hero">
+        <div className="cs-home-hero-glow" />
+        <div className="cs-home-hero-glow-2" />
+        <div className="cs-home-hero-content">
+          <div className="cs-home-hero-eyebrow">
+            <span className="cs-home-hero-eyebrow-dot" />
+            Independent Healthcare Intelligence
+          </div>
+          <h1 className="cs-home-hero-h1">
+            Healthcare costs more than it should.<br />
+            <span className="cs-home-hero-accent">Now you can see exactly where.</span>
+          </h1>
+          <p className="cs-home-hero-sub">
+            CivicScale gives employers, brokers, providers, and patients clear,
+            independent data on what healthcare actually costs — so every
+            stakeholder can make informed decisions, backed by evidence instead
+            of carrier narratives.
           </p>
-        </div>
-      </section>
-
-      <section className="cs-home-section" style={{
-        paddingTop: "0", paddingBottom: "80px", maxWidth: "1100px", margin: "0 auto"
-      }}>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "24px",
-        }}>
-          {AUDIENCE_CARDS.map((card) => (
-            <Link key={card.label} to={card.to} style={{ textDecoration: "none", color: "inherit", display: "flex" }}
-              onMouseEnter={() => setHoveredProduct(card.key)} onMouseLeave={() => setHoveredProduct(null)}>
-              <div style={{
-                background: hoveredProduct === card.key ? card.hoverBg : "rgba(255,255,255,0.02)",
-                border: hoveredProduct === card.key ? `1px solid ${card.hoverBorder}` : "1px solid rgba(255,255,255,0.06)",
-                borderRadius: "16px", padding: "36px", transition: "all 0.3s ease",
-                cursor: "pointer", display: "flex", flexDirection: "column", width: "100%"
-              }}>
-                <div style={{ display: "inline-block", background: card.labelBg, borderRadius: "8px", padding: "8px 14px", marginBottom: "20px", alignSelf: "flex-start" }}>
-                  <span style={{ fontSize: "13px", fontWeight: "600", color: card.accent }}>{card.label}</span>
-                </div>
-                <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "24px", fontWeight: "400", color: "#f1f5f9", marginBottom: "14px" }}>{card.heading}</h2>
-                <p style={{ fontSize: "15px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "28px", flex: 1 }}>{card.body}</p>
-                <div style={{ marginTop: "auto" }}>
-                  <span style={{ fontSize: "14px", fontWeight: "600", color: card.accent }}>{card.cta}</span>
-                  {card.badge && (
-                    <div style={{ fontSize: "12px", color: "#64748b", marginTop: "6px" }}>{card.badge}</div>
-                  )}
-                </div>
-              </div>
+          <div className="cs-home-hero-actions">
+            <Link to="/billing/employer/signup" className="cs-btn-primary">
+              Start Free Trial <span>&rarr;</span>
             </Link>
-          ))}
+            <Link to="/billing/employer/demo" className="cs-btn-ghost">
+              See a Demo
+            </Link>
+          </div>
+          <p className="cs-home-hero-trust">
+            No credit card required for first 30 days &middot; Cancel anytime
+          </p>
         </div>
       </section>
 
-      {/* Connective tissue — One claim. Three perspectives. */}
-      <section style={{
-        paddingTop: "0", paddingBottom: "80px",
-        maxWidth: "900px", margin: "0 auto", textAlign: "center"
-      }}>
-        <div style={{
-          background: "linear-gradient(135deg, rgba(20,184,166,0.05), rgba(59,130,246,0.05))",
-          border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: "16px", padding: "48px"
-        }}>
-          <h2 style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "32px", fontWeight: "400",
-            color: "#f1f5f9", marginBottom: "24px"
-          }}>One claim. Three perspectives.</h2>
-          <p style={{
-            fontSize: "16px", lineHeight: "1.8", color: "#94a3b8",
-            maxWidth: "640px", margin: "0 auto 24px"
-          }}>
-            A single healthcare claim touches a patient, a physician, and an employer —
-            each seeing a different piece of the same transaction, none of them
-            with the full picture.
+      {/* ── Section 3: The Problem ── */}
+      <section className="cs-home-section cs-home-problem-section">
+        <div className="cs-home-section-inner cs-home-problem-inner">
+          <div className="cs-home-section-label">The Problem</div>
+          <h2 className="cs-home-section-title">
+            One claim. Four perspectives. Zero shared visibility.
+          </h2>
+          <p className="cs-home-section-sub" style={{ maxWidth: 720, margin: "0 auto 48px" }}>
+            A single healthcare claim touches a patient, a physician, an employer,
+            and a broker — each seeing a different piece of the same transaction,
+            none of them with the full picture. The carrier sees everything.
           </p>
-          <p style={{
-            fontSize: "16px", lineHeight: "1.8", color: "#94a3b8",
-            maxWidth: "640px", margin: "0 auto 24px"
-          }}>
-            The patient gets a bill they may not fully understand. The physician receives
-            a payment that may not match their contracted rate. The employer's plan pays
-            a price that may be well above what comparable plans pay for the same procedure.
-          </p>
-          <p style={{
-            fontSize: "15px", lineHeight: "1.7", color: "#64748b",
-            maxWidth: "560px", margin: "0 auto",
-            fontStyle: "italic"
-          }}>
-            CivicScale sits at all three points — independent data, no carrier
+          <div className="cs-home-problem-grid">
+            {PROBLEM_ITEMS.map((item) => (
+              <div key={item.role} className="cs-home-problem-card">
+                <div className="cs-home-problem-icon">{item.icon}</div>
+                <h3 className="cs-home-problem-role">{item.role}</h3>
+                <p className="cs-home-problem-desc">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="cs-home-problem-kicker">
+            CivicScale sits at all four points — independent data, no carrier
             relationships, no conflicts of interest.
           </p>
         </div>
       </section>
 
-      {/* Parity Audit CTA */}
-      <section className="cs-home-section" style={{
-        paddingTop: "0", paddingBottom: "80px", maxWidth: "1100px", margin: "0 auto"
-      }}>
-        <Link to="/audit" style={{ textDecoration: "none", color: "inherit", display: "block" }}
-          onMouseEnter={() => setHoveredProduct("audit")} onMouseLeave={() => setHoveredProduct(null)}>
-          <div style={{
-            background: hoveredProduct === "audit"
-              ? "linear-gradient(135deg, rgba(20,184,166,0.12), rgba(13,148,136,0.06))"
-              : "linear-gradient(135deg, rgba(20,184,166,0.06), rgba(255,255,255,0.02))",
-            border: hoveredProduct === "audit"
-              ? "1px solid rgba(20,184,166,0.35)"
-              : "1px solid rgba(20,184,166,0.15)",
-            borderRadius: "16px", padding: "40px 48px",
-            transition: "all 0.3s ease", cursor: "pointer",
-            display: "flex", alignItems: "center", gap: "48px",
-          }}>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: "inline-block", background: "rgba(20,184,166,0.15)", borderRadius: "8px", padding: "6px 14px", marginBottom: "16px" }}>
-                <span style={{ fontSize: "12px", fontWeight: "700", color: "#14b8a6", letterSpacing: "0.08em" }}>FREE FOR PRACTICES</span>
-              </div>
-              <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "28px", fontWeight: "400", color: "#f1f5f9", marginBottom: "12px" }}>
-                Parity Audit
-              </h2>
-              <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "20px", maxWidth: "540px" }}>
-                Find out what your payers owe you. Upload one month of remittance data and get a detailed contract integrity report within 5-7 business days. No cost. No commitment. No integration required.
-              </p>
-              <div style={{ display: "flex", gap: "24px", marginBottom: "20px" }}>
-                {[
-                  { icon: "1", label: "Upload 835 files" },
-                  { icon: "2", label: "Add payer contracts" },
-                  { icon: "3", label: "Get your report" },
-                ].map(s => (
-                  <div key={s.icon} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <div style={{
-                      width: "24px", height: "24px", borderRadius: "50%",
-                      background: "rgba(20,184,166,0.15)", display: "flex",
-                      alignItems: "center", justifyContent: "center",
-                      fontSize: "12px", fontWeight: "700", color: "#14b8a6",
-                    }}>{s.icon}</div>
-                    <span style={{ fontSize: "13px", color: "#cbd5e1" }}>{s.label}</span>
-                  </div>
-                ))}
-              </div>
-              <span style={{ fontSize: "15px", fontWeight: "600", color: "#14b8a6" }}>
-                Start Your Free Audit &rarr;
-              </span>
-            </div>
-            <div style={{
-              flexShrink: 0, width: "180px", height: "180px", borderRadius: "16px",
-              background: "rgba(20,184,166,0.08)", border: "1px solid rgba(20,184,166,0.15)",
-              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-              gap: "8px",
-            }}>
-              <div style={{ fontSize: "42px", fontWeight: "700", color: "#14b8a6" }}>$0</div>
-              <div style={{ fontSize: "13px", color: "#94a3b8", textAlign: "center" }}>No cost to practices</div>
-              <div style={{ fontSize: "11px", color: "#64748b" }}>5-7 day delivery</div>
-            </div>
+      {/* ── Section 4: Product Cards ── */}
+      <section className="cs-home-section cs-home-products-section">
+        <div className="cs-home-section-inner">
+          <div className="cs-home-section-label">Products</div>
+          <h2 className="cs-home-section-title">Four products. One analytical engine.</h2>
+          <p className="cs-home-section-sub" style={{ maxWidth: 680, margin: "0 auto 56px" }}>
+            Each product serves a different stakeholder in the healthcare system.
+            All are powered by the same benchmark and scoring infrastructure.
+          </p>
+          <div className="cs-home-product-cards">
+            {PRODUCT_CARDS.map((card) => (
+              <Link
+                key={card.key}
+                to={card.to}
+                className={`cs-home-product-card cs-home-product-card--${card.key}`}
+                onMouseEnter={() => setHoveredProduct(card.key)}
+                onMouseLeave={() => setHoveredProduct(null)}
+                style={{
+                  borderColor: hoveredProduct === card.key ? card.hoverBorder : undefined,
+                }}
+              >
+                <div className="cs-home-product-accent" style={{ background: card.accentGrad }} />
+                <div className="cs-home-product-badge" style={{ background: card.badgeBg, color: card.accent }}>
+                  {card.label}
+                </div>
+                <h3 className="cs-home-product-heading">{card.heading}</h3>
+                <p className="cs-home-product-body">{card.body}</p>
+                <ul className="cs-home-product-bullets">
+                  {card.bullets.map((b, i) => (
+                    <li key={i}><span className="cs-home-bullet-check" style={{ color: card.accent }}>&#10003;</span> {b}</li>
+                  ))}
+                </ul>
+                <div className="cs-home-product-footer">
+                  <span className="cs-home-product-cta" style={{ color: card.accent }}>
+                    {card.cta} <span>&rarr;</span>
+                  </span>
+                  {card.badge && (
+                    <span className="cs-home-product-tier">{card.badge}</span>
+                  )}
+                </div>
+              </Link>
+            ))}
           </div>
-        </Link>
-      </section>
-
-      <section className="cs-home-section" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1100px", margin: "0 auto", textAlign: "center" }}>
-        <p style={{ fontSize: "13px", fontWeight: "500", letterSpacing: "0.12em", textTransform: "uppercase", color: "#64748b", marginBottom: "20px" }}>Powered By</p>
-        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "36px", fontWeight: "400", color: "#f1f5f9", marginBottom: "20px" }}>The Parity Engine</h2>
-        <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#94a3b8", maxWidth: "700px", margin: "0 auto 48px" }}>
-          One domain-agnostic architecture that ingests publicly available benchmark data, normalizes it across geographies and time, applies anomaly scoring, and generates plain-language explanations. The same logic that compares a medical bill to a Medicare fee schedule also scores a health claim against the clinical evidence base.
-        </p>
-        <div style={{ display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap" }}>
-          {["Benchmark Normalization", "Anomaly Scoring", "Analytical Paths", "Evidence Scoring", "Consensus Mapping", "Plain-Language Explanations"].map(c => (
-            <span key={c} style={{ fontSize: "13px", padding: "8px 16px", borderRadius: "8px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", color: "#94a3b8" }}>{c}</span>
-          ))}
         </div>
       </section>
 
-      <section className="cs-home-section" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1100px", margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "56px" }}>
-          <p style={{ fontSize: "13px", fontWeight: "500", letterSpacing: "0.12em", textTransform: "uppercase", color: "#14b8a6", marginBottom: "20px" }}>Why This Requires AI — And Why Ours Is Different</p>
-          <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "36px", fontWeight: "400", color: "#f1f5f9", marginBottom: "20px" }}>AI that shows its work</h2>
-          <p style={{ fontSize: "16px", lineHeight: "1.7", color: "#94a3b8", maxWidth: "700px", margin: "0 auto" }}>
-            Most AI tools give you an answer. We show you how the answer was built — which evidence was weighted, what assumptions were made, and where reasonable people disagree. That's the difference between an AI that thinks for you and one that helps you think.
+      {/* ── Section 5: The Parity Engine ── */}
+      <section className="cs-home-section cs-home-engine-section">
+        <div className="cs-home-section-inner">
+          <div className="cs-home-section-label" style={{ color: "var(--cs-teal-light)" }}>Powered By</div>
+          <h2 className="cs-home-section-title" style={{ color: "#f1f5f9" }}>
+            The Parity Engine
+          </h2>
+          <p className="cs-home-section-sub" style={{ color: "rgba(255,255,255,0.6)", maxWidth: 740, margin: "0 auto 48px" }}>
+            One domain-agnostic architecture that ingests publicly available
+            benchmark data, normalizes it across geographies and time, applies
+            anomaly scoring, and generates plain-language explanations. The same
+            logic that compares a medical bill to a Medicare fee schedule also
+            scores a health claim against the clinical evidence base.
+          </p>
+          <div className="cs-home-engine-capabilities">
+            {ENGINE_CAPABILITIES.map((cap) => (
+              <div key={cap.name} className="cs-home-engine-cap">
+                <div className="cs-home-engine-cap-icon">{cap.icon}</div>
+                <div>
+                  <h4 className="cs-home-engine-cap-name">{cap.name}</h4>
+                  <p className="cs-home-engine-cap-desc">{cap.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 6: Analytical Paths (investor-weight) ── */}
+      <section className="cs-home-section cs-home-paths-section">
+        <div className="cs-home-section-inner">
+          <div className="cs-home-section-label">Core Technology</div>
+          <h2 className="cs-home-section-title">
+            Analytical Paths: See Why Sources Disagree
+          </h2>
+          <p className="cs-home-section-sub" style={{ maxWidth: 740, margin: "0 auto 40px" }}>
+            Most disagreements aren't about the facts — they're about which facts
+            to emphasize. Sources make invisible analytical choices about what to
+            weight and what to ignore. The Parity Engine makes those choices visible.
+          </p>
+          <div className="cs-home-paths-demo">
+            <div className="cs-home-paths-demo-header">
+              <h4>Same Claim, Different Conclusions</h4>
+              <p>Each profile weights the same six evidence dimensions differently — producing different composite scores from identical data.</p>
+            </div>
+            <div className="cs-home-paths-profiles">
+              {ANALYTICAL_PROFILES.map((profile) => (
+                <div key={profile.name} className="cs-home-paths-profile">
+                  <div className="cs-home-paths-profile-name">{profile.name}</div>
+                  <div className="cs-home-paths-profile-emphasis">{profile.emphasis}</div>
+                  <div className="cs-home-paths-profile-maps">{profile.mapsTo}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="cs-home-paths-kicker">
+            This isn't prompt engineering. It's persistent scoring infrastructure —
+            per-dimension scores, configurable weights, named analytical profiles —
+            that makes competing conclusions legible.
           </p>
         </div>
-        <div className="cs-home-whyai-grid">
-          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "12px", padding: "32px" }}>
-            <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "rgba(20,184,166,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", fontSize: "20px" }}>&#x26A1;</div>
-            <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#f1f5f9", marginBottom: "12px" }}>Scale that humans can't match</h3>
-            <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8" }}>A single medical bill can reference hundreds of procedure codes across dozens of fee schedules. A single drug safety topic spans thousands of clinical trial data points, FDA filings, and published studies. AI processes this volume in minutes — a human analyst would need weeks.</p>
+      </section>
+
+      {/* ── Section 7: Why Not Just Ask an AI? (investor-weight) ── */}
+      <section className="cs-home-section cs-home-whyai-section">
+        <div className="cs-home-section-inner">
+          <div className="cs-home-section-label" style={{ color: "var(--cs-teal-light)" }}>
+            Why This Requires AI — And Why Ours Is Different
           </div>
-          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "12px", padding: "32px" }}>
-            <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "rgba(20,184,166,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", fontSize: "20px" }}>&#x1F50D;</div>
-            <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#f1f5f9", marginBottom: "12px" }}>Transparent methodology, not a black box</h3>
-            <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8" }}>Every score has a visible rationale. Every dimension is individually viewable. Every weight is disclosed. Our Analytical Paths technology shows you exactly why different sources reach different conclusions — by revealing which analytical choices each one made. You see the trade-offs and draw your own conclusions.</p>
-          </div>
-          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "12px", padding: "32px" }}>
-            <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "rgba(20,184,166,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", fontSize: "20px" }}>&#x1F3D7;&#xFE0F;</div>
-            <h3 style={{ fontSize: "17px", fontWeight: "600", color: "#f1f5f9", marginBottom: "12px" }}>Infrastructure, not a chat window</h3>
-            <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8" }}>ChatGPT gives you a different answer every time you ask. CivicScale builds persistent, structured intelligence — scored claims, tracked over time, updated when new evidence emerges. Ask the same question next month and you'll see what changed, why it changed, and what triggered the shift. That's a living analytical system, not a conversation.</p>
+          <h2 className="cs-home-section-title" style={{ color: "#f1f5f9" }}>
+            AI that shows its work
+          </h2>
+          <p className="cs-home-section-sub" style={{ color: "rgba(255,255,255,0.6)", maxWidth: 720, margin: "0 auto 56px" }}>
+            Most AI tools give you an answer. We show you how the answer was
+            built — which evidence was weighted, what assumptions were made,
+            and where reasonable people disagree. That's the difference between
+            an AI that thinks for you and one that helps you think.
+          </p>
+          <div className="cs-home-whyai-grid">
+            {WHYAI_CARDS.map((card) => (
+              <div key={card.title} className="cs-home-whyai-card">
+                <div className="cs-home-whyai-icon">{card.icon}</div>
+                <h3 className="cs-home-whyai-title">{card.title}</h3>
+                <p className="cs-home-whyai-desc">{card.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="cs-home-section" style={{ paddingTop: "60px", paddingBottom: "100px", maxWidth: "900px", margin: "0 auto" }}>
-        <div className="cs-home-quote-box" style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.05), rgba(59,130,246,0.05))", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", textAlign: "center" }}>
-          <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "24px", fontWeight: "400", color: "#f1f5f9", marginBottom: "16px" }}>Where We're Going</h3>
-          <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#94a3b8", maxWidth: "600px", margin: "0 auto" }}>
-            Healthcare is where we start. Information asymmetry is where we're going. The same engine that analyzes medical bills and scores drug safety evidence can evaluate property tax assessments, insurance premium fairness, and policy claims across any domain where individuals face decisions they can't independently verify.
+      {/* ── Section 8: Where We're Going ── */}
+      <section className="cs-home-section cs-home-vision-section">
+        <div className="cs-home-section-inner cs-home-vision-inner">
+          <div className="cs-home-section-label">Vision</div>
+          <h2 className="cs-home-section-title">Where We're Going</h2>
+          <p className="cs-home-vision-text">
+            Healthcare is where we start — because a public reference price
+            exists (Medicare), data is available due to price transparency
+            regulations, the problem is visceral, and regulatory tailwinds
+            (CAA, No Surprises Act) are forcing data into the open.
+          </p>
+          <p className="cs-home-vision-text">
+            But the real thesis is broader: <strong>any market where a discoverable
+            truth exists but powerful intermediaries profit from hiding it</strong> is
+            a Parity Engine market. Insurance premiums. Property tax assessments.
+            Policy claims in public debate.
+          </p>
+          <p className="cs-home-vision-kicker">
+            Information asymmetry is the problem. Transparency infrastructure is the solution.
           </p>
         </div>
       </section>
 
-      <footer className="cs-home-section" style={{ paddingTop: "40px", paddingBottom: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center", fontSize: "13px", color: "#475569" }}>
-        &copy; CivicScale 2026. All rights reserved.
+      {/* ── Section 9: Final CTA ── */}
+      <section className="cs-home-section cs-home-cta-section">
+        <div className="cs-home-section-inner cs-home-cta-inner">
+          <h2 className="cs-home-cta-title">Ready to see what your healthcare actually costs?</h2>
+          <div className="cs-home-cta-paths">
+            <Link to="/billing/employer/signup" className="cs-home-cta-path">
+              <div className="cs-home-cta-path-label">I'm an employer</div>
+              <div className="cs-home-cta-path-action">Start Free Trial &rarr;</div>
+              <div className="cs-home-cta-path-note">30-day trial, no credit card required</div>
+            </Link>
+            <Link to="/broker/signup" className="cs-home-cta-path">
+              <div className="cs-home-cta-path-label">I'm a broker</div>
+              <div className="cs-home-cta-path-action">Get Started Free &rarr;</div>
+              <div className="cs-home-cta-path-note">Free for up to 10 clients</div>
+            </Link>
+            <Link to="/billing/provider" className="cs-home-cta-path">
+              <div className="cs-home-cta-path-label">I'm a provider</div>
+              <div className="cs-home-cta-path-action">Start Free Audit &rarr;</div>
+              <div className="cs-home-cta-path-note">No cost, no commitment</div>
+            </Link>
+            <Link to="/parity-health" className="cs-home-cta-path">
+              <div className="cs-home-cta-path-label">I'm a patient</div>
+              <div className="cs-home-cta-path-action">Understand My Bill &rarr;</div>
+              <div className="cs-home-cta-path-note">Free, anonymous, instant</div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer className="cs-home-footer">
+        <div className="cs-home-footer-inner">
+          <div className="cs-home-footer-brand">
+            <Link to="/" className="cs-home-footer-logo">
+              <LogoIcon footer />
+              <span className="cs-home-footer-wordmark">CivicScale</span>
+            </Link>
+            <p className="cs-home-footer-tagline">
+              Independent healthcare intelligence, powered by the Parity Engine.
+            </p>
+          </div>
+          <div className="cs-home-footer-links-group">
+            <div className="cs-home-footer-col">
+              <h5>Products</h5>
+              <Link to="/billing/employer">Parity Employer</Link>
+              <Link to="/broker">Broker Portal</Link>
+              <Link to="/billing/provider">Parity Provider</Link>
+              <Link to="/parity-health">Parity Health</Link>
+              <Link to="/signal">Parity Signal</Link>
+            </div>
+            <div className="cs-home-footer-col">
+              <h5>Company</h5>
+              <Link to="/investors">Investors</Link>
+              <Link to="/terms">Terms</Link>
+              <Link to="/privacy">Privacy</Link>
+            </div>
+            <div className="cs-home-footer-col">
+              <h5>Get Started</h5>
+              <Link to="/billing/employer/signup">Employer Trial</Link>
+              <Link to="/broker/signup">Broker Signup</Link>
+              <Link to="/billing/employer/demo">See a Demo</Link>
+            </div>
+          </div>
+        </div>
+        <div className="cs-home-footer-bottom">
+          <span>&copy; CivicScale 2026. All rights reserved.</span>
+          <span className="cs-home-footer-signal">
+            Analytical intelligence powered by <Link to="/signal">Parity Signal</Link>
+          </span>
+        </div>
       </footer>
     </div>
   );
 }
 
-const AUDIENCE_CARDS = [
+/* ── Data ── */
+
+const PROBLEM_ITEMS = [
   {
-    key: "health",
-    label: "PARITY HEALTH",
-    accent: "#14b8a6",
-    labelBg: "rgba(20,184,166,0.12)",
-    hoverBg: "rgba(20,184,166,0.06)",
-    hoverBorder: "rgba(20,184,166,0.25)",
-    heading: "Received a medical bill or denial?",
-    body: "We translate medical bills and Explanations of Benefits into plain English — what was charged, what your plan covered, and what your options are if something was denied.",
-    cta: "Understand My Bill \u2192",
-    to: "/parity-health",
+    icon: "\u{1F464}",
+    role: "The Patient",
+    desc: "Gets a bill they may not fully understand. Can't tell if they were overcharged or if a denial was justified.",
   },
+  {
+    icon: "\u{1FA7A}",
+    role: "The Physician",
+    desc: "Receives a payment that may not match their contracted rate. Denial patterns are invisible without analytics.",
+  },
+  {
+    icon: "\u{1F3E2}",
+    role: "The Employer",
+    desc: "Pays a price that may be well above what comparable plans pay for the same procedure. No independent benchmark exists.",
+  },
+  {
+    icon: "\u{1F4BC}",
+    role: "The Broker",
+    desc: "Advises on plan design with limited visibility into claims data. Carrier reports don't show what they don't want seen.",
+  },
+];
+
+const PRODUCT_CARDS = [
   {
     key: "employer",
     label: "PARITY EMPLOYER",
     accent: "#3b82f6",
-    labelBg: "rgba(59,130,246,0.12)",
-    hoverBg: "rgba(59,130,246,0.06)",
-    hoverBorder: "rgba(59,130,246,0.25)",
-    heading: "Managing employee benefits?",
-    body: "The typical employer pays 3\u20135x Medicare rates for common procedures. We benchmark your plan against comparable employers and analyze your claims data to show you exactly where costs exceed market norms.",
-    cta: "Benchmark My Plan \u2192",
-    badge: "Free benchmark",
-    to: "/billing/employer",
+    accentGrad: "linear-gradient(90deg, #3b82f6, #60a5fa)",
+    badgeBg: "rgba(59,130,246,0.12)",
+    hoverBorder: "rgba(59,130,246,0.4)",
+    heading: "See exactly where your health plan overpays",
+    body: "Benchmark your plan against comparable employers. Analyze claims data to surface excess spend. Build leverage for your next renewal.",
+    bullets: [
+      "Industry-specific benchmarking (9 MEPS sectors)",
+      "Claims analytics with provider-level detail",
+      "Pharmacy benefit benchmarking with NADAC data",
+    ],
+    cta: "Start Free Trial",
+    badge: "30-day trial, then $99/mo",
+    to: "/billing/employer/signup",
+  },
+  {
+    key: "broker",
+    label: "BROKER PORTAL",
+    accent: "#f59e0b",
+    accentGrad: "linear-gradient(90deg, #f59e0b, #fbbf24)",
+    badgeBg: "rgba(245,158,11,0.12)",
+    hoverBorder: "rgba(245,158,11,0.4)",
+    heading: "Better data for your book of business",
+    body: "Run benchmarks for your clients, share interactive reports, and manage renewals with independent analytics your carriers can't provide.",
+    bullets: [
+      "Benchmark any client in minutes",
+      "Shareable reports with client branding",
+      "Renewal pipeline with 90-day alerts",
+    ],
+    cta: "Get Started Free",
+    badge: "Free for up to 10 clients",
+    to: "/broker/signup",
   },
   {
     key: "provider",
     label: "PARITY PROVIDER",
     accent: "#8b5cf6",
-    labelBg: "rgba(139,92,246,0.12)",
-    hoverBg: "rgba(139,92,246,0.06)",
-    hoverBorder: "rgba(139,92,246,0.25)",
-    heading: "Running a medical practice?",
-    body: "Payer contracts are complex and remittance errors are common. We analyze your claims data to surface underpayments, denial patterns, and contract discrepancies worth reviewing.",
-    cta: "Analyze My Contracts \u2192",
-    badge: "Free audit",
+    accentGrad: "linear-gradient(90deg, #8b5cf6, #a78bfa)",
+    badgeBg: "rgba(139,92,246,0.12)",
+    hoverBorder: "rgba(139,92,246,0.4)",
+    heading: "Find out what your payers actually owe you",
+    body: "Upload remittance data and get a contract integrity audit. Surface underpayments, denial patterns, and billing discrepancies.",
+    bullets: [
+      "835 EDI parsing and contract comparison",
+      "Denial pattern analysis with appeal letters",
+      "Billing performance scorecard",
+    ],
+    cta: "Start Free Audit",
+    badge: "No cost to practices",
     to: "/billing/provider",
+  },
+  {
+    key: "health",
+    label: "PARITY HEALTH",
+    accent: "#14b8a6",
+    accentGrad: "linear-gradient(90deg, #0d9488, #14b8a6)",
+    badgeBg: "rgba(20,184,166,0.12)",
+    hoverBorder: "rgba(20,184,166,0.4)",
+    heading: "Understand your medical bill in plain English",
+    body: "Upload a bill or EOB and see what was charged, what your plan covered, and what your options are — including denial appeals.",
+    bullets: [
+      "Instant bill translation to plain language",
+      "Medicare benchmark comparison",
+      "AI-powered denial appeal letter generator",
+    ],
+    cta: "Understand My Bill",
+    badge: "Free, anonymous, instant",
+    to: "/parity-health",
+  },
+];
+
+const ENGINE_CAPABILITIES = [
+  {
+    icon: "\u{1F4CA}",
+    name: "Benchmark Normalization",
+    desc: "Ingests Medicare fee schedules, MEPS-IC data, state cost indices, and NADAC drug pricing into a unified reference layer.",
+  },
+  {
+    icon: "\u{1F50D}",
+    name: "Anomaly Scoring",
+    desc: "Compares every claim, line item, and payment against normalized benchmarks to flag outliers and quantify excess spend.",
+  },
+  {
+    icon: "\u{1F500}",
+    name: "Analytical Paths",
+    desc: "Shows why different analytical frameworks reach different conclusions from the same evidence — by making weight choices visible.",
+  },
+  {
+    icon: "\u{2696}\u{FE0F}",
+    name: "Evidence Scoring",
+    desc: "Scores claims across six transparent dimensions: source quality, data support, reproducibility, consensus, recency, and rigor.",
+  },
+  {
+    icon: "\u{1F310}",
+    name: "Consensus Mapping",
+    desc: "Maps where credible sources agree, disagree, or remain uncertain — with recorded arguments on each side.",
+  },
+  {
+    icon: "\u{1F4DD}",
+    name: "Plain-Language Output",
+    desc: "Translates complex analytical results into clear, actionable language that requires no medical or policy background.",
+  },
+];
+
+const ANALYTICAL_PROFILES = [
+  { name: "Balanced", emphasis: "Equal weight across all dimensions", mapsTo: "Default analysis" },
+  { name: "Regulatory", emphasis: "Source quality 40%, Consensus 30%", mapsTo: "How regulators see it" },
+  { name: "Clinical", emphasis: "Rigor 35%, Reproducibility 30%", mapsTo: "How researchers see it" },
+  { name: "Patient", emphasis: "Data support 35%, Recency 30%", mapsTo: "What matters to patients" },
+];
+
+const WHYAI_CARDS = [
+  {
+    icon: "\u26A1",
+    title: "Scale that humans can't match",
+    desc: "A single medical bill can reference hundreds of procedure codes across dozens of fee schedules. A single drug safety topic spans thousands of clinical trial data points. AI processes this volume in minutes — a human analyst would need weeks.",
+  },
+  {
+    icon: "\u{1F50D}",
+    title: "Transparent methodology, not a black box",
+    desc: "Every score has a visible rationale. Every dimension is individually viewable. Every weight is disclosed. Analytical Paths shows you exactly why different sources reach different conclusions — by revealing which analytical choices each one made.",
+  },
+  {
+    icon: "\u{1F3D7}\u{FE0F}",
+    title: "Infrastructure, not a chat window",
+    desc: "ChatGPT gives you a different answer every time you ask. CivicScale builds persistent, structured intelligence — scored claims tracked over time, updated when new evidence emerges. Ask the same question next month and see what changed, why, and what triggered the shift.",
   },
 ];

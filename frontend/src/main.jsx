@@ -48,8 +48,9 @@ function ScrollToTop() {
   return null
 }
 
-// Subdomain detection: health.civicscale.ai → render Parity Health directly
-const isHealthSubdomain = window.location.hostname === "health.civicscale.ai";
+const hostname = window.location.hostname
+const isHealthSubdomain = hostname === 'health.civicscale.ai'
+const isProviderSubdomain = hostname === 'provider.civicscale.ai'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -64,7 +65,7 @@ createRoot(document.getElementById('root')).render(
           </>
         ) : (
           <>
-        <Route path="/" element={<CivicScaleHomepage />} />
+        <Route path="/" element={isProviderSubdomain ? <ProviderProductPage /> : <CivicScaleHomepage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
