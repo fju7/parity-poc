@@ -124,17 +124,11 @@ export default function CivicScaleHomepage() {
               See a Demo
             </Link>
           </div>
-<<<<<<< HEAD
-          <p className="cs-home-hero-trust">
-            30-day free trial &middot; Cancel anytime
-          </p>
-=======
           {!isAuthenticated && (
             <p className="cs-home-hero-trust">
               30-day free trial &middot; Cancel anytime
             </p>
           )}
->>>>>>> origin/claude/review-changes-mmlyt85wltyyhb6p-G0OPx
         </div>
       </section>
 
