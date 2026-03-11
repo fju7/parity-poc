@@ -9,7 +9,7 @@ export default function ProviderSignupPage() {
   const { login, isAuthenticated, company } = useAuth();
 
   if (isAuthenticated && company?.type === "provider") {
-    navigate("/audit/account");
+    navigate("/provider/dashboard");
     return null;
   }
 
@@ -51,7 +51,7 @@ export default function ProviderSignupPage() {
         setStep("company");
       } else {
         login(data.token, data.user, data.company);
-        navigate("/audit/account");
+        navigate("/provider/dashboard");
       }
     } catch { setErrorMsg("Verification failed. Please try again."); }
     setVerifying(false);
@@ -74,7 +74,7 @@ export default function ProviderSignupPage() {
       const data = await res.json();
       if (!res.ok) { setErrorMsg(data.detail || "Failed to create account."); return; }
       login(data.token, data.user, data.company);
-      navigate("/audit/account");
+      navigate("/provider/dashboard");
     } catch { setErrorMsg("Failed to create account. Please try again."); }
     setCreating(false);
   };
@@ -128,7 +128,7 @@ export default function ProviderSignupPage() {
               }}>{sending ? "Sending code..." : "Continue →"}</button>
               <p style={{ textAlign: "center", fontSize: 14, color: "#64748b", marginTop: 16 }}>
                 Already have an account?{" "}
-                <Link to="/audit/account" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>Sign in &rarr;</Link>
+                <Link to="/provider/login" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>Sign in &rarr;</Link>
               </p>
               <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
                 {[

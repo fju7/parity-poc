@@ -15,7 +15,7 @@ export default function AuditStandalone() {
           <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em", color: "#f1f5f9" }}>CivicScale</span>
         </a>
         <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-          <Link to="/audit/account" style={{ fontSize: 13, color: "#94a3b8", textDecoration: "none" }}>Sign In</Link>
+          <Link to="/provider/login" style={{ fontSize: 13, color: "#94a3b8", textDecoration: "none" }}>Sign In</Link>
           <Link to="/provider/signup" style={{ fontSize: 13, background: "linear-gradient(135deg, #0d9488, #14b8a6)", color: "#fff", textDecoration: "none", fontWeight: 600, padding: "8px 18px", borderRadius: 8 }}>Start Free Trial</Link>
         </div>
       </header>

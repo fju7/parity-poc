@@ -452,7 +452,7 @@ export default function ProviderAuditPage({ session, profile }) {
               },
               {
                 icon: "\u23F1",
-                title: "5-7 Day Delivery",
+                title: "Instant Results",
                 desc: "Submit your data today. Receive a comprehensive audit report within a week.",
               },
             ].map((vp, i) => (
@@ -945,14 +945,14 @@ export default function ProviderAuditPage({ session, profile }) {
             )}
             <div>
               <span style={{ fontSize: 12, color: SLATE }}>Expected Delivery</span>
-              <div style={{ fontSize: 14, fontWeight: 600, color: NAVY }}>5-7 business days</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: NAVY }}>Instantly</div>
             </div>
           </div>
 
           <div style={{ fontSize: 14, color: SLATE, lineHeight: 1.6, maxWidth: 500, margin: "0 auto" }}>
             <p><strong>What happens next:</strong></p>
             <ul style={{ textAlign: "left", paddingLeft: 20 }}>
-              <li>Our team reviews your submitted data (1-2 business days)</li>
+              <li>Your audit results are generated automatically</li>
               <li>We run a full contract integrity analysis across all payers</li>
               <li>You receive your complete Parity Audit report via email</li>
             </ul>
