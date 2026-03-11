@@ -1,89 +1,73 @@
-import { useState, useCallback, useEffect } from "react";
-import { useNavigate, Link, useSearchParams } from "react-router-dom";
-import { supabase } from "../lib/supabase.js";
-import EmailOtpInput from "./EmailOtpInput.jsx";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
-const ERROR_MESSAGES = {
-  not_registered: "This email is not registered as an employer account. Contact CivicScale at hello@civicscale.ai to get started.",
-  auth_timeout: "Sign-in timed out. Please try again.",
-};
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function EmployerLoginPage() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const { login, isAuthenticated, company } = useAuth();
+
+  // If already authenticated as employer, go to dashboard
+  if (isAuthenticated && company?.type === "employer") {
+    navigate("/billing/employer/dashboard");
+    return null;
+  }
+
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | sending | code | verifying | error
+  const [code, setCode] = useState("");
+  const [step, setStep] = useState("email"); // email | otp
+  const [sending, setSending] = useState(false);
+  const [verifying, setVerifying] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // Check for error params from callback redirect
-  useEffect(() => {
-    const errorCode = searchParams.get("error");
-    if (errorCode && ERROR_MESSAGES[errorCode]) {
-      setStatus("error");
-      setErrorMsg(ERROR_MESSAGES[errorCode]);
-    }
-  }, [searchParams]);
-
-  // If there's already an employer session in localStorage, go to dashboard
-  useEffect(() => {
-    const stored = localStorage.getItem("employer_session");
-    if (stored) {
-      navigate("/employer/dashboard");
-    }
-  }, [navigate]);
-
-  // After OTP verification succeeds, Supabase fires onAuthStateChange.
-  // We listen for it here to verify employer access inline.
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (session && status === "code") {
-        setStatus("verifying");
-        try {
-          const { data } = await supabase
-            .from("employer_users")
-            .select("employer_id, employer_accounts(company_name)")
-            .eq("email", session.user.email)
-            .single();
-
-          if (data && data.employer_id) {
-            const companyName = data.employer_accounts?.company_name || "Your Company";
-            localStorage.setItem("employer_session", JSON.stringify({
-              employer_id: data.employer_id,
-              company_name: companyName,
-              email: session.user.email,
-            }));
-            navigate("/employer/dashboard");
-          } else {
-            setStatus("error");
-            setErrorMsg(ERROR_MESSAGES.not_registered);
-          }
-        } catch {
-          setStatus("error");
-          setErrorMsg(ERROR_MESSAGES.not_registered);
-        }
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [navigate, status]);
-
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    setStatus("sending");
+  const handleSendOtp = async () => {
+    if (!email.includes("@")) { setErrorMsg("Enter a valid email address."); return; }
+    setSending(true);
     setErrorMsg("");
-
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-    });
-
-    if (error) {
-      setStatus("error");
-      setErrorMsg(error.message);
-    } else {
-      setStatus("code");
+    try {
+      const res = await fetch(`${API}/api/auth/send-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), product: "employer" }),
+      });
+      if (!res.ok) throw new Error();
+      setStep("otp");
+    } catch {
+      setErrorMsg("Failed to send code. Please try again.");
+    } finally {
+      setSending(false);
     }
-  }, [email]);
+  };
+
+  const handleVerifyOtp = async () => {
+    if (code.length !== 8) { setErrorMsg("Enter the 8-digit code from your email."); return; }
+    setVerifying(true);
+    setErrorMsg("");
+    try {
+      const res = await fetch(`${API}/api/auth/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), code: code.trim(), product: "employer" }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setErrorMsg(data.detail || "Invalid code."); return; }
+
+      if (data.needs_company) {
+        // User verified but has no employer company yet — redirect to signup
+        navigate("/billing/employer/signup");
+      } else {
+        login(data.token, data.user, data.company);
+        navigate("/billing/employer/dashboard");
+      }
+    } catch {
+      setErrorMsg("Verification failed. Please try again.");
+    } finally {
+      setVerifying(false);
+    }
+  };
 
   return (
     <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
@@ -102,41 +86,20 @@ export default function EmployerLoginPage() {
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 64 }}>
         <div style={{ width: "100%", maxWidth: 400, padding: "0 16px" }}>
           <div style={{ textAlign: "center", marginBottom: 40 }}>
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: "var(--cs-navy)", margin: 0 }}>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
               Employer Dashboard
             </h1>
-            <p style={{ color: "var(--cs-slate)", marginTop: 8, fontSize: 15 }}>
+            <p style={{ color: "#64748b", marginTop: 8, fontSize: 15 }}>
               Sign in to access your benefits analytics
             </p>
           </div>
 
-          {status === "verifying" ? (
-            <div style={{ textAlign: "center", padding: 32 }}>
-              <div style={{
-                width: 40, height: 40, border: "3px solid #e2e8f0", borderTopColor: "#0D7377",
-                borderRadius: "50%", animation: "cs-spin 0.8s linear infinite", margin: "0 auto 16px",
-              }} />
-              <p style={{ color: "#1B3A5C", fontWeight: 600, fontSize: 15 }}>
-                Verifying employer access...
-              </p>
-              <style>{`@keyframes cs-spin { to { transform: rotate(360deg); } }`}</style>
-            </div>
-          ) : status === "code" ? (
-            <div style={{
-              padding: 24, borderRadius: 12, border: "1px solid var(--cs-teal)",
-              background: "var(--cs-teal-pale)", textAlign: "center"
-            }}>
-              <EmailOtpInput
-                email={email}
-                onBack={() => { setStatus("idle"); setErrorMsg(""); }}
-              />
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit}>
+          {step === "email" && (
+            <form onSubmit={(e) => { e.preventDefault(); handleSendOtp(); }}>
               <div style={{ marginBottom: 16 }}>
                 <label style={{
                   display: "block", fontSize: 14, fontWeight: 500,
-                  color: "var(--cs-navy)", marginBottom: 6,
+                  color: "#1B3A5C", marginBottom: 6,
                 }}>
                   Email address
                 </label>
@@ -148,37 +111,94 @@ export default function EmployerLoginPage() {
                   placeholder="benefits@yourcompany.com"
                   style={{
                     width: "100%", padding: "10px 12px", borderRadius: 8,
-                    border: "1px solid var(--cs-border)", fontSize: 15,
+                    border: "1px solid #e2e8f0", fontSize: 15,
                     outline: "none", boxSizing: "border-box",
                   }}
                 />
               </div>
 
-              {status === "error" && (
-                <div style={{
-                  padding: 12, borderRadius: 8, background: "#fef2f2",
-                  border: "1px solid #fecaca", marginBottom: 16,
-                }}>
-                  <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{errorMsg}</p>
-                </div>
-              )}
-
               <button
                 type="submit"
-                disabled={status === "sending"}
+                disabled={sending}
                 className="cs-btn-primary"
                 style={{
                   width: "100%", justifyContent: "center",
-                  opacity: status === "sending" ? 0.6 : 1,
+                  opacity: sending ? 0.6 : 1,
                 }}
               >
-                {status === "sending" ? "Sending..." : "Send Code"}
+                {sending ? "Sending..." : "Send Code"}
               </button>
 
-              <p style={{ textAlign: "center", fontSize: 13, color: "var(--cs-slate)", marginTop: 16 }}>
-                We'll send you a secure code — no password needed.
+              <p style={{ textAlign: "center", fontSize: 13, color: "#64748b", marginTop: 16 }}>
+                We'll send you an 8-digit code — no password needed.
+              </p>
+
+              <p style={{ textAlign: "center", fontSize: 14, color: "#64748b", marginTop: 20 }}>
+                Don't have an account?{" "}
+                <Link to="/billing/employer/signup" style={{ color: "#0D7377", textDecoration: "none", fontWeight: 600 }}>
+                  Start your free 30-day trial &rarr;
+                </Link>
               </p>
             </form>
+          )}
+
+          {step === "otp" && (
+            <div style={{
+              padding: 24, borderRadius: 12, border: "1px solid #0D7377",
+              background: "#f0fdfa", textAlign: "center",
+            }}>
+              <p style={{ fontSize: 14, color: "#475569", marginBottom: 4 }}>
+                We sent an 8-digit code to <strong>{email}</strong>.
+              </p>
+              <p style={{ fontSize: 12, color: "#94a3b8", marginBottom: 20 }}>
+                Check your inbox and enter it below. The code expires in 10 minutes.
+              </p>
+
+              <input
+                type="text"
+                placeholder="12345678"
+                value={code}
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                onKeyDown={(e) => e.key === "Enter" && handleVerifyOtp()}
+                maxLength={8}
+                style={{
+                  width: "100%", padding: "12px 16px", fontSize: 24, letterSpacing: 8,
+                  textAlign: "center", border: "1px solid #cbd5e1", borderRadius: 8,
+                  outline: "none", boxSizing: "border-box", marginBottom: 12,
+                }}
+              />
+
+              <button
+                onClick={handleVerifyOtp}
+                disabled={verifying}
+                className="cs-btn-primary"
+                style={{
+                  width: "100%", justifyContent: "center",
+                  opacity: verifying ? 0.6 : 1,
+                }}
+              >
+                {verifying ? "Verifying..." : "Sign In"}
+              </button>
+
+              <button
+                onClick={() => { setStep("email"); setCode(""); setErrorMsg(""); }}
+                style={{
+                  fontSize: 12, color: "#94a3b8", background: "none",
+                  border: "none", cursor: "pointer", marginTop: 12,
+                }}
+              >
+                Use a different email
+              </button>
+            </div>
+          )}
+
+          {errorMsg && (
+            <div style={{
+              padding: 12, borderRadius: 8, background: "#fef2f2",
+              border: "1px solid #fecaca", marginTop: 16,
+            }}>
+              <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{errorMsg}</p>
+            </div>
           )}
         </div>
       </div>
