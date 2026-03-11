@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -56,12 +55,12 @@ export default function BrokerLoginPage() {
       if (!res.ok) { setErrorMsg(data.detail || "Invalid code."); return; }
 
       if (data.needs_company) {
-        // User verified but has no broker firm yet — redirect to signup to complete
         navigate("/broker/signup");
-      } else {
-        login(data.token, data.user, data.company);
-        navigate("/broker/dashboard");
+        return;
       }
+
+      login(data.token, data.user, data.company);
+      navigate("/broker/dashboard");
     } catch {
       setErrorMsg("Verification failed. Please try again.");
     } finally {
@@ -70,27 +69,32 @@ export default function BrokerLoginPage() {
   };
 
   return (
-    <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
+    <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#e2e8f0", overflowX: "hidden", minHeight: "100vh", background: "#0a1628" }}>
       {/* NAV */}
-      <nav className="cs-nav">
-        <Link className="cs-nav-logo" to="/">
-          <LogoIcon />
-          <span className="cs-nav-wordmark">CivicScale</span>
-        </Link>
-        <div className="cs-nav-links">
-          <Link to="/employer">For Employers</Link>
-        </div>
-      </nav>
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        padding: "0 40px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between",
+        background: "rgba(10,22,40,0.92)", backdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}>
+        <a href="https://civicscale.ai" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #0d9488, #14b8a6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0a1628" }}>C</div>
+          <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em" }}>CivicScale</span>
+        </a>
+        <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 14 }}>
+          <Link to="/broker" style={{ color: "#94a3b8", textDecoration: "none" }}>For Brokers</Link>
+        </nav>
+      </header>
 
       {/* LOGIN FORM */}
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 64 }}>
         <div style={{ width: "100%", maxWidth: 400, padding: "0 16px" }}>
           <div style={{ textAlign: "center", marginBottom: 40 }}>
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#f1f5f9", margin: 0 }}>
               Broker Portal
             </h1>
-            <p style={{ color: "#64748b", marginTop: 8, fontSize: 15 }}>
-              Sign in to manage your employer clients
+            <p style={{ color: "#94a3b8", marginTop: 8, fontSize: 15 }}>
+              Sign in to access your book of business
             </p>
           </div>
 
@@ -99,7 +103,7 @@ export default function BrokerLoginPage() {
               <div style={{ marginBottom: 16 }}>
                 <label style={{
                   display: "block", fontSize: 14, fontWeight: 500,
-                  color: "#1B3A5C", marginBottom: 6,
+                  color: "#cbd5e1", marginBottom: 6,
                 }}>
                   Email address
                 </label>
@@ -108,11 +112,12 @@ export default function BrokerLoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="broker@yourfirm.com"
+                  placeholder="you@youragency.com"
                   style={{
                     width: "100%", padding: "10px 12px", borderRadius: 8,
-                    border: "1px solid #e2e8f0", fontSize: 15,
+                    border: "1px solid rgba(255,255,255,0.12)", fontSize: 15,
                     outline: "none", boxSizing: "border-box",
+                    background: "rgba(255,255,255,0.06)", color: "#f1f5f9",
                   }}
                 />
               </div>
@@ -129,14 +134,14 @@ export default function BrokerLoginPage() {
                 {sending ? "Sending..." : "Send Code"}
               </button>
 
-              <p style={{ textAlign: "center", fontSize: 13, color: "#64748b", marginTop: 16 }}>
+              <p style={{ textAlign: "center", fontSize: 13, color: "#94a3b8", marginTop: 16 }}>
                 We'll send you an 8-digit code — no password needed.
               </p>
 
-              <p style={{ textAlign: "center", fontSize: 14, color: "#64748b", marginTop: 20 }}>
-                New to Parity Employer?{" "}
-                <Link to="/broker/signup" style={{ color: "#0D7377", textDecoration: "none", fontWeight: 600 }}>
-                  Create a free broker account &rarr;
+              <p style={{ textAlign: "center", fontSize: 14, color: "#94a3b8", marginTop: 20 }}>
+                Don't have an account?{" "}
+                <Link to="/broker/signup" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>
+                  Start your free 30-day trial &rarr;
                 </Link>
               </p>
             </form>
@@ -144,10 +149,10 @@ export default function BrokerLoginPage() {
 
           {step === "otp" && (
             <div style={{
-              padding: 24, borderRadius: 12, border: "1px solid #0D7377",
-              background: "#f0fdfa", textAlign: "center",
+              padding: 24, borderRadius: 12, border: "1px solid #0d9488",
+              background: "rgba(13,148,136,0.08)", textAlign: "center",
             }}>
-              <p style={{ fontSize: 14, color: "#475569", marginBottom: 4 }}>
+              <p style={{ fontSize: 14, color: "#cbd5e1", marginBottom: 4 }}>
                 We sent an 8-digit code to <strong>{email}</strong>.
               </p>
               <p style={{ fontSize: 12, color: "#94a3b8", marginBottom: 20 }}>
@@ -163,8 +168,9 @@ export default function BrokerLoginPage() {
                 maxLength={8}
                 style={{
                   width: "100%", padding: "12px 16px", fontSize: 24, letterSpacing: 8,
-                  textAlign: "center", border: "1px solid #cbd5e1", borderRadius: 8,
+                  textAlign: "center", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 8,
                   outline: "none", boxSizing: "border-box", marginBottom: 12,
+                  background: "rgba(255,255,255,0.06)", color: "#f1f5f9",
                 }}
               />
 
@@ -194,10 +200,10 @@ export default function BrokerLoginPage() {
 
           {errorMsg && (
             <div style={{
-              padding: 12, borderRadius: 8, background: "#fef2f2",
-              border: "1px solid #fecaca", marginTop: 16,
+              padding: 12, borderRadius: 8, background: "rgba(239,68,68,0.1)",
+              border: "1px solid rgba(239,68,68,0.3)", marginTop: 16,
             }}>
-              <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{errorMsg}</p>
+              <p style={{ color: "#fca5a5", fontSize: 13, margin: 0 }}>{errorMsg}</p>
             </div>
           )}
         </div>
