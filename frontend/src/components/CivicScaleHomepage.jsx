@@ -96,7 +96,7 @@ export default function CivicScaleHomepage() {
             </Link>
           </div>
           <p className="cs-home-hero-trust">
-            No credit card required for first 30 days &middot; Cancel anytime
+            30-day free trial &middot; Cancel anytime
           </p>
         </div>
       </section>
