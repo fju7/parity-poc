@@ -1649,37 +1649,6 @@ function BrokerDashboardInner() {
                   )}
                 </div>
 
-                {/* Gated Features — show lock icons for non-subscribers */}
-                {clientSummary.subscription.status !== "active" && (
-                  <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
-                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 16px" }}>Available with Subscription</h3>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                      {[
-                        { label: "Unlimited Claims Analysis", desc: "Compare every claim against Medicare benchmarks" },
-                        { label: "RBP Calculator", desc: "Model reference-based pricing savings" },
-                        { label: "Contract Parser", desc: "Extract and benchmark carrier rates" },
-                        { label: "Trend Monitoring", desc: "Monthly PEPM tracking with AI alerts" },
-                      ].map((feat) => (
-                        <div key={feat.label} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: 12, background: "#f8fafc", borderRadius: 8, border: "1px solid #e2e8f0" }}>
-                          <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>&#128274;</span>
-                          <div>
-                            <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#475569" }}>{feat.label}</p>
-                            <p style={{ margin: "2px 0 0", fontSize: 11, color: "#94a3b8" }}>{feat.desc}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <p style={{ margin: "14px 0 0", fontSize: 12, color: "#94a3b8" }}>
-                      Free tier: benchmark + scorecard + 1 claims check per quarter.
-                      {selectedClient.employer_email && !selectedClient.employer_email.includes("@broker-onboarded") && (
-                        <button onClick={() => handleSuggestUpgrade(selectedClient.employer_email)} disabled={shareLoading || upgradeSent} style={{ background: "none", border: "none", color: "#0D7377", fontWeight: 600, cursor: "pointer", fontSize: 12, marginLeft: 4 }}>
-                          {upgradeSent ? "Upgrade email sent" : "Suggest upgrade to client"}
-                        </button>
-                      )}
-                    </p>
-                  </div>
-                )}
-
                 {/* ── Claims Upload Section ── */}
                 <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
                   <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Upload Claims Data</h3>
@@ -1732,56 +1701,6 @@ function BrokerDashboardInner() {
                       </div>
                       {claimsUploadResult.narrative && (
                         <p style={{ fontSize: 12, color: "#475569", margin: "8px 0 0", lineHeight: 1.5 }}>{claimsUploadResult.narrative}</p>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* ── Scorecard Upload Section ── */}
-                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Upload Plan Scorecard (SBC)</h3>
-                  <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 16px" }}>Upload a Summary of Benefits and Coverage PDF to grade this client's plan.</p>
-                  <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
-                    <div style={{ flex: 1, minWidth: 180 }}>
-                      <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>SBC PDF *</label>
-                      <input
-                        type="file"
-                        accept=".pdf"
-                        onChange={(e) => { setScorecardFile(e.target.files?.[0] || null); setScorecardUploadResult(null); setScorecardUploadError(""); }}
-                        style={{ fontSize: 13, color: "#475569" }}
-                      />
-                    </div>
-                    <button
-                      onClick={handleScorecardUpload}
-                      disabled={scorecardUploading || !scorecardFile}
-                      style={{
-                        padding: "8px 20px", borderRadius: 8, border: "none", cursor: "pointer",
-                        background: scorecardUploading || !scorecardFile ? "#cbd5e1" : "#0D7377",
-                        color: "#fff", fontWeight: 600, fontSize: 13, whiteSpace: "nowrap",
-                      }}
-                    >
-                      {scorecardUploading ? "Grading..." : "Upload & Grade"}
-                    </button>
-                  </div>
-                  {scorecardUploadError && (
-                    <div style={{ marginTop: 12, padding: 10, background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 8 }}>
-                      <p style={{ color: "#991b1b", fontSize: 12, margin: 0 }}>{scorecardUploadError}</p>
-                    </div>
-                  )}
-                  {scorecardUploadResult && (
-                    <div style={{ marginTop: 12, padding: 12, background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8 }}>
-                      <p style={{ fontSize: 13, fontWeight: 600, color: "#0D7377", margin: "0 0 6px" }}>
-                        Plan grade: <span style={{ fontSize: 18 }}>{scorecardUploadResult.grade}</span>
-                        <span style={{ fontWeight: 400, color: "#475569", marginLeft: 8 }}>({scorecardUploadResult.score}/100)</span>
-                      </p>
-                      <p style={{ fontSize: 12, color: "#475569", margin: 0 }}>
-                        {scorecardUploadResult.plan_name} ({scorecardUploadResult.network_type})
-                        {scorecardUploadResult.savings_estimate_per_ee && (
-                          <span> &mdash; est. savings: <strong>{fmt(scorecardUploadResult.savings_estimate_per_ee)}</strong>/employee/year</span>
-                        )}
-                      </p>
-                      {scorecardUploadResult.interpretation && (
-                        <p style={{ fontSize: 12, color: "#475569", margin: "6px 0 0", lineHeight: 1.5 }}>{scorecardUploadResult.interpretation}</p>
                       )}
                     </div>
                   )}
