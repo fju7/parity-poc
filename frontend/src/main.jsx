@@ -47,13 +47,15 @@ function ScrollToTop() {
   return null
 }
 
+const isProviderSubdomain = typeof window !== 'undefined' && window.location.hostname === 'provider.civicscale.ai'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<CivicScaleHomepage />} />
+        <Route path="/" element={isProviderSubdomain ? <ProviderProductPage /> : <CivicScaleHomepage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
