@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AuthGate from "./AuthGate";
-import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -519,21 +518,26 @@ function BrokerDashboardInner() {
   return (
     <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden", minHeight: "100vh", background: "#f8fafc" }}>
       {/* NAV */}
-      <nav className="cs-nav">
-        <Link className="cs-nav-logo" to="/">
-          <LogoIcon />
-          <span className="cs-nav-wordmark">CivicScale</span>
-        </Link>
-        <div className="cs-nav-links">
-          <span style={{ fontSize: 14, color: "#64748b" }}>{broker.firm_name}</span>
-          <button onClick={() => navigate("/broker/account")} title="Account Settings" style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 10px", fontSize: 16, color: "#64748b", cursor: "pointer", lineHeight: 1 }}>
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        padding: "0 40px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between",
+        background: "rgba(10,22,40,0.96)", backdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}>
+        <a href="https://civicscale.ai" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #0d9488, #14b8a6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0a1628" }}>C</div>
+          <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em", color: "#f1f5f9" }}>CivicScale</span>
+        </a>
+        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+          <span style={{ fontSize: 14, color: "#94a3b8" }}>{broker.firm_name}</span>
+          <button onClick={() => navigate("/broker/account")} title="Account Settings" style={{ background: "none", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 6, padding: "6px 10px", fontSize: 16, color: "#94a3b8", cursor: "pointer", lineHeight: 1 }}>
             &#9881;
           </button>
-          <button onClick={handleLogout} style={{ background: "none", border: "1px solid #e2e8f0", borderRadius: 6, padding: "6px 14px", fontSize: 13, color: "#64748b", cursor: "pointer" }}>
+          <button onClick={handleLogout} style={{ background: "none", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 6, padding: "6px 14px", fontSize: 13, color: "#94a3b8", cursor: "pointer" }}>
             Sign Out
           </button>
         </div>
-      </nav>
+      </header>
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "88px 24px 48px" }}>
         {/* Header */}
