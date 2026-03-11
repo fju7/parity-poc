@@ -139,10 +139,16 @@ export default function CivicScaleHomepage() {
             All are powered by the same benchmark and scoring infrastructure.
           </p>
           <div className="cs-home-product-cards">
-            {PRODUCT_CARDS.map((card) => (
-              <Link
+            {PRODUCT_CARDS.map((card) => {
+              const isExternal = card.to.startsWith("http");
+              const Wrapper = isExternal ? "a" : Link;
+              const linkProps = isExternal
+                ? { href: card.to, target: "_blank", rel: "noopener noreferrer" }
+                : { to: card.to };
+              return (
+              <Wrapper
                 key={card.key}
-                to={card.to}
+                {...linkProps}
                 className={`cs-home-product-card cs-home-product-card--${card.key}`}
                 onMouseEnter={() => setHoveredProduct(card.key)}
                 onMouseLeave={() => setHoveredProduct(null)}
@@ -169,8 +175,9 @@ export default function CivicScaleHomepage() {
                     <span className="cs-home-product-tier">{card.badge}</span>
                   )}
                 </div>
-              </Link>
-            ))}
+              </Wrapper>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -439,9 +446,9 @@ const PRODUCT_CARDS = [
       "Denial pattern analysis with appeal letters",
       "Billing performance scorecard",
     ],
-    cta: "Start Free Audit",
-    badge: "No cost to practices",
-    to: "/billing/provider",
+    cta: "Request a Demo",
+    badge: "$300/mo",
+    to: "https://provider.civicscale.ai",
   },
   {
     key: "health",
