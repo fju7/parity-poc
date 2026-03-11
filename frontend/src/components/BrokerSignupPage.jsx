@@ -129,10 +129,10 @@ export default function BrokerSignupPage() {
         <div style={{ width: "100%", maxWidth: 420, padding: "0 16px" }}>
           <div style={{ textAlign: "center", marginBottom: 32 }}>
             <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
-              Join Parity Employer
+              Join Parity Broker
             </h1>
             <p style={{ color: "#64748b", marginTop: 8, fontSize: 15, lineHeight: 1.6 }}>
-              Start free &mdash; first 10 clients included. Upgrade to Pro at $99/mo for unlimited clients.
+              Start your 30-day free trial. $99/mo after trial &mdash; cancel anytime.
             </p>
           </div>
 
@@ -178,9 +178,9 @@ export default function BrokerSignupPage() {
 
               <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
                 {[
-                  "\u2713 Free Starter plan \u2014 up to 10 clients at no cost",
-                  "\u2713 Benchmark any employer in 60 seconds",
-                  "\u2713 Pro at $99/mo \u2014 unlimited clients, renewal prep, Level 2 insights",
+                  "\u2713 30-day free trial \u2014 no credit card required",
+                  "\u2713 Unlimited clients and benchmark analyses",
+                  "\u2713 CAA letter generation, renewal prep, and Level 2 claims insights",
                 ].map((text) => (
                   <p key={text} style={{ fontSize: 13, color: "#94a3b8", margin: 0 }}>{text}</p>
                 ))}
@@ -300,7 +300,7 @@ export default function BrokerSignupPage() {
                   opacity: creating ? 0.6 : 1,
                 }}
               >
-                {creating ? "Creating account..." : "Create Free Account \u2192"}
+                {creating ? "Creating account..." : "Start Free Trial \u2192"}
               </button>
             </>
           )}
