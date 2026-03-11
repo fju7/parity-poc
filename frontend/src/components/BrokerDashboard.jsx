@@ -557,13 +557,13 @@ function BrokerDashboardInner() {
               Invite Client
             </button>
             <button
-              onClick={() => { setShowBulkPanel(true); setBulkErrors({}); setBulkResults(null); setBulkRunning(false); setBulkRows(Array.from({ length: 5 }, EMPTY_ROW)); }}
+              onClick={() => { setShowBulkPanel(true); setBulkErrors({}); setBulkResults(null); setBulkRunning(false); setBulkRows(Array.from({ length: 5 }, EMPTY_ROW)); setTimeout(() => { document.getElementById("bulk-add-panel")?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50); }}
               style={{ background: "#fff", color: "#0D7377", border: "1px solid #0D7377", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
             >
               Bulk Add Clients
             </button>
             <button
-              onClick={() => { setShowAddPanel(true); setAddError(""); setOnboardResult(null); setAddForm({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "", renewal_month: "", renewal_year: "" }); }}
+              onClick={() => { setShowAddPanel(true); setAddError(""); setOnboardResult(null); setAddForm({ company_name: "", employee_count_range: "<100", industry: "Manufacturing", state: "NY", carrier: "", employer_email: "", estimated_pepm: "", estimated_annual_spend: "", renewal_month: "", renewal_year: "" }); setTimeout(() => { document.getElementById("add-client-panel")?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50); }}
               style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
             >
               + Add Client
@@ -1023,7 +1023,7 @@ function BrokerDashboardInner() {
 
         {/* Bulk Add Panel */}
         {showBulkPanel && (
-          <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 28, marginBottom: 24 }}>
+          <div id="bulk-add-panel" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 28, marginBottom: 24 }}>
             {bulkResults ? (
               /* Results summary */
               <div>
@@ -1170,7 +1170,7 @@ function BrokerDashboardInner() {
 
         {/* Add Client Panel */}
         {showAddPanel && (
-          <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 28, marginBottom: 24 }}>
+          <div id="add-client-panel" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 28, marginBottom: 24 }}>
             {!onboardResult ? (
               <>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
