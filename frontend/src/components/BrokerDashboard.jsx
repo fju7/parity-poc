@@ -1438,7 +1438,7 @@ function BrokerDashboardInner() {
                 <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
                   <div>
                     <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.company_name}</h2>
-                    {!clientSummary.employer_email?.includes("@broker-onboarded") && <p style={{ fontSize: 13, color: "#94a3b8", marginTop: 4 }}>{clientSummary.employer_email}</p>}
+                    {clientSummary.employer_email && !clientSummary.employer_email.startsWith("pending-") && !clientSummary.employer_email.includes("@broker-onboarded") && <p style={{ fontSize: 13, color: "#94a3b8", marginTop: 4 }}>{clientSummary.employer_email}</p>}
                   </div>
                   <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                     {selectedClient.share_token && (
