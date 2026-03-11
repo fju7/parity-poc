@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./CivicScaleHomepage.css";
 
 export function LogoIcon({ footer }) {
@@ -37,8 +38,23 @@ export function LogoIcon({ footer }) {
 }
 
 
+const DASHBOARD_ROUTES = {
+  employer: "/billing/employer/dashboard",
+  broker: "/broker/dashboard",
+  provider: "/provider/dashboard",
+};
+const ACCOUNT_ROUTES = {
+  employer: "/billing/employer/account",
+  broker: "/broker/account",
+  provider: "/provider/account",
+};
+
 export default function CivicScaleHomepage() {
   const [hoveredProduct, setHoveredProduct] = useState(null);
+  const { isAuthenticated, company } = useAuth();
+  const companyType = company?.type;
+  const dashboardTo = DASHBOARD_ROUTES[companyType] || "/billing/employer/dashboard";
+  const accountTo = ACCOUNT_ROUTES[companyType] || "/billing/employer/account";
 
   return (
     <div className="cs-home-root">
@@ -59,7 +75,14 @@ export default function CivicScaleHomepage() {
           <Link to="/investors" className="cs-home-nav-link cs-home-nav-investors">Investors</Link>
         </nav>
         <div className="cs-home-nav-actions">
-          <Link to="/billing/employer/signup" className="cs-home-nav-cta">Start Free Trial</Link>
+          {isAuthenticated ? (
+            <>
+              <Link to={dashboardTo} className="cs-home-nav-cta">Go to Dashboard</Link>
+              <Link to={accountTo} className="cs-home-nav-link" style={{ fontSize: 13, opacity: 0.8 }}>My Account</Link>
+            </>
+          ) : (
+            <Link to="/billing/employer/signup" className="cs-home-nav-cta">Start Free Trial</Link>
+          )}
         </div>
         <button className="cs-home-mobile-toggle" onClick={() => {
           document.querySelector('.cs-home-nav').classList.toggle('cs-home-nav--open');
@@ -88,16 +111,30 @@ export default function CivicScaleHomepage() {
             of carrier narratives.
           </p>
           <div className="cs-home-hero-actions">
-            <Link to="/billing/employer/signup" className="cs-btn-primary">
-              Start Free Trial <span>&rarr;</span>
-            </Link>
+            {isAuthenticated ? (
+              <Link to={dashboardTo} className="cs-btn-primary">
+                Go to Dashboard <span>&rarr;</span>
+              </Link>
+            ) : (
+              <Link to="/billing/employer/signup" className="cs-btn-primary">
+                Start Free Trial <span>&rarr;</span>
+              </Link>
+            )}
             <Link to="/billing/employer/demo" className="cs-btn-ghost">
               See a Demo
             </Link>
           </div>
+<<<<<<< HEAD
           <p className="cs-home-hero-trust">
             30-day free trial &middot; Cancel anytime
           </p>
+=======
+          {!isAuthenticated && (
+            <p className="cs-home-hero-trust">
+              30-day free trial &middot; Cancel anytime
+            </p>
+          )}
+>>>>>>> origin/claude/review-changes-mmlyt85wltyyhb6p-G0OPx
         </div>
       </section>
 
