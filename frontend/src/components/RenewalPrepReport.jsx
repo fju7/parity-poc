@@ -278,7 +278,16 @@ export default function RenewalPrepReport() {
                 <div style={{ display: "flex", gap: 10, alignItems: "flex-end", flexWrap: "wrap", justifyContent: "center" }}>
                   <div>
                     <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>Claims file (835/CSV/Excel/ZIP)</label>
-                    <input type="file" accept=".835,.edi,.csv,.xlsx,.xls,.zip,.txt" onChange={(e) => setClaimsFile(e.target.files?.[0] || null)} style={{ fontSize: 13, color: "#475569" }} />
+                    <div
+                      onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#0d9488"; e.currentTarget.style.background = "#f0fdfa"; }}
+                      onDragLeave={(e) => { e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; }}
+                      onDrop={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; const f = e.dataTransfer.files?.[0]; if (f) setClaimsFile(f); }}
+                      onClick={() => document.getElementById("claims-file-input-report").click()}
+                      style={{ border: "2px dashed #cbd5e1", borderRadius: 8, padding: "10px 14px", background: "#f8fafc", cursor: "pointer", textAlign: "center", fontSize: 12, color: "#94a3b8", transition: "all 0.15s", minWidth: 220 }}
+                    >
+                      {claimsFile ? <span style={{ color: "#0d9488", fontWeight: 500 }}>{claimsFile.name}</span> : "Drop file here or click to browse"}
+                    </div>
+                    <input id="claims-file-input-report" type="file" accept=".835,.edi,.csv,.xlsx,.xls,.zip,.txt" onChange={(e) => setClaimsFile(e.target.files?.[0] || null)} style={{ display: "none" }} />
                   </div>
                   <div>
                     <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>ZIP code</label>
@@ -327,7 +336,16 @@ export default function RenewalPrepReport() {
                 <div style={{ display: "flex", gap: 10, alignItems: "flex-end", flexWrap: "wrap", justifyContent: "center" }}>
                   <div>
                     <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>Summary of Benefits and Coverage (PDF)</label>
-                    <input type="file" accept=".pdf" onChange={(e) => setScorecardFile(e.target.files?.[0] || null)} style={{ fontSize: 13, color: "#475569" }} />
+                    <div
+                      onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#0d9488"; e.currentTarget.style.background = "#f0fdfa"; }}
+                      onDragLeave={(e) => { e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; }}
+                      onDrop={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; const f = e.dataTransfer.files?.[0]; if (f) setScorecardFile(f); }}
+                      onClick={() => document.getElementById("scorecard-file-input-report").click()}
+                      style={{ border: "2px dashed #cbd5e1", borderRadius: 8, padding: "10px 14px", background: "#f8fafc", cursor: "pointer", textAlign: "center", fontSize: 12, color: "#94a3b8", transition: "all 0.15s", minWidth: 220 }}
+                    >
+                      {scorecardFile ? <span style={{ color: "#0d9488", fontWeight: 500 }}>{scorecardFile.name}</span> : "Drop PDF here or click to browse"}
+                    </div>
+                    <input id="scorecard-file-input-report" type="file" accept=".pdf" onChange={(e) => setScorecardFile(e.target.files?.[0] || null)} style={{ display: "none" }} />
                   </div>
                   <button onClick={handleScorecardUpload} disabled={scorecardUploading || !scorecardFile} style={{ padding: "8px 18px", borderRadius: 8, border: "none", cursor: "pointer", background: scorecardUploading || !scorecardFile ? "#cbd5e1" : "#0D7377", color: "#fff", fontWeight: 600, fontSize: 13 }}>
                     {scorecardUploading ? "Grading..." : "Upload & Grade Plan"}

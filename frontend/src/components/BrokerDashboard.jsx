@@ -1438,7 +1438,7 @@ function BrokerDashboardInner() {
                 <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
                   <div>
                     <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.company_name}</h2>
-                    <p style={{ fontSize: 13, color: "#94a3b8", marginTop: 4 }}>{clientSummary.employer_email}</p>
+                    {!clientSummary.employer_email?.includes("@broker-onboarded") && <p style={{ fontSize: 13, color: "#94a3b8", marginTop: 4 }}>{clientSummary.employer_email}</p>}
                   </div>
                   <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                     {selectedClient.share_token && (
@@ -1547,14 +1547,18 @@ function BrokerDashboardInner() {
                   <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Upload Claims Data</h3>
                   <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 16px" }}>Upload 835 EDI, CSV, Excel, or ZIP of 835 files for this client.</p>
                   <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
-                    <div style={{ flex: 1, minWidth: 180 }}>
+                    <div style={{ flex: 1, minWidth: 200 }}>
                       <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>Claims file *</label>
-                      <input
-                        type="file"
-                        accept=".835,.edi,.csv,.xlsx,.xls,.zip,.txt"
-                        onChange={(e) => { setClaimsFile(e.target.files?.[0] || null); setClaimsUploadResult(null); setClaimsUploadError(""); }}
-                        style={{ fontSize: 13, color: "#475569" }}
-                      />
+                      <div
+                        onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#0d9488"; e.currentTarget.style.background = "#f0fdfa"; }}
+                        onDragLeave={(e) => { e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; }}
+                        onDrop={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; const f = e.dataTransfer.files?.[0]; if (f) { setClaimsFile(f); setClaimsUploadResult(null); setClaimsUploadError(""); } }}
+                        onClick={() => document.getElementById("claims-file-input-dashboard").click()}
+                        style={{ border: "2px dashed #cbd5e1", borderRadius: 8, padding: "10px 14px", background: "#f8fafc", cursor: "pointer", textAlign: "center", fontSize: 12, color: "#94a3b8", transition: "all 0.15s" }}
+                      >
+                        {claimsFile ? <span style={{ color: "#0d9488", fontWeight: 500 }}>{claimsFile.name}</span> : "Drop file here or click to browse"}
+                      </div>
+                      <input id="claims-file-input-dashboard" type="file" accept=".835,.edi,.csv,.xlsx,.xls,.zip,.txt" onChange={(e) => { setClaimsFile(e.target.files?.[0] || null); setClaimsUploadResult(null); setClaimsUploadError(""); }} style={{ display: "none" }} />
                     </div>
                     <div style={{ width: 120 }}>
                       <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>ZIP code *</label>
@@ -1604,14 +1608,18 @@ function BrokerDashboardInner() {
                   <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Upload Plan Scorecard (SBC)</h3>
                   <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 16px" }}>Upload a Summary of Benefits and Coverage PDF to grade this client's plan.</p>
                   <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
-                    <div style={{ flex: 1, minWidth: 180 }}>
+                    <div style={{ flex: 1, minWidth: 200 }}>
                       <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>SBC PDF *</label>
-                      <input
-                        type="file"
-                        accept=".pdf"
-                        onChange={(e) => { setScorecardFile(e.target.files?.[0] || null); setScorecardUploadResult(null); setScorecardUploadError(""); }}
-                        style={{ fontSize: 13, color: "#475569" }}
-                      />
+                      <div
+                        onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#0d9488"; e.currentTarget.style.background = "#f0fdfa"; }}
+                        onDragLeave={(e) => { e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; }}
+                        onDrop={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; const f = e.dataTransfer.files?.[0]; if (f) { setScorecardFile(f); setScorecardUploadResult(null); setScorecardUploadError(""); } }}
+                        onClick={() => document.getElementById("scorecard-file-input-dashboard").click()}
+                        style={{ border: "2px dashed #cbd5e1", borderRadius: 8, padding: "10px 14px", background: "#f8fafc", cursor: "pointer", textAlign: "center", fontSize: 12, color: "#94a3b8", transition: "all 0.15s" }}
+                      >
+                        {scorecardFile ? <span style={{ color: "#0d9488", fontWeight: 500 }}>{scorecardFile.name}</span> : "Drop PDF here or click to browse"}
+                      </div>
+                      <input id="scorecard-file-input-dashboard" type="file" accept=".pdf" onChange={(e) => { setScorecardFile(e.target.files?.[0] || null); setScorecardUploadResult(null); setScorecardUploadError(""); }} style={{ display: "none" }} />
                     </div>
                     <button
                       onClick={handleScorecardUpload}
@@ -1654,14 +1662,18 @@ function BrokerDashboardInner() {
                   <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>Upload Claims Data</h3>
                   <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 16px" }}>Upload 835 EDI, CSV, Excel, or ZIP of 835 files for this client.</p>
                   <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
-                    <div style={{ flex: 1, minWidth: 180 }}>
+                    <div style={{ flex: 1, minWidth: 200 }}>
                       <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>Claims file *</label>
-                      <input
-                        type="file"
-                        accept=".835,.edi,.csv,.xlsx,.xls,.zip,.txt"
-                        onChange={(e) => { setClaimsFile(e.target.files?.[0] || null); setClaimsUploadResult(null); setClaimsUploadError(""); }}
-                        style={{ fontSize: 13, color: "#475569" }}
-                      />
+                      <div
+                        onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#0d9488"; e.currentTarget.style.background = "#f0fdfa"; }}
+                        onDragLeave={(e) => { e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; }}
+                        onDrop={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "#cbd5e1"; e.currentTarget.style.background = "#f8fafc"; const f = e.dataTransfer.files?.[0]; if (f) { setClaimsFile(f); setClaimsUploadResult(null); setClaimsUploadError(""); } }}
+                        onClick={() => document.getElementById("claims-file-input-dashboard").click()}
+                        style={{ border: "2px dashed #cbd5e1", borderRadius: 8, padding: "10px 14px", background: "#f8fafc", cursor: "pointer", textAlign: "center", fontSize: 12, color: "#94a3b8", transition: "all 0.15s" }}
+                      >
+                        {claimsFile ? <span style={{ color: "#0d9488", fontWeight: 500 }}>{claimsFile.name}</span> : "Drop file here or click to browse"}
+                      </div>
+                      <input id="claims-file-input-dashboard" type="file" accept=".835,.edi,.csv,.xlsx,.xls,.zip,.txt" onChange={(e) => { setClaimsFile(e.target.files?.[0] || null); setClaimsUploadResult(null); setClaimsUploadError(""); }} style={{ display: "none" }} />
                     </div>
                     <div style={{ width: 120 }}>
                       <label style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#475569", marginBottom: 4 }}>ZIP code *</label>
