@@ -55,12 +55,12 @@ export default function BrokerLoginPage() {
       if (!res.ok) { setErrorMsg(data.detail || "Invalid code."); return; }
 
       if (data.needs_company) {
-        // User verified but has no broker firm yet — redirect to signup to complete
         navigate("/broker/signup");
-      } else {
-        login(data.token, data.user, data.company);
-        navigate("/broker/dashboard");
+        return;
       }
+
+      login(data.token, data.user, data.company);
+      navigate("/broker/dashboard");
     } catch {
       setErrorMsg("Verification failed. Please try again.");
     } finally {
@@ -70,7 +70,7 @@ export default function BrokerLoginPage() {
 
   return (
     <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#e2e8f0", overflowX: "hidden", minHeight: "100vh", background: "#0a1628" }}>
-      {/* NAV — matches EmployerProductPage header */}
+      {/* NAV */}
       <header style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         padding: "0 40px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -94,7 +94,7 @@ export default function BrokerLoginPage() {
               Broker Portal
             </h1>
             <p style={{ color: "#94a3b8", marginTop: 8, fontSize: 15 }}>
-              Sign in to manage your employer clients
+              Sign in to access your book of business
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export default function BrokerLoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="broker@yourfirm.com"
+                  placeholder="you@youragency.com"
                   style={{
                     width: "100%", padding: "10px 12px", borderRadius: 8,
                     border: "1px solid rgba(255,255,255,0.12)", fontSize: 15,

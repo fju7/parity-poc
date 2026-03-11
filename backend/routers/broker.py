@@ -1938,7 +1938,7 @@ async def broker_claims_upload(
     authorization: str = Header(None),
 ):
     """Broker uploads claims file on behalf of an employer client.
-    Reuses employer_claims analysis logic. Stores results tagged with employer_email + broker_id."""
+    Reuses employer_claims analysis logic. Stores results tagged with employer_email."""
     user, sb = _require_broker(authorization)
     broker_email = user["email"]
     e_email = employer_email.strip().lower()
