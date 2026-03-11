@@ -1591,16 +1591,118 @@ function BrokerDashboardInner() {
                     </div>
                   )}
                   {claimsUploadResult && (
-                    <div style={{ marginTop: 12, padding: 12, background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8 }}>
-                      <p style={{ fontSize: 13, fontWeight: 600, color: "#0D7377", margin: "0 0 6px" }}>Claims analysis complete</p>
-                      <div style={{ display: "flex", gap: 16, flexWrap: "wrap", fontSize: 12, color: "#475569" }}>
-                        <span><strong>{claimsUploadResult.summary.total_claims}</strong> claims</span>
-                        <span>Total paid: <strong>{fmt(claimsUploadResult.summary.total_paid)}</strong></span>
-                        <span>Excess &gt;2x: <strong style={{ color: claimsUploadResult.summary.total_excess_2x > 0 ? "#EF4444" : "#475569" }}>{fmt(claimsUploadResult.summary.total_excess_2x)}</strong></span>
+                    <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 12 }}>
+                      {/* Summary bar */}
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+                        {[
+                          { label: "Claims", value: claimsUploadResult.summary.total_claims?.toLocaleString() },
+                          { label: "Total Paid", value: fmt(claimsUploadResult.summary.total_paid) },
+                          { label: "Excess vs 2x Medicare", value: fmt(claimsUploadResult.summary.total_excess_2x), alert: claimsUploadResult.summary.total_excess_2x > 0 },
+                          { label: "Flagged Claims", value: `${claimsUploadResult.summary.flagged_count} (${claimsUploadResult.summary.severe_count} severe)`, alert: claimsUploadResult.summary.severe_count > 0 },
+                        ].map(item => (
+                          <div key={item.label} style={{ background: "#f8fafc", borderRadius: 8, padding: "10px 12px", border: "1px solid #e2e8f0" }}>
+                            <p style={{ margin: 0, fontSize: 11, color: "#94a3b8", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>{item.label}</p>
+                            <p style={{ margin: "4px 0 0", fontSize: 15, fontWeight: 700, color: item.alert ? "#dc2626" : "#1B3A5C" }}>{item.value}</p>
+                          </div>
+                        ))}
                       </div>
+
+                      {/* Narrative */}
                       {claimsUploadResult.narrative && (
-                        <p style={{ fontSize: 12, color: "#475569", margin: "8px 0 0", lineHeight: 1.5 }}>{claimsUploadResult.narrative}</p>
+                        <div style={{ background: "#eff6ff", border: "1px solid #bfdbfe", borderRadius: 8, padding: "12px 16px" }}>
+                          <p style={{ margin: 0, fontSize: 13, color: "#1e40af", lineHeight: 1.6 }}>{claimsUploadResult.narrative}</p>
+                        </div>
                       )}
+
+                      {/* Top overpaid procedures */}
+                      {claimsUploadResult.line_items && claimsUploadResult.line_items.filter(r => r.flag === "SEVERE" || r.flag === "HIGH").length > 0 && (() => {
+                        const seen = new Set();
+                        const top = claimsUploadResult.line_items
+                          .filter(r => (r.flag === "SEVERE" || r.flag === "HIGH") && r.ratio > 0)
+                          .sort((a, b) => (b.ratio || 0) - (a.ratio || 0))
+                          .filter(r => { if (seen.has(r.cpt_code)) return false; seen.add(r.cpt_code); return true; })
+                          .slice(0, 5);
+                        return (
+                          <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, overflow: "hidden" }}>
+                            <div style={{ padding: "10px 14px", background: "#fef2f2", borderBottom: "1px solid #fecaca" }}>
+                              <p style={{ margin: 0, fontSize: 12, fontWeight: 700, color: "#991b1b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Top Overpaid Procedures</p>
+                            </div>
+                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+                              <thead>
+                                <tr style={{ background: "#f8fafc" }}>
+                                  <th style={{ padding: "6px 12px", textAlign: "left", color: "#64748b", fontWeight: 600 }}>CPT</th>
+                                  <th style={{ padding: "6px 12px", textAlign: "right", color: "#64748b", fontWeight: 600 }}>Paid</th>
+                                  <th style={{ padding: "6px 12px", textAlign: "right", color: "#64748b", fontWeight: 600 }}>Medicare</th>
+                                  <th style={{ padding: "6px 12px", textAlign: "right", color: "#64748b", fontWeight: 600 }}>Markup</th>
+                                  <th style={{ padding: "6px 12px", textAlign: "center", color: "#64748b", fontWeight: 600 }}>Flag</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {top.map((r, i) => (
+                                  <tr key={i} style={{ borderTop: "1px solid #f1f5f9" }}>
+                                    <td style={{ padding: "7px 12px", fontWeight: 600, color: "#1B3A5C" }}>{r.cpt_code}</td>
+                                    <td style={{ padding: "7px 12px", textAlign: "right", color: "#475569" }}>{fmt(r.paid_amount)}</td>
+                                    <td style={{ padding: "7px 12px", textAlign: "right", color: "#475569" }}>{fmt(r.medicare_rate)}</td>
+                                    <td style={{ padding: "7px 12px", textAlign: "right", fontWeight: 700, color: r.ratio >= 3 ? "#dc2626" : r.ratio >= 2 ? "#d97706" : "#475569" }}>{r.ratio}x</td>
+                                    <td style={{ padding: "7px 12px", textAlign: "center" }}>
+                                      <span style={{ padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600, background: r.flag === "SEVERE" ? "#fef2f2" : "#fffbeb", color: r.flag === "SEVERE" ? "#991b1b" : "#92400e" }}>{r.flag}</span>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        );
+                      })()}
+
+                      {/* Network leakage */}
+                      {claimsUploadResult.level2?.has_level2 !== false && claimsUploadResult.level2?.network_leakage?.flag !== "LOW" && (
+                        <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "12px 16px", display: "flex", gap: 12, alignItems: "flex-start" }}>
+                          <span style={{ fontSize: 18, flexShrink: 0 }}>⚠️</span>
+                          <div>
+                            <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#92400e" }}>Network Leakage: {claimsUploadResult.level2.network_leakage.flag}</p>
+                            <p style={{ margin: "4px 0 0", fontSize: 12, color: "#78350f" }}>
+                              {claimsUploadResult.level2.network_leakage.out_of_network_pct}% of paid claims ({fmt(claimsUploadResult.level2.network_leakage.out_of_network_paid)}) appear out-of-network.
+                              This is a direct renewal negotiation lever.
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Renewal talking points */}
+                      <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8, padding: "12px 16px" }}>
+                        <p style={{ margin: "0 0 8px", fontSize: 12, fontWeight: 700, color: "#0D7377", textTransform: "uppercase", letterSpacing: "0.05em" }}>Renewal Talking Points</p>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                          {claimsUploadResult.summary.total_excess_2x > 0 && (
+                            <div style={{ display: "flex", gap: 8, fontSize: 12, color: "#475569" }}>
+                              <span style={{ color: "#0D7377", fontWeight: 700, flexShrink: 0 }}>→</span>
+                              <span>Your claims data shows <strong>{fmt(claimsUploadResult.summary.total_excess_2x)}</strong> in payments above 2x Medicare benchmark — a concrete number to bring to the carrier.</span>
+                            </div>
+                          )}
+                          {claimsUploadResult.level2?.carrier_rates?.avg_multiple_vs_medicare > 0 && (
+                            <div style={{ display: "flex", gap: 8, fontSize: 12, color: "#475569" }}>
+                              <span style={{ color: "#0D7377", fontWeight: 700, flexShrink: 0 }}>→</span>
+                              <span>Average allowed amount is <strong>{claimsUploadResult.level2.carrier_rates.avg_multiple_vs_medicare}x Medicare</strong> across high-volume procedures. Use this to benchmark proposed carrier rates at renewal.</span>
+                            </div>
+                          )}
+                          {claimsUploadResult.level2?.network_leakage?.flag === "HIGH" && (
+                            <div style={{ display: "flex", gap: 8, fontSize: 12, color: "#475569" }}>
+                              <span style={{ color: "#0D7377", fontWeight: 700, flexShrink: 0 }}>→</span>
+                              <span>High out-of-network utilization suggests a network adequacy problem. Ask the carrier to demonstrate in-network coverage for the most-used procedure types.</span>
+                            </div>
+                          )}
+                          {claimsUploadResult.level2?.site_of_care?.total_site_opportunity > 0 && (
+                            <div style={{ display: "flex", gap: 8, fontSize: 12, color: "#475569" }}>
+                              <span style={{ color: "#0D7377", fontWeight: 700, flexShrink: 0 }}>→</span>
+                              <span>Site-of-care shifting could save an estimated <strong>{fmt(claimsUploadResult.level2.site_of_care.total_site_opportunity)}</strong>. Steerage incentives are negotiable at renewal.</span>
+                            </div>
+                          )}
+                          <div style={{ display: "flex", gap: 8, fontSize: 12, color: "#475569" }}>
+                            <span style={{ color: "#0D7377", fontWeight: 700, flexShrink: 0 }}>→</span>
+                            <span><strong>{claimsUploadResult.summary.flagged_count} flagged claims</strong> ({claimsUploadResult.summary.severe_count} severe) provide procedure-level evidence for rate negotiation.</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
