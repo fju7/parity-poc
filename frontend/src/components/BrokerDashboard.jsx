@@ -1651,7 +1651,17 @@ function BrokerDashboardInner() {
                         )}
                       </p>
                       {scorecardUploadResult.interpretation && (
-                        <p style={{ fontSize: 12, color: "#475569", margin: "6px 0 0", lineHeight: 1.5 }}>{scorecardUploadResult.interpretation}</p>
+                        <div style={{ marginTop: 8 }}>
+                          {typeof scorecardUploadResult.interpretation === "string" ? (
+                            <p style={{ fontSize: 12, color: "#475569", margin: "0 0 4px", lineHeight: 1.5 }}>{scorecardUploadResult.interpretation}</p>
+                          ) : (
+                            <>
+                              {scorecardUploadResult.interpretation.context && <p style={{ fontSize: 12, color: "#475569", margin: "0 0 4px", lineHeight: 1.5 }}>{scorecardUploadResult.interpretation.context}</p>}
+                              {scorecardUploadResult.interpretation.action && <p style={{ fontSize: 12, color: "#0D7377", margin: "0 0 4px", lineHeight: 1.5, fontWeight: 500 }}>{scorecardUploadResult.interpretation.action}</p>}
+                              {scorecardUploadResult.interpretation.broker_framing && <p style={{ fontSize: 12, color: "#64748b", margin: 0, lineHeight: 1.5, fontStyle: "italic" }}>{scorecardUploadResult.interpretation.broker_framing}</p>}
+                            </>
+                          )}
+                        </div>
                       )}
                     </div>
                   )}

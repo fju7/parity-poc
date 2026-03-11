@@ -328,7 +328,19 @@ export default function RenewalPrepReport() {
                   <span style={{ fontWeight: 400, color: "#475569", marginLeft: 8 }}>({scorecardResult.score}/100)</span>
                 </p>
                 {scorecardResult.plan_name && <p style={{ fontSize: 12, color: "#475569", margin: 0 }}>{scorecardResult.plan_name}</p>}
-                {scorecardResult.interpretation && <p style={{ fontSize: 12, color: "#475569", margin: "6px 0 0", lineHeight: 1.5 }}>{scorecardResult.interpretation}</p>}
+                {scorecardResult.interpretation && (
+                  <div style={{ marginTop: 6 }}>
+                    {typeof scorecardResult.interpretation === "string" ? (
+                      <p style={{ fontSize: 12, color: "#475569", margin: 0, lineHeight: 1.5 }}>{scorecardResult.interpretation}</p>
+                    ) : (
+                      <>
+                        {scorecardResult.interpretation.context && <p style={{ fontSize: 12, color: "#475569", margin: "0 0 4px", lineHeight: 1.5 }}>{scorecardResult.interpretation.context}</p>}
+                        {scorecardResult.interpretation.action && <p style={{ fontSize: 12, color: "#0D7377", margin: "0 0 4px", lineHeight: 1.5, fontWeight: 500 }}>{scorecardResult.interpretation.action}</p>}
+                        {scorecardResult.interpretation.broker_framing && <p style={{ fontSize: 12, color: "#64748b", margin: 0, lineHeight: 1.5, fontStyle: "italic" }}>{scorecardResult.interpretation.broker_framing}</p>}
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
             ) : (
               <div style={{ background: "#f8fafc", border: "1px dashed #cbd5e1", borderRadius: 10, padding: "20px 24px" }} className="no-print">
