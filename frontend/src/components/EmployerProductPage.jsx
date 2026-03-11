@@ -1,918 +1,447 @@
+import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
-export default function EmployerProductPage() {
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0a1628",
-        color: "#e2e8f0",
-        fontFamily: "'DM Sans', sans-serif",
-      }}
-    >
-      <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
-        rel="stylesheet"
-      />
+// ─── Synthetic claims data ───────────────────────────────────────────────────
+const MEDICAL_CLAIMS = [
+  { id: 1, dos: "2024-12-03", cpt: "99213", desc: "Office visit, est. patient, low complexity", provider: "Prairie Health Group", billed: 185, allowed: 152, medicare: 92, pctAbove: 65, flagged: true },
+  { id: 2, dos: "2024-12-05", cpt: "99214", desc: "Office visit, est. patient, moderate complexity", provider: "Heartland Family Medicine", billed: 248, allowed: 210, medicare: 148, pctAbove: 42, flagged: true },
+  { id: 3, dos: "2024-12-06", cpt: "93000", desc: "Electrocardiogram, 12-lead", provider: "Midwest Cardiology Associates", billed: 310, allowed: 265, medicare: 148, pctAbove: 79, flagged: true },
+  { id: 4, dos: "2024-12-09", cpt: "99214", desc: "Office visit, est. patient, moderate complexity", provider: "Lakeview Medical Center", billed: 225, allowed: 198, medicare: 148, pctAbove: 34, flagged: false },
+  { id: 5, dos: "2024-12-10", cpt: "85025", desc: "Complete blood count, automated", provider: "Quest Diagnostics", billed: 42, allowed: 35, medicare: 8, pctAbove: 338, flagged: true },
+  { id: 6, dos: "2024-12-11", cpt: "71046", desc: "Chest X-ray, 2 views", provider: "Regional Imaging Center", billed: 180, allowed: 145, medicare: 58, pctAbove: 150, flagged: false },
+  { id: 7, dos: "2024-12-12", cpt: "99213", desc: "Office visit, est. patient, low complexity", provider: "Heartland Family Medicine", billed: 165, allowed: 140, medicare: 92, pctAbove: 52, flagged: false },
+  { id: 8, dos: "2024-12-13", cpt: "93000", desc: "Electrocardiogram, 12-lead", provider: "Prairie Cardiology", billed: 195, allowed: 168, medicare: 148, pctAbove: 14, flagged: false },
+  { id: 9, dos: "2024-12-16", cpt: "99214", desc: "Office visit, est. patient, moderate complexity", provider: "Prairie Health Group", billed: 260, allowed: 228, medicare: 148, pctAbove: 54, flagged: true },
+  { id: 10, dos: "2024-12-17", cpt: "85025", desc: "Complete blood count, automated", provider: "LabCorp", billed: 28, allowed: 22, medicare: 8, pctAbove: 175, flagged: false },
+  { id: 11, dos: "2024-12-19", cpt: "71046", desc: "Chest X-ray, 2 views", provider: "Midwest Hospital Outpatient", billed: 340, allowed: 285, medicare: 58, pctAbove: 391, flagged: true },
+  { id: 12, dos: "2024-12-20", cpt: "99213", desc: "Office visit, est. patient, low complexity", provider: "Midwest Primary Partners", billed: 155, allowed: 130, medicare: 92, pctAbove: 41, flagged: false },
+];
 
-      {/* Header */}
-      <header className="cs-home-header">
-        <Link
-          to="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            textDecoration: "none",
-            color: "inherit",
-          }}
-        >
-          <div
-            style={{
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              background: "linear-gradient(135deg, #0d9488, #14b8a6)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "16px",
-              fontWeight: "700",
-              color: "#0a1628",
-            }}
-          >
-            C
-          </div>
-          <span
-            style={{
-              fontSize: "18px",
-              fontWeight: "600",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            CivicScale
-          </span>
+const PHARMACY_CLAIMS = [
+  { id: 1, fillDate: "2024-12-02", drug: "Atorvastatin 40mg", ndc: "00378-3952-77", qty: 30, paid: 12.40, nadac: 3.18, spread: 9.22, spreadPct: 290, flagged: true },
+  { id: 2, fillDate: "2024-12-03", drug: "Lisinopril 10mg", ndc: "00378-0831-01", qty: 30, paid: 8.50, nadac: 2.45, spread: 6.05, spreadPct: 247, flagged: true },
+  { id: 3, fillDate: "2024-12-05", drug: "Metformin 500mg", ndc: "00591-2550-01", qty: 60, paid: 14.20, nadac: 4.80, spread: 9.40, spreadPct: 196, flagged: false },
+  { id: 4, fillDate: "2024-12-06", drug: "Omeprazole 20mg", ndc: "62175-0118-37", qty: 30, paid: 22.30, nadac: 3.92, spread: 18.38, spreadPct: 469, flagged: true },
+  { id: 5, fillDate: "2024-12-09", drug: "Amlodipine 5mg", ndc: "00093-3171-56", qty: 30, paid: 9.80, nadac: 2.15, spread: 7.65, spreadPct: 356, flagged: true },
+  { id: 6, fillDate: "2024-12-10", drug: "Levothyroxine 50mcg", ndc: "00378-1805-01", qty: 30, paid: 18.50, nadac: 7.20, spread: 11.30, spreadPct: 157, flagged: false },
+  { id: 7, fillDate: "2024-12-12", drug: "Sertraline 100mg", ndc: "16729-0093-01", qty: 30, paid: 11.60, nadac: 4.10, spread: 7.50, spreadPct: 183, flagged: false },
+  { id: 8, fillDate: "2024-12-16", drug: "Gabapentin 300mg", ndc: "27241-0050-03", qty: 90, paid: 32.40, nadac: 8.55, spread: 23.85, spreadPct: 279, flagged: true },
+  { id: 9, fillDate: "2024-12-18", drug: "Ozempic 1mg pen", ndc: "00169-4772-12", qty: 1, paid: 968.00, nadac: 935.48, spread: 32.52, spreadPct: 3, flagged: false },
+  { id: 10, fillDate: "2024-12-20", drug: "Albuterol HFA inhaler", ndc: "00173-0682-20", qty: 1, paid: 58.90, nadac: 25.80, spread: 33.10, spreadPct: 128, flagged: false },
+];
+
+// ─── Dispute letter generator ────────────────────────────────────────────────
+function generateDisputeLetter(claim) {
+  const overpayment = (claim.allowed - claim.medicare).toFixed(2);
+  const totalIfMedicare = (claim.medicare * 1.2).toFixed(2); // Medicare + 20% reasonable margin
+  return `DISPUTE LETTER — DRAFT
+
+To: ${claim.provider}
+Re: Claim dated ${claim.dos}, CPT ${claim.cpt} (${claim.desc})
+
+Dear Claims Department,
+
+We are writing to formally dispute the allowed amount of $${claim.allowed.toFixed(2)} for the above-referenced service. Based on our independent analysis using the CMS Medicare Physician Fee Schedule for the applicable geographic locality, the Medicare benchmark rate for CPT ${claim.cpt} is $${claim.medicare.toFixed(2)}.
+
+The allowed amount on this claim represents a ${claim.pctAbove}% premium above the Medicare benchmark, which exceeds the reasonable range for this service in this market.
+
+We request an adjustment to $${totalIfMedicare} (Medicare benchmark + 20% commercial margin), which would reduce the excess charge by $${overpayment} on this claim alone.
+
+Supporting data:
+- CPT Code: ${claim.cpt}
+- Description: ${claim.desc}
+- Billed amount: $${claim.billed.toFixed(2)}
+- Allowed amount: $${claim.allowed.toFixed(2)}
+- Medicare benchmark: $${claim.medicare.toFixed(2)}
+- Excess above benchmark: ${claim.pctAbove}%
+
+This analysis was generated using CivicScale Parity Employer, which benchmarks commercial claims against the current CMS Medicare fee schedule with geographic locality adjustments.
+
+We request a written response within 30 days.
+
+Sincerely,
+[Benefits Director Name]
+[Company Name]`;
+}
+
+// ─── Analytical Paths data ───────────────────────────────────────────────────
+function getAnalyticalPaths(claim) {
+  const base = claim.pctAbove;
+  return [
+    {
+      name: "Balanced",
+      emphasis: "Equal weight across all dimensions",
+      score: base > 60 ? "Significant overpayment" : base > 30 ? "Moderate overpayment" : "Within range",
+      detail: `At ${claim.pctAbove}% above Medicare, this claim ${base > 60 ? "substantially exceeds" : base > 30 ? "moderately exceeds" : "is near"} the benchmark. The balanced profile weights geographic adjustment, procedure complexity, and market rates equally.`,
+    },
+    {
+      name: "Regulatory",
+      emphasis: "Source quality 40%, Consensus 30%",
+      score: base > 40 ? "Above CMS threshold" : "Within CMS norms",
+      detail: `CMS sets the reference price for CPT ${claim.cpt} at $${claim.medicare.toFixed(2)}. The regulatory profile prioritizes official fee schedule data and payer consensus. The ${claim.pctAbove}% premium ${base > 40 ? "would likely draw scrutiny in a plan audit" : "falls within typical commercial variance"}.`,
+    },
+    {
+      name: "Market",
+      emphasis: "Commercial rates 40%, Recency 25%",
+      score: base > 80 ? "Well above market" : base > 40 ? "Above median" : "Market rate",
+      detail: `Commercial rates for ${claim.desc.toLowerCase()} in this region typically run 20–35% above Medicare. At ${claim.pctAbove}% above benchmark, ${claim.provider} is ${base > 40 ? "pricing above the commercial median" : "within the expected commercial range"}.`,
+    },
+  ];
+}
+
+// ─── Component ───────────────────────────────────────────────────────────────
+export default function EmployerProductPage() {
+  const [demoTab, setDemoTab] = useState("medical");
+  const [selectedClaim, setSelectedClaim] = useState(null);
+  const [showLetter, setShowLetter] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [showConversion, setShowConversion] = useState(false);
+
+  const handleTabSwitch = useCallback((tab) => {
+    setDemoTab(tab);
+    setSelectedClaim(null);
+    setShowLetter(false);
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      setTimeout(() => setShowConversion(true), 2000);
+    }
+  }, [hasInteracted]);
+
+  const handleClaimClick = useCallback((claim) => {
+    setSelectedClaim(selectedClaim?.id === claim.id ? null : claim);
+    setShowLetter(false);
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      setTimeout(() => setShowConversion(true), 2000);
+    }
+  }, [selectedClaim, hasInteracted]);
+
+  return (
+    <div style={{ minHeight: "100vh", background: "#0a1628", color: "#e2e8f0", fontFamily: "'DM Sans', sans-serif" }}>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+      {/* ── Header ── */}
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        padding: "0 40px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between",
+        background: "rgba(10,22,40,0.92)", backdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}>
+        <Link to="/" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #0d9488, #14b8a6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0a1628" }}>C</div>
+          <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em" }}>CivicScale</span>
         </Link>
-        <nav className="cs-home-nav">
-          <Link
-            to="/billing"
-            style={{ color: "#60a5fa", textDecoration: "none" }}
-          >
-            Billing Products
-          </Link>
-          <Link
-            to="/signal"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            Parity Signal
-          </Link>
-          <Link
-            to="/investors"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            About
-          </Link>
-          <Link
-            to="/employer/login"
-            style={{
-              color: "#60a5fa",
-              textDecoration: "none",
-              border: "1px solid #60a5fa",
-              borderRadius: "6px",
-              padding: "6px 16px",
-            }}
-          >
-            Sign In
-          </Link>
+        <nav style={{ display: "flex", gap: 24, alignItems: "center", fontSize: 14 }}>
+          <Link to="/" style={{ color: "#94a3b8", textDecoration: "none" }}>Home</Link>
+          <Link to="/broker" style={{ color: "#94a3b8", textDecoration: "none" }}>Broker Portal</Link>
+          <Link to="/employer/login" style={{ color: "#60a5fa", textDecoration: "none", border: "1px solid rgba(59,130,246,0.4)", borderRadius: 6, padding: "6px 16px" }}>Sign In</Link>
         </nav>
       </header>
 
-      {/* Hero */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingTop: "80px",
-          paddingBottom: "56px",
-          maxWidth: "820px",
-          margin: "0 auto",
-          textAlign: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "inline-block",
-            background: "rgba(59,130,246,0.12)",
-            borderRadius: "8px",
-            padding: "8px 14px",
-            marginBottom: "24px",
-          }}
-        >
-          <span
-            style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa" }}
-          >
-            PARITY EMPLOYER
-          </span>
+      {/* ── Hero ── */}
+      <section style={{ paddingTop: 120, paddingBottom: 56, maxWidth: 820, margin: "0 auto", textAlign: "center", padding: "120px 24px 56px" }}>
+        <div style={{ display: "inline-block", background: "rgba(59,130,246,0.12)", borderRadius: 8, padding: "8px 14px", marginBottom: 24 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "#60a5fa" }}>PARITY EMPLOYER</span>
         </div>
-        <h1
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "clamp(30px, 4vw, 46px)",
-            lineHeight: "1.15",
-            fontWeight: "400",
-            color: "#f1f5f9",
-            marginBottom: "20px",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          Your health plan is costing you
-          <br />
+        <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(30px, 4vw, 46px)", lineHeight: 1.15, fontWeight: 400, color: "#f1f5f9", marginBottom: 20, letterSpacing: "-0.02em" }}>
+          Your health plan is costing you<br />
           <span style={{ color: "#60a5fa" }}>more than it should.</span>
         </h1>
-        <p
-          style={{
-            fontSize: "17px",
-            lineHeight: "1.7",
-            color: "#94a3b8",
-            maxWidth: "640px",
-            margin: "0 auto 32px",
-          }}
-        >
-          More than half of employers pay above the median for their industry and size — most don't know where they stand. AI-powered benchmarking, claims analysis, and plan grading that shows you exactly where you are — by category, by provider, by procedure.
+        <p style={{ fontSize: 17, lineHeight: 1.7, color: "#94a3b8", maxWidth: 640, margin: "0 auto 32px" }}>
+          The typical employer pays 3–5x Medicare rates for common procedures — most don't know where they stand. AI-powered claims analysis that shows you exactly where costs exceed market norms, by category, by provider, by procedure.
         </p>
-        <div
-          style={{
-            display: "flex",
-            gap: "16px",
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <Link
-            to="/billing/employer/benchmark"
-            style={{
-              display: "inline-block",
-              background: "#3b82f6",
-              color: "#fff",
-              padding: "12px 28px",
-              borderRadius: "8px",
-              fontWeight: "600",
-              fontSize: "15px",
-              textDecoration: "none",
-              transition: "background 0.2s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
-          >
-            Get Your Free Benchmark &rarr;
-          </Link>
-          <Link
-            to="/billing/employer/demo"
-            style={{
-              display: "inline-block",
-              border: "1px solid rgba(59,130,246,0.4)",
-              color: "#60a5fa",
-              padding: "12px 28px",
-              borderRadius: "8px",
-              fontWeight: "600",
-              fontSize: "15px",
-              textDecoration: "none",
-              transition: "all 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "#60a5fa";
-              e.currentTarget.style.background = "rgba(59,130,246,0.08)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(59,130,246,0.4)";
-              e.currentTarget.style.background = "transparent";
-            }}
-          >
-            View Interactive Demo &rarr;
-          </Link>
-        </div>
-
-        {/* Video embed */}
-        <div style={{
-          marginTop: "40px",
-          maxWidth: "720px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          borderRadius: "12px",
-          overflow: "hidden",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
-        }}>
-          <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
-            <iframe
-              src="https://share.descript.com/embed/u5IZjWgMnJZ"
-              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
-              allowFullScreen
-              title="Parity Employer demo video"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Why AI Changes Everything */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingTop: "0",
-          paddingBottom: "64px",
-          maxWidth: "780px",
-          margin: "0 auto",
-        }}
-      >
-        <div
-          style={{
-            background: "rgba(59,130,246,0.04)",
-            border: "1px solid rgba(59,130,246,0.12)",
-            borderRadius: "16px",
-            padding: "36px",
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "'DM Serif Display', serif",
-              fontSize: "24px",
-              fontWeight: "400",
-              color: "#f1f5f9",
-              marginBottom: "20px",
-            }}
-          >
-            Why this couldn't exist without AI
-          </h2>
-          <p
-            style={{
-              fontSize: "15px",
-              lineHeight: "1.8",
-              color: "#94a3b8",
-              marginBottom: "16px",
-            }}
-          >
-            Traditional benefits consultants sample 5-10% of your claims and
-            compare them against broad averages. That misses the details that
-            matter — the specific provider charging 40% above market for knee
-            replacements, the hospital outpatient facility fee that's triple what
-            a freestanding center charges, the imaging costs that quietly doubled
-            year over year.
-          </p>
-          <p
-            style={{
-              fontSize: "15px",
-              lineHeight: "1.8",
-              color: "#94a3b8",
-              marginBottom: "16px",
-            }}
-          >
-            Parity Employer uses AI to analyze every single claim against
-            Medicare fee schedules, regional commercial benchmarks, and — as our
-            community database grows — actual reported rates from real plans. Not
-            a sample. Every line. The AI reads CPT codes, maps them to procedure
-            categories, normalizes for geography, and flags anomalies that a
-            human analyst reviewing spreadsheets would never catch.
-          </p>
-          <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#cbd5e1" }}>
-            But unlike a black-box AI that just gives you a number, we show you
-            the analytical path: why a cost is flagged, what benchmark it's
-            compared against, and what assumptions went into the comparison. You
-            see the methodology, not just the conclusion.
-          </p>
-        </div>
-      </section>
-
-      {/* What You Get — 3 cards */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "72px",
-          maxWidth: "960px",
-          margin: "0 auto",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "28px",
-            fontWeight: "400",
-            color: "#f1f5f9",
-            textAlign: "center",
-            marginBottom: "40px",
-          }}
-        >
-          What You Get
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "24px",
-          }}
-        >
-          {CARDS.map((c) => (
-            <div
-              key={c.title}
-              style={{
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(59,130,246,0.18)",
-                borderRadius: "14px",
-                padding: "28px",
-              }}
-            >
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "10px",
-                  background: "rgba(59,130,246,0.12)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "16px",
-                  color: "#60a5fa",
-                  fontSize: "18px",
-                }}
-              >
-                {c.icon}
-              </div>
-              <h3
-                style={{
-                  fontSize: "17px",
-                  fontWeight: "600",
-                  color: "#f1f5f9",
-                  marginBottom: "10px",
-                }}
-              >
-                {c.title}
-              </h3>
-              <p
-                style={{
-                  fontSize: "14px",
-                  lineHeight: "1.7",
-                  color: "#94a3b8",
-                }}
-              >
-                {c.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* How We're Different — 3 comparison cards */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "72px",
-          maxWidth: "960px",
-          margin: "0 auto",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "28px",
-            fontWeight: "400",
-            color: "#f1f5f9",
-            textAlign: "center",
-            marginBottom: "40px",
-          }}
-        >
-          How We're Different
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "24px",
-          }}
-        >
-          {DIFF_CARDS.map((c) => (
-            <div
-              key={c.title}
-              style={{
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(59,130,246,0.18)",
-                borderRadius: "14px",
-                padding: "28px",
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "600",
-                  color: "#60a5fa",
-                  marginBottom: "12px",
-                }}
-              >
-                {c.title}
-              </h3>
-              <p
-                style={{
-                  fontSize: "14px",
-                  lineHeight: "1.7",
-                  color: "#94a3b8",
-                }}
-              >
-                {c.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* How It Works — 3 steps */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "72px",
-          maxWidth: "900px",
-          margin: "0 auto",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "28px",
-            fontWeight: "400",
-            color: "#f1f5f9",
-            textAlign: "center",
-            marginBottom: "40px",
-          }}
-        >
-          How It Works
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "28px",
-          }}
-        >
-          {STEPS.map((s, i) => (
-            <div key={i} style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  width: "44px",
-                  height: "44px",
-                  borderRadius: "50%",
-                  background: "rgba(59,130,246,0.15)",
-                  color: "#60a5fa",
-                  fontWeight: "700",
-                  fontSize: "18px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 16px",
-                }}
-              >
-                {i + 1}
-              </div>
-              <h3
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  color: "#f1f5f9",
-                  marginBottom: "8px",
-                }}
-              >
-                {s.title}
-              </h3>
-              <p
-                style={{
-                  fontSize: "14px",
-                  lineHeight: "1.7",
-                  color: "#94a3b8",
-                  marginBottom: s.link ? "12px" : "0",
-                }}
-              >
-                {s.text}
-              </p>
-              {s.link && (
-                <Link to={s.link} style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", textDecoration: "none" }}>
-                  {s.linkText}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* What You Need to Get Started */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "72px",
-          maxWidth: "780px",
-          margin: "0 auto",
-        }}
-      >
-        <div
-          style={{
-            background: "rgba(59,130,246,0.04)",
-            border: "1px solid rgba(59,130,246,0.12)",
-            borderRadius: "16px",
-            padding: "36px",
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "'DM Serif Display', serif",
-              fontSize: "24px",
-              fontWeight: "400",
-              color: "#f1f5f9",
-              marginBottom: "20px",
-            }}
-          >
-            What You Need to Get Started
-          </h2>
-          <p
-            style={{
-              fontSize: "15px",
-              lineHeight: "1.8",
-              color: "#94a3b8",
-              marginBottom: "16px",
-            }}
-          >
-            Export your claims data from your TPA or benefits administrator.
-            Most TPAs can generate a claims extract in CSV or Excel format — ask
-            for service dates, CPT/HCPCS codes, billed amounts, allowed
-            amounts, paid amounts, provider names, and member ZIP codes.
-          </p>
-          <p
-            style={{
-              fontSize: "15px",
-              lineHeight: "1.8",
-              color: "#94a3b8",
-              marginBottom: "16px",
-            }}
-          >
-            We accept:
-          </p>
-          <ul
-            style={{
-              fontSize: "15px",
-              lineHeight: "2",
-              color: "#94a3b8",
-              paddingLeft: "20px",
-              marginBottom: "16px",
-            }}
-          >
-            <li>CSV or Excel claims exports (most common)</li>
-            <li>EDI 837 Professional/Institutional files</li>
-            <li>EDI 835 Remittance files</li>
-            <li>Custom formats (contact us and we'll build an importer)</li>
-          </ul>
-          <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#cbd5e1" }}>
-            Your data is processed securely and never shared. Individual claims
-            are anonymized after analysis — we keep only aggregate benchmarks,
-            never identifiable records.
-          </p>
-        </div>
-      </section>
-
-      {/* Roadmap Transparency */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "72px",
-          maxWidth: "780px",
-          margin: "0 auto",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "28px",
-            fontWeight: "400",
-            color: "#f1f5f9",
-            textAlign: "center",
-            marginBottom: "40px",
-          }}
-        >
-          Where We Are
-        </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          {ROADMAP.map((r, i) => (
-            <div
-              key={i}
-              style={{
-                background: "rgba(255,255,255,0.02)",
-                border: `1px solid ${r.borderColor}`,
-                borderRadius: "14px",
-                padding: "24px 28px",
-                display: "flex",
-                gap: "16px",
-                alignItems: "flex-start",
-              }}
-            >
-              <span style={{ fontSize: "20px", flexShrink: 0, marginTop: "2px" }}>
-                {r.icon}
-              </span>
-              <div>
-                <h3
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "600",
-                    color: r.labelColor,
-                    marginBottom: "8px",
-                  }}
-                >
-                  {r.label}
-                </h3>
-                <p
-                  style={{
-                    fontSize: "14px",
-                    lineHeight: "1.7",
-                    color: "#94a3b8",
-                  }}
-                >
-                  {r.text}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Stats strip */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "72px",
-          maxWidth: "900px",
-          margin: "0 auto",
-          textAlign: "center",
-        }}
-      >
-        <div
-          style={{
-            background: "rgba(59,130,246,0.06)",
-            border: "1px solid rgba(59,130,246,0.15)",
-            borderRadius: "16px",
-            padding: "32px",
-            display: "flex",
-            justifyContent: "center",
-            gap: "48px",
-            flexWrap: "wrap",
-          }}
-        >
-          {STATS.map((s) => (
-            <div key={s.label}>
-              <div
-                style={{
-                  fontSize: "24px",
-                  fontWeight: "600",
-                  color: "#60a5fa",
-                }}
-              >
-                {s.value}
-              </div>
-              <div
-                style={{
-                  fontSize: "12px",
-                  color: "#64748b",
-                  marginTop: "4px",
-                  maxWidth: "180px",
-                }}
-              >
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "72px",
-          maxWidth: "600px",
-          margin: "0 auto",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "28px",
-            fontWeight: "400",
-            color: "#f1f5f9",
-            textAlign: "center",
-            marginBottom: "12px",
-          }}
-        >
-          Simple Pricing
-        </h2>
-        <p style={{ fontSize: "14px", color: "#94a3b8", textAlign: "center", marginBottom: "40px", maxWidth: "520px", marginLeft: "auto", marginRight: "auto" }}>
-          One plan. Full access. Try free for 30 days.
-        </p>
-        <div
-          style={{
-            background: "rgba(59,130,246,0.06)",
-            border: "1px solid rgba(59,130,246,0.35)",
-            borderRadius: "14px",
-            padding: "36px",
-            textAlign: "center",
-          }}
-        >
-          <div style={{ fontSize: "13px", fontWeight: "600", color: "#60a5fa", marginBottom: "8px" }}>PARITY EMPLOYER PRO</div>
-          <div style={{ marginBottom: "8px" }}>
-            <span style={{ fontSize: "40px", fontWeight: "700", color: "#f1f5f9" }}>$99</span>
-            <span style={{ fontSize: "14px", color: "#64748b" }}>/mo</span>
-          </div>
-          <div style={{ fontSize: "14px", color: "#60a5fa", fontWeight: "600", marginBottom: "20px" }}>
-            30-day free trial &mdash; cancel anytime
-          </div>
-          <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", marginBottom: "24px", maxWidth: "420px", marginLeft: "auto", marginRight: "auto" }}>
-            Claims benchmarking, RBP calculator, contract parser, plan scorecard, provider-level analysis, trend monitoring, and unlimited uploads.
-          </p>
-          <Link
-            to="/billing/employer/signup"
-            style={{
-              display: "inline-block",
-              background: "#3b82f6",
-              color: "#fff",
-              borderRadius: "8px",
-              padding: "12px 32px",
-              fontWeight: "600",
-              fontSize: "15px",
-              textDecoration: "none",
-            }}
-          >
+        <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+          <Link to="/billing/employer/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
             Start Free Trial &rarr;
           </Link>
-          <p style={{ fontSize: "12px", color: "#64748b", marginTop: "16px" }}>
+          <a href="#demo" style={{ display: "inline-block", border: "1px solid rgba(59,130,246,0.4)", color: "#60a5fa", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+            See the Demo Below &darr;
+          </a>
+        </div>
+        <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>No credit card required for first 30 days &middot; Cancel anytime</p>
+      </section>
+
+      {/* ── What You Get ── */}
+      <section style={{ padding: "0 24px 72px", maxWidth: 960, margin: "0 auto" }}>
+        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 400, color: "#f1f5f9", textAlign: "center", marginBottom: 40 }}>What You Get</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
+          {FEATURE_CARDS.map((c) => (
+            <div key={c.title} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: 14, padding: 28 }}>
+              <div style={{ width: 40, height: 40, borderRadius: 10, background: "rgba(59,130,246,0.12)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16, color: "#60a5fa", fontSize: 18 }}>{c.icon}</div>
+              <h3 style={{ fontSize: 17, fontWeight: 600, color: "#f1f5f9", marginBottom: 10 }}>{c.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#94a3b8" }}>{c.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Interactive Demo ── */}
+      <section id="demo" style={{ padding: "72px 24px 80px", maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 40 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#60a5fa", marginBottom: 12 }}>Interactive Demo</div>
+          <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 32, fontWeight: 400, color: "#f1f5f9", marginBottom: 12 }}>
+            See real analysis on sample data
+          </h2>
+          <p style={{ fontSize: 15, color: "#94a3b8", maxWidth: 600, margin: "0 auto" }}>
+            This is live output from the Parity Engine running against synthetic employer claims. Click any flagged row to see the Analytical Paths breakdown.
+          </p>
+        </div>
+
+        {/* Demo container */}
+        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.2)", borderRadius: 16, overflow: "hidden" }}>
+
+          {/* Tab bar */}
+          <div style={{ display: "flex", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+            <button onClick={() => handleTabSwitch("medical")} style={{
+              flex: 1, padding: "14px 0", background: demoTab === "medical" ? "rgba(59,130,246,0.08)" : "transparent",
+              border: "none", borderBottom: demoTab === "medical" ? "2px solid #3b82f6" : "2px solid transparent",
+              color: demoTab === "medical" ? "#60a5fa" : "#64748b", fontSize: 14, fontWeight: 600, cursor: "pointer",
+              fontFamily: "'DM Sans', sans-serif",
+            }}>Medical Claims</button>
+            <button onClick={() => handleTabSwitch("pharmacy")} style={{
+              flex: 1, padding: "14px 0", background: demoTab === "pharmacy" ? "rgba(59,130,246,0.08)" : "transparent",
+              border: "none", borderBottom: demoTab === "pharmacy" ? "2px solid #3b82f6" : "2px solid transparent",
+              color: demoTab === "pharmacy" ? "#60a5fa" : "#64748b", fontSize: 14, fontWeight: 600, cursor: "pointer",
+              fontFamily: "'DM Sans', sans-serif",
+            }}>Pharmacy Claims</button>
+          </div>
+
+          {/* Summary bar */}
+          <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+            {(demoTab === "medical" ? MEDICAL_SUMMARY : PHARMACY_SUMMARY).map((s, i) => (
+              <div key={i} style={{ flex: 1, padding: "16px 20px", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
+                <div style={{ fontSize: 20, fontWeight: 700, color: s.color || "#f1f5f9" }}>{s.value}</div>
+                <div style={{ fontSize: 12, color: "#64748b", marginTop: 2 }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Claims table */}
+          {demoTab === "medical" ? (
+            <div>
+              <div style={{ display: "grid", gridTemplateColumns: "80px 80px 1fr 1fr 90px 90px 90px 80px", padding: "10px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", fontSize: 11, fontWeight: 600, color: "#64748b", letterSpacing: 0.5, textTransform: "uppercase" }}>
+                <span>Date</span><span>CPT</span><span>Description</span><span>Provider</span><span style={{ textAlign: "right" }}>Billed</span><span style={{ textAlign: "right" }}>Allowed</span><span style={{ textAlign: "right" }}>Medicare</span><span style={{ textAlign: "right" }}>Above</span>
+              </div>
+              {MEDICAL_CLAIMS.map((claim) => (
+                <div key={claim.id}>
+                  <div
+                    onClick={() => handleClaimClick(claim)}
+                    style={{
+                      display: "grid", gridTemplateColumns: "80px 80px 1fr 1fr 90px 90px 90px 80px",
+                      padding: "10px 16px", fontSize: 13, cursor: "pointer",
+                      background: selectedClaim?.id === claim.id ? "rgba(59,130,246,0.08)" : claim.flagged ? "rgba(239,68,68,0.04)" : "transparent",
+                      borderBottom: "1px solid rgba(255,255,255,0.03)",
+                      borderLeft: claim.flagged ? "3px solid #ef4444" : "3px solid transparent",
+                      transition: "background 0.15s",
+                    }}
+                    onMouseEnter={(e) => { if (selectedClaim?.id !== claim.id) e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
+                    onMouseLeave={(e) => { if (selectedClaim?.id !== claim.id) e.currentTarget.style.background = claim.flagged ? "rgba(239,68,68,0.04)" : "transparent"; }}
+                  >
+                    <span style={{ color: "#94a3b8" }}>{claim.dos.slice(5)}</span>
+                    <span style={{ color: "#60a5fa", fontFamily: "monospace", fontSize: 12 }}>{claim.cpt}</span>
+                    <span style={{ color: "#cbd5e1", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{claim.desc}</span>
+                    <span style={{ color: "#94a3b8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{claim.provider}</span>
+                    <span style={{ textAlign: "right", color: "#94a3b8" }}>${claim.billed}</span>
+                    <span style={{ textAlign: "right", color: "#cbd5e1" }}>${claim.allowed}</span>
+                    <span style={{ textAlign: "right", color: "#94a3b8" }}>${claim.medicare}</span>
+                    <span style={{ textAlign: "right", color: claim.pctAbove > 60 ? "#ef4444" : claim.pctAbove > 30 ? "#f59e0b" : "#4ade80", fontWeight: 600 }}>
+                      +{claim.pctAbove}%
+                    </span>
+                  </div>
+
+                  {/* Analytical Paths panel */}
+                  {selectedClaim?.id === claim.id && (
+                    <div style={{ padding: "20px 16px 20px 19px", background: "rgba(59,130,246,0.04)", borderBottom: "1px solid rgba(59,130,246,0.15)" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                        <h4 style={{ fontSize: 14, fontWeight: 600, color: "#60a5fa", margin: 0 }}>Analytical Paths — CPT {claim.cpt}</h4>
+                        <button onClick={(e) => { e.stopPropagation(); setShowLetter(!showLetter); }} style={{
+                          background: showLetter ? "rgba(239,68,68,0.1)" : "rgba(59,130,246,0.12)",
+                          border: "1px solid " + (showLetter ? "rgba(239,68,68,0.3)" : "rgba(59,130,246,0.3)"),
+                          color: showLetter ? "#f87171" : "#60a5fa", borderRadius: 6, padding: "6px 14px",
+                          fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
+                        }}>{showLetter ? "Hide Letter" : "Generate Dispute Letter"}</button>
+                      </div>
+
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: showLetter ? 16 : 0 }}>
+                        {getAnalyticalPaths(claim).map((path) => (
+                          <div key={path.name} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 10, padding: 16 }}>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: "#14b8a6", marginBottom: 4 }}>{path.name}</div>
+                            <div style={{ fontSize: 11, color: "#64748b", marginBottom: 8 }}>{path.emphasis}</div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: path.score.includes("Significant") || path.score.includes("Well above") || path.score.includes("Above CMS") ? "#ef4444" : path.score.includes("Moderate") || path.score.includes("Above median") ? "#f59e0b" : "#4ade80", marginBottom: 8 }}>
+                              {path.score}
+                            </div>
+                            <p style={{ fontSize: 12, lineHeight: 1.6, color: "#94a3b8", margin: 0 }}>{path.detail}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {showLetter && (
+                        <div style={{ background: "#0f172a", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 10, padding: 20, position: "relative" }}>
+                          <div style={{ fontSize: 11, fontWeight: 600, color: "#f87171", letterSpacing: 1, textTransform: "uppercase", marginBottom: 12 }}>Draft Dispute Letter</div>
+                          <pre style={{ fontSize: 12, lineHeight: 1.65, color: "#cbd5e1", whiteSpace: "pre-wrap", fontFamily: "'DM Sans', monospace", margin: 0 }}>
+                            {generateDisputeLetter(claim)}
+                          </pre>
+                          <div style={{ marginTop: 12, fontSize: 11, color: "#64748b", fontStyle: "italic" }}>
+                            This letter is auto-generated from claim data. Review and customize before sending.
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>
+              <div style={{ display: "grid", gridTemplateColumns: "80px 1fr 130px 60px 80px 80px 80px 80px", padding: "10px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", fontSize: 11, fontWeight: 600, color: "#64748b", letterSpacing: 0.5, textTransform: "uppercase" }}>
+                <span>Date</span><span>Drug</span><span>NDC</span><span>Qty</span><span style={{ textAlign: "right" }}>Paid</span><span style={{ textAlign: "right" }}>NADAC</span><span style={{ textAlign: "right" }}>Spread</span><span style={{ textAlign: "right" }}>Spread %</span>
+              </div>
+              {PHARMACY_CLAIMS.map((rx) => (
+                <div key={rx.id} style={{
+                  display: "grid", gridTemplateColumns: "80px 1fr 130px 60px 80px 80px 80px 80px",
+                  padding: "10px 16px", fontSize: 13,
+                  background: rx.flagged ? "rgba(245,158,11,0.04)" : "transparent",
+                  borderBottom: "1px solid rgba(255,255,255,0.03)",
+                  borderLeft: rx.flagged ? "3px solid #f59e0b" : "3px solid transparent",
+                }}>
+                  <span style={{ color: "#94a3b8" }}>{rx.fillDate.slice(5)}</span>
+                  <span style={{ color: "#cbd5e1", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{rx.drug}</span>
+                  <span style={{ color: "#64748b", fontFamily: "monospace", fontSize: 11 }}>{rx.ndc}</span>
+                  <span style={{ color: "#94a3b8" }}>{rx.qty}</span>
+                  <span style={{ textAlign: "right", color: "#cbd5e1" }}>${rx.paid.toFixed(2)}</span>
+                  <span style={{ textAlign: "right", color: "#94a3b8" }}>${rx.nadac.toFixed(2)}</span>
+                  <span style={{ textAlign: "right", color: rx.spreadPct > 200 ? "#ef4444" : "#f59e0b" }}>${rx.spread.toFixed(2)}</span>
+                  <span style={{ textAlign: "right", color: rx.spreadPct > 200 ? "#ef4444" : rx.spreadPct > 100 ? "#f59e0b" : "#4ade80", fontWeight: 600 }}>
+                    +{rx.spreadPct}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Demo footer */}
+          <div style={{ padding: "16px 20px", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: 12, color: "#64748b" }}>
+              {demoTab === "medical" ? "12 claims analyzed \u2022 6 flagged above benchmark" : "10 prescriptions analyzed \u2022 5 flagged for PBM spread"}
+              {" "}&middot; Sample data: Midwest Manufacturing Co.
+            </span>
+            <span style={{ fontSize: 11, color: "#475569" }}>Powered by the Parity Engine</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Conversion prompt ── */}
+      {showConversion && (
+        <div style={{
+          position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 90,
+          background: "linear-gradient(180deg, transparent, rgba(10,22,40,0.95) 30%)",
+          padding: "40px 24px 24px", textAlign: "center",
+        }}>
+          <div style={{ maxWidth: 640, margin: "0 auto", background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)", borderRadius: 14, padding: "24px 32px", backdropFilter: "blur(12px)" }}>
+            <h3 style={{ fontSize: 18, fontWeight: 600, color: "#f1f5f9", marginBottom: 8 }}>
+              Run this analysis on your own claims data
+            </h3>
+            <p style={{ fontSize: 14, color: "#94a3b8", marginBottom: 16 }}>
+              Upload your 835, CSV, or Excel claims export. Results in under 60 seconds.
+            </p>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
+              <Link to="/billing/employer/signup" style={{ background: "#3b82f6", color: "#fff", padding: "10px 24px", borderRadius: 8, fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+                Start Free Trial &rarr;
+              </Link>
+              <button onClick={() => setShowConversion(false)} style={{ background: "none", border: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8", padding: "10px 20px", borderRadius: 8, fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                Dismiss
+              </button>
+            </div>
+            <p style={{ fontSize: 11, color: "#64748b", marginTop: 10 }}>30-day trial &middot; No credit card required &middot; Cancel anytime</p>
+          </div>
+        </div>
+      )}
+
+      {/* ── How We're Different ── */}
+      <section style={{ padding: "0 24px 72px", maxWidth: 960, margin: "0 auto" }}>
+        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 400, color: "#f1f5f9", textAlign: "center", marginBottom: 40 }}>How We're Different</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
+          {DIFF_CARDS.map((c) => (
+            <div key={c.title} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: 14, padding: 28 }}>
+              <h3 style={{ fontSize: 15, fontWeight: 600, color: "#60a5fa", marginBottom: 12 }}>{c.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#94a3b8" }}>{c.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Pricing ── */}
+      <section style={{ padding: "0 24px 72px", maxWidth: 600, margin: "0 auto" }}>
+        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 400, color: "#f1f5f9", textAlign: "center", marginBottom: 12 }}>Simple Pricing</h2>
+        <p style={{ fontSize: 14, color: "#94a3b8", textAlign: "center", marginBottom: 40, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
+          One plan. Full access. Try free for 30 days.
+        </p>
+        <div style={{ background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.35)", borderRadius: 14, padding: 36, textAlign: "center" }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: "#60a5fa", marginBottom: 8 }}>PARITY EMPLOYER PRO</div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={{ fontSize: 40, fontWeight: 700, color: "#f1f5f9" }}>$99</span>
+            <span style={{ fontSize: 14, color: "#64748b" }}>/mo</span>
+          </div>
+          <div style={{ fontSize: 14, color: "#60a5fa", fontWeight: 600, marginBottom: 20 }}>30-day free trial &mdash; cancel anytime</div>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: "#94a3b8", marginBottom: 24, maxWidth: 420, marginLeft: "auto", marginRight: "auto" }}>
+            Claims benchmarking, pharmacy analysis, RBP calculator, contract parser, plan scorecard, provider-level analysis, trend monitoring, and unlimited uploads.
+          </p>
+          <Link to="/billing/employer/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", borderRadius: 8, padding: "12px 32px", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+            Start Free Trial &rarr;
+          </Link>
+          <p style={{ fontSize: 12, color: "#64748b", marginTop: 16 }}>
             Introductory price locked for 24 months. No charge during trial.
           </p>
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section
-        className="cs-home-section"
-        style={{
-          paddingBottom: "80px",
-          maxWidth: "600px",
-          margin: "0 auto",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "26px",
-            fontWeight: "400",
-            color: "#f1f5f9",
-            marginBottom: "16px",
-          }}
-        >
+      {/* ── Bottom CTA ── */}
+      <section style={{ padding: "0 24px 80px", maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
+        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 26, fontWeight: 400, color: "#f1f5f9", marginBottom: 16 }}>
           Start with a free benchmark
         </h2>
-        <p
-          style={{
-            fontSize: "15px",
-            color: "#94a3b8",
-            marginBottom: "28px",
-            lineHeight: "1.7",
-          }}
-        >
-          See how your health plan costs compare to employers in your industry
-          and state — no signup required.
+        <p style={{ fontSize: 15, color: "#94a3b8", marginBottom: 28, lineHeight: 1.7 }}>
+          See how your health plan costs compare to employers in your industry and state — no signup required.
         </p>
-        <Link
-          to="/billing/employer/benchmark"
-          style={{
-            display: "inline-block",
-            background: "#3b82f6",
-            color: "#fff",
-            padding: "12px 32px",
-            borderRadius: "8px",
-            fontWeight: "600",
-            fontSize: "15px",
-            textDecoration: "none",
-            transition: "background 0.2s",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "#3b82f6")}
-        >
+        <Link to="/billing/employer/benchmark" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 32px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
           Get Your Free Benchmark &rarr;
         </Link>
       </section>
 
-      {/* Footer */}
-      <footer
-        className="cs-home-section"
-        style={{
-          paddingTop: "40px",
-          paddingBottom: "40px",
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-          textAlign: "center",
-          fontSize: "13px",
-          color: "#475569",
-        }}
-      >
-        <Link
-          to="/billing"
-          style={{
-            color: "#64748b",
-            textDecoration: "none",
-            marginRight: "24px",
-          }}
-        >
-          &larr; All Billing Products
-        </Link>
+      {/* ── Footer ── */}
+      <footer style={{ padding: "40px 24px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center", fontSize: 13, color: "#475569" }}>
+        <Link to="/" style={{ color: "#64748b", textDecoration: "none", marginRight: 24 }}>&larr; CivicScale Home</Link>
         &copy; CivicScale 2026. All rights reserved.
       </footer>
     </div>
   );
 }
 
-const CARDS = [
-  {
-    icon: "\u2261",
-    title: "Cost Benchmarking by Category",
-    text: "See how your spending in orthopedics, cardiology, imaging, and 20+ other categories compares to regional benchmarks. Instantly identify which categories are driving above-market costs.",
-  },
-  {
-    icon: "\u2316",
-    title: "Provider & Site-of-Care Analysis",
-    text: "Drill into individual providers to see who charges above-market rates. Identify when the same procedure costs 2\u20133x more at a hospital outpatient facility vs. a freestanding center \u2014 and quantify the savings from steering to lower-cost alternatives.",
-  },
-  {
-    icon: "\uD83D\uDD17",
-    title: "Network & Carrier Rate Intelligence",
-    text: "See how your carrier\u2019s negotiated rates compare to Medicare benchmarks by procedure. Detect potential network leakage \u2014 claims with minimal discounts that suggest out-of-network pricing \u2014 and identify where your network contract may be underperforming.",
-  },
-  {
-    icon: "\u2193",
-    title: "Actionable Savings Report",
-    text: "Get a prioritized list of savings opportunities ranked by dollar impact. Each recommendation includes the data behind it \u2014 not just \u2018here\u2019s your benchmark\u2019 but exactly how much opportunity exists, on which procedures, at which providers.",
-  },
+// ─── Static Data ─────────────────────────────────────────────────────────────
+
+const MEDICAL_SUMMARY = [
+  { value: "$2,623", label: "Total billed", color: "#f1f5f9" },
+  { value: "$1,998", label: "Total allowed", color: "#f1f5f9" },
+  { value: "$1,138", label: "Medicare benchmark", color: "#60a5fa" },
+  { value: "6 of 12", label: "Claims flagged", color: "#ef4444" },
+];
+
+const PHARMACY_SUMMARY = [
+  { value: "$1,156", label: "Total paid", color: "#f1f5f9" },
+  { value: "$996", label: "NADAC benchmark", color: "#60a5fa" },
+  { value: "$159", label: "Est. PBM spread", color: "#f59e0b" },
+  { value: "5 of 10", label: "Claims flagged", color: "#ef4444" },
+];
+
+const FEATURE_CARDS = [
+  { icon: "\u2261", title: "Cost Benchmarking by Category", text: "See how your spending in orthopedics, cardiology, imaging, and 20+ other categories compares to Medicare and regional benchmarks. Instantly identify which categories drive above-market costs." },
+  { icon: "\u{1F50D}", title: "Provider & Site-of-Care Analysis", text: "Drill into individual providers to see who charges above-market rates. Identify when the same procedure costs 2\u20133x more at a hospital outpatient facility vs. a freestanding center." },
+  { icon: "\u{1F48A}", title: "Pharmacy Benefit Benchmarking", text: "Compare every prescription against NADAC acquisition cost data. Surface PBM spread — the gap between what your plan pays and what the drug actually costs at wholesale." },
+  { icon: "\u2193", title: "Actionable Savings Report", text: "Get a prioritized list of savings opportunities ranked by dollar impact. Each recommendation includes the data behind it — not just a benchmark but exactly how much opportunity exists." },
 ];
 
 const DIFF_CARDS = [
-  {
-    title: "vs. Your Benefits Consultant",
-    text: "Consultants review summary-level data and rely on proprietary benchmarks you can\u2019t verify. They bill $50\u2013150K annually for what amounts to a few pivot tables and some industry averages. Parity Employer analyzes every claim, uses transparent benchmarks, and costs a fraction of traditional consulting.",
-  },
-  {
-    title: "vs. TPA Reports",
-    text: "Your TPA manages the same claims they\u2019re reporting on \u2014 that\u2019s a structural conflict of interest. Their reports tell you what happened but not whether it was fair. Parity Employer provides independent analysis against external benchmarks, so you\u2019re not relying on the same system that generates the bills to tell you if the bills are reasonable.",
-  },
-  {
-    title: "vs. Other Analytics Platforms",
-    text: "Most claims analytics platforms require a 6-month implementation, EDI integration, and a six-figure contract. Parity Employer works with the claims export you already have \u2014 CSV, Excel, or standard EDI formats. Upload your data and get results the same day. No implementation project required.",
-  },
-];
-
-const STEPS = [
-  {
-    title: "Benchmark your costs",
-    text: "Enter your industry, company size, and current PEPM. Instantly see where you rank against national and regional employer benchmarks.",
-    link: "/billing/employer/benchmark",
-    linkText: "Try it free \u2192",
-  },
-  {
-    title: "Check your claims",
-    text: "Upload your claims file (CSV, Excel, or EDI 835) and we\u2019ll compare every line against CMS Medicare rates for your geography. EDI files unlock Level 2 analysis: provider variation, site-of-care comparison, and network rate intelligence.",
-    link: "/billing/employer/claims-check",
-    linkText: "Upload claims \u2192",
-  },
-  {
-    title: "Get ongoing monitoring",
-    text: "Subscribe for continuous analysis, quarterly savings reports, and alerts when new cost anomalies appear in your claims data.",
-    link: "/billing/employer/signup",
-    linkText: "Start free trial \u2192",
-  },
-];
-
-const ROADMAP = [
-  {
-    icon: "\u2705",
-    label: "Available now",
-    text: "Medicare fee schedule benchmarking for every CPT code, geographic adjustment, category-level cost analysis, provider price variation detection, site-of-care cost comparison, network leakage screening.",
-    borderColor: "rgba(34,197,94,0.25)",
-    labelColor: "#4ade80",
-  },
-  {
-    icon: "\uD83D\uDD04",
-    label: "Coming soon",
-    text: "Community-reported commercial rate benchmarks (powered by anonymized data from Parity Health users), year-over-year trend analysis, automated savings recommendations with estimated dollar impact.",
-    borderColor: "rgba(59,130,246,0.25)",
-    labelColor: "#60a5fa",
-  },
-  {
-    icon: "\uD83D\uDD2E",
-    label: "On our roadmap",
-    text: "Direct TPA integration for automated data refresh, network optimization modeling, pharmacy benefit benchmarking.",
-    borderColor: "rgba(148,163,184,0.2)",
-    labelColor: "#94a3b8",
-  },
-];
-
-const STATS = [
-  { value: "$300B+", label: "Estimated annual billing errors across the U.S. healthcare system" },
-  { value: "12\u201318%", label: "Average overpayment on specialist procedures by self-insured employers" },
-  { value: "Parity Engine", label: "Same benchmark infrastructure behind Parity Signal and Parity Health" },
+  { title: "vs. Your Benefits Consultant", text: "Consultants review summary-level data and rely on proprietary benchmarks you can\u2019t verify. They bill $50\u2013150K annually for a few pivot tables and some industry averages. Parity Employer analyzes every claim, uses transparent benchmarks, and costs a fraction of traditional consulting." },
+  { title: "vs. TPA Reports", text: "Your TPA manages the same claims they\u2019re reporting on \u2014 that\u2019s a structural conflict of interest. Their reports tell you what happened but not whether it was fair. Parity Employer provides independent analysis against external benchmarks." },
+  { title: "vs. Other Analytics Platforms", text: "Most claims analytics platforms require a 6-month implementation, EDI integration, and a six-figure contract. Parity Employer works with the claims export you already have. Upload your data and get results the same day." },
 ];
