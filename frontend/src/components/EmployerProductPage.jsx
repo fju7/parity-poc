@@ -140,9 +140,12 @@ export default function EmployerProductPage() {
               <Link to="/billing/employer/account" style={{ color: "#94a3b8", textDecoration: "none" }}>Account</Link>
             </>
           ) : (
-            <Link to="/billing/employer/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
-              Start Free Trial
-            </Link>
+            <>
+              <Link to="/employer/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</Link>
+              <Link to="/billing/employer/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
+                Start Free Trial
+              </Link>
+            </>
           )}
         </nav>
       </header>
