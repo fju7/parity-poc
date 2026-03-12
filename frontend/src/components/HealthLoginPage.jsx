@@ -79,7 +79,11 @@ export default function HealthLoginPage() {
           <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em" }}>Parity Health</span>
         </a>
         <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 14 }}>
-          <Link to={signupPath} style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>Sign Up</Link>
+          <Link to={signupPath} style={{
+            background: "linear-gradient(135deg, #0d9488, #14b8a6)", color: "#fff",
+            textDecoration: "none", fontWeight: 600, padding: "7px 16px",
+            borderRadius: 8, fontSize: 13, whiteSpace: "nowrap",
+          }}>Start Free Trial</Link>
         </nav>
       </header>
 

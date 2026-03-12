@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { supabase } from "./lib/supabase.js";
 import { saveBill, getBillById, clearAll } from "./lib/localBillStore.js";
 import SignInView from "./components/SignInView.jsx";
@@ -1159,9 +1159,7 @@ export default function App() {
   if (!isSignedIn) {
     const isHealthSub = window.location.hostname === "health.civicscale.ai";
     if (isHealthSub) {
-      // On health subdomain, redirect to login
-      window.location.href = "/health/login";
-      return null;
+      return <Navigate to="/health/login" replace />;
     }
     return <SignInView />;
   }
