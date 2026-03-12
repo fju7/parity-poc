@@ -3,7 +3,7 @@
 import os
 
 
-def send_email(to: str, subject: str, html: str):
+def send_email(to: str, subject: str, html: str, from_name: str = "CivicScale"):
     """Send an email via Resend. Fails silently with a log message."""
     try:
         import resend
@@ -15,7 +15,7 @@ def send_email(to: str, subject: str, html: str):
         resend.api_key = resend_key
 
         resend.Emails.send({
-            "from": "Parity Employer <notifications@civicscale.ai>",
+            "from": f"{from_name} <notifications@civicscale.ai>",
             "to": [to],
             "subject": subject,
             "html": html,

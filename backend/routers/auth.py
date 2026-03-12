@@ -191,6 +191,7 @@ def _send_otp_email(email: str, code: str, product: str):
     send_email(
         to=email,
         subject=f"Your {product_name} sign-in code: {code}",
+        from_name=product_name,
         html=f"""
         <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
           <h2 style="color: #0d9488;">Your sign-in code</h2>
@@ -532,6 +533,7 @@ async def invite_user(req: InviteUserRequest, authorization: str = Header(None))
     send_email(
         to=invited_email,
         subject=f"{inviter_name} invited you to {company_name} on {product_name}",
+        from_name=product_name,
         html=f"""
         <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
           <h2 style="color: #0d9488;">You've been invited</h2>
