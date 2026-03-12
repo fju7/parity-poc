@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
@@ -10,8 +11,15 @@ const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com
  *   onNeedsCompany: callback when user verified but has no company yet
  *   children: rendered when authenticated
  */
+const SIGNUP_ROUTES = {
+  provider: "/provider/signup",
+  employer: "/billing/employer/signup",
+  broker: "/broker/signup",
+};
+
 export default function AuthGate({ product, onNeedsCompany, children }) {
   const { isAuthenticated, loading, login, company } = useAuth();
+  const navigate = useNavigate();
   const [step, setStep] = useState("email"); // email | otp | done
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -68,7 +76,11 @@ export default function AuthGate({ product, onNeedsCompany, children }) {
 
       if (data.needs_company) {
         // User verified but no company yet — hand off to signup flow
-        if (onNeedsCompany) onNeedsCompany(email.trim().toLowerCase());
+        if (onNeedsCompany) {
+          onNeedsCompany(email.trim().toLowerCase());
+        } else {
+          navigate(SIGNUP_ROUTES[product] || "/");
+        }
         return;
       }
 
@@ -125,6 +137,14 @@ export default function AuthGate({ product, onNeedsCompany, children }) {
             >
               {sending ? "Sending..." : "Send Sign-In Code"}
             </button>
+            {SIGNUP_ROUTES[product] && (
+              <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", textAlign: "center", marginTop: "20px" }}>
+                Don't have an account?{" "}
+                <Link to={SIGNUP_ROUTES[product]} style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>
+                  Start your free 30-day trial &rarr;
+                </Link>
+              </p>
+            )}
           </>
         )}
 
@@ -158,6 +178,14 @@ export default function AuthGate({ product, onNeedsCompany, children }) {
             >
               Use a different email
             </button>
+            {SIGNUP_ROUTES[product] && (
+              <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", textAlign: "center", marginTop: "16px" }}>
+                Don't have an account?{" "}
+                <Link to={SIGNUP_ROUTES[product]} style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>
+                  Start your free 30-day trial &rarr;
+                </Link>
+              </p>
+            )}
           </>
         )}
 
