@@ -34,7 +34,7 @@ If it says "Everything up-to-date" without that line, the push failed.
 - Database: Supabase (PostgreSQL + RLS)
 - Payments: Stripe (test mode sk_test_...)
 - Email: Resend
-- Auth: Email OTP (8-digit codes for employer, 6-digit for broker)
+- Auth: Email OTP (8-digit codes for employer/provider/health, 6-digit for broker)
 - AI: Anthropic Claude API (ANTHROPIC_API_KEY)
 - File storage: Supabase storage
 
@@ -53,9 +53,17 @@ If it says "Everything up-to-date" without that line, the push failed.
 Three live products + one in development:
 
 ### Parity Health (consumer)
-- Route: /parity-health
-- Backend: backend/routers/health_analyze.py, eob_parse.py, ai_parse.py
-- Frontend: src/components/ParityHealth*.jsx
+- Route: /parity-health, health.civicscale.ai
+- Backend: backend/routers/health_analyze.py, health_auth.py, eob_parse.py, ai_parse.py
+- Frontend: src/App.jsx (main app), src/components/ParityHealth*.jsx,
+  HealthLoginPage.jsx, HealthSignupPage.jsx
+- Auth: /health/login (HealthLoginPage), /health/signup (HealthSignupPage)
+  Individual consumer auth via health_users table (not company-based)
+  Token stored in localStorage as health_token
+- Pricing: $9.95/mo or $29/yr with 30-day free trial, 3 free analyses
+- Stripe: STRIPE_PRICE_HEALTH_MONTHLY, STRIPE_PRICE_HEALTH_YEARLY env vars
+  Webhook: POST /api/health/auth/webhook (needs STRIPE_HEALTH_WEBHOOK_SECRET)
+- Stripe setup script: backend/scripts/create_health_stripe.py
 
 ### Parity Provider
 - Route: /billing/provider, /audit, /provider/*
@@ -175,10 +183,12 @@ Three live products + one in development:
 - otp_codes — OTP codes for auth (8-digit employer/provider, 6-digit broker)
 - pharmacy_nadac — NADAC drug pricing reference (ndc_code, nadac_per_unit)
 - pharmacy_benchmarks — pharmacy analysis results (company_id, analysis_json)
+- health_users — individual consumer accounts (email, full_name)
+- health_subscriptions — health Stripe subscriptions (health_user_id, plan, status)
 
 ## Migrations
 Numbered sequentially: backend/migrations/001_*.sql through 029_*.sql
-Next migration number: 034
+Next migration number: 036
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -194,6 +204,9 @@ Fred runs migrations manually in Supabase SQL Editor.
 - STRIPE_PRICE_EMPLOYER (new $99/mo flat price)
 - STRIPE_PRICE_BROKER_PRO
 - STRIPE_PRICE_PROVIDER_MONTHLY
+- STRIPE_PRICE_HEALTH_MONTHLY — Parity Health $9.95/mo price ID
+- STRIPE_PRICE_HEALTH_YEARLY — Parity Health $29/yr price ID
+- STRIPE_HEALTH_WEBHOOK_SECRET — webhook secret for health subscriptions
 - RESEND_API_KEY
 - CRON_SECRET — protects POST /api/broker/send-renewal-reminders
 
