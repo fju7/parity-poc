@@ -315,6 +315,28 @@ Features built in this phase:
   - SBC state persists across bill analyses in same session
   - Migration 033: health_sbc_uploads table
 
+## Session G-Health — Unified Intelligent Upload Zone (Complete)
+- Rebuilt Parity Health upload experience with single intelligent drop zone
+- New backend endpoint: POST /api/health/classify-document in health_analyze.py
+  - Accepts PDF upload, uses Claude vision to classify as medical_bill, eob,
+    denial_letter, sbc, or unknown
+  - Returns JSON: {document_type, confidence, reason}
+  - Rejects .txt/.edi/.837/.835 with friendly message (no Claude call)
+- Frontend: UploadView.jsx rebuilt — single drop zone replaces old bill+SBC
+  dual zones. Drops trigger classification → auto-route to correct pipeline:
+  - medical_bill/eob → handleFileSelect (standard bill analysis)
+  - sbc → SBC analysis (plan loader) with replace dialog if plan already loaded
+  - denial_letter → handleDenialClassified (extracts PDF text → denial analysis)
+  - unknown → falls back to bill analysis
+- Frontend: InputSelectionView.jsx rebuilt — same classification on PDF upload
+  card, SBC plan summary moved above input options
+- Frontend: App.jsx — new handleDenialClassified callback: extracts text from
+  classified denial PDF, calls /api/health/analyze-denial, routes to denial-report
+- SBC plan summary card now displayed ABOVE the drop zone (not below)
+- "Replace your current plan summary?" amber dialog when second SBC dropped
+- "Identifying document..." spinner during classification
+- Classification errors fall back gracefully to bill analysis pipeline
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
