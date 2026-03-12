@@ -1497,18 +1497,17 @@ async def save_profile(body: SaveProfileRequest, request: Request):
         result = sb.table("provider_profiles") \
             .update(profile_data) \
             .eq("id", existing_profile["id"]) \
-            .select() \
             .execute()
     else:
         result = sb.table("provider_profiles") \
             .insert(profile_data) \
-            .select() \
             .execute()
 
-    if not result.data:
+    saved = result.data[0] if result.data else None
+    if not saved:
         raise HTTPException(status_code=500, detail="Failed to save profile")
 
-    return {"profile": result.data[0]}
+    return {"profile": saved}
 
 
 # ---------------------------------------------------------------------------
