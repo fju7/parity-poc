@@ -150,11 +150,11 @@ export default function ProviderProductPage() {
         <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 14 }}>
           {isAuthenticated ? (
             <>
-              <Link to="/audit/account" style={{ color: "#94a3b8", textDecoration: "none" }}>Dashboard</Link>
+              <Link to="/provider/dashboard" style={{ color: "#94a3b8", textDecoration: "none" }}>Dashboard</Link>
             </>
           ) : (
             <>
-              <Link to="/audit/account" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</Link>
+              <Link to="/provider/dashboard" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</Link>
               <Link to="/audit" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
                 Start Free Trial
               </Link>

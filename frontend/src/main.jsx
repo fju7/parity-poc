@@ -1,6 +1,6 @@
 import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import { AuthProvider } from './context/AuthContext'
@@ -22,7 +22,7 @@ import EmployerDemoPage from './components/EmployerDemoPage.jsx'
 import ProviderDemoPage from './components/ProviderDemoPage.jsx'
 import ProviderApp from './ProviderApp.jsx'
 import SignalApp from './SignalApp.jsx'
-import AuditAccount from './components/AuditAccount.jsx'
+// AuditAccount removed — /audit/account now redirects to /provider/account
 import ProviderSignupPage from './components/ProviderSignupPage.jsx'
 import ProviderLoginPage from './components/ProviderLoginPage.jsx'
 import ProviderAccountPage from './components/ProviderAccountPage.jsx'
@@ -72,7 +72,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
-        <Route path="/audit/account" element={<AuditAccount />} />
+        <Route path="/audit/account" element={<Navigate to="/provider/account" replace />} />
         <Route path="/provider/signup" element={<ProviderSignupPage />} />
         <Route path="/provider/login" element={<ProviderLoginPage />} />
         <Route path="/provider/account" element={<ProviderAccountPage />} />

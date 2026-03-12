@@ -960,7 +960,7 @@ export default function ProviderAuditPage({ session, profile }) {
 
           <div style={{ marginTop: 24 }}>
             <Link
-              to="/audit/account"
+              to="/provider/account"
               style={{ color: "#0D9488", fontSize: 15, fontWeight: 600, textDecoration: "none" }}
             >
               View your audit status &rarr;
