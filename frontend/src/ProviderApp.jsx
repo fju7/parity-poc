@@ -832,7 +832,7 @@ function ProviderAppInner() {
       </Link>
       <div className="cs-nav-links">
         <Link to="/audit">Free Audit</Link>
-        <Link to="/provider">For Providers</Link>
+        <Link to="/billing/provider">For Providers</Link>
       </div>
     </nav>
   );
