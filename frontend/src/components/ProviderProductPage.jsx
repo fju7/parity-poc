@@ -504,7 +504,7 @@ export default function ProviderProductPage() {
               Analyze your actual remittance data and generate real appeal letters.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
-              <Link to="/audit" style={{ background: "#3b82f6", color: "#fff", padding: "10px 24px", borderRadius: 8, fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+              <Link to="/provider/signup" style={{ background: "#3b82f6", color: "#fff", padding: "10px 24px", borderRadius: 8, fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
                 Start Free Trial &rarr;
               </Link>
               <button onClick={() => setShowConversion(false)} style={{ background: "none", border: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8", padding: "10px 20px", borderRadius: 8, fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
@@ -576,7 +576,7 @@ export default function ProviderProductPage() {
               <li key={f}><span style={{ color: "#60a5fa", marginRight: 8 }}>{"\u2713"}</span>{f}</li>
             ))}
           </ul>
-          <Link to="/audit" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", borderRadius: 8, padding: "12px 32px", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+          <Link to="/provider/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", borderRadius: 8, padding: "12px 32px", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
             Start Free Trial &rarr;
           </Link>
           <p style={{ fontSize: 12, color: "#64748b", marginTop: 16 }}>
