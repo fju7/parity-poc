@@ -291,10 +291,15 @@ async def subscription_webhook(request: Request):
     event_type = event["type"]
     obj = event["data"]["object"]
 
+    print(f"[ProviderWebhook] Received event: {event_type}")
+
     if event_type == "checkout.session.completed":
         metadata = obj.get("metadata", {})
+        print(f"[ProviderWebhook] checkout.session.completed metadata={metadata}")
+
         # Only handle provider_monitoring type
         if metadata.get("type") != "provider_monitoring":
+            print(f"[ProviderWebhook] Skipping — type={metadata.get('type')}")
             return {"status": "ok", "skipped": True}
 
         audit_id = metadata.get("audit_id")
@@ -302,18 +307,26 @@ async def subscription_webhook(request: Request):
         subscription_id = obj.get("subscription")
         customer_id = obj.get("customer")
 
+        print(f"[ProviderWebhook] audit_id={audit_id} user_id={user_id} "
+              f"subscription_id={subscription_id} customer_id={customer_id}")
+
+        if not subscription_id:
+            print(f"[ProviderWebhook] WARNING: subscription_id is None/empty in checkout session")
+
         if audit_id and subscription_id:
             # Check if subscription already exists for this audit
             existing = sb.table("provider_subscriptions").select("id").eq(
                 "source_audit_id", audit_id
             ).execute()
+            print(f"[ProviderWebhook] Existing rows for audit_id={audit_id}: {len(existing.data or [])}")
 
             if existing.data:
                 # Update existing with Stripe IDs
-                sb.table("provider_subscriptions").update({
+                result = sb.table("provider_subscriptions").update({
                     "stripe_customer_id": customer_id,
                     "stripe_subscription_id": subscription_id,
                 }).eq("source_audit_id", audit_id).execute()
+                print(f"[ProviderWebhook] Updated existing: {len(result.data or [])} rows")
             else:
                 # Convert audit to subscription
                 audit_result = sb.table("provider_audits").select("*").eq("id", audit_id).execute()
@@ -321,28 +334,43 @@ async def subscription_webhook(request: Request):
                     audit = audit_result.data[0]
                     subscription = _convert_audit_to_subscription(audit, sb)
                     # Update with Stripe IDs
-                    sb.table("provider_subscriptions").update({
+                    result = sb.table("provider_subscriptions").update({
                         "stripe_customer_id": customer_id,
                         "stripe_subscription_id": subscription_id,
                     }).eq("id", subscription["id"]).execute()
+                    print(f"[ProviderWebhook] Created + updated subscription: {result.data}")
                     # Send conversion email
                     _send_conversion_email(subscription, audit)
+                else:
+                    print(f"[ProviderWebhook] WARNING: audit_id={audit_id} not found in provider_audits")
+
+            # Verify what was stored
+            verify = sb.table("provider_subscriptions").select(
+                "id, stripe_subscription_id, stripe_customer_id, status"
+            ).eq("source_audit_id", audit_id).execute()
+            print(f"[ProviderWebhook] Verify after write: {verify.data}")
+        else:
+            print(f"[ProviderWebhook] WARNING: Missing audit_id={audit_id} or subscription_id={subscription_id}, skipping DB write")
 
     elif event_type == "customer.subscription.deleted":
         subscription_id = obj.get("id")
+        print(f"[ProviderWebhook] subscription.deleted sub_id={subscription_id}")
         if subscription_id:
             from datetime import datetime
-            sb.table("provider_subscriptions").update({
+            result = sb.table("provider_subscriptions").update({
                 "status": "canceled",
                 "canceled_at": datetime.utcnow().isoformat(),
             }).eq("stripe_subscription_id", subscription_id).execute()
+            print(f"[ProviderWebhook] Canceled rows: {len(result.data or [])}")
 
     elif event_type == "invoice.payment_failed":
         subscription_id = obj.get("subscription")
+        print(f"[ProviderWebhook] payment_failed sub_id={subscription_id}")
         if subscription_id:
-            sb.table("provider_subscriptions").update({
+            result = sb.table("provider_subscriptions").update({
                 "status": "past_due",
             }).eq("stripe_subscription_id", subscription_id).execute()
+            print(f"[ProviderWebhook] Past-due rows: {len(result.data or [])}")
 
     return {"status": "ok"}
 
@@ -677,7 +705,7 @@ async def my_subscription(request: Request):
                         stripe_sub.trial_end, tz=timezone.utc
                     ).isoformat()
             except Exception as exc:
-                print(f"[ProviderSub] Stripe fetch failed: {exc}")
+                print(f"[ProviderSub] Stripe fetch failed for sub_id={stripe_sub_id}: {type(exc).__name__}: {exc}")
         subs.append(entry)
 
     # Backward-compat: return first as "subscription", plus full list

@@ -173,7 +173,7 @@ def _get_broker_plan(sb, company_id: str) -> dict:
                     stripe_sub.trial_end, tz=timezone.utc
                 ).isoformat()
         except Exception as exc:
-            print(f"[BrokerPlan] Stripe fetch failed: {exc}")
+            print(f"[BrokerPlan] Stripe fetch failed for sub_id={stripe_sub_id}: {type(exc).__name__}: {exc}")
 
     return {
         "plan": plan,

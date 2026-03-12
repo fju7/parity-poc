@@ -524,29 +524,35 @@ async def health_webhook(request: Request):
         ).execute()
         print(f"[HealthWebhook] Existing rows for health_user_id={health_user_id}: {len(existing.data or [])}")
 
+        db_payload = {
+            "email": email,
+            "plan": plan,
+            "status": "active",
+            "stripe_customer_id": customer_id,
+            "stripe_subscription_id": subscription_id,
+            "trial_ends_at": trial_ends,
+        }
+        print(f"[HealthWebhook] DB payload: {db_payload}")
+
         if existing.data:
             # Update existing row
-            result = sb.table("health_subscriptions").update({
-                "email": email,
-                "plan": plan,
-                "status": "active",
-                "stripe_customer_id": customer_id,
-                "stripe_subscription_id": subscription_id,
-                "trial_ends_at": trial_ends,
-            }).eq("health_user_id", health_user_id).execute()
+            result = sb.table("health_subscriptions").update(
+                db_payload
+            ).eq("health_user_id", health_user_id).execute()
             print(f"[HealthWebhook] Updated existing row: {len(result.data or [])} rows affected")
         else:
             # Insert new row
-            result = sb.table("health_subscriptions").insert({
-                "health_user_id": health_user_id,
-                "email": email,
-                "plan": plan,
-                "status": "active",
-                "stripe_customer_id": customer_id,
-                "stripe_subscription_id": subscription_id,
-                "trial_ends_at": trial_ends,
-            }).execute()
+            db_payload["health_user_id"] = health_user_id
+            result = sb.table("health_subscriptions").insert(
+                db_payload
+            ).execute()
             print(f"[HealthWebhook] Inserted new row: {result.data}")
+
+        # Verify what was actually stored
+        verify = sb.table("health_subscriptions").select(
+            "id, stripe_subscription_id, stripe_customer_id, status"
+        ).eq("health_user_id", health_user_id).execute()
+        print(f"[HealthWebhook] Verify after write: {verify.data}")
 
     elif event_type == "customer.subscription.deleted":
         subscription_id = obj.get("id")
@@ -594,6 +600,8 @@ async def subscription_status(authorization: str = Header(None)):
 
     # Fetch current_period_end from Stripe if we have a subscription ID
     stripe_sub_id = sub.get("stripe_subscription_id")
+    if not stripe_sub_id:
+        print(f"[HealthSub] No stripe_subscription_id in DB for user={user['email']}, sub_id={sub.get('id')}")
     if stripe_sub_id:
         try:
             import stripe as stripe_lib
@@ -608,7 +616,7 @@ async def subscription_status(authorization: str = Header(None)):
                 if stripe_sub.status == "trialing":
                     result["status"] = "trialing"
         except Exception as exc:
-            print(f"[HealthSub] Stripe fetch failed: {exc}")
+            print(f"[HealthSub] Stripe fetch failed for sub_id={stripe_sub_id}: {type(exc).__name__}: {exc}")
 
     return result
 
