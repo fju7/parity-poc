@@ -263,7 +263,7 @@ export default function UploadView({
         >
           <input
             type="file"
-            accept="application/pdf"
+            accept="application/pdf,image/*,.txt"
             className="hidden"
             onChange={handleFileInput}
           />
@@ -316,7 +316,7 @@ export default function UploadView({
                   Drop any medical document here
                 </p>
                 <p className="text-sm text-gray-400 mt-1">
-                  Bills, EOBs, denial letters, or plan summaries &middot; PDF format
+                  Bills, EOBs, denial letters, or plan summaries &middot; PDF, JPG, PNG, or TXT
                 </p>
               </div>
             </div>
