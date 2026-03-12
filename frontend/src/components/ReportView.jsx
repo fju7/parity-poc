@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Footer } from "./UploadView.jsx";
 import { cptDescription } from "../lib/cptLabel";
 
-export default function ReportView({ report, provider, serviceDate, onReset }) {
+export default function ReportView({ report, provider, serviceDate, onReset, sbcData }) {
   const { lineItems, summary } = report;
   const billState = getBillState(summary, lineItems);
 
@@ -97,7 +97,7 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
               value={formatCurrency(summary.totalBenchmark)}
             />
             <StatCard
-              label="Potential Discrepancy"
+              label="Potential Overcharge"
               value={formatCurrency(summary.totalPotentialDiscrepancy)}
               highlight
             />
@@ -114,7 +114,7 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
         {summary.totalPotentialDiscrepancy > 0 && (
           <div className="bg-[#1B3A5C] rounded-xl p-6 mb-6 text-center">
             <p className="text-white/70 text-sm mb-1">
-              Total Potential Discrepancy
+              Total Potential Overcharge
             </p>
             <p className="text-white text-4xl font-bold">
               {formatCurrency(summary.totalPotentialDiscrepancy)}
@@ -160,6 +160,11 @@ export default function ReportView({ report, provider, serviceDate, onReset }) {
           codingAlerts={report.codingAlerts}
           codingSummary={report.codingSummary}
         />
+
+        {/* What You Should Owe — only if SBC is loaded */}
+        {sbcData && (
+          <PlanResponsibilitySection sbcData={sbcData} summary={summary} lineItems={lineItems} />
+        )}
 
         {/* What to do next */}
         <WhatToDoNext billState={billState} summary={summary} />
@@ -401,11 +406,11 @@ function LineItemRow({ item }) {
         <td className="px-6 py-3 text-right">
           {item.anomalyScore !== null ? (
             <div className="flex flex-col items-end">
-              <span className={`font-mono font-semibold ${scoreColor}`}>
-                {item.anomalyScore.toFixed(1)}x
-              </span>
-              <span className={`text-[10px] leading-tight ${plainLabel.color}`}>
+              <span className={`text-sm font-semibold ${plainLabel.color}`}>
                 {plainLabel.text}
+              </span>
+              <span className={`text-[10px] leading-tight font-mono text-gray-400`}>
+                {item.anomalyScore.toFixed(1)}x benchmark
               </span>
             </div>
           ) : (
@@ -695,6 +700,146 @@ function WhatToDoNext({ billState, summary }) {
             </button>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Plan Responsibility Section (SBC-based estimate)
+// ---------------------------------------------------------------------------
+
+function PlanResponsibilitySection({ sbcData, summary, lineItems }) {
+  // Estimate what the patient should owe based on plan design
+  const totalBilled = summary.totalBilled || 0;
+  const deductible = sbcData.deductible_individual || 0;
+  const oopMax = sbcData.oop_max_individual || 0;
+  const coinsurance = (sbcData.coinsurance_in_network || 0) / 100;
+
+  // Categorize line items for copay vs coinsurance
+  const copayItems = [];
+  const coinsuranceItems = [];
+
+  for (const item of lineItems) {
+    const code = item.code || "";
+    const desc = (item.description || "").toLowerCase();
+    const billed = item.billedAmount || 0;
+
+    // Simple heuristic: office visits → copay, everything else → coinsurance after deductible
+    if (code.startsWith("992") || desc.includes("office visit") || desc.includes("evaluation")) {
+      const copay = sbcData.primary_care_copay || sbcData.specialist_copay || 0;
+      if (copay > 0) {
+        copayItems.push({ description: item.description || code, copay, billed });
+        continue;
+      }
+    }
+    if (desc.includes("emergency") || code === "99281" || code === "99282" || code === "99283" || code === "99284" || code === "99285") {
+      const copay = sbcData.emergency_room_copay || 0;
+      if (copay > 0) {
+        copayItems.push({ description: item.description || code, copay, billed });
+        continue;
+      }
+    }
+    coinsuranceItems.push({ description: item.description || code, billed });
+  }
+
+  const totalCopays = copayItems.reduce((sum, i) => sum + i.copay, 0);
+  const totalCoinsuranceBasis = coinsuranceItems.reduce((sum, i) => sum + i.billed, 0);
+
+  // After deductible, patient pays coinsurance on remaining
+  const afterDeductible = Math.max(totalCoinsuranceBasis - deductible, 0);
+  const coinsuranceAmount = afterDeductible * coinsurance;
+  const deductibleApplied = Math.min(deductible, totalCoinsuranceBasis);
+
+  let estimatedTotal = totalCopays + deductibleApplied + coinsuranceAmount;
+  // Cap at OOP max
+  if (oopMax > 0 && estimatedTotal > oopMax) {
+    estimatedTotal = oopMax;
+  }
+
+  const fmtCurrency = (val) =>
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
+
+  return (
+    <div className="bg-[#0D7377]/5 border-2 border-[#0D7377]/30 rounded-xl overflow-hidden mb-6">
+      <div className="px-6 py-4 border-b border-[#0D7377]/20">
+        <div className="flex items-center gap-3">
+          <svg className="w-5 h-5 text-[#0D7377]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+          </svg>
+          <div>
+            <h3 className="text-lg font-bold text-[#0D7377]">What You Should Owe</h3>
+            <p className="text-xs text-gray-500">
+              Based on your {sbcData.plan_name || "plan"} benefits
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="px-6 py-5">
+        {/* Big estimate number */}
+        <div className="text-center mb-5">
+          <p className="text-xs text-gray-500 mb-1">Estimated Patient Responsibility</p>
+          <p className="text-3xl font-bold text-[#0D7377]">{fmtCurrency(estimatedTotal)}</p>
+          <p className="text-xs text-gray-400 mt-1">
+            of {fmtCurrency(totalBilled)} total billed
+          </p>
+        </div>
+
+        {/* Breakdown */}
+        <div className="space-y-3 text-sm">
+          {deductibleApplied > 0 && (
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+              <div>
+                <p className="font-medium text-[#1B3A5C]">Deductible</p>
+                <p className="text-xs text-gray-400">
+                  You pay 100% of the first {fmtCurrency(deductible)}
+                </p>
+              </div>
+              <p className="font-mono font-semibold text-[#1B3A5C]">{fmtCurrency(deductibleApplied)}</p>
+            </div>
+          )}
+
+          {copayItems.length > 0 && (
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+              <div>
+                <p className="font-medium text-[#1B3A5C]">Copays</p>
+                <p className="text-xs text-gray-400">
+                  {copayItems.map((ci) => `${ci.description}: ${fmtCurrency(ci.copay)}`).join(", ")}
+                </p>
+              </div>
+              <p className="font-mono font-semibold text-[#1B3A5C]">{fmtCurrency(totalCopays)}</p>
+            </div>
+          )}
+
+          {coinsuranceAmount > 0 && (
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+              <div>
+                <p className="font-medium text-[#1B3A5C]">Coinsurance ({sbcData.coinsurance_in_network}%)</p>
+                <p className="text-xs text-gray-400">
+                  Your share of {fmtCurrency(afterDeductible)} after deductible
+                </p>
+              </div>
+              <p className="font-mono font-semibold text-[#1B3A5C]">{fmtCurrency(coinsuranceAmount)}</p>
+            </div>
+          )}
+
+          {oopMax > 0 && estimatedTotal >= oopMax && (
+            <div className="flex items-center gap-2 py-2 text-green-700 bg-green-50 rounded-lg px-3">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <p className="text-xs font-medium">Capped at your out-of-pocket maximum of {fmtCurrency(oopMax)}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Disclaimer */}
+        <p className="text-xs text-gray-400 mt-4 leading-relaxed">
+          This estimate assumes you haven't met your deductible yet this plan year. Your actual
+          responsibility depends on how much of your deductible and out-of-pocket maximum you've
+          already used. Contact your insurer for exact amounts.
+        </p>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react";
 
-export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, onHavingTrouble, onDenialAnalysis }) {
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
+export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, onHavingTrouble, onDenialAnalysis, sbcData, onSbcLoaded, onSbcClear }) {
   const [dragOver, setDragOver] = useState(false);
 
   const handleDragOver = useCallback((e) => {
@@ -115,6 +117,15 @@ export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, 
           </div>
         </div>
 
+        {/* SBC Upload Section */}
+        {onSbcLoaded && (
+          <SBCUploadCard
+            sbcData={sbcData}
+            onSbcLoaded={onSbcLoaded}
+            onSbcClear={onSbcClear}
+          />
+        )}
+
         {/* Denial analysis entry point */}
         {onDenialAnalysis && (
           <div className="mt-8 pt-6 border-t border-gray-200">
@@ -175,6 +186,147 @@ export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, 
       </div>
 
       <Footer />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SBC Upload Card
+// ---------------------------------------------------------------------------
+
+function SBCUploadCard({ sbcData, onSbcLoaded, onSbcClear }) {
+  const [sbcLoading, setSbcLoading] = useState(false);
+  const [sbcError, setSbcError] = useState(null);
+  const fileRef = useRef(null);
+
+  const handleSbcUpload = useCallback(async (file) => {
+    if (!file || !file.name.toLowerCase().endsWith(".pdf")) {
+      setSbcError("Please upload a PDF file.");
+      return;
+    }
+
+    setSbcLoading(true);
+    setSbcError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch(`${API_BASE}/api/health/analyze-sbc`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.detail || "Failed to analyze SBC.");
+      }
+
+      const data = await res.json();
+      onSbcLoaded(data);
+    } catch (err) {
+      setSbcError(err.message);
+    } finally {
+      setSbcLoading(false);
+    }
+  }, [onSbcLoaded]);
+
+  const handleFileInput = useCallback((e) => {
+    const file = e.target.files[0];
+    if (file) handleSbcUpload(file);
+  }, [handleSbcUpload]);
+
+  const formatCurrency = (val) => {
+    if (val == null) return "—";
+    return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(val);
+  };
+
+  // Show compact plan summary if SBC is loaded
+  if (sbcData) {
+    return (
+      <div className="mt-8 bg-white border-2 border-green-200 rounded-xl p-5 text-left relative">
+        <button
+          onClick={onSbcClear}
+          className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 cursor-pointer"
+          title="Clear plan"
+        >
+          &times;
+        </button>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+            Plan Loaded
+          </span>
+          <span className="text-sm font-semibold text-[#1B3A5C]">
+            {sbcData.plan_name || "Your Plan"}
+          </span>
+          {sbcData.plan_year && (
+            <span className="text-xs text-gray-400">{sbcData.plan_year}</span>
+          )}
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div>
+            <p className="text-gray-400">Deductible</p>
+            <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.deductible_individual)}</p>
+          </div>
+          <div>
+            <p className="text-gray-400">OOP Max</p>
+            <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.oop_max_individual)}</p>
+          </div>
+          <div>
+            <p className="text-gray-400">PCP Copay</p>
+            <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.primary_care_copay)}</p>
+          </div>
+          <div>
+            <p className="text-gray-400">Coinsurance</p>
+            <p className="font-semibold text-[#1B3A5C]">
+              {sbcData.coinsurance_in_network != null ? `${sbcData.coinsurance_in_network}%` : "—"}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Upload state
+  return (
+    <div className="mt-8 bg-gray-50 border border-gray-200 rounded-xl p-5 text-left">
+      <div className="flex items-center gap-2 mb-2">
+        <svg className="w-5 h-5 text-[#0D7377]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" />
+        </svg>
+        <h3 className="text-sm font-semibold text-[#1B3A5C]">Know your plan? Upload your Summary of Benefits</h3>
+      </div>
+      <p className="text-xs text-gray-500 mb-3">
+        Upload your SBC (PDF) and we'll tell you what you should owe under your specific plan.
+      </p>
+
+      {sbcLoading ? (
+        <div className="flex items-center gap-2 py-3">
+          <svg className="animate-spin h-4 w-4 text-[#0D7377]" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+          <span className="text-sm text-[#0D7377] font-medium">Reading your plan...</span>
+        </div>
+      ) : (
+        <label className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm text-[#1B3A5C] font-medium hover:bg-gray-50 cursor-pointer">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+          </svg>
+          Upload SBC (PDF)
+          <input
+            ref={fileRef}
+            type="file"
+            accept="application/pdf"
+            className="hidden"
+            onChange={handleFileInput}
+          />
+        </label>
+      )}
+
+      {sbcError && (
+        <p className="text-xs text-red-600 mt-2">{sbcError}</p>
+      )}
     </div>
   );
 }

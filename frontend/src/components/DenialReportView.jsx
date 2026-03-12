@@ -18,6 +18,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
   const [letterLoading, setLetterLoading] = useState(false);
   const [letterError, setLetterError] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [appealOpen, setAppealOpen] = useState(false);
 
   const typeConfig = DENIAL_TYPE_COLORS[analysis.denial_type] || DENIAL_TYPE_COLORS.other;
 
@@ -57,6 +58,10 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
       setTimeout(() => setCopied(false), 2000);
     });
   }, [letterText]);
+
+  const handlePrintLetter = useCallback(() => {
+    window.print();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -175,95 +180,132 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
           </div>
         )}
 
-        {/* Generate Appeal Letter Section */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 print:hidden">
-          <h3 className="text-lg font-bold text-[#1B3A5C] mb-4">Generate Appeal Letter</h3>
-          <p className="text-sm text-gray-500 mb-4">
-            We'll draft a professional appeal letter based on the denial analysis above.
-            Fill in the optional fields to personalize it.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-            <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Patient Name</label>
-              <input
-                value={patientName}
-                onChange={(e) => setPatientName(e.target.value)}
-                placeholder="Your name"
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377]"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Provider Name</label>
-              <input
-                value={providerName}
-                onChange={(e) => setProviderName(e.target.value)}
-                placeholder="Doctor/hospital"
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377]"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Claim Number</label>
-              <input
-                value={claimNumber}
-                onChange={(e) => setClaimNumber(e.target.value)}
-                placeholder="From your EOB"
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377]"
-              />
-            </div>
-          </div>
-
+        {/* Fight This Denial — Collapsible Section */}
+        <div className="rounded-xl border-2 border-[#0D7377] overflow-hidden mb-6 print:hidden">
           <button
-            onClick={handleGenerateAppeal}
-            disabled={letterLoading}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
-              letterLoading
-                ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                : "bg-[#0D7377] text-white hover:bg-[#0B6164] cursor-pointer"
-            }`}
+            onClick={() => setAppealOpen(!appealOpen)}
+            className="w-full flex items-center justify-between px-6 py-4 bg-[#0D7377]/5 hover:bg-[#0D7377]/10 transition-colors cursor-pointer"
           >
-            {letterLoading ? (
-              <span className="flex items-center gap-2">
-                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Generating letter...
-              </span>
-            ) : (
-              "Generate Appeal Letter"
-            )}
+            <div className="flex items-center gap-3">
+              <svg className="w-6 h-6 text-[#0D7377]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+              </svg>
+              <h3 className="text-lg font-bold text-[#0D7377]">Fight This Denial</h3>
+            </div>
+            <svg
+              className={`w-5 h-5 text-[#0D7377] transition-transform duration-200 ${appealOpen ? "rotate-180" : ""}`}
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
           </button>
 
-          {letterError && (
-            <p className="text-sm text-red-600 mt-3">{letterError}</p>
+          {appealOpen && (
+            <div className="px-6 py-6 bg-white border-t border-[#0D7377]/20">
+              <p className="text-sm text-gray-500 mb-5">
+                We'll draft a professional appeal letter based on the denial analysis above.
+                Fill in the optional fields to personalize it.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">
+                    Patient Name <span className="text-gray-400">(optional)</span>
+                  </label>
+                  <input
+                    value={patientName}
+                    onChange={(e) => setPatientName(e.target.value)}
+                    placeholder="e.g. Jane Smith"
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">
+                    Provider Name <span className="text-gray-400">(optional)</span>
+                  </label>
+                  <input
+                    value={providerName}
+                    onChange={(e) => setProviderName(e.target.value)}
+                    placeholder="e.g. Dr. Johnson or Memorial Hospital"
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">
+                    Claim Number <span className="text-gray-400">(optional)</span>
+                  </label>
+                  <input
+                    value={claimNumber}
+                    onChange={(e) => setClaimNumber(e.target.value)}
+                    placeholder="e.g. CLM-2024-12345"
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={handleGenerateAppeal}
+                disabled={letterLoading}
+                className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                  letterLoading
+                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-[#0D7377] text-white hover:bg-[#0B6164] cursor-pointer"
+                }`}
+              >
+                {letterLoading ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Drafting your appeal letter...
+                  </span>
+                ) : (
+                  "Generate Appeal Letter"
+                )}
+              </button>
+
+              {letterError && (
+                <p className="text-sm text-red-600 mt-3">{letterError}</p>
+              )}
+            </div>
           )}
         </div>
 
         {/* Appeal Letter Display */}
         {letterText && (
-          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-            <div className="flex items-center justify-between mb-4 print:hidden">
+          <div className="rounded-xl border border-gray-200 overflow-hidden mb-6 appeal-letter-print">
+            <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b border-gray-200 print:hidden">
               <h3 className="text-lg font-bold text-[#1B3A5C]">Your Appeal Letter</h3>
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleCopy}
-                  className="px-4 py-2 text-sm font-medium text-[#0D7377] border border-[#0D7377] rounded-lg hover:bg-teal-50 cursor-pointer"
+                  className={`px-4 py-2 text-sm font-medium rounded-lg cursor-pointer transition-all ${
+                    copied
+                      ? "bg-green-100 text-green-700 border border-green-300"
+                      : "text-[#0D7377] border border-[#0D7377] hover:bg-teal-50"
+                  }`}
                 >
-                  {copied ? "Copied!" : "Copy to Clipboard"}
+                  {copied ? "Copied!" : "Copy Letter"}
                 </button>
                 <button
-                  onClick={() => window.print()}
+                  onClick={handlePrintLetter}
                   className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
                 >
-                  Print / Download
+                  Download as PDF
                 </button>
               </div>
             </div>
-            <div className="bg-gray-50 rounded-lg p-6 border border-gray-100">
-              <pre className="whitespace-pre-wrap text-sm text-gray-800 leading-relaxed font-[Arial,sans-serif]">
+            <div className="bg-white p-8">
+              <pre className="whitespace-pre-wrap text-[15px] text-gray-800 leading-[1.7] font-[Arial,sans-serif]">
                 {letterText}
               </pre>
+            </div>
+            <div className="px-6 py-3 bg-amber-50 border-t border-amber-200 print:hidden">
+              <p className="text-xs text-amber-700">
+                This letter is a starting point. Review it carefully and add any additional medical
+                documentation before sending.
+              </p>
             </div>
           </div>
         )}

@@ -95,6 +95,7 @@ export default function App() {
   const [toast, setToast] = useState({ message: "", visible: false });
   const [denialAnalysis, setDenialAnalysis] = useState(null);
   const [denialOriginalText, setDenialOriginalText] = useState("");
+  const [sbcData, setSbcData] = useState(null);
   const [hasCompletedConsent, setHasCompletedConsent] = useState(false);
   const [consentData, setConsentData] = useState({ consentAnalytics: true, consentEmployer: false });
   const [onboardingData, setOnboardingData] = useState({
@@ -787,9 +788,11 @@ export default function App() {
       const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
 
       try {
+        const analyzeBody = { text };
+        if (sbcData) analyzeBody.sbc_data = sbcData;
         const response = await fetchWithTimeout(
           `${API_BASE}/api/health/analyze-text`,
-          { text }
+          analyzeBody
         );
         clearTimeout(slowTimer);
         setSlowServer(false);
@@ -848,7 +851,7 @@ export default function App() {
         setView("error");
       }
     },
-    [runPipeline]
+    [runPipeline, sbcData]
   );
 
   // ----- Navigation to new input views -----
@@ -907,9 +910,11 @@ export default function App() {
       const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
 
       try {
+        const analyzeBody = { pages: base64Pages };
+        if (sbcData) analyzeBody.sbc_data = sbcData;
         const response = await fetchWithTimeout(
           `${API_BASE}/api/health/analyze-image`,
-          { pages: base64Pages }
+          analyzeBody
         );
         clearTimeout(slowTimer);
         setSlowServer(false);
@@ -968,7 +973,7 @@ export default function App() {
         setView("error");
       }
     },
-    [runPipeline]
+    [runPipeline, sbcData]
   );
 
   // ----- EOB: retry parse when overloaded -----
@@ -1126,6 +1131,7 @@ export default function App() {
         provider={provider}
         serviceDate={serviceDate}
         onReset={handleReset}
+        sbcData={sbcData}
       />
     );
   } else if (view === "consent") {
@@ -1195,6 +1201,9 @@ export default function App() {
           setView("denial-upload");
           navigate("/parity-health/denial");
         }}
+        sbcData={sbcData}
+        onSbcLoaded={setSbcData}
+        onSbcClear={() => setSbcData(null)}
       />
     );
   } else {
@@ -1206,6 +1215,9 @@ export default function App() {
         onImageUpload={handleGoToImageUpload}
         onSampleBill={handleSampleBill}
         onManualEntry={handleManualEntry}
+        sbcData={sbcData}
+        onSbcLoaded={setSbcData}
+        onSbcClear={() => setSbcData(null)}
       />
     );
   }

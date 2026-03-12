@@ -178,7 +178,7 @@ Three live products + one in development:
 
 ## Migrations
 Numbered sequentially: backend/migrations/001_*.sql through 029_*.sql
-Next migration number: 033
+Next migration number: 034
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -287,6 +287,33 @@ Features built in this phase:
   - "What This Means" callout with generic rate and specialty spend benchmarks
 - Synthetic test file: backend/data/sample/Midwest_Manufacturing_Pharmacy_Dec2024.csv
   (55 rows, mix of brand/generic/specialty, realistic NDC codes and pricing)
+
+## Supabase tables (additional)
+- health_sbc_uploads — SBC PDF analysis results (session_id, plan_name,
+  plan_year, sbc_data jsonb)
+
+## Session F-Health — Denial Appeal + SBC Analysis (Complete)
+- Feature 1: Denial appeal letter flow enhanced
+  - DenialReportView.jsx: collapsible "Fight This Denial" section with
+    teal accent, optional Patient Name/Provider Name/Claim Number fields,
+    "Drafting your appeal letter..." loading state, improved letter display
+    with white background + readable font, Copy Letter with "Copied!"
+    confirmation, Download as PDF via window.print(), disclaimer note
+- Feature 2: SBC upload and analysis
+  - Backend: POST /api/health/analyze-sbc in health_analyze.py — accepts
+    PDF upload, uses Claude vision to extract plan design elements,
+    saves to health_sbc_uploads table
+  - Backend: analyze-text and analyze-image accept optional sbc_data field
+    to include plan design in Claude prompt for personalized analysis
+  - Frontend: SBC upload card on UploadView and InputSelectionView —
+    PDF upload with "Reading your plan..." loading, compact plan summary
+    card (plan name, deductible, OOP max, PCP copay, coinsurance) with
+    green "Plan Loaded" badge and × to clear
+  - Frontend: ReportView PlanResponsibilitySection — "What You Should Owe"
+    section estimating patient responsibility using SBC data (deductible,
+    copays, coinsurance breakdown, OOP max cap)
+  - SBC state persists across bill analyses in same session
+  - Migration 033: health_sbc_uploads table
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
