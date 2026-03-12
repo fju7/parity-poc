@@ -1043,6 +1043,62 @@ export default function App() {
     setNppesLoading(false);
   }, [eobExtracted, eobData]);
 
+  // ----- Denial letter classified from unified upload -----
+  // When the classifier identifies a PDF as a denial letter, extract its text
+  // and route to the denial analysis flow.
+  const handleDenialClassified = useCallback(
+    async (file) => {
+      setView("processing");
+      setProcessingStep(0);
+      setSlowServer(false);
+
+      try {
+        // Try to extract text from the PDF for the denial analysis endpoint
+        const billData = await extractBillData(file);
+        const rawText = billData?.rawText || "";
+
+        if (rawText.trim().length >= 20) {
+          // We have text — send directly to denial analysis
+          const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
+          try {
+            const res = await fetch(`${API_BASE}/api/health/analyze-denial`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text: rawText.trim() }),
+            });
+            clearTimeout(slowTimer);
+            setSlowServer(false);
+
+            if (!res.ok) {
+              const errData = await res.json().catch(() => ({}));
+              throw new Error(errData.detail || "Denial analysis failed.");
+            }
+
+            const analysis = await res.json();
+            setDenialAnalysis(analysis);
+            setDenialOriginalText(rawText.trim());
+            navigate("/parity-health/denial");
+            setView("denial-report");
+          } catch (err) {
+            clearTimeout(slowTimer);
+            setSlowServer(false);
+            throw err;
+          }
+        } else {
+          // Not enough text extracted — send user to manual denial upload
+          navigate("/parity-health/denial");
+          setView("denial-upload");
+        }
+      } catch (err) {
+        console.error("Denial classification routing error:", err);
+        // Fall back to denial upload view where user can paste text
+        navigate("/parity-health/denial");
+        setView("denial-upload");
+      }
+    },
+    [navigate]
+  );
+
   // ----- Auth loading state -----
   if (authLoading) {
     return (
@@ -1201,6 +1257,7 @@ export default function App() {
           setView("denial-upload");
           navigate("/parity-health/denial");
         }}
+        onDenialClassified={handleDenialClassified}
         sbcData={sbcData}
         onSbcLoaded={setSbcData}
         onSbcClear={() => setSbcData(null)}
@@ -1215,6 +1272,11 @@ export default function App() {
         onImageUpload={handleGoToImageUpload}
         onSampleBill={handleSampleBill}
         onManualEntry={handleManualEntry}
+        onDenialClassified={handleDenialClassified}
+        onDenialAnalysis={() => {
+          setView("denial-upload");
+          navigate("/parity-health/denial");
+        }}
         sbcData={sbcData}
         onSbcLoaded={setSbcData}
         onSbcClear={() => setSbcData(null)}

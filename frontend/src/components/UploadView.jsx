@@ -2,8 +2,148 @@ import { useCallback, useState, useRef } from "react";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, onHavingTrouble, onDenialAnalysis, sbcData, onSbcLoaded, onSbcClear }) {
+export default function UploadView({
+  onFileSelect,
+  onSampleBill,
+  onManualEntry,
+  onHavingTrouble,
+  onDenialAnalysis,
+  onSbcClassified,
+  onDenialClassified,
+  sbcData,
+  onSbcLoaded,
+  onSbcClear,
+}) {
   const [dragOver, setDragOver] = useState(false);
+  const [classifying, setClassifying] = useState(false);
+  const [classifyError, setClassifyError] = useState(null);
+  const [showSbcReplace, setShowSbcReplace] = useState(false);
+  const pendingSbcFileRef = useRef(null);
+
+  const classifyAndRoute = useCallback(
+    async (file) => {
+      setClassifyError(null);
+
+      const fname = file.name.toLowerCase();
+
+      // Reject non-PDF files with friendly message
+      if (!fname.endsWith(".pdf")) {
+        const ext = fname.split(".").pop().toUpperCase();
+        if (["TXT", "EDI", "837", "835"].includes(ext)) {
+          setClassifyError(
+            `${ext} files are clinical data formats used by providers and insurers. Please upload a PDF of your bill, EOB, denial letter, or plan summary.`
+          );
+        } else {
+          setClassifyError("Please upload a PDF file.");
+        }
+        return;
+      }
+
+      setClassifying(true);
+
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const res = await fetch(`${API_BASE}/api/health/classify-document`, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.detail || "Classification failed.");
+        }
+
+        const result = await res.json();
+        const docType = result.document_type;
+
+        if (docType === "unsupported_format") {
+          setClassifyError(result.reason);
+          setClassifying(false);
+          return;
+        }
+
+        if (docType === "sbc") {
+          // If SBC already loaded, ask to replace
+          if (sbcData) {
+            pendingSbcFileRef.current = file;
+            setShowSbcReplace(true);
+            setClassifying(false);
+            return;
+          }
+          // Upload as SBC
+          await uploadSbc(file);
+          setClassifying(false);
+          return;
+        }
+
+        if (docType === "denial_letter") {
+          // Route to denial flow — pass the file to App.jsx
+          setClassifying(false);
+          if (onDenialClassified) {
+            onDenialClassified(file);
+          } else if (onDenialAnalysis) {
+            onDenialAnalysis();
+          }
+          return;
+        }
+
+        // medical_bill, eob, or unknown with decent confidence → bill pipeline
+        setClassifying(false);
+        onFileSelect(file);
+      } catch (err) {
+        console.error("Classification error:", err);
+        setClassifying(false);
+        // On classification failure, fall back to bill analysis
+        onFileSelect(file);
+      }
+    },
+    [sbcData, onFileSelect, onDenialAnalysis, onDenialClassified, onSbcLoaded]
+  );
+
+  const uploadSbc = useCallback(
+    async (file) => {
+      setClassifying(true);
+      setClassifyError(null);
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const res = await fetch(`${API_BASE}/api/health/analyze-sbc`, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.detail || "Failed to analyze SBC.");
+        }
+
+        const data = await res.json();
+        onSbcLoaded(data);
+      } catch (err) {
+        setClassifyError(err.message || "Failed to read plan document.");
+      } finally {
+        setClassifying(false);
+      }
+    },
+    [onSbcLoaded]
+  );
+
+  const handleSbcReplaceConfirm = useCallback(async () => {
+    setShowSbcReplace(false);
+    const file = pendingSbcFileRef.current;
+    if (file) {
+      await uploadSbc(file);
+      pendingSbcFileRef.current = null;
+    }
+  }, [uploadSbc]);
+
+  const handleSbcReplaceCancel = useCallback(() => {
+    setShowSbcReplace(false);
+    pendingSbcFileRef.current = null;
+  }, []);
 
   const handleDragOver = useCallback((e) => {
     e.preventDefault();
@@ -19,20 +159,29 @@ export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, 
       e.preventDefault();
       setDragOver(false);
       const file = e.dataTransfer.files[0];
-      if (file && file.type === "application/pdf") {
-        onFileSelect(file);
-      }
+      if (file) classifyAndRoute(file);
     },
-    [onFileSelect]
+    [classifyAndRoute]
   );
 
   const handleFileInput = useCallback(
     (e) => {
       const file = e.target.files[0];
-      if (file) onFileSelect(file);
+      if (file) classifyAndRoute(file);
+      // Reset so the same file can be re-selected
+      e.target.value = "";
     },
-    [onFileSelect]
+    [classifyAndRoute]
   );
+
+  const formatCurrency = (val) => {
+    if (val == null) return "—";
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(val);
+  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 font-[Arial,sans-serif]">
@@ -41,11 +190,58 @@ export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, 
         <h1 className="text-6xl font-bold text-[#1B3A5C] mb-2 tracking-tight">
           Parity Health
         </h1>
-        <p className="text-lg text-gray-500 mb-12">
+        <p className="text-lg text-gray-500 mb-10">
           Bill Analysis
         </p>
 
-        {/* Drop zone */}
+        {/* SBC plan summary card — shown ABOVE the drop zone when loaded */}
+        {sbcData && (
+          <div className="mb-6 bg-white border-2 border-green-200 rounded-xl p-5 text-left relative">
+            <button
+              onClick={onSbcClear}
+              className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 cursor-pointer"
+              title="Clear plan"
+            >
+              &times;
+            </button>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                &#10003; Plan Loaded
+              </span>
+              <span className="text-sm font-semibold text-[#1B3A5C]">
+                {sbcData.plan_name || "Your Plan"}
+              </span>
+              {sbcData.plan_year && (
+                <span className="text-xs text-gray-400">{sbcData.plan_year}</span>
+              )}
+            </div>
+            <p className="text-xs text-gray-500 mb-3">
+              Your plan details are loaded. When you analyze a bill, we'll estimate what you actually owe based on your deductible, copays, and coinsurance.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div>
+                <p className="text-gray-400">Deductible</p>
+                <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.deductible_individual)}</p>
+              </div>
+              <div>
+                <p className="text-gray-400">OOP Max</p>
+                <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.oop_max_individual)}</p>
+              </div>
+              <div>
+                <p className="text-gray-400">PCP Copay</p>
+                <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.primary_care_copay)}</p>
+              </div>
+              <div>
+                <p className="text-gray-400">Coinsurance</p>
+                <p className="font-semibold text-[#1B3A5C]">
+                  {sbcData.coinsurance_in_network != null ? `${sbcData.coinsurance_in_network}%` : "—"}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Unified drop zone */}
         <label
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -62,30 +258,95 @@ export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, 
             className="hidden"
             onChange={handleFileInput}
           />
-          <div className="flex flex-col items-center gap-4">
-            <svg
-              className="w-16 h-16 text-[#0D7377]/60"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
-              />
-            </svg>
-            <div>
-              <p className="text-xl font-semibold text-[#1B3A5C]">
-                Drop your itemized bill here
+
+          {classifying ? (
+            <div className="flex flex-col items-center gap-4">
+              <svg
+                className="animate-spin h-12 w-12 text-[#0D7377]"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+              <p className="text-lg font-semibold text-[#0D7377]">
+                Identifying document...
               </p>
-              <p className="text-sm text-gray-400 mt-1">
-                PDF format &middot; or click to browse
+              <p className="text-sm text-gray-400">
+                We're figuring out what you uploaded so we can route it correctly.
               </p>
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col items-center gap-4">
+              <svg
+                className="w-16 h-16 text-[#0D7377]/60"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                />
+              </svg>
+              <div>
+                <p className="text-xl font-semibold text-[#1B3A5C]">
+                  Drop any medical document here
+                </p>
+                <p className="text-sm text-gray-400 mt-1">
+                  Bills, EOBs, denial letters, or plan summaries &middot; PDF format
+                </p>
+              </div>
+            </div>
+          )}
         </label>
+
+        {/* Classification error */}
+        {classifyError && (
+          <div className="mt-4 bg-red-50 border border-red-200 rounded-lg p-4 text-left">
+            <p className="text-sm text-red-700">{classifyError}</p>
+          </div>
+        )}
+
+        {/* SBC replacement dialog */}
+        {showSbcReplace && (
+          <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4 text-left">
+            <p className="text-sm font-semibold text-amber-800 mb-2">
+              Replace your current plan summary?
+            </p>
+            <p className="text-xs text-amber-700 mb-3">
+              You already have <strong>{sbcData?.plan_name || "a plan"}</strong> loaded.
+              Uploading a new SBC will replace it.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={handleSbcReplaceConfirm}
+                className="px-4 py-1.5 bg-amber-600 text-white text-sm rounded-lg hover:bg-amber-700 cursor-pointer"
+              >
+                Replace
+              </button>
+              <button
+                onClick={handleSbcReplaceCancel}
+                className="px-4 py-1.5 bg-white border border-gray-300 text-sm text-gray-700 rounded-lg hover:bg-gray-50 cursor-pointer"
+              >
+                Keep Current
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Action links */}
         <div className="mt-6 flex flex-col items-center gap-2">
@@ -116,30 +377,6 @@ export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, 
             )}
           </div>
         </div>
-
-        {/* SBC Upload Section */}
-        {onSbcLoaded && (
-          <SBCUploadCard
-            sbcData={sbcData}
-            onSbcLoaded={onSbcLoaded}
-            onSbcClear={onSbcClear}
-          />
-        )}
-
-        {/* Denial analysis entry point */}
-        {onDenialAnalysis && (
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <button
-              onClick={onDenialAnalysis}
-              className="text-[#0D7377] font-medium hover:underline cursor-pointer text-sm flex items-center gap-1.5 mx-auto"
-            >
-              Received a denial? Analyze it here
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            </button>
-          </div>
-        )}
 
         {/* Privacy points */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
@@ -186,180 +423,6 @@ export default function UploadView({ onFileSelect, onSampleBill, onManualEntry, 
       </div>
 
       <Footer />
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// SBC Upload Card
-// ---------------------------------------------------------------------------
-
-function SBCUploadCard({ sbcData, onSbcLoaded, onSbcClear }) {
-  const [sbcLoading, setSbcLoading] = useState(false);
-  const [sbcError, setSbcError] = useState(null);
-  const [sbcDragOver, setSbcDragOver] = useState(false);
-  const fileRef = useRef(null);
-
-  const handleSbcUpload = useCallback(async (file) => {
-    if (!file) return;
-    if (!file.name.toLowerCase().endsWith(".pdf")) {
-      setSbcError("Please upload a PDF file.");
-      return;
-    }
-
-    setSbcLoading(true);
-    setSbcError(null);
-
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const res = await fetch(`${API_BASE}/api/health/analyze-sbc`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.detail || "Failed to analyze SBC.");
-      }
-
-      const data = await res.json();
-      onSbcLoaded(data);
-    } catch (err) {
-      setSbcError(err.message || "Failed to fetch. Please try again.");
-    } finally {
-      setSbcLoading(false);
-    }
-  }, [onSbcLoaded]);
-
-  const handleFileInput = useCallback((e) => {
-    const file = e.target.files[0];
-    if (file) handleSbcUpload(file);
-  }, [handleSbcUpload]);
-
-  const handleSbcDragOver = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setSbcDragOver(true);
-  }, []);
-
-  const handleSbcDragLeave = useCallback((e) => {
-    e.stopPropagation();
-    setSbcDragOver(false);
-  }, []);
-
-  const handleSbcDrop = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setSbcDragOver(false);
-    const file = e.dataTransfer.files[0];
-    if (file) handleSbcUpload(file);
-  }, [handleSbcUpload]);
-
-  const formatCurrency = (val) => {
-    if (val == null) return "—";
-    return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(val);
-  };
-
-  // Show compact plan summary if SBC is loaded
-  if (sbcData) {
-    return (
-      <div className="mt-8 bg-white border-2 border-green-200 rounded-xl p-5 text-left relative">
-        <button
-          onClick={onSbcClear}
-          className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 cursor-pointer"
-          title="Clear plan"
-        >
-          &times;
-        </button>
-        <div className="flex items-center gap-2 mb-1">
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
-            ✓ Plan Loaded
-          </span>
-          <span className="text-sm font-semibold text-[#1B3A5C]">
-            {sbcData.plan_name || "Your Plan"}
-          </span>
-          {sbcData.plan_year && (
-            <span className="text-xs text-gray-400">{sbcData.plan_year}</span>
-          )}
-        </div>
-        <p className="text-xs text-gray-500 mb-3">
-          Your plan details are loaded. When you analyze a bill, we'll estimate what you actually owe based on your deductible, copays, and coinsurance.
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-          <div>
-            <p className="text-gray-400">Deductible</p>
-            <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.deductible_individual)}</p>
-          </div>
-          <div>
-            <p className="text-gray-400">OOP Max</p>
-            <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.oop_max_individual)}</p>
-          </div>
-          <div>
-            <p className="text-gray-400">PCP Copay</p>
-            <p className="font-semibold text-[#1B3A5C]">{formatCurrency(sbcData.primary_care_copay)}</p>
-          </div>
-          <div>
-            <p className="text-gray-400">Coinsurance</p>
-            <p className="font-semibold text-[#1B3A5C]">
-              {sbcData.coinsurance_in_network != null ? `${sbcData.coinsurance_in_network}%` : "—"}
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Upload state
-  return (
-    <div
-      className={`mt-8 rounded-xl p-5 text-left transition-colors ${
-        sbcDragOver
-          ? "bg-teal-50 border-2 border-[#0D7377]"
-          : "bg-gray-50 border border-gray-200"
-      }`}
-      onDragOver={handleSbcDragOver}
-      onDragLeave={handleSbcDragLeave}
-      onDrop={handleSbcDrop}
-    >
-      <div className="flex items-center gap-2 mb-2">
-        <svg className="w-5 h-5 text-[#0D7377]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" />
-        </svg>
-        <h3 className="text-sm font-semibold text-[#1B3A5C]">Know your plan? Upload your Summary of Benefits</h3>
-      </div>
-      <p className="text-xs text-gray-500 mb-3">
-        Upload your SBC (PDF) and we'll tell you what you should owe under your specific plan.
-      </p>
-
-      {sbcLoading ? (
-        <div className="flex items-center gap-2 py-3">
-          <svg className="animate-spin h-4 w-4 text-[#0D7377]" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-          </svg>
-          <span className="text-sm text-[#0D7377] font-medium">Reading your plan...</span>
-        </div>
-      ) : (
-        <label className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm text-[#1B3A5C] font-medium hover:bg-gray-50 cursor-pointer">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-          </svg>
-          Upload SBC (PDF)
-          <input
-            ref={fileRef}
-            type="file"
-            accept="application/pdf"
-            className="hidden"
-            onChange={handleFileInput}
-          />
-        </label>
-      )}
-
-      {sbcError && (
-        <p className="text-xs text-red-600 mt-2">{sbcError}</p>
-      )}
     </div>
   );
 }

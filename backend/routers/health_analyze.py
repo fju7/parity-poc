@@ -615,3 +615,100 @@ def generate_appeal(req: AppealGenerateRequest):
             raw_text += block.text
 
     return {"letter_text": raw_text.strip()}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/health/classify-document
+# ---------------------------------------------------------------------------
+
+CLASSIFY_SYSTEM_PROMPT = """You are a medical document classifier. Examine the uploaded document and determine its type. Return ONLY valid JSON matching this exact structure, with no other text, markdown, or explanation:
+{
+  "document_type": "medical_bill | eob | denial_letter | sbc | unknown",
+  "confidence": "high | medium | low",
+  "reason": "brief explanation of why you classified it this way"
+}
+
+Classification rules:
+- "medical_bill": An itemized bill from a healthcare provider showing procedures, CPT codes, billed amounts. Includes hospital bills, physician bills, lab bills, and facility bills.
+- "eob": An Explanation of Benefits from an insurance company showing what was covered, patient responsibility, and plan payments. Often has columns like "Amount Billed", "Plan Paid", "You Owe".
+- "denial_letter": A letter or notice from an insurance company denying a claim or prior authorization. Contains denial reason codes, appeal instructions, or language about coverage determination.
+- "sbc": A Summary of Benefits and Coverage document describing a health insurance plan's deductibles, copays, coinsurance, and coverage details. Usually titled "Summary of Benefits and Coverage" or "SBC".
+- "unknown": If the document does not match any of the above categories.
+
+Both medical_bill and eob should route to the bill analysis pipeline. The distinction helps with user messaging but both are analyzed the same way."""
+
+
+@router.post("/api/health/classify-document")
+async def classify_document(file: UploadFile = File(...)):
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No file provided.")
+
+    fname = file.filename.lower()
+
+    # Reject known non-PDF clinical data formats with a friendly message
+    if fname.endswith((".txt", ".edi", ".837", ".835")):
+        return {
+            "document_type": "unsupported_format",
+            "confidence": "high",
+            "reason": f"File format ({fname.rsplit('.', 1)[-1].upper()}) is a clinical data format. Please upload a PDF of your bill, EOB, denial letter, or plan summary.",
+        }
+
+    if not fname.endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Please upload a PDF file.")
+
+    client = _get_client()
+
+    pdf_bytes = await file.read()
+    if len(pdf_bytes) > 20 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Maximum 20MB.")
+
+    pdf_b64 = base64.b64encode(pdf_bytes).decode("utf-8")
+
+    print(f"[health/classify-document] Classifying: {file.filename} ({len(pdf_bytes)} bytes)")
+
+    content = [
+        {
+            "type": "document",
+            "source": {
+                "type": "base64",
+                "media_type": "application/pdf",
+                "data": pdf_b64,
+            },
+        },
+        {
+            "type": "text",
+            "text": "Classify this medical document. Return only the JSON structure specified in the system prompt.",
+        },
+    ]
+
+    response = _call_claude(client, content, system_prompt=CLASSIFY_SYSTEM_PROMPT)
+
+    # Handle overloaded passthrough
+    from fastapi.responses import JSONResponse
+    if isinstance(response, JSONResponse):
+        return response
+
+    raw_text = ""
+    for block in response.content:
+        if hasattr(block, "text"):
+            raw_text += block.text
+
+    raw_text = raw_text.strip()
+    if raw_text.startswith("```"):
+        raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
+        raw_text = re.sub(r"\s*```\s*$", "", raw_text)
+    raw_text = raw_text.strip()
+
+    print(f"[health/classify-document] Result: {raw_text[:200]}")
+
+    try:
+        parsed = json.loads(raw_text)
+    except json.JSONDecodeError:
+        print(f"[health/classify-document] Invalid JSON: {raw_text[:500]}")
+        return {
+            "document_type": "unknown",
+            "confidence": "low",
+            "reason": "Could not determine document type.",
+        }
+
+    return parsed
