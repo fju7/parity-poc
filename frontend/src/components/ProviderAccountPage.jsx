@@ -275,26 +275,59 @@ function ProviderAccountInner() {
           <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
             Subscription
           </h2>
-          {subscription && subscription.status === "active" ? (
+
+          {/* Trial active */}
+          {subscription && subscription.stripe_status === "trialing" ? (
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-                <span style={{ fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 20,
-                               background: "rgba(16,185,129,0.15)", color: "#10B981",
-                               border: "1px solid rgba(16,185,129,0.3)" }}>
-                  Active
-                </span>
-                <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 13 }}>
-                  Monthly Monitoring — $300/mo
+              <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 20,
+                           background: "rgba(13,148,136,0.15)", border: "1px solid rgba(13,148,136,0.3)", marginBottom: 12 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#0d9488" }}>
+                  Free Trial &mdash; {subscription.trial_ends_at ? Math.max(0, Math.ceil((new Date(subscription.trial_ends_at) - new Date()) / (1000 * 60 * 60 * 24))) : 30} days remaining
                 </span>
               </div>
+              <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, margin: "0 0 16px", lineHeight: 1.6 }}>
+                Your free trial ends on {subscription.trial_ends_at ? new Date(subscription.trial_ends_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : ""}.
+                You won't be charged until then. After your trial, monitoring continues at $300/mo.
+              </p>
+              <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                <button onClick={handleBillingPortal} disabled={portalLoading}
+                  style={{ background: "#0d9488", border: "none", borderRadius: 8, padding: "10px 20px",
+                           color: "white", fontSize: 14, fontWeight: 600,
+                           cursor: portalLoading ? "not-allowed" : "pointer", opacity: portalLoading ? 0.7 : 1 }}>
+                  {portalLoading ? "Opening..." : "Manage billing"}
+                </button>
+                <button onClick={handleBillingPortal} disabled={portalLoading}
+                  style={{ background: "none", border: "none", color: "rgba(255,255,255,0.3)", fontSize: 13,
+                           cursor: portalLoading ? "default" : "pointer", textDecoration: "underline", padding: 0 }}>
+                  Cancel trial
+                </button>
+              </div>
+            </div>
+
+          /* Active paid subscription */
+          ) : subscription && subscription.status === "active" ? (
+            <div>
+              <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 20,
+                           background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.3)", marginBottom: 12 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#10B981" }}>
+                  Monthly Monitoring
+                </span>
+              </div>
+              {subscription.current_period_end && (
+                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, margin: "0 0 12px" }}>
+                  Next billing date: {new Date(subscription.current_period_end).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                </p>
+              )}
               <button onClick={handleBillingPortal} disabled={portalLoading}
                 style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
                          borderRadius: 8, padding: "10px 20px", color: "white", fontSize: 14,
                          fontWeight: 600, cursor: portalLoading ? "not-allowed" : "pointer",
                          opacity: portalLoading ? 0.7 : 1 }}>
-                {portalLoading ? "Loading..." : "Manage Billing"}
+                {portalLoading ? "Opening..." : "Manage billing"}
               </button>
             </div>
+
+          /* No subscription */
           ) : (
             <div>
               <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, margin: "0 0 12px" }}>

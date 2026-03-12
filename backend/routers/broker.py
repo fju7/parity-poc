@@ -134,7 +134,10 @@ STARTER_LIMIT = 10
 
 
 def _get_broker_plan(sb, company_id: str) -> dict:
-    """Returns broker plan info: plan, client_count, at_limit, subscription_period_end."""
+    """Returns broker plan info: plan, client_count, at_limit, subscription_period_end, stripe_status, trial_ends_at."""
+    import stripe as stripe_lib
+    stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
+
     company = sb.table("companies").select("plan, stripe_subscription_id").eq("id", company_id).execute()
     plan = company.data[0].get("plan", "starter") if company.data else "starter"
 
@@ -152,11 +155,25 @@ def _get_broker_plan(sb, company_id: str) -> dict:
     effective_plan = "pro" if plan == "pro_cancelling" else plan
     at_limit = effective_plan == "starter" and client_count >= STARTER_LIMIT
 
-    # Get subscription_period_end from Stripe if available
+    # Fetch subscription details from Stripe (trial status, period end)
     period_end = None
-    if company.data and company.data[0].get("stripe_subscription_id") and plan == "pro_cancelling":
-        # We don't store period_end on companies table, check if needed
-        period_end = None  # Will be set by cancel-subscription endpoint response
+    stripe_status = None
+    trial_ends_at = None
+    stripe_sub_id = company.data[0].get("stripe_subscription_id") if company.data else None
+    if stripe_sub_id and plan in ("pro", "pro_cancelling"):
+        try:
+            stripe_sub = stripe_lib.Subscription.retrieve(stripe_sub_id)
+            stripe_status = stripe_sub.status  # "trialing", "active", "canceled", etc.
+            if stripe_sub.current_period_end:
+                period_end = datetime.fromtimestamp(
+                    stripe_sub.current_period_end, tz=timezone.utc
+                ).isoformat()
+            if stripe_sub.trial_end:
+                trial_ends_at = datetime.fromtimestamp(
+                    stripe_sub.trial_end, tz=timezone.utc
+                ).isoformat()
+        except Exception as exc:
+            print(f"[BrokerPlan] Stripe fetch failed: {exc}")
 
     return {
         "plan": plan,
@@ -164,6 +181,8 @@ def _get_broker_plan(sb, company_id: str) -> dict:
         "client_limit": STARTER_LIMIT if effective_plan == "starter" else None,
         "at_limit": at_limit,
         "subscription_period_end": period_end,
+        "stripe_status": stripe_status,
+        "trial_ends_at": trial_ends_at,
     }
 
 
@@ -278,6 +297,30 @@ async def broker_reactivate_subscription(authorization: str = Header(None)):
     }).eq("id", company_id).execute()
 
     return {"status": "reactivated"}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/portal — open Stripe billing portal
+# ---------------------------------------------------------------------------
+
+@router.post("/portal")
+async def broker_billing_portal(authorization: str = Header(None)):
+    """Create a Stripe billing portal session for broker."""
+    import stripe as stripe_lib
+    stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY")
+
+    user, sb = _require_broker(authorization)
+    company = user["company"]
+
+    customer_id = company.get("stripe_customer_id")
+    if not customer_id:
+        raise HTTPException(status_code=404, detail="No billing account found")
+
+    session = stripe_lib.billing_portal.Session.create(
+        customer=customer_id,
+        return_url="https://civicscale.ai/broker/account",
+    )
+    return {"portal_url": session.url}
 
 
 # ---------------------------------------------------------------------------

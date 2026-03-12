@@ -14,6 +14,7 @@ function EmployerAccountInner() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState("");
+  const [subStatus, setSubStatus] = useState(null);
 
   // Company edit fields — pre-populated from auth context
   const [companyName, setCompanyName] = useState(company?.name || "");
@@ -47,9 +48,16 @@ function EmployerAccountInner() {
     if (!user?.email || !token) return;
     setLoading(true);
     try {
-      const usersRes = await fetch(`${API}/api/auth/users`, { headers: { Authorization: `Bearer ${token}` } });
+      const [usersRes, subRes] = await Promise.all([
+        fetch(`${API}/api/auth/users`, { headers: { Authorization: `Bearer ${token}` } }),
+        user?.email ? fetch(`${API}/api/employer/subscription-status?email=${encodeURIComponent(user.email)}`, { headers: { Authorization: `Bearer ${token}` } }) : Promise.resolve(null),
+      ]);
       const usersData = await usersRes.json();
       setTeamMembers(usersData.users || []);
+      if (subRes && subRes.ok) {
+        const subData = await subRes.json();
+        setSubStatus(subData.subscription || null);
+      }
     } catch (err) {
       console.error("Failed to fetch account data:", err);
     }
@@ -243,6 +251,11 @@ function EmployerAccountInner() {
             Plan & Billing
           </h2>
           <EmployerTrialBanner />
+          {subStatus?.current_period_end && company?.plan === "pro" && (
+            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, margin: "8px 0 0" }}>
+              Next billing date: {new Date(subStatus.current_period_end).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+            </p>
+          )}
           {(company?.plan === "trial" || company?.plan === "pro") && (
             <button onClick={handleBillingPortal}
               style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",

@@ -86,12 +86,16 @@ function BrokerAccountInner() {
   const fetchAccount = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/api/broker/account`, { headers: authHeaders });
-      const data = await res.json();
-      setAccount(data);
-      setContactName(data.contact_name || "");
-      setFirmName(data.firm_name || "");
-      setPhone(data.phone || "");
+      const [acctRes, planRes] = await Promise.all([
+        fetch(`${API}/api/broker/account`, { headers: authHeaders }),
+        fetch(`${API}/api/broker/plan`, { headers: authHeaders }),
+      ]);
+      const acctData = await acctRes.json();
+      const planData = await planRes.json();
+      setAccount({ ...acctData, ...planData });
+      setContactName(acctData.contact_name || "");
+      setFirmName(acctData.firm_name || "");
+      setPhone(acctData.phone || "");
     } catch (err) { console.error("Failed to load account:", err); }
     setLoading(false);
   };
@@ -174,6 +178,22 @@ function BrokerAccountInner() {
       const data = await res.json();
       if (data.checkout_url) window.location.href = data.checkout_url;
     } catch (err) { console.error("Upgrade failed:", err); }
+  };
+
+  const [portalLoading, setPortalLoading] = useState(false);
+  const handlePortal = async () => {
+    if (!token) return;
+    setPortalLoading(true);
+    try {
+      const res = await fetch(`${API}/api/broker/portal`, {
+        method: "POST",
+        headers: authHeaders,
+      });
+      const data = await res.json();
+      if (data.portal_url) window.location.href = data.portal_url;
+      else alert(data.detail || "No billing account found.");
+    } catch { alert("Failed to open billing portal."); }
+    setPortalLoading(false);
   };
 
   const handleInviteTeamMember = async () => {
@@ -261,6 +281,7 @@ function BrokerAccountInner() {
 
   const isPro = account?.plan === "pro";
   const isCancelling = account?.plan === "pro_cancelling";
+  const isTrial = isPro && account?.stripe_status === "trialing";
   const isStarter = !isPro && !isCancelling;
   const isAdmin = user?.role === "admin";
 
@@ -451,26 +472,53 @@ function BrokerAccountInner() {
                 onClick={handleUpgrade}
                 style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
               >
-                Upgrade to Pro &mdash; $99/mo &rarr;
+                Start Free Trial &mdash; $99/mo after 30 days &rarr;
               </button>
             </div>
           )}
 
-          {/* Pro Plan */}
-          {isPro && (
+          {/* Pro Trial */}
+          {isTrial && (
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-                <span style={{ background: "#f0fdfa", color: "#0D7377", fontSize: 12, fontWeight: 700, padding: "3px 10px", borderRadius: 20, textTransform: "uppercase" }}>Pro</span>
-                <span style={{ fontSize: 14, color: "#64748b" }}>$99/mo &mdash; Unlimited clients</span>
+              <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 20, background: "#f0fdfa", border: "1px solid #99f6e4", marginBottom: 12 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#0D7377" }}>
+                  Free Trial &mdash; {account?.trial_ends_at ? Math.max(0, Math.ceil((new Date(account.trial_ends_at) - new Date()) / (1000 * 60 * 60 * 24))) : 30} days remaining
+                </span>
               </div>
+              <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: "0 0 16px" }}>
+                Your free trial ends on {formatDate(account?.trial_ends_at)}. You won't be charged until then.
+                After your trial, your Pro subscription continues at $99/mo.
+              </p>
+              <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                <button onClick={handlePortal} disabled={portalLoading}
+                  style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: portalLoading ? "default" : "pointer", opacity: portalLoading ? 0.7 : 1 }}>
+                  {portalLoading ? "Opening..." : "Manage billing"}
+                </button>
+                <button onClick={handlePortal} disabled={portalLoading}
+                  style={{ background: "none", border: "none", color: "#94a3b8", fontSize: 13, cursor: portalLoading ? "default" : "pointer", textDecoration: "underline", padding: 0 }}>
+                  Cancel trial
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Pro Plan (active, not trialing) */}
+          {isPro && !isTrial && (
+            <div>
+              <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 20, background: "#f0fdfa", border: "1px solid #99f6e4", marginBottom: 12 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#0D7377" }}>Broker Pro</span>
+              </div>
+              {account?.subscription_period_end && (
+                <p style={{ fontSize: 14, color: "#64748b", margin: "0 0 12px" }}>
+                  Next billing date: {formatDate(account.subscription_period_end)}
+                </p>
+              )}
               <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: "0 0 16px" }}>
                 Your Pro subscription is active. You have {account?.client_count || 0} clients with no limit.
               </p>
-              <button
-                onClick={() => setShowCancelModal(true)}
-                style={{ background: "none", color: "#dc2626", border: "1px solid #fecaca", borderRadius: 8, padding: "8px 20px", fontSize: 13, fontWeight: 500, cursor: "pointer" }}
-              >
-                Cancel Subscription
+              <button onClick={handlePortal} disabled={portalLoading}
+                style={{ background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: portalLoading ? "default" : "pointer", opacity: portalLoading ? 0.7 : 1 }}>
+                {portalLoading ? "Opening..." : "Manage billing"}
               </button>
             </div>
           )}

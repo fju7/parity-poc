@@ -649,7 +649,7 @@ async def my_subscription(request: Request):
 
     subs = []
     for sub in (result.data or []):
-        subs.append({
+        entry = {
             "id": sub["id"],
             "practice_name": sub.get("practice_name", ""),
             "status": sub.get("status", "active"),
@@ -657,7 +657,28 @@ async def my_subscription(request: Request):
             "source_audit_id": sub.get("source_audit_id"),
             "created_at": sub.get("created_at"),
             "stripe_subscription_id": sub.get("stripe_subscription_id"),
-        })
+        }
+        # Fetch trial status and period end from Stripe
+        stripe_sub_id = sub.get("stripe_subscription_id")
+        if stripe_sub_id:
+            try:
+                import stripe as stripe_lib
+                stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
+                stripe_sub = stripe_lib.Subscription.retrieve(stripe_sub_id)
+                entry["stripe_status"] = stripe_sub.status
+                if stripe_sub.current_period_end:
+                    from datetime import datetime, timezone
+                    entry["current_period_end"] = datetime.fromtimestamp(
+                        stripe_sub.current_period_end, tz=timezone.utc
+                    ).isoformat()
+                if stripe_sub.trial_end:
+                    from datetime import datetime, timezone
+                    entry["trial_ends_at"] = datetime.fromtimestamp(
+                        stripe_sub.trial_end, tz=timezone.utc
+                    ).isoformat()
+            except Exception as exc:
+                print(f"[ProviderSub] Stripe fetch failed: {exc}")
+        subs.append(entry)
 
     # Backward-compat: return first as "subscription", plus full list
     return {
