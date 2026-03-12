@@ -20,7 +20,7 @@ ALTER TABLE provider_profiles
   FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE;
 
 -- 4. Update unique constraint / index if one exists on user_id
-DROP INDEX IF EXISTS provider_profiles_user_id_key;
+ALTER TABLE provider_profiles DROP CONSTRAINT IF EXISTS provider_profiles_user_id_key;
 CREATE UNIQUE INDEX IF NOT EXISTS provider_profiles_company_id_key ON provider_profiles (company_id);
 
 -- 5. Drop old RLS policies that reference user_id and recreate with company_id
