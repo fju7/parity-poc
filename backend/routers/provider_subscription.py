@@ -421,9 +421,9 @@ async def admin_add_month(
     # Try to resolve ZIP from user profile
     if user_id:
         try:
-            prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).maybeSingle().execute()
+            prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).execute()
             if prof.data:
-                fallback_zip = prof.data.get("zip_code", "")
+                fallback_zip = prof.data[0].get("zip_code", "")
         except Exception:
             pass
 

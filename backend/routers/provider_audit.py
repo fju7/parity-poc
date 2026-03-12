@@ -1459,10 +1459,10 @@ async def my_profile(request: Request):
     result = sb.table("provider_profiles") \
         .select("*") \
         .eq("user_id", str(user.id)) \
-        .maybeSingle() \
         .execute()
 
-    return {"profile": result.data}
+    profile = result.data[0] if result.data else None
+    return {"profile": profile}
 
 
 class SaveProfileRequest(BaseModel):
@@ -1479,11 +1479,11 @@ async def save_profile(body: SaveProfileRequest, request: Request):
     sb = _get_supabase()
 
     # Check if profile already exists
-    existing = sb.table("provider_profiles") \
+    existing_result = sb.table("provider_profiles") \
         .select("id") \
         .eq("user_id", str(user.id)) \
-        .maybeSingle() \
         .execute()
+    existing_profile = existing_result.data[0] if existing_result.data else None
 
     profile_data = {
         "user_id": str(user.id),
@@ -1493,10 +1493,10 @@ async def save_profile(body: SaveProfileRequest, request: Request):
         "zip_code": body.zip_code or None,
     }
 
-    if existing.data:
+    if existing_profile:
         result = sb.table("provider_profiles") \
             .update(profile_data) \
-            .eq("id", existing.data["id"]) \
+            .eq("id", existing_profile["id"]) \
             .select() \
             .execute()
     else:
@@ -1773,9 +1773,9 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
         user_id = audit.get("user_id")
         if user_id:
             try:
-                prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).maybeSingle().execute()
+                prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).execute()
                 if prof.data:
-                    fallback_zip = prof.data.get("zip_code", "")
+                    fallback_zip = prof.data[0].get("zip_code", "")
             except Exception:
                 pass
 
@@ -1847,9 +1847,9 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     user_id = audit.get("user_id")
     if not zip_code and user_id:
         try:
-            prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).maybeSingle().execute()
+            prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).execute()
             if prof.data:
-                zip_code = prof.data.get("zip_code", "")
+                zip_code = prof.data[0].get("zip_code", "")
         except Exception:
             pass
 
