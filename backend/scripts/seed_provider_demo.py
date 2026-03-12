@@ -24,7 +24,7 @@ import sys
 DEMO_USER_ID = "REPLACE_WITH_YOUR_USER_ID"  # from supabase auth.users
 
 DEMO_PRACTICE = {
-    "user_id": DEMO_USER_ID,
+    "company_id": DEMO_USER_ID,
     "practice_name": "Sunshine Internal Medicine",
     "specialty": "Internal Medicine",
     "npi": "1234567890",
@@ -184,9 +184,9 @@ def generate_sql():
     # Provider profile
     p = DEMO_PRACTICE
     lines.append("-- 1. Provider profile")
-    lines.append(f"INSERT INTO provider_profiles (user_id, practice_name, specialty, npi, zip_code)")
+    lines.append(f"INSERT INTO provider_profiles (company_id, practice_name, specialty, npi, zip_code)")
     lines.append(f"VALUES ('{p['user_id']}', '{p['practice_name']}', '{p['specialty']}', '{p['npi']}', '{p['zip_code']}')")
-    lines.append(f"ON CONFLICT (user_id) DO UPDATE SET practice_name = EXCLUDED.practice_name;")
+    lines.append(f"ON CONFLICT (company_id) DO UPDATE SET practice_name = EXCLUDED.practice_name;")
     lines.append("")
 
     # Contract rates
@@ -223,7 +223,7 @@ def seed_via_api():
         sb = create_client(url, key)
 
         # Upsert profile
-        sb.table("provider_profiles").upsert(DEMO_PRACTICE, on_conflict="user_id").execute()
+        sb.table("provider_profiles").upsert(DEMO_PRACTICE, on_conflict="company_id").execute()
         print("  Inserted provider profile")
 
         # Upsert contract

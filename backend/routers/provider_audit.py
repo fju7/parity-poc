@@ -1458,7 +1458,7 @@ async def my_profile(request: Request):
 
     result = sb.table("provider_profiles") \
         .select("*") \
-        .eq("user_id", str(user.id)) \
+        .eq("company_id", str(user.id)) \
         .execute()
 
     profile = result.data[0] if result.data else None
@@ -1481,12 +1481,12 @@ async def save_profile(body: SaveProfileRequest, request: Request):
     # Check if profile already exists
     existing_result = sb.table("provider_profiles") \
         .select("id") \
-        .eq("user_id", str(user.id)) \
+        .eq("company_id", str(user.id)) \
         .execute()
     existing_profile = existing_result.data[0] if existing_result.data else None
 
     profile_data = {
-        "user_id": str(user.id),
+        "company_id": str(user.id),
         "practice_name": body.practice_name,
         "specialty": body.specialty or None,
         "npi": body.npi or None,
@@ -1772,7 +1772,7 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
         user_id = audit.get("user_id")
         if user_id:
             try:
-                prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).execute()
+                prof = sb.table("provider_profiles").select("zip_code").eq("company_id", user_id).execute()
                 if prof.data:
                     fallback_zip = prof.data[0].get("zip_code", "")
             except Exception:
@@ -1846,7 +1846,7 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     user_id = audit.get("user_id")
     if not zip_code and user_id:
         try:
-            prof = sb.table("provider_profiles").select("zip_code").eq("user_id", user_id).execute()
+            prof = sb.table("provider_profiles").select("zip_code").eq("company_id", user_id).execute()
             if prof.data:
                 zip_code = prof.data[0].get("zip_code", "")
         except Exception:
