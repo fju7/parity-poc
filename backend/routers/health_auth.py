@@ -434,8 +434,8 @@ async def create_checkout(req: CheckoutRequest, authorization: str = Header(None
         line_items=[{"price": price_id, "quantity": 1}],
         payment_method_collection="always",
         subscription_data={"trial_period_days": 30},
-        success_url=f"{frontend_url}/parity-health/?checkout_success=1",
-        cancel_url=f"{frontend_url}/parity-health/?checkout_cancel=1",
+        success_url=f"{frontend_url}/parity-health/account?checkout=success",
+        cancel_url=f"{frontend_url}/parity-health/account",
         metadata={
             "email": user["email"],
             "health_user_id": user["health_user_id"],

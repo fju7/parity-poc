@@ -28,15 +28,59 @@ export default function HealthAccountPage({ healthUser, onProfileSaved }) {
   const [subLoading, setSubLoading] = useState(true);
   const [checkoutLoading, setCheckoutLoading] = useState(null);
   const [portalLoading, setPortalLoading] = useState(false);
+  const [checkoutPolling, setCheckoutPolling] = useState(
+    () => new URLSearchParams(window.location.search).get("checkout") === "success"
+  );
 
   const token = localStorage.getItem("health_token");
 
-  useEffect(() => {
-    if (!token) return;
+  const fetchSubStatus = () =>
     fetch(`${API}/api/health/auth/subscription-status`, {
       headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((r) => r.ok ? r.json() : Promise.reject())
+    }).then((r) => r.ok ? r.json() : Promise.reject());
+
+  useEffect(() => {
+    if (!token) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const isCheckoutReturn = params.get("checkout") === "success";
+
+    if (isCheckoutReturn) {
+      // Remove query param from URL
+      window.history.replaceState({}, "", window.location.pathname);
+
+      // Poll until subscription shows active/trialing
+      let attempts = 0;
+      setSubLoading(true);
+      const poll = setInterval(async () => {
+        attempts++;
+        try {
+          const data = await fetchSubStatus();
+          if (data.has_subscription && (data.status === "active" || data.status === "trialing")) {
+            setSub(data);
+            setSubLoading(false);
+            setCheckoutPolling(false);
+            clearInterval(poll);
+          } else if (attempts >= 5) {
+            setSub(data);
+            setSubLoading(false);
+            setCheckoutPolling(false);
+            clearInterval(poll);
+          }
+        } catch {
+          if (attempts >= 5) {
+            setSub(null);
+            setSubLoading(false);
+            setCheckoutPolling(false);
+            clearInterval(poll);
+          }
+        }
+      }, 2000);
+      return () => clearInterval(poll);
+    }
+
+    // Normal load — single fetch
+    fetchSubStatus()
       .then((data) => setSub(data))
       .catch(() => setSub(null))
       .finally(() => setSubLoading(false));
@@ -171,7 +215,9 @@ export default function HealthAccountPage({ healthUser, onProfileSaved }) {
           <h3 style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: "0 0 16px" }}>Your Plan</h3>
 
           {subLoading && (
-            <p style={{ color: "#94a3b8", fontSize: 14 }}>Loading...</p>
+            <p style={{ color: "#94a3b8", fontSize: 14 }}>
+              {checkoutPolling ? "Setting up your account..." : "Loading..."}
+            </p>
           )}
 
           {/* Trial active */}
