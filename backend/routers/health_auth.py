@@ -475,9 +475,14 @@ async def health_webhook(request: Request):
     event_type = event["type"]
     obj = event["data"]["object"]
 
+    print(f"[HealthWebhook] Received event: {event_type}")
+
     if event_type == "checkout.session.completed":
         metadata = obj.get("metadata", {})
+        print(f"[HealthWebhook] checkout.session.completed metadata={metadata}")
+
         if metadata.get("type") != "health_subscription":
+            print(f"[HealthWebhook] Skipping — type={metadata.get('type')}")
             return {"status": "ok", "skipped": True}
 
         email = metadata.get("email", "")
@@ -486,33 +491,80 @@ async def health_webhook(request: Request):
         subscription_id = obj.get("subscription")
         customer_id = obj.get("customer")
 
-        now = datetime.now(timezone.utc)
-        trial_ends = (now + timedelta(days=30)).isoformat()
+        print(f"[HealthWebhook] email={email} health_user_id={health_user_id} "
+              f"plan={plan} subscription_id={subscription_id} customer_id={customer_id}")
 
-        # Create health_subscriptions record
-        sb.table("health_subscriptions").insert({
-            "health_user_id": health_user_id,
-            "email": email,
-            "plan": plan,
-            "status": "active",
-            "stripe_customer_id": customer_id,
-            "stripe_subscription_id": subscription_id,
-            "trial_ends_at": trial_ends,
-        }).execute()
+        if not subscription_id:
+            print(f"[HealthWebhook] WARNING: subscription_id is None/empty in checkout session")
+
+        if not customer_id:
+            print(f"[HealthWebhook] WARNING: customer_id is None/empty in checkout session")
+
+        now = datetime.now(timezone.utc)
+
+        # Get trial_ends_at from actual Stripe subscription if available
+        trial_ends = None
+        if subscription_id:
+            try:
+                stripe_sub = stripe_lib.Subscription.retrieve(subscription_id)
+                if stripe_sub.trial_end:
+                    trial_ends = datetime.fromtimestamp(
+                        stripe_sub.trial_end, tz=timezone.utc
+                    ).isoformat()
+                print(f"[HealthWebhook] Stripe sub status={stripe_sub.status} trial_end={stripe_sub.trial_end}")
+            except Exception as exc:
+                print(f"[HealthWebhook] Failed to fetch Stripe subscription: {exc}")
+
+        if not trial_ends:
+            trial_ends = (now + timedelta(days=30)).isoformat()
+
+        # Check if a row already exists for this user (e.g. from a previous expired sub)
+        existing = sb.table("health_subscriptions").select("id").eq(
+            "health_user_id", health_user_id
+        ).execute()
+        print(f"[HealthWebhook] Existing rows for health_user_id={health_user_id}: {len(existing.data or [])}")
+
+        if existing.data:
+            # Update existing row
+            result = sb.table("health_subscriptions").update({
+                "email": email,
+                "plan": plan,
+                "status": "active",
+                "stripe_customer_id": customer_id,
+                "stripe_subscription_id": subscription_id,
+                "trial_ends_at": trial_ends,
+            }).eq("health_user_id", health_user_id).execute()
+            print(f"[HealthWebhook] Updated existing row: {len(result.data or [])} rows affected")
+        else:
+            # Insert new row
+            result = sb.table("health_subscriptions").insert({
+                "health_user_id": health_user_id,
+                "email": email,
+                "plan": plan,
+                "status": "active",
+                "stripe_customer_id": customer_id,
+                "stripe_subscription_id": subscription_id,
+                "trial_ends_at": trial_ends,
+            }).execute()
+            print(f"[HealthWebhook] Inserted new row: {result.data}")
 
     elif event_type == "customer.subscription.deleted":
         subscription_id = obj.get("id")
+        print(f"[HealthWebhook] subscription.deleted sub_id={subscription_id}")
         if subscription_id:
-            sb.table("health_subscriptions").update({
+            result = sb.table("health_subscriptions").update({
                 "status": "canceled",
             }).eq("stripe_subscription_id", subscription_id).execute()
+            print(f"[HealthWebhook] Canceled rows: {len(result.data or [])}")
 
     elif event_type == "invoice.payment_failed":
         subscription_id = obj.get("subscription")
+        print(f"[HealthWebhook] payment_failed sub_id={subscription_id}")
         if subscription_id:
-            sb.table("health_subscriptions").update({
+            result = sb.table("health_subscriptions").update({
                 "status": "past_due",
             }).eq("stripe_subscription_id", subscription_id).execute()
+            print(f"[HealthWebhook] Past-due rows: {len(result.data or [])}")
 
     return {"status": "ok"}
 
@@ -589,7 +641,7 @@ async def billing_portal(authorization: str = Header(None)):
     if not customer_id:
         print(f"[HealthPortal] No stripe_customer_id for {email}")
         raise HTTPException(
-            status_code=404,
+            status_code=400,
             detail="No billing record found. Start a free trial to manage billing.",
         )
 

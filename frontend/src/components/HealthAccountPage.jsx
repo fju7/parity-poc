@@ -149,6 +149,11 @@ export default function HealthAccountPage({ healthUser, onProfileSaved }) {
         setPortalLoading(false);
         return;
       }
+      if (!data.portal_url) {
+        setPortalError("Unable to open billing portal. Please contact support.");
+        setPortalLoading(false);
+        return;
+      }
       window.location.href = data.portal_url;
     } catch { setPortalError("Failed to open billing portal. Please try again."); setPortalLoading(false); }
   };
