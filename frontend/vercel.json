@@ -23,6 +23,18 @@
   ],
   "redirects": [
     {
+      "source": "/broker",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://broker.civicscale.ai/",
+      "permanent": true
+    },
+    {
+      "source": "/broker/",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://broker.civicscale.ai/",
+      "permanent": true
+    },
+    {
       "source": "/broker/:path*",
       "has": [{ "type": "host", "value": "civicscale.ai" }],
       "destination": "https://broker.civicscale.ai/:path*",
@@ -32,6 +44,18 @@
       "source": "/broker/:path*",
       "has": [{ "type": "host", "value": "www.civicscale.ai" }],
       "destination": "https://broker.civicscale.ai/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/billing/employer",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://employer.civicscale.ai/",
+      "permanent": true
+    },
+    {
+      "source": "/billing/employer/",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://employer.civicscale.ai/",
       "permanent": true
     },
     {
