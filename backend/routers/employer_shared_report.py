@@ -67,7 +67,7 @@ async def get_shared_report(share_token: str):
                     This is a good time to follow up &mdash; they're actively looking at their numbers.
                 </p>
                 <p style="color: #475569; font-size: 15px; line-height: 1.8;">
-                    View their full profile: <a href="https://civicscale.ai/broker/dashboard" style="color: #0D7377;">civicscale.ai/broker/dashboard</a>
+                    View their full profile: <a href="https://broker.civicscale.ai/dashboard" style="color: #0D7377;">broker.civicscale.ai/dashboard</a>
                 </p>
                 <p style="color: #475569; font-size: 15px; line-height: 1.8;">
                     &mdash; CivicScale

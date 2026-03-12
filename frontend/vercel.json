@@ -8,8 +8,43 @@
       "has": [{ "type": "host", "value": "provider.civicscale.ai" }],
       "destination": "/index.html"
     },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "broker.civicscale.ai" }],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "employer.civicscale.ai" }],
+      "destination": "/index.html"
+    },
     { "source": "/parity-health/:path*", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "redirects": [
+    {
+      "source": "/broker/:path*",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://broker.civicscale.ai/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/broker/:path*",
+      "has": [{ "type": "host", "value": "www.civicscale.ai" }],
+      "destination": "https://broker.civicscale.ai/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/billing/employer/:path*",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://employer.civicscale.ai/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/billing/employer/:path*",
+      "has": [{ "type": "host", "value": "www.civicscale.ai" }],
+      "destination": "https://employer.civicscale.ai/:path*",
+      "permanent": true
+    }
   ]
 }
-

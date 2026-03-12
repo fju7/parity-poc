@@ -162,7 +162,7 @@ async def employer_webhook(request: Request):
                           <p>After your trial, you'll be charged $99/mo. This introductory price
                               is locked for 24 months.</p>
                           <p>Cancel anytime before your trial ends &mdash; no charge.</p>
-                          <a href="https://civicscale.ai/billing/employer/dashboard"
+                          <a href="https://employer.civicscale.ai/dashboard"
                              style="display: inline-block; background: #0d9488; color: white;
                                     padding: 12px 24px; border-radius: 8px; text-decoration: none;
                                     font-weight: bold; margin: 16px 0;">
@@ -266,7 +266,7 @@ async def employer_webhook(request: Request):
                       <h2 style="color: #0d9488;">Welcome to Parity Employer</h2>
                       <p>Your {tier} subscription is now active.</p>
                       <p>Sign in to your dashboard to upload claims, run benchmarks, and track your savings opportunities:</p>
-                      <a href="https://civicscale.ai/billing/employer/dashboard"
+                      <a href="https://employer.civicscale.ai/dashboard"
                           style="display: inline-block; background: #0d9488; color: white; padding: 12px 24px;
                                  border-radius: 8px; text-decoration: none; font-weight: bold; margin: 16px 0;">
                         Go to Dashboard &rarr;
@@ -377,7 +377,7 @@ async def employer_billing_portal(email: str = Query(...)):
 
     session = stripe_lib.billing_portal.Session.create(
         customer=result.data[0]["stripe_customer_id"],
-        return_url="https://civicscale.ai/billing/employer/account",
+        return_url="https://employer.civicscale.ai/account",
     )
     return {"portal_url": session.url}
 
@@ -461,8 +461,8 @@ async def employer_start_trial(authorization: str = Header(None)):
                 "email": email,
             }
         },
-        success_url="https://civicscale.ai/billing/employer/dashboard?trial_started=true",
-        cancel_url="https://civicscale.ai/billing/employer/dashboard",
+        success_url="https://employer.civicscale.ai/dashboard?trial_started=true",
+        cancel_url="https://employer.civicscale.ai/dashboard",
         metadata={
             "company_id": company_id,
             "product": "employer_pro",

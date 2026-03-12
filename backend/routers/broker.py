@@ -229,8 +229,8 @@ async def broker_subscribe(authorization: str = Header(None)):
         mode="subscription",
         payment_method_collection="always",
         subscription_data={"trial_period_days": 30},
-        success_url="https://civicscale.ai/broker/dashboard?upgraded=true",
-        cancel_url="https://civicscale.ai/broker/dashboard?upgrade_cancelled=true",
+        success_url="https://broker.civicscale.ai/dashboard?upgraded=true",
+        cancel_url="https://broker.civicscale.ai/dashboard?upgrade_cancelled=true",
         metadata={"company_id": company_id, "broker_email": email, "product": "broker_pro"},
     )
 
@@ -318,7 +318,7 @@ async def broker_billing_portal(authorization: str = Header(None)):
 
     session = stripe_lib.billing_portal.Session.create(
         customer=customer_id,
-        return_url="https://civicscale.ai/broker/account",
+        return_url="https://broker.civicscale.ai/account",
     )
     return {"portal_url": session.url}
 
@@ -959,7 +959,7 @@ async def bulk_onboard(req: BulkOnboardRequest, authorization: str = Header(None
                 {succeeded} client{'s' if succeeded != 1 else ''} benchmarked successfully{failed_line}
             </p>
             <p style="color: #475569; font-size: 15px; line-height: 1.8;">
-                View your book of business: <a href="https://civicscale.ai/broker/dashboard" style="color: #0D7377;">civicscale.ai/broker/dashboard</a>
+                View your book of business: <a href="https://broker.civicscale.ai/dashboard" style="color: #0D7377;">broker.civicscale.ai/dashboard</a>
             </p>
             <p style="color: #475569; font-size: 15px; line-height: 1.8;">
                 &mdash; CivicScale
@@ -1760,7 +1760,7 @@ async def send_renewal_reminders(request: Request):
                     \u25CB Renewal prep report generated
                 </p>
                 <p style="margin-top: 16px;">
-                    <a href="https://civicscale.ai/broker/renewal-prep/{slug}?broker_email={broker_email}"
+                    <a href="https://broker.civicscale.ai/renewal-prep/{slug}?broker_email={broker_email}"
                        style="color: #0D7377; font-weight: 600; text-decoration: none;">
                         View renewal prep report &rarr;
                     </a>
@@ -1939,7 +1939,7 @@ async def invite_employer(req: InviteEmployerRequest, authorization: str = Heade
     }).execute()
 
     # Send invitation email
-    signup_url = "https://civicscale.ai/billing/employer/signup"
+    signup_url = "https://employer.civicscale.ai/signup"
     send_email(
         to=employer_email,
         subject=f"{inviter_name} from {firm_name} invites you to Parity Employer",

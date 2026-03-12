@@ -56,6 +56,8 @@ function ScrollToTop() {
 const hostname = window.location.hostname
 const isHealthSubdomain = hostname === 'health.civicscale.ai'
 const isProviderSubdomain = hostname === 'provider.civicscale.ai'
+const isBrokerSubdomain = hostname === 'broker.civicscale.ai'
+const isEmployerSubdomain = hostname === 'employer.civicscale.ai'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -69,6 +71,51 @@ createRoot(document.getElementById('root')).render(
             <Route path="/health/login" element={<HealthLoginPage />} />
             <Route path="/health/signup" element={<HealthSignupPage />} />
             <Route path="/*" element={<App />} />
+          </>
+        ) : isBrokerSubdomain ? (
+          <>
+            <Route path="/" element={<BrokerLandingPage />} />
+            <Route path="/login" element={<BrokerLoginPage />} />
+            <Route path="/signup" element={<BrokerSignupPage />} />
+            <Route path="/dashboard" element={<BrokerDashboard />} />
+            <Route path="/account" element={<BrokerAccountPage />} />
+            <Route path="/caa-guide" element={<CAABrokerGuide />} />
+            <Route path="/renewal-prep/:companySlug" element={<RenewalPrepReport />} />
+            {/* Also support old /broker/* paths for backward compat */}
+            <Route path="/broker/login" element={<Navigate to="/login" replace />} />
+            <Route path="/broker/signup" element={<Navigate to="/signup" replace />} />
+            <Route path="/broker/dashboard" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/broker/account" element={<Navigate to="/account" replace />} />
+            <Route path="/broker/caa-guide" element={<Navigate to="/caa-guide" replace />} />
+            <Route path="/employer/shared-report/:shareToken" element={<EmployerSharedReport />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+          </>
+        ) : isEmployerSubdomain ? (
+          <>
+            <Route path="/" element={<EmployerProductPage />} />
+            <Route path="/login" element={<EmployerLoginPage />} />
+            <Route path="/signup" element={<EmployerSignupPage />} />
+            <Route path="/dashboard" element={<EmployerDashboard />} />
+            <Route path="/account" element={<EmployerAccountPage />} />
+            <Route path="/benchmark" element={<EmployerBenchmark />} />
+            <Route path="/claims-check" element={<EmployerClaimsCheck />} />
+            <Route path="/scorecard" element={<EmployerScorecard />} />
+            <Route path="/subscribe" element={<EmployerSubscribe />} />
+            <Route path="/contract-parse" element={<EmployerContractParser />} />
+            <Route path="/rbp-calculator" element={<EmployerRBPCalculator />} />
+            <Route path="/pharmacy" element={<EmployerPharmacy />} />
+            <Route path="/demo" element={<EmployerDemoPage />} />
+            <Route path="/accept-invite" element={<AcceptInvitePage />} />
+            {/* Also support old /billing/employer/* paths for backward compat */}
+            <Route path="/billing/employer/signup" element={<Navigate to="/signup" replace />} />
+            <Route path="/billing/employer/dashboard" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/billing/employer/account" element={<Navigate to="/account" replace />} />
+            <Route path="/billing/employer/benchmark" element={<Navigate to="/benchmark" replace />} />
+            <Route path="/billing/employer/claims-check" element={<Navigate to="/claims-check" replace />} />
+            <Route path="/employer/shared-report/:shareToken" element={<EmployerSharedReport />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
           </>
         ) : (
           <>
