@@ -318,7 +318,7 @@ async def broker_billing_portal(authorization: str = Header(None)):
 
     session = stripe_lib.billing_portal.Session.create(
         customer=customer_id,
-        return_url="https://civicscale.ai/broker/account",
+        return_url="https://broker.civicscale.ai/broker/account",
     )
     return {"portal_url": session.url}
 

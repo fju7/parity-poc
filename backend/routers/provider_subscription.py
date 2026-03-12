@@ -650,7 +650,7 @@ async def subscription_portal(request: Request):
 
     portal_session = stripe_lib.billing_portal.Session.create(
         customer=customer_id,
-        return_url=f"{frontend_url}/audit/account",
+        return_url="https://provider.civicscale.ai/provider/account",
     )
 
     return {"portal_url": portal_session.url}
