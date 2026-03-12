@@ -337,6 +337,22 @@ Features built in this phase:
 - "Identifying document..." spinner during classification
 - Classification errors fall back gracefully to bill analysis pipeline
 
+## Session G-Health-2 — Multi-Format Upload Support (Complete)
+- New backend endpoints in health_analyze.py:
+  - POST /api/health/extract-docx — extracts paragraph text from .docx files
+    using python-docx, returns {text} for text analysis pipeline
+  - POST /api/health/extract-table — reads .xlsx (openpyxl) or .csv (pandas),
+    converts to column:value text representation, returns {text}
+- Frontend file routing in UploadView + InputSelectionView:
+  - TXT → file.text() → onTextSubmit (handlePasteSubmit)
+  - DOCX → POST extract-docx → onTextSubmit
+  - XLSX/CSV → POST extract-table → onTextSubmit
+  - Images (JPG, PNG, WebP, HEIC, HEIF, TIFF, BMP) → onFileSelect
+  - PDF → classify-document → route by type
+  - EDI/837/835 → friendly rejection
+- Added python-docx>=1.1.0 to requirements.txt
+- UploadView is now the single default view (replaces InputSelectionView)
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
