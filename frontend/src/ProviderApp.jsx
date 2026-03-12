@@ -180,9 +180,10 @@ function ProviderAppInner() {
 
   // Sign out
   const handleSignOut = useCallback(async () => {
-    authLogout();
+    await authLogout();
     setProfile(null);
-  }, [authLogout]);
+    navigate("/billing/provider");
+  }, [authLogout, navigate]);
 
   // ── Contract Integrity handlers ──
 
@@ -865,100 +866,110 @@ function ProviderAppInner() {
   // Don't render until profile check completes
   if (view === null) {
     return (
-      <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
-        {nav}
-        <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <p style={{ color: "var(--cs-slate)" }}>Loading...</p>
-        </div>
+      <div style={{ minHeight: "100vh", background: "#0a0f1e", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ color: "#0d9488", fontSize: "18px" }}>Loading...</div>
       </div>
     );
   }
 
   // ── ONBOARDING VIEW ──
   if (view === "onboarding") {
+    const onboardInputStyle = {
+      width: "100%", padding: "10px 12px", borderRadius: 8,
+      border: "1px solid rgba(255,255,255,0.12)", fontSize: 15,
+      outline: "none", boxSizing: "border-box",
+      background: "rgba(255,255,255,0.06)", color: "#f1f5f9",
+    };
+    const onboardLabelStyle = {
+      display: "block", fontSize: 14, fontWeight: 500,
+      color: "#cbd5e1", marginBottom: 6,
+    };
     return (
-      <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
-        {nav}
-        <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 64 }}>
+      <div style={{ minHeight: "100vh", background: "#0a0f1e", fontFamily: "'DM Sans', sans-serif", color: "#e2e8f0" }}>
+        <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "16px 32px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <LogoIcon size={28} />
+            <span style={{ fontSize: 16, fontWeight: 700, color: "#0d9488" }}>Parity Provider</span>
+          </div>
+        </nav>
+        <div style={{ minHeight: "calc(100vh - 64px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ width: "100%", maxWidth: 460, padding: "0 16px" }}>
             <div style={{ textAlign: "center", marginBottom: 32 }}>
-              <h1 style={{ fontSize: 24, fontWeight: 700, color: "var(--cs-navy)", margin: 0 }}>
+              <h1 style={{ fontSize: 24, fontWeight: 700, color: "#f1f5f9", margin: 0 }}>
                 Set up your practice
               </h1>
-              <p style={{ color: "var(--cs-slate)", marginTop: 8, fontSize: 14 }}>
+              <p style={{ color: "#94a3b8", marginTop: 8, fontSize: 14 }}>
                 Tell us about your practice so we can tailor the analysis.
               </p>
             </div>
 
             <form onSubmit={handleOnboardingSubmit}>
-              {/* Practice Name */}
               <div style={{ marginBottom: 16 }}>
-                <label style={labelStyle}>Practice name *</label>
+                <label style={onboardLabelStyle}>Practice name *</label>
                 <input
                   type="text"
                   required
                   value={formData.practice_name}
                   onChange={(e) => setFormData(d => ({ ...d, practice_name: e.target.value }))}
                   placeholder="e.g. Sunshine Internal Medicine"
-                  style={inputStyle}
+                  style={onboardInputStyle}
                 />
               </div>
 
-              {/* Specialty */}
               <div style={{ marginBottom: 16 }}>
-                <label style={labelStyle}>Specialty</label>
+                <label style={onboardLabelStyle}>Specialty</label>
                 <select
                   value={formData.specialty}
                   onChange={(e) => setFormData(d => ({ ...d, specialty: e.target.value }))}
-                  style={{ ...inputStyle, appearance: "auto" }}
+                  style={{ ...onboardInputStyle, appearance: "auto" }}
                 >
                   <option value="">Select a specialty</option>
                   {SPECIALTIES.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
 
-              {/* NPI */}
               <div style={{ marginBottom: 16 }}>
-                <label style={labelStyle}>NPI number</label>
+                <label style={onboardLabelStyle}>NPI number</label>
                 <input
                   type="text"
                   value={formData.npi}
                   onChange={(e) => setFormData(d => ({ ...d, npi: e.target.value }))}
                   placeholder="Optional — 10-digit NPI"
                   maxLength={10}
-                  style={inputStyle}
+                  style={onboardInputStyle}
                 />
               </div>
 
-              {/* ZIP Code */}
               <div style={{ marginBottom: 24 }}>
-                <label style={labelStyle}>Practice ZIP code</label>
+                <label style={onboardLabelStyle}>Practice ZIP code</label>
                 <input
                   type="text"
                   value={formData.zip_code}
                   onChange={(e) => setFormData(d => ({ ...d, zip_code: e.target.value }))}
                   placeholder="e.g. 33701"
                   maxLength={5}
-                  style={inputStyle}
+                  style={onboardInputStyle}
                 />
               </div>
 
               {formError && (
                 <div style={{
-                  padding: 12, borderRadius: 8, background: "#fef2f2",
-                  border: "1px solid #fecaca", marginBottom: 16,
+                  padding: 12, borderRadius: 8, background: "rgba(239,68,68,0.1)",
+                  border: "1px solid rgba(239,68,68,0.3)", marginBottom: 16,
                 }}>
-                  <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{formError}</p>
+                  <p style={{ color: "#fca5a5", fontSize: 13, margin: 0 }}>{formError}</p>
                 </div>
               )}
 
               <button
                 type="submit"
                 disabled={formSaving}
-                className="cs-btn-primary"
                 style={{
-                  width: "100%", justifyContent: "center",
-                  opacity: formSaving ? 0.6 : 1,
+                  width: "100%", padding: "12px", borderRadius: 8, border: "none",
+                  cursor: formSaving ? "default" : "pointer",
+                  background: formSaving ? "#334155" : "linear-gradient(135deg, #0d9488, #14b8a6)",
+                  color: "#fff", fontWeight: 700, fontSize: 15,
                 }}
               >
                 {formSaving ? "Saving..." : "Continue to Dashboard"}
@@ -972,54 +983,60 @@ function ProviderAppInner() {
 
   // ── DASHBOARD VIEW ──
   return (
-    <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
-      {/* Dashboard nav with practice info */}
-      <nav className="cs-nav">
-        <Link className="cs-nav-logo" to="/">
-          <LogoIcon />
-          <span className="cs-nav-wordmark">CivicScale</span>
-        </Link>
+    <div style={{ minHeight: "100vh", background: "#0a0f1e", color: "white", fontFamily: "'DM Sans', sans-serif" }}>
+      {/* Header — matches Employer/Broker dashboard */}
+      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between",
+                    padding: "16px 32px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <LogoIcon size={28} />
+          <span style={{ fontSize: 16, fontWeight: 700, color: "#0d9488" }}>Parity Provider</span>
+        </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 14, fontWeight: 600, color: "var(--cs-navy)" }}>
-              {profile?.practice_name}
-            </div>
-            {profile?.specialty && (
-              <span style={{
-                fontSize: 11, fontWeight: 500, color: "var(--cs-teal)",
-                background: "var(--cs-teal-pale)", padding: "2px 8px",
-                borderRadius: 4, display: "inline-block", marginTop: 2,
-              }}>
-                {profile.specialty}
-              </span>
-            )}
-          </div>
+          <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 14 }}>
+            {profile?.practice_name}
+          </span>
+          {profile?.specialty && (
+            <span style={{
+              fontSize: 11, fontWeight: 500, color: "#0d9488",
+              background: "rgba(13,148,136,0.15)", padding: "2px 8px",
+              borderRadius: 4,
+            }}>
+              {profile.specialty}
+            </span>
+          )}
+          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 13 }}>
+            {user?.full_name || user?.email}
+          </span>
+          <Link to="/audit/account"
+            style={{ color: "#0d9488", fontSize: 13, textDecoration: "none" }}>
+            Account
+          </Link>
           <button
             onClick={handleSignOut}
             style={{
-              background: "none", border: "1px solid var(--cs-border)",
-              borderRadius: 8, padding: "6px 14px", fontSize: 13,
-              color: "var(--cs-slate)", cursor: "pointer",
+              background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
+              borderRadius: 6, padding: "6px 14px", color: "rgba(255,255,255,0.6)",
+              fontSize: 13, cursor: "pointer",
             }}
           >
-            Sign out
+            Sign Out
           </button>
         </div>
       </nav>
 
-      <div style={{ paddingTop: 88, maxWidth: 960, margin: "0 auto", padding: "88px 24px 60px" }}>
+      <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 24px" }}>
         {/* Header */}
         <div style={{ marginBottom: 32 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 700, color: "var(--cs-navy)", margin: 0 }}>
+          <h1 style={{ fontSize: 26, fontWeight: 700, color: "rgba(255,255,255,0.95)", margin: 0 }}>
             Parity Provider
           </h1>
-          <p style={{ color: "var(--cs-slate)", marginTop: 4, fontSize: 14 }}>
+          <p style={{ color: "rgba(255,255,255,0.5)", marginTop: 4, fontSize: 14 }}>
             Contract integrity and coding intelligence for your practice.
           </p>
         </div>
 
         {/* Tab buttons */}
-        <div style={{ display: "flex", gap: 8, marginBottom: 32 }}>
+        <div style={{ display: "flex", gap: 8, marginBottom: 32, flexWrap: "wrap" }}>
           {["home", "contract", "coding", "trends", "appeals"].map(tab => (
             <button
               key={tab}
@@ -1028,8 +1045,8 @@ function ProviderAppInner() {
                 padding: "10px 20px", borderRadius: 8, fontSize: 14, fontWeight: 600,
                 cursor: "pointer", border: "1px solid",
                 ...(activeTab === tab
-                  ? { background: "var(--cs-navy)", color: "#fff", borderColor: "var(--cs-navy)" }
-                  : { background: "#fff", color: "var(--cs-slate)", borderColor: "var(--cs-border)" }
+                  ? { background: "#0d9488", color: "#fff", borderColor: "#0d9488" }
+                  : { background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.6)", borderColor: "rgba(255,255,255,0.1)" }
                 ),
               }}
             >
@@ -1038,7 +1055,8 @@ function ProviderAppInner() {
           ))}
         </div>
 
-        {/* Tab content */}
+        {/* Tab content — light card on dark chrome */}
+        <div style={{ background: "#fff", borderRadius: 16, padding: "32px 28px", color: "#2d3748" }}>
         {activeTab === "home" ? (
           historicalReport ? (
             <HistoricalReportView
@@ -1195,6 +1213,7 @@ function ProviderAppInner() {
           />
           </div>
         )}
+        </div>
       </div>
 
       {/* Print styles */}
