@@ -26,16 +26,25 @@ export default function UploadView({
 
       const fname = file.name.toLowerCase();
 
-      // Reject non-PDF files with friendly message
-      if (!fname.endsWith(".pdf")) {
-        const ext = fname.split(".").pop().toUpperCase();
-        if (["TXT", "EDI", "837", "835"].includes(ext)) {
-          setClassifyError(
-            `${ext} files are clinical data formats used by providers and insurers. Please upload a PDF of your bill, EOB, denial letter, or plan summary.`
-          );
-        } else {
-          setClassifyError("Please upload a PDF file.");
-        }
+      // Reject EDI/claims files
+      const ext = fname.split(".").pop().toUpperCase();
+      if (["EDI", "837", "835"].includes(ext)) {
+        setClassifyError(
+          "This looks like an EDI claims file. Parity Health works with medical bills, EOBs, denial letters, and insurance plan summaries. Please upload one of those instead."
+        );
+        return;
+      }
+
+      // TXT files — read as text and send to bill analysis
+      if (fname.endsWith(".txt")) {
+        const text = await file.text();
+        onFileSelect(file);
+        return;
+      }
+
+      // All other non-PDF files
+      if (!fname.endsWith(".pdf") && !["jpg","jpeg","png","webp"].includes(ext.toLowerCase())) {
+        setClassifyError("Please upload a PDF, JPG, or PNG file.");
         return;
       }
 
