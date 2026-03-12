@@ -74,9 +74,8 @@ Three live products + one in development:
 - Demo: /billing/employer/demo (EmployerDemoPage.jsx — 7 tabs)
 - Key features: benchmark, claims check (835/CSV/Excel), scorecard,
   RBP calculator, carrier contract parser, trend engine
-- Pricing: value-tiered based on identified excess spend
-  Starter $149/mo (<$200K), Growth $349/mo ($200K-$750K),
-  Scale $699/mo (>$750K)
+- Pricing: $99/month with 30-day free trial (card required upfront)
+  Legacy value-tiered prices still in EMPLOYER_PRICE_TIERS for existing subs
 - Guarantee: if identified savings don't exceed annual subscription
   cost, refund the difference
 
@@ -84,8 +83,9 @@ Three live products + one in development:
 - Route: /broker/login, /broker/dashboard
 - Backend: backend/routers/broker.py
 - Frontend: src/components/Broker*.jsx
-- Free for brokers — they add employer clients, run benchmarks,
-  share read-only reports. Employers pay subscriptions.
+- $99/month with 30-day free trial (card required upfront)
+- Brokers add employer clients, run benchmarks,
+  share read-only reports.
 - Shared reports: /employer/shared-report/:shareToken (no auth required)
 - Three dashboard tabs: Book of Business, Renewals, Prospects
 - Renewal prep reports: /broker/renewal-prep/:companySlug (print-optimized)
@@ -191,6 +191,9 @@ Fred runs migrations manually in Supabase SQL Editor.
 - STRIPE_PRICE_EMPLOYER_STARTER
 - STRIPE_PRICE_EMPLOYER_GROWTH
 - STRIPE_PRICE_EMPLOYER_SCALE
+- STRIPE_PRICE_EMPLOYER (new $99/mo flat price)
+- STRIPE_PRICE_BROKER_PRO
+- STRIPE_PRICE_PROVIDER_MONTHLY
 - RESEND_API_KEY
 - CRON_SECRET — protects POST /api/broker/send-renewal-reminders
 

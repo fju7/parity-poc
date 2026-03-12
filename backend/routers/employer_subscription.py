@@ -47,8 +47,16 @@ async def employer_create_checkout(req: EmployerCheckoutRequest):
     success_url = req.success_url or f"{frontend_url}/billing/employer/subscribe?checkout_success=1"
     cancel_url = req.cancel_url or f"{frontend_url}/billing/employer/subscribe"
 
-    # Check for existing Stripe customer
     sb = _get_supabase()
+
+    # Block duplicate subscriptions
+    active_sub = sb.table("employer_subscriptions").select("id").eq(
+        "email", req.email
+    ).eq("status", "active").limit(1).execute()
+    if active_sub.data:
+        raise HTTPException(status_code=409, detail="You already have an active subscription.")
+
+    # Check for existing Stripe customer
     existing = sb.table("employer_subscriptions").select("stripe_customer_id").eq(
         "email", req.email
     ).not_.is_("stripe_customer_id", "null").limit(1).execute()
@@ -72,6 +80,8 @@ async def employer_create_checkout(req: EmployerCheckoutRequest):
         customer=customer_id,
         mode="subscription",
         line_items=[{"price": price_id, "quantity": 1}],
+        payment_method_collection="always",
+        subscription_data={"trial_period_days": 30},
         success_url=success_url,
         cancel_url=cancel_url,
         metadata={

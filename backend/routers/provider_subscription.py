@@ -198,6 +198,13 @@ async def subscription_checkout(body: SubscriptionCheckoutBody, request: Request
     user = _get_authenticated_user(request)
     sb = _get_supabase()
 
+    # Block duplicate subscriptions
+    active_sub = sb.table("provider_subscriptions").select("id").eq(
+        "company_id", str(user.id)
+    ).eq("status", "active").limit(1).execute()
+    if active_sub.data:
+        raise HTTPException(status_code=409, detail="You already have an active subscription.")
+
     # Verify audit belongs to user and is delivered
     audit_result = sb.table("provider_audits").select("*").eq("id", body.audit_id).execute()
     if not audit_result.data:
@@ -241,8 +248,10 @@ async def subscription_checkout(body: SubscriptionCheckoutBody, request: Request
         customer=customer_id,
         mode="subscription",
         line_items=[{"price": STRIPE_PRICE_PROVIDER_MONTHLY, "quantity": 1}],
-        success_url=f"{frontend_url}/audit/account?checkout_success=1",
-        cancel_url=f"{frontend_url}/audit/account",
+        payment_method_collection="always",
+        subscription_data={"trial_period_days": 30},
+        success_url=f"{frontend_url}/provider/account?checkout_success=1",
+        cancel_url=f"{frontend_url}/provider/account",
         metadata={
             "supabase_user_id": str(user.id),
             "audit_id": body.audit_id,

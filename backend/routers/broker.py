@@ -194,7 +194,7 @@ async def broker_subscribe(authorization: str = Header(None)):
     email = user["email"]
 
     if company.get("plan") == "pro":
-        return {"already_subscribed": True}
+        raise HTTPException(status_code=409, detail="You already have an active subscription.")
 
     # Get or create Stripe customer
     customer_id = company.get("stripe_customer_id")
@@ -208,6 +208,8 @@ async def broker_subscribe(authorization: str = Header(None)):
         payment_method_types=["card"],
         line_items=[{"price": price_id, "quantity": 1}],
         mode="subscription",
+        payment_method_collection="always",
+        subscription_data={"trial_period_days": 30},
         success_url="https://civicscale.ai/broker/dashboard?upgraded=true",
         cancel_url="https://civicscale.ai/broker/dashboard?upgrade_cancelled=true",
         metadata={"company_id": company_id, "broker_email": email, "product": "broker_pro"},
