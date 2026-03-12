@@ -263,7 +263,7 @@ export default function UploadView({
         >
           <input
             type="file"
-            accept="application/pdf,image/*,.txt"
+            accept="application/pdf,image/*,text/plain,.txt"
             className="hidden"
             onChange={handleFileInput}
           />
