@@ -34,7 +34,7 @@ DEMO_PRACTICE = {
 # 3 months of contract integrity analyses: Nov 2025, Dec 2025, Jan 2026
 DEMO_ANALYSES = [
     {
-        "user_id": DEMO_USER_ID,
+        "company_id": DEMO_USER_ID,
         "payer_name": "UnitedHealthcare",
         "production_date": "2025-11-15",
         "total_billed": 8420.00,
@@ -64,7 +64,7 @@ DEMO_ANALYSES = [
         },
     },
     {
-        "user_id": DEMO_USER_ID,
+        "company_id": DEMO_USER_ID,
         "payer_name": "UnitedHealthcare",
         "production_date": "2025-12-15",
         "total_billed": 9150.00,
@@ -127,7 +127,7 @@ DEMO_ANALYSES = [
         },
     },
     {
-        "user_id": DEMO_USER_ID,
+        "company_id": DEMO_USER_ID,
         "payer_name": "UnitedHealthcare",
         "production_date": "2026-01-15",
         "total_billed": 7890.00,
@@ -193,17 +193,17 @@ def generate_sql():
     c = DEMO_CONTRACT
     rates_json = json.dumps(c["rates"]).replace("'", "''")
     lines.append("-- 2. Contract rates")
-    lines.append(f"DELETE FROM provider_contracts WHERE user_id = '{c['user_id']}' AND payer_name = '{c['payer_name']}';")
-    lines.append(f"INSERT INTO provider_contracts (user_id, payer_name, rates)")
-    lines.append(f"VALUES ('{c['user_id']}', '{c['payer_name']}', '{rates_json}'::jsonb);")
+    lines.append(f"DELETE FROM provider_contracts WHERE company_id = '{c['company_id']}' AND payer_name = '{c['payer_name']}';")
+    lines.append(f"INSERT INTO provider_contracts (company_id, payer_name, rates)")
+    lines.append(f"VALUES ('{c['company_id']}', '{c['payer_name']}', '{rates_json}'::jsonb);")
     lines.append("")
 
     # Analyses
     lines.append("-- 3. Historical analyses")
     for i, a in enumerate(DEMO_ANALYSES):
         result_json = json.dumps(a["result_json"]).replace("'", "''")
-        lines.append(f"INSERT INTO provider_analyses (user_id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate, result_json)")
-        lines.append(f"VALUES ('{a['user_id']}', '{a['payer_name']}', '{a['production_date']}', {a['total_billed']}, {a['total_paid']}, {a['underpayment']}, {a['adherence_rate']}, '{result_json}'::jsonb);")
+        lines.append(f"INSERT INTO provider_analyses (company_id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate, result_json)")
+        lines.append(f"VALUES ('{a['company_id']}', '{a['payer_name']}', '{a['production_date']}', {a['total_billed']}, {a['total_paid']}, {a['underpayment']}, {a['adherence_rate']}, '{result_json}'::jsonb);")
         lines.append("")
 
     return "\n".join(lines)
@@ -227,7 +227,7 @@ def seed_via_api():
         print("  Inserted provider profile")
 
         # Upsert contract
-        sb.table("provider_contracts").delete().eq("user_id", DEMO_USER_ID).eq("payer_name", DEMO_CONTRACT["payer_name"]).execute()
+        sb.table("provider_contracts").delete().eq("company_id", DEMO_USER_ID).eq("payer_name", DEMO_CONTRACT["payer_name"]).execute()
         sb.table("provider_contracts").insert(DEMO_CONTRACT).execute()
         print("  Inserted contract rates")
 

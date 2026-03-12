@@ -72,12 +72,12 @@ async def save_rates(req: SaveRatesRequest):
         # Upsert: delete existing for this user+payer, then insert
         sb.table("provider_contracts") \
             .delete() \
-            .eq("user_id", req.user_id) \
+            .eq("company_id", req.user_id) \
             .eq("payer_name", req.payer_name) \
             .execute()
 
         sb.table("provider_contracts").insert({
-            "user_id": req.user_id,
+            "company_id": req.user_id,
             "payer_name": req.payer_name,
             "rates": rates_json,
         }).execute()
@@ -578,7 +578,7 @@ async def analyze_contract(req: AnalyzeRequest):
     try:
         sb = _get_supabase()
         sb.table("provider_analyses").insert({
-            "user_id": req.user_id,
+            "company_id": req.user_id,
             "payer_name": req.payer_name,
             "production_date": "",
             "total_billed": summary["total_contracted"],
@@ -1305,7 +1305,7 @@ async def submit_audit(req: SubmitAuditRequest):
     try:
         sb = _get_supabase()
         row = sb.table("provider_audits").insert({
-            "user_id": req.user_id if req.user_id else None,
+            "company_id": req.user_id if req.user_id else None,
             "practice_name": req.practice_name.strip(),
             "practice_specialty": req.specialty,
             "num_providers": req.num_providers,
@@ -1522,7 +1522,7 @@ async def my_analyses(request: Request, limit: int = 5):
 
     result = sb.table("provider_analyses") \
         .select("id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate") \
-        .eq("user_id", str(user.id)) \
+        .eq("company_id", str(user.id)) \
         .order("production_date", desc=True) \
         .limit(limit) \
         .execute()
@@ -1539,7 +1539,7 @@ async def get_analysis(analysis_id: str, request: Request):
     result = sb.table("provider_analyses") \
         .select("*") \
         .eq("id", analysis_id) \
-        .eq("user_id", str(user.id)) \
+        .eq("company_id", str(user.id)) \
         .execute()
 
     if not result.data:
@@ -1769,10 +1769,10 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     fallback_zip = body.zip_code or audit.get("zip_code", "") or ""
     if not fallback_zip:
         # Try user profile
-        user_id = audit.get("user_id")
-        if user_id:
+        cid = audit.get("company_id")
+        if cid:
             try:
-                prof = sb.table("provider_profiles").select("zip_code").eq("company_id", user_id).execute()
+                prof = sb.table("provider_profiles").select("zip_code").eq("company_id", cid).execute()
                 if prof.data:
                     fallback_zip = prof.data[0].get("zip_code", "")
             except Exception:
@@ -1843,10 +1843,10 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
     # Resolve locality from practice ZIP (for Medicare benchmarks)
     zip_code = audit.get("zip_code", "") or ""
     # Try to find ZIP from user profile
-    user_id = audit.get("user_id")
-    if not zip_code and user_id:
+    cid = audit.get("company_id")
+    if not zip_code and cid:
         try:
-            prof = sb.table("provider_profiles").select("zip_code").eq("company_id", user_id).execute()
+            prof = sb.table("provider_profiles").select("zip_code").eq("company_id", cid).execute()
             if prof.data:
                 zip_code = prof.data[0].get("zip_code", "")
         except Exception:
@@ -1876,7 +1876,7 @@ async def admin_run_analysis(body: AdminRunAnalysisBody, request: Request):
             payer_name=payer_name,
             rates=rates,
             lines=lines,
-            user_id=audit.get("user_id"),
+            user_id=audit.get("company_id"),
             carrier=carrier,
             locality=locality,
             sb=sb,

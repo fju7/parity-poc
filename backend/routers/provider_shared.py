@@ -892,7 +892,7 @@ def _run_analysis_for_payer(
 
     # Save analysis to provider_analyses
     analysis_record = {
-        "user_id": user_id,
+        "company_id": user_id,
         "payer_name": payer_name,
         "production_date": "",
         "total_billed": summary["total_contracted"],

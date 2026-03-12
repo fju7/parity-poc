@@ -134,7 +134,7 @@ def _convert_audit_to_subscription(audit: dict, sb=None) -> dict:
         "num_providers": audit.get("num_providers", 1),
         "billing_company": audit.get("billing_company", ""),
         "contact_email": audit.get("contact_email", ""),
-        "user_id": audit.get("user_id"),
+        "company_id": audit.get("company_id"),
         "payer_data": audit.get("payer_list", []),
         "remittance_data": audit.get("remittance_data", []),
         "source_audit_id": audit.get("id"),
@@ -413,7 +413,7 @@ async def admin_add_month(
 
     # --- Run analysis pipeline for this month's data ---
     payer_data = sub.get("payer_data", []) or []
-    user_id = sub.get("user_id", "")
+    user_id = sub.get("company_id", "")
 
     # Build payer_rates from subscription's payer_data
     payer_rates = {}
@@ -549,10 +549,10 @@ async def subscription_trends(subscription_id: str, request: Request):
     if not is_admin:
         # Fall back to user auth — user_id must match subscription
         user = _get_authenticated_user(request)
-        sub_check = sb.table("provider_subscriptions").select("user_id").eq("id", subscription_id).execute()
+        sub_check = sb.table("provider_subscriptions").select("company_id").eq("id", subscription_id).execute()
         if not sub_check.data:
             raise HTTPException(status_code=404, detail="Subscription not found")
-        if sub_check.data[0].get("user_id") != user.id:
+        if sub_check.data[0].get("company_id") != user.id:
             raise HTTPException(status_code=403, detail="Not authorized to view this subscription")
 
     # Compute trends
