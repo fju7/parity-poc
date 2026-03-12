@@ -77,6 +77,8 @@ function ProviderAppInner() {
   const [codingResult, setCodingResult] = useState(null);
   const [codingLoading, setCodingLoading] = useState(false);
   const [codingError, setCodingError] = useState("");
+  const [codingMode, setCodingMode] = useState("upload"); // "upload" | "manual"
+  const [codingParseResult, setCodingParseResult] = useState(null); // {line_count, date_range, source}
 
   // ── Denial Intelligence state ──
   const [denialIntel, setDenialIntel] = useState(null);
@@ -725,6 +727,47 @@ function ProviderAppInner() {
     setCodingError("");
     setCodingDateStart("");
     setCodingDateEnd("");
+    setCodingMode("upload");
+    setCodingParseResult(null);
+  }
+
+  async function handleCoding837Upload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setCodingError("");
+    setCodingLoading(true);
+    setCodingParseResult(null);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const resp = await fetch(`${API_BASE}/api/provider/parse-837`, {
+        method: "POST",
+        body: formData,
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.detail || "Failed to parse file");
+      }
+      const data = await resp.json();
+      setCodingLines(data.lines.map(l => ({
+        cpt_code: l.cpt_code || "",
+        units: l.units || 1,
+        billed_amount: l.billed_amount || 0,
+      })));
+      if (data.date_range) {
+        const parts = data.date_range.split(" to ");
+        if (parts[0]) setCodingDateStart(parts[0]);
+        if (parts[1]) setCodingDateEnd(parts[1]);
+      }
+      setCodingParseResult({
+        line_count: data.line_count,
+        date_range: data.date_range,
+        source: data.source,
+      });
+    } catch (err) {
+      setCodingError(err.message);
+    }
+    setCodingLoading(false);
   }
 
   async function handleRunCodingAnalysis() {
@@ -1124,6 +1167,7 @@ function ProviderAppInner() {
             onFilePayerAssign={(filename, payer) => setFilePayerMap(prev => ({ ...prev, [filename]: payer }))}
             onSelectPayerResult={selectPayerResult}
             onGenerateReport={() => setShowAuditReport(true)}
+            onGoToCoding={() => setActiveTab("coding")}
           />
           </div>
         ) : activeTab === "trends" ? (
@@ -1201,6 +1245,8 @@ function ProviderAppInner() {
             loading={codingLoading}
             error={codingError}
             profileSpecialty={profile?.specialty || ""}
+            mode={codingMode}
+            parseResult={codingParseResult}
             onAddLine={addCodingLine}
             onRemoveLine={removeCodingLine}
             onUpdateLine={updateCodingLine}
@@ -1210,6 +1256,8 @@ function ProviderAppInner() {
             onRun={handleRunCodingAnalysis}
             onReset={resetCoding}
             onGoToContract={() => setActiveTab("contract")}
+            on837Upload={handleCoding837Upload}
+            onSetMode={setCodingMode}
           />
           </div>
         )}
@@ -1230,6 +1278,118 @@ function ProviderAppInner() {
 
 
 // ═══════════════════════════════════════════════════════════════════
+// Coding Intelligence Section (shown in Contract Integrity results)
+// ═══════════════════════════════════════════════════════════════════
+
+function CodingIntelligenceSection({ coding, onGoToCoding }) {
+  const em = coding.em_distribution || {};
+  const bench = coding.em_benchmark || {};
+  const emCodes = ["99211", "99212", "99213", "99214", "99215"];
+  const maxPct = Math.max(...emCodes.map(c => Math.max(em[c] || 0, bench[c] || 0)), 1);
+
+  return (
+    <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff", marginBottom: 24 }}>
+      <h4 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+        Coding Intelligence
+      </h4>
+      <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: "0 0 20px" }}>
+        E&M distribution from your 835 data ({coding.em_total} visits) vs. specialty benchmark
+      </p>
+
+      {/* E&M Distribution bars */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
+        {emCodes.map(code => {
+          const yours = em[code] || 0;
+          const theirs = bench[code] || 0;
+          return (
+            <div key={code} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 50, fontSize: 13, fontWeight: 600, color: "var(--cs-navy)", textAlign: "right" }}>{code}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
+                  <div style={{
+                    height: 12, borderRadius: 3,
+                    width: `${(yours / maxPct) * 100}%`,
+                    background: "#0d9488", minWidth: yours > 0 ? 4 : 0,
+                  }} />
+                  <span style={{ fontSize: 11, color: "var(--cs-navy)", fontWeight: 600 }}>{yours.toFixed(1)}%</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{
+                    height: 12, borderRadius: 3,
+                    width: `${(theirs / maxPct) * 100}%`,
+                    background: "#e5e7eb", minWidth: theirs > 0 ? 4 : 0,
+                  }} />
+                  <span style={{ fontSize: 11, color: "var(--cs-slate)" }}>{theirs}%</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+        <div style={{ display: "flex", gap: 16, fontSize: 11, color: "var(--cs-slate)", marginTop: 4 }}>
+          <span><span style={{ display: "inline-block", width: 10, height: 10, background: "#0d9488", borderRadius: 2, marginRight: 4 }} />Your Practice</span>
+          <span><span style={{ display: "inline-block", width: 10, height: 10, background: "#e5e7eb", borderRadius: 2, marginRight: 4 }} />Benchmark</span>
+        </div>
+      </div>
+
+      {/* Alerts */}
+      {(coding.em_alerts || []).map((alert, i) => (
+        <div key={i} style={{
+          padding: "12px 16px", borderRadius: 8, marginBottom: 12,
+          background: alert.severity === "warning" ? "#fef3c7" : "#dbeafe",
+          border: `1px solid ${alert.severity === "warning" ? "#f59e0b" : "#3b82f6"}`,
+          fontSize: 13, color: "var(--cs-navy)",
+        }}>
+          <strong>{alert.type === "UNDERCODING" ? "Potential Undercoding" : "Overcoding Alert"}</strong>
+          <span style={{ marginLeft: 8 }}>{alert.message}</span>
+        </div>
+      ))}
+
+      {/* Revenue Gap */}
+      {coding.revenue_gap && (
+        <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8, padding: 16, marginBottom: 16 }}>
+          <div style={{ display: "flex", gap: 24, marginBottom: 12 }}>
+            <div>
+              <div style={{ fontSize: 12, color: "var(--cs-slate)" }}>Period Gap</div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: "#0d9488" }}>
+                ${coding.revenue_gap.total_gap_period?.toLocaleString()}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, color: "var(--cs-slate)" }}>Annualized</div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: "#0d9488" }}>
+                ${coding.revenue_gap.annualized_gap?.toLocaleString()}
+              </div>
+            </div>
+          </div>
+          {coding.revenue_gap.narrative && (
+            <p style={{ fontSize: 13, color: "var(--cs-navy)", margin: 0, lineHeight: 1.5 }}>
+              {coding.revenue_gap.narrative}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Bridge to Coding Analysis tab */}
+      <div style={{
+        background: "#f8fafc", border: "1px solid var(--cs-border)", borderRadius: 8,
+        padding: "12px 16px", display: "flex", alignItems: "center", justifyContent: "space-between",
+      }}>
+        <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: 0 }}>
+          Want deeper coding insights? Upload your 837 claim file for a complete picture.
+        </p>
+        <button onClick={onGoToCoding} style={{
+          background: "#0d9488", color: "#fff", border: "none", borderRadius: 8,
+          padding: "8px 16px", fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap",
+        }}>
+          Go to Coding Analysis
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
 // Contract Integrity Tab Component
 // ═══════════════════════════════════════════════════════════════════
 
@@ -1243,7 +1403,7 @@ function ContractIntegrityTab({
   onRunAnalysis, onSort, getSortedLines, onReset,
   onSetRatesMethod, onRatesPdfUpload, onRatesImageUpload, onRatesTextExtract, onMedicarePercentage,
   onRemovePayer, onFilePayerAssign, onSelectPayerResult,
-  onGenerateReport,
+  onGenerateReport, onGoToCoding,
 }) {
   // ── Loading / analyzing overlays ──
   if (step === "parsing-835") {
@@ -1508,6 +1668,11 @@ function ContractIntegrityTab({
         )}
         {denialIntel && !denialIntel.error && (denialIntel.denial_types?.length > 0 || denialIntel.pattern_summary) && (
           <DenialIntelligenceSection intel={denialIntel} />
+        )}
+
+        {/* Coding Intelligence (auto-generated from 835 data) */}
+        {analysisResult?.coding_analysis && analysisResult.coding_analysis.em_total > 0 && (
+          <CodingIntelligenceSection coding={analysisResult.coding_analysis} onGoToCoding={onGoToCoding} />
         )}
 
         {/* Full Line Items */}
@@ -2783,8 +2948,9 @@ function HistoricalReportView({ record, sortField, sortDir, onSort, getSortedLin
 
 function CodingAnalysisTab({
   lines, specialty, dateStart, dateEnd, result, loading, error, profileSpecialty,
+  mode, parseResult,
   onAddLine, onRemoveLine, onUpdateLine, onSetSpecialty, onSetDateStart, onSetDateEnd, onRun, onReset,
-  onGoToContract,
+  onGoToContract, on837Upload, onSetMode,
 }) {
 
   if (loading) {
@@ -3037,95 +3203,178 @@ function CodingAnalysisTab({
         </div>
       </div>
 
-      {/* Billing lines */}
-      <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff" }}>
-        <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
-          Billing Lines
-        </h3>
-        <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: "0 0 16px" }}>
-          Enter CPT codes from recent claims. Include units and billed amounts for benchmark comparison.
-        </p>
+      {/* File upload zone (default mode) */}
+      {mode === "upload" && !parseResult && (
+        <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff" }}>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+            Upload 837 Claim File
+          </h3>
+          <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: "0 0 16px" }}>
+            Upload an 837 EDI file (.txt, .edi, .837) or a CSV export from your practice management system.
+          </p>
 
-        <div style={{ overflowX: "auto" }}>
-          <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>CPT Code</th>
-                <th style={{ ...thStyle, textAlign: "center", width: 80 }}>Units</th>
-                <th style={{ ...thStyle, textAlign: "right", width: 120 }}>Billed ($)</th>
-                <th style={{ ...thStyle, width: 50 }}></th>
-              </tr>
-            </thead>
-            <tbody>
-              {lines.map((line, i) => (
-                <tr key={i}>
-                  <td style={tdStyle}>
-                    <input
-                      type="text"
-                      value={line.cpt_code}
-                      onChange={e => onUpdateLine(i, "cpt_code", e.target.value)}
-                      placeholder="e.g. 99213"
-                      maxLength={5}
-                      style={{ ...inputStyle, padding: "6px 10px", fontSize: 13 }}
-                    />
-                  </td>
-                  <td style={tdStyle}>
-                    <input
-                      type="number"
-                      value={line.units}
-                      onChange={e => onUpdateLine(i, "units", e.target.value)}
-                      min={1}
-                      style={{ ...inputStyle, padding: "6px 10px", fontSize: 13, textAlign: "center" }}
-                    />
-                  </td>
-                  <td style={tdStyle}>
-                    <input
-                      type="number"
-                      value={line.billed_amount}
-                      onChange={e => onUpdateLine(i, "billed_amount", e.target.value)}
-                      step="0.01"
-                      style={{ ...inputStyle, padding: "6px 10px", fontSize: 13, textAlign: "right" }}
-                    />
-                  </td>
-                  <td style={tdStyle}>
-                    {lines.length > 1 && (
-                      <button
-                        onClick={() => onRemoveLine(i)}
-                        style={{
-                          background: "none", border: "none", cursor: "pointer",
-                          color: "#dc2626", fontSize: 16, padding: "4px 8px",
-                        }}
-                        title="Remove line"
-                      >
-                        &times;
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <label style={{
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            border: "2px dashed var(--cs-border)", borderRadius: 12, padding: "40px 24px",
+            cursor: "pointer", transition: "border-color 0.2s",
+          }}>
+            <div style={{ fontSize: 32, marginBottom: 8, color: "var(--cs-teal)" }}>+</div>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "var(--cs-navy)" }}>
+              Drop file here or click to upload
+            </div>
+            <div style={{ fontSize: 12, color: "var(--cs-slate)", marginTop: 4 }}>
+              Accepts .txt, .edi, .837, .csv files
+            </div>
+            <input
+              type="file"
+              accept=".txt,.edi,.837,.csv"
+              onChange={on837Upload}
+              style={{ display: "none" }}
+            />
+          </label>
+
+          <button
+            onClick={() => onSetMode("manual")}
+            style={{
+              marginTop: 16, background: "none", border: "none",
+              fontSize: 13, color: "var(--cs-teal)", cursor: "pointer",
+              textDecoration: "underline", padding: 0,
+            }}
+          >
+            Enter codes manually instead
+          </button>
         </div>
+      )}
 
-        <button
-          onClick={onAddLine}
-          style={{
-            marginTop: 12, background: "none", border: "1px dashed var(--cs-border)",
-            borderRadius: 8, padding: "8px 16px", fontSize: 13, color: "var(--cs-teal)",
-            cursor: "pointer", fontWeight: 500,
-          }}
-        >
-          + Add Line
-        </button>
-      </div>
+      {/* Parse result summary */}
+      {parseResult && (
+        <div style={{
+          border: "1px solid #99f6e4", borderRadius: 12, padding: 16, background: "#f0fdfa",
+          display: "flex", gap: 24, alignItems: "center",
+        }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "var(--cs-navy)" }}>
+              {parseResult.line_count} lines parsed
+            </div>
+            <div style={{ fontSize: 12, color: "var(--cs-slate)" }}>
+              {parseResult.date_range && `Date range: ${parseResult.date_range}`}
+              {parseResult.date_range && " · "}
+              Parsed via {parseResult.source === "edi" ? "EDI" : "AI extraction"}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Billing lines (shown after parse or in manual mode) */}
+      {(mode === "manual" || parseResult) && (
+        <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 24, background: "#fff" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <div>
+              <h3 style={{ fontSize: 16, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+                Billing Lines
+              </h3>
+              <p style={{ color: "var(--cs-slate)", fontSize: 13, margin: 0 }}>
+                {parseResult
+                  ? "Review and edit the parsed lines before running analysis."
+                  : "Enter CPT codes from recent claims. Include units and billed amounts for benchmark comparison."}
+              </p>
+            </div>
+            {mode === "manual" && !parseResult && (
+              <button
+                onClick={() => onSetMode("upload")}
+                style={{
+                  background: "none", border: "none", fontSize: 13,
+                  color: "var(--cs-teal)", cursor: "pointer", textDecoration: "underline",
+                }}
+              >
+                Upload file instead
+              </button>
+            )}
+          </div>
+
+          <div style={{ overflowX: "auto" }}>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>CPT Code</th>
+                  <th style={{ ...thStyle, textAlign: "center", width: 80 }}>Units</th>
+                  <th style={{ ...thStyle, textAlign: "right", width: 120 }}>Billed ($)</th>
+                  <th style={{ ...thStyle, width: 50 }}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {lines.map((line, i) => (
+                  <tr key={i}>
+                    <td style={tdStyle}>
+                      <input
+                        type="text"
+                        value={line.cpt_code}
+                        onChange={e => onUpdateLine(i, "cpt_code", e.target.value)}
+                        placeholder="e.g. 99213"
+                        maxLength={5}
+                        style={{ ...inputStyle, padding: "6px 10px", fontSize: 13 }}
+                      />
+                    </td>
+                    <td style={tdStyle}>
+                      <input
+                        type="number"
+                        value={line.units}
+                        onChange={e => onUpdateLine(i, "units", e.target.value)}
+                        min={1}
+                        style={{ ...inputStyle, padding: "6px 10px", fontSize: 13, textAlign: "center" }}
+                      />
+                    </td>
+                    <td style={tdStyle}>
+                      <input
+                        type="number"
+                        value={line.billed_amount}
+                        onChange={e => onUpdateLine(i, "billed_amount", e.target.value)}
+                        step="0.01"
+                        style={{ ...inputStyle, padding: "6px 10px", fontSize: 13, textAlign: "right" }}
+                      />
+                    </td>
+                    <td style={tdStyle}>
+                      {lines.length > 1 && (
+                        <button
+                          onClick={() => onRemoveLine(i)}
+                          style={{
+                            background: "none", border: "none", cursor: "pointer",
+                            color: "#dc2626", fontSize: 16, padding: "4px 8px",
+                          }}
+                          title="Remove line"
+                        >
+                          &times;
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <button
+            onClick={onAddLine}
+            style={{
+              marginTop: 12, background: "none", border: "1px dashed var(--cs-border)",
+              borderRadius: 8, padding: "8px 16px", fontSize: 13, color: "var(--cs-teal)",
+              cursor: "pointer", fontWeight: 500,
+            }}
+          >
+            + Add Line
+          </button>
+        </div>
+      )}
 
       {error && <ErrorBanner message={error} />}
 
-      <div>
-        <button onClick={onRun} style={btnPrimary}>
-          Run Coding Analysis
-        </button>
-      </div>
+      {(mode === "manual" || parseResult) && (
+        <div>
+          <button onClick={onRun} style={btnPrimary}>
+            Run Coding Analysis
+          </button>
+        </div>
+      )}
     </div>
   );
 }

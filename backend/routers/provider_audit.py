@@ -595,11 +595,188 @@ async def analyze_contract(req: AnalyzeRequest):
         # Non-fatal: analysis still returns even if save fails
         print(f"WARNING: Failed to save analysis to Supabase: {exc}")
 
+    # Auto-run coding analysis from the 835 line items
+    coding_analysis = None
+    try:
+        # Look up practice specialty from profile
+        specialty = ""
+        if req.user_id:
+            try:
+                sb2 = _get_supabase()
+                prof = sb2.table("provider_profiles").select("specialty").eq("company_id", req.user_id).execute()
+                if prof.data:
+                    specialty = prof.data[0].get("specialty", "") or ""
+            except Exception:
+                pass
+
+        # Infer date range from service dates in line items
+        date_range = ""
+        service_dates = [l.get("service_date") or "" for l in enriched_lines if l.get("service_date")]
+        if service_dates:
+            sorted_dates = sorted(d for d in service_dates if d)
+            if sorted_dates:
+                date_range = f"{sorted_dates[0]} to {sorted_dates[-1]}"
+
+        coding_lines = [
+            {"cpt_code": l["cpt_code"], "units": l.get("units", 1), "billed_amount": l.get("billed_amount", 0)}
+            for l in enriched_lines if l.get("cpt_code")
+        ]
+        if coding_lines:
+            coding_analysis = _run_coding_analysis_from_835(coding_lines, specialty, date_range)
+    except Exception as exc:
+        print(f"[Provider] Auto coding analysis failed (non-fatal): {exc}")
+
     return {
         "summary": summary,
         "line_items": enriched_lines,
         "top_underpaid": top_underpaid_list,
         "scorecard": scorecard,
+        "coding_analysis": coding_analysis,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Helper: Run coding analysis from 835 line items
+# ---------------------------------------------------------------------------
+
+def _run_coding_analysis_from_835(line_items: list, specialty: str, date_range: str = "") -> dict:
+    """Run E&M distribution + revenue gap analysis from 835 parsed line items.
+
+    Takes the same line_items format returned by analyze-contract (with cpt_code, units, billed_amount)
+    and returns the same structure as /analyze-coding.
+    """
+    codes_flat = []
+    for item in line_items:
+        cpt = item.get("cpt_code", "")
+        if not cpt:
+            continue
+        units = item.get("units", 1) or 1
+        for _ in range(units):
+            codes_flat.append(cpt)
+
+    code_counts = Counter(codes_flat)
+
+    em_established = ["99211", "99212", "99213", "99214", "99215"]
+    em_total = sum(code_counts.get(c, 0) for c in em_established)
+    em_distribution = {}
+    if em_total > 0:
+        for c in em_established:
+            em_distribution[c] = round((code_counts.get(c, 0) / em_total) * 100, 1)
+
+    specialty_key = specialty if specialty in EM_BENCHMARKS else "Other"
+    em_benchmark = EM_BENCHMARKS.get(specialty_key, EM_BENCHMARKS["Other"])
+
+    em_alerts = []
+    if em_total >= 5:
+        pct_high = sum(code_counts.get(c, 0) for c in ["99214", "99215"]) / em_total * 100
+        bench_high = em_benchmark.get("99214", 0) + em_benchmark.get("99215", 0)
+
+        if pct_high < bench_high * 0.6:
+            em_alerts.append({
+                "type": "UNDERCODING",
+                "severity": "warning",
+                "message": (
+                    f"Your high-complexity E&M rate ({pct_high:.0f}%) is significantly below "
+                    f"the {specialty_key} benchmark ({bench_high}%). You may be under-coding "
+                    f"visits that qualify for 99214 or 99215."
+                ),
+            })
+        elif pct_high > bench_high * 1.4:
+            em_alerts.append({
+                "type": "OVERCODING",
+                "severity": "info",
+                "message": (
+                    f"Your high-complexity E&M rate ({pct_high:.0f}%) is above "
+                    f"the {specialty_key} benchmark ({bench_high}%). Ensure documentation "
+                    f"supports the level of service billed."
+                ),
+            })
+
+    revenue_gap = None
+    has_undercoding = any(a["type"] == "UNDERCODING" for a in em_alerts)
+    if has_undercoding and em_total > 0:
+        em_medicare_rates = {
+            "99211": 27.0, "99212": 59.0, "99213": 95.0,
+            "99214": 135.0, "99215": 190.0,
+        }
+
+        gap_lines = []
+        total_gap = 0.0
+        for code in em_established:
+            current_pct = em_distribution.get(code, 0)
+            bench_pct = em_benchmark.get(code, 0)
+            if bench_pct > current_pct:
+                visit_gap = round((bench_pct - current_pct) / 100 * em_total, 1)
+                rate = em_medicare_rates.get(code, 0)
+                gap_value = round(visit_gap * rate, 2)
+                total_gap += gap_value
+                gap_lines.append({
+                    "code": code,
+                    "current_pct": current_pct,
+                    "benchmark_pct": bench_pct,
+                    "visit_gap": visit_gap,
+                    "rate": rate,
+                    "revenue_gap": gap_value,
+                })
+
+        weeks = 4
+        if date_range:
+            try:
+                parts = date_range.split(" to ")
+                if len(parts) == 2:
+                    from datetime import datetime
+                    d1 = datetime.strptime(parts[0].strip(), "%Y-%m-%d")
+                    d2 = datetime.strptime(parts[1].strip(), "%Y-%m-%d")
+                    weeks = max((d2 - d1).days / 7, 1)
+            except Exception:
+                pass
+
+        annualized_gap = round(total_gap * (52 / max(weeks, 1)), 2)
+
+        gap_narrative = None
+        if total_gap > 0:
+            try:
+                gap_data = _call_claude(
+                    system_prompt=(
+                        "You are a medical billing analyst. Given an E&M coding gap "
+                        "analysis for a physician practice, write 2-3 sentences explaining "
+                        "the estimated revenue gap in plain language. Be specific about "
+                        "the dollar amount and the codes driving the gap. Include one "
+                        "sentence noting that the estimate assumes documentation supports "
+                        "higher complexity billing. Be direct and factual, not alarming. "
+                        "Return ONLY valid JSON with a single key \"narrative\"."
+                    ),
+                    user_content=json.dumps({
+                        "specialty": specialty_key,
+                        "total_gap_period": total_gap,
+                        "annualized_gap": annualized_gap,
+                        "weeks_of_data": round(weeks, 1),
+                        "gap_by_code": gap_lines,
+                        "em_total": em_total,
+                    }),
+                    max_tokens=512,
+                )
+                if gap_data and "narrative" in gap_data:
+                    gap_narrative = gap_data["narrative"]
+            except Exception as exc:
+                print(f"[Provider AI] Revenue gap narrative failed: {exc}")
+
+        revenue_gap = {
+            "gap_lines": gap_lines,
+            "total_gap_period": round(total_gap, 2),
+            "annualized_gap": annualized_gap,
+            "weeks_of_data": round(weeks, 1),
+            "narrative": gap_narrative,
+        }
+
+    return {
+        "em_distribution": em_distribution,
+        "em_benchmark": em_benchmark,
+        "em_total": em_total,
+        "em_alerts": em_alerts,
+        "revenue_gap": revenue_gap,
+        "code_count": len(set(codes_flat)),
+        "line_count": len(line_items),
     }
 
 
@@ -749,6 +926,110 @@ async def analyze_coding(req: CodingAnalyzeRequest):
         "code_count": len(set(codes_flat)),
         "line_count": len(req.lines),
     }
+
+
+# ---------------------------------------------------------------------------
+# POST /parse-837 — parse 837 EDI or CSV claim files for coding analysis
+# ---------------------------------------------------------------------------
+
+@router.post("/parse-837")
+async def parse_837(file: UploadFile = File(...)):
+    """Parse an 837 claim file (EDI) or CSV/tabular export to extract CPT codes.
+
+    Tries deterministic EDI parsing first (SV1 segments).
+    Falls back to AI extraction for non-EDI formats.
+    """
+    content = await file.read()
+    text = content.decode("utf-8", errors="replace")
+
+    # Try deterministic 837 EDI parsing
+    lines = []
+    service_dates = []
+    has_isa = "ISA" in text[:200]
+    segments = text.replace("\r\n", "\n").replace("\r", "~").replace("\n", "~").split("~")
+
+    if has_isa:
+        current_date = ""
+        for seg in segments:
+            seg = seg.strip()
+            # DTP*472 = service date
+            if seg.startswith("DTP*472*"):
+                parts = seg.split("*")
+                if len(parts) >= 4:
+                    raw = parts[3]
+                    if len(raw) == 8:
+                        current_date = f"{raw[:4]}-{raw[4:6]}-{raw[6:8]}"
+                        service_dates.append(current_date)
+                    elif "-" in raw and len(raw) == 17:
+                        # Date range: CCYYMMDD-CCYYMMDD
+                        start = raw[:8]
+                        current_date = f"{start[:4]}-{start[4:6]}-{start[6:8]}"
+                        service_dates.append(current_date)
+
+            # SV1 = professional service line
+            if seg.startswith("SV1*"):
+                parts = seg.split("*")
+                # SV1*HC:CPT:MOD*charge*UN*units
+                svc_id = parts[1] if len(parts) > 1 else ""
+                charge = parts[2] if len(parts) > 2 else "0"
+                units = parts[4] if len(parts) > 4 else "1"
+
+                cpt = ""
+                if ":" in svc_id:
+                    cpt = svc_id.split(":")[1]
+                elif svc_id.isdigit() and len(svc_id) == 5:
+                    cpt = svc_id
+
+                if cpt:
+                    lines.append({
+                        "cpt_code": cpt,
+                        "units": int(float(units)) if units else 1,
+                        "billed_amount": float(charge) if charge else 0.0,
+                        "service_date": current_date,
+                    })
+
+    if lines:
+        # Compute date range
+        date_range = ""
+        if service_dates:
+            sorted_d = sorted(set(service_dates))
+            date_range = f"{sorted_d[0]} to {sorted_d[-1]}" if len(sorted_d) > 1 else sorted_d[0]
+
+        return {
+            "lines": lines,
+            "line_count": len(lines),
+            "date_range": date_range,
+            "source": "edi",
+        }
+
+    # Fallback: AI extraction for CSV/tabular formats
+    try:
+        # Take first 8000 chars to keep within context
+        sample = text[:8000]
+        result = _call_claude(
+            system_prompt=(
+                "You are a medical billing data parser. The user has uploaded a file "
+                "that contains claim/billing data (CSV, Excel export, or other tabular "
+                "format). Extract CPT codes, units, billed amounts, and service dates "
+                "from whatever column structure is present. Return ONLY valid JSON: "
+                '{"lines": [{"cpt_code": "99213", "units": 1, "billed_amount": 95.00, '
+                '"service_date": "2025-01-15"}], "date_range": "2025-01-01 to 2025-01-31"}'
+                "\nIf you cannot find CPT codes, return {\"lines\": [], \"date_range\": \"\"}."
+            ),
+            user_content=f"Parse this billing data file:\n\n{sample}",
+            max_tokens=4096,
+        )
+        if result and result.get("lines"):
+            return {
+                "lines": result["lines"],
+                "line_count": len(result["lines"]),
+                "date_range": result.get("date_range", ""),
+                "source": "ai",
+            }
+    except Exception as exc:
+        print(f"[Provider] AI 837 parse failed: {exc}")
+
+    raise HTTPException(status_code=400, detail="Could not parse file. No CPT codes found.")
 
 
 # ---------------------------------------------------------------------------
