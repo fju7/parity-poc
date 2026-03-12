@@ -1007,7 +1007,7 @@ function ProviderAppInner() {
           <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 13 }}>
             {user?.full_name || user?.email}
           </span>
-          <Link to="/audit/account"
+          <Link to="/provider/account"
             style={{ color: "#0d9488", fontSize: 13, textDecoration: "none" }}>
             Account
           </Link>
