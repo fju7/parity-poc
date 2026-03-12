@@ -6,11 +6,15 @@
 ALTER TABLE provider_profiles
   DROP CONSTRAINT IF EXISTS provider_profiles_user_id_fkey;
 
--- 2. Rename column
+-- 2. Delete orphaned rows (old Supabase Auth user IDs not in companies)
+DELETE FROM provider_profiles
+WHERE user_id NOT IN (SELECT id FROM companies);
+
+-- 3. Rename column
 ALTER TABLE provider_profiles
   RENAME COLUMN user_id TO company_id;
 
--- 3. Add new foreign key referencing companies(id)
+-- 4. Add new foreign key referencing companies(id)
 ALTER TABLE provider_profiles
   ADD CONSTRAINT provider_profiles_company_id_fkey
   FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE;
