@@ -273,9 +273,9 @@ function SBCUploadCard({ sbcData, onSbcLoaded, onSbcClear }) {
         >
           &times;
         </button>
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-2 mb-1">
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
-            Plan Loaded
+            ✓ Plan Loaded
           </span>
           <span className="text-sm font-semibold text-[#1B3A5C]">
             {sbcData.plan_name || "Your Plan"}
@@ -284,6 +284,9 @@ function SBCUploadCard({ sbcData, onSbcLoaded, onSbcClear }) {
             <span className="text-xs text-gray-400">{sbcData.plan_year}</span>
           )}
         </div>
+        <p className="text-xs text-gray-500 mb-3">
+          Your plan details are loaded. When you analyze a bill, we'll estimate what you actually owe based on your deductible, copays, and coinsurance.
+        </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
           <div>
             <p className="text-gray-400">Deductible</p>
