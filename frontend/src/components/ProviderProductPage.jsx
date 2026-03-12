@@ -94,7 +94,7 @@ export default function ProviderProductPage() {
   const [hasInteracted, setHasInteracted] = useState(false);
   const [showConversion, setShowConversion] = useState(false);
   const [selectedCompliance, setSelectedCompliance] = useState(null);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, company } = useAuth();
 
   const triggerInteraction = useCallback(() => {
     if (!hasInteracted) {
@@ -148,14 +148,14 @@ export default function ProviderProductPage() {
           <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em" }}>CivicScale</span>
         </a>
         <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 14 }}>
-          {isAuthenticated ? (
+          {isAuthenticated && company?.type === "provider" ? (
             <>
               <Link to="/provider/dashboard" style={{ color: "#94a3b8", textDecoration: "none" }}>Dashboard</Link>
             </>
           ) : (
             <>
-              <Link to="/provider/dashboard" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</Link>
-              <Link to="/audit" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
+              <Link to="/provider/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</Link>
+              <Link to="/provider/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
                 Start Free Trial
               </Link>
             </>
