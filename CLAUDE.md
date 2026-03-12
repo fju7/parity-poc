@@ -58,9 +58,12 @@ Three live products + one in development:
 - Frontend: src/components/ParityHealth*.jsx
 
 ### Parity Provider
-- Route: /billing/provider, /audit
+- Route: /billing/provider, /audit, /provider/*
 - Backend: backend/routers/provider_*.py
-- Frontend: src/components/Provider*.jsx
+- Frontend: src/ProviderApp.jsx (dashboard), src/components/Provider*.jsx
+- Auth: /provider/login (ProviderLoginPage), /provider/signup (ProviderSignupPage)
+- Dashboard: /provider/dashboard (ProviderApp.jsx — dark theme, 5 tabs)
+- Account: /provider/account (ProviderAccountPage.jsx — team, billing, data)
 - Demo: /billing/provider/demo (ProviderDemoPage.jsx)
 - Key feature: 835 EDI parsing via utils/parse_835.py
 
@@ -148,6 +151,10 @@ Three live products + one in development:
   PBM spread placeholder
 - frontend/src/components/EmployerSharedReport.jsx — public shared
   report page (no auth)
+- frontend/src/ProviderApp.jsx — provider dashboard (5 tabs: Dashboard,
+  Contract Integrity, Coding Analysis, Trends, Appeals)
+- frontend/src/components/ProviderAccountPage.jsx — provider account
+  settings (practice info, subscription, team, data deletion)
 
 ## Supabase tables (key ones)
 - companies — unified company records (employer/broker/provider)
