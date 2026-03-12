@@ -377,7 +377,7 @@ async def employer_billing_portal(email: str = Query(...)):
 
     session = stripe_lib.billing_portal.Session.create(
         customer=result.data[0]["stripe_customer_id"],
-        return_url="https://employer.civicscale.ai/billing/employer/account",
+        return_url="https://civicscale.ai/billing/employer/account",
     )
     return {"portal_url": session.url}
 
