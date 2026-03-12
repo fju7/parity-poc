@@ -264,7 +264,7 @@ export default function InputSelectionView({
               >
                 <input
                   type="file"
-                  accept="application/pdf"
+                  accept="*"
                   className="hidden"
                   onChange={handleFileInput}
                 />

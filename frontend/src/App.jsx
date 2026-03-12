@@ -1246,28 +1246,12 @@ export default function App() {
         onBack={handleReset}
       />
     );
-  } else if (view === "upload") {
-    viewContent = (
-      <UploadView
-        onFileSelect={handleFileSelect}
-        onSampleBill={handleSampleBill}
-        onManualEntry={handleManualEntry}
-        onHavingTrouble={handleHavingTrouble}
-        onDenialAnalysis={() => {
-          setView("denial-upload");
-          navigate("/parity-health/denial");
-        }}
-        onDenialClassified={handleDenialClassified}
-        sbcData={sbcData}
-        onSbcLoaded={setSbcData}
-        onSbcClear={() => setSbcData(null)}
-      />
-    );
   } else {
-    // Default: unified upload view
+    // Default: unified upload view (covers both "upload" and fallback)
     viewContent = (
       <UploadView
         onFileSelect={handleFileSelect}
+        onTextSubmit={handlePasteSubmit}
         onSampleBill={handleSampleBill}
         onManualEntry={handleManualEntry}
         onHavingTrouble={handleHavingTrouble}

@@ -4,6 +4,7 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function UploadView({
   onFileSelect,
+  onTextSubmit,
   onSampleBill,
   onManualEntry,
   onHavingTrouble,
@@ -35,16 +36,20 @@ export default function UploadView({
         return;
       }
 
-      // TXT files — read as text and send to bill analysis
+      // TXT files — read as text and send to text analysis pipeline
       if (fname.endsWith(".txt")) {
         const text = await file.text();
-        onFileSelect(file);
+        if (onTextSubmit && text.trim().length >= 20) {
+          onTextSubmit(text);
+        } else {
+          setClassifyError("The text file doesn't contain enough content to analyze. Please upload a longer document.");
+        }
         return;
       }
 
-      // All other non-PDF files
+      // All other non-PDF/image files
       if (!fname.endsWith(".pdf") && !["jpg","jpeg","png","webp"].includes(ext.toLowerCase())) {
-        setClassifyError("Please upload a PDF, JPG, or PNG file.");
+        setClassifyError("Please upload a PDF, image, or text file.");
         return;
       }
 
@@ -108,7 +113,7 @@ export default function UploadView({
         onFileSelect(file);
       }
     },
-    [sbcData, onFileSelect, onDenialAnalysis, onDenialClassified, onSbcLoaded]
+    [sbcData, onFileSelect, onTextSubmit, onDenialAnalysis, onDenialClassified, onSbcLoaded]
   );
 
   const uploadSbc = useCallback(
@@ -263,7 +268,7 @@ export default function UploadView({
         >
           <input
             type="file"
-            accept="application/pdf,image/*,text/plain,.txt"
+            accept="*"
             className="hidden"
             onChange={handleFileInput}
           />
