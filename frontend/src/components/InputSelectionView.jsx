@@ -5,6 +5,7 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function InputSelectionView({
   onFileSelect,
+  onTextSubmit,
   onPasteText,
   onImageUpload,
   onSampleBill,
@@ -27,15 +28,30 @@ export default function InputSelectionView({
       setClassifyError(null);
 
       const fname = file.name.toLowerCase();
-      if (!fname.endsWith(".pdf")) {
-        const ext = fname.split(".").pop().toUpperCase();
-        if (["TXT", "EDI", "837", "835"].includes(ext)) {
-          setClassifyError(
-            `${ext} files are clinical data formats used by providers and insurers. Please upload a PDF of your bill, EOB, denial letter, or plan summary.`
-          );
+      const ext = fname.split(".").pop().toUpperCase();
+
+      // Reject EDI/claims files
+      if (["EDI", "837", "835"].includes(ext)) {
+        setClassifyError(
+          "This looks like an EDI claims file. Parity Health works with medical bills, EOBs, denial letters, and insurance plan summaries. Please upload one of those instead."
+        );
+        return;
+      }
+
+      // TXT files — read as text and send to text analysis pipeline
+      if (fname.endsWith(".txt")) {
+        const text = await file.text();
+        if (onTextSubmit && text.trim().length >= 20) {
+          onTextSubmit(text);
         } else {
-          setClassifyError("Please upload a PDF file.");
+          setClassifyError("The text file doesn't contain enough content to analyze. Please upload a longer document.");
         }
+        return;
+      }
+
+      // All other non-PDF/image files
+      if (!fname.endsWith(".pdf") && !["jpg","jpeg","png","webp"].includes(ext.toLowerCase())) {
+        setClassifyError("Please upload a PDF, image, or text file.");
         return;
       }
 
@@ -95,7 +111,7 @@ export default function InputSelectionView({
         onFileSelect(file);
       }
     },
-    [sbcData, onFileSelect, onDenialAnalysis, onDenialClassified, onSbcLoaded]
+    [sbcData, onFileSelect, onTextSubmit, onDenialAnalysis, onDenialClassified, onSbcLoaded]
   );
 
   const uploadSbc = useCallback(
