@@ -571,26 +571,35 @@ async def billing_portal(authorization: str = Header(None)):
 
     stripe_key = os.environ.get("STRIPE_SECRET_KEY", "")
     if not stripe_key:
+        print("[HealthPortal] STRIPE_SECRET_KEY not set")
         raise HTTPException(status_code=503, detail="Stripe not configured")
     stripe_lib.api_key = stripe_key
 
     sb = _get_supabase()
     user = get_health_user(authorization, sb)
+    email = user["email"]
 
-    # Find Stripe customer ID
+    # Find Stripe customer ID from health_subscriptions
     sub = sb.table("health_subscriptions").select("stripe_customer_id").eq(
-        "email", user["email"]
+        "email", email
     ).not_.is_("stripe_customer_id", "null").limit(1).execute()
 
-    if not sub.data or not sub.data[0].get("stripe_customer_id"):
-        raise HTTPException(status_code=404, detail="No billing record found")
+    customer_id = sub.data[0].get("stripe_customer_id") if sub.data else None
 
-    customer_id = sub.data[0]["stripe_customer_id"]
-    frontend_url = os.environ.get("FRONTEND_URL", "https://health.civicscale.ai")
+    if not customer_id:
+        print(f"[HealthPortal] No stripe_customer_id for {email}")
+        raise HTTPException(
+            status_code=404,
+            detail="No billing record found. Start a free trial to manage billing.",
+        )
 
-    portal = stripe_lib.billing_portal.Session.create(
-        customer=customer_id,
-        return_url=f"{frontend_url}/parity-health/account",
-    )
+    try:
+        portal = stripe_lib.billing_portal.Session.create(
+            customer=customer_id,
+            return_url="https://health.civicscale.ai/parity-health/account",
+        )
+    except Exception as exc:
+        print(f"[HealthPortal] Stripe portal creation failed for {email}: {exc}")
+        raise HTTPException(status_code=502, detail="Failed to open billing portal. Please try again.")
 
     return {"portal_url": portal.url}

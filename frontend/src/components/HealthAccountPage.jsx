@@ -19,6 +19,7 @@ function daysUntil(iso) {
 export default function HealthAccountPage({ healthUser, onProfileSaved }) {
   const navigate = useNavigate();
   const [fullName, setFullName] = useState(healthUser?.full_name || "");
+  const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [saved, setSaved] = useState(false);
@@ -101,9 +102,17 @@ export default function HealthAccountPage({ healthUser, onProfileSaved }) {
       stored.full_name = fullName.trim();
       localStorage.setItem("health_user", JSON.stringify(stored));
       setSaved(true);
+      setEditing(false);
       if (onProfileSaved) onProfileSaved(fullName.trim());
+      setTimeout(() => setSaved(false), 3000);
     } catch { setErrorMsg("Failed to save. Please try again."); }
     setSaving(false);
+  };
+
+  const handleCancelEdit = () => {
+    setFullName(healthUser?.full_name || "");
+    setEditing(false);
+    setErrorMsg("");
   };
 
   const handleCheckout = async (plan) => {
@@ -175,27 +184,80 @@ export default function HealthAccountPage({ healthUser, onProfileSaved }) {
         {isFirstTime ? "Tell us your name to get started." : "Manage your Parity Health account."}
       </p>
 
-      {/* Profile form */}
-      <div style={{ marginBottom: 20 }}>
-        <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#334155", marginBottom: 6 }}>Email</label>
-        <input type="email" value={healthUser?.email || ""} readOnly style={{
-          ...inputStyle, background: "#f8fafc", color: "#94a3b8", cursor: "not-allowed",
-        }} />
-      </div>
-
-      <div style={{ marginBottom: 24 }}>
-        <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#334155", marginBottom: 6 }}>Full name</label>
-        <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSave()}
-          placeholder="Jane Smith" style={inputStyle} />
-      </div>
-
-      <button onClick={handleSave} disabled={saving} style={{
-        width: "100%", padding: "12px", borderRadius: 8, border: "none",
-        cursor: saving ? "default" : "pointer",
-        background: saving ? "#94a3b8" : "#0d9488",
-        color: "#fff", fontWeight: 700, fontSize: 15,
-      }}>{saving ? "Saving..." : "Save"}</button>
+      {/* Profile section */}
+      {isFirstTime ? (
+        /* First-time: always show editable form */
+        <>
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#334155", marginBottom: 6 }}>Email</label>
+            <input type="email" value={healthUser?.email || ""} readOnly style={{
+              ...inputStyle, background: "#f8fafc", color: "#94a3b8", cursor: "not-allowed",
+            }} />
+          </div>
+          <div style={{ marginBottom: 24 }}>
+            <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#334155", marginBottom: 6 }}>Full name</label>
+            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSave()}
+              placeholder="Jane Smith" style={inputStyle} />
+          </div>
+          <button onClick={handleSave} disabled={saving} style={{
+            width: "100%", padding: "12px", borderRadius: 8, border: "none",
+            cursor: saving ? "default" : "pointer",
+            background: saving ? "#94a3b8" : "#0d9488",
+            color: "#fff", fontWeight: 700, fontSize: 15,
+          }}>{saving ? "Saving..." : "Save"}</button>
+        </>
+      ) : editing ? (
+        /* Edit mode */
+        <>
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#334155", marginBottom: 6 }}>Email</label>
+            <input type="email" value={healthUser?.email || ""} readOnly style={{
+              ...inputStyle, background: "#f8fafc", color: "#94a3b8", cursor: "not-allowed",
+            }} />
+          </div>
+          <div style={{ marginBottom: 24 }}>
+            <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#334155", marginBottom: 6 }}>Full name</label>
+            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSave()}
+              placeholder="Jane Smith" autoFocus style={inputStyle} />
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            <button onClick={handleSave} disabled={saving} style={{
+              padding: "10px 24px", borderRadius: 8, border: "none",
+              cursor: saving ? "default" : "pointer",
+              background: saving ? "#94a3b8" : "#0d9488",
+              color: "#fff", fontWeight: 600, fontSize: 14,
+            }}>{saving ? "Saving..." : "Save"}</button>
+            <button onClick={handleCancelEdit} style={{
+              padding: "10px 24px", borderRadius: 8, border: "1px solid #e2e8f0",
+              background: "transparent", color: "#64748b", fontWeight: 600,
+              fontSize: 14, cursor: "pointer",
+            }}>Cancel</button>
+          </div>
+        </>
+      ) : (
+        /* Read mode */
+        <>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <div style={{ marginBottom: 16 }}>
+                <p style={{ fontSize: 13, fontWeight: 500, color: "#94a3b8", margin: "0 0 2px" }}>Email</p>
+                <p style={{ fontSize: 15, color: "#1e293b", margin: 0 }}>{healthUser?.email || ""}</p>
+              </div>
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 500, color: "#94a3b8", margin: "0 0 2px" }}>Name</p>
+                <p style={{ fontSize: 15, color: "#1e293b", margin: 0 }}>{fullName || "—"}</p>
+              </div>
+            </div>
+            <button onClick={() => { setEditing(true); setSaved(false); setErrorMsg(""); }} style={{
+              padding: "6px 16px", borderRadius: 8, border: "1px solid #e2e8f0",
+              background: "transparent", color: "#475569", fontWeight: 600,
+              fontSize: 13, cursor: "pointer",
+            }}>Edit</button>
+          </div>
+        </>
+      )}
 
       {errorMsg && (
         <div style={{ padding: 12, borderRadius: 8, background: "#fef2f2", border: "1px solid #fecaca", marginTop: 16 }}>
