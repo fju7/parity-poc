@@ -129,17 +129,28 @@ export default function HealthAccountPage({ healthUser, onProfileSaved }) {
     } catch { setErrorMsg("Failed to start checkout. Please try again."); setCheckoutLoading(null); }
   };
 
+  const [portalError, setPortalError] = useState("");
+
   const handlePortal = async () => {
-    setPortalLoading(true); setErrorMsg("");
+    setPortalLoading(true); setErrorMsg(""); setPortalError("");
     try {
       const res = await fetch(`${API}/api/health/auth/portal`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      if (!res.ok) { setErrorMsg(data.detail || "Failed to open billing portal."); setPortalLoading(false); return; }
+      if (!res.ok) {
+        const msg = data.detail || "Failed to open billing portal.";
+        if (msg.toLowerCase().includes("no billing record")) {
+          setPortalError("No billing record found. Please start a free trial first.");
+        } else {
+          setPortalError(msg);
+        }
+        setPortalLoading(false);
+        return;
+      }
       window.location.href = data.portal_url;
-    } catch { setErrorMsg("Failed to open billing portal. Please try again."); setPortalLoading(false); }
+    } catch { setPortalError("Failed to open billing portal. Please try again."); setPortalLoading(false); }
   };
 
   const isFirstTime = !healthUser?.full_name;
@@ -353,6 +364,10 @@ export default function HealthAccountPage({ healthUser, onProfileSaved }) {
                 </button>
               </div>
             </>
+          )}
+
+          {portalError && (
+            <p style={{ color: "#991b1b", fontSize: 13, marginTop: 16, marginBottom: 0 }}>{portalError}</p>
           )}
         </div>
       )}
