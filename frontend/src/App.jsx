@@ -77,7 +77,7 @@ export default function App() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
-  // Views: "consent" | "onboarding" | "input-selection" | "upload" | "paste-text" | "image-upload" | "confirmation" | "processing" | "report" | "error" | "itemized-request" | "history" | "manual-entry"
+  // Views: "consent" | "onboarding" | "upload" | "paste-text" | "image-upload" | "confirmation" | "processing" | "report" | "error" | "itemized-request" | "history" | "manual-entry"
   const [view, setView] = useState(() => viewFromPath(location.pathname));
   const [processingStep, setProcessingStep] = useState(0);
   const [report, setReport] = useState(null);
@@ -212,13 +212,13 @@ export default function App() {
             consentAnalytics: data.consent_analytics ?? true,
             consentEmployer: data.consent_employer ?? false,
           });
-          // Skip to input-selection if profile is filled in — respect URL if it's a deep link
+          // Skip to upload if profile is filled in — respect URL if it's a deep link
           if (data.first_name && data.last_name) {
             const urlView = viewFromPath(location.pathname);
             if (urlView === "history" || urlView === "account" || urlView === "manual-entry" || urlView === "paste-text" || urlView === "image-upload") {
               setView(urlView);
             } else {
-              setView("input-selection");
+              setView("upload");
             }
           }
         } else {
@@ -271,7 +271,7 @@ export default function App() {
 
   const handleReset = useCallback(() => {
     navigate("/parity-health/");
-    setView("input-selection");
+    setView("upload");
     setReport(null);
     setProvider(null);
     setServiceDate("");
@@ -294,7 +294,7 @@ export default function App() {
 
   // ----- Navigation -----
   const handleNavigate = useCallback((target) => {
-    if (target === "upload" || target === "input-selection") {
+    if (target === "upload") {
       navigate("/parity-health/");
     } else if (target === "history") {
       navigate("/parity-health/history");
@@ -452,7 +452,7 @@ export default function App() {
       }
 
       navigate("/parity-health/");
-      setView("input-selection");
+      setView("upload");
     },
     [session, navigate]
   );
@@ -1264,19 +1264,18 @@ export default function App() {
       />
     );
   } else {
-    // Default: input-selection
+    // Default: unified upload view
     viewContent = (
-      <InputSelectionView
+      <UploadView
         onFileSelect={handleFileSelect}
-        onPasteText={handleGoToPasteText}
-        onImageUpload={handleGoToImageUpload}
         onSampleBill={handleSampleBill}
         onManualEntry={handleManualEntry}
-        onDenialClassified={handleDenialClassified}
+        onHavingTrouble={handleHavingTrouble}
         onDenialAnalysis={() => {
           setView("denial-upload");
           navigate("/parity-health/denial");
         }}
+        onDenialClassified={handleDenialClassified}
         sbcData={sbcData}
         onSbcLoaded={setSbcData}
         onSbcClear={() => setSbcData(null)}
