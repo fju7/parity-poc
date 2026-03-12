@@ -528,15 +528,37 @@ async def subscription_status(authorization: str = Header(None)):
 
     sub = user.get("subscription")
     if not sub:
-        return {"has_subscription": False, "status": None, "plan": None}
+        return {"has_subscription": False, "status": None, "plan": None,
+                "trial_ends_at": None, "current_period_end": None}
 
-    return {
+    result = {
         "has_subscription": True,
         "status": sub["status"],
         "plan": sub.get("plan"),
         "trial_ends_at": sub.get("trial_ends_at"),
         "stripe_subscription_id": sub.get("stripe_subscription_id"),
+        "current_period_end": None,
     }
+
+    # Fetch current_period_end from Stripe if we have a subscription ID
+    stripe_sub_id = sub.get("stripe_subscription_id")
+    if stripe_sub_id:
+        try:
+            import stripe as stripe_lib
+            stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
+            if stripe_lib.api_key:
+                stripe_sub = stripe_lib.Subscription.retrieve(stripe_sub_id)
+                if stripe_sub.current_period_end:
+                    result["current_period_end"] = datetime.fromtimestamp(
+                        stripe_sub.current_period_end, tz=timezone.utc
+                    ).isoformat()
+                # Also check if currently in trial
+                if stripe_sub.status == "trialing":
+                    result["status"] = "trialing"
+        except Exception as exc:
+            print(f"[HealthSub] Stripe fetch failed: {exc}")
+
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -568,7 +590,7 @@ async def billing_portal(authorization: str = Header(None)):
 
     portal = stripe_lib.billing_portal.Session.create(
         customer=customer_id,
-        return_url=frontend_url,
+        return_url=f"{frontend_url}/parity-health/account",
     )
 
     return {"portal_url": portal.url}
