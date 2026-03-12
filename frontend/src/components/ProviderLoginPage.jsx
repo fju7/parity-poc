@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -9,8 +9,7 @@ export default function ProviderLoginPage() {
   const { login, isAuthenticated, company } = useAuth();
 
   if (isAuthenticated && company?.type === "provider") {
-    navigate("/provider/dashboard");
-    return null;
+    return <Navigate to="/provider/dashboard" replace />;
   }
 
   const [email, setEmail] = useState("");

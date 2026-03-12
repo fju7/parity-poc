@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import { Link, useLocation, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useLocation, useSearchParams, useNavigate, Navigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { useAuth } from "./context/AuthContext";
-import AuthGate from "./components/AuthGate.jsx";
+// AuthGate removed — ProviderApp now redirects to /provider/login
 import { LogoIcon } from "./components/CivicScaleHomepage.jsx";
 import ProviderAuditPage from "./components/ProviderAuditPage.jsx";
 import ProviderAuditReport from "./components/ProviderAuditReport.jsx";
@@ -3659,9 +3659,20 @@ const inputStyle = {
 };
 
 export default function ProviderApp() {
-  return (
-    <AuthGate product="provider">
-      <ProviderAppInner />
-    </AuthGate>
-  );
+  const { isAuthenticated, loading, company } = useAuth();
+
+  if (loading) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#0a0f1e", display: "flex",
+                     alignItems: "center", justifyContent: "center" }}>
+        <div style={{ color: "#0d9488", fontSize: "18px" }}>Loading...</div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated || company?.type !== "provider") {
+    return <Navigate to="/provider/login" replace />;
+  }
+
+  return <ProviderAppInner />;
 }
