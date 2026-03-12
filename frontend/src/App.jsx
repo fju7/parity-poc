@@ -73,8 +73,9 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Auth state
+  // Auth state — supports both Supabase (legacy) and health token
   const [session, setSession] = useState(null);
+  const [healthUser, setHealthUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
   // Views: "consent" | "onboarding" | "upload" | "paste-text" | "image-upload" | "confirmation" | "processing" | "report" | "error" | "itemized-request" | "history" | "manual-entry"
@@ -123,13 +124,37 @@ export default function App() {
   // Cold-start "waking up" indicator
   const [slowServer, setSlowServer] = useState(false);
 
-  // ----- Auth: session bootstrap + listener -----
+  // ----- Auth: health token check + Supabase fallback -----
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      if (s) fetchProfile(s.user.id, s.user.email);
-      setAuthLoading(false);
-    });
+    const healthToken = localStorage.getItem("health_token");
+    if (healthToken) {
+      // Validate health token
+      fetch(`${API_BASE}/api/health/auth/me`, {
+        headers: { Authorization: `Bearer ${healthToken}` },
+      })
+        .then((r) => r.ok ? r.json() : Promise.reject())
+        .then((user) => {
+          setHealthUser(user);
+          setView("upload"); // Skip consent/onboarding for health auth users
+          setAuthLoading(false);
+        })
+        .catch(() => {
+          // Token invalid — clear and fall back to Supabase
+          localStorage.removeItem("health_token");
+          localStorage.removeItem("health_user");
+          bootstrapSupabase();
+        });
+    } else {
+      bootstrapSupabase();
+    }
+
+    function bootstrapSupabase() {
+      supabase.auth.getSession().then(({ data: { session: s } }) => {
+        setSession(s);
+        if (s) fetchProfile(s.user.id, s.user.email);
+        setAuthLoading(false);
+      });
+    }
 
     const {
       data: { subscription },
@@ -240,9 +265,22 @@ export default function App() {
 
   // ----- Sign out -----
   const handleSignOut = useCallback(async () => {
+    // Health auth logout
+    const healthToken = localStorage.getItem("health_token");
+    if (healthToken) {
+      fetch(`${API_BASE}/api/health/auth/logout`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${healthToken}` },
+      }).catch(() => {});
+      localStorage.removeItem("health_token");
+      localStorage.removeItem("health_user");
+      setHealthUser(null);
+    }
+    // Supabase logout
     await supabase.auth.signOut();
     setSession(null);
-    navigate("/parity-health/");
+    const isHealthSub = window.location.hostname === "health.civicscale.ai";
+    navigate(isHealthSub ? "/" : "/parity-health/");
     setView("onboarding");
     setReport(null);
     setProvider(null);
@@ -1109,7 +1147,14 @@ export default function App() {
   }
 
   // ----- Not signed in -----
-  if (!session) {
+  const isSignedIn = session || healthUser;
+  if (!isSignedIn) {
+    const isHealthSub = window.location.hostname === "health.civicscale.ai";
+    if (isHealthSub) {
+      // On health subdomain, redirect to login
+      window.location.href = "/health/login";
+      return null;
+    }
     return <SignInView />;
   }
 
@@ -1268,10 +1313,34 @@ export default function App() {
   }
 
   const showHeader = view !== "consent" && view !== "onboarding";
+  const isHealthSub = window.location.hostname === "health.civicscale.ai";
+  const userEmail = healthUser?.email || session?.user?.email || "";
 
   return (
     <>
-      {showHeader && (
+      {showHeader && isHealthSub && (
+        <header style={{
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+          padding: "0 24px", height: "56px", display: "flex", alignItems: "center", justifyContent: "space-between",
+          background: "rgba(10,22,40,0.95)", backdropFilter: "blur(16px)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          fontFamily: "'DM Sans', sans-serif",
+        }}>
+          <button onClick={() => handleNavigate("upload")} style={{ display: "flex", alignItems: "center", gap: 10, background: "none", border: "none", cursor: "pointer", color: "#e2e8f0" }}>
+            <div style={{ width: 28, height: 28, borderRadius: 6, background: "linear-gradient(135deg, #0d9488, #14b8a6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "#0a1628" }}>P</div>
+            <span style={{ fontSize: 16, fontWeight: 600, letterSpacing: "-0.02em" }}>Parity Health</span>
+          </button>
+          <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 13 }}>
+            <button onClick={() => handleNavigate("upload")} style={{ background: "none", border: "none", cursor: "pointer", color: view === "upload" ? "#14b8a6" : "#94a3b8", fontWeight: view === "upload" ? 600 : 400 }}>Analyze</button>
+            <button onClick={() => handleNavigate("history")} style={{ background: "none", border: "none", cursor: "pointer", color: view === "history" ? "#14b8a6" : "#94a3b8", fontWeight: view === "history" ? 600 : 400 }}>History</button>
+            <button onClick={() => handleNavigate("account")} style={{ background: "none", border: "none", cursor: "pointer", color: view === "account" ? "#14b8a6" : "#94a3b8", fontWeight: view === "account" ? 600 : 400 }}>Account</button>
+            {userEmail && <span style={{ color: "#64748b", fontSize: 12, maxWidth: 140, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{userEmail}</span>}
+            <button onClick={handleSignOut} style={{ background: "none", border: "none", cursor: "pointer", color: "#64748b", fontSize: 12 }}>Sign Out</button>
+          </nav>
+        </header>
+      )}
+      {showHeader && isHealthSub && <div style={{ height: 56 }} />}
+      {showHeader && !isHealthSub && (
         <AppHeader
           onNavigate={handleNavigate}
           currentView={view}

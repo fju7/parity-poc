@@ -36,6 +36,8 @@ import EmployerContractParser from './components/EmployerContractParser.jsx'
 import EmployerRBPCalculator from './components/EmployerRBPCalculator.jsx'
 import EmployerPharmacy from './components/EmployerPharmacy.jsx'
 import ParityHealthLandingPage from './components/ParityHealthLandingPage.jsx'
+import HealthLoginPage from './components/HealthLoginPage.jsx'
+import HealthSignupPage from './components/HealthSignupPage.jsx'
 import BrokerLandingPage from './components/BrokerLandingPage.jsx'
 import BrokerLoginPage from './components/BrokerLoginPage.jsx'
 import BrokerSignupPage from './components/BrokerSignupPage.jsx'
@@ -64,6 +66,8 @@ createRoot(document.getElementById('root')).render(
         {isHealthSubdomain ? (
           <>
             <Route path="/" element={<ParityHealthLandingPage />} />
+            <Route path="/health/login" element={<HealthLoginPage />} />
+            <Route path="/health/signup" element={<HealthSignupPage />} />
             <Route path="/*" element={<App />} />
           </>
         ) : (
@@ -109,6 +113,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/provider/*" element={<ProviderApp />} />
         <Route path="/signal/*" element={<SignalApp />} />
         <Route path="/parity-health" element={<ParityHealthLandingPage />} />
+        <Route path="/parity-health/login" element={<HealthLoginPage />} />
+        <Route path="/parity-health/signup" element={<HealthSignupPage />} />
         <Route path="/parity-health/*" element={<App />} />
           </>
         )}
