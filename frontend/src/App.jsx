@@ -1267,6 +1267,12 @@ export default function App() {
         }}
       />
     );
+  } else if (view === "account" && authLoading) {
+    viewContent = (
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}>
+        <p style={{ color: "#94a3b8" }}>Loading your account...</p>
+      </div>
+    );
   } else if (view === "account") {
     viewContent = (
       <OnboardingView
