@@ -53,7 +53,7 @@ export default function ProviderSignupPage() {
         navigate("/provider/dashboard");
       }
     } catch { setErrorMsg("Verification failed. Please try again."); }
-    setVerifying(false);
+    finally { setVerifying(false); }
   };
 
   const handleCreateCompany = async () => {

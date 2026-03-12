@@ -50,7 +50,7 @@ export default function ProviderLoginPage() {
       login(data.token, data.user, data.company);
       navigate("/provider/dashboard");
     } catch { setErrorMsg("Verification failed. Please try again."); }
-    setVerifying(false);
+    finally { setVerifying(false); }
   };
 
   return (
@@ -134,6 +134,12 @@ export default function ProviderLoginPage() {
                 style={{ fontSize: 12, color: "#94a3b8", background: "none", border: "none", cursor: "pointer", marginTop: 12 }}>
                 Use a different email
               </button>
+              <p style={{ fontSize: 14, color: "#94a3b8", marginTop: 20 }}>
+                Don't have an account?{" "}
+                <Link to="/provider/signup" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>
+                  Start your free 30-day trial &rarr;
+                </Link>
+              </p>
             </div>
           )}
 
