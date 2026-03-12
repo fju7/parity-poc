@@ -66,7 +66,7 @@ Three live products + one in development:
 - Stripe setup script: backend/scripts/create_health_stripe.py
 
 ### Parity Provider
-- Route: /billing/provider, /audit, /provider/*
+- Route: /billing/provider, /audit, /provider/*, provider.civicscale.ai
 - Backend: backend/routers/provider_*.py
 - Frontend: src/ProviderApp.jsx (dashboard), src/components/Provider*.jsx
 - Auth: /provider/login (ProviderLoginPage), /provider/signup (ProviderSignupPage)
@@ -76,7 +76,7 @@ Three live products + one in development:
 - Key feature: 835 EDI parsing via utils/parse_835.py
 
 ### Parity Employer
-- Route: /billing/employer/*
+- Route: /billing/employer/*, employer.civicscale.ai
 - Backend: backend/routers/employer_*.py
 - Frontend: src/components/Employer*.jsx
 - Demo: /billing/employer/demo (EmployerDemoPage.jsx — 7 tabs)
@@ -88,7 +88,7 @@ Three live products + one in development:
   cost, refund the difference
 
 ### Broker Portal
-- Route: /broker/login, /broker/dashboard
+- Route: /broker/*, broker.civicscale.ai
 - Backend: backend/routers/broker.py
 - Frontend: src/components/Broker*.jsx
 - $99/month with 30-day free trial (card required upfront)
@@ -280,6 +280,27 @@ Features built in this phase:
     directly when on health.civicscale.ai (no /parity-health prefix needed)
   - App.jsx viewFromPath: handles paths with or without /parity-health prefix
   - Fred action: add health.civicscale.ai as domain in Vercel project settings
+
+## Session F — Broker & Employer Subdomain Routing (Complete)
+- Added broker.civicscale.ai and employer.civicscale.ai subdomain routing
+  - main.jsx: isBrokerSubdomain/isEmployerSubdomain hostname detection
+  - Broker subdomain: clean paths (/dashboard, /account, /login, /signup,
+    /caa-guide, /renewal-prep/:companySlug) with backward-compat redirects
+    from /broker/* paths
+  - Employer subdomain: clean paths (/dashboard, /account, /login, /signup,
+    /benchmark, /claims-check, /scorecard, /subscribe, /contract-parse,
+    /rbp-calculator, /pharmacy, /demo, /accept-invite) with backward-compat
+    redirects from /billing/employer/* paths
+- Backend URL updates:
+  - broker.py: Stripe checkout/portal URLs → broker.civicscale.ai
+  - employer_subscription.py: Stripe checkout/portal/email URLs → employer.civicscale.ai
+  - employer_shared_report.py: broker dashboard email link → broker.civicscale.ai
+- CORS: added broker.civicscale.ai and employer.civicscale.ai to allowed_origins
+- Vercel config (vercel.json): added rewrites for both subdomains,
+  added redirects from civicscale.ai/broker/* → broker.civicscale.ai/*
+  and civicscale.ai/billing/employer/* → employer.civicscale.ai/*
+- Fred action: add broker.civicscale.ai and employer.civicscale.ai as
+  domains in Vercel project settings
 
 ## Session E-Pharmacy — Pharmacy Benefit Benchmarking (Complete)
 - New backend router: employer_pharmacy.py with POST /api/employer/pharmacy/analyze
