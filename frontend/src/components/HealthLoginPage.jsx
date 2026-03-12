@@ -54,7 +54,7 @@ export default function HealthLoginPage() {
       // Store token and redirect
       localStorage.setItem("health_token", data.token);
       localStorage.setItem("health_user", JSON.stringify(data.user));
-      window.location.href = "/";
+      window.location.href = window.location.hostname === "health.civicscale.ai" ? "/" : "/parity-health";
     } catch { setErrorMsg("Verification failed. Please try again."); }
     setVerifying(false);
   };
