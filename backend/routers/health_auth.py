@@ -56,6 +56,9 @@ class SignupRequest(BaseModel):
 class CheckoutRequest(BaseModel):
     plan: str  # "monthly" | "yearly"
 
+class UpdateProfileRequest(BaseModel):
+    full_name: str
+
 class PortalRequest(BaseModel):
     pass
 
@@ -354,6 +357,26 @@ async def logout(authorization: str = Header(None)):
 
 
 # ---------------------------------------------------------------------------
+# PATCH /api/health/auth/update-profile
+# ---------------------------------------------------------------------------
+
+@router.patch("/update-profile")
+async def update_profile(req: UpdateProfileRequest, authorization: str = Header(None)):
+    sb = _get_supabase()
+    user = get_health_user(authorization, sb)
+
+    full_name = req.full_name.strip()
+    if not full_name:
+        raise HTTPException(status_code=400, detail="Full name is required.")
+
+    sb.table("health_users").update({
+        "full_name": full_name,
+    }).eq("id", user["health_user_id"]).execute()
+
+    return {"updated": True, "full_name": full_name}
+
+
+# ---------------------------------------------------------------------------
 # POST /api/health/auth/checkout
 # ---------------------------------------------------------------------------
 
@@ -411,8 +434,8 @@ async def create_checkout(req: CheckoutRequest, authorization: str = Header(None
         line_items=[{"price": price_id, "quantity": 1}],
         payment_method_collection="always",
         subscription_data={"trial_period_days": 30},
-        success_url=f"{frontend_url}/?checkout_success=1",
-        cancel_url=f"{frontend_url}/?checkout_cancel=1",
+        success_url=f"{frontend_url}/parity-health/?checkout_success=1",
+        cancel_url=f"{frontend_url}/parity-health/?checkout_cancel=1",
         metadata={
             "email": user["email"],
             "health_user_id": user["health_user_id"],

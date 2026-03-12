@@ -9,7 +9,7 @@ export default function HealthSignupPage() {
   // Check if already logged in
   const token = localStorage.getItem("health_token");
   if (token) {
-    window.location.href = "/";
+    window.location.href = "/parity-health/";
     return null;
   }
 
@@ -61,7 +61,11 @@ export default function HealthSignupPage() {
         // Already has account — log them in
         localStorage.setItem("health_token", data.token);
         localStorage.setItem("health_user", JSON.stringify(data.user));
-        window.location.href = "/";
+        if (!data.user.full_name) {
+          window.location.href = "/parity-health/account";
+        } else {
+          window.location.href = "/parity-health/";
+        }
         return;
       }
       setStep("profile");
@@ -102,7 +106,7 @@ export default function HealthSignupPage() {
   };
 
   const handleSkipPlan = () => {
-    window.location.href = "/";
+    window.location.href = "/parity-health/";
   };
 
   const isHealthSubdomain = window.location.hostname === "health.civicscale.ai";

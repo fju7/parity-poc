@@ -9,8 +9,7 @@ export default function HealthLoginPage() {
   // Check if already logged in
   const token = localStorage.getItem("health_token");
   if (token) {
-    // Redirect to app
-    window.location.href = "/";
+    window.location.href = "/parity-health/";
     return null;
   }
 
@@ -51,10 +50,14 @@ export default function HealthLoginPage() {
         navigate("/health/signup");
         return;
       }
-      // Store token and redirect
+      // Store token and redirect based on profile completeness
       localStorage.setItem("health_token", data.token);
       localStorage.setItem("health_user", JSON.stringify(data.user));
-      window.location.href = window.location.hostname === "health.civicscale.ai" ? "/" : "/parity-health";
+      if (!data.user.full_name) {
+        window.location.href = "/parity-health/account";
+      } else {
+        window.location.href = "/parity-health/";
+      }
     } catch { setErrorMsg("Verification failed. Please try again."); }
     setVerifying(false);
   };

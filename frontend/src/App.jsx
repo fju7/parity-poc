@@ -27,6 +27,7 @@ import runCodingIntelligence from "./modules/codingIntelligence.js";
 import EOBDetectedView from "./components/EOBDetectedView.jsx";
 import DenialUploadView from "./components/DenialUploadView.jsx";
 import DenialReportView from "./components/DenialReportView.jsx";
+import HealthAccountPage from "./components/HealthAccountPage.jsx";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const API_TIMEOUT_MS = 60000;
@@ -135,7 +136,14 @@ export default function App() {
         .then((r) => r.ok ? r.json() : Promise.reject())
         .then((user) => {
           setHealthUser(user);
-          setView("upload"); // Skip consent/onboarding for health auth users
+          // If no full_name, send to account page to complete profile
+          if (!user.full_name) {
+            setView("account");
+          } else {
+            // Respect deep links, default to upload
+            const urlView = viewFromPath(location.pathname);
+            setView(urlView === "onboarding" ? "upload" : urlView);
+          }
           setAuthLoading(false);
         })
         .catch(() => {
@@ -1249,6 +1257,16 @@ export default function App() {
       <ManualEntryView
         onSubmit={handleManualSubmit}
         onCancel={handleReset}
+      />
+    );
+  } else if (view === "account" && healthUser) {
+    viewContent = (
+      <HealthAccountPage
+        healthUser={healthUser}
+        onProfileSaved={(name) => {
+          setHealthUser((prev) => ({ ...prev, full_name: name }));
+          handleNavigate("upload");
+        }}
       />
     );
   } else if (view === "account") {
