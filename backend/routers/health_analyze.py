@@ -10,6 +10,8 @@ into a single pipeline.
 """
 
 import base64
+import csv
+import io
 import json
 import os
 import re
@@ -712,3 +714,107 @@ async def classify_document(file: UploadFile = File(...)):
         }
 
     return parsed
+
+
+# ---------------------------------------------------------------------------
+# POST /api/health/extract-docx
+# ---------------------------------------------------------------------------
+
+@router.post("/api/health/extract-docx")
+async def extract_docx(file: UploadFile = File(...)):
+    """Extract text from a .docx file and return it for the text analysis pipeline."""
+    if not file.filename or not file.filename.lower().endswith(".docx"):
+        raise HTTPException(status_code=400, detail="Please upload a .docx file.")
+
+    try:
+        from docx import Document
+    except ImportError:
+        raise HTTPException(
+            status_code=503,
+            detail="DOCX parsing dependencies are not installed.",
+        )
+
+    file_bytes = await file.read()
+    if len(file_bytes) > 20 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Maximum 20MB.")
+
+    print(f"[health/extract-docx] Processing: {file.filename} ({len(file_bytes)} bytes)")
+
+    try:
+        doc = Document(io.BytesIO(file_bytes))
+        paragraphs = [p.text for p in doc.paragraphs if p.text.strip()]
+        text = "\n".join(paragraphs)
+    except Exception as exc:
+        print(f"[health/extract-docx] Parse error: {exc}")
+        raise HTTPException(status_code=400, detail="Could not read the Word document. It may be corrupted.")
+
+    if len(text.strip()) < 20:
+        raise HTTPException(status_code=400, detail="The document doesn't contain enough text to analyze.")
+
+    print(f"[health/extract-docx] Extracted {len(text)} chars from {len(paragraphs)} paragraphs")
+    return {"text": text}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/health/extract-table
+# ---------------------------------------------------------------------------
+
+@router.post("/api/health/extract-table")
+async def extract_table(file: UploadFile = File(...)):
+    """Extract text from .xlsx or .csv files and return a readable representation."""
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No file provided.")
+
+    fname = file.filename.lower()
+    if not fname.endswith((".xlsx", ".csv")):
+        raise HTTPException(status_code=400, detail="Please upload a .xlsx or .csv file.")
+
+    file_bytes = await file.read()
+    if len(file_bytes) > 20 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File too large. Maximum 20MB.")
+
+    print(f"[health/extract-table] Processing: {file.filename} ({len(file_bytes)} bytes)")
+
+    try:
+        import pandas as pd
+
+        if fname.endswith(".xlsx"):
+            df = pd.read_excel(io.BytesIO(file_bytes), engine="openpyxl")
+        else:
+            content = file_bytes.decode("utf-8", errors="replace")
+            df = pd.read_csv(io.StringIO(content))
+
+        # Drop completely empty rows and columns
+        df = df.dropna(how="all").dropna(axis=1, how="all")
+
+        if df.empty:
+            raise HTTPException(status_code=400, detail="The spreadsheet appears to be empty.")
+
+        # Convert to readable text: column headers + rows
+        lines = []
+        cols = list(df.columns)
+        lines.append("Columns: " + " | ".join(str(c) for c in cols))
+        lines.append("")
+
+        for idx, row in df.iterrows():
+            row_parts = []
+            for col in cols:
+                val = row[col]
+                if pd.notna(val):
+                    row_parts.append(f"{col}: {val}")
+            if row_parts:
+                lines.append(", ".join(row_parts))
+
+        text = "\n".join(lines)
+
+    except HTTPException:
+        raise
+    except Exception as exc:
+        print(f"[health/extract-table] Parse error: {exc}")
+        raise HTTPException(status_code=400, detail="Could not read the spreadsheet. It may be corrupted or in an unsupported format.")
+
+    if len(text.strip()) < 20:
+        raise HTTPException(status_code=400, detail="The spreadsheet doesn't contain enough data to analyze.")
+
+    print(f"[health/extract-table] Extracted {len(text)} chars, {len(df)} rows")
+    return {"text": text}

@@ -28,18 +28,18 @@ export default function InputSelectionView({
       setClassifyError(null);
 
       const fname = file.name.toLowerCase();
-      const ext = fname.split(".").pop().toUpperCase();
+      const ext = fname.split(".").pop().toLowerCase();
 
       // Reject EDI/claims files
-      if (["EDI", "837", "835"].includes(ext)) {
+      if (["edi", "837", "835"].includes(ext)) {
         setClassifyError(
-          "This looks like an EDI claims file. Parity Health works with medical bills, EOBs, denial letters, and insurance plan summaries. Please upload one of those instead."
+          "This is a claims data file used by insurers. Please upload your bill or EOB document instead."
         );
         return;
       }
 
       // TXT files — read as text and send to text analysis pipeline
-      if (fname.endsWith(".txt")) {
+      if (ext === "txt") {
         const text = await file.text();
         if (onTextSubmit && text.trim().length >= 20) {
           onTextSubmit(text);
@@ -49,67 +49,131 @@ export default function InputSelectionView({
         return;
       }
 
-      // All other non-PDF/image files
-      if (!fname.endsWith(".pdf") && !["jpg","jpeg","png","webp"].includes(ext.toLowerCase())) {
-        setClassifyError("Please upload a PDF, image, or text file.");
+      // DOCX — extract text server-side, then route through text analysis
+      if (ext === "docx") {
+        setClassifying(true);
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+          const res = await fetch(`${API_BASE}/api/health/extract-docx`, {
+            method: "POST",
+            body: formData,
+          });
+          if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.detail || "Could not read Word document.");
+          }
+          const { text } = await res.json();
+          setClassifying(false);
+          if (onTextSubmit && text.trim().length >= 20) {
+            onTextSubmit(text);
+          } else {
+            setClassifyError("The Word document doesn't contain enough text to analyze.");
+          }
+        } catch (err) {
+          setClassifying(false);
+          setClassifyError(err.message || "Could not read the Word document.");
+        }
         return;
       }
 
-      setClassifying(true);
-
-      try {
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const res = await fetch(`${API_BASE}/api/health/classify-document`, {
-          method: "POST",
-          body: formData,
-        });
-
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.detail || "Classification failed.");
-        }
-
-        const result = await res.json();
-        const docType = result.document_type;
-
-        if (docType === "unsupported_format") {
-          setClassifyError(result.reason);
+      // XLSX / CSV — extract table text server-side, then route through text analysis
+      if (ext === "xlsx" || ext === "csv") {
+        setClassifying(true);
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+          const res = await fetch(`${API_BASE}/api/health/extract-table`, {
+            method: "POST",
+            body: formData,
+          });
+          if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.detail || "Could not read spreadsheet.");
+          }
+          const { text } = await res.json();
           setClassifying(false);
-          return;
+          if (onTextSubmit && text.trim().length >= 20) {
+            onTextSubmit(text);
+          } else {
+            setClassifyError("The spreadsheet doesn't contain enough data to analyze.");
+          }
+        } catch (err) {
+          setClassifying(false);
+          setClassifyError(err.message || "Could not read the spreadsheet.");
         }
+        return;
+      }
 
-        if (docType === "sbc") {
-          if (sbcData) {
-            pendingSbcFileRef.current = file;
-            setShowSbcReplace(true);
+      // Images — route to bill analysis
+      const imageExts = ["jpg", "jpeg", "png", "webp", "heic", "heif", "tiff", "tif", "bmp"];
+      if (imageExts.includes(ext)) {
+        onFileSelect(file);
+        return;
+      }
+
+      // PDF — classify with AI and route
+      if (ext === "pdf") {
+        setClassifying(true);
+
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+
+          const res = await fetch(`${API_BASE}/api/health/classify-document`, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.detail || "Classification failed.");
+          }
+
+          const result = await res.json();
+          const docType = result.document_type;
+
+          if (docType === "unsupported_format") {
+            setClassifyError(result.reason);
             setClassifying(false);
             return;
           }
-          await uploadSbc(file);
-          setClassifying(false);
-          return;
-        }
 
-        if (docType === "denial_letter") {
-          setClassifying(false);
-          if (onDenialClassified) {
-            onDenialClassified(file);
-          } else if (onDenialAnalysis) {
-            onDenialAnalysis();
+          if (docType === "sbc") {
+            if (sbcData) {
+              pendingSbcFileRef.current = file;
+              setShowSbcReplace(true);
+              setClassifying(false);
+              return;
+            }
+            await uploadSbc(file);
+            setClassifying(false);
+            return;
           }
-          return;
-        }
 
-        // medical_bill, eob, unknown → bill pipeline
-        setClassifying(false);
-        onFileSelect(file);
-      } catch (err) {
-        console.error("Classification error:", err);
-        setClassifying(false);
-        onFileSelect(file);
+          if (docType === "denial_letter") {
+            setClassifying(false);
+            if (onDenialClassified) {
+              onDenialClassified(file);
+            } else if (onDenialAnalysis) {
+              onDenialAnalysis();
+            }
+            return;
+          }
+
+          // medical_bill, eob, unknown → bill pipeline
+          setClassifying(false);
+          onFileSelect(file);
+        } catch (err) {
+          console.error("Classification error:", err);
+          setClassifying(false);
+          onFileSelect(file);
+        }
+        return;
       }
+
+      // Unsupported file type
+      setClassifyError("Unsupported file type. Please upload a PDF, Word document, image, spreadsheet, or text file.");
     },
     [sbcData, onFileSelect, onTextSubmit, onDenialAnalysis, onDenialClassified, onSbcLoaded]
   );
