@@ -35,6 +35,89 @@ router = APIRouter(tags=["provider"])
 
 
 # ---------------------------------------------------------------------------
+# Helper: Save anonymized benchmark observations
+# ---------------------------------------------------------------------------
+
+def _normalize_payer_category(payer_name: str) -> str:
+    """Normalize payer name to a broad category."""
+    lower = (payer_name or "").lower()
+    if "medicare" in lower or "cms" in lower:
+        return "Medicare"
+    if "bcbs" in lower or "blue cross" in lower or "blue shield" in lower:
+        return "BCBS"
+    if "aetna" in lower:
+        return "Aetna"
+    if "united" in lower or "uhc" in lower:
+        return "UnitedHealthcare"
+    if "cigna" in lower:
+        return "Cigna"
+    if "humana" in lower:
+        return "Humana"
+    return "Commercial"
+
+
+def _zip_to_region(zip_code: str) -> str:
+    """Derive coarse region from ZIP code first digit."""
+    if not zip_code or not zip_code.strip():
+        return "Unknown"
+    first = zip_code.strip()[0]
+    if first in ("0", "1"):
+        return "Northeast"
+    if first in ("2", "3"):
+        return "South"
+    if first in ("4", "5", "6"):
+        return "Midwest"
+    if first in ("7", "8", "9"):
+        return "West"
+    return "Unknown"
+
+
+def _save_benchmark_observations(enriched_lines: list, payer_name: str, specialty: str, zip_code: str, sb):
+    """Save anonymized observations from an 835 analysis for proprietary benchmarking."""
+    try:
+        payer_category = _normalize_payer_category(payer_name)
+        region = _zip_to_region(zip_code)
+        line_count = len(enriched_lines)
+
+        observations = []
+        for line in enriched_lines:
+            cpt = line.get("cpt_code", "")
+            flag = line.get("flag", "")
+            if not cpt or flag == "NO_CONTRACT":
+                continue
+
+            paid = line.get("paid_amount", 0)
+            expected = line.get("expected_payment", 0)
+            pct = round(paid / expected, 4) if expected and expected > 0 else None
+
+            denial_code = None
+            if flag == "DENIED" and line.get("adjustments"):
+                denial_code = line["adjustments"].split(",")[0].strip()
+
+            observations.append({
+                "cpt_code": cpt,
+                "payer_category": payer_category,
+                "specialty": specialty or None,
+                "was_denied": flag == "DENIED",
+                "was_underpaid": flag == "UNDERPAID",
+                "paid_as_pct_of_contracted": pct,
+                "denial_code": denial_code,
+                "region": region,
+                "line_count_in_analysis": line_count,
+            })
+
+        # Batch insert (max 100 per call)
+        for i in range(0, len(observations), 100):
+            batch = observations[i:i + 100]
+            sb.table("provider_benchmark_observations").insert(batch).execute()
+
+        if observations:
+            print(f"[Provider] Saved {len(observations)} benchmark observations")
+    except Exception as exc:
+        print(f"[Provider] Benchmark observation save failed: {exc}")
+
+
+# ---------------------------------------------------------------------------
 # GET /contract-template
 # ---------------------------------------------------------------------------
 
@@ -613,6 +696,17 @@ async def analyze_contract(req: AnalyzeRequest):
         "narrative": scorecard_narrative,
     }
 
+    # Look up practice specialty from profile (used by coding analysis + benchmark observations)
+    specialty = ""
+    if req.user_id:
+        try:
+            sb_prof = _get_supabase()
+            prof = sb_prof.table("provider_profiles").select("specialty").eq("company_id", req.user_id).execute()
+            if prof.data:
+                specialty = prof.data[0].get("specialty", "") or ""
+        except Exception:
+            pass
+
     # Save analysis to Supabase
     try:
         sb = _get_supabase()
@@ -635,20 +729,21 @@ async def analyze_contract(req: AnalyzeRequest):
         # Non-fatal: analysis still returns even if save fails
         print(f"WARNING: Failed to save analysis to Supabase: {exc}")
 
+    # Save anonymized observations for proprietary benchmark building
+    try:
+        _save_benchmark_observations(
+            enriched_lines=enriched_lines,
+            payer_name=req.payer_name,
+            specialty=specialty,
+            zip_code=req.zip_code if hasattr(req, "zip_code") and req.zip_code else "",
+            sb=_get_supabase(),
+        )
+    except Exception as exc:
+        print(f"[Provider] Benchmark observation save failed (non-fatal): {exc}")
+
     # Auto-run coding analysis from the 835 line items
     coding_analysis = None
     try:
-        # Look up practice specialty from profile
-        specialty = ""
-        if req.user_id:
-            try:
-                sb2 = _get_supabase()
-                prof = sb2.table("provider_profiles").select("specialty").eq("company_id", req.user_id).execute()
-                if prof.data:
-                    specialty = prof.data[0].get("specialty", "") or ""
-            except Exception:
-                pass
-
         # Infer date range from service dates in line items
         date_range = ""
         service_dates = [l.get("service_date") or "" for l in enriched_lines if l.get("service_date")]
