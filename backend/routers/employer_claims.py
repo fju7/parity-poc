@@ -217,7 +217,8 @@ async def employer_claims_check(
                     detail={
                         "error": "Could not auto-map columns",
                         "columns": columns,
-                        "hint": "Please provide a column_mapping JSON with keys: cpt_code, paid_amount",
+                        "sample_rows": df.head(3).fillna("").astype(str).to_dict(orient="records"),
+                        "hint": "Manual column mapping required",
                     },
                 )
 

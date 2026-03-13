@@ -14,11 +14,17 @@ export default function EmployerClaimsCheck() {
   const anonEmailKnown = !isAuthenticated && !!sessionStorage.getItem("cs_anon_email");
   const showEmailField = !isAuthenticated && !anonEmailKnown;
   const [dragOver, setDragOver] = useState(false);
-  const [view, setView] = useState("upload"); // upload, processing, results, error
+  const [view, setView] = useState("upload"); // upload, processing, results, error, column_mapping
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+
+  // Column mapping recovery state
+  const [mappingColumns, setMappingColumns] = useState([]);
+  const [mappingSampleRows, setMappingSampleRows] = useState([]);
+  const [mappingValues, setMappingValues] = useState({ cpt_code: "", paid_amount: "", billed_amount: "", provider_name: "", service_date: "" });
   const [caaOpen, setCaaOpen] = useState(false);
+  const [tpaOpen, setTpaOpen] = useState(false);
   const [caaForm, setCaaForm] = useState({
     companyName: "", policyNumber: "", carrier: "UnitedHealthcare", carrierOther: "",
     planYear: "2025", contactName: "", contactEmail: "", contactPhone: "",
@@ -105,7 +111,64 @@ export default function EmployerClaimsCheck() {
           setView("error");
           return;
         }
-        throw new Error(body.detail || `API error: ${res.status}`);
+        if (res.status === 422) {
+          const detail = body.detail || {};
+          if (detail.columns) {
+            setMappingColumns(detail.columns);
+            setMappingSampleRows(detail.sample_rows || []);
+            setMappingValues({ cpt_code: "", paid_amount: "", billed_amount: "", provider_name: "", service_date: "" });
+            setView("column_mapping");
+            return;
+          }
+        }
+        throw new Error(body.detail?.error || body.detail || `API error: ${res.status}`);
+      }
+
+      const data = await res.json();
+      setResult(data);
+      if (data.session_id) {
+        localStorage.setItem("employer_claims_session_id", data.session_id);
+        localStorage.setItem("employer_claims_zip_code", zipCode);
+      }
+      setView("results");
+    } catch (err) {
+      clearInterval(progressInterval);
+      setError(err.message);
+      setView("error");
+    }
+  };
+
+  const handleMappingSubmit = async () => {
+    if (!mappingValues.cpt_code || !mappingValues.paid_amount) return;
+
+    const mapping = { cpt_code: mappingValues.cpt_code, paid_amount: mappingValues.paid_amount };
+    if (mappingValues.billed_amount && mappingValues.billed_amount !== "-- skip this field --") mapping.billed_amount = mappingValues.billed_amount;
+    if (mappingValues.provider_name && mappingValues.provider_name !== "-- skip this field --") mapping.provider_name = mappingValues.provider_name;
+    if (mappingValues.service_date && mappingValues.service_date !== "-- skip this field --") mapping.service_date = mappingValues.service_date;
+
+    setView("processing");
+    setProgress(10);
+    const progressInterval = setInterval(() => setProgress(p => Math.min(p + 8, 85)), 600);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("zip_code", zipCode);
+      formData.append("column_mapping", JSON.stringify(mapping));
+      const resolvedEmail = isAuthenticated ? (user?.email || null) : (email || sessionStorage.getItem("cs_anon_email") || null);
+      if (resolvedEmail) formData.append("email", resolvedEmail);
+
+      const res = await fetch(`${API_BASE}/api/employer/claims-check`, {
+        method: "POST",
+        body: formData,
+      });
+
+      clearInterval(progressInterval);
+      setProgress(100);
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.detail?.error || body.detail || `API error: ${res.status}`);
       }
 
       const data = await res.json();
@@ -265,6 +328,34 @@ export default function EmployerClaimsCheck() {
               )}
             </div>
 
+            {/* TPA format guide collapsible */}
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.12)", borderRadius: "12px", marginBottom: "20px", overflow: "hidden" }}>
+              <button
+                onClick={() => setTpaOpen(!tpaOpen)}
+                style={{ width: "100%", background: "none", border: "none", padding: "16px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", color: "#94a3b8" }}
+              >
+                <span style={{ fontSize: "14px", fontWeight: "600", color: "#cbd5e1" }}>What format does my TPA export?</span>
+                <span style={{ fontSize: "18px", transform: tpaOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>{"\u25BE"}</span>
+              </button>
+              {tpaOpen && (
+                <div style={{ padding: "0 20px 20px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                  {[
+                    { name: "HealthSmart", text: "Export \u2192 Claims Detail Report \u2192 CSV. Columns: 'Procedure Code', 'Amount Paid', 'Amount Billed'" },
+                    { name: "Meritain Health", text: "Reports \u2192 Claims \u2192 Download Claims Data \u2192 Excel. Look for 'Proc Cd', 'Net Paid Amt'" },
+                    { name: "Trustmark", text: "Employer Portal \u2192 Reports \u2192 Claims Extract. Column names vary \u2014 use our column mapper above." },
+                    { name: "Cigna (self-insured/ASO)", text: "myCigna Employer \u2192 Reports \u2192 Medical Claims \u2192 CSV. Columns: 'Procedure', 'Plan Paid Amount'" },
+                    { name: "Aetna (ASO)", text: "Navigator \u2192 Reports \u2192 Claims Detail. Look for 'Procedure Code', 'Paid Amount'" },
+                    { name: "BCBS (self-insured)", text: "Varies by Blue plan \u2014 look for 835 EDI export option in your TPA portal, which gives the most accurate results." },
+                  ].map(tpa => (
+                    <div key={tpa.name} style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px", padding: "12px" }}>
+                      <p style={{ margin: "0 0 4px", fontSize: "13px", fontWeight: "600", color: "#0d9488" }}>{tpa.name}</p>
+                      <p style={{ margin: 0, fontSize: "13px", color: "#94a3b8", lineHeight: "1.5" }}>{tpa.text}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {/* Drop zone */}
               <div
@@ -337,6 +428,87 @@ export default function EmployerClaimsCheck() {
                progress < 85 ? "Flagging anomalies and computing variances..." :
                "Finalizing results..."}
             </p>
+          </div>
+        )}
+
+        {/* Column Mapping Recovery View */}
+        {view === "column_mapping" && (
+          <div>
+            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "26px", fontWeight: "400", color: "#f1f5f9", marginBottom: "8px" }}>Help us read your file</h2>
+            <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "16px", lineHeight: "1.6" }}>
+              We couldn't automatically identify your columns. Match each field below to the correct column from your file.
+            </p>
+            <div style={{ background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.25)", borderRadius: "10px", padding: "12px 16px", marginBottom: "20px" }}>
+              <p style={{ margin: 0, fontSize: "13px", color: "#fbbf24", lineHeight: "1.6" }}>
+                This is common with TPA exports. Once you map the columns, your analysis will run normally.
+              </p>
+            </div>
+
+            {/* Sample data preview */}
+            {mappingSampleRows.length > 0 && (
+              <div style={{ marginBottom: "20px" }}>
+                <p style={{ fontSize: "12px", color: "#64748b", marginBottom: "8px" }}>Your file's columns — first {mappingSampleRows.length} rows shown</p>
+                <div style={{ overflowX: "auto", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
+                    <thead>
+                      <tr>
+                        {mappingColumns.map(col => (
+                          <th key={col} style={{ padding: "8px 10px", textAlign: "left", color: "#94a3b8", fontWeight: "600", borderBottom: "1px solid rgba(255,255,255,0.08)", whiteSpace: "nowrap" }}>{col}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mappingSampleRows.map((row, i) => (
+                        <tr key={i} style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.01)" : "transparent" }}>
+                          {mappingColumns.map(col => (
+                            <td key={col} style={{ padding: "6px 10px", color: "#cbd5e1", borderBottom: "1px solid rgba(255,255,255,0.04)", whiteSpace: "nowrap" }}>{row[col] || ""}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Mapping form */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
+              {[
+                { key: "cpt_code", label: "CPT / Procedure Code column *", required: true },
+                { key: "paid_amount", label: "Amount Paid / Paid Amount column *", required: true },
+                { key: "billed_amount", label: "Billed / Charged Amount column (optional)", required: false },
+                { key: "provider_name", label: "Provider / Vendor Name column (optional)", required: false },
+                { key: "service_date", label: "Date of Service column (optional)", required: false },
+              ].map(field => (
+                <div key={field.key}>
+                  <label style={{ fontSize: "13px", color: "#cbd5e1", fontWeight: "500", marginBottom: "4px", display: "block" }}>{field.label}</label>
+                  <select
+                    value={mappingValues[field.key]}
+                    onChange={e => setMappingValues({ ...mappingValues, [field.key]: e.target.value })}
+                    style={{ ...selectStyle, width: "100%" }}
+                  >
+                    {field.required
+                      ? <option value="">— select a column —</option>
+                      : <option value="-- skip this field --">— skip this field —</option>
+                    }
+                    {mappingColumns.map(col => <option key={col} value={col}>{col}</option>)}
+                  </select>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", gap: "12px" }}>
+              <button
+                onClick={handleMappingSubmit}
+                disabled={!mappingValues.cpt_code || !mappingValues.paid_amount}
+                style={{ ...btnPrimary, opacity: (!mappingValues.cpt_code || !mappingValues.paid_amount) ? 0.5 : 1, width: "auto", flex: 1 }}
+              >
+                Run Analysis &rarr;
+              </button>
+              <button onClick={() => setView("upload")} style={{ background: "none", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "8px", padding: "14px 24px", color: "#94a3b8", fontSize: "15px", cursor: "pointer" }}>
+                Start Over
+              </button>
+            </div>
           </div>
         )}
 
@@ -711,6 +883,11 @@ const inputStyle = {
   outline: "none",
   width: "100%",
   boxSizing: "border-box",
+};
+
+const selectStyle = {
+  ...inputStyle,
+  appearance: "auto",
 };
 
 const btnPrimary = {
