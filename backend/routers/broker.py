@@ -2361,3 +2361,139 @@ async def broker_scorecard_upload(
         print(f"[Broker Scorecard Upload] Failed to save session: {exc}")
 
     return result
+
+
+# ---------------------------------------------------------------------------
+# POST /api/broker/clients/{employer_email}/caa-letter — AI-generated CAA letter
+# ---------------------------------------------------------------------------
+
+CAA_LETTER_SYSTEM_PROMPT = """You are a healthcare benefits compliance attorney drafting a formal data request letter under the Consolidated Appropriations Act (CAA) of 2021.
+
+Write a professional, attorney-quality CAA Section 204 data request letter. The letter must:
+
+1. Use the exact statutory citation: Section 204 of Division BB of the Consolidated Appropriations Act, 2021 (CAA 2021), codified at 29 U.S.C. § 1185i
+2. Reference ERISA § 404(a)(1) fiduciary duty obligations
+3. Reference DOL guidance from November 2021 and EBSA Field Assistance Bulletin 2021-04
+4. Request the following specific data:
+   (a) Complete 835 EDI remittance files for the current and prior plan year
+   (b) Pharmacy claims data including NDC codes and any rebate credits applied
+   (c) Monthly per-employee-per-month (PEPM) cost breakdown by medical, pharmacy, and administrative components
+   (d) Stop-loss premiums and specific/aggregate attachment points
+   (e) Network access fees and any other fees not included in the PEPM breakdown
+5. Include a 30-business-day response deadline citing the carrier's contractual obligation
+6. Include a firm but professional closing that references the broker's status as broker of record
+7. Use [DATE] as the date placeholder
+8. Fill in all provided data: broker name, firm name, company name, carrier name, state, approximate employee count, plan year
+
+Return ONLY valid JSON with a single key:
+{"letter": "<the full letter text with newlines as \\n>"}
+
+No preamble, no commentary, no markdown formatting outside the JSON."""
+
+
+@router.post("/clients/{employer_email}/caa-letter")
+async def generate_caa_letter(employer_email: str, authorization: str = Header(None)):
+    """Generate an AI-powered CAA Section 204 data request letter for a client."""
+    user, sb = _require_broker(authorization)
+    broker_email = user["email"]
+    e_email = employer_email.strip().lower()
+
+    # Verify broker-employer link
+    link = (
+        sb.table("broker_employer_links")
+        .select("company_name, carrier, state, employee_count_range, renewal_month, industry")
+        .eq("broker_email", broker_email)
+        .eq("employer_email", e_email)
+        .execute()
+    )
+    if not link.data:
+        raise HTTPException(status_code=403, detail="No access to this employer.")
+
+    client = link.data[0]
+    company_name = client.get("company_name", "")
+    carrier = client.get("carrier", "")
+    state = client.get("state", "")
+    employee_range = client.get("employee_count_range", "")
+    renewal_month = client.get("renewal_month")
+    broker_name = user.get("full_name", "")
+    firm_name = user["company"].get("name", "")
+
+    # Estimate employee count from range
+    range_map = {"1-50": 25, "51-100": 75, "101-250": 175, "251-500": 375, "501-1000": 750, "1001-5000": 3000, "5001+": 7500}
+    approx_employees = range_map.get(employee_range, 100)
+
+    # Compute plan year from renewal_month
+    now = datetime.now(timezone.utc)
+    if renewal_month:
+        plan_year = f"{now.year - 1}-{now.year}" if renewal_month > now.month else f"{now.year}-{now.year + 1}"
+    else:
+        plan_year = str(now.year)
+
+    prompt_data = json.dumps({
+        "broker_name": broker_name or "Broker of Record",
+        "firm_name": firm_name or "Benefits Advisory Firm",
+        "company_name": company_name,
+        "carrier": carrier or "the plan carrier",
+        "state": state or "",
+        "approximate_employees": approx_employees,
+        "plan_year": plan_year,
+    })
+
+    # Try AI generation
+    letter_text = None
+    try:
+        ai_result = _call_claude(
+            system_prompt=CAA_LETTER_SYSTEM_PROMPT,
+            user_content=prompt_data,
+            max_tokens=4096,
+        )
+        if ai_result and isinstance(ai_result, dict) and ai_result.get("letter"):
+            letter_text = ai_result["letter"]
+    except Exception as exc:
+        print(f"[Broker CAA] AI generation failed: {exc}")
+
+    # Fallback to static template
+    if not letter_text:
+        letter_text = f"""[DATE]
+
+{carrier or "[Carrier Name]"}
+Claims Data Department
+[Carrier Address]
+
+RE: Request for Claims Data and Cost Information Pursuant to CAA Section 204
+Plan Sponsor: {company_name}
+Approximate Covered Lives: {approx_employees}
+Plan Year: {plan_year}
+
+Dear Claims Department:
+
+This letter constitutes a formal request for plan-level claims data and cost information pursuant to Section 204 of Division BB of the Consolidated Appropriations Act, 2021 (CAA 2021), codified at 29 U.S.C. § 1185i, and consistent with the fiduciary obligations under ERISA § 404(a)(1).
+
+As the broker of record for {company_name}, I am acting on behalf of the plan fiduciaries to fulfill their statutory obligation to obtain and review this information. The Department of Labor's November 2021 guidance and EBSA Field Assistance Bulletin 2021-04 make clear that plan fiduciaries must obtain sufficient information to assess the reasonableness of compensation and services provided.
+
+We hereby request the following data for the current and prior plan year:
+
+1. Complete 835 EDI electronic remittance files for all medical claims
+2. Pharmacy claims data including NDC codes, quantities, days supply, and any rebate credits or retained rebates
+3. Monthly per-employee-per-month (PEPM) cost breakdown by medical claims, pharmacy claims, and administrative fees
+4. Stop-loss premiums, specific and aggregate attachment points, and any claims exceeding attachment points
+5. Network access fees, clinical program fees, and any other fees not included in the base PEPM
+
+Please provide this data within 30 business days of receipt of this letter, consistent with your contractual obligations and the requirements of applicable{' ' + state if state else ''} law.
+
+This information is essential for the plan fiduciary to fulfill its duty of prudence under ERISA and to comply with the transparency requirements of the CAA. Failure to provide this data in a timely manner may constitute a breach of your administrative services agreement.
+
+Please direct all data deliverables and correspondence to the undersigned.
+
+Sincerely,
+
+{broker_name or "[Broker Name]"}
+{firm_name or "[Firm Name]"}
+Broker of Record — {company_name}"""
+
+    return {
+        "letter": letter_text,
+        "client_name": company_name,
+        "carrier": carrier,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+    }

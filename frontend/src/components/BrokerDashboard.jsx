@@ -61,6 +61,12 @@ function BrokerDashboardInner() {
   const [summaryLoading, setSummaryLoading] = useState(false);
   const [clientActivity, setClientActivity] = useState(null);
 
+  // CAA letter state
+  const [caaLetterLoading, setCaaLetterLoading] = useState(false);
+  const [caaLetterText, setCaaLetterText] = useState(null);
+  const [caaLetterError, setCaaLetterError] = useState("");
+  const [caaLetterCopied, setCaaLetterCopied] = useState(false);
+
   // Add client panel state
   const [showAddPanel, setShowAddPanel] = useState(false);
   const [addForm, setAddForm] = useState({
@@ -290,6 +296,7 @@ function BrokerDashboardInner() {
     setUpgradeSent(false);
     setClaimsFile(null); setClaimsUploadResult(null); setClaimsUploadError("");
     setScorecardFile(null); setScorecardUploadResult(null); setScorecardUploadError("");
+    setCaaLetterText(null); setCaaLetterError(""); setCaaLetterCopied(false);
     fetchSummary(client.employer_email);
   };
 
@@ -1867,6 +1874,98 @@ function BrokerDashboardInner() {
                     </div>
                   </div>
                 )}
+
+                {/* ── CAA Data Request Letter ── */}
+                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: "0 0 4px" }}>CAA Data Request Letter</h3>
+                  <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 16px" }}>Legally-grounded letter requesting your client's claims data from their carrier.</p>
+
+                  {caaLetterError && (
+                    <div style={{ marginBottom: 12, padding: 10, background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 8 }}>
+                      <p style={{ color: "#991b1b", fontSize: 12, margin: 0 }}>{caaLetterError}</p>
+                    </div>
+                  )}
+
+                  {!caaLetterText && !caaLetterLoading && (
+                    <button
+                      onClick={async () => {
+                        setCaaLetterLoading(true);
+                        setCaaLetterError("");
+                        try {
+                          const res = await fetch(`${API}/api/broker/clients/${encodeURIComponent(selectedClient.employer_email)}/caa-letter`, {
+                            method: "POST",
+                            headers: { ...authHeaders, "Content-Type": "application/json" },
+                          });
+                          if (!res.ok) throw new Error("Failed to generate letter");
+                          const data = await res.json();
+                          setCaaLetterText(data.letter);
+                        } catch (err) {
+                          setCaaLetterError(err.message || "Failed to generate letter");
+                        } finally {
+                          setCaaLetterLoading(false);
+                        }
+                      }}
+                      style={{ padding: "8px 20px", borderRadius: 8, border: "none", cursor: "pointer", background: "#0D7377", color: "#fff", fontWeight: 600, fontSize: 13 }}
+                    >
+                      Generate Letter
+                    </button>
+                  )}
+
+                  {caaLetterLoading && (
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, padding: 12 }}>
+                      <div style={{ width: 20, height: 20, border: "2px solid #e2e8f0", borderTopColor: "#0D7377", borderRadius: "50%", animation: "cs-spin 0.8s linear infinite" }} />
+                      <span style={{ fontSize: 13, color: "#64748b" }}>Generating letter…</span>
+                    </div>
+                  )}
+
+                  {caaLetterText && (
+                    <div>
+                      <pre style={{
+                        whiteSpace: "pre-wrap", wordWrap: "break-word",
+                        fontFamily: "'Courier New', monospace", fontSize: 12, lineHeight: 1.6,
+                        background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 8,
+                        padding: 16, maxHeight: 400, overflowY: "auto", color: "#1e293b",
+                      }}>
+                        {caaLetterText}
+                      </pre>
+                      <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(caaLetterText);
+                            setCaaLetterCopied(true);
+                            setTimeout(() => setCaaLetterCopied(false), 2000);
+                          }}
+                          style={{ padding: "6px 14px", borderRadius: 6, border: "1px solid #e2e8f0", background: "#fff", color: "#475569", fontSize: 12, fontWeight: 600, cursor: "pointer" }}
+                        >
+                          {caaLetterCopied ? "Copied ✓" : "Copy to Clipboard"}
+                        </button>
+                        <button
+                          onClick={async () => {
+                            setCaaLetterText(null);
+                            setCaaLetterLoading(true);
+                            setCaaLetterError("");
+                            try {
+                              const res = await fetch(`${API}/api/broker/clients/${encodeURIComponent(selectedClient.employer_email)}/caa-letter`, {
+                                method: "POST",
+                                headers: { ...authHeaders, "Content-Type": "application/json" },
+                              });
+                              if (!res.ok) throw new Error("Failed to generate letter");
+                              const data = await res.json();
+                              setCaaLetterText(data.letter);
+                            } catch (err) {
+                              setCaaLetterError(err.message || "Failed to regenerate letter");
+                            } finally {
+                              setCaaLetterLoading(false);
+                            }
+                          }}
+                          style={{ padding: "6px 14px", borderRadius: 6, border: "1px solid #e2e8f0", background: "#fff", color: "#475569", fontSize: 12, fontWeight: 600, cursor: "pointer" }}
+                        >
+                          Regenerate
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             ) : null}
           </div>
