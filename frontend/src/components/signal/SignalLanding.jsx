@@ -9,14 +9,14 @@ function TopicCard({ topic }) {
   return (
     <Link
       to={`/signal/${topic.slug}`}
-      className="block border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow no-underline group"
+      className="block border border-white/[0.08] rounded-2xl p-6 hover:border-white/[0.15] transition-colors no-underline group bg-white/[0.02]"
     >
-      <h2 className="text-lg font-bold text-[#1B3A5C] mb-2 group-hover:text-[#0D7377] transition-colors">
+      <h2 className="text-lg font-bold text-[#cbd5e1] mb-2 group-hover:text-[#0D7377] transition-colors">
         {topic.title}
       </h2>
 
       {topic.description && (
-        <p className="text-sm text-gray-600 leading-relaxed mb-4">
+        <p className="text-sm text-gray-400 leading-relaxed mb-4">
           {topic.description}
         </p>
       )}
@@ -75,20 +75,31 @@ export default function SignalLanding({ session, userTier, tierData }) {
     <div className="max-w-3xl mx-auto px-4 py-8 font-[Arial,sans-serif]">
       {/* Hero */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-1.5 bg-teal-50 text-[#0D7377] text-xs font-semibold px-3 py-1 rounded-full mb-4">
+        <div className="inline-flex items-center gap-1.5 bg-[#0D7377]/10 text-[#0D7377] text-xs font-semibold px-3 py-1 rounded-full mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-[#0D7377]" />
-          Public Evidence Intelligence
+          Decision Engineering
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-[#1B3A5C] mb-3 leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-bold text-[#f1f5f9] mb-3 leading-tight">
           Evidence should be
           <br />
           <span className="text-[#0D7377]">accessible to everyone.</span>
         </h1>
-        <p className="text-gray-500 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+        <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
           Parity Signal scores medical evidence claims across six dimensions of
           credibility — source quality, data support, reproducibility,
           consensus, recency, and rigor — so you can see the strength of the
           evidence, not just the headlines.
+        </p>
+      </div>
+
+      {/* About Signal */}
+      <div className="mb-10 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
+        <h2 className="text-lg font-bold text-[#f1f5f9] mb-3">The engine behind Parity</h2>
+        <p className="text-sm text-gray-400 leading-relaxed mb-3">
+          Signal is the decision-engineering engine that powers all four Parity products — Employer, Broker, Provider, and Health. It ingests public benchmark data, normalizes it across geographies and time, applies multi-dimensional scoring, and generates transparent, plain-language explanations.
+        </p>
+        <p className="text-sm text-gray-400 leading-relaxed">
+          While healthcare is where we start — because a discoverable public reference price exists (Medicare) and regulatory tailwinds are forcing data into the open — Signal's analytical architecture extends to any domain with information asymmetry: insurance premiums, property tax assessments, policy claims in public debate.
         </p>
       </div>
 
@@ -111,11 +122,11 @@ export default function SignalLanding({ session, userTier, tierData }) {
             desc: "Claims are grouped by category and assessed for expert consensus, debate, or uncertainty.",
           },
         ].map((step) => (
-          <div key={step.num} className="bg-gray-50 rounded-xl p-4">
+          <div key={step.num} className="bg-white/[0.03] rounded-xl border border-white/[0.06] p-4">
             <div className="text-xs font-bold text-[#0D7377] mb-1">
               {step.num}
             </div>
-            <div className="text-sm font-bold text-[#1B3A5C] mb-1">
+            <div className="text-sm font-bold text-[#f1f5f9] mb-1">
               {step.title}
             </div>
             <p className="text-xs text-gray-500 leading-relaxed">
@@ -134,8 +145,8 @@ export default function SignalLanding({ session, userTier, tierData }) {
             { value: metrics.sources_monitored, label: "Sources Indexed" },
             { value: metrics.updates_this_month, label: "Updates This Month" },
           ].map((m) => (
-            <div key={m.label} className="bg-gray-50 rounded-xl p-3 text-center">
-              <div className="text-2xl font-bold text-[#1B3A5C]">
+            <div key={m.label} className="bg-white/[0.03] rounded-xl border border-white/[0.06] p-3 text-center">
+              <div className="text-2xl font-bold text-[#f1f5f9]">
                 {m.value?.toLocaleString() || "0"}
               </div>
               <div className="text-xs text-gray-500">{m.label}</div>
@@ -147,15 +158,15 @@ export default function SignalLanding({ session, userTier, tierData }) {
       {/* Topics */}
       {topicsLoading ? (
         <div className="animate-pulse">
-          <div className="h-6 bg-gray-200 rounded w-40 mb-4" />
+          <div className="h-6 bg-white/[0.06] rounded w-40 mb-4" />
           <div className="grid grid-cols-1 gap-4">
-            <div className="h-48 bg-gray-100 rounded-2xl" />
-            <div className="h-48 bg-gray-100 rounded-2xl" />
+            <div className="h-48 bg-white/[0.03] rounded-2xl" />
+            <div className="h-48 bg-white/[0.03] rounded-2xl" />
           </div>
         </div>
       ) : topics.length > 0 ? (
         <div>
-          <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">
+          <h2 className="text-sm font-bold text-gray-400 uppercase tracking-wide mb-3">
             Topics
           </h2>
           <div className="grid grid-cols-1 gap-4">
@@ -174,15 +185,15 @@ export default function SignalLanding({ session, userTier, tierData }) {
 
       {/* Topic request */}
       <div className="mt-10">
-        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">
+        <h2 className="text-sm font-bold text-gray-400 uppercase tracking-wide mb-3">
           Have a topic you'd like us to investigate?
         </h2>
         <TopicRequestForm session={session} userTier={userTier} tierData={tierData} />
       </div>
 
       {/* Score example */}
-      <div className="mt-10 bg-gray-50 rounded-xl p-5">
-        <h3 className="text-sm font-bold text-[#1B3A5C] mb-3">
+      <div className="mt-10 bg-white/[0.03] rounded-xl border border-white/[0.06] p-5">
+        <h3 className="text-sm font-bold text-[#f1f5f9] mb-3">
           Understanding Scores
         </h3>
         <div className="flex items-center gap-4 flex-wrap">
@@ -194,7 +205,7 @@ export default function SignalLanding({ session, userTier, tierData }) {
           ].map((ex) => (
             <div key={ex.label} className="flex items-center gap-2">
               <ScoreBadge score={ex.score} size="sm" />
-              <span className="text-xs text-gray-600">{ex.label}</span>
+              <span className="text-xs text-gray-400">{ex.label}</span>
             </div>
           ))}
         </div>

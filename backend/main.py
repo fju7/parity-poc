@@ -53,6 +53,7 @@ allowed_origins = [
     "https://provider.civicscale.ai",
     "https://broker.civicscale.ai",
     "https://employer.civicscale.ai",
+    "https://signal.civicscale.ai",
 ]
 
 # Add production Vercel URL from env if set

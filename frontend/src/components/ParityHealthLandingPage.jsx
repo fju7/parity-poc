@@ -54,26 +54,14 @@ export default function ParityHealthLandingPage() {
           </span>
         </Link>
         <nav className="cs-home-nav">
-          <Link
-            to="/billing"
+          <a
+            href="https://civicscale.ai"
             style={{ color: "inherit", textDecoration: "none" }}
           >
-            Billing Products
-          </Link>
-          <Link
-            to="/signal"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            Parity Signal
-          </Link>
-          <Link
-            to="/investors"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            About
-          </Link>
-          <Link
-            to="/parity-health/login"
+            CivicScale
+          </a>
+          <a
+            href="https://health.civicscale.ai/health/login"
             style={{
               color: "#14b8a6",
               textDecoration: "none",
@@ -83,7 +71,20 @@ export default function ParityHealthLandingPage() {
             }}
           >
             Sign In
-          </Link>
+          </a>
+          <a
+            href="https://health.civicscale.ai/health/signup"
+            style={{
+              color: "#0a1628",
+              textDecoration: "none",
+              background: "#14b8a6",
+              borderRadius: "6px",
+              padding: "6px 16px",
+              fontWeight: 600,
+            }}
+          >
+            Start Free Trial
+          </a>
         </nav>
       </header>
 
@@ -150,8 +151,8 @@ export default function ParityHealthLandingPage() {
             flexWrap: "wrap",
           }}
         >
-          <Link
-            to="/parity-health/upload"
+          <a
+            href="https://health.civicscale.ai/health/signup"
             style={{
               display: "inline-block",
               background: "#14b8a6",
@@ -166,8 +167,8 @@ export default function ParityHealthLandingPage() {
             onMouseEnter={(e) => (e.currentTarget.style.background = "#0d9488")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "#14b8a6")}
           >
-            Analyze My Bill &rarr;
-          </Link>
+            Start Free Trial &rarr;
+          </a>
           <a
             href="#how-it-works"
             style={{
@@ -200,7 +201,7 @@ export default function ParityHealthLandingPage() {
             marginTop: "16px",
           }}
         >
-          Free — no account required
+          30-day free trial &mdash; $9.95/month or $29/year. Cancel anytime.
         </p>
       </section>
 
@@ -429,10 +430,10 @@ export default function ParityHealthLandingPage() {
             lineHeight: "1.7",
           }}
         >
-          Start for free — no account, no commitment.
+          30-day free trial. $9.95/month or $29/year. Cancel anytime.
         </p>
-        <Link
-          to="/parity-health/upload"
+        <a
+          href="https://health.civicscale.ai/health/signup"
           style={{
             display: "inline-block",
             background: "#14b8a6",
@@ -447,8 +448,26 @@ export default function ParityHealthLandingPage() {
           onMouseEnter={(e) => (e.currentTarget.style.background = "#0d9488")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "#14b8a6")}
         >
-          Analyze My Bill &rarr;
-        </Link>
+          Start Free Trial &rarr;
+        </a>
+      </section>
+
+      {/* Employer link */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "40px",
+          maxWidth: "600px",
+          margin: "0 auto",
+          textAlign: "center",
+        }}
+      >
+        <p style={{ fontSize: "14px", color: "#64748b" }}>
+          Managing employee benefits?{" "}
+          <a href="https://employer.civicscale.ai" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>
+            Learn about Parity Employer &rarr;
+          </a>
+        </p>
       </section>
 
       {/* Footer */}

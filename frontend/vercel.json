@@ -18,6 +18,11 @@
       "has": [{ "type": "host", "value": "employer.civicscale.ai" }],
       "destination": "/index.html"
     },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "signal.civicscale.ai" }],
+      "destination": "/index.html"
+    },
     { "source": "/parity-health/:path*", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
@@ -68,6 +73,30 @@
       "source": "/billing/employer/:path*",
       "has": [{ "type": "host", "value": "www.civicscale.ai" }],
       "destination": "https://employer.civicscale.ai/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/signal",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://signal.civicscale.ai/",
+      "permanent": true
+    },
+    {
+      "source": "/signal/",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://signal.civicscale.ai/",
+      "permanent": true
+    },
+    {
+      "source": "/signal/:path*",
+      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "destination": "https://signal.civicscale.ai/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/signal/:path*",
+      "has": [{ "type": "host", "value": "www.civicscale.ai" }],
+      "destination": "https://signal.civicscale.ai/:path*",
       "permanent": true
     }
   ]

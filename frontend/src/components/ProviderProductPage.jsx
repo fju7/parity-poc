@@ -154,10 +154,10 @@ export default function ProviderProductPage() {
             </>
           ) : (
             <>
-              <Link to="/provider/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</Link>
-              <Link to="/provider/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
+              <a href="https://provider.civicscale.ai/provider/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</a>
+              <a href="https://provider.civicscale.ai/provider/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
                 Start Free Trial
-              </Link>
+              </a>
             </>
           )}
         </nav>
@@ -186,7 +186,7 @@ export default function ProviderProductPage() {
             See a Demo &darr;
           </a>
         </div>
-        <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>No credit card required &middot; 30-day free trial &middot; Cancel anytime</p>
+        <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>30-day free trial, cancel anytime</p>
       </section>
 
       {/* ── Section 2: The Revenue Leakage Problem ── */}
@@ -511,7 +511,7 @@ export default function ProviderProductPage() {
                 Dismiss
               </button>
             </div>
-            <p style={{ fontSize: 11, color: "#64748b", marginTop: 10 }}>No credit card required &middot; 30-day free trial &middot; Cancel anytime</p>
+            <p style={{ fontSize: 11, color: "#64748b", marginTop: 10 }}>30-day free trial, cancel anytime</p>
           </div>
         </div>
       )}
@@ -580,7 +580,7 @@ export default function ProviderProductPage() {
             Start Free Trial &rarr;
           </Link>
           <p style={{ fontSize: 12, color: "#64748b", marginTop: 16 }}>
-            No credit card required &middot; 30-day free trial &middot; Cancel anytime
+            30-day free trial, cancel anytime
           </p>
         </div>
       </section>

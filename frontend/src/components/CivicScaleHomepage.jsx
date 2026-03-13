@@ -67,21 +67,19 @@ export default function CivicScaleHomepage() {
           <span className="cs-home-wordmark">CivicScale</span>
         </Link>
         <nav className="cs-home-nav">
-          <Link to="/billing/employer" className="cs-home-nav-link">Employer</Link>
-          <Link to="/broker" className="cs-home-nav-link">Broker</Link>
-          <Link to="/billing/provider" className="cs-home-nav-link">Provider</Link>
-          <Link to="/parity-health" className="cs-home-nav-link">Health</Link>
-          <Link to="/signal" className="cs-home-nav-link">Signal</Link>
+          <a href="https://employer.civicscale.ai" className="cs-home-nav-link">Employer</a>
+          <a href="https://broker.civicscale.ai" className="cs-home-nav-link">Broker</a>
+          <a href="https://provider.civicscale.ai" className="cs-home-nav-link">Provider</a>
+          <a href="https://health.civicscale.ai" className="cs-home-nav-link">Health</a>
+          <a href="https://signal.civicscale.ai" className="cs-home-nav-link">Signal</a>
           <Link to="/investors" className="cs-home-nav-link cs-home-nav-investors">Investors</Link>
         </nav>
         <div className="cs-home-nav-actions">
-          {isAuthenticated ? (
+          {isAuthenticated && (
             <>
               <Link to={dashboardTo} className="cs-home-nav-cta">Go to Dashboard</Link>
               <Link to={accountTo} className="cs-home-nav-link" style={{ fontSize: 13, opacity: 0.8 }}>My Account</Link>
             </>
-          ) : (
-            <Link to="/billing/employer/signup" className="cs-home-nav-cta">Start Free Trial</Link>
           )}
         </div>
         <button className="cs-home-mobile-toggle" onClick={() => {
@@ -110,24 +108,12 @@ export default function CivicScaleHomepage() {
             stakeholder can make informed decisions, backed by evidence instead
             of carrier narratives.
           </p>
-          <div className="cs-home-hero-actions">
-            {isAuthenticated ? (
+          {isAuthenticated && (
+            <div className="cs-home-hero-actions">
               <Link to={dashboardTo} className="cs-btn-primary">
                 Go to Dashboard <span>&rarr;</span>
               </Link>
-            ) : (
-              <Link to="/billing/employer/signup" className="cs-btn-primary">
-                Start Free Trial <span>&rarr;</span>
-              </Link>
-            )}
-            <Link to="/billing/employer/demo" className="cs-btn-ghost">
-              See a Demo
-            </Link>
-          </div>
-          {!isAuthenticated && (
-            <p className="cs-home-hero-trust">
-              30-day free trial &middot; Cancel anytime
-            </p>
+            </div>
           )}
         </div>
       </section>
@@ -331,26 +317,26 @@ export default function CivicScaleHomepage() {
         <div className="cs-home-section-inner cs-home-cta-inner">
           <h2 className="cs-home-cta-title">Ready to see what your healthcare actually costs?</h2>
           <div className="cs-home-cta-paths">
-            <Link to="/billing/employer/signup" className="cs-home-cta-path">
+            <a href="https://employer.civicscale.ai/signup" className="cs-home-cta-path">
               <div className="cs-home-cta-path-label">I'm an employer</div>
               <div className="cs-home-cta-path-action">Start Free Trial &rarr;</div>
-              <div className="cs-home-cta-path-note">30-day trial, no credit card required</div>
-            </Link>
-            <Link to="/broker/signup" className="cs-home-cta-path">
+              <div className="cs-home-cta-path-note">30-day free trial, cancel anytime</div>
+            </a>
+            <a href="https://broker.civicscale.ai/signup" className="cs-home-cta-path">
               <div className="cs-home-cta-path-label">I'm a broker</div>
-              <div className="cs-home-cta-path-action">Get Started Free &rarr;</div>
-              <div className="cs-home-cta-path-note">Free for up to 10 clients</div>
-            </Link>
-            <Link to="/billing/provider" className="cs-home-cta-path">
+              <div className="cs-home-cta-path-action">Start Free Trial &rarr;</div>
+              <div className="cs-home-cta-path-note">30-day free trial, cancel anytime</div>
+            </a>
+            <a href="https://provider.civicscale.ai" className="cs-home-cta-path">
               <div className="cs-home-cta-path-label">I'm a provider</div>
-              <div className="cs-home-cta-path-action">Start Free Audit &rarr;</div>
-              <div className="cs-home-cta-path-note">No cost, no commitment</div>
-            </Link>
-            <Link to="/parity-health" className="cs-home-cta-path">
+              <div className="cs-home-cta-path-action">Start Free Trial &rarr;</div>
+              <div className="cs-home-cta-path-note">30-day free trial, cancel anytime</div>
+            </a>
+            <a href="https://health.civicscale.ai" className="cs-home-cta-path">
               <div className="cs-home-cta-path-label">I'm a patient</div>
               <div className="cs-home-cta-path-action">Understand My Bill &rarr;</div>
-              <div className="cs-home-cta-path-note">Free, anonymous, instant</div>
-            </Link>
+              <div className="cs-home-cta-path-note">$9.95/month or $29/year, 30-day free trial</div>
+            </a>
           </div>
         </div>
       </section>
@@ -370,11 +356,11 @@ export default function CivicScaleHomepage() {
           <div className="cs-home-footer-links-group">
             <div className="cs-home-footer-col">
               <h5>Products</h5>
-              <Link to="/billing/employer">Parity Employer</Link>
-              <Link to="/broker">Broker Portal</Link>
-              <Link to="/billing/provider">Parity Provider</Link>
-              <Link to="/parity-health">Parity Health</Link>
-              <Link to="/signal">Parity Signal</Link>
+              <a href="https://employer.civicscale.ai">Parity Employer</a>
+              <a href="https://broker.civicscale.ai">Broker Portal</a>
+              <a href="https://provider.civicscale.ai">Parity Provider</a>
+              <a href="https://health.civicscale.ai">Parity Health</a>
+              <a href="https://signal.civicscale.ai">Parity Signal</a>
             </div>
             <div className="cs-home-footer-col">
               <h5>Company</h5>
@@ -384,16 +370,16 @@ export default function CivicScaleHomepage() {
             </div>
             <div className="cs-home-footer-col">
               <h5>Get Started</h5>
-              <Link to="/billing/employer/signup">Employer Trial</Link>
-              <Link to="/broker/signup">Broker Signup</Link>
-              <Link to="/billing/employer/demo">See a Demo</Link>
+              <a href="https://employer.civicscale.ai/signup">Employer Trial</a>
+              <a href="https://broker.civicscale.ai/signup">Broker Signup</a>
+              <a href="https://employer.civicscale.ai/demo">See a Demo</a>
             </div>
           </div>
         </div>
         <div className="cs-home-footer-bottom">
           <span>&copy; CivicScale 2026. All rights reserved.</span>
           <span className="cs-home-footer-signal">
-            Analytical intelligence powered by <Link to="/signal">Parity Signal</Link>
+            Analytical intelligence powered by <a href="https://signal.civicscale.ai" style={{ color: "inherit" }}>Parity Signal</a>
           </span>
         </div>
       </footer>
@@ -442,8 +428,8 @@ const PRODUCT_CARDS = [
       "Pharmacy benefit benchmarking with NADAC data",
     ],
     cta: "Start Free Trial",
-    badge: "30-day trial, then $99/mo",
-    to: "/billing/employer/signup",
+    badge: "30-day free trial, cancel anytime",
+    to: "https://employer.civicscale.ai",
   },
   {
     key: "broker",
@@ -459,9 +445,9 @@ const PRODUCT_CARDS = [
       "Shareable reports with client branding",
       "Renewal pipeline with 90-day alerts",
     ],
-    cta: "Get Started Free",
-    badge: "Free for up to 10 clients",
-    to: "/broker/signup",
+    cta: "Start Free Trial",
+    badge: "30-day free trial, cancel anytime",
+    to: "https://broker.civicscale.ai",
   },
   {
     key: "provider",
@@ -477,8 +463,8 @@ const PRODUCT_CARDS = [
       "Denial pattern analysis with appeal letters",
       "Billing performance scorecard",
     ],
-    cta: "Request a Demo",
-    badge: "$300/mo",
+    cta: "Start Free Trial",
+    badge: "30-day free trial, cancel anytime",
     to: "https://provider.civicscale.ai",
   },
   {
@@ -496,8 +482,8 @@ const PRODUCT_CARDS = [
       "AI-powered denial appeal letter generator",
     ],
     cta: "Understand My Bill",
-    badge: "Free, anonymous, instant",
-    to: "/parity-health",
+    badge: "$9.95/month or $29/year, 30-day free trial",
+    to: "https://health.civicscale.ai",
   },
 ];
 

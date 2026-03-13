@@ -228,7 +228,7 @@ export default function BrokerLandingPage() {
             Benchmark a Prospect Free &rarr;
           </a>
         </div>
-        <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>No credit card required &middot; 30-day free trial &middot; Cancel anytime</p>
+        <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>30-day free trial, cancel anytime</p>
       </section>
 
       {/* ── SECTION 2: The Renewal Problem ── */}
@@ -582,7 +582,7 @@ export default function BrokerLandingPage() {
                 Dismiss
               </button>
             </div>
-            <p style={{ fontSize: 11, color: "#64748b", marginTop: 10 }}>No credit card required &middot; 30-day free trial &middot; Cancel anytime</p>
+            <p style={{ fontSize: 11, color: "#64748b", marginTop: 10 }}>30-day free trial, cancel anytime</p>
           </div>
         </div>
       )}
@@ -601,31 +601,7 @@ export default function BrokerLandingPage() {
         </div>
       </section>
 
-      {/* ── SECTION 5: The Referral Flywheel ── */}
-      <section style={{ padding: "0 24px 72px", maxWidth: 780, margin: "0 auto" }}>
-        <div style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.2)", borderRadius: 16, padding: "36px 40px" }}>
-          <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 24, fontWeight: 400, color: "#f1f5f9", marginBottom: 20 }}>
-            Your clients get a tool. You get recurring revenue.
-          </h2>
-          <div style={{ fontSize: 15, lineHeight: 1.75, color: "#94a3b8" }}>
-            <p style={{ margin: "0 0 16px" }}>
-              When a client you refer signs up for Parity Employer, you earn 20% of their subscription revenue for the first 12 months — automatically, with no additional work required.
-            </p>
-            <p style={{ margin: "0 0 16px" }}>
-              The math is straightforward: a broker with 20 employer clients who each sign up for Parity Employer at $99/month earns approximately <strong style={{ color: "#10b981" }}>$4,000 in referral revenue in the first year</strong>. The clients get independent benchmark analysis. You get a revenue stream that compounds as your book grows.
-            </p>
-            <p style={{ margin: "0 0 20px" }}>
-              Referral tracking is built into your dashboard. You can see which clients have signed up, how long they've been active, and what you've earned.
-            </p>
-          </div>
-          <Link to="/broker/signup" style={{ display: "inline-block", background: "#14b8a6", color: "#0a1628", borderRadius: 8, padding: "10px 24px", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
-            Start Free Trial &rarr;
-          </Link>
-          <span style={{ fontSize: 12, color: "#64748b", marginLeft: 16 }}>Referral tracking included from day one</span>
-        </div>
-      </section>
-
-      {/* ── SECTION 6: How It Works ── */}
+      {/* ── SECTION 5: How It Works ── */}
       <section style={{ padding: "0 24px 72px", maxWidth: 900, margin: "0 auto" }}>
         <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 400, color: "#f1f5f9", textAlign: "center", marginBottom: 40 }}>How It Works</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 28 }}>
@@ -659,7 +635,7 @@ export default function BrokerLandingPage() {
               "CAA letter generation",
               "Book-of-business dashboard with renewal tracking",
               "Prospect benchmarking tool",
-              "Employer referral tracking and commission dashboard",
+              "Shared benchmark reports with client branding",
               "PDF report export",
             ].map((f) => (
               <li key={f} style={{ fontSize: 14, color: "#94a3b8", display: "flex", alignItems: "center", gap: 8 }}>
@@ -670,11 +646,11 @@ export default function BrokerLandingPage() {
           <Link to="/broker/signup" style={{ display: "inline-block", background: "#14b8a6", color: "#0a1628", borderRadius: 8, padding: "12px 32px", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
             Start Free Trial &rarr;
           </Link>
-          <p style={{ fontSize: 12, color: "#64748b", marginTop: 16 }}>No credit card required &middot; 30-day free trial &middot; Cancel anytime</p>
+          <p style={{ fontSize: 12, color: "#64748b", marginTop: 16 }}>30-day free trial, cancel anytime</p>
         </div>
         <div style={{ textAlign: "center", marginTop: 20, fontSize: 14, color: "#94a3b8" }}>
           Managing your own employer plan too?{" "}
-          <Link to="/billing/employer" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>Learn about Parity Employer &rarr;</Link>
+          <a href="https://employer.civicscale.ai" style={{ color: "#14b8a6", textDecoration: "none", fontWeight: 600 }}>Learn about Parity Employer &rarr;</a>
         </div>
       </section>
 
@@ -696,7 +672,7 @@ export default function BrokerLandingPage() {
           ))}
         </div>
         <p style={{ fontSize: 13, color: "#64748b", textAlign: "center", marginTop: 20 }}>
-          No client data shared across accounts. Your book of business is yours.
+          Your client data is yours. CivicScale will never contact, market to, or share data about any employer you add to your book of business.
         </p>
       </section>
 

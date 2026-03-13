@@ -141,10 +141,10 @@ export default function EmployerProductPage() {
             </>
           ) : (
             <>
-              <Link to="/employer/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</Link>
-              <Link to="/billing/employer/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
+              <a href="https://employer.civicscale.ai/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</a>
+              <a href="https://employer.civicscale.ai/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
                 Start Free Trial
-              </Link>
+              </a>
             </>
           )}
         </nav>
@@ -166,9 +166,9 @@ export default function EmployerProductPage() {
           Parity Employer benchmarks your 835 claims against Medicare rates, flags variance, analyzes your pharmacy spend against actual drug acquisition costs, and delivers a plain-language report your CFO can act on. In minutes.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-          <Link to="/billing/employer/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+          <a href="https://employer.civicscale.ai/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
             Start Free Trial &rarr;
-          </Link>
+          </a>
           <a href="#demo" style={{ display: "inline-block", border: "1px solid rgba(59,130,246,0.4)", color: "#60a5fa", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
             See the Demo Below &darr;
           </a>
@@ -360,14 +360,14 @@ export default function EmployerProductPage() {
               Upload your 835, CSV, or Excel claims export. Results in under 60 seconds.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
-              <Link to="/billing/employer/signup" style={{ background: "#3b82f6", color: "#fff", padding: "10px 24px", borderRadius: 8, fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+              <a href="https://employer.civicscale.ai/signup" style={{ background: "#3b82f6", color: "#fff", padding: "10px 24px", borderRadius: 8, fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
                 Start Free Trial &rarr;
-              </Link>
+              </a>
               <button onClick={() => setShowConversion(false)} style={{ background: "none", border: "1px solid rgba(255,255,255,0.15)", color: "#94a3b8", padding: "10px 20px", borderRadius: 8, fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
                 Dismiss
               </button>
             </div>
-            <p style={{ fontSize: 11, color: "#64748b", marginTop: 10 }}>30-day trial &middot; No credit card required &middot; Cancel anytime</p>
+            <p style={{ fontSize: 11, color: "#64748b", marginTop: 10 }}>30-day free trial &middot; Cancel anytime</p>
           </div>
         </div>
       )}
@@ -402,9 +402,9 @@ export default function EmployerProductPage() {
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "#94a3b8", marginBottom: 24, maxWidth: 420, marginLeft: "auto", marginRight: "auto" }}>
             Claims benchmarking, pharmacy analysis, RBP calculator, contract parser, plan scorecard, provider-level analysis, trend monitoring, and unlimited uploads.
           </p>
-          <Link to="/billing/employer/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", borderRadius: 8, padding: "12px 32px", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+          <a href="https://employer.civicscale.ai/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", borderRadius: 8, padding: "12px 32px", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
             Start Free Trial &rarr;
-          </Link>
+          </a>
           <p style={{ fontSize: 12, color: "#64748b", marginTop: 16 }}>
             Introductory price locked for 24 months. No charge during trial.
           </p>
@@ -426,7 +426,7 @@ export default function EmployerProductPage() {
 
       {/* ── Footer ── */}
       <footer style={{ padding: "40px 24px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center", fontSize: 13, color: "#475569" }}>
-        <Link to="/" style={{ color: "#64748b", textDecoration: "none", marginRight: 24 }}>&larr; CivicScale Home</Link>
+        <a href="https://civicscale.ai" style={{ color: "#64748b", textDecoration: "none", marginRight: 24 }}>&larr; CivicScale Home</a>
         &copy; CivicScale 2026. All rights reserved.
       </footer>
     </div>

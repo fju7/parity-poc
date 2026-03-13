@@ -446,7 +446,7 @@ export default function EmployerDemoPage() {
             marginTop: "36px",
           }}>
             <p style={{ fontSize: "14px", color: "#94a3b8", marginBottom: "8px", lineHeight: "1.7" }}>
-              This demo uses sample data for {COMPANY.name}. Start your free benchmark with your own numbers &mdash; no credit card required.
+              This demo uses sample data for {COMPANY.name}. Start your free benchmark with your own numbers &mdash; 30-day free trial, cancel anytime.
             </p>
             <p style={{ fontSize: "13px", color: "#10b981", marginBottom: "16px" }}>
               Plans from $149/mo &middot; Savings guarantee

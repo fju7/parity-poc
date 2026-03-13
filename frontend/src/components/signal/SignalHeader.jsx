@@ -25,22 +25,22 @@ export default function SignalHeader({ session, onSignOut }) {
   const userDisplay = formatUserDisplay(session);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
+    <header className="sticky top-0 z-50 bg-[#0a1628]/95 backdrop-blur border-b border-white/[0.06]">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link to="/signal" className="flex items-center gap-2 no-underline">
           <div className="flex items-center gap-0.5">
             <div className="flex flex-col gap-[2px]">
-              <div className="w-[3px] h-[10px] rounded-sm bg-[#1B3A5C]" />
+              <div className="w-[3px] h-[10px] rounded-sm bg-[#94a3b8]" />
               <div className="w-[3px] h-[7px] rounded-sm bg-[#0D7377]" />
-              <div className="w-[3px] h-[4px] rounded-sm bg-[#1B3A5C]" />
+              <div className="w-[3px] h-[4px] rounded-sm bg-[#94a3b8]" />
             </div>
             <div className="flex flex-col gap-[2px]">
               <div className="w-[3px] h-[4px] rounded-sm bg-[#0D7377]" />
-              <div className="w-[3px] h-[7px] rounded-sm bg-[#1B3A5C]" />
+              <div className="w-[3px] h-[7px] rounded-sm bg-[#94a3b8]" />
               <div className="w-[3px] h-[10px] rounded-sm bg-[#0D7377]" />
             </div>
           </div>
-          <span className="text-[#1B3A5C] font-bold text-lg tracking-tight font-[Arial,sans-serif]">
+          <span className="text-[#f1f5f9] font-bold text-lg tracking-tight font-[Arial,sans-serif]">
             Parity Signal
           </span>
         </Link>
@@ -49,27 +49,27 @@ export default function SignalHeader({ session, onSignOut }) {
         <nav className="hidden md:flex items-center gap-4 text-sm font-[Arial,sans-serif]">
           <button
             onClick={() => navigate("/signal/methodology")}
-            className="text-gray-500 hover:text-[#1B3A5C] transition-colors bg-transparent border-none cursor-pointer"
+            className="text-gray-400 hover:text-[#f1f5f9] transition-colors bg-transparent border-none cursor-pointer"
           >
             Methodology
           </button>
           <button
             onClick={() => navigate("/signal/pricing")}
-            className="text-gray-500 hover:text-[#1B3A5C] transition-colors bg-transparent border-none cursor-pointer"
+            className="text-gray-400 hover:text-[#f1f5f9] transition-colors bg-transparent border-none cursor-pointer"
           >
             Pricing
           </button>
-          <Link
-            to="/"
-            className="text-gray-400 hover:text-gray-600 transition-colors no-underline text-xs"
+          <a
+            href="https://civicscale.ai"
+            className="text-gray-500 hover:text-gray-300 transition-colors no-underline text-xs"
           >
             CivicScale
-          </Link>
+          </a>
           {session ? (
             <>
               <button
                 onClick={() => navigate("/signal/account")}
-                className="text-gray-500 hover:text-[#1B3A5C] transition-colors bg-transparent border-none cursor-pointer text-xs truncate max-w-[140px]"
+                className="text-gray-400 hover:text-[#f1f5f9] transition-colors bg-transparent border-none cursor-pointer text-xs truncate max-w-[140px]"
               >
                 {userDisplay || "Account"}
               </button>
@@ -97,13 +97,13 @@ export default function SignalHeader({ session, onSignOut }) {
           aria-label="Toggle menu"
         >
           <span
-            className={`block h-[2px] w-full bg-[#1B3A5C] rounded transition-transform origin-center ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`}
+            className={`block h-[2px] w-full bg-[#94a3b8] rounded transition-transform origin-center ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`}
           />
           <span
-            className={`block h-[2px] w-full bg-[#1B3A5C] rounded transition-opacity ${menuOpen ? "opacity-0" : ""}`}
+            className={`block h-[2px] w-full bg-[#94a3b8] rounded transition-opacity ${menuOpen ? "opacity-0" : ""}`}
           />
           <span
-            className={`block h-[2px] w-full bg-[#1B3A5C] rounded transition-transform origin-center ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
+            className={`block h-[2px] w-full bg-[#94a3b8] rounded transition-transform origin-center ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
           />
         </button>
       </div>
@@ -112,13 +112,13 @@ export default function SignalHeader({ session, onSignOut }) {
       <div
         className={`md:hidden overflow-hidden transition-[max-height] duration-200 ease-in-out ${menuOpen ? "max-h-60" : "max-h-0"}`}
       >
-        <nav className="flex flex-col gap-1 px-4 pb-3 pt-1 font-[Arial,sans-serif] text-sm border-t border-gray-100">
+        <nav className="flex flex-col gap-1 px-4 pb-3 pt-1 font-[Arial,sans-serif] text-sm border-t border-white/[0.06]">
           <button
             onClick={() => {
               navigate("/signal/methodology");
               setMenuOpen(false);
             }}
-            className="text-left text-gray-600 hover:text-[#1B3A5C] hover:bg-gray-50 bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
+            className="text-left text-gray-400 hover:text-[#f1f5f9] hover:bg-white/[0.04] bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
           >
             Methodology
           </button>
@@ -127,17 +127,17 @@ export default function SignalHeader({ session, onSignOut }) {
               navigate("/signal/pricing");
               setMenuOpen(false);
             }}
-            className="text-left text-gray-600 hover:text-[#1B3A5C] hover:bg-gray-50 bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
+            className="text-left text-gray-400 hover:text-[#f1f5f9] hover:bg-white/[0.04] bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
           >
             Pricing
           </button>
-          <Link
-            to="/"
+          <a
+            href="https://civicscale.ai"
             onClick={() => setMenuOpen(false)}
-            className="text-gray-400 hover:text-gray-600 hover:bg-gray-50 no-underline py-2.5 px-2 rounded-lg transition-colors"
+            className="text-gray-500 hover:text-gray-300 hover:bg-white/[0.04] no-underline py-2.5 px-2 rounded-lg transition-colors"
           >
             CivicScale
-          </Link>
+          </a>
           {session ? (
             <>
               <button
@@ -145,7 +145,7 @@ export default function SignalHeader({ session, onSignOut }) {
                   navigate("/signal/account");
                   setMenuOpen(false);
                 }}
-                className="text-left text-gray-600 hover:text-[#1B3A5C] hover:bg-gray-50 bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
+                className="text-left text-gray-400 hover:text-[#f1f5f9] hover:bg-white/[0.04] bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
               >
                 Account
               </button>
@@ -154,7 +154,7 @@ export default function SignalHeader({ session, onSignOut }) {
                   onSignOut?.();
                   setMenuOpen(false);
                 }}
-                className="text-left text-red-500 hover:bg-red-50 bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
+                className="text-left text-red-400 hover:bg-red-500/10 bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
               >
                 Sign out
               </button>
@@ -163,7 +163,7 @@ export default function SignalHeader({ session, onSignOut }) {
             <Link
               to="/signal/login"
               onClick={() => setMenuOpen(false)}
-              className="text-[#0D7377] hover:bg-gray-50 no-underline py-2.5 px-2 rounded-lg transition-colors font-medium"
+              className="text-[#0D7377] hover:bg-white/[0.04] no-underline py-2.5 px-2 rounded-lg transition-colors font-medium"
             >
               Sign in
             </Link>

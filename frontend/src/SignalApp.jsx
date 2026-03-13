@@ -243,7 +243,7 @@ export default function SignalApp() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-[Arial,sans-serif]">
+    <div className="min-h-screen bg-[#0a1628] flex flex-col font-[Arial,sans-serif]">
       <ScrollToTop />
       <SignalHeader session={session} onSignOut={handleSignOut} />
       <main className="flex-1">

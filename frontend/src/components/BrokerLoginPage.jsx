@@ -82,7 +82,7 @@ export default function BrokerLoginPage() {
           <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em" }}>CivicScale</span>
         </a>
         <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 14 }}>
-          <Link to="/broker" style={{ color: "#94a3b8", textDecoration: "none" }}>For Brokers</Link>
+          <a href="https://broker.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>For Brokers</a>
         </nav>
       </header>
 

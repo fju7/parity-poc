@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function SignalFooter() {
   return (
-    <footer className="border-t border-gray-100 py-6 px-4 text-center font-[Arial,sans-serif]">
-      <p className="text-xs text-gray-400 leading-relaxed max-w-2xl mx-auto">
+    <footer className="border-t border-white/[0.06] py-6 px-4 text-center font-[Arial,sans-serif]">
+      <p className="text-xs text-gray-500 leading-relaxed max-w-2xl mx-auto">
         Parity Signal is powered by CivicScale benchmark infrastructure.
         Evidence assessments use publicly available research, FDA filings, and
         CMS data. Scores reflect automated analysis and should not replace

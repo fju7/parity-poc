@@ -107,31 +107,37 @@ export default function BrokerSignupPage() {
 
   const inputStyle = {
     width: "100%", padding: "10px 12px", borderRadius: 8,
-    border: "1px solid #e2e8f0", fontSize: 15,
+    border: "1px solid rgba(255,255,255,0.12)", fontSize: 15,
     outline: "none", boxSizing: "border-box",
+    background: "rgba(255,255,255,0.06)", color: "#f1f5f9",
   };
 
   return (
-    <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
+    <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#e2e8f0", overflowX: "hidden", minHeight: "100vh", background: "#0a1628" }}>
       {/* NAV */}
-      <nav className="cs-nav">
-        <Link className="cs-nav-logo" to="/">
-          <LogoIcon />
-          <span className="cs-nav-wordmark">CivicScale</span>
-        </Link>
-        <div className="cs-nav-links">
-          <Link to="/employer">For Employers</Link>
-        </div>
-      </nav>
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        padding: "0 40px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between",
+        background: "rgba(10,22,40,0.92)", backdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}>
+        <a href="https://civicscale.ai" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #0d9488, #14b8a6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0a1628" }}>C</div>
+          <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em" }}>CivicScale</span>
+        </a>
+        <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 14 }}>
+          <a href="https://broker.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>For Brokers</a>
+        </nav>
+      </header>
 
       {/* SIGNUP FORM */}
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 64 }}>
         <div style={{ width: "100%", maxWidth: 420, padding: "0 16px" }}>
           <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#f1f5f9", margin: 0 }}>
               Join Parity Broker
             </h1>
-            <p style={{ color: "#64748b", marginTop: 8, fontSize: 15, lineHeight: 1.6 }}>
+            <p style={{ color: "#94a3b8", marginTop: 8, fontSize: 15, lineHeight: 1.6 }}>
               Start your 30-day free trial. $99/mo after trial &mdash; cancel anytime.
             </p>
           </div>
@@ -139,7 +145,7 @@ export default function BrokerSignupPage() {
           {step === "email" && (
             <>
               <div style={{ marginBottom: 14 }}>
-                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>
                   Email *
                 </label>
                 <input
@@ -178,7 +184,7 @@ export default function BrokerSignupPage() {
 
               <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
                 {[
-                  "\u2713 30-day free trial \u2014 no credit card required",
+                  "\u2713 30-day free trial \u2014 cancel anytime",
                   "\u2713 Unlimited clients and benchmark analyses",
                   "\u2713 CAA letter generation, renewal prep, and Level 2 claims insights",
                 ].map((text) => (
@@ -190,13 +196,13 @@ export default function BrokerSignupPage() {
 
           {step === "otp" && (
             <div style={{
-              padding: 24, borderRadius: 12, border: "1px solid #0D7377",
-              background: "#f0fdfa", textAlign: "center",
+              padding: 24, borderRadius: 12, border: "1px solid #0d9488",
+              background: "rgba(13,148,136,0.08)", textAlign: "center",
             }}>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: "0 0 8px" }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#f1f5f9", margin: "0 0 8px" }}>
                 Check your email
               </h3>
-              <p style={{ fontSize: 14, color: "#475569", marginBottom: 4 }}>
+              <p style={{ fontSize: 14, color: "#cbd5e1", marginBottom: 4 }}>
                 We sent an 8-digit code to <strong>{email}</strong>.
               </p>
               <p style={{ fontSize: 12, color: "#94a3b8", marginBottom: 20 }}>
@@ -212,8 +218,9 @@ export default function BrokerSignupPage() {
                 maxLength={8}
                 style={{
                   width: "100%", padding: "12px 16px", fontSize: 24, letterSpacing: 8,
-                  textAlign: "center", border: "1px solid #cbd5e1", borderRadius: 8,
+                  textAlign: "center", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 8,
                   outline: "none", boxSizing: "border-box", marginBottom: 12,
+                  background: "rgba(255,255,255,0.06)", color: "#f1f5f9",
                 }}
               />
 
@@ -243,7 +250,7 @@ export default function BrokerSignupPage() {
 
           {step === "company" && (
             <>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: "0 0 4px", textAlign: "center" }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#cbd5e1", margin: "0 0 4px", textAlign: "center" }}>
                 Set up your broker account
               </h3>
               <p style={{ fontSize: 14, color: "#64748b", textAlign: "center", marginBottom: 20 }}>
@@ -251,7 +258,7 @@ export default function BrokerSignupPage() {
               </p>
 
               <div style={{ marginBottom: 14 }}>
-                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>
                   Full name *
                 </label>
                 <input
@@ -265,7 +272,7 @@ export default function BrokerSignupPage() {
               </div>
 
               <div style={{ marginBottom: 14 }}>
-                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>
                   Firm name *
                 </label>
                 <input
@@ -279,7 +286,7 @@ export default function BrokerSignupPage() {
               </div>
 
               <div style={{ marginBottom: 20 }}>
-                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#1B3A5C", marginBottom: 6 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>
                   Phone <span style={{ color: "#94a3b8", fontWeight: 400 }}>(optional)</span>
                 </label>
                 <input
@@ -307,10 +314,10 @@ export default function BrokerSignupPage() {
 
           {errorMsg && (
             <div style={{
-              padding: 12, borderRadius: 8, background: "#fef2f2",
-              border: "1px solid #fecaca", marginTop: 16,
+              padding: 12, borderRadius: 8, background: "rgba(239,68,68,0.1)",
+              border: "1px solid rgba(239,68,68,0.3)", marginTop: 16,
             }}>
-              <p style={{ color: "#991b1b", fontSize: 13, margin: 0 }}>{errorMsg}</p>
+              <p style={{ color: "#fca5a5", fontSize: 13, margin: 0 }}>{errorMsg}</p>
             </div>
           )}
         </div>

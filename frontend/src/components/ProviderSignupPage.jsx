@@ -131,7 +131,7 @@ export default function ProviderSignupPage() {
               </p>
               <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
                 {[
-                  "✓ 30-day free trial — no credit card required",
+                  "✓ 30-day free trial — cancel anytime",
                   "✓ Automatic contract compliance checks every month",
                   "✓ Denial pattern analysis and one-click appeal letters",
                 ].map(t => <p key={t} style={{ fontSize: 13, color: "#475569", margin: 0 }}>{t}</p>)}

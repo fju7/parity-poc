@@ -58,6 +58,7 @@ const isHealthSubdomain = hostname === 'health.civicscale.ai'
 const isProviderSubdomain = hostname === 'provider.civicscale.ai'
 const isBrokerSubdomain = hostname === 'broker.civicscale.ai'
 const isEmployerSubdomain = hostname === 'employer.civicscale.ai'
+const isSignalSubdomain = hostname === 'signal.civicscale.ai'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -116,6 +117,14 @@ createRoot(document.getElementById('root')).render(
             <Route path="/employer/shared-report/:shareToken" element={<EmployerSharedReport />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
+          </>
+        ) : isSignalSubdomain ? (
+          <>
+            <Route path="/*" element={<SignalApp />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            {/* Also support old /signal/* paths for backward compat */}
+            <Route path="/signal/*" element={<Navigate to="/" replace />} />
           </>
         ) : (
           <>
