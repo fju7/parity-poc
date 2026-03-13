@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import "./CivicScaleHomepage.css";
 
 export function LogoIcon({ footer }) {
@@ -38,23 +37,8 @@ export function LogoIcon({ footer }) {
 }
 
 
-const DASHBOARD_ROUTES = {
-  employer: "/billing/employer/dashboard",
-  broker: "/broker/dashboard",
-  provider: "/provider/dashboard",
-};
-const ACCOUNT_ROUTES = {
-  employer: "/billing/employer/account",
-  broker: "/broker/account",
-  provider: "/provider/account",
-};
-
 export default function CivicScaleHomepage() {
   const [hoveredProduct, setHoveredProduct] = useState(null);
-  const { isAuthenticated, company } = useAuth();
-  const companyType = company?.type;
-  const dashboardTo = DASHBOARD_ROUTES[companyType] || "/billing/employer/dashboard";
-  const accountTo = ACCOUNT_ROUTES[companyType] || "/billing/employer/account";
 
   return (
     <div className="cs-home-root">
@@ -74,14 +58,7 @@ export default function CivicScaleHomepage() {
           <a href="https://signal.civicscale.ai" className="cs-home-nav-link">Signal</a>
           <Link to="/investors" className="cs-home-nav-link cs-home-nav-investors">Investors</Link>
         </nav>
-        <div className="cs-home-nav-actions">
-          {isAuthenticated && (
-            <>
-              <Link to={dashboardTo} className="cs-home-nav-cta">Go to Dashboard</Link>
-              <Link to={accountTo} className="cs-home-nav-link" style={{ fontSize: 13, opacity: 0.8 }}>My Account</Link>
-            </>
-          )}
-        </div>
+        <div className="cs-home-nav-actions" />
         <button className="cs-home-mobile-toggle" onClick={() => {
           document.querySelector('.cs-home-nav').classList.toggle('cs-home-nav--open');
         }} aria-label="Toggle navigation">
@@ -108,13 +85,6 @@ export default function CivicScaleHomepage() {
             stakeholder can make informed decisions, backed by evidence instead
             of carrier narratives.
           </p>
-          {isAuthenticated && (
-            <div className="cs-home-hero-actions">
-              <Link to={dashboardTo} className="cs-btn-primary">
-                Go to Dashboard <span>&rarr;</span>
-              </Link>
-            </div>
-          )}
         </div>
       </section>
 
