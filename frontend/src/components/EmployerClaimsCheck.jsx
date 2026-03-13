@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { cptLabel } from "../lib/cptLabel";
 import { useAuth } from "../context/AuthContext";
+import BrokerConnectCard from "./BrokerConnectCard";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -866,6 +867,19 @@ export default function EmployerClaimsCheck() {
                 <input type="checkbox" checked={wantsCopy} onChange={(e) => setWantsCopy(e.target.checked)} style={{ accentColor: "#3b82f6", width: "16px", height: "16px" }} />
                 <span style={{ fontSize: "14px", color: "#94a3b8" }}>Email me a copy of this report</span>
               </label>
+            )}
+
+            {/* Broker Connect */}
+            {result.summary.total_excess_2x > 0 && (
+              <div style={{ marginBottom: "20px" }}>
+                <BrokerConnectCard
+                  benchmarkData={{
+                    email: isAuthenticated ? user?.email : (sessionStorage.getItem("cs_anon_email") || ""),
+                    excess_amount: result.summary.total_excess_2x,
+                  }}
+                  source="claims"
+                />
+              </div>
             )}
 
             {/* CTAs */}

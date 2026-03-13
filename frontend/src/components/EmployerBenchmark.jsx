@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import BrokerConnectCard from "./BrokerConnectCard";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -48,6 +49,7 @@ export default function EmployerBenchmark() {
   const [methodOpen, setMethodOpen] = useState(false);
   const [wantsCopy, setWantsCopy] = useState(false);
   const { isAuthenticated, user } = useAuth();
+  const [searchParams] = useSearchParams();
 
   const formValid = industry && companySize && state && pepm && parseFloat(pepm) > 0;
 
@@ -364,6 +366,24 @@ export default function EmployerBenchmark() {
                 Print This Report
               </button>
             </div>
+
+            {/* Broker Connect */}
+            {!searchParams.get("broker_ref") && (
+              <div style={{ marginBottom: "20px" }}>
+                <BrokerConnectCard
+                  benchmarkData={{
+                    email: resolvedEmail,
+                    pepm: result.input.pepm_input,
+                    percentile: result.result.percentile,
+                    annual_gap: result.result.dollar_gap_annual,
+                    company_size: companySize,
+                    industry,
+                    state,
+                  }}
+                  source="benchmark"
+                />
+              </div>
+            )}
 
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
