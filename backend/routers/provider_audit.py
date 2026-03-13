@@ -20,7 +20,7 @@ from routers.provider_shared import (
     _run_analysis_for_payer, _aggregate_underpayments,
     _email_wrapper, _send_submission_confirmation, _send_delivery_email, _send_followup_email,
     STATIC_DIR, FEE_SCHEDULE_EXTRACTION_PROMPT, DENIAL_SYSTEM_PROMPT,
-    EM_CODES, EM_BENCHMARKS,
+    EM_CODES, EM_BENCHMARKS, CPT_DENIAL_BENCHMARKS, DENIAL_BENCHMARK_DATA_NOTE,
     SaveRatesRequest, AnalyzeRequest, CodingAnalyzeRequest, AnalyzeDenialsRequest,
     ExtractFeeScheduleTextRequest, CalculateMedicarePercentageRequest,
     AuditReportRequest, SubmitAuditRequest,
@@ -551,6 +551,45 @@ async def analyze_contract(req: AnalyzeRequest):
         for code, amt in top_underpaid
     ]
 
+    # --- CPT-level denial rate benchmarking ---
+    denial_benchmarks = []
+    cpt_denied_counts = {}
+    cpt_total_counts = {}
+    cpt_denied_value = {}
+    for el in enriched_lines:
+        cpt = el["cpt_code"]
+        cpt_total_counts[cpt] = cpt_total_counts.get(cpt, 0) + 1
+        if el["flag"] == "DENIED":
+            cpt_denied_counts[cpt] = cpt_denied_counts.get(cpt, 0) + 1
+            cpt_denied_value[cpt] = (
+                cpt_denied_value.get(cpt, 0.0)
+                + el.get("billed_amount", 0.0)
+            )
+
+    for cpt, total in cpt_total_counts.items():
+        if total < 2:
+            continue
+        denied = cpt_denied_counts.get(cpt, 0)
+        practice_rate = round((denied / total) * 100, 1)
+        benchmark = CPT_DENIAL_BENCHMARKS.get(cpt)
+        if benchmark:
+            gap = round(practice_rate - benchmark["avg_denial_rate"], 1)
+            denial_benchmarks.append({
+                "cpt_code": cpt,
+                "practice_denial_rate": practice_rate,
+                "industry_avg_rate": benchmark["avg_denial_rate"],
+                "gap": gap,
+                "gap_direction": "above" if gap > 0 else "below",
+                "category": benchmark["category"],
+                "source": benchmark["source"],
+                "note": benchmark["note"],
+                "total_claims": total,
+                "denied_claims": denied,
+                "denied_value": round(cpt_denied_value.get(cpt, 0.0), 2),
+            })
+
+    denial_benchmarks.sort(key=lambda x: x["gap"], reverse=True)
+
     summary = {
         "total_contracted": round(total_contracted, 2),
         "total_paid": round(total_paid, 2),
@@ -589,6 +628,7 @@ async def analyze_contract(req: AnalyzeRequest):
                 "summary": summary,
                 "top_underpaid": top_underpaid_list,
                 "line_count": len(enriched_lines),
+                "denial_benchmarks": denial_benchmarks,
             },
         }).execute()
     except Exception as exc:
@@ -632,6 +672,8 @@ async def analyze_contract(req: AnalyzeRequest):
         "top_underpaid": top_underpaid_list,
         "scorecard": scorecard,
         "coding_analysis": coding_analysis,
+        "denial_benchmarks": denial_benchmarks,
+        "denial_benchmark_note": DENIAL_BENCHMARK_DATA_NOTE if denial_benchmarks else "",
     }
 
 
@@ -1119,6 +1161,7 @@ async def generate_audit_report(req: AuditReportRequest):
                                 "line_items": rj.get("line_items", []),
                                 "scorecard": rj.get("scorecard", {}),
                                 "denial_intel": rj.get("denial_intel"),
+                                "denial_benchmarks": rj.get("denial_benchmarks", []),
                             })
                     except Exception:
                         pass
@@ -1423,6 +1466,64 @@ async def generate_audit_report(req: AuditReportRequest):
             if len(line_items) > 30:
                 story.append(Paragraph(f"Showing 30 of {len(line_items)} line items", s_small))
             story.append(Spacer(1, 12))
+
+    # === 3b. Denial Rate Benchmarking ===
+    all_denial_benchmarks = []
+    for pr in payer_results:
+        rj = pr.get("result_json") or {}
+        db_list = rj.get("denial_benchmarks") or pr.get("denial_benchmarks") or []
+        all_denial_benchmarks.extend(db_list)
+
+    if all_denial_benchmarks:
+        story.append(Paragraph("Denial Rate Benchmarking", s_heading))
+        story.append(Paragraph(
+            "Your practice's denial rates compared to published industry averages.",
+            s_body,
+        ))
+        story.append(Spacer(1, 6))
+
+        db_header = ["CPT Code", "Your Rate", "Industry Avg", "Gap", "Claims"]
+        db_rows = [db_header]
+        for db in all_denial_benchmarks[:10]:
+            gap_val = db.get("gap", 0)
+            gap_str = f"{gap_val:+.1f}%"
+            db_rows.append([
+                db.get("cpt_code", ""),
+                f"{db.get('practice_denial_rate', 0):.1f}%",
+                f"{db.get('industry_avg_rate', 0):.1f}%",
+                gap_str,
+                str(db.get("total_claims", 0)),
+            ])
+
+        db_table = Table(db_rows, colWidths=[1.0 * inch, 1.1 * inch, 1.1 * inch, 0.9 * inch, 0.9 * inch])
+        db_styles = [
+            ("BACKGROUND", (0, 0), (-1, 0), NAVY),
+            ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
+            ("FONTSIZE", (0, 0), (-1, -1), 9),
+            ("ALIGN", (1, 0), (-1, -1), "CENTER"),
+            ("ALIGN", (0, 0), (0, -1), "LEFT"),
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
+            ("TOPPADDING", (0, 0), (-1, -1), 5),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+        ]
+        for ri, db in enumerate(all_denial_benchmarks[:10], start=1):
+            gap_val = db.get("gap", 0)
+            if gap_val > 2:
+                db_styles.append(("TEXTCOLOR", (3, ri), (3, ri), colors.HexColor("#DC2626")))
+            elif gap_val < -2:
+                db_styles.append(("TEXTCOLOR", (3, ri), (3, ri), colors.HexColor("#059669")))
+            else:
+                db_styles.append(("TEXTCOLOR", (3, ri), (3, ri), colors.HexColor("#6B7280")))
+            if ri % 2 == 0:
+                db_styles.append(("BACKGROUND", (0, ri), (-1, ri), LIGHT_GRAY))
+        db_table.setStyle(TableStyle(db_styles))
+        story.append(db_table)
+        story.append(Spacer(1, 4))
+        story.append(Paragraph(
+            f"<i>{DENIAL_BENCHMARK_DATA_NOTE}</i>",
+            ParagraphStyle("BenchNote", parent=s_small, fontSize=7, leading=9),
+        ))
+        story.append(Spacer(1, 12))
 
     # === 4. Denial Pattern Analysis ===
     has_denials = any(pr.get("denial_intel") for pr in payer_results)
@@ -1877,6 +1978,7 @@ async def public_report(token: str):
                         "top_underpaid": rj.get("top_underpaid", []),
                     },
                     "denial_intel": rj.get("denial_intel"),
+                    "denial_benchmarks": rj.get("denial_benchmarks", []),
                 })
         except Exception as exc:
             print(f"[PublicReport] Failed to fetch analysis {aid}: {exc}")
@@ -2223,6 +2325,7 @@ async def admin_get_results(request: Request, audit_id: str):
                         "top_underpaid": rj.get("top_underpaid", []),
                     },
                     "denial_intel": rj.get("denial_intel"),
+                    "denial_benchmarks": rj.get("denial_benchmarks", []),
                 })
         except Exception as exc:
             print(f"[AdminResults] Failed to fetch analysis {aid}: {exc}")

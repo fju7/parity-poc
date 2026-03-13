@@ -450,6 +450,128 @@ EM_BENCHMARKS = {
     },
 }
 
+CPT_DENIAL_BENCHMARKS = {
+    # Source: CAQH Index 2024, Change Healthcare RCM Report 2024,
+    # CMS Medicare FFS denial data.
+    # Format: cpt_code -> {"avg_denial_rate": float, "category": str,
+    #                      "source": str, "note": str}
+    # Rates are expressed as percentages (e.g., 7.2 = 7.2%)
+
+    # E&M — Established Patient Office Visits
+    "99211": {"avg_denial_rate": 3.8, "category": "E&M",
+              "source": "CAQH Index 2024",
+              "note": "Minimal complexity; low denial rate"},
+    "99212": {"avg_denial_rate": 5.1, "category": "E&M",
+              "source": "CAQH Index 2024",
+              "note": "Low complexity E&M"},
+    "99213": {"avg_denial_rate": 6.4, "category": "E&M",
+              "source": "CAQH Index 2024",
+              "note": "Moderate complexity; most common denial: CO-16"},
+    "99214": {"avg_denial_rate": 7.2, "category": "E&M",
+              "source": "CAQH Index 2024",
+              "note": "Moderate-high complexity; documentation scrutiny"},
+    "99215": {"avg_denial_rate": 9.1, "category": "E&M",
+              "source": "CAQH Index 2024",
+              "note": "High complexity; most scrutinized E&M level"},
+
+    # E&M — New Patient Office Visits
+    "99202": {"avg_denial_rate": 5.8, "category": "E&M",
+              "source": "CAQH Index 2024", "note": "New patient low complexity"},
+    "99203": {"avg_denial_rate": 6.9, "category": "E&M",
+              "source": "CAQH Index 2024", "note": "New patient moderate complexity"},
+    "99204": {"avg_denial_rate": 8.3, "category": "E&M",
+              "source": "CAQH Index 2024", "note": "New patient moderate-high complexity"},
+    "99205": {"avg_denial_rate": 10.2, "category": "E&M",
+              "source": "CAQH Index 2024", "note": "New patient high complexity"},
+
+    # Preventive Care
+    "99395": {"avg_denial_rate": 4.1, "category": "Preventive",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Preventive E&M 18-39 years"},
+    "99396": {"avg_denial_rate": 4.3, "category": "Preventive",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Preventive E&M 40-64 years"},
+
+    # Cardiology
+    "93000": {"avg_denial_rate": 8.7, "category": "Cardiology",
+              "source": "Change Healthcare RCM 2024",
+              "note": "ECG; higher denial when billed same-day as E&M"},
+    "93306": {"avg_denial_rate": 14.2, "category": "Cardiology",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Echocardiography; prior auth required by many payers"},
+    "93015": {"avg_denial_rate": 11.8, "category": "Cardiology",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Stress test; medical necessity scrutiny"},
+
+    # Lab
+    "85025": {"avg_denial_rate": 3.2, "category": "Lab",
+              "source": "CMS Medicare FFS Data",
+              "note": "CBC; low denial; watch same-day bundling"},
+    "80053": {"avg_denial_rate": 3.8, "category": "Lab",
+              "source": "CMS Medicare FFS Data",
+              "note": "Comprehensive metabolic panel"},
+    "83036": {"avg_denial_rate": 4.1, "category": "Lab",
+              "source": "CMS Medicare FFS Data",
+              "note": "Hemoglobin A1c; watch frequency limits"},
+
+    # Procedures
+    "36415": {"avg_denial_rate": 2.9, "category": "Procedure",
+              "source": "CMS Medicare FFS Data",
+              "note": "Venipuncture; very low denial rate"},
+    "20610": {"avg_denial_rate": 12.4, "category": "Procedure",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Joint injection; prior auth and medical necessity"},
+    "27447": {"avg_denial_rate": 18.6, "category": "Orthopedics",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Total knee replacement; prior auth high scrutiny"},
+    "43239": {"avg_denial_rate": 16.1, "category": "GI",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Upper GI endoscopy with biopsy"},
+    "45378": {"avg_denial_rate": 5.2, "category": "GI",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Colonoscopy diagnostic; lower when preventive"},
+    "45380": {"avg_denial_rate": 8.9, "category": "GI",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Colonoscopy with biopsy"},
+
+    # Radiology
+    "71046": {"avg_denial_rate": 7.8, "category": "Radiology",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Chest X-ray 2 views"},
+    "72148": {"avg_denial_rate": 13.9, "category": "Radiology",
+              "source": "Change Healthcare RCM 2024",
+              "note": "MRI lumbar spine; prior auth scrutiny"},
+    "70553": {"avg_denial_rate": 15.2, "category": "Radiology",
+              "source": "Change Healthcare RCM 2024",
+              "note": "MRI brain with contrast; prior auth required"},
+
+    # Infusion / Injection
+    "96413": {"avg_denial_rate": 19.4, "category": "Infusion",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Chemo infusion; high scrutiny, prior auth"},
+    "96372": {"avg_denial_rate": 9.8, "category": "Injection",
+              "source": "Change Healthcare RCM 2024",
+              "note": "Therapeutic injection; bundling issues"},
+
+    # Mental Health
+    "90837": {"avg_denial_rate": 11.3, "category": "Mental Health",
+              "source": "Change Healthcare RCM 2024",
+              "note": "60-min psychotherapy; documentation critical"},
+    "90834": {"avg_denial_rate": 9.6, "category": "Mental Health",
+              "source": "Change Healthcare RCM 2024",
+              "note": "45-min psychotherapy"},
+}
+
+DENIAL_BENCHMARK_DATA_NOTE = (
+    "Benchmark denial rates are industry estimates derived from "
+    "CAQH Index 2024, Change Healthcare Revenue Cycle Benchmark "
+    "Report 2024, and CMS Medicare FFS supplemental data. "
+    "These represent approximate national averages across payers "
+    "and are provided for comparison purposes. Parity will refine "
+    "these benchmarks over time using anonymized data from our "
+    "user network."
+)
+
 SUBSCRIPTION_STATUS_COLORS = {
     "active": "green",
     "canceled": "gray",
