@@ -1991,6 +1991,289 @@ async def public_report(token: str):
 
 
 # ---------------------------------------------------------------------------
+# POST /summary-report  (One-page summary PDF)
+# GET  /summary-report/{analysis_id}  (convenience wrapper)
+# ---------------------------------------------------------------------------
+
+class SummaryReportRequest(BaseModel):
+    practice_name: str
+    payer_name: str = "Multiple Payers"
+    report_date: Optional[str] = None
+    date_range: Optional[str] = None
+    headline_underpayment: float = 0
+    adherence_rate: float = 0
+    denial_rate: float = 0
+    total_claims_analyzed: int = 0
+    top_issues: list = []        # max 3: {title, detail, dollar_impact}
+    top_denials: list = []       # max 3: {cpt_code, denial_code, count, recoverable_value}
+    priority_actions: list = []  # max 3 strings
+    denial_benchmarks: list = []
+    coding_gap: float = 0
+    data_note: str = ""
+
+
+def _build_summary_pdf(req: SummaryReportRequest) -> bytes:
+    """Build a one-page summary PDF from SummaryReportRequest data."""
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import letter as LETTER
+    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+    from reportlab.lib.units import inch
+    from reportlab.platypus import (
+        Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle, HRFlowable,
+    )
+    from datetime import datetime
+
+    TEAL = colors.HexColor("#0D9488")
+    NAVY = colors.HexColor("#1E293B")
+    WHITE = colors.white
+    AMBER = colors.HexColor("#D97706")
+    SLATE = colors.HexColor("#64748B")
+    LIGHT_GRAY = colors.HexColor("#F8FAFC")
+
+    styles = getSampleStyleSheet()
+    s_body = ParagraphStyle("SBody", parent=styles["Normal"], fontSize=10, leading=14, textColor=NAVY)
+    s_small = ParagraphStyle("SSmall", parent=styles["Normal"], fontSize=8, leading=10, textColor=SLATE)
+    s_heading = ParagraphStyle("SHeading", parent=styles["Normal"], fontSize=14, leading=18, textColor=NAVY, fontName="Helvetica-Bold", spaceBefore=14, spaceAfter=6)
+
+    report_date = req.report_date or datetime.now().strftime("%B %d, %Y")
+
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buf, pagesize=LETTER,
+        leftMargin=0.75 * inch, rightMargin=0.75 * inch,
+        topMargin=0.75 * inch, bottomMargin=0.75 * inch,
+    )
+
+    story = []
+
+    # === HEADER BAR ===
+    header_data = [[
+        Paragraph("<b>PARITY PROVIDER</b><br/><font size=10>Revenue Recovery Summary</font>", ParagraphStyle("HdrL", fontSize=16, textColor=WHITE, fontName="Helvetica-Bold", leading=20)),
+        Paragraph(f"{req.practice_name}<br/><font size=9>{report_date}</font>", ParagraphStyle("HdrR", fontSize=11, textColor=WHITE, alignment=2, leading=14)),
+    ]]
+    ht = Table(header_data, colWidths=[4.0 * inch, 3.0 * inch])
+    ht.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), TEAL),
+        ("TOPPADDING", (0, 0), (-1, -1), 14),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 14),
+        ("LEFTPADDING", (0, 0), (-1, -1), 16),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 16),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+    ]))
+    story.append(ht)
+    story.append(Spacer(1, 16))
+
+    # === HERO ROW — three stat boxes ===
+    def _stat_box(value_str, label, subtext, bg_color):
+        return Paragraph(
+            f"<font size=20><b>{value_str}</b></font><br/>"
+            f"<font size=9>{label}</font><br/>"
+            f"<font size=7 color='#E2E8F0'>{subtext}</font>",
+            ParagraphStyle("StatBox", textColor=WHITE, alignment=1, leading=14),
+        )
+
+    underpayment_str = f"${req.headline_underpayment:,.0f}"
+    adherence_str = f"{req.adherence_rate:.0f}%"
+
+    box1 = _stat_box(underpayment_str, "Underpayments Identified", "in this remittance period", NAVY)
+    box2 = _stat_box(adherence_str, "Payer Adherence Rate", "Industry target: 95%+", TEAL)
+
+    if req.coding_gap and req.coding_gap > 0:
+        box3_val = f"${req.coding_gap:,.0f}"
+        box3_label = "Est. Coding Gap / Year"
+        box3_sub = "Based on E&M distribution"
+        box3_bg = AMBER
+    else:
+        box3_val = f"{req.denial_rate:.1f}%"
+        box3_label = "Denial Rate"
+        box3_sub = f"{req.total_claims_analyzed} claims analyzed"
+        box3_bg = colors.HexColor("#7C3AED")
+
+    box3 = _stat_box(box3_val, box3_label, box3_sub, box3_bg)
+
+    hero_data = [[box1, box2, box3]]
+    hero_table = Table(hero_data, colWidths=[2.33 * inch, 2.33 * inch, 2.34 * inch])
+    hero_styles = [
+        ("BACKGROUND", (0, 0), (0, 0), NAVY),
+        ("BACKGROUND", (1, 0), (1, 0), TEAL),
+        ("BACKGROUND", (2, 0), (2, 0), box3_bg),
+        ("TOPPADDING", (0, 0), (-1, -1), 16),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 16),
+        ("LEFTPADDING", (0, 0), (-1, -1), 10),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+    ]
+    hero_table.setStyle(TableStyle(hero_styles))
+    story.append(hero_table)
+    story.append(Spacer(1, 16))
+
+    # === WHAT WE FOUND ===
+    if req.top_issues:
+        story.append(Paragraph("What We Found", s_heading))
+        for i, issue in enumerate(req.top_issues[:3], 1):
+            title = issue.get("title", "")
+            detail = issue.get("detail", "")
+            impact = issue.get("dollar_impact", 0)
+            impact_str = f"<font color='#0D9488'><b>${impact:,.0f}</b></font>" if impact > 0 else ""
+            story.append(Paragraph(
+                f"<b>{i}. {title}</b> {impact_str}<br/>"
+                f"<font size=9 color='#64748B'>{detail}</font>",
+                s_body,
+            ))
+            story.append(Spacer(1, 4))
+        story.append(Spacer(1, 8))
+
+    # === DENIAL BENCHMARK TABLE ===
+    worse_benchmarks = [db for db in req.denial_benchmarks if db.get("gap", 0) > 2]
+    if worse_benchmarks:
+        story.append(Paragraph("Your Denial Rates vs. Industry Average", s_heading))
+        db_header = ["CPT", "Your Rate", "Industry Avg", "Gap"]
+        db_rows = [db_header]
+        for db in sorted(worse_benchmarks, key=lambda x: x.get("gap", 0), reverse=True)[:5]:
+            db_rows.append([
+                db.get("cpt_code", ""),
+                f"{db.get('practice_denial_rate', 0):.1f}%",
+                f"{db.get('industry_avg_rate', 0):.1f}%",
+                f"{db.get('gap', 0):+.1f}%",
+            ])
+        dbt = Table(db_rows, colWidths=[1.2 * inch, 1.5 * inch, 1.5 * inch, 1.2 * inch])
+        db_styles_list = [
+            ("BACKGROUND", (0, 0), (-1, 0), NAVY),
+            ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
+            ("FONTSIZE", (0, 0), (-1, -1), 9),
+            ("ALIGN", (1, 0), (-1, -1), "CENTER"),
+            ("ALIGN", (0, 0), (0, -1), "LEFT"),
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
+            ("TOPPADDING", (0, 0), (-1, -1), 5),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+        ]
+        for ri in range(1, len(db_rows)):
+            db_styles_list.append(("TEXTCOLOR", (3, ri), (3, ri), colors.HexColor("#DC2626")))
+            if ri % 2 == 0:
+                db_styles_list.append(("BACKGROUND", (0, ri), (-1, ri), LIGHT_GRAY))
+        dbt.setStyle(TableStyle(db_styles_list))
+        story.append(dbt)
+        if req.data_note:
+            story.append(Paragraph(f"<i>Source: {req.data_note}</i>", ParagraphStyle("DBNote", parent=s_small, fontSize=7)))
+        story.append(Spacer(1, 12))
+
+    # === RECOMMENDED ACTIONS ===
+    if req.priority_actions:
+        story.append(Paragraph("Recommended Actions", s_heading))
+        for i, action in enumerate(req.priority_actions[:3], 1):
+            story.append(Paragraph(f"<b>{i}.</b> {action}", s_body))
+            story.append(Spacer(1, 3))
+        story.append(Spacer(1, 12))
+
+    # === FOOTER ===
+    story.append(HRFlowable(width="100%", thickness=1, color=TEAL, spaceAfter=8, spaceBefore=16))
+    story.append(Paragraph(
+        "Prepared by Parity Provider &middot; CivicScale &middot; civicscale.ai",
+        ParagraphStyle("Footer1", parent=s_small, alignment=1),
+    ))
+    story.append(Paragraph(
+        "Benchmark comparisons use CMS Medicare Physician Fee Schedule data. "
+        "This report does not constitute legal or financial advice.",
+        ParagraphStyle("Footer2", parent=s_small, alignment=1, fontSize=7),
+    ))
+
+    doc.build(story)
+    return buf.getvalue()
+
+
+@router.post("/summary-report")
+async def summary_report(req: SummaryReportRequest, request: Request):
+    """Generate a one-page summary PDF for practice owner handout."""
+    _get_authenticated_user(request)
+
+    pdf_bytes = _build_summary_pdf(req)
+
+    from datetime import datetime
+    safe_name = req.practice_name.replace(" ", "_").replace("/", "_")[:30]
+    date_str = datetime.now().strftime("%Y%m%d")
+    filename = f"Parity_Summary_{safe_name}_{date_str}.pdf"
+
+    return StreamingResponse(
+        io.BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@router.get("/summary-report/{analysis_id}")
+async def summary_report_from_analysis(analysis_id: str, request: Request):
+    """Convenience wrapper: build summary PDF from a stored analysis."""
+    user = _get_authenticated_user(request)
+
+    sb = _get_supabase()
+    row = sb.table("provider_analyses").select("*").eq("id", analysis_id).execute()
+    if not row.data:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+
+    rec = row.data[0]
+    rj = rec.get("result_json", {})
+    summary = rj.get("summary", {})
+    scorecard = rj.get("scorecard", {})
+    denial_benchmarks = rj.get("denial_benchmarks", [])
+    top_underpaid = rj.get("top_underpaid", [])
+
+    # Build top issues from top_underpaid
+    top_issues = []
+    for tu in top_underpaid[:3]:
+        top_issues.append({
+            "title": f"CPT {tu.get('cpt_code', '')} Underpayment",
+            "detail": f"Systematic underpayment detected for this procedure code.",
+            "dollar_impact": tu.get("total_underpayment", 0),
+        })
+
+    # Build priority actions
+    priority_actions = []
+    if summary.get("total_underpayment", 0) > 0:
+        priority_actions.append(f"File appeals for ${summary['total_underpayment']:,.0f} in identified underpayments.")
+    if summary.get("denied_count", 0) > 0:
+        priority_actions.append(f"Review {summary['denied_count']} denied claims for appeal eligibility.")
+    if scorecard.get("denial_rate", 0) > 10:
+        priority_actions.append("Investigate root causes of above-average denial rates — consider coding audit.")
+    if not priority_actions:
+        priority_actions.append("Continue monitoring payer adherence to contracted rates.")
+
+    # Look up practice name from profile
+    practice_name = rec.get("payer_name", "Practice")
+    try:
+        prof = sb.table("provider_profiles").select("practice_name").eq("company_id", rec.get("company_id")).execute()
+        if prof.data and prof.data[0].get("practice_name"):
+            practice_name = prof.data[0]["practice_name"]
+    except Exception:
+        pass
+
+    summary_req = SummaryReportRequest(
+        practice_name=practice_name,
+        payer_name=rec.get("payer_name", ""),
+        headline_underpayment=summary.get("total_underpayment", 0),
+        adherence_rate=summary.get("adherence_rate", 0),
+        denial_rate=scorecard.get("denial_rate", 0),
+        total_claims_analyzed=summary.get("line_count", 0),
+        top_issues=top_issues,
+        priority_actions=priority_actions,
+        denial_benchmarks=denial_benchmarks,
+        data_note=DENIAL_BENCHMARK_DATA_NOTE if denial_benchmarks else "",
+    )
+
+    pdf_bytes = _build_summary_pdf(summary_req)
+
+    from datetime import datetime
+    safe_name = practice_name.replace(" ", "_").replace("/", "_")[:30]
+    date_str = datetime.now().strftime("%Y%m%d")
+    filename = f"Parity_Summary_{safe_name}_{date_str}.pdf"
+
+    return StreamingResponse(
+        io.BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+# ---------------------------------------------------------------------------
 # Admin Audit Endpoints (protected by ADMIN_USER_ID / CRON_SECRET)
 # ---------------------------------------------------------------------------
 
