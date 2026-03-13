@@ -40,12 +40,18 @@ function LogoIcon({ footer }) {
 
 export default function InvestorsPage() {
   const [stats, setStats] = useState(null);
+  const [topicCount, setTopicCount] = useState(null);
 
   useEffect(() => {
     fetch(`${API_BASE}/api/signal/stats`)
       .then((r) => (r.ok ? r.json() : null))
       .then(setStats)
       .catch(() => setStats(null));
+
+    fetch(`${API_BASE}/api/signal/topics`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => setTopicCount(Array.isArray(data) ? data.length : null))
+      .catch(() => setTopicCount(null));
   }, []);
 
   const claimsCount = stats?.evidence_claims ?? null;
@@ -93,7 +99,7 @@ export default function InvestorsPage() {
             The evidence should be clear.<br />The numbers should be right.
           </h1>
           <p style={{ fontSize: 17, fontWeight: 300, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 680, margin: "0 auto" }}>
-            CivicScale builds AI-powered benchmark intelligence across domains where information asymmetry causes systematic wealth transfer. Four products live across two tracks &mdash; billing intelligence and evidence intelligence &mdash; powered by a single analytical engine.
+            CivicScale builds AI-powered benchmark intelligence across domains where information asymmetry creates systematic cost inefficiency across the healthcare system. Four products live across two tracks &mdash; billing intelligence and evidence intelligence &mdash; powered by a single analytical engine.
           </p>
         </div>
       </section>
@@ -106,8 +112,8 @@ export default function InvestorsPage() {
         </div>
         <div className="inv-opp-grid" style={{ marginTop: 40 }}>
           <div className="inv-opp-card">
-            <div className="inv-opp-num">$300B<span>+</span></div>
-            <div className="inv-opp-label">Estimated annual healthcare billing errors in the US</div>
+            <div className="inv-opp-num">1 in 7</div>
+            <div className="inv-opp-label">Medicare claims contain a billing error, according to the HHS Office of Inspector General &mdash; a rate that costs the system billions annually and falls disproportionately on patients and providers least equipped to challenge it</div>
           </div>
           <div className="inv-opp-card">
             <div className="inv-opp-num">4</div>
@@ -155,7 +161,7 @@ export default function InvestorsPage() {
             <div className="inv-arch-card-accent inv-arch-accent-teal" />
             <div className="inv-arch-name">Evidence Intelligence</div>
             <p className="inv-arch-desc">
-              Parity Signal: six-dimension evidence scoring, consensus mapping, and Analytical Paths for complex public issues. Three topics live with subscription billing. Parity Signal now classifies disagreements by type &mdash; weighting, completeness, or factual &mdash; surfaces which evidence is shared vs. asymmetric vs. contested, shows explicit weight delta statements, and identifies resolution pathways for contested facts.
+              Parity Signal: six-dimension evidence scoring, consensus mapping, and Analytical Paths for complex public issues. {topicCount != null ? topicCount : "\u2014"} topics live with subscription billing. Parity Signal now classifies disagreements by type &mdash; weighting, completeness, or factual &mdash; surfaces which evidence is shared vs. asymmetric vs. contested, shows explicit weight delta statements, and identifies resolution pathways for contested facts.
             </p>
           </div>
           <div className="inv-arch-card">
@@ -196,7 +202,7 @@ export default function InvestorsPage() {
               </div>
               <div className="inv-intel-sublabel">Benchmark Comparison &amp; Evidence Extraction</div>
               <p className="inv-intel-desc">
-                <strong>Billing:</strong> Compares every charge against 841K CMS rates, 2.2M NCCI edit pairs, and 15K MUE limits. Flags overcharges, unbundling, and coding violations. Accepts PDF, pasted text, and photo input.<br />
+                <strong>Billing:</strong> Compares every charge against 841K CMS rates, 2.2M NCCI edit pairs, 15K MUE limits, plus comprehensive NADAC drug pricing codes. Flags overcharges, unbundling, and coding violations. Accepts PDF, pasted text, and photo input.<br />
                 <strong>Evidence:</strong> Extracts claims from {sourcesCount != null ? `${sourcesCount.toLocaleString()}+` : "\u2014"} sources and scores each across six dimensions: methodological rigor, sample size, recency, source authority, consistency, and effect magnitude.
               </p>
               <div className="inv-intel-catches">
@@ -329,7 +335,7 @@ export default function InvestorsPage() {
         <div style={{ maxWidth: 1100, margin: "0 auto", paddingTop: 56 }}>
           <div className="inv-intel-callout">
             <p>
-              <strong>Analytical Paths</strong> is CivicScale&apos;s deepest differentiator: making invisible analytical choices visible. A payer denying a claim is making analytical choices about which rules to weight. A news outlet covering a drug trial is making analytical choices about which findings to emphasize. CivicScale shows these choices &mdash; in billing, it transforms appeals from &ldquo;we disagree&rdquo; into &ldquo;here is the specific choice you made and the evidence that undermines it.&rdquo; In evidence intelligence, it shows why different sources reach different conclusions about the same data. This is persistent infrastructure, not a prompt &mdash; and it compounds with every analysis.
+              <strong>Analytical Paths</strong> is CivicScale&apos;s deepest differentiator: making invisible analytical choices visible. A payer denying a claim is making analytical choices about which rules to weight. A news outlet covering a drug trial is making analytical choices about which findings to emphasize. CivicScale shows these choices &mdash; in billing, it transforms appeals from &ldquo;we disagree&rdquo; into &ldquo;here is the specific choice you made and the evidence that undermines it.&rdquo; In evidence intelligence, it shows why different sources reach different conclusions about the same data. This is persistent infrastructure, not a prompt &mdash; and it compounds with every analysis. Historically, this level of analysis required teams of specialists and weeks of work. AI makes it available instantly, at a cost that puts individual patients, small employers, and independent providers on equal footing with large institutions &mdash; not by replacing expert judgment, but by giving everyone access to the same quality of evidence.
             </p>
           </div>
         </div>
@@ -408,62 +414,6 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* SECTION 4 — ILLUSTRATIVE YEAR 3 REVENUE */}
-      <section className="cs-section cs-platform-section">
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div className="cs-section-label">Revenue Model</div>
-          <h2 className="cs-section-title">Illustrative Year 3 revenue</h2>
-          <p className="cs-section-sub">
-            Multiple revenue streams across consumer, employer, provider, evidence intelligence, referral, and data licensing channels.
-          </p>
-        </div>
-        <div className="inv-rev-table">
-          <div className="inv-rev-header">
-            <div>Revenue Stream</div>
-            <div>Driver</div>
-            <div style={{ textAlign: "right" }}>Annual Revenue</div>
-          </div>
-          <div className="inv-rev-row">
-            <div className="inv-rev-cell-label">Consumer Access (Parity Health)</div>
-            <div className="inv-rev-cell">50,000 active users</div>
-            <div className="inv-rev-cell-amount">$750K&ndash;$1.5M</div>
-          </div>
-          <div className="inv-rev-row">
-            <div className="inv-rev-cell-label">Employer Platform (Parity Employer)</div>
-            <div className="inv-rev-cell">20 contracts avg $72K ACV</div>
-            <div className="inv-rev-cell-amount">$1.44M</div>
-          </div>
-          <div className="inv-rev-row">
-            <div className="inv-rev-cell-label">Provider Platform (Parity Provider)</div>
-            <div className="inv-rev-cell">200 practices avg $3,600/year</div>
-            <div className="inv-rev-cell-amount">$720K</div>
-          </div>
-          <div className="inv-rev-row">
-            <div className="inv-rev-cell-label">Evidence Intelligence (Parity Signal)</div>
-            <div className="inv-rev-cell">10,000 subscribers @ $8/mo blended</div>
-            <div className="inv-rev-cell-amount">$960K</div>
-          </div>
-          <div className="inv-rev-row">
-            <div className="inv-rev-cell-label">Attorney Referral Network</div>
-            <div className="inv-rev-cell">200 referrals @ ~$400 avg</div>
-            <div className="inv-rev-cell-amount">$80K</div>
-          </div>
-          <div className="inv-rev-row">
-            <div className="inv-rev-cell-label">Property &amp; Insurance Verticals</div>
-            <div className="inv-rev-cell">Early stage</div>
-            <div className="inv-rev-cell-amount">$200K&ndash;$400K</div>
-          </div>
-          <div className="inv-rev-row inv-rev-row-total">
-            <div className="inv-rev-cell-label">Total</div>
-            <div className="inv-rev-cell"></div>
-            <div className="inv-rev-cell-amount">$4.15M&ndash;$5.10M</div>
-          </div>
-          <div className="inv-rev-note">
-            Projections are illustrative, not a financial forecast. Revenue optimization begins in Phase 2. Phases 0 and 1 are optimized for user adoption, data accumulation, and validation.
-          </div>
-        </div>
-      </section>
-
       {/* SECTION 5 — DESIGN PRINCIPLES */}
       <section style={{ padding: "80px 24px", background: "#0f1a2e" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
@@ -473,7 +423,7 @@ export default function InvestorsPage() {
         </div>
         <div className="inv-principles-grid">
           {[
-            { num: "01", title: "Privacy by Architecture", desc: "Documents are processed locally on the user\u2019s device. Analysis results are stored locally. Only anonymized procedure codes reach our servers. This makes certain privacy violations technically impossible \u2014 not merely prohibited." },
+            { num: "01", title: "Privacy by Architecture", desc: "Documents uploaded for analysis are processed in-memory on CivicScale servers and never stored \u2014 no raw files are written to disk or persisted in any database. Only structured, anonymized analytical results (such as extracted line items, scores, and benchmark comparisons) are retained. Original documents are discarded immediately after processing. This architecture ensures that sensitive patient, employer, and provider data cannot be exposed in a breach because it is never held." },
             { num: "02", title: "Analysis, Not Advocacy", desc: "CivicScale products produce benchmark reports and cite sources. They do not generate legal arguments or advise on strategy. In evidence intelligence, they show why sources disagree \u2014 they do not tell users what to believe. CivicScale is the infrastructure. The professional or individual decides what to do with the result." },
             { num: "03", title: "Transparent Methodology", desc: "Every flagged billing item cites its benchmark source. Every evidence score shows six dimension ratings. Analytical Paths makes invisible analytical choices visible. Users can verify every finding independently. Transparency protects CivicScale and builds compounding institutional trust." },
             { num: "04", title: "Data Network Effects", desc: "Every bill analyzed contributes anonymized data to a crowdsourced commercial rate database. Every evidence topic scored produces structured analytical metadata. These proprietary data assets grow more accurate over time \u2014 a compounding moat that no competitor can replicate from a standing start." },

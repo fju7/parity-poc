@@ -98,7 +98,7 @@ export default function CivicScaleHomepage() {
           <p className="cs-home-section-sub" style={{ maxWidth: 720, margin: "0 auto 48px" }}>
             A single healthcare claim touches a patient, a physician, an employer,
             and a broker — each seeing a different piece of the same transaction,
-            none of them with the full picture. The carrier sees everything.
+            none of them with the full picture. Carriers have historically been the only party with visibility across the full transaction.
           </p>
           <div className="cs-home-problem-grid">
             {PROBLEM_ITEMS.map((item) => (
@@ -372,7 +372,7 @@ const PROBLEM_ITEMS = [
   {
     icon: "\u{1F4BC}",
     role: "The Broker",
-    desc: "Advises on plan design with limited visibility into claims data. Carrier reports don't show what they don't want seen.",
+    desc: "Advises on plan design with limited visibility into claims data. Carrier-provided analytics reflect carrier priorities, not independent employer interests.",
   },
 ];
 
