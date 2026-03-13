@@ -81,6 +81,7 @@ export default function PricingView({ session, userTier }) {
 
   const currentTier = userTier || "free";
   const returnPath = searchParams.get("from") || "/pricing";
+  const portalReturn = searchParams.get("portal_return") === "1";
 
   function getCta(tierKey) {
     if (tierKey === currentTier) return "Current Plan";
@@ -111,6 +112,12 @@ export default function PricingView({ session, userTier }) {
       if (!res.ok) throw new Error("Checkout failed");
 
       const data = await res.json();
+
+      // Existing subscriber → Stripe portal for plan changes
+      if (data.portal_url) {
+        window.location.href = data.portal_url;
+        return;
+      }
 
       if (data.checkout_url) {
         window.location.href = data.checkout_url;
@@ -184,6 +191,12 @@ export default function PricingView({ session, userTier }) {
           }`}
         >
           {message.text}
+        </div>
+      )}
+
+      {portalReturn && !message && (
+        <div className="mb-6 p-4 rounded-xl text-sm bg-emerald-900/40 text-emerald-300 border border-emerald-700">
+          Your plan has been updated. Changes may take a moment to reflect.
         </div>
       )}
 

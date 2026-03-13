@@ -192,56 +192,15 @@ async def create_checkout(body: CheckoutRequest, request: Request):
     current_tier = (db_row or {}).get("tier", "free")
 
     if stripe_sub:
-        # User already has an active subscription
-        if not stripe_sub["items"]["data"]:
-            raise HTTPException(status_code=500, detail="Subscription has no items")
-        item_id = stripe_sub["items"]["data"][0]["id"]
-        if new_tier == current_tier:
-            raise HTTPException(status_code=400, detail="Already on this plan")
-
-        is_upgrade = TIER_RANK.get(new_tier, 0) > TIER_RANK.get(current_tier, 0)
-
-        if is_upgrade:
-            # Upgrade: route through Stripe Checkout so payment is confirmed
-            # before any tier change. Pass old subscription ID in metadata
-            # so the webhook can cancel it after the new one is active.
-            return_path = body.return_path if body.return_path.startswith("/") else "/pricing"
-            separator = "&" if "?" in return_path else "?"
-
-            session = stripe.checkout.Session.create(
-                customer=customer_id,
-                mode="subscription",
-                line_items=[{"price": price_id, "quantity": 1}],
-                success_url=f"{FRONTEND_URL}{return_path}{separator}checkout_success=1",
-                cancel_url=f"{FRONTEND_URL}{return_path}",
-                metadata={
-                    "supabase_user_id": str(user.id),
-                    "old_subscription_id": stripe_sub.id,
-                },
-            )
-            print(f"[Stripe] Upgrade checkout session created: {session.id}")
-            return {"checkout_url": session.url}
-        else:
-            # Downgrade: change price but no proration — takes effect next invoice
-            updated_sub = stripe.Subscription.modify(
-                stripe_sub.id,
-                items=[{"id": item_id, "price": price_id}],
-                proration_behavior="none",
-            )
-            print(f"[Stripe] Downgrade modify succeeded: {updated_sub.id}")
-            effective = None
-            try:
-                effective = _get_period_end(updated_sub)
-            except Exception as exc:
-                print(f"[Stripe] period_end extraction failed: {exc}")
-
-            # Keep current tier in DB until period ends
-            return {
-                "action": "downgraded_scheduled",
-                "tier": current_tier,
-                "new_tier": new_tier,
-                "effective_date": effective,
-            }
+        # For any plan change on an existing subscription,
+        # redirect to the Stripe Customer Portal. This lets the
+        # user change plan AND update payment method in Stripe's
+        # native UI, and webhooks handle the DB update automatically.
+        portal_session = stripe.billing_portal.Session.create(
+            customer=customer_id,
+            return_url=f"{FRONTEND_URL}/pricing?portal_return=1",
+        )
+        return {"portal_url": portal_session.url}
 
     # No active subscription — create Checkout session for new subscribers
     return_path = body.return_path if body.return_path.startswith("/") else "/pricing"
@@ -272,6 +231,71 @@ async def create_portal(request: Request):
     )
 
     return {"portal_url": portal_session.url}
+
+
+@router.post("/cancel")
+async def cancel_subscription(request: Request):
+    """Cancel the user's subscription at period end and mark data for deletion."""
+    user = await _get_authenticated_user(request)
+    sb = _get_sb()
+
+    # Get subscription info
+    result = sb.table("signal_subscriptions").select(
+        "stripe_subscription_id, stripe_customer_id, tier"
+    ).eq("user_id", str(user.id)).execute()
+
+    if not result.data:
+        raise HTTPException(status_code=404, detail="No subscription found")
+
+    row = result.data[0]
+    sub_id = row.get("stripe_subscription_id")
+
+    # Cancel in Stripe at period end (not immediately)
+    if sub_id:
+        try:
+            stripe.Subscription.modify(
+                sub_id,
+                cancel_at_period_end=True,
+            )
+        except Exception as exc:
+            print(f"[Signal] Cancel subscription failed: {exc}")
+            raise HTTPException(status_code=500,
+                detail="Failed to cancel subscription. Please try again.")
+
+    # Get period end for the response
+    period_end = None
+    if sub_id:
+        try:
+            sub = stripe.Subscription.retrieve(sub_id)
+            period_end = _get_period_end(sub)
+        except Exception:
+            pass
+
+    # Mark subscription as canceling in DB
+    sb.table("signal_subscriptions").update({
+        "status": "canceling",
+        "cancel_at_period_end": True,
+    }).eq("user_id", str(user.id)).execute()
+
+    # Queue data deletion request (best-effort — table may not support Signal users)
+    try:
+        sb.table("deletion_requests").insert({
+            "requested_at": datetime.now(timezone.utc).isoformat(),
+            "status": "pending",
+        }).execute()
+    except Exception as exc:
+        print(f"[Signal] Deletion request log failed (non-fatal): {exc}")
+
+    return {
+        "status": "canceling",
+        "cancel_at_period_end": True,
+        "access_until": period_end,
+        "message": (
+            "Your subscription will cancel at the end of your "
+            "current billing period. Your data will be deleted "
+            "after cancellation is complete."
+        ),
+    }
 
 
 def _first_of_next_month():

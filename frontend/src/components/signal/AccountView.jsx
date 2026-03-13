@@ -13,6 +13,7 @@ const TIER_LABELS = {
 const STATUS_STYLES = {
   active: { label: "Active", color: "bg-emerald-100 text-emerald-700" },
   past_due: { label: "Past Due", color: "bg-amber-100 text-amber-700" },
+  canceling: { label: "Canceling", color: "bg-amber-100 text-amber-700" },
   canceled: { label: "Canceled", color: "bg-red-100 text-red-700" },
 };
 
@@ -49,6 +50,10 @@ export default function AccountView({ session }) {
   const [loading, setLoading] = useState(true);
   const [portalLoading, setPortalLoading] = useState(false);
   const [topicRequests, setTopicRequests] = useState([]);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [cancelLoading, setCancelLoading] = useState(false);
+  const [cancelError, setCancelError] = useState(null);
+  const [cancelDone, setCancelDone] = useState(false);
 
   useEffect(() => {
     if (!session?.access_token) {
@@ -88,6 +93,31 @@ export default function AccountView({ session }) {
       window.location.href = portal_url;
     } catch {
       setPortalLoading(false);
+    }
+  }
+
+  async function handleCancel() {
+    setCancelLoading(true);
+    setCancelError(null);
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.access_token}`,
+      };
+      const res = await fetch(`${API_BASE}/api/signal/stripe/cancel`, {
+        method: "POST",
+        headers,
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || "Cancellation failed");
+      }
+      setCancelDone(true);
+      setShowCancelModal(false);
+    } catch (err) {
+      setCancelError(err.message);
+    } finally {
+      setCancelLoading(false);
     }
   }
 
@@ -300,6 +330,113 @@ export default function AccountView({ session }) {
           </p>
         )}
       </div>
+
+      {/* Cancel Subscription */}
+      {isPaid && status !== "canceled" && status !== "canceling" && (
+        <div style={{
+          marginTop: 24,
+          padding: "16px 20px",
+          borderRadius: 12,
+          border: "1px solid rgba(239,68,68,0.2)",
+          background: "rgba(239,68,68,0.05)",
+        }}>
+          <h3 style={{ color: "#f87171", fontSize: 14, fontWeight: 600, margin: "0 0 6px" }}>
+            Cancel Subscription
+          </h3>
+          <p style={{ color: "#94a3b8", fontSize: 13, margin: "0 0 12px", lineHeight: 1.5 }}>
+            Your subscription will remain active until the end of your
+            current billing period. After cancellation, your data will
+            be scheduled for deletion.
+          </p>
+          {cancelDone ? (
+            <p style={{ color: "#4ade80", fontSize: 13, fontWeight: 600 }}>
+              Cancellation confirmed. You'll retain access until your
+              billing period ends.
+            </p>
+          ) : (
+            <button
+              onClick={() => setShowCancelModal(true)}
+              style={{
+                background: "none",
+                border: "1px solid rgba(239,68,68,0.4)",
+                color: "#f87171",
+                borderRadius: 8,
+                padding: "8px 16px",
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              Cancel Subscription & Request Data Deletion
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Cancel confirmation modal */}
+      {showCancelModal && (
+        <div style={{
+          position: "fixed", inset: 0,
+          background: "rgba(0,0,0,0.7)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          zIndex: 1000, padding: 16,
+        }}>
+          <div style={{
+            background: "#0f1f35",
+            borderRadius: 16,
+            padding: 32,
+            maxWidth: 420,
+            width: "100%",
+            border: "1px solid rgba(255,255,255,0.1)",
+          }}>
+            <h3 style={{ color: "#f1f5f9", fontSize: 18, fontWeight: 700, margin: "0 0 12px" }}>
+              Cancel your subscription?
+            </h3>
+            <p style={{ color: "#94a3b8", fontSize: 14, lineHeight: 1.6, margin: "0 0 8px" }}>
+              You'll keep access to your current plan until the end of
+              your billing period. After that:
+            </p>
+            <ul style={{ color: "#94a3b8", fontSize: 13, lineHeight: 1.8, paddingLeft: 20, margin: "0 0 20px" }}>
+              <li>Your account will revert to the Free tier</li>
+              <li>Your data will be scheduled for deletion</li>
+              <li>This action cannot be undone</li>
+            </ul>
+            {cancelError && (
+              <p style={{ color: "#f87171", fontSize: 13, marginBottom: 12 }}>
+                {cancelError}
+              </p>
+            )}
+            <div style={{ display: "flex", gap: 12 }}>
+              <button
+                onClick={() => setShowCancelModal(false)}
+                disabled={cancelLoading}
+                style={{
+                  flex: 1, padding: "10px 0", borderRadius: 8,
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  background: "none", color: "#94a3b8",
+                  fontSize: 14, fontWeight: 600, cursor: "pointer",
+                }}
+              >
+                Keep My Plan
+              </button>
+              <button
+                onClick={handleCancel}
+                disabled={cancelLoading}
+                style={{
+                  flex: 1, padding: "10px 0", borderRadius: 8,
+                  border: "none",
+                  background: cancelLoading ? "#7f1d1d" : "#dc2626",
+                  color: "#fff",
+                  fontSize: 14, fontWeight: 600,
+                  cursor: cancelLoading ? "wait" : "pointer",
+                }}
+              >
+                {cancelLoading ? "Canceling..." : "Yes, Cancel"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
