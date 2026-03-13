@@ -693,11 +693,6 @@ export default function IssueDashboard({
                 </p>
               </div>
             )}
-            {consensusMap[activeCategory]?.summary_text && (
-              <p className="text-sm text-gray-600 leading-relaxed">
-                <GlossaryText text={consensusMap[activeCategory].summary_text} glossary={glossary} />
-              </p>
-            )}
             {filteredClaims.length > 0 && (
               <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-200">
                 <span className="text-xs text-gray-500">

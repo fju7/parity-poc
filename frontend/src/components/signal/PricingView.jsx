@@ -80,7 +80,7 @@ export default function PricingView({ session, userTier }) {
   const [message, setMessage] = useState(null);
 
   const currentTier = userTier || "free";
-  const returnPath = searchParams.get("from") || "/signal/pricing";
+  const returnPath = searchParams.get("from") || "/pricing";
 
   function getCta(tierKey) {
     if (tierKey === currentTier) return "Current Plan";
@@ -145,23 +145,23 @@ export default function PricingView({ session, userTier }) {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 font-[Arial,sans-serif]">
       <div className="text-center mb-10">
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#1B3A5C] mb-3">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3">
           Choose your plan
         </h1>
-        <p className="text-gray-500 text-sm max-w-md mx-auto">
+        <p className="text-gray-300 text-sm max-w-md mx-auto">
           Get deeper evidence intelligence with Parity Signal.
           Upgrade or downgrade at any time.
         </p>
 
         {/* Billing toggle */}
         <div className="flex items-center justify-center gap-3 mt-6">
-          <span className={`text-sm ${!annual ? "text-[#1B3A5C] font-semibold" : "text-gray-400"}`}>
+          <span className={`text-sm ${!annual ? "text-white font-semibold" : "text-gray-400"}`}>
             Monthly
           </span>
           <button
             onClick={() => setAnnual(!annual)}
             className={`relative w-12 h-6 rounded-full border-none cursor-pointer transition-colors ${
-              annual ? "bg-[#0D7377]" : "bg-gray-300"
+              annual ? "bg-[#0D7377]" : "bg-gray-600"
             }`}
           >
             <span
@@ -170,11 +170,11 @@ export default function PricingView({ session, userTier }) {
               }`}
             />
           </button>
-          <span className={`text-sm ${annual ? "text-[#1B3A5C] font-semibold" : "text-gray-400"}`}>
+          <span className={`text-sm ${annual ? "text-white font-semibold" : "text-gray-400"}`}>
             Annual
           </span>
           {annual && (
-            <span className="text-xs font-semibold text-[#0D7377] bg-teal-50 px-2 py-0.5 rounded-full">
+            <span className="text-xs font-semibold text-[#0D7377] bg-[#0D7377]/10 px-2 py-0.5 rounded-full">
               Save up to 20%
             </span>
           )}
@@ -212,25 +212,25 @@ export default function PricingView({ session, userTier }) {
               className={`rounded-2xl p-5 flex flex-col ${
                 tier.accent
                   ? "border-2 border-[#0D7377] shadow-lg ring-1 ring-[#0D7377]/20"
-                  : "border border-gray-200"
+                  : "border border-white/[0.1]"
               }`}
             >
               {tier.badge && (
                 <div className={`text-[10px] font-bold uppercase tracking-wide mb-2 ${
-                  tier.accent ? "text-[#0D7377]" : "text-[#1B3A5C]"
+                  tier.accent ? "text-[#0D7377]" : "text-white"
                 }`}>
                   {tier.badge}
                 </div>
               )}
 
-              <h2 className="text-lg font-bold text-[#1B3A5C]">{tier.name}</h2>
+              <h2 className="text-lg font-bold text-white">{tier.name}</h2>
 
               <div className="mt-2 mb-4">
                 {price === 0 ? (
-                  <span className="text-2xl font-bold text-[#1B3A5C]">Free</span>
+                  <span className="text-2xl font-bold text-white">Free</span>
                 ) : (
                   <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-bold text-[#1B3A5C]">
+                    <span className="text-2xl font-bold text-white">
                       ${annual ? (price / 12).toFixed(2) : price.toFixed(2)}
                     </span>
                     <span className="text-gray-400 text-sm">/mo</span>
@@ -245,7 +245,7 @@ export default function PricingView({ session, userTier }) {
 
               <ul className="space-y-2 mb-4 flex-1">
                 {tier.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-gray-600">
+                  <li key={f} className="flex items-start gap-2 text-xs text-gray-200">
                     <svg
                       className="w-3.5 h-3.5 text-[#0D7377] shrink-0 mt-0.5"
                       fill="none"
@@ -278,9 +278,9 @@ export default function PricingView({ session, userTier }) {
                   disabled={isCurrentTier || isLoading}
                   className={`w-full py-2.5 rounded-lg text-sm font-semibold border-none cursor-pointer transition-colors ${
                     isCurrentTier
-                      ? "bg-gray-100 text-gray-400 cursor-default"
+                      ? "bg-white/[0.06] text-gray-500 cursor-default"
                       : isDowngrade
-                        ? "bg-gray-200 hover:bg-gray-300 text-gray-600"
+                        ? "bg-white/[0.1] hover:bg-white/[0.15] text-gray-300"
                         : tier.accent
                           ? "bg-[#0D7377] hover:bg-[#0B6265] text-white"
                           : "bg-[#1B3A5C] hover:bg-[#162f4a] text-white"
