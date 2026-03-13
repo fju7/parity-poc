@@ -165,28 +165,72 @@ export default function ProviderProductPage() {
 
       {/* ── Section 1: Hero ── */}
       <section style={{ paddingTop: 120, paddingBottom: 56, maxWidth: 820, margin: "0 auto", textAlign: "center", padding: "120px 24px 56px" }}>
-        <div style={{ display: "inline-block", background: "rgba(59,130,246,0.12)", borderRadius: 8, padding: "8px 14px", marginBottom: 24 }}>
-          <span style={{ fontSize: 13, fontWeight: 600, color: "#60a5fa" }}>PARITY PROVIDER</span>
-        </div>
         <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(30px, 4vw, 46px)", lineHeight: 1.15, fontWeight: 400, color: "#f1f5f9", marginBottom: 12, letterSpacing: "-0.02em" }}>
-          Your payers agreed to a contract.<br />
-          <span style={{ color: "#60a5fa" }}>Most practices never verify they're honoring it.</span>
+          See the money your payers owe you.<br />
+          <span style={{ color: "#0d9488" }}>In 5 minutes.</span>
         </h1>
-        <p style={{ fontSize: 20, fontWeight: 500, color: "#60a5fa", marginBottom: 20 }}>
-          Now you can &mdash; automatically, every month.
-        </p>
         <p style={{ fontSize: 17, lineHeight: 1.7, color: "#94a3b8", maxWidth: 700, margin: "0 auto 32px" }}>
-          Parity Provider compares every remittance payment against your contracted rates, identifies denial patterns by payer and reason code, scores each denial for appeal worthiness, and generates AI-drafted appeal letters grounded in specific CMS guidelines and your contract terms. In minutes, not days.
+          Upload your 835 remittance file and Parity Provider automatically identifies underpayments, denial patterns, and coding gaps &mdash; with specific dollar amounts and a PDF you can act on today.
         </p>
+
+        {/* Proof points */}
+        <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap", marginBottom: 32 }}>
+          <div style={{ textAlign: "center", maxWidth: 200 }}>
+            <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(13,148,136,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 8px" }}>
+              <span style={{ fontSize: 18, color: "#0d9488" }}>$</span>
+            </div>
+            <div style={{ fontSize: 28, fontWeight: 700, color: "#f1f5f9" }}>11%</div>
+            <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.4 }}>Average commercial payer denial rate (CAQH Index 2024)</div>
+          </div>
+          <div style={{ textAlign: "center", maxWidth: 200 }}>
+            <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(13,148,136,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 8px" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d9488" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div style={{ fontSize: 28, fontWeight: 700, color: "#f1f5f9" }}>$42K</div>
+            <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.4 }}>Median annual underpayment found per 3-provider practice</div>
+            <div style={{ fontSize: 10, color: "#64748b", marginTop: 2, fontStyle: "italic" }}>(internal estimate from sample remittance data)</div>
+          </div>
+          <div style={{ textAlign: "center", maxWidth: 200 }}>
+            <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(13,148,136,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 8px" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d9488" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div style={{ fontSize: 28, fontWeight: 700, color: "#f1f5f9" }}>5 min</div>
+            <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.4 }}>From 835 upload to full revenue gap report</div>
+          </div>
+        </div>
+
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="#demo" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
-            See Your Analysis &darr;
-          </a>
-          <a href="#demo" style={{ display: "inline-block", border: "1px solid rgba(59,130,246,0.4)", color: "#60a5fa", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
-            See a Demo &darr;
+          <Link to="/provider/signup" style={{ display: "inline-block", background: "#0d9488", color: "#fff", padding: "14px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+            Start Free Trial &mdash; Upload Your 835
+          </Link>
+          <a href="#demo-section" style={{ display: "inline-block", border: "1px solid rgba(13,148,136,0.4)", color: "#0d9488", padding: "14px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+            See a Live Demo &darr;
           </a>
         </div>
         <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>30-day free trial, cancel anytime</p>
+      </section>
+
+      {/* ── Section 1b: How It Works ── */}
+      <section style={{ padding: "0 24px 72px", maxWidth: 820, margin: "0 auto" }}>
+        <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 400, color: "#f1f5f9", textAlign: "center", marginBottom: 32 }}>
+          From file to findings in 3 steps
+        </h2>
+        <div style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap" }}>
+          {[
+            { num: "1", title: "Upload your 835", desc: "Drag and drop your Electronic Remittance Advice file. We accept single files, batches, and ZIP archives." },
+            { num: "2", title: "Add your contract rates", desc: "Enter rates as % of Medicare, upload your fee schedule PDF, or paste from your payer portal — we extract the numbers automatically." },
+            { num: "3", title: "Review your report", desc: "See underpayments flagged by claim, denial rates vs. industry benchmarks, coding gaps by specialty, and a one-page PDF to share with your physician." },
+          ].map((step) => (
+            <div key={step.num} style={{ flex: "1 1 220px", maxWidth: 260, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "24px 20px" }}>
+              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#0d9488", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 15, marginBottom: 12 }}>{step.num}</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: "#f1f5f9", marginBottom: 8 }}>{step.title}</div>
+              <div style={{ fontSize: 13, lineHeight: 1.6, color: "#94a3b8" }}>{step.desc}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: 11, color: "#64748b", textAlign: "center", marginTop: 24, fontStyle: "italic", maxWidth: 700, margin: "24px auto 0" }}>
+          Benchmark comparisons use publicly available CMS Medicare Physician Fee Schedule data and published CAQH/Change Healthcare industry reports. No PHI is stored — analysis is performed in-memory on your uploaded files.
+        </p>
       </section>
 
       {/* ── Section 2: The Revenue Leakage Problem ── */}
@@ -213,7 +257,7 @@ export default function ProviderProductPage() {
       </section>
 
       {/* ── Section 3: Embedded Demo ── */}
-      <section id="demo" style={{ padding: "72px 24px 80px", maxWidth: 1100, margin: "0 auto" }}>
+      <section id="demo-section" style={{ padding: "72px 24px 80px", maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 40 }}>
           <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#60a5fa", marginBottom: 12 }}>Interactive Demo</div>
           <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 32, fontWeight: 400, color: "#f1f5f9", marginBottom: 12 }}>
