@@ -498,6 +498,22 @@ Four broker prompts implemented:
 - BrokerSignupPage.jsx: reads ?ref= param, shows welcome message,
   passes referral_code to company creation API
 
+## Session J-Employer — Employer Improvements (Complete)
+- Benchmark upgrade: AI narrative via _call_claude (JSON format), renewal
+  talking points, print stylesheet in EmployerBenchmark.jsx
+- Messy data recovery: 422 interception with column mapping UI in
+  EmployerClaimsCheck.jsx, TPA format guide (HealthSmart, Meritain,
+  Trustmark, Cigna ASO, Aetna ASO, BCBS)
+- Action plans: AI-generated 3-step action plans in claims check
+  (employer_claims.py), scorecard (employer_scorecard.py), and benchmark
+  (employer_benchmark.py). Displayed as numbered teal cards in frontend.
+- Broker connection: BrokerConnectCard.jsx — reusable card with "Share
+  with broker" mailto link and "Find me a broker" request form.
+  POST /api/employer/broker-connect in employer_claims.py sends admin
+  notification + employer confirmation via Resend. Card appears on
+  EmployerBenchmark (when no broker_ref param) and EmployerClaimsCheck
+  (when total_excess_2x > 0).
+
 ## Migrations pending
 - 036: provider_benchmark_observations
 - 037: signal_cancel_at_period_end
