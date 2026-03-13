@@ -31,9 +31,10 @@ from pathlib import Path
 SCRIPTS_DIR = Path(__file__).resolve().parent
 BACKEND_ROOT = SCRIPTS_DIR.parent.parent
 
-# Add backend/ to sys.path
+# Add backend/ to sys.path (for supabase_client, routers, etc.)
+# Add scripts/signal/ to sys.path (for topic_config)
 sys.path.insert(0, str(BACKEND_ROOT))
-
+sys.path.insert(0, str(SCRIPTS_DIR))
 
 # ---------------------------------------------------------------------------
 # Helpers
