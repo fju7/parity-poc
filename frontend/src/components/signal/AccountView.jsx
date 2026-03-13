@@ -52,7 +52,7 @@ export default function AccountView({ session }) {
 
   useEffect(() => {
     if (!session?.access_token) {
-      navigate("/signal/login");
+      navigate("/login");
       return;
     }
 
@@ -262,7 +262,7 @@ export default function AccountView({ session }) {
                   </div>
                   {req.status === "completed" && slug && (
                     <Link
-                      to={`/signal/${slug}`}
+                      to={`/${slug}`}
                       className="shrink-0 text-xs text-[#0D7377] hover:underline no-underline whitespace-nowrap mt-0.5"
                     >
                       View &rarr;
@@ -287,7 +287,7 @@ export default function AccountView({ session }) {
           </button>
         ) : (
           <button
-            onClick={() => navigate("/signal/pricing")}
+            onClick={() => navigate("/pricing")}
             className="w-full py-3 rounded-xl text-sm font-semibold border-none cursor-pointer transition-colors bg-[#0D7377] hover:bg-[#0B6265] text-white"
           >
             Upgrade Plan

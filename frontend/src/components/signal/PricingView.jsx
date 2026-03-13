@@ -90,7 +90,7 @@ export default function PricingView({ session, userTier }) {
 
   async function handleCheckout(tierKey) {
     if (!session) {
-      navigate("/signal/login?returnTo=" + encodeURIComponent(location.pathname + location.search));
+      navigate("/login?returnTo=" + encodeURIComponent(location.pathname + location.search));
       return;
     }
 

@@ -152,7 +152,7 @@ export default function EvidenceQA({ issueId, issueSlug, session, userTier, qaUs
               <>
                 {" "}
                 <button
-                  onClick={() => navigate(`/signal/pricing?from=/signal/${issueSlug || ""}`)}
+                  onClick={() => navigate(`/pricing?from=/${issueSlug || ""}`)}
                   className="text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer p-0 text-xs font-medium"
                 >
                   Upgrade to {NEXT_TIER[tier]}

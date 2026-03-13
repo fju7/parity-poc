@@ -123,7 +123,7 @@ export default function TopicRequestForm({ session, userTier, tierData }) {
         </div>
         <p className="text-xs text-gray-400 mt-2">
           <button
-            onClick={() => navigate("/signal/pricing")}
+            onClick={() => navigate("/pricing")}
             className="text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer p-0 text-xs font-medium"
           >
             Upgrade to Standard
@@ -218,7 +218,7 @@ export default function TopicRequestForm({ session, userTier, tierData }) {
               You've used all {limit} topic requests this month.
               {" "}
               <button
-                onClick={() => navigate("/signal/pricing")}
+                onClick={() => navigate("/pricing")}
                 className="text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer p-0 text-xs font-medium"
               >
                 Upgrade

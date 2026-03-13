@@ -55,7 +55,7 @@ export default function TierGate({ userTier = "free", usageCount = 0, children }
       </p>
 
       <button
-        onClick={() => navigate("/signal/pricing")}
+        onClick={() => navigate("/pricing")}
         className="bg-[#0D7377] hover:bg-[#0B6265] text-white font-semibold text-sm px-6 py-2.5 rounded-lg border-none cursor-pointer transition-colors"
       >
         View Plans

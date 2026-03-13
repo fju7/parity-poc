@@ -8,7 +8,7 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 function TopicCard({ topic }) {
   return (
     <Link
-      to={`/signal/${topic.slug}`}
+      to={`/${topic.slug}`}
       className="block border border-white/[0.08] rounded-2xl p-6 hover:border-white/[0.15] transition-colors no-underline group bg-white/[0.02]"
     >
       <h2 className="text-lg font-bold text-[#cbd5e1] mb-2 group-hover:text-[#0D7377] transition-colors">
@@ -210,7 +210,7 @@ export default function SignalLanding({ session, userTier, tierData }) {
           ))}
         </div>
         <Link
-          to="/signal/methodology"
+          to="/methodology"
           className="text-xs text-[#0D7377] hover:underline mt-2 inline-flex items-center min-h-[44px]"
         >
           View full methodology &rarr;

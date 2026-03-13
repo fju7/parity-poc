@@ -9,7 +9,7 @@ export default function SignalFooter() {
         CMS data. Scores reflect automated analysis and should not replace
         professional medical or financial advice.{" "}
         <Link
-          to="/signal/methodology"
+          to="/methodology"
           className="text-[#0D7377] hover:underline"
         >
           View methodology

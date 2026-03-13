@@ -221,7 +221,7 @@ export default function SignalLogin() {
             <span>5 questions/mo</span>
           </div>
           <Link
-            to="/signal/pricing"
+            to="/pricing"
             className="text-[10px] text-[#0D7377] hover:underline mt-2 inline-block no-underline"
           >
             View plans for more access &rarr;
