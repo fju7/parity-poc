@@ -69,7 +69,7 @@ export default function TermsPage() {
         </p>
         <BulletList items={[
           "Core Service (required) — profile stored in cloud, health data stored on your device only",
-          "Anonymous Analytics (default on, can opt out) — anonymized aggregate data may be used to improve CivicScale products and shared with analytics partners",
+          "Anonymous Analytics (default on, can opt out) — anonymized aggregate data may be used to improve CivicScale products",
           "Employer Dashboard (default off, must opt in) — anonymized aggregate data contributes to your employer's workforce dashboard if your employer uses CivicScale",
         ]} />
       </Section>
@@ -89,7 +89,15 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section number="8" title="Acceptable Use">
+      <Section number="8" title="SMS and Phone Communications">
+        <p>
+          When you provide your phone number to receive a one-time passcode or other communications from
+          CivicScale, your phone number and SMS opt-in consent will never be shared with, sold to, or
+          transferred to any third party for any purpose whatsoever. Message and data rates may apply.
+        </p>
+      </Section>
+
+      <Section number="9" title="Acceptable Use">
         <p>You agree not to:</p>
         <BulletList items={[
           "Use Parity Health to analyze bills for which you do not have authorization",
@@ -101,7 +109,7 @@ export default function TermsPage() {
         ]} />
       </Section>
 
-      <Section number="9" title="Benchmark Data and Accuracy">
+      <Section number="10" title="Benchmark Data and Accuracy">
         <p>
           Parity Health uses CMS Medicare rate data and, where available, third-party negotiated rate data
           licensed by CivicScale. We make reasonable efforts to keep this data current but do not guarantee
@@ -114,7 +122,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section number="10" title="Local Storage and Data Responsibility">
+      <Section number="11" title="Local Storage and Data Responsibility">
         <p>
           Because your bill analysis results are stored in your browser's local storage on your device, you
           are responsible for:
@@ -130,7 +138,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section number="11" title="Intellectual Property">
+      <Section number="12" title="Intellectual Property">
         <p>
           CivicScale, Parity Health, and the Parity benchmark intelligence engine are owned by U.S.
           Photovoltaics, Inc. and protected by applicable intellectual property laws. CMS Medicare rate data
@@ -138,7 +146,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section number="12" title="Disclaimer of Warranties">
+      <Section number="13" title="Disclaimer of Warranties">
         <p className="uppercase text-sm font-medium text-gray-600">
           Parity Health is provided "as is" and "as available" without warranties of any kind, either express
           or implied. We do not warrant that Parity Health will be uninterrupted, error-free, or completely
@@ -146,7 +154,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section number="13" title="Limitation of Liability">
+      <Section number="14" title="Limitation of Liability">
         <p className="uppercase text-sm font-medium text-gray-600">
           To the maximum extent permitted by applicable law, U.S. Photovoltaics, Inc. shall not be liable
           for any indirect, incidental, special, consequential, or punitive damages arising from your use of
@@ -156,7 +164,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section number="14" title="Indemnification">
+      <Section number="15" title="Indemnification">
         <p>
           You agree to indemnify and hold harmless U.S. Photovoltaics, Inc. and its officers, directors,
           employees, and agents from any claims, damages, or expenses arising from your use of Parity Health
@@ -164,28 +172,28 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section number="15" title="Governing Law">
+      <Section number="16" title="Governing Law">
         <p>
           These Terms are governed by the laws of the State of Florida. Any disputes shall be resolved in the
           courts of Florida.
         </p>
       </Section>
 
-      <Section number="16" title="Changes to These Terms">
+      <Section number="17" title="Changes to These Terms">
         <p>
           We will notify you by email and in-app notice at least 14 days before material changes take effect.
           Continued use after the effective date constitutes acceptance.
         </p>
       </Section>
 
-      <Section number="17" title="Termination">
+      <Section number="18" title="Termination">
         <p>
           We reserve the right to suspend or terminate your account for violations of these Terms. You may
           terminate at any time from My Account. Data deletion follows our Privacy Policy upon termination.
         </p>
       </Section>
 
-      <Section number="18" title="Contact">
+      <Section number="19" title="Contact">
         <p>
           Email: <a href="mailto:privacy@civicscale.ai" className="text-[#0D7377] hover:underline">privacy@civicscale.ai</a>
           <br />

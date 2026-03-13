@@ -93,7 +93,7 @@ export default function PrivacyPage() {
           </p>
           <p>
             This anonymized data helps us improve Parity Health, powers the employer aggregate dashboard, and
-            may be shared with healthcare analytics partners and researchers. It is not PHI and does not
+            may be used internally to improve CivicScale products and services. It is not PHI and does not
             identify you in any way. You can opt out at any time from My Account with no effect on your service.
           </p>
         </SubSection>
@@ -136,7 +136,7 @@ export default function PrivacyPage() {
             <p className="font-medium text-[#1B3A5C]">Choice 2 — Anonymous Analytics (Default: On, Can Opt Out)</p>
             <p>
               Anonymized, non-identifiable aggregate data derived from your bill analyses may be used to improve
-              CivicScale products and shared with analytics partners. You can turn this off at any time.
+              CivicScale products. You can turn this off at any time.
             </p>
           </div>
           <div>
@@ -164,7 +164,15 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section number="6" title="Information Sharing">
+      <Section number="6" title="SMS and Phone Communications">
+        <p>
+          When you provide your phone number to receive a one-time passcode or other communications from
+          CivicScale, your phone number and SMS opt-in consent will never be shared with, sold to, or
+          transferred to any third party for any purpose whatsoever. Message and data rates may apply.
+        </p>
+      </Section>
+
+      <Section number="7" title="Information Sharing">
         <p>We do not sell, rent, or trade your personal information or identifiable health data.</p>
         <p>We may share information only as follows:</p>
         <BulletList items={[
@@ -175,7 +183,7 @@ export default function PrivacyPage() {
         ]} />
       </Section>
 
-      <Section number="7" title="A Note on HIPAA">
+      <Section number="8" title="A Note on HIPAA">
         <p>
           Parity Health's privacy-by-architecture design means the combination of personal identity and health
           information never exists on our servers. Your health data (bill analysis results) stays on your
@@ -189,7 +197,7 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section number="8" title="Data Security">
+      <Section number="9" title="Data Security">
         <p>
           Account profile data is stored using industry-standard encryption at rest and in transit. Row Level
           Security ensures only you can access your own data at the database level. Authentication uses magic
@@ -201,7 +209,7 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section number="9" title="Your Rights">
+      <Section number="10" title="Your Rights">
         <BulletList items={[
           "Access — view all account information at any time by signing in",
           "Correction — update your profile at any time from My Account",
@@ -211,14 +219,14 @@ export default function PrivacyPage() {
         ]} />
       </Section>
 
-      <Section number="10" title="Data Retention">
+      <Section number="11" title="Data Retention">
         <p>
           We retain your account profile for as long as your account is active. When you delete your account,
           all cloud-stored data is permanently deleted within 30 days. We do not retain data after deletion.
         </p>
       </Section>
 
-      <Section number="11" title="Children's Privacy">
+      <Section number="12" title="Children's Privacy">
         <p>
           Parity Health is not directed to children under 13. We do not knowingly collect personal information
           from children under 13.
@@ -227,14 +235,14 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section number="12" title="Changes to This Policy">
+      <Section number="13" title="Changes to This Policy">
         <p>
           We will notify you by email and in-app notice before any material changes take effect. Continued use
           after the effective date constitutes acceptance.
         </p>
       </Section>
 
-      <Section number="13" title="Contact">
+      <Section number="14" title="Contact">
         <p>
           Email: <a href="mailto:privacy@civicscale.ai" className="text-[#0D7377] hover:underline">privacy@civicscale.ai</a>
           <br />
