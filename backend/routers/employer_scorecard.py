@@ -236,6 +236,37 @@ async def employer_scorecard(
         "interpretation": interpretation,
     }
 
+    # --- Action plan ---
+    action_plan = None
+    try:
+        # Sort scored_criteria by score ascending to find weakest areas
+        weakest = sorted(scored_criteria, key=lambda c: c.get("score", 10))[:3]
+        weak_summary = "\n".join(
+            f"- {c['criterion']}: scored {c['score']}/10" for c in weakest
+        )
+        action_plan_prompt = (
+            "You are a benefits advisor writing for an HR director or small business owner. "
+            "Based on this plan scorecard, write a numbered action plan with exactly 3 steps. "
+            "Each step must translate one weak area into a specific question to ask the broker or carrier. "
+            "Format each as: 'Ask your broker: [exact question]' or 'Ask your carrier: [exact question]'. "
+            "Write for someone who is not a benefits expert. Plain English only. "
+            "Return a JSON object: {\"action_plan\": [\"step 1\", \"step 2\", \"step 3\"]}\n\n"
+            f"Plan: {result.get('plan_name', 'Unknown')}\n"
+            f"Grade: {grade} (score: {overall_score}/10)\n"
+            f"Weakest areas:\n{weak_summary}\n"
+        )
+        ap_result = _call_claude(
+            system_prompt="You write specific, actionable guidance for HR directors reviewing their health plan scorecard. Return valid JSON only.",
+            user_content=action_plan_prompt,
+            max_tokens=400,
+        )
+        if ap_result and isinstance(ap_result.get("action_plan"), list):
+            action_plan = ap_result["action_plan"][:3]
+    except Exception as exc:
+        print(f"[Scorecard Action Plan] Non-fatal: {exc}")
+
+    result["action_plan"] = action_plan
+
     # --- Persist to Supabase ---
     try:
         sb = _get_supabase()

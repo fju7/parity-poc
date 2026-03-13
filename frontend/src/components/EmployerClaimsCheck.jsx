@@ -648,6 +648,32 @@ export default function EmployerClaimsCheck() {
               </div>
             )}
 
+            {/* Action Plan */}
+            {result.action_plan && result.action_plan.length > 0 && (
+              <div style={{ marginBottom: "24px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#f1f5f9", marginBottom: "4px" }}>Your 3-Step Action Plan</h3>
+                <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "16px" }}>Specific questions to bring to your next broker or carrier meeting.</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "12px" }}>
+                  {result.action_plan.map((step, i) => (
+                    <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start", background: "rgba(13,148,136,0.08)", border: "1px solid rgba(13,148,136,0.2)", borderRadius: "10px", padding: "16px 20px" }}>
+                      <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#0d9488", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: "700", flexShrink: 0 }}>{i + 1}</div>
+                      <p style={{ margin: 0, fontSize: "14px", color: "#e2e8f0", lineHeight: "1.6" }}>{step}</p>
+                    </div>
+                  ))}
+                </div>
+                <button onClick={() => window.print()} style={{ background: "none", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "8px", padding: "6px 14px", fontSize: "13px", color: "#94a3b8", cursor: "pointer" }}>
+                  Print Action Plan
+                </button>
+              </div>
+            )}
+
+            {/* Print stylesheet */}
+            <style>{`@media print {
+              header, nav, .tab-toggle, button:not(.print-keep), a.back-link { display: none !important; }
+              body { background: white !important; color: #1e293b !important; }
+              .results-card { background: white !important; border: 1px solid #e2e8f0 !important; }
+            }`}</style>
+
             {/* Top 10 Flagged Procedures Table */}
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "32px" }}>
               <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px" }}>Top Flagged Procedures</h3>

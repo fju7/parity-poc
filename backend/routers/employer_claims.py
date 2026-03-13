@@ -363,6 +363,42 @@ async def employer_claims_check(
     except Exception as exc:
         print(f"[Employer Claims] Narrative generation failed (non-fatal): {exc}")
 
+    # --- Action plan ---
+    action_plan = None
+    try:
+        action_plan_prompt = (
+            "You are a benefits advisor writing for an HR director or small business owner. "
+            "Based on these claims analysis results, write a numbered action plan with exactly 3 steps. "
+            "Each step must be a specific, concrete ask — either 'Ask your broker: [exact question]' "
+            "or 'Before your renewal: [specific preparation task]' or 'Ask your carrier: [exact question to include in writing]'. "
+            "Do not give generic advice. Reference the actual findings. "
+            "Write for someone who is not a benefits expert. Plain English only. No jargon. "
+            "Format: Return exactly 3 lines, each starting with a number (1., 2., 3.) followed by the action. "
+            "No headers, no extra text, no preamble.\n\n"
+            f"Analysis summary:\n"
+            f"- Claims analyzed: {len(results)}\n"
+            f"- Total paid: ${total_paid:,.0f}\n"
+            f"- Excess vs 2x Medicare: ${total_excess_2x:,.0f}\n"
+            f"- Flagged claims: {len([r for r in results if r.get('flag')])}\n"
+            f"- Top flagged procedure: CPT {top_flagged_cpt} (${top_flagged_excess:,.0f} excess)\n"
+        )
+        action_result = _call_claude(
+            system_prompt="You write specific, actionable guidance for HR directors reviewing their health plan claims data. Return plain text only, not JSON.",
+            user_content=action_plan_prompt,
+            max_tokens=400,
+        )
+        # _call_claude returns parsed JSON or None; for plain text we need raw
+        # Since _call_claude parses JSON, try to get it from the response
+        if action_result is None:
+            # Try raw text approach via _generate_narrative
+            raw = _generate_narrative(action_plan_prompt)
+            if raw:
+                lines = [l.strip() for l in raw.split("\n") if l.strip() and l.strip()[0].isdigit()]
+                if lines:
+                    action_plan = [l.lstrip("123456789. ").strip() for l in lines[:3]]
+    except Exception as exc:
+        print(f"[Claims Action Plan] Non-fatal: {exc}")
+
     # --- Level 2 analytics (835 EDI only) ---
     level2 = None
     try:
@@ -378,6 +414,7 @@ async def employer_claims_check(
     response = {
         "summary": summary,
         "narrative": narrative,
+        "action_plan": action_plan,
         "line_items": results[:500],  # Cap at 500 for response size
         "column_mapping": mapping,
         "total_lines_analyzed": len(results),
