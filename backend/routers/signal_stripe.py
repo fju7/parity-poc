@@ -17,7 +17,7 @@ router = APIRouter(prefix="/api/signal/stripe", tags=["signal-stripe"])
 
 # Stripe config — loaded from env
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
-STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_SIGNAL_WEBHOOK_SECRET", "")
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
 
 # Price IDs from env (set after creating products in Stripe dashboard)
