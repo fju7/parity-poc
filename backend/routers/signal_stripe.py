@@ -19,6 +19,7 @@ router = APIRouter(prefix="/api/signal/stripe", tags=["signal-stripe"])
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_SIGNAL_WEBHOOK_SECRET", "")
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
+SIGNAL_URL = os.environ.get("SIGNAL_URL", "https://signal.civicscale.ai")
 
 # Price IDs from env (set after creating products in Stripe dashboard)
 PRICE_IDS = {
@@ -198,7 +199,7 @@ async def create_checkout(body: CheckoutRequest, request: Request):
         # native UI, and webhooks handle the DB update automatically.
         portal_session = stripe.billing_portal.Session.create(
             customer=customer_id,
-            return_url=f"{FRONTEND_URL}/pricing?portal_return=1",
+            return_url=f"{SIGNAL_URL}/pricing?portal_return=1",
         )
         return {"portal_url": portal_session.url}
 
@@ -227,7 +228,7 @@ async def create_portal(request: Request):
 
     portal_session = stripe.billing_portal.Session.create(
         customer=customer_id,
-        return_url=f"{FRONTEND_URL}/account",
+        return_url=f"{SIGNAL_URL}/account",
     )
 
     return {"portal_url": portal_session.url}
