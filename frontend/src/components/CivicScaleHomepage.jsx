@@ -287,24 +287,24 @@ export default function CivicScaleHomepage() {
         <div className="cs-home-section-inner cs-home-cta-inner">
           <h2 className="cs-home-cta-title">Ready to see what your healthcare actually costs?</h2>
           <div className="cs-home-cta-paths">
-            <a href="https://employer.civicscale.ai/signup" className="cs-home-cta-path">
+            <a href="https://employer.civicscale.ai" className="cs-home-cta-path">
               <div className="cs-home-cta-path-label">I'm an employer</div>
-              <div className="cs-home-cta-path-action">Start Free Trial &rarr;</div>
+              <div className="cs-home-cta-path-action">Learn More &rarr;</div>
               <div className="cs-home-cta-path-note">30-day free trial, cancel anytime</div>
             </a>
-            <a href="https://broker.civicscale.ai/signup" className="cs-home-cta-path">
+            <a href="https://broker.civicscale.ai" className="cs-home-cta-path">
               <div className="cs-home-cta-path-label">I'm a broker</div>
-              <div className="cs-home-cta-path-action">Start Free Trial &rarr;</div>
+              <div className="cs-home-cta-path-action">Learn More &rarr;</div>
               <div className="cs-home-cta-path-note">30-day free trial, cancel anytime</div>
             </a>
             <a href="https://provider.civicscale.ai" className="cs-home-cta-path">
               <div className="cs-home-cta-path-label">I'm a provider</div>
-              <div className="cs-home-cta-path-action">Start Free Trial &rarr;</div>
+              <div className="cs-home-cta-path-action">Learn More &rarr;</div>
               <div className="cs-home-cta-path-note">30-day free trial, cancel anytime</div>
             </a>
             <a href="https://health.civicscale.ai" className="cs-home-cta-path">
               <div className="cs-home-cta-path-label">I'm a patient</div>
-              <div className="cs-home-cta-path-action">Understand My Bill &rarr;</div>
+              <div className="cs-home-cta-path-action">Learn More &rarr;</div>
               <div className="cs-home-cta-path-note">$9.95/month or $29/year, 30-day free trial</div>
             </a>
           </div>
@@ -337,12 +337,6 @@ export default function CivicScaleHomepage() {
               <Link to="/investors">Investors</Link>
               <Link to="/terms">Terms</Link>
               <Link to="/privacy">Privacy</Link>
-            </div>
-            <div className="cs-home-footer-col">
-              <h5>Get Started</h5>
-              <a href="https://employer.civicscale.ai/signup">Employer Trial</a>
-              <a href="https://broker.civicscale.ai/signup">Broker Signup</a>
-              <a href="https://employer.civicscale.ai/demo">See a Demo</a>
             </div>
           </div>
         </div>
@@ -397,7 +391,7 @@ const PRODUCT_CARDS = [
       "Claims analytics with provider-level detail",
       "Pharmacy benefit benchmarking with NADAC data",
     ],
-    cta: "Start Free Trial",
+    cta: "Learn More",
     badge: "30-day free trial, cancel anytime",
     to: "https://employer.civicscale.ai",
   },
@@ -415,7 +409,7 @@ const PRODUCT_CARDS = [
       "Shareable reports with client branding",
       "Renewal pipeline with 90-day alerts",
     ],
-    cta: "Start Free Trial",
+    cta: "Learn More",
     badge: "30-day free trial, cancel anytime",
     to: "https://broker.civicscale.ai",
   },
@@ -433,7 +427,7 @@ const PRODUCT_CARDS = [
       "Denial pattern analysis with appeal letters",
       "Billing performance scorecard",
     ],
-    cta: "Start Free Trial",
+    cta: "Learn More",
     badge: "30-day free trial, cancel anytime",
     to: "https://provider.civicscale.ai",
   },
@@ -451,7 +445,7 @@ const PRODUCT_CARDS = [
       "Medicare benchmark comparison",
       "AI-powered denial appeal letter generator",
     ],
-    cta: "Understand My Bill",
+    cta: "Learn More",
     badge: "$9.95/month or $29/year, 30-day free trial",
     to: "https://health.civicscale.ai",
   },
