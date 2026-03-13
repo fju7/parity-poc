@@ -101,7 +101,7 @@ Three live products + one in development:
 - Prospect benchmarking: segment-based assessment without PEPM data
 
 ### Parity Signal
-- Route: /signal/*
+- Route: /signal/*, signal.civicscale.ai
 - Backend: backend/routers/signal_*.py
 - Separate product — AI-powered claim intelligence
 - Key feature: Analytical Profiles — 4 named scoring profiles (Balanced,
@@ -301,6 +301,26 @@ Features built in this phase:
   and civicscale.ai/billing/employer/* → employer.civicscale.ai/*
 - Fred action: add broker.civicscale.ai and employer.civicscale.ai as
   domains in Vercel project settings
+
+## Session I — Subdomain Migration + Landing Page Cleanup (Complete)
+- Added signal.civicscale.ai subdomain: Vercel rewrites/redirects, CORS,
+  main.jsx isSignalSubdomain routing to SignalApp
+- CivicScale homepage: removed Start Free Trial/Demo CTAs from hero,
+  linked all products to subdomains (external <a> tags), updated product
+  cards with correct trial language, Health card shows pricing
+- Employer product page: signup/login → employer.civicscale.ai, removed
+  "No credit card required"
+- Broker landing page: removed Referral Flywheel section, stronger data
+  protection language, "30-day free trial, cancel anytime"
+- Broker signup page: dark theme matching other product signup pages
+- Provider product page: removed "No credit card required", links to
+  provider.civicscale.ai
+- Health landing page: nav updated (Sign In, Start Free Trial, CivicScale
+  link), pricing text replaces "Free — no account required"
+- Signal: dark theme (#0a1628) for SignalApp, SignalHeader, SignalFooter,
+  SignalLanding. Added CivicScale link in nav. Added "engine behind Parity"
+  section explaining Signal as decision-engineering engine.
+- Fred action: add signal.civicscale.ai as domain in Vercel project settings
 
 ## Session E-Pharmacy — Pharmacy Benefit Benchmarking (Complete)
 - New backend router: employer_pharmacy.py with POST /api/employer/pharmacy/analyze
