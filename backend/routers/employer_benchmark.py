@@ -9,7 +9,7 @@ from __future__ import annotations
 from fastapi import APIRouter, HTTPException, Request
 
 from routers.employer_shared import (
-    _get_supabase, get_benchmarks,
+    _get_supabase, get_benchmarks, _call_claude,
     BenchmarkRequest, check_rate_limit,
 )
 from data.employer_benchmarks.industry_mapping import resolve_industry
@@ -112,6 +112,44 @@ async def employer_benchmark(req: BenchmarkRequest, request: Request):
             "p90": round(p90, 2),
         },
     }
+
+    # --- AI narrative + talking points ---
+    narrative = None
+    talking_points = None
+    try:
+        bench_prompt = (
+            f"Industry: {req.industry}. State: {req.state}. Company size: {req.company_size}.\n"
+            f"PEPM: ${pepm}. Adjusted median: ${adjusted_median}. Percentile: {round(percentile, 1)}.\n"
+            f"Annual gap per employee: ${round(dollar_gap_annual, 2)}.\n"
+            f"State cost index: {state_factor}.\n\n"
+            "Write a JSON object with two keys:\n"
+            '1. "narrative": A 2-3 paragraph executive summary for an HR director or CFO. '
+            "Open with the specific finding (PEPM, percentile, annual dollar gap). "
+            "Explain what typically drives costs at this percentile for this specific industry and state. "
+            'Close with: "This benchmark is a starting point — the data shows where to focus, not a verdict on your plan." '
+            "Tone: calm, authoritative, factual. Like a trusted advisor.\n"
+            '2. "talking_points": An array of exactly 3 strings. Each is a specific renewal question the employer can ask verbatim. '
+            "Format each as: 'Ask your broker: \"[exact question]\"' or 'Ask your carrier: \"[exact question]\"'. "
+            f"Tailor to their percentile ({round(percentile,1)}): "
+            "above 75th = aggressive negotiation; 50-75th = monitoring/benchmark questions; below 50th = affirmation + watch items. "
+            "1-2 sentences each.\n\n"
+            "Return ONLY valid JSON. No markdown, no preamble."
+        )
+        ai_result = _call_claude(
+            system_prompt="You are a senior benefits consultant writing for HR directors. Return valid JSON only.",
+            user_content=bench_prompt,
+            max_tokens=1200,
+        )
+        if ai_result:
+            narrative = ai_result.get("narrative")
+            tp = ai_result.get("talking_points")
+            if isinstance(tp, list) and len(tp) >= 1:
+                talking_points = tp[:3]
+    except Exception as exc:
+        print(f"[Employer Benchmark] AI narrative non-fatal: {exc}")
+
+    result["narrative"] = narrative
+    result["talking_points"] = talking_points
 
     # --- Persist to Supabase ---
     try:
