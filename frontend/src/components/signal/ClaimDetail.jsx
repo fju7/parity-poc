@@ -37,7 +37,7 @@ function ScoreBar({ score }) {
           style={{ width: `${pct}%` }}
         />
       </div>
-      <span className="text-xs font-semibold text-gray-600 w-4 text-right">
+      <span className="text-xs font-semibold text-gray-300 w-4 text-right">
         {score}
       </span>
     </div>
@@ -106,7 +106,7 @@ export default function ClaimDetail({ claimId }) {
       {/* Dimension scores grid */}
       {orderedScores.length > 0 && (
         <div>
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">
+          <div className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">
             Dimension Scores
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
@@ -119,7 +119,7 @@ export default function ClaimDetail({ claimId }) {
                 </div>
                 <ScoreBar score={s.score} />
                 {s.rationale && (
-                  <p className="text-[11px] text-gray-500 mt-0.5 leading-snug">
+                  <p className="text-[11px] text-gray-400 mt-0.5 leading-snug">
                     {s.rationale}
                   </p>
                 )}
@@ -132,7 +132,7 @@ export default function ClaimDetail({ claimId }) {
       {/* Linked sources */}
       {sources.length > 0 && (
         <div>
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">
+          <div className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">
             Sources ({sources.length})
           </div>
           <div className="space-y-2">

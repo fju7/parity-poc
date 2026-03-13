@@ -502,7 +502,7 @@ export default function IssueDashboard({
         <div className="text-red-500 text-lg font-bold mb-2">
           Unable to load evidence data
         </div>
-        <p className="text-gray-500 text-sm">{error}</p>
+        <p className="text-gray-400 text-sm">{error}</p>
       </div>
     );
   }
@@ -533,7 +533,7 @@ export default function IssueDashboard({
           {issue.title}
         </h1>
         {issue.description && (
-          <p className="text-base text-gray-600 leading-relaxed italic">
+          <p className="text-base text-gray-300 leading-relaxed italic">
             {issue.description}
           </p>
         )}
@@ -612,7 +612,7 @@ export default function IssueDashboard({
               Key Debates &amp; Open Questions
             </h2>
           </div>
-          <p className="text-xs text-gray-500 mb-3">
+          <p className="text-xs text-gray-400 mb-3">
             Areas where the evidence is actively contested or insufficient — worth watching as new data emerges.
           </p>
           <div className="space-y-2">

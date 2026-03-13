@@ -61,7 +61,7 @@ export default function SourceCard({ source, context }) {
       )}
 
       {context && (
-        <p className="mt-2 text-gray-500 text-xs leading-relaxed border-l-2 border-gray-200 pl-2.5 italic">
+        <p className="mt-2 text-gray-400 text-xs leading-relaxed border-l-2 border-gray-200 pl-2.5 italic">
           {context}
         </p>
       )}
