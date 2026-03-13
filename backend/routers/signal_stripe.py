@@ -210,20 +210,9 @@ async def create_checkout(body: CheckoutRequest, request: Request):
             )
             print(f"[Stripe] Upgrade modify succeeded: {updated_sub.id}")
 
-            # Update DB — wrapped in try/except so Stripe change isn't lost
-            try:
-                period_end = _get_period_end(updated_sub)
-                print(f"[Stripe] period_end={period_end}")
-                sb = _get_sb()
-                update_data = {"tier": new_tier}
-                if period_end:
-                    update_data["current_period_end"] = period_end
-                sb.table("signal_subscriptions").update(
-                    update_data
-                ).eq("user_id", str(user.id)).execute()
-            except Exception as exc:
-                print(f"[Stripe] DB update after upgrade failed: {exc}")
-                # Still return success — the Stripe subscription was changed
+            # Do NOT update DB tier here — let the webhook
+            # (customer.subscription.updated) handle it after Stripe
+            # confirms the charge succeeded.
 
             return {"action": "upgraded", "tier": new_tier}
         else:
