@@ -103,6 +103,11 @@ function BrokerDashboardInner() {
   const [renewalData, setRenewalData] = useState(null);
   const [renewalLoading, setRenewalLoading] = useState(false);
 
+  // Inline renewal prep drawer state
+  const [inlineRenewalClient, setInlineRenewalClient] = useState(null);
+  const [inlineRenewalData, setInlineRenewalData] = useState(null);
+  const [inlineRenewalLoading, setInlineRenewalLoading] = useState(false);
+
   // Plan state
   const [planInfo, setPlanInfo] = useState(null);
   const [upgradeBannerDismissed, setUpgradeBannerDismissed] = useState(false);
@@ -395,6 +400,23 @@ function BrokerDashboardInner() {
       if (data.sent) setUpgradeSent(true);
     } catch (err) { console.error("Upgrade suggest failed:", err); }
     setShareLoading(false);
+  };
+
+  // Inline renewal prep drawer
+  const handlePrepReport = async (client) => {
+    setInlineRenewalClient(client);
+    setInlineRenewalData(null);
+    setInlineRenewalLoading(true);
+    // Clear CAA letter state if it was for a different client
+    setCaaLetterText(null);
+    setCaaLetterError("");
+    setCaaLetterCopied(false);
+    try {
+      const slug = encodeURIComponent(client.company_name.toLowerCase().replace(/\s+/g, "-"));
+      const res = await fetch(`${API}/api/broker/renewal-prep/${slug}`, { headers: authHeaders });
+      if (res.ok) setInlineRenewalData(await res.json());
+    } catch (err) { console.error("Failed to fetch renewal prep:", err); }
+    setInlineRenewalLoading(false);
   };
 
   // Remove client
@@ -799,6 +821,194 @@ function BrokerDashboardInner() {
               </div>
             ) : renewalData ? (
               <div>
+                {/* ── Stats Banner ── */}
+                {(() => {
+                  const urgentCount = renewalData.renewing_soon.length;
+                  const preppedCount = renewalData.renewing_soon.filter(c => c.checklist.benchmark_run && c.checklist.claims_check).length;
+                  const needsAttention = urgentCount - preppedCount;
+
+                  if (urgentCount === 0) {
+                    return (
+                      <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 10, padding: "14px 20px", marginBottom: 20, display: "flex", alignItems: "center", gap: 8 }}>
+                        <span style={{ fontSize: 16 }}>✓</span>
+                        <span style={{ fontSize: 14, color: "#166534", fontWeight: 500 }}>No clients renewing in the next 90 days. You're ahead of schedule.</span>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 20 }}>
+                      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: 16 }}>
+                        <p style={{ fontSize: 28, fontWeight: 700, margin: 0, color: urgentCount > 0 ? "#dc2626" : "#22c55e" }}>{urgentCount}</p>
+                        <p style={{ fontSize: 12, color: "#64748b", margin: "4px 0 0" }}>Renewing in 90 days</p>
+                      </div>
+                      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: 16 }}>
+                        <p style={{ fontSize: 28, fontWeight: 700, margin: 0, color: "#22c55e" }}>{preppedCount}</p>
+                        <p style={{ fontSize: 12, color: "#64748b", margin: "4px 0 0" }}>Fully prepped</p>
+                      </div>
+                      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: 16 }}>
+                        <p style={{ fontSize: 28, fontWeight: 700, margin: 0, color: needsAttention > 0 ? "#f59e0b" : "#22c55e" }}>{needsAttention}</p>
+                        <p style={{ fontSize: 12, color: "#64748b", margin: "4px 0 0" }}>Need attention</p>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {/* ── Inline Renewal Prep Drawer ── */}
+                {inlineRenewalClient && (
+                  <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24, marginBottom: 20 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                        <h3 style={{ fontSize: 18, fontWeight: 600, color: "#1B3A5C", margin: 0 }}>{inlineRenewalClient.company_name}</h3>
+                        {inlineRenewalClient.days_until_renewal != null && (
+                          <span style={{ fontSize: 12, fontWeight: 600, padding: "3px 10px", borderRadius: 10, background: inlineRenewalClient.days_until_renewal <= 30 ? "#fef2f2" : inlineRenewalClient.days_until_renewal <= 90 ? "#fffbeb" : "#f1f5f9", color: inlineRenewalClient.days_until_renewal <= 30 ? "#991b1b" : inlineRenewalClient.days_until_renewal <= 90 ? "#92400e" : "#64748b" }}>
+                            {inlineRenewalClient.days_until_renewal <= 0 ? "Past due" : `${inlineRenewalClient.days_until_renewal} days until renewal`}
+                          </span>
+                        )}
+                      </div>
+                      <button onClick={() => { setInlineRenewalClient(null); setInlineRenewalData(null); }} style={{ background: "none", border: "none", fontSize: 18, color: "#94a3b8", cursor: "pointer", padding: "0 4px" }}>×</button>
+                    </div>
+
+                    {inlineRenewalLoading ? (
+                      <div style={{ textAlign: "center", padding: 24 }}>
+                        <div style={{ width: 28, height: 28, border: "3px solid #e2e8f0", borderTopColor: "#0D7377", borderRadius: "50%", animation: "cs-spin 0.8s linear infinite", margin: "0 auto 12px" }} />
+                        <p style={{ color: "#64748b", fontSize: 13 }}>Loading renewal prep data...</p>
+                      </div>
+                    ) : inlineRenewalData ? (
+                      <div>
+                        {/* Three data sections */}
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 20 }}>
+                          {/* Benchmark */}
+                          <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: 16 }}>
+                            <p style={{ fontSize: 11, fontWeight: 600, color: "#64748b", margin: "0 0 8px", textTransform: "uppercase", letterSpacing: 0.5 }}>Benchmark</p>
+                            {inlineRenewalData.benchmark ? (
+                              <>
+                                <p style={{ fontSize: 22, fontWeight: 700, margin: 0, color: "#1B3A5C" }}>
+                                  {inlineRenewalData.benchmark.percentile}{ordinalSuffix(inlineRenewalData.benchmark.percentile)} <span style={{ fontSize: 12, fontWeight: 400, color: "#64748b" }}>percentile</span>
+                                </p>
+                                {inlineRenewalData.benchmark.annual_gap != null && (
+                                  <p style={{ fontSize: 13, color: "#dc2626", margin: "4px 0 0", fontWeight: 500 }}>
+                                    ${Math.round(inlineRenewalData.benchmark.annual_gap).toLocaleString()}/yr excess
+                                  </p>
+                                )}
+                              </>
+                            ) : (
+                              <p style={{ fontSize: 14, color: "#94a3b8", margin: 0, fontStyle: "italic" }}>Not yet run</p>
+                            )}
+                          </div>
+                          {/* Claims */}
+                          <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: 16 }}>
+                            <p style={{ fontSize: 11, fontWeight: 600, color: "#64748b", margin: "0 0 8px", textTransform: "uppercase", letterSpacing: 0.5 }}>Claims</p>
+                            {inlineRenewalData.claims ? (
+                              <>
+                                <p style={{ fontSize: 22, fontWeight: 700, margin: 0, color: "#1B3A5C" }}>
+                                  ${Math.round(inlineRenewalData.claims.total_excess || 0).toLocaleString()}
+                                </p>
+                                <p style={{ fontSize: 12, color: "#64748b", margin: "4px 0 0" }}>total excess identified</p>
+                                {inlineRenewalData.claims.top_cpt && (
+                                  <p style={{ fontSize: 12, color: "#94a3b8", margin: "2px 0 0" }}>Top: {inlineRenewalData.claims.top_cpt}</p>
+                                )}
+                              </>
+                            ) : (
+                              <p style={{ fontSize: 14, color: "#94a3b8", margin: 0, fontStyle: "italic" }}>Upload needed</p>
+                            )}
+                          </div>
+                          {/* Scorecard */}
+                          <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: 16 }}>
+                            <p style={{ fontSize: 11, fontWeight: 600, color: "#64748b", margin: "0 0 8px", textTransform: "uppercase", letterSpacing: 0.5 }}>Scorecard</p>
+                            {inlineRenewalData.scorecard ? (
+                              <p style={{ fontSize: 28, fontWeight: 700, margin: 0, color: inlineRenewalData.scorecard.grade?.startsWith("A") ? "#22c55e" : inlineRenewalData.scorecard.grade?.startsWith("B") ? "#3b82f6" : inlineRenewalData.scorecard.grade?.startsWith("C") ? "#f59e0b" : "#dc2626" }}>
+                                {inlineRenewalData.scorecard.grade || "—"}
+                              </p>
+                            ) : (
+                              <p style={{ fontSize: 14, color: "#94a3b8", margin: 0, fontStyle: "italic" }}>Not scored</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Talking Points */}
+                        {inlineRenewalData.talkingPoints && inlineRenewalData.talkingPoints.length > 0 && (
+                          <div style={{ marginBottom: 20 }}>
+                            <p style={{ fontSize: 13, fontWeight: 600, color: "#1B3A5C", margin: "0 0 10px" }}>Talking Points</p>
+                            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 6 }}>
+                              {inlineRenewalData.talkingPoints.slice(0, 4).map((tp, i) => (
+                                <li key={i} style={{ fontSize: 13, color: "#475569", lineHeight: 1.6 }}>{tp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Actions */}
+                        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                          <a
+                            href={`/broker/renewal-prep/${encodeURIComponent(inlineRenewalClient.company_name.toLowerCase().replace(/\s+/g, "-"))}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 16px", background: "#1B3A5C", color: "#fff", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none" }}
+                          >
+                            Generate Full Report ↗
+                          </a>
+                          <button
+                            onClick={async () => {
+                              setCaaLetterLoading(true);
+                              setCaaLetterError("");
+                              setCaaLetterText(null);
+                              try {
+                                const res = await fetch(`${API}/api/broker/clients/${encodeURIComponent(inlineRenewalClient.employer_email)}/caa-letter`, {
+                                  method: "POST",
+                                  headers: { ...authHeaders, "Content-Type": "application/json" },
+                                });
+                                if (!res.ok) throw new Error("Failed to generate letter");
+                                const data = await res.json();
+                                setCaaLetterText(data.letter);
+                              } catch (err) {
+                                setCaaLetterError(err.message || "Failed to generate letter");
+                              } finally {
+                                setCaaLetterLoading(false);
+                              }
+                            }}
+                            disabled={caaLetterLoading}
+                            style={{ padding: "8px 16px", background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: caaLetterLoading ? "wait" : "pointer", opacity: caaLetterLoading ? 0.7 : 1 }}
+                          >
+                            {caaLetterLoading ? "Generating..." : "Generate CAA Letter"}
+                          </button>
+                        </div>
+
+                        {/* CAA Letter inline display */}
+                        {caaLetterError && (
+                          <div style={{ marginTop: 12, padding: 10, background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 8 }}>
+                            <p style={{ color: "#991b1b", fontSize: 12, margin: 0 }}>{caaLetterError}</p>
+                          </div>
+                        )}
+                        {caaLetterText && (
+                          <div style={{ marginTop: 16 }}>
+                            <pre style={{
+                              whiteSpace: "pre-wrap", wordWrap: "break-word",
+                              fontFamily: "'Courier New', monospace", fontSize: 12, lineHeight: 1.6,
+                              background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 8,
+                              padding: 16, maxHeight: 300, overflowY: "auto", color: "#1e293b",
+                            }}>
+                              {caaLetterText}
+                            </pre>
+                            <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
+                              <button
+                                onClick={async () => {
+                                  try { await navigator.clipboard.writeText(caaLetterText); setCaaLetterCopied(true); setTimeout(() => setCaaLetterCopied(false), 2000); } catch {}
+                                }}
+                                style={{ padding: "6px 14px", border: "1px solid #e2e8f0", borderRadius: 8, background: "#fff", fontSize: 12, fontWeight: 600, color: "#475569", cursor: "pointer" }}
+                              >
+                                {caaLetterCopied ? "Copied ✓" : "Copy to Clipboard"}
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <p style={{ color: "#94a3b8", fontSize: 13 }}>Could not load renewal prep data.</p>
+                    )}
+                  </div>
+                )}
+
                 {/* Three-column pipeline */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 24 }}>
                   <RenewalColumn
@@ -808,8 +1018,10 @@ function BrokerDashboardInner() {
                     borderColor="#f59e0b"
                     titleColor="#92400e"
                     bgColor="#fffbeb"
+                    urgent
                     brokerEmail={broker.email}
                     onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
+                    onPrepReport={handlePrepReport}
                   />
                   <RenewalColumn
                     title="91\u2013180 days"
@@ -820,6 +1032,7 @@ function BrokerDashboardInner() {
                     bgColor="#eff6ff"
                     brokerEmail={broker.email}
                     onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
+                    onPrepReport={handlePrepReport}
                   />
                   <RenewalColumn
                     title="Beyond 180 days"
@@ -831,6 +1044,7 @@ function BrokerDashboardInner() {
                     muted
                     brokerEmail={broker.email}
                     onSelectClient={(emp) => { setActiveTab("book"); const match = clients.find(cl => cl.employer_email === emp); if (match) handleSelectClient(match); }}
+                    onPrepReport={handlePrepReport}
                   />
                 </div>
 
@@ -2076,9 +2290,10 @@ export default function BrokerDashboard() {
 // RenewalColumn — one column of the renewal pipeline
 // ---------------------------------------------------------------------------
 
-function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, titleColor, bgColor, muted, brokerEmail }) {
+function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, titleColor, bgColor, muted, brokerEmail, urgent, onPrepReport }) {
   return (
     <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden" }}>
+      <style>{`@keyframes cs-pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }`}</style>
       <div style={{ padding: "14px 16px", borderBottom: `3px solid ${borderColor}`, background: bgColor }}>
         <div style={{ fontSize: 14, fontWeight: 600, color: titleColor }}>{title}</div>
         <div style={{ fontSize: 12, color: "#94a3b8" }}>{subtitle} &middot; {columnClients.length} client{columnClients.length !== 1 ? "s" : ""}</div>
@@ -2090,12 +2305,17 @@ function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, t
           {columnClients.map((c) => (
             <div key={c.employer_email} style={{ padding: "14px 16px", borderBottom: "1px solid #f1f5f9", opacity: muted ? 0.7 : 1 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-                <div>
-                  <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#1B3A5C" }}>{c.company_name}</p>
-                  <p style={{ margin: "2px 0 0", fontSize: 12, color: "#64748b" }}>
-                    {c.renewal_month ? new Date(c.renewal_month).toLocaleDateString("en-US", { month: "long", year: "numeric" }) : ""}
-                    {c.employee_count_range ? ` \u00B7 ${c.employee_count_range}` : ""}
-                  </p>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  {urgent && c.days_until_renewal != null && c.days_until_renewal <= 30 && (
+                    <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: "#dc2626", animation: "cs-pulse-dot 1.5s ease-in-out infinite", flexShrink: 0 }} />
+                  )}
+                  <div>
+                    <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#1B3A5C" }}>{c.company_name}</p>
+                    <p style={{ margin: "2px 0 0", fontSize: 12, color: "#64748b" }}>
+                      {c.renewal_month ? new Date(c.renewal_month).toLocaleDateString("en-US", { month: "long", year: "numeric" }) : ""}
+                      {c.employee_count_range ? ` \u00B7 ${c.employee_count_range}` : ""}
+                    </p>
+                  </div>
                 </div>
                 {c.days_until_renewal != null && (
                   <span style={{ fontSize: 11, fontWeight: 600, padding: "2px 8px", borderRadius: 10, background: c.days_until_renewal <= 30 ? "#fef2f2" : c.days_until_renewal <= 90 ? "#fffbeb" : "#f1f5f9", color: c.days_until_renewal <= 30 ? "#991b1b" : c.days_until_renewal <= 90 ? "#92400e" : "#64748b", whiteSpace: "nowrap" }}>
@@ -2107,9 +2327,12 @@ function RenewalColumn({ title, subtitle, clients: columnClients, borderColor, t
                 <ChecklistItem label="Benchmark run" done={c.checklist.benchmark_run} />
                 <ChecklistItem label="Claims check" done={c.checklist.claims_check} />
                 <ChecklistItem label="Scorecard graded" done={c.checklist.scorecard_graded} />
-                <Link to={`/broker/renewal-prep/${encodeURIComponent(c.company_name.toLowerCase().replace(/\s+/g, "-"))}`} style={{ display: "flex", alignItems: "center", gap: 6, color: "#0D7377", fontWeight: 600, textDecoration: "none", fontSize: 12 }}>
+                <button
+                  onClick={() => onPrepReport && onPrepReport(c)}
+                  style={{ display: "flex", alignItems: "center", gap: 6, color: "#0D7377", fontWeight: 600, fontSize: 12, background: "none", border: "none", cursor: "pointer", padding: 0, textAlign: "left" }}
+                >
                   Prepare Renewal Report &rarr;
-                </Link>
+                </button>
               </div>
             </div>
           ))}
