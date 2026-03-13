@@ -117,15 +117,6 @@ export default function PricingView({ session, userTier }) {
         return;
       }
 
-      if (data.action === "upgraded") {
-        setMessage({
-          type: "success",
-          text: `Upgraded to ${data.tier.charAt(0).toUpperCase() + data.tier.slice(1)}! Your new features are available now.`,
-        });
-        setTimeout(() => window.location.reload(), 1500);
-        return;
-      }
-
       if (data.action === "downgraded_scheduled") {
         const effectiveDate = data.effective_date
           ? new Date(data.effective_date * 1000).toLocaleDateString()

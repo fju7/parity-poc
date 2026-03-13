@@ -133,13 +133,13 @@ export default function EmployerPharmacy() {
                   <>
                     <div style={{ fontSize: "28px", marginBottom: "8px" }}>&#10003;</div>
                     <div style={{ fontSize: "16px", fontWeight: "500", color: "#22c55e" }}>{file.name}</div>
-                    <div style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>{(file.size / 1024).toFixed(0)} KB &middot; Click to change</div>
+                    <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>{(file.size / 1024).toFixed(0)} KB &middot; Click to change</div>
                   </>
                 ) : (
                   <>
                     <div style={{ fontSize: "28px", marginBottom: "8px" }}>&#128138;</div>
                     <div style={{ fontSize: "16px", fontWeight: "500", color: "#cbd5e1" }}>Drop your pharmacy claims file here</div>
-                    <div style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>CSV, Excel, 835 EDI, PDF, or PBM exports &middot; Max 10MB</div>
+                    <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>CSV, Excel, 835 EDI, PDF, or PBM exports &middot; Max 10MB</div>
                   </>
                 )}
               </div>
@@ -156,7 +156,7 @@ export default function EmployerPharmacy() {
               </button>
             </form>
 
-            <div style={{ marginTop: "24px", fontSize: "12px", color: "#475569", textAlign: "center", lineHeight: "1.6" }}>
+            <div style={{ marginTop: "24px", fontSize: "12px", color: "#94a3b8", textAlign: "center", lineHeight: "1.6" }}>
               Your data is processed securely. No patient-identifiable data is stored. Drug costs are benchmarked against NADAC public pricing data.
             </div>
           </>
@@ -171,7 +171,7 @@ export default function EmployerPharmacy() {
             <div style={{ maxWidth: "400px", margin: "0 auto 16px", background: "rgba(255,255,255,0.06)", borderRadius: "8px", overflow: "hidden", height: "8px" }}>
               <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg, #10b981, #34d399)", borderRadius: "8px", transition: "width 0.5s ease" }} />
             </div>
-            <p style={{ fontSize: "14px", color: "#64748b" }}>
+            <p style={{ fontSize: "14px", color: "#94a3b8" }}>
               {progress < 30 ? "Reading file and extracting drug claims..." :
                progress < 60 ? "Looking up NADAC benchmark pricing..." :
                progress < 85 ? "Calculating spreads and generic opportunities..." :
@@ -197,7 +197,7 @@ export default function EmployerPharmacy() {
               <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "28px", fontWeight: "400", color: "#f1f5f9", marginBottom: "8px" }}>
                 Pharmacy Analysis Complete
               </h2>
-              <p style={{ fontSize: "14px", color: "#64748b" }}>
+              <p style={{ fontSize: "14px", color: "#94a3b8" }}>
                 {result.summary.total_claims} claims analyzed &middot; {file?.name}
               </p>
             </div>
@@ -230,7 +230,7 @@ export default function EmployerPharmacy() {
                         <td style={tdStyle}>
                           <div>{d.drug_name}</div>
                           {d.generic_name && d.generic_name !== d.drug_name && (
-                            <div style={{ fontSize: "11px", color: "#64748b" }}>{d.generic_name}</div>
+                            <div style={{ fontSize: "11px", color: "#94a3b8" }}>{d.generic_name}</div>
                           )}
                         </td>
                         <td style={tdStyle}>
@@ -255,14 +255,14 @@ export default function EmployerPharmacy() {
                         </td>
                         <td style={tdStyle}>${d.plan_paid?.toLocaleString()}</td>
                         <td style={tdStyle}>
-                          {d.nadac_cost != null ? `$${d.nadac_cost.toLocaleString()}` : <span style={{ color: "#64748b" }}>Unavailable</span>}
+                          {d.nadac_cost != null ? `$${d.nadac_cost.toLocaleString()}` : <span style={{ color: "#94a3b8" }}>Unavailable</span>}
                         </td>
                         <td style={tdStyle}>
                           {d.spread != null ? (
                             <span style={{ color: d.spread_flagged ? "#ef4444" : d.spread > 0 ? "#f59e0b" : "#22c55e", fontWeight: "600" }}>
                               {d.spread >= 0 ? "+" : ""}${d.spread.toLocaleString()}
                             </span>
-                          ) : <span style={{ color: "#64748b" }}>&mdash;</span>}
+                          ) : <span style={{ color: "#94a3b8" }}>&mdash;</span>}
                         </td>
                       </tr>
                     ))}
@@ -285,11 +285,11 @@ export default function EmployerPharmacy() {
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <div>
                         <div style={{ fontSize: "14px", fontWeight: "500", color: "#e2e8f0" }}>{g.drug_name}</div>
-                        <div style={{ fontSize: "12px", color: "#64748b" }}>Generic: {g.generic_name} &middot; {g.claim_count} claim{g.claim_count !== 1 ? "s" : ""}</div>
+                        <div style={{ fontSize: "12px", color: "#94a3b8" }}>Generic: {g.generic_name} &middot; {g.claim_count} claim{g.claim_count !== 1 ? "s" : ""}</div>
                       </div>
                       <div style={{ textAlign: "right" }}>
                         <div style={{ fontSize: "14px", fontWeight: "600", color: "#22c55e" }}>~${g.estimated_generic_savings.toLocaleString()} savings</div>
-                        <div style={{ fontSize: "11px", color: "#64748b" }}>Current plan paid: ${g.total_plan_paid.toLocaleString()}</div>
+                        <div style={{ fontSize: "11px", color: "#94a3b8" }}>Current plan paid: ${g.total_plan_paid.toLocaleString()}</div>
                       </div>
                     </div>
                   </div>
@@ -321,7 +321,7 @@ export default function EmployerPharmacy() {
                         <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
                           <td style={tdStyle}>
                             <div>{s.drug_name}</div>
-                            {s.generic_name && <div style={{ fontSize: "11px", color: "#64748b" }}>{s.generic_name}</div>}
+                            {s.generic_name && <div style={{ fontSize: "11px", color: "#94a3b8" }}>{s.generic_name}</div>}
                           </td>
                           <td style={{ ...tdStyle, fontSize: "12px", color: "#94a3b8" }}>{s.therapeutic_class || "—"}</td>
                           <td style={tdStyle}>${s.plan_paid.toLocaleString()}</td>
@@ -337,9 +337,9 @@ export default function EmployerPharmacy() {
             {/* PBM Spread Placeholder */}
             {result.pbm_spread_estimate == null ? (
               <div style={{ background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.12)", borderRadius: "14px", padding: "24px", marginBottom: "16px", textAlign: "center" }}>
-                <div style={{ fontSize: "13px", fontWeight: "600", color: "#64748b", marginBottom: "6px" }}>PBM SPREAD ANALYSIS</div>
+                <div style={{ fontSize: "13px", fontWeight: "600", color: "#94a3b8", marginBottom: "6px" }}>PBM SPREAD ANALYSIS</div>
                 <div style={{ fontSize: "16px", fontWeight: "500", color: "#94a3b8", marginBottom: "8px" }}>Coming Soon</div>
-                <p style={{ fontSize: "12px", color: "#475569", margin: 0 }}>
+                <p style={{ fontSize: "12px", color: "#94a3b8", margin: 0 }}>
                   PBM spread analysis compares what your PBM charges the plan vs. what they pay pharmacies. Load NADAC reference data to enable this analysis.
                 </p>
               </div>
@@ -390,7 +390,7 @@ export default function EmployerPharmacy() {
               <Link to="/billing/employer/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>
                 Get ongoing monitoring &rarr;
               </Link>
-              <Link to="/billing/employer" style={{ textAlign: "center", color: "#64748b", fontSize: "14px", textDecoration: "none" }}>
+              <Link to="/billing/employer" style={{ textAlign: "center", color: "#94a3b8", fontSize: "14px", textDecoration: "none" }}>
                 &larr; Back to Parity Employer
               </Link>
             </div>
@@ -404,7 +404,7 @@ export default function EmployerPharmacy() {
 function StatCard({ label, value, color = "#f1f5f9" }) {
   return (
     <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(16,185,129,0.18)", borderRadius: "10px", padding: "16px", textAlign: "center" }}>
-      <div style={{ fontSize: "12px", color: "#64748b", marginBottom: "4px" }}>{label}</div>
+      <div style={{ fontSize: "12px", color: "#94a3b8", marginBottom: "4px" }}>{label}</div>
       <div style={{ fontSize: "20px", fontWeight: "600", color }}>{value}</div>
     </div>
   );
@@ -435,5 +435,5 @@ const btnPrimary = {
   cursor: "pointer",
 };
 
-const thStyle = { textAlign: "left", padding: "8px 12px", color: "#64748b", fontWeight: "500" };
+const thStyle = { textAlign: "left", padding: "8px 12px", color: "#94a3b8", fontWeight: "500" };
 const tdStyle = { padding: "8px 12px", color: "#e2e8f0" };

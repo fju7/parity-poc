@@ -61,7 +61,7 @@ export default function SignalHeader({ session, onSignOut }) {
           </button>
           <a
             href="https://civicscale.ai"
-            className="text-gray-500 hover:text-gray-300 transition-colors no-underline text-xs"
+            className="text-gray-400 hover:text-gray-300 transition-colors no-underline text-xs"
           >
             CivicScale
           </a>
@@ -134,7 +134,7 @@ export default function SignalHeader({ session, onSignOut }) {
           <a
             href="https://civicscale.ai"
             onClick={() => setMenuOpen(false)}
-            className="text-gray-500 hover:text-gray-300 hover:bg-white/[0.04] no-underline py-2.5 px-2 rounded-lg transition-colors"
+            className="text-gray-400 hover:text-gray-300 hover:bg-white/[0.04] no-underline py-2.5 px-2 rounded-lg transition-colors"
           >
             CivicScale
           </a>

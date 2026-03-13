@@ -106,19 +106,19 @@ export default function TopicRequestForm({ session, userTier, tierData }) {
   // Gated state: free tier (no topic requests)
   if (limit === 0) {
     return (
-      <div className="border border-gray-200 rounded-xl p-5 font-[Arial,sans-serif]">
+      <div className="border border-white/[0.1] rounded-xl p-5 font-[Arial,sans-serif]">
         <div className="flex items-center gap-2 mb-3">
           <svg className="w-4 h-4 text-[#0D7377]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
-          <span className="text-sm font-bold text-[#1B3A5C]">Request a New Topic</span>
+          <span className="text-sm font-bold text-[#f1f5f9]">Request a New Topic</span>
         </div>
-        <div className="bg-gray-50 rounded-lg p-4">
+        <div className="bg-white/[0.05] rounded-lg p-4">
           <input
             type="text"
             disabled
             placeholder="What topic would you like us to research?"
-            className="w-full bg-transparent text-sm text-gray-400 placeholder-gray-400 border-none outline-none cursor-not-allowed"
+            className="w-full bg-transparent text-sm text-gray-400 placeholder-gray-500 border-none outline-none cursor-not-allowed"
           />
         </div>
         <p className="text-xs text-gray-400 mt-2">
@@ -135,13 +135,13 @@ export default function TopicRequestForm({ session, userTier, tierData }) {
   }
 
   return (
-    <div className="border border-gray-200 rounded-xl p-5 font-[Arial,sans-serif]">
+    <div className="border border-white/[0.1] rounded-xl p-5 font-[Arial,sans-serif]">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <svg className="w-4 h-4 text-[#0D7377]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
-          <span className="text-sm font-bold text-[#1B3A5C]">Request a New Topic</span>
+          <span className="text-sm font-bold text-[#f1f5f9]">Request a New Topic</span>
         </div>
         <span className="text-[10px] text-gray-400 tabular-nums">
           {used} of {limit} used this month
@@ -209,7 +209,7 @@ export default function TopicRequestForm({ session, userTier, tierData }) {
               rows={3}
               required
               disabled={loading || remaining <= 0}
-              className="w-full text-sm text-[#1B3A5C] placeholder-gray-400 bg-gray-50 rounded-lg px-3 py-2.5 border border-gray-200 outline-none focus:border-[#0D7377] transition-colors resize-none disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full text-sm text-[#f1f5f9] placeholder-gray-500 bg-white/[0.05] rounded-lg px-3 py-2.5 border border-white/[0.1] outline-none focus:border-[#0D7377] transition-colors resize-none disabled:cursor-not-allowed disabled:opacity-60"
             />
           </div>
 
@@ -231,7 +231,7 @@ export default function TopicRequestForm({ session, userTier, tierData }) {
               disabled={loading || !requestText.trim()}
               className={`w-full text-sm font-semibold py-2.5 rounded-lg border-none cursor-pointer transition-colors ${
                 loading || !requestText.trim()
-                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  ? "bg-white/[0.06] text-gray-500 cursor-not-allowed"
                   : "bg-[#0D7377] hover:bg-[#0B6265] text-white"
               }`}
             >

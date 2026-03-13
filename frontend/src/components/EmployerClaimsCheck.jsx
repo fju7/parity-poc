@@ -189,7 +189,7 @@ export default function EmployerClaimsCheck() {
                   <p style={{ margin: "0 0 14px" }}>
                     The Consolidated Appropriations Act of 2021 requires your carrier to provide machine-readable claims data upon request. Fill in the form below to generate a request letter you can send directly.
                   </p>
-                  <p style={{ margin: "0 0 14px", fontSize: "13px", color: "#64748b" }}>
+                  <p style={{ margin: "0 0 14px", fontSize: "13px", color: "#94a3b8" }}>
                     If you're self-insured, your TPA should be able to provide 835 transaction files directly &mdash; ask your administrator for claims data in 835 EDI format.
                   </p>
 
@@ -197,17 +197,17 @@ export default function EmployerClaimsCheck() {
                   <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "16px", marginBottom: "14px" }}>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
                       <div>
-                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Your Company Name *</label>
+                        <label style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500" }}>Your Company Name *</label>
                         <input value={caaForm.companyName} onChange={e => caaU("companyName", e.target.value)} placeholder="Acme Corp" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
                       </div>
                       <div>
-                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Group/Policy Number *</label>
+                        <label style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500" }}>Group/Policy Number *</label>
                         <input value={caaForm.policyNumber} onChange={e => caaU("policyNumber", e.target.value)} placeholder="GRP-12345" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
                       </div>
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
                       <div>
-                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Carrier *</label>
+                        <label style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500" }}>Carrier *</label>
                         <select value={caaForm.carrier} onChange={e => caaU("carrier", e.target.value)} style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }}>
                           {caaCarrierOptions.map(c => <option key={c} value={c}>{c}</option>)}
                         </select>
@@ -216,7 +216,7 @@ export default function EmployerClaimsCheck() {
                         )}
                       </div>
                       <div>
-                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Plan Year *</label>
+                        <label style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500" }}>Plan Year *</label>
                         <select value={caaForm.planYear} onChange={e => caaU("planYear", e.target.value)} style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }}>
                           <option value="2024">2024</option>
                           <option value="2025">2025</option>
@@ -226,15 +226,15 @@ export default function EmployerClaimsCheck() {
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px" }}>
                       <div>
-                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Contact Name</label>
+                        <label style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500" }}>Contact Name</label>
                         <input value={caaForm.contactName} onChange={e => caaU("contactName", e.target.value)} placeholder="Your name" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
                       </div>
                       <div>
-                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Contact Email</label>
+                        <label style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500" }}>Contact Email</label>
                         <input value={caaForm.contactEmail} onChange={e => caaU("contactEmail", e.target.value)} placeholder="you@company.com" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
                       </div>
                       <div>
-                        <label style={{ fontSize: "11px", color: "#64748b", fontWeight: "500" }}>Phone (optional)</label>
+                        <label style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500" }}>Phone (optional)</label>
                         <input value={caaForm.contactPhone} onChange={e => caaU("contactPhone", e.target.value)} placeholder="(555) 123-4567" style={{ width: "100%", padding: "7px 10px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.03)", color: "#e2e8f0", boxSizing: "border-box" }} />
                       </div>
                     </div>
@@ -287,13 +287,13 @@ export default function EmployerClaimsCheck() {
                   <>
                     <div style={{ fontSize: "28px", marginBottom: "8px" }}>&#10003;</div>
                     <div style={{ fontSize: "16px", fontWeight: "500", color: "#22c55e" }}>{file.name}</div>
-                    <div style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>{(file.size / 1024).toFixed(0)} KB &middot; Click to change</div>
+                    <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>{(file.size / 1024).toFixed(0)} KB &middot; Click to change</div>
                   </>
                 ) : (
                   <>
                     <div style={{ fontSize: "28px", marginBottom: "8px" }}>&#8593;</div>
                     <div style={{ fontSize: "16px", fontWeight: "500", color: "#cbd5e1" }}>Drop your claims file here</div>
-                    <div style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>Supports CSV, Excel, 835 EDI, and ZIP files &middot; Max 10MB</div>
+                    <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>Supports CSV, Excel, 835 EDI, and ZIP files &middot; Max 10MB</div>
                   </>
                 )}
               </div>
@@ -316,7 +316,7 @@ export default function EmployerClaimsCheck() {
               </button>
             </form>
 
-            <div style={{ marginTop: "24px", fontSize: "12px", color: "#475569", textAlign: "center", lineHeight: "1.6" }}>
+            <div style={{ marginTop: "24px", fontSize: "12px", color: "#94a3b8", textAlign: "center", lineHeight: "1.6" }}>
               Your data is processed securely. We use AI to auto-detect column headers. No patient-identifiable data is stored.
             </div>
           </>
@@ -331,7 +331,7 @@ export default function EmployerClaimsCheck() {
             <div style={{ maxWidth: "400px", margin: "0 auto 16px", background: "rgba(255,255,255,0.06)", borderRadius: "8px", overflow: "hidden", height: "8px" }}>
               <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg, #3b82f6, #60a5fa)", borderRadius: "8px", transition: "width 0.5s ease" }} />
             </div>
-            <p style={{ fontSize: "14px", color: "#64748b" }}>
+            <p style={{ fontSize: "14px", color: "#94a3b8" }}>
               {progress < 30 ? "Reading file and detecting columns..." :
                progress < 60 ? "Mapping CPT codes to Medicare benchmarks..." :
                progress < 85 ? "Flagging anomalies and computing variances..." :
@@ -359,7 +359,7 @@ export default function EmployerClaimsCheck() {
               View Plans & Subscribe
             </Link>
             <div style={{ marginTop: "16px" }}>
-              <button onClick={() => setView("upload")} style={{ background: "none", border: "none", color: "#64748b", fontSize: "14px", cursor: "pointer" }}>
+              <button onClick={() => setView("upload")} style={{ background: "none", border: "none", color: "#94a3b8", fontSize: "14px", cursor: "pointer" }}>
                 &larr; Back
               </button>
             </div>
@@ -381,7 +381,7 @@ export default function EmployerClaimsCheck() {
               <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "28px", fontWeight: "400", color: "#f1f5f9", marginBottom: "8px" }}>
                 Claims Analysis Complete
               </h2>
-              <p style={{ fontSize: "14px", color: "#64748b" }}>
+              <p style={{ fontSize: "14px", color: "#94a3b8" }}>
                 {result.total_lines_analyzed} claims analyzed &middot; {file?.name}
                 {result.source_format?.startsWith("835") && (
                   <span style={{ display: "inline-block", marginLeft: "8px", background: "rgba(59,130,246,0.15)", color: "#60a5fa", fontSize: "11px", fontWeight: "600", padding: "2px 8px", borderRadius: "4px" }}>
@@ -415,7 +415,7 @@ export default function EmployerClaimsCheck() {
             {/* Annualized estimate */}
             {result.summary.total_excess_2x > 0 && (
               <div style={{ background: "rgba(59,130,246,0.04)", border: "1px solid rgba(59,130,246,0.12)", borderRadius: "12px", padding: "20px", marginBottom: "24px", textAlign: "center" }}>
-                <div style={{ fontSize: "13px", color: "#64748b", marginBottom: "6px" }}>ESTIMATED ANNUAL EXCESS SPEND</div>
+                <div style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "6px" }}>ESTIMATED ANNUAL EXCESS SPEND</div>
                 <div style={{ fontSize: "32px", fontWeight: "700", color: "#60a5fa" }}>
                   ${(result.summary.total_excess_2x * 12).toLocaleString()}
                 </div>
@@ -517,7 +517,7 @@ export default function EmployerClaimsCheck() {
                   <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "22px", fontWeight: "400", color: "#f1f5f9", marginBottom: "6px" }}>
                     Level 2 Analysis
                   </h3>
-                  <p style={{ fontSize: "12px", color: "#64748b" }}>Available because your file included 835 EDI provider data</p>
+                  <p style={{ fontSize: "12px", color: "#94a3b8" }}>Available because your file included 835 EDI provider data</p>
                 </div>
 
                 {/* Card 1 — Provider Price Variation */}
@@ -540,7 +540,7 @@ export default function EmployerClaimsCheck() {
                       </div>
                     </>
                   ) : (
-                    <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>Consistent pricing across providers &mdash; no significant variation detected</p>
+                    <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>Consistent pricing across providers &mdash; no significant variation detected</p>
                   )}
                 </div>
 
@@ -564,7 +564,7 @@ export default function EmployerClaimsCheck() {
                       </div>
                     </>
                   ) : (
-                    <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>No hospital outpatient site-of-care issues detected</p>
+                    <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>No hospital outpatient site-of-care issues detected</p>
                   )}
                 </div>
 
@@ -586,7 +586,7 @@ export default function EmployerClaimsCheck() {
                   </div>
                   <div>
                     {result.level2.denial_rate.flag === "NORMAL" && (
-                      <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>Claim denial rate is within normal range ({result.level2.denial_rate.rate_pct}%)</p>
+                      <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>Claim denial rate is within normal range ({result.level2.denial_rate.rate_pct}%)</p>
                     )}
                     {result.level2.denial_rate.flag === "ELEVATED" && (
                       <p style={{ fontSize: "13px", color: "#f59e0b", margin: 0 }}>Elevated denial rate ({result.level2.denial_rate.rate_pct}%) &mdash; may indicate network or authorization issues</p>
@@ -631,7 +631,7 @@ export default function EmployerClaimsCheck() {
                       </div>
                     </>
                   ) : (
-                    <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>Insufficient claims volume for carrier rate analysis</p>
+                    <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>Insufficient claims volume for carrier rate analysis</p>
                   )}
                 </div>
 
@@ -646,7 +646,7 @@ export default function EmployerClaimsCheck() {
                   <Link to="/parity-health" style={{ display: "inline-block", background: "#0d9488", color: "#fff", padding: "10px 22px", borderRadius: "8px", fontWeight: "600", fontSize: "14px", textDecoration: "none" }}>
                     Learn About Parity Health &rarr;
                   </Link>
-                  <p style={{ fontSize: "12px", color: "#64748b", marginTop: "12px", marginBottom: 0 }}>
+                  <p style={{ fontSize: "12px", color: "#94a3b8", marginTop: "12px", marginBottom: 0 }}>
                     Employees who shop on price before elective care reduce plan costs over time &mdash; which directly affects your renewal rates.
                   </p>
                 </div>
@@ -656,7 +656,7 @@ export default function EmployerClaimsCheck() {
             {/* Level 2 unavailable notice */}
             {result.level2 && !result.level2.has_level2 && (
               <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "14px", padding: "24px", marginBottom: "32px", textAlign: "center" }}>
-                <p style={{ fontSize: "13px", color: "#64748b", margin: 0, lineHeight: "1.7" }}>
+                <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0, lineHeight: "1.7" }}>
                   Level 2 analysis (provider variation, site of care, carrier rates) requires 835 EDI format with provider data. CSV uploads support Level 1 Medicare benchmarking only.
                 </p>
               </div>
@@ -681,7 +681,7 @@ export default function EmployerClaimsCheck() {
               <Link to="/billing/employer/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>
                 {result.pricing_tier ? `Subscribe — ${result.pricing_tier_label} from $${result.pricing_tier_price}/mo` : "Get ongoing monitoring"} &rarr;
               </Link>
-              <Link to="/billing/employer" style={{ textAlign: "center", color: "#64748b", fontSize: "14px", textDecoration: "none" }}>
+              <Link to="/billing/employer" style={{ textAlign: "center", color: "#94a3b8", fontSize: "14px", textDecoration: "none" }}>
                 &larr; Back to Parity Employer
               </Link>
             </div>
@@ -695,7 +695,7 @@ export default function EmployerClaimsCheck() {
 function StatCard({ label, value, color = "#f1f5f9" }) {
   return (
     <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "10px", padding: "16px", textAlign: "center" }}>
-      <div style={{ fontSize: "12px", color: "#64748b", marginBottom: "4px" }}>{label}</div>
+      <div style={{ fontSize: "12px", color: "#94a3b8", marginBottom: "4px" }}>{label}</div>
       <div style={{ fontSize: "20px", fontWeight: "600", color }}>{value}</div>
     </div>
   );
@@ -726,5 +726,5 @@ const btnPrimary = {
   cursor: "pointer",
 };
 
-const thStyle = { textAlign: "left", padding: "8px 12px", color: "#64748b", fontWeight: "500" };
+const thStyle = { textAlign: "left", padding: "8px 12px", color: "#94a3b8", fontWeight: "500" };
 const tdStyle = { padding: "8px 12px", color: "#e2e8f0" };

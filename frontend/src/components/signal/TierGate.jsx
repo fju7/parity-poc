@@ -28,7 +28,7 @@ export default function TierGate({ userTier = "free", usageCount = 0, children }
 
   return (
     <div className="max-w-md mx-auto text-center py-16 px-4 font-[Arial,sans-serif]">
-      <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-teal-50 flex items-center justify-center">
+      <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#0D7377]/10 flex items-center justify-center">
         <svg
           className="w-7 h-7 text-[#0D7377]"
           fill="none"
@@ -44,11 +44,11 @@ export default function TierGate({ userTier = "free", usageCount = 0, children }
         </svg>
       </div>
 
-      <h2 className="text-lg font-bold text-[#1B3A5C] mb-2">
+      <h2 className="text-lg font-bold text-[#f1f5f9] mb-2">
         {isFreeTier ? "Upgrade to unlock more reports" : `${tierLabel} plan limit reached`}
       </h2>
 
-      <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+      <p className="text-sm text-gray-300 mb-6 leading-relaxed">
         {isFreeTier
           ? "You're subscribed to all 3 topics on your Free plan. Upgrade to Standard for up to 10, or Premium for unlimited access."
           : `You're subscribed to ${usageCount} of ${limit} topics on your ${tierLabel} plan. Unsubscribe from a topic or upgrade for more.`}

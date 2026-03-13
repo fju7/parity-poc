@@ -121,7 +121,7 @@ export default function AccountView({ session }) {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-12 font-[Arial,sans-serif]">
-      <h1 className="text-2xl font-bold text-[#1B3A5C] mb-8">Account</h1>
+      <h1 className="text-2xl font-bold text-white mb-8">Account</h1>
 
       {/* Profile */}
       <div className="bg-gray-50 rounded-xl p-5 mb-4">

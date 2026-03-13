@@ -128,10 +128,10 @@ export default function MethodologyView() {
         &larr; Back to Signal
       </Link>
 
-      <h1 className="text-2xl font-bold text-[#1B3A5C] mb-2">
+      <h1 className="text-2xl font-bold text-white mb-2">
         Scoring Methodology
       </h1>
-      <p className="text-gray-600 text-sm leading-relaxed mb-8">
+      <p className="text-gray-300 text-sm leading-relaxed mb-8">
         Parity Signal evaluates medical evidence claims across six dimensions.
         Each claim receives a score of 1-5 on every dimension. The composite
         score is a weighted average that determines the overall evidence
@@ -160,27 +160,27 @@ export default function MethodologyView() {
       </div>
 
       {/* Dimensions */}
-      <h2 className="text-lg font-bold text-[#1B3A5C] mb-4">
+      <h2 className="text-lg font-bold text-white mb-4">
         Scoring Dimensions
       </h2>
       <div className="space-y-5 mb-10">
         {DIMENSIONS.map((dim) => (
           <div
             key={dim.key}
-            className="border border-gray-200 rounded-xl p-4"
+            className="border border-white/[0.1] rounded-xl p-4"
           >
             <div className="flex items-center justify-between mb-1">
-              <h3 className="font-bold text-[#1B3A5C] text-sm">{dim.name}</h3>
-              <span className="text-xs font-semibold text-[#0D7377] bg-teal-50 px-2 py-0.5 rounded-full">
+              <h3 className="font-bold text-[#f1f5f9] text-sm">{dim.name}</h3>
+              <span className="text-xs font-semibold text-[#0D7377] bg-[#0D7377]/10 px-2 py-0.5 rounded-full">
                 Weight: {dim.weight}
               </span>
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed mb-3">
+            <p className="text-sm text-gray-300 leading-relaxed mb-3">
               {dim.description}
             </p>
             <div className="space-y-1">
               {dim.scale.map((level, i) => (
-                <div key={i} className="text-xs text-gray-500 leading-relaxed">
+                <div key={i} className="text-xs text-gray-400 leading-relaxed">
                   {level}
                 </div>
               ))}
@@ -190,17 +190,17 @@ export default function MethodologyView() {
       </div>
 
       {/* Evidence categories */}
-      <h2 className="text-lg font-bold text-[#1B3A5C] mb-4">
+      <h2 className="text-lg font-bold text-white mb-4">
         Evidence Categories
       </h2>
-      <p className="text-sm text-gray-600 leading-relaxed mb-4">
+      <p className="text-sm text-gray-300 leading-relaxed mb-4">
         The composite score maps to an evidence category:
       </p>
       <div className="space-y-3 mb-10">
         {EVIDENCE_CATEGORIES.map((cat) => (
           <div
             key={cat.name}
-            className="flex items-start gap-3 border border-gray-200 rounded-lg p-3"
+            className="flex items-start gap-3 border border-white/[0.1] rounded-lg p-3"
           >
             <span
               className={`${cat.color} text-xs font-semibold px-2.5 py-0.5 rounded-full shrink-0 mt-0.5`}
@@ -208,10 +208,10 @@ export default function MethodologyView() {
               {cat.name}
             </span>
             <div>
-              <span className="text-xs font-semibold text-gray-500">
+              <span className="text-xs font-semibold text-gray-400">
                 {cat.range}
               </span>
-              <p className="text-sm text-gray-600 leading-relaxed mt-0.5">
+              <p className="text-sm text-gray-300 leading-relaxed mt-0.5">
                 {cat.description}
               </p>
             </div>
@@ -220,10 +220,10 @@ export default function MethodologyView() {
       </div>
 
       {/* Consensus mapping */}
-      <h2 className="text-lg font-bold text-[#1B3A5C] mb-4">
+      <h2 className="text-lg font-bold text-white mb-4">
         Consensus Mapping
       </h2>
-      <p className="text-sm text-gray-600 leading-relaxed mb-4">
+      <p className="text-sm text-gray-300 leading-relaxed mb-4">
         Claims are grouped by category (e.g., efficacy, safety, pricing) and an
         AI model assesses the overall consensus status for each category:
       </p>
@@ -248,10 +248,10 @@ export default function MethodologyView() {
           <div key={s.status} className="flex items-start gap-2.5 py-2">
             <span className={`w-2.5 h-2.5 rounded-full ${s.dot} shrink-0 mt-1`} />
             <div>
-              <span className="text-sm font-bold text-[#1B3A5C]">
+              <span className="text-sm font-bold text-[#f1f5f9]">
                 {s.status}
               </span>
-              <p className="text-sm text-gray-600">{s.desc}</p>
+              <p className="text-sm text-gray-300">{s.desc}</p>
             </div>
           </div>
         ))}

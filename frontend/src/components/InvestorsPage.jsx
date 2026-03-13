@@ -456,7 +456,7 @@ export default function InvestorsPage() {
 
       {/* FOOTER */}
       <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "32px 24px", textAlign: "center", background: "#060d1a" }}>
-        <p style={{ fontSize: 12, color: "#64748b", lineHeight: 1.8, maxWidth: 600, margin: "0 auto" }}>
+        <p style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.8, maxWidth: 600, margin: "0 auto" }}>
           CivicScale is operated by U.S. Photovoltaics, Inc. &middot; Florida &middot;{" "}
           <a href="https://civicscale.ai" style={{ color: "#0D7377", textDecoration: "none" }}>civicscale.ai</a>
           <br />

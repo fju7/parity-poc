@@ -145,7 +145,7 @@ def _get_or_create_stripe_customer(user):
 
 class CheckoutRequest(BaseModel):
     price_key: str  # e.g. "standard_monthly", "premium_annual"
-    return_path: str = "/signal/pricing"  # where to redirect after checkout
+    return_path: str = "/pricing"  # where to redirect after checkout
 
 
 def _get_active_subscription(user_id: str):
@@ -192,7 +192,7 @@ async def create_checkout(body: CheckoutRequest, request: Request):
     current_tier = (db_row or {}).get("tier", "free")
 
     if stripe_sub:
-        # User already has an active subscription — modify it
+        # User already has an active subscription
         if not stripe_sub["items"]["data"]:
             raise HTTPException(status_code=500, detail="Subscription has no items")
         item_id = stripe_sub["items"]["data"][0]["id"]
@@ -202,19 +202,25 @@ async def create_checkout(body: CheckoutRequest, request: Request):
         is_upgrade = TIER_RANK.get(new_tier, 0) > TIER_RANK.get(current_tier, 0)
 
         if is_upgrade:
-            # Upgrade: apply immediately with proration
-            updated_sub = stripe.Subscription.modify(
-                stripe_sub.id,
-                items=[{"id": item_id, "price": price_id}],
-                proration_behavior="create_prorations",
+            # Upgrade: route through Stripe Checkout so payment is confirmed
+            # before any tier change. Pass old subscription ID in metadata
+            # so the webhook can cancel it after the new one is active.
+            return_path = body.return_path if body.return_path.startswith("/") else "/pricing"
+            separator = "&" if "?" in return_path else "?"
+
+            session = stripe.checkout.Session.create(
+                customer=customer_id,
+                mode="subscription",
+                line_items=[{"price": price_id, "quantity": 1}],
+                success_url=f"{FRONTEND_URL}{return_path}{separator}checkout_success=1",
+                cancel_url=f"{FRONTEND_URL}{return_path}",
+                metadata={
+                    "supabase_user_id": str(user.id),
+                    "old_subscription_id": stripe_sub.id,
+                },
             )
-            print(f"[Stripe] Upgrade modify succeeded: {updated_sub.id}")
-
-            # Do NOT update DB tier here — let the webhook
-            # (customer.subscription.updated) handle it after Stripe
-            # confirms the charge succeeded.
-
-            return {"action": "upgraded", "tier": new_tier}
+            print(f"[Stripe] Upgrade checkout session created: {session.id}")
+            return {"checkout_url": session.url}
         else:
             # Downgrade: change price but no proration — takes effect next invoice
             updated_sub = stripe.Subscription.modify(
@@ -238,7 +244,7 @@ async def create_checkout(body: CheckoutRequest, request: Request):
             }
 
     # No active subscription — create Checkout session for new subscribers
-    return_path = body.return_path if body.return_path.startswith("/") else "/signal/pricing"
+    return_path = body.return_path if body.return_path.startswith("/") else "/pricing"
     separator = "&" if "?" in return_path else "?"
 
     session = stripe.checkout.Session.create(
@@ -262,7 +268,7 @@ async def create_portal(request: Request):
 
     portal_session = stripe.billing_portal.Session.create(
         customer=customer_id,
-        return_url=f"{FRONTEND_URL}/signal/account",
+        return_url=f"{FRONTEND_URL}/account",
     )
 
     return {"portal_url": portal_session.url}
@@ -426,6 +432,15 @@ async def stripe_webhook(request: Request):
                 "status": "active",
                 "current_period_end": period_end,
             }, on_conflict="user_id").execute()
+
+            # If this checkout was an upgrade, cancel the old subscription
+            old_sub_id = obj.get("metadata", {}).get("old_subscription_id")
+            if old_sub_id:
+                try:
+                    stripe.Subscription.cancel(old_sub_id)
+                    print(f"[Stripe] Canceled old subscription {old_sub_id} after upgrade")
+                except Exception as exc:
+                    print(f"[Stripe] Failed to cancel old subscription {old_sub_id}: {exc}")
 
     elif event_type in ("customer.subscription.updated", "customer.subscription.deleted"):
         subscription_id = obj.get("id")

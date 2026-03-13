@@ -204,10 +204,10 @@ export default function SignalLogin() {
       <div className="w-full max-w-sm">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-[#1B3A5C] mb-2">
+          <h1 className="text-2xl font-bold text-white mb-2">
             Sign in to Parity Signal
           </h1>
-          <p className="text-sm text-gray-500 leading-relaxed">
+          <p className="text-sm text-gray-300 leading-relaxed">
             Subscribe to topics, ask evidence questions, and request new research.
           </p>
         </div>
@@ -411,7 +411,7 @@ export default function SignalLogin() {
         <div className="mt-6 text-center">
           <Link
             to="/signal"
-            className="text-sm text-gray-400 hover:text-gray-600 no-underline transition"
+            className="text-sm text-gray-400 hover:text-gray-300 no-underline transition"
           >
             Back to Parity Signal
           </Link>
