@@ -27,7 +27,7 @@ export default function SignalHeader({ session, onSignOut }) {
   return (
     <header className="sticky top-0 z-50 bg-[#0a1628]/95 backdrop-blur border-b border-white/[0.06]">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link to="/signal" className="flex items-center gap-2 no-underline">
+        <Link to="/" className="flex items-center gap-2 no-underline">
           <div className="flex items-center gap-0.5">
             <div className="flex flex-col gap-[2px]">
               <div className="w-[3px] h-[10px] rounded-sm bg-[#94a3b8]" />
@@ -48,13 +48,13 @@ export default function SignalHeader({ session, onSignOut }) {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-4 text-sm font-[Arial,sans-serif]">
           <button
-            onClick={() => navigate("/signal/methodology")}
+            onClick={() => navigate("/methodology")}
             className="text-gray-400 hover:text-[#f1f5f9] transition-colors bg-transparent border-none cursor-pointer"
           >
             Methodology
           </button>
           <button
-            onClick={() => navigate("/signal/pricing")}
+            onClick={() => navigate("/pricing")}
             className="text-gray-400 hover:text-[#f1f5f9] transition-colors bg-transparent border-none cursor-pointer"
           >
             Pricing
@@ -68,7 +68,7 @@ export default function SignalHeader({ session, onSignOut }) {
           {session ? (
             <>
               <button
-                onClick={() => navigate("/signal/account")}
+                onClick={() => navigate("/account")}
                 className="text-gray-400 hover:text-[#f1f5f9] transition-colors bg-transparent border-none cursor-pointer text-xs truncate max-w-[140px]"
               >
                 {userDisplay || "Account"}
@@ -82,7 +82,7 @@ export default function SignalHeader({ session, onSignOut }) {
             </>
           ) : (
             <Link
-              to="/signal/login"
+              to="/login"
               className="text-[#0D7377] hover:text-[#0B6265] transition-colors no-underline font-medium"
             >
               Sign in
@@ -115,7 +115,7 @@ export default function SignalHeader({ session, onSignOut }) {
         <nav className="flex flex-col gap-1 px-4 pb-3 pt-1 font-[Arial,sans-serif] text-sm border-t border-white/[0.06]">
           <button
             onClick={() => {
-              navigate("/signal/methodology");
+              navigate("/methodology");
               setMenuOpen(false);
             }}
             className="text-left text-gray-400 hover:text-[#f1f5f9] hover:bg-white/[0.04] bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
@@ -124,7 +124,7 @@ export default function SignalHeader({ session, onSignOut }) {
           </button>
           <button
             onClick={() => {
-              navigate("/signal/pricing");
+              navigate("/pricing");
               setMenuOpen(false);
             }}
             className="text-left text-gray-400 hover:text-[#f1f5f9] hover:bg-white/[0.04] bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
@@ -142,7 +142,7 @@ export default function SignalHeader({ session, onSignOut }) {
             <>
               <button
                 onClick={() => {
-                  navigate("/signal/account");
+                  navigate("/account");
                   setMenuOpen(false);
                 }}
                 className="text-left text-gray-400 hover:text-[#f1f5f9] hover:bg-white/[0.04] bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
@@ -161,7 +161,7 @@ export default function SignalHeader({ session, onSignOut }) {
             </>
           ) : (
             <Link
-              to="/signal/login"
+              to="/login"
               onClick={() => setMenuOpen(false)}
               className="text-[#0D7377] hover:bg-white/[0.04] no-underline py-2.5 px-2 rounded-lg transition-colors font-medium"
             >
