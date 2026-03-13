@@ -188,7 +188,7 @@ Three live products + one in development:
 
 ## Migrations
 Numbered sequentially: backend/migrations/001_*.sql through 029_*.sql
-Next migration number: 036
+Next migration number: 037
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -418,6 +418,31 @@ Features built in this phase:
     denial, classifies resolution pathway (Empirical/Definitional/Disclosure/
     Methodological), names specific studies/institutions for resolution
 - Layer skipped when no meaningful disagreements exist in the evidence
+
+## Session J — Provider Improvements (Complete)
+- Appeal Letter Quality Upgrade: Rewrote APPEAL_SYSTEM_PROMPT in
+  provider_appeals.py to produce attorney-quality letters with specific
+  regulatory citations (CMS IOM, 42 CFR, AMA CPT guidelines) for each
+  denial code (CO-16, CO-45, CO-97, CO-4, CO-50, OA-18, PR-1).
+  Added escalation_path and attach_documentation to JSON response.
+- CPT Denial Rate Benchmarking: Added CPT_DENIAL_BENCHMARKS (35 CPT codes)
+  and DENIAL_BENCHMARK_DATA_NOTE to provider_shared.py. Sources: CAQH
+  Index 2024, Change Healthcare RCM Report 2024, CMS Medicare FFS data.
+  analyze-contract now returns denial_benchmarks array comparing practice
+  rates to industry averages. PDF audit report includes benchmark table.
+- One-Page Summary PDF: POST /api/provider/summary-report generates a
+  branded single-page PDF for practice owner handout with stat boxes,
+  top issues, denial benchmark table, and priority actions.
+  GET /api/provider/summary-report/{analysis_id} convenience wrapper
+  auto-builds from stored analysis.
+- Landing Page ROI Framing: Rewrote ProviderProductPage.jsx hero with
+  "See the money your payers owe you. In 5 minutes." headline, three
+  proof points (11% denial rate, $42K median underpayment, 5 min),
+  "How It Works" 3-step section, demo-section anchor link.
+- Benchmark Observation Capture: New provider_benchmark_observations
+  table (migration 036) captures anonymized CPT-level denial/underpayment
+  data from every 835 analysis. _save_benchmark_observations() helper
+  normalizes payer category and derives region from ZIP. No PHI stored.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
