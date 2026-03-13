@@ -188,7 +188,7 @@ Three live products + one in development:
 
 ## Migrations
 Numbered sequentially: backend/migrations/001_*.sql through 029_*.sql
-Next migration number: 037
+Next migration number: 038
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -443,6 +443,19 @@ Features built in this phase:
   table (migration 036) captures anonymized CPT-level denial/underpayment
   data from every 835 analysis. _save_benchmark_observations() helper
   normalizes payer category and derives region from ZIP. No PHI stored.
+
+## Signal Stripe Upgrade + Cancel Fix (Complete)
+- Existing subscribers clicking upgrade/downgrade now redirect to Stripe
+  Customer Portal instead of calling stripe.Subscription.modify() directly.
+  Webhooks handle DB updates on plan change.
+- New POST /api/signal/stripe/cancel endpoint: cancels subscription at
+  period end via Stripe, sets status to "canceling" with cancel_at_period_end
+  flag, queues deletion request (best-effort).
+- PricingView.jsx: handles portal_url response, shows success message on
+  portal return (?portal_return=1).
+- AccountView.jsx: cancel + data deletion section with confirmation modal
+  for paid users. "canceling" status style added.
+- Migration 037: cancel_at_period_end BOOLEAN column on signal_subscriptions.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
