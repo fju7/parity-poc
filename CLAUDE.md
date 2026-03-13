@@ -188,7 +188,7 @@ Three live products + one in development:
 
 ## Migrations
 Numbered sequentially: backend/migrations/001_*.sql through 029_*.sql
-Next migration number: 038
+Next migration number: 039
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -456,6 +456,54 @@ Features built in this phase:
 - AccountView.jsx: cancel + data deletion section with confirmation modal
   for paid users. "canceling" status style added.
 - Migration 037: cancel_at_period_end BOOLEAN column on signal_subscriptions.
+
+## Session J-Broker — Broker Improvements (Complete)
+Four broker prompts implemented:
+
+### Prompt 1 — CAA Letter Generator
+- POST /api/broker/clients/{employer_email}/caa-letter in broker.py
+  - AI-generated CAA Section 204 data request letter using client data
+  - Falls back to static template with statutory citations if AI fails
+- BrokerDashboard.jsx: CAA Data Request Letter section in client detail panel
+
+### Prompt 2 — Renewal Command Center
+- BrokerDashboard.jsx renewals tab rebuilt:
+  - Stats banner: urgent count (red), fully prepped (green), needs attention (amber)
+  - Green "ahead of schedule" banner when urgentCount === 0
+  - Inline renewal prep drawer: benchmark/claims/scorecard summary, talking points,
+    Generate Full Report (new tab), Generate CAA Letter button
+  - RenewalColumn: `urgent` prop adds pulsing red dot for clients ≤30 days
+  - "Prepare Renewal Report" now opens inline drawer instead of navigating
+
+### Prompt 3 — Broker "Wow" Demo
+- New component: frontend/src/components/BrokerDemoPage.jsx
+  - 4-step guided walkthrough: Book of Business → Findings → Renewal Report → CAA Letter
+  - All data inline (no API calls), Midwest Manufacturing featured client
+  - Step 3: timer animation counting down from 3:00:00 to 0:00:15
+  - Step 4: full CAA letter with "Sign Up to Use This" CTA
+- Route: /demo on broker.civicscale.ai subdomain
+- BrokerLandingPage.jsx: "See a live demo first →" link added below hero CTA
+
+### Prompt 4 — Broker Referral System
+- Migration 038: broker_referrals table (referrer_company_id, referral_code,
+  referred_email, status, converted_at)
+- Backend endpoints in broker.py:
+  - GET /api/broker/referral — get or create referral code + stats
+  - POST /api/broker/referral/send — send referral email to colleague via Resend
+  - GET /api/broker/referral/stats — full referral history
+- auth.py: CreateCompanyRequest now accepts optional referral_code field;
+  on broker signup, updates matching broker_referrals row to "signed_up"
+- BrokerAccountPage.jsx: "Share Parity Broker" section with referral URL
+  copy box, stats, send-email form, email preview toggle
+- BrokerSignupPage.jsx: reads ?ref= param, shows welcome message,
+  passes referral_code to company creation API
+
+## Migrations pending
+- 036: provider_benchmark_observations
+- 037: signal_cancel_at_period_end
+- 038: broker_referrals
+
+Next migration number: 039
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
