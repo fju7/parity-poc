@@ -183,39 +183,34 @@ def _parse_topic_request(request_text: str) -> dict:
                 "suggestion": None, "rejection_reason": None}
 
 
-def _send_admin_email(request_data: dict, user_tier: str):
+def _send_admin_email(request_data: dict, user_tier: str, user_id: str = ""):
     """Send notification email to admin about a new topic request."""
     try:
-        import resend
-        resend_key = os.environ.get("RESEND_API_KEY")
-        if not resend_key:
-            print("[TopicRequest] RESEND_API_KEY not configured, skipping admin email")
-            return
-        resend.api_key = resend_key
+        from utils.email import send_email
 
-        frontend_url = os.environ.get("FRONTEND_URL", "https://civicscale.ai")
-        title = request_data.get("parsed_title", "Untitled")
-        req_id = request_data.get("id", "unknown")
+        title = request_data.get("parsed_title") or request_data.get("topic_name") or "Untitled"
+        submitted_at = request_data.get("submitted_at") or datetime.now(timezone.utc).isoformat()
 
         html = f"""
-        <h2>New Topic Request: {title}</h2>
-        <p><strong>Requester tier:</strong> {user_tier.title()}</p>
+        <h2>New Signal Topic Request: {title}</h2>
+        <p><strong>Topic name:</strong> {title}</p>
         <p><strong>Original request:</strong> {request_data.get('raw_request', 'N/A')}</p>
-        <p><strong>Parsed title:</strong> {request_data.get('parsed_title', 'N/A')}</p>
+        <p><strong>User ID:</strong> {user_id or request_data.get('user_id', 'N/A')}</p>
+        <p><strong>User tier:</strong> {user_tier.title()}</p>
+        <p><strong>Time submitted:</strong> {submitted_at}</p>
         <p><strong>Parsed description:</strong> {request_data.get('parsed_description', 'N/A')}</p>
         <p><strong>Suggested slug:</strong> {request_data.get('parsed_slug', 'N/A')}</p>
         <hr>
-        <p><a href="{frontend_url}/signal/admin/requests">View All Requests</a></p>
+        <p><a href="https://signal.civicscale.ai/admin/requests">View All Requests</a></p>
         <p style="color:#666;font-size:12px;">Parity Signal by CivicScale</p>
         """
 
-        resend.Emails.send({
-            "from": "Parity Signal <notifications@civicscale.ai>",
-            "to": ["fred@civicscale.ai"],
-            "subject": f"New Topic Request: {title}",
-            "html": html,
-        })
-        print(f"[TopicRequest] Admin email sent for request {req_id}")
+        send_email(
+            to="fred@civicscale.ai",
+            subject=f"New Signal Topic Request: {title}",
+            html=html,
+            from_name="Parity Signal",
+        )
 
     except Exception as exc:
         print(f"[TopicRequest] Failed to send admin email: {exc}")
@@ -339,7 +334,7 @@ async def request_topic(body: TopicRequestBody, request: Request):
 
     # Notify admin
     req_data = result.data[0] if result.data else {"raw_request": request_text, **parsed}
-    _send_admin_email(req_data, usage["tier"])
+    _send_admin_email(req_data, usage["tier"], user_id=user_id)
 
     return {
         "status": "approved",
@@ -390,7 +385,7 @@ async def confirm_topic_request(body: ConfirmRequestBody, request: Request):
 
     # Notify admin
     req.update(update_data)
-    _send_admin_email(req, usage["tier"])
+    _send_admin_email(req, usage["tier"], user_id=user_id)
 
     return {
         "status": "approved",
