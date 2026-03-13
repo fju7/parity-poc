@@ -1,6 +1,9 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./CivicScaleHomepage.css";
 import "./InvestorsPage.css";
+
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 function LogoIcon({ footer }) {
   if (footer) {
@@ -36,20 +39,33 @@ function LogoIcon({ footer }) {
 }
 
 export default function InvestorsPage() {
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/signal/stats`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then(setStats)
+      .catch(() => setStats(null));
+  }, []);
+
+  const claimsCount = stats?.evidence_claims ?? null;
+  const sourcesCount = stats?.evidence_sources ?? null;
+
   return (
-    <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
+    <div className="inv-dark-root" style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#e2e8f0", overflowX: "hidden", background: "#0a1628", minHeight: "100vh" }}>
       {/* NAV */}
-      <nav className="cs-nav">
-        <Link className="cs-nav-logo" to="/">
+      <nav className="cs-nav inv-dark-nav">
+        <a className="cs-nav-logo" href="https://civicscale.ai">
           <LogoIcon />
           <span className="cs-nav-wordmark">CivicScale</span>
-        </Link>
+        </a>
         <div className="cs-nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/signal">Signal</Link>
-          <Link to="/billing">Billing</Link>
+          <a href="https://employer.civicscale.ai">Employer</a>
+          <a href="https://broker.civicscale.ai">Broker</a>
+          <a href="https://provider.civicscale.ai">Provider</a>
+          <a href="https://health.civicscale.ai">Health</a>
+          <a href="https://signal.civicscale.ai">Signal</a>
           <Link to="/investors">Investors</Link>
-          <Link to="/parity-health/" className="cs-nav-cta">Open Parity Health &rarr;</Link>
         </div>
       </nav>
 
@@ -86,8 +102,8 @@ export default function InvestorsPage() {
             <div className="inv-opp-label">Live products across billing intelligence and evidence intelligence</div>
           </div>
           <div className="inv-opp-card">
-            <div className="inv-opp-num">559</div>
-            <div className="inv-opp-label">Evidence claims scored across 124 sources with six-dimension methodology</div>
+            <div className="inv-opp-num">{claimsCount != null ? claimsCount.toLocaleString() : "\u2014"}</div>
+            <div className="inv-opp-label">Evidence claims scored across {sourcesCount != null ? sourcesCount.toLocaleString() : "\u2014"} sources with six-dimension methodology</div>
           </div>
         </div>
       </section>
@@ -127,7 +143,7 @@ export default function InvestorsPage() {
             <div className="inv-arch-card-accent inv-arch-accent-teal" />
             <div className="inv-arch-name">Evidence Intelligence</div>
             <p className="inv-arch-desc">
-              Parity Signal: six-dimension evidence scoring, consensus mapping, and Analytical Paths for complex public issues. Three topics live with subscription billing.
+              Parity Signal: six-dimension evidence scoring, consensus mapping, and Analytical Paths for complex public issues. Three topics live with subscription billing. Parity Signal now classifies disagreements by type &mdash; weighting, completeness, or factual &mdash; surfaces which evidence is shared vs. asymmetric vs. contested, shows explicit weight delta statements, and identifies resolution pathways for contested facts.
             </p>
           </div>
           <div className="inv-arch-card">
@@ -169,7 +185,7 @@ export default function InvestorsPage() {
               <div className="inv-intel-sublabel">Benchmark Comparison &amp; Evidence Extraction</div>
               <p className="inv-intel-desc">
                 <strong>Billing:</strong> Compares every charge against 841K CMS rates, 2.2M NCCI edit pairs, and 15K MUE limits. Flags overcharges, unbundling, and coding violations. Accepts PDF, pasted text, and photo input.<br />
-                <strong>Evidence:</strong> Extracts claims from 124+ sources and scores each across six dimensions: methodological rigor, sample size, recency, source authority, consistency, and effect magnitude.
+                <strong>Evidence:</strong> Extracts claims from {sourcesCount != null ? `${sourcesCount.toLocaleString()}+` : "\u2014"} sources and scores each across six dimensions: methodological rigor, sample size, recency, source authority, consistency, and effect magnitude.
               </p>
               <div className="inv-intel-catches">
                 <span className="inv-intel-catches-label">Catches:</span> Overcharges, coding violations, weak or conflicting evidence claims
@@ -219,7 +235,7 @@ export default function InvestorsPage() {
               <div className="inv-intel-sublabel">Scoring, Appeals &amp; Consensus Mapping</div>
               <p className="inv-intel-desc">
                 <strong>Billing:</strong> Scores denial appeal worthiness (high/medium/low), estimates revenue gaps in dollars, drafts appeal letters citing specific CMS guidelines, and benchmarks billing contractor performance.<br />
-                <strong>Evidence:</strong> Maps consensus across hundreds of claims &mdash; where evidence agrees, where it diverges, and why. Key Debates section surfaces active disagreements with arguments for and against. Premium AI Q&amp;A answers questions from the scored evidence base.
+                <strong>Evidence:</strong> Maps consensus across hundreds of claims &mdash; where evidence agrees, where it diverges, and why. Key Debates section surfaces active disagreements with arguments for and against. Premium AI Q&amp;A answers questions from the scored evidence base. Disagreement-type classification distinguishes weighting disputes from completeness gaps from factual contests. Contested claims include resolution pathways identifying what category of evidence &mdash; empirical, definitional, disclosure, or methodological &mdash; would move the dispute toward resolution.
               </p>
               <div className="inv-intel-catches">
                 <span className="inv-intel-catches-label">Catches:</span> Low-value appeals, missed revenue, hidden evidence disagreements
@@ -273,7 +289,7 @@ export default function InvestorsPage() {
             </div>
             <div className="inv-intel-moat-row">
               <div className="inv-intel-moat-cap">Evidence scoring infrastructure</div>
-              <div className="inv-intel-moat-parity">559 claims, 6 dimensions, persistent scores</div>
+              <div className="inv-intel-moat-parity">{claimsCount != null ? claimsCount.toLocaleString() : "\u2014"} claims, 6 dimensions, persistent scores</div>
               <div className="inv-intel-moat-human">No persistent scoring, no versioning</div>
             </div>
             <div className="inv-intel-moat-row">
@@ -325,7 +341,7 @@ export default function InvestorsPage() {
               <span className="inv-tl-badge inv-tl-badge-done">Complete</span>
             </div>
             <p className="inv-tl-desc">
-              Four products live: Parity Health (multi-input bill analysis), Parity Employer (claims analytics with demo), Parity Provider (contract integrity with demo), Parity Signal (evidence intelligence with 3 scored topics). Stripe subscription billing. Benchmark observations database. Homepage with dual-track positioning. Authentication, privacy architecture, event analytics.
+              Four products live: Parity Health (multi-input bill analysis), Parity Employer (claims analytics with demo), Parity Provider (contract integrity with demo), Parity Signal (evidence intelligence with 3 scored topics). Analytical Paths with configurable weighting profiles. Stripe subscription billing. Benchmark observations database. Homepage with dual-track positioning. Authentication, privacy architecture, event analytics.
             </p>
           </div>
 
@@ -338,7 +354,7 @@ export default function InvestorsPage() {
               <span style={{ fontSize: 12, color: "#4a5568", fontWeight: 300 }}>Months 5&ndash;8</span>
             </div>
             <p className="inv-tl-desc">
-              Provider validation with real 835 data from 3&ndash;5 practices. Turquoise Health commercial rate integration. Signal topic expansion to 10+. Analytical Paths weight adjustment UI. Founding team hire (Head of Clinical Accuracy + Head of Commercial). Validation gate: 1,000 active Health users, 3 Provider pilots, 10+ Signal topics.
+              Provider validation with real 835 data from 3&ndash;5 practices. Turquoise Health commercial rate integration. Signal topic expansion to 10+. Founding team hire (Head of Clinical Accuracy + Head of Commercial). Validation gate: 1,000 active Health users, 3 Provider pilots, 10+ Signal topics.
             </p>
           </div>
 

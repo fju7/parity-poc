@@ -79,6 +79,30 @@ async def get_metrics():
         return {"claims_scored": 0, "topics_tracked": 0, "sources_monitored": 0, "updates_this_month": 0}
 
 
+@router.get("/stats")
+async def get_stats():
+    """Return total evidence claims and sources counts (public, no auth)."""
+    result = {"evidence_claims": 0, "evidence_sources": 0}
+
+    sb = _get_sb()
+    if not sb:
+        return result
+
+    try:
+        claims_res = sb.table("signal_claims").select("id", count="exact").execute()
+        result["evidence_claims"] = claims_res.count or 0
+    except Exception:
+        pass
+
+    try:
+        sources_res = sb.table("signal_sources").select("id", count="exact").execute()
+        result["evidence_sources"] = sources_res.count or 0
+    except Exception:
+        pass
+
+    return result
+
+
 @router.get("/topics")
 async def get_topics():
     """Return all topics with claim counts, source counts, categories, and summary."""

@@ -572,6 +572,130 @@
   margin: 0;
 }
 
+/* ── DARK THEME OVERRIDES ── */
+.inv-dark-root .cs-nav {
+  background: rgba(10,22,40,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.inv-dark-root .cs-nav .cs-nav-wordmark { color: #f1f5f9; }
+.inv-dark-root .cs-nav .cs-nav-links a { color: #94a3b8; }
+.inv-dark-root .cs-nav .cs-nav-links a:hover { color: #f1f5f9; }
+
+/* Sections */
+.inv-dark-root .cs-section { background: #0a1628 !important; }
+.inv-dark-root .cs-section-label { color: #0D7377; }
+.inv-dark-root .cs-section-title { color: #f1f5f9; }
+.inv-dark-root .cs-section-sub { color: #94a3b8; }
+
+/* Opportunity cards */
+.inv-dark-root .inv-opp-card {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.08);
+}
+.inv-dark-root .inv-opp-num { color: #f1f5f9; }
+.inv-dark-root .inv-opp-num span { color: #0D7377; }
+.inv-dark-root .inv-opp-label { color: #94a3b8; }
+
+/* Platform section */
+.inv-dark-root .cs-platform-section { background: #0f1a2e !important; }
+
+/* Architecture cards */
+.inv-dark-root .inv-arch-card {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.08);
+}
+.inv-dark-root .inv-arch-name { color: #f1f5f9; }
+.inv-dark-root .inv-arch-desc { color: #94a3b8; }
+
+/* Intelligence ladder */
+.inv-dark-root .inv-intel-card {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.08);
+}
+.inv-dark-root .inv-intel-card-live {
+  border-color: rgba(13,115,119,0.4);
+  box-shadow: 0 0 0 3px rgba(13,115,119,0.08);
+}
+.inv-dark-root .inv-intel-card-future {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.06);
+}
+.inv-dark-root .inv-intel-label { color: #f1f5f9; }
+.inv-dark-root .inv-intel-level { color: #94a3b8; }
+.inv-dark-root .inv-intel-sublabel { color: #94a3b8; }
+.inv-dark-root .inv-intel-desc { color: #94a3b8; }
+.inv-dark-root .inv-intel-catches { color: #94a3b8; }
+.inv-dark-root .inv-intel-catches-label { color: #f1f5f9; }
+.inv-dark-root .inv-intel-icon { background: rgba(13,115,119,0.12); }
+.inv-dark-root .inv-intel-icon-navy { background: rgba(148,163,184,0.1); color: #94a3b8; }
+.inv-dark-root .inv-intel-icon-muted { background: rgba(148,163,184,0.06); color: #64748b; }
+
+/* Moat table */
+.inv-dark-root .inv-intel-moat-title { color: #f1f5f9; }
+.inv-dark-root .inv-intel-moat-table { border-color: rgba(255,255,255,0.08); }
+.inv-dark-root .inv-intel-moat-row { border-color: rgba(255,255,255,0.06); }
+.inv-dark-root .inv-intel-moat-row:hover { background: rgba(255,255,255,0.03); }
+.inv-dark-root .inv-intel-moat-cap { color: #f1f5f9; }
+.inv-dark-root .inv-intel-moat-parity {
+  background: rgba(13,115,119,0.08);
+  border-color: rgba(255,255,255,0.06);
+}
+.inv-dark-root .inv-intel-moat-human { color: #64748b; }
+.inv-dark-root .inv-intel-moat-note { color: #94a3b8; }
+
+/* Callout */
+.inv-dark-root .inv-intel-callout {
+  background: rgba(13,115,119,0.08);
+  border: 1px solid rgba(13,115,119,0.2);
+}
+.inv-dark-root .inv-intel-callout p { color: rgba(255,255,255,0.85); }
+
+/* Timeline */
+.inv-dark-root .inv-timeline::before { background: rgba(255,255,255,0.08); }
+.inv-dark-root .inv-tl-dot { border-color: rgba(255,255,255,0.12); background: #0a1628; }
+.inv-dark-root .inv-tl-phase { color: #f1f5f9; }
+.inv-dark-root .inv-tl-desc { color: #94a3b8; }
+.inv-dark-root .inv-tl-badge-future { background: rgba(255,255,255,0.06); color: #64748b; }
+
+/* Revenue table */
+.inv-dark-root .inv-rev-table { border-color: rgba(255,255,255,0.08); }
+.inv-dark-root .inv-rev-row { border-color: rgba(255,255,255,0.06); color: #94a3b8; }
+.inv-dark-root .inv-rev-row:hover { background: rgba(255,255,255,0.03); }
+.inv-dark-root .inv-rev-row-total { background: rgba(13,115,119,0.06); color: #f1f5f9; }
+.inv-dark-root .inv-rev-row-total:hover { background: rgba(13,115,119,0.1); }
+.inv-dark-root .inv-rev-cell-label { color: #f1f5f9; }
+.inv-dark-root .inv-rev-cell-amount { color: #f1f5f9; }
+.inv-dark-root .inv-rev-row-total .inv-rev-cell-amount { color: #0D7377; }
+.inv-dark-root .inv-rev-note { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); color: #64748b; }
+
+/* Principles */
+.inv-dark-root .cs-principles-section { background: #0f1a2e !important; }
+.inv-dark-root .cs-principle { border-color: rgba(255,255,255,0.08); }
+.inv-dark-root .cs-principle-num { color: #0D7377; }
+.inv-dark-root .cs-principle-title { color: #f1f5f9; }
+.inv-dark-root .cs-principle-desc { color: #94a3b8; }
+
+/* CTA section */
+.inv-dark-root .inv-cta-section {
+  background: rgba(255,255,255,0.02) !important;
+  border-color: rgba(255,255,255,0.06);
+}
+.inv-dark-root .inv-cta-content h2 { color: #f1f5f9; }
+.inv-dark-root .inv-cta-content p { color: #94a3b8; }
+.inv-dark-root .inv-cta-btn { background: #0D7377; color: #fff; }
+.inv-dark-root .inv-cta-btn:hover { background: #0B6265; }
+
+/* Footer */
+.inv-dark-root .cs-footer {
+  background: #060d1a;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.inv-dark-root .cs-footer-wordmark { color: #f1f5f9; }
+.inv-dark-root .cs-footer-meta { color: #64748b; }
+.inv-dark-root .cs-footer-links a { color: #94a3b8; }
+.inv-dark-root .cs-footer-links a:hover { color: #f1f5f9; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .inv-hero { padding: 100px 24px 60px; }
