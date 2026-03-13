@@ -54,33 +54,45 @@ export default function InvestorsPage() {
   return (
     <div className="inv-dark-root" style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#e2e8f0", overflowX: "hidden", background: "#0a1628", minHeight: "100vh" }}>
       {/* NAV */}
-      <nav className="cs-nav inv-dark-nav">
-        <a className="cs-nav-logo" href="https://civicscale.ai">
-          <LogoIcon />
-          <span className="cs-nav-wordmark">CivicScale</span>
-        </a>
-        <div className="cs-nav-links">
-          <a href="https://employer.civicscale.ai">Employer</a>
-          <a href="https://broker.civicscale.ai">Broker</a>
-          <a href="https://provider.civicscale.ai">Provider</a>
-          <a href="https://health.civicscale.ai">Health</a>
-          <a href="https://signal.civicscale.ai">Signal</a>
-          <Link to="/investors">Investors</Link>
+      <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(10,22,40,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <a href="https://civicscale.ai" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <div style={{ width: 3, height: 10, borderRadius: 2, background: "#94a3b8" }} />
+                <div style={{ width: 3, height: 7, borderRadius: 2, background: "#0D7377" }} />
+                <div style={{ width: 3, height: 4, borderRadius: 2, background: "#94a3b8" }} />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <div style={{ width: 3, height: 4, borderRadius: 2, background: "#0D7377" }} />
+                <div style={{ width: 3, height: 7, borderRadius: 2, background: "#94a3b8" }} />
+                <div style={{ width: 3, height: 10, borderRadius: 2, background: "#0D7377" }} />
+              </div>
+            </div>
+            <span style={{ color: "#f1f5f9", fontWeight: 700, fontSize: 18, letterSpacing: "-0.02em", fontFamily: "'DM Sans', sans-serif" }}>CivicScale</span>
+          </a>
+          <nav style={{ display: "flex", alignItems: "center", gap: 24, fontSize: 14, fontFamily: "'DM Sans', sans-serif" }}>
+            <a href="https://employer.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Employer</a>
+            <a href="https://broker.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Broker</a>
+            <a href="https://provider.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Provider</a>
+            <a href="https://health.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Health</a>
+            <a href="https://signal.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Signal</a>
+            <Link to="/investors" style={{ color: "#f1f5f9", textDecoration: "none", fontWeight: 500 }}>Investors</Link>
+          </nav>
         </div>
-      </nav>
+      </header>
 
       {/* HERO */}
-      <section className="inv-hero">
-        <div className="cs-hero-grid" />
-        <div className="cs-hero-glow" />
-        <div className="cs-hero-glow-2" />
-        <div className="inv-hero-content">
-          <div className="cs-hero-eyebrow">
-            <span className="cs-hero-eyebrow-dot" />
+      <section style={{ background: "#0a1628", padding: "100px 24px 60px", position: "relative", overflow: "hidden" }}>
+        <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(13,115,119,0.1)", color: "#0D7377", fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 100, marginBottom: 20 }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#0D7377" }} />
             Investor Overview
           </div>
-          <h1>The evidence should be clear.<br />The numbers should be right.</h1>
-          <p className="inv-hero-sub">
+          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 400, color: "#f1f5f9", lineHeight: 1.15, letterSpacing: -1, marginBottom: 20 }}>
+            The evidence should be clear.<br />The numbers should be right.
+          </h1>
+          <p style={{ fontSize: 17, fontWeight: 300, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 680, margin: "0 auto" }}>
             CivicScale builds AI-powered benchmark intelligence across domains where information asymmetry causes systematic wealth transfer. Four products live across two tracks &mdash; billing intelligence and evidence intelligence &mdash; powered by a single analytical engine.
           </p>
         </div>
@@ -453,31 +465,25 @@ export default function InvestorsPage() {
       </section>
 
       {/* SECTION 5 — DESIGN PRINCIPLES */}
-      <section className="cs-section cs-principles-section">
-        <div className="cs-section-label">Design Principles</div>
-        <h2 className="cs-section-title">Built differently,<br />by design</h2>
-        <p className="cs-section-sub">Every CivicScale product is built on four architectural principles that address regulatory, legal, and trust challenges simultaneously.</p>
-        <div className="cs-principles-grid">
-          <div className="cs-principle">
-            <div className="cs-principle-num">01</div>
-            <div className="cs-principle-title">Privacy by Architecture</div>
-            <p className="cs-principle-desc">Documents are processed locally on the user&apos;s device. Analysis results are stored locally. Only anonymized procedure codes reach our servers. This makes certain privacy violations technically impossible &mdash; not merely prohibited.</p>
-          </div>
-          <div className="cs-principle">
-            <div className="cs-principle-num">02</div>
-            <div className="cs-principle-title">Analysis, Not Advocacy</div>
-            <p className="cs-principle-desc">CivicScale products produce benchmark reports and cite sources. They do not generate legal arguments or advise on strategy. In evidence intelligence, they show why sources disagree &mdash; they do not tell users what to believe. CivicScale is the infrastructure. The professional or individual decides what to do with the result.</p>
-          </div>
-          <div className="cs-principle">
-            <div className="cs-principle-num">03</div>
-            <div className="cs-principle-title">Transparent Methodology</div>
-            <p className="cs-principle-desc">Every flagged billing item cites its benchmark source. Every evidence score shows six dimension ratings. Analytical Paths makes invisible analytical choices visible. Users can verify every finding independently. Transparency protects CivicScale and builds compounding institutional trust.</p>
-          </div>
-          <div className="cs-principle">
-            <div className="cs-principle-num">04</div>
-            <div className="cs-principle-title">Data Network Effects</div>
-            <p className="cs-principle-desc">Every bill analyzed contributes anonymized data to a crowdsourced commercial rate database. Every evidence topic scored produces structured analytical metadata. These proprietary data assets grow more accurate over time &mdash; a compounding moat that no competitor can replicate from a standing start.</p>
-          </div>
+      <section style={{ padding: "80px 24px", background: "#0f1a2e" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
+          <div style={{ color: "#0D7377", fontSize: 12, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 12 }}>Design Principles</div>
+          <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(28px, 3vw, 40px)", color: "#f1f5f9", letterSpacing: -0.5, marginBottom: 16, lineHeight: 1.2 }}>Built differently,<br />by design</h2>
+          <p style={{ fontSize: 16, color: "#94a3b8", lineHeight: 1.7, fontWeight: 300, maxWidth: 700, margin: "0 auto 48px" }}>Every CivicScale product is built on four architectural principles that address regulatory, legal, and trust challenges simultaneously.</p>
+        </div>
+        <div className="inv-principles-grid">
+          {[
+            { num: "01", title: "Privacy by Architecture", desc: "Documents are processed locally on the user\u2019s device. Analysis results are stored locally. Only anonymized procedure codes reach our servers. This makes certain privacy violations technically impossible \u2014 not merely prohibited." },
+            { num: "02", title: "Analysis, Not Advocacy", desc: "CivicScale products produce benchmark reports and cite sources. They do not generate legal arguments or advise on strategy. In evidence intelligence, they show why sources disagree \u2014 they do not tell users what to believe. CivicScale is the infrastructure. The professional or individual decides what to do with the result." },
+            { num: "03", title: "Transparent Methodology", desc: "Every flagged billing item cites its benchmark source. Every evidence score shows six dimension ratings. Analytical Paths makes invisible analytical choices visible. Users can verify every finding independently. Transparency protects CivicScale and builds compounding institutional trust." },
+            { num: "04", title: "Data Network Effects", desc: "Every bill analyzed contributes anonymized data to a crowdsourced commercial rate database. Every evidence topic scored produces structured analytical metadata. These proprietary data assets grow more accurate over time \u2014 a compounding moat that no competitor can replicate from a standing start." },
+          ].map((p) => (
+            <div key={p.num} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: 32 }}>
+              <div style={{ color: "#0D7377", fontSize: 13, fontWeight: 700, marginBottom: 8 }}>{p.num}</div>
+              <div style={{ color: "#f1f5f9", fontSize: 17, fontWeight: 600, marginBottom: 10 }}>{p.title}</div>
+              <p style={{ color: "#94a3b8", fontSize: 14, lineHeight: 1.7, fontWeight: 300, margin: 0 }}>{p.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -499,20 +505,19 @@ export default function InvestorsPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="cs-footer">
-        <div className="cs-footer-logo">
-          <LogoIcon footer />
-          <span className="cs-footer-wordmark">CivicScale</span>
-        </div>
-        <div className="cs-footer-meta">
-          Operated by U.S. Photovoltaics, Inc. &middot; Florida &middot; civicscale.ai<br />
-          fred@civicscale.ai
-        </div>
-        <div className="cs-footer-links">
-          <Link to="/privacy">Privacy Policy</Link>
-          <Link to="/terms">Terms of Service</Link>
-          <Link to="/investors">Investors</Link>
-        </div>
+      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "32px 24px", textAlign: "center", background: "#060d1a" }}>
+        <p style={{ fontSize: 12, color: "#64748b", lineHeight: 1.8, maxWidth: 600, margin: "0 auto" }}>
+          CivicScale is operated by U.S. Photovoltaics, Inc. &middot; Florida &middot;{" "}
+          <a href="https://civicscale.ai" style={{ color: "#0D7377", textDecoration: "none" }}>civicscale.ai</a>
+          <br />
+          <a href="mailto:fred@civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>fred@civicscale.ai</a>
+          {" "}&middot;{" "}
+          <Link to="/privacy" style={{ color: "#94a3b8", textDecoration: "none" }}>Privacy</Link>
+          {" "}&middot;{" "}
+          <Link to="/terms" style={{ color: "#94a3b8", textDecoration: "none" }}>Terms</Link>
+          <br />
+          &copy; CivicScale 2026.
+        </p>
       </footer>
     </div>
   );
