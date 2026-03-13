@@ -229,6 +229,9 @@ export default function BrokerLandingPage() {
           </a>
         </div>
         <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>30-day free trial, cancel anytime</p>
+        <Link to="/demo" style={{ display: "inline-block", marginTop: 8, color: "rgba(255,255,255,0.7)", fontSize: 14, textDecoration: "underline" }}>
+          See a live demo first &rarr;
+        </Link>
       </section>
 
       {/* ── SECTION 2: The Renewal Problem ── */}
