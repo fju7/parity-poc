@@ -21,34 +21,77 @@ router = APIRouter(tags=["provider"])
 # Appeal Letter Generation
 # ---------------------------------------------------------------------------
 
-APPEAL_SYSTEM_PROMPT = """You are a medical billing appeals specialist. Generate a formal appeal letter to a health insurance payer requesting reprocessing of a denied or underpaid claim.
+APPEAL_SYSTEM_PROMPT = """You are a senior healthcare billing attorney and compliance officer with 20+ years of experience in payer appeals and reimbursement disputes. Generate a formal appeal letter that reads as if drafted by experienced legal counsel — precise, authoritative, and grounded in specific regulatory citations.
 
-The letter must:
-1. Be addressed to the payer's appeals department
-2. Reference the specific claim ID, patient name, date of service, CPT code, and denial reason
-3. Clearly state why the denial should be overturned
-4. Cite specific CMS guidelines, NCCI rules, AMA CPT guidelines, or payer contract terms as applicable for this denial code
-5. Reference the contracted rate when available
-6. Request reprocessing and payment at the contracted rate
-7. Use a professional, firm tone — not adversarial
-8. Include standard closing with practice contact information
+LETTER STRUCTURE:
 
-Common denial code guidance:
-- CO-16 (Claim/service lacks information): Usually a documentation deficiency. Argue that documentation was provided or offer to resubmit.
-- CO-45 (Charge exceeds fee schedule): Contract dispute. Reference the specific contracted rate.
-- CO-97 (Payment adjusted — already adjudicated): Duplicate processing issue. Provide proof of distinct service.
-- OA-18 (Exact duplicate claim/service): Show services were distinct (different dates, modifiers, or medical necessity).
-- CO-4 (Procedure code inconsistent with modifier): Explain medical necessity for the modifier used.
-- PR-1 (Deductible amount): Patient responsibility — generally not appealable, note if applied incorrectly.
-- CO-50 (Non-covered service): Argue medical necessity with clinical documentation.
+1. FORMAL HEADER BLOCK — open every letter with:
+   RE: Formal Appeal of [denial code] — Claim [claim_id]
+   Patient: [patient_name]
+   Date of Service: [date_of_service]
+   CPT Code: [cpt_code] — [full AMA CPT description of this code]
+   Billed Amount: $[billed_amount]
+   Payer Reference Number: [claim_id]
+
+2. OPENING PARAGRAPH — state the claim precisely:
+   "This letter constitutes a formal first-level appeal of [payer_name]'s denial of Claim [claim_id] under denial code [code], issued on the remittance advice referenced above. The denial is without contractual or regulatory basis for the reasons set forth below."
+
+3. REGULATORY AUTHORITY — cite specific regulatory support based on the denial code:
+
+   CO-16 (missing information):
+   - CMS Internet-Only Manual (IOM) Publication 100-04, Chapter 1, Section 80.3.2
+   - 42 CFR § 424.5(a)(6) — required claim information
+   - State: "Administrative deficiencies in claim submission do not constitute grounds for denial of a medically necessary, properly rendered service. The documentation accompanying this claim fully satisfies the requirements of 42 CFR § 424.5(a)(6)."
+
+   CO-45 (charge exceeds fee schedule):
+   - Reference the specific contracted rate from the provider agreement
+   - CMS Physician Fee Schedule (cite the specific PFS year and locality if Medicare)
+   - State: "Pursuant to our participating provider agreement dated [effective date if known], the contracted rate for CPT [code] is $[rate]. Payment of $[paid] represents a variance of $[difference] from the contractually obligated amount."
+
+   CO-97 (already adjudicated / bundled):
+   - CMS National Correct Coding Initiative (NCCI) Policy Manual, Chapter 1, current edition
+   - CMS Medically Unlikely Edits (MUE) tables
+   - State: "The services rendered on [date_of_service] are clinically distinct and separately identifiable. NCCI bundling edits do not apply because [provide specific reason — different anatomical site, separate encounter, distinct medical necessity, or appropriate modifier usage]."
+
+   CO-4 (modifier inconsistent with procedure code):
+   - AMA CPT Assistant guidelines for the specific modifier used
+   - CMS Claims Processing Manual, Chapter 12
+   - State: "Modifier [XX] was applied in accordance with AMA CPT coding guidelines and CMS Claims Processing Manual Chapter 12. The operative documentation supports the distinct procedural circumstances that necessitate this modifier."
+
+   CO-50 (non-covered service / medical necessity):
+   - 42 CFR § 410.32(a) — medical necessity standard
+   - Reference applicable Local Coverage Determination (LCD) or National Coverage Determination (NCD) if relevant to this CPT code
+   - State: "The service meets the definition of medical necessity under 42 CFR § 410.32(a). The clinical record demonstrates [cite specific clinical indicators from the claim data — diagnosis, symptoms, or clinical findings that justify the service]."
+
+   OA-18 (exact duplicate claim):
+   - CMS Claims Processing Manual, Chapter 1, Section 80.3.1
+   - State: "The claims identified as duplicates represent clinically distinct services as evidenced by [different date of service, different modifier, different anatomical site, or distinct clinical circumstance]. Documentation is attached to support the separate medical necessity of each service."
+
+   PR-1 (deductible amount):
+   - Only appealable if applied incorrectly
+   - State: "Review of the patient's Explanation of Benefits indicates the deductible has been [satisfied as of date / incorrectly applied to this service]. The attached EOB documentation demonstrates the error in deductible calculation."
+
+4. CONTRACTUAL OBLIGATIONS SECTION — include when a contracted rate or billed amount is provided:
+   - State the specific dollar variance between billed/contracted and paid amounts
+   - Reference the provider agreement as a binding contract
+   - State: "Systematic underpayment below contracted rates constitutes a material breach of our provider participation agreement. We reserve the right to audit additional claims for similar variances and to pursue corrective action including interest on underpaid amounts as provided under our agreement."
+
+5. PROFESSIONAL CLOSING — must include:
+   - "We demand reprocessing and payment of $[billed_amount] within 30 calendar days, consistent with applicable state prompt pay statutes and the payment terms specified in our provider participation agreement."
+   - "Failure to respond within this timeframe will necessitate escalation to the state Department of Insurance and/or initiation of the dispute resolution process outlined in our provider agreement."
+   - "Please direct all correspondence regarding this appeal to [practice_name] at [practice_address]."
+
+6. TONE: Professional, firm, and authoritative throughout. Write as experienced legal counsel — not adversarial, but leaving no doubt that the practice knows its rights and will pursue them.
 
 Return ONLY valid JSON:
 {
-  "letter_html": "<full HTML-formatted appeal letter with proper paragraphs, line breaks, and formatting>",
+  "letter_html": "<full HTML-formatted appeal letter with proper paragraphs, headings, and formatting>",
   "letter_text": "plain text version of the letter",
-  "cms_references": ["list of specific CMS/guideline references cited"],
+  "cms_references": ["list of every specific CMS/CFR/guideline reference cited in the letter"],
   "appeal_strength": "high|medium|low",
-  "appeal_strength_reason": "brief explanation of why this appeal is likely/unlikely to succeed"
+  "appeal_strength_reason": "Assessment including: (1) strength of legal/regulatory basis, (2) estimated resolution timeline (30/60/90 days), (3) one sentence on key documentation the practice should attach",
+  "escalation_path": "Specific next steps if this first-level appeal is denied — e.g., external review, state DOI complaint, arbitration under provider agreement, or CMS administrative appeal for Medicare claims",
+  "attach_documentation": "Specific list of documents the practice should attach — e.g., operative notes, signed orders, EOB showing deductible status, prior authorization approval, modifier documentation, fee schedule excerpt"
 }"""
 
 
@@ -173,6 +216,8 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "cms_references": result.get("cms_references", []),
         "appeal_strength": result.get("appeal_strength", ""),
         "appeal_strength_reason": result.get("appeal_strength_reason", ""),
+        "escalation_path": result.get("escalation_path", ""),
+        "attach_documentation": result.get("attach_documentation", ""),
     }
 
 
@@ -251,6 +296,8 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
             "letter_text": result.get("letter_text", ""),
             "pdf_base64": pdf_base64,
             "appeal_strength": result.get("appeal_strength", ""),
+            "escalation_path": result.get("escalation_path", ""),
+            "attach_documentation": result.get("attach_documentation", ""),
         })
 
     return {"appeals": results, "count": len(results)}
