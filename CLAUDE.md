@@ -407,6 +407,18 @@ Features built in this phase:
 - Added python-docx>=1.1.0 to requirements.txt
 - UploadView is now the single default view (replaces InputSelectionView)
 
+## Session I-Signal — QA Classification Layer (Complete)
+- Enhanced QA_SYSTEM_PROMPT in signal_qa.py with 4-step classification layer
+  executed before weighting analysis when disagreements exist:
+  - Step 1: Disagreement Type Classification (Weighting/Completeness/Factual)
+  - Step 2: Evidence Item Classification (Shared/Asymmetric/Contested tags)
+  - Step 3: Weight Delta Statements ("If weight shifts from X→Y, conclusion
+    changes from A→B")
+  - Step 4: Contested Fact Handling — flags genuine uncertainty vs motivated
+    denial, classifies resolution pathway (Empirical/Definitional/Disclosure/
+    Methodological), names specific studies/institutions for resolution
+- Layer skipped when no meaningful disagreements exist in the evidence
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
