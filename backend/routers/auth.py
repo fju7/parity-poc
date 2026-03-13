@@ -56,6 +56,7 @@ class CreateCompanyRequest(BaseModel):
     industry: Optional[str] = None
     state: Optional[str] = None
     size_band: Optional[str] = None
+    referral_code: Optional[str] = None
 
 class InviteUserRequest(BaseModel):
     invited_email: str
@@ -420,6 +421,22 @@ async def create_company(req: CreateCompanyRequest):
         "expires_at": expires_at,
         "last_active_at": now.isoformat(),
     }).execute()
+
+    # Track broker referral if referral_code provided
+    if req.referral_code and company_type == "broker":
+        try:
+            ref_row = sb.table("broker_referrals").select("id").eq(
+                "referral_code", req.referral_code.strip().upper()
+            ).eq("status", "pending").limit(1).execute()
+            if ref_row.data:
+                sb.table("broker_referrals").update({
+                    "referred_company_id": company_id,
+                    "referred_email": email,
+                    "status": "signed_up",
+                    "converted_at": now.isoformat(),
+                }).eq("id", ref_row.data[0]["id"]).execute()
+        except Exception as e:
+            print(f"[warn] referral tracking failed: {e}")
 
     return {
         "created": True,

@@ -44,12 +44,25 @@ function BrokerAccountInner() {
   const [deleting, setDeleting] = useState(false);
   const [deleteMsg, setDeleteMsg] = useState("");
 
+  // Referral
+  const [referralCode, setReferralCode] = useState("");
+  const [referralUrl, setReferralUrl] = useState("");
+  const [referralCount, setReferralCount] = useState(0);
+  const [convertedCount, setConvertedCount] = useState(0);
+  const [referralCopied, setReferralCopied] = useState(false);
+  const [colleagueEmail, setColleagueEmail] = useState("");
+  const [colleagueName, setColleagueName] = useState("");
+  const [referralSending, setReferralSending] = useState(false);
+  const [referralMsg, setReferralMsg] = useState("");
+  const [showEmailPreview, setShowEmailPreview] = useState(false);
+
   const authHeaders = { Authorization: `Bearer ${token}` };
 
   useEffect(() => {
     if (!token) return;
     fetchAccount();
     fetchTeam();
+    fetchReferral();
   }, [token]);
 
   // Handle ?upgraded=true — poll until plan shows "pro"
@@ -108,6 +121,44 @@ function BrokerAccountInner() {
         setTeamMembers(data.users || []);
       }
     } catch (err) { console.error("Failed to load team:", err); }
+  };
+
+  const fetchReferral = async () => {
+    try {
+      const res = await fetch(`${API}/api/broker/referral`, { headers: authHeaders });
+      if (res.ok) {
+        const data = await res.json();
+        setReferralCode(data.referral_code || "");
+        setReferralUrl(data.referral_url || "");
+        setReferralCount(data.referral_count || 0);
+        setConvertedCount(data.converted_count || 0);
+      }
+    } catch (err) { console.error("Failed to load referral:", err); }
+  };
+
+  const handleSendReferral = async () => {
+    if (!colleagueEmail.trim()) return;
+    setReferralSending(true);
+    setReferralMsg("");
+    try {
+      const res = await fetch(`${API}/api/broker/referral/send`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders },
+        body: JSON.stringify({ colleague_email: colleagueEmail.trim(), colleague_name: colleagueName.trim() }),
+      });
+      const data = await res.json();
+      if (data.sent) {
+        setReferralMsg(`Email sent to ${data.colleague_email}`);
+        setColleagueEmail("");
+        setColleagueName("");
+        fetchReferral();
+      } else if (data.reason === "already_referred") {
+        setReferralMsg("You've already referred this person.");
+      } else {
+        setReferralMsg(data.detail || "Failed to send.");
+      }
+    } catch (err) { setReferralMsg("Failed to send referral email."); }
+    setReferralSending(false);
   };
 
   const handleSave = async () => {
@@ -540,6 +591,85 @@ function BrokerAccountInner() {
               >
                 {reactivateLoading ? "Reactivating..." : "Reactivate Pro"}
               </button>
+            </div>
+          )}
+        </div>
+
+        {/* Share Parity Broker — Referral Section */}
+        <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
+          <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1B3A5C", margin: "0 0 4px" }}>Share Parity Broker</h2>
+          <p style={{ fontSize: 13, color: "#64748b", margin: "0 0 16px" }}>Brokers who find this useful tend to tell other brokers.</p>
+
+          {/* Referral URL copy box */}
+          {referralUrl && (
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <input
+                  readOnly
+                  value={referralUrl.replace("https://", "")}
+                  style={{ flex: 1, padding: "8px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 13, color: "#475569", background: "#f8fafc" }}
+                />
+                <button
+                  onClick={async () => {
+                    try { await navigator.clipboard.writeText(referralUrl); setReferralCopied(true); setTimeout(() => setReferralCopied(false), 2000); } catch {}
+                  }}
+                  style={{ padding: "8px 16px", background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}
+                >
+                  {referralCopied ? "Copied!" : "Copy Link"}
+                </button>
+              </div>
+              <p style={{ fontSize: 12, color: "#94a3b8", margin: "6px 0 0" }}>
+                {referralCount} broker{referralCount !== 1 ? "s" : ""} signed up using your link &middot; {convertedCount} active
+              </p>
+            </div>
+          )}
+
+          {/* Send colleague email */}
+          <p style={{ fontSize: 13, fontWeight: 600, color: "#475569", margin: "0 0 10px" }}>Send a colleague an email</p>
+          <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+            <input
+              value={colleagueEmail}
+              onChange={e => setColleagueEmail(e.target.value)}
+              placeholder="colleague@example.com"
+              style={{ flex: 1, padding: "8px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 13 }}
+            />
+            <input
+              value={colleagueName}
+              onChange={e => setColleagueName(e.target.value)}
+              placeholder="First name (optional)"
+              style={{ width: 150, padding: "8px 12px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 13 }}
+            />
+            <button
+              onClick={handleSendReferral}
+              disabled={referralSending || !colleagueEmail.trim()}
+              style={{ padding: "8px 16px", background: "#0D7377", color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: referralSending ? "wait" : "pointer", opacity: (referralSending || !colleagueEmail.trim()) ? 0.6 : 1, whiteSpace: "nowrap" }}
+            >
+              {referralSending ? "Sending..." : "Send Introduction"}
+            </button>
+          </div>
+          {referralMsg && (
+            <p style={{ fontSize: 12, margin: "4px 0 0", color: referralMsg.includes("sent") ? "#16a34a" : "#dc2626", fontWeight: 500 }}>
+              {referralMsg.includes("sent") ? "\u2713 " : ""}{referralMsg}
+            </p>
+          )}
+
+          {/* Email preview toggle */}
+          <button
+            onClick={() => setShowEmailPreview(!showEmailPreview)}
+            style={{ background: "none", border: "none", color: "#0D7377", fontSize: 12, cursor: "pointer", padding: "8px 0 0", textDecoration: "underline" }}
+          >
+            {showEmailPreview ? "Hide email preview" : "Preview the email"}
+          </button>
+          {showEmailPreview && (
+            <div style={{ marginTop: 10, background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 8, padding: 16, fontSize: 13, color: "#475569", lineHeight: 1.7 }}>
+              <p style={{ margin: "0 0 8px" }}><strong>Subject:</strong> {user?.full_name || "You"} thinks you should see this benefits platform</p>
+              <hr style={{ border: "none", borderTop: "1px solid #e2e8f0", margin: "8px 0" }} />
+              <p>Hi{colleagueName ? ` ${colleagueName}` : ""},</p>
+              <p>{user?.full_name || "Your colleague"} at {company?.name || "your firm"} asked us to send you a quick note.</p>
+              <p>They've been using <strong>Parity Broker</strong> to benchmark their book of business against MEPS-IC data and generate CAA data request letters — and thought it might be useful for your practice too.</p>
+              <p>It benchmarks any client against industry/region/size peers in about 60 seconds. The CAA letter generator alone saves about an hour per renewal.</p>
+              <p style={{ color: "#0D7377", fontWeight: 600 }}>[See a 4-step demo first →]</p>
+              <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 12 }}>This is the only email they'll receive unless they sign up.</p>
             </div>
           )}
         </div>

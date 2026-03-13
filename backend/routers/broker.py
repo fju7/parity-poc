@@ -2497,3 +2497,149 @@ Broker of Record — {company_name}"""
         "carrier": carrier,
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
+
+
+# ---------------------------------------------------------------------------
+# Broker Referral endpoints
+# ---------------------------------------------------------------------------
+
+class ReferralSendRequest(BaseModel):
+    colleague_email: str
+    colleague_name: Optional[str] = ""
+
+
+@router.get("/referral")
+async def get_or_create_referral(authorization: str = Header(None)):
+    """Get or create referral code for this broker."""
+    user, sb = _require_broker(authorization)
+    company_id = user.get("company_id")
+    broker_email = user.get("email", "")
+
+    # Check existing referral code
+    existing = sb.table("broker_referrals").select("referral_code").eq(
+        "referrer_company_id", company_id
+    ).limit(1).execute()
+
+    if existing.data:
+        code = existing.data[0]["referral_code"]
+    else:
+        code = uuid.uuid4().hex[:8].upper()
+        sb.table("broker_referrals").insert({
+            "referrer_company_id": company_id,
+            "referrer_email": broker_email,
+            "referral_code": code,
+            "status": "pending",
+        }).execute()
+
+    # Stats
+    all_referrals = sb.table("broker_referrals").select("status").eq(
+        "referrer_company_id", company_id
+    ).execute()
+    referral_count = sum(1 for r in all_referrals.data if r["status"] != "pending")
+    converted_count = sum(1 for r in all_referrals.data if r["status"] == "active")
+
+    return {
+        "referral_code": code,
+        "referral_url": f"https://broker.civicscale.ai/signup?ref={code}",
+        "referral_count": referral_count,
+        "converted_count": converted_count,
+    }
+
+
+@router.post("/referral/send")
+async def send_referral_email(body: ReferralSendRequest, authorization: str = Header(None)):
+    """Send referral email to a colleague."""
+    user, sb = _require_broker(authorization)
+    company_id = user.get("company_id")
+    broker_email = user.get("email", "")
+
+    colleague_email = body.colleague_email.strip()
+    if "@" not in colleague_email or "." not in colleague_email:
+        raise HTTPException(status_code=400, detail="Invalid email address.")
+
+    # Get referrer info
+    referrer_name = user.get("full_name") or broker_email
+    company_row = sb.table("companies").select("name").eq("id", company_id).single().execute()
+    firm_name = company_row.data.get("name", "") if company_row.data else ""
+
+    # Check already referred
+    already = sb.table("broker_referrals").select("id").eq(
+        "referrer_company_id", company_id
+    ).eq("referred_email", colleague_email).execute()
+    if already.data:
+        return {"sent": False, "reason": "already_referred"}
+
+    # Get referral code
+    code_row = sb.table("broker_referrals").select("referral_code").eq(
+        "referrer_company_id", company_id
+    ).is_("referred_email", "null").limit(1).execute()
+
+    if code_row.data:
+        code = code_row.data[0]["referral_code"]
+    else:
+        code = uuid.uuid4().hex[:8].upper()
+
+    # Insert referral record for this colleague
+    sb.table("broker_referrals").insert({
+        "referrer_company_id": company_id,
+        "referrer_email": broker_email,
+        "referral_code": code,
+        "referred_email": colleague_email,
+        "status": "pending",
+    }).execute()
+
+    # Send email
+    colleague_first = body.colleague_name.strip() if body.colleague_name else ""
+    greeting = f"Hi{' ' + colleague_first if colleague_first else ''},"
+    html = f"""
+    <div style="font-family: -apple-system, sans-serif; max-width: 560px; margin: 0 auto; color: #1e293b;">
+      <p>{greeting}</p>
+      <p>{referrer_name} at {firm_name} asked us to send you a quick note.</p>
+      <p>They've been using <strong>Parity Broker</strong> to benchmark their book of business against MEPS-IC data
+      and generate CAA data request letters — and thought it might be useful for your practice too.</p>
+      <p>It benchmarks any client against industry/region/size peers in about 60 seconds.
+      The CAA letter generator alone saves about an hour per renewal.</p>
+      <p style="margin: 24px 0;">
+        <a href="https://broker.civicscale.ai/demo" style="display: inline-block; background: #0D7377; color: #fff;
+        padding: 12px 28px; border-radius: 8px; font-weight: 600; text-decoration: none;">
+          See a 4-step demo first &rarr;
+        </a>
+      </p>
+      <p>Or <a href="https://broker.civicscale.ai/signup?ref={code}" style="color: #0D7377;">sign up free at broker.civicscale.ai</a></p>
+      <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
+      <p style="font-size: 12px; color: #94a3b8;">
+        You received this because {referrer_name} thought you'd find it useful.
+        No opt-in required to visit — this is the only email you'll receive unless you sign up.
+      </p>
+    </div>
+    """
+
+    send_email(
+        to=colleague_email,
+        subject=f"{referrer_name} thinks you should see this benefits platform",
+        html=html,
+    )
+
+    return {"sent": True, "colleague_email": colleague_email}
+
+
+@router.get("/referral/stats")
+async def referral_stats(authorization: str = Header(None)):
+    """Return full list of referrals made by this broker."""
+    user, sb = _require_broker(authorization)
+    company_id = user.get("company_id")
+
+    rows = sb.table("broker_referrals").select(
+        "referred_email, status, created_at"
+    ).eq("referrer_company_id", company_id).not_.is_("referred_email", "null").order(
+        "created_at", desc=True
+    ).execute()
+
+    referrals = [
+        {"referred_email": r["referred_email"], "status": r["status"], "created_at": r["created_at"]}
+        for r in rows.data
+    ]
+    total = len(referrals)
+    converted = sum(1 for r in referrals if r["status"] == "active")
+
+    return {"referrals": referrals, "total": total, "converted": converted}

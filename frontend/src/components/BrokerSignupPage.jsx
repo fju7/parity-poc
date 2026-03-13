@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
@@ -8,6 +8,8 @@ const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function BrokerSignupPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const refCode = searchParams.get("ref") || "";
   const { login, isAuthenticated, company } = useAuth();
 
   // If already authenticated as broker, go to dashboard
@@ -90,6 +92,7 @@ export default function BrokerSignupPage() {
           full_name: fullName.trim(),
           company_name: firmName.trim(),
           company_type: "broker",
+          ...(refCode ? { referral_code: refCode } : {}),
         }),
       });
       const data = await res.json();
@@ -141,6 +144,12 @@ export default function BrokerSignupPage() {
               Start your 30-day free trial. $99/mo after trial &mdash; cancel anytime.
             </p>
           </div>
+
+          {refCode && (
+            <div style={{ background: "rgba(13,115,119,0.15)", border: "1px solid rgba(13,115,119,0.3)", borderRadius: 10, padding: "10px 16px", marginBottom: 16, textAlign: "center" }}>
+              <p style={{ margin: 0, fontSize: 13, color: "#5eead4" }}>You were referred by a colleague. Welcome to Parity Broker.</p>
+            </div>
+          )}
 
           {step === "email" && (
             <>
