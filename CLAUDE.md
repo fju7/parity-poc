@@ -514,6 +514,48 @@ Four broker prompts implemented:
   EmployerBenchmark (when no broker_ref param) and EmployerClaimsCheck
   (when total_excess_2x > 0).
 
+## Session K — Full-Platform Regression Fix (Complete)
+Based on fix brief from full regression testing (March 14, 2026).
+
+### Wave 1 — Systemic Issues
+- Employer routing: 13 backward-compat redirects in main.jsx for /billing/employer/* → clean paths
+- Free trial: replaced 1-per-90-days claims check gate with 30-day unlimited trial
+  (employer_claims.py checks first upload date, unlimited use for 30 days)
+- Broker renewal-prep: added /broker/renewal-prep/:companySlug route rendering
+  RenewalPrepReport directly (Navigate can't substitute route params)
+- CORS: confirmed broker.civicscale.ai already in allowed_origins (no change needed)
+
+### Wave 2 — Core Feature Fixes
+- 2A: Client email required in broker single + bulk add forms (BrokerDashboard.jsx)
+- 2B: BrokerConnectCard added to EmployerScorecard results
+- 2C: Fixed NADAC API URL in load_nadac.py (broken UUID), improved with
+  NDC dedup and early pagination stop
+- 2D: Provider rate persistence — GET /api/provider/saved-rates endpoint
+  in provider_audit.py, loadSavedRates() in ProviderApp.jsx on mount,
+  saved_at date shown in payer list
+- 2E: Appeal auto-population — Health DENIAL_SYSTEM_PROMPT extracts
+  patient_name, provider_name, claim_number, date_of_service, payer_name;
+  DenialReportView pre-populates fields. Provider DENIAL_SYSTEM_PROMPT
+  returns affected_cpts and sample_date_of_service per denial type;
+  ProviderAuditReport passes them to appeal generation.
+
+### Wave 3 — Quick Fixes
+- Signal IssueDashboard: title and debates heading → text-white for dark bg contrast
+- Signal landing: "Start Free Trial" CTA in hero (hidden when logged in)
+- Signal pricing: fixed "Current Plan" showing for logged-out users
+- Signal OTP email: added "signal" → "Parity Signal" to product_names in auth.py
+- Broker dashboard: benchmark results (PEPM, percentile, savings) in client detail panel
+  via benchmark/benchmark_date fields added to client summary endpoint
+- Broker renewals: fixed unicode escape "91\u2013180 days" → "91–180 days"
+- Employer benchmark nav: /billing/employer links → /dashboard, /claims-check
+- Employer product page: free benchmark CTA moved above the fold
+- Provider product page: added PARITY PROVIDER branding badge in hero
+- Health upload: added text paste input with textarea on UploadView.jsx
+
+### Fred Action Items
+- Run load_nadac.py against production Supabase to populate NADAC drug pricing data
+- Redeploy backend on Render to pick up all backend changes
+
 ## Migrations pending
 - 036: provider_benchmark_observations
 - 037: signal_cancel_at_period_end
