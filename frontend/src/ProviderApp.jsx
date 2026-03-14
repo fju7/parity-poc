@@ -1168,6 +1168,7 @@ function ProviderAppInner() {
             ratesMethod={ratesMethod}
             extractingRates={extractingRates}
             zipCode={profile?.zip_code || ""}
+            profile={profile}
             savedPayers={savedPayers}
             filePayerMap={filePayerMap}
             analysisResults={analysisResults}
@@ -1419,7 +1420,7 @@ function ContractIntegrityTab({
   step, error, parsedRates, savingRates, saveSuccess, parsedRemittance, parsedRemittances, uploadProgress, analysisResult,
   denialIntel, denialLoading,
   sortField, sortDir,
-  ratesMethod, extractingRates, zipCode,
+  ratesMethod, extractingRates, zipCode, profile,
   savedPayers, filePayerMap, analysisResults, selectedPayerIdx,
   onDownloadTemplate, onRatesFileUpload, onSaveRates, on835Upload,
   onRunAnalysis, onSort, getSortedLines, onReset,
