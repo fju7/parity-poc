@@ -471,7 +471,7 @@ def _load_asp_lookup() -> dict:
         return {}
 
 
-def _fuzzy_asp_match(drug_name: str, generic_name: str, asp_lookup: dict) -> dict | None:
+def _fuzzy_asp_match(drug_name: str, generic_name: str, asp_lookup: dict) -> Optional[dict]:
     """Try to match a drug name against ASP short_description.
 
     Returns the ASP entry if a reasonable match is found, else None.

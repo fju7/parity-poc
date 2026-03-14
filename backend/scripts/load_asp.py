@@ -15,6 +15,7 @@ import os
 import re
 import sys
 import zipfile
+from typing import Optional
 
 import requests
 
@@ -200,7 +201,7 @@ def _parse_text(z: zipfile.ZipFile, filename: str) -> list[dict]:
     return rows_out
 
 
-def _extract_record_from_cells(cells: list) -> dict | None:
+def _extract_record_from_cells(cells: list) -> Optional[dict]:
     """Extract an ASP record from a row of cells.
 
     CMS ASP files typically have:
