@@ -36,6 +36,22 @@ BACKEND_ROOT = SCRIPTS_DIR.parent.parent
 sys.path.insert(0, str(BACKEND_ROOT))
 sys.path.insert(0, str(SCRIPTS_DIR))
 
+# Load .env file automatically when running locally.
+# On Render, env vars are injected by the platform so this is a no-op.
+try:
+    from dotenv import load_dotenv
+    _env_path = BACKEND_ROOT / ".env"
+    if _env_path.exists():
+        load_dotenv(_env_path)
+        print(f"[Pipeline] Loaded env from {_env_path}")
+    else:
+        _env_path2 = BACKEND_ROOT.parent / ".env"
+        if _env_path2.exists():
+            load_dotenv(_env_path2)
+            print(f"[Pipeline] Loaded env from {_env_path2}")
+except ImportError:
+    pass  # python-dotenv not installed — rely on shell env vars
+    
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
