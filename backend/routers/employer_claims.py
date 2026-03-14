@@ -28,6 +28,7 @@ from routers.employer_shared import (
 )
 from routers.benchmark import resolve_locality, lookup_rate
 from utils.parse_835 import parse_835
+from utils.email import send_email
 
 router = APIRouter(tags=["employer"])
 
@@ -107,26 +108,30 @@ async def employer_claims_check(
     """Analyze an employer claims file against CMS Medicare benchmarks."""
     check_rate_limit(request, max_requests=5)
 
-    # --- Free tier enforcement: 1 claims check per quarter without subscription ---
+    # --- Free trial enforcement: unlimited use for 30 days from first upload ---
     if email:
         sub_info = _check_subscription(email)
         if not sub_info["active"]:
             sb = _get_supabase()
             from datetime import datetime, timezone, timedelta
-            cutoff = (datetime.now(timezone.utc) - timedelta(days=90)).isoformat()
-            existing = (
+            # Find user's earliest claims upload to determine trial start
+            first_upload = (
                 sb.table("employer_claims_uploads")
-                .select("id", count="exact")
+                .select("created_at")
                 .eq("email", email)
-                .gte("created_at", cutoff)
+                .order("created_at", desc=False)
+                .limit(1)
                 .execute()
             )
-            upload_count = existing.count if existing.count is not None else 0
-            if upload_count >= 1:
-                raise HTTPException(
-                    status_code=402,
-                    detail="Free tier limit reached — 1 claims check per quarter. Subscribe to unlock unlimited claims analysis.",
-                )
+            if first_upload.data:
+                trial_start = datetime.fromisoformat(first_upload.data[0]["created_at"].replace("Z", "+00:00"))
+                trial_end = trial_start + timedelta(days=30)
+                now = datetime.now(timezone.utc)
+                if now > trial_end:
+                    raise HTTPException(
+                        status_code=402,
+                        detail="Your 30-day free trial has ended. Subscribe to continue using claims analysis.",
+                    )
 
     # --- Parse file ---
     content = await file.read()
@@ -1453,3 +1458,87 @@ async def employer_claims_history(email: str = Query(...)):
         "id, created_at, file_name, claim_count, total_excess"
     ).eq("email", email.strip().lower()).order("created_at", desc=True).limit(10).execute()
     return {"uploads": result.data or []}
+
+
+# ---------------------------------------------------------------------------
+# POST /broker-connect — employer requests broker connection
+# ---------------------------------------------------------------------------
+
+class BrokerConnectRequest(BaseModel):
+    employer_email: str
+    company_name: Optional[str] = None
+    employee_count_range: Optional[str] = None
+    industry: Optional[str] = None
+    state: Optional[str] = None
+    pepm: Optional[float] = None
+    percentile: Optional[float] = None
+    annual_gap: Optional[float] = None
+    excess_amount: Optional[float] = None
+    message: Optional[str] = None
+
+
+@router.post("/broker-connect")
+async def broker_connect(req: BrokerConnectRequest):
+    """Employer requests to be connected with a broker."""
+    employer_email = req.employer_email.strip().lower()
+    company_label = req.company_name or employer_email
+
+    # Notify admin
+    admin_body = f"""
+    <h2>New Broker Connection Request</h2>
+    <p><strong>Employer:</strong> {employer_email}</p>
+    <p><strong>Company:</strong> {req.company_name or 'Not provided'}</p>
+    <p><strong>Industry:</strong> {req.industry or 'N/A'} | <strong>State:</strong> {req.state or 'N/A'} | <strong>Size:</strong> {req.employee_count_range or 'N/A'}</p>
+    <p><strong>PEPM:</strong> {'$' + str(round(req.pepm)) if req.pepm else 'N/A'} | <strong>Percentile:</strong> {str(round(req.percentile, 1)) + 'th' if req.percentile else 'N/A'}</p>
+    <p><strong>Annual Gap:</strong> {'$' + str(round(req.annual_gap)) if req.annual_gap else 'N/A'} | <strong>Excess:</strong> {'$' + str(round(req.excess_amount)) if req.excess_amount else 'N/A'}</p>
+    <p><strong>Message:</strong> {req.message or 'None'}</p>
+    """
+    try:
+        send_email(
+            to="admin@civicscale.ai",
+            subject=f"New broker connection request — {company_label}",
+            html=admin_body,
+        )
+    except Exception as exc:
+        print(f"[Broker Connect] Admin email failed: {exc}")
+
+    # Confirm to employer
+    try:
+        send_email(
+            to=employer_email,
+            subject="We received your request — we'll connect you with a broker",
+            html="""
+            <div style="font-family: -apple-system, sans-serif; max-width: 520px; color: #1e293b;">
+              <p>Thanks for reaching out.</p>
+              <p>A member of the CivicScale team will follow up within 1 business day to connect you
+              with a benefits broker in our network who works with employers your size in your area.</p>
+              <p>In the meantime, your benchmark and claims results are saved and ready to share.</p>
+              <p style="color: #64748b; margin-top: 24px;">— The CivicScale Team</p>
+            </div>
+            """,
+        )
+    except Exception as exc:
+        print(f"[Broker Connect] Employer email failed: {exc}")
+
+    # Best-effort log
+    try:
+        sb = _get_supabase()
+        sb.table("employer_benchmark_sessions").insert({
+            "email": employer_email,
+            "industry": req.industry,
+            "state": req.state,
+            "pepm_input": float(req.pepm) if req.pepm else 0,
+            "result_json": {
+                "source": "broker_connect_request",
+                "company_name": req.company_name,
+                "employee_count_range": req.employee_count_range,
+                "percentile": req.percentile,
+                "annual_gap": req.annual_gap,
+                "excess_amount": req.excess_amount,
+                "message": req.message,
+            },
+        }).execute()
+    except Exception as exc:
+        print(f"[Broker Connect] Log failed: {exc}")
+
+    return {"submitted": True}

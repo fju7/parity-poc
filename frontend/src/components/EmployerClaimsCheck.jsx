@@ -518,15 +518,15 @@ export default function EmployerClaimsCheck() {
           <div style={{ textAlign: "center", paddingTop: "60px" }}>
             <div style={{ fontSize: "40px", marginBottom: "16px" }}>&#128274;</div>
             <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "26px", fontWeight: "400", color: "#f1f5f9", marginBottom: "12px" }}>
-              Free claims check used
+              Free trial ended
             </h2>
             <p style={{ fontSize: "15px", color: "#94a3b8", lineHeight: "1.7", maxWidth: "480px", margin: "0 auto 24px" }}>
-              Your free quarterly claims analysis has been used. Subscribe to unlock unlimited claims checks, RBP calculator, contract parser, and trend monitoring.
+              Your 30-day free trial has ended. Subscribe to continue using claims analysis, RBP calculator, contract parser, and trend monitoring.
             </p>
             <div style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.25)", borderRadius: "14px", padding: "24px", maxWidth: "400px", margin: "0 auto 24px" }}>
               <div style={{ fontSize: "13px", color: "#10b981", fontWeight: "600", marginBottom: "8px" }}>PLANS START AT</div>
-              <div style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>$149<span style={{ fontSize: "16px", fontWeight: "400", color: "#94a3b8" }}>/mo</span></div>
-              <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>Savings guarantee</div>
+              <div style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>$99<span style={{ fontSize: "16px", fontWeight: "400", color: "#94a3b8" }}>/mo</span></div>
+              <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>30-day free trial · Savings guarantee</div>
             </div>
             <Link to="/billing/employer/subscribe" style={{ ...btnPrimary, display: "inline-block", textDecoration: "none", width: "auto", padding: "14px 36px", background: "#10b981" }}>
               View Plans & Subscribe
@@ -633,7 +633,7 @@ export default function EmployerClaimsCheck() {
             {!result.pricing_tier && (
               <div style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.25)", borderRadius: "12px", padding: "16px 20px", marginBottom: "24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
                 <div style={{ fontSize: "13px", color: "#fbbf24" }}>
-                  <strong>Free tier:</strong> 1 claims check per quarter. Subscribe for unlimited analysis + RBP calculator + trend monitoring.
+                  <strong>Free trial:</strong> Unlimited analysis for 30 days. Subscribe for ongoing access + RBP calculator + trend monitoring.
                 </div>
                 <Link to="/billing/employer/subscribe" style={{ color: "#fbbf24", fontSize: "13px", fontWeight: "600", textDecoration: "none", whiteSpace: "nowrap" }}>
                   View plans &rarr;

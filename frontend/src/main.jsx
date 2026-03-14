@@ -90,6 +90,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/broker/dashboard" element={<Navigate to="/dashboard" replace />} />
             <Route path="/broker/account" element={<Navigate to="/account" replace />} />
             <Route path="/broker/caa-guide" element={<Navigate to="/caa-guide" replace />} />
+            <Route path="/broker/renewal-prep/:companySlug" element={<RenewalPrepReport />} />
             <Route path="/employer/shared-report/:shareToken" element={<EmployerSharedReport />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
@@ -111,11 +112,20 @@ createRoot(document.getElementById('root')).render(
             <Route path="/demo" element={<EmployerDemoPage />} />
             <Route path="/accept-invite" element={<AcceptInvitePage />} />
             {/* Also support old /billing/employer/* paths for backward compat */}
+            <Route path="/billing/employer" element={<Navigate to="/" replace />} />
             <Route path="/billing/employer/signup" element={<Navigate to="/signup" replace />} />
+            <Route path="/billing/employer/login" element={<Navigate to="/login" replace />} />
             <Route path="/billing/employer/dashboard" element={<Navigate to="/dashboard" replace />} />
             <Route path="/billing/employer/account" element={<Navigate to="/account" replace />} />
             <Route path="/billing/employer/benchmark" element={<Navigate to="/benchmark" replace />} />
             <Route path="/billing/employer/claims-check" element={<Navigate to="/claims-check" replace />} />
+            <Route path="/billing/employer/scorecard" element={<Navigate to="/scorecard" replace />} />
+            <Route path="/billing/employer/subscribe" element={<Navigate to="/subscribe" replace />} />
+            <Route path="/billing/employer/contract-parse" element={<Navigate to="/contract-parse" replace />} />
+            <Route path="/billing/employer/rbp-calculator" element={<Navigate to="/rbp-calculator" replace />} />
+            <Route path="/billing/employer/pharmacy" element={<Navigate to="/pharmacy" replace />} />
+            <Route path="/billing/employer/demo" element={<Navigate to="/demo" replace />} />
+            <Route path="/employer/login" element={<Navigate to="/login" replace />} />
             <Route path="/employer/shared-report/:shareToken" element={<EmployerSharedReport />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
