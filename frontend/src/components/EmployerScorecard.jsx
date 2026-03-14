@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import BrokerConnectCard from "./BrokerConnectCard";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -305,6 +306,16 @@ export default function EmployerScorecard() {
                 <span style={{ fontSize: "14px", color: "#94a3b8" }}>Email me a copy of this report</span>
               </label>
             )}
+
+            {/* Broker Connect */}
+            <div style={{ marginBottom: "20px" }}>
+              <BrokerConnectCard
+                benchmarkData={{
+                  email: isAuthenticated ? user?.email : (sessionStorage.getItem("cs_anon_email") || ""),
+                }}
+                source="scorecard"
+              />
+            </div>
 
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>

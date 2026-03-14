@@ -404,7 +404,9 @@ Return ONLY valid JSON matching this exact structure, with no other text:
       "recommended_action": "specific action to take",
       "appeal_letter_template": "Dear [Payer Name],\\n\\nWe are writing to appeal...",
       "count": 3,
-      "total_value": 450.00
+      "total_value": 450.00,
+      "affected_cpts": ["99213", "99214"],
+      "sample_date_of_service": "2024-12-15"
     }
   ],
   "pattern_summary": "summary of patterns across all denials",
@@ -413,7 +415,9 @@ Return ONLY valid JSON matching this exact structure, with no other text:
 }
 
 appeal_worthiness must be one of: "high", "medium", "low".
-Group denials by adjustment code. Include count and total_value per group."""
+Group denials by adjustment code. Include count and total_value per group.
+affected_cpts: list the top CPT codes (up to 5) affected by this denial type.
+sample_date_of_service: include one representative date of service from the denied claims."""
 
 
 # E&M code families for distribution analysis

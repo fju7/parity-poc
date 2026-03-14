@@ -520,7 +520,12 @@ DENIAL_SYSTEM_PROMPT = """You are a medical insurance denial analyst helping eve
   "weakness": "any apparent weakness in the denial reasoning, or null if denial appears straightforward",
   "supporting_documentation": ["list of specific documents that would strengthen an appeal"],
   "appeal_deadline_hint": "any appeal deadline mentioned, or null",
-  "confidence": "high | medium | low"
+  "confidence": "high | medium | low",
+  "patient_name": "full patient name if found in the document, or null",
+  "provider_name": "provider or facility name if found, or null",
+  "claim_number": "claim or reference number if found, or null",
+  "date_of_service": "date of service if found (any format), or null",
+  "payer_name": "insurance company name if found, or null"
 }"""
 
 

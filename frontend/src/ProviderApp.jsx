@@ -122,6 +122,7 @@ function ProviderAppInner() {
           setProfile(data.profile);
           setView("dashboard");
           loadSubscriptionId();
+          loadSavedRates();
         } else {
           setView("onboarding");
         }
@@ -146,6 +147,26 @@ function ProviderAppInner() {
       }
     } catch (err) {
       console.error("[ProviderApp] Error loading subscription:", err);
+    }
+  }
+
+  async function loadSavedRates() {
+    try {
+      const res = await fetch(`${API_BASE}/api/provider/saved-rates?user_id=${company?.id}`, {
+        headers: authHeaders,
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json.payers?.length > 0) {
+          setSavedPayers(json.payers);
+          // Set first payer as active for backward compat
+          const first = json.payers[0];
+          setSavedContractRates(first.rates);
+          setSavedPayerName(first.name);
+        }
+      }
+    } catch (err) {
+      console.error("[ProviderApp] Error loading saved rates:", err);
     }
   }
 
@@ -1775,6 +1796,9 @@ function ContractIntegrityTab({
                 }}>
                   <span style={{ fontSize: 14, color: "var(--cs-navy)" }}>
                     <strong>{p.name}</strong> — {p.codeCount} CPT codes
+                    {p.saved_at && <span style={{ fontSize: 11, color: "var(--cs-slate)", marginLeft: 8 }}>
+                      (saved {new Date(p.saved_at).toLocaleDateString()})
+                    </span>}
                   </span>
                   <button
                     onClick={() => onRemovePayer(i)}

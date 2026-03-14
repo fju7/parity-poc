@@ -80,7 +80,7 @@ function BrokerDashboardInner() {
 
   // Bulk add state
   const [showBulkPanel, setShowBulkPanel] = useState(false);
-  const EMPTY_ROW = () => ({ company_name: "", employee_count_range: "", industry: "", state: "", carrier: "", estimated_pepm: "", renewal_month: "", renewal_year: "" });
+  const EMPTY_ROW = () => ({ company_name: "", employee_count_range: "", industry: "", state: "", carrier: "", employer_email: "", estimated_pepm: "", renewal_month: "", renewal_year: "" });
   const [bulkRows, setBulkRows] = useState(() => Array.from({ length: 5 }, EMPTY_ROW));
   const [bulkErrors, setBulkErrors] = useState({});
   const [bulkRunning, setBulkRunning] = useState(false);
@@ -485,6 +485,7 @@ function BrokerDashboardInner() {
       if (!row.employee_count_range.trim()) { errors[`${i}-employee_count_range`] = true; hasError = true; }
       if (!row.industry.trim()) { errors[`${i}-industry`] = true; hasError = true; }
       if (!row.state.trim()) { errors[`${i}-state`] = true; hasError = true; }
+      if (!row.employer_email || !row.employer_email.trim() || !row.employer_email.includes("@")) { errors[`${i}-employer_email`] = true; hasError = true; }
       if (!hasError) validRows.push(row);
     });
     setBulkErrors(errors);
@@ -503,6 +504,7 @@ function BrokerDashboardInner() {
         industry: r.industry,
         state: r.state,
         carrier: r.carrier || null,
+        employer_email: r.employer_email.trim().toLowerCase(),
         estimated_pepm: r.estimated_pepm ? parseFloat(r.estimated_pepm) : null,
         renewal_month: r.renewal_month && r.renewal_year ? `${r.renewal_year}-${r.renewal_month}` : null,
       }));
@@ -522,7 +524,7 @@ function BrokerDashboardInner() {
     setBulkRunning(false);
   };
 
-  const bulkHasRequired = bulkRows.some(r => r.company_name && r.employee_count_range && r.industry && r.state);
+  const bulkHasRequired = bulkRows.some(r => r.company_name && r.employee_count_range && r.industry && r.state && r.employer_email && r.employer_email.includes("@"));
 
   // Logo upload
   const handleLogoUpload = async (e) => {
@@ -1397,10 +1399,11 @@ function BrokerDashboardInner() {
                   Your client data is used only to run the benchmarks you request. We never contact your clients directly.
                 </p>
                 <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 900 }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 1050 }}>
                     <thead>
                       <tr style={{ borderBottom: "2px solid #e2e8f0" }}>
                         <th style={thStyle}>Company Name <span style={{ color: "#EF4444" }}>*</span></th>
+                        <th style={thStyle}>Email <span style={{ color: "#EF4444" }}>*</span></th>
                         <th style={thStyle}>Employees <span style={{ color: "#EF4444" }}>*</span></th>
                         <th style={thStyle}>Industry <span style={{ color: "#EF4444" }}>*</span></th>
                         <th style={thStyle}>State <span style={{ color: "#EF4444" }}>*</span></th>
@@ -1415,6 +1418,9 @@ function BrokerDashboardInner() {
                         <tr key={i} style={{ borderBottom: "1px solid #f1f5f9" }}>
                           <td style={{ padding: 4 }}>
                             <input value={row.company_name} onChange={e => updateBulkRow(i, "company_name", e.target.value)} onPaste={e => handleBulkPaste(e, i, 0)} placeholder="Acme Corp" style={{ ...inputStyle, borderColor: bulkErrors[`${i}-company_name`] ? "#EF4444" : "#e2e8f0" }} />
+                          </td>
+                          <td style={{ padding: 4 }}>
+                            <input type="email" value={row.employer_email} onChange={e => updateBulkRow(i, "employer_email", e.target.value)} placeholder="hr@company.com" style={{ ...inputStyle, borderColor: bulkErrors[`${i}-employer_email`] ? "#EF4444" : "#e2e8f0", minWidth: 140 }} />
                           </td>
                           <td style={{ padding: 4 }}>
                             <select value={row.employee_count_range} onChange={e => updateBulkRow(i, "employee_count_range", e.target.value)} onPaste={e => handleBulkPaste(e, i, 1)} style={{ ...inputStyle, borderColor: bulkErrors[`${i}-employee_count_range`] ? "#EF4444" : "#e2e8f0" }}>
@@ -1510,8 +1516,8 @@ function BrokerDashboardInner() {
                         {CARRIER_SUGGESTIONS.map((c) => <option key={c} value={c} />)}
                       </datalist>
                     </FormField>
-                    <FormField label="Employer email (optional)">
-                      <input type="email" value={addForm.employer_email} onChange={(e) => setAddForm({ ...addForm, employer_email: e.target.value })} placeholder="hr@employer.com" style={inputStyle} />
+                    <FormField label="Employer email">
+                      <input type="email" required value={addForm.employer_email} onChange={(e) => setAddForm({ ...addForm, employer_email: e.target.value })} placeholder="hr@employer.com" style={inputStyle} />
                     </FormField>
                     <FormField label="Renewal month (optional)">
                       <div style={{ display: "flex", gap: 8 }}>
@@ -1542,7 +1548,7 @@ function BrokerDashboardInner() {
                   ) : addError ? (
                     <p style={{ color: "#991b1b", fontSize: 13, marginBottom: 12 }}>{addError}</p>
                   ) : null}
-                  <button type="submit" disabled={addLoading || !addForm.company_name} style={{ background: "#1B3A5C", color: "#fff", border: "none", borderRadius: 8, padding: "12px 28px", fontSize: 14, fontWeight: 600, cursor: "pointer", opacity: addLoading ? 0.6 : 1 }}>
+                  <button type="submit" disabled={addLoading || !addForm.company_name || !addForm.employer_email} style={{ background: "#1B3A5C", color: "#fff", border: "none", borderRadius: 8, padding: "12px 28px", fontSize: 14, fontWeight: 600, cursor: "pointer", opacity: addLoading ? 0.6 : 1 }}>
                     {addLoading ? "Running benchmark..." : "Add Client & Run Benchmark"}
                   </button>
                 </form>

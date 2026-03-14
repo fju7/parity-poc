@@ -11,9 +11,9 @@ const DENIAL_TYPE_COLORS = {
 };
 
 export default function DenialReportView({ analysis, originalText, onReset, onBack }) {
-  const [patientName, setPatientName] = useState("");
-  const [providerName, setProviderName] = useState("");
-  const [claimNumber, setClaimNumber] = useState("");
+  const [patientName, setPatientName] = useState(analysis.patient_name || "");
+  const [providerName, setProviderName] = useState(analysis.provider_name || "");
+  const [claimNumber, setClaimNumber] = useState(analysis.claim_number || "");
   const [letterText, setLetterText] = useState(null);
   const [letterLoading, setLetterLoading] = useState(false);
   const [letterError, setLetterError] = useState(null);

@@ -171,6 +171,42 @@ async def save_rates(req: SaveRatesRequest):
     return {"status": "ok", "saved": len(req.rates)}
 
 
+@router.get("/saved-rates")
+async def get_saved_rates(user_id: str):
+    """Load all saved contract rates for a provider company."""
+    try:
+        sb = _get_supabase()
+        result = (
+            sb.table("provider_contracts")
+            .select("payer_name, rates, created_at")
+            .eq("company_id", user_id)
+            .order("created_at", desc=True)
+            .execute()
+        )
+        payers = []
+        for row in result.data or []:
+            rates_dict = {}
+            for item in row.get("rates") or []:
+                cpt = item.get("cpt")
+                # Flatten multi-payer rates to first available rate value
+                rate_vals = item.get("rates", {})
+                if isinstance(rate_vals, dict):
+                    for v in rate_vals.values():
+                        if v is not None:
+                            rates_dict[cpt] = v
+                            break
+            payers.append({
+                "name": row["payer_name"],
+                "rates": rates_dict,
+                "codeCount": len(rates_dict),
+                "saved_at": row.get("created_at"),
+            })
+        return {"payers": payers}
+    except Exception as exc:
+        print(f"[Provider] Failed to load saved rates: {exc}")
+        return {"payers": []}
+
+
 # ---------------------------------------------------------------------------
 # POST /parse-835
 # ---------------------------------------------------------------------------

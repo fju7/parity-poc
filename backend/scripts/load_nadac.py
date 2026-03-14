@@ -20,7 +20,7 @@ import requests
 # CMS NADAC API endpoint (Medicaid.gov data store)
 # ---------------------------------------------------------------------------
 
-NADAC_API_URL = "https://data.medicaid.gov/api/1/datastore/query/a]a88380-91e6-4f1b-b0a0-f6fad1ab09bf/0"
+NADAC_API_URL = "https://data.medicaid.gov/api/1/datastore/query/dfa2ab14-06c2-457a-9e36-5cb6d80f8d93/0"
 
 # We paginate in chunks — the API returns max 500 per request by default
 PAGE_SIZE = 500
@@ -38,7 +38,12 @@ def get_supabase():
 
 
 def fetch_nadac_data():
-    """Download NADAC data from CMS API with pagination."""
+    """Download NADAC data from CMS API with pagination.
+
+    Sorted by as_of_date descending so we get the most recent entries first.
+    We deduplicate by NDC, keeping only the first (most recent) entry per NDC.
+    """
+    seen_ndcs = set()
     all_rows = []
     offset = 0
 
@@ -50,8 +55,8 @@ def fetch_nadac_data():
                 params={
                     "limit": PAGE_SIZE,
                     "offset": offset,
-                    "sort[0][property]": "ndc",
-                    "sort[0][order]": "asc",
+                    "sort[0][property]": "as_of_date",
+                    "sort[0][order]": "desc",
                 },
                 timeout=60,
             )
@@ -65,10 +70,17 @@ def fetch_nadac_data():
         if not results:
             break
 
+        new_this_page = 0
         for row in results:
             ndc = row.get("ndc", "").replace("-", "").strip()
             if not ndc:
                 continue
+
+            # Skip if we already have a more recent entry for this NDC
+            if ndc in seen_ndcs:
+                continue
+            seen_ndcs.add(ndc)
+            new_this_page += 1
 
             drug_name = row.get("ndc_description", "").strip()
             nadac_str = row.get("nadac_per_unit", "")
@@ -94,7 +106,13 @@ def fetch_nadac_data():
                 "effective_date": effective_date or None,
             })
 
+        print(f"    {new_this_page} new NDCs this page ({len(all_rows)} total unique)")
+
         if len(results) < PAGE_SIZE:
+            break
+        # Stop early if we're getting mostly duplicates (>90% seen)
+        if new_this_page < PAGE_SIZE * 0.1:
+            print(f"    Mostly duplicates — stopping pagination.")
             break
         offset += PAGE_SIZE
 

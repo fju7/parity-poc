@@ -138,10 +138,10 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         body: JSON.stringify({
           claim_id: denialType.adjustment_code,
           denial_code: denialType.adjustment_code,
-          cpt_code: "",
+          cpt_code: (denialType.affected_cpts || []).join(", "),
           billed_amount: denialType.total_value || 0,
           payer_name: payerName,
-          date_of_service: "",
+          date_of_service: denialType.sample_date_of_service || "",
           practice_name: practiceName,
           practice_address: practiceInfo?.practice_address || "",
           provider_name: practiceInfo?.provider_name || "",
