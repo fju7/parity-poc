@@ -1466,6 +1466,7 @@ async def employer_claims_history(email: str = Query(...)):
 
 class BrokerConnectRequest(BaseModel):
     employer_email: str
+    requester_name: Optional[str] = None
     company_name: Optional[str] = None
     employee_count_range: Optional[str] = None
     industry: Optional[str] = None
@@ -1486,7 +1487,8 @@ async def broker_connect(req: BrokerConnectRequest):
     # Notify admin
     admin_body = f"""
     <h2>New Broker Connection Request</h2>
-    <p><strong>Employer:</strong> {employer_email}</p>
+    <p><strong>Name:</strong> {req.requester_name or 'Not provided'}</p>
+    <p><strong>Email:</strong> {employer_email}</p>
     <p><strong>Company:</strong> {req.company_name or 'Not provided'}</p>
     <p><strong>Industry:</strong> {req.industry or 'N/A'} | <strong>State:</strong> {req.state or 'N/A'} | <strong>Size:</strong> {req.employee_count_range or 'N/A'}</p>
     <p><strong>PEPM:</strong> {'$' + str(round(req.pepm)) if req.pepm else 'N/A'} | <strong>Percentile:</strong> {str(round(req.percentile, 1)) + 'th' if req.percentile else 'N/A'}</p>

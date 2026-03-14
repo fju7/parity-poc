@@ -81,7 +81,7 @@ export default function EmployerPharmacy() {
           <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "-0.02em" }}>CivicScale</span>
         </Link>
         <nav className="cs-home-nav">
-          <Link to="/billing/employer" style={{ color: "#60a5fa", textDecoration: "none" }}>Parity Employer</Link>
+          <Link to="/dashboard" style={{ color: "#60a5fa", textDecoration: "none" }}>Parity Employer</Link>
         </nav>
       </header>
 
@@ -89,7 +89,7 @@ export default function EmployerPharmacy() {
 
         {/* Tab toggle */}
         <div style={{ display: "flex", gap: "4px", background: "rgba(255,255,255,0.04)", borderRadius: "10px", padding: "4px", marginBottom: "28px", maxWidth: "320px", margin: "0 auto 28px" }}>
-          <Link to="/billing/employer/claims-check" style={{ flex: 1, textAlign: "center", padding: "10px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: "600", color: "#94a3b8", textDecoration: "none", background: "transparent" }}>
+          <Link to="/claims-check" style={{ flex: 1, textAlign: "center", padding: "10px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: "600", color: "#94a3b8", textDecoration: "none", background: "transparent" }}>
             Medical Claims
           </Link>
           <div style={{ flex: 1, textAlign: "center", padding: "10px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: "600", color: "#f1f5f9", background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.3)" }}>
@@ -384,13 +384,13 @@ export default function EmployerPharmacy() {
 
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <Link to="/billing/employer/claims-check" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>
+              <Link to="/claims-check" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>
                 Analyze Medical Claims &rarr;
               </Link>
-              <Link to="/billing/employer/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>
+              <Link to="/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>
                 Get ongoing monitoring &rarr;
               </Link>
-              <Link to="/billing/employer" style={{ textAlign: "center", color: "#94a3b8", fontSize: "14px", textDecoration: "none" }}>
+              <Link to="/dashboard" style={{ textAlign: "center", color: "#94a3b8", fontSize: "14px", textDecoration: "none" }}>
                 &larr; Back to Parity Employer
               </Link>
             </div>

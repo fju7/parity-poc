@@ -328,7 +328,7 @@ export default function EmployerDemoPage() {
       >
         You're viewing a demo with sample data.{" "}
         <Link
-          to="/billing/employer"
+          to="/dashboard"
           style={{ color: "#60a5fa", fontWeight: "600", textDecoration: "none" }}
         >
           Learn more &rarr;
@@ -449,10 +449,10 @@ export default function EmployerDemoPage() {
               This demo uses sample data for {COMPANY.name}. Start your free benchmark with your own numbers &mdash; 30-day free trial, cancel anytime.
             </p>
             <p style={{ fontSize: "13px", color: "#10b981", marginBottom: "16px" }}>
-              Plans from $149/mo &middot; Savings guarantee
+              Plans from $99/mo &middot; Savings guarantee
             </p>
             <Link
-              to="/billing/employer/benchmark"
+              to="/benchmark"
               style={{
                 display: "inline-block",
                 background: "#3b82f6",
@@ -864,7 +864,7 @@ function GettingStartedTab({ onNavigate }) {
         </button>
         <div style={{ marginTop: "12px" }}>
           <Link
-            to="/billing/employer/benchmark"
+            to="/benchmark"
             style={{ fontSize: "13px", color: "#64748b", textDecoration: "none" }}
           >
             This demo uses sample data. Start your free benchmark with your own numbers &rarr;
@@ -1335,7 +1335,7 @@ function ScorecardTab() {
       {/* CTA */}
       <div style={{ marginTop: "28px", textAlign: "center" }}>
         <Link
-          to="/billing/employer/subscribe"
+          to="/subscribe"
           style={{
             display: "inline-block",
             background: "#3b82f6",
@@ -1548,7 +1548,7 @@ function RBPCalculatorTab() {
           </div>
         </a>
         <Link
-          to="/billing/employer/demo"
+          to="/demo"
           style={{
             ...cardStyle,
             textAlign: "center",
@@ -1726,7 +1726,7 @@ function MonitoringTab() {
     { dimension: "Review frequency", broker: "Annual renewal", parity: "Monthly" },
     { dimension: "Benchmark source", broker: "Carrier \u201cmarket rates\u201d", parity: "841,000 Medicare procedure rates \u2014 public and verifiable" },
     { dimension: "Conflicts of interest", broker: "Paid by carriers", parity: "No carrier relationships, no commissions" },
-    { dimension: "Cost", broker: "$150K\u2013$300K/year (mid-market)", parity: "From $149/month" },
+    { dimension: "Cost", broker: "$150K\u2013$300K/year (mid-market)", parity: "From $99/month" },
   ];
 
   return (

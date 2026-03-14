@@ -154,7 +154,7 @@ async def employer_pharmacy_analyze(
                 for _, row in df.iterrows():
                     billed = _safe_float(row.get(col_map.get("billed_amount", ""), 0))
                     line_items.append({
-                        "ndc_code": str(row.get(col_map.get("ndc_code", ""), "")).strip() or None,
+                        "ndc_code": (lambda v: v.zfill(11) if v and v.isdigit() else v or None)(str(row.get(col_map.get("ndc_code", ""), "")).replace("-", "").strip()),
                         "drug_name": str(row.get(col_map.get("drug_name", ""), "")).strip(),
                         "generic_name": str(row.get(col_map.get("generic_name", ""), "")).strip() or None,
                         "brand_or_generic": str(row.get(col_map.get("brand_or_generic", ""), "unknown")).strip().lower(),
@@ -229,6 +229,8 @@ async def employer_pharmacy_analyze(
 
         # NADAC lookup
         ndc = str(item.get("ndc_code", "")).replace("-", "").strip()
+        if ndc and ndc.isdigit():
+            ndc = ndc.zfill(11)
         nadac_per_unit = None
         nadac_cost = None
         spread = None
@@ -386,6 +388,8 @@ def _load_nadac_lookup() -> dict:
         lookup = {}
         for row in result.data or []:
             ndc = str(row.get("ndc_code", "")).replace("-", "").strip()
+            if ndc and ndc.isdigit():
+                ndc = ndc.zfill(11)
             val = row.get("nadac_per_unit")
             if ndc and val is not None:
                 lookup[ndc] = float(val)

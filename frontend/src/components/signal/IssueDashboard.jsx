@@ -50,7 +50,7 @@ function SummaryThemeSection({ category, categoryData, consensusMap, glossary, d
   const dotColor = STATUS_DOT_COLOR[status] || "bg-gray-300";
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden">
+    <div className="border border-gray-200 rounded-xl overflow-hidden bg-white">
       <button
         onClick={() => {
           if (!open) {
@@ -91,7 +91,7 @@ function DebateItem({ item, glossary }) {
 
   return (
     <div
-      className={`rounded-xl overflow-hidden border ${
+      className={`rounded-xl overflow-hidden border bg-white ${
         isDebated ? "border-amber-200" : "border-gray-200"
       }`}
     >

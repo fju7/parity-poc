@@ -4,6 +4,7 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function BrokerConnectCard({ benchmarkData = {}, source = "benchmark" }) {
   const [showForm, setShowForm] = useState(false);
+  const [formName, setFormName] = useState("");
   const [formEmail, setFormEmail] = useState(benchmarkData.email || "");
   const [formCompany, setFormCompany] = useState("");
   const [formMessage, setFormMessage] = useState("");
@@ -42,6 +43,7 @@ export default function BrokerConnectCard({ benchmarkData = {}, source = "benchm
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           employer_email: formEmail,
+          requester_name: formName || null,
           company_name: formCompany || null,
           employee_count_range: benchmarkData.company_size || null,
           industry: benchmarkData.industry || null,
@@ -79,11 +81,23 @@ export default function BrokerConnectCard({ benchmarkData = {}, source = "benchm
           </p>
           <a
             href={buildMailtoLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              // Fallback: if mailto fails, try window.open
+              const url = buildMailtoLink();
+              const w = window.open(url, "_blank");
+              if (!w) {
+                // If popup blocked, fall through to default href behavior
+                return;
+              }
+              e.preventDefault();
+            }}
             style={{
               display: "block", textAlign: "center", padding: "10px 16px",
               border: "1px solid #0d9488", borderRadius: "8px",
               color: "#0d9488", fontSize: "14px", fontWeight: "600",
-              textDecoration: "none",
+              textDecoration: "none", cursor: "pointer",
             }}
           >
             Open Email Draft
@@ -121,6 +135,12 @@ export default function BrokerConnectCard({ benchmarkData = {}, source = "benchm
             </button>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <input
+                value={formName}
+                onChange={e => setFormName(e.target.value)}
+                placeholder="Your name"
+                style={{ padding: "8px 12px", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "6px", fontSize: "13px", background: "rgba(255,255,255,0.04)", color: "#f1f5f9", boxSizing: "border-box" }}
+              />
               <input
                 value={formEmail}
                 onChange={e => setFormEmail(e.target.value)}

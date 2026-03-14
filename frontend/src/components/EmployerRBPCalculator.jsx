@@ -140,7 +140,7 @@ export default function EmployerRBPCalculator() {
           <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "-0.02em" }}>CivicScale</span>
         </Link>
         <nav className="cs-home-nav">
-          <Link to="/billing/employer" style={{ color: "#60a5fa", textDecoration: "none" }}>Parity Employer</Link>
+          <Link to="/dashboard" style={{ color: "#60a5fa", textDecoration: "none" }}>Parity Employer</Link>
         </nav>
       </header>
 
@@ -176,7 +176,7 @@ export default function EmployerRBPCalculator() {
                 </label>
                 {!sessionId && (
                   <p style={{ fontSize: "12px", color: "#f59e0b", marginTop: "6px" }}>
-                    No recent claims session found. <Link to="/billing/employer/claims-check" style={{ color: "#60a5fa" }}>Run a claims check first</Link>.
+                    No recent claims session found. <Link to="/claims-check" style={{ color: "#60a5fa" }}>Run a claims check first</Link>.
                   </p>
                 )}
               </div>
@@ -263,10 +263,10 @@ export default function EmployerRBPCalculator() {
             </p>
             <div style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.25)", borderRadius: "14px", padding: "24px", maxWidth: "400px", margin: "0 auto 24px" }}>
               <div style={{ fontSize: "13px", color: "#10b981", fontWeight: "600", marginBottom: "8px" }}>PLANS START AT</div>
-              <div style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>$149<span style={{ fontSize: "16px", fontWeight: "400", color: "#94a3b8" }}>/mo</span></div>
+              <div style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>$99<span style={{ fontSize: "16px", fontWeight: "400", color: "#94a3b8" }}>/mo</span></div>
               <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>Savings guarantee</div>
             </div>
-            <Link to="/billing/employer/subscribe" style={{ ...btnPrimary, display: "inline-block", textDecoration: "none", width: "auto", padding: "14px 36px", background: "#10b981" }}>
+            <Link to="/subscribe" style={{ ...btnPrimary, display: "inline-block", textDecoration: "none", width: "auto", padding: "14px 36px", background: "#10b981" }}>
               View Plans & Subscribe
             </Link>
             <div style={{ marginTop: "16px" }}>
@@ -455,7 +455,7 @@ export default function EmployerRBPCalculator() {
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(59,130,246,0.18)", borderRadius: "14px", padding: "24px", marginBottom: "24px" }}>
               <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#cbd5e1", marginBottom: "16px" }}>Next Steps</h3>
               <Link
-                to="/billing/employer/scorecard"
+                to="/scorecard"
                 style={{
                   display: "block",
                   background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(16,185,129,0.06))",
@@ -487,7 +487,7 @@ export default function EmployerRBPCalculator() {
                   <div style={{ fontSize: "11px", color: "#64748b" }}>Share with your broker</div>
                 </button>
                 <Link
-                  to="/billing/employer/claims-check"
+                  to="/claims-check"
                   style={{
                     background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.25)",
                     borderRadius: "10px", padding: "20px 16px", textDecoration: "none",
@@ -508,7 +508,7 @@ export default function EmployerRBPCalculator() {
               <button onClick={() => setView("input")} style={btnPrimary}>
                 Recalculate with Different Multiplier
               </button>
-              <Link to="/billing/employer" style={{ textAlign: "center", color: "#64748b", fontSize: "14px", textDecoration: "none" }}>
+              <Link to="/dashboard" style={{ textAlign: "center", color: "#64748b", fontSize: "14px", textDecoration: "none" }}>
                 &larr; Back to Parity Employer
               </Link>
             </div>

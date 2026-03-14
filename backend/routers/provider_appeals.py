@@ -150,6 +150,43 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     """Generate a formal appeal letter for a denied or underpaid claim."""
     user = _get_authenticated_user(request)
 
+    # Auto-populate from provider profile if fields are empty
+    practice_name = req.practice_name
+    provider_name = req.provider_name
+    npi = req.npi
+    practice_address = req.practice_address
+
+    if not practice_name or not npi:
+        try:
+            sb = _get_supabase()
+            profile = sb.table("provider_profiles").select("*").eq("company_id", str(user.id)).execute()
+            if profile.data:
+                p = profile.data[0]
+                practice_name = practice_name or p.get("practice_name", "")
+                npi = npi or p.get("npi", "")
+                provider_name = provider_name or p.get("practice_name", "")
+        except Exception:
+            pass
+
+    # Look up contracted rate for the CPT code from saved rates
+    contracted_rate_info = ""
+    if req.cpt_code and req.payer_name:
+        try:
+            sb = _get_supabase()
+            contracts = sb.table("provider_contracts").select("rates").eq("company_id", str(user.id)).eq("payer_name", req.payer_name).order("created_at", desc=True).limit(1).execute()
+            if contracts.data:
+                for rate_item in contracts.data[0].get("rates") or []:
+                    cpt = rate_item.get("cpt", "")
+                    if cpt in req.cpt_code:
+                        rate_vals = rate_item.get("rates", {})
+                        if isinstance(rate_vals, dict):
+                            for v in rate_vals.values():
+                                if v is not None:
+                                    contracted_rate_info += f"Contracted rate for CPT {cpt}: ${v:.2f}. "
+                                    break
+        except Exception:
+            pass
+
     prompt_data = json.dumps({
         "claim_id": req.claim_id,
         "denial_code": req.denial_code,
@@ -157,11 +194,12 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "billed_amount": req.billed_amount,
         "payer_name": req.payer_name,
         "date_of_service": req.date_of_service,
-        "practice_name": req.practice_name,
-        "practice_address": req.practice_address,
-        "provider_name": req.provider_name,
-        "npi": req.npi,
+        "practice_name": practice_name,
+        "practice_address": practice_address,
+        "provider_name": provider_name,
+        "npi": npi,
         "patient_name": req.patient_name,
+        "contracted_rate_info": contracted_rate_info or None,
     })
 
     result = _call_claude(
@@ -176,7 +214,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     # Generate PDF
     pdf_bytes = _generate_appeal_pdf(
         letter_text=result.get("letter_text", ""),
-        practice_name=req.practice_name or "Practice",
+        practice_name=practice_name or "Practice",
         payer_name=req.payer_name or "Payer",
         claim_id=req.claim_id or "N/A",
     )

@@ -205,7 +205,7 @@ export default function EmployerClaimsCheck() {
           <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "-0.02em" }}>CivicScale</span>
         </Link>
         <nav className="cs-home-nav">
-          <Link to="/billing/employer" style={{ color: "#60a5fa", textDecoration: "none" }}>Parity Employer</Link>
+          <Link to="/dashboard" style={{ color: "#60a5fa", textDecoration: "none" }}>Parity Employer</Link>
         </nav>
       </header>
 
@@ -216,7 +216,7 @@ export default function EmployerClaimsCheck() {
           <div style={{ flex: 1, textAlign: "center", padding: "10px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: "600", color: "#f1f5f9", background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.3)" }}>
             Medical Claims
           </div>
-          <Link to="/billing/employer/pharmacy" style={{ flex: 1, textAlign: "center", padding: "10px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: "600", color: "#94a3b8", textDecoration: "none", background: "transparent" }}>
+          <Link to="/pharmacy" style={{ flex: 1, textAlign: "center", padding: "10px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: "600", color: "#94a3b8", textDecoration: "none", background: "transparent" }}>
             Pharmacy Claims
           </Link>
         </div>
@@ -528,7 +528,7 @@ export default function EmployerClaimsCheck() {
               <div style={{ fontSize: "36px", fontWeight: "700", color: "#f1f5f9" }}>$99<span style={{ fontSize: "16px", fontWeight: "400", color: "#94a3b8" }}>/mo</span></div>
               <div style={{ fontSize: "13px", color: "#94a3b8", marginTop: "4px" }}>30-day free trial · Savings guarantee</div>
             </div>
-            <Link to="/billing/employer/subscribe" style={{ ...btnPrimary, display: "inline-block", textDecoration: "none", width: "auto", padding: "14px 36px", background: "#10b981" }}>
+            <Link to="/subscribe" style={{ ...btnPrimary, display: "inline-block", textDecoration: "none", width: "auto", padding: "14px 36px", background: "#10b981" }}>
               View Plans & Subscribe
             </Link>
             <div style={{ marginTop: "16px" }}>
@@ -617,7 +617,7 @@ export default function EmployerClaimsCheck() {
                   </div>
                 </div>
                 <Link
-                  to={`/billing/employer/subscribe`}
+                  to={`/subscribe`}
                   style={{
                     background: "#10b981", color: "#fff", padding: "12px 24px",
                     borderRadius: "8px", fontWeight: "600", fontSize: "14px",
@@ -635,7 +635,7 @@ export default function EmployerClaimsCheck() {
                 <div style={{ fontSize: "13px", color: "#fbbf24" }}>
                   <strong>Free trial:</strong> Unlimited analysis for 30 days. Subscribe for ongoing access + RBP calculator + trend monitoring.
                 </div>
-                <Link to="/billing/employer/subscribe" style={{ color: "#fbbf24", fontSize: "13px", fontWeight: "600", textDecoration: "none", whiteSpace: "nowrap" }}>
+                <Link to="/subscribe" style={{ color: "#fbbf24", fontSize: "13px", fontWeight: "600", textDecoration: "none", whiteSpace: "nowrap" }}>
                   View plans &rarr;
                 </Link>
               </div>
@@ -884,16 +884,16 @@ export default function EmployerClaimsCheck() {
 
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <Link to="/billing/employer/rbp-calculator" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>
+              <Link to="/rbp-calculator" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>
                 Calculate RBP Savings &rarr;
               </Link>
-              <Link to="/billing/employer/scorecard" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none", background: "#1e3a5f" }}>
+              <Link to="/scorecard" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none", background: "#1e3a5f" }}>
                 Grade Your Plan Design &rarr;
               </Link>
-              <Link to="/billing/employer/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>
+              <Link to="/subscribe" style={{ textAlign: "center", color: "#60a5fa", fontSize: "14px", textDecoration: "none" }}>
                 {result.pricing_tier ? `Subscribe — ${result.pricing_tier_label} from $${result.pricing_tier_price}/mo` : "Get ongoing monitoring"} &rarr;
               </Link>
-              <Link to="/billing/employer" style={{ textAlign: "center", color: "#94a3b8", fontSize: "14px", textDecoration: "none" }}>
+              <Link to="/dashboard" style={{ textAlign: "center", color: "#94a3b8", fontSize: "14px", textDecoration: "none" }}>
                 &larr; Back to Parity Employer
               </Link>
             </div>
