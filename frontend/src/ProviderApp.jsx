@@ -1125,6 +1125,7 @@ function ProviderAppInner() {
           historicalReport ? (
             <HistoricalReportView
               record={historicalReport}
+              profile={profile}
               sortField={sortField}
               sortDir={sortDir}
               onSort={handleSort}
@@ -2746,7 +2747,7 @@ function TrendsTab({ data, loading, error, subscriptionId, onLoad, onDraftAppeal
 // Historical Report Viewer
 // ═══════════════════════════════════════════════════════════════════
 
-function HistoricalReportView({ record, sortField, sortDir, onSort, getSortedLines, onBack }) {
+function HistoricalReportView({ record, profile, sortField, sortDir, onSort, getSortedLines, onBack }) {
   const rj = record.result_json || {};
   const s = rj.summary || {};
   const sc = rj.scorecard || {};
