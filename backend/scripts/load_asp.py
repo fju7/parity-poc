@@ -24,9 +24,8 @@ import requests
 # ---------------------------------------------------------------------------
 
 ASP_URLS = [
-    "https://www.cms.gov/files/zip/2026-asp-pricing-files.zip",
-    "https://downloads.cms.gov/Medicare/Medicare-Fee-for-Service-Part-B-Drugs/McrPartBDrugAvgSalesPrice/Downloads/2026ASPFiles.zip",
-    "https://www.cms.gov/files/zip/2025-asp-pricing-files-q4.zip",
+    ("https://www.cms.gov/files/zip/april-2026-medicare-part-b-payment-limit-files-03-10-2026-preliminary-file.zip", "2026-Q2-preliminary"),
+    ("https://www.cms.gov/files/zip/january-2026-medicare-part-b-payment-limit-files-03-10-2026-final-file.zip", "2026-Q1"),
 ]
 
 
@@ -40,16 +39,17 @@ def get_supabase():
     return create_client(url, key)
 
 
-def download_asp_zip() -> bytes:
-    """Try each CMS URL until one works. Returns ZIP file bytes."""
-    for url in ASP_URLS:
+def download_asp_zip() -> tuple:
+    """Try each CMS URL until one works. Returns (ZIP bytes, effective_quarter)."""
+    for url, quarter in ASP_URLS:
         print(f"  Trying: {url}")
         try:
             resp = requests.get(url, timeout=120, stream=True)
             if resp.status_code == 200:
                 data = resp.content
                 print(f"  Downloaded {len(data):,} bytes from {url}")
-                return data
+                print(f"  Effective quarter: {quarter}")
+                return data, quarter
             else:
                 print(f"  HTTP {resp.status_code} — trying next URL...")
         except Exception as exc:
@@ -268,16 +268,6 @@ def _extract_record_from_cells(cells: list) -> Optional[dict]:
     }
 
 
-def determine_quarter(url_used: str) -> str:
-    """Guess effective quarter from the URL or filename."""
-    if "2026" in url_used:
-        return "2026-Q1"
-    if "q4" in url_used.lower() or "Q4" in url_used:
-        return "2025-Q4"
-    if "q3" in url_used.lower():
-        return "2025-Q3"
-    return "2025-Q4"
-
 
 def upsert_to_supabase(sb, rows: list[dict], quarter: str) -> int:
     """Clear existing data and insert all ASP records."""
@@ -318,7 +308,7 @@ def main():
     print("=== Medicare Part B ASP Loader ===")
 
     print("1. Downloading ASP pricing file from CMS...")
-    zip_bytes = download_asp_zip()
+    zip_bytes, quarter = download_asp_zip()
 
     print("2. Extracting pricing data from ZIP...")
     z = zipfile.ZipFile(io.BytesIO(zip_bytes))
@@ -337,18 +327,6 @@ def main():
     for r in rows[:5]:
         print(f"    {r['hcpcs_code']} | {r.get('short_description', '')[:40]} | "
               f"${r['payment_limit']:.4f} | {r.get('dosage', '')}")
-
-    # Determine quarter
-    quarter = determine_quarter(zip_bytes.decode("latin-1", errors="replace")[:100] if len(zip_bytes) < 200 else "2026")
-    # Better: use the URL that worked
-    for url in ASP_URLS:
-        try:
-            resp = requests.head(url, timeout=10)
-            if resp.status_code == 200:
-                quarter = determine_quarter(url)
-                break
-        except Exception:
-            continue
     print(f"  Effective quarter: {quarter}")
 
     print("3. Connecting to Supabase...")
