@@ -168,7 +168,6 @@ def _fetch_provider_context(user_id: str) -> dict:
     Returns dict with practice_name, npi, practice_address, billing_contact,
     and a contracts dict keyed by payer_name.
     """
-    print(f"DEBUG APPEAL: _fetch_provider_context called for company_id={user_id}")
     ctx = {
         "practice_name": "",
         "npi": "",
@@ -179,7 +178,6 @@ def _fetch_provider_context(user_id: str) -> dict:
     try:
         sb = _get_supabase()
         profile = sb.table("provider_profiles").select("*").eq("company_id", user_id).execute()
-        print(f"DEBUG APPEAL: profile query returned {len(profile.data or [])} rows, data={profile.data}")
         if profile.data:
             p = profile.data[0]
             ctx["practice_name"] = p.get("practice_name", "") or ""
@@ -209,9 +207,6 @@ def _fetch_provider_context(user_id: str) -> dict:
     except Exception as exc:
         print(f"[Appeal] Failed to fetch contracts: {exc}")
 
-    print(f"DEBUG APPEAL: context result: practice_name='{ctx['practice_name']}' npi='{ctx['npi']}' "
-          f"practice_address='{ctx['practice_address']}' billing_contact='{ctx['billing_contact']}' "
-          f"contracts_payers={list(ctx['contracts'].keys())}")
     return ctx
 
 
@@ -239,14 +234,6 @@ def _build_prompt_data(denial: dict, ctx: dict) -> str:
     contracted_rate_info = _lookup_contracted_rates(
         ctx, denial.get("payer_name", ""), denial.get("cpt_code", "")
     )
-
-    print(f"DEBUG APPEAL: _build_prompt_data merging — "
-          f"denial.practice_name='{denial.get('practice_name', '')}' ctx.practice_name='{ctx['practice_name']}' → final='{practice_name}' | "
-          f"denial.npi='{denial.get('npi', '')}' ctx.npi='{ctx['npi']}' → final='{npi}' | "
-          f"denial.practice_address='{denial.get('practice_address', '')}' ctx.practice_address='{ctx['practice_address']}' → final='{practice_address}' | "
-          f"billing_contact='{billing_contact}' | "
-          f"date_of_service='{denial.get('date_of_service', '')}' | "
-          f"contracted_rate_info='{contracted_rate_info or 'NONE'}'")
 
     return json.dumps({
         "claim_id": denial.get("claim_id", ""),

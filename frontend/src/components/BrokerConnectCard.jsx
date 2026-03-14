@@ -12,27 +12,6 @@ export default function BrokerConnectCard({ benchmarkData = {}, source = "benchm
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
-  const buildMailtoLink = () => {
-    const subject = encodeURIComponent(
-      `Benefits benchmark results for ${formCompany || "our plan"} — renewal prep`
-    );
-    const pepmLine = benchmarkData.pepm ? `Our current PEPM is $${Math.round(benchmarkData.pepm)}.` : "";
-    const pctLine = benchmarkData.percentile
-      ? ` That puts us at the ${Math.round(benchmarkData.percentile)}th percentile compared to similar employers.`
-      : "";
-    const gapLine = benchmarkData.annual_gap && benchmarkData.annual_gap > 0
-      ? ` The benchmark identified an annual gap of $${Math.round(benchmarkData.annual_gap).toLocaleString()} per employee.`
-      : "";
-    const excessLine = benchmarkData.excess_amount && benchmarkData.excess_amount > 0
-      ? ` Our claims analysis found $${Math.round(benchmarkData.excess_amount).toLocaleString()} in excess charges vs. 2x Medicare rates.`
-      : "";
-
-    const body = encodeURIComponent(
-      `Hi,\n\nI ran an independent benchmark on our health plan through CivicScale and wanted to share the results with you before our next renewal.\n\n${pepmLine}${pctLine}${gapLine}${excessLine}\n\nYou can see the full analysis at employer.civicscale.ai/benchmark\n\nCan we set up time to discuss this before our renewal?\n\nThanks`
-    );
-    return `mailto:?subject=${subject}&body=${body}`;
-  };
-
   const handleSubmit = async () => {
     if (!formEmail) return;
     setSubmitting(true);
@@ -68,40 +47,38 @@ export default function BrokerConnectCard({ benchmarkData = {}, source = "benchm
   };
 
   return (
-    <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "14px", padding: "24px" }}>
+    <div className="broker-connect-card" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "14px", padding: "24px" }}>
+      <style>{`
+        @media print {
+          body { background: #fff !important; color: #1e293b !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          .broker-connect-card { display: none !important; }
+          nav, header, footer, button, .no-print { display: none !important; }
+          * { color: #1e293b !important; border-color: #e2e8f0 !important; }
+          table { border-collapse: collapse; }
+          table th, table td { border: 1px solid #e2e8f0 !important; padding: 6px 10px !important; }
+        }
+      `}</style>
       <div style={{ fontSize: "11px", fontWeight: "600", color: "#0d9488", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>WORK WITH A BROKER</div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 1fr", gap: "20px" }}>
-        {/* Option A — Share with broker */}
+        {/* Option A — Download report as PDF */}
         <div>
-          <div style={{ fontSize: "20px", marginBottom: "8px" }}>&#9993;</div>
-          <h4 style={{ fontSize: "15px", fontWeight: "600", color: "#f1f5f9", margin: "0 0 6px" }}>Share with your broker</h4>
+          <div style={{ fontSize: "20px", marginBottom: "8px" }}>&#128196;</div>
+          <h4 style={{ fontSize: "15px", fontWeight: "600", color: "#f1f5f9", margin: "0 0 6px" }}>Download report</h4>
           <p style={{ fontSize: "13px", color: "#94a3b8", margin: "0 0 16px", lineHeight: "1.5" }}>
-            Email them this analysis so they have context before your renewal.
+            Save this analysis as a PDF to share with your broker or keep for your records.
           </p>
-          <a
-            href={buildMailtoLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => {
-              // Fallback: if mailto fails, try window.open
-              const url = buildMailtoLink();
-              const w = window.open(url, "_blank");
-              if (!w) {
-                // If popup blocked, fall through to default href behavior
-                return;
-              }
-              e.preventDefault();
-            }}
+          <button
+            onClick={() => window.print()}
             style={{
-              display: "block", textAlign: "center", padding: "10px 16px",
-              border: "1px solid #0d9488", borderRadius: "8px",
+              display: "block", width: "100%", textAlign: "center", padding: "10px 16px",
+              border: "1px solid #0d9488", borderRadius: "8px", background: "transparent",
               color: "#0d9488", fontSize: "14px", fontWeight: "600",
-              textDecoration: "none", cursor: "pointer",
+              cursor: "pointer",
             }}
           >
-            Open Email Draft
-          </a>
+            Download as PDF
+          </button>
         </div>
 
         {/* Divider */}
