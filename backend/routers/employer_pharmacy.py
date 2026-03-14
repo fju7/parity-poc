@@ -192,6 +192,20 @@ async def employer_pharmacy_analyze(
     # ----- Benchmark against NADAC -----
     nadac_lookup = _load_nadac_lookup()
 
+    # DEBUG: compare first 3 NDCs from uploaded file vs pharmacy_nadac table
+    file_ndcs = []
+    for item in line_items[:3]:
+        raw = str(item.get("ndc_code", "")).replace("-", "").strip()
+        if raw and raw.isdigit():
+            raw = raw.zfill(11)
+        file_ndcs.append(raw)
+    table_ndcs = list(nadac_lookup.keys())[:3]
+    print(f"[Pharmacy DEBUG] First 3 file NDCs:  {file_ndcs}")
+    print(f"[Pharmacy DEBUG] First 3 table NDCs: {table_ndcs}")
+    print(f"[Pharmacy DEBUG] Total NADAC entries loaded: {len(nadac_lookup)}")
+    print(f"[Pharmacy DEBUG] Total file line_items: {len(line_items)}")
+    # END DEBUG
+
     total_billed = 0.0
     total_plan_paid = 0.0
     total_member_paid = 0.0
