@@ -556,6 +556,34 @@ Based on fix brief from full regression testing (March 14, 2026).
 - Run load_nadac.py against production Supabase to populate NADAC drug pricing data
 - Redeploy backend on Render to pick up all backend changes
 
+## Session L — Smoke Test Fixes (Complete)
+Based on Session K smoke test results (March 14, 2026).
+
+### Priority 1 — High Severity
+- 1A: NADAC NDC leading zero fix — zfill(11) on all NDC codes before lookup
+  in employer_pharmacy.py (input parsing, NADAC lookup, and CSV/Excel reader)
+- 1B: Provider appeal letter auto-population — backend auto-populates
+  practice_name, NPI, provider_name from provider_profiles table;
+  looks up contracted rates from provider_contracts for cited CPT codes
+- 1D: BrokerConnectCard share button — added window.open fallback for mailto
+- 1E: BrokerConnectCard connect email — added requester_name field to form
+  and BrokerConnectRequest model; admin email now includes name
+
+### Priority 2 — Medium Severity
+- 2A: Signal expandable sections contrast — added bg-white to
+  SummaryThemeSection and DebateItem wrapper divs
+- 2B: All $149/mo references → $99/mo across EmployerRBPCalculator,
+  EmployerContractParser, EmployerDemoPage
+- Comprehensive /billing/employer/* link cleanup across all employer
+  components → clean subdomain paths (/dashboard, /claims-check, etc.)
+
+### Notes
+- Text paste input (2C) was already implemented in Session K Wave 3
+- Frontend dist committed separately
+
+### Fred Action Items
+- Redeploy backend on Render to pick up NADAC fix, appeal auto-pop, broker connect changes
+
 ## Migrations pending
 - 036: provider_benchmark_observations
 - 037: signal_cancel_at_period_end
