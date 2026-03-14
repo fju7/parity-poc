@@ -1983,6 +1983,8 @@ class SaveProfileRequest(BaseModel):
     specialty: str = ""
     npi: str = ""
     zip_code: str = ""
+    practice_address: str = ""
+    billing_contact: str = ""
 
 
 @router.post("/save-profile")
@@ -2004,6 +2006,8 @@ async def save_profile(body: SaveProfileRequest, request: Request):
         "specialty": body.specialty or None,
         "npi": body.npi or None,
         "zip_code": body.zip_code or None,
+        "practice_address": body.practice_address or None,
+        "billing_contact": body.billing_contact or None,
     }
 
     if existing_profile:
