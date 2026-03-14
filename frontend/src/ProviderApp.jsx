@@ -1688,7 +1688,7 @@ function ContractIntegrityTab({
           </div>
         )}
         {denialIntel && !denialIntel.error && (denialIntel.denial_types?.length > 0 || denialIntel.pattern_summary) && (
-          <DenialIntelligenceSection intel={denialIntel} />
+          <DenialIntelligenceSection intel={denialIntel} profile={profile} payerName={analysisResults[selectedPayerIdx]?.payer_name || ""} />
         )}
 
         {/* Coding Intelligence (auto-generated from 835 data) */}
@@ -2895,7 +2895,7 @@ function HistoricalReportView({ record, sortField, sortDir, onSort, getSortedLin
 
       {/* Denial Intelligence (from stored data) */}
       {di.denial_types?.length > 0 && (
-        <DenialIntelligenceSection intel={di} />
+        <DenialIntelligenceSection intel={di} profile={profile} payerName={record.payer_name || ""} />
       )}
 
       {/* Full Line Items (only if stored in result_json) */}
@@ -3763,7 +3763,47 @@ function KpiTile({ label, value, benchmark, color }) {
   );
 }
 
-function DenialIntelligenceSection({ intel }) {
+function _fillAppealTemplate(template, profile, payerName, dt) {
+  if (!template) return template;
+  const replacements = {
+    "[Payer Name]": payerName || "[Payer Name]",
+    "[PAYER NAME]": payerName || "[PAYER NAME]",
+    "[payer_name]": payerName || "[payer_name]",
+    "[Practice Name]": profile?.practice_name || "[Practice Name]",
+    "[PRACTICE NAME]": profile?.practice_name || "[PRACTICE NAME]",
+    "[practice_name]": profile?.practice_name || "[practice_name]",
+    "[Provider Name]": profile?.billing_contact || profile?.practice_name || "[Provider Name]",
+    "[PROVIDER NAME]": profile?.billing_contact || profile?.practice_name || "[PROVIDER NAME]",
+    "[provider_name]": profile?.billing_contact || profile?.practice_name || "[provider_name]",
+    "[Billing Contact]": profile?.billing_contact || profile?.practice_name || "[Billing Contact]",
+    "[NPI]": profile?.npi || "[NPI]",
+    "[NPI Number]": profile?.npi || "[NPI Number]",
+    "[npi]": profile?.npi || "[npi]",
+    "[Practice Address]": profile?.practice_address || "[Practice Address]",
+    "[PRACTICE ADDRESS]": profile?.practice_address || "[PRACTICE ADDRESS]",
+    "[practice_address]": profile?.practice_address || "[practice_address]",
+    "[Address]": profile?.practice_address || "[Address]",
+    "[Your Name]": profile?.billing_contact || profile?.practice_name || "[Your Name]",
+    "[YOUR NAME]": profile?.billing_contact || profile?.practice_name || "[YOUR NAME]",
+    "[Your Practice Name]": profile?.practice_name || "[Your Practice Name]",
+    "[Date]": new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+    "[TODAY'S DATE]": new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+    "[DATE]": new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+    "[CPT Code]": (dt?.affected_cpts || []).join(", ") || "[CPT Code]",
+    "[CPT]": (dt?.affected_cpts || []).join(", ") || "[CPT]",
+    "[Date of Service]": dt?.sample_date_of_service || "[Date of Service]",
+    "[DATE OF SERVICE]": dt?.sample_date_of_service || "[DATE OF SERVICE]",
+    "[Claim Number]": dt?.adjustment_code || "[Claim Number]",
+    "[Amount]": dt?.total_value ? `$${dt.total_value.toLocaleString("en-US", { minimumFractionDigits: 2 })}` : "[Amount]",
+  };
+  let result = template;
+  for (const [placeholder, value] of Object.entries(replacements)) {
+    result = result.split(placeholder).join(value);
+  }
+  return result;
+}
+
+function DenialIntelligenceSection({ intel, profile, payerName }) {
   const [expandedType, setExpandedType] = useState(null);
 
   return (
@@ -3864,7 +3904,7 @@ function DenialIntelligenceSection({ intel }) {
                       fontSize: 13, color: "var(--cs-navy)", whiteSpace: "pre-wrap",
                       lineHeight: 1.6, fontFamily: "monospace",
                     }}>
-                      {dt.appeal_letter_template}
+                      {_fillAppealTemplate(dt.appeal_letter_template, profile, payerName, dt)}
                     </div>
                   </div>
                 )}

@@ -393,6 +393,18 @@ Rules:
 
 DENIAL_SYSTEM_PROMPT = """You are a medical billing expert. You will receive a list of denied claims from an 835 remittance file. For each denial reason code present, explain the reason in plain language, assess whether an appeal is likely to succeed, estimate the value of attempting an appeal, and if appealable, draft a brief appeal letter template. Also identify patterns across the full denial set.
 
+IMPORTANT for appeal_letter_template: Use these EXACT bracket placeholders so the frontend can substitute real values:
+- [Payer Name] — the insurance payer
+- [Practice Name] — the provider practice name
+- [NPI] — the practice NPI number
+- [Practice Address] — the practice mailing address
+- [Provider Name] — the billing contact person
+- [Date] — today's date
+- [CPT Code] — the affected CPT code(s)
+- [Date of Service] — the service date
+- [Amount] — the dollar amount at issue
+Do NOT use any other placeholder format (no {curly braces}, no [INSERT ...], no [YOUR ...]).
+
 Return ONLY valid JSON matching this exact structure, with no other text:
 {
   "denial_types": [
@@ -402,7 +414,7 @@ Return ONLY valid JSON matching this exact structure, with no other text:
       "is_actionable": true,
       "appeal_worthiness": "high",
       "recommended_action": "specific action to take",
-      "appeal_letter_template": "Dear [Payer Name],\\n\\nWe are writing to appeal...",
+      "appeal_letter_template": "Dear [Payer Name],\\n\\nOn behalf of [Practice Name] (NPI: [NPI]), we are writing to formally appeal the denial of CPT [CPT Code] for date of service [Date of Service] in the amount of [Amount]...\\n\\nSincerely,\\n[Provider Name]\\n[Practice Name]\\n[Practice Address]",
       "count": 3,
       "total_value": 450.00,
       "affected_cpts": ["99213", "99214"],
