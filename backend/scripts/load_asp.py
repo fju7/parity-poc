@@ -106,24 +106,28 @@ def find_pricing_file(z: zipfile.ZipFile) -> str:
 def parse_asp_file(z: zipfile.ZipFile, filename: str) -> list[dict]:
     """Parse the ASP pricing file and return list of records.
 
-    CMS ASP files typically have columns:
-    HCPCS Code | Short Description | HCPCS Code Dosage | Dosage | Payment Limit
+    CMS ASP file structure (confirmed):
+      Rows 0-7:  header/notes — skip
+      Row 8:     column headers — "HCPCS Code", "Short Description",
+                 "HCPCS Code Dosage", "Payment Limit", ...
+      Rows 9+:   data rows
 
-    The format varies — may be tab-delimited, comma-delimited, or Excel.
+    Fixed column indices:
+      Col 0 = hcpcs_code
+      Col 1 = short_description
+      Col 2 = dosage
+      Col 3 = payment_limit (numeric)
     """
     print(f"  Parsing: {filename}")
-    rows = []
 
     if filename.lower().endswith(".xlsx"):
-        rows = _parse_xlsx(z, filename)
+        return _parse_xlsx(z, filename)
     else:
-        rows = _parse_text(z, filename)
-
-    return rows
+        return _parse_text(z, filename)
 
 
 def _parse_xlsx(z: zipfile.ZipFile, filename: str) -> list[dict]:
-    """Parse an Excel ASP file."""
+    """Parse an Excel ASP file using fixed column positions."""
     import openpyxl
 
     data = z.read(filename)
@@ -131,25 +135,26 @@ def _parse_xlsx(z: zipfile.ZipFile, filename: str) -> list[dict]:
     ws = wb.active
     rows_out = []
 
-    # Find header row
+    # Find header row: first cell is exactly "HCPCS Code"
     header_row = None
     for i, row in enumerate(ws.iter_rows(values_only=True), 1):
-        row_str = " ".join(str(c or "").lower() for c in row)
-        if "hcpcs" in row_str and ("payment" in row_str or "limit" in row_str):
+        if row and str(row[0] or "").strip().lower() == "hcpcs code":
             header_row = i
+            print(f"  Found header at Excel row {i}")
             break
 
     if header_row is None:
-        print("  WARNING: Could not find header row in Excel file, trying row 1")
-        header_row = 1
+        print("  WARNING: Could not find 'HCPCS Code' header row in Excel file")
+        wb.close()
+        return []
 
     for i, row in enumerate(ws.iter_rows(values_only=True), 1):
         if i <= header_row:
             continue
-        if not row or len(row) < 3:
+        if not row or len(row) < 4:
             continue
 
-        record = _extract_record_from_cells(list(row))
+        record = _extract_fixed_columns(list(row))
         if record:
             rows_out.append(record)
 
@@ -158,107 +163,77 @@ def _parse_xlsx(z: zipfile.ZipFile, filename: str) -> list[dict]:
 
 
 def _parse_text(z: zipfile.ZipFile, filename: str) -> list[dict]:
-    """Parse a text/CSV ASP file."""
+    """Parse a text/CSV ASP file using fixed column positions."""
     data = z.read(filename).decode("utf-8", errors="replace")
     lines = data.strip().split("\n")
     rows_out = []
 
-    # Detect delimiter
-    if "\t" in lines[0]:
+    # Detect delimiter from first non-empty line
+    sample_line = lines[0] if lines else ""
+    if "\t" in sample_line:
         delimiter = "\t"
-    elif "," in lines[0]:
+    elif "," in sample_line:
         delimiter = ","
     else:
-        delimiter = None  # fixed-width or other
+        delimiter = ","  # default to comma
 
-    # Find header line
-    header_idx = 0
+    # Find header row: first cell is exactly "HCPCS Code"
+    header_idx = None
     for i, line in enumerate(lines):
-        ll = line.lower()
-        if "hcpcs" in ll and ("payment" in ll or "limit" in ll or "description" in ll):
+        cells = [c.strip().strip('"').strip() for c in line.split(delimiter)]
+        if cells and cells[0].lower() == "hcpcs code":
             header_idx = i
+            print(f"  Found header at line {i}")
             break
 
-    # Parse data lines
+    if header_idx is None:
+        print("  WARNING: Could not find 'HCPCS Code' header row in text file")
+        return []
+
+    # Parse data lines after header
     for line in lines[header_idx + 1:]:
         line = line.strip()
         if not line:
             continue
 
-        if delimiter:
-            cells = line.split(delimiter)
-        else:
-            # Try to split on 2+ spaces (fixed-width)
-            cells = re.split(r"\s{2,}", line)
-
-        # Clean cells
-        cells = [c.strip().strip('"').strip() for c in cells]
-
-        record = _extract_record_from_cells(cells)
+        cells = [c.strip().strip('"').strip() for c in line.split(delimiter)]
+        record = _extract_fixed_columns(cells)
         if record:
             rows_out.append(record)
 
     return rows_out
 
 
-def _extract_record_from_cells(cells: list) -> Optional[dict]:
-    """Extract an ASP record from a row of cells.
+def _extract_fixed_columns(cells: list) -> Optional[dict]:
+    """Extract an ASP record using fixed column positions.
 
-    CMS ASP files typically have:
-    Col 0: HCPCS Code (e.g., J0185)
-    Col 1: Short Description
-    Col 2: HCPCS Code Dosage (repeat of HCPCS or dosage info)
-    Col 3: Dosage
-    Col 4: Payment Limit (ASP + 6%)
-
-    But column ordering can vary. We look for patterns.
+    Col 0 = hcpcs_code (must match pattern: letter + 4 digits)
+    Col 1 = short_description
+    Col 2 = dosage
+    Col 3 = payment_limit (numeric, required)
     """
-    if not cells or len(cells) < 3:
+    if not cells or len(cells) < 4:
         return None
 
-    # Find HCPCS code — pattern: letter followed by 4 digits (e.g., J0185, Q2043)
-    hcpcs = None
-    hcpcs_idx = None
-    for i, c in enumerate(cells):
-        val = str(c or "").strip().upper()
-        if re.match(r"^[A-Z]\d{4}$", val):
-            hcpcs = val
-            hcpcs_idx = i
-            break
-
-    if not hcpcs:
+    # Column 0: HCPCS code
+    hcpcs = str(cells[0] or "").strip().upper()
+    if not re.match(r"^[A-Z]\d{4}$", hcpcs):
         return None
 
-    # Find payment limit — a numeric value, typically the last numeric column
-    payment_limit = None
-    for c in reversed(cells):
-        val = str(c or "").strip().replace("$", "").replace(",", "")
-        try:
-            num = float(val)
-            if num >= 0:
-                payment_limit = num
-                break
-        except (ValueError, TypeError):
-            continue
-
-    if payment_limit is None:
+    # Column 3: payment limit (required, must be numeric)
+    limit_str = str(cells[3] or "").strip().replace("$", "").replace(",", "")
+    if not limit_str:
+        return None
+    try:
+        payment_limit = float(limit_str)
+    except (ValueError, TypeError):
         return None
 
-    # Short description — usually the cell after the first HCPCS code
-    short_desc = ""
-    if hcpcs_idx is not None and hcpcs_idx + 1 < len(cells):
-        candidate = str(cells[hcpcs_idx + 1] or "").strip()
-        # Skip if it looks like another HCPCS code or a number
-        if candidate and not re.match(r"^[A-Z]\d{4}$", candidate.upper()):
-            short_desc = candidate
+    # Column 1: short description
+    short_desc = str(cells[1] or "").strip()
 
-    # Dosage — look for cells with unit patterns
-    dosage = ""
-    for c in cells:
-        val = str(c or "").strip()
-        if re.search(r"(mg|ml|mcg|unit|vial|each|per|gm|sq cm)", val, re.IGNORECASE) and val != short_desc:
-            dosage = val
-            break
+    # Column 2: dosage
+    dosage = str(cells[2] or "").strip()
 
     return {
         "hcpcs_code": hcpcs,
@@ -352,10 +327,25 @@ def main():
         "J9271": "Pembrolizumab (Keytruda)",
     }
     print("   Known drug check:")
-    hcpcs_set = {r["hcpcs_code"] for r in rows}
+    rows_by_hcpcs = {r["hcpcs_code"]: r for r in rows}
     for code, name in known_drugs.items():
-        status = "FOUND" if code in hcpcs_set else "not found"
-        print(f"     {code} ({name}): {status}")
+        if code in rows_by_hcpcs:
+            r = rows_by_hcpcs[code]
+            print(f"     {code} ({name}): FOUND — desc=\"{r.get('short_description', '')}\" limit=${r['payment_limit']:.4f}")
+        else:
+            print(f"     {code} ({name}): not found")
+
+    # Validate J0185 specifically — should have meaningful description and high payment limit
+    if "J0185" in rows_by_hcpcs:
+        j0185 = rows_by_hcpcs["J0185"]
+        desc = j0185.get("short_description", "") or ""
+        limit = j0185.get("payment_limit", 0) or 0
+        if len(desc) <= 5:
+            print(f"   WARNING: J0185 short_description looks truncated: \"{desc}\"")
+            print("   The CSV parser may not be extracting descriptions correctly.")
+        if limit < 100:
+            print(f"   WARNING: J0185 payment_limit is ${limit:.4f} — expected > $100")
+            print("   The CSV parser may be reading the wrong column for payment_limit.")
 
 
 if __name__ == "__main__":
