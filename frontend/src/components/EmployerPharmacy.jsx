@@ -220,7 +220,7 @@ export default function EmployerPharmacy() {
                       <th style={thStyle}>Drug</th>
                       <th style={thStyle}>Type</th>
                       <th style={thStyle}>Plan Paid</th>
-                      <th style={thStyle}>NADAC</th>
+                      <th style={thStyle}>Benchmark</th>
                       <th style={thStyle}>Spread</th>
                     </tr>
                   </thead>
@@ -255,7 +255,12 @@ export default function EmployerPharmacy() {
                         </td>
                         <td style={tdStyle}>${d.plan_paid?.toLocaleString()}</td>
                         <td style={tdStyle}>
-                          {d.nadac_cost != null ? `$${d.nadac_cost.toLocaleString()}` : <span style={{ color: "#94a3b8" }}>Unavailable</span>}
+                          {d.benchmark_cost != null ? (
+                            <div>
+                              <div>${d.benchmark_cost.toLocaleString()}</div>
+                              <div style={{ fontSize: "10px", color: "#94a3b8", marginTop: "2px" }}>{d.benchmark_source || "NADAC"}</div>
+                            </div>
+                          ) : <span style={{ color: "#94a3b8" }}>No benchmark</span>}
                         </td>
                         <td style={tdStyle}>
                           {d.spread != null ? (

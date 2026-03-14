@@ -38,6 +38,7 @@ Return ONLY valid JSON:
   "line_items": [
     {
       "ndc_code": "11-digit NDC or null",
+      "hcpcs_code": "HCPCS/J-code if visible (e.g. J0185) or null",
       "drug_name": "string",
       "generic_name": "string or null",
       "brand_or_generic": "brand|generic|unknown",
@@ -166,6 +167,7 @@ async def employer_pharmacy_analyze(
                         "therapeutic_class": str(row.get(col_map.get("therapeutic_class", ""), "")).strip() or None,
                         "is_specialty": None,
                         "fill_date": str(row.get(col_map.get("fill_date", ""), "")).strip() or None,
+                        "hcpcs_code": str(row.get(col_map.get("hcpcs_code", ""), "")).strip() or None,
                     })
         except Exception as exc:
             print(f"[Pharmacy] CSV/Excel parse failed: {exc}")
@@ -189,8 +191,9 @@ async def employer_pharmacy_analyze(
             detail="Could not extract pharmacy claims from this file. Please ensure it contains pharmacy claims data (NDC codes, drug names, amounts).",
         )
 
-    # ----- Benchmark against NADAC -----
+    # ----- Benchmark against NADAC + ASP -----
     nadac_lookup = _load_nadac_lookup()
+    asp_lookup = _load_asp_lookup()
 
     total_billed = 0.0
     total_plan_paid = 0.0
@@ -231,25 +234,43 @@ async def employer_pharmacy_analyze(
         ndc = str(item.get("ndc_code", "")).replace("-", "").strip()
         if ndc and ndc.isdigit():
             ndc = ndc.zfill(11)
-        nadac_per_unit = None
-        nadac_cost = None
+        benchmark_cost = None
+        benchmark_source = None  # "NADAC" or "Medicare ASP"
         spread = None
 
         if ndc and ndc in nadac_lookup:
             nadac_per_unit = nadac_lookup[ndc]
-            nadac_cost = round(nadac_per_unit * quantity, 2)
-            if plan_paid > 0 and nadac_cost > 0:
-                spread = round(plan_paid - nadac_cost, 2)
+            benchmark_cost = round(nadac_per_unit * quantity, 2)
+            benchmark_source = "NADAC"
+            if plan_paid > 0 and benchmark_cost > 0:
+                spread = round(plan_paid - benchmark_cost, 2)
                 total_spread += spread
                 spread_count += 1
+
+        # ASP fallback — try if no NADAC match and drug is specialty/brand
+        if benchmark_cost is None and asp_lookup:
+            asp_match = None
+            hcpcs = str(item.get("hcpcs_code", "")).strip().upper()
+            if hcpcs and hcpcs in asp_lookup:
+                asp_match = asp_lookup[hcpcs]
+            elif is_spec or bog in ("brand", "b"):
+                # Fuzzy match by drug name against ASP short_description
+                asp_match = _fuzzy_asp_match(drug_name, generic_name, asp_lookup)
+            if asp_match:
+                benchmark_cost = round(asp_match["payment_limit"] * quantity, 2)
+                benchmark_source = "Medicare ASP"
+                if plan_paid > 0 and benchmark_cost > 0:
+                    spread = round(plan_paid - benchmark_cost, 2)
+                    total_spread += spread
+                    spread_count += 1
 
         enriched_items.append({
             **item,
             "is_specialty": is_spec,
-            "nadac_per_unit": nadac_per_unit,
-            "nadac_cost": nadac_cost,
+            "benchmark_cost": benchmark_cost,
+            "benchmark_source": benchmark_source,
             "spread": spread,
-            "spread_flagged": spread is not None and nadac_cost and spread > (nadac_cost * 0.20),
+            "spread_flagged": spread is not None and benchmark_cost and spread > (benchmark_cost * 0.20),
         })
 
     # ----- Build analysis sections -----
@@ -333,7 +354,8 @@ async def employer_pharmacy_analyze(
                 "brand_or_generic": d.get("brand_or_generic"),
                 "quantity": d.get("quantity"),
                 "plan_paid": _safe_float(d.get("plan_paid", 0)),
-                "nadac_cost": d.get("nadac_cost"),
+                "benchmark_cost": d.get("benchmark_cost"),
+                "benchmark_source": d.get("benchmark_source"),
                 "spread": d.get("spread"),
                 "spread_flagged": d.get("spread_flagged"),
                 "is_specialty": d.get("is_specialty"),
@@ -410,11 +432,84 @@ def _load_nadac_lookup() -> dict:
 
 
 # ---------------------------------------------------------------------------
+# ASP lookup helper
+# ---------------------------------------------------------------------------
+
+def _load_asp_lookup() -> dict:
+    """Load Medicare Part B ASP payment limits from Supabase.
+
+    Returns dict keyed by HCPCS code, with value containing
+    payment_limit and short_description for fuzzy matching.
+    Paginates in batches of 1000 (same as NADAC).
+    """
+    try:
+        sb = _get_supabase()
+        lookup = {}
+        offset = 0
+        batch_size = 1000
+        while True:
+            result = sb.table("pharmacy_asp").select(
+                "hcpcs_code, short_description, dosage, payment_limit"
+            ).range(offset, offset + batch_size - 1).execute()
+            if not result.data:
+                break
+            for row in result.data:
+                code = str(row.get("hcpcs_code", "")).strip().upper()
+                limit_val = row.get("payment_limit")
+                if code and limit_val is not None:
+                    lookup[code] = {
+                        "hcpcs_code": code,
+                        "short_description": str(row.get("short_description", "") or "").lower(),
+                        "dosage": row.get("dosage"),
+                        "payment_limit": float(limit_val),
+                    }
+            offset += batch_size
+        print(f"[Pharmacy] ASP lookup loaded {len(lookup)} entries")
+        return lookup
+    except Exception as exc:
+        print(f"[Pharmacy] ASP lookup failed (table may not exist yet): {exc}")
+        return {}
+
+
+def _fuzzy_asp_match(drug_name: str, generic_name: str, asp_lookup: dict) -> dict | None:
+    """Try to match a drug name against ASP short_description.
+
+    Returns the ASP entry if a reasonable match is found, else None.
+    Uses simple substring matching on normalized drug names.
+    """
+    if not drug_name and not generic_name:
+        return None
+
+    # Normalize search terms
+    names_to_try = []
+    if drug_name:
+        # Extract the first word (brand name) — e.g. "Humira 40mg" → "humira"
+        first_word = drug_name.strip().split()[0].lower() if drug_name.strip() else ""
+        if first_word and len(first_word) >= 3:
+            names_to_try.append(first_word)
+        names_to_try.append(drug_name.strip().lower())
+    if generic_name:
+        first_word = generic_name.strip().split()[0].lower() if generic_name.strip() else ""
+        if first_word and len(first_word) >= 3:
+            names_to_try.append(first_word)
+
+    # Search ASP entries
+    for name in names_to_try:
+        for entry in asp_lookup.values():
+            desc = entry["short_description"]
+            if name in desc or desc in name:
+                return entry
+
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Column auto-mapping for CSV/Excel
 # ---------------------------------------------------------------------------
 
 COLUMN_ALIASES = {
     "ndc_code": ["ndc_code", "ndc", "ndc_number", "national_drug_code"],
+    "hcpcs_code": ["hcpcs_code", "hcpcs", "j_code", "jcode", "procedure_code"],
     "drug_name": ["drug_name", "medication", "medication_name", "drug", "product_name", "brand_name"],
     "generic_name": ["generic_name", "generic", "generic_drug_name"],
     "brand_or_generic": ["brand_or_generic", "brand_generic", "type", "drug_type", "brand/generic"],
