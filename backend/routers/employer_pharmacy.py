@@ -264,11 +264,20 @@ async def employer_pharmacy_analyze(
                     total_spread += spread
                     spread_count += 1
 
+        # Determine benchmark label for drugs with no match
+        benchmark_note = None
+        if benchmark_cost is None:
+            if is_spec or bog in ("brand", "b"):
+                benchmark_note = "pbm_pricing"
+            else:
+                benchmark_note = "no_benchmark"
+
         enriched_items.append({
             **item,
             "is_specialty": is_spec,
             "benchmark_cost": benchmark_cost,
             "benchmark_source": benchmark_source,
+            "benchmark_note": benchmark_note,
             "spread": spread,
             "spread_flagged": spread is not None and benchmark_cost and spread > (benchmark_cost * 0.20),
         })
@@ -356,6 +365,7 @@ async def employer_pharmacy_analyze(
                 "plan_paid": _safe_float(d.get("plan_paid", 0)),
                 "benchmark_cost": d.get("benchmark_cost"),
                 "benchmark_source": d.get("benchmark_source"),
+                "benchmark_note": d.get("benchmark_note"),
                 "spread": d.get("spread"),
                 "spread_flagged": d.get("spread_flagged"),
                 "is_specialty": d.get("is_specialty"),

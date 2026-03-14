@@ -260,6 +260,8 @@ export default function EmployerPharmacy() {
                               <div>${d.benchmark_cost.toLocaleString()}</div>
                               <div style={{ fontSize: "10px", color: "#94a3b8", marginTop: "2px" }}>{d.benchmark_source || "NADAC"}</div>
                             </div>
+                          ) : d.benchmark_note === "pbm_pricing" ? (
+                            <span style={{ color: "#f59e0b", fontSize: "12px" }} title="Brand and specialty drugs are priced through commercial channels. NADAC covers generic retail drugs; Medicare ASP covers physician-administered biologics. Ask your PBM for acquisition cost data on these drugs.">PBM pricing *</span>
                           ) : <span style={{ color: "#94a3b8" }}>No benchmark</span>}
                         </td>
                         <td style={tdStyle}>
@@ -274,6 +276,11 @@ export default function EmployerPharmacy() {
                   </tbody>
                 </table>
               </div>
+              {(result.top_drugs || []).some(d => d.benchmark_note === "pbm_pricing") && (
+                <div style={{ fontSize: "11px", color: "#94a3b8", marginTop: "10px", lineHeight: "1.5" }}>
+                  * Brand and specialty drugs are priced through commercial channels. NADAC covers generic retail drugs; Medicare ASP covers physician-administered biologics. Ask your PBM for acquisition cost data on these drugs.
+                </div>
+              )}
             </div>
 
             {/* Generic Opportunity */}
