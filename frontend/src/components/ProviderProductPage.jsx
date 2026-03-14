@@ -165,6 +165,9 @@ export default function ProviderProductPage() {
 
       {/* ── Section 1: Hero ── */}
       <section style={{ paddingTop: 120, paddingBottom: 56, maxWidth: 820, margin: "0 auto", textAlign: "center", padding: "120px 24px 56px" }}>
+        <div style={{ display: "inline-block", background: "rgba(13,148,136,0.12)", borderRadius: 8, padding: "8px 14px", marginBottom: 24 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "#0d9488" }}>PARITY PROVIDER</span>
+        </div>
         <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(30px, 4vw, 46px)", lineHeight: 1.15, fontWeight: 400, color: "#f1f5f9", marginBottom: 12, letterSpacing: "-0.02em" }}>
           See the money your payers owe you.<br />
           <span style={{ color: "#0d9488" }}>In 5 minutes.</span>

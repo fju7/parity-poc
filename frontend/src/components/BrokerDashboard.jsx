@@ -1026,7 +1026,7 @@ function BrokerDashboardInner() {
                     onPrepReport={handlePrepReport}
                   />
                   <RenewalColumn
-                    title="91\u2013180 days"
+                    title="91–180 days"
                     subtitle="Upcoming"
                     clients={renewalData.renewing_upcoming}
                     borderColor="#3b82f6"
@@ -1739,6 +1739,42 @@ function BrokerDashboardInner() {
                     </div>
                   )}
                 </div>
+
+                {/* Benchmark Results */}
+                {clientSummary.benchmark && (
+                  <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 24 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                      <h3 style={{ fontSize: 16, fontWeight: 600, color: "#1B3A5C", margin: 0 }}>Benchmark Results</h3>
+                      {clientSummary.benchmark_date && (
+                        <span style={{ fontSize: 11, color: "#94a3b8" }}>
+                          {new Date(clientSummary.benchmark_date).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+                      {clientSummary.benchmark.pepm != null && (
+                        <div style={{ background: "#f8fafc", borderRadius: 8, padding: 14, textAlign: "center" }}>
+                          <p style={{ fontSize: 11, color: "#94a3b8", margin: "0 0 4px", fontWeight: 500 }}>PEPM</p>
+                          <p style={{ fontSize: 20, fontWeight: 700, margin: 0, color: "#1B3A5C" }}>{fmt(clientSummary.benchmark.pepm)}</p>
+                        </div>
+                      )}
+                      {clientSummary.benchmark.percentile != null && (
+                        <div style={{ background: "#f8fafc", borderRadius: 8, padding: 14, textAlign: "center" }}>
+                          <p style={{ fontSize: 11, color: "#94a3b8", margin: "0 0 4px", fontWeight: 500 }}>Percentile</p>
+                          <p style={{ fontSize: 20, fontWeight: 700, margin: 0, color: clientSummary.benchmark.percentile > 75 ? "#EF4444" : clientSummary.benchmark.percentile > 50 ? "#f59e0b" : "#22c55e" }}>
+                            {Math.round(clientSummary.benchmark.percentile)}{ordinalSuffix(Math.round(clientSummary.benchmark.percentile))}
+                          </p>
+                        </div>
+                      )}
+                      {clientSummary.benchmark.potential_savings != null && (
+                        <div style={{ background: "#f8fafc", borderRadius: 8, padding: 14, textAlign: "center" }}>
+                          <p style={{ fontSize: 11, color: "#94a3b8", margin: "0 0 4px", fontWeight: 500 }}>Potential Savings</p>
+                          <p style={{ fontSize: 20, fontWeight: 700, margin: 0, color: "#0D7377" }}>{fmt(clientSummary.benchmark.potential_savings)}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 {/* Claims Summary Cards */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>

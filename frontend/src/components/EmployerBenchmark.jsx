@@ -118,7 +118,7 @@ export default function EmployerBenchmark() {
           <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "-0.02em" }}>CivicScale</span>
         </Link>
         <nav className="cs-home-nav">
-          <Link to="/billing/employer" style={{ color: "#60a5fa", textDecoration: "none" }}>Parity Employer</Link>
+          <Link to="/dashboard" style={{ color: "#60a5fa", textDecoration: "none" }}>Parity Employer</Link>
         </nav>
       </header>
 
@@ -387,10 +387,10 @@ export default function EmployerBenchmark() {
 
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <Link to="/billing/employer/claims-check" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>
+              <Link to="/claims-check" style={{ ...btnPrimary, textAlign: "center", textDecoration: "none" }}>
                 Upload Claims for Detailed Analysis &rarr;
               </Link>
-              <Link to="/billing/employer" style={{ textAlign: "center", color: "#64748b", fontSize: "14px", textDecoration: "none" }}>
+              <Link to="/dashboard" style={{ textAlign: "center", color: "#64748b", fontSize: "14px", textDecoration: "none" }}>
                 &larr; Back to Parity Employer
               </Link>
             </div>

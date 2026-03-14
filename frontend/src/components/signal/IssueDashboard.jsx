@@ -529,7 +529,7 @@ export default function IssueDashboard({
             </span>
           )}
         </div>
-        <h1 className="text-xl sm:text-2xl font-bold text-[#1B3A5C] mb-2">
+        <h1 className="text-xl sm:text-2xl font-bold text-white mb-2">
           {issue.title}
         </h1>
         {issue.description && (
@@ -608,7 +608,7 @@ export default function IssueDashboard({
                 d="M12 9v2m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"
               />
             </svg>
-            <h2 className="text-sm font-bold text-[#1B3A5C] uppercase tracking-wide">
+            <h2 className="text-sm font-bold text-white uppercase tracking-wide">
               Key Debates &amp; Open Questions
             </h2>
           </div>

@@ -19,6 +19,8 @@ export default function UploadView({
   const [classifying, setClassifying] = useState(false);
   const [classifyError, setClassifyError] = useState(null);
   const [showSbcReplace, setShowSbcReplace] = useState(false);
+  const [showPasteInput, setShowPasteInput] = useState(false);
+  const [pasteText, setPasteText] = useState("");
   const pendingSbcFileRef = useRef(null);
 
   const classifyAndRoute = useCallback(
@@ -387,6 +389,39 @@ export default function UploadView({
             </div>
           )}
         </label>
+
+        {/* Or paste text toggle */}
+        <div className="mt-4 text-center">
+          <button
+            onClick={() => setShowPasteInput(!showPasteInput)}
+            className="text-sm text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer"
+          >
+            {showPasteInput ? "Hide text input" : "Or paste text from your bill or EOB"}
+          </button>
+        </div>
+        {showPasteInput && (
+          <div className="mt-3">
+            <textarea
+              value={pasteText}
+              onChange={(e) => setPasteText(e.target.value)}
+              placeholder="Paste the text from your medical bill, EOB, or denial letter here..."
+              className="w-full h-36 p-4 border border-gray-200 rounded-xl text-sm resize-none focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
+            />
+            <button
+              onClick={() => {
+                if (pasteText.trim().length >= 20) onTextSubmit(pasteText.trim());
+              }}
+              disabled={pasteText.trim().length < 20}
+              className={`mt-2 px-6 py-2.5 rounded-xl font-semibold text-sm transition-all ${
+                pasteText.trim().length >= 20
+                  ? "bg-[#0D7377] text-white hover:bg-[#0B6164] cursor-pointer"
+                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              }`}
+            >
+              Analyze Text
+            </button>
+          </div>
+        )}
 
         {/* Classification error */}
         {classifyError && (

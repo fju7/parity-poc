@@ -174,6 +174,12 @@ export default function EmployerProductPage() {
           </a>
         </div>
         <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>30-day free trial &middot; Cancel anytime</p>
+        <div style={{ marginTop: 32, background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.2)", borderRadius: 12, padding: "16px 24px", display: "inline-block" }}>
+          <p style={{ fontSize: 14, color: "#94a3b8", margin: "0 0 8px" }}>No account needed to get started:</p>
+          <Link to="/benchmark" style={{ fontSize: 15, fontWeight: 600, color: "#60a5fa", textDecoration: "none" }}>
+            Get Your Free Benchmark &rarr;
+          </Link>
+        </div>
       </section>
 
       {/* ── What You Get ── */}
@@ -419,7 +425,7 @@ export default function EmployerProductPage() {
         <p style={{ fontSize: 15, color: "#94a3b8", marginBottom: 28, lineHeight: 1.7 }}>
           See how your health plan costs compare to employers in your industry and state — no signup required.
         </p>
-        <Link to="/billing/employer/benchmark" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 32px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+        <Link to="/benchmark" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 32px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
           Get Your Free Benchmark &rarr;
         </Link>
       </section>

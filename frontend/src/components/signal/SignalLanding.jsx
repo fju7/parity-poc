@@ -84,12 +84,23 @@ export default function SignalLanding({ session, userTier, tierData }) {
           <br />
           <span className="text-[#0D7377]">accessible to everyone.</span>
         </h1>
-        <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+        <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-6">
           Parity Signal scores medical evidence claims across six dimensions of
           credibility — source quality, data support, reproducibility,
           consensus, recency, and rigor — so you can see the strength of the
           evidence, not just the headlines.
         </p>
+        {!session && (
+          <Link
+            to="/login"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0D7377] text-white font-semibold rounded-xl hover:bg-[#0B6265] transition-colors no-underline text-sm"
+          >
+            Start Free Trial
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+        )}
       </div>
 
       {/* About Signal */}

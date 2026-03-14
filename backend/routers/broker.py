@@ -609,6 +609,18 @@ async def client_summary(employer_email: str, authorization: str = Header(None))
     else:
         trends_data = None
 
+    # Fetch latest benchmark for this client
+    benchmark_row = (
+        sb.table("broker_client_benchmarks")
+        .select("benchmark_result, share_token, created_at")
+        .eq("employer_email", e_email)
+        .eq("broker_email", broker_email)
+        .order("created_at", desc=True)
+        .limit(1)
+        .execute()
+    )
+    benchmark_data = benchmark_row.data[0] if benchmark_row.data else None
+
     # Build upload timeline (without full results_json to keep response small)
     upload_timeline = []
     for u in upload_rows:
@@ -641,6 +653,8 @@ async def client_summary(employer_email: str, authorization: str = Header(None))
         "upload_timeline": upload_timeline,
         "trends": trends_data.get("trend_data") if trends_data else None,
         "trends_computed_at": trends_data.get("computed_at") if trends_data else None,
+        "benchmark": benchmark_data.get("benchmark_result") if benchmark_data else None,
+        "benchmark_date": benchmark_data.get("created_at") if benchmark_data else None,
     }
 
 

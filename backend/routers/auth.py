@@ -186,6 +186,7 @@ def _send_otp_email(email: str, code: str, product: str):
         "broker": "Parity Employer Broker Portal",
         "provider": "Parity Provider",
         "health": "Parity Health",
+        "signal": "Parity Signal",
     }
     product_name = product_names.get(product, "CivicScale")
 
@@ -543,6 +544,7 @@ async def invite_user(req: InviteUserRequest, authorization: str = Header(None))
         "employer": "Parity Employer",
         "broker": "Parity Employer Broker Portal",
         "provider": "Parity Provider",
+        "signal": "Parity Signal",
     }
     product_name = product_names.get(product, "CivicScale")
     accept_url = f"https://civicscale.ai/accept-invite?token={token}"

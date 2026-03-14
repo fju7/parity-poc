@@ -84,6 +84,7 @@ export default function PricingView({ session, userTier }) {
   const portalReturn = searchParams.get("portal_return") === "1";
 
   function getCta(tierKey) {
+    if (!session) return tierKey === "free" ? "Get Started" : "Start Free Trial";
     if (tierKey === currentTier) return "Current Plan";
     if (TIER_RANK[tierKey] > TIER_RANK[currentTier]) return "Upgrade";
     return "Downgrade";
