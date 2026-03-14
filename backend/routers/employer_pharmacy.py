@@ -192,20 +192,6 @@ async def employer_pharmacy_analyze(
     # ----- Benchmark against NADAC -----
     nadac_lookup = _load_nadac_lookup()
 
-    # DEBUG: compare first 3 NDCs from uploaded file vs pharmacy_nadac table
-    file_ndcs = []
-    for item in line_items[:3]:
-        raw = str(item.get("ndc_code", "")).replace("-", "").strip()
-        if raw and raw.isdigit():
-            raw = raw.zfill(11)
-        file_ndcs.append(raw)
-    table_ndcs = list(nadac_lookup.keys())[:3]
-    print(f"[Pharmacy DEBUG] First 3 file NDCs:  {file_ndcs}")
-    print(f"[Pharmacy DEBUG] First 3 table NDCs: {table_ndcs}")
-    print(f"[Pharmacy DEBUG] Total NADAC entries loaded: {len(nadac_lookup)}")
-    print(f"[Pharmacy DEBUG] Total file line_items: {len(line_items)}")
-    # END DEBUG
-
     total_billed = 0.0
     total_plan_paid = 0.0
     total_member_paid = 0.0
@@ -394,19 +380,29 @@ async def employer_pharmacy_analyze(
 # ---------------------------------------------------------------------------
 
 def _load_nadac_lookup() -> dict:
-    """Load NADAC per-unit costs from Supabase into a dict keyed by NDC."""
+    """Load NADAC per-unit costs from Supabase into a dict keyed by NDC.
+
+    Supabase defaults to 1,000 rows per query, so we paginate in batches
+    to ensure we load the full dataset (~30k rows).
+    """
     try:
         sb = _get_supabase()
-        # Fetch all NADAC records (typical dataset is ~30k rows)
-        result = sb.table("pharmacy_nadac").select("ndc_code, nadac_per_unit").execute()
         lookup = {}
-        for row in result.data or []:
-            ndc = str(row.get("ndc_code", "")).replace("-", "").strip()
-            if ndc and ndc.isdigit():
-                ndc = ndc.zfill(11)
-            val = row.get("nadac_per_unit")
-            if ndc and val is not None:
-                lookup[ndc] = float(val)
+        offset = 0
+        batch_size = 1000
+        while True:
+            result = sb.table("pharmacy_nadac").select("ndc_code, nadac_per_unit").range(offset, offset + batch_size - 1).execute()
+            if not result.data:
+                break
+            for row in result.data:
+                ndc = str(row.get("ndc_code", "")).replace("-", "").strip()
+                if ndc and ndc.isdigit():
+                    ndc = ndc.zfill(11)
+                val = row.get("nadac_per_unit")
+                if ndc and val is not None:
+                    lookup[ndc] = float(val)
+            offset += batch_size
+        print(f"[Pharmacy] NADAC lookup loaded {len(lookup)} entries")
         return lookup
     except Exception as exc:
         print(f"[Pharmacy] NADAC lookup failed: {exc}")
