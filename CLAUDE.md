@@ -600,3 +600,42 @@ Next migration number: 039
 5. Commit and push CLAUDE.md updates with the rest of the changes
 6. Output any migration SQL clearly for Fred to run manually
 7. Never ask Fred to create Stripe products or price IDs manually
+
+## Quality Standards — Verification and Testing
+
+### File and Path Verification
+
+- Before referencing any file, directory, or path, verify it exists using the bash tool. Never assume a path is correct based on convention or prior knowledge. If a file cannot be found at the expected location, search for it with find before proceeding. Do not proceed with a file operation on an assumed path.
+- Before referencing any environment variable, database table, column name, or API endpoint, verify it exists in the actual codebase or database. Run a SQL query or grep the codebase rather than assuming.
+- Never guess at Supabase table names, column names, or schema structure. Always query information_schema or the actual table to confirm before writing any SQL or backend code that depends on it.
+
+### Testing After Every Change
+
+- After every code change, define the expected behavior in plain language before running any tests. Then verify that actual behavior matches expected behavior — not just that the code ran without errors.
+- After every backend change, check Render logs for the specific endpoint that was modified. Confirm the response code and response body match what is expected. A 200 response is not sufficient — verify the response contains the correct data.
+- After every frontend change, open the affected page in a browser and manually verify the changed behavior. Describe what you see. Do not rely on a successful build as evidence that the feature works.
+- After any database migration, run a SELECT query to confirm the table or column was created correctly before writing any code that depends on it.
+- After any data loader script is run, query the database to confirm the expected number of records were loaded and that the data format is correct. Do not assume the loader succeeded because it ran without errors.
+
+### Change Scope and Isolation
+
+- Make one change at a time and test it before making the next change. Do not batch multiple unrelated changes into a single commit if they can be separated. This makes it dramatically easier to identify which change caused a regression.
+- Before making any change, describe what the change is intended to do, what files will be modified, and how success will be verified. State this explicitly before writing any code.
+
+### Error Diagnosis
+
+- When a feature returns an error, read the full error message before attempting a fix. Do not guess at the cause. If the error is in Render logs, read the relevant log lines. If the error is in the browser console, read the exact error message and call stack.
+- When a fix is attempted and the same error persists, do not apply the same fix again with minor variations. Stop and diagnose from first principles — read the code path end to end and identify where the actual divergence from expected behavior occurs.
+- When a browser console error references a minified file (e.g. index-BaqC8vEB.js:428), identify which React component or function corresponds to the call stack description and read that source file. Do not attempt to debug minified output.
+- When an API endpoint returns unexpected results, add a temporary debug log at the point where data enters the function and at the point where it is returned. Read the log output before attempting any fix. Remove all debug logs before the final commit.
+
+### Database Safety
+
+- Before writing any SQL that modifies data (INSERT, UPDATE, DELETE, ALTER), write and run a SELECT query first to confirm the target rows or schema exist and look as expected.
+- Never drop or truncate a table without explicit confirmation from Fred.
+- Never run a migration that could destroy existing data without first confirming what data is in the affected table and getting explicit approval.
+
+### Code Quality
+
+- Never hardcode a URL, environment variable value, or credential in source code. Always use environment variables. If an environment variable is missing from Render, note it explicitly and ask Fred to add it rather than using a hardcoded fallback.
+- When the same error occurs twice, do not apply the same fix twice. Escalate to Fred with a description of what was tried and what the result was.
