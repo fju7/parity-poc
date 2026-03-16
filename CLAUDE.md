@@ -584,12 +584,42 @@ Based on Session K smoke test results (March 14, 2026).
 ### Fred Action Items
 - Redeploy backend on Render to pick up NADAC fix, appeal auto-pop, broker connect changes
 
+## Session M — Smoke Tests + Data Freshness Audit (Complete)
+
+### Item 1 — Smoke Test Verifications (all passed)
+- 1a: No remaining $149 text in employer frontend — PASS
+- 1b: BrokerConnectCard admin email includes requester_name, email,
+  company, industry, state, size, PEPM, percentile, gap, excess — PASS
+- 1c: Provider saved-rates returns ALL payers for account, not just
+  most recent — PASS
+- 1d: Health UploadView has text paste textarea with Analyze button — PASS
+- 1e: Signal SummaryThemeSection and DebateItem both have bg-white — PASS
+
+### Item 2 — Data Freshness Audit
+Reference data tables found in Supabase:
+- pharmacy_nadac: 24,866 rows, effective_date 2021-02-01 to 2022-02-09
+- ncci_edits: 2,210,396 rows, effective_date 1996-01-01 to 2026-01-01
+- provider_benchmark_observations: 99 rows, observed_at 2026-03-14
+Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
+  opps_rates, medicare_rates, fee_schedule_rates
+
+### Item 3 — Migration 041: data_versions table
+- Migration file: backend/migrations/041_data_versions.sql
+- Tracks data_source, version_label, effective_from/to, loaded_at,
+  next_update_due, record_count, notes
+- Fred action: run migration 041 + INSERT statements in Supabase SQL Editor
+
+### Item 4 — Staging environment
+- Deferred: CLAUDE.md forbids branch creation, CivicScale_Staging_Setup_Guide.docx
+  not found in repo. Awaiting Fred's confirmation to proceed.
+
 ## Migrations pending
 - 036: provider_benchmark_observations
 - 037: signal_cancel_at_period_end
 - 038: broker_referrals
+- 041: data_versions table (data source freshness tracking)
 
-Next migration number: 039
+Next migration number: 042
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
