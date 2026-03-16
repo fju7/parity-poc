@@ -1,5 +1,31 @@
 # Changelog
 
+## Session M3 — 2026-03-16
+
+### Staging Environment Setup
+- Created `staging` branch from main, pushed to GitHub (`origin/staging`)
+- Updated CLAUDE.md with "Development Workflow — Staging First" section
+  (effective Session N onward: all dev on staging, Fred promotes to main)
+- Created `backend/.env.staging` locally (not committed) with staging
+  Supabase placeholders, shared Stripe/Anthropic/Resend keys
+- Added `.env.staging` to `.gitignore`
+- Created `backend/scripts/staging_setup.sh` documenting manual steps
+  for Supabase, Render, and Vercel staging configuration
+
+### Historical Rate Loader Investigation
+- Verified `load_historical_rates.py` exists at `backend/scripts/`
+- Script requires CMS carrier ZIP files for each prior year as input
+- Historical tables (pfs/opps/clfs_rates_historical) exist but are empty
+- CMS data files for 2024 and 2025 not present in repo — Fred action
+  required to download from CMS.gov before loader can run
+
+### Files Changed
+- `CLAUDE.md` — added staging workflow section
+- `.gitignore` — added `.env.staging`
+- `backend/.env.staging` — created locally (not committed)
+- `backend/scripts/staging_setup.sh` — new staging setup documentation
+- `CHANGELOG.md` — added Session M3
+
 ## Session M2 — 2026-03-16
 
 ### Architecture Documentation (Item 1)
