@@ -55,11 +55,11 @@ function ScrollToTop() {
 }
 
 const hostname = window.location.hostname
-const isHealthSubdomain = hostname === 'health.civicscale.ai'
-const isProviderSubdomain = hostname === 'provider.civicscale.ai'
-const isBrokerSubdomain = hostname === 'broker.civicscale.ai'
-const isEmployerSubdomain = hostname === 'employer.civicscale.ai'
-const isSignalSubdomain = hostname === 'signal.civicscale.ai'
+const isHealthSubdomain = hostname === 'health.civicscale.ai' || hostname === 'staging-health.civicscale.ai'
+const isProviderSubdomain = hostname === 'provider.civicscale.ai' || hostname === 'staging-provider.civicscale.ai'
+const isBrokerSubdomain = hostname === 'broker.civicscale.ai' || hostname === 'staging-broker.civicscale.ai'
+const isEmployerSubdomain = hostname === 'employer.civicscale.ai' || hostname === 'staging-employer.civicscale.ai'
+const isSignalSubdomain = hostname === 'signal.civicscale.ai' || hostname === 'staging-signal.civicscale.ai'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

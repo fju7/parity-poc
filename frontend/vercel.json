@@ -10,7 +10,17 @@
     },
     {
       "source": "/:path*",
+      "has": [{ "type": "host", "value": "staging-provider.civicscale.ai" }],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "broker.civicscale.ai" }],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "staging-broker.civicscale.ai" }],
       "destination": "/index.html"
     },
     {
@@ -20,7 +30,27 @@
     },
     {
       "source": "/:path*",
+      "has": [{ "type": "host", "value": "staging-employer.civicscale.ai" }],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "signal.civicscale.ai" }],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "staging-signal.civicscale.ai" }],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "health.civicscale.ai" }],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "staging-health.civicscale.ai" }],
       "destination": "/index.html"
     },
     { "source": "/parity-health/:path*", "destination": "/index.html" },
