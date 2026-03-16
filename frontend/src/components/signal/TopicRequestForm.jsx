@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../../lib/apiBase";
 const TOPIC_REQUEST_LIMITS = {
   free: 0,
   standard: 1,

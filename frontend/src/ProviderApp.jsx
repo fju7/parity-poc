@@ -10,8 +10,7 @@ import ProviderAuditAdmin from "./components/ProviderAuditAdmin.jsx";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import "./components/CivicScaleHomepage.css";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "./lib/apiBase";
 const SPECIALTIES = [
   "Internal Medicine",
   "Family Medicine",

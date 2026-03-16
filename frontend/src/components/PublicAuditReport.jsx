@@ -4,8 +4,7 @@ import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import ProviderAuditReport from "./ProviderAuditReport.jsx";
 import "./CivicScaleHomepage.css";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 export default function PublicAuditReport() {
   const { token } = useParams();
   const [data, setData] = useState(null);

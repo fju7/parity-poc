@@ -11,6 +11,7 @@ import PricingView from "./components/signal/PricingView";
 import AccountView from "./components/signal/AccountView";
 import AdminRequestsDashboard from "./components/signal/AdminRequestsDashboard";
 
+import { API_BASE } from "./lib/apiBase";
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -168,8 +169,6 @@ async function loadIssueData(slug) {
     };
   }
 }
-
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function SignalApp() {
   const navigate = useNavigate();

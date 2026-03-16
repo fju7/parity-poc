@@ -5,8 +5,7 @@ import AuthGate from "./AuthGate";
 import EmployerTrialBanner from "./EmployerTrialBanner";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 
-const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
-
+import { API_BASE as API } from "../lib/apiBase";
 function fmt$(n) {
   if (n == null) return "\u2014";
   return "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });

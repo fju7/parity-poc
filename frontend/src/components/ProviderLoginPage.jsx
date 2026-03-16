@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE as API } from "../lib/apiBase";
 export default function ProviderLoginPage() {
   const navigate = useNavigate();
   const { login, isAuthenticated, company } = useAuth();

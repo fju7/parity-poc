@@ -3,8 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./CivicScaleHomepage.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE as API } from "../lib/apiBase";
 export default function BrokerLoginPage() {
   const navigate = useNavigate();
   const { login, isAuthenticated, company } = useAuth();

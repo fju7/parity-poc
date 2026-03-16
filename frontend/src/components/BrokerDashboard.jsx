@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import AuthGate from "./AuthGate";
 import "./CivicScaleHomepage.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+import { API_BASE as API } from "../lib/apiBase";
 const SITE_URL = import.meta.env.VITE_SITE_URL || "https://civicscale.ai";
 
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];

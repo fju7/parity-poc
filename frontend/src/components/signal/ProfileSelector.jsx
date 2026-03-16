@@ -2,8 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { evidenceCategory } from "./WeightAdjuster";
 import { trackEvent } from "../../lib/signalAnalytics";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../../lib/apiBase";
 const CAT_COLORS = {
   strong: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", dot: "bg-emerald-400" },
   moderate: { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", dot: "bg-blue-400" },

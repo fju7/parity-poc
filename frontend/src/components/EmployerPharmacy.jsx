@@ -2,8 +2,7 @@ import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 export default function EmployerPharmacy() {
   const { isAuthenticated, user } = useAuth();
   const [file, setFile] = useState(null);

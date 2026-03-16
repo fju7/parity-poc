@@ -4,8 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import AuthGate from "./AuthGate";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 
-const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
-
+import { API_BASE as API } from "../lib/apiBase";
 function ProviderAccountInner() {
   const navigate = useNavigate();
   const { user, company, token, logout, isAdmin, refetch } = useAuth();

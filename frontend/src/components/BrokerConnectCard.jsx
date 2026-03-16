@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 export default function BrokerConnectCard({ benchmarkData = {}, source = "benchmark" }) {
   const [showForm, setShowForm] = useState(false);
   const [formName, setFormName] = useState("");

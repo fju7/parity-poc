@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE as API } from "../lib/apiBase";
 const EMP_MIDPOINTS = { "<100": 50, "100-250": 175, "250-500": 375, "500-1000": 750, "1000+": 1500 };
 
 function ordinalSuffix(n) {

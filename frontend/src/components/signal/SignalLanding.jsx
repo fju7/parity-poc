@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import ScoreBadge from "./ScoreBadge";
 import TopicRequestForm from "./TopicRequestForm";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../../lib/apiBase";
 function TopicCard({ topic }) {
   return (
     <Link

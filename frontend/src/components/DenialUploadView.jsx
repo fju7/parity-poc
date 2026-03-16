@@ -1,8 +1,7 @@
 import { useCallback, useState, useRef } from "react";
 import { Footer } from "./UploadView.jsx";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 export default function DenialUploadView({ onAnalysisComplete, onBack }) {
   const [text, setText] = useState("");
   const [file, setFile] = useState(null);

@@ -4,8 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import "./CivicScaleHomepage.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE as API } from "../lib/apiBase";
 export default function BrokerSignupPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();

@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AuthGate from "./AuthGate";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 const STATUS_COLORS = {
   submitted: { bg: "#EFF6FF", text: "#2563EB", border: "#BFDBFE" },
   processing: { bg: "#EEF2FF", text: "#4F46E5", border: "#C7D2FE" },

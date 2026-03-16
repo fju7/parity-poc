@@ -1,3 +1,4 @@
+import { API_BASE } from "../lib/apiBase";
 /**
  * nppesLookup.js — Looks up provider contact information via the public
  * CMS NPPES NPI Registry API, proxied through our backend (NPPES has no CORS).
@@ -5,7 +6,6 @@
  * API docs: https://npiregistry.cms.hhs.gov/api-page
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const TIMEOUT_MS = 15000;
 
 /**

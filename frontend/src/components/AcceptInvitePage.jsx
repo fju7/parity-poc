@@ -3,8 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 
-const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
-
+import { API_BASE as API } from "../lib/apiBase";
 const PRODUCT_DASHBOARDS = {
   employer: "/billing/employer/dashboard",
   broker: "/broker/dashboard",

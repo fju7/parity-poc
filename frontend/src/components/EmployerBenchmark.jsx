@@ -3,8 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import BrokerConnectCard from "./BrokerConnectCard";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 const INDUSTRIES = [
   "Agriculture / Forestry / Fishing",
   "Construction",

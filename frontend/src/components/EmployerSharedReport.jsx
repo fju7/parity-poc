@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useSearchParams, Link } from "react-router-dom";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 export default function EmployerSharedReport() {
   const { shareToken } = useParams();
   const [searchParams] = useSearchParams();

@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
-
+import { API_BASE as API } from "../lib/apiBase";
 /**
  * Wraps any protected page. If not authenticated, shows OTP login inline.
  * Props:

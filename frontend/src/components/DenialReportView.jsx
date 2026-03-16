@@ -1,8 +1,7 @@
 import { useState, useCallback } from "react";
 import { Footer } from "./UploadView.jsx";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 const DENIAL_TYPE_COLORS = {
   clinical: { bg: "bg-purple-50", border: "border-purple-200", text: "text-purple-700", label: "Clinical Denial" },
   administrative: { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", label: "Administrative Denial" },

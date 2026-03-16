@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../../lib/apiBase";
 const STATUS_COLORS = {
   approved: "bg-blue-50 text-blue-700 border-blue-200",
   processing: "bg-indigo-50 text-indigo-700 border-indigo-200",

@@ -3,8 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import ProviderAuditReport from "./ProviderAuditReport";
 import { useAuth } from "../context/AuthContext";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 const TEAL = "#0D9488";
 const NAVY = "#1E293B";
 const SLATE = "#64748B";

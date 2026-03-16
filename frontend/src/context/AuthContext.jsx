@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
 
+import { API_BASE as API } from "../lib/apiBase";
 const AuthContext = createContext(null);
 
-const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
 const SESSION_KEY = "cs_session_token";
 
 export function AuthProvider({ children }) {

@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import BrokerConnectCard from "./BrokerConnectCard";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 const gradeColor = (g) => {
   if (g === "A") return "#22c55e";
   if (g === "B+" || g === "B") return "#60a5fa";

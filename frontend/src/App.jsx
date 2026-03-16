@@ -29,7 +29,7 @@ import DenialUploadView from "./components/DenialUploadView.jsx";
 import DenialReportView from "./components/DenialReportView.jsx";
 import HealthAccountPage from "./components/HealthAccountPage.jsx";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+import { API_BASE } from "./lib/apiBase";
 const API_TIMEOUT_MS = 60000;
 const COLD_START_THRESHOLD_MS = 8000;
 const KEEPALIVE_INTERVAL_MS = 4 * 60 * 1000; // 4 minutes

@@ -4,8 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import AuthGate from "./AuthGate";
 import "./CivicScaleHomepage.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE as API } from "../lib/apiBase";
 function BrokerAccountInner() {
   const navigate = useNavigate();
   const { token, user, company, logout: authLogout, refetch } = useAuth();

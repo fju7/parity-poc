@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../../lib/apiBase";
 const TIER_RANK = { free: 0, standard: 1, premium: 2, professional: 3 };
 
 const TIERS = [

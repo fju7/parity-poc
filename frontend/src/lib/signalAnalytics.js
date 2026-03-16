@@ -1,3 +1,4 @@
+import { API_BASE } from "./apiBase";
 /**
  * Parity Signal — lightweight event capture.
  *
@@ -7,7 +8,6 @@
  * No PII — uses an anonymous UUID stored in localStorage.
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const ENDPOINT = `${API_BASE}/api/signal/events`;
 const STORAGE_KEY = "_parity_signal_uid";
 

@@ -5,8 +5,7 @@ import AuthGate from "./AuthGate";
 import EmployerTrialBanner from "./EmployerTrialBanner";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 
-const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
-
+import { API_BASE as API } from "../lib/apiBase";
 function EmployerAccountInner() {
   const navigate = useNavigate();
   const { user, company, token, logout, isAdmin, refetch } = useAuth();

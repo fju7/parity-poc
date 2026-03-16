@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { supabase } from "../lib/supabase.js";
 import { Footer } from "./UploadView.jsx";
 
+import { API_BASE } from "../lib/apiBase";
 function formatDateMask(raw) {
   const digits = raw.replace(/\D/g, "").slice(0, 8);
   if (digits.length <= 2) return digits;
@@ -16,8 +17,6 @@ function formatPhoneMask(raw) {
   if (digits.length <= 6) return "(" + digits.slice(0, 3) + ") " + digits.slice(3);
   return "(" + digits.slice(0, 3) + ") " + digits.slice(3, 6) + "-" + digits.slice(6);
 }
-
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function OnboardingView({
   onSubmit,

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-const API = import.meta.env.VITE_API_URL || "https://parity-poc-api.onrender.com";
-
+import { API_BASE as API } from "../lib/apiBase";
 export default function EmployerTrialBanner() {
   const { token, company, refetch } = useAuth();
   const [loading, setLoading] = useState(false);

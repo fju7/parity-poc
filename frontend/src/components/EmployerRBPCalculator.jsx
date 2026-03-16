@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
+import { API_BASE } from "../lib/apiBase";
 const MULTIPLIER_LABELS = {
   1.2: "Aggressive — maximum savings, may face provider pushback",
   1.25: "Aggressive — strong savings, some provider friction",
