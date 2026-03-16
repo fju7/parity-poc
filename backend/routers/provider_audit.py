@@ -2168,25 +2168,26 @@ def _build_summary_pdf(req: SummaryReportRequest) -> bytes:
     styles = getSampleStyleSheet()
     s_body = ParagraphStyle("SBody", parent=styles["Normal"], fontSize=10, leading=14, textColor=NAVY)
     s_small = ParagraphStyle("SSmall", parent=styles["Normal"], fontSize=8, leading=10, textColor=SLATE)
-    s_heading = ParagraphStyle("SHeading", parent=styles["Normal"], fontSize=14, leading=18, textColor=NAVY, fontName="Helvetica-Bold", spaceBefore=14, spaceAfter=6)
+    s_heading = ParagraphStyle("SHeading", parent=styles["Normal"], fontSize=12, leading=15, textColor=NAVY, fontName="Helvetica-Bold", spaceBefore=10, spaceAfter=4)
 
     report_date = req.report_date or datetime.now().strftime("%B %d, %Y")
 
     buf = io.BytesIO()
     doc = SimpleDocTemplate(
         buf, pagesize=LETTER,
-        leftMargin=0.75 * inch, rightMargin=0.75 * inch,
-        topMargin=0.75 * inch, bottomMargin=0.75 * inch,
+        leftMargin=0.6 * inch, rightMargin=0.6 * inch,
+        topMargin=0.5 * inch, bottomMargin=0.5 * inch,
     )
 
     story = []
+    page_w = LETTER[0] - 1.2 * inch  # usable width with current margins
 
     # === HEADER BAR ===
     header_data = [[
         Paragraph("<b>PARITY PROVIDER</b><br/><font size=10>Revenue Recovery Summary</font>", ParagraphStyle("HdrL", fontSize=16, textColor=WHITE, fontName="Helvetica-Bold", leading=20)),
         Paragraph(f"{req.practice_name}<br/><font size=9>{report_date}</font>", ParagraphStyle("HdrR", fontSize=11, textColor=WHITE, alignment=2, leading=14)),
     ]]
-    ht = Table(header_data, colWidths=[4.0 * inch, 3.0 * inch])
+    ht = Table(header_data, colWidths=[page_w * 0.55, page_w * 0.45])
     ht.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), TEAL),
         ("TOPPADDING", (0, 0), (-1, -1), 14),
@@ -2227,7 +2228,7 @@ def _build_summary_pdf(req: SummaryReportRequest) -> bytes:
     box3 = _stat_box(box3_val, box3_label, box3_sub, box3_bg)
 
     hero_data = [[box1, box2, box3]]
-    hero_table = Table(hero_data, colWidths=[2.33 * inch, 2.33 * inch, 2.34 * inch])
+    hero_table = Table(hero_data, colWidths=[page_w / 3] * 3)
     hero_styles = [
         ("BACKGROUND", (0, 0), (0, 0), NAVY),
         ("BACKGROUND", (1, 0), (1, 0), TEAL),
@@ -2271,7 +2272,7 @@ def _build_summary_pdf(req: SummaryReportRequest) -> bytes:
                 f"{db.get('industry_avg_rate', 0):.1f}%",
                 f"{db.get('gap', 0):+.1f}%",
             ])
-        dbt = Table(db_rows, colWidths=[1.2 * inch, 1.5 * inch, 1.5 * inch, 1.2 * inch])
+        dbt = Table(db_rows, colWidths=[page_w * 0.2, page_w * 0.27, page_w * 0.27, page_w * 0.2])
         db_styles_list = [
             ("BACKGROUND", (0, 0), (-1, 0), NAVY),
             ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),

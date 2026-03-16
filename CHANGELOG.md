@@ -1,5 +1,44 @@
 # Changelog
 
+## Session R — 2026-03-16
+
+### R0 — Session Q Promoted to Production
+- Merged staging to main: broker/employer Stripe Origin fix + OTP branding
+- No frontend rebuild needed (changes were backend-only)
+
+### R1 — Employer Stripe Flow Verified
+- PASS: POST /api/employer/start-trial with Origin: staging-employer.civicscale.ai
+- Stripe session success_url: https://staging-employer.civicscale.ai/dashboard?trial_started=true
+- Stripe session cancel_url: https://staging-employer.civicscale.ai/dashboard
+
+### R2 — OTP Branding Verification
+- All 5 products already have correct branding after Session Q fix:
+  Employer="Parity Employer", Broker="Parity Broker", Provider="Parity Provider",
+  Health="Parity Health" (separate handler), Signal uses Supabase Auth (no OTP)
+
+### R3 — Historical Rate Tables (BLOCKED)
+- Load scripts exist and are ready (load_historical_rates.py, process_pfs.py)
+- CMS data files for 2024/2025 not present locally — must be downloaded from CMS.gov
+- Files are ~100MB ZIPs requiring manual download from CMS website
+- Fred action: download CY2024 and CY2025 PFS carrier files from CMS.gov
+
+### R4 — Provider PDF Formatting
+- Reduced margins (0.75"→0.6" sides, 0.75"→0.5" top/bottom) for more content area
+- Section headings reduced from 14px to 12px with tighter spacing
+- Header and stat box widths now use computed page_w for consistent alignment
+- Denial benchmark table widths use proportional page_w fractions
+
+### R5 — Investors Page Layout
+- Added box-sizing: border-box to all elements in investors page
+- Hero padding reduced on mobile (140px→100px top, 48px→24px sides)
+- CTA heading font reduced on mobile (32px→24px)
+- Prevents horizontal overflow on narrow viewports
+
+### Files Changed
+- `backend/routers/provider_audit.py` — PDF margin and spacing improvements
+- `frontend/src/components/InvestorsPage.css` — mobile layout fixes + box-sizing
+- `CHANGELOG.md` — Session R
+
 ## Session Q — 2026-03-16
 
 ### Q0 — Staging Backend Verification
