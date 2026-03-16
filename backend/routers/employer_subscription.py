@@ -417,7 +417,7 @@ async def employer_subscription_status(email: str = Query(...)):
 # ---------------------------------------------------------------------------
 
 @router.post("/start-trial")
-async def employer_start_trial(authorization: str = Header(None)):
+async def employer_start_trial(request: Request, authorization: str = Header(None)):
     """Create Stripe checkout session with 30-day free trial."""
     import stripe as stripe_lib
     from routers.auth import get_current_user
@@ -434,6 +434,10 @@ async def employer_start_trial(authorization: str = Header(None)):
     # Check not already on trial or pro
     if company.get("plan") in ("trial", "pro"):
         return {"already_active": True}
+
+    # Derive frontend URL from Origin header (supports staging subdomains)
+    origin = request.headers.get("origin", "")
+    base_url = origin if origin.startswith("https://") else "https://employer.civicscale.ai"
 
     # Get or create Stripe customer
     customer_id = company.get("stripe_customer_id")
@@ -461,8 +465,8 @@ async def employer_start_trial(authorization: str = Header(None)):
                 "email": email,
             }
         },
-        success_url="https://employer.civicscale.ai/dashboard?trial_started=true",
-        cancel_url="https://employer.civicscale.ai/dashboard",
+        success_url=f"{base_url}/dashboard?trial_started=true",
+        cancel_url=f"{base_url}/dashboard",
         metadata={
             "company_id": company_id,
             "product": "employer_pro",

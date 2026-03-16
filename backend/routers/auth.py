@@ -183,7 +183,7 @@ def _generate_otp(length=OTP_LENGTH):
 def _send_otp_email(email: str, code: str, product: str):
     product_names = {
         "employer": "Parity Employer",
-        "broker": "Parity Employer Broker Portal",
+        "broker": "Parity Broker",
         "provider": "Parity Provider",
         "health": "Parity Health",
         "signal": "Parity Signal",
@@ -542,7 +542,7 @@ async def invite_user(req: InviteUserRequest, authorization: str = Header(None))
 
     product_names = {
         "employer": "Parity Employer",
-        "broker": "Parity Employer Broker Portal",
+        "broker": "Parity Broker",
         "provider": "Parity Provider",
         "signal": "Parity Signal",
     }

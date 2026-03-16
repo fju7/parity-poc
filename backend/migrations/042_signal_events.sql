@@ -1,5 +1,13 @@
 -- Migration 042: signal_events table
 -- Privacy-first analytics — session_id only, no user_id linkage
+--
+-- For existing databases with old schema (user_id, device_type columns):
+--   UPDATE signal_events SET user_id = NULL WHERE user_id IS NOT NULL;
+--   ALTER TABLE signal_events DROP COLUMN IF EXISTS user_id;
+--   ALTER TABLE signal_events DROP COLUMN IF EXISTS device_type;
+--   ALTER TABLE signal_events ADD COLUMN IF NOT EXISTS session_id text NOT NULL DEFAULT '';
+--   ALTER TABLE signal_events ADD COLUMN IF NOT EXISTS topic_slug text;
+--   ALTER TABLE signal_events ADD COLUMN IF NOT EXISTS element_id text;
 
 CREATE TABLE IF NOT EXISTS signal_events (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
