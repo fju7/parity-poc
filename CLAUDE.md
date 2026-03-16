@@ -686,3 +686,28 @@ Next migration number: 042
 
 - Never hardcode a URL, environment variable value, or credential in source code. Always use environment variables. If an environment variable is missing from Render, note it explicitly and ask Fred to add it rather than using a hardcoded fallback.
 - When the same error occurs twice, do not apply the same fix twice. Escalate to Fred with a description of what was tried and what the result was.
+
+## Development Workflow — Staging First (Effective Session N onward)
+
+ALL development happens on the staging branch. Never commit directly to main.
+
+Starting every session:
+  git checkout staging
+  git pull origin staging
+
+Staging URLs (once configured):
+  Backend: parity-poc-api-staging.onrender.com
+  Health: staging-health.civicscale.ai
+  Employer: staging-employer.civicscale.ai
+  Broker: staging-broker.civicscale.ai
+  Provider: staging-provider.civicscale.ai
+  Signal: staging-signal.civicscale.ai
+
+Promoting to production (Fred does this after testing, not Claude Code):
+  git checkout main
+  git pull origin main
+  git merge staging
+  git push origin main
+
+Never merge staging to main during a Claude Code session.
+Always stop at pushing to staging.
