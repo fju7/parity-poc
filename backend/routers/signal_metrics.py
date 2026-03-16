@@ -91,14 +91,15 @@ async def get_stats():
     try:
         claims_res = sb.table("signal_claims").select("id", count="exact").execute()
         result["evidence_claims"] = claims_res.count or 0
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"[Signal Stats ERROR] claims query failed: {e}")
 
     try:
         sources_res = sb.table("signal_sources").select("id", count="exact").execute()
         result["evidence_sources"] = sources_res.count or 0
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"[Signal Stats ERROR] sources query failed: {e}")
+
 
     return result
 
