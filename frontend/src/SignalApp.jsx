@@ -10,6 +10,7 @@ import SignalLogin from "./components/signal/SignalLogin";
 import PricingView from "./components/signal/PricingView";
 import AccountView from "./components/signal/AccountView";
 import AdminRequestsDashboard from "./components/signal/AdminRequestsDashboard";
+import AdminAnalytics from "./components/signal/AdminAnalytics";
 
 import { API_BASE } from "./lib/apiBase";
 function ScrollToTop() {
@@ -276,6 +277,10 @@ export default function SignalApp() {
           <Route
             path="admin/requests"
             element={<AdminRequestsDashboard session={session} />}
+          />
+          <Route
+            path="admin/analytics"
+            element={<AdminAnalytics session={session} />}
           />
           <Route
             path=":slug"

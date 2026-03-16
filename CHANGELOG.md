@@ -1,5 +1,50 @@
 # Changelog
 
+## Session P — 2026-03-16
+
+### P0 — Migration 042 Production
+- `signal_events` table exists in production with old schema (user_id, device_type)
+- Fred action: run ALTER TABLE statements to add session_id, topic_slug, element_id columns
+
+### P1 — Session O Promoted to Production
+- Merged staging to main (fast-forward, no conflicts)
+- Built and pushed production frontend dist
+- Production now has: Layer 3 nav, all 7 panels, centralized API URL, staging subdomain routing
+
+### P2 — Health EOB Line Items Fix
+- **Bug 1 (line items not showing):** Frontend filter `li.cpt_code || li.revenue_code`
+  dropped items without procedure codes. Fixed to include items with description only
+  (`li.cpt_code || li.revenue_code || li.description`). Applied to both text and image flows.
+- **Bug 2 (wrong service date year):** AI extraction prompt didn't distinguish
+  date of service from patient DOB. Added explicit instruction: "Extract the DATE
+  OF SERVICE, not the patient's date of birth."
+
+### P3 — Admin Analytics Dashboard
+- New component: `frontend/src/components/signal/AdminAnalytics.jsx`
+- Route: `/admin/analytics` on signal subdomain
+- Auth-gated to admin user ID `4c62234e-86cc-4b8d-a782-c54fe1d11eb0`
+- Backend: `GET /api/signal/admin/analytics` — aggregates from signal_events
+- Shows: total events, unique sessions, questions asked, per-topic breakdown,
+  most-expanded sections, event type distribution
+- Added 90-day retention policy note to ARCHITECTURE.md
+
+### P4 — Stripe Free Trial Flow Audit
+- All 4 products use 30-day trial, card required upfront
+- **Issue found:** broker.py and employer_subscription.py `start-trial`
+  endpoints hardcode production URLs (`broker.civicscale.ai`,
+  `employer.civicscale.ai`) — staging checkout will redirect to production
+- Provider and Health use dynamic `frontend_url` env var — correct
+- Signal has no trial period
+
+### Files Changed
+- `frontend/src/App.jsx` — EOB line item filter fix (both text and image paths)
+- `backend/routers/health_analyze.py` — service date extraction prompt fix
+- `frontend/src/components/signal/AdminAnalytics.jsx` — new admin analytics dashboard
+- `frontend/src/SignalApp.jsx` — admin/analytics route
+- `backend/routers/signal_events.py` — admin analytics endpoint
+- `ARCHITECTURE.md` — 90-day retention policy note
+- `CHANGELOG.md` — Session P
+
 ## Session O — 2026-03-16
 
 ### O0 — Staging Alias Script
