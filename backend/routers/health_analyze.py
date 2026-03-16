@@ -127,7 +127,9 @@ SYSTEM_PROMPT = """You are a medical bill data extraction specialist. Extract al
   ],
   "total_billed": number or null
 }
-Extract every line item. Use null for any field not visible. Do not include subtotal or total rows as line items. For network_status, look for terms like "in-network", "out-of-network", "participating", "non-participating", "PPO", "HMO" to determine if the provider was in or out of network. Use null if not determinable."""
+Extract every line item. Use null for any field not visible. Do not include subtotal or total rows as line items. For network_status, look for terms like "in-network", "out-of-network", "participating", "non-participating", "PPO", "HMO" to determine if the provider was in or out of network. Use null if not determinable.
+
+IMPORTANT for service_date: Extract the DATE OF SERVICE, not the patient's date of birth. The service date is when the medical service was performed — look for labels like "Date of Service", "Service Date", "DOS", "Dates of Service", or dates near procedure descriptions. Patient DOB (date of birth, born, DOB) is NOT the service date. If multiple service dates exist, use the most recent one."""
 
 # Extended prompt when SBC data is provided
 SBC_CONTEXT_ADDENDUM = """

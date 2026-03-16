@@ -84,3 +84,81 @@ async def capture_event(request: Request):
         print(f"[Signal Events] Write failed (non-fatal): {e}")
 
     return JSONResponse({"status": "ok"}, status_code=200)
+
+
+ADMIN_USER_ID = "4c62234e-86cc-4b8d-a782-c54fe1d11eb0"
+
+
+@router.get("/admin/analytics")
+async def admin_analytics(request: Request):
+    """Return aggregated analytics data. Admin-only."""
+    # Auth check
+    auth_header = request.headers.get("authorization", "")
+    if not auth_header.startswith("Bearer "):
+        return JSONResponse({"error": "unauthorized"}, status_code=401)
+
+    token = auth_header.split(" ", 1)[1]
+    sb = _get_sb()
+    if not sb:
+        return JSONResponse({"error": "no db"}, status_code=500)
+
+    try:
+        user = sb.auth.get_user(token)
+        if user.user.id != ADMIN_USER_ID:
+            return JSONResponse({"error": "forbidden"}, status_code=403)
+    except Exception:
+        return JSONResponse({"error": "invalid token"}, status_code=401)
+
+    try:
+        # Total events
+        total_res = sb.table("signal_events").select("id", count="exact").execute()
+        total_events = total_res.count or 0
+
+        # Unique sessions
+        all_events = sb.table("signal_events").select("session_id, topic_slug, event_type, element_id").execute()
+        rows = all_events.data or []
+        unique_sessions = len({r.get("session_id") for r in rows if r.get("session_id")})
+
+        # Questions count
+        question_count = sum(1 for r in rows if r.get("event_type") == "ask_submitted")
+
+        # Per-topic breakdown
+        topic_map = {}
+        for r in rows:
+            slug = r.get("topic_slug") or "unknown"
+            if slug not in topic_map:
+                topic_map[slug] = {"event_count": 0, "sections": {}, "question_count": 0}
+            topic_map[slug]["event_count"] += 1
+            if r.get("event_type") in ("section_expand", "summary_theme_expanded"):
+                eid = r.get("element_id") or "unknown"
+                topic_map[slug]["sections"][eid] = topic_map[slug]["sections"].get(eid, 0) + 1
+            if r.get("event_type") == "ask_submitted":
+                topic_map[slug]["question_count"] += 1
+
+        topics = []
+        for slug, info in sorted(topic_map.items(), key=lambda x: -x[1]["event_count"]):
+            top_sections = sorted(info["sections"].items(), key=lambda x: -x[1])[:3]
+            topics.append({
+                "topic_slug": slug,
+                "event_count": info["event_count"],
+                "top_sections": [s[0] for s in top_sections],
+                "question_count": info["question_count"],
+            })
+
+        # Event type distribution
+        type_counts = {}
+        for r in rows:
+            et = r.get("event_type", "unknown")
+            type_counts[et] = type_counts.get(et, 0) + 1
+        event_types = [{"event_type": k, "count": v} for k, v in sorted(type_counts.items(), key=lambda x: -x[1])]
+
+        return {
+            "total_events": total_events,
+            "unique_sessions": unique_sessions,
+            "question_count": question_count,
+            "topics": topics,
+            "event_types": event_types,
+        }
+    except Exception as e:
+        print(f"[Signal Admin Analytics] Error: {e}")
+        return JSONResponse({"error": str(e)}, status_code=500)

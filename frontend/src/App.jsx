@@ -864,10 +864,10 @@ export default function App() {
           insuranceName: response.insurance_name || null,
           networkStatus: response.network_status || null,
           lineItems: (response.line_items || [])
-            .filter((li) => li.cpt_code || li.revenue_code)
+            .filter((li) => li.cpt_code || li.revenue_code || li.description)
             .map((li) => ({
               code: li.cpt_code || li.revenue_code || "",
-              codeType: li.cpt_code ? "CPT" : "REVENUE",
+              codeType: li.cpt_code ? "CPT" : li.revenue_code ? "REVENUE" : "UNKNOWN",
               description: li.description || "Unknown procedure",
               billedAmount: li.billed_amount || 0,
               quantity: li.quantity || 1,
@@ -986,10 +986,10 @@ export default function App() {
           insuranceName: response.insurance_name || null,
           networkStatus: response.network_status || null,
           lineItems: (response.line_items || [])
-            .filter((li) => li.cpt_code || li.revenue_code)
+            .filter((li) => li.cpt_code || li.revenue_code || li.description)
             .map((li) => ({
               code: li.cpt_code || li.revenue_code || "",
-              codeType: li.cpt_code ? "CPT" : "REVENUE",
+              codeType: li.cpt_code ? "CPT" : li.revenue_code ? "REVENUE" : "UNKNOWN",
               description: li.description || "Unknown procedure",
               billedAmount: li.billed_amount || 0,
               quantity: li.quantity || 1,
