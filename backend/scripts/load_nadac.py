@@ -20,7 +20,12 @@ import requests
 # CMS NADAC API endpoint (Medicaid.gov data store)
 # ---------------------------------------------------------------------------
 
-NADAC_API_URL = "https://data.medicaid.gov/api/1/datastore/query/dfa2ab14-06c2-457a-9e36-5cb6d80f8d93/0"
+NADAC_API_URL = "https://data.medicaid.gov/api/1/datastore/query/fbb83258-11c7-47f5-8b18-5f8e79f7e704/0"
+
+# Server-side date filter: only fetch the most recent weeks of data
+# instead of paginating through the entire yearly dataset (~1.9M rows).
+# Update this date when re-running to fetch only the latest snapshot.
+NADAC_MIN_AS_OF_DATE = "2026-03-01"
 
 # We paginate in chunks — the API returns max 500 per request by default
 PAGE_SIZE = 500
@@ -57,6 +62,9 @@ def fetch_nadac_data():
                     "offset": offset,
                     "sort[0][property]": "as_of_date",
                     "sort[0][order]": "desc",
+                    "conditions[0][property]": "as_of_date",
+                    "conditions[0][value]": NADAC_MIN_AS_OF_DATE,
+                    "conditions[0][operator]": ">",
                 },
                 timeout=60,
             )

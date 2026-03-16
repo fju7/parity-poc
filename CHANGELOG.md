@@ -26,7 +26,18 @@ Audited all reference data tables in Supabase:
 - Deferred: CLAUDE.md forbids branch creation, and CivicScale_Staging_Setup_Guide.docx not found in repo
 - Awaiting Fred's confirmation before creating staging branch
 
+### NADAC Loader Fix (Item 5 — follow-up)
+- Root cause: `load_nadac.py` used stale dataset UUID `dfa2ab14-...` pointing to
+  an unlisted 2021-2022 archive — all 24,866 rows in `pharmacy_nadac` capped at
+  effective_date 2022-02-09
+- Fix: updated UUID to `fbb83258-...` (NADAC 2026 dataset from catalog.data.gov),
+  added server-side date filter (`as_of_date > 2026-03-01`) to fetch only the
+  latest weekly snapshot (~30K rows) instead of paginating all 1.9M rows
+- Expected after reload: ~30,000 rows with effective_date through 2026-02-18
+- Fred action: run reload command manually after deploying
+
 ### Files Changed
 - `CLAUDE.md` — added Session M notes, updated migration list (next: 042)
-- `CHANGELOG.md` — created
+- `CHANGELOG.md` — created, updated with NADAC fix
 - `backend/migrations/041_data_versions.sql` — new migration
+- `backend/scripts/load_nadac.py` — updated NADAC API UUID + date filter
