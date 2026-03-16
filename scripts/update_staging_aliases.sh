@@ -32,7 +32,7 @@ echo ""
 FAILED=0
 for ALIAS in "${ALIASES[@]}"; do
   echo -n "  $ALIAS ... "
-  if npx vercel alias "$DEPLOYMENT_URL" "$ALIAS" --yes 2>/dev/null; then
+  if npx vercel alias "$DEPLOYMENT_URL" "$ALIAS" 2>/dev/null; then
     echo "OK"
   else
     echo "FAILED"
