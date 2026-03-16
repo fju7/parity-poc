@@ -559,6 +559,7 @@ export default function IssueDashboard({
 
   // Refs for scrolling to sections
   const sectionRefs = useRef({});
+  const navRailRef = useRef(null);
 
   // ── Change 5: Contested topic banner detection ──
   const isContested = summaryData?.topic_type === "contested" || summaryData?.has_values_dimension === true;
@@ -693,12 +694,15 @@ export default function IssueDashboard({
                   return (
                     <button
                       key={cat}
+                      title={`View ${displayName(cat)} claims`}
                       onClick={() => {
-                        const el = sectionRefs.current[cat];
-                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                         handleCategorySelect(cat);
+                        setActivePanel("claims");
+                        setTimeout(() => {
+                          navRailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }, 50);
                       }}
-                      className="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-white hover:bg-gray-50 border border-gray-100 cursor-pointer transition-colors group text-left"
+                      className="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-white hover:bg-gray-50 border border-gray-100 hover:border-[#0D7377]/30 cursor-pointer transition-colors group text-left"
                     >
                       <span className="text-xs font-medium text-[#1B3A5C] shrink-0" style={{ width: 120 }}>
                         {displayName(cat)}
@@ -755,7 +759,7 @@ export default function IssueDashboard({
       )}
 
       {/* ── Layer 3: Navigation Rail ── */}
-      <div className="mb-4 overflow-x-auto scrollbar-hide -mx-4 px-4">
+      <div ref={navRailRef} className="mb-4 overflow-x-auto scrollbar-hide -mx-4 px-4">
         <div className="flex gap-1.5 min-w-max py-1">
           {[
             { id: "overview", label: "Overview" },
@@ -788,30 +792,6 @@ export default function IssueDashboard({
       {activePanel === "overview" && (
         <div className="space-y-4">
           <StatsBar sources={sources} claims={claims} composites={compositeMap} />
-
-          {/* Score by category grid */}
-          {categories.length > 0 && (
-            <div className="grid grid-cols-2 gap-2">
-              {categories.map((cat) => {
-                const cs = categoryScores[cat] || {};
-                const score = cs.avg ? parseFloat(cs.avg) : 0;
-                return (
-                  <div key={cat} className="bg-white rounded-xl p-3 border border-gray-100">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-medium text-[#1B3A5C] truncate">{displayName(cat)}</span>
-                      <span className="text-xs font-bold tabular-nums" style={{ color: scoreRingColor(cs.avg || 0).text }}>
-                        {cs.avg || "–"}
-                      </span>
-                    </div>
-                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full ${scoreBarClasses(cs.avg || 0)}`} style={{ width: `${(score / 5) * 100}%` }} />
-                    </div>
-                    <div className="text-[10px] text-gray-400 mt-1">{cs.claims || 0} claims · {cs.sources || 0} sources</div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
 
           {/* Q&A */}
           {issue && (
