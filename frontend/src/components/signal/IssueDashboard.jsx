@@ -414,6 +414,9 @@ export default function IssueDashboard({
   const [customWeights, setCustomWeights] = useState(null);
   const [weightsOpen, setWeightsOpen] = useState(false);
   const [profileScoreData, setProfileScoreData] = useState(null);
+  const [activePanel, setActivePanel] = useState("overview");
+  const [claimFilter, setClaimFilter] = useState("all");
+  const [sourceFilter, setSourceFilter] = useState("all");
 
   // Build a set of divergent claim IDs for visual flagging
   const divergentClaimIds = useMemo(() => {
@@ -751,164 +754,345 @@ export default function IssueDashboard({
         </div>
       )}
 
-      {/* Stats */}
-      <StatsBar sources={sources} claims={claims} composites={compositeMap} />
-
-      {/* Key Debates & Open Questions */}
-      {debateItems.length > 0 && (
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <svg
-              className="w-4 h-4 text-amber-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+      {/* ── Layer 3: Navigation Rail ── */}
+      <div className="mb-4 overflow-x-auto scrollbar-hide -mx-4 px-4">
+        <div className="flex gap-1.5 min-w-max py-1">
+          {[
+            { id: "overview", label: "Overview" },
+            { id: "claims", label: `All Claims (${claims?.length || 0})` },
+            { id: "paths", label: "Analytical Paths" },
+            { id: "debates", label: "Key Debates" },
+            { id: "roadmap", label: "Evidence Roadmap" },
+            { id: "sources", label: `Sources (${sources?.length || 0})` },
+            { id: "methodology", label: "Methodology" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => {
+                setActivePanel(tab.id);
+                trackEvent("nav_click", { panel: tab.id }, issue?.slug, tab.id);
+              }}
+              className={`px-3.5 py-2 rounded-full text-xs font-semibold border-none cursor-pointer transition-colors whitespace-nowrap ${
+                activePanel === tab.id
+                  ? "bg-[#0D7377] text-white"
+                  : "bg-[#1B3A5C] text-gray-300 hover:text-white"
+              }`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"
-              />
-            </svg>
-            <h2 className="text-sm font-bold text-white uppercase tracking-wide">
-              Key Debates &amp; Open Questions
-            </h2>
-          </div>
-          <p className="text-xs text-gray-400 mb-3">
-            Areas where the evidence is actively contested or insufficient — worth watching as new data emerges.
-          </p>
-          <div className="space-y-2">
-            {debateItems.map((item) => (
-              <DebateItem key={item.id || item.category} item={item} glossary={glossary} />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Panel: Overview ── */}
+      {activePanel === "overview" && (
+        <div className="space-y-4">
+          <StatsBar sources={sources} claims={claims} composites={compositeMap} />
+
+          {/* Score by category grid */}
+          {categories.length > 0 && (
+            <div className="grid grid-cols-2 gap-2">
+              {categories.map((cat) => {
+                const cs = categoryScores[cat] || {};
+                const score = cs.avg ? parseFloat(cs.avg) : 0;
+                return (
+                  <div key={cat} className="bg-white rounded-xl p-3 border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-medium text-[#1B3A5C] truncate">{displayName(cat)}</span>
+                      <span className="text-xs font-bold tabular-nums" style={{ color: scoreRingColor(cs.avg || 0).text }}>
+                        {cs.avg || "–"}
+                      </span>
+                    </div>
+                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className={`h-full rounded-full ${scoreBarClasses(cs.avg || 0)}`} style={{ width: `${(score / 5) * 100}%` }} />
+                    </div>
+                    <div className="text-[10px] text-gray-400 mt-1">{cs.claims || 0} claims · {cs.sources || 0} sources</div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Q&A */}
+          {issue && (
+            <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} qaUsage={tierData?.usage} />
+          )}
+        </div>
+      )}
+
+      {/* ── Panel: All Claims ── */}
+      {activePanel === "claims" && (
+        <div className="space-y-3">
+          {/* Filters */}
+          <div className="flex gap-2 flex-wrap">
+            {["all", "strong", "moderate", "mixed", "weak"].map((f) => (
+              <button
+                key={f}
+                onClick={() => setClaimFilter(f)}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium border-none cursor-pointer transition-colors ${
+                  claimFilter === f
+                    ? "bg-[#0D7377] text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {f === "all" ? "All" : f.charAt(0).toUpperCase() + f.slice(1)}
+                {f !== "all" && (() => {
+                  const count = (claims || []).filter((c) => {
+                    const comp = compositeMap.get(c.id);
+                    return (comp?.evidence_category || "").toLowerCase() === f;
+                  }).length;
+                  return ` (${count})`;
+                })()}
+              </button>
             ))}
           </div>
-        </div>
-      )}
 
-      {/* Analytical Profiles — premium profile selector with divergence */}
-      {issue && dimensionScores && dimensionScores.size > 0 && (
-        <ProfileSelector
-          issueId={issue.id}
-          userTier={userTier}
-          onProfileWeightsChange={handleProfileWeightsChange}
-          onProfileScoresChange={handleProfileScoresChange}
-        />
-      )}
-
-      {/* Analytical Paths — weight adjustment */}
-      {dimensionScores && dimensionScores.size > 0 && (
-        <WeightAdjuster
-          weights={customWeights}
-          onChange={(w) => {
-            setCustomWeights(w);
-            trackEvent("weights_adjusted", { preset: null });
-          }}
-          onReset={() => {
-            setCustomWeights(null);
-            trackEvent("weights_reset");
-          }}
-          isOpen={weightsOpen}
-          onToggle={() => {
-            if (!weightsOpen) {
-              trackEvent("analytical_paths_opened", { issue_slug: issue?.slug });
-            }
-            setWeightsOpen(!weightsOpen);
-          }}
-          claims={claims}
-          dimensionScores={dimensionScores}
-          compositeMap={compositeMap}
-        />
-      )}
-
-      {/* Category tabs */}
-      {categories.length > 0 && (
-        <div className="mb-6">
-          <CategoryTabs
-            categories={categories}
-            consensusMap={consensusMap}
-            selected={activeCategory}
-            onSelect={handleCategorySelect}
-          />
-        </div>
-      )}
-
-      {/* Active category section */}
-      {activeCategory && (
-        <div className="space-y-4">
-          {/* Consensus for this category */}
-          {consensusMap[activeCategory] && (
-            <ConsensusIndicator consensus={consensusMap[activeCategory]} glossary={glossary} />
+          {/* Category tabs */}
+          {categories.length > 0 && (
+            <CategoryTabs
+              categories={categories}
+              consensusMap={consensusMap}
+              selected={activeCategory}
+              onSelect={handleCategorySelect}
+            />
           )}
 
-          {/* Category summary + claim count */}
-          <div className="bg-gray-50 rounded-xl p-4">
-            {categoryKey?.key_takeaway && (
-              <div className="mb-3">
-                <div className="flex items-center gap-2 mb-1">
-                  {avgScore && <ScoreBadge score={avgScore} size="sm" />}
-                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">
-                    Key Takeaway
-                  </span>
-                </div>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  <GlossaryText text={categoryKey.key_takeaway} glossary={glossary} />
-                </p>
+          {/* Claim cards */}
+          {(claimFilter === "all" ? filteredClaims : filteredClaims.filter((c) => {
+            const comp = compositeMap.get(c.id);
+            return (comp?.evidence_category || "").toLowerCase() === claimFilter;
+          })).map((claim) => (
+            <ClaimCard
+              key={claim.id}
+              claim={claim}
+              composite={compositeMap.get(claim.id)}
+              customScore={customWeights ? computeCustomComposite(claim.id, customWeights, dimensionScores) : undefined}
+              divergent={divergentClaimIds.has(claim.id)}
+            />
+          ))}
+
+          {filteredClaims.length === 0 && (
+            <div className="text-center py-8 text-gray-400 text-sm">No claims in this category.</div>
+          )}
+        </div>
+      )}
+
+      {/* ── Panel: Analytical Paths ── */}
+      {activePanel === "paths" && (
+        <div className="space-y-4">
+          {issue && dimensionScores && dimensionScores.size > 0 && (
+            <ProfileSelector
+              issueId={issue.id}
+              userTier={userTier}
+              onProfileWeightsChange={handleProfileWeightsChange}
+              onProfileScoresChange={handleProfileScoresChange}
+            />
+          )}
+
+          {dimensionScores && dimensionScores.size > 0 && (
+            <WeightAdjuster
+              weights={customWeights}
+              onChange={(w) => {
+                setCustomWeights(w);
+                trackEvent("weights_adjusted", { preset: null }, issue?.slug);
+              }}
+              onReset={() => {
+                setCustomWeights(null);
+                trackEvent("weights_reset", {}, issue?.slug);
+              }}
+              isOpen={weightsOpen}
+              onToggle={() => {
+                if (!weightsOpen) trackEvent("analytical_paths_opened", {}, issue?.slug);
+                setWeightsOpen(!weightsOpen);
+              }}
+              claims={claims}
+              dimensionScores={dimensionScores}
+              compositeMap={compositeMap}
+            />
+          )}
+
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <div className="text-xs font-bold text-[#1B3A5C] uppercase tracking-wide mb-3">How Analytical Paths Work</div>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              Different rigorous analysts weighing the same evidence can reach different conclusions by
+              prioritizing different dimensions. Select a profile above to see how emphasis on regulatory
+              authority, clinical rigor, or patient relevance shifts the overall assessment.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ── Panel: Key Debates ── */}
+      {activePanel === "debates" && (
+        <div className="space-y-3">
+          {debateItems.length > 0 ? (
+            <>
+              <p className="text-xs text-gray-400 mb-2">
+                Areas where the evidence is actively contested or insufficient — worth watching as new data emerges.
+              </p>
+              {debateItems.map((item) => {
+                const affectedCount = (claims || []).filter((c) => c.category === item.category).length;
+                return (
+                  <div key={item.id || item.category}>
+                    <DebateItem item={item} glossary={glossary} />
+                    <div className="text-[10px] text-gray-400 mt-1 px-4">
+                      {affectedCount} claim{affectedCount !== 1 ? "s" : ""} affected
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center">
+              <div className="text-sm font-medium text-emerald-700">No active debates</div>
+              <p className="text-xs text-emerald-600 mt-1">All categories show consensus on this topic.</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── Panel: Evidence Roadmap ── */}
+      {activePanel === "roadmap" && (
+        <div className="space-y-3">
+          <p className="text-xs text-gray-400 mb-2">What we know, what's being studied, and what remains unexplored.</p>
+          {categories.map((cat) => {
+            const cons = consensusMap[cat];
+            const status = cons?.consensus_status || "uncertain";
+            const dotCls = status === "consensus" ? "bg-emerald-400" : status === "debated" ? "bg-amber-400" : "bg-gray-400";
+            const label = status === "consensus" ? "Data available" : status === "debated" ? "Actively studied" : "Not yet studied";
+            return (
+              <div key={cat} className="flex items-center gap-3 bg-white rounded-lg border border-gray-100 px-4 py-3">
+                <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${dotCls}`} />
+                <span className="flex-1 text-sm font-medium text-[#1B3A5C]">{displayName(cat)}</span>
+                <span className="text-[10px] text-gray-400 uppercase tracking-wide">{label}</span>
               </div>
-            )}
-            {filteredClaims.length > 0 && (
-              <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-200">
-                <span className="text-xs text-gray-500">
-                  {filteredClaims.length} claim{filteredClaims.length !== 1 ? "s" : ""} scored in this category
-                </span>
-                <button
-                  onClick={() => {
-                    setClaimsExpanded(!claimsExpanded);
-                    if (!claimsExpanded && issue) {
-                      trackEvent("claims_expanded", {
-                        issue_slug: issue.slug,
-                        category: activeCategory,
-                        claim_count: filteredClaims.length,
-                      });
-                    }
-                  }}
-                  className="flex items-center gap-1 text-xs font-medium text-[#0D7377] hover:text-[#0B6265] bg-transparent border-none cursor-pointer transition-colors p-0"
-                >
-                  {claimsExpanded ? "Hide claims" : "View all claims"}
-                  <svg
-                    className={`w-3 h-3 transition-transform ${claimsExpanded ? "rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+            );
+          })}
+          {categories.length === 0 && (
+            <div className="text-center py-8 text-gray-400 text-sm">No roadmap data available.</div>
+          )}
+        </div>
+      )}
+
+      {/* ── Panel: Sources ── */}
+      {activePanel === "sources" && (
+        <div className="space-y-3">
+          {/* Source type filter */}
+          <div className="flex gap-2 flex-wrap">
+            {["all", ...new Set((sources || []).map((s) => s.source_type).filter(Boolean))].map((st) => (
+              <button
+                key={st}
+                onClick={() => setSourceFilter(st)}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium border-none cursor-pointer transition-colors ${
+                  sourceFilter === st
+                    ? "bg-[#0D7377] text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {st === "all" ? "All" : st.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+              </button>
+            ))}
+          </div>
+
+          {(sources || [])
+            .filter((s) => sourceFilter === "all" || s.source_type === sourceFilter)
+            .map((src) => (
+              <div key={src.id} className="bg-white rounded-xl border border-gray-100 p-3">
+                <div className="flex items-start gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium text-[#1B3A5C] leading-snug">
+                      {src.url ? (
+                        <a href={src.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-[#0D7377]">
+                          {src.title || "Untitled source"}
+                        </a>
+                      ) : (
+                        src.title || "Untitled source"
+                      )}
+                    </div>
+                    {src.publication_date && (
+                      <div className="text-[10px] text-gray-400 mt-0.5">
+                        {new Date(src.publication_date).toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+                      </div>
+                    )}
+                  </div>
+                  {src.source_type && (
+                    <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">
+                      {src.source_type.replace(/_/g, " ")}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+
+          {(sources || []).length === 0 && (
+            <div className="text-center py-8 text-gray-400 text-sm">No sources available.</div>
+          )}
+        </div>
+      )}
+
+      {/* ── Panel: Methodology ── */}
+      {activePanel === "methodology" && (
+        <div className="space-y-4">
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <div className="text-xs font-bold text-[#1B3A5C] uppercase tracking-wide mb-3">Version History</div>
+            {summary && (
+              <div className="text-sm text-gray-600">
+                Current version: <strong>v{summary.version}</strong>
+                {summary.generated_at && (
+                  <span className="text-gray-400"> · Generated {new Date(summary.generated_at).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}</span>
+                )}
               </div>
             )}
           </div>
 
-          {/* Q&A — Premium feature */}
-          {issue && (
-            <div>
-              <EvidenceQA issueId={issue.id} issueSlug={issue.slug} session={session} userTier={userTier} qaUsage={tierData?.usage} />
-            </div>
-          )}
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <div className="text-xs font-bold text-[#1B3A5C] uppercase tracking-wide mb-3">Claim Classification</div>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              Claims are extracted from source documents and categorized by topic area. Each claim is scored
+              across six dimensions: source quality, data support, reproducibility, rigor, consensus, and recency.
+              The composite score (1-5) is a weighted average of these dimensions.
+            </p>
+          </div>
 
-          {/* Claims list — collapsed by default */}
-          {claimsExpanded && (
-            <div className="space-y-3">
-              {filteredClaims.map((claim) => (
-                <ClaimCard
-                  key={claim.id}
-                  claim={claim}
-                  composite={compositeMap.get(claim.id)}
-                  customScore={customWeights ? computeCustomComposite(claim.id, customWeights, dimensionScores) : undefined}
-                  divergent={divergentClaimIds.has(claim.id)}
-                />
-              ))}
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <div className="text-xs font-bold text-[#1B3A5C] uppercase tracking-wide mb-3">Evidence Categories</div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-400" /> <span className="text-gray-600">Strong (4.0+)</span></div>
+              <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-blue-400" /> <span className="text-gray-600">Moderate (3.0–3.9)</span></div>
+              <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-amber-400" /> <span className="text-gray-600">Mixed (2.0–2.9)</span></div>
+              <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-400" /> <span className="text-gray-600">Weak (&lt;2.0)</span></div>
             </div>
-          )}
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <div className="text-xs font-bold text-[#1B3A5C] uppercase tracking-wide mb-3">Limitations</div>
+            <ul className="text-sm text-gray-600 leading-relaxed space-y-1.5 list-disc list-inside">
+              <li>Signal evaluates published evidence — it cannot account for unpublished studies or ongoing trials not yet in the literature.</li>
+              <li>Scores reflect evidence strength, not clinical recommendation. A high score means well-supported, not necessarily actionable.</li>
+              <li>AI extraction and scoring may contain errors. All claims can be traced to their source documents.</li>
+            </ul>
+          </div>
+
+          <button
+            onClick={() => {
+              setActivePanel("overview");
+              setTimeout(() => {
+                const qaEl = document.querySelector("[data-evidence-qa]");
+                if (qaEl) {
+                  qaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                  const input = qaEl.querySelector("input");
+                  if (input) {
+                    input.value = "I want to challenge a methodological choice in this topic:";
+                    input.dispatchEvent(new Event("input", { bubbles: true }));
+                    input.focus();
+                  }
+                }
+              }, 100);
+            }}
+            className="text-xs font-medium text-[#0D7377] hover:text-[#0B6265] bg-transparent border-none cursor-pointer p-0 transition-colors"
+          >
+            Dispute a methodological choice &#8599;
+          </button>
         </div>
       )}
     </div>

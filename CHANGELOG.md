@@ -1,5 +1,53 @@
 # Changelog
 
+## Session O — 2026-03-16
+
+### O0 — Staging Alias Script
+- Created `scripts/update_staging_aliases.sh` — runs `npx vercel alias`
+  for all 6 staging subdomains in one command
+
+### O1 — Layer 3 Navigation Rail
+- 7-tab navigation rail below Layer 2: Overview, All Claims, Analytical
+  Paths, Key Debates, Evidence Roadmap, Sources, Methodology
+- Each tab renders its own panel with real data
+- Overview panel: stats grid + category score cards + Ask the Evidence
+- All Claims panel: filterable (All/Strong/Moderate/Mixed/Weak) claim
+  list with category tabs, fully interactive ClaimCards
+
+### O2 — Analytical Paths Panel
+- Moved ProfileSelector and WeightAdjuster into dedicated panel
+- Added explanatory card: "How Analytical Paths Work"
+
+### O3 — User Analytics Infrastructure
+- Migration 042: `signal_events` table (session_id, topic_slug,
+  event_type, element_id, event_data) — privacy-first, no user_id
+- Updated `signal_events.py` endpoint: always returns 200, uses
+  session_id not user_id, supports new event types
+- Updated `signalAnalytics.js`: per-session random UUID (not persistent),
+  `recordDepth()` helper, topic_slug and element_id parameters
+
+### O4 — Evidence Roadmap and Sources Panels
+- Evidence Roadmap: three-tier dot notation derived from consensus
+  status (consensus=green "Data available", debated=amber "Actively
+  studied", uncertain=gray "Not yet studied")
+- Sources panel: full source list with title, date, type badge,
+  clickable links, filterable by source_type
+
+### O5 — Key Debates and Methodology Panels
+- Key Debates: shows all debated/uncertain categories with affected
+  claim count, or green "No active debates" card
+- Methodology: version history, claim classification explanation,
+  evidence category legend, limitations list, "Dispute a methodological
+  choice" link that pre-fills Ask the Evidence
+
+### Files Changed
+- `scripts/update_staging_aliases.sh` — new
+- `frontend/src/components/signal/IssueDashboard.jsx` — Layer 3 nav + 7 panels
+- `frontend/src/lib/signalAnalytics.js` — privacy-first session analytics
+- `backend/routers/signal_events.py` — updated schema + event types
+- `backend/migrations/042_signal_events.sql` — new migration
+- `CHANGELOG.md` — Session O
+
 ## Session N — 2026-03-16
 
 ### Signal Progressive Disclosure UX — Layers 1 & 2

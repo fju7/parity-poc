@@ -1,8 +1,8 @@
 """Signal analytics event capture endpoint.
 
-Accepts lightweight event payloads from the frontend and writes them
-to the signal_events table. Uses text/plain content type to support
-navigator.sendBeacon without CORS preflight.
+Privacy-first: accepts session_id (random UUID per page load), never user_id.
+Accepts lightweight event payloads and writes to signal_events table.
+Uses text/plain content type to support navigator.sendBeacon without CORS preflight.
 """
 
 from fastapi import APIRouter, Request
@@ -12,7 +12,6 @@ import uuid
 
 router = APIRouter(prefix="/api/signal", tags=["signal"])
 
-# Lazy Supabase client — only needed on first request
 _sb = None
 
 
@@ -33,57 +32,55 @@ ALLOWED_EVENT_TYPES = {
     "summary_scroll_depth",
     "summary_theme_expanded",
     "claims_expanded",
+    "section_expand",
+    "nav_click",
+    "ask_submitted",
+    "chip_click",
+    "session_depth",
+    "analytical_paths_opened",
+    "weights_adjusted",
+    "weights_reset",
 }
 
-MAX_EVENT_DATA_SIZE = 4096  # bytes
+MAX_EVENT_DATA_SIZE = 8192
 
 
 @router.post("/events")
 async def capture_event(request: Request):
-    """Accept an analytics event.
-
-    Accepts both application/json and text/plain (for sendBeacon
-    compatibility without CORS preflight).
-    """
+    """Accept an analytics event. Returns 200 always — never fail the UI."""
     try:
         body = await request.body()
         if len(body) > MAX_EVENT_DATA_SIZE:
-            return JSONResponse({"error": "payload too large"}, status_code=413)
+            return JSONResponse({"status": "accepted"}, status_code=200)
 
         payload = json.loads(body)
     except (json.JSONDecodeError, ValueError):
-        return JSONResponse({"error": "invalid json"}, status_code=400)
+        return JSONResponse({"status": "accepted"}, status_code=200)
 
     event_type = payload.get("event_type")
     if not event_type or event_type not in ALLOWED_EVENT_TYPES:
-        return JSONResponse({"error": "invalid event_type"}, status_code=400)
+        return JSONResponse({"status": "accepted"}, status_code=200)
 
-    # Validate anonymous_id is a UUID (no PII)
-    anonymous_id = payload.get("anonymous_id")
-    if anonymous_id:
+    session_id = payload.get("session_id", "")
+    if session_id:
         try:
-            uuid.UUID(anonymous_id)
+            uuid.UUID(session_id)
         except ValueError:
-            anonymous_id = None
-
-    event_data = payload.get("event_data", {})
-    if not isinstance(event_data, dict):
-        event_data = {}
-
-    device_type = payload.get("device_type", "unknown")
-    if device_type not in ("mobile", "tablet", "desktop", "unknown"):
-        device_type = "unknown"
+            session_id = ""
 
     sb = _get_sb()
     if not sb:
-        # No Supabase service key — silently accept (dev mode)
-        return JSONResponse({"status": "accepted"}, status_code=202)
+        return JSONResponse({"status": "accepted"}, status_code=200)
 
-    sb.table("signal_events").insert({
-        "user_id": anonymous_id,
-        "event_type": event_type,
-        "event_data": event_data,
-        "device_type": device_type,
-    }).execute()
+    try:
+        sb.table("signal_events").insert({
+            "session_id": session_id or str(uuid.uuid4()),
+            "topic_slug": payload.get("topic_slug", ""),
+            "event_type": event_type,
+            "element_id": payload.get("element_id", ""),
+            "event_data": payload.get("event_data", {}),
+        }).execute()
+    except Exception as e:
+        print(f"[Signal Events] Write failed (non-fatal): {e}")
 
-    return JSONResponse({"status": "ok"}, status_code=201)
+    return JSONResponse({"status": "ok"}, status_code=200)
