@@ -21,6 +21,22 @@ const STATUS_DOT_COLOR = {
   uncertain: "bg-gray-400",
 };
 
+/** Score ring color: green 4+, amber 3-4, red <3 */
+function scoreRingColor(score) {
+  const n = parseFloat(score);
+  if (n >= 4) return { border: "#EAF3DE", text: "#3B6D11", bg: "#f0f7e6", fill: "#3B6D11" };
+  if (n >= 3) return { border: "#FAEEDA", text: "#854F0B", bg: "#fdf6eb", fill: "#854F0B" };
+  return { border: "#FCEBEB", text: "#A32D2D", bg: "#fdf0f0", fill: "#A32D2D" };
+}
+
+/** Score bar fill color (Tailwind classes) */
+function scoreBarClasses(score) {
+  const n = parseFloat(score);
+  if (n >= 4) return "bg-emerald-500";
+  if (n >= 3) return "bg-amber-500";
+  return "bg-red-500";
+}
+
 /** Split text into sentences and return the first `count`.
  *  Avoids splitting on abbreviations like "U.S.", "Dr.", "vs." */
 function getOverviewSentences(text, count = 2) {
@@ -43,14 +59,14 @@ function getOverviewSentences(text, count = 2) {
   return sentences.slice(0, count).join(" ").trim();
 }
 
-function SummaryThemeSection({ category, categoryData, consensusMap, glossary, defaultOpen = false }) {
+function SummaryThemeSection({ category, categoryData, consensusMap, glossary, defaultOpen = false, sourceCount, avgScore, onGoDeeper, sectionRef }) {
   const [open, setOpen] = useState(defaultOpen);
   const label = displayName(category);
   const status = consensusMap?.[category]?.consensus_status;
   const dotColor = STATUS_DOT_COLOR[status] || "bg-gray-300";
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden bg-white">
+    <div ref={sectionRef} className="border border-gray-200 rounded-xl overflow-hidden bg-white">
       <button
         onClick={() => {
           if (!open) {
@@ -64,13 +80,19 @@ function SummaryThemeSection({ category, categoryData, consensusMap, glossary, d
         <span className="flex-1 text-sm font-semibold text-[#1B3A5C]">
           {label}
         </span>
+        {/* Metadata: source count + score */}
+        <span className="text-[11px] text-gray-400 shrink-0 tabular-nums">
+          {sourceCount > 0 ? `${sourceCount} source${sourceCount !== 1 ? "s" : ""}` : ""}
+          {sourceCount > 0 && avgScore ? " · " : ""}
+          {avgScore ? `Score ${avgScore}` : ""}
+        </span>
         <svg
-          className={`w-4 h-4 text-gray-400 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
+          className={`w-4 h-4 text-gray-400 shrink-0 transition-transform ${open ? "rotate-90" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </button>
       {open && (
@@ -78,6 +100,14 @@ function SummaryThemeSection({ category, categoryData, consensusMap, glossary, d
           <p className="text-sm text-gray-700 leading-relaxed mt-3">
             <GlossaryText text={categoryData?.key_takeaway || "No summary available for this theme."} glossary={glossary} />
           </p>
+          {onGoDeeper && (
+            <button
+              onClick={() => onGoDeeper(category)}
+              className="mt-3 text-xs font-medium text-[#0D7377] hover:text-[#0B6265] bg-transparent border-none cursor-pointer p-0 transition-colors"
+            >
+              Go deeper on this section &#8599;
+            </button>
+          )}
         </div>
       )}
     </div>
@@ -494,6 +524,43 @@ export default function IssueDashboard({
     return (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
   }, [filteredClaims, compositeMap, customWeights, dimensionScores]);
 
+  // ── Layer 1: Overall consensus score (avg of all composite scores) ──
+  const overallScore = useMemo(() => {
+    if (!compositeMap || compositeMap.size === 0) return null;
+    const scores = [];
+    for (const c of compositeMap.values()) {
+      if (c.composite_score != null) scores.push(c.composite_score);
+    }
+    if (scores.length === 0) return null;
+    return (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
+  }, [compositeMap]);
+
+  // ── Layer 2: Per-category average scores + source counts ──
+  const categoryScores = useMemo(() => {
+    if (!claims || !categories.length) return {};
+    const map = {};
+    for (const cat of categories) {
+      const catClaims = claims.filter((c) => c.category === cat);
+      const scores = catClaims
+        .map((c) => compositeMap.get(c.id)?.composite_score)
+        .filter((s) => s != null);
+      const sourceCounts = catClaims.reduce((sum, c) => sum + (c._sourceCount || 0), 0);
+      map[cat] = {
+        avg: scores.length > 0 ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : null,
+        sources: sourceCounts,
+        claims: catClaims.length,
+      };
+    }
+    return map;
+  }, [claims, categories, compositeMap]);
+
+  // Refs for scrolling to sections
+  const sectionRefs = useRef({});
+
+  // ── Change 5: Contested topic banner detection ──
+  const isContested = summaryData?.topic_type === "contested" || summaryData?.has_values_dimension === true;
+  const empiricalQuestion = summaryData?.empirical_question || issue?.title || "this topic";
+
   if (loading) return <LoadingSkeleton />;
 
   if (error) {
@@ -518,7 +585,7 @@ export default function IssueDashboard({
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 font-[Arial,sans-serif]">
       {/* Issue header */}
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="flex items-center gap-2 mb-1">
           <span className="text-xs font-semibold text-[#0D7377] bg-teal-50 px-2.5 py-0.5 rounded-full uppercase tracking-wide">
             Evidence Review
@@ -532,57 +599,153 @@ export default function IssueDashboard({
         <h1 className="text-xl sm:text-2xl font-bold text-white mb-2">
           {issue.title}
         </h1>
-        {issue.description && (
-          <p className="text-base text-gray-300 leading-relaxed italic">
-            {issue.description}
-          </p>
-        )}
       </div>
 
-      {/* Overall summary */}
+      {/* ── Change 5: Contested Topic Banner ── */}
+      {isContested && (
+        <div className="mb-4 rounded-lg p-4" style={{ background: "#FEF9E7", borderLeft: "3px solid #EF9F27" }}>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full" style={{ background: "#FAEEDA", color: "#854F0B" }}>
+              Empirical + Values
+            </span>
+          </div>
+          <p className="text-xs text-gray-700 leading-relaxed">
+            This topic has both empirical and values components. Signal evaluates the evidence on {empiricalQuestion}. The values dimensions are addressed in the full analysis below.
+          </p>
+        </div>
+      )}
+
+      {/* ── Layer 1: Score Ring + Verdict ── */}
       {overallSummary && (
         <div ref={summaryRef} className="mb-6">
-          <div className="bg-[#1B3A5C] text-white rounded-xl p-5">
-            <div className="text-xs font-semibold text-teal-300 uppercase tracking-wide mb-2">
-              Summary
-            </div>
-            <p className="text-sm leading-relaxed opacity-90">
-              <GlossaryText
-                text={summaryExpanded ? overallSummary : getOverviewSentences(overallSummary, 2)}
-                glossary={glossary}
-              />
-            </p>
-            {overallSummary !== getOverviewSentences(overallSummary, 2) && (
-              <button
-                onClick={() => setSummaryExpanded(!summaryExpanded)}
-                className="flex items-center gap-1 mt-3 text-teal-300 hover:text-teal-200 text-xs font-medium bg-transparent border-none cursor-pointer transition-colors p-0"
-              >
-                {summaryExpanded ? "Show less" : "Read full summary"}
-                <svg
-                  className={`w-3 h-3 transition-transform ${summaryExpanded ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+          <div className="bg-[#1B3A5C] rounded-xl p-5">
+            <div className="flex items-start gap-4">
+              {/* Score ring */}
+              {overallScore && (
+                <div
+                  className="shrink-0 flex items-center justify-center rounded-full"
+                  style={{
+                    width: 44,
+                    height: 44,
+                    border: `2px solid ${scoreRingColor(overallScore).border}`,
+                    background: scoreRingColor(overallScore).bg,
+                  }}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            )}
+                  <span
+                    className="font-medium tabular-nums"
+                    style={{ fontSize: 14, color: scoreRingColor(overallScore).text }}
+                  >
+                    {overallScore}
+                  </span>
+                </div>
+              )}
+              {/* Verdict */}
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-white leading-relaxed opacity-95">
+                  <GlossaryText
+                    text={getOverviewSentences(overallSummary, 2)}
+                    glossary={glossary}
+                  />
+                </p>
+                {issue.description && (
+                  <p className="text-xs text-gray-400 leading-relaxed mt-1.5 italic">
+                    {getOverviewSentences(issue.description, 1)}
+                  </p>
+                )}
+                {overallSummary !== getOverviewSentences(overallSummary, 2) && (
+                  <button
+                    onClick={() => setSummaryExpanded(!summaryExpanded)}
+                    className="flex items-center gap-1 mt-2 text-teal-300 hover:text-teal-200 text-xs font-medium bg-transparent border-none cursor-pointer transition-colors p-0"
+                  >
+                    {summaryExpanded ? "Show less" : "Read full summary"}
+                    <svg
+                      className={`w-3 h-3 transition-transform ${summaryExpanded ? "rotate-180" : ""}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                )}
+                {summaryExpanded && (
+                  <p className="text-sm text-white leading-relaxed opacity-90 mt-2">
+                    <GlossaryText text={overallSummary} glossary={glossary} />
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
 
-          {/* Theme sections */}
+          {/* ── Layer 2: Score Bars ── */}
+          {categories.length > 0 && (
+            <div className="mt-3">
+              <div className="text-[10px] text-gray-400 uppercase tracking-wide mb-2 px-1">
+                Click any category to explore the evidence
+              </div>
+              <div className="space-y-1.5">
+                {categories.map((cat) => {
+                  const cs = categoryScores[cat] || {};
+                  const score = cs.avg ? parseFloat(cs.avg) : 0;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => {
+                        const el = sectionRefs.current[cat];
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                        handleCategorySelect(cat);
+                      }}
+                      className="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-white hover:bg-gray-50 border border-gray-100 cursor-pointer transition-colors group text-left"
+                    >
+                      <span className="text-xs font-medium text-[#1B3A5C] shrink-0" style={{ width: 120 }}>
+                        {displayName(cat)}
+                      </span>
+                      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all ${scoreBarClasses(cs.avg || 0)}`}
+                          style={{ width: `${(score / 5) * 100}%` }}
+                        />
+                      </div>
+                      <span className="text-xs font-medium text-gray-500 tabular-nums shrink-0" style={{ minWidth: 32 }}>
+                        {cs.avg || "–"}/5
+                      </span>
+                      <span className="text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity text-xs">
+                        &#8594;
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Theme sections (Change 3: updated with metadata + go deeper) */}
           {categories.length > 0 && (
             <div className="mt-3 space-y-2">
-              {categories.map((cat, i) => (
-                <SummaryThemeSection
-                  key={cat}
-                  category={cat}
-                  categoryData={summaryCatMap[cat]}
-                  consensusMap={consensusMap}
-                  glossary={glossary}
-                  defaultOpen={i === 0}
-                />
-              ))}
+              {categories.map((cat, i) => {
+                const cs = categoryScores[cat] || {};
+                return (
+                  <SummaryThemeSection
+                    key={cat}
+                    category={cat}
+                    categoryData={summaryCatMap[cat]}
+                    consensusMap={consensusMap}
+                    glossary={glossary}
+                    defaultOpen={i === 0}
+                    sourceCount={cs.sources || 0}
+                    avgScore={cs.avg}
+                    sectionRef={(el) => { sectionRefs.current[cat] = el; }}
+                    onGoDeeper={(c) => {
+                      handleCategorySelect(c);
+                      // Scroll to the EvidenceQA section
+                      setTimeout(() => {
+                        const qaEl = document.querySelector("[data-evidence-qa]");
+                        if (qaEl) qaEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }, 100);
+                    }}
+                  />
+                );
+              })}
             </div>
           )}
         </div>

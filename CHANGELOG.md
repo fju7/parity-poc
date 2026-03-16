@@ -1,5 +1,43 @@
 # Changelog
 
+## Session N — 2026-03-16
+
+### Signal Progressive Disclosure UX — Layers 1 & 2
+Five changes to the Signal topic page (IssueDashboard.jsx + EvidenceQA.jsx):
+
+**Change 1 — Layer 1: Score Ring + Verdict**
+- 44x44px color-coded score ring at top of every topic (green 4+, amber 3-4, red <3)
+- First two sentences of consensus summary as the verdict
+- Secondary context line from issue description
+
+**Change 2 — Layer 2: Score Bars**
+- Per-category score bars below the verdict
+- Name (120px) + progress bar (flex, 6px, color-coded) + score/5
+- Clickable — scrolls to section. Arrow appears on hover
+- Label: "Click any category to explore the evidence"
+
+**Change 3 — Section Toggles**
+- SummaryThemeSection now shows source count + score as metadata
+- Chevron rotates right/down (not up/down)
+- "Go deeper on this section" link at bottom of expanded content
+- Clicking Go deeper selects that category and scrolls to Ask the Evidence
+
+**Change 4 — Ask the Evidence UX**
+- 4 suggested question chips above input (shown when no messages yet)
+- Prominent "X of Y questions remaining" counter (turns red when <=2)
+- Chips are clickable and pre-fill the input
+- Added anonymization note: "Questions help us improve Signal."
+
+**Change 5 — Contested Topic Banner**
+- Amber banner for topics with `topic_type: "contested"` or `has_values_dimension: true`
+- Shows "Empirical + Values" badge
+- Inactive until a contested topic is added to the database
+
+### Files Changed
+- `frontend/src/components/signal/IssueDashboard.jsx` — Layer 1 score ring, Layer 2 score bars, section toggle metadata, contested banner
+- `frontend/src/components/signal/EvidenceQA.jsx` — question chips, remaining count, anonymization note
+- `CHANGELOG.md` — Session N entry
+
 ## Session M3 — 2026-03-16
 
 ### Staging Environment Setup

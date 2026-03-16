@@ -16,7 +16,14 @@ const NEXT_TIER = {
   premium: "Professional",
 };
 
-export default function EvidenceQA({ issueId, issueSlug, session, userTier, qaUsage }) {
+const DEFAULT_CHIPS = [
+  "What is the strongest evidence on this topic?",
+  "Where do researchers disagree?",
+  "What would change our understanding of this?",
+  "What should I actually do with this information?",
+];
+
+export default function EvidenceQA({ issueId, issueSlug, session, userTier, qaUsage, suggestedQuestions }) {
   const navigate = useNavigate();
   const tier = userTier || "free";
   const limit = QA_LIMITS[tier] ?? QA_LIMITS.free;
@@ -93,8 +100,10 @@ export default function EvidenceQA({ issueId, issueSlug, session, userTier, qaUs
     ? new Date(resetAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })
     : null;
 
+  const chips = suggestedQuestions?.length ? suggestedQuestions : DEFAULT_CHIPS;
+
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden font-[Arial,sans-serif]">
+    <div data-evidence-qa className="border border-gray-200 rounded-xl overflow-hidden font-[Arial,sans-serif]">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
         <div className="flex items-center gap-2">
@@ -103,10 +112,25 @@ export default function EvidenceQA({ issueId, issueSlug, session, userTier, qaUs
           </svg>
           <span className="text-sm font-bold text-[#1B3A5C]">Ask the Evidence</span>
         </div>
-        <span className="text-[10px] text-gray-400 tabular-nums">
-          {localUsed} of {limit} used{resetDate ? ` · resets ${resetDate}` : ""}
+        <span className="text-xs font-semibold tabular-nums" style={{ color: localRemaining <= 2 ? "#A32D2D" : "#0D7377" }}>
+          {localRemaining} of {limit} questions remaining
         </span>
       </div>
+
+      {/* Suggested question chips */}
+      {messages.length === 0 && !localAtLimit && (
+        <div className="px-4 py-3 flex flex-wrap gap-2 border-b border-gray-100">
+          {chips.map((chip, i) => (
+            <button
+              key={i}
+              onClick={() => setQuestion(chip)}
+              className="text-xs px-3 py-1.5 rounded-full border border-gray-200 text-gray-600 hover:border-[#0D7377] hover:text-[#0D7377] bg-white cursor-pointer transition-colors"
+            >
+              {chip}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Messages */}
       {messages.length > 0 && (
@@ -193,6 +217,9 @@ export default function EvidenceQA({ issueId, issueSlug, session, userTier, qaUs
       <div className="px-4 pb-3">
         <p className="text-[10px] text-gray-400">
           Answers are based on scored evidence data. Not medical advice. AI may make errors.
+        </p>
+        <p className="text-[10px] text-gray-400 mt-0.5">
+          Questions help us improve Signal. They are anonymized.
         </p>
       </div>
     </div>
