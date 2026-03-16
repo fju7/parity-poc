@@ -584,6 +584,23 @@ Based on Session K smoke test results (March 14, 2026).
 ### Fred Action Items
 - Redeploy backend on Render to pick up NADAC fix, appeal auto-pop, broker connect changes
 
+## Session M2 — Architecture Docs + Historical Rate Lookup (Complete)
+
+### Item 1 — Architecture Documentation
+- Created ARCHITECTURE.md: four-tier data model, update schedule,
+  products/URLs, auth system, Stripe integration, env vars
+
+### Item 2 — Historical Rate Lookup Fix
+- lookup_rate() now accepts optional date_of_service parameter
+- Prior-year dates delegate to lookup_rate_historical() (Supabase)
+- Falls back to current rates with warning if historical data not loaded
+- Return value changed from 4-tuple to 5-tuple (added rate_note)
+- Updated all 7 call sites: employer_claims.py (4), broker.py (1),
+  provider_audit.py (1), provider_shared.py (1)
+- Claims check response includes rate_year_note field
+- EmployerClaimsCheck.jsx shows rate year note banner
+- Historical tables exist but are empty — graceful fallback confirmed
+
 ## Session M — Smoke Tests + Data Freshness Audit (Complete)
 
 ### Item 1 — Smoke Test Verifications (all passed)

@@ -2121,11 +2121,13 @@ async def broker_claims_upload(
             continue
         paid = _safe_float(row.get(paid_col, 0))
         billed = _safe_float(row.get(billed_col, 0)) if billed_col and billed_col in df.columns else None
-        rate_val, source, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
+        svc_date = str(row.get("service_date", "")).strip() or None
+        rate_val, source, _, _, rate_note = lookup_rate(cpt, "CPT", carrier, locality, date_of_service=svc_date)
 
         line = {
             "cpt_code": cpt, "paid_amount": paid, "billed_amount": billed,
             "medicare_rate": rate_val, "medicare_source": source if rate_val else None,
+            "rate_note": rate_note,
             "ratio": None, "flag": None, "excess_amount": None,
         }
 
@@ -2219,6 +2221,11 @@ async def broker_claims_upload(
     pricing_tier = assign_pricing_tier(annualized_excess)
     tier_info = EMPLOYER_PRICE_TIERS[pricing_tier]
 
+    rate_notes = list({r["rate_note"] for r in results if r.get("rate_note")})
+    rate_year_note = rate_notes[0] if len(rate_notes) == 1 else (
+        "; ".join(rate_notes) if rate_notes else None
+    )
+
     response = {
         "summary": summary,
         "narrative": narrative,
@@ -2231,6 +2238,7 @@ async def broker_claims_upload(
         "pricing_tier_price": tier_info["price_monthly"],
         "annualized_excess": round(annualized_excess, 2),
         "level2": level2,
+        "rate_year_note": rate_year_note,
     }
 
     # --- Persist ---

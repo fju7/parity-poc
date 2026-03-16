@@ -565,7 +565,7 @@ async def analyze_contract(req: AnalyzeRequest):
         medicare_rate = None
         medicare_source = None
         if carrier and locality:
-            rate, source, _, _ = lookup_rate(
+            rate, source, _, _, _ = lookup_rate(
                 line.cpt_code, line.code_type, carrier, locality
             )
             if rate is not None:

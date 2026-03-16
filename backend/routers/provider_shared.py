@@ -942,7 +942,7 @@ def _run_analysis_for_payer(
         medicare_rate = None
         medicare_source = None
         if carrier and locality:
-            rate_val, source, _, _ = lookup_rate(line["cpt_code"], "CPT", carrier, locality)
+            rate_val, source, _, _, _ = lookup_rate(line["cpt_code"], "CPT", carrier, locality)
             if rate_val is not None:
                 medicare_rate = rate_val
                 medicare_source = source

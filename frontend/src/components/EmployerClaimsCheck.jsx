@@ -572,6 +572,14 @@ export default function EmployerClaimsCheck() {
               <StatCard label="Excess (>2x)" value={`$${result.summary.total_excess_2x.toLocaleString()}`} color="#ef4444" />
             </div>
 
+            {/* Rate year note */}
+            {result.rate_year_note && (
+              <div style={{ background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.15)", borderRadius: "10px", padding: "12px 16px", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+                <span style={{ fontSize: "14px" }}>&#x1f4c5;</span>
+                <span style={{ fontSize: "13px", color: "#93c5fd" }}>{result.rate_year_note}</span>
+              </div>
+            )}
+
             {/* Highest excess callout */}
             {result.summary.top_flagged_cpt && (
               <div style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "12px", padding: "20px", marginBottom: "24px" }}>

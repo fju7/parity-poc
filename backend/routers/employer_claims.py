@@ -261,9 +261,10 @@ async def employer_claims_check(
 
         paid = _safe_float(row.get(paid_col, 0))
         billed = _safe_float(row.get(billed_col, 0)) if billed_col and billed_col in df.columns else None
+        svc_date = str(row.get("service_date", "")).strip() or None
 
-        # Look up CMS Medicare rate
-        rate_val, source, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
+        # Look up CMS Medicare rate (date-aware)
+        rate_val, source, _, _, rate_note = lookup_rate(cpt, "CPT", carrier, locality, date_of_service=svc_date)
 
         line = {
             "cpt_code": cpt,
@@ -271,6 +272,7 @@ async def employer_claims_check(
             "billed_amount": billed,
             "medicare_rate": rate_val,
             "medicare_source": source if rate_val else None,
+            "rate_note": rate_note,
             "ratio": None,
             "flag": None,
             "excess_amount": None,
@@ -416,6 +418,12 @@ async def employer_claims_check(
     pricing_tier = assign_pricing_tier(annualized_excess)
     tier_info = EMPLOYER_PRICE_TIERS[pricing_tier]
 
+    # Collect any rate year notes for the UI
+    rate_notes = list({r["rate_note"] for r in results if r.get("rate_note")})
+    rate_year_note = rate_notes[0] if len(rate_notes) == 1 else (
+        "; ".join(rate_notes) if rate_notes else None
+    )
+
     response = {
         "summary": summary,
         "narrative": narrative,
@@ -429,6 +437,7 @@ async def employer_claims_check(
         "pricing_tier_price": tier_info["price_monthly"],
         "annualized_excess": round(annualized_excess, 2),
         "level2": level2,
+        "rate_year_note": rate_year_note,
     }
 
     # --- Persist to Supabase ---
@@ -545,7 +554,7 @@ async def employer_rbp_calculate(body: RBPRequest, request: Request):
         medicare_rate = item.get("medicare_rate")
         if medicare_rate is None or medicare_rate <= 0:
             # Re-lookup if not stored
-            rate_val, _, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
+            rate_val, _, _, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
             medicare_rate = rate_val
 
         if not medicare_rate or medicare_rate <= 0:
@@ -1032,7 +1041,7 @@ async def employer_contract_parse(
     # --- Benchmark comparison for fixed-rate line items ---
     for item in line_items:
         if item.get("rate_type") == "fixed" and item.get("cpt_code"):
-            rate_val, source, _, _ = lookup_rate(item["cpt_code"], "CPT", carrier, locality)
+            rate_val, source, _, _, _ = lookup_rate(item["cpt_code"], "CPT", carrier, locality)
             item["medicare_rate"] = rate_val
             item["medicare_source"] = source if rate_val else None
             if rate_val and rate_val > 0 and item.get("negotiated_rate", 0) > 0:
@@ -1046,7 +1055,7 @@ async def employer_contract_parse(
     benchmark_comparison = []
     if rate_basis == "percent_medicare" and medicare_percentage:
         for cpt in COMMON_CPT_CODES:
-            rate_val, source, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
+            rate_val, source, _, _, _ = lookup_rate(cpt, "CPT", carrier, locality)
             if rate_val and rate_val > 0:
                 contracted_rate = round(rate_val * medicare_percentage / 100, 2)
                 benchmark_comparison.append({

@@ -252,7 +252,7 @@ def benchmark(req: BenchmarkRequest):
                 )
             )
         else:
-            rate, source, loc, vintage = lookup_rate(
+            rate, source, loc, vintage, note = lookup_rate(
                 item.code, item.codeType, carrier, locality
             )
             results.append(
@@ -264,6 +264,7 @@ def benchmark(req: BenchmarkRequest):
                     benchmarkSource=source,
                     dataVintage=vintage,
                     localityCode=loc,
+                    warning=note,
                 )
             )
 
@@ -292,31 +293,60 @@ def resolve_locality(zip_code: str) -> tuple[Optional[str], Optional[str]]:
 
 
 def lookup_rate(
-    code: str, code_type: str, carrier: Optional[str], locality: Optional[str]
-) -> tuple[Optional[float], str, Optional[str], Optional[str]]:
+    code: str,
+    code_type: str,
+    carrier: Optional[str],
+    locality: Optional[str],
+    date_of_service=None,
+) -> tuple[Optional[float], str, Optional[str], Optional[str], Optional[str]]:
     """Look up the benchmark rate for a procedure code.
 
-    Returns (rate, source, locality_code, data_vintage).
+    Returns (rate, source, locality_code, data_vintage, rate_note).
+
+    If *date_of_service* is provided (date or "YYYY-MM-DD" string) and falls
+    in a prior rate year, queries Supabase historical tables first.  Falls
+    back to current in-memory rates with a warning note if historical data
+    is not loaded.  When date_of_service is None or in the current rate year,
+    uses the fast in-memory path with no Supabase call.
     """
     code = code.strip()
 
-    # Try PFS lookup first (for CPT codes)
+    # --- Resolve date_of_service to a date object ---
+    svc_date = None
+    if date_of_service is not None:
+        if isinstance(date_of_service, str):
+            svc_date = parse_service_date(date_of_service)
+        else:
+            svc_date = date_of_service
+
+    # --- Historical path: prior-year dates ---
+    if svc_date is not None and str(svc_date.year) != PFS_VINTAGE:
+        (rate, source, loc, vintage,
+         is_hist, hist_avail, warning) = lookup_rate_historical(
+            code, code_type, svc_date, carrier, locality
+        )
+        note = None
+        if warning:
+            note = warning
+        elif is_hist:
+            note = f"Benchmarked against CMS {svc_date.year} rates — the rates in effect on your date of service."
+        return rate, source, loc, vintage, note
+
+    # --- Current-year fast path (in-memory DataFrames) ---
     if code_type in ("CPT", "UNKNOWN") and carrier and locality:
         rate = lookup_pfs(code, carrier, locality)
         if rate is not None:
-            return rate, PFS_SOURCE, locality, PFS_VINTAGE_SHORT
+            return rate, PFS_SOURCE, locality, PFS_VINTAGE_SHORT, None
 
-    # Try OPPS lookup (for revenue codes or CPT codes not found in PFS)
     rate = lookup_opps(code)
     if rate is not None:
-        return rate, OPPS_SOURCE, locality, OPPS_VINTAGE_SHORT
+        return rate, OPPS_SOURCE, locality, OPPS_VINTAGE_SHORT, None
 
-    # Try CLFS lookup (clinical laboratory codes)
     rate = lookup_clfs(code)
     if rate is not None:
-        return rate, CLFS_SOURCE, locality, CLFS_VINTAGE_SHORT
+        return rate, CLFS_SOURCE, locality, CLFS_VINTAGE_SHORT, None
 
-    return None, "NOT_FOUND", locality, None
+    return None, "NOT_FOUND", locality, None, None
 
 
 def lookup_pfs(
@@ -441,7 +471,7 @@ def lookup_rate_historical(
                 True, True, None)
 
     # --- Fall back to current in-memory rates ---
-    rate, source, loc, vintage = lookup_rate(code, code_type, carrier, locality)
+    rate, source, loc, vintage, _note = lookup_rate(code, code_type, carrier, locality)
     if rate is not None:
         year = service_date.year if service_date else "prior"
         warning = (
