@@ -82,7 +82,7 @@ state lives exclusively in Supabase (PostgreSQL + RLS). Key tables:
 **Analysis results:** employer_benchmark_sessions, employer_claims_uploads, employer_scorecard_sessions, employer_trends_cache, pharmacy_benchmarks, broker_client_benchmarks, broker_prospect_benchmarks
 **Provider:** provider_contracts, provider_benchmark_observations, provider_profiles
 **Operational:** deletion_requests, broker_employer_links, broker_referrals, health_sbc_uploads
-**Analytics:** signal_events (privacy-first, session_id only — no user_id linkage, 90-day retention policy)
+**Analytics:** signal_events (privacy-first, session_id only — user_id column removed for privacy compliance, 90-day retention policy, device_type column removed)
 
 ---
 

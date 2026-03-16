@@ -201,7 +201,7 @@ async def get_broker_plan_endpoint(authorization: str = Header(None)):
 # ---------------------------------------------------------------------------
 
 @router.post("/subscribe")
-async def broker_subscribe(authorization: str = Header(None)):
+async def broker_subscribe(request: Request, authorization: str = Header(None)):
     """Create Stripe checkout session for broker Pro upgrade."""
     import stripe
     stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
@@ -214,6 +214,10 @@ async def broker_subscribe(authorization: str = Header(None)):
 
     if company.get("plan") == "pro":
         raise HTTPException(status_code=409, detail="You already have an active subscription.")
+
+    # Derive frontend URL from Origin header (supports staging subdomains)
+    origin = request.headers.get("origin", "")
+    base_url = origin if origin.startswith("https://") else "https://broker.civicscale.ai"
 
     # Get or create Stripe customer
     customer_id = company.get("stripe_customer_id")
@@ -229,8 +233,8 @@ async def broker_subscribe(authorization: str = Header(None)):
         mode="subscription",
         payment_method_collection="always",
         subscription_data={"trial_period_days": 30},
-        success_url="https://broker.civicscale.ai/dashboard?upgraded=true",
-        cancel_url="https://broker.civicscale.ai/dashboard?upgrade_cancelled=true",
+        success_url=f"{base_url}/dashboard?upgraded=true",
+        cancel_url=f"{base_url}/dashboard?upgrade_cancelled=true",
         metadata={"company_id": company_id, "broker_email": email, "product": "broker_pro"},
     )
 

@@ -1,5 +1,45 @@
 # Changelog
 
+## Session Q — 2026-03-16
+
+### Q0 — Staging Backend Verification
+- Confirmed staging backend running Session P code (admin/analytics returns 401, stats returns 200)
+
+### Q1 — P2-P4 Promoted to Production
+- Merged staging to main, rebuilt frontend, pushed to production
+- Production now has: EOB line item fix, service date fix, admin analytics, CORS hotfix
+
+### Q2 — Broker/Employer Hardcoded URL Fix
+- broker.py `/subscribe` and employer_subscription.py `/start-trial` had
+  hardcoded production URLs for Stripe success/cancel redirects
+- Fixed: both now derive redirect URL from request `Origin` header
+- Staging calls from `staging-broker.civicscale.ai` correctly redirect back to staging
+
+### Q3 — Stripe Trial Flow Audit
+- Code audit confirms: all 4 products use 30-day trial, card required
+- Broker and Employer now use dynamic Origin-based URLs (Q2 fix)
+- Provider and Health already used dynamic `frontend_url` — correct
+- Full browser-based test requires Fred to verify manually after staging redeploy
+
+### Q4 — OTP Email Branding Fix
+- Changed broker product name from "Parity Employer Broker Portal" to "Parity Broker"
+  in both OTP email template and team invitation email template
+- OTP branding was already product-specific (employer→"Parity Employer", etc.)
+- Each login page already sends correct product identifier
+
+### Q5 — signal_events Privacy Cleanup
+- Production has 301 rows with real user_id values — Fred action required to scrub
+- Updated migration 042 with ALTER instructions for existing databases
+- Updated ARCHITECTURE.md: user_id and device_type columns removed from design
+
+### Files Changed
+- `backend/routers/broker.py` — dynamic Origin-based Stripe redirect URLs
+- `backend/routers/employer_subscription.py` — same
+- `backend/routers/auth.py` — "Parity Broker" branding fix (OTP + invitations)
+- `backend/migrations/042_signal_events.sql` — added migration notes for old schema
+- `ARCHITECTURE.md` — privacy compliance note
+- `CHANGELOG.md` — Session Q
+
 ## Session P — 2026-03-16
 
 ### P0 — Migration 042 Production
