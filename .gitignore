@@ -25,6 +25,9 @@ frontend/node_modules/
 .env.local
 .env.staging
 
+# Generated files
+backend/migrations/run_all_migrations.sql
+
 # Mac system files
 .DS_Store
 
