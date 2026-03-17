@@ -152,7 +152,53 @@ async def admin_analytics(request: Request):
             type_counts[et] = type_counts.get(et, 0) + 1
         event_types = [{"event_type": k, "count": v} for k, v in sorted(type_counts.items(), key=lambda x: -x[1])]
 
-        # Appeal outcomes by Signal topic
+        # Platform cases — unified flywheel data for both products
+        provider_cases = []
+        health_cases = []
+        try:
+            cases_res = sb.table("platform_cases").select("*").execute()
+            case_rows = cases_res.data or []
+
+            for product_label, product_key, case_list in [
+                ("provider", "provider", provider_cases),
+                ("health", "health", health_cases),
+            ]:
+                product_rows = [r for r in case_rows if r.get("product") == product_key]
+                if not product_rows:
+                    continue
+
+                by_topic = {}
+                for o in product_rows:
+                    slug = o.get("signal_topic_slug") or "unmapped"
+                    if slug not in by_topic:
+                        by_topic[slug] = {"total": 0, "won": 0, "lost": 0, "partial": 0, "withdrawn": 0, "open": 0, "codes": {}}
+                    by_topic[slug]["total"] += 1
+                    status = o.get("status", "open")
+                    if status in by_topic[slug]:
+                        by_topic[slug][status] += 1
+                    code = o.get("denial_code") or o.get("cpt_code") or ""
+                    if code:
+                        by_topic[slug]["codes"][code] = by_topic[slug]["codes"].get(code, 0) + 1
+
+                for slug, info in sorted(by_topic.items(), key=lambda x: -x[1]["total"]):
+                    resolved = info["won"] + info["lost"] + info["partial"]
+                    win_rate = round(info["won"] / resolved * 100) if resolved > 0 else None
+                    top_codes = sorted(info["codes"].items(), key=lambda x: -x[1])[:3]
+                    case_list.append({
+                        "topic_slug": slug,
+                        "total": info["total"],
+                        "open": info["open"],
+                        "won": info["won"],
+                        "lost": info["lost"],
+                        "partial": info["partial"],
+                        "withdrawn": info["withdrawn"],
+                        "win_rate": win_rate,
+                        "top_codes": [{"code": c, "count": n} for c, n in top_codes],
+                    })
+        except Exception as exc:
+            print(f"[Admin Analytics] Platform cases fetch failed (non-fatal): {exc}")
+
+        # Also include legacy provider_appeal_outcomes if any
         appeal_outcomes = []
         try:
             outcomes_res = sb.table("provider_appeal_outcomes").select("*").execute()
@@ -185,7 +231,7 @@ async def admin_analytics(request: Request):
                         "top_denial_codes": [{"code": c, "count": n} for c, n in top_codes],
                     })
         except Exception as exc:
-            print(f"[Admin Analytics] Appeal outcomes fetch failed (non-fatal): {exc}")
+            pass  # Legacy table may not exist
 
         return {
             "total_events": total_events,
@@ -194,6 +240,8 @@ async def admin_analytics(request: Request):
             "topics": topics,
             "event_types": event_types,
             "appeal_outcomes": appeal_outcomes,
+            "provider_cases": provider_cases,
+            "health_cases": health_cases,
         }
     except Exception as e:
         print(f"[Signal Admin Analytics] Error: {e}")

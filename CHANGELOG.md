@@ -1,5 +1,41 @@
 # Changelog
 
+## Session W+ — 2026-03-17
+
+### W+0 — Platform Cases Table
+- Migration 049: platform_cases table (unified case tracking for Provider appeals + Health disputes)
+- Backend: platform_cases router with create, list, resolve, and send-reminders endpoints
+
+### W+1 — Provider: Track This Appeal
+- "Track this appeal" prompt in appeal modal auto-creates platform_case with all context
+- Confirmation: "Appeal tracked. You'll be reminded to record the outcome in 30 days."
+
+### W+2 — Provider: Open Appeals Queue
+- OpenAppealsQueue component at top of Appeals tab shows platform_cases with status=open
+- Outcome buttons: Won / Lost / Partial / Withdrawn
+- Amber "Follow up" badge on cases > 30 days old
+
+### W+3 — Health: Track This Issue
+- FlaggedItemDetail component replaces inline expanded row in ReportView
+- Recommended next action per flag type (overbilling, network, coding)
+- Signal clinical note when CPT has coverage (score >= 3.5)
+- "Track it" button creates platform_case with product=health
+
+### W+4 — Health: Open Issues Queue
+- HealthOpenIssues component at /open-issues in Health app nav
+- Shows open platform_cases for health product
+- "Resolved" and "Dropped" buttons with follow-up badge at 14 days
+
+### W+5 — Reminder Endpoint
+- POST /api/platform/send-case-reminders — finds stale open cases, sends emails
+- Provider: 30 days, Health: 14 days
+- Email via Resend with product-specific messaging and deep links
+
+### W+6 — Signal Flywheel: Both Products
+- Admin analytics now shows Provider Cases and Health Disputes from platform_cases
+- Per-topic: total, open, won, lost, win/resolution rate, top codes
+- Legacy appeal outcomes section preserved
+
 ## Session W — 2026-03-17
 
 ### W1 — Employer Claims: Clinical Context Cards

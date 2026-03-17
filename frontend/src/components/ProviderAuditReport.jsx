@@ -373,6 +373,45 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                 </div>
               </div>
             )}
+
+            {/* Track this appeal */}
+            {appealModal.appeal_id && !appealModal.tracked && (
+              <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid #E2E8F0", background: "#F0FDFA", borderRadius: 8, padding: 16 }}>
+                <p style={{ fontSize: 13, color: NAVY, margin: "0 0 8px", fontWeight: 500 }}>
+                  Track this appeal — We'll remind you to record the outcome in 30 days.
+                </p>
+                <button
+                  onClick={async () => {
+                    try {
+                      const se = appealModal.signal_evidence;
+                      await fetch(`${API_BASE}/api/platform/cases`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          product: "provider",
+                          case_type: "appeal",
+                          cpt_code: appealModal.denial_code ? (appealModal.cpt_code || "") : "",
+                          denial_code: appealModal.denial_code || "",
+                          payer: appealModal.payer_name || "",
+                          signal_topic_slug: se?.topic_slug || null,
+                          signal_score: se?.appeal_strength === "strong" ? 4.0 : se?.appeal_strength === "moderate" ? 3.5 : null,
+                          description: `Appeal for ${appealModal.denial_code} — ${appealModal.payer_name}`,
+                        }),
+                      });
+                      setAppealModal(prev => ({ ...prev, tracked: true }));
+                    } catch { alert("Failed to track appeal"); }
+                  }}
+                  style={{ padding: "8px 20px", borderRadius: 8, border: "none", background: TEAL, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}
+                >
+                  Start tracking
+                </button>
+              </div>
+            )}
+            {appealModal.tracked && (
+              <div style={{ marginTop: 16, padding: 12, background: "#ECFDF5", borderRadius: 8, fontSize: 13, color: GREEN, fontWeight: 500 }}>
+                Appeal tracked. You'll be reminded to record the outcome in 30 days.
+              </div>
+            )}
           </div>
         </div>
       )}

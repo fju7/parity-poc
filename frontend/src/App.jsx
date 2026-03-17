@@ -28,6 +28,7 @@ import EOBDetectedView from "./components/EOBDetectedView.jsx";
 import DenialUploadView from "./components/DenialUploadView.jsx";
 import DenialReportView from "./components/DenialReportView.jsx";
 import HealthAccountPage from "./components/HealthAccountPage.jsx";
+import HealthOpenIssues from "./components/HealthOpenIssues.jsx";
 
 import { API_BASE } from "./lib/apiBase";
 const API_TIMEOUT_MS = 60000;
@@ -1250,6 +1251,8 @@ export default function App() {
         onNavigate={handleNavigate}
       />
     );
+  } else if (view === "open-issues") {
+    viewContent = <HealthOpenIssues />;
   } else if (view === "manual-entry") {
     viewContent = (
       <ManualEntryView
@@ -1355,6 +1358,7 @@ export default function App() {
           <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 13 }}>
             <button onClick={() => handleNavigate("upload")} style={{ background: "none", border: "none", cursor: "pointer", color: view === "upload" ? "#14b8a6" : "#94a3b8", fontWeight: view === "upload" ? 600 : 400 }}>Analyze</button>
             <button onClick={() => handleNavigate("history")} style={{ background: "none", border: "none", cursor: "pointer", color: view === "history" ? "#14b8a6" : "#94a3b8", fontWeight: view === "history" ? 600 : 400 }}>History</button>
+            <button onClick={() => handleNavigate("open-issues")} style={{ background: "none", border: "none", cursor: "pointer", color: view === "open-issues" ? "#14b8a6" : "#94a3b8", fontWeight: view === "open-issues" ? 600 : 400 }}>Open Issues</button>
             <button onClick={() => handleNavigate("account")} style={{ background: "none", border: "none", cursor: "pointer", color: view === "account" ? "#14b8a6" : "#94a3b8", fontWeight: view === "account" ? 600 : 400 }}>Account</button>
             {userEmail && <span style={{ color: "#64748b", fontSize: 12, maxWidth: 140, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{userEmail}</span>}
             <button onClick={handleSignOut} style={{ background: "none", border: "none", cursor: "pointer", color: "#64748b", fontSize: 12 }}>Sign Out</button>
