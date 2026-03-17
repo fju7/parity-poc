@@ -105,10 +105,72 @@ export default function AdminAnalytics({ session }) {
           </div>
         </div>
       )}
-      {/* Appeal Outcomes by Signal Topic */}
+      {/* Provider Cases (Platform) */}
+      {data?.provider_cases?.length > 0 && (
+        <div className="mb-6">
+          <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wide mb-3">Provider Appeals (Data Flywheel)</h2>
+          <div className="space-y-2">
+            {data.provider_cases.map((pc) => (
+              <div key={pc.topic_slug} className="bg-white rounded-xl p-3 border border-gray-100">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-medium text-[#1B3A5C]">{pc.topic_slug}</span>
+                  <span className="text-xs text-gray-400">{pc.total} case{pc.total !== 1 ? "s" : ""} ({pc.open} open)</span>
+                </div>
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="text-emerald-600 font-semibold">{pc.won} won</span>
+                  <span className="text-red-500 font-semibold">{pc.lost} lost</span>
+                  {pc.win_rate != null && (
+                    <span className={`font-bold ${pc.win_rate >= 50 ? "text-emerald-600" : "text-amber-600"}`}>
+                      {pc.win_rate}% win rate
+                    </span>
+                  )}
+                </div>
+                {pc.top_codes?.length > 0 && (
+                  <div className="text-xs text-gray-400 mt-1">
+                    Top codes: {pc.top_codes.map(c => `${c.code} (${c.count})`).join(", ")}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Health Disputes (Platform) */}
+      {data?.health_cases?.length > 0 && (
+        <div className="mb-6">
+          <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wide mb-3">Health Disputes (Data Flywheel)</h2>
+          <div className="space-y-2">
+            {data.health_cases.map((hc) => (
+              <div key={hc.topic_slug} className="bg-white rounded-xl p-3 border border-gray-100">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-medium text-[#1B3A5C]">{hc.topic_slug}</span>
+                  <span className="text-xs text-gray-400">{hc.total} issue{hc.total !== 1 ? "s" : ""} ({hc.open} open)</span>
+                </div>
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="text-emerald-600 font-semibold">{hc.won} resolved</span>
+                  <span className="text-gray-500 font-semibold">{hc.withdrawn} dropped</span>
+                  {hc.win_rate != null && (
+                    <span className={`font-bold ${hc.win_rate >= 50 ? "text-emerald-600" : "text-amber-600"}`}>
+                      {hc.win_rate}% resolution rate
+                    </span>
+                  )}
+                </div>
+                {hc.top_codes?.length > 0 && (
+                  <div className="text-xs text-gray-400 mt-1">
+                    Top CPTs: {hc.top_codes.map(c => `${c.code} (${c.count})`).join(", ")}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Legacy Appeal Outcomes */}
       {data?.appeal_outcomes?.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wide mb-3">Appeal Outcomes (Data Flywheel)</h2>
+          <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wide mb-3">Legacy Appeal Outcomes</h2>
           <div className="space-y-2">
             {data.appeal_outcomes.map((ao) => (
               <div key={ao.topic_slug} className="bg-white rounded-xl p-3 border border-gray-100">
@@ -125,11 +187,6 @@ export default function AdminAnalytics({ session }) {
                     </span>
                   )}
                 </div>
-                {ao.top_denial_codes?.length > 0 && (
-                  <div className="text-xs text-gray-400 mt-1">
-                    Top codes: {ao.top_denial_codes.map(c => `${c.code} (${c.count})`).join(", ")}
-                  </div>
-                )}
               </div>
             ))}
           </div>

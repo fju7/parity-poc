@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Footer } from "./UploadView.jsx";
 import { cptDescription } from "../lib/cptLabel";
+import { API_BASE } from "../lib/apiBase";
 
 export default function ReportView({ report, provider, serviceDate, onReset, sbcData }) {
   const { lineItems, summary } = report;
@@ -351,6 +352,96 @@ function AnomalyMeter({ flagged, total }) {
   );
 }
 
+function FlaggedItemDetail({ item }) {
+  const [signal, setSignal] = useState(null);
+  const [tracked, setTracked] = useState(false);
+
+  useEffect(() => {
+    if (!item.code) return;
+    fetch(`${API_BASE}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(item.code)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d && d.coverage !== "none" && d.score >= 3.5) setSignal(d); })
+      .catch(() => {});
+  }, [item.code]);
+
+  const flagLower = (item.flagReason || "").toLowerCase();
+  let nextAction = "Request an itemized bill from your provider and verify each charge.";
+  if (flagLower.includes("duplicate")) nextAction = "Ask your provider to verify this wasn't billed twice.";
+  else if (flagLower.includes("unbundl") || flagLower.includes("bundl")) nextAction = "Ask your provider to verify the billing codes used.";
+  else if (flagLower.includes("network") || flagLower.includes("out-of")) nextAction = "Contact your insurer to ask about balance billing protections.";
+
+  async function trackIssue() {
+    try {
+      await fetch(`${API_BASE}/api/platform/cases`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          product: "health",
+          case_type: "dispute",
+          cpt_code: item.code,
+          payer: "",
+          signal_topic_slug: signal?.topic_slug || null,
+          signal_score: signal?.score || null,
+          description: `${item.code} — ${item.flagReason || "Flagged for review"} (${formatCurrency(item.billedAmount)} billed, benchmark ${formatCurrency(item.benchmarkRate)})`,
+        }),
+      });
+      setTracked(true);
+    } catch { /* non-fatal */ }
+  }
+
+  return (
+    <tr className="bg-amber-50/30">
+      <td colSpan={6} className="px-6 py-4">
+        <div className="text-sm space-y-2">
+          <p className="text-gray-700">
+            <span className="font-semibold">Flag reason:</span> {item.flagReason}
+          </p>
+          {item.benchmarkRate !== null && (
+            <p className="text-gray-500">
+              <span className="font-semibold">Discrepancy:</span> {formatCurrency(item.estimatedDiscrepancy)} over benchmark
+            </p>
+          )}
+          <p className="text-[#4A5568] text-xs">
+            Source: {item.benchmarkSource}{item.localityCode && ` (Locality ${item.localityCode})`}
+          </p>
+
+          {/* Recommended action */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-2">
+            <p className="text-blue-800 text-sm font-medium mb-0">What to do next:</p>
+            <p className="text-blue-700 text-sm">{nextAction}</p>
+          </div>
+
+          {/* Signal clinical note */}
+          {signal && (
+            <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
+              <p className="text-indigo-800 text-sm">
+                <span className="font-semibold">Clinical note:</span> Signal Intelligence rates the evidence for this service at <strong>{signal.score}/5.0</strong> — if you were denied coverage, that denial may be worth challenging.
+              </p>
+              <a href={`/signal/${signal.topic_slug}`} target="_blank" rel="noopener noreferrer" className="text-indigo-600 text-xs hover:underline">
+                View evidence →
+              </a>
+            </div>
+          )}
+
+          {/* Track this issue */}
+          {!tracked ? (
+            <div className="flex items-center gap-3 mt-1">
+              <span className="text-gray-500 text-xs">Want to track this? We can remind you to follow up in 14 days.</span>
+              <button onClick={trackIssue} className="text-xs font-medium text-[#0D7377] bg-teal-50 border border-teal-200 rounded px-2.5 py-1 hover:bg-teal-100 cursor-pointer">
+                Track it
+              </button>
+            </div>
+          ) : (
+            <p className="text-teal-700 text-xs font-medium bg-teal-50 rounded px-3 py-1.5 inline-block">
+              Noted. We'll remind you in 14 days to check on this.
+            </p>
+          )}
+        </div>
+      </td>
+    </tr>
+  );
+}
+
 function LineItemRow({ item }) {
   const [expanded, setExpanded] = useState(false);
   const scoreColor = getScoreColor(item.anomalyScore);
@@ -443,26 +534,7 @@ function LineItemRow({ item }) {
         </td>
       </tr>
       {expanded && item.flagged && (
-        <tr className="bg-amber-50/30">
-          <td colSpan={6} className="px-6 py-4">
-            <div className="text-sm space-y-1">
-              <p className="text-gray-700">
-                <span className="font-semibold">Flag reason:</span>{" "}
-                {item.flagReason}
-              </p>
-              {item.benchmarkRate !== null && (
-                <p className="text-gray-500">
-                  <span className="font-semibold">Discrepancy:</span>{" "}
-                  {formatCurrency(item.estimatedDiscrepancy)} over benchmark
-                </p>
-              )}
-              <p className="text-[#4A5568] text-xs">
-                Source: {item.benchmarkSource}
-                {item.localityCode && ` (Locality ${item.localityCode})`}
-              </p>
-            </div>
-          </td>
-        </tr>
+        <FlaggedItemDetail item={item} />
       )}
     </>
   );

@@ -2346,6 +2346,70 @@ const APPEAL_STATUS_COLORS = {
   lost: { bg: "#FEF2F2", text: "#DC2626" },
 };
 
+function OpenAppealsQueue() {
+  const [cases, setCases] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [resolving, setResolving] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/platform/cases?product=provider&status=open`)
+      .then(r => r.ok ? r.json() : { cases: [] })
+      .then(d => { setCases(d.cases || []); setLoaded(true); })
+      .catch(() => setLoaded(true));
+  }, []);
+
+  async function resolve(caseId, outcome) {
+    setResolving(caseId);
+    try {
+      await fetch(`${API_BASE}/api/platform/cases/resolve`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ case_id: caseId, outcome }),
+      });
+      setCases(prev => prev.filter(c => c.id !== caseId));
+    } catch { /* non-fatal */ }
+    setResolving(null);
+  }
+
+  if (!loaded || cases.length === 0) return null;
+
+  return (
+    <div style={{ marginBottom: 24, background: "#FFFBEB", border: "1px solid #FDE68A", borderRadius: 12, padding: 20 }}>
+      <div style={{ fontSize: 15, fontWeight: 700, color: "#92400E", marginBottom: 12 }}>Open Appeals ({cases.length})</div>
+      {cases.map(c => {
+        const daysOpen = Math.floor((Date.now() - new Date(c.opened_at).getTime()) / 86400000);
+        const stale = daysOpen >= 30;
+        const signalNote = c.signal_score >= 4.0
+          ? `Strong evidence supports a second-level appeal. Signal rates this at ${c.signal_score}/5.0.`
+          : c.signal_score >= 3.0
+          ? "Moderate evidence — review the denial rationale before escalating."
+          : null;
+        return (
+          <div key={c.id} style={{ background: "#fff", border: "1px solid #FDE68A", borderRadius: 8, padding: 14, marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+            <div style={{ flex: 1, minWidth: 200 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#1E293B" }}>
+                {c.cpt_code && `CPT ${c.cpt_code} · `}{c.denial_code || ""} · {c.payer || "Unknown payer"}
+                {stale && <span style={{ marginLeft: 8, fontSize: 11, fontWeight: 700, color: "#D97706", background: "#FEF3C7", padding: "1px 6px", borderRadius: 8 }}>Follow up</span>}
+              </div>
+              <div style={{ fontSize: 12, color: "#64748B" }}>
+                {daysOpen} days open{c.signal_topic_slug && ` · Signal: ${c.signal_topic_slug}`}
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 6 }}>
+              {["won", "lost", "partial", "withdrawn"].map(o => (
+                <button key={o} onClick={() => resolve(c.id, o)} disabled={resolving === c.id}
+                  style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid #E2E8F0", background: "#fff", fontSize: 11, fontWeight: 600, cursor: "pointer", color: o === "won" ? "#059669" : o === "lost" ? "#DC2626" : "#64748B" }}>
+                  {o.charAt(0).toUpperCase() + o.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function AppealsTab({ appeals, loading, onLoad, onUpdateStatus }) {
   useEffect(() => { onLoad(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -2380,6 +2444,9 @@ function AppealsTab({ appeals, loading, onLoad, onUpdateStatus }) {
 
   return (
     <div>
+      {/* Open Appeals Queue (platform_cases) */}
+      <OpenAppealsQueue />
+
       {/* Summary cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 24 }}>
         {[
