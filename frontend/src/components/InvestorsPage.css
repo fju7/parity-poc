@@ -1,6 +1,10 @@
 /* ── INVESTORS PAGE ── */
 /* Reuses cs- variables and base classes from CivicScaleHomepage.css */
 
+.inv-dark-root *, .inv-dark-root *::before, .inv-dark-root *::after {
+  box-sizing: border-box;
+}
+
 /* Hero (shorter than homepage) */
 .inv-hero {
   background: var(--cs-navy-deep);
@@ -707,6 +711,7 @@
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
+  .inv-hero { padding: 100px 24px 60px; }
   .inv-opp-grid { grid-template-columns: 1fr; }
   .inv-arch-grid { grid-template-columns: 1fr; }
   .inv-rev-header,
@@ -718,4 +723,5 @@
   .inv-intel-moat-parity { border-left: none; border-right: none; }
   .inv-intel-callout { padding: 28px 24px; }
   .inv-principles-grid { grid-template-columns: 1fr; }
+  .inv-cta-content h2 { font-size: 24px; }
 }
