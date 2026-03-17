@@ -119,17 +119,35 @@ async def evidence_for_code(
                   for cid in composites if composites[cid].get("composite_score")]
         overall_score = round(sum(scores) / len(scores), 2) if scores else None
 
-        # Generate verdict
-        if overall_score and overall_score >= 4.0:
-            verdict = f"Strong evidence base for treatments related to CPT {cpt_code}."
-        elif overall_score and overall_score >= 3.0:
-            verdict = f"Moderate evidence base for treatments related to CPT {cpt_code}."
-        elif overall_score and overall_score >= 2.0:
-            verdict = f"Mixed evidence for treatments related to CPT {cpt_code}. Review analytical paths."
-        elif overall_score:
-            verdict = f"Weak evidence base for CPT {cpt_code}."
-        else:
-            verdict = f"Evidence available but not yet scored for CPT {cpt_code}."
+        # Generate verdict from topic summary if available, otherwise from score
+        verdict = None
+        try:
+            summary_res = (
+                sb.table("signal_summaries")
+                .select("summary_json")
+                .eq("issue_id", issue_id)
+                .order("version", desc=True)
+                .limit(1)
+                .execute()
+            )
+            if summary_res.data:
+                sj = summary_res.data[0].get("summary_json")
+                if isinstance(sj, dict):
+                    verdict = sj.get("overall_summary")
+        except Exception:
+            pass
+
+        if not verdict:
+            if overall_score and overall_score >= 4.0:
+                verdict = f"Strong evidence base ({overall_score}/5.0) across {len(claims)} claims for {issue['title']}."
+            elif overall_score and overall_score >= 3.0:
+                verdict = f"Moderate evidence base ({overall_score}/5.0) across {len(claims)} claims for {issue['title']}."
+            elif overall_score and overall_score >= 2.0:
+                verdict = f"Mixed evidence ({overall_score}/5.0) for {issue['title']}. Review analytical paths."
+            elif overall_score:
+                verdict = f"Weak evidence base ({overall_score}/5.0) for {issue['title']}."
+            else:
+                verdict = f"Evidence available but not yet scored for {issue['title']}."
 
         # Key claims: top 5 by composite score
         scored_claims = []
@@ -147,12 +165,14 @@ async def evidence_for_code(
         scored_claims.sort(key=lambda x: x.get("composite_score") or 0, reverse=True)
         key_claims = scored_claims[:5]
 
-        # Fetch analytical profiles
+        # Fetch analytical profiles (deduplicate by name)
         profiles_res = sb.table("signal_analytical_profiles").select("name, description, weights").execute()
-        analytical_paths = [
-            {"name": p["name"], "description": p.get("description", "")}
-            for p in (profiles_res.data or [])
-        ]
+        seen_names = set()
+        analytical_paths = []
+        for p in (profiles_res.data or []):
+            if p["name"] not in seen_names:
+                seen_names.add(p["name"])
+                analytical_paths.append({"name": p["name"], "description": p.get("description", "")})
 
         coverage = "full" if len(mappings) == 1 else "partial"
         if len(claims) == 0:

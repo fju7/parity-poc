@@ -1,5 +1,28 @@
 # Changelog
 
+## Session V — 2026-03-17
+
+### V0 — Fix Signal Intelligence API
+- Verdict now pulls from signal_summaries (topic-specific text, not generic score description)
+- Analytical paths deduplicated by name — no more duplicate entries
+
+### V1 — Evidence-Grounded Appeal Letters
+- Appeal letter generation now calls Signal Intelligence API for evidence
+- New prompt section: "Supporting Clinical Evidence from Signal Intelligence"
+- Top 3 challenging evidence claims with scores cited in letter
+- Signal evidence panel added to appeal modal in frontend (indigo card with scores)
+
+### V2 — Denial Pattern Analysis with Signal Intelligence
+- Denial pattern table now shows Signal score column for each CPT code
+- Red flag (⚑) when denial rate is high AND Signal score is high (systematic underpayment)
+- New "Systematic Underpayment Flags" section highlights flagged denials with links to Signal topics
+
+### V3 — Appeal Outcome Tracking
+- Migration 048: provider_appeal_outcomes table (appeal_id, cpt_code, denial_code, payer, signal_topic_slug, outcome)
+- Outcome recording writes to provider_appeal_outcomes when appeal status set to won/lost
+- "Record Outcome" buttons (Won/Lost) added to appeal modal
+- Signal topic slug auto-populated via CPT mapping for data flywheel
+
 ## Session U — 2026-03-17
 
 ### U0 — Classify All Remaining Topics
