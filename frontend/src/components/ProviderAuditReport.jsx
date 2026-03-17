@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
 import { API_BASE } from "../lib/apiBase";
@@ -65,6 +65,42 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
   const [downloading, setDownloading] = useState(false);
   const [appealModal, setAppealModal] = useState(null); // {loading, letter_html, letter_text, pdf_base64, appeal_strength, appeal_strength_reason, cms_references, editText}
   const [appealGenerating, setAppealGenerating] = useState(null); // key of denial being generated
+  const [signalScores, setSignalScores] = useState({}); // {cpt_code: {score, topic_title, topic_slug, coverage}}
+
+  // Fetch Signal Intelligence scores for all CPT codes in denials
+  useEffect(() => {
+    const allCpts = new Set();
+    for (const ar of analysisResults) {
+      for (const dt of ar.denial_intel?.denial_types || []) {
+        for (const cpt of dt.affected_cpts || []) {
+          allCpts.add(cpt);
+        }
+      }
+    }
+    if (allCpts.size === 0) return;
+
+    async function fetchSignalScores() {
+      const scores = {};
+      for (const cpt of allCpts) {
+        try {
+          const res = await fetch(`${API_BASE}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(cpt)}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.coverage !== "none") {
+              scores[cpt] = {
+                score: data.score,
+                topic_title: data.topic_title,
+                topic_slug: data.topic_slug,
+                coverage: data.coverage,
+              };
+            }
+          }
+        } catch { /* non-fatal */ }
+      }
+      if (Object.keys(scores).length > 0) setSignalScores(scores);
+    }
+    fetchSignalScores();
+  }, [analysisResults]);
 
   const practiceName = practiceInfo?.practice_name || practiceInfo?.name || "Practice";
   const reportDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -247,6 +283,27 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
               </div>
             )}
 
+            {/* Signal Intelligence evidence */}
+            {appealModal.signal_evidence?.challenging_evidence?.length > 0 && (
+              <div style={{ marginBottom: 16, padding: 12, background: "#EEF2FF", borderRadius: 8, fontSize: 12, borderLeft: "3px solid #6366F1" }}>
+                <strong style={{ color: "#1B3A5C" }}>Signal Intelligence — {appealModal.signal_evidence.topic_title}</strong>
+                <span style={{
+                  marginLeft: 8, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600,
+                  background: appealModal.signal_evidence.appeal_strength === "strong" ? "#ECFDF5" : appealModal.signal_evidence.appeal_strength === "moderate" ? "#FFFBEB" : "#F3F4F6",
+                  color: appealModal.signal_evidence.appeal_strength === "strong" ? "#059669" : appealModal.signal_evidence.appeal_strength === "moderate" ? "#D97706" : "#64748B",
+                }}>
+                  {appealModal.signal_evidence.appeal_strength} evidence
+                </span>
+                <ul style={{ margin: "8px 0 0 16px", padding: 0 }}>
+                  {appealModal.signal_evidence.challenging_evidence.slice(0, 3).map((ev, i) => (
+                    <li key={i} style={{ color: "#475569", marginBottom: 4 }}>
+                      <span style={{ fontWeight: 600 }}>{ev.score}/5.0</span> — {ev.claim_text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Editable letter text */}
             <textarea
               value={appealModal.editText}
@@ -279,6 +336,43 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                 Print
               </button>
             </div>
+
+            {/* Record Outcome */}
+            {appealModal.appeal_id && (
+              <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid #E2E8F0" }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: SLATE, marginBottom: 8 }}>Record Outcome</div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  {[
+                    { status: "won", label: "Won", bg: "#ECFDF5", color: GREEN },
+                    { status: "lost", label: "Lost", bg: "#FEF2F2", color: RED },
+                  ].map(({ status, label, bg, color: c }) => (
+                    <button
+                      key={status}
+                      onClick={async () => {
+                        try {
+                          await fetch(`${API_BASE}/api/provider/appeals/update-status`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+                            body: JSON.stringify({ appeal_id: appealModal.appeal_id, status }),
+                          });
+                          setAppealModal(prev => ({ ...prev, outcomeRecorded: status }));
+                        } catch { alert("Failed to record outcome"); }
+                      }}
+                      disabled={appealModal.outcomeRecorded}
+                      style={{
+                        padding: "6px 16px", borderRadius: 6, border: "1px solid #E2E8F0",
+                        background: appealModal.outcomeRecorded === status ? bg : "#fff",
+                        color: appealModal.outcomeRecorded === status ? c : SLATE,
+                        fontSize: 12, fontWeight: 600, cursor: appealModal.outcomeRecorded ? "default" : "pointer",
+                        opacity: appealModal.outcomeRecorded && appealModal.outcomeRecorded !== status ? 0.4 : 1,
+                      }}
+                    >
+                      {appealModal.outcomeRecorded === status ? `Recorded: ${label}` : label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -517,6 +611,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                       <th style={thStyle}>Explanation</th>
                       <th style={{ ...thStyle, textAlign: "center" }}>Count</th>
                       <th style={{ ...thStyle, textAlign: "right" }}>Value</th>
+                      <th style={{ ...thStyle, textAlign: "center" }}>Signal Score</th>
                       <th style={{ ...thStyle, textAlign: "center" }}>Appeal Worth</th>
                       <th style={{ ...thStyle, textAlign: "center" }}>Action</th>
                     </tr>
@@ -530,6 +625,23 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                         <td style={{ ...tdStyle, maxWidth: 300 }}>{dt.plain_language}</td>
                         <td style={{ ...tdStyle, textAlign: "center" }}>{dt.count}</td>
                         <td style={{ ...tdStyle, textAlign: "right" }}>${(dt.total_value || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
+                        <td style={{ ...tdStyle, textAlign: "center" }}>
+                          {(() => {
+                            const cpts = dt.affected_cpts || [];
+                            const matched = cpts.find(c => signalScores[c]);
+                            if (!matched) return <span style={{ fontSize: 11, color: "#94A3B8" }}>—</span>;
+                            const ss = signalScores[matched];
+                            const isFlag = ss.score >= 3.5 && dt.appeal_worthiness === "high";
+                            return (
+                              <span title={`${ss.topic_title} (${ss.coverage})`} style={{
+                                fontSize: 11, fontWeight: 600,
+                                color: isFlag ? "#DC2626" : ss.score >= 3.5 ? "#059669" : ss.score >= 2.5 ? "#D97706" : "#64748B",
+                              }}>
+                                {ss.score}/5{isFlag && " ⚑"}
+                              </span>
+                            );
+                          })()}
+                        </td>
                         <td style={{ ...tdStyle, textAlign: "center" }}>
                           <span style={{
                             padding: "2px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600,
@@ -567,6 +679,59 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           })}
         </div>
       )}
+
+      {/* === 4b. Signal Intelligence Flags === */}
+      {Object.keys(signalScores).length > 0 && (() => {
+        const flags = [];
+        for (const ar of analysisResults) {
+          for (const dt of ar.denial_intel?.denial_types || []) {
+            const matched = (dt.affected_cpts || []).find(c => signalScores[c]);
+            if (matched && signalScores[matched].score >= 3.5 && dt.appeal_worthiness === "high") {
+              flags.push({
+                payer: ar.payer_name,
+                code: dt.adjustment_code,
+                cpts: dt.affected_cpts,
+                value: dt.total_value,
+                count: dt.count,
+                signal: signalScores[matched],
+              });
+            }
+          }
+        }
+        if (flags.length === 0) return null;
+        return (
+          <div style={{ ...sectionStyle, background: "#FEF2F2", borderRadius: 12, padding: 20, border: "1px solid #FECACA" }}>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: "#991B1B", margin: "0 0 8px" }}>
+              Systematic Underpayment Flags ({flags.length})
+            </h3>
+            <p style={{ fontSize: 12, color: "#7F1D1D", marginBottom: 12 }}>
+              These denial patterns have high appeal value AND strong clinical evidence — indicating likely systematic underpayment.
+            </p>
+            {flags.map((f, i) => (
+              <div key={i} style={{ background: "#fff", borderRadius: 8, padding: 12, marginBottom: 8, border: "1px solid #FECACA" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div>
+                    <span style={{ fontWeight: 700, color: NAVY }}>{f.payer} — {f.code}</span>
+                    <span style={{ fontSize: 12, color: SLATE, marginLeft: 8 }}>
+                      {f.count} occurrences · ${(f.value || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    </span>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: "#059669" }}>Signal: {f.signal.score}/5.0</span>
+                    <a href={`/signal/${f.signal.topic_slug}`} target="_blank" rel="noopener noreferrer"
+                      style={{ fontSize: 11, marginLeft: 8, color: TEAL }}>
+                      View Evidence →
+                    </a>
+                  </div>
+                </div>
+                <div style={{ fontSize: 12, color: SLATE, marginTop: 4 }}>
+                  CPTs: {f.cpts.join(", ")} · Topic: {f.signal.topic_title}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      })()}
 
       {/* === 5. Revenue Gap Estimate === */}
       <div style={sectionStyle}>
