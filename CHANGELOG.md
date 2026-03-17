@@ -1,5 +1,32 @@
 # Changelog
 
+## Session T — 2026-03-17
+
+### T0 — Staging Verified
+- Staging branch current, breast cancer topic with 207 claims confirmed
+- Production classification SQL ready at backend/scripts/signal/output/
+
+### T1 — MMR Vaccine and Autism (Category B: manufactured controversy)
+- Full pipeline: 32 sources, 128 claims, 6 categories, 33 min
+- Classification: institutional 58 (45%), efficacy 39 (30%), safety 25 (20%), values_embedded 6 (5%)
+- Consensus: strong_consensus 125 (98%), active_debate 2 (2%), manufactured_controversy 1 (1%)
+- Topic score: 3.77 — correctly reflects overwhelming scientific consensus
+- Quality review: PASS
+
+### T2 — mRNA Vaccines and Myocarditis (genuine safety signal)
+- Full pipeline: 32 sources, 130 claims, 6 categories, 34 min
+- Classification: safety 75 (58%), institutional 48 (37%), values_embedded 5 (4%), efficacy 2 (2%)
+- Consensus: strong_consensus 84 (65%), active_debate 42 (32%), genuine_uncertainty 4 (3%)
+- Topic score: 3.63 — correctly reflects genuine scientific complexity
+- Quality review: PASS
+
+### T3 — Quality Review Gate
+- Migration 044: added quality_review_status column to signal_issues (pending|approved|rejected)
+- Backend: /api/signal/topics now filters to approved topics only
+- Backend: new /api/signal/admin/review-topics and /api/signal/admin/review-topic endpoints
+- Frontend: AdminReviewDashboard component at /signal/admin/review
+- Breast cancer topic marked as approved in migration
+
 ## Session S — 2026-03-17
 
 ### S1 — Add claim_type and consensus_type to signal_claims
