@@ -117,9 +117,20 @@ async def get_topics():
         return JSONResponse(content=[])
 
     try:
-        # Fetch all issues
-        issues_res = sb.table("signal_issues").select("*").execute()
-        issues = issues_res.data or []
+        # Fetch approved issues only (quality review gate)
+        # Try filtering by quality_review_status; fall back to all if column not yet visible
+        try:
+            issues_res = (
+                sb.table("signal_issues")
+                .select("*")
+                .eq("quality_review_status", "approved")
+                .execute()
+            )
+            issues = issues_res.data or []
+        except Exception:
+            # Column not in PostgREST cache yet — return all issues as fallback
+            issues_res = sb.table("signal_issues").select("*").execute()
+            issues = issues_res.data or []
 
         if not issues:
             _topics_cache["data"] = []
@@ -187,3 +198,78 @@ async def get_topics():
 
     except Exception:
         return JSONResponse(content=[])
+
+
+@router.get("/admin/review-topics")
+async def get_review_topics():
+    """Return all topics with quality_review_status for admin review."""
+    sb = _get_sb()
+    if not sb:
+        return JSONResponse(content=[])
+
+    try:
+        issues_res = sb.table("signal_issues").select("*").execute()
+        issues = issues_res.data or []
+
+        # Get claim counts
+        issue_ids = [i["id"] for i in issues]
+        claims_res = sb.table("signal_claims").select("id, issue_id").in_("issue_id", issue_ids).execute()
+        claim_counts = {}
+        for row in claims_res.data or []:
+            claim_counts[row["issue_id"]] = claim_counts.get(row["issue_id"], 0) + 1
+
+        # Get source counts
+        sources_res = sb.table("signal_sources").select("id, issue_id").in_("issue_id", issue_ids).execute()
+        source_counts = {}
+        for row in sources_res.data or []:
+            source_counts[row["issue_id"]] = source_counts.get(row["issue_id"], 0) + 1
+
+        result = []
+        for issue in issues:
+            iid = issue["id"]
+            result.append({
+                "id": iid,
+                "slug": issue.get("slug", ""),
+                "title": issue.get("title", ""),
+                "description": issue.get("description", ""),
+                "status": issue.get("status", "draft"),
+                "quality_review_status": issue.get("quality_review_status", "pending"),
+                "claim_count": claim_counts.get(iid, 0),
+                "source_count": source_counts.get(iid, 0),
+                "created_at": issue.get("created_at", ""),
+            })
+
+        return JSONResponse(content=result)
+    except Exception as e:
+        print(f"[Admin Review] Error: {e}")
+        return JSONResponse(content=[])
+
+
+@router.post("/admin/review-topic")
+async def review_topic(body: dict):
+    """Update quality_review_status for a topic. Body: {issue_id, status}"""
+    sb = _get_sb()
+    if not sb:
+        return JSONResponse(content={"error": "DB not available"}, status_code=500)
+
+    issue_id = body.get("issue_id")
+    new_status = body.get("status")
+
+    if not issue_id or new_status not in ("pending", "approved", "rejected"):
+        return JSONResponse(
+            content={"error": "Required: issue_id and status (pending|approved|rejected)"},
+            status_code=400,
+        )
+
+    try:
+        sb.table("signal_issues").update(
+            {"quality_review_status": new_status}
+        ).eq("id", issue_id).execute()
+
+        # Invalidate topics cache so change is visible immediately
+        _topics_cache["data"] = None
+        _topics_cache["expires"] = 0
+
+        return JSONResponse(content={"ok": True, "issue_id": issue_id, "status": new_status})
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
