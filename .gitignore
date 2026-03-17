@@ -38,3 +38,5 @@ __pycache__/
 # Build outputs
 frontend/dist/
 .vercel
+backend/data/pfs_rates_2024.csv
+backend/data/pfs_rates_2025.csv
