@@ -903,7 +903,11 @@ export default function IssueDashboard({
       )}
 
       {/* ── Panel: Key Debates ── */}
-      {activePanel === "debates" && (
+      {activePanel === "debates" && (() => {
+        const debatedClaims = (claims || []).filter(
+          (c) => c.consensus_type === "active_debate" || c.consensus_type === "manufactured_controversy"
+        );
+        return (
         <div className="space-y-3">
           {debateItems.length > 0 ? (
             <>
@@ -928,8 +932,38 @@ export default function IssueDashboard({
               <p className="text-xs text-emerald-600 mt-1">All categories show consensus on this topic.</p>
             </div>
           )}
+
+          {/* Claim-level debates (from consensus_type classification) */}
+          {debatedClaims.length > 0 && (
+            <div className="mt-4">
+              <div className="text-xs font-bold text-[#1B3A5C] uppercase tracking-wide mb-2">
+                Debated Claims ({debatedClaims.length})
+              </div>
+              <p className="text-xs text-gray-400 mb-3">
+                Individual claims classified as actively debated among rigorous analysts.
+              </p>
+              <div className="space-y-2">
+                {debatedClaims
+                  .sort((a, b) => {
+                    if (a.consensus_type === "manufactured_controversy") return -1;
+                    if (b.consensus_type === "manufactured_controversy") return 1;
+                    return 0;
+                  })
+                  .map((claim) => (
+                    <ClaimCard
+                      key={claim.id}
+                      claim={claim}
+                      composite={compositeMap.get(claim.id)}
+                      customScore={customWeights ? computeCustomComposite(claim.id, customWeights, dimensionScores) : undefined}
+                      divergent={divergentClaimIds.has(claim.id)}
+                    />
+                  ))}
+              </div>
+            </div>
+          )}
         </div>
-      )}
+        );
+      })()}
 
       {/* ── Panel: Evidence Roadmap ── */}
       {activePanel === "roadmap" && (

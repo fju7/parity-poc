@@ -402,13 +402,110 @@ def _build_batch_prompt(batch: list[dict], category: str, total_in_category: int
     return "\n".join(parts)
 
 
-def score_batch(batch: list[dict], category: str, total_in_category: int) -> list[dict] | None:
+INSTITUTIONAL_SCORE_SYSTEM_PROMPT = """You are an evidence scoring analyst for a medical evidence intelligence platform. Score each INSTITUTIONAL claim using a three-part assessment, then map to six dimensions on a 1-5 integer scale.
+
+## Three-Part Institutional Assessment
+
+For each institutional claim, evaluate:
+
+**Part 1 — Factual Record:** What did the institution actually do, say, or decide? Is the factual claim about the institutional action accurate and verifiable?
+
+**Part 2 — Public Record Evidence:** What documentation supports this? Consider: official filings, press releases, testimony transcripts, regulatory documents, court records, published meeting minutes.
+
+**Part 3 — Interpretive Dispute:** What disagreement exists about the significance, motivation, or implications of the institutional action? Distinguish factual disputes (what happened) from interpretive disputes (what it means).
+
+## Dimension Mapping for Institutional Claims
+
+1. **source_quality** (1-5): How authoritative is the source documenting the institutional action?
+   - 5: Official government record, court filing, regulatory document
+   - 4: Major wire service, institutional press release, congressional testimony
+   - 3: Investigative journalism with documented sources
+   - 2: Secondary reporting without primary document citation
+   - 1: Unverified social media or anonymous sources
+
+2. **data_support** (1-5): Is the institutional action documented with specifics?
+   - 5: Exact dates, document numbers, vote counts, dollar amounts
+   - 4: Specific actions with approximate timing and scope
+   - 3: General description of institutional position
+   - 2: Vague reference to institutional stance
+   - 1: No specific documentation cited
+
+3. **reproducibility** (1-5): Can independent observers verify this institutional action?
+   - 5: Public record, FOIA-accessible, published in Federal Register
+   - 4: Multiple independent news sources confirm
+   - 3: Single credible source with verifiable details
+   - 2: Reported by one source, not independently verified
+   - 1: Insider claim, no public documentation
+
+4. **consensus** (1-5): Is there agreement on what the institution did?
+   - 5: Factual action undisputed (even if significance is debated)
+   - 4: Action confirmed, minor factual details vary across sources
+   - 3: Action generally accepted but some dispute scope/timing
+   - 2: Conflicting accounts of what the institution did
+   - 1: Highly disputed whether the action occurred as described
+
+5. **recency** (1-5): How current is the institutional action?
+   - 5: Within the last 12 months (2025-2026)
+   - 4: 1-2 years ago (2024)
+   - 3: 2-4 years ago (2022-2023)
+   - 2: 4-6 years ago (2020-2021)
+   - 1: More than 6 years ago (before 2020)
+
+6. **rigor** (1-5): Quality of evidence documenting the action?
+   - 5: Primary documents available (approval letters, court orders, published rules)
+   - 4: Official statements plus corroborating records
+   - 3: Well-sourced journalism or official summary
+   - 2: Secondhand reporting
+   - 1: Hearsay or opinion about institutional behavior
+
+## Output Format
+
+Return a JSON array with one object per claim. Each object:
+{
+  "claim_id": "the claim ID provided",
+  "institutional_assessment": {
+    "factual_record": "One sentence: what did the institution do?",
+    "public_record_evidence": "One sentence: what documents support this?",
+    "interpretive_dispute": "One sentence: what is debated about the significance?"
+  },
+  "scores": {
+    "source_quality": {"score": 4, "rationale": "One sentence explaining the score"},
+    "data_support": {"score": 3, "rationale": "..."},
+    "reproducibility": {"score": 3, "rationale": "..."},
+    "consensus": {"score": 4, "rationale": "..."},
+    "recency": {"score": 5, "rationale": "..."},
+    "rigor": {"score": 4, "rationale": "..."}
+  }
+}
+
+## Rules
+- Score ONLY based on the information provided about each claim and its sources
+- Institutional claims are about ACTIONS (approvals, decisions, statements) — score the evidence for the action, not the policy merits
+- Part 3 (interpretive dispute) should note where reasonable people disagree about significance, even if the factual record is clear
+- Be calibrated: use the full 1-5 range across the batch"""
+
+
+def score_batch(batch: list[dict], category: str, total_in_category: int, claim_types: dict[str, str] | None = None) -> list[dict] | None:
     """Send a batch of claims to Claude for 6-dimension scoring.
+
+    Institutional claims (claim_type='institutional') are routed to a
+    specialized prompt with three-part assessment. All other claims use
+    the standard scoring prompt.
 
     Returns list of {claim_id, scores: {dim: {score, rationale}}} or None on failure.
     """
+    # Route institutional claims to specialized prompt if all claims in batch are institutional
+    use_institutional = False
+    if claim_types:
+        batch_types = [claim_types.get(c["id"], "") for c in batch]
+        use_institutional = all(t == "institutional" for t in batch_types)
+
+    prompt = INSTITUTIONAL_SCORE_SYSTEM_PROMPT if use_institutional else SCORE_SYSTEM_PROMPT
+    if use_institutional:
+        print(f"[institutional prompt]", end=" ", flush=True)
+
     user_text = _build_batch_prompt(batch, category, total_in_category)
-    result = _call_claude(SCORE_SYSTEM_PROMPT, user_text)
+    result = _call_claude(prompt, user_text)
 
     if result is None:
         return None
@@ -632,6 +729,16 @@ def main():
 
     claim_ids = [c["id"] for c in claims]
 
+    # Load claim_type classifications (from local JSON if PostgREST cache is stale)
+    claim_types: dict[str, str] = {}
+    _classifications_path = Path(__file__).resolve().parent / "output" / f"classifications_{issue_slug}.json"
+    if _classifications_path.exists():
+        with open(_classifications_path) as _f:
+            for item in json.load(_f):
+                claim_types[item["claim_id"]] = item.get("claim_type", "")
+        inst_count = sum(1 for v in claim_types.values() if v == "institutional")
+        print(f"Loaded claim_type classifications: {len(claim_types)} total, {inst_count} institutional")
+
     # --- Dry run ---
     if args.dry_run:
         print(f"\n--- DRY RUN MODE (no API calls, no DB writes) ---\n")
@@ -705,49 +812,94 @@ def main():
         print(f"Cleared {scores_del} dimension scores and {comp_del} composites.")
 
     # --- Group by category and batch ---
+    # Separate institutional claims into their own batches for specialized prompt
     by_category: dict[str, list[dict]] = defaultdict(list)
+    by_category_institutional: dict[str, list[dict]] = defaultdict(list)
     for c in claims:
-        by_category[c.get("category", "emerging")].append(c)
+        cat = c.get("category", "emerging")
+        if claim_types.get(c["id"]) == "institutional":
+            by_category_institutional[cat].append(c)
+        else:
+            by_category[cat].append(c)
 
     all_scored: list[dict] = []
     total_batches = 0
     failed_batches = 0
 
-    for cat in sorted(by_category.keys()):
-        group = by_category[cat]
-        n_batches = math.ceil(len(group) / args.batch_size)
-        print(f"\n[{cat}] Scoring {len(group)} claims in {n_batches} batches...")
+    # Score non-institutional claims with standard prompt
+    all_cats = sorted(set(list(by_category.keys()) + list(by_category_institutional.keys())))
+    for cat in all_cats:
+        # Standard claims first
+        group = by_category.get(cat, [])
+        inst_group = by_category_institutional.get(cat, [])
+        total_in_cat = len(group) + len(inst_group)
 
-        for batch_idx in range(n_batches):
-            start = batch_idx * args.batch_size
-            end = start + args.batch_size
-            batch = group[start:end]
-            total_batches += 1
+        if group:
+            n_batches = math.ceil(len(group) / args.batch_size)
+            print(f"\n[{cat}] Scoring {len(group)} standard claims in {n_batches} batches...")
 
-            batch_label = f"  batch {batch_idx + 1}/{n_batches} ({len(batch)} claims)"
-            print(f"{batch_label}...", end=" ", flush=True)
+            for batch_idx in range(n_batches):
+                start = batch_idx * args.batch_size
+                end = start + args.batch_size
+                batch = group[start:end]
+                total_batches += 1
 
-            scored = score_batch(batch, cat, len(group))
+                batch_label = f"  batch {batch_idx + 1}/{n_batches} ({len(batch)} claims)"
+                print(f"{batch_label}...", end=" ", flush=True)
 
-            if scored:
-                all_scored.extend(scored)
-                print(f"OK ({len(scored)} scored)")
+                scored = score_batch(batch, cat, total_in_cat)
 
-                # Generate summaries for this batch
-                print(f"  → summaries...", end=" ", flush=True)
-                summaries = generate_summaries(batch, cat, len(group))
-                if summaries:
-                    stored = store_summaries(sb, summaries)
-                    print(f"OK ({stored} stored)")
+                if scored:
+                    all_scored.extend(scored)
+                    print(f"OK ({len(scored)} scored)")
+
+                    print(f"  → summaries...", end=" ", flush=True)
+                    summaries = generate_summaries(batch, cat, total_in_cat)
+                    if summaries:
+                        stored = store_summaries(sb, summaries)
+                        print(f"OK ({stored} stored)")
+                    else:
+                        print("FAILED (non-fatal)")
                 else:
-                    print("FAILED (non-fatal)")
-            else:
-                failed_batches += 1
-                print("FAILED")
+                    failed_batches += 1
+                    print("FAILED")
 
-            # Delay between API calls
-            if batch_idx < n_batches - 1 or cat != sorted(by_category.keys())[-1]:
-                time.sleep(0.5)
+                if batch_idx < n_batches - 1:
+                    time.sleep(0.5)
+
+        # Institutional claims with specialized prompt
+        if inst_group:
+            n_batches = math.ceil(len(inst_group) / args.batch_size)
+            print(f"\n[{cat}] Scoring {len(inst_group)} institutional claims in {n_batches} batches...")
+
+            for batch_idx in range(n_batches):
+                start = batch_idx * args.batch_size
+                end = start + args.batch_size
+                batch = inst_group[start:end]
+                total_batches += 1
+
+                batch_label = f"  batch {batch_idx + 1}/{n_batches} ({len(batch)} claims)"
+                print(f"{batch_label}...", end=" ", flush=True)
+
+                scored = score_batch(batch, cat, total_in_cat, claim_types=claim_types)
+
+                if scored:
+                    all_scored.extend(scored)
+                    print(f"OK ({len(scored)} scored)")
+
+                    print(f"  → summaries...", end=" ", flush=True)
+                    summaries = generate_summaries(batch, cat, total_in_cat)
+                    if summaries:
+                        stored = store_summaries(sb, summaries)
+                        print(f"OK ({stored} stored)")
+                    else:
+                        print("FAILED (non-fatal)")
+                else:
+                    failed_batches += 1
+                    print("FAILED")
+
+                if batch_idx < n_batches - 1:
+                    time.sleep(0.5)
 
     print(f"\nScoring complete: {len(all_scored)} claims scored in "
           f"{total_batches} batches ({failed_batches} failed)")

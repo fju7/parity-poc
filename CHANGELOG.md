@@ -1,5 +1,80 @@
 # Changelog
 
+## Session U — 2026-03-17
+
+### U0 — Classify All Remaining Topics
+- Classified 6 topics (975 claims total), all written directly to production DB
+- PostgREST cache refreshed — direct writes now work for claim_type/consensus_type
+- All 9 Signal topics now have full claim_type and consensus_type classifications
+
+### U1 — Signal Intelligence API
+- New router: backend/routers/signal_intelligence.py
+- GET /api/signal/evidence-for-code — CPT code to Signal evidence lookup
+- GET /api/signal/denial-intelligence — denial code challenge evidence
+- Registered in main.py
+
+### U2 — CPT Code to Signal Topic Mapping
+- Migration 045: signal_cpt_mappings table (cpt_code, topic_slug, relevance_score)
+- Migration 046: seeded 40 CPT mappings across all 9 topics
+- Covers high-volume Medicare CPT codes mapped to relevant Signal topics
+
+### U3 — Payer Coverage Policy Source Type
+- Added 'payer_coverage_policy' to SourceCard type labels/colors (indigo badge)
+- Migration 047: 3 test payer coverage policy sources for mmr-vaccine-autism
+- No schema change needed — source_type is a free text field
+
+## Session T — 2026-03-17
+
+### T0 — Staging Verified
+- Staging branch current, breast cancer topic with 207 claims confirmed
+- Production classification SQL ready at backend/scripts/signal/output/
+
+### T1 — MMR Vaccine and Autism (Category B: manufactured controversy)
+- Full pipeline: 32 sources, 128 claims, 6 categories, 33 min
+- Classification: institutional 58 (45%), efficacy 39 (30%), safety 25 (20%), values_embedded 6 (5%)
+- Consensus: strong_consensus 125 (98%), active_debate 2 (2%), manufactured_controversy 1 (1%)
+- Topic score: 3.77 — correctly reflects overwhelming scientific consensus
+- Quality review: PASS
+
+### T2 — mRNA Vaccines and Myocarditis (genuine safety signal)
+- Full pipeline: 32 sources, 130 claims, 6 categories, 34 min
+- Classification: safety 75 (58%), institutional 48 (37%), values_embedded 5 (4%), efficacy 2 (2%)
+- Consensus: strong_consensus 84 (65%), active_debate 42 (32%), genuine_uncertainty 4 (3%)
+- Topic score: 3.63 — correctly reflects genuine scientific complexity
+- Quality review: PASS
+
+### T3 — Quality Review Gate
+- Migration 044: added quality_review_status column to signal_issues (pending|approved|rejected)
+- Backend: /api/signal/topics now filters to approved topics only
+- Backend: new /api/signal/admin/review-topics and /api/signal/admin/review-topic endpoints
+- Frontend: AdminReviewDashboard component at /signal/admin/review
+- Breast cancer topic marked as approved in migration
+
+## Session S — 2026-03-17
+
+### S1 — Add claim_type and consensus_type to signal_claims
+- Migration 043: added `claim_type` (efficacy|safety|institutional|values_embedded|foundational_values) and `consensus_type` (strong_consensus|active_debate|manufactured_controversy|genuine_uncertainty) columns with CHECK constraints
+- Applied to staging Supabase; production pending
+
+### S2 — Classification Pipeline Step
+- Created `classify_claims.py` — Claude-powered claim classification script
+- Updated `run_pipeline.py`: inserted Classify Claims as new step 3, pipeline now 8 steps (was 7)
+- Classified all 207 breast cancer claims:
+  - claim_type: efficacy 113 (55%), institutional 73 (35%), safety 12 (6%), values_embedded 9 (4%)
+  - consensus_type: strong_consensus 158 (76%), active_debate 37 (18%), genuine_uncertainty 12 (6%)
+- Classifications applied via SQL script (PostgREST schema cache workaround)
+
+### S3 — Institutional Conduct Scoring Prompt
+- Added `INSTITUTIONAL_SCORE_SYSTEM_PROMPT` to `score_claims.py` with three-part assessment: factual record, public record evidence, interpretive dispute
+- `score_batch()` routes institutional claims to specialized prompt automatically
+- Institutional claims batched separately per category for correct prompt routing
+
+### S4 — Layer 3 UI: claim_type Badges and consensus_type Indicators
+- ClaimCard: added color-coded claim_type badges (blue=efficacy, red=safety, purple=institutional, amber=values_embedded, gray=foundational_values)
+- ClaimCard: added consensus_type icons (green lock=strong_consensus, orange arrows=active_debate, red flag=manufactured_controversy, gray ?=genuine_uncertainty)
+- Key Debates panel: now shows individual debated claims (active_debate + manufactured_controversy) as expandable ClaimCards
+- Frontend build: clean, no errors
+
 ## Session R — 2026-03-16
 
 ### R0 — Session Q Promoted to Production

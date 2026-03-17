@@ -1,0 +1,1451 @@
+[
+  {
+    "claim_id": "5d928aeb-66e0-47e1-8366-943a0ede32c8",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports a measurable, quantitative outcome (PFS) from a specific trial comparing an intervention to placebo.",
+    "consensus_rationale": "The CAPItello-291 trial results are published and peer-reviewed, with the reported PFS figures and hazard ratio representing established trial data accepted by the oncology community."
+  },
+  {
+    "claim_id": "92fc1584-1d13-4c49-952e-c153ea472476",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports a measurable PFS outcome from a specific RCT comparing ribociclib to control in a defined patient population.",
+    "consensus_rationale": "MONALEESA-2 is a well-replicated, published Phase III trial and these PFS figures are widely accepted in the oncology literature."
+  },
+  {
+    "claim_id": "85f0b6ca-3c04-4a01-86a1-e68bcbfbc99d",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports quantitative survival outcome measures (PFS HR and OS HR) from a specific trial evaluating trastuzumab deruxtecan.",
+    "consensus_rationale": "DESTINY-Breast04 is a published, peer-reviewed Phase III trial and the reported hazard ratios are established findings accepted across the oncology community."
+  },
+  {
+    "claim_id": "284ae8c1-e396-44fd-abab-5e8224065b9f",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports a specific, measurable objective response rate from a defined clinical trial evaluating a single-agent intervention.",
+    "consensus_rationale": "MONARCH 1 is a published trial and the 19.7% ORR for single-agent abemaciclib is an established, widely cited finding in the breast cancer literature."
+  },
+  {
+    "claim_id": "4bf14bd5-e7b4-4c4e-8432-7f02efdfb2ac",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports quantitative objective response rates from a specific RCT comparing abemaciclib plus aromatase inhibitor to placebo plus aromatase inhibitor.",
+    "consensus_rationale": "MONARCH 3 is a published Phase III trial and these ORR figures are established, peer-reviewed findings accepted by the oncology community."
+  },
+  {
+    "claim_id": "46b74fd8-97e6-418b-962d-82ff603b502a",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports a specific, measurable objective response rate for an intervention in a defined patient population.",
+    "consensus_rationale": "The 60.9% ORR for T-DXd in HER2-positive MBC post-T-DM1 is derived from published trial data (DESTINY-Breast03) and is a well-established finding in the field."
+  },
+  {
+    "claim_id": "fc2b1578-eafc-4a9d-b5a1-161fb31793f7",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports a specific, quantitative duration of response outcome from a named clinical trial evaluating T-DXd.",
+    "consensus_rationale": "DESTINY-Breast01 is a published trial and the 14.8-month median duration of response is an established, peer-reviewed finding."
+  },
+  {
+    "claim_id": "98221519-686b-4db4-8fc5-88e0abfb00c5",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports quantitative PFS rates and a hazard ratio from a specific RCT comparing T-DXd to T-DM1 in a defined patient population.",
+    "consensus_rationale": "DESTINY-Breast03 is a landmark published Phase III trial and these results are widely accepted and replicated in the oncology literature."
+  },
+  {
+    "claim_id": "9c2778a2-031b-4bae-96e8-fa28f297f642",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports specific, quantitative objective response rates from a named RCT comparing palbociclib plus letrozole to placebo plus letrozole.",
+    "consensus_rationale": "PALOMA-2 is a published Phase III trial and these ORR figures are established, peer-reviewed findings accepted across the oncology community."
+  },
+  {
+    "claim_id": "a8c002c7-a543-4e2d-8b25-cd42550fcd25",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim makes a comparative efficacy assertion about ribociclib being the first CDK4/6 inhibitor to show a statistically significant OS benefit in the first-line setting.",
+    "consensus_rationale": "This is a well-documented historical fact supported by the MONALEESA-2 OS data published in 2022, and is broadly accepted in the oncology community as a milestone finding."
+  },
+  {
+    "claim_id": "0d8eba0f-25d5-4ef0-9f6d-8f126a61b063",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes the design and enrollment characteristics of a specific clinical trial (an institutional/organizational action), rather than reporting a treatment outcome.",
+    "consensus_rationale": "Trial design and enrollment figures for MONALEESA-3 are documented in published protocols and results papers, representing uncontested factual information."
+  },
+  {
+    "claim_id": "a668f610-87e2-42dd-90a4-798f8440747a",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes the enrollment criteria and patient numbers of a specific clinical trial, which is a factual statement about what the trial did rather than a treatment outcome.",
+    "consensus_rationale": "Trial enrollment details for CAPItello-291 are documented in published trial reports and are uncontested factual information."
+  },
+  {
+    "claim_id": "52721099-d465-45ae-8e80-29440db79b60",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports a specific, quantitative EFS hazard ratio from a named RCT comparing pembrolizumab plus chemotherapy to chemotherapy alone.",
+    "consensus_rationale": "KEYNOTE-522 is a published Phase III trial and the EFS HR of 0.63 is an established, peer-reviewed finding that has informed regulatory approvals and clinical guidelines."
+  },
+  {
+    "claim_id": "bece4590-c8e6-4960-af2f-9a517cab7091",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim reports specific, quantitative PFS outcomes and a hazard ratio from a named RCT comparing sacituzumab govitecan to chemotherapy in TNBC.",
+    "consensus_rationale": "The ASCENT trial is a published Phase III trial and these PFS figures are established, peer-reviewed findings widely accepted in the oncology community."
+  },
+  {
+    "claim_id": "5a8cb1ab-b628-4885-9240-9bb5d245df8d",
+    "claim_type": "values_embedded",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim combines an empirical assertion (T-DXd's clinical performance) with an implicit value judgment about what constitutes meaningful landscape alteration, intertwining measurable outcomes with interpretive significance.",
+    "consensus_rationale": "While the framing involves a value judgment, the underlying empirical basis\u2014T-DXd's demonstrated efficacy in both HER2-positive (DESTINY-Breast03) and HER2-low (DESTINY-Breast04) disease\u2014is broadly accepted, making the overall characterization largely uncontested in the oncology community."
+  },
+  {
+    "claim_id": "9faf506a-0a16-40ed-8cd6-9f2ec6b3e3a8",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a mechanistic efficacy claim asserting that a specific biological mechanism (bystander effect) explains ADC antitumor activity in heterogeneous tumors.",
+    "consensus_rationale": "While the bystander effect is a recognized phenomenon for some ADCs, its relative contribution to antitumor activity versus direct target-mediated killing in heterogeneous tumors remains an area of active scientific investigation and debate."
+  },
+  {
+    "claim_id": "c23ba2fc-5396-4249-af15-dd700f89c929",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is an efficacy-adjacent biomarker claim about the measurable prevalence of ESR1 mutations as a consequence of aromatase inhibitor therapy, reflecting a testable biological outcome.",
+    "consensus_rationale": "Multiple large genomic studies and clinical trials have consistently demonstrated ESR1 mutation rates in the 30-40% range in metastatic HR+ breast cancer following AI therapy, establishing strong consensus around this estimate."
+  },
+  {
+    "claim_id": "a5473828-9f99-48fe-8b30-67a34eedd6da",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative efficacy claim reporting specific survival outcomes from a named randomized controlled trial comparing abemaciclib plus fulvestrant to placebo plus fulvestrant.",
+    "consensus_rationale": "These are published, peer-reviewed results from the MONARCH 2 phase III RCT with reported statistical significance, representing established trial data with no credible dispute."
+  },
+  {
+    "claim_id": "d8575c9a-e733-4f23-9ec4-9f2d31811d36",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative efficacy claim reporting a specific progression-free survival outcome from a named clinical trial of T-DXd in HER2-positive metastatic breast cancer.",
+    "consensus_rationale": "These are published results from the DESTINY-Breast01 phase II trial, representing established and widely cited clinical data that are not subject to credible scientific dispute."
+  },
+  {
+    "claim_id": "31062408-7b4d-4d36-b53f-39c20de26e1f",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a qualitative efficacy claim about patient-reported outcomes (time to deterioration of global health status) with CDK4/6 inhibitor combinations.",
+    "consensus_rationale": "While some trials have shown quality-of-life benefits with CDK4/6 inhibitors, the consistency and clinical significance of this effect across trials and patient populations remains a subject of ongoing discussion among oncologists."
+  },
+  {
+    "claim_id": "61b5534f-5ddf-48b1-a6cf-c6129028a06c",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This is a quantitative efficacy claim reporting a specific hazard ratio for progression-free survival from a named trial comparing camizestrant to fulvestrant.",
+    "consensus_rationale": "SERENA-2 is a phase II trial with preliminary results; camizestrant is an investigational next-generation SERD and the evidence base is early-stage, with confirmatory phase III data not yet mature."
+  },
+  {
+    "claim_id": "dfc8bc1d-c9a7-4893-83fe-cdbff5f40b1e",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This is a quantitative efficacy claim reporting an objective response rate for patritumab deruxtecan in HER3-expressing metastatic breast cancer.",
+    "consensus_rationale": "HER3-DXd is an investigational agent with early-phase trial data; while results are promising, the evidence base is insufficient to establish consensus given limited patient numbers and lack of confirmatory phase III data."
+  },
+  {
+    "claim_id": "1e0ae298-4947-4d9a-a4d3-8734313dd713",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative efficacy claim reporting specific PFS outcomes from a defined biomarker-selected subgroup of a named phase III randomized controlled trial.",
+    "consensus_rationale": "These are published results from the CAPItello-291 trial subgroup analysis, representing peer-reviewed data from a completed phase III RCT that are not subject to credible scientific dispute."
+  },
+  {
+    "claim_id": "45c15e36-e24a-4cf7-a919-41cae7974cfd",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative efficacy claim reporting specific progression-free survival outcomes from a named randomized clinical trial of palbociclib plus letrozole.",
+    "consensus_rationale": "These are published results from the PALOMA-1 phase II trial, representing established and widely cited data that are not subject to credible scientific dispute."
+  },
+  {
+    "claim_id": "aefc1abd-40a5-42a3-a1d6-83edfcdd15ff",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative efficacy claim reporting specific overall survival outcomes from a named phase III randomized controlled trial of sacituzumab govitecan in metastatic TNBC.",
+    "consensus_rationale": "These are published, peer-reviewed results from the ASCENT phase III RCT with reported hazard ratio, representing established trial data that form the basis of regulatory approvals and are not credibly disputed."
+  },
+  {
+    "claim_id": "2c4170e6-2644-4e24-a835-5f1c0c9fdc36",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a qualitative efficacy claim asserting both single-agent antitumor activity for abemaciclib and its uniqueness within the CDK4/6 inhibitor class.",
+    "consensus_rationale": "While abemaciclib has demonstrated single-agent activity in clinical trials, whether this property is truly unique compared to palbociclib and ribociclib or merely reflects dosing and selectivity differences is a matter of ongoing scientific discussion."
+  },
+  {
+    "claim_id": "2f924d89-bd72-4d0f-a019-946024305cfd",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative efficacy claim reporting specific progression-free survival outcomes from a named phase III randomized controlled trial of palbociclib plus letrozole.",
+    "consensus_rationale": "These are published, peer-reviewed results from the PALOMA-2 phase III RCT, representing well-established trial data that are widely cited and not subject to credible scientific dispute."
+  },
+  {
+    "claim_id": "9e178b34-7e1d-4a43-a989-ededc40ed8c2",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative efficacy claim reporting specific overall survival outcomes from a named phase III randomized controlled trial of ribociclib plus letrozole.",
+    "consensus_rationale": "These are published updated overall survival results from the MONALEESA-2 phase III RCT with reported statistical significance, representing established and widely accepted trial data."
+  },
+  {
+    "claim_id": "3d9987d0-8e78-4581-b842-92547e17f404",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a quantitative efficacy claim asserting an estimated range of overall survival benefit for CDK4/6 inhibitor combinations across lines of therapy, synthesizing across multiple trials.",
+    "consensus_rationale": "While individual trial OS data exist, the synthesis of a 6-12 month absolute OS benefit estimate across lines of therapy involves interpretive judgment and is subject to ongoing debate given heterogeneity across trials and patient populations."
+  },
+  {
+    "claim_id": "3158a889-4331-480d-b4c1-a78bae13732c",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative efficacy claim reporting specific progression-free survival outcomes from a named phase III randomized controlled trial of ribociclib plus endocrine therapy in premenopausal women.",
+    "consensus_rationale": "These are published, peer-reviewed results from the MONALEESA-7 phase III RCT, representing well-established trial data that are widely cited and not subject to credible scientific dispute."
+  },
+  {
+    "claim_id": "106a5705-26d2-497a-8886-35e77c182700",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable treatment outcome (PFS) from a specific RCT comparing sacituzumab govitecan to physician's choice chemotherapy.",
+    "consensus_rationale": "The TROPiCS-02 trial results are published, peer-reviewed, and the reported statistics are directly verifiable from the trial data with no meaningful scientific dispute."
+  },
+  {
+    "claim_id": "1aa5fca6-7c06-453f-b17b-e4d0efc335b2",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a measurable epidemiological outcome claim about population-level survival rates for breast cancer across all stages.",
+    "consensus_rationale": "The ~90% 5-year relative survival rate for all-stage breast cancer is consistently reported by SEER and other major cancer registries and is widely accepted."
+  },
+  {
+    "claim_id": "38e46af3-1f94-4a90-b3bc-e13658212e78",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is an epidemiological claim about a measurable outcome (mortality count and ranking) attributable to breast cancer globally.",
+    "consensus_rationale": "While the approximate death toll figure is broadly consistent with WHO/GLOBOCAN data, the claim that breast cancer is the leading cause of cancer death in women is subject to variation by year and data source, as lung cancer competes for this ranking in some regions and time periods, creating legitimate analytical disagreement."
+  },
+  {
+    "claim_id": "83a421c6-96e3-4b52-9a31-7d341f787102",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a measurable epidemiological claim about the median age at diagnosis and death from breast cancer in the US, derived from registry data.",
+    "consensus_rationale": "These figures are consistently reported by SEER data and are well-established epidemiological statistics with no meaningful scientific dispute."
+  },
+  {
+    "claim_id": "7b7e0b47-a33b-476f-acbf-1fc3c69bb3ac",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a measurable epidemiological claim about the prevalence of breast cancer survivors in the US population.",
+    "consensus_rationale": "This figure is consistent with estimates from major cancer surveillance databases (SEER, ACS) and is broadly accepted, though exact numbers shift slightly with each reporting cycle."
+  },
+  {
+    "claim_id": "8834e4f3-585a-4f54-b15e-4c63afb106ff",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a measurable epidemiological claim about the lifetime risk of breast cancer for US women, derived from population-level incidence data.",
+    "consensus_rationale": "The 1-in-8 lifetime risk figure is a well-established and consistently reported statistic from SEER and major cancer organizations with no meaningful scientific dispute."
+  },
+  {
+    "claim_id": "983879d8-9a82-41c5-93ed-05ca87721238",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the enrollment criteria and design of a specific clinical trial, which is a factual statement about what the trial investigators did.",
+    "consensus_rationale": "Trial enrollment criteria are documented in the published protocol and primary results paper for DESTINY-Breast04, making this directly verifiable with no scientific dispute."
+  },
+  {
+    "claim_id": "47db46a4-3200-47d2-b32f-4541cf63935b",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a specific adverse event rate (ILD) associated with trastuzumab deruxtecan from a named clinical trial.",
+    "consensus_rationale": "The ILD rate from DESTINY-Breast03 is published in peer-reviewed literature and is a well-documented safety finding with no meaningful scientific dispute about the reported figures."
+  },
+  {
+    "claim_id": "9af09f4d-1a71-4fc1-8efb-a67710ffb56a",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports specific adverse event rates (neutropenia, febrile neutropenia) from a named clinical trial for a specific drug combination.",
+    "consensus_rationale": "These figures are directly reported in the published PALOMA-2 trial results and are well-established safety data with no meaningful scientific dispute."
+  },
+  {
+    "claim_id": "c5ff02f6-390d-4b91-9c99-813c0c43e610",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports specific immune-related adverse event rates from a named clinical trial for pembrolizumab.",
+    "consensus_rationale": "These figures are directly reported in the published KEYNOTE-522 trial results and are well-established safety data with no meaningful scientific dispute."
+  },
+  {
+    "claim_id": "19b4baeb-8f8b-4186-aff9-f878f3db6b43",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a regulatory action (FDA boxed warning) applied to a specific drug, which is a factual statement about what a regulatory institution has mandated.",
+    "consensus_rationale": "FDA boxed warning requirements are publicly documented in the official prescribing information and are directly verifiable with no scientific dispute."
+  },
+  {
+    "claim_id": "399085e6-4e51-4e97-ac2c-ab2789c053f7",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim combines an empirical component (diarrhea impacts quality of life) with a value judgment ('manageable'), implying the side effect burden is acceptable and controllable.",
+    "consensus_rationale": "While the occurrence of abemaciclib-related diarrhea is well-documented, the characterization of it as 'manageable' involves clinical judgment and patient-reported outcomes that vary, and there is genuine debate about the degree to which dose modifications adequately mitigate QoL impact."
+  },
+  {
+    "claim_id": "e90aa57e-d4e5-4e05-9556-895b936946d2",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a factual characteristic of approved drug dosing schedules as established by manufacturers and regulatory approvals.",
+    "consensus_rationale": "The dosing schedules for abemaciclib, palbociclib, and ribociclib are documented in their respective FDA-approved prescribing information and are directly verifiable with no dispute."
+  },
+  {
+    "claim_id": "39ebe8e5-d05e-4f09-9b2b-011a3a787156",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the enrollment size and eligibility criteria of a specific clinical trial, which is a factual statement about what the trial investigators did.",
+    "consensus_rationale": "Trial enrollment details for DESTINY-Breast03 are documented in the published protocol and primary results paper, making this directly verifiable with no scientific dispute."
+  },
+  {
+    "claim_id": "d9c0a172-2caa-4fb5-851b-edaad286bf14",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the design, enrollment size, and population of a specific clinical trial, which is a factual statement about what the trial investigators did.",
+    "consensus_rationale": "The MONALEESA-2 trial design and enrollment details are documented in the published protocol and primary results paper, making this directly verifiable with no scientific dispute."
+  },
+  {
+    "claim_id": "acd59cff-14ec-45f1-818f-a3ff00ba77bc",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that pembrolizumab plus chemotherapy produces an event-free survival benefit irrespective of PD-L1 status, which is a measurable outcome claim about an intervention.",
+    "consensus_rationale": "The KEYNOTE-522 trial data consistently demonstrated EFS benefit across PD-L1 subgroups, and this finding is well-established in the published literature and reflected in regulatory approvals."
+  },
+  {
+    "claim_id": "8609083b-7c64-46a9-b4e0-bcbae2e0d11c",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a measurable differential PFS outcome for capivasertib plus fulvestrant based on biomarker subgroup status in the CAPItello-291 trial.",
+    "consensus_rationale": "The CAPItello-291 trial results clearly demonstrated greater PFS benefit in the biomarker-selected population, and this finding is consistently reported in the primary publication and subsequent analyses."
+  },
+  {
+    "claim_id": "d227c84a-ce42-498a-aa20-c8ae1c8d1e0c",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific policy position and recommendation made by ASCO in its guidelines, making it a claim about what an institution said or decided.",
+    "consensus_rationale": "ASCO guidelines are publicly documented and this characterization of their position on CDK4/6 inhibitor selection is well-established and consistently cited in the oncology community."
+  },
+  {
+    "claim_id": "84d7e1d2-b7ef-4539-8609-ac1bf5ec0254",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim addresses the absence of direct comparative evidence between CDK4/6 inhibitors and the methodological limitations of indirect comparisons, which is an empirical claim about the state of evidence.",
+    "consensus_rationale": "The lack of head-to-head RCTs among CDK4/6 inhibitors is universally acknowledged in the oncology literature, and the methodological limitations of network meta-analyses in this context are broadly accepted."
+  },
+  {
+    "claim_id": "c557ff49-393b-44f2-83db-907b75946afa",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "While the empirical utility of genomic profiling is testable, the word 'increasingly important' embeds a value judgment about clinical priority and the appropriate standard of care.",
+    "consensus_rationale": "There is genuine debate about the optimal timing, breadth, and clinical utility of comprehensive genomic profiling in HR+/HER2- metastatic breast cancer, with evolving evidence and varying guideline recommendations."
+  },
+  {
+    "claim_id": "58e911dc-b043-4c79-b5cf-4fafeb46e3fb",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "The claim combines an empirical observation about treatment sequencing trends with an implicit value judgment that deferring chemotherapy is appropriate or desirable.",
+    "consensus_rationale": "While the trend toward deferring chemotherapy is broadly observed, the optimal sequencing of targeted agents versus chemotherapy in HR+/HER2- metastatic breast cancer remains an area of active clinical debate."
+  },
+  {
+    "claim_id": "fae1c0f3-121f-4927-abc3-4b969f0665a9",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a measurable, empirical claim about the prevalence of HER2-low expression in TNBC tumors, which is testable through pathological assessment.",
+    "consensus_rationale": "Estimates of HER2-low prevalence in TNBC vary across studies due to differences in assay methodology, scoring reproducibility, and tumor heterogeneity, making the precise range an area of ongoing investigation."
+  },
+  {
+    "claim_id": "a4efc2cf-e362-4601-8a93-57e543261994",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative epidemiological claim about the global incidence of breast cancer, which is empirically measurable through cancer registry data.",
+    "consensus_rationale": "Global cancer incidence data from GLOBOCAN and WHO consistently identify breast cancer as the most commonly diagnosed cancer worldwide with approximately 2.3 million new cases annually."
+  },
+  {
+    "claim_id": "ec6c51d7-9720-44ff-9fd4-c89d2a490613",
+    "claim_type": "institutional",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This claim describes the current state of clinical development activity (a factual count of ADCs in trials), which reflects actions by pharmaceutical and research institutions.",
+    "consensus_rationale": "The exact number of ADCs in clinical development is a moving target that changes continuously, and precise counts depend on the database and time of assessment, making verification uncertain."
+  },
+  {
+    "claim_id": "c04f0e52-6cbe-40ec-9687-5ddc3d1b055a",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the investigational status of immunotherapy-ADC combinations in TNBC, which is an empirical claim about the direction of clinical research activity.",
+    "consensus_rationale": "Multiple ongoing trials (e.g., combining pembrolizumab with sacituzumab govitecan or trastuzumab deruxtecan) confirm that this combination strategy is a widely recognized and active area of investigation."
+  },
+  {
+    "claim_id": "05137ec5-10d5-4d3d-9f90-5fe59f852806",
+    "claim_type": "values_embedded",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "While the clinical impact of these drug classes is empirically supported, the word 'transformed' embeds a value judgment about the magnitude and significance of that impact.",
+    "consensus_rationale": "The substantial improvements in outcomes attributable to CDK4/6 inhibitors, ADCs, and immunotherapy over the past decade are broadly accepted across the oncology community."
+  },
+  {
+    "claim_id": "2229bd65-0393-4b7c-9e1e-a3025bae5cb0",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a mechanistic efficacy claim about how cyclin E1 overexpression drives resistance to CDK4/6 inhibitors via a specific molecular pathway.",
+    "consensus_rationale": "While cyclin E1 overexpression is an established resistance mechanism, the precise mechanistic details and its relative contribution compared to other resistance pathways remain areas of active preclinical and clinical investigation."
+  },
+  {
+    "claim_id": "39f6d8a4-37f8-4d4c-a000-4eaae5a32bce",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific action by Pfizer (developing a named compound) and its current regulatory/clinical trial status, which is an institutional/organizational fact.",
+    "consensus_rationale": "PF-07104091 is a documented Pfizer compound with publicly registered phase I/II clinical trials, and this factual status is verifiable through clinical trial registries."
+  },
+  {
+    "claim_id": "cdb69afb-666c-4ee9-a01a-501ea8d28fa1",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim identifies a specific challenge (immunosuppressive tumor microenvironment) that poses a risk or barrier to the efficacy and safety profile of T-cell engaging bispecifics in solid tumors.",
+    "consensus_rationale": "The immunosuppressive tumor microenvironment as a barrier to T-cell engaging therapies in solid tumors is broadly recognized and consistently reported across preclinical and clinical literature."
+  },
+  {
+    "claim_id": "e5546ad3-1590-41bf-bf36-affa571e6915",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a recognized technical challenge in the development process for bispecific antibodies, which is an empirical claim about the feasibility and complexity of manufacturing.",
+    "consensus_rationale": "Manufacturing complexity for bispecific antibodies is universally acknowledged in the pharmaceutical and oncology literature as a key development challenge, with broad expert agreement."
+  },
+  {
+    "claim_id": "4a68adc4-4211-40fb-ad19-87c25f493c46",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "The claim concerns whether bispecific ADCs and ADC-immunotherapy combinations will produce meaningful outcomes in breast cancer treatment, making it an efficacy claim about emerging interventions.",
+    "consensus_rationale": "These combinations are in early-stage investigation with limited mature clinical trial data, so while there is broad interest, there is insufficient evidence to establish consensus on their efficacy."
+  },
+  {
+    "claim_id": "7406a22f-54bf-4c9c-8df9-97b931ee6dea",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "The claim asserts that serial ctDNA monitoring produces a measurable outcome (earlier detection of resistance) compared to imaging, which is a testable efficacy claim.",
+    "consensus_rationale": "While early studies are promising, prospective randomized evidence demonstrating that ctDNA-guided therapy changes improve outcomes is still lacking, leaving this in genuine uncertainty."
+  },
+  {
+    "claim_id": "380e2fc0-a408-4249-8bfc-e53f452d1333",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a shift in standard-of-care designation driven by a clinical trial result and guideline/practice adoption, which reflects an institutional and professional consensus decision.",
+    "consensus_rationale": "The DESTINY-Breast03 trial demonstrated clear superiority of T-DXd over T-DM1, and major guidelines (NCCN, ASCO, ESMO) have uniformly adopted T-DXd as the second-line standard, reflecting strong consensus."
+  },
+  {
+    "claim_id": "b04b58b7-cefc-4214-8822-b5244830ad76",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a specific regulatory action (FDA accelerated approval) taken by an institution at a specific time based on specific trial data.",
+    "consensus_rationale": "This is a documented historical regulatory event with a clear public record; there is no credible dispute about the FDA's accelerated approval of palbociclib in February 2015."
+  },
+  {
+    "claim_id": "737cbbed-5609-4089-a916-5a0929d26365",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim is a factual statement about a regulatory milestone \u2014 which drug was first approved in a class \u2014 reflecting an institutional/historical record.",
+    "consensus_rationale": "Palbociclib's February 2015 accelerated approval is well-documented as the first CDK4/6 inhibitor approval in oncology, and this historical fact is not in dispute."
+  },
+  {
+    "claim_id": "8c4b6e19-f633-4755-a432-b877cb9f518b",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a specific regulatory action (FDA regular approval) by an institution at a specific time based on confirmatory trial data.",
+    "consensus_rationale": "This is a documented regulatory event supported by public FDA records; the regular approval of palbociclib in April 2017 based on PALOMA-2 is not disputed."
+  },
+  {
+    "claim_id": "cc195242-7471-4eba-9ced-484a39d9f4fe",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes regulatory actions taken by the FDA (label expansions for ribociclib), which are institutional decisions with documented public records.",
+    "consensus_rationale": "Ribociclib's label expansions to include fulvestrant combination and adjuvant use are documented FDA approvals with no credible dispute."
+  },
+  {
+    "claim_id": "db85dbdd-8242-4eb2-ad10-9b1b27939e7a",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim is a factual statement about the sequence of FDA approvals within the CDK4/6 inhibitor class, reflecting an institutional/regulatory record.",
+    "consensus_rationale": "Abemaciclib's approval as the third CDK4/6 inhibitor is a documented historical regulatory fact with no credible dispute."
+  },
+  {
+    "claim_id": "68b0a788-6999-4c84-8566-030ec155beed",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a specific FDA regulatory decision (regular approval) for a named drug in a defined patient population, which is an institutional action.",
+    "consensus_rationale": "The FDA's regular approval of sacituzumab govitecan for mTNBC is a documented regulatory event supported by public FDA records and is not in dispute."
+  },
+  {
+    "claim_id": "8c1951ee-6935-4c12-8fec-56168bb1fd1b",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim is a factual statement about a regulatory milestone \u2014 which immunotherapy was first approved for early-stage breast cancer \u2014 reflecting an institutional/historical record.",
+    "consensus_rationale": "Pembrolizumab's July 2021 approval for high-risk early-stage TNBC (KEYNOTE-522) is documented as the first immunotherapy approval in early breast cancer, and this historical fact is not in dispute."
+  },
+  {
+    "claim_id": "81871a3d-cbfa-49b1-82e7-08722a2449a1",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a specific guideline recommendation made by an institution (NCCN) for a defined clinical scenario, which is an institutional statement.",
+    "consensus_rationale": "NCCN guidelines consistently list T-DXd as the preferred second-line therapy for HER2+ metastatic breast cancer following DESTINY-Breast03, and this recommendation is not in dispute."
+  },
+  {
+    "claim_id": "346fd041-b551-4084-82cb-ac66d7474493",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a specific guideline recommendation made by an institution (NCCN) regarding multigene assay testing, which is an institutional statement.",
+    "consensus_rationale": "NCCN guidelines have consistently recommended multigene assay testing including Oncotype DX and MammaPrint for adjuvant decision-making, and this is well-documented and not in dispute."
+  },
+  {
+    "claim_id": "3fb39e8d-cb2c-4d73-8486-f999cb5ea68b",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a specific guideline recommendation made by an institution (ASCO) for a defined patient population with specific biomarker criteria, which is an institutional statement.",
+    "consensus_rationale": "ASCO guidelines based on monarchE trial data have established abemaciclib as adjuvant therapy for high-risk node-positive HR+/HER2- early breast cancer with Ki-67 \u226520%, and this recommendation is well-documented."
+  },
+  {
+    "claim_id": "96e1cb5d-9ee3-4a73-a18d-fcb5c64ff0e8",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a factual characteristic of a specific clinical trial (enrollment size and eligibility criteria), which is a documented institutional/research record.",
+    "consensus_rationale": "Trial enrollment details for MONARCH 1 are documented in the published trial report and are not subject to scientific dispute."
+  },
+  {
+    "claim_id": "27022ad4-0f73-4865-ad7d-7323fdd1a412",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "The claim describes a specific guideline recommendation made by an institution (ASCO) for a defined patient population (HER2-low breast cancer), which is an institutional statement.",
+    "consensus_rationale": "Following the DESTINY-Breast04 trial results, ASCO guidelines have incorporated T-DXd as a treatment option for HER2-low breast cancer, and this recommendation is well-documented and not in dispute."
+  },
+  {
+    "claim_id": "745510b9-9d82-43be-ae14-47c74e725947",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific action taken by an expert consensus body (St Gallen 2023) regarding its endorsement of multigene assays.",
+    "consensus_rationale": "The St Gallen 2023 consensus endorsement of multigene assays for HR+/HER2- early breast cancer is a documented institutional decision that is not in dispute."
+  },
+  {
+    "claim_id": "c3de0644-8646-40bc-9f67-c0e118c1b74d",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This claim concerns whether a particular treatment sequence produces optimal outcomes, which is an empirically testable efficacy question about post-CDK4/6 inhibitor therapy.",
+    "consensus_rationale": "There is insufficient prospective evidence to establish a clear standard of care for sequencing after CDK4/6 inhibitor failure, and the field acknowledges this as an open question."
+  },
+  {
+    "claim_id": "30460d72-f7af-44f7-a2b7-18ed5c621d93",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what the NCI PDQ does as an institutional resource \u2014 its update practices and role as a reference basis for guidelines.",
+    "consensus_rationale": "The NCI PDQ's function as a regularly updated, evidence-leveled oncology reference is a well-established and uncontested institutional fact."
+  },
+  {
+    "claim_id": "e42ed991-f4d6-4687-8776-8fcfaff8659c",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a regulatory approval decision (FDA approval of elacestrant) and its basis in a specific trial, which is an institutional action.",
+    "consensus_rationale": "The FDA approval of elacestrant as the first oral SERD for ESR1-mutated metastatic breast cancer based on EMERALD is a documented regulatory fact with no credible dispute."
+  },
+  {
+    "claim_id": "bd490ecd-f021-4efd-b759-44c0ee18433c",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that the PALOMA-1 trial demonstrated clinical validation of CDK4/6 inhibition as a therapeutic strategy, which is an empirical claim about treatment efficacy.",
+    "consensus_rationale": "PALOMA-1's role as the first clinical validation of CDK4/6 inhibition in breast cancer is historically well-established and broadly accepted in the oncology community."
+  },
+  {
+    "claim_id": "1a064cd5-9642-4341-bad0-0b8663f7e829",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that TROPiCS-02 validated Trop-2 as a therapeutic target in HR+/HER2- breast cancer, which is an empirical claim about the efficacy of targeting a specific antigen.",
+    "consensus_rationale": "TROPiCS-02 demonstrated clinical benefit of sacituzumab govitecan in HR+/HER2- metastatic breast cancer, and its validation of Trop-2 as a target in this population is broadly accepted following the trial's positive results."
+  },
+  {
+    "claim_id": "6b908127-840c-4ee9-85b1-8f6288aad69a",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a regulatory milestone \u2014 capivasertib being the first AKT pathway inhibitor approved for breast cancer \u2014 which is an institutional/regulatory fact.",
+    "consensus_rationale": "The FDA approval of capivasertib (with fulvestrant) for HR+/HER2- metastatic breast cancer as the first approved AKT inhibitor in this setting is a documented regulatory fact without credible dispute."
+  },
+  {
+    "claim_id": "e8ad1940-d812-4a50-bc57-75e316cb21a2",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the clinical development status of ADCs targeting HER3 and Nectin-4, which relates to their potential as therapeutic interventions in breast cancer.",
+    "consensus_rationale": "The existence of ADCs targeting HER3 and Nectin-4 in clinical development for breast cancer is well-documented in the literature and not subject to meaningful dispute."
+  },
+  {
+    "claim_id": "eb267daf-d2ca-4954-8c50-c3cd67b65a79",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts that TILs function as prognostic and predictive biomarkers in TNBC, which is an empirical claim about the clinical utility of a biomarker.",
+    "consensus_rationale": "While TILs show promise as biomarkers in TNBC with supportive evidence, their standardization, cutoffs, and predictive value in specific treatment contexts remain subjects of active scientific debate."
+  },
+  {
+    "claim_id": "f69568d3-09c9-472b-b05d-b692db97e4b4",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that DESTINY-Breast04 established HER2-low as a clinically actionable category, which is an empirical claim about the clinical significance of a biomarker-defined subgroup.",
+    "consensus_rationale": "DESTINY-Breast04's demonstration of trastuzumab deruxtecan benefit in HER2-low breast cancer is broadly accepted as having established HER2-low as a new actionable category, reflected in updated guidelines."
+  },
+  {
+    "claim_id": "15634698-83db-4faf-b249-170d8ae9607b",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts that oral SERDs and PROTACs are designed to overcome ESR1 mutation-driven resistance, which is an empirical claim about the mechanism and therapeutic utility of these agents.",
+    "consensus_rationale": "While the mechanistic rationale is well-supported, the clinical superiority of these next-generation agents over existing therapies in overcoming ESR1-driven resistance is still being established through ongoing trials."
+  },
+  {
+    "claim_id": "c081a706-0acf-4d8b-af42-72cbef2b4b30",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes an institutional/organizational action \u2014 a specific drug being evaluated in a named phase III trial \u2014 which is a factual statement about a clinical program.",
+    "consensus_rationale": "The existence and status of the SERENA-6 phase III trial evaluating camizestrant is a documented clinical trial fact that is not in dispute."
+  },
+  {
+    "claim_id": "64317752-3dbb-4715-bdc1-076a923b8436",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This claim asserts that ARV-471 achieves complete estrogen receptor degradation in early clinical data, which is an empirical claim about the pharmacodynamic efficacy of a therapeutic agent.",
+    "consensus_rationale": "Early clinical data on ARV-471 are promising but limited in scope and maturity, and the characterization of 'complete' ER degradation requires further validation in larger studies."
+  },
+  {
+    "claim_id": "d04dfd13-e85d-426e-ba91-3a390401bd19",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes a specific molecular resistance mechanism (CDK6 amplification bypassing CDK4/6 blockade via CDK2 activation), which is an empirical claim about biological mechanism and treatment resistance.",
+    "consensus_rationale": "While CDK6 amplification and CDK2 activation are recognized resistance mechanisms, the precise mechanistic details and their relative clinical importance are still being characterized and debated in the literature."
+  },
+  {
+    "claim_id": "559495b3-d59f-49be-a280-a2f06cb653b3",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the development status and trial phase of a specific drug by a named company, which is a factual institutional/organizational statement about a clinical program.",
+    "consensus_rationale": "The phase I/II clinical trial status of INX-315 as a selective CDK2 inhibitor developed by Incyclix Bio is a documented clinical fact that is not subject to meaningful dispute."
+  },
+  {
+    "claim_id": "1584b4b3-9f00-4ba9-8509-e5c2e5c2640d",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This is a claim about whether combining CDK2 and CDK4/6 inhibitors produces the outcome of preventing adaptive resistance, making it an efficacy claim.",
+    "consensus_rationale": "While the combination strategy has been proposed and is under investigation, clinical evidence is insufficient to establish consensus on whether it effectively prevents adaptive resistance."
+  },
+  {
+    "claim_id": "ffb8d80b-eb55-4462-8eb9-43c867b9e167",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a claim about whether bispecific antibodies targeting HER2 produce a specific mechanistic outcome (receptor clustering and internalization) not achievable with monospecific antibodies.",
+    "consensus_rationale": "Preclinical evidence supports differential receptor clustering and internalization with bispecific antibodies, but the extent and clinical significance of this advantage over monospecific antibodies remains under active investigation and debate."
+  },
+  {
+    "claim_id": "aee50315-c248-46f2-89bf-260033afb4b1",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This is a claim about whether bispecific ADCs produce better outcomes (improved tumor selectivity, reduced off-target toxicity) compared to monospecific ADCs.",
+    "consensus_rationale": "Bispecific ADCs are early in development and clinical data comparing them to monospecific ADCs are insufficient to establish consensus on their relative selectivity and toxicity profiles."
+  },
+  {
+    "claim_id": "44c4eab6-aef6-46d8-80dd-02f601d74ffa",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what an institution (a clinical trial consortium) is doing \u2014 specifically evaluating Dato-DXd in a named phase III trial.",
+    "consensus_rationale": "The existence and design of the TROPION-Breast01 trial is a matter of public record and not subject to scientific dispute."
+  },
+  {
+    "claim_id": "fe64e8df-d16f-43cd-83e5-d3d09904063b",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This is a claim about the development of next-generation ADC payloads and their potential to extend therapeutic options beyond current topoisomerase I inhibitors, implying efficacy potential.",
+    "consensus_rationale": "While the existence of these payloads in development is factual, their clinical efficacy relative to established payloads has not yet been established, leaving the field in genuine uncertainty."
+  },
+  {
+    "claim_id": "13393934-759e-42ac-88b4-4328d8b66cff",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a claim about whether ctDNA-based MRD detection produces the outcome of identifying high-recurrence-risk patients 6\u201312 months before clinical recurrence.",
+    "consensus_rationale": "While multiple studies support the prognostic value of ctDNA-based MRD detection, the specific lead time of 6\u201312 months and its consistency across breast cancer subtypes and assay platforms remain subjects of active scientific debate."
+  },
+  {
+    "claim_id": "1c4f6694-7224-499d-9d1d-2da8308f0cbf",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what a clinical trial (MONARCH 3) established in terms of a treatment standard, reflecting an institutional/regulatory and guideline outcome rather than a direct efficacy measurement.",
+    "consensus_rationale": "The MONARCH 3 trial results and their role in establishing abemaciclib plus endocrine therapy as a first-line option are well-documented and broadly accepted in oncology guidelines."
+  },
+  {
+    "claim_id": "2912c999-b045-4627-b73e-d828f88a2979",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about an FDA regulatory action (accelerated approval) that resulted from a specific trial, making it an institutional claim about what the agency did.",
+    "consensus_rationale": "The FDA's accelerated approval of T-DXd based on DESTINY-Breast01 is a matter of public regulatory record with no scientific dispute."
+  },
+  {
+    "claim_id": "b59de4bf-b1cf-46a2-a20d-632bbad333d2",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim is about what a clinical trial (DESTINY-Breast02) established in terms of standard of care, reflecting an institutional/guideline determination rather than a primary efficacy measurement.",
+    "consensus_rationale": "The DESTINY-Breast02 results confirming T-DXd as standard of care after T-DM1 are well-replicated and broadly accepted across major oncology guidelines."
+  },
+  {
+    "claim_id": "566514f0-0301-4f65-a3aa-47640a39c517",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a claim about an FDA regulatory action \u2014 specifically that PALOMA-2 results converted palbociclib's approval from accelerated to regular status.",
+    "consensus_rationale": "The regulatory history of palbociclib's approval conversion is factually verifiable, but there is some complexity and potential inaccuracy in this specific claim (PALOMA-2 supported regular approval, but the precise regulatory pathway details are subject to scrutiny), warranting active debate classification."
+  },
+  {
+    "claim_id": "0db45d24-8ae0-4d4f-9dc8-f870eb697f68",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what the MONALEESA-7 trial established in terms of a treatment standard for a specific patient population, reflecting a guideline/institutional outcome.",
+    "consensus_rationale": "MONALEESA-7 results demonstrating overall survival benefit with CDK4/6 inhibitors in premenopausal HR+/HER2- advanced breast cancer are well-replicated and incorporated into major guidelines."
+  },
+  {
+    "claim_id": "fc1d66bf-8d4b-4e61-9528-d0c0f9849d3a",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about a specific FDA regulatory action \u2014 granting accelerated approval to palbociclib plus letrozole \u2014 making it an institutional claim.",
+    "consensus_rationale": "The FDA's accelerated approval of palbociclib plus letrozole for postmenopausal ER+/HER2- metastatic breast cancer is a matter of public regulatory record with no scientific dispute."
+  },
+  {
+    "claim_id": "836500e1-e0dc-42d7-b190-5be75c4e24ca",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about an FDA regulatory action \u2014 granting an additional approval to palbociclib plus fulvestrant based on PALOMA-3 data.",
+    "consensus_rationale": "The FDA approval of palbociclib plus fulvestrant for second-line HR+/HER2- metastatic breast cancer based on PALOMA-3 is a matter of public regulatory record with no scientific dispute."
+  },
+  {
+    "claim_id": "3aca8a75-3345-4177-9be5-1f960d88d67b",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about an FDA regulatory action \u2014 approving ribociclib in combination with an aromatase inhibitor for a specific patient population.",
+    "consensus_rationale": "The FDA approval of ribociclib plus aromatase inhibitor for HR+/HER2- advanced or metastatic breast cancer is a matter of public regulatory record with no scientific dispute."
+  },
+  {
+    "claim_id": "7c3d72f9-f3f5-424a-9915-19d6d3e6bc02",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about an FDA regulatory action and its historical distinction \u2014 specifically that abemaciclib was the first CDK4/6 inhibitor approved for adjuvant use in early breast cancer based on monarchE.",
+    "consensus_rationale": "The October 2021 FDA approval of abemaciclib for adjuvant use in high-risk early breast cancer based on monarchE, and its status as the first CDK4/6 inhibitor in this setting, are matters of public regulatory record with no scientific dispute."
+  },
+  {
+    "claim_id": "096d881f-3437-4916-ac60-df8bd3a3a417",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory action taken by the FDA \u2014 an approval decision with defined patient criteria.",
+    "consensus_rationale": "FDA approval decisions are matters of public record and are not subject to scientific dispute; the approval of T-DXd for HER2-low breast cancer is well-documented."
+  },
+  {
+    "claim_id": "2b152d64-eaac-4026-be5c-41774d1f2bcc",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a historical regulatory milestone \u2014 the first approval of a Trop-2 directed ADC \u2014 which is a factual statement about an institutional action.",
+    "consensus_rationale": "This is a verifiable historical fact about sacituzumab govitecan's approval status that is not subject to scientific debate."
+  },
+  {
+    "claim_id": "f8c4710d-f41f-4475-8eaf-c499b77d1b2b",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific FDA approval decision for pembrolizumab in early-stage TNBC, which is an institutional action.",
+    "consensus_rationale": "The FDA approval of pembrolizumab for high-risk early-stage TNBC is a matter of public regulatory record with no credible dispute."
+  },
+  {
+    "claim_id": "d9dc8f8e-b936-4eb6-9405-28acb391cde4",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "While the DESTINY-Breast04 trial produced empirical results, the characterization of those results as a 'paradigm shift' embeds a value judgment about the magnitude and significance of the clinical impact.",
+    "consensus_rationale": "Most oncologists agree the trial was highly significant, but the degree to which it constitutes a true 'paradigm shift' versus an important incremental advance is subject to genuine interpretive disagreement among experts."
+  },
+  {
+    "claim_id": "c73a481e-2c10-42f7-9d9b-70e788d10fcc",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific guideline designation made by the NCCN \u2014 a category 1 preferred recommendation \u2014 which is an institutional policy statement.",
+    "consensus_rationale": "NCCN guideline designations are publicly documented and verifiable; CDK4/6 inhibitor plus endocrine therapy as category 1 preferred first-line for HR+/HER2- MBC is well-established in current guidelines."
+  },
+  {
+    "claim_id": "035eacfb-fa9d-4af2-88a8-0be2f897acc6",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what the NCCN guidelines include as a treatment option, which is a statement about an institutional document's content.",
+    "consensus_rationale": "NCCN inclusion of T-DXd for HER2-low breast cancer is a verifiable, publicly documented guideline fact with no credible dispute."
+  },
+  {
+    "claim_id": "fad0d533-cb29-43b0-97e8-99ca8c6d3b80",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific NCCN guideline recommendation category assigned to pembrolizumab plus chemotherapy for neoadjuvant TNBC treatment.",
+    "consensus_rationale": "NCCN category assignments are publicly documented and verifiable; this recommendation reflects the strong evidence base from the KEYNOTE-522 trial."
+  },
+  {
+    "claim_id": "bf7804ee-fdb9-4d29-a254-e9bfeff4cc32",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what ASCO guidelines recommend as preferred first-line treatment, which is a statement about an institutional guideline's content.",
+    "consensus_rationale": "ASCO's recommendation of CDK4/6 inhibitor plus endocrine therapy as preferred first-line for HR+/HER2- advanced breast cancer is well-documented and reflects robust trial evidence."
+  },
+  {
+    "claim_id": "b092a012-1439-4854-bab9-e7a08c6b2f59",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the content of ASCO guidelines regarding subsequent treatment options after CDK4/6 inhibitor progression, which is an institutional policy statement.",
+    "consensus_rationale": "ASCO guideline recommendations for post-CDK4/6 inhibitor therapy are publicly documented and reflect the current evidence base, with broad expert agreement on these options."
+  },
+  {
+    "claim_id": "ff692b67-a211-4fc8-a745-11845e11c8ff",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what ASCO guidelines recommend as preferred first-line therapy for HER2-positive MBC, which is a statement about an institutional guideline's content.",
+    "consensus_rationale": "ASCO's recommendation of taxane plus trastuzumab and pertuzumab as preferred first-line for HER2+ MBC is well-established, publicly documented, and supported by robust evidence from the CLEOPATRA trial."
+  },
+  {
+    "claim_id": "0da198dd-5919-4a3e-91c2-2e52e86b554e",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific ASCO guideline recommendation preferring T-DXd over T-DM1 in second-line HER2+ MBC, which is an institutional policy statement citing a specific trial.",
+    "consensus_rationale": "ASCO's preference for T-DXd over T-DM1 in second-line HER2+ MBC is publicly documented and supported by the DESTINY-Breast03 trial showing clear superiority of T-DXd."
+  },
+  {
+    "claim_id": "790424a9-f800-47a3-8563-778e26640787",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific monitoring protocol recommendation made by ASCO for patients receiving T-DXd, which is an institutional guideline statement.",
+    "consensus_rationale": "ILD monitoring for T-DXd is universally recommended across major guidelines given the well-documented ILD risk with this agent, with no credible expert disagreement."
+  },
+  {
+    "claim_id": "a6399b83-2ad1-4da6-8863-d2dcd5e365d0",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific endorsement made by the 2023 St Gallen International Expert Consensus panel, which is a statement about an institutional body's decision.",
+    "consensus_rationale": "The St Gallen 2023 consensus endorsement of adjuvant abemaciclib for high-risk node-positive HR+/HER2- early breast cancer is publicly documented and reflects the monarchE trial evidence."
+  },
+  {
+    "claim_id": "5fb64fb3-6f7e-4642-849c-06f1d6e7d22c",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the outcome of a St Gallen consensus vote \u2014 specifically that strong consensus was reached \u2014 which is a statement about an institutional body's deliberative outcome.",
+    "consensus_rationale": "The St Gallen 2023 consensus results are publicly documented, and the strong consensus for neoadjuvant pembrolizumab in stage II-III TNBC reflects the robust KEYNOTE-522 evidence base."
+  },
+  {
+    "claim_id": "bd59cc4d-f673-4194-ad83-e9309edad34e",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim makes a factual assertion about the regulatory approval landscape \u2014 specifically that pembrolizumab is the only checkpoint inhibitor with breast cancer approval \u2014 which is a verifiable institutional/regulatory status claim.",
+    "consensus_rationale": "While pembrolizumab's approval in early TNBC is established, the claim that it is the 'only' checkpoint inhibitor approved for breast cancer requires careful verification given the evolving regulatory landscape and potential approvals in other settings or regions, making this subject to factual scrutiny."
+  },
+  {
+    "claim_id": "a09d3d20-ec1e-485b-afa6-2d8f8ffbb732",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about whether a specific intervention (CDK4/6 inhibitor + endocrine therapy) produces a defined outcome (first-line standard of care status) based on its demonstrated efficacy in HR+/HER2- metastatic breast cancer.",
+    "consensus_rationale": "Multiple large phase III trials (PALOMA-2, MONALEESA-2/3/7, MONARCH-3) and major guidelines (NCCN, ESMO, ASCO) consistently support CDK4/6 inhibitor plus endocrine therapy as the standard first-line approach, representing strong consensus."
+  },
+  {
+    "claim_id": "10aaf382-c0a1-46d7-bbe1-84c8b05da39a",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a claim about what guidelines/institutions recommend (re-biopsy and HER2 retesting at progression), reflecting an institutional or guideline-body decision or recommendation.",
+    "consensus_rationale": "While T-DXd's efficacy in HER2-low is established, the recommendation to routinely re-biopsy and retest at progression is not uniformly adopted across all major guidelines, and practical implementation and evidence base for this practice remain subjects of active debate among oncologists."
+  },
+  {
+    "claim_id": "80f8b788-838e-44d6-873f-e13a6e1f5802",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a factual claim about what data were included in a systematic review \u2014 a statement about what researchers/institutions did, not about treatment outcomes.",
+    "consensus_rationale": "This is a verifiable factual claim about the content of a published systematic review; if the review exists and included those data, it is straightforwardly confirmable with no meaningful scientific controversy."
+  },
+  {
+    "claim_id": "9f9e037f-3300-449d-9bbf-723de4677d48",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what the WHO Global Breast Cancer Initiative has stated or decided \u2014 specifically its published mortality reduction targets \u2014 making it an institutional claim.",
+    "consensus_rationale": "The WHO GBCI's stated targets are publicly documented and verifiable; there is no meaningful scientific controversy about what the initiative has published."
+  },
+  {
+    "claim_id": "6dd52e6a-0a40-4934-8aa2-e5313ca05387",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about a regulatory action (approval in China) taken by an institutional body, not about the drug's efficacy or safety outcomes.",
+    "consensus_rationale": "Regulatory approval decisions are verifiable matters of public record with no scientific controversy."
+  },
+  {
+    "claim_id": "81d87af6-659d-42b2-b87f-485f13b469ee",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about an FDA regulatory decision \u2014 specifically the approval of a companion diagnostic \u2014 which is an institutional action.",
+    "consensus_rationale": "FDA approval of the therascreen PIK3CA RGQ PCR Kit as a companion diagnostic for alpelisib is a matter of public regulatory record with no scientific controversy."
+  },
+  {
+    "claim_id": "ea795020-6a67-42e3-af01-fd00666935db",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about the adverse effects (diarrhea, fatigue, nausea, decreased appetite) and their frequencies observed with abemaciclib treatment in a specific trial.",
+    "consensus_rationale": "These adverse event rates are directly reported from the published MONARCH 1 trial data and are well-established in the literature with no meaningful dispute."
+  },
+  {
+    "claim_id": "48145612-d733-49df-bac0-3264f0f4f322",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about a specific adverse effect (ILD) and its observed frequency in a clinical trial, making it a safety claim.",
+    "consensus_rationale": "The ILD rate from DESTINY-Breast01 is directly reported in the published trial and has been widely recognized as a key safety signal, with no meaningful scientific dispute about the finding."
+  },
+  {
+    "claim_id": "57cbbfe5-08c3-4395-9db3-39aa3de15f79",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about the frequency of a specific adverse event (grade 3-4 neutropenia) observed with palbociclib plus letrozole in a clinical trial.",
+    "consensus_rationale": "These neutropenia rates are directly reported from the published PALOMA-1 trial and are consistently cited across the literature without meaningful dispute."
+  },
+  {
+    "claim_id": "d50bdba7-55e6-40e9-952d-057fa4d823a2",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim addresses the safety-related quality of life impact of neutropenia in patients receiving palbociclib, specifically whether the adverse effect impaired patient-reported outcomes.",
+    "consensus_rationale": "PRO data from PALOMA-3 consistently showed maintained quality of life despite neutropenia, a finding reported in the published trial and widely accepted in the field."
+  },
+  {
+    "claim_id": "976c1149-71db-40b6-8921-b60de3e779e4",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about a specific adverse effect (QTc prolongation) associated with ribociclib and the monitoring requirements it necessitates.",
+    "consensus_rationale": "QTc prolongation as a ribociclib safety signal is well-documented in clinical trials and reflected in the FDA prescribing label, with strong consensus among clinicians and regulators."
+  },
+  {
+    "claim_id": "16bba000-ed39-4562-8ad5-d2ce45d01e81",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about regulatory and labeling decisions made by the FDA \u2014 specifically the REMS program requirement and prescribing label contents \u2014 making it an institutional claim.",
+    "consensus_rationale": "REMS requirements and prescribing label contents are verifiable matters of public regulatory record with no scientific controversy."
+  },
+  {
+    "claim_id": "5543ce51-6e66-4a1b-b819-79b02c64c30f",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a comparative claim about the predominant toxicity profiles of three CDK4/6 inhibitors and the functional impact of those toxicities on patients.",
+    "consensus_rationale": "The differential toxicity profiles of palbociclib/ribociclib (neutropenia) versus abemaciclib (diarrhea), and the limited functional impact of neutropenia on PROs, are consistently reported across multiple trials and widely accepted in the oncology community."
+  },
+  {
+    "claim_id": "ef6c9eed-65e9-45fc-83cd-4ceebaa7d514",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a claim about whether ILD is a class effect of DXd-based ADCs and about the need for proactive monitoring, which is a safety claim with an embedded management recommendation.",
+    "consensus_rationale": "While ILD has been observed across multiple DXd-based ADCs, whether it constitutes a true class effect versus a drug-specific phenomenon, and the optimal monitoring/management approach, remain subjects of active scientific discussion as the drug class is still relatively new."
+  },
+  {
+    "claim_id": "7011b489-ce64-4ed3-8ef3-ea44f3484e92",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a comparative safety claim about the relative rates of ILD between two DXd-based antibody-drug conjugates.",
+    "consensus_rationale": "While early data suggest lower ILD rates with Dato-DXd compared to T-DXd, the evidence base is still maturing with limited head-to-head data, and differences in patient populations and trial designs make direct comparison uncertain, leaving this an area of active debate."
+  },
+  {
+    "claim_id": "1b00633e-f9a8-4813-b48e-0f221c20bfaa",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (overall survival) for a specific intervention (trastuzumab deruxtecan) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "The DESTINY-Breast04 trial results are well-established, published in a high-impact journal, and have been widely replicated in clinical practice guidelines, with no credible scientific challenge to these specific figures."
+  },
+  {
+    "claim_id": "9f2f6324-1e12-4545-a40c-93068bf5079d",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable outcome (median PFS) for a specific intervention (abemaciclib monotherapy) in a defined population from a named trial.",
+    "consensus_rationale": "MONARCH 1 trial results are published and accepted; the specific PFS figure of 6.0 months for abemaciclib monotherapy is a well-documented finding with no credible scientific dispute."
+  },
+  {
+    "claim_id": "f61abc30-334a-4a26-b6ba-a2e49aacb4cf",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (median PFS with HR) for a specific intervention (abemaciclib plus fulvestrant) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "MONARCH 2 trial results are well-established, published, and incorporated into major clinical guidelines, with no credible scientific challenge to these specific quantitative findings."
+  },
+  {
+    "claim_id": "80687410-2d4e-4c39-a80a-c761efe5c9fb",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (median PFS with HR) for a specific intervention (abemaciclib plus NSAI) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "MONARCH 3 trial results are well-established, published, and widely accepted in the oncology community, with no credible scientific dispute regarding these specific figures."
+  },
+  {
+    "claim_id": "565ba314-5ebd-4e40-9762-aecc0cfe44d4",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (median PFS with HR and p-value) for a specific intervention (T-DXd) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "DESTINY-Breast02 PFS results are published and widely accepted, with the dramatic HR of 0.36 representing one of the most robust efficacy signals in HER2-positive metastatic breast cancer, facing no credible scientific challenge."
+  },
+  {
+    "claim_id": "97ad3c5c-a372-4dcc-b6e6-23b0359ec80a",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (median OS with HR and p-value) for a specific intervention (T-DXd) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "DESTINY-Breast02 overall survival results are published and accepted in the oncology community, with no credible scientific dispute regarding these specific quantitative findings."
+  },
+  {
+    "claim_id": "bea74dfa-1bfa-4a71-b29b-c7ce50a571e3",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (median PFS with HR) for a specific intervention (palbociclib plus letrozole) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "PALOMA-1 trial results are well-established and published; while PALOMA-1 was a phase II trial, these specific figures are not scientifically disputed and formed the basis for subsequent confirmatory trials."
+  },
+  {
+    "claim_id": "30008938-02ac-4a52-ac5a-80b946ffa773",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim reports a measurable, testable outcome (median OS with HR and p-value) for a specific intervention (palbociclib plus fulvestrant) versus comparator from a named trial.",
+    "consensus_rationale": "The OS benefit in PALOMA-3 is considered modest and the p-value borderline; there is genuine scientific debate about whether palbociclib demonstrates a meaningful OS benefit, particularly in contrast to ribociclib's more robust OS data, and some analysts question the clinical significance of this finding."
+  },
+  {
+    "claim_id": "a30b35c4-64fd-46fe-bcd6-2a7b2227be1f",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (median PFS with HR) for a specific intervention (ribociclib plus letrozole) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "MONALEESA-2 PFS results are well-established, published, and incorporated into major clinical guidelines, with no credible scientific challenge to these specific quantitative findings."
+  },
+  {
+    "claim_id": "c337e5bb-b64a-479f-a3e2-509436a8fea6",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (median PFS with HR) for a specific intervention (ribociclib plus fulvestrant) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "MONALEESA-3 PFS results are well-established, published, and widely accepted in the oncology community, with no credible scientific dispute regarding these specific figures."
+  },
+  {
+    "claim_id": "21e6e819-fceb-42a8-972a-019f27045be1",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (OS with HR and p-value) for a specific intervention (ribociclib plus fulvestrant) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "MONALEESA-3 overall survival results are published and widely accepted, representing one of the clearest OS benefits demonstrated by a CDK4/6 inhibitor, with no credible scientific challenge to these specific figures."
+  },
+  {
+    "claim_id": "2c3d33f2-84ec-4ffb-8035-0c0361bcb96a",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (OS rate at a specific timepoint with HR and p-value) for a specific intervention (ribociclib) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "MONALEESA-7 overall survival results are published and widely accepted, particularly notable as the first CDK4/6 inhibitor trial to demonstrate OS benefit in premenopausal women, with no credible scientific challenge to these specific figures."
+  },
+  {
+    "claim_id": "6d7a503b-446a-4803-a5fd-34512bcd4d94",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "While the claim references empirical trial data, the characterization of ribociclib's OS benefit as 'most consistent' involves a value judgment about how to weigh and compare cross-trial evidence across different CDK4/6 inhibitors with different trial designs, populations, and endpoints.",
+    "consensus_rationale": "There is genuine scientific debate about how to interpret and compare OS data across the MONALEESA, MONARCH, and PALOMA programs given differences in trial design, patient populations, and follow-up, making a definitive comparative ranking of 'consistency' contested among rigorous analysts."
+  },
+  {
+    "claim_id": "22b48788-9f16-4922-9a35-3c6b29cf6fdb",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (EFS hazard ratio with CI and p-value) for a specific intervention (pembrolizumab plus chemotherapy) versus comparator in a defined population from a named trial.",
+    "consensus_rationale": "KEYNOTE-522 results are well-established, published in high-impact journals, and have led to regulatory approvals and guideline updates, with no credible scientific challenge to these specific quantitative findings."
+  },
+  {
+    "claim_id": "04b539a6-1722-40e0-a4ed-0c65220f74b7",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a measurable, testable outcome (median OS with HR and p-value) for a specific intervention (sacituzumab govitecan) versus comparator in a defined population from a named phase III trial.",
+    "consensus_rationale": "TROPiCS-02 overall survival results are published and accepted in the oncology community, with no credible scientific challenge to these specific quantitative findings, and the results have informed regulatory and clinical practice decisions."
+  },
+  {
+    "claim_id": "f38d0459-9b0c-429e-8a3e-0529cdec3b63",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies whether CDK4/6 inhibitor combinations produce a measurable survival outcome (OS HR 0.80) compared to endocrine therapy alone.",
+    "consensus_rationale": "Multiple large phase III trials and subsequent meta-analyses have consistently demonstrated OS benefit for CDK4/6 inhibitor combinations, with this pooled estimate reflecting well-replicated findings."
+  },
+  {
+    "claim_id": "006a166f-f28b-4b6e-a4a7-77d1b900b058",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts that specific named trials each individually demonstrated statistically significant OS benefit for CDK4/6 inhibitor combinations.",
+    "consensus_rationale": "While MONALEESA-2, MONALEESA-3, MONALEESA-7, and MONARCH-2 did show OS benefit, the claim that all four individually reached statistical significance is subject to nuance\u2014PALOMA trials did not, and some analysts debate whether the OS signal is consistent across all agents and settings, making this an area of active discussion rather than uniform consensus."
+  },
+  {
+    "claim_id": "9a88128f-4dee-4715-a348-12f3b5e66ce9",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim addresses whether palbociclib combinations produced a statistically significant OS benefit, a measurable efficacy outcome from specific trials.",
+    "consensus_rationale": "It is well-established and broadly agreed upon that PALOMA-2 and PALOMA-3 showed numerical but not statistically significant OS improvements for palbociclib, a finding consistently reported across analyses and guidelines."
+  },
+  {
+    "claim_id": "fd99877e-b3bc-4703-a795-66419157e31f",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes measurable survival outcomes (5-year survival rates) across different income-level settings, reflecting the effectiveness of healthcare systems and treatments in producing survival.",
+    "consensus_rationale": "The substantial disparity in breast cancer survival between high- and low-income countries is well-documented by global cancer registries and WHO data, representing a robust and replicated finding."
+  },
+  {
+    "claim_id": "54b1cc10-cde0-41ed-8727-6e0b117ee34b",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports specific epidemiological estimates issued by an authoritative body (e.g., ACS/NCI), reflecting what an institution projected or reported rather than a treatment outcome.",
+    "consensus_rationale": "Annual cancer incidence and mortality estimates from established surveillance bodies like the American Cancer Society are based on rigorous modeling and are widely accepted as the standard reference figures."
+  },
+  {
+    "claim_id": "b7cb7a2c-5fc1-41c0-bb79-9df80c3f4129",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies survival outcomes (5-year relative survival rates) by disease stage, measuring how well current treatments and detection produce survival across disease presentations.",
+    "consensus_rationale": "These figures are derived from large, well-maintained national cancer registries (SEER) and are consistently reported and replicated, representing a well-established epidemiological consensus."
+  },
+  {
+    "claim_id": "21337ea7-97bd-4ae7-be3c-db10f622790a",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes measurable trends in breast cancer incidence and mortality rates, reflecting the net effect of screening, prevention, and treatment interventions over time.",
+    "consensus_rationale": "Rising incidence (~0.5%/year) alongside declining mortality is a well-documented and consistently reported trend in U.S. cancer surveillance data, broadly accepted across the oncology community."
+  },
+  {
+    "claim_id": "4cc32b1c-75a8-436b-9246-19a233f5456e",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies the PFS benefit of trastuzumab deruxtecan versus physician's choice in a specific trial cohort, a direct efficacy measurement.",
+    "consensus_rationale": "The DESTINY-Breast04 results are published in a high-impact peer-reviewed journal with clear, replicated statistical findings that have been incorporated into major treatment guidelines."
+  },
+  {
+    "claim_id": "20612509-b307-46f0-a473-621d322ae35c",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports specific efficacy metrics (clinical benefit rate and duration of response) for abemaciclib monotherapy from a named trial.",
+    "consensus_rationale": "The MONARCH 1 trial results are published and well-characterized; these specific figures are consistently cited and not subject to meaningful scientific dispute."
+  },
+  {
+    "claim_id": "5c99125d-9bc0-4544-a8f2-c2da918bda65",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies the overall response rate difference between abemaciclib plus fulvestrant and placebo plus fulvestrant in a specific trial, a direct efficacy comparison.",
+    "consensus_rationale": "The MONARCH 2 ORR data are published in peer-reviewed literature and consistently cited without meaningful scientific controversy."
+  },
+  {
+    "claim_id": "3aa5629e-2453-4113-b793-87706c81fdc0",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports clinical benefit rates from the MONARCH 3 trial comparing abemaciclib plus aromatase inhibitor to placebo plus aromatase inhibitor.",
+    "consensus_rationale": "These figures are directly reported from the published MONARCH 3 trial and are not subject to scientific dispute."
+  },
+  {
+    "claim_id": "02997739-d919-4eeb-9c38-2dad553e369b",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that the PFS benefit of abemaciclib plus aromatase inhibitor was consistent across prespecified subgroups, a qualitative efficacy finding from MONARCH 3.",
+    "consensus_rationale": "Subgroup consistency in MONARCH 3, including visceral disease, is reported in the published trial data and is broadly accepted without meaningful scientific controversy."
+  },
+  {
+    "claim_id": "cfc5fa5a-8cb5-4d35-a8de-5e0dfd73f4ad",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies the objective response rate difference between trastuzumab deruxtecan and physician's choice in a specific HER2-positive metastatic breast cancer trial.",
+    "consensus_rationale": "The DESTINY-Breast02 ORR data are published and consistently reported; these figures are not subject to meaningful scientific dispute."
+  },
+  {
+    "claim_id": "53aca659-5378-4092-af64-1b0b31cae8a2",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the design and enrollment of a specific clinical trial\u2014what the trial did (enrolled patients, randomized to specific arms)\u2014rather than reporting a treatment outcome.",
+    "consensus_rationale": "Trial design and enrollment details for DESTINY-Breast02 are factual, published, and verifiable from the trial registration and primary publication without any scientific controversy."
+  },
+  {
+    "claim_id": "5be7cd8b-9f19-4e53-8186-14ee1f330424",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies the objective response rate and complete response rate for trastuzumab deruxtecan versus T-DM1 in DESTINY-Breast03, a direct efficacy comparison.",
+    "consensus_rationale": "The DESTINY-Breast03 results are published in high-impact peer-reviewed literature, widely replicated in analyses, and incorporated into international treatment guidelines without meaningful scientific controversy."
+  },
+  {
+    "claim_id": "784a08f8-a9d1-4b94-8334-e1c5b58cb734",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the design and conduct of a specific clinical trial (an institutional/organizational action), rather than asserting an outcome or efficacy result.",
+    "consensus_rationale": "The trial design and enrollment details of PALOMA-1 are documented facts in the published literature with no meaningful dispute."
+  },
+  {
+    "claim_id": "3112a7f8-b093-40e6-a813-069adf02cee9",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the design, phase, and enrollment of the PALOMA-2 trial, which is a factual statement about what was done in a clinical study rather than a claim about treatment outcomes.",
+    "consensus_rationale": "The trial design and enrollment details of PALOMA-2 are well-documented published facts with no meaningful dispute."
+  },
+  {
+    "claim_id": "f07c9106-1916-4961-a6ea-6976f66e52ea",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim makes a specific, quantitative assertion about the measurable outcome (PFS) of palbociclib plus fulvestrant versus placebo in a defined patient population.",
+    "consensus_rationale": "The PALOMA-3 PFS results are published, peer-reviewed, and widely accepted; the specific figures cited are consistent with the trial's primary publication."
+  },
+  {
+    "claim_id": "d2d0f907-20d6-4f0c-bd91-9d3455edcdac",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that ribociclib plus fulvestrant produced efficacy outcomes across two treatment settings, which is a testable claim about whether an intervention works.",
+    "consensus_rationale": "MONALEESA-3 demonstrated statistically significant PFS and OS benefit in both first- and second-line settings, and these results are well-replicated and accepted in the oncology community."
+  },
+  {
+    "claim_id": "08053f86-7328-4ee9-90bf-ee27fea6e2e1",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim provides specific quantitative pCR rates comparing pembrolizumab plus chemotherapy to placebo plus chemotherapy, directly measuring whether the intervention produces a defined outcome.",
+    "consensus_rationale": "The KEYNOTE-522 pCR results are published in a major peer-reviewed journal with high statistical significance and are widely accepted as definitive."
+  },
+  {
+    "claim_id": "81820081-857c-4271-8dae-745cef0a0543",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantitatively compares objective response rates between sacituzumab govitecan and treatment of physician's choice, directly measuring whether the intervention produces a measurable outcome.",
+    "consensus_rationale": "The TROPiCS-02 ORR results are published and peer-reviewed, and the figures cited are consistent with the trial's primary publication."
+  },
+  {
+    "claim_id": "f5fa61d6-9443-4ccd-9193-fabcd2b89f37",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that capivasertib plus fulvestrant produces efficacy after CDK4/6 inhibitor progression, which is a testable claim about whether an intervention works in a specific clinical context.",
+    "consensus_rationale": "The CAPItello-291 trial demonstrated statistically significant PFS benefit for capivasertib plus fulvestrant post-CDK4/6 inhibitor, and these results are accepted in the oncology community."
+  },
+  {
+    "claim_id": "73d0792b-55d9-4aff-856b-c581541f3a1d",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts a comparative efficacy advantage for ribociclib over other CDK4/6 inhibitors specifically regarding overall survival benefit, which is a testable claim about treatment outcomes.",
+    "consensus_rationale": "While ribociclib has demonstrated OS benefit across three MONALEESA trials, the claim that it is the 'only' CDK4/6 inhibitor with such benefit is subject to active debate, as abemaciclib has shown OS signals in monarchE (adjuvant) and MONARCH-2, and cross-trial comparisons are methodologically contested."
+  },
+  {
+    "claim_id": "c1aeaac1-2d2d-488c-9c4f-12ef798ac8a1",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim is primarily about the regulatory approval of trastuzumab deruxtecan and its consequence of expanding the eligible population, making it a claim about an institutional action and its defined scope.",
+    "consensus_rationale": "While the FDA approval is factual, the specific percentage figures (20% to 55\u201360%) for HER2-low prevalence are estimates that vary across studies and populations, and the precise boundaries of HER2-low classification remain under active scientific discussion."
+  },
+  {
+    "claim_id": "9bd0e5eb-a70f-4653-b7d2-ff34dc1c5d34",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim provides specific quantitative pCR rates comparing pembrolizumab plus chemotherapy to the control arm, directly measuring whether the intervention produces a defined outcome.",
+    "consensus_rationale": "The KEYNOTE-522 pCR results are published in a major peer-reviewed journal with high statistical significance and are widely accepted as definitive."
+  },
+  {
+    "claim_id": "a1adf36f-dc4c-4d5a-b0ea-127ef902285e",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts that recognition of HER2-low as a disease category expanded the eligible population for HER2-targeted therapy, which is a testable claim about the practical impact of a treatment classification on patient selection.",
+    "consensus_rationale": "While the general concept is accepted, the specific percentage figures (20% to ~60%) are estimates that vary across studies, and the clinical and biological validity of the HER2-low category itself remains under active scientific discussion."
+  },
+  {
+    "claim_id": "fcd9c09d-be6f-4468-91e1-d9f8deaa4279",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim makes a specific quantitative comparative assertion about PFS hazard ratios across three CDK4/6 inhibitors, directly measuring whether the interventions produce similar outcomes.",
+    "consensus_rationale": "While all three CDK4/6 inhibitors show PFS benefit, the claim of 'similar' HRs ranging from 0.54\u20130.58 is a cross-trial comparison that is methodologically contested, and the specific HR values cited may not uniformly reflect the published data for all three agents in strictly comparable first-line settings."
+  },
+  {
+    "claim_id": "0497b873-ad3c-4ffa-b0c6-d6b3d82f69ba",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts a comparative efficacy advantage for ribociclib over other CDK4/6 inhibitors based on OS results across its three phase III trials, which is a testable claim about treatment outcomes.",
+    "consensus_rationale": "While ribociclib's three MONALEESA trials all achieved positive OS results, the comparative claim is subject to active debate because abemaciclib has also shown OS signals and cross-trial comparisons are methodologically limited."
+  },
+  {
+    "claim_id": "f6f7022f-3b04-410a-b4e0-12b0aa27097d",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that clinical evidence for immunotherapy in TNBC includes data from specific named trials, which is a factual claim about the existence and scope of efficacy evidence.",
+    "consensus_rationale": "The existence of KEYNOTE-522 and IMpassion130/131 trial data for immunotherapy in TNBC is well-documented and uncontested in the oncology literature."
+  },
+  {
+    "claim_id": "211bfdbe-6da0-493d-b9fd-618dd5399a4c",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that specific molecular mechanisms (RB1 loss, CDK6 amplification, cyclin E overexpression) can cause CDK4/6 inhibitor resistance, which is a testable claim about biological mechanisms underlying treatment outcomes.",
+    "consensus_rationale": "These resistance mechanisms are well-characterized in preclinical and clinical studies and are broadly accepted in the oncology and molecular biology communities."
+  },
+  {
+    "claim_id": "22969e90-22a2-4dcb-95cf-82263b850798",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a measurable claim about whether CDK4/6 inhibitors produce a specific patient-reported outcome (quality of life) compared to an alternative treatment.",
+    "consensus_rationale": "Multiple large Phase III trials (PALOMA-2, MONALEESA-2, MONARCH 3, etc.) consistently demonstrated maintained or improved QoL with CDK4/6 inhibitor combinations despite added toxicity, establishing broad agreement."
+  },
+  {
+    "claim_id": "4816213d-e8c6-434d-90bf-490e013dcf3f",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative, testable claim about whether elacestrant produces a specific PFS outcome (HR 0.55) in a defined patient population from a named trial.",
+    "consensus_rationale": "The EMERALD trial is a published, peer-reviewed Phase III RCT with a specific reported hazard ratio that is not disputed in the scientific literature."
+  },
+  {
+    "claim_id": "5b0eefd4-7e90-4284-8d35-04e98a279ce5",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This is a claim about whether CDK2-selective inhibitors produce antitumor activity in a specific prior-treatment context, making it an efficacy claim.",
+    "consensus_rationale": "CDK2-selective inhibitors are in early-phase development with limited data, and while early signals exist, insufficient evidence exists to establish consensus on their efficacy in this setting."
+  },
+  {
+    "claim_id": "c10ab6a8-a78f-4ea5-b72b-7745c7ec8c91",
+    "claim_type": "efficacy",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This is a quantitative claim about whether zanidatamab produces a specific objective response rate in a defined patient population, making it an efficacy claim.",
+    "consensus_rationale": "Zanidatamab data come from early-phase or limited trials and the ORR range reported reflects variability across studies; the evidence base is not yet mature enough for strong consensus."
+  },
+  {
+    "claim_id": "b2884044-8b2c-4d05-9a61-31401bfb6680",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "While the DESTINY-Breast04 trial produced empirical efficacy data, the claim that HER2-low constitutes a 'new targetable disease category' embeds a value judgment about how to classify and define disease categories.",
+    "consensus_rationale": "There is ongoing scientific debate about whether HER2-low represents a biologically distinct entity or a pragmatic treatment category, with experts disagreeing on its classification significance."
+  },
+  {
+    "claim_id": "30ca747d-60e5-4efb-bd11-5813c8436abe",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about whether abemaciclib plus fulvestrant produces efficacy in the endocrine-resistant setting, making it a testable efficacy claim.",
+    "consensus_rationale": "The MONARCH 2 trial is a published Phase III RCT demonstrating significant PFS benefit in the endocrine-resistant setting, with results widely accepted and reflected in clinical guidelines."
+  },
+  {
+    "claim_id": "6ae7dfe3-d590-493a-a2fb-54831ba8b963",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a factual claim about what a specific trial (an institutional research endeavor) did \u2014 specifically its enrollment characteristics \u2014 rather than a claim about treatment outcomes.",
+    "consensus_rationale": "Trial enrollment numbers and eligibility criteria are documented in published trial reports and are not subject to scientific dispute."
+  },
+  {
+    "claim_id": "df9cc713-eb61-4614-9ed0-4cefe18e8de6",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what the FDA did \u2014 specifically its approval decisions and the trial bases for those decisions \u2014 making it an institutional claim.",
+    "consensus_rationale": "FDA approval decisions are matters of public record and are not subject to scientific controversy."
+  },
+  {
+    "claim_id": "f0224885-54f2-42fd-9244-4b5be41c76a8",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a factual claim about the design and enrollment characteristics of a specific trial (an institutional research endeavor), not about treatment outcomes.",
+    "consensus_rationale": "Trial design parameters and enrollment numbers are documented in published trial reports and regulatory submissions, leaving no room for scientific dispute."
+  },
+  {
+    "claim_id": "0087c881-8eb3-4841-876d-381cf8e072d1",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "While PALOMA-2 produced empirical efficacy data, the claim that it 'established' a 'standard' first-line therapy embeds a normative judgment about what constitutes standard of care.",
+    "consensus_rationale": "Although CDK4/6 inhibitor combinations are widely used first-line, the specific role of PALOMA-2 in establishing this standard versus other trials (MONALEESA-2, MONARCH 3) and the overall survival implications remain subjects of ongoing clinical discussion."
+  },
+  {
+    "claim_id": "7645c00b-2eae-4384-a92e-abc11971e5d2",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a testable claim about whether the PFS benefit of palbociclib plus fulvestrant is consistent across a specific subgroup (premenopausal women on ovarian suppression), making it an efficacy claim.",
+    "consensus_rationale": "The PALOMA-3 subgroup analyses are published and the consistency of benefit in premenopausal patients is well-documented and not disputed in the scientific literature."
+  },
+  {
+    "claim_id": "3874471b-1be5-485f-8c57-bfb2c455a8e7",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a factual claim about what a specific trial did \u2014 its design characteristic of exclusively enrolling premenopausal patients \u2014 making it an institutional claim about trial conduct.",
+    "consensus_rationale": "MONALEESA-7's exclusive enrollment of premenopausal patients is a documented trial design feature confirmed in published reports and not subject to scientific dispute."
+  },
+  {
+    "claim_id": "be6cbc7d-769d-4cfa-bd55-62246cbab2f4",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a factual claim about the specific treatment protocol used in the KEYNOTE-522 trial \u2014 a detail of institutional trial design \u2014 rather than a claim about treatment outcomes.",
+    "consensus_rationale": "The adjuvant pembrolizumab duration in KEYNOTE-522 is a documented protocol specification published in trial reports and not subject to scientific dispute."
+  },
+  {
+    "claim_id": "e64e8159-6154-455f-a5be-250ee596d14b",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a factual claim about the enrollment characteristics of a specific trial (TROPiCS-02), describing what the trial did rather than making a claim about treatment outcomes.",
+    "consensus_rationale": "Trial enrollment numbers and eligibility criteria are documented in published trial reports and are not subject to scientific dispute."
+  },
+  {
+    "claim_id": "83391982-3e8f-466e-af3c-7fb588c8cbaf",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is primarily a claim about what the FDA did \u2014 granting approval for a specific indication \u2014 and the regulatory consequence of creating a new treatment category, making it an institutional claim.",
+    "consensus_rationale": "FDA approval decisions and their regulatory implications are matters of public record that are not subject to scientific controversy, though the biological significance of HER2-low as a category remains debated separately."
+  },
+  {
+    "claim_id": "48b7ad26-56bc-4045-aa12-b3ef6aabcc7b",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts that HER2-low status functions as an actionable biomarker \u2014 i.e., that it predicts response to a targeted intervention \u2014 which is a testable efficacy-adjacent claim about clinical utility.",
+    "consensus_rationale": "While DESTINY-Breast04 established T-DXd benefit in HER2-low tumors, debate persists about whether HER2-low represents a truly distinct, reproducible biomarker category given IHC scoring variability and lack of clear biological distinctiveness."
+  },
+  {
+    "claim_id": "15fe9ba0-6d18-44bb-b7ab-b1532a31d9d5",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific action and position taken by the St Gallen International Expert Consensus panel, making it a factual claim about what an institution said or decided.",
+    "consensus_rationale": "The 2023 St Gallen consensus proceedings are documented and verifiable, and the characterization of their position on HER2-low in metastatic vs. adjuvant settings is well-reported in the literature."
+  },
+  {
+    "claim_id": "68f4ef5a-ee45-4984-a58b-19d5e2846f86",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim addresses the predictive value of PD-L1 expression for immunotherapy benefit across two clinical settings, which is a testable claim about biomarker-driven treatment outcomes.",
+    "consensus_rationale": "While PD-L1 predictive value in metastatic TNBC (e.g., IMpassion130, KEYNOTE-522) is reasonably established, its differential predictive utility in the neoadjuvant vs. metastatic setting remains an area of genuine scientific discussion with mixed evidence."
+  },
+  {
+    "claim_id": "3e5bf83b-dc9a-41df-b106-9f647b1ba96a",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim enumerates approved or guideline-recognized treatment options in a specific clinical context, reflecting regulatory and clinical practice decisions by institutions rather than making a comparative efficacy claim.",
+    "consensus_rationale": "The listed agents (capivasertib, alpelisib, T-DXd, sacituzumab govitecan) have received regulatory approvals and are recognized in major guidelines for post-CDK4/6 inhibitor HR+/HER2- metastatic breast cancer, representing broad expert agreement."
+  },
+  {
+    "claim_id": "ac9d196e-1c1b-4c52-be90-20369d4fa397",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a quantitative epidemiological claim about the prevalence of HER2-low classification among HR+ breast cancers, which is empirically testable and relates to the clinical utility of the biomarker.",
+    "consensus_rationale": "Published estimates of HER2-low prevalence in HR+ breast cancer vary across studies due to differences in IHC scoring methodology, pathologist variability, and cohort selection, placing the precise figure in active debate."
+  },
+  {
+    "claim_id": "89134076-0a7c-45cd-bb9c-9eb6af55564c",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim makes a mechanistic and predictive assertion \u2014 that HER2-low is a predictive biomarker for T-DXd response rather than a biologically distinct entity \u2014 which is an empirically testable claim about biomarker function.",
+    "consensus_rationale": "There is ongoing scientific debate about whether HER2-low represents a biologically meaningful subtype or merely a predictive threshold for T-DXd, with researchers divided on the biological and clinical implications of this distinction."
+  },
+  {
+    "claim_id": "83a9e261-dcbb-4a1b-8a7b-3df9b2b5ab3a",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that HER2 expression undergoes dynamic change between primary and metastatic disease, which is a testable biological claim about tumor evolution relevant to treatment selection.",
+    "consensus_rationale": "Multiple studies have consistently demonstrated discordance in HER2 expression between primary and metastatic breast cancer lesions, and this finding is broadly accepted in the oncology community."
+  },
+  {
+    "claim_id": "4aa49c33-d425-484b-8f5a-4029a712d7ff",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts a specific mechanistic hierarchy \u2014 that PI3K/AKT/mTOR pathway activation is the *most common* co-occurring resistance mechanism \u2014 which is an empirically testable claim about biological mechanisms underlying treatment outcomes.",
+    "consensus_rationale": "While PI3K/AKT/mTOR pathway alterations are well-recognized in endocrine resistance, the claim that it is the single most common co-occurring mechanism is contested, as ESR1 mutations, FGFR alterations, and other mechanisms are also frequently implicated."
+  },
+  {
+    "claim_id": "fcbe2a67-d1fc-47c5-bf0f-8863caa2e516",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim makes a mechanistic assertion about the acquired nature of ESR1 mutations under aromatase inhibitor selective pressure, which is a testable biological claim about tumor evolution and treatment response.",
+    "consensus_rationale": "Extensive ctDNA and tumor sequencing studies have consistently shown that ESR1 mutations are rare at diagnosis but emerge under aromatase inhibitor therapy, representing a well-replicated finding with strong consensus."
+  },
+  {
+    "claim_id": "a4d84f7e-76fb-48dd-8035-aca8297eb8a3",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the determinants of breast cancer treatment selection \u2014 stage, receptor status, and genomic profiling \u2014 which is a testable claim about what factors drive clinical outcomes and treatment decisions.",
+    "consensus_rationale": "The use of stage, ER/PR/HER2 status, and genomic profiling as foundational treatment-selection criteria is universally endorsed across major international guidelines (NCCN, ESMO, ASCO) with no meaningful dissent."
+  },
+  {
+    "claim_id": "7f88146c-6817-4c38-be5b-b3de5058e1f0",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts a rationale for drug development \u2014 that oral SERDs address specific pharmacological and practical limitations of fulvestrant \u2014 which is a testable claim about the mechanistic and clinical motivation for a class of interventions.",
+    "consensus_rationale": "Fulvestrant's poor oral bioavailability and IM administration burden are well-documented pharmacological facts, and the development of oral SERDs to address these limitations is explicitly stated in clinical trial rationales and regulatory documents."
+  },
+  {
+    "claim_id": "c4fc46cd-ad7b-4ecd-a072-f13a08c4eb93",
+    "claim_type": "efficacy",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts that ctDNA-based ESR1 mutation testing is predictive of differential benefit from elacestrant over standard endocrine therapy, making it a testable claim about biomarker-guided treatment selection.",
+    "consensus_rationale": "While the EMERALD trial showed elacestrant benefit enriched in ESR1-mutated patients detected by ctDNA, the optimal testing methodology, mutation allele frequency thresholds, and clinical implementation of ctDNA-guided SERD selection remain areas of active investigation and debate."
+  }
+]

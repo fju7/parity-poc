@@ -6,6 +6,7 @@ const TYPE_LABELS = {
   cms: "CMS",
   pricing: "Pricing",
   public_reporting: "Public Reporting",
+  payer_coverage_policy: "Payer Policy",
 };
 
 const TYPE_COLORS = {
@@ -14,6 +15,7 @@ const TYPE_COLORS = {
   cms: "bg-teal-100 text-teal-700",
   pricing: "bg-amber-100 text-amber-700",
   public_reporting: "bg-gray-100 text-gray-600",
+  payer_coverage_policy: "bg-indigo-100 text-indigo-700",
 };
 
 export default function SourceCard({ source, context }) {

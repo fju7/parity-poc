@@ -1,0 +1,912 @@
+[
+  {
+    "claim_id": "732e16e0-845a-4120-828d-6c0145fb304a",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies the incidence of a specific adverse event (myocarditis) following a vaccine, making it a safety claim about harm associated with an intervention.",
+    "consensus_rationale": "This figure is consistent with multiple large post-authorization surveillance studies and is widely accepted in the medical literature as an accurate estimate of BNT162b2-associated myocarditis incidence."
+  },
+  {
+    "claim_id": "7c612923-ebe6-46fd-a5b6-669cd4496212",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a factual action taken by a research institution/sponsor \u2014 the enrollment size of a specific Phase III trial \u2014 rather than an outcome or value judgment.",
+    "consensus_rationale": "The enrollment figure of 43,548 participants is a documented, publicly reported fact from the published Phase III trial and regulatory submissions, with no credible dispute."
+  },
+  {
+    "claim_id": "18e7733a-f380-4656-a1ce-28211142c1ec",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim addresses the absence of a specific adverse event (myocarditis) in the primary safety analysis of a clinical trial, making it a safety claim.",
+    "consensus_rationale": "The published Phase III trial results and regulatory documents consistently confirm no myocarditis cases were identified in the primary analysis, and this is undisputed in the literature."
+  },
+  {
+    "claim_id": "a35d399a-9c52-49a2-9bfe-b427b4901f37",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim addresses the statistical limitations of the trial in detecting rare adverse events, which is fundamentally a claim about the trial's capacity to identify safety signals.",
+    "consensus_rationale": "Standard statistical power calculations for trials of this size confirm this limitation, and it is broadly acknowledged by regulators, trialists, and epidemiologists without meaningful dispute."
+  },
+  {
+    "claim_id": "fbf9c43b-de3a-494e-8865-3cb92494eb61",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the detection (or non-detection) of a specific adverse event signal across trial phases and post-authorization surveillance, making it a safety claim.",
+    "consensus_rationale": "The timeline of myocarditis signal detection for mRNA-1273 \u2014 absent in the blinded trial, identified post-authorization \u2014 is well-documented and consistent across regulatory and surveillance reports."
+  },
+  {
+    "claim_id": "f63961d3-07fe-4f22-b640-660188b367d1",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a specific number of adverse events (myocarditis cases) occurring in a defined population within a defined time window after vaccination, making it a safety claim.",
+    "consensus_rationale": "This case series was published in a peer-reviewed journal (JAMA Cardiology, Truong et al.) and the figures are not disputed; the data are consistent with broader surveillance findings."
+  },
+  {
+    "claim_id": "74c78324-7090-4aa5-8f20-84b619b0ceb9",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies the dose-specific distribution of adverse events within a case series, characterizing the safety profile of the vaccine.",
+    "consensus_rationale": "The predominance of post-second-dose myocarditis cases is consistently reported across multiple surveillance datasets and case series, with no credible contradictory evidence."
+  },
+  {
+    "claim_id": "16866656-8782-48b8-a3e7-08c54006555c",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports the number of adverse events identified in a national surveillance study of a vaccinated population, making it a safety claim about vaccine-associated harm.",
+    "consensus_rationale": "This figure derives from the published Israeli Ministry of Health national surveillance report and is consistently cited and accepted in the peer-reviewed literature."
+  },
+  {
+    "claim_id": "2da02508-7f93-4966-999b-6871b81bfe32",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim uses an observed-to-expected ratio to confirm a vaccine-associated adverse event signal, which is a quantitative safety claim about excess harm attributable to the intervention.",
+    "consensus_rationale": "This observed-to-expected ratio is drawn from published surveillance analyses and is consistent with findings from multiple independent datasets, with broad scientific agreement on the existence of a vaccine-associated myocarditis signal."
+  },
+  {
+    "claim_id": "c05a611b-e90b-431f-ae0c-21939b4f8f47",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies the incidence of a specific adverse event in a defined vaccinated cohort, making it a safety claim about harm associated with the intervention.",
+    "consensus_rationale": "This figure is sourced from the published Clalit Health Services cohort study and is consistent with other large-scale surveillance estimates, with no meaningful scientific dispute."
+  },
+  {
+    "claim_id": "8d9274c2-e8dc-4225-8b89-570250802921",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim characterizes the temporal pattern of adverse event onset following vaccination, which is a descriptive safety claim about the timing of vaccine-associated harm.",
+    "consensus_rationale": "The median 2-day onset is reported in the published Clalit cohort study and is consistent with other case series and surveillance data showing rapid post-vaccination symptom onset."
+  },
+  {
+    "claim_id": "c63e01a5-61dc-45f3-ace3-429fc65b64aa",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies excess risk of a specific adverse event in vaccinated versus unvaccinated individuals using a matched cohort design, making it a safety claim about vaccine-attributable harm.",
+    "consensus_rationale": "This estimate is drawn from the published Barda et al. matched cohort study in NEJM and is consistent with other Israeli and international surveillance data confirming a vaccine-associated myocarditis signal."
+  },
+  {
+    "claim_id": "d933ddc0-7458-4ffb-97f0-119b4df0a8aa",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the demographic and case characteristics of adverse events reported to a pharmacovigilance system, making it a safety claim about the profile of vaccine-associated harm.",
+    "consensus_rationale": "These figures are drawn from published CDC VAERS analyses and ACIP presentations; the demographic pattern (young males, median age 26) is consistently replicated across independent datasets."
+  },
+  {
+    "claim_id": "40a7dece-94eb-4cd4-8cb9-3e01b637e9b4",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports the total number of adverse events submitted to a pharmacovigilance database following vaccination, making it a safety claim about reported harm associated with the intervention.",
+    "consensus_rationale": "This figure is a documented count from CDC/VAERS public data and has been reported in peer-reviewed publications and official CDC communications without dispute, though VAERS reporting limitations are well-acknowledged."
+  },
+  {
+    "claim_id": "a21a7d16-a4f2-4531-9d1f-b87f8449195a",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim provides a population-level estimate of excess adverse events attributable to mRNA vaccines with a specific demographic concentration, making it a safety claim about vaccine-attributable harm.",
+    "consensus_rationale": "The 1\u20133 per 100,000 doses estimate for young males after the second dose is consistent across multiple large surveillance studies from different countries and is broadly accepted in the scientific community."
+  },
+  {
+    "claim_id": "ffba83d6-eda8-4d69-a847-14e5d5fc342d",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what a specific study (from England) did \u2014 its design, population, and comparative focus \u2014 rather than reporting an outcome or effect size.",
+    "consensus_rationale": "The existence and design of this large self-controlled case series from England is a documented, verifiable fact about a published study with no meaningful dispute."
+  },
+  {
+    "claim_id": "2da46cb5-705c-4193-b9a0-88dd31c0dc8e",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports an adverse event (myocarditis) causally associated with a specific vaccine (BNT162b2), making it a safety claim about harm following an intervention.",
+    "consensus_rationale": "Post-vaccination myocarditis in young male adolescents following the second BNT162b2 dose is a well-documented, replicated safety signal accepted by regulatory agencies and the scientific community."
+  },
+  {
+    "claim_id": "5a6ae8ce-42eb-46fb-840b-48aad493910e",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what the CDC identified and reported \u2014 a specific institutional action (surveillance analysis yielding a case count) \u2014 rather than a causal or values-based claim.",
+    "consensus_rationale": "The CDC's identification and reporting of 1,626 confirmed myocarditis cases in this surveillance period is a documented institutional finding with no credible dispute about the report itself."
+  },
+  {
+    "claim_id": "e0e471c7-e222-4aa6-8bfe-f5fc90444d76",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim is about what the FDA did \u2014 identifying a safety signal through post-authorization surveillance prior to full approval \u2014 which is an institutional action or decision.",
+    "consensus_rationale": "The FDA's identification of a cardiac inflammation safety signal for BNT162b2 is a matter of public regulatory record with no credible dispute."
+  },
+  {
+    "claim_id": "a9e455e7-f25d-4e9b-ae8b-857b41cf177e",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim quantifies a harm rate (myocarditis reporting rate per million doses) associated with a specific vaccine in a specific demographic, making it a safety claim.",
+    "consensus_rationale": "While the existence of the signal is undisputed, the precise rate estimate from VAERS is subject to active debate due to known underreporting and reporting biases inherent to passive surveillance systems, leading to varying estimates across methodologies."
+  },
+  {
+    "claim_id": "eadc504a-30e1-4f12-b2a1-1a03a51fd84c",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the methodological approach and data sources used by the FDA VRBPAC in their safety review \u2014 an institutional process and action.",
+    "consensus_rationale": "The FDA VRBPAC's use of VAERS, VSD, and epidemiological modeling in their safety review is a matter of public regulatory record with no credible dispute."
+  },
+  {
+    "claim_id": "843e72e0-fef5-48e8-aed4-4ef757854289",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a specific adverse event (myocarditis) occurring in a defined demographic within a defined time window after vaccination, making it a safety claim about harm.",
+    "consensus_rationale": "Post-vaccination myocarditis in young males within days of the second BNT162b2 dose is a well-replicated, regulatory-agency-confirmed safety signal with broad scientific consensus."
+  },
+  {
+    "claim_id": "00ba431c-8bea-4a87-b9f4-06885ee3c82a",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim characterizes the pattern of harm (timing and dose association) for myocarditis and pericarditis following mRNA COVID-19 vaccines, making it a safety claim.",
+    "consensus_rationale": "The predominance of myocarditis/pericarditis cases after the second dose and within a few days of administration is consistently reported across multiple large surveillance datasets and is accepted as established fact by regulatory agencies worldwide."
+  },
+  {
+    "claim_id": "76ce60d3-c83c-4329-b4de-40d0cec9b0fc",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim quantifies a harm rate (myocarditis cases per million doses) for a specific vaccine in a specific demographic, making it a safety claim.",
+    "consensus_rationale": "While the elevated myocarditis risk with Moderna mRNA-1273 in young males is well-established, the precise rate estimate varies across studies and surveillance systems, reflecting genuine methodological uncertainty and ongoing scientific discussion."
+  },
+  {
+    "claim_id": "5fce6f74-f895-409e-8f39-4a8ba12a03bf",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what the CDC did \u2014 leading a case series that identified a specific number of VAERS-reported cases \u2014 making it an institutional action claim.",
+    "consensus_rationale": "The CDC's case series and its reported count of 1,626 VAERS myocarditis cases in this period is a documented, publicly available institutional finding with no credible dispute."
+  },
+  {
+    "claim_id": "34d00f52-c69f-4b8b-a3b0-10ef24ef3cb5",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim quantifies excess harm (absolute excess myocarditis cases per 100,000 doses) attributable to mRNA vaccination in a specific demographic, making it a safety claim.",
+    "consensus_rationale": "While excess myocarditis risk in young males is established, the precise absolute excess estimate varies meaningfully across studies due to differences in background rate assumptions, surveillance methods, and population definitions, reflecting genuine scientific uncertainty."
+  },
+  {
+    "claim_id": "c4f4b8c1-75a9-4125-bf13-fd7ba34c112c",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what a specific study did \u2014 its design, data source, population size, and comparative focus \u2014 rather than reporting an outcome, making it an institutional/study-action claim.",
+    "consensus_rationale": "The existence and design of this large English population-based study using linked electronic health records is a documented, verifiable fact about a published study with no meaningful dispute."
+  },
+  {
+    "claim_id": "b71824b2-0982-4ef0-884c-18c32e9fd183",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what a systematic review did \u2014 its scope, number of included studies, and dose coverage \u2014 which is a factual description of an institutional/academic research action.",
+    "consensus_rationale": "The existence and scope of this systematic review is a verifiable, documented fact about a published study with no credible dispute."
+  },
+  {
+    "claim_id": "d47b8440-a58a-4011-a42c-70528e6a0a7d",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports a specific incidence rate of myocarditis (a harm) among a defined population of vaccine recipients, making it a safety claim about adverse events.",
+    "consensus_rationale": "The Israeli cohort study reporting myocarditis incidence following BNT162b2 is a well-known, peer-reviewed publication whose findings are broadly accepted and consistent with other large-scale surveillance data."
+  },
+  {
+    "claim_id": "a7044cbd-5d48-452d-8d85-38e8b8efd472",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies the proportion of a specific adverse event (myocarditis) occurring after a particular dose, characterizing the harm pattern associated with BNT162b2 vaccination.",
+    "consensus_rationale": "The predominance of BNT162b2-associated myocarditis cases after the second dose is consistently reported across multiple surveillance systems and studies, representing a well-established and broadly accepted finding."
+  },
+  {
+    "claim_id": "1f7f124a-3b2d-491e-ad9a-362dc529ce6f",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a comparative claim about adverse effects (myocarditis) between two vaccine platforms, making it a safety claim.",
+    "consensus_rationale": "Multiple large pharmacovigilance studies and regulatory reviews consistently show a higher myocarditis signal with mRNA vaccines compared to adenoviral vector vaccines, representing strong scientific consensus."
+  },
+  {
+    "claim_id": "9ab2a776-6840-4e0d-be72-53081146eeb7",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a specific quantitative claim about the incidence of a vaccine-associated adverse event (myocarditis), classifying it as a safety claim.",
+    "consensus_rationale": "While the general signal is accepted, the precise quantitative estimate varies across studies and surveillance systems due to differences in case ascertainment, diagnostic criteria, and population denominators, leaving the exact figure subject to ongoing methodological debate."
+  },
+  {
+    "claim_id": "e5206802-49e2-4a0b-b7d3-7f397fe0345a",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what a specific research study (an institutional scientific effort) did \u2014 its design, scope, and subject matter \u2014 rather than asserting a treatment outcome.",
+    "consensus_rationale": "This is a factual description of a published study's methodology and scope, which is verifiable and not subject to scientific dispute."
+  },
+  {
+    "claim_id": "cda26aff-b332-49e2-860f-114c6166e2f4",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim characterizes the clinical severity and resolution of a vaccine-associated adverse event, making it a safety claim about harm profile.",
+    "consensus_rationale": "While short-term outcomes are generally favorable, emerging data on subclinical cardiac injury, MRI abnormalities, and longer-term follow-up have introduced genuine uncertainty about whether 'rapid resolution' fully captures the clinical picture, creating active debate among cardiologists and vaccine safety researchers."
+  },
+  {
+    "claim_id": "49b682e5-26c0-4454-af8e-ee2c828e516a",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what a CDC-based surveillance study did \u2014 its data source, case count, and time frame \u2014 making it an institutional/methodological description rather than an outcome claim.",
+    "consensus_rationale": "This is a verifiable factual statement about a published CDC surveillance study and is not subject to scientific dispute."
+  },
+  {
+    "claim_id": "d07a2d4b-7aa1-493b-b263-1475117ff388",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts a causal association between mRNA vaccination and elevated myocarditis incidence in a specific demographic, which is a safety claim about vaccine-related harm.",
+    "consensus_rationale": "Multiple independent large-scale studies across different countries and surveillance systems have consistently found elevated observed-to-expected ratios in young males, and major regulatory bodies including the CDC, EMA, and WHO have acknowledged a likely causal association."
+  },
+  {
+    "claim_id": "386076d0-e67c-40e6-a37f-193bbcc2f9ef",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the design, data source, and scope of a specific published study, making it an institutional/methodological description of what researchers did.",
+    "consensus_rationale": "This is a verifiable factual description of a published study's methodology and is not subject to scientific dispute."
+  },
+  {
+    "claim_id": "9d8d38af-7ff2-4cff-ab17-17e782713874",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a quantitative claim about the risk of myocarditis associated with SARS-CoV-2 infection, making it a safety claim about infection-related harm.",
+    "consensus_rationale": "While SARS-CoV-2 infection is broadly accepted to carry a higher myocarditis risk than vaccination, the precise incidence rate ratio varies substantially across studies depending on variant, population, and case ascertainment methodology, making the specific figure subject to ongoing debate."
+  },
+  {
+    "claim_id": "ce1ce5f4-2877-43fa-98fd-d52d4e96696d",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a quantitative claim about the incidence of a vaccine-associated adverse event in a specific national cohort, classifying it as a safety claim.",
+    "consensus_rationale": "The specific quantitative estimate is derived from a single national registry with particular case ascertainment methods, and estimates vary across studies and populations, making the precise figure subject to methodological debate."
+  },
+  {
+    "claim_id": "f1626b27-72dc-479b-85a9-f1f58db63f73",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what a national registry study identified \u2014 its case count and population size \u2014 making it a factual description of an institutional research finding.",
+    "consensus_rationale": "This is a verifiable factual statement about a published registry study's reported findings and is not subject to scientific dispute."
+  },
+  {
+    "claim_id": "010088dd-e133-4988-8f6c-80e97c7c0c6c",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that vaccine-associated myocarditis rates in young males exceeded background rates, which is a safety claim about elevated adverse event risk.",
+    "consensus_rationale": "Multiple independent studies across different countries consistently demonstrate significantly elevated observed-to-expected ratios for myocarditis in young males following BNT162b2, and this finding is acknowledged by major health authorities worldwide."
+  },
+  {
+    "claim_id": "c8c422ba-d2f1-4b60-ab11-01f425b612f5",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes what a specific cohort study identified \u2014 its population size and case count \u2014 making it a factual description of an institutional research finding.",
+    "consensus_rationale": "This is a verifiable factual statement about a published cohort study's reported findings and is not subject to scientific dispute."
+  },
+  {
+    "claim_id": "2008cb65-c445-4607-b01f-28720973cdc7",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a quantitative claim about the overall incidence of a vaccine-associated adverse event, classifying it as a safety claim about harm frequency.",
+    "consensus_rationale": "While this figure is drawn from a specific published study, overall incidence estimates vary across populations and methodologies, and the precise rate remains subject to ongoing methodological and epidemiological debate."
+  },
+  {
+    "claim_id": "c6e2389a-e0f0-4252-80ac-e1e1b92b8c19",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim characterizes the severity profile of reactogenicity events from a Phase III trial, making it a safety claim about the nature and magnitude of adverse reactions.",
+    "consensus_rationale": "The BNT162b2 Phase III trial data are published and widely replicated in post-authorization studies, consistently showing that reactogenicity events are predominantly mild to moderate and transient, representing strong scientific consensus."
+  },
+  {
+    "claim_id": "34a8d74f-8aa0-4ec7-9127-16d9310a8094",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim characterizes the frequency and distribution of serious adverse events in a Phase III trial, making it a safety claim about the harm profile of the vaccine.",
+    "consensus_rationale": "The mRNA-1273 Phase III trial data are published and the finding of rare, balanced serious adverse events between vaccine and placebo arms is well-documented and not subject to meaningful scientific dispute."
+  },
+  {
+    "claim_id": "83b09dae-8803-4115-9923-f9d891f2d13c",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes adverse reactions (reactogenicity) caused by the Moderna mRNA-1273 vaccine, making it a safety claim about harm/side effects.",
+    "consensus_rationale": "Reactogenicity patterns for mRNA-1273 \u2014 particularly increased systemic and local reactions after the second dose with rapid resolution \u2014 are well-documented across multiple large clinical trials and real-world studies with consistent findings."
+  },
+  {
+    "claim_id": "893cfb25-cc57-448d-9c60-7523ac9e44bc",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes clinical findings (elevated troponin I and cardiac MRI changes) associated with a vaccine-related adverse event (myocarditis), classifying it as a safety claim.",
+    "consensus_rationale": "Elevated troponin and cardiac MRI findings consistent with myocarditis are universally reported diagnostic criteria in post-mRNA vaccine myocarditis cases across multiple cohort studies, representing a well-replicated clinical observation."
+  },
+  {
+    "claim_id": "148be13f-dd62-47a0-938d-d08fa4fd657c",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a clinical outcome (preserved left ventricular function) in the context of a vaccine-related adverse event, making it a safety claim about the severity of harm.",
+    "consensus_rationale": "Preservation of left ventricular function in the majority of post-mRNA vaccine myocarditis cases is consistently reported across multiple studies and cohorts, representing a well-replicated finding."
+  },
+  {
+    "claim_id": "0273d7c7-69ce-4ce0-9479-5599acedb706",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the clinical course and outcomes of a vaccine-related adverse event (myocarditis), including treatment response and absence of severe outcomes, classifying it as a safety claim.",
+    "consensus_rationale": "Recovery with conservative management (NSAIDs and rest) and absence of deaths or hemodynamic compromise in post-mRNA vaccine myocarditis cases is consistently reported across multiple published cohorts and surveillance data."
+  },
+  {
+    "claim_id": "b95addae-8687-46ad-8b26-1a933065e842",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim quantifies the recovery rate from a vaccine-related adverse event (myocarditis), making it a safety claim about the severity and resolution of harm.",
+    "consensus_rationale": "While short-term clinical recovery is broadly accepted, the specific figure of ~95% full recovery within 30 days is debated because longer-term follow-up studies have found persistent cardiac MRI abnormalities (e.g., late gadolinium enhancement) in a subset of patients, raising questions about what constitutes 'full recovery.'"
+  },
+  {
+    "claim_id": "662c9a3b-0555-4457-984f-5bee6eac6a84",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes survival and recovery outcomes in a specific cohort experiencing a vaccine-related adverse event (myocarditis), classifying it as a safety claim about harm severity.",
+    "consensus_rationale": "Zero mortality and predominantly complete or near-complete short-term recovery with preserved ejection fraction in post-BNT162b2 myocarditis cases is consistently reported across multiple cohort studies and surveillance datasets."
+  },
+  {
+    "claim_id": "21ea41c8-3cc2-4146-afa3-f3619f401a14",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes imaging findings (late gadolinium enhancement on cardiac MRI) associated with a vaccine-related adverse event, making it a safety claim about the pathological characteristics of harm.",
+    "consensus_rationale": "While LGE findings in post-vaccine myocarditis are well-documented, the clinical significance and long-term implications of persistent LGE in otherwise clinically recovered patients remain an area of active scientific investigation and debate."
+  },
+  {
+    "claim_id": "a86e9ab8-b9ad-42a2-aef2-8e721d53d93e",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim quantifies a clinical outcome (hospital discharge rate) for patients experiencing a vaccine-related adverse event, making it a safety claim about harm severity.",
+    "consensus_rationale": "High discharge rates (approximately 96%) for hospitalized post-mRNA vaccine myocarditis patients are consistently reported across multiple large surveillance studies and registries, reflecting a well-replicated finding."
+  },
+  {
+    "claim_id": "3ea30215-f8ba-438f-a9ae-23da13f7befe",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes the temporal relationship between vaccination and onset of a vaccine-related adverse event (myocarditis), making it a safety claim about the characteristics of harm.",
+    "consensus_rationale": "While rapid onset post-vaccination is broadly accepted, the specific median of 2 days varies across studies (with some reporting medians of 2\u20134 days), and the precise figure depends on the population and study methodology, reflecting some variability in the literature."
+  },
+  {
+    "claim_id": "bf2af723-f61f-4239-95a7-89c998580dff",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the temporal pattern of onset for a vaccine-related adverse event (myocarditis/pericarditis), making it a safety claim about the characteristics of harm.",
+    "consensus_rationale": "Symptom onset typically within a few days (generally within 4 days) of mRNA COVID-19 vaccination is consistently reported across multiple large surveillance studies and cohorts, representing a well-replicated temporal pattern."
+  },
+  {
+    "claim_id": "d07c1c9c-160c-4579-a490-50ad92f4b31e",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the clinical presentation (symptoms, biomarkers, ECG, and imaging findings) of a vaccine-related adverse event in a specific pediatric cohort, classifying it as a safety claim.",
+    "consensus_rationale": "Chest pain, elevated troponin I, ECG changes, and cardiac MRI findings consistent with myocarditis are universally reported as the presenting features of post-BNT162b2 myocarditis in adolescents across multiple published case series and cohort studies."
+  },
+  {
+    "claim_id": "5fda5753-f30b-4bce-98f9-18d0dcb6a160",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a clinical outcome (preserved echocardiographic cardiac function) in adolescents experiencing a vaccine-related adverse event, making it a safety claim about harm severity.",
+    "consensus_rationale": "Preserved cardiac function on echocardiography in the majority of adolescents with post-BNT162b2 myocarditis is consistently reported across multiple pediatric case series and cohort studies."
+  },
+  {
+    "claim_id": "63f8f97b-95fb-4ad2-bd56-940fee7b9dc9",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the clinical course and treatment outcomes of a vaccine-related adverse event in a pediatric cohort, including absence of severe outcomes, classifying it as a safety claim.",
+    "consensus_rationale": "Recovery with conservative management and absence of deaths or hemodynamic instability in adolescents with post-BNT162b2 myocarditis is consistently reported across multiple published pediatric cohort studies and surveillance data."
+  },
+  {
+    "claim_id": "f3933c77-7189-44c5-b41f-7a2707c135cb",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim quantifies recovery status at follow-up for patients experiencing a vaccine-related adverse event (myocarditis), making it a safety claim about the resolution of harm.",
+    "consensus_rationale": "While high short-term clinical recovery rates are broadly accepted, the characterization of patients as 'recovered or recovering' is complicated by ongoing debate about the significance of persistent subclinical findings (e.g., LGE on MRI) in otherwise asymptomatic patients, and follow-up duration varies across studies."
+  },
+  {
+    "claim_id": "fd1d0fa7-e841-49d8-8e99-7c2d088a00e3",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim characterizes the severity and clinical course of vaccine-related adverse events (myocarditis/pericarditis), making it a safety claim about the nature and resolution of harm.",
+    "consensus_rationale": "The predominantly mild, self-limiting nature of post-mRNA vaccine myocarditis/pericarditis with rapid recovery on conservative treatment is consistently reported across multiple large surveillance studies, registries, and cohort analyses, representing a well-established consensus finding."
+  },
+  {
+    "claim_id": "81b18770-68ae-4d47-b978-be00733fb584",
+    "claim_type": "institutional",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This claim describes a specific statement made by the FDA at a named regulatory meeting, making it a claim about what an institution said or noted.",
+    "consensus_rationale": "Long-term cardiac outcomes following vaccine-associated myocarditis remain an open empirical question with insufficient longitudinal data, which is precisely why the FDA flagged ongoing uncertainty."
+  },
+  {
+    "claim_id": "e66b2473-6096-461e-a079-c1fcc0400027",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts that mRNA vaccination causes persistent subclinical myocardial injury, which is a claim about harm or adverse effects.",
+    "consensus_rationale": "While cardiac MRI abnormalities at 3\u20136 months have been reported in some studies, the clinical significance of these findings and whether they represent true ongoing injury versus resolving inflammation is genuinely debated among cardiologists and researchers."
+  },
+  {
+    "claim_id": "a0ca63bd-e9dc-4008-a152-851981cd1f92",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the characteristic adverse event presentation of mRNA vaccine-associated myocarditis, which is a safety/harm claim.",
+    "consensus_rationale": "The clinical presentation of chest pain, elevated troponin, ECG changes, and onset within 1\u20135 days of the second dose is consistently reported across multiple large surveillance studies and is well-established in the literature."
+  },
+  {
+    "claim_id": "2dba66ff-2b7f-4546-ac57-8944f7d6b33a",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim characterizes the severity and resolution of a vaccine-associated adverse event, which is a safety claim about the nature and course of harm.",
+    "consensus_rationale": "While short-term resolution is commonly observed, the claim that most cases fully resolve within days and the applicability of Brighton criteria at Levels 1\u20132 involves ongoing methodological and clinical debate, particularly regarding long-term outcomes."
+  },
+  {
+    "claim_id": "d83804a4-3304-4113-8dd3-dbc1ac80c43b",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports specific quantitative outcomes (hospitalization duration, mortality) from a vaccine-associated adverse event cohort, making it a safety claim.",
+    "consensus_rationale": "The Israeli cohort data on BNT162b2-associated myocarditis showing short hospitalizations and no deaths is a well-documented finding from a peer-reviewed study that has been consistently cited and not meaningfully contested."
+  },
+  {
+    "claim_id": "b020a9a7-8381-4be9-888c-37149cacfef2",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim characterizes the severity and in-hospital mortality of vaccine-associated myocarditis cases, which is a claim about the nature and extent of harm.",
+    "consensus_rationale": "Across multiple meta-analyses and surveillance datasets, mild-to-moderate severity with no in-hospital deaths is a consistently reported finding for mRNA vaccine-associated myocarditis in the acute phase."
+  },
+  {
+    "claim_id": "b212b017-540f-458b-afd5-3473ccfac59f",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim asserts that SARS-CoV-2 infection causes cardiac arrhythmias, which is a claim about harm or adverse health outcomes associated with an exposure.",
+    "consensus_rationale": "Multiple large epidemiological studies and registry analyses have consistently demonstrated elevated risk of cardiac arrhythmias following SARS-CoV-2 infection, establishing strong consensus on this association."
+  },
+  {
+    "claim_id": "eb0620a1-fd3b-4788-9f43-b5f6cf643b4a",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim characterizes the severity and recovery trajectory of a vaccine-associated adverse event, which is a safety claim about the nature of harm.",
+    "consensus_rationale": "The mild classification and rapid recovery of most BNT162b2-associated myocarditis cases in the Israeli cohort is a well-replicated finding supported by the original study and subsequent surveillance data."
+  },
+  {
+    "claim_id": "a1f873f0-3091-48c9-ba38-af5c07d51656",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim makes a comparative assertion about the severity of vaccine-associated myocarditis versus classical viral myocarditis, which is a safety claim about the relative harm profile.",
+    "consensus_rationale": "While short-term outcomes appear favorable, the comparison to classical viral myocarditis is debated because long-term follow-up data are limited and some researchers caution against premature reassurance given persistent MRI abnormalities in some patients."
+  },
+  {
+    "claim_id": "421a8a67-5ec2-4466-b18c-bc47a87c4b2b",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes histopathological findings from a vaccine-associated adverse event, characterizing the mechanism of tissue injury, which is a safety claim about how harm occurs.",
+    "consensus_rationale": "While T-lymphocyte and macrophage infiltration has been reported in biopsy series, the number of biopsied cases is small and the histopathological characterization remains based on limited samples, leaving the mechanistic interpretation subject to ongoing scientific discussion."
+  },
+  {
+    "claim_id": "4bd210aa-edae-4da9-ab98-380c18277ca9",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes a specific histopathological finding (absence of eosinophils) that distinguishes vaccine-associated myocarditis from hypersensitivity myocarditis, which is a safety claim about the nature of the adverse event.",
+    "consensus_rationale": "The absence of eosinophilic infiltrate is reported in available biopsy series, but the sample sizes are small and the mechanistic conclusion about a distinct immunological pathway remains an area of active investigation rather than settled consensus."
+  },
+  {
+    "claim_id": "388f6269-11df-4e2a-b617-635a2cdd0046",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim asserts a negative finding (absence of spike protein in myocardial tissue) and draws a mechanistic inference about immune-mediated rather than direct toxic injury, which is a safety claim about the mechanism of harm.",
+    "consensus_rationale": "While some studies have not detected spike protein in myocardial tissue, the mechanistic inference is contested and the biological mechanisms of vaccine-associated myocarditis remain an area of genuine scientific uncertainty with multiple competing hypotheses."
+  },
+  {
+    "claim_id": "19e514ec-0bd0-447c-bd81-fcdf3c9f492a",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim characterizes the histopathological pattern of vaccine-associated myocarditis and distinguishes it from viral myocarditis, which is a safety claim about the nature of the adverse event.",
+    "consensus_rationale": "The histopathological distinction is based on a limited number of biopsy cases, and while the pattern described is consistent across reported cases, the small sample size and variability in biopsy practices mean this characterization is not yet firmly established."
+  },
+  {
+    "claim_id": "eaa8d532-3f85-47c7-8e45-406e64a65cbc",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports cardiac MRI findings in a specific cohort of vaccine-associated myocarditis cases, which is a safety claim about diagnostic evidence of harm.",
+    "consensus_rationale": "Late gadolinium enhancement on cardiac MRI consistent with myocarditis is a well-documented and consistently reported finding across multiple case series of mRNA vaccine-associated myocarditis, including the referenced Israeli cohort."
+  },
+  {
+    "claim_id": "c7549615-f9e7-425c-8118-f650f2fd50c5",
+    "claim_type": "safety",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This claim enumerates proposed mechanisms by which mRNA vaccination may cause myocardial injury, which is a safety claim about how harm occurs.",
+    "consensus_rationale": "Multiple mechanistic hypotheses have been proposed but none has been definitively established; the underlying biological mechanism of mRNA vaccine-associated myocarditis remains an open scientific question with insufficient evidence to favor any single explanation."
+  },
+  {
+    "claim_id": "c847a180-0b44-47a3-ab96-d8dea8268e8e",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a measurable, quantitative claim about whether BNT162b2 produces a specific protective outcome (prevention of symptomatic COVID-19) in a defined population.",
+    "consensus_rationale": "The 95% efficacy figure comes from the pivotal Phase III RCT (Polack et al., NEJM 2020) and has been widely replicated and accepted across regulatory bodies and the scientific community."
+  },
+  {
+    "claim_id": "a97b4a00-1633-431b-8f5b-7b392dbf6f49",
+    "claim_type": "efficacy",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a quantitative, testable claim about whether mRNA-1273 produces a specific protective outcome against symptomatic COVID-19 in a defined trial population.",
+    "consensus_rationale": "The 94.1% efficacy figure derives from the pivotal Baden et al. NEJM 2021 Phase III RCT and is consistently cited and accepted across regulatory and scientific literature."
+  },
+  {
+    "claim_id": "20d2988d-6697-4d48-988b-80dd52a80d7e",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "The claim combines an empirical incidence rate ratio for SARS-CoV-2-associated myocarditis with a value-laden comparative judgment that vaccine-associated myocarditis risk is 'substantially outweighed,' embedding a normative risk-benefit framing within the empirical data.",
+    "consensus_rationale": "While the directional finding (infection poses greater myocarditis risk than vaccination) is broadly supported, the magnitude of the differential and its applicability across age-sex subgroups\u2014particularly adolescent males\u2014remains a subject of genuine scientific debate."
+  },
+  {
+    "claim_id": "e90ed7a1-5815-4dff-ab9e-fce42236096e",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "The claim combines an empirical assertion (reduced risk of serious outcomes) with a normative conclusion ('favorable benefit-risk profile'), making it both empirically testable and value-laden.",
+    "consensus_rationale": "The overall favorable benefit-risk profile is broadly accepted for most populations, but the characterization remains contested for specific subgroups such as young males with low COVID-19 exposure risk, reflecting genuine ongoing scientific debate."
+  },
+  {
+    "claim_id": "23e0ff17-ea4e-4a86-953a-9364122f468b",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "The claim is based on modeling outputs (empirical) but frames the comparison of prevented hospitalizations versus vaccine-associated myocarditis cases in a way that implies a value judgment about acceptable trade-offs.",
+    "consensus_rationale": "Modeling studies generally support this conclusion for most age-sex groups, but results are sensitive to assumptions about COVID-19 prevalence and hospitalization rates, and the conclusion is contested for low-risk adolescent males."
+  },
+  {
+    "claim_id": "0c85e79f-3064-45fc-94f2-1559f260e5d7",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what the FDA concluded and decided\u2014a regulatory body's official determination\u2014making it an institutional claim about an agency's action.",
+    "consensus_rationale": "The FDA's public benefit-risk assessments and authorization decisions are documented matters of record, and the agency's stated conclusions are not in dispute as factual claims about what the FDA determined."
+  },
+  {
+    "claim_id": "2d210fde-aa69-4575-ad40-3800c1b34e02",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what the FDA's modeling demonstrated and concluded\u2014an institutional action and output\u2014rather than an independent scientific claim about vaccine efficacy or safety.",
+    "consensus_rationale": "The FDA's risk-benefit modeling and its documented conclusions for adolescent males are matters of public regulatory record and are not disputed as factual claims about what the agency found."
+  },
+  {
+    "claim_id": "3078a54d-84cf-4f77-8a2a-847179fbe930",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what the EMA CHMP determined and decided\u2014a regulatory body's official benefit-risk conclusion\u2014making it an institutional claim.",
+    "consensus_rationale": "The EMA CHMP's benefit-risk determinations for Comirnaty and Spikevax are documented regulatory decisions and are not disputed as factual claims about what the committee concluded."
+  },
+  {
+    "claim_id": "3ad4cec9-b12c-45d7-8d58-97b359def25e",
+    "claim_type": "values_embedded",
+    "consensus_type": "active_debate",
+    "type_rationale": "The claim combines empirical modeling outputs with a normative framing ('favored vaccination') and explicitly acknowledges a subgroup where the value judgment is uncertain, embedding both empirical and values components.",
+    "consensus_rationale": "The general finding of favorable benefit-risk across most groups is broadly supported, but the specific question of adolescent males with low COVID-19 risk represents a genuine area of scientific disagreement with credible experts holding different positions."
+  },
+  {
+    "claim_id": "836aec23-6351-4ec1-adcf-a5b16eb0f661",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what a published meta-analysis in JAMA Cardiology concluded\u2014an institutional/publication output\u2014rather than an independent empirical claim about vaccine outcomes.",
+    "consensus_rationale": "The existence and conclusions of the JAMA Cardiology meta-analysis are matters of published record, and the overall favorable benefit-risk conclusion it reached aligns with the dominant scientific consensus."
+  },
+  {
+    "claim_id": "10f94ca7-0ca7-4b02-a4e6-6425cb5da839",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a claim about what a specific benefit-risk analysis (from a Danish and Norwegian cohort study) concluded and recommended\u2014an institutional/publication output.",
+    "consensus_rationale": "While the study's conclusions are documented, the generalizability of Scandinavian cohort findings to other populations and the specific recommendation to vaccinate all age groups remains subject to ongoing scientific discussion given varying COVID-19 risk contexts."
+  },
+  {
+    "claim_id": "e837f02f-f7e4-42df-b8f4-efbef898345f",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what the FDA did\u2014specifically, the regulatory basis and timing of its Emergency Use Authorization decision\u2014making it an institutional claim about an agency action.",
+    "consensus_rationale": "The FDA's December 2020 EUA for BNT162b2 and its primary basis in the Phase III trial data are documented matters of regulatory record with no credible dispute."
+  },
+  {
+    "claim_id": "932b5f5e-0414-47b2-b233-e08830899c37",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This is a claim about what the FDA did\u2014granting an EUA for mRNA-1273 in December 2020 based on Phase III trial data\u2014making it an institutional claim about a regulatory action.",
+    "consensus_rationale": "The FDA's EUA for Moderna mRNA-1273 in December 2020 and its evidentiary basis are documented matters of public regulatory record with no credible dispute."
+  },
+  {
+    "claim_id": "906bf55e-f69c-4bc9-80ff-10048e081d55",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a claim about the influence and role of a specific study (Israeli national surveillance) in shaping regulatory decisions globally\u2014an institutional claim about the impact of a publication on regulatory bodies.",
+    "consensus_rationale": "While the Israeli surveillance study was widely cited and influential, characterizing it as providing the 'first large-scale population-level incidence estimates' and its precise degree of influence on global regulatory decisions involves some interpretive judgment that could be contested by historians of regulatory science."
+  },
+  {
+    "claim_id": "3a4c7be9-8a6b-4932-a261-4351778e951b",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This is a claim about the influence of a specific matched cohort study on regulatory risk-benefit assessments\u2014an institutional claim about a study's impact on regulatory bodies rather than about the study's direct empirical findings.",
+    "consensus_rationale": "While the Dagan et al. Israel cohort study was widely cited, the characterization of it as 'highly influential' in regulatory risk-benefit assessments specifically involves a degree of interpretive judgment about causal influence on institutional decisions that is not straightforwardly verifiable."
+  },
+  {
+    "claim_id": "2d36cd05-24cb-4f17-972c-04ab55cc157f",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes actions taken by the FDA and CDC (formal safety reviews) in response to a specific case series, making it a claim about institutional behavior and decisions.",
+    "consensus_rationale": "While the safety reviews did occur, the causal attribution that a specific case series was 'instrumental' in triggering them involves interpretive judgment about institutional causation that may not be uniformly agreed upon by analysts."
+  },
+  {
+    "claim_id": "7be3c720-a24f-4e98-a297-7a5dfe0f9067",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory decision made by the FDA \u2014 granting BLA approval to Comirnaty \u2014 which is a factual institutional action.",
+    "consensus_rationale": "The FDA's full BLA approval of Comirnaty for individuals 16 and older is a matter of public record with no credible dispute."
+  },
+  {
+    "claim_id": "4f6fe5d7-5ee3-4649-9e05-4751b90bfb5c",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory requirement imposed by the FDA on Comirnaty's labeling, which is an institutional action.",
+    "consensus_rationale": "The FDA's requirement for myocarditis and pericarditis warnings in Comirnaty's labeling is a documented regulatory action with no credible dispute."
+  },
+  {
+    "claim_id": "bd45c76b-4910-469d-b2af-eb1016a5603d",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific condition attached to the FDA's approval decision \u2014 post-marketing study requirements \u2014 which is an institutional regulatory action.",
+    "consensus_rationale": "Post-marketing requirements attached to Comirnaty's BLA approval are documented in FDA approval letters and are not subject to credible dispute."
+  },
+  {
+    "claim_id": "661ba5b7-46e6-4aea-ba6f-73fe123d3a56",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory decision by the FDA \u2014 granting BLA approval to Spikevax \u2014 which is a factual institutional action.",
+    "consensus_rationale": "The FDA's full BLA approval of Spikevax for individuals 18 and older is a matter of public record with no credible dispute."
+  },
+  {
+    "claim_id": "14a75f5b-5c3f-4eb5-aab7-bc11d87edb92",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim characterizes Spikevax's regulatory status relative to other vaccines (second mRNA vaccine to receive full licensure), describing an institutional milestone.",
+    "consensus_rationale": "The sequential order of mRNA COVID-19 vaccine full licensures in the US is a matter of public record \u2014 Comirnaty received BLA approval in August 2021 and Spikevax in January 2022 \u2014 with no credible dispute."
+  },
+  {
+    "claim_id": "de544478-e467-4142-ae52-ca6647ef5e98",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory requirement imposed by the FDA on Spikevax's labeling and links it to a class-level safety communication, both of which are institutional actions.",
+    "consensus_rationale": "The FDA's myocarditis/pericarditis warning requirements for Spikevax and the 2021 class-level safety communication are documented regulatory actions with no credible dispute."
+  },
+  {
+    "claim_id": "899dee77-3fda40c8-b53c-977c38f8183a",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific post-marketing requirement imposed by the FDA on Moderna, which is a factual institutional regulatory action.",
+    "consensus_rationale": "Post-marketing requirements for myocarditis studies attached to Spikevax's BLA approval are documented in FDA approval letters and are not subject to credible dispute."
+  },
+  {
+    "claim_id": "6732cc83-4797-4e93-aa01-1c4657a5fb84",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific surveillance action and finding by the FDA \u2014 identifying a safety signal through VAERS \u2014 which is an institutional activity.",
+    "consensus_rationale": "The FDA's identification of a myocarditis/pericarditis safety signal through VAERS following mRNA COVID-19 vaccination is well-documented and publicly acknowledged with no credible dispute."
+  },
+  {
+    "claim_id": "513e059b-d0b1-4dbe-b887-9259118cb315",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory action by the FDA \u2014 updating fact sheets for both vaccines to include safety warnings \u2014 which is an institutional decision.",
+    "consensus_rationale": "The FDA's updates to vaccine fact sheets to include myocarditis and pericarditis warnings are documented regulatory actions with no credible dispute."
+  },
+  {
+    "claim_id": "11fa6396-1d83-4c39-ade3-5e4ec3dee43b",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes specific investigative actions taken by the FDA and CDC using named surveillance systems, which are institutional activities.",
+    "consensus_rationale": "The use of VAERS and VSD by FDA and CDC to investigate myocarditis/pericarditis following mRNA vaccination is well-documented in published agency communications and peer-reviewed literature with no credible dispute."
+  },
+  {
+    "claim_id": "16ed50c2-b618-43f3-9c5c-d806e1a20c65",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes a specific regulatory recommendation by the FDA regarding post-authorization safety surveillance requirements, which is an institutional action.",
+    "consensus_rationale": "While post-authorization safety requirements were imposed, the precise characterization that they were specifically 'recommended' (vs. required) and targeted specifically at 'younger age groups' following EUA authorization involves nuances of regulatory history that may not be uniformly agreed upon."
+  },
+  {
+    "claim_id": "d9de9edd-fcf7-44dc-9569-9170719ad35d",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes a causal relationship between a case series and institutional actions (label updates by CDC and FDA), framing it as an institutional response to specific evidence.",
+    "consensus_rationale": "While label updates did occur and case series data were part of the evidence base, the specific causal attribution that the case series 'contributed to' label updates involves interpretive judgment about institutional causation that is not uniformly established."
+  },
+  {
+    "claim_id": "dd0d4fa4-dd22-46a1-8c84-d8bab1ec1351",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory action by the FDA \u2014 updating EUA fact sheets for both vaccines to include myocarditis and pericarditis warnings \u2014 which is an institutional decision.",
+    "consensus_rationale": "The FDA's updates to EUA fact sheets to include myocarditis and pericarditis warnings are documented regulatory actions publicly available with no credible dispute."
+  },
+  {
+    "claim_id": "da87fc67-2ba3-467a-9c13-5d16fdd7779e",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim characterizes the FDA's label update as a historical 'first' \u2014 the first formal label-level acknowledgment of the myocarditis signal \u2014 which is a claim about the institutional significance and precedence of a regulatory action.",
+    "consensus_rationale": "While the fact sheet updates are documented, the characterization that this represented the 'first formal label-level acknowledgment' requires precise definitional agreement about what constitutes 'formal label-level' acknowledgment versus prior communications, which may be subject to legitimate interpretive disagreement."
+  },
+  {
+    "claim_id": "61d8542c-c5d1-423d-ac76-26ec286bb7d8",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific action taken by the FDA \u2014 instructing healthcare providers via updated fact sheets \u2014 making it an institutional claim about what a regulatory body did.",
+    "consensus_rationale": "The FDA's requirement to report myocarditis/pericarditis to VAERS via updated fact sheets is a documented regulatory action with no credible dispute."
+  },
+  {
+    "claim_id": "b4e118a1-08fd-4331-bcc8-13181a758a47",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the content of updated regulatory fact sheets \u2014 a specific institutional communication action \u2014 rather than an empirical outcome claim.",
+    "consensus_rationale": "The advisory language in updated mRNA vaccine fact sheets is a matter of public regulatory record with no credible dispute."
+  },
+  {
+    "claim_id": "5ade6af1-2dc4-4119-994a-6def7d7e20c3",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a formal conclusion reached by the EMA CHMP \u2014 a regulatory body's official determination \u2014 making it an institutional claim.",
+    "consensus_rationale": "The EMA CHMP's formal conclusion classifying myocarditis and pericarditis as rare side effects is a documented regulatory decision with no credible dispute."
+  },
+  {
+    "claim_id": "edc2b48c-8d1e-4171-9bd2-b88545e61788",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory action \u2014 the EMA CHMP updating product information following a formal Article 20 referral procedure \u2014 which is a classic institutional claim.",
+    "consensus_rationale": "This is a documented regulatory action in the public record, and there is no credible dispute about whether this labeling update occurred."
+  },
+  {
+    "claim_id": "5c947145-1eaf-4495-9064-080395cecd2c",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the content and data sources of a specific FDA regulatory briefing document, which is an institutional claim about what a regulatory body did and used.",
+    "consensus_rationale": "The contents of the FDA's June 2022 VRBPAC briefing document are a matter of public record with no credible dispute."
+  },
+  {
+    "claim_id": "16feacf2-edac-46ac-8b78-ccb509b08d7b",
+    "claim_type": "values_embedded",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "While the existence of an epidemiological signal is empirically testable, the claim that it was 'sufficient to warrant regulatory attention' embeds a normative judgment about the threshold for regulatory action.",
+    "consensus_rationale": "The scientific and regulatory community broadly agreed that the myocarditis signal was sufficient to act upon, as evidenced by consistent regulatory responses across multiple jurisdictions."
+  },
+  {
+    "claim_id": "657e02cd-7091-43bb-848a-dc0f2e72d18f",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes a causal link between a specific study and specific regulatory decisions by Nordic health authorities, which is an institutional claim about what drove a policy action.",
+    "consensus_rationale": "While Nordic authorities did restrict Moderna use in younger males and the Danish/Norwegian study was contemporaneous, the precise causal contribution of that single study versus other evidence streams to the regulatory decisions is subject to legitimate interpretive debate."
+  },
+  {
+    "claim_id": "3fbd6d93-9b5a-4e95-b7d1-180a32305d53",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes a specific regulatory requirement imposed by the FDA \u2014 updating fact sheets to include myocarditis/pericarditis information \u2014 which is a classic institutional claim.",
+    "consensus_rationale": "The FDA's requirement for updated fact sheets is a documented regulatory action in the public record with no credible dispute."
+  },
+  {
+    "claim_id": "1aa28cc2-9c92-4efc-913d-22f3cb3ab962",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim characterizes the FDA labeling update as the 'first formal regulatory acknowledgment' of the vaccine-myocarditis association, which is a claim about the historical sequence of institutional actions.",
+    "consensus_rationale": "While the FDA labeling update was a landmark action, whether it constituted the absolute 'first formal regulatory acknowledgment' globally or even domestically (versus prior ACIP communications or CDC health advisories) is subject to legitimate interpretive debate about what counts as 'formal' acknowledgment."
+  },
+  {
+    "claim_id": "26a0ddd7-36c3-436d-8fe1-67d4b8fab0c8",
+    "claim_type": "institutional",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim describes the process and inputs behind an FDA regulatory action \u2014 specifically what data were reviewed and which bodies were consulted \u2014 making it an institutional claim about regulatory procedure.",
+    "consensus_rationale": "The FDA's review of VAERS data and consultation with ACIP prior to the labeling update is well-documented in public regulatory records with no credible dispute."
+  },
+  {
+    "claim_id": "ff46cf21-be89-410f-b038-a72e51f65a53",
+    "claim_type": "institutional",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim describes a specific recommendation made by named professional societies (AHA/ACC) and their stated rationale, which is an institutional claim about what organizations recommended and why.",
+    "consensus_rationale": "While the AHA/ACC recommendation is documented, the optimal return-to-sports duration and the degree of uncertainty about long-term myocardial outcomes remain subjects of genuine scientific debate among cardiologists and sports medicine specialists."
+  },
+  {
+    "claim_id": "54d40df0-6dd3-4c8f-93a1-047e44421211",
+    "claim_type": "safety",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This claim reports a specific demographic characteristic (median age) of a population experiencing an adverse event following vaccination, making it a safety claim about who is harmed.",
+    "consensus_rationale": "While this specific figure may come from a particular dataset (e.g., military cohort studies), median age estimates vary across different surveillance systems and populations, and the precise figure for this specific subgroup lacks sufficient cross-study replication to establish strong consensus."
+  },
+  {
+    "claim_id": "55593bf9-cbfa-4a2e-a107-5c4c574c89cd",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim quantifies the incidence rate of a specific adverse event (myocarditis) in a defined demographic group following vaccination, which is a safety claim about the magnitude of harm.",
+    "consensus_rationale": "While the elevated risk of myocarditis in young males after BNT162b2 is well-established, the precise incidence figures vary substantially across surveillance systems (VAERS, VSD, Israeli MoH, etc.), and the specific rate of 10.69 per 100,000 reflects one dataset's estimate rather than a settled consensus figure."
+  },
+  {
+    "claim_id": "6e58ced7-3d0f-488d-aebf-99636efbcb06",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim expresses the incidence of vaccine-associated myocarditis as a frequency ratio in a specific demographic, which is a safety claim about the magnitude of risk.",
+    "consensus_rationale": "The 1-in-6,637 figure is a specific estimate derived from particular surveillance data; incidence estimates vary meaningfully across studies and surveillance systems, reflecting genuine methodological and population differences rather than settled consensus."
+  },
+  {
+    "claim_id": "439df770-d4ff-413e-9276-61bf44d897c0",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim reports demographic characteristics (sex distribution and median age) of confirmed myocarditis cases following vaccination from a specific cohort study, making it a safety claim about who experiences this adverse event.",
+    "consensus_rationale": "The predominance of male cases and young adult median age in vaccine-associated myocarditis is consistently replicated across multiple independent cohort studies and surveillance systems, representing strong consensus on the demographic pattern."
+  },
+  {
+    "claim_id": "901d6a1e-48b6-4f20-9bfe-78771eb6f63a",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim quantifies a specific adverse effect (myocarditis/pericarditis) associated with mRNA COVID-19 vaccination in a defined demographic group.",
+    "consensus_rationale": "While the association between mRNA vaccination and myocarditis in young males is well-established, the precise incidence rate varies substantially across studies and surveillance systems, with estimates ranging widely depending on methodology, making the specific figure of 40.6 per million subject to ongoing scientific discussion."
+  },
+  {
+    "claim_id": "9356cb21-f396-4085-bdf2-a691ac1a29fb",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim compares the risk of a specific adverse effect (myocarditis) between two mRNA vaccines using quantitative incidence rate ratios.",
+    "consensus_rationale": "The directional finding that mRNA-1273 carries higher myocarditis risk than BNT162b2 has reasonable support across multiple studies, but the specific IRR values vary across surveillance datasets and methodologies, keeping the precise magnitude in active debate."
+  },
+  {
+    "claim_id": "1b68bac0-70b7-4a3d-a635-d36de7b79e7d",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim quantifies the comparative harm risk between two vaccines (mRNA-1273 vs. BNT162b2) for a specific adverse event in a defined demographic.",
+    "consensus_rationale": "The direction of the differential risk (mRNA-1273 > BNT162b2) is broadly supported, but the specific 3.9-fold magnitude is derived from particular studies and differs from estimates in other surveillance systems, placing the precise figure in active scientific debate."
+  },
+  {
+    "claim_id": "8497317f-3394-4094-bc28-f552e698adca",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This claim makes a qualitative comparative assertion about the relative harm risk of two vaccines in a specific demographic group.",
+    "consensus_rationale": "Multiple large surveillance studies and regulatory reviews across different countries consistently show that mRNA-1273 is associated with a higher myocarditis risk than BNT162b2 in younger males after dose 2, establishing strong consensus on this directional finding."
+  },
+  {
+    "claim_id": "dfead666-a109-4928-868e-fe5cbfd4ee3f",
+    "claim_type": "safety",
+    "consensus_type": "genuine_uncertainty",
+    "type_rationale": "This claim describes the demographic composition of adverse events (myocarditis cases) in an early case series, characterizing who was harmed.",
+    "consensus_rationale": "Early case series are small and subject to reporting biases; while male predominance in vaccine-associated myocarditis is well-established, the specific proportion from this single early case series is not independently replicated at this level of specificity, leaving the precise figure uncertain."
+  },
+  {
+    "claim_id": "689ec973-6d34-4132-8f69-2ead7e75311a",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim specifies a quantitative incidence rate of vaccine-associated myocarditis in the highest-risk demographic group after a specific dose.",
+    "consensus_rationale": "While males aged 12\u201317 after dose 2 of BNT162b2 are consistently identified as the highest-risk group, the specific rate of 105.9 per million doses is notably higher than estimates from many other surveillance systems, indicating ongoing methodological and definitional variability in the literature."
+  },
+  {
+    "claim_id": "dfdf7eb7-74fe-48c5-b0c1-065e986b6f7f",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim provides a specific quantitative incidence rate of myocarditis for a defined demographic group following a specific vaccine and dose.",
+    "consensus_rationale": "Estimates for myocarditis incidence after mRNA-1273 dose 2 in males aged 18\u201324 vary across surveillance systems and studies, and the specific figure of 52.4 per million is drawn from particular datasets that may not be universally replicated."
+  },
+  {
+    "claim_id": "36c7b91f-cd31-4370-8e10-8e122243574e",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim expresses the risk of myocarditis as a frequency ratio (1 in 6,600) for a specific demographic group following mRNA vaccination.",
+    "consensus_rationale": "Risk estimates for myocarditis in males aged 18\u201324 after dose 2 vary considerably across studies depending on case ascertainment methods and data sources, with some estimates being substantially lower, placing this specific figure in active scientific debate."
+  },
+  {
+    "claim_id": "c2342096-1b00-49a4-9321-210f223084b1",
+    "claim_type": "safety",
+    "consensus_type": "active_debate",
+    "type_rationale": "This claim provides a quantitative range for the incidence of vaccine-associated myocarditis in a defined high-risk demographic group.",
+    "consensus_rationale": "The broad range of 1\u201310 per 100,000 doses reflects genuine variability across surveillance systems and study methodologies, and while the general magnitude is plausible, the wide range itself signals ongoing uncertainty and debate about precise estimates."
+  },
+  {
+    "claim_id": "d58d92f4-bc91-4611-94cd-9c263ed31abd",
+    "claim_type": "safety",
+    "consensus_type": "strong_consensus",
+    "type_rationale": "This qualitative claim characterizes the demographic and dosing pattern of myocarditis risk associated with mRNA COVID-19 vaccination.",
+    "consensus_rationale": "Across multiple large surveillance studies, pharmacovigilance databases, and regulatory reviews globally, there is strong and consistent agreement that mRNA vaccine-associated myocarditis disproportionately affects young males and is most common after the second dose."
+  }
+]
