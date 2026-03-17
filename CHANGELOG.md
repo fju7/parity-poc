@@ -1,5 +1,28 @@
 # Changelog
 
+## Session U — 2026-03-17
+
+### U0 — Classify All Remaining Topics
+- Classified 6 topics (975 claims total), all written directly to production DB
+- PostgREST cache refreshed — direct writes now work for claim_type/consensus_type
+- All 9 Signal topics now have full claim_type and consensus_type classifications
+
+### U1 — Signal Intelligence API
+- New router: backend/routers/signal_intelligence.py
+- GET /api/signal/evidence-for-code — CPT code to Signal evidence lookup
+- GET /api/signal/denial-intelligence — denial code challenge evidence
+- Registered in main.py
+
+### U2 — CPT Code to Signal Topic Mapping
+- Migration 045: signal_cpt_mappings table (cpt_code, topic_slug, relevance_score)
+- Migration 046: seeded 40 CPT mappings across all 9 topics
+- Covers high-volume Medicare CPT codes mapped to relevant Signal topics
+
+### U3 — Payer Coverage Policy Source Type
+- Added 'payer_coverage_policy' to SourceCard type labels/colors (indigo badge)
+- Migration 047: 3 test payer coverage policy sources for mmr-vaccine-autism
+- No schema change needed — source_type is a free text field
+
 ## Session T — 2026-03-17
 
 ### T0 — Staging Verified
