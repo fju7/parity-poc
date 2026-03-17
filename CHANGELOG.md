@@ -1,5 +1,33 @@
 # Changelog
 
+## Session W — 2026-03-17
+
+### W1 — Employer Claims: Clinical Context Cards
+- SignalContextCard component added to flagged procedures in EmployerClaimsCheck
+- Collapsible card shows topic title, score, key claims with consensus badges, link to Signal
+- Only shown when Signal coverage exists (coverage != 'none')
+
+### W2 — Employer Action Plan: Signal Recommendations
+- SignalActionPlanCards component fetches Signal evidence for top flagged CPTs
+- When score >= 3.5, adds "Clinical appropriateness question" recommendation with link to Signal topic
+- Indigo-themed cards appear after existing action plan steps
+
+### W3 — Broker Renewal: Signal Evidence Context
+- RenewalPrepReport talking points enhanced with Signal evidence for high-cost CPTs
+- Shows score, strength assessment, and active debate warnings
+- Signal talking points appear with indigo accent below standard talking points
+
+### W4 — Broker CAA Letter: Evidence-Informed Questions
+- SignalCAAAppendix component fetches Signal evidence for common high-volume CPTs
+- "Signal Intelligence: Evidence-Informed Questions" section with per-topic clinical criteria questions
+- Includes top 2 claims and link to evidence dashboard for each topic
+
+### W5 — Data Flywheel: Appeal Outcomes in Admin Analytics
+- Backend: appeal outcomes aggregation added to /admin/analytics endpoint
+- Per-topic: total appeals, won, lost, win rate, top denial codes
+- Frontend: "Appeal Outcomes (Data Flywheel)" section in AdminAnalytics
+- Hidden when no outcomes recorded
+
 ## Session V — 2026-03-17
 
 ### V0 — Fix Signal Intelligence API

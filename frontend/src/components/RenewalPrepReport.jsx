@@ -141,6 +141,33 @@ export default function RenewalPrepReport() {
     talkingPoints.push(`Plan design analysis identified ${improvementCount || "several"} improvement opportunities. These are common findings in plans due for renewal review and represent negotiable terms your advisor can address.`);
   }
 
+  // Signal evidence talking points
+  const [signalTPs, setSignalTPs] = useState([]);
+  useEffect(() => {
+    if (!claims.available || !claims.flagged_cpts) return;
+    const cpts = claims.flagged_cpts.slice(0, 5);
+    async function fetch_signal() {
+      const results = [];
+      const seen = new Set();
+      for (const c of cpts) {
+        const cpt = c.cpt_code || c;
+        if (seen.has(cpt)) continue;
+        seen.add(cpt);
+        try {
+          const res = await fetch(`${API}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(cpt)}`);
+          if (res.ok) {
+            const d = await res.json();
+            if (d.coverage !== "none" && d.score >= 3.5) {
+              results.push(d);
+            }
+          }
+        } catch { /* non-fatal */ }
+      }
+      setSignalTPs(results);
+    }
+    fetch_signal();
+  }, [claims]);
+
   const pctColor = percentile == null ? "#64748b" : percentile > 75 ? "#EF4444" : percentile > 50 ? "#f59e0b" : "#22c55e";
 
   return (
@@ -375,6 +402,22 @@ export default function RenewalPrepReport() {
               <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                 <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#f0fdfa", border: "1px solid #99f6e4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#0D7377", flexShrink: 0 }}>{i + 1}</div>
                 <p style={{ margin: 0, fontSize: 14, color: "#475569", lineHeight: 1.7 }}>{tp}</p>
+              </div>
+            ))}
+            {signalTPs.map((s, i) => (
+              <div key={`signal-${i}`} style={{ display: "flex", gap: 10, alignItems: "flex-start", background: "#eef2ff", borderRadius: 10, padding: "12px 14px", border: "1px solid #c7d2fe" }}>
+                <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#6366f1", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff", flexShrink: 0 }}>⚡</div>
+                <div>
+                  <p style={{ margin: 0, fontSize: 14, color: "#475569", lineHeight: 1.7 }}>
+                    Signal rates clinical evidence for <strong>{s.topic_title}</strong> at <strong style={{ color: s.score >= 4 ? "#059669" : "#d97706" }}>{s.score}/5.0</strong> — {s.score >= 4 ? "strong" : "moderate"} support.
+                    {s.key_claims?.some(c => c.consensus_type === "active_debate") && (
+                      <span style={{ color: "#d97706" }}> Note: clinical evidence is actively debated.</span>
+                    )}
+                  </p>
+                  <a href={`/signal/${s.topic_slug}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#6366f1" }}>
+                    View evidence dashboard →
+                  </a>
+                </div>
               </div>
             ))}
           </div>

@@ -152,12 +152,48 @@ async def admin_analytics(request: Request):
             type_counts[et] = type_counts.get(et, 0) + 1
         event_types = [{"event_type": k, "count": v} for k, v in sorted(type_counts.items(), key=lambda x: -x[1])]
 
+        # Appeal outcomes by Signal topic
+        appeal_outcomes = []
+        try:
+            outcomes_res = sb.table("provider_appeal_outcomes").select("*").execute()
+            outcome_rows = outcomes_res.data or []
+            if outcome_rows:
+                by_topic = {}
+                for o in outcome_rows:
+                    slug = o.get("signal_topic_slug") or "unmapped"
+                    if slug not in by_topic:
+                        by_topic[slug] = {"total": 0, "won": 0, "lost": 0, "denial_codes": {}}
+                    by_topic[slug]["total"] += 1
+                    if o.get("outcome") == "won":
+                        by_topic[slug]["won"] += 1
+                    elif o.get("outcome") == "lost":
+                        by_topic[slug]["lost"] += 1
+                    dc = o.get("denial_code")
+                    if dc:
+                        by_topic[slug]["denial_codes"][dc] = by_topic[slug]["denial_codes"].get(dc, 0) + 1
+
+                for slug, info in sorted(by_topic.items(), key=lambda x: -x[1]["total"]):
+                    resolved = info["won"] + info["lost"]
+                    win_rate = round(info["won"] / resolved * 100) if resolved > 0 else None
+                    top_codes = sorted(info["denial_codes"].items(), key=lambda x: -x[1])[:3]
+                    appeal_outcomes.append({
+                        "topic_slug": slug,
+                        "total_appeals": info["total"],
+                        "won": info["won"],
+                        "lost": info["lost"],
+                        "win_rate": win_rate,
+                        "top_denial_codes": [{"code": c, "count": n} for c, n in top_codes],
+                    })
+        except Exception as exc:
+            print(f"[Admin Analytics] Appeal outcomes fetch failed (non-fatal): {exc}")
+
         return {
             "total_events": total_events,
             "unique_sessions": unique_sessions,
             "question_count": question_count,
             "topics": topics,
             "event_types": event_types,
+            "appeal_outcomes": appeal_outcomes,
         }
     except Exception as e:
         print(f"[Signal Admin Analytics] Error: {e}")

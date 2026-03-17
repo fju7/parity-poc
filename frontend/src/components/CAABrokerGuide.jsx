@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_BASE } from "../lib/apiBase";
 
 const CARRIERS = [
   {
@@ -83,6 +84,68 @@ Sincerely,
 ${f.brokerName}
 ${f.brokerFirm}
 ${f.brokerEmail}${f.brokerPhone ? "\n" + f.brokerPhone : ""}`;
+}
+
+// High-volume CPT codes that frequently appear in claims data and have Signal coverage
+const COMMON_FLAGGED_CPTS = ["96413", "90707", "91300", "90837", "96372", "99214", "0538T", "93306"];
+
+function SignalCAAAppendix() {
+  const [evidence, setEvidence] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchSignal() {
+      const results = [];
+      for (const cpt of COMMON_FLAGGED_CPTS) {
+        try {
+          const res = await fetch(`${API_BASE}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(cpt)}`);
+          if (res.ok) {
+            const d = await res.json();
+            if (d.coverage !== "none" && d.score >= 3.0) {
+              // Avoid duplicate topics
+              if (!results.find(r => r.topic_slug === d.topic_slug)) {
+                results.push(d);
+              }
+            }
+          }
+        } catch { /* non-fatal */ }
+      }
+      setEvidence(results);
+      setLoaded(true);
+    }
+    fetchSignal();
+  }, []);
+
+  if (!loaded || evidence.length === 0) return null;
+
+  return (
+    <div style={{ background: "rgba(99,102,241,0.06)", border: "1px solid rgba(99,102,241,0.2)", borderRadius: "14px", padding: "28px", marginBottom: "32px" }}>
+      <div style={{ fontSize: "18px", fontWeight: "600", color: "#c7d2fe", marginBottom: "8px" }}>Signal Intelligence: Evidence-Informed Questions</div>
+      <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "16px" }}>
+        When you receive claims data, look for these high-cost procedure categories. Signal Intelligence has scored the underlying clinical evidence.
+      </p>
+      {evidence.map((e, i) => (
+        <div key={i} style={{ background: "rgba(255,255,255,0.04)", borderRadius: "10px", padding: "16px", marginBottom: "10px", border: "1px solid rgba(99,102,241,0.15)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+            <span style={{ fontSize: "14px", fontWeight: "600", color: "#e2e8f0" }}>{e.topic_title}</span>
+            <span style={{ fontSize: "12px", fontWeight: "700", color: e.score >= 4 ? "#34d399" : "#fbbf24" }}>{e.score}/5.0</span>
+          </div>
+          <p style={{ fontSize: "12px", color: "#94a3b8", margin: "0 0 8px", lineHeight: "1.6" }}>
+            Ask: "Please provide the clinical criteria used to determine medical necessity for CPT {e.cpt_code}.
+            Peer-reviewed literature, independently assessed by Signal Intelligence at {e.score}/5.0, supports clinical appropriateness for this service."
+          </p>
+          {e.key_claims?.slice(0, 2).map((c, j) => (
+            <div key={j} style={{ fontSize: "11px", color: "#64748b", paddingLeft: "10px", borderLeft: "2px solid rgba(99,102,241,0.3)", marginBottom: "4px" }}>
+              {c.claim_text}
+            </div>
+          ))}
+          <a href={`/signal/${e.topic_slug}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: "11px", color: "#818cf8", marginTop: "4px", display: "inline-block" }}>
+            View full evidence →
+          </a>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default function CAABrokerGuide() {
@@ -267,6 +330,9 @@ export default function CAABrokerGuide() {
             </div>
           )}
         </div>
+
+        {/* Signal Evidence: What to Look For */}
+        <SignalCAAAppendix />
 
         {/* Once you have the data */}
         <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(16,185,129,0.25)", borderRadius: "14px", padding: "28px", marginBottom: "32px" }}>
