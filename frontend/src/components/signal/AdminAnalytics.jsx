@@ -105,6 +105,36 @@ export default function AdminAnalytics({ session }) {
           </div>
         </div>
       )}
+      {/* Appeal Outcomes by Signal Topic */}
+      {data?.appeal_outcomes?.length > 0 && (
+        <div className="mb-6">
+          <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wide mb-3">Appeal Outcomes (Data Flywheel)</h2>
+          <div className="space-y-2">
+            {data.appeal_outcomes.map((ao) => (
+              <div key={ao.topic_slug} className="bg-white rounded-xl p-3 border border-gray-100">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-medium text-[#1B3A5C]">{ao.topic_slug}</span>
+                  <span className="text-xs text-gray-400">{ao.total_appeals} appeal{ao.total_appeals !== 1 ? "s" : ""}</span>
+                </div>
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="text-emerald-600 font-semibold">{ao.won} won</span>
+                  <span className="text-red-500 font-semibold">{ao.lost} lost</span>
+                  {ao.win_rate != null && (
+                    <span className={`font-bold ${ao.win_rate >= 50 ? "text-emerald-600" : "text-amber-600"}`}>
+                      {ao.win_rate}% win rate
+                    </span>
+                  )}
+                </div>
+                {ao.top_denial_codes?.length > 0 && (
+                  <div className="text-xs text-gray-400 mt-1">
+                    Top codes: {ao.top_denial_codes.map(c => `${c.code} (${c.count})`).join(", ")}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,10 +1,114 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { cptLabel } from "../lib/cptLabel";
 import { useAuth } from "../context/AuthContext";
 import BrokerConnectCard from "./BrokerConnectCard";
 
 import { API_BASE } from "../lib/apiBase";
+
+function SignalContextCard({ cpt }) {
+  const [data, setData] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  function load() {
+    if (loaded) { setOpen(!open); return; }
+    fetch(`${API_BASE}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(cpt)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d && d.coverage !== "none") setData(d); setLoaded(true); setOpen(true); })
+      .catch(() => { setLoaded(true); });
+  }
+
+  if (loaded && !data) return null;
+
+  const CONSENSUS_BADGE = {
+    strong_consensus: { bg: "#ecfdf5", color: "#059669", label: "Consensus" },
+    active_debate: { bg: "#fff7ed", color: "#d97706", label: "Debated" },
+    genuine_uncertainty: { bg: "#f1f5f9", color: "#64748b", label: "Uncertain" },
+    manufactured_controversy: { bg: "#fef2f2", color: "#dc2626", label: "Controversy" },
+  };
+
+  return (
+    <div style={{ marginTop: 6 }}>
+      <button onClick={load} style={{ background: "none", border: "none", fontSize: 11, color: "#6366f1", cursor: "pointer", padding: 0, textDecoration: "underline" }}>
+        {open ? "Hide" : "View"} clinical evidence
+      </button>
+      {open && data && (
+        <div style={{ marginTop: 8, background: "#eef2ff", border: "1px solid #c7d2fe", borderRadius: 10, padding: 14, fontSize: 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+            <strong style={{ color: "#1e293b" }}>{data.topic_title}</strong>
+            <span style={{ fontWeight: 700, color: data.score >= 3.5 ? "#059669" : data.score >= 2.5 ? "#d97706" : "#64748b" }}>
+              {data.score}/5.0
+            </span>
+          </div>
+          {data.key_claims?.slice(0, 3).map((c, i) => (
+            <div key={i} style={{ marginBottom: 6, paddingLeft: 10, borderLeft: "2px solid #a5b4fc" }}>
+              <span style={{ color: "#475569" }}>{c.claim_text}</span>
+              {c.consensus_type && CONSENSUS_BADGE[c.consensus_type] && (
+                <span style={{ marginLeft: 6, fontSize: 10, fontWeight: 600, padding: "1px 6px", borderRadius: 8, background: CONSENSUS_BADGE[c.consensus_type].bg, color: CONSENSUS_BADGE[c.consensus_type].color }}>
+                  {CONSENSUS_BADGE[c.consensus_type].label}
+                </span>
+              )}
+            </div>
+          ))}
+          <a href={`/signal/${data.topic_slug}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#0d7377", marginTop: 4, display: "inline-block" }}>
+            View full evidence dashboard →
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SignalActionPlanCards({ lineItems }) {
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    if (!lineItems) return;
+    const flagged = lineItems.filter(l => l.flag).slice(0, 5);
+    const seen = new Set();
+    const unique = flagged.filter(l => { if (seen.has(l.cpt_code)) return false; seen.add(l.cpt_code); return true; });
+
+    async function fetchAll() {
+      const results = [];
+      for (const l of unique) {
+        try {
+          const res = await fetch(`${API_BASE}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(l.cpt_code)}`);
+          if (res.ok) {
+            const d = await res.json();
+            if (d.coverage !== "none" && d.score >= 3.5) {
+              results.push({ cpt: l.cpt_code, ...d });
+            }
+          }
+        } catch { /* non-fatal */ }
+      }
+      setCards(results);
+    }
+    fetchAll();
+  }, [lineItems]);
+
+  if (cards.length === 0) return null;
+
+  return (
+    <div style={{ marginBottom: 12 }}>
+      {cards.map((c, i) => (
+        <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start", background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)", borderRadius: 10, padding: "16px 20px", marginBottom: 10 }}>
+          <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#6366f1", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, flexShrink: 0 }}>⚡</div>
+          <div>
+            <p style={{ margin: 0, fontSize: 14, color: "#e2e8f0", lineHeight: 1.6 }}>
+              <strong>Clinical appropriateness question:</strong> Ask your plan administrator whether CPT {c.cpt} was denied on clinical grounds.
+              Signal Intelligence rates the supporting evidence at <strong>{c.score}/5.0</strong>.
+            </p>
+            <a href={`/signal/${c.topic_slug}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#818cf8", marginTop: 4, display: "inline-block" }}>
+              View {c.topic_title} evidence →
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function EmployerClaimsCheck() {
   const { isAuthenticated, user } = useAuth();
   const [file, setFile] = useState(null);
@@ -669,6 +773,7 @@ export default function EmployerClaimsCheck() {
                     </div>
                   ))}
                 </div>
+                <SignalActionPlanCards lineItems={result.line_items} />
                 <button onClick={() => window.print()} style={{ background: "none", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "8px", padding: "6px 14px", fontSize: "13px", color: "#94a3b8", cursor: "pointer" }}>
                   Print Action Plan
                 </button>
@@ -708,6 +813,7 @@ export default function EmployerClaimsCheck() {
                           <td style={tdStyle}>{l.ratio ? `${l.ratio}x` : "—"}</td>
                           <td style={tdStyle}>
                             <span style={{ color: flagColor(l.flag), fontWeight: "600" }}>{l.flag}</span>
+                            <SignalContextCard cpt={l.cpt_code} />
                           </td>
                         </tr>
                       ))}
