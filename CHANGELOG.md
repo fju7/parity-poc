@@ -1,5 +1,30 @@
 # Changelog
 
+## Session S — 2026-03-17
+
+### S1 — Add claim_type and consensus_type to signal_claims
+- Migration 043: added `claim_type` (efficacy|safety|institutional|values_embedded|foundational_values) and `consensus_type` (strong_consensus|active_debate|manufactured_controversy|genuine_uncertainty) columns with CHECK constraints
+- Applied to staging Supabase; production pending
+
+### S2 — Classification Pipeline Step
+- Created `classify_claims.py` — Claude-powered claim classification script
+- Updated `run_pipeline.py`: inserted Classify Claims as new step 3, pipeline now 8 steps (was 7)
+- Classified all 207 breast cancer claims:
+  - claim_type: efficacy 113 (55%), institutional 73 (35%), safety 12 (6%), values_embedded 9 (4%)
+  - consensus_type: strong_consensus 158 (76%), active_debate 37 (18%), genuine_uncertainty 12 (6%)
+- Classifications applied via SQL script (PostgREST schema cache workaround)
+
+### S3 — Institutional Conduct Scoring Prompt
+- Added `INSTITUTIONAL_SCORE_SYSTEM_PROMPT` to `score_claims.py` with three-part assessment: factual record, public record evidence, interpretive dispute
+- `score_batch()` routes institutional claims to specialized prompt automatically
+- Institutional claims batched separately per category for correct prompt routing
+
+### S4 — Layer 3 UI: claim_type Badges and consensus_type Indicators
+- ClaimCard: added color-coded claim_type badges (blue=efficacy, red=safety, purple=institutional, amber=values_embedded, gray=foundational_values)
+- ClaimCard: added consensus_type icons (green lock=strong_consensus, orange arrows=active_debate, red flag=manufactured_controversy, gray ?=genuine_uncertainty)
+- Key Debates panel: now shows individual debated claims (active_debate + manufactured_controversy) as expandable ClaimCards
+- Frontend build: clean, no errors
+
 ## Session R — 2026-03-16
 
 ### R0 — Session Q Promoted to Production

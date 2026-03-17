@@ -175,7 +175,7 @@ def step_register_topic(slug: str, title: str, description: str, categories: lis
 
 
 def step_run_pipeline(slug: str) -> bool:
-    """Step 2: Run the full 7-step pipeline."""
+    """Step 2: Run the full 8-step pipeline."""
     success, stdout, stderr = _run_subprocess(
         [
             sys.executable, str(SCRIPTS_DIR / "run_pipeline.py"),
