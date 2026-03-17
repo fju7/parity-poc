@@ -434,8 +434,15 @@ def main():
     args = parser.parse_args()
 
     issue_slug = args.issue_slug
-    topic = get_topic(issue_slug)
-    print(f"Topic: {topic['title']} ({issue_slug})")
+    try:
+        topic = get_topic(issue_slug)
+        print(f"Topic: {topic['title']} ({issue_slug})")
+    except KeyError:
+        # Topic not in static config — look up title from Supabase
+        sb_tmp = _get_supabase()
+        resp = sb_tmp.table("signal_issues").select("title").eq("slug", issue_slug).execute()
+        title = resp.data[0]["title"] if resp.data else issue_slug
+        print(f"Topic: {title} ({issue_slug}) [from DB]")
 
     sb = _get_supabase()
     issue_id, claims = load_claims(sb, issue_slug)
