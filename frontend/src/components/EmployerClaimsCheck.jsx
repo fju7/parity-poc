@@ -785,9 +785,31 @@ export default function EmployerClaimsCheck() {
 
             {/* Print stylesheet */}
             <style>{`@media print {
-              header, nav, .tab-toggle, button:not(.print-keep), a.back-link { display: none !important; }
-              body { background: white !important; color: #1e293b !important; }
-              .results-card { background: white !important; border: 1px solid #e2e8f0 !important; }
+              header, nav, .tab-toggle, button, a.back-link { display: none !important; }
+              body, html { background: white !important; }
+              * {
+                color: #1e293b !important;
+                background-color: white !important;
+                border-color: #d1d5db !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+              }
+              h1, h2, h3, strong, b { color: #0f172a !important; }
+              th { background-color: #f1f5f9 !important; color: #334155 !important; }
+              td { border-bottom: 1px solid #e5e7eb !important; }
+              span[style*="color: #10b981"], span[style*="color: #059669"],
+              span[style*="color: #0d9488"], span[style*="color: #0d7377"] {
+                color: #047857 !important;
+              }
+              span[style*="color: #ef4444"], span[style*="color: #f87171"] {
+                color: #dc2626 !important;
+              }
+              span[style*="color: #f59e0b"], span[style*="color: #d97706"] {
+                color: #b45309 !important;
+              }
+              div[style*="border-radius"] {
+                border: 1px solid #d1d5db !important;
+              }
             }`}</style>
 
             {/* Top 10 Flagged Procedures Table */}

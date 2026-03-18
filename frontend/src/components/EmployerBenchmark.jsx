@@ -349,10 +349,22 @@ export default function EmployerBenchmark() {
 
             {/* Print stylesheet */}
             <style>{`@media print {
-              header, nav, .tab-toggle, button:not(.print-keep), a.back-link, label { display: none !important; }
-              body { background: white !important; color: #1e293b !important; }
-              div[style*="max-width"] { background: white !important; border: 1px solid #e2e8f0 !important; color: #1e293b !important; }
-              p, span, div { color: #1e293b !important; }
+              header, nav, .tab-toggle, button, a.back-link, label[style*="cursor"] { display: none !important; }
+              body, html { background: white !important; }
+              * {
+                color: #1e293b !important;
+                background-color: white !important;
+                border-color: #d1d5db !important;
+              }
+              h1, h2, h3, strong, b { color: #0f172a !important; }
+              th { background-color: #f1f5f9 !important; color: #334155 !important; }
+              td { border-bottom: 1px solid #e5e7eb !important; }
+              span[style*="color: #10b981"], span[style*="color: #059669"],
+              span[style*="color: #0d9488"] { color: #047857 !important; }
+              span[style*="color: #ef4444"], span[style*="color: #f87171"] { color: #dc2626 !important; }
+              span[style*="color: #f59e0b"], span[style*="color: #d97706"] { color: #b45309 !important; }
+              span[style*="color: #60a5fa"], span[style*="color: #3b82f6"] { color: #1d4ed8 !important; }
+              div[style*="border-radius"] { border: 1px solid #d1d5db !important; }
             }`}</style>
 
             {/* Email copy + Print */}

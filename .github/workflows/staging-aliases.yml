@@ -13,34 +13,47 @@ jobs:
           echo "Waiting 2 minutes for Vercel to build parity-poc-repo..."
           sleep 120
 
-      - name: Install Vercel CLI
-        run: npm i -g vercel@latest
-
-      - name: Find latest Ready preview deployment
+      - name: Find latest Ready deployment
         id: deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          # parity-poc-repo auto-builds staging branch as Ready Preview deployments.
-          # parity-poc cancels preview builds, so we use parity-poc-repo instead.
+          # Use Vercel REST API to get latest deployments from parity-poc-repo.
+          # parity-poc cancels preview builds; parity-poc-repo builds successfully.
           # Cross-project aliasing works because both are in the same Vercel team.
-          URL=$(vercel ls parity-poc-repo --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null \
-            | grep "Ready" | grep "Preview" | head -1 | awk '{print $3}')
+
+          # First, show the most recent deployment's full metadata for debugging
+          echo "=== Most recent deployment metadata ==="
+          curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=3" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            | jq '[.deployments[] | select(.name == "parity-poc-repo")] | .[0] | {url, state, target, readyState, meta: .meta.githubCommitRef}' \
+            2>/dev/null || true
+
+          # Get the latest READY deployment from parity-poc-repo (any target type)
+          URL=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=20&state=READY" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            | jq -r '[.deployments[] | select(.name == "parity-poc-repo")] | .[0].url // empty')
 
           if [ -z "$URL" ]; then
-            echo "ERROR: No Ready Preview deployment found for parity-poc-repo"
-            echo "Recent deployments:"
-            vercel ls parity-poc-repo --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null | head -10
+            echo "ERROR: No Ready deployment found for parity-poc-repo"
+            echo "=== All recent parity-poc-repo deployments ==="
+            curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=10" \
+              -H "Authorization: Bearer $VERCEL_TOKEN" \
+              | jq '[.deployments[] | select(.name == "parity-poc-repo")] | .[] | {url, state, target, readyState}'
             exit 1
           fi
 
-          echo "url=$URL" >> "$GITHUB_OUTPUT"
-          echo "Aliasing deployment: $URL"
+          # Vercel API returns URL without https:// prefix
+          FULL_URL="https://$URL"
+          echo "url=$FULL_URL" >> "$GITHUB_OUTPUT"
+          echo "Aliasing deployment: $FULL_URL"
 
       - name: Assign staging aliases
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
+          npm i -g vercel@latest
+
           DEPLOYMENT="${{ steps.deploy.outputs.url }}"
 
           ALIASES=(

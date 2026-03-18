@@ -52,7 +52,7 @@ function EmployerDashboardInner() {
     setLoading(true);
     try {
       const [claimsRes, usersRes] = await Promise.all([
-        fetch(`${API}/claims-history?email=${encodeURIComponent(user.email)}`),
+        fetch(`${API}/api/employer/claims-history?email=${encodeURIComponent(user.email)}`),
         fetch(`${API}/api/auth/users`, { headers: { Authorization: `Bearer ${token}` } }),
       ]);
       const claimsData = await claimsRes.json();
