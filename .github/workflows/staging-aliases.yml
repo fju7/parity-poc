@@ -8,39 +8,34 @@ jobs:
   alias:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Vercel deploy hook for parity-poc
+      - name: Wait for parity-poc-repo Vercel build
         run: |
-          echo "Triggering parity-poc deploy hook..."
-          curl -s -X POST \
-            "https://api.vercel.com/v1/integrations/deploy/prj_reZ8AJpDu9N48j9Oko7JYLhyeR3r/EUKgQXefPO" \
-            | jq . || true
-
-      - name: Wait for Vercel build to complete
-        run: |
-          echo "Waiting 3 minutes for Vercel build..."
-          sleep 180
+          echo "Waiting 2 minutes for Vercel to build parity-poc-repo..."
+          sleep 120
 
       - name: Install Vercel CLI
         run: npm i -g vercel@latest
 
-      - name: Get latest parity-poc staging deployment URL
+      - name: Find latest Ready preview deployment
         id: deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          # List deployments for parity-poc project, find the most recent Ready Preview
-          URL=$(vercel ls parity-poc --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null \
+          # parity-poc-repo auto-builds staging branch as Ready Preview deployments.
+          # parity-poc cancels preview builds, so we use parity-poc-repo instead.
+          # Cross-project aliasing works because both are in the same Vercel team.
+          URL=$(vercel ls parity-poc-repo --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null \
             | grep "Ready" | grep "Preview" | head -1 | awk '{print $3}')
 
           if [ -z "$URL" ]; then
-            echo "No ready preview deployment found for parity-poc"
-            echo "Listing recent deployments for debugging:"
-            vercel ls parity-poc --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null | head -10
+            echo "ERROR: No Ready Preview deployment found for parity-poc-repo"
+            echo "Recent deployments:"
+            vercel ls parity-poc-repo --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null | head -10
             exit 1
           fi
 
           echo "url=$URL" >> "$GITHUB_OUTPUT"
-          echo "Latest parity-poc staging deployment: $URL"
+          echo "Aliasing deployment: $URL"
 
       - name: Assign staging aliases
         env:
