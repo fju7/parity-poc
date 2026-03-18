@@ -66,14 +66,19 @@ router = APIRouter(prefix="/api/broker", tags=["broker"])
 
 class BrokerOnboardRequest(BaseModel):
     company_name: str
-    employee_count_range: str  # "<100", "100-250", "250-500", "500-1000", "1000+"
+    employee_count_range: Optional[str] = None  # "<100", "100-250", "250-500", "500-1000", "1000+"
+    employee_count: Optional[str] = None  # alias accepted from frontend
     industry: str
     state: str
-    carrier: str
+    carrier: Optional[str] = None
     employer_email: Optional[str] = None
     estimated_pepm: Optional[float] = None
     estimated_annual_spend: Optional[float] = None
     renewal_month: Optional[str] = None  # ISO date string, e.g. "2026-01-01"
+
+    @property
+    def resolved_employee_count_range(self) -> str:
+        return self.employee_count_range or self.employee_count or "<100"
 
 
 class NotifyClientRequest(BaseModel):
@@ -794,15 +799,16 @@ async def onboard_client(req: BrokerOnboardRequest, authorization: str = Header(
         .execute()
     )
 
+    ecr = req.resolved_employee_count_range
     link_data = {
         "broker_email": broker_email,
         "employer_email": link_email,
         "status": "onboarded",
         "company_name": req.company_name,
-        "employee_count_range": req.employee_count_range,
+        "employee_count_range": ecr,
         "industry": req.industry,
         "state": req.state,
-        "carrier": req.carrier,
+        "carrier": req.carrier or "",
     }
     if req.renewal_month:
         link_data["renewal_month"] = req.renewal_month
@@ -813,7 +819,7 @@ async def onboard_client(req: BrokerOnboardRequest, authorization: str = Header(
         sb.table("broker_employer_links").insert(link_data).execute()
 
     # Compute PEPM estimate
-    employee_count = _employee_range_midpoint(req.employee_count_range)
+    employee_count = _employee_range_midpoint(ecr)
     pepm = req.estimated_pepm
     if not pepm and req.estimated_annual_spend:
         pepm = round(req.estimated_annual_spend / (employee_count * 12), 2)
@@ -824,7 +830,7 @@ async def onboard_client(req: BrokerOnboardRequest, authorization: str = Header(
         pepm = national.get("employer_single_monthly_pepm", 558)
 
     # Run benchmark
-    size_band = _range_to_size_band(req.employee_count_range)
+    size_band = _range_to_size_band(ecr)
     benchmark_result = _run_benchmark(req.industry, size_band, req.state, pepm)
 
     # Store in broker_client_benchmarks
@@ -836,7 +842,7 @@ async def onboard_client(req: BrokerOnboardRequest, authorization: str = Header(
         "employee_count": employee_count,
         "industry": req.industry,
         "state": req.state,
-        "carrier": req.carrier,
+        "carrier": req.carrier or "",
         "estimated_pepm": pepm,
         "benchmark_result": benchmark_result,
         "share_token": share_token,
