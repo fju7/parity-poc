@@ -675,15 +675,17 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                           {(() => {
                             const cpts = dt.affected_cpts || [];
                             const matched = cpts.find(c => signalScores[c]);
-                            if (!matched) return <span style={{ fontSize: 11, color: "#94A3B8" }}>—</span>;
+                            if (!matched) return <span style={{ fontSize: 11, color: "#94A3B8" }}>{"\u2014"}</span>;
                             const ss = signalScores[matched];
-                            const isFlag = ss.score >= 3.5 && dt.appeal_worthiness === "high";
+                            if (!ss || typeof ss !== "object") return <span style={{ fontSize: 11, color: "#94A3B8" }}>{"\u2014"}</span>;
+                            const scVal = typeof ss.score === "number" ? ss.score : 0;
+                            const isFlag = scVal >= 3.5 && dt.appeal_worthiness === "high";
                             return (
-                              <span title={`${ss.topic_title} (${ss.coverage})`} style={{
+                              <span title={`${String(ss.topic_title || "")} (${String(ss.coverage || "")})`} style={{
                                 fontSize: 11, fontWeight: 600,
-                                color: isFlag ? "#DC2626" : ss.score >= 3.5 ? "#059669" : ss.score >= 2.5 ? "#D97706" : "#64748B",
+                                color: isFlag ? "#DC2626" : scVal >= 3.5 ? "#059669" : scVal >= 2.5 ? "#D97706" : "#64748B",
                               }}>
-                                {ss.score}/5{isFlag && " ⚑"}
+                                {scVal}/5{isFlag && " \u2691"}
                               </span>
                             );
                           })()}
@@ -763,15 +765,15 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                     </span>
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <span style={{ fontSize: 12, fontWeight: 600, color: "#059669" }}>Signal: {f.signal.score}/5.0</span>
-                    <a href={`/signal/${f.signal.topic_slug}`} target="_blank" rel="noopener noreferrer"
+                    <span style={{ fontSize: 12, fontWeight: 600, color: "#059669" }}>Signal: {typeof f.signal.score === "number" ? f.signal.score : "\u2014"}/5.0</span>
+                    <a href={`/signal/${String(f.signal.topic_slug || "")}`} target="_blank" rel="noopener noreferrer"
                       style={{ fontSize: 11, marginLeft: 8, color: TEAL }}>
                       View Evidence →
                     </a>
                   </div>
                 </div>
                 <div style={{ fontSize: 12, color: SLATE, marginTop: 4 }}>
-                  CPTs: {f.cpts.join(", ")} · Topic: {f.signal.topic_title}
+                  CPTs: {f.cpts.join(", ")} · Topic: {String(f.signal.topic_title || "")}
                 </div>
               </div>
             ))}
@@ -790,19 +792,22 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {Object.entries(signalScores).map(([cpt, ss]) => {
-              if (!ss) return null;
+              if (!ss || typeof ss !== "object") return null;
+              const slug = String(ss.topic_slug || "");
+              const title = String(ss.topic_title || "View");
+              const score = typeof ss.score === "number" ? ss.score : null;
               return (
-                <a key={cpt} href={`/signal/${ss.topic_slug || ""}`} target="_blank" rel="noopener noreferrer"
+                <a key={cpt} href={`/signal/${slug}`} target="_blank" rel="noopener noreferrer"
                   style={{
                     display: "inline-flex", alignItems: "center", gap: 6,
                     padding: "6px 12px", borderRadius: 8, fontSize: 12, textDecoration: "none",
                     background: "#fff", border: "1px solid #C7D2FE", color: "#3730A3",
                   }}>
-                  <span style={{ fontWeight: 700 }}>CPT {cpt}</span>
-                  <span style={{ color: (ss.score || 0) >= 4.0 ? "#059669" : (ss.score || 0) >= 3.0 ? "#D97706" : "#64748B", fontWeight: 600 }}>
-                    {ss.score != null ? ss.score : "—"}/5.0
+                  <span style={{ fontWeight: 700 }}>CPT {String(cpt)}</span>
+                  <span style={{ color: (score || 0) >= 4.0 ? "#059669" : (score || 0) >= 3.0 ? "#D97706" : "#64748B", fontWeight: 600 }}>
+                    {score != null ? score : "\u2014"}/5.0
                   </span>
-                  <span style={{ fontSize: 11, color: "#6366F1" }}>{ss.topic_title || "View"} →</span>
+                  <span style={{ fontSize: 11, color: "#6366F1" }}>{title} \u2192</span>
                 </a>
               );
             })}
