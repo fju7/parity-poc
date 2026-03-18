@@ -8,32 +8,45 @@ jobs:
   alias:
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for Vercel deployment
-        run: sleep 90
+      - name: Trigger Vercel deploy hook for parity-poc
+        run: |
+          echo "Triggering parity-poc deploy hook..."
+          curl -s -X POST \
+            "https://api.vercel.com/v1/integrations/deploy/prj_reZ8AJpDu9N48j9Oko7JYLhyeR3r/EUKgQXefPO" \
+            | jq . || true
+
+      - name: Wait for Vercel build to complete
+        run: |
+          echo "Waiting 3 minutes for Vercel build..."
+          sleep 180
 
       - name: Install Vercel CLI
         run: npm i -g vercel@latest
 
-      - name: Get latest staging deployment URL
+      - name: Get latest parity-poc staging deployment URL
         id: deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          # List deployments for the project, grab the most recent preview one
-          URL=$(vercel ls parity-poc-repo --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null \
-            | grep "Preview" | head -1 | awk '{print $3}')
+          # List deployments for parity-poc project, find the most recent Ready Preview
+          URL=$(vercel ls parity-poc --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null \
+            | grep "Ready" | grep "Preview" | head -1 | awk '{print $3}')
+
+          if [ -z "$URL" ]; then
+            echo "No ready preview deployment found for parity-poc"
+            echo "Listing recent deployments for debugging:"
+            vercel ls parity-poc --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null | head -10
+            exit 1
+          fi
+
           echo "url=$URL" >> "$GITHUB_OUTPUT"
-          echo "Latest staging deployment: $URL"
+          echo "Latest parity-poc staging deployment: $URL"
 
       - name: Assign staging aliases
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           DEPLOYMENT="${{ steps.deploy.outputs.url }}"
-          if [ -z "$DEPLOYMENT" ]; then
-            echo "No preview deployment found, skipping aliases"
-            exit 0
-          fi
 
           ALIASES=(
             "staging.civicscale.ai"
