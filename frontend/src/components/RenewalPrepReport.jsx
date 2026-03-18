@@ -30,6 +30,7 @@ export default function RenewalPrepReport() {
   const [scorecardUploading, setScorecardUploading] = useState(false);
   const [scorecardResult, setScorecardResult] = useState(null);
   const [scorecardError, setScorecardError] = useState("");
+  const [signalTPs, setSignalTPs] = useState([]);
 
   const handleClaimsUpload = async () => {
     if (!claimsFile || claimsZip.length !== 5 || !data?.client?.employer_email) return;
@@ -82,6 +83,33 @@ export default function RenewalPrepReport() {
       setLoading(false);
     })();
   }, [companySlug, token]);
+
+  // Signal evidence talking points (must be before early returns per Rules of Hooks)
+  useEffect(() => {
+    if (!data) return;
+    const { claims } = data;
+    if (!claims?.available || !claims?.flagged_cpts) return;
+    const cpts = claims.flagged_cpts.slice(0, 5);
+    const seen = new Set();
+    const results = [];
+    (async () => {
+      for (const c of cpts) {
+        const cpt = c.cpt_code || c;
+        if (seen.has(cpt)) continue;
+        seen.add(cpt);
+        try {
+          const res = await fetch(`${API}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(cpt)}`);
+          if (res.ok) {
+            const d = await res.json();
+            if (d.coverage !== "none" && d.score >= 3.5) {
+              results.push(d);
+            }
+          }
+        } catch { /* non-fatal */ }
+      }
+      setSignalTPs(results);
+    })();
+  }, [data]);
 
   if (loading) {
     return (
@@ -140,33 +168,6 @@ export default function RenewalPrepReport() {
     const improvementCount = scorecard.scored_criteria ? scorecard.scored_criteria.filter(c => c.score < 60).length : 0;
     talkingPoints.push(`Plan design analysis identified ${improvementCount || "several"} improvement opportunities. These are common findings in plans due for renewal review and represent negotiable terms your advisor can address.`);
   }
-
-  // Signal evidence talking points
-  const [signalTPs, setSignalTPs] = useState([]);
-  useEffect(() => {
-    if (!claims.available || !claims.flagged_cpts) return;
-    const cpts = claims.flagged_cpts.slice(0, 5);
-    async function fetch_signal() {
-      const results = [];
-      const seen = new Set();
-      for (const c of cpts) {
-        const cpt = c.cpt_code || c;
-        if (seen.has(cpt)) continue;
-        seen.add(cpt);
-        try {
-          const res = await fetch(`${API}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(cpt)}`);
-          if (res.ok) {
-            const d = await res.json();
-            if (d.coverage !== "none" && d.score >= 3.5) {
-              results.push(d);
-            }
-          }
-        } catch { /* non-fatal */ }
-      }
-      setSignalTPs(results);
-    }
-    fetch_signal();
-  }, [claims]);
 
   const pctColor = percentile == null ? "#64748b" : percentile > 75 ? "#EF4444" : percentile > 50 ? "#f59e0b" : "#22c55e";
 
