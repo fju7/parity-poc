@@ -346,7 +346,7 @@ function BrokerDashboardInner() {
 
       setOnboardResult(data);
       fetchClients();
-    } catch (err) { setAddError(err.message); }
+    } catch (err) { setAddError(err.message || "Failed to add client. Please try again."); }
     setAddLoading(false);
   };
 
