@@ -2457,7 +2457,12 @@ async def generate_caa_letter(employer_email: str, authorization: str = Header(N
     # Compute plan year from renewal_month
     now = datetime.now(timezone.utc)
     if renewal_month:
-        plan_year = f"{now.year - 1}-{now.year}" if renewal_month > now.month else f"{now.year}-{now.year + 1}"
+        try:
+            # renewal_month is an ISO date string like "2026-04-01"
+            rm_date = datetime.fromisoformat(str(renewal_month).replace("Z", "+00:00"))
+            plan_year = f"{now.year - 1}-{now.year}" if rm_date.month > now.month else f"{now.year}-{now.year + 1}"
+        except (ValueError, TypeError):
+            plan_year = str(now.year)
     else:
         plan_year = str(now.year)
 
