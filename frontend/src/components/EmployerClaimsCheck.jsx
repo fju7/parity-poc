@@ -35,11 +35,14 @@ function SignalContextCard({ cpt }) {
       </button>
       {open && data && (
         <div style={{ marginTop: 8, background: "#eef2ff", border: "1px solid #c7d2fe", borderRadius: 10, padding: 14, fontSize: 12 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, cursor: "pointer" }} onClick={() => setOpen(false)}>
             <strong style={{ color: "#1e293b" }}>{data.topic_title}</strong>
-            <span style={{ fontWeight: 700, color: data.score >= 3.5 ? "#059669" : data.score >= 2.5 ? "#d97706" : "#64748b" }}>
-              {data.score}/5.0
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontWeight: 700, color: data.score >= 3.5 ? "#059669" : data.score >= 2.5 ? "#d97706" : "#64748b" }}>
+                {data.score}/5.0
+              </span>
+              <span style={{ color: "#94a3b8", fontSize: 14, lineHeight: 1 }} title="Collapse">&times;</span>
+            </div>
           </div>
           {data.key_claims?.slice(0, 3).map((c, i) => (
             <div key={i} style={{ marginBottom: 6, paddingLeft: 10, borderLeft: "2px solid #a5b4fc" }}>
@@ -51,7 +54,7 @@ function SignalContextCard({ cpt }) {
               )}
             </div>
           ))}
-          <a href={`/signal/${data.topic_slug}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#0d7377", marginTop: 4, display: "inline-block" }}>
+          <a href={`https://signal.civicscale.ai/${data.topic_slug}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#0d7377", marginTop: 4, display: "inline-block" }}>
             View full evidence dashboard →
           </a>
         </div>
@@ -99,7 +102,7 @@ function SignalActionPlanCards({ lineItems }) {
               <strong>Clinical appropriateness question:</strong> Ask your plan administrator whether CPT {c.cpt} was denied on clinical grounds.
               Signal Intelligence rates the supporting evidence at <strong>{c.score}/5.0</strong>.
             </p>
-            <a href={`/signal/${c.topic_slug}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#818cf8", marginTop: 4, display: "inline-block" }}>
+            <a href={`https://signal.civicscale.ai/${c.topic_slug}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#818cf8", marginTop: 4, display: "inline-block" }}>
               View {c.topic_title} evidence →
             </a>
           </div>

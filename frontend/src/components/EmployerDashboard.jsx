@@ -212,13 +212,13 @@ function EmployerDashboardInner() {
                       {new Date(c.created_at).toLocaleDateString()}
                     </td>
                     <td style={{ padding: "12px 16px", fontSize: 13, color: "rgba(255,255,255,0.7)" }}>
-                      {c.file_name || "\u2014"}
+                      {c.filename_original || "\u2014"}
                     </td>
                     <td style={{ padding: "12px 16px", fontSize: 13, color: "rgba(255,255,255,0.7)", textAlign: "right" }}>
-                      {c.claim_count || "\u2014"}
+                      {c.total_claims || "\u2014"}
                     </td>
                     <td style={{ padding: "12px 16px", fontSize: 13, color: "#0d9488", textAlign: "right", fontWeight: 600 }}>
-                      {c.total_excess != null ? fmt$(c.total_excess) : "\u2014"}
+                      {c.total_excess_2x != null ? fmt$(c.total_excess_2x) : "\u2014"}
                     </td>
                   </tr>
                 ))}

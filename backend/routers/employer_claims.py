@@ -1464,7 +1464,7 @@ def _safe_float(val) -> float:
 async def employer_claims_history(email: str = Query(...)):
     sb = _get_supabase()
     result = sb.table("employer_claims_uploads").select(
-        "id, created_at, file_name, claim_count, total_excess"
+        "id, created_at, filename_original, total_claims, total_excess_2x"
     ).eq("email", email.strip().lower()).order("created_at", desc=True).limit(10).execute()
     return {"uploads": result.data or []}
 

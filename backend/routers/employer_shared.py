@@ -152,21 +152,21 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
 EMPLOYER_PRICE_TIERS = {
     "starter": {
         "stripe_price_id": os.environ.get("STRIPE_PRICE_EMPLOYER_STARTER", ""),
-        "price_monthly": 149,
+        "price_monthly": 99,
         "label": "Starter",
         "max_annual_excess": 200_000,
         "description": "Under $200K identified annual excess",
     },
     "growth": {
         "stripe_price_id": os.environ.get("STRIPE_PRICE_EMPLOYER_GROWTH", ""),
-        "price_monthly": 349,
+        "price_monthly": 99,
         "label": "Growth",
         "max_annual_excess": 750_000,
         "description": "$200K–$750K identified annual excess",
     },
     "scale": {
         "stripe_price_id": os.environ.get("STRIPE_PRICE_EMPLOYER_SCALE", ""),
-        "price_monthly": 699,
+        "price_monthly": 99,
         "label": "Scale",
         "max_annual_excess": None,  # unlimited
         "description": "Over $750K identified annual excess",
