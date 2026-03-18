@@ -67,13 +67,20 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
   const [appealGenerating, setAppealGenerating] = useState(null); // key of denial being generated
   const [signalScores, setSignalScores] = useState({}); // {cpt_code: {score, topic_title, topic_slug, coverage}}
 
-  // Fetch Signal Intelligence scores for all CPT codes in denials
+  // Fetch Signal Intelligence scores for CPT codes in denials + flagged line items
   useEffect(() => {
     const allCpts = new Set();
     for (const ar of analysisResults) {
+      // CPTs from denial patterns
       for (const dt of ar.denial_intel?.denial_types || []) {
         for (const cpt of dt.affected_cpts || []) {
           allCpts.add(cpt);
+        }
+      }
+      // CPTs from flagged line items (underpaid/denied/severe)
+      for (const li of ar.result?.line_items || []) {
+        if (li.cpt_code && (li.flag === "DENIED" || li.flag === "UNDERPAID" || li.flag === "SEVERE")) {
+          allCpts.add(li.cpt_code);
         }
       }
     }
@@ -771,6 +778,34 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           </div>
         );
       })()}
+
+      {/* === 4c. Signal Intelligence Summary (shows for any matched CPTs) === */}
+      {Object.keys(signalScores).length > 0 && (
+        <div style={{ ...sectionStyle, background: "#EEF2FF", borderRadius: 12, padding: 20, border: "1px solid #C7D2FE" }}>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: "#3730A3", margin: "0 0 8px" }}>
+            Signal Intelligence — Clinical Evidence Summary
+          </h3>
+          <p style={{ fontSize: 12, color: "#4338CA", marginBottom: 12 }}>
+            Signal has scored peer-reviewed clinical evidence for {Object.keys(signalScores).length} CPT code{Object.keys(signalScores).length > 1 ? "s" : ""} in this analysis.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {Object.entries(signalScores).map(([cpt, ss]) => (
+              <a key={cpt} href={`/signal/${ss.topic_slug}`} target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 6,
+                  padding: "6px 12px", borderRadius: 8, fontSize: 12, textDecoration: "none",
+                  background: "#fff", border: "1px solid #C7D2FE", color: "#3730A3",
+                }}>
+                <span style={{ fontWeight: 700 }}>CPT {cpt}</span>
+                <span style={{ color: ss.score >= 4.0 ? "#059669" : ss.score >= 3.0 ? "#D97706" : "#64748B", fontWeight: 600 }}>
+                  {ss.score}/5.0
+                </span>
+                <span style={{ fontSize: 11, color: "#6366F1" }}>{ss.topic_title} →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* === 5. Revenue Gap Estimate === */}
       <div style={sectionStyle}>
