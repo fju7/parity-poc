@@ -7,16 +7,16 @@ export default function ProviderLoginPage() {
   const navigate = useNavigate();
   const { login, isAuthenticated, company } = useAuth();
 
-  if (isAuthenticated && company?.type === "provider") {
-    return <Navigate to="/provider/dashboard" replace />;
-  }
-
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [step, setStep] = useState("email");
   const [sending, setSending] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+
+  if (isAuthenticated && company?.type === "provider") {
+    return <Navigate to="/provider/dashboard" replace />;
+  }
 
   const handleSendOtp = async () => {
     if (!email.includes("@")) { setErrorMsg("Enter a valid email address."); return; }

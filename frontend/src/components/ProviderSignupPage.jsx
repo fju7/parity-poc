@@ -7,10 +7,6 @@ export default function ProviderSignupPage() {
   const navigate = useNavigate();
   const { login, isAuthenticated, company } = useAuth();
 
-  if (isAuthenticated && company?.type === "provider") {
-    return <Navigate to="/provider/dashboard" replace />;
-  }
-
   const [step, setStep] = useState("email");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -20,6 +16,10 @@ export default function ProviderSignupPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [fullName, setFullName] = useState("");
   const [practiceName, setPracticeName] = useState("");
+
+  if (isAuthenticated && company?.type === "provider") {
+    return <Navigate to="/provider/dashboard" replace />;
+  }
 
   const handleSendOtp = async () => {
     if (!email.includes("@")) { setErrorMsg("Enter a valid email address."); return; }

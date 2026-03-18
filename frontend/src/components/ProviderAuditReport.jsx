@@ -291,25 +291,37 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
             )}
 
             {/* Signal Intelligence evidence */}
-            {appealModal.signal_evidence?.challenging_evidence?.length > 0 && (
-              <div style={{ marginBottom: 16, padding: 12, background: "#EEF2FF", borderRadius: 8, fontSize: 12, borderLeft: "3px solid #6366F1" }}>
-                <strong style={{ color: "#1B3A5C" }}>Signal Intelligence — {appealModal.signal_evidence.topic_title}</strong>
-                <span style={{
-                  marginLeft: 8, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600,
-                  background: appealModal.signal_evidence.appeal_strength === "strong" ? "#ECFDF5" : appealModal.signal_evidence.appeal_strength === "moderate" ? "#FFFBEB" : "#F3F4F6",
-                  color: appealModal.signal_evidence.appeal_strength === "strong" ? "#059669" : appealModal.signal_evidence.appeal_strength === "moderate" ? "#D97706" : "#64748B",
-                }}>
-                  {appealModal.signal_evidence.appeal_strength} evidence
-                </span>
-                <ul style={{ margin: "8px 0 0 16px", padding: 0 }}>
-                  {appealModal.signal_evidence.challenging_evidence.slice(0, 3).map((ev, i) => (
-                    <li key={i} style={{ color: "#475569", marginBottom: 4 }}>
-                      <span style={{ fontWeight: 600 }}>{ev.score}/5.0</span> — {ev.claim_text}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {(() => {
+              try {
+                const se = appealModal?.signal_evidence;
+                if (!se || typeof se !== "object") return null;
+                const evidence = Array.isArray(se?.challenging_evidence) ? se.challenging_evidence : [];
+                if (evidence.length === 0) return null;
+                const topicTitle = String(se?.topic_title || "");
+                const strength = String(se?.appeal_strength || "");
+                return (
+                  <div style={{ marginBottom: 16, padding: 12, background: "#EEF2FF", borderRadius: 8, fontSize: 12, borderLeft: "3px solid #6366F1" }}>
+                    <strong style={{ color: "#1B3A5C" }}>Signal Intelligence{topicTitle ? ` — ${topicTitle}` : ""}</strong>
+                    {strength && (
+                      <span style={{
+                        marginLeft: 8, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600,
+                        background: strength === "strong" ? "#ECFDF5" : strength === "moderate" ? "#FFFBEB" : "#F3F4F6",
+                        color: strength === "strong" ? "#059669" : strength === "moderate" ? "#D97706" : "#64748B",
+                      }}>
+                        {strength} evidence
+                      </span>
+                    )}
+                    <ul style={{ margin: "8px 0 0 16px", padding: 0 }}>
+                      {evidence.slice(0, 3).map((ev, i) => (
+                        <li key={i} style={{ color: "#475569", marginBottom: 4 }}>
+                          <span style={{ fontWeight: 600 }}>{Number(ev?.score) || 0}/5.0</span> — {String(ev?.claim_text || "")}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              } catch { return null; }
+            })()}
 
             {/* Editable letter text */}
             <textarea
