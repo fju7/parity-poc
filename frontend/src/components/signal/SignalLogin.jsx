@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
+import { API_BASE } from "../../lib/apiBase";
 import EmailOtpInput from "../EmailOtpInput.jsx";
 
 export default function SignalLogin() {
@@ -174,6 +175,18 @@ export default function SignalLogin() {
 
   // ── Email helpers ──
 
+  async function sendSignalOtp(emailAddr) {
+    const res = await fetch(`${API_BASE}/api/signal/auth/send-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: emailAddr.trim().toLowerCase() }),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.detail || "Failed to send code");
+    }
+  }
+
   async function handleSendEmailCode() {
     if (!email || !email.includes("@")) {
       setError("Please enter a valid email address.");
@@ -183,17 +196,15 @@ export default function SignalLogin() {
     setSending(true);
     setError(null);
 
-    const { error: otpError } = await supabase.auth.signInWithOtp({
-      email,
-    });
-
-    setSending(false);
-
-    if (otpError) {
-      setError(otpError.message);
+    try {
+      await sendSignalOtp(email);
+    } catch (err) {
+      setError(err.message);
+      setSending(false);
       return;
     }
 
+    setSending(false);
     setStep("code");
   }
 
@@ -403,6 +414,7 @@ export default function SignalLogin() {
                 setStep("input");
                 setError(null);
               }}
+              onResend={sendSignalOtp}
             />
           )}
         </div>

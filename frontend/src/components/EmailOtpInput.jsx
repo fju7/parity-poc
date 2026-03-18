@@ -9,7 +9,7 @@ import { supabase } from "../lib/supabase.js";
  *   email    — the email address the code was sent to
  *   onBack   — callback to return to the email input step
  */
-export default function EmailOtpInput({ email, onBack }) {
+export default function EmailOtpInput({ email, onBack, onResend }) {
   const [otp, setOtp] = useState(["", "", "", "", "", "", "", ""]);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
@@ -94,17 +94,24 @@ export default function EmailOtpInput({ email, onBack }) {
     setSending(true);
     setError(null);
 
-    const { error: otpError } = await supabase.auth.signInWithOtp({
-      email,
-      // No emailRedirectTo — this makes Supabase send a code, not a link
-    });
-
-    setSending(false);
-
-    if (otpError) {
-      setError(otpError.message);
+    try {
+      if (onResend) {
+        // Custom resend handler (e.g. Signal backend OTP)
+        await onResend(email);
+      } else {
+        // Default: Supabase native OTP
+        const { error: otpError } = await supabase.auth.signInWithOtp({
+          email,
+        });
+        if (otpError) throw new Error(otpError.message);
+      }
+    } catch (err) {
+      setError(err.message);
+      setSending(false);
       return;
     }
+
+    setSending(false);
 
     setResendCountdown(60);
     setOtp(["", "", "", "", "", "", "", ""]);
