@@ -48,6 +48,19 @@ import RenewalPrepReport from './components/RenewalPrepReport.jsx'
 import BrokerDemoPage from './components/BrokerDemoPage.jsx'
 import EmployerSharedReport from './components/EmployerSharedReport.jsx'
 
+// Build version — injected by Vite at build time
+window.__PARITY_VERSION__ = {
+  commit: typeof __GIT_COMMIT__ !== 'undefined' ? __GIT_COMMIT__ : 'dev',
+  built: typeof __BUILD_TIME__ !== 'undefined' ? __BUILD_TIME__ : 'dev',
+};
+// Inject meta tag for easy inspection (view-source or document.querySelector)
+(() => {
+  const meta = document.createElement('meta');
+  meta.name = 'parity-version';
+  meta.content = `${window.__PARITY_VERSION__.commit} (${window.__PARITY_VERSION__.built})`;
+  document.head.appendChild(meta);
+})();
+
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => { window.scrollTo(0, 0) }, [pathname])

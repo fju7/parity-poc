@@ -1,0 +1,70 @@
+name: Update staging aliases
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  alias:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for parity-poc-repo Vercel build
+        run: |
+          echo "Waiting 2 minutes for Vercel to build parity-poc-repo..."
+          sleep 120
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+
+      - name: Find latest Ready preview deployment
+        id: deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # parity-poc-repo auto-builds staging branch as Ready Preview deployments.
+          # parity-poc cancels preview builds, so we use parity-poc-repo instead.
+          # Cross-project aliasing works because both are in the same Vercel team.
+          URL=$(vercel ls parity-poc-repo --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null \
+            | grep "Ready" | grep "Preview" | head -1 | awk '{print $3}')
+
+          if [ -z "$URL" ]; then
+            echo "ERROR: No Ready Preview deployment found for parity-poc-repo"
+            echo "Recent deployments:"
+            vercel ls parity-poc-repo --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null | head -10
+            exit 1
+          fi
+
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "Aliasing deployment: $URL"
+
+      - name: Assign staging aliases
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          DEPLOYMENT="${{ steps.deploy.outputs.url }}"
+
+          ALIASES=(
+            "staging.civicscale.ai"
+            "staging-signal.civicscale.ai"
+            "staging-health.civicscale.ai"
+            "staging-employer.civicscale.ai"
+            "staging-broker.civicscale.ai"
+            "staging-provider.civicscale.ai"
+          )
+
+          FAILED=0
+          for ALIAS in "${ALIASES[@]}"; do
+            echo -n "  $ALIAS ... "
+            if vercel alias "$DEPLOYMENT" "$ALIAS" --token "$VERCEL_TOKEN" --scope fju7s-projects 2>&1; then
+              echo "OK"
+            else
+              echo "FAILED"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          if [ $FAILED -gt 0 ]; then
+            echo "$FAILED alias(es) failed"
+            exit 1
+          fi
+          echo "All 6 staging aliases updated."
