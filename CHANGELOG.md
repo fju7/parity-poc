@@ -481,3 +481,4 @@ Audited all reference data tables in Supabase:
 - `backend/migrations/041_data_versions.sql` — new migration
 - `backend/scripts/load_nadac.py` — updated NADAC API UUID + date filter
 # Deployment automation test Wed Mar 18 10:41:53 EDT 2026
+# Test automatic Vercel build Wed Mar 18 10:59:42 EDT 2026
