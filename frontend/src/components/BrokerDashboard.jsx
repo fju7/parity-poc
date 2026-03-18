@@ -150,31 +150,38 @@ function BrokerDashboardInner() {
   useEffect(() => {
     if (!token) return;
     const params = new URLSearchParams(window.location.search);
-    if (params.get("upgraded") === "true") {
-      window.history.replaceState({}, "", "/broker/dashboard");
-      let attempts = 0;
-      const poll = setInterval(async () => {
-        attempts++;
-        try {
-          const res = await fetch(`${API}/api/broker/plan`, { headers: authHeaders });
-          const data = await res.json();
-          if (data.plan === "pro" || data.plan === "pro_cancelling") {
-            setPlanInfo(data);
-            setUpgradeMessage("Welcome to Broker Pro! Your account has been upgraded.");
-            setUpgradeToast(true);
-            setTimeout(() => setUpgradeToast(false), 5000);
-            clearInterval(poll);
-          } else if (attempts >= 10) {
-            setUpgradeMessage("Upgrade processing \u2014 your plan will update shortly. Refresh in a moment if it hasn\u2019t changed.");
-            setUpgradeToast(true);
-            setTimeout(() => setUpgradeToast(false), 8000);
-            clearInterval(poll);
-          }
-        } catch {
+    if (params.get("upgraded") !== "true") return;
+    window.history.replaceState({}, "", "/broker/dashboard");
+
+    let attempts = 0;
+    let stopped = false;
+    const poll = setInterval(async () => {
+      if (stopped) return;
+      attempts++;
+      try {
+        const res = await fetch(`${API}/api/broker/plan`, { headers: authHeaders });
+        const data = await res.json();
+        if (data.plan === "pro" || data.plan === "pro_cancelling") {
+          setPlanInfo(data);
+          setUpgradeMessage("Welcome to Broker Pro! Your account has been upgraded.");
+          setUpgradeToast(true);
+          setTimeout(() => setUpgradeToast(false), 5000);
           clearInterval(poll);
+          stopped = true;
+        } else if (attempts >= 12) {
+          setUpgradeMessage("Upgrade processing \u2014 your plan will update shortly. Refresh in a moment if it hasn\u2019t changed.");
+          setUpgradeToast(true);
+          setTimeout(() => setUpgradeToast(false), 8000);
+          clearInterval(poll);
+          stopped = true;
         }
-      }, 2000);
-    }
+      } catch {
+        clearInterval(poll);
+        stopped = true;
+      }
+    }, 5000);
+
+    return () => { clearInterval(poll); stopped = true; };
   }, [token]);
 
   // Fetch clients + portfolio + plan
