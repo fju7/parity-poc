@@ -687,6 +687,26 @@ Next migration number: 042
 - Never hardcode a URL, environment variable value, or credential in source code. Always use environment variables. If an environment variable is missing from Render, note it explicitly and ask Fred to add it rather than using a hardcoded fallback.
 - When the same error occurs twice, do not apply the same fix twice. Escalate to Fred with a description of what was tried and what the result was.
 
+## Common Mistakes to Avoid
+
+- NEVER report a fix as done without verifying the source file actually
+  changed. After any edit, always run grep or cat to confirm the change
+  is in the file before committing.
+- frontend/dist/ is NOT committed to git — Vercel builds from source
+  automatically. Never run `git add -f frontend/dist/` or commit dist
+  files. The .gitignore already excludes frontend/dist/.
+- Always verify fixes are in the actual source files, not in a worktree
+  or temporary location. Check `git diff` before committing.
+- After fixing a frontend bug, verify with:
+  `grep -n "[the fixed string]" [the file path]`
+  before committing.
+- The /api/version endpoint on the backend confirms what code is
+  deployed. Use `curl <backend-url>/api/version` to verify backend
+  deployments match the expected commit hash.
+- To verify frontend deployment: check the Network tab in browser
+  DevTools for the actual API calls being made, or check the
+  `<meta name="parity-version">` tag in the page source.
+
 ## Development Workflow — Staging First (Effective Session N onward)
 
 ALL development happens on the staging branch. Never commit directly to main.
