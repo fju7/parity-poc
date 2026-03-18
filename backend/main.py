@@ -1,5 +1,7 @@
 import os
+import subprocess
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -108,3 +110,39 @@ app.include_router(platform_cases_router)
 @app.get("/")
 def root():
     return {"status": "ok"}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/version — deployment version info for debugging
+# ---------------------------------------------------------------------------
+
+def _get_git_info():
+    """Read git commit and branch at startup. Falls back to env vars for Render."""
+    commit = os.environ.get("RENDER_GIT_COMMIT", "unknown")
+    branch = os.environ.get("RENDER_GIT_BRANCH", "unknown")
+    try:
+        if commit == "unknown":
+            commit = subprocess.check_output(
+                ["git", "rev-parse", "--short", "HEAD"],
+                stderr=subprocess.DEVNULL, text=True
+            ).strip()
+        if branch == "unknown":
+            branch = subprocess.check_output(
+                ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                stderr=subprocess.DEVNULL, text=True
+            ).strip()
+    except Exception:
+        pass
+    return commit, branch
+
+_GIT_COMMIT, _GIT_BRANCH = _get_git_info()
+_DEPLOYED_AT = datetime.now(timezone.utc).isoformat()
+
+
+@app.get("/api/version")
+def version():
+    return {
+        "version": _GIT_COMMIT,
+        "branch": _GIT_BRANCH,
+        "deployed_at": _DEPLOYED_AT,
+    }

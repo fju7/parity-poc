@@ -1,0 +1,62 @@
+name: Update staging aliases
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  alias:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Vercel deployment
+        run: sleep 90
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+
+      - name: Get latest staging deployment URL
+        id: deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # List deployments for the project, grab the most recent preview one
+          URL=$(vercel ls parity-poc-repo --token "$VERCEL_TOKEN" --scope fju7s-projects 2>/dev/null \
+            | grep "Preview" | head -1 | awk '{print $3}')
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "Latest staging deployment: $URL"
+
+      - name: Assign staging aliases
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          DEPLOYMENT="${{ steps.deploy.outputs.url }}"
+          if [ -z "$DEPLOYMENT" ]; then
+            echo "No preview deployment found, skipping aliases"
+            exit 0
+          fi
+
+          ALIASES=(
+            "staging.civicscale.ai"
+            "staging-signal.civicscale.ai"
+            "staging-health.civicscale.ai"
+            "staging-employer.civicscale.ai"
+            "staging-broker.civicscale.ai"
+            "staging-provider.civicscale.ai"
+          )
+
+          FAILED=0
+          for ALIAS in "${ALIASES[@]}"; do
+            echo -n "  $ALIAS ... "
+            if vercel alias "$DEPLOYMENT" "$ALIAS" --token "$VERCEL_TOKEN" --scope fju7s-projects 2>&1; then
+              echo "OK"
+            else
+              echo "FAILED"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          if [ $FAILED -gt 0 ]; then
+            echo "$FAILED alias(es) failed"
+            exit 1
+          fi
+          echo "All 6 staging aliases updated."
