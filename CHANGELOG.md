@@ -480,3 +480,4 @@ Audited all reference data tables in Supabase:
 - `CHANGELOG.md` — created, updated with NADAC fix
 - `backend/migrations/041_data_versions.sql` — new migration
 - `backend/scripts/load_nadac.py` — updated NADAC API UUID + date filter
+# Deployment automation test Wed Mar 18 10:41:53 EDT 2026
