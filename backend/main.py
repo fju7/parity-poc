@@ -3,8 +3,9 @@ import subprocess
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from routers.benchmark import load_data, router as benchmark_router
 from routers.ai_parse import router as ai_parse_router
@@ -83,6 +84,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Global exception handler — ensures unhandled 500 errors return a proper
+# JSON response so the CORS middleware can add Access-Control-Allow-Origin
+# headers.  Without this, bare 500s bypass CORS and the browser reports a
+# misleading "CORS error" instead of the real server error.
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    import traceback
+    traceback.print_exc()
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal server error"},
+    )
+
 
 app.include_router(benchmark_router)
 app.include_router(ai_parse_router)

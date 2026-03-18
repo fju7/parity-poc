@@ -150,31 +150,38 @@ function BrokerDashboardInner() {
   useEffect(() => {
     if (!token) return;
     const params = new URLSearchParams(window.location.search);
-    if (params.get("upgraded") === "true") {
-      window.history.replaceState({}, "", "/broker/dashboard");
-      let attempts = 0;
-      const poll = setInterval(async () => {
-        attempts++;
-        try {
-          const res = await fetch(`${API}/api/broker/plan`, { headers: authHeaders });
-          const data = await res.json();
-          if (data.plan === "pro" || data.plan === "pro_cancelling") {
-            setPlanInfo(data);
-            setUpgradeMessage("Welcome to Broker Pro! Your account has been upgraded.");
-            setUpgradeToast(true);
-            setTimeout(() => setUpgradeToast(false), 5000);
-            clearInterval(poll);
-          } else if (attempts >= 10) {
-            setUpgradeMessage("Upgrade processing \u2014 your plan will update shortly. Refresh in a moment if it hasn\u2019t changed.");
-            setUpgradeToast(true);
-            setTimeout(() => setUpgradeToast(false), 8000);
-            clearInterval(poll);
-          }
-        } catch {
+    if (params.get("upgraded") !== "true") return;
+    window.history.replaceState({}, "", "/broker/dashboard");
+
+    let attempts = 0;
+    let stopped = false;
+    const poll = setInterval(async () => {
+      if (stopped) return;
+      attempts++;
+      try {
+        const res = await fetch(`${API}/api/broker/plan`, { headers: authHeaders });
+        const data = await res.json();
+        if (data.plan === "pro" || data.plan === "pro_cancelling") {
+          setPlanInfo(data);
+          setUpgradeMessage("Welcome to Broker Pro! Your account has been upgraded.");
+          setUpgradeToast(true);
+          setTimeout(() => setUpgradeToast(false), 5000);
           clearInterval(poll);
+          stopped = true;
+        } else if (attempts >= 12) {
+          setUpgradeMessage("Upgrade processing \u2014 your plan will update shortly. Refresh in a moment if it hasn\u2019t changed.");
+          setUpgradeToast(true);
+          setTimeout(() => setUpgradeToast(false), 8000);
+          clearInterval(poll);
+          stopped = true;
         }
-      }, 2000);
-    }
+      } catch {
+        clearInterval(poll);
+        stopped = true;
+      }
+    }, 5000);
+
+    return () => { clearInterval(poll); stopped = true; };
   }, [token]);
 
   // Fetch clients + portfolio + plan
@@ -346,7 +353,7 @@ function BrokerDashboardInner() {
 
       setOnboardResult(data);
       fetchClients();
-    } catch (err) { setAddError(err.message); }
+    } catch (err) { setAddError(err.message || "Failed to add client. Please try again."); }
     setAddLoading(false);
   };
 
@@ -553,7 +560,10 @@ function BrokerDashboardInner() {
     let av = a[sortColumn], bv = b[sortColumn];
     if (av == null) av = sortDir === "asc" ? Infinity : -Infinity;
     if (bv == null) bv = sortDir === "asc" ? Infinity : -Infinity;
-    if (typeof av === "string") return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    if (typeof av === "string" || typeof bv === "string") {
+      const sa = String(av ?? ""), sb = String(bv ?? "");
+      return sortDir === "asc" ? sa.localeCompare(sb) : sb.localeCompare(sa);
+    }
     return sortDir === "asc" ? av - bv : bv - av;
   });
 
@@ -1680,12 +1690,12 @@ function BrokerDashboardInner() {
                         )}
                       </>
                     )}
-                    {clientSummary.subscription.status === "active" && (
+                    {clientSummary.subscription?.status === "active" && (
                       <span style={{ padding: "4px 12px", borderRadius: 16, fontSize: 12, fontWeight: 600, background: "#dcfce7", color: "#166534" }}>
-                        {clientSummary.subscription.tier} · Active
+                        {clientSummary.subscription?.tier} · Active
                       </span>
                     )}
-                    {clientSummary.subscription.status !== "active" && selectedClient.employer_email && !selectedClient.employer_email.includes("@broker-onboarded") && (
+                    {clientSummary.subscription?.status !== "active" && selectedClient.employer_email && !selectedClient.employer_email.includes("@broker-onboarded") && (
                       <button onClick={() => handleSuggestUpgrade(selectedClient.employer_email)} disabled={shareLoading || upgradeSent} style={{ background: upgradeSent ? "#dcfce7" : "#fef3c7", color: upgradeSent ? "#166534" : "#92400e", border: "1px solid " + (upgradeSent ? "#bbf7d0" : "#fde68a"), borderRadius: 6, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: upgradeSent ? "default" : "pointer" }}>
                         {upgradeSent ? "Upgrade email sent" : shareLoading ? "Sending..." : "Suggest Upgrade"}
                       </button>
@@ -2114,19 +2124,19 @@ function BrokerDashboardInner() {
                 )}
 
                 {/* Subscription Info */}
-                {clientSummary.subscription.employee_count && (
+                {clientSummary.subscription?.employee_count && (
                   <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, padding: 20, display: "flex", gap: 32 }}>
                     <div>
                       <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 4px" }}>Employee Count</p>
-                      <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.subscription.employee_count.toLocaleString()}</p>
+                      <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.subscription?.employee_count.toLocaleString()}</p>
                     </div>
                     <div>
                       <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 4px" }}>Subscription Tier</p>
-                      <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.subscription.tier}</p>
+                      <p style={{ fontSize: 18, fontWeight: 700, color: "#1B3A5C", margin: 0 }}>{clientSummary.subscription?.tier}</p>
                     </div>
                     <div>
                       <p style={{ fontSize: 12, color: "#94a3b8", margin: "0 0 4px" }}>Status</p>
-                      <p style={{ fontSize: 18, fontWeight: 700, margin: 0, color: clientSummary.subscription.status === "active" ? "#0D7377" : "#64748b" }}>{clientSummary.subscription.status}</p>
+                      <p style={{ fontSize: 18, fontWeight: 700, margin: 0, color: clientSummary.subscription?.status === "active" ? "#0D7377" : "#64748b" }}>{clientSummary.subscription?.status}</p>
                     </div>
                   </div>
                 )}
