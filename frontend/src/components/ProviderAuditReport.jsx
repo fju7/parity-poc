@@ -789,20 +789,23 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
             Signal has scored peer-reviewed clinical evidence for {Object.keys(signalScores).length} CPT code{Object.keys(signalScores).length > 1 ? "s" : ""} in this analysis.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {Object.entries(signalScores).map(([cpt, ss]) => (
-              <a key={cpt} href={`/signal/${ss.topic_slug}`} target="_blank" rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 6,
-                  padding: "6px 12px", borderRadius: 8, fontSize: 12, textDecoration: "none",
-                  background: "#fff", border: "1px solid #C7D2FE", color: "#3730A3",
-                }}>
-                <span style={{ fontWeight: 700 }}>CPT {cpt}</span>
-                <span style={{ color: ss.score >= 4.0 ? "#059669" : ss.score >= 3.0 ? "#D97706" : "#64748B", fontWeight: 600 }}>
-                  {ss.score}/5.0
-                </span>
-                <span style={{ fontSize: 11, color: "#6366F1" }}>{ss.topic_title} →</span>
-              </a>
-            ))}
+            {Object.entries(signalScores).map(([cpt, ss]) => {
+              if (!ss) return null;
+              return (
+                <a key={cpt} href={`/signal/${ss.topic_slug || ""}`} target="_blank" rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex", alignItems: "center", gap: 6,
+                    padding: "6px 12px", borderRadius: 8, fontSize: 12, textDecoration: "none",
+                    background: "#fff", border: "1px solid #C7D2FE", color: "#3730A3",
+                  }}>
+                  <span style={{ fontWeight: 700 }}>CPT {cpt}</span>
+                  <span style={{ color: (ss.score || 0) >= 4.0 ? "#059669" : (ss.score || 0) >= 3.0 ? "#D97706" : "#64748B", fontWeight: 600 }}>
+                    {ss.score != null ? ss.score : "—"}/5.0
+                  </span>
+                  <span style={{ fontSize: 11, color: "#6366F1" }}>{ss.topic_title || "View"} →</span>
+                </a>
+              );
+            })}
           </div>
         </div>
       )}

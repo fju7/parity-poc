@@ -689,6 +689,13 @@ Next migration number: 042
 
 ## Common Mistakes to Avoid
 
+- In React components, ALL useState and useEffect hooks must be
+  declared at the top of the component function, before any conditional
+  returns. This is React's Rules of Hooks. Violating this causes
+  React error #520 and a blank page. Similarly, all JSX rendered in
+  the return must guard against null/undefined property access —
+  use optional chaining (?.) and fallback values (|| "") for any
+  data that comes from API responses or props.
 - NEVER report a fix as done without verifying the source file actually
   changed. After any edit, always run grep or cat to confirm the change
   is in the file before committing.
