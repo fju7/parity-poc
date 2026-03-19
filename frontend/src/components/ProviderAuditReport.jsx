@@ -60,6 +60,11 @@ function flagColor(flag) {
   return { bg: "#F3F4F6", text: "#6B7280" };
 }
 
+function toTitleCase(str) {
+  if (!str) return "";
+  return str.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+}
+
 export default function ProviderAuditReport({ analysisResults, practiceInfo, onClose, trendData }) {
   const { token } = useAuth();
   const [downloading, setDownloading] = useState(false);
@@ -256,7 +261,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           }} onClick={e => e.stopPropagation()}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
               <h2 style={{ margin: 0, fontSize: 18, color: NAVY }}>
-                Appeal Letter — {appealModal.payer_name} ({appealModal.denial_code})
+                Appeal Letter — {toTitleCase(appealModal.payer_name)} ({appealModal.denial_code})
               </h2>
               <button onClick={() => setAppealModal(null)} style={{
                 background: "none", border: "none", fontSize: 24, cursor: "pointer", color: SLATE,
@@ -303,6 +308,9 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                 return (
                   <div style={{ marginBottom: 16, padding: 12, background: "#EEF2FF", borderRadius: 8, fontSize: 12, borderLeft: "3px solid #6366F1" }}>
                     <strong style={{ color: "#1B3A5C" }}>Signal Intelligence{topicTitle ? ` — ${topicTitle}` : ""}</strong>
+                    <p style={{ margin: "6px 0 4px", color: "#475569", fontSize: 12, lineHeight: 1.5 }}>
+                      The following peer-reviewed clinical evidence supports the medical necessity of this service:
+                    </p>
                     {strength && (
                       <span style={{
                         marginLeft: 8, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600,
@@ -646,7 +654,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                   display: "flex", justifyContent: "space-between", alignItems: "center",
                   padding: "10px 16px", borderBottom: "1px solid #E2E8F0", fontSize: 14,
                 }}>
-                  <span style={{ fontWeight: 500, color: NAVY }}>{ar.payer_name}</span>
+                  <span style={{ fontWeight: 500, color: NAVY }}>{toTitleCase(ar.payer_name)}</span>
                   <span>
                     <span style={{ color: RED, fontWeight: 600 }}>
                       ${(s.total_underpayment || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
@@ -674,7 +682,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           return (
             <div key={pi} style={{ marginBottom: 32 }}>
               <h3 style={{ fontSize: 17, fontWeight: 600, color: NAVY, margin: "0 0 12px" }}>
-                {ar.payer_name}
+                {toTitleCase(ar.payer_name)}
               </h3>
 
               {/* Summary cards */}
@@ -782,7 +790,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
             if (!intel?.denial_types?.length) return null;
             return (
               <div key={pi} style={{ marginBottom: 24 }}>
-                <h3 style={{ fontSize: 15, fontWeight: 600, color: NAVY, margin: "0 0 10px" }}>{ar.payer_name}</h3>
+                <h3 style={{ fontSize: 15, fontWeight: 600, color: NAVY, margin: "0 0 10px" }}>{toTitleCase(ar.payer_name)}</h3>
                 <table style={tableStyle}>
                   <thead>
                     <tr>
@@ -960,7 +968,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
               if (sc.clean_claim_rate == null) return null;
               return (
                 <div key={pi} style={{ padding: 20, borderRadius: 8, background: "#fff", border: "1px solid #E2E8F0" }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: NAVY, marginBottom: 12 }}>{ar.payer_name}</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: NAVY, marginBottom: 12 }}>{toTitleCase(ar.payer_name)}</div>
                   {[
                     { label: "Clean Claim Rate", value: `${sc.clean_claim_rate}%`, bench: "95%", good: sc.clean_claim_rate >= 95 },
                     { label: "Denial Rate", value: `${sc.denial_rate}%`, bench: "<5%", good: sc.denial_rate <= 5 },
