@@ -603,6 +603,65 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         </div>
       )}
 
+      {/* === Revenue Gap Estimate (moved before findings for impact) === */}
+      <div style={sectionStyle}>
+        <h2 style={headingStyle}>Revenue Gap Estimate</h2>
+        <div style={{
+          background: NAVY, borderRadius: 12, padding: 24, color: "#fff", marginBottom: 16,
+        }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, textAlign: "center" }}>
+            <div>
+              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Identified Underpayments</div>
+              <div style={{ fontSize: 24, fontWeight: 700 }}>
+                ${totalUnderpayment.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Denial Recovery</div>
+              <div style={{ fontSize: 24, fontWeight: 700 }}>
+                ${totalDeniedValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Total Revenue Gap</div>
+              <div style={{ fontSize: 32, fontWeight: 700, color: "#5EEAD4" }}>
+                ${(totalUnderpayment + totalDeniedValue).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+          </div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", marginTop: 20, paddingTop: 16, textAlign: "center" }}>
+            <div style={{ fontSize: 14, opacity: 0.8 }}>
+              Annualized estimate: ${((totalUnderpayment + totalDeniedValue) * 12).toLocaleString("en-US", { minimumFractionDigits: 2 })} — based on this month's pattern projected over 12 months.
+            </div>
+          </div>
+        </div>
+
+        {/* Per-payer breakdown */}
+        {analysisResults.length > 1 && (
+          <div style={{ marginTop: 12 }}>
+            {analysisResults.map((ar, pi) => {
+              const s = ar.result?.summary || {};
+              return (
+                <div key={pi} style={{
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                  padding: "10px 16px", borderBottom: "1px solid #E2E8F0", fontSize: 14,
+                }}>
+                  <span style={{ fontWeight: 500, color: NAVY }}>{ar.payer_name}</span>
+                  <span>
+                    <span style={{ color: RED, fontWeight: 600 }}>
+                      ${(s.total_underpayment || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    </span>
+                    <span style={{ color: SLATE, marginLeft: 8 }}>
+                      ({s.underpaid_count || 0} underpaid, {s.denied_count || 0} denied)
+                    </span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
       {/* === 3. Contract Integrity Findings === */}
       <div style={sectionStyle}>
         <h2 style={headingStyle}>Contract Integrity Findings</h2>
@@ -889,65 +948,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         </div>
       )}
 
-      {/* === 5. Revenue Gap Estimate === */}
-      <div style={sectionStyle}>
-        <h2 style={headingStyle}>Revenue Gap Estimate</h2>
-        <div style={{
-          background: NAVY, borderRadius: 12, padding: 24, color: "#fff", marginBottom: 16,
-        }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, textAlign: "center" }}>
-            <div>
-              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Identified Underpayments</div>
-              <div style={{ fontSize: 24, fontWeight: 700 }}>
-                ${totalUnderpayment.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Denial Recovery</div>
-              <div style={{ fontSize: 24, fontWeight: 700 }}>
-                ${totalDeniedValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Total Revenue Gap</div>
-              <div style={{ fontSize: 24, fontWeight: 700, color: "#5EEAD4" }}>
-                ${(totalUnderpayment + totalDeniedValue).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-              </div>
-            </div>
-          </div>
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", marginTop: 20, paddingTop: 16, textAlign: "center" }}>
-            <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 4 }}>Annualized Estimate (&times;12)</div>
-            <div style={{ fontSize: 28, fontWeight: 700 }}>
-              ${((totalUnderpayment + totalDeniedValue) * 12).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-            </div>
-          </div>
-        </div>
-
-        {/* Per-payer breakdown */}
-        {analysisResults.length > 1 && (
-          <div style={{ marginTop: 12 }}>
-            {analysisResults.map((ar, pi) => {
-              const s = ar.result?.summary || {};
-              return (
-                <div key={pi} style={{
-                  display: "flex", justifyContent: "space-between", alignItems: "center",
-                  padding: "10px 16px", borderBottom: "1px solid #E2E8F0", fontSize: 14,
-                }}>
-                  <span style={{ fontWeight: 500, color: NAVY }}>{ar.payer_name}</span>
-                  <span>
-                    <span style={{ color: RED, fontWeight: 600 }}>
-                      ${(s.total_underpayment || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-                    </span>
-                    <span style={{ color: SLATE, marginLeft: 8 }}>
-                      ({s.underpaid_count || 0} underpaid, {s.denied_count || 0} denied)
-                    </span>
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+      {/* Revenue Gap section moved above Contract Integrity Findings */}
 
       {/* === 6. Billing Contractor Assessment === */}
       {analysisResults.some(r => r.result?.scorecard?.clean_claim_rate != null) && (
