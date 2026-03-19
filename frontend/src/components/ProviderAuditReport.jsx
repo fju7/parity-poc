@@ -525,9 +525,9 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
       </div>
 
       {/* === 1. Cover / Header === */}
-      <div style={{ textAlign: "center", marginBottom: 48, paddingBottom: 32, borderBottom: `3px solid ${TEAL}` }}>
+      <div style={{ textAlign: "center", marginBottom: 48, paddingBottom: 32, padding: "0 24px 32px", borderBottom: `3px solid ${TEAL}` }}>
         <div style={{ fontSize: 14, fontWeight: 600, color: TEAL, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>
-          Parity Audit
+          Parity Provider by CivicScale
         </div>
         <h1 style={{ fontSize: 32, fontWeight: 700, color: NAVY, margin: "0 0 8px" }}>
           Contract Integrity Report
@@ -1007,7 +1007,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         <p style={bodyStyle}>
           This report represents a point-in-time audit of your payer contracts.
           For ongoing revenue protection, we recommend quarterly audits as new remittance data becomes available.
-          CivicScale Parity Audit can automate this process with monthly monitoring,
+          Parity Provider by CivicScale can automate this process with monthly monitoring,
           real-time underpayment alerts, and automated appeal letter generation.
         </p>
       </div>
@@ -1018,7 +1018,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         fontSize: 12, color: SLATE, lineHeight: 1.6, textAlign: "center",
       }}>
         <p style={{ margin: 0 }}>
-          Parity Audit by CivicScale. Benchmark comparisons use publicly available CMS Medicare data.
+          Parity Provider by CivicScale. Benchmark comparisons use publicly available CMS Medicare data.
           This report is not legal or financial advice. Verify all findings with your payer contracts
           and consult a billing specialist before taking action.
         </p>
