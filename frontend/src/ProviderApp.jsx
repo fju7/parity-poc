@@ -1779,6 +1779,34 @@ function ContractIntegrityTab({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      {/* Value proposition header */}
+      {!analysisResult && (
+        <div style={{ textAlign: "center", padding: "8px 0 0" }}>
+          <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--cs-navy)", margin: "0 0 12px" }}>
+            Find what your payer owes you.
+          </h2>
+          <p style={{ fontSize: 15, color: "var(--cs-slate)", margin: "0 0 16px" }}>
+            Upload your 835 remittance file to get started.
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 16 }}>
+            {[
+              { label: "Avg denial recovery: $4,200/mo", bg: "#ECFDF5", color: "#059669", border: "#A7F3D0" },
+              { label: "CO-97 appeals won: 73%", bg: "#EEF2FF", color: "#4338CA", border: "#C7D2FE" },
+              { label: "Setup: 2 minutes", bg: "#FFFBEB", color: "#92400E", border: "#FDE68A" },
+            ].map((chip, i) => (
+              <span key={i} style={{
+                display: "inline-block", padding: "6px 14px", borderRadius: 20, fontSize: 13, fontWeight: 600,
+                background: chip.bg, color: chip.color, border: `1px solid ${chip.border}`,
+              }}>{chip.label}</span>
+            ))}
+          </div>
+          <a href={`${API_BASE}/api/provider/demo-835`} download style={{
+            fontSize: 13, color: "var(--cs-teal)", textDecoration: "none", fontWeight: 500,
+          }}>
+            Download sample 835 file
+          </a>
+        </div>
+      )}
       {/* ── STEP 1: Contract Rates ── */}
       <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, padding: 32, background: "#fff" }}>
         <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
