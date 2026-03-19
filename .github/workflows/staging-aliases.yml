@@ -13,48 +13,50 @@ jobs:
           echo "Waiting 2 minutes for Vercel to build parity-poc..."
           sleep 120
 
+      - name: Debug — dump raw Vercel API response
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          echo "=== RAW: first 10 parity-poc deployments (any state) ==="
+          curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=30" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            | jq '[.deployments[] | select(.name == "parity-poc")] | .[0:10] | .[] | {url, state, readyState, target, branch: .meta.githubCommitRef, sha: .meta.githubCommitSha[0:7], created: .created}'
+
+          echo ""
+          echo "=== RAW: first 10 READY parity-poc deployments ==="
+          curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=30&state=READY" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            | jq '[.deployments[] | select(.name == "parity-poc")] | .[0:10] | .[] | {url, state, readyState, target, branch: .meta.githubCommitRef, sha: .meta.githubCommitSha[0:7], created: .created}'
+
+          echo ""
+          echo "=== FILTERED: READY + staging branch only ==="
+          RESULT=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=30&state=READY" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            | jq '[.deployments[] | select(.name == "parity-poc" and .meta.githubCommitRef == "staging")]')
+          echo "$RESULT" | jq '.[0:5] | .[] | {url, sha: .meta.githubCommitSha[0:7], created: .created}'
+
+          echo ""
+          echo "=== SELECTED URL (what the alias step will use) ==="
+          echo "$RESULT" | jq -r '.[0].url // "EMPTY — no staging deployment found"'
+
       - name: Find latest Ready deployment
         id: deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          # Use Vercel REST API to get the latest READY deployment from the
-          # parity-poc project that was built from the STAGING branch.
-          #
-          # IMPORTANT: We filter by meta.githubCommitRef == "staging" because
-          # without this filter, the query returns the most recent READY
-          # deployment from ANY branch — which is almost always the production
-          # deployment from main. That caused staging aliases to point at the
-          # production build instead of the staging build, making staging
-          # changes invisible.
-
-          # Debug: show the 5 most recent parity-poc deployments with their branch
-          echo "=== Recent parity-poc deployments ==="
-          curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=5" \
-            -H "Authorization: Bearer $VERCEL_TOKEN" \
-            | jq '[.deployments[] | select(.name == "parity-poc")] | .[] | {url, state, readyState, branch: .meta.githubCommitRef}' \
-            2>/dev/null || true
-
           # Get the latest READY deployment from parity-poc ON THE STAGING BRANCH
-          URL=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=20&state=READY" \
+          URL=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=30&state=READY" \
             -H "Authorization: Bearer $VERCEL_TOKEN" \
             | jq -r '[.deployments[] | select(.name == "parity-poc" and .meta.githubCommitRef == "staging")] | .[0].url // empty')
 
           if [ -z "$URL" ]; then
             echo "ERROR: No Ready staging-branch deployment found for parity-poc"
-            echo "This usually means Vercel cancelled the staging preview build."
-            echo "Check Vercel dashboard > parity-poc > Settings > Git > Ignored Build Step"
-            echo "=== All recent parity-poc deployments (any branch) ==="
-            curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=10" \
-              -H "Authorization: Bearer $VERCEL_TOKEN" \
-              | jq '[.deployments[] | select(.name == "parity-poc")] | .[] | {url, state, readyState, branch: .meta.githubCommitRef}'
             exit 1
           fi
 
-          # Vercel API returns URL without https:// prefix
           FULL_URL="https://$URL"
           echo "url=$FULL_URL" >> "$GITHUB_OUTPUT"
-          echo "Aliasing deployment: $FULL_URL"
+          echo "Aliasing deployment: $FULL_URL (from staging branch)"
 
       - name: Assign staging aliases
         env:
@@ -63,6 +65,7 @@ jobs:
           npm i -g vercel@latest
 
           DEPLOYMENT="${{ steps.deploy.outputs.url }}"
+          echo "DEPLOYMENT=$DEPLOYMENT"
 
           ALIASES=(
             "staging.civicscale.ai"
