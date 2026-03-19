@@ -2377,7 +2377,13 @@ function OpenAppealsQueue() {
       <span style={{ fontSize: 13 }}>Loading tracked appeals...</span>
     </div>
   );
-  if (cases.length === 0) return null;
+  if (cases.length === 0) return (
+    <div style={{ textAlign: "center", padding: 48, color: "var(--cs-slate)" }}>
+      <div style={{ fontSize: 48, marginBottom: 16 }}>&#x1F4DD;</div>
+      <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>No appeals tracked yet.</p>
+      <p style={{ fontSize: 14 }}>Click "Draft Appeal" on any denied claim in your audit report or trends view to get started.</p>
+    </div>
+  );
 
   return (
     <div style={{ marginBottom: 24, background: "#FFFBEB", border: "1px solid #FDE68A", borderRadius: 12, padding: 20 }}>
@@ -2430,17 +2436,12 @@ function AppealsTab({ appeals, loading, onLoad, onUpdateStatus }) {
 
   const list = appeals?.appeals || [];
 
-  // Always show OpenAppealsQueue — it fetches platform_cases independently
-  // Only show "no appeals" message when BOTH old-style appeals AND platform_cases are empty
+  // When no old-style appeals exist, just show OpenAppealsQueue
+  // (it handles its own empty state and loading)
   if (list.length === 0) {
     return (
       <div>
         <OpenAppealsQueue />
-        <div style={{ textAlign: "center", padding: 48, color: "var(--cs-slate)" }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>&#x1F4DD;</div>
-          <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>No appeals drafted yet.</p>
-          <p style={{ fontSize: 14 }}>Click "Draft Appeal" on any denied claim in your audit report or trends view to get started.</p>
-        </div>
       </div>
     );
   }
