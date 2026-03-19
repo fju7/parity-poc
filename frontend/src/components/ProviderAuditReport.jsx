@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
 import { API_BASE } from "../lib/apiBase";
+import toTitleCase from "../lib/toTitleCase";
 const TEAL = "#0D9488";
 const NAVY = "#1E293B";
 const LIGHT_TEAL = "#F0FDFA";
@@ -58,11 +59,6 @@ function flagColor(flag) {
   if (flag === "BILLED_BELOW") return { bg: "#FFF7ED", text: "#EA580C" };
   if (flag === "OVERPAID") return { bg: "#EFF6FF", text: "#2563EB" };
   return { bg: "#F3F4F6", text: "#6B7280" };
-}
-
-function toTitleCase(str) {
-  if (!str) return "";
-  return str.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
 }
 
 export default function ProviderAuditReport({ analysisResults, practiceInfo, onClose, trendData }) {

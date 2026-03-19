@@ -11,6 +11,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import "./components/CivicScaleHomepage.css";
 
 import { API_BASE } from "./lib/apiBase";
+import toTitleCase from "./lib/toTitleCase";
 const SPECIALTIES = [
   "Internal Medicine",
   "Family Medicine",
@@ -1147,9 +1148,6 @@ function ProviderAppInner() {
           )
         ) : activeTab === "contract" ? (
           <div>
-            <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 0, marginBottom: 24, lineHeight: 1.6 }}>
-              Upload your 835 remittance file and contracted rates. We compare every paid amount against what your payer agreed to pay — by code, by claim, by payer.
-            </p>
             <ContractIntegrityTab
             step={contractStep}
             error={contractError}
@@ -1824,7 +1822,7 @@ function ContractIntegrityTab({
                   background: "var(--cs-teal-pale)", border: "1px solid var(--cs-teal)",
                 }}>
                   <span style={{ fontSize: 14, color: "var(--cs-navy)" }}>
-                    <strong>{p.name}</strong> — {p.codeCount} CPT codes
+                    <strong>{toTitleCase(p.name)}</strong> — {p.codeCount} CPT codes
                     {p.saved_at && <span style={{ fontSize: 11, color: "var(--cs-slate)", marginLeft: 8 }}>
                       (saved {new Date(p.saved_at).toLocaleDateString()})
                     </span>}
