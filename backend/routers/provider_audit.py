@@ -34,7 +34,7 @@ from utils.parse_835 import parse_835
 router = APIRouter(tags=["provider"])
 
 
-@router.get("/api/provider/demo-835")
+@router.get("/demo-835")
 async def download_demo_835():
     """Serve the demo 835 file for the sample upload flow."""
     demo_path = os.path.join(os.path.dirname(__file__), "..", "test_data", "demo_835_riverside.txt")
