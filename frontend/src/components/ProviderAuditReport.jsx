@@ -70,6 +70,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
   // Fetch Signal Intelligence scores for CPT codes in denials + flagged line items
   useEffect(() => {
     const allCpts = new Set();
+    console.log("[Signal] analysisResults:", analysisResults);
     for (const ar of analysisResults) {
       // CPTs from denial patterns
       for (const dt of ar.denial_intel?.denial_types || []) {
@@ -84,6 +85,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         }
       }
     }
+    console.log("[Signal] allCpts collected:", [...allCpts]);
     if (allCpts.size === 0) return;
 
     async function fetchSignalScores() {
@@ -93,6 +95,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           const res = await fetch(`${API_BASE}/api/signal/evidence-for-code?cpt_code=${encodeURIComponent(cpt)}`);
           if (res.ok) {
             const data = await res.json();
+            console.log("[Signal] API response for", cpt, ":", data);
             if (data.coverage !== "none") {
               scores[cpt] = {
                 score: data.score,
@@ -105,6 +108,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         } catch { /* non-fatal */ }
       }
       if (Object.keys(scores).length > 0) setSignalScores(scores);
+      console.log("[Signal] signalScores set:", scores);
     }
     fetchSignalScores();
   }, [analysisResults]);
