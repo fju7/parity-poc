@@ -18,27 +18,36 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          # Use Vercel REST API to get latest staging deployment from parity-poc.
-          # parity-poc now builds staging branch correctly.
+          # Use Vercel REST API to get the latest READY deployment from the
+          # parity-poc project that was built from the STAGING branch.
+          #
+          # IMPORTANT: We filter by meta.githubCommitRef == "staging" because
+          # without this filter, the query returns the most recent READY
+          # deployment from ANY branch — which is almost always the production
+          # deployment from main. That caused staging aliases to point at the
+          # production build instead of the staging build, making staging
+          # changes invisible.
 
-          # First, show the most recent deployment's full metadata for debugging
-          echo "=== Most recent deployment metadata ==="
-          curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=3" \
+          # Debug: show the 5 most recent parity-poc deployments with their branch
+          echo "=== Recent parity-poc deployments ==="
+          curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=5" \
             -H "Authorization: Bearer $VERCEL_TOKEN" \
-            | jq '[.deployments[] | select(.name == "parity-poc")] | .[0] | {url, state, target, readyState, meta: .meta.githubCommitRef}' \
+            | jq '[.deployments[] | select(.name == "parity-poc")] | .[] | {url, state, readyState, branch: .meta.githubCommitRef}' \
             2>/dev/null || true
 
-          # Get the latest READY deployment from parity-poc (any target type)
+          # Get the latest READY deployment from parity-poc ON THE STAGING BRANCH
           URL=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=20&state=READY" \
             -H "Authorization: Bearer $VERCEL_TOKEN" \
-            | jq -r '[.deployments[] | select(.name == "parity-poc")] | .[0].url // empty')
+            | jq -r '[.deployments[] | select(.name == "parity-poc" and .meta.githubCommitRef == "staging")] | .[0].url // empty')
 
           if [ -z "$URL" ]; then
-            echo "ERROR: No Ready deployment found for parity-poc"
-            echo "=== All recent parity-poc deployments ==="
+            echo "ERROR: No Ready staging-branch deployment found for parity-poc"
+            echo "This usually means Vercel cancelled the staging preview build."
+            echo "Check Vercel dashboard > parity-poc > Settings > Git > Ignored Build Step"
+            echo "=== All recent parity-poc deployments (any branch) ==="
             curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=10" \
               -H "Authorization: Bearer $VERCEL_TOKEN" \
-              | jq '[.deployments[] | select(.name == "parity-poc")] | .[] | {url, state, target, readyState}'
+              | jq '[.deployments[] | select(.name == "parity-poc")] | .[] | {url, state, readyState, branch: .meta.githubCommitRef}'
             exit 1
           fi
 
