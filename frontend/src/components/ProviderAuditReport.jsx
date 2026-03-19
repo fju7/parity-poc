@@ -201,6 +201,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         editText: data.letter_text || "",
         payer_name: payerName,
         denial_code: denialType.adjustment_code,
+        cpt_code: (denialType.affected_cpts || []).join(", "),
       });
     } catch (err) {
       console.error("Appeal generation error:", err);
@@ -333,6 +334,67 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                 fontSize: 13, lineHeight: 1.6, resize: "vertical", color: NAVY,
               }}
             />
+
+            {/* Track this appeal */}
+            {appealModal.tracked ? (
+              <div style={{
+                marginTop: 16, padding: 12, borderRadius: 8,
+                background: "#ECFDF5", border: "1px solid #A7F3D0",
+                fontSize: 13, color: "#059669", fontWeight: 500,
+              }}>
+                Appeal tracked. You'll be reminded to record the outcome in 30 days.
+              </div>
+            ) : (
+              <div style={{
+                marginTop: 16, padding: 12, borderRadius: 8,
+                background: "#F8FAFC", border: "1px solid #E2E8F0",
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+              }}>
+                <span style={{ fontSize: 13, color: NAVY }}>
+                  Track this appeal — We'll remind you to record the outcome in 30 days.
+                </span>
+                <button
+                  disabled={appealModal.tracking}
+                  onClick={async () => {
+                    setAppealModal(prev => ({ ...prev, tracking: true }));
+                    try {
+                      const se = appealModal.signal_evidence;
+                      const res = await fetch(`${API_BASE}/api/platform/cases`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          product: "provider",
+                          case_type: "appeal",
+                          status: "open",
+                          cpt_code: appealModal.cpt_code || null,
+                          denial_code: appealModal.denial_code || null,
+                          payer: appealModal.payer_name || null,
+                          signal_topic_slug: se?.topic_slug || null,
+                          signal_score: se?.appeal_strength === "strong" ? 4.0 : se?.appeal_strength === "moderate" ? 3.0 : null,
+                          description: `Appeal for ${appealModal.denial_code || "denial"} — ${appealModal.payer_name || "payer"}`,
+                        }),
+                      });
+                      if (res.ok) {
+                        setAppealModal(prev => ({ ...prev, tracked: true, tracking: false }));
+                      } else {
+                        setAppealModal(prev => ({ ...prev, tracking: false }));
+                      }
+                    } catch {
+                      setAppealModal(prev => ({ ...prev, tracking: false }));
+                    }
+                  }}
+                  style={{
+                    padding: "8px 16px", borderRadius: 8, border: "none",
+                    background: TEAL, color: "#fff", fontSize: 13, fontWeight: 600,
+                    cursor: appealModal.tracking ? "default" : "pointer",
+                    opacity: appealModal.tracking ? 0.6 : 1,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {appealModal.tracking ? "Saving..." : "Start tracking"}
+                </button>
+              </div>
+            )}
 
             {/* Action buttons */}
             <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
