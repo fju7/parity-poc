@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
 import { API_BASE } from "../lib/apiBase";
+import toTitleCase from "../lib/toTitleCase";
 const TEAL = "#0D9488";
 const NAVY = "#1E293B";
 const LIGHT_TEAL = "#F0FDFA";
@@ -165,11 +166,38 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
     }
   }
 
-  async function handleDraftAppeal(denialType, payerName) {
+  async function handleDraftAppeal(denialType, payerName, forceRegenerate = false) {
     const key = `${payerName}-${denialType.adjustment_code}`;
+    const cptCode = (denialType.affected_cpts || []).join(", ");
     setAppealGenerating(key);
     try {
       if (!token) { alert("Please log in to generate appeals."); return; }
+
+      // Check for saved letter (unless forcing regeneration)
+      if (!forceRegenerate) {
+        try {
+          const savedRes = await fetch(
+            `${API_BASE}/api/provider/saved-appeal-letter?payer=${encodeURIComponent(payerName)}&denial_code=${encodeURIComponent(denialType.adjustment_code)}&cpt_code=${encodeURIComponent(cptCode)}`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          if (savedRes.ok) {
+            const saved = await savedRes.json();
+            if (saved.found) {
+              setAppealModal({
+                letter_text: saved.letter_text,
+                editText: saved.letter_text,
+                payer_name: payerName,
+                denial_code: denialType.adjustment_code,
+                cpt_code: cptCode,
+                savedAt: saved.generated_at,
+                _denialType: denialType,
+              });
+              setAppealGenerating(null);
+              return;
+            }
+          }
+        } catch { /* fall through to generation */ }
+      }
 
       const res = await fetch(`${API_BASE}/api/provider/generate-appeal`, {
         method: "POST",
@@ -180,7 +208,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         body: JSON.stringify({
           claim_id: denialType.adjustment_code,
           denial_code: denialType.adjustment_code,
-          cpt_code: (denialType.affected_cpts || []).join(", "),
+          cpt_code: cptCode,
           billed_amount: denialType.total_value || 0,
           payer_name: payerName,
           date_of_service: denialType.sample_date_of_service || "",
@@ -201,7 +229,8 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         editText: data.letter_text || "",
         payer_name: payerName,
         denial_code: denialType.adjustment_code,
-        cpt_code: (denialType.affected_cpts || []).join(", "),
+        cpt_code: cptCode,
+        _denialType: denialType,
       });
     } catch (err) {
       console.error("Appeal generation error:", err);
@@ -256,12 +285,35 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           }} onClick={e => e.stopPropagation()}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
               <h2 style={{ margin: 0, fontSize: 18, color: NAVY }}>
-                Appeal Letter — {appealModal.payer_name} ({appealModal.denial_code})
+                Appeal Letter — {toTitleCase(appealModal.payer_name)} ({appealModal.denial_code})
               </h2>
               <button onClick={() => setAppealModal(null)} style={{
                 background: "none", border: "none", fontSize: 24, cursor: "pointer", color: SLATE,
               }}>&times;</button>
             </div>
+
+            {/* Saved letter indicator + Regenerate */}
+            {appealModal.savedAt && (
+              <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontSize: 12, color: "#059669", fontWeight: 500 }}>
+                  Loaded from saved letter ({new Date(appealModal.savedAt).toLocaleDateString()})
+                </span>
+                <button
+                  onClick={() => {
+                    setAppealModal(null);
+                    if (appealModal._denialType) {
+                      handleDraftAppeal(appealModal._denialType, appealModal.payer_name, true);
+                    }
+                  }}
+                  style={{
+                    padding: "4px 12px", borderRadius: 6, border: "1px solid #E2E8F0",
+                    background: "#fff", fontSize: 12, fontWeight: 600, cursor: "pointer", color: SLATE,
+                  }}
+                >
+                  Regenerate
+                </button>
+              </div>
+            )}
 
             {/* Appeal strength badge */}
             {appealModal.appeal_strength && (
@@ -303,6 +355,9 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                 return (
                   <div style={{ marginBottom: 16, padding: 12, background: "#EEF2FF", borderRadius: 8, fontSize: 12, borderLeft: "3px solid #6366F1" }}>
                     <strong style={{ color: "#1B3A5C" }}>Signal Intelligence{topicTitle ? ` — ${topicTitle}` : ""}</strong>
+                    <p style={{ margin: "6px 0 4px", color: "#475569", fontSize: 12, lineHeight: 1.5 }}>
+                      The following peer-reviewed clinical evidence supports the medical necessity of this service:
+                    </p>
                     {strength && (
                       <span style={{
                         marginLeft: 8, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600,
@@ -525,9 +580,9 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
       </div>
 
       {/* === 1. Cover / Header === */}
-      <div style={{ textAlign: "center", marginBottom: 48, paddingBottom: 32, borderBottom: `3px solid ${TEAL}` }}>
+      <div style={{ textAlign: "center", marginBottom: 48, paddingBottom: 32, padding: "0 24px 32px", borderBottom: `3px solid ${TEAL}` }}>
         <div style={{ fontSize: 14, fontWeight: 600, color: TEAL, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>
-          Parity Audit
+          Parity Provider by CivicScale
         </div>
         <h1 style={{ fontSize: 32, fontWeight: 700, color: NAVY, margin: "0 0 8px" }}>
           Contract Integrity Report
@@ -603,6 +658,65 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         </div>
       )}
 
+      {/* === Revenue Gap Estimate (moved before findings for impact) === */}
+      <div style={sectionStyle}>
+        <h2 style={headingStyle}>Revenue Gap Estimate</h2>
+        <div style={{
+          background: NAVY, borderRadius: 12, padding: 24, color: "#fff", marginBottom: 16,
+        }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, textAlign: "center" }}>
+            <div>
+              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Identified Underpayments</div>
+              <div style={{ fontSize: 24, fontWeight: 700 }}>
+                ${totalUnderpayment.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Denial Recovery</div>
+              <div style={{ fontSize: 24, fontWeight: 700 }}>
+                ${totalDeniedValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Total Revenue Gap</div>
+              <div style={{ fontSize: 32, fontWeight: 700, color: "#5EEAD4" }}>
+                ${(totalUnderpayment + totalDeniedValue).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+          </div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", marginTop: 20, paddingTop: 16, textAlign: "center" }}>
+            <div style={{ fontSize: 14, opacity: 0.8 }}>
+              Annualized estimate: ${((totalUnderpayment + totalDeniedValue) * 12).toLocaleString("en-US", { minimumFractionDigits: 2 })} — based on this month's pattern projected over 12 months.
+            </div>
+          </div>
+        </div>
+
+        {/* Per-payer breakdown */}
+        {analysisResults.length > 1 && (
+          <div style={{ marginTop: 12 }}>
+            {analysisResults.map((ar, pi) => {
+              const s = ar.result?.summary || {};
+              return (
+                <div key={pi} style={{
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                  padding: "10px 16px", borderBottom: "1px solid #E2E8F0", fontSize: 14,
+                }}>
+                  <span style={{ fontWeight: 500, color: NAVY }}>{toTitleCase(ar.payer_name)}</span>
+                  <span>
+                    <span style={{ color: RED, fontWeight: 600 }}>
+                      ${(s.total_underpayment || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    </span>
+                    <span style={{ color: SLATE, marginLeft: 8 }}>
+                      ({s.underpaid_count || 0} underpaid, {s.denied_count || 0} denied)
+                    </span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
       {/* === 3. Contract Integrity Findings === */}
       <div style={sectionStyle}>
         <h2 style={headingStyle}>Contract Integrity Findings</h2>
@@ -615,7 +729,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
           return (
             <div key={pi} style={{ marginBottom: 32 }}>
               <h3 style={{ fontSize: 17, fontWeight: 600, color: NAVY, margin: "0 0 12px" }}>
-                {ar.payer_name}
+                {toTitleCase(ar.payer_name)}
               </h3>
 
               {/* Summary cards */}
@@ -723,7 +837,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
             if (!intel?.denial_types?.length) return null;
             return (
               <div key={pi} style={{ marginBottom: 24 }}>
-                <h3 style={{ fontSize: 15, fontWeight: 600, color: NAVY, margin: "0 0 10px" }}>{ar.payer_name}</h3>
+                <h3 style={{ fontSize: 15, fontWeight: 600, color: NAVY, margin: "0 0 10px" }}>{toTitleCase(ar.payer_name)}</h3>
                 <table style={tableStyle}>
                   <thead>
                     <tr>
@@ -889,65 +1003,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         </div>
       )}
 
-      {/* === 5. Revenue Gap Estimate === */}
-      <div style={sectionStyle}>
-        <h2 style={headingStyle}>Revenue Gap Estimate</h2>
-        <div style={{
-          background: NAVY, borderRadius: 12, padding: 24, color: "#fff", marginBottom: 16,
-        }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, textAlign: "center" }}>
-            <div>
-              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Identified Underpayments</div>
-              <div style={{ fontSize: 24, fontWeight: 700 }}>
-                ${totalUnderpayment.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Denial Recovery</div>
-              <div style={{ fontSize: 24, fontWeight: 700 }}>
-                ${totalDeniedValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Total Revenue Gap</div>
-              <div style={{ fontSize: 24, fontWeight: 700, color: "#5EEAD4" }}>
-                ${(totalUnderpayment + totalDeniedValue).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-              </div>
-            </div>
-          </div>
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", marginTop: 20, paddingTop: 16, textAlign: "center" }}>
-            <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 4 }}>Annualized Estimate (&times;12)</div>
-            <div style={{ fontSize: 28, fontWeight: 700 }}>
-              ${((totalUnderpayment + totalDeniedValue) * 12).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-            </div>
-          </div>
-        </div>
-
-        {/* Per-payer breakdown */}
-        {analysisResults.length > 1 && (
-          <div style={{ marginTop: 12 }}>
-            {analysisResults.map((ar, pi) => {
-              const s = ar.result?.summary || {};
-              return (
-                <div key={pi} style={{
-                  display: "flex", justifyContent: "space-between", alignItems: "center",
-                  padding: "10px 16px", borderBottom: "1px solid #E2E8F0", fontSize: 14,
-                }}>
-                  <span style={{ fontWeight: 500, color: NAVY }}>{ar.payer_name}</span>
-                  <span>
-                    <span style={{ color: RED, fontWeight: 600 }}>
-                      ${(s.total_underpayment || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-                    </span>
-                    <span style={{ color: SLATE, marginLeft: 8 }}>
-                      ({s.underpaid_count || 0} underpaid, {s.denied_count || 0} denied)
-                    </span>
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+      {/* Revenue Gap section moved above Contract Integrity Findings */}
 
       {/* === 6. Billing Contractor Assessment === */}
       {analysisResults.some(r => r.result?.scorecard?.clean_claim_rate != null) && (
@@ -959,7 +1015,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
               if (sc.clean_claim_rate == null) return null;
               return (
                 <div key={pi} style={{ padding: 20, borderRadius: 8, background: "#fff", border: "1px solid #E2E8F0" }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: NAVY, marginBottom: 12 }}>{ar.payer_name}</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: NAVY, marginBottom: 12 }}>{toTitleCase(ar.payer_name)}</div>
                   {[
                     { label: "Clean Claim Rate", value: `${sc.clean_claim_rate}%`, bench: "95%", good: sc.clean_claim_rate >= 95 },
                     { label: "Denial Rate", value: `${sc.denial_rate}%`, bench: "<5%", good: sc.denial_rate <= 5 },
@@ -1007,7 +1063,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         <p style={bodyStyle}>
           This report represents a point-in-time audit of your payer contracts.
           For ongoing revenue protection, we recommend quarterly audits as new remittance data becomes available.
-          CivicScale Parity Audit can automate this process with monthly monitoring,
+          Parity Provider by CivicScale can automate this process with monthly monitoring,
           real-time underpayment alerts, and automated appeal letter generation.
         </p>
       </div>
@@ -1018,7 +1074,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         fontSize: 12, color: SLATE, lineHeight: 1.6, textAlign: "center",
       }}>
         <p style={{ margin: 0 }}>
-          Parity Audit by CivicScale. Benchmark comparisons use publicly available CMS Medicare data.
+          Parity Provider by CivicScale. Benchmark comparisons use publicly available CMS Medicare data.
           This report is not legal or financial advice. Verify all findings with your payer contracts
           and consult a billing specialist before taking action.
         </p>

@@ -422,6 +422,19 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     except Exception as exc:
         print(f"[GenerateAppeal] Failed to save appeal record: {exc}")
 
+    # Persist letter for reuse
+    try:
+        sb.table("provider_appeal_letters").insert({
+            "user_id": str(user.id),
+            "payer": req.payer_name or "",
+            "denial_code": req.denial_code or "",
+            "cpt_code": req.cpt_code or "",
+            "letter_text": result.get("letter_text", ""),
+            "signal_score": None,
+        }).execute()
+    except Exception as exc:
+        print(f"[GenerateAppeal] Failed to persist letter: {exc}")
+
     # Fetch Signal evidence for the response (same lookup the prompt used)
     signal_evidence = _fetch_signal_evidence(
         req.denial_code or "", req.cpt_code or "", req.payer_name or "",
@@ -439,6 +452,36 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "attach_documentation": result.get("attach_documentation", ""),
         "signal_evidence": signal_evidence,
     }
+
+
+@router.get("/saved-appeal-letter")
+async def get_saved_appeal_letter(
+    payer: str,
+    denial_code: str,
+    cpt_code: str = "",
+    request: Request = None,
+):
+    """Look up a previously generated appeal letter by payer+denial_code+cpt_code."""
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+    try:
+        q = (
+            sb.table("provider_appeal_letters")
+            .select("*")
+            .eq("user_id", str(user.id))
+            .eq("payer", payer)
+            .eq("denial_code", denial_code)
+            .eq("cpt_code", cpt_code)
+            .order("generated_at", desc=True)
+            .limit(1)
+        )
+        resp = q.execute()
+        if resp.data and len(resp.data) > 0:
+            row = resp.data[0]
+            return {"found": True, "letter_text": row["letter_text"], "generated_at": row["generated_at"]}
+        return {"found": False}
+    except Exception:
+        return {"found": False}
 
 
 @router.post("/generate-appeal-batch")

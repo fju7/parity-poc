@@ -10,42 +10,71 @@ jobs:
     steps:
       - name: Wait for parity-poc Vercel build
         run: |
-          echo "Waiting 2 minutes for Vercel to build parity-poc..."
-          sleep 120
+          echo "=== TRIGGER INFO ==="
+          echo "GitHub SHA: $GITHUB_SHA"
+          echo "GitHub ref: $GITHUB_REF"
+          echo "Waiting 2.5 minutes for Vercel to finish building..."
+          sleep 150
 
-      - name: Find latest Ready deployment
+      - name: Debug — dump ALL Vercel API data
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          echo "=== 1. ALL recent parity-poc deployments (any state, any branch) ==="
+          RAW=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=30" \
+            -H "Authorization: Bearer $VERCEL_TOKEN")
+          echo "$RAW" | jq '[.deployments[] | select(.name == "parity-poc")] | .[0:10] | .[] | {url, state, readyState, target, branch: .meta.githubCommitRef, sha: .meta.githubCommitSha[0:7]}'
+
+          echo ""
+          echo "=== 2. READY parity-poc deployments only ==="
+          READY=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=30&state=READY" \
+            -H "Authorization: Bearer $VERCEL_TOKEN")
+          echo "$READY" | jq '[.deployments[] | select(.name == "parity-poc")] | .[0:10] | .[] | {url, state, target, branch: .meta.githubCommitRef, sha: .meta.githubCommitSha[0:7]}'
+
+          echo ""
+          echo "=== 3. READY + staging branch filter ==="
+          STAGING=$(echo "$READY" | jq '[.deployments[] | select(.name == "parity-poc" and .meta.githubCommitRef == "staging")]')
+          echo "$STAGING" | jq '.[0:5] | .[] | {url, sha: .meta.githubCommitSha[0:7]}'
+          STAGING_COUNT=$(echo "$STAGING" | jq 'length')
+          echo "Found $STAGING_COUNT staging deployments"
+
+          echo ""
+          echo "=== 4. SELECTED deployment ==="
+          SELECTED_URL=$(echo "$STAGING" | jq -r '.[0].url // empty')
+          SELECTED_SHA=$(echo "$STAGING" | jq -r '.[0].meta.githubCommitSha[0:7] // empty')
+          echo "URL: ${SELECTED_URL:-NONE}"
+          echo "SHA: ${SELECTED_SHA:-NONE}"
+          echo "Expected SHA: ${GITHUB_SHA:0:7}"
+          if [ "$SELECTED_SHA" = "${GITHUB_SHA:0:7}" ]; then
+            echo "MATCH — selected deployment matches trigger commit"
+          else
+            echo "MISMATCH — selected SHA ($SELECTED_SHA) != trigger SHA (${GITHUB_SHA:0:7})"
+          fi
+
+          echo ""
+          echo "=== 5. Current staging-provider alias target ==="
+          curl -s "https://api.vercel.com/v13/deployments/staging-provider.civicscale.ai?teamId=fju7s-projects" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            | jq '{url, state, branch: .meta.githubCommitRef, sha: .meta.githubCommitSha[0:7]}' \
+            2>/dev/null || echo "Could not resolve current alias target"
+
+      - name: Find latest Ready staging deployment
         id: deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          # Use Vercel REST API to get latest staging deployment from parity-poc.
-          # parity-poc now builds staging branch correctly.
-
-          # First, show the most recent deployment's full metadata for debugging
-          echo "=== Most recent deployment metadata ==="
-          curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=3" \
+          URL=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=30&state=READY" \
             -H "Authorization: Bearer $VERCEL_TOKEN" \
-            | jq '[.deployments[] | select(.name == "parity-poc")] | .[0] | {url, state, target, readyState, meta: .meta.githubCommitRef}' \
-            2>/dev/null || true
-
-          # Get the latest READY deployment from parity-poc (any target type)
-          URL=$(curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=20&state=READY" \
-            -H "Authorization: Bearer $VERCEL_TOKEN" \
-            | jq -r '[.deployments[] | select(.name == "parity-poc")] | .[0].url // empty')
+            | jq -r '[.deployments[] | select(.name == "parity-poc" and .meta.githubCommitRef == "staging")] | .[0].url // empty')
 
           if [ -z "$URL" ]; then
-            echo "ERROR: No Ready deployment found for parity-poc"
-            echo "=== All recent parity-poc deployments ==="
-            curl -s "https://api.vercel.com/v6/deployments?teamId=fju7s-projects&limit=10" \
-              -H "Authorization: Bearer $VERCEL_TOKEN" \
-              | jq '[.deployments[] | select(.name == "parity-poc")] | .[] | {url, state, target, readyState}'
+            echo "ERROR: No Ready staging-branch deployment found"
             exit 1
           fi
 
-          # Vercel API returns URL without https:// prefix
           FULL_URL="https://$URL"
           echo "url=$FULL_URL" >> "$GITHUB_OUTPUT"
-          echo "Aliasing deployment: $FULL_URL"
+          echo "Will alias to: $FULL_URL"
 
       - name: Assign staging aliases
         env:
@@ -54,6 +83,7 @@ jobs:
           npm i -g vercel@latest
 
           DEPLOYMENT="${{ steps.deploy.outputs.url }}"
+          echo "DEPLOYMENT=$DEPLOYMENT"
 
           ALIASES=(
             "staging.civicscale.ai"
@@ -80,3 +110,14 @@ jobs:
             exit 1
           fi
           echo "All 6 staging aliases updated."
+
+      - name: Verify — check what staging-provider now serves
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          sleep 5
+          echo "=== Post-alias: staging-provider target ==="
+          curl -s "https://api.vercel.com/v13/deployments/staging-provider.civicscale.ai?teamId=fju7s-projects" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            | jq '{url, state, branch: .meta.githubCommitRef, sha: .meta.githubCommitSha[0:7]}' \
+            2>/dev/null || echo "Could not resolve"
