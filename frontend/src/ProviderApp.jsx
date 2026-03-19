@@ -2350,6 +2350,7 @@ function OpenAppealsQueue() {
   const [cases, setCases] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [resolving, setResolving] = useState(null);
+  const [lostIds, setLostIds] = useState(new Set()); // case IDs marked "lost" showing Signal assessment
 
   useEffect(() => {
     fetch(`${API_BASE}/api/platform/cases?product=provider&status=open`)
@@ -2366,9 +2367,18 @@ function OpenAppealsQueue() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ case_id: caseId, outcome }),
       });
-      setCases(prev => prev.filter(c => c.id !== caseId));
+      if (outcome === "lost") {
+        setLostIds(prev => new Set(prev).add(caseId));
+      } else {
+        setCases(prev => prev.filter(c => c.id !== caseId));
+      }
     } catch { /* non-fatal */ }
     setResolving(null);
+  }
+
+  function dismissLost(caseId) {
+    setLostIds(prev => { const next = new Set(prev); next.delete(caseId); return next; });
+    setCases(prev => prev.filter(c => c.id !== caseId));
   }
 
   if (!loaded) return (
@@ -2391,30 +2401,55 @@ function OpenAppealsQueue() {
       {cases.map(c => {
         const daysOpen = Math.floor((Date.now() - new Date(c.opened_at).getTime()) / 86400000);
         const stale = daysOpen >= 30;
-        const signalNote = c.signal_score >= 4.0
-          ? `Strong evidence supports a second-level appeal. Signal rates this at ${c.signal_score}/5.0.`
-          : c.signal_score >= 3.0
-          ? "Moderate evidence — review the denial rationale before escalating."
-          : null;
+        const isLost = lostIds.has(c.id);
+        const score = typeof c.signal_score === "number" ? c.signal_score : null;
         return (
-          <div key={c.id} style={{ background: "#fff", border: "1px solid #FDE68A", borderRadius: 8, padding: 14, marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
-            <div style={{ flex: 1, minWidth: 200 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: "#1E293B" }}>
-                {c.cpt_code && `CPT ${c.cpt_code} · `}{c.denial_code || ""} · {c.payer || "Unknown payer"}
-                {stale && <span style={{ marginLeft: 8, fontSize: 11, fontWeight: 700, color: "#D97706", background: "#FEF3C7", padding: "1px 6px", borderRadius: 8 }}>Follow up</span>}
+          <div key={c.id} style={{ background: isLost ? "#FEF2F2" : "#fff", border: `1px solid ${isLost ? "#FECACA" : "#FDE68A"}`, borderRadius: 8, padding: 14, marginBottom: 8 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+              <div style={{ flex: 1, minWidth: 200 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: "#1E293B" }}>
+                  {c.cpt_code && `CPT ${c.cpt_code} · `}{c.denial_code || ""} · {c.payer || "Unknown payer"}
+                  {isLost && <span style={{ marginLeft: 8, fontSize: 11, fontWeight: 700, color: "#DC2626", background: "#FEE2E2", padding: "1px 6px", borderRadius: 8 }}>Lost</span>}
+                  {!isLost && stale && <span style={{ marginLeft: 8, fontSize: 11, fontWeight: 700, color: "#D97706", background: "#FEF3C7", padding: "1px 6px", borderRadius: 8 }}>Follow up</span>}
+                </div>
+                <div style={{ fontSize: 12, color: "#64748B" }}>
+                  {daysOpen} days open{c.signal_topic_slug && ` · Signal: ${c.signal_topic_slug}`}
+                </div>
               </div>
-              <div style={{ fontSize: 12, color: "#64748B" }}>
-                {daysOpen} days open{c.signal_topic_slug && ` · Signal: ${c.signal_topic_slug}`}
+              {!isLost && (
+                <div style={{ display: "flex", gap: 6 }}>
+                  {["won", "lost", "partial", "withdrawn"].map(o => (
+                    <button key={o} onClick={() => resolve(c.id, o)} disabled={resolving === c.id}
+                      style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid #E2E8F0", background: "#fff", fontSize: 11, fontWeight: 600, cursor: "pointer", color: o === "won" ? "#059669" : o === "lost" ? "#DC2626" : "#64748B" }}>
+                      {o.charAt(0).toUpperCase() + o.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            {isLost && (
+              <div style={{ marginTop: 12, padding: 12, borderRadius: 8, background: score >= 4.0 ? "#EEF2FF" : score >= 3.0 ? "#FFFBEB" : "#F8FAFC", border: `1px solid ${score >= 4.0 ? "#C7D2FE" : score >= 3.0 ? "#FDE68A" : "#E2E8F0"}` }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: score >= 4.0 ? "#3730A3" : score >= 3.0 ? "#92400E" : "#64748B", marginBottom: 8 }}>
+                  {score >= 4.0
+                    ? `Strong evidence supports a second-level appeal. Signal rates this at ${score}/5.0.`
+                    : score >= 3.0
+                    ? "Moderate evidence \u2014 review the denial rationale before escalating."
+                    : "Limited Signal evidence for this CPT code."}
+                </div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  {score >= 4.0 && (
+                    <a href={c.signal_topic_slug ? `/signal/${c.signal_topic_slug}` : "/signal"} target="_blank" rel="noopener noreferrer"
+                      style={{ padding: "6px 14px", borderRadius: 6, border: "none", background: "#4F46E5", color: "#fff", fontSize: 12, fontWeight: 600, textDecoration: "none", cursor: "pointer" }}>
+                      Generate second-level appeal
+                    </a>
+                  )}
+                  <button onClick={() => dismissLost(c.id)}
+                    style={{ padding: "6px 14px", borderRadius: 6, border: "1px solid #E2E8F0", background: "#fff", fontSize: 12, fontWeight: 600, cursor: "pointer", color: "#64748B" }}>
+                    Dismiss
+                  </button>
+                </div>
               </div>
-            </div>
-            <div style={{ display: "flex", gap: 6 }}>
-              {["won", "lost", "partial", "withdrawn"].map(o => (
-                <button key={o} onClick={() => resolve(c.id, o)} disabled={resolving === c.id}
-                  style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid #E2E8F0", background: "#fff", fontSize: 11, fontWeight: 600, cursor: "pointer", color: o === "won" ? "#059669" : o === "lost" ? "#DC2626" : "#64748B" }}>
-                  {o.charAt(0).toUpperCase() + o.slice(1)}
-                </button>
-              ))}
-            </div>
+            )}
           </div>
         );
       })}
