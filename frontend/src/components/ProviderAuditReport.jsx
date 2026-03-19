@@ -170,11 +170,38 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
     }
   }
 
-  async function handleDraftAppeal(denialType, payerName) {
+  async function handleDraftAppeal(denialType, payerName, forceRegenerate = false) {
     const key = `${payerName}-${denialType.adjustment_code}`;
+    const cptCode = (denialType.affected_cpts || []).join(", ");
     setAppealGenerating(key);
     try {
       if (!token) { alert("Please log in to generate appeals."); return; }
+
+      // Check for saved letter (unless forcing regeneration)
+      if (!forceRegenerate) {
+        try {
+          const savedRes = await fetch(
+            `${API_BASE}/api/provider/saved-appeal-letter?payer=${encodeURIComponent(payerName)}&denial_code=${encodeURIComponent(denialType.adjustment_code)}&cpt_code=${encodeURIComponent(cptCode)}`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          if (savedRes.ok) {
+            const saved = await savedRes.json();
+            if (saved.found) {
+              setAppealModal({
+                letter_text: saved.letter_text,
+                editText: saved.letter_text,
+                payer_name: payerName,
+                denial_code: denialType.adjustment_code,
+                cpt_code: cptCode,
+                savedAt: saved.generated_at,
+                _denialType: denialType,
+              });
+              setAppealGenerating(null);
+              return;
+            }
+          }
+        } catch { /* fall through to generation */ }
+      }
 
       const res = await fetch(`${API_BASE}/api/provider/generate-appeal`, {
         method: "POST",
@@ -185,7 +212,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         body: JSON.stringify({
           claim_id: denialType.adjustment_code,
           denial_code: denialType.adjustment_code,
-          cpt_code: (denialType.affected_cpts || []).join(", "),
+          cpt_code: cptCode,
           billed_amount: denialType.total_value || 0,
           payer_name: payerName,
           date_of_service: denialType.sample_date_of_service || "",
@@ -206,7 +233,8 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
         editText: data.letter_text || "",
         payer_name: payerName,
         denial_code: denialType.adjustment_code,
-        cpt_code: (denialType.affected_cpts || []).join(", "),
+        cpt_code: cptCode,
+        _denialType: denialType,
       });
     } catch (err) {
       console.error("Appeal generation error:", err);
@@ -267,6 +295,29 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                 background: "none", border: "none", fontSize: 24, cursor: "pointer", color: SLATE,
               }}>&times;</button>
             </div>
+
+            {/* Saved letter indicator + Regenerate */}
+            {appealModal.savedAt && (
+              <div style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontSize: 12, color: "#059669", fontWeight: 500 }}>
+                  Loaded from saved letter ({new Date(appealModal.savedAt).toLocaleDateString()})
+                </span>
+                <button
+                  onClick={() => {
+                    setAppealModal(null);
+                    if (appealModal._denialType) {
+                      handleDraftAppeal(appealModal._denialType, appealModal.payer_name, true);
+                    }
+                  }}
+                  style={{
+                    padding: "4px 12px", borderRadius: 6, border: "1px solid #E2E8F0",
+                    background: "#fff", fontSize: 12, fontWeight: 600, cursor: "pointer", color: SLATE,
+                  }}
+                >
+                  Regenerate
+                </button>
+              </div>
+            )}
 
             {/* Appeal strength badge */}
             {appealModal.appeal_strength && (
