@@ -656,9 +656,25 @@ function GettingStartedTab({ practice, onNavigate }) {
             ))}
           </div>
 
-          <p style={{ fontSize: "11px", color: "#94a3b8", marginBottom: "16px" }}>
+          <p style={{ fontSize: "11px", color: "#94a3b8", marginBottom: "12px" }}>
             Accepted formats: .835, .edi, .txt, or .zip containing multiple files
           </p>
+
+          <div style={{
+            background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: "8px",
+            padding: "12px 16px", marginBottom: "16px", textAlign: "center",
+          }}>
+            <span style={{ fontSize: "13px", color: "#1E40AF" }}>
+              Don't have an 835 file?{" "}
+              <a
+                href={`${API_BASE}/api/provider/demo-835`}
+                download
+                style={{ color: "#0d9488", fontWeight: 600, textDecoration: "underline" }}
+              >
+                Download our sample file
+              </a>
+            </span>
+          </div>
 
           <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", marginBottom: "20px" }}>
             Your clearinghouse (Availity, Office Ally, Change Healthcare) sends these to you monthly.
