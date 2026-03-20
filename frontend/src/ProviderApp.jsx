@@ -102,10 +102,23 @@ function ProviderAppInner() {
   const [appealsData, setAppealsData] = useState(null);
   const [appealsLoading, setAppealsLoading] = useState(false);
 
-  // ── Trial status state ──
-  const [trialStatus, setTrialStatus] = useState(null); // {status, days_remaining, trial_ends_at, subscription_active}
+  // ── Trial banner state ──
+  const [trialStatus, setTrialStatus] = useState(null); // { status, days_remaining, trial_ends_at, subscription_active }
+  const [trialLoading, setTrialLoading] = useState(true);
 
   const authHeaders = { Authorization: `Bearer ${token}` };
+
+  // Load trial status when authenticated
+  useEffect(() => {
+    if (!token) { setTrialLoading(false); return; }
+    (async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/provider/trial-status`, { headers: { Authorization: `Bearer ${token}` } });
+        if (res.ok) setTrialStatus(await res.json());
+      } catch { /* ignore */ }
+      setTrialLoading(false);
+    })();
+  }, [token]);
 
   // Load profile when authenticated
   useEffect(() => {
