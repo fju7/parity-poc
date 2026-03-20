@@ -37,10 +37,10 @@ router = APIRouter(tags=["provider"])
 @router.get("/demo-835")
 async def download_demo_835():
     """Serve the demo 835 file for the sample upload flow."""
-    demo_path = os.path.join(os.path.dirname(__file__), "..", "test_data", "demo_835_riverside.txt")
+    demo_path = os.path.join(os.path.dirname(__file__), "..", "test_data", "chesapeake_835_2024.edi")
     if not os.path.exists(demo_path):
         raise HTTPException(status_code=404, detail="Demo file not found")
-    return FileResponse(demo_path, media_type="text/plain", filename="Riverside_Family_Medicine_Sample.835")
+    return FileResponse(demo_path, media_type="text/plain", filename="Chesapeake_Family_Medicine_Sample.835")
 
 
 # ---------------------------------------------------------------------------
