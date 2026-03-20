@@ -25,10 +25,10 @@ DEMO_USER_ID = "REPLACE_WITH_YOUR_USER_ID"  # from supabase auth.users
 
 DEMO_PRACTICE = {
     "company_id": DEMO_USER_ID,
-    "practice_name": "Sunshine Internal Medicine",
-    "specialty": "Internal Medicine",
+    "practice_name": "Chesapeake Family Medicine",
+    "specialty": "Family Medicine",
     "npi": "1234567890",
-    "zip_code": "33701",
+    "zip_code": "21201",
 }
 
 # 3 months of contract integrity analyses: Nov 2025, Dec 2025, Jan 2026
