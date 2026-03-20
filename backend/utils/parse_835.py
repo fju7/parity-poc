@@ -162,6 +162,9 @@ def parse_835(content: str) -> dict:
                 claim.get("place_of_service", ""), "Unknown"
             )
             item["allowed_amount"] = claim.get("allowed_amount", item.get("paid_amount", 0))
+            # Propagate claim-level adjustments to service lines that have none
+            if not item.get("adjustments") and claim.get("claim_adjustments"):
+                item["adjustments"] = list(claim["claim_adjustments"])
             all_line_items.append(item)
 
         total_billed += claim.get("billed_amount", 0)

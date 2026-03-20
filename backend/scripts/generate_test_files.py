@@ -194,19 +194,21 @@ def generate_provider_835():
             member_id = f"MBR{random.randint(100000, 999999)}"
 
             # Determine payment outcome
+            # Private payers typically pay 105-110% of Medicare
+            medicare = MEDICARE_RATES.get(cpt, 80)
             roll = random.random()
-            if roll < 0.70:
-                # Paid at contracted rate
+            if roll < 0.60:
+                # Paid at 105-110% of Medicare (typical private payer)
+                pct = random.uniform(1.05, 1.10)
+                paid = round(medicare * pct, 2)
+                adj_code = None
+                adj_amt = round(billed - paid, 2)
+            elif roll < 0.80:
+                # Paid at full contracted rate (no underpayment)
                 paid = contracted
                 adj_code = None
                 adj_amt = round(billed - paid, 2)
-            elif roll < 0.85:
-                # Underpaid 10-20%
-                underpay_pct = random.uniform(0.10, 0.20)
-                paid = round(contracted * (1 - underpay_pct), 2)
-                adj_code = None
-                adj_amt = round(billed - paid, 2)
-            elif roll < 0.95:
+            elif roll < 0.90:
                 # Denied
                 paid = 0
                 denial = random.choice(DENIAL_CODES)

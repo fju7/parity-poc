@@ -1,263 +1,156 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { API_BASE } from "../lib/apiBase";
 
 // ---------------------------------------------------------------------------
-// Sample data — Lakeside Internal Medicine (fictional)
+// Denial code descriptions (for audit report display)
 // ---------------------------------------------------------------------------
 
-const PRACTICE = {
-  name: "Lakeside Internal Medicine",
-  location: "Tampa, FL",
-  providers: 3,
-  specialty: "Internal Medicine",
+const DENIAL_CODE_REASONS = {
+  "CO-97": "Procedure/service bundled — payer says it should be included in another service.",
+  "CO-4": "Modifier required — payer expected a modifier that was missing or incorrect.",
+  "CO-50": "Non-covered service — payer says this service is not covered under the plan.",
+  "CO-45": "Contractual obligation — difference between billed and allowed amount.",
+  "CO-16": "Missing information — claim lacks data needed for adjudication.",
+  "OA-18": "Exact duplicate claim.",
 };
 
-// Tab 1: Audit Report data (1 month)
-const AUDIT_PAYERS = [
-  {
-    name: "Blue Cross Blue Shield",
-    short: "BCBS",
-    cleanClaimRate: 89,
-    denialRate: 11,
-    totalBilled: 28400,
-    totalPaid: 24870,
-    totalContracted: 25157,
-    underpayments: [
-      { cpt: "99214", desc: "Office visit, est. moderate", billed: 285, paid: 122, contracted: 142, variance: -20, flag: "Underpaid" },
-      { cpt: "99215", desc: "Office visit, est. high", billed: 380, paid: 161, contracted: 178, variance: -17, flag: "Underpaid" },
-      { cpt: "93000", desc: "ECG, 12-lead", billed: 95, paid: 18, contracted: 22, variance: -4, flag: "Underpaid" },
-    ],
-    underpaymentTotal: 287,
-    denials: [],
-    denialTotal: 0,
-  },
-  {
-    name: "Aetna",
-    short: "Aetna",
-    cleanClaimRate: 75,
-    denialRate: 25,
-    totalBilled: 18200,
-    totalPaid: 12380,
-    totalContracted: 12850,
-    underpayments: [
-      { cpt: "99213", desc: "Office visit, est. low", billed: 185, paid: 82, contracted: 89, variance: -7, flag: "Underpaid" },
-    ],
-    underpaymentTotal: 44,
-    denials: [
-      { cpt: "99213", desc: "Office visit, est. low", billed: 185, reasonCode: "CO-16", reason: "Claim lacks information needed for adjudication", amount: 185, appealScore: 8 },
-      { cpt: "99214", desc: "Office visit, est. moderate", billed: 285, reasonCode: "CO-16", reason: "Claim lacks information needed for adjudication", amount: 285, appealScore: 7 },
-    ],
-    denialTotal: 470,
-  },
-  {
-    name: "UnitedHealthcare",
-    short: "UHC",
-    cleanClaimRate: 96,
-    denialRate: 4,
-    totalBilled: 22600,
-    totalPaid: 19850,
-    totalContracted: 19850,
-    underpayments: [],
-    underpaymentTotal: 0,
-    denials: [
-      { cpt: "99214", desc: "Office visit, est. moderate", billed: 285, reasonCode: "OA-18", reason: "Exact duplicate claim", amount: 285, appealScore: 9 },
-    ],
-    denialTotal: 285,
-  },
-];
+// Appeal score heuristic: how likely is this denial to be overturned?
+function appealScore(code) {
+  const scores = { "CO-97": 7, "CO-4": 8, "CO-50": 5 };
+  return scores[code] || 6;
+}
 
-const AUDIT_SUMMARY = {
-  totalBilled: 69200,
-  totalPaid: 57100,
-  totalContracted: 57857,
-  totalUnderpayment: 331,
-  totalDenied: 755,
-  monthlyGap: 1086,
-  annualizedGap: 13032,
-  execSummary: "Lakeside Internal Medicine shows a monthly revenue gap of $1,086 across three payers. BCBS has three active underpayments totaling $287/month, primarily on office visits where payments are consistently below contracted rates. Aetna's CO-16 denials ($470) suggest a documentation submission issue that should be addressable. UHC's OA-18 denial ($285) appears to be a corrected resubmission flagged as duplicate — a straightforward appeal. Annualized, this practice is leaving approximately $13,032 on the table.",
-  recommendedActions: [
-    "Appeal the two Aetna CO-16 denials immediately — these are documentation-based and have a high overturn rate when supporting records are attached.",
-    "Appeal the UHC OA-18 denial with proof this was a corrected claim, not a duplicate submission. Include the original claim number and correction reason.",
-    "Contact BCBS about the systematic underpayment on 99214, 99215, and 93000 — request a rate review referencing your contract terms.",
-    "Implement a pre-submission checklist for Aetna claims to ensure all required documentation fields are populated before submission.",
-  ],
-};
+// ---------------------------------------------------------------------------
+// Static demo content for tabs that don't come from the 835 parse
+// (Trends, Appeal Letters, Payer Intelligence)
+// These reference Chesapeake Family Medicine and the actual denial codes.
+// ---------------------------------------------------------------------------
 
-// Tab 2: Month-over-month trend data (3 months)
-const TREND_MONTHS = ["January 2026", "February 2026", "March 2026"];
-
-const TREND_DATA = {
-  aetna99214: {
-    label: "Aetna 99214 Underpayment",
-    values: [13, 18, 22],
-    direction: "worsening",
-    color: "#EF4444",
-  },
-  bcbsDenialRate: {
-    label: "BCBS Denial Rate",
-    values: [11, 8, 6],
-    unit: "%",
-    direction: "improving",
-    color: "#22C55E",
-  },
-  uhcCO197: {
-    label: "UHC CO-197 Denials (new pattern)",
-    values: [0, 0, 3],
-    direction: "new",
-    color: "#F59E0B",
-  },
-  monthlyGap: {
-    label: "Total Monthly Revenue Gap",
-    values: [1086, 1240, 1415],
-    direction: "worsening",
-    color: "#EF4444",
-  },
-};
-
-const TREND_NARRATIVE = `Over the past three months, Lakeside Internal Medicine's revenue gap is trending upward — from $1,086 in January to $1,415 in March (+30%).
-
-Key changes:
-- Aetna's underpayment on 99214 has increased from $13 to $22 per claim. With ~35 claims/month, this adds ~$315/month in lost revenue vs. January. This suggests a systematic issue, possibly a fee schedule update that wasn't applied to your contract.
-- BCBS denial rate improved from 11% to 6%, likely due to the documentation checklist implemented after the audit. This is saving approximately $180/month in denied claims.
-- A new pattern emerged in March: UHC denied 3 claims with CO-197 (precertification not obtained). This was not present in prior months and should be investigated immediately before it becomes systemic.
-
-Recommended action: Contact your Aetna representative about the 99214 rate discrepancy. This single issue represents ~$3,780/year in underpayments at current volume.`;
-
-// Tab 3: Appeal letters
 const APPEAL_LETTERS = [
   {
-    payer: "Aetna",
-    cpt: "99213",
-    reasonCode: "CO-16",
-    amount: 185,
-    dos: "02/14/2026",
-    claimId: "AET-2026-441872",
-    letter: `RE: Appeal of Denied Claim AET-2026-441872
-CPT 99213 — Office Visit, Established Patient, Low Complexity
-Date of Service: February 14, 2026
-Patient DOB: 07/22/1965
-Billed Amount: $185.00
+    payer: "BlueCross Maryland",
+    cpt: "99215",
+    reasonCode: "CO-97",
+    amount: 750,
+    dos: "06/15/2024",
+    claimId: "CFM240623023",
+    letter: `RE: Appeal of Denied Claim CFM240623023
+CPT 99215 — Office Visit, Established Patient, High Complexity
+Date of Service: June 15, 2024
+Billed Amount: $750.00
 
-Dear Aetna Claims Review Department,
+Dear BlueCross Maryland Claims Review Department,
 
-I am writing to appeal the denial of the above-referenced claim under reason code CO-16 (Claim/service lacks information needed for adjudication).
+I am writing to appeal the denial of the above-referenced claim under reason code CO-97 (The benefit for this service is included in the payment/allowance for another service/procedure that has already been adjudicated).
 
 APPEAL BASIS
 
-This denial indicates that required documentation was not received with the original claim submission. We have confirmed that all required documentation was present in our practice management system at the time of service. The issue appears to be a transmission error during electronic claim submission.
+This denial incorrectly bundles CPT 99215 with a separately identifiable service. The E/M visit on June 15 involved a high-complexity evaluation that was distinct from any procedure performed on the same date. The documentation clearly supports:
+
+1. A separately identifiable chief complaint requiring independent medical decision-making
+2. Moderate-to-high complexity MDM with multiple chronic conditions assessed
+3. 40+ minutes of total physician time documented
+
+Per CMS NCCI Policy Manual, Chapter 1, Section E: "E/M services on the same date as a procedure are separately reportable when the E/M service is significant and separately identifiable." Modifier 25 was appropriately appended.
 
 SUPPORTING DOCUMENTATION ENCLOSED
 
-1. Complete progress note for the February 14, 2026 encounter, documenting:
-   - Chief complaint and history of present illness
-   - Review of systems (2 systems reviewed)
-   - Physical examination findings
-   - Medical decision-making of low complexity
-   - Assessment and plan
-
-2. Signed physician attestation confirming the services were rendered as billed
-
-3. Electronic claim submission confirmation showing original transmission date
-
-Per CMS Guidelines (MLN Matters SE0726), claims denied for missing information should be reconsidered when the information was available at the time of service and is subsequently provided. The enclosed documentation satisfies all requirements for CPT 99213.
+1. Complete progress note documenting the distinct E/M service
+2. Procedure note (if applicable) showing the separate service
+3. Time documentation supporting high complexity
 
 We respectfully request that this claim be reprocessed and paid at the contracted rate.
 
 Sincerely,
 [Physician Name], MD
-Lakeside Internal Medicine
+Chesapeake Family Medicine
 NPI: [Practice NPI]`,
   },
   {
-    payer: "UHC",
+    payer: "BlueCross Maryland",
     cpt: "99214",
-    reasonCode: "OA-18",
-    amount: 285,
-    dos: "02/21/2026",
-    claimId: "UHC-2026-559103",
-    letter: `RE: Appeal of Denied Claim UHC-2026-559103
+    reasonCode: "CO-4",
+    amount: 550,
+    dos: "06/18/2024",
+    claimId: "CFM240626026",
+    letter: `RE: Appeal of Denied Claim CFM240626026
 CPT 99214 — Office Visit, Established Patient, Moderate Complexity
-Date of Service: February 21, 2026
-Patient DOB: 11/03/1971
-Billed Amount: $285.00
+Date of Service: June 18, 2024
+Billed Amount: $550.00
 
-Dear UnitedHealthcare Claims Review Department,
+Dear BlueCross Maryland Claims Review Department,
 
-I am writing to appeal the denial of the above-referenced claim under reason code OA-18 (Exact duplicate claim/service).
+I am writing to appeal the denial of the above-referenced claim under reason code CO-4 (The procedure code is inconsistent with the modifier used, or a required modifier is missing).
 
 APPEAL BASIS
 
-This claim is NOT a duplicate. It is a corrected resubmission of claim UHC-2026-502847 (original date of submission: February 25, 2026). The original claim contained an incorrect modifier and was resubmitted with the correction on March 3, 2026 using frequency type code "7" (replacement claim) as required by UHC's corrected claim policy.
+This denial indicates a modifier issue. Upon review, the original claim submission either omitted a required modifier or used an incorrect one. The service rendered was a legitimate, separately identifiable E/M encounter that warrants payment.
 
-EVIDENCE OF CORRECTION
+CORRECTIVE ACTION
 
-1. Original claim UHC-2026-502847 — submitted 02/25/2026 (included for reference)
-2. Corrected claim UHC-2026-559103 — submitted 03/03/2026 with frequency type "7"
-3. The only change between claims is the removal of an incorrect modifier 25 that was applied in error
+1. The corrected claim is resubmitted with the appropriate modifier (25 — Significant, Separately Identifiable E/M Service)
+2. The encounter note documents a distinct chief complaint, separate from any procedure performed
+3. Medical decision-making of moderate complexity is supported by the clinical documentation
 
-Per UHC's Provider Administrative Guide, Section 8.4: "Corrected claims submitted with frequency type code 7 should be processed as replacements, not flagged as duplicates."
-
-The corrected claim should be adjudicated on its own merits and paid at the contracted rate of $285.00.
-
-Sincerely,
-[Physician Name], MD
-Lakeside Internal Medicine
-NPI: [Practice NPI]`,
-  },
-  {
-    payer: "Aetna",
-    cpt: "99214",
-    reasonCode: "CO-16",
-    amount: 285,
-    dos: "02/07/2026",
-    claimId: "AET-2026-438291",
-    letter: `RE: Appeal of Denied Claim AET-2026-438291
-CPT 99214 — Office Visit, Established Patient, Moderate Complexity
-Date of Service: February 7, 2026
-Patient DOB: 03/15/1958
-Billed Amount: $285.00
-
-Dear Aetna Claims Review Department,
-
-I am writing to appeal the denial of the above-referenced claim under reason code CO-16 (Claim/service lacks information needed for adjudication).
-
-APPEAL BASIS
-
-The denial states that information needed for adjudication was not included. Upon review, all required elements for a CPT 99214 encounter were documented in the medical record:
-
-1. History: Detailed HPI with 4+ elements, pertinent ROS (3 systems), pertinent PFSH
-2. Examination: Detailed multi-system examination (8 organ systems)
-3. Medical Decision Making: Moderate complexity — multiple diagnoses, prescription drug management, moderate data review
+Per the AMA CPT Guidelines and CMS Claims Processing Manual (Chapter 12, Section 20.4.2), modifier 25 should be appended when "the physician may need to indicate that on the day a procedure or service was performed, the patient's condition required a significant, separately identifiable E/M service."
 
 DOCUMENTATION ENCLOSED
 
-- Complete progress note for 02/07/2026 encounter
-- Problem list and medication list current as of date of service
-- Prior authorization reference (if applicable)
+- Corrected CMS-1500 with appropriate modifier
+- Complete progress note for 06/18/2024
+- Procedure note demonstrating the separate service
 
-This encounter meets all documentation requirements for CPT 99214 per the 2021 E&M Guidelines. We respectfully request reprocessing and payment at the contracted rate.
+We respectfully request reprocessing and payment at the contracted rate.
 
 Sincerely,
 [Physician Name], MD
-Lakeside Internal Medicine
+Chesapeake Family Medicine
 NPI: [Practice NPI]`,
   },
-];
+  {
+    payer: "BlueCross Maryland",
+    cpt: "90707",
+    reasonCode: "CO-50",
+    amount: 180,
+    dos: "06/22/2024",
+    claimId: "CFM240630030",
+    letter: `RE: Appeal of Denied Claim CFM240630030
+CPT 90707 — MMR Vaccine (Measles, Mumps, Rubella)
+Date of Service: June 22, 2024
+Billed Amount: $180.00
 
-// Tab 4: Payer Intelligence (coming soon mockup)
-const BENCHMARK_DATA = [
-  { cpt: "99213", desc: "Office visit, est. low", yourRate: 89, marketMedian: 102, percentile: 28 },
-  { cpt: "99214", desc: "Office visit, est. moderate", yourRate: 118, marketMedian: 138, percentile: 22 },
-  { cpt: "99215", desc: "Office visit, est. high", yourRate: 155, marketMedian: 178, percentile: 25 },
-  { cpt: "99203", desc: "Office visit, new low", yourRate: 98, marketMedian: 118, percentile: 30 },
-  { cpt: "99204", desc: "Office visit, new moderate", yourRate: 165, marketMedian: 192, percentile: 27 },
-];
+Dear BlueCross Maryland Claims Review Department,
 
-const CODING_DIST = [
-  { code: "99213", yours: 65, peers: 48 },
-  { code: "99214", yours: 25, peers: 35 },
-  { code: "99215", yours: 5, peers: 10 },
-  { code: "99211/12", yours: 5, peers: 7 },
+I am writing to appeal the denial of the above-referenced claim under reason code CO-50 (These are non-covered services because this is not deemed a "medical necessity" by the payer).
+
+APPEAL BASIS
+
+This denial states that the MMR vaccine is not covered. However, MMR vaccination is a medically necessary preventive service under the following circumstances:
+
+1. The patient's immunization records indicated an incomplete vaccination series
+2. The patient is in a high-risk category per CDC/ACIP guidelines
+3. Under the ACA, ACIP-recommended vaccines must be covered without cost-sharing for in-network providers (42 USC §300gg-13)
+
+REGULATORY CITATIONS
+
+- Section 2713 of the Public Health Service Act requires coverage of immunizations recommended by ACIP with an "A" or "B" rating
+- The ACIP recommends MMR vaccination for adults born after 1957 without evidence of immunity
+- Maryland Insurance Code §15-836 requires coverage of immunizations
+
+DOCUMENTATION ENCLOSED
+
+1. Patient immunization history showing need for MMR
+2. CDC/ACIP recommendation applicable to this patient
+3. Clinical notes documenting medical necessity
+
+We respectfully request that this claim be reprocessed. Denial of an ACIP-recommended vaccine may constitute a violation of federal preventive care coverage mandates.
+
+Sincerely,
+[Physician Name], MD
+Chesapeake Family Medicine
+NPI: [Practice NPI]`,
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -275,6 +168,41 @@ const TABS = [
 export default function ProviderDemoPage() {
   const [activeTab, setActiveTab] = useState("start");
   const [expandedAppeal, setExpandedAppeal] = useState(null);
+  const [demoData, setDemoData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch demo analysis from backend on mount
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchDemo() {
+      try {
+        const res = await fetch(`${API_BASE}/api/provider/demo-analysis`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (!cancelled) {
+          setDemoData(data);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Failed to load demo analysis:", err);
+        if (!cancelled) {
+          setError(err.message);
+          setLoading(false);
+        }
+      }
+    }
+    fetchDemo();
+    return () => { cancelled = true; };
+  }, []);
+
+  // Derive practice info from API data or use defaults during loading
+  const practice = demoData?.practice || {
+    name: "Chesapeake Family Medicine",
+    location: "Baltimore, MD",
+    providers: 4,
+    payer_name: "BlueCross Maryland",
+  };
 
   return (
     <div style={{ minHeight: "100vh", background: "#0a1628", color: "#e2e8f0", fontFamily: "'DM Sans', sans-serif" }}>
@@ -292,7 +220,7 @@ export default function ProviderDemoPage() {
         fontSize: "13px",
         color: "#93c5fd",
       }}>
-        You're viewing a demo with sample data from {PRACTICE.name} (fictional).{" "}
+        You're viewing a demo with sample data from {practice.name} (fictional).{" "}
         <Link to="/audit" style={{ color: "#60a5fa", fontWeight: "600", textDecoration: "none" }}>
           Start Your Free Audit &rarr;
         </Link>
@@ -323,7 +251,7 @@ export default function ProviderDemoPage() {
           }}>Demo</span>
         </div>
         <div style={{ fontSize: "13px", color: "#64748b" }}>
-          {PRACTICE.name} &middot; {PRACTICE.location} &middot; {PRACTICE.providers} providers
+          {practice.name} &middot; {practice.location} &middot; {practice.providers} providers
         </div>
       </header>
 
@@ -351,16 +279,20 @@ export default function ProviderDemoPage() {
 
       {/* Content */}
       <main style={{ padding: "32px 24px", maxWidth: "1100px", margin: "0 auto" }}>
-        {activeTab === "start" && <GettingStartedTab onNavigate={setActiveTab} />}
-        {activeTab === "audit" && <AuditReport />}
-        {activeTab === "trends" && <TrendsTab />}
+        {activeTab === "start" && <GettingStartedTab practice={practice} onNavigate={setActiveTab} />}
+        {activeTab === "audit" && (
+          loading ? <LoadingState /> :
+          error ? <ErrorState message={error} /> :
+          <AuditReport data={demoData} practice={practice} />
+        )}
+        {activeTab === "trends" && <TrendsTab practice={practice} demoData={demoData} />}
         {activeTab === "appeals" && (
           <AppealsTab expanded={expandedAppeal} onToggle={(i) => setExpandedAppeal(expandedAppeal === i ? null : i)} />
         )}
-        {activeTab === "intel" && <IntelTab />}
+        {activeTab === "intel" && <IntelTab practice={practice} />}
       </main>
 
-      {/* Bottom CTA — hidden on Getting Started tab which has its own transition CTA */}
+      {/* Bottom CTA */}
       {activeTab !== "start" && <div style={{
         maxWidth: "1100px", margin: "0 auto", padding: "0 24px 48px",
         textAlign: "center",
@@ -388,6 +320,34 @@ export default function ProviderDemoPage() {
 }
 
 // ---------------------------------------------------------------------------
+// Loading / Error states
+// ---------------------------------------------------------------------------
+
+function LoadingState() {
+  return (
+    <div style={{ textAlign: "center", padding: "60px 20px" }}>
+      <div style={{ fontSize: "16px", color: "#94a3b8", marginBottom: "12px" }}>
+        Parsing demo 835 file...
+      </div>
+      <div style={{ fontSize: "13px", color: "#64748b" }}>
+        Analyzing claims against contracted rates
+      </div>
+    </div>
+  );
+}
+
+function ErrorState({ message }) {
+  return (
+    <div style={{ textAlign: "center", padding: "60px 20px" }}>
+      <div style={{ fontSize: "16px", color: "#EF4444", marginBottom: "12px" }}>
+        Failed to load demo analysis
+      </div>
+      <div style={{ fontSize: "13px", color: "#64748b" }}>{message}</div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Tab 0: Getting Started
 // ---------------------------------------------------------------------------
 
@@ -400,9 +360,7 @@ const FEE_METHODS = [
 ];
 
 const SAMPLE_FILES = [
-  "Aetna_ERA_Jan2026.835",
-  "BCBS_ERA_Jan2026.edi",
-  "UHC_Remit_Jan.835",
+  "BlueCross_ERA_Jun2024.835",
 ];
 
 const mockInput = {
@@ -420,10 +378,10 @@ const mockInput = {
 // Module-level flag persists across unmount/remount so animation only plays once
 let gsAnimationPlayed = false;
 
-function GettingStartedTab({ onNavigate }) {
+function GettingStartedTab({ practice, onNavigate }) {
   const timers = useRef([]);
+  const fileInputRef = useRef(null);
 
-  // Animation state — all start false/empty, filled in by sequenced timeouts
   const [payerVisible, setPayerVisible] = useState(false);
   const [medicareHighlighted, setMedicareHighlighted] = useState(false);
   const [percentText, setPercentText] = useState("");
@@ -435,16 +393,24 @@ function GettingStartedTab({ onNavigate }) {
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
   const [buttonPulse, setButtonPulse] = useState(false);
+  const [userFile, setUserFile] = useState(null);
+  const [dragOver, setDragOver] = useState(false);
 
-  // If animation already played, snap to final state immediately
+  const handleFilePicked = (file) => {
+    if (!file) return;
+    setUserFile(file);
+    // Also show the chip area with the real filename
+    setVisibleChips(1);
+  };
+
   useEffect(() => {
     if (gsAnimationPlayed) {
       setPayerVisible(true);
       setMedicareHighlighted(true);
       setPercentText("120");
-      setZipText("33611");
+      setZipText("21201");
       setCptCalloutVisible(true);
-      setVisibleChips(3);
+      setVisibleChips(1);
       setProgressPercent(100);
       setLinesVisible(true);
       setAnalysisComplete(true);
@@ -461,35 +427,23 @@ function GettingStartedTab({ onNavigate }) {
       return id;
     };
 
-    // --- Step 1 timeline ---
-    // t=1000: payer fades in
     t(() => setPayerVisible(true), 1000);
-
-    // t=1500: medicare option highlighted
     t(() => setMedicareHighlighted(true), 1500);
 
-    // t=1800: type "120" (3 chars, ~167ms each)
     const pctChars = "120".split("");
     pctChars.forEach((ch, i) => {
       t(() => setPercentText((prev) => prev + ch), 1800 + i * 167);
     });
 
-    // t=2300: type "33611" (5 chars, ~100ms each)
-    const zipChars = "33611".split("");
+    const zipChars = "21201".split("");
     zipChars.forEach((ch, i) => {
       t(() => setZipText((prev) => prev + ch), 2300 + i * 100);
     });
 
-    // t=2800: CPT callout fades in with scale
     t(() => setCptCalloutVisible(true), 2800);
 
-    // --- Step 2 timeline (starts at t=3800, 0.5s after Step 1 ends at ~3300) ---
-    // File chips drop in one at a time
     t(() => setVisibleChips(1), 3800);
-    t(() => setVisibleChips(2), 4100);
-    t(() => setVisibleChips(3), 4400);
 
-    // Progress bar: 0→100% over 1.5s (t=4700 to t=6200)
     const progressStart = 4700;
     const progressDuration = 1500;
     const progressSteps = 30;
@@ -499,16 +453,11 @@ function GettingStartedTab({ onNavigate }) {
       t(() => setProgressPercent(pct), progressStart + i * stepInterval);
     }
 
-    // "247 payment lines" at ~50% progress
     t(() => setLinesVisible(true), progressStart + progressDuration * 0.5);
-
-    // Analysis complete at 100%
     t(() => setAnalysisComplete(true), progressStart + progressDuration);
 
-    // --- CTA (0.5s after Step 2 completes) ---
     t(() => {
       setCtaVisible(true);
-      // Slight delay before pulse starts
       t(() => setButtonPulse(true), 300);
     }, progressStart + progressDuration + 500);
 
@@ -522,7 +471,6 @@ function GettingStartedTab({ onNavigate }) {
 
   return (
     <div>
-      {/* Inject keyframes for animations */}
       <style>{`
         @keyframes gsTypeCursor {
           0%, 100% { border-right-color: #1E293B; }
@@ -562,21 +510,19 @@ function GettingStartedTab({ onNavigate }) {
         {/* Step 1 */}
         <div style={stepCardOuter}>
           <div style={stepLabel}>Step 1 — 30 seconds</div>
-          <h3 style={stepTitle}>Tell us your payers</h3>
+          <h3 style={stepTitle}>Tell us your payer</h3>
 
-          {/* Payer dropdown — fades in */}
           <div style={{ marginBottom: "16px" }}>
             <div style={fieldLabel}>Payer</div>
             <div style={{ ...mockInput, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{
                 opacity: payerVisible ? 1 : 0,
                 transition: "opacity 0.5s ease",
-              }}>Aetna</span>
+              }}>BlueCross Maryland</span>
               <span style={{ color: "#94a3b8", fontSize: "11px" }}>{"\u25BC"}</span>
             </div>
           </div>
 
-          {/* Fee schedule methods */}
           <div style={{ marginBottom: "16px" }}>
             <div style={fieldLabel}>How would you like to provide your fee schedule?</div>
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -628,7 +574,6 @@ function GettingStartedTab({ onNavigate }) {
             </div>
           </div>
 
-          {/* % of Medicare inputs — typing effect */}
           <div style={{
             background: "#F0FDFA", border: "1px solid #99F6E4",
             borderRadius: "10px", padding: "16px", marginBottom: "16px",
@@ -657,7 +602,6 @@ function GettingStartedTab({ onNavigate }) {
                 </div>
               </div>
             </div>
-            {/* CPT callout — scale-in with fade */}
             <div style={{
               display: "flex", alignItems: "flex-start", gap: "8px",
               background: "#fff", borderRadius: "8px", padding: "12px",
@@ -672,7 +616,7 @@ function GettingStartedTab({ onNavigate }) {
                 transition: "opacity 0.3s ease 0.2s",
               }}>{"\u2713"}</span>
               <span style={{ fontSize: "12px", color: "#1E293B", lineHeight: "1.5" }}>
-                <strong>7,718 CPT codes</strong> generated instantly from 2026 CMS Medicare Fee Schedule, adjusted for Tampa, FL locality
+                <strong>7,718 CPT codes</strong> generated instantly from 2026 CMS Medicare Fee Schedule, adjusted for Baltimore, MD locality
               </span>
             </div>
           </div>
@@ -685,58 +629,111 @@ function GettingStartedTab({ onNavigate }) {
         {/* Step 2 */}
         <div style={stepCardOuter}>
           <div style={stepLabel}>Step 2 — 60 seconds</div>
-          <h3 style={stepTitle}>Upload your 835 files</h3>
+          <h3 style={stepTitle}>Upload your 835 file</h3>
 
-          {/* Drop zone */}
-          <div style={{
-            border: "2px dashed #CBD5E1",
-            borderRadius: "10px",
-            padding: "28px 20px",
-            textAlign: "center",
-            marginBottom: "16px",
-            background: "#F8FAFC",
-          }}>
-            <div style={{ fontSize: "28px", marginBottom: "8px", color: "#94a3b8" }}>{"\u2B06"}</div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".835,.edi,.txt,.zip"
+            style={{ display: "none" }}
+            onChange={(e) => { if (e.target.files?.[0]) handleFilePicked(e.target.files[0]); }}
+          />
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDragOver(false);
+              if (e.dataTransfer.files?.[0]) handleFilePicked(e.dataTransfer.files[0]);
+            }}
+            style={{
+              border: dragOver ? "2px dashed #0D9488" : "2px dashed #CBD5E1",
+              borderRadius: "10px",
+              padding: "28px 20px",
+              textAlign: "center",
+              marginBottom: "16px",
+              background: dragOver ? "#F0FDFA" : "#F8FAFC",
+              cursor: "pointer",
+              transition: "border-color 0.2s, background 0.2s",
+            }}
+          >
+            <div style={{ fontSize: "28px", marginBottom: "8px", color: dragOver ? "#0D9488" : "#94a3b8" }}>{"\u2B06"}</div>
             <div style={{ fontSize: "13px", color: "#64748b", marginBottom: "4px" }}>
-              Drag & drop your remittance files here
+              {userFile ? userFile.name : "Drag & drop your remittance file here"}
             </div>
             <div style={{ fontSize: "12px", color: "#94a3b8" }}>
-              {visibleChips > 0 ? `${visibleChips} file${visibleChips !== 1 ? "s" : ""} selected` : "\u00A0"}
+              {userFile ? "1 file selected" : "or click to browse"}
             </div>
           </div>
 
-          {/* File chips — bounce in one at a time */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "12px", minHeight: "32px" }}>
-            {SAMPLE_FILES.map((f, idx) => (
+            {userFile ? (
               <div
-                key={f}
                 style={{
-                  display: idx < visibleChips ? "inline-flex" : "none",
+                  display: "inline-flex",
                   alignItems: "center", gap: "6px",
-                  background: "#EFF6FF", border: "1px solid #BFDBFE",
-                  borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
+                  background: "#F0FDF4", border: "1px solid #BBF7D0",
+                  borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#166534",
                   animation: "gsChipBounce 0.4s ease forwards",
                 }}
               >
                 <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
-                {f}
+                {userFile.name}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setUserFile(null); setVisibleChips(0); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "#64748b", fontSize: "14px", padding: "0 0 0 4px", lineHeight: 1 }}
+                  title="Remove file"
+                >{"\u2715"}</button>
               </div>
-            ))}
+            ) : (
+              SAMPLE_FILES.map((f, idx) => (
+                <div
+                  key={f}
+                  style={{
+                    display: idx < visibleChips ? "inline-flex" : "none",
+                    alignItems: "center", gap: "6px",
+                    background: "#EFF6FF", border: "1px solid #BFDBFE",
+                    borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
+                    animation: "gsChipBounce 0.4s ease forwards",
+                  }}
+                >
+                  <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
+                  {f}
+                </div>
+              ))
+            )}
           </div>
 
-          <p style={{ fontSize: "11px", color: "#94a3b8", marginBottom: "16px" }}>
+          <p style={{ fontSize: "11px", color: "#94a3b8", marginBottom: "12px" }}>
             Accepted formats: .835, .edi, .txt, or .zip containing multiple files
           </p>
 
+          <div style={{
+            background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: "8px",
+            padding: "12px 16px", marginBottom: "16px", textAlign: "center",
+          }}>
+            <span style={{ fontSize: "13px", color: "#1E40AF" }}>
+              Don't have an 835 file?{" "}
+              <a
+                href={`${API_BASE}/api/provider/demo-835`}
+                download
+                style={{ color: "#0d9488", fontWeight: 600, textDecoration: "underline" }}
+              >
+                Download our sample file
+              </a>
+            </span>
+          </div>
+
           <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", marginBottom: "20px" }}>
-            Your clearinghouse (Availity, Office Ally, Change Healthcare) sends these to you monthly. Download them from your clearinghouse portal and upload here — or just forward the email to us.
+            Your clearinghouse (Availity, Office Ally, Change Healthcare) sends these to you monthly.
+            Download them from your clearinghouse portal and upload here — or just forward the email to us.
           </p>
 
-          {/* Progress indicator */}
           <div style={{
             background: "#F8FAFC", borderRadius: "8px", padding: "14px",
             border: "1px solid #E2E8F0", marginBottom: "12px",
-            opacity: visibleChips >= 3 ? 1 : 0.3,
+            opacity: visibleChips >= 1 ? 1 : 0.3,
             transition: "opacity 0.4s ease",
           }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
@@ -760,11 +757,10 @@ function GettingStartedTab({ onNavigate }) {
               opacity: linesVisible ? 1 : 0,
               transition: "opacity 0.4s ease",
             }}>
-              247 payment lines identified across 3 payers
+              30 payment lines identified from BlueCross Maryland
             </div>
           </div>
 
-          {/* Success state */}
           <div style={{
             display: "flex", alignItems: "center", gap: "8px",
             background: "#F0FDF4", border: "1px solid #BBF7D0",
@@ -778,10 +774,27 @@ function GettingStartedTab({ onNavigate }) {
               Analysis complete — your report is ready
             </span>
           </div>
+
+          {analysisComplete && (
+            <div
+              style={{
+                marginTop: "12px",
+                background: "linear-gradient(135deg, #0F766E 0%, #0D9488 100%)",
+                borderRadius: "8px", padding: "14px 18px",
+                display: "flex", alignItems: "center", gap: "10px",
+                animation: "gsScaleIn 0.4s ease forwards",
+              }}
+            >
+              <span style={{ fontSize: "18px" }}>{"\u27A1"}</span>
+              <span style={{ fontSize: "13px", color: "#fff", lineHeight: "1.5" }}>
+                Your report is ready — click <strong style={{ textDecoration: "underline" }}>Audit Report</strong> above to see your results.
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Transition / CTA — fades in after both steps */}
+      {/* Transition CTA */}
       <div style={{
         textAlign: "center", marginBottom: "8px",
         opacity: ctaVisible ? 1 : 0,
@@ -802,7 +815,7 @@ function GettingStartedTab({ onNavigate }) {
         }}>
           That's it. From here, our AI analyzes every payment line against your contracted rates,
           interprets every denial code in plain English, and delivers a complete report.
-          Here's what {PRACTICE.name}'s report looked like:
+          Here's what {practice.name}'s report looked like:
         </p>
         <button
           onClick={() => onNavigate("audit")}
@@ -859,32 +872,56 @@ const fieldLabel = {
 };
 
 // ---------------------------------------------------------------------------
-// Tab 1: Audit Report
+// Tab 1: Audit Report (data-driven from backend)
 // ---------------------------------------------------------------------------
 
-function AuditReport() {
+function AuditReport({ data, practice }) {
+  const summary = data?.summary || {};
+  const underpayments = data?.underpayments || [];
+  const denials = data?.denials || [];
+
+  const paidCount = summary.paid_count || 0;
+  const deniedCount = summary.denied_count || 0;
+  const totalCount = paidCount + deniedCount;
+  const cleanClaimRate = totalCount > 0 ? Math.round((paidCount / totalCount) * 100) : 0;
+  const denialRate = totalCount > 0 ? Math.round((deniedCount / totalCount) * 100) : 0;
+
+  // Build executive summary from real numbers
+  const denialCodeSummary = Object.entries(summary.denial_code_counts || {})
+    .map(([code, count]) => `${code} (${count} ${count === 1 ? "claim" : "claims"})`)
+    .join(", ");
+
+  const execSummary = `${practice.name} shows a monthly revenue gap of ${fmt(summary.monthly_gap)} from a single payer (${practice.payer_name}). Of ${totalCount} claims analyzed, ${deniedCount} were denied outright totaling ${fmt(summary.total_denied)}, with denial codes ${denialCodeSummary}. Additionally, ${underpayments.length} paid claims show underpayments totaling ${fmt(summary.total_underpayment)} when compared to the contracted rate of ${practice.medicare_pct || 120}% of Medicare. Annualized, this practice is leaving approximately ${fmt(summary.annualized_gap)} on the table from this single payer alone.`;
+
+  const recommendedActions = [
+    `Appeal the ${summary.denial_code_counts?.["CO-97"] || 0} CO-97 (bundling) denials immediately — these claims were for separately identifiable services and modifier 25 documentation supports unbundling.`,
+    `Appeal the ${summary.denial_code_counts?.["CO-4"] || 0} CO-4 (modifier) denials with corrected claims — resubmit with the appropriate modifier and supporting documentation.`,
+    `Appeal the CO-50 denial on CPT 90707 (MMR vaccine) — ACIP-recommended vaccines are federally mandated covered services under ACA Section 2713.`,
+    `Review all underpaid claims against your ${practice.medicare_pct || 120}% of Medicare contracted rate and file bulk rate discrepancy requests with ${practice.payer_name}.`,
+  ];
+
   return (
     <div>
-      <h2 style={h2Style}>Audit Report — {PRACTICE.name}</h2>
+      <h2 style={h2Style}>Audit Report — {practice.name}</h2>
       <p style={{ fontSize: "13px", color: "#64748b", marginBottom: "28px" }}>
-        Period: February 2026 &middot; 3 payers analyzed &middot; Report generated March 1, 2026
+        Period: June 2024 &middot; {practice.payer_name} &middot; {totalCount} claims analyzed
       </p>
 
       {/* Summary stats */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "16px", marginBottom: "32px" }}>
-        <StatCard label="Total Billed" value={fmt(AUDIT_SUMMARY.totalBilled)} />
-        <StatCard label="Total Paid" value={fmt(AUDIT_SUMMARY.totalPaid)} />
-        <StatCard label="Underpayments" value={fmt(AUDIT_SUMMARY.totalUnderpayment)} accent="#EF4444" />
-        <StatCard label="Denied Revenue" value={fmt(AUDIT_SUMMARY.totalDenied)} accent="#F59E0B" />
-        <StatCard label="Monthly Gap" value={fmt(AUDIT_SUMMARY.monthlyGap)} accent="#EF4444" />
-        <StatCard label="Annualized Gap" value={fmt(AUDIT_SUMMARY.annualizedGap)} accent="#EF4444" />
+        <StatCard label="Total Billed" value={fmt(summary.total_billed)} />
+        <StatCard label="Total Paid" value={fmt(summary.total_paid)} />
+        <StatCard label="Underpayments" value={fmt(summary.total_underpayment)} accent="#EF4444" />
+        <StatCard label="Denied Revenue" value={fmt(summary.total_denied)} accent="#F59E0B" />
+        <StatCard label="Monthly Gap" value={fmt(summary.monthly_gap)} accent="#EF4444" />
+        <StatCard label="Annualized Gap" value={fmt(summary.annualized_gap)} accent="#EF4444" />
       </div>
 
       {/* Executive Summary */}
       <div style={{ ...cardStyle, marginBottom: "28px" }}>
         <h3 style={h3Style}>AI Executive Summary</h3>
         <p style={{ fontSize: "14px", lineHeight: "1.8", color: "#94a3b8" }}>
-          {AUDIT_SUMMARY.execSummary}
+          {execSummary}
         </p>
       </div>
 
@@ -892,91 +929,88 @@ function AuditReport() {
       <div style={{ ...cardStyle, marginBottom: "32px" }}>
         <h3 style={h3Style}>Recommended Actions</h3>
         <ol style={{ margin: 0, paddingLeft: "20px", fontSize: "14px", lineHeight: "2", color: "#94a3b8" }}>
-          {AUDIT_SUMMARY.recommendedActions.map((a, i) => <li key={i}>{a}</li>)}
+          {recommendedActions.map((a, i) => <li key={i}>{a}</li>)}
         </ol>
       </div>
 
-      {/* Per-payer breakdown */}
-      {AUDIT_PAYERS.map((p) => (
-        <div key={p.short} style={{ ...cardStyle, marginBottom: "20px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "8px" }}>
-            <h3 style={{ ...h3Style, margin: 0 }}>{p.name}</h3>
-            <div style={{ display: "flex", gap: "16px", fontSize: "13px" }}>
-              <span style={{ color: "#94a3b8" }}>Clean claim rate: <strong style={{ color: p.cleanClaimRate >= 90 ? "#22C55E" : p.cleanClaimRate >= 80 ? "#F59E0B" : "#EF4444" }}>{p.cleanClaimRate}%</strong></span>
-              <span style={{ color: "#94a3b8" }}>Denial rate: <strong style={{ color: p.denialRate <= 5 ? "#22C55E" : p.denialRate <= 15 ? "#F59E0B" : "#EF4444" }}>{p.denialRate}%</strong></span>
-            </div>
+      {/* Payer breakdown — single payer from the 835 */}
+      <div style={{ ...cardStyle, marginBottom: "20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "8px" }}>
+          <h3 style={{ ...h3Style, margin: 0 }}>{practice.payer_name}</h3>
+          <div style={{ display: "flex", gap: "16px", fontSize: "13px" }}>
+            <span style={{ color: "#94a3b8" }}>Clean claim rate: <strong style={{ color: cleanClaimRate >= 90 ? "#22C55E" : cleanClaimRate >= 80 ? "#F59E0B" : "#EF4444" }}>{cleanClaimRate}%</strong></span>
+            <span style={{ color: "#94a3b8" }}>Denial rate: <strong style={{ color: denialRate <= 5 ? "#22C55E" : denialRate <= 15 ? "#F59E0B" : "#EF4444" }}>{denialRate}%</strong></span>
           </div>
+        </div>
 
-          {p.underpayments.length > 0 && (
-            <>
-              <div style={{ fontSize: "12px", fontWeight: "600", color: "#EF4444", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
-                Underpayments ({fmt(p.underpaymentTotal)})
-              </div>
-              <table style={tableStyle}>
-                <thead>
-                  <tr>
-                    {["CPT", "Description", "Billed", "Paid", "Contracted", "Variance", "Flag"].map(h => (
-                      <th key={h} style={thStyle}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {p.underpayments.map((u, i) => (
-                    <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                      <td style={tdStyle}>{u.cpt}</td>
-                      <td style={{ ...tdStyle, color: "#94a3b8" }}>{u.desc}</td>
-                      <td style={tdStyleR}>{fmt(u.billed)}</td>
-                      <td style={tdStyleR}>{fmt(u.paid)}</td>
-                      <td style={tdStyleR}>{fmt(u.contracted)}</td>
-                      <td style={{ ...tdStyleR, color: "#EF4444" }}>{fmt(u.variance)}</td>
-                      <td style={{ ...tdStyle, color: "#EF4444", fontWeight: "600", fontSize: "11px" }}>{u.flag}</td>
-                    </tr>
+        {underpayments.length > 0 && (
+          <>
+            <div style={{ fontSize: "12px", fontWeight: "600", color: "#EF4444", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
+              Underpayments ({fmt(summary.total_underpayment)})
+            </div>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  {["CPT", "Description", "Billed", "Paid", "Contracted", "Variance", "Flag"].map(h => (
+                    <th key={h} style={thStyle}>{h}</th>
                   ))}
-                </tbody>
-              </table>
-            </>
-          )}
-
-          {p.denials.length > 0 && (
-            <>
-              <div style={{ fontSize: "12px", fontWeight: "600", color: "#F59E0B", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px", marginTop: p.underpayments.length > 0 ? "20px" : 0 }}>
-                Denials ({fmt(p.denialTotal)})
-              </div>
-              <table style={tableStyle}>
-                <thead>
-                  <tr>
-                    {["CPT", "Description", "Billed", "Reason Code", "Reason", "Appeal Score"].map(h => (
-                      <th key={h} style={thStyle}>{h}</th>
-                    ))}
+                </tr>
+              </thead>
+              <tbody>
+                {underpayments.map((u, i) => (
+                  <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={tdStyle}>{u.cpt}</td>
+                    <td style={{ ...tdStyle, color: "#94a3b8" }}>{u.desc}</td>
+                    <td style={tdStyleR}>{fmt(u.billed)}</td>
+                    <td style={tdStyleR}>{fmt(u.paid)}</td>
+                    <td style={tdStyleR}>{fmt(u.contracted)}</td>
+                    <td style={{ ...tdStyleR, color: "#EF4444" }}>-{fmt(u.variance)}</td>
+                    <td style={{ ...tdStyle, color: "#EF4444", fontWeight: "600", fontSize: "11px" }}>{u.flag}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {p.denials.map((d, i) => (
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+
+        {denials.length > 0 && (
+          <>
+            <div style={{ fontSize: "12px", fontWeight: "600", color: "#F59E0B", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px", marginTop: underpayments.length > 0 ? "20px" : 0 }}>
+              Denials ({fmt(summary.total_denied)})
+            </div>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  {["CPT", "Description", "Billed", "Reason Code", "Reason", "Appeal Score"].map(h => (
+                    <th key={h} style={thStyle}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {denials.map((d, i) => {
+                  const score = appealScore(d.reasonCode);
+                  return (
                     <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
                       <td style={tdStyle}>{d.cpt}</td>
                       <td style={{ ...tdStyle, color: "#94a3b8" }}>{d.desc}</td>
                       <td style={tdStyleR}>{fmt(d.billed)}</td>
                       <td style={{ ...tdStyle, color: "#F59E0B", fontWeight: "600" }}>{d.reasonCode}</td>
-                      <td style={{ ...tdStyle, color: "#94a3b8", fontSize: "12px" }}>{d.reason}</td>
+                      <td style={{ ...tdStyle, color: "#94a3b8", fontSize: "12px" }}>{DENIAL_CODE_REASONS[d.reasonCode] || d.reasonCode}</td>
                       <td style={{ ...tdStyle, textAlign: "center" }}>
                         <span style={{
                           display: "inline-block", padding: "2px 8px", borderRadius: "10px", fontSize: "11px", fontWeight: "600",
-                          background: d.appealScore >= 8 ? "rgba(34,197,94,0.15)" : "rgba(59,130,246,0.15)",
-                          color: d.appealScore >= 8 ? "#22C55E" : "#60a5fa",
-                        }}>{d.appealScore}/10</span>
+                          background: score >= 7 ? "rgba(34,197,94,0.15)" : "rgba(59,130,246,0.15)",
+                          color: score >= 7 ? "#22C55E" : "#60a5fa",
+                        }}>{score}/10</span>
                       </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          )}
-
-          {p.underpayments.length === 0 && p.denials.length === 0 && (
-            <p style={{ fontSize: "13px", color: "#64748b" }}>No underpayments or notable denials this period.</p>
-          )}
-        </div>
-      ))}
+                  );
+                })}
+              </tbody>
+            </table>
+          </>
+        )}
+      </div>
     </div>
   );
 }
@@ -985,7 +1019,54 @@ function AuditReport() {
 // Tab 2: Month-Over-Month Trends
 // ---------------------------------------------------------------------------
 
-function TrendsTab() {
+function TrendsTab({ practice, demoData }) {
+  const monthlyGap = demoData?.summary?.monthly_gap || 4855;
+
+  // Illustrative trend: gap growing over 3 months
+  const trendMonths = ["April 2024", "May 2024", "June 2024"];
+  const gapValues = [
+    Math.round(monthlyGap * 0.82),
+    Math.round(monthlyGap * 0.91),
+    monthlyGap,
+  ];
+
+  const trendData = [
+    {
+      label: `${practice.payer_name || "BlueCross"} CO-97 Denials`,
+      values: [1, 2, 3],
+      direction: "worsening",
+      color: "#EF4444",
+    },
+    {
+      label: "CO-4 Modifier Denials",
+      values: [1, 1, 3],
+      direction: "worsening",
+      color: "#F59E0B",
+    },
+    {
+      label: "Underpayment per Paid Claim",
+      values: [8, 9, 11],
+      unit: "$",
+      direction: "worsening",
+      color: "#EF4444",
+    },
+    {
+      label: "Total Monthly Revenue Gap",
+      values: gapValues,
+      direction: "worsening",
+      color: "#EF4444",
+    },
+  ];
+
+  const trendNarrative = `Over the past three months, ${practice.name}'s revenue gap with ${practice.payer_name || "BlueCross Maryland"} has been trending upward — from ${fmt(gapValues[0])} in April to ${fmt(gapValues[2])} in June (+${Math.round(((gapValues[2] - gapValues[0]) / gapValues[0]) * 100)}%).
+
+Key changes:
+- CO-97 (bundling) denials increased from 1 to 3 per month. This suggests a systematic change in the payer's claims processing rules — possibly a new NCCI edit being applied. These denials are highly appealable with proper modifier 25 documentation.
+- CO-4 (modifier) denials tripled from 1 to 3 in June. This pattern often indicates a new pre-edit check in the payer's system. A pre-submission modifier review checklist would prevent most of these.
+- Underpayment per paid claim increased from $8 to $11, suggesting possible fee schedule changes that haven't been reflected in the contracted rate.
+
+Recommended action: Schedule a joint call with your ${practice.payer_name || "BlueCross Maryland"} provider representative to discuss the bundling edit changes and verify your contracted rates are being applied correctly.`;
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px", flexWrap: "wrap", gap: "8px" }}>
@@ -993,18 +1074,17 @@ function TrendsTab() {
         <span style={liveBadge}>LIVE — Available now with monitoring subscription</span>
       </div>
 
-      {/* Trend cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginBottom: "32px" }}>
-        {Object.values(TREND_DATA).map((t) => (
+        {trendData.map((t) => (
           <div key={t.label} style={cardStyle}>
             <div style={{ fontSize: "12px", fontWeight: "600", color: "#94a3b8", marginBottom: "8px" }}>{t.label}</div>
             <div style={{ display: "flex", gap: "12px", alignItems: "flex-end", marginBottom: "8px" }}>
               {t.values.map((v, i) => (
                 <div key={i} style={{ flex: 1, textAlign: "center" }}>
                   <div style={{ fontSize: "20px", fontWeight: "700", color: i === t.values.length - 1 ? t.color : "#94a3b8" }}>
-                    {t.unit === "%" ? `${v}%` : v === 0 ? "—" : `$${v}`}
+                    {t.unit === "$" ? `$${v}` : t.unit === "%" ? `${v}%` : v === 0 ? "\u2014" : typeof v === "number" && v > 100 ? fmt(v) : v}
                   </div>
-                  <div style={{ fontSize: "10px", color: "#64748b", marginTop: "4px" }}>{TREND_MONTHS[i].split(" ")[0].slice(0, 3)}</div>
+                  <div style={{ fontSize: "10px", color: "#64748b", marginTop: "4px" }}>{trendMonths[i].split(" ")[0].slice(0, 3)}</div>
                 </div>
               ))}
             </div>
@@ -1018,12 +1098,11 @@ function TrendsTab() {
         ))}
       </div>
 
-      {/* Revenue gap chart (simplified bar representation) */}
       <div style={{ ...cardStyle, marginBottom: "28px" }}>
         <h3 style={h3Style}>Revenue Gap Trend</h3>
         <div style={{ display: "flex", gap: "16px", alignItems: "flex-end", height: "140px", padding: "20px 0" }}>
-          {TREND_DATA.monthlyGap.values.map((v, i) => {
-            const maxVal = Math.max(...TREND_DATA.monthlyGap.values);
+          {gapValues.map((v, i) => {
+            const maxVal = Math.max(...gapValues);
             const height = (v / maxVal) * 100;
             return (
               <div key={i} style={{ flex: 1, textAlign: "center" }}>
@@ -1032,17 +1111,16 @@ function TrendsTab() {
                   height: `${height}px`, background: "rgba(239,68,68,0.3)",
                   border: "1px solid rgba(239,68,68,0.5)", borderRadius: "4px 4px 0 0",
                 }} />
-                <div style={{ fontSize: "12px", color: "#64748b", marginTop: "6px" }}>{TREND_MONTHS[i]}</div>
+                <div style={{ fontSize: "12px", color: "#64748b", marginTop: "6px" }}>{trendMonths[i]}</div>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* AI Trend Narrative */}
       <div style={cardStyle}>
         <h3 style={h3Style}>AI Trend Analysis</h3>
-        {TREND_NARRATIVE.split("\n\n").map((p, i) => (
+        {trendNarrative.split("\n\n").map((p, i) => (
           <p key={i} style={{ fontSize: "14px", lineHeight: "1.8", color: "#94a3b8", marginBottom: "12px", whiteSpace: "pre-line" }}>
             {p}
           </p>
@@ -1071,7 +1149,6 @@ function AppealsTab({ expanded, onToggle }) {
 
       {APPEAL_LETTERS.map((a, i) => (
         <div key={i} style={{ ...cardStyle, marginBottom: "16px" }}>
-          {/* Summary row */}
           <div
             style={{ display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", flexWrap: "wrap", gap: "8px" }}
             onClick={() => onToggle(i)}
@@ -1095,7 +1172,6 @@ function AppealsTab({ expanded, onToggle }) {
             </button>
           </div>
 
-          {/* Expanded letter */}
           {expanded === i && (
             <div style={{
               marginTop: "16px", padding: "20px",
@@ -1143,10 +1219,24 @@ function AppealsTab({ expanded, onToggle }) {
 // Tab 4: Payer Intelligence (Coming Soon)
 // ---------------------------------------------------------------------------
 
-function IntelTab() {
+function IntelTab({ practice }) {
+  const benchmarkData = [
+    { cpt: "99213", desc: "Office visit, est. low", yourRate: 105, marketMedian: 122, percentile: 28 },
+    { cpt: "99214", desc: "Office visit, est. moderate", yourRate: 149, marketMedian: 168, percentile: 25 },
+    { cpt: "99215", desc: "Office visit, est. high", yourRate: 210, marketMedian: 238, percentile: 22 },
+    { cpt: "99396", desc: "Preventive visit, 40-64", yourRate: 178, marketMedian: 195, percentile: 32 },
+    { cpt: "93000", desc: "ECG, 12-lead", yourRate: 33, marketMedian: 42, percentile: 20 },
+  ];
+
+  const codingDist = [
+    { code: "99213", yours: 60, peers: 45 },
+    { code: "99214", yours: 20, peers: 35 },
+    { code: "99215", yours: 10, peers: 12 },
+    { code: "99211/12", yours: 10, peers: 8 },
+  ];
+
   return (
     <div style={{ position: "relative" }}>
-      {/* Coming soon overlay */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 10,
         background: "rgba(10,22,40,0.7)",
@@ -1170,14 +1260,12 @@ function IntelTab() {
         </div>
       </div>
 
-      {/* Mockup content (visible but blurred behind overlay) */}
       <div style={{ filter: "blur(2px)", pointerEvents: "none" }}>
-        <h2 style={h2Style}>Payer Intelligence — Aetna</h2>
+        <h2 style={h2Style}>Payer Intelligence — {practice.payer_name || "BlueCross Maryland"}</h2>
         <p style={{ fontSize: "13px", color: "#64748b", marginBottom: "28px" }}>
-          Your Aetna rates vs. Internal Medicine practices in Tampa metro
+          Your {practice.payer_name || "BlueCross"} rates vs. Family Medicine practices in {practice.location || "Baltimore metro"}
         </p>
 
-        {/* Rate comparison table */}
         <div style={{ ...cardStyle, marginBottom: "28px" }}>
           <h3 style={h3Style}>Contract Rate Benchmarks</h3>
           <table style={tableStyle}>
@@ -1189,7 +1277,7 @@ function IntelTab() {
               </tr>
             </thead>
             <tbody>
-              {BENCHMARK_DATA.map((r) => (
+              {benchmarkData.map((r) => (
                 <tr key={r.cpt} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
                   <td style={tdStyle}>{r.cpt}</td>
                   <td style={{ ...tdStyle, color: "#94a3b8" }}>{r.desc}</td>
@@ -1207,16 +1295,15 @@ function IntelTab() {
             </tbody>
           </table>
           <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", marginTop: "16px" }}>
-            Your Aetna rates are below the 35th percentile across your top codes. At your next
+            Your {practice.payer_name || "BlueCross"} rates are below the 35th percentile across your top codes. At your next
             contract renewal, this data supports requesting a 10-15% rate increase.
           </p>
         </div>
 
-        {/* Coding distribution */}
         <div style={cardStyle}>
           <h3 style={h3Style}>E&M Coding Distribution vs. Specialty Peers</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "16px", marginBottom: "16px" }}>
-            {CODING_DIST.map((c) => (
+            {codingDist.map((c) => (
               <div key={c.code} style={{ textAlign: "center" }}>
                 <div style={{ fontSize: "12px", color: "#64748b", marginBottom: "8px" }}>{c.code}</div>
                 <div style={{ display: "flex", gap: "4px", justifyContent: "center", alignItems: "flex-end", height: "60px" }}>
@@ -1240,11 +1327,6 @@ function IntelTab() {
             <span><span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "2px", background: "rgba(59,130,246,0.4)", marginRight: "4px", verticalAlign: "middle" }} />Your practice</span>
             <span><span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "2px", background: "rgba(148,163,184,0.3)", marginRight: "4px", verticalAlign: "middle" }} />Specialty peers</span>
           </div>
-          <p style={{ fontSize: "14px", lineHeight: "1.7", color: "#94a3b8", marginTop: "16px" }}>
-            Your practice bills 99213 at 65% vs. a peer average of 48%, and 99214 at only 25% vs. 35%.
-            This suggests potential undercoding — a coding optimization review could shift 10-15% of your
-            99213 visits to 99214, increasing revenue by an estimated $8,000-12,000 annually.
-          </p>
         </div>
       </div>
     </div>
@@ -1300,7 +1382,8 @@ const tdStyle = {
 };
 
 const tdStyleR = {
-  ...tdStyle,
+  padding: "8px 10px",
+  color: "#e2e8f0",
   textAlign: "right",
 };
 
@@ -1317,7 +1400,8 @@ const liveBadge = {
 };
 
 function fmt(n) {
-  if (n == null) return "—";
+  if (n == null) return "\u2014";
+  if (typeof n !== "number") return "\u2014";
   if (n < 0) return `-$${Math.abs(n).toLocaleString()}`;
   return `$${n.toLocaleString()}`;
 }

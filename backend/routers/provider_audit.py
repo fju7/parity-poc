@@ -37,10 +37,150 @@ router = APIRouter(tags=["provider"])
 @router.get("/demo-835")
 async def download_demo_835():
     """Serve the demo 835 file for the sample upload flow."""
-    demo_path = os.path.join(os.path.dirname(__file__), "..", "test_data", "demo_835_riverside.txt")
+    demo_path = os.path.join(os.path.dirname(__file__), "..", "test_data", "chesapeake_835_2024.edi")
     if not os.path.exists(demo_path):
         raise HTTPException(status_code=404, detail="Demo file not found")
-    return FileResponse(demo_path, media_type="text/plain", filename="Riverside_Family_Medicine_Sample.835")
+    return FileResponse(demo_path, media_type="text/plain", filename="Chesapeake_Family_Medicine_Sample.835")
+
+
+@router.get("/demo-analysis")
+async def demo_analysis():
+    """Parse the Chesapeake demo 835 and return structured analysis for the demo page.
+
+    Returns practice info, payer breakdown, denial details, underpayment
+    estimates (vs 120% of Medicare for Baltimore ZIP 21201), and summary stats.
+    No authentication required — this is the public demo endpoint.
+    """
+    demo_path = os.path.join(os.path.dirname(__file__), "..", "test_data", "chesapeake_835_2024.edi")
+    if not os.path.exists(demo_path):
+        raise HTTPException(status_code=404, detail="Demo file not found")
+
+    with open(demo_path, "r") as f:
+        edi_text = f.read()
+
+    parsed = parse_835(edi_text)
+
+    # ── Build line-item detail from the parse ──────────────────────────
+    line_items = parsed.get("line_items", [])
+
+    # Medicare rate lookup for Baltimore, MD (ZIP 21201)
+    zip_code = "21201"
+    carrier, locality = resolve_locality(zip_code)
+    medicare_pct = 120  # demo contracted rate = 120% of Medicare
+    multiplier = medicare_pct / 100.0
+
+    # CPT description map
+    CPT_LABELS = {
+        "99213": "Office visit, est. low",
+        "99214": "Office visit, est. moderate",
+        "99215": "Office visit, est. high",
+        "99396": "Preventive visit, est. 40-64",
+        "36415": "Venipuncture",
+        "80053": "Comprehensive metabolic panel",
+        "85025": "CBC with differential",
+        "93000": "ECG, 12-lead",
+        "99441": "Telephone E/M, 5-10 min",
+        "G0439": "Annual wellness visit, subsequent",
+        "90707": "MMR vaccine",
+    }
+
+    # Classify each line item
+    paid_lines = []
+    denied_lines = []
+    underpayments = []
+    total_underpayment = 0.0
+
+    for li in line_items:
+        cpt = li.get("cpt_code", "")
+        billed = li.get("billed_amount", 0) or 0
+        paid = li.get("paid_amount", 0) or 0
+        adjs = li.get("adjustments", [])
+        denial_codes = [a["code"] for a in adjs if a.get("group_code") == "CO" and paid == 0]
+
+        # Look up contracted rate (120% of Medicare)
+        contracted = None
+        if carrier and locality and cpt:
+            rate_result = lookup_rate(cpt, "CPT", carrier, locality)
+            medicare_rate = rate_result[0] if rate_result and rate_result[0] else None
+            if medicare_rate:
+                contracted = round(medicare_rate * multiplier, 2)
+
+        if paid == 0 and denial_codes:
+            denied_lines.append({
+                "cpt": cpt,
+                "desc": CPT_LABELS.get(cpt, cpt),
+                "billed": billed,
+                "reasonCode": denial_codes[0],
+                "amount": billed,
+                "claim_id": li.get("claim_id", ""),
+            })
+        else:
+            paid_lines.append({
+                "cpt": cpt,
+                "desc": CPT_LABELS.get(cpt, cpt),
+                "billed": billed,
+                "paid": paid,
+                "contracted": contracted,
+                "claim_id": li.get("claim_id", ""),
+            })
+            # Detect underpayment
+            if contracted and paid < contracted:
+                variance = round(contracted - paid, 2)
+                total_underpayment += variance
+                underpayments.append({
+                    "cpt": cpt,
+                    "desc": CPT_LABELS.get(cpt, cpt),
+                    "billed": billed,
+                    "paid": paid,
+                    "contracted": contracted,
+                    "variance": variance,
+                    "flag": "Underpaid",
+                })
+
+    total_billed = parsed.get("total_billed", 0) or 0
+    total_paid = parsed.get("total_paid", 0) or 0
+    denial_total = sum(d["amount"] for d in denied_lines)
+    monthly_gap = round(denial_total + total_underpayment, 2)
+    annualized_gap = round(monthly_gap * 12, 2)
+
+    # Denial code summary
+    denial_code_counts = Counter(d["reasonCode"] for d in denied_lines)
+
+    # Group denied lines by code for display
+    denial_code_details = {
+        "CO-97": "Procedure/service bundled — payer says it should be included in another service.",
+        "CO-4": "Modifier required — payer expected a modifier that was missing or incorrect.",
+        "CO-50": "Non-covered service — payer says this service is not covered under the plan.",
+    }
+
+    return {
+        "practice": {
+            "name": parsed.get("payee_name", "Chesapeake Family Medicine"),
+            "location": "Baltimore, MD",
+            "providers": 4,
+            "specialty": "Family Medicine",
+            "zip": zip_code,
+            "payer_name": parsed.get("payer_name", "BlueCross Maryland"),
+            "medicare_pct": medicare_pct,
+        },
+        "summary": {
+            "total_billed": total_billed,
+            "total_paid": total_paid,
+            "total_underpayment": round(total_underpayment, 2),
+            "total_denied": denial_total,
+            "monthly_gap": monthly_gap,
+            "annualized_gap": annualized_gap,
+            "claim_count": parsed.get("claim_count", 0),
+            "paid_count": len(paid_lines),
+            "denied_count": len(denied_lines),
+            "production_date": parsed.get("production_date", ""),
+            "denial_code_counts": dict(denial_code_counts),
+        },
+        "underpayments": underpayments,
+        "denials": denied_lines,
+        "denial_code_details": denial_code_details,
+        "paid_lines": paid_lines,
+    }
 
 
 # ---------------------------------------------------------------------------

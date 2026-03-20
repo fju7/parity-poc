@@ -154,6 +154,9 @@ createRoot(document.getElementById('root')).render(
         ) : (
           <>
         <Route path="/" element={isProviderSubdomain ? <ProviderProductPage /> : <CivicScaleHomepage />} />
+        {/* Provider demo must be public — listed before /provider/* catch-all */}
+        <Route path="/provider/demo" element={<ProviderDemoPage />} />
+        {isProviderSubdomain && <Route path="/demo" element={<ProviderDemoPage />} />}
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
