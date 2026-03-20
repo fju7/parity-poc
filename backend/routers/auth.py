@@ -318,8 +318,9 @@ async def verify_otp(req: VerifyOtpRequest, request: Request):
     }).execute()
 
     # ── AA-6: Day-25 trial reminder email for provider accounts ──
-    if product == "provider":
-        try:
+    # This block must NEVER interrupt the OTP verification response.
+    try:
+        if product == "provider":
             trial_ends_at = matched_company.get("trial_ends_at")
             sent_reminder = matched_company.get("sent_trial_reminder", False)
             plan = matched_company.get("plan", "")
@@ -358,8 +359,8 @@ async def verify_otp(req: VerifyOtpRequest, request: Request):
                             "sent_trial_reminder": True,
                         }).eq("id", matched_company["id"]).execute()
                         print(f"[Auth] Sent trial reminder email to {email}")
-        except Exception as exc:
-            print(f"[Auth] Trial reminder email error: {exc}")
+    except Exception as exc:
+        print(f"[Auth] Trial reminder email error (non-fatal): {exc}")
 
     return {
         "verified": True,
