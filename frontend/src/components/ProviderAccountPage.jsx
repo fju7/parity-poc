@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AuthGate from "./AuthGate";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
@@ -7,6 +7,7 @@ import { LogoIcon } from "./CivicScaleHomepage.jsx";
 import { API_BASE as API } from "../lib/apiBase";
 function ProviderAccountInner() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user, company, token, logout, isAdmin, refetch } = useAuth();
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,9 @@ function ProviderAccountInner() {
   // Billing
   const [portalLoading, setPortalLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
+
+  // Checkout success polling
+  const [checkoutConfirmed, setCheckoutConfirmed] = useState(false);
 
   const authHeaders = { Authorization: `Bearer ${token}` };
 
@@ -71,6 +75,25 @@ function ProviderAccountInner() {
   }, [user?.email, token]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
+
+  // Poll trial-status after checkout until subscription_active=true
+  useEffect(() => {
+    if (searchParams.get("checkout_success") !== "1" || checkoutConfirmed) return;
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`${API}/api/provider/trial-status`, { headers: authHeaders });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.subscription_active) {
+            setCheckoutConfirmed(true);
+            clearInterval(interval);
+            fetchData(); // refresh subscription display
+          }
+        }
+      } catch { /* ignore */ }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [searchParams, checkoutConfirmed, token]);
 
   const handleSaveProfile = async () => {
     if (!practiceName.trim()) { setSaveMsg("Practice name is required."); return; }
@@ -230,6 +253,19 @@ function ProviderAccountInner() {
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "32px 24px" }}>
         <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: "white" }}>Account Settings</h1>
         <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 32 }}>{user?.email}</p>
+
+        {searchParams.get("checkout_success") === "1" && (
+          <div style={{
+            background: checkoutConfirmed ? "rgba(20,184,166,0.12)" : "rgba(59,130,246,0.12)",
+            border: `1px solid ${checkoutConfirmed ? "rgba(20,184,166,0.3)" : "rgba(59,130,246,0.3)"}`,
+            borderRadius: 8, padding: 16, marginBottom: 24,
+            color: checkoutConfirmed ? "#14b8a6" : "#60a5fa", fontSize: 14,
+          }}>
+            {checkoutConfirmed
+              ? "Your subscription is now active! You have full access to Parity Provider."
+              : "Confirming your subscription… this may take a few seconds."}
+          </div>
+        )}
 
         {/* Section 1: Practice Information */}
         <div style={sectionStyle}>

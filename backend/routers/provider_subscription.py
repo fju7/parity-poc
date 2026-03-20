@@ -239,14 +239,17 @@ async def subscription_checkout(request: Request):
         )
         customer_id = customer.id
 
+    provider_url = os.environ.get(
+        "PROVIDER_FRONTEND_URL", "https://provider.civicscale.ai"
+    )
+
     session = stripe_lib.checkout.Session.create(
         customer=customer_id,
         mode="subscription",
         line_items=[{"price": STRIPE_PRICE_PROVIDER_MONTHLY, "quantity": 1}],
         payment_method_collection="always",
-        subscription_data={"trial_period_days": 30},
-        success_url="https://provider.civicscale.ai/account?checkout_success=1",
-        cancel_url="https://provider.civicscale.ai/dashboard",
+        success_url=f"{provider_url}/account?checkout_success=1",
+        cancel_url=f"{provider_url}/dashboard",
         metadata={
             "company_id": str(company_id),
             "user_email": user_email,
@@ -651,11 +654,13 @@ async def subscription_portal(request: Request):
         raise HTTPException(status_code=404, detail="No billing record found")
 
     customer_id = result.data[0]["stripe_customer_id"]
-    frontend_url = os.environ.get("FRONTEND_URL", "http://localhost:5173")
+    provider_url = os.environ.get(
+        "PROVIDER_FRONTEND_URL", "https://provider.civicscale.ai"
+    )
 
     portal_session = stripe_lib.billing_portal.Session.create(
         customer=customer_id,
-        return_url="https://provider.civicscale.ai/account",
+        return_url=f"{provider_url}/account",
     )
 
     return {"portal_url": portal_session.url}

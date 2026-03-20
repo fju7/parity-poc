@@ -710,6 +710,15 @@ Next migration number: 051
 - To verify frontend deployment: check the Network tab in browser
   DevTools for the actual API calls being made, or check the
   `<meta name="parity-version">` tag in the page source.
+- Never use git worktrees. Always work directly in the main repo
+  directory. Do not create worktrees under .claude/worktrees/ or
+  anywhere else.
+- Never create files in worktree directories. All migration files,
+  scripts, and other new files must be created directly in the repo
+  (e.g. backend/migrations/, backend/scripts/), never under
+  .claude/worktrees/.
+- Before merging branches, always check for untracked files that
+  would be overwritten and remove them first.
 
 ## Development Workflow — Staging First (Effective Session N onward)
 
