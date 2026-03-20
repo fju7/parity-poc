@@ -380,6 +380,7 @@ let gsAnimationPlayed = false;
 
 function GettingStartedTab({ practice, onNavigate }) {
   const timers = useRef([]);
+  const fileInputRef = useRef(null);
 
   const [payerVisible, setPayerVisible] = useState(false);
   const [medicareHighlighted, setMedicareHighlighted] = useState(false);
@@ -392,6 +393,15 @@ function GettingStartedTab({ practice, onNavigate }) {
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
   const [buttonPulse, setButtonPulse] = useState(false);
+  const [userFile, setUserFile] = useState(null);
+  const [dragOver, setDragOver] = useState(false);
+
+  const handleFilePicked = (file) => {
+    if (!file) return;
+    setUserFile(file);
+    // Also show the chip area with the real filename
+    setVisibleChips(1);
+  };
 
   useEffect(() => {
     if (gsAnimationPlayed) {
@@ -621,39 +631,78 @@ function GettingStartedTab({ practice, onNavigate }) {
           <div style={stepLabel}>Step 2 — 60 seconds</div>
           <h3 style={stepTitle}>Upload your 835 file</h3>
 
-          <div style={{
-            border: "2px dashed #CBD5E1",
-            borderRadius: "10px",
-            padding: "28px 20px",
-            textAlign: "center",
-            marginBottom: "16px",
-            background: "#F8FAFC",
-          }}>
-            <div style={{ fontSize: "28px", marginBottom: "8px", color: "#94a3b8" }}>{"\u2B06"}</div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".835,.edi,.txt,.zip"
+            style={{ display: "none" }}
+            onChange={(e) => { if (e.target.files?.[0]) handleFilePicked(e.target.files[0]); }}
+          />
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDragOver(false);
+              if (e.dataTransfer.files?.[0]) handleFilePicked(e.dataTransfer.files[0]);
+            }}
+            style={{
+              border: dragOver ? "2px dashed #0D9488" : "2px dashed #CBD5E1",
+              borderRadius: "10px",
+              padding: "28px 20px",
+              textAlign: "center",
+              marginBottom: "16px",
+              background: dragOver ? "#F0FDFA" : "#F8FAFC",
+              cursor: "pointer",
+              transition: "border-color 0.2s, background 0.2s",
+            }}
+          >
+            <div style={{ fontSize: "28px", marginBottom: "8px", color: dragOver ? "#0D9488" : "#94a3b8" }}>{"\u2B06"}</div>
             <div style={{ fontSize: "13px", color: "#64748b", marginBottom: "4px" }}>
-              Drag & drop your remittance file here
+              {userFile ? userFile.name : "Drag & drop your remittance file here"}
             </div>
             <div style={{ fontSize: "12px", color: "#94a3b8" }}>
-              {visibleChips > 0 ? "1 file selected" : "\u00A0"}
+              {userFile ? "1 file selected" : "or click to browse"}
             </div>
           </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "12px", minHeight: "32px" }}>
-            {SAMPLE_FILES.map((f, idx) => (
+            {userFile ? (
               <div
-                key={f}
                 style={{
-                  display: idx < visibleChips ? "inline-flex" : "none",
+                  display: "inline-flex",
                   alignItems: "center", gap: "6px",
-                  background: "#EFF6FF", border: "1px solid #BFDBFE",
-                  borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
+                  background: "#F0FDF4", border: "1px solid #BBF7D0",
+                  borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#166534",
                   animation: "gsChipBounce 0.4s ease forwards",
                 }}
               >
                 <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
-                {f}
+                {userFile.name}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setUserFile(null); setVisibleChips(0); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "#64748b", fontSize: "14px", padding: "0 0 0 4px", lineHeight: 1 }}
+                  title="Remove file"
+                >{"\u2715"}</button>
               </div>
-            ))}
+            ) : (
+              SAMPLE_FILES.map((f, idx) => (
+                <div
+                  key={f}
+                  style={{
+                    display: idx < visibleChips ? "inline-flex" : "none",
+                    alignItems: "center", gap: "6px",
+                    background: "#EFF6FF", border: "1px solid #BFDBFE",
+                    borderRadius: "6px", padding: "6px 12px", fontSize: "12px", color: "#1E40AF",
+                    animation: "gsChipBounce 0.4s ease forwards",
+                  }}
+                >
+                  <span style={{ fontSize: "14px" }}>{"\uD83D\uDCC4"}</span>
+                  {f}
+                </div>
+              ))
+            )}
           </div>
 
           <p style={{ fontSize: "11px", color: "#94a3b8", marginBottom: "12px" }}>
