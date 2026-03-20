@@ -777,12 +777,10 @@ function GettingStartedTab({ practice, onNavigate }) {
 
           {analysisComplete && (
             <div
-              onClick={() => onNavigate("audit")}
               style={{
                 marginTop: "12px",
                 background: "linear-gradient(135deg, #0F766E 0%, #0D9488 100%)",
                 borderRadius: "8px", padding: "14px 18px",
-                cursor: "pointer",
                 display: "flex", alignItems: "center", gap: "10px",
                 animation: "gsScaleIn 0.4s ease forwards",
               }}
