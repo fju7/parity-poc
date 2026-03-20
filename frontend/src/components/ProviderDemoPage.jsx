@@ -774,6 +774,25 @@ function GettingStartedTab({ practice, onNavigate }) {
               Analysis complete — your report is ready
             </span>
           </div>
+
+          {analysisComplete && (
+            <div
+              onClick={() => onNavigate("audit")}
+              style={{
+                marginTop: "12px",
+                background: "linear-gradient(135deg, #0F766E 0%, #0D9488 100%)",
+                borderRadius: "8px", padding: "14px 18px",
+                cursor: "pointer",
+                display: "flex", alignItems: "center", gap: "10px",
+                animation: "gsScaleIn 0.4s ease forwards",
+              }}
+            >
+              <span style={{ fontSize: "18px" }}>{"\u27A1"}</span>
+              <span style={{ fontSize: "13px", color: "#fff", lineHeight: "1.5" }}>
+                Your report is ready — click <strong style={{ textDecoration: "underline" }}>Audit Report</strong> above to see your results.
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
