@@ -281,6 +281,25 @@ async def verify_otp(req: VerifyOtpRequest, request: Request):
             matched_company = c
             break
 
+    # Fallback: if the join didn't resolve companies (e.g. PostgREST schema
+    # cache stale after migration), look up company_users and companies separately.
+    if not matched_user:
+        cu_rows = sb.table("company_users").select(
+            "id, company_id, email, full_name, role, status"
+        ).eq("email", email).eq("status", "active").execute()
+        for cu in (cu_rows.data or []):
+            cid = cu.get("company_id")
+            if not cid:
+                continue
+            comp = sb.table("companies").select("*").eq(
+                "id", cid
+            ).eq("type", product).limit(1).execute()
+            if comp.data:
+                matched_user = cu
+                matched_company = comp.data[0]
+                print(f"[Auth] Fallback query matched company {cid} for {email}")
+                break
+
     if not matched_user:
         # User exists in otp_codes but has no company account yet
         # Return a special status so frontend can redirect to company creation
