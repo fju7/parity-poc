@@ -102,7 +102,23 @@ function ProviderAppInner() {
   const [appealsData, setAppealsData] = useState(null);
   const [appealsLoading, setAppealsLoading] = useState(false);
 
+  // ── Trial banner state ──
+  const [trialStatus, setTrialStatus] = useState(null); // { status, days_remaining, trial_ends_at, subscription_active }
+  const [trialLoading, setTrialLoading] = useState(true);
+
   const authHeaders = { Authorization: `Bearer ${token}` };
+
+  // Load trial status when authenticated
+  useEffect(() => {
+    if (!token) { setTrialLoading(false); return; }
+    (async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/provider/trial-status`, { headers: { Authorization: `Bearer ${token}` } });
+        if (res.ok) setTrialStatus(await res.json());
+      } catch { /* ignore */ }
+      setTrialLoading(false);
+    })();
+  }, [token]);
 
   // Load profile when authenticated
   useEffect(() => {
@@ -1087,6 +1103,57 @@ function ProviderAppInner() {
           </button>
         </div>
       </nav>
+
+      {/* Trial banner */}
+      {!trialLoading && trialStatus && trialStatus.status === "trial" && (() => {
+        const days = trialStatus.days_remaining;
+        const isUrgent = days <= 7;
+        const bannerBg = isUrgent ? "rgba(245,158,11,0.12)" : "rgba(20,184,166,0.08)";
+        const bannerBorder = isUrgent ? "rgba(245,158,11,0.3)" : "rgba(20,184,166,0.2)";
+        const accentColor = isUrgent ? "#f59e0b" : "#14b8a6";
+        const endDate = trialStatus.trial_ends_at
+          ? new Date(trialStatus.trial_ends_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+          : null;
+        return (
+          <div style={{
+            background: bannerBg, borderBottom: `1px solid ${bannerBorder}`,
+            padding: "14px 32px", display: "flex", alignItems: "center",
+            justifyContent: "space-between", flexWrap: "wrap", gap: 12,
+          }}>
+            <div>
+              <span style={{ color: "rgba(255,255,255,0.9)", fontSize: 14, fontWeight: 600 }}>
+                {isUrgent
+                  ? `Your trial expires in ${days} day${days !== 1 ? "s" : ""}! Subscribe now to keep access.`
+                  : `You have ${days} day${days !== 1 ? "s" : ""} left in your free trial.`}
+              </span>
+              {endDate && (
+                <span style={{ display: "block", color: "rgba(255,255,255,0.45)", fontSize: 12, marginTop: 2 }}>
+                  Trial ends {endDate}
+                </span>
+              )}
+            </div>
+            <button
+              onClick={async () => {
+                try {
+                  const res = await fetch(`${API_BASE}/api/provider/subscription/checkout`, {
+                    method: "POST", headers: { ...authHeaders, "Content-Type": "application/json" },
+                    body: "{}",
+                  });
+                  const data = await res.json();
+                  if (data.checkout_url) window.location.href = data.checkout_url;
+                } catch { /* ignore */ }
+              }}
+              style={{
+                background: accentColor, color: "#fff", border: "none", borderRadius: 6,
+                padding: "8px 20px", fontSize: 13, fontWeight: 600, cursor: "pointer",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Subscribe Now →
+            </button>
+          </div>
+        );
+      })()}
 
       <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 24px" }}>
         {/* Header */}

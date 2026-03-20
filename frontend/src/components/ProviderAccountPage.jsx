@@ -286,7 +286,7 @@ function ProviderAccountInner() {
               </div>
               <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, margin: "0 0 16px", lineHeight: 1.6 }}>
                 Your free trial ends on {subscription.trial_ends_at ? new Date(subscription.trial_ends_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : ""}.
-                You won't be charged until then. After your trial, monitoring continues at $300/mo.
+                You won't be charged until then. After your trial, monitoring continues at $99/mo.
               </p>
               <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
                 <button onClick={handleBillingPortal} disabled={portalLoading}
