@@ -389,14 +389,21 @@ async def create_company(req: CreateCompanyRequest):
             )
 
     # Create company
-    company = sb.table("companies").insert({
+    now = datetime.now(timezone.utc)
+    company_data = {
         "name": req.company_name.strip(),
         "type": company_type,
         "industry": req.industry,
         "state": req.state,
         "size_band": req.size_band,
         "created_by_email": email,
-    }).execute()
+    }
+    # Provider signups start a 30-day trial immediately
+    if company_type == "provider":
+        company_data["plan"] = "trial"
+        company_data["trial_started_at"] = now.isoformat()
+        company_data["trial_ends_at"] = (now + timedelta(days=30)).isoformat()
+    company = sb.table("companies").insert(company_data).execute()
 
     company_id = company.data[0]["id"]
 
@@ -410,7 +417,6 @@ async def create_company(req: CreateCompanyRequest):
     }).execute()
 
     # Auto-create session after company creation — no second OTP needed
-    now = datetime.now(timezone.utc)
     session_id = str(uuid.uuid4())
     expires_at = (now + timedelta(days=SESSION_EXPIRY_DAYS)).isoformat()
 

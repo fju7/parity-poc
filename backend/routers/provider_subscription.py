@@ -183,8 +183,8 @@ async def admin_convert_to_subscription(body: AdminConvertBody, request: Request
 # ---------------------------------------------------------------------------
 
 @router.post("/subscription/checkout")
-async def subscription_checkout(body: SubscriptionCheckoutBody, request: Request):
-    """Create a Stripe checkout session for Provider monitoring subscription."""
+async def subscription_checkout(request: Request):
+    """Create a Stripe checkout session for Provider subscription."""
     import stripe as stripe_lib
 
     stripe_key = os.environ.get("STRIPE_SECRET_KEY", "")
@@ -196,53 +196,48 @@ async def subscription_checkout(body: SubscriptionCheckoutBody, request: Request
         raise HTTPException(status_code=503, detail="Provider price not configured")
 
     user = _get_authenticated_user(request)
+    user_email = (user.email or "").lower()
     sb = _get_supabase()
+
+    # Find user's provider company
+    cu = sb.table("company_users").select("company_id").eq(
+        "email", user_email
+    ).execute()
+    company_id = None
+    for row in (cu.data or []):
+        cid = row.get("company_id")
+        if cid:
+            c = sb.table("companies").select("id").eq(
+                "id", cid
+            ).eq("type", "provider").limit(1).execute()
+            if c.data:
+                company_id = cid
+                break
+
+    if not company_id:
+        raise HTTPException(status_code=404, detail="No provider account found")
 
     # Block duplicate subscriptions
     active_sub = sb.table("provider_subscriptions").select("id").eq(
-        "company_id", str(user.id)
+        "company_id", str(company_id)
     ).eq("status", "active").limit(1).execute()
     if active_sub.data:
         raise HTTPException(status_code=409, detail="You already have an active subscription.")
-
-    # Verify audit belongs to user and is delivered
-    audit_result = sb.table("provider_audits").select("*").eq("id", body.audit_id).execute()
-    if not audit_result.data:
-        raise HTTPException(status_code=404, detail="Audit not found")
-
-    audit = audit_result.data[0]
-    if audit.get("status") != "delivered":
-        raise HTTPException(status_code=400, detail="Audit must be delivered first")
-
-    # Verify user owns this audit (by email)
-    user_email = user.email or ""
-    if user_email.lower() != (audit.get("contact_email") or "").lower():
-        raise HTTPException(status_code=403, detail="This audit does not belong to your account")
 
     # Get or create Stripe customer
     customer_id = None
     existing = sb.table("provider_subscriptions").select("stripe_customer_id").eq(
         "contact_email", user_email
-    ).execute()
+    ).not_.is_("stripe_customer_id", "null").limit(1).execute()
     if existing.data and existing.data[0].get("stripe_customer_id"):
         customer_id = existing.data[0]["stripe_customer_id"]
 
     if not customer_id:
-        # Also check signal_subscriptions (shared Stripe customers)
-        sig_result = sb.table("signal_subscriptions").select("stripe_customer_id").eq(
-            "user_id", str(user.id)
-        ).execute()
-        if sig_result.data and sig_result.data[0].get("stripe_customer_id"):
-            customer_id = sig_result.data[0]["stripe_customer_id"]
-
-    if not customer_id:
         customer = stripe_lib.Customer.create(
             email=user_email,
-            metadata={"supabase_user_id": str(user.id)},
+            metadata={"company_id": str(company_id)},
         )
         customer_id = customer.id
-
-    frontend_url = os.environ.get("FRONTEND_URL", "https://civicscale.ai")
 
     session = stripe_lib.checkout.Session.create(
         customer=customer_id,
@@ -250,11 +245,11 @@ async def subscription_checkout(body: SubscriptionCheckoutBody, request: Request
         line_items=[{"price": STRIPE_PRICE_PROVIDER_MONTHLY, "quantity": 1}],
         payment_method_collection="always",
         subscription_data={"trial_period_days": 30},
-        success_url=f"{frontend_url}/provider/account?checkout_success=1",
-        cancel_url=f"{frontend_url}/provider/account",
+        success_url="https://provider.civicscale.ai/account?checkout_success=1",
+        cancel_url="https://provider.civicscale.ai/dashboard",
         metadata={
-            "supabase_user_id": str(user.id),
-            "audit_id": body.audit_id,
+            "company_id": str(company_id),
+            "user_email": user_email,
             "type": "provider_monitoring",
         },
     )
@@ -302,66 +297,76 @@ async def subscription_webhook(request: Request):
             print(f"[ProviderWebhook] Skipping — type={metadata.get('type')}")
             return {"status": "ok", "skipped": True}
 
-        audit_id = metadata.get("audit_id")
-        user_id = metadata.get("supabase_user_id")
+        company_id = metadata.get("company_id")
+        user_email = metadata.get("user_email", "")
         subscription_id = obj.get("subscription")
         customer_id = obj.get("customer")
 
-        print(f"[ProviderWebhook] audit_id={audit_id} user_id={user_id} "
+        print(f"[ProviderWebhook] company_id={company_id} user_email={user_email} "
               f"subscription_id={subscription_id} customer_id={customer_id}")
 
         if not subscription_id:
-            print(f"[ProviderWebhook] WARNING: subscription_id is None/empty in checkout session")
+            print("[ProviderWebhook] WARNING: subscription_id is None/empty")
 
-        if audit_id and subscription_id:
-            # Check if subscription already exists for this audit
+        if company_id and subscription_id:
+            # Upsert provider_subscriptions row
             existing = sb.table("provider_subscriptions").select("id").eq(
-                "source_audit_id", audit_id
-            ).execute()
-            print(f"[ProviderWebhook] Existing rows for audit_id={audit_id}: {len(existing.data or [])}")
+                "company_id", company_id
+            ).limit(1).execute()
 
             if existing.data:
-                # Update existing with Stripe IDs
                 result = sb.table("provider_subscriptions").update({
                     "stripe_customer_id": customer_id,
                     "stripe_subscription_id": subscription_id,
-                }).eq("source_audit_id", audit_id).execute()
+                    "status": "active",
+                    "contact_email": user_email,
+                }).eq("company_id", company_id).execute()
                 print(f"[ProviderWebhook] Updated existing: {len(result.data or [])} rows")
             else:
-                # Convert audit to subscription
-                audit_result = sb.table("provider_audits").select("*").eq("id", audit_id).execute()
-                if audit_result.data:
-                    audit = audit_result.data[0]
-                    subscription = _convert_audit_to_subscription(audit, sb)
-                    # Update with Stripe IDs
-                    result = sb.table("provider_subscriptions").update({
-                        "stripe_customer_id": customer_id,
-                        "stripe_subscription_id": subscription_id,
-                    }).eq("id", subscription["id"]).execute()
-                    print(f"[ProviderWebhook] Created + updated subscription: {result.data}")
-                    # Send conversion email
-                    _send_conversion_email(subscription, audit)
-                else:
-                    print(f"[ProviderWebhook] WARNING: audit_id={audit_id} not found in provider_audits")
+                # Fetch practice name from company
+                comp = sb.table("companies").select("name").eq(
+                    "id", company_id
+                ).limit(1).execute()
+                practice_name = comp.data[0]["name"] if comp.data else ""
 
-            # Verify what was stored
-            verify = sb.table("provider_subscriptions").select(
-                "id, stripe_subscription_id, stripe_customer_id, status"
-            ).eq("source_audit_id", audit_id).execute()
-            print(f"[ProviderWebhook] Verify after write: {verify.data}")
+                result = sb.table("provider_subscriptions").insert({
+                    "company_id": company_id,
+                    "contact_email": user_email,
+                    "practice_name": practice_name,
+                    "stripe_customer_id": customer_id,
+                    "stripe_subscription_id": subscription_id,
+                    "status": "active",
+                }).execute()
+                print(f"[ProviderWebhook] Created subscription: {result.data}")
+
+            # Update companies table
+            sb.table("companies").update({
+                "plan": "pro",
+                "stripe_subscription_id": subscription_id,
+                "stripe_customer_id": customer_id,
+            }).eq("id", company_id).execute()
+            print(f"[ProviderWebhook] Updated companies.plan to 'pro' for {company_id}")
         else:
-            print(f"[ProviderWebhook] WARNING: Missing audit_id={audit_id} or subscription_id={subscription_id}, skipping DB write")
+            print(f"[ProviderWebhook] WARNING: Missing company_id={company_id} or "
+                  f"subscription_id={subscription_id}, skipping DB write")
 
     elif event_type == "customer.subscription.deleted":
         subscription_id = obj.get("id")
         print(f"[ProviderWebhook] subscription.deleted sub_id={subscription_id}")
         if subscription_id:
-            from datetime import datetime
+            # Mark subscription as canceled
             result = sb.table("provider_subscriptions").update({
                 "status": "canceled",
                 "canceled_at": datetime.utcnow().isoformat(),
             }).eq("stripe_subscription_id", subscription_id).execute()
             print(f"[ProviderWebhook] Canceled rows: {len(result.data or [])}")
+
+            # Revert company plan to expired
+            sb.table("companies").update({
+                "plan": "expired",
+            }).eq("stripe_subscription_id", subscription_id).eq(
+                "type", "provider"
+            ).execute()
 
     elif event_type == "invoice.payment_failed":
         subscription_id = obj.get("subscription")
@@ -650,7 +655,7 @@ async def subscription_portal(request: Request):
 
     portal_session = stripe_lib.billing_portal.Session.create(
         customer=customer_id,
-        return_url="https://provider.civicscale.ai/provider/account",
+        return_url="https://provider.civicscale.ai/account",
     )
 
     return {"portal_url": portal_session.url}
@@ -712,6 +717,100 @@ async def my_subscription(request: Request):
     return {
         "subscription": subs[0] if subs else None,
         "subscriptions": subs,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Trial Status
+# ---------------------------------------------------------------------------
+
+@router.get("/trial-status")
+async def trial_status(request: Request):
+    """Return trial/subscription status for the authenticated provider user."""
+    from datetime import timezone, timedelta
+
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    # Find the user's company
+    cu = sb.table("company_users").select(
+        "company_id"
+    ).eq("email", user.email).execute()
+
+    company_id = None
+    company = None
+    for row in (cu.data or []):
+        cid = row.get("company_id")
+        if cid:
+            c = sb.table("companies").select(
+                "id, type, plan, trial_started_at, trial_ends_at"
+            ).eq("id", cid).eq("type", "provider").execute()
+            if c.data:
+                company = c.data[0]
+                company_id = cid
+                break
+
+    if not company:
+        return {
+            "status": "expired",
+            "days_remaining": 0,
+            "trial_ends_at": None,
+            "subscription_active": False,
+        }
+
+    # Check for active Stripe subscription in provider_subscriptions
+    sub = sb.table("provider_subscriptions").select(
+        "id, status, stripe_subscription_id"
+    ).eq("company_id", str(company_id)).in_(
+        "status", ["active"]
+    ).limit(1).execute()
+
+    subscription_active = False
+    stripe_status = None
+    if sub.data and sub.data[0].get("stripe_subscription_id"):
+        # Fetch live status from Stripe
+        try:
+            import stripe as stripe_lib
+            stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
+            stripe_sub = stripe_lib.Subscription.retrieve(
+                sub.data[0]["stripe_subscription_id"]
+            )
+            stripe_status = stripe_sub.status  # trialing, active, past_due, etc.
+            if stripe_status in ("trialing", "active"):
+                subscription_active = True
+        except Exception as exc:
+            print(f"[TrialStatus] Stripe fetch failed: {exc}")
+
+    if subscription_active:
+        return {
+            "status": "active",
+            "days_remaining": None,
+            "trial_ends_at": company.get("trial_ends_at"),
+            "subscription_active": True,
+            "stripe_status": stripe_status,
+        }
+
+    # No active subscription — check trial window
+    trial_ends_at = company.get("trial_ends_at")
+    if trial_ends_at:
+        trial_end = datetime.fromisoformat(
+            trial_ends_at.replace("Z", "+00:00")
+        )
+        now = datetime.now(timezone.utc)
+        if now < trial_end:
+            days_remaining = max(0, (trial_end - now).days)
+            return {
+                "status": "trial",
+                "days_remaining": days_remaining,
+                "trial_ends_at": trial_ends_at,
+                "subscription_active": False,
+            }
+
+    return {
+        "status": "expired",
+        "days_remaining": 0,
+        "trial_ends_at": trial_ends_at,
+        "subscription_active": False,
     }
 
 

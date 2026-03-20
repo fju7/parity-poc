@@ -363,7 +363,8 @@ class AdminAddMonthBody(BaseModel):
 
 
 class SubscriptionCheckoutBody(BaseModel):
-    audit_id: str
+    """No required fields — authentication via session token only."""
+    pass
 
 
 # ---------------------------------------------------------------------------
