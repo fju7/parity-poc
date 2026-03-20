@@ -102,6 +102,9 @@ function ProviderAppInner() {
   const [appealsData, setAppealsData] = useState(null);
   const [appealsLoading, setAppealsLoading] = useState(false);
 
+  // ── Trial status state ──
+  const [trialStatus, setTrialStatus] = useState(null); // {status, days_remaining, trial_ends_at, subscription_active}
+
   const authHeaders = { Authorization: `Bearer ${token}` };
 
   // Load profile when authenticated
@@ -109,7 +112,22 @@ function ProviderAppInner() {
     if (!token || !company) return;
     if (returnTo) { navigate(returnTo, { replace: true }); return; }
     loadProfile();
+    loadTrialStatus();
   }, [token, company]);
+
+  async function loadTrialStatus() {
+    try {
+      const res = await fetch(`${API_BASE}/api/provider/trial-status`, {
+        headers: authHeaders,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setTrialStatus(data);
+      }
+    } catch (err) {
+      console.error("[ProviderApp] Error loading trial status:", err);
+    }
+  }
 
   async function loadProfile() {
     try {
@@ -1088,6 +1106,88 @@ function ProviderAppInner() {
         </div>
       </nav>
 
+      {/* ── Trial Banner (AA-4) ── */}
+      {trialStatus && trialStatus.status === "trial" && trialStatus.days_remaining != null && (
+        <div style={{
+          padding: "12px 32px",
+          background: trialStatus.days_remaining <= 7 ? "#f59e0b" : "#14b8a6",
+          color: trialStatus.days_remaining <= 7 ? "#78350f" : "#042f2e",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          fontSize: 14, fontWeight: 600,
+        }}>
+          <div>
+            <span>You have {trialStatus.days_remaining} day{trialStatus.days_remaining !== 1 ? "s" : ""} left in your free trial</span>
+            {trialStatus.trial_ends_at && (
+              <span style={{ display: "block", fontSize: 12, fontWeight: 400, opacity: 0.8, marginTop: 2 }}>
+                Trial ends {new Date(trialStatus.trial_ends_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+              </span>
+            )}
+          </div>
+          <button
+            onClick={async () => {
+              try {
+                const res = await fetch(`${API_BASE}/api/provider/subscription/checkout`, {
+                  method: "POST", headers: { "Content-Type": "application/json", ...authHeaders },
+                });
+                if (res.ok) {
+                  const data = await res.json();
+                  if (data.checkout_url) window.location.href = data.checkout_url;
+                }
+              } catch (err) { console.error("Checkout error:", err); }
+            }}
+            style={{
+              background: trialStatus.days_remaining <= 7 ? "#78350f" : "#042f2e",
+              color: "#fff", border: "none", borderRadius: 6,
+              padding: "8px 20px", fontSize: 13, fontWeight: 600, cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Subscribe Now
+          </button>
+        </div>
+      )}
+
+      {/* ── Trial Expired Paywall (AA-5) ── */}
+      {trialStatus && trialStatus.status === "expired" && !trialStatus.subscription_active ? (
+        <div style={{
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+          minHeight: "calc(100vh - 80px)", padding: "48px 24px", textAlign: "center",
+        }}>
+          <div style={{
+            background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: 16, padding: "48px 40px", maxWidth: 480,
+          }}>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>&#128274;</div>
+            <h2 style={{ fontSize: 24, fontWeight: 700, color: "#f1f5f9", margin: "0 0 12px" }}>
+              Your 30-day free trial has ended
+            </h2>
+            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 15, lineHeight: 1.6, margin: "0 0 28px" }}>
+              Subscribe to continue using Parity Provider's contract integrity and coding intelligence tools.
+            </p>
+            <button
+              onClick={async () => {
+                try {
+                  const res = await fetch(`${API_BASE}/api/provider/subscription/checkout`, {
+                    method: "POST", headers: { "Content-Type": "application/json", ...authHeaders },
+                  });
+                  if (res.ok) {
+                    const data = await res.json();
+                    if (data.checkout_url) window.location.href = data.checkout_url;
+                  }
+                } catch (err) { console.error("Checkout error:", err); }
+              }}
+              style={{
+                background: "#14b8a6", color: "#fff", border: "none", borderRadius: 8,
+                padding: "14px 32px", fontSize: 16, fontWeight: 700, cursor: "pointer",
+                width: "100%",
+              }}
+            >
+              Subscribe Now — $99/month, cancel anytime
+            </button>
+          </div>
+        </div>
+      ) : (
+
       <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 24px" }}>
         {/* Header */}
         <div style={{ marginBottom: 32 }}>
@@ -1283,6 +1383,7 @@ function ProviderAppInner() {
         )}
         </div>
       </div>
+      )}
 
       {/* Print styles */}
       <style>{`

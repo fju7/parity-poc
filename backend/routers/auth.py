@@ -317,6 +317,50 @@ async def verify_otp(req: VerifyOtpRequest, request: Request):
         "user_agent": ua[:255] if ua else None,
     }).execute()
 
+    # ── AA-6: Day-25 trial reminder email for provider accounts ──
+    if product == "provider":
+        try:
+            trial_ends_at = matched_company.get("trial_ends_at")
+            sent_reminder = matched_company.get("sent_trial_reminder", False)
+            plan = matched_company.get("plan", "")
+            if trial_ends_at and not sent_reminder and plan == "trial":
+                trial_end = datetime.fromisoformat(
+                    trial_ends_at.replace("Z", "+00:00")
+                )
+                days_remaining = (trial_end - now).days
+                if days_remaining <= 5:
+                    # Check no active Stripe subscription
+                    active_sub = sb.table("provider_subscriptions").select(
+                        "id"
+                    ).eq("company_id", str(matched_company["id"])).eq(
+                        "status", "active"
+                    ).limit(1).execute()
+                    if not active_sub.data:
+                        send_email(
+                            to=email,
+                            subject="Your Parity Provider trial ends in 5 days",
+                            html=(
+                                f"<p>Hi {matched_user.get('full_name') or email},</p>"
+                                "<p>Your 30-day Parity Provider free trial ends in 5 days. "
+                                "Subscribe now to keep access to contract integrity analysis, "
+                                "coding intelligence, and appeal letter generation.</p>"
+                                '<p><a href="https://provider.civicscale.ai/account" '
+                                'style="background:#14b8a6;color:#fff;padding:12px 24px;'
+                                'border-radius:6px;text-decoration:none;font-weight:600;">'
+                                "Manage Your Subscription</a></p>"
+                                "<p>If you have any questions, reply to this email.</p>"
+                                "<p>— The CivicScale Team</p>"
+                            ),
+                            from_name="Parity Provider",
+                        )
+                        # Mark reminder as sent
+                        sb.table("companies").update({
+                            "sent_trial_reminder": True,
+                        }).eq("id", matched_company["id"]).execute()
+                        print(f"[Auth] Sent trial reminder email to {email}")
+        except Exception as exc:
+            print(f"[Auth] Trial reminder email error: {exc}")
+
     return {
         "verified": True,
         "needs_company": False,
