@@ -187,8 +187,9 @@ Three live products + one in development:
 - health_subscriptions — health Stripe subscriptions (health_user_id, plan, status)
 
 ## Migrations
-Numbered sequentially: backend/migrations/001_*.sql through 029_*.sql
-Next migration number: 039
+Numbered sequentially: backend/migrations/001_*.sql through 050_*.sql
+All migrations through 050 have been run on production.
+Next migration number: 051
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -630,13 +631,9 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
 - Deferred: CLAUDE.md forbids branch creation, CivicScale_Staging_Setup_Guide.docx
   not found in repo. Awaiting Fred's confirmation to proceed.
 
-## Migrations pending
-- 036: provider_benchmark_observations
-- 037: signal_cancel_at_period_end
-- 038: broker_referrals
-- 041: data_versions table (data source freshness tracking)
-
-Next migration number: 042
+## Migrations status
+All migrations through 050 have been run on production.
+Next migration number: 051
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
