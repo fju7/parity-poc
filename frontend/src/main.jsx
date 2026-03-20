@@ -161,6 +161,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />
         <Route path="/audit/account" element={<Navigate to="/provider/account" replace />} />
+        <Route path="/provider" element={<ProviderProductPage />} />
         <Route path="/provider/signup" element={<ProviderSignupPage />} />
         <Route path="/provider/login" element={<ProviderLoginPage />} />
         <Route path="/provider/account" element={<ProviderAccountPage />} />
