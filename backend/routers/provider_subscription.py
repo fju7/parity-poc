@@ -244,7 +244,6 @@ async def subscription_checkout(request: Request):
         mode="subscription",
         line_items=[{"price": STRIPE_PRICE_PROVIDER_MONTHLY, "quantity": 1}],
         payment_method_collection="always",
-        subscription_data={"trial_period_days": 30},
         success_url="https://provider.civicscale.ai/account?checkout_success=1",
         cancel_url="https://provider.civicscale.ai/dashboard",
         metadata={
