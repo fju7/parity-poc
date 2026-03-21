@@ -3,7 +3,7 @@
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE provider_profiles (
+CREATE TABLE IF NOT EXISTS provider_profiles (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   practice_name TEXT NOT NULL,

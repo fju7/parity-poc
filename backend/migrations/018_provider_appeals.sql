@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS provider_appeals (
 );
 
 -- Index for fast lookups by user
-CREATE INDEX IF NOT EXISTS idx_provider_appeals_user_id ON provider_appeals(user_id);
+-- removed: user_id superseded by company_id in 000_core_tables.sql
+-- CREATE INDEX IF NOT EXISTS idx_provider_appeals_user_id ON provider_appeals(user_id);
 
 -- Index for subscription-based queries
 CREATE INDEX IF NOT EXISTS idx_provider_appeals_subscription_id ON provider_appeals(subscription_id);

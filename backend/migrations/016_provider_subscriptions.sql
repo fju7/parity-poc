@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS provider_subscriptions (
 );
 
 -- Indexes
-CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_user_id ON provider_subscriptions(user_id);
+-- removed: user_id superseded by company_id in 000_core_tables.sql
+-- CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_user_id ON provider_subscriptions(user_id);
 CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_contact_email ON provider_subscriptions(contact_email);
 CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_source_audit ON provider_subscriptions(source_audit_id);
 CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_stripe_sub ON provider_subscriptions(stripe_subscription_id);

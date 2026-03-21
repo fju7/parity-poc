@@ -19,6 +19,11 @@ CREATE TABLE IF NOT EXISTS signal_events (
   created_at timestamptz DEFAULT now()
 );
 
+-- Ensure columns exist if table was created by an earlier migration (005)
+ALTER TABLE signal_events ADD COLUMN IF NOT EXISTS topic_slug text;
+ALTER TABLE signal_events ADD COLUMN IF NOT EXISTS session_id text;
+ALTER TABLE signal_events ADD COLUMN IF NOT EXISTS element_id text;
+
 CREATE INDEX IF NOT EXISTS idx_signal_events_type ON signal_events(event_type);
 CREATE INDEX IF NOT EXISTS idx_signal_events_topic ON signal_events(topic_slug);
 CREATE INDEX IF NOT EXISTS idx_signal_events_created ON signal_events(created_at);

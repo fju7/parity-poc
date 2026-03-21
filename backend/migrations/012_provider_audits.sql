@@ -43,6 +43,7 @@ CREATE POLICY "users_insert_own_audits" ON provider_audits
     WITH CHECK (auth.uid() = user_id);
 
 -- Index for common queries
-CREATE INDEX IF NOT EXISTS idx_provider_audits_user_id ON provider_audits(user_id);
+-- removed: user_id superseded by company_id in 000_core_tables.sql
+-- CREATE INDEX IF NOT EXISTS idx_provider_audits_user_id ON provider_audits(user_id);
 CREATE INDEX IF NOT EXISTS idx_provider_audits_status ON provider_audits(status);
 CREATE INDEX IF NOT EXISTS idx_provider_audits_contact_email ON provider_audits(contact_email);
