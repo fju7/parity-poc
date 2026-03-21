@@ -29,8 +29,8 @@ export default function ProviderProductPage() {
             </>
           ) : (
             <>
-              <a href="https://provider.civicscale.ai/provider/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</a>
-              <a href="https://provider.civicscale.ai/provider/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
+              <a href="/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</a>
+              <a href="/signup" style={{ background: "#3b82f6", color: "#fff", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
                 Start Free Trial
               </a>
             </>
