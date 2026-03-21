@@ -162,3 +162,12 @@ def version():
         "branch": _GIT_BRANCH,
         "deployed_at": _DEPLOYED_AT,
     }
+
+
+# TEMPORARY debug endpoint — remove after diagnosing checkout redirect issue
+@app.get("/api/debug/env")
+def debug_env():
+    return {
+        "PROVIDER_FRONTEND_URL": os.environ.get("PROVIDER_FRONTEND_URL", "NOT SET"),
+        "STRIPE_PRICE_PROVIDER_MONTHLY": os.environ.get("STRIPE_PRICE_PROVIDER_MONTHLY", "NOT SET"),
+    }
