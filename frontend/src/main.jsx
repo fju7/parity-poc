@@ -151,12 +151,34 @@ createRoot(document.getElementById('root')).render(
             {/* Also support old /signal/* paths for backward compat */}
             <Route path="/signal/*" element={<Navigate to="/" replace />} />
           </>
+        ) : isProviderSubdomain ? (
+          <>
+            <Route path="/" element={<ProviderProductPage />} />
+            <Route path="/login" element={<ProviderLoginPage />} />
+            <Route path="/signup" element={<ProviderSignupPage />} />
+            <Route path="/account" element={<ProviderAccountPage />} />
+            <Route path="/dashboard" element={<ProviderApp />} />
+            <Route path="/audit" element={<AuditStandalone />} />
+            <Route path="/demo" element={<ProviderDemoPage />} />
+            <Route path="/report/:token" element={<PublicAuditReport />} />
+            <Route path="/accept-invite" element={<AcceptInvitePage />} />
+            {/* Backward compat: /provider/* → clean paths */}
+            <Route path="/provider/login" element={<Navigate to="/login" replace />} />
+            <Route path="/provider/signup" element={<Navigate to="/signup" replace />} />
+            <Route path="/provider/account" element={<Navigate to="/account" replace />} />
+            <Route path="/provider/dashboard" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/provider/demo" element={<Navigate to="/demo" replace />} />
+            <Route path="/audit/account" element={<Navigate to="/account" replace />} />
+            <Route path="/billing/provider" element={<Navigate to="/" replace />} />
+            <Route path="/billing/provider/demo" element={<Navigate to="/demo" replace />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+          </>
         ) : (
           <>
-        <Route path="/" element={isProviderSubdomain ? <ProviderProductPage /> : <CivicScaleHomepage />} />
+        <Route path="/" element={<CivicScaleHomepage />} />
         {/* Provider demo must be public — listed before /provider/* catch-all */}
         <Route path="/provider/demo" element={<ProviderDemoPage />} />
-        {isProviderSubdomain && <Route path="/demo" element={<ProviderDemoPage />} />}
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/investors" element={<InvestorsPage />} />

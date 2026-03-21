@@ -5,6 +5,9 @@ import AuthGate from "./AuthGate";
 import { LogoIcon } from "./CivicScaleHomepage.jsx";
 
 import { API_BASE as API } from "../lib/apiBase";
+
+const isProviderSubdomain = window.location.hostname === 'provider.civicscale.ai' || window.location.hostname === 'staging-provider.civicscale.ai';
+
 function ProviderAccountInner() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -208,7 +211,7 @@ function ProviderAccountInner() {
 
   const handleSignOut = async () => {
     await logout();
-    navigate("/billing/provider");
+    navigate(isProviderSubdomain ? "/" : "/billing/provider");
   };
 
   const inputStyle = {
@@ -237,7 +240,7 @@ function ProviderAccountInner() {
           <span style={{ fontSize: 16, fontWeight: 700, color: "#0d9488" }}>Parity Provider</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <Link to="/provider/dashboard"
+          <Link to={isProviderSubdomain ? "/dashboard" : "/provider/dashboard"}
             style={{ color: "#0d9488", fontSize: 13, textDecoration: "none" }}>
             Dashboard
           </Link>
@@ -540,7 +543,7 @@ export default function ProviderAccountPage() {
   const navigate = useNavigate();
 
   return (
-    <AuthGate product="provider" onNeedsCompany={() => navigate("/provider/signup")}>
+    <AuthGate product="provider" onNeedsCompany={() => navigate(isProviderSubdomain ? "/signup" : "/provider/signup")}>
       <ProviderAccountInner />
     </AuthGate>
   );
