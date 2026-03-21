@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useNavigate, Link, Navigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 import { API_BASE as API } from "../lib/apiBase";
+
+const isProviderSubdomain = window.location.hostname === 'provider.civicscale.ai' || window.location.hostname === 'staging-provider.civicscale.ai';
+
 export default function ProviderLoginPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { login, isAuthenticated, company } = useAuth();
 
   const [email, setEmail] = useState("");
@@ -14,8 +18,15 @@ export default function ProviderLoginPage() {
   const [verifying, setVerifying] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const checkoutSuccess = searchParams.get("checkout_success") === "1";
+
   if (isAuthenticated && company?.type === "provider") {
-    return <Navigate to="/provider/dashboard" replace />;
+    // After Stripe checkout redirect, bounce back to account page with checkout_success
+    if (checkoutSuccess) {
+      const accountPath = isProviderSubdomain ? "/account" : "/provider/account";
+      return <Navigate to={`${accountPath}?checkout_success=1`} replace />;
+    }
+    return <Navigate to={isProviderSubdomain ? "/dashboard" : "/provider/dashboard"} replace />;
   }
 
   const handleSendOtp = async () => {
@@ -47,7 +58,12 @@ export default function ProviderLoginPage() {
         return;
       }
       login(data.token, data.user, data.company);
-      navigate("/provider/dashboard");
+      if (checkoutSuccess) {
+        const accountPath = isProviderSubdomain ? "/account" : "/provider/account";
+        navigate(`${accountPath}?checkout_success=1`);
+      } else {
+        navigate(isProviderSubdomain ? "/dashboard" : "/provider/dashboard");
+      }
     } catch { setErrorMsg("Verification failed. Please try again."); }
     finally { setVerifying(false); }
   };
