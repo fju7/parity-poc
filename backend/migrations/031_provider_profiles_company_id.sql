@@ -1,26 +1,20 @@
 -- Migration 031: Rename provider_profiles.user_id → company_id
 -- The column was referencing auth.users(id) but actually stores companies.id values.
 -- Run this in Supabase SQL Editor.
--- Wrapped in DO blocks so this is safe on fresh databases where user_id never existed.
 
 -- 1. Drop old foreign key constraint (references auth.users)
 ALTER TABLE provider_profiles
   DROP CONSTRAINT IF EXISTS provider_profiles_user_id_fkey;
 
--- 2. Delete orphaned rows and rename column (only if user_id exists)
-DO $$
-BEGIN
-  IF EXISTS (
-    SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'provider_profiles' AND column_name = 'user_id'
-  ) THEN
-    DELETE FROM provider_profiles
-    WHERE user_id NOT IN (SELECT id FROM companies);
-    ALTER TABLE provider_profiles RENAME COLUMN user_id TO company_id;
-  END IF;
-END $$;
+-- 2. Delete orphaned rows (old Supabase Auth user IDs not in companies)
+DELETE FROM provider_profiles
+WHERE user_id NOT IN (SELECT id FROM companies);
 
--- 3. Add new foreign key referencing companies(id)
+-- 3. Rename column
+ALTER TABLE provider_profiles
+  RENAME COLUMN user_id TO company_id;
+
+-- 4. Add new foreign key referencing companies(id)
 ALTER TABLE provider_profiles
   ADD CONSTRAINT provider_profiles_company_id_fkey
   FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE;

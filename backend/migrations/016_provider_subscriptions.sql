@@ -21,8 +21,7 @@ CREATE TABLE IF NOT EXISTS provider_subscriptions (
 );
 
 -- Indexes
--- removed: user_id superseded by company_id in 000_core_tables.sql
--- CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_user_id ON provider_subscriptions(user_id);
+CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_user_id ON provider_subscriptions(user_id);
 CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_contact_email ON provider_subscriptions(contact_email);
 CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_source_audit ON provider_subscriptions(source_audit_id);
 CREATE INDEX IF NOT EXISTS idx_provider_subscriptions_stripe_sub ON provider_subscriptions(stripe_subscription_id);
@@ -36,10 +35,10 @@ CREATE POLICY "service_role_full_access" ON provider_subscriptions
     USING (auth.role() = 'service_role')
     WITH CHECK (auth.role() = 'service_role');
 
--- removed: user_id superseded by company_id in 000_core_tables.sql; policies replaced in migration 032
--- CREATE POLICY "users_read_own_subscriptions" ON provider_subscriptions
---     FOR SELECT
---     USING (
---         auth.uid() = user_id
---         OR contact_email = (SELECT email FROM auth.users WHERE id = auth.uid())
---     );
+-- Authenticated users: read own rows (by user_id or contact_email)
+CREATE POLICY "users_read_own_subscriptions" ON provider_subscriptions
+    FOR SELECT
+    USING (
+        auth.uid() = user_id
+        OR contact_email = (SELECT email FROM auth.users WHERE id = auth.uid())
+    );

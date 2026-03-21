@@ -22,8 +22,7 @@ CREATE TABLE IF NOT EXISTS provider_appeals (
 );
 
 -- Index for fast lookups by user
--- removed: user_id superseded by company_id in 000_core_tables.sql
--- CREATE INDEX IF NOT EXISTS idx_provider_appeals_user_id ON provider_appeals(user_id);
+CREATE INDEX IF NOT EXISTS idx_provider_appeals_user_id ON provider_appeals(user_id);
 
 -- Index for subscription-based queries
 CREATE INDEX IF NOT EXISTS idx_provider_appeals_subscription_id ON provider_appeals(subscription_id);
@@ -34,15 +33,15 @@ CREATE INDEX IF NOT EXISTS idx_provider_appeals_audit_id ON provider_appeals(aud
 -- Enable RLS
 ALTER TABLE provider_appeals ENABLE ROW LEVEL SECURITY;
 
--- removed: user_id superseded by company_id in 000_core_tables.sql; policies replaced in migration 032
--- CREATE POLICY "Users can view own appeals" ON provider_appeals
---   FOR SELECT USING (auth.uid() = user_id);
+-- RLS policy: users can only see their own appeals
+CREATE POLICY "Users can view own appeals" ON provider_appeals
+  FOR SELECT USING (auth.uid() = user_id);
 
--- CREATE POLICY "Users can insert own appeals" ON provider_appeals
---   FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can insert own appeals" ON provider_appeals
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
 
--- CREATE POLICY "Users can update own appeals" ON provider_appeals
---   FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can update own appeals" ON provider_appeals
+  FOR UPDATE USING (auth.uid() = user_id);
 
 -- Service role bypass for backend operations
 CREATE POLICY "Service role full access" ON provider_appeals

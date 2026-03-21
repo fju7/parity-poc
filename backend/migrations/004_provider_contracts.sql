@@ -12,29 +12,26 @@ CREATE TABLE IF NOT EXISTS provider_contracts (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- removed: user_id superseded by company_id in 000_core_tables.sql
--- CREATE INDEX IF NOT EXISTS idx_provider_contracts_user
---   ON provider_contracts(user_id);
+CREATE INDEX IF NOT EXISTS idx_provider_contracts_user
+  ON provider_contracts(user_id);
 
--- removed: user_id superseded by company_id in 000_core_tables.sql
--- CREATE INDEX IF NOT EXISTS idx_provider_contracts_user_payer
---   ON provider_contracts(user_id, payer_name);
+CREATE INDEX IF NOT EXISTS idx_provider_contracts_user_payer
+  ON provider_contracts(user_id, payer_name);
 
 -- RLS policies
 ALTER TABLE provider_contracts ENABLE ROW LEVEL SECURITY;
 
--- removed: user_id superseded by company_id in 000_core_tables.sql; policies replaced in migration 032
--- CREATE POLICY "Users can read own contracts"
---   ON provider_contracts FOR SELECT
---   USING (auth.uid() = user_id);
+CREATE POLICY "Users can read own contracts"
+  ON provider_contracts FOR SELECT
+  USING (auth.uid() = user_id);
 
--- CREATE POLICY "Users can insert own contracts"
---   ON provider_contracts FOR INSERT
---   WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can insert own contracts"
+  ON provider_contracts FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
 
--- CREATE POLICY "Users can update own contracts"
---   ON provider_contracts FOR UPDATE
---   USING (auth.uid() = user_id);
+CREATE POLICY "Users can update own contracts"
+  ON provider_contracts FOR UPDATE
+  USING (auth.uid() = user_id);
 
 
 -- Provider analysis results (from 835 remittance analysis)
@@ -51,18 +48,16 @@ CREATE TABLE IF NOT EXISTS provider_analyses (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- removed: user_id superseded by company_id in 000_core_tables.sql
--- CREATE INDEX IF NOT EXISTS idx_provider_analyses_user
---   ON provider_analyses(user_id);
+CREATE INDEX IF NOT EXISTS idx_provider_analyses_user
+  ON provider_analyses(user_id);
 
 -- RLS policies
 ALTER TABLE provider_analyses ENABLE ROW LEVEL SECURITY;
 
--- removed: user_id superseded by company_id in 000_core_tables.sql; policies replaced in migration 032
--- CREATE POLICY "Users can read own analyses"
---   ON provider_analyses FOR SELECT
---   USING (auth.uid() = user_id);
+CREATE POLICY "Users can read own analyses"
+  ON provider_analyses FOR SELECT
+  USING (auth.uid() = user_id);
 
--- CREATE POLICY "Users can insert own analyses"
---   ON provider_analyses FOR INSERT
---   WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can insert own analyses"
+  ON provider_analyses FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
