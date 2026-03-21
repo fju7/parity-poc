@@ -541,6 +541,17 @@ function ProviderAccountInner() {
 
 export default function ProviderAccountPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { isAuthenticated, loading } = useAuth();
+
+  // After Stripe checkout redirect, user arrives without a session token.
+  // Redirect to login page preserving checkout_success so login can bounce back.
+  useEffect(() => {
+    if (!loading && !isAuthenticated && searchParams.get("checkout_success") === "1") {
+      const loginPath = isProviderSubdomain ? "/login" : "/provider/login";
+      navigate(`${loginPath}?checkout_success=1`, { replace: true });
+    }
+  }, [loading, isAuthenticated, searchParams, navigate]);
 
   return (
     <AuthGate product="provider" onNeedsCompany={() => navigate(isProviderSubdomain ? "/signup" : "/provider/signup")}>
