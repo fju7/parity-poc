@@ -29,18 +29,17 @@ CREATE POLICY "service_role_full_access" ON provider_audits
     USING (auth.role() = 'service_role')
     WITH CHECK (auth.role() = 'service_role');
 
--- Authenticated users can read their own audits
-CREATE POLICY "users_read_own_audits" ON provider_audits
-    FOR SELECT
-    USING (
-        auth.uid() = user_id
-        OR contact_email = (SELECT email FROM auth.users WHERE id = auth.uid())
-    );
+-- removed: user_id superseded by company_id in 000_core_tables.sql; policies replaced in migration 032
+-- CREATE POLICY "users_read_own_audits" ON provider_audits
+--     FOR SELECT
+--     USING (
+--         auth.uid() = user_id
+--         OR contact_email = (SELECT email FROM auth.users WHERE id = auth.uid())
+--     );
 
--- Authenticated users can insert their own audits
-CREATE POLICY "users_insert_own_audits" ON provider_audits
-    FOR INSERT
-    WITH CHECK (auth.uid() = user_id);
+-- CREATE POLICY "users_insert_own_audits" ON provider_audits
+--     FOR INSERT
+--     WITH CHECK (auth.uid() = user_id);
 
 -- Index for common queries
 -- removed: user_id superseded by company_id in 000_core_tables.sql

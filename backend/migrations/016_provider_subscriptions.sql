@@ -36,10 +36,10 @@ CREATE POLICY "service_role_full_access" ON provider_subscriptions
     USING (auth.role() = 'service_role')
     WITH CHECK (auth.role() = 'service_role');
 
--- Authenticated users: read own rows (by user_id or contact_email)
-CREATE POLICY "users_read_own_subscriptions" ON provider_subscriptions
-    FOR SELECT
-    USING (
-        auth.uid() = user_id
-        OR contact_email = (SELECT email FROM auth.users WHERE id = auth.uid())
-    );
+-- removed: user_id superseded by company_id in 000_core_tables.sql; policies replaced in migration 032
+-- CREATE POLICY "users_read_own_subscriptions" ON provider_subscriptions
+--     FOR SELECT
+--     USING (
+--         auth.uid() = user_id
+--         OR contact_email = (SELECT email FROM auth.users WHERE id = auth.uid())
+--     );
