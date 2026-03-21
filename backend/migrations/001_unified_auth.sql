@@ -57,12 +57,7 @@ CREATE TABLE IF NOT EXISTS company_invitations (
   UNIQUE(token)
 );
 
--- 5. Add company_id to existing tables
-ALTER TABLE employer_subscriptions ADD COLUMN IF NOT EXISTS company_id uuid REFERENCES companies(id);
-ALTER TABLE employer_claims_uploads ADD COLUMN IF NOT EXISTS company_id uuid REFERENCES companies(id);
-ALTER TABLE broker_employer_links ADD COLUMN IF NOT EXISTS employer_company_id uuid REFERENCES companies(id);
-
--- 6. Indexes for performance
+-- 5. Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_sessions_email ON sessions(email);
 CREATE INDEX IF NOT EXISTS idx_sessions_expires ON sessions(expires_at);
 CREATE INDEX IF NOT EXISTS idx_company_users_email ON company_users(email);
@@ -70,5 +65,3 @@ CREATE INDEX IF NOT EXISTS idx_company_users_company ON company_users(company_id
 CREATE INDEX IF NOT EXISTS idx_invitations_token ON company_invitations(token);
 CREATE INDEX IF NOT EXISTS idx_invitations_email ON company_invitations(invited_email);
 
--- 7. Add product column to otp_codes if not already present
-ALTER TABLE otp_codes ADD COLUMN IF NOT EXISTS product text DEFAULT 'broker';
