@@ -22,6 +22,8 @@ function ProviderAccountInner() {
   const [specialty, setSpecialty] = useState("");
   const [npi, setNpi] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const [practiceAddress, setPracticeAddress] = useState("");
+  const [billingContact, setBillingContact] = useState("");
 
   // Invite modal
   const [showInviteModal, setShowInviteModal] = useState(false);
@@ -64,6 +66,8 @@ function ProviderAccountInner() {
           setSpecialty(profileData.profile.specialty || "");
           setNpi(profileData.profile.npi || "");
           setZipCode(profileData.profile.zip_code || "");
+          setPracticeAddress(profileData.profile.practice_address || "");
+          setBillingContact(profileData.profile.billing_contact || "");
         }
       }
 
@@ -111,6 +115,8 @@ function ProviderAccountInner() {
           specialty: specialty || "",
           npi: npi.trim() || "",
           zip_code: zipCode.trim() || "",
+          practice_address: practiceAddress.trim() || "",
+          billing_contact: billingContact.trim() || "",
         }),
       });
       if (!res.ok) { const d = await res.json(); setSaveMsg(d.detail || "Failed to save."); return; }
@@ -292,6 +298,14 @@ function ProviderAccountInner() {
           <label style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", display: "block", marginBottom: 4 }}>ZIP Code</label>
           <input value={zipCode} onChange={e => setZipCode(e.target.value)}
             disabled={!isAdmin} maxLength={5} placeholder="e.g. 33701"
+            style={{ ...inputStyle, opacity: isAdmin ? 1 : 0.6 }} />
+          <label style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", display: "block", marginBottom: 4 }}>Practice Address</label>
+          <input value={practiceAddress} onChange={e => setPracticeAddress(e.target.value)}
+            disabled={!isAdmin} placeholder="123 Main St, Suite 100"
+            style={{ ...inputStyle, opacity: isAdmin ? 1 : 0.6 }} />
+          <label style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", display: "block", marginBottom: 4 }}>Billing Contact</label>
+          <input value={billingContact} onChange={e => setBillingContact(e.target.value)}
+            disabled={!isAdmin} placeholder="Billing department name or contact"
             style={{ ...inputStyle, opacity: isAdmin ? 1 : 0.6 }} />
           {isAdmin && (
             <button onClick={handleSaveProfile} disabled={saving}
