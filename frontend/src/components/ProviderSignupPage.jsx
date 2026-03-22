@@ -16,6 +16,9 @@ export default function ProviderSignupPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [fullName, setFullName] = useState("");
   const [practiceName, setPracticeName] = useState("");
+  const [specialty, setSpecialty] = useState("");
+  const [npi, setNpi] = useState("");
+  const [zipCode, setZipCode] = useState("");
 
   if (isAuthenticated && company?.type === "provider") {
     return <Navigate to="/provider/dashboard" replace />;
@@ -58,6 +61,9 @@ export default function ProviderSignupPage() {
   const handleCreateCompany = async () => {
     if (!fullName.trim()) { setErrorMsg("Enter your full name."); return; }
     if (!practiceName.trim()) { setErrorMsg("Enter your practice name."); return; }
+    if (!specialty) { setErrorMsg("Select your specialty."); return; }
+    if (!zipCode.trim()) { setErrorMsg("Enter your practice ZIP code."); return; }
+    if (!/^\d{5}$/.test(zipCode.trim())) { setErrorMsg("Enter a valid 5-digit ZIP code."); return; }
     setCreating(true); setErrorMsg("");
     try {
       const res = await fetch(`${API}/api/auth/company`, {
@@ -72,6 +78,18 @@ export default function ProviderSignupPage() {
       const data = await res.json();
       if (!res.ok) { setErrorMsg(data.detail || "Failed to create account."); return; }
       login(data.token, data.user, data.company);
+      try {
+        await fetch(`${API}/api/provider/save-profile`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${data.token}` },
+          body: JSON.stringify({
+            practice_name: practiceName.trim(),
+            specialty: specialty.trim(),
+            npi: npi.trim(),
+            zip_code: zipCode.trim(),
+          }),
+        });
+      } catch (e) { console.warn("save-profile failed:", e); }
       navigate("/provider/dashboard");
     } catch { setErrorMsg("Failed to create account. Please try again."); }
     setCreating(false);
@@ -174,10 +192,30 @@ export default function ProviderSignupPage() {
                 <input type="text" required value={fullName} onChange={(e) => setFullName(e.target.value)}
                   placeholder="Dr. Jane Smith" style={inputStyle} />
               </div>
-              <div style={{ marginBottom: 20 }}>
+              <div style={{ marginBottom: 14 }}>
                 <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>Practice name *</label>
                 <input type="text" required value={practiceName} onChange={(e) => setPracticeName(e.target.value)}
                   placeholder="Riverside Family Medicine" style={inputStyle} />
+              </div>
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>Specialty *</label>
+                <select value={specialty} onChange={(e) => setSpecialty(e.target.value)}
+                  style={{ ...inputStyle, appearance: "auto" }}>
+                  <option value="">Select a specialty</option>
+                  {["Internal Medicine", "Family Medicine", "Cardiology", "Orthopedics", "Dermatology", "Radiology", "Pathology/Lab", "Other"].map(s => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>NPI Number</label>
+                <input type="text" value={npi} onChange={(e) => setNpi(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                  maxLength={10} placeholder="10-digit NPI (optional)" style={inputStyle} />
+              </div>
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>ZIP Code *</label>
+                <input type="text" required value={zipCode} onChange={(e) => setZipCode(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                  maxLength={5} placeholder="Practice ZIP code" style={inputStyle} />
               </div>
               <button onClick={handleCreateCompany} disabled={creating} style={{
                 width: "100%", padding: "12px", borderRadius: 8, border: "none",
