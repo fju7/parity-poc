@@ -471,6 +471,16 @@ async def create_company(req: CreateCompanyRequest):
 
     company_id = company.data[0]["id"]
 
+    # Auto-create provider_profiles row so practice name is pre-populated on account page
+    if company_type == "provider":
+        try:
+            sb.table("provider_profiles").insert({
+                "company_id": company_id,
+                "practice_name": req.company_name.strip(),
+            }).execute()
+        except Exception as e:
+            print(f"[warn] provider_profiles pre-create failed: {e}")
+
     # Create admin user
     sb.table("company_users").insert({
         "company_id": company_id,
