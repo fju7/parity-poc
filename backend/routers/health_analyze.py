@@ -592,6 +592,7 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - Closes with a clear request for reconsideration and a deadline expectation
 - Uses professional but plain language — not legal jargon
 - Is formatted as a real letter (date, addresses, subject line, body, closing)
+- If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal — this strengthens the letter with scientific backing
 
 Return only the letter text, no explanation or commentary."""
 
@@ -601,6 +602,38 @@ def generate_appeal(req: AppealGenerateRequest):
     client = _get_client()
 
     context_parts = [f"Denial analysis:\n{json.dumps(req.denial_analysis, indent=2)}"]
+
+    # Enrich with Signal playbook evidence if CPT codes and denial codes are available
+    try:
+        sb = _get_supabase()
+        if sb:
+            denial_code = req.denial_analysis.get("denial_reason_code", "")
+            cpt_codes = req.denial_analysis.get("cpt_codes", [])
+            if isinstance(cpt_codes, str):
+                cpt_codes = [cpt_codes]
+
+            if denial_code and cpt_codes:
+                playbook_res = sb.table("signal_denial_playbook").select("*").eq("denial_code", denial_code).in_("cpt_code", cpt_codes).limit(3).execute()
+                if playbook_res.data:
+                    pb = playbook_res.data[0]
+                    signal_context = f"\n\nClinical Evidence from Parity Signal:\n"
+                    signal_context += f"Appeal strength: {pb['appeal_strength']}\n"
+                    if pb.get('payer_analytical_path'):
+                        signal_context += f"Payer reasoning: {pb['payer_analytical_path']}\n"
+                    if pb.get('challenging_evidence_summary'):
+                        signal_context += f"Challenging evidence: {pb['challenging_evidence_summary']}\n"
+                    if pb.get('recommended_claims'):
+                        claims = pb['recommended_claims']
+                        if isinstance(claims, str):
+                            claims = json.loads(claims)
+                        if claims:
+                            signal_context += "Key evidence points:\n"
+                            for claim in claims[:3]:
+                                signal_context += f"- {claim.get('claim_text', '')}\n"
+                    context_parts.append(signal_context)
+    except Exception as e:
+        print(f"[warn] Health Signal playbook lookup failed: {e}")
+
     if req.patient_name:
         context_parts.append(f"Patient name: {req.patient_name}")
     if req.provider_name:
