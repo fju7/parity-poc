@@ -703,16 +703,18 @@ async def my_subscription(request: Request):
                 import stripe as stripe_lib
                 stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
                 stripe_sub = stripe_lib.Subscription.retrieve(stripe_sub_id)
-                entry["stripe_status"] = stripe_sub.status
-                if stripe_sub.current_period_end:
+                entry["stripe_status"] = stripe_sub.get("status") or stripe_sub.status
+                period_end = stripe_sub.get("current_period_end")
+                if period_end:
                     from datetime import datetime, timezone
                     entry["current_period_end"] = datetime.fromtimestamp(
-                        stripe_sub.current_period_end, tz=timezone.utc
+                        period_end, tz=timezone.utc
                     ).isoformat()
-                if stripe_sub.trial_end:
+                trial_end = stripe_sub.get("trial_end")
+                if trial_end:
                     from datetime import datetime, timezone
                     entry["trial_ends_at"] = datetime.fromtimestamp(
-                        stripe_sub.trial_end, tz=timezone.utc
+                        trial_end, tz=timezone.utc
                     ).isoformat()
             except Exception as exc:
                 print(f"[ProviderSub] Stripe fetch failed for sub_id={stripe_sub_id}: {type(exc).__name__}: {exc}")
