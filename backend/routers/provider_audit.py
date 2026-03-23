@@ -14,6 +14,7 @@ from fastapi import APIRouter, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
+from routers.signal_intelligence import aggregate_denial_patterns
 from routers.provider_shared import (
     _get_supabase, _get_authenticated_user, _verify_admin,
     _call_claude, _call_claude_text,
@@ -1394,6 +1395,50 @@ async def analyze_denials(req: AnalyzeDenialsRequest):
             "total_recoverable_value": 0,
             "error": True,
         }
+
+    # Enrich result with Signal playbook evidence (batch lookup)
+    try:
+        sb = _get_supabase()
+        cpt_codes = list({line.cpt_code for line in req.denied_lines if line.cpt_code})
+        denial_codes = []
+        for line in req.denied_lines:
+            if line.adjustment_codes:
+                denial_codes.extend(line.adjustment_codes)
+        denial_codes = list(set(denial_codes))
+
+        if cpt_codes and denial_codes:
+            playbook_res = sb.table("signal_denial_playbook").select("*").in_("cpt_code", cpt_codes).in_("denial_code", denial_codes).execute()
+            playbook_rows = {(r["denial_code"], r["cpt_code"]): r for r in (playbook_res.data or [])}
+
+            if playbook_rows and result and "denial_types" in result:
+                for denial_type in result["denial_types"]:
+                    code = denial_type.get("adjustment_code", "")
+                    affected = denial_type.get("affected_cpts", [])
+                    for cpt in affected:
+                        key = (code, cpt)
+                        if key in playbook_rows:
+                            pb = playbook_rows[key]
+                            denial_type["signal_evidence"] = {
+                                "appeal_strength": pb["appeal_strength"],
+                                "payer_analytical_path": pb["payer_analytical_path"],
+                                "challenging_evidence_summary": pb["challenging_evidence_summary"],
+                                "recommended_claims": pb["recommended_claims"],
+                                "topic_slug": pb["signal_topic_slug"],
+                            }
+                            break
+    except Exception as e:
+        print(f"[warn] Signal playbook lookup failed: {e}")
+
+    # Aggregate denial patterns in background (silent)
+    import asyncio
+    try:
+        lines_data_for_patterns = [
+            {"cpt_code": line.cpt_code, "adjustment_codes": line.adjustment_codes, "billed_amount": line.billed_amount}
+            for line in req.denied_lines
+        ]
+        asyncio.create_task(aggregate_denial_patterns(lines_data_for_patterns, req.payer_name or "Unknown"))
+    except Exception:
+        pass
 
     return result
 
