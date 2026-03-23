@@ -1244,6 +1244,7 @@ function ProviderAppInner() {
               onSort={handleSort}
               getSortedLines={getHistoricalSortedLines}
               onBack={() => { setHistoricalReport(null); setSortField(null); setSortDir("asc"); }}
+              onGenerateReport={() => setShowAuditReport(true)}
             />
           ) : historicalLoading ? (
             <div style={{ textAlign: "center", padding: 48 }}>
@@ -3001,7 +3002,7 @@ function TrendsTab({ data, loading, error, subscriptionId, onLoad, onDraftAppeal
 // Historical Report Viewer
 // ═══════════════════════════════════════════════════════════════════
 
-function HistoricalReportView({ record, profile, sortField, sortDir, onSort, getSortedLines, onBack }) {
+function HistoricalReportView({ record, profile, sortField, sortDir, onSort, getSortedLines, onBack, onGenerateReport }) {
   const rj = record.result_json || {};
   const s = rj.summary || {};
   const sc = rj.scorecard || {};
