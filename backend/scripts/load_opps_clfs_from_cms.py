@@ -111,6 +111,44 @@ def _extract_year_from_url(url: str, default: int = 2026) -> int:
     return default
 
 
+def _get_or_create_version(sb, data_source: str, version_label: str,
+                           effective_from: str, source_url: str) -> str:
+    """Find or create a data_versions row. Returns the UUID."""
+    # Check for existing version
+    existing = (
+        sb.table("data_versions")
+        .select("id")
+        .eq("data_source", data_source)
+        .eq("version_label", version_label)
+        .limit(1)
+        .execute()
+    )
+    if existing.data:
+        version_id = existing.data[0]["id"]
+        print(f"  Found existing data_versions row: {version_id}")
+        return version_id
+
+    # Create new version
+    row = {
+        "data_source": data_source,
+        "version_label": version_label,
+        "effective_from": effective_from,
+        "notes": f"Loaded from {source_url}",
+    }
+    result = sb.table("data_versions").insert(row).execute()
+    version_id = result.data[0]["id"]
+    print(f"  Created data_versions row: {version_id}")
+    return version_id
+
+
+def _update_version_record_count(sb, version_id: str, count: int):
+    """Update the record_count on a data_versions row."""
+    try:
+        sb.table("data_versions").update({"record_count": count}).eq("id", version_id).execute()
+    except Exception as e:
+        print(f"  [warn] Failed to update record_count: {e}")
+
+
 # ---------------------------------------------------------------------------
 # OPPS loader
 # ---------------------------------------------------------------------------
@@ -129,11 +167,12 @@ def load_opps():
     rate_year = _extract_year_from_url(OPPS_ZIP_URL)
     print(f"  Rate year: {rate_year}")
 
-    # Find the header row (contains "HCPCS" or "CPT")
+    # Find the header row — must START with "HCPCS" (not just contain it in disclaimers)
     lines = csv_io.readlines()
     header_idx = 0
     for i, line in enumerate(lines):
-        if re.search(r"HCPCS|CPT", line, re.IGNORECASE):
+        stripped = line.strip().lstrip(",").strip()
+        if re.match(r"^HCPCS", stripped, re.IGNORECASE):
             header_idx = i
             break
 
@@ -185,8 +224,6 @@ def load_opps():
                 "hcpcs_code": code,
                 "payment_rate": rate,
                 "description": desc[:500] if desc else None,
-                "rate_year": rate_year,
-                "schedule_type": "OPPS",
             })
         except (ValueError, KeyError):
             continue
@@ -201,10 +238,23 @@ def load_opps():
     sb = _get_supabase()
     table = "opps_rates_historical"
 
-    # Delete existing rows for this year
-    print(f"  Deleting existing {table} rows for year {rate_year}...")
+    # Get or create data_versions row
+    version_id = _get_or_create_version(
+        sb,
+        data_source="OPPS",
+        version_label=f"CY {rate_year} January",
+        effective_from=f"{rate_year}-01-01",
+        source_url=OPPS_ZIP_URL,
+    )
+
+    # Add version_id to all rows
+    for row in rows:
+        row["version_id"] = version_id
+
+    # Delete existing rows for this version
+    print(f"  Deleting existing {table} rows for version {version_id}...")
     try:
-        sb.table(table).delete().eq("rate_year", rate_year).execute()
+        sb.table(table).delete().eq("version_id", version_id).execute()
     except Exception as e:
         print(f"  [warn] Delete failed (table may be empty): {e}")
 
@@ -220,6 +270,7 @@ def load_opps():
         except Exception as e:
             print(f"  [error] Batch {i}-{i + len(batch)} failed: {e}")
 
+    _update_version_record_count(sb, version_id, inserted)
     print(f"  OPPS complete: {inserted} rows loaded into {table}")
 
 
@@ -244,10 +295,11 @@ def load_clfs():
     # CLFS CSV has header/disclaimer rows before the column headers
     lines = csv_io.readlines()
 
-    # Find header row containing "HCPCS" or "RATE"
+    # Find header row — must START with "YEAR" (the first CLFS column)
     header_idx = 0
     for i, line in enumerate(lines):
-        if re.search(r"HCPCS|RATE", line, re.IGNORECASE):
+        stripped = line.strip()
+        if re.match(r"^YEAR,", stripped, re.IGNORECASE):
             header_idx = i
             break
 
@@ -270,8 +322,6 @@ def load_clfs():
             col_map["mod"] = col
         elif "shortdesc" in col_lower or "short" in col_lower:
             col_map["description"] = col
-        elif "year" == col_lower:
-            col_map["year"] = col
 
     # Fallback: if "rate" not found, try any column with "rate" in name
     if "payment_rate" not in col_map:
@@ -309,20 +359,10 @@ def load_clfs():
             if rate <= 0:
                 continue
 
-            # Use year from CSV row if available, else from URL
-            row_year = rate_year
-            if "year" in col_map:
-                try:
-                    row_year = int(row.get(col_map["year"], "").strip())
-                except (ValueError, TypeError):
-                    pass
-
             rows.append({
                 "hcpcs_code": code,
                 "payment_rate": rate,
                 "description": desc[:500] if desc else None,
-                "rate_year": row_year,
-                "schedule_type": "CLFS",
             })
         except (ValueError, KeyError):
             continue
@@ -337,10 +377,23 @@ def load_clfs():
     sb = _get_supabase()
     table = "clfs_rates_historical"
 
-    # Delete existing rows for this year
-    print(f"  Deleting existing {table} rows for year {rate_year}...")
+    # Get or create data_versions row
+    version_id = _get_or_create_version(
+        sb,
+        data_source="CLFS",
+        version_label=f"CY {rate_year} Q1",
+        effective_from=f"{rate_year}-01-01",
+        source_url=CLFS_ZIP_URL,
+    )
+
+    # Add version_id to all rows
+    for row in rows:
+        row["version_id"] = version_id
+
+    # Delete existing rows for this version
+    print(f"  Deleting existing {table} rows for version {version_id}...")
     try:
-        sb.table(table).delete().eq("rate_year", rate_year).execute()
+        sb.table(table).delete().eq("version_id", version_id).execute()
     except Exception as e:
         print(f"  [warn] Delete failed (table may be empty): {e}")
 
@@ -356,6 +409,7 @@ def load_clfs():
         except Exception as e:
             print(f"  [error] Batch {i}-{i + len(batch)} failed: {e}")
 
+    _update_version_record_count(sb, version_id, inserted)
     print(f"  CLFS complete: {inserted} rows loaded into {table}")
 
 
