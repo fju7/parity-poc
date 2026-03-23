@@ -2,12 +2,29 @@
 
 Connects Signal evidence to billing products via CPT code mappings.
 Provides evidence lookups and denial intelligence for appeal support.
+Includes denial playbook population and pattern aggregation.
 """
 
-from fastapi import APIRouter, Query
+import json
+import logging
+
+from fastapi import APIRouter, Header, HTTPException, Query
 from fastapi.responses import JSONResponse
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter(prefix="/api/signal", tags=["signal-intelligence"])
+
+# Denial codes → likely payer analytical paths (shared across endpoints)
+DENIAL_PATH_MAP = {
+    "CO-50": "Payer likely weighted recency and rigor heavily, discounting older but well-replicated evidence.",
+    "CO-97": "Payer applied narrow interpretation of medical necessity, likely underweighting consensus evidence.",
+    "PR-204": "Payer required specific authorization criteria not met — check if evidence supports broader coverage.",
+    "CO-4": "Service not covered under benefit plan — evidence may support medical necessity override.",
+    "CO-11": "Diagnosis inconsistent with procedure — evidence may demonstrate clinical pathway.",
+    "CO-56": "Payer classified service as experimental — evidence strength directly challenges this.",
+    "CO-181": "Procedure code inconsistent with modifier — possible coding issue rather than evidence gap.",
+}
 
 _sb = None
 
@@ -264,21 +281,7 @@ async def denial_intelligence(
         issue = issue_res.data[0]
         issue_id = issue["id"]
 
-        # Map denial codes to likely payer analytical paths
-        denial_path_map = {
-            # Medical necessity denials
-            "CO-50": "Payer likely weighted recency and rigor heavily, discounting older but well-replicated evidence.",
-            "CO-97": "Payer applied narrow interpretation of medical necessity, likely underweighting consensus evidence.",
-            "PR-204": "Payer required specific authorization criteria not met — check if evidence supports broader coverage.",
-            # Not covered denials
-            "CO-4": "Service not covered under benefit plan — evidence may support medical necessity override.",
-            "CO-11": "Diagnosis inconsistent with procedure — evidence may demonstrate clinical pathway.",
-            # Experimental/investigational
-            "CO-56": "Payer classified service as experimental — evidence strength directly challenges this.",
-            "CO-181": "Procedure code inconsistent with modifier — possible coding issue rather than evidence gap.",
-        }
-
-        payer_path = denial_path_map.get(
+        payer_path = DENIAL_PATH_MAP.get(
             denial_code,
             f"Denial code {denial_code} suggests payer applied restrictive evidence weighting."
         )
@@ -358,3 +361,227 @@ async def denial_intelligence(
 
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
+
+
+# ---------------------------------------------------------------------------
+# Addition 1: Populate Denial Playbook
+# ---------------------------------------------------------------------------
+
+async def populate_denial_playbook() -> int:
+    """Build signal_denial_playbook from CPT mappings × denial codes.
+
+    For every (denial_code, cpt_code) combination where the CPT has a
+    Signal topic mapping, fetches the top claims and upserts a playbook row.
+    Returns the number of rows upserted.
+    """
+    sb = _get_sb()
+    if not sb:
+        raise RuntimeError("DB not available")
+
+    # Fetch all CPT → topic mappings
+    mappings_res = (
+        sb.table("signal_cpt_mappings")
+        .select("cpt_code, topic_slug")
+        .order("relevance_score", desc=True)
+        .execute()
+    )
+    mappings = mappings_res.data or []
+    if not mappings:
+        return 0
+
+    # Resolve topic slugs → issue IDs
+    slugs = list({m["topic_slug"] for m in mappings})
+    issues_res = (
+        sb.table("signal_issues")
+        .select("id, slug")
+        .in_("slug", slugs)
+        .execute()
+    )
+    slug_to_issue = {i["slug"]: i["id"] for i in (issues_res.data or [])}
+
+    # Pre-fetch top 5 claims per issue (by specificity DESC)
+    issue_claims: dict[str, list] = {}
+    for issue_id in slug_to_issue.values():
+        claims_res = (
+            sb.table("signal_claims")
+            .select("claim_text, plain_summary, consensus_type, claim_type, specificity")
+            .eq("issue_id", issue_id)
+            .order("specificity", desc=True)
+            .limit(5)
+            .execute()
+        )
+        issue_claims[issue_id] = claims_res.data or []
+
+    upserted = 0
+
+    for mapping in mappings:
+        cpt_code = mapping["cpt_code"]
+        topic_slug = mapping["topic_slug"]
+        issue_id = slug_to_issue.get(topic_slug)
+        if not issue_id:
+            continue
+
+        claims = issue_claims.get(issue_id, [])
+
+        # Build evidence summary from plain_summary fields
+        summaries = [c["plain_summary"] for c in claims if c.get("plain_summary")]
+        evidence_summary = ", ".join(summaries) if summaries else None
+
+        # Build recommended_claims JSON array (top 3)
+        recommended = [
+            {
+                "claim_text": c["claim_text"],
+                "consensus_type": c.get("consensus_type"),
+                "claim_type": c.get("claim_type"),
+            }
+            for c in claims[:3]
+        ]
+
+        # Determine appeal strength based on claim count
+        if len(claims) >= 3:
+            appeal_strength = "strong"
+        elif len(claims) >= 1:
+            appeal_strength = "moderate"
+        else:
+            appeal_strength = "weak"
+
+        # Upsert one row per (denial_code, cpt_code) for each denial code
+        for denial_code, payer_path in DENIAL_PATH_MAP.items():
+            row = {
+                "denial_code": denial_code,
+                "cpt_code": cpt_code,
+                "appeal_strength": appeal_strength,
+                "payer_analytical_path": payer_path,
+                "challenging_evidence_summary": evidence_summary,
+                "recommended_claims": json.dumps(recommended),
+                "signal_topic_slug": topic_slug,
+                "signal_issue_id": issue_id,
+            }
+            sb.table("signal_denial_playbook").upsert(
+                row, on_conflict="denial_code,cpt_code"
+            ).execute()
+            upserted += 1
+
+    return upserted
+
+
+# ---------------------------------------------------------------------------
+# Addition 2: Admin endpoint to populate denial playbook
+# ---------------------------------------------------------------------------
+
+@router.post("/admin/populate-denial-playbook")
+async def admin_populate_denial_playbook(
+    x_cron_secret: str = Header(None, alias="X-Cron-Secret"),
+):
+    """Populate the signal_denial_playbook table. Requires admin auth via cron secret."""
+    import os
+
+    cron_secret = os.environ.get("CRON_SECRET")
+    if not cron_secret or x_cron_secret != cron_secret:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    count = await populate_denial_playbook()
+    return {"populated": count}
+
+
+# ---------------------------------------------------------------------------
+# Addition 3: Aggregate denial patterns from provider 835 analyses
+# ---------------------------------------------------------------------------
+
+async def aggregate_denial_patterns(denied_lines: list, payer_name: str) -> None:
+    """Upsert provider_denial_patterns from denied claim lines.
+
+    Runs silently — catches all exceptions so it never disrupts the
+    caller's flow.
+    """
+    try:
+        sb = _get_sb()
+        if not sb:
+            return
+
+        for line in denied_lines:
+            cpt_code = line.get("cpt_code") or line.get("cpt", "")
+            billed = float(line.get("billed_amount", 0) or 0)
+            adj_codes = line.get("adjustment_codes", [])
+            if isinstance(adj_codes, str):
+                adj_codes = [adj_codes]
+
+            for denial_code in adj_codes:
+                if not denial_code:
+                    continue
+
+                # Check if playbook has coverage for this combo
+                playbook_res = (
+                    sb.table("signal_denial_playbook")
+                    .select("id")
+                    .eq("denial_code", denial_code)
+                    .eq("cpt_code", cpt_code)
+                    .limit(1)
+                    .execute()
+                )
+                has_coverage = bool(playbook_res.data)
+
+                # Try update first (existing row)
+                existing = (
+                    sb.table("provider_denial_patterns")
+                    .select("id, occurrence_count, total_value_at_risk")
+                    .eq("denial_code", denial_code)
+                    .eq("cpt_code", cpt_code)
+                    .eq("payer", payer_name)
+                    .limit(1)
+                    .execute()
+                )
+
+                if existing.data:
+                    row = existing.data[0]
+                    sb.table("provider_denial_patterns").update({
+                        "occurrence_count": row["occurrence_count"] + 1,
+                        "total_value_at_risk": float(row["total_value_at_risk"]) + billed,
+                        "last_seen": "now()",
+                        "signal_coverage": has_coverage,
+                    }).eq("id", row["id"]).execute()
+                else:
+                    sb.table("provider_denial_patterns").insert({
+                        "denial_code": denial_code,
+                        "cpt_code": cpt_code,
+                        "payer": payer_name,
+                        "occurrence_count": 1,
+                        "total_value_at_risk": billed,
+                        "signal_coverage": has_coverage,
+                    }).execute()
+
+        # Check for patterns hitting thresholds → auto-create topic requests
+        threshold_rows = (
+            sb.table("provider_denial_patterns")
+            .select("id, denial_code, cpt_code, payer, occurrence_count, total_value_at_risk")
+            .eq("topic_request_created", False)
+            .execute()
+        )
+
+        for row in (threshold_rows.data or []):
+            count = row["occurrence_count"]
+            value = float(row["total_value_at_risk"])
+            if count < 5 and value < 10000:
+                continue
+
+            topic_name = f"Denial pattern: {row['denial_code']} on CPT {row['cpt_code']}"
+            description = (
+                f"Auto-generated from denial pattern aggregation. "
+                f"Payer: {row['payer']}. "
+                f"Occurrences: {count}. "
+                f"Total value at risk: ${value:,.2f}. "
+                f"Source: denial_pattern"
+            )
+
+            sb.table("signal_topic_requests").insert({
+                "topic_name": topic_name,
+                "description": description,
+                "status": "pending",
+            }).execute()
+
+            sb.table("provider_denial_patterns").update({
+                "topic_request_created": True,
+            }).eq("id", row["id"]).execute()
+
+    except Exception:
+        logger.exception("aggregate_denial_patterns failed silently")
