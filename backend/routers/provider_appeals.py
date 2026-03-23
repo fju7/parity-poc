@@ -399,7 +399,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     # Save appeal record
     sb = _get_supabase()
     appeal_record = {
-        "user_id": str(user.id),
+        "company_id": str(user.id),
         "subscription_id": req.subscription_id,
         "audit_id": req.audit_id,
         "claim_id": req.claim_id,
@@ -425,7 +425,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     # Persist letter for reuse
     try:
         sb.table("provider_appeal_letters").insert({
-            "user_id": str(user.id),
+            "company_id": str(user.id),
             "payer": req.payer_name or "",
             "denial_code": req.denial_code or "",
             "cpt_code": req.cpt_code or "",
@@ -468,7 +468,7 @@ async def get_saved_appeal_letter(
         q = (
             sb.table("provider_appeal_letters")
             .select("*")
-            .eq("user_id", str(user.id))
+            .eq("company_id", str(user.id))
             .eq("payer", payer)
             .eq("denial_code", denial_code)
             .eq("cpt_code", cpt_code)
@@ -519,7 +519,7 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
         # Save appeal record
         sb = _get_supabase()
         appeal_record = {
-            "user_id": str(user.id),
+            "company_id": str(user.id),
             "subscription_id": req.subscription_id,
             "audit_id": req.audit_id,
             "claim_id": denial.get("claim_id", ""),
@@ -566,7 +566,7 @@ async def list_appeals(request: Request):
     sb = _get_supabase()
     result = sb.table("provider_appeals") \
         .select("*") \
-        .eq("user_id", str(user.id)) \
+        .eq("company_id", str(user.id)) \
         .order("created_at", desc=True) \
         .execute()
 
@@ -585,10 +585,10 @@ async def update_appeal_status(req: UpdateAppealStatusRequest, request: Request)
     sb = _get_supabase()
 
     # Verify ownership
-    row = sb.table("provider_appeals").select("user_id").eq("id", req.appeal_id).execute()
+    row = sb.table("provider_appeals").select("company_id").eq("id", req.appeal_id).execute()
     if not row.data:
         raise HTTPException(status_code=404, detail="Appeal not found")
-    if row.data[0].get("user_id") != str(user.id):
+    if row.data[0].get("company_id") != str(user.id):
         # Also allow admin
         try:
             await _verify_admin(request)
