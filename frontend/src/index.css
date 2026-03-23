@@ -48,6 +48,27 @@
     break-inside: avoid;
   }
 
+  /* Hide navigation, headers, and UI chrome during print */
+  .no-print { display: none !important; }
+  header { display: none !important; }
+  nav { display: none !important; }
+
+  /* Hide trial banner and subscription notices */
+  [class*="trial"] { display: none !important; }
+  [class*="banner"] { display: none !important; }
+
+  /* Force white backgrounds on dark elements */
+  * { background-color: white !important; color: black !important; }
+
+  /* Preserve colored table cells and status flags */
+  td[style*="background"] { background-color: revert !important; }
+
+  /* Remove box shadows */
+  * { box-shadow: none !important; }
+
+  /* Ensure full width */
+  .container, [class*="container"] { max-width: 100% !important; }
+
   @page {
     margin: 0.75in;
     size: letter;
