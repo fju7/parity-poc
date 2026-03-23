@@ -114,6 +114,21 @@ async def employer_claims_check(
         if not sub_info["active"]:
             sb = _get_supabase()
             from datetime import datetime, timezone, timedelta
+
+            # Count-based gate: max 5 uploads before trial required
+            upload_count_res = (
+                sb.table("employer_claims_uploads")
+                .select("id", count="exact")
+                .eq("email", email)
+                .execute()
+            )
+            upload_count = upload_count_res.count or 0
+            if upload_count >= 5:
+                raise HTTPException(
+                    status_code=402,
+                    detail="You've used your 5 free analyses. Start your free 30-day trial to continue.",
+                )
+
             # Find user's earliest claims upload to determine trial start
             first_upload = (
                 sb.table("employer_claims_uploads")
