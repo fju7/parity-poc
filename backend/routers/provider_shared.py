@@ -155,6 +155,11 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
     try:
         return json.loads(raw_text)
     except json.JSONDecodeError:
+        # If Claude returned HTML directly (common for appeal letters), wrap it in expected JSON structure
+        stripped = raw_text.strip()
+        if stripped.startswith("<!DOCTYPE") or stripped.startswith("<html") or stripped.startswith("<div"):
+            print(f"[Provider AI] Claude returned HTML directly — wrapping in JSON structure")
+            return {"letter_html": stripped, "letter_text": stripped}
         print(f"[Provider AI] Invalid JSON: {raw_text[:500]}")
         return None
 
