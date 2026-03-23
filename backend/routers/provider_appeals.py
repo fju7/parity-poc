@@ -425,7 +425,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     # Persist letter for reuse
     try:
         sb.table("provider_appeal_letters").insert({
-            "company_id": str(user.id),
+            "user_id": str(user.id),
             "payer": req.payer_name or "",
             "denial_code": req.denial_code or "",
             "cpt_code": req.cpt_code or "",
@@ -468,7 +468,7 @@ async def get_saved_appeal_letter(
         q = (
             sb.table("provider_appeal_letters")
             .select("*")
-            .eq("company_id", str(user.id))
+            .eq("user_id", str(user.id))
             .eq("payer", payer)
             .eq("denial_code", denial_code)
             .eq("cpt_code", cpt_code)
