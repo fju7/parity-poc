@@ -271,6 +271,7 @@ async def send_otp(req: SendOtpRequest, request: Request):
         # SMS OTP flow
         sb.table("otp_codes").delete().eq("phone_number", phone).eq("product", product).execute()
         sb.table("otp_codes").insert({
+            "email": email or "",
             "phone_number": phone,
             "code": code,
             "expires_at": expires_at,
