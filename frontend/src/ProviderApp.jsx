@@ -1805,7 +1805,7 @@ function ContractIntegrityTab({
           </div>
         )}
         {denialIntel && !denialIntel.error && (denialIntel.denial_types?.length > 0 || denialIntel.pattern_summary) && (
-          <DenialIntelligenceSection intel={denialIntel} profile={profile} payerName={analysisResults[selectedPayerIdx]?.payer_name || ""} />
+          <DenialIntelligenceSection intel={denialIntel} profile={profile} payerName={analysisResults[selectedPayerIdx]?.payer_name || ""} onGoToAppeals={() => setActiveTab("appeals")} />
         )}
 
         {/* Coding Intelligence (auto-generated from 835 data) */}
@@ -3148,7 +3148,7 @@ function HistoricalReportView({ record, profile, sortField, sortDir, onSort, get
 
       {/* Denial Intelligence (from stored data) */}
       {di.denial_types?.length > 0 && (
-        <DenialIntelligenceSection intel={di} profile={profile} payerName={record.payer_name || ""} />
+        <DenialIntelligenceSection intel={di} profile={profile} payerName={record.payer_name || ""} onGoToAppeals={() => {}} />
       )}
 
       {/* Full Line Items (only if stored in result_json) */}
@@ -4056,7 +4056,7 @@ function _fillAppealTemplate(template, profile, payerName, dt) {
   return result;
 }
 
-function DenialIntelligenceSection({ intel, profile, payerName }) {
+function DenialIntelligenceSection({ intel, profile, payerName, onGoToAppeals }) {
   const [expandedType, setExpandedType] = useState(null);
 
   return (
@@ -4147,19 +4147,18 @@ function DenialIntelligenceSection({ intel, profile, payerName }) {
                     <strong>Recommended action:</strong> {dt.recommended_action}
                   </div>
                 )}
-                {dt.appeal_letter_template && (
-                  <div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 8, marginTop: 8 }}>
-                      Appeal Letter Template
-                    </div>
-                    <div style={{
-                      padding: 16, borderRadius: 8, background: "var(--cs-mist)",
-                      fontSize: 13, color: "var(--cs-navy)", whiteSpace: "pre-wrap",
-                      lineHeight: 1.6, fontFamily: "monospace",
+                {dt.is_actionable && (
+                  <button
+                    onClick={() => {
+                      if (typeof onGoToAppeals === 'function') onGoToAppeals();
+                    }}
+                    style={{
+                      marginTop: 12, padding: "8px 18px", borderRadius: 6, border: "none",
+                      background: "#0d9488", color: "#fff", fontWeight: 600, fontSize: 13,
+                      cursor: "pointer"
                     }}>
-                      {_fillAppealTemplate(dt.appeal_letter_template, profile, payerName, dt)}
-                    </div>
-                  </div>
+                    Draft Appeal Letter &rarr;
+                  </button>
                 )}
               </div>
             )}
