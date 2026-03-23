@@ -1213,7 +1213,7 @@ function ProviderAppInner() {
         </div>
 
         {/* Tab buttons */}
-        <div style={{ display: "flex", gap: 8, marginBottom: 32, flexWrap: "wrap" }}>
+        <div data-print-hide style={{ display: "flex", gap: 8, marginBottom: 32, flexWrap: "wrap" }}>
           {["home", "contract", "coding", "trends", "appeals"].map(tab => (
             <button
               key={tab}
@@ -1867,7 +1867,7 @@ function ContractIntegrityTab({
         </div>
 
         {/* Action buttons */}
-        <div className="no-print" style={{ display: "flex", gap: 12 }}>
+        <div className="no-print" data-print-hide style={{ display: "flex", gap: 12 }}>
           {onGenerateReport && (
             <button onClick={onGenerateReport} style={btnPrimary}>
               Generate Report
@@ -3212,7 +3212,7 @@ function HistoricalReportView({ record, profile, sortField, sortDir, onSort, get
       </div>
 
       {/* Action buttons */}
-      <div className="no-print" style={{ display: "flex", gap: 12 }}>
+      <div className="no-print" data-print-hide style={{ display: "flex", gap: 12 }}>
         <button onClick={() => window.print()} style={btnPrimary}>Download Report</button>
         <button onClick={onBack} style={btnOutline}>Back to Dashboard</button>
       </div>
@@ -3433,7 +3433,7 @@ function CodingAnalysisTab({
         </div>
 
         {/* Actions */}
-        <div className="no-print" style={{ display: "flex", gap: 12 }}>
+        <div className="no-print" data-print-hide style={{ display: "flex", gap: 12 }}>
           <button onClick={() => window.print()} style={btnPrimary}>Download Report</button>
           <button onClick={onReset} style={btnOutline}>Start Over</button>
         </div>
