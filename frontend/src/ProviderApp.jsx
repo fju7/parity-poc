@@ -33,6 +33,7 @@ function ProviderAppInner() {
   // "onboarding" | "dashboard"
   const [view, setView] = useState(null);
   const [showAuditReport, setShowAuditReport] = useState(false);
+  const [auditReportSource, setAuditReportSource] = useState(null); // "live" | "historical"
   const [profile, setProfile] = useState(null);
   const [activeTab, setActiveTab] = useState("home");
 
@@ -942,16 +943,18 @@ function ProviderAppInner() {
     return <ProviderAuditPage />;
   }
 
-  // Audit report view (triggered from dashboard)
-  if (showAuditReport && analysisResults.length > 0) {
+  // Audit report view (triggered from dashboard or historical view)
+  if (showAuditReport && (analysisResults.length > 0 || (auditReportSource === "historical" && historicalReport))) {
     return (
       <div style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#2d3748", overflowX: "hidden" }}>
         {nav}
         <div style={{ paddingTop: 80 }}>
           <ProviderAuditReport
-            analysisResults={analysisResults}
+            analysisResults={auditReportSource === "historical" && historicalReport
+              ? [historicalReport.result_json]
+              : analysisResults}
             practiceInfo={profile}
-            onClose={() => setShowAuditReport(false)}
+            onClose={() => { setShowAuditReport(false); setAuditReportSource(null); }}
           />
         </div>
       </div>
@@ -1244,7 +1247,7 @@ function ProviderAppInner() {
               onSort={handleSort}
               getSortedLines={getHistoricalSortedLines}
               onBack={() => { setHistoricalReport(null); setSortField(null); setSortDir("asc"); }}
-              onGenerateReport={() => setShowAuditReport(true)}
+              onGenerateReport={() => { setAuditReportSource("historical"); setShowAuditReport(true); }}
             />
           ) : historicalLoading ? (
             <div style={{ textAlign: "center", padding: 48 }}>
