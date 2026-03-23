@@ -28,6 +28,12 @@ from pydantic import BaseModel
 from routers.employer_shared import _get_supabase
 from utils.email import send_email
 
+try:
+    from twilio.rest import Client as TwilioClient
+    TWILIO_AVAILABLE = True
+except ImportError:
+    TWILIO_AVAILABLE = False
+
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 SESSION_EXPIRY_DAYS = 30
@@ -40,11 +46,13 @@ OTP_LENGTH = 8
 # ---------------------------------------------------------------------------
 
 class SendOtpRequest(BaseModel):
-    email: str
+    email: Optional[str] = None
+    phone: Optional[str] = None
     product: str  # 'employer' | 'broker' | 'provider' | 'health'
 
 class VerifyOtpRequest(BaseModel):
-    email: str
+    email: Optional[str] = None
+    phone: Optional[str] = None
     code: str
     product: str
 
@@ -212,6 +220,33 @@ def _send_otp_email(email: str, code: str, product: str):
     )
 
 
+def _send_sms_otp(phone_number: str, code: str) -> bool:
+    """Send OTP via Twilio SMS. Returns True on success, False on failure."""
+    if not TWILIO_AVAILABLE:
+        print("[auth] Twilio not installed — cannot send SMS OTP")
+        return False
+
+    account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+    auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+    from_number = os.environ.get("TWILIO_FROM_NUMBER")
+
+    if not account_sid or not auth_token or not from_number:
+        print("[auth] Twilio env vars not set — cannot send SMS OTP")
+        return False
+
+    try:
+        client = TwilioClient(account_sid, auth_token)
+        client.messages.create(
+            body=f"Your Parity verification code: {code}. Expires in {OTP_EXPIRY_MINUTES} minutes.",
+            from_=from_number,
+            to=phone_number,
+        )
+        return True
+    except Exception as e:
+        print(f"[auth] Twilio SMS failed: {e}")
+        return False
+
+
 # ---------------------------------------------------------------------------
 # POST /api/auth/send-otp
 # ---------------------------------------------------------------------------
@@ -219,29 +254,43 @@ def _send_otp_email(email: str, code: str, product: str):
 @router.post("/send-otp")
 async def send_otp(req: SendOtpRequest, request: Request):
     sb = _get_supabase()
-    email = req.email.strip().lower()
+    email = req.email.strip().lower() if req.email else None
+    phone = req.phone.strip() if req.phone else None
     product = req.product.strip().lower()
 
-    if product not in ("employer", "broker", "provider", "health"):
+    if not email and not phone:
+        raise HTTPException(status_code=400, detail="Email or phone number required")
+
+    if product not in ("employer", "broker", "provider", "health", "signal"):
         raise HTTPException(status_code=400, detail="Invalid product")
 
     code = _generate_otp()
     expires_at = (datetime.now(timezone.utc) + timedelta(minutes=OTP_EXPIRY_MINUTES)).isoformat()
 
-    # Delete any existing OTP for this email+product
-    sb.table("otp_codes").delete().eq("email", email).eq("product", product).execute()
-
-    # Insert new OTP
-    sb.table("otp_codes").insert({
-        "email": email,
-        "code": code,
-        "expires_at": expires_at,
-        "product": product,
-    }).execute()
-
-    _send_otp_email(email, code, product)
-
-    return {"sent": True, "email": email}
+    if phone:
+        # SMS OTP flow
+        sb.table("otp_codes").delete().eq("phone_number", phone).eq("product", product).execute()
+        sb.table("otp_codes").insert({
+            "phone_number": phone,
+            "code": code,
+            "expires_at": expires_at,
+            "product": product,
+        }).execute()
+        sent = _send_sms_otp(phone, code)
+        if not sent:
+            raise HTTPException(status_code=500, detail="Failed to send SMS. Please try email instead.")
+        return {"sent": True, "phone": phone}
+    else:
+        # Email OTP flow (existing behavior)
+        sb.table("otp_codes").delete().eq("email", email).eq("product", product).execute()
+        sb.table("otp_codes").insert({
+            "email": email,
+            "code": code,
+            "expires_at": expires_at,
+            "product": product,
+        }).execute()
+        _send_otp_email(email, code, product)
+        return {"sent": True, "email": email}
 
 
 # ---------------------------------------------------------------------------
@@ -251,20 +300,52 @@ async def send_otp(req: SendOtpRequest, request: Request):
 @router.post("/verify-otp")
 async def verify_otp(req: VerifyOtpRequest, request: Request):
     sb = _get_supabase()
-    email = req.email.strip().lower()
+    email = req.email.strip().lower() if req.email else None
+    phone = req.phone.strip() if req.phone else None
     product = req.product.strip().lower()
     now = datetime.now(timezone.utc)
 
-    # Validate OTP
-    otp = sb.table("otp_codes").select("*").eq("email", email).eq(
-        "code", req.code.strip()
-    ).eq("product", product).gt("expires_at", now.isoformat()).execute()
+    if not email and not phone:
+        raise HTTPException(status_code=400, detail="Email or phone number required")
+
+    # Validate OTP — look up by phone or email
+    if phone:
+        otp = sb.table("otp_codes").select("*").eq("phone_number", phone).eq(
+            "code", req.code.strip()
+        ).eq("product", product).gt("expires_at", now.isoformat()).execute()
+    else:
+        otp = sb.table("otp_codes").select("*").eq("email", email).eq(
+            "code", req.code.strip()
+        ).eq("product", product).gt("expires_at", now.isoformat()).execute()
 
     if not otp.data:
         raise HTTPException(status_code=400, detail="Invalid or expired code. Please request a new one.")
 
     # Delete used OTP
-    sb.table("otp_codes").delete().eq("email", email).eq("product", product).execute()
+    if phone:
+        sb.table("otp_codes").delete().eq("phone_number", phone).eq("product", product).execute()
+    else:
+        sb.table("otp_codes").delete().eq("email", email).eq("product", product).execute()
+
+    # Resolve email from phone if needed (look up company_users by phone_number)
+    if phone and not email:
+        phone_user = sb.table("company_users").select("email").eq(
+            "phone_number", phone
+        ).eq("status", "active").limit(1).execute()
+        if phone_user.data:
+            email = phone_user.data[0]["email"]
+
+    if not email:
+        return {
+            "verified": True,
+            "needs_company": True,
+            "email": None,
+            "phone": phone,
+            "product": product,
+            "token": None,
+            "user": None,
+            "company": None,
+        }
 
     # Look up company_user record
     company_user = sb.table("company_users").select(
