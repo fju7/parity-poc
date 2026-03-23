@@ -3213,7 +3213,7 @@ function HistoricalReportView({ record, profile, sortField, sortDir, onSort, get
 
       {/* Action buttons */}
       <div className="no-print" data-print-hide style={{ display: "flex", gap: 12 }}>
-        <button onClick={() => window.print()} style={btnPrimary}>Download Report</button>
+        <button onClick={onGenerateReport} style={btnPrimary}>Download Report</button>
         <button onClick={onBack} style={btnOutline}>Back to Dashboard</button>
       </div>
     </div>
@@ -3434,7 +3434,7 @@ function CodingAnalysisTab({
 
         {/* Actions */}
         <div className="no-print" data-print-hide style={{ display: "flex", gap: 12 }}>
-          <button onClick={() => window.print()} style={btnPrimary}>Download Report</button>
+          <button onClick={onGenerateReport} style={btnPrimary}>Download Report</button>
           <button onClick={onReset} style={btnOutline}>Start Over</button>
         </div>
       </div>
