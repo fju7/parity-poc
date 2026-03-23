@@ -111,42 +111,36 @@ def _extract_year_from_url(url: str, default: int = 2026) -> int:
     return default
 
 
-def _get_or_create_version(sb, data_source: str, version_label: str,
-                           effective_from: str, source_url: str) -> str:
-    """Find or create a data_versions row. Returns the UUID."""
-    # Check for existing version
+def _get_or_create_schedule_version(sb, schedule_type: str, vintage_year: int,
+                                    vintage_quarter: int, effective_date: str,
+                                    source_url: str) -> str:
+    """Find or create a rate_schedule_versions row. Returns the UUID."""
     existing = (
-        sb.table("data_versions")
+        sb.table("rate_schedule_versions")
         .select("id")
-        .eq("data_source", data_source)
-        .eq("version_label", version_label)
+        .eq("schedule_type", schedule_type)
+        .eq("vintage_year", vintage_year)
+        .eq("vintage_quarter", vintage_quarter)
         .limit(1)
         .execute()
     )
     if existing.data:
         version_id = existing.data[0]["id"]
-        print(f"  Found existing data_versions row: {version_id}")
+        print(f"  Found existing rate_schedule_versions row: {version_id}")
         return version_id
 
-    # Create new version
     row = {
-        "data_source": data_source,
-        "version_label": version_label,
-        "effective_from": effective_from,
-        "notes": f"Loaded from {source_url}",
+        "schedule_type": schedule_type,
+        "vintage_year": vintage_year,
+        "vintage_quarter": vintage_quarter,
+        "effective_date": effective_date,
+        "is_current": True,
+        "source_file": source_url,
     }
-    result = sb.table("data_versions").insert(row).execute()
+    result = sb.table("rate_schedule_versions").insert(row).execute()
     version_id = result.data[0]["id"]
-    print(f"  Created data_versions row: {version_id}")
+    print(f"  Created rate_schedule_versions row: {version_id}")
     return version_id
-
-
-def _update_version_record_count(sb, version_id: str, count: int):
-    """Update the record_count on a data_versions row."""
-    try:
-        sb.table("data_versions").update({"record_count": count}).eq("id", version_id).execute()
-    except Exception as e:
-        print(f"  [warn] Failed to update record_count: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -238,12 +232,13 @@ def load_opps():
     sb = _get_supabase()
     table = "opps_rates_historical"
 
-    # Get or create data_versions row
-    version_id = _get_or_create_version(
+    # Get or create rate_schedule_versions row
+    version_id = _get_or_create_schedule_version(
         sb,
-        data_source="OPPS",
-        version_label=f"CY {rate_year} January",
-        effective_from=f"{rate_year}-01-01",
+        schedule_type="OPPS",
+        vintage_year=rate_year,
+        vintage_quarter=1,
+        effective_date=f"{rate_year}-01-01",
         source_url=OPPS_ZIP_URL,
     )
 
@@ -270,7 +265,10 @@ def load_opps():
         except Exception as e:
             print(f"  [error] Batch {i}-{i + len(batch)} failed: {e}")
 
-    _update_version_record_count(sb, version_id, inserted)
+    try:
+        sb.table("rate_schedule_versions").update({"row_count": inserted}).eq("id", version_id).execute()
+    except Exception as e:
+        print(f"  [warn] Failed to update row_count: {e}")
     print(f"  OPPS complete: {inserted} rows loaded into {table}")
 
 
@@ -377,12 +375,13 @@ def load_clfs():
     sb = _get_supabase()
     table = "clfs_rates_historical"
 
-    # Get or create data_versions row
-    version_id = _get_or_create_version(
+    # Get or create rate_schedule_versions row
+    version_id = _get_or_create_schedule_version(
         sb,
-        data_source="CLFS",
-        version_label=f"CY {rate_year} Q1",
-        effective_from=f"{rate_year}-01-01",
+        schedule_type="CLFS",
+        vintage_year=rate_year,
+        vintage_quarter=1,
+        effective_date=f"{rate_year}-01-01",
         source_url=CLFS_ZIP_URL,
     )
 
@@ -409,7 +408,10 @@ def load_clfs():
         except Exception as e:
             print(f"  [error] Batch {i}-{i + len(batch)} failed: {e}")
 
-    _update_version_record_count(sb, version_id, inserted)
+    try:
+        sb.table("rate_schedule_versions").update({"row_count": inserted}).eq("id", version_id).execute()
+    except Exception as e:
+        print(f"  [warn] Failed to update row_count: {e}")
     print(f"  CLFS complete: {inserted} rows loaded into {table}")
 
 
