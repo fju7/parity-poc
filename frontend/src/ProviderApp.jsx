@@ -2581,12 +2581,6 @@ function OpenAppealsQueue() {
                     : "Limited Signal evidence for this CPT code."}
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
-                  {score >= 4.0 && (
-                    <a href={c.signal_topic_slug ? `/signal/${c.signal_topic_slug}` : "/signal"} target="_blank" rel="noopener noreferrer"
-                      style={{ padding: "6px 14px", borderRadius: 6, border: "none", background: "#4F46E5", color: "#fff", fontSize: 12, fontWeight: 600, textDecoration: "none", cursor: "pointer" }}>
-                      Generate second-level appeal
-                    </a>
-                  )}
                   <button onClick={() => dismissLost(c.id)}
                     style={{ padding: "6px 14px", borderRadius: 6, border: "1px solid #E2E8F0", background: "#fff", fontSize: 12, fontWeight: 600, cursor: "pointer", color: "#64748B" }}>
                     Dismiss
