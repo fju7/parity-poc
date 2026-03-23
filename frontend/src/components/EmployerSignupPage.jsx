@@ -38,6 +38,8 @@ export default function EmployerSignupPage() {
   // Step: "email" | "otp" | "company"
   const [step, setStep] = useState("email");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [usePhone, setUsePhone] = useState(false);
   const [code, setCode] = useState("");
   const [sending, setSending] = useState(false);
   const [verifying, setVerifying] = useState(false);
@@ -52,14 +54,21 @@ export default function EmployerSignupPage() {
   const [sizeBand, setSizeBand] = useState("");
 
   const handleSendOtp = async () => {
-    if (!email.includes("@")) { setErrorMsg("Enter a valid email address."); return; }
+    if (usePhone) {
+      if (!phone.trim()) { setErrorMsg("Enter your phone number."); return; }
+    } else {
+      if (!email.includes("@")) { setErrorMsg("Enter a valid email address."); return; }
+    }
     setSending(true);
     setErrorMsg("");
     try {
+      const payload = usePhone
+        ? { phone: phone.trim(), product: "employer" }
+        : { email: email.trim().toLowerCase(), product: "employer" };
       const res = await fetch(`${API}/api/auth/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), product: "employer" }),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
       setStep("otp");
@@ -71,14 +80,17 @@ export default function EmployerSignupPage() {
   };
 
   const handleVerifyOtp = async () => {
-    if (code.length !== 8) { setErrorMsg("Enter the 8-digit code from your email."); return; }
+    if (code.length !== 8) { setErrorMsg(`Enter the 8-digit code from your ${usePhone ? "phone" : "email"}.`); return; }
     setVerifying(true);
     setErrorMsg("");
     try {
+      const payload = usePhone
+        ? { phone: phone.trim(), code: code.trim(), product: "employer" }
+        : { email: email.trim().toLowerCase(), code: code.trim(), product: "employer" };
       const res = await fetch(`${API}/api/auth/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), code: code.trim(), product: "employer" }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) { setErrorMsg(data.detail || "Invalid code."); return; }
@@ -163,12 +175,23 @@ export default function EmployerSignupPage() {
               Create your account
             </h2>
             <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, marginBottom: 32 }}>
-              Enter your work email to get started.
+              {usePhone ? "Enter your phone number to get started." : "Enter your work email to get started."}
             </p>
-            <input type="email" placeholder="your@company.com" value={email}
-              onChange={e => setEmail(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && handleSendOtp()}
-              style={inputStyle} />
+            {usePhone ? (
+              <input type="tel" placeholder="+1 (555) 555-5555" value={phone}
+                onChange={e => setPhone(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && handleSendOtp()}
+                style={inputStyle} />
+            ) : (
+              <input type="email" placeholder="your@company.com" value={email}
+                onChange={e => setEmail(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && handleSendOtp()}
+                style={inputStyle} />
+            )}
+            <button type="button" onClick={() => { setUsePhone(!usePhone); setErrorMsg(""); }}
+              style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer", marginTop: 6, padding: 0, marginBottom: 12 }}>
+              {usePhone ? "Use email instead \u2192" : "Use phone number instead \u2192"}
+            </button>
             <button onClick={handleSendOtp} disabled={sending} style={btnStyle(sending)}>
               {sending ? "Sending..." : "Send Verification Code"}
             </button>
@@ -183,10 +206,10 @@ export default function EmployerSignupPage() {
         {step === "otp" && (
           <>
             <h2 style={{ color: "white", fontSize: 24, fontWeight: 700, marginBottom: 8 }}>
-              Check your email
+              {usePhone ? "Check your phone" : "Check your email"}
             </h2>
             <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, marginBottom: 32 }}>
-              We sent an 8-digit code to {email}.
+              We sent an 8-digit code to {usePhone ? phone : email}.
             </p>
             <input type="text" placeholder="12345678" value={code}
               onChange={e => setCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
@@ -200,7 +223,7 @@ export default function EmployerSignupPage() {
               style={{ width: "100%", padding: 10, background: "transparent",
                        color: "rgba(255,255,255,0.4)", border: "none", fontSize: 14,
                        cursor: "pointer", marginTop: 8 }}>
-              Use a different email
+              {usePhone ? "Use a different phone number" : "Use a different email"}
             </button>
           </>
         )}

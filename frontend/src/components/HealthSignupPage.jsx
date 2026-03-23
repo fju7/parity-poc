@@ -14,6 +14,8 @@ export default function HealthSignupPage() {
 
   const [step, setStep] = useState("email"); // email | otp | profile | plan
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [usePhone, setUsePhone] = useState(false);
   const [code, setCode] = useState("");
   const [fullName, setFullName] = useState("");
   const [sending, setSending] = useState(false);
@@ -33,12 +35,19 @@ export default function HealthSignupPage() {
   }, []);
 
   const handleSendOtp = async () => {
-    if (!email.includes("@")) { setErrorMsg("Enter a valid email address."); return; }
+    if (usePhone) {
+      if (!phone.trim()) { setErrorMsg("Enter your phone number."); return; }
+    } else {
+      if (!email.includes("@")) { setErrorMsg("Enter a valid email address."); return; }
+    }
     setSending(true); setErrorMsg("");
     try {
+      const payload = usePhone
+        ? { phone: phone.trim(), product: "health" }
+        : { email: email.trim().toLowerCase() };
       const res = await fetch(`${API}/api/health/auth/send-otp`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim().toLowerCase() }),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
       setStep("otp");
@@ -47,12 +56,15 @@ export default function HealthSignupPage() {
   };
 
   const handleVerifyOtp = async () => {
-    if (code.length !== 8) { setErrorMsg("Enter the 8-digit code from your email."); return; }
+    if (code.length !== 8) { setErrorMsg(`Enter the 8-digit code from your ${usePhone ? "phone" : "email"}.`); return; }
     setVerifying(true); setErrorMsg("");
     try {
+      const payload = usePhone
+        ? { phone: phone.trim(), code: code.trim(), product: "health" }
+        : { email: email.trim().toLowerCase(), code: code.trim() };
       const res = await fetch(`${API}/api/health/auth/verify-otp`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), code: code.trim() }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) { setErrorMsg(data.detail || "Invalid code."); setVerifying(false); return; }
@@ -149,10 +161,22 @@ export default function HealthSignupPage() {
                 </p>
               </div>
               <div style={{ marginBottom: 14 }}>
-                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>Email *</label>
-                <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSendOtp()}
-                  placeholder="you@example.com" style={inputStyle} />
+                <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>
+                  {usePhone ? "Phone number *" : "Email *"}
+                </label>
+                {usePhone ? (
+                  <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSendOtp()}
+                    placeholder="+1 (555) 555-5555" style={inputStyle} />
+                ) : (
+                  <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSendOtp()}
+                    placeholder="you@example.com" style={inputStyle} />
+                )}
+                <button type="button" onClick={() => { setUsePhone(!usePhone); setErrorMsg(""); }}
+                  style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer", marginTop: 6, padding: 0 }}>
+                  {usePhone ? "Use email instead \u2192" : "Use phone number instead \u2192"}
+                </button>
               </div>
               <button onClick={handleSendOtp} disabled={sending} style={{
                 width: "100%", padding: "12px", borderRadius: 8, border: "none",
@@ -177,8 +201,8 @@ export default function HealthSignupPage() {
           {/* Step 2: OTP */}
           {step === "otp" && (
             <div style={{ padding: 24, borderRadius: 12, border: "1px solid #0d9488", background: "rgba(13,148,136,0.08)", textAlign: "center" }}>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#f1f5f9", margin: "0 0 8px" }}>Check your email</h3>
-              <p style={{ fontSize: 14, color: "#94a3b8", marginBottom: 4 }}>We sent an 8-digit code to <strong style={{ color: "#f1f5f9" }}>{email}</strong>.</p>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#f1f5f9", margin: "0 0 8px" }}>{usePhone ? "Check your phone" : "Check your email"}</h3>
+              <p style={{ fontSize: 14, color: "#94a3b8", marginBottom: 4 }}>We sent an 8-digit code to <strong style={{ color: "#f1f5f9" }}>{usePhone ? phone : email}</strong>.</p>
               <p style={{ fontSize: 12, color: "#64748b", marginBottom: 20 }}>Enter it below. The code expires in 10 minutes.</p>
               <input type="text" placeholder="12345678" value={code}
                 onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
@@ -197,7 +221,7 @@ export default function HealthSignupPage() {
               }}>{verifying ? "Verifying..." : "Verify Code"}</button>
               <button onClick={() => { setStep("email"); setCode(""); setErrorMsg(""); }}
                 style={{ fontSize: 12, color: "#64748b", background: "none", border: "none", cursor: "pointer", marginTop: 12 }}>
-                Use a different email
+                {usePhone ? "Use a different phone number" : "Use a different email"}
               </button>
             </div>
           )}
