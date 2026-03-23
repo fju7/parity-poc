@@ -38,6 +38,14 @@ router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 SESSION_EXPIRY_DAYS = 30
 OTP_EXPIRY_MINUTES = 10
+
+PRODUCT_NAMES = {
+    "employer": "Parity Employer",
+    "broker": "Parity Broker",
+    "provider": "Parity Provider",
+    "health": "Parity Health",
+    "signal": "Parity Signal",
+}
 OTP_LENGTH = 8
 
 
@@ -189,14 +197,7 @@ def _generate_otp(length=OTP_LENGTH):
 
 
 def _send_otp_email(email: str, code: str, product: str):
-    product_names = {
-        "employer": "Parity Employer",
-        "broker": "Parity Broker",
-        "provider": "Parity Provider",
-        "health": "Parity Health",
-        "signal": "Parity Signal",
-    }
-    product_name = product_names.get(product, "CivicScale")
+    product_name = PRODUCT_NAMES.get(product, "CivicScale")
 
     send_email(
         to=email,
@@ -220,7 +221,7 @@ def _send_otp_email(email: str, code: str, product: str):
     )
 
 
-def _send_sms_otp(phone_number: str, code: str) -> bool:
+def _send_sms_otp(phone_number: str, code: str, product: str = "") -> bool:
     """Send OTP via Twilio SMS. Returns True on success, False on failure."""
     if not TWILIO_AVAILABLE:
         print("[auth] Twilio not installed — cannot send SMS OTP")
@@ -234,10 +235,11 @@ def _send_sms_otp(phone_number: str, code: str) -> bool:
         print("[auth] Twilio env vars not set — cannot send SMS OTP")
         return False
 
+    product_name = PRODUCT_NAMES.get(product, "CivicScale")
     try:
         client = TwilioClient(account_sid, auth_token)
         client.messages.create(
-            body=f"Your Parity verification code: {code}. Expires in {OTP_EXPIRY_MINUTES} minutes.",
+            body=f"Your {product_name} sign-in code: {code}. Expires in {OTP_EXPIRY_MINUTES} minutes.",
             from_=from_number,
             to=phone_number,
         )
@@ -277,7 +279,7 @@ async def send_otp(req: SendOtpRequest, request: Request):
             "expires_at": expires_at,
             "product": product,
         }).execute()
-        sent = _send_sms_otp(phone, code)
+        sent = _send_sms_otp(phone, code, product)
         if not sent:
             raise HTTPException(status_code=500, detail="Failed to send SMS. Please try email instead.")
         return {"sent": True, "phone": phone}
