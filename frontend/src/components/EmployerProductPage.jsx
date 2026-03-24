@@ -169,8 +169,8 @@ export default function EmployerProductPage() {
           <a href="https://employer.civicscale.ai/signup" style={{ display: "inline-block", background: "#3b82f6", color: "#fff", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
             Start Free Trial &rarr;
           </a>
-          <a href="#demo" style={{ display: "inline-block", border: "1px solid rgba(59,130,246,0.4)", color: "#60a5fa", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
-            See the Demo Below &darr;
+          <a href="/demo" style={{ display: "inline-block", border: "1px solid rgba(59,130,246,0.4)", color: "#60a5fa", padding: "12px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+            See Interactive Demo &rarr;
           </a>
         </div>
         <p style={{ fontSize: 13, color: "#64748b", marginTop: 16 }}>30-day free trial &middot; Cancel anytime</p>
