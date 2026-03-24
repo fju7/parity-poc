@@ -1316,6 +1316,7 @@ function ProviderAppInner() {
             loading={trendsLoading}
             error={trendsError}
             subscriptionId={subscriptionId}
+            authHeaders={authHeaders}
             onLoad={async () => {
               if (trendsData || trendsLoading || !subscriptionId) return;
               setTrendsLoading(true);
@@ -2981,18 +2982,113 @@ function AppealsTab({ appeals, loading, onLoad, onUpdateStatus, outcomeModal, on
 
 const TREND_COLORS = ["#1B3A5C", "#0D7377", "#7C3AED", "#D97706", "#DC2626", "#059669"];
 
-function TrendsTab({ data, loading, error, subscriptionId, onLoad, onDraftAppeals }) {
+function PayerTrendsSection({ authHeaders }) {
+  const [payers, setPayers] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/provider/payer-trends`, { headers: authHeaders });
+        if (res.ok) {
+          const data = await res.json();
+          setPayers(data.payers || []);
+        }
+      } catch { /* non-fatal */ }
+      setLoading(false);
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", padding: 32 }}>
+        <div style={{ width: 32, height: 32, border: "3px solid var(--cs-border)", borderTopColor: "var(--cs-teal)", borderRadius: "50%", margin: "0 auto 12px", animation: "spin 0.8s linear infinite" }} />
+        <p style={{ color: "var(--cs-slate)", fontSize: 13 }}>Loading payer trends...</p>
+      </div>
+    );
+  }
+
+  if (!payers || payers.length === 0) {
+    return (
+      <div style={{ textAlign: "center", padding: 32, background: "var(--cs-mist)", borderRadius: 8, marginBottom: 24 }}>
+        <p style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>No trend data yet</p>
+        <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: 0 }}>Run your first analysis to start tracking payer performance over time.</p>
+      </div>
+    );
+  }
+
+  const trendIcon = (t) => t === "up" ? { symbol: "↑", color: "#059669" } : t === "down" ? { symbol: "↓", color: "#DC2626" } : { symbol: "→", color: "#6B7280" };
+
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--cs-navy)", margin: "0 0 12px" }}>Payer Performance Trends</h3>
+      <div style={{ background: "#fff", border: "1px solid var(--cs-border)", borderRadius: 12, overflow: "hidden" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+          <thead>
+            <tr style={{ background: "#1B3A5C", color: "#fff" }}>
+              <th style={{ padding: "10px 12px", textAlign: "left" }}>Payer</th>
+              <th style={{ padding: "10px 12px", textAlign: "center" }}>Analyses</th>
+              <th style={{ padding: "10px 12px", textAlign: "right" }}>Current Adherence</th>
+              <th style={{ padding: "10px 12px", textAlign: "center" }}>Trend</th>
+              <th style={{ padding: "10px 12px", textAlign: "right" }}>Billed (Latest)</th>
+              <th style={{ padding: "10px 12px", textAlign: "right" }}>Denials (Latest)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {payers.map((p, i) => {
+              const ti = trendIcon(p.trend);
+              const latest = p.data_points[p.data_points.length - 1];
+              return (
+                <tr key={p.payer_name} style={{ background: i % 2 === 0 ? "#fff" : "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+                  <td style={{ padding: "10px 12px", fontWeight: 600 }}>{p.payer_name}</td>
+                  <td style={{ padding: "10px 12px", textAlign: "center" }}>{p.analysis_count}</td>
+                  <td style={{
+                    padding: "10px 12px", textAlign: "right", fontWeight: 600,
+                    color: p.current_adherence >= 97 ? "#059669" : p.current_adherence >= 90 ? "#D97706" : "#DC2626",
+                  }}>
+                    {p.current_adherence}%
+                  </td>
+                  <td style={{ padding: "10px 12px", textAlign: "center" }}>
+                    <span style={{ fontSize: 16, fontWeight: 700, color: ti.color }}>{ti.symbol}</span>
+                    {p.analysis_count >= 2 && (
+                      <span style={{ fontSize: 11, color: "var(--cs-slate)", marginLeft: 6 }}>
+                        {p.trend === "up" ? "improving" : p.trend === "down" ? "declining" : "stable"}
+                      </span>
+                    )}
+                  </td>
+                  <td style={{ padding: "10px 12px", textAlign: "right" }}>
+                    ${(latest.total_billed || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                  </td>
+                  <td style={{ padding: "10px 12px", textAlign: "right" }}>{latest.denial_count}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p style={{ fontSize: 12, color: "var(--cs-slate)", marginTop: 8, fontStyle: "italic" }}>
+        Trends update automatically after each new 835 analysis.
+      </p>
+    </div>
+  );
+}
+
+function TrendsTab({ data, loading, error, subscriptionId, onLoad, onDraftAppeals, authHeaders }) {
   const [expandedPayer, setExpandedPayer] = useState(null);
 
   useEffect(() => {
     onLoad();
   }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Always show payer trends from payer_performance_history (no subscription required)
   if (!subscriptionId) {
     return (
-      <div style={{ textAlign: "center", padding: 48, color: "var(--cs-slate)" }}>
-        <p style={{ fontSize: 16 }}>No active subscription found.</p>
-        <p style={{ fontSize: 14 }}>Subscribe to monthly monitoring to access trend analysis.</p>
+      <div>
+        <PayerTrendsSection authHeaders={authHeaders} />
+        <div style={{ textAlign: "center", padding: 32, color: "var(--cs-slate)", background: "var(--cs-mist)", borderRadius: 8 }}>
+          <p style={{ fontSize: 15, fontWeight: 600, margin: "0 0 8px" }}>Monthly Monitoring</p>
+          <p style={{ fontSize: 14, margin: 0 }}>Subscribe to monthly monitoring for detailed month-over-month trend analysis.</p>
+        </div>
       </div>
     );
   }
@@ -3016,10 +3112,13 @@ function TrendsTab({ data, loading, error, subscriptionId, onLoad, onDraftAppeal
 
   if (!data || data.months_analyzed < 2) {
     return (
-      <div style={{ textAlign: "center", padding: 48, color: "var(--cs-slate)" }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>&#x1F4C8;</div>
-        <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>Trend analysis requires at least 2 months of data.</p>
-        <p style={{ fontSize: 14 }}>Upload your next month's 835 file to begin tracking trends.</p>
+      <div>
+        <PayerTrendsSection authHeaders={authHeaders} />
+        <div style={{ textAlign: "center", padding: 48, color: "var(--cs-slate)" }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>&#x1F4C8;</div>
+          <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>Monthly trend analysis requires at least 2 months of data.</p>
+          <p style={{ fontSize: 14 }}>Upload your next month's 835 file to begin tracking month-over-month trends.</p>
+        </div>
       </div>
     );
   }
