@@ -909,6 +909,8 @@ async def analyze_contract(req: AnalyzeRequest):
                 "top_underpaid": top_underpaid_list,
                 "line_count": len(enriched_lines),
                 "denial_benchmarks": denial_benchmarks,
+                "line_items": enriched_lines,
+                "scorecard": scorecard,
             },
         }).execute()
     except Exception as exc:
