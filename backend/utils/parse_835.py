@@ -134,10 +134,12 @@ def parse_835(content: str) -> dict:
                         current_claim.get("allowed_amount", 0) + adj["amount"], 2
                     )
 
-        elif seg_id == "DTM" and current_svc is not None and len(elements) > 2:
+        elif seg_id == "DTM" and current_claim is not None and len(elements) > 2:
             qualifier = elements[1]
-            if qualifier == "472":
+            if qualifier == "472" and current_svc is not None:
                 current_svc["service_date"] = _format_date(elements[2])
+            elif qualifier == "036":
+                current_claim["adjudication_date"] = _format_date(elements[2])
 
     # Append final claim/svc
     if current_claim is not None:
@@ -162,6 +164,10 @@ def parse_835(content: str) -> dict:
                 claim.get("place_of_service", ""), "Unknown"
             )
             item["allowed_amount"] = claim.get("allowed_amount", item.get("paid_amount", 0))
+            item["date_of_service"] = item.get("service_date", "")
+            item["claim_number"] = claim.get("claim_id", "")
+            item["adjudication_date"] = claim.get("adjudication_date", "")
+            item["modifiers"] = item.get("modifiers", [])
             # Propagate claim-level adjustments to service lines that have none
             if not item.get("adjustments") and claim.get("claim_adjustments"):
                 item["adjustments"] = list(claim["claim_adjustments"])
@@ -179,6 +185,7 @@ def parse_835(content: str) -> dict:
         "claim_count": len(claims),
         "claims": claims,
         "line_items": all_line_items,
+        "parser_version": 2,
     }
 
 
@@ -288,6 +295,7 @@ def _parse_svc(elements: List[str]) -> dict:
 
     qualifier = parts[0] if len(parts) > 0 else ""
     code = parts[1] if len(parts) > 1 else composite
+    modifiers = [m for m in parts[2:] if m]
 
     # Determine code type from qualifier
     # HC = HCPCS/CPT, WK = workers comp, etc.
@@ -297,6 +305,7 @@ def _parse_svc(elements: List[str]) -> dict:
         "cpt_code": code,
         "code_type": code_type,
         "qualifier": qualifier,
+        "modifiers": modifiers,
         "billed_amount": _safe_float(elements[2]) if len(elements) > 2 else 0.0,
         "paid_amount": _safe_float(elements[3]) if len(elements) > 3 else 0.0,
         "units": _safe_int(elements[6]) if len(elements) > 6 else 1,
