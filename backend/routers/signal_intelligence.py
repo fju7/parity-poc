@@ -484,6 +484,35 @@ async def admin_populate_denial_playbook(
     return {"populated": count}
 
 
+@router.get("/admin/denial-patterns")
+async def admin_denial_patterns(
+    x_cron_secret: str = Header(None, alias="X-Cron-Secret"),
+    limit: int = 50,
+):
+    """Return provider_denial_patterns ordered by occurrence_count DESC. Admin only."""
+    import os
+
+    cron_secret = os.environ.get("CRON_SECRET")
+    if not cron_secret or x_cron_secret != cron_secret:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    sb = _get_sb()
+    if not sb:
+        return JSONResponse(content={"error": "DB not available"}, status_code=500)
+
+    try:
+        result = (
+            sb.table("provider_denial_patterns")
+            .select("*")
+            .order("occurrence_count", desc=True)
+            .limit(limit)
+            .execute()
+        )
+        return {"patterns": result.data or [], "count": len(result.data or [])}
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
+
 # ---------------------------------------------------------------------------
 # Addition 3: Aggregate denial patterns from provider 835 analyses
 # ---------------------------------------------------------------------------
