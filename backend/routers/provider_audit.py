@@ -736,6 +736,12 @@ async def analyze_contract(req: AnalyzeRequest):
             "claim_id": line.claim_id or "",
             "medicare_rate": medicare_rate,
             "medicare_source": medicare_source,
+            "date_of_service": line.date_of_service or "",
+            "claim_number": line.claim_number or line.claim_id or "",
+            "adjudication_date": line.adjudication_date or "",
+            "modifiers": line.modifiers or [],
+            "rendering_provider_npi": line.rendering_provider_npi or "",
+            "place_of_service": line.place_of_service or "",
         })
 
     # Adherence rate: % of lines paid at or above contracted rate

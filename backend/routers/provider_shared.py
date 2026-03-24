@@ -230,6 +230,12 @@ class RemittanceLine(BaseModel):
     units: int = 1
     adjustments: Optional[str] = ""
     claim_id: Optional[str] = ""
+    date_of_service: Optional[str] = None
+    claim_number: Optional[str] = None
+    adjudication_date: Optional[str] = None
+    modifiers: Optional[list] = None
+    rendering_provider_npi: Optional[str] = None
+    place_of_service: Optional[str] = None
 
 
 class AnalyzeRequest(BaseModel):
