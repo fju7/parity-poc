@@ -102,6 +102,7 @@ function ProviderAppInner() {
   // ── Appeals state ──
   const [appealsData, setAppealsData] = useState(null);
   const [appealsLoading, setAppealsLoading] = useState(false);
+  const [outcomeModal, setOutcomeModal] = useState(null);
 
   // ── Trial banner state ──
   const [trialStatus, setTrialStatus] = useState(null); // { status, days_remaining, trial_ends_at, subscription_active }
@@ -1339,6 +1340,7 @@ function ProviderAppInner() {
           <AppealsTab
             appeals={appealsData}
             loading={appealsLoading}
+            outcomeModal={outcomeModal}
             onLoad={async () => {
               if (appealsData || appealsLoading) return;
               setAppealsLoading(true);
@@ -1353,12 +1355,18 @@ function ProviderAppInner() {
                 setAppealsLoading(false);
               }
             }}
-            onUpdateStatus={async (appealId, newStatus) => {
+            onUpdateStatus={async (appealId, newStatus, outcomeData) => {
               try {
+                const body = { appeal_id: appealId, status: newStatus };
+                if (outcomeData) {
+                  body.recovered_amount = outcomeData.recovered_amount || null;
+                  body.resolution_date = outcomeData.resolution_date || null;
+                  body.payer_response_notes = outcomeData.payer_response_notes || null;
+                }
                 await fetch(`${API_BASE}/api/provider/appeals/update-status`, {
                   method: "POST",
                   headers: { "Content-Type": "application/json", ...authHeaders },
-                  body: JSON.stringify({ appeal_id: appealId, status: newStatus }),
+                  body: JSON.stringify(body),
                 });
                 // Refresh
                 const res = await fetch(`${API_BASE}/api/provider/appeals`, {
@@ -1369,6 +1377,8 @@ function ProviderAppInner() {
                 console.error("Failed to update appeal:", err);
               }
             }}
+            onOpenOutcome={(data) => setOutcomeModal(data)}
+            onCloseOutcome={() => setOutcomeModal(null)}
           />
         ) : (
           <div>
@@ -2702,7 +2712,84 @@ function OpenAppealsQueue() {
   );
 }
 
-function AppealsTab({ appeals, loading, onLoad, onUpdateStatus }) {
+function OutcomeModal({ data, onSave, onClose }) {
+  const [recoveredAmount, setRecoveredAmount] = useState("");
+  const [resolutionDate, setResolutionDate] = useState(new Date().toISOString().slice(0, 10));
+  const [notes, setNotes] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const outcomeLabels = { won: "Won", partial: "Partial", lost: "Lost" };
+  const showAmount = data.outcome === "won" || data.outcome === "partial";
+
+  async function handleSave() {
+    setSaving(true);
+    await onSave({
+      recovered_amount: showAmount ? parseFloat(recoveredAmount) || 0 : null,
+      resolution_date: resolutionDate,
+      payer_response_notes: notes || null,
+    });
+    setSaving(false);
+  }
+
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}>
+      <div style={{ background: "#fff", borderRadius: 12, padding: 28, maxWidth: 440, width: "100%", boxShadow: "0 8px 32px rgba(0,0,0,0.2)" }}>
+        <h3 style={{ fontSize: 17, fontWeight: 700, color: "var(--cs-navy)", margin: "0 0 4px" }}>Record Appeal Outcome</h3>
+        <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: "0 0 20px" }}>{data.payerName} — CPT {data.cptCode || "N/A"}</p>
+
+        <div style={{ marginBottom: 14 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: "var(--cs-slate)", display: "block", marginBottom: 4 }}>Outcome</label>
+          <span style={{ fontSize: 14, fontWeight: 600, color: data.outcome === "lost" ? "#DC2626" : "#059669" }}>{outcomeLabels[data.outcome]}</span>
+        </div>
+
+        {showAmount && (
+          <div style={{ marginBottom: 14 }}>
+            <label style={{ fontSize: 12, fontWeight: 600, color: "var(--cs-slate)", display: "block", marginBottom: 4 }}>Amount Recovered ($)</label>
+            <input
+              type="number"
+              value={recoveredAmount}
+              onChange={e => setRecoveredAmount(e.target.value)}
+              placeholder="0.00"
+              style={{ width: "100%", padding: "8px 10px", border: "1px solid var(--cs-border)", borderRadius: 6, fontSize: 14, boxSizing: "border-box" }}
+            />
+          </div>
+        )}
+
+        <div style={{ marginBottom: 14 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: "var(--cs-slate)", display: "block", marginBottom: 4 }}>Resolution Date</label>
+          <input
+            type="date"
+            value={resolutionDate}
+            onChange={e => setResolutionDate(e.target.value)}
+            style={{ width: "100%", padding: "8px 10px", border: "1px solid var(--cs-border)", borderRadius: 6, fontSize: 14, boxSizing: "border-box" }}
+          />
+        </div>
+
+        <div style={{ marginBottom: 20 }}>
+          <label style={{ fontSize: 12, fontWeight: 600, color: "var(--cs-slate)", display: "block", marginBottom: 4 }}>Payer Response Notes (optional)</label>
+          <textarea
+            value={notes}
+            onChange={e => setNotes(e.target.value)}
+            rows={3}
+            placeholder="Any details about the payer's response..."
+            style={{ width: "100%", padding: "8px 10px", border: "1px solid var(--cs-border)", borderRadius: 6, fontSize: 13, resize: "vertical", boxSizing: "border-box" }}
+          />
+        </div>
+
+        <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+          <button onClick={onClose} style={{ padding: "8px 18px", borderRadius: 6, border: "1px solid var(--cs-border)", background: "#fff", fontSize: 13, cursor: "pointer", color: "var(--cs-slate)" }}>
+            Cancel
+          </button>
+          <button onClick={handleSave} disabled={saving} style={{ padding: "8px 18px", borderRadius: 6, border: "none", background: "var(--cs-teal)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", opacity: saving ? 0.6 : 1 }}>
+            {saving ? "Saving..." : "Save Outcome"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AppealsTab({ appeals, loading, onLoad, onUpdateStatus, outcomeModal, onOpenOutcome, onCloseOutcome }) {
   useEffect(() => { onLoad(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
@@ -2794,7 +2881,14 @@ function AppealsTab({ appeals, loading, onLoad, onUpdateStatus }) {
                   <td style={{ padding: "10px 12px", textAlign: "center" }}>
                     <select
                       value={a.status}
-                      onChange={e => onUpdateStatus(a.id, e.target.value)}
+                      onChange={e => {
+                        const newStatus = e.target.value;
+                        if (["won", "partial", "lost"].includes(newStatus)) {
+                          onOpenOutcome({ appealId: a.id, outcome: newStatus, payerName: a.payer_name, cptCode: a.cpt_code });
+                        } else {
+                          onUpdateStatus(a.id, newStatus);
+                        }
+                      }}
                       style={{
                         padding: "4px 8px", borderRadius: 6, fontSize: 11, fontWeight: 600,
                         border: "1px solid #CBD5E1", background: sc.bg, color: sc.text, cursor: "pointer",
@@ -2804,6 +2898,7 @@ function AppealsTab({ appeals, loading, onLoad, onUpdateStatus }) {
                       <option value="sent">Sent</option>
                       <option value="pending">Pending</option>
                       <option value="won">Won</option>
+                      <option value="partial">Partial</option>
                       <option value="lost">Lost</option>
                     </select>
                   </td>
@@ -2862,6 +2957,18 @@ function AppealsTab({ appeals, loading, onLoad, onUpdateStatus }) {
             });
           })()}
         </div>
+      )}
+
+      {/* Outcome recording modal */}
+      {outcomeModal && (
+        <OutcomeModal
+          data={outcomeModal}
+          onClose={onCloseOutcome}
+          onSave={async (outcomeData) => {
+            await onUpdateStatus(outcomeModal.appealId, outcomeModal.outcome, outcomeData);
+            onCloseOutcome();
+          }}
+        />
       )}
     </div>
   );

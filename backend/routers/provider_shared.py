@@ -313,9 +313,12 @@ class GenerateAppealBatchRequest(BaseModel):
 
 class UpdateAppealStatusRequest(BaseModel):
     appeal_id: str
-    status: str  # drafted, sent, won, lost, pending
+    status: str  # drafted, sent, won, lost, pending, partial
     outcome_amount: Optional[float] = None
     notes: Optional[str] = None
+    recovered_amount: Optional[float] = None
+    resolution_date: Optional[str] = None
+    payer_response_notes: Optional[str] = None
 
 
 class SubmitAuditRequest(BaseModel):

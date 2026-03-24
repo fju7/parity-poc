@@ -578,7 +578,7 @@ async def update_appeal_status(req: UpdateAppealStatusRequest, request: Request)
     """Update the status of an appeal (drafted, sent, won, lost, pending)."""
     user = _get_authenticated_user(request)
 
-    valid_statuses = {"drafted", "sent", "won", "lost", "pending"}
+    valid_statuses = {"drafted", "sent", "won", "lost", "pending", "partial"}
     if req.status not in valid_statuses:
         raise HTTPException(status_code=400, detail=f"Status must be one of: {', '.join(valid_statuses)}")
 
@@ -604,10 +604,10 @@ async def update_appeal_status(req: UpdateAppealStatusRequest, request: Request)
     sb.table("provider_appeals").update(update_data).eq("id", req.appeal_id).execute()
 
     # Record outcome in provider_appeal_outcomes for the data flywheel
-    if req.status in ("won", "lost"):
+    if req.status in ("won", "lost", "partial"):
         try:
             appeal_row = sb.table("provider_appeals").select(
-                "claim_id, cpt_code, denial_code, payer_name"
+                "claim_id, cpt_code, denial_code, payer_name, company_id, created_at"
             ).eq("id", req.appeal_id).execute()
             if appeal_row.data:
                 a = appeal_row.data[0]
@@ -624,9 +624,21 @@ async def update_appeal_status(req: UpdateAppealStatusRequest, request: Request)
                     except Exception:
                         pass
 
-                outcome_map = {"won": "won", "lost": "lost"}
-                sb.table("provider_appeal_outcomes").insert({
+                # Compute days to resolution
+                days_to_resolution = None
+                if req.resolution_date and a.get("created_at"):
+                    try:
+                        from datetime import datetime, date
+                        created = datetime.fromisoformat(a["created_at"].replace("Z", "+00:00")).date()
+                        resolved = date.fromisoformat(req.resolution_date)
+                        days_to_resolution = (resolved - created).days
+                    except Exception:
+                        pass
+
+                outcome_map = {"won": "paid", "partial": "partial", "lost": "denied"}
+                outcome_row = {
                     "appeal_id": req.appeal_id,
+                    "company_id": a.get("company_id"),
                     "claim_id": a.get("claim_id"),
                     "cpt_code": a.get("cpt_code"),
                     "denial_code": a.get("denial_code"),
@@ -634,8 +646,14 @@ async def update_appeal_status(req: UpdateAppealStatusRequest, request: Request)
                     "signal_topic_slug": signal_slug,
                     "outcome": outcome_map.get(req.status, "pending"),
                     "outcome_recorded_at": "now()",
-                    "notes": req.notes,
-                }).execute()
+                    "notes": req.payer_response_notes or req.notes,
+                    "recovered_amount": req.recovered_amount,
+                    "resolution_date": req.resolution_date,
+                    "days_to_resolution": days_to_resolution,
+                }
+                # Remove None values to avoid overwriting defaults
+                outcome_row = {k: v for k, v in outcome_row.items() if v is not None}
+                sb.table("provider_appeal_outcomes").insert(outcome_row).execute()
         except Exception as exc:
             print(f"[Appeal] Outcome tracking failed (non-fatal): {exc}")
 
