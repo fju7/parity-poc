@@ -18,11 +18,14 @@ function formatUserDisplay(session) {
   return "Account";
 }
 
+const ADMIN_USER_ID = "4c62234e-86cc-4b8d-a782-c54fe1d11eb0";
+
 export default function SignalHeader({ session, onSignOut }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const userDisplay = formatUserDisplay(session);
+  const isAdmin = session?.user?.id === ADMIN_USER_ID;
 
   return (
     <header className="sticky top-0 z-50 bg-[#0a1628]/95 backdrop-blur border-b border-white/[0.06]">
@@ -73,6 +76,14 @@ export default function SignalHeader({ session, onSignOut }) {
               >
                 {userDisplay || "Account"}
               </button>
+              {isAdmin && (
+                <button
+                  onClick={() => navigate("/admin/requests")}
+                  className="text-gray-400 hover:text-[#f1f5f9] transition-colors bg-transparent border-none cursor-pointer"
+                >
+                  Admin
+                </button>
+              )}
               <button
                 onClick={onSignOut}
                 className="text-gray-400 hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer text-xs"
@@ -149,6 +160,17 @@ export default function SignalHeader({ session, onSignOut }) {
               >
                 Account
               </button>
+              {isAdmin && (
+                <button
+                  onClick={() => {
+                    navigate("/admin/requests");
+                    setMenuOpen(false);
+                  }}
+                  className="text-left text-gray-400 hover:text-[#f1f5f9] hover:bg-white/[0.04] bg-transparent border-none cursor-pointer py-2.5 px-2 rounded-lg transition-colors"
+                >
+                  Admin
+                </button>
+              )}
               <button
                 onClick={() => {
                   onSignOut?.();
