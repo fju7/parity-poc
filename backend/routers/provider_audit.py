@@ -2334,6 +2334,58 @@ async def get_analysis(analysis_id: str, request: Request):
     return result.data[0]
 
 
+@router.get("/payer-trends")
+async def payer_trends(request: Request):
+    """Return payer performance history grouped by payer for trend charts."""
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    result = sb.table("payer_performance_history") \
+        .select("payer_name, analysis_date, adherence_rate, total_billed, total_paid, underpayment_total, denial_count, claim_count") \
+        .eq("company_id", str(user.id)) \
+        .order("payer_name") \
+        .order("analysis_date") \
+        .execute()
+
+    rows = result.data or []
+
+    # Group by payer
+    payers_map = {}
+    for row in rows:
+        name = row["payer_name"]
+        if name not in payers_map:
+            payers_map[name] = []
+        payers_map[name].append({
+            "analysis_date": row["analysis_date"],
+            "adherence_rate": float(row["adherence_rate"] or 0),
+            "total_billed": float(row["total_billed"] or 0),
+            "total_paid": float(row["total_paid"] or 0),
+            "underpayment_total": float(row["underpayment_total"] or 0),
+            "denial_count": row["denial_count"] or 0,
+            "claim_count": row["claim_count"] or 0,
+        })
+
+    payers = []
+    for name, data_points in payers_map.items():
+        current = data_points[-1]["adherence_rate"]
+        if len(data_points) < 2:
+            trend = "flat"
+        else:
+            prev = data_points[-2]["adherence_rate"]
+            diff = current - prev
+            trend = "up" if diff > 2 else "down" if diff < -2 else "flat"
+
+        payers.append({
+            "payer_name": name,
+            "data_points": data_points,
+            "current_adherence": current,
+            "trend": trend,
+            "analysis_count": len(data_points),
+        })
+
+    return {"payers": payers}
+
+
 # ---------------------------------------------------------------------------
 # Public Report Access (token-based, no auth required)
 # ---------------------------------------------------------------------------
