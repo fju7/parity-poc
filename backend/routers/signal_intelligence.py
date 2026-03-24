@@ -8,7 +8,7 @@ Includes denial playbook population and pattern aggregation.
 import json
 import logging
 
-from fastapi import APIRouter, Header, HTTPException, Query
+from fastapi import APIRouter, Header, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 
 logger = logging.getLogger(__name__)
@@ -486,15 +486,13 @@ async def admin_populate_denial_playbook(
 
 @router.get("/admin/denial-patterns")
 async def admin_denial_patterns(
-    x_cron_secret: str = Header(None, alias="X-Cron-Secret"),
+    request: Request,
     limit: int = 50,
 ):
     """Return provider_denial_patterns ordered by occurrence_count DESC. Admin only."""
-    import os
+    from routers.signal_topic_request import _verify_admin
 
-    cron_secret = os.environ.get("CRON_SECRET")
-    if not cron_secret or x_cron_secret != cron_secret:
-        raise HTTPException(status_code=401, detail="Unauthorized")
+    await _verify_admin(request)
 
     sb = _get_sb()
     if not sb:

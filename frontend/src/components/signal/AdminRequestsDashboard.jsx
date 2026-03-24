@@ -210,11 +210,19 @@ function RequestCard({ req, authHeaders, onRefresh }) {
   );
 }
 
+function fmt$(val) {
+  return "$" + Number(val || 0).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
 export default function AdminRequestsDashboard({ session }) {
+  const [activeTab, setActiveTab] = useState("requests");
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterStatus, setFilterStatus] = useState("");
+  const [patterns, setPatterns] = useState([]);
+  const [patternsLoading, setPatternsLoading] = useState(false);
+  const [patternsError, setPatternsError] = useState(null);
   const [searchParams] = useSearchParams();
 
   const secret = searchParams.get("secret");
@@ -258,9 +266,35 @@ export default function AdminRequestsDashboard({ session }) {
       });
   }
 
+  function fetchPatterns() {
+    const headers = token
+      ? { Authorization: `Bearer ${token}` }
+      : secret
+      ? { "X-Cron-Secret": secret }
+      : null;
+    if (!headers) return;
+    setPatternsLoading(true);
+    setPatternsError(null);
+    fetch(`${API_BASE}/api/signal/admin/denial-patterns`, { headers })
+      .then((r) => {
+        if (r.status === 401) throw new Error("Unauthorized — admin access required");
+        if (!r.ok) throw new Error("Failed to load denial patterns");
+        return r.json();
+      })
+      .then((data) => {
+        setPatterns(data.patterns || []);
+        setPatternsLoading(false);
+      })
+      .catch((err) => {
+        setPatternsError(err.message);
+        setPatternsLoading(false);
+      });
+  }
+
   useEffect(() => {
-    fetchRequests();
-  }, [token, secret, filterStatus]);
+    if (activeTab === "requests") fetchRequests();
+    else fetchPatterns();
+  }, [token, secret, filterStatus, activeTab]);
 
   if (!authHeaders) {
     return (
@@ -287,70 +321,156 @@ export default function AdminRequestsDashboard({ session }) {
     <div className="max-w-3xl mx-auto px-4 py-8 font-[Arial,sans-serif]">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-[#1B3A5C]">Topic Requests</h1>
-          <p className="text-xs text-gray-400 mt-1">Admin Dashboard</p>
+          <h1 className="text-xl font-bold text-[#1B3A5C]">Admin Dashboard</h1>
+          <p className="text-xs text-gray-400 mt-1">Signal Administration</p>
         </div>
         <button
-          onClick={fetchRequests}
+          onClick={activeTab === "requests" ? fetchRequests : fetchPatterns}
           className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-gray-100 text-gray-600 border-none cursor-pointer hover:bg-gray-200 transition-colors"
         >
           Refresh
         </button>
       </div>
 
-      {/* Status filter tabs */}
-      <div className="flex items-center gap-2 mb-6 flex-wrap">
-        <button
-          onClick={() => setFilterStatus("")}
-          className={`text-xs font-semibold px-3 py-1.5 rounded-full border cursor-pointer transition-colors ${
-            !filterStatus
-              ? "bg-[#1B3A5C] text-white border-[#1B3A5C]"
-              : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
-          }`}
-        >
-          All ({requests.length})
-        </button>
-        {["approved", "processing", "clarification_needed", "completed", "rejected"].map((s) => (
+      {/* Main tab navigation */}
+      <div className="flex items-center gap-2 mb-6">
+        {[
+          { key: "requests", label: "Topic Requests" },
+          { key: "patterns", label: "Denial Patterns" },
+        ].map((t) => (
           <button
-            key={s}
-            onClick={() => setFilterStatus(filterStatus === s ? "" : s)}
-            className={`text-xs font-semibold px-3 py-1.5 rounded-full border cursor-pointer transition-colors ${
-              filterStatus === s
+            key={t.key}
+            onClick={() => setActiveTab(t.key)}
+            className={`text-xs font-semibold px-4 py-2 rounded-full border cursor-pointer transition-colors ${
+              activeTab === t.key
                 ? "bg-[#1B3A5C] text-white border-[#1B3A5C]"
                 : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
             }`}
           >
-            {STATUS_LABELS[s]} {statusCounts[s] ? `(${statusCounts[s]})` : ""}
+            {t.label}
           </button>
         ))}
       </div>
 
-      {loading ? (
-        <div className="animate-pulse space-y-4">
-          <div className="h-32 bg-gray-100 rounded-xl" />
-          <div className="h-32 bg-gray-100 rounded-xl" />
-        </div>
-      ) : error ? (
-        <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3">
-          {error}
-        </div>
-      ) : requests.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-400 text-sm">
-            {filterStatus ? "No requests with this status." : "No topic requests yet."}
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {requests.map((req) => (
-            <RequestCard
-              key={req.id}
-              req={req}
-              authHeaders={authHeaders}
-              onRefresh={fetchRequests}
-            />
-          ))}
-        </div>
+      {activeTab === "requests" && (
+        <>
+          {/* Status filter tabs */}
+          <div className="flex items-center gap-2 mb-6 flex-wrap">
+            <button
+              onClick={() => setFilterStatus("")}
+              className={`text-xs font-semibold px-3 py-1.5 rounded-full border cursor-pointer transition-colors ${
+                !filterStatus
+                  ? "bg-[#1B3A5C] text-white border-[#1B3A5C]"
+                  : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+              }`}
+            >
+              All ({requests.length})
+            </button>
+            {["approved", "processing", "clarification_needed", "completed", "rejected"].map((s) => (
+              <button
+                key={s}
+                onClick={() => setFilterStatus(filterStatus === s ? "" : s)}
+                className={`text-xs font-semibold px-3 py-1.5 rounded-full border cursor-pointer transition-colors ${
+                  filterStatus === s
+                    ? "bg-[#1B3A5C] text-white border-[#1B3A5C]"
+                    : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                }`}
+              >
+                {STATUS_LABELS[s]} {statusCounts[s] ? `(${statusCounts[s]})` : ""}
+              </button>
+            ))}
+          </div>
+
+          {loading ? (
+            <div className="animate-pulse space-y-4">
+              <div className="h-32 bg-gray-100 rounded-xl" />
+              <div className="h-32 bg-gray-100 rounded-xl" />
+            </div>
+          ) : error ? (
+            <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3">
+              {error}
+            </div>
+          ) : requests.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-400 text-sm">
+                {filterStatus ? "No requests with this status." : "No topic requests yet."}
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {requests.map((req) => (
+                <RequestCard
+                  key={req.id}
+                  req={req}
+                  authHeaders={authHeaders}
+                  onRefresh={fetchRequests}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      {activeTab === "patterns" && (
+        <>
+          {patternsLoading ? (
+            <div className="animate-pulse space-y-4">
+              <div className="h-12 bg-gray-100 rounded-xl" />
+              <div className="h-12 bg-gray-100 rounded-xl" />
+              <div className="h-12 bg-gray-100 rounded-xl" />
+            </div>
+          ) : patternsError ? (
+            <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3">
+              {patternsError}
+            </div>
+          ) : patterns.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-400 text-sm">No denial patterns recorded yet.</p>
+            </div>
+          ) : (
+            <div className="border border-gray-200 rounded-xl overflow-hidden">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200">
+                    {["Denial Code", "CPT Code", "Payer", "Occurrences", "Value at Risk", "Signal Coverage", "Topic Request"].map((h) => (
+                      <th key={h} className="text-left px-3 py-2.5 font-semibold text-gray-500 uppercase tracking-wide" style={{ fontSize: 10 }}>
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {patterns.map((p, i) => (
+                    <tr
+                      key={p.id || i}
+                      className={`border-b border-gray-100 ${!p.signal_coverage ? "bg-amber-50" : ""}`}
+                    >
+                      <td className="px-3 py-2.5 font-semibold text-[#1B3A5C]">{p.denial_code}</td>
+                      <td className="px-3 py-2.5 text-gray-700">{p.cpt_code}</td>
+                      <td className="px-3 py-2.5 text-gray-600">{p.payer}</td>
+                      <td className="px-3 py-2.5 font-semibold text-gray-800">{p.occurrence_count}</td>
+                      <td className="px-3 py-2.5 font-semibold text-gray-800">{fmt$(p.total_value_at_risk)}</td>
+                      <td className="px-3 py-2.5">
+                        {p.signal_coverage ? (
+                          <span className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Yes</span>
+                        ) : (
+                          <span className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">No</span>
+                        )}
+                      </td>
+                      <td className="px-3 py-2.5">
+                        {p.topic_request_created ? (
+                          <span className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">Created</span>
+                        ) : (
+                          <span className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full bg-gray-50 text-gray-400 border border-gray-200">None</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
