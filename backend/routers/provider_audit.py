@@ -900,9 +900,10 @@ async def analyze_contract(req: AnalyzeRequest):
             pass
 
     # Save analysis to Supabase
+    analysis_id = None
     try:
         sb = _get_supabase()
-        sb.table("provider_analyses").insert({
+        insert_result = sb.table("provider_analyses").insert({
             "company_id": req.user_id,
             "payer_name": req.payer_name,
             "production_date": "",
@@ -919,9 +920,32 @@ async def analyze_contract(req: AnalyzeRequest):
                 "scorecard": scorecard,
             },
         }).execute()
+        if insert_result.data:
+            analysis_id = insert_result.data[0].get("id")
     except Exception as exc:
         # Non-fatal: analysis still returns even if save fails
         print(f"WARNING: Failed to save analysis to Supabase: {exc}")
+
+    # Save payer performance history for trend tracking
+    if analysis_id:
+        try:
+            from datetime import date
+
+            sb_pph = _get_supabase()
+            sb_pph.table("payer_performance_history").insert({
+                "company_id": req.user_id,
+                "analysis_id": analysis_id,
+                "payer_name": req.payer_name,
+                "analysis_date": date.today().isoformat(),
+                "adherence_rate": summary["adherence_rate"],
+                "total_billed": summary["total_contracted"],
+                "total_paid": summary["total_paid"],
+                "underpayment_total": summary["total_underpayment"],
+                "denial_count": summary["denied_count"],
+                "claim_count": len(enriched_lines),
+            }).execute()
+        except Exception as exc:
+            print(f"[Provider] payer_performance_history save failed (non-fatal): {exc}")
 
     # Save anonymized observations for proprietary benchmark building
     try:
