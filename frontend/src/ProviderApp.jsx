@@ -951,7 +951,7 @@ function ProviderAppInner() {
         <div style={{ paddingTop: 80 }}>
           <ProviderAuditReport
             analysisResults={auditReportSource === "historical" && historicalReport
-              ? [historicalReport.result_json]
+              ? [{ ...historicalReport.result_json, payer_name: historicalReport.payer_name }]
               : analysisResults}
             practiceInfo={profile}
             onClose={() => { setShowAuditReport(false); setAuditReportSource(null); }}
