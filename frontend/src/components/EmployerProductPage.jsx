@@ -204,7 +204,7 @@ export default function EmployerProductPage() {
             See real analysis on sample data
           </h2>
           <p style={{ fontSize: 15, color: "#94a3b8", maxWidth: 600, margin: "0 auto" }}>
-            This is live output from the Parity Engine running against synthetic employer claims. Click any flagged row to see the Analytical Paths breakdown.
+            Sample employer claims data analyzed by the Parity Engine. Upload your own 835 file to see your actual results.
           </p>
         </div>
 
