@@ -980,9 +980,9 @@ export default function EmployerClaimsCheck() {
                   <p style={{ fontSize: "14px", color: "#94a3b8", lineHeight: "1.7", marginBottom: "16px" }}>
                     Employer-level analysis shows where the opportunities are &mdash; but cost reduction happens when individual employees choose lower-cost providers and care settings before elective procedures. Parity Health gives your employees the same benchmarking tools at the individual claim level: they can look up fair prices for procedures in their area, compare providers, and understand their bills.
                   </p>
-                  <Link to="/parity-health" style={{ display: "inline-block", background: "#0d9488", color: "#fff", padding: "10px 22px", borderRadius: "8px", fontWeight: "600", fontSize: "14px", textDecoration: "none" }}>
+                  <a href="https://health.civicscale.ai" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: "#0d9488", color: "#fff", padding: "10px 22px", borderRadius: "8px", fontWeight: "600", fontSize: "14px", textDecoration: "none" }}>
                     Learn About Parity Health &rarr;
-                  </Link>
+                  </a>
                   <p style={{ fontSize: "12px", color: "#94a3b8", marginTop: "12px", marginBottom: 0 }}>
                     Employees who shop on price before elective care reduce plan costs over time &mdash; which directly affects your renewal rates.
                   </p>
