@@ -1261,6 +1261,8 @@ function ProviderAppInner() {
               onGoToContract={() => setActiveTab("contract")}
               onGoToCoding={() => setActiveTab("coding")}
               onViewAnalysis={(id) => loadHistoricalReport(id)}
+              authHeaders={authHeaders}
+              onRefresh={loadRecentAnalyses}
             />
           )
         ) : activeTab === "contract" ? (
@@ -2318,8 +2320,41 @@ function ContractIntegrityTab({
 // Dashboard Home Component
 // ═══════════════════════════════════════════════════════════════════
 
-function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding, onViewAnalysis }) {
+function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding, onViewAnalysis, authHeaders, onRefresh }) {
   const hasAnalyses = recentAnalyses && recentAnalyses.length > 0;
+  const [archiving, setArchiving] = useState(null);
+  const [showArchived, setShowArchived] = useState(false);
+  const [archivedAnalyses, setArchivedAnalyses] = useState([]);
+  const [archivedLoading, setArchivedLoading] = useState(false);
+
+  async function handleArchive(e, id) {
+    e.stopPropagation();
+    if (!confirm("Archive this analysis?")) return;
+    setArchiving(id);
+    try {
+      const res = await fetch(`${API_BASE}/api/provider/analyses/${id}/archive`, {
+        method: "POST",
+        headers: authHeaders,
+      });
+      if (res.ok) onRefresh?.();
+    } catch { /* non-fatal */ }
+    setArchiving(null);
+  }
+
+  async function loadArchived() {
+    setShowArchived(true);
+    setArchivedLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/provider/my-analyses/archived`, {
+        headers: authHeaders,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setArchivedAnalyses(data.analyses || []);
+      }
+    } catch { /* non-fatal */ }
+    setArchivedLoading(false);
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
@@ -2411,6 +2446,7 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding, 
                   <th style={{ ...thStyle, textAlign: "right" }}>Total Paid</th>
                   <th style={{ ...thStyle, textAlign: "right" }}>Underpayment</th>
                   <th style={{ ...thStyle, textAlign: "right" }}>Adherence</th>
+                  <th style={{ ...thStyle, width: 40 }}></th>
                 </tr>
               </thead>
               <tbody>
@@ -2444,10 +2480,81 @@ function DashboardHome({ recentAnalyses, loading, onGoToContract, onGoToCoding, 
                     }}>
                       {a.adherence_rate}%
                     </td>
+                    <td style={{ ...tdStyle, textAlign: "center", padding: "6px 4px" }}>
+                      <button
+                        onClick={(e) => handleArchive(e, a.id)}
+                        disabled={archiving === a.id}
+                        title="Archive"
+                        style={{
+                          background: "none", border: "none", cursor: "pointer",
+                          color: "var(--cs-slate)", fontSize: 14, padding: "4px 6px",
+                          borderRadius: 6, opacity: archiving === a.id ? 0.4 : 0.6,
+                          transition: "opacity 0.15s",
+                        }}
+                        onMouseOver={e => e.currentTarget.style.opacity = 1}
+                        onMouseOut={e => e.currentTarget.style.opacity = 0.6}
+                      >
+                        {archiving === a.id ? "..." : "⋯"}
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            {/* Show Archived link */}
+            <div style={{ textAlign: "right", marginTop: 8 }}>
+              <button
+                onClick={showArchived ? () => setShowArchived(false) : loadArchived}
+                style={{ background: "none", border: "none", cursor: "pointer", color: "var(--cs-teal)", fontSize: 13, fontWeight: 500 }}
+              >
+                {showArchived ? "Hide Archived" : "Show Archived"}
+              </button>
+            </div>
+            {showArchived && (
+              <div style={{ marginTop: 12 }}>
+                <h4 style={{ fontSize: 14, fontWeight: 600, color: "var(--cs-slate)", margin: "0 0 8px" }}>Archived Analyses</h4>
+                {archivedLoading ? (
+                  <p style={{ color: "var(--cs-slate)", fontSize: 13 }}>Loading...</p>
+                ) : archivedAnalyses.length === 0 ? (
+                  <p style={{ color: "var(--cs-slate)", fontSize: 13 }}>No archived analyses.</p>
+                ) : (
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={tableStyle}>
+                      <thead>
+                        <tr>
+                          <th style={thStyle}>Date</th>
+                          <th style={thStyle}>Payer</th>
+                          <th style={{ ...thStyle, textAlign: "right" }}>Total Billed</th>
+                          <th style={{ ...thStyle, textAlign: "right" }}>Underpayment</th>
+                          <th style={{ ...thStyle, textAlign: "right" }}>Adherence</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {archivedAnalyses.map((a, i) => (
+                          <tr
+                            key={a.id}
+                            onClick={() => onViewAnalysis(a.id)}
+                            style={{ cursor: "pointer", opacity: 0.7, ...(i % 2 === 0 ? {} : { background: "var(--cs-mist)" }) }}
+                          >
+                            <td style={tdStyle}>
+                              {a.production_date ? new Date(a.production_date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "—"}
+                            </td>
+                            <td style={tdStyle}>{a.payer_name || "—"}</td>
+                            <td style={{ ...tdStyle, textAlign: "right" }}>
+                              ${(a.total_billed || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                            </td>
+                            <td style={{ ...tdStyle, textAlign: "right" }}>
+                              ${(a.underpayment || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                            </td>
+                            <td style={{ ...tdStyle, textAlign: "right" }}>{a.adherence_rate}%</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <div style={{

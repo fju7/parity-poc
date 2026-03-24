@@ -2259,18 +2259,61 @@ async def save_profile(body: SaveProfileRequest, request: Request):
 
 @router.get("/my-analyses")
 async def my_analyses(request: Request, limit: int = 5):
-    """Return recent analyses for the authenticated user."""
+    """Return recent active analyses for the authenticated user."""
     user = _get_authenticated_user(request)
     sb = _get_supabase()
 
     result = sb.table("provider_analyses") \
-        .select("id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate") \
+        .select("id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate, status") \
         .eq("company_id", str(user.id)) \
+        .eq("status", "active") \
         .order("production_date", desc=True) \
         .limit(limit) \
         .execute()
 
     return {"analyses": result.data or []}
+
+
+@router.get("/my-analyses/archived")
+async def my_analyses_archived(request: Request, limit: int = 20):
+    """Return archived analyses for the authenticated user."""
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    result = sb.table("provider_analyses") \
+        .select("id, payer_name, production_date, total_billed, total_paid, underpayment, adherence_rate, status") \
+        .eq("company_id", str(user.id)) \
+        .eq("status", "archived") \
+        .order("production_date", desc=True) \
+        .limit(limit) \
+        .execute()
+
+    return {"analyses": result.data or []}
+
+
+@router.post("/analyses/{analysis_id}/archive")
+async def archive_analysis(analysis_id: str, request: Request):
+    """Archive a specific analysis. Verifies ownership."""
+    user = _get_authenticated_user(request)
+    sb = _get_supabase()
+
+    # Verify ownership
+    existing = sb.table("provider_analyses") \
+        .select("id") \
+        .eq("id", analysis_id) \
+        .eq("company_id", str(user.id)) \
+        .execute()
+
+    if not existing.data:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+
+    sb.table("provider_analyses") \
+        .update({"status": "archived"}) \
+        .eq("id", analysis_id) \
+        .eq("company_id", str(user.id)) \
+        .execute()
+
+    return {"archived": True, "id": analysis_id}
 
 
 @router.get("/analysis/{analysis_id}")
