@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Routes, Route, useParams, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useParams, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "./lib/supabase";
 import SignalHeader from "./components/signal/SignalHeader";
 import SignalFooter from "./components/signal/SignalFooter";
@@ -275,6 +275,7 @@ export default function SignalApp() {
             path="account"
             element={<AccountView session={session} />}
           />
+          <Route path="admin" element={<Navigate to="/admin/requests" replace />} />
           <Route
             path="admin/requests"
             element={<AdminRequestsDashboard session={session} />}
