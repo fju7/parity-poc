@@ -591,8 +591,17 @@ async def aggregate_denial_patterns(denied_lines: list, payer_name: str) -> None
             if count < 5 and value < 10000:
                 continue
 
-            topic_name = f"Denial pattern: {row['denial_code']} on CPT {row['cpt_code']}"
-            description = (
+            denial_code = row["denial_code"]
+            cpt_code = row["cpt_code"]
+            if not denial_code or not cpt_code or count <= 0:
+                continue
+
+            parsed_title = f"Denial pattern: {denial_code} on CPT {cpt_code}"
+            raw_request = (
+                f"Auto-generated: {denial_code} denial pattern for CPT "
+                f"{cpt_code} — {count} occurrences, ${value:,.0f} value at risk"
+            )
+            parsed_description = (
                 f"Auto-generated from denial pattern aggregation. "
                 f"Payer: {row['payer']}. "
                 f"Occurrences: {count}. "
@@ -601,8 +610,9 @@ async def aggregate_denial_patterns(denied_lines: list, payer_name: str) -> None
             )
 
             sb.table("signal_topic_requests").insert({
-                "topic_name": topic_name,
-                "description": description,
+                "parsed_title": parsed_title,
+                "parsed_description": parsed_description,
+                "raw_request": raw_request,
                 "status": "pending",
             }).execute()
 
