@@ -77,6 +77,10 @@ def parse_835(content: str) -> dict:
             qualifier = elements[1]
             if qualifier == "405":
                 production_date = _format_date(elements[2])
+            elif qualifier == "472" and current_claim is not None and current_svc is not None:
+                current_svc["service_date"] = _format_date(elements[2])
+            elif qualifier == "036" and current_claim is not None:
+                current_claim["adjudication_date"] = _format_date(elements[2])
 
         elif seg_id == "CLP":
             # Save previous claim
@@ -134,12 +138,6 @@ def parse_835(content: str) -> dict:
                         current_claim.get("allowed_amount", 0) + adj["amount"], 2
                     )
 
-        elif seg_id == "DTM" and current_claim is not None and len(elements) > 2:
-            qualifier = elements[1]
-            if qualifier == "472" and current_svc is not None:
-                current_svc["service_date"] = _format_date(elements[2])
-            elif qualifier == "036":
-                current_claim["adjudication_date"] = _format_date(elements[2])
 
     # Append final claim/svc
     if current_claim is not None:
