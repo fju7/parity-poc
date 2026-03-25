@@ -38,6 +38,13 @@ export default function BillingApp() {
   const [regError, setRegError] = useState("");
   const [needsRegistration, setNeedsRegistration] = useState(false);
 
+  // Settings state
+  const [settingsCompanyName, setSettingsCompanyName] = useState("");
+  const [settingsContactEmail, setSettingsContactEmail] = useState("");
+  const [settingsUserName, setSettingsUserName] = useState("");
+  const [settingsSaving, setSettingsSaving] = useState(false);
+  const [settingsMsg, setSettingsMsg] = useState("");
+
   // Practices state
   const [practices, setPractices] = useState([]);
   const [practicesLoading, setPracticesLoading] = useState(false);
@@ -104,6 +111,20 @@ export default function BillingApp() {
   useEffect(() => {
     if (billingCompany) fetchPractices();
   }, [billingCompany, fetchPractices]);
+
+  // Seed settings fields when data loads
+  useEffect(() => {
+    if (billingCompany) {
+      setSettingsCompanyName(billingCompany.company_name || "");
+      setSettingsContactEmail(billingCompany.contact_email || "");
+    }
+  }, [billingCompany]);
+
+  useEffect(() => {
+    if (user) {
+      setSettingsUserName(user.full_name || "");
+    }
+  }, [user]);
 
   // --- Loading state ---
   if (loading) {
@@ -529,7 +550,27 @@ export default function BillingApp() {
           </div>
         )}
 
-        {activeTab !== "practices" && (
+        {activeTab === "settings" && (
+          <SettingsPanel
+            billingCompany={billingCompany}
+            subscription={subscription}
+            user={user}
+            token={token}
+            settingsCompanyName={settingsCompanyName}
+            setSettingsCompanyName={setSettingsCompanyName}
+            settingsContactEmail={settingsContactEmail}
+            setSettingsContactEmail={setSettingsContactEmail}
+            settingsUserName={settingsUserName}
+            setSettingsUserName={setSettingsUserName}
+            settingsSaving={settingsSaving}
+            setSettingsSaving={setSettingsSaving}
+            settingsMsg={settingsMsg}
+            setSettingsMsg={setSettingsMsg}
+            fetchMe={fetchMe}
+          />
+        )}
+
+        {activeTab !== "practices" && activeTab !== "settings" && (
           <div style={{
             background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
             borderRadius: 12, padding: 48, textAlign: "center",
@@ -541,6 +582,157 @@ export default function BillingApp() {
     </div>
   );
 }
+
+// --- Settings Panel ---
+function SettingsPanel({
+  billingCompany, subscription, user, token,
+  settingsCompanyName, setSettingsCompanyName,
+  settingsContactEmail, setSettingsContactEmail,
+  settingsUserName, setSettingsUserName,
+  settingsSaving, setSettingsSaving,
+  settingsMsg, setSettingsMsg,
+  fetchMe,
+}) {
+  const sectionStyle = {
+    background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
+    borderRadius: 12, padding: 24, marginBottom: 24,
+  };
+  const inputStyle = {
+    width: "100%", padding: "10px 14px", background: "rgba(255,255,255,0.05)",
+    border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "white",
+    fontSize: 14, marginBottom: 12, boxSizing: "border-box",
+  };
+  const labelStyle = {
+    fontSize: 12, color: "rgba(255,255,255,0.4)", display: "block", marginBottom: 4,
+  };
+
+  const handleSave = async () => {
+    setSettingsSaving(true);
+    setSettingsMsg("");
+    try {
+      const res = await fetch(`${API}/api/billing/settings`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({
+          company_name: settingsCompanyName.trim() || undefined,
+          contact_email: settingsContactEmail.trim() || undefined,
+          user_full_name: settingsUserName.trim() || undefined,
+        }),
+      });
+      if (!res.ok) {
+        const d = await res.json();
+        setSettingsMsg(d.detail || "Failed to save.");
+        return;
+      }
+      setSettingsMsg("Saved!");
+      fetchMe();
+      setTimeout(() => setSettingsMsg(""), 3000);
+    } catch {
+      setSettingsMsg("Failed to save.");
+    } finally {
+      setSettingsSaving(false);
+    }
+  };
+
+  const trialEnd = subscription?.trial_ends_at
+    ? new Date(subscription.trial_ends_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+    : null;
+  const trialDays = subscription?.trial_ends_at
+    ? Math.max(0, Math.ceil((new Date(subscription.trial_ends_at) - new Date()) / (1000 * 60 * 60 * 24)))
+    : null;
+
+  return (
+    <div style={{ maxWidth: 640 }}>
+      <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 8px" }}>Settings</h2>
+      <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 32 }}>{user?.email}</p>
+
+      {/* Section 1: Company Profile */}
+      <div style={sectionStyle}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
+          Company Profile
+        </h3>
+        <label style={labelStyle}>Company Name</label>
+        <input value={settingsCompanyName} onChange={(e) => setSettingsCompanyName(e.target.value)}
+          style={inputStyle} />
+        <label style={labelStyle}>Contact Email</label>
+        <input value={settingsContactEmail} onChange={(e) => setSettingsContactEmail(e.target.value)}
+          type="email" style={inputStyle} />
+      </div>
+
+      {/* Section 2: My Account */}
+      <div style={sectionStyle}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
+          My Account
+        </h3>
+        <label style={labelStyle}>Full Name</label>
+        <input value={settingsUserName} onChange={(e) => setSettingsUserName(e.target.value)}
+          style={inputStyle} />
+        <label style={labelStyle}>Email</label>
+        <input value={user?.email || ""} disabled
+          style={{ ...inputStyle, opacity: 0.5, cursor: "not-allowed" }} />
+      </div>
+
+      {/* Save button */}
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+        <button onClick={handleSave} disabled={settingsSaving}
+          style={{
+            background: settingsSaving ? "#334155" : "#0d9488", color: "white", border: "none",
+            borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600,
+            cursor: settingsSaving ? "not-allowed" : "pointer", opacity: settingsSaving ? 0.7 : 1,
+          }}>
+          {settingsSaving ? "Saving..." : "Save Changes"}
+        </button>
+        {settingsMsg && (
+          <span style={{ fontSize: 13, color: settingsMsg === "Saved!" ? "#10B981" : "#f87171" }}>
+            {settingsMsg}
+          </span>
+        )}
+      </div>
+
+      {/* Section 3: Subscription (read-only) */}
+      <div style={sectionStyle}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
+          Subscription
+        </h3>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div>
+            <label style={labelStyle}>Plan</label>
+            <div style={{ fontSize: 14, color: "#f1f5f9", textTransform: "capitalize" }}>
+              {subscription?.tier || "—"}
+              {subscription?.tier === "trial" && (
+                <span style={{
+                  display: "inline-block", marginLeft: 8, padding: "2px 8px", borderRadius: 10,
+                  background: "rgba(13,148,136,0.15)", color: "#5eead4", fontSize: 11, fontWeight: 600,
+                }}>
+                  {trialDays} days left
+                </span>
+              )}
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>Status</label>
+            <div style={{ fontSize: 14, color: subscription?.status === "active" ? "#5eead4" : "#f87171" }}>
+              {subscription?.status || "—"}
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>Trial Ends</label>
+            <div style={{ fontSize: 14, color: "#94a3b8" }}>
+              {trialEnd || "—"}
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>Practice Limit</label>
+            <div style={{ fontSize: 14, color: "#f1f5f9" }}>
+              {subscription?.practice_count_limit ?? "—"}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 // --- Shared styles ---
 const styles = {

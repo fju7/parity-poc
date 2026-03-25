@@ -610,6 +610,53 @@ async def list_billing_users(authorization: str = Header(None)):
 
 
 # ---------------------------------------------------------------------------
+# PUT /api/billing/settings — update company profile and/or user name
+# ---------------------------------------------------------------------------
+
+class SettingsUpdateRequest(BaseModel):
+    company_name: Optional[str] = None
+    contact_email: Optional[str] = None
+    user_full_name: Optional[str] = None
+
+@router.put("/settings")
+async def update_billing_settings(req: SettingsUpdateRequest, authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, bc_role = _get_billing_company(user, sb)
+
+    if bc_role != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    now = datetime.now(timezone.utc).isoformat()
+
+    # Update billing_companies fields
+    bc_updates = {}
+    if req.company_name is not None and req.company_name.strip():
+        bc_updates["company_name"] = req.company_name.strip()
+    if req.contact_email is not None and req.contact_email.strip():
+        bc_updates["contact_email"] = req.contact_email.strip().lower()
+    if bc_updates:
+        bc_updates["updated_at"] = now
+        sb.table("billing_companies").update(bc_updates).eq("id", bc["id"]).execute()
+        # Also sync name to companies table
+        if "company_name" in bc_updates:
+            sb.table("companies").update({
+                "name": bc_updates["company_name"]
+            }).eq("id", user["company_id"]).execute()
+
+    # Update user full_name
+    if req.user_full_name is not None and req.user_full_name.strip():
+        new_name = req.user_full_name.strip()
+        sb.table("billing_company_users").update({
+            "full_name": new_name, "updated_at": now
+        }).eq("billing_company_id", bc["id"]).eq("email", user["email"]).execute()
+        sb.table("company_users").update({
+            "full_name": new_name
+        }).eq("company_id", user["company_id"]).eq("email", user["email"]).execute()
+
+    return {"updated": True}
+
+
+# ---------------------------------------------------------------------------
 # GET /api/billing/health — health check
 # ---------------------------------------------------------------------------
 
