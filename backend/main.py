@@ -30,6 +30,7 @@ from routers.auth import router as auth_router
 from routers.signal_auth import router as signal_auth_router
 from routers.signal_intelligence import router as signal_intelligence_router
 from routers.platform_cases import router as platform_cases_router
+from routers.claim_review import router as claim_review_router
 
 
 @asynccontextmanager
@@ -121,6 +122,7 @@ app.include_router(auth_router)
 app.include_router(signal_auth_router)
 app.include_router(signal_intelligence_router)
 app.include_router(platform_cases_router)
+app.include_router(claim_review_router)
 
 
 @app.get("/")
