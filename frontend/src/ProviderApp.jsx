@@ -1754,7 +1754,28 @@ function ContractIntegrityTab({
                 benchmark="<30%"
                 color={sc.preventable_denial_rate <= 30 ? "#059669" : sc.preventable_denial_rate <= 50 ? "#d97706" : "#dc2626"}
               />
+              {s.avg_days_to_pay != null && (
+                <KpiTile
+                  label="Avg Days to Pay"
+                  value={`${s.avg_days_to_pay}`}
+                  benchmark="<30 days"
+                  color={s.avg_days_to_pay <= 30 ? "#059669" : s.avg_days_to_pay <= 45 ? "#d97706" : "#dc2626"}
+                />
+              )}
             </div>
+            {s.avg_days_to_pay != null && s.avg_days_to_pay > 30 && (
+              <div style={{
+                padding: 16, borderRadius: 8, marginBottom: 12,
+                background: "#fef2f2", border: "1px solid #fecaca",
+                fontSize: 14, color: "#991b1b", lineHeight: 1.6,
+              }}>
+                <strong>Slow-Pay Alert:</strong> This payer averages <strong>{s.avg_days_to_pay} days</strong> from
+                date of service to adjudication, exceeding the 30-day prompt-pay benchmark.
+                {s.avg_days_to_pay > 45
+                  ? " This may violate state prompt-pay laws — consider filing a complaint with your state insurance commissioner."
+                  : " Monitor this trend and document patterns for potential prompt-pay complaints."}
+              </div>
+            )}
             {sc.narrative && (
               <div style={{
                 padding: 16, borderRadius: 8, background: "#f0f9ff",
@@ -1821,6 +1842,39 @@ function ContractIntegrityTab({
           <DenialIntelligenceSection intel={denialIntel} profile={profile} payerName={analysisResults[selectedPayerIdx]?.payer_name || ""} onGoToAppeals={() => setActiveTab("appeals")} />
         )}
 
+        {/* Modifier Analysis Callout */}
+        {analysisResult?.modifier_analysis && (
+          <div style={{
+            padding: 20, borderRadius: 12, marginBottom: 24,
+            background: "#fffbeb", border: "1px solid #fde68a",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <span style={{ fontSize: 18 }}>⚠</span>
+              <h4 style={{ fontSize: 15, fontWeight: 700, color: "#92400e", margin: 0 }}>
+                Modifier-Related Denials Detected
+              </h4>
+            </div>
+            <p style={{ fontSize: 14, color: "#78350f", margin: "0 0 12px", lineHeight: 1.6 }}>
+              <strong>{analysisResult.modifier_analysis.denied_with_modifiers}</strong> of {analysisResult.modifier_analysis.total_denied} denied
+              line items ({analysisResult.modifier_analysis.pct_with_modifiers}%) include modifier codes,
+              representing <strong>${analysisResult.modifier_analysis.total_billed_value?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong> in
+              billed charges. Modifier-related denials often indicate documentation or coding issues that can be corrected on resubmission.
+            </p>
+            {analysisResult.modifier_analysis.top_modifiers?.length > 0 && (
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                {analysisResult.modifier_analysis.top_modifiers.map((m, i) => (
+                  <span key={i} style={{
+                    display: "inline-block", padding: "4px 12px", borderRadius: 16, fontSize: 13, fontWeight: 600,
+                    background: "#fef3c7", color: "#92400e", border: "1px solid #fde68a",
+                  }}>
+                    Modifier {m.modifier}: {m.count} denial{m.count !== 1 ? "s" : ""} (${m.billed_value?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Coding Intelligence (auto-generated from 835 data) */}
         {analysisResult?.coding_analysis && analysisResult.coding_analysis.em_total > 0 && (
           <CodingIntelligenceSection coding={analysisResult.coding_analysis} onGoToCoding={onGoToCoding} />
@@ -1841,6 +1895,7 @@ function ContractIntegrityTab({
                   <SortTh field="expected_payment" label="Expected" current={sortField} dir={sortDir} onSort={onSort} align="right" />
                   <SortTh field="variance" label="Variance" current={sortField} dir={sortDir} onSort={onSort} align="right" />
                   <SortTh field="flag" label="Flag" current={sortField} dir={sortDir} onSort={onSort} />
+                  <th style={thStyle}>Modifiers</th>
                   <th style={{ ...thStyle, textAlign: "right" }}>Medicare</th>
                 </tr>
               </thead>
@@ -1860,6 +1915,9 @@ function ContractIntegrityTab({
                       </td>
                       <td style={tdStyle}>
                         <FlagPill flag={item.flag} />
+                      </td>
+                      <td style={{ ...tdStyle, fontSize: 12, color: item.flag === "DENIED" && item.modifiers?.length > 0 ? "#92400e" : "var(--cs-slate)" }}>
+                        {item.modifiers?.length > 0 ? item.modifiers.join(", ") : "—"}
                       </td>
                       <td style={{ ...tdStyle, textAlign: "right", fontSize: 12, color: "var(--cs-slate)" }}>
                         {item.medicare_rate ? `$${item.medicare_rate.toFixed(2)}` : "—"}
@@ -3480,6 +3538,7 @@ function HistoricalReportView({ record, profile, sortField, sortDir, onSort, get
                   <SortTh field="expected_payment" label="Expected" current={sortField} dir={sortDir} onSort={onSort} align="right" />
                   <SortTh field="variance" label="Variance" current={sortField} dir={sortDir} onSort={onSort} align="right" />
                   <SortTh field="flag" label="Flag" current={sortField} dir={sortDir} onSort={onSort} />
+                  <th style={thStyle}>Modifiers</th>
                   <th style={{ ...thStyle, textAlign: "right" }}>Medicare</th>
                 </tr>
               </thead>
@@ -3499,6 +3558,9 @@ function HistoricalReportView({ record, profile, sortField, sortDir, onSort, get
                       </td>
                       <td style={tdStyle}>
                         <FlagPill flag={item.flag} />
+                      </td>
+                      <td style={{ ...tdStyle, fontSize: 12, color: item.flag === "DENIED" && item.modifiers?.length > 0 ? "#92400e" : "var(--cs-slate)" }}>
+                        {item.modifiers?.length > 0 ? item.modifiers.join(", ") : "—"}
                       </td>
                       <td style={{ ...tdStyle, textAlign: "right", fontSize: 12, color: "var(--cs-slate)" }}>
                         {item.medicare_rate ? `$${item.medicare_rate.toFixed(2)}` : "—"}

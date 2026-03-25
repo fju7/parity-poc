@@ -865,6 +865,50 @@ async def analyze_contract(req: AnalyzeRequest):
 
     denial_benchmarks.sort(key=lambda x: x["gap"], reverse=True)
 
+    # --- Modifier analysis on denied lines ---
+    modifier_analysis = None
+    denied_with_modifiers = [
+        el for el in enriched_lines
+        if el["flag"] == "DENIED" and el.get("modifiers") and len(el["modifiers"]) > 0
+    ]
+    if denied_with_modifiers:
+        modifier_counts = {}
+        modifier_billed = {}
+        for el in denied_with_modifiers:
+            for mod in el["modifiers"]:
+                modifier_counts[mod] = modifier_counts.get(mod, 0) + 1
+                modifier_billed[mod] = modifier_billed.get(mod, 0.0) + el.get("billed_amount", 0.0)
+        top_modifiers = sorted(modifier_counts.items(), key=lambda x: x[1], reverse=True)[:5]
+        modifier_analysis = {
+            "denied_with_modifiers": len(denied_with_modifiers),
+            "total_denied": denied_count,
+            "pct_with_modifiers": round((len(denied_with_modifiers) / denied_count) * 100, 1) if denied_count > 0 else 0,
+            "total_billed_value": round(sum(el.get("billed_amount", 0.0) for el in denied_with_modifiers), 2),
+            "top_modifiers": [
+                {"modifier": mod, "count": cnt, "billed_value": round(modifier_billed.get(mod, 0.0), 2)}
+                for mod, cnt in top_modifiers
+            ],
+        }
+
+    # --- Slow-pay detection: avg days from service to adjudication ---
+    avg_days_to_pay = None
+    days_values = []
+    for el in enriched_lines:
+        dos = el.get("date_of_service", "")
+        adj = el.get("adjudication_date", "")
+        if dos and adj and len(dos) >= 10 and len(adj) >= 10:
+            try:
+                from datetime import datetime as _dt
+                d_dos = _dt.strptime(dos[:10], "%Y-%m-%d")
+                d_adj = _dt.strptime(adj[:10], "%Y-%m-%d")
+                delta = (d_adj - d_dos).days
+                if 0 <= delta <= 365:  # sanity bound
+                    days_values.append(delta)
+            except (ValueError, TypeError):
+                pass
+    if days_values:
+        avg_days_to_pay = round(sum(days_values) / len(days_values), 1)
+
     summary = {
         "total_contracted": round(total_contracted, 2),
         "total_paid": round(total_paid, 2),
@@ -878,6 +922,7 @@ async def analyze_contract(req: AnalyzeRequest):
         "no_contract_count": no_contract_count,
         "billed_below_count": billed_below_count,
         "total_chargemaster_gap": round(total_chargemaster_gap, 2),
+        "avg_days_to_pay": avg_days_to_pay,
     }
 
     scorecard = {
@@ -943,6 +988,7 @@ async def analyze_contract(req: AnalyzeRequest):
                 "underpayment_total": summary["total_underpayment"],
                 "denial_count": summary["denied_count"],
                 "claim_count": len(enriched_lines),
+                "avg_days_to_pay": avg_days_to_pay,
             }).execute()
         except Exception as exc:
             print(f"[Provider] payer_performance_history save failed (non-fatal): {exc}")
@@ -987,6 +1033,7 @@ async def analyze_contract(req: AnalyzeRequest):
         "coding_analysis": coding_analysis,
         "denial_benchmarks": denial_benchmarks,
         "denial_benchmark_note": DENIAL_BENCHMARK_DATA_NOTE if denial_benchmarks else "",
+        "modifier_analysis": modifier_analysis,
     }
 
 
@@ -2341,7 +2388,7 @@ async def payer_trends(request: Request):
     sb = _get_supabase()
 
     result = sb.table("payer_performance_history") \
-        .select("payer_name, analysis_date, adherence_rate, total_billed, total_paid, underpayment_total, denial_count, claim_count") \
+        .select("payer_name, analysis_date, adherence_rate, total_billed, total_paid, underpayment_total, denial_count, claim_count, avg_days_to_pay") \
         .eq("company_id", str(user.id)) \
         .order("payer_name") \
         .order("analysis_date") \
@@ -2363,6 +2410,7 @@ async def payer_trends(request: Request):
             "underpayment_total": float(row["underpayment_total"] or 0),
             "denial_count": row["denial_count"] or 0,
             "claim_count": row["claim_count"] or 0,
+            "avg_days_to_pay": float(row["avg_days_to_pay"]) if row.get("avg_days_to_pay") else None,
         })
 
     payers = []
@@ -2659,10 +2707,37 @@ async def summary_report(req: SummaryReportRequest, request: Request):
 
 @router.get("/summary-report/{analysis_id}")
 async def summary_report_from_analysis(analysis_id: str, request: Request):
-    """Convenience wrapper: build summary PDF from a stored analysis."""
+    """Convenience wrapper: build summary PDF from a stored analysis.
+    Checks Supabase Storage cache first; generates and caches on miss."""
     user = _get_authenticated_user(request)
 
     sb = _get_supabase()
+
+    # --- Check PDF cache in Supabase Storage ---
+    storage_path = f"{analysis_id}/summary.pdf"
+    try:
+        cached = sb.storage.from_("provider-reports").download(storage_path)
+        if cached and len(cached) > 0:
+            # Look up practice name for filename
+            practice_name = "Practice"
+            try:
+                prof = sb.table("provider_profiles").select("practice_name").eq("company_id", str(user.id)).execute()
+                if prof.data and prof.data[0].get("practice_name"):
+                    practice_name = prof.data[0]["practice_name"]
+            except Exception:
+                pass
+            from datetime import datetime
+            safe_name = practice_name.replace(" ", "_").replace("/", "_")[:30]
+            date_str = datetime.now().strftime("%Y%m%d")
+            filename = f"Parity_Summary_{safe_name}_{date_str}.pdf"
+            return StreamingResponse(
+                io.BytesIO(cached),
+                media_type="application/pdf",
+                headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+            )
+    except Exception:
+        pass  # Cache miss — generate fresh
+
     row = sb.table("provider_analyses").select("*").eq("id", analysis_id).execute()
     if not row.data:
         raise HTTPException(status_code=404, detail="Analysis not found")
@@ -2717,6 +2792,16 @@ async def summary_report_from_analysis(analysis_id: str, request: Request):
     )
 
     pdf_bytes = _build_summary_pdf(summary_req)
+
+    # --- Cache PDF in Supabase Storage ---
+    try:
+        sb.storage.from_("provider-reports").upload(
+            storage_path,
+            pdf_bytes,
+            {"content-type": "application/pdf"},
+        )
+    except Exception as exc:
+        print(f"[Provider] PDF cache upload failed (non-fatal): {exc}")
 
     from datetime import datetime
     safe_name = practice_name.replace(" ", "_").replace("/", "_")[:30]

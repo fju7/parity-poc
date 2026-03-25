@@ -631,6 +631,39 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
 - Deferred: CLAUDE.md forbids branch creation, CivicScale_Staging_Setup_Guide.docx
   not found in repo. Awaiting Fred's confirmation to proceed.
 
+## Session AE — Phase 2 Wrap-up (Complete)
+
+### AE-1: Modifier Analysis Callout in Contract Integrity
+- Backend: provider_audit.py analyze-contract now computes modifier_analysis
+  when denied line items have modifier codes — returns denied_with_modifiers
+  count, pct_with_modifiers, total_billed_value, top_modifiers array
+- Frontend: ProviderApp.jsx shows amber callout with modifier breakdown
+  when modifier_analysis is present in results
+- Line items table: added Modifiers column showing modifier codes per line,
+  highlighted amber for denied items with modifiers
+
+### AE-2: Slow-Pay Detection
+- Backend: provider_audit.py calculates avg_days_to_pay from date_of_service
+  to adjudication_date across all enriched lines (0-365 day sanity bound)
+- avg_days_to_pay added to summary response and payer_performance_history insert
+- Trends endpoint now includes avg_days_to_pay in data points
+- Frontend: KPI tile for "Avg Days to Pay" with <30 benchmark
+- Frontend: Red slow-pay alert callout when avg >30 days, with stronger
+  language (state prompt-pay law reference) when >45 days
+
+### AE-3: PDF Storage in Supabase Storage
+- Created provider-reports storage bucket (private, 10MB limit, PDF only)
+- GET /summary-report/{analysis_id} now checks Supabase Storage cache first
+- On cache miss: generates PDF, uploads to provider-reports/{analysis_id}/summary.pdf,
+  then serves the response
+- On cache hit: serves cached PDF directly (skips DB lookup and generation)
+
+### AE-4: Stripe Live Mode
+- Deferred — awaiting Fred's explicit go-ahead. Stripe remains in TEST MODE.
+
+### Supabase Storage Buckets
+- provider-reports: private bucket for cached provider PDF reports (10MB limit, PDF only)
+
 ## Migrations status
 All migrations through 050 have been run on production.
 Next migration number: 051
