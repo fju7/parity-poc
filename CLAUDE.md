@@ -188,8 +188,8 @@ Three live products + one in development:
 
 ## Migrations
 Numbered sequentially: backend/migrations/001_*.sql through 050_*.sql
-All migrations through 050 have been run on production.
-Next migration number: 051
+All migrations through 056 have been run on production.
+Next migration number: 057
 Always output migration SQL clearly for Fred to run in Supabase dashboard.
 Fred runs migrations manually in Supabase SQL Editor.
 
@@ -665,8 +665,8 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
 - provider-reports: private bucket for cached provider PDF reports (10MB limit, PDF only)
 
 ## Migrations status
-All migrations through 050 have been run on production.
-Next migration number: 051
+All migrations through 056 have been run on production.
+Next migration number: 057
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
