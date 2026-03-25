@@ -870,7 +870,7 @@ function ProviderAppInner() {
     if (!token) return;
     setLoadingRecent(true);
     try {
-      const res = await fetch(`${API_BASE}/api/provider/my-analyses?limit=5`, {
+      const res = await fetch(`${API_BASE}/api/provider/my-analyses?limit=10`, {
         headers: authHeaders,
       });
       if (res.ok) {
