@@ -703,9 +703,43 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
 - Add billing.civicscale.ai as domain in Vercel project settings
 - Redeploy backend on Render to pick up billing endpoints + CORS changes
 
+## Session BL-3 — Parity Billing: Batch 835 Ingestion at Scale (Complete)
+
+### Backend (billing.py) — ingestion endpoints
+- POST /api/billing/ingest/upload — multipart form (practice_id + files[]),
+  max 20 files, validates practice ownership, queues billing_835_jobs rows
+- POST /api/billing/ingest/process/{job_id} — parse 835 via utils/parse_835.py,
+  compute line_count/denial_rate/total_billed, store result_json, insert
+  provider_analyses with billing_company_id (for BL-4 portfolio rollup)
+- POST /api/billing/ingest/process-all — process all queued jobs sequentially,
+  returns {processed, errors}
+- GET /api/billing/ingest/jobs — list all jobs for billing company (DESC),
+  includes practice_name via companies join
+- GET /api/billing/ingest/jobs/{job_id} — single job with full result_json
+
+### Frontend (BillingApp.jsx)
+- 835 Ingestion tab (replaced Reports placeholder)
+- Practice dropdown from GET /api/billing/practices
+- Multi-file drop zone (.835/.txt/.edi), file list with remove buttons
+- Upload & Queue button → auto-calls process-all → refreshes job list
+- Job queue table: Filename | Practice | Status | Lines | Denial Rate |
+  Total Billed | Uploaded
+- Status badges: grey QUEUED, blue PROCESSING, green COMPLETE, red ERROR
+- Auto-refresh every 5s while any job is queued/processing
+- Click COMPLETE row → inline result summary (payer, claims, lines, billed,
+  paid, denial rate, denied lines, production date)
+
+### Migration 058: billing_835_jobs table
+- id, billing_company_id, practice_id, filename, status, file_content,
+  result_json, error_message, line_count, denial_rate, total_billed,
+  uploaded_by_email, created_at, updated_at
+- RLS enabled, service role full access
+- Index on (billing_company_id, created_at DESC)
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Next migration number: 058
+Migration 057 (billing schema updates) and 058 (billing_835_jobs) pending.
+Next migration number: 059
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
