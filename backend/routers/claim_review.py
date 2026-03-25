@@ -11,15 +11,6 @@ from utils.risk_scorer import score_claims
 router = APIRouter(prefix="/api/claim-review", tags=["claim-review"])
 
 
-def _get_supabase():
-    import os
-    from supabase import create_client
-    return create_client(
-        os.environ["SUPABASE_URL"],
-        os.environ["SUPABASE_SERVICE_ROLE_KEY"],
-    )
-
-
 @router.post("/analyze-837")
 async def analyze_837(request: Request, file: UploadFile = File(...)):
     """Parse an 837P file and score claims for pre-submission risk.
@@ -30,8 +21,7 @@ async def analyze_837(request: Request, file: UploadFile = File(...)):
     """
     # Auth check
     auth_header = request.headers.get("authorization", "")
-    sb = _get_supabase()
-    get_current_user(auth_header, sb)
+    get_current_user(auth_header)
 
     # Read file content
     content = await file.read()
