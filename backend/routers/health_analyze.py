@@ -94,7 +94,9 @@ class AnalyzeLineItem(BaseModel):
     quantity: int = 1
     billed_amount: float = 0.0
     modifier: Optional[str] = None
+    modifiers: List[str] = []
     place_of_service: Optional[str] = None
+    date_of_service: Optional[str] = None
 
 
 class AnalyzeResponse(BaseModel):
@@ -102,18 +104,28 @@ class AnalyzeResponse(BaseModel):
     service_date: Optional[str] = None
     insurance_name: Optional[str] = None
     network_status: Optional[str] = None  # "in_network", "out_of_network", or null
+    claim_number: Optional[str] = None
+    adjudication_date: Optional[str] = None
+    parser_version: int = 2
     line_items: List[AnalyzeLineItem] = []
     total_billed: Optional[float] = None
     parsing_confidence: str = "high"
 
 
-# Shared extraction prompt — same as ai_parse.py SYSTEM_PROMPT
-SYSTEM_PROMPT = """You are a medical bill data extraction specialist. Extract all procedure line items from this medical bill. Return ONLY valid JSON matching this exact structure, with no other text, markdown, or explanation:
+# Shared extraction prompt — used by analyze-text and analyze-image
+SYSTEM_PROMPT = """You are a medical bill and Explanation of Benefits (EOB) data extraction specialist. Consumers upload EOBs from many different insurance companies — formats, layouts, and terminology vary significantly.
+
+IMPORTANT — read the ENTIRE document first before extracting any fields. Understand the document's structure, layout, and terminology as a whole before attempting extraction. Different insurance companies use different labels, layouts, and terminology for the same information. Infer field locations flexibly — never return null just because a label does not match an expected term. If the information is present anywhere in the document, find it.
+
+Return ONLY valid JSON matching this exact structure, with no other text, markdown, or explanation:
 {
   "provider_name": "string or null",
   "service_date": "YYYY-MM-DD or null",
   "insurance_name": "string or null",
   "network_status": "in_network or out_of_network or null",
+  "claim_number": "string or null",
+  "adjudication_date": "YYYY-MM-DD or null",
+  "parser_version": 2,
   "line_items": [
     {
       "cpt_code": "5-character code or null",
@@ -121,15 +133,24 @@ SYSTEM_PROMPT = """You are a medical bill data extraction specialist. Extract al
       "description": "procedure description",
       "quantity": number,
       "billed_amount": number,
-      "modifier": "2-character code or null",
-      "place_of_service": "2-digit code or null"
+      "modifier": "first modifier code as string, or null if none",
+      "modifiers": ["array of all modifier codes on this line, empty [] if none"],
+      "place_of_service": "2-digit code or null",
+      "date_of_service": "YYYY-MM-DD for this specific line, or null"
     }
   ],
   "total_billed": number or null
 }
-Extract every line item. Use null for any field not visible. Do not include subtotal or total rows as line items. For network_status, look for terms like "in-network", "out-of-network", "participating", "non-participating", "PPO", "HMO" to determine if the provider was in or out of network. Use null if not determinable.
 
-IMPORTANT for service_date: Extract the DATE OF SERVICE, not the patient's date of birth. The service date is when the medical service was performed — look for labels like "Date of Service", "Service Date", "DOS", "Dates of Service", or dates near procedure descriptions. Patient DOB (date of birth, born, DOB) is NOT the service date. If multiple service dates exist, use the most recent one."""
+Rules:
+- Extract every line item. Use null for any field genuinely absent. Do not include subtotal or total rows as line items.
+- network_status: look for terms like "in-network", "out-of-network", "participating", "non-participating", "PPO", "HMO", "preferred", "non-preferred" to determine if the provider was in or out of network. Use null if not determinable.
+- IMPORTANT for service_date: Extract the DATE OF SERVICE, not the patient's date of birth. The service date is when the medical service was performed — look for labels like "Date of Service", "Service Date", "DOS", "Dates of Service", "Date Treated", or dates near procedure descriptions. Patient DOB (date of birth, born, DOB) is NOT the service date. If multiple service dates exist, use the most recent one.
+- modifier: the first modifier code as a single string (null if none). modifiers: an array of ALL modifier codes on that line (e.g. ["25", "59"]). If no modifiers, use null for modifier and [] for modifiers. Modifiers often appear next to CPT codes separated by dashes, commas, or in adjacent columns.
+- claim_number: may appear as "Claim #", "Claim Number", "ICN", "DCN", "Reference Number", "Confirmation Number", "Control Number", or other insurer-specific labels. Return null only if genuinely absent from the document.
+- adjudication_date: the date the claim was processed or paid — may appear as "Date Processed", "Adjudication Date", "Payment Date", "Paid Date", "Decision Date", "Statement Date", or similar. This is NOT the date of service. Return null only if genuinely absent.
+- date_of_service per line: the date treatment was performed for this specific line. May appear as "Date of Service", "Service Date", "Date Treated", "DOS", or dates adjacent to procedure descriptions. Return null only if genuinely absent or if only a single service date exists (already captured in the top-level service_date field).
+- parser_version must always be 2."""
 
 # Extended prompt when SBC data is provided
 SBC_CONTEXT_ADDENDUM = """
@@ -345,6 +366,9 @@ def _parse_response(response, sbc_data=None):
         service_date=parsed.get("service_date"),
         insurance_name=parsed.get("insurance_name"),
         network_status=network_status,
+        claim_number=parsed.get("claim_number"),
+        adjudication_date=parsed.get("adjudication_date"),
+        parser_version=parsed.get("parser_version", 2),
         line_items=[
             AnalyzeLineItem(
                 cpt_code=li.get("cpt_code"),
@@ -353,7 +377,9 @@ def _parse_response(response, sbc_data=None):
                 quantity=li.get("quantity", 1) or 1,
                 billed_amount=li.get("billed_amount", 0) or 0,
                 modifier=li.get("modifier"),
+                modifiers=li.get("modifiers") or [],
                 place_of_service=li.get("place_of_service"),
+                date_of_service=li.get("date_of_service"),
             )
             for li in items
         ],

@@ -59,23 +59,35 @@ class AIParseLineItem(BaseModel):
     quantity: int = 1
     billed_amount: float = 0.0
     modifier: Optional[str] = None
+    modifiers: List[str] = []
     place_of_service: Optional[str] = None
+    date_of_service: Optional[str] = None
 
 
 class AIParseResponse(BaseModel):
     provider_name: Optional[str] = None
     service_date: Optional[str] = None
     insurance_name: Optional[str] = None
+    claim_number: Optional[str] = None
+    adjudication_date: Optional[str] = None
+    parser_version: int = 2
     line_items: List[AIParseLineItem] = []
     total_billed: Optional[float] = None
     parsing_confidence: str = "high"
 
 
-SYSTEM_PROMPT = """You are a medical bill data extraction specialist. Extract all procedure line items from this medical bill. Return ONLY valid JSON matching this exact structure, with no other text, markdown, or explanation:
+SYSTEM_PROMPT = """You are a medical bill and Explanation of Benefits (EOB) data extraction specialist.
+
+IMPORTANT — read the ENTIRE document first before extracting any fields. Understand the document's structure, layout, and terminology as a whole before attempting extraction. Different insurance companies use different labels, layouts, and terminology for the same information. Infer field locations flexibly — never return null just because a label does not match an expected term. If the information is present anywhere in the document, find it.
+
+Return ONLY valid JSON matching this exact structure, with no other text, markdown, or explanation:
 {
   "provider_name": "string or null",
   "service_date": "YYYY-MM-DD or null",
   "insurance_name": "string or null",
+  "claim_number": "string or null",
+  "adjudication_date": "YYYY-MM-DD or null",
+  "parser_version": 2,
   "line_items": [
     {
       "cpt_code": "5-character code or null",
@@ -83,13 +95,22 @@ SYSTEM_PROMPT = """You are a medical bill data extraction specialist. Extract al
       "description": "procedure description",
       "quantity": number,
       "billed_amount": number,
-      "modifier": "2-character code or null",
-      "place_of_service": "2-digit code or null"
+      "modifier": "first modifier code as string, or null if none",
+      "modifiers": ["array of all modifier codes on this line, empty [] if none"],
+      "place_of_service": "2-digit code or null",
+      "date_of_service": "YYYY-MM-DD for this specific line, or null"
     }
   ],
   "total_billed": number or null
 }
-Extract every line item. Use null for any field not visible. Do not include subtotal or total rows as line items."""
+
+Rules:
+- Extract every line item. Use null for any field genuinely absent. Do not include subtotal or total rows as line items.
+- modifier: the first modifier code as a single string (null if none). modifiers: an array of ALL modifier codes on that line (e.g. ["25", "59"]). If no modifiers, use null for modifier and [] for modifiers. Modifiers often appear next to CPT codes separated by dashes, commas, or in adjacent columns.
+- claim_number: may appear as "Claim #", "Claim Number", "ICN", "DCN", "Reference Number", "Confirmation Number", "Control Number", or other insurer-specific labels. Return null only if genuinely absent from the document.
+- adjudication_date: the date the claim was processed or paid — may appear as "Date Processed", "Adjudication Date", "Payment Date", "Paid Date", "Decision Date", "Statement Date", or similar. This is NOT the date of service. Return null only if genuinely absent.
+- date_of_service per line: the date treatment was performed for this specific line. May appear as "Date of Service", "Service Date", "Date Treated", "DOS", or dates adjacent to procedure descriptions. Return null only if genuinely absent or if only a single service date exists (already captured in the top-level service_date field).
+- parser_version must always be 2."""
 
 
 @router.post("/api/parse-with-ai", response_model=AIParseResponse)
@@ -215,6 +236,9 @@ def parse_with_ai(req: AIParseRequest):
         provider_name=parsed.get("provider_name"),
         service_date=parsed.get("service_date"),
         insurance_name=parsed.get("insurance_name"),
+        claim_number=parsed.get("claim_number"),
+        adjudication_date=parsed.get("adjudication_date"),
+        parser_version=parsed.get("parser_version", 2),
         line_items=[
             AIParseLineItem(
                 cpt_code=li.get("cpt_code"),
@@ -223,7 +247,9 @@ def parse_with_ai(req: AIParseRequest):
                 quantity=li.get("quantity", 1) or 1,
                 billed_amount=li.get("billed_amount", 0) or 0,
                 modifier=li.get("modifier"),
+                modifiers=li.get("modifiers") or [],
                 place_of_service=li.get("place_of_service"),
+                date_of_service=li.get("date_of_service"),
             )
             for li in items
         ],
