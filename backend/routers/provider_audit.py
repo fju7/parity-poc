@@ -890,6 +890,43 @@ async def analyze_contract(req: AnalyzeRequest):
             ],
         }
 
+    # --- Per-provider NPI denial breakdown ---
+    npi_breakdown = None
+    npi_groups = {}
+    for el in enriched_lines:
+        npi = el.get("rendering_provider_npi") or ""
+        if not npi:
+            continue
+        if npi not in npi_groups:
+            npi_groups[npi] = {
+                "npi": npi,
+                "provider_name": el.get("rendering_provider_name", ""),
+                "total_lines": 0,
+                "denied_lines": 0,
+                "billed_amount": 0.0,
+                "denied_value": 0.0,
+            }
+        npi_groups[npi]["total_lines"] += 1
+        npi_groups[npi]["billed_amount"] += el.get("billed_amount", 0.0)
+        if el.get("flag") == "DENIED":
+            npi_groups[npi]["denied_lines"] += 1
+            npi_groups[npi]["denied_value"] += el.get("billed_amount", 0.0)
+
+    # Only include NPIs with >= 3 lines, and only produce breakdown when 2+ NPIs qualify
+    qualified_npis = [v for v in npi_groups.values() if v["total_lines"] >= 3]
+    if len(qualified_npis) >= 2:
+        practice_denial_rate = denial_rate  # already computed above
+        for entry in qualified_npis:
+            entry["denial_rate"] = round((entry["denied_lines"] / entry["total_lines"]) * 100, 1) if entry["total_lines"] > 0 else 0.0
+            entry["billed_amount"] = round(entry["billed_amount"], 2)
+            entry["denied_value"] = round(entry["denied_value"], 2)
+            entry["flagged"] = entry["denial_rate"] > practice_denial_rate + 10
+        qualified_npis.sort(key=lambda x: x["denial_rate"], reverse=True)
+        npi_breakdown = {
+            "practice_denial_rate": practice_denial_rate,
+            "providers": qualified_npis,
+        }
+
     # --- Slow-pay detection: avg days from service to adjudication ---
     avg_days_to_pay = None
     days_values = []
@@ -964,6 +1001,7 @@ async def analyze_contract(req: AnalyzeRequest):
                 "line_items": enriched_lines,
                 "scorecard": scorecard,
                 "modifier_analysis": modifier_analysis,
+                "npi_breakdown": npi_breakdown,
             },
         }).execute()
         if insert_result.data:
@@ -1035,6 +1073,7 @@ async def analyze_contract(req: AnalyzeRequest):
         "denial_benchmarks": denial_benchmarks,
         "denial_benchmark_note": DENIAL_BENCHMARK_DATA_NOTE if denial_benchmarks else "",
         "modifier_analysis": modifier_analysis,
+        "npi_breakdown": npi_breakdown,
     }
 
 

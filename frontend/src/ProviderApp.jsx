@@ -1882,6 +1882,60 @@ function ContractIntegrityTab({
           </div>
         )}
 
+        {/* Provider NPI Denial Breakdown */}
+        {analysisResult?.npi_breakdown && analysisResult.npi_breakdown.providers?.length >= 2 && (
+          <div style={{
+            border: "1px solid var(--cs-border)", borderRadius: 12,
+            padding: 24, marginBottom: 24, background: "#fff",
+          }}>
+            <h4 style={{ fontSize: 15, fontWeight: 700, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+              Provider Denial Breakdown
+            </h4>
+            <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: "0 0 16px" }}>
+              Practice average denial rate: <strong>{analysisResult.npi_breakdown.practice_denial_rate}%</strong>. Providers with denial rates more than 10 points above average are flagged.
+            </p>
+            <div style={{ overflowX: "auto" }}>
+              <table style={tableStyle}>
+                <thead>
+                  <tr>
+                    <th style={thStyle}>NPI</th>
+                    <th style={thStyle}>Provider</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Lines</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Denied</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Denial Rate</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Billed</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Denied Value</th>
+                    <th style={thStyle}>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {analysisResult.npi_breakdown.providers.map((p, i) => (
+                    <tr key={p.npi} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                      <td style={{ ...tdStyle, fontFamily: "monospace", fontSize: 12 }}>{p.npi}</td>
+                      <td style={tdStyle}>{p.provider_name || "—"}</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>{p.total_lines}</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>{p.denied_lines}</td>
+                      <td style={{ ...tdStyle, textAlign: "right", fontWeight: 600, color: p.flagged ? "#dc2626" : "var(--cs-navy)" }}>{p.denial_rate}%</td>
+                      <td style={{ ...tdStyle, textAlign: "right" }}>${p.billed_amount?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                      <td style={{ ...tdStyle, textAlign: "right", color: "#dc2626" }}>${p.denied_value?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                      <td style={tdStyle}>
+                        <span style={{
+                          display: "inline-block", padding: "2px 10px", borderRadius: 12, fontSize: 11, fontWeight: 700,
+                          background: p.flagged ? "#fee2e2" : "#dcfce7",
+                          color: p.flagged ? "#dc2626" : "#16a34a",
+                          border: `1px solid ${p.flagged ? "#fca5a5" : "#86efac"}`,
+                        }}>
+                          {p.flagged ? "FLAGGED" : "NORMAL"}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
         {/* Coding Intelligence (auto-generated from 835 data) */}
         {analysisResult?.coding_analysis && analysisResult.coding_analysis.em_total > 0 && (
           <CodingIntelligenceSection coding={analysisResult.coding_analysis} onGoToCoding={onGoToCoding} />
@@ -3527,6 +3581,60 @@ function HistoricalReportView({ record, profile, sortField, sortDir, onSort, get
       {/* Denial Intelligence (from stored data) */}
       {di.denial_types?.length > 0 && (
         <DenialIntelligenceSection intel={di} profile={profile} payerName={record.payer_name || ""} onGoToAppeals={() => {}} />
+      )}
+
+      {/* Provider NPI Denial Breakdown (historical) */}
+      {rj.npi_breakdown && rj.npi_breakdown.providers?.length >= 2 && (
+        <div style={{
+          border: "1px solid var(--cs-border)", borderRadius: 12,
+          padding: 24, marginBottom: 24, background: "#fff",
+        }}>
+          <h4 style={{ fontSize: 15, fontWeight: 700, color: "var(--cs-navy)", margin: "0 0 4px" }}>
+            Provider Denial Breakdown
+          </h4>
+          <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: "0 0 16px" }}>
+            Practice average denial rate: <strong>{rj.npi_breakdown.practice_denial_rate}%</strong>. Providers with denial rates more than 10 points above average are flagged.
+          </p>
+          <div style={{ overflowX: "auto" }}>
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>NPI</th>
+                  <th style={thStyle}>Provider</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Lines</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Denied</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Denial Rate</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Billed</th>
+                  <th style={{ ...thStyle, textAlign: "right" }}>Denied Value</th>
+                  <th style={thStyle}>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rj.npi_breakdown.providers.map((p, i) => (
+                  <tr key={p.npi} style={i % 2 === 0 ? {} : { background: "var(--cs-mist)" }}>
+                    <td style={{ ...tdStyle, fontFamily: "monospace", fontSize: 12 }}>{p.npi}</td>
+                    <td style={tdStyle}>{p.provider_name || "—"}</td>
+                    <td style={{ ...tdStyle, textAlign: "right" }}>{p.total_lines}</td>
+                    <td style={{ ...tdStyle, textAlign: "right" }}>{p.denied_lines}</td>
+                    <td style={{ ...tdStyle, textAlign: "right", fontWeight: 600, color: p.flagged ? "#dc2626" : "var(--cs-navy)" }}>{p.denial_rate}%</td>
+                    <td style={{ ...tdStyle, textAlign: "right" }}>${p.billed_amount?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td style={{ ...tdStyle, textAlign: "right", color: "#dc2626" }}>${p.denied_value?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td style={tdStyle}>
+                      <span style={{
+                        display: "inline-block", padding: "2px 10px", borderRadius: 12, fontSize: 11, fontWeight: 700,
+                        background: p.flagged ? "#fee2e2" : "#dcfce7",
+                        color: p.flagged ? "#dc2626" : "#16a34a",
+                        border: `1px solid ${p.flagged ? "#fca5a5" : "#86efac"}`,
+                      }}>
+                        {p.flagged ? "FLAGGED" : "NORMAL"}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
 
       {/* Full Line Items (only if stored in result_json) */}
