@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { API_BASE as API } from "./lib/apiBase";
@@ -6,8 +6,8 @@ import "./components/CivicScaleHomepage.css";
 
 const TABS = [
   { id: "practices", label: "Practices" },
+  { id: "ingestion", label: "835 Ingestion" },
   { id: "portfolio", label: "Portfolio Dashboard" },
-  { id: "reports", label: "Reports" },
   { id: "team", label: "Team" },
   { id: "settings", label: "Settings" },
 ];
@@ -44,6 +44,17 @@ export default function BillingApp() {
   const [settingsUserName, setSettingsUserName] = useState("");
   const [settingsSaving, setSettingsSaving] = useState(false);
   const [settingsMsg, setSettingsMsg] = useState("");
+
+  // Ingestion state
+  const [ingestPracticeId, setIngestPracticeId] = useState("");
+  const [ingestFiles, setIngestFiles] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const [jobs, setJobs] = useState([]);
+  const [jobsLoading, setJobsLoading] = useState(false);
+  const [expandedJobId, setExpandedJobId] = useState(null);
+  const [expandedJobDetail, setExpandedJobDetail] = useState(null);
+  const pollRef = useRef(null);
 
   // Practices state
   const [practices, setPractices] = useState([]);
@@ -111,6 +122,35 @@ export default function BillingApp() {
   useEffect(() => {
     if (billingCompany) fetchPractices();
   }, [billingCompany, fetchPractices]);
+
+  // Fetch ingestion jobs
+  const fetchJobs = useCallback(async () => {
+    if (!token || !billingCompany) return;
+    try {
+      const res = await fetch(`${API}/api/billing/ingest/jobs`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setJobs(data.jobs || []);
+      }
+    } catch { /* ignore */ }
+  }, [token, billingCompany]);
+
+  useEffect(() => {
+    if (billingCompany && activeTab === "ingestion") fetchJobs();
+  }, [billingCompany, activeTab, fetchJobs]);
+
+  // Auto-poll while any job is queued or processing
+  useEffect(() => {
+    const hasActive = jobs.some(j => j.status === "queued" || j.status === "processing");
+    if (hasActive && activeTab === "ingestion") {
+      pollRef.current = setInterval(fetchJobs, 5000);
+    } else {
+      if (pollRef.current) clearInterval(pollRef.current);
+    }
+    return () => { if (pollRef.current) clearInterval(pollRef.current); };
+  }, [jobs, activeTab, fetchJobs]);
 
   // Seed settings fields when data loads
   useEffect(() => {
@@ -550,6 +590,28 @@ export default function BillingApp() {
           </div>
         )}
 
+        {activeTab === "ingestion" && (
+          <IngestionPanel
+            token={token}
+            practices={practices}
+            jobs={jobs}
+            jobsLoading={jobsLoading}
+            ingestPracticeId={ingestPracticeId}
+            setIngestPracticeId={setIngestPracticeId}
+            ingestFiles={ingestFiles}
+            setIngestFiles={setIngestFiles}
+            uploading={uploading}
+            setUploading={setUploading}
+            uploadError={uploadError}
+            setUploadError={setUploadError}
+            expandedJobId={expandedJobId}
+            setExpandedJobId={setExpandedJobId}
+            expandedJobDetail={expandedJobDetail}
+            setExpandedJobDetail={setExpandedJobDetail}
+            fetchJobs={fetchJobs}
+          />
+        )}
+
         {activeTab === "settings" && (
           <SettingsPanel
             billingCompany={billingCompany}
@@ -570,7 +632,7 @@ export default function BillingApp() {
           />
         )}
 
-        {activeTab !== "practices" && activeTab !== "settings" && (
+        {activeTab !== "practices" && activeTab !== "ingestion" && activeTab !== "settings" && (
           <div style={{
             background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
             borderRadius: 12, padding: 48, textAlign: "center",
@@ -582,6 +644,311 @@ export default function BillingApp() {
     </div>
   );
 }
+
+// --- Ingestion Panel ---
+function IngestionPanel({
+  token, practices, jobs, jobsLoading,
+  ingestPracticeId, setIngestPracticeId,
+  ingestFiles, setIngestFiles,
+  uploading, setUploading,
+  uploadError, setUploadError,
+  expandedJobId, setExpandedJobId,
+  expandedJobDetail, setExpandedJobDetail,
+  fetchJobs,
+}) {
+  const fileInputRef = useRef(null);
+  const activePractices = practices.filter(p => p.active);
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const dropped = Array.from(e.dataTransfer.files).filter(f => {
+      const ext = f.name.split(".").pop().toLowerCase();
+      return ["835", "txt", "edi"].includes(ext);
+    });
+    setIngestFiles(prev => [...prev, ...dropped]);
+  };
+
+  const handleFileSelect = (e) => {
+    const selected = Array.from(e.target.files || []);
+    setIngestFiles(prev => [...prev, ...selected]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleUpload = async () => {
+    if (!ingestPracticeId) { setUploadError("Select a practice."); return; }
+    if (ingestFiles.length === 0) { setUploadError("Add at least one 835 file."); return; }
+    if (ingestFiles.length > 20) { setUploadError("Maximum 20 files per upload."); return; }
+
+    setUploading(true); setUploadError("");
+    try {
+      const fd = new FormData();
+      fd.append("practice_id", ingestPracticeId);
+      ingestFiles.forEach(f => fd.append("files", f));
+
+      const res = await fetch(`${API}/api/billing/ingest/upload`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: fd,
+      });
+      const data = await res.json();
+      if (!res.ok) { setUploadError(data.detail || "Upload failed."); return; }
+
+      setIngestFiles([]);
+
+      // Auto-process all queued jobs
+      await fetch(`${API}/api/billing/ingest/process-all`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      fetchJobs();
+    } catch { setUploadError("Upload failed."); }
+    finally { setUploading(false); }
+  };
+
+  const handleRowClick = async (job) => {
+    if (job.status !== "complete") return;
+    if (expandedJobId === job.id) { setExpandedJobId(null); setExpandedJobDetail(null); return; }
+    setExpandedJobId(job.id);
+    try {
+      const res = await fetch(`${API}/api/billing/ingest/jobs/${job.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setExpandedJobDetail(data);
+      }
+    } catch { /* ignore */ }
+  };
+
+  const statusBadge = (status) => {
+    const map = {
+      queued: { bg: "rgba(148,163,184,0.15)", color: "#94a3b8" },
+      processing: { bg: "rgba(59,130,246,0.15)", color: "#60a5fa" },
+      complete: { bg: "rgba(13,148,136,0.15)", color: "#5eead4" },
+      error: { bg: "rgba(239,68,68,0.1)", color: "#fca5a5" },
+    };
+    const s = map[status] || map.queued;
+    return (
+      <span style={{
+        display: "inline-block", padding: "2px 10px", borderRadius: 12,
+        fontSize: 12, fontWeight: 600, textTransform: "uppercase",
+        background: s.bg, color: s.color,
+      }}>
+        {status}
+      </span>
+    );
+  };
+
+  return (
+    <div>
+      <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 24px" }}>835 Ingestion</h2>
+
+      {/* Upload panel */}
+      <div style={{
+        background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
+        borderRadius: 12, padding: 24, marginBottom: 24,
+      }}>
+        <div style={{ display: "flex", gap: 16, marginBottom: 16, flexWrap: "wrap", alignItems: "flex-end" }}>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <label style={{ display: "block", fontSize: 14, fontWeight: 500, color: "#cbd5e1", marginBottom: 6 }}>Practice</label>
+            <select value={ingestPracticeId} onChange={(e) => setIngestPracticeId(e.target.value)}
+              style={{
+                width: "100%", padding: "10px 12px", borderRadius: 8,
+                border: "1px solid rgba(255,255,255,0.12)", fontSize: 14,
+                background: "rgba(255,255,255,0.06)", color: "#f1f5f9",
+                appearance: "auto", boxSizing: "border-box",
+              }}>
+              <option value="">Select practice...</option>
+              {activePractices.map(p => (
+                <option key={p.practice_id} value={p.practice_id}>{p.practice_name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Drop zone */}
+        <div
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleDrop}
+          onClick={() => fileInputRef.current?.click()}
+          style={{
+            border: "2px dashed rgba(255,255,255,0.12)", borderRadius: 12,
+            padding: 32, textAlign: "center", cursor: "pointer",
+            background: "rgba(255,255,255,0.02)", marginBottom: 16,
+            transition: "border-color 0.2s",
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(13,148,136,0.4)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; }}
+        >
+          <input ref={fileInputRef} type="file" multiple accept=".835,.txt,.edi"
+            onChange={handleFileSelect} style={{ display: "none" }} />
+          <p style={{ color: "#94a3b8", fontSize: 14, margin: 0 }}>
+            Drop .835 / .edi / .txt files here, or click to browse
+          </p>
+          <p style={{ color: "#64748b", fontSize: 12, margin: "8px 0 0" }}>Maximum 20 files per upload</p>
+        </div>
+
+        {/* File list */}
+        {ingestFiles.length > 0 && (
+          <div style={{ marginBottom: 16 }}>
+            {ingestFiles.map((f, i) => (
+              <div key={i} style={{
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+                padding: "6px 12px", background: "rgba(255,255,255,0.03)",
+                borderRadius: 6, marginBottom: 4, fontSize: 13, color: "#cbd5e1",
+              }}>
+                <span>{f.name}</span>
+                <button onClick={() => setIngestFiles(prev => prev.filter((_, idx) => idx !== i))}
+                  style={{ color: "#f87171", background: "none", border: "none", cursor: "pointer", fontSize: 12 }}>
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          <button onClick={handleUpload} disabled={uploading || ingestFiles.length === 0}
+            style={{
+              padding: "10px 20px", borderRadius: 8, border: "none", cursor: "pointer",
+              background: uploading ? "#334155" : "linear-gradient(135deg, #0d9488, #14b8a6)",
+              color: "#fff", fontWeight: 600, fontSize: 14,
+              opacity: (uploading || ingestFiles.length === 0) ? 0.6 : 1,
+            }}>
+            {uploading ? "Uploading..." : `Upload & Queue (${ingestFiles.length})`}
+          </button>
+          {uploadError && <span style={{ color: "#fca5a5", fontSize: 13 }}>{uploadError}</span>}
+        </div>
+      </div>
+
+      {/* Jobs table */}
+      <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 16px" }}>Job Queue</h3>
+      {jobs.length === 0 ? (
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 48, textAlign: "center",
+        }}>
+          <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>No ingestion jobs yet. Upload 835 files above.</p>
+        </div>
+      ) : (
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: 12, overflow: "hidden",
+        }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <th style={styles.th}>Filename</th>
+                <th style={styles.th}>Practice</th>
+                <th style={styles.th}>Status</th>
+                <th style={styles.th}>Lines</th>
+                <th style={styles.th}>Denial Rate</th>
+                <th style={styles.th}>Total Billed</th>
+                <th style={styles.th}>Uploaded</th>
+              </tr>
+            </thead>
+            <tbody>
+              {jobs.map((j) => (
+                <React.Fragment key={j.id}>
+                  <tr
+                    onClick={() => handleRowClick(j)}
+                    style={{
+                      borderBottom: "1px solid rgba(255,255,255,0.04)",
+                      cursor: j.status === "complete" ? "pointer" : "default",
+                      background: expandedJobId === j.id ? "rgba(13,148,136,0.05)" : "transparent",
+                    }}
+                  >
+                    <td style={styles.td}>{j.filename}</td>
+                    <td style={{ ...styles.td, color: "#94a3b8" }}>{j.practice_name}</td>
+                    <td style={styles.td}>{statusBadge(j.status)}</td>
+                    <td style={{ ...styles.td, color: "#94a3b8" }}>{j.line_count ?? "—"}</td>
+                    <td style={{ ...styles.td, color: j.denial_rate > 10 ? "#fca5a5" : "#94a3b8" }}>
+                      {j.denial_rate != null ? `${j.denial_rate}%` : "—"}
+                    </td>
+                    <td style={{ ...styles.td, color: "#94a3b8" }}>
+                      {j.total_billed != null ? `$${Number(j.total_billed).toLocaleString()}` : "—"}
+                    </td>
+                    <td style={{ ...styles.td, color: "#64748b", fontSize: 13 }}>
+                      {j.created_at ? new Date(j.created_at).toLocaleString() : "—"}
+                    </td>
+                  </tr>
+                  {expandedJobId === j.id && expandedJobDetail?.result_json && (
+                    <tr>
+                      <td colSpan={7} style={{ padding: 0 }}>
+                        <JobResultSummary result={expandedJobDetail.result_json} />
+                      </td>
+                    </tr>
+                  )}
+                  {expandedJobId === j.id && j.status === "error" && (
+                    <tr>
+                      <td colSpan={7} style={{ padding: "12px 16px", background: "rgba(239,68,68,0.05)" }}>
+                        <p style={{ color: "#fca5a5", fontSize: 13, margin: 0 }}>Error: {j.error_message}</p>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// --- Job Result Summary (inline) ---
+function JobResultSummary({ result }) {
+  if (!result) return null;
+  return (
+    <div style={{
+      padding: "16px 24px", background: "rgba(13,148,136,0.04)",
+      borderTop: "1px solid rgba(13,148,136,0.1)",
+    }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 16, marginBottom: 12 }}>
+        <div>
+          <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Payer</div>
+          <div style={{ fontSize: 14, color: "#f1f5f9", fontWeight: 500 }}>{result.payer_name || "—"}</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Claims</div>
+          <div style={{ fontSize: 14, color: "#f1f5f9", fontWeight: 500 }}>{result.claim_count ?? "—"}</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Lines</div>
+          <div style={{ fontSize: 14, color: "#f1f5f9", fontWeight: 500 }}>{result.line_count ?? "—"}</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Total Billed</div>
+          <div style={{ fontSize: 14, color: "#f1f5f9", fontWeight: 500 }}>
+            {result.total_billed != null ? `$${Number(result.total_billed).toLocaleString()}` : "—"}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Total Paid</div>
+          <div style={{ fontSize: 14, color: "#f1f5f9", fontWeight: 500 }}>
+            {result.total_paid != null ? `$${Number(result.total_paid).toLocaleString()}` : "—"}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Denial Rate</div>
+          <div style={{ fontSize: 14, color: result.denial_rate > 10 ? "#fca5a5" : "#5eead4", fontWeight: 500 }}>
+            {result.denial_rate != null ? `${result.denial_rate}%` : "—"}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Denied Lines</div>
+          <div style={{ fontSize: 14, color: "#f1f5f9", fontWeight: 500 }}>{result.denied_lines ?? "—"}</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>Production Date</div>
+          <div style={{ fontSize: 14, color: "#f1f5f9", fontWeight: 500 }}>{result.production_date || "—"}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 // --- Settings Panel ---
 function SettingsPanel({

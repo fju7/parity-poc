@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime, timezone, timedelta
-from typing import Optional
+from typing import List, Optional
 
-from fastapi import APIRouter, HTTPException, Header, Request
+from fastapi import APIRouter, File, Form, HTTPException, Header, Request, UploadFile
 from pydantic import BaseModel
 
 from routers.auth import get_current_user, _generate_otp, _send_otp_email, OTP_EXPIRY_MINUTES, SESSION_EXPIRY_DAYS
@@ -654,6 +654,258 @@ async def update_billing_settings(req: SettingsUpdateRequest, authorization: str
         }).eq("company_id", user["company_id"]).eq("email", user["email"]).execute()
 
     return {"updated": True}
+
+
+# ===========================================================================
+# 835 Ingestion endpoints
+# ===========================================================================
+
+
+# ---------------------------------------------------------------------------
+# POST /api/billing/ingest/upload — upload 835 files and queue jobs
+# ---------------------------------------------------------------------------
+
+@router.post("/ingest/upload")
+async def ingest_upload(
+    practice_id: str = Form(...),
+    files: List[UploadFile] = File(...),
+    authorization: str = Header(None),
+):
+    user, sb = _require_billing(authorization)
+    bc, bc_role = _get_billing_company(user, sb)
+
+    if len(files) > 20:
+        raise HTTPException(status_code=400, detail="Maximum 20 files per upload.")
+
+    # Validate practice belongs to this billing company
+    link = sb.table("billing_company_practices").select("id").eq(
+        "billing_company_id", bc["id"]
+    ).eq("practice_id", practice_id).eq("active", True).limit(1).execute()
+
+    if not link.data:
+        raise HTTPException(status_code=403, detail="Practice not found or not linked to your company.")
+
+    job_ids = []
+    for f in files:
+        content_bytes = await f.read()
+        try:
+            text = content_bytes.decode("utf-8")
+        except UnicodeDecodeError:
+            text = content_bytes.decode("latin-1")
+
+        filename = f.filename or "unknown.835"
+
+        row = sb.table("billing_835_jobs").insert({
+            "billing_company_id": bc["id"],
+            "practice_id": practice_id,
+            "filename": filename,
+            "status": "queued",
+            "file_content": text,
+            "uploaded_by_email": user["email"],
+        }).execute()
+
+        job_ids.append(row.data[0]["id"])
+
+    return {"queued": len(job_ids), "job_ids": job_ids}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/billing/ingest/process/{job_id} — process a single queued job
+# ---------------------------------------------------------------------------
+
+@router.post("/ingest/process/{job_id}")
+async def ingest_process_one(job_id: str, authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, _ = _get_billing_company(user, sb)
+
+    job = sb.table("billing_835_jobs").select("*").eq("id", job_id).eq(
+        "billing_company_id", bc["id"]
+    ).limit(1).execute()
+
+    if not job.data:
+        raise HTTPException(status_code=404, detail="Job not found.")
+
+    j = job.data[0]
+
+    if j["status"] not in ("queued", "error"):
+        return {"job_id": job_id, "status": j["status"], "message": "Already processed."}
+
+    return _process_job(j, sb)
+
+
+def _process_job(j: dict, sb) -> dict:
+    """Process a single 835 job. Never raises — returns status dict."""
+    from utils.parse_835 import parse_835
+
+    job_id = j["id"]
+    now = datetime.now(timezone.utc).isoformat()
+
+    # Set processing
+    sb.table("billing_835_jobs").update({
+        "status": "processing", "updated_at": now,
+    }).eq("id", job_id).execute()
+
+    try:
+        text = j.get("file_content", "")
+        if not text or not text.strip():
+            raise ValueError("File content is empty")
+
+        if "ISA" not in text[:500]:
+            raise ValueError("Not a valid 835/EDI file (no ISA segment)")
+
+        parsed = parse_835(text)
+
+        line_items = parsed.get("line_items", [])
+        line_count = len(line_items)
+        total_billed = float(parsed.get("total_billed", 0) or 0)
+        total_paid = float(parsed.get("total_paid", 0) or 0)
+
+        # Compute denial rate
+        denied = sum(
+            1 for li in line_items
+            if (li.get("paid_amount") or 0) == 0
+            and any(
+                a.get("group_code") == "CO"
+                for a in (li.get("adjustments") or [])
+                if isinstance(a, dict)
+            )
+        )
+        denial_rate = round((denied / line_count * 100), 2) if line_count > 0 else 0.0
+
+        # Build result_json
+        result = {
+            "payer_name": parsed.get("payer_name", ""),
+            "payee_name": parsed.get("payee_name", ""),
+            "production_date": parsed.get("production_date", ""),
+            "total_billed": total_billed,
+            "total_paid": total_paid,
+            "claim_count": parsed.get("claim_count", 0),
+            "line_count": line_count,
+            "denial_rate": denial_rate,
+            "denied_lines": denied,
+            "claims": parsed.get("claims", []),
+            "line_items": line_items,
+        }
+
+        # Insert provider_analyses row with billing_company_id for BL-4 rollup
+        analysis_id = None
+        try:
+            ins = sb.table("provider_analyses").insert({
+                "company_id": j["practice_id"],
+                "billing_company_id": j["billing_company_id"],
+                "payer_name": parsed.get("payer_name", ""),
+                "production_date": parsed.get("production_date", ""),
+                "total_billed": total_billed,
+                "total_paid": total_paid,
+                "underpayment": 0,
+                "adherence_rate": 100.0 - denial_rate,
+                "result_json": result,
+            }).execute()
+            if ins.data:
+                analysis_id = ins.data[0].get("id")
+        except Exception as exc:
+            print(f"[billing-ingest] provider_analyses insert failed (non-fatal): {exc}")
+
+        if analysis_id:
+            result["analysis_id"] = analysis_id
+
+        # Update job as complete
+        sb.table("billing_835_jobs").update({
+            "status": "complete",
+            "result_json": result,
+            "line_count": line_count,
+            "denial_rate": denial_rate,
+            "total_billed": total_billed,
+            "file_content": None,  # Clear raw content to save space
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }).eq("id", job_id).execute()
+
+        return {"job_id": job_id, "status": "complete", "line_count": line_count,
+                "denial_rate": denial_rate, "total_billed": total_billed}
+
+    except Exception as exc:
+        sb.table("billing_835_jobs").update({
+            "status": "error",
+            "error_message": str(exc)[:500],
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }).eq("id", job_id).execute()
+
+        return {"job_id": job_id, "status": "error", "error_message": str(exc)[:500]}
+
+
+# ---------------------------------------------------------------------------
+# POST /api/billing/ingest/process-all — process all queued jobs
+# ---------------------------------------------------------------------------
+
+@router.post("/ingest/process-all")
+async def ingest_process_all(authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, _ = _get_billing_company(user, sb)
+
+    queued = sb.table("billing_835_jobs").select("*").eq(
+        "billing_company_id", bc["id"]
+    ).eq("status", "queued").order("created_at").execute()
+
+    processed = 0
+    errors = 0
+
+    for j in (queued.data or []):
+        result = _process_job(j, sb)
+        if result.get("status") == "complete":
+            processed += 1
+        else:
+            errors += 1
+
+    return {"processed": processed, "errors": errors}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/ingest/jobs — list all jobs for this billing company
+# ---------------------------------------------------------------------------
+
+@router.get("/ingest/jobs")
+async def list_ingest_jobs(authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, _ = _get_billing_company(user, sb)
+
+    jobs = sb.table("billing_835_jobs").select(
+        "id, practice_id, filename, status, line_count, denial_rate, "
+        "total_billed, error_message, uploaded_by_email, created_at, updated_at, "
+        "companies(name)"
+    ).eq("billing_company_id", bc["id"]).order("created_at", desc=True).execute()
+
+    result = []
+    for j in (jobs.data or []):
+        practice = j.pop("companies", None) or {}
+        result.append({
+            **j,
+            "practice_name": practice.get("name", "Unknown"),
+        })
+
+    return {"jobs": result}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/ingest/jobs/{job_id} — single job with result_json
+# ---------------------------------------------------------------------------
+
+@router.get("/ingest/jobs/{job_id}")
+async def get_ingest_job(job_id: str, authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, _ = _get_billing_company(user, sb)
+
+    job = sb.table("billing_835_jobs").select(
+        "*, companies(name)"
+    ).eq("id", job_id).eq("billing_company_id", bc["id"]).limit(1).execute()
+
+    if not job.data:
+        raise HTTPException(status_code=404, detail="Job not found.")
+
+    j = job.data[0]
+    practice = j.pop("companies", None) or {}
+    j["practice_name"] = practice.get("name", "Unknown")
+
+    return j
 
 
 # ---------------------------------------------------------------------------

@@ -1,8 +1,12 @@
--- Migration 057: Add email/full_name/status columns to billing_company_users
+-- Migration 057: Billing schema updates for BL-2
 -- Session BL-2b
--- The existing user_id FK references auth.users which we don't use.
--- We use email-based auth like all other products.
 
+-- 1. Allow 'billing' in companies.type CHECK constraint
+ALTER TABLE companies DROP CONSTRAINT companies_type_check;
+ALTER TABLE companies ADD CONSTRAINT companies_type_check
+  CHECK (type IN ('employer', 'broker', 'provider', 'health', 'signal', 'billing'));
+
+-- 2. billing_company_users: drop auth.users FK requirement, add email-based columns
 ALTER TABLE billing_company_users ALTER COLUMN user_id DROP NOT NULL;
 
 ALTER TABLE billing_company_users
