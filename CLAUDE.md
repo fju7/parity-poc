@@ -664,9 +664,48 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
 ### Supabase Storage Buckets
 - provider-reports: private bucket for cached provider PDF reports (10MB limit, PDF only)
 
+## Session BL-2 — Parity Billing: Onboarding & Practice Management (Complete)
+
+### Backend (billing.py)
+- POST /api/billing/send-otp — OTP via existing otp_codes infrastructure
+- POST /api/billing/verify-otp — verify OTP, create session, return billing company
+- POST /api/billing/register — create billing_companies + billing_company_users
+  (admin) + billing_company_subscriptions (trial, 30 days, 10 practices). Send
+  welcome email. Also creates companies (type='billing') + company_users for
+  standard auth flow compatibility.
+- GET /api/billing/me — returns user + billing company + subscription
+- GET /api/billing/practices — list active practices for billing company
+- POST /api/billing/practices — admin only, creates/links practice. Enforces
+  practice_count_limit. Creates companies record (account_type='practice') if
+  needed, or links existing.
+- PATCH /api/billing/practices/{practice_id} — admin only, soft-deactivate
+- POST /api/billing/users/invite — admin only, creates billing_company_users +
+  company_users records, sends invite email
+- GET /api/billing/users — admin only, list billing company users
+
+### Auth changes
+- auth.py: added "billing" to PRODUCT_NAMES, allowed products, and company types
+- main.py: added billing.civicscale.ai + staging-billing.civicscale.ai to CORS
+
+### Frontend
+- BillingApp.jsx: OTP sign-in flow, registration form (company name + email),
+  dashboard with header (product name + company name + sign out), 5-tab nav
+  (Practices active, Portfolio Dashboard/Reports/Team/Settings as placeholders),
+  practices table with Add Practice form, deactivate button
+- main.jsx: isBillingSubdomain routing for billing.civicscale.ai
+- vercel.json: SPA rewrites for billing/staging-billing subdomains
+
+### Migration 057
+- billing_company_users: make user_id nullable, add email/full_name/status columns
+
+### Fred Action Items
+- Run migration 057 in Supabase SQL Editor
+- Add billing.civicscale.ai as domain in Vercel project settings
+- Redeploy backend on Render to pick up billing endpoints + CORS changes
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Next migration number: 057
+Next migration number: 058
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
