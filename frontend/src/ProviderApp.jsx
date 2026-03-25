@@ -104,6 +104,13 @@ function ProviderAppInner() {
   const [appealsLoading, setAppealsLoading] = useState(false);
   const [outcomeModal, setOutcomeModal] = useState(null);
 
+  // ── Pre-Submission Review state ──
+  const [presubFile, setPresubFile] = useState(null);
+  const [presubLoading, setPresubLoading] = useState(false);
+  const [presubError, setPresubError] = useState("");
+  const [presubResult, setPresubResult] = useState(null);
+  const [presubExpandedClaim, setPresubExpandedClaim] = useState(null);
+
   // ── Trial banner state ──
   const [trialStatus, setTrialStatus] = useState(null); // { status, days_remaining, trial_ends_at, subscription_active }
   const [trialLoading, setTrialLoading] = useState(true);
@@ -1224,7 +1231,7 @@ function ProviderAppInner() {
 
         {/* Tab buttons */}
         <div data-print-hide style={{ display: "flex", gap: 8, marginBottom: 32, flexWrap: "wrap" }}>
-          {["home", "contract", "coding", "trends", "appeals"].map(tab => (
+          {["home", "contract", "coding", "trends", "appeals", "presubmission"].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -1237,7 +1244,7 @@ function ProviderAppInner() {
                 ),
               }}
             >
-              {tab === "home" ? "Dashboard" : tab === "contract" ? "Contract Integrity" : tab === "coding" ? "Coding Analysis" : tab === "trends" ? "Trends" : "Appeals"}
+              {tab === "home" ? "Dashboard" : tab === "contract" ? "Contract Integrity" : tab === "coding" ? "Coding Analysis" : tab === "trends" ? "Trends" : tab === "appeals" ? "Appeals" : "Pre-Submission Review"}
             </button>
           ))}
         </div>
@@ -1387,6 +1394,47 @@ function ProviderAppInner() {
             }}
             onOpenOutcome={(data) => setOutcomeModal(data)}
             onCloseOutcome={() => setOutcomeModal(null)}
+          />
+        ) : activeTab === "presubmission" ? (
+          <PreSubmissionTab
+            file={presubFile}
+            loading={presubLoading}
+            error={presubError}
+            result={presubResult}
+            expandedClaim={presubExpandedClaim}
+            onFileChange={(f) => { setPresubFile(f); setPresubError(""); }}
+            onAnalyze={async () => {
+              if (!presubFile) return;
+              setPresubLoading(true);
+              setPresubError("");
+              setPresubResult(null);
+              setPresubExpandedClaim(null);
+              try {
+                const fd = new FormData();
+                fd.append("file", presubFile);
+                const res = await fetch(`${API_BASE}/api/claim-review/analyze-837`, {
+                  method: "POST",
+                  headers: authHeaders,
+                  body: fd,
+                });
+                if (!res.ok) {
+                  const err = await res.json().catch(() => ({}));
+                  throw new Error(err.detail || `Analysis failed (${res.status})`);
+                }
+                setPresubResult(await res.json());
+              } catch (err) {
+                setPresubError(err.message);
+              } finally {
+                setPresubLoading(false);
+              }
+            }}
+            onReset={() => {
+              setPresubFile(null);
+              setPresubResult(null);
+              setPresubError("");
+              setPresubExpandedClaim(null);
+            }}
+            onToggleClaim={(id) => setPresubExpandedClaim(presubExpandedClaim === id ? null : id)}
           />
         ) : (
           <div>
@@ -4175,6 +4223,323 @@ function StepIndicator({ current }) {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Pre-Submission Review Tab
+// ---------------------------------------------------------------------------
+function PreSubmissionTab({ file, loading, error, result, expandedClaim, onFileChange, onAnalyze, onReset, onToggleClaim }) {
+  const fileInputRef = React.useRef(null);
+
+  // Build per-claim risk map from risk_flags
+  const claimRiskMap = {};
+  if (result?.risk_flags) {
+    for (const flag of result.risk_flags) {
+      const cid = flag.claim_id;
+      if (!claimRiskMap[cid]) claimRiskMap[cid] = [];
+      claimRiskMap[cid].push(flag);
+    }
+  }
+
+  const getClaimRiskLevel = (claimId) => {
+    const flags = claimRiskMap[claimId] || [];
+    if (flags.some(f => f.risk_level === "HIGH")) return "HIGH";
+    if (flags.some(f => f.risk_level === "MEDIUM")) return "MEDIUM";
+    return "CLEAN";
+  };
+
+  const riskBadge = (level) => {
+    const styles = {
+      HIGH: { bg: "#fee2e2", color: "#dc2626", border: "#fca5a5", label: "HIGH RISK" },
+      MEDIUM: { bg: "#fffbeb", color: "#d97706", border: "#fde68a", label: "MEDIUM RISK" },
+      CLEAN: { bg: "#dcfce7", color: "#16a34a", border: "#86efac", label: "CLEAN" },
+    };
+    const s = styles[level] || styles.CLEAN;
+    return (
+      <span style={{
+        display: "inline-block", padding: "2px 10px", borderRadius: 12, fontSize: 11, fontWeight: 700,
+        background: s.bg, color: s.color, border: `1px solid ${s.border}`,
+      }}>
+        {s.label}
+      </span>
+    );
+  };
+
+  const lineHasFlag = (claimId, lineNum) => {
+    const flags = claimRiskMap[claimId] || [];
+    return flags.filter(f => f.line_number === lineNum);
+  };
+
+  // Group risk flags by claim_id for the flags panel
+  const flagGroups = {};
+  if (result?.risk_flags) {
+    for (const flag of result.risk_flags) {
+      if (!flagGroups[flag.claim_id]) flagGroups[flag.claim_id] = [];
+      flagGroups[flag.claim_id].push(flag);
+    }
+  }
+
+  // Find patient name for a claim_id
+  const getPatientName = (claimId) => {
+    const claim = result?.claims?.find(c => c.claim_id === claimId);
+    return claim?.patient_name || "Unknown";
+  };
+
+  return (
+    <div>
+      <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--cs-navy)", margin: "0 0 8px" }}>
+        Pre-Submission Review
+      </h3>
+      <p style={{ color: "var(--cs-slate)", fontSize: 14, marginTop: 0, marginBottom: 24, lineHeight: 1.6 }}>
+        Upload an 837P claim file before submission to identify high-risk lines, missing modifiers, duplicate charges, and other issues that commonly trigger denials.
+      </p>
+
+      {/* Upload panel — shown when no results */}
+      {!result && (
+        <div style={{
+          border: "2px dashed var(--cs-border)", borderRadius: 12,
+          padding: 40, textAlign: "center", marginBottom: 24,
+          background: "var(--cs-mist)", cursor: "pointer",
+        }}
+          onClick={() => fileInputRef.current?.click()}
+          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onDrop={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const f = e.dataTransfer.files?.[0];
+            if (f) onFileChange(f);
+          }}
+        >
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".837,.txt,.edi"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) onFileChange(f);
+            }}
+          />
+          <div style={{ fontSize: 32, marginBottom: 12 }}>&#128203;</div>
+          <p style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", margin: "0 0 8px" }}>
+            {file ? file.name : "Drop your 837P file here or click to browse"}
+          </p>
+          <p style={{ fontSize: 13, color: "var(--cs-slate)", margin: 0 }}>
+            Accepts .837, .txt, and .edi files
+          </p>
+        </div>
+      )}
+
+      {/* Analyze button + error */}
+      {!result && (
+        <div style={{ marginBottom: 24 }}>
+          <button
+            onClick={onAnalyze}
+            disabled={!file || loading}
+            style={{
+              background: !file || loading ? "#94a3b8" : "#0d9488",
+              color: "#fff", border: "none", borderRadius: 8,
+              padding: "12px 32px", fontSize: 15, fontWeight: 700,
+              cursor: !file || loading ? "not-allowed" : "pointer",
+              display: "flex", alignItems: "center", gap: 8,
+            }}
+          >
+            {loading && <Spinner />}
+            {loading ? "Analyzing..." : "Analyze Claims"}
+          </button>
+          {error && (
+            <div style={{
+              marginTop: 12, padding: 12, borderRadius: 8,
+              background: "#fee2e2", color: "#dc2626", fontSize: 13, fontWeight: 500,
+            }}>
+              {error}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Results */}
+      {result && (
+        <>
+          {/* KPI Tiles */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 24 }}>
+            <SummaryCard label="Total Claims" value={result.summary?.total_claims || 0} />
+            <SummaryCard
+              label="Total Billed"
+              value={`$${(result.summary?.total_billed || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+            />
+            <SummaryCard
+              label="High Risk"
+              value={result.summary?.high_risk_count || 0}
+              color={result.summary?.high_risk_count > 0 ? "#dc2626" : "var(--cs-navy)"}
+            />
+            <SummaryCard
+              label="Clean"
+              value={result.summary?.clean_count || 0}
+              color="#16a34a"
+            />
+          </div>
+
+          {/* Claims table */}
+          <div style={{ marginBottom: 24 }}>
+            <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 12 }}>
+              Claims ({result.claims?.length || 0})
+            </h4>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                <thead>
+                  <tr>
+                    <th style={thStyle}>Claim ID</th>
+                    <th style={thStyle}>Patient</th>
+                    <th style={thStyle}>Date of Service</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Total Billed</th>
+                    <th style={{ ...thStyle, textAlign: "right" }}>Lines</th>
+                    <th style={thStyle}>Risk Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(result.claims || []).map((claim) => {
+                    const risk = getClaimRiskLevel(claim.claim_id);
+                    const isExpanded = expandedClaim === claim.claim_id;
+                    const claimFlags = claimRiskMap[claim.claim_id] || [];
+                    return (
+                      <Fragment key={claim.claim_id}>
+                        <tr
+                          onClick={() => onToggleClaim(claim.claim_id)}
+                          style={{
+                            cursor: "pointer",
+                            background: isExpanded ? "var(--cs-mist)" : "transparent",
+                          }}
+                        >
+                          <td style={tdStyle}>
+                            <span style={{ marginRight: 6, fontSize: 10, color: "var(--cs-slate)" }}>{isExpanded ? "\u25BC" : "\u25B6"}</span>
+                            {claim.claim_id}
+                          </td>
+                          <td style={tdStyle}>{claim.patient_name || "\u2014"}</td>
+                          <td style={tdStyle}>{claim.date_of_service || "\u2014"}</td>
+                          <td style={{ ...tdStyle, textAlign: "right" }}>${(claim.total_billed || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          <td style={{ ...tdStyle, textAlign: "right" }}>{claim.service_lines?.length || 0}</td>
+                          <td style={tdStyle}>{riskBadge(risk)}</td>
+                        </tr>
+                        {isExpanded && (
+                          <tr>
+                            <td colSpan={6} style={{ padding: "0 0 0 32px", border: "none" }}>
+                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, marginBottom: 12, marginTop: 4 }}>
+                                <thead>
+                                  <tr>
+                                    <th style={{ ...thStyle, fontSize: 11 }}>Line #</th>
+                                    <th style={{ ...thStyle, fontSize: 11 }}>Procedure</th>
+                                    <th style={{ ...thStyle, fontSize: 11 }}>Modifiers</th>
+                                    <th style={{ ...thStyle, fontSize: 11, textAlign: "right" }}>Billed</th>
+                                    <th style={{ ...thStyle, fontSize: 11, textAlign: "right" }}>Units</th>
+                                    <th style={{ ...thStyle, fontSize: 11 }}>Date of Service</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {(claim.service_lines || []).map((line) => {
+                                    const lineFlags = lineHasFlag(claim.claim_id, line.line_number);
+                                    const highFlag = lineFlags.some(f => f.risk_level === "HIGH");
+                                    const medFlag = lineFlags.some(f => f.risk_level === "MEDIUM");
+                                    const rowBg = highFlag ? "#fee2e2" : medFlag ? "#fffbeb" : "transparent";
+                                    return (
+                                      <tr key={line.line_number} style={{ background: rowBg }}>
+                                        <td style={tdStyle}>{line.line_number}</td>
+                                        <td style={tdStyle}>{line.procedure_code || "\u2014"}</td>
+                                        <td style={tdStyle}>{line.modifiers?.length > 0 ? line.modifiers.join(", ") : "\u2014"}</td>
+                                        <td style={{ ...tdStyle, textAlign: "right" }}>${(line.billed_amount || 0).toFixed(2)}</td>
+                                        <td style={{ ...tdStyle, textAlign: "right" }}>{line.units || 1}</td>
+                                        <td style={tdStyle}>{line.date_of_service || "\u2014"}</td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                              {/* Inline flags for this claim */}
+                              {claimFlags.length > 0 && (
+                                <div style={{ marginBottom: 12 }}>
+                                  {claimFlags.map((f, i) => (
+                                    <div key={i} style={{
+                                      display: "flex", alignItems: "flex-start", gap: 8,
+                                      padding: "6px 0", borderBottom: i < claimFlags.length - 1 ? "1px solid var(--cs-border)" : "none",
+                                    }}>
+                                      {riskBadge(f.risk_level)}
+                                      <div>
+                                        <span style={{ fontWeight: 600, fontSize: 12 }}>{f.rule_name}</span>
+                                        <span style={{ fontSize: 12, color: "var(--cs-slate)", marginLeft: 8 }}>{f.description}</span>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                        )}
+                      </Fragment>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Risk Flags Panel */}
+          <div style={{ marginBottom: 24 }}>
+            <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--cs-navy)", marginBottom: 12 }}>
+              Pre-Submission Risk Flags
+            </h4>
+            {result.risk_flags?.length === 0 ? (
+              <div style={{
+                padding: 20, borderRadius: 12,
+                background: "#dcfce7", border: "1px solid #86efac",
+                color: "#16a34a", fontSize: 14, fontWeight: 600,
+              }}>
+                No risk flags identified. All claims appear clean.
+              </div>
+            ) : (
+              <div style={{ border: "1px solid var(--cs-border)", borderRadius: 12, overflow: "hidden" }}>
+                {Object.entries(flagGroups).map(([claimId, flags], gi) => (
+                  <div key={claimId}>
+                    <div style={{
+                      padding: "10px 16px", fontSize: 13, fontWeight: 700,
+                      background: "var(--cs-mist)", color: "var(--cs-navy)",
+                      borderBottom: "1px solid var(--cs-border)",
+                      borderTop: gi > 0 ? "1px solid var(--cs-border)" : "none",
+                    }}>
+                      Claim {claimId} — {getPatientName(claimId)}
+                    </div>
+                    {flags.map((flag, fi) => (
+                      <div key={fi} style={{
+                        display: "flex", alignItems: "flex-start", gap: 10,
+                        padding: "10px 16px",
+                        borderBottom: fi < flags.length - 1 ? "1px solid var(--cs-border)" : "none",
+                      }}>
+                        {riskBadge(flag.risk_level)}
+                        <div>
+                          <div style={{ fontWeight: 600, fontSize: 13 }}>{flag.rule_name}</div>
+                          <div style={{ fontSize: 12, color: "var(--cs-slate)", marginTop: 2 }}>{flag.description}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Reset button */}
+          <button
+            onClick={onReset}
+            style={{
+              background: "transparent", color: "var(--cs-navy)", border: "1px solid var(--cs-border)",
+              borderRadius: 8, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer",
+            }}
+          >
+            Reset &amp; Upload New File
+          </button>
+        </>
+      )}
     </div>
   );
 }
