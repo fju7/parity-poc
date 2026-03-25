@@ -47,6 +47,7 @@ import CAABrokerGuide from './components/CAABrokerGuide.jsx'
 import RenewalPrepReport from './components/RenewalPrepReport.jsx'
 import BrokerDemoPage from './components/BrokerDemoPage.jsx'
 import EmployerSharedReport from './components/EmployerSharedReport.jsx'
+import BillingApp from './BillingApp.jsx'
 
 // Build version — injected by Vite at build time
 window.__PARITY_VERSION__ = {
@@ -73,6 +74,7 @@ const isProviderSubdomain = hostname === 'provider.civicscale.ai' || hostname ==
 const isBrokerSubdomain = hostname === 'broker.civicscale.ai' || hostname === 'staging-broker.civicscale.ai'
 const isEmployerSubdomain = hostname === 'employer.civicscale.ai' || hostname === 'staging-employer.civicscale.ai'
 const isSignalSubdomain = hostname === 'signal.civicscale.ai' || hostname === 'staging-signal.civicscale.ai'
+const isBillingSubdomain = hostname === 'billing.civicscale.ai' || hostname === 'staging-billing.civicscale.ai'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -150,6 +152,14 @@ createRoot(document.getElementById('root')).render(
             <Route path="/privacy" element={<PrivacyPage />} />
             {/* Also support old /signal/* paths for backward compat */}
             <Route path="/signal/*" element={<Navigate to="/" replace />} />
+          </>
+        ) : isBillingSubdomain ? (
+          <>
+            <Route path="/" element={<BillingApp />} />
+            <Route path="/login" element={<BillingApp />} />
+            <Route path="/dashboard" element={<BillingApp />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
           </>
         ) : isProviderSubdomain ? (
           <>

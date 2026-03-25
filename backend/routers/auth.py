@@ -45,6 +45,7 @@ PRODUCT_NAMES = {
     "provider": "Parity Provider",
     "health": "Parity Health",
     "signal": "Parity Signal",
+    "billing": "Parity Billing",
 }
 OTP_LENGTH = 8
 
@@ -263,7 +264,7 @@ async def send_otp(req: SendOtpRequest, request: Request):
     if not email and not phone:
         raise HTTPException(status_code=400, detail="Email or phone number required")
 
-    if product not in ("employer", "broker", "provider", "health", "signal"):
+    if product not in ("employer", "broker", "provider", "health", "signal", "billing"):
         raise HTTPException(status_code=400, detail="Invalid product")
 
     code = _generate_otp()
@@ -521,7 +522,7 @@ async def create_company(req: CreateCompanyRequest):
     email = req.email.strip().lower()
     company_type = req.company_type.strip().lower()
 
-    if company_type not in ("employer", "broker", "provider"):
+    if company_type not in ("employer", "broker", "provider", "billing"):
         raise HTTPException(status_code=400, detail="Invalid company type")
 
     # Check if user already has a company of this type

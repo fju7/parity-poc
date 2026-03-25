@@ -53,6 +53,16 @@
       "has": [{ "type": "host", "value": "staging-health.civicscale.ai" }],
       "destination": "/index.html"
     },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "billing.civicscale.ai" }],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "staging-billing.civicscale.ai" }],
+      "destination": "/index.html"
+    },
     { "source": "/parity-health/:path*", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
