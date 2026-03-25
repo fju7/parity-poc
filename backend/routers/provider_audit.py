@@ -963,6 +963,7 @@ async def analyze_contract(req: AnalyzeRequest):
                 "denial_benchmarks": denial_benchmarks,
                 "line_items": enriched_lines,
                 "scorecard": scorecard,
+                "modifier_analysis": modifier_analysis,
             },
         }).execute()
         if insert_result.data:
