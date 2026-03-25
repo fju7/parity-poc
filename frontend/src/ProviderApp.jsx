@@ -604,6 +604,12 @@ function ProviderAppInner() {
         units: item.units || 1,
         adjustments: (item.adjustments || []).map(a => a.code || "").join(", "),
         claim_id: item.claim_id || "",
+        modifiers: item.modifiers || [],
+        date_of_service: item.date_of_service || "",
+        adjudication_date: item.adjudication_date || "",
+        claim_number: item.claim_number || item.claim_id || "",
+        rendering_provider_npi: item.rendering_provider_npi || "",
+        place_of_service: item.place_of_service || "",
       }));
     }
 
@@ -1308,6 +1314,7 @@ function ProviderAppInner() {
             onSelectPayerResult={selectPayerResult}
             onGenerateReport={() => setShowAuditReport(true)}
             onGoToCoding={() => setActiveTab("coding")}
+            onGoToAppeals={() => setActiveTab("appeals")}
           />
           </div>
         ) : activeTab === "trends" ? (
@@ -1554,7 +1561,7 @@ function ContractIntegrityTab({
   onRunAnalysis, onSort, getSortedLines, onReset,
   onSetRatesMethod, onRatesPdfUpload, onRatesImageUpload, onRatesTextExtract, onMedicarePercentage,
   onRemovePayer, onFilePayerAssign, onSelectPayerResult,
-  onGenerateReport, onGoToCoding,
+  onGenerateReport, onGoToCoding, onGoToAppeals,
 }) {
   // ── Loading / analyzing overlays ──
   if (step === "parsing-835") {
@@ -1839,7 +1846,7 @@ function ContractIntegrityTab({
           </div>
         )}
         {denialIntel && !denialIntel.error && (denialIntel.denial_types?.length > 0 || denialIntel.pattern_summary) && (
-          <DenialIntelligenceSection intel={denialIntel} profile={profile} payerName={analysisResults[selectedPayerIdx]?.payer_name || ""} onGoToAppeals={() => setActiveTab("appeals")} />
+          <DenialIntelligenceSection intel={denialIntel} profile={profile} payerName={analysisResults[selectedPayerIdx]?.payer_name || ""} onGoToAppeals={onGoToAppeals} />
         )}
 
         {/* Modifier Analysis Callout */}
