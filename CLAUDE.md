@@ -790,10 +790,46 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
   linked via billing_company_practices
 - Practices without provider_profiles rows simply have no specialty data
 
+## Session BL-6 — Practice Comparison + Analyst Assignment (Complete)
+
+### New file: backend/routers/billing_team.py
+- GET /api/billing/team/analysts — list all billing_company_users with
+  assigned_practices array (joined to analyst_practice_assignments)
+- POST /api/billing/team/assignments — admin only, replaces all practice
+  assignments for an analyst (delete existing, insert new)
+
+### New endpoint in billing_portfolio.py
+- GET /api/billing/portfolio/comparison — compare two practices side-by-side
+  with portfolio average. Returns denial_rate, total_billed, line_count,
+  top_payer, top_denial_reason for each practice + portfolio avg
+
+### Role scoping (billing_portfolio.py)
+- _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb): returns
+  analyst's assigned practice_ids from analyst_practice_assignments,
+  or None for admin (no filter applied)
+- _scoped_analyses_query(): applies practice filter to provider_analyses
+- All 7 existing portfolio endpoints + comparison now respect analyst scoping
+- billing_company_users role values: "admin", "analyst", "viewer"
+
+### Frontend (BillingApp.jsx)
+- Practice Comparison section in Portfolio tab: two practice dropdowns,
+  4-column comparison table (Metric | Practice A | Practice B | Portfolio Avg),
+  delta indicators (green/red arrows vs portfolio average)
+- Team tab: replaces "coming soon" with analyst assignment UI
+  - Admin view: user table, inline multi-select checkboxes for practices,
+    save button with success toast
+  - Analyst view: read-only message ("Contact your administrator...")
+- billingRole state tracked from GET /api/billing/me response
+
+### Migration 059: analyst_practice_assignments table
+- analyst_user_id FK → billing_company_users(id) (not auth.users)
+- UNIQUE(analyst_user_id, practice_id)
+- Index on (analyst_user_id, billing_company_id)
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Migration 057 (billing schema updates) and 058 (billing_835_jobs) pending.
-Next migration number: 059
+Migrations 057, 058, 059 pending.
+Next migration number: 060
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
