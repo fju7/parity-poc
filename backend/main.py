@@ -32,6 +32,7 @@ from routers.signal_intelligence import router as signal_intelligence_router
 from routers.platform_cases import router as platform_cases_router
 from routers.claim_review import router as claim_review_router
 from routers.billing import router as billing_router
+from routers.billing_portfolio import router as billing_portfolio_router
 
 
 @asynccontextmanager
@@ -127,6 +128,7 @@ app.include_router(signal_intelligence_router)
 app.include_router(platform_cases_router)
 app.include_router(claim_review_router)
 app.include_router(billing_router)
+app.include_router(billing_portfolio_router)
 
 
 @app.get("/")

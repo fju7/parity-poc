@@ -5,9 +5,9 @@ import { API_BASE as API } from "./lib/apiBase";
 import "./components/CivicScaleHomepage.css";
 
 const TABS = [
+  { id: "portfolio", label: "Portfolio Dashboard" },
   { id: "practices", label: "Practices" },
   { id: "ingestion", label: "835 Ingestion" },
-  { id: "portfolio", label: "Portfolio Dashboard" },
   { id: "team", label: "Team" },
   { id: "settings", label: "Settings" },
 ];
@@ -17,7 +17,7 @@ export default function BillingApp() {
   const { token, user, company, login, logout: authLogout, isAuthenticated, loading } = useAuth();
 
   // --- All hooks declared at top, before any conditional returns ---
-  const [activeTab, setActiveTab] = useState("practices");
+  const [activeTab, setActiveTab] = useState("portfolio");
   const [billingCompany, setBillingCompany] = useState(null);
   const [subscription, setSubscription] = useState(null);
   const [meLoading, setMeLoading] = useState(false);
@@ -475,7 +475,11 @@ export default function BillingApp() {
       </nav>
 
       {/* Content */}
-      <main style={{ padding: "32px 40px", maxWidth: 1000, margin: "0 auto" }}>
+      <main style={{ padding: "32px 40px", maxWidth: activeTab === "portfolio" ? 1200 : 1000, margin: "0 auto" }}>
+        {activeTab === "portfolio" && (
+          <PortfolioPanel token={token} billingCompany={billingCompany} />
+        )}
+
         {activeTab === "practices" && (
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
@@ -644,6 +648,272 @@ export default function BillingApp() {
     </div>
   );
 }
+
+// --- Portfolio Panel ---
+function PortfolioPanel({ token, billingCompany }) {
+  const [days, setDays] = useState(90);
+  const [summary, setSummary] = useState(null);
+  const [practices, setPractices] = useState([]);
+  const [payers, setPayers] = useState([]);
+  const [denialReasons, setDenialReasons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [practiceSortField, setPracticeSortField] = useState("total_billed");
+  const [practiceSortDir, setPracticeSortDir] = useState("desc");
+
+  const fetchAll = useCallback(async () => {
+    if (!token || !billingCompany) return;
+    setLoading(true);
+    try {
+      const headers = { Authorization: `Bearer ${token}` };
+      const [sumRes, pracRes, payRes, denRes] = await Promise.all([
+        fetch(`${API}/api/billing/portfolio/summary?days=${days}`, { headers }),
+        fetch(`${API}/api/billing/portfolio/practices?days=${days}`, { headers }),
+        fetch(`${API}/api/billing/portfolio/payers?days=${days}`, { headers }),
+        fetch(`${API}/api/billing/portfolio/denial-reasons?days=${days}`, { headers }),
+      ]);
+      if (sumRes.ok) setSummary(await sumRes.json());
+      if (pracRes.ok) { const d = await pracRes.json(); setPractices(d.practices || []); }
+      if (payRes.ok) { const d = await payRes.json(); setPayers(d.payers || []); }
+      if (denRes.ok) { const d = await denRes.json(); setDenialReasons(d.denial_reasons || []); }
+    } catch { /* ignore */ }
+    finally { setLoading(false); }
+  }, [token, billingCompany, days]);
+
+  useEffect(() => { fetchAll(); }, [fetchAll]);
+
+  const sortedPractices = [...practices].sort((a, b) => {
+    const av = a[practiceSortField] ?? 0;
+    const bv = b[practiceSortField] ?? 0;
+    return practiceSortDir === "desc" ? bv - av : av - bv;
+  });
+
+  const handlePracticeSort = (field) => {
+    if (practiceSortField === field) {
+      setPracticeSortDir(d => d === "desc" ? "asc" : "desc");
+    } else {
+      setPracticeSortField(field);
+      setPracticeSortDir("desc");
+    }
+  };
+
+  const sortArrow = (field) => {
+    if (practiceSortField !== field) return "";
+    return practiceSortDir === "desc" ? " \u2193" : " \u2191";
+  };
+
+  if (loading) {
+    return (
+      <div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Portfolio Dashboard</h2>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
+          {[1,2,3,4].map(i => (
+            <div key={i} style={{
+              background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 12, padding: 24, height: 90,
+            }}>
+              <div style={{ width: 80, height: 14, background: "rgba(255,255,255,0.06)", borderRadius: 4, marginBottom: 12 }} />
+              <div style={{ width: 120, height: 24, background: "rgba(255,255,255,0.06)", borderRadius: 4 }} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (!summary || summary.analysis_count === 0) {
+    return (
+      <div>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 24px" }}>Portfolio Dashboard</h2>
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 48, textAlign: "center",
+        }}>
+          <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>
+            No analysis data yet. Upload 835 files in the Ingestion tab to populate your portfolio.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {/* Header + date filter */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Portfolio Dashboard</h2>
+        <div style={{ display: "flex", gap: 4 }}>
+          {[30, 90, 180].map(d => (
+            <button key={d} onClick={() => setDays(d)} style={{
+              padding: "6px 14px", borderRadius: 6, border: "1px solid",
+              borderColor: days === d ? "#0d9488" : "rgba(255,255,255,0.1)",
+              background: days === d ? "rgba(13,148,136,0.15)" : "transparent",
+              color: days === d ? "#5eead4" : "#94a3b8",
+              fontSize: 13, fontWeight: 500, cursor: "pointer",
+            }}>
+              {d}d
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* KPI tiles */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
+        <KpiTile label="Total Billed" value={`$${Number(summary.total_billed).toLocaleString()}`} />
+        <KpiTile label="Overall Denial Rate"
+          value={`${summary.overall_denial_rate}%`}
+          valueColor={summary.overall_denial_rate > 10 ? "#fca5a5" : "#5eead4"} />
+        <KpiTile label="Active Practices" value={summary.practice_count} />
+        <KpiTile label="Payers Tracked" value={summary.payer_count} />
+      </div>
+
+      {/* Practice breakdown */}
+      <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Practice Breakdown</h3>
+      <div style={{
+        background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+        borderRadius: 12, overflow: "hidden", marginBottom: 32,
+      }}>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead>
+            <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+              <th style={styles.th}>Practice</th>
+              <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handlePracticeSort("total_billed")}>
+                Total Billed{sortArrow("total_billed")}
+              </th>
+              <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handlePracticeSort("denial_rate")}>
+                Denial Rate{sortArrow("denial_rate")}
+              </th>
+              <th style={styles.th}>Lines</th>
+              <th style={styles.th}>Analyses</th>
+              <th style={styles.th}>Last Upload</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedPractices.map(p => (
+              <tr key={p.practice_id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                <td style={styles.td}>{p.practice_name}</td>
+                <td style={{ ...styles.td, color: "#94a3b8" }}>${Number(p.total_billed).toLocaleString()}</td>
+                <td style={{ ...styles.td, color: p.denial_rate > 10 ? "#fca5a5" : "#5eead4" }}>
+                  {p.denial_rate}%
+                </td>
+                <td style={{ ...styles.td, color: "#94a3b8" }}>{p.line_count.toLocaleString()}</td>
+                <td style={{ ...styles.td, color: "#94a3b8" }}>{p.analysis_count}</td>
+                <td style={{ ...styles.td, color: "#64748b", fontSize: 13 }}>
+                  {p.last_upload ? new Date(p.last_upload).toLocaleDateString() : "—"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Payer Performance + Denial Reasons side by side */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+        {/* Payer Performance */}
+        <div>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Payer Performance</h3>
+          <div style={{
+            background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 12, overflow: "hidden",
+          }}>
+            {payers.length === 0 ? (
+              <p style={{ color: "#94a3b8", fontSize: 14, padding: 24, margin: 0, textAlign: "center" }}>No payer data</p>
+            ) : (
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <th style={styles.th}>Payer</th>
+                    <th style={styles.th}>Billed</th>
+                    <th style={styles.th}>Denial %</th>
+                    <th style={styles.th}>Practices</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {payers.map(p => (
+                    <tr key={p.payer_name} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                      <td style={{ ...styles.td, fontSize: 13 }}>{p.payer_name}</td>
+                      <td style={{ ...styles.td, color: "#94a3b8", fontSize: 13 }}>
+                        ${Number(p.total_billed).toLocaleString()}
+                      </td>
+                      <td style={{ ...styles.td, color: p.denial_rate > 10 ? "#fca5a5" : "#5eead4", fontSize: 13 }}>
+                        {p.denial_rate}%
+                      </td>
+                      <td style={{ ...styles.td, color: "#94a3b8", fontSize: 13 }}>{p.practice_count}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+
+        {/* Top Denial Reasons */}
+        <div>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Top Denial Reasons</h3>
+          <div style={{
+            background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 12, overflow: "hidden",
+          }}>
+            {denialReasons.length === 0 ? (
+              <p style={{ color: "#94a3b8", fontSize: 14, padding: 24, margin: 0, textAlign: "center" }}>No denial data</p>
+            ) : (
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <th style={styles.th}>Code</th>
+                    <th style={styles.th}>Description</th>
+                    <th style={styles.th}>Count</th>
+                    <th style={styles.th}>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {denialReasons.map(d => (
+                    <tr key={d.denial_code} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                      <td style={styles.td}>
+                        <span style={{
+                          display: "inline-block", padding: "2px 8px", borderRadius: 6,
+                          background: "rgba(239,68,68,0.1)", color: "#fca5a5",
+                          fontSize: 12, fontWeight: 600, fontFamily: "monospace",
+                        }}>
+                          {d.denial_code}
+                        </span>
+                      </td>
+                      <td style={{ ...styles.td, fontSize: 12, color: "#94a3b8", maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {d.denial_description || "—"}
+                      </td>
+                      <td style={{ ...styles.td, color: "#f1f5f9" }}>{d.count}</td>
+                      <td style={{ ...styles.td, color: "#94a3b8", fontSize: 13 }}>
+                        ${Number(d.total_amount).toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function KpiTile({ label, value, valueColor }) {
+  return (
+    <div style={{
+      background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
+      borderRadius: 12, padding: 24,
+    }}>
+      <div style={{ fontSize: 12, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
+        {label}
+      </div>
+      <div style={{ fontSize: 24, fontWeight: 600, color: valueColor || "#f1f5f9" }}>
+        {value}
+      </div>
+    </div>
+  );
+}
+
 
 // --- Ingestion Panel ---
 function IngestionPanel({
