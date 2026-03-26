@@ -9,6 +9,7 @@ const TABS = [
   { id: "portfolio", label: "Portfolio Dashboard" },
   { id: "practices", label: "Practices" },
   { id: "contracts", label: "Contracts" },
+  { id: "escalations", label: "Escalations" },
   { id: "ingestion", label: "835 Ingestion" },
   { id: "team", label: "Team" },
   { id: "settings", label: "Settings" },
@@ -634,6 +635,10 @@ export default function BillingApp() {
 
         {activeTab === "contracts" && (
           <ContractsPanel token={token} practices={practices} billingRole={billingRole} />
+        )}
+
+        {activeTab === "escalations" && (
+          <EscalationsPanel token={token} billingRole={billingRole} />
         )}
 
         {activeTab === "ingestion" && (
@@ -1784,6 +1789,311 @@ function KpiTile({ label, value, valueColor }) {
       </div>
       <div style={{ fontSize: 24, fontWeight: 600, color: valueColor || "#f1f5f9" }}>
         {value}
+      </div>
+    </div>
+  );
+}
+
+
+// --- Escalations Panel ---
+function EscalationsPanel({ token, billingRole }) {
+  const [patterns, setPatterns] = useState([]);
+  const [detecting, setDetecting] = useState(false);
+  const [patternDays, setPatternDays] = useState(180);
+  const [escalations, setEscalations] = useState([]);
+  const [escLoading, setEscLoading] = useState(true);
+  const [statusFilter, setStatusFilter] = useState("");
+  const [expandedEsc, setExpandedEsc] = useState(null);
+  const [escDetail, setEscDetail] = useState(null);
+  const [creating, setCreating] = useState(null);
+  const [createdIds, setCreatedIds] = useState(new Set());
+  const [updateStatus, setUpdateStatus] = useState("");
+  const [updateNotes, setUpdateNotes] = useState("");
+  const [updateAmount, setUpdateAmount] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [toast, setToast] = useState("");
+
+  const fetchEscalations = useCallback(async () => {
+    if (!token) return;
+    setEscLoading(true);
+    try {
+      const url = statusFilter
+        ? `${API}/api/billing/escalations?status=${statusFilter}`
+        : `${API}/api/billing/escalations`;
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+      if (res.ok) { const d = await res.json(); setEscalations(d.escalations || []); }
+    } catch { /* ignore */ }
+    finally { setEscLoading(false); }
+  }, [token, statusFilter]);
+
+  useEffect(() => { fetchEscalations(); }, [fetchEscalations]);
+
+  const handleDetect = async () => {
+    setDetecting(true);
+    try {
+      const res = await fetch(`${API}/api/billing/escalations/detect-patterns?days=${patternDays}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) { const d = await res.json(); setPatterns(d.patterns || []); }
+    } catch { /* ignore */ }
+    finally { setDetecting(false); }
+  };
+
+  const handleCreate = async (p) => {
+    setCreating(`${p.payer_name}|${p.denial_code}`);
+    try {
+      const res = await fetch(`${API}/api/billing/escalations`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ payer_name: p.payer_name, denial_code: p.denial_code, denial_description: p.denial_description, days: patternDays }),
+      });
+      if (res.ok) {
+        setCreatedIds(prev => new Set(prev).add(`${p.payer_name}|${p.denial_code}`));
+        setToast("Escalation created"); setTimeout(() => setToast(""), 3000);
+        fetchEscalations();
+      }
+    } catch { /* ignore */ }
+    finally { setCreating(null); }
+  };
+
+  const handleViewDetail = async (esc) => {
+    if (expandedEsc === esc.id) { setExpandedEsc(null); setEscDetail(null); return; }
+    setExpandedEsc(esc.id); setEscDetail(null);
+    setUpdateStatus(esc.status); setUpdateNotes(""); setUpdateAmount("");
+    try {
+      const res = await fetch(`${API}/api/billing/escalations/${esc.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) setEscDetail(await res.json());
+    } catch { /* ignore */ }
+  };
+
+  const handleStatusUpdate = async () => {
+    if (!expandedEsc || !updateStatus) return;
+    setSaving(true);
+    try {
+      const body = { status: updateStatus };
+      if (updateNotes) body.resolution_notes = updateNotes;
+      if (updateStatus === "resolved" && updateAmount) body.recovered_amount = parseFloat(updateAmount);
+      const res = await fetch(`${API}/api/billing/escalations/${expandedEsc}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(body),
+      });
+      if (res.ok) {
+        setToast("Status updated"); setTimeout(() => setToast(""), 3000);
+        setExpandedEsc(null); setEscDetail(null); fetchEscalations();
+      } else { const d = await res.json(); setToast(d.detail || "Update failed."); setTimeout(() => setToast(""), 4000); }
+    } catch { /* ignore */ }
+    finally { setSaving(false); }
+  };
+
+  const statusBadge = (s) => {
+    const map = {
+      open: { bg: "rgba(59,130,246,0.15)", color: "#60a5fa" },
+      in_progress: { bg: "rgba(245,158,11,0.15)", color: "#fbbf24" },
+      resolved: { bg: "rgba(13,148,136,0.15)", color: "#5eead4" },
+      closed: { bg: "rgba(148,163,184,0.15)", color: "#94a3b8" },
+    };
+    const st = map[s] || map.open;
+    return <span style={{ display: "inline-block", padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600, background: st.bg, color: st.color, textTransform: "capitalize" }}>{s?.replace("_", " ")}</span>;
+  };
+
+  return (
+    <div>
+      {toast && (
+        <div style={{ position: "fixed", top: 80, right: 40, zIndex: 300, padding: "10px 20px", borderRadius: 8, background: toast.includes("fail") ? "rgba(239,68,68,0.9)" : "rgba(13,148,136,0.9)", color: "#fff", fontSize: 13, fontWeight: 500 }}>
+          {toast}
+        </div>
+      )}
+
+      {/* Section 1: Pattern Detection */}
+      <div style={{ marginBottom: 32 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Systematic Denial Patterns</h2>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 4 }}>
+              {[90, 180, 365].map(d => (
+                <button key={d} onClick={() => setPatternDays(d)} style={{
+                  padding: "5px 12px", borderRadius: 6, border: "1px solid",
+                  borderColor: patternDays === d ? "#0d9488" : "rgba(255,255,255,0.1)",
+                  background: patternDays === d ? "rgba(13,148,136,0.15)" : "transparent",
+                  color: patternDays === d ? "#5eead4" : "#94a3b8", fontSize: 12, cursor: "pointer",
+                }}>{d}d</button>
+              ))}
+            </div>
+            <button onClick={handleDetect} disabled={detecting} style={{
+              padding: "6px 16px", borderRadius: 6, border: "none", cursor: "pointer",
+              background: detecting ? "#334155" : "linear-gradient(135deg, #0d9488, #14b8a6)",
+              color: "#fff", fontWeight: 600, fontSize: 13,
+            }}>
+              {detecting ? "Detecting..." : "Detect Patterns"}
+            </button>
+          </div>
+        </div>
+
+        {patterns.length === 0 ? (
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)", borderRadius: 12, padding: 40, textAlign: "center" }}>
+            <p style={{ color: "#94a3b8", fontSize: 14, margin: 0 }}>
+              {detecting ? "Scanning..." : "Click \"Detect Patterns\" to find cross-practice denial patterns."}
+            </p>
+          </div>
+        ) : (
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead><tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <th style={styles.th}>Payer</th><th style={styles.th}>Code</th>
+                <th style={styles.th}>Description</th><th style={styles.th}>Practices</th>
+                <th style={styles.th}>Total Denied</th><th style={styles.th}>Claims</th>
+                <th style={styles.th}>Action</th>
+              </tr></thead>
+              <tbody>
+                {patterns.map(p => {
+                  const key = `${p.payer_name}|${p.denial_code}`;
+                  const isCreated = createdIds.has(key);
+                  return (
+                    <tr key={key} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                      <td style={styles.td}>{p.payer_name}</td>
+                      <td style={styles.td}><span style={{ fontFamily: "monospace", fontSize: 12, fontWeight: 600, padding: "2px 6px", borderRadius: 4, background: "rgba(239,68,68,0.1)", color: "#fca5a5" }}>{p.denial_code}</span></td>
+                      <td style={{ ...styles.td, fontSize: 12, color: "#94a3b8", maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.denial_description || "—"}</td>
+                      <td style={styles.td} title={p.practice_names?.join(", ")}>
+                        <span style={{ display: "inline-block", padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600, background: "rgba(59,130,246,0.15)", color: "#60a5fa" }}>{p.practice_count}</span>
+                      </td>
+                      <td style={{ ...styles.td, color: "#fca5a5" }}>${Number(p.total_denied_amount).toLocaleString()}</td>
+                      <td style={{ ...styles.td, color: "#94a3b8" }}>{p.claim_count}</td>
+                      <td style={styles.td}>
+                        {billingRole === "admin" && (
+                          isCreated ? (
+                            <span style={{ fontSize: 12, color: "#5eead4" }}>Created</span>
+                          ) : (
+                            <button onClick={() => handleCreate(p)} disabled={creating === key}
+                              style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer" }}>
+                              {creating === key ? "..." : "Escalate"}
+                            </button>
+                          )
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Section 2: Active Escalations */}
+      <div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Escalations</h2>
+          <div style={{ display: "flex", gap: 4 }}>
+            {["", "open", "in_progress", "resolved", "closed"].map(s => (
+              <button key={s} onClick={() => setStatusFilter(s)} style={{
+                padding: "5px 12px", borderRadius: 6, border: "1px solid",
+                borderColor: statusFilter === s ? "#0d9488" : "rgba(255,255,255,0.1)",
+                background: statusFilter === s ? "rgba(13,148,136,0.15)" : "transparent",
+                color: statusFilter === s ? "#5eead4" : "#94a3b8", fontSize: 12, cursor: "pointer",
+              }}>
+                {s ? s.replace("_", " ").replace(/\b\w/g, c => c.toUpperCase()) : "All"}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {escLoading ? (
+          <p style={{ color: "#94a3b8" }}>Loading...</p>
+        ) : escalations.length === 0 ? (
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)", borderRadius: 12, padding: 40, textAlign: "center" }}>
+            <p style={{ color: "#94a3b8", fontSize: 14, margin: 0 }}>No escalations yet — use Detect Patterns above to identify cross-practice denial patterns.</p>
+          </div>
+        ) : (
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead><tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <th style={styles.th}>Payer</th><th style={styles.th}>Code</th>
+                <th style={styles.th}>Practices</th><th style={styles.th}>Total Denied</th>
+                <th style={styles.th}>Status</th><th style={styles.th}>Created</th>
+                <th style={styles.th}>Actions</th>
+              </tr></thead>
+              <tbody>
+                {escalations.map(esc => (
+                  <React.Fragment key={esc.id}>
+                    <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", cursor: "pointer" }} onClick={() => handleViewDetail(esc)}>
+                      <td style={styles.td}>{esc.payer_name}</td>
+                      <td style={styles.td}><span style={{ fontFamily: "monospace", fontSize: 12, fontWeight: 600, padding: "2px 6px", borderRadius: 4, background: "rgba(239,68,68,0.1)", color: "#fca5a5" }}>{esc.denial_code}</span></td>
+                      <td style={styles.td}><span style={{ display: "inline-block", padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600, background: "rgba(59,130,246,0.15)", color: "#60a5fa" }}>{esc.affected_practice_count}</span></td>
+                      <td style={{ ...styles.td, color: "#fca5a5" }}>${Number(esc.total_denied_amount || 0).toLocaleString()}</td>
+                      <td style={styles.td}>{statusBadge(esc.status)}</td>
+                      <td style={{ ...styles.td, color: "#64748b", fontSize: 13 }}>{esc.created_at ? new Date(esc.created_at).toLocaleDateString() : "—"}</td>
+                      <td style={styles.td}><button style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer" }}>{expandedEsc === esc.id ? "Close" : "Details"}</button></td>
+                    </tr>
+                    {expandedEsc === esc.id && escDetail && (
+                      <tr><td colSpan={7} style={{ padding: "16px 20px", background: "rgba(13,148,136,0.03)" }}>
+                        {/* Evidence */}
+                        <div style={{ marginBottom: 16 }}>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>Evidence Summary</div>
+                          <div style={{ display: "flex", gap: 24, fontSize: 13, color: "#cbd5e1", marginBottom: 12 }}>
+                            <span>Date Range: <strong>{escDetail.evidence_summary?.date_range || "—"}</strong></span>
+                            <span>Total Denied: <strong style={{ color: "#fca5a5" }}>${Number(escDetail.total_denied_amount || 0).toLocaleString()}</strong></span>
+                            <span>Claims: <strong>{escDetail.evidence_summary?.claim_count || 0}</strong></span>
+                          </div>
+                          {(escDetail.practices || []).length > 0 && (
+                            <div style={{ display: "grid", gap: 6 }}>
+                              {escDetail.practices.map(p => (
+                                <div key={p.practice_id} style={{ display: "flex", justifyContent: "space-between", padding: "6px 10px", background: "rgba(255,255,255,0.02)", borderRadius: 6, fontSize: 13 }}>
+                                  <span style={{ color: "#f1f5f9" }}>{p.practice_name}</span>
+                                  <div style={{ display: "flex", gap: 16, color: "#94a3b8", fontSize: 12 }}>
+                                    <span>${Number(p.denied_amount || 0).toLocaleString()}</span>
+                                    <span>{p.claim_count} claims</span>
+                                    {(p.sample_claim_numbers || []).length > 0 && (
+                                      <span style={{ color: "#64748b" }}>e.g. {p.sample_claim_numbers.join(", ")}</span>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                        {/* Resolution */}
+                        {escDetail.status === "resolved" && escDetail.recovered_amount != null && (
+                          <div style={{ padding: "10px 12px", background: "rgba(13,148,136,0.08)", borderRadius: 8, marginBottom: 12 }}>
+                            <span style={{ fontSize: 13, color: "#5eead4" }}>Recovered: <strong>${Number(escDetail.recovered_amount).toLocaleString()}</strong></span>
+                            {escDetail.resolution_notes && <span style={{ fontSize: 12, color: "#94a3b8", marginLeft: 16 }}>{escDetail.resolution_notes}</span>}
+                          </div>
+                        )}
+                        {/* Status update (admin only) */}
+                        {billingRole === "admin" && escDetail.status !== "closed" && (
+                          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 12, marginTop: 12 }}>
+                            <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8 }}>Update Status</div>
+                            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-end" }}>
+                              <select value={updateStatus} onChange={(e) => setUpdateStatus(e.target.value)}
+                                style={{ padding: "6px 10px", borderRadius: 6, fontSize: 13, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "#f1f5f9", appearance: "auto" }}>
+                                <option value="open">Open</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                                <option value="closed">Closed</option>
+                              </select>
+                              {updateStatus === "resolved" && (
+                                <input type="number" value={updateAmount} onChange={(e) => setUpdateAmount(e.target.value)}
+                                  placeholder="Recovered $" style={{ padding: "6px 10px", borderRadius: 6, fontSize: 13, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "#f1f5f9", width: 120 }} />
+                              )}
+                              <input value={updateNotes} onChange={(e) => setUpdateNotes(e.target.value)}
+                                placeholder="Notes..." style={{ padding: "6px 10px", borderRadius: 6, fontSize: 13, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "#f1f5f9", flex: 1, minWidth: 150 }} />
+                              <button onClick={handleStatusUpdate} disabled={saving}
+                                style={{ padding: "6px 14px", borderRadius: 6, border: "none", cursor: "pointer", background: saving ? "#334155" : "#0d9488", color: "#fff", fontWeight: 600, fontSize: 13 }}>
+                                {saving ? "..." : "Save"}
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </td></tr>
+                    )}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
