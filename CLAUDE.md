@@ -859,10 +859,42 @@ where denied claims are re-submitted and matched to later 835 payments.
 - Two sortable side-by-side tables: By Payer | By Denial Type
 - Empty state when no data; footnote on recovery rate methodology
 
+## Session BL-7r — Claim Lines Denormalization + True Recovery Tracking (Complete)
+
+### Migration 060: billing_claim_lines table
+- Denormalized claim lines from result_json JSONB into flat, indexed table
+- Columns: billing_company_id, practice_id, job_id, analysis_id, payer_name,
+  claim_number, cpt_code, date_of_service, adjudication_date, billed_amount,
+  paid_amount, status (paid/denied/partial), denial_codes (text[])
+- Composite index: (practice_id, claim_number, cpt_code, date_of_service)
+  for cross-file recovery matching
+- Company index: (billing_company_id, created_at DESC)
+
+### Backend changes
+- billing.py: _insert_claim_lines() called in _process_job() after parsing
+  — inserts each line item with derived status and denial_codes array
+- billing_portfolio.py: _detect_recoveries() matches denied lines from
+  earlier jobs to paid lines in later jobs by (practice_id, claim_number,
+  cpt_code, date_of_service) with adjudication_date ordering
+- _scoped_claim_lines_query() for analyst-scoped billing_claim_lines queries
+- All 4 Appeal ROI endpoints rewritten: query billing_claim_lines directly,
+  use _detect_recoveries() for true recovery amounts
+- Recovery rate = denied_then_recovered / total_denied (not payment proxy)
+- by-denial-type now includes per-code recovery rate
+- Trend chart buckets by adjudication_date
+
+### Backfill
+- backend/scripts/backfill_claim_lines.py — extracts line items from
+  existing complete billing_835_jobs rows, idempotent (skips already done)
+- Run after migration 060: python3 backend/scripts/backfill_claim_lines.py
+
+### Frontend
+- Updated footnote from proxy disclaimer to true recovery methodology
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Migrations 057, 058, 059 pending.
-Next migration number: 060
+Migrations 057, 058, 059, 060 pending.
+Next migration number: 061
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
