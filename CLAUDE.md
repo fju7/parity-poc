@@ -761,6 +761,35 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
 - Loading skeletons while fetching; empty state if no analyses yet
 - No new migrations needed — uses existing provider_analyses.billing_company_id
 
+## Session BL-5 — Parity Billing: Cross-Practice Payer Benchmarking (Complete)
+
+### Backend (billing_portfolio.py) — 3 new endpoints
+- GET /api/billing/portfolio/payer-benchmark — payer adherence rates across
+  all practices, optional ?specialty= filter, ?days= param. Adherence =
+  paid_lines / total_lines. Default sort: ascending (worst payers first)
+- GET /api/billing/portfolio/payer-anomalies — compares each payer's
+  adherence in current 90d vs prior 90d window. Returns payers where
+  adherence dropped >10 percentage points. Returns current_rate, prior_rate,
+  delta, practice_count
+- GET /api/billing/portfolio/specialties — distinct specialty values from
+  provider_profiles for practices linked to the billing company
+
+### Frontend (BillingApp.jsx)
+- "Coming soon" placeholder removed from Portfolio tab (now only on Team)
+- Payer Benchmarking section added below existing portfolio content
+- Specialty filter dropdown (populated from provider_profiles)
+- Anomaly alert banner (amber, dismissible) when payers show decline
+- Sortable benchmark table: Payer Name | Adherence Rate | Practices |
+  Claims | Total Billed | Status (Good/Review/Watch badges)
+- Anomaly rows highlighted amber with DECLINING badge + delta indicator
+- No new migrations needed
+
+### Specialty filter status
+- Specialty column exists on provider_profiles (not companies)
+- Filter is LIVE — queries provider_profiles.specialty for practices
+  linked via billing_company_practices
+- Practices without provider_profiles rows simply have no specialty data
+
 ## Migrations status
 All migrations through 056 have been run on production.
 Migration 057 (billing schema updates) and 058 (billing_835_jobs) pending.
