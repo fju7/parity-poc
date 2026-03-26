@@ -932,6 +932,7 @@ function PortfolioPanel({ token, billingCompany, allPractices }) {
 
       {/* Payer Benchmarking section */}
       <PayerBenchmarkSection
+        token={token}
         benchmarkPayers={benchmarkPayers}
         anomalies={anomalies}
         specialties={specialties}
@@ -1076,13 +1077,32 @@ function PracticeComparisonSection({
 }
 
 function PayerBenchmarkSection({
-  benchmarkPayers, anomalies, specialties,
+  token, benchmarkPayers, anomalies, specialties,
   selectedSpecialty, setSelectedSpecialty,
   benchmarkSortField, setBenchmarkSortField,
   benchmarkSortDir, setBenchmarkSortDir,
   anomalyDismissed, setAnomalyDismissed,
   days,
 }) {
+  const [expandedPayer, setExpandedPayer] = useState(null);
+  const [payerDetail, setPayerDetail] = useState(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+
+  const handlePayerClick = async (payerName) => {
+    if (expandedPayer === payerName) { setExpandedPayer(null); setPayerDetail(null); return; }
+    setExpandedPayer(payerName);
+    setPayerDetail(null);
+    setDetailLoading(true);
+    try {
+      const res = await fetch(
+        `${API}/api/billing/portfolio/payer-detail?payer_name=${encodeURIComponent(payerName)}&days=${days}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (res.ok) setPayerDetail(await res.json());
+    } catch { /* ignore */ }
+    finally { setDetailLoading(false); }
+  };
+
   const anomalyPayers = new Set(anomalies.map(a => a.payer_name));
 
   const sorted = [...benchmarkPayers].sort((a, b) => {
@@ -1184,10 +1204,13 @@ function PayerBenchmarkSection({
               {sorted.map(p => {
                 const isAnomaly = anomalyPayers.has(p.payer_name);
                 const anomalyData = isAnomaly ? anomalies.find(a => a.payer_name === p.payer_name) : null;
+                const isExpanded = expandedPayer === p.payer_name;
                 return (
-                  <tr key={p.payer_name} style={{
+                  <React.Fragment key={p.payer_name}>
+                  <tr onClick={() => handlePayerClick(p.payer_name)} style={{
                     borderBottom: "1px solid rgba(255,255,255,0.04)",
-                    background: isAnomaly ? "rgba(245,158,11,0.05)" : "transparent",
+                    background: isExpanded ? "rgba(13,148,136,0.05)" : isAnomaly ? "rgba(245,158,11,0.05)" : "transparent",
+                    cursor: "pointer",
                   }}>
                     <td style={styles.td}>
                       {p.payer_name}
@@ -1222,7 +1245,7 @@ function PayerBenchmarkSection({
                         <span style={{
                           display: "inline-block", padding: "2px 8px", borderRadius: 10,
                           background: "rgba(245,158,11,0.15)", color: "#fbbf24",
-                          fontSize: 11, fontWeight: 600,
+                          fontSize: 11, fontWeight: 600, cursor: "pointer",
                         }}>
                           Watch
                         </span>
@@ -1230,7 +1253,7 @@ function PayerBenchmarkSection({
                         <span style={{
                           display: "inline-block", padding: "2px 8px", borderRadius: 10,
                           background: "rgba(13,148,136,0.15)", color: "#5eead4",
-                          fontSize: 11, fontWeight: 600,
+                          fontSize: 11, fontWeight: 600, cursor: "pointer",
                         }}>
                           Good
                         </span>
@@ -1238,13 +1261,21 @@ function PayerBenchmarkSection({
                         <span style={{
                           display: "inline-block", padding: "2px 8px", borderRadius: 10,
                           background: "rgba(148,163,184,0.15)", color: "#94a3b8",
-                          fontSize: 11, fontWeight: 600,
+                          fontSize: 11, fontWeight: 600, cursor: "pointer",
                         }}>
                           Review
                         </span>
                       )}
                     </td>
                   </tr>
+                  {isExpanded && (
+                    <tr>
+                      <td colSpan={6} style={{ padding: 0 }}>
+                        <PayerDetailPanel detail={payerDetail} loading={detailLoading} />
+                      </td>
+                    </tr>
+                  )}
+                  </React.Fragment>
                 );
               })}
             </tbody>
@@ -1259,6 +1290,94 @@ function PayerBenchmarkSection({
     </div>
   );
 }
+
+function PayerDetailPanel({ detail, loading }) {
+  if (loading) {
+    return (
+      <div style={{ padding: "16px 24px", background: "rgba(13,148,136,0.03)" }}>
+        <p style={{ color: "#94a3b8", fontSize: 13, margin: 0 }}>Loading payer detail...</p>
+      </div>
+    );
+  }
+  if (!detail) return null;
+
+  return (
+    <div style={{
+      padding: "20px 24px", background: "rgba(13,148,136,0.03)",
+      borderTop: "1px solid rgba(13,148,136,0.1)",
+    }}>
+      {/* Summary stats */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16, marginBottom: 20 }}>
+        {[
+          { label: "Total Billed", value: `$${Number(detail.total_billed || 0).toLocaleString()}` },
+          { label: "Total Paid", value: `$${Number(detail.total_paid || 0).toLocaleString()}` },
+          { label: "Lines", value: (detail.line_count || 0).toLocaleString() },
+          { label: "Denied", value: detail.denied_lines || 0 },
+          { label: "Denial Rate", value: `${detail.denial_rate || 0}%`,
+            color: (detail.denial_rate || 0) > 10 ? "#fca5a5" : "#5eead4" },
+          { label: "Practices", value: detail.practice_count || 0 },
+        ].map(s => (
+          <div key={s.label}>
+            <div style={{ fontSize: 10, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.label}</div>
+            <div style={{ fontSize: 15, fontWeight: 600, color: s.color || "#f1f5f9" }}>{s.value}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Per-practice breakdown */}
+      {(detail.practices || []).length > 0 && (
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+            Per-Practice Breakdown
+          </div>
+          <div style={{ display: "grid", gap: 8 }}>
+            {detail.practices.map(pr => (
+              <div key={pr.practice_id} style={{
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+                padding: "8px 12px", background: "rgba(255,255,255,0.02)",
+                borderRadius: 6, border: "1px solid rgba(255,255,255,0.04)",
+              }}>
+                <span style={{ fontSize: 13, color: "#f1f5f9" }}>{pr.practice_name}</span>
+                <div style={{ display: "flex", gap: 16, fontSize: 12, color: "#94a3b8" }}>
+                  <span>${Number(pr.total_billed || 0).toLocaleString()} billed</span>
+                  <span style={{ color: (pr.denial_rate || 0) > 10 ? "#fca5a5" : "#5eead4" }}>
+                    {pr.denial_rate || 0}% denial
+                  </span>
+                  <span>{(pr.line_count || 0).toLocaleString()} lines</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Top denial codes for this payer */}
+      {(detail.denial_codes || []).length > 0 && (
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+            Top Denial Codes
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {detail.denial_codes.map(dc => (
+              <div key={dc.code} style={{
+                padding: "4px 10px", borderRadius: 6,
+                background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.15)",
+                fontSize: 12,
+              }}>
+                <span style={{ fontFamily: "monospace", color: "#fca5a5", fontWeight: 600 }}>{dc.code}</span>
+                {dc.description && (
+                  <span style={{ color: "#94a3b8", marginLeft: 6 }}>{dc.description}</span>
+                )}
+                <span style={{ color: "#64748b", marginLeft: 6 }}>({dc.count}x, ${Number(dc.total_amount).toLocaleString()})</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 
 function KpiTile({ label, value, valueColor }) {
   return (

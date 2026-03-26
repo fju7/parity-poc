@@ -626,3 +626,129 @@ async def portfolio_comparison(
         "practice_b": {"practice_id": practice_b_id, "practice_name": names[practice_b_id], **metrics_b},
         "portfolio_avg": metrics_avg,
     }
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/portfolio/payer-detail
+# ---------------------------------------------------------------------------
+
+@router.get("/payer-detail")
+async def portfolio_payer_detail(
+    payer_name: str = None,
+    days: int = 90,
+    authorization: str = Header(None),
+):
+    """Detailed breakdown for a single payer across all practices."""
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
+
+    if not payer_name or not payer_name.strip():
+        raise HTTPException(status_code=400, detail="payer_name required.")
+
+    payer_name = payer_name.strip()
+    cutoff = _date_cutoff(days)
+
+    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
+        "company_id, payer_name, total_billed, total_paid, result_json, created_at")
+
+    if not rows or not rows.data:
+        return {"payer_name": payer_name, "practices": [], "denial_codes": [],
+                "total_billed": 0, "total_paid": 0, "line_count": 0, "denied_lines": 0}
+
+    # Filter to this payer
+    payer_rows = [r for r in rows.data if (r.get("payer_name") or "").strip() == payer_name]
+
+    if not payer_rows:
+        return {"payer_name": payer_name, "practices": [], "denial_codes": [],
+                "total_billed": 0, "total_paid": 0, "line_count": 0, "denied_lines": 0}
+
+    # Per-practice breakdown
+    practice_map = {}
+    total_billed = 0.0
+    total_paid = 0.0
+    total_lines = 0
+    total_denied = 0
+    denial_code_map = {}
+
+    for r in payer_rows:
+        pid = r.get("company_id")
+        tb = float(r.get("total_billed") or 0)
+        tp = float(r.get("total_paid") or 0)
+        rj = r.get("result_json") or {}
+        lc = int(rj.get("line_count") or 0)
+        den = int(rj.get("denied_lines") or 0)
+
+        total_billed += tb
+        total_paid += tp
+        total_lines += lc
+        total_denied += den
+
+        if pid not in practice_map:
+            practice_map[pid] = {
+                "practice_id": pid, "total_billed": 0, "total_paid": 0,
+                "line_count": 0, "denied_lines": 0, "analysis_count": 0,
+            }
+        pm = practice_map[pid]
+        pm["total_billed"] += tb
+        pm["total_paid"] += tp
+        pm["line_count"] += lc
+        pm["denied_lines"] += den
+        pm["analysis_count"] += 1
+
+        # Extract denial codes from line_items
+        for li in (rj.get("line_items") or []):
+            if (li.get("paid_amount") or 0) != 0:
+                continue
+            billed_amt = float(li.get("billed_amount") or 0)
+            for adj in (li.get("adjustments") or []):
+                if not isinstance(adj, dict) or adj.get("group_code") != "CO":
+                    continue
+                rc = adj.get("reason_code") or ""
+                if not rc:
+                    continue
+                code = f"CO-{rc}"
+                if code not in denial_code_map:
+                    denial_code_map[code] = {
+                        "code": code,
+                        "description": DENIAL_CODE_DESCRIPTIONS.get(rc, ""),
+                        "count": 0, "total_amount": 0,
+                    }
+                denial_code_map[code]["count"] += 1
+                denial_code_map[code]["total_amount"] += billed_amt
+
+    # Resolve practice names
+    pids = list(practice_map.keys())
+    names = {}
+    if pids:
+        nr = sb.table("companies").select("id, name").in_("id", pids).execute()
+        for n in (nr.data or []):
+            names[n["id"]] = n["name"]
+
+    practices_result = []
+    for pid, pm in practice_map.items():
+        dr = round((pm["denied_lines"] / pm["line_count"] * 100), 2) if pm["line_count"] > 0 else 0.0
+        practices_result.append({
+            **pm,
+            "practice_name": names.get(pid, "Unknown"),
+            "denial_rate": dr,
+            "total_billed": round(pm["total_billed"], 2),
+            "total_paid": round(pm["total_paid"], 2),
+        })
+    practices_result.sort(key=lambda x: x["total_billed"], reverse=True)
+
+    denial_codes = sorted(denial_code_map.values(), key=lambda x: x["count"], reverse=True)[:10]
+    for dc in denial_codes:
+        dc["total_amount"] = round(dc["total_amount"], 2)
+
+    overall_denial_rate = round((total_denied / total_lines * 100), 2) if total_lines > 0 else 0.0
+
+    return {
+        "payer_name": payer_name,
+        "total_billed": round(total_billed, 2),
+        "total_paid": round(total_paid, 2),
+        "line_count": total_lines,
+        "denied_lines": total_denied,
+        "denial_rate": overall_denial_rate,
+        "practice_count": len(practices_result),
+        "practices": practices_result,
+        "denial_codes": denial_codes,
+    }
