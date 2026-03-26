@@ -412,3 +412,226 @@ async def update_escalation_status(escalation_id: str, req: UpdateStatusRequest,
     sb.table("billing_escalations").update(updates).eq("id", escalation_id).execute()
 
     return {"updated": True, "status": req.status}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/escalations/{escalation_id}/export — PDF evidence package
+# ---------------------------------------------------------------------------
+
+@router.get("/{escalation_id}/export")
+async def export_escalation(escalation_id: str, authorization: str = Header(None)):
+    import io
+    from reportlab.platypus import SimpleDocTemplate, Spacer, PageBreak, Paragraph
+    from reportlab.lib.pagesizes import letter
+    from reportlab.lib.units import inch
+    from utils.pdf_branding import (
+        get_billing_branding, fetch_logo_bytes,
+        build_cover_page, build_header_footer_func,
+        build_kpi_row, build_data_table, _get_styles,
+        TEAL, NAVY, SLATE,
+    )
+
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_escalations(authorization)
+
+    # Analyst scoping check
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
+
+    esc = sb.table("billing_escalations").select("*").eq(
+        "id", escalation_id
+    ).eq("billing_company_id", bc_id).limit(1).execute()
+
+    if not esc.data:
+        raise HTTPException(status_code=404, detail="Escalation not found.")
+
+    e = esc.data[0]
+
+    # Analyst can only export if escalation involves their practices
+    if scoped is not None:
+        ep = sb.table("billing_escalation_practices").select("practice_id").eq(
+            "escalation_id", escalation_id
+        ).execute()
+        esc_pids = {p["practice_id"] for p in (ep.data or [])}
+        if not (esc_pids & set(scoped)):
+            raise HTTPException(status_code=403, detail="Access denied.")
+
+    # Get practices with names
+    practices = sb.table("billing_escalation_practices").select(
+        "*, companies(name)"
+    ).eq("escalation_id", escalation_id).execute()
+
+    practice_list = []
+    for p in (practices.data or []):
+        company = p.pop("companies", None) or {}
+        practice_list.append({**p, "practice_name": company.get("name", "Unknown")})
+
+    # Branding
+    branding = get_billing_branding(bc_id, sb)
+    logo_bytes = fetch_logo_bytes(branding.get("logo_url"), sb)
+    styles = _get_styles()
+
+    evidence = e.get("evidence_summary") or {}
+    payer = e.get("payer_name") or ""
+    code = e.get("denial_code") or ""
+    desc = e.get("denial_description") or ""
+    status = e.get("status") or "open"
+    total_denied = float(e.get("total_denied_amount") or 0)
+    date_range = evidence.get("date_range") or ""
+    claim_count = evidence.get("claim_count") or 0
+    practice_count = e.get("affected_practice_count") or len(practice_list)
+
+    now_str = datetime.now(timezone.utc).strftime("%B %d, %Y")
+
+    # Build PDF
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(buf, pagesize=letter,
+                            leftMargin=0.75 * inch, rightMargin=0.75 * inch,
+                            topMargin=0.75 * inch, bottomMargin=0.75 * inch)
+
+    story = []
+
+    # --- Page 1: Cover ---
+    story.append(Spacer(1, 1.2 * inch))
+
+    if logo_bytes:
+        try:
+            from reportlab.platypus import Image
+            img = Image(io.BytesIO(logo_bytes))
+            max_h = 80
+            ratio = img.imageWidth / img.imageHeight if img.imageHeight else 1
+            img.drawHeight = max_h
+            img.drawWidth = max_h * ratio
+            img.hAlign = "CENTER"
+            story.append(img)
+            story.append(Spacer(1, 0.3 * inch))
+        except Exception:
+            pass
+
+    story.append(Paragraph(branding["company_name"], styles["title"]))
+    if branding.get("header_text"):
+        story.append(Paragraph(branding["header_text"], styles["header_text"]))
+
+    story.append(Spacer(1, 0.15 * inch))
+    from reportlab.platypus import HRFlowable
+    story.append(HRFlowable(width="60%", thickness=2, color=TEAL, hAlign="CENTER"))
+    story.append(Spacer(1, 0.4 * inch))
+
+    story.append(Paragraph("Escalation Evidence Package", styles["subtitle"]))
+    story.append(Spacer(1, 0.15 * inch))
+    story.append(Paragraph(f"<b>Payer:</b> {payer}", styles["body"]))
+    story.append(Paragraph(f"<b>Denial Code:</b> {code} — {desc}", styles["body"]))
+    story.append(Paragraph(f"<b>Status:</b> {status.replace('_', ' ').title()}", styles["body"]))
+    story.append(Spacer(1, 0.1 * inch))
+    story.append(Paragraph(f"Generated: {now_str}", styles["body"]))
+
+    if branding.get("footer_text"):
+        story.append(Spacer(1, 1.5 * inch))
+        story.append(Paragraph(branding["footer_text"], styles["footer"]))
+
+    story.append(PageBreak())
+
+    # --- Page 2: Executive Summary ---
+    story.append(Spacer(1, 0.2 * inch))
+    story.append(Paragraph("<b>Executive Summary</b>", styles["heading2"]))
+    story.append(Spacer(1, 0.1 * inch))
+
+    story.append(build_kpi_row([
+        {"label": "Total Denied", "value": f"${total_denied:,.0f}"},
+        {"label": "Affected Practices", "value": str(practice_count)},
+        {"label": "Affected Claims", "value": str(claim_count)},
+        {"label": "Date Range", "value": date_range or "—"},
+    ]))
+    story.append(Spacer(1, 0.3 * inch))
+
+    # Narrative
+    narrative = (
+        f"{payer} has systematically denied claims with code {code}"
+        f" ({desc})" if desc else f"{payer} has systematically denied claims with code {code}"
+    )
+    narrative += (
+        f" across {practice_count} practice{'s' if practice_count != 1 else ''}"
+        f" managed by {branding['company_name']},"
+        f" totaling ${total_denied:,.2f} in denied claims"
+    )
+    if date_range:
+        narrative += f" between {date_range}"
+    narrative += (
+        ". This pattern suggests a systematic payer-side policy"
+        " rather than individual coding errors."
+    )
+    story.append(Paragraph(narrative, styles["body"]))
+    story.append(Spacer(1, 0.2 * inch))
+
+    # Recovery summary (if resolved)
+    if status == "resolved":
+        recovered = float(e.get("recovered_amount") or 0)
+        recovery_rate = round((recovered / total_denied * 100), 2) if total_denied > 0 else 0.0
+        resolution_notes = e.get("resolution_notes") or ""
+
+        story.append(Paragraph("<b>Recovery Summary</b>", styles["heading2"]))
+        story.append(build_kpi_row([
+            {"label": "Recovered Amount", "value": f"${recovered:,.0f}"},
+            {"label": "Recovery Rate", "value": f"{recovery_rate}%"},
+        ]))
+        if resolution_notes:
+            story.append(Spacer(1, 0.1 * inch))
+            story.append(Paragraph(f"<b>Resolution Notes:</b> {resolution_notes}", styles["body"]))
+        story.append(Spacer(1, 0.2 * inch))
+
+    story.append(PageBreak())
+
+    # --- Page 3: Affected Practices ---
+    story.append(Spacer(1, 0.2 * inch))
+    story.append(Paragraph("<b>Affected Practices</b>", styles["heading2"]))
+
+    prac_rows = []
+    for p in practice_list:
+        samples = (p.get("sample_claim_numbers") or [])[:3]
+        prac_rows.append([
+            p["practice_name"],
+            f"${float(p.get('denied_amount') or 0):,.0f}",
+            str(p.get("claim_count") or 0),
+            ", ".join(samples) if samples else "—",
+        ])
+    # Subtotal
+    prac_rows.append([
+        "TOTAL",
+        f"${total_denied:,.0f}",
+        str(claim_count),
+        "",
+    ])
+
+    story.append(build_data_table(
+        ["Practice Name", "Denied Amount", "Claims", "Sample Claim Numbers"],
+        prac_rows,
+        col_widths=[2.2 * inch, 1.1 * inch, 0.8 * inch, 2.2 * inch],
+    ))
+
+    # --- Page 4: All sample claims ---
+    all_claims = []
+    for p in practice_list:
+        for cn in (p.get("sample_claim_numbers") or []):
+            all_claims.append((p["practice_name"], cn))
+
+    if all_claims:
+        story.append(Spacer(1, 0.3 * inch))
+        story.append(Paragraph("<b>Claim Detail</b>", styles["heading2"]))
+        claim_rows = [[pn, cn] for pn, cn in all_claims]
+        story.append(build_data_table(
+            ["Practice", "Claim Number"],
+            claim_rows,
+            col_widths=[3 * inch, 3 * inch],
+        ))
+
+    hf = build_header_footer_func(branding)
+    doc.build(story, onLaterPages=hf)
+
+    safe_payer = payer.replace(" ", "_")[:30]
+    safe_code = code.replace("-", "")
+    filename = f"Escalation_{safe_payer}_{safe_code}_{datetime.now(timezone.utc).strftime('%Y%m%d')}.pdf"
+
+    from fastapi.responses import StreamingResponse
+    return StreamingResponse(
+        io.BytesIO(buf.getvalue()),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )

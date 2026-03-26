@@ -1979,6 +1979,27 @@ function EscalationsPanel({ token, billingRole }) {
     } catch { /* ignore */ }
   };
 
+  const [exporting, setExporting] = useState(null);
+
+  const handleExport = async (escId) => {
+    setExporting(escId);
+    try {
+      const res = await fetch(`${API}/api/billing/escalations/${escId}/export`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = res.headers.get("content-disposition")?.split("filename=")[1]?.replace(/"/g, "") || "escalation.pdf";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch { /* ignore */ }
+    finally { setExporting(null); }
+  };
+
   const handleStatusUpdate = async () => {
     if (!expandedEsc || !updateStatus) return;
     setSaving(true);
@@ -2136,10 +2157,32 @@ function EscalationsPanel({ token, billingRole }) {
                       <td style={{ ...styles.td, color: "#fca5a5" }}>${Number(esc.total_denied_amount || 0).toLocaleString()}</td>
                       <td style={styles.td}>{statusBadge(esc.status)}</td>
                       <td style={{ ...styles.td, color: "#64748b", fontSize: 13 }}>{esc.created_at ? new Date(esc.created_at).toLocaleDateString() : "—"}</td>
-                      <td style={styles.td}><button style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer" }}>{expandedEsc === esc.id ? "Close" : "Details"}</button></td>
+                      <td style={styles.td}>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <button style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer" }}>
+                            {expandedEsc === esc.id ? "Close" : "Details"}
+                          </button>
+                          <button onClick={(ev) => { ev.stopPropagation(); handleExport(esc.id); }}
+                            disabled={exporting === esc.id}
+                            style={{ fontSize: 12, color: "#60a5fa", background: "none", border: "none", cursor: "pointer" }}>
+                            {exporting === esc.id ? "..." : "Export"}
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                     {expandedEsc === esc.id && escDetail && (
                       <tr><td colSpan={7} style={{ padding: "16px 20px", background: "rgba(13,148,136,0.03)" }}>
+                        {/* Export button */}
+                        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
+                          <button onClick={() => handleExport(esc.id)} disabled={exporting === esc.id}
+                            style={{
+                              padding: "6px 14px", borderRadius: 6, border: "none", cursor: "pointer",
+                              background: exporting === esc.id ? "#334155" : "linear-gradient(135deg, #3b82f6, #60a5fa)",
+                              color: "#fff", fontWeight: 600, fontSize: 13,
+                            }}>
+                            {exporting === esc.id ? "Generating..." : "Export Evidence Package"}
+                          </button>
+                        </div>
                         {/* Evidence */}
                         <div style={{ marginBottom: 16 }}>
                           <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>Evidence Summary</div>
