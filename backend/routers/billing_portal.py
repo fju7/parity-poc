@@ -362,12 +362,12 @@ async def portal_generate_report(authorization: str = Header(None)):
     from reportlab.lib.units import inch
     from utils.pdf_branding import (
         get_billing_branding, fetch_logo_bytes,
-        build_cover_page, build_header_footer_func,
+        build_cover_page, build_header_footer_func, _get_styles,
     )
     # Import report builders from billing_portfolio
     from routers.billing_portfolio import (
         _build_denial_summary_pages, _build_payer_performance_pages,
-        _build_appeal_roi_pages, _detect_recoveries, _get_styles,
+        _build_appeal_roi_pages, _detect_recoveries,
     )
 
     email, practice_id, bc_id, settings, sb = _require_portal_session(authorization)
