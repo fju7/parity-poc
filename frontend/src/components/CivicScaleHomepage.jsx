@@ -54,6 +54,7 @@ export default function CivicScaleHomepage() {
           <a href="https://employer.civicscale.ai" className="cs-home-nav-link">Employer</a>
           <a href="https://broker.civicscale.ai" className="cs-home-nav-link">Broker</a>
           <a href="https://provider.civicscale.ai" className="cs-home-nav-link">Provider</a>
+          <Link to="/billing" className="cs-home-nav-link">Billing</Link>
           <a href="https://health.civicscale.ai" className="cs-home-nav-link">Health</a>
           <a href="https://signal.civicscale.ai" className="cs-home-nav-link">Signal</a>
           <Link to="/investors" className="cs-home-nav-link cs-home-nav-investors">Investors</Link>
@@ -76,14 +77,13 @@ export default function CivicScaleHomepage() {
             Independent Healthcare Intelligence
           </div>
           <h1 className="cs-home-hero-h1">
-            Healthcare costs more than it should.<br />
-            <span className="cs-home-hero-accent">Now you can see exactly where.</span>
+            One platform. Three perspectives on<br />
+            <span className="cs-home-hero-accent">a system that isn't working for anyone.</span>
           </h1>
           <p className="cs-home-hero-sub">
-            CivicScale gives employers, brokers, providers, and patients clear,
-            independent data on what healthcare actually costs — so every
-            stakeholder can make informed decisions, backed by evidence instead
-            of carrier narratives.
+            CivicScale gives providers, billing companies, employers, brokers,
+            and consumers independent intelligence on what healthcare actually
+            costs — getting smarter with every claim.
           </p>
         </div>
       </section>
@@ -120,13 +120,53 @@ export default function CivicScaleHomepage() {
       <section className="cs-home-section cs-home-products-section">
         <div className="cs-home-section-inner">
           <div className="cs-home-section-label">Products</div>
-          <h2 className="cs-home-section-title">Four products. One analytical engine.</h2>
-          <p className="cs-home-section-sub" style={{ maxWidth: 680, margin: "0 auto 56px" }}>
-            Each product serves a different stakeholder in the healthcare system.
-            All are powered by the same benchmark and scoring infrastructure.
+          <h2 className="cs-home-section-title">Five products. Two tracks. One intelligence engine.</h2>
+          <p className="cs-home-section-sub" style={{ maxWidth: 680, margin: "0 auto 48px" }}>
+            Every product serves a different stakeholder. All are powered by the
+            same benchmark infrastructure — and every claim makes the network smarter.
           </p>
+
+          {/* Track 1 — Providers & Revenue Cycle */}
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8b5cf6", marginBottom: 16 }}>
+              For Healthcare Providers &amp; Revenue Cycle
+            </div>
+          </div>
+          <div className="cs-home-product-cards" style={{ marginBottom: 48 }}>
+            {PRODUCT_CARDS.filter(c => ["provider", "billing"].includes(c.key)).map((card) => {
+              const isExternal = card.to.startsWith("http");
+              const Wrapper = isExternal ? "a" : Link;
+              const linkProps = isExternal
+                ? { href: card.to, target: "_blank", rel: "noopener noreferrer" }
+                : { to: card.to };
+              return (
+              <Wrapper key={card.key} {...linkProps}
+                className={`cs-home-product-card cs-home-product-card--${card.key}`}
+                onMouseEnter={() => setHoveredProduct(card.key)} onMouseLeave={() => setHoveredProduct(null)}
+                style={{ borderColor: hoveredProduct === card.key ? card.hoverBorder : undefined }}>
+                <div className="cs-home-product-accent" style={{ background: card.accentGrad }} />
+                <div className="cs-home-product-badge" style={{ background: card.badgeBg, color: card.accent }}>{card.label}</div>
+                <h3 className="cs-home-product-heading">{card.heading}</h3>
+                <p className="cs-home-product-body">{card.body}</p>
+                <ul className="cs-home-product-bullets">
+                  {card.bullets.map((b, i) => (<li key={i}><span className="cs-home-bullet-check" style={{ color: card.accent }}>&#10003;</span> {b}</li>))}
+                </ul>
+                <div className="cs-home-product-footer">
+                  <span className="cs-home-product-cta" style={{ color: card.accent }}>{card.cta} <span>&rarr;</span></span>
+                  {card.badge && <span className="cs-home-product-tier">{card.badge}</span>}
+                </div>
+              </Wrapper>);
+            })}
+          </div>
+
+          {/* Track 2 — Employers, Brokers & Consumers */}
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#f59e0b", marginBottom: 16 }}>
+              For Employers, Brokers &amp; Consumers
+            </div>
+          </div>
           <div className="cs-home-product-cards">
-            {PRODUCT_CARDS.map((card) => {
+            {PRODUCT_CARDS.filter(c => ["employer", "broker", "health"].includes(c.key)).map((card) => {
               const isExternal = card.to.startsWith("http");
               const Wrapper = isExternal ? "a" : Link;
               const linkProps = isExternal
@@ -165,6 +205,33 @@ export default function CivicScaleHomepage() {
               </Wrapper>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Signal — The Intelligence Layer ── */}
+      <section className="cs-home-section" style={{ paddingTop: 48, paddingBottom: 48 }}>
+        <div className="cs-home-section-inner" style={{ maxWidth: 800 }}>
+          <div style={{
+            background: "rgba(13,148,136,0.06)", border: "1px solid rgba(13,148,136,0.2)",
+            borderRadius: 16, padding: "36px 40px", textAlign: "center",
+          }}>
+            <div style={{ fontSize: 11, fontWeight: 600, color: "#0d9488", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
+              PARITY SIGNAL — THE INTELLIGENCE LAYER
+            </div>
+            <p style={{ fontSize: 16, lineHeight: 1.7, color: "#94a3b8", margin: "0 0 12px", fontFamily: "'DM Serif Display', serif" }}>
+              The cross-product intelligence engine that benchmarks every denial, every payer behavior,
+              and every contract rate across the full CivicScale network.
+            </p>
+            <p style={{ fontSize: 14, color: "#64748b", margin: 0 }}>
+              Every product gets smarter with every claim.
+            </p>
+            <a href="https://signal.civicscale.ai" style={{
+              display: "inline-block", marginTop: 16, fontSize: 14, color: "#0d9488",
+              textDecoration: "none", fontWeight: 500,
+            }}>
+              Learn about Signal &rarr;
+            </a>
           </div>
         </div>
       </section>
@@ -430,6 +497,25 @@ const PRODUCT_CARDS = [
     cta: "Learn More",
     badge: "30-day free trial, cancel anytime",
     to: "https://provider.civicscale.ai",
+  },
+  {
+    key: "billing",
+    label: "PARITY BILLING",
+    accent: "#3b82f6",
+    accentGrad: "linear-gradient(90deg, #3b82f6, #60a5fa)",
+    badgeBg: "rgba(59,130,246,0.12)",
+    hoverBorder: "rgba(59,130,246,0.4)",
+    heading: "Portfolio intelligence for RCM companies",
+    body: "Manage multiple practices from a single dashboard. Surface cross-practice denial patterns, generate branded client reports, and prove your value.",
+    bullets: [
+      "Aggregate denial and payer analytics across all practices",
+      "Cross-practice escalation with evidence packages",
+      "White-label PDF reports and client portal",
+    ],
+    cta: "Learn More",
+    badge: "First practice free, no card required",
+    to: "/billing",
+    track: "provider",
   },
   {
     key: "health",

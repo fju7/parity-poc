@@ -48,6 +48,7 @@ import RenewalPrepReport from './components/RenewalPrepReport.jsx'
 import BrokerDemoPage from './components/BrokerDemoPage.jsx'
 import EmployerSharedReport from './components/EmployerSharedReport.jsx'
 import BillingApp from './BillingApp.jsx'
+import BillingDemoPage from './components/BillingDemoPage.jsx'
 import PracticePortal from './PracticePortal.jsx'
 
 // Build version — injected by Vite at build time
@@ -201,6 +202,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/provider/account" element={<ProviderAccountPage />} />
         <Route path="/audit" element={<AuditStandalone />} />
         <Route path="/billing" element={<BillingLanding />} />
+        <Route path="/billing/demo" element={<BillingDemoPage />} />
         <Route path="/billing/employer" element={<EmployerProductPage />} />
         <Route path="/billing/provider" element={<ProviderProductPage />} />
         <Route path="/billing/employer/benchmark" element={<EmployerBenchmark />} />
