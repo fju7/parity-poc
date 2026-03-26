@@ -963,10 +963,37 @@ where denied claims are re-submitted and matched to later 835 payments.
 - Direct join works: practice_id = provider_subscriptions.company_id
 - No need for two-hop email join
 
+## Session BL-10 — Contract Library Management (Complete)
+
+### New file: backend/routers/billing_contracts.py
+- POST /api/billing/contracts/upload — PDF upload with versioning
+- GET /api/billing/contracts — list current contracts with status badges
+- GET /api/billing/contracts/{id}/history — version history
+- DELETE /api/billing/contracts/{id} — admin soft-delete + prior promotion
+- POST /api/billing/contracts/{id}/analyze — Claude vision rate extraction
+  using FEE_SCHEDULE_EXTRACTION_PROMPT from provider_shared.py
+- POST /api/billing/contracts/analyze-all — bulk analysis (admin only)
+
+### Contract Integrity investigation findings
+- Analysis logic is inline in provider_audit.py (analyze_contract, 430 lines)
+- Rate extraction uses Claude vision via _call_claude() with base64 PDF
+- FEE_SCHEDULE_EXTRACTION_PROMPT is in provider_shared.py (shared, importable)
+- For billing contracts, we use the same rate extraction prompt directly
+  — not the full analyze-against-835 flow (that's the portfolio endpoints' job)
+- No shared utility extraction was needed — the prompt was already importable
+
+### Frontend (BillingApp.jsx)
+- Contracts tab: upload modal, practice filter, Analyze All button
+- Expiry alert banner (amber, within 90 days)
+- Table with status badges (Active/Expiring Soon/Expired)
+- Inline history and analysis expansion panels
+
+### Migration 064: billing_contracts table
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Migrations 057, 058, 059, 060, 061, 062 pending.
-Next migration number: 063
+Migrations 057-064 pending.
+Next migration number: 065
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
