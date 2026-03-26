@@ -77,13 +77,13 @@ export default function CivicScaleHomepage() {
             Independent Healthcare Intelligence
           </div>
           <h1 className="cs-home-hero-h1">
-            One platform. Three perspectives on<br />
-            <span className="cs-home-hero-accent">a system that isn't working for anyone.</span>
+            Five products. One platform.<br />
+            <span className="cs-home-hero-accent">Intelligence that wasn't possible until now.</span>
           </h1>
           <p className="cs-home-hero-sub">
-            CivicScale gives providers, billing companies, employers, brokers,
-            and consumers independent intelligence on what healthcare actually
-            costs — getting smarter with every claim.
+            AI makes it possible for every participant in healthcare — providers,
+            billing companies, employers, brokers, and consumers — to see what
+            was previously visible only to payers. CivicScale is built on that insight.
           </p>
         </div>
       </section>
@@ -93,25 +93,34 @@ export default function CivicScaleHomepage() {
         <div className="cs-home-section-inner cs-home-problem-inner">
           <div className="cs-home-section-label">The Problem</div>
           <h2 className="cs-home-section-title">
-            One claim. Four perspectives. Zero shared visibility.
+            One claim. Six perspectives. Now finally connected.
           </h2>
           <p className="cs-home-section-sub" style={{ maxWidth: 720, margin: "0 auto 48px" }}>
-            A single healthcare claim touches a patient, a physician, an employer,
-            and a broker — each seeing a different piece of the same transaction,
-            none of them with the full picture. Carriers have historically been the only party with visibility across the full transaction.
+            A single healthcare claim touches six different parties — each seeing
+            a different piece of the same transaction. AI makes it possible, for
+            the first time, to give every party the intelligence they need.
           </p>
-          <div className="cs-home-problem-grid">
+          <div className="cs-home-problem-grid" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
             {PROBLEM_ITEMS.map((item) => (
-              <div key={item.role} className="cs-home-problem-card">
+              <div key={item.role} className="cs-home-problem-card" style={item.isCarrier ? {
+                borderColor: "rgba(245,158,11,0.25)",
+                background: "rgba(245,158,11,0.04)",
+              } : undefined}>
                 <div className="cs-home-problem-icon">{item.icon}</div>
                 <h3 className="cs-home-problem-role">{item.role}</h3>
                 <p className="cs-home-problem-desc">{item.desc}</p>
+                {item.isCarrier && (
+                  <p style={{ fontSize: 10, color: "#f59e0b", marginTop: 8, marginBottom: 0, fontStyle: "italic" }}>
+                    The information advantage CivicScale addresses
+                  </p>
+                )}
               </div>
             ))}
           </div>
           <p className="cs-home-problem-kicker">
-            CivicScale sits at all four points — independent data, no carrier
-            relationships, no conflicts of interest.
+            CivicScale sits at all six points — independent data, no carrier
+            relationships, no conflicts of interest. The intelligence that carriers
+            have always had, now available to everyone else.
           </p>
         </div>
       </section>
@@ -159,51 +168,65 @@ export default function CivicScaleHomepage() {
             })}
           </div>
 
-          {/* Track 2 — Employers, Brokers & Consumers */}
+          {/* Track 2 — Employers & Brokers */}
           <div style={{ marginBottom: 20 }}>
             <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#f59e0b", marginBottom: 16 }}>
-              For Employers, Brokers &amp; Consumers
+              For Employers &amp; Brokers
             </div>
           </div>
-          <div className="cs-home-product-cards">
-            {PRODUCT_CARDS.filter(c => ["employer", "broker", "health"].includes(c.key)).map((card) => {
+          <div className="cs-home-product-cards" style={{ marginBottom: 48 }}>
+            {PRODUCT_CARDS.filter(c => ["employer", "broker"].includes(c.key)).map((card) => {
               const isExternal = card.to.startsWith("http");
               const Wrapper = isExternal ? "a" : Link;
-              const linkProps = isExternal
-                ? { href: card.to, target: "_blank", rel: "noopener noreferrer" }
-                : { to: card.to };
+              const linkProps = isExternal ? { href: card.to, target: "_blank", rel: "noopener noreferrer" } : { to: card.to };
               return (
-              <Wrapper
-                key={card.key}
-                {...linkProps}
+              <Wrapper key={card.key} {...linkProps}
                 className={`cs-home-product-card cs-home-product-card--${card.key}`}
-                onMouseEnter={() => setHoveredProduct(card.key)}
-                onMouseLeave={() => setHoveredProduct(null)}
-                style={{
-                  borderColor: hoveredProduct === card.key ? card.hoverBorder : undefined,
-                }}
-              >
+                onMouseEnter={() => setHoveredProduct(card.key)} onMouseLeave={() => setHoveredProduct(null)}
+                style={{ borderColor: hoveredProduct === card.key ? card.hoverBorder : undefined }}>
                 <div className="cs-home-product-accent" style={{ background: card.accentGrad }} />
-                <div className="cs-home-product-badge" style={{ background: card.badgeBg, color: card.accent }}>
-                  {card.label}
-                </div>
+                <div className="cs-home-product-badge" style={{ background: card.badgeBg, color: card.accent }}>{card.label}</div>
                 <h3 className="cs-home-product-heading">{card.heading}</h3>
                 <p className="cs-home-product-body">{card.body}</p>
                 <ul className="cs-home-product-bullets">
-                  {card.bullets.map((b, i) => (
-                    <li key={i}><span className="cs-home-bullet-check" style={{ color: card.accent }}>&#10003;</span> {b}</li>
-                  ))}
+                  {card.bullets.map((b, i) => (<li key={i}><span className="cs-home-bullet-check" style={{ color: card.accent }}>&#10003;</span> {b}</li>))}
                 </ul>
                 <div className="cs-home-product-footer">
-                  <span className="cs-home-product-cta" style={{ color: card.accent }}>
-                    {card.cta} <span>&rarr;</span>
-                  </span>
-                  {card.badge && (
-                    <span className="cs-home-product-tier">{card.badge}</span>
-                  )}
+                  <span className="cs-home-product-cta" style={{ color: card.accent }}>{card.cta} <span>&rarr;</span></span>
+                  {card.badge && <span className="cs-home-product-tier">{card.badge}</span>}
                 </div>
-              </Wrapper>
-              );
+              </Wrapper>);
+            })}
+          </div>
+
+          {/* Track 3 — Consumers */}
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#14b8a6", marginBottom: 16 }}>
+              For Consumers
+            </div>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 0 }}>
+            {PRODUCT_CARDS.filter(c => c.key === "health").map((card) => {
+              const isExternal = card.to.startsWith("http");
+              const Wrapper = isExternal ? "a" : Link;
+              const linkProps = isExternal ? { href: card.to, target: "_blank", rel: "noopener noreferrer" } : { to: card.to };
+              return (
+              <Wrapper key={card.key} {...linkProps}
+                className={`cs-home-product-card cs-home-product-card--${card.key}`}
+                onMouseEnter={() => setHoveredProduct(card.key)} onMouseLeave={() => setHoveredProduct(null)}
+                style={{ borderColor: hoveredProduct === card.key ? card.hoverBorder : undefined, maxWidth: 560, width: "100%" }}>
+                <div className="cs-home-product-accent" style={{ background: card.accentGrad }} />
+                <div className="cs-home-product-badge" style={{ background: card.badgeBg, color: card.accent }}>{card.label}</div>
+                <h3 className="cs-home-product-heading">{card.heading}</h3>
+                <p className="cs-home-product-body">{card.body}</p>
+                <ul className="cs-home-product-bullets">
+                  {card.bullets.map((b, i) => (<li key={i}><span className="cs-home-bullet-check" style={{ color: card.accent }}>&#10003;</span> {b}</li>))}
+                </ul>
+                <div className="cs-home-product-footer">
+                  <span className="cs-home-product-cta" style={{ color: card.accent }}>{card.cta} <span>&rarr;</span></span>
+                  {card.badge && <span className="cs-home-product-tier">{card.badge}</span>}
+                </div>
+              </Wrapper>);
             })}
           </div>
         </div>
@@ -432,6 +455,11 @@ const PROBLEM_ITEMS = [
     desc: "Receives a payment that may not match their contracted rate. Denial patterns are invisible without analytics.",
   },
   {
+    icon: "\u{1F4CA}",
+    role: "The RCM Company",
+    desc: "Manages denials for dozens of practices but lacks portfolio-level intelligence to detect systematic payer behavior.",
+  },
+  {
     icon: "\u{1F3E2}",
     role: "The Employer",
     desc: "Pays a price that may be well above what comparable plans pay for the same procedure. No independent benchmark exists.",
@@ -439,7 +467,13 @@ const PROBLEM_ITEMS = [
   {
     icon: "\u{1F4BC}",
     role: "The Broker",
-    desc: "Advises on plan design with limited visibility into claims data. Carrier-provided analytics reflect carrier priorities, not independent employer interests.",
+    desc: "Advises on plan design with limited visibility into claims data. Carrier-provided analytics reflect carrier priorities.",
+  },
+  {
+    icon: "\u{1F3E6}",
+    role: "The Carrier",
+    desc: "Has always had full visibility across all parties. CivicScale exists to rebalance that equation.",
+    isCarrier: true,
   },
 ];
 
