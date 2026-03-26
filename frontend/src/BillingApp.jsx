@@ -19,6 +19,7 @@ export default function BillingApp() {
   // --- All hooks declared at top, before any conditional returns ---
   const [activeTab, setActiveTab] = useState("portfolio");
   const [billingCompany, setBillingCompany] = useState(null);
+  const [billingRole, setBillingRole] = useState("admin");
   const [subscription, setSubscription] = useState(null);
   const [meLoading, setMeLoading] = useState(false);
 
@@ -76,6 +77,7 @@ export default function BillingApp() {
       if (res.ok) {
         const data = await res.json();
         setBillingCompany(data.billing_company);
+        setBillingRole(data.role || "admin");
         setSubscription(data.subscription);
         setNeedsRegistration(false);
       } else if (res.status === 404) {
@@ -477,7 +479,7 @@ export default function BillingApp() {
       {/* Content */}
       <main style={{ padding: "32px 40px", maxWidth: activeTab === "portfolio" ? 1200 : 1000, margin: "0 auto" }}>
         {activeTab === "portfolio" && (
-          <PortfolioPanel token={token} billingCompany={billingCompany} />
+          <PortfolioPanel token={token} billingCompany={billingCompany} allPractices={practices} />
         )}
 
         {activeTab === "practices" && (
@@ -637,12 +639,7 @@ export default function BillingApp() {
         )}
 
         {activeTab === "team" && (
-          <div style={{
-            background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
-            borderRadius: 12, padding: 48, textAlign: "center",
-          }}>
-            <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>Coming soon</p>
-          </div>
+          <TeamPanel token={token} billingRole={billingRole} allPractices={practices} />
         )}
       </main>
     </div>
@@ -650,7 +647,7 @@ export default function BillingApp() {
 }
 
 // --- Portfolio Panel ---
-function PortfolioPanel({ token, billingCompany }) {
+function PortfolioPanel({ token, billingCompany, allPractices }) {
   const [days, setDays] = useState(90);
   const [summary, setSummary] = useState(null);
   const [practices, setPractices] = useState([]);
@@ -668,6 +665,27 @@ function PortfolioPanel({ token, billingCompany }) {
   const [benchmarkSortField, setBenchmarkSortField] = useState("adherence_rate");
   const [benchmarkSortDir, setBenchmarkSortDir] = useState("asc");
   const [anomalyDismissed, setAnomalyDismissed] = useState(false);
+
+  // Comparison state
+  const [compareA, setCompareA] = useState("");
+  const [compareB, setCompareB] = useState("");
+  const [comparison, setComparison] = useState(null);
+  const [compLoading, setCompLoading] = useState(false);
+
+  const fetchComparison = useCallback(async () => {
+    if (!token || !compareA || !compareB || compareA === compareB) { setComparison(null); return; }
+    setCompLoading(true);
+    try {
+      const res = await fetch(
+        `${API}/api/billing/portfolio/comparison?practice_a_id=${compareA}&practice_b_id=${compareB}&days=${days}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (res.ok) setComparison(await res.json());
+    } catch { /* ignore */ }
+    finally { setCompLoading(false); }
+  }, [token, compareA, compareB, days]);
+
+  useEffect(() => { fetchComparison(); }, [fetchComparison]);
 
   const fetchAll = useCallback(async () => {
     if (!token || !billingCompany) return;
@@ -927,6 +945,132 @@ function PortfolioPanel({ token, billingCompany }) {
         setAnomalyDismissed={setAnomalyDismissed}
         days={days}
       />
+
+      {/* Practice Comparison */}
+      <PracticeComparisonSection
+        allPractices={(allPractices || []).filter(p => p.active)}
+        compareA={compareA} setCompareA={setCompareA}
+        compareB={compareB} setCompareB={setCompareB}
+        comparison={comparison} compLoading={compLoading}
+        days={days}
+      />
+    </div>
+  );
+}
+
+function PracticeComparisonSection({
+  allPractices, compareA, setCompareA, compareB, setCompareB,
+  comparison, compLoading, days,
+}) {
+  if (allPractices.length < 2) {
+    return (
+      <div style={{ marginTop: 32 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Practice Comparison</h3>
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 48, textAlign: "center",
+        }}>
+          <p style={{ color: "#94a3b8", fontSize: 14, margin: 0 }}>Fewer than 2 practices available for comparison.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const selectStyle = {
+    padding: "8px 12px", borderRadius: 8, fontSize: 14, flex: 1, minWidth: 200,
+    border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)",
+    color: "#f1f5f9", appearance: "auto", boxSizing: "border-box",
+  };
+
+  const metricRows = comparison ? [
+    { label: "Denial Rate", key: "denial_rate", fmt: v => `${v}%`, better: "lower" },
+    { label: "Total Billed", key: "total_billed", fmt: v => `$${Number(v).toLocaleString()}`, better: "higher" },
+    { label: "Total Lines", key: "line_count", fmt: v => v.toLocaleString(), better: "higher" },
+    { label: "Top Payer", key: "top_payer", fmt: v => v, better: null },
+    { label: "Top Denial Reason", key: "top_denial_reason", fmt: v => v, better: null },
+  ] : [];
+
+  const deltaIndicator = (val, avg, better) => {
+    if (better === null || avg === 0 || avg === "—" || val === "—") return null;
+    const diff = val - avg;
+    if (Math.abs(diff) < 0.5) return null;
+    const isGood = better === "lower" ? diff < 0 : diff > 0;
+    return (
+      <span style={{ fontSize: 11, marginLeft: 4, color: isGood ? "#5eead4" : "#fca5a5" }}>
+        {isGood ? "\u2191" : "\u2193"}
+      </span>
+    );
+  };
+
+  return (
+    <div style={{ marginTop: 32 }}>
+      <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 16px" }}>Practice Comparison</h3>
+
+      <div style={{ display: "flex", gap: 16, marginBottom: 16, flexWrap: "wrap" }}>
+        <select value={compareA} onChange={(e) => setCompareA(e.target.value)} style={selectStyle}>
+          <option value="">Select Practice A...</option>
+          {allPractices.map(p => (
+            <option key={p.practice_id} value={p.practice_id}>{p.practice_name}</option>
+          ))}
+        </select>
+        <span style={{ color: "#64748b", alignSelf: "center", fontSize: 14 }}>vs</span>
+        <select value={compareB} onChange={(e) => setCompareB(e.target.value)} style={selectStyle}>
+          <option value="">Select Practice B...</option>
+          {allPractices.map(p => (
+            <option key={p.practice_id} value={p.practice_id}>{p.practice_name}</option>
+          ))}
+        </select>
+      </div>
+
+      {!compareA || !compareB || compareA === compareB ? (
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 32, textAlign: "center",
+        }}>
+          <p style={{ color: "#94a3b8", fontSize: 14, margin: 0 }}>
+            {compareA === compareB && compareA ? "Select two different practices." : "Select two practices to compare."}
+          </p>
+        </div>
+      ) : compLoading ? (
+        <p style={{ color: "#94a3b8", fontSize: 14 }}>Loading comparison...</p>
+      ) : comparison ? (
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: 12, overflow: "hidden",
+        }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <th style={styles.th}>Metric</th>
+                <th style={styles.th}>{comparison.practice_a?.practice_name || "Practice A"}</th>
+                <th style={styles.th}>{comparison.practice_b?.practice_name || "Practice B"}</th>
+                <th style={styles.th}>Portfolio Avg</th>
+              </tr>
+            </thead>
+            <tbody>
+              {metricRows.map(m => {
+                const va = comparison.practice_a?.[m.key];
+                const vb = comparison.practice_b?.[m.key];
+                const vavg = comparison.portfolio_avg?.[m.key];
+                return (
+                  <tr key={m.key} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={{ ...styles.td, fontWeight: 500 }}>{m.label}</td>
+                    <td style={styles.td}>
+                      {m.fmt(va ?? "—")}
+                      {typeof va === "number" && typeof vavg === "number" && deltaIndicator(va, vavg, m.better)}
+                    </td>
+                    <td style={styles.td}>
+                      {m.fmt(vb ?? "—")}
+                      {typeof vb === "number" && typeof vavg === "number" && deltaIndicator(vb, vavg, m.better)}
+                    </td>
+                    <td style={{ ...styles.td, color: "#64748b" }}>{m.fmt(vavg ?? "—")}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -1584,6 +1728,205 @@ function SettingsPanel({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+
+// --- Team Panel ---
+function TeamPanel({ token, billingRole, allPractices }) {
+  const [analysts, setAnalysts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [editingUserId, setEditingUserId] = useState(null);
+  const [editPracticeIds, setEditPracticeIds] = useState([]);
+  const [saving, setSaving] = useState(false);
+  const [saveMsg, setSaveMsg] = useState("");
+
+  const activePractices = (allPractices || []).filter(p => p.active);
+
+  const fetchAnalysts = useCallback(async () => {
+    if (!token) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/billing/team/analysts`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setAnalysts(data.analysts || []);
+      }
+    } catch { /* ignore */ }
+    finally { setLoading(false); }
+  }, [token]);
+
+  useEffect(() => { fetchAnalysts(); }, [fetchAnalysts]);
+
+  if (billingRole !== "admin") {
+    return (
+      <div>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 24px" }}>Team</h2>
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 48, textAlign: "center",
+        }}>
+          <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>
+            Contact your administrator to manage team assignments.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const startEdit = (analyst) => {
+    setEditingUserId(analyst.user_id);
+    setEditPracticeIds(analyst.assigned_practices.map(p => p.practice_id));
+    setSaveMsg("");
+  };
+
+  const togglePractice = (pid) => {
+    setEditPracticeIds(prev =>
+      prev.includes(pid) ? prev.filter(id => id !== pid) : [...prev, pid]
+    );
+  };
+
+  const handleSave = async () => {
+    setSaving(true); setSaveMsg("");
+    try {
+      const res = await fetch(`${API}/api/billing/team/assignments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ analyst_user_id: editingUserId, practice_ids: editPracticeIds }),
+      });
+      if (res.ok) {
+        setSaveMsg("Saved!");
+        setEditingUserId(null);
+        fetchAnalysts();
+        setTimeout(() => setSaveMsg(""), 3000);
+      } else {
+        const d = await res.json();
+        setSaveMsg(d.detail || "Failed.");
+      }
+    } catch { setSaveMsg("Failed to save."); }
+    finally { setSaving(false); }
+  };
+
+  return (
+    <div>
+      <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 24px" }}>Analyst Assignments</h2>
+
+      {saveMsg && (
+        <div style={{
+          padding: "8px 16px", borderRadius: 8, marginBottom: 16,
+          background: saveMsg === "Saved!" ? "rgba(13,148,136,0.1)" : "rgba(239,68,68,0.1)",
+          border: `1px solid ${saveMsg === "Saved!" ? "rgba(13,148,136,0.3)" : "rgba(239,68,68,0.3)"}`,
+          color: saveMsg === "Saved!" ? "#5eead4" : "#fca5a5", fontSize: 13,
+        }}>
+          {saveMsg}
+        </div>
+      )}
+
+      {loading ? (
+        <p style={{ color: "#94a3b8" }}>Loading team...</p>
+      ) : analysts.length === 0 ? (
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 48, textAlign: "center",
+        }}>
+          <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>No team members yet. Invite users from Settings.</p>
+        </div>
+      ) : (
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: 12, overflow: "hidden",
+        }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <th style={styles.th}>Name</th>
+                <th style={styles.th}>Email</th>
+                <th style={styles.th}>Role</th>
+                <th style={styles.th}>Assigned Practices</th>
+                <th style={styles.th}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {analysts.map(a => (
+                <React.Fragment key={a.user_id}>
+                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={styles.td}>{a.full_name || "—"}</td>
+                    <td style={{ ...styles.td, color: "#94a3b8", fontSize: 13 }}>{a.email}</td>
+                    <td style={styles.td}>
+                      <span style={{
+                        display: "inline-block", padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600,
+                        background: a.role === "admin" ? "rgba(59,130,246,0.15)" : "rgba(148,163,184,0.15)",
+                        color: a.role === "admin" ? "#60a5fa" : "#94a3b8",
+                        textTransform: "capitalize",
+                      }}>
+                        {a.role}
+                      </span>
+                    </td>
+                    <td style={{ ...styles.td, fontSize: 13 }}>
+                      {a.role === "admin" ? (
+                        <span style={{ color: "#64748b", fontStyle: "italic" }}>All practices</span>
+                      ) : a.assigned_practices.length === 0 ? (
+                        <span style={{ color: "#64748b" }}>None</span>
+                      ) : (
+                        a.assigned_practices.map(p => p.practice_name).join(", ")
+                      )}
+                    </td>
+                    <td style={styles.td}>
+                      {a.role !== "admin" && (
+                        <button onClick={() => editingUserId === a.user_id ? setEditingUserId(null) : startEdit(a)}
+                          style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer" }}>
+                          {editingUserId === a.user_id ? "Cancel" : "Edit"}
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                  {editingUserId === a.user_id && (
+                    <tr>
+                      <td colSpan={5} style={{ padding: "12px 16px", background: "rgba(13,148,136,0.03)" }}>
+                        <div style={{ marginBottom: 8 }}>
+                          <span style={{ fontSize: 13, color: "#cbd5e1", fontWeight: 500 }}>
+                            Assign practices to {a.full_name || a.email}:
+                          </span>
+                        </div>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
+                          {activePractices.map(p => {
+                            const checked = editPracticeIds.includes(p.practice_id);
+                            return (
+                              <label key={p.practice_id} style={{
+                                display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
+                                padding: "4px 10px", borderRadius: 6, fontSize: 13,
+                                background: checked ? "rgba(13,148,136,0.15)" : "rgba(255,255,255,0.03)",
+                                border: `1px solid ${checked ? "rgba(13,148,136,0.3)" : "rgba(255,255,255,0.08)"}`,
+                                color: checked ? "#5eead4" : "#94a3b8",
+                              }}>
+                                <input type="checkbox" checked={checked}
+                                  onChange={() => togglePractice(p.practice_id)}
+                                  style={{ accentColor: "#0d9488" }} />
+                                {p.practice_name}
+                              </label>
+                            );
+                          })}
+                        </div>
+                        <button onClick={handleSave} disabled={saving}
+                          style={{
+                            padding: "6px 16px", borderRadius: 6, border: "none", cursor: "pointer",
+                            background: saving ? "#334155" : "#0d9488", color: "#fff",
+                            fontWeight: 600, fontSize: 13,
+                          }}>
+                          {saving ? "Saving..." : "Save Assignments"}
+                        </button>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

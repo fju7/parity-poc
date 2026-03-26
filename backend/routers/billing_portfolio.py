@@ -57,7 +57,7 @@ DENIAL_CODE_DESCRIPTIONS = {
 
 
 def _require_billing_portfolio(authorization: str):
-    """Authenticate and return (user, billing_company, sb)."""
+    """Authenticate and return (user, bc_id, bc_role, bc_user_id, sb)."""
     sb = _get_supabase()
     user = get_current_user(authorization, sb)
 
@@ -66,19 +66,50 @@ def _require_billing_portfolio(authorization: str):
 
     # Look up billing company
     bc_user = sb.table("billing_company_users").select(
-        "billing_company_id"
+        "id, billing_company_id, role"
     ).eq("email", user["email"]).eq("status", "active").limit(1).execute()
 
     if not bc_user.data:
         raise HTTPException(status_code=404, detail="No billing company found.")
 
     bc_id = bc_user.data[0]["billing_company_id"]
-    return user, bc_id, sb
+    bc_role = bc_user.data[0]["role"]
+    bc_user_id = bc_user.data[0]["id"]
+    return user, bc_id, bc_role, bc_user_id, sb
 
 
 def _date_cutoff(days: int) -> str:
     """Return ISO timestamp for N days ago."""
     return (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+
+
+def _get_scoped_practice_ids(bc_id: str, bc_user_id: str, bc_role: str, sb) -> list:
+    """Return practice IDs visible to this user.
+
+    Admin: all active practices for the billing company (returns None = no filter).
+    Analyst/viewer: only assigned practices from analyst_practice_assignments.
+    """
+    if bc_role == "admin":
+        return None  # No filter — admin sees everything
+
+    assignments = sb.table("analyst_practice_assignments").select(
+        "practice_id"
+    ).eq("billing_company_id", bc_id).eq("analyst_user_id", bc_user_id).execute()
+
+    return [a["practice_id"] for a in (assignments.data or [])]
+
+
+def _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff, select_cols):
+    """Build a provider_analyses query with analyst scoping applied."""
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
+    query = sb.table("provider_analyses").select(select_cols).eq(
+        "billing_company_id", bc_id
+    ).gte("created_at", cutoff)
+    if scoped is not None:
+        if not scoped:
+            return None  # Analyst with no assignments — return empty
+        query = query.in_("company_id", scoped)
+    return query.execute()
 
 
 # ---------------------------------------------------------------------------
@@ -87,14 +118,13 @@ def _date_cutoff(days: int) -> str:
 
 @router.get("/summary")
 async def portfolio_summary(days: int = 90, authorization: str = Header(None)):
-    user, bc_id, sb = _require_billing_portfolio(authorization)
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
 
-    rows = sb.table("provider_analyses").select(
-        "total_billed, total_paid, company_id, payer_name, result_json"
-    ).eq("billing_company_id", bc_id).gte("created_at", cutoff).execute()
+    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
+        "total_billed, total_paid, company_id, payer_name, result_json")
 
-    if not rows.data:
+    if not rows or not rows.data:
         return {
             "total_billed": 0, "total_paid": 0, "total_lines": 0,
             "overall_denial_rate": 0, "practice_count": 0, "payer_count": 0,
@@ -139,16 +169,15 @@ async def portfolio_summary(days: int = 90, authorization: str = Header(None)):
 
 @router.get("/practices")
 async def portfolio_practices(days: int = 90, authorization: str = Header(None)):
-    user, bc_id, sb = _require_billing_portfolio(authorization)
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
 
-    rows = sb.table("provider_analyses").select(
-        "company_id, total_billed, total_paid, result_json, created_at"
-    ).eq("billing_company_id", bc_id).gte("created_at", cutoff).execute()
+    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
+        "company_id, total_billed, total_paid, result_json, created_at")
 
     # Group by practice (company_id)
     practice_map = {}  # company_id → {totals}
-    for r in (rows.data or []):
+    for r in ((rows.data if rows else None) or []):
         pid = r.get("company_id")
         if not pid:
             continue
@@ -204,15 +233,14 @@ async def portfolio_practices(days: int = 90, authorization: str = Header(None))
 
 @router.get("/payers")
 async def portfolio_payers(days: int = 90, authorization: str = Header(None)):
-    user, bc_id, sb = _require_billing_portfolio(authorization)
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
 
-    rows = sb.table("provider_analyses").select(
-        "payer_name, company_id, total_billed, total_paid, result_json"
-    ).eq("billing_company_id", bc_id).gte("created_at", cutoff).execute()
+    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
+        "payer_name, company_id, total_billed, total_paid, result_json")
 
     payer_map = {}  # payer_name → {totals}
-    for r in (rows.data or []):
+    for r in ((rows.data if rows else None) or []):
         payer = (r.get("payer_name") or "").strip()
         if not payer:
             continue
@@ -254,15 +282,13 @@ async def portfolio_payers(days: int = 90, authorization: str = Header(None)):
 
 @router.get("/denial-reasons")
 async def portfolio_denial_reasons(days: int = 90, authorization: str = Header(None)):
-    user, bc_id, sb = _require_billing_portfolio(authorization)
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
 
-    rows = sb.table("provider_analyses").select(
-        "result_json"
-    ).eq("billing_company_id", bc_id).gte("created_at", cutoff).execute()
+    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff, "result_json, company_id")
 
     code_map = {}  # code → {count, amount}
-    for r in (rows.data or []):
+    for r in ((rows.data if rows else None) or []):
         rj = r.get("result_json") or {}
         for li in (rj.get("line_items") or []):
             paid = float(li.get("paid_amount") or 0)
@@ -302,14 +328,18 @@ async def portfolio_denial_reasons(days: int = 90, authorization: str = Header(N
 
 @router.get("/specialties")
 async def portfolio_specialties(authorization: str = Header(None)):
-    user, bc_id, sb = _require_billing_portfolio(authorization)
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
 
-    # Get practice IDs linked to this billing company
-    links = sb.table("billing_company_practices").select(
-        "practice_id"
-    ).eq("billing_company_id", bc_id).eq("active", True).execute()
+    # Get practice IDs — scoped by role
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
+    if scoped is not None:
+        practice_ids = scoped
+    else:
+        links = sb.table("billing_company_practices").select(
+            "practice_id"
+        ).eq("billing_company_id", bc_id).eq("active", True).execute()
+        practice_ids = [l["practice_id"] for l in (links.data or [])]
 
-    practice_ids = [l["practice_id"] for l in (links.data or [])]
     if not practice_ids:
         return {"specialties": []}
 
@@ -336,7 +366,7 @@ async def portfolio_payer_benchmark(
     specialty: str = None,
     authorization: str = Header(None),
 ):
-    user, bc_id, sb = _require_billing_portfolio(authorization)
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
 
     # If specialty filter, resolve matching practice IDs first
@@ -356,13 +386,28 @@ async def portfolio_payer_benchmark(
         if not filtered_practice_ids:
             return {"payers": [], "specialty_filter": specialty.strip()}
 
+    # Apply role scoping
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
+
+    # Merge scoped + specialty filters
+    final_filter = None
+    if scoped is not None and filtered_practice_ids is not None:
+        final_filter = list(set(scoped) & set(filtered_practice_ids))
+    elif scoped is not None:
+        final_filter = scoped
+    elif filtered_practice_ids is not None:
+        final_filter = filtered_practice_ids
+
+    if final_filter is not None and not final_filter:
+        return {"payers": [], "specialty_filter": (specialty.strip() if specialty else None)}
+
     # Query provider_analyses
     query = sb.table("provider_analyses").select(
         "payer_name, company_id, total_billed, total_paid, result_json"
     ).eq("billing_company_id", bc_id).gte("created_at", cutoff)
 
-    if filtered_practice_ids is not None:
-        query = query.in_("company_id", filtered_practice_ids)
+    if final_filter is not None:
+        query = query.in_("company_id", final_filter)
 
     rows = query.execute()
 
@@ -416,24 +461,32 @@ async def portfolio_payer_benchmark(
 
 @router.get("/payer-anomalies")
 async def portfolio_payer_anomalies(authorization: str = Header(None)):
-    user, bc_id, sb = _require_billing_portfolio(authorization)
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
 
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
     now = datetime.now(timezone.utc)
     current_start = (now - timedelta(days=90)).isoformat()
     prior_start = (now - timedelta(days=180)).isoformat()
-    current_cutoff = now.isoformat()
 
     # Current window: last 90 days
-    current_rows = sb.table("provider_analyses").select(
+    cq = sb.table("provider_analyses").select(
         "payer_name, company_id, result_json"
-    ).eq("billing_company_id", bc_id).gte("created_at", current_start).execute()
+    ).eq("billing_company_id", bc_id).gte("created_at", current_start)
+    if scoped is not None:
+        if not scoped:
+            return {"anomalies": []}
+        cq = cq.in_("company_id", scoped)
+    current_rows = cq.execute()
 
     # Prior window: 90-180 days ago
-    prior_rows = sb.table("provider_analyses").select(
+    pq = sb.table("provider_analyses").select(
         "payer_name, company_id, result_json"
     ).eq("billing_company_id", bc_id).gte(
         "created_at", prior_start
-    ).lt("created_at", current_start).execute()
+    ).lt("created_at", current_start)
+    if scoped is not None:
+        pq = pq.in_("company_id", scoped)
+    prior_rows = pq.execute()
 
     def _aggregate(rows_data):
         pmap = {}
@@ -475,3 +528,101 @@ async def portfolio_payer_anomalies(authorization: str = Header(None)):
 
     anomalies.sort(key=lambda x: x["delta"])
     return {"anomalies": anomalies}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/portfolio/comparison
+# ---------------------------------------------------------------------------
+
+@router.get("/comparison")
+async def portfolio_comparison(
+    practice_a_id: str = None,
+    practice_b_id: str = None,
+    days: int = 90,
+    authorization: str = Header(None),
+):
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
+    cutoff = _date_cutoff(days)
+
+    if not practice_a_id or not practice_b_id:
+        raise HTTPException(status_code=400, detail="Both practice_a_id and practice_b_id required.")
+
+    # Validate both practices belong to this billing company
+    for pid in [practice_a_id, practice_b_id]:
+        link = sb.table("billing_company_practices").select("id").eq(
+            "billing_company_id", bc_id
+        ).eq("practice_id", pid).eq("active", True).limit(1).execute()
+        if not link.data:
+            raise HTTPException(status_code=404, detail=f"Practice {pid} not found in your company.")
+
+    # Check analyst scoping
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
+    if scoped is not None:
+        if practice_a_id not in scoped or practice_b_id not in scoped:
+            raise HTTPException(status_code=403, detail="You do not have access to one or both practices.")
+
+    # Get all analyses for portfolio average
+    all_rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
+        "company_id, payer_name, total_billed, total_paid, result_json")
+
+    def _compute_metrics(rows_data):
+        total_billed = 0.0
+        line_count = 0
+        denied = 0
+        payer_counts = {}
+        denial_codes = {}
+
+        for r in (rows_data or []):
+            total_billed += float(r.get("total_billed") or 0)
+            payer = (r.get("payer_name") or "").strip()
+            if payer:
+                payer_counts[payer] = payer_counts.get(payer, 0) + 1
+
+            rj = r.get("result_json") or {}
+            line_count += int(rj.get("line_count") or 0)
+            denied += int(rj.get("denied_lines") or 0)
+
+            for li in (rj.get("line_items") or []):
+                if (li.get("paid_amount") or 0) != 0:
+                    continue
+                for adj in (li.get("adjustments") or []):
+                    if not isinstance(adj, dict) or adj.get("group_code") != "CO":
+                        continue
+                    rc = adj.get("reason_code") or ""
+                    if rc:
+                        code = f"CO-{rc}"
+                        denial_codes[code] = denial_codes.get(code, 0) + 1
+
+        denial_rate = round((denied / line_count * 100), 2) if line_count > 0 else 0.0
+        top_payer = max(payer_counts, key=payer_counts.get) if payer_counts else "—"
+        top_denial = max(denial_codes, key=denial_codes.get) if denial_codes else "—"
+        top_denial_desc = DENIAL_CODE_DESCRIPTIONS.get(top_denial.replace("CO-", ""), "") if top_denial != "—" else ""
+
+        return {
+            "denial_rate": denial_rate,
+            "total_billed": round(total_billed, 2),
+            "line_count": line_count,
+            "top_payer": top_payer,
+            "top_denial_reason": top_denial,
+            "top_denial_description": top_denial_desc,
+        }
+
+    all_data = (all_rows.data if all_rows else []) or []
+    practice_a_data = [r for r in all_data if r.get("company_id") == practice_a_id]
+    practice_b_data = [r for r in all_data if r.get("company_id") == practice_b_id]
+
+    # Resolve practice names
+    names = {}
+    for pid in [practice_a_id, practice_b_id]:
+        nr = sb.table("companies").select("name").eq("id", pid).limit(1).execute()
+        names[pid] = nr.data[0]["name"] if nr.data else "Unknown"
+
+    metrics_a = _compute_metrics(practice_a_data)
+    metrics_b = _compute_metrics(practice_b_data)
+    metrics_avg = _compute_metrics(all_data)
+
+    return {
+        "practice_a": {"practice_id": practice_a_id, "practice_name": names[practice_a_id], **metrics_a},
+        "practice_b": {"practice_id": practice_b_id, "practice_name": names[practice_b_id], **metrics_b},
+        "portfolio_avg": metrics_avg,
+    }
