@@ -656,6 +656,84 @@ async def update_billing_settings(req: SettingsUpdateRequest, authorization: str
     return {"updated": True}
 
 
+# ---------------------------------------------------------------------------
+# POST /api/billing/settings/logo — upload company logo
+# ---------------------------------------------------------------------------
+
+@router.post("/settings/logo")
+async def upload_logo(file: UploadFile = File(...), authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, bc_role = _get_billing_company(user, sb)
+
+    if bc_role != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    content = await file.read()
+    if len(content) > 2 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="Logo must be under 2MB.")
+
+    fname = (file.filename or "logo.png").lower()
+    if not fname.endswith((".png", ".jpg", ".jpeg")):
+        raise HTTPException(status_code=400, detail="Logo must be PNG or JPG.")
+
+    ext = fname.rsplit(".", 1)[-1]
+    storage_path = f"{bc['id']}/logo.{ext}"
+    content_type = "image/png" if ext == "png" else "image/jpeg"
+
+    try:
+        sb.storage.from_("billing-logos").upload(
+            storage_path, content,
+            file_options={"content-type": content_type, "upsert": "true"},
+        )
+    except Exception:
+        # Bucket may not exist — try to create it
+        try:
+            sb.storage.create_bucket("billing-logos", options={"public": False})
+            sb.storage.from_("billing-logos").upload(
+                storage_path, content,
+                file_options={"content-type": content_type, "upsert": "true"},
+            )
+        except Exception as exc:
+            raise HTTPException(status_code=500, detail=f"Logo upload failed: {exc}")
+
+    logo_url = f"billing-logos/{storage_path}"
+    sb.table("billing_companies").update({
+        "logo_url": logo_url,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }).eq("id", bc["id"]).execute()
+
+    return {"logo_url": logo_url}
+
+
+# ---------------------------------------------------------------------------
+# PUT /api/billing/settings/report-text — update report header/footer
+# ---------------------------------------------------------------------------
+
+class ReportTextRequest(BaseModel):
+    report_header_text: Optional[str] = None
+    report_footer_text: Optional[str] = None
+
+@router.put("/settings/report-text")
+async def update_report_text(req: ReportTextRequest, authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, bc_role = _get_billing_company(user, sb)
+
+    if bc_role != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    updates = {}
+    if req.report_header_text is not None:
+        updates["report_header_text"] = req.report_header_text.strip()
+    if req.report_footer_text is not None:
+        updates["report_footer_text"] = req.report_footer_text.strip()
+
+    if updates:
+        updates["updated_at"] = datetime.now(timezone.utc).isoformat()
+        sb.table("billing_companies").update(updates).eq("id", bc["id"]).execute()
+
+    return {"updated": True}
+
+
 # ===========================================================================
 # 835 Ingestion endpoints
 # ===========================================================================

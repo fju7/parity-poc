@@ -6,9 +6,12 @@ company, using billing_company_id as the join key.
 
 from __future__ import annotations
 
+import io
 from datetime import datetime, timezone, timedelta
 
 from fastapi import APIRouter, Header, HTTPException
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 
 from routers.auth import get_current_user
 from routers.employer_shared import _get_supabase
@@ -1092,3 +1095,257 @@ async def appeal_roi_trend(days: int = 180, authorization: str = Header(None)):
         b["recovery_rate"] = round((b["total_recovered"] / total * 100), 2) if total > 0 else 0.0
 
     return {"trend": buckets}
+
+
+# ===========================================================================
+# PDF Report generation
+# ===========================================================================
+
+class GenerateReportRequest(BaseModel):
+    practice_id: str
+    report_type: str  # 'denial_summary' | 'payer_performance' | 'appeal_roi'
+    date_range_days: int = 90
+
+
+@router.post("/reports/generate")
+async def generate_billing_report(req: GenerateReportRequest,
+                                  authorization: str = Header(None)):
+    from reportlab.platypus import SimpleDocTemplate, Spacer, PageBreak
+    from reportlab.lib.pagesizes import letter
+    from reportlab.lib.units import inch
+    from utils.pdf_branding import (
+        get_billing_branding, fetch_logo_bytes,
+        build_cover_page, build_header_footer_func,
+        build_kpi_row, build_data_table, _get_styles,
+    )
+
+    user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
+    cutoff = _date_cutoff(req.date_range_days)
+
+    # Validate practice belongs to billing company
+    link = sb.table("billing_company_practices").select("id").eq(
+        "billing_company_id", bc_id
+    ).eq("practice_id", req.practice_id).eq("active", True).limit(1).execute()
+    if not link.data:
+        raise HTTPException(status_code=404, detail="Practice not found.")
+
+    # Check analyst scoping
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
+    if scoped is not None and req.practice_id not in scoped:
+        raise HTTPException(status_code=403, detail="Access denied for this practice.")
+
+    # Get practice name
+    prac = sb.table("companies").select("name").eq("id", req.practice_id).limit(1).execute()
+    practice_name = prac.data[0]["name"] if prac.data else "Unknown Practice"
+
+    # Get branding
+    branding = get_billing_branding(bc_id, sb)
+    logo_bytes = fetch_logo_bytes(branding.get("logo_url"), sb)
+
+    # Build date range label
+    now = datetime.now(timezone.utc)
+    start = now - timedelta(days=req.date_range_days)
+    date_label = f"Last {req.date_range_days} Days ({start.strftime('%b %d, %Y')} – {now.strftime('%b %d, %Y')})"
+
+    # Get data for this practice
+    lines = sb.table("billing_claim_lines").select(
+        "payer_name, billed_amount, paid_amount, status, denial_codes, "
+        "date_of_service, adjudication_date, cpt_code, claim_number"
+    ).eq("billing_company_id", bc_id).eq(
+        "practice_id", req.practice_id
+    ).gte("created_at", cutoff).execute()
+
+    all_lines = lines.data or []
+    styles = _get_styles()
+
+    # Build PDF
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(buf, pagesize=letter,
+                            leftMargin=0.75 * inch, rightMargin=0.75 * inch,
+                            topMargin=0.75 * inch, bottomMargin=0.75 * inch)
+
+    story = build_cover_page(branding, practice_name, req.report_type,
+                             date_label, logo_bytes)
+
+    hf_func = build_header_footer_func(branding)
+
+    if req.report_type == "denial_summary":
+        story += _build_denial_summary_pages(all_lines, styles, practice_name)
+    elif req.report_type == "payer_performance":
+        story += _build_payer_performance_pages(all_lines, styles, practice_name)
+    elif req.report_type == "appeal_roi":
+        recoveries = _detect_recoveries(sb, bc_id, [req.practice_id])
+        story += _build_appeal_roi_pages(all_lines, recoveries, styles, practice_name)
+    else:
+        raise HTTPException(status_code=400, detail="Invalid report_type.")
+
+    doc.build(story, onLaterPages=hf_func)
+
+    filename = f"{branding['company_name'].replace(' ', '_')}_{practice_name.replace(' ', '_')}_{req.report_type}_{now.strftime('%Y%m%d')}.pdf"
+    return StreamingResponse(
+        io.BytesIO(buf.getvalue()),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+def _build_denial_summary_pages(lines, styles, practice_name):
+    """Build denial summary report pages."""
+    from reportlab.lib.units import inch
+    from utils.pdf_branding import build_kpi_row, build_data_table, Spacer, TEAL
+
+    story = []
+    story.append(Spacer(1, 0.2 * inch))
+
+    total = len(lines)
+    denied = [l for l in lines if l.get("status") == "denied"]
+    denied_count = len(denied)
+    denied_amount = sum(float(l.get("billed_amount") or 0) for l in denied)
+    denial_rate = round((denied_count / total * 100), 2) if total > 0 else 0.0
+
+    # KPIs
+    story.append(build_kpi_row([
+        {"label": "Total Lines", "value": f"{total:,}"},
+        {"label": "Denied Lines", "value": f"{denied_count:,}"},
+        {"label": "Denial Rate", "value": f"{denial_rate}%"},
+        {"label": "Denied Amount", "value": f"${denied_amount:,.0f}"},
+    ]))
+    story.append(Spacer(1, 0.3 * inch))
+
+    # Denial codes breakdown
+    code_map = {}
+    for l in denied:
+        for code in (l.get("denial_codes") or []):
+            raw = code.replace("CO-", "") if code.startswith("CO-") else code
+            if code not in code_map:
+                code_map[code] = {"count": 0, "amount": 0,
+                                  "desc": DENIAL_CODE_DESCRIPTIONS.get(raw, "")}
+            code_map[code]["count"] += 1
+            code_map[code]["amount"] += float(l.get("billed_amount") or 0)
+
+    if code_map:
+        from reportlab.platypus import Paragraph
+        story.append(Paragraph("<b>Denial Codes</b>", styles["heading2"]))
+        sorted_codes = sorted(code_map.items(), key=lambda x: x[1]["count"], reverse=True)[:15]
+        rows = []
+        for code, data in sorted_codes:
+            rows.append([code, data["desc"][:50], str(data["count"]), f"${data['amount']:,.0f}"])
+        story.append(build_data_table(
+            ["Code", "Description", "Count", "Amount"],
+            rows, col_widths=[1 * inch, 3 * inch, 0.8 * inch, 1.2 * inch],
+        ))
+
+    # Payer breakdown
+    payer_map = {}
+    for l in denied:
+        p = (l.get("payer_name") or "").strip()
+        if p:
+            payer_map[p] = payer_map.get(p, 0) + 1
+
+    if payer_map:
+        from reportlab.platypus import Paragraph
+        story.append(Spacer(1, 0.3 * inch))
+        story.append(Paragraph("<b>Denials by Payer</b>", styles["heading2"]))
+        rows = [[p, str(c)] for p, c in sorted(payer_map.items(), key=lambda x: x[1], reverse=True)]
+        story.append(build_data_table(
+            ["Payer", "Denied Lines"], rows,
+            col_widths=[4.5 * inch, 1.5 * inch],
+        ))
+
+    return story
+
+
+def _build_payer_performance_pages(lines, styles, practice_name):
+    """Build payer performance report pages."""
+    from reportlab.lib.units import inch
+    from reportlab.platypus import Paragraph
+    from utils.pdf_branding import build_kpi_row, build_data_table, Spacer
+
+    story = []
+    story.append(Spacer(1, 0.2 * inch))
+
+    payer_map = {}
+    for l in lines:
+        p = (l.get("payer_name") or "").strip()
+        if not p:
+            continue
+        if p not in payer_map:
+            payer_map[p] = {"billed": 0, "paid": 0, "lines": 0, "denied": 0}
+        pm = payer_map[p]
+        pm["billed"] += float(l.get("billed_amount") or 0)
+        pm["paid"] += float(l.get("paid_amount") or 0)
+        pm["lines"] += 1
+        if l.get("status") == "denied":
+            pm["denied"] += 1
+
+    total_billed = sum(pm["billed"] for pm in payer_map.values())
+    total_paid = sum(pm["paid"] for pm in payer_map.values())
+    payer_count = len(payer_map)
+
+    story.append(build_kpi_row([
+        {"label": "Total Billed", "value": f"${total_billed:,.0f}"},
+        {"label": "Total Paid", "value": f"${total_paid:,.0f}"},
+        {"label": "Payers", "value": str(payer_count)},
+    ]))
+    story.append(Spacer(1, 0.3 * inch))
+
+    story.append(Paragraph("<b>Payer Breakdown</b>", styles["heading2"]))
+    rows = []
+    for p, pm in sorted(payer_map.items(), key=lambda x: x[1]["billed"], reverse=True):
+        dr = round((pm["denied"] / pm["lines"] * 100), 1) if pm["lines"] > 0 else 0
+        rows.append([p, f"${pm['billed']:,.0f}", f"${pm['paid']:,.0f}",
+                      str(pm["lines"]), f"{dr}%"])
+
+    story.append(build_data_table(
+        ["Payer", "Billed", "Paid", "Lines", "Denial %"],
+        rows, col_widths=[2.2 * inch, 1.1 * inch, 1.1 * inch, 0.8 * inch, 0.8 * inch],
+    ))
+
+    return story
+
+
+def _build_appeal_roi_pages(lines, recoveries, styles, practice_name):
+    """Build appeal & recovery report pages."""
+    from reportlab.lib.units import inch
+    from reportlab.platypus import Paragraph
+    from utils.pdf_branding import build_kpi_row, build_data_table, Spacer
+
+    story = []
+    story.append(Spacer(1, 0.2 * inch))
+
+    denied = [l for l in lines if l.get("status") == "denied"]
+    total_denied = sum(float(l.get("billed_amount") or 0) for l in denied)
+    total_recovered = sum(r["recovered_amount"] for r in recoveries)
+    recovery_rate = round((total_recovered / total_denied * 100), 2) if total_denied > 0 else 0.0
+
+    story.append(build_kpi_row([
+        {"label": "Total Denied", "value": f"${total_denied:,.0f}"},
+        {"label": "Total Recovered", "value": f"${total_recovered:,.0f}"},
+        {"label": "Recovery Rate", "value": f"{recovery_rate}%"},
+        {"label": "Recoveries", "value": str(len(recoveries))},
+    ]))
+    story.append(Spacer(1, 0.3 * inch))
+
+    if recoveries:
+        story.append(Paragraph("<b>Recovery Detail</b>", styles["heading2"]))
+        rows = []
+        for r in recoveries[:20]:
+            rows.append([
+                r.get("claim_number") or "—",
+                r.get("cpt_code") or "—",
+                r.get("payer_name") or "—",
+                f"${r['denied_amount']:,.0f}",
+                f"${r['recovered_amount']:,.0f}",
+            ])
+        story.append(build_data_table(
+            ["Claim", "CPT", "Payer", "Denied", "Recovered"],
+            rows, col_widths=[1.3 * inch, 0.8 * inch, 2 * inch, 1 * inch, 1 * inch],
+        ))
+    else:
+        story.append(Paragraph(
+            "No cross-file recoveries detected yet. Recoveries are identified when a "
+            "denied claim in one remittance file appears as paid in a subsequent file.",
+            styles["body"],
+        ))
+
+    return story

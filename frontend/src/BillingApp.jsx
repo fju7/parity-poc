@@ -673,6 +673,12 @@ function PortfolioPanel({ token, billingCompany, allPractices }) {
   const [comparison, setComparison] = useState(null);
   const [compLoading, setCompLoading] = useState(false);
 
+  // Report generation state
+  const [reportPracticeId, setReportPracticeId] = useState(null);
+  const [reportType, setReportType] = useState("denial_summary");
+  const [reportDays, setReportDays] = useState(90);
+  const [generating, setGenerating] = useState(false);
+
   const fetchComparison = useCallback(async () => {
     if (!token || !compareA || !compareB || compareA === compareB) { setComparison(null); return; }
     setCompLoading(true);
@@ -687,6 +693,33 @@ function PortfolioPanel({ token, billingCompany, allPractices }) {
   }, [token, compareA, compareB, days]);
 
   useEffect(() => { fetchComparison(); }, [fetchComparison]);
+
+  const handleGenerateReport = async () => {
+    if (!reportPracticeId) return;
+    setGenerating(true);
+    try {
+      const res = await fetch(`${API}/api/billing/portfolio/reports/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({
+          practice_id: reportPracticeId,
+          report_type: reportType,
+          date_range_days: reportDays,
+        }),
+      });
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = res.headers.get("content-disposition")?.split("filename=")[1]?.replace(/"/g, "") || "report.pdf";
+        a.click();
+        URL.revokeObjectURL(url);
+        setReportPracticeId(null);
+      }
+    } catch { /* ignore */ }
+    finally { setGenerating(false); }
+  };
 
   const fetchAll = useCallback(async () => {
     if (!token || !billingCompany) return;
@@ -823,6 +856,7 @@ function PortfolioPanel({ token, billingCompany, allPractices }) {
               <th style={styles.th}>Lines</th>
               <th style={styles.th}>Analyses</th>
               <th style={styles.th}>Last Upload</th>
+              <th style={styles.th}>Report</th>
             </tr>
           </thead>
           <tbody>
@@ -838,11 +872,70 @@ function PortfolioPanel({ token, billingCompany, allPractices }) {
                 <td style={{ ...styles.td, color: "#64748b", fontSize: 13 }}>
                   {p.last_upload ? new Date(p.last_upload).toLocaleDateString() : "—"}
                 </td>
+                <td style={styles.td}>
+                  <button onClick={() => setReportPracticeId(p.practice_id)}
+                    style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer" }}>
+                    Generate
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Report generation modal */}
+      {reportPracticeId && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 200,
+          background: "rgba(0,0,0,0.6)", display: "flex", alignItems: "center", justifyContent: "center",
+        }} onClick={() => !generating && setReportPracticeId(null)}>
+          <div style={{
+            background: "#1e293b", borderRadius: 12, padding: 24, width: 380,
+            border: "1px solid rgba(255,255,255,0.1)",
+          }} onClick={(e) => e.stopPropagation()}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 16px" }}>Generate Report</h3>
+            <label style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", display: "block", marginBottom: 4 }}>Report Type</label>
+            <select value={reportType} onChange={(e) => setReportType(e.target.value)} style={{
+              width: "100%", padding: "8px 12px", borderRadius: 8, fontSize: 14, marginBottom: 12,
+              border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)",
+              color: "#f1f5f9", appearance: "auto", boxSizing: "border-box",
+            }}>
+              <option value="denial_summary">Denial Summary</option>
+              <option value="payer_performance">Payer Performance</option>
+              <option value="appeal_roi">Appeal & Recovery</option>
+            </select>
+            <label style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", display: "block", marginBottom: 4 }}>Date Range</label>
+            <div style={{ display: "flex", gap: 4, marginBottom: 16 }}>
+              {[30, 90, 180, 365].map(d => (
+                <button key={d} onClick={() => setReportDays(d)} style={{
+                  padding: "5px 12px", borderRadius: 6, border: "1px solid",
+                  borderColor: reportDays === d ? "#0d9488" : "rgba(255,255,255,0.1)",
+                  background: reportDays === d ? "rgba(13,148,136,0.15)" : "transparent",
+                  color: reportDays === d ? "#5eead4" : "#94a3b8", fontSize: 13, cursor: "pointer",
+                }}>
+                  {d}d
+                </button>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 12 }}>
+              <button onClick={handleGenerateReport} disabled={generating} style={{
+                flex: 1, padding: "10px", borderRadius: 8, border: "none", cursor: "pointer",
+                background: generating ? "#334155" : "linear-gradient(135deg, #0d9488, #14b8a6)",
+                color: "#fff", fontWeight: 600, fontSize: 14,
+              }}>
+                {generating ? "Generating..." : "Download PDF"}
+              </button>
+              <button onClick={() => setReportPracticeId(null)} disabled={generating} style={{
+                padding: "10px 16px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)",
+                background: "none", color: "#94a3b8", cursor: "pointer", fontSize: 14,
+              }}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Payer Performance + Denial Reasons side by side */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
@@ -1970,6 +2063,14 @@ function SettingsPanel({
   settingsMsg, setSettingsMsg,
   fetchMe,
 }) {
+  // Branding state
+  const [headerText, setHeaderText] = useState(billingCompany?.report_header_text || "");
+  const [footerText, setFooterText] = useState(billingCompany?.report_footer_text || "");
+  const [logoUrl, setLogoUrl] = useState(billingCompany?.logo_url || "");
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [brandingSaving, setBrandingSaving] = useState(false);
+  const [brandingMsg, setBrandingMsg] = useState("");
+
   const sectionStyle = {
     background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
     borderRadius: 12, padding: 24, marginBottom: 24,
@@ -1981,6 +2082,46 @@ function SettingsPanel({
   };
   const labelStyle = {
     fontSize: 12, color: "rgba(255,255,255,0.4)", display: "block", marginBottom: 4,
+  };
+
+  const handleLogoUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingLogo(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch(`${API}/api/billing/settings/logo`, {
+        method: "POST", headers: { Authorization: `Bearer ${token}` }, body: fd,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setLogoUrl(data.logo_url);
+        setBrandingMsg("Logo uploaded!");
+        fetchMe();
+        setTimeout(() => setBrandingMsg(""), 3000);
+      } else {
+        const d = await res.json();
+        setBrandingMsg(d.detail || "Upload failed.");
+      }
+    } catch { setBrandingMsg("Upload failed."); }
+    finally { setUploadingLogo(false); }
+  };
+
+  const handleBrandingSave = async () => {
+    setBrandingSaving(true); setBrandingMsg("");
+    try {
+      const res = await fetch(`${API}/api/billing/settings/report-text`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ report_header_text: headerText, report_footer_text: footerText }),
+      });
+      if (res.ok) {
+        setBrandingMsg("Saved!"); fetchMe();
+        setTimeout(() => setBrandingMsg(""), 3000);
+      } else { setBrandingMsg("Failed to save."); }
+    } catch { setBrandingMsg("Failed to save."); }
+    finally { setBrandingSaving(false); }
   };
 
   const handleSave = async () => {
@@ -2104,6 +2245,58 @@ function SettingsPanel({
               {subscription?.practice_count_limit ?? "—"}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Section 4: Report Branding */}
+      <div style={sectionStyle}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
+          Report Branding
+        </h3>
+        <label style={labelStyle}>Company Logo</label>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+          {logoUrl && (
+            <div style={{
+              width: 60, height: 60, borderRadius: 8, background: "rgba(255,255,255,0.06)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              border: "1px solid rgba(255,255,255,0.1)", overflow: "hidden",
+            }}>
+              <span style={{ fontSize: 10, color: "#5eead4" }}>Logo set</span>
+            </div>
+          )}
+          <label style={{
+            padding: "6px 14px", borderRadius: 6, fontSize: 13, cursor: "pointer",
+            background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
+            color: "#94a3b8",
+          }}>
+            {uploadingLogo ? "Uploading..." : logoUrl ? "Replace Logo" : "Upload Logo (PNG/JPG)"}
+            <input type="file" accept=".png,.jpg,.jpeg" onChange={handleLogoUpload}
+              style={{ display: "none" }} />
+          </label>
+        </div>
+
+        <label style={labelStyle}>Report Header Text</label>
+        <input value={headerText} onChange={(e) => setHeaderText(e.target.value)}
+          placeholder="e.g. Prepared by Acme Billing Co." style={inputStyle} />
+
+        <label style={labelStyle}>Report Footer Text</label>
+        <input value={footerText} onChange={(e) => setFooterText(e.target.value)}
+          placeholder="e.g. Confidential — for practice use only" style={inputStyle} />
+
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 4 }}>
+          <button onClick={handleBrandingSave} disabled={brandingSaving}
+            style={{
+              background: brandingSaving ? "#334155" : "#0d9488", color: "white", border: "none",
+              borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 600,
+              cursor: brandingSaving ? "not-allowed" : "pointer",
+            }}>
+            {brandingSaving ? "Saving..." : "Save Branding"}
+          </button>
+          {brandingMsg && (
+            <span style={{ fontSize: 13, color: brandingMsg === "Saved!" || brandingMsg === "Logo uploaded!" ? "#10B981" : "#f87171" }}>
+              {brandingMsg}
+            </span>
+          )}
         </div>
       </div>
     </div>
