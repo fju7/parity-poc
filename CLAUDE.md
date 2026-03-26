@@ -891,10 +891,46 @@ where denied claims are re-submitted and matched to later 835 payments.
 ### Frontend
 - Updated footnote from proxy disclaimer to true recovery methodology
 
+## Session BL-8 — White-Label PDF Reports (Complete)
+
+### New file: backend/utils/pdf_branding.py
+- ReportLab-based PDF utilities: cover page, header/footer, KPI tiles,
+  data tables, logo embedding
+- get_billing_branding(bc_id, sb) — fetches branding from billing_companies
+- fetch_logo_bytes(logo_url, sb) — downloads from Supabase storage
+- build_cover_page() — branded cover with logo, company name, practice,
+  report type, date range, generated date, header/footer text
+- build_header_footer_func() — company name top-right, page number bottom
+
+### Backend endpoints
+- POST /api/billing/reports/generate — generates branded PDF
+  Body: {practice_id, report_type, date_range_days}
+  report_type: denial_summary | payer_performance | appeal_roi
+  Returns PDF as file download (StreamingResponse)
+  Each type has its own page builder with KPI tiles + data tables
+  All data from billing_claim_lines, respects analyst scoping
+- POST /api/billing/settings/logo — upload logo (PNG/JPG, max 2MB)
+  Stores in billing-logos Supabase storage bucket (auto-created)
+  Updates billing_companies.logo_url
+- PUT /api/billing/settings/report-text — update header/footer text
+
+### Frontend (BillingApp.jsx)
+- Settings tab: Report Branding section — logo upload with preview,
+  header text field, footer text field, save button
+- Portfolio tab: Generate Report button in Practice Breakdown table
+- Report modal: type dropdown + date range selector + Download PDF
+
+### Migration 061: report_header_text, report_footer_text on billing_companies
+(logo_url already existed from migration 055)
+
+### Supabase storage
+- Bucket: billing-logos (private, created programmatically on first upload)
+- Path: {billing_company_id}/logo.{ext}
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Migrations 057, 058, 059, 060 pending.
-Next migration number: 061
+Migrations 057, 058, 059, 060, 061 pending.
+Next migration number: 062
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
