@@ -1043,9 +1043,56 @@ where denied claims are re-submitted and matched to later 835 payments.
 - list escalations: analyst only sees escalations involving assigned practices
 - create/update: admin only
 
+## Session BL-12 — Stripe Integration (Complete)
+
+### Pricing model
+- Free tier: 1 practice, full feature access, no payment required
+- Starter: $299/mo, up to 10 practices
+- Growth: $699/mo, up to 30 practices
+- Enterprise: custom (manual setup)
+
+### New file: backend/routers/billing_subscription.py
+- POST /api/billing/subscription/checkout — Stripe checkout for starter/growth
+- POST /api/billing/subscription/portal — Stripe customer portal
+- GET /api/billing/subscription/status — tier, limits, usage
+- POST /api/billing/subscription/webhook — 5 events handled
+- BILLING_TIERS config with price_id → tier mapping
+
+### Webhook events handled
+- checkout.session.completed → activate subscription, set tier + limits
+- customer.subscription.updated → sync tier/status changes
+- customer.subscription.deleted → revert to free (1 practice)
+- invoice.payment_succeeded → log
+- invoice.payment_failed → set past_due
+
+### Practice count gate (billing.py)
+- Free tier: 1st practice adds freely, 2nd returns 402 subscription_required
+- Paid tier at limit: returns 402 limit_reached with upgrade_available
+- Frontend intercepts 402 → shows upgrade modal
+
+### Registration changes
+- Creates Stripe customer at registration (non-fatal if fails)
+- Initial tier = 'free' (renamed from 'trial'), practice_count_limit = 1
+
+### Scripts
+- create_billing_stripe_products.py — idempotent Stripe product setup
+- backfill_billing_stripe_customers.py — creates customers + trial→free
+
+### Environment variables needed (Render)
+- STRIPE_PRICE_BILLING_STARTER — from product setup script
+- STRIPE_PRICE_BILLING_GROWTH — from product setup script
+- STRIPE_BILLING_WEBHOOK_SECRET — from Stripe webhook dashboard
+
+### Frontend
+- Contract upload drop zone (replaced plain file input)
+- Upgrade modal: Starter/Growth cards on 402 from practice add
+- Subscription banners: past_due, cancelled states
+- Settings: SubscriptionSection with tier, limits, upgrade/portal buttons
+- Payment success/cancelled URL param toasts
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Migrations 057-065 pending.
+Migrations 057-065 pending. No new migration for BL-12.
 Next migration number: 066
 
 ## Standing instructions for every session
