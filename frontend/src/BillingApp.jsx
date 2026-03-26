@@ -23,6 +23,9 @@ export default function BillingApp() {
   const [activeTab, setActiveTab] = useState("portfolio");
   const [billingCompany, setBillingCompany] = useState(null);
   const [billingRole, setBillingRole] = useState("admin");
+  const [subStatus, setSubStatus] = useState(null); // from /subscription/status
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [upgradeContext, setUpgradeContext] = useState(null); // 'subscription_required' or 'limit_reached'
   const [subscription, setSubscription] = useState(null);
   const [meLoading, setMeLoading] = useState(false);
 
@@ -160,6 +163,15 @@ export default function BillingApp() {
     }
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
   }, [jobs, activeTab, fetchJobs]);
+
+  // Fetch subscription status
+  useEffect(() => {
+    if (!token || !billingCompany) return;
+    fetch(`${API}/api/billing/subscription/status`, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setSubStatus(d); })
+      .catch(() => {});
+  }, [token, billingCompany]);
 
   // Fetch provider statuses + portal settings
   useEffect(() => {
@@ -431,11 +443,44 @@ export default function BillingApp() {
         body: JSON.stringify({ practice_name: newPracticeName.trim(), contact_email: newPracticeEmail.trim().toLowerCase() }),
       });
       const data = await res.json();
-      if (!res.ok) { setPracticeError(data.detail || "Failed to add practice."); return; }
+      if (res.status === 402) {
+        // Subscription required or limit reached
+        setUpgradeContext(data.error);
+        setShowUpgradeModal(true);
+        return;
+      }
+      if (!res.ok) { setPracticeError(data.detail || data.message || "Failed to add practice."); return; }
       setNewPracticeName(""); setNewPracticeEmail(""); setShowAddForm(false);
       fetchPractices();
     } catch { setPracticeError("Failed to add practice."); }
     finally { setAddingPractice(false); }
+  };
+
+  const handleCheckout = async (tier) => {
+    try {
+      const res = await fetch(`${API}/api/billing/subscription/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ tier }),
+      });
+      const data = await res.json();
+      if (res.ok && data.checkout_url) {
+        window.location.href = data.checkout_url;
+      }
+    } catch { /* ignore */ }
+  };
+
+  const handlePortal = async () => {
+    try {
+      const res = await fetch(`${API}/api/billing/subscription/portal`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok && data.portal_url) {
+        window.location.href = data.portal_url;
+      }
+    } catch { /* ignore */ }
   };
 
   const handleDeactivate = async (practiceId) => {
@@ -474,13 +519,25 @@ export default function BillingApp() {
         </div>
       </header>
 
-      {/* Trial banner */}
-      {subscription?.tier === "trial" && trialDays !== null && (
+      {/* Subscription banners */}
+      {subStatus?.status === "past_due" && (
         <div style={{
-          background: "rgba(13,148,136,0.1)", borderBottom: "1px solid rgba(13,148,136,0.2)",
-          padding: "10px 40px", textAlign: "center", fontSize: 14, color: "#5eead4", marginTop: 64,
+          background: "rgba(245,158,11,0.1)", borderBottom: "1px solid rgba(245,158,11,0.3)",
+          padding: "10px 40px", textAlign: "center", fontSize: 14, color: "#fbbf24", marginTop: 64,
+          display: "flex", justifyContent: "center", alignItems: "center", gap: 12,
         }}>
-          Your 30-day free trial has started. {trialDays} days remaining.
+          Your last payment failed. Update your payment method to maintain full access.
+          <button onClick={handlePortal} style={{ fontSize: 13, padding: "4px 12px", borderRadius: 6, border: "1px solid #fbbf24", background: "none", color: "#fbbf24", cursor: "pointer" }}>Update Payment</button>
+        </div>
+      )}
+      {subStatus?.status === "cancelled" && (
+        <div style={{
+          background: "rgba(245,158,11,0.1)", borderBottom: "1px solid rgba(245,158,11,0.3)",
+          padding: "10px 40px", textAlign: "center", fontSize: 14, color: "#fbbf24", marginTop: 64,
+          display: "flex", justifyContent: "center", alignItems: "center", gap: 12,
+        }}>
+          Your subscription has been cancelled. You can still access your first practice.
+          <button onClick={() => setShowUpgradeModal(true)} style={{ fontSize: 13, padding: "4px 12px", borderRadius: 6, border: "1px solid #fbbf24", background: "none", color: "#fbbf24", cursor: "pointer" }}>Resubscribe</button>
         </div>
       )}
 
@@ -690,6 +747,60 @@ export default function BillingApp() {
           <TeamPanel token={token} billingRole={billingRole} allPractices={practices} />
         )}
       </main>
+
+      {/* Upgrade modal */}
+      {showUpgradeModal && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 200,
+          background: "rgba(0,0,0,0.6)", display: "flex", alignItems: "center", justifyContent: "center",
+        }} onClick={() => setShowUpgradeModal(false)}>
+          <div style={{
+            background: "#1e293b", borderRadius: 16, padding: 32, width: 560, maxWidth: "90vw",
+            border: "1px solid rgba(255,255,255,0.1)",
+          }} onClick={(e) => e.stopPropagation()}>
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#f1f5f9", margin: "0 0 8px", textAlign: "center" }}>
+              {upgradeContext === "limit_reached" ? "Upgrade Your Plan" : "Unlock Multi-Practice Management"}
+            </h2>
+            <p style={{ color: "#94a3b8", fontSize: 14, textAlign: "center", marginBottom: 24 }}>
+              {upgradeContext === "limit_reached"
+                ? "You've reached your practice limit. Choose a plan with more capacity."
+                : "Your first practice is free. Subscribe to manage multiple practices with full portfolio intelligence."}
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              {/* Starter */}
+              <div style={{
+                border: "1px solid rgba(13,148,136,0.3)", borderRadius: 12, padding: 20,
+                background: "rgba(13,148,136,0.05)",
+              }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "#5eead4", textTransform: "uppercase", marginBottom: 4 }}>Starter</div>
+                <div style={{ fontSize: 28, fontWeight: 700, color: "#f1f5f9", marginBottom: 4 }}>$299<span style={{ fontSize: 14, fontWeight: 400, color: "#94a3b8" }}>/mo</span></div>
+                <p style={{ fontSize: 13, color: "#94a3b8", marginBottom: 16 }}>Up to 10 practices</p>
+                <button onClick={() => handleCheckout("starter")} style={{
+                  width: "100%", padding: "10px", borderRadius: 8, border: "none", cursor: "pointer",
+                  background: "linear-gradient(135deg, #0d9488, #14b8a6)", color: "#fff", fontWeight: 600, fontSize: 14,
+                }}>Subscribe</button>
+              </div>
+              {/* Growth */}
+              <div style={{
+                border: "1px solid rgba(59,130,246,0.3)", borderRadius: 12, padding: 20,
+                background: "rgba(59,130,246,0.05)",
+              }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "#60a5fa", textTransform: "uppercase", marginBottom: 4 }}>Growth</div>
+                <div style={{ fontSize: 28, fontWeight: 700, color: "#f1f5f9", marginBottom: 4 }}>$699<span style={{ fontSize: 14, fontWeight: 400, color: "#94a3b8" }}>/mo</span></div>
+                <p style={{ fontSize: 13, color: "#94a3b8", marginBottom: 16 }}>Up to 30 practices</p>
+                <button onClick={() => handleCheckout("growth")} style={{
+                  width: "100%", padding: "10px", borderRadius: 8, border: "none", cursor: "pointer",
+                  background: "linear-gradient(135deg, #3b82f6, #60a5fa)", color: "#fff", fontWeight: 600, fontSize: 14,
+                }}>Subscribe</button>
+              </div>
+            </div>
+            <button onClick={() => setShowUpgradeModal(false)} style={{
+              display: "block", margin: "16px auto 0", fontSize: 13, color: "#94a3b8",
+              background: "none", border: "none", cursor: "pointer",
+            }}>Maybe later</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -2286,8 +2397,33 @@ function ContractsPanel({ token, practices, billingRole }) {
           </div>
           <div style={{ marginBottom: 12 }}>
             <label style={{ fontSize: 12, color: "#94a3b8", display: "block", marginBottom: 4 }}>Contract PDF *</label>
-            <input type="file" accept=".pdf" onChange={(e) => setUpFile(e.target.files?.[0] || null)}
-              style={{ fontSize: 13, color: "#94a3b8" }} />
+            <div
+              onDragOver={(e) => { e.preventDefault(); e.currentTarget.style.borderColor = "rgba(13,148,136,0.5)"; }}
+              onDragLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; }}
+              onDrop={(e) => {
+                e.preventDefault(); e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                const f = e.dataTransfer.files[0];
+                if (f && f.name.toLowerCase().endsWith(".pdf")) setUpFile(f);
+              }}
+              onClick={() => { const i = document.createElement("input"); i.type = "file"; i.accept = ".pdf"; i.onchange = (e) => { if (e.target.files[0]) setUpFile(e.target.files[0]); }; i.click(); }}
+              style={{
+                border: "2px dashed rgba(255,255,255,0.12)", borderRadius: 10, padding: upFile ? "12px 16px" : "24px 16px",
+                textAlign: "center", cursor: "pointer", background: "rgba(255,255,255,0.02)", transition: "border-color 0.2s",
+              }}
+            >
+              {upFile ? (
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: 13, color: "#5eead4" }}>{upFile.name}</span>
+                  <button onClick={(e) => { e.stopPropagation(); setUpFile(null); }}
+                    style={{ fontSize: 11, color: "#f87171", background: "none", border: "none", cursor: "pointer" }}>Remove</button>
+                </div>
+              ) : (
+                <p style={{ color: "#94a3b8", fontSize: 13, margin: 0 }}>
+                  Drag & drop your PDF here, or click to browse
+                  <br /><span style={{ fontSize: 11, color: "#64748b" }}>PDF only, max 10MB</span>
+                </p>
+              )}
+            </div>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             <button onClick={handleUpload} disabled={uploading} style={{
@@ -2866,46 +3002,8 @@ function SettingsPanel({
         )}
       </div>
 
-      {/* Section 3: Subscription (read-only) */}
-      <div style={sectionStyle}>
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
-          Subscription
-        </h3>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-          <div>
-            <label style={labelStyle}>Plan</label>
-            <div style={{ fontSize: 14, color: "#f1f5f9", textTransform: "capitalize" }}>
-              {subscription?.tier || "—"}
-              {subscription?.tier === "trial" && (
-                <span style={{
-                  display: "inline-block", marginLeft: 8, padding: "2px 8px", borderRadius: 10,
-                  background: "rgba(13,148,136,0.15)", color: "#5eead4", fontSize: 11, fontWeight: 600,
-                }}>
-                  {trialDays} days left
-                </span>
-              )}
-            </div>
-          </div>
-          <div>
-            <label style={labelStyle}>Status</label>
-            <div style={{ fontSize: 14, color: subscription?.status === "active" ? "#5eead4" : "#f87171" }}>
-              {subscription?.status || "—"}
-            </div>
-          </div>
-          <div>
-            <label style={labelStyle}>Trial Ends</label>
-            <div style={{ fontSize: 14, color: "#94a3b8" }}>
-              {trialEnd || "—"}
-            </div>
-          </div>
-          <div>
-            <label style={labelStyle}>Practice Limit</label>
-            <div style={{ fontSize: 14, color: "#f1f5f9" }}>
-              {subscription?.practice_count_limit ?? "—"}
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Section 3: Subscription */}
+      <SubscriptionSection sectionStyle={sectionStyle} labelStyle={labelStyle} subscription={subscription} token={token} />
 
       {/* Section 4: Report Branding */}
       <div style={sectionStyle}>
@@ -2976,6 +3074,110 @@ function SettingsPanel({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function SubscriptionSection({ sectionStyle, labelStyle, subscription, token }) {
+  const tier = subscription?.tier || "free";
+  const status = subscription?.status || "active";
+  const limit = subscription?.practice_count_limit ?? 1;
+  const isFree = tier === "free" || tier === "trial";
+
+  const handleCheckout = async (t) => {
+    try {
+      const res = await fetch(`${API}/api/billing/subscription/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ tier: t }),
+      });
+      const data = await res.json();
+      if (res.ok && data.checkout_url) window.location.href = data.checkout_url;
+    } catch { /* ignore */ }
+  };
+
+  const handlePortal = async () => {
+    try {
+      const res = await fetch(`${API}/api/billing/subscription/portal`, {
+        method: "POST", headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok && data.portal_url) window.location.href = data.portal_url;
+    } catch { /* ignore */ }
+  };
+
+  // Check URL for payment result
+  const params = new URLSearchParams(window.location.search);
+  const paymentResult = params.get("payment");
+
+  return (
+    <div style={sectionStyle}>
+      <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
+        Subscription
+      </h3>
+
+      {paymentResult === "success" && (
+        <div style={{ padding: "10px 14px", borderRadius: 8, background: "rgba(13,148,136,0.1)", border: "1px solid rgba(13,148,136,0.3)", marginBottom: 16, color: "#5eead4", fontSize: 13 }}>
+          Subscription activated — you can now add more practices.
+        </div>
+      )}
+      {paymentResult === "cancelled" && (
+        <div style={{ padding: "10px 14px", borderRadius: 8, background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)", marginBottom: 16, color: "#fbbf24", fontSize: 13 }}>
+          Checkout cancelled — your plan was not changed.
+        </div>
+      )}
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+        <div>
+          <label style={labelStyle}>Plan</label>
+          <div style={{ fontSize: 14, color: "#f1f5f9", textTransform: "capitalize" }}>
+            {tier}
+            {isFree && <span style={{ display: "inline-block", marginLeft: 8, padding: "2px 8px", borderRadius: 10, background: "rgba(148,163,184,0.15)", color: "#94a3b8", fontSize: 11, fontWeight: 600 }}>Free</span>}
+          </div>
+        </div>
+        <div>
+          <label style={labelStyle}>Status</label>
+          <div style={{ fontSize: 14, color: status === "active" ? "#5eead4" : status === "past_due" ? "#fbbf24" : "#fca5a5", textTransform: "capitalize" }}>
+            {status.replace("_", " ")}
+          </div>
+        </div>
+        <div>
+          <label style={labelStyle}>Practice Limit</label>
+          <div style={{ fontSize: 14, color: "#f1f5f9" }}>{limit === 1 && isFree ? "1 (free)" : limit}</div>
+        </div>
+      </div>
+
+      {isFree ? (
+        <div>
+          <p style={{ fontSize: 13, color: "#94a3b8", margin: "0 0 12px" }}>Managing 1 practice free. Subscribe to manage more.</p>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button onClick={() => handleCheckout("starter")} style={{
+              padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer",
+              background: "linear-gradient(135deg, #0d9488, #14b8a6)", color: "#fff", fontWeight: 600, fontSize: 13,
+            }}>Starter — $299/mo</button>
+            <button onClick={() => handleCheckout("growth")} style={{
+              padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer",
+              background: "linear-gradient(135deg, #3b82f6, #60a5fa)", color: "#fff", fontWeight: 600, fontSize: 13,
+            }}>Growth — $699/mo</button>
+          </div>
+        </div>
+      ) : tier === "starter" ? (
+        <div style={{ display: "flex", gap: 8 }}>
+          <button onClick={() => handleCheckout("growth")} style={{
+            padding: "8px 16px", borderRadius: 8, border: "1px solid rgba(59,130,246,0.3)",
+            background: "none", color: "#60a5fa", cursor: "pointer", fontSize: 13, fontWeight: 500,
+          }}>Upgrade to Growth</button>
+          <button onClick={handlePortal} style={{
+            padding: "8px 16px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)",
+            background: "none", color: "#94a3b8", cursor: "pointer", fontSize: 13,
+          }}>Manage Billing</button>
+        </div>
+      ) : (
+        <button onClick={handlePortal} style={{
+          padding: "8px 16px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)",
+          background: "none", color: "#94a3b8", cursor: "pointer", fontSize: 13,
+        }}>Manage Billing</button>
+      )}
     </div>
   );
 }

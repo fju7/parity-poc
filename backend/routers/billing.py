@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import os
 import uuid
 from datetime import datetime, timezone, timedelta
 from typing import List, Optional
 
 from fastapi import APIRouter, File, Form, HTTPException, Header, Request, UploadFile
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from routers.auth import get_current_user, _generate_otp, _send_otp_email, OTP_EXPIRY_MINUTES, SESSION_EXPIRY_DAYS
@@ -268,14 +270,29 @@ async def register_billing_company(req: RegisterRequest, request: Request):
         "status": "active",
     }).execute()
 
-    # 5. Create billing_company_subscriptions (trial, 30 days, 10 practices)
-    trial_ends = (now + timedelta(days=30)).isoformat()
+    # 5. Create Stripe customer (non-fatal if fails)
+    stripe_customer_id = None
+    try:
+        import stripe as _stripe
+        _stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+        if _stripe.api_key:
+            customer = _stripe.Customer.create(
+                email=email, name=company_name,
+                metadata={"billing_company_id": str(billing_company_id)},
+            )
+            stripe_customer_id = customer.id
+            sb.table("billing_companies").update({
+                "stripe_customer_id": stripe_customer_id,
+            }).eq("id", billing_company_id).execute()
+    except Exception as exc:
+        print(f"[billing] Stripe customer creation failed (non-fatal): {exc}")
+
+    # 6. Create billing_company_subscriptions (free tier, 1 practice)
     sb.table("billing_company_subscriptions").insert({
         "billing_company_id": billing_company_id,
-        "tier": "trial",
-        "practice_count_limit": 10,
+        "tier": "free",
+        "practice_count_limit": 1,
         "status": "active",
-        "trial_ends_at": trial_ends,
     }).execute()
 
     # 6. Create session — no second OTP needed
@@ -423,24 +440,34 @@ async def add_practice(req: PracticeCreateRequest, authorization: str = Header(N
 
     # Check practice count limit
     sub = sb.table("billing_company_subscriptions").select(
-        "practice_count_limit"
+        "practice_count_limit, tier"
     ).eq("billing_company_id", bc["id"]).eq("status", "active").order(
         "created_at", desc=True
     ).limit(1).execute()
 
-    limit = 10
+    limit = 1
+    tier = "free"
     if sub.data:
-        limit = sub.data[0].get("practice_count_limit", 10)
+        limit = sub.data[0].get("practice_count_limit", 1)
+        tier = sub.data[0].get("tier", "free")
 
     current_count = sb.table("billing_company_practices").select(
         "id", count="exact"
     ).eq("billing_company_id", bc["id"]).eq("active", True).execute()
 
     if (current_count.count or 0) >= limit:
-        raise HTTPException(
-            status_code=403,
-            detail=f"Practice limit reached ({limit}). Upgrade your plan to add more practices."
-        )
+        if tier == "free":
+            return JSONResponse(status_code=402, content={
+                "error": "subscription_required",
+                "message": "Add your first practice free. A subscription is required to manage more than one practice.",
+                "checkout_tiers": ["starter", "growth"],
+            })
+        else:
+            return JSONResponse(status_code=402, content={
+                "error": "limit_reached",
+                "message": f"Practice limit reached ({limit}) for your {tier} plan.",
+                "upgrade_available": True,
+            })
 
     # Check if a companies record exists for this contact email
     existing_company = sb.table("companies").select("id, name").eq(
