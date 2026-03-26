@@ -736,6 +736,31 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
 - RLS enabled, service role full access
 - Index on (billing_company_id, created_at DESC)
 
+## Session BL-4 — Parity Billing: Portfolio Dashboard (Complete)
+
+### Backend (billing_portfolio.py)
+- GET /api/billing/portfolio/summary — aggregated KPIs across all practices
+  (total_billed, total_paid, total_lines, overall_denial_rate, practice_count,
+  payer_count), filtered by billing_company_id + days param
+- GET /api/billing/portfolio/practices — per-practice rollup with denial_rate,
+  line_count, analysis_count, last_upload, joined to companies for names
+- GET /api/billing/portfolio/payers — per-payer rollup across all practices
+  with total_billed, denial_rate, practice_count
+- GET /api/billing/portfolio/denial-reasons — top 10 CARC denial codes by
+  frequency with descriptions and total amounts, extracted from result_json
+  line_items adjustments
+- All endpoints accept ?days= query param (default 90)
+- Registered in main.py with prefix /api/billing/portfolio
+
+### Frontend (BillingApp.jsx)
+- Portfolio Dashboard is now the default/first tab
+- Row 1: 4 KPI tiles (Total Billed, Denial Rate, Active Practices, Payers)
+- Row 2: Practice Breakdown table (sortable by billed/denial rate)
+- Row 3: Side-by-side Payer Performance + Top Denial Reasons tables
+- Date range filter (30/90/180 days) at top right, affects all sections
+- Loading skeletons while fetching; empty state if no analyses yet
+- No new migrations needed — uses existing provider_analyses.billing_company_id
+
 ## Migrations status
 All migrations through 056 have been run on production.
 Migration 057 (billing schema updates) and 058 (billing_835_jobs) pending.
