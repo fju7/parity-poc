@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { API_BASE as API } from "./lib/apiBase";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import "./components/CivicScaleHomepage.css";
 
 const TABS = [
@@ -955,9 +956,267 @@ function PortfolioPanel({ token, billingCompany, allPractices }) {
         comparison={comparison} compLoading={compLoading}
         days={days}
       />
+
+      {/* Appeal ROI */}
+      <AppealROISection token={token} billingCompany={billingCompany} />
     </div>
   );
 }
+
+function AppealROISection({ token, billingCompany }) {
+  const [roiDays, setRoiDays] = useState(180);
+  const [summary, setSummary] = useState(null);
+  const [byPayer, setByPayer] = useState([]);
+  const [byDenial, setByDenial] = useState([]);
+  const [trend, setTrend] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [payerSortField, setPayerSortField] = useState("recovery_rate");
+  const [payerSortDir, setPayerSortDir] = useState("asc");
+  const [denialSortField, setDenialSortField] = useState("count");
+  const [denialSortDir, setDenialSortDir] = useState("desc");
+
+  const fetchROI = useCallback(async () => {
+    if (!token || !billingCompany) return;
+    setLoading(true);
+    try {
+      const h = { Authorization: `Bearer ${token}` };
+      const [sRes, pRes, dRes, tRes] = await Promise.all([
+        fetch(`${API}/api/billing/portfolio/appeal-roi?days=${roiDays}`, { headers: h }),
+        fetch(`${API}/api/billing/portfolio/appeal-roi/by-payer?days=${roiDays}`, { headers: h }),
+        fetch(`${API}/api/billing/portfolio/appeal-roi/by-denial-type?days=${roiDays}`, { headers: h }),
+        fetch(`${API}/api/billing/portfolio/appeal-roi/trend?days=${roiDays}`, { headers: h }),
+      ]);
+      if (sRes.ok) setSummary(await sRes.json());
+      if (pRes.ok) { const d = await pRes.json(); setByPayer(d.payers || []); }
+      if (dRes.ok) { const d = await dRes.json(); setByDenial(d.denial_types || []); }
+      if (tRes.ok) { const d = await tRes.json(); setTrend(d.trend || []); }
+    } catch { /* ignore */ }
+    finally { setLoading(false); }
+  }, [token, billingCompany, roiDays]);
+
+  useEffect(() => { fetchROI(); }, [fetchROI]);
+
+  const sortedPayers = [...byPayer].sort((a, b) => {
+    const av = a[payerSortField] ?? 0; const bv = b[payerSortField] ?? 0;
+    return payerSortDir === "asc" ? av - bv : bv - av;
+  });
+  const sortedDenials = [...byDenial].sort((a, b) => {
+    const av = a[denialSortField] ?? 0; const bv = b[denialSortField] ?? 0;
+    return denialSortDir === "asc" ? av - bv : bv - av;
+  });
+
+  const handlePayerSort = (f) => {
+    if (payerSortField === f) setPayerSortDir(d => d === "asc" ? "desc" : "asc");
+    else { setPayerSortField(f); setPayerSortDir(f === "recovery_rate" ? "asc" : "desc"); }
+  };
+  const handleDenialSort = (f) => {
+    if (denialSortField === f) setDenialSortDir(d => d === "asc" ? "desc" : "asc");
+    else { setDenialSortField(f); setDenialSortDir("desc"); }
+  };
+  const arrow = (field, active, dir) => active !== field ? "" : dir === "desc" ? " \u2193" : " \u2191";
+
+  if (loading) {
+    return (
+      <div style={{ marginTop: 32 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Appeal ROI</h3>
+        <p style={{ color: "#94a3b8", fontSize: 14 }}>Loading...</p>
+      </div>
+    );
+  }
+
+  if (!summary || summary.total_billed === 0) {
+    return (
+      <div style={{ marginTop: 32 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Appeal ROI</h3>
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 48, textAlign: "center",
+        }}>
+          <p style={{ color: "#94a3b8", fontSize: 14, margin: 0 }}>No appeal data available yet.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ marginTop: 32 }}>
+      {/* Header + date selector */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Appeal ROI</h3>
+        <div style={{ display: "flex", gap: 4 }}>
+          {[90, 180, 365].map(d => (
+            <button key={d} onClick={() => setRoiDays(d)} style={{
+              padding: "6px 14px", borderRadius: 6, border: "1px solid",
+              borderColor: roiDays === d ? "#0d9488" : "rgba(255,255,255,0.1)",
+              background: roiDays === d ? "rgba(13,148,136,0.15)" : "transparent",
+              color: roiDays === d ? "#5eead4" : "#94a3b8", fontSize: 13, fontWeight: 500, cursor: "pointer",
+            }}>
+              {d}d
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* KPI tiles */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 24 }}>
+        <KpiTile label="Total Recovered" value={`$${Number(summary.total_recovered).toLocaleString()}`} />
+        <KpiTile label="Recovery Rate" value={`${summary.recovery_rate}%`}
+          valueColor={summary.recovery_rate >= 90 ? "#5eead4" : summary.recovery_rate >= 75 ? "#fbbf24" : "#fca5a5"} />
+        <KpiTile label="Avg Days to Payment" value={summary.avg_days_to_payment ?? "—"}
+          valueColor={summary.avg_days_to_payment && summary.avg_days_to_payment > 30 ? "#fca5a5" : "#5eead4"} />
+        <KpiTile label="Top Payer (Recovery)" value={summary.top_payer || "—"} />
+      </div>
+
+      {/* Trend chart */}
+      {trend.length > 0 && <AppealTrendChart data={trend} />}
+
+      {/* By Payer + By Denial side by side */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginTop: 24 }}>
+        {/* By Payer */}
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+            By Payer
+          </div>
+          <div style={{
+            background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 12, overflow: "hidden",
+          }}>
+            {sortedPayers.length === 0 ? (
+              <p style={{ color: "#94a3b8", fontSize: 13, padding: 24, margin: 0, textAlign: "center" }}>No payer data</p>
+            ) : (
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <th style={styles.th}>Payer</th>
+                    <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handlePayerSort("total_billed")}>
+                      Billed{arrow("total_billed", payerSortField, payerSortDir)}
+                    </th>
+                    <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handlePayerSort("total_denied")}>
+                      Denied{arrow("total_denied", payerSortField, payerSortDir)}
+                    </th>
+                    <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handlePayerSort("recovery_rate")}>
+                      Recovery{arrow("recovery_rate", payerSortField, payerSortDir)}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sortedPayers.map(p => (
+                    <tr key={p.payer_name} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                      <td style={{ ...styles.td, fontSize: 13 }}>{p.payer_name}</td>
+                      <td style={{ ...styles.td, color: "#94a3b8", fontSize: 13 }}>
+                        ${Number(p.total_billed).toLocaleString()}
+                      </td>
+                      <td style={{ ...styles.td, color: "#fca5a5", fontSize: 13 }}>
+                        ${Number(p.total_denied).toLocaleString()}
+                      </td>
+                      <td style={{
+                        ...styles.td, fontSize: 13, fontWeight: 600,
+                        color: p.recovery_rate >= 90 ? "#5eead4" : p.recovery_rate >= 75 ? "#fbbf24" : "#fca5a5",
+                      }}>
+                        {p.recovery_rate}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+
+        {/* By Denial Type */}
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+            By Denial Type
+          </div>
+          <div style={{
+            background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 12, overflow: "hidden",
+          }}>
+            {sortedDenials.length === 0 ? (
+              <p style={{ color: "#94a3b8", fontSize: 13, padding: 24, margin: 0, textAlign: "center" }}>No denial data</p>
+            ) : (
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <th style={styles.th}>Code</th>
+                    <th style={styles.th}>Description</th>
+                    <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handleDenialSort("count")}>
+                      Count{arrow("count", denialSortField, denialSortDir)}
+                    </th>
+                    <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handleDenialSort("total_denied")}>
+                      Amount{arrow("total_denied", denialSortField, denialSortDir)}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sortedDenials.map(d => (
+                    <tr key={d.denial_code} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                      <td style={styles.td}>
+                        <span style={{
+                          fontFamily: "monospace", fontSize: 12, fontWeight: 600,
+                          padding: "2px 6px", borderRadius: 4,
+                          background: "rgba(239,68,68,0.1)", color: "#fca5a5",
+                        }}>
+                          {d.denial_code}
+                        </span>
+                      </td>
+                      <td style={{ ...styles.td, fontSize: 12, color: "#94a3b8", maxWidth: 180, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {d.description || "—"}
+                      </td>
+                      <td style={{ ...styles.td, color: "#f1f5f9" }}>{d.count}</td>
+                      <td style={{ ...styles.td, color: "#fca5a5", fontSize: 13 }}>
+                        ${Number(d.total_denied).toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <p style={{ fontSize: 11, color: "#475569", marginTop: 12, fontStyle: "italic" }}>
+        Recovery Rate = Total Paid / Total Billed. Reflects payment realization across all remittance data.
+      </p>
+    </div>
+  );
+}
+
+function AppealTrendChart({ data }) {
+  const chartData = data.map(d => ({
+    month: d.month,
+    Recovered: d.total_recovered,
+    Denied: d.total_denied,
+  }));
+
+  return (
+    <div style={{
+      background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+      borderRadius: 12, padding: "20px 16px 8px", marginTop: 0,
+    }}>
+      <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em", paddingLeft: 8 }}>
+        Monthly Recovery Trend
+      </div>
+      <ResponsiveContainer width="100%" height={220}>
+        <BarChart data={chartData} margin={{ top: 4, right: 12, left: 12, bottom: 4 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+          <XAxis dataKey="month" tick={{ fill: "#64748b", fontSize: 11 }} axisLine={{ stroke: "rgba(255,255,255,0.06)" }} />
+          <YAxis tick={{ fill: "#64748b", fontSize: 11 }} axisLine={{ stroke: "rgba(255,255,255,0.06)" }}
+            tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} />
+          <Tooltip
+            contentStyle={{ background: "#1e293b", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, fontSize: 12 }}
+            labelStyle={{ color: "#94a3b8" }}
+            formatter={(value) => [`$${Number(value).toLocaleString()}`, undefined]}
+          />
+          <Bar dataKey="Recovered" fill="#0d9488" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="Denied" fill="#ef4444" opacity={0.4} radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
 
 function PracticeComparisonSection({
   allPractices, compareA, setCompareA, compareB, setCompareB,
