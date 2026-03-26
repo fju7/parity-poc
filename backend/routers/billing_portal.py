@@ -90,14 +90,18 @@ async def portal_send_otp(req: PortalSendOtpRequest):
         raise HTTPException(status_code=400, detail="Valid email required")
 
     # Validate portal is enabled and email matches
-    ps = sb.table("practice_portal_settings").select("portal_contact_email, portal_enabled").eq(
-        "practice_id", practice_id
-    ).eq("portal_enabled", True).limit(1).execute()
+    ps = sb.table("practice_portal_settings").select(
+        "portal_contact_email, portal_enabled"
+    ).eq("practice_id", practice_id).limit(1).execute()
 
     if not ps.data:
+        raise HTTPException(status_code=403, detail="No portal configured for this practice.")
+
+    row = ps.data[0]
+    if not row.get("portal_enabled"):
         raise HTTPException(status_code=403, detail="Portal is not enabled for this practice.")
 
-    portal_email = (ps.data[0].get("portal_contact_email") or "").strip().lower()
+    portal_email = (row.get("portal_contact_email") or "").strip().lower()
     if portal_email and portal_email != email:
         raise HTTPException(status_code=403, detail="Email does not match the portal contact for this practice.")
 

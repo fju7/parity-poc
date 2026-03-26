@@ -845,6 +845,9 @@ async def update_portal_settings(practice_id: str, req: PortalSettingsRequest,
 
     now = datetime.now(timezone.utc).isoformat()
     updates = {k: v for k, v in req.dict().items() if v is not None}
+    # Normalize email before storing
+    if "portal_contact_email" in updates and updates["portal_contact_email"]:
+        updates["portal_contact_email"] = updates["portal_contact_email"].strip().lower()
     updates["updated_at"] = now
 
     # Upsert
