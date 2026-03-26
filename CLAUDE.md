@@ -990,10 +990,63 @@ where denied claims are re-submitted and matched to later 835 payments.
 
 ### Migration 064: billing_contracts table
 
+## Session BL-11 — Cross-Practice Escalation Tracking (Complete)
+
+### New file: backend/routers/billing_escalations.py
+- GET /api/billing/escalations/detect-patterns — finds payer+denial code
+  combos across 2+ practices. Unnests denial_codes text[] in Python,
+  groups by (payer_name, denial_code), sorted by total denied DESC.
+- POST /api/billing/escalations — creates escalation with evidence package
+  (per-practice breakdown, sample claim numbers). Admin only.
+- GET /api/billing/escalations — list with status filter. Analyst scoped.
+- GET /api/billing/escalations/{id} — full detail with practices.
+- PATCH /api/billing/escalations/{id}/status — valid transitions:
+  open→in_progress→resolved→closed. recovered_amount on resolved.
+
+### Detect patterns query logic
+- Fetches all denied lines from billing_claim_lines for the billing company
+- Python-side: iterates each line's denial_codes array, builds a map keyed
+  by (payer_name, denial_code) → {practices → {amount, count, claims}}
+- Filters to patterns where len(practices) >= 2
+- Returns sorted by total_denied_amount DESC
+
+### Evidence package (evidence_summary JSONB)
+```json
+{
+  "total_denied_amount": 1234.56,
+  "claim_count": 15,
+  "practice_count": 3,
+  "date_range": "2025-01-15 to 2025-03-20",
+  "practices": [
+    {
+      "practice_id": "uuid",
+      "practice_name": "Sunrise Family Medicine",
+      "denied_amount": 567.89,
+      "claim_count": 8,
+      "sample_claim_numbers": ["CLM001", "CLM002", "CLM003"]
+    }
+  ]
+}
+```
+
+### Frontend (BillingApp.jsx)
+- Escalations tab with two sections: Pattern Detection + Active Escalations
+- Detect Patterns button with days selector (90/180/365)
+- Escalate button per pattern, status filter tabs for escalation list
+- Inline expansion: evidence summary, per-practice breakdown, status
+  update controls with notes and recovered amount fields
+
+### Migration 065: billing_escalations + billing_escalation_practices
+
+### Analyst scoping
+- detect-patterns: scoped via _get_scoped_practice_ids()
+- list escalations: analyst only sees escalations involving assigned practices
+- create/update: admin only
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Migrations 057-064 pending.
-Next migration number: 065
+Migrations 057-065 pending.
+Next migration number: 066
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
