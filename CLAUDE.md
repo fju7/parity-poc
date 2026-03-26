@@ -927,10 +927,46 @@ where denied claims are re-submitted and matched to later 835 payments.
 - Bucket: billing-logos (private, created programmatically on first upload)
 - Path: {billing_company_id}/logo.{ext}
 
+## Session BL-9 — Practice Client Portal + Provider Status (Complete)
+
+### New file: backend/routers/billing_portal.py
+- POST /api/billing/portal/send-otp — validates email against portal_contact_email
+- POST /api/billing/portal/verify-otp — creates session product='billing_portal'
+- GET /api/billing/portal/me — practice data + portal settings + branding
+- GET /api/billing/portal/denial-summary — read-only, section gated
+- GET /api/billing/portal/payer-performance — read-only, section gated
+- GET /api/billing/portal/appeal-roi — read-only, section gated
+- POST /api/billing/portal/generate-report — branded PDF, section gated
+
+### New endpoints in billing.py
+- GET /api/billing/practices/provider-status — direct join:
+  practice_id = provider_subscriptions.company_id WHERE status='active'
+- GET /api/billing/portal-settings — list portal configs
+- PUT /api/billing/portal-settings/{practice_id} — upsert portal config
+
+### New component: frontend/src/PracticePortal.jsx
+- Route: /portal?practice={id} on billing.civicscale.ai
+- OTP login → read-only dashboard with billing company branding
+- Sections controlled by practice_portal_settings toggles
+- No action buttons (appeal gen, contract analysis) — read-only enforced
+- PDF download if show_generate_report enabled
+
+### Frontend changes
+- Practices tab: "Parity Provider" teal badge on subscribed practices
+- Settings tab: Practice Portals section with per-practice toggles,
+  section checkboxes, contact email, copy portal link
+
+### Migration 062: practice_portal_settings table
+
+### Schema discovery
+- provider_subscriptions has company_id (renamed from user_id in migration 032)
+- Direct join works: practice_id = provider_subscriptions.company_id
+- No need for two-hop email join
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Migrations 057, 058, 059, 060, 061 pending.
-Next migration number: 062
+Migrations 057, 058, 059, 060, 061, 062 pending.
+Next migration number: 063
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
