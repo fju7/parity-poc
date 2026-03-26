@@ -826,6 +826,39 @@ Tables NOT found: mue_values, asp_pricing, clfs_rates, pfs_rates,
 - UNIQUE(analyst_user_id, practice_id)
 - Index on (analyst_user_id, billing_company_id)
 
+## Session BL-7 — Appeal ROI Totals + Trend Chart (Complete)
+
+### Backend (billing_portfolio.py) — 4 new endpoints + 1 from payer detail
+- GET /api/billing/portfolio/payer-detail — per-practice breakdown for a
+  single payer (added in BL-6 cleanup, now documented)
+- GET /api/billing/portfolio/appeal-roi — summary: total_recovered,
+  recovery_rate, avg_days_to_payment, top_payer. Days param (default 180)
+- GET /api/billing/portfolio/appeal-roi/by-payer — per-payer: total_billed,
+  total_denied, total_recovered, recovery_rate
+- GET /api/billing/portfolio/appeal-roi/by-denial-type — per-CARC code:
+  denial_code, description, count, total_denied
+- GET /api/billing/portfolio/appeal-roi/trend — monthly buckets (YYYY-MM)
+  with total_recovered and total_denied, zero-filled to min 6 months
+- All endpoints respect analyst scoping
+- Shared _extract_line_stats() helper parses line-level data from result_json
+
+### ROI Calculation Note
+The 835 JSONB structure has per-line billed_amount, paid_amount, and
+adjustments (group_code, reason_code, amount). There is no explicit
+"appeal" or "recovered" tracking — 835 files are point-in-time remittance
+data. Recovery Rate is calculated as total_paid / total_billed (payment
+realization proxy). True appeal tracking would require a separate workflow
+where denied claims are re-submitted and matched to later 835 payments.
+
+### Frontend (BillingApp.jsx)
+- Appeal ROI section in Portfolio tab below Practice Comparison
+- Own date range selector (90/180/365 days)
+- 4 KPI tiles: Total Recovered, Recovery Rate, Avg Days to Payment,
+  Top Payer by Recovery
+- Recharts BarChart: monthly trend (teal recovered + red denied bars)
+- Two sortable side-by-side tables: By Payer | By Denial Type
+- Empty state when no data; footnote on recovery rate methodology
+
 ## Migrations status
 All migrations through 056 have been run on production.
 Migrations 057, 058, 059 pending.
