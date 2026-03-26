@@ -8,6 +8,7 @@ import "./components/CivicScaleHomepage.css";
 const TABS = [
   { id: "portfolio", label: "Portfolio Dashboard" },
   { id: "practices", label: "Practices" },
+  { id: "contracts", label: "Contracts" },
   { id: "ingestion", label: "835 Ingestion" },
   { id: "team", label: "Team" },
   { id: "settings", label: "Settings" },
@@ -629,6 +630,10 @@ export default function BillingApp() {
               </div>
             )}
           </div>
+        )}
+
+        {activeTab === "contracts" && (
+          <ContractsPanel token={token} practices={practices} billingRole={billingRole} />
         )}
 
         {activeTab === "ingestion" && (
@@ -1780,6 +1785,312 @@ function KpiTile({ label, value, valueColor }) {
       <div style={{ fontSize: 24, fontWeight: 600, color: valueColor || "#f1f5f9" }}>
         {value}
       </div>
+    </div>
+  );
+}
+
+
+// --- Contracts Panel ---
+function ContractsPanel({ token, practices, billingRole }) {
+  const [contracts, setContracts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showUpload, setShowUpload] = useState(false);
+  const [expandedId, setExpandedId] = useState(null);
+  const [historyData, setHistoryData] = useState(null);
+  const [analysisView, setAnalysisView] = useState(null);
+  const [analyzing, setAnalyzing] = useState(null);
+  const [analyzingAll, setAnalyzingAll] = useState(false);
+  const [filterPractice, setFilterPractice] = useState("");
+  const [alertDismissed, setAlertDismissed] = useState(false);
+
+  // Upload form
+  const [upPractice, setUpPractice] = useState("");
+  const [upPayer, setUpPayer] = useState("");
+  const [upEffDate, setUpEffDate] = useState("");
+  const [upExpDate, setUpExpDate] = useState("");
+  const [upFile, setUpFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
+  const activePractices = (practices || []).filter(p => p.active);
+
+  const fetchContracts = useCallback(async () => {
+    if (!token) return;
+    setLoading(true);
+    try {
+      const url = filterPractice
+        ? `${API}/api/billing/contracts?practice_id=${filterPractice}`
+        : `${API}/api/billing/contracts`;
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+      if (res.ok) { const d = await res.json(); setContracts(d.contracts || []); }
+    } catch { /* ignore */ }
+    finally { setLoading(false); }
+  }, [token, filterPractice]);
+
+  useEffect(() => { fetchContracts(); }, [fetchContracts]);
+
+  const expiringSoon = contracts.filter(c => c.status === "expiring_soon");
+
+  const handleUpload = async () => {
+    if (!upPractice || !upPayer.trim() || !upFile) { setUploadError("Fill all required fields."); return; }
+    setUploading(true); setUploadError("");
+    try {
+      const fd = new FormData();
+      fd.append("practice_id", upPractice);
+      fd.append("payer_name", upPayer.trim());
+      if (upEffDate) fd.append("effective_date", upEffDate);
+      if (upExpDate) fd.append("expiry_date", upExpDate);
+      fd.append("file", upFile);
+      const res = await fetch(`${API}/api/billing/contracts/upload`, {
+        method: "POST", headers: { Authorization: `Bearer ${token}` }, body: fd,
+      });
+      if (res.ok) {
+        setShowUpload(false); setUpPractice(""); setUpPayer(""); setUpEffDate(""); setUpExpDate(""); setUpFile(null);
+        fetchContracts();
+      } else { const d = await res.json(); setUploadError(d.detail || "Upload failed."); }
+    } catch { setUploadError("Upload failed."); }
+    finally { setUploading(false); }
+  };
+
+  const handleAnalyze = async (contractId) => {
+    setAnalyzing(contractId);
+    try {
+      const res = await fetch(`${API}/api/billing/contracts/${contractId}/analyze`, {
+        method: "POST", headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const d = await res.json();
+        setAnalysisView({ id: contractId, data: d.analysis });
+        fetchContracts();
+      }
+    } catch { /* ignore */ }
+    finally { setAnalyzing(null); }
+  };
+
+  const handleAnalyzeAll = async () => {
+    setAnalyzingAll(true);
+    try {
+      await fetch(`${API}/api/billing/contracts/analyze-all`, {
+        method: "POST", headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchContracts();
+    } catch { /* ignore */ }
+    finally { setAnalyzingAll(false); }
+  };
+
+  const handleHistory = async (contract) => {
+    if (expandedId === contract.id && historyData) { setExpandedId(null); setHistoryData(null); return; }
+    setExpandedId(contract.id); setHistoryData(null);
+    try {
+      const res = await fetch(`${API}/api/billing/contracts/${contract.id}/history`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) { const d = await res.json(); setHistoryData(d.versions || []); }
+    } catch { /* ignore */ }
+  };
+
+  const statusBadge = (status) => {
+    const map = {
+      active: { bg: "rgba(13,148,136,0.15)", color: "#5eead4", label: "Active" },
+      expiring_soon: { bg: "rgba(245,158,11,0.15)", color: "#fbbf24", label: "Expiring Soon" },
+      expired: { bg: "rgba(239,68,68,0.1)", color: "#fca5a5", label: "Expired" },
+    };
+    const s = map[status] || map.active;
+    return <span style={{ display: "inline-block", padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600, background: s.bg, color: s.color }}>{s.label}</span>;
+  };
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Contracts</h2>
+        <div style={{ display: "flex", gap: 8 }}>
+          <select value={filterPractice} onChange={(e) => setFilterPractice(e.target.value)}
+            style={{ padding: "6px 10px", borderRadius: 6, fontSize: 13, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "#f1f5f9", appearance: "auto" }}>
+            <option value="">All practices</option>
+            {activePractices.map(p => <option key={p.practice_id} value={p.practice_id}>{p.practice_name}</option>)}
+          </select>
+          {billingRole === "admin" && (
+            <button onClick={handleAnalyzeAll} disabled={analyzingAll} style={{
+              padding: "6px 14px", borderRadius: 6, border: "1px solid rgba(255,255,255,0.1)",
+              background: analyzingAll ? "#334155" : "rgba(255,255,255,0.06)", color: "#94a3b8",
+              fontSize: 13, cursor: "pointer",
+            }}>
+              {analyzingAll ? "Analyzing..." : "Analyze All"}
+            </button>
+          )}
+          <button onClick={() => setShowUpload(true)} style={{
+            padding: "6px 14px", borderRadius: 6, border: "none", cursor: "pointer",
+            background: "linear-gradient(135deg, #0d9488, #14b8a6)", color: "#fff", fontWeight: 600, fontSize: 13,
+          }}>
+            Upload Contract
+          </button>
+        </div>
+      </div>
+
+      {/* Expiry alert */}
+      {expiringSoon.length > 0 && !alertDismissed && (
+        <div style={{
+          background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)",
+          borderRadius: 8, padding: "10px 16px", marginBottom: 16,
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+        }}>
+          <div>
+            <span style={{ color: "#fbbf24", fontSize: 13, fontWeight: 500 }}>
+              {expiringSoon.length} contract{expiringSoon.length > 1 ? "s" : ""} expiring within 90 days:
+            </span>
+            <span style={{ color: "#fbbf24", fontSize: 12, marginLeft: 8 }}>
+              {expiringSoon.map(c => `${c.practice_name} / ${c.payer_name}`).join(", ")}
+            </span>
+          </div>
+          <button onClick={() => setAlertDismissed(true)} style={{ color: "#fbbf24", background: "none", border: "none", cursor: "pointer", fontSize: 16 }}>&times;</button>
+        </div>
+      )}
+
+      {/* Upload modal */}
+      {showUpload && (
+        <div style={{
+          background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 24, marginBottom: 24,
+        }}>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 16px" }}>Upload Contract</h3>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
+            <div>
+              <label style={{ fontSize: 12, color: "#94a3b8", display: "block", marginBottom: 4 }}>Practice *</label>
+              <select value={upPractice} onChange={(e) => setUpPractice(e.target.value)} style={styles.input}>
+                <option value="">Select...</option>
+                {activePractices.map(p => <option key={p.practice_id} value={p.practice_id}>{p.practice_name}</option>)}
+              </select>
+            </div>
+            <div>
+              <label style={{ fontSize: 12, color: "#94a3b8", display: "block", marginBottom: 4 }}>Payer Name *</label>
+              <input value={upPayer} onChange={(e) => setUpPayer(e.target.value)} placeholder="e.g. Aetna" style={styles.input} />
+            </div>
+            <div>
+              <label style={{ fontSize: 12, color: "#94a3b8", display: "block", marginBottom: 4 }}>Effective Date</label>
+              <input type="date" value={upEffDate} onChange={(e) => setUpEffDate(e.target.value)} style={styles.input} />
+            </div>
+            <div>
+              <label style={{ fontSize: 12, color: "#94a3b8", display: "block", marginBottom: 4 }}>Expiry Date</label>
+              <input type="date" value={upExpDate} onChange={(e) => setUpExpDate(e.target.value)} style={styles.input} />
+            </div>
+          </div>
+          <div style={{ marginBottom: 12 }}>
+            <label style={{ fontSize: 12, color: "#94a3b8", display: "block", marginBottom: 4 }}>Contract PDF *</label>
+            <input type="file" accept=".pdf" onChange={(e) => setUpFile(e.target.files?.[0] || null)}
+              style={{ fontSize: 13, color: "#94a3b8" }} />
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            <button onClick={handleUpload} disabled={uploading} style={{
+              padding: "8px 20px", borderRadius: 8, border: "none", cursor: "pointer",
+              background: uploading ? "#334155" : "#0d9488", color: "#fff", fontWeight: 600, fontSize: 14,
+            }}>{uploading ? "Uploading..." : "Upload"}</button>
+            <button onClick={() => { setShowUpload(false); setUploadError(""); }}
+              style={{ padding: "8px 20px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "none", color: "#94a3b8", cursor: "pointer", fontSize: 14 }}>Cancel</button>
+          </div>
+          {uploadError && <p style={{ color: "#fca5a5", fontSize: 13, marginTop: 8 }}>{uploadError}</p>}
+        </div>
+      )}
+
+      {/* Contracts table */}
+      {loading ? (
+        <p style={{ color: "#94a3b8" }}>Loading contracts...</p>
+      ) : contracts.length === 0 ? (
+        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)", borderRadius: 12, padding: 48, textAlign: "center" }}>
+          <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>No contracts yet. Upload a contract PDF to get started.</p>
+        </div>
+      ) : (
+        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <th style={styles.th}>Practice</th>
+                <th style={styles.th}>Payer</th>
+                <th style={styles.th}>Effective</th>
+                <th style={styles.th}>Expiry</th>
+                <th style={styles.th}>Ver</th>
+                <th style={styles.th}>Status</th>
+                <th style={styles.th}>Analyzed</th>
+                <th style={styles.th}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contracts.map(c => (
+                <React.Fragment key={c.id}>
+                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={styles.td}>{c.practice_name}</td>
+                    <td style={{ ...styles.td, color: "#94a3b8" }}>{c.payer_name}</td>
+                    <td style={{ ...styles.td, color: "#64748b", fontSize: 13 }}>{c.effective_date || "—"}</td>
+                    <td style={{ ...styles.td, color: "#64748b", fontSize: 13 }}>{c.expiry_date || "—"}</td>
+                    <td style={{ ...styles.td, color: "#94a3b8" }}>v{c.version}</td>
+                    <td style={styles.td}>{statusBadge(c.status)}</td>
+                    <td style={{ ...styles.td, color: "#64748b", fontSize: 13 }}>
+                      {c.analyzed_at ? new Date(c.analyzed_at).toLocaleDateString() : "—"}
+                    </td>
+                    <td style={styles.td}>
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <button onClick={() => handleAnalyze(c.id)} disabled={analyzing === c.id}
+                          style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer" }}>
+                          {analyzing === c.id ? "..." : "Analyze"}
+                        </button>
+                        <button onClick={() => handleHistory(c)}
+                          style={{ fontSize: 12, color: "#60a5fa", background: "none", border: "none", cursor: "pointer" }}>
+                          History
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  {/* History expansion */}
+                  {expandedId === c.id && historyData && (
+                    <tr><td colSpan={8} style={{ padding: "12px 16px", background: "rgba(59,130,246,0.03)" }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8 }}>Version History</div>
+                      {historyData.map(v => (
+                        <div key={v.id} style={{ display: "flex", justifyContent: "space-between", padding: "4px 0", fontSize: 13, color: "#cbd5e1", borderBottom: "1px solid rgba(255,255,255,0.03)" }}>
+                          <span>v{v.version} {v.is_current ? "(current)" : ""}</span>
+                          <span style={{ color: "#64748b" }}>{v.filename} — {new Date(v.created_at).toLocaleDateString()} by {v.uploaded_by_email || "—"}</span>
+                        </div>
+                      ))}
+                    </td></tr>
+                  )}
+                  {/* Analysis expansion */}
+                  {analysisView?.id === c.id && analysisView.data && (
+                    <tr><td colSpan={8} style={{ padding: "16px 20px", background: "rgba(13,148,136,0.03)" }}>
+                      <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8 }}>Analysis Result</div>
+                      {analysisView.data.extraction?.rates?.length > 0 ? (
+                        <>
+                          <p style={{ fontSize: 13, color: "#5eead4", margin: "0 0 8px" }}>
+                            {analysisView.data.rates_extracted} rate{analysisView.data.rates_extracted !== 1 ? "s" : ""} extracted
+                            {analysisView.data.extraction?.payer_name ? ` for ${analysisView.data.extraction.payer_name}` : ""}
+                          </p>
+                          <div style={{ maxHeight: 200, overflow: "auto" }}>
+                            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                              <thead><tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                                <th style={{ ...styles.th, fontSize: 10 }}>CPT</th>
+                                <th style={{ ...styles.th, fontSize: 10 }}>Rate</th>
+                                <th style={{ ...styles.th, fontSize: 10 }}>Description</th>
+                              </tr></thead>
+                              <tbody>
+                                {analysisView.data.extraction.rates.slice(0, 30).map((r, i) => (
+                                  <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.03)" }}>
+                                    <td style={{ ...styles.td, fontSize: 12, fontFamily: "monospace" }}>{r.cpt}</td>
+                                    <td style={{ ...styles.td, fontSize: 12, color: "#5eead4" }}>${Number(r.rate || 0).toFixed(2)}</td>
+                                    <td style={{ ...styles.td, fontSize: 11, color: "#94a3b8" }}>{r.description || "—"}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </>
+                      ) : (
+                        <p style={{ fontSize: 13, color: "#94a3b8" }}>No rates could be extracted from this document.</p>
+                      )}
+                    </td></tr>
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

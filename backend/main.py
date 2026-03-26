@@ -35,6 +35,7 @@ from routers.billing import router as billing_router
 from routers.billing_portfolio import router as billing_portfolio_router
 from routers.billing_team import router as billing_team_router
 from routers.billing_portal import router as billing_portal_router
+from routers.billing_contracts import router as billing_contracts_router
 
 
 @asynccontextmanager
@@ -133,6 +134,7 @@ app.include_router(billing_router)
 app.include_router(billing_portfolio_router)
 app.include_router(billing_team_router)
 app.include_router(billing_portal_router)
+app.include_router(billing_contracts_router)
 
 
 @app.get("/")
