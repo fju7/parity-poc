@@ -39,10 +39,9 @@ const CAPABILITIES = [
 ];
 
 const TIERS = [
-  { name: "Free", price: "$0", period: "", practices: "First practice, full features", highlight: false },
-  { name: "Starter", price: "$299", period: "/mo", practices: "Up to 10 practices", highlight: true },
-  { name: "Growth", price: "$699", period: "/mo", practices: "Up to 30 practices", highlight: false },
-  { name: "Enterprise", price: "Custom", period: "", practices: "Unlimited", highlight: false },
+  { name: "Starter", price: "$299", period: "/mo", practices: "Up to 10 practices", cta: "Start Free", highlight: true },
+  { name: "Growth", price: "$699", period: "/mo", practices: "Up to 30 practices", cta: "Start Free", highlight: false },
+  { name: "Enterprise", price: "Custom", period: "", practices: "Unlimited", cta: "Contact Us", highlight: false },
 ];
 
 export default function BillingLanding() {
@@ -75,7 +74,7 @@ export default function BillingLanding() {
           <span style={{ fontSize: 13, fontWeight: 600, color: "#60a5fa" }}>PARITY BILLING</span>
         </div>
         <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.15, fontWeight: 400, color: "#f1f5f9", marginBottom: 16, letterSpacing: "-0.02em" }}>
-          Your clients think you're<br />catching everything.{" "}
+          Your clients expect you to<br />catch everything.{" "}
           <span style={{ color: "#60a5fa" }}>Are you?</span>
         </h1>
         <p style={{ fontSize: 17, lineHeight: 1.7, color: "#94a3b8", maxWidth: 700, margin: "0 auto 32px" }}>
@@ -156,12 +155,29 @@ export default function BillingLanding() {
       {/* Pricing */}
       <section style={{ padding: "64px 24px 48px", maxWidth: 900, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 40 }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#60a5fa", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>PRICING</div>
-          <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 400, color: "#f1f5f9", letterSpacing: "-0.02em" }}>
-            Simple, practice-count pricing
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#60a5fa", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>HOW PRICING WORKS</div>
+          <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 400, color: "#f1f5f9", letterSpacing: "-0.02em", marginBottom: 32 }}>
+            Start free. Scale when you're ready.
           </h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+
+        {/* Three-step framing */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 48 }}>
+          {[
+            { step: "1", title: "Start free", body: "Add your first practice at no cost. Full feature access, no credit card required." },
+            { step: "2", title: "Try before you commit", body: "When you're ready to add a second practice, a 30-day free trial begins automatically. No interruption to your first practice." },
+            { step: "3", title: "Subscribe when you're ready", body: "After your trial, choose the plan that fits your portfolio size." },
+          ].map(s => (
+            <div key={s.step} style={{ textAlign: "center" }}>
+              <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(59,130,246,0.15)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#60a5fa", marginBottom: 12 }}>{s.step}</div>
+              <h3 style={{ fontSize: 15, fontWeight: 600, color: "#f1f5f9", margin: "0 0 8px" }}>{s.title}</h3>
+              <p style={{ fontSize: 13, lineHeight: 1.6, color: "#94a3b8", margin: 0 }}>{s.body}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Tier cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
           {TIERS.map(t => (
             <div key={t.name} style={{
               background: t.highlight ? "rgba(59,130,246,0.08)" : "rgba(255,255,255,0.03)",
@@ -172,12 +188,19 @@ export default function BillingLanding() {
               <div style={{ fontSize: 32, fontWeight: 700, color: "#f1f5f9", marginBottom: 4 }}>
                 {t.price}<span style={{ fontSize: 14, fontWeight: 400, color: "#64748b" }}>{t.period}</span>
               </div>
-              <div style={{ fontSize: 13, color: "#94a3b8" }}>{t.practices}</div>
+              <div style={{ fontSize: 13, color: "#94a3b8", marginBottom: 16 }}>{t.practices}</div>
+              <a href={t.cta === "Contact Us" ? "mailto:sales@civicscale.ai" : "https://billing.civicscale.ai"} style={{
+                display: "inline-block", padding: "8px 20px", borderRadius: 6, fontSize: 13, fontWeight: 600,
+                textDecoration: "none",
+                background: t.highlight ? "linear-gradient(135deg, #3b82f6, #60a5fa)" : "rgba(255,255,255,0.06)",
+                color: t.highlight ? "#fff" : "#94a3b8",
+                border: t.highlight ? "none" : "1px solid rgba(255,255,255,0.1)",
+              }}>{t.cta}</a>
             </div>
           ))}
         </div>
         <p style={{ textAlign: "center", fontSize: 13, color: "#64748b", marginTop: 16 }}>
-          First practice always free. No credit card required to start.
+          First practice always free. 30-day trial included when you expand your portfolio.
         </p>
       </section>
 

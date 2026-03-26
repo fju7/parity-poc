@@ -107,7 +107,11 @@ export default function BillingDemoPage() {
         {/* Step 1: Portfolio Overview */}
         {step === 0 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 24px" }}>Portfolio Dashboard</h2>
+            <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 16px" }}>Portfolio Dashboard</h2>
+            <Callout
+              seeing="Your entire managed portfolio in one view. Total billed, overall denial rate, and per-practice breakdown — data that no individual practice can see on their own."
+              matters="When Coastal Cardiology's denial rate (22.4%) is nearly double Gulf Coast Pediatrics' (12.1%), that's a conversation you need to have — and data you need to have it with."
+            />
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
               {[
                 { label: "Total Billed", value: `$${totalBilled.toLocaleString()}` },
@@ -136,7 +140,11 @@ export default function BillingDemoPage() {
         {/* Step 2: Payer Benchmarking */}
         {step === 1 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 24px" }}>Payer Benchmarking</h2>
+            <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 16px" }}>Payer Benchmarking</h2>
+            <Callout
+              seeing="Every payer ranked by adherence rate across all your practices. United Healthcare at 68% adherence is flagged as a Watch — its rate has dropped more than 10 points compared to the prior 90-day period."
+              matters="A single practice might dismiss a denial pattern as a coding error. When you see United Healthcare's adherence dropping across all four of your practices simultaneously, that's a systematic payer policy change — and grounds for a coordinated escalation."
+            />
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <thead><tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
@@ -200,7 +208,11 @@ export default function BillingDemoPage() {
         {/* Step 3: Pattern Detection */}
         {step === 2 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 24px" }}>Cross-Practice Pattern Detection</h2>
+            <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 16px" }}>Cross-Practice Pattern Detection</h2>
+            <Callout
+              seeing={`Denial patterns that appear across 2 or more practices automatically surfaced. United Healthcare's CO-45 denials are affecting all 4 practices — $12,450 in denied claims from a single payer behavior.`}
+              matters="Instead of 4 separate appeals from 4 separate practices, you create one escalation with a shared evidence package. One conversation with United Healthcare's provider relations team, backed by cross-practice data they can't dismiss."
+            />
             <Table headers={["Payer", "Code", "Description", "Practices", "Total Denied", "Action"]}
               rows={PATTERNS.map(p => [
                 p.payer,
@@ -230,7 +242,11 @@ export default function BillingDemoPage() {
         {/* Step 4: Branded Reports */}
         {step === 3 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 24px" }}>White-Label Client Reports</h2>
+            <h2 style={{ fontSize: 20, fontWeight: 600, color: "#f1f5f9", margin: "0 0 16px" }}>White-Label Client Reports</h2>
+            <Callout
+              seeing="A white-label PDF report generated for Sunrise Family Medicine — your company name, your logo, their data."
+              matters="Every billing company tells clients they're maximizing collections. You can show them proof. A monthly branded report demonstrating what you recovered on their behalf is a client retention tool that most of your competitors can't offer."
+            />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
               {/* Mock PDF cover */}
               <div style={{ background: "#fff", borderRadius: 12, padding: 40, color: "#1e293b", boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
@@ -313,6 +329,22 @@ function StatusBadge({ status }) {
   };
   const s = map[status] || map.review;
   return <span style={{ display: "inline-block", padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600, background: s.bg, color: s.color }}>{s.label}</span>;
+}
+
+function Callout({ seeing, matters }) {
+  return (
+    <div style={{
+      borderLeft: "3px solid #0D9488", background: "rgba(13, 148, 136, 0.08)",
+      borderRadius: 6, padding: 16, marginBottom: 24,
+    }}>
+      <p style={{ fontSize: 14, color: "#e2e8f0", margin: "0 0 8px", lineHeight: 1.6 }}>
+        <strong style={{ color: "#5eead4" }}>What you're seeing:</strong> {seeing}
+      </p>
+      <p style={{ fontSize: 13, color: "#94a3b8", margin: 0, lineHeight: 1.6, fontStyle: "italic" }}>
+        <strong style={{ color: "#5eead4", fontStyle: "normal" }}>Why it matters:</strong> {matters}
+      </p>
+    </div>
+  );
 }
 
 function NextStep({ onClick, label }) {
