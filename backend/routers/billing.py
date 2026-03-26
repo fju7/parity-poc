@@ -869,6 +869,82 @@ async def update_portal_settings(practice_id: str, req: PortalSettingsRequest,
     return {"updated": True}
 
 
+# ---------------------------------------------------------------------------
+# POST /api/billing/portal/send-invite/{practice_id} — email portal link
+# ---------------------------------------------------------------------------
+
+@router.post("/portal/send-invite/{practice_id}")
+async def send_portal_invite(practice_id: str, authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, bc_role = _get_billing_company(user, sb)
+
+    if bc_role != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    # Get portal settings
+    ps = sb.table("practice_portal_settings").select(
+        "portal_contact_email, portal_enabled"
+    ).eq("billing_company_id", bc["id"]).eq("practice_id", practice_id).limit(1).execute()
+
+    if not ps.data:
+        raise HTTPException(status_code=400, detail="No portal configured for this practice.")
+
+    row = ps.data[0]
+    if not row.get("portal_enabled"):
+        raise HTTPException(status_code=400, detail="Enable the portal before sending an invite.")
+
+    portal_email = (row.get("portal_contact_email") or "").strip().lower()
+    if not portal_email or "@" not in portal_email:
+        raise HTTPException(status_code=400, detail="Add a contact email before sending an invite.")
+
+    # Get practice name
+    prac = sb.table("companies").select("name").eq("id", practice_id).limit(1).execute()
+    practice_name = prac.data[0]["name"] if prac.data else "your practice"
+
+    portal_url = f"https://billing.civicscale.ai/portal?practice={practice_id}"
+
+    try:
+        send_email(
+            to=portal_email,
+            subject=f"{bc['company_name']} has shared your practice data with you",
+            from_name=bc["company_name"],
+            html=f"""
+            <div style="font-family: sans-serif; max-width: 520px; margin: 0 auto; padding: 32px;">
+              <h2 style="color: #0d9488; margin-bottom: 8px;">{bc['company_name']}</h2>
+              <p style="color: #333; font-size: 15px; line-height: 1.7;">
+                Hi,<br><br>
+                {bc['company_name']} has set up a secure portal for you to view
+                performance data for <strong>{practice_name}</strong>.
+              </p>
+              <p style="color: #333; font-size: 15px; line-height: 1.7;">
+                You can access your denial summary, payer performance,
+                and recovery data — all in one place.
+              </p>
+              <a href="{portal_url}"
+                 style="display: inline-block; background: linear-gradient(135deg, #0d9488, #14b8a6);
+                        color: white; padding: 14px 28px; border-radius: 8px;
+                        text-decoration: none; font-weight: bold; margin: 20px 0; font-size: 15px;">
+                View Your Practice Data &rarr;
+              </a>
+              <p style="color: #666; font-size: 13px; line-height: 1.6; margin-top: 24px;">
+                <strong>How to sign in:</strong> Click the link above, enter your email
+                address ({portal_email}), and you'll receive a one-time code to sign in.
+                No password needed.
+              </p>
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 28px 0;" />
+              <p style="color: #999; font-size: 12px;">
+                Sent by {bc['company_name']}<br>
+                Powered by <a href="https://civicscale.ai" style="color: #0d9488; text-decoration: none;">CivicScale</a>
+              </p>
+            </div>
+            """,
+        )
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to send invite: {exc}")
+
+    return {"sent": True, "email": portal_email}
+
+
 # ===========================================================================
 # 835 Ingestion endpoints
 # ===========================================================================

@@ -2363,6 +2363,8 @@ function PortalSettingsRow({ ps, token, providerStatuses, setPortalSettings, por
   const [localEmail, setLocalEmail] = useState(ps.portal_contact_email || "");
   const [saving, setSaving] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [inviting, setInviting] = useState(false);
+  const [inviteMsg, setInviteMsg] = useState("");
 
   const updateSetting = async (updates) => {
     setSaving(true);
@@ -2402,6 +2404,25 @@ function PortalSettingsRow({ ps, token, providerStatuses, setPortalSettings, por
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const canInvite = ps.portal_enabled && (localEmail || ps.portal_contact_email);
+  const handleSendInvite = async () => {
+    setInviting(true); setInviteMsg("");
+    try {
+      const res = await fetch(`${API}/api/billing/portal/send-invite/${ps.practice_id}`, {
+        method: "POST", headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setInviteMsg(`Invite sent to ${data.email}`);
+        setTimeout(() => setInviteMsg(""), 4000);
+      } else {
+        setInviteMsg(data.detail || "Failed to send.");
+        setTimeout(() => setInviteMsg(""), 4000);
+      }
+    } catch { setInviteMsg("Failed to send."); }
+    finally { setInviting(false); }
+  };
+
   return (
     <div style={{
       background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
@@ -2423,13 +2444,26 @@ function PortalSettingsRow({ ps, token, providerStatuses, setPortalSettings, por
             {ps.portal_enabled ? "Enabled" : "Disabled"}
           </label>
           {ps.portal_enabled && (
-            <button onClick={handleCopy} style={{
-              fontSize: 11, padding: "2px 8px", borderRadius: 4, cursor: "pointer",
-              background: copied ? "rgba(13,148,136,0.15)" : "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.1)", color: copied ? "#5eead4" : "#94a3b8",
-            }}>
-              {copied ? "Copied!" : "Copy Link"}
-            </button>
+            <>
+              <button onClick={handleSendInvite} disabled={!canInvite || inviting}
+                title={!canInvite ? "Enable the portal and add a contact email first" : ""}
+                style={{
+                  fontSize: 11, padding: "2px 8px", borderRadius: 4,
+                  cursor: canInvite && !inviting ? "pointer" : "not-allowed",
+                  background: inviteMsg && !inviteMsg.startsWith("Failed") ? "rgba(13,148,136,0.15)" : "rgba(59,130,246,0.1)",
+                  border: "1px solid rgba(59,130,246,0.2)", color: inviteMsg && !inviteMsg.startsWith("Failed") ? "#5eead4" : "#60a5fa",
+                  opacity: canInvite ? 1 : 0.5,
+                }}>
+                {inviting ? "Sending..." : inviteMsg || "Send Invite"}
+              </button>
+              <button onClick={handleCopy} style={{
+                fontSize: 11, padding: "2px 8px", borderRadius: 4, cursor: "pointer",
+                background: copied ? "rgba(13,148,136,0.15)" : "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.1)", color: copied ? "#5eead4" : "#94a3b8",
+              }}>
+                {copied ? "Copied!" : "Copy Link"}
+              </button>
+            </>
           )}
         </div>
       </div>
