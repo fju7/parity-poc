@@ -636,7 +636,7 @@ export default function BillingApp() {
           />
         )}
 
-        {activeTab !== "practices" && activeTab !== "ingestion" && activeTab !== "settings" && (
+        {activeTab === "team" && (
           <div style={{
             background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
             borderRadius: 12, padding: 48, textAlign: "center",
@@ -660,26 +660,43 @@ function PortfolioPanel({ token, billingCompany }) {
   const [practiceSortField, setPracticeSortField] = useState("total_billed");
   const [practiceSortDir, setPracticeSortDir] = useState("desc");
 
+  // Payer benchmark state
+  const [benchmarkPayers, setBenchmarkPayers] = useState([]);
+  const [anomalies, setAnomalies] = useState([]);
+  const [specialties, setSpecialties] = useState([]);
+  const [selectedSpecialty, setSelectedSpecialty] = useState("");
+  const [benchmarkSortField, setBenchmarkSortField] = useState("adherence_rate");
+  const [benchmarkSortDir, setBenchmarkSortDir] = useState("asc");
+  const [anomalyDismissed, setAnomalyDismissed] = useState(false);
+
   const fetchAll = useCallback(async () => {
     if (!token || !billingCompany) return;
     setLoading(true);
     try {
       const headers = { Authorization: `Bearer ${token}` };
-      const [sumRes, pracRes, payRes, denRes] = await Promise.all([
+      const specParam = selectedSpecialty ? `&specialty=${encodeURIComponent(selectedSpecialty)}` : "";
+      const [sumRes, pracRes, payRes, denRes, benchRes, anomRes, specRes] = await Promise.all([
         fetch(`${API}/api/billing/portfolio/summary?days=${days}`, { headers }),
         fetch(`${API}/api/billing/portfolio/practices?days=${days}`, { headers }),
         fetch(`${API}/api/billing/portfolio/payers?days=${days}`, { headers }),
         fetch(`${API}/api/billing/portfolio/denial-reasons?days=${days}`, { headers }),
+        fetch(`${API}/api/billing/portfolio/payer-benchmark?days=${days}${specParam}`, { headers }),
+        fetch(`${API}/api/billing/portfolio/payer-anomalies`, { headers }),
+        fetch(`${API}/api/billing/portfolio/specialties`, { headers }),
       ]);
       if (sumRes.ok) setSummary(await sumRes.json());
       if (pracRes.ok) { const d = await pracRes.json(); setPractices(d.practices || []); }
       if (payRes.ok) { const d = await payRes.json(); setPayers(d.payers || []); }
       if (denRes.ok) { const d = await denRes.json(); setDenialReasons(d.denial_reasons || []); }
+      if (benchRes.ok) { const d = await benchRes.json(); setBenchmarkPayers(d.payers || []); }
+      if (anomRes.ok) { const d = await anomRes.json(); setAnomalies(d.anomalies || []); }
+      if (specRes.ok) { const d = await specRes.json(); setSpecialties(d.specialties || []); }
     } catch { /* ignore */ }
     finally { setLoading(false); }
-  }, [token, billingCompany, days]);
+  }, [token, billingCompany, days, selectedSpecialty]);
 
   useEffect(() => { fetchAll(); }, [fetchAll]);
+  useEffect(() => { setAnomalyDismissed(false); }, [days, selectedSpecialty]);
 
   const sortedPractices = [...practices].sort((a, b) => {
     const av = a[practiceSortField] ?? 0;
@@ -894,6 +911,207 @@ function PortfolioPanel({ token, billingCompany }) {
           </div>
         </div>
       </div>
+
+      {/* Payer Benchmarking section */}
+      <PayerBenchmarkSection
+        benchmarkPayers={benchmarkPayers}
+        anomalies={anomalies}
+        specialties={specialties}
+        selectedSpecialty={selectedSpecialty}
+        setSelectedSpecialty={setSelectedSpecialty}
+        benchmarkSortField={benchmarkSortField}
+        setBenchmarkSortField={setBenchmarkSortField}
+        benchmarkSortDir={benchmarkSortDir}
+        setBenchmarkSortDir={setBenchmarkSortDir}
+        anomalyDismissed={anomalyDismissed}
+        setAnomalyDismissed={setAnomalyDismissed}
+        days={days}
+      />
+    </div>
+  );
+}
+
+function PayerBenchmarkSection({
+  benchmarkPayers, anomalies, specialties,
+  selectedSpecialty, setSelectedSpecialty,
+  benchmarkSortField, setBenchmarkSortField,
+  benchmarkSortDir, setBenchmarkSortDir,
+  anomalyDismissed, setAnomalyDismissed,
+  days,
+}) {
+  const anomalyPayers = new Set(anomalies.map(a => a.payer_name));
+
+  const sorted = [...benchmarkPayers].sort((a, b) => {
+    const av = a[benchmarkSortField] ?? 0;
+    const bv = b[benchmarkSortField] ?? 0;
+    return benchmarkSortDir === "asc" ? av - bv : bv - av;
+  });
+
+  const handleSort = (field) => {
+    if (benchmarkSortField === field) {
+      setBenchmarkSortDir(d => d === "asc" ? "desc" : "asc");
+    } else {
+      setBenchmarkSortField(field);
+      setBenchmarkSortDir(field === "adherence_rate" ? "asc" : "desc");
+    }
+  };
+
+  const arrow = (field) => {
+    if (benchmarkSortField !== field) return "";
+    return benchmarkSortDir === "desc" ? " \u2193" : " \u2191";
+  };
+
+  return (
+    <div style={{ marginTop: 32 }}>
+      {/* Header + controls */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Payer Benchmarking</h3>
+        {specialties.length > 0 && (
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <label style={{ fontSize: 12, color: "#64748b" }}>Specialty:</label>
+            <select value={selectedSpecialty} onChange={(e) => setSelectedSpecialty(e.target.value)}
+              style={{
+                padding: "5px 10px", borderRadius: 6, fontSize: 13,
+                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(255,255,255,0.06)", color: "#f1f5f9",
+                appearance: "auto",
+              }}>
+              <option value="">All specialties</option>
+              {specialties.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+        )}
+      </div>
+
+      {/* Anomaly alert */}
+      {anomalies.length > 0 && !anomalyDismissed && (
+        <div style={{
+          background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)",
+          borderRadius: 8, padding: "10px 16px", marginBottom: 16,
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+        }}>
+          <span style={{ color: "#fbbf24", fontSize: 13 }}>
+            {anomalies.length} payer{anomalies.length > 1 ? "s" : ""} show significant adherence decline in the last 90 days
+          </span>
+          <button onClick={() => setAnomalyDismissed(true)}
+            style={{ color: "#fbbf24", background: "none", border: "none", cursor: "pointer", fontSize: 16, lineHeight: 1 }}>
+            &times;
+          </button>
+        </div>
+      )}
+
+      {/* Benchmark table */}
+      {benchmarkPayers.length === 0 ? (
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
+          borderRadius: 12, padding: 48, textAlign: "center",
+        }}>
+          <p style={{ color: "#94a3b8", fontSize: 14, margin: 0 }}>
+            {selectedSpecialty
+              ? `No payer data for specialty "${selectedSpecialty}" in the last ${days} days.`
+              : "Insufficient data for payer benchmarking."}
+          </p>
+        </div>
+      ) : (
+        <div style={{
+          background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: 12, overflow: "hidden",
+        }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <th style={styles.th}>Payer Name</th>
+                <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handleSort("adherence_rate")}>
+                  Adherence Rate{arrow("adherence_rate")}
+                </th>
+                <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handleSort("practice_count")}>
+                  Practices{arrow("practice_count")}
+                </th>
+                <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handleSort("claim_count")}>
+                  Claims{arrow("claim_count")}
+                </th>
+                <th style={{ ...styles.th, cursor: "pointer" }} onClick={() => handleSort("total_billed")}>
+                  Total Billed{arrow("total_billed")}
+                </th>
+                <th style={styles.th}>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sorted.map(p => {
+                const isAnomaly = anomalyPayers.has(p.payer_name);
+                const anomalyData = isAnomaly ? anomalies.find(a => a.payer_name === p.payer_name) : null;
+                return (
+                  <tr key={p.payer_name} style={{
+                    borderBottom: "1px solid rgba(255,255,255,0.04)",
+                    background: isAnomaly ? "rgba(245,158,11,0.05)" : "transparent",
+                  }}>
+                    <td style={styles.td}>
+                      {p.payer_name}
+                      {isAnomaly && (
+                        <span style={{
+                          display: "inline-block", marginLeft: 8, padding: "1px 6px", borderRadius: 4,
+                          background: "rgba(245,158,11,0.15)", color: "#fbbf24",
+                          fontSize: 10, fontWeight: 600,
+                        }}>
+                          DECLINING
+                        </span>
+                      )}
+                    </td>
+                    <td style={{
+                      ...styles.td, fontWeight: 600,
+                      color: p.adherence_rate < 85 ? "#fca5a5" : p.adherence_rate < 95 ? "#fbbf24" : "#5eead4",
+                    }}>
+                      {p.adherence_rate}%
+                      {anomalyData && (
+                        <span style={{ fontSize: 11, color: "#f87171", marginLeft: 6 }}>
+                          ({anomalyData.delta > 0 ? "+" : ""}{anomalyData.delta}pp)
+                        </span>
+                      )}
+                    </td>
+                    <td style={{ ...styles.td, color: "#94a3b8" }}>{p.practice_count}</td>
+                    <td style={{ ...styles.td, color: "#94a3b8" }}>{p.claim_count.toLocaleString()}</td>
+                    <td style={{ ...styles.td, color: "#94a3b8" }}>
+                      ${Number(p.total_billed).toLocaleString()}
+                    </td>
+                    <td style={styles.td}>
+                      {isAnomaly ? (
+                        <span style={{
+                          display: "inline-block", padding: "2px 8px", borderRadius: 10,
+                          background: "rgba(245,158,11,0.15)", color: "#fbbf24",
+                          fontSize: 11, fontWeight: 600,
+                        }}>
+                          Watch
+                        </span>
+                      ) : p.adherence_rate >= 95 ? (
+                        <span style={{
+                          display: "inline-block", padding: "2px 8px", borderRadius: 10,
+                          background: "rgba(13,148,136,0.15)", color: "#5eead4",
+                          fontSize: 11, fontWeight: 600,
+                        }}>
+                          Good
+                        </span>
+                      ) : (
+                        <span style={{
+                          display: "inline-block", padding: "2px 8px", borderRadius: 10,
+                          background: "rgba(148,163,184,0.15)", color: "#94a3b8",
+                          fontSize: 11, fontWeight: 600,
+                        }}>
+                          Review
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {selectedSpecialty && (
+        <p style={{ fontSize: 12, color: "#64748b", marginTop: 8 }}>
+          Filtered by specialty: {selectedSpecialty}
+        </p>
+      )}
     </div>
   );
 }

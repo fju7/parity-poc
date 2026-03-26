@@ -294,3 +294,184 @@ async def portfolio_denial_reasons(days: int = 90, authorization: str = Header(N
         r["total_amount"] = round(r["total_amount"], 2)
 
     return {"denial_reasons": result}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/portfolio/specialties
+# ---------------------------------------------------------------------------
+
+@router.get("/specialties")
+async def portfolio_specialties(authorization: str = Header(None)):
+    user, bc_id, sb = _require_billing_portfolio(authorization)
+
+    # Get practice IDs linked to this billing company
+    links = sb.table("billing_company_practices").select(
+        "practice_id"
+    ).eq("billing_company_id", bc_id).eq("active", True).execute()
+
+    practice_ids = [l["practice_id"] for l in (links.data or [])]
+    if not practice_ids:
+        return {"specialties": []}
+
+    # Look up specialties from provider_profiles
+    profiles = sb.table("provider_profiles").select(
+        "specialty"
+    ).in_("company_id", practice_ids).execute()
+
+    specialties = sorted({
+        p["specialty"] for p in (profiles.data or [])
+        if p.get("specialty") and p["specialty"].strip()
+    })
+
+    return {"specialties": specialties}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/portfolio/payer-benchmark
+# ---------------------------------------------------------------------------
+
+@router.get("/payer-benchmark")
+async def portfolio_payer_benchmark(
+    days: int = 90,
+    specialty: str = None,
+    authorization: str = Header(None),
+):
+    user, bc_id, sb = _require_billing_portfolio(authorization)
+    cutoff = _date_cutoff(days)
+
+    # If specialty filter, resolve matching practice IDs first
+    filtered_practice_ids = None
+    if specialty and specialty.strip():
+        links = sb.table("billing_company_practices").select(
+            "practice_id"
+        ).eq("billing_company_id", bc_id).eq("active", True).execute()
+        all_pids = [l["practice_id"] for l in (links.data or [])]
+
+        if all_pids:
+            profiles = sb.table("provider_profiles").select(
+                "company_id"
+            ).in_("company_id", all_pids).eq("specialty", specialty.strip()).execute()
+            filtered_practice_ids = [p["company_id"] for p in (profiles.data or [])]
+
+        if not filtered_practice_ids:
+            return {"payers": [], "specialty_filter": specialty.strip()}
+
+    # Query provider_analyses
+    query = sb.table("provider_analyses").select(
+        "payer_name, company_id, total_billed, total_paid, result_json"
+    ).eq("billing_company_id", bc_id).gte("created_at", cutoff)
+
+    if filtered_practice_ids is not None:
+        query = query.in_("company_id", filtered_practice_ids)
+
+    rows = query.execute()
+
+    # Aggregate by payer
+    payer_map = {}
+    for r in (rows.data or []):
+        payer = (r.get("payer_name") or "").strip()
+        if not payer:
+            continue
+        if payer not in payer_map:
+            payer_map[payer] = {
+                "payer_name": payer,
+                "total_billed": 0, "total_paid": 0,
+                "line_count": 0, "paid_lines": 0,
+                "practices": set(),
+            }
+        pm = payer_map[payer]
+        pm["total_billed"] += float(r.get("total_billed") or 0)
+        pm["total_paid"] += float(r.get("total_paid") or 0)
+        pm["practices"].add(r.get("company_id"))
+
+        rj = r.get("result_json") or {}
+        lc = int(rj.get("line_count") or 0)
+        denied = int(rj.get("denied_lines") or 0)
+        pm["line_count"] += lc
+        pm["paid_lines"] += (lc - denied)
+
+    result = []
+    for payer, pm in payer_map.items():
+        adherence = round((pm["paid_lines"] / pm["line_count"] * 100), 2) if pm["line_count"] > 0 else 100.0
+        result.append({
+            "payer_name": payer,
+            "adherence_rate": adherence,
+            "practice_count": len(pm["practices"]),
+            "claim_count": pm["line_count"],
+            "total_billed": round(pm["total_billed"], 2),
+            "total_paid": round(pm["total_paid"], 2),
+        })
+
+    # Default sort: ascending by adherence (worst first)
+    result.sort(key=lambda x: x["adherence_rate"])
+    return {
+        "payers": result,
+        "specialty_filter": (specialty.strip() if specialty else None),
+    }
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/portfolio/payer-anomalies
+# ---------------------------------------------------------------------------
+
+@router.get("/payer-anomalies")
+async def portfolio_payer_anomalies(authorization: str = Header(None)):
+    user, bc_id, sb = _require_billing_portfolio(authorization)
+
+    now = datetime.now(timezone.utc)
+    current_start = (now - timedelta(days=90)).isoformat()
+    prior_start = (now - timedelta(days=180)).isoformat()
+    current_cutoff = now.isoformat()
+
+    # Current window: last 90 days
+    current_rows = sb.table("provider_analyses").select(
+        "payer_name, company_id, result_json"
+    ).eq("billing_company_id", bc_id).gte("created_at", current_start).execute()
+
+    # Prior window: 90-180 days ago
+    prior_rows = sb.table("provider_analyses").select(
+        "payer_name, company_id, result_json"
+    ).eq("billing_company_id", bc_id).gte(
+        "created_at", prior_start
+    ).lt("created_at", current_start).execute()
+
+    def _aggregate(rows_data):
+        pmap = {}
+        for r in (rows_data or []):
+            payer = (r.get("payer_name") or "").strip()
+            if not payer:
+                continue
+            if payer not in pmap:
+                pmap[payer] = {"line_count": 0, "paid_lines": 0, "practices": set()}
+            rj = r.get("result_json") or {}
+            lc = int(rj.get("line_count") or 0)
+            denied = int(rj.get("denied_lines") or 0)
+            pmap[payer]["line_count"] += lc
+            pmap[payer]["paid_lines"] += (lc - denied)
+            pmap[payer]["practices"].add(r.get("company_id"))
+        return pmap
+
+    current_map = _aggregate(current_rows.data)
+    prior_map = _aggregate(prior_rows.data)
+
+    anomalies = []
+    for payer, curr in current_map.items():
+        prior = prior_map.get(payer)
+        if not prior or prior["line_count"] == 0 or curr["line_count"] == 0:
+            continue
+
+        current_rate = round((curr["paid_lines"] / curr["line_count"] * 100), 2)
+        prior_rate = round((prior["paid_lines"] / prior["line_count"] * 100), 2)
+        delta = round(current_rate - prior_rate, 2)
+
+        if delta < -10:  # adherence dropped more than 10 points
+            anomalies.append({
+                "payer_name": payer,
+                "current_rate": current_rate,
+                "prior_rate": prior_rate,
+                "delta": delta,
+                "practice_count": len(curr["practices"]),
+            })
+
+    anomalies.sort(key=lambda x: x["delta"])
+    return {"anomalies": anomalies}
