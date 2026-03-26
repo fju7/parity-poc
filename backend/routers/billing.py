@@ -733,6 +733,54 @@ async def ingest_process_one(job_id: str, authorization: str = Header(None)):
     return _process_job(j, sb)
 
 
+def _insert_claim_lines(sb, line_items, billing_company_id, practice_id,
+                        job_id, analysis_id, payer_name):
+    """Insert denormalized claim lines into billing_claim_lines."""
+    rows = []
+    for li in line_items:
+        paid = float(li.get("paid_amount") or 0)
+        adjs = li.get("adjustments") or []
+        co_codes = [
+            f"{a['group_code']}-{a['reason_code']}"
+            for a in adjs
+            if isinstance(a, dict) and a.get("group_code") == "CO" and a.get("reason_code")
+        ]
+        has_co = len(co_codes) > 0
+
+        if paid == 0 and has_co:
+            status = "denied"
+        elif paid > 0 and not has_co:
+            status = "paid"
+        else:
+            status = "partial"
+
+        # Parse dates safely
+        dos_raw = (li.get("date_of_service") or "")[:10] or None
+        adj_raw = (li.get("adjudication_date") or "")[:10] or None
+
+        rows.append({
+            "billing_company_id": billing_company_id,
+            "practice_id": practice_id,
+            "job_id": job_id,
+            "analysis_id": analysis_id,
+            "payer_name": payer_name,
+            "claim_number": li.get("claim_number") or li.get("claim_id") or "",
+            "cpt_code": li.get("cpt_code") or "",
+            "date_of_service": dos_raw if dos_raw and len(dos_raw) >= 8 else None,
+            "adjudication_date": adj_raw if adj_raw and len(adj_raw) >= 8 else None,
+            "billed_amount": float(li.get("billed_amount") or 0),
+            "paid_amount": paid,
+            "status": status,
+            "denial_codes": co_codes if co_codes else None,
+        })
+
+    # Batch insert (Supabase supports array insert)
+    if rows:
+        sb.table("billing_claim_lines").insert(rows).execute()
+
+    return len(rows)
+
+
 def _process_job(j: dict, sb) -> dict:
     """Process a single 835 job. Never raises — returns status dict."""
     from utils.parse_835 import parse_835
@@ -808,6 +856,15 @@ def _process_job(j: dict, sb) -> dict:
 
         if analysis_id:
             result["analysis_id"] = analysis_id
+
+        # Insert denormalized claim lines for cross-file recovery tracking
+        try:
+            _insert_claim_lines(
+                sb, line_items, j["billing_company_id"], j["practice_id"],
+                job_id, analysis_id, parsed.get("payer_name", ""),
+            )
+        except Exception as exc:
+            print(f"[billing-ingest] claim lines insert failed (non-fatal): {exc}")
 
         # Update job as complete
         sb.table("billing_835_jobs").update({

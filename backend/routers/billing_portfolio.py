@@ -758,115 +758,107 @@ async def portfolio_payer_detail(
 # Appeal ROI endpoints
 # ===========================================================================
 
-def _extract_line_stats(rows_data):
-    """Extract line-level stats from provider_analyses result_json rows.
+# ===========================================================================
+# Appeal ROI — true cross-file recovery tracking via billing_claim_lines
+# ===========================================================================
 
-    Returns (lines, denied_lines, denied_amount, payer_map, denial_code_map, monthly_map).
-    Each denied line: paid_amount == 0 and has a CO adjustment.
-    Recovery proxy: total_paid represents payment realization.
+
+def _scoped_claim_lines_query(sb, bc_id, bc_role, bc_user_id, cutoff, select_cols):
+    """Build a billing_claim_lines query with analyst scoping."""
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
+    query = sb.table("billing_claim_lines").select(select_cols).eq(
+        "billing_company_id", bc_id
+    ).gte("created_at", cutoff)
+    if scoped is not None:
+        if not scoped:
+            return None
+        query = query.in_("practice_id", scoped)
+    return query.execute()
+
+
+def _detect_recoveries(sb, bc_id, scoped_practice_ids=None):
+    """Detect denied claims later paid across different 835 files.
+
+    Matches by (practice_id, claim_number, cpt_code, date_of_service):
+    - A denied line in an earlier job (by adjudication_date or created_at)
+    - A paid line in a later job for the same claim
+
+    Returns list of recovery dicts with recovered_amount.
     """
-    payer_map = {}       # payer → {billed, paid, denied_amount, denied_count}
-    denial_code_map = {} # code → {count, denied_amount, recovered_amount}
-    monthly_map = {}     # YYYY-MM → {paid, denied_amount}
-    total_billed = 0.0
-    total_paid = 0.0
-    total_denied_amount = 0.0
-    total_lines = 0
-    total_denied_lines = 0
-    days_sum = 0
-    days_count = 0
+    # Get all denied lines
+    dq = sb.table("billing_claim_lines").select(
+        "id, practice_id, claim_number, cpt_code, date_of_service, "
+        "billed_amount, payer_name, denial_codes, adjudication_date, created_at, job_id"
+    ).eq("billing_company_id", bc_id).eq("status", "denied")
+    if scoped_practice_ids is not None:
+        if not scoped_practice_ids:
+            return []
+        dq = dq.in_("practice_id", scoped_practice_ids)
+    denied_rows = dq.execute()
 
-    for r in (rows_data or []):
-        payer = (r.get("payer_name") or "").strip()
-        rj = r.get("result_json") or {}
-        created = r.get("created_at") or ""
-        month = created[:7] if len(created) >= 7 else ""
+    if not denied_rows.data:
+        return []
 
-        tb = float(r.get("total_billed") or 0)
-        tp = float(r.get("total_paid") or 0)
-        total_billed += tb
-        total_paid += tp
+    # Get all paid lines
+    pq = sb.table("billing_claim_lines").select(
+        "id, practice_id, claim_number, cpt_code, date_of_service, "
+        "paid_amount, payer_name, adjudication_date, created_at, job_id"
+    ).eq("billing_company_id", bc_id).eq("status", "paid")
+    if scoped_practice_ids is not None:
+        pq = pq.in_("practice_id", scoped_practice_ids)
+    paid_rows = pq.execute()
 
-        if payer and payer not in payer_map:
-            payer_map[payer] = {"billed": 0, "paid": 0, "denied_amount": 0, "denied_count": 0}
+    if not paid_rows.data:
+        return []
 
-        if month and month not in monthly_map:
-            monthly_map[month] = {"paid": 0, "denied_amount": 0}
+    # Build lookup of paid lines by match key
+    paid_map = {}  # (practice_id, claim_number, cpt_code, dos) → [paid_lines]
+    for p in paid_rows.data:
+        key = (p["practice_id"], p.get("claim_number") or "", p.get("cpt_code") or "",
+               str(p.get("date_of_service") or ""))
+        if not key[1]:  # skip empty claim numbers
+            continue
+        paid_map.setdefault(key, []).append(p)
 
-        for li in (rj.get("line_items") or []):
-            total_lines += 1
-            li_billed = float(li.get("billed_amount") or 0)
-            li_paid = float(li.get("paid_amount") or 0)
+    recoveries = []
+    matched_paid_ids = set()
 
-            # Days to payment
-            dos = li.get("date_of_service") or ""
-            adj_date = li.get("adjudication_date") or ""
-            if dos and adj_date and len(dos) >= 8 and len(adj_date) >= 8:
-                try:
-                    from datetime import date as dt_date
-                    d1 = dt_date.fromisoformat(dos[:10])
-                    d2 = dt_date.fromisoformat(adj_date[:10])
-                    diff = (d2 - d1).days
-                    if 0 <= diff <= 365:
-                        days_sum += diff
-                        days_count += 1
-                except (ValueError, TypeError):
-                    pass
+    for d in denied_rows.data:
+        key = (d["practice_id"], d.get("claim_number") or "", d.get("cpt_code") or "",
+               str(d.get("date_of_service") or ""))
+        if not key[1]:
+            continue
 
-            is_denied = (
-                li_paid == 0
-                and any(
-                    isinstance(a, dict) and a.get("group_code") == "CO"
-                    for a in (li.get("adjustments") or [])
-                )
-            )
+        candidates = paid_map.get(key, [])
+        for p in candidates:
+            if p["id"] in matched_paid_ids:
+                continue
+            # Paid must be from a different (later) job
+            if p["job_id"] == d["job_id"]:
+                continue
+            # Paid adjudication date should be after denied adjudication date
+            d_adj = str(d.get("adjudication_date") or d.get("created_at") or "")
+            p_adj = str(p.get("adjudication_date") or p.get("created_at") or "")
+            if p_adj <= d_adj:
+                continue
 
-            if payer:
-                payer_map[payer]["billed"] += li_billed
-                payer_map[payer]["paid"] += li_paid
+            matched_paid_ids.add(p["id"])
+            recoveries.append({
+                "denied_line_id": d["id"],
+                "paid_line_id": p["id"],
+                "practice_id": d["practice_id"],
+                "payer_name": d.get("payer_name") or p.get("payer_name") or "",
+                "claim_number": d.get("claim_number"),
+                "cpt_code": d.get("cpt_code"),
+                "date_of_service": str(d.get("date_of_service") or ""),
+                "denied_amount": float(d.get("billed_amount") or 0),
+                "recovered_amount": float(p.get("paid_amount") or 0),
+                "denial_codes": d.get("denial_codes") or [],
+                "recovery_adjudication_date": str(p.get("adjudication_date") or ""),
+            })
+            break  # One match per denied line
 
-            if is_denied:
-                total_denied_lines += 1
-                total_denied_amount += li_billed
-                if payer:
-                    payer_map[payer]["denied_amount"] += li_billed
-                    payer_map[payer]["denied_count"] += 1
-                if month:
-                    monthly_map[month]["denied_amount"] += li_billed
-
-                # Extract denial codes
-                for adj in (li.get("adjustments") or []):
-                    if not isinstance(adj, dict) or adj.get("group_code") != "CO":
-                        continue
-                    rc = adj.get("reason_code") or ""
-                    if not rc:
-                        continue
-                    code = f"CO-{rc}"
-                    if code not in denial_code_map:
-                        denial_code_map[code] = {
-                            "code": code,
-                            "description": DENIAL_CODE_DESCRIPTIONS.get(rc, ""),
-                            "count": 0, "denied_amount": 0,
-                        }
-                    denial_code_map[code]["count"] += 1
-                    denial_code_map[code]["denied_amount"] += li_billed
-            else:
-                if month:
-                    monthly_map[month]["paid"] += li_paid
-
-    avg_days = round(days_sum / days_count) if days_count > 0 else None
-
-    return {
-        "total_billed": total_billed,
-        "total_paid": total_paid,
-        "total_denied_amount": total_denied_amount,
-        "total_lines": total_lines,
-        "total_denied_lines": total_denied_lines,
-        "avg_days_to_payment": avg_days,
-        "payer_map": payer_map,
-        "denial_code_map": denial_code_map,
-        "monthly_map": monthly_map,
-    }
+    return recoveries
 
 
 # ---------------------------------------------------------------------------
@@ -877,30 +869,59 @@ def _extract_line_stats(rows_data):
 async def appeal_roi_summary(days: int = 180, authorization: str = Header(None)):
     user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
 
-    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
-        "payer_name, total_billed, total_paid, result_json, created_at, company_id")
+    # Query billing_claim_lines directly
+    lines = _scoped_claim_lines_query(sb, bc_id, bc_role, bc_user_id, cutoff,
+        "payer_name, billed_amount, paid_amount, status, date_of_service, adjudication_date")
 
-    stats = _extract_line_stats((rows.data if rows else None) or [])
+    all_lines = (lines.data if lines else None) or []
 
-    recovery_rate = round(
-        (stats["total_paid"] / stats["total_billed"] * 100), 2
-    ) if stats["total_billed"] > 0 else 0.0
+    total_billed = sum(float(l.get("billed_amount") or 0) for l in all_lines)
+    total_denied = sum(float(l.get("billed_amount") or 0) for l in all_lines if l.get("status") == "denied")
+    total_lines = len(all_lines)
+    denied_lines = sum(1 for l in all_lines if l.get("status") == "denied")
 
-    # Top payer by total paid
-    top_payer = "—"
-    if stats["payer_map"]:
-        top_payer = max(stats["payer_map"], key=lambda k: stats["payer_map"][k]["paid"])
+    # Avg days to payment
+    days_vals = []
+    for l in all_lines:
+        dos = str(l.get("date_of_service") or "")[:10]
+        adj = str(l.get("adjudication_date") or "")[:10]
+        if dos and adj and len(dos) >= 8 and len(adj) >= 8:
+            try:
+                from datetime import date as dt_date
+                d1 = dt_date.fromisoformat(dos)
+                d2 = dt_date.fromisoformat(adj)
+                diff = (d2 - d1).days
+                if 0 <= diff <= 365:
+                    days_vals.append(diff)
+            except (ValueError, TypeError):
+                pass
+    avg_days = round(sum(days_vals) / len(days_vals)) if days_vals else None
+
+    # True recovery detection
+    recoveries = _detect_recoveries(sb, bc_id, scoped)
+    total_recovered = sum(r["recovered_amount"] for r in recoveries)
+    recovery_rate = round((total_recovered / total_denied * 100), 2) if total_denied > 0 else 0.0
+
+    # Top payer by recovery
+    payer_recovered = {}
+    for r in recoveries:
+        p = r.get("payer_name") or ""
+        if p:
+            payer_recovered[p] = payer_recovered.get(p, 0) + r["recovered_amount"]
+    top_payer = max(payer_recovered, key=payer_recovered.get) if payer_recovered else "—"
 
     return {
-        "total_recovered": round(stats["total_paid"], 2),
-        "total_denied": round(stats["total_denied_amount"], 2),
-        "total_billed": round(stats["total_billed"], 2),
+        "total_recovered": round(total_recovered, 2),
+        "total_denied": round(total_denied, 2),
+        "total_billed": round(total_billed, 2),
         "recovery_rate": recovery_rate,
-        "avg_days_to_payment": stats["avg_days_to_payment"],
+        "avg_days_to_payment": avg_days,
         "top_payer": top_payer,
-        "total_lines": stats["total_lines"],
-        "denied_lines": stats["total_denied_lines"],
+        "total_lines": total_lines,
+        "denied_lines": denied_lines,
+        "recovery_count": len(recoveries),
     }
 
 
@@ -912,20 +933,43 @@ async def appeal_roi_summary(days: int = 180, authorization: str = Header(None))
 async def appeal_roi_by_payer(days: int = 180, authorization: str = Header(None)):
     user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
 
-    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
-        "payer_name, total_billed, total_paid, result_json, created_at, company_id")
+    lines = _scoped_claim_lines_query(sb, bc_id, bc_role, bc_user_id, cutoff,
+        "payer_name, billed_amount, paid_amount, status")
+    all_lines = (lines.data if lines else None) or []
 
-    stats = _extract_line_stats((rows.data if rows else None) or [])
+    # Aggregate by payer
+    payer_map = {}
+    for l in all_lines:
+        payer = (l.get("payer_name") or "").strip()
+        if not payer:
+            continue
+        if payer not in payer_map:
+            payer_map[payer] = {"billed": 0, "denied": 0, "paid": 0}
+        pm = payer_map[payer]
+        pm["billed"] += float(l.get("billed_amount") or 0)
+        if l.get("status") == "denied":
+            pm["denied"] += float(l.get("billed_amount") or 0)
+        pm["paid"] += float(l.get("paid_amount") or 0)
+
+    # Get true recoveries by payer
+    recoveries = _detect_recoveries(sb, bc_id, scoped)
+    payer_recovered = {}
+    for r in recoveries:
+        p = r.get("payer_name") or ""
+        if p:
+            payer_recovered[p] = payer_recovered.get(p, 0) + r["recovered_amount"]
 
     result = []
-    for payer, pm in stats["payer_map"].items():
-        rr = round((pm["paid"] / pm["billed"] * 100), 2) if pm["billed"] > 0 else 0.0
+    for payer, pm in payer_map.items():
+        recovered = payer_recovered.get(payer, 0)
+        rr = round((recovered / pm["denied"] * 100), 2) if pm["denied"] > 0 else 0.0
         result.append({
             "payer_name": payer,
             "total_billed": round(pm["billed"], 2),
-            "total_denied": round(pm["denied_amount"], 2),
-            "total_recovered": round(pm["paid"], 2),
+            "total_denied": round(pm["denied"], 2),
+            "total_recovered": round(recovered, 2),
             "recovery_rate": rr,
         })
 
@@ -941,23 +985,54 @@ async def appeal_roi_by_payer(days: int = 180, authorization: str = Header(None)
 async def appeal_roi_by_denial_type(days: int = 180, authorization: str = Header(None)):
     user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
 
-    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
-        "payer_name, total_billed, total_paid, result_json, created_at, company_id")
+    # Get denied lines with their codes
+    dq = sb.table("billing_claim_lines").select(
+        "billed_amount, denial_codes, practice_id, claim_number, cpt_code, date_of_service"
+    ).eq("billing_company_id", bc_id).eq("status", "denied").gte("created_at", cutoff)
+    if scoped is not None:
+        if not scoped:
+            return {"denial_types": []}
+        dq = dq.in_("practice_id", scoped)
+    denied = dq.execute()
 
-    stats = _extract_line_stats((rows.data if rows else None) or [])
+    # Get recoveries to map back to denial codes
+    recoveries = _detect_recoveries(sb, bc_id, scoped)
+    recovery_map = {}  # (practice_id, claim_number, cpt_code, dos) → recovered_amount
+    for r in recoveries:
+        key = (r["practice_id"], r["claim_number"], r["cpt_code"], r["date_of_service"])
+        recovery_map[key] = r["recovered_amount"]
 
-    result = []
-    for code, dm in stats["denial_code_map"].items():
-        result.append({
-            "denial_code": dm["code"],
-            "description": dm["description"],
-            "total_denied": round(dm["denied_amount"], 2),
-            "count": dm["count"],
-        })
+    code_map = {}
+    for d in (denied.data or []):
+        billed = float(d.get("billed_amount") or 0)
+        codes = d.get("denial_codes") or []
+        key = (d.get("practice_id"), d.get("claim_number") or "",
+               d.get("cpt_code") or "", str(d.get("date_of_service") or ""))
+        recovered = recovery_map.get(key, 0)
 
-    result.sort(key=lambda x: x["count"], reverse=True)
-    return {"denial_types": result[:15]}
+        for code in codes:
+            raw = code.replace("CO-", "") if code.startswith("CO-") else code
+            if code not in code_map:
+                code_map[code] = {
+                    "denial_code": code,
+                    "description": DENIAL_CODE_DESCRIPTIONS.get(raw, ""),
+                    "count": 0, "total_denied": 0, "total_recovered": 0,
+                }
+            code_map[code]["count"] += 1
+            code_map[code]["total_denied"] += billed
+            code_map[code]["total_recovered"] += recovered / max(len(codes), 1)
+
+    result = sorted(code_map.values(), key=lambda x: x["count"], reverse=True)[:15]
+    for r in result:
+        r["total_denied"] = round(r["total_denied"], 2)
+        r["total_recovered"] = round(r["total_recovered"], 2)
+        r["recovery_rate"] = round(
+            (r["total_recovered"] / r["total_denied"] * 100), 2
+        ) if r["total_denied"] > 0 else 0.0
+
+    return {"denial_types": result}
 
 
 # ---------------------------------------------------------------------------
@@ -968,31 +1043,52 @@ async def appeal_roi_by_denial_type(days: int = 180, authorization: str = Header
 async def appeal_roi_trend(days: int = 180, authorization: str = Header(None)):
     user, bc_id, bc_role, bc_user_id, sb = _require_billing_portfolio(authorization)
     cutoff = _date_cutoff(days)
+    scoped = _get_scoped_practice_ids(bc_id, bc_user_id, bc_role, sb)
 
-    rows = _scoped_analyses_query(sb, bc_id, bc_role, bc_user_id, cutoff,
-        "payer_name, total_billed, total_paid, result_json, created_at, company_id")
+    # Get denied lines with dates
+    lines = _scoped_claim_lines_query(sb, bc_id, bc_role, bc_user_id, cutoff,
+        "billed_amount, paid_amount, status, adjudication_date, created_at")
+    all_lines = (lines.data if lines else None) or []
 
-    stats = _extract_line_stats((rows.data if rows else None) or [])
+    # Get recoveries
+    recoveries = _detect_recoveries(sb, bc_id, scoped)
+
+    # Monthly buckets for denied amounts (by adjudication_date or created_at)
+    denied_monthly = {}
+    for l in all_lines:
+        if l.get("status") != "denied":
+            continue
+        adj = str(l.get("adjudication_date") or l.get("created_at") or "")
+        month = adj[:7] if len(adj) >= 7 else ""
+        if month:
+            denied_monthly[month] = denied_monthly.get(month, 0) + float(l.get("billed_amount") or 0)
+
+    # Monthly buckets for recovered amounts (by recovery adjudication_date)
+    recovered_monthly = {}
+    for r in recoveries:
+        adj = r.get("recovery_adjudication_date") or ""
+        month = adj[:7] if len(adj) >= 7 else ""
+        if month:
+            recovered_monthly[month] = recovered_monthly.get(month, 0) + r["recovered_amount"]
 
     # Build at least 6 monthly buckets
-    from datetime import date as dt_date
     now = datetime.now(timezone.utc)
     num_months = max(6, days // 30)
     buckets = []
+    seen = set()
     for i in range(num_months - 1, -1, -1):
         d = now - timedelta(days=i * 30)
         month_key = d.strftime("%Y-%m")
-        if month_key not in [b["month"] for b in buckets]:
-            buckets.append({"month": month_key, "total_recovered": 0, "total_denied": 0})
+        if month_key not in seen:
+            seen.add(month_key)
+            buckets.append({
+                "month": month_key,
+                "total_recovered": round(recovered_monthly.get(month_key, 0), 2),
+                "total_denied": round(denied_monthly.get(month_key, 0), 2),
+            })
 
-    # Fill with actual data
     for b in buckets:
-        m = stats["monthly_map"].get(b["month"])
-        if m:
-            b["total_recovered"] = round(m["paid"], 2)
-            b["total_denied"] = round(m["denied_amount"], 2)
-        b["recovery_rate"] = round(
-            (b["total_recovered"] / (b["total_recovered"] + b["total_denied"]) * 100), 2
-        ) if (b["total_recovered"] + b["total_denied"]) > 0 else 0.0
+        total = b["total_recovered"] + b["total_denied"]
+        b["recovery_rate"] = round((b["total_recovered"] / total * 100), 2) if total > 0 else 0.0
 
     return {"trend": buckets}

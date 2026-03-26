@@ -1177,7 +1177,7 @@ function AppealROISection({ token, billingCompany }) {
       </div>
 
       <p style={{ fontSize: 11, color: "#475569", marginTop: 12, fontStyle: "italic" }}>
-        Recovery Rate = Total Paid / Total Billed. Reflects payment realization across all remittance data.
+        Recovery Rate = denied claims later paid in subsequent remittance files, matched by claim number + CPT + date of service.
       </p>
     </div>
   );
