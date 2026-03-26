@@ -67,6 +67,10 @@ export default function BillingApp() {
   const [addingPractice, setAddingPractice] = useState(false);
   const [practiceError, setPracticeError] = useState("");
 
+  // Provider status + portal settings
+  const [providerStatuses, setProviderStatuses] = useState({});
+  const [portalSettings, setPortalSettings] = useState([]);
+
   // Fetch billing /me on auth
   const fetchMe = useCallback(async () => {
     if (!token) return;
@@ -154,6 +158,25 @@ export default function BillingApp() {
     }
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
   }, [jobs, activeTab, fetchJobs]);
+
+  // Fetch provider statuses + portal settings
+  useEffect(() => {
+    if (!token || !billingCompany) return;
+    const h = { Authorization: `Bearer ${token}` };
+    fetch(`${API}/api/billing/practices/provider-status`, { headers: h })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d) {
+          const map = {};
+          (d.statuses || []).forEach(s => { map[s.practice_id] = s.has_provider_subscription; });
+          setProviderStatuses(map);
+        }
+      }).catch(() => {});
+    fetch(`${API}/api/billing/portal-settings`, { headers: h })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setPortalSettings(d.portal_settings || []); })
+      .catch(() => {});
+  }, [token, billingCompany]);
 
   // Seed settings fields when data loads
   useEffect(() => {
@@ -566,7 +589,18 @@ export default function BillingApp() {
                   <tbody>
                     {practices.map((p) => (
                       <tr key={p.link_id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                        <td style={styles.td}>{p.practice_name}</td>
+                        <td style={styles.td}>
+                          {p.practice_name}
+                          {providerStatuses[p.practice_id] && (
+                            <span title="This practice has an active Parity Provider subscription and manages their own denial appeals" style={{
+                              display: "inline-block", marginLeft: 8, padding: "1px 6px", borderRadius: 4,
+                              background: "rgba(13,148,136,0.15)", color: "#5eead4",
+                              fontSize: 10, fontWeight: 600, cursor: "help",
+                            }}>
+                              Parity Provider
+                            </span>
+                          )}
+                        </td>
                         <td style={{ ...styles.td, color: "#94a3b8" }}>{p.contact_email}</td>
                         <td style={styles.td}>
                           <span style={{
@@ -636,6 +670,9 @@ export default function BillingApp() {
             settingsMsg={settingsMsg}
             setSettingsMsg={setSettingsMsg}
             fetchMe={fetchMe}
+            portalSettings={portalSettings}
+            setPortalSettings={setPortalSettings}
+            providerStatuses={providerStatuses}
           />
         )}
 
@@ -2062,6 +2099,7 @@ function SettingsPanel({
   settingsSaving, setSettingsSaving,
   settingsMsg, setSettingsMsg,
   fetchMe,
+  portalSettings, setPortalSettings, providerStatuses,
 }) {
   // Branding state
   const [headerText, setHeaderText] = useState(billingCompany?.report_header_text || "");
@@ -2299,6 +2337,130 @@ function SettingsPanel({
           )}
         </div>
       </div>
+
+      {/* Section 5: Practice Portals */}
+      <div style={sectionStyle}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
+          Practice Portals
+        </h3>
+        {(portalSettings || []).length === 0 ? (
+          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14 }}>No practices linked yet.</p>
+        ) : (
+          <div style={{ display: "grid", gap: 12 }}>
+            {portalSettings.map(ps => (
+              <PortalSettingsRow key={ps.practice_id} ps={ps} token={token}
+                providerStatuses={providerStatuses} setPortalSettings={setPortalSettings}
+                portalSettings={portalSettings} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function PortalSettingsRow({ ps, token, providerStatuses, setPortalSettings, portalSettings }) {
+  const [localEmail, setLocalEmail] = useState(ps.portal_contact_email || "");
+  const [saving, setSaving] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const updateSetting = async (updates) => {
+    setSaving(true);
+    try {
+      const res = await fetch(`${API}/api/billing/portal-settings/${ps.practice_id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(updates),
+      });
+      if (res.ok) {
+        setPortalSettings(prev => prev.map(p =>
+          p.practice_id === ps.practice_id ? { ...p, ...updates } : p
+        ));
+      }
+    } catch { /* ignore */ }
+    finally { setSaving(false); }
+  };
+
+  const handleToggle = (field) => {
+    if (field === "portal_enabled" && !ps.portal_enabled && !localEmail && !ps.portal_contact_email) {
+      alert("Add a contact email before enabling the portal.");
+      return;
+    }
+    updateSetting({ [field]: !ps[field] });
+  };
+
+  const handleEmailBlur = () => {
+    if (localEmail !== (ps.portal_contact_email || "")) {
+      updateSetting({ portal_contact_email: localEmail.trim().toLowerCase() });
+    }
+  };
+
+  const portalUrl = `https://billing.civicscale.ai/portal?practice=${ps.practice_id}`;
+  const handleCopy = () => {
+    navigator.clipboard.writeText(portalUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div style={{
+      background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
+      borderRadius: 8, padding: "12px 16px",
+    }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 14, fontWeight: 500, color: "#f1f5f9" }}>{ps.practice_name}</span>
+          {providerStatuses?.[ps.practice_id] && (
+            <span style={{ fontSize: 9, padding: "1px 5px", borderRadius: 3, background: "rgba(13,148,136,0.15)", color: "#5eead4", fontWeight: 600 }}>
+              Provider
+            </span>
+          )}
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={{ display: "flex", alignItems: "center", gap: 4, cursor: "pointer", fontSize: 12, color: ps.portal_enabled ? "#5eead4" : "#64748b" }}>
+            <input type="checkbox" checked={ps.portal_enabled} onChange={() => handleToggle("portal_enabled")}
+              style={{ accentColor: "#0d9488" }} />
+            {ps.portal_enabled ? "Enabled" : "Disabled"}
+          </label>
+          {ps.portal_enabled && (
+            <button onClick={handleCopy} style={{
+              fontSize: 11, padding: "2px 8px", borderRadius: 4, cursor: "pointer",
+              background: copied ? "rgba(13,148,136,0.15)" : "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.1)", color: copied ? "#5eead4" : "#94a3b8",
+            }}>
+              {copied ? "Copied!" : "Copy Link"}
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}>
+        <input type="email" value={localEmail} onChange={(e) => setLocalEmail(e.target.value)}
+          onBlur={handleEmailBlur} placeholder="portal contact email"
+          style={{ flex: 1, padding: "5px 8px", borderRadius: 6, fontSize: 12,
+            border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)",
+            color: "#f1f5f9", boxSizing: "border-box" }} />
+      </div>
+
+      {ps.portal_enabled && (
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[
+            { key: "show_denial_summary", label: "Denials" },
+            { key: "show_payer_performance", label: "Payers" },
+            { key: "show_appeal_roi", label: "ROI" },
+            { key: "show_generate_report", label: "PDF" },
+          ].map(s => (
+            <label key={s.key} style={{
+              display: "flex", alignItems: "center", gap: 3, cursor: "pointer", fontSize: 11,
+              color: ps[s.key] ? "#5eead4" : "#64748b",
+            }}>
+              <input type="checkbox" checked={ps[s.key] || false}
+                onChange={() => handleToggle(s.key)} style={{ accentColor: "#0d9488" }} />
+              {s.label}
+            </label>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

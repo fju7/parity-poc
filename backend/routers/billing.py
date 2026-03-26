@@ -734,6 +734,138 @@ async def update_report_text(req: ReportTextRequest, authorization: str = Header
     return {"updated": True}
 
 
+# ---------------------------------------------------------------------------
+# GET /api/billing/practices/provider-status — check Provider subscriptions
+# ---------------------------------------------------------------------------
+
+@router.get("/practices/provider-status")
+async def practices_provider_status(authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, _ = _get_billing_company(user, sb)
+
+    links = sb.table("billing_company_practices").select(
+        "practice_id"
+    ).eq("billing_company_id", bc["id"]).eq("active", True).execute()
+
+    practice_ids = [l["practice_id"] for l in (links.data or [])]
+    if not practice_ids:
+        return {"statuses": []}
+
+    # Direct join: practice_id = provider_subscriptions.company_id
+    subs = sb.table("provider_subscriptions").select(
+        "company_id"
+    ).in_("company_id", practice_ids).eq("status", "active").execute()
+
+    active_ids = {s["company_id"] for s in (subs.data or [])}
+
+    return {"statuses": [
+        {"practice_id": pid, "has_provider_subscription": pid in active_ids}
+        for pid in practice_ids
+    ]}
+
+
+# ---------------------------------------------------------------------------
+# GET /api/billing/portal-settings — list portal settings for all practices
+# ---------------------------------------------------------------------------
+
+@router.get("/portal-settings")
+async def list_portal_settings(authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, bc_role = _get_billing_company(user, sb)
+
+    if bc_role != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    # Get all practices
+    links = sb.table("billing_company_practices").select(
+        "practice_id, companies(id, name)"
+    ).eq("billing_company_id", bc["id"]).eq("active", True).execute()
+
+    # Get existing portal settings
+    settings = sb.table("practice_portal_settings").select("*").eq(
+        "billing_company_id", bc["id"]
+    ).execute()
+    settings_map = {s["practice_id"]: s for s in (settings.data or [])}
+
+    result = []
+    for link in (links.data or []):
+        pid = link["practice_id"]
+        practice = link.get("companies") or {}
+        ps = settings_map.get(pid, {})
+        result.append({
+            "practice_id": pid,
+            "practice_name": practice.get("name", "Unknown"),
+            "portal_enabled": ps.get("portal_enabled", False),
+            "portal_contact_email": ps.get("portal_contact_email", ""),
+            "show_denial_summary": ps.get("show_denial_summary", True),
+            "show_payer_performance": ps.get("show_payer_performance", True),
+            "show_appeal_roi": ps.get("show_appeal_roi", False),
+            "show_generate_report": ps.get("show_generate_report", False),
+        })
+
+    return {"portal_settings": result}
+
+
+# ---------------------------------------------------------------------------
+# PUT /api/billing/portal-settings/{practice_id} — upsert portal settings
+# ---------------------------------------------------------------------------
+
+class PortalSettingsRequest(BaseModel):
+    portal_enabled: Optional[bool] = None
+    portal_contact_email: Optional[str] = None
+    show_denial_summary: Optional[bool] = None
+    show_payer_performance: Optional[bool] = None
+    show_appeal_roi: Optional[bool] = None
+    show_generate_report: Optional[bool] = None
+
+@router.put("/portal-settings/{practice_id}")
+async def update_portal_settings(practice_id: str, req: PortalSettingsRequest,
+                                 authorization: str = Header(None)):
+    user, sb = _require_billing(authorization)
+    bc, bc_role = _get_billing_company(user, sb)
+
+    if bc_role != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    # Validate practice belongs to billing company
+    link = sb.table("billing_company_practices").select("id").eq(
+        "billing_company_id", bc["id"]
+    ).eq("practice_id", practice_id).eq("active", True).limit(1).execute()
+    if not link.data:
+        raise HTTPException(status_code=404, detail="Practice not found.")
+
+    # Check email requirement
+    if req.portal_enabled and not req.portal_contact_email:
+        # Check if existing row has email
+        existing = sb.table("practice_portal_settings").select("portal_contact_email").eq(
+            "billing_company_id", bc["id"]
+        ).eq("practice_id", practice_id).limit(1).execute()
+        if not existing.data or not existing.data[0].get("portal_contact_email"):
+            raise HTTPException(status_code=400, detail="Add a contact email before enabling the portal.")
+
+    now = datetime.now(timezone.utc).isoformat()
+    updates = {k: v for k, v in req.dict().items() if v is not None}
+    updates["updated_at"] = now
+
+    # Upsert
+    existing = sb.table("practice_portal_settings").select("id").eq(
+        "billing_company_id", bc["id"]
+    ).eq("practice_id", practice_id).limit(1).execute()
+
+    if existing.data:
+        sb.table("practice_portal_settings").update(updates).eq(
+            "id", existing.data[0]["id"]
+        ).execute()
+    else:
+        sb.table("practice_portal_settings").insert({
+            "billing_company_id": bc["id"],
+            "practice_id": practice_id,
+            **updates,
+        }).execute()
+
+    return {"updated": True}
+
+
 # ===========================================================================
 # 835 Ingestion endpoints
 # ===========================================================================

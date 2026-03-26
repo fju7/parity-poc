@@ -48,6 +48,7 @@ import RenewalPrepReport from './components/RenewalPrepReport.jsx'
 import BrokerDemoPage from './components/BrokerDemoPage.jsx'
 import EmployerSharedReport from './components/EmployerSharedReport.jsx'
 import BillingApp from './BillingApp.jsx'
+import PracticePortal from './PracticePortal.jsx'
 
 // Build version — injected by Vite at build time
 window.__PARITY_VERSION__ = {
@@ -158,6 +159,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/" element={<BillingApp />} />
             <Route path="/login" element={<BillingApp />} />
             <Route path="/dashboard" element={<BillingApp />} />
+            <Route path="/portal" element={<PracticePortal />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
           </>
