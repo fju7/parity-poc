@@ -14,7 +14,8 @@ export default function SignalFooter() {
         >
           View methodology
         </Link>
-        . &copy; CivicScale 2026.
+        . &copy; CivicScale 2026.{" "}&middot;{" "}
+        <a href="mailto:admin@civicscale.ai?subject=Parity%20Signal%20Support%20Request" className="text-gray-400 hover:text-gray-300 no-underline">admin@civicscale.ai</a>
       </p>
     </footer>
   );

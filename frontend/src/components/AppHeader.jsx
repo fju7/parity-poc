@@ -33,6 +33,12 @@ export default function AppHeader({ onNavigate, currentView, session, onSignOut 
           >
             My Account
           </button>
+          <a
+            href="mailto:admin@civicscale.ai?subject=Parity%20Health%20Support%20Request"
+            className="text-sm font-medium text-gray-500 hover:text-[#1B3A5C] no-underline"
+          >
+            Get Help
+          </a>
           {session && (
             <span className="text-xs text-gray-400 hidden sm:inline">
               {session.user.email}

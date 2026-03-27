@@ -129,7 +129,7 @@ export default function EmployerLandingPage() {
         </div>
         <div className="cs-footer-meta">
           Operated by U.S. Photovoltaics, Inc. &middot; Florida &middot; civicscale.ai<br />
-          privacy@civicscale.ai
+          <a href="mailto:admin@civicscale.ai?subject=Parity%20Employer%20Support%20Request" style={{ color: "inherit", textDecoration: "none" }}>admin@civicscale.ai</a> &middot; privacy@civicscale.ai
         </div>
         <div className="cs-footer-links">
           <Link to="/privacy">Privacy Policy</Link>

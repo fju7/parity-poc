@@ -3100,7 +3100,16 @@ function SettingsPanel({
         </div>
       </div>
 
-      {/* Section 5: Practice Portals */}
+      {/* Section 5: Support */}
+      <div style={sectionStyle}>
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>Support</h3>
+        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, lineHeight: 1.6, margin: "0 0 12px" }}>
+          Need help? Contact our support team.
+        </p>
+        <a href="mailto:admin@civicscale.ai?subject=Parity%20Billing%20Support%20Request" style={{ color: "#5eead4", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>admin@civicscale.ai</a>
+      </div>
+
+      {/* Section 6: Practice Portals */}
       <div style={sectionStyle}>
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
           Practice Portals

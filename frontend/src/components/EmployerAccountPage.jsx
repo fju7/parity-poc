@@ -315,7 +315,14 @@ function EmployerAccountInner() {
           ))}
         </div>
 
-        {/* Section 4: Data & Privacy */}
+        {/* Section 4: Support */}
+        <div style={sectionStyle}>
+          <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>Support</h2>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, lineHeight: 1.6, margin: "0 0 12px" }}>Need help? Contact our support team.</p>
+          <a href="mailto:admin@civicscale.ai?subject=Parity%20Employer%20Support%20Request" style={{ color: "#5eead4", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>admin@civicscale.ai</a>
+        </div>
+
+        {/* Section 5: Data & Privacy */}
         <div style={sectionStyle}>
           <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12, marginTop: 0, color: "rgba(255,255,255,0.9)" }}>
             Data & Privacy

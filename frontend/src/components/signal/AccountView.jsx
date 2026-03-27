@@ -330,6 +330,19 @@ export default function AccountView({ session }) {
         )}
       </div>
 
+      {/* Support */}
+      <div style={{
+        marginTop: 24,
+        padding: "16px 20px",
+        borderRadius: 12,
+        border: "1px solid rgba(255,255,255,0.08)",
+        background: "rgba(255,255,255,0.02)",
+      }}>
+        <h3 style={{ color: "#f1f5f9", fontSize: 14, fontWeight: 600, margin: "0 0 6px" }}>Support</h3>
+        <p style={{ color: "#94a3b8", fontSize: 13, margin: "0 0 10px", lineHeight: 1.5 }}>Need help? Contact our support team.</p>
+        <a href="mailto:admin@civicscale.ai?subject=Parity%20Signal%20Support%20Request" style={{ color: "#0D7377", textDecoration: "none", fontSize: 13, fontWeight: 600 }}>admin@civicscale.ai</a>
+      </div>
+
       {/* Cancel Subscription */}
       {isPaid && status !== "canceled" && status !== "canceling" && (
         <div style={{

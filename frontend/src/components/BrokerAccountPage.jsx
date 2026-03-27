@@ -673,6 +673,13 @@ function BrokerAccountInner() {
           )}
         </div>
 
+        {/* Support Section */}
+        <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
+          <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1B3A5C", margin: "0 0 8px" }}>Support</h2>
+          <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: "0 0 12px" }}>Need help? Contact our support team.</p>
+          <a href="mailto:admin@civicscale.ai?subject=Parity%20Broker%20Support%20Request" style={{ color: "#0D7377", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>admin@civicscale.ai</a>
+        </div>
+
         {/* Data & Privacy Section */}
         <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 24, marginBottom: 24 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1B3A5C", margin: "0 0 12px" }}>Data & Privacy</h2>

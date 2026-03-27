@@ -431,7 +431,7 @@ export default function CivicScaleHomepage() {
           </div>
         </div>
         <div className="cs-home-footer-bottom">
-          <span>&copy; CivicScale 2026. All rights reserved.</span>
+          <span>&copy; CivicScale 2026. All rights reserved. &middot; <a href="mailto:admin@civicscale.ai?subject=CivicScale%20Support%20Request" style={{ color: "inherit", opacity: 0.7, textDecoration: "none" }}>admin@civicscale.ai</a></span>
           <span className="cs-home-footer-signal">
             Analytical intelligence powered by <a href="https://signal.civicscale.ai" style={{ color: "inherit" }}>Parity Signal</a>
           </span>

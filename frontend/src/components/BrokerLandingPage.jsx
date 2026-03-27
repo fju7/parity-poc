@@ -696,6 +696,8 @@ export default function BrokerLandingPage() {
       <footer style={{ padding: "40px 24px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center", fontSize: 13, color: "#475569" }}>
         <Link to="/" style={{ color: "#64748b", textDecoration: "none", marginRight: 24 }}>&larr; CivicScale Home</Link>
         &copy; CivicScale 2026. All rights reserved.
+        {" "}&middot;{" "}
+        <a href="mailto:admin@civicscale.ai?subject=Parity%20Broker%20Support%20Request" style={{ color: "#64748b", textDecoration: "none" }}>admin@civicscale.ai</a>
       </footer>
     </div>
   );
