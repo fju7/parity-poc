@@ -44,6 +44,12 @@ function TopicReviewCard({ topic, onAction }) {
   const [summaryStatus, setSummaryStatus] = useState(topic.plain_summary_status || "pending");
   const status = topic.quality_review_status || "pending";
 
+  // Sync local state when topic props change (after loadTopics re-fetch)
+  useEffect(() => {
+    setSummaryStatus(topic.plain_summary_status || "pending");
+    setPreviewSummary(topic.plain_summary || "");
+  }, [topic.plain_summary_status, topic.plain_summary]);
+
   async function handleAction(newStatus) {
     setLoading(true);
     try {
