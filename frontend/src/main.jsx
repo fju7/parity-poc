@@ -82,7 +82,7 @@ const isBillingSubdomain = hostname === 'billing.civicscale.ai' || hostname === 
 const PLAUSIBLE_SCRIPTS = {
   health:    'pa-ywDBc5eskmqGcyRTkVg0d.js',
   employer:  'pa-rPwRQyizNDR3Ut3yAM1c_.js',
-  broker:    'pa-rPwRQyizNDR3Ut3yAM1c_.js',
+  broker:    'pa-yMbqUkiHjL1RuyZy9Qg3c.js',
   provider:  'pa-r9u5NqX76UVMRne29wes8.js',
   billing:   'pa-Q8Ge_Soy-TURh3NgwNcPS.js',
   signal:    'pa-FN3HxIHMW1OdqbGLas-hL.js',
