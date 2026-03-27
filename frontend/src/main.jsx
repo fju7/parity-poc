@@ -78,6 +78,31 @@ const isEmployerSubdomain = hostname === 'employer.civicscale.ai' || hostname ==
 const isSignalSubdomain = hostname === 'signal.civicscale.ai' || hostname === 'staging-signal.civicscale.ai'
 const isBillingSubdomain = hostname === 'billing.civicscale.ai' || hostname === 'staging-billing.civicscale.ai'
 
+// ── Plausible analytics: inject per-subdomain script ──
+const PLAUSIBLE_SCRIPTS = {
+  health:    'pa-ywDBc5eskmqGcyRTkVg0d.js',
+  employer:  'pa-rPwRQyizNDR3Ut3yAM1c_.js',
+  broker:    'pa-rPwRQyizNDR3Ut3yAM1c_.js',
+  provider:  'pa-r9u5NqX76UVMRne29wes8.js',
+  billing:   'pa-Q8Ge_Soy-TURh3NgwNcPS.js',
+  signal:    'pa-FN3HxIHMW1OdqbGLas-hL.js',
+  main:      'pa-SNCFpT86f_ZiD9ATMamqP.js',
+};
+const plausibleKey = isHealthSubdomain ? 'health'
+  : isEmployerSubdomain ? 'employer'
+  : isBrokerSubdomain ? 'broker'
+  : isProviderSubdomain ? 'provider'
+  : isBillingSubdomain ? 'billing'
+  : isSignalSubdomain ? 'signal'
+  : 'main';
+const _ps = document.createElement('script');
+_ps.async = true;
+_ps.src = `https://plausible.io/js/${PLAUSIBLE_SCRIPTS[plausibleKey]}`;
+document.head.appendChild(_ps);
+const _pi = document.createElement('script');
+_pi.textContent = 'window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()';
+document.head.appendChild(_pi);
+
 // ── SEO: per-subdomain meta tags ──
 const SEO_META = {
   health:   { title: "Parity Health — Understand Your Medical Bill", description: "Upload your medical bill, EOB, or denial letter. See what you should actually owe — powered by CMS benchmark data.", url: "https://health.civicscale.ai" },
