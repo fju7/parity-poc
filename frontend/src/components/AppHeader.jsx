@@ -12,7 +12,7 @@ export default function AppHeader({ onNavigate, currentView, session, onSignOut 
         </button>
 
         {/* Center + Right */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 flex-wrap justify-end">
           <button
             onClick={() => onNavigate("history")}
             className={`text-sm font-medium cursor-pointer ${
@@ -40,7 +40,7 @@ export default function AppHeader({ onNavigate, currentView, session, onSignOut 
             Get Help
           </a>
           {session && (
-            <span className="text-xs text-gray-400 hidden sm:inline">
+            <span className="text-xs text-gray-400 hidden sm:inline max-w-[140px] truncate">
               {session.user.email}
             </span>
           )}
