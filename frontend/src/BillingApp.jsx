@@ -567,7 +567,7 @@ export default function BillingApp() {
       {/* Content */}
       <main style={{ padding: "32px 40px", maxWidth: activeTab === "portfolio" ? 1200 : 1000, margin: "0 auto" }}>
         {activeTab === "portfolio" && (
-          <PortfolioPanel token={token} billingCompany={billingCompany} allPractices={practices} />
+          <PortfolioPanel token={token} billingCompany={billingCompany} allPractices={practices} onNavigate={setActiveTab} />
         )}
 
         {activeTab === "practices" && (
@@ -811,7 +811,7 @@ export default function BillingApp() {
 }
 
 // --- Portfolio Panel ---
-function PortfolioPanel({ token, billingCompany, allPractices }) {
+function PortfolioPanel({ token, billingCompany, allPractices, onNavigate }) {
   const [days, setDays] = useState(90);
   const [summary, setSummary] = useState(null);
   const [practices, setPractices] = useState([]);
@@ -962,9 +962,18 @@ function PortfolioPanel({ token, billingCompany, allPractices }) {
           background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)",
           borderRadius: 12, padding: 48, textAlign: "center",
         }}>
-          <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>
-            No analysis data yet. Upload 835 files in the Ingestion tab to populate your portfolio.
+          <p style={{ color: "#94a3b8", fontSize: 15, margin: "0 0 20px" }}>
+            No analysis data yet. Upload 835 files to populate your portfolio dashboard.
           </p>
+          <button
+            onClick={() => onNavigate && onNavigate("ingestion")}
+            style={{
+              background: "#0d9488", color: "#fff", border: "none", borderRadius: 8,
+              padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer",
+            }}
+          >
+            Go to 835 Ingestion &rarr;
+          </button>
         </div>
       </div>
     );
@@ -2604,18 +2613,25 @@ function IngestionPanel({
   const fileInputRef = useRef(null);
   const activePractices = practices.filter(p => p.active);
 
+  const isValid835 = (f) => ["835", "txt", "edi"].includes(f.name.split(".").pop().toLowerCase());
+
   const handleDrop = (e) => {
     e.preventDefault();
-    const dropped = Array.from(e.dataTransfer.files).filter(f => {
-      const ext = f.name.split(".").pop().toLowerCase();
-      return ["835", "txt", "edi"].includes(ext);
-    });
-    setIngestFiles(prev => [...prev, ...dropped]);
+    const all = Array.from(e.dataTransfer.files);
+    const accepted = all.filter(isValid835);
+    const rejected = all.length - accepted.length;
+    if (rejected > 0) setUploadError(`${rejected} file${rejected > 1 ? "s" : ""} not accepted. Only .835, .edi, and .txt files are supported.`);
+    else setUploadError("");
+    setIngestFiles(prev => [...prev, ...accepted]);
   };
 
   const handleFileSelect = (e) => {
-    const selected = Array.from(e.target.files || []);
-    setIngestFiles(prev => [...prev, ...selected]);
+    const all = Array.from(e.target.files || []);
+    const accepted = all.filter(isValid835);
+    const rejected = all.length - accepted.length;
+    if (rejected > 0) setUploadError(`${rejected} file${rejected > 1 ? "s" : ""} not accepted. Only .835, .edi, and .txt files are supported.`);
+    else setUploadError("");
+    setIngestFiles(prev => [...prev, ...accepted]);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 

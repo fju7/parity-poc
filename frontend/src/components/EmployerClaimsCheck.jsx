@@ -121,6 +121,7 @@ export default function EmployerClaimsCheck() {
   const anonEmailKnown = !isAuthenticated && !!sessionStorage.getItem("cs_anon_email");
   const showEmailField = !isAuthenticated && !anonEmailKnown;
   const [dragOver, setDragOver] = useState(false);
+  const [fileError, setFileError] = useState("");
   const [view, setView] = useState("upload"); // upload, processing, results, error, column_mapping
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState(null);
@@ -170,12 +171,14 @@ export default function EmployerClaimsCheck() {
     e.preventDefault();
     setDragOver(false);
     const f = e.dataTransfer.files[0];
-    if (f && isValidFile(f)) setFile(f);
+    if (f && isValidFile(f)) { setFile(f); setFileError(""); }
+    else if (f) { setFileError("Unsupported file format. Please upload a CSV, Excel (.xlsx), 835 EDI, or ZIP file."); }
   }, []);
 
   const handleFileInput = useCallback((e) => {
     const f = e.target.files[0];
-    if (f && isValidFile(f)) setFile(f);
+    if (f && isValidFile(f)) { setFile(f); setFileError(""); }
+    else if (f) { setFileError("Unsupported file format. Please upload a CSV, Excel (.xlsx), 835 EDI, or ZIP file."); }
   }, []);
 
   const isValidFile = (f) => {
@@ -495,6 +498,12 @@ export default function EmployerClaimsCheck() {
                   </>
                 )}
               </div>
+
+              {fileError && (
+                <div style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: 8, padding: "10px 14px", marginTop: 8 }}>
+                  <p style={{ margin: 0, fontSize: 13, color: "#fca5a5" }}>{fileError}</p>
+                </div>
+              )}
 
               <div style={{ display: "grid", gridTemplateColumns: showEmailField ? "1fr 1fr" : "1fr", gap: "16px" }}>
                 <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
