@@ -16,8 +16,7 @@ export default function LegalPage({ title, subtitle, effectiveDate, children }) 
             civicscale.ai
           </Link>
           <div className="text-right">
-            <span className="text-sm font-semibold text-[#1B3A5C]">Parity Health</span>
-            <span className="text-xs text-gray-400 ml-1.5">by CivicScale</span>
+            <span className="text-sm font-semibold text-[#1B3A5C]">CivicScale</span>
           </div>
         </div>
       </header>
@@ -40,7 +39,7 @@ export default function LegalPage({ title, subtitle, effectiveDate, children }) 
       <footer className="border-t border-gray-200 py-8 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs text-gray-400">
-            Parity Health is a product of CivicScale, operated by U.S. Photovoltaics, Inc., a Florida corporation.
+            CivicScale is operated by U.S. Photovoltaics, Inc., a Florida corporation.
           </p>
           <p className="text-xs text-gray-400 mt-1">
             Questions: <a href="mailto:privacy@civicscale.ai" className="text-[#0D7377] hover:underline">privacy@civicscale.ai</a>
