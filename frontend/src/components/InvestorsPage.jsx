@@ -58,33 +58,26 @@ export default function InvestorsPage() {
 
   return (
     <div className="inv-dark-root" style={{ margin: 0, padding: 0, fontFamily: "'DM Sans', sans-serif", color: "#e2e8f0", overflowX: "hidden", background: "#0a1628", minHeight: "100vh" }}>
-      {/* NAV */}
-      <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(10,22,40,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <a href="https://civicscale.ai" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <div style={{ width: 3, height: 10, borderRadius: 2, background: "#94a3b8" }} />
-                <div style={{ width: 3, height: 7, borderRadius: 2, background: "#0D7377" }} />
-                <div style={{ width: 3, height: 4, borderRadius: 2, background: "#94a3b8" }} />
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <div style={{ width: 3, height: 4, borderRadius: 2, background: "#0D7377" }} />
-                <div style={{ width: 3, height: 7, borderRadius: 2, background: "#94a3b8" }} />
-                <div style={{ width: 3, height: 10, borderRadius: 2, background: "#0D7377" }} />
-              </div>
-            </div>
-            <span style={{ color: "#f1f5f9", fontWeight: 700, fontSize: 18, letterSpacing: "-0.02em", fontFamily: "'DM Sans', sans-serif" }}>CivicScale</span>
-          </a>
-          <nav style={{ display: "flex", alignItems: "center", gap: 24, fontSize: 14, fontFamily: "'DM Sans', sans-serif" }}>
-            <a href="https://employer.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Employer</a>
-            <a href="https://broker.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Broker</a>
-            <a href="https://provider.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Provider</a>
-            <a href="https://health.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Health</a>
-            <a href="https://signal.civicscale.ai" style={{ color: "#94a3b8", textDecoration: "none" }}>Signal</a>
-            <Link to="/investors" style={{ color: "#f1f5f9", textDecoration: "none", fontWeight: 500 }}>Investors</Link>
-          </nav>
-        </div>
+      {/* NAV — uses homepage CSS classes for mobile hamburger support */}
+      <header className="cs-home-header" style={{ background: "rgba(10,22,40,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <a href="https://civicscale.ai" className="cs-home-logo-link">
+          <div className="cs-home-logo-mark" style={{ background: "rgba(13,115,119,0.15)", color: "#0D7377" }}>C</div>
+          <span className="cs-home-wordmark" style={{ color: "#f1f5f9" }}>CivicScale</span>
+        </a>
+        <nav className="cs-home-nav">
+          <a href="https://employer.civicscale.ai" className="cs-home-nav-link" style={{ color: "#94a3b8" }}>Employer</a>
+          <a href="https://broker.civicscale.ai" className="cs-home-nav-link" style={{ color: "#94a3b8" }}>Broker</a>
+          <a href="https://provider.civicscale.ai" className="cs-home-nav-link" style={{ color: "#94a3b8" }}>Provider</a>
+          <a href="https://health.civicscale.ai" className="cs-home-nav-link" style={{ color: "#94a3b8" }}>Health</a>
+          <a href="https://signal.civicscale.ai" className="cs-home-nav-link" style={{ color: "#94a3b8" }}>Signal</a>
+          <Link to="/investors" className="cs-home-nav-link cs-home-nav-investors" style={{ color: "#f1f5f9", fontWeight: 500 }}>Investors</Link>
+        </nav>
+        <div className="cs-home-nav-actions" />
+        <button className="cs-home-mobile-toggle" onClick={() => {
+          document.querySelector('.cs-home-nav').classList.toggle('cs-home-nav--open');
+        }} aria-label="Toggle navigation">
+          <span /><span /><span />
+        </button>
       </header>
 
       {/* HERO */}
