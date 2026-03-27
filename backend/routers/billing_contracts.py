@@ -71,7 +71,6 @@ async def upload_contract(
         raise HTTPException(status_code=400, detail="File must be under 10MB.")
 
     fname = file.filename or "contract.pdf"
-    file_b64 = base64.b64encode(content).decode("ascii")
 
     payer = payer_name.strip()
     if not payer:
@@ -98,6 +97,7 @@ async def upload_contract(
     eff_date = effective_date if effective_date and len(effective_date) >= 8 else None
     exp_date = expiry_date if expiry_date and len(expiry_date) >= 8 else None
 
+    # Insert metadata row first (to get the UUID)
     row = sb.table("billing_contracts").insert({
         "billing_company_id": bc_id,
         "practice_id": practice_id,
@@ -106,15 +106,35 @@ async def upload_contract(
         "expiry_date": exp_date,
         "version": new_version,
         "is_current": True,
-        "file_content": file_b64,
         "filename": fname,
         "file_size": len(content),
         "uploaded_by_email": user["email"],
     }).execute()
 
+    contract_id = row.data[0]["id"]
+
+    # Upload PDF to Supabase Storage
+    storage_path = f"{bc_id}/{contract_id}.pdf"
+    try:
+        sb.storage.from_("billing-contracts").upload(
+            path=storage_path,
+            file=content,
+            file_options={"content-type": "application/pdf"},
+        )
+        sb.table("billing_contracts").update({
+            "storage_path": storage_path,
+        }).eq("id", contract_id).execute()
+    except Exception as exc:
+        print(f"WARNING: Storage upload failed for contract {contract_id}: {exc}")
+        # Fallback: store as base64 in column so the contract isn't lost
+        file_b64 = base64.b64encode(content).decode("ascii")
+        sb.table("billing_contracts").update({
+            "file_content": file_b64,
+        }).eq("id", contract_id).execute()
+
     return {
         "created": True,
-        "contract_id": row.data[0]["id"],
+        "contract_id": contract_id,
         "version": new_version,
         "payer_name": payer,
     }
@@ -223,7 +243,10 @@ async def delete_contract(contract_id: str, authorization: str = Header(None)):
 
     c = contract.data[0]
 
-    # Mark as not current
+    # Soft-delete: mark as not current (preserves history).
+    # TODO: When implementing permanent purge, also delete the file from
+    # Supabase Storage via sb.storage.from_("billing-contracts").remove([c["storage_path"]])
+    # if the contract has a storage_path set.
     sb.table("billing_contracts").update({
         "is_current": False,
         "updated_at": datetime.now(timezone.utc).isoformat(),
@@ -256,7 +279,10 @@ async def delete_contract(contract_id: str, authorization: str = Header(None)):
 async def analyze_contract(contract_id: str, authorization: str = Header(None)):
     user, bc_id, bc_role, bc_user_id, sb = _require_billing_contracts(authorization)
 
-    contract = sb.table("billing_contracts").select("*").eq(
+    contract = sb.table("billing_contracts").select(
+        "id, billing_company_id, practice_id, payer_name, effective_date, "
+        "expiry_date, storage_path, file_content"
+    ).eq(
         "id", contract_id
     ).eq("billing_company_id", bc_id).limit(1).execute()
 
@@ -264,7 +290,19 @@ async def analyze_contract(contract_id: str, authorization: str = Header(None)):
         raise HTTPException(status_code=404, detail="Contract not found.")
 
     c = contract.data[0]
-    file_b64 = c.get("file_content")
+
+    # Load PDF: prefer Storage, fall back to legacy file_content column
+    file_b64 = None
+    if c.get("storage_path"):
+        try:
+            pdf_bytes = sb.storage.from_("billing-contracts").download(c["storage_path"])
+            file_b64 = base64.b64encode(pdf_bytes).decode("ascii")
+        except Exception as exc:
+            print(f"WARNING: Storage download failed for {c['storage_path']}: {exc}")
+
+    if not file_b64:
+        file_b64 = c.get("file_content")
+
     if not file_b64:
         raise HTTPException(status_code=400, detail="No file content stored for this contract.")
 
@@ -314,7 +352,7 @@ async def analyze_all_contracts(authorization: str = Header(None)):
     # Get all current contracts not analyzed in last 30 days
     cutoff = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
     contracts = sb.table("billing_contracts").select(
-        "id, analyzed_at, file_content"
+        "id, analyzed_at, storage_path, file_content"
     ).eq("billing_company_id", bc_id).eq("is_current", True).execute()
 
     from routers.provider_shared import _call_claude, FEE_SCHEDULE_EXTRACTION_PROMPT
@@ -329,13 +367,25 @@ async def analyze_all_contracts(authorization: str = Header(None)):
             skipped += 1
             continue
 
-        if not c.get("file_content"):
+        # Load PDF: prefer Storage, fall back to legacy file_content column
+        file_b64 = None
+        if c.get("storage_path"):
+            try:
+                pdf_bytes = sb.storage.from_("billing-contracts").download(c["storage_path"])
+                file_b64 = base64.b64encode(pdf_bytes).decode("ascii")
+            except Exception as exc:
+                print(f"WARNING: Storage download failed for {c['storage_path']}: {exc}")
+
+        if not file_b64:
+            file_b64 = c.get("file_content")
+
+        if not file_b64:
             skipped += 1
             continue
 
         try:
             result = _call_claude(
-                c["file_content"],
+                file_b64,
                 "application/pdf",
                 FEE_SCHEDULE_EXTRACTION_PROMPT,
             )
