@@ -268,6 +268,10 @@ export default function SignalApp() {
             element={<SignalLogin />}
           />
           <Route
+            path="signup"
+            element={<SignalLogin signup />}
+          />
+          <Route
             path="pricing"
             element={<PricingView session={session} userTier={userTier} />}
           />

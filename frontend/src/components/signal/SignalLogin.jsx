@@ -4,7 +4,7 @@ import { supabase } from "../../lib/supabase";
 import { API_BASE } from "../../lib/apiBase";
 import EmailOtpInput from "../EmailOtpInput.jsx";
 
-export default function SignalLogin() {
+export default function SignalLogin({ signup = false }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const returnTo = searchParams.get("returnTo");
@@ -216,10 +216,12 @@ export default function SignalLogin() {
         {/* Header */}
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-white mb-2">
-            Sign in to Parity Signal
+            {signup ? "Start your free trial" : "Sign in to Parity Signal"}
           </h1>
           <p className="text-sm text-gray-300 leading-relaxed">
-            Subscribe to topics, ask evidence questions, and request new research.
+            {signup
+              ? "Create your account to subscribe to topics, ask evidence questions, and access scored research."
+              : "Subscribe to topics, ask evidence questions, and request new research."}
           </p>
         </div>
 

@@ -301,6 +301,190 @@ export default function ParityHealthLandingPage() {
         </div>
       </section>
 
+      {/* When Your Claim Gets Denied */}
+      <section
+        className="cs-home-section"
+        style={{
+          paddingBottom: "72px",
+          maxWidth: "960px",
+          margin: "0 auto",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "28px",
+            fontWeight: "400",
+            color: "#f1f5f9",
+            textAlign: "center",
+            marginBottom: "16px",
+          }}
+        >
+          When Your Claim Gets Denied
+        </h2>
+        <p
+          style={{
+            fontSize: "15px",
+            lineHeight: "1.7",
+            color: "#94a3b8",
+            textAlign: "center",
+            maxWidth: "680px",
+            margin: "0 auto 40px",
+          }}
+        >
+          A denial letter is urgent, confusing, and intimidating. Parity Health
+          reads the letter, identifies the specific denial code, assesses whether
+          it&rsquo;s worth appealing &mdash; and if it is, generates an attorney-grade
+          appeal letter you can send immediately.
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "24px",
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(20,184,166,0.18)",
+              borderRadius: "14px",
+              padding: "28px",
+            }}
+          >
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "10px",
+                background: "rgba(20,184,166,0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "16px",
+                color: "#14b8a6",
+                fontSize: "18px",
+              }}
+            >
+              &#9745;
+            </div>
+            <h3
+              style={{
+                fontSize: "17px",
+                fontWeight: "600",
+                color: "#f1f5f9",
+                marginBottom: "10px",
+              }}
+            >
+              Denial analysis in plain English
+            </h3>
+            <p
+              style={{
+                fontSize: "14px",
+                lineHeight: "1.7",
+                color: "#94a3b8",
+              }}
+            >
+              Upload or paste your denial letter. Parity Health identifies the
+              denial code, explains what it means in plain language, and flags
+              the specific weakness in the payer&rsquo;s reasoning.
+            </p>
+          </div>
+          <div
+            style={{
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(20,184,166,0.18)",
+              borderRadius: "14px",
+              padding: "28px",
+            }}
+          >
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "10px",
+                background: "rgba(20,184,166,0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "16px",
+                color: "#14b8a6",
+                fontSize: "18px",
+              }}
+            >
+              &#9878;
+            </div>
+            <h3
+              style={{
+                fontSize: "17px",
+                fontWeight: "600",
+                color: "#f1f5f9",
+                marginBottom: "10px",
+              }}
+            >
+              Appeal worthiness assessment
+            </h3>
+            <p
+              style={{
+                fontSize: "14px",
+                lineHeight: "1.7",
+                color: "#94a3b8",
+              }}
+            >
+              Not every denial is worth fighting. We assess the strength of your
+              case &mdash; high, medium, or low &mdash; so you know where to focus
+              your time and energy.
+            </p>
+          </div>
+          <div
+            style={{
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(20,184,166,0.18)",
+              borderRadius: "14px",
+              padding: "28px",
+            }}
+          >
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "10px",
+                background: "rgba(20,184,166,0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "16px",
+                color: "#14b8a6",
+                fontSize: "18px",
+              }}
+            >
+              &#9993;
+            </div>
+            <h3
+              style={{
+                fontSize: "17px",
+                fontWeight: "600",
+                color: "#f1f5f9",
+                marginBottom: "10px",
+              }}
+            >
+              Attorney-grade appeal letter
+            </h3>
+            <p
+              style={{
+                fontSize: "14px",
+                lineHeight: "1.7",
+                color: "#94a3b8",
+              }}
+            >
+              When the case is strong, Parity Health generates a formal appeal
+              letter citing the specific regulatory basis for your claim &mdash;
+              ready to print or email to your insurer.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Who Uses Parity Health */}
       <section
         className="cs-home-section"
