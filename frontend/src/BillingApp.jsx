@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { API_BASE as API } from "./lib/apiBase";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import HelpTip from "./components/Tooltip.jsx";
 import "./components/CivicScaleHomepage.css";
 
 const TABS = [
@@ -1005,7 +1006,8 @@ function PortfolioPanel({ token, billingCompany, allPractices, onNavigate }) {
         <KpiTile label="Total Billed" value={`$${Number(summary.total_billed).toLocaleString()}`} />
         <KpiTile label="Overall Denial Rate"
           value={`${summary.overall_denial_rate}%`}
-          valueColor={summary.overall_denial_rate > 10 ? "#fca5a5" : "#5eead4"} />
+          valueColor={summary.overall_denial_rate > 10 ? "#fca5a5" : "#5eead4"}
+          help="The percentage of submitted claims that were denied by payers in the selected period." />
         <KpiTile label="Active Practices" value={summary.practice_count} />
         <KpiTile label="Payers Tracked" value={summary.payer_count} />
       </div>
@@ -1654,7 +1656,7 @@ function PayerBenchmarkSection({
     <div style={{ marginTop: 32 }}>
       {/* Header + controls */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-        <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Payer Benchmarking</h3>
+        <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: 0 }}>Payer Benchmarking<HelpTip text="Payers whose reimbursement rates fall significantly below the portfolio average for the same CPT codes." /></h3>
         {specialties.length > 0 && (
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <label style={{ fontSize: 12, color: "#64748b" }}>Specialty:</label>
@@ -1904,14 +1906,14 @@ function PayerDetailPanel({ detail, loading }) {
 }
 
 
-function KpiTile({ label, value, valueColor }) {
+function KpiTile({ label, value, valueColor, help }) {
   return (
     <div style={{
       background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
       borderRadius: 12, padding: 24,
     }}>
       <div style={{ fontSize: 12, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
-        {label}
+        {label}{help && <HelpTip text={help} />}
       </div>
       <div style={{ fontSize: 24, fontWeight: 600, color: valueColor || "#f1f5f9" }}>
         {value}
@@ -2076,6 +2078,7 @@ function EscalationsPanel({ token, billingRole }) {
             }}>
               {detecting ? "Detecting..." : "Detect Patterns"}
             </button>
+            <HelpTip text="Analyzes denial data across all practices to identify payers or codes with unusually high denial rates." />
           </div>
         </div>
 
@@ -2536,6 +2539,7 @@ function ContractsPanel({ token, practices, billingRole }) {
                           style={{ fontSize: 12, color: "#14b8a6", background: "none", border: "none", cursor: "pointer" }}>
                           {analyzing === c.id ? "..." : "Analyze"}
                         </button>
+                        <HelpTip text="Extracts contracted CPT code rates from the uploaded PDF using AI vision." />
                         <button onClick={() => handleHistory(c)}
                           style={{ fontSize: 12, color: "#60a5fa", background: "none", border: "none", cursor: "pointer" }}>
                           History
@@ -3342,6 +3346,7 @@ function PortalSettingsRow({ ps, token, providerStatuses, setPortalSettings, por
               style={{ accentColor: "#0d9488" }} />
             {ps.portal_enabled ? "Enabled" : "Disabled"}
           </label>
+          <HelpTip text="Allows your practice clients to log in and view their own denial summary and payer performance data." />
           {ps.portal_enabled && (
             <>
               <button onClick={handleSendInvite} disabled={!canInvite || inviting}

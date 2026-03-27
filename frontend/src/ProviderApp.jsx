@@ -8,6 +8,7 @@ import ProviderAuditPage from "./components/ProviderAuditPage.jsx";
 import ProviderAuditReport from "./components/ProviderAuditReport.jsx";
 import ProviderAuditAdmin from "./components/ProviderAuditAdmin.jsx";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import HelpTip from "./components/Tooltip.jsx";
 import "./components/CivicScaleHomepage.css";
 
 import { API_BASE } from "./lib/apiBase";
@@ -1559,6 +1560,9 @@ function CodingIntelligenceSection({ coding, onGoToCoding }) {
       {/* Revenue Gap */}
       {coding.revenue_gap && (
         <div style={{ background: "#f0fdfa", border: "1px solid #99f6e4", borderRadius: 8, padding: 16, marginBottom: 16 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "#0d9488", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
+            Revenue Gap Estimate<HelpTip text="Estimates annualized revenue impact of E&M undercoding based on your contracted rates." />
+          </div>
           <div style={{ display: "flex", gap: 24, marginBottom: 12 }}>
             <div>
               <div style={{ fontSize: 12, color: "var(--cs-slate)" }}>Period Gap</div>
@@ -1772,7 +1776,7 @@ function ContractIntegrityTab({
 
         {/* Flag breakdown */}
         <div style={{
-          display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap",
+          display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap", alignItems: "center",
         }}>
           <FlagBadge label="Correct" count={s.correct_count} color="#059669" bg="#ecfdf5" />
           <FlagBadge label="Underpaid" count={s.underpaid_count} color="#dc2626" bg="#fef2f2" />
@@ -1782,6 +1786,7 @@ function ContractIntegrityTab({
           )}
           <FlagBadge label="Overpaid" count={s.overpaid_count} color="#2563eb" bg="#eff6ff" />
           <FlagBadge label="No Contract" count={s.no_contract_count} color="#6b7280" bg="#f3f4f6" />
+          <HelpTip text="UNDERPAID: payer paid less than your contracted rate. NO_CONTRACT: no rate on file for this payer. BILLED_BELOW: you billed less than your contracted rate." />
         </div>
 
         {/* Practice Performance Scorecard (Capability 4) */}
@@ -1814,6 +1819,7 @@ function ContractIntegrityTab({
                 value={`${sc.preventable_denial_rate}%`}
                 benchmark="<30%"
                 color={sc.preventable_denial_rate <= 30 ? "#059669" : sc.preventable_denial_rate <= 50 ? "#d97706" : "#dc2626"}
+                help="Denials that could have been avoided with correct coding or eligibility verification, benchmarked against industry averages."
               />
               {s.avg_days_to_pay != null && (
                 <KpiTile
@@ -3583,7 +3589,7 @@ function HistoricalReportView({ record, profile, sortField, sortDir, onSort, get
             <KpiTile label="Clean Claim Rate" value={`${sc.clean_claim_rate}%`} benchmark="95%" color={sc.clean_claim_rate >= 95 ? "#059669" : sc.clean_claim_rate >= 85 ? "#d97706" : "#dc2626"} />
             <KpiTile label="Denial Rate" value={`${sc.denial_rate}%`} benchmark="<5%" color={sc.denial_rate <= 5 ? "#059669" : sc.denial_rate <= 10 ? "#d97706" : "#dc2626"} />
             <KpiTile label="Payer Adherence" value={`${sc.payer_adherence_rate}%`} benchmark="97%" color={sc.payer_adherence_rate >= 97 ? "#059669" : sc.payer_adherence_rate >= 90 ? "#d97706" : "#dc2626"} />
-            <KpiTile label="Preventable Denials" value={`${sc.preventable_denial_rate}%`} benchmark="<30%" color={sc.preventable_denial_rate <= 30 ? "#059669" : sc.preventable_denial_rate <= 50 ? "#d97706" : "#dc2626"} />
+            <KpiTile label="Preventable Denials" value={`${sc.preventable_denial_rate}%`} benchmark="<30%" color={sc.preventable_denial_rate <= 30 ? "#059669" : sc.preventable_denial_rate <= 50 ? "#d97706" : "#dc2626"} help="Denials that could have been avoided with correct coding or eligibility verification, benchmarked against industry averages." />
           </div>
           {sc.narrative && (
             <div style={{
@@ -4862,13 +4868,13 @@ function UploadIcon() {
   );
 }
 
-function KpiTile({ label, value, benchmark, color }) {
+function KpiTile({ label, value, benchmark, color, help }) {
   return (
     <div style={{
       border: "1px solid var(--cs-border)", borderRadius: 10,
       padding: 16, background: "#fff",
     }}>
-      <div style={{ fontSize: 12, color: "var(--cs-slate)", marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 12, color: "var(--cs-slate)", marginBottom: 4 }}>{label}{help && <HelpTip text={help} />}</div>
       <div style={{ fontSize: 22, fontWeight: 700, color: color || "var(--cs-navy)" }}>{value}</div>
       <div style={{ fontSize: 11, color: "var(--cs-slate)", marginTop: 4 }}>
         Benchmark: {benchmark}
