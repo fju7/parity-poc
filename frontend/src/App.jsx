@@ -576,6 +576,7 @@ export default function App() {
       await delay(400);
 
       setReport(scored);
+      if (typeof window.plausible !== 'undefined') window.plausible('Analysis Complete', { props: { product: 'health' } });
       setProvider(billData.provider);
       setServiceDate(billData.serviceDate);
       setView("report");
@@ -594,6 +595,7 @@ export default function App() {
   // ----- Standard PDF parsing flow -----
   const handleFileSelect = useCallback(
     async (file) => {
+      if (typeof window.plausible !== 'undefined') window.plausible('File Upload', { props: { product: 'health' } });
       setView("processing");
       setProcessingStep(0);
       pendingFileRef.current = file;
@@ -828,6 +830,7 @@ export default function App() {
   // ----- Paste text flow -----
   const handlePasteSubmit = useCallback(
     async (text) => {
+      if (typeof window.plausible !== 'undefined') window.plausible('File Upload', { props: { product: 'health' } });
       setView("processing");
       setProcessingStep(0);
       setSlowServer(false);

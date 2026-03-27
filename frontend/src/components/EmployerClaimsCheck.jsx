@@ -205,6 +205,7 @@ export default function EmployerClaimsCheck() {
       const resolvedEmail = isAuthenticated ? (user?.email || null) : (email || sessionStorage.getItem("cs_anon_email") || null);
       if (resolvedEmail) formData.append("email", resolvedEmail);
       if (email && !isAuthenticated) sessionStorage.setItem("cs_anon_email", email);
+      if (typeof window.plausible !== 'undefined') window.plausible('File Upload', { props: { product: 'employer' } });
 
       const res = await fetch(`${API_BASE}/api/employer/claims-check`, {
         method: "POST",
@@ -236,6 +237,7 @@ export default function EmployerClaimsCheck() {
 
       const data = await res.json();
       setResult(data);
+      if (typeof window.plausible !== 'undefined') window.plausible('Analysis Complete', { props: { product: 'employer' } });
       if (data.session_id) {
         localStorage.setItem("employer_claims_session_id", data.session_id);
         localStorage.setItem("employer_claims_zip_code", zipCode);
@@ -283,6 +285,7 @@ export default function EmployerClaimsCheck() {
 
       const data = await res.json();
       setResult(data);
+      if (typeof window.plausible !== 'undefined') window.plausible('Analysis Complete', { props: { product: 'employer' } });
       if (data.session_id) {
         localStorage.setItem("employer_claims_session_id", data.session_id);
         localStorage.setItem("employer_claims_zip_code", zipCode);

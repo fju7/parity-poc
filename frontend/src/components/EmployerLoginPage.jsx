@@ -66,6 +66,7 @@ export default function EmployerLoginPage() {
       if (!res.ok) { setErrorMsg(data.detail || "Invalid code."); return; }
 
       login(data.token, data.user, data.company);
+      if (typeof window.plausible !== 'undefined') window.plausible('OTP Verified', { props: { product: 'employer' } });
       navigate("/billing/employer/dashboard");
     } catch {
       setErrorMsg("Verification failed. Please request a new code and try again. If this continues, contact us at admin@civicscale.ai");

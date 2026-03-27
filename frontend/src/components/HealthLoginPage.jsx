@@ -64,6 +64,7 @@ export default function HealthLoginPage() {
       // Store token and redirect based on profile completeness
       localStorage.setItem("health_token", data.token);
       localStorage.setItem("health_user", JSON.stringify(data.user));
+      if (typeof window.plausible !== 'undefined') window.plausible('OTP Verified', { props: { product: 'health' } });
       if (!data.user.full_name) {
         window.location.href = "/parity-health/account";
       } else {

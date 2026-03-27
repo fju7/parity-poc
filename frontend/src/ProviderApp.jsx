@@ -543,6 +543,7 @@ function ProviderAppInner() {
     }
 
     try {
+      if (typeof window.plausible !== 'undefined') window.plausible('File Upload', { props: { product: 'provider' } });
       const resp = await fetch(`${API_BASE}/api/provider/parse-835-batch`, {
         method: "POST",
         body,

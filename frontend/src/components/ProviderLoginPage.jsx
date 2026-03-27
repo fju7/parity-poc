@@ -70,6 +70,7 @@ export default function ProviderLoginPage() {
         return;
       }
       login(data.token, data.user, data.company);
+      if (typeof window.plausible !== 'undefined') window.plausible('OTP Verified', { props: { product: 'provider' } });
       if (checkoutSuccess) {
         const accountPath = isProviderSubdomain ? "/account" : "/provider/account";
         navigate(`${accountPath}?checkout_success=1`);

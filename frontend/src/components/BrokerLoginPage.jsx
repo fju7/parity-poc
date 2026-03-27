@@ -71,6 +71,7 @@ export default function BrokerLoginPage() {
       }
 
       login(data.token, data.user, data.company);
+      if (typeof window.plausible !== 'undefined') window.plausible('OTP Verified', { props: { product: 'broker' } });
       navigate("/broker/dashboard");
     } catch {
       setErrorMsg("Verification failed. Please request a new code and try again. If this continues, contact us at admin@civicscale.ai");

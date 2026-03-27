@@ -257,6 +257,7 @@ export default function BillingApp() {
           return;
         }
         login(data.token, data.user, data.company);
+        if (typeof window.plausible !== 'undefined') window.plausible('OTP Verified', { props: { product: 'billing' } });
         if (data.billing_company) setBillingCompany(data.billing_company);
       } catch { setOtpError("Verification failed. Please request a new code and try again. If this continues, contact us at admin@civicscale.ai"); }
       finally { setOtpVerifying(false); }
@@ -2645,6 +2646,7 @@ function IngestionPanel({
       const fd = new FormData();
       fd.append("practice_id", ingestPracticeId);
       ingestFiles.forEach(f => fd.append("files", f));
+      if (typeof window.plausible !== 'undefined') window.plausible('File Upload', { props: { product: 'billing' } });
 
       const res = await fetch(`${API}/api/billing/ingest/upload`, {
         method: "POST",
@@ -2663,6 +2665,7 @@ function IngestionPanel({
       });
 
       fetchJobs();
+      if (typeof window.plausible !== 'undefined') window.plausible('Analysis Complete', { props: { product: 'billing' } });
     } catch { setUploadError("Upload failed."); }
     finally { setUploading(false); }
   };

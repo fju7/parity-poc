@@ -37,7 +37,10 @@ export default function SignalLogin({ signup = false }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) navigate(returnTo || "/signal", { replace: true });
+      if (session) {
+        if (typeof window.plausible !== 'undefined') window.plausible('OTP Verified', { props: { product: 'signal' } });
+        navigate(returnTo || "/signal", { replace: true });
+      }
     });
     return () => subscription.unsubscribe();
   }, [navigate, returnTo]);
