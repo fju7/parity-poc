@@ -93,7 +93,12 @@ export default function BillingApp() {
       } else if (res.status === 404) {
         // Has auth session but no billing company — needs registration
         setNeedsRegistration(true);
-      } else if (res.status === 401 || res.status === 403) {
+      } else if (res.status === 401) {
+        // Session expired — clear token and show login
+        localStorage.removeItem("cs_session_token");
+        setOtpError("Your session has expired. Please sign in again.");
+        setBillingCompany(null);
+      } else if (res.status === 403) {
         // Not a billing user — might need registration
         setNeedsRegistration(true);
       }
@@ -230,7 +235,7 @@ export default function BillingApp() {
         });
         if (!res.ok) throw new Error();
         setOtpStep("otp");
-      } catch { setOtpError("Failed to send code. Please try again."); }
+      } catch { setOtpError("Unable to send code. Please check your email address and try again. If this continues, contact us at admin@civicscale.ai"); }
       setOtpSending(false);
     };
 
@@ -253,7 +258,7 @@ export default function BillingApp() {
         }
         login(data.token, data.user, data.company);
         if (data.billing_company) setBillingCompany(data.billing_company);
-      } catch { setOtpError("Verification failed. Please try again."); }
+      } catch { setOtpError("Verification failed. Please request a new code and try again. If this continues, contact us at admin@civicscale.ai"); }
       finally { setOtpVerifying(false); }
     };
 

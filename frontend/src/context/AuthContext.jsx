@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
         setToken(null);
         setUser(null);
         setCompany(null);
+        setError("Your session has expired. Please sign in again.");
       } else {
         const data = await res.json();
         setUser({ email: data.email, full_name: data.full_name, role: data.role });

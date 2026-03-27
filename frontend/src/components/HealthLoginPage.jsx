@@ -38,7 +38,7 @@ export default function HealthLoginPage() {
       });
       if (!res.ok) throw new Error();
       setStep("otp");
-    } catch { setErrorMsg("Failed to send code. Please try again."); }
+    } catch { setErrorMsg("Unable to send code. Please check your email address and try again. If this continues, contact us at admin@civicscale.ai"); }
     setSending(false);
   };
 
@@ -69,7 +69,7 @@ export default function HealthLoginPage() {
       } else {
         window.location.href = "/parity-health/";
       }
-    } catch { setErrorMsg("Verification failed. Please try again."); }
+    } catch { setErrorMsg("Verification failed. Please request a new code and try again. If this continues, contact us at admin@civicscale.ai"); }
     setVerifying(false);
   };
 

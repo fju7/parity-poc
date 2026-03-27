@@ -43,7 +43,7 @@ export default function EmployerLoginPage() {
       if (!res.ok) throw new Error();
       setStep("otp");
     } catch {
-      setErrorMsg("Failed to send code. Please try again.");
+      setErrorMsg("Unable to send code. Please check your email address and try again. If this continues, contact us at admin@civicscale.ai");
     } finally {
       setSending(false);
     }
@@ -68,7 +68,7 @@ export default function EmployerLoginPage() {
       login(data.token, data.user, data.company);
       navigate("/billing/employer/dashboard");
     } catch {
-      setErrorMsg("Verification failed. Please try again.");
+      setErrorMsg("Verification failed. Please request a new code and try again. If this continues, contact us at admin@civicscale.ai");
     } finally {
       setVerifying(false);
     }

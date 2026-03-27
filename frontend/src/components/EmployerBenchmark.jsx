@@ -88,7 +88,7 @@ export default function EmployerBenchmark() {
         }),
       });
 
-      if (!res.ok) throw new Error(`API error: ${res.status}`);
+      if (!res.ok) throw new Error("Benchmark analysis failed. Our servers may be temporarily busy — please try again in a moment. If this continues, contact us at admin@civicscale.ai");
       const data = await res.json();
       setResult(data);
       setWantsCopy(!!resolvedEmail);

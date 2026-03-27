@@ -183,7 +183,7 @@ export default function SignalLogin({ signup = false }) {
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      throw new Error(data.detail || "Failed to send code");
+      throw new Error(data.detail || "Unable to send code. Please check your email address and try again. If this continues, contact us at admin@civicscale.ai");
     }
   }
 

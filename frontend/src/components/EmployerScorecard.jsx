@@ -69,18 +69,19 @@ export default function EmployerScorecard() {
       });
 
       clearInterval(progressInterval);
-      setProgress(100);
 
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
-        throw new Error(body.detail || `API error: ${res.status}`);
+        throw new Error(body.detail || "Scorecard analysis failed. Our servers may be temporarily busy — please try again in a moment. If this continues, contact us at admin@civicscale.ai");
       }
 
+      setProgress(100);
       const data = await res.json();
       setResult(data);
       setView("results");
     } catch (err) {
       clearInterval(progressInterval);
+      setProgress(0);
       setError(err.message);
       setView("error");
     }
@@ -198,7 +199,8 @@ export default function EmployerScorecard() {
           <div style={{ textAlign: "center", paddingTop: "80px" }}>
             <div style={{ fontSize: "40px", marginBottom: "16px" }}>!</div>
             <h2 style={{ fontSize: "22px", fontWeight: "600", color: "#f1f5f9", marginBottom: "12px" }}>Could not grade this plan</h2>
-            <p style={{ fontSize: "14px", color: "#fca5a5", marginBottom: "24px" }}>{error}</p>
+            <p style={{ fontSize: "14px", color: "#fca5a5", marginBottom: "12px" }}>{error}</p>
+            <p style={{ fontSize: "12px", color: "#64748b", marginBottom: "24px" }}>If this continues, contact us at admin@civicscale.ai</p>
             <button onClick={() => setView("upload")} style={btnPrimary}>Try Again</button>
           </div>
         )}

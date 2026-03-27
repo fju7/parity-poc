@@ -847,7 +847,7 @@ export default function App() {
         if (response.error === "overloaded") {
           setError({
             title: "AI Service Busy",
-            message: "The AI service is temporarily busy. Please try again in a moment.",
+            message: "The AI service is temporarily busy. Please try again in a moment. If this continues, contact us at admin@civicscale.ai",
           });
           setView("error");
           return;
@@ -893,7 +893,7 @@ export default function App() {
         console.error("Paste text analysis error:", err);
         setError({
           title: "Analysis Error",
-          message: "Could not analyze the pasted text. Please try again or use a different input method.",
+          message: "Could not analyze the pasted text. Please try again or use a different input method. If this continues, contact us at admin@civicscale.ai",
         });
         setView("error");
       }
@@ -969,7 +969,7 @@ export default function App() {
         if (response.error === "overloaded") {
           setError({
             title: "AI Service Busy",
-            message: "The AI service is temporarily busy. Please try again in a moment.",
+            message: "The AI service is temporarily busy. Please try again in a moment. If this continues, contact us at admin@civicscale.ai",
           });
           setView("error");
           return;
@@ -1015,7 +1015,7 @@ export default function App() {
         console.error("Image analysis error:", err);
         setError({
           title: "Analysis Error",
-          message: "Could not analyze the image. Please try a clearer photo or use a different input method.",
+          message: "Could not analyze the image. Please try a clearer photo or use a different input method. If this continues, contact us at admin@civicscale.ai",
         });
         setView("error");
       }

@@ -166,6 +166,11 @@ function ProviderAppInner() {
         } else {
           setView("onboarding");
         }
+      } else if (res.status === 401) {
+        // Session expired — redirect to login
+        localStorage.removeItem("cs_session_token");
+        logout();
+        navigate("/provider/login");
       } else {
         setView("onboarding");
       }
