@@ -345,7 +345,7 @@ async def generate_plain_summary(body: dict):
         # Fetch top 10 claims by composite score
         claims_res = sb.table("signal_claims").select(
             "claim_text, category, signal_claim_composites(composite_score, evidence_category)"
-        ).eq("issue_id", issue_id).order("created_at").execute()
+        ).eq("issue_id", issue_id).execute()
         scored_claims = []
         for cl in (claims_res.data or []):
             comp = cl.get("signal_claim_composites")
