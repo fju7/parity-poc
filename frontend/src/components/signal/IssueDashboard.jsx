@@ -620,21 +620,81 @@ export default function IssueDashboard({
       )}
 
       {/* ── Layer 0: Plain Summary (accessible overview) ── */}
-      {issue.plain_summary && issue.plain_summary_status === "approved" && (
-        <div className="mb-6">
-          <div className="rounded-xl p-6" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 400, color: "#f1f5f9", marginBottom: 16 }}>
+      {issue.plain_summary && issue.plain_summary_status === "approved" && (() => {
+        const ps = typeof issue.plain_summary === "string"
+          ? (() => { try { return JSON.parse(issue.plain_summary); } catch { return { text: issue.plain_summary }; } })()
+          : issue.plain_summary;
+        const isStructured = ps && ps.mechanism;
+
+        if (!isStructured) {
+          // Backward compat: old text-only format
+          const text = ps?.text || (typeof issue.plain_summary === "string" ? issue.plain_summary : "");
+          if (!text) return null;
+          return (
+            <div className="mb-6">
+              <div className="rounded-xl p-6" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 400, color: "#f1f5f9", marginBottom: 16 }}>
+                  What the evidence says
+                </h2>
+                <div className="text-sm text-gray-300 leading-relaxed space-y-3">
+                  {text.split("\n\n").map((para, i) => (
+                    <p key={i} style={{ margin: 0 }}>{para}</p>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-3 border-b border-white/[0.06]" />
+            </div>
+          );
+        }
+
+        // Structured 4-card format
+        return (
+          <div className="mb-6 space-y-3">
+            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 400, color: "#f1f5f9", marginBottom: 4 }}>
               What the evidence says
             </h2>
-            <div className="text-sm text-gray-300 leading-relaxed space-y-3" style={{ whiteSpace: "pre-line" }}>
-              {issue.plain_summary.split("\n\n").map((para, i) => (
-                <p key={i} style={{ margin: 0 }}>{para}</p>
-              ))}
+
+            {/* Mechanism — teal card */}
+            <div style={{ background: "#E1F5EE", border: "1px solid #5DCAA5", borderRadius: 12, padding: "16px 20px" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "#0F6E56", marginBottom: 6 }}>
+                How it works
+              </div>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#085041", margin: 0 }}>{ps.mechanism}</p>
             </div>
+
+            {/* Evidence — subtle card */}
+            <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, padding: "16px 20px" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "#94a3b8", marginBottom: 6 }}>
+                Strong evidence
+              </div>
+              <div style={{ fontSize: 14, lineHeight: 1.7, color: "#f1f5f9" }}>
+                {ps.evidence.split("\n\n").map((para, i) => (
+                  <p key={i} style={{ margin: i > 0 ? "10px 0 0" : 0 }}>{para}</p>
+                ))}
+              </div>
+            </div>
+
+            {/* Limitations — amber card */}
+            <div style={{ background: "#FAEEDA", border: "1px solid #EF9F27", borderRadius: 12, padding: "16px 20px" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "#854F0B", marginBottom: 6 }}>
+                Limitations &amp; contested evidence
+              </div>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: "#633806", margin: 0 }}>{ps.limitations}</p>
+            </div>
+
+            {/* Watch — inline row with clock icon */}
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, padding: "12px 16px" }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <p style={{ fontSize: 13, lineHeight: 1.6, color: "#94a3b8", fontStyle: "italic", margin: 0 }}>{ps.watch}</p>
+            </div>
+
+            <div className="border-b border-white/[0.06]" style={{ marginTop: 8 }} />
           </div>
-          <div className="mt-3 border-b border-white/[0.06]" />
-        </div>
-      )}
+        );
+      })()}
 
       {/* ── Layer 1: Score Ring + Verdict ── */}
       {overallSummary && (

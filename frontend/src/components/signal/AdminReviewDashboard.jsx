@@ -139,11 +139,41 @@ function TopicReviewCard({ topic, onAction }) {
           </span>
         </div>
 
-        {previewSummary && summaryStatus !== "pending" && (
-          <div className="bg-gray-50 rounded-lg p-3 text-xs text-gray-700 leading-relaxed max-h-40 overflow-y-auto whitespace-pre-line">
-            {previewSummary}
-          </div>
-        )}
+        {previewSummary && summaryStatus !== "pending" && (() => {
+          const ps = typeof previewSummary === "string"
+            ? (() => { try { return JSON.parse(previewSummary); } catch { return { text: previewSummary }; } })()
+            : previewSummary;
+          const isStructured = ps && ps.mechanism;
+
+          if (!isStructured) {
+            return (
+              <div className="bg-gray-50 rounded-lg p-3 text-xs text-gray-700 leading-relaxed max-h-40 overflow-y-auto whitespace-pre-line">
+                {ps?.text || (typeof previewSummary === "string" ? previewSummary : JSON.stringify(previewSummary))}
+              </div>
+            );
+          }
+
+          return (
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              <div className="rounded-lg p-2.5" style={{ background: "#E1F5EE", border: "1px solid #5DCAA5" }}>
+                <div className="text-[10px] font-bold uppercase text-[#0F6E56] mb-1">How it works</div>
+                <p className="text-xs text-[#085041] leading-relaxed m-0">{ps.mechanism}</p>
+              </div>
+              <div className="rounded-lg p-2.5 bg-gray-50 border border-gray-200">
+                <div className="text-[10px] font-bold uppercase text-gray-500 mb-1">Strong evidence</div>
+                <p className="text-xs text-gray-700 leading-relaxed m-0">{ps.evidence}</p>
+              </div>
+              <div className="rounded-lg p-2.5" style={{ background: "#FAEEDA", border: "1px solid #EF9F27" }}>
+                <div className="text-[10px] font-bold uppercase text-[#854F0B] mb-1">Limitations</div>
+                <p className="text-xs text-[#633806] leading-relaxed m-0">{ps.limitations}</p>
+              </div>
+              <div className="flex items-start gap-2 rounded-lg p-2.5 border border-gray-200">
+                <span className="text-gray-400 text-xs mt-0.5">&#128337;</span>
+                <p className="text-xs text-gray-500 italic leading-relaxed m-0">{ps.watch}</p>
+              </div>
+            </div>
+          );
+        })()}
 
         <div className="flex items-center gap-2">
           <button

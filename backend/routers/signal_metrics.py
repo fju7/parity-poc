@@ -284,21 +284,23 @@ async def review_topic(body: dict):
 
 PLAIN_SUMMARY_PROMPT = """You are writing a plain-language summary of a complex evidence topic for a general audience. Your reader is intelligent but not a specialist. Think: a knowledgeable friend explaining what they read, not a scientist writing an abstract.
 
-Structure your summary as follows:
+Return a JSON object with exactly these four fields:
 
-PARAGRAPH 1 — THE MECHANISM: Why does this topic matter? What is the basic science or logic behind it? No scores, no jargon. One paragraph.
-
-PARAGRAPHS 2-3 — THE EVIDENCE: What the strongest evidence shows. Where evidence is mixed or inconsistent. Importantly, where studies have FAILED to find expected effects — surface the disappointments, don't bury them. This builds credibility. Two to three paragraphs.
-
-FINAL SENTENCE — WHAT TO WATCH: What research is underway or what question would most change the current picture if answered? One sentence.
+{
+  "mechanism": "One paragraph. How does this work? Basic science or logic, no jargon, no scores. Why does this topic matter?",
+  "evidence": "One to two paragraphs. What does the strongest evidence show? Include specific numbers where they matter. Surface what FAILED to find expected effects — do not bury disappointments. This builds credibility.",
+  "limitations": "One paragraph. What are the important caveats, contested findings, access barriers, or unknowns? Be direct about what is genuinely unknown.",
+  "watch": "One sentence only. What single question or research development would most change this picture?"
+}
 
 RULES:
+- Return ONLY valid JSON. No markdown, no code fences, no explanation outside the JSON.
 - Short sentences. Direct language.
 - No hedging: do NOT use "it appears", "may suggest", "could potentially", "it is possible that". Say what the evidence shows. Say clearly when evidence is weak or contradictory.
 - No scores, no dimension names, no methodology references.
-- No bullet points or headers — flowing paragraphs only.
-- Do not start with "The evidence suggests" or similar. Start with the mechanism.
-- 3-5 paragraphs total. Around 250-400 words."""
+- No bullet points — flowing paragraphs only within each field.
+- The "mechanism" field should NOT start with "The evidence suggests" or similar. Start with the mechanism itself.
+- Total across all fields: around 250-400 words."""
 
 
 @router.post("/admin/generate-plain-summary")
@@ -389,18 +391,42 @@ Write the plain-language summary now."""
             system=PLAIN_SUMMARY_PROMPT,
             messages=[{"role": "user", "content": user_content}],
         )
-        plain_text = response.content[0].text.strip()
+        raw_text = response.content[0].text.strip()
 
-        # Store in DB
+        # Parse JSON response — strip markdown code fences if present
+        import json as _json
+        clean = raw_text
+        if clean.startswith("```"):
+            clean = clean.split("\n", 1)[1] if "\n" in clean else clean[3:]
+        if clean.endswith("```"):
+            clean = clean[:-3]
+        clean = clean.strip()
+
+        try:
+            plain_json = _json.loads(clean)
+        except _json.JSONDecodeError:
+            # Fallback: store as old-format text wrapper
+            plain_json = {"text": raw_text}
+
+        # Validate required fields
+        if not all(k in plain_json for k in ("mechanism", "evidence", "limitations", "watch")):
+            # Partial parse — wrap as text fallback
+            if "mechanism" not in plain_json:
+                plain_json = {"text": raw_text}
+
+        # Store structured JSON in DB (column is JSONB)
+        # NOTE: Existing approved summaries are in old {"text": "..."} format.
+        # They need to be regenerated manually via the admin UI to get the
+        # structured {mechanism, evidence, limitations, watch} format.
         sb.table("signal_issues").update({
-            "plain_summary": plain_text,
+            "plain_summary": plain_json,
             "plain_summary_status": "generated",
         }).eq("id", issue_id).execute()
 
         return JSONResponse(content={
             "ok": True,
             "issue_id": issue_id,
-            "plain_summary": plain_text,
+            "plain_summary": plain_json,
             "status": "generated",
         })
 
