@@ -510,18 +510,18 @@ export default function BillingApp() {
 
       {/* Header */}
       <header style={{ ...styles.header, justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <a href="https://civicscale.ai" style={styles.logoLink}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, minWidth: 0 }}>
+          <a href="https://civicscale.ai" style={{ ...styles.logoLink, flexShrink: 0 }}>
             <div style={styles.logoIcon}>C</div>
             <span style={styles.logoText}>CivicScale</span>
           </a>
-          <span style={{ color: "#475569", fontSize: 14 }}>|</span>
-          <span style={{ color: "#94a3b8", fontSize: 14, fontWeight: 500 }}>
+          <span className="hidden sm:inline" style={{ color: "#475569", fontSize: 14 }}>|</span>
+          <span className="hidden sm:inline" style={{ color: "#94a3b8", fontSize: 14, fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 200 }}>
             {billingCompany?.company_name || "Parity Billing"}
           </span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <span style={{ color: "#64748b", fontSize: 13 }}>{user?.email}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+          <span className="hidden sm:inline" style={{ color: "#64748b", fontSize: 13, maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user?.email}</span>
           <button onClick={authLogout} style={{ ...styles.linkBtn, color: "#94a3b8", fontSize: 13 }}>Sign Out</button>
         </div>
       </header>
@@ -553,10 +553,11 @@ export default function BillingApp() {
         marginTop: subscription?.tier === "trial" ? 0 : 64,
         borderBottom: "1px solid rgba(255,255,255,0.06)",
         padding: "0 40px", display: "flex", gap: 0,
+        overflowX: "auto", WebkitOverflowScrolling: "touch",
       }}>
         {TABS.map((tab) => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-            padding: "14px 20px", fontSize: 14, fontWeight: activeTab === tab.id ? 600 : 400,
+            padding: "14px 20px", fontSize: 14, fontWeight: activeTab === tab.id ? 600 : 400, whiteSpace: "nowrap",
             color: activeTab === tab.id ? "#f1f5f9" : "#64748b",
             background: "none", border: "none", cursor: "pointer",
             borderBottom: activeTab === tab.id ? "2px solid #14b8a6" : "2px solid transparent",
@@ -640,7 +641,7 @@ export default function BillingApp() {
             ) : (
               <div style={{
                 background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-                borderRadius: 12, overflow: "hidden",
+                borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
               }}>
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
@@ -1016,7 +1017,7 @@ function PortfolioPanel({ token, billingCompany, allPractices, onNavigate }) {
       <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Practice Breakdown</h3>
       <div style={{
         background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-        borderRadius: 12, overflow: "hidden", marginBottom: 32,
+        borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch", marginBottom: 32,
       }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
@@ -1119,7 +1120,7 @@ function PortfolioPanel({ token, billingCompany, allPractices, onNavigate }) {
           <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Payer Performance</h3>
           <div style={{
             background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: 12, overflow: "hidden",
+            borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
           }}>
             {payers.length === 0 ? (
               <p style={{ color: "#94a3b8", fontSize: 14, padding: 24, margin: 0, textAlign: "center" }}>No payer data</p>
@@ -1157,7 +1158,7 @@ function PortfolioPanel({ token, billingCompany, allPractices, onNavigate }) {
           <h3 style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9", margin: "0 0 12px" }}>Top Denial Reasons</h3>
           <div style={{
             background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: 12, overflow: "hidden",
+            borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
           }}>
             {denialReasons.length === 0 ? (
               <p style={{ color: "#94a3b8", fontSize: 14, padding: 24, margin: 0, textAlign: "center" }}>No denial data</p>
@@ -1347,7 +1348,7 @@ function AppealROISection({ token, billingCompany }) {
           </div>
           <div style={{
             background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: 12, overflow: "hidden",
+            borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
           }}>
             {sortedPayers.length === 0 ? (
               <p style={{ color: "#94a3b8", fontSize: 13, padding: 24, margin: 0, textAlign: "center" }}>No payer data</p>
@@ -1398,7 +1399,7 @@ function AppealROISection({ token, billingCompany }) {
           </div>
           <div style={{
             background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: 12, overflow: "hidden",
+            borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
           }}>
             {sortedDenials.length === 0 ? (
               <p style={{ color: "#94a3b8", fontSize: 13, padding: 24, margin: 0, textAlign: "center" }}>No denial data</p>
@@ -1564,7 +1565,7 @@ function PracticeComparisonSection({
       ) : comparison ? (
         <div style={{
           background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: 12, overflow: "hidden",
+          borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
         }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
@@ -1706,7 +1707,7 @@ function PayerBenchmarkSection({
       ) : (
         <div style={{
           background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: 12, overflow: "hidden",
+          borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
         }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
@@ -2089,7 +2090,7 @@ function EscalationsPanel({ token, billingRole }) {
             </p>
           </div>
         ) : (
-          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead><tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                 <th style={styles.th}>Payer</th><th style={styles.th}>Code</th>
@@ -2157,7 +2158,7 @@ function EscalationsPanel({ token, billingRole }) {
             <p style={{ color: "#94a3b8", fontSize: 14, margin: 0 }}>No escalations yet — use Detect Patterns above to identify cross-practice denial patterns.</p>
           </div>
         ) : (
-          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead><tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                 <th style={styles.th}>Payer</th><th style={styles.th}>Code</th>
@@ -2506,7 +2507,7 @@ function ContractsPanel({ token, practices, billingRole }) {
           <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>No contracts yet. Upload a contract PDF to get started.</p>
         </div>
       ) : (
-        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
+        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
@@ -2802,7 +2803,7 @@ function IngestionPanel({
       ) : (
         <div style={{
           background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: 12, overflow: "hidden",
+          borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
         }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
@@ -3508,7 +3509,7 @@ function TeamPanel({ token, billingRole, allPractices }) {
       ) : (
         <div style={{
           background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)",
-          borderRadius: 12, overflow: "hidden",
+          borderRadius: 12, overflowX: "auto", WebkitOverflowScrolling: "touch",
         }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
