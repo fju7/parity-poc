@@ -25,8 +25,23 @@ function ReviewBadge({ status }) {
   );
 }
 
+const SUMMARY_COLORS = {
+  approved: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  generated: "bg-blue-50 text-blue-700 border-blue-200",
+  pending: "bg-gray-50 text-gray-500 border-gray-200",
+};
+
+const SUMMARY_LABELS = {
+  approved: "Summary Approved",
+  generated: "Summary Pending Review",
+  pending: "No Summary",
+};
+
 function TopicReviewCard({ topic, onAction }) {
   const [loading, setLoading] = useState(false);
+  const [summaryLoading, setSummaryLoading] = useState(false);
+  const [previewSummary, setPreviewSummary] = useState(topic.plain_summary || "");
+  const [summaryStatus, setSummaryStatus] = useState(topic.plain_summary_status || "pending");
   const status = topic.quality_review_status || "pending";
 
   async function handleAction(newStatus) {
@@ -107,6 +122,74 @@ function TopicReviewCard({ topic, onAction }) {
             Reject
           </button>
         )}
+      </div>
+
+      {/* Plain Summary Section */}
+      <div className="border-t border-gray-100 pt-3 space-y-2">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-gray-500">Plain Summary</span>
+          <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border ${SUMMARY_COLORS[summaryStatus] || SUMMARY_COLORS.pending}`}>
+            {SUMMARY_LABELS[summaryStatus] || "No Summary"}
+          </span>
+        </div>
+
+        {previewSummary && summaryStatus !== "pending" && (
+          <div className="bg-gray-50 rounded-lg p-3 text-xs text-gray-700 leading-relaxed max-h-40 overflow-y-auto whitespace-pre-line">
+            {previewSummary}
+          </div>
+        )}
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={async () => {
+              setSummaryLoading(true);
+              try {
+                const res = await fetch(`${API_BASE}/api/signal/admin/generate-plain-summary`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ issue_id: topic.id }),
+                });
+                if (res.ok) {
+                  const data = await res.json();
+                  setPreviewSummary(data.plain_summary || "");
+                  setSummaryStatus("generated");
+                } else {
+                  const data = await res.json().catch(() => ({}));
+                  alert(data.error || "Generation failed");
+                }
+              } catch (err) { alert(err.message); }
+              finally { setSummaryLoading(false); }
+            }}
+            disabled={summaryLoading}
+            className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-blue-200 cursor-pointer bg-white text-blue-600 hover:bg-blue-50 disabled:opacity-50 transition-colors"
+          >
+            {summaryLoading ? "Generating..." : summaryStatus === "pending" ? "Generate Plain Summary" : "Regenerate"}
+          </button>
+
+          {summaryStatus === "generated" && (
+            <button
+              onClick={async () => {
+                setSummaryLoading(true);
+                try {
+                  const res = await fetch(`${API_BASE}/api/signal/admin/approve-plain-summary`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ issue_id: topic.id }),
+                  });
+                  if (res.ok) {
+                    setSummaryStatus("approved");
+                    onAction();
+                  }
+                } catch (err) { alert(err.message); }
+                finally { setSummaryLoading(false); }
+              }}
+              disabled={summaryLoading}
+              className="px-3 py-1.5 text-xs font-semibold rounded-lg border-none cursor-pointer bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+            >
+              Approve Summary
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

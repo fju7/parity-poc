@@ -4,6 +4,7 @@ Returns real counts from Supabase tables for the landing page.
 Cached in-memory for 5 minutes to avoid excessive DB queries.
 """
 
+import os
 import time
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
@@ -234,6 +235,8 @@ async def get_review_topics():
                 "description": issue.get("description", ""),
                 "status": issue.get("status", "draft"),
                 "quality_review_status": issue.get("quality_review_status", "pending"),
+                "plain_summary": issue.get("plain_summary"),
+                "plain_summary_status": issue.get("plain_summary_status", "pending"),
                 "claim_count": claim_counts.get(iid, 0),
                 "source_count": source_counts.get(iid, 0),
                 "created_at": issue.get("created_at", ""),
@@ -271,5 +274,158 @@ async def review_topic(body: dict):
         _topics_cache["expires"] = 0
 
         return JSONResponse(content={"ok": True, "issue_id": issue_id, "status": new_status})
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
+
+# ---------------------------------------------------------------------------
+# Plain Summary — generate and approve
+# ---------------------------------------------------------------------------
+
+PLAIN_SUMMARY_PROMPT = """You are writing a plain-language summary of a complex evidence topic for a general audience. Your reader is intelligent but not a specialist. Think: a knowledgeable friend explaining what they read, not a scientist writing an abstract.
+
+Structure your summary as follows:
+
+PARAGRAPH 1 — THE MECHANISM: Why does this topic matter? What is the basic science or logic behind it? No scores, no jargon. One paragraph.
+
+PARAGRAPHS 2-3 — THE EVIDENCE: What the strongest evidence shows. Where evidence is mixed or inconsistent. Importantly, where studies have FAILED to find expected effects — surface the disappointments, don't bury them. This builds credibility. Two to three paragraphs.
+
+FINAL SENTENCE — WHAT TO WATCH: What research is underway or what question would most change the current picture if answered? One sentence.
+
+RULES:
+- Short sentences. Direct language.
+- No hedging: do NOT use "it appears", "may suggest", "could potentially", "it is possible that". Say what the evidence shows. Say clearly when evidence is weak or contradictory.
+- No scores, no dimension names, no methodology references.
+- No bullet points or headers — flowing paragraphs only.
+- Do not start with "The evidence suggests" or similar. Start with the mechanism.
+- 3-5 paragraphs total. Around 250-400 words."""
+
+
+@router.post("/admin/generate-plain-summary")
+async def generate_plain_summary(body: dict):
+    """Generate a plain-language summary for a Signal topic using Claude."""
+    sb = _get_sb()
+    if not sb:
+        return JSONResponse(content={"error": "DB not available"}, status_code=500)
+
+    issue_id = body.get("issue_id")
+    if not issue_id:
+        return JSONResponse(content={"error": "issue_id required"}, status_code=400)
+
+    try:
+        # Fetch the issue
+        issue = sb.table("signal_issues").select("id, title, description").eq("id", issue_id).single().execute()
+        if not issue.data:
+            return JSONResponse(content={"error": "Issue not found"}, status_code=404)
+
+        topic = issue.data
+
+        # Fetch the latest summary
+        summary_res = sb.table("signal_summaries").select("summary_json").eq(
+            "issue_id", issue_id
+        ).order("version", desc=True).limit(1).execute()
+        overall_summary = ""
+        if summary_res.data and summary_res.data[0].get("summary_json"):
+            overall_summary = summary_res.data[0]["summary_json"].get("overall_summary", "")
+
+        # Fetch consensus entries
+        consensus_res = sb.table("signal_consensus").select(
+            "category, consensus_status, summary_text, arguments_for, arguments_against"
+        ).eq("issue_id", issue_id).execute()
+        consensus_text = ""
+        for c in (consensus_res.data or []):
+            consensus_text += f"\n\nCategory: {c['category']} — Status: {c['consensus_status']}\n"
+            if c.get("summary_text"):
+                consensus_text += f"Summary: {c['summary_text']}\n"
+            if c.get("arguments_for"):
+                consensus_text += f"Arguments for: {c['arguments_for']}\n"
+            if c.get("arguments_against"):
+                consensus_text += f"Arguments against: {c['arguments_against']}\n"
+
+        # Fetch top 10 claims by composite score
+        claims_res = sb.table("signal_claims").select(
+            "claim_text, category, signal_claim_composites(composite_score, evidence_category)"
+        ).eq("issue_id", issue_id).order("created_at").execute()
+        scored_claims = []
+        for cl in (claims_res.data or []):
+            comp = cl.get("signal_claim_composites")
+            if comp and comp.get("composite_score"):
+                scored_claims.append({
+                    "text": cl["claim_text"],
+                    "category": cl["category"],
+                    "score": comp["composite_score"],
+                    "strength": comp.get("evidence_category", ""),
+                })
+        scored_claims.sort(key=lambda x: x["score"], reverse=True)
+        top_claims = scored_claims[:10]
+
+        # Build context for Claude
+        claims_block = "\n".join(
+            f"- [{c['strength'].upper()}] ({c['category']}) {c['text']}"
+            for c in top_claims
+        )
+
+        user_content = f"""Topic: {topic['title']}
+Description: {topic.get('description', '')}
+
+Technical Summary:
+{overall_summary}
+
+Consensus by Category:
+{consensus_text}
+
+Top 10 Evidence Claims (strongest first):
+{claims_block}
+
+Write the plain-language summary now."""
+
+        # Call Claude
+        import anthropic
+        client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY", ""))
+        response = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=1024,
+            temperature=0.3,
+            system=PLAIN_SUMMARY_PROMPT,
+            messages=[{"role": "user", "content": user_content}],
+        )
+        plain_text = response.content[0].text.strip()
+
+        # Store in DB
+        sb.table("signal_issues").update({
+            "plain_summary": plain_text,
+            "plain_summary_status": "generated",
+        }).eq("id", issue_id).execute()
+
+        return JSONResponse(content={
+            "ok": True,
+            "issue_id": issue_id,
+            "plain_summary": plain_text,
+            "status": "generated",
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
+
+@router.post("/admin/approve-plain-summary")
+async def approve_plain_summary(body: dict):
+    """Approve a generated plain summary for public display."""
+    sb = _get_sb()
+    if not sb:
+        return JSONResponse(content={"error": "DB not available"}, status_code=500)
+
+    issue_id = body.get("issue_id")
+    if not issue_id:
+        return JSONResponse(content={"error": "issue_id required"}, status_code=400)
+
+    try:
+        sb.table("signal_issues").update({
+            "plain_summary_status": "approved",
+        }).eq("id", issue_id).execute()
+
+        return JSONResponse(content={"ok": True, "issue_id": issue_id, "status": "approved"})
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)

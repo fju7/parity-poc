@@ -619,6 +619,23 @@ export default function IssueDashboard({
         </div>
       )}
 
+      {/* ── Layer 0: Plain Summary (accessible overview) ── */}
+      {issue.plain_summary && issue.plain_summary_status === "approved" && (
+        <div className="mb-6">
+          <div className="rounded-xl p-6" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 400, color: "#f1f5f9", marginBottom: 16 }}>
+              What the evidence says
+            </h2>
+            <div className="text-sm text-gray-300 leading-relaxed space-y-3" style={{ whiteSpace: "pre-line" }}>
+              {issue.plain_summary.split("\n\n").map((para, i) => (
+                <p key={i} style={{ margin: 0 }}>{para}</p>
+              ))}
+            </div>
+          </div>
+          <div className="mt-3 border-b border-white/[0.06]" />
+        </div>
+      )}
+
       {/* ── Layer 1: Score Ring + Verdict ── */}
       {overallSummary && (
         <div ref={summaryRef} className="mb-6">
