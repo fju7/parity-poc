@@ -30,23 +30,10 @@ export default function SignalHeader({ session, onSignOut }) {
   return (
     <header className="sticky top-0 z-50 bg-[#0a1628]/95 backdrop-blur border-b border-white/[0.06]">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 no-underline">
-          <div className="flex items-center gap-0.5">
-            <div className="flex flex-col gap-[2px]">
-              <div className="w-[3px] h-[10px] rounded-sm bg-[#94a3b8]" />
-              <div className="w-[3px] h-[7px] rounded-sm bg-[#0D7377]" />
-              <div className="w-[3px] h-[4px] rounded-sm bg-[#94a3b8]" />
-            </div>
-            <div className="flex flex-col gap-[2px]">
-              <div className="w-[3px] h-[4px] rounded-sm bg-[#0D7377]" />
-              <div className="w-[3px] h-[7px] rounded-sm bg-[#94a3b8]" />
-              <div className="w-[3px] h-[10px] rounded-sm bg-[#0D7377]" />
-            </div>
-          </div>
-          <span className="text-[#f1f5f9] font-bold text-lg tracking-tight font-[Arial,sans-serif]">
-            Parity Signal
-          </span>
-        </Link>
+        <a href="https://civicscale.ai" className="flex items-center gap-3 no-underline">
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #0d9488, #14b8a6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0a1628" }}>C</div>
+          <span className="text-[#f1f5f9] font-bold text-lg tracking-tight">CivicScale</span>
+        </a>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-4 text-sm font-[Arial,sans-serif]">
@@ -62,12 +49,6 @@ export default function SignalHeader({ session, onSignOut }) {
           >
             Pricing
           </button>
-          <a
-            href="https://civicscale.ai"
-            className="text-gray-400 hover:text-gray-300 transition-colors no-underline text-xs"
-          >
-            CivicScale
-          </a>
           {session ? (
             <>
               <button
@@ -92,12 +73,20 @@ export default function SignalHeader({ session, onSignOut }) {
               </button>
             </>
           ) : (
-            <Link
-              to="/login"
-              className="text-[#0D7377] hover:text-[#0B6265] transition-colors no-underline font-medium"
-            >
-              Sign in
-            </Link>
+            <>
+              <Link
+                to="/login"
+                className="text-gray-400 hover:text-[#f1f5f9] transition-colors no-underline font-medium"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                style={{ background: "#14b8a6", color: "#0a1628", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}
+              >
+                Start Free Trial
+              </Link>
+            </>
           )}
         </nav>
 
@@ -142,13 +131,6 @@ export default function SignalHeader({ session, onSignOut }) {
           >
             Pricing
           </button>
-          <a
-            href="https://civicscale.ai"
-            onClick={() => setMenuOpen(false)}
-            className="text-gray-400 hover:text-gray-300 hover:bg-white/[0.04] no-underline py-2.5 px-2 rounded-lg transition-colors"
-          >
-            CivicScale
-          </a>
           {session ? (
             <>
               <button
@@ -182,13 +164,23 @@ export default function SignalHeader({ session, onSignOut }) {
               </button>
             </>
           ) : (
-            <Link
-              to="/login"
-              onClick={() => setMenuOpen(false)}
-              className="text-[#0D7377] hover:bg-white/[0.04] no-underline py-2.5 px-2 rounded-lg transition-colors font-medium"
-            >
-              Sign in
-            </Link>
+            <>
+              <Link
+                to="/login"
+                onClick={() => setMenuOpen(false)}
+                className="text-gray-400 hover:text-[#f1f5f9] hover:bg-white/[0.04] no-underline py-2.5 px-2 rounded-lg transition-colors font-medium"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                onClick={() => setMenuOpen(false)}
+                className="no-underline py-2.5 px-4 rounded-lg font-medium text-center"
+                style={{ background: "#14b8a6", color: "#0a1628" }}
+              >
+                Start Free Trial
+              </Link>
+            </>
           )}
         </nav>
       </div>

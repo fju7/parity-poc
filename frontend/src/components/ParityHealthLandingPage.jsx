@@ -15,76 +15,22 @@ export default function ParityHealthLandingPage() {
         rel="stylesheet"
       />
 
-      {/* Header */}
-      <header className="cs-home-header">
-        <Link
-          to="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            textDecoration: "none",
-            color: "inherit",
-          }}
-        >
-          <div
-            style={{
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              background: "linear-gradient(135deg, #0d9488, #14b8a6)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "16px",
-              fontWeight: "700",
-              color: "#0a1628",
-            }}
-          >
-            C
-          </div>
-          <span
-            style={{
-              fontSize: "18px",
-              fontWeight: "600",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            CivicScale
-          </span>
-        </Link>
-        <nav className="cs-home-nav">
-          <a
-            href="https://civicscale.ai"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            CivicScale
-          </a>
-          <a
-            href="https://health.civicscale.ai/health/login"
-            style={{
-              color: "#14b8a6",
-              textDecoration: "none",
-              border: "1px solid #14b8a6",
-              borderRadius: "6px",
-              padding: "6px 16px",
-            }}
-          >
-            Sign In
-          </a>
-          <a
-            href="https://health.civicscale.ai/health/signup"
-            style={{
-              color: "#0a1628",
-              textDecoration: "none",
-              background: "#14b8a6",
-              borderRadius: "6px",
-              padding: "6px 16px",
-              fontWeight: 600,
-            }}
-          >
+      {/* Header — matches Broker pattern */}
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        padding: "0 40px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between",
+        background: "rgba(10,22,40,0.92)", backdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}>
+        <a href="https://civicscale.ai" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none", color: "inherit" }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #0d9488, #14b8a6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#0a1628" }}>C</div>
+          <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.02em" }}>CivicScale</span>
+        </a>
+        <nav style={{ display: "flex", gap: 16, alignItems: "center", fontSize: 14 }}>
+          <Link to="/health/login" style={{ color: "#94a3b8", textDecoration: "none", fontWeight: 500 }}>Sign In</Link>
+          <Link to="/health/signup" style={{ background: "#14b8a6", color: "#0a1628", textDecoration: "none", borderRadius: 6, padding: "8px 20px", fontWeight: 500, fontSize: 14 }}>
             Start Free Trial
-          </a>
+          </Link>
         </nav>
       </header>
 
@@ -92,7 +38,7 @@ export default function ParityHealthLandingPage() {
       <section
         className="cs-home-section"
         style={{
-          paddingTop: "80px",
+          paddingTop: "120px",
           paddingBottom: "56px",
           maxWidth: "820px",
           margin: "0 auto",
