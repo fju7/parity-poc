@@ -292,8 +292,9 @@ async def download_contract_template():
 # ---------------------------------------------------------------------------
 
 @router.post("/save-rates")
-async def save_rates(req: SaveRatesRequest):
+async def save_rates(req: SaveRatesRequest, request: Request):
     """Save parsed contract rates to Supabase."""
+    user = _get_authenticated_user(request)
     rates_json = [
         {"cpt": r.cpt, "description": r.description, "rates": r.rates}
         for r in req.rates
@@ -305,12 +306,12 @@ async def save_rates(req: SaveRatesRequest):
         # Upsert: delete existing for this user+payer, then insert
         sb.table("provider_contracts") \
             .delete() \
-            .eq("company_id", req.user_id) \
+            .eq("company_id", user.id) \
             .eq("payer_name", req.payer_name) \
             .execute()
 
         sb.table("provider_contracts").insert({
-            "company_id": req.user_id,
+            "company_id": user.id,
             "payer_name": req.payer_name,
             "rates": rates_json,
         }).execute()
@@ -1227,8 +1228,9 @@ def _run_coding_analysis_from_835(line_items: list, specialty: str, date_range: 
 # ---------------------------------------------------------------------------
 
 @router.post("/analyze-coding")
-async def analyze_coding(req: CodingAnalyzeRequest):
+async def analyze_coding(req: CodingAnalyzeRequest, request: Request):
     """Analyze coding patterns: E&M distribution, NCCI edits, MUE limits, benchmarks."""
+    _get_authenticated_user(request)
 
     codes_flat = []
     for line in req.lines:
@@ -1479,8 +1481,9 @@ async def parse_837(file: UploadFile = File(...)):
 # ---------------------------------------------------------------------------
 
 @router.post("/analyze-denials")
-async def analyze_denials(req: AnalyzeDenialsRequest):
+async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
     """AI-powered denial interpretation with appeal letter templates."""
+    _get_authenticated_user(request)
 
     if not req.denied_lines:
         return {"denial_types": [], "pattern_summary": "", "total_recoverable_value": 0}
