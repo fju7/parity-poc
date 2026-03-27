@@ -98,7 +98,7 @@ export default function InvestorsPage() {
             The evidence should be clear.<br />The numbers should be right.
           </h1>
           <p style={{ fontSize: 17, fontWeight: 300, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 680, margin: "0 auto" }}>
-            CivicScale builds AI-powered benchmark intelligence across domains where information asymmetry creates systematic cost inefficiency across the healthcare system. Four products live across two tracks &mdash; billing intelligence and evidence intelligence &mdash; powered by a single analytical engine.
+            CivicScale builds AI-powered benchmark intelligence across domains where information asymmetry creates systematic cost inefficiency across the healthcare system. Six products live across two tracks &mdash; billing intelligence and evidence intelligence &mdash; powered by a single analytical engine.
           </p>
         </div>
       </section>
@@ -115,7 +115,7 @@ export default function InvestorsPage() {
             <div className="inv-opp-label">Medicare claims contain a billing error, according to the HHS Office of Inspector General &mdash; a rate that costs the system billions annually and falls disproportionately on patients and providers least equipped to challenge it</div>
           </div>
           <div className="inv-opp-card">
-            <div className="inv-opp-num">4</div>
+            <div className="inv-opp-num">6</div>
             <div className="inv-opp-label">Live products across billing intelligence and evidence intelligence</div>
           </div>
           <div className="inv-opp-card">
@@ -129,7 +129,7 @@ export default function InvestorsPage() {
       <section className="cs-section cs-platform-section">
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="cs-section-label">Platform Architecture</div>
-          <h2 className="cs-section-title">One engine. Two tracks. Four products.</h2>
+          <h2 className="cs-section-title">One engine. Two tracks. Six products.</h2>
           <p className="cs-section-sub">
             CivicScale is structured as a platform with a shared analytical core and domain-specific product layers. Healthcare billing is where it starts. It is not where it ends.
           </p>
@@ -153,7 +153,7 @@ export default function InvestorsPage() {
             <div className="inv-arch-card-accent inv-arch-accent-teal" />
             <div className="inv-arch-name">Billing Intelligence</div>
             <p className="inv-arch-desc">
-              Three products addressing healthcare billing from three positions: Parity Health (consumers), Parity Employer (self-insured employers), and Parity Provider (physician practices). All live.
+              Five products addressing healthcare billing across five channels: Parity Health (consumers), Parity Employer (self-insured employers), Parity Broker (benefits brokers managing employer clients), Parity Provider (physician practices), and Parity Billing (RCM companies managing provider practices). All live.
             </p>
           </div>
           <div className="inv-arch-card">
@@ -358,7 +358,7 @@ export default function InvestorsPage() {
               <span className="inv-tl-badge inv-tl-badge-done">Complete</span>
             </div>
             <p className="inv-tl-desc">
-              Four products live: Parity Health (multi-input bill analysis), Parity Employer (claims analytics with demo), Parity Provider (contract integrity with demo), Parity Signal (evidence intelligence with 3 scored topics). Analytical Paths with configurable weighting profiles. Stripe subscription billing. Benchmark observations database. Homepage with dual-track positioning. Authentication, privacy architecture, event analytics.
+              Six products live: Parity Health (multi-input bill analysis), Parity Employer (claims analytics with demo), Parity Broker (broker portal for employer clients), Parity Provider (contract integrity with demo), Parity Billing (RCM platform for billing companies managing provider practices), Parity Signal (evidence intelligence with 3 scored topics). Analytical Paths with configurable weighting profiles. Stripe subscription billing. Benchmark observations database. Homepage with dual-track positioning. Authentication, privacy architecture, event analytics.
             </p>
           </div>
 

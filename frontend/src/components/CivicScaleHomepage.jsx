@@ -77,7 +77,7 @@ export default function CivicScaleHomepage() {
             Independent Healthcare Intelligence
           </div>
           <h1 className="cs-home-hero-h1">
-            Five products. One platform.<br />
+            Six products. One platform.<br />
             <span className="cs-home-hero-accent">Intelligence that wasn't possible until now.</span>
           </h1>
           <p className="cs-home-hero-sub">
@@ -129,7 +129,7 @@ export default function CivicScaleHomepage() {
       <section className="cs-home-section cs-home-products-section">
         <div className="cs-home-section-inner">
           <div className="cs-home-section-label">Products</div>
-          <h2 className="cs-home-section-title">Five products. Two tracks. One intelligence engine.</h2>
+          <h2 className="cs-home-section-title">Six products. Two tracks. One intelligence engine.</h2>
           <p className="cs-home-section-sub" style={{ maxWidth: 680, margin: "0 auto 48px" }}>
             Every product serves a different stakeholder. All are powered by the
             same benchmark infrastructure — and every claim makes the network smarter.

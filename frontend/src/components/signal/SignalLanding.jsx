@@ -106,7 +106,7 @@ export default function SignalLanding({ session, userTier, tierData }) {
       <div className="mb-10 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
         <h2 className="text-lg font-bold text-[#f1f5f9] mb-3">The engine behind Parity</h2>
         <p className="text-sm text-gray-300 leading-relaxed mb-3">
-          Signal is the decision-engineering engine that powers all four Parity products — Employer, Broker, Provider, and Health. It ingests public benchmark data, normalizes it across geographies and time, applies multi-dimensional scoring, and generates transparent, plain-language explanations.
+          Signal is the decision-engineering engine that powers all five Parity products — Employer, Broker, Provider, Health, and Billing. It ingests public benchmark data, normalizes it across geographies and time, applies multi-dimensional scoring, and generates transparent, plain-language explanations.
         </p>
         <p className="text-sm text-gray-300 leading-relaxed">
           While healthcare is where we start — because a discoverable public reference price exists (Medicare) and regulatory tailwinds are forcing data into the open — Signal's analytical architecture extends to any domain with information asymmetry: insurance premiums, property tax assessments, policy claims in public debate.
