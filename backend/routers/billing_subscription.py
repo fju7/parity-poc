@@ -229,7 +229,7 @@ async def billing_webhook(request: Request):
     elif event_type == "customer.subscription.deleted":
         _handle_subscription_deleted(obj, sb)
     elif event_type == "invoice.payment_succeeded":
-        print(f"[billing-webhook] Payment succeeded: {obj.get('id')}")
+        print(f"[billing-webhook] Payment succeeded: {obj.id}")
     elif event_type == "invoice.payment_failed":
         _handle_payment_failed(obj, sb)
 
@@ -246,16 +246,16 @@ def _resolve_billing_company(customer_id: str, sb) -> str | None:
 
 def _handle_checkout_completed(obj, sb):
     """Handle checkout.session.completed — activate subscription."""
-    customer_id = obj.get("customer")
-    subscription_id = obj.get("subscription")
-    metadata = obj.get("metadata") or {}
+    customer_id = getattr(obj, "customer", None)
+    subscription_id = getattr(obj, "subscription", None)
+    metadata = getattr(obj, "metadata", None) or {}
 
-    bc_id = metadata.get("billing_company_id") or _resolve_billing_company(customer_id, sb)
+    bc_id = (metadata.get("billing_company_id") if isinstance(metadata, dict) else getattr(metadata, "billing_company_id", None)) or _resolve_billing_company(customer_id, sb)
     if not bc_id:
         print(f"[billing-webhook] Cannot resolve billing company for customer {customer_id}")
         return
 
-    tier = metadata.get("tier") or "starter"
+    tier = (metadata.get("tier") if isinstance(metadata, dict) else getattr(metadata, "tier", None)) or "starter"
     tier_info = BILLING_TIERS.get(tier, BILLING_TIERS["starter"])
     now = datetime.now(timezone.utc).isoformat()
 
@@ -294,19 +294,22 @@ def _handle_checkout_completed(obj, sb):
 
 def _handle_subscription_updated(obj, sb):
     """Handle customer.subscription.updated — tier/status change."""
-    customer_id = obj.get("customer")
-    sub_id = obj.get("id")
-    status = obj.get("status")  # active, past_due, canceled, etc.
+    customer_id = getattr(obj, "customer", None)
+    sub_id = obj.id
+    status = obj.status  # active, past_due, canceled, etc.
 
     bc_id = _resolve_billing_company(customer_id, sb)
     if not bc_id:
         return
 
     # Determine tier from price
-    items = obj.get("items", {}).get("data", [])
+    try:
+        items_data = obj.items.data
+    except (AttributeError, KeyError):
+        items_data = []
     tier = "starter"
-    if items:
-        price_id = items[0].get("price", {}).get("id")
+    if items_data:
+        price_id = items_data[0].price.id
         tier = PRICE_TO_TIER.get(price_id, "starter")
 
     tier_info = BILLING_TIERS.get(tier, BILLING_TIERS["starter"])
@@ -345,7 +348,7 @@ def _handle_subscription_updated(obj, sb):
 
 def _handle_subscription_deleted(obj, sb):
     """Handle customer.subscription.deleted — revert to free tier."""
-    customer_id = obj.get("customer")
+    customer_id = getattr(obj, "customer", None)
     bc_id = _resolve_billing_company(customer_id, sb)
     if not bc_id:
         return
@@ -373,7 +376,7 @@ def _handle_subscription_deleted(obj, sb):
 
 def _handle_payment_failed(obj, sb):
     """Handle invoice.payment_failed — mark as past_due."""
-    customer_id = obj.get("customer")
+    customer_id = getattr(obj, "customer", None)
     bc_id = _resolve_billing_company(customer_id, sb)
     if not bc_id:
         return

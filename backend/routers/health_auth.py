@@ -478,18 +478,20 @@ async def health_webhook(request: Request):
     print(f"[HealthWebhook] Received event: {event_type}")
 
     if event_type == "checkout.session.completed":
-        metadata = obj.get("metadata", {})
+        metadata = getattr(obj, "metadata", None) or {}
         print(f"[HealthWebhook] checkout.session.completed metadata={metadata}")
 
-        if metadata.get("type") != "health_subscription":
-            print(f"[HealthWebhook] Skipping — type={metadata.get('type')}")
+        meta_type = metadata.get("type") if isinstance(metadata, dict) else getattr(metadata, "type", None)
+        if meta_type != "health_subscription":
+            print(f"[HealthWebhook] Skipping — type={meta_type}")
             return {"status": "ok", "skipped": True}
 
-        email = metadata.get("email", "")
-        health_user_id = metadata.get("health_user_id", "")
-        plan = metadata.get("plan", "monthly")
-        subscription_id = obj.get("subscription")
-        customer_id = obj.get("customer")
+        _mg = lambda k, d="": (metadata.get(k, d) if isinstance(metadata, dict) else getattr(metadata, k, d))
+        email = _mg("email", "")
+        health_user_id = _mg("health_user_id", "")
+        plan = _mg("plan", "monthly")
+        subscription_id = getattr(obj, "subscription", None)
+        customer_id = getattr(obj, "customer", None)
 
         print(f"[HealthWebhook] email={email} health_user_id={health_user_id} "
               f"plan={plan} subscription_id={subscription_id} customer_id={customer_id}")
@@ -555,7 +557,7 @@ async def health_webhook(request: Request):
         print(f"[HealthWebhook] Verify after write: {verify.data}")
 
     elif event_type == "customer.subscription.deleted":
-        subscription_id = obj.get("id")
+        subscription_id = obj.id
         print(f"[HealthWebhook] subscription.deleted sub_id={subscription_id}")
         if subscription_id:
             result = sb.table("health_subscriptions").update({
@@ -564,7 +566,7 @@ async def health_webhook(request: Request):
             print(f"[HealthWebhook] Canceled rows: {len(result.data or [])}")
 
     elif event_type == "invoice.payment_failed":
-        subscription_id = obj.get("subscription")
+        subscription_id = getattr(obj, "subscription", None)
         print(f"[HealthWebhook] payment_failed sub_id={subscription_id}")
         if subscription_id:
             result = sb.table("health_subscriptions").update({

@@ -126,13 +126,14 @@ async def employer_webhook(request: Request):
     obj = event["data"]["object"]
 
     if event_type == "checkout.session.completed":
-        metadata = obj.get("metadata", {})
+        metadata = getattr(obj, "metadata", None) or {}
+        _mg = lambda k, d=None: (metadata.get(k, d) if isinstance(metadata, dict) else getattr(metadata, k, d))
 
         # --- Employer Pro trial ---
-        if metadata.get("product") == "employer_pro":
-            company_id = metadata.get("company_id")
-            email = metadata.get("email")
-            subscription_id = obj.get("subscription")
+        if _mg("product") == "employer_pro":
+            company_id = _mg("company_id")
+            email = _mg("email")
+            subscription_id = getattr(obj, "subscription", None)
 
             if company_id:
                 from datetime import timedelta
@@ -211,9 +212,9 @@ async def employer_webhook(request: Request):
             return {"status": "ok", "employer_pro": True}
 
         # --- Broker Pro upgrade ---
-        if metadata.get("product") == "broker_pro":
-            company_id = metadata.get("company_id")
-            subscription_id = obj.get("subscription")
+        if _mg("product") == "broker_pro":
+            company_id = _mg("company_id")
+            subscription_id = getattr(obj, "subscription", None)
             if company_id:
                 sb.table("companies").update({
                     "plan": "pro",
@@ -221,12 +222,12 @@ async def employer_webhook(request: Request):
                 }).eq("id", company_id).execute()
             return {"status": "ok", "broker_pro": True}
 
-        if metadata.get("type") != "employer_subscription":
+        if _mg("type") != "employer_subscription":
             return {"status": "ok", "skipped": True}
 
-        email = metadata.get("email", "")
-        subscription_id = obj.get("subscription")
-        customer_id = obj.get("customer")
+        email = _mg("email", "") or ""
+        subscription_id = getattr(obj, "subscription", None)
+        customer_id = getattr(obj, "customer", None)
 
         if email and subscription_id:
             # Check for existing subscription for this email
@@ -238,16 +239,16 @@ async def employer_webhook(request: Request):
                     "stripe_customer_id": customer_id,
                     "stripe_subscription_id": subscription_id,
                     "status": "active",
-                    "tier": metadata.get("tier", "standard"),
+                    "tier": _mg("tier", "standard") or "standard",
                     "updated_at": datetime.now(timezone.utc).isoformat(),
                 }).eq("email", email).execute()
             else:
                 # Create new subscription record
                 sb.table("employer_subscriptions").insert({
                     "email": email,
-                    "company_name": metadata.get("company_name"),
-                    "employee_count": int(metadata.get("employee_count") or 0) or None,
-                    "tier": metadata.get("tier", "standard"),
+                    "company_name": _mg("company_name"),
+                    "employee_count": int(_mg("employee_count") or 0) or None,
+                    "tier": _mg("tier", "standard") or "standard",
                     "stripe_customer_id": customer_id,
                     "stripe_subscription_id": subscription_id,
                     "status": "active",
@@ -255,7 +256,7 @@ async def employer_webhook(request: Request):
 
             # Send welcome email with dashboard link
             employer_email = email
-            tier = metadata.get("tier", "standard")
+            tier = _mg("tier", "standard") or "standard"
             try:
                 from utils.email import send_email
                 send_email(
@@ -279,7 +280,7 @@ async def employer_webhook(request: Request):
                 print(f"WARNING: Failed to send employer welcome email: {exc}")
 
     elif event_type == "customer.subscription.deleted":
-        subscription_id = obj.get("id")
+        subscription_id = obj.id
         if subscription_id:
             # Check if this is an employer pro subscription (companies table)
             company_result = sb.table("companies").select("id, plan").eq(
@@ -309,7 +310,7 @@ async def employer_webhook(request: Request):
                 }).eq("stripe_subscription_id", subscription_id).execute()
 
     elif event_type == "invoice.payment_failed":
-        subscription_id = obj.get("subscription")
+        subscription_id = getattr(obj, "subscription", None)
         if subscription_id:
             sb.table("employer_subscriptions").update({
                 "status": "past_due",
@@ -317,8 +318,8 @@ async def employer_webhook(request: Request):
             }).eq("stripe_subscription_id", subscription_id).execute()
 
     elif event_type == "customer.subscription.updated":
-        subscription_id = obj.get("id")
-        status = obj.get("status")
+        subscription_id = obj.id
+        status = obj.status
         if subscription_id:
             # Check if this is an employer pro subscription (companies table)
             company_result = sb.table("companies").select("id").eq(
@@ -333,19 +334,21 @@ async def employer_webhook(request: Request):
             # Extract current_period_end
             period_end = None
             try:
-                val = obj.get("current_period_end")
+                val = getattr(obj, "current_period_end", None)
                 if val is None:
-                    items = obj.get("items", {})
-                    data = items.get("data", []) if isinstance(items, dict) else []
-                    if data:
-                        val = data[0].get("current_period_end")
+                    try:
+                        items_data = obj.items.data
+                    except (AttributeError, KeyError):
+                        items_data = []
+                    if items_data:
+                        val = getattr(items_data[0], "current_period_end", None)
                 if isinstance(val, (int, float)):
                     period_end = datetime.fromtimestamp(val, tz=timezone.utc).isoformat()
             except Exception:
                 pass
 
             update_data = {
-                "status": obj.get("status", "active"),
+                "status": getattr(obj, "status", "active"),
                 "updated_at": datetime.now(timezone.utc).isoformat(),
             }
             if period_end:

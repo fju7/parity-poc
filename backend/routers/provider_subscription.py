@@ -292,18 +292,19 @@ async def subscription_webhook(request: Request):
     print(f"[ProviderWebhook] Received event: {event_type}")
 
     if event_type == "checkout.session.completed":
-        metadata = obj.get("metadata", {})
+        metadata = getattr(obj, "metadata", None) or {}
         print(f"[ProviderWebhook] checkout.session.completed metadata={metadata}")
 
         # Only handle provider_monitoring type
-        if metadata.get("type") != "provider_monitoring":
-            print(f"[ProviderWebhook] Skipping — type={metadata.get('type')}")
+        meta_type = metadata.get("type") if isinstance(metadata, dict) else getattr(metadata, "type", None)
+        if meta_type != "provider_monitoring":
+            print(f"[ProviderWebhook] Skipping — type={meta_type}")
             return {"status": "ok", "skipped": True}
 
-        company_id = metadata.get("company_id")
-        user_email = metadata.get("user_email", "")
-        subscription_id = obj.get("subscription")
-        customer_id = obj.get("customer")
+        company_id = metadata.get("company_id") if isinstance(metadata, dict) else getattr(metadata, "company_id", None)
+        user_email = (metadata.get("user_email", "") if isinstance(metadata, dict) else getattr(metadata, "user_email", ""))
+        subscription_id = getattr(obj, "subscription", None)
+        customer_id = getattr(obj, "customer", None)
 
         print(f"[ProviderWebhook] company_id={company_id} user_email={user_email} "
               f"subscription_id={subscription_id} customer_id={customer_id}")
@@ -354,7 +355,7 @@ async def subscription_webhook(request: Request):
                   f"subscription_id={subscription_id}, skipping DB write")
 
     elif event_type == "customer.subscription.deleted":
-        subscription_id = obj.get("id")
+        subscription_id = obj.id
         print(f"[ProviderWebhook] subscription.deleted sub_id={subscription_id}")
         if subscription_id:
             # Mark subscription as canceled
@@ -372,7 +373,7 @@ async def subscription_webhook(request: Request):
             ).execute()
 
     elif event_type == "invoice.payment_failed":
-        subscription_id = obj.get("subscription")
+        subscription_id = getattr(obj, "subscription", None)
         print(f"[ProviderWebhook] payment_failed sub_id={subscription_id}")
         if subscription_id:
             result = sb.table("provider_subscriptions").update({
@@ -703,14 +704,14 @@ async def my_subscription(request: Request):
                 import stripe as stripe_lib
                 stripe_lib.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
                 stripe_sub = stripe_lib.Subscription.retrieve(stripe_sub_id)
-                entry["stripe_status"] = stripe_sub.get("status") or stripe_sub.status
-                period_end = stripe_sub.get("current_period_end")
+                entry["stripe_status"] = stripe_sub.status
+                period_end = stripe_sub.current_period_end
                 if period_end:
                     from datetime import datetime, timezone
                     entry["current_period_end"] = datetime.fromtimestamp(
                         period_end, tz=timezone.utc
                     ).isoformat()
-                trial_end = stripe_sub.get("trial_end")
+                trial_end = stripe_sub.trial_end
                 if trial_end:
                     from datetime import datetime, timezone
                     entry["trial_ends_at"] = datetime.fromtimestamp(

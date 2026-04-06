@@ -422,14 +422,15 @@ async def stripe_webhook(request: Request):
     obj = event["data"]["object"]
 
     if event_type == "checkout.session.completed":
-        user_id = obj.get("metadata", {}).get("supabase_user_id")
-        mode = obj.get("mode")
-        subscription_id = obj.get("subscription")
-        customer_id = obj.get("customer")
+        metadata = getattr(obj, "metadata", None) or {}
+        user_id = metadata.get("supabase_user_id") if isinstance(metadata, dict) else getattr(metadata, "supabase_user_id", None)
+        mode = getattr(obj, "mode", None)
+        subscription_id = getattr(obj, "subscription", None)
+        customer_id = getattr(obj, "customer", None)
 
         # One-time payment (e.g. additional topic request purchase)
         if user_id and mode == "payment":
-            payment_type = obj.get("metadata", {}).get("type")
+            payment_type = metadata.get("type") if isinstance(metadata, dict) else getattr(metadata, "type", None)
             if payment_type == "topic_request":
                 # Grant one additional topic request by decrementing used count
                 result = sb.table("signal_subscriptions").select(
@@ -459,7 +460,7 @@ async def stripe_webhook(request: Request):
             }, on_conflict="user_id").execute()
 
             # If this checkout was an upgrade, cancel the old subscription
-            old_sub_id = obj.get("metadata", {}).get("old_subscription_id")
+            old_sub_id = metadata.get("old_subscription_id") if isinstance(metadata, dict) else getattr(metadata, "old_subscription_id", None)
             if old_sub_id:
                 try:
                     stripe.Subscription.cancel(old_sub_id)
@@ -468,9 +469,10 @@ async def stripe_webhook(request: Request):
                     print(f"[Stripe] Failed to cancel old subscription {old_sub_id}: {exc}")
 
     elif event_type in ("customer.subscription.updated", "customer.subscription.deleted"):
-        subscription_id = obj.get("id")
-        status = obj.get("status")  # active, past_due, canceled, etc.
-        price_id = obj["items"]["data"][0]["price"]["id"] if obj.get("items", {}).get("data") else ""
+        subscription_id = obj.id
+        status = obj.status  # active, past_due, canceled, etc.
+        items_data = getattr(getattr(obj, "items", None), "data", None)
+        price_id = items_data[0]["price"]["id"] if items_data else ""
         new_tier = _tier_from_price_id(price_id)
         period_end = _get_period_end(obj)
 
@@ -515,7 +517,7 @@ async def stripe_webhook(request: Request):
                 }).eq("stripe_subscription_id", subscription_id).execute()
 
     elif event_type == "invoice.payment_failed":
-        subscription_id = obj.get("subscription")
+        subscription_id = getattr(obj, "subscription", None)
         if subscription_id:
             sb.table("signal_subscriptions").update({
                 "status": "past_due",
