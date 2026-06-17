@@ -1090,6 +1090,40 @@ where denied claims are re-submitted and matched to later 835 payments.
 - Settings: SubscriptionSection with tier, limits, upgrade/portal buttons
 - Payment success/cancelled URL param toasts
 
+## Session PH — Parity Health OPPS Care-Setting Benchmark (Complete)
+Fixed Parity Health benchmarking hospital-outpatient bills against the
+(lower) PFS rate instead of OPPS. Many codes (e.g. nuclear-medicine 783xx)
+exist in BOTH tables; the lookup chain tried PFS first, so a Moffitt bill
+for 78306 returned PFS $250.48 instead of the OPPS facility rate.
+
+### Backend (routers/benchmark.py)
+- detect_care_setting(provider_name, place_of_service_code=None) → returns
+  "hospital_outpatient" | "asc" | "physician_office". POS code wins when
+  present (22/19 = HOPD, 24 = ASC, 11 = office); else matches
+  HOSPITAL_OUTPATIENT_KEYWORDS (config constant: Hospital, Medical Center,
+  Cancer Center, Health System, Moffitt, Mayo, Cleveland Clinic). Bare
+  "clinic" intentionally excluded (independent clinics bill PFS).
+- lookup_rate() / lookup_rate_historical() gained optional care_setting
+  param: facility settings try OPPS before PFS. Default None preserves
+  PFS-first for the 7 other callers (Provider/Employer/Broker) — no change.
+- lookup_opps() now returns (rate, apc_code); OPPS label shows the APC,
+  e.g. "CMS OPPS 2026 (APC 5591)". load_data() now loads the apc_code column.
+- /api/benchmark request: added providerName + per-line placeOfService.
+  Response: per-line careSetting + top-level careSetting/careSettingNote
+  (OPPS facility-rate explanation, emitted once when an OPPS rate is used).
+
+### Frontend
+- App.jsx: fetchBenchmark() sends providerName + per-line placeOfService;
+  all line-item builders (AI + EOB) carry place_of_service; careSettingNote
+  attached to the report.
+- ReportView.jsx: blue info banner renders report.careSettingNote.
+
+### Data note
+OPPS data already loaded (data/opps_rates.csv, no migration needed).
+Verified vs CMS CY2026 Addendum B: 78306 → APC 5591 = $408.43 (Status S).
+The whole 783xx nuclear-medicine family correctly tiers across APC
+5591–5594; bone scans are Level 1 ($408.43), NOT the higher PET/SPECT tiers.
+
 ## Migrations status
 All migrations through 056 have been run on production.
 Migrations 057-065 pending. No new migration for BL-12.

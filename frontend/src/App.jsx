@@ -526,7 +526,8 @@ export default function App() {
         benchmarkResponse = await fetchBenchmark(
           billData.provider.zip,
           billData.lineItems,
-          billData.serviceDate
+          billData.serviceDate,
+          billData.provider?.name
         );
       } catch (err) {
         clearTimeout(slowTimer);
@@ -560,6 +561,11 @@ export default function App() {
         scored.partialWarning = `None of the ${nullCount} procedure codes could be benchmarked against current CMS data.`;
       } else if (nullCount > 0) {
         scored.partialWarning = `${nullCount} of ${benchmarkResponse.lineItems.length} procedure codes could not be benchmarked against current CMS data.`;
+      }
+
+      // Care-setting note (OPPS facility benchmark explanation), if applicable
+      if (benchmarkResponse.careSettingNote) {
+        scored.careSettingNote = benchmarkResponse.careSettingNote;
       }
 
       // Step 4: Run coding intelligence checks
@@ -739,6 +745,7 @@ export default function App() {
             billedAmount: li.billed_amount || 0,
             quantity: li.quantity || 1,
             modifier: li.modifier || null,
+            placeOfService: li.place_of_service || null,
           })),
       };
 
@@ -876,6 +883,7 @@ export default function App() {
               billedAmount: li.billed_amount || 0,
               quantity: li.quantity || 1,
               modifier: li.modifier || null,
+              placeOfService: li.place_of_service || null,
             })),
         };
 
@@ -998,6 +1006,7 @@ export default function App() {
               billedAmount: li.billed_amount || 0,
               quantity: li.quantity || 1,
               modifier: li.modifier || null,
+              placeOfService: li.place_of_service || null,
             })),
         };
 
@@ -1430,17 +1439,22 @@ async function renderPDFToBase64(file) {
 // API call with timeout + retry
 // ---------------------------------------------------------------------------
 
-async function fetchBenchmark(zipCode, lineItems, serviceDate) {
+async function fetchBenchmark(zipCode, lineItems, serviceDate, providerName) {
   const body = {
     zipCode: zipCode || "00000",
     lineItems: lineItems.map((i) => ({
       code: i.code,
       codeType: i.codeType,
       billedAmount: i.billedAmount,
+      placeOfService: i.placeOfService || null,
     })),
   };
   if (serviceDate) {
     body.serviceDate = serviceDate;
+  }
+  if (providerName) {
+    // Used server-side for care-setting (OPPS vs PFS) detection.
+    body.providerName = providerName;
   }
 
   // First attempt

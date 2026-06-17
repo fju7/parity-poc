@@ -49,6 +49,79 @@ OPPS_VINTAGE_SHORT = f"CMS OPPS {OPPS_VINTAGE}"
 CLFS_VINTAGE_SHORT = f"CMS CLFS {CLFS_VINTAGE}"
 
 # ---------------------------------------------------------------------------
+# Care-setting detection
+# ---------------------------------------------------------------------------
+# Hospital outpatient departments and ASCs are reimbursed under OPPS, not the
+# Physician Fee Schedule. Many codes (e.g. nuclear-medicine 783xx) exist in
+# BOTH the PFS and OPPS tables, so without a care-setting signal the lookup
+# would always return the (lower) PFS rate even for a hospital bill. The
+# helpers below classify the setting so the lookup can prefer the correct
+# rate source.
+
+# CMS place-of-service codes that indicate a facility setting.
+HOSPITAL_OUTPATIENT_POS = {"22", "19"}  # 22 = on-campus, 19 = off-campus HOPD
+ASC_POS = {"24"}                        # ambulatory surgical center
+PHYSICIAN_OFFICE_POS = {"11"}           # physician office
+
+# Provider-name substrings (case-insensitive) that indicate a hospital or
+# health-system facility billing under OPPS. Extend this list as new facility
+# name patterns are encountered — it is intentionally a simple config constant.
+#
+# NOTE: bare "clinic" is deliberately EXCLUDED. Independent clinics bill under
+# the PFS, so "clinic" only implies a facility when it is part of a health-
+# system name (e.g. "Cleveland Clinic", matched explicitly, or any name
+# containing "health system").
+HOSPITAL_OUTPATIENT_KEYWORDS = [
+    "hospital",
+    "medical center",
+    "cancer center",
+    "health system",
+    "moffitt",
+    "mayo",
+    "cleveland clinic",
+]
+
+# Shown once on the analysis when a hospital-outpatient/ASC OPPS rate is used.
+OPPS_CARE_SETTING_NOTE = (
+    "Benchmark reflects CMS Outpatient Prospective Payment System (OPPS) "
+    "facility rates, which apply to hospital outpatient departments. "
+    "Physician professional fees billed separately are not included in "
+    "this benchmark."
+)
+
+
+def detect_care_setting(
+    provider_name: Optional[str],
+    place_of_service_code: Optional[str] = None,
+) -> str:
+    """Classify the billing care setting.
+
+    Returns one of "hospital_outpatient", "asc", or "physician_office".
+
+    A place-of-service code takes precedence when present and recognized;
+    otherwise the provider name is matched against
+    HOSPITAL_OUTPATIENT_KEYWORDS. Defaults to "physician_office" when no
+    facility signal is found (no POS code and no facility keyword).
+    """
+    pos = str(place_of_service_code).strip() if place_of_service_code is not None else ""
+    if pos:
+        if pos.isdigit():
+            pos = pos.zfill(2)
+        if pos in ASC_POS:
+            return "asc"
+        if pos in HOSPITAL_OUTPATIENT_POS:
+            return "hospital_outpatient"
+        if pos in PHYSICIAN_OFFICE_POS:
+            return "physician_office"
+        # Unrecognized POS code — fall through to name-based detection.
+
+    name = (provider_name or "").lower()
+    if any(keyword in name for keyword in HOSPITAL_OUTPATIENT_KEYWORDS):
+        return "hospital_outpatient"
+
+    return "physician_office"
+
+# ---------------------------------------------------------------------------
 # Data loading (called once at import time via load_data())
 # ---------------------------------------------------------------------------
 
@@ -118,11 +191,12 @@ def load_data():
     zip_locality.set_index("zip_code", inplace=True)
 
     # --- OPPS rates (7K rows) ---
-    # Only need hcpcs_code, payment_rate, description (skip 'apc_code')
+    # Need hcpcs_code, payment_rate, description, and apc_code (apc_code is
+    # surfaced in the benchmark source label, e.g. "CMS OPPS 2026 (APC 5591)").
     opps_rates = pd.read_csv(
         opps_path,
-        usecols=["hcpcs_code", "payment_rate", "description"],
-        dtype={"hcpcs_code": str},
+        usecols=["hcpcs_code", "payment_rate", "description", "apc_code"],
+        dtype={"hcpcs_code": str, "apc_code": str},
     )
     opps_rates["payment_rate"] = pd.to_numeric(
         opps_rates["payment_rate"], errors="coerce"
@@ -174,12 +248,14 @@ class LineItemRequest(BaseModel):
     code: str
     codeType: str  # "CPT", "REVENUE", "UNKNOWN"
     billedAmount: float
+    placeOfService: Optional[str] = None  # 2-digit POS code, if known
 
 
 class BenchmarkRequest(BaseModel):
     zipCode: str
     lineItems: List[LineItemRequest]
     serviceDate: Optional[str] = None  # MM/DD/YYYY or YYYY-MM-DD
+    providerName: Optional[str] = None  # used for care-setting (OPPS vs PFS) detection
 
 
 class LineItemResponse(BaseModel):
@@ -193,6 +269,7 @@ class LineItemResponse(BaseModel):
     isHistorical: bool = False
     historicalDataAvailable: bool = True
     warning: Optional[str] = None
+    careSetting: Optional[str] = None  # "hospital_outpatient" | "asc" | "physician_office"
 
 
 class CodingAlert(BaseModel):
@@ -207,6 +284,8 @@ class CodingAlert(BaseModel):
 class BenchmarkResponse(BaseModel):
     lineItems: List[LineItemResponse]
     codingAlerts: List[CodingAlert] = []
+    careSetting: Optional[str] = None       # overall detected setting for the bill
+    careSettingNote: Optional[str] = None   # explanatory note when an OPPS rate is used
 
 
 # ---------------------------------------------------------------------------
@@ -230,11 +309,20 @@ def benchmark(req: BenchmarkRequest):
             use_historical = False
 
     results = []
+    any_facility = False
+    any_opps_used = False
     for item in req.lineItems:
+        # Detect care setting per line (provider name + line-level POS) so a
+        # hospital-outpatient/ASC bill is benchmarked against OPPS, not PFS.
+        setting = detect_care_setting(req.providerName, item.placeOfService)
+        if setting in ("hospital_outpatient", "asc"):
+            any_facility = True
+
         if use_historical:
             rate, source, loc, vintage, is_hist, hist_avail, warning = (
                 lookup_rate_historical(
-                    item.code, item.codeType, service_date, carrier, locality
+                    item.code, item.codeType, service_date, carrier, locality,
+                    care_setting=setting,
                 )
             )
             results.append(
@@ -249,11 +337,13 @@ def benchmark(req: BenchmarkRequest):
                     isHistorical=is_hist,
                     historicalDataAvailable=hist_avail,
                     warning=warning,
+                    careSetting=setting,
                 )
             )
         else:
             rate, source, loc, vintage, note = lookup_rate(
-                item.code, item.codeType, carrier, locality
+                item.code, item.codeType, carrier, locality,
+                care_setting=setting,
             )
             results.append(
                 LineItemResponse(
@@ -265,14 +355,27 @@ def benchmark(req: BenchmarkRequest):
                     dataVintage=vintage,
                     localityCode=loc,
                     warning=note,
+                    careSetting=setting,
                 )
             )
+
+        if source.startswith(OPPS_SOURCE):
+            any_opps_used = True
 
     # Run coding intelligence checks
     codes = [item.code for item in req.lineItems]
     coding_alerts = run_coding_checks(codes)
 
-    return BenchmarkResponse(lineItems=results, codingAlerts=coding_alerts)
+    # Surface the OPPS facility note once when an OPPS rate was actually used.
+    overall_setting = "hospital_outpatient" if any_facility else "physician_office"
+    care_setting_note = OPPS_CARE_SETTING_NOTE if any_opps_used else None
+
+    return BenchmarkResponse(
+        lineItems=results,
+        codingAlerts=coding_alerts,
+        careSetting=overall_setting,
+        careSettingNote=care_setting_note,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -298,6 +401,7 @@ def lookup_rate(
     carrier: Optional[str],
     locality: Optional[str],
     date_of_service=None,
+    care_setting: Optional[str] = None,
 ) -> tuple[Optional[float], str, Optional[str], Optional[str], Optional[str]]:
     """Look up the benchmark rate for a procedure code.
 
@@ -308,8 +412,15 @@ def lookup_rate(
     back to current in-memory rates with a warning note if historical data
     is not loaded.  When date_of_service is None or in the current rate year,
     uses the fast in-memory path with no Supabase call.
+
+    *care_setting* ("hospital_outpatient" | "asc" | "physician_office" | None)
+    controls source preference: for facility settings the OPPS facility rate
+    is tried before the PFS rate (many codes exist in both tables). When None
+    or "physician_office", the historical PFS-first behavior is preserved so
+    other callers are unaffected.
     """
     code = code.strip()
+    prefer_facility = care_setting in ("hospital_outpatient", "asc")
 
     # --- Resolve date_of_service to a date object ---
     svc_date = None
@@ -323,7 +434,8 @@ def lookup_rate(
     if svc_date is not None and str(svc_date.year) != PFS_VINTAGE:
         (rate, source, loc, vintage,
          is_hist, hist_avail, warning) = lookup_rate_historical(
-            code, code_type, svc_date, carrier, locality
+            code, code_type, svc_date, carrier, locality,
+            care_setting=care_setting,
         )
         note = None
         if warning:
@@ -333,20 +445,37 @@ def lookup_rate(
         return rate, source, loc, vintage, note
 
     # --- Current-year fast path (in-memory DataFrames) ---
+    # Hospital outpatient / ASC: prefer the OPPS facility rate over PFS.
+    if prefer_facility:
+        rate, apc = lookup_opps(code)
+        if rate is not None:
+            source, vintage = _opps_labels(apc)
+            return rate, source, locality, vintage, None
+
     if code_type in ("CPT", "UNKNOWN") and carrier and locality:
         rate = lookup_pfs(code, carrier, locality)
         if rate is not None:
             return rate, PFS_SOURCE, locality, PFS_VINTAGE_SHORT, None
 
-    rate = lookup_opps(code)
+    rate, apc = lookup_opps(code)
     if rate is not None:
-        return rate, OPPS_SOURCE, locality, OPPS_VINTAGE_SHORT, None
+        source, vintage = _opps_labels(apc)
+        return rate, source, locality, vintage, None
 
     rate = lookup_clfs(code)
     if rate is not None:
         return rate, CLFS_SOURCE, locality, CLFS_VINTAGE_SHORT, None
 
     return None, "NOT_FOUND", locality, None, None
+
+
+def _opps_labels(apc: Optional[str]) -> tuple[str, str]:
+    """Return (source, vintage_short) OPPS labels, appending the APC code when
+    known, e.g. ("CMS Outpatient Prospective Payment System 2026 (APC 5591)",
+    "CMS OPPS 2026 (APC 5591)")."""
+    if apc:
+        return f"{OPPS_SOURCE} (APC {apc})", f"{OPPS_VINTAGE_SHORT} (APC {apc})"
+    return OPPS_SOURCE, OPPS_VINTAGE_SHORT
 
 
 def lookup_pfs(
@@ -373,18 +502,23 @@ def lookup_pfs(
     return None
 
 
-def lookup_opps(code: str) -> Optional[float]:
-    """Look up a code in the OPPS rates table."""
+def lookup_opps(code: str) -> tuple[Optional[float], Optional[str]]:
+    """Look up a code in the OPPS rates table.
+
+    Returns (payment_rate, apc_code). apc_code may be None if absent.
+    """
     try:
         row = opps_rates.loc[code]
         if isinstance(row, pd.DataFrame):
             row = row.iloc[0]
         rate = float(row["payment_rate"])
+        apc = row.get("apc_code")
+        apc = str(apc) if apc is not None and str(apc) not in ("nan", "") else None
         if rate > 0:
-            return round(rate, 2)
+            return round(rate, 2), apc
     except KeyError:
         pass
-    return None
+    return None, None
 
 
 def lookup_clfs(code: str) -> Optional[float]:
@@ -431,11 +565,13 @@ def lookup_rate_historical(
     service_date,
     carrier: Optional[str],
     locality: Optional[str],
+    care_setting: Optional[str] = None,
 ) -> tuple[Optional[float], str, Optional[str], Optional[str], bool, bool, Optional[str]]:
     """Look up benchmark rate from Supabase historical tables.
 
     Same PFS -> OPPS -> CLFS chain as lookup_rate(), but against the
-    versioned historical tables.
+    versioned historical tables. For facility *care_setting* values
+    ("hospital_outpatient" | "asc") OPPS is tried before PFS.
 
     Returns (rate, source, locality_code, data_vintage,
              is_historical, historical_data_available, warning).
@@ -447,6 +583,14 @@ def lookup_rate_historical(
 
     code = code.strip()
     warning = None
+    prefer_facility = care_setting in ("hospital_outpatient", "asc")
+
+    # --- Facility settings: try OPPS historical first ---
+    if prefer_facility:
+        rate, found = _query_historical_opps(code, service_date)
+        if rate is not None:
+            return (rate, OPPS_SOURCE, locality, OPPS_VINTAGE_SHORT,
+                    True, True, None)
 
     # --- Try PFS historical ---
     if code_type in ("CPT", "UNKNOWN") and carrier and locality:
@@ -471,7 +615,9 @@ def lookup_rate_historical(
                 True, True, None)
 
     # --- Fall back to current in-memory rates ---
-    rate, source, loc, vintage, _note = lookup_rate(code, code_type, carrier, locality)
+    rate, source, loc, vintage, _note = lookup_rate(
+        code, code_type, carrier, locality, care_setting=care_setting
+    )
     if rate is not None:
         year = service_date.year if service_date else "prior"
         warning = (
