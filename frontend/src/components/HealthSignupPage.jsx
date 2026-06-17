@@ -190,7 +190,7 @@ export default function HealthSignupPage() {
               </p>
               <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
                 {[
-                  "3 free bill analyses — no credit card needed",
+                  "Free to start — no credit card needed",
                   "Instant AI analysis of medical bills, EOBs, and denials",
                   "Subscribe for unlimited access from $9.95/mo",
                 ].map(t => <p key={t} style={{ fontSize: 13, color: "#475569", margin: 0 }}>&#10003; {t}</p>)}
@@ -252,7 +252,7 @@ export default function HealthSignupPage() {
               <div style={{ textAlign: "center", marginBottom: 28 }}>
                 <h2 style={{ fontSize: 24, fontWeight: 700, color: "#f1f5f9", margin: 0 }}>Choose your plan</h2>
                 <p style={{ color: "#94a3b8", marginTop: 8, fontSize: 14 }}>
-                  You get 3 free analyses. Subscribe for unlimited access.
+                  Start for free. Subscribe anytime for unlimited access.
                 </p>
               </div>
 
@@ -299,7 +299,7 @@ export default function HealthSignupPage() {
                 width: "100%", padding: "10px", borderRadius: 8,
                 border: "1px solid rgba(255,255,255,0.12)", background: "transparent",
                 color: "#94a3b8", fontSize: 14, cursor: "pointer",
-              }}>Skip for now — use 3 free analyses</button>
+              }}>Skip for now — start analyzing free</button>
             </>
           )}
 

@@ -305,9 +305,9 @@ async def signup(req: SignupRequest, request: Request):
           <p>Your Parity Health account is ready. Upload any medical bill, EOB,
              or denial letter and we'll analyze it instantly.</p>
           <div style="background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 16px; margin: 20px 0;">
-            <p style="margin: 0 0 8px; font-weight: 600; color: #0d9488;">Your free trial</p>
+            <p style="margin: 0 0 8px; font-weight: 600; color: #0d9488;">Getting started</p>
             <p style="margin: 0; font-size: 14px; color: #475569;">
-              You get <strong>3 free bill analyses</strong>. Subscribe anytime for unlimited access.
+              Upload any medical bill, EOB, or denial letter and get an instant, plain-English analysis &mdash; free.
             </p>
           </div>
           <a href="https://health.civicscale.ai" style="display: inline-block; background: #0d9488; color: #fff;
