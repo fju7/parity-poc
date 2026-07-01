@@ -20,8 +20,8 @@
     "NCCN or ASCO guidelines supporting MRD testing",
     "Comparative coverage policies from Medicare or other insurers for 0340U"
   ],
-  "appeal_deadline_hint": "30-day Florida Adverse Determination panel review, or up to 365 days for a standard appeal, from June 22, 2026.",
-  "deadline_days_expedited": 30,
+  "appeal_deadline_hint": "You have up to one year (365 days) from June 22, 2026 to appeal. However, if you want a panel of reviewers (instead of just one doctor) to look at your case — which may give you a stronger review — you must send your written appeal within 30 days of this letter (by approximately July 22, 2026). Act quickly if you want the panel review.",
+  "deadline_days_expedited": 3,
   "deadline_days_standard": 365,
   "appeal_submission": {
     "address": "eviCore healthcare, Attn: Appeals Department, PO Box 5620, Hartford, CT 06102",

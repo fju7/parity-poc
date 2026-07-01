@@ -17,7 +17,7 @@ Inputs: `denial_source.txt` (Phase-1 input), `expected_extraction.json` (Phase-1
 | 5 | `pre_service is true` and `billed_amount is None` |
 | 6 | `appeal_submission.fax == "866-889-8061"` |
 | 7 | `appeal_submission.address` contains `"PO Box 5620"` and `"Hartford"` |
-| 8 | `deadline_days_expedited == 30` and `deadline_days_standard == 365` |
+| 8 | `deadline_days_expedited == 3` and `deadline_days_standard == 365` (denial_source.txt literally states a 72-hour expedited window; the 30-day FL panel window lives in `appeal_deadline_hint`, not this field) |
 | 9 | `peer_to_peer_contact == "800-792-8744"` |
 | 10 | `state == "FL"` (derivable from patient_address if not stated) |
 | 11 | `procedure_terms` includes `"Signatera"` |
@@ -25,7 +25,7 @@ Inputs: `denial_source.txt` (Phase-1 input), `expected_extraction.json` (Phase-1
 ## PH-1 — pre-generation validators (generate_appeal)
 | # | Assertion |
 |---|-----------|
-| 12 | Final `claim_number` used in the letter `!= payer_guideline_id` (never "MOL.CU.117") |
+| 12 | Final `claim_number` used in the letter `!= denial_reason_code` **and** `!= payer_guideline_id` (never "MOL.CU.117"; the check compares against `denial_reason_code`, NOT `denial_category`) |
 | 13 | If `claim_number` is missing/equal-to-code, it is replaced by `"{member_id} / {YYYY-MM-DD}"` and a warning is logged |
 | 14 | `cpt_codes` are deduplicated before use |
 
@@ -34,7 +34,8 @@ Inputs: `denial_source.txt` (Phase-1 input), `expected_extraction.json` (Phase-1
 |---|-----------|
 | 15 | Cleaned letter contains **no** bracketed placeholder `\[[^\]]+\]` for a field we have a value for (patient_address, submission address) |
 | 16 | No empty brackets remain; unresolved-placeholder lines are removed entirely |
-| 17 | Any `[Date …]` placeholder is replaced with the generation date (today), not an invented date |
+| 17 | Letterhead date == today's LOCAL date (America/Chicago). The `__LETTER_DATE__` token is stamped with today; if absent, a solely-date line within the first 8 non-empty lines is stamped. Mid-sentence dates (e.g. the denial date reference) are left untouched |
+| 17b | Named signature present: a bracket matching signature / advocate / provider name / sender name / your name / name and title / representative is FILLED with "Submitted on behalf of {patient_name}" (or "the member" if patient_name is null) — never line-removed, never blank |
 | 18 | `[Signature]` → `"Submitted on behalf of {patient_name}"` |
 | 19 | `validation_log` is returned and lists each placeholder with an action of substituted / date_substituted / signature_substituted / line_removed |
 

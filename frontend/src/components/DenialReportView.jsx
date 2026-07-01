@@ -176,7 +176,8 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
         {/* Where & How to Appeal — submission address, deadlines, peer-to-peer */}
         {(analysis.appeal_submission?.address || analysis.appeal_submission?.fax ||
           analysis.appeal_submission?.phone || analysis.deadline_days_expedited ||
-          analysis.deadline_days_standard || analysis.peer_to_peer_contact) && (
+          analysis.deadline_days_standard || analysis.peer_to_peer_contact ||
+          analysis.appeal_deadline_hint) && (
           <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <h3 className="text-lg font-bold text-[#1B3A5C] mb-3">Where &amp; How to Appeal</h3>
             {analysis.appeal_submission?.address && (
@@ -205,6 +206,11 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
             {analysis.peer_to_peer_contact && (
               <p className="text-sm text-gray-700 mt-2">
                 Your doctor can call <span className="font-medium">{analysis.peer_to_peer_contact}</span> for a peer-to-peer review.
+              </p>
+            )}
+            {analysis.appeal_deadline_hint && (
+              <p className="text-sm text-gray-600 mt-3">
+                <span className="font-semibold">Additional deadline note:</span> {analysis.appeal_deadline_hint}
               </p>
             )}
           </div>

@@ -19,6 +19,7 @@ import time
 import uuid
 
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from typing import Optional, List
 
@@ -646,6 +647,7 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - Closes with a clear request for reconsideration and a deadline expectation
 - Uses professional but plain language — not legal jargon
 - Is formatted as a real letter (date, addresses, subject line, body, closing)
+- For the letterhead date, output the exact literal token __LETTER_DATE__ (our system substitutes the correct date). Use __LETTER_DATE__ exactly once, only as the letterhead date. Never write any other calendar date to mean "today"; dates that refer to the denial (e.g. the denial date) should be written normally.
 - If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal — this strengthens the letter with scientific backing
 
 Return only the letter text, no explanation or commentary."""
@@ -687,23 +689,75 @@ def _resolve_placeholder(label: str, da: dict):
     return mapping.get(key)
 
 
+# Deterministic letterhead-date token the model is asked to emit; replaced in _validate_letter.
+_LETTER_DATE_TOKEN = "__LETTER_DATE__"
+
+# Bracket inner-text tokens that MUST be filled with a named signature (never line-removed).
+_SIGNATURE_TOKENS = (
+    "signature", "advocate", "provider name", "sender name",
+    "your name", "name and title", "representative",
+)
+
+# Placeholder keys whose substituted value is PHI — redacted from validation_log (CO-6).
+_PHI_PLACEHOLDER_KEYS = {
+    "patient name", "patient", "name",
+    "member id", "member id #", "member #",
+    "claim number", "claim #", "claim",
+    "address", "patient address",
+}
+
+# A line that is *solely* a date: month-name form or MM/DD/YYYY, optional surrounding space.
+_DATE_ONLY_RE = re.compile(
+    r"^\s*(?:"
+    r"(?:January|February|March|April|May|June|July|August|September|October|November|December)"
+    r"\s+\d{1,2},?\s+\d{4}"
+    r"|\d{1,2}/\d{1,2}/\d{4}"
+    r")\s*$",
+    re.IGNORECASE,
+)
+
+
+def _today_local() -> str:
+    """Today's date in America/Chicago, formatted like 'July 1, 2026' (no leading zero)."""
+    now = datetime.now(ZoneInfo("America/Chicago"))
+    return f"{now.strftime('%B')} {now.day}, {now.year}"
+
+
+def _is_signature_placeholder(key: str) -> bool:
+    return any(tok in key for tok in _SIGNATURE_TOKENS)
+
+
 def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
-    """Deterministically clean bracketed placeholders from a generated appeal letter.
+    """Deterministically clean a generated appeal letter. Pure string manipulation — no
+    Claude call.
 
-    For each ``[Placeholder]``: substitute a known value from denial_analysis when we
-    have one; special-case ``[Date]``/invented dates (-> today) and ``[Signature]``
-    (-> "Submitted on behalf of {patient_name}"); otherwise drop the entire line so no
-    empty bracket is ever emitted. Pure string manipulation — no Claude call.
+    - Letterhead date: replace the literal __LETTER_DATE__ token with today's LOCAL date
+      (America/Chicago). If the model ignored the token, fall back to stamping a line that
+      is *solely* a date within the first 8 non-empty lines (mid-sentence dates such as a
+      denial-date reference are left untouched).
+    - Named signature: any bracket matching signature/advocate/provider name/etc. is FILLED
+      with "Submitted on behalf of {patient_name}" (or "the member" if unknown) — never
+      removed or left blank.
+    - Other [Placeholder]s: substitute a known value from denial_analysis, or drop the whole
+      line so no empty bracket is emitted.
+    - validation_log never contains the VALUE of a PHI field (patient_name, patient_address,
+      member_id, claim_number); those are logged as "[REDACTED]".
 
-    Returns {"letter_text": cleaned, "validation_log": [{placeholder, action,
-    substituted_value}]}.
+    Returns {"letter_text": cleaned, "validation_log": [{field, action, value}]}.
     """
-    today = datetime.utcnow().strftime("%B %d, %Y")
-    patient_name = denial_analysis.get("patient_name") or "the patient"
+    today = _today_local()
+    pn = denial_analysis.get("patient_name")
+    signature_value = f"Submitted on behalf of {pn}" if pn else "Submitted on behalf of the member"
     placeholder_re = re.compile(r"\[([^\]]+)\]")
     log: List[dict] = []
-    out_lines: List[str] = []
 
+    # -- CO-1: deterministic letterhead date via the __LETTER_DATE__ token --
+    token_present = _LETTER_DATE_TOKEN in letter_text
+    if token_present:
+        letter_text = letter_text.replace(_LETTER_DATE_TOKEN, today)
+        log.append({"field": "letter_date", "action": "stamped", "value": today})
+
+    out_lines: List[str] = []
     for line in letter_text.split("\n"):
         labels = placeholder_re.findall(line)
         if not labels:
@@ -717,25 +771,50 @@ def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
             key = label.strip().lower()
             if key == "date" or key.startswith("date"):
                 new_line = new_line.replace(token, today)
-                log.append({"placeholder": token, "action": "date_substituted", "substituted_value": today})
-            elif key == "signature":
-                val = f"Submitted on behalf of {patient_name}"
-                new_line = new_line.replace(token, val)
-                log.append({"placeholder": token, "action": "signature_substituted", "substituted_value": val})
+                log.append({"field": token, "action": "date_substituted", "value": today})
+            elif _is_signature_placeholder(key):
+                # CO-2: named signature — always filled, never removed. Value embeds
+                # patient_name (PHI), so it is redacted from the log (CO-6).
+                new_line = new_line.replace(token, signature_value)
+                log.append({"field": token, "action": "signature_substituted", "value": "[REDACTED]"})
             else:
                 val = _resolve_placeholder(label, denial_analysis)
                 if val:
                     new_line = new_line.replace(token, str(val))
-                    log.append({"placeholder": token, "action": "substituted", "substituted_value": str(val)})
+                    is_phi = key.rstrip(":").strip() in _PHI_PLACEHOLDER_KEYS
+                    log.append({
+                        "field": token,
+                        "action": "substituted",
+                        "value": "[REDACTED]" if is_phi else str(val),
+                    })
                 else:
                     drop_line = True
-                    log.append({"placeholder": token, "action": "line_removed", "substituted_value": None})
+                    log.append({"field": token, "action": "line_removed", "value": None})
 
         if drop_line:
             continue  # unresolved placeholder -> remove the whole line (never emit empty brackets)
         out_lines.append(new_line)
 
-    return {"letter_text": "\n".join(out_lines), "validation_log": log}
+    cleaned = "\n".join(out_lines)
+
+    # -- CO-1 fallback: model ignored the token. Stamp a solely-date line within the first
+    # 8 non-empty lines; never touch mid-sentence date references (e.g. the denial date). --
+    if not token_present:
+        result_lines = cleaned.split("\n")
+        nonempty_seen = 0
+        for i, line in enumerate(result_lines):
+            if not line.strip():
+                continue
+            nonempty_seen += 1
+            if nonempty_seen > 8:
+                break
+            if _DATE_ONLY_RE.match(line):
+                result_lines[i] = today
+                log.append({"field": "letter_date", "action": "stamped", "value": today})
+                cleaned = "\n".join(result_lines)
+                break
+
+    return {"letter_text": cleaned, "validation_log": log}
 
 
 @router.post("/api/health/generate-appeal")
