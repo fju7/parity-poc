@@ -1,0 +1,140 @@
+eviCore healthcare
+PO Box 5620
+Hartford, CT 06102
+
+Date: 6/22/2026                                              CONFIDENTIAL
+
+JANE A. DOE
+123 MAIN ST.
+WESLEY CHAPEL, FL 33543
+
+Re:  Customer: JANE A. DOE
+     Customer ID #: MEMBER-TEST-001
+     Reference Code: CLAIM-TEST-0340U
+     Medical Services Setting: Office or Outpatient Facility
+
+Dear JANE A. DOE:
+
+We received your request to cover the following service(s):
+
+  Procedure   Description            Units Requested   Units Denied   Modifier
+  0340U       ONC PAN CA ALYS MRD PLASMA        1              1          NA
+  0340U       ONC PAN CA ALYS MRD PLASMA        1              1          NA
+
+After reviewing the information we have, we've determined that this service is
+not covered. This letter explains why. It describes your right to ask for
+another review.
+
+Summary of the Decision
+Date received: 06/20/2026
+Reviewer: eviCore healthcare (eviCore)
+
+Cigna Health and Life Insurance Company partners with eviCore to manage review
+of certain health care services to determine if they are medically necessary
+and covered by your plan.
+
+Coverage decision:
+The service you requested is not covered.
+
+Why:
+We reviewed information from Dr. Sample Provider, your health plan and any
+policies and guidelines needed to reach this decision. We found the service
+requested is not medically necessary in your case.
+
+Based on the records we received, a request was made for: Signatera. This is a
+lab test. It looks for cancer cells in the blood. This test can be ordered to
+help predict if cancer has returned after it has been treated. This is called
+MRD (Minimal Residual Disease) testing. This test can also be ordered to see
+how a person is responding to a certain cancer treatment (immunotherapy). This
+is called IO (Immuno-Oncology) Response testing.
+
+Testing was ordered for the following reason(s): You have been or are being
+treated for cancer.
+
+We cannot approve this request. This test is EIU (Experimental,
+Investigational, or Unproven). A test is EIU when there is not enough research
+showing that the results of the test will be helpful. This means that it is
+unclear if and how the results of the test will change future care. This test
+is not approved for any reason.
+
+Procedure code(s) not approved: 0340U.
+
+We based this decision on the guideline(s) as listed below.
+EviCore Criteria for Experimental, Investigational, or Unproven Laboratory
+Testing (MOL.CU.117)
+
+Your rights:
+1. You can ask for free copies of the documents, guidelines or other
+   information we used to make this decision.
+2. Your health care professional can call us at 800-792-8744 to discuss this
+   decision with a physician reviewer.
+3. If you are still not satisfied, you can ask us to review our decision
+   through the Appeal process.
+
+Request a review:
+You, your authorized representative, or your health care professional on your
+behalf can start the appeal process by submitting a request within one year of
+the date of this letter.
+
+Mail your request to:
+eviCore healthcare
+Attn: Appeals Department
+PO Box 5620
+Hartford, CT 06102
+
+To request a review by phone, call:
+Phone: 800-792-8744
+Fax: 866-889-8061
+
+If you would like to request an appeal, contact Cigna Healthcare at:
+Cigna Healthcare
+National Appeals Organization (NAO)
+P.O. Box 188011
+Chattanooga, TN 37422
+800-244-6224
+
+Note: If your health plan is governed by the Employee Retirement Income
+Security Act (ERISA), you also may have the right to file a lawsuit under
+section 502(a) of ERISA.
+
+What happens in the Appeal process:
+Cigna Healthcare has two types of internal medical necessity appeals based on
+when you appeal: Florida Adverse Determination appeals and all other medical
+necessity appeals.
+
+Florida Adverse Determination Medical Necessity Appeals
+- A panel will review your request if you write us to appeal our decision
+  within 30 days of the date of this letter.
+
+Other Medical Necessity Appeals
+- A doctor will review your request if you write us more than 30 days after the
+  date of this letter, or call us within 365 days after the date of this letter.
+
+Expedited appeals
+In certain cases, we can make a decision more quickly - within 72 hours.
+
+Independent external reviews
+If you're not satisfied with Cigna Healthcare's final decision, you may be able
+to ask for an independent, external organization to review it.
+
+You have the right to contact these agencies for help at any time:
+Florida Office of Insurance Regulation - http://www.floir.com/
+Florida Department of Financial Services, Division of Consumer Services
+200 East Gaines Street, Tallahassee, FL 32399-4288
+(877) MY-FL-CFO (1-877-693-5236)
+
+Sincerely,
+Clinical Peer Reviewer - I6A88
+Medical Director
+eviCore healthcare
+
+cc: Dr. Sample Provider
+    NATERA INC
+
+---
+NOTE (fixture): De-identified from a real Cigna/eviCore prior-authorization denial
+dated 6/22/2026. PII replaced per SESSION PH-1: Linda B. Ugast -> Jane A. Doe;
+32270 Goddard Dr -> 123 Main St; Customer ID U73898019 -> MEMBER-TEST-001;
+Reference A276871224 -> CLAIM-TEST-0340U; ordering physician name -> Dr. Sample
+Provider. Clinical facts, codes (0340U, MOL.CU.117), payer/eviCore names, public
+addresses, and phone/fax numbers are preserved verbatim.

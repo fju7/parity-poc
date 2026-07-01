@@ -1,0 +1,50 @@
+{
+  "denial_reason_code": null,
+  "denial_reason_plain": "The insurer (via eviCore) decided the Signatera blood test is experimental and not medically necessary in this case, so it will not be paid for.",
+  "denial_type": "clinical",
+  "denial_category": "EIU",
+  "pre_service": true,
+  "specific_criterion": "EviCore Criteria for Experimental, Investigational, or Unproven Laboratory Testing (MOL.CU.117) — 0340U classified as Experimental, Investigational, or Unproven (EIU).",
+  "weakness": "Signatera has FDA Breakthrough Device designation and growing peer-reviewed support; several payers and Medicare cover 0340U in defined contexts. A blanket EIU classification that ignores the specific cancer type, stage, and treatment context may not reflect current evidence.",
+  "carc_rarc_code": null,
+  "payer_guideline_id": "MOL.CU.117",
+  "cpt_codes": ["0340U"],
+  "icd_codes": [],
+  "procedure_terms": ["Signatera", "molecular residual disease", "ctDNA MRD"],
+  "billed_amount": null,
+  "supporting_documentation": [
+    "Letter of medical necessity from the ordering physician",
+    "Oncology treatment records (diagnosis, type, stage, treatment history)",
+    "Peer-reviewed studies supporting Signatera clinical utility",
+    "FDA Breakthrough Device Designation documentation",
+    "NCCN or ASCO guidelines supporting MRD testing",
+    "Comparative coverage policies from Medicare or other insurers for 0340U"
+  ],
+  "appeal_deadline_hint": "30-day Florida Adverse Determination panel review, or up to 365 days for a standard appeal, from June 22, 2026.",
+  "deadline_days_expedited": 30,
+  "deadline_days_standard": 365,
+  "appeal_submission": {
+    "address": "eviCore healthcare, Attn: Appeals Department, PO Box 5620, Hartford, CT 06102",
+    "alt_address": "Cigna Healthcare, National Appeals Organization (NAO), P.O. Box 188011, Chattanooga, TN 37422",
+    "fax": "866-889-8061",
+    "phone": "800-792-8744"
+  },
+  "peer_to_peer_contact": "800-792-8744",
+  "appeal_rights": [
+    "ERISA §502(a)",
+    "ACA independent external review",
+    "Florida Office of Insurance Regulation",
+    "Florida Department of Financial Services"
+  ],
+  "reviewer_entity": "eviCore",
+  "confidence": "high",
+  "patient_name": "Jane A. Doe",
+  "member_id": "MEMBER-TEST-001",
+  "patient_address": "123 Main St, Wesley Chapel, FL 33543",
+  "state": "FL",
+  "provider_name": "Dr. Sample Provider",
+  "facility_name": "Natera Inc.",
+  "claim_number": "CLAIM-TEST-0340U",
+  "date_of_service": null,
+  "payer_name": "Cigna / eviCore"
+}

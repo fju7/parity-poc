@@ -18,6 +18,8 @@ import re
 import time
 import uuid
 
+from datetime import datetime
+
 from typing import Optional, List
 
 from fastapi import APIRouter, File, Header, HTTPException, UploadFile
@@ -85,6 +87,7 @@ class AppealGenerateRequest(BaseModel):
     patient_name: Optional[str] = None
     provider_name: Optional[str] = None
     claim_number: Optional[str] = None
+    patient_address: Optional[str] = None  # PHI — server-only, never sent to any external API
 
 
 class AnalyzeLineItem(BaseModel):
@@ -541,20 +544,45 @@ async def analyze_sbc(
 
 DENIAL_SYSTEM_PROMPT = """You are a medical insurance denial analyst helping everyday patients understand why their claim was denied. Write all plain-language fields as if explaining to someone who has never dealt with insurance before — no jargon, no acronyms without explanation, short sentences. Analyze this insurance denial letter or Explanation of Benefits (EOB) and extract the following as JSON only, no other text:
 {
-  "denial_reason_code": "the specific reason code if present (e.g. CO-97, PR-96)",
+  "denial_reason_code": "the specific reason code if present (e.g. CO-97, PR-96), or null",
   "denial_reason_plain": "plain English explanation of why the claim was denied",
   "denial_type": "clinical | administrative | coverage | other",
+  "denial_category": "EIU | medical_necessity | bundling | coding_modifier | non_covered | authorization | administrative | other",
+  "pre_service": "true if this is a prior-authorization / pre-service determination made BEFORE the service was rendered, false if it is a post-service claim denial",
   "specific_criterion": "the exact criterion, policy, or rule the carrier cited to deny",
   "weakness": "any apparent weakness in the denial reasoning, or null if denial appears straightforward",
+  "carc_rarc_code": "the standardized CARC/RARC adjustment code (e.g. CO-97, PR-96) if present, or null",
+  "payer_guideline_id": "the payer's internal medical-policy or guideline identifier (e.g. MOL.CU.117), distinct from a CARC/RARC code, or null",
+  "cpt_codes": ["array of CPT/HCPCS procedure codes at issue, deduplicated (e.g. ['0340U']), or []"],
+  "icd_codes": ["array of ICD-10 diagnosis codes if present, or []"],
+  "procedure_terms": ["plain-language names of the procedure/test/service (e.g. ['Signatera','ctDNA MRD']), or []"],
+  "billed_amount": "the dollar amount at issue as a number, or null (null for pre-service determinations with no billed amount)",
   "supporting_documentation": ["list of specific documents that would strengthen an appeal"],
-  "appeal_deadline_hint": "any appeal deadline mentioned, or null",
+  "appeal_deadline_hint": "any appeal deadline mentioned, in plain language, or null",
+  "deadline_days_expedited": "number of days for an expedited or panel appeal if stated, or null",
+  "deadline_days_standard": "number of days for a standard appeal if stated, or null",
+  "appeal_submission": {
+    "address": "the mailing address to send the appeal to, if stated, or null",
+    "alt_address": "any alternate or secondary appeal address, or null",
+    "fax": "appeal fax number if stated, or null",
+    "phone": "appeal phone number if stated, or null"
+  },
+  "peer_to_peer_contact": "phone number for a provider peer-to-peer or physician-reviewer discussion if stated, or null",
+  "appeal_rights": ["array of appeal rights or external-review options mentioned (e.g. ['ERISA §502(a)','ACA external review','Florida Dept. of Financial Services']), or []"],
+  "reviewer_entity": "the entity that made or reviewed the decision (e.g. eviCore, the payer's medical director), or null",
   "confidence": "high | medium | low",
   "patient_name": "full patient name if found in the document, or null",
-  "provider_name": "provider or facility name if found, or null",
+  "member_id": "the member, subscriber, or customer ID if found, or null",
+  "patient_address": "the patient's mailing address if found in the document, or null",
+  "state": "the patient's two-letter state if found or derivable from the address, or null",
+  "provider_name": "ordering provider or physician name if found, or null",
+  "facility_name": "facility or lab name if found (e.g. the testing lab), or null",
   "claim_number": "claim or reference number if found, or null",
   "date_of_service": "date of service if found (any format), or null",
   "payer_name": "insurance company name if found, or null"
-}"""
+}
+
+Deduplicate cpt_codes. Distinguish payer_guideline_id (the payer's internal policy ID) from carc_rarc_code (a standardized adjustment code). Extract the appeal submission address, fax, phone, and deadlines directly from the denial document when they appear. Return null/[] for anything genuinely absent — never guess."""
 
 
 @router.post("/api/health/analyze-denial")
@@ -623,33 +651,169 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 Return only the letter text, no explanation or commentary."""
 
 
+# Placeholder-label -> denial_analysis value resolver for _validate_letter.
+def _resolve_placeholder(label: str, da: dict):
+    """Return a substitution value for a bracketed placeholder label, or None if
+    we have no known value for it. Case-insensitive on the label text."""
+    key = label.strip().lower().rstrip(":").strip()
+    sub = da.get("appeal_submission") or {}
+    mapping = {
+        "patient name": da.get("patient_name"),
+        "patient": da.get("patient_name"),
+        "name": da.get("patient_name"),
+        "member id": da.get("member_id"),
+        "member id #": da.get("member_id"),
+        "member #": da.get("member_id"),
+        "claim number": da.get("claim_number"),
+        "claim #": da.get("claim_number"),
+        "claim": da.get("claim_number"),
+        "address": da.get("patient_address"),
+        "patient address": da.get("patient_address"),
+        "state": da.get("state"),
+        "provider name": da.get("provider_name"),
+        "ordering provider": da.get("provider_name"),
+        "payer name": da.get("payer_name"),
+        "date of service": da.get("date_of_service"),
+        "denial reason code": da.get("denial_reason_code") or da.get("carc_rarc_code") or da.get("payer_guideline_id"),
+        "reviewer": da.get("reviewer_entity"),
+        "cigna/evicore mailing address": sub.get("address"),
+        "payer address": sub.get("address"),
+        "mailing address": sub.get("address"),
+        "appeal address": sub.get("address"),
+    }
+    # Note: bare [Phone]/[Fax]/[Email] placeholders are patient-contact fields we do not
+    # have — intentionally unmapped so their lines are removed rather than back-filled with
+    # the payer's appeal phone/fax (which live in the "Where & How to Appeal" UI card).
+    return mapping.get(key)
+
+
+def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
+    """Deterministically clean bracketed placeholders from a generated appeal letter.
+
+    For each ``[Placeholder]``: substitute a known value from denial_analysis when we
+    have one; special-case ``[Date]``/invented dates (-> today) and ``[Signature]``
+    (-> "Submitted on behalf of {patient_name}"); otherwise drop the entire line so no
+    empty bracket is ever emitted. Pure string manipulation — no Claude call.
+
+    Returns {"letter_text": cleaned, "validation_log": [{placeholder, action,
+    substituted_value}]}.
+    """
+    today = datetime.utcnow().strftime("%B %d, %Y")
+    patient_name = denial_analysis.get("patient_name") or "the patient"
+    placeholder_re = re.compile(r"\[([^\]]+)\]")
+    log: List[dict] = []
+    out_lines: List[str] = []
+
+    for line in letter_text.split("\n"):
+        labels = placeholder_re.findall(line)
+        if not labels:
+            out_lines.append(line)
+            continue
+
+        new_line = line
+        drop_line = False
+        for label in labels:
+            token = "[" + label + "]"
+            key = label.strip().lower()
+            if key == "date" or key.startswith("date"):
+                new_line = new_line.replace(token, today)
+                log.append({"placeholder": token, "action": "date_substituted", "substituted_value": today})
+            elif key == "signature":
+                val = f"Submitted on behalf of {patient_name}"
+                new_line = new_line.replace(token, val)
+                log.append({"placeholder": token, "action": "signature_substituted", "substituted_value": val})
+            else:
+                val = _resolve_placeholder(label, denial_analysis)
+                if val:
+                    new_line = new_line.replace(token, str(val))
+                    log.append({"placeholder": token, "action": "substituted", "substituted_value": str(val)})
+                else:
+                    drop_line = True
+                    log.append({"placeholder": token, "action": "line_removed", "substituted_value": None})
+
+        if drop_line:
+            continue  # unresolved placeholder -> remove the whole line (never emit empty brackets)
+        out_lines.append(new_line)
+
+    return {"letter_text": "\n".join(out_lines), "validation_log": log}
+
+
 @router.post("/api/health/generate-appeal")
 def generate_appeal(req: AppealGenerateRequest):
     client = _get_client()
 
-    context_parts = [f"Denial analysis:\n{json.dumps(req.denial_analysis, indent=2)}"]
+    # denial_analysis is mutated in place by the pre-generation validators below.
+    da = req.denial_analysis or {}
 
-    # Enrich with Signal playbook evidence if CPT codes and denial codes are available
+    # Merge user-supplied (editable) fields into the analysis before validating.
+    # PHI — server-only; these values are never sent to any external API.
+    if req.patient_name:
+        da["patient_name"] = req.patient_name
+    if req.provider_name:
+        da["provider_name"] = req.provider_name
+    if req.patient_address:
+        da["patient_address"] = req.patient_address
+
+    # -- PH-1-B: pre-generation data-integrity validators (degrade gracefully) --
+
+    # (1) Claim-number integrity: must exist and must not be the denial/guideline code.
+    claim_number = req.claim_number or da.get("claim_number")
+    denial_code = da.get("denial_reason_code") or da.get("carc_rarc_code")
+    guideline_id = da.get("payer_guideline_id")
+    if (not claim_number) or claim_number == denial_code or claim_number == guideline_id:
+        member_id = da.get("member_id")
+        fallback_ref = f"{member_id or 'UNKNOWN'} / {datetime.utcnow().strftime('%Y-%m-%d')}"
+        print(
+            f"[health/generate-appeal] WARNING: claim_number missing or equals "
+            f"denial/guideline code ({claim_number!r}); substituting reference {fallback_ref!r}"
+        )
+        claim_number = fallback_ref
+    da["claim_number"] = claim_number
+
+    # (2) Deduplicate cpt_codes.
+    cpt_codes = da.get("cpt_codes") or []
+    if isinstance(cpt_codes, str):
+        cpt_codes = [cpt_codes]
+    cpt_codes = list(set(cpt_codes))
+    da["cpt_codes"] = cpt_codes
+
+    # (3) Derive state from patient_address if missing.
+    if not da.get("state") and da.get("patient_address"):
+        m = re.search(r"\b([A-Z]{2})\s+\d{5}(?:-\d{4})?\b", da["patient_address"])
+        if m:
+            da["state"] = m.group(1)
+
+    context_parts = [f"Denial analysis:\n{json.dumps(da, indent=2)}"]
+
+    # -- PH-1-D: Signal playbook enrichment (now reachable — cpt_codes is populated) --
     try:
         sb = _get_supabase()
         if sb:
-            denial_code = req.denial_analysis.get("denial_reason_code", "")
-            cpt_codes = req.denial_analysis.get("cpt_codes", [])
-            if isinstance(cpt_codes, str):
-                cpt_codes = [cpt_codes]
-
-            if denial_code and cpt_codes:
-                playbook_res = sb.table("signal_denial_playbook").select("*").eq("denial_code", denial_code).in_("cpt_code", cpt_codes).limit(3).execute()
+            playbook_code = (
+                da.get("carc_rarc_code")
+                or da.get("denial_reason_code")
+                or da.get("payer_guideline_id")
+                or ""
+            )
+            if playbook_code and cpt_codes:
+                playbook_res = (
+                    sb.table("signal_denial_playbook")
+                    .select("*")
+                    .eq("denial_code", playbook_code)
+                    .in_("cpt_code", cpt_codes)
+                    .limit(3)
+                    .execute()
+                )
                 if playbook_res.data:
                     pb = playbook_res.data[0]
-                    signal_context = f"\n\nClinical Evidence from Parity Signal:\n"
+                    signal_context = "\n\nClinical Evidence from Parity Signal:\n"
                     signal_context += f"Appeal strength: {pb['appeal_strength']}\n"
-                    if pb.get('payer_analytical_path'):
+                    if pb.get("payer_analytical_path"):
                         signal_context += f"Payer reasoning: {pb['payer_analytical_path']}\n"
-                    if pb.get('challenging_evidence_summary'):
+                    if pb.get("challenging_evidence_summary"):
                         signal_context += f"Challenging evidence: {pb['challenging_evidence_summary']}\n"
-                    if pb.get('recommended_claims'):
-                        claims = pb['recommended_claims']
+                    if pb.get("recommended_claims"):
+                        claims = pb["recommended_claims"]
                         if isinstance(claims, str):
                             claims = json.loads(claims)
                         if claims:
@@ -657,15 +821,24 @@ def generate_appeal(req: AppealGenerateRequest):
                             for claim in claims[:3]:
                                 signal_context += f"- {claim.get('claim_text', '')}\n"
                     context_parts.append(signal_context)
+                    print(
+                        f"[health/generate-appeal] Signal playbook hit "
+                        f"(denial_code={playbook_code}, cpt_codes={cpt_codes})"
+                    )
+                else:
+                    print(
+                        f"[health/generate-appeal] no playbook entry found "
+                        f"(denial_code={playbook_code}, cpt_codes={cpt_codes})"
+                    )
+            else:
+                print(
+                    f"[health/generate-appeal] Signal playbook lookup skipped "
+                    f"(denial_code={playbook_code!r}, cpt_codes={cpt_codes})"
+                )
+        else:
+            print("[health/generate-appeal] Supabase unavailable; skipping Signal playbook lookup")
     except Exception as e:
         print(f"[warn] Health Signal playbook lookup failed: {e}")
-
-    if req.patient_name:
-        context_parts.append(f"Patient name: {req.patient_name}")
-    if req.provider_name:
-        context_parts.append(f"Provider name: {req.provider_name}")
-    if req.claim_number:
-        context_parts.append(f"Claim number: {req.claim_number}")
 
     content = [{"type": "text", "text": "\n\n".join(context_parts)}]
 
@@ -682,7 +855,11 @@ def generate_appeal(req: AppealGenerateRequest):
         if hasattr(block, "text"):
             raw_text += block.text
 
-    return {"letter_text": raw_text.strip()}
+    # -- PH-1-C: deterministic post-generation placeholder validation --
+    validated = _validate_letter(raw_text.strip(), da)
+    if validated["validation_log"]:
+        print(f"[health/generate-appeal] validation_log: {json.dumps(validated['validation_log'])}")
+    return {"letter_text": validated["letter_text"], "validation_log": validated["validation_log"]}
 
 
 # ---------------------------------------------------------------------------

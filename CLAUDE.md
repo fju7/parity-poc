@@ -1124,6 +1124,36 @@ Verified vs CMS CY2026 Addendum B: 78306 → APC 5591 = $408.43 (Status S).
 The whole 783xx nuclear-medicine family correctly tiers across APC
 5591–5594; bone scans are Level 1 ($408.43), NOT the higher PET/SPECT tiers.
 
+## Session PH-1 — Health Appeal Extraction + Placeholder Validator (Complete)
+Phase 1 of a 5-phase enhancement to produce near-complete, submittable appeal
+packages. Health only — Provider/Employer/Broker/Signal/Billing untouched.
+- PH-1-A: DENIAL_SYSTEM_PROMPT (health_analyze.py) now extracts cpt_codes
+  (deduped), icd_codes, procedure_terms, denial_category, pre_service,
+  payer_guideline_id (distinct from carc_rarc_code), billed_amount, member_id,
+  patient_address, state, appeal_submission {address, alt_address, fax, phone},
+  deadline_days_expedited/standard, peer_to_peer_contact, reviewer_entity,
+  appeal_rights. All nullable — never guess.
+- PH-1-B: generate_appeal() pre-generation validators — claim_number integrity
+  (must exist and != denial/guideline code, else substitute member_id+date and
+  log a warning), cpt_codes dedup, derive state from patient_address.
+- PH-1-C: _validate_letter(letter_text, denial_analysis) — deterministic (no
+  Claude call) post-generation cleanup of [Placeholder] brackets: substitute
+  known values, special-case [Date]→today and [Signature], drop lines with
+  unresolved placeholders. Returns {letter_text, validation_log}. generate-appeal
+  response now includes validation_log.
+- PH-1-D: revived the dead signal_denial_playbook enrichment (was unreachable
+  because cpt_codes was never extracted); now logs hit / "no playbook entry
+  found" / skipped instead of silently passing.
+- PH-1-E: DenialReportView.jsx — patient_address prefilled/editable input;
+  "Where & How to Appeal" card (submission address, fax, phone, deadlines,
+  peer-to-peer); patient_address in POST body. PHI fields (patient_name,
+  patient_address, member_id, claim_number) marked server-only — never sent to
+  any external API.
+- PH-1-F: regression fixture test-data/appeals/signatera_cigna/ (denial_source.txt
+  [de-identified], expected_extraction.json, baseline_appeal.md, assertions.md).
+- No migration. Phases 2-5 (PubMed/CMS evidence retrieval, citation-grounded
+  letter, package assembler, persistence) are planned follow-ups.
+
 ## Migrations status
 All migrations through 056 have been run on production.
 Migrations 057-065 pending. No new migration for BL-12.

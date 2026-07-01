@@ -10,7 +10,12 @@ const DENIAL_TYPE_COLORS = {
 };
 
 export default function DenialReportView({ analysis, originalText, onReset, onBack }) {
+  // PHI — server-only. patientName, patientAddress, claimNumber (and member_id in
+  // `analysis`) are personal health information: they are sent only to our own
+  // /api/health/generate-appeal endpoint to render the letter, and must NEVER be
+  // forwarded to any external API (PubMed, CMS, etc.) in later phases.
   const [patientName, setPatientName] = useState(analysis.patient_name || "");
+  const [patientAddress, setPatientAddress] = useState(analysis.patient_address || "");
   const [providerName, setProviderName] = useState(analysis.provider_name || "");
   const [claimNumber, setClaimNumber] = useState(analysis.claim_number || "");
   const [letterText, setLetterText] = useState(null);
@@ -31,7 +36,9 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           denial_analysis: analysis,
+          // PHI — server-only fields, sent only to our own backend to render the letter.
           patient_name: patientName.trim() || null,
+          patient_address: patientAddress.trim() || null,
           provider_name: providerName.trim() || null,
           claim_number: claimNumber.trim() || null,
         }),
@@ -48,7 +55,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
     } finally {
       setLetterLoading(false);
     }
-  }, [analysis, patientName, providerName, claimNumber]);
+  }, [analysis, patientName, patientAddress, providerName, claimNumber]);
 
   const handleCopy = useCallback(() => {
     if (!letterText) return;
@@ -166,6 +173,43 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
           </div>
         )}
 
+        {/* Where & How to Appeal — submission address, deadlines, peer-to-peer */}
+        {(analysis.appeal_submission?.address || analysis.appeal_submission?.fax ||
+          analysis.appeal_submission?.phone || analysis.deadline_days_expedited ||
+          analysis.deadline_days_standard || analysis.peer_to_peer_contact) && (
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+            <h3 className="text-lg font-bold text-[#1B3A5C] mb-3">Where &amp; How to Appeal</h3>
+            {analysis.appeal_submission?.address && (
+              <div className="mb-3">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Send your appeal to:</p>
+                <p className="text-sm text-gray-800 whitespace-pre-line">{analysis.appeal_submission.address}</p>
+                {analysis.appeal_submission.alt_address && (
+                  <p className="text-sm text-gray-500 mt-1">Or: {analysis.appeal_submission.alt_address}</p>
+                )}
+              </div>
+            )}
+            {analysis.appeal_submission?.fax && (
+              <p className="text-sm text-gray-700 mb-1">Fax: <span className="font-medium">{analysis.appeal_submission.fax}</span></p>
+            )}
+            {analysis.appeal_submission?.phone && (
+              <p className="text-sm text-gray-700 mb-1">Phone: <span className="font-medium">{analysis.appeal_submission.phone}</span></p>
+            )}
+            {(analysis.deadline_days_expedited || analysis.deadline_days_standard) && (
+              <p className="text-sm text-gray-700 mt-2">
+                Appeal deadline:{" "}
+                {analysis.deadline_days_expedited ? `${analysis.deadline_days_expedited} days expedited` : ""}
+                {analysis.deadline_days_expedited && analysis.deadline_days_standard ? " / " : ""}
+                {analysis.deadline_days_standard ? `${analysis.deadline_days_standard} days standard` : ""}
+              </p>
+            )}
+            {analysis.peer_to_peer_contact && (
+              <p className="text-sm text-gray-700 mt-2">
+                Your doctor can call <span className="font-medium">{analysis.peer_to_peer_contact}</span> for a peer-to-peer review.
+              </p>
+            )}
+          </div>
+        )}
+
         {/* Appeal Deadline */}
         {analysis.appeal_deadline_hint && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6 flex items-start gap-3">
@@ -240,6 +284,19 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                     className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
                   />
                 </div>
+              </div>
+
+              {/* PHI — patient address; prefilled and editable; sent only to our backend */}
+              <div className="mb-5">
+                <label className="block text-xs font-medium text-gray-500 mb-1">
+                  Patient Address <span className="text-gray-400">(optional)</span>
+                </label>
+                <input
+                  value={patientAddress}
+                  onChange={(e) => setPatientAddress(e.target.value)}
+                  placeholder="e.g. 123 Main St, Wesley Chapel, FL 33543"
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
+                />
               </div>
 
               <button
