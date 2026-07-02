@@ -1277,6 +1277,37 @@ def _map_citation_numbers(text: str) -> str:
     return _CITATION_BRACKET_RE.sub(_render, text or "")
 
 
+def _render_cited_references(body: str, evidence: dict, used_keys) -> tuple:
+    """Keep ONLY the evidence items the letter body actually cites, renumber the
+    survivors sequentially, and remap BOTH the body's inline [E#] markers and the
+    References list to the new [n] so inline numbers and the list stay in sync.
+
+    used_keys are the E-keys the anti-fabrication guard found in the body, already in
+    ascending E-number order (== pack/assignment order); that order becomes the new
+    1..k numbering (earliest E-number -> [1]). Uncited (often off-condition) items are
+    dropped. Returns (body_render, references_render); references_render is "" when
+    nothing valid is cited, so the caller appends NO References section.
+
+    Handles grouped brackets ([E6, E7]) and adjacent singles ([E6][E7]) via the same
+    _CITATION_BRACKET_RE the renderer uses. This filters WHICH items appear and their
+    NUMBERS only; the per-item reference text (_format_reference) is unchanged.
+    """
+    keys = (evidence or {}).get("keys") or {}
+    valid_used = [ek for ek in (used_keys or []) if ek in keys]     # cited AND known
+    remap = {ek: str(i) for i, ek in enumerate(valid_used, start=1)}  # e.g. 'E5' -> '3'
+
+    def _render(m):
+        out = ""
+        for ej in re.findall(r"E(\d+)", m.group(0)):    # each E-number in this bracket
+            ek = f"E{ej}"
+            out += f"[{remap[ek]}]" if ek in remap else f"[{ek}]"   # unknown/uncited: leave as-is
+        return out
+
+    body_render = _CITATION_BRACKET_RE.sub(_render, body or "")
+    ref_lines = [f"[{remap[ek]}] {_format_reference(keys[ek])}" for ek in valid_used]
+    return body_render, "\n".join(ref_lines)
+
+
 # Standalone em/en dashes only (surrounding spaces optional, but NOT newlines so
 # line structure is preserved). Hyphen-minus (-) in "muscle-invasive" etc. is a
 # different character and is never matched.
@@ -1479,13 +1510,16 @@ def generate_appeal(req: AppealGenerateRequest, authorization: str = Header(None
         print(f"[health/generate-appeal] EVIDENCE GUARD hard failures: "
               f"{json.dumps(evidence_validation['hard_failures'])}")
 
-    # -- PH-4a.1: presentation — map internal [E#] keys to reader-facing [#] in
-    # BOTH the body and the References block (same number in each). Runs AFTER the
-    # guard so the guard always validates the E-keys, never the display numbers. --
-    body_render = _map_citation_numbers(body)
+    # -- PH: presentation — keep ONLY the references the body actually cites, renumber
+    # them sequentially, and remap BOTH the body and the References list to the new [n]
+    # so inline numbers and the list stay perfectly in sync. Reuses the guard's
+    # already-computed used_keys. Uncited (often off-condition) references are dropped;
+    # if the body cites nothing, NO References section is appended. Runs AFTER the guard
+    # so the guard always validates the E-keys, never the display numbers. --
+    body_render, references_render = _render_cited_references(
+        body, evidence, evidence_validation["used_keys"])
     final_letter = body_render
-    if evidence["references_block"]:
-        references_render = _map_citation_numbers(evidence["references_block"])
+    if references_render:
         final_letter = body_render.rstrip() + "\n\nReferences\n" + references_render
 
     reviewer_checklist = _build_reviewer_checklist(
