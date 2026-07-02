@@ -92,6 +92,8 @@ class AppealGenerateRequest(BaseModel):
     provider_name: Optional[str] = None
     claim_number: Optional[str] = None
     patient_address: Optional[str] = None  # PHI — server-only, never sent to any external API
+    patient_diagnosis: Optional[str] = None  # plain-language condition/diagnosis (any condition)
+    patient_icd_code: Optional[str] = None   # optional ICD-10 code
 
 
 class AnalyzeLineItem(BaseModel):
@@ -919,9 +921,11 @@ APPEAL_EVIDENCE_INSTRUCTIONS = """
 You are given a list of verified evidence items, each with a key like [E1]. When you refer to supporting evidence, refer to it ONLY by its key in square brackets, e.g. [E2].
 You MUST NOT write any of the following yourself: a PubMed ID, an FDA PMA number, a DOI, a journal name, an author name, a study title, a direct quotation, or any specific statistic/percentage/number-of-patients that is not already stated in the provided evidence summaries. If you want to cite support, use its [E#] key and let the reference list carry the details.
 State each item's support only within its stated indication. Do NOT generalize an FDA approval or coverage policy beyond the specific indication given. Do not imply broader regulatory status than the evidence states.
+When referring to an FDA approval, clearance, designation, or a coverage policy, always state its specific approved indication or scope exactly as given in the evidence description (for example, "approved as a companion diagnostic in muscle-invasive bladder cancer", or "covered for [the specific indication stated]"). Do NOT describe it vaguely (for example, "a specific indication") and do NOT imply the approval or policy applies to the patient's condition unless the evidence description says so.
 For any item that is a clinical practice guideline, refer to its existence and general conclusion only; never reproduce or paraphrase its detailed recommendations.
 Tone: confident but precise. Make the strongest case the evidence genuinely supports, but never overstate it. An unimpeachable letter beats an overreaching one.
 If the evidence does not match the patient's specific diagnosis (e.g. no diagnosis code was provided), do NOT claim it does. Argue the general validity of the test, and do not fabricate a diagnosis-specific link.
+When a patient's condition or diagnosis is provided, you may state that the cited evidence supports the denied service for that specific condition ONLY IF the provided evidence descriptions are actually about that condition. If the provided evidence covers different or multiple conditions, describe it accurately (for example, as supporting the service across the relevant clinical contexts) and do NOT claim the studies are specific to the patient's condition. Never assert that enclosed literature concerns the patient's specific condition unless the evidence descriptions provided actually say so.
 A "References" section listing these items will be appended to your letter automatically — do NOT write your own References/Citations section or expand any [E#] into a full citation."""
 
 
@@ -1244,6 +1248,18 @@ def generate_appeal(req: AppealGenerateRequest, authorization: str = Header(None
         da["provider_name"] = req.provider_name
     if req.patient_address:
         da["patient_address"] = req.patient_address
+
+    # Condition-neutral diagnosis: plain-language condition + optional ICD-10 code.
+    if req.patient_diagnosis and req.patient_diagnosis.strip():
+        da["patient_diagnosis"] = req.patient_diagnosis.strip()
+    if req.patient_icd_code and req.patient_icd_code.strip():
+        code = req.patient_icd_code.strip()
+        icd = da.get("icd_codes")
+        if not isinstance(icd, list):
+            icd = []
+        if code not in icd:
+            icd.append(code)
+        da["icd_codes"] = icd
 
     # -- PH-1-B: pre-generation data-integrity validators (extracted for unit testing) --
     _apply_pregen_validators(da, req.claim_number)

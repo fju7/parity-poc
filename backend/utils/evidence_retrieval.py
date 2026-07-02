@@ -524,30 +524,39 @@ def _fda_public_url(endpoint, uid):
 
 
 def _extract_fda_indication(ao_statement):
-    """Extract the SPECIFIC indicated use (disease + associated therapy) from an
-    openFDA PMA approval-order statement (ao_statement), generically — no
-    hardcoded disease/drug names. Returns {} when nothing is found so callers
-    degrade to a generic summary rather than implying a broader approval.
+    """Extract the specific indicated use (condition + associated therapy) from an
+    openFDA PMA approval-order statement, CONDITION-AGNOSTICALLY: no disease name
+    is hardcoded, so it works for any medical condition (a cancer, a cardiac
+    condition, cystic fibrosis, etc.), not just oncology.
 
-    The PMA ao_statement lists indicated use in an "Indicated Use and Associated
+    The PMA statement lists indicated use in an "Indicated Use and Associated
     Therapy" table, e.g. "... Muscle Invasive Bladder Cancer (MIBC) TECENTRIQ
-    (atezolizumab) ...". We capture the '<...> Cancer (<ABBR>)' indication and
-    the first lowercase parenthetical drug (INN) that follows it.
+    (atezolizumab) ...". The associated therapy is the first lowercase parenthetical
+    drug name (INN); the indicated condition is the Titlecase phrase (optionally
+    trailed by an abbreviation) that appears immediately before the therapy, so it
+    is identified by POSITION in the indicated-use table rather than by any disease
+    keyword. Returns {} when a specific indication cannot be determined, so callers
+    fall back to a generic summary rather than overstating the approval.
     """
     if not ao_statement:
         return {}
     s = " ".join(str(ao_statement).split())
     out = {}
-    # Each leading word must be Titlecase (uppercase + a lowercase letter), so
-    # all-caps tokens (MRD) and run-on header fragments are not swept in; cap the
-    # phrase at 5 words ending in "Cancer" with an optional (ABBR).
-    m = re.search(r"((?:[A-Z][a-z][A-Za-z/&\-]* ){1,5}Cancer(?:\s*\([A-Za-z]+\))?)", s)
-    if m:
-        out["disease"] = m.group(1).strip()
-        tail = s[m.end():]
-        t = re.search(r"\(([a-z][a-z0-9\- ]{3,})\)", tail)   # first lowercase parenthetical = generic drug
-        if t:
-            out["therapy"] = t.group(1).strip()
+    # Associated therapy: the first lowercase parenthetical (a generic drug INN).
+    therapy_m = re.search(r"\(([a-z][a-z0-9\- ]{3,})\)", s)
+    # Indicated condition: the LAST Titlecase multi-word phrase (2+ words, optional
+    # trailing "(ABBR)") appearing before the therapy. Each word must be Titlecase
+    # (uppercase + a lowercase letter), so all-caps biomarker tokens (e.g. MRD) and
+    # run-on header fragments are not swept in. No disease keyword is required.
+    scope = s[:therapy_m.start()] if therapy_m else s
+    candidates = re.findall(
+        r"(?:[A-Z][a-z][A-Za-z/&\-]* ){1,5}[A-Z][a-z][A-Za-z/&\-]*(?:\s*\([A-Za-z]+\))?",
+        scope,
+    )
+    if candidates:
+        out["disease"] = candidates[-1].strip()
+    if therapy_m:
+        out["therapy"] = therapy_m.group(1).strip()
     return out
 
 

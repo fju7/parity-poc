@@ -18,6 +18,10 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
   const [patientAddress, setPatientAddress] = useState(analysis.patient_address || "");
   const [providerName, setProviderName] = useState(analysis.provider_name || "");
   const [claimNumber, setClaimNumber] = useState(analysis.claim_number || "");
+  // Condition-neutral diagnosis intake. No plain-language diagnosis field exists in
+  // `analysis` today, so default to empty; ICD code is optional and defaults empty.
+  const [patientDiagnosis, setPatientDiagnosis] = useState(analysis.patient_diagnosis || "");
+  const [patientIcdCode, setPatientIcdCode] = useState("");
   const [letterText, setLetterText] = useState(null);
   const [letterLoading, setLetterLoading] = useState(false);
   const [letterError, setLetterError] = useState(null);
@@ -53,6 +57,9 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
           patient_address: patientAddress.trim() || null,
           provider_name: providerName.trim() || null,
           claim_number: claimNumber.trim() || null,
+          // Condition-neutral diagnosis (plain-language + optional ICD-10 code).
+          patient_diagnosis: patientDiagnosis.trim() || null,
+          patient_icd_code: patientIcdCode.trim() || null,
         }),
       });
 
@@ -70,7 +77,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
     } finally {
       setLetterLoading(false);
     }
-  }, [analysis, patientName, patientAddress, providerName, claimNumber]);
+  }, [analysis, patientName, patientAddress, providerName, claimNumber, patientDiagnosis, patientIcdCode]);
 
   const handleCopy = useCallback(() => {
     if (!letterText) return;
@@ -268,8 +275,39 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
             <div className="px-6 py-6 bg-white border-t border-[#0D7377]/20">
               <p className="text-sm text-gray-500 mb-5">
                 We'll draft a professional appeal letter based on the denial analysis above.
-                Fill in the optional fields to personalize it.
+                Fill in the fields below to personalize it.
               </p>
+
+              {/* Diagnosis — condition-neutral, visually prominent; helps match the
+                  medical evidence to the patient's specific situation. */}
+              <div className="mb-5 p-4 rounded-xl border-2 border-[#0D7377]/40 bg-teal-50/40">
+                <label className="block text-sm font-semibold text-[#0D7377] mb-1">
+                  What is your medical condition or diagnosis?
+                </label>
+                <p className="text-xs text-gray-500 mb-2">
+                  For example: stage 3 colon cancer, chronic migraine, herniated disc, or type 2 diabetes.
+                  This helps us match the medical evidence to your specific situation.
+                </p>
+                <input
+                  value={patientDiagnosis}
+                  onChange={(e) => setPatientDiagnosis(e.target.value)}
+                  placeholder="e.g. stage 3 colon cancer"
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
+                />
+
+                <label className="block text-xs font-medium text-gray-500 mt-4 mb-1">
+                  ICD-10 diagnosis code (optional)
+                </label>
+                <p className="text-xs text-gray-400 mb-2">
+                  Only if you know it, for example C18.9. You can leave this blank.
+                </p>
+                <input
+                  value={patientIcdCode}
+                  onChange={(e) => setPatientIcdCode(e.target.value)}
+                  placeholder="e.g. C18.9"
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
+                />
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
                 <div>
@@ -319,6 +357,10 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                   className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0D7377] focus:ring-1 focus:ring-[#0D7377]/30"
                 />
               </div>
+
+              <p className="text-xs text-gray-500 mb-3">
+                The more specific your diagnosis, the more closely your appeal letter will match your case.
+              </p>
 
               <button
                 onClick={handleGenerateAppeal}
