@@ -647,10 +647,20 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - If a weakness was identified in the denial reasoning, leads with that as the primary argument
 - Lists the supporting documentation the patient will provide
 - Closes with a clear request for reconsideration and a deadline expectation
-- Uses professional but plain language — not legal jargon
+- Uses professional but plain language, not legal jargon
 - Is formatted as a real letter (date, addresses, subject line, body, closing)
 - For the letterhead date, output the exact literal token __LETTER_DATE__ (our system substitutes the correct date). Use __LETTER_DATE__ exactly once, only as the letterhead date. Never write any other calendar date to mean "today"; dates that refer to the denial (e.g. the denial date) should be written normally.
-- If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal — this strengthens the letter with scientific backing
+- If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal. This strengthens the letter with scientific backing.
+
+Punctuation rule: Do not use em-dashes (—) or en-dashes (–) anywhere in the letter. Write in complete, direct sentences. Where you would use a dash, use a period, comma, colon, or parentheses as appropriate.
+
+Writing style:
+- Write the way an experienced human medical-billing advocate writes: direct, specific, and confident. Short-to-medium sentences. One idea per sentence.
+- Do not open sentences with throat-clearing like "We respectfully request", "We draw the reviewer's attention to", or "It is important to note". State the point directly.
+- Avoid summary constructions that cram three or more items into a single sentence set off by dashes or colons (for example, "Taken together, this body of evidence, A, B, C, and D, demonstrates..."). If you must summarize, use a short plain sentence.
+- Prefer concrete statements over abstract ones. Instead of "does not reflect the current state of the evidence", say specifically what the evidence shows.
+- Keep all clinical and regulatory terminology. The reader is a physician reviewer; precision is persuasive. Do not simplify medical or legal terms.
+- Maintain a professional, respectful, firm tone. Confident, not aggressive. Never overstate what the evidence proves; stay within each item's stated indication.
 
 Return only the letter text, no explanation or commentary."""
 
@@ -1144,6 +1154,44 @@ def _map_citation_numbers(text: str) -> str:
     return re.sub(r"\[E(\d+)\]", r"[\1]", text or "")
 
 
+# Standalone em/en dashes only (surrounding spaces optional, but NOT newlines so
+# line structure is preserved). Hyphen-minus (-) in "muscle-invasive" etc. is a
+# different character and is never matched.
+_DASH_RE = re.compile(r"[ \t]*[—–][ \t]*")
+_URL_RE = re.compile(r"https?://\S+")
+
+
+def _normalize_dashes(text: str) -> str:
+    """Deterministically remove em-dashes (—) and en-dashes (–) from the letter
+    BODY (run before the References section is appended, so reference URLs are
+    never touched). Belt-and-suspenders on top of the prompt rule.
+
+    Replacement: a standalone dash becomes ". " when it separates independent
+    clauses (the next word is capitalized), else ", " (mid-sentence aside).
+    Hyphens in hyphenated words are the hyphen-minus character and are left
+    untouched; URLs are protected from any change.
+    """
+    if not text:
+        return text
+    # Protect URLs so no dash inside one is ever altered.
+    urls: List[str] = []
+
+    def _stash(m):
+        urls.append(m.group(0))
+        return f"\x00URL{len(urls) - 1}\x00"
+
+    protected = _URL_RE.sub(_stash, text)
+
+    def _repl(m):
+        after = m.string[m.end():].lstrip()
+        return ". " if after[:1].isupper() else ", "
+
+    result = _DASH_RE.sub(_repl, protected)
+    for i, u in enumerate(urls):
+        result = result.replace(f"\x00URL{i}\x00", u)
+    return result
+
+
 @router.post("/api/health/generate-appeal")
 def generate_appeal(req: AppealGenerateRequest):
     client = _get_client()
@@ -1271,6 +1319,11 @@ def generate_appeal(req: AppealGenerateRequest):
     # -- PH-4a.1: mechanical cleanup. [E#] citations now survive _validate_letter;
     # renumber any ordered lists so surviving items are always sequential. --
     body = _renumber_ordered_lists(validated["letter_text"])
+
+    # -- PH-4a.2: voice pass. Deterministically strip em/en dashes from the body
+    # (runs before the References section is appended, so reference URLs are
+    # untouched). Backstop to the prompt's no-dash rule. --
+    body = _normalize_dashes(body)
 
     # -- PH-4a: anti-fabrication guard on the letter BODY (with [E#] keys intact,
     # before reader-facing numbering and before the References section). --

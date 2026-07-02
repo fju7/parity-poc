@@ -34,6 +34,7 @@ from routers.health_analyze import (  # noqa: E402
     _validate_letter,
     _renumber_ordered_lists,
     _map_citation_numbers,
+    _normalize_dashes,
     generate_appeal,
     AppealGenerateRequest,
 )
@@ -91,6 +92,39 @@ class TestEvidenceBlock:
         ref = _format_reference(ev["keys"][cms_key])
         assert ref.startswith("CMS ")
         assert ev["keys"][cms_key]["source_uid"] in ref          # states the specific doc id
+
+
+# ===========================================================================
+# Deterministic — PH-4a.2 em/en-dash normalization (voice pass)
+# ===========================================================================
+
+class TestDashNormalization:
+    def test_no_em_or_en_dashes_remain(self):
+        body = ("The test is analytically validated — Medicare covers it. "
+                "Signatera — a ctDNA assay — guides therapy. "
+                "It is peer-reviewed and muscle-invasive specific. "
+                "See https://pubmed.ncbi.nlm.nih.gov/39284954/ for detail. "
+                "The en-dash range 2020–2024 is also removed.")
+        out = _normalize_dashes(body)
+        assert "—" not in out and "–" not in out            # zero em/en dashes remain
+        assert "peer-reviewed" in out and "muscle-invasive" in out   # hyphen-minus untouched
+        assert "https://pubmed.ncbi.nlm.nih.gov/39284954/" in out    # URL untouched
+
+    def test_clause_separator_becomes_period(self):
+        # next word capitalized -> independent clause -> ". "
+        assert _normalize_dashes("The test works — Medicare agrees.") == "The test works. Medicare agrees."
+
+    def test_midsentence_aside_becomes_commas(self):
+        assert _normalize_dashes("Signatera — a ctDNA assay — guides care.") == \
+            "Signatera, a ctDNA assay, guides care."
+
+    def test_hyphenated_words_untouched(self):
+        s = "muscle-invasive peer-reviewed ctDNA-based FDA-approved"
+        assert _normalize_dashes(s) == s
+
+    def test_newlines_preserved(self):
+        # lowercase next word -> comma; the newline is never consumed.
+        assert _normalize_dashes("Line one — end.\nLine two") == "Line one, end.\nLine two"
 
 
 # ===========================================================================
