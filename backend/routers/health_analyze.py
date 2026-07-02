@@ -582,7 +582,8 @@ DENIAL_SYSTEM_PROMPT = """You are a medical insurance denial analyst helping eve
   "member_id": "the member, subscriber, or customer ID if found, or null",
   "patient_address": "the patient's mailing address if found in the document, or null",
   "state": "the patient's two-letter state if found or derivable from the address, or null",
-  "provider_name": "ordering provider or physician name if found, or null",
+  "provider_name": "ordering provider's name if found, NAME ONLY without any title/credential prefix (the title goes in provider_title), or null",
+  "provider_title": "the ordering provider's stated credential/title EXACTLY as written in the denial (e.g. 'Dr.', 'MD', 'NP', 'FNP', 'PA', 'RN', 'APRN'), or null if the denial does not state one. Do NOT guess, assume, or default to 'Dr.'",
   "facility_name": "facility or lab name if found (e.g. the testing lab), or null",
   "claim_number": "claim or reference number if found, or null",
   "date_of_service": "date of service if found (any format), or null",
@@ -654,6 +655,7 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - Uses professional but plain language, not legal jargon
 - Is formatted as a real letter (date, addresses, subject line, body, closing)
 - For the letterhead date, output the exact literal token __LETTER_DATE__ (our system substitutes the correct date). Use __LETTER_DATE__ exactly once, only as the letterhead date. Never write any other calendar date to mean "today"; dates that refer to the denial (e.g. the denial date) should be written normally.
+- Refer to the ordering provider using ONLY the title/credential stated in the denial analysis (the provider_title field), if any. If a title is provided, use it (for example "Dr. Smith", "Smith, NP", or "Smith, PA" as appropriate to the credential). If NO title is provided (provider_title is null or absent), refer to the provider neutrally as "the ordering provider, <Name>" and do NOT use "Dr." or any other credential you were not given. Never assume the provider is a physician.
 - The denial analysis uses placeholder tokens for the patient's identifying details: __PATIENT_NAME__ for the patient's name, __MEMBER_ID__ for the member ID, __CLAIM_NUMBER__ for the claim number, and __PATIENT_ADDRESS__ for the patient's address. Write these tokens verbatim wherever that information belongs in the letter (letterhead, the RE/subject block, the signature). Do NOT invent or guess a real name, ID, claim number, or address. Our system substitutes the real values after the letter is written.
 - If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal. This strengthens the letter with scientific backing.
 
