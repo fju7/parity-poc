@@ -190,8 +190,53 @@ Three live products + one in development:
 Numbered sequentially: backend/migrations/001_*.sql through 050_*.sql
 All migrations through 056 have been run on production.
 Next migration number: 057
-Always output migration SQL clearly for Fred to run in Supabase dashboard.
-Fred runs migrations manually in Supabase SQL Editor.
+Migration application follows the two-tier policy in **Database Migrations —
+Application Policy (authoritative)** immediately below (Claude Code applies approved
+migrations via the Supabase apply_migration tool; the manual SQL-Editor step is no
+longer required).
+
+## Database Migrations — Application Policy (authoritative)
+
+Migrations for this project (Parity — Supabase project kfxxpscdwoemtzylhhhb) follow a
+two-tier rule. This section supersedes any other migration instruction elsewhere in this file.
+
+Tier 1 — Human review of SQL (required, never skipped):
+- Every migration's SQL must be read and approved by the operator (Fred) or Advisor Claude
+  BEFORE it is applied.
+- Claude Code MAY author, stage, commit, and push a migration FILE to main at any time — a
+  staged migration file is inert and changes nothing until applied.
+- Claude Code MUST NOT apply a migration that has not been reviewed and explicitly approved.
+  If Claude Code has just authored a migration, it stages the file, then STOPS and requests
+  review. It never applies its own unreviewed SQL.
+
+Tier 2 — Application (Claude Code performs, only after approval):
+- Once the SQL is approved, Claude Code applies it via the Supabase apply_migration tool.
+  The manual SQL-Editor step is no longer required.
+- Before applying, Claude Code MUST re-confirm the connected project is Parity: call
+  get_project_url; it must return https://kfxxpscdwoemtzylhhhb.supabase.co. If it returns
+  anything else (e.g. Grailr abxcibmvoiyxfmdmgyrb), STOP.
+- Immediately after applying, Claude Code MUST run and report these read-only checks for
+  every new or changed object:
+    * the object exists as intended;
+    * RLS enabled where required (relrowsecurity = true);
+    * grants correct — service_role only; anon and authenticated MUST NOT appear (report
+      loudly if either does);
+    * any declared CHECK/constraint is present;
+    * get_advisors (security) shows no "RLS disabled" and no "exposed to anon/PUBLIC" finding
+      for the new objects. (An rls_enabled_no_policy INFO on a service-role-only table is the
+      intended default-deny design and is acceptable.)
+- Commit and push the applied migration file to main.
+
+Grant hygiene (every migration):
+- Name each role explicitly in GRANT/REVOKE. CREATE TABLE auto-grants DML to anon +
+  authenticated, so REVOKE ALL FROM PUBLIC, anon, authenticated and GRANT only what
+  service_role needs. Service-role-only tables: REVOKE from PUBLIC, anon, authenticated on
+  the table AND any sequences. SECURITY DEFINER functions in public: REVOKE EXECUTE FROM
+  PUBLIC, GRANT EXECUTE TO service_role.
+
+Push to main:
+- Claude Code commits and pushes directly to main. There is no staging-first workflow for
+  this project.
 
 ## Environment variables (Render)
 - ANTHROPIC_API_KEY
@@ -1166,7 +1211,9 @@ Next migration number: 066
 4. After completing tasks, update this CLAUDE.md to reflect
    any new files, endpoints, tables, or architectural changes
 5. Commit and push CLAUDE.md updates with the rest of the changes
-6. Output any migration SQL clearly for Fred to run manually
+6. Apply migrations per the two-tier "Database Migrations — Application Policy
+   (authoritative)" section: stage/commit the file anytime, but apply only reviewed
+   and approved SQL (via the Supabase apply_migration tool)
 7. Never ask Fred to create Stripe products or price IDs manually
 
 ## Quality Standards — Verification and Testing
