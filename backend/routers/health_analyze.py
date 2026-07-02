@@ -650,14 +650,20 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - States clearly that the patient is appealing the denial
 - Directly addresses the specific criterion the carrier cited
 - If a weakness was identified in the denial reasoning, leads with that as the primary argument
-- Lists the supporting documentation the patient will provide
+- Handle supporting documentation HONESTLY. Never claim to enclose, attach, or submit-herewith a document that does not genuinely accompany this letter. Distinguish these categories:
+  - The ONLY items that accompany this letter are this appeal letter itself and the list of published evidence citations/references appended automatically below. Cite that evidence by reference (its bracketed [number] key); do NOT claim to physically enclose journal articles or PDFs.
+  - Documents already in the insurer's possession (the claim, the billing and diagnosis codes (CPT/ICD), the denial letter itself, and the payer's own medical policy) must be REFERENCED as already on file with the insurer, NOT listed as enclosures the patient is attaching.
+  - The letter of medical necessity from the ordering provider and the patient's relevant medical records will be submitted SEPARATELY by the ordering provider, referencing this claim number (__CLAIM_NUMBER__). State this as a separate submission by the provider; do NOT claim these are enclosed with the patient's letter.
+  - When in doubt, describe a document as "to be provided" or "being submitted separately," never as already enclosed or attached.
 - Closes with a clear request for reconsideration and a deadline expectation
 - Uses professional but plain language, not legal jargon
 - Is formatted as a real letter (date, addresses, subject line, body, closing)
+- Present EVERY appeal submission address the denial provided (appeal_submission.address and appeal_submission.alt_address, when each is present), each with a clear, plain-language label so the patient knows which applies to them. For example: "If your coverage is through an employer or union group plan, send your appeal to: [address]. If you have an individual or Marketplace plan, send your appeal to: [alt_address]. If you are unsure which applies to you, you may send your appeal to both addresses, or call the member services number on your insurance card to confirm." Do NOT choose a single address on the patient's behalf and do NOT omit any address the denial provided. If only one address is provided, present that one. Always include the appeal fax and phone (appeal_submission.fax, appeal_submission.phone) if provided.
 - For the letterhead date, output the exact literal token __LETTER_DATE__ (our system substitutes the correct date). Use __LETTER_DATE__ exactly once, only as the letterhead date. Never write any other calendar date to mean "today"; dates that refer to the denial (e.g. the denial date) should be written normally.
 - Refer to the ordering provider using ONLY the title/credential stated in the denial analysis (the provider_title field), if any. If a title is provided, use it (for example "Dr. Smith", "Smith, NP", or "Smith, PA" as appropriate to the credential). If NO title is provided (provider_title is null or absent), refer to the provider neutrally as "the ordering provider, <Name>" and do NOT use "Dr." or any other credential you were not given. Never assume the provider is a physician.
 - The denial analysis uses placeholder tokens for the patient's identifying details: __PATIENT_NAME__ for the patient's name, __MEMBER_ID__ for the member ID, __CLAIM_NUMBER__ for the claim number, and __PATIENT_ADDRESS__ for the patient's address. Write these tokens verbatim wherever that information belongs in the letter (letterhead, the RE/subject block, the signature). Do NOT invent or guess a real name, ID, claim number, or address. Our system substitutes the real values after the letter is written.
 - If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal. This strengthens the letter with scientific backing.
+- State the patient's appeal rights using ONLY the rights and external-review options named in the denial analysis (the appeal_rights field). Do NOT add appeal rights, statutes, or agencies that are not listed there, and do NOT assert that a particular right applies unless the denial stated it. If appeal_rights is empty, do not invent rights; simply state that the patient is exercising their right to appeal this determination. Do not characterize which rights apply based on the patient's plan type.
 
 Punctuation rule: Do not use em-dashes (—) or en-dashes (–) anywhere in the letter. Write in complete, direct sentences. Where you would use a dash, use a period, comma, colon, or parentheses as appropriate.
 
@@ -701,6 +707,11 @@ def _resolve_placeholder(label: str, da: dict):
         "payer address": sub.get("address"),
         "mailing address": sub.get("address"),
         "appeal address": sub.get("address"),
+        # Alternate/secondary appeal address (never selected over the primary; both
+        # are shown, each labeled — see the appeal prompt's address instruction).
+        "alternate appeal address": sub.get("alt_address"),
+        "secondary appeal address": sub.get("alt_address"),
+        "alternate mailing address": sub.get("alt_address"),
     }
     # Note: bare [Phone]/[Fax]/[Email] placeholders are patient-contact fields we do not
     # have — intentionally unmapped so their lines are removed rather than back-filled with
