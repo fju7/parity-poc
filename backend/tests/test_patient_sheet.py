@@ -146,14 +146,25 @@ def test_provider_email_degrades_without_provider_or_payer():
     assert "None" not in em and "null" not in em.lower()  # no blank/None tokens
 
 
-# -- 7.3: sheet content assembly --
-def test_sheet_prioritizes_medical_necessity():
+# -- sheet content assembly: the concise "What You Need to Do" section replaced the old
+# "What To Gather" checklist; the sheet no longer reads supporting_documentation. --
+def test_sheet_what_you_need_to_do_present_and_worded():
     c = _build_patient_sheet_content(_FIXTURE_DA)
-    assert c["gather"][0]["text"] == "Letter of medical necessity from your provider"
-    assert c["gather"][0]["priority"] is True
-    # other docs retained, not prioritized
-    texts = [g["text"] for g in c["gather"]]
-    assert "Recent office notes" in texts and "Prior test results" in texts
+    assert "gather" not in c and "gather_note" not in c       # old checklist keys removed
+    w = c["what_you_need_to_do"]
+    assert "letter of medical necessity" in w and "medical records" in w
+    assert "appeal letter already" in w                       # evidence-already-in-letter framing
+    assert "Sample Provider" in w                             # provider name when present
+    assert "CLAIM-TEST-0340U" in w                            # claim number when present
+    assert "section below" in w                               # points down to the email section
+
+
+def test_sheet_what_you_need_to_do_degrades_gracefully():
+    c = _build_patient_sheet_content({"supporting_documentation": ["X"]})  # no provider, no claim
+    w = c["what_you_need_to_do"]
+    assert "ask your provider for a letter of medical necessity" in w      # neutral, no parenthetical
+    assert "referencing claim number" not in w                            # no claim clause
+    assert "()" not in w and "None" not in w
 
 
 def test_sheet_omits_absent_fields_and_no_visible_null():
@@ -164,8 +175,8 @@ def test_sheet_omits_absent_fields_and_no_visible_null():
     assert c["where"]["alt_address"] is None
     assert c["deadlines"] == []                       # no deadline fields, no peer-to-peer line
     # No user-visible string contains a literal None/null.
-    visible = [c["intro"], c["gather_note"], c["provider_email"], c["provider_email_intro"]]
-    visible += c["deadlines"] + c["next_steps"] + [g["text"] for g in c["gather"]]
+    visible = [c["intro"], c["what_you_need_to_do"], c["provider_email"], c["provider_email_intro"]]
+    visible += c["deadlines"] + c["next_steps"]
     visible += [v for v in (c["where"]["address"],) if v]
     blob = " ".join(visible)
     assert "None" not in blob and "null" not in blob.lower()
@@ -177,3 +188,12 @@ def test_sheet_uses_deadline_hint_verbatim_no_conversion():
     assert "72 hours" in joined          # literal wording, not converted to days
     assert "3 days" not in joined
     assert "180 days" in joined          # day-integer standard deadline in plain language
+
+
+# -- Next Steps wording fix: the email section renders ABOVE Next Steps, so step 3
+# must point "above", not "below". --
+def test_next_steps_step3_points_above():
+    c = _build_patient_sheet_content(_FIXTURE_DA)
+    step3 = c["next_steps"][2]
+    assert "using the text above" in step3
+    assert "using the text below" not in step3

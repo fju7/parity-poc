@@ -1772,19 +1772,22 @@ def _build_patient_sheet_content(da: dict) -> dict:
     if p2p:
         deadlines.append(f"Your provider can call {p2p} to request a peer-to-peer review with the insurer's reviewer.")
 
-    # -- WHAT TO GATHER: checklist, medical-necessity item prioritized if present. --
-    docs = [str(d).strip() for d in (da.get("supporting_documentation") or []) if str(d).strip()]
-    mn_idx = next((i for i, d in enumerate(docs) if "medical necessity" in d.lower()), None)
-    gather = []
-    if mn_idx is not None:
-        gather.append({"text": docs[mn_idx], "priority": True})
-        gather.extend({"text": d, "priority": False} for i, d in enumerate(docs) if i != mn_idx)
-    else:
-        gather.extend({"text": d, "priority": False} for d in docs)
-    gather_note = (
-        "Your provider submits the letter of medical necessity and your medical records "
-        + (f"separately to the insurer, referencing claim number {claim_number}."
-           if claim_number else "separately to the insurer.")
+    # -- WHAT YOU NEED TO DO: the appeal letter already contains the argument and the
+    # supporting medical evidence, so the patient does not gather documents themselves.
+    # The one thing to secure is a letter of medical necessity + records from the
+    # provider. Worded to stay true whether or not the letter has a citations list.
+    # Folds in the old gather_note substance (provider sends to insurer, claim ref). --
+    provider_name = (da.get("provider_name") or "").strip()
+    provider_clause = f" ({provider_name})" if provider_name else ""
+    claim_ref = f", referencing claim number {claim_number}" if claim_number else ""
+    what_you_need_to_do = (
+        "Your appeal letter already lays out the argument and the medical evidence "
+        "supporting your case, so you do not need to gather studies or documents yourself. "
+        "The most important thing you can do is ask your provider" + provider_clause
+        + " for a letter of medical necessity, along with your relevant medical records "
+        "(such as diagnosis, stage, and treatment history). Your provider sends these "
+        "directly to the insurer" + claim_ref + ". Use the email in the \"Email Your "
+        "Provider\" section below to request them."
     )
 
     return {
@@ -1797,14 +1800,13 @@ def _build_patient_sheet_content(da: dict) -> dict:
         ),
         "where": where,
         "deadlines": deadlines,
-        "gather": gather,
-        "gather_note": gather_note,
+        "what_you_need_to_do": what_you_need_to_do,
         "provider_email": _build_provider_email(da),
         "provider_email_intro": "Copy the text below into an email to your provider's office:",
         "next_steps": [
             "Review and sign the appeal letter.",
             "Send the appeal letter to the address above before the deadline.",
-            "Email your provider (using the text below) to submit the medical-necessity letter and records.",
+            "Email your provider (using the text above) to submit the medical-necessity letter and records.",
             "Keep copies of everything you send.",
         ],
     }
@@ -1839,8 +1841,6 @@ def _render_patient_sheet_pdf(content: dict) -> bytes:
     s_body = ParagraphStyle("PSBody", parent=base["Normal"], fontSize=10.5, leading=15,
                             textColor=NAVY, spaceAfter=3)
     s_bullet = ParagraphStyle("PSBullet", parent=s_body, leftIndent=16, spaceAfter=2)
-    s_bullet_pri = ParagraphStyle("PSBulletPri", parent=s_bullet, fontName="Helvetica-Bold",
-                                  textColor=NAVY)
     s_email = ParagraphStyle("PSEmail", parent=base["Normal"], fontName="Courier",
                              fontSize=9.5, leading=13, textColor=NAVY)
 
@@ -1884,19 +1884,11 @@ def _render_patient_sheet_pdf(content: dict) -> bytes:
         for d in content["deadlines"]:
             story.append(Paragraph(_esc(d), s_bullet, bulletText="•"))
 
-    # What to gather.
-    if content.get("gather"):
-        story.append(Paragraph("What To Gather", s_section))
-        for item in content["gather"]:
-            label = item.get("text", "")
-            if item.get("priority"):
-                story.append(Paragraph("☐ <b>" + _esc(label) + "  (most important)</b>",
-                                       s_bullet_pri))
-            else:
-                story.append(Paragraph("☐ " + _esc(label), s_bullet))
-    if content.get("gather_note"):
-        story.append(Spacer(1, 2))
-        story.append(Paragraph(_esc(content["gather_note"]), s_body))
+    # What you need to do (renders in the same position the old "What To Gather" did,
+    # i.e. above "Email Your Provider", so the paragraph's "section below" is correct).
+    if content.get("what_you_need_to_do"):
+        story.append(Paragraph("What You Need to Do", s_section))
+        story.append(Paragraph(_esc(content["what_you_need_to_do"]), s_body))
 
     # Email your provider (visually set off in a bordered/shaded block).
     if content.get("provider_email"):
