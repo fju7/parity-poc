@@ -30,6 +30,12 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
   const [pdfLoading, setPdfLoading] = useState(false);
   const [sheetLoading, setSheetLoading] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
+  // PH-4b-3: review-and-approval state. The backend already returns reviewer_checklist,
+  // needs_revision (and status) on the generate-appeal response; we surface them here.
+  // `reviewed` is a client-side UX gate that resets to false on each new draft.
+  const [reviewChecklist, setReviewChecklist] = useState(null);
+  const [needsRevision, setNeedsRevision] = useState(false);
+  const [reviewed, setReviewed] = useState(false);
 
   const typeConfig = DENIAL_TYPE_COLORS[analysis.denial_type] || DENIAL_TYPE_COLORS.other;
 
@@ -75,6 +81,11 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
 
       const data = await res.json();
       setLetterText(data.letter_text);
+      // PH-4b-3: capture the review data the backend returns. A freshly generated
+      // (or regenerated) draft always starts UNREVIEWED, so reset the gate here.
+      setReviewChecklist(data.reviewer_checklist || null);
+      setNeedsRevision(!!data.needs_revision);
+      setReviewed(false);
     } catch (err) {
       setLetterError(err.message);
     } finally {
@@ -238,6 +249,35 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
       setLetterError(err.message);
     }
   }, [buildBody]);
+
+  // PH-4b-3: turn one backend reviewer_checklist item into a readable review line.
+  // Guards every field so nothing renders as "undefined"/"null".
+  const renderReviewItem = (item) => {
+    if (!item || typeof item !== "object") {
+      return "Read this letter carefully before sending.";
+    }
+    switch (item.type) {
+      case "confirm_indication": {
+        const ref = item.reference || "a cited source";
+        const ind = item.stated_indication ? ` (stated indication: ${item.stated_indication})` : "";
+        const prompt = item.prompt || "Confirm this evidence's stated indication matches the patient's diagnosis before relying on it.";
+        return `${prompt} Source: ${ref}${ind}`;
+      }
+      case "verify_statistic": {
+        const fig = item.figure ? `"${item.figure}"` : "a figure in the letter";
+        const sent = item.sentence ? ` In context: "${item.sentence}"` : "";
+        const prompt = item.prompt || "Verify this figure against the cited source before sending.";
+        return `${prompt} Figure: ${fig}.${sent}`;
+      }
+      case "gap":
+        return item.action || item.note || "Review a potential gap in this appeal before sending.";
+      case "note":
+        return item.note || "Review this letter carefully before sending.";
+      default:
+        return item.prompt || item.action || item.note || "Read this letter carefully before sending.";
+    }
+  };
+  const reviewItems = (reviewChecklist && Array.isArray(reviewChecklist.items)) ? reviewChecklist.items : [];
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -492,7 +532,20 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
         {letterText && (
           <div className="rounded-xl border border-gray-200 overflow-hidden mb-6 appeal-letter-print">
             <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b border-gray-200 print:hidden">
-              <h3 className="text-lg font-bold text-[#1B3A5C]">Your Appeal Letter</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#1B3A5C]">Your Appeal Letter</h3>
+                {/* PH-4b-3: DRAFT until the human confirms review; turns green when reviewed. */}
+                <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                  reviewed ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
+                }`}>
+                  {reviewed ? "Reviewed" : "DRAFT"}
+                </span>
+                {needsRevision && (
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-red-100 text-red-700">
+                    NEEDS REVISION
+                  </span>
+                )}
+              </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleCopy}
@@ -506,10 +559,11 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                 </button>
                 <button
                   onClick={handleDownloadPdf}
-                  disabled={pdfLoading}
+                  disabled={pdfLoading || !reviewed}
+                  title={!reviewed ? "Confirm you have reviewed this draft (below) to enable download" : undefined}
                   className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer disabled:opacity-60 disabled:cursor-default"
                 >
-                  {pdfLoading ? "Preparing PDF..." : "Download as PDF"}
+                  {pdfLoading ? "Preparing PDF..." : (reviewed ? "Download as PDF" : "Review draft to enable download")}
                 </button>
                 <button
                   onClick={handleDownloadPatientSheet}
@@ -530,16 +584,52 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                 </button>
               </div>
             </div>
+            {/* PH-4b-3: Review-before-sending panel — surfaces the backend reviewer_checklist. */}
+            <div className="px-6 pt-5 pb-1 print:hidden">
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
+                <h4 className="font-semibold text-amber-800 text-sm mb-2">Review before sending</h4>
+                {needsRevision && (
+                  <p className="text-sm text-red-700 mb-3">
+                    An automated check flagged a possible citation issue. Review the letter and the
+                    notes below carefully before relying on it.
+                  </p>
+                )}
+                {reviewItems.length === 0 ? (
+                  <p className="text-sm text-amber-700">
+                    No automated review flags. Please still read the letter carefully before sending.
+                  </p>
+                ) : (
+                  <ul className="space-y-2">
+                    {reviewItems.map((item, i) => (
+                      <li key={i} className="text-sm text-amber-900 flex items-start gap-2">
+                        <span className="text-amber-500 mt-0.5 shrink-0">•</span>
+                        <span>{renderReviewItem(item)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
             <div className="bg-white p-8">
               <pre className="whitespace-pre-wrap text-[15px] text-gray-800 leading-[1.7] font-[Arial,sans-serif]">
                 {letterText}
               </pre>
             </div>
             <div className="px-6 py-3 bg-amber-50 border-t border-amber-200 print:hidden">
-              <p className="text-xs text-amber-700">
+              <p className="text-xs text-amber-700 mb-2">
                 This letter is a starting point. Review it carefully and add any additional medical
                 documentation before sending.
               </p>
+              {/* PH-4b-3: single client-side review gate. Enables the appeal-letter PDF download. */}
+              <label className="flex items-start gap-2 text-sm text-amber-900 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={reviewed}
+                  onChange={(e) => setReviewed(e.target.checked)}
+                  className="mt-0.5 accent-[#0D7377]"
+                />
+                <span>I have reviewed this draft letter and the review notes above.</span>
+              </label>
             </div>
           </div>
         )}
