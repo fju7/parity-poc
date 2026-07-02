@@ -10,6 +10,7 @@ into a single pipeline.
 """
 
 import base64
+import copy
 import csv
 import io
 import json
@@ -653,6 +654,7 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - Uses professional but plain language, not legal jargon
 - Is formatted as a real letter (date, addresses, subject line, body, closing)
 - For the letterhead date, output the exact literal token __LETTER_DATE__ (our system substitutes the correct date). Use __LETTER_DATE__ exactly once, only as the letterhead date. Never write any other calendar date to mean "today"; dates that refer to the denial (e.g. the denial date) should be written normally.
+- The denial analysis uses placeholder tokens for the patient's identifying details: __PATIENT_NAME__ for the patient's name, __MEMBER_ID__ for the member ID, __CLAIM_NUMBER__ for the claim number, and __PATIENT_ADDRESS__ for the patient's address. Write these tokens verbatim wherever that information belongs in the letter (letterhead, the RE/subject block, the signature). Do NOT invent or guess a real name, ID, claim number, or address. Our system substitutes the real values after the letter is written.
 - If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal. This strengthens the letter with scientific backing.
 
 Punctuation rule: Do not use em-dashes (—) or en-dashes (–) anywhere in the letter. Write in complete, direct sentences. Where you would use a dash, use a period, comma, colon, or parentheses as appropriate.
@@ -707,6 +709,18 @@ def _resolve_placeholder(label: str, da: dict):
 # Deterministic letterhead-date token the model is asked to emit; replaced in _validate_letter.
 _LETTER_DATE_TOKEN = "__LETTER_DATE__"
 
+# The four direct patient identifiers, each mapped to a placeholder token. The
+# denial analysis is de-identified (real value -> token) BEFORE it is sent to the
+# model, and re-identified (token -> real value) server-side after the letter is
+# generated — the same round-trip pattern used for __LETTER_DATE__. This dict is
+# the SINGLE place identifiers are defined, so more can be added later trivially.
+IDENTIFIER_TOKENS = {
+    "patient_name":    "__PATIENT_NAME__",
+    "member_id":       "__MEMBER_ID__",
+    "claim_number":    "__CLAIM_NUMBER__",
+    "patient_address": "__PATIENT_ADDRESS__",
+}
+
 # Bracket inner-text tokens that MUST be filled with a named signature (never line-removed).
 _SIGNATURE_TOKENS = (
     "signature", "advocate", "provider name", "sender name",
@@ -754,6 +768,55 @@ def _is_signature_placeholder(key: str) -> bool:
     return any(tok in key for tok in _SIGNATURE_TOKENS)
 
 
+def _deidentify_for_model(da: dict):
+    """Return (da_model, token_map): a DEEP-COPIED, de-identified copy of the denial
+    analysis that is safe to send to the model, plus a token -> real-value map.
+
+    Each of the four direct identifiers (IDENTIFIER_TOKENS) that is present and
+    non-empty is replaced with its placeholder token — both as its own field AND
+    anywhere its real value appears inside any other string value (side-door scrub,
+    so a name/id/address embedded in a free-text field is removed too). The real
+    ``da`` is NEVER mutated; its real values are kept for re-identification after
+    the letter is generated. Non-identifier fields (patient_diagnosis, icd_codes,
+    state, payer_name, provider_name, facility_name, dates, CPT codes, etc.) are
+    left intact and still go to the model.
+    """
+    da_model = copy.deepcopy(da or {})
+    token_map = {}
+
+    # 1) Replace the identifier FIELDS with their tokens; record the real values.
+    for field, token in IDENTIFIER_TOKENS.items():
+        val = da_model.get(field)
+        if isinstance(val, str) and val.strip():
+            token_map[token] = val
+            da_model[field] = token
+
+    # 2) Side-door scrub: replace any occurrence of a real identifier value inside
+    #    every string in the copy. Only scrub values >= 4 chars (avoid pathological
+    #    over-replacement); replace LONGER values before shorter ones so a shorter
+    #    value that is a substring of a longer one cannot corrupt the replacement.
+    replacements = sorted(
+        ((token_map[t], t) for t in token_map if len(token_map[t]) >= 4),
+        key=lambda pair: len(pair[0]),
+        reverse=True,
+    )
+
+    def _scrub(obj):
+        if isinstance(obj, str):
+            for real, token in replacements:
+                if real in obj:
+                    obj = obj.replace(real, token)
+            return obj
+        if isinstance(obj, list):
+            return [_scrub(x) for x in obj]
+        if isinstance(obj, dict):
+            return {k: _scrub(v) for k, v in obj.items()}
+        return obj
+
+    da_model = _scrub(da_model)
+    return da_model, token_map
+
+
 def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
     """Deterministically clean a generated appeal letter. Pure string manipulation — no
     Claude call.
@@ -786,6 +849,17 @@ def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
     if token_present:
         letter_text = letter_text.replace(_LETTER_DATE_TOKEN, today)
         log.append({"field": "letter_date", "action": "stamped", "value": today})
+
+    # -- Re-identify: restore each patient-identifier token with its real value from
+    #    the (real) denial_analysis — the source of truth, NOT the model output. PHI
+    #    values are redacted from the log. An absent/empty value replaces the token
+    #    with "" so no literal __TOKEN__ is ever left visible in the final letter. --
+    for _field, _itoken in IDENTIFIER_TOKENS.items():
+        if _itoken in letter_text:
+            _real = denial_analysis.get(_field)
+            letter_text = letter_text.replace(_itoken, str(_real) if _real else "")
+            log.append({"field": _itoken, "action": "identifier_substituted",
+                        "value": "[REDACTED]" if _real else None})
 
     out_lines: List[str] = []
     for line in letter_text.split("\n"):
@@ -1241,7 +1315,9 @@ def generate_appeal(req: AppealGenerateRequest, authorization: str = Header(None
     da = req.denial_analysis or {}
 
     # Merge user-supplied (editable) fields into the analysis before validating.
-    # PHI — server-only; these values are never sent to any external API.
+    # These identifiers are de-identified (replaced with placeholder tokens) before
+    # the denial analysis is sent to the model, and restored server-side after
+    # generation (see _deidentify_for_model + the token substitution in _validate_letter).
     if req.patient_name:
         da["patient_name"] = req.patient_name
     if req.provider_name:
@@ -1276,7 +1352,11 @@ def generate_appeal(req: AppealGenerateRequest, authorization: str = Header(None
         pack = {"pubmed": [], "cms": [], "fda": [], "gaps": []}
     evidence = _build_evidence_block(pack)
 
-    context_parts = [f"Denial analysis:\n{json.dumps(da, indent=2)}"]
+    # De-identify the four direct identifiers BEFORE serializing for the model.
+    # The real `da` is left unchanged and is still used by the post-processing
+    # (_validate_letter) to restore the real values into the final letter.
+    da_model, token_map = _deidentify_for_model(da)
+    context_parts = [f"Denial analysis:\n{json.dumps(da_model, indent=2)}"]
 
     # -- PH-1-D: Signal playbook enrichment (now reachable — cpt_codes is populated) --
     try:
