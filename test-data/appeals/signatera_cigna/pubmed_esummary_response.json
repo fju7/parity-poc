@@ -1,0 +1,2454 @@
+{
+  "header": {
+    "type": "esummary",
+    "version": "0.3"
+  },
+  "result": {
+    "uids": [
+      "39284954",
+      "34135506",
+      "36252154",
+      "41124204",
+      "36646802",
+      "35543554",
+      "34844976",
+      "37079312",
+      "38823398",
+      "37683638"
+    ],
+    "39284954": {
+      "uid": "39284954",
+      "pubdate": "2024 Nov",
+      "epubdate": "2024 Sep 16",
+      "source": "Nat Med",
+      "authors": [
+        {
+          "name": "Nakamura Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Watanabe J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Akazawa N",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Hirata K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kataoka K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yokota M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kato K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kotaka M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kagawa Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yeh KH",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Mishima S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yukami H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ando K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Miyo M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Misumi T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yamazaki K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ebi H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Okita K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Hamabe A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Sokuoka H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kobayashi S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Laliotis G",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Aushev VN",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Sharma S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Jurdi A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liu MC",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Aleshin A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Rabinowitz M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bando H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Taniguchi H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Takemasa I",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kato T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kotani D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Mori M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yoshino T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Oki E",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Oki E",
+      "title": "ctDNA-based molecular residual disease and survival in resectable colorectal cancer.",
+      "sorttitle": "ctdna based molecular residual disease and survival in resectable colorectal cancer",
+      "volume": "30",
+      "issue": "11",
+      "pages": "3272-3283",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "9502015",
+      "issn": "1078-8956",
+      "essn": "1546-170X",
+      "pubtype": [
+        "Journal Article",
+        "Observational Study"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "39284954"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC11564113"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC11564113;"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1038/s41591-024-03254-6"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "10.1038/s41591-024-03254-6"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2024/07/15 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2024/08/19 00:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2024/11/16 22:27"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2024/09/17 10:42"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2024/09/16 23:23"
+        },
+        {
+          "pubstatus": "pmc-release",
+          "date": "2024/09/16 00:00"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 20,
+      "fulljournalname": "Nature medicine",
+      "elocationid": "doi: 10.1038/s41591-024-03254-6",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2024/11/01 00:00",
+      "sortfirstauthor": "Nakamura Y",
+      "vernaculartitle": ""
+    },
+    "34135506": {
+      "uid": "34135506",
+      "pubdate": "2021 Jul",
+      "epubdate": "2021 Jun 16",
+      "source": "Nature",
+      "authors": [
+        {
+          "name": "Powles T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Assaf ZJ",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Davarpanah N",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Banchereau R",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Szabados BE",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yuen KC",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Grivas P",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Hussain M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Oudard S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gschwend JE",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Albers P",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Castellano D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Nishiyama H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Daneshmand S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Sharma S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zimmermann BG",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Sethi H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Aleshin A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Perdicchio M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhang J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Shames DS",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Degaonkar V",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Shen X",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Carter C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bais C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bellmunt J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Mariathasan S",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Mariathasan S",
+      "title": "ctDNA guiding adjuvant immunotherapy in urothelial carcinoma.",
+      "sorttitle": "ctdna guiding adjuvant immunotherapy in urothelial carcinoma",
+      "volume": "595",
+      "issue": "7867",
+      "pages": "432-437",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "0410462",
+      "issn": "0028-0836",
+      "essn": "1476-4687",
+      "pubtype": [
+        "Clinical Trial, Phase III",
+        "Journal Article",
+        "Randomized Controlled Trial",
+        "Research Support, Non-U.S. Gov't"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "34135506"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1038/s41586-021-03642-9"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "10.1038/s41586-021-03642-9"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2020/12/08 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2021/05/13 00:00"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2021/06/18 06:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2021/10/05 06:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2021/06/17 06:36"
+        }
+      ],
+      "references": [
+        {
+          "refsource": "Nat Rev Urol. 2021 Aug;18(8):443. doi: 10.1038/s41585-021-00503-y.",
+          "reftype": "Comment in",
+          "pmid": 34262160,
+          "note": ""
+        },
+        {
+          "refsource": "Eur Urol. 2021 Oct;80(4):517-518. doi: 10.1016/j.eururo.2021.07.018.",
+          "reftype": "Comment in",
+          "pmid": 34366211,
+          "note": ""
+        },
+        {
+          "refsource": "J Urol. 2022 Jul;208(1):212-214. doi: 10.1097/JU.0000000000002713.",
+          "reftype": "Comment in",
+          "pmid": 35440150,
+          "note": ""
+        },
+        {
+          "refsource": "J Urol. 2022 Nov;208(5):1158-1159. doi: 10.1097/JU.0000000000002914.",
+          "reftype": "Comment in",
+          "pmid": 35984094,
+          "note": ""
+        }
+      ],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": "",
+      "fulljournalname": "Nature",
+      "elocationid": "doi: 10.1038/s41586-021-03642-9",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2021/07/01 00:00",
+      "sortfirstauthor": "Powles T",
+      "vernaculartitle": ""
+    },
+    "36252154": {
+      "uid": "36252154",
+      "pubdate": "2023 Jan 20",
+      "epubdate": "2022 Oct 17",
+      "source": "J Clin Oncol",
+      "authors": [
+        {
+          "name": "Morris VK",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kennedy EB",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Baxter NN",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Benson AB 3rd",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Cercek A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Cho M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ciombor KK",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Cremolini C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Davis A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Deming DA",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Fakih MG",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gholami S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Hong TS",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Jaiyesimi I",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Klute K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lieu C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Sanoff H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Strickler JH",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "White S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Willis JA",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Eng C",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Eng C",
+      "title": "Treatment of Metastatic Colorectal Cancer: ASCO Guideline.",
+      "sorttitle": "treatment of metastatic colorectal cancer asco guideline",
+      "volume": "41",
+      "issue": "3",
+      "pages": "678-700",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "8309333",
+      "issn": "0732-183X",
+      "essn": "1527-7755",
+      "pubtype": [
+        "Systematic Review",
+        "Journal Article"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "36252154"
+        },
+        {
+          "idtype": "mid",
+          "idtypen": 8,
+          "value": "NIHMS1927869"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC10506310"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC10506310;manuscript-id: NIHMS1927869;"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1200/JCO.22.01690"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "pubmed",
+          "date": "2022/10/18 06:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2023/01/20 06:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2022/10/17 16:02"
+        },
+        {
+          "pubstatus": "pmc-release",
+          "date": "2023/09/18 00:00"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 96,
+      "fulljournalname": "Journal of clinical oncology : official journal of the American Society of Clinical Oncology",
+      "elocationid": "doi: 10.1200/JCO.22.01690",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2023/01/20 00:00",
+      "sortfirstauthor": "Morris VK",
+      "vernaculartitle": ""
+    },
+    "41124204": {
+      "uid": "41124204",
+      "pubdate": "2025 Dec 18",
+      "epubdate": "2025 Oct 20",
+      "source": "N Engl J Med",
+      "authors": [
+        {
+          "name": "Powles T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kann AG",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Castellano D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gross-Goupil M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Nishiyama H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bracarda S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bjerggaard Jensen J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Makaroff L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Jiang S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ku JH",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Park SH",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Reig Torras O",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ye D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Maruzzo M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Necchi A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Morales-Barrera R",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Giunta EF",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lee JL",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Tortora G",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "\u00dcr\u00fcn Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Dolowy L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Erdem D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Pinto A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Grando F",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zou W",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Assaf ZJ",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Vuky J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Degaonkar V",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Steinberg EE",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bellmunt J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gschwend JE",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "IMvigor011 Investigators",
+          "authtype": "CollectiveName",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Gschwend JE",
+      "title": "ctDNA-Guided Adjuvant Atezolizumab in Muscle-Invasive Bladder Cancer.",
+      "sorttitle": "ctdna guided adjuvant atezolizumab in muscle invasive bladder cancer",
+      "volume": "393",
+      "issue": "24",
+      "pages": "2395-2408",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "0255562",
+      "issn": "0028-4793",
+      "essn": "1533-4406",
+      "pubtype": [
+        "Journal Article",
+        "Randomized Controlled Trial",
+        "Clinical Trial, Phase III",
+        "Multicenter Study"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "41124204"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1056/NEJMoa2511885"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "medline",
+          "date": "2025/12/17 19:11"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2025/10/22 18:26"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2025/10/22 13:52"
+        }
+      ],
+      "references": [],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": "",
+      "fulljournalname": "The New England journal of medicine",
+      "elocationid": "doi: 10.1056/NEJMoa2511885",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2025/12/18 00:00",
+      "sortfirstauthor": "Powles T",
+      "vernaculartitle": ""
+    },
+    "36646802": {
+      "uid": "36646802",
+      "pubdate": "2023 Jan",
+      "epubdate": "2023 Jan 16",
+      "source": "Nat Med",
+      "authors": [
+        {
+          "name": "Kotani D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Oki E",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Nakamura Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yukami H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Mishima S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bando H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Shirasu H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yamazaki K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Watanabe J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kotaka M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Hirata K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Akazawa N",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kataoka K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Sharma S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Aushev VN",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Aleshin A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Misumi T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Taniguchi H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Takemasa I",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kato T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Mori M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yoshino T",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Yoshino T",
+      "title": "Molecular residual disease and efficacy of adjuvant chemotherapy in patients with colorectal cancer.",
+      "sorttitle": "molecular residual disease and efficacy of adjuvant chemotherapy in patients with colorectal cancer",
+      "volume": "29",
+      "issue": "1",
+      "pages": "127-134",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "9502015",
+      "issn": "1078-8956",
+      "essn": "1546-170X",
+      "pubtype": [
+        "Journal Article",
+        "Research Support, Non-U.S. Gov't"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "36646802"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC9873552"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC9873552;"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1038/s41591-022-02115-4"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "10.1038/s41591-022-02115-4"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2022/07/28 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2022/11/01 00:00"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2023/01/17 06:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2023/01/27 06:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2023/01/16 23:18"
+        },
+        {
+          "pubstatus": "pmc-release",
+          "date": "2023/01/16 00:00"
+        }
+      ],
+      "references": [
+        {
+          "refsource": "Nat Med. 2023 Jan;29(1):39-40. doi: 10.1038/s41591-022-02119-0.",
+          "reftype": "Comment in",
+          "pmid": 36646801,
+          "note": ""
+        },
+        {
+          "refsource": "Nat Rev Clin Oncol. 2023 Mar;20(3):137. doi: 10.1038/s41571-023-00737-2.",
+          "reftype": "Comment in",
+          "pmid": 36717746,
+          "note": ""
+        },
+        {
+          "refsource": "Nat Rev Gastroenterol Hepatol. 2023 Mar;20(3):131. doi: 10.1038/s41575-023-00752-9.",
+          "reftype": "Comment in",
+          "pmid": 36755081,
+          "note": ""
+        }
+      ],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 23,
+      "fulljournalname": "Nature medicine",
+      "elocationid": "doi: 10.1038/s41591-022-02115-4",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2023/01/01 00:00",
+      "sortfirstauthor": "Kotani D",
+      "vernaculartitle": ""
+    },
+    "35543554": {
+      "uid": "35543554",
+      "pubdate": "2022 Jul 6",
+      "epubdate": "",
+      "source": "Cancer Discov",
+      "authors": [
+        {
+          "name": "Zhang JT",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liu SY",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gao W",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liu SM",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yan HH",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ji L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chen Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gong Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lu HL",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lin JT",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yin K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Jiang BY",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Nie Q",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liao RQ",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Dong S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Guan Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Dai P",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhang XC",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yang JJ",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Tu HY",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Xia X",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yi X",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhou Q",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhong WZ",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yang XN",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wu YL",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Wu YL",
+      "title": "Longitudinal Undetectable Molecular Residual Disease Defines Potentially Cured Population in Localized Non-Small Cell Lung Cancer.",
+      "sorttitle": "longitudinal undetectable molecular residual disease defines potentially cured population in localized non small cell lung cancer",
+      "volume": "12",
+      "issue": "7",
+      "pages": "1690-1701",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "101561693",
+      "issn": "2159-8274",
+      "essn": "2159-8290",
+      "pubtype": [
+        "Journal Article",
+        "Research Support, Non-U.S. Gov't"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "4",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "35543554"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC9394392"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC9394392;"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1158/2159-8290.CD-21-1486"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "696775"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2021/12/14 00:00"
+        },
+        {
+          "pubstatus": "revised",
+          "date": "2022/02/27 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2022/04/01 00:00"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2022/05/12 06:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2022/07/08 06:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2022/05/11 09:13"
+        },
+        {
+          "pubstatus": "pmc-release",
+          "date": "2022/08/22 00:00"
+        }
+      ],
+      "references": [
+        {
+          "refsource": "Nat Rev Clin Oncol. 2022 Sep;19(9):571-572. doi: 10.1038/s41571-022-00664-8.",
+          "reftype": "Comment in",
+          "pmid": 35798966,
+          "note": ""
+        }
+      ],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 33,
+      "fulljournalname": "Cancer discovery",
+      "elocationid": "doi: 10.1158/2159-8290.CD-21-1486",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2022/07/06 00:00",
+      "sortfirstauthor": "Zhang JT",
+      "vernaculartitle": ""
+    },
+    "34844976": {
+      "uid": "34844976",
+      "pubdate": "2022 Aug 2",
+      "epubdate": "",
+      "source": "Clin Cancer Res",
+      "authors": [
+        {
+          "name": "Xia L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Mei J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kang R",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Deng S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chen Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yang Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Feng G",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Deng Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gan F",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lin Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Pu Q",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ma L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lin F",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yuan Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Hu Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Guo C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liao H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liu C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhu Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang W",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liu Z",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Xu Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Li K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Li C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Li Q",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "He J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chen W",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhang X",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kou Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wu Z",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Che G",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chen L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liu L",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Liu L",
+      "title": "Perioperative ctDNA-Based Molecular Residual Disease Detection for Non-Small Cell Lung Cancer: A Prospective Multicenter Cohort Study (LUNGCA-1).",
+      "sorttitle": "perioperative ctdna based molecular residual disease detection for non small cell lung cancer a prospective multicenter cohort study lungca 1",
+      "volume": "28",
+      "issue": "15",
+      "pages": "3308-3317",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "9502500",
+      "issn": "1078-0432",
+      "essn": "1557-3265",
+      "pubtype": [
+        "Journal Article",
+        "Multicenter Study",
+        "Research Support, Non-U.S. Gov't"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "4",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "34844976"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1158/1078-0432.CCR-21-3044"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "1078-0432.CCR-21-3044"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2021/08/22 00:00"
+        },
+        {
+          "pubstatus": "revised",
+          "date": "2021/10/02 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2021/11/19 00:00"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2021/12/01 06:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2022/08/05 06:00"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2021/11/30 06:08"
+        }
+      ],
+      "references": [
+        {
+          "refsource": "Clin Cancer Res. 2022 Aug 2;28(15):3401. doi: 10.1158/1078-0432.CCR-22-1226.",
+          "reftype": "Comment in",
+          "pmid": 35916618,
+          "note": ""
+        },
+        {
+          "refsource": "Clin Cancer Res. 2022 Aug 2;28(15):3400. doi: 10.1158/1078-0432.CCR-22-0621.",
+          "reftype": "Comment in",
+          "pmid": 35916619,
+          "note": ""
+        },
+        {
+          "refsource": "Clin Cancer Res. 2023 Mar 14;29(6):1155. doi: 10.1158/1078-0432.CCR-22-3504.",
+          "reftype": "Comment in",
+          "pmid": 36916194,
+          "note": ""
+        }
+      ],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": "",
+      "fulljournalname": "Clinical cancer research : an official journal of the American Association for Cancer Research",
+      "elocationid": "doi: 10.1158/1078-0432.CCR-21-3044",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2022/08/02 00:00",
+      "sortfirstauthor": "Xia L",
+      "vernaculartitle": ""
+    },
+    "37079312": {
+      "uid": "37079312",
+      "pubdate": "2023 Jun 1",
+      "epubdate": "",
+      "source": "JAMA Oncol",
+      "authors": [
+        {
+          "name": "Mo S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ye L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Han L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhou S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Dai W",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Luo W",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang R",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Xu Y",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Cai S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Liu R",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang Z",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Cai G",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Cai G",
+      "title": "Early Detection of Molecular Residual Disease and Risk Stratification for Stage I to III Colorectal Cancer via Circulating Tumor DNA Methylation.",
+      "sorttitle": "early detection of molecular residual disease and risk stratification for stage i to iii colorectal cancer via circulating tumor dna methylation",
+      "volume": "9",
+      "issue": "6",
+      "pages": "770-778",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "101652861",
+      "issn": "2374-2437",
+      "essn": "2374-2445",
+      "pubtype": [
+        "Journal Article",
+        "Research Support, Non-U.S. Gov't"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "4",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "37079312"
+        },
+        {
+          "idtype": "pmc",
+          "idtypen": 8,
+          "value": "PMC10119774"
+        },
+        {
+          "idtype": "pmcid",
+          "idtypen": 5,
+          "value": "pmc-id: PMC10119774;"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1001/jamaoncol.2023.0425"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "2803768"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "medline",
+          "date": "2023/06/19 13:09"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2023/04/20 13:41"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2023/04/20 11:33"
+        },
+        {
+          "pubstatus": "pmc-release",
+          "date": "2024/04/20 00:00"
+        }
+      ],
+      "references": [
+        {
+          "refsource": "JAMA Oncol. 2023 Jun 1;9(6):763-764. doi: 10.1001/jamaoncol.2023.0329.",
+          "reftype": "Comment in",
+          "pmid": 37079293,
+          "note": ""
+        }
+      ],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": 42,
+      "fulljournalname": "JAMA oncology",
+      "elocationid": "doi: 10.1001/jamaoncol.2023.0425",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2023/06/01 00:00",
+      "sortfirstauthor": "Mo S",
+      "vernaculartitle": ""
+    },
+    "38823398": {
+      "uid": "38823398",
+      "pubdate": "2024 Aug",
+      "epubdate": "2024 May 29",
+      "source": "Lancet Gastroenterol Hepatol",
+      "authors": [
+        {
+          "name": "Oh DY",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "He AR",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Bouattour M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Okusaka T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Qin S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chen LT",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kitano M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lee CK",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kim JW",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chen MH",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Suksombooncharoen T",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ikeda M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Lee MA",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chen JS",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Potemski P",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Burris HA 3rd",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Ostwal V",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Tanasanvimon S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Morizane C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zaucha RE",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "McNamara MG",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Avallone A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Cundom JE",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Breder V",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Tan B",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Shimizu S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Tougeron D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Evesque L",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Petrova M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhen DB",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gillmore R",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Gupta VG",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Dayyani F",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Park JO",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Buchschacher GL Jr",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Rey F",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kim H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang J",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Morgan C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Rokutanda N",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "\u017botkiewicz M",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Vogel A",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Valle JW",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Valle JW",
+      "title": "Durvalumab or placebo plus gemcitabine and cisplatin in participants with advanced biliary tract cancer (TOPAZ-1): updated overall survival from a randomised phase 3 study.",
+      "sorttitle": "durvalumab or placebo plus gemcitabine and cisplatin in participants with advanced biliary tract cancer topaz 1 updated overall survival from a randomised phase 3 study",
+      "volume": "9",
+      "issue": "8",
+      "pages": "694-704",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "101690683",
+      "issn": "",
+      "essn": "2468-1253",
+      "pubtype": [
+        "Journal Article",
+        "Randomized Controlled Trial",
+        "Clinical Trial, Phase III",
+        "Multicenter Study",
+        "Research Support, Non-U.S. Gov't"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "38823398"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1016/S2468-1253(24)00095-5"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "S2468-1253(24)00095-5"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2024/01/10 00:00"
+        },
+        {
+          "pubstatus": "revised",
+          "date": "2024/03/20 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2024/03/21 00:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2024/07/07 00:42"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2024/06/02 00:43"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2024/06/01 18:52"
+        }
+      ],
+      "references": [
+        {
+          "refsource": "Lancet Gastroenterol Hepatol. 2024 Aug;9(8):678-679. doi: 10.1016/S2468-1253(24)00118-3.",
+          "reftype": "Comment in",
+          "pmid": 38823400,
+          "note": ""
+        },
+        {
+          "refsource": "Hepatobiliary Surg Nutr. 2025 Aug 1;14(4):676-679. doi: 10.21037/hbsn-2025-316.",
+          "reftype": "Comment in",
+          "pmid": 40893741,
+          "note": ""
+        },
+        {
+          "refsource": "Hepatobiliary Surg Nutr. 2025 Oct 1;14(5):839-842. doi: 10.21037/hbsn-2025-393.",
+          "reftype": "Comment in",
+          "pmid": 41104197,
+          "note": ""
+        },
+        {
+          "refsource": "Hepatobiliary Surg Nutr. 2025 Dec 1;14(6):1009-1011. doi: 10.21037/hbsn-2025-367.",
+          "reftype": "Comment in",
+          "pmid": 41383674,
+          "note": ""
+        }
+      ],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": "",
+      "fulljournalname": "The lancet. Gastroenterology & hepatology",
+      "elocationid": "doi: 10.1016/S2468-1253(24)00095-5",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2024/08/01 00:00",
+      "sortfirstauthor": "Oh DY",
+      "vernaculartitle": ""
+    },
+    "37683638": {
+      "uid": "37683638",
+      "pubdate": "2023 Oct 9",
+      "epubdate": "2023 Sep 7",
+      "source": "Cancer Cell",
+      "authors": [
+        {
+          "name": "Chen K",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Yang F",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Shen H",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang C",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Li X",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chervova O",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wu S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Qiu F",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Peng D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhu X",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Chuai S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Beck S",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Kanu N",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Carbone D",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Zhang Z",
+          "authtype": "Author",
+          "clusterid": ""
+        },
+        {
+          "name": "Wang J",
+          "authtype": "Author",
+          "clusterid": ""
+        }
+      ],
+      "lastauthor": "Wang J",
+      "title": "Individualized tumor-informed circulating tumor DNA analysis for postoperative monitoring of non-small cell lung cancer.",
+      "sorttitle": "individualized tumor informed circulating tumor dna analysis for postoperative monitoring of non small cell lung cancer",
+      "volume": "41",
+      "issue": "10",
+      "pages": "1749-1762.e6",
+      "lang": [
+        "eng"
+      ],
+      "nlmuniqueid": "101130617",
+      "issn": "1535-6108",
+      "essn": "1878-3686",
+      "pubtype": [
+        "Journal Article",
+        "Research Support, Non-U.S. Gov't"
+      ],
+      "recordstatus": "PubMed - indexed for MEDLINE",
+      "pubstatus": "256",
+      "articleids": [
+        {
+          "idtype": "pubmed",
+          "idtypen": 1,
+          "value": "37683638"
+        },
+        {
+          "idtype": "doi",
+          "idtypen": 3,
+          "value": "10.1016/j.ccell.2023.08.010"
+        },
+        {
+          "idtype": "pii",
+          "idtypen": 4,
+          "value": "S1535-6108(23)00286-6"
+        }
+      ],
+      "history": [
+        {
+          "pubstatus": "received",
+          "date": "2023/02/02 00:00"
+        },
+        {
+          "pubstatus": "revised",
+          "date": "2023/06/26 00:00"
+        },
+        {
+          "pubstatus": "accepted",
+          "date": "2023/08/17 00:00"
+        },
+        {
+          "pubstatus": "medline",
+          "date": "2023/10/12 06:43"
+        },
+        {
+          "pubstatus": "pubmed",
+          "date": "2023/09/09 10:41"
+        },
+        {
+          "pubstatus": "entrez",
+          "date": "2023/09/08 18:42"
+        }
+      ],
+      "references": [
+        {
+          "refsource": "Cancer Cell. 2023 Oct 9;41(10):1699-1701. doi: 10.1016/j.ccell.2023.09.009.",
+          "reftype": "Comment in",
+          "pmid": 37816330,
+          "note": ""
+        }
+      ],
+      "attributes": [
+        "Has Abstract"
+      ],
+      "pmcrefcount": "",
+      "fulljournalname": "Cancer cell",
+      "elocationid": "doi: 10.1016/j.ccell.2023.08.010",
+      "doctype": "citation",
+      "srccontriblist": [],
+      "booktitle": "",
+      "medium": "",
+      "edition": "",
+      "publisherlocation": "",
+      "publishername": "",
+      "srcdate": "",
+      "reportnumber": "",
+      "availablefromurl": "",
+      "locationlabel": "",
+      "doccontriblist": [],
+      "docdate": "",
+      "bookname": "",
+      "chapter": "",
+      "sortpubdate": "2023/10/09 00:00",
+      "sortfirstauthor": "Chen K",
+      "vernaculartitle": ""
+    }
+  }
+}

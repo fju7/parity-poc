@@ -1,0 +1,25 @@
+{
+  "header": {
+    "type": "esearch",
+    "version": "0.3"
+  },
+  "esearchresult": {
+    "count": "480",
+    "retmax": "10",
+    "retstart": "0",
+    "idlist": [
+      "39284954",
+      "34135506",
+      "36252154",
+      "41124204",
+      "36646802",
+      "35543554",
+      "34844976",
+      "37079312",
+      "38823398",
+      "37683638"
+    ],
+    "translationset": [],
+    "querytranslation": "\"Signatera\"[All Fields] OR \"molecular residual disease\"[All Fields] OR \"ctDNA MRD\"[All Fields]"
+  }
+}
