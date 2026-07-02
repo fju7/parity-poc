@@ -28,6 +28,8 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
   const [copied, setCopied] = useState(false);
   const [appealOpen, setAppealOpen] = useState(false);
   const [pdfLoading, setPdfLoading] = useState(false);
+  const [sheetLoading, setSheetLoading] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   const typeConfig = DENIAL_TYPE_COLORS[analysis.denial_type] || DENIAL_TYPE_COLORS.other;
 
@@ -143,6 +145,99 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
       setPdfLoading(false);
     }
   }, [analysis, patientName, patientAddress, providerName, claimNumber, patientDiagnosis, patientIcdCode]);
+
+  // Shared request body (same inputs as the appeal letter) for the patient-sheet /
+  // provider-email endpoints, which assemble their output from this data only.
+  const buildBody = useCallback(() => ({
+    denial_analysis: analysis,
+    patient_name: patientName.trim() || null,
+    patient_address: patientAddress.trim() || null,
+    provider_name: providerName.trim() || null,
+    claim_number: claimNumber.trim() || null,
+    patient_diagnosis: patientDiagnosis.trim() || null,
+    patient_icd_code: patientIcdCode.trim() || null,
+  }), [analysis, patientName, patientAddress, providerName, claimNumber, patientDiagnosis, patientIcdCode]);
+
+  // PH-4b-2: download the patient instruction sheet PDF (data-only, separate document).
+  // Mirrors handleDownloadPdf exactly (same auth + body + blob-download pattern).
+  const handleDownloadPatientSheet = useCallback(async () => {
+    setLetterError(null);
+
+    const token = localStorage.getItem("health_token");
+    if (!token) {
+      setLetterError("Please sign in again to download the patient instructions.");
+      return;
+    }
+
+    setSheetLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/health/generate-patient-sheet-pdf`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(buildBody()),
+      });
+
+      if (res.status === 401) {
+        throw new Error("Your session has expired. Please sign in again to download the instructions.");
+      }
+      if (!res.ok) {
+        throw new Error("Failed to generate the patient instructions. Please try again.");
+      }
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "patient-instructions.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setLetterError(err.message);
+    } finally {
+      setSheetLoading(false);
+    }
+  }, [buildBody]);
+
+  // PH-4b-2: fetch the copy-paste provider email text and copy it to the clipboard.
+  const handleCopyProviderEmail = useCallback(async () => {
+    setLetterError(null);
+
+    const token = localStorage.getItem("health_token");
+    if (!token) {
+      setLetterError("Please sign in again to copy the provider email.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/health/provider-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(buildBody()),
+      });
+
+      if (res.status === 401) {
+        throw new Error("Your session has expired. Please sign in again to copy the provider email.");
+      }
+      if (!res.ok) {
+        throw new Error("Failed to build the provider email. Please try again.");
+      }
+
+      const data = await res.json();
+      await navigator.clipboard.writeText(data.email || "");
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch (err) {
+      setLetterError(err.message);
+    }
+  }, [buildBody]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -466,6 +561,23 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                   className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer disabled:opacity-60 disabled:cursor-default"
                 >
                   {pdfLoading ? "Preparing PDF..." : "Download as PDF"}
+                </button>
+                <button
+                  onClick={handleDownloadPatientSheet}
+                  disabled={sheetLoading}
+                  className="px-4 py-2 text-sm font-medium text-[#0D7377] border border-[#0D7377] rounded-lg hover:bg-teal-50 cursor-pointer disabled:opacity-60 disabled:cursor-default"
+                >
+                  {sheetLoading ? "Preparing..." : "Download Patient Instructions (PDF)"}
+                </button>
+                <button
+                  onClick={handleCopyProviderEmail}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg cursor-pointer transition-all ${
+                    emailCopied
+                      ? "bg-green-100 text-green-700 border border-green-300"
+                      : "text-[#0D7377] border border-[#0D7377] hover:bg-teal-50"
+                  }`}
+                >
+                  {emailCopied ? "Copied!" : "Copy provider email"}
                 </button>
               </div>
             </div>

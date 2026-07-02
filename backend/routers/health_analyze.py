@@ -1354,14 +1354,14 @@ def _normalize_dashes(text: str) -> str:
     return result
 
 
-def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
-    """Shared appeal-generation path used by BOTH the JSON endpoint (generate_appeal)
-    and the PDF endpoint (generate_appeal_pdf). Returns the exact dict the JSON
-    endpoint responds with (letter_text + validation/checklist metadata), so the two
-    endpoints always produce the identical letter. Callers MUST perform auth
-    (get_health_user) BEFORE invoking this. Stores nothing; logs no PHI values."""
-    client = _get_client()
+def _build_da_from_request(req: AppealGenerateRequest) -> dict:
+    """Merge the request's editable fields into the denial_analysis and run the
+    pre-generation data-integrity validators (claim_number, cpt dedup, state). Returns
+    the merged, validated `da`.
 
+    Pure data assembly — NO model call, NO evidence retrieval — so it is shared by BOTH
+    the appeal-letter path (_generate_appeal_result) and the data-only patient-
+    instruction-sheet path. Behaviour is identical to the inline block it replaced."""
     # denial_analysis is mutated in place by the pre-generation validators below.
     da = req.denial_analysis or {}
 
@@ -1390,6 +1390,20 @@ def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
 
     # -- PH-1-B: pre-generation data-integrity validators (extracted for unit testing) --
     _apply_pregen_validators(da, req.claim_number)
+    return da
+
+
+def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
+    """Shared appeal-generation path used by BOTH the JSON endpoint (generate_appeal)
+    and the PDF endpoint (generate_appeal_pdf). Returns the exact dict the JSON
+    endpoint responds with (letter_text + validation/checklist metadata), so the two
+    endpoints always produce the identical letter. Callers MUST perform auth
+    (get_health_user) BEFORE invoking this. Stores nothing; logs no PHI values."""
+    client = _get_client()
+
+    # denial_analysis merged with the request's editable fields and validated. Shared
+    # verbatim with the data-only patient-sheet path via _build_da_from_request.
+    da = _build_da_from_request(req)
     cpt_codes = da.get("cpt_codes") or []
 
     # -- PH-4a: retrieve verified external evidence. retrieve_evidence receives the
@@ -1654,6 +1668,294 @@ def generate_appeal_pdf(req: AppealGenerateRequest, authorization: str = Header(
         media_type="application/pdf",
         headers={"Content-Disposition": 'attachment; filename="appeal-letter.pdf"'},
     )
+
+
+# ---------------------------------------------------------------------------
+# PH-4b-2 — Patient instruction sheet (DATA-ONLY; no model, no evidence search).
+# Holds the patient-facing content that was removed from the insurer letter:
+# where/how to send the appeal, deadlines as plain advice, what to gather, and a
+# copy-paste provider email. Assembled purely from the request data; stores nothing.
+# ---------------------------------------------------------------------------
+
+def _service_description(da: dict) -> str:
+    """Plain-language description of the service at issue, from procedure_terms
+    (preferred) and/or cpt_codes. Returns "" if neither is present."""
+    terms = [str(t).strip() for t in (da.get("procedure_terms") or []) if str(t).strip()]
+    codes = [str(c).strip() for c in (da.get("cpt_codes") or []) if str(c).strip()]
+    if terms and codes:
+        return f"{', '.join(terms)} (CPT {', '.join(codes)})"
+    if terms:
+        return ", ".join(terms)
+    if codes:
+        return f"CPT {', '.join(codes)}"
+    return ""
+
+
+def _build_provider_email(da: dict) -> str:
+    """Compose a copy-paste email the PATIENT sends to their PROVIDER's office asking
+    them to submit a letter of medical necessity and relevant records DIRECTLY to the
+    insurer, referencing the claim number. Data-only (NO model call). Every value is
+    filled from `da`; missing values are phrased gracefully, never left as blank
+    tokens."""
+    provider_name = (da.get("provider_name") or "").strip()
+    claim_number = (da.get("claim_number") or "").strip()
+    payer_name = (da.get("payer_name") or "").strip()
+    service = _service_description(da)
+    patient_name = (da.get("patient_name") or "").strip()
+
+    greeting = f"Dear {provider_name}," if provider_name else "Dear ordering provider's office,"
+
+    # Build the body in plain sentences, omitting clauses whose data is absent.
+    service_clause = f" for {service}" if service else ""
+    payer_clause = f" to {payer_name}" if payer_name else " to my insurer"
+    claim_clause = f", referencing claim number {claim_number}" if claim_number else ""
+
+    lines = [
+        greeting,
+        "",
+        (f"My insurance claim{service_clause} was denied and I am filing an appeal. "
+         "To support the appeal, I am asking your office to submit a letter of medical "
+         f"necessity and my relevant medical records directly{payer_clause}{claim_clause}."),
+        "",
+        ("The letter of medical necessity should explain why this service was ordered "
+         "and why it is medically necessary for my care. Please send it, along with any "
+         "supporting records (office notes, test results, and prior treatment history), "
+         "as soon as possible so it arrives within the appeal deadline."),
+        "",
+        "Please let me know if you need anything from me to complete this request.",
+        "",
+        "Thank you,",
+        (patient_name or "[Your name]"),
+    ]
+    return "\n".join(lines)
+
+
+def _build_patient_sheet_content(da: dict) -> dict:
+    """Assemble the patient instruction sheet sections from `da` (real field names).
+    Data-only: no model, no evidence. Omits any line whose source field is absent;
+    never emits a literal null. Returns a structured dict the renderer consumes."""
+    sub = da.get("appeal_submission") or {}
+    patient_name = (da.get("patient_name") or "").strip()
+    claim_number = (da.get("claim_number") or "").strip()
+
+    # -- WHERE TO SEND: addresses + the patient-directed guidance removed from the letter --
+    address = (sub.get("address") or "").strip()
+    alt_address = (sub.get("alt_address") or "").strip()
+    fax = (sub.get("fax") or "").strip()
+    phone = (sub.get("phone") or "").strip()
+    where = {
+        "address": address or None,
+        "alt_address": alt_address or None,
+        "fax": fax or None,
+        "phone": phone or None,
+        # Only meaningful when a second address exists and we cannot tell which is the
+        # patient's plan — the correct home for the "which applies to you" guidance.
+        "guidance": (
+            "If you are unsure which applies to you, you may send your appeal to both "
+            "addresses, or call the member services number on your insurance card to confirm."
+            if alt_address else None
+        ),
+    }
+
+    # -- DEADLINES as plain advice. Literal wording verbatim; day integers in plain language. --
+    deadlines = []
+    hint = (da.get("appeal_deadline_hint") or "").strip()
+    if hint:
+        deadlines.append(f"Your denial states the appeal deadline as: {hint}. Do not miss it.")
+    std = da.get("deadline_days_standard")
+    if isinstance(std, int) and std > 0:
+        deadlines.append(f"You have up to {std} days to file a standard appeal.")
+    exp = da.get("deadline_days_expedited")
+    if isinstance(exp, int) and exp > 0:
+        deadlines.append(f"For an expedited (urgent) appeal, you have up to {exp} days.")
+    p2p = (da.get("peer_to_peer_contact") or "").strip()
+    if p2p:
+        deadlines.append(f"Your provider can call {p2p} to request a peer-to-peer review with the insurer's reviewer.")
+
+    # -- WHAT TO GATHER: checklist, medical-necessity item prioritized if present. --
+    docs = [str(d).strip() for d in (da.get("supporting_documentation") or []) if str(d).strip()]
+    mn_idx = next((i for i, d in enumerate(docs) if "medical necessity" in d.lower()), None)
+    gather = []
+    if mn_idx is not None:
+        gather.append({"text": docs[mn_idx], "priority": True})
+        gather.extend({"text": d, "priority": False} for i, d in enumerate(docs) if i != mn_idx)
+    else:
+        gather.extend({"text": d, "priority": False} for d in docs)
+    gather_note = (
+        "Your provider submits the letter of medical necessity and your medical records "
+        + (f"separately to the insurer, referencing claim number {claim_number}."
+           if claim_number else "separately to the insurer.")
+    )
+
+    return {
+        "title": "What To Do Next With Your Appeal",
+        "personalized_for": patient_name or None,
+        "intro": (
+            "This sheet explains what to do with the appeal letter we prepared for you. "
+            "It is for YOU. Do not send this instruction sheet to your insurance company; "
+            "send the appeal letter itself (and keep this sheet for your own reference)."
+        ),
+        "where": where,
+        "deadlines": deadlines,
+        "gather": gather,
+        "gather_note": gather_note,
+        "provider_email": _build_provider_email(da),
+        "provider_email_intro": "Copy the text below into an email to your provider's office:",
+        "next_steps": [
+            "Review and sign the appeal letter.",
+            "Send the appeal letter to the address above before the deadline.",
+            "Email your provider (using the text below) to submit the medical-necessity letter and records.",
+            "Keep copies of everything you send.",
+        ],
+    }
+
+
+def _render_patient_sheet_pdf(content: dict) -> bytes:
+    """Render the patient instruction sheet (structured sections) to a clean PDF using
+    ReportLab, following the SAME palette/style conventions as _render_appeal_letter_pdf
+    (NAVY/TEAL/SLATE, Helvetica, letter size, 0.85in margins). Composes flowables per
+    section (no text parsing). Every dynamic string is HTML-escaped before Paragraph.
+    NO Provider letterhead. Stores nothing; returns bytes."""
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import letter as _letter_size
+    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+    from reportlab.lib.units import inch
+    from reportlab.platypus import (
+        Paragraph, SimpleDocTemplate, Spacer, HRFlowable, Table, TableStyle,
+    )
+
+    NAVY = colors.HexColor("#1E293B")
+    TEAL = colors.HexColor("#0D9488")
+    SLATE = colors.HexColor("#64748B")
+    LIGHT = colors.HexColor("#F0FDFA")
+
+    base = getSampleStyleSheet()
+    s_title = ParagraphStyle("PSTitle", parent=base["Normal"], fontName="Helvetica-Bold",
+                             fontSize=18, leading=22, textColor=NAVY, spaceAfter=4)
+    s_sub = ParagraphStyle("PSSub", parent=base["Normal"], fontSize=11, leading=15,
+                           textColor=SLATE, spaceAfter=6)
+    s_section = ParagraphStyle("PSSection", parent=base["Normal"], fontName="Helvetica-Bold",
+                               fontSize=12, leading=16, textColor=TEAL, spaceBefore=12, spaceAfter=4)
+    s_body = ParagraphStyle("PSBody", parent=base["Normal"], fontSize=10.5, leading=15,
+                            textColor=NAVY, spaceAfter=3)
+    s_bullet = ParagraphStyle("PSBullet", parent=s_body, leftIndent=16, spaceAfter=2)
+    s_bullet_pri = ParagraphStyle("PSBulletPri", parent=s_bullet, fontName="Helvetica-Bold",
+                                  textColor=NAVY)
+    s_email = ParagraphStyle("PSEmail", parent=base["Normal"], fontName="Courier",
+                             fontSize=9.5, leading=13, textColor=NAVY)
+
+    def _esc(s):
+        return html.escape(str(s or ""), quote=False)
+
+    story = []
+
+    # Header.
+    story.append(Paragraph(_esc(content.get("title") or "What To Do Next"), s_title))
+    if content.get("personalized_for"):
+        story.append(Paragraph("Instructions for " + _esc(content["personalized_for"]), s_sub))
+    story.append(HRFlowable(width="100%", thickness=1.5, color=TEAL, spaceAfter=8))
+    if content.get("intro"):
+        story.append(Paragraph(_esc(content["intro"]), s_body))
+
+    # Where to send.
+    where = content.get("where") or {}
+    if where.get("address") or where.get("fax") or where.get("phone"):
+        story.append(Paragraph("Where To Send Your Appeal", s_section))
+        if where.get("address"):
+            story.append(Paragraph("Send your appeal to:", s_body))
+            for ln in str(where["address"]).split("\n"):
+                if ln.strip():
+                    story.append(Paragraph(_esc(ln.strip()), s_bullet))
+        if where.get("alt_address"):
+            story.append(Paragraph("Or, alternatively:", s_body))
+            for ln in str(where["alt_address"]).split("\n"):
+                if ln.strip():
+                    story.append(Paragraph(_esc(ln.strip()), s_bullet))
+        if where.get("fax"):
+            story.append(Paragraph("Fax: " + _esc(where["fax"]), s_body))
+        if where.get("phone"):
+            story.append(Paragraph("Phone: " + _esc(where["phone"]), s_body))
+        if where.get("guidance"):
+            story.append(Paragraph(_esc(where["guidance"]), s_body))
+
+    # Deadlines.
+    if content.get("deadlines"):
+        story.append(Paragraph("Deadlines", s_section))
+        for d in content["deadlines"]:
+            story.append(Paragraph(_esc(d), s_bullet, bulletText="•"))
+
+    # What to gather.
+    if content.get("gather"):
+        story.append(Paragraph("What To Gather", s_section))
+        for item in content["gather"]:
+            label = item.get("text", "")
+            if item.get("priority"):
+                story.append(Paragraph("☐ <b>" + _esc(label) + "  (most important)</b>",
+                                       s_bullet_pri))
+            else:
+                story.append(Paragraph("☐ " + _esc(label), s_bullet))
+    if content.get("gather_note"):
+        story.append(Spacer(1, 2))
+        story.append(Paragraph(_esc(content["gather_note"]), s_body))
+
+    # Email your provider (visually set off in a bordered/shaded block).
+    if content.get("provider_email"):
+        story.append(Paragraph("Email Your Provider", s_section))
+        if content.get("provider_email_intro"):
+            story.append(Paragraph(_esc(content["provider_email_intro"]), s_body))
+        email_flow = [Paragraph(_esc(ln) if ln.strip() else "&nbsp;", s_email)
+                      for ln in str(content["provider_email"]).split("\n")]
+        box = Table([[email_flow]], colWidths=[6.4 * inch])
+        box.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), LIGHT),
+            ("BOX", (0, 0), (-1, -1), 0.75, TEAL),
+            ("LEFTPADDING", (0, 0), (-1, -1), 10),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+            ("TOPPADDING", (0, 0), (-1, -1), 8),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+        ]))
+        story.append(box)
+
+    # Next steps recap.
+    if content.get("next_steps"):
+        story.append(Paragraph("Next Steps", s_section))
+        for i, step in enumerate(content["next_steps"], start=1):
+            story.append(Paragraph(f"{i}. " + _esc(step), s_bullet))
+
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(buf, pagesize=_letter_size,
+                            leftMargin=0.85 * inch, rightMargin=0.85 * inch,
+                            topMargin=0.85 * inch, bottomMargin=0.85 * inch)
+    doc.build(story)
+    return buf.getvalue()
+
+
+@router.post("/api/health/generate-patient-sheet-pdf")
+def generate_patient_sheet_pdf(req: AppealGenerateRequest, authorization: str = Header(None)):
+    """PH-4b-2: render the PATIENT instruction sheet (data-only) to a clean PDF and
+    stream it back. Does NOT call the model or evidence retrieval — assembled purely
+    from the request via _build_da_from_request. Render-and-return ONLY: STORES NOTHING
+    (no DB insert/upsert, no storage upload) and logs no PHI. Same auth + same request
+    model as generate-appeal."""
+    get_health_user(authorization, _get_supabase())
+    da = _build_da_from_request(req)
+    content = _build_patient_sheet_content(da)
+    pdf_bytes = _render_patient_sheet_pdf(content)
+    return StreamingResponse(
+        io.BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={"Content-Disposition": 'attachment; filename="patient-instructions.pdf"'},
+    )
+
+
+@router.post("/api/health/provider-email")
+def provider_email(req: AppealGenerateRequest, authorization: str = Header(None)):
+    """PH-4b-2: return the copy-paste provider email TEXT (same text the patient sheet
+    PDF shows) for the on-screen 'Copy provider email' button. Data-only (no model);
+    STORES NOTHING and logs no PHI. Same auth + request model."""
+    get_health_user(authorization, _get_supabase())
+    da = _build_da_from_request(req)
+    return {"email": _build_provider_email(da)}
 
 
 # ---------------------------------------------------------------------------
