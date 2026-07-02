@@ -7,6 +7,8 @@ Also covers /api/billing/team — analysts, assignments.
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestSubscriptionCheckout:
     """POST /api/billing/subscription/checkout"""

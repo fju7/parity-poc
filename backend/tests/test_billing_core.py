@@ -7,6 +7,8 @@ Covers: /api/billing/ — send-otp, verify-otp, register, me, practices,
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestBillingHealth:
     """GET /api/billing/health"""

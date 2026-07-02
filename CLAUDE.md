@@ -1243,28 +1243,3 @@ Next migration number: 066
   .claude/worktrees/.
 - Before merging branches, always check for untracked files that
   would be overwritten and remove them first.
-
-## Development Workflow — Staging First (Effective Session N onward)
-
-ALL development happens on the staging branch. Never commit directly to main.
-
-Starting every session:
-  git checkout staging
-  git pull origin staging
-
-Staging URLs (once configured):
-  Backend: parity-poc-api-staging.onrender.com
-  Health: staging-health.civicscale.ai
-  Employer: staging-employer.civicscale.ai
-  Broker: staging-broker.civicscale.ai
-  Provider: staging-provider.civicscale.ai
-  Signal: staging-signal.civicscale.ai
-
-Promoting to production (Fred does this after testing, not Claude Code):
-  git checkout main
-  git pull origin main
-  git merge staging
-  git push origin main
-
-Never merge staging to main during a Claude Code session.
-Always stop at pushing to staging.

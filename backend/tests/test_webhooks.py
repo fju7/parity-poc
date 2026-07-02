@@ -24,6 +24,8 @@ secret, which we test structurally here.
 import json
 import time
 import pytest
+
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
 import httpx
 
 BASE_URL = "https://parity-poc-api.onrender.com"

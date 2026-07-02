@@ -8,6 +8,8 @@ Covers: /api/broker/ — plan, subscribe, cancel, portal, account,
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestBrokerPlan:
     """GET /api/broker/plan"""

@@ -7,6 +7,8 @@ Covers: /api/provider/ — demo, contract management, 835 parsing,
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestProviderDemo:
     """GET /api/provider/demo-835, demo-analysis"""

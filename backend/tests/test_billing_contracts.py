@@ -6,6 +6,8 @@ Covers: /api/billing/contracts — upload, list, history, delete, analyze.
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestListContracts:
     """GET /api/billing/contracts"""

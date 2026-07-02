@@ -7,6 +7,8 @@ Covers: /api/auth/send-otp, verify-otp, me, logout, company (CRUD),
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestSendOtp:
     """POST /api/auth/send-otp"""

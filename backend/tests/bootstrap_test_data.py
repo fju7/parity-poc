@@ -8,7 +8,13 @@ All mutations are idempotent: calling them twice produces the same state.
 """
 
 import httpx
+import pytest
 from conftest import BASE_URL, REQUEST_TIMEOUT, TEST_ADMIN_EMAIL, TEST_ANALYST_EMAIL
+
+# This module writes to the live BASE_URL (data seeding). It is not collected as a
+# test module (name doesn't match test_*.py), and its functions run only when an
+# integration-marked test calls them — but mark it explicitly to declare intent.
+pytestmark = pytest.mark.integration
 
 
 def get_or_create_session(

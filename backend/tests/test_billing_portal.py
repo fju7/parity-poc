@@ -7,6 +7,8 @@ Covers: /api/billing/portal/ — send-otp, verify-otp, me,
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestPortalSendOtp:
     """POST /api/billing/portal/send-otp"""

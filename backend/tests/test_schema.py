@@ -20,11 +20,14 @@ SUPABASE_URL = os.environ.get(
 )
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 
-# Skip entire module if no service key
-pytestmark = pytest.mark.skipif(
-    not SUPABASE_SERVICE_ROLE_KEY,
-    reason="SUPABASE_SERVICE_ROLE_KEY not set",
-)
+# Hits live Supabase over the network -> integration; also skipped if no service key.
+pytestmark = [
+    pytest.mark.integration,  # excluded from default run (see pytest.ini)
+    pytest.mark.skipif(
+        not SUPABASE_SERVICE_ROLE_KEY,
+        reason="SUPABASE_SERVICE_ROLE_KEY not set",
+    ),
+]
 
 
 # ---------------------------------------------------------------------------

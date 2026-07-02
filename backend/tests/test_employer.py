@@ -8,6 +8,8 @@ Covers: /api/employer/ — verify-code, contribute, dashboard,
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestPricingTiers:
     """GET /api/employer/pricing-tiers"""

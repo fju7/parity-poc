@@ -10,6 +10,8 @@ Covers: /api/health/auth — send-otp, verify-otp, signup, me, logout,
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 # ---- Health Auth ----
 

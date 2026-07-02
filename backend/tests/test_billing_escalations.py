@@ -7,6 +7,8 @@ Covers: /api/billing/escalations — detect-patterns, create, list,
 
 import pytest
 
+pytestmark = pytest.mark.integration  # hits live BASE_URL; excluded from default run (see pytest.ini)
+
 
 class TestDetectPatterns:
     """GET /api/billing/escalations/detect-patterns"""
