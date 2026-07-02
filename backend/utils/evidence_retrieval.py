@@ -244,13 +244,24 @@ def _pubmed_esummary(pmids, denial_analysis):
     return (data or {}).get("result") or {}
 
 
-def _map_study_type(pubtypes):
+# Tight title markers for society guidelines that PubMed often tags only as
+# "Review"/"Systematic Review" (e.g. PMID 36252154 "ASCO Guideline" carries
+# pubtype ["Systematic Review", "Journal Article"], no "Guideline" tag). Kept
+# narrow so ordinary reviews are not swept in.
+_GUIDELINE_TITLE_MARKERS = ("asco guideline", "nccn guideline", "practice guideline")
+
+
+def _map_study_type(pubtypes, title=""):
     lowered = [str(p).strip().lower() for p in (pubtypes or [])]
     if any("meta-analysis" in p for p in lowered):
         return "meta_analysis"
     if any("randomized controlled trial" in p for p in lowered):
         return "RCT"
-    if any("guideline" in p for p in lowered):
+    # Guideline wins over review/other: honor the PubMed "Guideline" pubtype OR a
+    # tight society-guideline title marker (PubMed frequently omits the tag).
+    title_low = (title or "").lower()
+    if (any("guideline" in p for p in lowered)
+            or any(m in title_low for m in _GUIDELINE_TITLE_MARKERS)):
         return "guideline"
     if any("review" in p for p in lowered):
         return "review"
@@ -293,7 +304,7 @@ def _build_pubmed_items(pmids, esummary_result):
             "citation": _format_pubmed_citation(docsum, title, year),
             "url": f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/",
             "pub_year": year,
-            "study_type": _map_study_type(pubtypes),
+            "study_type": _map_study_type(pubtypes, title),
             "content_tier": "full",
             "summary": (f"{title} ({journal}, {year})." if title else None),
             "abstract": None,          # esummary carries no abstract; efetch (deferred). tier=full permits it.

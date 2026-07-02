@@ -146,6 +146,17 @@ class TestPackAndPubmed:
         assert fake not in {it["source_uid"] for it in pack["pubmed"]}
         assert len(pack["pubmed"]) >= 1
 
+    def test_society_guideline_classified_as_guideline(self, offline):
+        """A society guideline PubMed tags only as a (systematic) review must
+        still be study_type 'guideline' (PMID 36252154 'ASCO Guideline'), while
+        content_tier stays 'full' and ordinary reviews are not swept in."""
+        pack = er.retrieve_evidence(_denial(), force_refresh=True)
+        g = next(it for it in pack["pubmed"] if it["source_uid"] == "36252154")
+        assert g["study_type"] == "guideline"
+        assert g["content_tier"] == "full"
+        others = [it for it in pack["pubmed"] if it["source_uid"] != "36252154"]
+        assert all(it["study_type"] != "guideline" for it in others)
+
 
 # ===========================================================================
 # Deterministic — CMS adapter (PH-3c)
