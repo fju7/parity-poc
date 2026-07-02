@@ -16,6 +16,7 @@ Eval:          python3 -m pytest backend/tests/test_appeal_evidence.py -m eval -
 
 import json
 import os
+import re
 import sys
 
 import pytest
@@ -27,6 +28,7 @@ if _BACKEND not in sys.path:
 from routers.health_analyze import (  # noqa: E402
     _build_evidence_block,
     _format_reference,
+    _format_reference_plain,
     _validate_evidence_claims,
     _build_reviewer_checklist,
     _validate_letter,
@@ -89,6 +91,51 @@ class TestEvidenceBlock:
         ref = _format_reference(ev["keys"][cms_key])
         assert ref.startswith("CMS ")
         assert ev["keys"][cms_key]["source_uid"] in ref          # states the specific doc id
+
+
+# ===========================================================================
+# Deterministic — PH-4a.3 identifier-free model-facing evidence view
+# ===========================================================================
+
+class TestModelFacingView:
+    _ID_PATTERNS = {
+        "PMID": re.compile(r"\b\d{7,8}\b"),
+        "PMA": re.compile(r"\bP\d{6}\b"),
+        "DOI": re.compile(r"10\.\d{4,}/"),
+        "URL": re.compile(r"https?://"),
+    }
+
+    def test_model_block_has_no_identifiers(self):
+        ev = _build_evidence_block(_pack())
+        for k, item in ev["keys"].items():
+            line = _format_reference_plain(item)
+            for name, pat in self._ID_PATTERNS.items():
+                assert not pat.search(line), f"{k} model-facing line leaked {name}: {line}"
+        # whole block, too
+        for name, pat in self._ID_PATTERNS.items():
+            assert not pat.search(ev["model_block"]), f"model_block leaked {name}"
+
+    def test_appended_references_still_have_identifiers_and_urls(self):
+        ev = _build_evidence_block(_pack())
+        block = ev["references_block"]
+        assert re.search(r"\bPMID \d{7,8}\b", block)     # PubMed IDs present
+        assert re.search(r"\bP\d{6}\b", block)           # FDA PMA present
+        assert re.search(r"https?://", block)            # URLs present
+
+    def test_fda_model_line_keeps_indication_drops_pma(self):
+        ev = _build_evidence_block(_pack())
+        fda = next(it for it in ev["keys"].values() if it["source"] == "fda")
+        line = _format_reference_plain(fda).lower()
+        assert re.search(r"muscle[\s-]invasive bladder cancer", line)   # indication preserved
+        assert "atezolizumab" in line
+        assert "p260004" not in line                     # identifier dropped
+        assert "http" not in line
+
+    def test_model_and_appended_share_same_keys(self):
+        ev = _build_evidence_block(_pack())
+        model_keys = re.findall(r"\[(E\d+)\]", ev["model_block"])
+        ref_keys = re.findall(r"\[(E\d+)\]", ev["references_block"])
+        assert model_keys == ref_keys and model_keys == list(ev["keys"])
 
 
 # ===========================================================================

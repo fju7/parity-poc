@@ -939,24 +939,65 @@ def _format_reference(item: dict) -> str:
     return " ".join(p for p in [title, url] if p).strip()
 
 
+def _format_reference_plain(item: dict) -> str:
+    """MODEL-FACING evidence line: plain-language description + source type +
+    year + (for FDA/CMS) the specific stored indication/scope. Deliberately
+    contains NO identifier the model could copy into the prose — no PMID, no FDA
+    PMA number, no DOI, no URL, and no CMS document id. The full-identifier
+    reference lives only in the code-built References section (_format_reference),
+    appended AFTER generation. Removes the model's temptation to emit identifiers;
+    the anti-fabrication guard still detects any that slip through."""
+    item = item or {}
+    source = item.get("source")
+    title = (str(item.get("title") or "")).strip().rstrip(".").strip()
+    year = item.get("pub_year")
+    md = item.get("metadata") or {}
+    ystr = f" ({year})" if year else ""
+
+    if source == "pubmed":
+        stype = "Professional guideline" if item.get("study_type") == "guideline" else "Peer-reviewed study"
+        return f"{stype}: {title}{ystr}."
+
+    if source == "fda":
+        indication = (str(md.get("indication") or "")).strip().rstrip(".").strip()
+        therapy = md.get("indication_therapy")
+        if indication:
+            desc = f"FDA-approved companion diagnostic for {indication}"
+            if therapy:
+                desc += f" (used with {therapy})"
+        else:
+            desc = "FDA-authorized companion diagnostic"   # identifier-free fallback
+        return f"FDA approval: {desc}{ystr}."
+
+    if source in ("cms_moldx", "cms_ncd_lcd"):
+        return f"Medicare coverage policy: {title}{ystr}."
+
+    return f"{title}{ystr}."
+
+
 def _build_evidence_block(pack: dict) -> dict:
     """Deterministically assign stable keys E1..En (pubmed, then cms, then fda;
-    pack order within each) and render a trusted, code-built reference list.
+    pack order within each) and render two views:
+      - references_block: full, identifier-bearing, appended to the letter (reader-facing);
+      - model_block:      identifier-free, fed to the model to write from.
 
-    Returns {"references_block": str, "keys": {"E1": item, ...}, "gaps": [...]}.
+    Returns {"references_block", "model_block", "keys": {"E1": item, ...}, "gaps": [...]}.
     """
     pack = pack or {}
     keys: dict = {}
-    lines: List[str] = []
+    ref_lines: List[str] = []
+    model_lines: List[str] = []
     n = 0
     for channel in ("pubmed", "cms", "fda"):
         for item in (pack.get(channel) or []):
             n += 1
             k = f"E{n}"
             keys[k] = item
-            lines.append(f"[{k}] {_format_reference(item)}")
+            ref_lines.append(f"[{k}] {_format_reference(item)}")
+            model_lines.append(f"[{k}] {_format_reference_plain(item)}")
     return {
-        "references_block": "\n".join(lines),
+        "references_block": "\n".join(ref_lines),
+        "model_block": "\n".join(model_lines),
         "keys": keys,
         "gaps": pack.get("gaps") or [],
     }
@@ -1191,15 +1232,17 @@ def generate_appeal(req: AppealGenerateRequest):
     except Exception as e:
         print(f"[warn] Health Signal playbook lookup failed: {e}")
 
-    # -- PH-4a: feed the code-built references block to the model and switch on the
-    # evidence-citation instructions only when there is evidence to cite. --
+    # -- PH-4a.3: feed the model the IDENTIFIER-FREE evidence view (no PMID/PMA/
+    # DOI/URL to copy). Full identifiers live only in the code-built References
+    # section appended after generation. Switch on the citation instructions only
+    # when there is evidence to cite. --
     system_prompt = APPEAL_SYSTEM_PROMPT
     evidence_note = None
-    if evidence["references_block"]:
+    if evidence["model_block"]:
         context_parts.append(
             "Verified evidence you may cite (refer to each ONLY by its [E#] key; "
             "do NOT write the bibliographic details yourself):\n"
-            + evidence["references_block"]
+            + evidence["model_block"]
         )
         system_prompt = APPEAL_SYSTEM_PROMPT + APPEAL_EVIDENCE_INSTRUCTIONS
     else:
