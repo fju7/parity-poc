@@ -27,6 +27,7 @@ from fastapi import APIRouter, File, Header, HTTPException, UploadFile
 from pydantic import BaseModel
 
 from utils.evidence_retrieval import retrieve_evidence
+from routers.health_auth import get_health_user
 
 router = APIRouter()
 
@@ -1224,7 +1225,12 @@ def _normalize_dashes(text: str) -> str:
 
 
 @router.post("/api/health/generate-appeal")
-def generate_appeal(req: AppealGenerateRequest):
+def generate_appeal(req: AppealGenerateRequest, authorization: str = Header(None)):
+    # Require a logged-in Health user. Same pattern as the other authenticated
+    # Health endpoints (e.g. GET /api/health/auth/me): validate the Bearer token
+    # BEFORE any letter work or PHI handling. Raises 401 if missing/invalid/expired.
+    get_health_user(authorization, _get_supabase())
+
     client = _get_client()
 
     # denial_analysis is mutated in place by the pre-generation validators below.

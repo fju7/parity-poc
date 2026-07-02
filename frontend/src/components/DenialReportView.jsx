@@ -27,13 +27,25 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
   const typeConfig = DENIAL_TYPE_COLORS[analysis.denial_type] || DENIAL_TYPE_COLORS.other;
 
   const handleGenerateAppeal = useCallback(async () => {
-    setLetterLoading(true);
     setLetterError(null);
 
+    // Require a logged-in Health user. Read the same token the other authenticated
+    // Health calls use; if it is missing, do NOT send "Bearer null" — surface a
+    // clear message and skip the call.
+    const token = localStorage.getItem("health_token");
+    if (!token) {
+      setLetterError("Please sign in again to generate an appeal.");
+      return;
+    }
+
+    setLetterLoading(true);
     try {
       const res = await fetch(`${API_BASE}/api/health/generate-appeal`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           denial_analysis: analysis,
           // PHI — server-only fields, sent only to our own backend to render the letter.
@@ -44,6 +56,9 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
         }),
       });
 
+      if (res.status === 401) {
+        throw new Error("Your session has expired. Please sign in again to generate an appeal.");
+      }
       if (!res.ok) {
         throw new Error("Failed to generate appeal letter. Please try again.");
       }
