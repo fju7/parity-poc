@@ -1337,3 +1337,12 @@ Next migration number: 070
   .claude/worktrees/.
 - Before merging branches, always check for untracked files that
   would be overwritten and remove them first.
+
+## AI-assisted draft review — design principles (future feature)
+
+Fred has raised a future feature: an AI-assisted review of the generated appeal-letter draft. His primary concern is hallucination — he wants cited references verified as real and asserted facts reviewed, because a patient cannot easily do this themselves. The feature should help the patient decide whether more work is needed before finalizing the letter. This feature is NOT yet built. When it is taken up, it must be opened as a design discussion first, then a read-only investigation, then a build — it is more safety-sensitive than the rest of the appeal feature and must not be rushed into a build. The following principles are binding on its design:
+
+- Deterministic core, AI periphery. Citation verification must be checked against reality (does each cited PMID / PMA / DOI actually resolve to a real record? does that record's real title and indication match what the letter claims it supports?), NOT judged by an AI model. This deterministic layer is the trustworthy core and directly addresses the fabricated-citation risk.
+- AI flags, never renders verdicts. For claims that cannot be checked deterministically (a possibly-unsupported clinical assertion, a possible overstatement), an AI reviewer may only surface QUESTIONS for a human to verify (for example: "this sentence asserts X — please confirm it is supported"). It must be allowed to say "I am not sure." It must never declare a statement true or false.
+- Never replaces human review. The feature must increase human scrutiny, not create false confidence. If it ever leads a patient to trust the letter more without looking, it is causing harm. It strengthens the human review gate (PH-4b-3); it does not substitute for it.
+- PHI-safe by design. The letter contains the patient's real identifiers. The de-identification approach (the same tokenization used for letter generation) must be worked out before this feature is designed.
