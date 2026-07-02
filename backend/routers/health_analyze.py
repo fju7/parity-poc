@@ -779,6 +779,11 @@ def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
         for label in labels:
             token = "[" + label + "]"
             key = label.strip().lower()
+            if re.fullmatch(r"E\d+", label.strip()):
+                # Inline evidence citation ([E1], [E11], …) — a legitimate PH-4a
+                # citation marker, NOT an unfilled placeholder. Leave it intact;
+                # never substitute or drop the line for it.
+                continue
             if key == "date" or key.startswith("date:"):
                 # Letterhead date only ("[Date]" / "[Date: June 23, 2026]"). Deliberately does
                 # NOT match "[Date of Service]" etc., which route to the resolver (real value
@@ -891,20 +896,32 @@ def _format_reference(item: dict) -> str:
     fields. This is the sole place bibliographic detail may originate, so it is
     trusted. Guideline items are rendered reference-only (no recommendation text,
     which is never stored anyway)."""
+    def _clean(s):
+        # Strip trailing periods/whitespace so joining with ". " never doubles them.
+        return (str(s or "")).strip().rstrip(".").strip()
+
     item = item or {}
     source = item.get("source")
     uid = item.get("source_uid") or ""
-    title = (item.get("title") or "").strip()
+    title = _clean(item.get("title"))
     url = (item.get("url") or "").strip()
     md = item.get("metadata") or {}
 
     if source == "pubmed":
-        base = (item.get("citation") or title).strip()
-        label = "PubMed guideline" if item.get("study_type") == "guideline" else "PubMed"
-        return " ".join(p for p in [base, f"{label} PMID {uid}.", url] if p).strip()
+        # Rebuild from stored fields (no messy stored citation): authors, title,
+        # journal, year, PMID. No "PubMed" prefix (PMID already means PubMed ID)
+        # and no study_type label — the "guideline" tag never leaks into the line.
+        authors = [a for a in (md.get("authors") or []) if a]
+        lead = (f"{authors[0]} et al" if len(authors) > 1 else (authors[0] if authors else ""))
+        journal = _clean(md.get("journal"))
+        year = item.get("pub_year")
+        segments = [s for s in [lead, title, journal, (str(year) if year else "")] if s]
+        body = ". ".join(segments)
+        tail = f"PMID {uid}." if uid else ""
+        return " ".join(p for p in [f"{body}." if body else "", tail, url] if p).strip()
 
     if source == "fda":
-        indication = md.get("indication")
+        indication = _clean(md.get("indication"))
         therapy = md.get("indication_therapy")
         if indication:
             s = f"FDA-approved companion diagnostic (PMA {uid}) for {indication}"
@@ -913,7 +930,7 @@ def _format_reference(item: dict) -> str:
             return " ".join(p for p in [s + ".", url] if p).strip()
         # No specific indication stored: fall back to the stored summary (never a
         # bare "FDA-approved").
-        return " ".join(p for p in [(item.get("summary") or title).strip(), url] if p).strip()
+        return " ".join(p for p in [_clean(item.get("summary") or title) + ".", url] if p).strip()
 
     if source in ("cms_moldx", "cms_ncd_lcd"):
         dtype = md.get("document_type") or "coverage"
@@ -1052,6 +1069,40 @@ def _build_reviewer_checklist(evidence: dict, evidence_validation: dict,
     }
 
 
+_ORDERED_ITEM_RE = re.compile(r"^(\s*)(\d+)\.(\s)")
+
+
+def _renumber_ordered_lists(text: str) -> str:
+    """Renumber every maximal contiguous run of ordered-list lines ('N. ...') to
+    be sequential (1, 2, 3, …) with no gaps, preserving indentation and the text
+    after the number. Mechanical only — the wording of each item is untouched.
+
+    Gaps arise when earlier processing drops some list lines; this guarantees the
+    surviving items are always numbered contiguously, regardless of which remain.
+    """
+    lines = (text or "").split("\n")
+    out: List[str] = []
+    counter = 0
+    for line in lines:
+        m = _ORDERED_ITEM_RE.match(line)
+        if m:
+            counter += 1
+            rest = line[m.end():]
+            out.append(f"{m.group(1)}{counter}.{m.group(3)}{rest}")
+        else:
+            counter = 0  # blank or non-list line ends the current run
+            out.append(line)
+    return "\n".join(out)
+
+
+def _map_citation_numbers(text: str) -> str:
+    """Presentation-only: map internal [E#] keys to reader-facing [#] numbers so
+    the letter shows ordinary numbered citations. Runs AFTER the anti-fabrication
+    guard (which validates the E-keys); E{i} -> {i}, so an inline [3] and its
+    reference [3] always carry the same number."""
+    return re.sub(r"\[E(\d+)\]", r"[\1]", text or "")
+
+
 @router.post("/api/health/generate-appeal")
 def generate_appeal(req: AppealGenerateRequest):
     client = _get_client()
@@ -1174,19 +1225,26 @@ def generate_appeal(req: AppealGenerateRequest):
     if validated["validation_log"]:
         print(f"[health/generate-appeal] validation_log: {json.dumps(validated['validation_log'])}")
 
-    # -- PH-4a: anti-fabrication guard on the letter BODY (before the trusted,
-    # code-built References section is appended). --
-    body = validated["letter_text"]
+    # -- PH-4a.1: mechanical cleanup. [E#] citations now survive _validate_letter;
+    # renumber any ordered lists so surviving items are always sequential. --
+    body = _renumber_ordered_lists(validated["letter_text"])
+
+    # -- PH-4a: anti-fabrication guard on the letter BODY (with [E#] keys intact,
+    # before reader-facing numbering and before the References section). --
     evidence_validation = _validate_evidence_claims(body, evidence["keys"])
     if not evidence_validation["citations_ok"]:
         # Log the reason WITHOUT any PHI (hard_failures carry no PHI values).
         print(f"[health/generate-appeal] EVIDENCE GUARD hard failures: "
               f"{json.dumps(evidence_validation['hard_failures'])}")
 
-    # Append the trusted References section — the ONLY place bibliographic detail lives.
-    final_letter = body
+    # -- PH-4a.1: presentation — map internal [E#] keys to reader-facing [#] in
+    # BOTH the body and the References block (same number in each). Runs AFTER the
+    # guard so the guard always validates the E-keys, never the display numbers. --
+    body_render = _map_citation_numbers(body)
+    final_letter = body_render
     if evidence["references_block"]:
-        final_letter = body.rstrip() + "\n\nReferences\n" + evidence["references_block"]
+        references_render = _map_citation_numbers(evidence["references_block"])
+        final_letter = body_render.rstrip() + "\n\nReferences\n" + references_render
 
     reviewer_checklist = _build_reviewer_checklist(
         evidence, evidence_validation, [evidence_note] if evidence_note else []
