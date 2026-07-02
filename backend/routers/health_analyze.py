@@ -733,6 +733,13 @@ _DATE_ONLY_RE = re.compile(
     re.IGNORECASE,
 )
 
+# A well-formed evidence citation bracket: a single key or a comma-separated group,
+# e.g. [E6], [E6, E7], [E1, E2, E4, E5]. These are citations, never placeholders.
+_CITATION_BRACKET_RE = re.compile(r"\[E\d+(?:\s*,\s*E\d+)*\]")
+# Anything citation-SHAPED ("[E" + digit), including malformed forms the well-formed
+# pattern won't match. Used only by the never-silently-delete safeguard.
+_CITATION_SHAPED_RE = re.compile(r"^E\d")
+
 
 def _today_local() -> str:
     """Today's date in America/Chicago, formatted like 'July 1, 2026' (no leading zero)."""
@@ -789,10 +796,16 @@ def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
         for label in labels:
             token = "[" + label + "]"
             key = label.strip().lower()
-            if re.fullmatch(r"E\d+", label.strip()):
-                # Inline evidence citation ([E1], [E11], …) — a legitimate PH-4a
-                # citation marker, NOT an unfilled placeholder. Leave it intact;
-                # never substitute or drop the line for it.
+            if _CITATION_BRACKET_RE.fullmatch(token):
+                # Inline evidence citation — single ([E1], [E11]) OR grouped
+                # ([E6, E7], [E1, E2, E4, E5]). A legitimate PH-4a citation marker,
+                # NEVER an unfilled placeholder. Preserve it. Grouped brackets are
+                # EXPANDED into adjacent single brackets ([E6, E7] -> [E6][E7]) so
+                # the downstream single-key anti-fabrication guard validates every
+                # key and the renderer maps each. Single brackets are unchanged.
+                if "," in label:
+                    expanded = "".join(f"[{part.strip()}]" for part in label.split(","))
+                    new_line = new_line.replace(token, expanded)
                 continue
             if key == "date" or key.startswith("date:"):
                 # Letterhead date only ("[Date]" / "[Date: June 23, 2026]"). Deliberately does
@@ -818,6 +831,16 @@ def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
                         "field": token,
                         "action": "substituted",
                         "value": "[REDACTED]" if is_phi else str(val),
+                    })
+                elif _CITATION_SHAPED_RE.match(label.strip()):
+                    # SAFEGUARD (Task 3): the token is citation-shaped ("[E<digit>…")
+                    # but not a form we could cleanly preserve/expand above. NEVER
+                    # silently delete a citation. Leave it in place and flag it for
+                    # human review rather than emptying the sentence.
+                    log.append({
+                        "field": token,
+                        "action": "citation_preserved_for_review",
+                        "value": "a citation could not be automatically resolved and was left in place for human review",
                     })
                 else:
                     drop_line = True
@@ -1150,8 +1173,16 @@ def _map_citation_numbers(text: str) -> str:
     """Presentation-only: map internal [E#] keys to reader-facing [#] numbers so
     the letter shows ordinary numbered citations. Runs AFTER the anti-fabrication
     guard (which validates the E-keys); E{i} -> {i}, so an inline [3] and its
-    reference [3] always carry the same number."""
-    return re.sub(r"\[E(\d+)\]", r"[\1]", text or "")
+    reference [3] always carry the same number.
+
+    Handles both single ([E6] -> [6]) and grouped ([E6, E7] -> [6][7]) brackets;
+    grouped brackets render as adjacent bracketed numbers. (In the live pipeline
+    _validate_letter already expands groups to single brackets before the guard,
+    so grouped input rarely reaches here, but this stays robust either way.)"""
+    def _render(m):
+        nums = re.findall(r"E(\d+)", m.group(0))
+        return "".join(f"[{n}]" for n in nums)
+    return _CITATION_BRACKET_RE.sub(_render, text or "")
 
 
 # Standalone em/en dashes only (surrounding spaces optional, but NOT newlines so

@@ -95,6 +95,57 @@ class TestEvidenceBlock:
 
 
 # ===========================================================================
+# Deterministic — PH-4a.4 grouped-citation survival + safe rendering
+# ===========================================================================
+
+class TestGroupedCitations:
+    def test_grouped_citations_survive_validate_letter(self):
+        """[E6, E7] and [E1, E2, E4, E5] must NOT be deleted by the cleaner; they
+        are preserved and expanded to single brackets for the downstream guard."""
+        da = _denial()
+        body = ("Medicare covers this [E6, E7].\n"
+                "The evidence is strong [E1, E2, E4, E5].\n"
+                "A single cite [E3] stays.")
+        out = _validate_letter(body, da)["letter_text"]
+        assert "[E6][E7]" in out                       # grouped -> expanded singles
+        assert "[E1][E2][E4][E5]" in out
+        assert "[E3]" in out                            # single unchanged
+        assert "Medicare covers this" in out            # line NOT emptied
+
+    def test_genuine_placeholder_still_removed(self):
+        da = _denial()
+        out = _validate_letter("Ref [E6, E7] kept.\nDrop [Totally Unknown Field] line.", da)
+        assert "[E6][E7]" in out["letter_text"]
+        assert "[Totally Unknown Field]" not in out["letter_text"]
+        assert "Drop" not in out["letter_text"]         # whole non-citation line removed
+
+    def test_grouped_render_to_adjacent_numbers(self):
+        assert _map_citation_numbers("see [E6][E7]") == "see [6][7]"
+        assert _map_citation_numbers("see [E6, E7]") == "see [6][7]"       # robust to grouped input
+        assert _map_citation_numbers("[E1, E2, E4, E5]") == "[1][2][4][5]"
+        assert _map_citation_numbers("single [E11]") == "single [11]"
+
+    def test_grouped_unknown_key_caught_by_guard(self):
+        """After _validate_letter expands the group, the UNCHANGED guard must
+        hard-fail on an unknown key inside the group (no slip-past)."""
+        da = _denial()
+        expanded = _validate_letter("bad group [E6, E99] here", da)["letter_text"]
+        assert "[E6][E99]" in expanded
+        r = _validate_evidence_claims(expanded, {"E6": {}})   # E99 does not exist
+        assert r["citations_ok"] is False
+        assert any("E99" in f for f in r["hard_failures"])
+
+    def test_safeguard_never_silently_deletes_citation_shaped_token(self):
+        """A citation-SHAPED token that can't be cleanly expanded is flagged for
+        review and left in place, never silently deleted."""
+        da = _denial()
+        out = _validate_letter("keep me [E6 and E7] please", da)
+        assert "[E6 and E7]" in out["letter_text"]     # preserved, not dropped
+        assert any(e["action"] == "citation_preserved_for_review"
+                   and e["field"] == "[E6 and E7]" for e in out["validation_log"])
+
+
+# ===========================================================================
 # Deterministic — PH-4a.2 em/en-dash normalization (voice pass)
 # ===========================================================================
 
