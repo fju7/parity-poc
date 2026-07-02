@@ -26,6 +26,8 @@ from typing import Optional, List
 from fastapi import APIRouter, File, Header, HTTPException, UploadFile
 from pydantic import BaseModel
 
+from utils.evidence_retrieval import retrieve_evidence
+
 router = APIRouter()
 
 # Anthropic client — lazy-initialized (same pattern as ai_parse.py)
@@ -867,6 +869,189 @@ def _apply_pregen_validators(da: dict, claim_number: Optional[str] = None) -> di
     return da
 
 
+# ---------------------------------------------------------------------------
+# PH-4a: evidence-into-letter integration
+# ---------------------------------------------------------------------------
+
+# Appended to APPEAL_SYSTEM_PROMPT only — augments PH-1 behavior, never replaces it.
+APPEAL_EVIDENCE_INSTRUCTIONS = """
+
+--- SUPPORTING EVIDENCE (verified) ---
+You are given a list of verified evidence items, each with a key like [E1]. When you refer to supporting evidence, refer to it ONLY by its key in square brackets, e.g. [E2].
+You MUST NOT write any of the following yourself: a PubMed ID, an FDA PMA number, a DOI, a journal name, an author name, a study title, a direct quotation, or any specific statistic/percentage/number-of-patients that is not already stated in the provided evidence summaries. If you want to cite support, use its [E#] key and let the reference list carry the details.
+State each item's support only within its stated indication. Do NOT generalize an FDA approval or coverage policy beyond the specific indication given. Do not imply broader regulatory status than the evidence states.
+For any item that is a clinical practice guideline, refer to its existence and general conclusion only; never reproduce or paraphrase its detailed recommendations.
+Tone: confident but precise. Make the strongest case the evidence genuinely supports, but never overstate it. An unimpeachable letter beats an overreaching one.
+If the evidence does not match the patient's specific diagnosis (e.g. no diagnosis code was provided), do NOT claim it does. Argue the general validity of the test, and do not fabricate a diagnosis-specific link.
+A "References" section listing these items will be appended to your letter automatically — do NOT write your own References/Citations section or expand any [E#] into a full citation."""
+
+
+def _format_reference(item: dict) -> str:
+    """One-line reference for an evidence item, built ONLY from verified stored
+    fields. This is the sole place bibliographic detail may originate, so it is
+    trusted. Guideline items are rendered reference-only (no recommendation text,
+    which is never stored anyway)."""
+    item = item or {}
+    source = item.get("source")
+    uid = item.get("source_uid") or ""
+    title = (item.get("title") or "").strip()
+    url = (item.get("url") or "").strip()
+    md = item.get("metadata") or {}
+
+    if source == "pubmed":
+        base = (item.get("citation") or title).strip()
+        label = "PubMed guideline" if item.get("study_type") == "guideline" else "PubMed"
+        return " ".join(p for p in [base, f"{label} PMID {uid}.", url] if p).strip()
+
+    if source == "fda":
+        indication = md.get("indication")
+        therapy = md.get("indication_therapy")
+        if indication:
+            s = f"FDA-approved companion diagnostic (PMA {uid}) for {indication}"
+            if therapy:
+                s += f" (use with {therapy})"
+            return " ".join(p for p in [s + ".", url] if p).strip()
+        # No specific indication stored: fall back to the stored summary (never a
+        # bare "FDA-approved").
+        return " ".join(p for p in [(item.get("summary") or title).strip(), url] if p).strip()
+
+    if source in ("cms_moldx", "cms_ncd_lcd"):
+        dtype = md.get("document_type") or "coverage"
+        return " ".join(p for p in [f"CMS {dtype} {uid}: {title}.", url] if p).strip()
+
+    return " ".join(p for p in [title, url] if p).strip()
+
+
+def _build_evidence_block(pack: dict) -> dict:
+    """Deterministically assign stable keys E1..En (pubmed, then cms, then fda;
+    pack order within each) and render a trusted, code-built reference list.
+
+    Returns {"references_block": str, "keys": {"E1": item, ...}, "gaps": [...]}.
+    """
+    pack = pack or {}
+    keys: dict = {}
+    lines: List[str] = []
+    n = 0
+    for channel in ("pubmed", "cms", "fda"):
+        for item in (pack.get(channel) or []):
+            n += 1
+            k = f"E{n}"
+            keys[k] = item
+            lines.append(f"[{k}] {_format_reference(item)}")
+    return {
+        "references_block": "\n".join(lines),
+        "keys": keys,
+        "gaps": pack.get("gaps") or [],
+    }
+
+
+# Patterns that must never appear in the letter BODY (they belong only in the
+# code-built References section). Presence in the prose implies the model
+# fabricated a citation detail -> HARD FAIL.
+_FAB_BARE_PMID_RE = re.compile(r"(?<!\d)\d{7,8}(?!\d)")
+_FAB_PMA_RE = re.compile(r"\bP\d{6}\b")
+_FAB_DOI_RE = re.compile(r"\b10\.\d{4,}/\S+")
+_FAB_ETAL_RE = re.compile(r"\bet al\.", re.IGNORECASE)
+_FAB_JOURNAL_CITE_RE = re.compile(r"\b\d{4};\s?\d+(?:\(\d+\))?:\s?\d+")  # e.g. 2023;41(4):678
+# Soft-flag: a percentage or "N patients"-style statistic (hardest to auto-verify).
+_STAT_RE = re.compile(r"\d+(?:\.\d+)?\s?%|\b\d+\s+patients\b", re.IGNORECASE)
+_USED_KEY_RE = re.compile(r"\[(E\d+)\]")
+
+
+def _validate_evidence_claims(letter_text: str, keys: dict) -> dict:
+    """Deterministic anti-fabrication gate, run on the letter BODY (before the
+    code-built References section is appended). No model call, no PHI logged.
+
+    Returns {"citations_ok", "hard_failures", "review_flags", "used_keys"}.
+    """
+    keys = keys or {}
+    used_keys = sorted(set(_USED_KEY_RE.findall(letter_text or "")), key=lambda k: int(k[1:]))
+    hard: List[str] = []
+
+    # 5.1 — every used key must exist.
+    for k in used_keys:
+        if k not in keys:
+            hard.append(f"unknown evidence key {k} used in letter (only {sorted(keys)} exist)")
+
+    # 5.2 — citation-detail patterns that should be impossible in the prose.
+    if _FAB_BARE_PMID_RE.search(letter_text or ""):
+        hard.append("possible fabricated PubMed ID (bare 7-8 digit number) in letter body")
+    if _FAB_PMA_RE.search(letter_text or ""):
+        hard.append("possible fabricated FDA PMA number (P######) in letter body")
+    if _FAB_DOI_RE.search(letter_text or ""):
+        hard.append("possible fabricated DOI in letter body")
+    if _FAB_ETAL_RE.search(letter_text or ""):
+        hard.append('"et al." citation-style text in letter body')
+    if _FAB_JOURNAL_CITE_RE.search(letter_text or ""):
+        hard.append("journal-style citation (year;vol:page) in letter body")
+
+    # 5.3 — soft flags for reviewer (NOT failures): specific figures.
+    review_flags: List[dict] = []
+    for m in _STAT_RE.finditer(letter_text or ""):
+        figure = m.group(0).strip()
+        # Capture the surrounding sentence for the reviewer.
+        start = (letter_text.rfind(".", 0, m.start()) + 1)
+        end = letter_text.find(".", m.end())
+        end = len(letter_text) if end == -1 else end + 1
+        sentence = " ".join(letter_text[start:end].split())
+        review_flags.append({"figure": figure, "sentence": sentence})
+
+    return {
+        "citations_ok": not hard,
+        "hard_failures": hard,
+        "review_flags": review_flags,
+        "used_keys": used_keys,
+    }
+
+
+def _build_reviewer_checklist(evidence: dict, evidence_validation: dict,
+                              extra_notes: Optional[List[str]] = None) -> dict:
+    """Structured checklist the human must confirm before sending. Data only —
+    the UI is PH-4b. Status is ALWAYS draft; a letter is never auto-send-ready."""
+    keys = (evidence or {}).get("keys") or {}
+    items: List[dict] = []
+
+    # Cited items -> confirm-indication prompt.
+    for k in (evidence_validation or {}).get("used_keys", []):
+        it = keys.get(k)
+        if not it:
+            continue
+        md = it.get("metadata") or {}
+        items.append({
+            "type": "confirm_indication",
+            "key": k,
+            "reference": _format_reference(it),
+            "stated_indication": md.get("indication") or it.get("summary"),
+            "prompt": "Confirm this evidence's stated indication matches the patient's diagnosis before relying on it.",
+        })
+
+    # Soft-flagged statistics -> verify prompt.
+    for flag in (evidence_validation or {}).get("review_flags", []):
+        items.append({
+            "type": "verify_statistic",
+            "figure": flag.get("figure"),
+            "sentence": flag.get("sentence"),
+            "prompt": "Verify this figure against the cited source before sending.",
+        })
+
+    # Gaps -> actions.
+    for gap in (evidence or {}).get("gaps") or []:
+        if "ICD" in gap:
+            action = ("No diagnosis (ICD) code was provided — supply it and regenerate to "
+                      "retrieve diagnosis-specific evidence and strengthen this appeal.")
+        else:
+            action = gap
+        items.append({"type": "gap", "note": gap, "action": action})
+
+    for note in (extra_notes or []):
+        items.append({"type": "note", "note": note})
+
+    return {
+        "status": "draft — human review required before sending",
+        "items": items,
+    }
+
+
 @router.post("/api/health/generate-appeal")
 def generate_appeal(req: AppealGenerateRequest):
     client = _get_client()
@@ -886,6 +1071,17 @@ def generate_appeal(req: AppealGenerateRequest):
     # -- PH-1-B: pre-generation data-integrity validators (extracted for unit testing) --
     _apply_pregen_validators(da, req.claim_number)
     cpt_codes = da.get("cpt_codes") or []
+
+    # -- PH-4a: retrieve verified external evidence. retrieve_evidence receives the
+    # full da ONLY so its internal PHI guard can assert no PHI reaches any wire; it
+    # builds queries strictly from procedure_terms/cpt_codes. Honest degradation:
+    # any failure -> empty pack, letter generated without citations, never a crash. --
+    try:
+        pack = retrieve_evidence(da)
+    except Exception as e:
+        print(f"[health/generate-appeal] retrieve_evidence failed; proceeding without evidence: {e}")
+        pack = {"pubmed": [], "cms": [], "fda": [], "gaps": []}
+    evidence = _build_evidence_block(pack)
 
     context_parts = [f"Denial analysis:\n{json.dumps(da, indent=2)}"]
 
@@ -944,13 +1140,27 @@ def generate_appeal(req: AppealGenerateRequest):
     except Exception as e:
         print(f"[warn] Health Signal playbook lookup failed: {e}")
 
+    # -- PH-4a: feed the code-built references block to the model and switch on the
+    # evidence-citation instructions only when there is evidence to cite. --
+    system_prompt = APPEAL_SYSTEM_PROMPT
+    evidence_note = None
+    if evidence["references_block"]:
+        context_parts.append(
+            "Verified evidence you may cite (refer to each ONLY by its [E#] key; "
+            "do NOT write the bibliographic details yourself):\n"
+            + evidence["references_block"]
+        )
+        system_prompt = APPEAL_SYSTEM_PROMPT + APPEAL_EVIDENCE_INSTRUCTIONS
+    else:
+        evidence_note = "No external evidence was retrieved; letter generated without citations."
+
     content = [{"type": "text", "text": "\n\n".join(context_parts)}]
 
     response = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=4096,
         temperature=0.3,
-        system=APPEAL_SYSTEM_PROMPT,
+        system=system_prompt,
         messages=[{"role": "user", "content": content}],
     )
 
@@ -959,11 +1169,38 @@ def generate_appeal(req: AppealGenerateRequest):
         if hasattr(block, "text"):
             raw_text += block.text
 
-    # -- PH-1-C: deterministic post-generation placeholder validation --
+    # -- PH-1-C: deterministic post-generation placeholder validation (unchanged) --
     validated = _validate_letter(raw_text.strip(), da)
     if validated["validation_log"]:
         print(f"[health/generate-appeal] validation_log: {json.dumps(validated['validation_log'])}")
-    return {"letter_text": validated["letter_text"], "validation_log": validated["validation_log"]}
+
+    # -- PH-4a: anti-fabrication guard on the letter BODY (before the trusted,
+    # code-built References section is appended). --
+    body = validated["letter_text"]
+    evidence_validation = _validate_evidence_claims(body, evidence["keys"])
+    if not evidence_validation["citations_ok"]:
+        # Log the reason WITHOUT any PHI (hard_failures carry no PHI values).
+        print(f"[health/generate-appeal] EVIDENCE GUARD hard failures: "
+              f"{json.dumps(evidence_validation['hard_failures'])}")
+
+    # Append the trusted References section — the ONLY place bibliographic detail lives.
+    final_letter = body
+    if evidence["references_block"]:
+        final_letter = body.rstrip() + "\n\nReferences\n" + evidence["references_block"]
+
+    reviewer_checklist = _build_reviewer_checklist(
+        evidence, evidence_validation, [evidence_note] if evidence_note else []
+    )
+    needs_revision = not evidence_validation["citations_ok"]
+
+    return {
+        "letter_text": final_letter,
+        "validation_log": validated["validation_log"],
+        "evidence_validation": evidence_validation,
+        "reviewer_checklist": reviewer_checklist,
+        "needs_revision": needs_revision,
+        "status": "needs_revision" if needs_revision else "draft — human review required before sending",
+    }
 
 
 # ---------------------------------------------------------------------------
