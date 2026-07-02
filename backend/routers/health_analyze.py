@@ -12,6 +12,7 @@ into a single pipeline.
 import base64
 import copy
 import csv
+import html
 import io
 import json
 import os
@@ -25,6 +26,7 @@ from zoneinfo import ZoneInfo
 from typing import Optional, List
 
 from fastapi import APIRouter, File, Header, HTTPException, UploadFile
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from utils.evidence_retrieval import retrieve_evidence
@@ -664,7 +666,7 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - Closes with a clear request for reconsideration. When stating any appeal deadline, use the denial's LITERAL timeframe wording exactly as given (e.g. "within 72 hours", drawn from appeal_deadline_hint / the deadline fields). Do NOT convert units (never turn "72 hours" into "3 days") and do NOT invent a timeframe the denial did not state
 - Uses professional but plain language, not legal jargon
 - Is formatted as a real letter (date, addresses, subject line, body, closing)
-- Present EVERY appeal submission address the denial provided (appeal_submission.address and appeal_submission.alt_address, when each is present), each with a clear, plain-language label so the patient knows which applies to them. For example: "If your coverage is through an employer or union group plan, send your appeal to: [address]. If you have an individual or Marketplace plan, send your appeal to: [alt_address]. If you are unsure which applies to you, you may send your appeal to both addresses, or call the member services number on your insurance card to confirm." Do NOT choose a single address on the patient's behalf and do NOT omit any address the denial provided. If only one address is provided, present that one. Always include the appeal fax and phone (appeal_submission.fax, appeal_submission.phone) if provided.
+- Direct this appeal to the appeal submission address the denial provided (appeal_submission.address, and appeal_submission.alt_address if the denial provided a second one), stating each as the destination to which this appeal is submitted. Include the appeal fax and phone (appeal_submission.fax, appeal_submission.phone) if provided. State these purely as factual routing information for the insurer. This is a letter TO THE INSURER, not to the patient: do NOT address the patient or give the patient instructions about the addresses. In particular, do NOT say "which applies to you", do NOT tell the patient to call the member services number on their insurance card, and do NOT tell the patient to send the appeal to both addresses.
 - For the letterhead date, output the exact literal token __LETTER_DATE__ (our system substitutes the correct date). Use __LETTER_DATE__ exactly once, only as the letterhead date. Never write any other calendar date to mean "today"; dates that refer to the denial (e.g. the denial date) should be written normally.
 - Refer to the ordering provider using ONLY the title/credential stated in the denial analysis (the provider_title field), if any. If a title is provided, use it (for example "Dr. Smith", "Smith, NP", or "Smith, PA" as appropriate to the credential). If NO title is provided (provider_title is null or absent), refer to the provider neutrally as "the ordering provider, <Name>" and do NOT use "Dr." or any other credential you were not given. Never assume the provider is a physician.
 - The denial analysis uses placeholder tokens for the patient's identifying details: __PATIENT_NAME__ for the patient's name, __MEMBER_ID__ for the member ID, __CLAIM_NUMBER__ for the claim number, and __PATIENT_ADDRESS__ for the patient's address. Write these tokens verbatim wherever that information belongs in the letter (letterhead, the RE/subject block, the signature). Do NOT invent or guess a real name, ID, claim number, or address. Our system substitutes the real values after the letter is written.
@@ -1352,13 +1354,12 @@ def _normalize_dashes(text: str) -> str:
     return result
 
 
-@router.post("/api/health/generate-appeal")
-def generate_appeal(req: AppealGenerateRequest, authorization: str = Header(None)):
-    # Require a logged-in Health user. Same pattern as the other authenticated
-    # Health endpoints (e.g. GET /api/health/auth/me): validate the Bearer token
-    # BEFORE any letter work or PHI handling. Raises 401 if missing/invalid/expired.
-    get_health_user(authorization, _get_supabase())
-
+def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
+    """Shared appeal-generation path used by BOTH the JSON endpoint (generate_appeal)
+    and the PDF endpoint (generate_appeal_pdf). Returns the exact dict the JSON
+    endpoint responds with (letter_text + validation/checklist metadata), so the two
+    endpoints always produce the identical letter. Callers MUST perform auth
+    (get_health_user) BEFORE invoking this. Stores nothing; logs no PHI values."""
     client = _get_client()
 
     # denial_analysis is mutated in place by the pre-generation validators below.
@@ -1541,6 +1542,118 @@ def generate_appeal(req: AppealGenerateRequest, authorization: str = Header(None
         "needs_revision": needs_revision,
         "status": "needs_revision" if needs_revision else "draft — human review required before sending",
     }
+
+
+@router.post("/api/health/generate-appeal")
+def generate_appeal(req: AppealGenerateRequest, authorization: str = Header(None)):
+    # Require a logged-in Health user. Same pattern as the other authenticated
+    # Health endpoints (e.g. GET /api/health/auth/me): validate the Bearer token
+    # BEFORE any letter work or PHI handling. Raises 401 if missing/invalid/expired.
+    get_health_user(authorization, _get_supabase())
+    return _generate_appeal_result(req)
+
+
+def _render_appeal_letter_pdf(letter_text: str) -> bytes:
+    """Render an already-generated Health appeal letter (plain text that ALREADY
+    contains its own letterhead date, inside address, and RE: block) to a clean,
+    professional PDF using ReportLab, and return the bytes.
+
+    Deliberately does NOT add any letterhead / Re: / Date line of its own — unlike the
+    Provider builder — because the letter_text is self-contained and a second header
+    would duplicate the letter's existing one. The letter's structure is interpreted
+    for readability: ALL-CAPS (or **bold**) lines become bold headings, lines starting
+    with "- " become bullets, and the trailing "References" block is set apart with
+    smaller numbered entries; blank lines become paragraph spacing. Every line is
+    HTML-escaped before it reaches ReportLab Paragraph (which parses a markup subset),
+    so characters like "&", "<", ">" render literally. Stores nothing."""
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import letter as _letter_size
+    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+    from reportlab.lib.units import inch
+    from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, HRFlowable
+
+    # Parity palette (matches the house PDF tooling in utils/pdf_branding.py).
+    NAVY = colors.HexColor("#1E293B")
+    TEAL = colors.HexColor("#0D9488")
+    SLATE = colors.HexColor("#64748B")
+
+    base = getSampleStyleSheet()
+    s_body = ParagraphStyle("HealthAppealBody", parent=base["Normal"],
+                            fontSize=10.5, leading=15, textColor=NAVY, spaceAfter=2)
+    s_heading = ParagraphStyle("HealthAppealHeading", parent=s_body,
+                               fontName="Helvetica-Bold", fontSize=11,
+                               spaceBefore=10, spaceAfter=4)
+    s_bullet = ParagraphStyle("HealthAppealBullet", parent=s_body,
+                              leftIndent=16, spaceAfter=2)
+    s_ref_heading = ParagraphStyle("HealthAppealRefHeading", parent=s_heading, textColor=TEAL)
+    s_ref = ParagraphStyle("HealthAppealRef", parent=base["Normal"],
+                           fontSize=8.5, leading=11, textColor=SLATE,
+                           leftIndent=14, firstLineIndent=-14, spaceAfter=2)
+
+    def _esc(s: str) -> str:
+        # Escape only &, <, > (quote=False) so ReportLab Paragraph markup can't break.
+        return html.escape(s, quote=False)
+
+    story = []
+    in_references = False
+    for raw in (letter_text or "").split("\n"):
+        stripped = raw.strip()
+        if not stripped:
+            story.append(Spacer(1, 6))
+            continue
+
+        # References section: the literal "References" line, then "[n] ..." entries.
+        if stripped == "References" and not in_references:
+            in_references = True
+            story.append(Spacer(1, 8))
+            story.append(HRFlowable(width="100%", thickness=0.5, color=SLATE, spaceAfter=6))
+            story.append(Paragraph("References", s_ref_heading))
+            continue
+        if in_references:
+            story.append(Paragraph(_esc(stripped), s_ref))
+            continue
+
+        # Bulleted item.
+        if stripped.startswith("- "):
+            story.append(Paragraph(_esc(stripped[2:].strip()), s_bullet, bulletText="•"))
+            continue
+
+        # Heading: a **bold-marked** line, or an ALL-CAPS (short) line.
+        is_bold_marked = stripped.startswith("**") and stripped.endswith("**") and len(stripped) > 4
+        alpha = [c for c in stripped if c.isalpha()]
+        is_caps_heading = bool(alpha) and all(c.isupper() for c in alpha) and len(stripped) <= 120
+        if is_bold_marked:
+            story.append(Paragraph("<b>" + _esc(stripped.strip("*").strip()) + "</b>", s_heading))
+            continue
+        if is_caps_heading:
+            story.append(Paragraph("<b>" + _esc(stripped) + "</b>", s_heading))
+            continue
+
+        story.append(Paragraph(_esc(stripped), s_body))
+
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(buf, pagesize=_letter_size,
+                            leftMargin=0.85 * inch, rightMargin=0.85 * inch,
+                            topMargin=0.85 * inch, bottomMargin=0.85 * inch)
+    doc.build(story)
+    return buf.getvalue()
+
+
+@router.post("/api/health/generate-appeal-pdf")
+def generate_appeal_pdf(req: AppealGenerateRequest, authorization: str = Header(None)):
+    """PH-4b-1: render the SAME appeal letter as generate-appeal to a clean PDF and
+    stream it back. Render-and-return ONLY — STORES NOTHING (no DB insert/upsert, no
+    storage upload of letter_text or the PDF) and logs no PHI, because the letter
+    carries the patient's real identifiers. Same auth + same request model as
+    generate-appeal; the letter is produced by the shared _generate_appeal_result."""
+    get_health_user(authorization, _get_supabase())
+    result = _generate_appeal_result(req)
+    pdf_bytes = _render_appeal_letter_pdf(result["letter_text"])
+    return StreamingResponse(
+        io.BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={"Content-Disposition": 'attachment; filename="appeal-letter.pdf"'},
+    )
 
 
 # ---------------------------------------------------------------------------

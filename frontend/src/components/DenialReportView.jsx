@@ -27,6 +27,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
   const [letterError, setLetterError] = useState(null);
   const [copied, setCopied] = useState(false);
   const [appealOpen, setAppealOpen] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
 
   const typeConfig = DENIAL_TYPE_COLORS[analysis.denial_type] || DENIAL_TYPE_COLORS.other;
 
@@ -87,9 +88,61 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
     });
   }, [letterText]);
 
-  const handlePrintLetter = useCallback(() => {
-    window.print();
-  }, []);
+  // PH-4b-1: download a real, server-rendered PDF of the appeal letter (insurer-facing)
+  // instead of printing the whole web page. Same auth + same body as generate-appeal;
+  // the backend renders and streams the PDF and stores nothing (letter contains PHI).
+  const handleDownloadPdf = useCallback(async () => {
+    setLetterError(null);
+
+    const token = localStorage.getItem("health_token");
+    if (!token) {
+      setLetterError("Please sign in again to download the appeal PDF.");
+      return;
+    }
+
+    setPdfLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/health/generate-appeal-pdf`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          denial_analysis: analysis,
+          // PHI — server-only fields, sent only to our own backend to render the letter.
+          patient_name: patientName.trim() || null,
+          patient_address: patientAddress.trim() || null,
+          provider_name: providerName.trim() || null,
+          claim_number: claimNumber.trim() || null,
+          // Condition-neutral diagnosis (plain-language + optional ICD-10 code).
+          patient_diagnosis: patientDiagnosis.trim() || null,
+          patient_icd_code: patientIcdCode.trim() || null,
+        }),
+      });
+
+      if (res.status === 401) {
+        throw new Error("Your session has expired. Please sign in again to download the PDF.");
+      }
+      if (!res.ok) {
+        throw new Error("Failed to generate the appeal PDF. Please try again.");
+      }
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "appeal-letter.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setLetterError(err.message);
+    } finally {
+      setPdfLoading(false);
+    }
+  }, [analysis, patientName, patientAddress, providerName, claimNumber, patientDiagnosis, patientIcdCode]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
@@ -408,10 +461,11 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                   {copied ? "Copied!" : "Copy Letter"}
                 </button>
                 <button
-                  onClick={handlePrintLetter}
-                  className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
+                  onClick={handleDownloadPdf}
+                  disabled={pdfLoading}
+                  className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer disabled:opacity-60 disabled:cursor-default"
                 >
-                  Download as PDF
+                  {pdfLoading ? "Preparing PDF..." : "Download as PDF"}
                 </button>
               </div>
             </div>

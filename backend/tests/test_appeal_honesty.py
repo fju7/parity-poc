@@ -29,13 +29,21 @@ def test_alt_address_resolver_added_primary_unchanged():
     assert _resolve_placeholder("alternate appeal address", {"appeal_submission": {"address": "A"}}) is None
 
 
-# -- Task 1.1: prompt presents ALL addresses, labeled, and never picks one --
-def test_prompt_shows_all_addresses_never_selects():
+# -- PH-4b-1: the letter is INSURER-facing. It still routes the appeal to the
+# address(es) the denial provided, but no longer gives the PATIENT any address-
+# selection guidance (that moves to a patient instruction sheet in a later brief). --
+def test_prompt_routes_addresses_without_patient_guidance():
     p = APPEAL_SYSTEM_PROMPT
-    assert "appeal_submission.address and appeal_submission.alt_address" in p
-    assert "Do NOT choose a single address on the patient's behalf" in p
-    assert "send your appeal to both addresses" in p
-    assert "do NOT omit any address the denial provided" in p
+    # Still references the appeal destination fields (factual routing).
+    assert "appeal_submission.address" in p and "appeal_submission.alt_address" in p
+    assert "letter TO THE INSURER, not to the patient" in p
+    # The patient-directed guidance is explicitly prohibited now.
+    assert 'do NOT say "which applies to you"' in p
+    assert "do NOT tell the patient to call the member services number on their insurance card" in p
+    assert "do NOT tell the patient to send the appeal to both addresses" in p
+    # The old patient-directed phrasings are gone from the letter prompt.
+    assert "send your appeal to both addresses" not in p
+    assert "Do NOT choose a single address on the patient's behalf" not in p
 
 
 # -- Task 2: honest enclosure / supporting-documentation language --
