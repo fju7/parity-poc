@@ -698,6 +698,11 @@ _SIGNATURE_TOKENS = (
     "your name", "name and title", "representative",
 )
 
+# Visible marker used when a must-have (signature) placeholder cannot be filled — surfaced
+# in the letter instead of a silent removal or a mailable generic. No brackets, so it is not
+# mistaken for an unresolved placeholder. (Supersedes the earlier "the member" fallback.)
+_ACTION_REQUIRED_SIGNATURE = "ACTION REQUIRED — add the member's name and title before submitting"
+
 # Placeholder keys whose substituted value is PHI — redacted from validation_log (CO-6).
 _PHI_PLACEHOLDER_KEYS = {
     "patient name", "patient", "name",
@@ -747,7 +752,10 @@ def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
     """
     today = _today_local()
     pn = denial_analysis.get("patient_name")
-    signature_value = f"Submitted on behalf of {pn}" if pn else "Submitted on behalf of the member"
+    # Named signature when we know the patient (value is PHI); otherwise a visible
+    # ACTION-REQUIRED marker for this must-have field (never a silent removal).
+    signature_value = f"Submitted on behalf of {pn}" if pn else _ACTION_REQUIRED_SIGNATURE
+    signature_is_phi = bool(pn)
     placeholder_re = re.compile(r"\[([^\]]+)\]")
     log: List[dict] = []
 
@@ -769,14 +777,21 @@ def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
         for label in labels:
             token = "[" + label + "]"
             key = label.strip().lower()
-            if key == "date" or key.startswith("date"):
+            if key == "date" or key.startswith("date:"):
+                # Letterhead date only ("[Date]" / "[Date: June 23, 2026]"). Deliberately does
+                # NOT match "[Date of Service]" etc., which route to the resolver (real value
+                # or line removal) — never overwritten with today.
                 new_line = new_line.replace(token, today)
                 log.append({"field": token, "action": "date_substituted", "value": today})
             elif _is_signature_placeholder(key):
-                # CO-2: named signature — always filled, never removed. Value embeds
-                # patient_name (PHI), so it is redacted from the log (CO-6).
+                # Must-have signature — always filled, never removed. With a known patient the
+                # value embeds patient_name (PHI) so it is redacted from the log (CO-6); without
+                # one, it becomes a visible ACTION-REQUIRED marker (safe to log, not PHI).
                 new_line = new_line.replace(token, signature_value)
-                log.append({"field": token, "action": "signature_substituted", "value": "[REDACTED]"})
+                if signature_is_phi:
+                    log.append({"field": token, "action": "signature_substituted", "value": "[REDACTED]"})
+                else:
+                    log.append({"field": token, "action": "action_required", "value": signature_value})
             else:
                 val = _resolve_placeholder(label, denial_analysis)
                 if val:
@@ -817,6 +832,41 @@ def _validate_letter(letter_text: str, denial_analysis: dict) -> dict:
     return {"letter_text": cleaned, "validation_log": log}
 
 
+def _apply_pregen_validators(da: dict, claim_number: Optional[str] = None) -> dict:
+    """PH-1-B pre-generation data-integrity guards. Mutates and returns ``da``.
+
+    Pure (no network / no model call) so it is unit-testable:
+      (1) claim_number must exist and must not equal the denial or guideline code — else
+          substitute "{member_id} / {YYYY-MM-DD}" and log a warning;
+      (2) cpt_codes deduplicated;
+      (3) state derived from patient_address when missing.
+    """
+    claim_number = claim_number or da.get("claim_number")
+    denial_code = da.get("denial_reason_code") or da.get("carc_rarc_code")
+    guideline_id = da.get("payer_guideline_id")
+    if (not claim_number) or claim_number == denial_code or claim_number == guideline_id:
+        member_id = da.get("member_id")
+        fallback_ref = f"{member_id or 'UNKNOWN'} / {datetime.now(ZoneInfo('America/Chicago')).strftime('%Y-%m-%d')}"
+        print(
+            f"[health/generate-appeal] WARNING: claim_number missing or equals "
+            f"denial/guideline code ({claim_number!r}); substituting reference {fallback_ref!r}"
+        )
+        claim_number = fallback_ref
+    da["claim_number"] = claim_number
+
+    cpt_codes = da.get("cpt_codes") or []
+    if isinstance(cpt_codes, str):
+        cpt_codes = [cpt_codes]
+    da["cpt_codes"] = list(set(cpt_codes))
+
+    if not da.get("state") and da.get("patient_address"):
+        m = re.search(r"\b([A-Z]{2})\s+\d{5}(?:-\d{4})?\b", da["patient_address"])
+        if m:
+            da["state"] = m.group(1)
+
+    return da
+
+
 @router.post("/api/health/generate-appeal")
 def generate_appeal(req: AppealGenerateRequest):
     client = _get_client()
@@ -833,34 +883,9 @@ def generate_appeal(req: AppealGenerateRequest):
     if req.patient_address:
         da["patient_address"] = req.patient_address
 
-    # -- PH-1-B: pre-generation data-integrity validators (degrade gracefully) --
-
-    # (1) Claim-number integrity: must exist and must not be the denial/guideline code.
-    claim_number = req.claim_number or da.get("claim_number")
-    denial_code = da.get("denial_reason_code") or da.get("carc_rarc_code")
-    guideline_id = da.get("payer_guideline_id")
-    if (not claim_number) or claim_number == denial_code or claim_number == guideline_id:
-        member_id = da.get("member_id")
-        fallback_ref = f"{member_id or 'UNKNOWN'} / {datetime.utcnow().strftime('%Y-%m-%d')}"
-        print(
-            f"[health/generate-appeal] WARNING: claim_number missing or equals "
-            f"denial/guideline code ({claim_number!r}); substituting reference {fallback_ref!r}"
-        )
-        claim_number = fallback_ref
-    da["claim_number"] = claim_number
-
-    # (2) Deduplicate cpt_codes.
+    # -- PH-1-B: pre-generation data-integrity validators (extracted for unit testing) --
+    _apply_pregen_validators(da, req.claim_number)
     cpt_codes = da.get("cpt_codes") or []
-    if isinstance(cpt_codes, str):
-        cpt_codes = [cpt_codes]
-    cpt_codes = list(set(cpt_codes))
-    da["cpt_codes"] = cpt_codes
-
-    # (3) Derive state from patient_address if missing.
-    if not da.get("state") and da.get("patient_address"):
-        m = re.search(r"\b([A-Z]{2})\s+\d{5}(?:-\d{4})?\b", da["patient_address"])
-        if m:
-            da["state"] = m.group(1)
 
     context_parts = [f"Denial analysis:\n{json.dumps(da, indent=2)}"]
 
