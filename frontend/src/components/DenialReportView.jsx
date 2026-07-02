@@ -327,64 +327,13 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
           </div>
         )}
 
-        {/* Supporting Documentation Checklist */}
-        {analysis.supporting_documentation && analysis.supporting_documentation.length > 0 && (
-          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-            <h3 className="text-lg font-bold text-[#1B3A5C] mb-3">What to Include in Your Appeal</h3>
-            <p className="text-sm text-gray-500 mb-4">Gather these documents before filing your appeal:</p>
-            <ul className="space-y-2">
-              {analysis.supporting_documentation.map((doc, i) => (
-                <li key={i} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                  <input type="checkbox" className="mt-0.5 accent-[#0D7377]" />
-                  <span className="text-sm text-gray-700">{doc}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Where & How to Appeal — submission address, deadlines, peer-to-peer */}
-        {(analysis.appeal_submission?.address || analysis.appeal_submission?.fax ||
-          analysis.appeal_submission?.phone || analysis.deadline_days_expedited ||
-          analysis.deadline_days_standard || analysis.peer_to_peer_contact ||
-          analysis.appeal_deadline_hint) && (
-          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-            <h3 className="text-lg font-bold text-[#1B3A5C] mb-3">Where &amp; How to Appeal</h3>
-            {analysis.appeal_submission?.address && (
-              <div className="mb-3">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Send your appeal to:</p>
-                <p className="text-sm text-gray-800 whitespace-pre-line">{analysis.appeal_submission.address}</p>
-                {analysis.appeal_submission.alt_address && (
-                  <p className="text-sm text-gray-500 mt-1">Or: {analysis.appeal_submission.alt_address}</p>
-                )}
-              </div>
-            )}
-            {analysis.appeal_submission?.fax && (
-              <p className="text-sm text-gray-700 mb-1">Fax: <span className="font-medium">{analysis.appeal_submission.fax}</span></p>
-            )}
-            {analysis.appeal_submission?.phone && (
-              <p className="text-sm text-gray-700 mb-1">Phone: <span className="font-medium">{analysis.appeal_submission.phone}</span></p>
-            )}
-            {(analysis.deadline_days_expedited || analysis.deadline_days_standard) && (
-              <p className="text-sm text-gray-700 mt-2">
-                Appeal deadline:{" "}
-                {analysis.deadline_days_expedited ? `${analysis.deadline_days_expedited} days expedited` : ""}
-                {analysis.deadline_days_expedited && analysis.deadline_days_standard ? " / " : ""}
-                {analysis.deadline_days_standard ? `${analysis.deadline_days_standard} days standard` : ""}
-              </p>
-            )}
-            {analysis.peer_to_peer_contact && (
-              <p className="text-sm text-gray-700 mt-2">
-                Your doctor can call <span className="font-medium">{analysis.peer_to_peer_contact}</span> for a peer-to-peer review.
-              </p>
-            )}
-            {analysis.appeal_deadline_hint && (
-              <p className="text-sm text-gray-600 mt-3">
-                <span className="font-semibold">Additional deadline note:</span> {analysis.appeal_deadline_hint}
-              </p>
-            )}
-          </div>
-        )}
+        {/* PH-4b-2: the "What to Include in Your Appeal" checklist and the
+            "Where & How to Appeal" block were removed from this on-screen report —
+            that patient-facing content now lives on the patient instruction sheet PDF.
+            The underlying fields (supporting_documentation, appeal_submission, deadline
+            fields, peer_to_peer_contact) are unchanged and still power the instruction
+            sheet and the appeal letter. The standalone "Appeal Deadline" card below is
+            intentionally kept so the patient still sees the deadline on this screen. */}
 
         {/* Appeal Deadline */}
         {analysis.appeal_deadline_hint && (
