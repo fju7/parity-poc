@@ -1199,10 +1199,51 @@ packages. Health only — Provider/Employer/Broker/Signal/Billing untouched.
 - No migration. Phases 2-5 (PubMed/CMS evidence retrieval, citation-grounded
   letter, package assembler, persistence) are planned follow-ups.
 
+## Session PH-3 — Health Evidence-Retrieval Service (PubMed + CMS + FDA)
+Standalone, PHI-firewalled retrieval service that turns a denial's PHI-free
+concepts (procedure_terms, cpt_codes) into a pack of *verified* citations,
+cached in the migration-069 tables. Health only. Does NOT touch letter
+generation / generate_appeal / health_analyze letter logic / any frontend —
+letter integration is the separate PH-4.
+
+- Migration 069 (evidence_item / evidence_query) authored in PH-3a and APPLIED
+  to production (Parity kfxxpscdwoemtzylhhhb). RLS on, service_role-only,
+  copyright guard evidence_item_bounded_no_fulltext.
+- Module: backend/utils/evidence_retrieval.py — public entry
+  retrieve_evidence(denial_analysis, force_refresh=False) -> pack
+  {"pubmed": [...], "cms": [...], "fda": [...], "gaps": [...]}. Source-agnostic:
+  add a source via a new adapter + a CHANNELS entry, no orchestration rewrite.
+  - PH-3b: PubMed adapter (esearch + esummary, stdlib urllib, keyless; optional
+    NCBI_EMAIL / NCBI_API_KEY). Verification = esummary uid match; retraction
+    filter; content_tier='full'.
+  - PH-3c: CMS adapter (api.coverage.cms.gov/v1 report endpoints; client-side
+    title match with a bigram bridge so "molecular residual disease" matches
+    CMS "minimal residual disease"; currency filter drops retired docs; MolDX
+    titles -> source cms_moldx, else cms_ncd_lcd; verified by presence in the
+    authoritative CMS MCD report list — LCD/Article detail is 401 keyless) and
+    FDA adapter (openFDA device/pma + 510k; verified by trade_name/generic_name
+    match). study_type coverage_policy (CMS) / device_approval (FDA).
+- PHI firewall: build_pubmed_query / build_cms_query / build_fda_query take ONLY
+  (procedure_terms, cpt_codes) — cannot receive PHI. Runtime guard
+  _assert_no_phi(url, denial_analysis) runs before EVERY outbound request.
+  Honest degradation: any source failure -> empty channel + gap note, never an
+  exception to the caller (a tripped PHI guard is the one intentional raise).
+- Supabase writes reuse the supabase_client.py pattern (SUPABASE_SERVICE_KEY).
+  Per-channel cache: evidence_query rows keyed (source, query_key); PubMed/FDA
+  90-day TTL, CMS 30-day TTL.
+- Tests: backend/tests/test_evidence_retrieval.py — deterministic offline suite
+  (replays recorded fixtures, stubs storage; verification gates, retraction/
+  retired/name-match filters, PHI-leak gate) + @pytest.mark.eval live multi-
+  source eval. Fixtures in test-data/appeals/signatera_cigna/
+  (pubmed_esearch_response.json, pubmed_esummary_response.json,
+  cms_fda_http_cache.json, expected_evidence.json).
+
 ## Migrations status
 All migrations through 056 have been run on production.
-Migrations 057-065 pending. No new migration for BL-12.
-Next migration number: 066
+Migrations 057-068 pending. No new migration for BL-12.
+Migration 069 (evidence_item / evidence_query) APPLIED to production via the
+supabase apply_migration tool (PH-3a review + PH-3b/3c usage).
+Next migration number: 070
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

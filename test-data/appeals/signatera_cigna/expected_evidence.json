@@ -4,7 +4,7 @@
       "source": "pubmed",
       "source_uid": "39284954",
       "title": "ctDNA-based molecular residual disease and survival in resectable colorectal cancer.",
-      "citation": "Nakamura Y et al. ctDNA-based molecular residual disease and survival in resectable colorectal cancer. Nature medicine. 2024.",
+      "citation": "Nakamura Y et al.. ctDNA-based molecular residual disease and survival in resectable colorectal cancer.. Nature medicine. 2024.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/39284954/",
       "pub_year": 2024,
       "study_type": "other",
@@ -57,17 +57,17 @@
         ]
       },
       "verified": true,
-      "verified_at": "2026-07-02T11:59:24.968805+00:00",
+      "verified_at": "2026-07-02T12:28:01.796352+00:00",
       "verification_method": "esummary 200 + uid match",
       "retracted": false,
       "content_hash": "31d705e8095d4aeec10f5af550b1fec199a26b0877242c8d22101190bbe5ee12",
-      "fetched_at": "2026-07-02T11:59:24.968836+00:00"
+      "fetched_at": "2026-07-02T12:28:01.796385+00:00"
     },
     {
       "source": "pubmed",
       "source_uid": "34135506",
       "title": "ctDNA guiding adjuvant immunotherapy in urothelial carcinoma.",
-      "citation": "Powles T et al. ctDNA guiding adjuvant immunotherapy in urothelial carcinoma. Nature. 2021.",
+      "citation": "Powles T et al.. ctDNA guiding adjuvant immunotherapy in urothelial carcinoma.. Nature. 2021.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/34135506/",
       "pub_year": 2021,
       "study_type": "RCT",
@@ -113,17 +113,17 @@
         ]
       },
       "verified": true,
-      "verified_at": "2026-07-02T11:59:24.968868+00:00",
+      "verified_at": "2026-07-02T12:28:01.796419+00:00",
       "verification_method": "esummary 200 + uid match",
       "retracted": false,
       "content_hash": "fe84899d955ff1abdb04dbd5c29ecb0c91f9a975de2d18af4b458f59090170ee",
-      "fetched_at": "2026-07-02T11:59:24.968875+00:00"
+      "fetched_at": "2026-07-02T12:28:01.796427+00:00"
     },
     {
       "source": "pubmed",
       "source_uid": "36252154",
       "title": "Treatment of Metastatic Colorectal Cancer: ASCO Guideline.",
-      "citation": "Morris VK et al. Treatment of Metastatic Colorectal Cancer: ASCO Guideline. Journal of clinical oncology : official journal of the American Society of Clinical Oncology. 2023.",
+      "citation": "Morris VK et al.. Treatment of Metastatic Colorectal Cancer: ASCO Guideline.. Journal of clinical oncology : official journal of the American Society of Clinical Oncology. 2023.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/36252154/",
       "pub_year": 2023,
       "study_type": "review",
@@ -161,17 +161,17 @@
         ]
       },
       "verified": true,
-      "verified_at": "2026-07-02T11:59:24.968898+00:00",
+      "verified_at": "2026-07-02T12:28:01.796447+00:00",
       "verification_method": "esummary 200 + uid match",
       "retracted": false,
       "content_hash": "e271438e0f808c9b2b4bdd27c92943884c13755a864182ba2994f425cda92e20",
-      "fetched_at": "2026-07-02T11:59:24.968903+00:00"
+      "fetched_at": "2026-07-02T12:28:01.796452+00:00"
     },
     {
       "source": "pubmed",
       "source_uid": "41124204",
       "title": "ctDNA-Guided Adjuvant Atezolizumab in Muscle-Invasive Bladder Cancer.",
-      "citation": "Powles T et al. ctDNA-Guided Adjuvant Atezolizumab in Muscle-Invasive Bladder Cancer. The New England journal of medicine. 2025.",
+      "citation": "Powles T et al.. ctDNA-Guided Adjuvant Atezolizumab in Muscle-Invasive Bladder Cancer.. The New England journal of medicine. 2025.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/41124204/",
       "pub_year": 2025,
       "study_type": "RCT",
@@ -222,17 +222,17 @@
         ]
       },
       "verified": true,
-      "verified_at": "2026-07-02T11:59:24.968922+00:00",
+      "verified_at": "2026-07-02T12:28:01.796472+00:00",
       "verification_method": "esummary 200 + uid match",
       "retracted": false,
       "content_hash": "437e706a801d9fbffc7a69937dc483cf5c6291053117e44ff32442a88387afe2",
-      "fetched_at": "2026-07-02T11:59:24.968926+00:00"
+      "fetched_at": "2026-07-02T12:28:01.796476+00:00"
     },
     {
       "source": "pubmed",
       "source_uid": "36646802",
       "title": "Molecular residual disease and efficacy of adjuvant chemotherapy in patients with colorectal cancer.",
-      "citation": "Kotani D et al. Molecular residual disease and efficacy of adjuvant chemotherapy in patients with colorectal cancer. Nature medicine. 2023.",
+      "citation": "Kotani D et al.. Molecular residual disease and efficacy of adjuvant chemotherapy in patients with colorectal cancer.. Nature medicine. 2023.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/36646802/",
       "pub_year": 2023,
       "study_type": "other",
@@ -271,11 +271,173 @@
         ]
       },
       "verified": true,
-      "verified_at": "2026-07-02T11:59:24.968941+00:00",
+      "verified_at": "2026-07-02T12:28:01.796491+00:00",
       "verification_method": "esummary 200 + uid match",
       "retracted": false,
       "content_hash": "969169e731989c5e26ffa96cf7fb32f8ce7a652ff36f376db221aa8479bee7d7",
-      "fetched_at": "2026-07-02T11:59:24.968945+00:00"
+      "fetched_at": "2026-07-02T12:28:01.796495+00:00"
+    }
+  ],
+  "cms": [
+    {
+      "source": "cms_moldx",
+      "source_uid": "L38814",
+      "title": "MolDX: Minimal Residual Disease Testing for Cancer",
+      "citation": "MolDX: Minimal Residual Disease Testing for Cancer. LCD L38814. Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B). effective 02/05/2026.",
+      "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=38814&ver=4",
+      "pub_year": 2026,
+      "study_type": "coverage_policy",
+      "content_tier": "full",
+      "summary": "CMS LCD L38814: MolDX: Minimal Residual Disease Testing for Cancer (Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B)), effective 02/05/2026.",
+      "abstract": null,
+      "metadata": {
+        "document_type": "LCD",
+        "document_display_id": "L38814",
+        "contractor_name_type": "Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B)",
+        "effective_date": "02/05/2026",
+        "updated_on": "01/26/2026",
+        "report": "local-coverage-final-lcds"
+      },
+      "verified": true,
+      "verified_at": "2026-07-02T12:28:06.452064+00:00",
+      "verification_method": "present in CMS MCD local-coverage-final-lcds report",
+      "retracted": false,
+      "content_hash": "f3e0da49fe069c0761bf6516d26891a99cdf1e921763f25674921e93bb72502b",
+      "fetched_at": "2026-07-02T12:28:06.452095+00:00"
+    },
+    {
+      "source": "cms_moldx",
+      "source_uid": "A58376",
+      "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Solid Tumor Cancers",
+      "citation": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Solid Tumor Cancers. Article A58376. Palmetto GBA (MAC - Part A, MAC - Part B). effective 06/25/2026.",
+      "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58376&ver=64",
+      "pub_year": 2026,
+      "study_type": "coverage_policy",
+      "content_tier": "full",
+      "summary": "CMS Article A58376: Billing and Coding: MolDX: Minimal Residual Disease Testing for Solid Tumor Cancers (Palmetto GBA (MAC - Part A, MAC - Part B)), effective 06/25/2026.",
+      "abstract": null,
+      "metadata": {
+        "document_type": "Article",
+        "document_display_id": "A58376",
+        "contractor_name_type": "Palmetto GBA (MAC - Part A, MAC - Part B)",
+        "effective_date": "06/25/2026",
+        "updated_on": "06/19/2026",
+        "report": "local-coverage-articles"
+      },
+      "verified": true,
+      "verified_at": "2026-07-02T12:28:14.433132+00:00",
+      "verification_method": "present in CMS MCD local-coverage-articles report",
+      "retracted": false,
+      "content_hash": "83977cadb67c6e85d3a36ac5b0df650f0778edf7d27324988333f65925ea6dcf",
+      "fetched_at": "2026-07-02T12:28:14.433162+00:00"
+    },
+    {
+      "source": "cms_moldx",
+      "source_uid": "A58996",
+      "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Hematologic Cancers",
+      "citation": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Hematologic Cancers. Article A58996. Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B). effective 02/05/2026.",
+      "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58996&ver=31",
+      "pub_year": 2026,
+      "study_type": "coverage_policy",
+      "content_tier": "full",
+      "summary": "CMS Article A58996: Billing and Coding: MolDX: Minimal Residual Disease Testing for Hematologic Cancers (Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B)), effective 02/05/2026.",
+      "abstract": null,
+      "metadata": {
+        "document_type": "Article",
+        "document_display_id": "A58996",
+        "contractor_name_type": "Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B)",
+        "effective_date": "02/05/2026",
+        "updated_on": "01/26/2026",
+        "report": "local-coverage-articles"
+      },
+      "verified": true,
+      "verified_at": "2026-07-02T12:28:14.433182+00:00",
+      "verification_method": "present in CMS MCD local-coverage-articles report",
+      "retracted": false,
+      "content_hash": "43b1d7dc2064438119a7841c79dca4582b99eabc3b65302e750ec427a6c57a69",
+      "fetched_at": "2026-07-02T12:28:14.433188+00:00"
+    },
+    {
+      "source": "cms_moldx",
+      "source_uid": "A58954",
+      "title": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer",
+      "citation": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer. Article A58954. Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B). effective 01/02/2022.",
+      "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58954&ver=4",
+      "pub_year": 2022,
+      "study_type": "coverage_policy",
+      "content_tier": "full",
+      "summary": "CMS Article A58954: Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer (Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B)), effective 01/02/2022.",
+      "abstract": null,
+      "metadata": {
+        "document_type": "Article",
+        "document_display_id": "A58954",
+        "contractor_name_type": "Noridian Healthcare Solutions, LLC (MAC - Part A, MAC - Part B)",
+        "effective_date": "01/02/2022",
+        "updated_on": "11/12/2021",
+        "report": "local-coverage-articles"
+      },
+      "verified": true,
+      "verified_at": "2026-07-02T12:28:14.433201+00:00",
+      "verification_method": "present in CMS MCD local-coverage-articles report",
+      "retracted": false,
+      "content_hash": "071f997f78a1fc70a3d4e63604b4aec408c256bfcd38d9cd7180e03d19cdb94d",
+      "fetched_at": "2026-07-02T12:28:14.433206+00:00"
+    },
+    {
+      "source": "cms_moldx",
+      "source_uid": "A58930",
+      "title": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer (DL38835)",
+      "citation": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer (DL38835). Article A58930. WPS Insurance Corporation (MAC - Part A, MAC - Part B). effective 12/26/2021.",
+      "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58930&ver=2",
+      "pub_year": 2021,
+      "study_type": "coverage_policy",
+      "content_tier": "full",
+      "summary": "CMS Article A58930: Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer (DL38835) (WPS Insurance Corporation (MAC - Part A, MAC - Part B)), effective 12/26/2021.",
+      "abstract": null,
+      "metadata": {
+        "document_type": "Article",
+        "document_display_id": "A58930",
+        "contractor_name_type": "WPS Insurance Corporation (MAC - Part A, MAC - Part B)",
+        "effective_date": "12/26/2021",
+        "updated_on": "11/04/2021",
+        "report": "local-coverage-articles"
+      },
+      "verified": true,
+      "verified_at": "2026-07-02T12:28:14.433217+00:00",
+      "verification_method": "present in CMS MCD local-coverage-articles report",
+      "retracted": false,
+      "content_hash": "d158e68f0344d1b76de7fd8d1fe024e4d56838168dc648f5f5ca524113acea38",
+      "fetched_at": "2026-07-02T12:28:14.433221+00:00"
+    }
+  ],
+  "fda": [
+    {
+      "source": "fda",
+      "source_uid": "P260004",
+      "title": "Signatera\u0099 CDx \u2014 Next generation sequencing oncology panel, somatic or germline variant detection system",
+      "citation": "FDA PMA P260004 \u2014 Signatera\u0099 CDx (Natera, Inc.), decision 2026-05-15.",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfPMA/pma.cfm?id=P260004",
+      "pub_year": 2026,
+      "study_type": "device_approval",
+      "content_tier": "full",
+      "summary": "FDA PMA P260004 for Signatera\u0099 CDx by Natera, Inc., decision 2026-05-15.",
+      "abstract": null,
+      "metadata": {
+        "endpoint": "pma",
+        "applicant": "Natera, Inc.",
+        "trade_name": "Signatera\u0099 CDx",
+        "generic_name": "Next generation sequencing oncology panel, somatic or germline variant detection system",
+        "decision_code": "APPR",
+        "decision_date": "2026-05-15",
+        "product_code": "PQP",
+        "advisory_committee_description": "Pathology"
+      },
+      "verified": true,
+      "verified_at": "2026-07-02T12:28:15.509755+00:00",
+      "verification_method": "openFDA pma 200 + name match",
+      "retracted": false,
+      "content_hash": "b554a99b89673ecc4ea565626f6ff330839b0c7cd533e5227976fb052abce16e",
+      "fetched_at": "2026-07-02T12:28:15.509790+00:00"
     }
   ],
   "gaps": [

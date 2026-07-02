@@ -1,0 +1,514 @@
+{
+  "https://api.coverage.cms.gov/v1/reports/local-coverage-final-lcds": {
+    "meta": {
+      "status": {
+        "id": 200,
+        "message": "OK"
+      },
+      "notes": "",
+      "fields": [
+        "document_id",
+        "document_version",
+        "document_display_id",
+        "document_type",
+        "note",
+        "title",
+        "contractor_name_type",
+        "updated_on",
+        "updated_on_sort",
+        "effective_date",
+        "retirement_date",
+        "url"
+      ],
+      "children": [],
+      "next_token": ""
+    },
+    "data": [
+      {
+        "document_id": 38814,
+        "document_version": 4,
+        "document_display_id": "L38814",
+        "document_type": "LCD",
+        "note": "",
+        "title": "MolDX: Minimal Residual Disease Testing for Cancer",
+        "contractor_name_type": "Noridian Healthcare Solutions, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "01/26/2026",
+        "updated_on_sort": "20260126082820",
+        "effective_date": "02/05/2026",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=38814&ver=4"
+      },
+      {
+        "document_id": 38822,
+        "document_version": 8,
+        "document_display_id": "L38822",
+        "document_type": "LCD",
+        "note": "",
+        "title": "MolDX: Minimal Residual Disease Testing for Cancer",
+        "contractor_name_type": "CGS Administrators, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "10/31/2025",
+        "updated_on_sort": "20251031163217",
+        "effective_date": "11/06/2025",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=38822&ver=8"
+      },
+      {
+        "document_id": 38835,
+        "document_version": 8,
+        "document_display_id": "L38835",
+        "document_type": "LCD",
+        "note": "",
+        "title": "MolDX: Minimal Residual Disease Testing for Cancer",
+        "contractor_name_type": "WPS Insurance Corporation\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "10/21/2025",
+        "updated_on_sort": "20251021115007",
+        "effective_date": "10/30/2025",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=38835&ver=8"
+      },
+      {
+        "document_id": 38779,
+        "document_version": 4,
+        "document_display_id": "L38779",
+        "document_type": "LCD",
+        "note": "",
+        "title": "MolDX: Minimal Residual Disease Testing for Cancer",
+        "contractor_name_type": "Palmetto GBA\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "11/04/2021",
+        "updated_on_sort": "20211104184957",
+        "effective_date": "12/26/2021",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=38779&ver=4"
+      },
+      {
+        "document_id": 33952,
+        "document_version": 20,
+        "document_display_id": "L33952",
+        "document_type": "LCD",
+        "note": "Retired",
+        "title": "Cardiac Event Detection",
+        "contractor_name_type": "CGS Administrators, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "06/27/2026",
+        "updated_on_sort": "20260627010034",
+        "effective_date": "12/04/2025",
+        "retirement_date": "06/27/2026",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=33952&ver=20"
+      },
+      {
+        "document_id": 34573,
+        "document_version": 31,
+        "document_display_id": "L34573",
+        "document_type": "LCD",
+        "note": "Retired",
+        "title": "Cardiac Event Detection",
+        "contractor_name_type": "Palmetto GBA\r\n(MAC - Part A)",
+        "updated_on": "06/27/2026",
+        "updated_on_sort": "20260627010034",
+        "effective_date": "01/14/2025",
+        "retirement_date": "06/27/2026",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=34573&ver=31"
+      },
+      {
+        "document_id": 40187,
+        "document_version": 3,
+        "document_display_id": "L40187",
+        "document_type": "LCD",
+        "note": "Future(Notice Ends 08/09/2026)",
+        "title": "MolDX: Biomarker Testing in Metabolic Dysfunction-Associated Steatotic Liver Disease and Metabolic Dysfunction-Associated Steatohepatitis",
+        "contractor_name_type": "Palmetto GBA\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "06/19/2026",
+        "updated_on_sort": "20260619111306",
+        "effective_date": "08/10/2026",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=40187&ver=3"
+      }
+    ]
+  },
+  "https://api.coverage.cms.gov/v1/reports/local-coverage-articles": {
+    "meta": {
+      "status": {
+        "id": 200,
+        "message": "OK"
+      },
+      "notes": "",
+      "fields": [
+        "document_id",
+        "document_version",
+        "document_display_id",
+        "document_type",
+        "note",
+        "title",
+        "contractor_name_type",
+        "updated_on",
+        "updated_on_sort",
+        "effective_date",
+        "retirement_date",
+        "url"
+      ],
+      "children": [],
+      "next_token": ""
+    },
+    "data": [
+      {
+        "document_id": 58376,
+        "document_version": 64,
+        "document_display_id": "A58376",
+        "document_type": "Article",
+        "note": "",
+        "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Solid Tumor Cancers",
+        "contractor_name_type": "Palmetto GBA\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "06/19/2026",
+        "updated_on_sort": "20260619084746",
+        "effective_date": "06/25/2026",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58376&ver=64"
+      },
+      {
+        "document_id": 58454,
+        "document_version": 47,
+        "document_display_id": "A58454",
+        "document_type": "Article",
+        "note": "",
+        "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Solid Tumor Cancers",
+        "contractor_name_type": "Noridian Healthcare Solutions, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "06/19/2026",
+        "updated_on_sort": "20260619082021",
+        "effective_date": "06/25/2026",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58454&ver=47"
+      },
+      {
+        "document_id": 58468,
+        "document_version": 38,
+        "document_display_id": "A58468",
+        "document_type": "Article",
+        "note": "",
+        "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Solid Tumor Cancers",
+        "contractor_name_type": "WPS Insurance Corporation\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "06/18/2026",
+        "updated_on_sort": "20260618083559",
+        "effective_date": "06/25/2026",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58468&ver=38"
+      },
+      {
+        "document_id": 58434,
+        "document_version": 34,
+        "document_display_id": "A58434",
+        "document_type": "Article",
+        "note": "",
+        "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Solid Tumor Cancers",
+        "contractor_name_type": "CGS Administrators, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "03/06/2026",
+        "updated_on_sort": "20260306090252",
+        "effective_date": "03/12/2026",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58434&ver=34"
+      },
+      {
+        "document_id": 58996,
+        "document_version": 31,
+        "document_display_id": "A58996",
+        "document_type": "Article",
+        "note": "",
+        "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Hematologic Cancers",
+        "contractor_name_type": "Noridian Healthcare Solutions, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "01/26/2026",
+        "updated_on_sort": "20260126082418",
+        "effective_date": "02/05/2026",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58996&ver=31"
+      },
+      {
+        "document_id": 59004,
+        "document_version": 20,
+        "document_display_id": "A59004",
+        "document_type": "Article",
+        "note": "",
+        "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Hematologic Cancers",
+        "contractor_name_type": "WPS Insurance Corporation\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "04/25/2025",
+        "updated_on_sort": "20250425130430",
+        "effective_date": "04/24/2025",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=59004&ver=20"
+      },
+      {
+        "document_id": 58988,
+        "document_version": 24,
+        "document_display_id": "A58988",
+        "document_type": "Article",
+        "note": "",
+        "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Hematologic Cancers",
+        "contractor_name_type": "Palmetto GBA\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "04/15/2025",
+        "updated_on_sort": "20250415073943",
+        "effective_date": "04/24/2025",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58988&ver=24"
+      },
+      {
+        "document_id": 58998,
+        "document_version": 19,
+        "document_display_id": "A58998",
+        "document_type": "Article",
+        "note": "",
+        "title": "Billing and Coding: MolDX: Minimal Residual Disease Testing for Hematologic Cancers",
+        "contractor_name_type": "CGS Administrators, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "04/14/2025",
+        "updated_on_sort": "20250414081035",
+        "effective_date": "04/24/2025",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58998&ver=19"
+      },
+      {
+        "document_id": 58954,
+        "document_version": 4,
+        "document_display_id": "A58954",
+        "document_type": "Article",
+        "note": "",
+        "title": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer",
+        "contractor_name_type": "Noridian Healthcare Solutions, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "11/12/2021",
+        "updated_on_sort": "20211112191508",
+        "effective_date": "01/02/2022",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58954&ver=4"
+      },
+      {
+        "document_id": 58953,
+        "document_version": 4,
+        "document_display_id": "A58953",
+        "document_type": "Article",
+        "note": "",
+        "title": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer",
+        "contractor_name_type": "Noridian Healthcare Solutions, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "11/12/2021",
+        "updated_on_sort": "20211112182055",
+        "effective_date": "01/02/2022",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58953&ver=4"
+      },
+      {
+        "document_id": 58916,
+        "document_version": 3,
+        "document_display_id": "A58916",
+        "document_type": "Article",
+        "note": "",
+        "title": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer",
+        "contractor_name_type": "CGS Administrators, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "11/04/2021",
+        "updated_on_sort": "20211104150722",
+        "effective_date": "11/11/2021",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58916&ver=3"
+      },
+      {
+        "document_id": 58930,
+        "document_version": 2,
+        "document_display_id": "A58930",
+        "document_type": "Article",
+        "note": "",
+        "title": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer (DL38835)",
+        "contractor_name_type": "WPS Insurance Corporation\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "11/04/2021",
+        "updated_on_sort": "20211104133329",
+        "effective_date": "12/26/2021",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58930&ver=2"
+      },
+      {
+        "document_id": 58915,
+        "document_version": 7,
+        "document_display_id": "A58915",
+        "document_type": "Article",
+        "note": "",
+        "title": "Response to Comments: MolDX: Minimal Residual Disease Testing for Cancer",
+        "contractor_name_type": "Palmetto GBA\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "11/04/2021",
+        "updated_on_sort": "20211104084715",
+        "effective_date": "11/11/2021",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58915&ver=7"
+      },
+      {
+        "document_id": 58416,
+        "document_version": 2,
+        "document_display_id": "A58416",
+        "document_type": "Article",
+        "note": "",
+        "title": "Response to Comments: MolDX: Minimal Residual Disease Testing for Colorectal Cancer",
+        "contractor_name_type": "WPS Insurance Corporation\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "08/24/2020",
+        "updated_on_sort": "20200824113645",
+        "effective_date": "10/18/2020",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=58416&ver=2"
+      },
+      {
+        "document_id": 56452,
+        "document_version": 22,
+        "document_display_id": "A56452",
+        "document_type": "Article",
+        "note": "Retired",
+        "title": "Billing and Coding: Cardiac Event Detection",
+        "contractor_name_type": "CGS Administrators, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "06/27/2026",
+        "updated_on_sort": "20260627010038",
+        "effective_date": "12/04/2025",
+        "retirement_date": "06/27/2026",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=56452&ver=22"
+      },
+      {
+        "document_id": 56606,
+        "document_version": 22,
+        "document_display_id": "A56606",
+        "document_type": "Article",
+        "note": "Retired",
+        "title": "Billing and Coding: Cardiac Event Detection",
+        "contractor_name_type": "Palmetto GBA\r\n(MAC - Part A)",
+        "updated_on": "06/27/2026",
+        "updated_on_sort": "20260627010038",
+        "effective_date": "01/14/2025",
+        "retirement_date": "06/27/2026",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=56606&ver=22"
+      },
+      {
+        "document_id": 60462,
+        "document_version": 3,
+        "document_display_id": "A60462",
+        "document_type": "Article",
+        "note": "Future",
+        "title": "Billing and Coding: Endometrial Hyperplasia Treatment",
+        "contractor_name_type": "CGS Administrators, LLC\r\n(MAC - Part A, MAC - Part B)",
+        "updated_on": "06/26/2026",
+        "updated_on_sort": "20260626085659",
+        "effective_date": "08/15/2026",
+        "retirement_date": "N/A",
+        "url": "https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=60462&ver=3"
+      }
+    ]
+  },
+  "https://api.fda.gov/device/pma.json?search=trade_name%3A%22Signatera%22&limit=5": {
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-06-22",
+      "results": {
+        "skip": 0,
+        "limit": 5,
+        "total": 1
+      }
+    },
+    "results": [
+      {
+        "pma_number": "P260004",
+        "supplement_number": "",
+        "applicant": "Natera, Inc.",
+        "street_1": "13011a Mccallen Pass",
+        "street_2": "",
+        "city": "Austin",
+        "state": "TX",
+        "zip": "78753",
+        "zip_ext": "",
+        "generic_name": "Next generation sequencing oncology panel, somatic or germline variant detection system",
+        "trade_name": "Signatera\u0099 CDx",
+        "product_code": "PQP",
+        "advisory_committee": "PA",
+        "advisory_committee_description": "Pathology",
+        "supplement_type": "",
+        "supplement_reason": "",
+        "expedited_review_flag": "N",
+        "date_received": "2026-01-29",
+        "decision_date": "2026-05-15",
+        "docket_number": "FDA-5963",
+        "fed_reg_notice_date": "2026-05-26",
+        "decision_code": "APPR",
+        "ao_statement": "SignateraTM CDx is a personalized, tumor-informed, multiplex-PCR and next-generation sequencing (NGS)\u0096based assay that detects circulating tumor DNA (ctDNA) molecular residual disease (MRD) from plasma of peripheral whole blood collected in Streck Cell-Free DNA Blood Collection Tubes (BCTs), using bespoke assays designed to track somatic variants identified from sequencing of a patient\u0092s formalin-fixed, paraffin-embedded (FFPE) tumor specimen.SignateraTM CDx is intended to identify patients with ctDNA MRD positive status who may benefit from treatment listed in Table 1, in accordance with the approved therapeutic product labeling.Table 1: SignateraTM CDx Indicated Use and Associated TherapyBiomarker\tIndication \tTherapyctDNA MRD\tMuscle Invasive Bladder Cancer (MIBC)\tTECENTRIQ\u00ae (atezolizumab), TECENTRIQ HYBREZA\u00ae (atezolizumab and hyaluronidase-tqjs)",
+        "openfda": {
+          "registration_number": [
+            "",
+            "3007287152",
+            "3031598391",
+            "3010679023",
+            "3011104381",
+            "3030654068",
+            "3003335080",
+            "3013200421",
+            "3020703032",
+            "3012090384",
+            "3017020141",
+            "3003218906"
+          ],
+          "fei_number": [
+            "",
+            "3007287152",
+            "3016560486",
+            "3031598391",
+            "3010679023",
+            "3011104381",
+            "3030654068",
+            "3003335080",
+            "3008335090",
+            "3013200421",
+            "3012090384",
+            "3003218906"
+          ],
+          "device_name": "Next Generation Sequencing Oncology Panel, Somatic Or Germline Variant Detection System",
+          "medical_specialty_description": "Unknown",
+          "regulation_number": "",
+          "device_class": "3"
+        }
+      }
+    ]
+  },
+  "https://api.fda.gov/device/pma.json?search=generic_name%3A%22Signatera%22&limit=5": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "No matches found!"
+    }
+  },
+  "https://api.fda.gov/device/510k.json?search=device_name%3A%22Signatera%22&limit=5": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "No matches found!"
+    }
+  },
+  "https://api.fda.gov/device/pma.json?search=trade_name%3A%22molecular+residual+disease%22&limit=5": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "No matches found!"
+    }
+  },
+  "https://api.fda.gov/device/pma.json?search=generic_name%3A%22molecular+residual+disease%22&limit=5": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "No matches found!"
+    }
+  },
+  "https://api.fda.gov/device/510k.json?search=device_name%3A%22molecular+residual+disease%22&limit=5": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "No matches found!"
+    }
+  },
+  "https://api.fda.gov/device/pma.json?search=trade_name%3A%22ctDNA+MRD%22&limit=5": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "No matches found!"
+    }
+  },
+  "https://api.fda.gov/device/pma.json?search=generic_name%3A%22ctDNA+MRD%22&limit=5": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "No matches found!"
+    }
+  },
+  "https://api.fda.gov/device/510k.json?search=device_name%3A%22ctDNA+MRD%22&limit=5": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "No matches found!"
+    }
+  }
+}

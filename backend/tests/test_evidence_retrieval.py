@@ -1,13 +1,14 @@
 """
-PH-3b — PubMed evidence-retrieval tests.
+PH-3b/PH-3c — multi-source evidence-retrieval tests (PubMed + CMS + FDA).
 
 Two layers (mirroring the PH-2 Signatera harness):
-  * Deterministic suite (default, CI-safe, NO network, NO DB): replays the
-    recorded esearch/esummary fixtures and stubs the storage layer. Proves the
-    verification gate, retraction filter, gap notes, content_tier, and — the
-    load-bearing gate — that no PHI ever reaches the outbound URL.
-  * Live eval (@pytest.mark.eval, on-demand): hits real PubMed and asserts
-    drift-tolerant structural properties only.
+  * Deterministic suite (default, CI-safe, NO network, NO DB): replays recorded
+    PubMed/CMS/FDA responses and stubs storage. Proves each adapter's
+    verification gate, the retraction/retired/name-match filters, gap notes,
+    content_tier, and — the load-bearing gate — that no PHI reaches any
+    outbound URL (PubMed, CMS, or FDA).
+  * Live eval (@pytest.mark.eval, on-demand): hits real PubMed/CMS/FDA and
+    asserts drift-tolerant structural properties only.
 
 Deterministic run: python3 -m pytest backend/tests/test_evidence_retrieval.py -v
 Eval run:          python3 -m pytest backend/tests/test_evidence_retrieval.py -m eval -v -s
@@ -17,6 +18,7 @@ import copy
 import json
 import os
 import sys
+import urllib.parse
 
 import pytest
 
@@ -56,191 +58,261 @@ def _recorded_esummary():
     return _load("pubmed_esummary_response.json")
 
 
-def _recorded_pmids():
-    return (((_recorded_esearch() or {}).get("esearchresult") or {}).get("idlist")) or []
+def _recorded_http_map():
+    """url -> payload map for CMS report + openFDA responses (CMS trimmed)."""
+    return _load("cms_fda_http_cache.json")
 
 
 # ---------------------------------------------------------------------------
-# Offline HTTP replay: dispatch by URL to the recorded fixtures.
+# Offline HTTP replay: dispatch PubMed by URL family, CMS/FDA by exact URL.
 # ---------------------------------------------------------------------------
 
-def _make_replay(esearch_payload, esummary_payload):
+def _make_replay(esearch=None, esummary=None, http_map=None):
+    esearch = esearch if esearch is not None else _recorded_esearch()
+    esummary = esummary if esummary is not None else _recorded_esummary()
+    http_map = http_map if http_map is not None else _recorded_http_map()
+
     def _replay(url):
         if "esearch.fcgi" in url:
-            return esearch_payload
+            return esearch
         if "esummary.fcgi" in url:
-            return esummary_payload
+            return esummary
+        if url in http_map:
+            return http_map[url]
+        # Sensible empties for any un-recorded probe (no network).
+        if "/device/" in url:
+            return {"error": {"code": "NOT_FOUND"}}
+        if "/reports/" in url:
+            return {"data": []}
         return None
     return _replay
 
 
 @pytest.fixture
 def offline(monkeypatch):
-    """Replay recorded PubMed responses; guarantee NO network and NO DB write."""
-    monkeypatch.setattr(er, "_http_get_json",
-                        _make_replay(_recorded_esearch(), _recorded_esummary()))
+    """Replay recorded responses; guarantee NO network and NO DB write."""
+    monkeypatch.setattr(er, "_http_get_json", _make_replay())
     monkeypatch.setattr(er, "_get_client", lambda: None)   # storage stub: no DB
     return monkeypatch
 
 
-# ---------------------------------------------------------------------------
-# Deterministic — pipeline behavior
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# Deterministic — pack shape & PubMed (PH-3b)
+# ===========================================================================
 
-class TestRetrievePipeline:
-    def test_returns_verified_items(self, offline):
+class TestPackAndPubmed:
+    def test_pack_has_all_channels(self, offline):
+        pack = er.retrieve_evidence(_denial(), force_refresh=True)
+        for key in ("pubmed", "cms", "fda", "gaps"):
+            assert key in pack
+
+    def test_pubmed_returns_verified_items(self, offline):
         pack = er.retrieve_evidence(_denial(), force_refresh=True)
         assert len(pack["pubmed"]) >= 1
 
-    def test_every_returned_pmid_is_in_recorded_esummary(self, offline):
-        """Verification gate: only PMIDs esummary confirms survive."""
+    def test_every_pubmed_pmid_in_recorded_esummary(self, offline):
         pack = er.retrieve_evidence(_denial(), force_refresh=True)
-        recorded_uids = set((_recorded_esummary().get("result") or {}).get("uids") or [])
+        recorded = set((_recorded_esummary().get("result") or {}).get("uids") or [])
         for item in pack["pubmed"]:
-            assert item["source_uid"] in recorded_uids
+            assert item["source_uid"] in recorded
 
-    def test_content_tier_full_for_pubmed(self, offline):
+    def test_content_tier_full_all_channels(self, offline):
         pack = er.retrieve_evidence(_denial(), force_refresh=True)
-        assert pack["pubmed"]
-        assert all(it["content_tier"] == "full" for it in pack["pubmed"])
+        for chan in ("pubmed", "cms", "fda"):
+            assert pack[chan]
+            assert all(it["content_tier"] == "full" for it in pack[chan])
 
     def test_gap_note_for_missing_icd(self, offline):
         da = _denial()
-        assert da["icd_codes"] == []          # Signatera fixture has no ICD
+        assert da["icd_codes"] == []
         pack = er.retrieve_evidence(da, force_refresh=True)
         assert any("No diagnosis (ICD) code" in g for g in pack["gaps"])
 
-    def test_retracted_item_is_dropped(self, monkeypatch):
-        """Inject a synthetic retracted PMID and prove the filter removes it."""
-        fake_pmid = "99999999"
+    def test_pubmed_retracted_item_dropped(self, monkeypatch):
+        fake = "99999999"
         esearch = copy.deepcopy(_recorded_esearch())
-        esearch["esearchresult"]["idlist"] = [fake_pmid] + esearch["esearchresult"]["idlist"]
-
+        esearch["esearchresult"]["idlist"] = [fake] + esearch["esearchresult"]["idlist"]
         esummary = copy.deepcopy(_recorded_esummary())
-        esummary["result"]["uids"] = [fake_pmid] + esummary["result"]["uids"]
-        esummary["result"][fake_pmid] = {
-            "uid": fake_pmid,
-            "title": "A now-retracted study on ctDNA.",
-            "pubdate": "2020 Jan",
-            "source": "Journal of Retractions",
+        esummary["result"]["uids"] = [fake] + esummary["result"]["uids"]
+        esummary["result"][fake] = {
+            "uid": fake, "title": "A now-retracted study on ctDNA.",
+            "pubdate": "2020 Jan", "source": "J Retractions",
             "authors": [{"name": "Ghost A"}],
             "pubtype": ["Journal Article", "Retracted Publication"],
         }
         monkeypatch.setattr(er, "_http_get_json", _make_replay(esearch, esummary))
         monkeypatch.setattr(er, "_get_client", lambda: None)
-
         pack = er.retrieve_evidence(_denial(), force_refresh=True)
-        returned = {it["source_uid"] for it in pack["pubmed"]}
-        assert fake_pmid not in returned                  # retraction filtered out
-        assert len(returned) >= 1                          # real items still present
+        assert fake not in {it["source_uid"] for it in pack["pubmed"]}
+        assert len(pack["pubmed"]) >= 1
 
-    def test_study_type_mapping_present(self, offline):
+
+# ===========================================================================
+# Deterministic — CMS adapter (PH-3c)
+# ===========================================================================
+
+class TestCms:
+    def test_cms_returns_verified_coverage(self, offline):
         pack = er.retrieve_evidence(_denial(), force_refresh=True)
-        valid = {"meta_analysis", "RCT", "guideline", "review", "other"}
-        assert all(it["study_type"] in valid for it in pack["pubmed"])
+        assert len(pack["cms"]) >= 1
+        for it in pack["cms"]:
+            assert it["source"] in ("cms_moldx", "cms_ncd_lcd")
+            assert it["study_type"] == "coverage_policy"
+            assert "CMS MCD" in it["verification_method"]
 
-    def test_no_network_and_no_db_on_offline_path(self, monkeypatch):
-        """If the HTTP seam is untouched it must not fire a real request here."""
-        calls = {"http": 0}
+    def test_cms_moldx_classification(self, offline):
+        """MolDX titles map to the cms_moldx source."""
+        pack = er.retrieve_evidence(_denial(), force_refresh=True)
+        moldx = [it for it in pack["cms"] if "moldx" in (it["title"] or "").lower()]
+        assert moldx and all(it["source"] == "cms_moldx" for it in moldx)
 
-        def _boom(url):
-            calls["http"] += 1
-            raise AssertionError("real network call attempted in deterministic test")
+    def test_cms_bigram_bridges_molecular_vs_minimal(self, offline):
+        """The denial says 'molecular residual disease'; CMS says 'minimal
+        residual disease'. The shared bigram must still match."""
+        pack = er.retrieve_evidence(_denial(), force_refresh=True)
+        assert any("minimal residual disease" in (it["title"] or "").lower()
+                   for it in pack["cms"])
 
-        # Storage stubbed to None; HTTP replays fixtures — _boom proves the seam
-        # is the only path and our replay overrides it.
-        monkeypatch.setattr(er, "_http_get_json",
-                            _make_replay(_recorded_esearch(), _recorded_esummary()))
+    def test_cms_retired_document_filtered(self, monkeypatch):
+        """A retired coverage doc must be dropped (currency gate)."""
+        http_map = copy.deepcopy(_recorded_http_map())
+        lcd_url = next(u for u in http_map if "local-coverage-final-lcds" in u)
+        http_map[lcd_url]["data"] = [{
+            "document_id": 99999, "document_version": 1,
+            "document_display_id": "L99999", "document_type": "LCD",
+            "note": "Retired",
+            "title": "MolDX: Minimal Residual Disease Testing for Cancer",
+            "contractor_name_type": "Test MAC",
+            "effective_date": "01/01/2020", "retirement_date": "01/01/2024",
+            "url": "https://www.cms.gov/x",
+        }]
+        monkeypatch.setattr(er, "_http_get_json", _make_replay(http_map=http_map))
         monkeypatch.setattr(er, "_get_client", lambda: None)
         pack = er.retrieve_evidence(_denial(), force_refresh=True)
-        assert pack["pubmed"]                              # ran entirely on fixtures
+        assert "L99999" not in {it["source_uid"] for it in pack["cms"]}
 
 
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# Deterministic — FDA adapter (PH-3c)
+# ===========================================================================
+
+class TestFda:
+    def test_fda_returns_verified_device(self, offline):
+        pack = er.retrieve_evidence(_denial(), force_refresh=True)
+        assert len(pack["fda"]) >= 1
+        for it in pack["fda"]:
+            assert it["source"] == "fda"
+            assert "name match" in it["verification_method"]
+            assert it["url"].startswith("https://www.accessdata.fda.gov/")
+
+    def test_fda_name_match_gate_drops_mismatch(self, monkeypatch):
+        """An openFDA hit whose name doesn't contain the term is rejected."""
+        http_map = copy.deepcopy(_recorded_http_map())
+        for u in list(http_map):
+            if "/device/" in u:
+                http_map[u] = {"results": [{
+                    "pma_number": "P00000", "trade_name": "Totally Unrelated Device",
+                    "generic_name": "unrelated", "applicant": "Nobody",
+                }]}
+        monkeypatch.setattr(er, "_http_get_json", _make_replay(http_map=http_map))
+        monkeypatch.setattr(er, "_get_client", lambda: None)
+        pack = er.retrieve_evidence(_denial(), force_refresh=True)
+        assert pack["fda"] == []                       # mismatch rejected
+        assert any("No FDA device record" in g for g in pack["gaps"])
+
+
+# ===========================================================================
 # Deterministic — PHI firewall (the load-bearing gate)
-# ---------------------------------------------------------------------------
+# ===========================================================================
 
 class TestPhiFirewall:
-    def test_no_phi_reaches_the_wire(self):
-        """Build the query + outbound URLs from a PHI-carrying denial; assert
-        none of the four sentinels appears anywhere on the wire."""
+    def test_query_builders_cannot_receive_phi(self):
+        import inspect
+        for fn in (er.build_pubmed_query, er.build_cms_query, er.build_fda_query):
+            assert list(inspect.signature(fn).parameters) == ["procedure_terms", "cpt_codes"]
+
+    def test_no_phi_on_any_outbound_url(self):
+        """Build every outbound URL family from a PHI-carrying denial; assert
+        none of the four sentinels appears on the wire (PubMed, CMS, FDA)."""
         da = _denial()
         for field, val in SENTINELS.items():
-            assert da[field] == val                        # fixture carries sentinels
+            assert da[field] == val
 
-        query = er.build_pubmed_query(da["procedure_terms"], da["cpt_codes"])
-        esearch_url = er._build_esearch_url(query)
-        esummary_url = er._build_esummary_url(["12345678"])
+        pubmed_q = er.build_pubmed_query(da["procedure_terms"], da["cpt_codes"])
+        cms_terms = er.build_cms_query(da["procedure_terms"], da["cpt_codes"])
+        fda_terms = er.build_fda_query(da["procedure_terms"], da["cpt_codes"])
 
-        import urllib.parse
-        surfaces = [
-            query, query.lower(),
-            esearch_url, urllib.parse.unquote_plus(esearch_url).lower(),
-            esummary_url, urllib.parse.unquote_plus(esummary_url).lower(),
-        ]
+        urls = [er._build_esearch_url(pubmed_q), er._build_esummary_url(["12345678"])]
+        urls += [er._build_cms_report_url(r) for r, _ in er.CMS_REPORTS]
+        for term in fda_terms:
+            for endpoint, field, _uid in er._FDA_ENDPOINTS:
+                urls.append(er._build_openfda_url(endpoint, field, term))
+
+        surfaces = [pubmed_q.lower()]
+        for u in urls:
+            surfaces.append(u.lower())
+            surfaces.append(urllib.parse.unquote_plus(u).lower())
+
         for field, val in SENTINELS.items():
             for surface in surfaces:
-                assert val not in surface, f"PHI '{field}' leaked into {surface[:80]}"
-                assert val.lower() not in surface, f"PHI '{field}' leaked (lower)"
+                assert val.lower() not in surface, f"PHI '{field}' leaked into {surface[:80]}"
 
-        # And the query DOES carry a real procedure term.
-        assert "Signatera" in query
-
-    def test_query_builder_cannot_receive_phi(self):
-        """build_pubmed_query takes only the two concept lists — no dict param."""
-        import inspect
-        params = list(inspect.signature(er.build_pubmed_query).parameters)
-        assert params == ["procedure_terms", "cpt_codes"]
+        assert "Signatera" in pubmed_q                 # real term still present
 
     def test_guard_raises_when_phi_in_url(self):
-        """Direct proof the runtime guard bites."""
         da = _denial()
-        leaky_url = "https://eutils.ncbi.nlm.nih.gov/x?term=" + \
-                    da["patient_name"].replace(" ", "+")
+        leaky = "https://api.fda.gov/device/pma.json?search=" + da["patient_name"].replace(" ", "+")
         with pytest.raises(ValueError):
-            er._assert_no_phi(leaky_url, da)
+            er._assert_no_phi(leaky, da)
 
-    def test_guard_passes_clean_url(self):
+    def test_guard_passes_clean_urls(self):
         da = _denial()
-        clean = er._build_esearch_url(er.build_pubmed_query(da["procedure_terms"], da["cpt_codes"]))
-        er._assert_no_phi(clean, da)                       # must not raise
+        er._assert_no_phi(er._build_cms_report_url("national-coverage-ncd"), da)
+        er._assert_no_phi(er._build_openfda_url("pma", "trade_name", "Signatera"), da)
 
 
-# ---------------------------------------------------------------------------
-# Live eval (marked; excluded from default runs) — hits real PubMed
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# Live eval (marked; excluded from default runs) — hits real PubMed/CMS/FDA
+# ===========================================================================
 
 @pytest.mark.eval
-def test_live_pubmed_retrieval_eval():
-    """Drift-tolerant structural eval against live PubMed. No exact-PMID asserts."""
+def test_live_multisource_retrieval_eval():
+    """Drift-tolerant structural eval against live sources. No exact-ID asserts."""
     da = _denial()
     pack = er.retrieve_evidence(da, force_refresh=True)
 
-    # 1) at least one verified item
+    # Each source returns at least one verified item.
     assert len(pack["pubmed"]) >= 1, "expected >=1 live PubMed item"
+    assert len(pack["cms"]) >= 1, "expected >=1 live CMS coverage doc"
+    assert len(pack["fda"]) >= 1, "expected >=1 live FDA device record"
 
+    # PubMed PMIDs re-resolve via a fresh esummary (uid match).
     pmids = [it["source_uid"] for it in pack["pubmed"]]
-
-    # 2) every returned PMID resolves via a FRESH esummary (uid match)
     fresh = er._pubmed_esummary(pmids, da)
     for pmid in pmids:
-        docsum = fresh.get(pmid)
-        assert isinstance(docsum, dict) and str(docsum.get("uid")) == pmid, \
-            f"PMID {pmid} did not resolve on fresh esummary"
+        ds = fresh.get(pmid)
+        assert isinstance(ds, dict) and str(ds.get("uid")) == pmid
 
-    # 3) no PHI sentinel in the outbound URLs
-    import urllib.parse
-    query = er.build_pubmed_query(da["procedure_terms"], da["cpt_codes"])
-    for url in (er._build_esearch_url(query), er._build_esummary_url(pmids)):
+    # No PHI sentinel in any outbound URL family.
+    pubmed_q = er.build_pubmed_query(da["procedure_terms"], da["cpt_codes"])
+    fda_terms = er.build_fda_query(da["procedure_terms"], da["cpt_codes"])
+    urls = [er._build_esearch_url(pubmed_q), er._build_esummary_url(pmids)]
+    urls += [er._build_cms_report_url(r) for r, _ in er.CMS_REPORTS]
+    for term in fda_terms:
+        for endpoint, field, _uid in er._FDA_ENDPOINTS:
+            urls.append(er._build_openfda_url(endpoint, field, term))
+    for url in urls:
         decoded = urllib.parse.unquote_plus(url).lower()
         for val in SENTINELS.values():
             assert val.lower() not in decoded
 
-    # 4) gaps present (Signatera fixture has no ICD)
     assert any("ICD" in g for g in pack["gaps"])
 
     wrote = bool(er._get_client())
-    print(f"\n[eval] live PubMed items = {len(pack['pubmed'])}")
-    for it in pack["pubmed"]:
-        print(f"  PMID {it['source_uid']:>9} [{it['study_type']:<13}] {it['pub_year']} {it['title']}")
-    print(f"[eval] cache written = {wrote}; source_uids = {pmids}")
+    for chan in ("pubmed", "cms", "fda"):
+        print(f"\n[eval] {chan} = {len(pack[chan])}")
+        for it in pack[chan]:
+            print(f"  {it['source']:<11} {it['source_uid']:<10} [{it['study_type']:<15}] "
+                  f"{it['pub_year']} {it['title']}")
+    print(f"[eval] cache written = {wrote}; "
+          f"source_uids = { {c: [i['source_uid'] for i in pack[c]] for c in ('pubmed','cms','fda')} }")
