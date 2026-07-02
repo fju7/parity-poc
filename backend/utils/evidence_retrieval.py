@@ -523,15 +523,58 @@ def _fda_public_url(endpoint, uid):
     return f"https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfPMN/pmn.cfm?ID={uid}"
 
 
+def _extract_fda_indication(ao_statement):
+    """Extract the SPECIFIC indicated use (disease + associated therapy) from an
+    openFDA PMA approval-order statement (ao_statement), generically — no
+    hardcoded disease/drug names. Returns {} when nothing is found so callers
+    degrade to a generic summary rather than implying a broader approval.
+
+    The PMA ao_statement lists indicated use in an "Indicated Use and Associated
+    Therapy" table, e.g. "... Muscle Invasive Bladder Cancer (MIBC) TECENTRIQ
+    (atezolizumab) ...". We capture the '<...> Cancer (<ABBR>)' indication and
+    the first lowercase parenthetical drug (INN) that follows it.
+    """
+    if not ao_statement:
+        return {}
+    s = " ".join(str(ao_statement).split())
+    out = {}
+    # Each leading word must be Titlecase (uppercase + a lowercase letter), so
+    # all-caps tokens (MRD) and run-on header fragments are not swept in; cap the
+    # phrase at 5 words ending in "Cancer" with an optional (ABBR).
+    m = re.search(r"((?:[A-Z][a-z][A-Za-z/&\-]* ){1,5}Cancer(?:\s*\([A-Za-z]+\))?)", s)
+    if m:
+        out["disease"] = m.group(1).strip()
+        tail = s[m.end():]
+        t = re.search(r"\(([a-z][a-z0-9\- ]{3,})\)", tail)   # first lowercase parenthetical = generic drug
+        if t:
+            out["therapy"] = t.group(1).strip()
+    return out
+
+
 def _build_fda_item(rec, endpoint, uid_field):
     uid = str(rec.get(uid_field) or "").strip()
     trade = (rec.get("trade_name") or "").strip()
     generic = (rec.get("generic_name") or "").strip()
     applicant = (rec.get("applicant") or "").strip()
     decision_date = (rec.get("decision_date") or "").strip()
+    ao_statement = (rec.get("ao_statement") or "").strip()
     year = _year_from(decision_date, rec.get("date_received"))
     kind = "PMA" if endpoint == "pma" else "510(k)"
     title = " — ".join([b for b in [trade or generic, generic if trade else ""] if b]) or (trade or generic)
+
+    # Record the SPECIFIC indication so PH-4 states it precisely and never
+    # implies a broader approval than exists.
+    ind = _extract_fda_indication(ao_statement)
+    disease = ind.get("disease")
+    therapy = ind.get("therapy")
+    base = f"FDA {kind} {uid} — {trade or generic}" + (f" by {applicant}" if applicant else "")
+    if disease:
+        summary = (base + f": FDA indicated use — {disease}"
+                   + (f" with {therapy}" if therapy else "")
+                   + (f" (decision {decision_date})." if decision_date else "."))
+    else:
+        summary = base + (f", decision {decision_date}." if decision_date else ".")
+
     return {
         "source": "fda",
         "source_uid": uid,
@@ -544,9 +587,7 @@ def _build_fda_item(rec, endpoint, uid_field):
         "pub_year": year,
         "study_type": "device_approval",
         "content_tier": "full",       # US government data — storable
-        "summary": (f"FDA {kind} {uid} for {trade or generic}"
-                    + (f" by {applicant}" if applicant else "")
-                    + (f", decision {decision_date}." if decision_date else ".")),
+        "summary": summary,
         "abstract": None,
         "metadata": {
             "endpoint": endpoint,
@@ -557,6 +598,9 @@ def _build_fda_item(rec, endpoint, uid_field):
             "decision_date": decision_date or None,
             "product_code": rec.get("product_code"),
             "advisory_committee_description": rec.get("advisory_committee_description"),
+            "indication": disease,                 # specific indicated-use disease
+            "indication_therapy": therapy,         # associated FDA-labeled therapy
+            "ao_statement": ao_statement or None,  # authoritative FDA text, verbatim
         },
         "verified": True,
         "verified_at": _now_iso(),

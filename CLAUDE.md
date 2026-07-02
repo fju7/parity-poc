@@ -1215,14 +1215,20 @@ letter integration is the separate PH-4.
   add a source via a new adapter + a CHANNELS entry, no orchestration rewrite.
   - PH-3b: PubMed adapter (esearch + esummary, stdlib urllib, keyless; optional
     NCBI_EMAIL / NCBI_API_KEY). Verification = esummary uid match; retraction
-    filter; content_tier='full'.
+    filter; content_tier='full'. study_type maps society guidelines to
+    'guideline' even when PubMed tags them only "Review": tight title fallback
+    (_GUIDELINE_TITLE_MARKERS: "ASCO/NCCN/Practice Guideline") wins over review.
   - PH-3c: CMS adapter (api.coverage.cms.gov/v1 report endpoints; client-side
     title match with a bigram bridge so "molecular residual disease" matches
     CMS "minimal residual disease"; currency filter drops retired docs; MolDX
     titles -> source cms_moldx, else cms_ncd_lcd; verified by presence in the
     authoritative CMS MCD report list — LCD/Article detail is 401 keyless) and
     FDA adapter (openFDA device/pma + 510k; verified by trade_name/generic_name
-    match). study_type coverage_policy (CMS) / device_approval (FDA).
+    match). study_type coverage_policy (CMS) / device_approval (FDA). FDA items
+    capture the SPECIFIC indicated use from the PMA ao_statement
+    (_extract_fda_indication -> metadata.indication + indication_therapy, plus
+    the verbatim ao_statement) so PH-4 states the exact indication (e.g. MIBC +
+    atezolizumab) and never implies a broader approval.
 - PHI firewall: build_pubmed_query / build_cms_query / build_fda_query take ONLY
   (procedure_terms, cpt_codes) — cannot receive PHI. Runtime guard
   _assert_no_phi(url, denial_analysis) runs before EVERY outbound request.

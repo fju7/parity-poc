@@ -420,7 +420,7 @@
       "pub_year": 2026,
       "study_type": "device_approval",
       "content_tier": "full",
-      "summary": "FDA PMA P260004 for Signatera\u0099 CDx by Natera, Inc., decision 2026-05-15.",
+      "summary": "FDA PMA P260004 \u2014 Signatera\u0099 CDx by Natera, Inc.: FDA indicated use \u2014 Muscle Invasive Bladder Cancer (MIBC) with atezolizumab (decision 2026-05-15).",
       "abstract": null,
       "metadata": {
         "endpoint": "pma",
@@ -430,7 +430,10 @@
         "decision_code": "APPR",
         "decision_date": "2026-05-15",
         "product_code": "PQP",
-        "advisory_committee_description": "Pathology"
+        "advisory_committee_description": "Pathology",
+        "indication": "Muscle Invasive Bladder Cancer (MIBC)",
+        "indication_therapy": "atezolizumab",
+        "ao_statement": "SignateraTM CDx is a personalized, tumor-informed, multiplex-PCR and next-generation sequencing (NGS)\u0096based assay that detects circulating tumor DNA (ctDNA) molecular residual disease (MRD) from plasma of peripheral whole blood collected in Streck Cell-Free DNA Blood Collection Tubes (BCTs), using bespoke assays designed to track somatic variants identified from sequencing of a patient\u0092s formalin-fixed, paraffin-embedded (FFPE) tumor specimen.SignateraTM CDx is intended to identify patients with ctDNA MRD positive status who may benefit from treatment listed in Table 1, in accordance with the approved therapeutic product labeling.Table 1: SignateraTM CDx Indicated Use and Associated TherapyBiomarker\tIndication \tTherapyctDNA MRD\tMuscle Invasive Bladder Cancer (MIBC)\tTECENTRIQ\u00ae (atezolizumab), TECENTRIQ HYBREZA\u00ae (atezolizumab and hyaluronidase-tqjs)"
       },
       "verified": true,
       "verified_at": "2026-07-02T12:28:15.509755+00:00",

@@ -216,6 +216,21 @@ class TestFda:
             assert "name match" in it["verification_method"]
             assert it["url"].startswith("https://www.accessdata.fda.gov/")
 
+    def test_fda_records_specific_indication(self, offline):
+        """The FDA item must record the SPECIFIC approved indication (MIBC +
+        atezolizumab), not a blanket 'approved' label — so PH-4 never implies a
+        broader approval. (The FDA ao_statement writes 'Muscle Invasive Bladder
+        Cancer' without a hyphen; accept either spacing.)"""
+        import re
+        fda = next(it for it in er.retrieve_evidence(_denial(), force_refresh=True)["fda"])
+        summ = fda["summary"].lower()
+        assert re.search(r"muscle[\s-]invasive bladder cancer", summ), fda["summary"]
+        assert "atezolizumab" in summ
+        # metadata carries the specific indication + verbatim FDA source text.
+        assert fda["metadata"]["indication_therapy"] == "atezolizumab"
+        assert "bladder cancer" in (fda["metadata"]["indication"] or "").lower()
+        assert "Table 1" in (fda["metadata"]["ao_statement"] or "")
+
     def test_fda_name_match_gate_drops_mismatch(self, monkeypatch):
         """An openFDA hit whose name doesn't contain the term is rejected."""
         http_map = copy.deepcopy(_recorded_http_map())
