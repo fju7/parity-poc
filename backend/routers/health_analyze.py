@@ -565,9 +565,9 @@ DENIAL_SYSTEM_PROMPT = """You are a medical insurance denial analyst helping eve
   "procedure_terms": ["plain-language names of the procedure/test/service (e.g. ['Signatera','ctDNA MRD']), or []"],
   "billed_amount": "the dollar amount at issue as a number, or null (null for pre-service determinations with no billed amount)",
   "supporting_documentation": ["list of specific documents that would strengthen an appeal"],
-  "appeal_deadline_hint": "any appeal deadline mentioned, in plain language, or null",
-  "deadline_days_expedited": "number of days for an expedited or panel appeal if stated, or null",
-  "deadline_days_standard": "number of days for a standard appeal if stated, or null",
+  "appeal_deadline_hint": "the denial's appeal deadline in its OWN literal words and units, verbatim. If the denial says '72 hours', store '72 hours' (NEVER convert to days); if it says '180 days', store '180 days'. Plain language, or null",
+  "deadline_days_expedited": "number of DAYS for an expedited or panel appeal, ONLY when the denial expresses it in days. If the denial gives this timeframe in hours or any non-day unit, leave this null and capture the literal phrase in appeal_deadline_hint instead (do NOT convert). Or null",
+  "deadline_days_standard": "number of DAYS for a standard appeal, ONLY when the denial expresses it in days. If the denial gives this timeframe in hours or any non-day unit, leave this null and capture the literal phrase in appeal_deadline_hint instead (do NOT convert). Or null",
   "appeal_submission": {
     "address": "the mailing address to send the appeal to, if stated, or null",
     "alt_address": "any alternate or secondary appeal address, or null",
@@ -575,7 +575,7 @@ DENIAL_SYSTEM_PROMPT = """You are a medical insurance denial analyst helping eve
     "phone": "appeal phone number if stated, or null"
   },
   "peer_to_peer_contact": "phone number for a provider peer-to-peer or physician-reviewer discussion if stated, or null",
-  "appeal_rights": ["array of appeal rights or external-review options mentioned (e.g. ['ERISA §502(a)','ACA external review','Florida Dept. of Financial Services']), or []"],
+  "appeal_rights": ["appeal rights and external-review options ONLY as the denial LITERALLY states them, in the denial's own words. Do NOT add statute names (e.g. ERISA), program names (e.g. ACA), or agency characterizations the denial did not use. Example of the rule: if the denial says 'Independent external reviews', store 'Independent external reviews' exactly; do NOT relabel it 'ACA independent external review' or add 'ACA'. Include a right ONLY if the denial states it. Return [] if the denial states no appeal rights"],
   "reviewer_entity": "the entity that made or reviewed the decision (e.g. eviCore, the payer's medical director), or null",
   "confidence": "high | medium | low",
   "patient_name": "full patient name if found in the document, or null",
@@ -645,6 +645,12 @@ def analyze_denial(req: DenialAnalyzeRequest):
 # POST /api/health/generate-appeal
 # ---------------------------------------------------------------------------
 
+# LEGAL REVIEW PENDING -- reservation-of-rights clause: the appeal-rights bullet below
+# instructs the letter to add ONE general reservation sentence. Interim default wording:
+#   "The patient reserves all other appeal and external-review rights available under
+#    applicable federal and state law."
+# This exact wording is a placeholder pending attorney review. When finalized, update it
+# both here and in the appeal-rights bullet inside APPEAL_SYSTEM_PROMPT below.
 APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal insurance appeal letter on behalf of a patient. Using the denial analysis provided, write a professional, assertive appeal letter that:
 - Opens with the specific claim/denial reference
 - States clearly that the patient is appealing the denial
@@ -655,7 +661,7 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
   - Documents already in the insurer's possession (the claim, the billing and diagnosis codes (CPT/ICD), the denial letter itself, and the payer's own medical policy) must be REFERENCED as already on file with the insurer, NOT listed as enclosures the patient is attaching.
   - The letter of medical necessity from the ordering provider and the patient's relevant medical records will be submitted SEPARATELY by the ordering provider, referencing this claim number (__CLAIM_NUMBER__). State this as a separate submission by the provider; do NOT claim these are enclosed with the patient's letter.
   - When in doubt, describe a document as "to be provided" or "being submitted separately," never as already enclosed or attached.
-- Closes with a clear request for reconsideration and a deadline expectation
+- Closes with a clear request for reconsideration. When stating any appeal deadline, use the denial's LITERAL timeframe wording exactly as given (e.g. "within 72 hours", drawn from appeal_deadline_hint / the deadline fields). Do NOT convert units (never turn "72 hours" into "3 days") and do NOT invent a timeframe the denial did not state
 - Uses professional but plain language, not legal jargon
 - Is formatted as a real letter (date, addresses, subject line, body, closing)
 - Present EVERY appeal submission address the denial provided (appeal_submission.address and appeal_submission.alt_address, when each is present), each with a clear, plain-language label so the patient knows which applies to them. For example: "If your coverage is through an employer or union group plan, send your appeal to: [address]. If you have an individual or Marketplace plan, send your appeal to: [alt_address]. If you are unsure which applies to you, you may send your appeal to both addresses, or call the member services number on your insurance card to confirm." Do NOT choose a single address on the patient's behalf and do NOT omit any address the denial provided. If only one address is provided, present that one. Always include the appeal fax and phone (appeal_submission.fax, appeal_submission.phone) if provided.
@@ -663,7 +669,7 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - Refer to the ordering provider using ONLY the title/credential stated in the denial analysis (the provider_title field), if any. If a title is provided, use it (for example "Dr. Smith", "Smith, NP", or "Smith, PA" as appropriate to the credential). If NO title is provided (provider_title is null or absent), refer to the provider neutrally as "the ordering provider, <Name>" and do NOT use "Dr." or any other credential you were not given. Never assume the provider is a physician.
 - The denial analysis uses placeholder tokens for the patient's identifying details: __PATIENT_NAME__ for the patient's name, __MEMBER_ID__ for the member ID, __CLAIM_NUMBER__ for the claim number, and __PATIENT_ADDRESS__ for the patient's address. Write these tokens verbatim wherever that information belongs in the letter (letterhead, the RE/subject block, the signature). Do NOT invent or guess a real name, ID, claim number, or address. Our system substitutes the real values after the letter is written.
 - If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal. This strengthens the letter with scientific backing.
-- State the patient's appeal rights using ONLY the rights and external-review options named in the denial analysis (the appeal_rights field). Do NOT add appeal rights, statutes, or agencies that are not listed there, and do NOT assert that a particular right applies unless the denial stated it. If appeal_rights is empty, do not invent rights; simply state that the patient is exercising their right to appeal this determination. Do not characterize which rights apply based on the patient's plan type.
+- State the patient's appeal rights using ONLY the rights and external-review options named in the denial analysis (the appeal_rights field), in the denial's own words, adding nothing. Do NOT add appeal rights, statutes, programs, or agencies that are not listed there, and do NOT assert that a particular right applies unless the denial stated it. Do not characterize which rights apply based on the patient's plan type. Then include exactly ONE general reservation sentence, to preserve the patient's remaining rights WITHOUT listing them: "The patient reserves all other appeal and external-review rights available under applicable federal and state law." If appeal_rights is empty, do not invent rights (no specific statutes, programs, or agencies); simply state that the patient is exercising their right to appeal this determination, followed by that same single general reservation sentence.
 
 Punctuation rule: Do not use em-dashes (—) or en-dashes (–) anywhere in the letter. Write in complete, direct sentences. Where you would use a dash, use a period, comma, colon, or parentheses as appropriate.
 
