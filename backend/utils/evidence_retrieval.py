@@ -59,7 +59,10 @@ CMS_COVERAGE_BASE = "https://api.coverage.cms.gov/v1"
 TOOL_NAME = "parity-health"
 HTTP_TIMEOUT = 20.0           # seconds; fail closed if a source is slow
 ESEARCH_RETMAX = 10           # PubMed candidate PMIDs before verification
-MAX_VERIFIED_ITEMS = 5        # per channel
+MAX_VERIFIED_ITEMS = 5        # per channel, per individual search
+# Cap applied AFTER merging the broad PubMed search with the diagnosis-enhanced
+# PubMed search (each individual search still keeps up to MAX_VERIFIED_ITEMS).
+MAX_MERGED_ITEMS_PER_SOURCE = 7
 CACHE_TTL_DAYS = 90           # PubMed/FDA are stable
 CMS_CACHE_TTL_DAYS = 30       # CMS coverage revises more often -> shorter TTL
 
@@ -770,6 +773,48 @@ def _run_channel(client, channel, query_key, fetch_fn, cpt_code, denial_category
     return items
 
 
+def _merge_pubmed(broad, diagnosis_items, cap):
+    """Merge the broad PubMed list with the diagnosis-enhanced PubMed list.
+
+    De-duplicated by source_uid (an article surfaced by both searches appears
+    once — reuses the FDA channel's seen-uid de-dup idea). Ranked so overlap items
+    (surfaced by BOTH searches) come first as most relevant, then the remaining
+    diagnosis-search items (condition-specific — must not be dropped by the cap),
+    then the remaining broad items. Capped at `cap`. Returns
+    (merged_list, new_diagnosis_uids) where new_diagnosis_uids are the source_uids
+    the diagnosis search contributed that were NOT already in the broad list.
+    """
+    broad = broad or []
+    diagnosis_items = diagnosis_items or []
+    broad_uids = {it.get("source_uid") for it in broad}
+
+    by_uid = {}
+    for it in broad + diagnosis_items:            # first occurrence wins (stable content)
+        by_uid.setdefault(it.get("source_uid"), it)
+
+    overlap, diag_only, seen = [], [], set()
+    for it in diagnosis_items:                    # preserve diagnosis-search order
+        u = it.get("source_uid")
+        if u in seen:
+            continue
+        seen.add(u)
+        (overlap if u in broad_uids else diag_only).append(u)
+    broad_only = []
+    diag_uids = {it.get("source_uid") for it in diagnosis_items}
+    for it in broad:                              # preserve broad-search order
+        u = it.get("source_uid")
+        if u not in diag_uids and u not in broad_only:
+            broad_only.append(u)
+
+    ordered, out_seen = [], set()
+    for u in overlap + diag_only + broad_only:
+        if u not in out_seen:
+            out_seen.add(u)
+            ordered.append(u)
+    merged = [by_uid[u] for u in ordered][:cap]
+    return merged, diag_only
+
+
 def retrieve_evidence(denial_analysis, force_refresh=False):
     """Retrieve a verified multi-source evidence pack for a denial.
 
@@ -783,6 +828,9 @@ def retrieve_evidence(denial_analysis, force_refresh=False):
     cpt_codes = denial_analysis.get("cpt_codes") or []
     icd_codes = denial_analysis.get("icd_codes") or []
     denial_category = denial_analysis.get("denial_category")
+    # Plain-language patient condition (PHI-free; NOT one of the four identifiers in
+    # PHI_FIELDS). Used to run a second, diagnosis-enhanced PubMed search below.
+    diagnosis = (denial_analysis.get("patient_diagnosis") or "").strip()
     cpt0 = cpt_codes[0] if cpt_codes else None
     client = _get_client()
 
@@ -792,11 +840,28 @@ def retrieve_evidence(denial_analysis, force_refresh=False):
     fda_terms = build_fda_query(procedure_terms, cpt_codes)
 
     pubmed_items = cms_items = fda_items = []
+    diag_new_uids = []                                # diagnosis-search PMIDs not in broad
     try:
-        pubmed_items = _run_channel(
+        # Broad PubMed search (UNCHANGED): query from procedure_terms + cpt_codes.
+        broad_pubmed = _run_channel(
             client, "pubmed", _normalize_query_key(pubmed_query),
             lambda: _fetch_pubmed(pubmed_query, denial_analysis),
             cpt0, denial_category, force_refresh, CACHE_TTL_DAYS)
+
+        # Second, diagnosis-enhanced PubMed search, merged with the broad list
+        # (PubMed ONLY; CMS/FDA stay single-search). Enhance-never-limit: if there
+        # is no diagnosis, or it does not differ from the broad terms, or the second
+        # search returns nothing new, the pubmed list is exactly the broad list.
+        pubmed_items = broad_pubmed
+        if diagnosis:
+            enhanced_query = build_pubmed_query(procedure_terms + [diagnosis], cpt_codes)
+            if _normalize_query_key(enhanced_query) != _normalize_query_key(pubmed_query):
+                diagnosis_pubmed = _run_channel(
+                    client, "pubmed", _normalize_query_key(enhanced_query),
+                    lambda: _fetch_pubmed(enhanced_query, denial_analysis),
+                    cpt0, denial_category, force_refresh, CACHE_TTL_DAYS)
+                pubmed_items, diag_new_uids = _merge_pubmed(
+                    broad_pubmed, diagnosis_pubmed, MAX_MERGED_ITEMS_PER_SOURCE)
 
         cms_items = _run_channel(
             client, "cms", _normalize_query_key(cms_terms),
@@ -814,8 +879,16 @@ def retrieve_evidence(denial_analysis, force_refresh=False):
 
     # Gaps are computed per-call.
     gaps = []
-    if not icd_codes:
+    # Diagnosis-specific evidence gap, kept honest:
+    #  - No diagnosis at all (no ICD code AND no plain-language diagnosis): keep the
+    #    original note.
+    #  - A plain-language diagnosis WAS provided but the diagnosis-enhanced search
+    #    added no new condition-specific evidence: flag that instead.
+    #  - A diagnosis was provided and new condition-specific items were added: no note.
+    if not icd_codes and not diagnosis:
         gaps.append("No diagnosis (ICD) code supplied — diagnosis-specific evidence not retrieved.")
+    elif diagnosis and not diag_new_uids:
+        gaps.append(f"No additional condition-specific evidence was found for the provided diagnosis ({diagnosis}).")
     term_list = ", ".join(str(t) for t in procedure_terms) or "(none)"
     if not pubmed_items:
         gaps.append(f"No PubMed evidence retrieved for terms: {term_list}")
