@@ -543,7 +543,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                 }`}>
                   {reviewed ? "Reviewed" : "DRAFT"}
                 </span>
-                {needsRevision && (
+                {needsRevision && !reviewed && (
                   <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-red-100 text-red-700">
                     NEEDS REVISION
                   </span>
@@ -587,7 +587,8 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                 </button>
               </div>
             </div>
-            {/* PH-4b-3: Review-before-sending panel — surfaces the backend reviewer_checklist. */}
+            {/* PH-4b-3: Review-before-sending panel — hidden once the human confirms review. */}
+            {!reviewed && (
             <div className="px-6 pt-5 pb-1 print:hidden">
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
                 <h4 className="font-semibold text-amber-800 text-sm mb-2">Review before sending</h4>
@@ -613,6 +614,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                 )}
               </div>
             </div>
+            )}
             <div className="bg-white p-8">
               <pre className="whitespace-pre-wrap text-[15px] text-gray-800 leading-[1.7] font-[Arial,sans-serif]">
                 {letterText}
@@ -633,6 +635,22 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
                 />
                 <span>I have reviewed this draft letter and the review notes above.</span>
               </label>
+              {/* PH-4b-3: co-located confirmation + Download so ticking the box gives
+                  immediate feedback right here (the header controls are far above). */}
+              {reviewed && (
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  <span className="text-sm font-medium text-green-700">
+                    Reviewed. You can download your appeal letter now.
+                  </span>
+                  <button
+                    onClick={handleDownloadPdf}
+                    disabled={pdfLoading}
+                    className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer disabled:opacity-60 disabled:cursor-default"
+                  >
+                    {pdfLoading ? "Preparing PDF..." : "Download as PDF"}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
