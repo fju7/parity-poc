@@ -592,7 +592,9 @@ DENIAL_SYSTEM_PROMPT = """You are a medical insurance denial analyst helping eve
   "payer_name": "insurance company name if found, or null"
 }
 
-Deduplicate cpt_codes. Distinguish payer_guideline_id (the payer's internal policy ID) from carc_rarc_code (a standardized adjustment code). Extract the appeal submission address, fax, phone, and deadlines directly from the denial document when they appear. Return null/[] for anything genuinely absent — never guess."""
+Deduplicate cpt_codes. Distinguish payer_guideline_id (the payer's internal policy ID) from carc_rarc_code (a standardized adjustment code). Extract the appeal submission address, fax, phone, and deadlines directly from the denial document when they appear. Return null/[] for anything genuinely absent — never guess.
+
+Do NOT assert any external regulatory status, approval, clearance, designation (for example FDA Breakthrough Device designation, FDA approval, or Priority Review), endorsement, coverage determination, or clinical guideline position (for example NCCN, ASCO, ESMO, or NICE) as fact anywhere in your analysis, including in any identified weakness, unless that specific fact is explicitly stated in the denial document you were given. Characterize only this denial and its reasoning using what the denial document itself provides. You MAY note that the denial fails to engage with published evidence, applies its policy without individualized analysis, or does not address the patient's specific diagnosis, but you must NOT supply the substantive external facts yourself: do not state that the test has any FDA status, guideline endorsement, or coverage that the denial did not itself state. Supporting evidence for the appeal is retrieved and cited in a later, separate step; introducing it here, unverified, is not permitted."""
 
 
 @router.post("/api/health/analyze-denial")
