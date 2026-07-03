@@ -3,9 +3,9 @@ import { Footer } from "./UploadView.jsx";
 
 const STEPS = [
   "Reading your document...",
-  "Looking up benchmark rates...",
-  "Analyzing charges...",
-  "Checking coding patterns...",
+  "Reviewing the details...",
+  "Analyzing the information...",
+  "Finalizing your results...",
 ];
 
 export default function ProcessingView({ currentStep = 0, slowServer = false }) {
