@@ -6,6 +6,17 @@ import { Footer } from "./UploadView.jsx";
 export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }) {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
+  // E2: per-record selection for "Export Selected".
+  const [selectedIds, setSelectedIds] = useState(() => new Set());
+
+  const toggleSelected = (id) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -52,22 +63,55 @@ export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }
     }
   };
 
+  // E2: export only the checked records — same packet + download mechanics.
+  const handleExportSelected = () => {
+    try {
+      const chosen = bills.filter((r) => selectedIds.has(r.id));
+      if (chosen.length === 0) return;
+      const html = buildHistoryPacketHTML(chosen);
+      const blob = new Blob([html], { type: "text/html" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `parity-health-records-selected-${new Date().toISOString().slice(0, 10)}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to export selected records:", err);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
       <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-[#1B3A5C]">Analysis History</h2>
-          {bills.length > 0 && (
-            <button
-              onClick={handleExport}
-              className="flex items-center gap-1.5 text-sm font-medium text-[#0D7377] hover:text-[#0B6164] cursor-pointer"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-              </svg>
-              Export My History
-            </button>
-          )}
+          <div className="flex items-center gap-4">
+            {selectedIds.size > 0 && (
+              <button
+                onClick={handleExportSelected}
+                className="flex items-center gap-1.5 text-sm font-medium text-[#0D7377] hover:text-[#0B6164] cursor-pointer"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                Export Selected ({selectedIds.size})
+              </button>
+            )}
+            {bills.length > 0 && (
+              <button
+                onClick={handleExport}
+                className="flex items-center gap-1.5 text-sm font-medium text-[#0D7377] hover:text-[#0B6164] cursor-pointer"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                Export My History
+              </button>
+            )}
+          </div>
         </div>
 
         {loading ? (
@@ -89,6 +133,7 @@ export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-gray-50 text-left text-gray-500 text-xs uppercase tracking-wider">
+                  <th className="px-4 py-3 font-medium w-8"></th>
                   <th className="px-6 py-3 font-medium">Provider</th>
                   <th className="px-6 py-3 font-medium">Service Date</th>
                   <th className="px-6 py-3 font-medium text-right">Total Billed</th>
@@ -115,6 +160,16 @@ export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }
                         onClick={() => onViewDenial(bill)}
                         className="hover:bg-gray-50 cursor-pointer"
                       >
+                        <td className="px-4 py-4 text-center" onClick={(e) => e.stopPropagation()}>
+                          <input
+                            type="checkbox"
+                            checked={selectedIds.has(bill.id)}
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) => { e.stopPropagation(); toggleSelected(bill.id); }}
+                            aria-label="Select record for export"
+                            className="cursor-pointer align-middle"
+                          />
+                        </td>
                         <td className="px-6 py-4 text-[#1B3A5C] font-medium">
                           <div className="flex items-center gap-2">
                             {bill.provider_name || "Unknown Provider"}
@@ -173,6 +228,16 @@ export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }
                     onClick={() => onViewBill(bill.id)}
                     className="hover:bg-gray-50 cursor-pointer"
                   >
+                    <td className="px-4 py-4 text-center" onClick={(e) => e.stopPropagation()}>
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.has(bill.id)}
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => { e.stopPropagation(); toggleSelected(bill.id); }}
+                        aria-label="Select record for export"
+                        className="cursor-pointer align-middle"
+                      />
+                    </td>
                     <td className="px-6 py-4 text-[#1B3A5C] font-medium">
                       <div className="flex items-center gap-2">
                         {bill.provider?.name || "Unknown Provider"}
