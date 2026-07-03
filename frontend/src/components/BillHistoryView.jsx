@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllBills, deleteBill, exportAllBills } from "../lib/localBillStore.js";
+import { buildHistoryPacketHTML } from "../lib/exportPacket.js";
 import { Footer } from "./UploadView.jsx";
 
 export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }) {
@@ -35,18 +36,19 @@ export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }
 
   const handleExport = async () => {
     try {
-      const json = await exportAllBills();
-      const blob = new Blob([json], { type: "application/json" });
+      const records = await getAllBills();
+      const html = buildHistoryPacketHTML(records);
+      const blob = new Blob([html], { type: "text/html" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "parity-bill-history.json";
+      a.download = `parity-health-records-${new Date().toISOString().slice(0, 10)}.html`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (err) {
-      console.error("Failed to export bills:", err);
+      console.error("Failed to export records:", err);
     }
   };
 
