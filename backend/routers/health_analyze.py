@@ -1205,18 +1205,18 @@ def _build_reviewer_checklist(evidence: dict, evidence_validation: dict,
     keys = (evidence or {}).get("keys") or {}
     items: List[dict] = []
 
-    # Cited items -> confirm-indication prompt.
-    for k in (evidence_validation or {}).get("used_keys", []):
-        it = keys.get(k)
-        if not it:
-            continue
-        md = it.get("metadata") or {}
+    # Cited evidence -> ONE consolidated scope note (not one flag per citation).
+    _cited_keys = [k for k in (evidence_validation or {}).get("used_keys", []) if keys.get(k)]
+    if _cited_keys:
         items.append({
-            "type": "confirm_indication",
-            "key": k,
-            "reference": _format_reference(it),
-            "stated_indication": md.get("indication") or it.get("summary"),
-            "prompt": "Confirm this evidence's stated indication matches the patient's diagnosis before relying on it.",
+            "type": "evidence_scope",
+            "prompt": (
+                "This letter cites published evidence to support the appeal. "
+                "The cited sources may include material that supports this general "
+                "class of test rather than your specific diagnosis. Before relying on "
+                "this letter, confirm with the ordering provider that the cited evidence "
+                "supports the appeal for your diagnosis."
+            ),
         })
 
     # Soft-flagged statistics -> verify prompt.

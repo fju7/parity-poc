@@ -257,6 +257,9 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
       return "Read this letter carefully before sending.";
     }
     switch (item.type) {
+      case "evidence_scope": {
+        return item.prompt || "Some cited sources may support this general class of test rather than your specific diagnosis. Confirm with the ordering provider that the cited evidence supports the appeal for your diagnosis.";
+      }
       case "confirm_indication": {
         const ref = item.reference || "a cited source";
         const ind = item.stated_indication ? ` (stated indication: ${item.stated_indication})` : "";

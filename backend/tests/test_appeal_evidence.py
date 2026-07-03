@@ -322,11 +322,10 @@ class TestReviewerChecklist:
         # missing-ICD gap surfaced as an actionable regenerate prompt
         assert any(i["type"] == "gap" and "No diagnosis (ICD) code was provided" in i["action"]
                    and "regenerate" in i["action"] for i in checklist["items"])
-        # cited item carries key + one-line reference + stated indication + confirm prompt
-        cited = [i for i in checklist["items"] if i["type"] == "confirm_indication"]
-        assert cited and cited[0]["key"] == "E11"
-        assert "muscle" in (cited[0]["reference"] or "").lower()
-        assert "matches the patient's diagnosis" in cited[0]["prompt"]
+        # cited evidence surfaces ONE consolidated scope note (not one flag per citation)
+        scope = [i for i in checklist["items"] if i["type"] == "evidence_scope"]
+        assert len(scope) == 1
+        assert "confirm with the ordering provider" in scope[0]["prompt"].lower()
 
     def test_soft_flag_becomes_verify_item(self):
         ev = _build_evidence_block(_pack())
