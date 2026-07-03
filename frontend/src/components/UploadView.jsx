@@ -486,30 +486,8 @@ export default function UploadView({
           </div>
         </div>
 
-        {/* Privacy points */}
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-          <PrivacyPoint
-            icon={
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a9 9 0 0 1-9 9m0 0a9 9 0 0 1-9-9"
-              />
-            }
-            title="Stays on your device"
-            text="Your document never leaves your browser."
-          />
-          <PrivacyPoint
-            icon={
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"
-              />
-            }
-            title="Only codes analyzed"
-            text="Only procedure codes are sent to the cloud."
-          />
+        {/* Privacy note — one accurate line (the full document is sent to the AI for analysis) */}
+        <div className="mt-12 max-w-xl mx-auto text-left">
           <PrivacyPoint
             icon={
               <path
@@ -518,8 +496,8 @@ export default function UploadView({
                 d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
               />
             }
-            title="No personal data"
-            text="No names, dates, or diagnoses are transmitted."
+            title="How your data is handled"
+            text="To analyze your document, we send it to an AI service. We don't store it afterward, and anything you save stays on your device."
           />
         </div>
 
