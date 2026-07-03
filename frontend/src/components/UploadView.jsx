@@ -503,7 +503,7 @@ export default function UploadView({
 
         {/* Disclaimer */}
         <p className="mt-10 text-xs text-gray-400 max-w-lg mx-auto leading-relaxed">
-          Parity Health provides benchmark comparisons only. This is not legal advice.
+          Parity Health helps you review medical bills and insurance denials. This is not legal or medical advice.
           Consult a billing specialist or attorney before taking action.
         </p>
       </div>

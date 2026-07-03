@@ -190,7 +190,7 @@ export default function ReportView({ report, provider, serviceDate, onReset, sbc
             differ from those in effect at time of service.
           </p>
           <p>
-            Parity Health provides benchmark comparisons only. This is not legal advice.
+            Parity Health helps you review medical bills and insurance denials. This is not legal or medical advice.
             Consult a billing specialist or attorney before taking action.
             Benchmark rates are based on publicly available CMS Medicare data and
             may not reflect negotiated commercial insurance rates.
