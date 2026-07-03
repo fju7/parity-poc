@@ -98,6 +98,9 @@ export default function App() {
   const [toast, setToast] = useState({ message: "", visible: false });
   const [denialAnalysis, setDenialAnalysis] = useState(null);
   const [denialOriginalText, setDenialOriginalText] = useState("");
+  // PH-2b: retains the last submitted text so a later step (2c) can offer a "switch flow"
+  // correction (bill <-> denial) on the same text. Unused by behavior in 2b.
+  const [lastDocText, setLastDocText] = useState("");
   const [sbcData, setSbcData] = useState(null);
   const [hasCompletedConsent, setHasCompletedConsent] = useState(false);
   const [consentData, setConsentData] = useState({ consentAnalytics: true, consentEmployer: false });
@@ -835,12 +838,13 @@ export default function App() {
   }, [runPipeline]);
 
   // ----- Paste text flow -----
-  const handlePasteSubmit = useCallback(
+  const analyzeTextAsBill = useCallback(
     async (text) => {
       if (typeof window.plausible !== 'undefined') window.plausible('File Upload', { props: { product: 'health' } });
       setView("processing");
       setProcessingStep(0);
       setSlowServer(false);
+      setLastDocText(text);
 
       const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
 
@@ -910,6 +914,75 @@ export default function App() {
       }
     },
     [runPipeline, sbcData]
+  );
+
+  // PH-2b: analyze pasted/typed text as a DENIAL. Mirrors the success block of
+  // handleDenialClassified (POST {text} to /api/health/analyze-denial -> setDenialAnalysis
+  // + setDenialOriginalText + denial-report). On error, shows the generic error view; it does
+  // NOT fall back to the old denial-upload screen.
+  const analyzeTextAsDenial = useCallback(
+    async (text) => {
+      setView("processing");
+      setProcessingStep(0);
+      setSlowServer(false);
+
+      const slowTimer = setTimeout(() => setSlowServer(true), COLD_START_THRESHOLD_MS);
+      try {
+        const res = await fetch(`${API_BASE}/api/health/analyze-denial`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: text.trim() }),
+        });
+        clearTimeout(slowTimer);
+        setSlowServer(false);
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.detail || "Denial analysis failed.");
+        }
+
+        const analysis = await res.json();
+        setDenialAnalysis(analysis);
+        setDenialOriginalText(text.trim());
+        navigate("/parity-health/denial");
+        setView("denial-report");
+      } catch (err) {
+        clearTimeout(slowTimer);
+        setSlowServer(false);
+        console.error("Denial text analysis error:", err);
+        setError({
+          title: "Analysis Error",
+          message: "Could not analyze this document. Please try again or use a different input method. If this continues, contact us at admin@civicscale.ai",
+        });
+        setView("error");
+      }
+    },
+    [navigate]
+  );
+
+  // PH-2b: the GENERIC text entry (home paste box + .txt/.docx/.xlsx uploads via UploadView's
+  // onTextSubmit). Classify the text first via /api/health/classify-text, then route: a
+  // denial_letter goes to the appeals flow, everything else (bill/eob/sbc/unknown or any
+  // classification error) goes to bill analysis exactly as before.
+  const handlePasteSubmit = useCallback(
+    async (text) => {
+      setView("processing");
+      setProcessingStep(0);
+      setSlowServer(false);
+      let docType = "unknown";
+      try {
+        const cls = await fetchWithTimeout(`${API_BASE}/api/health/classify-text`, { text });
+        docType = (cls && cls.document_type) ? cls.document_type : "unknown";
+      } catch (err) {
+        docType = "unknown"; // classification failed -> safe default: bill
+      }
+      if (docType === "denial_letter") {
+        await analyzeTextAsDenial(text);
+      } else {
+        await analyzeTextAsBill(text);
+      }
+    },
+    [analyzeTextAsBill, analyzeTextAsDenial]
   );
 
   // ----- Navigation to new input views -----
@@ -1309,7 +1382,7 @@ export default function App() {
   } else if (view === "paste-text") {
     viewContent = (
       <PasteTextView
-        onSubmit={handlePasteSubmit}
+        onSubmit={analyzeTextAsBill}
         onBack={handleReset}
       />
     );
