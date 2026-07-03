@@ -308,15 +308,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
               onClick={onReset}
               className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
             >
-              Analyze Another Denial
-            </button>
-          )}
-          {onBack && (
-            <button
-              onClick={onBack}
-              className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#1B3A5C] cursor-pointer"
-            >
-              Back to Bill Analysis
+              Analyze Another Document
             </button>
           )}
         </div>

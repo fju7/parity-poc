@@ -25,7 +25,6 @@ import { lookupNPPES } from "./modules/nppesLookup.js";
 import scoreAnomalies from "./modules/scoreAnomalies.js";
 import runCodingIntelligence from "./modules/codingIntelligence.js";
 import EOBDetectedView from "./components/EOBDetectedView.jsx";
-import DenialUploadView from "./components/DenialUploadView.jsx";
 import DenialReportView from "./components/DenialReportView.jsx";
 import HealthAccountPage from "./components/HealthAccountPage.jsx";
 import HealthOpenIssues from "./components/HealthOpenIssues.jsx";
@@ -67,7 +66,7 @@ function viewFromPath(pathname) {
   if (rel === "manual-entry") return "manual-entry";
   if (rel === "paste-text") return "paste-text";
   if (rel === "image-upload") return "image-upload";
-  if (rel === "denial") return "denial-upload";
+  if (rel === "denial") return "upload";  // PH-2d: retired denial screen -> home on fresh visit
   return "onboarding"; // default — auth flow will override
 }
 
@@ -918,8 +917,7 @@ export default function App() {
 
   // PH-2b: analyze pasted/typed text as a DENIAL. Mirrors the success block of
   // handleDenialClassified (POST {text} to /api/health/analyze-denial -> setDenialAnalysis
-  // + setDenialOriginalText + denial-report). On error, shows the generic error view; it does
-  // NOT fall back to the old denial-upload screen.
+  // + setDenialOriginalText + denial-report). On error, shows the generic error view.
   const analyzeTextAsDenial = useCallback(
     async (text) => {
       setView("processing");
@@ -1217,15 +1215,15 @@ export default function App() {
             throw err;
           }
         } else {
-          // Not enough text extracted — send user to manual denial upload
-          navigate("/parity-health/denial");
-          setView("denial-upload");
+          // PH-2d: not enough text extracted — send user to the home screen.
+          setView("upload");
+          navigate("/parity-health");
         }
       } catch (err) {
         console.error("Denial classification routing error:", err);
-        // Fall back to denial upload view where user can paste text
-        navigate("/parity-health/denial");
-        setView("denial-upload");
+        // PH-2d: on error, fall back to the home screen.
+        setView("upload");
+        navigate("/parity-health");
       }
     },
     [navigate]
@@ -1286,20 +1284,6 @@ export default function App() {
         reason={itemizedReason}
       />
     );
-  } else if (view === "denial-upload") {
-    viewContent = (
-      <DenialUploadView
-        onAnalysisComplete={(analysis, originalText) => {
-          setDenialAnalysis(analysis);
-          setDenialOriginalText(originalText);
-          setView("denial-report");
-        }}
-        onBack={() => {
-          setView("upload");
-          navigate("/parity-health");
-        }}
-      />
-    );
   } else if (view === "denial-report" && denialAnalysis) {
     viewContent = (
       <DenialReportView
@@ -1309,8 +1293,8 @@ export default function App() {
         onReset={() => {
           setDenialAnalysis(null);
           setDenialOriginalText("");
-          setView("denial-upload");
-          navigate("/parity-health/denial");
+          setView("upload");
+          navigate("/parity-health");
         }}
         onBack={() => {
           setView("upload");
@@ -1413,8 +1397,8 @@ export default function App() {
         onManualEntry={handleManualEntry}
         onHavingTrouble={handleHavingTrouble}
         onDenialAnalysis={() => {
-          setView("denial-upload");
-          navigate("/parity-health/denial");
+          setView("upload");
+          navigate("/parity-health");
         }}
         onDenialClassified={handleDenialClassified}
         sbcData={sbcData}
