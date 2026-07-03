@@ -2054,6 +2054,69 @@ async def classify_document(file: UploadFile = File(...)):
 
 
 # ---------------------------------------------------------------------------
+# POST /api/health/classify-text
+# ---------------------------------------------------------------------------
+# Additive sibling of classify_document for PASTED TEXT. Same CLASSIFY_SYSTEM_PROMPT,
+# same return shape ({document_type, confidence, reason}); only the input differs (a
+# text block instead of a base64 PDF document block). Nothing calls this yet.
+
+class ClassifyTextRequest(BaseModel):
+    text: str
+
+
+@router.post("/api/health/classify-text")
+async def classify_text(req: ClassifyTextRequest):
+    text = (req.text or "").strip()
+    if len(text) < 10:
+        return {
+            "document_type": "unknown",
+            "confidence": "low",
+            "reason": "input text too short to classify",
+        }
+
+    client = _get_client()
+
+    content = [
+        {
+            "type": "text",
+            "text": text + "\n\nClassify this medical document. Return only the JSON structure specified in the system prompt.",
+        },
+    ]
+
+    response = _call_claude(client, content, system_prompt=CLASSIFY_SYSTEM_PROMPT)
+
+    # Handle overloaded passthrough
+    from fastapi.responses import JSONResponse
+    if isinstance(response, JSONResponse):
+        return response
+
+    raw_text = ""
+    for block in response.content:
+        if hasattr(block, "text"):
+            raw_text += block.text
+
+    raw_text = raw_text.strip()
+    if raw_text.startswith("```"):
+        raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
+        raw_text = re.sub(r"\s*```\s*$", "", raw_text)
+    raw_text = raw_text.strip()
+
+    print(f"[health/classify-text] Result: {raw_text[:200]}")
+
+    try:
+        parsed = json.loads(raw_text)
+    except json.JSONDecodeError:
+        print(f"[health/classify-text] Invalid JSON: {raw_text[:500]}")
+        return {
+            "document_type": "unknown",
+            "confidence": "low",
+            "reason": "Could not determine document type.",
+        }
+
+    return parsed
+
+
+# ---------------------------------------------------------------------------
 # POST /api/health/extract-docx
 # ---------------------------------------------------------------------------
 
