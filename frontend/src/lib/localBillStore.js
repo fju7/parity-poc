@@ -210,6 +210,30 @@ export async function saveBill(billData) {
   });
 }
 
+/**
+ * Save a denial record to IndexedDB. Reuses the SAME object store and the
+ * exact open/transaction/put mechanics as saveBill, but does NOT normalize
+ * into the bill schema — the caller supplies the denial payload as-is
+ * (record_type:"denial", the full analysis, the raw denial text, and display
+ * fields). Like saveBill, the store generates the id and createdAt here, so
+ * the record is self-consistent and visible in getAllBills (which reads the
+ * createdAt index). No DB_VERSION or onupgradeneeded change.
+ */
+export async function saveDenialRecord(record) {
+  const db = await openDB();
+  const id = crypto.randomUUID();
+  const createdAt = new Date().toISOString();
+
+  const full = { ...record, id, createdAt };
+
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).put(full);
+    tx.oncomplete = () => resolve(id);
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
 export async function getAllBills() {
   const db = await openDB();
 

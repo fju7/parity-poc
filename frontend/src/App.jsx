@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { supabase } from "./lib/supabase.js";
-import { saveBill, getBillById, clearAll } from "./lib/localBillStore.js";
+import { saveBill, saveDenialRecord, getBillById, clearAll } from "./lib/localBillStore.js";
 import SignInView from "./components/SignInView.jsx";
 import ConsentView from "./components/ConsentView.jsx";
 import OnboardingView from "./components/OnboardingView.jsx";
@@ -421,6 +421,14 @@ export default function App() {
     }
   }, []);
 
+  // ----- View saved denial from history (IndexedDB) — no re-save -----
+  const handleViewDenial = useCallback((record) => {
+    setDenialAnalysis(record.analysis || null);
+    setDenialOriginalText(record.originalText || "");
+    navigate("/parity-health/denial");
+    setView("denial-report");
+  }, [navigate]);
+
   // ----- Auto-save bill to IndexedDB (local only) -----
   const saveBillLocally = useCallback(
     async (scored, billProvider, billServiceDate, method) => {
@@ -444,6 +452,35 @@ export default function App() {
     },
     []
   );
+
+  // Auto-save a denial to IndexedDB (non-blocking), mirroring saveBillLocally.
+  // Stores the full analysis + raw denial text + display/grouping fields. The
+  // appeal LETTER is captured in a later phase (letterText stays null here).
+  const saveDenialLocally = useCallback(async (analysis, rawText) => {
+    try {
+      await saveDenialRecord({
+        record_type: "denial",
+        // display / grouping convenience fields (null-safe)
+        provider_name: analysis?.provider_name ?? null,
+        payer_name: analysis?.payer_name ?? null,
+        date_of_service: analysis?.date_of_service ?? null,
+        billed_amount: analysis?.billed_amount ?? null,
+        denial_category: analysis?.denial_category ?? null,
+        denial_reason_plain: analysis?.denial_reason_plain ?? null,
+        deadline_days_standard: analysis?.deadline_days_standard ?? null,
+        appeal_deadline_hint: analysis?.appeal_deadline_hint ?? null,
+        cpt_codes: analysis?.cpt_codes ?? [],
+        claim_number: analysis?.claim_number ?? null,
+        appeal_drafted: false, // set true when the appeal letter is generated (later phase)
+        // full payload
+        analysis: analysis ?? null,
+        originalText: rawText ?? "",
+        letterText: null,
+      });
+    } catch {
+      // Non-blocking — don't disrupt the denial report display
+    }
+  }, []);
 
   // ----- Consent submission -----
   const handleConsentSubmit = useCallback(
@@ -942,6 +979,8 @@ export default function App() {
         const analysis = await res.json();
         setDenialAnalysis(analysis);
         setDenialOriginalText(text.trim());
+        // Auto-save denial to IndexedDB (non-blocking)
+        saveDenialLocally(analysis, text.trim());
         navigate("/parity-health/denial");
         setView("denial-report");
       } catch (err) {
@@ -1207,6 +1246,8 @@ export default function App() {
             const analysis = await res.json();
             setDenialAnalysis(analysis);
             setDenialOriginalText(rawText.trim());
+            // Auto-save denial to IndexedDB (non-blocking)
+            saveDenialLocally(analysis, rawText.trim());
             navigate("/parity-health/denial");
             setView("denial-report");
           } catch (err) {
@@ -1318,6 +1359,7 @@ export default function App() {
     viewContent = (
       <BillHistoryView
         onViewBill={handleViewSavedBill}
+        onViewDenial={handleViewDenial}
         onNavigate={handleNavigate}
       />
     );

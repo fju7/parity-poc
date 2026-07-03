@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllBills, deleteBill, exportAllBills } from "../lib/localBillStore.js";
 import { Footer } from "./UploadView.jsx";
 
-export default function BillHistoryView({ onViewBill, onNavigate }) {
+export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }) {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -74,7 +74,7 @@ export default function BillHistoryView({ onViewBill, onNavigate }) {
           </div>
         ) : bills.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-gray-500 mb-4">No analyses yet. Upload a bill to get started.</p>
+            <p className="text-gray-500 mb-4">No analyses yet. Analyze a bill or denial to get started.</p>
             <button
               onClick={() => onNavigate("upload")}
               className="text-sm font-medium text-[#0D7377] hover:underline cursor-pointer"
@@ -96,7 +96,70 @@ export default function BillHistoryView({ onViewBill, onNavigate }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {bills.map((bill) => (
+                {bills.map((bill) => {
+                  const type = bill.record_type || "bill";
+                  if (type === "denial") {
+                    const denialReason =
+                      bill.denial_reason_plain || bill.denial_category;
+                    const deadlineText =
+                      bill.appeal_deadline_hint ||
+                      (bill.deadline_days_standard != null
+                        ? `${bill.deadline_days_standard} days`
+                        : null);
+                    return (
+                      <tr
+                        key={bill.id}
+                        onClick={() => onViewDenial(bill)}
+                        className="hover:bg-gray-50 cursor-pointer"
+                      >
+                        <td className="px-6 py-4 text-[#1B3A5C] font-medium">
+                          <div className="flex items-center gap-2">
+                            {bill.provider_name || "Unknown Provider"}
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 text-amber-700">
+                              Denial
+                            </span>
+                          </div>
+                          {(bill.payer_name || denialReason) && (
+                            <div className="text-xs text-gray-400 mt-0.5">
+                              {[bill.payer_name, denialReason]
+                                .filter(Boolean)
+                                .join(" · ")}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 text-gray-600">
+                          {bill.date_of_service || "—"}
+                        </td>
+                        <td className="px-6 py-4 text-right font-mono text-[#1B3A5C]">
+                          {formatCurrency(bill.billed_amount)}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          {deadlineText ? (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                              Appeal: {deadlineText}
+                            </span>
+                          ) : (
+                            <span className="text-gray-400 text-xs">{"—"}</span>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 text-right text-gray-500 text-xs">
+                          {formatDate(bill.createdAt)}
+                        </td>
+                        <td className="px-2 py-4 text-center">
+                          <button
+                            onClick={(e) => handleDelete(e, bill.id)}
+                            className="p-1.5 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50 cursor-pointer"
+                            title="Delete"
+                          >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                            </svg>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  }
+                  return (
                   <tr
                     key={bill.id}
                     onClick={() => onViewBill(bill.id)}
@@ -147,7 +210,8 @@ export default function BillHistoryView({ onViewBill, onNavigate }) {
                       </button>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
