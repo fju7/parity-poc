@@ -102,10 +102,11 @@ export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }
                     const denialReason =
                       bill.denial_reason_plain || bill.denial_category;
                     const deadlineText =
-                      bill.appeal_deadline_hint ||
-                      (bill.deadline_days_standard != null
-                        ? `${bill.deadline_days_standard} days`
-                        : null);
+                      bill.deadline_days_standard != null
+                        ? `Appeal within ${bill.deadline_days_standard} days`
+                        : bill.appeal_deadline_hint
+                          ? `Appeal deadline: ${bill.appeal_deadline_hint}`
+                          : null;
                     return (
                       <tr
                         key={bill.id}
@@ -118,6 +119,11 @@ export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }
                             <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 text-amber-700">
                               Denial
                             </span>
+                            {bill.appeal_drafted && (
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-teal-100 text-teal-700">
+                                Appeal drafted
+                              </span>
+                            )}
                           </div>
                           {(bill.payer_name || denialReason) && (
                             <div className="text-xs text-gray-400 mt-0.5">
@@ -136,7 +142,7 @@ export default function BillHistoryView({ onViewBill, onViewDenial, onNavigate }
                         <td className="px-6 py-4 text-center">
                           {deadlineText ? (
                             <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
-                              Appeal: {deadlineText}
+                              {deadlineText}
                             </span>
                           ) : (
                             <span className="text-gray-400 text-xs">{"—"}</span>
