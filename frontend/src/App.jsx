@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { supabase } from "./lib/supabase.js";
-import { saveBill, saveDenialRecord, getBillById, clearAll } from "./lib/localBillStore.js";
+import { saveBill, saveDenialRecord, updateDenialRecord, getBillById, clearAll } from "./lib/localBillStore.js";
 import SignInView from "./components/SignInView.jsx";
 import ConsentView from "./components/ConsentView.jsx";
 import OnboardingView from "./components/OnboardingView.jsx";
@@ -97,6 +97,9 @@ export default function App() {
   const [toast, setToast] = useState({ message: "", visible: false });
   const [denialAnalysis, setDenialAnalysis] = useState(null);
   const [denialOriginalText, setDenialOriginalText] = useState("");
+  // H2: id of the on-device denial history record for the CURRENT denial, so a
+  // later-drafted appeal letter can be written back onto that same record.
+  const [currentDenialRecordId, setCurrentDenialRecordId] = useState(null);
   // PH-2b: retains the last submitted text so a later step (2c) can offer a "switch flow"
   // correction (bill <-> denial) on the same text. Unused by behavior in 2b.
   const [lastDocText, setLastDocText] = useState("");
@@ -425,6 +428,8 @@ export default function App() {
   const handleViewDenial = useCallback((record) => {
     setDenialAnalysis(record.analysis || null);
     setDenialOriginalText(record.originalText || "");
+    // Remember the reopened record's id so a regenerated letter updates THIS record.
+    setCurrentDenialRecordId(record.id || null);
     navigate("/parity-health/denial");
     setView("denial-report");
   }, [navigate]);
@@ -458,7 +463,7 @@ export default function App() {
   // appeal LETTER is captured in a later phase (letterText stays null here).
   const saveDenialLocally = useCallback(async (analysis, rawText) => {
     try {
-      await saveDenialRecord({
+      const id = await saveDenialRecord({
         record_type: "denial",
         // display / grouping convenience fields (null-safe)
         provider_name: analysis?.provider_name ?? null,
@@ -477,10 +482,22 @@ export default function App() {
         originalText: rawText ?? "",
         letterText: null,
       });
+      // Remember which record this denial maps to, so a later-drafted appeal
+      // letter (H2) can be written back onto it.
+      setCurrentDenialRecordId(id);
     } catch {
       // Non-blocking — don't disrupt the denial report display
     }
   }, []);
+
+  // H2: write a drafted appeal letter onto the current denial's history record.
+  const handleAppealDrafted = useCallback((letterText) => {
+    if (!currentDenialRecordId) return;
+    updateDenialRecord(currentDenialRecordId, {
+      letterText,
+      appeal_drafted: true,
+    }).catch(() => {});
+  }, [currentDenialRecordId]);
 
   // ----- Consent submission -----
   const handleConsentSubmit = useCallback(
@@ -1330,10 +1347,12 @@ export default function App() {
       <DenialReportView
         analysis={denialAnalysis}
         originalText={denialOriginalText}
+        onAppealDrafted={handleAppealDrafted}
         onSwitchToBill={denialOriginalText ? () => analyzeTextAsBill(denialOriginalText) : null}
         onReset={() => {
           setDenialAnalysis(null);
           setDenialOriginalText("");
+          setCurrentDenialRecordId(null);
           setView("upload");
           navigate("/parity-health");
         }}

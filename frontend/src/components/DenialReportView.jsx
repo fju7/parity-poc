@@ -9,7 +9,7 @@ const DENIAL_TYPE_COLORS = {
   other: { bg: "bg-gray-50", border: "border-gray-200", text: "text-gray-700", label: "Other Denial" },
 };
 
-export default function DenialReportView({ analysis, originalText, onReset, onBack, onSwitchToBill }) {
+export default function DenialReportView({ analysis, originalText, onReset, onBack, onSwitchToBill, onAppealDrafted }) {
   // PHI — server-only. patientName, patientAddress, claimNumber (and member_id in
   // `analysis`) are personal health information: they are sent only to our own
   // /api/health/generate-appeal endpoint to render the letter, and must NEVER be
@@ -81,6 +81,8 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
 
       const data = await res.json();
       setLetterText(data.letter_text);
+      // H2: write the drafted letter onto the on-device denial history record.
+      onAppealDrafted?.(data.letter_text);
       // PH-4b-3: capture the review data the backend returns. A freshly generated
       // (or regenerated) draft always starts UNREVIEWED, so reset the gate here.
       setReviewChecklist(data.reviewer_checklist || null);
@@ -91,7 +93,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
     } finally {
       setLetterLoading(false);
     }
-  }, [analysis, patientName, patientAddress, providerName, claimNumber, patientDiagnosis, patientIcdCode]);
+  }, [analysis, patientName, patientAddress, providerName, claimNumber, patientDiagnosis, patientIcdCode, onAppealDrafted]);
 
   const handleCopy = useCallback(() => {
     if (!letterText) return;

@@ -234,6 +234,35 @@ export async function saveDenialRecord(record) {
   });
 }
 
+/**
+ * Merge a patch into an existing denial record by id (reuses the same object
+ * store + transaction mechanics). Used to write the drafted appeal letter onto
+ * the record after it was first saved (letterText + appeal_drafted). If the id
+ * is not found, resolves quietly without throwing. No DB_VERSION or
+ * onupgradeneeded change.
+ */
+export async function updateDenialRecord(id, patch) {
+  const db = await openDB();
+
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    const store = tx.objectStore(STORE_NAME);
+    const getReq = store.get(id);
+    getReq.onsuccess = () => {
+      const existing = getReq.result;
+      if (!existing) {
+        // Record not found — nothing to update.
+        resolve(false);
+        return;
+      }
+      store.put({ ...existing, ...patch });
+    };
+    getReq.onerror = () => reject(getReq.error);
+    tx.oncomplete = () => resolve(true);
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
 export async function getAllBills() {
   const db = await openDB();
 
