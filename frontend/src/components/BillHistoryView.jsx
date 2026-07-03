@@ -54,7 +54,7 @@ export default function BillHistoryView({ onViewBill, onNavigate }) {
     <div className="min-h-screen bg-gray-50 flex flex-col font-[Arial,sans-serif]">
       <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-[#1B3A5C]">Bill History</h2>
+          <h2 className="text-2xl font-bold text-[#1B3A5C]">Analysis History</h2>
           {bills.length > 0 && (
             <button
               onClick={handleExport}

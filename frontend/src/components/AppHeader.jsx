@@ -21,7 +21,7 @@ export default function AppHeader({ onNavigate, currentView, session, onSignOut 
                 : "text-gray-500 hover:text-[#1B3A5C]"
             }`}
           >
-            Bill History
+            Analysis History
           </button>
           <button
             onClick={() => onNavigate("account")}

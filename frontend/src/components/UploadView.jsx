@@ -266,7 +266,7 @@ export default function UploadView({
           Parity Health
         </h1>
         <p className="text-lg text-gray-500 mb-10">
-          Bill Analysis
+          Document Analysis
         </p>
 
         {/* SBC plan summary card — shown ABOVE the drop zone when loaded */}
@@ -395,7 +395,7 @@ export default function UploadView({
             onClick={() => setShowPasteInput(!showPasteInput)}
             className="text-sm text-[#0D7377] hover:underline bg-transparent border-none cursor-pointer"
           >
-            {showPasteInput ? "Hide text input" : "Or paste text from your bill or EOB"}
+            {showPasteInput ? "Hide text input" : "Or paste text from your document"}
           </button>
         </div>
         {showPasteInput && (

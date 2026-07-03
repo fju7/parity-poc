@@ -38,7 +38,7 @@ export default function ReportView({ report, provider, serviceDate, onReset, sbc
               onClick={onReset}
               className="px-4 py-2 text-sm font-medium text-white bg-[#0D7377] rounded-lg hover:bg-[#0B6164] cursor-pointer"
             >
-              Analyze Another Bill
+              Analyze Another Document
             </button>
           )}
         </div>

@@ -125,7 +125,7 @@ export default function OnboardingView({
               Parity Health
             </h1>
             <p className="text-lg text-gray-500 mb-10 text-center">
-              Bill Analysis
+              Document Analysis
             </p>
           </>
         )}
