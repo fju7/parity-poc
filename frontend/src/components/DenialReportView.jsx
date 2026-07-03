@@ -9,7 +9,7 @@ const DENIAL_TYPE_COLORS = {
   other: { bg: "bg-gray-50", border: "border-gray-200", text: "text-gray-700", label: "Other Denial" },
 };
 
-export default function DenialReportView({ analysis, originalText, onReset, onBack }) {
+export default function DenialReportView({ analysis, originalText, onReset, onBack, onSwitchToBill }) {
   // PHI — server-only. patientName, patientAddress, claimNumber (and member_id in
   // `analysis`) are personal health information: they are sent only to our own
   // /api/health/generate-appeal endpoint to render the letter, and must NEVER be
@@ -320,6 +320,17 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
             </button>
           )}
         </div>
+
+        {/* PH-2c: quiet correction link if the document was misclassified as a denial */}
+        {onSwitchToBill && (
+          <button
+            type="button"
+            onClick={onSwitchToBill}
+            className="text-sm text-gray-500 underline hover:text-gray-700 mb-4 print:hidden cursor-pointer"
+          >
+            Not a denial? Analyze this as a bill instead
+          </button>
+        )}
 
         {/* Denial Type Badge + Confidence */}
         <div className={`${typeConfig.bg} border ${typeConfig.border} rounded-xl p-5 mb-6`}>

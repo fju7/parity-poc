@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { Footer } from "./UploadView.jsx";
 
-export default function ConfirmationView({ billData, onConfirm, onBack }) {
+export default function ConfirmationView({ billData, onConfirm, onBack, onSwitchToDenial }) {
   const [zipCode, setZipCode] = useState(billData.provider?.zip || "");
   const [benchmarkConsent, setBenchmarkConsent] = useState(true);
 
@@ -42,6 +42,16 @@ export default function ConfirmationView({ billData, onConfirm, onBack }) {
         <p className="text-sm text-gray-500 mb-6">
           Please review the extracted information before running the benchmark analysis.
         </p>
+        {/* PH-2c: quiet correction link when a text-classified document may actually be a denial */}
+        {onSwitchToDenial && (
+          <button
+            type="button"
+            onClick={onSwitchToDenial}
+            className="text-sm text-gray-500 underline hover:text-gray-700 -mt-4 mb-6 print:hidden cursor-pointer"
+          >
+            Is this a denial letter, not a bill? Appeal it instead
+          </button>
+        )}
 
         {/* Provider & encounter details */}
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">

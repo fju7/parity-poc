@@ -1305,6 +1305,7 @@ export default function App() {
       <DenialReportView
         analysis={denialAnalysis}
         originalText={denialOriginalText}
+        onSwitchToBill={denialOriginalText ? () => analyzeTextAsBill(denialOriginalText) : null}
         onReset={() => {
           setDenialAnalysis(null);
           setDenialOriginalText("");
@@ -1397,6 +1398,7 @@ export default function App() {
     viewContent = (
       <ConfirmationView
         billData={pendingConfirmData}
+        onSwitchToDenial={(pendingInputMethod === "paste_text" && lastDocText) ? () => analyzeTextAsDenial(lastDocText) : null}
         onConfirm={handleConfirmSubmit}
         onBack={handleReset}
       />
