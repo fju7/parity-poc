@@ -278,7 +278,79 @@ function ContestedLede({ overview, hasValuesDimension, empiricalQuestion, onOpen
   );
 }
 
-function DebateItem({ item, glossary }) {
+/**
+ * A4 — the evidence one side of a debate actually rests on.
+ *
+ * The prose in arguments_for / arguments_against says a disagreement exists.
+ * This shows what it is made of: the specific scored claims each side cites,
+ * with their scores and the mean, so a reader can see when one side rests on
+ * three claims averaging 4.1 and the other on eleven averaging 2.8.
+ *
+ * Populated only for consensus rows written after migration 071. Where the ids
+ * are absent the caller renders prose alone, exactly as before.
+ */
+function SideEvidence({ claimIds, claimsById, compositeMap, tone }) {
+  const [open, setOpen] = useState(false);
+
+  const cited = (claimIds || [])
+    .map((id) => claimsById.get(id))
+    .filter(Boolean)
+    .map((c) => ({ claim: c, score: compositeMap.get(c.id)?.composite_score ?? null }))
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+
+  if (cited.length === 0) return null;
+
+  const scored = cited.filter((c) => c.score != null);
+  const mean = scored.length
+    ? (scored.reduce((sum, c) => sum + c.score, 0) / scored.length).toFixed(1)
+    : null;
+
+  const accent = tone === "for" ? "text-emerald-700" : "text-red-700";
+
+  return (
+    <div className="mt-2.5 pt-2.5 border-t border-black/[0.06]">
+      <button
+        onClick={() => setOpen(!open)}
+        className={`w-full flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0 text-left text-[11px] font-semibold ${accent}`}
+      >
+        <span className="tabular-nums">
+          {cited.length} claim{cited.length === 1 ? "" : "s"}
+          {mean ? ` · mean ${mean}` : ""}
+        </span>
+        <span className="text-gray-400 font-normal">{open ? "hide" : "show"}</span>
+      </button>
+
+      {open && (
+        <ul className="mt-2 flex flex-col gap-1.5 p-0 list-none">
+          {cited.map(({ claim, score }) => (
+            <li key={claim.id} className="flex items-start gap-2">
+              <span
+                className="shrink-0 text-[10px] font-bold tabular-nums rounded px-1 py-0.5 mt-px"
+                style={scoreChipStyle(score)}
+              >
+                {score != null ? Number(score).toFixed(1) : "—"}
+              </span>
+              <span className="text-[11px] leading-snug text-gray-700">
+                {claim.claim_text}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+/** Small score chip colouring, shared by the debate evidence lists. */
+function scoreChipStyle(score) {
+  const n = parseFloat(score);
+  if (!Number.isFinite(n)) return { background: "#eef2f6", color: "#64748b" };
+  if (n >= 4) return { background: "#EAF3DE", color: "#3B6D11" };
+  if (n >= 3) return { background: "#FAEEDA", color: "#854F0B" };
+  return { background: "#FCEBEB", color: "#A32D2D" };
+}
+
+function DebateItem({ item, glossary, claimsById, compositeMap }) {
   const [expanded, setExpanded] = useState(false);
   const isDebated = item.consensus_status === "debated";
   const label = displayName(item.category);
@@ -354,6 +426,12 @@ function DebateItem({ item, glossary }) {
                   <p className="text-xs text-gray-700 leading-relaxed">
                     <GlossaryText text={item.arguments_for} glossary={glossary} />
                   </p>
+                  <SideEvidence
+                    claimIds={item.for_claim_ids}
+                    claimsById={claimsById}
+                    compositeMap={compositeMap}
+                    tone="for"
+                  />
                 </div>
               )}
               {item.arguments_against && (
@@ -364,6 +442,12 @@ function DebateItem({ item, glossary }) {
                   <p className="text-xs text-gray-700 leading-relaxed">
                     <GlossaryText text={item.arguments_against} glossary={glossary} />
                   </p>
+                  <SideEvidence
+                    claimIds={item.against_claim_ids}
+                    claimsById={claimsById}
+                    compositeMap={compositeMap}
+                    tone="against"
+                  />
                 </div>
               )}
             </div>
@@ -490,6 +574,13 @@ export default function IssueDashboard({
   tierData,
 }) {
   // Build composite map: claim_id -> composite
+  /** id -> claim, for resolving the claim ids cited by each side of a debate. */
+  const claimsById = useMemo(() => {
+    const map = new Map();
+    for (const c of claims || []) map.set(c.id, c);
+    return map;
+  }, [claims]);
+
   const compositeMap = useMemo(() => {
     const map = new Map();
     if (!claims) return map;
@@ -1244,7 +1335,12 @@ export default function IssueDashboard({
                 const affectedCount = (claims || []).filter((c) => c.category === item.category).length;
                 return (
                   <div key={item.id || item.category}>
-                    <DebateItem item={item} glossary={glossary} />
+                    <DebateItem
+                      item={item}
+                      glossary={glossary}
+                      claimsById={claimsById}
+                      compositeMap={compositeMap}
+                    />
                     <div className="text-[10px] text-gray-400 mt-1 px-4">
                       {affectedCount} claim{affectedCount !== 1 ? "s" : ""} affected
                     </div>

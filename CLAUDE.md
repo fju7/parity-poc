@@ -1257,9 +1257,10 @@ All migrations through 056 have been run on production.
 Migrations 057-068 pending. No new migration for BL-12.
 Migration 069 (evidence_item / evidence_query) APPLIED to production via the
 supabase apply_migration tool (PH-3a review + PH-3b/3c usage).
-Migration 070 (signal_topic_counts view) AUTHORED and staged — NOT applied.
-Awaiting Tier-1 review per the migration policy above.
-Next migration number: 071
+Migration 070 (signal_topic_counts view) APPLIED to production.
+Migration 071 (signal_consensus side attribution) AUTHORED and staged — NOT
+applied. Awaiting Tier-1 review per the migration policy above.
+Next migration number: 072
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
 Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
@@ -1424,6 +1425,57 @@ the lede attaches claim counts and mean scores to each disagreement, but
 splitting a debate's claims into the two named sides needs
 signal_consensus.supporting_claim_ids, which is in the schema, never selected
 by any endpoint, and of unknown population.
+
+## Session A2/A4-Signal — Side Attribution for Debates (Complete, inert until re-run)
+Each side of a debated category can now show the claims it actually rests on.
+
+### Why the existing data could not do this
+signal_consensus stores arguments_for / arguments_against as prose and
+supporting_claim_ids as, per the generator prompt, "the 3-8 most informative
+claims for this assessment" — deliberately a mixed set. On a debated category it
+contains claims from both sides, unlabelled. Nothing recorded which side a claim
+was on, so rendering supporting_claim_ids under a "Supporting Evidence" heading
+would have been a mislabel.
+
+### Migration 071 (AUTHORED, NOT APPLIED — needs Tier-1 review)
+Adds nullable for_claim_ids / against_claim_ids JSONB to signal_consensus.
+Additive and inert: existing rows untouched, frontend falls back to prose where
+null. No grant changes (signal_consensus is already public-read per 006).
+
+### map_consensus.py
+- Output format and rules now ask for for_claim_ids / against_claim_ids: the
+  specific claims each argument rests on. Explicitly instructs NOT to force
+  balance — an uneven split is information.
+- store_consensus writes them, coercing empty to None so the frontend can tell
+  "predates 071" from "this side has no claims".
+- New _validate_side_claim_ids(): intersects returned ids with the claims
+  actually sent to the model (drops hallucinated ids), drops ids claimed by both
+  sides, nulls both fields on non-debated categories, and logs every drop. A
+  silent hallucinated id would render as a missing claim.
+
+### Frontend (IssueDashboard.jsx)
+- New SideEvidence component under each argument column: "N claims · mean X",
+  expandable to the claim list with score chips. Renders only when ids exist.
+- New claimsById memo; DebateItem now receives claimsById + compositeMap.
+
+### To activate
+Apply migration 071, then re-run backend/scripts/signal/map_consensus.py for a
+topic. THIS REGENERATES THAT TOPIC'S CONSENSUS ROWS — new API spend and changed
+published text. Recommend one topic first to judge output quality before all
+nine. Until re-run, every topic renders exactly as it does today.
+
+### Verification
+Headless render (Playwright + preinstalled Chromium, Supabase stubbed with a
+fixture carrying a deliberately uneven 4-for / 2-against split): the debate
+expands, the side summary reads "4 claims · mean 2.8", and 4 cited claims render
+with score chips. Build clean, eslint at pre-existing baseline.
+
+### NOTE for future sessions — build environment
+frontend/node_modules on this machine is macOS-arm64. The Claude device bridge
+runs a Linux VM over the same mount, so `vite build` there fails on
+@rollup/rollup-linux-arm64-gnu. Do NOT run `npm i` from the bridge to fix it —
+that swaps the install to Linux binaries and breaks local macOS builds. Build
+and lint in the cloud container instead, or on the Mac directly.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

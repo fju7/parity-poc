@@ -232,11 +232,17 @@ Return a JSON object:
   "summary_text": "2-3 sentence plain-language summary of what the evidence says in this category. Written for a general audience — no jargon. Should convey the overall direction and strength of evidence.",
   "supporting_claim_ids": ["id1", "id2", ...],
   "arguments_for": "If debated: 1-2 sentences describing the main argument supported by evidence. If not debated: null.",
-  "arguments_against": "If debated: 1-2 sentences describing the opposing argument supported by evidence. If not debated: null."
+  "arguments_against": "If debated: 1-2 sentences describing the opposing argument supported by evidence. If not debated: null.",
+  "for_claim_ids": ["id1", "id2", ...],
+  "against_claim_ids": ["id1", "id2", ...]
 }}
 
 ## Rules
 - supporting_claim_ids should include the 3-8 most informative claims for this assessment (use the claim IDs provided)
+- For "debated" status, for_claim_ids and against_claim_ids must list the specific claim IDs each argument rests on — the actual evidence behind arguments_for and arguments_against respectively. A reader should be able to click through and check your reasoning.
+- A claim ID may appear in only one of for_claim_ids / against_claim_ids, never both. Claims that inform the assessment without favouring either side belong in neither — leave them to supporting_claim_ids.
+- Do not force balance. If one side genuinely rests on more or better-scored evidence, the lists should be uneven; that asymmetry is information, not a flaw to correct.
+- For "consensus" or "uncertain" status, for_claim_ids and against_claim_ids should be null.
 - Weight higher-scored claims more heavily in your assessment
 - summary_text must be understandable to someone with no medical background
 - For "debated" status, both arguments_for and arguments_against must reference specific evidence
@@ -286,7 +292,50 @@ def map_category(category: str, claims: list[dict], consensus_prompt: str) -> di
         print(f"  [WARN] Invalid consensus_status '{status}' for {category}, defaulting to 'uncertain'")
         result["consensus_status"] = "uncertain"
 
+    _validate_side_claim_ids(result, category, claims)
+
     return result
+
+
+def _validate_side_claim_ids(result: dict, category: str, claims: list[dict]) -> None:
+    """Scrub for_claim_ids / against_claim_ids in place (migration 071).
+
+    A hallucinated id would render as a missing claim or vanish silently, and an
+    id claimed by both sides would misrepresent the debate. Neither is allowed
+    through: ids are intersected with the claims actually sent to the model, and
+    any id appearing on both sides is dropped from both. Anything discarded is
+    logged rather than swallowed — a high drop rate means the prompt is failing
+    and we want to see that in the run output.
+    """
+    known = {str(c["id"]) for c in claims if c.get("id")}
+
+    for_ids = [str(i) for i in (result.get("for_claim_ids") or [])]
+    against_ids = [str(i) for i in (result.get("against_claim_ids") or [])]
+
+    unknown = [i for i in for_ids + against_ids if i not in known]
+    if unknown:
+        print(f"  [WARN] {category}: dropped {len(unknown)} claim id(s) not in this category")
+
+    for_ids = [i for i in for_ids if i in known]
+    against_ids = [i for i in against_ids if i in known]
+
+    overlap = set(for_ids) & set(against_ids)
+    if overlap:
+        print(f"  [WARN] {category}: dropped {len(overlap)} claim id(s) cited on both sides")
+        for_ids = [i for i in for_ids if i not in overlap]
+        against_ids = [i for i in against_ids if i not in overlap]
+
+    # Side attribution only means anything on a debated category.
+    if result.get("consensus_status") != "debated":
+        result["for_claim_ids"] = None
+        result["against_claim_ids"] = None
+        return
+
+    result["for_claim_ids"] = for_ids or None
+    result["against_claim_ids"] = against_ids or None
+
+    if not for_ids and not against_ids:
+        print(f"  [WARN] {category}: debated but no side attribution returned")
 
 
 def store_consensus(sb, issue_id: str, category: str, consensus: dict) -> bool:
@@ -299,6 +348,10 @@ def store_consensus(sb, issue_id: str, category: str, consensus: dict) -> bool:
         "supporting_claim_ids": consensus.get("supporting_claim_ids", []),
         "arguments_for": consensus.get("arguments_for"),
         "arguments_against": consensus.get("arguments_against"),
+        # Migration 071. Left NULL rather than [] when absent so the frontend can
+        # tell "this row predates side attribution" from "this side has no claims".
+        "for_claim_ids": consensus.get("for_claim_ids") or None,
+        "against_claim_ids": consensus.get("against_claim_ids") or None,
     }
     try:
         sb.table("signal_consensus").insert(row).execute()
