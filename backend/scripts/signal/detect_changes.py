@@ -2,8 +2,8 @@
 Parity Signal: Evidence Change Detection.
 
 Compares current pipeline state (claims, composites, consensus, sources) against
-a locally stored snapshot from the previous run. Detects four types of changes
-and writes them to signal_evidence_updates.
+the previous run's snapshot, read from signal_pipeline_snapshots (migration 072).
+Detects four types of changes and writes them to signal_evidence_updates.
 
 Change types:
   score_shift       — A claim's composite score changed by >= threshold (default 0.5)
@@ -11,8 +11,14 @@ Change types:
   new_claim         — A claim exists that wasn't in the previous snapshot
   new_source        — A source was added since last detection
 
-On first run (no snapshot), saves the current state as baseline and detects nothing.
-On subsequent runs, compares current vs snapshot, writes changes, saves new snapshot.
+On first run (no snapshot row for this topic), saves the current state as the
+baseline and detects nothing. On subsequent runs, compares current vs the newest
+snapshot, writes changes, and appends a new snapshot row. Snapshots are never
+overwritten, so a run can be audited against the exact state it compared to.
+
+NOTE: this means the changelog is empty until this script has run TWICE for a
+topic — once to establish the baseline, once to detect against it. There is no
+history to backfill.
 
 Usage:
     cd backend && source venv/bin/activate

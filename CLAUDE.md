@@ -1258,10 +1258,17 @@ Migrations 057-068 pending. No new migration for BL-12.
 Migration 069 (evidence_item / evidence_query) APPLIED to production via the
 supabase apply_migration tool (PH-3a review + PH-3b/3c usage).
 Migration 070 (signal_topic_counts view) APPLIED to production.
-Migration 071 (signal_consensus side attribution) AUTHORED and staged — NOT
-applied. Awaiting Tier-1 review per the migration policy above.
-Migration 072 (signal_pipeline_snapshots) AUTHORED and staged — NOT applied.
-Awaiting Tier-1 review per the migration policy above.
+Migration 071 (signal_consensus side attribution) APPLIED to production.
+Verified: for_claim_ids and against_claim_ids present, jsonb, nullable.
+Migration 072 (signal_pipeline_snapshots) APPLIED to production.
+Verified: all five columns correct and NOT NULL; relrowsecurity = true; grants
+show postgres and service_role only — anon and authenticated absent.
+  CAVEAT: Supabase default privileges grant ALL to service_role at CREATE TABLE,
+  so service_role also holds UPDATE and TRUNCATE despite the migration granting
+  only SELECT/INSERT/DELETE. The append-only property is therefore enforced by
+  the code (save_snapshot only INSERTs), not by the grant. A follow-up
+  `REVOKE UPDATE, TRUNCATE ON signal_pipeline_snapshots FROM service_role;`
+  would make it a database guarantee.
 Next migration number: 073
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
@@ -1560,6 +1567,64 @@ eslint is back at the pre-existing baseline of 5 errors; `npm run build` clean.
 ### Still open in Part A
 A3 (crux as a field), A5 (un-gate one analytical path), A6 (empirical vs values
 flag per debate).
+
+## Session A7b-Signal — Topic Configs Read From the Database (Complete)
+Found while preparing the A7 baseline run: `backend/data/signal/` did not exist
+on the operator's machine at all.
+
+### The problem
+`topic_config.py` hardcoded three topics (glp1-drugs, breast-cancer-therapies,
+social-media-teen-mental-health). Every other topic was registered at runtime by
+`register_topic()` and persisted ONLY to
+`backend/data/signal/dynamic_topics.json` — a gitignored file on whichever
+machine ran the registration. Six of the nine topics published on the site had
+no definition on the operator's machine, so every pipeline script raised
+"Unknown topic slug" for them. The site was publishing topics that could not be
+re-run from the machine that owns the repo.
+
+Same failure mode as the snapshot file that migration 072 fixed: state that
+describes published data living on one laptop.
+
+### The fix — no migration needed
+`signal_issues` already holds slug/title/description for every topic, and
+`signal_consensus` holds one row per category. That is everything
+`register_topic()` derives a config from — it sets prompt_subject from the
+title, prompt_detail from the description, and manifest_filename from the slug.
+So a config rebuilt from the database is IDENTICAL to the one that was written
+to disk. Nothing is lost by reading it back.
+
+Topic configs now resolve in three layers, most specific first:
+1. the hardcoded `TOPICS` dict (hand-written prompt_detail — must win, since the
+   description column is one sentence and the extraction prompts need the
+   paragraph),
+2. `dynamic_topics.json` (legacy local file, still read for back-compat),
+3. `signal_issues` (lazy, memoised, per-slug).
+
+- `_build_topic()` is now the single definition of a topic config dict; both
+  `register_topic()` and the database loader build through it so the two paths
+  cannot drift.
+- `_categories_from_db()` prefers `signal_consensus` (one row per category) and
+  falls back to distinct `signal_claims.category`. **The claims fallback pages
+  explicitly** — an unpaged select would hit the PostgREST 1000-row cap and
+  silently drop categories, the same class of bug as P0.1 and the A1 citation
+  map.
+- `list_slugs(include_database=True)` merges database slugs.
+- Everything degrades to `None` rather than raising. `topic_config` is imported
+  by scripts and tests with no Supabase credentials; an import-time credential
+  requirement would break all of them. A missing or broken database produces the
+  same `KeyError` as before.
+- `register_topic()` still writes the JSON file, because registration happens
+  BEFORE `collect_sources.ensure_issue()` creates the issue row and subprocesses
+  started in that window need it. A failed write is now logged, not raised — the
+  file is a short-lived convenience, not the source of truth.
+
+### Tests
+`backend/tests/test_topic_config_db.py` — 12 offline tests, no network. Covers:
+hardcoded topics win and do not query at all; a database topic resolves; **the
+rebuilt config equals what `register_topic` would have written** (the test that
+justifies the whole approach); lookups are memoised; known-absent slugs are not
+re-queried; the claims fallback pages past row 1000; and a missing, broken, or
+credential-less database degrades to `KeyError` rather than crashing.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
