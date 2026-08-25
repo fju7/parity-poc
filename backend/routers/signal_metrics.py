@@ -280,6 +280,111 @@ async def get_topics():
         return JSONResponse(content=[])
 
 
+@router.get("/topics/{slug}/changelog")
+async def get_topic_changelog(slug: str, limit: int = 200):
+    """Public change history for one topic.
+
+    signal_evidence_updates has been written by pipeline step 7 since the
+    schema was created and read by nothing but a COUNT on the landing page.
+    This is its first reader.
+
+    Rows are grouped into revisions by detection timestamp: one pipeline run
+    produces many rows sharing a detected_at, and a reader cares about "what
+    changed on this date", not about individual writes.
+    """
+    sb = _get_sb()
+    if not sb:
+        return JSONResponse(content={"slug": slug, "revisions": []})
+
+    try:
+        issue_res = (
+            sb.table("signal_issues")
+            .select("id, title")
+            .eq("slug", slug)
+            .limit(1)
+            .execute()
+        )
+        if not issue_res.data:
+            return JSONResponse(content={"error": "Topic not found"}, status_code=404)
+        issue = issue_res.data[0]
+
+        updates_res = (
+            sb.table("signal_evidence_updates")
+            .select(
+                "change_type, previous_score, new_score, previous_category, "
+                "new_category, change_description, detected_at"
+            )
+            .eq("issue_id", issue["id"])
+            .order("detected_at", desc=True)
+            .limit(max(1, min(limit, 500)))
+            .execute()
+        )
+        rows = updates_res.data or []
+
+        # Group by run. detected_at is set per row by the database default, so
+        # rows from one run differ by milliseconds — bucket by the minute.
+        buckets: dict[str, list] = {}
+        for row in rows:
+            stamp = (row.get("detected_at") or "")[:16]  # YYYY-MM-DDTHH:MM
+            buckets.setdefault(stamp, []).append(row)
+
+        revisions = []
+        for stamp in sorted(buckets, reverse=True):
+            group = buckets[stamp]
+            counts: dict[str, int] = {}
+            for row in group:
+                kind = row.get("change_type") or "other"
+                counts[kind] = counts.get(kind, 0) + 1
+
+            # The largest scoring move in this run, which is the headline a
+            # reader wants: "this went from 3.1 to 2.6".
+            biggest = None
+            for row in group:
+                prev, new = row.get("previous_score"), row.get("new_score")
+                if prev is None or new is None:
+                    continue
+                delta = abs(float(new) - float(prev))
+                if biggest is None or delta > biggest["delta"]:
+                    biggest = {
+                        "delta": round(delta, 2),
+                        "previous_score": float(prev),
+                        "new_score": float(new),
+                        "previous_category": row.get("previous_category"),
+                        "new_category": row.get("new_category"),
+                    }
+
+            revisions.append({
+                "detected_at": group[0].get("detected_at"),
+                "change_count": len(group),
+                "counts": counts,
+                "largest_score_move": biggest,
+                "changes": [
+                    {
+                        "change_type": r.get("change_type"),
+                        "description": r.get("change_description"),
+                        "previous_score": r.get("previous_score"),
+                        "new_score": r.get("new_score"),
+                        "previous_category": r.get("previous_category"),
+                        "new_category": r.get("new_category"),
+                    }
+                    for r in group[:40]
+                ],
+                "truncated": len(group) > 40,
+            })
+
+        return JSONResponse(content={
+            "slug": slug,
+            "title": issue.get("title", ""),
+            "last_updated": revisions[0]["detected_at"] if revisions else None,
+            "revision_count": len(revisions),
+            "revisions": revisions,
+        })
+
+    except Exception as e:
+        print(f"[Signal Changelog ERROR] {slug}: {e}")
+        return JSONResponse(content={"slug": slug, "revisions": []})
+
+
 @router.get("/admin/review-topics")
 async def get_review_topics():
     """Return all topics with quality_review_status for admin review."""

@@ -9,6 +9,7 @@ import WeightAdjuster, { computeCustomComposite, evidenceCategory } from "./Weig
 import ProfileSelector from "./ProfileSelector";
 import { trackEvent } from "../../lib/signalAnalytics";
 import { setPageMeta, resetPageMeta } from "../../lib/pageMeta";
+import { API_BASE } from "../../lib/apiBase";
 
 /** Format a snake_case category key into a display name. */
 function displayName(key) {
@@ -17,7 +18,7 @@ function displayName(key) {
 }
 
 /** Panels addressable via the URL hash, e.g. /glp1-drugs#debates */
-const PANEL_IDS = ["overview", "claims", "paths", "debates", "roadmap", "sources", "methodology"];
+const PANEL_IDS = ["overview", "claims", "paths", "debates", "roadmap", "sources", "changelog", "methodology"];
 
 /** Read a valid panel id out of the URL hash, or fall back to the overview. */
 function panelFromHash() {
@@ -348,6 +349,147 @@ function scoreChipStyle(score) {
   if (n >= 4) return { background: "#EAF3DE", color: "#3B6D11" };
   if (n >= 3) return { background: "#FAEEDA", color: "#854F0B" };
   return { background: "#FCEBEB", color: "#A32D2D" };
+}
+
+/**
+ * A7 — the changelog.
+ *
+ * signal_evidence_updates has been written by pipeline step 7 since the schema
+ * was created, and read by nothing except a COUNT on the landing page. This is
+ * its first reader.
+ *
+ * It matters more than a feature list suggests: "we assessed this on that date,
+ * and here is exactly what changed since" is the claim no news outlet can make
+ * and no chatbot can substantiate. It is what makes a published score a track
+ * record rather than an opinion.
+ */
+function ChangelogPanel({ slug }) {
+  // One state object carrying the slug it belongs to, so "loading" is derived
+  // rather than set. Calling setState synchronously at the top of an effect
+  // triggers a cascading render, which eslint flags — and switching topics
+  // would otherwise briefly show the previous topic's history.
+  const [loaded, setLoaded] = useState(null);
+
+  useEffect(() => {
+    if (!slug) return;
+    let alive = true;
+    fetch(`${API_BASE}/api/signal/topics/${slug}/changelog`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (alive) setLoaded({ slug, data: d }); })
+      .catch(() => { if (alive) setLoaded({ slug, error: true }); });
+    return () => { alive = false; };
+  }, [slug]);
+
+  if (!loaded || loaded.slug !== slug) {
+    return <div className="text-sm text-gray-400 py-6">Loading change history…</div>;
+  }
+  if (loaded.error) {
+    return <div className="text-sm text-gray-400 py-6">Change history is unavailable right now.</div>;
+  }
+
+  const revisions = loaded.data?.revisions || [];
+
+  if (revisions.length === 0) {
+    return (
+      <div className="rounded-xl p-5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#2AA5A0", marginBottom: 8 }}>
+          No recorded changes yet
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "#cbd5e1", margin: 0 }}>
+          This assessment has not been revised since it was first published.
+          When new evidence moves a score, the change is recorded here with its
+          date, the claims responsible, and what the score was before.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="text-xs text-gray-400 m-0">
+        Every revision to this assessment, newest first. Scores change when new
+        evidence lands or existing claims are re-scored.
+      </p>
+      {revisions.map((rev) => (
+        <RevisionCard key={rev.detected_at} rev={rev} />
+      ))}
+    </div>
+  );
+}
+
+const CHANGE_LABEL = {
+  score_shift: "score change",
+  consensus_change: "consensus change",
+  new_claim: "new claim",
+  new_source: "new source",
+};
+
+function RevisionCard({ rev }) {
+  const [open, setOpen] = useState(false);
+  const move = rev.largest_score_move;
+  const when = rev.detected_at
+    ? new Date(rev.detected_at).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })
+    : "unknown date";
+
+  return (
+    <div className="rounded-xl overflow-hidden bg-white border border-gray-200">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-start gap-3 p-4 bg-white text-left border-none cursor-pointer hover:bg-gray-50 transition-colors"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-semibold text-[#1B3A5C] mb-1">{when}</div>
+          <div className="text-xs text-gray-500 flex flex-wrap gap-x-3 gap-y-1">
+            {Object.entries(rev.counts || {}).map(([kind, n]) => (
+              <span key={kind} className="tabular-nums">
+                {n} {CHANGE_LABEL[kind] || kind}{n === 1 ? "" : "s"}
+              </span>
+            ))}
+          </div>
+        </div>
+        {move && (
+          <span
+            className="shrink-0 text-[11px] font-semibold tabular-nums px-2 py-1 rounded"
+            style={
+              move.new_score < move.previous_score
+                ? { background: "#FCEBEB", color: "#A32D2D" }
+                : { background: "#EAF3DE", color: "#3B6D11" }
+            }
+          >
+            {move.previous_score.toFixed(1)} &rarr; {move.new_score.toFixed(1)}
+          </span>
+        )}
+      </button>
+
+      {open && (
+        <div className="px-4 pb-4 pt-3 border-t border-gray-100">
+          <ul className="m-0 p-0 list-none flex flex-col gap-2">
+            {(rev.changes || []).map((c, i) => (
+              <li key={i} className="text-xs leading-relaxed text-gray-700">
+                <span className="font-semibold text-[#1B3A5C]">
+                  {CHANGE_LABEL[c.change_type] || c.change_type}
+                </span>
+                {c.previous_score != null && c.new_score != null && (
+                  <span className="tabular-nums text-gray-500">
+                    {" "}({Number(c.previous_score).toFixed(1)} &rarr; {Number(c.new_score).toFixed(1)})
+                  </span>
+                )}
+                {c.previous_category && c.new_category && (
+                  <span className="text-gray-500"> — {c.previous_category} &rarr; {c.new_category}</span>
+                )}
+                {c.description && <span className="text-gray-600">: {c.description}</span>}
+              </li>
+            ))}
+          </ul>
+          {rev.truncated && (
+            <p className="text-[11px] text-gray-400 mt-2 mb-0">
+              Showing the first 40 of {rev.change_count} changes in this revision.
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function DebateItem({ item, glossary, claimsById, compositeMap }) {
@@ -1188,6 +1330,7 @@ export default function IssueDashboard({
             { id: "debates", label: "Key Debates" },
             { id: "roadmap", label: "Evidence Roadmap" },
             { id: "sources", label: `Sources (${sources?.length || 0})` },
+            { id: "changelog", label: "Changelog" },
             { id: "methodology", label: "Methodology" },
           ].map((tab) => (
             <button
@@ -1465,6 +1608,9 @@ export default function IssueDashboard({
           )}
         </div>
       )}
+
+      {/* ── Panel: Changelog (A7) ── */}
+      {activePanel === "changelog" && <ChangelogPanel slug={issue?.slug} />}
 
       {/* ── Panel: Methodology ── */}
       {activePanel === "methodology" && (

@@ -1260,7 +1260,9 @@ supabase apply_migration tool (PH-3a review + PH-3b/3c usage).
 Migration 070 (signal_topic_counts view) APPLIED to production.
 Migration 071 (signal_consensus side attribution) AUTHORED and staged — NOT
 applied. Awaiting Tier-1 review per the migration policy above.
-Next migration number: 072
+Migration 072 (signal_pipeline_snapshots) AUTHORED and staged — NOT applied.
+Awaiting Tier-1 review per the migration policy above.
+Next migration number: 073
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
 Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
@@ -1485,6 +1487,79 @@ runs a Linux VM over the same mount, so `vite build` there fails on
 @rollup/rollup-linux-arm64-gnu. Do NOT run `npm i` from the bridge to fix it —
 that swaps the install to Linux binaries and breaks local macOS builds. Build
 and lint in the cloud container instead, or on the Mac directly.
+
+## Session A7-Signal — Revision Changelog (Complete, empty until 072 + two runs)
+Part A item A7. Signal's positioning claim is that scores move when evidence
+moves. Nothing on the site showed that they ever had — the landing page's
+"Updates This Month" read 0, and no page exposed a history. The changelog is
+the mechanism that makes the claim checkable.
+
+### The feature was ~80% built and broken two ways
+`backend/scripts/signal/detect_changes.py` already compared a run against a
+prior snapshot and wrote rows to `signal_evidence_updates`. It could never
+fire, for two independent reasons:
+- The baseline lived in a gitignored local JSON file. Run the pipeline on any
+  machine that is not the exact one holding that file and it sees no baseline,
+  treats the run as first-ever, and writes nothing. In practice every run was a
+  "first run".
+- `save_snapshot(current)` at the end of the detect path passed ONE argument to
+  a TWO-argument function — a pre-existing TypeError on any run that actually
+  detected changes. Nothing had ever reached that line, so it had never thrown.
+
+### Migration 072 — signal_pipeline_snapshots
+Snapshot storage moved from the local file to Postgres, so the baseline follows
+the data rather than the machine. Append-only: each run INSERTs a row and reads
+the newest one back; nothing is overwritten, so a bad run can be diagnosed
+against the exact state it compared to. Service-role only (REVOKE from PUBLIC,
+anon, authenticated; RLS on) — this is pipeline plumbing, not published data.
+AUTHORED, NOT APPLIED — needs Tier-1 review.
+
+### detect_changes.py
+- `load_snapshot(sb, issue_slug, snapshot_path)` reads the newest row for the
+  topic, ordered by captured_at DESC. Falls back to the legacy local file if it
+  exists (so an existing machine keeps its history once), and returns None only
+  on a genuine first run. A database read failure logs a WARN and falls through
+  rather than crashing the pipeline.
+- `save_snapshot(sb, issue_id, issue_slug, state)` appends. Never overwrites.
+- Three call sites rewired; the arity bug at the detect path fixed.
+- The local snapshot file is never written again.
+
+### GET /api/signal/topics/{slug}/changelog (signal_metrics.py)
+Groups `signal_evidence_updates` rows into revisions by `detected_at[:16]` —
+a one-minute bucket, which is one pipeline run. Returns per revision:
+detected_at, change_count, `counts` by change type, `largest_score_move`
+(delta, previous/new score, previous/new category), and up to 40 changes with a
+`truncated` flag. Newest first. Public read, consistent with the rest of the
+Signal read surface.
+
+### ChangelogPanel (IssueDashboard.jsx)
+- New "Changelog" entry in PANEL_IDS and the nav rail; panel mounts above
+  Methodology; linkable at /{slug}#changelog.
+- `RevisionCard` — collapsed row shows the date, the counts by type, and a
+  score-move badge coloured by direction (red when a score fell, green when it
+  rose). Expands to the per-change detail list.
+- Fetch state is held as a single `{slug, data}` object and the panel renders a
+  loading state while `loaded.slug !== slug`. This is deliberate: setting state
+  from inside the effect trips eslint `react-hooks/set-state-in-effect`
+  (cascading renders). Derive, do not set.
+
+### Verification
+Rendered the built app headlessly (Playwright + the preinstalled Chromium)
+against a two-revision stub: panel renders, revisions group newest-first, the
+3.4 → 2.9 badge shows red, the newest revision expands to its per-change detail
+("score change (3.4 → 2.9) — moderate → mixed: ...") and collapses back.
+eslint is back at the pre-existing baseline of 5 errors; `npm run build` clean.
+
+### The changelog stays EMPTY until both of these happen
+1. Migration 072 is reviewed and applied.
+2. `detect_changes.py` runs at least TWICE — once to write a baseline, once to
+   detect against it. There is no history to backfill; the first run after 072
+   establishes the zero point. This is the honest behaviour: the page will say
+   there are no recorded revisions rather than invent any.
+
+### Still open in Part A
+A3 (crux as a field), A5 (un-gate one analytical path), A6 (empirical vs values
+flag per debate).
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

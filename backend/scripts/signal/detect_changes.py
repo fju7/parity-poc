@@ -151,24 +151,69 @@ def load_current_state(sb, issue_slug: str) -> dict:
 # Snapshot I/O
 # ---------------------------------------------------------------------------
 
-def load_snapshot(snapshot_path: Path) -> dict | None:
-    """Read previous snapshot from JSON file. Returns None if first run."""
-    if not snapshot_path.exists():
-        return None
+# The baseline lives in Postgres (migration 072), not on disk.
+#
+# It used to be a JSON file under backend/data/signal/, which is gitignored.
+# That made it invisible to every machine except the one that last ran the
+# pipeline: anywhere else the script found no snapshot, declared itself a first
+# run, wrote a baseline and exited without detecting anything. Change detection
+# therefore never produced a single row, and the landing page truthfully
+# reported "0 Updates This Month".
+#
+# The local file is still read as a fallback so an existing developer snapshot
+# is not thrown away on the first run after this change, but it is never
+# written again.
+
+
+def load_snapshot(sb, issue_slug: str, snapshot_path: Path) -> dict | None:
+    """Newest snapshot for this topic. Returns None only on a genuine first run."""
     try:
-        with open(snapshot_path, "r") as f:
-            return json.load(f)
-    except (json.JSONDecodeError, OSError) as exc:
-        print(f"  [WARN] Could not read snapshot: {exc}")
-        return None
+        res = (
+            sb.table("signal_pipeline_snapshots")
+            .select("state_json, captured_at")
+            .eq("issue_slug", issue_slug)
+            .order("captured_at", desc=True)
+            .limit(1)
+            .execute()
+        )
+        rows = res.data or []
+        if rows:
+            print(f"  Baseline from database, captured {rows[0].get('captured_at')}")
+            return rows[0]["state_json"]
+    except Exception as exc:
+        # Migration 072 not applied yet, or the table is unreachable. Fall
+        # through to the legacy file rather than silently detecting nothing.
+        print(f"  [WARN] Could not read snapshot from database: {exc}")
+
+    if snapshot_path.exists():
+        try:
+            with open(snapshot_path, "r") as f:
+                print(f"  Baseline from legacy local file {snapshot_path}")
+                return json.load(f)
+        except (json.JSONDecodeError, OSError) as exc:
+            print(f"  [WARN] Could not read legacy snapshot: {exc}")
+
+    return None
 
 
-def save_snapshot(state: dict, snapshot_path: Path) -> None:
-    """Write current state as the new snapshot."""
-    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(snapshot_path, "w") as f:
-        json.dump(state, f, indent=2)
-    print(f"Snapshot saved to {snapshot_path}")
+def save_snapshot(sb, issue_id: str, issue_slug: str, state: dict) -> bool:
+    """Append this run's state as the new baseline. Returns True on success.
+
+    Appends rather than overwrites: a run can then be audited or replayed, and
+    a bad run can be discarded by deleting one row instead of losing history.
+    """
+    try:
+        sb.table("signal_pipeline_snapshots").insert({
+            "issue_id": issue_id,
+            "issue_slug": issue_slug,
+            "state_json": state,
+        }).execute()
+        print(f"Snapshot saved to database for {issue_slug}")
+        return True
+    except Exception as exc:
+        print(f"  [ERROR] Could not save snapshot: {exc}")
+        print("  Change detection will treat the next run as a first run.")
+        return False
 
 
 # ---------------------------------------------------------------------------
@@ -348,15 +393,15 @@ def main():
     sb = _get_supabase()
     current = load_current_state(sb, issue_slug)
 
-    # Load previous snapshot
-    previous = load_snapshot(snapshot_path)
+    # Load previous snapshot (database first, legacy local file as fallback)
+    previous = load_snapshot(sb, issue_slug, snapshot_path)
 
     if previous is None:
         print(f"\nNo previous snapshot found — this is the first run (baseline).")
         if args.dry_run:
             print("  [DRY RUN] Would save baseline snapshot. No changes to detect.")
             return
-        save_snapshot(current, snapshot_path)
+        save_snapshot(sb, current["issue_id"], issue_slug, current)
         print("Baseline snapshot saved. No changes to detect on first run.")
         return
 
@@ -409,14 +454,17 @@ def main():
     # --- Store changes ---
     if not all_changes:
         print(f"\nNo changes detected.")
-        save_snapshot(current, snapshot_path)
+        save_snapshot(sb, current["issue_id"], issue_slug, current)
         return
 
     print(f"\nDetected {len(all_changes)} changes. Storing...")
     inserted = store_updates(sb, all_changes)
 
-    # Update snapshot
-    save_snapshot(current)
+    # Advance the baseline so the next run compares against this state.
+    # This call previously passed one argument to a two-argument function — a
+    # TypeError on every run that actually detected changes, which would have
+    # left the baseline stale and re-detected the same changes indefinitely.
+    save_snapshot(sb, current["issue_id"], issue_slug, current)
 
     # --- Summary ---
     print(f"\n{'='*60}")
