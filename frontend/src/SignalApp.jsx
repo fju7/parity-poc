@@ -85,7 +85,7 @@ async function loadIssueData(slug) {
     const issueId = issue.id;
 
     // 2. Parallel fetch everything else
-    const [summaryRes, claimsRes, consensusRes, sourcesRes, claimSourceCountsRes] =
+    const [summaryRes, claimsRes, consensusRes, sourcesRes] =
       await Promise.all([
         supabase
           .from("signal_summaries")
@@ -106,25 +106,33 @@ async function loadIssueData(slug) {
           .from("signal_sources")
           .select("id, title, url, source_type, publication_date")
           .eq("issue_id", issueId),
-        // Get source counts per claim
-        supabase
-          .from("signal_claim_sources")
-          .select("claim_id"),
       ]);
 
-    // Build source count map
+    const rawClaims = claimsRes.data || [];
+    const rawClaimIds = rawClaims.map((c) => c.id);
+
+    // Citation counts per claim.
+    //
+    // This used to select every row in signal_claim_sources with no filter at
+    // all. PostgREST caps returned rows (Supabase default 1000), so once the
+    // corpus grew past that the map was built from a truncated page and most
+    // claims silently reported 0 citations. Scoping to this topic's claims
+    // keeps the query well under the cap — same class of bug as the landing
+    // page counts, fixed the same way.
     const sourceCountMap = new Map();
-    if (claimSourceCountsRes.data) {
-      for (const row of claimSourceCountsRes.data) {
-        sourceCountMap.set(
-          row.claim_id,
-          (sourceCountMap.get(row.claim_id) || 0) + 1
-        );
+    if (rawClaimIds.length > 0) {
+      const { data: claimSourceRows } = await supabase
+        .from("signal_claim_sources")
+        .select("claim_id")
+        .in("claim_id", rawClaimIds);
+
+      for (const row of claimSourceRows || []) {
+        sourceCountMap.set(row.claim_id, (sourceCountMap.get(row.claim_id) || 0) + 1);
       }
     }
 
-    // Attach source counts to claims
-    const claims = (claimsRes.data || []).map((claim) => ({
+    // Attach citation counts to claims
+    const claims = rawClaims.map((claim) => ({
       ...claim,
       _sourceCount: sourceCountMap.get(claim.id) || 0,
     }));

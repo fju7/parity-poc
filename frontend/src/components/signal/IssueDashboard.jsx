@@ -16,6 +16,16 @@ function displayName(key) {
   return key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+/** Panels addressable via the URL hash, e.g. /glp1-drugs#debates */
+const PANEL_IDS = ["overview", "claims", "paths", "debates", "roadmap", "sources", "methodology"];
+
+/** Read a valid panel id out of the URL hash, or fall back to the overview. */
+function panelFromHash() {
+  if (typeof window === "undefined") return "overview";
+  const target = (window.location.hash || "").replace("#", "");
+  return PANEL_IDS.includes(target) ? target : "overview";
+}
+
 const STATUS_DOT_COLOR = {
   consensus: "bg-emerald-400",
   debated: "bg-amber-400",
@@ -113,6 +123,157 @@ function SummaryThemeSection({ category, categoryData, consensusMap, glossary, d
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+/**
+ * A1 — the lede.
+ *
+ * Signal's differentiator is that it shows two credible sides of a contested
+ * question. Until now that lived below ~2,500 words of narrative, inside a tab
+ * strip pinned to the bottom of the page, behind a collapsed accordion. Most
+ * readers never found it. This block puts the same information first: how much
+ * of the topic is disputed, which disagreement is sharpest, and how much scored
+ * evidence sits underneath it.
+ */
+function ContestedLede({ overview, hasValuesDimension, empiricalQuestion, onOpenDebates }) {
+  if (!overview) return null;
+
+  const { counts, total, sharpest, contestedClaims } = overview;
+  const contestedCount = counts.debated + counts.uncertain;
+
+  const labelStyle = {
+    fontSize: 11,
+    fontWeight: 700,
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    color: "#2AA5A0",
+    marginBottom: 6,
+  };
+
+  // Settled topics get the honest version of the same statement rather than a
+  // hidden block — "nothing is disputed here" is itself a finding.
+  if (contestedCount === 0) {
+    return (
+      <div
+        className="mb-5 rounded-xl px-5 py-4"
+        style={{ background: "rgba(45,212,191,0.06)", border: "1px solid rgba(45,212,191,0.22)" }}
+      >
+        <div style={labelStyle}>Where this is contested</div>
+        <p style={{ fontSize: 14, lineHeight: 1.6, color: "#cbd5e1", margin: 0 }}>
+          Nothing on this topic is actively disputed. All {total} areas reach
+          expert consensus across the evidence scored so far.
+        </p>
+      </div>
+    );
+  }
+
+  const chips = [
+    { n: counts.debated, label: "debated", color: "#EF9F27", bg: "rgba(239,159,39,0.14)" },
+    { n: counts.uncertain, label: "uncertain", color: "#94a3b8", bg: "rgba(148,163,184,0.14)" },
+    { n: counts.consensus, label: "consensus", color: "#5DCAA5", bg: "rgba(93,202,165,0.14)" },
+  ].filter((c) => c.n > 0);
+
+  return (
+    <div
+      className="mb-5 rounded-xl overflow-hidden"
+      style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.1)" }}
+    >
+      <div className="px-5 pt-4 pb-4">
+        <div style={labelStyle}>Where this is contested</div>
+        <p style={{ fontSize: 15, lineHeight: 1.6, color: "#f1f5f9", margin: 0 }}>
+          <strong style={{ fontWeight: 600 }}>
+            {contestedCount} of {total}
+          </strong>{" "}
+          areas on this topic are contested
+          {contestedClaims > 0 && (
+            <>, covering <span className="tabular-nums">{contestedClaims}</span> claims</>
+          )}
+          .
+        </p>
+
+        <div className="flex flex-wrap gap-2 mt-3">
+          {chips.map((c) => (
+            <span
+              key={c.label}
+              className="tabular-nums"
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                padding: "3px 9px",
+                borderRadius: 999,
+                color: c.color,
+                background: c.bg,
+              }}
+            >
+              {c.n} {c.label}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {sharpest && (
+        <div
+          className="px-5 py-4"
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(239,159,39,0.05)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "#EF9F27",
+              marginBottom: 6,
+            }}
+          >
+            Sharpest disagreement
+          </div>
+          <div className="flex items-baseline gap-2 flex-wrap mb-1.5">
+            <span style={{ fontSize: 14, fontWeight: 600, color: "#f1f5f9" }}>
+              {displayName(sharpest.category)}
+            </span>
+            <span className="tabular-nums" style={{ fontSize: 11, color: "#94a3b8" }}>
+              {sharpest.claimCount} claim{sharpest.claimCount === 1 ? "" : "s"}
+              {sharpest.meanScore ? ` \u00b7 mean score ${sharpest.meanScore}` : ""}
+            </span>
+          </div>
+          {sharpest.summaryText && (
+            <p style={{ fontSize: 13, lineHeight: 1.65, color: "#cbd5e1", margin: 0 }}>
+              {getOverviewSentences(sharpest.summaryText, 2)}
+            </p>
+          )}
+        </div>
+      )}
+
+      {hasValuesDimension && (
+        <div
+          className="px-5 py-3"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.08)", fontSize: 12.5, lineHeight: 1.6, color: "#a8bacd" }}
+        >
+          Part of this disagreement is not empirical. Signal scores the evidence
+          on {empiricalQuestion}; where the dispute turns on which outcome to
+          prioritise, no amount of evidence settles it.
+        </div>
+      )}
+
+      <button
+        onClick={onOpenDebates}
+        className="w-full text-left px-5 py-3 border-none cursor-pointer transition-colors"
+        style={{
+          background: "rgba(13,115,119,0.18)",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          color: "#2AA5A0",
+          fontSize: 13,
+          fontWeight: 600,
+        }}
+      >
+        See all {contestedCount} disagreement{contestedCount === 1 ? "" : "s"} &rarr;
+      </button>
     </div>
   );
 }
@@ -373,6 +534,56 @@ export default function IssueDashboard({
       });
   }, [consensus]);
 
+  // ── A1: what is actually contested on this topic ──
+  // The debate material already exists — it just lives at the bottom of the
+  // page, inside a tab, behind a collapsed accordion. This memo lifts the same
+  // data into a shape that can lead the page instead of trailing it.
+  const contestedOverview = useMemo(() => {
+    if (!consensus || consensus.length === 0) return null;
+
+    const counts = { consensus: 0, debated: 0, uncertain: 0 };
+    const items = [];
+
+    for (const c of consensus) {
+      const status = c.consensus_status || "uncertain";
+      if (counts[status] !== undefined) counts[status] += 1;
+      if (status === "consensus") continue;
+
+      // Attach the scored claims sitting under this category, so a reader can
+      // see how much evidence the disagreement actually rests on rather than
+      // just being told that one exists.
+      const catClaims = (claims || []).filter((cl) => cl.category === c.category);
+      const scores = catClaims
+        .map((cl) => compositeMap.get(cl.id)?.composite_score)
+        .filter((sc) => sc != null);
+
+      items.push({
+        category: c.category,
+        status,
+        summaryText: c.summary_text,
+        claimCount: catClaims.length,
+        meanScore: scores.length
+          ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1)
+          : null,
+      });
+    }
+
+    // Debated outranks uncertain; within a status, the disagreement covering
+    // the most claims comes first.
+    items.sort((a, b) => {
+      if (a.status !== b.status) return a.status === "debated" ? -1 : 1;
+      return b.claimCount - a.claimCount;
+    });
+
+    return {
+      counts,
+      total: consensus.length,
+      items,
+      sharpest: items[0] || null,
+      contestedClaims: items.reduce((sum, i) => sum + i.claimCount, 0),
+    };
+  }, [consensus, claims, compositeMap]);
+
   // Summary data — declared early because summaryCatMap and categories depend on it
   const summaryData = summary?.summary_json;
   const glossary = summaryData?.glossary || null;
@@ -417,7 +628,9 @@ export default function IssueDashboard({
   const [customWeights, setCustomWeights] = useState(null);
   const [weightsOpen, setWeightsOpen] = useState(false);
   const [profileScoreData, setProfileScoreData] = useState(null);
-  const [activePanel, setActivePanel] = useState("overview");
+  // Initialised from the hash so a shared link opens on the right panel
+  // without a second render — setState inside an effect would cascade.
+  const [activePanel, setActivePanel] = useState(panelFromHash);
   const [claimFilter, setClaimFilter] = useState("all");
   const [sourceFilter, setSourceFilter] = useState("all");
 
@@ -436,6 +649,37 @@ export default function IssueDashboard({
     setCustomWeights(weights);
     if (!weights) setProfileScoreData(null);
   }, []);
+
+  /**
+   * Switch panels and actually take the reader there.
+   *
+   * The nav rail sits below a long overview, so setting activePanel alone left
+   * people staring at the same screen wondering whether the click registered.
+   * The panel is also written to the URL hash, which makes a debate linkable —
+   * /social-media-teen-mental-health#debates — without adding routes.
+   */
+  const openPanel = useCallback((panelId, source) => {
+    setActivePanel(panelId);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", `#${panelId}`);
+      requestAnimationFrame(() => {
+        navRailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+    trackEvent("nav_click", { panel: panelId, source: source || "rail" }, issue?.slug, panelId);
+  }, [issue]);
+
+  // A deep-linked panel is already the initial state; this only brings it into
+  // view once the topic has loaded and the rail exists in the DOM.
+  const hashScrolledRef = useRef(false);
+  useEffect(() => {
+    if (hashScrolledRef.current || !issue) return;
+    if (panelFromHash() === "overview") return;
+    hashScrolledRef.current = true;
+    requestAnimationFrame(() => {
+      navRailRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
+    });
+  }, [issue]);
 
   const handleProfileScoresChange = useCallback((data) => {
     setProfileScoreData(data);
@@ -619,19 +863,13 @@ export default function IssueDashboard({
         </h1>
       </div>
 
-      {/* ── Change 5: Contested Topic Banner ── */}
-      {isContested && (
-        <div className="mb-4 rounded-lg p-4" style={{ background: "#FEF9E7", borderLeft: "3px solid #EF9F27" }}>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full" style={{ background: "#FAEEDA", color: "#854F0B" }}>
-              Empirical + Values
-            </span>
-          </div>
-          <p className="text-xs text-gray-700 leading-relaxed">
-            This topic has both empirical and values components. Signal evaluates the evidence on {empiricalQuestion}. The values dimensions are addressed in the full analysis below.
-          </p>
-        </div>
-      )}
+      {/* ── A1: the lede — what is contested, before the narrative ── */}
+      <ContestedLede
+        overview={contestedOverview}
+        hasValuesDimension={isContested}
+        empiricalQuestion={empiricalQuestion}
+        onOpenDebates={() => openPanel("debates", "lede")}
+      />
 
       {/* ── Layer 0: Plain Summary (accessible overview) ── */}
       {issue.plain_summary && issue.plain_summary_status === "approved" && (() => {
@@ -863,10 +1101,7 @@ export default function IssueDashboard({
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => {
-                setActivePanel(tab.id);
-                trackEvent("nav_click", { panel: tab.id }, issue?.slug, tab.id);
-              }}
+              onClick={() => openPanel(tab.id)}
               className={`px-3.5 py-2 rounded-full text-xs font-semibold border-none cursor-pointer transition-colors whitespace-nowrap ${
                 activePanel === tab.id
                   ? "bg-[#0D7377] text-white"

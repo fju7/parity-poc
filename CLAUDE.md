@@ -1367,6 +1367,64 @@ post-deploy smoke check are the real net here, not previews.
 - Verify: `curl -s https://signal.civicscale.ai/ | grep -o '<title>[^<]*'` and
   `curl -s https://signal.civicscale.ai/robots.txt`.
 
+## Session A1-Signal — Disagreement Leads the Topic Page (Complete)
+Part A item A1 from the Signal review, plus one row-cap bug found on the way.
+
+### The problem
+Signal's differentiator is showing two credible sides of a contested question.
+That material existed but sat below ~2,500 words of narrative, inside a nav
+rail pinned to the bottom of the page, behind collapsed accordions — and
+clicking a rail tab did not scroll you to its content. Most readers never
+learned Key Debates existed.
+
+### ContestedLede (IssueDashboard.jsx)
+- New `contestedOverview` memo derives, from data already loaded: counts by
+  consensus status, and for each debated/uncertain category the claim count and
+  mean composite score. Sorted debated-before-uncertain, then by claim count.
+- New `ContestedLede` component renders directly under the topic title, above
+  "What the evidence says": "N of M areas are contested, covering K claims",
+  status chips, the sharpest disagreement with its claim count and mean score,
+  the values-dimension note, and a button into the Key Debates panel.
+- Replaces the old `isContested` amber banner, which is now the values note
+  inside the lede.
+- Settled topics render the honest inverse ("nothing here is actively
+  disputed") rather than hiding the block.
+
+### Panel navigation
+- `openPanel(id, source)` sets the panel, writes `#id` to the URL, scrolls the
+  nav rail into view, and tracks. Used by the rail and the lede button.
+- `activePanel` initialises from the hash via a lazy `panelFromHash()`
+  initialiser — NOT a setState inside an effect, which eslint flags as
+  cascading renders. The effect only scrolls.
+- Panels are now linkable: /social-media-teen-mental-health#debates.
+  PANEL_IDS is the shared list.
+
+### Row-cap bug in the topic loader (SignalApp.jsx)
+`loadIssueData` built its citation-count map from
+`supabase.from("signal_claim_sources").select("claim_id")` with NO filter.
+PostgREST caps returned rows (1000), so past that the map came from a
+truncated page and most claims silently reported 0 citations — same class of
+bug as P0.1, and it fed the per-category "citations" number. Now scoped with
+`.in("claim_id", rawClaimIds)` after claims resolve.
+
+### Verification
+Rendered the built app headlessly (Playwright + the preinstalled Chromium at
+/opt/pw-browsers/chromium-1194) with requests to signal.civicscale.ai fulfilled
+from dist and Supabase stubbed by a fixture matching production's published
+figures. Confirmed: lede renders with correct counts (5 of 6 contested, 161
+claims, sharpest = Depression Anxiety at 47 claims / mean 3.0), per-topic title
+applied, no page errors, default panel Overview, `#debates` opens Key Debates.
+Note the fixture stands in for Supabase because container egress cannot reach
+it — the shape and figures are transcribed from the live site.
+
+### Still open in Part A
+A2 (named positions), A3 (crux as a field), A5 (un-gate one analytical path),
+A6 (empirical vs values flag per debate), A7 (changelog). A4 is partly served —
+the lede attaches claim counts and mean scores to each disagreement, but
+splitting a debate's claims into the two named sides needs
+signal_consensus.supporting_claim_ids, which is in the schema, never selected
+by any endpoint, and of unknown population.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
