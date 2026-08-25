@@ -8,6 +8,7 @@ import GlossaryText from "./GlossaryText";
 import WeightAdjuster, { computeCustomComposite, evidenceCategory } from "./WeightAdjuster";
 import ProfileSelector from "./ProfileSelector";
 import { trackEvent } from "../../lib/signalAnalytics";
+import { setPageMeta, resetPageMeta } from "../../lib/pageMeta";
 
 /** Format a snake_case category key into a display name. */
 function displayName(key) {
@@ -59,7 +60,7 @@ function getOverviewSentences(text, count = 2) {
   return sentences.slice(0, count).join(" ").trim();
 }
 
-function SummaryThemeSection({ category, categoryData, consensusMap, glossary, defaultOpen = false, sourceCount, avgScore, onGoDeeper, sectionRef }) {
+function SummaryThemeSection({ category, categoryData, consensusMap, glossary, defaultOpen = false, citationCount, avgScore, onGoDeeper, sectionRef }) {
   const [open, setOpen] = useState(defaultOpen);
   const label = displayName(category);
   const status = consensusMap?.[category]?.consensus_status;
@@ -80,10 +81,12 @@ function SummaryThemeSection({ category, categoryData, consensusMap, glossary, d
         <span className="flex-1 text-sm font-semibold text-[#1B3A5C]">
           {label}
         </span>
-        {/* Metadata: source count + score */}
+        {/* Metadata: citation count + score. "Citations" not "sources": this
+            counts claim-to-source links, so it is larger than the topic's
+            distinct source count and must not be labelled the same way. */}
         <span className="text-[11px] text-gray-400 shrink-0 tabular-nums">
-          {sourceCount > 0 ? `${sourceCount} source${sourceCount !== 1 ? "s" : ""}` : ""}
-          {sourceCount > 0 && avgScore ? " · " : ""}
+          {citationCount > 0 ? `${citationCount} citation${citationCount !== 1 ? "s" : ""}` : ""}
+          {citationCount > 0 && avgScore ? " · " : ""}
           {avgScore ? `Score ${avgScore}` : ""}
         </span>
         <svg
@@ -438,6 +441,14 @@ export default function IssueDashboard({
     setProfileScoreData(data);
   }, []);
 
+  // Give each topic its own tab title, bookmark name, and history entry.
+  // Crawlers get their copy from the static per-host HTML, not from this.
+  useEffect(() => {
+    if (!issue?.title) return;
+    setPageMeta({ title: issue.title, description: issue.description });
+    return resetPageMeta;
+  }, [issue]);
+
   // Track issue_viewed once on mount when data is ready
   const trackedIssueRef = useRef(null);
   useEffect(() => {
@@ -547,10 +558,13 @@ export default function IssueDashboard({
       const scores = catClaims
         .map((c) => compositeMap.get(c.id)?.composite_score)
         .filter((s) => s != null);
-      const sourceCounts = catClaims.reduce((sum, c) => sum + (c._sourceCount || 0), 0);
+      // Sum of claim->source links, NOT distinct sources: one source cited by
+      // five claims counts five times. Labelled "citations" downstream so it
+      // can't be read as contradicting the topic-level distinct source count.
+      const citationCount = catClaims.reduce((sum, c) => sum + (c._sourceCount || 0), 0);
       map[cat] = {
         avg: scores.length > 0 ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : null,
-        sources: sourceCounts,
+        citations: citationCount,
         claims: catClaims.length,
       };
     }
@@ -816,7 +830,7 @@ export default function IssueDashboard({
                     consensusMap={consensusMap}
                     glossary={glossary}
                     defaultOpen={i === 0}
-                    sourceCount={cs.sources || 0}
+                    citationCount={cs.citations || 0}
                     avgScore={cs.avg}
                     sectionRef={(el) => { sectionRefs.current[cat] = el; }}
                     onGoDeeper={(c) => {

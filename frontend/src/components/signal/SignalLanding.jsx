@@ -21,8 +21,14 @@ function TopicCard({ topic }) {
       )}
 
       <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-400">
-          {topic.claim_count} claims scored
+        {/* Say "claims", not "claims scored": claim_count is every extracted
+            claim, and a handful on each topic are still unscored. scored_count
+            is present once migration 070's view is live. */}
+        <span className="text-xs text-gray-400 tabular-nums">
+          {topic.claim_count} claim{topic.claim_count === 1 ? "" : "s"}
+          {typeof topic.scored_count === "number" &&
+            topic.scored_count !== topic.claim_count &&
+            ` · ${topic.scored_count} scored`}
         </span>
         <span className="text-sm font-semibold text-[#0D7377] group-hover:underline">
           View Dashboard &rarr;
@@ -146,24 +152,34 @@ export default function SignalLanding({ session, userTier, tierData }) {
         ))}
       </div>
 
-      {/* Platform metrics */}
-      {metrics && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
-          {[
-            { value: metrics.claims_scored, label: "Claims Scored" },
-            { value: metrics.topics_tracked, label: "Topics Tracked" },
-            { value: metrics.sources_monitored, label: "Sources Indexed" },
-            { value: metrics.updates_this_month, label: "Updates This Month" },
-          ].map((m) => (
-            <div key={m.label} className="bg-white/[0.03] rounded-xl border border-white/[0.06] p-3 text-center">
-              <div className="text-2xl font-bold text-[#f1f5f9]">
-                {m.value?.toLocaleString() || "0"}
+      {/* Platform metrics.
+          Only non-zero tiles render. "0 Updates This Month" is a true value,
+          but publishing a zero on the one metric that says the corpus is alive
+          argues against the product; when there is nothing to report, the tile
+          is simply absent. */}
+      {metrics && (() => {
+        const tiles = [
+          { value: metrics.claims_scored, label: "Claims Scored" },
+          { value: metrics.topics_tracked, label: "Topics Tracked" },
+          { value: metrics.sources_monitored, label: "Sources Indexed" },
+          { value: metrics.updates_this_month, label: "Updates This Month" },
+        ].filter((m) => typeof m.value === "number" && m.value > 0);
+
+        if (tiles.length === 0) return null;
+
+        return (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+            {tiles.map((m) => (
+              <div key={m.label} className="bg-white/[0.03] rounded-xl border border-white/[0.06] p-3 text-center">
+                <div className="text-2xl font-bold text-[#f1f5f9] tabular-nums">
+                  {m.value.toLocaleString()}
+                </div>
+                <div className="text-xs text-gray-400">{m.label}</div>
               </div>
-              <div className="text-xs text-gray-400">{m.label}</div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        );
+      })()}
 
       {/* Topics */}
       {topicsLoading ? (

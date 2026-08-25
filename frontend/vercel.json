@@ -4,138 +4,424 @@
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "provider.civicscale.ai" }],
-      "destination": "/index.html"
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-www_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "health.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-health_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "employer.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-employer_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "broker.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-broker_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "provider.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-provider_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "billing.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-billing_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "signal.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-signal_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-health.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-staging-health_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-employer.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-staging-employer_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-broker.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-staging-broker_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-provider.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-staging-provider_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-billing.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-staging-billing_civicscale_ai.txt"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-signal.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/robots-staging-signal_civicscale_ai.txt"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "staging-provider.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "broker.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "www.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/www_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "staging-broker.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "health.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/health_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "employer.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "employer.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/employer_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "staging-employer.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "broker.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/broker_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "signal.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "provider.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/provider_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "staging-signal.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "billing.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/billing_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "health.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "signal.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/signal_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "staging-health.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-health.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/staging-health_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "billing.civicscale.ai" }],
-      "destination": "/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-employer.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/staging-employer_civicscale_ai.html"
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "staging-billing.civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-broker.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/staging-broker_civicscale_ai.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-provider.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/staging-provider_civicscale_ai.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-billing.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/staging-billing_civicscale_ai.html"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging-signal.civicscale.ai"
+        }
+      ],
+      "destination": "/_hosts/staging-signal_civicscale_ai.html"
+    },
+    {
+      "source": "/parity-health/:path*",
       "destination": "/index.html"
     },
-    { "source": "/parity-health/:path*", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ],
   "redirects": [
     {
       "source": "/broker",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://broker.civicscale.ai/",
       "permanent": true
     },
     {
       "source": "/broker/",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://broker.civicscale.ai/",
       "permanent": true
     },
     {
       "source": "/broker/:path*",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://broker.civicscale.ai/:path*",
       "permanent": true
     },
     {
       "source": "/broker/:path*",
-      "has": [{ "type": "host", "value": "www.civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.civicscale.ai"
+        }
+      ],
       "destination": "https://broker.civicscale.ai/:path*",
       "permanent": true
     },
     {
       "source": "/billing/employer",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://employer.civicscale.ai/",
       "permanent": true
     },
     {
       "source": "/billing/employer/",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://employer.civicscale.ai/",
       "permanent": true
     },
     {
       "source": "/billing/employer/:path*",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://employer.civicscale.ai/:path*",
       "permanent": true
     },
     {
       "source": "/billing/employer/:path*",
-      "has": [{ "type": "host", "value": "www.civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.civicscale.ai"
+        }
+      ],
       "destination": "https://employer.civicscale.ai/:path*",
       "permanent": true
     },
     {
       "source": "/signal",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://signal.civicscale.ai/",
       "permanent": true
     },
     {
       "source": "/signal/",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://signal.civicscale.ai/",
       "permanent": true
     },
     {
       "source": "/signal/:path*",
-      "has": [{ "type": "host", "value": "civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "civicscale.ai"
+        }
+      ],
       "destination": "https://signal.civicscale.ai/:path*",
       "permanent": true
     },
     {
       "source": "/signal/:path*",
-      "has": [{ "type": "host", "value": "www.civicscale.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.civicscale.ai"
+        }
+      ],
       "destination": "https://signal.civicscale.ai/:path*",
       "permanent": true
     }

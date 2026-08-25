@@ -321,7 +321,10 @@ export default function AdminRequestsDashboard({ session }) {
     <div className="max-w-3xl mx-auto px-4 py-8 font-[Arial,sans-serif]">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-[#1B3A5C]">Admin Dashboard</h1>
+          {/* Signal renders on a dark shell (#0a1628). #1B3A5C is the light-theme
+              heading colour used inside the white cards below and is close to
+              unreadable here — same fix applied to IssueDashboard in Session K. */}
+          <h1 className="text-xl font-bold text-[#f1f5f9]">Admin Dashboard</h1>
           <p className="text-xs text-gray-400 mt-1">Signal Administration</p>
         </div>
         <button

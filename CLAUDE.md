@@ -143,6 +143,14 @@ Three live products + one in development:
 
 ## Key frontend files
 - frontend/src/main.jsx — all routes
+- frontend/src/lib/siteMeta.js — SITE_META + HOST_MAP; the single source of
+  truth for per-product page metadata. Adding a hostname means adding an entry
+  here AND a matching rewrite in vercel.json.
+- frontend/src/lib/pageMeta.js — runtime <head> helpers (applyHostMeta on boot,
+  setPageMeta/resetPageMeta per page)
+- frontend/scripts/generate-host-html.mjs — post-build step that writes one
+  static entry point + robots.txt per hostname into dist/_hosts/. This is the
+  copy crawlers and link-preview bots read; main.jsx never reaches them.
 - frontend/src/components/EmployerDemoPage.jsx — 7-tab demo
   (Getting Started animated wizard, Benchmark, Claims, Scorecard,
   RBP Calculator, Contract Parser, Monitoring Dashboard)
@@ -1249,7 +1257,76 @@ All migrations through 056 have been run on production.
 Migrations 057-068 pending. No new migration for BL-12.
 Migration 069 (evidence_item / evidence_query) APPLIED to production via the
 supabase apply_migration tool (PH-3a review + PH-3b/3c usage).
-Next migration number: 070
+Migration 070 (signal_topic_counts view) AUTHORED and staged — NOT applied.
+Awaiting Tier-1 review per the migration policy above.
+Next migration number: 071
+
+## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
+Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
+links. No feature work, no schema changes beyond one additive view.
+
+### P0.1 — Landing-page counts contradicted the topic pages
+Root cause: /api/signal/topics and /api/signal/admin/review-topics counted
+claims and sources with `select("id, issue_id").in_("issue_id", ids)` and
+tallied the returned rows in Python. PostgREST caps returned rows (Supabase
+default 1000), so past 1000 claims the counts silently truncated. The nine
+landing-page claim counts summed to exactly 1000 (mRNA showed 5 vs a true 130,
+GLP-1 110 vs 153, social media 183 vs 211).
+- Migration 070 (`signal_topic_counts` view): per-topic claim_count,
+  scored_count, source_count computed in Postgres. scored_count was previously
+  underivable per topic because signal_claim_composites is keyed on claim_id
+  with no issue_id. AUTHORED, NOT APPLIED — needs review.
+- signal_metrics.py: new helpers `_approved_issues`, `_exact_count` (HEAD +
+  count="exact"), `_topic_counts` (view first, per-issue exact counts as
+  fallback so the backend is safe to deploy before the migration). All three
+  endpoints now use them.
+- /metrics now scopes to quality-approved issues, so "Topics Tracked" matches
+  the list rendered directly below it (was 11 vs 9 rendered). Adds claims_total.
+- tests/test_signal_metrics_counts.py — 9 offline tests, no network. Includes
+  a test that reproduces the original truncation so it stays documented.
+
+### P0.2 — Every URL served the wrong <head>
+index.html carried one hardcoded title/description for all seven hostnames
+(Parity Health's bill-analysis copy), and main.jsx patched it per-host only
+after hydration. Crawlers and link-preview bots don't run JS, so every product's
+shared links previewed as "Analyze your medical bills against CMS Medicare
+benchmark rates" — including Signal's.
+- frontend/src/lib/siteMeta.js — SITE_META + HOST_MAP, single source of truth.
+- frontend/scripts/generate-host-html.mjs — post-build, writes one entry point
+  per hostname into dist/_hosts/ with correct title, description, canonical,
+  og:*, twitter:*, robots, plus a per-host robots.txt (staging = Disallow).
+  Wired into `npm run build`.
+- vercel.json — per-host rewrites now target /_hosts/{host}.html, and
+  /robots.txt targets /_hosts/robots-{host}.txt.
+- frontend/src/lib/pageMeta.js — runtime applyHostMeta/setPageMeta/resetPageMeta.
+  main.jsx's inline SEO_META block replaced with applyHostMeta().
+- IssueDashboard sets a per-topic title so tabs, bookmarks and history entries
+  are distinct. Per-ROUTE crawlable metadata still needs prerendering — a host
+  rewrite cannot produce it.
+
+### P0.3 — Loose ends
+- AdminRequestsDashboard: "Admin Dashboard" heading was #1B3A5C on the dark
+  Signal shell and near-unreadable; now #f1f5f9 (same fix as Session K Wave 3).
+- IssueDashboard: per-category "N sources" relabelled "N citations". It sums
+  claim-to-source links, so it exceeded the topic's distinct source count
+  (41 vs 216 summed) under the same word.
+- SignalLanding: topic cards say "N claims" (+ "· N scored" when they differ)
+  rather than labelling every extracted claim as scored; zero-valued metric
+  tiles no longer render, which retires "0 Updates This Month".
+
+### NOT done in Phase 0 (deliberate)
+- Prerendering / sitemap.xml / ClaimReview JSON-LD — needs the domain decision.
+- Standard and Premium both allow 30 Q&A/month (TIER_LIMITS in signal_stripe.py)
+  and Standard's $7.99 overage exceeds the Premium plan price. Product decision,
+  not a bug — left alone.
+- Topic detail endpoints still fetch claims per-issue unbounded. Safe today
+  (largest topic 211 claims) but any topic past 1000 hits the same row cap.
+
+### Fred action items
+- Review and apply migration 070, then redeploy the backend on Render.
+- Redeploy the frontend (Vercel picks up the new build step automatically).
+- Verify: `curl -s https://signal.civicscale.ai/ | grep -o '<title>[^<]*'` and
+  `curl -s https://signal.civicscale.ai/robots.txt`.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

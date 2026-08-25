@@ -28,45 +28,156 @@ _topics_cache = {"data": None, "expires": 0}
 CACHE_TTL = 300  # 5 minutes
 
 
+# ---------------------------------------------------------------------------
+# Counting helpers
+#
+# Never count by selecting rows and len()-ing them. PostgREST caps the rows it
+# returns (Supabase default: 1000), so a plain .select().in_() silently returns
+# a truncated page once the corpus is large enough. Every count below is either
+# an exact HEAD count or comes from the signal_topic_counts view, both of which
+# are computed in Postgres and cannot be truncated.
+# ---------------------------------------------------------------------------
+
+
+def _approved_issues(sb):
+    """Issues that are visible on the public site.
+
+    Falls back to all issues when quality_review_status is not yet in
+    PostgREST's schema cache, matching the previous behaviour.
+    """
+    try:
+        res = (
+            sb.table("signal_issues")
+            .select("*")
+            .eq("quality_review_status", "approved")
+            .execute()
+        )
+        return res.data or []
+    except Exception:
+        res = sb.table("signal_issues").select("*").execute()
+        return res.data or []
+
+
+def _exact_count(sb, table, column=None, value=None):
+    """Exact row count, optionally filtered on one column.
+
+    Uses count="exact" with head=True so PostgREST returns the total in the
+    Content-Range header and no row payload at all.
+    """
+    try:
+        # select("*") rather than a named column: head=True returns no rows, and
+        # not every signal_ table has an "id" (signal_claim_composites is keyed
+        # on claim_id).
+        q = sb.table(table).select("*", count="exact", head=True)
+        if column is not None:
+            q = q.eq(column, value)
+        res = q.execute()
+        return res.count or 0
+    except Exception:
+        return 0
+
+
+def _topic_counts(sb, issue_ids):
+    """Return {issue_id: {claim_count, scored_count, source_count}}.
+
+    Prefers the signal_topic_counts view (migration 070). If the view is not
+    present yet, falls back to per-issue exact counts so the endpoint stays
+    correct on a backend deployed ahead of the migration. scored_count is only
+    available from the view — the fallback reports None for it.
+    """
+    if not issue_ids:
+        return {}
+
+    try:
+        res = (
+            sb.table("signal_topic_counts")
+            .select("issue_id, claim_count, scored_count, source_count")
+            .in_("issue_id", issue_ids)
+            .execute()
+        )
+        rows = res.data or []
+        if rows:
+            return {
+                row["issue_id"]: {
+                    "claim_count": row.get("claim_count") or 0,
+                    "scored_count": row.get("scored_count"),
+                    "source_count": row.get("source_count") or 0,
+                }
+                for row in rows
+            }
+    except Exception:
+        pass  # view not migrated yet — fall through
+
+    return {
+        iid: {
+            "claim_count": _exact_count(sb, "signal_claims", "issue_id", iid),
+            "scored_count": None,
+            "source_count": _exact_count(sb, "signal_sources", "issue_id", iid),
+        }
+        for iid in issue_ids
+    }
+
+
 @router.get("/metrics")
 async def get_metrics():
-    """Return live platform activity metrics."""
+    """Return live platform activity metrics.
+
+    Scoped to quality-approved topics so these numbers agree with the topic
+    list rendered directly beneath them on the landing page.
+    """
     now = time.time()
 
     if _cache["data"] and now < _cache["expires"]:
         return _cache["data"]
 
+    empty = {
+        "claims_scored": 0,
+        "claims_total": 0,
+        "topics_tracked": 0,
+        "sources_monitored": 0,
+        "updates_this_month": 0,
+    }
+
     sb = _get_sb()
     if not sb:
-        return {"claims_scored": 0, "topics_tracked": 0, "sources_monitored": 0, "updates_this_month": 0}
+        return empty
 
     try:
-        # Total scored claims (have a composite)
-        claims_res = sb.table("signal_claim_composites").select("claim_id", count="exact").execute()
-        claims_scored = claims_res.count or 0
+        issues = _approved_issues(sb)
+        issue_ids = [i["id"] for i in issues]
+        counts = _topic_counts(sb, issue_ids)
 
-        # Active topics (all issues with claims)
-        issues_res = sb.table("signal_issues").select("id", count="exact").execute()
-        topics_tracked = issues_res.count or 0
+        claims_total = sum(c["claim_count"] for c in counts.values())
+        sources_monitored = sum(c["source_count"] for c in counts.values())
 
-        # Total sources
-        sources_res = sb.table("signal_sources").select("id", count="exact").execute()
-        sources_monitored = sources_res.count or 0
+        scored_values = [c["scored_count"] for c in counts.values()]
+        if scored_values and all(v is not None for v in scored_values):
+            claims_scored = sum(scored_values)
+        else:
+            # View unavailable — fall back to the global composite count. This
+            # is an over-count if unapproved topics exist, but never truncated.
+            claims_scored = _exact_count(sb, "signal_claim_composites")
 
         # Evidence updates this month
         from datetime import datetime, timezone
-        month_start = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()
-        updates_res = (
-            sb.table("signal_evidence_updates")
-            .select("id", count="exact")
-            .gte("detected_at", month_start)
-            .execute()
-        )
-        updates_this_month = updates_res.count or 0
+        month_start = datetime.now(timezone.utc).replace(
+            day=1, hour=0, minute=0, second=0, microsecond=0
+        ).isoformat()
+        try:
+            updates_res = (
+                sb.table("signal_evidence_updates")
+                .select("id", count="exact", head=True)
+                .gte("detected_at", month_start)
+                .execute()
+            )
+            updates_this_month = updates_res.count or 0
+        except Exception:
+            updates_this_month = 0
 
         result = {
             "claims_scored": claims_scored,
-            "topics_tracked": topics_tracked,
+            "claims_total": claims_total,
+            "topics_tracked": len(issues),
             "sources_monitored": sources_monitored,
             "updates_this_month": updates_this_month,
         }
@@ -76,33 +187,22 @@ async def get_metrics():
 
         return result
 
-    except Exception:
-        return {"claims_scored": 0, "topics_tracked": 0, "sources_monitored": 0, "updates_this_month": 0}
+    except Exception as e:
+        print(f"[Signal Metrics ERROR] {e}")
+        return empty
 
 
 @router.get("/stats")
 async def get_stats():
     """Return total evidence claims and sources counts (public, no auth)."""
-    result = {"evidence_claims": 0, "evidence_sources": 0}
-
     sb = _get_sb()
     if not sb:
-        return result
+        return {"evidence_claims": 0, "evidence_sources": 0}
 
-    try:
-        claims_res = sb.table("signal_claims").select("id", count="exact").execute()
-        result["evidence_claims"] = claims_res.count or 0
-    except Exception as e:
-        print(f"[Signal Stats ERROR] claims query failed: {e}")
-
-    try:
-        sources_res = sb.table("signal_sources").select("id", count="exact").execute()
-        result["evidence_sources"] = sources_res.count or 0
-    except Exception as e:
-        print(f"[Signal Stats ERROR] sources query failed: {e}")
-
-
-    return result
+    return {
+        "evidence_claims": _exact_count(sb, "signal_claims"),
+        "evidence_sources": _exact_count(sb, "signal_sources"),
+    }
 
 
 @router.get("/topics")
@@ -118,20 +218,7 @@ async def get_topics():
         return JSONResponse(content=[])
 
     try:
-        # Fetch approved issues only (quality review gate)
-        # Try filtering by quality_review_status; fall back to all if column not yet visible
-        try:
-            issues_res = (
-                sb.table("signal_issues")
-                .select("*")
-                .eq("quality_review_status", "approved")
-                .execute()
-            )
-            issues = issues_res.data or []
-        except Exception:
-            # Column not in PostgREST cache yet — return all issues as fallback
-            issues_res = sb.table("signal_issues").select("*").execute()
-            issues = issues_res.data or []
+        issues = _approved_issues(sb)
 
         if not issues:
             _topics_cache["data"] = []
@@ -139,18 +226,7 @@ async def get_topics():
             return JSONResponse(content=[])
 
         issue_ids = [i["id"] for i in issues]
-
-        # Count claims per issue
-        claims_res = sb.table("signal_claims").select("id, issue_id").in_("issue_id", issue_ids).execute()
-        claim_counts = {}
-        for row in claims_res.data or []:
-            claim_counts[row["issue_id"]] = claim_counts.get(row["issue_id"], 0) + 1
-
-        # Count sources per issue
-        sources_res = sb.table("signal_sources").select("id, issue_id").in_("issue_id", issue_ids).execute()
-        source_counts = {}
-        for row in sources_res.data or []:
-            source_counts[row["issue_id"]] = source_counts.get(row["issue_id"], 0) + 1
+        counts = _topic_counts(sb, issue_ids)
 
         # Fetch latest summary per issue (order by version desc)
         summaries_res = (
@@ -181,13 +257,15 @@ async def get_topics():
                 categories = []
             overall_summary = summary_json.get("overall_summary", "") if isinstance(summary_json, dict) else ""
 
+            c = counts.get(iid, {})
             result.append({
                 "id": iid,
                 "slug": issue.get("slug", ""),
                 "title": issue.get("title", ""),
                 "description": issue.get("description", ""),
-                "claim_count": claim_counts.get(iid, 0),
-                "source_count": source_counts.get(iid, 0),
+                "claim_count": c.get("claim_count", 0),
+                "scored_count": c.get("scored_count"),
+                "source_count": c.get("source_count", 0),
                 "categories": categories,
                 "overall_summary": overall_summary,
             })
@@ -197,7 +275,8 @@ async def get_topics():
 
         return JSONResponse(content=result)
 
-    except Exception:
+    except Exception as e:
+        print(f"[Signal Topics ERROR] {e}")
         return JSONResponse(content=[])
 
 
@@ -212,18 +291,8 @@ async def get_review_topics():
         issues_res = sb.table("signal_issues").select("*").execute()
         issues = issues_res.data or []
 
-        # Get claim counts
         issue_ids = [i["id"] for i in issues]
-        claims_res = sb.table("signal_claims").select("id, issue_id").in_("issue_id", issue_ids).execute()
-        claim_counts = {}
-        for row in claims_res.data or []:
-            claim_counts[row["issue_id"]] = claim_counts.get(row["issue_id"], 0) + 1
-
-        # Get source counts
-        sources_res = sb.table("signal_sources").select("id, issue_id").in_("issue_id", issue_ids).execute()
-        source_counts = {}
-        for row in sources_res.data or []:
-            source_counts[row["issue_id"]] = source_counts.get(row["issue_id"], 0) + 1
+        counts = _topic_counts(sb, issue_ids)
 
         result = []
         for issue in issues:
@@ -237,8 +306,9 @@ async def get_review_topics():
                 "quality_review_status": issue.get("quality_review_status", "pending"),
                 "plain_summary": issue.get("plain_summary"),
                 "plain_summary_status": issue.get("plain_summary_status", "pending"),
-                "claim_count": claim_counts.get(iid, 0),
-                "source_count": source_counts.get(iid, 0),
+                "claim_count": counts.get(iid, {}).get("claim_count", 0),
+                "scored_count": counts.get(iid, {}).get("scored_count"),
+                "source_count": counts.get(iid, {}).get("source_count", 0),
                 "created_at": issue.get("created_at", ""),
             })
 
