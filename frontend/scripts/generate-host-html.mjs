@@ -21,6 +21,7 @@
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { execSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -36,6 +37,24 @@ if (!existsSync(indexPath)) {
 }
 
 const template = readFileSync(indexPath, "utf8");
+
+/**
+ * The commit this build came from, resolved exactly as vite.config.js does.
+ * Stamped into every generated page so the post-deploy smoke check can tell
+ * "this deploy has not landed yet" apart from "this deploy landed and is
+ * broken" — two situations that look identical from the outside and call for
+ * opposite responses (wait vs roll back).
+ */
+const BUILD_COMMIT = (() => {
+  if (process.env.VERCEL_GIT_COMMIT_SHA) {
+    return process.env.VERCEL_GIT_COMMIT_SHA.slice(0, 7);
+  }
+  try {
+    return execSync("git rev-parse --short HEAD", { encoding: "utf-8" }).trim();
+  } catch {
+    return "unknown";
+  }
+})();
 
 /** Escape a value for use inside a double-quoted HTML attribute. */
 function attr(value) {
@@ -60,6 +79,7 @@ function headFor({ title, description, url, index }) {
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${attr(title)}" />`,
     `<meta name="twitter:description" content="${attr(description)}" />`,
+    `<meta name="parity-build" content="${attr(BUILD_COMMIT)}" />`,
   ]
     .map((tag) => `    ${tag}`)
     .join("\n");
@@ -73,6 +93,7 @@ const STRIP = [
   /^[ \t]*<meta\s+name="twitter:[^"]*"[^>]*>[ \t]*\n/gm,
   /^[ \t]*<link\s+rel="canonical"[^>]*>[ \t]*\n/gm,
   /^[ \t]*<meta\s+name="robots"[^>]*>[ \t]*\n/gm,
+  /^[ \t]*<meta\s+name="parity-build"[^>]*>[ \t]*\n/gm,
 ];
 
 function render(meta) {
@@ -157,6 +178,16 @@ const lastConditional = rewrites.map((r) => Boolean(r.has)).lastIndexOf(true);
 if (firstCatchAll !== -1 && lastConditional > firstCatchAll) {
   errors.push(
     `a catch-all rewrite at index ${firstCatchAll} shadows host rules that follow it`
+  );
+}
+
+// 4. The root path is routed by middleware.js, not by vercel.json: Vercel
+//    checks the filesystem before rewrites, and `/` matches dist/index.html.
+//    Without the middleware every homepage silently serves the wrong product.
+if (!existsSync(join(here, "..", "middleware.js"))) {
+  errors.push(
+    "middleware.js is missing — the root path would fall through to index.html " +
+      "on every host and serve the wrong product's metadata"
   );
 }
 

@@ -1322,14 +1322,34 @@ benchmark rates" — including Signal's.
 - Topic detail endpoints still fetch claims per-issue unbounded. Safe today
   (largest topic 211 claims) but any topic past 1000 hits the same row cap.
 
+### Root-path routing runs through middleware, not vercel.json
+Vercel evaluates rewrites AFTER the filesystem check. `/` matches
+dist/index.html on disk, so host-conditional rewrites never fire for a
+homepage — every subdomain root served index.html's metadata regardless of
+host. Deep paths (/glp1-drugs, /pricing) have no matching file, so their
+rewrites fire and always worked.
+- frontend/middleware.js — Edge Middleware, `matcher: "/"`. Rewrites the root
+  path to /_hosts/{host}.html by Host header. Scoped to one path so the blast
+  radius is minimal. Unknown host or any thrown error returns undefined and
+  falls through to index.html, i.e. the pre-existing (cosmetically wrong but
+  working) behaviour. It must never 500 a homepage over a <title>.
+- Requires the @vercel/edge dependency.
+- The build guard fails if middleware.js is absent, since the root path silently
+  regresses without it.
+
 ### Deploy safety for host routing (added with this session)
 vercel.json rewrites are configuration: nothing type-checks them, and a
 destination pointing at a file that was never generated makes that entire
 product 404 with no error in the build log. Two guards now cover this:
 - generate-host-html.mjs verifies, at build time and in both directions, that
-  every /_hosts/* rewrite destination exists in dist/ and that every host in
-  HOST_MAP has both of its rewrites. A mismatch exits 1, so Vercel fails the
-  build and keeps the previous production deployment live.
+  every /_hosts/* rewrite destination exists in dist/, that every host in
+  HOST_MAP has both of its rewrites, that no catch-all shadows a host rule, and
+  that middleware.js exists. A mismatch exits 1, so Vercel fails the build and
+  keeps the previous production deployment live.
+- Every generated page carries <meta name="parity-build" content="{sha}">.
+  smoke-hosts.mjs reads it and compares against local HEAD, so it can tell
+  "deploy has not landed — DO NOT ROLL BACK" from "deploy is live and wrong —
+  roll back". Those look identical from outside and call for opposite actions.
 - scripts/smoke-hosts.mjs (`npm run smoke`, `npm run smoke -- --staging`) curls
   every host after deploy and asserts status, the product's own <title>,
   canonical, robots meta, and robots.txt. Exits non-zero so it can gate a

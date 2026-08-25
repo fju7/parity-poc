@@ -21,6 +21,8 @@
  * production deployment -> Promote to Production), or `vercel rollback`.
  */
 
+import { execSync } from "node:child_process";
+
 import { SITE_META, HOST_MAP } from "../src/lib/siteMeta.js";
 
 const includeStaging = process.argv.includes("--staging");
@@ -34,6 +36,21 @@ const hosts = Object.entries(HOST_MAP).filter(
 function titleOf(html) {
   const m = html.match(/<title>([\s\S]*?)<\/title>/i);
   return m ? m[1].trim() : null;
+}
+
+/** The parity-build stamp generate-host-html.mjs writes into every page. */
+function buildOf(html) {
+  const m = html.match(/<meta\s+name="parity-build"\s+content="([^"]*)"/i);
+  return m ? m[1] : null;
+}
+
+/** The commit this working copy is on — what we expect production to serve. */
+function localCommit() {
+  try {
+    return execSync("git rev-parse --short HEAD", { encoding: "utf-8" }).trim();
+  } catch {
+    return null;
+  }
 }
 
 function decode(s) {
@@ -62,6 +79,7 @@ async function get(url) {
 async function checkHost(hostname, { key, index }) {
   const expected = SITE_META[key];
   const failures = [];
+  let servedBuild = null;
 
   // 1. The document serves, and serves THIS product's title.
   try {
@@ -69,6 +87,7 @@ async function checkHost(hostname, { key, index }) {
     if (status !== 200) {
       failures.push(`GET / returned ${status}`);
     } else {
+      servedBuild = buildOf(body);
       const title = titleOf(body);
       if (!title) {
         failures.push("no <title> in the served HTML");
@@ -106,17 +125,22 @@ async function checkHost(hostname, { key, index }) {
     failures.push(`GET /robots.txt failed: ${err.message}`);
   }
 
-  return failures;
+  return { failures, servedBuild };
 }
 
-console.log(`Checking ${hosts.length} hosts...\n`);
+const expectedBuild = localCommit();
+console.log(
+  `Checking ${hosts.length} hosts` +
+    (expectedBuild ? ` against local HEAD ${expectedBuild}` : "") +
+    `...\n`
+);
 
 const results = await Promise.all(
   hosts.map(async ([hostname, cfg]) => [hostname, await checkHost(hostname, cfg)])
 );
 
 let failed = 0;
-for (const [hostname, failures] of results) {
+for (const [hostname, { failures }] of results) {
   if (failures.length === 0) {
     console.log(`  PASS  ${hostname}`);
   } else {
@@ -126,14 +150,47 @@ for (const [hostname, failures] of results) {
   }
 }
 
-if (failed > 0) {
+if (failed === 0) {
+  console.log(`\nAll ${hosts.length} hosts serving correctly.`);
+  process.exit(0);
+}
+
+// Is production even running the build we are checking against? A deploy that
+// has not landed yet and a deploy that landed broken look identical from out
+// here, and they call for opposite responses. The build stamp separates them,
+// so this script never again tells anyone to roll back a deployment that was
+// simply still building.
+const servedBuilds = new Set(
+  results.map(([, r]) => r.servedBuild).filter(Boolean)
+);
+const stale =
+  expectedBuild &&
+  servedBuilds.size > 0 &&
+  !servedBuilds.has(expectedBuild);
+const unstamped = servedBuilds.size === 0;
+
+console.error(`\n${failed} of ${hosts.length} hosts failed.`);
+
+if (unstamped || stale) {
+  const serving = unstamped
+    ? "a build with no parity-build stamp (predates this check)"
+    : [...servedBuilds].join(", ");
   console.error(
-    `\n${failed} of ${hosts.length} hosts failed.\n\n` +
-      `Roll back now, then diagnose:\n` +
+    `\nProduction is serving ${serving}, not ${expectedBuild || "your local HEAD"}.\n` +
+      `DO NOT ROLL BACK — the deploy has not landed. Either it is still\n` +
+      `building, or the build failed and Vercel kept the previous deployment.\n\n` +
+      `Check the Vercel dashboard:\n` +
+      `  · still building  -> wait, then re-run \`npm run smoke\`\n` +
+      `  · build failed    -> read the log; \`[host-html] FAILED\` means the\n` +
+      `                       routing guard stopped a broken build on purpose\n`
+  );
+} else {
+  console.error(
+    `\nProduction IS serving ${expectedBuild} — this deploy is live and wrong.\n\n` +
+      `Roll back, then diagnose:\n` +
       `  vercel rollback\n` +
       `or in the dashboard: Deployments -> previous production deploy -> Promote to Production.\n`
   );
-  process.exit(1);
 }
 
-console.log(`\nAll ${hosts.length} hosts serving correctly.`);
+process.exit(1);
