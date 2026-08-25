@@ -1470,6 +1470,15 @@ fixture carrying a deliberately uneven 4-for / 2-against split): the debate
 expands, the side summary reads "4 claims · mean 2.8", and 4 cited claims render
 with score chips. Build clean, eslint at pre-existing baseline.
 
+### NOTE for future sessions — NEVER run git writes over the Claude device bridge
+The bridge mount blocks unlink, so every git write (commit, reset, am, checkout)
+leaves .git/index.lock, .git/HEAD.lock and tmp_obj_* files it cannot clean up.
+The NEXT git command then dies with "Unable to create index.lock: File exists".
+Locks can be cleared with `mv` into .git/_stale/ but the cycle repeats.
+Rule: over the bridge, EDIT FILES ONLY. Run every git command from the Mac
+terminal. Leftovers from earlier sessions live in .git/_stale/ and are safe to
+delete from the Mac (`rm -rf .git/_stale`).
+
 ### NOTE for future sessions — build environment
 frontend/node_modules on this machine is macOS-arm64. The Claude device bridge
 runs a Linux VM over the same mount, so `vite build` there fails on
