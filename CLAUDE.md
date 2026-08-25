@@ -1322,6 +1322,25 @@ benchmark rates" — including Signal's.
 - Topic detail endpoints still fetch claims per-issue unbounded. Safe today
   (largest topic 211 claims) but any topic past 1000 hits the same row cap.
 
+### Deploy safety for host routing (added with this session)
+vercel.json rewrites are configuration: nothing type-checks them, and a
+destination pointing at a file that was never generated makes that entire
+product 404 with no error in the build log. Two guards now cover this:
+- generate-host-html.mjs verifies, at build time and in both directions, that
+  every /_hosts/* rewrite destination exists in dist/ and that every host in
+  HOST_MAP has both of its rewrites. A mismatch exits 1, so Vercel fails the
+  build and keeps the previous production deployment live.
+- scripts/smoke-hosts.mjs (`npm run smoke`, `npm run smoke -- --staging`) curls
+  every host after deploy and asserts status, the product's own <title>,
+  canonical, robots meta, and robots.txt. Exits non-zero so it can gate a
+  deploy step. Run it after ANY change to vercel.json, siteMeta.js, or
+  generate-host-html.mjs.
+
+Note: Vercel preview deployments cannot test host routing. A preview URL
+(parity-poc-git-*.vercel.app) matches no host condition in vercel.json, so
+every preview falls through to the catch-all. The build guard and the
+post-deploy smoke check are the real net here, not previews.
+
 ### Fred action items
 - Review and apply migration 070, then redeploy the backend on Render.
 - Redeploy the frontend (Vercel picks up the new build step automatically).

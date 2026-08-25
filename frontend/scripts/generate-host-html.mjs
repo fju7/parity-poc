@@ -109,3 +109,65 @@ console.log(
   `[host-html] wrote ${written.length} host entry points + robots to dist/_hosts\n` +
     written.map((h) => `           ${h}`).join("\n")
 );
+
+// ---------------------------------------------------------------------------
+// Invariant check: vercel.json and this script must agree.
+//
+// The rewrites are configuration. Nothing type-checks them, and the failure is
+// silent and total — a rewrite pointing at a file that was never generated
+// makes that entire product return 404, with no error anywhere in the build
+// log. Host-based routing is also the one thing a Vercel preview deployment
+// cannot exercise, because a preview URL matches none of the host rules.
+//
+// So the check runs here, at build time, in both directions. A mismatch fails
+// the build, Vercel keeps the previous deployment live, and the mistake never
+// reaches a hostname.
+// ---------------------------------------------------------------------------
+
+const vercelPath = join(here, "..", "vercel.json");
+const { rewrites = [] } = JSON.parse(readFileSync(vercelPath, "utf8"));
+
+const errors = [];
+
+// 1. Every /_hosts/* destination a rewrite points at must exist on disk.
+const referenced = new Set();
+for (const { source, has, destination } of rewrites) {
+  if (!destination.startsWith("/_hosts/")) continue;
+  referenced.add(destination);
+  if (!existsSync(join(dist, destination.replace(/^\//, "")))) {
+    const host = has?.[0]?.value ?? "(no host condition)";
+    errors.push(`rewrite ${host} ${source} -> ${destination} — file was not generated`);
+  }
+}
+
+// 2. Every host in HOST_MAP must have both rewrites, or it silently falls
+//    through to the catch-all and serves the wrong product's metadata.
+for (const hostname of Object.keys(HOST_MAP)) {
+  const slug = hostname.replace(/\./g, "_");
+  for (const dest of [`/_hosts/${slug}.html`, `/_hosts/robots-${slug}.txt`]) {
+    if (!referenced.has(dest)) {
+      errors.push(`host ${hostname} has no vercel.json rewrite to ${dest}`);
+    }
+  }
+}
+
+// 3. Host-conditional rewrites must precede the unconditional catch-alls.
+const firstCatchAll = rewrites.findIndex((r) => !r.has);
+const lastConditional = rewrites.map((r) => Boolean(r.has)).lastIndexOf(true);
+if (firstCatchAll !== -1 && lastConditional > firstCatchAll) {
+  errors.push(
+    `a catch-all rewrite at index ${firstCatchAll} shadows host rules that follow it`
+  );
+}
+
+if (errors.length) {
+  console.error(
+    `\n[host-html] FAILED — vercel.json and siteMeta.js disagree:\n` +
+      errors.map((e) => `  · ${e}`).join("\n") +
+      `\n\nFix vercel.json or src/lib/siteMeta.js so they match. ` +
+      `Refusing to produce a build that would 404 a live hostname.\n`
+  );
+  process.exit(1);
+}
+
+console.log(`[host-html] verified ${referenced.size} rewrite destinations against dist/`);
