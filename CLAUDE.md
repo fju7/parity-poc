@@ -1944,6 +1944,99 @@ depression_anxiety added, interventions re-baselined debated -> consensus after
 reading the claims (all 20 report interventions working, with variation in
 size and delivery; no claim says one failed).
 
+## Session ENG-0b — engine design, second category (26 Aug 2026)
+Design: https://claude.ai/code/artifact/7ea172a7-daa9-4f0f-969e-4b4bf4035356
+Still nothing built. Migration 074 NOT written.
+
+### The question Step 0b asked
+94% per-claim agreement was measured on ONE category — social-media /
+depression_anxiety, the most contested evidence in the corpus. Does it hold on
+a category with nothing to dispute?
+
+### Answer: yes. glp1-drugs / pricing, 44 claims, 95% agreement (42/44).
+Per-claim classification is stable regardless of whether the evidence disputes
+anything. The design's core assumption is no longer resting on one sample.
+
+### THE FINDING THAT MATTERS MOST
+Proposition 3 of the pricing set — "insurance coverage status is the primary
+determinant of a patient's out-of-pocket cost" — came back 38% OPPOSING on 16
+bearing claims. That is a live dispute INSIDE a category the current system
+labels `consensus`.
+
+Earlier the same day we established GLP-1 pricing was mislabelled `debated` and
+should be `consensus`. BOTH labels were wrong. The category contains undisputed
+facts about price levels AND a contested question about what drives patient
+cost. One verdict per category cannot express that. The mosaic found it without
+being told to look, in the category that started the whole investigation.
+
+### A single proposition can be well-formed and still cover 16%
+The first pricing proposition — "US list price of semaglutide exceeds Western
+Europe" — is crisp, specific and falsifiable. It covered 16% of the category.
+The other 84% is Part D spending, Medicaid coverage, biosimilar timelines,
+prior authorisation, IRA mechanics, LillyDirect. All pricing; none about
+cross-country comparison. COVERAGE IS A PROPERTY OF THE SET, NOT OF ANY
+PROPOSITION. A good question can cover 16% and be blameless.
+
+### 0% opposing was the CORRECT answer here
+The proposition is crisply falsifiable — a claim showing US prices lower would
+oppose it. There isn't one, because it is true and undisputed. So a low opposing
+share means one of two things and the metric CANNOT tell them apart:
+  (a) the question is hedged into near-unfalsifiability  -> fix the question
+  (b) the evidence genuinely is one-sided                -> correct, publish it
+Reading the proposition settles it in ten seconds. The guard needs a HUMAN CHECK
+attached, not a threshold.
+
+### THE SET MUST BE GENERATED FROM THE CLAIMS
+Biggest single fix of the run. `set_prompt` originally received the topic
+description and category name but NOT the claims — it wrote questions about what
+a category with that name might plausibly contain.
+
+    pricing coverage, set written blind      : 45%
+    pricing coverage, set written from claims: 80%
+
+Both runs, same category, same model. Grounding was the entire difference.
+Depression_anxiety scored 79% because its topic description happens to describe
+its literature well; pricing exposed the flaw.
+
+TENSION TO PRESERVE: generating from the claims risks fitting questions to
+whatever evidence happens to exist, which would permanently bake in a missing
+side — exactly GLP-1 pricing's problem. The prompt therefore ALSO asks what a
+serious treatment of the subject requires, and instructs that a proposition be
+phrased so contrary evidence WOULD oppose it if it existed.
+
+### ~80% looks like a real ceiling
+Two categories with nothing in common — 47 claims of contested psychology, 44
+claims of drug pricing — both land at 79-80%. The uncovered remainder splits
+two ways every time: claims suggesting a further proposition, and claims that
+are correctly background. Reading the list is the only way to tell, and it
+takes about a minute.
+
+### THIN PROPOSITIONS ARE EVIDENCE GAPS, NOT DELETIONS
+A question that matters with almost no evidence behind it is a finding, not a
+scoping error: "this matters and we cannot yet assess it" is the concrete form
+of what would raise confidence. step0_mosaic now separates them via an
+`evidence_expected` field.
+
+NOT YET WORKING: proposition 6 (no biosimilar competition before 2028) has one
+bearing claim and is a textbook gap — the generator did not mark it. The gap
+feature is currently UNPROVEN and needs prompt tuning before it is relied on.
+
+### The reframe pass has a systematic bias toward compound revisions
+Observed 3 of 3 times (depression_anxiety twice, pricing once): asked what
+distinction the proposition misses, it produces a LONGER proposition joining two
+claims with "and"/"though" rather than two separate ones. The `splits_into`
+output was correct every time. `reframe_prompt` now forbids compounds, states
+that null-plus-a-split is the EXPECTED answer, and cites the measured evidence
+for why. A conjunction detector prints a CHECK hint — deliberately a hint, since
+a keyword scan cannot tell "depression and anxiety symptoms" (one claim) from
+"X is true and Y is stronger" (two).
+
+### Still to run
+`mmr-vaccine-autism / large_scale_epidemiological_evidence` — the anti-false-
+balance test. Settled science, loud public dispute. The engine should report
+near-zero opposing evidence and NOT manufacture a debate to fill the shape. If
+it invents opposition there, that is disqualifying on its own.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

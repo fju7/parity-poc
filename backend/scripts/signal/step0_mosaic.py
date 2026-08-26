@@ -81,19 +81,34 @@ Do NOT hedge to make a proposition easier to support. "Effects vary by context"
 absorbs all evidence and is worth nothing. A proposition that nothing could
 contradict does not belong in the set.
 
-Cover the real structure of the subject. For a health question that typically
-includes, where the evidence supports asking them: whether an association
-exists; whether it is causal; whether population-level trends track exposure;
-whether effects differ by subgroup; whether specific mechanisms operate;
-whether interventions change outcomes.
+THE CLAIMS ARE BELOW. READ THEM FIRST. Your set must ask about what this
+evidence actually addresses, not what a category with this name might plausibly
+contain. Measured: a set written without seeing the claims covered 45% of a
+pricing category, missing entire facets the evidence spoke to at length —
+public spending growth, supply and access, market competition, policy cost
+projections — because every proposition it wrote was about what one patient pays.
+
+Work through the claims and ask: what distinct questions are these claims
+answering? Group them. One proposition per group.
+
+Then, separately, ask what a serious treatment of this subject REQUIRES asking,
+even where this evidence is thin. Include those too and mark them — a question
+that matters with little evidence behind it is a GAP worth publishing, not an
+omission. Set "evidence_expected" to "thin" for those.
+
+Do NOT fit questions to the evidence so tightly that a missing side disappears.
+If the claims all point one way, the proposition should still be phrased so that
+contrary evidence WOULD oppose it if it existed.
 
 Order them so that logically prior questions come first — an association claim
 before the causal claim that depends on it.
 
 Return JSON only:
 {{"propositions": [
-   {{"statement": "...", "why_it_matters": "one line", "depends_on": null }},
-   {{"statement": "...", "why_it_matters": "one line", "depends_on": 0 }}
+   {{"statement": "...", "why_it_matters": "one line", "depends_on": null,
+     "evidence_expected": "adequate" }},
+   {{"statement": "...", "why_it_matters": "one line", "depends_on": 0,
+     "evidence_expected": "thin" }}
  ]}}"""
 
 
@@ -122,9 +137,11 @@ def main() -> int:
     warn_if_unpinned(MODEL)
     print("READ-ONLY — nothing is written to the database.\n")
 
-    print("Writing the proposition set...", end=" ", flush=True)
+    print("Writing the proposition set from the claims...", end=" ", flush=True)
+    claim_list = "\n".join(f"- {c['claim_text']}" for c in claims)
     out = mc._call_claude(set_prompt(topic, args.category, args.max_propositions),
-                          "Write the set.", max_tokens=2048)
+                          f"Claims in this category ({len(claims)}):\n\n{claim_list}",
+                          max_tokens=3072)
     props = (out or {}).get("propositions") if isinstance(out, dict) else None
     if not props:
         return print("FAILED — no set generated.") or 1
@@ -171,13 +188,26 @@ def main() -> int:
         print(f"Single-proposition baseline          : {args.baseline:.0%}  "
               f"({'+' if delta >= 0 else ''}{delta:.0%})")
 
-    thin = [r for r in results if not r["assessable"]]
+    # A thin proposition is not automatically a mistake. If the set flagged it as
+    # an expected gap, it is a question that matters which this corpus cannot
+    # answer — which is worth publishing, and is the concrete form of "what would
+    # raise our confidence". Only an UNEXPECTED thin one is a scoping error.
+    thin = [r for r in results if not r["assessable"]
+            and r.get("evidence_expected") != "thin"]
+    gaps = [r for r in results if not r["assessable"]
+            and r.get("evidence_expected") == "thin"]
     weak = [r for r in results if r["assessable"] and r["analysis"]["opposing_share"] < 0.10]
     print(f"\nPropositions that can be assessed    : {len(results) - len(thin)} of {len(results)}")
     if thin:
-        print("  too thin to assess (drop or merge):")
+        print("  too thin, and NOT flagged as expected — a scoping error:")
         for r in thin:
             print(f"    {r['index']}. {r['statement'][:88]}")
+    if gaps:
+        print(f"  EVIDENCE GAPS ({len(gaps)}) — questions that matter, evidence we lack:")
+        for r in gaps:
+            n_bear = len(r["bearing_ids"])
+            print(f"    {r['index']}. ({n_bear} bearing) {r['statement'][:80]}")
+        print("    These are publishable as-is: 'this matters and we cannot yet assess it'.")
     if weak:
         print("  hard to contradict — check they are not hedged:")
         for r in weak:
@@ -213,6 +243,7 @@ def main() -> int:
         "propositions": [{
             "index": r["index"], "statement": r["statement"],
             "why_it_matters": r.get("why_it_matters"), "depends_on": r.get("depends_on"),
+            "evidence_expected": r.get("evidence_expected"),
             "assessable": r["assessable"],
             "distribution": r["analysis"]["distribution"],
             "opposing_share": r["analysis"]["opposing_share"],

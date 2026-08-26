@@ -126,11 +126,30 @@ the exposure undefined; bundling two questions into one.
 If the residue has no common structure and is just miscellaneous, say so — do
 not invent a pattern.
 
+HOW TO RESPOND WHEN A DISTINCTION IS MISSING — this matters, and every attempt
+so far has got it wrong. A missing distinction almost always means there are TWO
+questions, not one badly-worded question. Do NOT resolve it by writing a longer
+proposition.
+
+- revised_proposition must be SINGULAR. One claim. NEVER two joined by "and",
+  "though", "while", "with", or a subordinate clause carrying a second claim.
+  Measured: compound revisions classify WORSE than the original.
+- Do NOT broaden. Adding "varies by context" or "effects differ by subgroup"
+  absorbs every claim and asks nothing. Measured: one such revision cut unclear
+  from 15% to 6% while cutting the share of evidence able to CONTRADICT it from
+  26% to 15%. It looked like an improvement and was the worst question tried.
+- If the distinction calls for two questions — which it usually does — set
+  revised_proposition to null and put both in splits_into. That is the expected
+  answer, not a fallback.
+- Only supply revised_proposition when a single word or phrase is genuinely
+  wrong ("causes" where the evidence supports "is associated with") and fixing
+  it needs no second clause.
+
 Return JSON only:
 {{"diagnosis": "2-3 sentences on what the residue has in common, or that it has no common structure",
   "missing_distinction": "the distinction the proposition fails to make, or null",
-  "revised_proposition": "a better single proposition, or null if no revision is warranted",
-  "splits_into": ["if the question is really two questions, state them", "..."] }}"""
+  "revised_proposition": "a SINGULAR replacement, or null — null is the usual answer",
+  "splits_into": ["each a singular, falsifiable proposition", "..."] }}"""
 
 
 # ---------------------------------------------------------------------------
@@ -294,11 +313,29 @@ def main() -> int:
         revision = mc._call_claude(reframe_prompt(proposition), body)
         print("done")
         if isinstance(revision, dict):
+            rp = revision.get("revised_proposition") or ""
+            # Compound revisions have been the failure mode on every run so far,
+            # so flag conjunctions that USUALLY introduce a second claim. This is
+            # a HINT, not a verdict: a keyword scan cannot tell "depression and
+            # anxiety symptoms" (one claim, two outcomes) from "X is true and Y
+            # is stronger" (two claims). " with " is excluded outright — it is
+            # almost always "associated with" or "compared with". A human reads
+            # the sentence; this just makes sure they look.
+            joins = [w for w in (" though ", " while ", " whereas ", " although ")
+                     if w in f" {rp.lower()} "]
+            if rp and joins:
+                revision["_compound_hint"] = joins
             print(f"\n  DIAGNOSIS\n    {revision.get('diagnosis', '(none)')}")
             if revision.get("missing_distinction"):
                 print(f"\n  MISSING DISTINCTION\n    {revision['missing_distinction']}")
             if revision.get("revised_proposition"):
                 print(f"\n  SUGGESTED REVISION\n    {revision['revised_proposition']}")
+                if revision.get("_compound_hint"):
+                    joined = ", ".join(w.strip() for w in revision["_compound_hint"])
+                    print(f"    [CHECK] contains \"{joined}\" — read it: is that one claim or two?")
+                    print("            Compounds classify worse than either half. Prefer a split.")
+                elif revision.get("splits_into"):
+                    print("    [CHECK] a split was also offered below — compare them before choosing.")
             for s in revision.get("splits_into") or []:
                 print(f"\n  SPLITS INTO\n    - {s}")
 
