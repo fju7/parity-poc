@@ -1,0 +1,396 @@
+{
+  "_comment": "Golden set for Signal consensus mapping. Each entry is what the model ACTUALLY produced on 2026-08-25, not what was published \u2014 several published labels were stale (see migration 073). Regenerate deliberately with scripts/signal/golden_set.py --record, never to make a failing test pass.",
+  "recorded_at": "2026-08-25",
+  "model": "claude-sonnet-4-6",
+  "prompt_version": null,
+  "categories": [
+    {
+      "slug": "breast-cancer-therapies",
+      "category": "emerging_therapies",
+      "claims": 26,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "breast-cancer-therapies",
+      "category": "guidelines",
+      "claims": 46,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "breast-cancer-therapies",
+      "category": "side_effects",
+      "claims": 14,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "breast-cancer-therapies",
+      "category": "survival_outcomes",
+      "claims": 41,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "breast-cancer-therapies",
+      "category": "treatment_efficacy",
+      "claims": 42,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "breast-cancer-therapies",
+      "category": "treatment_selection",
+      "claims": 38,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "car-t-cell-therapy",
+      "category": "access_and_economics",
+      "claims": 19,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "car-t-cell-therapy",
+      "category": "long_term_outcomes",
+      "claims": 23,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "car-t-cell-therapy",
+      "category": "regulatory_and_approval",
+      "claims": 15,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "car-t-cell-therapy",
+      "category": "safety_and_toxicity",
+      "claims": 44,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "car-t-cell-therapy",
+      "category": "treatment_efficacy",
+      "claims": 48,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "crispr-gene-therapy",
+      "category": "clinical_efficacy",
+      "claims": 47,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "crispr-gene-therapy",
+      "category": "comparative_effectiveness",
+      "claims": 7,
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        4,
+        2
+      ]
+    },
+    {
+      "slug": "crispr-gene-therapy",
+      "category": "emerging_applications",
+      "claims": 11,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "crispr-gene-therapy",
+      "category": "long_term_outcomes",
+      "claims": 21,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "crispr-gene-therapy",
+      "category": "regulatory_status",
+      "claims": 27,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "crispr-gene-therapy",
+      "category": "safety_profile",
+      "claims": 23,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
+      "category": "clinical_guidelines_and_recommendations",
+      "claims": 26,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
+      "category": "dietary_patterns_and_overall_risk",
+      "claims": 19,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
+      "category": "foods_and_substances_to_limit",
+      "claims": 27,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
+      "category": "mechanisms_and_biomarkers",
+      "claims": 14,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
+      "category": "protective_foods_and_nutrients",
+      "claims": 23,
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        7,
+        4
+      ]
+    },
+    {
+      "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
+      "category": "recurrence_and_survival_outcomes",
+      "claims": 26,
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        8,
+        5
+      ]
+    },
+    {
+      "slug": "glp1-drugs",
+      "category": "cardiovascular",
+      "claims": 14,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "glp1-drugs",
+      "category": "efficacy",
+      "claims": 41,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "glp1-drugs",
+      "category": "emerging",
+      "claims": 11,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "glp1-drugs",
+      "category": "pricing",
+      "claims": 44,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "glp1-drugs",
+      "category": "regulatory",
+      "claims": 33,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "glp1-drugs",
+      "category": "safety",
+      "claims": 10,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "health-impacts-of-climate-change",
+      "category": "air_quality_respiratory",
+      "claims": 9,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "health-impacts-of-climate-change",
+      "category": "extreme_weather_injury",
+      "claims": 6,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "health-impacts-of-climate-change",
+      "category": "food_water_security",
+      "claims": 26,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "health-impacts-of-climate-change",
+      "category": "heat_mortality_morbidity",
+      "claims": 49,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "health-impacts-of-climate-change",
+      "category": "mental_health_displacement",
+      "claims": 7,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "health-impacts-of-climate-change",
+      "category": "vector_borne_disease",
+      "claims": 22,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mmr-vaccine-autism",
+      "category": "biological_mechanisms",
+      "claims": 8,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mmr-vaccine-autism",
+      "category": "institutional_regulatory_response",
+      "claims": 19,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mmr-vaccine-autism",
+      "category": "large_scale_epidemiological_evidence",
+      "claims": 85,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mmr-vaccine-autism",
+      "category": "original_wakefield_research",
+      "claims": 3,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mmr-vaccine-autism",
+      "category": "public_health_impact",
+      "claims": 3,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mmr-vaccine-autism",
+      "category": "retraction_and_fraud_investigation",
+      "claims": 10,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mrna-vaccine-myocarditis",
+      "category": "biological_mechanism",
+      "claims": 6,
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        5,
+        1
+      ]
+    },
+    {
+      "slug": "mrna-vaccine-myocarditis",
+      "category": "clinical_outcomes_and_severity",
+      "claims": 27,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mrna-vaccine-myocarditis",
+      "category": "demographic_risk_factors",
+      "claims": 14,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mrna-vaccine-myocarditis",
+      "category": "incidence_and_epidemiology",
+      "claims": 42,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mrna-vaccine-myocarditis",
+      "category": "regulatory_response",
+      "claims": 30,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "mrna-vaccine-myocarditis",
+      "category": "risk_benefit_analysis",
+      "claims": 11,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    },
+    {
+      "slug": "social-media-teen-mental-health",
+      "category": "interventions",
+      "claims": 25,
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        7,
+        3
+      ]
+    },
+    {
+      "slug": "social-media-teen-mental-health",
+      "category": "mechanisms",
+      "claims": 30,
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        8,
+        3
+      ]
+    },
+    {
+      "slug": "social-media-teen-mental-health",
+      "category": "methodology",
+      "claims": 43,
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        10,
+        4
+      ]
+    },
+    {
+      "slug": "social-media-teen-mental-health",
+      "category": "platform_design",
+      "claims": 17,
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        6,
+        8
+      ]
+    },
+    {
+      "slug": "social-media-teen-mental-health",
+      "category": "policy_regulation",
+      "claims": 49,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
+    }
+  ]
+}

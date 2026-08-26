@@ -1269,7 +1269,9 @@ show postgres and service_role only — anon and authenticated absent.
   the code (save_snapshot only INSERTs), not by the grant. A follow-up
   `REVOKE UPDATE, TRUNCATE ON signal_pipeline_snapshots FROM service_role;`
   would make it a database guarantee.
-Next migration number: 073
+Migration 073 (signal_consensus provenance: model_id, prompt_version) AUTHORED
+and staged — NOT applied. Awaiting Tier-1 review per the migration policy above.
+Next migration number: 074
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
 Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
@@ -1557,12 +1559,28 @@ against a two-revision stub: panel renders, revisions group newest-first, the
 ("score change (3.4 → 2.9) — moderate → mixed: ...") and collapses back.
 eslint is back at the pre-existing baseline of 5 errors; `npm run build` clean.
 
-### The changelog stays EMPTY until both of these happen
-1. Migration 072 is reviewed and applied.
-2. `detect_changes.py` runs at least TWICE — once to write a baseline, once to
-   detect against it. There is no history to backfill; the first run after 072
-   establishes the zero point. This is the honest behaviour: the page will say
-   there are no recorded revisions rather than invent any.
+### Baseline established 2026-08-25 — the changelog is now live
+Migration 072 applied and verified. `detect_changes.py` run once for each of the
+NINE approved topics; `signal_pipeline_snapshots` holds exactly one row per
+topic, captured 2026-08-25 22:28 UTC. That is the zero point.
+
+The changelog reads empty until the content pipeline next moves a score, which
+is correct — there is no history to backfill and the page says there are no
+recorded revisions rather than inventing any. From here it is self-maintaining:
+every run compares against the newest snapshot and appends both the changes it
+found and a fresh snapshot.
+
+The two PENDING topics (cgm-non-diabetic-populations,
+diet-and-cancer-risk-recurrence) were deliberately NOT baselined. Baselining a
+half-built topic would make the rest of its construction show up later as a wall
+of "new claim" revisions — build noise presented to readers as evidence
+movement. Publish first, baseline second; the first run after publication
+becomes that topic's zero point automatically.
+
+Cross-check at baseline: the nine runs' claim counts sum to 1368 and their
+composite counts to 1353 — exactly the corrected claims_total and claims_scored
+from P0.1, derived independently by the pipeline. The row-cap fix is confirmed
+from both directions.
 
 ### Still open in Part A
 A3 (crux as a field), A5 (un-gate one analytical path), A6 (empirical vs values
@@ -1625,6 +1643,88 @@ rebuilt config equals what `register_topic` would have written** (the test that
 justifies the whole approach); lookups are memoised; known-absent slugs are not
 re-queried; the claims fallback pages past row 1000; and a missing, broken, or
 credential-less database degrades to `KeyError` rather than crashing.
+
+## Session A7c-Signal — Engine Stability (Complete, 073 pending review)
+Triggered by a real failure: re-running map_consensus on GLP-1 flattened all six
+categories to "consensus", losing a published "debated" and a published
+"uncertain".
+
+### What it was NOT
+I blamed the A2/A4 prompt edit, "fixed" it, and was wrong. A controlled test
+(`scripts/signal/diagnose_consensus_prompt.py`, read-only) ran ONE category
+against three prompt variants — pre-A2/A4, first A2/A4, corrected — over the
+same claims and model. All three returned "consensus". The prompt was exonerated.
+
+The cause is that `claude-sonnet-4-6` is an ALIAS. The consensus rows were
+written in March 2026; the snapshot behind the alias changed since. Temperature
+is already 0, so this is not sampling noise — it is a different model.
+
+### What it actually was, measured
+`scripts/signal/stability_sweep.py` (read-only, ~52 calls) re-ran every category
+of all nine approved topics and compared to the published label:
+- 47 of 52 agree (90%). 5 drifted.
+- 3 of the 5 involve "uncertain" — the least well-defined status.
+- 1 (glp1 pricing, debated -> consensus) is a CORRECTION: reading all 44 claims
+  shows they are undisputed facts about price, spend and coverage, with no
+  opposing position. "debated" was wrong for five months.
+- Debates gained 3, lost 1 — the current model finds MORE disagreement, not less.
+- All 8 currently-debated categories carry side attribution; ZERO cite a debate
+  they cannot evidence. That validates A2/A4 end to end.
+
+Verdict: the architecture is sound. No rebuild. Fix provenance, pinning,
+detection, and the one ambiguous definition.
+
+### Changes
+- `scripts/signal/signal_model.py` (new) — single source of truth for the model.
+  `MODEL` reads env `SIGNAL_MODEL`, defaulting to the alias; `is_pinned()` /
+  `warn_if_unpinned()` detect and report an unpinned alias at run start;
+  `prompt_version()` is a 12-char sha256 of a system prompt.
+  All six pipeline scripts (classify_claims, extract_claims,
+  generate_notifications, generate_summary, map_consensus, score_claims) now
+  import it instead of hardcoding the alias — pinning is one change, not six.
+- `map_consensus._call_claude` — retries a non-JSON response (JSON_RETRIES=2)
+  as well as a 529. The sweep lost 1 call in 52 to a prose answer. Also records
+  `LAST_RESOLVED_MODEL` from `response.model`, so provenance is the model the
+  API actually used, correct even on an unpinned alias.
+- Consensus status definitions rewritten as an ORDERED decision procedure.
+  The old text let "too conflicting" sit inside `uncertain`, overlapping
+  `debated` — which is where 3 of 5 drifts landed. Now: conflicting evidence is
+  ALWAYS debated; uncertain means the evidence is THIN, not that it disagrees;
+  a category of undisputed facts is consensus.
+- `map_consensus` --force is no longer destructive-first. It maps every category
+  into memory and only clears + inserts if ALL succeed; a failure aborts with
+  existing rows untouched. It also prints status flips before writing and calls
+  out debates about to be lost. (Written before the diagnosis was complete, and
+  it stands on its own — the JSON failure above would have left a topic with 5
+  of 6 rows under the old order.)
+- Migration 073 — `model_id` + `prompt_version` on signal_consensus, nullable,
+  with an index. NULL correctly means "provenance unknown", which is the honest
+  record for every row written before today. AUTHORED, NOT APPLIED.
+
+### Golden set
+`backend/tests/fixtures/signal_consensus_golden.json` — all 52 categories with
+the status the model ACTUALLY produced on 2026-08-25 (not the published label,
+several of which were stale). `scripts/signal/golden_set.py` re-measures and
+exits 1 on drift; `--record` re-baselines deliberately; `--slug` scopes to one
+topic. Side-count moves within SIDE_COUNT_TOLERANCE=3 are warnings, a side
+collapsing to zero is a failure. A drift is NOT automatically a regression —
+3 of the 5 found were the model improving — so it fails loudly for a human to
+judge rather than auto-correcting.
+
+### Known-stale published labels (not yet corrected on the site)
+glp1-drugs/pricing (debated, should be consensus), glp1-drugs/emerging,
+crispr-gene-therapy/comparative_effectiveness,
+diet-and-breast-cancer.../protective_foods_and_nutrients,
+mrna-vaccine-myocarditis/biological_mechanism. A re-map corrects all five and
+raises debated categories from 7 to 9 across 4 topics instead of 2.
+
+### Fred action items
+- Review and apply migration 073.
+- Pin the model: `python -c "import anthropic; [print(m.id) for m in
+  anthropic.Anthropic().models.list()]"`, then set SIGNAL_MODEL to the dated id
+  locally and in Render.
+- Re-run golden_set.py after pinning to measure what the tightened `uncertain`
+  definition moved.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

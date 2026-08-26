@@ -34,9 +34,11 @@ from pathlib import Path
 # Add backend/ to sys.path so we can import supabase_client
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+from signal_model import MODEL as SIGNAL_MODEL
 from topic_config import get_topic
 
-GENERATION_MODEL = "claude-sonnet-4-6"
+# Configured in signal_model so pinning is one change, not six.
+GENERATION_MODEL = SIGNAL_MODEL
 BACKOFF_DELAYS = [2, 5, 10]
 TOP_CLAIMS_PER_CATEGORY = 5
 

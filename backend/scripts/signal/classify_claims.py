@@ -40,11 +40,13 @@ from pathlib import Path
 # Add backend/ to sys.path so we can import supabase_client
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+from signal_model import MODEL as SIGNAL_MODEL
 from topic_config import get_topic
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
 
-CLASSIFICATION_MODEL = "claude-sonnet-4-6"
+# Configured in signal_model so pinning is one change, not six.
+CLASSIFICATION_MODEL = SIGNAL_MODEL
 BACKOFF_DELAYS = [2, 5, 10]
 DEFAULT_BATCH_SIZE = 15
 

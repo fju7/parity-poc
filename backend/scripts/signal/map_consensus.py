@@ -34,9 +34,11 @@ from pathlib import Path
 # Add backend/ to sys.path so we can import supabase_client
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+from signal_model import MODEL as SIGNAL_MODEL, prompt_version, warn_if_unpinned
 from topic_config import get_topic
 
-SCORING_MODEL = "claude-sonnet-4-6"
+# Configured in signal_model so pinning is one change, not six.
+SCORING_MODEL = SIGNAL_MODEL
 BACKOFF_DELAYS = [2, 5, 10]
 
 
@@ -61,50 +63,75 @@ def _get_anthropic_client():
     return _anthropic_client
 
 
-def _call_claude(system_prompt: str, user_content: str, max_tokens: int = 4096) -> dict | list | None:
-    """Call Claude API with retry on 529, return parsed JSON."""
-    client = _get_anthropic_client()
-    response = None
+# The model string the API actually used on the most recent call. Read off the
+# response rather than assumed from SCORING_MODEL, so the recorded provenance
+# is correct even when the configured value is an unpinned alias.
+LAST_RESOLVED_MODEL: str | None = None
 
-    for attempt in range(len(BACKOFF_DELAYS) + 1):
-        try:
-            response = client.messages.create(
-                model=SCORING_MODEL,
-                max_tokens=max_tokens,
-                temperature=0,
-                system=system_prompt,
-                messages=[{"role": "user", "content": user_content}],
-            )
-            break
-        except Exception as exc:
-            err_str = str(exc)
-            if "529" in err_str and attempt < len(BACKOFF_DELAYS):
-                delay = BACKOFF_DELAYS[attempt]
-                print(f"  [RETRY] Claude overloaded (529), attempt {attempt + 1}/{len(BACKOFF_DELAYS)} in {delay}s...")
-                time.sleep(delay)
-                continue
-            print(f"  [ERROR] Claude API error: {exc}")
+# A malformed response is not a permanent failure. In a 52-category sweep the
+# model once answered with its reasoning instead of JSON; that call was simply
+# lost. Retrying costs one call and recovers it.
+JSON_RETRIES = 2
+
+
+def _extract_text(response) -> str:
+    """Concatenate the text blocks of a response and strip any code fence."""
+    raw = "".join(b.text for b in response.content if hasattr(b, "text")).strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"^```(?:json)?\s*", "", raw)
+        raw = re.sub(r"\s*```\s*$", "", raw)
+    return raw.strip()
+
+
+def _call_claude(system_prompt: str, user_content: str, max_tokens: int = 4096) -> dict | list | None:
+    """Call Claude and return parsed JSON.
+
+    Retries on 529 (overloaded) and, separately, on a response that is not
+    valid JSON. Records the resolved model in LAST_RESOLVED_MODEL.
+    """
+    global LAST_RESOLVED_MODEL
+    client = _get_anthropic_client()
+
+    for json_attempt in range(JSON_RETRIES + 1):
+        response = None
+
+        for attempt in range(len(BACKOFF_DELAYS) + 1):
+            try:
+                response = client.messages.create(
+                    model=SCORING_MODEL,
+                    max_tokens=max_tokens,
+                    temperature=0,
+                    system=system_prompt,
+                    messages=[{"role": "user", "content": user_content}],
+                )
+                break
+            except Exception as exc:
+                err_str = str(exc)
+                if "529" in err_str and attempt < len(BACKOFF_DELAYS):
+                    delay = BACKOFF_DELAYS[attempt]
+                    print(f"  [RETRY] Claude overloaded (529), attempt {attempt + 1}/{len(BACKOFF_DELAYS)} in {delay}s...")
+                    time.sleep(delay)
+                    continue
+                print(f"  [ERROR] Claude API error: {exc}")
+                return None
+
+        if response is None:
             return None
 
-    if response is None:
-        return None
+        LAST_RESOLVED_MODEL = getattr(response, "model", None) or SCORING_MODEL
+        raw_text = _extract_text(response)
 
-    raw_text = ""
-    for block in response.content:
-        if hasattr(block, "text"):
-            raw_text += block.text
+        try:
+            return json.loads(raw_text)
+        except json.JSONDecodeError:
+            if json_attempt < JSON_RETRIES:
+                print(f"  [RETRY] Response was not JSON, attempt {json_attempt + 1}/{JSON_RETRIES}...")
+                time.sleep(1)
+                continue
+            print(f"  [ERROR] Invalid JSON from Claude after {JSON_RETRIES + 1} attempts: {raw_text[:300]}")
+            return None
 
-    raw_text = raw_text.strip()
-    if raw_text.startswith("```"):
-        raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
-        raw_text = re.sub(r"\s*```\s*$", "", raw_text)
-    raw_text = raw_text.strip()
-
-    try:
-        return json.loads(raw_text)
-    except json.JSONDecodeError:
-        print(f"  [ERROR] Invalid JSON from Claude: {raw_text[:500]}")
-        return None
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -216,13 +243,16 @@ You will receive a list of claims with their evidence scores. Assess whether the
 
 Context: {topic['prompt_detail']}
 
-## Consensus Status Definitions
+## Consensus Status — apply these tests IN ORDER, stop at the first that fits
 
-- **consensus**: The strong majority of well-scored claims point in the same direction. There may be minor variations in specifics, but the overall evidence direction is clear and agreed upon.
+**1. debated** — Two or more well-scored claims support conclusions that cannot both be true, and you can name the claims on each side. Substantive tension, not minor variation in magnitude.
+Conflicting evidence is ALWAYS debated. It is never "uncertain", however unresolved the conflict feels.
 
-- **debated**: Credible claims support meaningfully different or opposing conclusions. The debate is substantive — not just minor disagreements in magnitude, but genuine tension in what the evidence suggests.
+**2. uncertain** — No conflict, but the evidence still cannot support a conclusion: too few claims, too early-stage, too indirect, or the claims do not actually address the question.
+Uncertain means the evidence is THIN. It does not mean the evidence disagrees.
 
-- **uncertain**: The evidence is insufficient, too early-stage, or too conflicting to determine a clear direction. This is different from "debated" — uncertain means we don't have enough evidence, while debated means we have evidence pointing in multiple directions.
+**3. consensus** — The well-scored claims point the same direction. Minor variation in specifics is still consensus.
+A category consisting of undisputed factual claims — prices, dates, dosages, regulatory status — is consensus. Facts that all hold at once are not a debate.
 
 ## Output Format
 
@@ -238,11 +268,11 @@ Return a JSON object:
 }}
 
 ## Rules
+- Decide consensus_status FIRST, using only the Consensus Status Definitions above. Every rule below describes how to RECORD that decision; none of them is a reason to change it. A category is never "consensus" merely because that produces a shorter or simpler answer.
 - supporting_claim_ids should include the 3-8 most informative claims for this assessment (use the claim IDs provided)
 - For "debated" status, for_claim_ids and against_claim_ids must list the specific claim IDs each argument rests on — the actual evidence behind arguments_for and arguments_against respectively. A reader should be able to click through and check your reasoning.
 - A claim ID may appear in only one of for_claim_ids / against_claim_ids, never both. Claims that inform the assessment without favouring either side belong in neither — leave them to supporting_claim_ids.
-- Do not force balance. If one side genuinely rests on more or better-scored evidence, the lists should be uneven; that asymmetry is information, not a flaw to correct.
-- For "consensus" or "uncertain" status, for_claim_ids and against_claim_ids should be null.
+- The two id lists need not be the same length. If one side of a debate rests on more or better-scored evidence, let the lists be uneven; that asymmetry is information, not a flaw to correct. This governs how you divide the evidence of a debate you have ALREADY identified. It is never grounds for concluding that no debate exists.
 - Weight higher-scored claims more heavily in your assessment
 - summary_text must be understandable to someone with no medical background
 - For "debated" status, both arguments_for and arguments_against must reference specific evidence
@@ -338,7 +368,8 @@ def _validate_side_claim_ids(result: dict, category: str, claims: list[dict]) ->
         print(f"  [WARN] {category}: debated but no side attribution returned")
 
 
-def store_consensus(sb, issue_id: str, category: str, consensus: dict) -> bool:
+def store_consensus(sb, issue_id: str, category: str, consensus: dict,
+                    system_prompt: str | None = None) -> bool:
     """Insert one consensus row. Returns True on success."""
     row = {
         "issue_id": issue_id,
@@ -352,6 +383,11 @@ def store_consensus(sb, issue_id: str, category: str, consensus: dict) -> bool:
         # tell "this row predates side attribution" from "this side has no claims".
         "for_claim_ids": consensus.get("for_claim_ids") or None,
         "against_claim_ids": consensus.get("against_claim_ids") or None,
+        # Migration 073. The resolved model, not the configured one — those
+        # differ whenever SIGNAL_MODEL is an alias, and it is the resolved
+        # value that explains the output.
+        "model_id": LAST_RESOLVED_MODEL,
+        "prompt_version": prompt_version(system_prompt) if system_prompt else None,
     }
     try:
         sb.table("signal_consensus").insert(row).execute()
@@ -425,17 +461,20 @@ def main():
         print("Use --force to clear and re-map.")
         return
 
-    if existing and args.force:
-        print(f"\n--force: clearing {len(existing)} existing consensus rows...")
-        cleared = clear_existing_consensus(sb, issue_id)
-        print(f"Cleared {cleared} rows.")
-
-    # --- Map each category ---
+    # --- Map every category BEFORE touching the database ---
+    #
+    # This used to clear the existing rows first and then rebuild them one
+    # category at a time. A failure partway through left the topic with a
+    # partial consensus map — and consensus drives the contested lede and the
+    # debates panel, so the live topic page would silently lose sections.
+    # There is no transaction available here, so the order is the safeguard:
+    # nothing is deleted until every category has been mapped successfully.
     consensus_prompt = _build_consensus_system_prompt(topic)
+    print(f"\nModel: {SCORING_MODEL}   prompt: {prompt_version(consensus_prompt)}")
+    warn_if_unpinned(SCORING_MODEL)
     print(f"\nMapping consensus for {len(categories)} categories...\n")
 
-    results = {}
-    succeeded = 0
+    mapped: dict[str, dict] = {}
     failed = 0
 
     for cat in categories:
@@ -449,20 +488,54 @@ def main():
 
         consensus = map_category(cat, group, consensus_prompt)
         if consensus:
-            stored = store_consensus(sb, issue_id, cat, consensus)
-            if stored:
-                results[cat] = consensus
-                succeeded += 1
-                print(f"-> {consensus['consensus_status']}")
-            else:
-                failed += 1
-                print("-> STORE FAILED")
+            mapped[cat] = consensus
+            print(f"-> {consensus['consensus_status']}")
         else:
             failed += 1
             print("-> API FAILED")
 
         # Delay between API calls
         time.sleep(0.5)
+
+    if failed:
+        print(f"\n[ABORT] {failed} categor{'y' if failed == 1 else 'ies'} failed to map.")
+        print("Existing consensus rows were NOT touched. Fix the failure and re-run.")
+        return
+
+    if not mapped:
+        print("\n[ABORT] Nothing mapped. Existing consensus rows were NOT touched.")
+        return
+
+    # --- Compare against what is already published, then swap ---
+    previous = {row["category"]: row["consensus_status"] for row in existing}
+    flips = [
+        (cat, previous[cat], c["consensus_status"])
+        for cat, c in mapped.items()
+        if cat in previous and previous[cat] != c["consensus_status"]
+    ]
+    if flips:
+        print(f"\n[NOTICE] {len(flips)} categor{'y' if len(flips) == 1 else 'ies'} changed status:")
+        for cat, was, now in flips:
+            print(f"  {cat}: {was} -> {now}")
+        lost = [f for f in flips if f[1] == "debated" and f[2] != "debated"]
+        if lost:
+            print(f"  {len(lost)} of these STOPPED being debated. If that was not expected,")
+            print("  the prompt is flattening disagreement — check before publishing.")
+
+    if existing:
+        print(f"\nAll categories mapped. Clearing {len(existing)} existing rows...")
+        cleared = clear_existing_consensus(sb, issue_id)
+        print(f"Cleared {cleared} rows.")
+
+    results = {}
+    succeeded = 0
+    for cat, consensus in mapped.items():
+        if store_consensus(sb, issue_id, cat, consensus, consensus_prompt):
+            results[cat] = consensus
+            succeeded += 1
+        else:
+            failed += 1
+            print(f"[{cat}] -> STORE FAILED")
 
     # --- Summary ---
     print(f"\n{'='*60}")
