@@ -1838,6 +1838,112 @@ Both were mine, both were caught only by running the thing end to end.
    rejects in constraints. Now: `pip install -r backend/requirements.txt`.
    CI should install what production installs; 32 seconds is worth it.
 
+## Session ENG — Consensus engine redesign, Step 0 measured (26 Aug 2026)
+Design: https://claude.ai/code/artifact/7ea172a7-daa9-4f0f-969e-4b4bf4035356
+Nothing here is built. Four read-only experiments, ~$8, each of which changed
+the design. Migration 074 is NOT written.
+
+### Why the redesign
+`golden_set.py` showed status is stable across runs but side attribution is not
+— `methodology` gave [10,3], then [4,10], then ~[10,3] on identical claims under
+one prompt hash. The two layers have different precision and the page presents
+them with equal confidence.
+
+CORRECTION TO AN EARLIER CLAIM IN THIS FILE: temperature 0 was treated as proof
+of determinism when GLP-1 pricing moved. It is not. Temperature 0 picks the most
+probable token; batching, hardware and float ordering still vary. Identical input
+can give different output, and on 26 Aug it did, twice, under one prompt hash.
+The GLP-1 conclusion stands on having read the 44 claims, not on that argument.
+
+### What Step 0 measured (social-media / depression_anxiety, 47 claims)
+1. PER-CLAIM CLASSIFICATION IS STABLE: 94% agreement over 3 runs (44/47
+   identical every time). A narrow question IS answered more consistently than
+   a holistic read. That was the assumption that could have killed the design.
+2. NO SINGLE PROPOSITION COVERS THE CATEGORY. Three were tried:
+       simple     94% agree, 57% bearing, 15% unclear, 26% opposing
+       broadened  91%,       72%,          6%,         15%   <- worst answer
+       compound   91%,       60%,         17%,         18%   ("X and Y")
+   The broadened one looks best on residue and is the worst question: it
+   absorbed claims by becoming harder to contradict. The compound one was two
+   questions in one sentence (my error — my own prompt forbids "and").
+3. A SET OF SIX PROPOSITIONS COVERED 79% vs 57%. The `context` claims were
+   answering questions nobody had asked.
+4. THE SET LOCATED THE CRUX UNPROMPTED. Opposing share by proposition:
+   association 21%, CAUSATION 33%, population trend 18%, sex difference 11%,
+   mechanism 23%, interventions 26%. Causation carries the most opposing
+   evidence, which is exactly where the real scientific dispute sits.
+
+### Design decisions that follow
+- TWO READINGS: keep the holistic verdict; add per-claim classification against
+  each proposition, totalled by a rule IN CODE. Agreement between a model read
+  and arithmetic is a confidence signal a single verdict cannot produce.
+- PROPOSITION SETS, not one proposition per category. Each singular (never
+  "and"), each independently falsifiable, ordered with prior questions first,
+  each needing >= 5 bearing claims to be assessable.
+- COVERAGE REPLACES RESIDUE as the refinement metric. Under one proposition the
+  cheapest way to absorb stray claims is to broaden it; under a set it is to ask
+  another question. The vagueness incentive disappears structurally.
+- OPPOSING SHARE is the falsifiability guard. A revision is accepted only if
+  coverage rises AND no proposition's opposing share falls materially. Prefer
+  SPLITTING over broadening — and a split is two propositions, not one sentence.
+- COVERAGE HAS A FLOOR. Of 10 uncovered claims, 9 were baseline epidemiology
+  ("4.0M adolescents had an MDE in 2022", "half of conditions begin by 14").
+  Those correctly bear on nothing. `context` is TWO things: bears on an unasked
+  question (add a proposition) vs establishes the stakes (legitimately context).
+  Target is not 100% coverage but that every uncovered claim is defensibly
+  scene-setting.
+- READERS ARGUE WITH THE SET. "Is a question missing?" is a natural ask and is
+  settled by measurement — does adding it raise coverage without lowering any
+  opposing share? No voting. Every suggestion published with its result.
+
+### Known weaknesses, recorded before building
+- 94% is ONE sample from the most contested category in the corpus. Run Step 0
+  on a mostly-factual category and one from another topic before migration 074.
+- The single claim the classifier misses is an OPPOSING one ("~17% showed
+  positive effects"). A classifier weak on opposition reports more consensus
+  than exists — the GLP-1 failure by another route.
+
+### Tooling added (all read-only, no DB writes)
+- `scripts/signal/step0_proposition.py` — writes a proposition, classifies K
+  times, reports per-claim agreement, prints claims whose label moved,
+  diagnoses the residue, and with `--test-revision` re-classifies against the
+  suggested revision. Reports `opposing_share` and REJECTS a revision that
+  shrinks residue while lowering it.
+- `scripts/signal/step0_mosaic.py` — generates a proposition set, classifies
+  against each, reports per-proposition bearing/opposing share and set
+  COVERAGE, flags thin (<5 bearing) and hedged (<10% opposing) propositions,
+  and lists the uncovered claims.
+- Reports land in `backend/data/signal/` which is GITIGNORED. Re-runnable.
+
+### map_consensus.py — two fixes
+- The tightened status definitions ("apply these tests IN ORDER") invited the
+  model to narrate its reasoning instead of returning JSON.
+  `depression_anxiety` failed 3/3 attempts that way. Now: "work through these
+  IN ORDER, silently" plus an explicit "return the JSON object and NOTHING
+  else". `_extract_text` also salvages the first balanced {...} or [...] from a
+  prose-wrapped reply, brace-counting with string/escape tracking.
+- Tested against bare / fenced / prose-wrapped / braces-in-string / escaped-
+  quote / top-level-array payloads.
+
+### golden_set.py — three fixes, all found by using it
+- UNBASELINED CATEGORIES ARE NOW A FAILURE. The fixture was built from a sweep
+  in which one call failed, so social-media/depression_anxiety — 47 claims, the
+  sharpest disagreement in the corpus — had NO baseline, and a --slug run
+  reported "Expected: 5" for a six-category topic without complaint. It now
+  derives expected categories from topic_config and fails on any gap.
+- `--record` MERGES instead of replacing. With `--slug` it would have assigned
+  one topic's 5 entries over the whole 52-entry fixture, deleting 47 baselines
+  while printing a success line.
+- A side-balance REVERSAL ([10,3] -> [4,10]) is now named as such rather than
+  lumped in with magnitude wobble, and the closing line reports COVERAGE
+  (measured count) rather than agreement count.
+
+### Fixture
+`tests/fixtures/signal_consensus_golden.json` is now 53 categories (was 52):
+depression_anxiety added, interventions re-baselined debated -> consensus after
+reading the claims (all 20 report interventions working, with variation in
+size and delivery; no claim says one failed).
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

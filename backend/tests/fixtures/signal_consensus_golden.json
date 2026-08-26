@@ -347,13 +347,20 @@
     },
     {
       "slug": "social-media-teen-mental-health",
-      "category": "interventions",
-      "claims": 25,
+      "category": "depression_anxiety",
+      "claims": 47,
       "expected_status": "debated",
       "expected_debated_sides": [
-        7,
-        3
+        8,
+        5
       ]
+    },
+    {
+      "slug": "social-media-teen-mental-health",
+      "category": "interventions",
+      "claims": 25,
+      "expected_status": "consensus",
+      "expected_debated_sides": null
     },
     {
       "slug": "social-media-teen-mental-health",
@@ -361,7 +368,7 @@
       "claims": 30,
       "expected_status": "debated",
       "expected_debated_sides": [
-        8,
+        7,
         3
       ]
     },
@@ -372,7 +379,7 @@
       "expected_status": "debated",
       "expected_debated_sides": [
         10,
-        4
+        3
       ]
     },
     {
@@ -382,7 +389,7 @@
       "expected_status": "debated",
       "expected_debated_sides": [
         6,
-        8
+        6
       ]
     },
     {

@@ -75,12 +75,62 @@ JSON_RETRIES = 2
 
 
 def _extract_text(response) -> str:
-    """Concatenate the text blocks of a response and strip any code fence."""
+    """Concatenate the text blocks of a response and reduce them to JSON.
+
+    Strips a code fence, and — as a fallback — pulls the first balanced {...}
+    or [...] out of a reply that narrated its reasoning first. That happens on
+    the hardest categories: social-media/depression_anxiety (47 claims, genuine
+    conflicting effect estimates) answered with "**Step 1: Check for debated
+    status first.**" and its working, three attempts running. The prompt now
+    forbids the preamble; this makes a lapse recoverable rather than fatal.
+    """
     raw = "".join(b.text for b in response.content if hasattr(b, "text")).strip()
     if raw.startswith("```"):
         raw = re.sub(r"^```(?:json)?\s*", "", raw)
         raw = re.sub(r"\s*```\s*$", "", raw)
-    return raw.strip()
+    raw = raw.strip()
+    if raw[:1] in ("{", "["):
+        return raw
+
+    fenced = re.search(r"```(?:json)?\s*(.+?)\s*```", raw, re.S)
+    if fenced:
+        return fenced.group(1).strip()
+
+    salvaged = _first_json_value(raw)
+    return salvaged if salvaged is not None else raw
+
+
+def _first_json_value(text: str) -> str | None:
+    """Return the first balanced JSON object or array in `text`, or None.
+
+    Brace counting rather than a regex, because the payload contains prose with
+    braces in it. String literals and escapes are tracked so a `{` inside a
+    summary_text does not throw the depth off.
+    """
+    # Whichever bracket appears FIRST wins. Trying objects before arrays would
+    # return the first element of a top-level array instead of the array.
+    candidates = [(text.find(o), o, c) for o, c in (("{", "}"), ("[", "]")) if text.find(o) != -1]
+    for start, opener, closer in sorted(candidates):
+        depth, in_str, esc = 0, False, False
+        for i in range(start, len(text)):
+            ch = text[i]
+            if in_str:
+                if esc:
+                    esc = False
+                elif ch == "\\":
+                    esc = True
+                elif ch == '"':
+                    in_str = False
+                continue
+            if ch == '"':
+                in_str = True
+            elif ch == opener:
+                depth += 1
+            elif ch == closer:
+                depth -= 1
+                if depth == 0:
+                    return text[start:i + 1]
+    return None
 
 
 def _call_claude(system_prompt: str, user_content: str, max_tokens: int = 4096) -> dict | list | None:
@@ -128,7 +178,12 @@ def _call_claude(system_prompt: str, user_content: str, max_tokens: int = 4096) 
                 print(f"  [RETRY] Response was not JSON, attempt {json_attempt + 1}/{JSON_RETRIES}...")
                 time.sleep(1)
                 continue
-            print(f"  [ERROR] Invalid JSON from Claude after {JSON_RETRIES + 1} attempts: {raw_text[:300]}")
+            tail = raw_text[-200:] if len(raw_text) > 200 else ""
+            print(f"  [ERROR] Invalid JSON from Claude after {JSON_RETRIES + 1} attempts.")
+            print(f"          head: {raw_text[:240]}")
+            if tail:
+                print(f"          tail: {tail}")
+                print("          (if the tail looks like truncated JSON, raise max_tokens)")
             return None
 
     return None
@@ -243,7 +298,7 @@ You will receive a list of claims with their evidence scores. Assess whether the
 
 Context: {topic['prompt_detail']}
 
-## Consensus Status — apply these tests IN ORDER, stop at the first that fits
+## Consensus Status — work through these IN ORDER, silently, and stop at the first that fits
 
 **1. debated** — Two or more well-scored claims support conclusions that cannot both be true, and you can name the claims on each side. Substantive tension, not minor variation in magnitude.
 Conflicting evidence is ALWAYS debated. It is never "uncertain", however unresolved the conflict feels.
@@ -277,7 +332,8 @@ Return a JSON object:
 - summary_text must be understandable to someone with no medical background
 - For "debated" status, both arguments_for and arguments_against must reference specific evidence
 - For "consensus" or "uncertain" status, arguments_for and arguments_against should be null
-- Do not take sides — describe what the evidence shows"""
+- Do not take sides — describe what the evidence shows
+- Return the JSON object and NOTHING else. No preamble, no numbered reasoning, no commentary before or after it. Reason silently and emit only the object."""
 
 
 def _build_category_prompt(category: str, claims: list[dict]) -> str:

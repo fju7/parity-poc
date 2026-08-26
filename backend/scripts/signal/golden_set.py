@@ -59,20 +59,62 @@ def load_fixture() -> dict:
     return json.loads(FIXTURE.read_text())
 
 
-def measure(entries: list[dict]) -> list[dict]:
-    """Run each category once. Returns entries with an added 'actual' block."""
+def measure(entries: list[dict], adopt_new: bool = False) -> tuple[list[dict], list[dict]]:
+    """Run each category once. Returns (measured, unbaselined).
+
+    `unbaselined` is categories that exist in the corpus with claims but have
+    no fixture entry. Without this check the run silently reports on whatever
+    happens to be IN the fixture and calls that complete: the first fixture was
+    built from a sweep in which one API call failed, so
+    social-media/depression_anxiety — 47 claims, the sharpest disagreement in
+    the corpus — was never baselined, and a --slug run on that topic announced
+    "Expected: 5" for a six-category topic without complaint.
+
+    A detector that cannot report the size of its own blind spot is the same
+    failure as one that reports success while blind.
+    """
     sb = mc._get_supabase()
     by_slug: dict[str, list[dict]] = {}
     for e in entries:
         by_slug.setdefault(e["slug"], []).append(e)
 
-    measured = []
+    measured, unbaselined = [], []
     for slug, group in by_slug.items():
         topic = get_topic(slug)
         _issue_id, by_category = mc.load_scored_claims(sb, slug)
         system_prompt = mc._build_consensus_system_prompt(topic)
 
         print(f"\n{topic['title']}  ({slug})   prompt {prompt_version(system_prompt)}")
+
+        known = {e["category"] for e in group}
+        for category in topic["categories"]:
+            if category in known or not by_category.get(category):
+                continue
+            n = len(by_category[category])
+            if not adopt_new:
+                print(f"  {category:26s} NO BASELINE — {n} claims, never recorded")
+                unbaselined.append({"slug": slug, "category": category, "claims": n,
+                                    "why": f"{n} claims, no fixture entry"})
+                continue
+            # --record: measure it so it can be added, rather than reporting a
+            # gap the record path has no way to close.
+            print(f"  {category:26s} NEW  measuring to baseline...", end=" ", flush=True)
+            out = mc._call_claude(system_prompt, mc._build_category_prompt(category, by_category[category]))
+            if not isinstance(out, dict):
+                print("API FAILED")
+                unbaselined.append({"slug": slug, "category": category, "claims": n,
+                                    "why": "could not be measured to baseline"})
+                continue
+            status = out.get("consensus_status")
+            sides = [len(out.get("for_claim_ids") or []), len(out.get("against_claim_ids") or [])]
+            print(status)
+            measured.append({
+                "slug": slug, "category": category, "claims": n,
+                "expected_status": status, "expected_debated_sides": None,
+                "actual": {"status": status, "sides": sides if status == "debated" else None},
+                "claims_now": n,
+            })
+            time.sleep(0.5)
 
         for e in group:
             claims = by_category.get(e["category"], [])
@@ -98,7 +140,7 @@ def measure(entries: list[dict]) -> list[dict]:
             print(f"  {e['category']:26s} {mark} {e['expected_status']} -> {status}")
             time.sleep(0.5)
 
-    return measured
+    return measured, unbaselined
 
 
 def judge(measured: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
@@ -125,6 +167,14 @@ def judge(measured: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
         if want and got:
             if not got[0] or not got[1]:
                 failures.append({**m, "why": f"a side collapsed to zero: {want} -> {got}"})
+            elif (want[0] - want[1]) * (got[0] - got[1]) < 0:
+                # The heavier side changed sides. A reader is told a materially
+                # different story — "most of the evidence supports X" becomes
+                # "most of it opposes X" — even though the status still reads
+                # debated. Louder than a magnitude wobble, but still a warning:
+                # side attribution picks a handful of informative claims and is
+                # the least stable thing measured here.
+                warnings.append({**m, "why": f"side BALANCE REVERSED {want} -> {got}"})
             elif max(abs(want[0] - got[0]), abs(want[1] - got[1])) > SIDE_COUNT_TOLERANCE:
                 warnings.append({**m, "why": f"side counts moved {want} -> {got}"})
     return failures, warnings, unmeasured
@@ -239,10 +289,15 @@ def main():
     print(f"Checking {len(entries)} categories against {mc.SCORING_MODEL}")
     warn_if_unpinned(mc.SCORING_MODEL)
 
-    measured = measure(entries)
+    measured, unbaselined = measure(entries, adopt_new=args.record)
 
     if args.record:
         blind = [m for m in measured if m["actual"] is None]
+        if unbaselined:
+            print(f"\n[NOTE] {len(unbaselined)} categor{'y' if len(unbaselined) == 1 else 'ies'} had no baseline and will be added:")
+            for u in unbaselined:
+                print(f"  {u['slug']} / {u['category']} — {u['why']}")
+            print("Re-run without --record afterwards to measure them.")
         if blind:
             print(f"\n[ABORT] {len(blind)} categor{'y' if len(blind) == 1 else 'ies'} could not be measured:")
             for m in blind:
@@ -250,8 +305,11 @@ def main():
             print("Re-baselining now would silently carry their old values forward")
             print("as though they had been confirmed. Fix the cause and re-run.")
             return 1
-        fixture["categories"] = [
-            {
+        # MERGE, never replace. `measured` holds only what this run covered —
+        # with --slug that is one topic, and assigning it wholesale would delete
+        # every other topic's baseline while printing a cheerful success line.
+        updated = {
+            (m["slug"], m["category"]): {
                 "slug": m["slug"],
                 "category": m["category"],
                 "claims": m.get("claims_now", m["claims"]),
@@ -259,10 +317,23 @@ def main():
                 "expected_debated_sides": m["actual"]["sides"] if m["actual"] else None,
             }
             for m in measured
-        ]
+        }
+        before = {(c["slug"], c["category"]) for c in fixture["categories"]}
+        merged = [updated.get((c["slug"], c["category"]), c) for c in fixture["categories"]]
+        added = [v for k, v in updated.items() if k not in before]
+        merged.extend(added)
+        merged.sort(key=lambda c: (c["slug"], c["category"]))
+        changed = sum(1 for c in fixture["categories"]
+                      if updated.get((c["slug"], c["category"]), c) != c)
+
+        fixture["categories"] = merged
         fixture["model"] = mc.LAST_RESOLVED_MODEL or mc.SCORING_MODEL
         FIXTURE.write_text(json.dumps(fixture, indent=2) + "\n")
-        print(f"\nRe-baselined {len(measured)} categories -> {FIXTURE}")
+
+        print(f"\nFixture now holds {len(merged)} categories -> {FIXTURE}")
+        print(f"  updated:   {changed}")
+        print(f"  added:     {len(added)}" + (f"  ({', '.join(a['category'] for a in added)})" if added else ""))
+        print(f"  untouched: {len(merged) - changed - len(added)}")
         print("Commit this with an explanation of WHY the baseline moved.")
         return 0
 
@@ -270,7 +341,9 @@ def main():
     matched = len(measured) - len(failures) - len(warnings) - len(unmeasured)
 
     print(f"\n{'=' * 70}\nGOLDEN SET\n{'=' * 70}")
-    print(f"Expected:   {len(entries)}")
+    print(f"In corpus:  {len(entries) + len(unbaselined)}")
+    print(f"Baselined:  {len(entries)}")
+    print(f"Unbaselined:{len(unbaselined)}")
     print(f"Measured:   {len(measured) - len(unmeasured)}")
     print(f"Unmeasured: {len(unmeasured)}")
     print(f"Matched:    {matched}")
@@ -279,11 +352,17 @@ def main():
 
     for label, items in (("WARNINGS", warnings),
                          ("DRIFTED", failures),
-                         ("UNMEASURED", unmeasured)):
+                         ("UNMEASURED", unmeasured),
+                         ("NO BASELINE", unbaselined)):
         if items:
             print(f"\n{label}")
             for i in items:
                 print(f"  {i['slug']:52s} {i['category']:26s} {i['why']}")
+
+    if unbaselined:
+        print(f"\n{len(unbaselined)} categor{'y' if len(unbaselined) == 1 else 'ies'} in the corpus have NO baseline at all.")
+        print("They are not drifting — they are unwatched. Add them with --record.")
+        return 1
 
     if unmeasured:
         print(f"\n{len(unmeasured)} categor{'y' if len(unmeasured) == 1 else 'ies'} could not be measured.")
@@ -297,7 +376,9 @@ def main():
         print("decide, and re-baseline with --record only once you understand it.")
         return 1
 
-    print(f"\nAll {matched} categories measured. No published judgment moved.")
+    n_measured = len(measured) - len(unmeasured)
+    tail = f" ({len(warnings)} warning{'s' if len(warnings) != 1 else ''} to read)" if warnings else ""
+    print(f"\nAll {n_measured} categories measured. No published judgment moved.{tail}")
     return 0
 
 
