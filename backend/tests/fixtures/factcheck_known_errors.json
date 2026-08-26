@@ -1,0 +1,85 @@
+{
+  "what_this_is": "The six errors found by hand in the What Holds Up melanoma draft on 2026-08-26, before publication. They are recorded because they define what factcheck_draft.py exists to catch: any change to its prompts should still surface every class below. Four of the six were inside the draft's own bibliography, which is why the gate never treats a draft's source list as evidence.",
+  "recorded": "2026-08-26",
+  "draft": "site/whatholdsup/melanoma.html",
+  "found_by": "hand check with an adversarial reviewer, pre-publication",
+  "errors": [
+    {
+      "class": "STALE",
+      "caught_by": "RECENCY",
+      "summary": "Draft used three-year KEYNOTE-942 figures; five-year data had been published on 1 June 2026, ten weeks earlier.",
+      "was": "RFS HR 0.510 (0.288-0.906); DMFS HR 0.384 (0.172-0.858); irAEs 37.5% vs 36%",
+      "corrected_to": "RFS HR 0.510 (0.294-0.887); DMFS HR 0.411 (0.200-0.843); irAEs 45.2% vs 44%",
+      "why_it_matters": "Every figure was correct when first published. Correct-when-written is not a defence."
+    },
+    {
+      "class": "ATTRIBUTED",
+      "caught_by": "SOURCE",
+      "summary": "A one-sided p-value was credited to The Lancet. It comes from a company press release; The Lancet published a two-sided value.",
+      "was": "one-sided p = 0.0266, attributed to the Lancet phase 2b paper",
+      "corrected_to": "one-sided p = 0.0266 from the Merck release of 16 April 2023; The Lancet published two-sided p = 0.053",
+      "why_it_matters": "The draft's entire premise is that other people are careless with primary sources."
+    },
+    {
+      "class": "PHANTOM",
+      "caught_by": "SOURCE",
+      "summary": "A five-year p-value appeared in the draft that exists in no locatable source.",
+      "was": "one-sided nominal p = 0.0075",
+      "corrected_to": "removed; the five-year analyses were descriptive and carry no p-value",
+      "why_it_matters": "A figure that entered the draft from summarisation rather than from a source. NOT_FOUND must fail, not soften."
+    },
+    {
+      "class": "DROPPED",
+      "caught_by": "SOURCE",
+      "summary": "An earlier draft removed a figure as 'unverifiable' that sits in the abstract of a paper the draft itself cited. Two fetch attempts had 403'd and absence of access was read as absence of fact.",
+      "was": "two-sided p = 0.053 cut, with a footnote saying it could not be verified",
+      "corrected_to": "restored and cited; it is in the Lancet abstract",
+      "why_it_matters": "The correction notice was itself false. Failing to reach a source is not evidence about the source."
+    },
+    {
+      "class": "SELECTIVE",
+      "caught_by": "ADVOCATE",
+      "summary": "One endpoint reported as strengthening over time; a second endpoint that weakened went unmentioned, as did a toxicity difference.",
+      "was": "'strengthened rather than faded', with no mention of DMFS easing 62% to 59% or grade 3+ events at 25% vs 18%",
+      "corrected_to": "both stated explicitly, with the DMFS easing described as inside the noise of a trial that size",
+      "why_it_matters": "Invisible to a claim-by-claim check. Every individual figure was true."
+    },
+    {
+      "class": "UNSUPPORTED",
+      "caught_by": "ADVOCATE",
+      "summary": "The draft accused news outlets of passing off an earlier trial's figures as the new trial's, without checking a single outlet. All of them had attributed correctly.",
+      "was": "'being used to fill the hole where the Phase 3's numbers should be, mostly without saying so'",
+      "corrected_to": "accusation cut; replaced with what a survey of nineteen articles actually found, including the admission that the first draft was wrong",
+      "why_it_matters": "A claim about third-party conduct, asserted rather than checked. The most likely of the six to be quoted back at the publication."
+    },
+    {
+      "class": "DROPPED",
+      "caught_by": "SOURCE",
+      "summary": "SECOND INSTANCE, found by the gate on its first run. The hand check's own correction notice claimed two figures were unverifiable. Both are verifiable. Failure to reach a source was recorded as the figure not existing \u2014 the same error the notice was describing.",
+      "was": "'a five-year p-value of 0.0075 that appears in no source we can find, now removed' and '2.5-year recurrence-free rates of 74.8% versus 55.6%' cut as unverifiable",
+      "corrected_to": "both restored: one-sided nominal p=0.0075 is in Merck's release of 20 January 2026; 74.8% vs 55.6% is the 30-month rate in the three-year analysis",
+      "why_it_matters": "The error class repeats under pressure. A checker that says CANNOT VERIFY is reporting on its own reach, not on the world, and must never be paraphrased as the fact being absent."
+    },
+    {
+      "class": "OVERSTATED",
+      "caught_by": "ADVOCATE",
+      "summary": "The Phase 3 was described as 'free of the bias the earlier one carried'. Its primary endpoint is investigator-assessed too, per Merck's own release.",
+      "was": "'seven times larger and free of the bias the earlier one carried'",
+      "corrected_to": "'blinded against exactly the bias the earlier one carried', plus a new paragraph noting the primary endpoint is 'as assessed by the investigator' and that blinding mitigates rather than removes it",
+      "why_it_matters": "Invisible to a claim check: every figure was right. Only a reader arguing the subject's side finds it."
+    }
+  ],
+  "standing_rules": [
+    "The draft's bibliography is never evidence. Every figure is re-derived from a source the checker locates itself.",
+    "Unverified is a failure, not a warning. A check that could not run is not a pass.",
+    "Any claim about what a third party did, said or omitted requires named, checked instances before it ships.",
+    "A claim that the coverage got something right is a publishable outcome. The delta section must not require a scalp.",
+    "CANNOT VERIFY is a statement about the checker's reach, never about whether the fact exists. It may not be written up as 'appears in no source'.",
+    "Internal claims \u2014 our rubric, our arithmetic, our corrections policy, our own editorial history \u2014 are recorded for a human to check, never counted as source failures. A gate that blocks on 'we acknowledge within 48 hours' is a gate people learn to override."
+  ],
+  "second_pass": {
+    "run": "2026-08-26",
+    "by": "factcheck_draft.py, first live run",
+    "result": "BLOCKED. Found the two DROPPED errors above and the OVERSTATED one, plus two minor fairness points (a rounded interval in the summary strip inconsistent with the body, and an unsupported claim about which figure 'travelled' in coverage). It also produced 13 NOT_FOUND verdicts of which 8 were internal claims it had no way to check \u2014 the flaw that prompted the scope field."
+  }
+}
