@@ -1,0 +1,121 @@
+# Detects when a Signal consensus judgment changes.
+#
+# WHY THIS RUNS IN CI RATHER THAN AS A CRON ENDPOINT
+# --------------------------------------------------
+# This is a regression test, and tests belong where tests live. A Render
+# endpoint would also have to survive 52 sequential model calls inside one HTTP
+# request, would couple the pipeline scripts into the web app, and would need a
+# results table to report through. Here the run IS the report: a drift fails the
+# job, and GitHub already knows how to tell Fred that.
+#
+# WHAT IT PROTECTS
+# ----------------
+# GLP-1 'pricing' was published as "debated" from March to August 2026. The
+# model behind the claude-sonnet-4-6 alias had started calling it "consensus" —
+# correctly. Nothing noticed for five months; it surfaced by accident.
+#
+# No dated snapshot is published for that model family (checked 2026-08-26), so
+# drift cannot be prevented by pinning. Detection is the whole control, and a
+# control is worth only as much as its frequency.
+#
+# TWO TRIGGERS, AND THE SECOND MATTERS MORE
+# -----------------------------------------
+# Weekly puts the worst-case detection window at seven days instead of five
+# months. But the push trigger catches the more common cause: an edit to the
+# prompt or the scoring scripts. That is checked at the moment it is made,
+# which is the only moment anyone still remembers why they made it.
+
+name: Signal golden set
+
+on:
+  schedule:
+    # Mondays 13:00 UTC (~9am ET).
+    - cron: "0 13 * * 1"
+  push:
+    branches: [main]
+    paths:
+      # Only the files that can actually move a judgment. The diagnostics are
+      # excluded so that editing a measuring tool does not spend 52 calls.
+      - "backend/scripts/signal/map_consensus.py"
+      - "backend/scripts/signal/signal_model.py"
+      - "backend/scripts/signal/score_claims.py"
+      - "backend/scripts/signal/classify_claims.py"
+      - "backend/scripts/signal/extract_claims.py"
+      - "backend/scripts/signal/topic_config.py"
+      - "backend/tests/fixtures/signal_consensus_golden.json"
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Check one topic only (blank = all nine)"
+        required: false
+        type: string
+
+# A newer commit supersedes an in-flight check; no point paying twice.
+concurrency:
+  group: signal-golden-set-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        # Just what the check needs. requirements.txt carries the whole API
+        # surface (reportlab, pandas, stripe) and none of it is used here.
+        run: pip install "anthropic>=0.42.0" "supabase==2.13.0"
+
+      - name: Run golden set
+        id: golden
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # Set the SIGNAL_MODEL repository variable if a snapshot ever becomes
+          # pinnable; otherwise the script's own default applies.
+          SIGNAL_MODEL: ${{ vars.SIGNAL_MODEL }}
+        working-directory: backend
+        run: |
+          set -o pipefail
+          ARGS=""
+          if [ -n "${{ inputs.slug }}" ]; then
+            ARGS="--slug ${{ inputs.slug }}"
+          fi
+          python scripts/signal/golden_set.py $ARGS 2>&1 | tee /tmp/golden.log
+
+      - name: Report to the run summary
+        # always(), so the summary is written on failure too — which is the
+        # case anyone actually opens.
+        if: always()
+        run: |
+          {
+            echo "## Signal golden set"
+            echo ""
+            if [ "${{ steps.golden.outcome }}" = "success" ]; then
+              echo "No published judgment moved."
+            else
+              echo "**A judgment moved.** This is not automatically a regression —"
+              echo "three of the five drifts in the original sweep were the model"
+              echo "improving. Read the claims in the affected category, decide, then"
+              echo "re-baseline with \`golden_set.py --record\` and say why in the commit."
+            fi
+            echo ""
+            echo '```'
+            tail -60 /tmp/golden.log 2>/dev/null || echo "(no output captured)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the full log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-set-log
+          path: /tmp/golden.log
+          retention-days: 30

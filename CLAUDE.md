@@ -1743,11 +1743,47 @@ run is how people learn to ignore warnings.
 
 ### Fred action items
 - Review and apply migration 073.
-- Decide the golden-set cadence and where it runs (Render cron alongside the
-  existing broker-reminder cron is the natural home — it already holds
-  ANTHROPIC_API_KEY and SUPABASE_SERVICE_ROLE_KEY).
+- Install .github/workflows/signal-golden-set.yml (see below) and add the three
+  GitHub repository secrets it needs.
 - Run golden_set.py to measure what the tightened `uncertain` definition moved.
 - Re-map the five known-stale categories once the definition change is assessed.
+
+## Signal golden set — scheduled detection (.github/workflows/signal-golden-set.yml)
+Because pinning is unavailable, detection is the only control, and a control is
+worth what its frequency is worth. This runs the golden set:
+
+- WEEKLY, Mondays 13:00 UTC — worst-case detection window of 7 days rather than
+  the 5 months the GLP-1 mislabel actually took.
+- ON PUSH to main touching map_consensus.py, signal_model.py, score_claims.py,
+  classify_claims.py, extract_claims.py, topic_config.py, or the fixture. This
+  is the higher-value trigger: it catches a prompt edit at the moment it is
+  made, while whoever made it still remembers why. The diagnostics
+  (stability_sweep.py, diagnose_consensus_prompt.py, golden_set.py itself) are
+  deliberately EXCLUDED from the path filter so that editing a measuring tool
+  does not spend 52 API calls.
+- MANUALLY via workflow_dispatch, with an optional slug input for one topic.
+
+golden_set.py exits 1 on drift, so the job fails and GitHub notifies. The run
+summary states plainly that a drift is not automatically a regression — three of
+the five found in the original sweep were the model improving — and points at
+`--record` for a deliberate re-baseline.
+
+CI rather than a Render cron endpoint: this is a regression test, an endpoint
+would have to survive 52 sequential model calls inside one HTTP request, and it
+would couple the pipeline scripts into the web app and need a results table to
+report through. Here the run is the report.
+
+Installing it requires a HUMAN — the Claude device bridge refuses to write
+.github/workflows/** , since a workflow executes arbitrary code with repository
+secrets. That guard is correct; do not try to route around it.
+
+### Required GitHub repository secrets (Settings > Secrets and variables > Actions)
+- ANTHROPIC_API_KEY
+- SUPABASE_URL
+- SUPABASE_SERVICE_KEY   (note: SERVICE_KEY, the name supabase_client.py reads —
+  NOT SUPABASE_SERVICE_ROLE_KEY, which is what Render uses)
+Optional repository VARIABLE: SIGNAL_MODEL, if a pinnable snapshot is ever
+published.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
