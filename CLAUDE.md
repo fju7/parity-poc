@@ -1718,13 +1718,36 @@ diet-and-breast-cancer.../protective_foods_and_nutrients,
 mrna-vaccine-myocarditis/biological_mechanism. A re-map corrects all five and
 raises debated categories from 7 to 9 across 4 topics instead of 2.
 
+### Pinning was attempted and is NOT available (checked 2026-08-26)
+models.list() returns dated snapshots for exactly three models, all 4-5
+generation: claude-opus-4-5-20251101, claude-haiku-4-5-20251001,
+claude-sonnet-4-5-20250929. Everything newer (opus-5, sonnet-5, opus-4-8,
+opus-4-7, sonnet-4-6, opus-4-6) is published only as an alias. Requesting
+"claude-sonnet-4-6" returns response.model == "claude-sonnet-4-6" — there is no
+snapshot id to pin to.
+
+DECISION: keep running on the alias rather than pin to the older
+claude-sonnet-4-5-20250929. The evidence is that the newer model is BETTER — it
+reads GLP-1 pricing correctly as undisputed facts and finds three real debates
+the March model missed. Trading accuracy for reproducibility is the wrong trade
+for a product whose value is accuracy.
+
+Consequence: drift is DETECTED, not prevented, and detection is only worth as
+much as its frequency. golden_set.py must run on a SCHEDULE. Five months was the
+cost of having no schedule at all. Re-check whether a dated snapshot has been
+published whenever the model family changes.
+
+`warn_if_unpinned()` was rewritten accordingly — it reports the posture rather
+than advising a fix the operator cannot apply. An unactionable warning on every
+run is how people learn to ignore warnings.
+
 ### Fred action items
 - Review and apply migration 073.
-- Pin the model: `python -c "import anthropic; [print(m.id) for m in
-  anthropic.Anthropic().models.list()]"`, then set SIGNAL_MODEL to the dated id
-  locally and in Render.
-- Re-run golden_set.py after pinning to measure what the tightened `uncertain`
-  definition moved.
+- Decide the golden-set cadence and where it runs (Render cron alongside the
+  existing broker-reminder cron is the natural home — it already holds
+  ANTHROPIC_API_KEY and SUPABASE_SERVICE_ROLE_KEY).
+- Run golden_set.py to measure what the tightened `uncertain` definition moved.
+- Re-map the five known-stale categories once the definition change is assessed.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
