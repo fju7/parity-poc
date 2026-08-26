@@ -142,6 +142,21 @@ def verify() -> int:
             ok = False
         elif name == "SUPABASE_URL":
             print(f"  {name:24s} {val}")
+            # A malformed base URL surfaces far downstream as PostgREST
+            # PGRST125 "Invalid path specified in request URL", which names
+            # neither the variable nor the problem. Check the shape here, where
+            # it is obvious.
+            if val.endswith("/"):
+                print("  " + " " * 24 + "^ trailing slash — supabase-py appends /rest/v1, "
+                      "producing a double slash (PGRST125)")
+                ok = False
+            if "/rest" in val:
+                print("  " + " " * 24 + "^ contains /rest — this should be the project "
+                      "base URL only, not the REST endpoint (PGRST125)")
+                ok = False
+            if val and not val.startswith("https://"):
+                print("  " + " " * 24 + "^ should start with https://")
+                ok = False
         else:
             print(f"  {name:24s} set ({len(val)} chars, ...{val[-4:]})")
 
