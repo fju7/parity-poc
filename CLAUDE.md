@@ -2031,11 +2031,63 @@ for why. A conjunction detector prints a CHECK hint — deliberately a hint, sin
 a keyword scan cannot tell "depression and anxiety symptoms" (one claim) from
 "X is true and Y is stronger" (two).
 
-### Still to run
-`mmr-vaccine-autism / large_scale_epidemiological_evidence` — the anti-false-
-balance test. Settled science, loud public dispute. The engine should report
-near-zero opposing evidence and NOT manufacture a debate to fill the shape. If
-it invents opposition there, that is disqualifying on its own.
+### Anti-false-balance test: PASSED
+`mmr-vaccine-autism / large_scale_epidemiological_evidence`, 85 claims, 89%
+coverage — the highest of the three categories measured.
+
+FIVE OF SIX PROPOSITIONS CAME BACK 100% OPPOSING, ZERO SUPPORTING:
+    1. vaccinated children have higher ASD incidence   58 claims, all opposing
+    2. high-risk siblings show an effect               57 claims, all opposing
+    3. diagnoses cluster after vaccination             56 claims, all opposing
+    4. MMR drove the prevalence rise                   59 claims, all opposing
+    6. the Wakefield gut/regression mechanism holds    61 claims, all opposing
+No debate was manufactured to fill the shape. This was the disqualifying test.
+
+Note the category structure did real work here: Wakefield-supporting material
+lives in `original_wakefield_research` and `retraction_and_fraud_investigation`,
+so 100% opposing WITHIN the epidemiological-evidence category is the correct
+read of that corpus, not evidence of a one-sided extraction.
+
+### THE MOSAIC IS BETTER FOR SETTLED SCIENCE THAN A VERDICT IS
+Unexpected, and probably the most important product finding of the three runs.
+A page that says:
+
+  "On whether vaccinated children have higher autism rates — 58 claims, all
+   against. On whether high-risk siblings show an effect — 57, all against.
+   On temporal clustering — 56, all against..."
+
+is far more convincing than the word `consensus`, because it answers doubt IN
+THE SPECIFIC FORMS DOUBTERS RAISE. Someone who believes there may be a
+susceptible subgroup gets that exact question asked and answered with a count.
+A single label gives them nothing to check and reads as dismissal.
+
+Expectation going in was that the mosaic would earn its keep on contested
+subjects and merely survive on settled ones. The opposite is true: it is most
+valuable where the science is settled and the public argument is not.
+
+### CONCERN: meta-propositions may classify shallowly
+Proposition 5 — "the body of evidence is methodologically sufficient to detect
+an effect of the magnitude Wakefield claimed" — returned 71 supporting, 0
+opposing, and was flagged hard-to-contradict.
+
+It is a META-proposition: about the adequacy of the evidence base, not about the
+world. The claims that genuinely bear on it are the study DESCRIPTIONS (650,000
+children; 95,727 siblings; 530,000 children) — and every one of those landed in
+the UNCOVERED pile. So prop 5 appears to have drawn its 71 supports from the
+FINDINGS ("study found no association") rather than the DESIGNS, which is close
+to circular: a null result does not establish that a study was powered to detect
+an effect; the sample size does.
+
+"Is our evidence good enough" is exactly the kind of proposition this product
+will want. CHECK THIS before migration 074 — classify the study-description
+claims against prop 5 by hand and see whether they should have borne on it.
+
+### Uncovered claims here were a third kind
+Not scene-setting (social-media epidemiology) and not missing facets (pricing
+fiscal impact). They were STUDY DESCRIPTIONS — "a study examined N children" —
+which state a design without stating a finding, so they support and oppose
+nothing substantive. Correct behaviour on the substantive propositions, and
+precisely the miss described above on the meta-proposition.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
