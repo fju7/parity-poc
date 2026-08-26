@@ -68,9 +68,14 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        # Just what the check needs. requirements.txt carries the whole API
-        # surface (reportlab, pandas, stripe) and none of it is used here.
-        run: pip install "anthropic>=0.42.0" "supabase==2.13.0"
+        # Install what production installs. An earlier version hand-picked just
+        # anthropic and supabase to save ~30s, which duplicated the version
+        # constraints — so pinning requirements.txt did nothing here and CI kept
+        # resolving anthropic 1.0.0, whose Messages.create() dropped
+        # `temperature`. requirements.txt cannot serve as a pip constraints file
+        # either (uvicorn[standard] has extras, which pip rejects there).
+        # One source of truth is worth the half minute.
+        run: pip install -r backend/requirements.txt
 
       - name: Run golden set
         id: golden
