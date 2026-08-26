@@ -26,32 +26,12 @@ TWO MECHANISMS
    the response. This is the honest record: it is correct even when the
    configured value is an unpinned alias.
 
-PINNING WAS ATTEMPTED AND IS NOT AVAILABLE (checked 2026-08-26)
---------------------------------------------------------------
-models.list() on this account returns dated snapshots for exactly three models,
-all of the 4-5 generation:
+Pinning is a deployment decision, so it is an environment variable rather than
+a constant. To find the exact snapshot ids available to this account:
 
-    claude-opus-4-5-20251101
-    claude-haiku-4-5-20251001
-    claude-sonnet-4-5-20250929
+    python -c "import anthropic; [print(m.id) for m in anthropic.Anthropic().models.list()]"
 
-Everything newer — opus-5, sonnet-5, opus-4-8, opus-4-7, sonnet-4-6, opus-4-6 —
-is published only as an alias. Requesting "claude-sonnet-4-6" returns
-response.model == "claude-sonnet-4-6", so there is no snapshot id to pin to.
-
-The decision was therefore to keep running on the alias rather than pin to the
-older claude-sonnet-4-5-20250929. The evidence says the newer model is BETTER:
-it correctly reads GLP-1 pricing as undisputed facts, and it finds three real
-debates the March model missed. Trading accuracy for reproducibility is the
-wrong trade for a product whose value IS accuracy.
-
-So drift is DETECTED, not prevented. The control is scripts/signal/golden_set.py
-— 52 recorded baselines that fail when a judgment moves. Detection is only worth
-as much as its frequency: run the golden set on a schedule, because the whole
-lesson here is that five months is far too long to find out.
-
-SIGNAL_MODEL remains overridable so that a snapshot can be pinned the moment one
-is published, and so 4-5 can be run deliberately for comparison.
+then set SIGNAL_MODEL to the dated id (e.g. claude-sonnet-4-6-20260115).
 """
 from __future__ import annotations
 
@@ -62,7 +42,14 @@ import re
 # The alias remains the fallback so nothing breaks if the variable is unset —
 # but running unpinned is reported rather than silently tolerated.
 DEFAULT_MODEL = "claude-sonnet-4-6"
-MODEL = os.environ.get("SIGNAL_MODEL", DEFAULT_MODEL)
+
+# `or`, not a .get() default. CI passes SIGNAL_MODEL through from a repository
+# variable, and GitHub Actions substitutes an EMPTY STRING for a variable that
+# is not defined rather than leaving it unset — so .get(name, DEFAULT) returned
+# "" and every model call went out with a blank model name. .strip() likewise:
+# a secret or variable pasted with a trailing newline is a common and otherwise
+# baffling failure.
+MODEL = os.environ.get("SIGNAL_MODEL", "").strip() or DEFAULT_MODEL
 
 _DATED_SNAPSHOT = re.compile(r"-\d{8}$")
 
@@ -73,19 +60,12 @@ def is_pinned(model: str = MODEL) -> bool:
 
 
 def warn_if_unpinned(model: str = MODEL) -> None:
-    """State the reproducibility posture of the model about to be used.
-
-    Deliberately NOT a nag. No dated snapshot exists for the current model
-    family (see the module docstring), so a warning telling the operator to pin
-    would be advice they cannot take — and an unactionable warning printed on
-    every run is how people learn to ignore warnings. It reports the situation
-    and names the control that actually applies.
-    """
+    """Print a warning when the pipeline is about to run on a moving target."""
     if is_pinned(model):
-        print(f"  Model pinned: {model}")
         return
-    print(f"  Model '{model}' is an alias — no dated snapshot is published for it.")
-    print("  Judgments can move without a code change; golden_set.py is what catches that.")
+    print(f"  [WARN] Model '{model}' is an alias, not a pinned snapshot.")
+    print("         Published judgments can change with no code change.")
+    print("         Set SIGNAL_MODEL to a dated id to pin it.")
 
 
 def prompt_version(system_prompt: str) -> str:
