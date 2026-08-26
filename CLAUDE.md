@@ -1785,6 +1785,59 @@ secrets. That guard is correct; do not try to route around it.
 Optional repository VARIABLE: SIGNAL_MODEL, if a pinnable snapshot is ever
 published.
 
+## Dependency ceilings (2026-08-26) — found by accident, nearly fatal
+Building the Signal golden-set CI job caused the first clean-room `pip install`
+of this project in a long time. Fred's Mac has a warm venv; Render has a warm
+build cache; nothing had resolved these dependencies from scratch.
+
+`requirements.txt` was half pinned and half a moving target:
+
+    PINNED    fastapi, uvicorn, pandas, openpyxl, python-multipart, supabase
+    OPEN      anthropic >=0.42.0, psutil >=5.9.0, reportlab >=4.0,
+              stripe >=11.0.0, resend >=2.0.0, python-dotenv, python-docx
+    NO BOUND  twilio (no version specifier at all)
+
+A fresh resolve took `anthropic>=0.42.0` to **1.0.0**, whose
+`Messages.create()` no longer accepts `temperature` — a keyword this codebase
+passes in SIXTEEN files across health_analyze, provider_shared, employer_claims,
+eob_parse, ai_parse, signal_qa and the entire Signal pipeline. Every AI feature
+in every product would have failed at once on the next cache-cleared Render
+build, with nothing in the repo having changed.
+
+`stripe` had meanwhile drifted three majors (11 -> 14.4.1) with no one choosing
+it. It has not broken. That is luck, not design.
+
+All ceilings now set, floored at the versions actually installed and working.
+Verified: the whole file resolves with no conflicts, and anthropic 0.125.0
+(the top of the allowed range) still accepts `temperature` — so `<1.0.0` is the
+real boundary, not an over-tight guess.
+
+RULE: every dependency gets an upper bound. Raise one deliberately, after
+testing. An unbounded requirement is a scheduled outage with no date on it.
+
+## Golden-set CI — two bugs worth remembering
+Both were mine, both were caught only by running the thing end to end.
+
+1. A CHECK THAT CANNOT SEE MUST NOT REPORT SUCCESS.
+   Run #2 had all six categories fail their API call. The job printed
+   "No published judgment moved" and exited 0 — green. `api failed` had been
+   classified as a warning, and warnings do not fail a run. A monitoring system
+   that reports all-clear while blind is worse than none, because it
+   manufactures the exact false confidence it exists to prevent.
+   Fixed: unmeasured is a FAILURE. The summary reports Expected / Measured /
+   Unmeasured separately and only says "no judgment moved" when every category
+   was measured. `--record` refuses to run at all if anything was unmeasured,
+   since re-baselining would carry stale values forward as though confirmed.
+
+2. DO NOT DUPLICATE A VERSION CONSTRAINT.
+   The install step hand-picked `pip install "anthropic>=0.42.0"
+   "supabase==2.13.0"` to skip the unused API dependencies and save ~30s. That
+   created a second source of truth, so pinning requirements.txt did nothing to
+   CI and it kept resolving anthropic 1.0.0. requirements.txt cannot be used as
+   a pip constraints file either — `uvicorn[standard]` has extras, which pip
+   rejects in constraints. Now: `pip install -r backend/requirements.txt`.
+   CI should install what production installs; 32 seconds is worth it.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
