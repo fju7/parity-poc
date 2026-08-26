@@ -4,11 +4,26 @@ pandas==2.2.2
 openpyxl==3.1.5
 python-multipart==0.0.12
 supabase==2.13.0
-anthropic>=0.42.0
-psutil>=5.9.0
-reportlab>=4.0
-stripe>=11.0.0
-resend>=2.0.0
-python-dotenv>=1.0.0
-python-docx>=1.1.0
-twilio
+
+# Upper bounds added 2026-08-26 after a proven breakage.
+#
+# anthropic was `>=0.42.0`. A fresh CI install resolved that to 1.0.0, whose
+# Messages.create() no longer accepts `temperature` — a keyword this codebase
+# passes in SIXTEEN files across Health, Provider, Employer and the whole Signal
+# pipeline. Every AI feature in every product would have failed on the next
+# cache-cleared build, with nothing in the repo having changed.
+#
+# stripe was `>=11.0.0` and has already drifted three majors to 14.4.1 without
+# anyone choosing that. It has not broken; that is luck, not design.
+#
+# The floors are what is installed and working today. The ceilings stop the next
+# major arriving unannounced. Raise a ceiling deliberately, after testing —
+# that is the whole point.
+anthropic>=0.85.0,<1.0.0
+psutil>=7.0.0,<8.0.0
+reportlab>=4.0,<5.0
+stripe>=14.0.0,<15.0.0
+resend>=2.0.0,<3.0.0
+python-dotenv>=1.0.0,<2.0.0
+python-docx>=1.1.0,<2.0.0
+twilio<10.0.0

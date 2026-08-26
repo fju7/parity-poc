@@ -101,12 +101,20 @@ def measure(entries: list[dict]) -> list[dict]:
     return measured
 
 
-def judge(measured: list[dict]) -> tuple[list[dict], list[dict]]:
-    """Split into (failures, warnings)."""
-    failures, warnings = [], []
+def judge(measured: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
+    """Split into (failures, warnings, unmeasured).
+
+    An unmeasured category is a FAILURE, not a warning. This is the whole
+    point of the mechanism and it was got wrong first time: run #2 had all six
+    categories fail their API call, and the job reported "No published judgment
+    moved" and exited green. A check that cannot see anything must never report
+    that everything is fine — that manufactures exactly the false confidence it
+    exists to prevent. Not measured means NOT KNOWN, and not known is a failure.
+    """
+    failures, warnings, unmeasured = [], [], []
     for m in measured:
         if m["actual"] is None:
-            warnings.append({**m, "why": m.get("note", "not measured")})
+            unmeasured.append({**m, "why": m.get("note", "not measured")})
             continue
 
         if m["actual"]["status"] != m["expected_status"]:
@@ -119,7 +127,7 @@ def judge(measured: list[dict]) -> tuple[list[dict], list[dict]]:
                 failures.append({**m, "why": f"a side collapsed to zero: {want} -> {got}"})
             elif max(abs(want[0] - got[0]), abs(want[1] - got[1])) > SIDE_COUNT_TOLERANCE:
                 warnings.append({**m, "why": f"side counts moved {want} -> {got}"})
-    return failures, warnings
+    return failures, warnings, unmeasured
 
 
 def verify() -> int:
@@ -234,6 +242,14 @@ def main():
     measured = measure(entries)
 
     if args.record:
+        blind = [m for m in measured if m["actual"] is None]
+        if blind:
+            print(f"\n[ABORT] {len(blind)} categor{'y' if len(blind) == 1 else 'ies'} could not be measured:")
+            for m in blind:
+                print(f"  {m['slug']} / {m['category']} — {m.get('note')}")
+            print("Re-baselining now would silently carry their old values forward")
+            print("as though they had been confirmed. Fix the cause and re-run.")
+            return 1
         fixture["categories"] = [
             {
                 "slug": m["slug"],
@@ -250,19 +266,30 @@ def main():
         print("Commit this with an explanation of WHY the baseline moved.")
         return 0
 
-    failures, warnings = judge(measured)
+    failures, warnings, unmeasured = judge(measured)
+    matched = len(measured) - len(failures) - len(warnings) - len(unmeasured)
 
     print(f"\n{'=' * 70}\nGOLDEN SET\n{'=' * 70}")
-    print(f"Checked:  {len(measured)}")
-    print(f"Matched:  {len(measured) - len(failures) - len(warnings)}")
-    print(f"Warnings: {len(warnings)}")
-    print(f"Failures: {len(failures)}")
+    print(f"Expected:   {len(entries)}")
+    print(f"Measured:   {len(measured) - len(unmeasured)}")
+    print(f"Unmeasured: {len(unmeasured)}")
+    print(f"Matched:    {matched}")
+    print(f"Drifted:    {len(failures)}")
+    print(f"Warnings:   {len(warnings)}")
 
-    for label, items in (("WARNINGS", warnings), ("FAILURES", failures)):
+    for label, items in (("WARNINGS", warnings),
+                         ("DRIFTED", failures),
+                         ("UNMEASURED", unmeasured)):
         if items:
             print(f"\n{label}")
             for i in items:
                 print(f"  {i['slug']:52s} {i['category']:26s} {i['why']}")
+
+    if unmeasured:
+        print(f"\n{len(unmeasured)} categor{'y' if len(unmeasured) == 1 else 'ies'} could not be measured.")
+        print("This run proves NOTHING about whether those judgments moved. Fix the")
+        print("cause and re-run — a green check here would be a lie.")
+        return 1
 
     if failures:
         print("\nA judgment moved. That is not automatically wrong — three of the five")
@@ -270,7 +297,7 @@ def main():
         print("decide, and re-baseline with --record only once you understand it.")
         return 1
 
-    print("\nNo published judgment moved.")
+    print(f"\nAll {matched} categories measured. No published judgment moved.")
     return 0
 
 
