@@ -186,6 +186,12 @@
       "recorded": "2026-08-27",
       "evidence": "diet/protective_foods returned 'debated' five times out of five and a stable tie, while the number of claims drawn into either side at all ran 5, 9, 11, 5, 4 out of 23. The verdict was perfectly repeatable while what it was a verdict about was not.",
       "consequence": "Nothing in the pipeline notices when a run attributes half as many claims as the run before it. sides_observed makes it visible to anyone who looks, but no guard reads it. Worth a guard before side counts are ever quoted as counts."
+    },
+    {
+      "note": "sides_balance is itself a measurement and can move between 'lean' and 'tie' — which is acceptable in a way a for/against reversal is not.",
+      "recorded": "2026-08-27",
+      "evidence": "Ten measurements of social-media/depression_anxiety across two surveys: nine cleared the decisiveness floor leaning FOR and one, 7/6, did not. The verdict is 'lean' on a 4-of-5 or 9-of-10 majority, so a category sitting nearer the boundary than this one could classify 'lean' on one survey and 'tie' on the next.",
+      "consequence": "That flap is tolerable and the for/against flap is not, because of what each tells a reader. 'Slight lean' and 'evenly divided' are neighbouring descriptions of the same picture; 'most evidence supports X' and 'most evidence opposes X' are opposite ones. Do not tighten the thresholds to make lean/tie perfectly repeatable — that would be tuning a real ambiguity out of the output. Do record which side of the line a category sat on, so a later change reads as a boundary crossing rather than a new finding."
     }
   ],
   "measurements": [
@@ -277,7 +283,35 @@
         ]
       ],
       "sides_balance": "tie",
-      "reading": "The 'for' side is 6 in all five runs and never moves; only 'against' wanders by one, which straddles equality and reverses the sign of a lean that was never there. This is a well-measured tie, not methodology's axis inversion, and it is publishable as an even split. The original boolean guard called it unstable, which was a false positive of our own making."
+      "reading": "The 'for' side is 6 in all five runs and never moves; only 'against' wanders by one, which straddles equality and reverses the sign of a lean that was never there. This is a well-measured tie, not methodology's axis inversion, and it is publishable as an even split. The original boolean guard called it unstable, which was a false positive of our own making.",
+      "confirmed_by_second_survey": {
+        "recorded": "2026-08-27",
+        "method": "map_consensus --runs 5 --force, written to the published row",
+        "sides_observed": [
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "sides_balance": "tie",
+        "agrees_with_first": true
+      }
     },
     {
       "slug": "social-media-teen-mental-health",
@@ -310,7 +344,35 @@
         ]
       ],
       "sides_balance": "lean",
-      "reading": "Decisive in the same direction every run. No sign of the methodology pathology."
+      "reading": "Decisive in the same direction every run. No sign of the methodology pathology.",
+      "confirmed_by_second_survey": {
+        "recorded": "2026-08-27",
+        "method": "map_consensus --runs 5 --force, written to the published row",
+        "sides_observed": [
+          [
+            8,
+            5
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        "sides_balance": "lean",
+        "agrees_with_first": true
+      }
     },
     {
       "slug": "social-media-teen-mental-health",
@@ -343,7 +405,35 @@
         ]
       ],
       "sides_balance": "lean",
-      "reading": "Decisive FOR in four of five runs, tied in the fifth, never against. Stable."
+      "reading": "Decisive FOR in four of five runs, tied in the fifth, never against. Stable.",
+      "confirmed_by_second_survey": {
+        "recorded": "2026-08-27",
+        "method": "map_consensus --runs 5 --force, written to the published row",
+        "sides_observed": [
+          [
+            6,
+            3
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            3
+          ]
+        ],
+        "sides_balance": "lean",
+        "agrees_with_first": true
+      }
     },
     {
       "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
@@ -376,7 +466,35 @@
         ]
       ],
       "sides_balance": "tie",
-      "reading": "Only two of five runs clear the decisiveness floor, so this reads as a tie rather than a lean. Nothing reverses."
+      "reading": "Only two of five runs clear the decisiveness floor, so this reads as a tie rather than a lean. Nothing reverses.",
+      "confirmed_by_second_survey": {
+        "recorded": "2026-08-27",
+        "method": "map_consensus --runs 5 --force, written to the published row",
+        "sides_observed": [
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            5
+          ]
+        ],
+        "sides_balance": "tie",
+        "agrees_with_first": true
+      }
     },
     {
       "slug": "breast-cancer-therapies",

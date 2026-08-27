@@ -39,7 +39,7 @@ import argparse
 import json
 import sys
 import time
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -97,7 +97,11 @@ def published_consensus(sb, issue_id: str) -> dict[str, dict]:
     """Currently published consensus rows, keyed by category."""
     res = (
         sb.table("signal_consensus")
-        .select("category, consensus_status, mapped_at")
+        # sides_balance/runs come from migrations 074-075. They describe the
+        # PUBLISHED row, which is the only thing a reader ever sees — this
+        # sweep's own side counts are a fresh single measurement and must
+        # never be mistaken for it.
+        .select("category, consensus_status, mapped_at, runs, sides_balance")
         .eq("issue_id", issue_id)
         .execute()
     )
@@ -177,6 +181,8 @@ def main():
                 "mapped_at": (pub.get(category) or {}).get("mapped_at"),
                 "for_claim_count": n_for,
                 "against_claim_count": n_against,
+                "published_runs": (pub.get(category) or {}).get("runs"),
+                "published_sides_balance": (pub.get(category) or {}).get("sides_balance"),
             })
             save_report(report)
             time.sleep(0.5)
@@ -246,8 +252,39 @@ def summarise(report: dict) -> None:
     if debated_now:
         empty = [r for r in debated_now if not r["for_claim_count"] and not r["against_claim_count"]]
         print(f"\nDebated under the current model: {len(debated_now)}")
-        print(f"  with side attribution:    {len(debated_now) - len(empty)}")
-        print(f"  WITHOUT side attribution: {len(empty)}")
+        print(f"  this sweep returned sides for: {len(debated_now) - len(empty)}"
+              f"   (one measurement each — a sample, not a count)")
+        if empty:
+            print(f"  this sweep returned NO sides for: {len(empty)}")
+
+        # The line above says what the engine just said. This says what the
+        # published row permits a reader to be shown, which is a different
+        # question and the one that matters. Before migration 075 the summary
+        # answered only the first and read as though it had answered both:
+        # methodology's sides are deliberately withheld in the stored row and
+        # the old output still counted it under "with side attribution".
+        by_balance = defaultdict(list)
+        for r in debated_now:
+            key = r.get("published_sides_balance") or (
+                "single run" if r.get("published_runs") else "never repeated")
+            by_balance[key].append(r)
+
+        print("  what the PUBLISHED row permits:")
+        for key in ("lean", "tie", "unstable", "single run", "never repeated"):
+            group = by_balance.get(key)
+            if not group:
+                continue
+            note = {
+                "lean": "a direction that held — sides may be shown as a balance",
+                "tie": "evenly divided — show the counts, never a direction",
+                "unstable": "sides WITHHELD — must never be rendered",
+                "single run": "measured once; balance unknown",
+                "never repeated": "measured once; balance unknown",
+            }[key]
+            print(f"    {key:<15} {len(group)}  {note}")
+            if key in ("unstable", "tie"):
+                for r in sorted(group, key=lambda x: (x["slug"], x["category"])):
+                    print(f"        {r['slug']} / {r['category']}")
         if empty:
             print("  (a debate the model cannot cite evidence for is worth inspecting)")
 
