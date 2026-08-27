@@ -275,15 +275,20 @@ def get_existing_consensus(sb, issue_id: str) -> list[dict]:
     return resp.data or []
 
 
-def clear_existing_consensus(sb, issue_id: str) -> int:
-    """Delete all consensus rows for this issue. Returns count deleted."""
-    resp = (
-        sb.table("signal_consensus")
-        .delete()
-        .eq("issue_id", issue_id)
-        .execute()
-    )
-    return len(resp.data or [])
+def clear_existing_consensus(sb, issue_id: str, categories: list[str] | None = None) -> int:
+    """Delete consensus rows for this issue. Returns count deleted.
+
+    With `categories`, deletes ONLY those. This matters: the write path clears
+    before it re-inserts, so a run limited to one category that cleared the
+    whole issue would delete every other category's row and never put it back.
+    Passing None keeps the original whole-issue behaviour.
+    """
+    q = sb.table("signal_consensus").delete().eq("issue_id", issue_id)
+    if categories is not None:
+        if not categories:
+            return 0
+        q = q.in_("category", list(categories))
+    return len((q.execute()).data or [])
 
 
 # ---------------------------------------------------------------------------
@@ -477,12 +482,33 @@ def main():
         default="glp1-drugs",
         help="Topic slug (default: glp1-drugs)",
     )
+    parser.add_argument(
+        "--category",
+        action="append",
+        help="Map only this category. Repeatable. Without it, every category in "
+             "the topic is re-mapped, which will overwrite categories whose "
+             "current label was a deliberate decision to leave alone.",
+    )
     args = parser.parse_args()
 
     issue_slug = args.issue_slug
     topic = get_topic(issue_slug)
     categories = topic["categories"]
     print(f"Topic: {topic['title']} ({issue_slug})")
+
+    only = None
+    if args.category:
+        only = list(dict.fromkeys(args.category))
+        unknown = [c for c in only if c not in categories]
+        if unknown:
+            print(f"[ERROR] Not categories of {issue_slug}: {', '.join(unknown)}")
+            print(f"        Known: {', '.join(categories)}")
+            sys.exit(2)
+        categories = [c for c in categories if c in only]
+        untouched = [c for c in topic["categories"] if c not in only]
+        print(f"Limited to {len(categories)}: {', '.join(categories)}")
+        if untouched:
+            print(f"NOT touched ({len(untouched)}): {', '.join(untouched)}")
 
     sb = _get_supabase()
     issue_id, by_category = load_scored_claims(sb, issue_slug)
@@ -496,7 +522,7 @@ def main():
             for row in existing:
                 print(f"  {row['category']}: {row['consensus_status']}")
 
-        print(f"\nCategories to map:")
+        print(f"\nCategories to map{' (limited by --category)' if only else ''}:")
         for cat in categories:
             group = by_category.get(cat, [])
             scored = sum(1 for c in group if c.get("composite_score") is not None)
@@ -578,10 +604,18 @@ def main():
             print(f"  {len(lost)} of these STOPPED being debated. If that was not expected,")
             print("  the prompt is flattening disagreement — check before publishing.")
 
-    if existing:
-        print(f"\nAll categories mapped. Clearing {len(existing)} existing rows...")
-        cleared = clear_existing_consensus(sb, issue_id)
+    scope = list(mapped.keys()) if only else None
+    doomed = [r for r in existing if scope is None or r["category"] in scope]
+    if doomed:
+        print(f"\nAll categories mapped. Clearing {len(doomed)} existing row"
+              f"{'' if len(doomed) == 1 else 's'}"
+              f"{' (scoped to --category)' if scope else ''}...")
+        for r in doomed:
+            print(f"  clearing {r['category']} ({r['consensus_status']})")
+        cleared = clear_existing_consensus(sb, issue_id, scope)
         print(f"Cleared {cleared} rows.")
+        if scope is not None and cleared != len(doomed):
+            print(f"[WARN] Expected to clear {len(doomed)} but cleared {cleared}.")
 
     results = {}
     succeeded = 0

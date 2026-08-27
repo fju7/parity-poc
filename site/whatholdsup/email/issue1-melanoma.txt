@@ -1,0 +1,69 @@
+WHAT HOLDS UP
+Issue one · 26 August 2026
+
+THE MELANOMA TRIAL THAT SUCCEEDED WITHOUT SHOWING ITS WORK
+
+On 19 August, Merck and Moderna announced that a large trial of a
+personalised mRNA cancer therapy worked in melanoma. Several outlets
+called it a landmark. It probably is.
+
+The announcement contains no results from that trial. Not one number
+describing how well the treatment worked. The figures in the headlines
+-- a 49% reduction in recurrence, 59% in distant spread -- belong to a
+different, much smaller study: an open-label trial of 157 patients that
+first reported in 2023. The trial actually being announced enrolled
+1,137 and has published nothing.
+
+That matters most for the endpoint people actually care about --
+whether anyone lives longer. At five years, that rests on an analysis
+the companies label only "n=14".
+
+  Fourteen events. The range around that figure runs from an 84%
+  reduction in the risk of death to a 35% increase. It is consistent
+  with the therapy preventing five deaths in six, and with it doing
+  harm.
+
+None of this means the treatment doesn't work. It probably does. It
+means the public has not been shown how well, and the numbers being
+repeated are carrying more weight than they can bear.
+
+
+WHERE OUR READING DIFFERS
+
+We read every article on the announcement we could reach -- seventeen
+of them. Five said plainly that no Phase 3 numbers had been released:
+FierceBiotech, BioPharma Dive, Dermatology Times, TechTimes and Life
+Science Daily.
+
+The oncology specialists did not. OncLive, AJMC, Targeted Oncology,
+ecancer, The ASCO Post, BioPharm International and CancerNetwork each
+filled the gap with the older trial's hazard ratios without telling
+readers the new trial had produced none.
+
+We expected that the other way round. On this particular point the
+general business press was more careful than the specialist press.
+
+And not one of the seventeen reported the event count beneath the
+survival figure -- nor did the June coverage of the five-year data,
+though the companies disclosed it themselves.
+
+
+Read the full assessment:
+https://whatholdsup.org/melanoma
+
+
+--
+Every figure above traces to a company release or a peer-reviewed
+paper; all of them are listed on the page. It was fact-checked against
+primary sources before publication; what that changed is noted at the
+bottom of the page.
+
+Published by CivicScale, which sells healthcare software and takes no
+outside investment. Neither Merck nor Moderna saw this before
+publication. Who pays for this: https://whatholdsup.org/who-pays-for-this
+
+Think we got something wrong? corrections@whatholdsup.org -- acknowledged
+in 48 hours.
+
+To stop receiving these, reply to unsubscribe@whatholdsup.org
+with "unsubscribe" as the subject, and you will be removed.

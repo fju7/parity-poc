@@ -1,0 +1,82 @@
+{
+  "what_this_is": "A record of every case where a published consensus label disagreed with what the model produces, and what a human decided to do about it. It exists because the stability sweep has no memory: without this, the same drifts reappear every week as though nobody had ever looked, and a check that repeats itself unchanged is one people learn to scroll past. A decision here is not permanent — it is a statement about a specific published/model pair on a specific date. If either side moves, the decision goes stale and the sweep says so.",
+  "decisions": [
+    {
+      "slug": "glp1-drugs",
+      "category": "pricing",
+      "decided": "2026-08-27",
+      "published_label": "debated",
+      "model_label": "consensus",
+      "decision": "correct",
+      "claims_read": 44,
+      "reason": "All 44 claims are list prices, cash prices, Part D spending, international comparisons and coverage rules. Nothing opposes anything. Published as debated since 2 March 2026; wrong for five months and found by accident during unrelated work.",
+      "what_would_change_it": "A claim arguing that US GLP-1 pricing is justified or comparable to peer countries would create a real opposing side."
+    },
+    {
+      "slug": "social-media-teen-mental-health",
+      "category": "interventions",
+      "decided": "2026-08-27",
+      "published_label": "debated",
+      "model_label": "consensus",
+      "decision": "correct",
+      "claims_read": 25,
+      "reason": "The claims broadly agree that interventions have real but modest effects. The apparently negative finding (nudges habituate within 2-4 weeks) is a nuance about one intervention type, not a counter-position. Confirmed twice: once when re-baselining the golden set on 25 August, once on 27 August.",
+      "what_would_change_it": "Evidence that a major intervention class does not work at all, rather than works weakly."
+    },
+    {
+      "slug": "mrna-vaccine-myocarditis",
+      "category": "biological_mechanism",
+      "decided": "2026-08-27",
+      "published_label": "uncertain",
+      "model_label": "consensus",
+      "decision": "hold",
+      "claims_read": 6,
+      "reason": "Six claims, five of them mixed-quality at 2.50-2.55. The load-bearing one says mechanisms are PROPOSED - molecular mimicry, immune activation, hypersensitivity - and the rest are observations phrased as 'suggesting'. The mechanism is not established. 'Uncertain' is the correct published label and 'consensus' would publish confidence nobody has.",
+      "what_would_change_it": "A mechanism established rather than proposed, or claims that stop hedging with 'suggesting'."
+    },
+    {
+      "slug": "crispr-gene-therapy",
+      "category": "comparative_effectiveness",
+      "decided": "2026-08-27",
+      "published_label": "uncertain",
+      "model_label": "consensus",
+      "decision": "hold",
+      "claims_read": 7,
+      "reason": "The studies agree the modalities are comparable (RR 1.04, similar engraftment, no significant VOC difference) AND one claim states plainly that no head-to-head randomised trials exist and indirect comparisons are limited. 'Consensus' reports the agreement and buries the reason it is worth little.",
+      "what_would_change_it": "A head-to-head randomised trial. Until then the honest answer is that the comparison cannot be made."
+    },
+    {
+      "slug": "glp1-drugs",
+      "category": "emerging",
+      "decided": "2026-08-27",
+      "published_label": "uncertain",
+      "model_label": "consensus",
+      "decision": "hold",
+      "claims_read": 11,
+      "reason": "Not a label problem. Eight of eleven claims are obesity prevalence statistics (40.3% national, 23 states above 35%, state-level and demographic breakdowns, 1.9 billion by 2035). Only three concern emerging therapies. The model's 'consensus' is consensus about obesity epidemiology, which has nothing to do with what this category asks.",
+      "what_would_change_it": "Re-categorising the eight prevalence claims out of 'emerging'. The label question cannot be answered until the category holds the right claims."
+    },
+    {
+      "slug": "breast-cancer-therapies",
+      "category": "survival_outcomes",
+      "decided": "2026-08-27",
+      "published_label": "consensus",
+      "model_label": "debated",
+      "decision": "hold",
+      "claims_read": 41,
+      "reason": "There is a real controversy here and it is narrow: MONALEESA-2/-3/-7 and MONARCH-2 each showed significant OS benefit while PALOMA-2 and PALOMA-3 showed numerical but not significant benefit, and one claim states ribociclib is the most consistent. That is a live question about whether CDK4/6 inhibitors are interchangeable. But thirty-plus claims agree these therapies extend survival. Publishing 'debated' would tell a reader that breast cancer survival outcomes are contested, which is more misleading than the status quo. About nine claims in this category are epidemiology, not survival outcomes of therapies.",
+      "what_would_change_it": "A mosaic that can carry both answers at once - 'these therapies extend survival' settled, 'palbociclib specifically' contested. One status cannot."
+    },
+    {
+      "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
+      "category": "protective_foods_and_nutrients",
+      "decided": "2026-08-27",
+      "published_label": "consensus",
+      "model_label": "debated",
+      "decision": "hold",
+      "claims_read": 23,
+      "reason": "The published label is the shakier one. The category contains VITAL finding vitamin D supplementation did NOT reduce incidence (HR 0.96, 0.81-1.14), the FDA concluding there is 'very little credible scientific evidence' on green tea, and non-significant results for nuts and omega-3 - alongside strong positives for fibre, olive oil and soy. 'Consensus' implies these foods are agreed protective and they are not. But 'debated' on 2-of-23 side attribution is not earned either, and the real structure is that different foods have different evidence, which is not a debate.",
+      "what_would_change_it": "A mosaic, or splitting the category by food. Also two near-duplicate fibre claims give 5% and 7% for the same 10g/day increment, which should be reconciled."
+    }
+  ]
+}

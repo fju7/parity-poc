@@ -49,6 +49,38 @@ from topic_config import get_topic
 
 REPORT_PATH = Path(__file__).resolve().parents[2] / "data" / "signal" / "stability_sweep.json"
 
+# Decisions a human already made about a drift. Tracked in git, unlike the
+# report above, because it is judgement rather than measurement.
+DECISIONS_PATH = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "label_decisions.json"
+
+
+def load_decisions() -> dict[tuple[str, str], dict]:
+    """Adjudicated drifts, keyed by (slug, category)."""
+    if not DECISIONS_PATH.exists():
+        return {}
+    try:
+        data = json.loads(DECISIONS_PATH.read_text())
+    except json.JSONDecodeError as exc:
+        print(f"[WARN] {DECISIONS_PATH.name} is not valid JSON ({exc}). Treating every drift as new.")
+        return {}
+    return {(d["slug"], d["category"]): d for d in data.get("decisions", [])}
+
+
+def classify(row: dict, decisions: dict) -> tuple[str, dict | None]:
+    """NEW, ADJUDICATED or STALE.
+
+    STALE is the one that matters. A decision is a statement about one
+    published/model pair on one date. If either side has moved since, the
+    reasoning was about a different situation and has to be made again —
+    silently carrying it forward would be worse than having no record.
+    """
+    d = decisions.get((row["slug"], row["category"]))
+    if not d:
+        return "NEW", None
+    if d.get("published_label") != row["published"] or d.get("model_label") != row["current"]:
+        return "STALE", d
+    return "ADJUDICATED", d
+
 
 def approved_slugs(sb) -> list[str]:
     """Slugs of every quality-approved topic, oldest first."""
@@ -180,9 +212,35 @@ def summarise(report: dict) -> None:
         print(f"\nDebates lost:   {len(lost)}")
         print(f"Debates gained: {len(gained)}")
 
-        print("\nEvery drifted category:")
-        for r in sorted(drift, key=lambda r: (r["slug"], r["category"])):
-            print(f"  {r['slug']:52s} {r['category']:22s} {r['published']} -> {r['current']}")
+        decisions = load_decisions()
+        buckets = {"NEW": [], "ADJUDICATED": [], "STALE": []}
+        for r in drift:
+            kind, d = classify(r, decisions)
+            buckets[kind].append((r, d))
+
+        print(f"\nAgainst {DECISIONS_PATH.name}: "
+              f"{len(buckets['NEW'])} new, {len(buckets['ADJUDICATED'])} already decided, "
+              f"{len(buckets['STALE'])} decided but moved since")
+
+        if buckets["NEW"]:
+            print("\nNEW — nobody has looked at these:")
+            for r, _ in sorted(buckets["NEW"], key=lambda x: (x[0]["slug"], x[0]["category"])):
+                print(f"  {r['slug']:52s} {r['category']:22s} {r['published']} -> {r['current']}")
+
+        if buckets["STALE"]:
+            print("\nDECIDED BUT MOVED — the earlier reasoning was about a different result:")
+            for r, d in sorted(buckets["STALE"], key=lambda x: (x[0]["slug"], x[0]["category"])):
+                print(f"  {r['slug']} / {r['category']}")
+                print(f"    decided {d['decided']}: {d['published_label']} -> {d['model_label']}  ({d['decision']})")
+                print(f"    now:               {r['published']} -> {r['current']}")
+
+        if buckets["ADJUDICATED"]:
+            print("\nAlready decided — expected, no action:")
+            for r, d in sorted(buckets["ADJUDICATED"], key=lambda x: (x[0]["slug"], x[0]["category"])):
+                print(f"  [{d['decision']:7s}] {r['slug']} / {r['category']}  ({d['decided']})")
+
+        if not buckets["NEW"] and not buckets["STALE"]:
+            print("\nEvery drift has been adjudicated. Nothing here needs a human.")
 
     debated_now = [r for r in rows if r["current"] == "debated"]
     if debated_now:
