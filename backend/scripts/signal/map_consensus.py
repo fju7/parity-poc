@@ -28,7 +28,7 @@ import os
 import re
 import sys
 import time
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 # Add backend/ to sys.path so we can import supabase_client
@@ -429,6 +429,123 @@ def _validate_side_claim_ids(result: dict, category: str, claims: list[dict]) ->
         print(f"  [WARN] {category}: debated but no side attribution returned")
 
 
+def _sides(c: dict) -> tuple[int, int]:
+    return len(c.get("for_claim_ids") or []), len(c.get("against_claim_ids") or [])
+
+
+# A run's lean is DECISIVE only if it clears both a floor and a share. One
+# claim of difference is not a direction, and neither is a difference smaller
+# than a tenth of the claims that were attributed at all. Both tests are
+# needed: 6/5 clears neither, 10/3 clears both, 3/2 clears the share but not
+# the floor and is correctly read as a tie.
+DECISIVE_MIN_CLAIMS = 2
+DECISIVE_MIN_SHARE = 0.10
+
+
+def side_lean(f: int, a: int) -> int:
+    """-1, 0 or +1: the direction of a run's side balance, 0 meaning too close to call."""
+    total = f + a
+    if total == 0:
+        return 0
+    diff = f - a
+    if abs(diff) < DECISIVE_MIN_CLAIMS or abs(diff) / total <= DECISIVE_MIN_SHARE:
+        return 0
+    return 1 if diff > 0 else -1
+
+
+def classify_sides(observed: list[list[int]]) -> str:
+    """Read K runs of (for, against) counts as 'lean', 'tie' or 'unstable'.
+
+    Three situations look alike in a boolean and are not alike at all:
+
+      unstable  social-media/methodology: 10/3, 2/10, 3/8, 11/4, 4/10.
+                Decisive leans in BOTH directions. The model partitions the
+                same claims the same way each time and swaps which half is
+                'for', because the category names a subject rather than a
+                proposition and two near-inverse propositions fit it. Nothing
+                about the balance can be published.
+
+      tie       social-media/platform_design: 6/5, 6/6, 6/7, 6/6, 6/6.
+                The 'for' side does not move at all across five runs; only the
+                'against' side wanders by one, which straddles the tie and so
+                reverses the SIGN of a lean that was never there. This is a
+                stable measurement of an evenly divided question. It is
+                publishable, but as a tie, never as a direction.
+
+      lean      breast-cancer/survival_outcomes: 5/2 five times running.
+                A direction that held every time it was decisive.
+
+    The earlier boolean called platform_design unstable, which was a false
+    positive of our own guard: it tested the sign of the difference and a sign
+    is meaningless within a claim of zero.
+    """
+    leans = [side_lean(f, a) for f, a in observed]
+    decisive = [x for x in leans if x != 0]
+    if 1 in decisive and -1 in decisive:
+        return "unstable"
+    if len(decisive) * 2 > len(leans):
+        return "lean"
+    return "tie"
+
+
+def reconcile(runs: list[dict]) -> dict:
+    """Collapse K independent mappings of one category into what we can honestly store.
+
+    Returns the chosen mapping with `runs`, `agreement`, `sides_stable`,
+    `sides_balance` and `sides_observed` attached.
+
+    Status and side attribution are measured separately because on 2026-08-27
+    they behaved differently. Across three sweeps of 53 categories the STATUS
+    never moved once, while side attribution for social-media/methodology came
+    back 10/3, 2/10, 3/8, 11/4, 4/10 and 10/3 again — three each way, on the
+    same 43 claims and the same prompt hash, in one day.
+
+    So: the modal status is stored with the fraction of runs that agreed, and
+    the side attribution is stored ONLY if it survives classify_sides. When it
+    does not, the side lists are dropped and sides_stable is False, because
+    publishing a balance that reverses tells a reader the field is divided
+    when what is actually true is that we cannot measure it. That is our
+    instability dressed up as the world's, and it is the error this whole
+    project exists to name.
+
+    A tie is NOT that error. A category measured at 6/5, 6/6, 6/7 is being
+    measured well and is genuinely close, and suppressing it would hide a real
+    finding. sides_balance carries the difference through to the frontend.
+    """
+    statuses = [r["consensus_status"] for r in runs]
+    modal = Counter(statuses).most_common(1)[0][0]
+    agreeing = [r for r in runs if r["consensus_status"] == modal]
+
+    # Content comes from the first run that produced the modal status — an
+    # arbitrary but deterministic choice, and the alternative (stitching prose
+    # from several runs) would produce a summary no single run ever wrote.
+    chosen = dict(agreeing[0])
+    chosen["runs"] = len(runs)
+    chosen["agreement"] = round(len(agreeing) / len(runs), 3) if len(runs) > 1 else None
+
+    observed = [list(_sides(r)) for r in agreeing]
+    chosen["sides_observed"] = observed if len(runs) > 1 else None
+
+    if len(runs) == 1:
+        chosen["sides_stable"] = None
+        chosen["sides_balance"] = None
+        return chosen
+
+    # A run that put every attributed claim on one side while others did not is
+    # a coverage failure, not a balance. Kept separate from classify_sides
+    # because it is a different fault with the same remedy.
+    collapsed = any(f == 0 or a == 0 for f, a in observed)
+    balance = "unstable" if collapsed else classify_sides(observed)
+
+    chosen["sides_balance"] = balance
+    chosen["sides_stable"] = balance != "unstable"
+    if not chosen["sides_stable"]:
+        # Withheld, not missing. Migration 074's CHECK enforces the pairing.
+        chosen["for_claim_ids"] = None
+        chosen["against_claim_ids"] = None
+    return chosen
+
+
 def store_consensus(sb, issue_id: str, category: str, consensus: dict,
                     system_prompt: str | None = None) -> bool:
     """Insert one consensus row. Returns True on success."""
@@ -449,6 +566,15 @@ def store_consensus(sb, issue_id: str, category: str, consensus: dict,
         # value that explains the output.
         "model_id": LAST_RESOLVED_MODEL,
         "prompt_version": prompt_version(system_prompt) if system_prompt else None,
+        # Migration 074. Absent on a single-run map, which is what every row
+        # written before repeated measurement existed was.
+        "runs": consensus.get("runs"),
+        "agreement": consensus.get("agreement"),
+        "sides_stable": consensus.get("sides_stable"),
+        "sides_observed": consensus.get("sides_observed"),
+        # Migration 075. 'lean', 'tie' or 'unstable' — the three-way reading
+        # that sides_stable flattens into a boolean.
+        "sides_balance": consensus.get("sides_balance"),
     }
     try:
         sb.table("signal_consensus").insert(row).execute()
@@ -483,6 +609,21 @@ def main():
         help="Topic slug (default: glp1-drugs)",
     )
     parser.add_argument(
+        "--measure-only",
+        action="store_true",
+        help="Map and report, write nothing. The only safe way to measure a category "
+             "whose published label was a deliberate decision to leave alone — --force "
+             "would overwrite that decision with whatever this run happens to produce.",
+    )
+    parser.add_argument(
+        "--runs",
+        type=int,
+        default=1,
+        help="Map each category this many times and store the modal verdict with "
+             "its agreement rate. Side attribution is stored only if its direction "
+             "held across runs. Default 1, which is the original behaviour.",
+    )
+    parser.add_argument(
         "--category",
         action="append",
         help="Map only this category. Repeatable. Without it, every category in "
@@ -495,6 +636,13 @@ def main():
     topic = get_topic(issue_slug)
     categories = topic["categories"]
     print(f"Topic: {topic['title']} ({issue_slug})")
+
+    if args.runs < 1:
+        print("[ERROR] --runs must be at least 1.")
+        sys.exit(2)
+    if args.runs > 1:
+        print(f"Repeated measurement: {args.runs} runs per category, "
+              f"{args.runs}x the API cost.")
 
     only = None
     if args.category:
@@ -531,12 +679,17 @@ def main():
                 avg = sum(c["composite_score"] for c in group if c.get("composite_score") is not None) / scored
             print(f"  {cat}: {len(group)} claims ({scored} scored, avg composite {avg:.2f})")
 
-        print(f"\nAPI calls needed: {len([c for c in categories if by_category.get(c)])}")
+        billable = len([c for c in categories if by_category.get(c)])
+        if args.runs > 1:
+            print(f"\nAPI calls needed: {billable * args.runs}"
+                  f"  ({billable} categor{'y' if billable == 1 else 'ies'} x {args.runs} runs)")
+        else:
+            print(f"\nAPI calls needed: {billable}")
         return
 
     # --- Idempotency check ---
     existing = get_existing_consensus(sb, issue_id)
-    if existing and not args.force:
+    if existing and not args.force and not args.measure_only:
         print(f"\nFound {len(existing)} existing consensus rows:")
         for row in existing:
             print(f"  {row['category']}: {row['consensus_status']}")
@@ -568,15 +721,40 @@ def main():
         scored_count = sum(1 for c in group if c.get("composite_score") is not None)
         print(f"[{cat}] Mapping {len(group)} claims ({scored_count} scored)...", end=" ", flush=True)
 
-        consensus = map_category(cat, group, consensus_prompt)
-        if consensus:
-            mapped[cat] = consensus
-            print(f"-> {consensus['consensus_status']}")
-        else:
+        observations = []
+        for attempt in range(args.runs):
+            got = map_category(cat, group, consensus_prompt)
+            if got:
+                observations.append(got)
+            if attempt < args.runs - 1:
+                time.sleep(0.5)
+
+        if not observations:
             failed += 1
             print("-> API FAILED")
+        elif args.runs > 1 and len(observations) < args.runs:
+            # Some runs succeeded and some did not. Reconciling a partial set
+            # would report an agreement rate over a sample we did not choose,
+            # which is a worse lie than no number at all.
+            failed += 1
+            print(f"-> ONLY {len(observations)}/{args.runs} RUNS SUCCEEDED")
+        else:
+            consensus = reconcile(observations)
+            mapped[cat] = consensus
+            if args.runs > 1:
+                seen = Counter(o["consensus_status"] for o in observations)
+                spread = " ".join(f"{s}x{n}" for s, n in seen.most_common())
+                line = (f"-> {consensus['consensus_status']}  "
+                        f"agreement {consensus['agreement']:.0%}  [{spread}]")
+                bal = consensus.get("sides_balance")
+                if bal == "unstable":
+                    line += f"  SIDES UNSTABLE {consensus['sides_observed']} — withheld"
+                elif bal == "tie":
+                    line += f"  SIDES TIED {consensus['sides_observed']} — publish as even, not as a lean"
+                print(line)
+            else:
+                print(f"-> {consensus['consensus_status']}")
 
-        # Delay between API calls
         time.sleep(0.5)
 
     if failed:
@@ -603,6 +781,24 @@ def main():
         if lost:
             print(f"  {len(lost)} of these STOPPED being debated. If that was not expected,")
             print("  the prompt is flattening disagreement — check before publishing.")
+
+    if args.measure_only:
+        print(f"\n{'=' * 60}")
+        print("MEASURE ONLY — nothing was cleared, nothing was written")
+        print(f"{'=' * 60}")
+        for cat, c in mapped.items():
+            pub = next((r["consensus_status"] for r in existing if r["category"] == cat), "none")
+            line = f"  {cat}: published={pub}  measured={c['consensus_status']}"
+            if c.get("agreement") is not None:
+                line += f"  agreement {c['agreement']:.0%}"
+            print(line)
+            if c.get("sides_observed"):
+                bal = c.get("sides_balance")
+                mark = {"lean": "stable lean",
+                        "tie": "stable TIE — no direction",
+                        "unstable": "UNSTABLE — direction reverses"}.get(bal, str(bal))
+                print(f"    sides {mark}: {c['sides_observed']}")
+        return
 
     scope = list(mapped.keys()) if only else None
     doomed = [r for r in existing if scope is None or r["category"] in scope]

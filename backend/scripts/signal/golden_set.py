@@ -50,6 +50,10 @@ FIXTURE = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "signal_c
 # A debated category's side counts are the least stable thing measured — the
 # model may cite 8/5 one run and 7/5 the next without the judgment changing.
 # Only a swing beyond this, or a side collapsing to zero, is worth a failure.
+#
+# A reversal is judged by mc.side_lean, not by the sign of the difference, so
+# that a category sitting on a genuine tie does not fail every run for crossing
+# a line that was never carrying information.
 SIDE_COUNT_TOLERANCE = 3
 
 
@@ -167,8 +171,10 @@ def judge(measured: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
         if want and got:
             if not got[0] or not got[1]:
                 failures.append({**m, "why": f"a side collapsed to zero: {want} -> {got}"})
-            elif (want[0] - want[1]) * (got[0] - got[1]) < 0:
-                # The heavier side changed sides. A reader is told a materially
+            elif (mc.side_lean(*want) and mc.side_lean(*got)
+                  and mc.side_lean(*want) != mc.side_lean(*got)):
+                # The heavier side changed sides, DECISIVELY in both readings.
+                # A reader is told a materially
                 # different story — "most of the evidence supports X" becomes
                 # "most of it opposes X" — even though the status still reads
                 # debated.
@@ -194,6 +200,20 @@ def judge(measured: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
                 # to publish for that category, and they should come off the
                 # page rather than the alarm being lowered.
                 failures.append({**m, "why": f"side BALANCE REVERSED {want} -> {got}"})
+            elif mc.side_lean(*want) != mc.side_lean(*got):
+                # One reading is decisive and the other is inside the tie band,
+                # or the sign flipped without either reading being decisive.
+                # Not the same fault: see social-media/platform_design, which
+                # returned 6/5, 6/6, 6/7, 6/6, 6/6 across five runs. The 'for'
+                # side never moved at all; 'against' wandered by one and
+                # happened to cross equality. The plain sign test called that a
+                # reversal and it was a false positive of our own guard — the
+                # sign of a one-claim difference carries no information.
+                #
+                # A category that keeps crossing the line is telling us it is
+                # evenly divided, which is a finding to publish as a tie, not
+                # an alarm.
+                warnings.append({**m, "why": f"side balance crossed the tie line {want} -> {got}"})
             elif max(abs(want[0] - got[0]), abs(want[1] - got[1])) > SIDE_COUNT_TOLERANCE:
                 warnings.append({**m, "why": f"side counts moved {want} -> {got}"})
     return failures, warnings, unmeasured
