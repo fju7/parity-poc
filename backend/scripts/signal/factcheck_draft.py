@@ -82,6 +82,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import hashlib
 import json
 import os
 import re
@@ -959,8 +960,17 @@ def main():
     print(report)
 
     if args.report:
+        # sha256 of the exact bytes checked, and the verdict. Without these a
+        # report is only evidence that SOMETHING was checked once. With them a
+        # sender can refuse to mail content this gate has not passed — which is
+        # the guard that was missing on 2026-08-27, when every correction made
+        # to melanoma.html that afternoon was absent from the email actually
+        # broadcast, because nothing tied the two together.
         Path(args.report).write_text(json.dumps({
-            "draft": str(path), "checked_at": today, "model": SIGNAL_MODEL,
+            "draft": str(path),
+            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "passed": not failed,
+            "checked_at": today, "model": SIGNAL_MODEL,
             "claims": claims, "verdicts": verdicts,
             "recency": recency, "objections": objections,
             "inferences": inferences, "coverage": cov,
