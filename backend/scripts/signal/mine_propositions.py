@@ -82,6 +82,10 @@ PROPOSE_BATCH = 40      # claims per proposal call — short texts, so these can
 MAP_BATCH = 20          # claims per mapping call — the model must answer per claim
 DEFAULT_RUNS = 2
 DEFAULT_MAX_PROPOSITIONS = 8
+DEFAULT_PROPOSE_PER_BATCH = 6
+
+# Below this many bearing claims, no balance verdict is reported at all.
+MIN_BEARING_FOR_BALANCE = 8
 
 
 def load_claims(sb, slug: str, category: str | None) -> tuple[str, list[dict]]:
@@ -146,7 +150,8 @@ appears one-sided.
 Return ONLY JSON:
 [{"proposition": "...", "why_it_could_be_false": "...", "evidence_seen": "what
 in these claims bears on it"}]
-Propose at most 6 from this batch."""
+Propose at most %d from this batch. Fewer is fine — propose only the questions
+this batch's evidence genuinely bears on."""
 
 MERGE_SYSTEM = """You are consolidating candidate propositions into one set.
 
@@ -160,43 +165,85 @@ distinct question, discarding any that:
 Keep the sharpest wording of each surviving question. Order by how likely the
 evidence is to be genuinely divided on it.
 
+Returning FEWER is better than padding. The limit below is a ceiling, not a
+target. If two candidates ask the same question from opposite directions —
+"X helps" and "X does not help" — that is ONE proposition, not two.
+
 Return ONLY JSON:
 [{"proposition": "...", "why_it_could_be_false": "...", "merged_from": <count>}]
 Return at most %d."""
 
 
-def propose(claims: list[dict], batch: int) -> list[dict]:
+def propose(claims: list[dict], batch: int, per_batch: int) -> tuple[list[dict], bool]:
+    """Returns (candidates, saturated).
+
+    saturated is True when every batch returned its maximum. The candidate pool
+    is then bounded by per_batch rather than by the evidence, and everything
+    downstream inherits that bound — including the merge, which cannot keep a
+    question nobody proposed. This was invisible in the first two runs: 6
+    batches at 6 each produced exactly 36 candidates twice, and only the merge
+    cap was reported.
+    """
     out: list[dict] = []
     batches = [claims[i:i + batch] for i in range(0, len(claims), batch)]
+    at_max = 0
+    ok_batches = 0
     print(f"  proposing from {len(batches)} batch(es): ", end="", flush=True)
     for group in batches:
         body = "\n".join(f"- {c['claim_text']}" for c in group)
-        got = mc._call_claude(PROPOSE_SYSTEM, body, max_tokens=3000)
+        got = mc._call_claude(PROPOSE_SYSTEM % per_batch, body, max_tokens=4000)
         if not isinstance(got, list):
             print("x", end="", flush=True)
             continue
-        for item in got:
-            if isinstance(item, dict) and item.get("proposition"):
-                out.append(item)
+        ok_batches += 1
+        kept = [i for i in got if isinstance(i, dict) and i.get("proposition")]
+        out.extend(kept)
+        if len(kept) >= per_batch:
+            at_max += 1
         print(".", end="", flush=True)
         time.sleep(0.3)
+    # Measured against the batches that ANSWERED, not against all of them. A
+    # failed call is missing data, and letting it suppress the warning would
+    # hide a binding cap behind an unrelated error.
+    saturated = ok_batches > 0 and at_max == ok_batches
+    if ok_batches < len(batches):
+        print(f"  [WARN] {len(batches) - ok_batches} proposal call(s) failed; "
+              "those claims contributed no candidates.")
     print(f"  -> {len(out)} candidates")
-    return out
+    if saturated:
+        print(f"  [WARN] every batch returned its maximum of {per_batch}. The "
+              "candidate pool is bounded by --propose-per-batch,")
+        print("         not by the evidence, and the merge can only keep what "
+              "was proposed. Raise it before trusting coverage.")
+    return out, saturated
 
 
-def merge(candidates: list[dict], limit: int) -> list[dict]:
+def merge(candidates: list[dict], limit: int) -> tuple[list[dict], bool]:
+    """Returns (propositions, cap_bound) — cap_bound True when the limit, not
+    the evidence, decided how many questions came out."""
     if not candidates:
-        return []
+        return [], False
     body = "\n".join(
         f"- {c['proposition']}  (could be false because: "
         f"{c.get('why_it_could_be_false', '')})" for c in candidates)
     got = mc._call_claude(MERGE_SYSTEM % limit, body, max_tokens=3000)
     if not isinstance(got, list):
         print("  [ERROR] merge failed; falling back to the raw candidate list.")
-        return candidates[:limit]
+        return candidates[:limit], len(candidates) >= limit
     merged = [g for g in got if isinstance(g, dict) and g.get("proposition")]
     print(f"  merged {len(candidates)} candidates -> {len(merged)} propositions")
-    return merged[:limit]
+    if len(merged) >= limit:
+        # When a cap produces exactly the cap, the cap chose the set, not the
+        # evidence. Every coverage figure downstream is then a statement about
+        # --max-propositions and not about the corpus, and the residue in
+        # particular will read as "this evidence settles nothing" when the truth
+        # may be "we only asked eight questions of it".
+        print(f"  [WARN] the merge returned {len(merged)} and the cap is {limit}. "
+              "The cap bound the answer.")
+        print("         Coverage and residue below are limited by that cap, not "
+              "measured against it. Re-run with a higher --max-propositions "
+              "before believing the residue figure.")
+    return merged[:limit], len(merged) >= limit
 
 
 # ---------------------------------------------------------------------------
@@ -208,8 +255,14 @@ def map_system(props: list[dict]) -> str:
     return (
         "You are deciding which propositions each claim bears on.\n\n"
         f"PROPOSITIONS:\n{listed}\n\n"
-        "For each claim, list every proposition it bears on and whether it "
-        "supports or opposes it. A claim may bear on several, one, or none.\n\n"
+        "For each claim, list EVERY proposition it bears on and whether it "
+        "supports or opposes each one.\n\n"
+        "This is not a sorting task. Do not pick the single best fit. Test the "
+        "claim against every proposition in the list, one at a time, and include "
+        "all of them that it moves. A trial result about one drug commonly bears "
+        "on several propositions at once — on whether that drug works, on how it "
+        "compares with another, and on whether a sequencing question has been "
+        "settled — and reporting only the closest match hides two of the three.\n\n"
         "Answer with an EMPTY list when the claim bears on none of them. Most "
         "corpora contain background — incidence rates, population statistics, "
         "descriptions of how a trial was designed — that is true and useful and "
@@ -226,7 +279,13 @@ def map_system(props: list[dict]) -> str:
 def map_batch(batch: list[dict], system_prompt: str, n_props: int) -> dict[str, set] | None:
     body = "\n\n".join(f"--- Claim {i} ---\n{c['claim_text']}"
                        for i, c in enumerate(batch, 1))
-    got = mc._call_claude(system_prompt, body, max_tokens=4096)
+    # Roughly 25 tokens per (claim, proposition) pair it might emit, plus slack.
+    # A fixed 4096 was fine for 8 propositions and would truncate at 25, and a
+    # truncated response parses as "these claims bear on nothing" — silently
+    # inflating the residue, which is the one number this script exists to
+    # report. Capped at the API maximum for this model family.
+    budget = min(16000, max(4096, len(batch) * n_props * 25 + 1000))
+    got = mc._call_claude(system_prompt, body, max_tokens=budget)
     if not isinstance(got, list):
         return None
     result: dict[str, set] = {c["id"]: set() for c in batch}
@@ -276,7 +335,12 @@ def main():
                          "a proposition only if a majority of runs say so.")
     ap.add_argument("--max-propositions", type=int, default=DEFAULT_MAX_PROPOSITIONS,
                     help=f"Cap on the merged set (default {DEFAULT_MAX_PROPOSITIONS}).")
-    ap.add_argument("--propose-batch", type=int, default=PROPOSE_BATCH)
+    ap.add_argument("--propose-batch", type=int, default=PROPOSE_BATCH,
+                    help="Claims shown per proposal call.")
+    ap.add_argument("--propose-per-batch", type=int, default=DEFAULT_PROPOSE_PER_BATCH,
+                    help="Maximum propositions each proposal call may return "
+                         "(default 6). If every batch returns its maximum, this "
+                         "is what bounds the candidate pool, not the evidence.")
     ap.add_argument("--map-batch", type=int, default=MAP_BATCH)
     ap.add_argument("--dry-run", action="store_true",
                     help="Report the API cost and exit. No calls, no writes.")
@@ -310,12 +374,13 @@ def main():
         return
 
     print("\nSTEP 1 — propose")
-    candidates = propose(claims, args.propose_batch)
+    candidates, propose_saturated = propose(claims, args.propose_batch,
+                                            args.propose_per_batch)
     if not candidates:
         sys.exit("No propositions proposed. Nothing to map.")
 
     print("\nSTEP 2 — merge")
-    props = merge(candidates, args.max_propositions)
+    props, cap_bound = merge(candidates, args.max_propositions)
     if not props:
         sys.exit("Merge produced nothing.")
     for i, p in enumerate(props, 1):
@@ -377,8 +442,14 @@ def main():
         # "debated" with no opposing claims is broken, whereas a proposition
         # that all the evidence supports is simply settled, and saying so is a
         # useful answer.
+        # classify_sides was calibrated on categories holding thirty to fifty
+        # claims. At three, "unstable" is noise wearing a label we have agreed
+        # means something serious — that the model answers a different question
+        # on different calls. Below the floor the honest output is the bearing
+        # count and nothing else.
         balance = (mc.classify_sides(observed)
-                   if args.runs > 1 and len(bearing) > 0 else None)
+                   if args.runs > 1 and len(bearing) >= MIN_BEARING_FOR_BALANCE
+                   else None)
         scored = [score[c] for c in bearing if score.get(c) is not None]
         rows.append({
             "n": i,
@@ -400,16 +471,42 @@ def main():
     print(f"{'=' * 70}")
     print(f"{'':4}{'bears':>6}{'sup':>5}{'opp':>5}{'mean':>6}  balance")
     for r in sorted(rows, key=lambda x: -x["bearing"]):
-        bal = r["sides_balance"] or "—"
+        bal = r["sides_balance"] or (
+            f"(too few to judge, floor is {MIN_BEARING_FOR_BALANCE})")
         mean = f"{r['mean_composite']:.2f}" if r["mean_composite"] is not None else "—"
         print(f"\n  P{r['n']} {r['proposition']}")
         print(f"{'':4}{r['bearing']:>6}{r['supports']:>5}{r['opposes']:>5}{mean:>6}  "
               f"{bal}   {r['sides_observed']}")
 
+    # If no claim bears on more than one proposition, the model is sorting
+    # rather than testing, whatever the prompt asked for. That produces the same
+    # large residue as having too few propositions and needs a different fix, so
+    # the two must be distinguishable in the output rather than inferred later
+    # from the JSON — which is how this was caught the first time.
+    multi = sum(1 for pairs in final.values()
+                if len({pp for pp, _ in pairs}) > 1)
+    bearing_any = sum(1 for pairs in final.values() if pairs)
+    print(f"\n  OVERLAP: {multi} of the {bearing_any} claims that bear on anything "
+          f"bear on more than one proposition.")
+    if bearing_any and multi == 0:
+        print("  [WARN] not a single claim bore on two propositions. The model is "
+              "picking one best fit rather than testing each proposition, so the")
+        print("         residue below reflects that behaviour and not the "
+              "corpus. Raising --max-propositions will not fix it.")
+
     print(f"\n  RESIDUE: {len(residue)} of {len(claims)} claims "
-          f"({len(residue) / len(claims):.0%}) bear on none of these.")
-    print("  That share is how much of a subject-heading corpus was never "
-          "evidence for anything askable.")
+          f"({len(residue) / len(claims):.0%}) bear on none of THESE "
+          f"{len(props)} propositions.")
+    if cap_bound:
+        print("  [WARN] the proposition set was cut off by --max-propositions, so "
+              "this is not a measure of what the corpus can settle.")
+        print("         Raise the cap and re-run before quoting it.")
+    else:
+        print("  The merge returned fewer propositions than the cap allowed, so "
+              "this is a measure of the corpus rather than of the cap.")
+    print("  Residue is not the same as 'was never evidence'. A claim reporting "
+          "progression-free survival does not bear on a proposition about "
+          "OVERALL survival, and lands here correctly.")
     for cid in residue[:5]:
         print(f"    e.g. {text[cid][:120]}")
 
@@ -427,6 +524,14 @@ def main():
         "model": mc.LAST_RESOLVED_MODEL or SIGNAL_MODEL,
         "prompt_version": prompt_version(system_prompt),
         "candidates_proposed": len(candidates),
+        "max_propositions": args.max_propositions,
+        "cap_bound": cap_bound,
+        "propose_per_batch": args.propose_per_batch,
+        "propose_saturated": propose_saturated,
+        "min_bearing_for_balance": MIN_BEARING_FOR_BALANCE,
+        "claims_bearing_on_any": sum(1 for pairs in final.values() if pairs),
+        "claims_bearing_on_more_than_one": sum(
+            1 for pairs in final.values() if len({pp for pp, _ in pairs}) > 1),
         "propositions": rows,
         "residue_claim_ids": residue,
     }, indent=2) + "\n")

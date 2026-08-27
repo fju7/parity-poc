@@ -204,6 +204,12 @@
       "recorded": "2026-08-27",
       "evidence": "The only claims context rescued from 'belongs nowhere' in breast-cancer-therapies were population survival statistics — 'the 5-year relative survival rate across all stages is approximately 90%', 'above 90% in high-income countries and below 70% in many low-income ones'. Read with their source passage the model files them under survival_outcomes; read alone it says they bear on nothing. Both readings are defensible, because the heading covers 'how long do patients live' AND 'do these therapies extend life' and those are different questions.",
       "consequence": "This is social-media/methodology's pathology in another form, and it is the category whose published label has been argued over all day. Renaming will not fix it; only stating the proposition will. It also means the topic-level structure, not the claim-level data, is what has to change — which is what Fred identified independently from the melanoma issue working and these not."
+    },
+    {
+      "note": "A measurement bounded by our own parameter reads exactly like a measurement of the world, and we have now made that mistake three times in one pipeline.",
+      "recorded": "2026-08-27",
+      "evidence": "mine_propositions run 1 reported '71% of this corpus bears on no answerable question' when three separate limits were binding: the merge cap (8 candidates in, 8 out), the per-batch proposal cap (6 batches x 6 = exactly 36 candidates, twice), and a mapping prompt the model read as a sorting task, which produced zero claims bearing on more than one proposition out of 59. Fixing only the third moved coverage from 59 claims to 121 and the residue from 71% to 42%.",
+      "consequence": "Every cap in this pipeline now reports when it binds, and the residue line says which caps were active when it was computed. The general rule: a script that can be limited by a flag must say so in the same breath as the number the flag limited, not in a JSON field somebody reads later. The earlier instances were detect_changes defaulting --issue-slug to one topic while reporting COMPLETE, and golden_set treating an API failure as a warning while blind to six categories."
     }
   ],
   "measurements": [
