@@ -21,12 +21,13 @@
       "why_it_matters": "The draft's entire premise is that other people are careless with primary sources."
     },
     {
-      "class": "PHANTOM",
+      "class": "MISCLASSIFIED",
       "caught_by": "SOURCE",
-      "summary": "A five-year p-value appeared in the draft that exists in no locatable source.",
-      "was": "one-sided nominal p = 0.0075",
-      "corrected_to": "removed; the five-year analyses were descriptive and carry no p-value",
-      "why_it_matters": "A figure that entered the draft from summarisation rather than from a source. NOT_FOUND must fail, not soften."
+      "superseded": "2026-08-26, by the gate's first run",
+      "summary": "RETRACTED. This entry originally recorded p=0.0075 as a phantom figure appearing in no source. That was wrong: it is stated in Merck's release of 20 January 2026. The real error was DROPPED, recorded below. Kept visible rather than deleted, because a fixture that quietly edits its own history is worth nothing.",
+      "was": "recorded as: 'a five-year p-value that exists in no locatable source'",
+      "corrected_to": "reclassified; the figure is real and has been restored to the piece",
+      "why_it_matters": "The fixture is measured against, so an error in it propagates into every future judgement of whether the gate works."
     },
     {
       "class": "DROPPED",
@@ -75,11 +76,20 @@
     "Any claim about what a third party did, said or omitted requires named, checked instances before it ships.",
     "A claim that the coverage got something right is a publishable outcome. The delta section must not require a scalp.",
     "CANNOT VERIFY is a statement about the checker's reach, never about whether the fact exists. It may not be written up as 'appears in no source'.",
-    "Internal claims \u2014 our rubric, our arithmetic, our corrections policy, our own editorial history \u2014 are recorded for a human to check, never counted as source failures. A gate that blocks on 'we acknowledge within 48 hours' is a gate people learn to override."
+    "Internal claims \u2014 our rubric, our arithmetic, our corrections policy, our own editorial history \u2014 are recorded for a human to check, never counted as source failures. A gate that blocks on 'we acknowledge within 48 hours' is a gate people learn to override.",
+    "An unsupported claim about what other outlets did has now been introduced three separate times, twice while fixing something else. Any sentence asserting what coverage did, failed to do, or rarely does requires named instances or must be cut.",
+    "The gate's own findings are checked before they are acted on. Three of its flags were false positives traced to matching a figure against the wrong readout of the same trial."
   ],
   "second_pass": {
     "run": "2026-08-26",
     "by": "factcheck_draft.py, first live run",
     "result": "BLOCKED. Found the two DROPPED errors above and the OVERSTATED one, plus two minor fairness points (a rounded interval in the summary strip inconsistent with the body, and an unsupported claim about which figure 'travelled' in coverage). It also produced 13 NOT_FOUND verdicts of which 8 were internal claims it had no way to check \u2014 the flaw that prompted the scope field."
+  },
+  "third_pass": {
+    "run": "2026-08-27",
+    "regression_on_corrected_piece": "BLOCKED, 5 external claims unverified of 36 (was 13 of 42 before the scope fix). Four genuine findings: an unsupported claim that 'nobody else has' noted the investigator-assessed endpoint; 'the one least often quoted' as an unsupported claim about coverage; 30-month absolute rates quoted in a section discussing five-year results when five-year rates (68.8% vs 49.1%) exist; and a framing that made a nominal p-value in a descriptive analysis sound improper. All four fixed.",
+    "false_positives": "Three. The adverse-event rates (fatigue 59.6%, injection-site pain 59.6%, chills 51.0%) were flagged WRONG_VALUE against a 2023 release; they are verbatim in the five-year release and are correct. 'n=14' was flagged as misrepresenting an event count; the release says '(n=14)' and it is 14 deaths. The ASCO Post date was flagged unconfirmed in one run and confirmed exactly in the other.",
+    "nondeterminism": "The two runs disagreed with each other on the ASCO Post date and on the adverse-event rates, from near-identical inputs. The gate's own findings need verifying before they are acted on, exactly as a draft's do.",
+    "fixture_result": "Six of eight planted errors caught cleanly, including the invented p = 0.0031 identified as appearing in no source for any timepoint, and the contradiction between a Checking note calling figures unverifiable and the body printing them. Two partial: the stale irAE rates were not isolated, and the missing grade 3+ toxicity was not flagged as an omission. One fixture construction flaw: the Checking footer still carried corrected-version text, so the DMFS easing phrase leaked into a draft that was supposed to omit it."
   }
 }
