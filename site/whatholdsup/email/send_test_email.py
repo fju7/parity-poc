@@ -54,13 +54,61 @@ UNSAFE = {
     "web fonts": r"fonts\.googleapis\.com",
 }
 
-# Where an unsubscribe request actually lands. A mailto is a legitimate
-# unsubscribe mechanism under RFC 2369 and works today with no subscriber
-# database behind it. When there is a real list, this becomes an HTTPS
-# endpoint and List-Unsubscribe-Post can be added for RFC 8058 one-click —
-# which requires an HTTPS URL and must NOT be claimed for a mailto alone.
+# Where an unsubscribe request actually lands.
+#
+# Two mechanisms, and both are offered because clients differ:
+#
+#   RFC 2369  the mailto. Works with no infrastructure and is the fallback when
+#             the HTTPS endpoint is down or the secret is unset.
+#   RFC 8058  one-click. Requires an HTTPS URL that accepts POST, plus the
+#             List-Unsubscribe-Post header. Gmail and Outlook surface a native
+#             unsubscribe control for it and treat its absence as a mild
+#             negative signal on bulk mail.
+#
+# The header pair is ONLY emitted when a per-recipient signed URL could be
+# built. Claiming one-click for a mailto is a protocol violation and some
+# providers will treat it as a broken unsubscribe, which is worse than not
+# claiming it at all.
 UNSUBSCRIBE = "unsubscribe@whatholdsup.org"
-LIST_UNSUBSCRIBE = f"<mailto:{UNSUBSCRIBE}?subject=Unsubscribe>"
+MAILTO_UNSUBSCRIBE = f"<mailto:{UNSUBSCRIBE}?subject=Unsubscribe>"
+UNSUBSCRIBE_ENDPOINT = "https://whatholdsup.org/api/unsubscribe"
+
+
+def unsubscribe_url(email: str, secret: str) -> str:
+    """Per-recipient one-click URL.
+
+    The token is HMAC-SHA256 of the lowercased, stripped address, base64url
+    without padding — byte-for-byte what site/whatholdsup/api/unsubscribe.js
+    computes. The two are tested against each other rather than assumed to
+    agree, because a silent mismatch would produce an unsubscribe link that
+    looks right in every message and works in none.
+    """
+    import base64
+    import hashlib
+    import hmac
+    from urllib.parse import quote
+
+    addr = email.lower().strip()
+    mac = hmac.new(secret.encode(), addr.encode(), hashlib.sha256).digest()
+    token = base64.urlsafe_b64encode(mac).decode().rstrip("=")
+    e = base64.urlsafe_b64encode(email.encode()).decode().rstrip("=")
+    return f"{UNSUBSCRIBE_ENDPOINT}?e={quote(e)}&t={quote(token)}"
+
+
+def unsubscribe_headers(email: str, secret: str | None) -> dict[str, str]:
+    """List-Unsubscribe headers for one recipient.
+
+    Without a secret this degrades to the mailto alone — deliberately, and
+    without List-Unsubscribe-Post. Degrading loudly is the caller's job; see
+    where this is called.
+    """
+    if not secret:
+        return {"List-Unsubscribe": MAILTO_UNSUBSCRIBE}
+    url = unsubscribe_url(email, secret)
+    return {
+        "List-Unsubscribe": f"<{url}>, {MAILTO_UNSUBSCRIBE}",
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+    }
 
 # Anything matching these left in a draft means a merge field was never
 # filled. The melanoma issue went out to a test address with a literal
@@ -146,7 +194,7 @@ def main() -> None:
                 print(f"            - {b}")
             sys.exit(1)
         print("unsub    : present in every part, no unfilled placeholders  OK")
-        print(f"unsub    : {LIST_UNSUBSCRIBE}")
+        print(f"unsub    : {MAILTO_UNSUBSCRIBE}")
         print("\nDRY RUN — nothing sent.")
         return
     if not key:
@@ -178,10 +226,19 @@ def main() -> None:
     else:
         print(f"[WARN]   : no {txt.name} — Resend will derive the plain-text part,")
         print("           which pulls the preheader padding into the body.")
-    # The header is set here, not typed into each issue, so it cannot be
-    # forgotten. Gmail and Outlook surface it as their own unsubscribe control.
-    payload["headers"] = {"List-Unsubscribe": LIST_UNSUBSCRIBE}
-    print(f"unsub    : {LIST_UNSUBSCRIBE}")
+    # The headers are set here, not typed into each issue, so they cannot be
+    # forgotten. Gmail and Outlook surface them as their own unsubscribe control.
+    secret = os.environ.get("UNSUBSCRIBE_SECRET")
+    payload["headers"] = unsubscribe_headers(args.to, secret)
+    if secret:
+        print(f"unsub    : one-click (RFC 8058) + mailto fallback")
+        print(f"           {unsubscribe_url(args.to, secret)}")
+    else:
+        print("[WARN]   : UNSUBSCRIBE_SECRET is not set, so this goes out with the")
+        print("           mailto only. That is valid RFC 2369 and it is NOT")
+        print("           one-click: Gmail and Outlook will not show their native")
+        print("           unsubscribe control. Fine for a test to yourself; set the")
+        print("           secret before sending to a list.")
 
     blockers = check_unsubscribe({"HTML": payload.get("html", ""), "text": payload.get("text", "")})
     if blockers:
