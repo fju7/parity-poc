@@ -347,7 +347,7 @@
     },
     {
       "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
-      "category": "recurrence_and_survival",
+      "category": "recurrence_and_survival_outcomes",
       "recorded": "2026-08-27",
       "method": "map_consensus --runs 5 --measure-only, 30 API calls, nothing written",
       "runs": 5,
