@@ -881,9 +881,27 @@ def main():
         if cov.get("what_this_piece_can_add"):
             print("  What a piece could add that careful coverage does not:")
             print(f"     {cov['what_this_piece_can_add']}")
+        # Survey mode used to print only the coverage and swallow the
+        # contradictions, which are the half that says the premise of the
+        # question is wrong. On the first live run that hid three SERIOUS
+        # findings behind a count in the header.
+        contra = cov.get("contradictions") or []
+        if contra:
+            print("  Contradictions to the premise of this inquiry:")
+            for c in contra:
+                print(f"    [{c.get('severity')}] {c.get('counterexample', '')}")
+                if c.get("quote"):
+                    print(f"       premise : \u201c{c['quote']}\u201d")
+                if c.get("url"):
+                    print(f"       see     : {c['url']}")
+                if c.get("fix"):
+                    print(f"       fix     : {c['fix']}")
+            print("")
         if not (cov.get("best_coverage") or []):
             print("  No careful treatment found. That is a finding, and a "
                   "better-supported one for having looked.")
+        print("  These are search results, not verified facts. Every figure "
+              "above still goes through SOURCE before it reaches a draft.")
         sys.exit(0)
 
     if not args.draft:

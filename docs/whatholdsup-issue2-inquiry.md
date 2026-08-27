@@ -18,6 +18,90 @@ This is the working assumption behind how they are prescribed, guidelined and
 reported. It is not a fringe position and it is not obviously wrong. It has a
 strong version, which is question 1 of the four.
 
+## SURVEY RESULT — this brief's provisional conclusion was wrong
+
+Run 2026-08-27, `factcheck_draft.py --survey`. Six careful treatments found,
+three of them SERIOUS contradictions of the premise below. **These are search
+results and not verified facts; every figure here still goes through SOURCE.**
+
+Two studies compare the three drugs DIRECTLY, and neither is in our corpus:
+
+- **Network meta-analysis** — Elliott et al., *Scientific Reports* 2024. Seven
+  phase III RCTs, 4,415 patients, 73.3 months median follow-up. Reports **no
+  statistically significant pairwise OS differences** between palbociclib,
+  ribociclib and abemaciclib, despite the differing significance levels of the
+  individual trials.
+  https://www.nature.com/articles/s41598-024-53151-8
+- **Real-world weighted comparison** — Flatiron Health cohort, *Annals of
+  Oncology* 2025, stabilised IPTW. Ribociclib vs palbociclib aHR 0.98
+  (P=0.75); abemaciclib vs palbociclib 0.95 (P=0.43); abemaciclib vs
+  ribociclib 0.97 (P=0.70).
+  https://pubmed.ncbi.nlm.nih.gov/39754979/
+
+And the individual trials look different from how the corpus renders them:
+
+- **PALOMA-2** final OS: HR 0.956, medians 53.9 vs 51.2 months — no benefit.
+  The investigators' own caveat is that interpretation "is limited by the large
+  and disproportionate percentage of patients with missing survival data
+  between the treatment arms". 10% of the palbociclib arm versus 2% of placebo
+  were still on treatment at final analysis.
+- **MONARCH 3** final OS: HR 0.804 (95% CI 0.637–1.015, P=0.0664) — NOT
+  significant, on a 13.1-month median improvement (66.8 vs 53.7 months), in a
+  trial of 493 patients underpowered for the endpoint.
+- **monarchE** (abemaciclib, early breast cancer, 2025): HR 0.842
+  (0.722–0.981, P=0.027), significant — with a 7-year absolute difference of
+  1.8% (86.8% vs 85.0%) and 52% of the control arm crossing over to a CDK4/6
+  inhibitor after progression.
+
+### What this means for the inquiry
+
+The provisional conclusion drafted below — ribociclib significant in three
+trials, abemaciclib in one, palbociclib contested — reads divergent
+individual-trial p-values as evidence of a difference BETWEEN DRUGS. The
+comparative evidence says it is not. Trials differ in power, in missing data,
+in endocrine partner, in line of therapy and in crossover, and those
+differences are sufficient to produce divergent p-values from drugs that are
+indistinguishable on overall survival.
+
+**The piece is therefore not "ribociclib is the one with the survival
+evidence".** That is the intuitive reading, it is what the trial-by-trial
+record looks like, and it appears to be wrong.
+
+The piece the survey identifies as unwritten:
+
+> No outlet has synthesised the three methodological caveats together —
+> PALOMA-2's missing-data imbalance, MONARCH 3's underpowering, monarchE's 52%
+> crossover — to explain why the indirect and real-world comparisons find no
+> inter-drug OS difference even when individual trial p-values diverge.
+
+That is a better piece and a more useful one. A patient told their drug is the
+one without survival evidence has an interest in knowing that the direct
+comparisons find no difference, and in why the trials nonetheless disagree.
+
+### What this means for the method
+
+Our corpus contains none of the comparative literature above. P3 was the
+strongest proposition the miner found in this topic — 17 bearing claims, 15 to
+2, direction stable across runs, magnitude quantified, mean evidence 3.64 — and
+it points somewhere the wider literature does not support.
+
+**A corpus mined for propositions will confidently support a proposition the
+outside literature refutes, if the corpus lacks the studies that do the
+refuting.** Every check we have built would pass it: the status is stable, the
+sides do not reverse, the evidence is quantified, the claims are individually
+true. Coverage of the evidence base is an axis we have not measured at all, and
+it is upstream of everything we have.
+
+Consequence: COVERAGE must run before MINING, not only before drafting.
+
+---
+
+## The provisional reading, kept for the record
+
+Everything below was written before the survey and is preserved so the
+correction is visible rather than tidied away. Read it as what the corpus
+alone suggested.
+
 ## 1. The strongest version of the claim
 
 All three drugs improve progression-free survival when combined with an
@@ -101,12 +185,12 @@ patient has an interest in knowing which.
 
 ## Open questions — resolve BEFORE drafting
 
-1. **PALOMA-3 overall survival.** What did the ITT analysis report, at what
-   alpha, in which population, and at which data cut? What does p=0.0221 in
-   our corpus refer to? Both corpus claims need checking against the primary
-   publication, and one of them is probably wrong or incomplete.
-2. **PALOMA-2 overall survival.** Same treatment. The final OS analysis and its
-   prespecified plan.
+1. **PALOMA-3 overall survival.** Still open. What did the ITT analysis
+   report, at what alpha, in which population, and at which data cut? What does
+   p=0.0221 in our corpus refer to? The survey resolved PALOMA-2 and not this.
+2. ~~PALOMA-2 overall survival.~~ Answered by the survey: HR 0.956, medians
+   53.9 vs 51.2, non-significant, with a documented missing-data imbalance.
+   Still requires SOURCE verification before publication.
 3. **Guideline position.** The corpus contains four claims opposing the
    proposition that ASCO expresses a preference among CDK4/6 inhibitors, none
    supporting. Do current NCCN and ASCO guidelines distinguish between them,
@@ -118,10 +202,11 @@ patient has an interest in knowing which.
 
 ## Process gates
 
-- [ ] `factcheck_draft.py --survey "CDK4/6 inhibitor overall survival
-      differences palbociclib ribociclib abemaciclib"` — run BEFORE drafting.
-      Rule 11: find the best coverage first. Somebody may have written this
-      well already, in which case the piece changes shape or does not run.
+- [x] `factcheck_draft.py --survey` — run 2026-08-27. It changed the piece.
+      See SURVEY RESULT above.
+- [ ] Decide whether the corpus needs the comparative literature added before
+      anything is published from it. The network meta-analysis and the
+      real-world study are load-bearing and absent.
 - [ ] Open questions 1–4 resolved against primary sources.
 - [ ] Draft written.
 - [ ] `factcheck_draft.py` exits 0 across all six roles.

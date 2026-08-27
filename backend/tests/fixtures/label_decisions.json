@@ -210,6 +210,12 @@
       "recorded": "2026-08-27",
       "evidence": "mine_propositions run 1 reported '71% of this corpus bears on no answerable question' when three separate limits were binding: the merge cap (8 candidates in, 8 out), the per-batch proposal cap (6 batches x 6 = exactly 36 candidates, twice), and a mapping prompt the model read as a sorting task, which produced zero claims bearing on more than one proposition out of 59. Fixing only the third moved coverage from 59 claims to 121 and the residue from 71% to 42%.",
       "consequence": "Every cap in this pipeline now reports when it binds, and the residue line says which caps were active when it was computed. The general rule: a script that can be limited by a flag must say so in the same breath as the number the flag limited, not in a JSON field somebody reads later. The earlier instances were detect_changes defaulting --issue-slug to one topic while reporting COMPLETE, and golden_set treating an API failure as a warning while blind to six categories."
+    },
+    {
+      "note": "A corpus will confidently support a proposition the outside literature refutes, if the corpus lacks the studies that do the refuting. Nothing we have built detects this.",
+      "recorded": "2026-08-27",
+      "evidence": "mine_propositions found 'ribociclib demonstrated a more consistent overall survival benefit than palbociclib' as the strongest proposition in breast-cancer-therapies: 17 bearing claims, 15 to 2, direction stable across independent runs, magnitude quantified, mean evidence 3.64. A COVERAGE survey then found a 2024 network meta-analysis of seven phase III RCTs (4,415 patients) reporting no significant pairwise OS difference between the three drugs, and a 2025 real-world IPTW comparison reporting aHRs of 0.98, 0.95 and 0.97. Neither is in the corpus. The individual-trial p-value divergence the corpus records is explained by power, missing data, endocrine partner and crossover differences between trials.",
+      "consequence": "Every guard we have would pass that proposition. Status stable, sides stable, evidence quantified, each claim individually true. The defect is in what the corpus does not contain, which is an axis orthogonal to stability, categorisation and quantification alike. COVERAGE must run BEFORE mining, not only before drafting, and a corpus that omits the comparative literature on its own subject is not ready to be mined for propositions about it."
     }
   ],
   "measurements": [
