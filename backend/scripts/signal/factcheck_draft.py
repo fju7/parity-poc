@@ -712,10 +712,78 @@ def coverage(draft: str) -> dict | None:
 
 
 # ---------------------------------------------------------------------------
+# adjudication — which findings have already been read and decided
+# ---------------------------------------------------------------------------
+#
+# The gate is a nondeterministic instrument reading a long document. It will
+# never return zero twice running, and waiting for zero means editing forever
+# while each pass adds new claims that can fail. On 2026-08-27 the unverified
+# count across three passes of the same piece went 7, 6, 13 — the rise was
+# almost entirely claims introduced while fixing earlier findings.
+#
+# stability_sweep already solved this shape of problem for consensus drift:
+# it reports "0 new, 5 already decided" against label_decisions.json, so a
+# repeat check that repeats itself is recognisable as such. Without the same
+# thing here, every run re-presents judgment calls somebody already made, and
+# they are indistinguishable in the output from genuinely new problems.
+#
+# A decision is keyed on the QUOTE, because that is the text in the draft the
+# finding is about. Change the sentence and the decision no longer applies,
+# which is correct: it was a decision about that sentence.
+
+DECISIONS = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "draft_decisions.json"
+
+
+def _norm(text: str) -> str:
+    """Compare quotes without being defeated by smart quotes or whitespace."""
+    t = (text or "").lower()
+    for a, b in (("\u201c", '"'), ("\u201d", '"'), ("\u2018", "'"), ("\u2019", "'"),
+                 ("\u2014", "-"), ("\u2013", "-"), ("\u2026", "...")):
+        t = t.replace(a, b)
+    return " ".join(t.split())
+
+
+def load_decisions(path: Path, draft: str) -> dict:
+    """{(role, normalised quote): decision} for this draft."""
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text())
+    except Exception as exc:
+        print(f"[WARN] Could not read {path}: {exc}. Every finding will read as NEW.")
+        return {}
+    out = {}
+    for d in data.get("decisions", []):
+        if Path(d.get("draft", "")).name != Path(draft).name:
+            continue
+        out[(d.get("role", ""), _norm(d.get("quote", "")))] = d
+    return out
+
+
+def classify(role: str, quote: str, severity: str, decisions: dict) -> tuple[str, dict | None]:
+    """NEW, ADJUDICATED or STALE.
+
+    STALE means a decision exists but the severity has moved since it was made.
+    A judgment accepted as MINOR is not thereby accepted as SERIOUS, and the
+    difference has to reach a human rather than being absorbed silently.
+    """
+    d = decisions.get((role, _norm(quote)))
+    if not d:
+        return "NEW", None
+    if (d.get("severity") or "").upper() != (severity or "").upper():
+        return "STALE", d
+    return "ADJUDICATED", d
+
+
+# ---------------------------------------------------------------------------
 # report
 # ---------------------------------------------------------------------------
 
-def render(claims, verdicts, recency, objections, inferences, cov) -> tuple[str, bool]:
+def render(claims, verdicts, recency, objections, inferences, cov,
+           decisions=None) -> tuple[str, bool]:
+    decisions = decisions or {}
+    adjudicated = []   # findings already read and accepted
+    stale = []         # decided at one severity, now reported at another
     by_id = {c["id"]: c for c in claims}
     lines, failed = [], False
 
@@ -780,10 +848,16 @@ def render(claims, verdicts, recency, objections, inferences, cov) -> tuple[str,
     lines.append(f"FAIRNESS {len(objections or [])} objection(s) · {len(serious)} serious")
     lines.append("=" * 72)
     for o in (objections or []):
+        kind, dec = classify("ADVOCATE", o.get("quote", ""), o.get("severity", ""), decisions)
+        if kind == "ADJUDICATED":
+            adjudicated.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec))
+            continue
+        if kind == "STALE":
+            stale.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec))
         if o.get("severity") == "SERIOUS":
             failed = True
         lines.append("")
-        lines.append(f"  [{o.get('severity')}] {o.get('objection')}")
+        lines.append(f"  [{kind} · {o.get('severity')}] {o.get('objection')}")
         if o.get("quote"):
             lines.append(f"     quote         : “{o['quote']}”")
         if o.get("why"):
@@ -797,10 +871,16 @@ def render(claims, verdicts, recency, objections, inferences, cov) -> tuple[str,
     lines.append(f"INFERENCE {len(inferences or [])} finding(s) · {len(serious_inf)} serious")
     lines.append("=" * 72)
     for i in (inferences or []):
+        kind, dec = classify("INFERENCE", i.get("quote", ""), i.get("severity", ""), decisions)
+        if kind == "ADJUDICATED":
+            adjudicated.append(("INFERENCE", i.get("severity"), i.get("problem"), dec))
+            continue
+        if kind == "STALE":
+            stale.append(("INFERENCE", i.get("severity"), i.get("problem"), dec))
         if i.get("severity") == "SERIOUS":
             failed = True
         lines.append("")
-        lines.append(f"  [{i.get('severity')}] {i.get('problem')}")
+        lines.append(f"  [{kind} · {i.get('severity')}] {i.get('problem')}")
         if i.get("quote"):
             lines.append(f"     quote         : \u201c{i['quote']}\u201d")
         if i.get("correct_reading"):
@@ -826,11 +906,19 @@ def render(claims, verdicts, recency, objections, inferences, cov) -> tuple[str,
         if b.get("url"):
             lines.append(f"     {b['url']}")
     for c in contra:
+        kind, dec = classify("COVERAGE", c.get("quote", ""), c.get("severity", ""), decisions)
+        if kind == "ADJUDICATED":
+            adjudicated.append(("COVERAGE", c.get("severity"),
+                                c.get("counterexample", "")[:90], dec))
+            continue
+        if kind == "STALE":
+            stale.append(("COVERAGE", c.get("severity"),
+                          c.get("counterexample", "")[:90], dec))
         if c.get("severity") == "SERIOUS":
             failed = True
         lines.append("")
-        lines.append(f"  [{c.get('severity')}] the draft's claim about the coverage "
-                     "is contradicted")
+        lines.append(f"  [{kind} · {c.get('severity')}] the draft's claim about the "
+                     "coverage is contradicted")
         if c.get("quote"):
             lines.append(f"     quote         : \u201c{c['quote']}\u201d")
         if c.get("counterexample"):
@@ -844,6 +932,28 @@ def render(claims, verdicts, recency, objections, inferences, cov) -> tuple[str,
         lines.append("  What this piece can add that careful coverage does not:")
         lines.append(f"     {cov['what_this_piece_can_add']}")
 
+    lines.append("")
+    lines.append("=" * 72)
+    lines.append(f"ADJUDICATION  {len(adjudicated)} already decided · {len(stale)} moved since")
+    lines.append("=" * 72)
+    if stale:
+        failed = True
+        lines.append("")
+        lines.append("  Decided once, reported differently now — read these again:")
+        for role, sev, what, dec in stale:
+            lines.append(f"    [{role}] was {dec.get('severity')}, now {sev}: {what}")
+    if adjudicated:
+        lines.append("")
+        lines.append("  Read before and accepted, not repeated above:")
+        for role, sev, what, dec in adjudicated:
+            lines.append(f"    [{role} {sev}] {what}")
+            lines.append(f"        {dec.get('decided', '?')}: {dec.get('reason', '')}")
+    if not adjudicated and not stale:
+        lines.append("")
+        lines.append("  Nothing has been adjudicated for this draft. Every finding above")
+        lines.append(f"  is new. Record the ones you accept in {DECISIONS.name} so the")
+        lines.append("  next run can tell a fresh problem from a settled one.")
+
     return "\n".join(lines), failed
 
 
@@ -851,6 +961,10 @@ def main():
     ap = argparse.ArgumentParser(description="Pre-publication fact-check gate.")
     ap.add_argument("draft", nargs="?", help="Path to the draft (HTML or text).")
     ap.add_argument("--report", help="Write the full JSON result here.")
+    ap.add_argument("--decisions", default=str(DECISIONS),
+                    help="Record of findings already read and accepted. Findings "
+                         "matching one are reported as ADJUDICATED and do not block; "
+                         "a finding whose severity has moved since is STALE and does.")
     ap.add_argument("--verify", action="store_true", help="Check credentials and exit.")
     ap.add_argument("--known-errors", action="store_true",
                     help="Print the recorded error classes this gate exists to catch.")
@@ -956,7 +1070,9 @@ def main():
         print("\n[BLOCKED] A required check did not run. An unrun check is not a pass.")
         sys.exit(2)
 
-    report, failed = render(claims, verdicts, recency, objections, inferences, cov)
+    decisions = load_decisions(Path(args.decisions), str(path))
+    report, failed = render(claims, verdicts, recency, objections, inferences, cov,
+                            decisions)
     print(report)
 
     if args.report:

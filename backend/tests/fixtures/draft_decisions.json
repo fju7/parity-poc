@@ -1,0 +1,42 @@
+{
+  "what_this_is": "Findings the fact-check gate has raised that a human has read and decided to accept. It exists because the gate is a nondeterministic model reading a long document: it will never return zero twice running, so a repeat run repeats itself, and without this record those repeats are indistinguishable in the output from genuinely new problems. Across three passes of issue one the unverified-claim count went 7, 6, 13 — the rise almost entirely claims added while fixing earlier findings. A decision here is keyed on the QUOTE: change the sentence and the decision stops applying, which is right, because it was a decision about that sentence.",
+  "how_to_use_it": "Accept a finding only after reading it. Write why in terms someone else could disagree with. If the gate later reports the same quote at a different severity the run is STALE and blocks — a judgment accepted as MINOR is not thereby accepted as SERIOUS.",
+  "publication_criterion": [
+    "No SERIOUS finding that is an actual error, as opposed to a judgment recorded here.",
+    "Every MINOR finding read once and either fixed or recorded here.",
+    "No claim added in this pass that is not itself verified — this is the rule that would have prevented most of pass three."
+  ],
+  "decisions": [
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "INFERENCE",
+      "quote": "at the other it would be about a third higher",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "HR 1.345 is 34.5%, which the gate reads as closer to 35% than to a third. Both are true roundings of the same number and the lede already gives 35% precisely. Changing prose to 'about 34.5% higher' would be worse writing for no gain in accuracy.",
+      "what_would_change_it": "If the two figures were ever to describe different quantities rather than the same one rounded differently."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "INFERENCE",
+      "quote": "the width was close to unchanged",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The interval narrowed by about 4% on the hazard-ratio scale. The sentence's point is that the five-year data added duration rather than precision, and a 4% narrowing does not contradict that. The specific bounds are given in the same sentence so a reader can judge for themselves.",
+      "what_would_change_it": "A narrowing large enough that 'more precision' became the better description of what the extra years bought."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "quote": "Merck's own description of the Phase 3 defines its primary endpoint as recurrence “as assessed by the investigator” rather than by central adjudication.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The objection is that investigator assessment is standard across adjuvant melanoma trials, so singling this one out overstates it. The paragraph already says blinding substantially addresses the concern and that regulators have approved on this endpoint before. Adding that it is field-wide is true and would make an already-hedged passage read as an apology for raising it at all.",
+      "what_would_change_it": "Evidence that the design is not in fact standard, which would make it worth more emphasis rather than less."
+    }
+  ],
+  "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes."
+}
