@@ -56,7 +56,7 @@
     {
       "class": "DROPPED",
       "caught_by": "SOURCE",
-      "summary": "SECOND INSTANCE, found by the gate on its first run. The hand check's own correction notice claimed two figures were unverifiable. Both are verifiable. Failure to reach a source was recorded as the figure not existing \u2014 the same error the notice was describing.",
+      "summary": "SECOND INSTANCE, found by the gate on its first run. The hand check's own correction notice claimed two figures were unverifiable. Both are verifiable. Failure to reach a source was recorded as the figure not existing — the same error the notice was describing.",
       "was": "'a five-year p-value of 0.0075 that appears in no source we can find, now removed' and '2.5-year recurrence-free rates of 74.8% versus 55.6%' cut as unverifiable",
       "corrected_to": "both restored: one-sided nominal p=0.0075 is in Merck's release of 20 January 2026; 74.8% vs 55.6% is the 30-month rate in the three-year analysis",
       "why_it_matters": "The error class repeats under pressure. A checker that says CANNOT VERIFY is reporting on its own reach, not on the world, and must never be paraphrased as the fact being absent."
@@ -68,6 +68,43 @@
       "was": "'seven times larger and free of the bias the earlier one carried'",
       "corrected_to": "'blinded against exactly the bias the earlier one carried', plus a new paragraph noting the primary endpoint is 'as assessed by the investigator' and that blinding mitigates rather than removes it",
       "why_it_matters": "Invisible to a claim check: every figure was right. Only a reader arguing the subject's side finds it."
+    },
+    {
+      "class": "RATIO_AS_LIVES",
+      "summary": "A hazard ratio converted into a count of people. 'It is consistent with the therapy preventing five deaths in six' — HR 0.165 is an estimated 84% lower HAZARD of death, not five deaths in six prevented.",
+      "found_by": "outside editorial review of issue one, 2026-08-27",
+      "caught_by": "INFERENCE",
+      "why_it_survived": "SOURCE verified the interval 0.165-1.345 against the primary source and passed it, because the figure was real. The error was in the sentence built on it. No role was reading for that.",
+      "aggravating": "The same piece explains the hazard-ratio versus absolute-risk distinction correctly two paragraphs earlier. A reader who understood our own explanation would have caught us.",
+      "was": "It is consistent with the therapy preventing five deaths in six, and with it doing harm.",
+      "corrected_to": "The interval is extraordinarily wide: compatible with anything from a very large reduction in the hazard of death to roughly a 35% increase."
+    },
+    {
+      "class": "DESIGN_CRITICISM_IMPORTED",
+      "summary": "A criticism valid for the open-label phase 2 trial applied to the double-blind phase 3 trial. 'Blinding does not eliminate the problem', and the claim that an independent review committee would 'remove the judgement altogether' — an IRC relocates judgment to blinded central assessors, it does not remove it.",
+      "found_by": "outside editorial review of issue one, 2026-08-27",
+      "caught_by": "INFERENCE",
+      "why_it_survived": "Every factual component was true and ADVOCATE read it as fair comment. The defect was that the criticism named no residual mechanism surviving the design.",
+      "was": "blinding does not eliminate the problem; an independent review committee would remove the judgement altogether",
+      "corrected_to": "RFS is investigator-assessed rather than centrally adjudicated. That leaves clinical judgment in the endpoint determination, although the double-blind placebo-controlled design substantially protects against differential assessment between arms."
+    },
+    {
+      "class": "MISSING_NUMBER_AS_MISSING_EVIDENCE",
+      "summary": "'The Phase 3 announcement reports no Phase 3 results.' It reports a result — that the trial met its prespecified RFS and DMFS endpoints. What it does not report is any numerical efficacy estimate.",
+      "found_by": "outside editorial review of issue one, 2026-08-27",
+      "caught_by": "INFERENCE",
+      "why_it_survived": "Rhetorically effective and nearly true, which is the hardest kind to catch. One word — 'numerical' — makes the thesis almost impossible to dispute at no cost to its force.",
+      "was": "The Phase 3 announcement reports no Phase 3 results.",
+      "corrected_to": "The Phase 3 announcement reports no numerical Phase 3 efficacy results."
+    },
+    {
+      "class": "ENDPOINT_DEMOTED",
+      "summary": "'The endpoint people actually care about — whether anyone lives longer.' Recurrence-free and metastasis-free survival are clinically meaningful outcomes in adjuvant melanoma, and FDA has approved therapies in this setting on RFS.",
+      "found_by": "outside editorial review of issue one, 2026-08-27",
+      "caught_by": "INFERENCE",
+      "why_it_survived": "It reads as a methodological observation and is actually a value judgment. Nothing in a claim-by-claim check tests for that.",
+      "was": "the endpoint people actually care about - whether anyone lives longer",
+      "corrected_to": "RFS and OS answer different questions. The trial answered the first; the second remains open. FDA has approved adjuvant melanoma therapies on RFS."
     }
   ],
   "standing_rules": [
@@ -76,14 +113,16 @@
     "Any claim about what a third party did, said or omitted requires named, checked instances before it ships.",
     "A claim that the coverage got something right is a publishable outcome. The delta section must not require a scalp.",
     "CANNOT VERIFY is a statement about the checker's reach, never about whether the fact exists. It may not be written up as 'appears in no source'.",
-    "Internal claims \u2014 our rubric, our arithmetic, our corrections policy, our own editorial history \u2014 are recorded for a human to check, never counted as source failures. A gate that blocks on 'we acknowledge within 48 hours' is a gate people learn to override.",
+    "Internal claims — our rubric, our arithmetic, our corrections policy, our own editorial history — are recorded for a human to check, never counted as source failures. A gate that blocks on 'we acknowledge within 48 hours' is a gate people learn to override.",
     "An unsupported claim about what other outlets did has now been introduced three separate times, twice while fixing something else. Any sentence asserting what coverage did, failed to do, or rarely does requires named instances or must be cut.",
-    "The gate's own findings are checked before they are acted on. Three of its flags were false positives traced to matching a figure against the wrong readout of the same trial."
+    "The gate's own findings are checked before they are acted on. Three of its flags were false positives traced to matching a figure against the wrong readout of the same trial.",
+    "The failure mode of a publication whose job is finding what coverage missed is to make the missing qualification sound more devastating than it is. Every individual sentence stays defensible while the impression does not. Test: would this sentence survive being read aloud by someone who believes the underlying result?",
+    "Confidence in DIRECTION and confidence in MAGNITUDE are separate questions and no single verdict, score or headline can express both. A positive topline from a large blinded trial warrants high confidence in the first and near-zero in the second, at the same time."
   ],
   "second_pass": {
     "run": "2026-08-26",
     "by": "factcheck_draft.py, first live run",
-    "result": "BLOCKED. Found the two DROPPED errors above and the OVERSTATED one, plus two minor fairness points (a rounded interval in the summary strip inconsistent with the body, and an unsupported claim about which figure 'travelled' in coverage). It also produced 13 NOT_FOUND verdicts of which 8 were internal claims it had no way to check \u2014 the flaw that prompted the scope field."
+    "result": "BLOCKED. Found the two DROPPED errors above and the OVERSTATED one, plus two minor fairness points (a rounded interval in the summary strip inconsistent with the body, and an unsupported claim about which figure 'travelled' in coverage). It also produced 13 NOT_FOUND verdicts of which 8 were internal claims it had no way to check — the flaw that prompted the scope field."
   },
   "third_pass": {
     "run": "2026-08-27",

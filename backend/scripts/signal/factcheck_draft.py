@@ -48,6 +48,9 @@ are the ones that make a piece unfair rather than merely wrong.
            paper once, verify everything attributed to it.
   RECENCY  Has a newer readout superseded any study cited? One pass over the
            whole draft.
+  INFER    Is the conclusion drawn from a figure warranted by it? A hazard
+           ratio converted into lives, a design criticism imported across
+           designs, a missing number reported as missing evidence.
   ADVOCATE What would the subject's head of communications object to as unfair
            or selective? One pass, reading the draft whole. This is the only
            role that can see an omission, because omissions are invisible when
@@ -288,7 +291,7 @@ extracted, with attributed_to set to null. Those are the dangerous ones."""
 
 
 def extract_claims(draft: str) -> list[dict] | None:
-    print("[1/4] Extracting checkable claims...")
+    print("[1/5] Extracting checkable claims...")
     out = call(
         EXTRACT_SYSTEM,
         f"Draft follows.\n\n---\n{draft}\n---",
@@ -357,7 +360,7 @@ def audit_sources(claims: list[dict], draft_title: str) -> dict[str, dict]:
     for c in external:
         groups.setdefault(c.get("attributed_to") or "__UNATTRIBUTED__", []).append(c)
 
-    print(f"[2/4] Source audit across {len(groups)} attributed source(s)...")
+    print(f"[2/5] Source audit across {len(groups)} attributed source(s)...")
     verdicts: dict[str, dict] = {}
     for src, items in groups.items():
         shown = "no source credited in the draft" if src == "__UNATTRIBUTED__" else src
@@ -436,7 +439,7 @@ only if you positively confirmed the cited readout is the latest."""
 
 
 def sweep_recency(draft: str, today: str) -> dict | None:
-    print("[3/4] Recency sweep...")
+    print("[3/5] Recency sweep...")
     out = call(
         RECENCY_SYSTEM,
         f"Today's date is {today}. Draft follows.\n\n---\n{draft}\n---",
@@ -488,7 +491,7 @@ and saying so is more useful than a list of complaints nobody would act on."""
 
 
 def advocate(draft: str) -> list[dict] | None:
-    print("[4/4] Subject's advocate...")
+    print("[4/5] Subject's advocate...")
     out = call(
         ADVOCATE_SYSTEM,
         f"Draft follows.\n\n---\n{draft}\n---",
@@ -503,11 +506,103 @@ def advocate(draft: str) -> list[dict] | None:
     return out
 
 
+
+# ---------------------------------------------------------------------------
+# phase 5 — INFERENCE
+# ---------------------------------------------------------------------------
+#
+# SOURCE checks whether a figure is real. ADVOCATE checks whether the draft is
+# fair to its subject. Neither catches a draft in which every figure is real
+# and every characterisation is fair, and the INFERENCE DRAWN FROM THEM is
+# stronger than the numbers support.
+#
+# That is the failure mode an outside review found in issue one, and it found
+# two instances a claim-by-claim check had passed:
+#
+#   "It is consistent with the therapy preventing five deaths in six"
+#       HR 0.165 is an 84% lower HAZARD. Converting it to a count of people is
+#       the exact hazard-ratio/absolute-risk conflation the same piece explains
+#       correctly two paragraphs earlier.
+#
+#   "blinding does not eliminate the problem"
+#       A criticism valid for the open-label phase 2 trial, applied to the
+#       double-blind phase 3 trial whose design answers it.
+#
+# Both sentences are defensible in isolation. Both leave an impression the
+# evidence does not carry. This role reads for that and nothing else.
+
+INFERENCE_SYSTEM = """You are an oncology trial statistician reading a draft article
+before publication. You are not checking whether its figures are real — someone
+else has done that. You are checking whether the CONCLUSIONS DRAWN from them
+are warranted.
+
+Read every quantitative and methodological inference in the draft and look for:
+
+  - A ratio converted into people. A hazard ratio is not a risk ratio and is
+    not an absolute risk reduction. "HR 0.165" does NOT mean "five deaths in
+    six prevented". Any sentence turning a ratio into a count of lives, or into
+    an absolute percentage, is wrong unless the absolute rates are given and
+    the arithmetic is shown.
+  - A confidence interval described loosely. Report what the bounds mean on the
+    scale they are on, in both directions.
+  - A p-value quoted without its inferential framework. If the prespecified
+    primary analysis was one-sided, a two-sided p-value quoted alone invites the
+    reader to infer post-hoc test selection.
+  - An endpoint demoted. Recurrence-free and metastasis-free survival are
+    clinically meaningful outcomes, not merely surrogates for overall survival.
+    Flag any phrasing implying that only mortality counts.
+  - A design criticism imported across designs. A concern valid for an
+    open-label trial is not automatically valid for a double-blind one. Flag any
+    criticism that does not name the residual mechanism that survives the design.
+  - Absence of a number reported as absence of evidence. "We do not know how
+    large the effect is" and "we do not know whether it worked" are different
+    claims. Flag any sentence that slides from the first to the second.
+  - A relative effect quoted where the absolute one is what a reader needs, or
+    an absolute benefit assumed constant across populations with different
+    baseline risk.
+  - The draft contradicting its own explanation. If it defines a distinction
+    for the reader and then violates it, that is the most serious kind of
+    finding here.
+
+Return ONLY a JSON array:
+{
+  "quote": "the exact sentence or phrase from the draft",
+  "problem": "what is unwarranted about the inference, in one sentence",
+  "severity": "SERIOUS" | "MINOR",
+  "correct_reading": "what the evidence actually supports",
+  "fix": "replacement wording"
+}
+
+SERIOUS means the sentence misstates what the evidence shows, or contradicts
+something the draft itself explains. MINOR means it is defensible but leaves an
+impression stronger than the numbers carry.
+
+Return an empty array if the inferences are sound. A draft that reaches a
+sceptical conclusion the evidence supports is not a finding — say nothing
+rather than manufacture one."""
+
+
+def inference(draft: str) -> list[dict] | None:
+    print("[5/5] Statistical inference...")
+    out = call(
+        INFERENCE_SYSTEM,
+        f"Draft follows.\n\n---\n{draft}\n---",
+        search=True, label="inference",
+    )
+    if out is None:
+        return None
+    if isinstance(out, dict):
+        out = out.get("findings") or out.get("results") or []
+    serious = sum(1 for o in out if isinstance(o, dict) and o.get("severity") == "SERIOUS")
+    print(f"      {len(out)} finding(s), {serious} serious")
+    return out
+
+
 # ---------------------------------------------------------------------------
 # report
 # ---------------------------------------------------------------------------
 
-def render(claims, verdicts, recency, objections) -> tuple[str, bool]:
+def render(claims, verdicts, recency, objections, inferences) -> tuple[str, bool]:
     by_id = {c["id"]: c for c in claims}
     lines, failed = [], False
 
@@ -576,6 +671,23 @@ def render(claims, verdicts, recency, objections) -> tuple[str, bool]:
         if o.get("fix"):
             lines.append(f"     fix           : {o['fix']}")
 
+    serious_inf = [i for i in (inferences or []) if i.get("severity") == "SERIOUS"]
+    lines.append("")
+    lines.append("=" * 72)
+    lines.append(f"INFERENCE {len(inferences or [])} finding(s) · {len(serious_inf)} serious")
+    lines.append("=" * 72)
+    for i in (inferences or []):
+        if i.get("severity") == "SERIOUS":
+            failed = True
+        lines.append("")
+        lines.append(f"  [{i.get('severity')}] {i.get('problem')}")
+        if i.get("quote"):
+            lines.append(f"     quote         : \u201c{i['quote']}\u201d")
+        if i.get("correct_reading"):
+            lines.append(f"     evidence says : {i['correct_reading']}")
+        if i.get("fix"):
+            lines.append(f"     fix           : {i['fix']}")
+
     return "\n".join(lines), failed
 
 
@@ -595,11 +707,19 @@ def main():
             sys.exit(2)
         data = json.loads(KNOWN_ERRORS.read_text())
         print(f"\n{data['what_this_is']}\n")
+        # .get, not [], so an entry written without one of these fields prints
+        # what it has instead of taking down the tool that reads it. A fixture
+        # of recorded mistakes is a bad place for a crash on a missing key.
         for e in data["errors"]:
-            print(f"  [{e['class']}] {e['summary']}")
-            print(f"      caught by : {e['caught_by']}")
-            print(f"      was       : {e['was']}")
-            print(f"      corrected : {e['corrected_to']}\n")
+            print(f"  [{e.get('class', '?')}] {e.get('summary', '')}")
+            print(f"      caught by : {e.get('caught_by', '—')}")
+            if e.get("was"):
+                print(f"      was       : {e['was']}")
+            if e.get("corrected_to"):
+                print(f"      corrected : {e['corrected_to']}")
+            if e.get("why_it_survived"):
+                print(f"      survived  : {e['why_it_survived']}")
+            print()
         sys.exit(0)
 
     if args.verify:
@@ -626,12 +746,13 @@ def main():
     verdicts = audit_sources(claims, path.stem)
     recency = sweep_recency(draft, today)
     objections = advocate(draft)
+    inferences = inference(draft)
 
-    if recency is None or objections is None:
+    if recency is None or objections is None or inferences is None:
         print("\n[BLOCKED] A required check did not run. An unrun check is not a pass.")
         sys.exit(2)
 
-    report, failed = render(claims, verdicts, recency, objections)
+    report, failed = render(claims, verdicts, recency, objections, inferences)
     print(report)
 
     if args.report:
@@ -639,6 +760,7 @@ def main():
             "draft": str(path), "checked_at": today, "model": SIGNAL_MODEL,
             "claims": claims, "verdicts": verdicts,
             "recency": recency, "objections": objections,
+            "inferences": inferences,
         }, indent=2), encoding="utf-8")
         print(f"\nFull result written to {args.report}")
 
@@ -646,7 +768,8 @@ def main():
     if failed:
         print("BLOCKED — resolve every item above, or record it in the piece, before publishing.")
         sys.exit(1)
-    print("PASSED — every claim verified against a primary source, nothing stale, no serious objection.")
+    print("PASSED — every claim verified against a primary source, nothing stale, "
+          "no serious objection, no unwarranted inference.")
     sys.exit(0)
 
 
