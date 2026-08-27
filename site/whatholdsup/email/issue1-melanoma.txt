@@ -65,5 +65,5 @@ publication. Who pays for this: https://whatholdsup.org/who-pays-for-this
 Think we got something wrong? corrections@whatholdsup.org -- acknowledged
 in 48 hours.
 
-To stop receiving these, reply to unsubscribe@whatholdsup.org
-with "unsubscribe" as the subject, and you will be removed.
+To stop receiving these, open this link:
+{{{RESEND_UNSUBSCRIBE_URL}}}

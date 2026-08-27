@@ -347,6 +347,12 @@ Return ONLY a JSON array, one element per claim given to you:
 VERIFIED     the named source contains this figure at this value.
 WRONG_VALUE  the source has this figure but a different value.
 WRONG_SOURCE the figure is real but comes from somewhere else. Say where.
+NOT_FOUND    you could not reach a source containing it. This is a statement about
+             what you could reach, NOT about whether the thing exists. Say so in
+             plain words, and give the closest URL you did reach so a human can
+             open it. On 2026-08-27 this verdict was returned for a page that
+             existed, was dated, and contained the claim verbatim — another role
+             in the same run had already cited it with its URL.
 NOT_FOUND    you could not find this figure in any source you could reach.
 
 NOT_FOUND is the correct verdict when you cannot reach the source. Do not
@@ -735,6 +741,13 @@ def render(claims, verdicts, recency, objections, inferences, cov) -> tuple[str,
             lines.append(f"     note          : {v['note']}")
         if v.get("url"):
             lines.append(f"     checked       : {v['url']}")
+
+    unreached = [v for v in bad if v.get("verdict") == "NOT_FOUND"]
+    if unreached:
+        lines.append("")
+        lines.append("  A NOT_FOUND means we could not REACH a source, not that none exists.")
+        lines.append("  Open any URL above before treating one as a finding — and check")
+        lines.append("  whether COVERAGE cited the same page, because it often has the link.")
 
     if internal:
         lines.append("")

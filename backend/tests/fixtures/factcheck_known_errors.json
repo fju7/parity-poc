@@ -105,6 +105,15 @@
       "why_it_survived": "It reads as a methodological observation and is actually a value judgment. Nothing in a claim-by-claim check tests for that.",
       "was": "the endpoint people actually care about - whether anyone lives longer",
       "corrected_to": "RFS and OS answer different questions. The trial answered the first; the second remains open. FDA has approved adjuvant melanoma therapies on RFS."
+    },
+    {
+      "class": "SOURCE_FALSE_NEGATIVE",
+      "summary": "SOURCE returned NOT_FOUND for a page that exists and contains the exact claim, verbatim, while COVERAGE had already cited the same page with its URL in the same run.",
+      "was": "no article or post from that site containing this specific claim could be located through multiple targeted searches, so the claim cannot be verified",
+      "corrected_to": "The article is at morningglorysciences.com, dated 20 August 2026, and reads: 'The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease. Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.'",
+      "found_by": "opening the URL, 2026-08-27",
+      "caught_by": "a human asking why nobody had opened the page",
+      "why_it_survived": "SOURCE searches; it was never handed the URL. COVERAGE had the URL and did not pass it on. Two roles in one run reached opposite conclusions about the same page and neither could see the other's work. NOT_FOUND from SOURCE means 'we could not reach it', and the gate treats it as a blocker, which is right — but the resolution is to open the page, and nothing in the output said so."
     }
   ],
   "standing_rules": [
@@ -117,7 +126,8 @@
     "An unsupported claim about what other outlets did has now been introduced three separate times, twice while fixing something else. Any sentence asserting what coverage did, failed to do, or rarely does requires named instances or must be cut.",
     "The gate's own findings are checked before they are acted on. Three of its flags were false positives traced to matching a figure against the wrong readout of the same trial.",
     "The failure mode of a publication whose job is finding what coverage missed is to make the missing qualification sound more devastating than it is. Every individual sentence stays defensible while the impression does not. Test: would this sentence survive being read aloud by someone who believes the underlying result?",
-    "Confidence in DIRECTION and confidence in MAGNITUDE are separate questions and no single verdict, score or headline can express both. A positive topline from a large blinded trial warrants high confidence in the first and near-zero in the second, at the same time."
+    "Confidence in DIRECTION and confidence in MAGNITUDE are separate questions and no single verdict, score or headline can express both. A positive topline from a large blinded trial warrants high confidence in the first and near-zero in the second, at the same time.",
+    "A NOT_FOUND is a statement about our reach, not about the world. Before acting on one, open the URL if one exists anywhere in the run. Where two roles disagree about the same source, the disagreement is the finding."
   ],
   "second_pass": {
     "run": "2026-08-26",
