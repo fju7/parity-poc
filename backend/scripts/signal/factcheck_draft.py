@@ -783,7 +783,11 @@ def render(claims, verdicts, recency, objections, inferences, cov,
            decisions=None) -> tuple[str, bool]:
     decisions = decisions or {}
     adjudicated = []   # findings already read and accepted
-    stale = []         # decided at one severity, now reported at another
+    # NOT named 'stale': render() already binds that name to the recency
+    # studies further down, and the later assignment silently replaced this
+    # list with a list of dicts. Unpacking those yielded their keys, six of
+    # them, and the whole run died AFTER every API call had been spent.
+    moved_since = []         # decided at one severity, now reported at another
     by_id = {c["id"]: c for c in claims}
     lines, failed = [], False
 
@@ -853,7 +857,7 @@ def render(claims, verdicts, recency, objections, inferences, cov,
             adjudicated.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec))
             continue
         if kind == "STALE":
-            stale.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec))
+            moved_since.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec))
         if o.get("severity") == "SERIOUS":
             failed = True
         lines.append("")
@@ -876,7 +880,7 @@ def render(claims, verdicts, recency, objections, inferences, cov,
             adjudicated.append(("INFERENCE", i.get("severity"), i.get("problem"), dec))
             continue
         if kind == "STALE":
-            stale.append(("INFERENCE", i.get("severity"), i.get("problem"), dec))
+            moved_since.append(("INFERENCE", i.get("severity"), i.get("problem"), dec))
         if i.get("severity") == "SERIOUS":
             failed = True
         lines.append("")
@@ -912,7 +916,7 @@ def render(claims, verdicts, recency, objections, inferences, cov,
                                 c.get("counterexample", "")[:90], dec))
             continue
         if kind == "STALE":
-            stale.append(("COVERAGE", c.get("severity"),
+            moved_since.append(("COVERAGE", c.get("severity"),
                           c.get("counterexample", "")[:90], dec))
         if c.get("severity") == "SERIOUS":
             failed = True
@@ -934,13 +938,13 @@ def render(claims, verdicts, recency, objections, inferences, cov,
 
     lines.append("")
     lines.append("=" * 72)
-    lines.append(f"ADJUDICATION  {len(adjudicated)} already decided · {len(stale)} moved since")
+    lines.append(f"ADJUDICATION  {len(adjudicated)} already decided · {len(moved_since)} moved since")
     lines.append("=" * 72)
-    if stale:
+    if moved_since:
         failed = True
         lines.append("")
         lines.append("  Decided once, reported differently now — read these again:")
-        for role, sev, what, dec in stale:
+        for role, sev, what, dec in moved_since:
             lines.append(f"    [{role}] was {dec.get('severity')}, now {sev}: {what}")
     if adjudicated:
         lines.append("")
@@ -948,7 +952,7 @@ def render(claims, verdicts, recency, objections, inferences, cov,
         for role, sev, what, dec in adjudicated:
             lines.append(f"    [{role} {sev}] {what}")
             lines.append(f"        {dec.get('decided', '?')}: {dec.get('reason', '')}")
-    if not adjudicated and not stale:
+    if not adjudicated and not moved_since:
         lines.append("")
         lines.append("  Nothing has been adjudicated for this draft. Every finding above")
         lines.append(f"  is new. Record the ones you accept in {DECISIONS.name} so the")
@@ -1071,26 +1075,47 @@ def main():
         sys.exit(2)
 
     decisions = load_decisions(Path(args.decisions), str(path))
-    report, failed = render(claims, verdicts, recency, objections, inferences, cov,
-                            decisions)
-    print(report)
 
-    if args.report:
-        # sha256 of the exact bytes checked, and the verdict. Without these a
-        # report is only evidence that SOMETHING was checked once. With them a
-        # sender can refuse to mail content this gate has not passed — which is
-        # the guard that was missing on 2026-08-27, when every correction made
-        # to melanoma.html that afternoon was absent from the email actually
-        # broadcast, because nothing tied the two together.
+    # The findings are written BEFORE they are rendered.
+    #
+    # On 2026-08-27 a name collision inside render() raised ValueError after all
+    # six roles had run and before anything was saved. Every API call in that
+    # run was lost to a formatting bug — the cheapest possible failure destroying
+    # the most expensive possible work. Persist first: a display problem should
+    # cost a re-render, not a re-run.
+    #
+    # 'passed' is filled in after rendering, since only render() knows. Until
+    # then it is null, and require_gate in send_broadcast.py treats a null as a
+    # failure — an unfinished report must never read as a passing one.
+    def save(passed):
+        if not args.report:
+            return
         Path(args.report).write_text(json.dumps({
             "draft": str(path),
             "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-            "passed": not failed,
+            "passed": passed,
             "checked_at": today, "model": SIGNAL_MODEL,
             "claims": claims, "verdicts": verdicts,
             "recency": recency, "objections": objections,
             "inferences": inferences, "coverage": cov,
         }, indent=2), encoding="utf-8")
+
+    save(None)
+
+    try:
+        report, failed = render(claims, verdicts, recency, objections, inferences, cov,
+                                decisions)
+    except Exception as exc:
+        print(f"\n[ERROR] The findings were collected but could not be rendered: "
+              f"{exc!r}")
+        if args.report:
+            print(f"        They are saved in {args.report} — nothing was lost, and")
+            print("        the report is marked unpassed so nothing can be sent on it.")
+        raise
+
+    print(report)
+    save(not failed)
+    if args.report:
         print(f"\nFull result written to {args.report}")
 
     print("")

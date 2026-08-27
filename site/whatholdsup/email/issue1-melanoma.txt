@@ -8,23 +8,26 @@ trial of a personalised mRNA cancer therapy met both of its
 endpoints in melanoma. Several outlets called it a landmark. On
 the evidence so far it may well be.
 
-The announcement reports no numerical results. It says the trial
-met both prespecified endpoints - a real finding, from 1,137
-patients in a double-blind trial - and gives no hazard ratio, no
-interval, no percentage. The figures in the headlines, a 49%
-reduction in the hazard of recurrence or death and 59% in the
-hazard of distant metastasis or death, come from a different
-study: an open-label trial of 157 patients that first reported
-in 2023.
+The announcement reports that both endpoints were met, and no
+effect size. That both were met is a real finding, from 1,137
+patients in a double-blind trial. What is missing is how large
+the effect was: no hazard ratio, no interval, no percentage. The
+figures in the headlines, a 49% reduction in the hazard of
+recurrence or death and 59% in the hazard of distant metastasis
+or death, come from a different study: an open-label trial of
+157 patients, whose five-year results were presented in June.
+Those are mature numbers. They are just not this trial's, and
+157 unblinded patients is not 1,137 blinded ones.
 
 Survival is the question that stays open. In that earlier trial,
-five-year overall survival rests on fourteen deaths - seven in
-each arm.
+five-year overall survival - an exploratory endpoint the trial
+was never powered to test - rests on fourteen deaths in total.
 
-  Fourteen deaths. The hazard ratio is 0.471, and the interval
-  around it runs from 0.165 to 1.345 - from a rate of death
-  about a sixth of the comparison group's, to about 35% higher.
-  Too wide to separate a large benefit from a small harm.
+  Fourteen deaths. The hazard ratio is 0.471 and the interval
+  runs from 0.165 to 1.345 - compatible with a hazard of death
+  roughly 83% lower than the comparison group's, and with one
+  about 35% higher. The magnitude is what the data cannot yet
+  establish; the direction points to benefit.
 
 None of this means the treatment does not work. It probably
 does. It means the public has not been shown how well.
@@ -32,23 +35,26 @@ does. It means the public has not been shown how well.
 
 WHAT THE FULL ASSESSMENT ADDS
 
-The specialist trade press largely got this right. Practical
-Dermatology, Dermatology Times, Pharmacy Times, OncoDaily and
-Targeted Oncology all said plainly that no Phase 3 efficacy
-numbers had been released, and traced the 49% and 59% to the
-earlier trial.
+Every figure in this issue traces to a company release or a
+peer-reviewed paper. Before publishing we read the specialist
+coverage of the announcement, and the careful outlets got the
+attribution right: the 49% and 59% belong to the earlier trial,
+and several said plainly that the Phase 3 numbers had not been
+released.
 
-What none of them did was explain what follows from that. Why
-figures from a smaller, unblinded trial cannot be read as the
-size of the new one's effect. What fourteen deaths can and
-cannot establish. What the absolute numbers look like beside the
-relative ones - 68.8% recurrence-free at five years against
-49.1%, a gap of about twenty percentage points.
+What the full assessment adds is the layer underneath. Why
+figures from a smaller, open-label trial - where an investigator
+who knows the assignment can influence when a recurrence is
+looked for and called - cannot be read as the size of a blinded
+trial's effect. What fourteen deaths can establish about
+direction, and what they cannot establish about magnitude. And
+what the absolute numbers look like beside the relative ones.
 
-And one thing that reached almost nobody: the earlier trial
-enrolled stage IIIB-IV, while the Phase 3 reaches down into
-stage IIB. Whether that lowers the absolute benefit is genuinely
-disputed, and the full assessment sets out both sides.
+It also sets out a question with two defensible answers: the
+earlier trial enrolled stage IIIB-IV, while the Phase 3 reaches
+down into stage IIB. Whether that lowers the benefit those
+patients can expect is genuinely disputed, and the assessment
+gives both sides.
 
 
 READ THE FULL ASSESSMENT
