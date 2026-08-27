@@ -294,6 +294,50 @@ def warn_near_duplicates(props: list[dict], threshold: float = 0.75) -> int:
     return len(pairs)
 
 
+# Words that join two questions into one sentence. A proposition containing one
+# is a candidate for the fault below.
+COMPOUND_MARKERS = (" and ", " but not ", " both ", " rather than ", " while ",
+                    " as well as ", " in both ")
+
+
+def looks_compound(text: str) -> list[str]:
+    low = f" {text.lower()} "
+    return [m.strip() for m in COMPOUND_MARKERS if m in low]
+
+
+def explain_unstable(rows: list[dict]) -> None:
+    """Say WHY a proposition's direction reversed, when the reason is visible.
+
+    Observed 2026-08-27 on breast-cancer-therapies. Two propositions of 25 came
+    back unstable, and both joined two questions in one sentence:
+
+        P2  "Palbociclib failed ... in BOTH PALOMA-2 AND PALOMA-3"   [[6,9],[8,5]]
+        P22 "PD-L1 is predictive in metastatic TNBC BUT NOT early"   [[3,10],[7,5]]
+
+    A claim that supports one half and contradicts the other has no stable
+    stance, so the model takes a different one on each call — the same fault as
+    a category named for a subject rather than a proposition, one level down.
+
+    Which makes the instability verdict more useful than a warning: it DETECTS
+    badly formed propositions. The merge prompt already forbids joining two
+    questions; this is what catches the ones that get through.
+    """
+    bad = [r for r in rows if r.get("sides_balance") == "unstable"]
+    if not bad:
+        return
+    print("\n  Why these reversed:")
+    for r in bad:
+        joins = looks_compound(r["proposition"])
+        if joins:
+            print(f"    P{r['n']} joins two questions ({', '.join(repr(j) for j in joins)}). "
+                  "A claim that")
+            print("        supports one half and contradicts the other has no stable "
+                  "stance. Split it and re-run.")
+        else:
+            print(f"    P{r['n']} reverses with no visible compound structure — "
+                  "worth reading its bearing claims directly.")
+
+
 def map_system(props: list[dict]) -> str:
     listed = "\n".join(f"  P{i}: {p['proposition']}" for i, p in enumerate(props, 1))
     return (
@@ -559,6 +603,7 @@ def main():
             "sides_balance": balance,
             "mean_composite": round(sum(scored) / len(scored), 2) if scored else None,
             "magnitude": magnitude,
+            "compound_markers": looks_compound(p["proposition"]),
             "bearing_with_precision": with_precision,
             "bearing_point_estimate": point,
             "bearing_unquantified": levels.get("none", 0),
@@ -594,6 +639,8 @@ def main():
               f"{r['bearing_with_precision']} with precision, "
               f"{r['bearing_point_estimate']} point estimate, "
               f"{r['bearing_unquantified']} no number")
+
+    explain_unstable(rows)
 
     # If no claim bears on more than one proposition, the model is sorting
     # rather than testing, whatever the prompt asked for. That produces the same

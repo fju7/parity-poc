@@ -163,6 +163,32 @@ What changed in the piece, and when. Not how our process failed — that belongs
 in the repository — but what a reader who saw an earlier version needs to know.
 This is the behaviour we ask readers to value, so we demonstrate it.
 
+### 11. Before criticising the coverage, find the best of it
+
+Sample deliberately for the outlet that got it right, and name it. A claim that
+"reporting missed X" has to survive somebody having said X.
+
+If careful coverage exists, the piece's claim is **not** "they missed this". It
+is: *here is the layer beneath what even the careful reporting gives you.* That
+is a stronger footing and an honest one, and it is usually the more interesting
+piece.
+
+This rule exists because issue one failed it. Its framing rested on a reader
+meeting "49%" and reasonably taking it for a phase 3 figure. A Dispatch reader
+would not have: that piece attributed the 49% and 59% to the phase 2 trial
+explicitly, preserved the composite endpoints — "recurrence or death", not
+"recurrence" — and stated that the phase 3 numbers had not been released.
+BioPharma Dive and Dermatology Times were also explicit. We had not looked.
+
+The analysis survived. The framing did not deserve to. And note which way the
+comparison ran: the Dispatch preserved a composite endpoint in a
+general-interest newsletter where our own email used the shorthand. We do not
+get to hold others to a standard we are still learning to meet.
+
+`factcheck_draft.py --survey "<topic>"` runs this search before a draft exists,
+which is the cheap moment to discover the coverage is better than assumed.
+Afterwards the framing is already built and the pull is to defend it.
+
 ---
 
 ## Before an inquiry starts
@@ -180,6 +206,7 @@ the piece has something to be wrong about.
 
 ## Before an issue publishes
 
-- `factcheck_draft.py` exits 0.
+- `factcheck_draft.py` exits 0 — six roles, including COVERAGE.
+- `--survey` was run BEFORE drafting, not after.
 - The four questions are answerable from the piece.
 - Every rule above has been read against the draft, not recalled from memory.

@@ -38,8 +38,8 @@ Two design rules, both learned the hard way:
   learned: an `api failed` that only printed a warning let a run report success
   while completely blind. Warnings get waved through on a Friday afternoon.
 
-THREE ROLES, NOT ONE
---------------------
+FIVE ROLES, NOT ONE
+-------------------
 A single "check the facts" pass catches classes 1-4 and misses 5 and 6, which
 are the ones that make a piece unfair rather than merely wrong.
 
@@ -55,6 +55,11 @@ are the ones that make a piece unfair rather than merely wrong.
            or selective? One pass, reading the draft whole. This is the only
            role that can see an omission, because omissions are invisible when
            you check claims one at a time.
+  COVERAGE Who else covered this story carefully, and what did they get right?
+           Runs against the best of the coverage rather than the average, so a
+           claim that "reporting missed X" has to survive someone having said
+           X. Also reports what this piece can add that careful coverage does
+           not — which is a stronger footing than a failure nobody committed.
 
 Costs roughly (one call per distinct source) + 2, plus web searches. For a
 piece citing four sources that is about six calls. Run once per issue.
@@ -291,7 +296,7 @@ extracted, with attributed_to set to null. Those are the dangerous ones."""
 
 
 def extract_claims(draft: str) -> list[dict] | None:
-    print("[1/5] Extracting checkable claims...")
+    print("[1/6] Extracting checkable claims...")
     out = call(
         EXTRACT_SYSTEM,
         f"Draft follows.\n\n---\n{draft}\n---",
@@ -360,7 +365,7 @@ def audit_sources(claims: list[dict], draft_title: str) -> dict[str, dict]:
     for c in external:
         groups.setdefault(c.get("attributed_to") or "__UNATTRIBUTED__", []).append(c)
 
-    print(f"[2/5] Source audit across {len(groups)} attributed source(s)...")
+    print(f"[2/6] Source audit across {len(groups)} attributed source(s)...")
     verdicts: dict[str, dict] = {}
     for src, items in groups.items():
         shown = "no source credited in the draft" if src == "__UNATTRIBUTED__" else src
@@ -439,7 +444,7 @@ only if you positively confirmed the cited readout is the latest."""
 
 
 def sweep_recency(draft: str, today: str) -> dict | None:
-    print("[3/5] Recency sweep...")
+    print("[3/6] Recency sweep...")
     out = call(
         RECENCY_SYSTEM,
         f"Today's date is {today}. Draft follows.\n\n---\n{draft}\n---",
@@ -491,7 +496,7 @@ and saying so is more useful than a list of complaints nobody would act on."""
 
 
 def advocate(draft: str) -> list[dict] | None:
-    print("[4/5] Subject's advocate...")
+    print("[4/6] Subject's advocate...")
     out = call(
         ADVOCATE_SYSTEM,
         f"Draft follows.\n\n---\n{draft}\n---",
@@ -583,7 +588,7 @@ rather than manufacture one."""
 
 
 def inference(draft: str) -> list[dict] | None:
-    print("[5/5] Statistical inference...")
+    print("[5/6] Statistical inference...")
     out = call(
         INFERENCE_SYSTEM,
         f"Draft follows.\n\n---\n{draft}\n---",
@@ -598,11 +603,98 @@ def inference(draft: str) -> list[dict] | None:
     return out
 
 
+
+# ---------------------------------------------------------------------------
+# phase 6 — COVERAGE
+# ---------------------------------------------------------------------------
+#
+# Every other role reads the draft against the evidence. This one reads it
+# against the best of what other people published on the same story.
+#
+# Issue one's framing rested on the premise that a reader meeting "49%" would
+# reasonably take it for a phase 3 figure. Some readers would. A Dispatch
+# reader would not: that piece attributed the 49% and 59% to the phase 2 trial
+# explicitly, preserved the composite endpoints — "recurrence or death", not
+# "recurrence" — and said in as many words that the companies had not released
+# the phase 3 numbers. BioPharma Dive and Dermatology Times were also explicit.
+#
+# We had not looked. The analysis survived; the framing did not deserve to.
+#
+# This is the specific pull the editorial standard names: once the job is
+# finding what coverage missed, there is an incentive to describe a field by
+# its weakest members. The remedy is not restraint, it is a search — and a
+# search is mechanisable in a way restraint is not.
+
+COVERAGE_SYSTEM = """You are finding the BEST coverage of a story, not the worst.
+
+You will be given a draft article (or a topic). Identify the same underlying
+story and search for the most careful treatments of it published by others.
+
+You are looking for counterexamples to the draft's implicit or explicit view of
+the coverage. Search deliberately for outlets that got the hard parts right —
+correct attribution of figures to the trial that produced them, composite
+endpoints preserved rather than shortened, explicit statements about what has
+NOT been released, appropriate caution about survival.
+
+For each careful treatment you find, report what it got RIGHT specifically, and
+what it still omitted. Both halves matter: the first tells the draft's author
+that a claim of general failure is unsupportable, the second is what the draft
+can legitimately add.
+
+Then examine every statement the draft makes about the coverage, the press,
+the reporting, or other outlets. Any claim that reporting missed, omitted,
+failed to say, or glossed over something is CONTRADICTED if a piece you found
+did say it.
+
+Return ONLY JSON:
+{
+  "best_coverage": [
+    {"outlet": "...", "url": "...", "got_right": "specifically what",
+     "still_omitted": "what a reader still would not learn"}
+  ],
+  "contradictions": [
+    {"quote": "the draft's exact sentence about the coverage",
+     "counterexample": "outlet and what it in fact said",
+     "url": "...",
+     "severity": "SERIOUS" | "MINOR",
+     "fix": "how to reframe so the claim is true"}
+  ],
+  "what_this_piece_can_add": "the layer beneath what even the careful coverage gives a reader, in one or two sentences"
+}
+
+SERIOUS means the draft asserts a failure that a piece you found did not commit.
+MINOR means the characterisation is broadly right but overstated.
+
+If the coverage really is uniformly poor on a point, say so with an empty
+contradictions array — that is a finding too, and a better-supported one for
+having looked. Do not manufacture counterexamples, and do not credit an outlet
+for a caveat it did not actually print."""
+
+
+def coverage(draft: str) -> dict | None:
+    print("[6/6] Best coverage elsewhere...")
+    out = call(
+        COVERAGE_SYSTEM,
+        f"Draft follows.\n\n---\n{draft}\n---",
+        search=True, label="coverage",
+    )
+    if out is None:
+        return None
+    if isinstance(out, list):
+        out = {"best_coverage": [], "contradictions": out, "what_this_piece_can_add": None}
+    found = len(out.get("best_coverage") or [])
+    contra = out.get("contradictions") or []
+    serious = sum(1 for c in contra if isinstance(c, dict) and c.get("severity") == "SERIOUS")
+    print(f"      {found} careful treatment(s) found · {len(contra)} contradiction(s), "
+          f"{serious} serious")
+    return out
+
+
 # ---------------------------------------------------------------------------
 # report
 # ---------------------------------------------------------------------------
 
-def render(claims, verdicts, recency, objections, inferences) -> tuple[str, bool]:
+def render(claims, verdicts, recency, objections, inferences, cov) -> tuple[str, bool]:
     by_id = {c["id"]: c for c in claims}
     lines, failed = [], False
 
@@ -688,6 +780,42 @@ def render(claims, verdicts, recency, objections, inferences) -> tuple[str, bool
         if i.get("fix"):
             lines.append(f"     fix           : {i['fix']}")
 
+    best = (cov or {}).get("best_coverage") or []
+    contra = (cov or {}).get("contradictions") or []
+    serious_c = [c for c in contra if c.get("severity") == "SERIOUS"]
+    lines.append("")
+    lines.append("=" * 72)
+    lines.append(f"COVERAGE {len(best)} careful treatment(s) elsewhere · "
+                 f"{len(contra)} contradiction(s), {len(serious_c)} serious")
+    lines.append("=" * 72)
+    for b in best:
+        lines.append("")
+        lines.append(f"  {b.get('outlet', '?')}")
+        if b.get("got_right"):
+            lines.append(f"     got right     : {b['got_right']}")
+        if b.get("still_omitted"):
+            lines.append(f"     still omitted : {b['still_omitted']}")
+        if b.get("url"):
+            lines.append(f"     {b['url']}")
+    for c in contra:
+        if c.get("severity") == "SERIOUS":
+            failed = True
+        lines.append("")
+        lines.append(f"  [{c.get('severity')}] the draft's claim about the coverage "
+                     "is contradicted")
+        if c.get("quote"):
+            lines.append(f"     quote         : \u201c{c['quote']}\u201d")
+        if c.get("counterexample"):
+            lines.append(f"     but           : {c['counterexample']}")
+        if c.get("url"):
+            lines.append(f"     see           : {c['url']}")
+        if c.get("fix"):
+            lines.append(f"     fix           : {c['fix']}")
+    if (cov or {}).get("what_this_piece_can_add"):
+        lines.append("")
+        lines.append("  What this piece can add that careful coverage does not:")
+        lines.append(f"     {cov['what_this_piece_can_add']}")
+
     return "\n".join(lines), failed
 
 
@@ -699,6 +827,12 @@ def main():
     ap.add_argument("--known-errors", action="store_true",
                     help="Print the recorded error classes this gate exists to catch.")
     ap.add_argument("--today", help="Override today's date (YYYY-MM-DD) for the recency sweep.")
+    ap.add_argument("--survey", metavar="TOPIC",
+                    help="Run the COVERAGE role alone against a topic description, "
+                         "before any draft exists. Reports who has covered the story "
+                         "carefully and what a piece could add. This is the cheap "
+                         "moment to learn that the coverage is better than assumed — "
+                         "after drafting, the framing is already built.")
     args = ap.parse_args()
 
     if args.known_errors:
@@ -729,8 +863,31 @@ def main():
         print(f"known-errors      : {'present' if KNOWN_ERRORS.exists() else 'MISSING'}")
         sys.exit(0 if ok else 2)
 
+    if args.survey:
+        cov = coverage(args.survey)
+        if cov is None:
+            print("\n[BLOCKED] The coverage survey did not run.")
+            sys.exit(2)
+        print("")
+        for b in (cov.get("best_coverage") or []):
+            print(f"  {b.get('outlet', '?')}")
+            if b.get("got_right"):
+                print(f"     got right     : {b['got_right']}")
+            if b.get("still_omitted"):
+                print(f"     still omitted : {b['still_omitted']}")
+            if b.get("url"):
+                print(f"     {b['url']}")
+            print("")
+        if cov.get("what_this_piece_can_add"):
+            print("  What a piece could add that careful coverage does not:")
+            print(f"     {cov['what_this_piece_can_add']}")
+        if not (cov.get("best_coverage") or []):
+            print("  No careful treatment found. That is a finding, and a "
+                  "better-supported one for having looked.")
+        sys.exit(0)
+
     if not args.draft:
-        ap.error("a draft path is required (or use --verify / --known-errors)")
+        ap.error("a draft path is required (or use --verify / --known-errors / --survey)")
 
     warn_if_unpinned()
     path = Path(args.draft)
@@ -747,12 +904,13 @@ def main():
     recency = sweep_recency(draft, today)
     objections = advocate(draft)
     inferences = inference(draft)
+    cov = coverage(draft)
 
-    if recency is None or objections is None or inferences is None:
+    if recency is None or objections is None or inferences is None or cov is None:
         print("\n[BLOCKED] A required check did not run. An unrun check is not a pass.")
         sys.exit(2)
 
-    report, failed = render(claims, verdicts, recency, objections, inferences)
+    report, failed = render(claims, verdicts, recency, objections, inferences, cov)
     print(report)
 
     if args.report:
@@ -760,7 +918,7 @@ def main():
             "draft": str(path), "checked_at": today, "model": SIGNAL_MODEL,
             "claims": claims, "verdicts": verdicts,
             "recency": recency, "objections": objections,
-            "inferences": inferences,
+            "inferences": inferences, "coverage": cov,
         }, indent=2), encoding="utf-8")
         print(f"\nFull result written to {args.report}")
 
@@ -769,7 +927,9 @@ def main():
         print("BLOCKED — resolve every item above, or record it in the piece, before publishing.")
         sys.exit(1)
     print("PASSED — every claim verified against a primary source, nothing stale, "
-          "no serious objection, no unwarranted inference.")
+          "no serious objection, no unwarranted inference,")
+    print("         and no claim about the coverage that a careful outlet "
+          "disproves.")
     sys.exit(0)
 
 
