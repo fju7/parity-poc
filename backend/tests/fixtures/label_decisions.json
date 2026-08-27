@@ -192,6 +192,18 @@
       "recorded": "2026-08-27",
       "evidence": "Ten measurements of social-media/depression_anxiety across two surveys: nine cleared the decisiveness floor leaning FOR and one, 7/6, did not. The verdict is 'lean' on a 4-of-5 or 9-of-10 majority, so a category sitting nearer the boundary than this one could classify 'lean' on one survey and 'tie' on the next.",
       "consequence": "That flap is tolerable and the for/against flap is not, because of what each tells a reader. 'Slight lean' and 'evenly divided' are neighbouring descriptions of the same picture; 'most evidence supports X' and 'most evidence opposes X' are opposite ones. Do not tighten the thresholds to make lean/tie perfectly repeatable — that would be tuning a real ambiguity out of the output. Do record which side of the line a category sat on, so a later change reads as a boundary crossing rather than a new finding."
+    },
+    {
+      "note": "Claim miscategorisation is real, not an artefact of showing the model claims without their source context.",
+      "recorded": "2026-08-27",
+      "evidence": "breast-cancer-therapies audited twice, 3 runs each, once with the claim text alone and once with the source passage the claim was extracted from (found for 207 of 207 claims). The two runs chose the same category for 90% of claims. Of 80 claims the plain run called misplaced, the context run changed the answer for 8 — four percent of the topic. Six more stopped being reported only because unanimity fell to 2 of 3, which is the guard being cautious, not context helping. 'Belongs nowhere' went 40 to 37, the same 34 claims both times.",
+      "consequence": "The 23% corpus-wide misplacement stands. Recategorisation cannot be avoided by writing claims that carry their own context, because context is not what is missing."
+    },
+    {
+      "note": "A category named for a subject admits two questions, and the claims split along the seam.",
+      "recorded": "2026-08-27",
+      "evidence": "The only claims context rescued from 'belongs nowhere' in breast-cancer-therapies were population survival statistics — 'the 5-year relative survival rate across all stages is approximately 90%', 'above 90% in high-income countries and below 70% in many low-income ones'. Read with their source passage the model files them under survival_outcomes; read alone it says they bear on nothing. Both readings are defensible, because the heading covers 'how long do patients live' AND 'do these therapies extend life' and those are different questions.",
+      "consequence": "This is social-media/methodology's pathology in another form, and it is the category whose published label has been argued over all day. Renaming will not fix it; only stating the proposition will. It also means the topic-level structure, not the claim-level data, is what has to change — which is what Fred identified independently from the melanoma issue working and these not."
     }
   ],
   "measurements": [
