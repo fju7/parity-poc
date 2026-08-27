@@ -171,10 +171,29 @@ def judge(measured: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
                 # The heavier side changed sides. A reader is told a materially
                 # different story — "most of the evidence supports X" becomes
                 # "most of it opposes X" — even though the status still reads
-                # debated. Louder than a magnitude wobble, but still a warning:
-                # side attribution picks a handful of informative claims and is
-                # the least stable thing measured here.
-                warnings.append({**m, "why": f"side BALANCE REVERSED {want} -> {got}"})
+                # debated.
+                #
+                # This was a warning until 2026-08-27, on the reasoning that
+                # side attribution is the least stable thing measured and a
+                # reversal was a wobble rather than a defect. Three sweeps run
+                # that day settled it. social-media/methodology, 43 claims,
+                # identical prompt hash, hours apart:
+                #
+                #     fixture   10 / 3
+                #     sweep 1    2 / 10     reversed
+                #     sweep 2    3 / 8      reversed
+                #     sweep 3   11 / 4      matches, within 1 on both sides
+                #
+                # That is not a wobble around one answer. It is two answers,
+                # and the model alternates between them. The counts are shown
+                # on the published topic page, so a reader lands on one of two
+                # opposite accounts of where the weight of evidence sits.
+                #
+                # It fails now. If it fires constantly, that is not noise to be
+                # tuned away — it is the finding that side counts are not fit
+                # to publish for that category, and they should come off the
+                # page rather than the alarm being lowered.
+                failures.append({**m, "why": f"side BALANCE REVERSED {want} -> {got}"})
             elif max(abs(want[0] - got[0]), abs(want[1] - got[1])) > SIDE_COUNT_TOLERANCE:
                 warnings.append({**m, "why": f"side counts moved {want} -> {got}"})
     return failures, warnings, unmeasured

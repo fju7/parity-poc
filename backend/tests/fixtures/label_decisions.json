@@ -1,5 +1,5 @@
 {
-  "what_this_is": "A record of every case where a published consensus label disagreed with what the model produces, and what a human decided to do about it. It exists because the stability sweep has no memory: without this, the same drifts reappear every week as though nobody had ever looked, and a check that repeats itself unchanged is one people learn to scroll past. A decision here is not permanent — it is a statement about a specific published/model pair on a specific date. If either side moves, the decision goes stale and the sweep says so.",
+  "what_this_is": "A record of every case where a published consensus label disagreed with what the model produces, and what a human decided to do about it. It exists because the stability sweep has no memory: without this, the same drifts reappear every week as though nobody had ever looked, and a check that repeats itself unchanged is one people learn to scroll past. A decision here is not permanent \u2014 it is a statement about a specific published/model pair on a specific date. If either side moves, the decision goes stale and the sweep says so.",
   "decisions": [
     {
       "slug": "glp1-drugs",
@@ -10,7 +10,9 @@
       "decision": "correct",
       "claims_read": 44,
       "reason": "All 44 claims are list prices, cash prices, Part D spending, international comparisons and coverage rules. Nothing opposes anything. Published as debated since 2 March 2026; wrong for five months and found by accident during unrelated work.",
-      "what_would_change_it": "A claim arguing that US GLP-1 pricing is justified or comparable to peer countries would create a real opposing side."
+      "what_would_change_it": "A claim arguing that US GLP-1 pricing is justified or comparable to peer countries would create a real opposing side.",
+      "applied": "2026-08-27",
+      "applied_note": "Corrected with map_consensus --category and logged in signal_evidence_updates by detect_changes. Published now equals current, so this no longer appears as a drift. Kept as the record that the decision was carried out, not merely made."
     },
     {
       "slug": "social-media-teen-mental-health",
@@ -21,7 +23,9 @@
       "decision": "correct",
       "claims_read": 25,
       "reason": "The claims broadly agree that interventions have real but modest effects. The apparently negative finding (nudges habituate within 2-4 weeks) is a nuance about one intervention type, not a counter-position. Confirmed twice: once when re-baselining the golden set on 25 August, once on 27 August.",
-      "what_would_change_it": "Evidence that a major intervention class does not work at all, rather than works weakly."
+      "what_would_change_it": "Evidence that a major intervention class does not work at all, rather than works weakly.",
+      "applied": "2026-08-27",
+      "applied_note": "Corrected with map_consensus --category and logged in signal_evidence_updates by detect_changes. Published now equals current, so this no longer appears as a drift. Kept as the record that the decision was carried out, not merely made."
     },
     {
       "slug": "mrna-vaccine-myocarditis",
@@ -77,6 +81,26 @@
       "claims_read": 23,
       "reason": "The published label is the shakier one. The category contains VITAL finding vitamin D supplementation did NOT reduce incidence (HR 0.96, 0.81-1.14), the FDA concluding there is 'very little credible scientific evidence' on green tea, and non-significant results for nuts and omega-3 - alongside strong positives for fibre, olive oil and soy. 'Consensus' implies these foods are agreed protective and they are not. But 'debated' on 2-of-23 side attribution is not earned either, and the real structure is that different foods have different evidence, which is not a debate.",
       "what_would_change_it": "A mosaic, or splitting the category by food. Also two near-duplicate fibre claims give 5% and 7% for the same 10g/day increment, which should be reconciled."
+    }
+  ],
+  "standing_notes": [
+    {
+      "note": "Statuses are stable. Side attribution is not.",
+      "recorded": "2026-08-27",
+      "evidence": "Three full sweeps of 53 categories in one day returned identical statuses every time \u2014 zero flips. Side counts moved in five of six debated categories between the first two runs alone.",
+      "consequence": "Drift detection on status is trustworthy and the masthead figure rests on solid ground. Side counts are a sample, not a count, and must never be quoted as precise."
+    },
+    {
+      "note": "social-media/methodology has two attractors, not one answer with noise.",
+      "recorded": "2026-08-27",
+      "evidence": "43 claims, identical prompt hash, hours apart: fixture 10/3, sweep 1 gave 2/10, sweep 2 gave 3/8, sweep 3 gave 11/4. Sweeps 1 and 2 are reversals of the fixture; sweep 3 matches it within 1 on both sides. The model alternates between roughly 10-for/3-against and roughly 2-for/10-against.",
+      "consequence": "Side-balance reversal was promoted from a warning to a failure in golden_set.py on this evidence. If it fires often, the answer is to stop publishing side counts for that category rather than to soften the check."
+    },
+    {
+      "note": "A default that silently narrows scope while reporting success is this codebase's recurring bug.",
+      "recorded": "2026-08-27",
+      "evidence": "detect_changes.py defaults --issue-slug to glp1-drugs and reported COMPLETE after processing one topic when two had changed. Earlier the same day: golden_set treated an API failure as a warning and printed 'no published judgment moved' while blind to six categories; a git commit run from the wrong directory reported 'nothing to commit, working tree clean'.",
+      "consequence": "Prefer an explicit required argument over a default, and make an unrun check fail rather than pass quietly."
     }
   ]
 }
