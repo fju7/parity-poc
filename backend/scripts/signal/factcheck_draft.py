@@ -562,6 +562,20 @@ Read every quantitative and methodological inference in the draft and look for:
   - Absence of a number reported as absence of evidence. "We do not know how
     large the effect is" and "we do not know whether it worked" are different
     claims. Flag any sentence that slides from the first to the second.
+
+    JUDGE THE SENTENCE, NOT THE PARAGRAPH. A nearby qualification does not
+    repair a sentence a reader will quote on its own. "The announcement reports
+    no results" followed by "it does describe the trial" is still a sentence
+    that says there are no results, and it is the one that will be remembered
+    and repeated. On 2026-08-27 this exact construction appeared three times in
+    a live piece — "reports no Phase 3 results", "has published nothing", "the
+    quantitative content is nil" — and was passed by this check because each
+    was qualified somewhere nearby. All three were wrong: the announcement
+    reported that the trial met its prespecified endpoints, which is a result.
+    What it did not report was any NUMBER.
+
+    The repair is usually one word. Ask of every such sentence: is the missing
+    thing evidence, or magnitude? If magnitude, say so in the sentence itself.
   - A relative effect quoted where the absolute one is what a reader needs, or
     an absolute benefit assumed constant across populations with different
     baseline risk.
