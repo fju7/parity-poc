@@ -497,6 +497,21 @@ function DebateItem({ item, glossary, claimsById, compositeMap }) {
   const isDebated = item.consensus_status === "debated";
   const label = displayName(item.category);
 
+  // How the side attribution behaved when the category was measured more than
+  // once (migrations 074/075). Rows written before repeated measurement existed
+  // carry null and are rendered exactly as they always were.
+  //
+  // 'unstable' is the one that changes what a reader is shown. The side lists
+  // are already NULL in the row, so the claim counts vanish on their own — but
+  // the panel HEADINGS would still say "Supporting" and "Opposing", and for a
+  // category whose axis inverts between runs those two headings swap meaning
+  // from one measurement to the next. Naming them neutrally is the fix; the
+  // prose still describes the split, which is real. What is not real is our
+  // ability to say which half of it is the "for" half.
+  const balance = item.sides_balance || null;
+  const sidesUnstable = item.sides_stable === false || balance === "unstable";
+  const sidesTied = balance === "tie";
+
   return (
     <div
       className={`rounded-xl overflow-hidden border bg-white ${
@@ -559,11 +574,39 @@ function DebateItem({ item, glossary, claimsById, compositeMap }) {
           }`}
         >
           {isDebated && (item.arguments_for || item.arguments_against) && (
+            <>
+            {sidesUnstable && (
+              <div className="mb-3 rounded-lg border border-gray-300 bg-gray-50 p-3">
+                <div className="text-xs font-bold text-gray-600 mb-1">
+                  Which side the evidence favours is not shown here
+                </div>
+                <p className="text-xs text-gray-600 leading-relaxed m-0">
+                  We measured this category several times. The two positions came
+                  out the same way each time, but which one our analysis counted
+                  as the supporting side reversed between runs. That is a limit of
+                  our own method, not a finding about the research, so we are not
+                  reporting a balance we cannot reproduce. Both positions are below,
+                  in no order.
+                </p>
+              </div>
+            )}
+            {sidesTied && (
+              <div className="mb-3 rounded-lg border border-amber-200 bg-amber-50 p-3">
+                <div className="text-xs font-bold text-amber-800 mb-1">
+                  Evenly divided
+                </div>
+                <p className="text-xs text-gray-700 leading-relaxed m-0">
+                  Repeated measurement put these two positions within a claim or two
+                  of each other every time. Read the counts below as a tie, not as a
+                  lead for either side.
+                </p>
+              </div>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {item.arguments_for && (
                 <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
                   <div className="text-xs font-bold text-emerald-700 mb-1">
-                    Supporting Evidence
+                    {sidesUnstable ? "One position" : "Supporting Evidence"}
                   </div>
                   <p className="text-xs text-gray-700 leading-relaxed">
                     <GlossaryText text={item.arguments_for} glossary={glossary} />
@@ -579,7 +622,7 @@ function DebateItem({ item, glossary, claimsById, compositeMap }) {
               {item.arguments_against && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-3">
                   <div className="text-xs font-bold text-red-700 mb-1">
-                    Opposing Evidence
+                    {sidesUnstable ? "The other position" : "Opposing Evidence"}
                   </div>
                   <p className="text-xs text-gray-700 leading-relaxed">
                     <GlossaryText text={item.arguments_against} glossary={glossary} />
@@ -593,6 +636,7 @@ function DebateItem({ item, glossary, claimsById, compositeMap }) {
                 </div>
               )}
             </div>
+            </>
           )}
 
           {!isDebated && (
