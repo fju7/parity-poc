@@ -63,6 +63,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from collections import Counter, defaultdict
@@ -226,10 +227,27 @@ def merge(candidates: list[dict], limit: int) -> tuple[list[dict], bool]:
     body = "\n".join(
         f"- {c['proposition']}  (could be false because: "
         f"{c.get('why_it_could_be_false', '')})" for c in candidates)
-    got = mc._call_claude(MERGE_SYSTEM % limit, body, max_tokens=3000)
+    # Scaled, not fixed. On 2026-08-27 a run produced 82 candidates and this
+    # call truncated at a hardcoded 3000 tokens, failed to parse three times,
+    # and fell through to the raw candidate list — which was then printed under
+    # a header claiming it was a merged proposition set. Two propositions in
+    # that output were the same question in different words, and the sharpest
+    # proposition from the previous run had been cut by an arbitrary slice.
+    budget = min(16000, max(3000, len(candidates) * 120 + 1000))
+    got = mc._call_claude(MERGE_SYSTEM % limit, body, max_tokens=budget)
     if not isinstance(got, list):
-        print("  [ERROR] merge failed; falling back to the raw candidate list.")
-        return candidates[:limit], len(candidates) >= limit
+        # Not a fallback. An unmerged candidate list contains the same question
+        # several times and is cut in arbitrary order, so coverage, residue and
+        # the ranking all become uninterpretable. Saying so and stopping is the
+        # only honest option.
+        print("  [FATAL] The merge did not return usable JSON.")
+        print("          Without it there is no proposition set — only "
+              f"{len(candidates)} candidates containing duplicates, and any cut "
+              "of them")
+        print("          drops questions for no reason. Re-run; if it fails "
+              "again, lower --propose-per-batch so fewer candidates reach the "
+              "merge.")
+        sys.exit(2)
     merged = [g for g in got if isinstance(g, dict) and g.get("proposition")]
     print(f"  merged {len(candidates)} candidates -> {len(merged)} propositions")
     if len(merged) >= limit:
@@ -249,6 +267,32 @@ def merge(candidates: list[dict], limit: int) -> tuple[list[dict], bool]:
 # ---------------------------------------------------------------------------
 # 2. Map every claim to every proposition
 # ---------------------------------------------------------------------------
+
+def _words(text: str) -> set:
+    return {w for w in re.findall(r"[a-z0-9]+", text.lower()) if len(w) > 3}
+
+
+def warn_near_duplicates(props: list[dict], threshold: float = 0.75) -> int:
+    """Flag proposition pairs that are probably the same question reworded.
+
+    The merge is asked to remove these and cannot be assumed to have done it.
+    A duplicate pair splits the evidence bearing on one question across two
+    rows, so both look weaker than the question actually is.
+    """
+    pairs = []
+    for i in range(len(props)):
+        for j in range(i + 1, len(props)):
+            a, b = _words(props[i]["proposition"]), _words(props[j]["proposition"])
+            if not a or not b:
+                continue
+            jaccard = len(a & b) / len(a | b)
+            if jaccard >= threshold:
+                pairs.append((jaccard, i + 1, j + 1))
+    for score, i, j in sorted(pairs, reverse=True):
+        print(f"  [WARN] P{i} and P{j} are {score:.0%} the same wording — "
+              "probably one question, counted twice.")
+    return len(pairs)
+
 
 def map_system(props: list[dict]) -> str:
     listed = "\n".join(f"  P{i}: {p['proposition']}" for i, p in enumerate(props, 1))
@@ -271,12 +315,29 @@ def map_system(props: list[dict]) -> str:
         "Bearing means the claim would move a reasonable person's confidence in "
         "the proposition. A claim that merely mentions the same subject does not "
         "bear on it.\n\n"
+        "Also say, for each claim, how far it QUANTIFIES the effect it describes:\n"
+        "  \"none\"           no numerical effect estimate — a direction, an "
+        "approval, a statement that something was significant\n"
+        "  \"point\"          a numerical estimate with no measure of precision "
+        "— a hazard ratio, a percentage, a median, alone\n"
+        "  \"with_precision\" a numerical estimate WITH a confidence interval, "
+        "a p-value, or event counts\n\n"
+        "This is a separate question from whether the claim bears on anything. "
+        "Confidence that an effect exists and confidence about how large it is "
+        "are different things, and a claim can carry the first without the "
+        "second — 'the trial met its primary endpoint' is bearing evidence that "
+        "quantifies nothing.\n\n"
         "Return ONLY JSON, one object per claim, in the order given:\n"
-        "[{\"n\": 1, \"bears_on\": [{\"p\": 1, \"stance\": \"supports\"|\"opposes\"}]}]"
+        "[{\"n\": 1, \"bears_on\": [{\"p\": 1, \"stance\": \"supports\"|\"opposes\"}], "
+        "\"quantifies\": \"none\"|\"point\"|\"with_precision\"}]"
     )
 
 
-def map_batch(batch: list[dict], system_prompt: str, n_props: int) -> dict[str, set] | None:
+QUANT_LEVELS = ("none", "point", "with_precision")
+
+
+def map_batch(batch: list[dict], system_prompt: str,
+              n_props: int) -> dict[str, dict] | None:
     body = "\n\n".join(f"--- Claim {i} ---\n{c['claim_text']}"
                        for i, c in enumerate(batch, 1))
     # Roughly 25 tokens per (claim, proposition) pair it might emit, plus slack.
@@ -288,7 +349,7 @@ def map_batch(batch: list[dict], system_prompt: str, n_props: int) -> dict[str, 
     got = mc._call_claude(system_prompt, body, max_tokens=budget)
     if not isinstance(got, list):
         return None
-    result: dict[str, set] = {c["id"]: set() for c in batch}
+    result: dict[str, dict] = {c["id"]: {"bears": set(), "quant": None} for c in batch}
     for item in got:
         if not isinstance(item, dict):
             continue
@@ -301,11 +362,26 @@ def map_batch(batch: list[dict], system_prompt: str, n_props: int) -> dict[str, 
                 continue
             p, stance = b.get("p"), b.get("stance")
             if isinstance(p, int) and 1 <= p <= n_props and stance in ("supports", "opposes"):
-                result[cid].add((p, stance))
+                result[cid]["bears"].add((p, stance))
+        q = item.get("quantifies")
+        # An unrecognised value is recorded as None, never coerced to "none" —
+        # "we did not get an answer" and "this claim quantifies nothing" are
+        # exactly the distinction this field exists to make.
+        result[cid]["quant"] = q if q in QUANT_LEVELS else None
     return result
 
 
-def reconcile_bearing(runs: list[dict[str, set]], claim_ids: list[str],
+def reconcile_quant(runs: list[dict[str, dict]], claim_ids: list[str],
+                    n_runs: int) -> dict[str, str | None]:
+    """Modal quantification level per claim, or None if no run answered."""
+    out: dict[str, str | None] = {}
+    for cid in claim_ids:
+        votes = [r[cid]["quant"] for r in runs if cid in r and r[cid]["quant"]]
+        out[cid] = Counter(votes).most_common(1)[0][0] if votes else None
+    return out
+
+
+def reconcile_bearing(runs: list[dict[str, dict]], claim_ids: list[str],
                       n_runs: int) -> dict[str, set]:
     """A (proposition, stance) counts only if it appears in a MAJORITY of runs.
 
@@ -316,8 +392,8 @@ def reconcile_bearing(runs: list[dict[str, set]], claim_ids: list[str],
     """
     tally: dict[str, Counter] = {cid: Counter() for cid in claim_ids}
     for run in runs:
-        for cid, pairs in run.items():
-            for pair in pairs:
+        for cid, rec in run.items():
+            for pair in rec["bears"]:
                 tally[cid][pair] += 1
     need = n_runs // 2 + 1
     return {cid: {pair for pair, n in c.items() if n >= need} for cid, c in tally.items()}
@@ -385,6 +461,7 @@ def main():
         sys.exit("Merge produced nothing.")
     for i, p in enumerate(props, 1):
         print(f"  P{i}: {p['proposition']}")
+    dupes = warn_near_duplicates(props)
 
     print(f"\nSTEP 3 — map {len(claims)} claims to {len(props)} propositions, "
           f"{args.runs} run(s)")
@@ -411,6 +488,7 @@ def main():
 
     ids = [c["id"] for c in claims]
     final = reconcile_bearing(runs, ids, args.runs)
+    quant = reconcile_quant(runs, ids, args.runs)
     score = {c["id"]: c["composite_score"] for c in claims}
     text = {c["id"]: c["claim_text"] for c in claims}
 
@@ -419,8 +497,8 @@ def main():
     per_run_sides = []
     for run in runs:
         counts = {i: [0, 0] for i in range(1, len(props) + 1)}
-        for pairs in run.values():
-            for p, stance in pairs:
+        for rec in run.values():
+            for p, stance in rec["bears"]:
                 counts[p][0 if stance == "supports" else 1] += 1
         per_run_sides.append(counts)
 
@@ -451,6 +529,25 @@ def main():
                    if args.runs > 1 and len(bearing) >= MIN_BEARING_FOR_BALANCE
                    else None)
         scored = [score[c] for c in bearing if score.get(c) is not None]
+
+        # The second verdict. Bearing counts and balance say how confident we
+        # can be that the effect exists and which way it points. They say
+        # nothing about how large it is, and a single verdict that tries to
+        # carry both will misrepresent one of them — the defect an outside
+        # review of issue one identified in the scoring rubric, and the same
+        # one that makes a category named for a subject hold two questions.
+        levels = Counter(quant.get(c) for c in bearing)
+        with_precision = levels.get("with_precision", 0)
+        point = levels.get("point", 0)
+        if not bearing:
+            magnitude = None
+        elif with_precision >= 2:
+            magnitude = "quantified"
+        elif with_precision or point >= 2:
+            magnitude = "partial"
+        else:
+            magnitude = "direction only"
+
         rows.append({
             "n": i,
             "proposition": p["proposition"],
@@ -461,6 +558,11 @@ def main():
             "sides_observed": observed,
             "sides_balance": balance,
             "mean_composite": round(sum(scored) / len(scored), 2) if scored else None,
+            "magnitude": magnitude,
+            "bearing_with_precision": with_precision,
+            "bearing_point_estimate": point,
+            "bearing_unquantified": levels.get("none", 0),
+            "bearing_quant_unknown": levels.get(None, 0),
             "bearing_claim_ids": bearing,
         })
 
@@ -469,14 +571,29 @@ def main():
     print(f"\n{'=' * 70}")
     print("PROPOSITIONS THIS CORPUS CAN SETTLE")
     print(f"{'=' * 70}")
-    print(f"{'':4}{'bears':>6}{'sup':>5}{'opp':>5}{'mean':>6}  balance")
+    print("  Two verdicts per proposition, deliberately separate:")
+    print("    DIRECTION  does the effect exist and which way — bearing counts "
+          "and balance")
+    print("    MAGNITUDE  how large, and how precisely known — quantified "
+          "(2+ estimates with a CI, p-value or event counts),")
+    print("               partial, or direction only (bearing evidence that "
+          "puts no number on the effect)")
+    print(f"\n{'':4}{'bears':>6}{'sup':>5}{'opp':>5}{'mean':>6}  direction"
+          f"           magnitude")
     for r in sorted(rows, key=lambda x: -x["bearing"]):
         bal = r["sides_balance"] or (
-            f"(too few to judge, floor is {MIN_BEARING_FOR_BALANCE})")
+            f"too few (floor {MIN_BEARING_FOR_BALANCE})")
         mean = f"{r['mean_composite']:.2f}" if r["mean_composite"] is not None else "—"
+        mag = r["magnitude"] or "—"
+        if r["bearing_quant_unknown"]:
+            mag += f" ({r['bearing_quant_unknown']} unanswered)"
         print(f"\n  P{r['n']} {r['proposition']}")
         print(f"{'':4}{r['bearing']:>6}{r['supports']:>5}{r['opposes']:>5}{mean:>6}  "
-              f"{bal}   {r['sides_observed']}")
+              f"{bal:<18} {mag}")
+        print(f"{'':10}{r['sides_observed']}   "
+              f"{r['bearing_with_precision']} with precision, "
+              f"{r['bearing_point_estimate']} point estimate, "
+              f"{r['bearing_unquantified']} no number")
 
     # If no claim bears on more than one proposition, the model is sorting
     # rather than testing, whatever the prompt asked for. That produces the same
@@ -528,6 +645,7 @@ def main():
         "cap_bound": cap_bound,
         "propose_per_batch": args.propose_per_batch,
         "propose_saturated": propose_saturated,
+        "near_duplicate_pairs": dupes,
         "min_bearing_for_balance": MIN_BEARING_FOR_BALANCE,
         "claims_bearing_on_any": sum(1 for pairs in final.values() if pairs),
         "claims_bearing_on_more_than_one": sum(
