@@ -109,7 +109,9 @@ module.exports = async function handler(req, res) {
 
   const key = process.env.RESEND_WHATHOLDSUP_KEY;
   const audience = process.env.RESEND_WHATHOLDSUP_AUDIENCE_ID;
-  if (!key || !audience) {
+  const dbUrl = process.env.SUPABASE_URL;
+  const dbKey = process.env.SUPABASE_SERVICE_KEY;
+  if (!key || !audience || !dbUrl || !dbKey) {
     // Fail loudly rather than show a confirmation for a signup that went
     // nowhere. The same reasoning as the unsubscribe endpoint: the worst
     // outcome is both parties believing something happened that did not.
@@ -119,7 +121,9 @@ module.exports = async function handler(req, res) {
     console.error("subscribe E1: missing", [
       !key && "RESEND_WHATHOLDSUP_KEY",
       !audience && "RESEND_WHATHOLDSUP_AUDIENCE_ID",
-    ].filter(Boolean).join(" and "));
+      !dbUrl && "SUPABASE_URL",
+      !dbKey && "SUPABASE_SERVICE_KEY",
+    ].filter(Boolean).join(", "));
     res.status(500).send(page("Something is wrong at our end",
       "<p>We could not add you just now. Please write to " +
       "<a href='mailto:hello@whatholdsup.org'>hello@whatholdsup.org</a> and we " +
@@ -128,7 +132,41 @@ module.exports = async function handler(req, res) {
     return;
   }
 
+  // 1. The record, first. Resend is the delivery mechanism; this table is the
+  //    answer to "who subscribed, and when". Writing delivery first would let a
+  //    person exist in the mail system and nowhere else, which is the drift this
+  //    table was added to prevent — so a record that cannot be written stops the
+  //    signup rather than producing a subscriber we have no history for.
+  let recorded = false;
+  try {
+    const r = await fetch(`${dbUrl}/rest/v1/whatholdsup_subscribers?on_conflict=email`, {
+      method: "POST",
+      headers: {
+        apikey: dbKey,
+        Authorization: `Bearer ${dbKey}`,
+        "Content-Type": "application/json",
+        // Somebody signing up twice is not an error and must not read as one.
+        Prefer: "resolution=ignore-duplicates,return=minimal",
+      },
+      body: JSON.stringify({ email, source: "site" }),
+    });
+    recorded = r.ok;
+    if (!r.ok) console.error("subscribe E3: record failed", r.status, await r.text());
+  } catch (err) {
+    console.error("subscribe E3: record threw", err && err.message);
+  }
+  if (!recorded) {
+    res.status(500).send(page("Something is wrong at our end",
+      "<p>We could not add you just now. Please write to " +
+      "<a href='mailto:hello@whatholdsup.org'>hello@whatholdsup.org</a> and we " +
+      "will add you by hand.</p>" +
+      "<p class='muted'>Reference: E3</p>"));
+    return;
+  }
+
+  // 2. Delivery.
   let ok = false;
+  let contactId = "";
   try {
     const r = await fetch(`${RESEND_API}/audiences/${audience}/contacts`, {
       method: "POST",
@@ -136,8 +174,11 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({ email, unsubscribed: false }),
     });
     ok = r.ok;
+    const detail = await r.text();
+    if (r.ok) {
+      try { contactId = (JSON.parse(detail) || {}).id || ""; } catch { /* not fatal */ }
+    }
     if (!r.ok) {
-      const detail = await r.text();
       // An address already on the list is not a failure, and saying so would
       // also tell a stranger who is subscribed. Same page either way.
       if (r.status === 409 || /already exist|already a contact/i.test(detail)) {
@@ -148,6 +189,28 @@ module.exports = async function handler(req, res) {
     }
   } catch (err) {
     console.error("subscribe E2: resend threw", err && err.message);
+  }
+
+  // 3. Link the two, best effort. A row whose resend_contact_id is null is on
+  //    the work-queue index: recorded by us, receiving nothing. Failing here
+  //    only ever produces a false positive on that queue, which is the safe
+  //    direction — a retry costs a duplicate call Resend already de-duplicates.
+  if (ok && contactId) {
+    try {
+      await fetch(`${dbUrl}/rest/v1/whatholdsup_subscribers?email=eq.` +
+                  encodeURIComponent(email), {
+        method: "PATCH",
+        headers: {
+          apikey: dbKey,
+          Authorization: `Bearer ${dbKey}`,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify({ resend_contact_id: contactId }),
+      });
+    } catch (err) {
+      console.error("subscribe: could not link contact id", err && err.message);
+    }
   }
 
   if (!ok) {

@@ -42,9 +42,36 @@ async function call({ method = "POST", body = {}, env = {}, fetchImpl } = {}) {
   return r.o;
 }
 
-const CONFIGURED = { RESEND_WHATHOLDSUP_KEY: "re_test", RESEND_WHATHOLDSUP_AUDIENCE_ID: "aud_test" };
-const okFetch = () => async () => ({ ok: true, status: 200, text: async () => "" });
-const failFetch = (status, body) => async () => ({ ok: false, status, text: async () => body });
+const CONFIGURED = {
+  RESEND_WHATHOLDSUP_KEY: "re_test",
+  RESEND_WHATHOLDSUP_AUDIENCE_ID: "aud_test",
+  SUPABASE_URL: "https://db.example",
+  SUPABASE_SERVICE_KEY: "svc_test",
+};
+
+// The handler now makes up to three calls in a fixed order: record, deliver,
+// link. The stub routes by URL and logs every call, so the ORDER can be
+// asserted — writing delivery before the record is the specific mistake this
+// table was added to prevent.
+function router({ record = { ok: true, status: 201, body: "" },
+                  resend = { ok: true, status: 201, body: '{"id":"con_1"}' } } = {}) {
+  const calls = [];
+  const fn = async (url, opts) => {
+    const u = String(url);
+    calls.push({ url: u, method: (opts && opts.method) || "GET",
+                 body: opts && opts.body, headers: (opts && opts.headers) || {} });
+    const r = u.includes("whatholdsup_subscribers") && (opts || {}).method === "PATCH"
+      ? { ok: true, status: 204, body: "" }
+      : u.includes("whatholdsup_subscribers") ? record
+      : resend;
+    if (r.throws) throw new Error(r.throws);
+    return { ok: r.ok, status: r.status, text: async () => r.body };
+  };
+  fn.calls = calls;
+  return fn;
+}
+const okFetch = () => router();
+const failFetch = (status, body) => router({ resend: { ok: false, status, body } });
 
 (async () => {
   console.log();
@@ -76,14 +103,51 @@ const failFetch = (status, body) => async () => ({ ok: false, status, text: asyn
   t("a provider refusal -> 500 and says E2", o.code === 500 && /Reference: E2/.test(o.body));
 
   o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
-                   fetchImpl: async () => { throw new Error("network down"); } });
-  t("a thrown fetch -> 500 and says E2", o.code === 500 && /Reference: E2/.test(o.body));
+                   fetchImpl: router({ record: { throws: "db unreachable" } }) });
+  t("a throw on the record -> E3", o.code === 500 && /Reference: E3/.test(o.body));
+
+  o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
+                   fetchImpl: router({ resend: { throws: "network down" } }) });
+  t("a throw on delivery -> E2", o.code === 500 && /Reference: E2/.test(o.body));
 
   o = await call({ method: "PUT", env: CONFIGURED, body: {} });
   t("PUT -> 405", o.code === 405);
 
   o = await call({ method: "GET", env: CONFIGURED });
   t("GET serves the form", o.code === 200 && /<form/i.test(o.body));
+
+  // --- the record is the system of record, and goes first -------------------
+  let f = router();
+  o = await call({ env: CONFIGURED, body: { email: "a@b.com" }, fetchImpl: f });
+  t("the record is written before delivery",
+    f.calls.length >= 2
+    && f.calls[0].url.includes("whatholdsup_subscribers")
+    && f.calls[1].url.includes("audiences"));
+  t("and it records where the signup came from",
+    JSON.parse(f.calls[0].body || "{}").source === "site");
+  t("the record tolerates a repeat signup rather than erroring",
+    /resolution=ignore-duplicates/.test(String(f.calls[0].headers.Prefer || "")));
+  t("the Resend contact id is written back",
+    f.calls.length === 3 && f.calls[2].method === "PATCH"
+    && /con_1/.test(f.calls[2].body || ""));
+
+  f = router({ record: { ok: false, status: 500, body: "db down" } });
+  o = await call({ env: CONFIGURED, body: { email: "a@b.com" }, fetchImpl: f });
+  t("if the record fails -> 500 and says E3", o.code === 500 && /Reference: E3/.test(o.body));
+  t("and nothing is sent to Resend, so no unrecorded subscriber exists",
+    f.calls.every(c => !c.url.includes("audiences")));
+
+  f = router({ resend: { ok: false, status: 422, body: "nope" } });
+  o = await call({ env: CONFIGURED, body: { email: "a@b.com" }, fetchImpl: f });
+  t("if delivery fails -> E2, and the record survives as a work-queue row",
+    o.code === 500 && /Reference: E2/.test(o.body)
+    && f.calls[0].url.includes("whatholdsup_subscribers")
+    && f.calls.length === 2);
+
+  o = await call({ env: { ...CONFIGURED, SUPABASE_URL: "" },
+                   body: { email: "a@b.com" }, fetchImpl: router() });
+  t("missing database config is E1, not a silent half-signup",
+    o.code === 500 && /Reference: E1/.test(o.body));
 
   console.log("\n  " + pass + " passed, " + fail + " failed\n");
   process.exit(fail ? 1 : 0);
