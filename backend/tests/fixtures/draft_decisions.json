@@ -2,8 +2,8 @@
   "what_this_is": "Findings the fact-check gate has raised that a human has read and decided to accept. It exists because the gate is a nondeterministic model reading a long document: it will never return zero twice running, so a repeat run repeats itself, and without this record those repeats are indistinguishable in the output from genuinely new problems. Across three passes of issue one the unverified-claim count went 7, 6, 13 — the rise almost entirely claims added while fixing earlier findings. A decision here is keyed on the QUOTE: change the sentence and the decision stops applying, which is right, because it was a decision about that sentence.",
   "how_to_use_it": "Accept a finding only after reading it. Write why in terms someone else could disagree with. If the gate later reports the same quote at a different severity the run is STALE and blocks — a judgment accepted as MINOR is not thereby accepted as SERIOUS.",
   "publication_criterion": [
-    "No SERIOUS finding that is an actual error, as opposed to a judgment recorded here.",
-    "Every MINOR finding read once and either fixed or recorded here.",
+    "No finding of class FACT, CONTRADICTION or THIRD_PARTY that is an actual error, as opposed to a judgment recorded here.",
+    "Every CALIBRATION finding read once. Fix what you agree with; publish either way.",
     "No claim added in this pass that is not itself verified — this is the rule that would have prevented most of pass three."
   ],
   "decisions": [
@@ -36,7 +36,491 @@
       "decided": "2026-08-27",
       "reason": "The objection is that investigator assessment is standard across adjuvant melanoma trials, so singling this one out overstates it. The paragraph already says blinding substantially addresses the concern and that regulators have approved on this endpoint before. Adding that it is field-wide is true and would make an already-hedged passage read as an apology for raising it at all.",
       "what_would_change_it": "Evidence that the design is not in fact standard, which would make it worth more emphasis rather than less."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "ADVOCATE",
+      "quote": "157 patients in an open-label trial is not 1,137 in a double-blind one.",
+      "severity": "SERIOUS",
+      "decision": "reject - the objection's premise is false",
+      "decided": "2026-08-27",
+      "reason": "The gate raised this as SERIOUS on the ground that KEYNOTE-942 used blinded independent central review for RFS and DMFS, so the open-label contrast overstates the ascertainment concern. It cited no source for that, and three independent checks go the other way: the ClinicalTrials.gov record for NCT03897881 gives masking NONE and describes the primary outcome only as 'Recurrence-Free Survival (RFS), Assessed Using Radiological Imaging' with no central review; the Lancet abstract (PMID 38246194) calls the trial open-label and says only that the primary endpoint was RFS in the ITT population; and NCCN's JNCCN 360 report of the ASCO 2024 update states that endpoints included 'investigator-assessed relapse-free survival'. Merck's own Phase 3 release likewise defines RFS 'as assessed by the investigator', so investigator assessment is what both trials use and blinding is the only thing that differs. The contrast the sentence draws is the correct one.",
+      "what_would_change_it": "A protocol, statistical analysis plan or publication showing a blinded independent review committee adjudicated recurrence in KEYNOTE-942. That would make the sentence's implied ascertainment concern much weaker and the passage would need rewriting, not defending."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "A 49% reduction in the hazard of recurrence or death was reported.",
+      "severity": "WRONG_SOURCE",
+      "decision": "reject - the role read the figure without the sentence around it",
+      "decided": "2026-08-27",
+      "reason": "SOURCE returned WRONG_SOURCE on both figures because they are KEYNOTE-942 numbers rather than Phase 3 numbers. That is what the draft says: the same sentence reads 'come from a different study'. The role's own 'really from' field names the June 2026 KEYNOTE-942 release, which is the draft's attribution exactly. This is the extraction step stripping a figure out of the clause that attributes it, and then the check failing the draft for the attribution the draft made. Same class as the SOURCE false negative recorded in the known-errors fixture.",
+      "what_would_change_it": "The draft ever citing 49% or 59% as INTerpath-001 figures. Then the finding is right and the sentence is wrong."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "Several careful outlets correctly attributed the 49% and 59% figures to the earlier trial rather than the Phase 3 trial.",
+      "severity": "NOT_FOUND",
+      "decision": "accept - unverifiable in principle, and load-bearing on our own reading",
+      "decided": "2026-08-27",
+      "reason": "SOURCE is right that no primary source can confirm a claim about how a set of outlets behaved. But this is not a universal negative of the kind we cut from an earlier draft: it says the specialist coverage we read got it right, and COVERAGE in the same run lists eight outlets with quotes and URLs, every one of which attributed the figures correctly and said the Phase 3 numbers were unreleased. The claim is about what we read, we can produce the eight, and the direction of the claim is generous to other outlets rather than accusatory.",
+      "what_would_change_it": "Rephrasing it into a claim about all coverage, or about outlets we did not read. That is the version we cut once already and it should stay cut."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "Neither Merck nor Moderna saw the assessment before publication.",
+      "severity": "NOT_FOUND",
+      "decision": "accept - internal claim, mis-scoped by the extractor",
+      "decided": "2026-08-27",
+      "reason": "A claim about our own editorial process. The extractor marked one internal claim in this run and missed this one and the CivicScale funding line, so both went to the source audit, which correctly could not check them. They are true of our own conduct and there is nothing external to check them against. The extractor's scoping is the defect, not the sentences.",
+      "what_would_change_it": "Fixing the extractor's internal/external scoping, at which point these stop reaching SOURCE at all and this decision becomes dead weight."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "CivicScale takes no outside investment.",
+      "severity": "NOT_FOUND",
+      "decision": "accept - internal claim, mis-scoped by the extractor",
+      "decided": "2026-08-27",
+      "reason": "Same as the line above: a fact about our own funding, which no external source can confirm and which the disclosure page states in full. It reached the source audit because the extractor did not scope it as internal.",
+      "what_would_change_it": "The funding position changing, or the extractor learning to scope it."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "ADVOCATE",
+      "quote": "an exploratory endpoint the trial was never powered to test",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The objection is that the JCO paper pre-specified the five-year analyses as descriptive, so 'never powered to test' reads as a post-hoc dig at a planned analysis. Both descriptions are true at once and they are not in tension: an analysis can be pre-specified and still not sized to settle the question, which is the whole point of the word 'descriptive'. 'Exploratory' already tells the reader it was not a confirmatory test. The suggested rewrite trades a phrase every reader understands for a term of art most will not.",
+      "what_would_change_it": "Evidence that the OS analysis was in fact powered, which would make 'never powered to test' simply false."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "quote": "a 49% reduction in the hazard of recurrence or death and 59% in the hazard of distant metastasis or death",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The objection is that a hazard reduction is relative and readers may take it as an absolute risk reduction. The draft already uses the word 'hazard' rather than 'risk', which is the distinction, and the suggested fix loads two confidence intervals and a clause about arm-level event rates into a sentence whose job is to say these figures belong to a different trial. The full assessment carries the absolute rates beside the relative ones, and this email's closing section says so in as many words.",
+      "what_would_change_it": "The email ever quoting these as absolute reductions, or the page dropping the absolute rates."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "COVERAGE",
+      "quote": "What the full assessment adds is the layer underneath.",
+      "severity": "MINOR",
+      "decision": "accept - the finding confirms the claim rather than contradicting it",
+      "decided": "2026-08-27",
+      "reason": "Three of the four COVERAGE contradictions in this run end by saying no change is needed: that the open-label mechanism is the draft's addition, that the fourteen-death inferential step is the draft's addition, and that the stage IIB question is absent from all coverage found. They are filed as contradictions because the role emits one shape of record. The one that carries real information -- that correct attribution was the norm among specialists rather than a minority achievement -- is fixed in the text rather than recorded here. Second ground, 2026-08-28: the role now reports that Morning Glory Sciences named the open-label limitation directly. Its own text says no outlet 'explained the scan-timing mechanism specifically', and its closing summary names that mechanism as what this piece is alone in articulating. The sentence claims the layer underneath the coverage, not the absence of coverage.",
+      "what_would_change_it": "A COVERAGE run that finds an outlet doing the layer underneath, which would make the claim to add it false."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "A 59% reduction in the hazard of distant metastasis or death was reported.",
+      "severity": "WRONG_SOURCE",
+      "decision": "reject - the role read the figure without the sentence around it",
+      "decided": "2026-08-27",
+      "reason": "SOURCE returned WRONG_SOURCE on both figures because they are KEYNOTE-942 numbers rather than Phase 3 numbers. That is what the draft says: the same sentence reads 'come from a different study'. The role's own 'really from' field names the June 2026 KEYNOTE-942 release, which is the draft's attribution exactly. This is the extraction step stripping a figure out of the clause that attributes it, and then the check failing the draft for the attribution the draft made. Same class as the SOURCE false negative recorded in the known-errors fixture.",
+      "what_would_change_it": "The draft ever citing 49% or 59% as INTerpath-001 figures. Then the finding is right and the sentence is wrong."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "ADVOCATE",
+      "quote": "compatible with the treated group's hazard of death being about 35% higher than the comparison group's, and with it being roughly 84% lower",
+      "severity": "MINOR",
+      "decision": "accept - the objection reverses run to run",
+      "decided": "2026-08-27",
+      "reason": "Run of 27 August (first) objected that leading with the favourable bound mirrored the selective ordering this piece criticises. We reversed it. The next run objected that leading with the harmful bound frames the uncertainty asymmetrically against the point estimate. Both orderings have now been called asymmetric by the same instrument, which is what a symmetric presentation question looks like when a nondeterministic reader is asked about it twice. The harmful-first order stays, because whatever else is true, it does not lead with the flattering number, and the very next sentence says the point estimate favours benefit.",
+      "what_would_change_it": "A reason to prefer one order that does not reduce to which end the reader meets first."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "quote": "five-year overall survival - an exploratory endpoint the trial was never powered to test - rests on fourteen deaths in total - seven in each arm",
+      "severity": "SERIOUS",
+      "decision": "reject - sourced, and sourced by this same run",
+      "decided": "2026-08-27",
+      "reason": "INFERENCE raised the fourteen-death count as an unsourced standalone fact that would undermine the whole OS section if wrong. It is sourced: the ASCO Post's June 2026 coverage of the five-year data states 'Seven patients died during follow-up in each arm' alongside HR 0.47 (95% CI 0.17-1.35), and the COVERAGE role in this very run cites that page and reports the same figure. SOURCE verified the count in an earlier run. The per-arm split is now in the sentence, which also retires the completeness objection ADVOCATE raised against it twice. Same class as the SOURCE false negative in the known-errors fixture: one role flags what another role has already cited in the same output.",
+      "what_would_change_it": "The JCO paper reporting a different count, which would make the sentence wrong rather than unsourced."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "quote": "It does not say how large.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The objection is that this sentence, read on its own, could be taken to mean the announcement says nothing quantitative. The role says so explicitly: 'The draft does repair this nearby, but per the stated judging standard, the sentence itself will be quoted without its repair.' The repair is the sentence immediately before it, which says the effect is real and statistically significant. Four words after a full stop is not a distance across which meaning is lost, and the finding is an artefact of judging sentences in isolation.",
+      "what_would_change_it": "The preceding sentence changing, or the two being separated by anything at all."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "quote": "157 patients in an open-label trial is not 1,137 in a double-blind one",
+      "severity": "MINOR",
+      "decision": "reject - and its premise is the one already refuted",
+      "decided": "2026-08-27",
+      "reason": "The role concedes in its own text that the critique is correctly scoped and 'this is not a logical error', then asserts that KEYNOTE-942's RFS 'was also assessed by blinded independent central review in some analyses'. That is the same claim an earlier run made as a SERIOUS objection and it is not supported: ClinicalTrials.gov NCT03897881 gives masking NONE with the primary outcome described only as assessed using radiological imaging, the Lancet abstract describes an open-label trial and names no central review, and NCCN's JNCCN 360 report of the ASCO 2024 update says endpoints included investigator-assessed relapse-free survival. The hedge 'in some analyses' is doing the work of a source.",
+      "what_would_change_it": "A protocol, statistical analysis plan or publication naming a blinded independent review committee for KEYNOTE-942."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "ADVOCATE",
+      "quote": "whose five-year results were presented at ASCO in June",
+      "severity": "MINOR",
+      "decision": "accept - the January nuance belongs on the page, not in the email",
+      "decided": "2026-08-27",
+      "reason": "An earlier run objected that saying 'presented in June' understates how long the 49% figure had been public, since Merck released it on 20 January 2026. We added 'released in January and presented at ASCO in June' and that one clause produced two WRONG_VALUE findings and a SERIOUS objection in the next run, all correctly: January disclosed the RFS figure only, while the 59% DMFS and the OS hazard ratio this email dissects were both first public at ASCO on 1 June. The sentence is back to naming June, which is where the data it discusses actually came from. This is the specificity-inflation pattern the publication criterion names: a date added to fix a vagueness, creating a new error.",
+      "what_would_change_it": "The email ever implying these figures are fresh. It does not; its point is that they belong to another trial."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "COVERAGE",
+      "quote": "Before publishing we read the specialist coverage of the announcement, and it got the attribution right: the 49% and 59% belong to the earlier trial, and most said plainly that the Phase 3 numbers had not been released.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The role confirms the claim and then asks us to name which outlets did and did not flag the missing Phase 3 figures. 'Most' is the honest quantifier and the role's own finding supports it: nine outlets attributed the figures correctly and two of them did not flag the omission. Naming outlets in a five-paragraph email turns a summary into a scorecard we would then have to keep accurate, and it is the accusatory register we already cut once from this issue.",
+      "what_would_change_it": "A run finding that most specialist outlets did not say the Phase 3 numbers were unreleased, which would make 'most' false."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "COVERAGE",
+      "quote": "What fourteen deaths can establish about direction, and what they cannot establish about magnitude.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The role notes that the ASCO Post reported fourteen deaths and the interval, and a specialist visualisation flagged that the interval crosses 1.0 -- then says neither drew out the implication. The sentence does not claim to have found the number. It claims the inferential step as the addition, which is exactly what the role says is missing elsewhere, and its own closing summary names that step as what this piece is uniquely positioned to make.",
+      "what_would_change_it": "An outlet working through what fourteen deaths can and cannot establish, which would make the claim to add it false."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "COVERAGE",
+      "quote": "In that earlier trial, five-year overall survival - an exploratory endpoint the trial was never powered to test - rests on fourteen deaths in total - seven in each arm.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The role reads an implicit suggestion that the exploratory status was hidden, and answers it by showing the status was disclosed in JCO and in the ASCO Post. The sentence makes no such suggestion: it states what the endpoint was. Reporting a disclosed fact is not an accusation that it was concealed, and adding an acknowledgement that it was disclosed would introduce a defence against a charge the piece never makes.",
+      "what_would_change_it": "The sentence acquiring language about what the companies withheld on this specific point."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "quote": "the earlier trial enrolled stage IIIB-IV, while the Phase 3 reaches down into stage IIB. Whether that lowers the benefit those patients can expect is genuinely disputed",
+      "severity": "MINOR",
+      "decision": "reject - the objection's premise is what is disputed",
+      "decided": "2026-08-27",
+      "reason": "The objection says lower baseline risk implies smaller absolute benefit as a matter of arithmetic, so 'genuinely disputed' overstates it. The arithmetic is right, but the disputed premise is the baseline risk itself. The assessment quotes both sides: Morning Glory Sciences argues absolute recurrence risk in the added group is lower, and Pharmacy Times argues resected stage IIB and IIC can face recurrence and melanoma-specific mortality risks similar to stage III. If the second is right the added patients are not low-risk and the arithmetic does not bite. That is exactly what 'genuinely disputed' names, and the page gives both readings with dates and sources.",
+      "what_would_change_it": "The stage IIB/IIC baseline risk being settled, at which point the absolute-benefit consequence follows and the email should say so."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "The earlier trial enrolled patients with stage IIIB-IV melanoma.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the role overturned itself inside its own finding",
+      "decided": "2026-08-27",
+      "reason": "The note attached to this WRONG_VALUE reads: 'The claim is not materially wrong ... the trial did enroll stage IIIB-IV, so VERIFIED is more accurate than WRONG_VALUE. Revising to VERIFIED.' The role reached the right answer and failed to write it into the verdict field. Nothing in the draft is wrong. Worth watching as a defect class of its own: a verdict that contradicts the note beneath it will read as a finding to anyone skimming the header line.",
+      "what_would_change_it": "A source giving a different enrolled stage range."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "The Phase 3 trial enrolled 1,137 patients in a double-blind design.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the role overturned itself inside its own finding",
+      "decided": "2026-08-27",
+      "reason": "Same shape as the stage-range finding. The note says 'The 1,137 patient figure is correct and the trial is indeed double-blind, so the claim is substantively accurate ... not a factual error in the figures.' The objection is that the full design string is 'randomised, double-blind, placebo- and active-comparator-controlled' and the email says double-blind. The email's point is blinding, which is the part that distinguishes this trial from the earlier one; the comparator arms are on the page.",
+      "what_would_change_it": "Any source disputing the enrolment figure or the blinding."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "CivicScale sells healthcare software and takes no outside investment.",
+      "severity": "NOT_FOUND",
+      "decision": "accept - internal claim, mis-scoped by the extractor",
+      "decided": "2026-08-27",
+      "reason": "The role searched the web for CivicScale, found Civica and CivicHealth, and reported that it could not verify the company exists. It is our own company and our own funding position; there is nothing external to check it against. This is the second run in which the extractor sent our disclosure line to the source audit instead of marking it internal.",
+      "what_would_change_it": "Fixing the extractor's internal/external scoping, at which point this stops reaching SOURCE at all."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "Most specialist outlets covering the announcement correctly attributed the 49% and 59% figures to the earlier trial and stated plainly that Phase 3 numbers had not been released.",
+      "severity": "NOT_FOUND",
+      "decision": "accept - unverifiable in principle, load-bearing on our own reading",
+      "decided": "2026-08-27",
+      "reason": "No primary source can confirm a claim about how a set of outlets behaved. The claim is about the coverage we read, and COVERAGE in this same run lists seven outlets with quotes and URLs, all of which attributed the figures correctly. Recorded once before against an earlier phrasing of the same sentence.",
+      "what_would_change_it": "Rephrasing it into a claim about all coverage rather than the coverage we read."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "quote": "compatible with the treated group's hazard of death being about 35% higher than the comparison group's, and with it being roughly 84% lower",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-27",
+      "reason": "The objection is correct and worth recording: a 95% interval is not a set of equally plausible values, and values near HR 0.471 are more consistent with the data than either bound. The sentence does not say the bounds are equally likely, and the next sentence gives the point estimate and says it favours benefit, so the reader has what they need. Adding a clause on the shape of the likelihood inside a five-line email box would cost more clarity than it buys. This belongs on the page, where the interval is explained at length.",
+      "what_would_change_it": "The point estimate leaving the passage, at which point the bounds would stand alone and the objection would bite."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "quote": "The five-year overall survival analysis rests on fourteen deaths in total, seven in each arm.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the source exists and we opened it",
+      "decided": "2026-08-28",
+      "reason": "SOURCE confirmed the total of fourteen and could not reach the per-arm split, having searched drugs.com. The split is published: The ASCO Post's June 2026 coverage of the five-year KEYNOTE-942 data states 'Seven patients died during follow-up in each arm', alongside HR 0.47 (95% CI 0.17-1.35). We opened that page on 2026-08-27 before writing the clause, and the page's own correction footer already records the figure. This is the SOURCE_FALSE_NEGATIVE class the fixture describes: NOT_FOUND means the role could not reach a source, and the gate's own output says to open the URL before treating one as a finding.",
+      "what_would_change_it": "A source giving a different split, which would make the clause wrong rather than merely unreached.",
+      "source": "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/"
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "COVERAGE",
+      "quote": "the earlier trial enrolled stage IIIB-IV, while the Phase 3 reaches down into stage IIB. Whether that lowers the benefit those patients can expect is genuinely disputed",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-28",
+      "reason": "The role reports that Morning Glory Sciences and KOL Pulse both flagged the stage expansion, and then says in the same finding that 'neither presented both sides of the dispute or characterised it as genuinely contested'. The sentence claims to set out a question with two defensible answers and to give both sides, which is exactly what the role says is missing elsewhere. It does not claim to have noticed the expansion first.",
+      "what_would_change_it": "An outlet giving both readings of the stage IIB question, at which point the claim to add that is false."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "quote": "seven in each arm",
+      "severity": "SERIOUS",
+      "decision": "reject - published, and cited by this same run",
+      "decided": "2026-08-28",
+      "reason": "INFERENCE called the per-arm split unpublished and warned that an equal split under 2:1 randomisation would be unusual. COVERAGE, in the same run, names the source: 'ecancer ... noted that seven patients in each treatment group died during follow-up - the only outlet found that explicitly reported the 14-death basis.' The ASCO Post's June 2026 coverage says the same, and we opened that page before writing the clause. The equal split is also consistent with the reported five-year OS estimates: 7 of 107 against 7 of 50 is a much worse rate in the smaller control arm, which is what 92.2% against 71.3% describes once censoring is accounted for. Third recorded instance of SOURCE_FALSE_NEGATIVE, and the second where COVERAGE holds the URL that settles it.",
+      "what_would_change_it": "The JCO paper reporting a different split.",
+      "source": "https://ecancer.org/en/news/28383-asco-2026-cancer-vaccine-sustains-49-percent-melanoma-reduction-after-5-years"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "Dermatology Times, Pharmacy Times and Medical Daily stated that no Phase 3 efficacy numbers had been released.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the role made the error the piece is about",
+      "decided": "2026-08-28",
+      "reason": "SOURCE calls this 'materially wrong' on the ground that 'the Merck/Moderna press release - the primary source both outlets drew from - did disclose Phase 3 hazard ratios (HR 0.51 for RFS, HR 0.411 for DMFS)'. Those are KEYNOTE-942's five-year figures, quoted in the release and attributed there to KEYNOTE-942. They are not Phase 3 figures and the release states as much. The role read a Phase 2b hazard ratio sitting in a Phase 3 announcement and took it for a Phase 3 result, which is precisely the inference this issue exists to examine. Recording it because the class deserves a name: the checker reproducing the error under examination.",
+      "what_would_change_it": "The August release containing a hazard ratio for INTerpath-001. It does not.",
+      "open": "The Medical Daily attribution is separate and NOT settled by this: the role could not find such an article. That name comes out of the sentence unless a URL is produced."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "fatigue 59.6%, injection-site pain 59.6%, chills 51.0%",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - these are Merck's own words, and the role compared them against a three-year-old readout",
+      "decided": "2026-08-28",
+      "reason": "SOURCE said no accessible source gives these figures for any timepoint and offered 60.6%/55.8%/50.0% as the closest published values. Those are the 2023 primary-analysis numbers. Merck's June 2026 five-year release reads: 'The most common adverse events attributed to intismeran autogene in combination with KEYTRUDA were fatigue (59.6%), injection site pain (59.6%), and chills (51.0%).' The same release gives 'Immune-related adverse events occurred in 45.2% of patients receiving the combination and 44% receiving KEYTRUDA alone.' RECENCY, in the same run, reported these as confirmed. The roles disagreed and the one with the current source was right.",
+      "what_would_change_it": "The JCO five-year paper reporting different rates than the company's own release of the same analysis.",
+      "source": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "RECENCY",
+      "quote": "68.8% of combination patients were recurrence-free versus 49.1% on pembrolizumab alone",
+      "severity": "UNKNOWN",
+      "decision": "reject - both figures are five-year, and published",
+      "decided": "2026-08-28",
+      "reason": "RECENCY suspected we had conflated timepoints, noting that the JCO paper gives four-year RFS as 72.4% versus 49.1% and that our control figure matched the four-year one exactly. The ASCO Post's June 2026 report of the same analysis gives the five-year rates directly: '68.8% (95% CI = 56.3%-78.3%)' against '49.1% (95% CI = 33.3%-63.0%)'. The control arm's rate being flat between four and five years is what the coincidence was, not an error in the piece. This is the page that also carries the seven-deaths-per-arm split, so one free source settled both figures the paywalled JCO paper was blocking.",
+      "what_would_change_it": "The JCO full text giving different five-year rates than the ASCO Post reports from it.",
+      "source": "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "Dermatology Times, Pharmacy Times and Medical Daily made the same point in their own words.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the article exists and makes the point in its headline",
+      "decided": "2026-08-28",
+      "reason": "SOURCE reported that no Medical Daily article on this topic could be located. It is at medicaldaily.com, dated 25 August 2026, and reads: 'What the announcement did not contain was the part that determines how much this matters to patients. No hazard ratios. No confidence intervals. No survival curves.' and 'Neither partner released an efficacy figure.' It also attributes the halving of relapse risk to the ASCO mid-stage data rather than the Phase 3, and says 'Whether the much larger Phase 3 reproduced effects of that size is exactly what has not been disclosed.' The outlet made this piece's central point three days before we published. Fourth recorded SOURCE_FALSE_NEGATIVE.",
+      "what_would_change_it": "Nothing short of the article being withdrawn.",
+      "source": "https://www.medicaldaily.com/intismeran-melanoma-vaccine-market-reaction-missing-data-477707"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "Practical Dermatology listed what was missing — hazard ratios, absolute event rates, p-values — and said so twice.",
+      "severity": "WRONG_VALUE",
+      "decision": "accept in part - the count goes",
+      "decided": "2026-08-28",
+      "reason": "The role is right that only one of the two mentions enumerates the missing items; the second says only that phase 3 efficacy estimates had not been disclosed. 'Said so twice' is a claim about the form of somebody else's writing that we do not need and cannot defend precisely. COVERAGE separately found that Pharmacy Times and MLQ News each enumerated missing data too, so singling out one outlet for the practice was never quite right either.",
+      "what_would_change_it": "Nothing. The count is being removed rather than defended.",
+      "source": "https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "The most common adverse events were fatigue 59.6%, injection-site pain 59.6%, and chills 51.0%.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - second time, same mistake, different old readout",
+      "decided": "2026-08-28",
+      "reason": "SOURCE returned WRONG_VALUE on these figures twice. The first run offered 60.6%/55.8%/50.0% from the 2023 primary analysis; this run offers 60.6%/56.7%/49.0% from the three-year release and says 'every primary and secondary source found' reports them. Merck's own five-year release, which is the analysis the draft is describing, reads: 'The most common adverse events attributed to intismeran autogene in combination with KEYTRUDA were fatigue (59.6%), injection site pain (59.6%), and chills (51.0%).' RECENCY confirmed the same figures in the same run, both times. The role reaches for whichever readout its search surfaces and reports the difference as our error, and it will keep doing so: this is a defect worth fixing in the prompt rather than adjudicating a third time.",
+      "what_would_change_it": "The JCO five-year paper reporting different rates than the company's own release of the same analysis.",
+      "source": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "The companies stated the Phase 3 data 'will be presented at an upcoming international medical meeting and shared with regulatory authorities.'",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the quotation is verbatim; the role found a different sentence",
+      "decided": "2026-08-28",
+      "reason": "SOURCE said we had presented a paraphrase as a direct quotation, giving the release's actual words as 'will engage with regulators on filing submissions'. The release contains both sentences. Ours reads, exactly: 'These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.' Checked directly on merck.com. Being told we misquoted a source, when the quotation is word for word, is the most damaging shape a false finding can take for this publication in particular.",
+      "what_would_change_it": "Merck editing the release.",
+      "source": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "INFERENCE",
+      "quote": "Distant metastasis-free survival was a 62% reduction in hazard at three years and 59% at five.",
+      "severity": "MINOR",
+      "decision": "accept - calibration, and the sentence already says it",
+      "decided": "2026-08-28",
+      "reason": "The objection is that HR 0.384 against HR 0.411 is well inside the noise of a 157-patient trial and should not be framed as directional movement. That is right, and the next sentence in the piece says exactly that: 'well inside the noise of a trial this size'. The role's suggested rewrite replaces a plain sentence and its plain caveat with a longer one carrying the same content.",
+      "what_would_change_it": "The caveat leaving the paragraph, at which point the framing would stand alone and the objection would bite."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "quote": "Morning Glory Sciences, on 20 August: the Phase 2b population was stage IIIB-IV, the Phase 3 adds node-negative disease",
+      "severity": "SERIOUS",
+      "decision": "reject - the same run cites the outlet with a URL",
+      "decided": "2026-08-28",
+      "reason": "ADVOCATE escalated to SERIOUS on the ground that 'Morning Glory Sciences does not appear in any search results for this story or in general' and that we may have 'fabricated a source'. The COVERAGE section of the same run has a full entry for that outlet, describes its piece in detail, and gives the URL. SOURCE separately says the page exists. Three roles in one run: one cites it, one confirms it exists, one says it does not. The accusation of fabrication is itself the fabrication. The URL is now in the source list, which is the legitimate residue of the finding.",
+      "what_would_change_it": "The page going offline, which would make the citation unverifiable rather than false.",
+      "source": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "quote": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing",
+      "severity": "SERIOUS",
+      "decision": "reject - the same run cites the outlet with a URL",
+      "decided": "2026-08-28",
+      "reason": "Same shape as the Morning Glory finding: ADVOCATE says MLQ News 'does not appear in any search results for this story', while COVERAGE in the same run quotes it at length and links it. The outlet is now linked in the text.",
+      "what_would_change_it": "The page going offline.",
+      "source": "https://mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "quote": "Dermatology Times, Pharmacy Times and Medical Daily made the same point in their own words.",
+      "severity": "SERIOUS",
+      "decision": "reject - verified by hand on 2026-08-28",
+      "decided": "2026-08-28",
+      "reason": "Third instance in one run. Medical Daily's piece of 25 August reads: 'What the announcement did not contain was the part that determines how much this matters to patients. No hazard ratios. No confidence intervals. No survival curves.' Opened directly. Now linked in the text. Recorded separately in the known-errors fixture as SOURCE_FALSE_NEGATIVE, fourth occurrence.",
+      "what_would_change_it": "Nothing short of the article being withdrawn.",
+      "source": "https://www.medicaldaily.com/intismeran-melanoma-vaccine-market-reaction-missing-data-477707"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "The most common adverse events were fatigue 59.6%, injection site pain 59.6%, and chills 51.0%.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - third time, and the prompt fix did not hold",
+      "decided": "2026-08-28",
+      "reason": "Third run in a row. Offered the 2023 primary analysis, then the three-year update, now the 2023 ASCO slide deck. Merck's five-year release, which is the analysis the draft describes, gives 59.6/59.6/51.0 verbatim, and RECENCY confirmed it again in this same run. A readout-matching instruction was added to the SOURCE prompt before this run and did not prevent it, which is the useful finding: the fix has to be tested against the recall fixture rather than assumed.",
+      "what_would_change_it": "The JCO five-year paper differing from the company's release of the same analysis.",
+      "source": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "Morning Glory Sciences published on 20 August 2026.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the role compared two different dates",
+      "decided": "2026-08-28",
+      "reason": "SOURCE says the date is wrong because 'the INTerpath-001 topline results were announced on 19 August 2026 - not 20 August'. The 20 August is when the outlet published its piece about the 19 August announcement. An outlet writing the day after an announcement is not a date error.",
+      "what_would_change_it": "Evidence of the outlet's actual publication date differing from 20 August."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "",
+      "quote": "The outlets The ASCO Post, Dermatology Times, OncLive, FierceBiotech and the Spanish Science Media Centre attributed the KEYNOTE-942 figures correctly to that trial rather than to the Phase 3.",
+      "decision": "accept - the unverifiable outlet is gone",
+      "reason": "Four of the five were confirmed by the role itself. The Spanish Science Media Centre could not be reached, so it was removed from the sentence rather than defended. See review/2026-08-28-adjudication.md.",
+      "what_would_change_it": "Reaching the Spanish Science Media Centre's coverage, which would let the outlet go back in.",
+      "decided": "2026-08-28"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "SERIOUS",
+      "quote": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing from the Phase 3 announcement — hazard ratios, absolute event rates, p-values.",
+      "decision": "accept - the claim overstated what two of the three said",
+      "reason": "The role read them: only MLQ News enumerated those metrics. The sentence now attributes to each outlet only what it verifiably said, and drops the two that did not say it. This was the same class of error the piece retracts two paragraphs later.",
+      "what_would_change_it": "Nothing; the sentence has been narrowed to what was checked.",
+      "decided": "2026-08-28"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "",
+      "quote": "Dermatology Times, Pharmacy Times and Medical Daily stated plainly that no Phase 3 efficacy numbers had been released.",
+      "decision": "accept - two of the three could not be stood up",
+      "reason": "Dermatology Times was confirmed. Pharmacy Times's framing does not plainly say it and Medical Daily could not be reached, so both were removed from the claim rather than kept and hedged.",
+      "what_would_change_it": "Reaching Medical Daily's piece, or a Pharmacy Times sentence that plainly says it.",
+      "decided": "2026-08-28"
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "",
+      "quote": "Pharmacy Times published its coverage of the Phase 3 trial result on 19 August 2026.",
+      "decision": "accept - the dateline was unverifiable and is gone",
+      "reason": "Only a relative 'about 1 week ago' timestamp was retrievable. Specificity inflation: a date added for precision that is itself unchecked. Removed from the body and the source register; the attribution and the quoted argument stand.",
+      "what_would_change_it": "A datestamp on the Pharmacy Times article itself.",
+      "decided": "2026-08-28"
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "severity": "",
+      "quote": "The five-year overall survival analysis in the earlier trial rests on fourteen total deaths, seven in each arm.",
+      "decision": "reject - sourced, and confirmed independently by the outside reviewer",
+      "reason": "The role could not reach the paywalled JCO full text. The ASCO Post's June 2026 coverage states seven patients died in each arm, and the outside reviewer confirmed it on 2026-08-28 while noting it holds despite the differing Kaplan-Meier estimates.",
+      "what_would_change_it": "The JCO full text giving a different split.",
+      "decided": "2026-08-28"
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "severity": "",
+      "quote": "Most specialist outlets correctly attributed the 49% and 59% figures to the earlier trial and stated plainly that Phase 3 numbers had not been released.",
+      "decision": "reject - this is our own reporting, not a claim about a source",
+      "reason": "The role asks for a primary source for a survey we conducted ourselves and set out outlet by outlet in the assessment. There is no external document that could confirm it, which is what the assessment is for.",
+      "what_would_change_it": "An outlet in that survey shown to have done the opposite.",
+      "decided": "2026-08-28"
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "severity": "",
+      "quote": "Neither Merck nor Moderna saw the assessment before publication.",
+      "decision": "reject - internal claim, mis-scoped by the extractor",
+      "reason": "A disclosure about our own conduct. The role has an INTERNAL verdict for exactly this and returned NOT_FOUND instead; absence of an external source is the expected result here, not a finding.",
+      "what_would_change_it": "Evidence that either company did see it, which would make the sentence false rather than unverifiable.",
+      "decided": "2026-08-28"
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "severity": "",
+      "quote": "CivicScale takes no outside investment.",
+      "decision": "reject - internal claim, mis-scoped by the extractor",
+      "reason": "Same class. A disclosure about our own funding, verifiable only by us, and stated on the who-pays-for-this page for that reason.",
+      "what_would_change_it": "A filing or record showing outside investment.",
+      "decided": "2026-08-28"
     }
   ],
-  "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes."
+  "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",
+  "why_the_criterion_changed": "2026-08-28. The old first line was 'no SERIOUS finding that is an actual error', which sounds equivalent and is not, because SERIOUS was measuring how strongly a role felt rather than whether we would have to correct anything. Across six runs of issue one the factual errors went 3, 3, 1, 0, 0, 0 and stayed at zero, while the total finding count did not fall at all: what kept arriving was phrasing, ordering, emphasis and degree. Those have no floor. There is always a defensible alternative wording, so a check that blocks on wording never stops, and the piece sat unpublished with no factual error in it for three runs. The test now is the one a reader would apply: if they found this after publication, would we have to print a correction? FACT, CONTRADICTION and THIRD_PARTY yes; CALIBRATION no."
 }

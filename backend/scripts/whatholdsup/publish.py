@@ -130,6 +130,39 @@ def figures(text: str) -> set[str]:
 # ---------------------------------------------------------------------------
 
 RECORDS_ONLY = {"CALIBRATION"}          # recorded and published, never blocks
+
+# Which role owns each part of a report, so a finding can be looked up in the
+# decisions file. This mapping is the whole reason the board can stop asking
+# about things already settled: draft_decisions.json is keyed on (role, quote),
+# and until now nothing on the board consulted it. Sixteen recorded judgments
+# about this one page sat there while the board demanded they be made again.
+ROLE_OF = {"objections": "ADVOCATE", "inferences": "INFERENCE", "verdict": "SOURCE"}
+
+
+def decided_by_figure(f: dict, decisions: dict) -> dict | None:
+    """Match a SOURCE verdict to a recorded decision on figure, not wording.
+
+    A claim quote is the extractor's paraphrase of a sentence, not the sentence.
+    It is rewritten on every run, so a decision keyed on last run's phrasing
+    reads as NEW this run, and a judgment made once has to be made again. This
+    is the same reason carry_verdicts keys on (figure, attributed_to), and the
+    same key is used here.
+
+    Both the figure and, when the claim names one, the source have to appear in
+    the recorded quote. A figure alone is too weak: "19 August" appears in four
+    unrelated sentences on this page.
+    """
+    fig = fc._norm(f.get("figure") or "")
+    if len(fig) < 5:
+        return None
+    src = fc._norm(f.get("source") or "")
+    for (role, quote), dec in decisions.items():
+        if role != "SOURCE" or fig not in quote:
+            continue
+        if src and len(src) >= 5 and src not in quote:
+            continue
+        return dec
+    return None
 VERDICT_OK = {"VERIFIED", "INTERNAL"}   # INTERNAL = the piece citing itself
 
 _TAG = re.compile(r"<[^>]+>")
@@ -214,6 +247,7 @@ def gate_findings(r: dict) -> list[dict]:
             "severity": "SERIOUS" if verdict == "WRONG_VALUE" else "",
             "quote": c.get("claim") or "",
             "figure": c.get("figure") or "",
+            "source": c.get("attributed_to") or "",
             "why": v.get("note") or "",
             "fix": v.get("found_value") or "",
             "blocking": True,
@@ -274,6 +308,14 @@ def instrument_flags(f: dict, sources: list[tuple[str, str]]) -> list[tuple[str,
                 flags.append(("SOURCE_FALSE_NEGATIVE",
                               "COVERAGE cites %s with a URL in this same run: %s" % (name, url)))
                 break
+    if f["class"] == "NOT_FOUND" and any(w in blob for w in (
+            "internal editorial", "internal disclosure", "publication's own",
+            "not verifiable against any external", "cannot be verified against a primary",
+            "cannot be verified against any external", "editorial claim")):
+        flags.append(("INTERNAL_MISCLASSED_AS_NOT_FOUND",
+                      "the role has an INTERNAL verdict for claims about ourselves and "
+                      "returned NOT_FOUND instead; absence of an external source is the "
+                      "expected result, not a finding"))
     if f["class"] in ("WRONG_VALUE", "FACT"):
         phrase = any(w in blob for w in ("primary analysis", "three-year", "3-year",
                                          "interim", "earlier readout", "first readout"))
@@ -318,7 +360,7 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
     rp = target.with_suffix(target.suffix + ".gate.json")
     d = {"report": rp, "target": target, "exists": rp.exists(), "fresh": False,
          "findings": [], "blocking": [], "outstanding": [], "resolved": [],
-         "suspect": [], "unlocatable": [], "calibration": 0, "accepted": None,
+         "suspect": [], "unlocatable": [], "settled": [], "calibration": 0, "accepted": None,
          "state": BAD, "detail": "", "notes": []}
     if not rp.exists():
         d["detail"] = "never gated — there is no %s" % rp.name
@@ -337,9 +379,18 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
 
     body = flatten(target.read_text(encoding="utf-8"))
     sources = coverage_sources(r)
+    decisions = fc.load_decisions(fc.DECISIONS, target.name)
     for f in gate_findings(r):
         f["where"] = still_in_text(f, body)
         f["flags"] = instrument_flags(f, sources)
+        f["decided"], dec, _how = fc.classify(ROLE_OF.get(f["kind"], ""), f["quote"],
+                                              f["severity"], decisions)
+        if f["decided"] == "NEW" and f["kind"] == "verdict":
+            byfig = decided_by_figure(f, decisions)
+            if byfig:
+                f["decided"], dec = "ADJUDICATED", byfig
+        f["decision"] = (dec or {}).get("decision", "")
+        f["reason"] = (dec or {}).get("reason", "")
         d["findings"].append(f)
         if not f["blocking"]:
             d["calibration"] += 1
@@ -349,6 +400,10 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
             d["suspect"].append(f)
         if f["where"] == "gone":
             d["resolved"].append(f)
+        elif f["decided"] in ("ADJUDICATED", "OVERLAP"):
+            # Read, judged, and written down with a reason. Asking again is not
+            # rigour, it is the board failing to read its own record.
+            d["settled"].append(f)
         else:
             d["outstanding"].append(f)
             if f["where"] == "unknown":
@@ -356,6 +411,8 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
 
     d["accepted"] = acceptance_for(slug, target, d["current_sha"])
     nb, no_, nr = len(d["blocking"]), len(d["outstanding"]), len(d["resolved"])
+    ns = len(d["settled"])
+    settled_note = (", %d already decided" % ns) if ns else ""
     kinds = ", ".join(sorted({f["class"] for f in d["outstanding"]})) or "none"
 
     if d["passed_flag"] is True and nb:
@@ -363,7 +420,7 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
                           "believe the findings" % nb)
 
     if d["fresh"]:
-        if nb == 0 and d["passed_flag"] is True:
+        if no_ == 0 and d["passed_flag"] is True:
             d["state"] = OK
             d["detail"] = "gated %s on this exact text, clean%s" % (
                 d["checked_at"],
@@ -374,21 +431,24 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
                            "recorded passed=%r" % (d["checked_at"], d["passed_flag"]))
         else:
             d["state"] = BAD
-            d["detail"] = "%d blocking finding(s) on this exact text — %s" % (nb, kinds)
+            d["detail"] = ("%d unresolved on this exact text%s — %s"
+                           % (no_, settled_note, kinds))
         return d
 
     old = (d["recorded_sha"] or "?")[:8]
     if nb == 0:
-        base = "gated %s on an older draft (%s); it raised nothing blocking" % (d["checked_at"], old)
+        base = ("gated %s on an older draft (%s); nothing it raised is open%s"
+                % (d["checked_at"], old, settled_note))
     elif no_ == 0:
-        base = ("gated %s on an older draft (%s); all %d blocking finding(s) are gone from "
-                "the text as it now stands" % (d["checked_at"], old, nb))
+        base = ("gated %s on an older draft (%s); all %d finding(s) it raised are "
+                "resolved — %d gone from the text%s"
+                % (d["checked_at"], old, nb, nr, settled_note))
     else:
         d["state"] = BAD
         nu = len(d["unlocatable"])
-        d["detail"] = ("gated %s on an older draft (%s); %d of %d blocking finding(s) "
-                       "unresolved — %d still in the text, %d unlocatable — %s"
-                       % (d["checked_at"], old, no_, nb, no_ - nu, nu, kinds))
+        d["detail"] = ("gated %s on an older draft (%s); %d of %d open — %d in the text, "
+                       "%d unlocatable, %d gone%s"
+                       % (d["checked_at"], old, no_, nb, no_ - nu, nu, nr, settled_note))
         return d
     if d["accepted"]:
         d["state"] = WARN
@@ -875,6 +935,13 @@ def next_action(slug: str) -> tuple[str, str]:
             # first: on 2026-08-28 six of its twelve findings were already
             # fixed, two were the instrument, and a re-run would have cost
             # money to rediscover that.
+            if g["exists"] and not g["fresh"] and not g["outstanding"]:
+                # Nothing is open. What is missing is a signature on text the
+                # run never saw, and offering a re-run here is how this board
+                # sent us back to spend money rediscovering settled findings.
+                return ("sign off the %s gate — %s" % (label, g["detail"]),
+                        'python scripts/whatholdsup/publish.py accept-gate %s --file %s '
+                        '--reason "..."' % (slug, "assessment" if label == "assessment" else "email"))
             hint = ("\n        read them first: publish.py gate-status %s" % slug
                     if g["exists"] else "")
             return ("gate the %s — %s%s" % (label, g["detail"], hint),
@@ -998,9 +1065,15 @@ padding:1rem 1.2rem;margin:1.1rem 0 .8rem}
 text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.5rem}
 .nextup p{margin:0 0 .7rem;font-weight:500}
 .nextup p:last-child{margin-bottom:0}
-code{display:block;font:400 .8rem/1.55 "IBM Plex Mono",ui-monospace,monospace;
+code{display:block;font:400 .78rem/1.5 "IBM Plex Mono",ui-monospace,monospace;
 background:var(--card-2);color:var(--ink-2);padding:.5rem .7rem;border-radius:2px;
-margin-top:.5rem;overflow-x:auto;white-space:pre}
+margin-top:.5rem;white-space:pre-wrap;overflow-wrap:anywhere}
+.cmd{position:relative}
+.cmd button{position:absolute;top:.35rem;right:.35rem;font:500 .62rem/1 "IBM Plex Mono",
+ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+padding:.28rem .5rem;border:1px solid var(--rule);border-radius:2px;
+background:var(--card);color:var(--ink-3)}
+.cmd button:hover{color:var(--ink);border-color:var(--ink-3)}
 .livestate{font:400 .85rem/1.5 "IBM Plex Mono",ui-monospace,monospace;margin:0 0 1.2rem}
 .livestate.done{color:var(--holds)}.livestate.warn{color:var(--partly)}
 .livestate.blocked{color:var(--nope)}
@@ -1015,15 +1088,21 @@ li.step.warn .dot{background:var(--partly);border-color:var(--partly)}
 li.step.done{background:transparent;border-color:transparent}
 li.step.done b{color:var(--ink-3)}
 li.step b{display:block;font-weight:600}
-.detail{display:block;font:400 .87rem/1.5 "IBM Plex Mono",ui-monospace,monospace;
-color:var(--ink-2);margin-top:.15rem}
+.detail{display:block;font:400 .85rem/1.5 "IBM Plex Mono",ui-monospace,monospace;
+color:var(--ink-2);margin-top:.15rem;overflow-wrap:anywhere}
 .why{display:block;font-size:.87rem;color:var(--ink-3);margin-top:.2rem}
 ul.finds{list-style:none;margin:.6rem 0 0;padding:0;display:grid;gap:.3rem}
 li.f{font:400 .84rem/1.45 Karla,system-ui,sans-serif;padding:.45rem .6rem;
 border-left:2px solid var(--rule);background:var(--card-2);border-radius:2px}
 li.f b{display:block;font:500 .7rem/1.4 "IBM Plex Mono",ui-monospace,monospace;
 letter-spacing:.06em;text-transform:uppercase;margin-bottom:.15rem}
-li.f span{color:var(--ink-2)}
+li.f span{color:var(--ink-2);overflow-wrap:anywhere}
+li.f.settled{border-left-color:var(--accent);opacity:.72}
+li.f.settled b{color:var(--accent)}
+details.more{margin-top:.5rem}
+details.more summary{cursor:pointer;font:500 .68rem/1 "IBM Plex Mono",ui-monospace,monospace;
+letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:.2rem 0}
+details.more[open] summary{margin-bottom:.4rem}
 li.f.bad{border-left-color:var(--nope)}li.f.bad b{color:var(--nope)}
 li.f.gone{border-left-color:var(--holds)}li.f.gone b{color:var(--holds)}
 li.f.tool{border-left-color:var(--partly)}li.f.tool b{color:var(--partly)}
@@ -1045,6 +1124,18 @@ route at generation time, so regenerate it after anything below changes.</p>
 last run belong here. Deliberately absent until the changelog delivers something:
 a number on a board is not a working product, and a board full of numbers about a
 thing that has never run would be worse than an empty section.</p></section>
+<script>
+document.addEventListener("click", function (e) {
+  var b = e.target.closest("button.copy");
+  if (!b) return;
+  var c = b.parentNode.querySelector("code");
+  if (!c || !navigator.clipboard) return;
+  navigator.clipboard.writeText(c.textContent).then(function () {
+    b.textContent = "copied";
+    setTimeout(function () { b.textContent = "copy"; }, 1200);
+  });
+});
+</script>
 <footer>Regenerate with <code style="display:inline;padding:.15rem .35rem">python
 scripts/whatholdsup/publish.py dashboard</code>. It reads state, never changes it.</footer>
 </div></body></html>"""
@@ -1080,8 +1171,8 @@ def _step_states(slug: str) -> list[dict]:
     out = []
 
     def add(name, why, state, detail, cmd="", finds=None):
-        out.append({"name": name, "why": why, "state": state,
-                    "detail": detail, "cmd": cmd, "finds": finds or []})
+        out.append({"name": name, "why": why, "state": state, "detail": detail,
+                    "cmd": cmd, "finds": finds or [], "fold": ""})
 
     add(*STEPS[0], "done" if page.exists() and ehtml.exists() else "blocked",
         "assessment and email present" if page.exists() and ehtml.exists() else "missing")
@@ -1100,8 +1191,11 @@ def _step_states(slug: str) -> list[dict]:
         else:
             cmd = ("python scripts/signal/factcheck_draft.py ../%s%s --report ../%s.gate.json"
                    % (rel, since, rel))
+        st = out.__len__()
         add(name, why, {OK: "done", WARN: "warn", BAD: "blocked"}[g["state"]],
             g["detail"], cmd, finds=_finding_rows(g))
+        srows = _settled_rows(g)
+        out[st]["fold"] = _fold(srows, "%d already dealt with" % len(srows)) if srows else ""
 
     st, detail = outside_review(page, slug)
     add(*STEPS[3], {OK: "done", WARN: "warn", BAD: "blocked"}[st], detail,
@@ -1130,6 +1224,15 @@ def _esc(t) -> str:
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
+def _fold(rows: list[dict], label: str) -> str:
+    if not rows:
+        return ""
+    return ('<details class="more"><summary>%s</summary><ul class="finds">%s</ul></details>'
+            % (_esc(label),
+               "".join('<li class="f %s"><b>%s</b><span>%s</span></li>'
+                       % (_esc(x["tone"]), _esc(x["head"]), _esc(x["text"])) for x in rows)))
+
+
 def _finding_rows(g: dict) -> list[dict]:
     """What the run found, in the order a person needs it.
 
@@ -1138,23 +1241,44 @@ def _finding_rows(g: dict) -> list[dict]:
     Instrument flags recolour a row rather than adding one: the finding and the
     reason to doubt it belong in the same place, or the doubt gets lost.
     """
+    """Open items in full; everything already dealt with behind one fold.
+
+    A board that shows twelve findings when five need a decision is a board that
+    gets skimmed. The seven that are gone or already judged are evidence, not
+    work, and evidence belongs one click away.
+    """
     rows = []
-    for tone, group, tail in (("bad", g.get("outstanding") or [], "still in the text"),
-                              ("gone", g.get("resolved") or [], "no longer in the text")):
-        for f in group:
-            head = "%s%s \u2014 %s" % (f["class"], (" " + f["id"]) if f["id"] else "",
-                                       WHERE.get(f["where"], tail))
-            body = (f["why"] or f["quote"] or "").strip()
-            for cls, why in f["flags"]:
-                body += "   [recorded defect %s: %s]" % (cls, why)
-            rows.append({"tone": "tool" if f["flags"] else tone,
-                         "head": head, "text": body[:460]})
-    if g.get("calibration"):
-        rows.append({"tone": "note", "head": "%d calibration note(s)" % g["calibration"],
-                     "text": "Phrasing and framing. Recorded, published, never blocking."})
+    for f in (g.get("outstanding") or []):
+        head = "%s%s \u2014 %s" % (f["class"], (" " + f["id"]) if f["id"] else "",
+                                   WHERE.get(f["where"], ""))
+        body = (f["why"] or f["quote"] or "").strip()
+        for cls, why in f["flags"]:
+            body += "   [recorded defect %s: %s]" % (cls, why)
+        rows.append({"tone": "tool" if f["flags"] else "bad", "head": head,
+                     "text": body[:420]})
     for n in g.get("notes") or []:
         rows.append({"tone": "bad", "head": "report inconsistency", "text": n})
     return rows
+
+
+def _settled_rows(g: dict) -> list[dict]:
+    rows = []
+    for f in (g.get("settled") or []):
+        rows.append({"tone": "settled",
+                     "head": "%s %s \u2014 decided" % (f["class"], f["id"]),
+                     "text": (f["decision"] or "recorded in draft_decisions.json")})
+    for f in (g.get("resolved") or []):
+        rows.append({"tone": "gone", "head": "%s %s \u2014 gone from the text" % (f["class"], f["id"]),
+                     "text": (f["quote"] or f["why"] or "")[:160]})
+    if g.get("calibration"):
+        rows.append({"tone": "note", "head": "%d calibration note(s)" % g["calibration"],
+                     "text": "Phrasing and framing. Recorded, published, never blocking."})
+    return rows
+
+
+def _cmd(c: str) -> str:
+    return ('<div class="cmd"><code>%s</code><button class="copy">copy</button></div>'
+            % _esc(c)) if c else ""
 
 
 def _row(s: dict) -> str:
@@ -1162,11 +1286,12 @@ def _row(s: dict) -> str:
                     % (_esc(x["tone"]), _esc(x["head"]), _esc(x["text"]))
                     for x in (s.get("finds") or []))
     return ('<li class="step %s"><div class="dot"></div><div>'
-            '<b>%s</b><span class="detail">%s</span><span class="why">%s</span>%s%s'
+            '<b>%s</b><span class="detail">%s</span><span class="why">%s</span>%s%s%s'
             '</div></li>'
             % (s["state"], _esc(s["name"]), _esc(s["detail"]), _esc(s["why"]),
                ('<ul class="finds">%s</ul>' % finds) if finds else "",
-               ('<code>%s</code>' % _esc(s["cmd"])) if s["state"] != "done" and s["cmd"] else ""))
+               s.get("fold", ""),
+               _cmd(s["cmd"]) if s["state"] != "done" and s["cmd"] else ""))
 
 
 
@@ -1259,7 +1384,7 @@ def cmd_dashboard(args) -> int:
             '<ol class="steps">%s</ol></section>'
             % (_esc(slug), _esc(cfg.get("number", "")), _esc(cfg["title"]),
                done, len(steps), _esc(what),
-               ('<code>%s</code>' % _esc(how)) if how else "",
+               _cmd(how) if how else "",
                live[0], _esc(live[1]), rows))
 
     html = DASH_TEMPLATE % {
