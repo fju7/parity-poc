@@ -107,10 +107,19 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const key = process.env.RESEND_WHATHOLDSUP_KEY;
-  const audience = process.env.RESEND_WHATHOLDSUP_AUDIENCE_ID;
-  const dbUrl = process.env.SUPABASE_URL;
-  const dbKey = process.env.SUPABASE_SERVICE_KEY;
+  // Configuration arrives by being pasted into a dashboard, which is user
+  // input and should be treated as such. Three failures on 2026-08-28 came
+  // from the shape of the value rather than the value: surrounding whitespace,
+  // a trailing slash, and a host with no scheme — the last of which makes the
+  // request URL relative and throws before anything leaves the process.
+  // Normalising these is not papering over a mistake; it is refusing to have a
+  // whole class of outage depend on how carefully someone copied a string.
+  const clean = v => String(v || "").trim();
+  let dbUrl = clean(process.env.SUPABASE_URL).replace(/\/+$/, "");
+  if (dbUrl && !/^https?:\/\//i.test(dbUrl)) dbUrl = "https://" + dbUrl;
+  const dbKey = clean(process.env.SUPABASE_SERVICE_KEY);
+  const key = clean(process.env.RESEND_WHATHOLDSUP_KEY);
+  const audience = clean(process.env.RESEND_WHATHOLDSUP_AUDIENCE_ID);
   if (!key || !audience || !dbUrl || !dbKey) {
     // Fail loudly rather than show a confirmation for a signup that went
     // nowhere. The same reasoning as the unsubscribe endpoint: the worst
