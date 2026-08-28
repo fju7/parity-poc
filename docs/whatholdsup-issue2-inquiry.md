@@ -210,11 +210,53 @@ interval crosses 1 and the result misses its threshold. In the analysis that
 was not planned, two more years of events pull the upper bound to 0.99 and the
 interval clears the line — with no test attached to it.
 
-**Our corpus's p = 0.0221 matches neither published figure.** It is not the
-protocol analysis (0.0429, one-sided) and the exploratory paper reports none.
-It must be sourced or dropped; it cannot be published as it stands. A one-sided
-p on the exploratory analysis would land near 0.022, which is a plausible
-provenance and is a guess, and guesses do not go in.
+**Our corpus's p = 0.0221 matches no published figure. RESOLVED 2026-08-28:
+DROPPED. It is not to be published, quoted, or repaired.**
+
+Traced to `category_audit_with_context.json`, claim
+`30008938-02ac-4a52-ac5a-80b946ffa773`: *"In the updated overall survival
+analysis of PALOMA-3, median OS was 34.9 months in the palbociclib plus
+fulvestrant arm versus 28.0 months in the placebo plus fulvestrant arm (HR 0.81,
+p=0.0221)."* The record carries the claim text and three categorisation votes
+and **no source, no URL, and no document reference of any kind**. There is
+nothing to trace it to.
+
+Every P value PALOMA-3 has published for overall survival:
+
+| Analysis | Result | P |
+|---|---|---|
+| Protocol-specified, stratified | HR 0.81, 34.9 vs 28.0 months | 0.09, two-sided |
+| Protocol-specified, unstratified | HR 0.79 | 0.05 |
+| Prespecified significance threshold | — | 0.047, two-sided |
+| Endocrine-sensitive subgroup (n=410) | HR 0.72, 39.7 vs 29.7 months | not reported |
+| 2022 updated exploratory | HR 0.806, 34.8 vs 28.0 months | none — no test attached |
+
+0.0221 is not among them, and it is not a subgroup figure misattributed to the
+whole population: the corpus pairs it with the whole-population medians and
+HR 0.81, not the subgroup's 0.72. The earlier note that a one-sided p on the
+exploratory analysis "would land near 0.022" was itself a guess, and the
+exploratory analysis reports no test at all, so there is nothing for a one-sided
+version of it to be.
+
+**What the number does is the point.** The trial did not meet its endpoint —
+P = 0.09 against a prespecified threshold of 0.047. The corpus says p = 0.0221,
+"which is statistically significant," and proposition 2's entire
+`why_it_could_be_false` is built on it. A single unsourced figure reverses a
+trial's conclusion inside the corpus that drives our scoring.
+
+That is a corpus defect, not a drafting one, and it needs correcting at source
+in `category_audit_with_context.json` and
+`propositions_breast-cancer-therapies.json` — not merely avoided here.
+
+Sources: [NEJM 2018 as summarised by Nature Reviews Clinical
+Oncology](https://www.nature.com/articles/s41571-018-0125-9);
+[MDedge on the protocol analysis and the endocrine-sensitive
+subgroup](https://www.mdedge.com/hematology-oncology/article/177741/breast-cancer/paloma-3-overall-survival-better-endocrine);
+[Oncology News Central on the extended
+follow-up](https://www.oncologynewscentral.com/conference-news/palbociclib-plus-fulvestrant-prolongs-survival-paloma-3-extended-follow-up).
+The journals themselves (NEJM, AACR) and PubMed all refuse automated access, so
+these are secondary reports of primary figures and must go through SOURCE with
+that noted.
 
 This is the same fault as issue one, in a different costume: a number that
 answers a question the reader thinks it answers, and does not.
@@ -244,6 +286,118 @@ Flatiron real-world comparison both fail to reproduce.
 itself, which is behind registration.** It must be confirmed against the
 guideline document before a word of it is published. If the category ratings
 are wrong the section collapses.
+
+### STATUS 2026-08-28: CONFIRMED against NCCN v6.2026 — with three corrections
+
+Confirmed by the operator against his own licensed copy of the guideline. Note
+the version: **v6.2026, not the v4.2026 this brief cited.** Every reference to
+v4.2026 in the published piece must be corrected.
+
+**Confirmed:** on BINV-P (2 of 3), first-line, aromatase inhibitor + ribociclib
+carries category 1; abemaciclib and palbociclib carry no marking, and the
+guideline's stated convention is that unmarked recommendations are category 2A.
+The discussion text says the same in words, and gives the reason: ribociclib's
+combination with an AI is category 1 because of the overall-survival benefit
+seen with it. That reason is the article — an institution assigning a higher
+category to one drug on the strength of its own trial's survival result, in a
+class whose members have never been compared against each other.
+
+**Correction 1 — the version.** v6.2026, not v4.2026.
+
+**Correction 2 — RESOLVED: the word is "clinical". Established by the operator
+reading the printed line, 2026-08-28.**
+
+Page 188 (MS-61), right column, the paragraph beginning "AI in combination with
+CDK4/6 inhibitor", last sentence: the guideline says the CDK4/6 inhibitors have
+not been directly compared in **clinical** trials.
+
+**Why this is a paragraph of the article and not a footnote.** "Not compared in
+randomized trials" would be narrow and true — no head-to-head RCT exists.
+"Not compared in clinical trials" asserts that no direct comparison of any kind
+has been done, and one has: the Flatiron weighted cohort in *Annals of Oncology*
+compares all three directly, and finds no significant difference between any
+pair. It is not randomised. It is a direct comparison.
+
+So in the same passage where the guideline declines to distinguish the three
+drugs on comparative grounds, it overstates the absence of the comparative
+evidence — and its category ratings distinguish them anyway. The guideline
+commits, in one sentence, the error this publication exists to describe.
+
+**How this was settled, because the route matters.** A direct visual read of the
+rendered page gave *clinical*. A PDF reader's assistant, asked three times, gave
+*randomized* (with a quotation that is not on the page), then *clinical*, then
+*clinical* — and by the third it was agreeing with a position relayed back to
+it, so it was a loop rather than a witness. What settled it was a human reading
+one line. That is the whole method: when a claim is load-bearing and the
+instruments disagree, a person looks at the source.
+
+The sentence is still never quoted in the published piece — NCCN content is
+licensed and the facts are enough. The article reports what the guideline says,
+in its own words, and cites the section.
+
+**Superseded note — the quotation is not the words.** This brief quoted the
+guideline as saying the inhibitors "have not been directly compared in
+randomized trials, and treatment selection should consider efficacy, toxicity,
+comorbidities, monitoring requirements, and patient preference." The guideline's
+sentence is shorter and says *clinical* trials, not randomized trials; the
+treatment-selection clause is not part of it. **Still to confirm: which word.**
+It matters — "not compared in randomized trials" leaves room for the
+non-randomised comparisons this piece is built on, and "clinical trials" does
+not.
+
+**Correction 3 — the uniqueness is setting-specific. Still to confirm.**
+Ribociclib appears to be the only category 1 CDK4/6 inhibitor *first-line with
+an aromatase inhibitor*. In the fulvestrant combinations, abemaciclib is
+category 1 as well. If so, the claim the piece can make is narrower than
+"ribociclib is the category 1 CDK4/6 inhibitor," and the narrower claim is the
+only one to make.
+
+**On quoting.** NCCN content is licensed; the category ratings are facts and
+ours to report, the guideline's wording is not. Nothing from the document is to
+be reproduced verbatim in the published piece without going through NCCN's
+"Permission to Cite or Use NCCN Content" process. Paraphrase, cite the section
+(BINV-P, and the discussion at MS-61), and move on.
+
+What was tried, and what it is worth:
+
+- **[OncoDaily's summary of v4.2026](https://oncodaily.com/oncolibrary/breast-oncology/breast-cancer-nccn-v4)**
+  states exactly what this section states: ribociclib plus AI category 1 on the
+  MONALEESA overall-survival results, abemaciclib and palbociclib plus AI
+  category 2A, and the "have not been directly compared in randomized trials"
+  sentence verbatim. **This is not corroboration.** This brief records no source
+  for its NCCN summary, so OncoDaily may well *be* that source — in which case
+  reading it back proves only that it says what it said. Matching a claim
+  against its own origin is the shape of a check without the substance of one.
+- **[Novartis, March 2023](https://www.novartis.com/us-en/news/media-releases/novartis-ribociclib-kisqali-only-category-1-preferred-first-line-treatment-option-hrher2-mbc-combination-ai-updated-nccn-clinical-practice-guidelines-oncology-nccn-guidelines)**
+  states ribociclib was "the only Category 1 preferred CDK4/6i" first-line with
+  an AI in v4.2023. Genuinely independent of OncoDaily, and worth something: it
+  corroborates the *pattern* across three years and two sources. But it is the
+  manufacturer of the drug it is describing, announcing its own advantage, and
+  it gives no categories for palbociclib or abemaciclib. Using it to establish
+  that ribociclib ranks above its competitors is precisely the sourcing this
+  publication exists to criticise.
+- **NCCN's own free materials do not carry the ratings.** The 2026 metastatic
+  breast cancer congress deck on education.nccn.org covers HER2+ and
+  triple-negative disease and gives no category designations for the
+  first-line HR+/HER2- CDK4/6i combinations. The patient guidelines do not carry
+  category ratings either. The full guideline needs registration.
+
+**What has to happen.** NCCN registration is free for individuals. Someone with
+an account opens Breast Cancer v4.2026 and reads off four things:
+
+1. the category assigned to ribociclib + AI, first-line HR+/HER2- metastatic
+2. the category assigned to palbociclib + AI, same setting
+3. the category assigned to abemaciclib + AI, same setting
+4. the "have not been directly compared" sentence, verbatim and in context
+
+Until then this section cannot be published. Not softened, not attributed to a
+secondary source — **not published**, because the argument is that an
+institution drew a distinction the comparative evidence does not support, and
+that argument is worthless if we have the distinction wrong.
+
+There is a real observation sitting underneath this — the guideline that shapes
+prescribing is not publicly readable — and it belongs in the piece only *after*
+the ratings are confirmed, never as a substitute for confirming them.
 
 ### 4. Ribociclib's ECG requirement — resolved, and it is real
 
