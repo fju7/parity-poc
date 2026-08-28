@@ -124,6 +124,39 @@ The page now carries Table B throughout: each trial's PFS and OS drawn from the
 same, latest analysis, rounded rather than truncated, with the exploratory status
 of MONALEESA-7's OS stated.
 
+### 2c. Scope — settled by gate run 3, 2026-08-28
+
+**The comparison is the three postmenopausal aromatase-inhibitor trials.**
+MONARCH 3, MONALEESA-2 and PALOMA-2. Those are the three the guideline grades
+against each other, and they are the only three that can be set side by side
+without doing the thing this piece exists to criticise.
+
+**MONALEESA-7 is a different trial in a different population.** Pre/perimenopausal
+women on ovarian suppression, with an aromatase inhibitor **or tamoxifen**. Run 3
+found it sitting on the interval chart beside the other three under the heading
+"Overall survival, first-line" — a cross-trial comparison across populations, in
+a piece whose second half warns against cross-trial comparison. It is off the
+chart. It stays in the table, labelled, as supporting evidence.
+
+Two consequences the same finding forced:
+
+- **"The one first-line OS result in the class that reached significance"** was
+  false as written. MONALEESA-7 also reached significance for first-line OS. It
+  is true only of the three postmenopausal AI trials, and now says so. Recorded
+  twice on the page, fixed twice. **[VERIFIED]**
+- **The four p-values are not on one scale and were printed in one column.**
+  MONALEESA-2: two-sided P = 0.008 against a conventional threshold. MONALEESA-7:
+  **P = .00973 at an interim, against a prespecified group-sequential stopping
+  boundary of P = .01018** — a stricter test than 0.05 and a different one.
+  PALOMA-2: one-sided P = .34. **[VERIFIED — boundary confirmed, ASCO Post,
+  10 October 2019.]** *[NEEDED, not blocking: whether MONALEESA-7's p is stated
+  one-sided in NEJM 2019. The page does not assert sidedness for it, because we
+  have not read that sentence. It states the boundary instead, which is what we
+  have and is the more useful fact.]*
+
+The page now carries a warn box saying the p-values cannot be ranked and that
+each supports only the binary its own trial reported.
+
 **Note for the piece:** there is no finding against the guideline here, and the
 draft must not reach for one. Three separate charges against NCCN have now been
 tested in this issue and all three failed. That is worth one honest sentence in

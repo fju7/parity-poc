@@ -559,6 +559,26 @@
       "decided": "2026-08-28",
       "reason": "NCCN v6.2026 is not publicly reachable and its licence forbids putting it through an AI tool, so no automated check can ever verify a claim about it. It was read directly by a human on 2026-08-28, who quoted the sentences. NOT_FOUND here is a true statement about the checker's reach and not about the claim, which is the distinction the standing rules already draw. The sources list says so on the page.",
       "what_would_change_it": "A publicly reachable rendering of v6.2026, or a licence that permits machine reading. Neither is in prospect."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "ADVOCATE",
+      "quote": "HR 0.54 (0.41\u20130.72)",
+      "severity": "SERIOUS",
+      "decision": "decline",
+      "decided": "2026-08-28",
+      "reason": "The finding compares the cell against MONARCH 3's FINAL PFS analysis, 0.540 (0.418\u20130.698). The cell is labelled 'primary analysis, JCO 2017' and JCO 2017 prints 'hazard ratio, 0.54; 95% CI, 0.41 to 0.72; P = .000021' verbatim. Fifth recorded occurrence of WRONG_READOUT_COMPARISON, and the first in which the draft had already named the readout in the cell the role was checking.",
+      "what_would_change_it": "If the page ever prints that interval without naming the analysis, or pairs it with a figure from a different readout of the same trial."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "ADVOCATE",
+      "quote": "version 6.2026",
+      "severity": "SERIOUS",
+      "decision": "accept-as-unreachable",
+      "decided": "2026-08-28",
+      "reason": "The role reports that no source confirms v6.2026 exists and that the latest traceable version is v4.2026. That is a true statement about what is publicly reachable. v6.2026 was read directly by a human on 2026-08-28, who quoted its sentences on the category assignments and on all three trial figures the earlier runs disputed. Its licence forbids putting the document through an AI tool, so no automated check can ever confirm it. The page says this in the sources list.",
+      "what_would_change_it": "A publicly reachable rendering of v6.2026, or a licence permitting machine reading."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",
