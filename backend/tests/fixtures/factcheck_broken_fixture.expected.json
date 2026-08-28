@@ -1,0 +1,119 @@
+{
+  "what_this_is": "The answer key for factcheck_broken_fixture.html. The fixture is a deliberately corrupted copy of the published melanoma article; this file says what was corrupted, which recorded error class each corruption belongs to, and which role should find it. Without it the fixture is unusable — it was committed with the note 'Eight known errors have been reintroduced' and no record of which eight, so nothing could be measured against it.",
+  "how_it_was_reconstructed": "Sentence-level diff of the fixture against site/whatholdsup/melanoma.html on 2026-08-27, cross-referenced against the classes in factcheck_known_errors.json. Where the page has since been edited for reasons unrelated to the seeding, those regions are not listed here.",
+  "how_to_read_a_result": "Recall is the fraction of these found. A class that goes unfound is the finding: it means the gate cannot see that kind of mistake, and the prompt for the named role is what has to change. Precision is NOT measured here — the fixture is full of real errors, so a role reporting many findings on it is not thereby wrong. Precision comes from the adjudication records of real drafts.",
+  "seeded": [
+    {
+      "id": "s1",
+      "class": "MISSING_NUMBER_AS_MISSING_EVIDENCE",
+      "expect": "INFERENCE",
+      "quote": "The Phase 3 announcement reports no Phase 3 results.",
+      "why_it_is_wrong": "It reports a result — that the trial met its endpoints. What it withholds is the magnitude. Absence of a number is not absence of a finding.",
+      "published_reads": "The Phase 3 announcement reports no numerical Phase 3 results. It reports a result — the trial met both of its prespecified endpoints, which is a real and significant finding."
+    },
+    {
+      "id": "s2",
+      "class": "MISSING_NUMBER_AS_MISSING_EVIDENCE",
+      "expect": "INFERENCE",
+      "quote": "Of the 1,137-patient trial it is announcing, the quantitative content is nil.",
+      "why_it_is_wrong": "Second instance of s1 in the same draft. The release states both endpoints were met; what it gives no figure for is the size.",
+      "published_reads": "Of the 1,137-patient trial it is announcing, the release states that both endpoints were met and gives no figure for either."
+    },
+    {
+      "id": "s3",
+      "class": "RATIO_AS_LIVES",
+      "expect": "INFERENCE",
+      "quote": "It is consistent with the therapy preventing five deaths in six, and also with it causing a third more.",
+      "why_it_is_wrong": "A hazard ratio converted into a count of people. The interval bounds are rate comparisons; neither end says how many lives.",
+      "published_reads": "At one end the treated group's rate of death would be about a sixth of the control group's; at the other it would be about a third higher."
+    },
+    {
+      "id": "s4",
+      "class": "HAZARD_AS_RISK",
+      "expect": "INFERENCE",
+      "quote": "The range around it runs from an 84% reduction in the risk of death to a 35% increase.",
+      "why_it_is_wrong": "Risk, not hazard. A hazard ratio is an instantaneous rate comparison and is not a share of patients. The same substitution is seeded again at 'a 49% reduction in the risk of recurrence or death'.",
+      "published_reads": "The interval around it runs from a hazard ratio of 0.165 — a rate of death about 84% lower than the comparison group's — to 1.345, about 35% higher. Both ends are rate comparisons, not numbers of lives."
+    },
+    {
+      "id": "s5",
+      "class": "OVERSTATED",
+      "expect": "ADVOCATE",
+      "quote": "seven times larger, and free of the bias the earlier one carried",
+      "why_it_is_wrong": "The Phase 3's primary endpoint is investigator-assessed too. Blinding substantially protects against the bias running in one direction; it does not make the trial free of it.",
+      "published_reads": "seven times larger, and blinded against exactly the bias the earlier one carried"
+    },
+    {
+      "id": "s6",
+      "class": "STALE",
+      "expect": "RECENCY",
+      "quote": "In the earlier Phase 2b at five years, patients on the combination were recurring or dying at about half the rate (HR 0.510, 0.288-0.906) and reaching distant metastasis at about two-fifths the rate (HR 0.384, 0.172-0.858)",
+      "why_it_is_wrong": "Three-year figures presented as five-year. The five-year readout published 1 June 2026 gives RFS 0.510 (0.294-0.887) and DMFS 0.411 (0.200-0.843). The stale DMFS point estimate 0.384 also appears in the forest plot and the source list.",
+      "published_reads": "HR 0.510, 0.294-0.887 ... HR 0.411, 0.200-0.843"
+    },
+    {
+      "id": "s7",
+      "class": "STALE",
+      "expect": "RECENCY",
+      "quote": "Immune-related adverse events were 37.5% on the combination versus 36% on pembrolizumab alone - essentially no extra immune toxicity from the added therapy.",
+      "why_it_is_wrong": "Superseded rates, and the conclusion drawn from them is contradicted by the five-year data: any-grade irAEs were 45.2% versus 44%, and grade 3 or worse treatment-related events 25% versus 18%.",
+      "published_reads": "Any-grade immune-related adverse events were similar — 45.2% versus 44% — but grade 3 or worse treatment-related events were higher: 25% versus 18%."
+    },
+    {
+      "id": "s8",
+      "class": "SELECTIVE",
+      "expect": "ADVOCATE",
+      "quote": "essentially no extra immune toxicity from the added therapy",
+      "why_it_is_wrong": "Reports the safety measure that favours the therapy and omits the one that does not. Grade 3 or worse treatment-related events were 25% versus 18%.",
+      "published_reads": "Reading only the first pair would tell you the added therapy costs nothing, and it does not."
+    },
+    {
+      "id": "s9",
+      "class": "ATTRIBUTED",
+      "expect": "SOURCE",
+      "quote": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266",
+      "why_it_is_wrong": "The one-sided 0.0266 comes from the April 2023 company press release. The Lancet published the same data with two-sided p = 0.053. Crediting the journal with the company's figure is the error the record calls ATTRIBUTED.",
+      "published_reads": "The April 2023 press release reported KEYNOTE-942 as one-sided p = 0.0266. When the same data were published in The Lancet, they came with two-sided p = 0.053."
+    },
+    {
+      "id": "s10",
+      "class": "PHANTOM_FIGURE",
+      "expect": "SOURCE",
+      "quote": "The five-year update carried one-sided nominal p = 0.0031",
+      "why_it_is_wrong": "No source reports 0.0031. The nominal one-sided p-value in the January 2026 topline is 0.0075.",
+      "published_reads": "a nominal p-value was still computed and released — the one-sided 0.0075 in the January topline"
+    },
+    {
+      "id": "s11",
+      "class": "DROPPED",
+      "expect": "SOURCE",
+      "quote": "One claim is cut as unverifiable: 30-month recurrence-free rates of 74.8% versus 55.6%, which appear in no source we can find.",
+      "why_it_is_wrong": "The figures exist and the draft uses them elsewhere. Declaring a real figure unverifiable is the DROPPED class, and the fixture does it in its own correction notice while quoting the numbers upstream.",
+      "published_reads": "the five-year figures 68.8% versus 49.1% are used, and the correction notice records replacing the 30-month rates rather than cutting them as unfindable"
+    },
+    {
+      "id": "s12",
+      "class": "ENDPOINT_DEMOTED",
+      "expect": "INFERENCE",
+      "quote": "RFS tells you the cancer stayed away longer, which is meaningful and is not the same claim.",
+      "why_it_is_wrong": "Treats recurrence-free and distant metastasis-free survival as lesser stand-ins for survival. All three are meaningful endpoints and none is a substitute for another; DMFS in particular is clinically important in its own right.",
+      "published_reads": "DMFS tells you the cancer did not reach distant organs — a clinically important outcome in its own right, not a stand-in for survival. RFS tells you the cancer stayed away anywhere, or the patient survived. All three are meaningful and none is a substitute for another."
+    },
+    {
+      "id": "s13",
+      "class": "UNSUPPORTED",
+      "expect": "ADVOCATE",
+      "quote": "They are being used to fill the hole where the Phase 3's numbers should be, mostly without saying so.",
+      "why_it_is_wrong": "An accusation against the coverage with no evidence behind it, and false: the outlets checked attributed the figures to KEYNOTE-942 correctly, several saying plainly that no Phase 3 efficacy data had been released. This is the accusation the published piece cut.",
+      "published_reads": "Our first draft of this piece accused the coverage of passing the earlier trial's figures off as the new one's. Then we checked, and that is not what happened."
+    },
+    {
+      "id": "s14",
+      "class": "STALE",
+      "expect": "RECENCY",
+      "quote": "By five years it had tightened to 0.288-0.906 and cleared the line. More data, more certainty, and an effect that strengthened rather than faded",
+      "why_it_is_wrong": "0.288-0.906 is the three-year interval. At five years the interval was 0.294-0.887 — the crossing was resolved by year three, and the width was close to unchanged, so 'more certainty' is not what the extra two years bought.",
+      "published_reads": "It had already cleared the line by the three-year readout at ASCO 2024 ... At five years the point estimate was unchanged at 0.510 and the interval read 0.294-0.887 ... the width was close to unchanged."
+    }
+  ]
+}

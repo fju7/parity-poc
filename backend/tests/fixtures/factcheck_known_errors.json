@@ -1,5 +1,5 @@
 {
-  "what_this_is": "The six errors found by hand in the What Holds Up melanoma draft on 2026-08-26, before publication. They are recorded because they define what factcheck_draft.py exists to catch: any change to its prompts should still surface every class below. Four of the six were inside the draft's own bibliography, which is why the gate never treats a draft's source list as evidence.",
+  "what_this_is": "The six errors found by hand in the What Holds Up melanoma draft on 2026-08-26, before publication. They are recorded because they define what factcheck_draft.py exists to catch: any change to its prompts should still surface every class below. Four of the six were inside the draft's own bibliography, which is why the gate never treats a draft's source list as evidence.\n\nExtended 2026-08-27. Until then every entry here named a role in caught_by, so the record logged what the gate found and nothing else. A learning record made only of successes gets better at what it is already good at. The entries below with caught_by 'nothing' are errors that reached a reader, and the entries with caught_by 'a human' are defects in the gate itself. Those two groups are the ones that should drive prompt changes. Use scripts/signal/factcheck_recall.py to check that every class here is still found in the seeded fixture.",
   "recorded": "2026-08-26",
   "draft": "site/whatholdsup/melanoma.html",
   "found_by": "hand check with an adversarial reviewer, pre-publication",
@@ -10,7 +10,8 @@
       "summary": "Draft used three-year KEYNOTE-942 figures; five-year data had been published on 1 June 2026, ten weeks earlier.",
       "was": "RFS HR 0.510 (0.288-0.906); DMFS HR 0.384 (0.172-0.858); irAEs 37.5% vs 36%",
       "corrected_to": "RFS HR 0.510 (0.294-0.887); DMFS HR 0.411 (0.200-0.843); irAEs 45.2% vs 44%",
-      "why_it_matters": "Every figure was correct when first published. Correct-when-written is not a defence."
+      "why_it_matters": "Every figure was correct when first published. Correct-when-written is not a defence.",
+      "kind": "draft"
     },
     {
       "class": "ATTRIBUTED",
@@ -18,7 +19,8 @@
       "summary": "A one-sided p-value was credited to The Lancet. It comes from a company press release; The Lancet published a two-sided value.",
       "was": "one-sided p = 0.0266, attributed to the Lancet phase 2b paper",
       "corrected_to": "one-sided p = 0.0266 from the Merck release of 16 April 2023; The Lancet published two-sided p = 0.053",
-      "why_it_matters": "The draft's entire premise is that other people are careless with primary sources."
+      "why_it_matters": "The draft's entire premise is that other people are careless with primary sources.",
+      "kind": "draft"
     },
     {
       "class": "MISCLASSIFIED",
@@ -27,7 +29,8 @@
       "summary": "RETRACTED. This entry originally recorded p=0.0075 as a phantom figure appearing in no source. That was wrong: it is stated in Merck's release of 20 January 2026. The real error was DROPPED, recorded below. Kept visible rather than deleted, because a fixture that quietly edits its own history is worth nothing.",
       "was": "recorded as: 'a five-year p-value that exists in no locatable source'",
       "corrected_to": "reclassified; the figure is real and has been restored to the piece",
-      "why_it_matters": "The fixture is measured against, so an error in it propagates into every future judgement of whether the gate works."
+      "why_it_matters": "The fixture is measured against, so an error in it propagates into every future judgement of whether the gate works.",
+      "kind": "draft"
     },
     {
       "class": "DROPPED",
@@ -35,7 +38,8 @@
       "summary": "An earlier draft removed a figure as 'unverifiable' that sits in the abstract of a paper the draft itself cited. Two fetch attempts had 403'd and absence of access was read as absence of fact.",
       "was": "two-sided p = 0.053 cut, with a footnote saying it could not be verified",
       "corrected_to": "restored and cited; it is in the Lancet abstract",
-      "why_it_matters": "The correction notice was itself false. Failing to reach a source is not evidence about the source."
+      "why_it_matters": "The correction notice was itself false. Failing to reach a source is not evidence about the source.",
+      "kind": "draft"
     },
     {
       "class": "SELECTIVE",
@@ -43,7 +47,8 @@
       "summary": "One endpoint reported as strengthening over time; a second endpoint that weakened went unmentioned, as did a toxicity difference.",
       "was": "'strengthened rather than faded', with no mention of DMFS easing 62% to 59% or grade 3+ events at 25% vs 18%",
       "corrected_to": "both stated explicitly, with the DMFS easing described as inside the noise of a trial that size",
-      "why_it_matters": "Invisible to a claim-by-claim check. Every individual figure was true."
+      "why_it_matters": "Invisible to a claim-by-claim check. Every individual figure was true.",
+      "kind": "draft"
     },
     {
       "class": "UNSUPPORTED",
@@ -51,7 +56,8 @@
       "summary": "The draft accused news outlets of passing off an earlier trial's figures as the new trial's, without checking a single outlet. All of them had attributed correctly.",
       "was": "'being used to fill the hole where the Phase 3's numbers should be, mostly without saying so'",
       "corrected_to": "accusation cut; replaced with what a survey of nineteen articles actually found, including the admission that the first draft was wrong",
-      "why_it_matters": "A claim about third-party conduct, asserted rather than checked. The most likely of the six to be quoted back at the publication."
+      "why_it_matters": "A claim about third-party conduct, asserted rather than checked. The most likely of the six to be quoted back at the publication.",
+      "kind": "draft"
     },
     {
       "class": "DROPPED",
@@ -59,7 +65,8 @@
       "summary": "SECOND INSTANCE, found by the gate on its first run. The hand check's own correction notice claimed two figures were unverifiable. Both are verifiable. Failure to reach a source was recorded as the figure not existing — the same error the notice was describing.",
       "was": "'a five-year p-value of 0.0075 that appears in no source we can find, now removed' and '2.5-year recurrence-free rates of 74.8% versus 55.6%' cut as unverifiable",
       "corrected_to": "both restored: one-sided nominal p=0.0075 is in Merck's release of 20 January 2026; 74.8% vs 55.6% is the 30-month rate in the three-year analysis",
-      "why_it_matters": "The error class repeats under pressure. A checker that says CANNOT VERIFY is reporting on its own reach, not on the world, and must never be paraphrased as the fact being absent."
+      "why_it_matters": "The error class repeats under pressure. A checker that says CANNOT VERIFY is reporting on its own reach, not on the world, and must never be paraphrased as the fact being absent.",
+      "kind": "draft"
     },
     {
       "class": "OVERSTATED",
@@ -67,7 +74,8 @@
       "summary": "The Phase 3 was described as 'free of the bias the earlier one carried'. Its primary endpoint is investigator-assessed too, per Merck's own release.",
       "was": "'seven times larger and free of the bias the earlier one carried'",
       "corrected_to": "'blinded against exactly the bias the earlier one carried', plus a new paragraph noting the primary endpoint is 'as assessed by the investigator' and that blinding mitigates rather than removes it",
-      "why_it_matters": "Invisible to a claim check: every figure was right. Only a reader arguing the subject's side finds it."
+      "why_it_matters": "Invisible to a claim check: every figure was right. Only a reader arguing the subject's side finds it.",
+      "kind": "draft"
     },
     {
       "class": "RATIO_AS_LIVES",
@@ -77,7 +85,8 @@
       "why_it_survived": "SOURCE verified the interval 0.165-1.345 against the primary source and passed it, because the figure was real. The error was in the sentence built on it. No role was reading for that.",
       "aggravating": "The same piece explains the hazard-ratio versus absolute-risk distinction correctly two paragraphs earlier. A reader who understood our own explanation would have caught us.",
       "was": "It is consistent with the therapy preventing five deaths in six, and with it doing harm.",
-      "corrected_to": "The interval is extraordinarily wide: compatible with anything from a very large reduction in the hazard of death to roughly a 35% increase."
+      "corrected_to": "The interval is extraordinarily wide: compatible with anything from a very large reduction in the hazard of death to roughly a 35% increase.",
+      "kind": "draft"
     },
     {
       "class": "DESIGN_CRITICISM_IMPORTED",
@@ -86,7 +95,8 @@
       "caught_by": "INFERENCE",
       "why_it_survived": "Every factual component was true and ADVOCATE read it as fair comment. The defect was that the criticism named no residual mechanism surviving the design.",
       "was": "blinding does not eliminate the problem; an independent review committee would remove the judgement altogether",
-      "corrected_to": "RFS is investigator-assessed rather than centrally adjudicated. That leaves clinical judgment in the endpoint determination, although the double-blind placebo-controlled design substantially protects against differential assessment between arms."
+      "corrected_to": "RFS is investigator-assessed rather than centrally adjudicated. That leaves clinical judgment in the endpoint determination, although the double-blind placebo-controlled design substantially protects against differential assessment between arms.",
+      "kind": "draft"
     },
     {
       "class": "MISSING_NUMBER_AS_MISSING_EVIDENCE",
@@ -95,7 +105,8 @@
       "caught_by": "INFERENCE",
       "why_it_survived": "Rhetorically effective and nearly true, which is the hardest kind to catch. One word — 'numerical' — makes the thesis almost impossible to dispute at no cost to its force.",
       "was": "The Phase 3 announcement reports no Phase 3 results.",
-      "corrected_to": "The Phase 3 announcement reports no numerical Phase 3 efficacy results."
+      "corrected_to": "The Phase 3 announcement reports no numerical Phase 3 efficacy results.",
+      "kind": "draft"
     },
     {
       "class": "ENDPOINT_DEMOTED",
@@ -104,7 +115,8 @@
       "caught_by": "INFERENCE",
       "why_it_survived": "It reads as a methodological observation and is actually a value judgment. Nothing in a claim-by-claim check tests for that.",
       "was": "the endpoint people actually care about - whether anyone lives longer",
-      "corrected_to": "RFS and OS answer different questions. The trial answered the first; the second remains open. FDA has approved adjuvant melanoma therapies on RFS."
+      "corrected_to": "RFS and OS answer different questions. The trial answered the first; the second remains open. FDA has approved adjuvant melanoma therapies on RFS.",
+      "kind": "draft"
     },
     {
       "class": "SOURCE_FALSE_NEGATIVE",
@@ -113,7 +125,160 @@
       "corrected_to": "The article is at morningglorysciences.com, dated 20 August 2026, and reads: 'The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease. Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.'",
       "found_by": "opening the URL, 2026-08-27",
       "caught_by": "a human asking why nobody had opened the page",
-      "why_it_survived": "SOURCE searches; it was never handed the URL. COVERAGE had the URL and did not pass it on. Two roles in one run reached opposite conclusions about the same page and neither could see the other's work. NOT_FOUND from SOURCE means 'we could not reach it', and the gate treats it as a blocker, which is right — but the resolution is to open the page, and nothing in the output said so."
+      "why_it_survived": "SOURCE searches; it was never handed the URL. COVERAGE had the URL and did not pass it on. Two roles in one run reached opposite conclusions about the same page and neither could see the other's work. NOT_FOUND from SOURCE means 'we could not reach it', and the gate treats it as a blocker, which is right — but the resolution is to open the page, and nothing in the output said so.",
+      "kind": "instrument",
+      "owned_by": "SOURCE"
+    },
+    {
+      "class": "ENDPOINT_ROLE_CONFLATED",
+      "caught_by": "nothing — it reached subscribers",
+      "summary": "'Met both of its endpoints' for a trial with one primary endpoint (RFS) and one key secondary (DMFS). Implies two co-primaries and overstates what the announcement established.",
+      "was": "a large Phase 3 trial of a personalised mRNA cancer therapy met both of its endpoints in melanoma",
+      "corrected_to": "met its primary endpoint in melanoma, and a key secondary endpoint as well",
+      "found_by": "SOURCE, on a run after the broadcast had been sent",
+      "why_it_survived": "The page had it right from the start — 'its primary endpoint of recurrence-free survival and its key secondary endpoint of distant metastasis-free survival' — and the email, written from the page, compressed it. Nothing checked the email against the page. The claim extractor produced 'the trial met both pre-specified endpoints', which reads as true unless you already know the endpoint structure, so SOURCE had to go to the release to catch it and only did on a later run.",
+      "why_it_matters": "The error is invisible to anyone who does not already know the trial design, which is most readers, and it inflates the result in exactly the direction the piece accuses others of inflating it.",
+      "kind": "draft"
+    },
+    {
+      "class": "TERM_IMPLIES_A_DIFFERENT_FAULT",
+      "caught_by": "nothing — it reached subscribers",
+      "summary": "'157 unblinded patients' for a trial that was open-label from the start. Unblinded implies a blind that was broken, which is a worse and different design failure.",
+      "was": "157 unblinded patients is not 1,137 blinded ones",
+      "corrected_to": "157 patients in an open-label trial is not 1,137 in a double-blind one",
+      "found_by": "INFERENCE, MINOR, on a later run",
+      "why_it_survived": "Every figure in the sentence was correct, so SOURCE passed it. It is not unfair to the subject in a way ADVOCATE would flag. It is a word that means something adjacent to what was meant, and only the statistical role reads at that resolution — and rated it MINOR, which does not block.",
+      "why_it_matters": "A publication whose subject is imprecision in others cannot afford a term of art used loosely, and MINOR is the severity at which this class will always land.",
+      "kind": "draft"
+    },
+    {
+      "class": "NO_GATE_BETWEEN_DRAFT_AND_SEND",
+      "caught_by": "nothing — the broadcast went out",
+      "summary": "Every correction made to the page that afternoon was absent from the email that went to subscribers, including an accusation against seven named outlets that had already been cut from the page.",
+      "was": "an email whose text no gate run had ever seen",
+      "corrected_to": "send_broadcast.py now refuses unless a gate report exists, records passed true, and its sha256 matches the content Resend actually stores",
+      "found_by": "reading the sent message",
+      "why_it_survived": "The gate checked drafts. Nothing checked what was sent. Two artefacts, one checked, and the unchecked one was the one that reached people.",
+      "why_it_matters": "The most expensive failure in the project so far was not a wrong number. It was a correct number that never reached the thing being published.",
+      "kind": "process"
+    },
+    {
+      "class": "FIX_INTRODUCED_THE_ERROR",
+      "caught_by": "SOURCE, next run",
+      "summary": "Correcting a vague date by naming a specific one created two new wrong claims. 'Released in January and presented at ASCO in June' — January carried the RFS figure only; the DMFS figure and the OS hazard ratio the piece then dissects were both first public at ASCO in June.",
+      "was": "whose five-year results were released in January and presented at ASCO in June",
+      "corrected_to": "whose five-year results were presented at ASCO in June",
+      "found_by": "SOURCE returned two WRONG_VALUEs and ADVOCATE a SERIOUS on the same clause",
+      "why_it_survived": "The fetch that established the January date said in the same response that the January release did not contain the 59% figure. The refutation was on screen and the sentence was written anyway. Across three passes of issue one the unverified-claim count went 7, 6, 13, and the rise was almost entirely claims added while fixing earlier findings.",
+      "why_it_matters": "This is the mechanism behind most of the churn. Every fix is a new claim, and a new claim is unverified until it is verified. The publication criterion exists for this: no claim added in a pass that is not itself verified.",
+      "kind": "draft"
+    },
+    {
+      "class": "VERDICT_CONTRADICTS_ITS_OWN_NOTE",
+      "caught_by": "a human reading past the header line",
+      "summary": "SOURCE returned WRONG_VALUE twice in one run while the note beneath each said the draft was right. One read: 'the trial did enroll stage IIIB-IV, so VERIFIED is more accurate than WRONG_VALUE. Revising to VERIFIED.'",
+      "was": "[WRONG_VALUE] stage IIIB-IV ... note: the claim is not materially wrong",
+      "corrected_to": "recorded as decisions; the draft was not changed",
+      "why_it_survived": "The role reasons in the note and then fills the verdict field, and nothing checks that the two agree. The report prints the verdict in the header and the note four lines down, so a run reads as two failures at a glance and as zero on reading.",
+      "why_it_matters": "It inflates the apparent error rate of drafts that are correct, which is the direction that causes needless editing — and needless editing is what introduces FIX_INTRODUCED_THE_ERROR.",
+      "kind": "instrument",
+      "owned_by": "SOURCE"
+    },
+    {
+      "class": "UNSOURCED_ASSERTION_AS_FINDING",
+      "caught_by": "a human checking the registry and the literature",
+      "summary": "ADVOCATE asserted across three runs that KEYNOTE-942 used blinded independent central review for RFS and DMFS, escalating to SERIOUS on the strength of it, and never cited a source. Three sources say otherwise.",
+      "was": "KEYNOTE-942 ... endpoints (RFS, DMFS) were assessed by blinded independent central review — the standard safeguard against open-label bias",
+      "corrected_to": "ClinicalTrials.gov NCT03897881 gives masking NONE and describes the primary outcome only as assessed using radiological imaging; the Lancet abstract describes an open-label trial and names no central review; NCCN's JNCCN 360 report of the ASCO 2024 update says endpoints included investigator-assessed relapse-free survival",
+      "why_it_survived": "Roles that cite URLs are checkable and roles that do not are not. SOURCE returns a url field; ADVOCATE and INFERENCE return prose. An assertion of fact inside a fairness objection gets the authority of a finding without the evidence of one.",
+      "why_it_matters": "A SERIOUS objection blocks publication. One that rests on an unsourced factual claim can block a correct draft indefinitely, and the third appearance came back hedged to 'in some analyses', which is a source-shaped phrase with no source behind it.",
+      "kind": "instrument",
+      "owned_by": "ADVOCATE INFERENCE"
+    },
+    {
+      "class": "INTERNAL_CLAIM_MIS_SCOPED",
+      "caught_by": "a human reading the NOT_FOUND list",
+      "summary": "The extractor sent the publication's own disclosure lines out to be web-searched. SOURCE went looking for CivicScale, found Civica and CivicHealth, and reported it could not verify that the company exists.",
+      "was": "[NOT_FOUND] CivicScale sells healthcare software and takes no outside investment",
+      "corrected_to": "marked internal; no external source can confirm a claim about our own funding",
+      "why_it_survived": "The extractor marks some claims internal and missed these across two runs. Once mis-scoped, SOURCE behaves correctly — it genuinely cannot verify them — so the failure looks like a finding rather than a routing error.",
+      "why_it_matters": "Same direction as VERDICT_CONTRADICTS_ITS_OWN_NOTE: it makes a clean draft read as a failing one.",
+      "kind": "instrument",
+      "owned_by": "SOURCE"
+    },
+    {
+      "class": "ADVOCATE_BLIND_TO_THIRD_PARTIES",
+      "kind": "instrument",
+      "owned_by": "ADVOCATE",
+      "caught_by": "the recall test, 2026-08-27",
+      "summary": "ADVOCATE found no instance of the UNSUPPORTED class on a draft that contains one, and it was the only class no role found at all.",
+      "was": "They are being used to fill the hole where the Phase 3's numbers should be, mostly without saying so.",
+      "corrected_to": "a mandatory sweep of every party the draft characterises other than the subject, added to the prompt",
+      "why_it_survived": "The prompt already lists 'unsupported characterisation of anyone's conduct — ours, a regulator's, another publication's'. The persona is the subject's head of communications, and an accusation against news outlets costs the subject nothing, so the motivation never fires on the bullet that is already there. Nobody in the gate represents the third parties a draft criticises.",
+      "why_it_matters": "This is the class of the accusation against seven named outlets that went out in the broadcast and that an outside reviewer flagged. It is the fairness failure most likely to cost credibility, and until now the gate could not see it."
+    },
+    {
+      "class": "ONE_INSTANCE_PER_CLASS",
+      "kind": "instrument",
+      "owned_by": "ADVOCATE INFERENCE",
+      "caught_by": "the recall test, 2026-08-27",
+      "summary": "INFERENCE found the first instance of MISSING_NUMBER_AS_MISSING_EVIDENCE and missed a second instance of the same class four paragraphs later.",
+      "was": "Of the 1,137-patient trial it is announcing, the quantitative content is nil.",
+      "corrected_to": "REPORT EVERY INSTANCE, NOT EVERY CLASS added to both prompts",
+      "why_it_survived": "The roles return a list of findings and treat a class as discharged once reported. Nothing asks for exhaustiveness within a class.",
+      "why_it_matters": "The endpoint error that reached subscribers is exactly this shape: the page had it right and the email had it wrong, and one instance found is one instance fixed."
+    },
+    {
+      "class": "RECENCY_CHECKS_READOUTS_NOT_FIGURES",
+      "kind": "instrument",
+      "owned_by": "RECENCY",
+      "caught_by": "the recall test, 2026-08-27",
+      "summary": "RECENCY assessed nine studies on a draft seeded with three stale-figure errors and reported none superseded. All three were caught instead by SOURCE, and only as NOT_FOUND.",
+      "was": "0 superseded or unknown, on a draft quoting three-year intervals for a trial whose five-year data it cites by name",
+      "corrected_to": "the prompt now requires pulling the specific figures out of the draft and comparing each against the latest publication",
+      "why_it_survived": "It was answering whether a newer readout exists. It does, and the draft cites it, so every study read as CURRENT. The stale figures sat inside a draft that named the current source.",
+      "why_it_matters": "STALE looked covered because SOURCE happened to catch all three — but as NOT_FOUND, the verdict whose own guidance says it means 'we could not reach a source, not that none exists'. A stale figure that still matches its original source cleanly would pass SOURCE and pass RECENCY, and that is the definition of the class: correct when written."
+    },
+    {
+      "class": "RECALL_DOUBLE_CREDIT",
+      "kind": "instrument",
+      "caught_by": "reading the first recall run's output line by line",
+      "summary": "factcheck_recall.py scored each seeded error against every finding independently, so one INFERENCE finding satisfied two seeded errors four paragraphs apart. The first run reported recall of 12 of 14 when it was 11.",
+      "was": "HAZARD_AS_RISK reported FOUND, matched to the finding about RATIO_AS_LIVES at 0.9",
+      "corrected_to": "greedy one-to-one assignment: highest-scoring pair first, then the finding is spent",
+      "why_it_survived": "The matcher was tested against hand-written paraphrases, one per seed, which is precisely the case that cannot expose it.",
+      "why_it_matters": "A measurement that flatters the instrument is worse than no measurement, because it gets believed. This one was built to answer whether the gate can be trusted and its first answer was half a point too generous."
+    },
+    {
+      "class": "RECALL_READ_THE_WRONG_KEYS",
+      "kind": "instrument",
+      "caught_by": "run v2 printing '[FOUND] ... nothing came close' on the same line",
+      "summary": "factcheck_recall.py read RECENCY findings from keys the role does not return — cited_as, study, newer — where the schema is name, draft_uses, latest_known, status, what_changed. Every RECENCY finding carried an empty quote.",
+      "was": "STALE [FOUND] expect RECENCY / nothing came close",
+      "corrected_to": "draft_uses or name, and the status filter reads CURRENT rather than a 'newer' key that does not exist",
+      "why_it_survived": "The matcher's text channel joined every string value, so RECENCY still matched on figures and the recall number was right. Only the display was wrong, which is the kind of defect that survives because nothing fails.",
+      "why_it_matters": "It made the first run's verdict on RECENCY unreadable, and the first run's verdict on RECENCY was the main finding — a role that had found nothing looked the same as a role whose output could not be read."
+    },
+    {
+      "class": "TWO_FAULTS_ONE_SENTENCE",
+      "kind": "instrument",
+      "caught_by": "SELECTIVE reading as a blind spot in run v2 after being found in run v1",
+      "summary": "Two seeded errors live in one sentence — stale safety figures and a selective read of them. One-to-one assignment gave the finding to whichever seed scored higher and reported the other as MISSED against an unrelated best match.",
+      "was": "BLIND SPOTS — SELECTIVE, on a run where ADVOCATE returned seven objections",
+      "corrected_to": "the loser is now reported with the finding that outscored it, and a note that a human has to read whether that finding is about both faults or only one",
+      "why_it_survived": "One-to-one assignment was added to stop one finding being credited to two seeds, which was a real bug. The fix is right in general and wrong for the case where two genuinely different faults occupy the same sentence, and the fixture contains exactly one such case.",
+      "why_it_matters": "A blind spot is the most consequential thing this test reports. One that is an artefact of the scoring rule would send us to rewrite a prompt that is working."
+    },
+    {
+      "class": "WRONG_READOUT_COMPARISON",
+      "kind": "instrument",
+      "owned_by": "SOURCE",
+      "caught_by": "a human opening the company release, three times",
+      "summary": "SOURCE reports a figure as wrong by comparing it against an earlier readout of the same trial. The numbers it returns are real; they are from the wrong analysis.",
+      "was": "adverse events 59.6/59.6/51.0 called wrong against the 2023 primary analysis, then against the three-year update; five-year RFS rates called a timepoint conflation when both bounds were five-year",
+      "corrected_to": "the prompt now requires establishing that the source describes the same data cut before returning WRONG_VALUE, and NOT_FOUND when it cannot",
+      "why_it_survived": "The role's evidence looks impeccable — a real figure from a real primary source — so the finding reads as solid unless a human already knows which readout is which. RECENCY had the right answer in the same run all three times and the two roles cannot see each other.",
+      "why_it_matters": "It manufactures errors in correct drafts, which is the direction that causes needless editing, and needless editing is what introduces real errors."
     }
   ],
   "standing_rules": [
@@ -140,5 +305,11 @@
     "false_positives": "Three. The adverse-event rates (fatigue 59.6%, injection-site pain 59.6%, chills 51.0%) were flagged WRONG_VALUE against a 2023 release; they are verbatim in the five-year release and are correct. 'n=14' was flagged as misrepresenting an event count; the release says '(n=14)' and it is 14 deaths. The ASCO Post date was flagged unconfirmed in one run and confirmed exactly in the other.",
     "nondeterminism": "The two runs disagreed with each other on the ASCO Post date and on the adverse-event rates, from near-identical inputs. The gate's own findings need verifying before they are acted on, exactly as a draft's do.",
     "fixture_result": "Six of eight planted errors caught cleanly, including the invented p = 0.0031 identified as appearing in no source for any timepoint, and the contradiction between a Checking note calling figures unverifiable and the body printing them. Two partial: the stale irAE rates were not isolated, and the missing grade 3+ toxicity was not flagged as an omission. One fixture construction flaw: the Checking footer still carried corrected-version text, so the DMFS easing phrase leaked into a draft that was supposed to omit it."
+  },
+  "how_to_add_one": "When something wrong reaches a reader — a correction email, a mistake noticed after publishing, a figure that turns out not to hold — add an entry with caught_by 'nothing' and say in why_it_survived which role should have caught it and why it did not. Then add an instance of that class to factcheck_broken_fixture.html and its answer key, so the recall test measures it from then on. An entry that is never seeded is a note, not a test.",
+  "kinds": {
+    "draft": "An error in the writing. Goes to the role that should catch it, as a checklist of what to look for.",
+    "instrument": "A defect in the gate itself — a role that returned the wrong answer, or the wrong shape of answer. Goes to the role that made it, as a description of its own failure mode. owned_by names that role, since caught_by will say a human.",
+    "process": "Neither. A failure of what was checked, or when. No role can find these in a draft and none is given them; they are fixed in code."
   }
 }

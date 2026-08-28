@@ -88,6 +88,7 @@ import os
 import re
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -102,6 +103,92 @@ MAX_SEARCHES_PER_CALL = 12
 
 BACKOFF_DELAYS = [5, 15, 40]
 JSON_RETRIES = 2
+
+# ---------------------------------------------------------------------------
+# what a run costs
+#
+# Until now a gate report recorded which model ran and not a single token, so
+# the cost of publishing an issue was a feeling rather than a number. It cannot
+# be priced against, and it cannot be optimised: nobody could say which of the
+# six roles was expensive, or whether a role that stopped finding things was
+# still worth its share.
+#
+# Every API response carries usage. This records it, per role, and prices it.
+#
+# PRICES ARE A COPY, AND COPIES GO STALE. Read from
+# https://platform.claude.com/docs/en/about-claude/pricing on 2026-08-28. A
+# model absent from this table is reported in tokens with cost left null rather
+# than guessed — a made-up number here would be worse than no number, because
+# it would be used.
+# ---------------------------------------------------------------------------
+
+PRICES_CHECKED = "2026-08-28"
+PRICES = {                       # US dollars per million tokens
+    "claude-sonnet-4-6": {"input": 3.00, "output": 15.00,
+                          "cache_write": 3.75, "cache_read": 0.30},
+    "claude-opus-4-6":   {"input": 5.00, "output": 25.00,
+                          "cache_write": 6.25, "cache_read": 0.50},
+}
+WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
+
+USAGE = []                       # one entry per API response, in call order
+
+
+def _record_usage(label, response):
+    """Append what one response cost us. Never raises: this is bookkeeping."""
+    try:
+        u = getattr(response, "usage", None)
+        if u is None:
+            return
+        def n(attr):
+            return int(getattr(u, attr, 0) or 0)
+        searches = 0
+        stu = getattr(u, "server_tool_use", None)
+        if stu is not None:
+            searches = int(getattr(stu, "web_search_requests", 0) or 0)
+        USAGE.append({
+            "label": label or "call",
+            "model": getattr(response, "model", SIGNAL_MODEL),
+            "input": n("input_tokens"),
+            "output": n("output_tokens"),
+            "cache_write": n("cache_creation_input_tokens"),
+            "cache_read": n("cache_read_input_tokens"),
+            "web_searches": searches,
+        })
+    except Exception:
+        pass
+
+
+def usage_summary(entries=None):
+    """Totals overall and per role, priced where the model is in the table."""
+    entries = USAGE if entries is None else entries
+    def blank():
+        return {"calls": 0, "input": 0, "output": 0, "cache_write": 0,
+                "cache_read": 0, "web_searches": 0, "usd": 0.0, "priced": True}
+    total, by_role, models = blank(), {}, set()
+    for e in entries:
+        models.add(e["model"])
+        price = PRICES.get(e["model"])
+        cost = None
+        if price:
+            cost = (e["input"] * price["input"]
+                    + e["output"] * price["output"]
+                    + e["cache_write"] * price["cache_write"]
+                    + e["cache_read"] * price["cache_read"]) / 1_000_000.0
+            cost += e["web_searches"] * WEB_SEARCH_PER_1000 / 1000.0
+        for bucket in (total, by_role.setdefault(e["label"], blank())):
+            bucket["calls"] += 1
+            for k in ("input", "output", "cache_write", "cache_read", "web_searches"):
+                bucket[k] += e[k]
+            if cost is None:
+                bucket["priced"] = False
+            else:
+                bucket["usd"] += cost
+    for bucket in [total] + list(by_role.values()):
+        bucket["usd"] = round(bucket["usd"], 4) if bucket["priced"] else None
+    return {"total": total, "by_role": by_role,
+            "models": sorted(models), "prices_checked": PRICES_CHECKED,
+            "prices_source": "https://platform.claude.com/docs/en/about-claude/pricing"}
 
 KNOWN_ERRORS = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "factcheck_known_errors.json"
 
@@ -209,6 +296,7 @@ def call(system: str, user: str, *, search: bool, max_tokens: int = 8000, label:
                     messages=[{"role": "user", "content": user}],
                     **kwargs,
                 )
+                _record_usage(label, response)
                 break
             except Exception as exc:
                 err = str(exc)
@@ -296,6 +384,211 @@ A number that appears in the draft with no source credited still gets
 extracted, with attributed_to set to null. Those are the dangerous ones."""
 
 
+# ---------------------------------------------------------------------------
+# what we have already learned
+# ---------------------------------------------------------------------------
+#
+# KNOWN_ERRORS held twenty recorded error classes and was read by exactly two
+# things: the --known-errors flag, which prints it for a human, and --verify,
+# which checks the file exists. No role had ever been told one of them. The
+# gate re-derived what to look for from nothing on every run, and it showed:
+# MISSING_NUMBER_AS_MISSING_EVIDENCE was recorded on 26 August and rediscovered
+# as a SERIOUS finding on 27 August, one day later, in a new draft.
+#
+# The risk of doing this is over-firing: a role told "here are mistakes we have
+# made" may report them whether or not they are present, which inflates the
+# false-positive rate in exactly the classes we care most about. That is what
+# factcheck_recall.py exists to measure. Do not change this block without
+# running it before and after.
+
+RECALL_BRIEF_LIMIT = 8
+
+
+def recall_brief(role: str) -> str:
+    """The recorded error classes this role is expected to catch, as prompt text."""
+    if not KNOWN_ERRORS.exists():
+        return ""
+    try:
+        data = json.loads(KNOWN_ERRORS.read_text())
+    except Exception as exc:
+        print(f"[WARN] Could not read {KNOWN_ERRORS.name}: {exc}. "
+              f"{role} runs without the recorded classes.")
+        return ""
+
+    mine, mine_own = [], []
+    for e in data.get("errors", []):
+        # A retracted entry is a mistake about a mistake. Priming a role with
+        # one would teach it to find something that was never there.
+        summary = e.get("summary") or ""
+        if summary.startswith("RETRACTED"):
+            continue
+        kind = e.get("kind", "draft")
+        if kind == "process":
+            # A failure of what was checked, or when. No role can find one of
+            # these by reading a draft, and listing it would send them looking.
+            continue
+        caught = e.get("caught_by") or ""
+        shipped = "nothing" in caught
+        entry = (e.get("class", "?"), summary, e.get("was") or "", shipped)
+        if kind == "instrument":
+            if role in (e.get("owned_by") or ""):
+                mine_own.append(entry)
+        # Own the classes this role caught before, and every class that reached
+        # a reader uncaught — those belong to whichever role reads at that
+        # resolution, and being unowned is how they got out.
+        elif role in caught or (shipped and role in ("SOURCE", "ADVOCATE", "INFERENCE")):
+            mine.append(entry)
+    if not mine and not mine_own:
+        return ""
+
+    mine.sort(key=lambda x: (not x[3], x[0]))       # errors that shipped first
+    lines = []
+    if mine:
+        lines += [
+            "",
+            "RECORDED MISTAKES IN EARLIER DRAFTS.",
+            "Real errors this publication has made, kept so the same kind is not",
+            "made twice. They are NOT present in the draft you are reading unless",
+            "you find them there. Reporting one that is not there is itself an",
+            "error, and a costly one: it sends an editor to rewrite a correct",
+            "sentence, which is how new errors get introduced. Use them as a",
+            "checklist of what to look for, never as a list of what to report.",
+            "Where one IS present, name the class.",
+            "",
+        ]
+        for cls, summary, was, shipped in mine[:RECALL_BRIEF_LIMIT]:
+            lines.append(f"- {cls}{' (this one reached readers)' if shipped else ''}: {summary}")
+            if was:
+                lines.append(f"    it read: \"{was[:160]}\"")
+    if mine_own:
+        lines += [
+            "",
+            "YOUR OWN RECORDED FAILURE MODES.",
+            "Not errors in any draft — ways this check has itself returned a wrong",
+            "answer. Read them as instructions about your own output.",
+            "",
+        ]
+        for cls, summary, _was, _shipped in mine_own[:RECALL_BRIEF_LIMIT]:
+            lines.append(f"- {cls}: {summary}")
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# incremental re-runs
+# ---------------------------------------------------------------------------
+#
+# A three-word fix invalidates the report, because the guard is keyed on the
+# content hash — correctly: publishing text nobody checked is the failure that
+# started all of this. But it meant a full six-role sweep of a 26,000-character
+# page to re-clear one sentence, and the sweep is a sampler: it draws a fresh
+# handful of objections from a large space every time, so each run finds new
+# things whether or not the draft got worse. That is what an endless loop feels
+# like from the inside.
+#
+# The fix is to re-check what changed and carry forward what did not, saying so
+# in the report. The roles split cleanly by what they actually depend on:
+#
+#   SOURCE    depends on the claim. A claim whose sentence is untouched has the
+#             same verdict it had, and re-searching it is spend without signal.
+#             Failed verdicts are always re-run — those are the ones we edited
+#             the draft to fix.
+#   RECENCY   depends on the literature, not our wording. Nothing we write
+#             makes a five-year readout appear. Time-based, not edit-based.
+#   COVERAGE  depends on what other people published. Same.
+#   ADVOCATE  read the whole document and are where lede-versus-body drift
+#   INFERENCE surfaces. These ALWAYS re-run: scoping them to the diff is what
+#             would let a fixed sentence break a distant one, which is the
+#             exact failure that put "both endpoints" in one file and not the
+#             other.
+
+RECENCY_FRESH_DAYS = 7
+COVERAGE_FRESH_DAYS = 14
+
+
+def _days_since(datestr: str | None) -> float:
+    if not datestr:
+        return 1e9
+    try:
+        then = datetime.strptime(datestr[:10], "%Y-%m-%d")
+    except Exception:
+        return 1e9
+    return (datetime.now() - then).days
+
+
+def load_prior(path: str | None) -> dict:
+    if not path:
+        return {}
+    p = Path(path)
+    if not p.exists():
+        print(f"[WARN] --since {p} does not exist. Running everything.")
+        return {}
+    try:
+        return json.loads(p.read_text())
+    except Exception as exc:
+        print(f"[WARN] --since {p} unreadable ({exc}). Running everything.")
+        return {}
+
+
+def carry_verdicts(claims: list[dict], prior: dict) -> tuple[list[dict], dict, int]:
+    """Split claims into (needs checking, carried verdicts, carried count).
+
+    Keyed on the FIGURE and the source the draft credits, not on the claim
+    sentence. The first version matched sentences and carried 12 of 43 where an
+    offline test predicted 30: the extractor is a model, it rewords the claim it
+    writes on every run, and matching prose across runs of a paraphraser matches
+    almost nothing. The figure is lifted from the draft, so it is a string the
+    draft owns and the extractor only copies.
+
+    A figure can legitimately appear in two claims, so a key that is ambiguous
+    on either side is not carried — it falls through to a fresh check, which is
+    the safe direction. Claim text is kept as a fallback for claims with no
+    figure at all.
+    """
+    def key(c):
+        fig = _norm(c.get("figure") or "")
+        src = _norm(c.get("attributed_to") or "")
+        return (fig, src) if fig else None
+
+    old_claims = {c["id"]: c for c in prior.get("claims", [])}
+    old_verdicts = prior.get("verdicts") or {}
+
+    by_key, by_text, seen = {}, {}, set()
+    for cid, v in old_verdicts.items():
+        c = old_claims.get(cid)
+        if not c:
+            continue
+        k = key(c)
+        if k:
+            # Ambiguous on the old side: remember it, then refuse it.
+            if k in by_key:
+                seen.add(k)
+            by_key[k] = v
+        by_text[_norm(c.get("claim", ""))] = v
+    for k in seen:
+        by_key.pop(k, None)
+
+    new_keys = {}
+    for c in claims:
+        k = key(c)
+        if k:
+            new_keys[k] = new_keys.get(k, 0) + 1
+
+    todo, carried = [], {}
+    for c in claims:
+        k = key(c)
+        v = None
+        if k and new_keys.get(k) == 1:          # unambiguous on the new side too
+            v = by_key.get(k)
+        if v is None:
+            v = by_text.get(_norm(c.get("claim", "")))
+        if v and v.get("verdict") == "VERIFIED":
+            carried[c["id"]] = {**v, "id": c["id"],
+                                "carried_from": prior.get("sha256", "")[:16]}
+        else:
+            todo.append(c)
+    return todo, carried, len(carried)
+
+
 def extract_claims(draft: str) -> list[dict] | None:
     print("[1/6] Extracting checkable claims...")
     out = call(
@@ -359,7 +652,28 @@ NOT_FOUND    you could not find this figure in any source you could reach.
 NOT_FOUND is the correct verdict when you cannot reach the source. Do not
 guess, and do not mark something VERIFIED because it sounds right or because
 you remember it. If you could not open the document, say NOT_FOUND and explain
-in the note. An unverifiable claim is a failure, not a pass."""
+in the note. An unverifiable claim is a failure, not a pass.
+
+MATCH THE ANALYSIS, NOT JUST THE TRIAL. A trial reports the same measures again
+at each readout, and the numbers change. Before calling a figure wrong, check
+that the source you found describes the SAME analysis the draft is describing —
+same data cut, same follow-up, same timepoint. On this publication that check
+has failed three times: adverse-event rates from a five-year readout were
+reported as wrong against the primary analysis and then against the three-year
+update, and a confidence interval was called a conflation of timepoints when
+both bounds were the five-year ones. The figures returned each time were real.
+They were from the wrong readout.
+
+If the draft's figure and your source's figure differ, say which analysis each
+belongs to. If you cannot establish that, the verdict is NOT_FOUND — you could
+not reach the right source — and not WRONG_VALUE.
+
+QUOTATIONS. When the draft puts words in quotation marks, find THAT sentence
+before judging it. A release often says a similar thing twice in different
+words; matching the paraphrase and reporting the quotation as invented is the
+worst error available to you, because misquotation is the accusation this
+publication can least afford to have made falsely.
+"""
 
 
 def audit_sources(claims: list[dict], draft_title: str) -> dict[str, dict]:
@@ -383,7 +697,7 @@ def audit_sources(claims: list[dict], draft_title: str) -> dict[str, dict]:
             "claims": [{"id": c["id"], "figure": c.get("figure"), "claim": c.get("claim")} for c in items],
         }
         out = call(
-            SOURCE_SYSTEM,
+            SOURCE_SYSTEM + recall_brief("SOURCE"),
             "Verify each claim below against primary sources you find yourself.\n\n"
             + json.dumps(payload, indent=2),
             search=True, label=f"source:{shown[:30]}",
@@ -444,6 +758,15 @@ Return ONLY a JSON object:
   ]
 }
 
+Check the FIGURES, not just the readouts. On a seeded test draft this check
+assessed nine studies and reported none superseded, while the draft quoted
+three-year hazard-ratio intervals for a trial whose five-year data it also
+cited by name. A newer readout existing is not the question; the question is
+whether every number the draft prints is the number that readout gives. Pull
+the specific hazard ratios, intervals, event rates and percentages out of the
+draft and compare each against the latest publication. A draft that names the
+five-year data and quotes the three-year interval is SUPERSEDED.
+
 SUPERSEDED means a newer readout exists that changes figures the draft uses.
 UNKNOWN means you could not establish either way — treat as a failure, not a
 pass. Do not report CURRENT merely because you found nothing; report CURRENT
@@ -453,7 +776,7 @@ only if you positively confirmed the cited readout is the latest."""
 def sweep_recency(draft: str, today: str) -> dict | None:
     print("[3/6] Recency sweep...")
     out = call(
-        RECENCY_SYSTEM,
+        RECENCY_SYSTEM + recall_brief("RECENCY"),
         f"Today's date is {today}. Draft follows.\n\n---\n{draft}\n---",
         search=True, label="recency",
     )
@@ -497,15 +820,56 @@ Return ONLY a JSON array:
 SERIOUS means you would ask for a correction and would likely get one.
 MINOR means you would grumble but not escalate.
 
+BEFORE YOU RETURN, DO THIS SWEEP.
+List every party the draft characterises other than us — news outlets,
+journals, regulators, other companies, "the coverage", "most reporting". For
+each, find the sentence that characterises them and ask what evidence the
+draft offers. An accusation against a third party costs us nothing, so you
+will not feel it the way you feel one against us; check it anyway. On a seeded
+test draft this role read past "they are being used to fill the hole where the
+Phase 3's numbers should be, mostly without saying so" — an accusation against
+named outlets, unevidenced and untrue — because it was not about us. That is
+the objection a wronged third party would make, and nobody else here is
+looking for it.
+
+REPORT EVERY INSTANCE, NOT EVERY CLASS. If the same fault appears in three
+sentences, return three objections. On the same test draft one instance of a
+class was found and a second instance of it, four paragraphs later, was not —
+which is how a fault gets fixed in one place and published in another.
+
 Return an empty array if you have no objection. Do not invent grievances to
 appear thorough — a draft that is hard on us but accurate is not objectionable,
-and saying so is more useful than a list of complaints nobody would act on."""
+and saying so is more useful than a list of complaints nobody would act on.
+
+CLASSIFY EVERY FINDING. Add a "class" field, one of four values. The test is
+one question: **if a reader found this after publication, would we have to
+print a correction?**
+
+  "FACT"          A figure, date, name, endpoint, or attribution that a source
+                  contradicts. We would have to correct it.
+  "CONTRADICTION" The piece disagrees with itself — the summary says one thing
+                  and the body another, or it states a rule and then breaks it.
+                  We would have to correct it.
+  "THIRD_PARTY"   A claim about what someone else did, said, failed to do, or
+                  withheld, offered without evidence. We would have to correct
+                  it, and they would be right to ask.
+  "CALIBRATION"   Everything else. A phrasing that could be sharper, an
+                  ordering that could be fairer, a word carrying more weight
+                  than it should, an omission you would have handled
+                  differently. Real, worth saying, and not a correction.
+
+CALIBRATION findings do not block publication. They are recorded and the piece
+publishes. This is deliberate: there is always a defensible alternative
+phrasing, so a check that blocks on phrasing never stops. Do not reach for a
+blocking class to make a finding count — a CALIBRATION finding you argue well
+is more useful than a FACT label that does not survive the question above.
+"""
 
 
 def advocate(draft: str) -> list[dict] | None:
     print("[4/6] Subject's advocate...")
     out = call(
-        ADVOCATE_SYSTEM,
+        ADVOCATE_SYSTEM + recall_brief("ADVOCATE"),
         f"Draft follows.\n\n---\n{draft}\n---",
         search=True, label="advocate",
     )
@@ -605,13 +969,43 @@ impression stronger than the numbers carry.
 
 Return an empty array if the inferences are sound. A draft that reaches a
 sceptical conclusion the evidence supports is not a finding — say nothing
-rather than manufacture one."""
+rather than manufacture one.
+
+REPORT EVERY INSTANCE, NOT EVERY CLASS. If the same fault appears in three
+sentences, return three findings. On a seeded test draft this role found one
+instance of a class and missed a second instance of the same class four
+paragraphs later, which is how a fault gets fixed in one place and published
+in another.
+
+CLASSIFY EVERY FINDING. Add a "class" field, one of four values. The test is
+one question: **if a reader found this after publication, would we have to
+print a correction?**
+
+  "FACT"          A figure, date, name, endpoint, or attribution that a source
+                  contradicts. We would have to correct it.
+  "CONTRADICTION" The piece disagrees with itself — the summary says one thing
+                  and the body another, or it states a rule and then breaks it.
+                  We would have to correct it.
+  "THIRD_PARTY"   A claim about what someone else did, said, failed to do, or
+                  withheld, offered without evidence. We would have to correct
+                  it, and they would be right to ask.
+  "CALIBRATION"   Everything else. A phrasing that could be sharper, an
+                  ordering that could be fairer, a word carrying more weight
+                  than it should, an omission you would have handled
+                  differently. Real, worth saying, and not a correction.
+
+CALIBRATION findings do not block publication. They are recorded and the piece
+publishes. This is deliberate: there is always a defensible alternative
+phrasing, so a check that blocks on phrasing never stops. Do not reach for a
+blocking class to make a finding count — a CALIBRATION finding you argue well
+is more useful than a FACT label that does not survive the question above.
+"""
 
 
 def inference(draft: str) -> list[dict] | None:
     print("[5/6] Statistical inference...")
     out = call(
-        INFERENCE_SYSTEM,
+        INFERENCE_SYSTEM + recall_brief("INFERENCE"),
         f"Draft follows.\n\n---\n{draft}\n---",
         search=True, label="inference",
     )
@@ -734,13 +1128,19 @@ def coverage(draft: str) -> dict | None:
 DECISIONS = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "draft_decisions.json"
 
 
+EDGE = " \t\n\"'`.,;:!?()[]{}-"
+
+
 def _norm(text: str) -> str:
     """Compare quotes without being defeated by smart quotes or whitespace."""
     t = (text or "").lower()
     for a, b in (("\u201c", '"'), ("\u201d", '"'), ("\u2018", "'"), ("\u2019", "'"),
                  ("\u2014", "-"), ("\u2013", "-"), ("\u2026", "...")):
         t = t.replace(a, b)
-    return " ".join(t.split())
+    # Edge punctuation is stripped because one run quoted a sentence with its
+    # closing full stop and the next quoted the same sentence without it, and
+    # that one character was enough to report a recorded decision as NEW.
+    return " ".join(t.split()).strip(EDGE)
 
 
 def load_decisions(path: Path, draft: str) -> dict:
@@ -760,19 +1160,71 @@ def load_decisions(path: Path, draft: str) -> dict:
     return out
 
 
-def classify(role: str, quote: str, severity: str, decisions: dict) -> tuple[str, dict | None]:
-    """NEW, ADJUDICATED or STALE.
+# The gate chooses the span it quotes afresh on every run. The same objection
+# came back once as a whole sentence and once as a seven-word clause inside
+# that sentence, and a recorded decision differed from the reported quote by a
+# single trailing full stop — so exact keying reported both as NEW and the
+# adjudication record read as empty on a run where it was not. Containment is
+# the relation that actually holds between two spans of one sentence, so try
+# the exact key first and fall back to it.
+#
+# MIN_OVERLAP stops a short quote from swallowing findings it was never about.
+# Edit the sentence and neither string contains the other, which is still the
+# property the whole record depends on: a decision was about that sentence.
+MIN_OVERLAP = 40
+
+
+def orphaned(decisions: dict, draft: str) -> list[tuple[str, str]]:
+    """Decisions whose sentence is no longer anywhere in the draft.
+
+    The fixture says a dead decision is dead weight rather than a record, but
+    nothing was checking, and a hand-rolled check that missed one HTML entity
+    deleted a live decision. This uses the same normalisation the matcher does,
+    against the prose the roles actually see, and only reports — removing a
+    decision is a human's call.
+
+    SOURCE decisions are skipped: they are keyed on the claim sentence the
+    extractor writes, which is a paraphrase and is not expected to appear in
+    the draft verbatim.
+    """
+    body = _norm(draft)
+    out = []
+    for (role, q), d in decisions.items():
+        if role == "SOURCE" or not q:
+            continue
+        if q not in body:
+            out.append((role, d.get("quote", q)))
+    return out
+
+
+def classify(role: str, quote: str, severity: str,
+             decisions: dict) -> tuple[str, dict | None, str]:
+    """NEW, ADJUDICATED or STALE, plus how the decision was matched.
 
     STALE means a decision exists but the severity has moved since it was made.
     A judgment accepted as MINOR is not thereby accepted as SERIOUS, and the
     difference has to reach a human rather than being absorbed silently.
     """
-    d = decisions.get((role, _norm(quote)))
+    q = _norm(quote)
+    d, how = decisions.get((role, q)), "exact"
     if not d:
-        return "NEW", None
+        for (r, dq), cand in decisions.items():
+            if r != role or min(len(dq), len(q)) < MIN_OVERLAP:
+                continue
+            if dq in q or q in dq:
+                d, how = cand, "overlap"
+                break
+    if not d:
+        return "NEW", None, ""
+    if how == "overlap":
+        # Same sentence, possibly a different fault in it. Comparing severities
+        # across two objections that are not the same objection would be
+        # meaningless, so this never reports STALE — it reports itself and
+        # lets a human decide whether it is the finding already accepted.
+        return "OVERLAP", d, how
     if (d.get("severity") or "").upper() != (severity or "").upper():
-        return "STALE", d
-    return "ADJUDICATED", d
+        return "STALE", d, how
+    return "ADJUDICATED", d, how
 
 
 # ---------------------------------------------------------------------------
@@ -794,16 +1246,32 @@ def render(claims, verdicts, recency, objections, inferences, cov,
     internal = [v for v in verdicts.values() if v.get("verdict") == "INTERNAL"]
     bad = [v for v in verdicts.values() if v.get("verdict") not in ("VERIFIED", "INTERNAL")]
     checked = len(verdicts) - len(internal)
-    lines.append("")
-    lines.append("=" * 72)
-    lines.append(f"CLAIMS   {checked} external · {checked - len(bad)} verified · {len(bad)} not"
-                 + (f"  ({len(internal)} internal, not source-checkable)" if internal else ""))
-    lines.append("=" * 72)
+    # Header last: how many of the failures are already decided is not known
+    # until the loop has run, and a header that says "5 not" above an empty
+    # list reads as truncation rather than as adjudication.
+    head, lines = lines, []
+    # The claims block had no adjudication path at all: a figure the source role
+    # cannot reach, or reads without the clause that attributes it, blocked
+    # every run for ever. It is keyed on the claim sentence rather than the
+    # figure, because the figure comes back as "49%" one run and "49% and 59%"
+    # the next, and because a sentence is long enough for the overlap match.
     for v in sorted(bad, key=lambda x: x.get("id", "")):
         c = by_id.get(v.get("id"), {})
+        kind, dec, how = classify("SOURCE", c.get("claim", ""), v.get("verdict", ""), decisions)
+        if kind == "ADJUDICATED":
+            adjudicated.append(("SOURCE", v.get("verdict"),
+                                (c.get("figure") or c.get("claim") or "")[:90], dec, how))
+            continue
+        if kind == "STALE":
+            moved_since.append(("SOURCE", v.get("verdict"),
+                                (c.get("figure") or c.get("claim") or "")[:90], dec, how))
         failed = True
         lines.append("")
-        lines.append(f"  [{v.get('verdict')}] {c.get('figure') or c.get('claim') or v.get('id')}")
+        lines.append(f"  [{kind} · {v.get('verdict')}] "
+                     f"{c.get('figure') or c.get('claim') or v.get('id')}")
+        if kind == "OVERLAP":
+            lines.append(f"     already decided about this claim, on other "
+                         f"grounds: {dec.get('reason', '')[:150]}")
         if c.get("attributed_to"):
             lines.append(f"     draft credits : {c['attributed_to']}")
         if v.get("found_value"):
@@ -814,6 +1282,15 @@ def render(claims, verdicts, recency, objections, inferences, cov,
             lines.append(f"     note          : {v['note']}")
         if v.get("url"):
             lines.append(f"     checked       : {v['url']}")
+
+    settled = sum(1 for a in adjudicated if a[0] == "SOURCE")
+    head.append("")
+    head.append("=" * 72)
+    head.append(f"CLAIMS   {checked} external · {checked - len(bad)} verified · {len(bad)} not"
+                + (f", {settled} already decided" if settled else "")
+                + (f"  ({len(internal)} internal, not source-checkable)" if internal else ""))
+    head.append("=" * 72)
+    lines = head + lines
 
     unreached = [v for v in bad if v.get("verdict") == "NOT_FOUND"]
     if unreached:
@@ -852,16 +1329,26 @@ def render(claims, verdicts, recency, objections, inferences, cov,
     lines.append(f"FAIRNESS {len(objections or [])} objection(s) · {len(serious)} serious")
     lines.append("=" * 72)
     for o in (objections or []):
-        kind, dec = classify("ADVOCATE", o.get("quote", ""), o.get("severity", ""), decisions)
+        kind, dec, how = classify("ADVOCATE", o.get("quote", ""), o.get("severity", ""), decisions)
         if kind == "ADJUDICATED":
-            adjudicated.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec))
+            adjudicated.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec, how))
             continue
         if kind == "STALE":
-            moved_since.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec))
-        if o.get("severity") == "SERIOUS":
+            moved_since.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec, how))
+        # Missing class means an older report, or a role that did not answer:
+        # fail closed, because an unclassified finding is not a cleared one.
+        if o.get("severity") == "SERIOUS" and o.get("class", "") != "CALIBRATION":
             failed = True
         lines.append("")
-        lines.append(f"  [{kind} · {o.get('severity')}] {o.get('objection')}")
+        lines.append(f"  [{kind} · {o.get('severity')} · "
+                     f"{o.get('class', 'UNCLASSIFIED')}] {o.get('objection')}")
+        if kind == "OVERLAP":
+            lines.append(f"     already decided about this sentence, on other "
+                         f"grounds: {dec.get('reason', '')[:150]}")
+            lines.append("     If this is that same finding, it is settled. If it "
+                         "is a different")
+            lines.append("     fault in the same sentence, it is new and needs its "
+                         "own decision.")
         if o.get("quote"):
             lines.append(f"     quote         : “{o['quote']}”")
         if o.get("why"):
@@ -875,16 +1362,24 @@ def render(claims, verdicts, recency, objections, inferences, cov,
     lines.append(f"INFERENCE {len(inferences or [])} finding(s) · {len(serious_inf)} serious")
     lines.append("=" * 72)
     for i in (inferences or []):
-        kind, dec = classify("INFERENCE", i.get("quote", ""), i.get("severity", ""), decisions)
+        kind, dec, how = classify("INFERENCE", i.get("quote", ""), i.get("severity", ""), decisions)
         if kind == "ADJUDICATED":
-            adjudicated.append(("INFERENCE", i.get("severity"), i.get("problem"), dec))
+            adjudicated.append(("INFERENCE", i.get("severity"), i.get("problem"), dec, how))
             continue
         if kind == "STALE":
-            moved_since.append(("INFERENCE", i.get("severity"), i.get("problem"), dec))
-        if i.get("severity") == "SERIOUS":
+            moved_since.append(("INFERENCE", i.get("severity"), i.get("problem"), dec, how))
+        if i.get("severity") == "SERIOUS" and i.get("class", "") != "CALIBRATION":
             failed = True
         lines.append("")
-        lines.append(f"  [{kind} · {i.get('severity')}] {i.get('problem')}")
+        lines.append(f"  [{kind} · {i.get('severity')} · "
+                     f"{i.get('class', 'UNCLASSIFIED')}] {i.get('problem')}")
+        if kind == "OVERLAP":
+            lines.append(f"     already decided about this sentence, on other "
+                         f"grounds: {dec.get('reason', '')[:150]}")
+            lines.append("     If this is that same finding, it is settled. If it "
+                         "is a different")
+            lines.append("     fault in the same sentence, it is new and needs its "
+                         "own decision.")
         if i.get("quote"):
             lines.append(f"     quote         : \u201c{i['quote']}\u201d")
         if i.get("correct_reading"):
@@ -910,19 +1405,26 @@ def render(claims, verdicts, recency, objections, inferences, cov,
         if b.get("url"):
             lines.append(f"     {b['url']}")
     for c in contra:
-        kind, dec = classify("COVERAGE", c.get("quote", ""), c.get("severity", ""), decisions)
+        kind, dec, how = classify("COVERAGE", c.get("quote", ""), c.get("severity", ""), decisions)
         if kind == "ADJUDICATED":
             adjudicated.append(("COVERAGE", c.get("severity"),
-                                c.get("counterexample", "")[:90], dec))
+                                c.get("counterexample", "")[:90], dec, how))
             continue
         if kind == "STALE":
             moved_since.append(("COVERAGE", c.get("severity"),
-                          c.get("counterexample", "")[:90], dec))
+                          c.get("counterexample", "")[:90], dec, how))
         if c.get("severity") == "SERIOUS":
             failed = True
         lines.append("")
         lines.append(f"  [{kind} · {c.get('severity')}] the draft's claim about the "
                      "coverage is contradicted")
+        if kind == "OVERLAP":
+            lines.append(f"     already decided about this sentence, on other "
+                         f"grounds: {dec.get('reason', '')[:150]}")
+            lines.append("     If this is that same finding, it is settled. If it "
+                         "is a different")
+            lines.append("     fault in the same sentence, it is new and needs its "
+                         "own decision.")
         if c.get("quote"):
             lines.append(f"     quote         : \u201c{c['quote']}\u201d")
         if c.get("counterexample"):
@@ -936,6 +1438,25 @@ def render(claims, verdicts, recency, objections, inferences, cov,
         lines.append("  What this piece can add that careful coverage does not:")
         lines.append(f"     {cov['what_this_piece_can_add']}")
 
+    calib = [f for f in (objections or []) + (inferences or [])
+             if isinstance(f, dict) and f.get("class") == "CALIBRATION"]
+    if calib:
+        lines.append("")
+        lines.append("=" * 72)
+        lines.append(f"CALIBRATION  {len(calib)} finding(s) recorded, none blocking")
+        lines.append("=" * 72)
+        lines.append("")
+        lines.append("  Matters of phrasing, ordering, emphasis and degree. Real, and not")
+        lines.append("  corrections. There is always a defensible alternative wording, so a")
+        lines.append("  check that blocks on wording never stops. Read them; fix what you")
+        lines.append("  agree with; publish either way.")
+        for f in calib:
+            what = f.get("objection") or f.get("problem") or ""
+            lines.append("")
+            lines.append(f"  [{f.get('severity')}] {what[:150]}")
+            if f.get("quote"):
+                lines.append(f"     quote : {f['quote'][:120]}")
+
     lines.append("")
     lines.append("=" * 72)
     lines.append(f"ADJUDICATION  {len(adjudicated)} already decided · {len(moved_since)} moved since")
@@ -944,13 +1465,16 @@ def render(claims, verdicts, recency, objections, inferences, cov,
         failed = True
         lines.append("")
         lines.append("  Decided once, reported differently now — read these again:")
-        for role, sev, what, dec in moved_since:
+        for role, sev, what, dec, how in moved_since:
             lines.append(f"    [{role}] was {dec.get('severity')}, now {sev}: {what}")
+            if how == "overlap":
+                lines.append(f"        matched by overlap with: {dec.get('quote', '')[:80]}")
     if adjudicated:
         lines.append("")
         lines.append("  Read before and accepted, not repeated above:")
-        for role, sev, what, dec in adjudicated:
-            lines.append(f"    [{role} {sev}] {what}")
+        for role, sev, what, dec, how in adjudicated:
+            lines.append(f"    [{role} {sev}] {what}"
+                         + ("  (matched by overlap)" if how == "overlap" else ""))
             lines.append(f"        {dec.get('decided', '?')}: {dec.get('reason', '')}")
     if not adjudicated and not moved_since:
         lines.append("")
@@ -969,6 +1493,13 @@ def main():
                     help="Record of findings already read and accepted. Findings "
                          "matching one are reported as ADJUDICATED and do not block; "
                          "a finding whose severity has moved since is STALE and does.")
+    ap.add_argument("--since", metavar="REPORT",
+                    help="A previous gate report for this draft. Claims whose sentences "
+                         "are unchanged keep their verdicts; RECENCY and COVERAGE are "
+                         "carried if recent, because they depend on the world and not on "
+                         "our wording. ADVOCATE and INFERENCE always re-run: they are the "
+                         "whole-document readers and scoping them to the diff is how a "
+                         "fixed sentence breaks a distant one.")
     ap.add_argument("--verify", action="store_true", help="Check credentials and exit.")
     ap.add_argument("--known-errors", action="store_true",
                     help="Print the recorded error classes this gate exists to catch.")
@@ -1064,17 +1595,50 @@ def main():
         print("\n[BLOCKED] Could not extract claims. Nothing was checked.")
         sys.exit(2)
 
-    verdicts = audit_sources(claims, path.stem)
-    recency = sweep_recency(draft, today)
+    prior = load_prior(args.since)
+    carried_note = []
+
+    if prior:
+        todo, carried, n = carry_verdicts(claims, prior)
+        if n:
+            print(f"      {n} claim(s) unchanged since {prior.get('sha256','')[:12]} — "
+                  f"verdicts carried, {len(todo)} to check")
+            carried_note.append(f"{n} claim verdict(s) carried forward")
+        verdicts = {**carried, **(audit_sources(todo, path.stem) if todo else {})}
+    else:
+        verdicts = audit_sources(claims, path.stem)
+
+    age = _days_since(prior.get("checked_at")) if prior else 1e9
+    if prior and prior.get("recency") and age <= RECENCY_FRESH_DAYS:
+        print(f"[3/6] Recency sweep... carried ({age:.0f}d old, fresh under "
+              f"{RECENCY_FRESH_DAYS}d — the literature does not move because we edited)")
+        recency = prior["recency"]
+        carried_note.append(f"recency carried ({age:.0f}d)")
+    else:
+        recency = sweep_recency(draft, today)
+
     objections = advocate(draft)
     inferences = inference(draft)
-    cov = coverage(draft)
+
+    if prior and prior.get("coverage") and age <= COVERAGE_FRESH_DAYS:
+        print(f"[6/6] Best coverage elsewhere... carried ({age:.0f}d old, fresh under "
+              f"{COVERAGE_FRESH_DAYS}d — other outlets did not republish because we edited)")
+        cov = prior["coverage"]
+        carried_note.append(f"coverage carried ({age:.0f}d)")
+    else:
+        cov = coverage(draft)
 
     if recency is None or objections is None or inferences is None or cov is None:
         print("\n[BLOCKED] A required check did not run. An unrun check is not a pass.")
         sys.exit(2)
 
     decisions = load_decisions(Path(args.decisions), str(path))
+    orphans = orphaned(decisions, draft)
+    if orphans:
+        print(f"[WARN] {len(orphans)} decision(s) quote a sentence that is no "
+              f"longer in {path.name}. They can never match again — remove them:")
+        for role, q in orphans:
+            print(f"       [{role}] {q[:70]}")
 
     # The findings are written BEFORE they are rendered.
     #
@@ -1094,7 +1658,9 @@ def main():
             "draft": str(path),
             "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "passed": passed,
+            "carried": carried_note,
             "checked_at": today, "model": SIGNAL_MODEL,
+            "usage": usage_summary(),
             "claims": claims, "verdicts": verdicts,
             "recency": recency, "objections": objections,
             "inferences": inferences, "coverage": cov,
