@@ -113,11 +113,18 @@ module.exports = async function handler(req, res) {
     // Fail loudly rather than show a confirmation for a signup that went
     // nowhere. The same reasoning as the unsubscribe endpoint: the worst
     // outcome is both parties believing something happened that did not.
-    console.error("RESEND_WHATHOLDSUP_KEY or RESEND_WHATHOLDSUP_AUDIENCE_ID is not set.");
+    // Two different failures used to print the same sentence, so the first
+    // real signup failure could not be diagnosed from what the person saw.
+    // E1 is ours to fix in configuration; E2 is the provider refusing.
+    console.error("subscribe E1: missing", [
+      !key && "RESEND_WHATHOLDSUP_KEY",
+      !audience && "RESEND_WHATHOLDSUP_AUDIENCE_ID",
+    ].filter(Boolean).join(" and "));
     res.status(500).send(page("Something is wrong at our end",
       "<p>We could not add you just now. Please write to " +
       "<a href='mailto:hello@whatholdsup.org'>hello@whatholdsup.org</a> and we " +
-      "will add you by hand.</p>"));
+      "will add you by hand.</p>" +
+      "<p class='muted'>Reference: E1</p>"));
     return;
   }
 
@@ -129,16 +136,26 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({ email, unsubscribed: false }),
     });
     ok = r.ok;
-    if (!r.ok) console.error("resend contact create failed", r.status, await r.text());
+    if (!r.ok) {
+      const detail = await r.text();
+      // An address already on the list is not a failure, and saying so would
+      // also tell a stranger who is subscribed. Same page either way.
+      if (r.status === 409 || /already exist|already a contact/i.test(detail)) {
+        ok = true;
+      } else {
+        console.error("subscribe E2: resend refused", r.status, detail);
+      }
+    }
   } catch (err) {
-    console.error("resend contact create threw", err);
+    console.error("subscribe E2: resend threw", err && err.message);
   }
 
   if (!ok) {
     res.status(500).send(page("Something is wrong at our end",
       "<p>We could not add you just now. Please write to " +
       "<a href='mailto:hello@whatholdsup.org'>hello@whatholdsup.org</a> and we " +
-      "will add you by hand.</p>"));
+      "will add you by hand.</p>" +
+      "<p class='muted'>Reference: E2</p>"));
     return;
   }
 

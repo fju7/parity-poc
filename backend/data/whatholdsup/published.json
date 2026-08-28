@@ -1,0 +1,57 @@
+{
+  "what_this_is": "Every publication and every send, appended. This is the answer to 'what have we published', and it is in the repo so it is versioned and diffable rather than only true on a server somewhere.",
+  "published": [
+    {
+      "issue": "melanoma",
+      "action": "publish",
+      "at": "2026-08-28T16:05:57+00:00",
+      "sha": "a2b7a542c76c36fcfe1cb8818749d2bfff054179e41a884c4787041baebb1974",
+      "commit": "0aa5b19791a09e68225cf0ae9b3d3ca7e2d6c83d",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "issue 1 \u2014 The Melanoma Result",
+      "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "publish",
+      "at": "2026-08-28T16:35:27+00:00",
+      "sha": "d748a1f65b172a0e25a63ea086cf9d389dfc06eef61c7694a9990d801df723ac",
+      "commit": "152bbc5669a5627b46f90377117a3a7c8995406f",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "issue 1 \u2014 The Melanoma Result",
+      "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "publish",
+      "at": "2026-08-28T16:49:05+00:00",
+      "sha": "5028bee1f56e337d710fecc9eab8629cdda46288b8d80449e8b576e720d73f7c",
+      "commit": "5ba841bf83958eaa756c3140797256fa8df36999",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "issue 1 \u2014 The Melanoma Result",
+      "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "announce_void",
+      "at": "2026-08-28T16:56:50+00:00",
+      "sha": "712aad66c0d773586464a083ec9917f3e976e4880809e6fbe5becac03e168659",
+      "commit": "5ba841bf83958eaa756c3140797256fa8df36999",
+      "note": "recorded here; the send itself is send_broadcast.py --send",
+      "waived": null,
+      "voided_at": "2026-08-28T16:59:51+00:00",
+      "voided_reason": "Recorded in error. cmd_announce wrote this row and then printed 'now run send_broadcast.py to perform the send'; the board's button swallowed that line, so the record claimed a broadcast that was never transmitted. The row is kept rather than deleted because this file is the answer to 'what have we sent', and a deletion would leave no trace of the time it was wrong."
+    },
+    {
+      "issue": "melanoma",
+      "action": "announce",
+      "at": "2026-08-28T17:07:29+00:00",
+      "sha": "afa29642145d42c4abefa8a7e4c015ca4995ebc2e0f0bb64c2acec5475c7ca2f",
+      "commit": "5ba841bf83958eaa756c3140797256fa8df36999",
+      "note": "sent to segment bae12ea6-cbad-4b91-b250-81991bf6b4b5, broadcast e921d2f6-f18a-420c-861c-ce46753b6e46",
+      "gate_basis": "gate reconciled rather than re-run: gated 2026-08-28 on an earlier draft (dc65193a); every one of its 8 finding(s) is resolved \u2014 3 gone from the text, 5 decided in draft_decisions.json",
+      "subject": "The Melanoma Result \u2014 a Phase 3 success with no numbers",
+      "waived": null
+    }
+  ]
+}

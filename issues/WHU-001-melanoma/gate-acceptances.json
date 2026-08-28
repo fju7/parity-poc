@@ -24,6 +24,18 @@
       "findings_in_that_run": 8,
       "verified_gone": 3,
       "accepted_despite": []
+    },
+    {
+      "file": "melanoma.html",
+      "sha": "a2b7a542c76c36fcfe1cb8818749d2bfff054179e41a884c4787041baebb1974",
+      "gate_report_sha": "393c69f1bd2d2c645e6296689960afe8b048539d85be06557010e106cd8a752d",
+      "gate_checked_at": "2026-08-28",
+      "at": "2026-08-28T15:49:52+00:00",
+      "by": "fredugast",
+      "reason": "we decided that every line was corrected or decided",
+      "findings_in_that_run": 12,
+      "verified_gone": 6,
+      "accepted_despite": []
     }
   ]
 }

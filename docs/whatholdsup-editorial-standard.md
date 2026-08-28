@@ -1,5 +1,13 @@
 # What Holds Up — editorial standard
 
+**Standard version 1.1** — 2026-08-28. Four questions, eleven rules, and a stopping rule.
+
+Bump the minor version when a rule is refined, the major version when a rule is
+added or removed, and record the version in the issue's `issue.json` and in
+every review. A review means "reviewed against the standard as it stood that
+day". An old review must not silently acquire today's standard, and a rule
+added after issue one was published is not a finding against issue one.
+
 What this publication does is not fact-checking. Almost everything in the
 coverage we examine is literally true. Nor is it contrarianism: the claim we
 examine is often right.
@@ -42,6 +50,33 @@ in ourselves because each individual sentence is defensible.
 The test: **would this sentence survive being read aloud by someone who
 believes the underlying result?** Not "is it true" — every sentence we publish
 must be true — but "is the impression it leaves proportionate to the evidence."
+
+---
+
+## What stops publication, and what does not
+
+Every finding gets a class, and the test is one question: **if a reader found
+this after publication, would we have to print a correction?**
+
+| Class | Blocks | What it is |
+|---|---|---|
+| FACT | yes | A figure, date, name, endpoint or attribution a source contradicts |
+| CONTRADICTION | yes | The piece disagreeing with itself |
+| THIRD_PARTY | yes | A claim about someone else's conduct, offered without evidence |
+| CALIBRATION | **no** | Phrasing, ordering, emphasis, degree |
+
+CALIBRATION findings are recorded and the piece publishes. This is not a lowered
+bar; it is the recognition that the previous bar could not be cleared. Across
+six checks of issue one, factual errors went 3, 3, 1, 0, 0, 0 — and the total
+number of findings did not fall, because what kept arriving was wording. There
+is always a better available phrasing, so a gate that blocks on phrasing never
+opens, and the piece sat unpublished for three runs with nothing wrong in it.
+
+The risk this creates is obvious: CALIBRATION becomes the label that lets a real
+error through. That is why `factcheck_recall.py` now checks the labelling and
+not only the detection — every error seeded into the fixture is one that would
+require a correction, so any of them labelled CALIBRATION is a failure the test
+reports louder than a miss. A miss is silence. A mislabel is a false all-clear.
 
 ---
 

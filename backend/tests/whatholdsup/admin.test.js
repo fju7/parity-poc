@@ -40,9 +40,17 @@ t("garbage base64 -> 401", "s3cret", "Basic !!!!", o => o.code === 401);
 t("bearer token -> 401", "s3cret", "Bearer s3cret", o => o.code === 401);
 t("board folds what is already dealt with", "s3cret", "Basic " + b64("x:s3cret"),
   o => o.body.includes("already dealt with") && o.body.includes("<details"));
-t("board has copy buttons and no sideways scroll", "s3cret", "Basic " + b64("x:s3cret"),
-  o => o.body.includes('button class="copy"') && !o.body.includes("overflow-x:auto"));
-t("board offers the signature, not a re-run", "s3cret", "Basic " + b64("x:s3cret"),
-  o => o.body.includes("accept-gate melanoma"));
+t("board never scrolls sideways", "s3cret", "Basic " + b64("x:s3cret"),
+  o => !o.body.includes("overflow-x:auto"));
+// Copy buttons belong to commands. A board with nothing left to run has no
+// commands and should have no buttons — but every command that IS shown must
+// have one, or it is a command you have to retype by hand.
+t("every command shown has a copy button", "s3cret", "Basic " + b64("x:s3cret"),
+  o => (o.body.match(/<div class="cmd">/g) || []).length
+       === (o.body.match(/button class="copy"/g) || []).length);
+t("board never offers a bare gate re-run as the next step", "s3cret", "Basic " + b64("x:s3cret"),
+  o => !/Next[\s\S]{0,400}factcheck_draft\.py/.test(o.body));
+t("signed-off steps are marked, not left amber", "s3cret", "Basic " + b64("x:s3cret"),
+  o => !o.body.includes("accept-gate") || o.body.includes("signed off"));
 console.log("\n  " + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

@@ -50,7 +50,7 @@ reviewer (1-sided alpha of 0.1 per protocol); S007 (JCO five-year update).
 > establishing that expanded-access or compassionate-use routes are categorically
 > unavailable. Recorded as a suspicion, not a finding.
 
-**Disposition** — ACCEPT anyway
+**Disposition** — ACCEPT IN PART (Fred, 2026-08-28)
 
 **Reason** — The reviewer was right to leave it out under the brief we set, which asks only
 what breaches the standard. We are taking it anyway on a different ground: this sentence
@@ -63,9 +63,12 @@ on a patient.
 **Change**
 
 > "In practice that means a clinical trial." (was: "The only route to it is a clinical trial.")
->
-> "Ask your oncologist whether anything is enrolling near you, whether your stage and
-> surgical status fit, and whether any expanded-access route exists."
+
+The second half of the proposed change — adding "and whether any expanded-access route
+exists" to the question we tell a reader to put to their oncologist — was **rejected by
+Fred on 2026-08-28**. Prompting a reader to ask about a route we could not establish
+exists is itself a claim of a kind, and the categorical statement was the only thing
+that needed removing. The softening stands; the addition is out.
 
 **Sources considered** — S004 (Phase 3 announcement, describes intismeran as
 investigational); no source found either way on expanded access, which is the point.
@@ -119,6 +122,19 @@ five-year cut. The recorded defect names these exact numbers: *"adverse events
 59.6/59.6/51.0 called wrong against the 2023 primary analysis, then against the three-year
 update."* The prompt fix made after the third occurrence did not hold.
 
+**Verified on Fred's instruction, 2026-08-28.** Merck's five-year release was opened and
+the figures read off it directly: *"The most common adverse events attributed to intismeran
+autogene in combination with KEYTRUDA were fatigue (59.6%), injection site pain (59.6%)
+and chills (51.0%)"*, and *"Immune-related adverse events occurred in 45.2% of patients
+receiving the combination and 44% receiving KEYTRUDA alone"*. All five figures in the draft
+match the source exactly. The rejection is upheld on evidence rather than on the pattern.
+
+The check also found a scope imprecision the gate had not raised: the draft said "Most side
+effects were mild to moderate", where the source says the majority of the events *attributed
+to intismeran* were Grade 1 or 2. Narrowed to "Most of the side effects attributed to the
+vaccine were mild to moderate". This is the eleventh change since the review and the only
+one that came from the verification rather than the adjudication.
+
 **what_would_change_it** — a five-year readout of KEYNOTE-942 giving different rates.
 
 ## GATE — four THIRD_PARTY objections — REJECT (`SOURCE_FALSE_NEGATIVE`, 5th–8th occurrence)
@@ -131,3 +147,81 @@ which is bot-blocking, not absence.
 **what_would_change_it** — a fetch of those URLs from a normal browser returning nothing,
 or the outlets' own pages failing to contain the quoted material.
 
+---
+
+# Also changed after publication — the page's own dates
+
+## DATELINE-001 — the page did not say when it last changed
+
+**Finding** — raised by Fred, 2026-08-28, on reading the published page: it was dated
+26 August. It had been published on the 28th, after ten changed sentences, and an
+earlier version had been readable on the site before that. The homepage dated it
+27 August. The evidence-currency line said 26 August. None of the four dates the site
+gave for this article was the day its content last moved.
+
+**Why it matters more here than elsewhere** — `who-pays-for-this` promises in print:
+*"No quiet edits. Every change to an assessment from 25 August 2026 is recorded with
+its date and what moved."* Ten sentences had moved and nothing a reader could see
+recorded it. And an assessment about stale figures passing as current cannot carry a
+stale date on its own masthead.
+
+**Disposition** — ACCEPT (Fred chose the convention, 2026-08-28)
+
+**Change**
+
+> Masthead: "Published 26 August 2026 &middot; Updated 28 August 2026 &middot; event
+> dated 19 August 2026", with the update date linking to the change log in the footer.
+> The original date stays visible; what must never go stale is the statement of when
+> it last moved.
+>
+> The footer change log gains an entry for 28 August describing the reviewer's finding
+> and the four we found ourselves, in reader terms.
+>
+> The evidence-currency line moves from "As of 26 August 2026" to 28 August, which is
+> when the adverse-event figures were last read off the source.
+>
+> The homepage listing moves from "27 August 2026" to "updated 28 August 2026".
+
+**Also built** — two preflight checks, because nothing caught this. The masthead's
+Updated date must equal the publication date, and if readers can already see a
+different version of the page, `corrections.md` must carry an entry dated today.
+Both are STOPs, not warnings: the second one is a promise we printed.
+
+## VOICE-001 — the section led with our process rather than with the coverage
+
+**Finding** — raised by Fred, 2026-08-28. The section headed "Why this is worth a whole
+article" opened with four sentences about an earlier draft of our own — that it had
+characterised the coverage in a way we withdrew — before reaching the point of the
+section. Two objections, and they point the same way.
+
+The first is his: no such characterisation ever reached a subscriber (the publication
+record carries one publish and no announce), it predates both the gate and the outside
+reviewer, and narrating a public accusation and retraction that had no audience creates
+an exposure the underlying facts do not.
+
+The second is editorial, and it is his own earlier standard: *"I don't think it's all
+that great to say we're different because we admit to our mistakes. If we have a product
+that means something it has to be that we offer something to the reader they're not
+getting anywhere else."* The paragraph spent its opening on us and buried the idea the
+section exists for — that correctly attributed figures still do work they cannot do.
+
+**What is checkable** — the sentence at issue named no outlet as its target ("most
+coverage", immediately qualified), every outlet named in that section is named
+favourably, and no email was ever sent. It was, however, on a public URL listed in
+sitemap.xml with crawlers allowed, so "unread" is an inference and not a fact.
+
+**Disposition** — ACCEPT (Fred, 2026-08-28)
+
+**Change**
+
+> The section now opens with what the outlets actually did, and reaches the point one
+> sentence later: "The problem is not misattribution. What is left is subtler and harder
+> to fix: the figures are correctly attributed and still doing work they cannot do."
+> Every fact and every outlet credit is unchanged. What is gone is "our first draft
+> accused… we were wrong… we have cut the accusation."
+
+**Not hidden** — the change log on the page and `corrections.md` both record that the
+section was reordered and why, in neutral terms. Removing the paragraph without
+recording the removal was offered and declined: `who-pays-for-this` promises every
+change is recorded, and a quiet edit to avoid an appearance would be worse than the
+appearance.

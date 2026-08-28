@@ -1,0 +1,447 @@
+{
+  "what_this_is": "Every change to the prose of this issue since the outside reviewer read it, and the decision each one came from. It exists because the board used to ask a human to confirm that the changes matched the adjudication, which is a reconciliation nobody but the person who made the changes could perform. Now the board performs it, and the only thing that reaches a human is a change with no decision behind it — which is a question a human can actually answer.",
+  "because_refers_to": "A section heading in review/<date>-adjudication.md (OR-nnn for the reviewer's findings, GATE-cnn for the gate's), or a decision in backend/tests/fixtures/draft_decisions.json.",
+  "changes": [
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing - hazard ratios, absolute event rates, p-values.",
+      "now": "MLQ News enumerated what was missing - hazard ratios, confidence intervals, p-values, median follow-up, event counts.",
+      "because": "GATE-c34/c35",
+      "note": "Only MLQ News enumerated the missing metrics; the claim named three outlets. Narrowed to what each verifiably said."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Dermatology Times, Pharmacy Times and Medical Daily made the same point in their own words.",
+      "now": "Practical Dermatology wrote that the companies had not disclosed Phase 3 efficacy estimates, and Dermatology Times that detailed Phase 3 efficacy metrics were not disclosed.",
+      "because": "GATE-c34/c35",
+      "note": "Pharmacy Times's framing does not plainly say it and Medical Daily could not be verified; both dropped from the claim."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "When the same data were published in The Lancet , they came with two-sided p = 0.053 .",
+      "now": "When the same data were published in The Lancet , they came with two-sided p = 0.053 , although the prespecified analysis was one-sided.",
+      "because": "OR-001",
+      "note": "The outside reviewer's single finding: rule 7 requires the inferential framework in the same sentence as the p-value. Their wording."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Morning Glory Sciences, on 20 August: the Phase 2b population was stage IIIB-IV, the Phase 3 adds node-negative disease, and \"absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.\" Pharmacy Times, on 19 August, makes the opposite case about the same patients: resected stage IIB or IIC melanoma \"can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\" Which of them is right determines how much of the Phase 3 benefit reaches the patients it newly includes, and neither reading reached the general coverage.",
+      "now": "Morning Glory Sciences: the Phase 2b population was stage IIIB-IV, the Phase 3 adds node-negative disease, and \"absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.\" Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma \"can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\" Which of them is right determines how much of the Phase 3 benefit reaches the patients it newly includes, and neither reading reached the general coverage.",
+      "because": "GATE-c28/c29",
+      "note": "Outlet publication datelines could not be confirmed from the articles themselves. Specificity inflation; dates removed, attributions stand."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Most side effects were mild to moderate - fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+      "now": "Most of the side effects attributed to the vaccine were mild to moderate - fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+      "because": "GATE-c22",
+      "note": "Found while verifying the adverse-event figures against Merck's five-year release on Fred's instruction. The source attributes those events to intismeran specifically, not to the trial as a whole."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The only route to it is a clinical trial.",
+      "now": "In practice that means a clinical trial.",
+      "because": "OR-002",
+      "note": "Raised by the reviewer as a suspicion they declined to count. Taken anyway: a categorical claim we cannot source, in the section a patient reads. Fred accepted the softening and rejected the expanded-access addition."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Trade The ASCO Post - INTerpath-001 meets primary and key secondary endpoints Morning Glory Sciences - INTerpath-001, 20 August 2026 Specialist coverage.",
+      "now": "Trade The ASCO Post - INTerpath-001 meets primary and key secondary endpoints Morning Glory Sciences - INTerpath-001 Specialist coverage.",
+      "because": "GATE-c28",
+      "note": "Same unverifiable dateline, in the source register."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Pharmacy Times - Phase 3 trial marks first success, 19 August 2026 Specialist coverage.",
+      "now": "Pharmacy Times - Phase 3 trial marks first success Specialist coverage.",
+      "because": "GATE-c29",
+      "note": "Same unverifiable dateline, in the source register."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Source of the quoted argument that resected stage IIB and IIC melanoma can carry recurrence and mortality risks similar to stage III. 21 August 2026.",
+      "now": "Source of the quoted argument that resected stage IIB and IIC melanoma can carry recurrence and mortality risks similar to stage III.",
+      "because": "GATE-c44",
+      "note": "The ASCO Post carries no 21 August dateline and does not contain the statement. Note removed."
+    },
+    {
+      "at": "2026-08-28T15:53:47+00:00",
+      "by": "claude",
+      "kind": "removed",
+      "was": "Used only to confirm that no Phase 3 efficacy numbers had been released two days after the announcement.",
+      "now": "",
+      "because": "GATE-c44",
+      "note": "The other half of the same orphaned source note."
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The Melanoma Result - What Holds Up What Holds Up What this is Issue one Who pays for this Issue one Evidence review 26 August 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "now": "The Melanoma Result - What Holds Up What Holds Up What this is Issue one Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 28 August 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What is established, and what is not As of 26 August 2026.",
+      "now": "What is established, and what is not As of 28 August 2026.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Updated 28 August 2026.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An outside reviewer read the full assessment against our published standards and returned one finding: we gave the two-sided p-value from the Lancet publication without saying in the same sentence that the trial's prespecified analysis was one-sided.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That sentence now says so.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Reading our own fact-check output more closely than we had before turned up four more.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had written that three outlets each listed what the announcement was missing - hazard ratios, absolute event rates, p-values - when only one of them enumerated those metrics; the sentence now attributes to each outlet only what it actually said, and drops two we could not stand up.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had dated two outlets' coverage to specific days we could not confirm from the articles themselves, and a source note to a day its article does not carry; those dates are gone and the attributions stand.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had said the trial's most common side effects were mild to moderate, where the company's release describes the events attributed to the vaccine specifically - the sentence now says that, and the three percentages were re-read off the release and are unchanged.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And we had told a reader that the only route to this treatment is a clinical trial.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:23:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We could not establish that expanded access is categorically unavailable, so the sentence no longer claims it is.",
+      "because": "DATELINE-001",
+      "note": "the page now states when it last changed, and links to the change log that says what moved"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The version of this assessment that was readable here until today differed from this one in more than forty places, and the log below it covered only an earlier round of edits.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This entry is the rest of it.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The accusation was narrowed.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had written that most coverage repeated the earlier trial's figures without saying they should not be read onto the new one.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Checked outlet by outlet, that is not what happened: most specialist outlets attributed the figures correctly.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What is left is subtler and harder to fix - correctly attributed figures still doing work they cannot do, three paragraphs under a headline about a different trial.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Statistical language.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Four corrections.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had called a 62% figure a \"risk reduction\" where it is a reduction in hazard.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had described the earlier trial's patients as \"unblinded,\" which suggests a blind that broke rather than a trial that was open-label from the start.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had said the Phase 3 was blinded against \"exactly\" a bias that its investigator-assessed endpoint still partly carries.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And we had given 92.2% versus 71.3% alive at five years without the interval, which is what shows that a large observed gap is one the data can neither confirm nor rule out.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What the evidence supports.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had written that the honest sentence is that this therapy \"delays recurrence, not that it extends life.\" It reduces recurrence and distant metastasis; whether it extends life is an open question rather than a settled no, and the piece now says so.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had scored data support 1 against the rubric's anchor of \"no data cited,\" when a directional result was cited and what is absent is magnitude.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had also presented the adverse-event figures in a way that read as a single comparison; any-grade immune-related events were similar and grade 3 or worse were not, and both are now shown.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:27:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And today.",
+      "because": "DATELINE-001",
+      "note": "the change log now covers the version readers were actually served, not only the round before it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\" Why this is worth a whole article Our first draft of this piece accused the coverage of passing those figures off as the Phase 3's own.",
+      "now": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\" Why this is worth a whole article The outlets we reached attributed those figures correctly to KEYNOTE-942 - among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech - and several said plainly that no Phase 3 efficacy numbers had been released.",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Then we checked, and that is not what happened.",
+      "now": "MLQ News enumerated what was missing: hazard ratios, confidence intervals, p-values, median follow-up, event counts.",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The outlets we reached attributed them correctly to KEYNOTE-942 - among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech - and several said plainly that no Phase 3 efficacy numbers had been released.",
+      "now": "Practical Dermatology wrote that the companies had not disclosed Phase 3 efficacy estimates, and Dermatology Times that detailed Phase 3 efficacy metrics were not disclosed.",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing - hazard ratios, absolute event rates, p-values.",
+      "now": "The problem is not misattribution.",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Dermatology Times, Pharmacy Times and Medical Daily made the same point in their own words.",
+      "now": "What is left is subtler and harder to fix: the figures are correctly attributed and still doing work they cannot do.",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "removed",
+      "was": "We were wrong and we have cut the accusation.",
+      "now": "",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "removed",
+      "was": "What is left is subtler and harder to fix.",
+      "now": "",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "removed",
+      "was": "The figures are correctly attributed and still doing work they cannot do.",
+      "now": "",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What the coverage did.",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An earlier version characterised how most coverage had handled the earlier trial's figures.",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-28T16:46:21+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Checked outlet by outlet, that characterisation did not hold: most specialist outlets attributed the figures correctly, and the section now says so and leads with it.",
+      "because": "VOICE-001",
+      "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Issue two — inquiry brief (NOT a draft)
 
-Status: **pre-draft.** The editorial standard requires `factcheck_draft.py
+Status: **ready to draft.** Open questions resolved 2026-08-27. The editorial standard requires `factcheck_draft.py
 --survey` to run before anything is written, and two factual questions below
 must go through the SOURCE role first. Nothing here is settled.
 
@@ -183,22 +183,111 @@ patient has an interest in knowing which.
 
 ---
 
-## Open questions — resolve BEFORE drafting
+## Open questions — RESOLVED 2026-08-27, against primary sources
 
-1. **PALOMA-3 overall survival.** Still open. What did the ITT analysis
-   report, at what alpha, in which population, and at which data cut? What does
-   p=0.0221 in our corpus refer to? The survey resolved PALOMA-2 and not this.
-2. ~~PALOMA-2 overall survival.~~ Answered by the survey: HR 0.956, medians
-   53.9 vs 51.2, non-significant, with a documented missing-data imbalance.
-   Still requires SOURCE verification before publication.
-3. **Guideline position.** The corpus contains four claims opposing the
-   proposition that ASCO expresses a preference among CDK4/6 inhibitors, none
-   supporting. Do current NCCN and ASCO guidelines distinguish between them,
-   and on what basis? This matters because "the guidelines treat them as
-   interchangeable" would be the strongest counter to the whole piece.
-4. **Ribociclib's QTc requirement.** One claim, unverified, that ECG monitoring
-   is unique to ribociclib. If true it is a real cost on the other side of the
-   ledger and the piece is unbalanced without it.
+Resolved by reading the sources, not by searching for summaries of them. Every
+figure below still goes through SOURCE before publication; what is settled here
+is which document says what.
+
+### 1. PALOMA-3 overall survival — resolved, and it is the piece
+
+There are two analyses and they give different answers from the same hazard
+ratio.
+
+**The protocol-specified final analysis** (NEJM 2018, Pfizer's own release of
+20 October 2018): median OS 34.9 months (95% CI 28.8–40.0) versus 28.0 (23.6–34.6),
+**HR 0.81 (95% CI 0.64–1.03), one-sided p = 0.0429**. Pfizer's release says
+plainly that this "did not achieve statistical significance at the prespecified
+threshold."
+
+**The later analysis** (Clinical Cancer Research 2022, data cut 17 August 2020,
+393 events in 521 patients): median OS 34.8 versus 28.0, **stratified HR 0.81
+(95% CI 0.65–0.99)** — and the paper reports **no P value at all**, because it
+describes itself as a "final unplanned exploratory OS analysis."
+
+Same point estimate, 0.81, both times. In the analysis that was planned, the
+interval crosses 1 and the result misses its threshold. In the analysis that
+was not planned, two more years of events pull the upper bound to 0.99 and the
+interval clears the line — with no test attached to it.
+
+**Our corpus's p = 0.0221 matches neither published figure.** It is not the
+protocol analysis (0.0429, one-sided) and the exploratory paper reports none.
+It must be sourced or dropped; it cannot be published as it stands. A one-sided
+p on the exploratory analysis would land near 0.022, which is a plausible
+provenance and is a guess, and guesses do not go in.
+
+This is the same fault as issue one, in a different costume: a number that
+answers a question the reader thinks it answers, and does not.
+
+### 2. PALOMA-2 overall survival — answered by the survey
+
+HR 0.956, medians 53.9 versus 51.2 months, non-significant, with a documented
+missing-data imbalance (10% of the palbociclib arm still on treatment at final
+analysis versus 2% of placebo). Still requires SOURCE verification.
+
+### 3. Guideline position — resolved, and it cuts against the comparative evidence
+
+NCCN does both things at once. It states that the CDK4/6 inhibitors "have not
+been directly compared in randomized trials, and treatment selection should
+consider efficacy, toxicity, comorbidities, monitoring requirements, and
+patient preference" — and it lists **ribociclib plus an aromatase inhibitor as
+category 1**, on the strength of the MONALEESA overall-survival results, while
+**palbociclib and abemaciclib remain category 2A**.
+
+So the guidelines do distinguish, on exactly the ground the comparative
+literature does not support: divergent individual-trial p-values. That is not a
+counter to the piece. It is the piece — the category difference is the
+institutional form of the inference the network meta-analysis and the
+Flatiron real-world comparison both fail to reproduce.
+
+**Caveat, load-bearing: this is a secondary summary of NCCN v4.2026, not NCCN
+itself, which is behind registration.** It must be confirmed against the
+guideline document before a word of it is published. If the category ratings
+are wrong the section collapses.
+
+### 4. Ribociclib's ECG requirement — resolved, and it is real
+
+Ribociclib is the only one of the three whose label requires cardiac
+monitoring. From the KISQALI prescribing information: "Perform ECG in all
+patients prior to starting KISQALI" and "Repeat ECG at approximately Day 14 of
+the first cycle, and as clinically indicated", with dose interruption at QTcF
+480–500 ms, dose reduction above 500 ms, and permanent discontinuation if
+QTcF > 500 ms or a > 60 ms change from baseline occurs with Torsades de
+Pointes, syncope or serious arrhythmia. Serum electrolytes must be monitored
+"prior to the initiation of KISQALI at the beginning of the first 6 cycles".
+
+The other two labels require none of it:
+
+- **IBRANCE (palbociclib)** — Warnings and Precautions are 5.1 Neutropenia and
+  5.2 Embryo-Fetal Toxicity. QTc appears only under Clinical Pharmacology:
+  palbociclib "had no large effect on QTc (i.e., >20 ms)".
+- **VERZENIO (abemaciclib)** — Warnings and Precautions are diarrhea,
+  neutropenia, interstitial lung disease, hepatotoxicity, venous
+  thromboembolism and embryo-fetal toxicity. QTc appears only under
+  Pharmacodynamics: abemaciclib "did not cause large mean increases (i.e.,
+  20 ms) in the QTc interval".
+
+So the claim in the corpus holds. The drug the guidelines rate highest is also
+the only one that costs the patient a baseline ECG, a second ECG two weeks in,
+and six cycles of electrolyte monitoring. That belongs in the piece, and it is
+the reason the piece cannot end at "they are the same, take any of them".
+
+---
+
+## What the piece is, after the resolutions
+
+Not "ribociclib is the one with the survival evidence" — the survey killed that.
+Not "they are identical" either, because the monitoring burden is not identical
+and the guideline categories are not identical.
+
+The piece is: **three drugs that the direct comparisons cannot tell apart, a
+guideline system that ranks them anyway, and one trial whose answer to "does
+this drug help you live longer" depends on which of two analyses you happen to
+read.** The methodological caveats — PALOMA-2's missing-data imbalance,
+MONARCH 3's underpowering, monarchE's 52% crossover, PALOMA-3's planned versus
+unplanned analyses — are what reconcile divergent p-values with no measurable
+difference between the drugs. The survey found no outlet that has put them
+together.
 
 ## Process gates
 
@@ -207,7 +296,9 @@ patient has an interest in knowing which.
 - [ ] Decide whether the corpus needs the comparative literature added before
       anything is published from it. The network meta-analysis and the
       real-world study are load-bearing and absent.
-- [ ] Open questions 1–4 resolved against primary sources.
+- [x] Open questions 1–4 resolved against primary sources, 2026-08-27.
+      Q1 changed the piece; Q3 must be re-confirmed against NCCN itself;
+      the corpus's PALOMA-3 p = 0.0221 must be sourced or dropped.
 - [ ] Draft written.
 - [ ] `factcheck_draft.py` exits 0 across all six roles.
 - [ ] Read against every rule in `whatholdsup-editorial-standard.md`,

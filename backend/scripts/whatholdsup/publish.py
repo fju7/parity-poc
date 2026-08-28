@@ -88,8 +88,12 @@ ISSUES = {
         "url": "https://whatholdsup.org/melanoma",
         "email_html": "site/whatholdsup/email/issue1-melanoma.html",
         "email_txt": "site/whatholdsup/email/issue1-melanoma.txt",
+        "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
+        "email_subject": "The Melanoma Result — a Phase 3 success with no numbers",
     },
 }
+
+SENDER = ROOT / "site" / "whatholdsup" / "email" / "send_broadcast.py"
 
 NUM = re.compile(r"\d+\.\d+|\d+(?:,\d{3})+|\d+%|\bn=\d+\b")
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
@@ -436,27 +440,38 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
         return d
 
     old = (d["recorded_sha"] or "?")[:8]
-    if nb == 0:
-        base = ("gated %s on an older draft (%s); nothing it raised is open%s"
-                % (d["checked_at"], old, settled_note))
-    elif no_ == 0:
-        base = ("gated %s on an older draft (%s); all %d finding(s) it raised are "
-                "resolved — %d gone from the text%s"
-                % (d["checked_at"], old, nb, nr, settled_note))
-    else:
-        d["state"] = BAD
-        nu = len(d["unlocatable"])
-        d["detail"] = ("gated %s on an older draft (%s); %d of %d open — %d in the text, "
-                       "%d unlocatable, %d gone%s"
-                       % (d["checked_at"], old, no_, nb, no_ - nu, nu, nr, settled_note))
+    # A run that judged an earlier draft, every finding of which is now either
+    # gone from the text or decided on the record, is a check that has been
+    # performed. Requiring a signature on it asks a person to attest to a
+    # reconciliation only whoever made the edits could perform — the same defect
+    # the outside-review step had, one row up, and it took being told twice.
+    #
+    # What a signature genuinely buys is a decision to proceed past something
+    # still open. That case still stops, and it makes you name each one.
+    if no_ == 0:
+        d["state"] = OK
+        if nb == 0:
+            d["detail"] = ("gated %s on an earlier draft (%s); it raised nothing that "
+                           "blocks%s" % (d["checked_at"], old, settled_note))
+        else:
+            d["detail"] = ("gated %s on an earlier draft (%s); every one of its %d "
+                           "finding(s) is resolved — %d gone from the text, %d decided "
+                           "in draft_decisions.json"
+                           % (d["checked_at"], old, nb, nr, ns))
+        if d["accepted"]:
+            d["detail"] += " (also signed off %s by %s)" % (
+                d["accepted"].get("at", "?")[:10], d["accepted"].get("by", "?"))
         return d
+
+    nu = len(d["unlocatable"])
+    d["state"] = BAD
+    d["detail"] = ("gated %s on an earlier draft (%s); %d of %d open — %d still in the "
+                   "text, %d unlocatable, %d gone%s"
+                   % (d["checked_at"], old, no_, nb, no_ - nu, nu, nr, settled_note))
     if d["accepted"]:
         d["state"] = WARN
-        d["detail"] = "%s — accepted %s by %s" % (base, d["accepted"].get("at", "?")[:10],
-                                                  d["accepted"].get("by", "?"))
-    else:
-        d["state"] = BAD
-        d["detail"] = "%s — needs an explicit acceptance, or a fresh run" % base
+        d["detail"] += " — proceeding past them was signed off %s by %s" % (
+            d["accepted"].get("at", "?")[:10], d["accepted"].get("by", "?"))
     return d
 
 
@@ -464,6 +479,50 @@ def gate_report(target: Path) -> tuple[str, str]:
     """(state, detail) — the two-value view the preflight and the board use."""
     d = gate_state(target)
     return d["state"], d["detail"]
+
+MONTHS = ("January February March April May June July August September "
+          "October November December").split()
+DATELINE = re.compile(r"\b(\d{1,2})\s+(" + "|".join(MONTHS) + r")\s+(\d{4})\b")
+
+
+def header_date(raw: str) -> str:
+    """The date the article says it is, from its own masthead.
+
+    The first date in the kicker row is the one a reader takes as "when this
+    was written". Everything else on the page — an event date, a source's
+    publication date — is about the world, not about us.
+    """
+    m = re.search(r'<span class="meta">(.*?)</span>', raw, re.S)
+    if not m:
+        return ""
+    txt = _html.unescape(_TAG.sub(" ", m.group(1)))
+    # "Published X - Updated Y": Y is the one that has to be today. A masthead
+    # that keeps the original date is the point of the convention; what must not
+    # go stale is the statement of when it last moved.
+    up = re.search(r"Updated\s+(" + DATELINE.pattern + ")", txt)
+    if up:
+        return up.group(1)
+    d = DATELINE.search(txt)
+    return d.group(0) if d else ""
+
+
+def as_of_date(raw: str) -> str:
+    m = re.search(r"As of\s+([^<.]{4,40})", _html.unescape(_TAG.sub(" ", raw)))
+    if not m:
+        return ""
+    d = DATELINE.search(m.group(1))
+    return d.group(0) if d else ""
+
+
+def pretty(d) -> str:
+    return "%d %s %d" % (d.day, MONTHS[d.month - 1], d.year)
+
+
+def corrections_text(slug: str) -> str:
+    case = case_dir(slug)
+    fp = (case / "corrections.md") if case else None
+    return fp.read_text(encoding="utf-8") if fp and fp.exists() else ""
+
 
 def live_body(url: str, timeout: int = 20) -> str | None:
     try:
@@ -542,9 +601,23 @@ def outside_review(page: Path, slug: str) -> tuple[str, str]:
             return OK, (f"reviewed {latest.get('at', '?')[:10]} by "
                         f"{latest.get('reviewer', 'unnamed')}; changes since confirmed "
                         f"{c.get('at', '?')[:10]} by {c.get('by', '?')}")
+
+    # No human is asked whether the changes match the adjudication. Only the
+    # person who made them could answer that, and asking anyone else produces a
+    # signature instead of a check. The reconciliation is the check: every
+    # change traced to a recorded decision that resolves to something readable.
+    ok, bad, _stale = reconcile(slug)
+    if ok and not bad:
+        cites = ", ".join(sorted({r.get("because", "?") for _k, _w, _n, r in ok}))
+        return OK, (f"reviewed {latest.get('at', '?')[:10]} by "
+                    f"{latest.get('reviewer', 'unnamed')}; {len(ok)} change(s) since, "
+                    f"each traced to a recorded decision ({cites})")
+    if bad:
+        return BAD, (f"{len(bad)} change(s) since the review of "
+                     f"{str(latest.get('sha'))[:8]} have no decision behind them")
     return WARN, (f"the last review read a different version "
-                  f"({latest.get('at', '?')[:10]}, sha {str(latest.get('sha'))[:8]}). "
-                  f"Confirm the only changes since were the ones it asked for.")
+                  f"({latest.get('at', '?')[:10]}, sha {str(latest.get('sha'))[:8]}), "
+                  f"and no change to the prose was recorded")
 
 
 # ---------------------------------------------------------------------------
@@ -592,6 +665,27 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
     st, detail = outside_review(page, slug)
     out.append(("outside review", st, detail))
 
+    if for_email:
+        # Presence only. The value is never read into any output, here or
+        # anywhere else in this file.
+        out.append(("sender credentials", OK if has_sender_key() else BAD,
+                    "%s is available to the sender" % SENDER_KEY if has_sender_key()
+                    else "%s is not set and not in %s — the send will fail"
+                         % (SENDER_KEY, ENVFILE.relative_to(ROOT))))
+
+    # The page's own date, against the day it is actually going out. An
+    # assessment published on the 28th whose masthead says the 26th is the
+    # error this publication exists to point at, printed on itself.
+    today = pretty(datetime.now().date())
+    hd = header_date(ptext if False else page.read_text(encoding="utf-8"))
+    out.append(("page dateline", OK if hd == today else BAD,
+                f"says {hd or 'nothing'}, and today is {today}"
+                + ("" if hd == today else " — a reader reads that as when it was written")))
+    ao = as_of_date(page.read_text(encoding="utf-8"))
+    if ao:
+        out.append(("evidence 'as of'", OK if ao == today else WARN,
+                    f"says {ao}" + ("" if ao == today else f", and today is {today}")))
+
     body = live_body(cfg["url"])
     if body is None:
         out.append(("live page", WARN, f"could not reach {cfg['url']}"))
@@ -600,6 +694,19 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
         out.append(("live page", OK if same else WARN,
                     "matches the repo" if same
                     else "DIFFERS from the repo — the site is behind"))
+        # If readers can already see a different version, this publish is an
+        # edit to something published, and the site promises in writing that
+        # every such change is recorded with its date and what moved. Nothing
+        # checked that until an article went out with a masthead two days stale
+        # and ten changed sentences behind it.
+        if not same:
+            changed = len(changes_since(body, page.read_text(encoding="utf-8")))
+            logged = today in corrections_text(slug)
+            out.append(("correction recorded", OK if logged else BAD,
+                        f"{changed} sentence(s) differ from what readers see now"
+                        + (f", and corrections.md carries a {today} entry" if logged
+                           else f", and corrections.md has no {today} entry — "
+                                "who-pays-for-this promises every change is recorded")))
     return out
 
 
@@ -728,6 +835,51 @@ def cmd_publish(args) -> int:
     return 0
 
 
+ENVFILE = ROOT / "backend" / ".env"
+SENDER_KEY = "RESEND_WHATHOLDSUP_KEY"
+
+
+def sender_env(wanted: tuple[str, ...] = ()) -> dict:
+    """The environment the sender needs, filled in from backend/.env.
+
+    send_broadcast.py reads its key straight from os.environ and loads no
+    dotenv; its docstring tells you to `export` it first. That is fine for a
+    person at a terminal and wrong for a button, which inherits whatever
+    environment the board happened to start with. On 2026-08-28 the first real
+    send failed on exactly that.
+
+    Values already in the environment win, so an exported key still overrides
+    the file. Nothing here is printed, logged or recorded — only handed to the
+    subprocess.
+    """
+    wanted = set(wanted or (SENDER_KEY,))
+    env = dict(os.environ)
+    if not ENVFILE.exists():
+        return env
+    try:
+        lines = ENVFILE.read_text(encoding="utf-8").splitlines()
+    except Exception:
+        return env
+    # Only the variable the sender actually needs. The file holds two dozen
+    # secrets for other parts of this repo and none of them are the mailer's
+    # business; handing a subprocess everything because it was convenient is
+    # how a credential ends up somewhere nobody expected it.
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        k = k.strip()
+        if k not in wanted or k in env:
+            continue
+        env[k] = v.strip().strip('"').strip("'")
+    return env
+
+
+def has_sender_key() -> bool:
+    return bool(sender_env().get(SENDER_KEY))
+
+
 def cmd_announce(args) -> int:
     cfg = ISSUES[args.slug]
     ehtml = ROOT / cfg["email_html"]
@@ -743,17 +895,97 @@ def cmd_announce(args) -> int:
         return 1
     if not args.yes:
         print("\nPreflight passed. Re-run with --yes to send.")
-        print("send_broadcast.py performs the send and enforces its own gate guard.")
         return 0
 
+    subject = (getattr(args, "subject", None) or cfg.get("email_subject") or "").strip()
+    audience = cfg.get("audience")
+    if not subject:
+        print("\nBLOCKED — no subject line. Nothing sent.")
+        return 1
+    if not audience:
+        print("\nBLOCKED — no audience configured for %s. Nothing sent." % args.slug)
+        return 1
+    if not SENDER.exists():
+        print("\nBLOCKED — %s is missing. Nothing sent." % SENDER)
+        return 1
+    if not has_sender_key():
+        print("\nBLOCKED — %s is not set and is not in %s. Nothing sent."
+              % (SENDER_KEY, ENVFILE.relative_to(ROOT)))
+        print("Add it to that file as %s=... (the value never appears in any" % SENDER_KEY)
+        print("output, record or log), or export it in the shell that runs the board.")
+        return 1
+
+    # The send happens HERE, and the record is written only if it succeeds.
+    #
+    # The first version of this function wrote the record and then printed "now
+    # run send_broadcast.py to perform the send." Run from a terminal that is a
+    # readable instruction. Run from a button it is invisible, and on
+    # 2026-08-28 the publication record carried a broadcast that had never been
+    # transmitted. A record written before the act it records is not a record.
+    # send_broadcast.py has its own gate guard, and it is a good one: it refuses
+    # content whose gate report says FAILED or whose sha does not match what was
+    # checked. It knows nothing about reconciliation, so a file whose findings
+    # are all resolved but which has been edited since still reads to it as
+    # unchecked — which is the correct default and the wrong answer here.
+    #
+    # So: our own gate_state decides, and what it decides is passed through as
+    # the sender's waiver reason, where it prints in the output and lands in the
+    # publication record. If our check does NOT pass, nothing is passed through
+    # and the sender blocks, which is what should happen.
+    g = gate_state(ehtml, args.slug)
+    basis = args.waive
+    if not basis and g["state"] in (OK, WARN) and not g["fresh"]:
+        basis = "gate reconciled rather than re-run: %s" % g["detail"]
+    cmd = [sys.executable, str(SENDER),
+           "--segment", audience,
+           "--subject", subject,
+           "--html", str(ROOT / cfg["email_html"]),
+           "--text", str(ROOT / cfg["email_txt"]),
+           "--gate-report", str(ehtml) + ".gate.json",
+           "--send"]
+    if basis:
+        cmd += ["--gate-waived", basis]
+    if getattr(args, "dry_run", False):
+        # Rehearsal: every check the sender runs, no API call, no record. There
+        # was no way to try this path without mailing a list, which is why the
+        # first thing it ever did in anger was record a send that never happened.
+        cmd.remove("--send")
+        cmd += ["--dry-run"]
+    print("\nSending: %s" % " ".join(cmd[1:]))
+    print()
+    proc = subprocess.run(cmd, cwd=str(SENDER.parent), capture_output=True,
+                          text=True, env=sender_env())
+    out = (proc.stdout or "") + (proc.stderr or "")
+    print(out.strip())
+    if proc.returncode != 0:
+        print("\nSEND FAILED — exit %d. Nothing has been recorded." % proc.returncode)
+        return 1
+    if getattr(args, "dry_run", False):
+        print("\nRehearsal only. Nothing sent, nothing recorded.")
+        return 0
+    if "SENT" not in out:
+        print("\nThe sender exited 0 but did not report a send. Nothing recorded — "
+              "check the Resend dashboard before trying again, so nobody gets it twice.")
+        return 1
+
+    bid = ""
+    # Permissive on purpose: the id is written into the record so a send can be
+    # traced in the Resend dashboard, and a pattern that only matched hex UUIDs
+    # would drop any other format silently — recording a send with no way back
+    # to it, which is half of the failure this function already had once.
+    mb = re.search(r"broadcast\s+([A-Za-z0-9_-]{4,})", out)
+    if mb:
+        bid = mb.group(1)
     append_record({
         "issue": args.slug, "action": "announce",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sha": sha(ehtml), "commit": git("rev-parse", "HEAD")[1],
-        "note": "recorded here; the send itself is send_broadcast.py --send",
+        "note": "sent to segment %s%s" % (audience, (", broadcast " + bid) if bid else ""),
+        "gate_basis": basis or "gate report passed on these exact bytes",
+        "subject": subject,
         "waived": args.waive or None,
     })
-    print("\nRecorded. Now run send_broadcast.py to perform the send.")
+    print("\nSent, and recorded.")
     return 0
 
 
@@ -884,6 +1116,285 @@ def cmd_review(args) -> int:
 
 
 
+# ---------------------------------------------------------------------------
+# what changed since the reviewer read it
+#
+# The board used to ask "confirm the only changes since were the ones it asked
+# for". Nobody could answer that honestly: the reviewed snapshot and the
+# current file are both on disk, and the person being asked had read neither
+# side by side. A confirmation that rests on knowledge the confirmer does not
+# have is worse than no confirmation, because it produces a signature and no
+# check. So the board shows the difference, sentence by sentence, and the
+# signature is on something seen.
+# ---------------------------------------------------------------------------
+
+_SENT = re.compile(r"(?<=[.!?])\s+(?=[A-Z\"'“(])")
+
+
+def sentences(raw: str) -> list[str]:
+    """Visible prose, one sentence per entry, tags and entities resolved.
+
+    Diffing the markup instead would report a changed href as a changed
+    argument. What a reviewer read is the prose.
+    """
+    t = _html.unescape(_TAG.sub(" ", raw))
+    for a, b in _SUBS.items():
+        t = t.replace(a, b)
+    t = _WS.sub(" ", t)
+    return [x.strip() for x in _SENT.split(t) if len(x.strip()) > 3]
+
+
+def changes_since(old_raw: str, new_raw: str, context: int = 0) -> list[tuple[str, str, str]]:
+    """[(kind, was, now)] — kind is changed, removed or added."""
+    import difflib
+    a, b = sentences(old_raw), sentences(new_raw)
+    out = []
+    for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b).get_opcodes():
+        if tag == "equal":
+            continue
+        if tag == "replace":
+            # Pair them up so a reworded sentence reads as one change rather
+            # than a deletion next to an unrelated insertion.
+            for k in range(max(i2 - i1, j2 - j1)):
+                was = a[i1 + k] if i1 + k < i2 else ""
+                now = b[j1 + k] if j1 + k < j2 else ""
+                out.append(("changed" if was and now else ("removed" if was else "added"),
+                            was, now))
+        elif tag == "delete":
+            for x in a[i1:i2]:
+                out.append(("removed", x, ""))
+        elif tag == "insert":
+            for x in b[j1:j2]:
+                out.append(("added", "", x))
+    return out
+
+
+def recorded_changes(slug: str) -> list[dict]:
+    case = case_dir(slug)
+    fp = (case / "changes.json") if case else None
+    if not fp or not fp.exists():
+        return []
+    try:
+        return json.loads(fp.read_text()).get("changes", [])
+    except Exception:
+        return []
+
+
+def explain(kind: str, was: str, now: str, recorded: list[dict]) -> dict | None:
+    """Find the recorded decision this change came from.
+
+    Matched on the prose, both sides. A recorded change whose "was" no longer
+    matches anything in the diff has been superseded; a diff entry with no
+    recorded change went in without a decision, and that is the only thing here
+    worth a human's attention.
+    """
+    w, n = flatten(was), flatten(now)
+    for r in recorded:
+        rw, rn = flatten(r.get("was") or ""), flatten(r.get("now") or "")
+        if rw == w and rn == n:
+            return r
+    for r in recorded:                       # tolerate light re-editing since
+        rw, rn = flatten(r.get("was") or ""), flatten(r.get("now") or "")
+        if w and rw and (w in rw or rw in w) and (not n or not rn or n in rn or rn in n):
+            return r
+    return None
+
+
+def decision_labels(slug: str) -> set[str]:
+    """Every label a recorded change is allowed to cite.
+
+    Section headings in the adjudication, plus the decisions file. Without this
+    check `because` is a free-text field, and a reconciliation that passes on
+    free text is a reconciliation that passes on anything. With it, an
+    automatic pass means every change traces to something a person can open and
+    read.
+    """
+    out = set()
+    case = case_dir(slug)
+    if case:
+        for adj in (case / "review").glob("*-adjudication.md"):
+            for line in adj.read_text(encoding="utf-8").splitlines():
+                if line.startswith("## "):
+                    head = line[3:].strip()
+                    # "GATE-c34 / c35 — ACCEPT" cites as GATE-c34/c35 or GATE-c34
+                    out.add(head)
+                    first = re.split(r"\s+[\u2014-]\s+|\s+\(", head)[0].strip()
+                    out.add(first)
+                    out.add(first.replace(" / ", "/").replace(" /", "/").replace("/ ", "/"))
+                    # "GATE-c28 / c29" names two findings, and the second one
+                    # carries no prefix of its own. Expanding it is the whole
+                    # difference between a label that resolves and one that
+                    # silently does not.
+                    m = re.match(r"([A-Z]+)-(.+)", first)
+                    if m:
+                        for part in re.findall(r"c?\d+", m.group(2)):
+                            out.add("%s-%s" % (m.group(1), part))
+    cfg = ISSUES.get(slug, {})
+    for f in (cfg.get("page"), cfg.get("email_html")):
+        if not f:
+            continue
+        for d in fc.load_decisions(fc.DECISIONS, Path(f).name).values():
+            for key in ("id", "decision"):
+                if d.get(key):
+                    out.add(str(d[key]))
+    out.add("AD-HOC")
+    return {x for x in out if x}
+
+
+def reconcile(slug: str) -> tuple[list[tuple], list[tuple], list[dict]]:
+    """(explained, unexplained, unused recorded entries).
+
+    A change counts as explained only if a recorded entry matches its prose AND
+    that entry cites a label that resolves. Both halves matter: the first says
+    somebody wrote down why, the second says the why points somewhere real.
+    """
+    cfg = ISSUES[slug]
+    page = ROOT / cfg["page"]
+    case = case_dir(slug)
+    try:
+        rows = json.loads(REVIEWS.read_text()).get("reviews", [])
+    except Exception:
+        rows = []
+    mine = [r for r in rows if r.get("issue") == slug]
+    if not mine or not case:
+        return [], [], []
+    latest = mine[-1]
+    snaps = [f for f in sorted((case / "review").glob("*-sent.html"))
+             if hashlib.sha256(f.read_bytes()).hexdigest() == latest.get("sha")]
+    if not snaps:
+        return [], [], []
+    recorded = recorded_changes(slug)
+    diff = changes_since(snaps[-1].read_text(encoding="utf-8"),
+                         page.read_text(encoding="utf-8"))
+    labels = decision_labels(slug)
+    ok, bad, used = [], [], []
+    for kind, was, now in diff:
+        r = explain(kind, was, now, recorded)
+        if r and r.get("because") not in labels:
+            r = dict(r)
+            r["unresolved"] = True
+            bad.append((kind, was, now, r))
+        elif r:
+            ok.append((kind, was, now, r))
+            used.append(id(r))
+        else:
+            bad.append((kind, was, now, None))
+    return ok, bad, [r for r in recorded if id(r) not in used]
+
+
+def review_diff_text(slug: str) -> tuple[bool, str]:
+    """The reviewed snapshot against the file as it stands, in words."""
+    cfg = ISSUES[slug]
+    page = ROOT / cfg["page"]
+    case = case_dir(slug)
+    if not case:
+        return False, "no case directory for %s" % slug
+    try:
+        rows = json.loads(REVIEWS.read_text()).get("reviews", [])
+    except Exception:
+        rows = []
+    mine = [r for r in rows if r.get("issue") == slug]
+    if not mine:
+        return False, "no outside review recorded for %s" % slug
+    latest = mine[-1]
+    snaps = sorted((case / "review").glob("*-sent.html"))
+    match = [f for f in snaps
+             if hashlib.sha256(f.read_bytes()).hexdigest() == latest.get("sha")]
+    if not match:
+        return False, ("the snapshot the reviewer read is not on disk; "
+                       "nothing can be compared against it")
+    snap = match[-1]
+    now = sha(page)
+    if latest.get("sha") == now:
+        return True, "The reviewed file and the current file are the same. Nothing changed."
+
+    ok, bad, stale = reconcile(slug)
+    total = len(ok) + len(bad)
+    lines = ["The reviewer read  %s  (%s)" % (snap.name, str(latest.get("sha"))[:12]),
+             "The file now is    %s  (%s)" % (page.name, now[:12]),
+             "",
+             "%d change(s) to the prose since. %d accounted for, %d not."
+             % (total, len(ok), len(bad)),
+             ""]
+    if bad:
+        lines.append("NOT ACCOUNTED FOR — these went in without a recorded decision:")
+        lines.append("")
+        for i, (kind, was, nowtxt, _r) in enumerate(bad, 1):
+            lines.append(" !! %d. %s" % (i, kind.upper()))
+            if was:
+                lines.append("       was:  %s" % was)
+            if nowtxt:
+                lines.append("       now:  %s" % nowtxt)
+            lines.append("")
+        lines.append("Each needs a decision before this can be confirmed. Nothing here "
+                     "is for a reader of this board to attest to — it is work that has "
+                     "not been done.")
+        lines.append("")
+    lines.append("Accounted for:")
+    lines.append("")
+    for i, (kind, was, nowtxt, r) in enumerate(ok, 1):
+        lines.append("%2d. %-14s %s" % (i, r.get("because", "?"), r.get("note", "")))
+        if was:
+            lines.append("    was:  %s" % was[:150])
+        if nowtxt:
+            lines.append("    now:  %s" % nowtxt[:150])
+        lines.append("")
+    if stale:
+        lines.append("Recorded but no longer visible in the diff (superseded or reverted):")
+        for r in stale:
+            lines.append("    %s — %s" % (r.get("because", "?"), (r.get("was") or "")[:90]))
+        lines.append("")
+    adj = sorted((case / "review").glob("*-adjudication.md"))
+    if adj:
+        lines.append("Each label above is a section of %s or a decision in "
+                     "draft_decisions.json." % adj[-1].name)
+    return not bad, "\n".join(lines)
+
+
+def cmd_review_changes(args) -> int:
+    ok, text = review_diff_text(args.slug)
+    print()
+    print(text)
+    print()
+    return 0 if ok else 2
+
+
+def cmd_explain_change(args) -> int:
+    """Record why a change was made that nothing on file explains.
+
+    This is the only part of the review step a person is asked for, and the
+    only part they are in a position to give. Which change corresponds to which
+    decision, and whether that decision exists, the tool works out itself.
+    """
+    case = case_dir(args.slug)
+    if not case:
+        print("\n  no case directory for %s\n" % args.slug)
+        return 2
+    note = (args.note or "").strip()
+    if len(note) < 8:
+        print("\n  Say why the change was made. One line, in terms someone could")
+        print("  disagree with.\n")
+        return 2
+    fp = case / "changes.json"
+    try:
+        data = json.loads(fp.read_text()) if fp.exists() else {"changes": []}
+    except Exception:
+        data = {"changes": []}
+    data.setdefault("changes", []).append({
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "by": args.by,
+        "kind": "changed" if (args.was and args.now) else ("removed" if args.was else "added"),
+        "was": args.was or "",
+        "now": args.now or "",
+        "because": args.because or "AD-HOC",
+        "note": note,
+    })
+    fp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    ok, bad, _s = reconcile(args.slug)
+    print("\n  Recorded. %d change(s) accounted for, %d still not.\n" % (len(ok), len(bad)))
+    return 0
+
+
 def cmd_confirm_review(args) -> int:
     """Record that the changes made after a review were the ones it asked for."""
     cfg = ISSUES[args.slug]
@@ -902,16 +1413,29 @@ def cmd_confirm_review(args) -> int:
     if latest.get("sha") == now:
         print("\n  the review already covers this exact text; nothing to confirm\n")
         return 2
-    if len((args.reason or "").strip()) < 8:
-        print("\n  Say what changed and why the review still stands. One line.\n")
+    ok, bad, _stale = reconcile(args.slug)
+    if bad:
+        print("\n  %d change(s) since the review have no recorded decision behind them."
+              % len(bad))
+        print("  That is not something to confirm; it is something to decide. Run")
+        print("  review-changes to see them.\n")
         return 2
+    # Every change traced to a decision. Asking a person to attest to that
+    # reconciliation was asking them to sign for a check only the person who
+    # made the changes could perform. The reconciliation is the check, and it
+    # is written down; the signature just says a human saw the result.
+    auto = ("all %d change(s) since the review reconcile to a recorded decision: %s"
+            % (len(ok), ", ".join(sorted({r.get("because", "?") for _k, _w, _n, r in ok}))))
+    reason = (args.reason or "").strip() or auto
     data.setdefault("confirmations", []).append({
         "issue": args.slug,
         "reviewed_sha": latest.get("sha"),
         "now_sha": now,
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "by": args.by,
-        "reason": args.reason.strip(),
+        "reason": reason,
+        "reconciled": [{"because": r.get("because"), "was": w[:200], "now": n[:200]}
+                       for _k, w, n, r in ok],
     })
     REVIEWS.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
     print("\n  Confirmed: the review of %s still applies to %s."
@@ -988,13 +1512,12 @@ def next_action(slug: str) -> tuple[str, str]:
             # first: on 2026-08-28 six of its twelve findings were already
             # fixed, two were the instrument, and a re-run would have cost
             # money to rediscover that.
-            if g["exists"] and not g["fresh"] and not g["outstanding"]:
-                # Nothing is open. What is missing is a signature on text the
-                # run never saw, and offering a re-run here is how this board
-                # sent us back to spend money rediscovering settled findings.
-                return ("sign off the %s gate — %s" % (label, g["detail"]),
+            if g["outstanding"]:
+                return ("decide the %s gate — %s" % (label, g["detail"]),
                         'python scripts/whatholdsup/publish.py accept-gate %s --file %s '
-                        '--reason "..."' % (slug, "assessment" if label == "assessment" else "email"))
+                        '--despite %s --reason "..."'
+                        % (slug, "assessment" if label == "assessment" else "email",
+                           ",".join(sorted(x["id"] for x in g["outstanding"]))))
             hint = ("\n        read them first: publish.py gate-status %s" % slug
                     if g["exists"] else "")
             return ("gate the %s — %s%s" % (label, g["detail"], hint),
@@ -1016,14 +1539,25 @@ def next_action(slug: str) -> tuple[str, str]:
                 "python scripts/whatholdsup/publish.py check %s" % slug)
 
     rec = [r for r in load_record() if r["issue"] == slug]
-    if not any(r["action"] == "publish" for r in rec):
+    pub = [r for r in rec if r["action"] == "publish"]
+    # Published is about content, not history. A record from an hour ago says
+    # nothing about the file as it stands, and this line said ANNOUNCE while
+    # the board next to it said the repo had moved past what readers can see.
+    if not pub:
         return ("PUBLISH — everything upstream is clear. This one is yours.",
+                "python scripts/whatholdsup/publish.py publish %s --yes" % slug)
+    if pub[-1].get("sha") != sha(page):
+        return ("REPUBLISH — the page has changed since it was last published. "
+                "Readers are on %s, the repo is on %s."
+                % (str(pub[-1].get("sha"))[:8], sha(page)[:8]),
                 "python scripts/whatholdsup/publish.py publish %s --yes" % slug)
     if not any(r["action"] == "announce" for r in rec):
         return ("ANNOUNCE — the site is live and recorded. This one is yours, and it "
                 "cannot be taken back.",
                 "python scripts/whatholdsup/publish.py announce %s --yes" % slug)
-    return ("nothing — published and announced.", "")
+    return ("nothing — published and announced. The next thing this issue could "
+            "need is a changelog entry, and the sweep that would find one does not "
+            "exist yet.", "")
 
 
 def cmd_next(args) -> int:
@@ -1138,6 +1672,18 @@ color:var(--ink-2);font:400 .78rem/1.5 "IBM Plex Mono",ui-monospace,monospace;
 white-space:pre-wrap;overflow-wrap:anywhere}
 pre.out.bad{border-left:2px solid var(--nope)}
 pre.out.ok{border-left:2px solid var(--holds)}
+form.ask{margin-top:.7rem;display:grid;gap:.6rem;padding:.85rem;border-radius:3px;
+border:1px solid var(--rule);background:var(--card)}
+form.ask label{display:grid;gap:.3rem}
+form.ask label span{font:400 .82rem/1.4 Karla,system-ui,sans-serif;color:var(--ink-2)}
+form.ask input{font:400 .85rem/1.4 Karla,system-ui,sans-serif;padding:.45rem .55rem;
+border:1px solid var(--rule);border-radius:2px;background:var(--paper);color:var(--ink)}
+form.ask input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.askrow{display:flex;gap:.5rem;flex-wrap:wrap}
+.askrow button{font:600 .78rem/1 Karla,system-ui,sans-serif;cursor:pointer;
+padding:.5rem .95rem;border-radius:3px;border:1px solid var(--accent);
+background:var(--accent);color:var(--paper)}
+.askrow button.cancel{background:transparent;color:var(--ink-3);border-color:var(--rule)}
 .livestate{font:400 .85rem/1.5 "IBM Plex Mono",ui-monospace,monospace;margin:0 0 1.2rem}
 .livestate.done{color:var(--holds)}.livestate.warn{color:var(--partly)}
 .livestate.blocked{color:var(--nope)}
@@ -1171,6 +1717,16 @@ li.f.bad{border-left-color:var(--nope)}li.f.bad b{color:var(--nope)}
 li.f.gone{border-left-color:var(--holds)}li.f.gone b{color:var(--holds)}
 li.f.tool{border-left-color:var(--partly)}li.f.tool b{color:var(--partly)}
 li.f.note b{color:var(--ink-3)}
+.issue.complete{margin-top:1.6rem;opacity:.82}
+.issue.complete>header{padding-bottom:.4rem}
+.issue.complete h2{font-size:1.05rem}
+.issue.complete .count{color:var(--holds);letter-spacing:.08em;text-transform:uppercase;
+font-size:.66rem}
+.issue.complete .livestate{margin:.6rem 0 .3rem}
+.chip{display:inline-block;margin-left:.6rem;padding:.16rem .45rem;border-radius:2px;
+font:500 .62rem/1.3 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.08em;
+text-transform:uppercase;vertical-align:middle;
+background:var(--accent-bg);color:var(--holds);border:1px solid var(--holds)}
 footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--rule);
 font-size:.87rem;color:var(--ink-3)}
 </style></head><body><div class="wrap">
@@ -1234,9 +1790,10 @@ def _step_states(slug: str) -> list[dict]:
     rec = [r for r in load_record() if r["issue"] == slug]
     out = []
 
-    def add(name, why, state, detail, cmd="", finds=None, action=None):
+    def add(name, why, state, detail, cmd="", finds=None, action=None, chip=""):
         out.append({"name": name, "why": why, "state": state, "detail": detail,
-                    "cmd": cmd, "finds": finds or [], "fold": "", "action": action})
+                    "cmd": cmd, "finds": finds or [], "fold": "", "action": action,
+                    "chip": chip})
 
     add(*STEPS[0], "done" if page.exists() and ehtml.exists() else "blocked",
         "assessment and email present" if page.exists() and ehtml.exists() else "missing")
@@ -1256,27 +1813,50 @@ def _step_states(slug: str) -> list[dict]:
             cmd = ("python scripts/signal/factcheck_draft.py ../%s%s --report ../%s.gate.json"
                    % (rel, since, rel))
         st = out.__len__()
-        act = None
-        # Not once it has been signed. A button offering to do a thing already
-        # done is how a board teaches you to stop reading it.
-        if g["exists"] and not g["fresh"] and not g["outstanding"] and not g["accepted"]:
+        act, chip = None, ""
+        if g["outstanding"] and not g["accepted"]:
+            # The only thing here still worth a signature: a decision to proceed
+            # past a finding that is genuinely open. It names each one.
             act = {"action": "accept-gate", "slug": slug, "file": which,
-                   "label": "Sign off", "ask": "reason"}
-        add(name, why, {OK: "done", WARN: "warn", BAD: "blocked"}[g["state"]],
-            g["detail"], cmd, finds=_finding_rows(g), action=act)
+                   "label": "Proceed past %d open finding(s)" % len(g["outstanding"]),
+                   "ask": "reason", "prefill": "",
+                   "despite": ",".join(sorted(x["id"] for x in g["outstanding"]))}
+        # A signed gate has passed. It passed by a recorded human decision
+        # rather than by a clean run against this exact text, and that
+        # difference belongs in the words, not in the colour: amber reads as
+        # "something is wrong here", and nothing is.
+        state = {OK: "done", WARN: "warn", BAD: "blocked"}[g["state"]]
+        if g["state"] == OK and not g["fresh"]:
+            chip = "reconciled"
+        if g["accepted"] and g["outstanding"]:
+            state, chip = "done", "signed off"
+        add(name, why, state, g["detail"], cmd,
+            finds=_finding_rows(g), action=act, chip=chip)
         srows = _settled_rows(g)
         out[st]["fold"] = _fold(srows, "%d already dealt with" % len(srows)) if srows else ""
 
     st, detail = outside_review(page, slug)
-    if st == WARN:
-        rcmd = 'python scripts/whatholdsup/publish.py confirm-review %s --reason "..."' % slug
-        ract = {"action": "confirm-review", "slug": slug, "ask": "reason",
-                "label": "Confirm it still applies"}
-    else:
+    rfinds, ract = [], None
+    rcmd = "python scripts/whatholdsup/publish.py review-changes %s" % slug
+    if st == BAD:
+        # Every unaccounted-for change shown in full, and a form for the first.
+        # Nothing here asks whether the reconciliation is right. It asks the one
+        # question the tool cannot answer: why a sentence changed.
+        _ok, _bad, _s = reconcile(slug)
+        for kind, was, now_, _r in _bad:
+            rfinds.append({"tone": "bad",
+                           "head": "%s — no decision on file" % kind.upper(),
+                           "text": ("was: %s    now: %s" % (was[:200], now_[:200])).strip()})
+        if _bad:
+            _k0, w0, n0, _r0 = _bad[0]
+            ract = {"action": "explain-change", "slug": slug, "was": w0, "now": n0,
+                    "ask": "explain",
+                    "label": "Why was this changed? (1 of %d)" % len(_bad)}
+    elif st == WARN:
         rcmd = "python scripts/whatholdsup/publish.py send-for-review %s" % slug
         ract = {"action": "send-for-review", "slug": slug, "label": "Snapshot for review"}
     add(*STEPS[3], {OK: "done", WARN: "warn", BAD: "blocked"}[st], detail, rcmd,
-        action=None if st == OK else ract)
+        finds=rfinds, action=ract)
 
     case = case_dir(slug)
     adj = sorted((case / "review").glob("*-adjudication.md")) if case else []
@@ -1286,19 +1866,39 @@ def _step_states(slug: str) -> list[dict]:
         action={"action": "review", "slug": slug, "label": "Record a review",
                 "ask": "review"} if st != OK else None)
 
+    # "Published" is a statement about content, not about history. A record
+    # from an hour ago says nothing about the file as it stands now, and a
+    # board that reads green while the repo has moved past what readers can
+    # see is the exact failure this whole thing was built to stop.
     pub = [r for r in rec if r["action"] == "publish"]
-    add(*STEPS[5], "done" if pub else "pending",
-        ("published %s" % pub[-1]["at"][:10]) if pub else "not published",
+    current = bool(pub) and pub[-1].get("sha") == sha(page)
+    if not pub:
+        pdetail, pstate = "not published", "pending"
+    elif current:
+        pdetail, pstate = "published %s, and this is that version" % pub[-1]["at"][:10], "done"
+    else:
+        pdetail = ("last published %s, but the page has changed since — readers are on "
+                   "%s, the repo is on %s"
+                   % (pub[-1]["at"][:10], str(pub[-1].get("sha"))[:8], sha(page)[:8]))
+        pstate = "blocked"
+    add(*STEPS[5], pstate, pdetail,
         "python scripts/whatholdsup/publish.py publish %s --yes" % slug,
-        action=None if pub else {"action": "publish", "slug": slug,
-                                 "label": "Publish", "ask": "confirm", "danger": 1})
+        action=None if current else {"action": "publish", "slug": slug,
+                                     "label": "Publish" if not pub else "Republish",
+                                     "ask": "confirm", "danger": 1})
 
     ann = [r for r in rec if r["action"] == "announce"]
-    add(*STEPS[6], "done" if ann else "pending",
-        ("sent %s" % ann[-1]["at"][:10]) if ann else "not sent",
+    void = [r for r in rec if r["action"] == "announce_void"]
+    adetail = ("sent %s to %s" % (ann[-1]["at"][:10], ann[-1].get("note", "")[:60])
+               if ann else "not sent")
+    if not ann and void:
+        adetail = ("not sent — a %s row recorded a send that never happened and has been "
+                   "voided" % void[-1]["at"][:10])
+    add(*STEPS[6], "done" if ann else "pending", adetail,
         "python scripts/whatholdsup/publish.py announce %s --yes" % slug,
         action=None if ann else {"action": "announce", "slug": slug,
-                                 "label": "Announce", "ask": "confirm", "danger": 1})
+                                 "label": "Announce", "ask": "announce", "danger": 1,
+                                 "subject": ISSUES[slug].get("email_subject", "")})
     return out
 
 
@@ -1385,9 +1985,11 @@ def _row(s: dict) -> str:
                     % (_esc(x["tone"]), _esc(x["head"]), _esc(x["text"]))
                     for x in (s.get("finds") or []))
     return ('<li class="step %s"><div class="dot"></div><div>'
-            '<b>%s</b><span class="detail">%s</span><span class="why">%s</span>%s%s%s'
+            '<b>%s%s</b><span class="detail">%s</span><span class="why">%s</span>%s%s%s'
             '</div></li>'
-            % (s["state"], _esc(s["name"]), _esc(s["detail"]), _esc(s["why"]),
+            % (s["state"], _esc(s["name"]),
+               ('<span class="chip">%s</span>' % _esc(s["chip"])) if s.get("chip") else "",
+               _esc(s["detail"]), _esc(s["why"]),
                ('<ul class="finds">%s</ul>' % finds) if finds else "",
                s.get("fold", ""),
                (_act(s.get("action"))
@@ -1457,6 +2059,9 @@ module.exports = function handler(req, res) {
 };
 """
 
+SERVER_STARTED = ""
+
+
 def _dashboard_html(interactive: bool = False) -> str:
     global INTERACTIVE
     INTERACTIVE = interactive
@@ -1477,6 +2082,32 @@ def _dashboard_html(interactive: bool = False) -> str:
 
         rows = "".join(_row(s) for s in steps)
 
+        # An issue with nothing left to do should stop occupying a screen. The
+        # steps are still there — they are the evidence that it went through
+        # them — but folded, because what a finished issue owes the board is one
+        # line saying it is finished and when.
+        if done == len(steps):
+            rec2 = [r for r in load_record() if r["issue"] == slug]
+            pub = [r for r in rec2 if r["action"] == "publish"]
+            ann = [r for r in rec2 if r["action"] == "announce"]
+            line = " &middot; ".join(filter(None, [
+                ("published %s" % pub[-1]["at"][:10]) if pub else "",
+                ("announced %s" % ann[-1]["at"][:10]) if ann else "",
+                _esc(live[1])]))
+            parts.append(
+                '<section class="issue complete"><header><div>'
+                '<span class="eyebrow">%s &middot; %s</span><h2>%s</h2></div>'
+                '<span class="count">complete</span></header>'
+                '<p class="livestate %s">%s</p>'
+                '<p class="why">Nothing to do. It stays here, folded, until the '
+                'changelog sweep finds something in this issue worth telling '
+                'subscribers about &mdash; which is not built yet.</p>'
+                '<details class="more allsteps"><summary>%d steps, all complete</summary>'
+                '<ol class="steps">%s</ol></details></section>'
+                % (_esc(slug), _esc(cfg.get("number", "")), _esc(cfg["title"]),
+                   live[0], line, len(steps), rows))
+            continue
+
         parts.append(
             '<section class="issue"><header><div>'
             '<span class="eyebrow">%s &middot; %s</span><h2>%s</h2></div>'
@@ -1495,68 +2126,169 @@ def _dashboard_html(interactive: bool = False) -> str:
     }
     if interactive:
         html = html.replace("</body>", ACTION_JS + "</body>")
+        if SERVER_STARTED:
+            # The page is rebuilt on every request, so its timestamp is always
+            # now even when the process serving it is hours old and running
+            # code from before the last change. This is the honest line.
+            html = html.replace(
+                "</header>",
+                '<p class="mono">Server started %s &mdash; restart it to pick up '
+                'changes to publish.py.</p></header>' % _esc(SERVER_STARTED))
     INTERACTIVE = False
     return html
 
 
 ACTION_JS = """<script>
+// Every prompt() here used to be a browser dialog. Chrome suppresses those
+// after one dismissal, and the handler returned silently when it did, which is
+// indistinguishable from a dead button. Forms are in the page, cannot be
+// suppressed, can be cancelled visibly, and show what they are going to send.
 (function () {
-  function ask(a) {
-    if (a.ask === "reason") {
-      var r = prompt("Why is proceeding right? This goes on the record, bound to "
-                     + "the file's hash, and the next edit voids it.");
-      if (r === null) return null;
-      a.reason = r;
-      return a;
-    }
-    if (a.ask === "confirm") {
-      var c = prompt("This cannot be taken back. Type " + a.action.toUpperCase()
-                     + " to go ahead.");
-      if (c === null) return null;
-      a.confirm = c;
-      return a;
-    }
-    if (a.ask === "review") {
-      a.reviewer = prompt("Who or what reviewed it?");
-      if (a.reviewer === null) return null;
-      a.findings = prompt("How many findings did it return?");
-      if (a.findings === null) return null;
-      a.accepted = prompt("How many did we act on?");
-      if (a.accepted === null) return null;
-      a.note = prompt("One line on what it changed (optional)") || "";
-      return a;
-    }
-    return a;
+  var FIELDS = {
+    reason: [{ k: "reason",
+               label: "This is what will be recorded. Edit it if you disagree with "
+                      + "it. It is bound to the file's hash, so the next edit voids it.",
+               ph: "" }],
+    explain: [{ k: "note",
+                label: "Why was this change made? One line, on the record. Every "
+                       + "other change matched a decision already written down; "
+                       + "this one matched none." }],
+    review: [{ k: "reviewer", label: "Who or what reviewed it?" },
+             { k: "findings", label: "How many findings did it return?" },
+             { k: "accepted", label: "How many did we act on?" },
+             { k: "note", label: "One line on what it changed (optional)" }]
+  };
+
+  function confirmFields(action) {
+    return [{ k: "confirm",
+              label: "This cannot be taken back. Type " + action.toUpperCase()
+                     + " to go ahead.",
+              ph: action.toUpperCase() }];
   }
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest("button.go");
-    if (!b) return;
-    var a;
-    try { a = JSON.parse(b.dataset.act); } catch (err) { return; }
-    a = ask(a);
-    if (a === null) return;
-    var box = b.parentNode.querySelector("pre.out");
-    if (!box) {
-      box = document.createElement("pre");
-      box.className = "out";
-      b.parentNode.appendChild(box);
+
+  // A subject line is editorial and nobody but the sender can write it, so it
+  // is asked for. Everything else about the send the tool already knows.
+  function announceFields(subject) {
+    return [{ k: "subject", label: "Subject line, as it will appear in the inbox.",
+              value: subject || "" },
+            { k: "confirm",
+              label: "This goes to the list and cannot be recalled. Type ANNOUNCE.",
+              ph: "ANNOUNCE" }];
+  }
+
+  function box(host) {
+    var el = host.querySelector("pre.out");
+    if (!el) {
+      el = document.createElement("pre");
+      el.className = "out";
+      host.appendChild(el);
     }
-    b.disabled = true;
-    box.className = "out";
-    box.textContent = "working...";
+    return el;
+  }
+
+  function post(payload, out, btn, then) {
+    btn.disabled = true;
+    out.className = "out";
+    out.textContent = "working...";
     fetch("/do", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(a)
+      body: JSON.stringify(payload)
     }).then(function (r) { return r.json(); }).then(function (j) {
-      box.className = "out " + (j.ok ? "ok" : "bad");
-      box.textContent = j.output || (j.ok ? "done" : "failed");
-      b.disabled = false;
-      if (j.ok) setTimeout(function () { location.reload(); }, 1600);
+      out.className = "out " + (j.ok ? "ok" : "bad");
+      out.textContent = j.output || (j.ok ? "done" : "failed");
+      btn.disabled = false;
+      then(j);
     }).catch(function (err) {
-      box.className = "out bad";
-      box.textContent = String(err);
-      b.disabled = false;
+      out.className = "out bad";
+      out.textContent = "could not reach the board: " + err
+        + "\\n\\nIs it still running in the terminal you started it from?";
+      btn.disabled = false;
+    });
+  }
+
+  function form(host, fields, submitLabel, onSubmit) {
+    var old = host.querySelector("form.ask");
+    if (old) old.parentNode.removeChild(old);
+    var f = document.createElement("form");
+    f.className = "ask";
+    fields.forEach(function (fd) {
+      var l = document.createElement("label");
+      var t = document.createElement("span");
+      t.textContent = fd.label;
+      var i = document.createElement("input");
+      i.type = "text";
+      i.name = fd.k;
+      i.autocomplete = "off";
+      if (fd.ph) i.placeholder = fd.ph;
+      if (fd.value) i.value = fd.value;
+      l.appendChild(t);
+      l.appendChild(i);
+      f.appendChild(l);
+    });
+    var row = document.createElement("div");
+    row.className = "askrow";
+    var go = document.createElement("button");
+    go.type = "submit";
+    go.textContent = submitLabel;
+    var no = document.createElement("button");
+    no.type = "button";
+    no.className = "cancel";
+    no.textContent = "Cancel";
+    no.addEventListener("click", function () { f.parentNode.removeChild(f); });
+    row.appendChild(go);
+    row.appendChild(no);
+    f.appendChild(row);
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var vals = {};
+      fields.forEach(function (fd) { vals[fd.k] = f.elements[fd.k].value; });
+      onSubmit(vals, f);
+    });
+    host.appendChild(f);
+    var first = f.querySelector("input");
+    if (first) first.focus();
+  }
+
+  function reload() { setTimeout(function () { location.reload(); }, 1400); }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button.go");
+    if (!b || b.closest("form.ask")) return;
+    var a;
+    try { a = JSON.parse(b.dataset.act); } catch (err) { return; }
+    var host = b.parentNode;
+    var out = box(host);
+
+    // Show the difference, then ask. The signature is on something seen.
+    if (a.ask === "diff") {
+      post({ action: "review-changes", slug: a.slug }, out, b, function (j) {
+        // Not ok means at least one change has no decision behind it. That is
+        // not something to confirm past, so no confirm button is offered.
+        if (!j.ok) return;
+        form(host, [], "Every change is accounted for \\u2014 confirm", function () {
+          post({ action: "confirm-review", slug: a.slug }, out, b,
+               function (k) { if (k.ok) reload(); });
+        });
+      });
+      return;
+    }
+
+    var fields = a.ask === "announce" ? announceFields(a.subject)
+               : a.ask === "confirm" ? confirmFields(a.action)
+               : (FIELDS[a.ask] || []);
+    if (a.prefill && fields.length === 1) {
+      fields = [{ k: fields[0].k, label: fields[0].label, value: a.prefill }];
+    }
+    if (!fields.length) {
+      post(a, out, b, function (j) { if (j.ok) reload(); });
+      return;
+    }
+    form(host, fields, a.label, function (v) {
+      var payload = {};
+      for (var k in a) { if (a.hasOwnProperty(k)) payload[k] = a[k]; }
+      for (var k2 in v) { if (v.hasOwnProperty(k2)) payload[k2] = v[k2]; }
+      post(payload, out, b, function (j) { if (j.ok) reload(); });
     });
   });
 })();
@@ -1668,6 +2400,15 @@ def cmd_accept_gate(args) -> int:
               % ", ".join(sorted(stray)))
         print("  with gate-status before accepting past anything.\n")
         return 2
+    # What is being accepted is a fact about the run, and the tool knows it.
+    # Making a person compose that sentence was making them attest to a
+    # reconciliation only the tool had performed. They can still overwrite it.
+    auto = ("%d finding(s) from the %s run: %d verified gone from the text, "
+            "%d already decided in draft_decisions.json%s"
+            % (len(g["blocking"]), g.get("checked_at", "?"), len(g["resolved"]),
+               len(g["settled"]),
+               "; " + ", ".join(sorted(named)) + " accepted past" if named else ""))
+    reason = (args.reason or "").strip() or auto
     fp = acceptance_file(args.slug)
     if fp is None:
         print("\n  no case directory for %s\n" % args.slug)
@@ -1685,7 +2426,7 @@ def cmd_accept_gate(args) -> int:
         "gate_checked_at": g.get("checked_at", ""),
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "by": args.by,
-        "reason": args.reason,
+        "reason": reason,
         "findings_in_that_run": len(g["blocking"]),
         "verified_gone": len(g["resolved"]),
         "accepted_despite": sorted(named),
@@ -1735,16 +2476,22 @@ def _run_action(payload: dict) -> tuple[bool, str]:
         return False, "unknown issue: %r" % slug
 
     if kind == "accept-gate":
-        reason = (payload.get("reason") or "").strip()
-        if len(reason) < 8:
-            return False, ("A reason is the whole point of an acceptance. "
-                           "Write one a stranger could disagree with.")
-        args = Namespace(slug=slug, file=payload.get("file"), reason=reason,
+        args = Namespace(slug=slug, file=payload.get("file"),
+                         reason=(payload.get("reason") or "").strip(),
                          by=payload.get("by") or os.environ.get("USER") or "operator",
                          despite=payload.get("despite"))
         fn = cmd_accept_gate
     elif kind == "send-for-review":
         args, fn = Namespace(slug=slug), cmd_send_for_review
+    elif kind == "explain-change":
+        args = Namespace(slug=slug, was=payload.get("was") or "",
+                         now=payload.get("now") or "",
+                         because=payload.get("because") or "AD-HOC",
+                         note=payload.get("note") or "",
+                         by=payload.get("by") or os.environ.get("USER") or "operator")
+        fn = cmd_explain_change
+    elif kind == "review-changes":
+        args, fn = Namespace(slug=slug), cmd_review_changes
     elif kind == "confirm-review":
         reason = (payload.get("reason") or "").strip()
         args = Namespace(slug=slug, reason=reason,
@@ -1763,12 +2510,15 @@ def _run_action(payload: dict) -> tuple[bool, str]:
             return False, "who reviewed it?"
         fn = cmd_review
     elif kind in ("publish", "announce"):
+        if kind == "announce" and not (payload.get("subject") or "").strip():
+            return False, "a subject line is required"
         # Irreversible. The CLI makes you type --yes; this makes you type the
         # word. Neither is a real safeguard against a determined mistake, and
         # both are enough to stop an absent-minded click.
         if (payload.get("confirm") or "").strip().upper() != kind.upper():
             return False, "not confirmed"
-        args = Namespace(slug=slug, yes=True, waive=payload.get("waive") or None)
+        args = Namespace(slug=slug, yes=True, waive=payload.get("waive") or None,
+                         subject=payload.get("subject"))
         fn = cmd_publish if kind == "publish" else cmd_announce
     elif kind == "gate-status":
         args, fn = Namespace(slug=slug), cmd_gate_status
@@ -1828,13 +2578,27 @@ def cmd_board(args) -> int:
             self._send(200, json.dumps({"ok": ok, "output": out}), "application/json")
 
     socketserver.TCPServer.allow_reuse_address = True
-    try:
-        srv = socketserver.TCPServer(("127.0.0.1", args.port), Handler)
-    except OSError as exc:
-        print("\n  cannot listen on 127.0.0.1:%d — %s" % (args.port, exc))
-        print("  another copy may already be running; try --port %d\n" % (args.port + 1))
+    # Walk up until something is free. Handing back an error and a port number
+    # to type is the tool making its problem into the operator's problem, and
+    # the whole point of the board is to stop doing that.
+    srv, port, last = None, args.port, None
+    for port in range(args.port, args.port + 25):
+        try:
+            srv = socketserver.TCPServer(("127.0.0.1", port), Handler)
+            break
+        except OSError as exc:
+            last = exc
+    if srv is None:
+        print("\n  no free port between %d and %d — %s\n"
+              % (args.port, args.port + 24, last))
         return 2
-    url = "http://127.0.0.1:%d/" % args.port
+    if port != args.port:
+        print()
+        print("  %d was busy — using %d instead." % (args.port, port))
+        print("  If a board is already running there, this is a second one.")
+    global SERVER_STARTED
+    SERVER_STARTED = datetime.now().strftime("%Y-%m-%d %H:%M")
+    url = "http://127.0.0.1:%d/" % port
     print()
     print("  Publication board: %s" % url)
     print("  Loopback only — nothing outside this machine can reach it.")
@@ -1893,6 +2657,11 @@ def main() -> int:
         p = sub.add_parser(name, help=helptext)
         p.add_argument("slug", choices=sorted(ISSUES))
         p.add_argument("--yes", action="store_true", help="actually do it")
+        if name == "announce":
+            p.add_argument("--subject",
+                           help="subject line; defaults to the issue's configured one")
+            p.add_argument("--dry-run", action="store_true",
+                           help="run every check the sender runs and stop; sends nothing")
         p.add_argument("--waive", metavar="REASON",
                        help="Publish despite blocking preflight items. Requires a reason, "
                             "which is written into the publication record beside what was "
@@ -1905,10 +2674,25 @@ def main() -> int:
     bd.add_argument("--no-open", action="store_true", help="do not open a browser")
     bd.set_defaults(fn=cmd_board)
 
+    rc = sub.add_parser("review-changes",
+                        help="show what changed in the prose since the reviewer read it")
+    rc.add_argument("slug", choices=sorted(ISSUES))
+    rc.set_defaults(fn=cmd_review_changes)
+
+    ec = sub.add_parser("explain-change",
+                        help="record why a change was made that nothing on file explains")
+    ec.add_argument("slug", choices=sorted(ISSUES))
+    ec.add_argument("--was", default="")
+    ec.add_argument("--now", default="")
+    ec.add_argument("--because", default="AD-HOC")
+    ec.add_argument("--note", required=True)
+    ec.add_argument("--by", default=os.environ.get("USER") or "operator")
+    ec.set_defaults(fn=cmd_explain_change)
+
     cr = sub.add_parser("confirm-review",
                         help="record that the changes since a review were the ones it asked for")
     cr.add_argument("slug", choices=sorted(ISSUES))
-    cr.add_argument("--reason", required=True)
+    cr.add_argument("--reason", help="optional; the reconciliation is recorded either way")
     cr.add_argument("--by", default=os.environ.get("USER") or "operator")
     cr.set_defaults(fn=cmd_confirm_review)
 
@@ -1922,8 +2706,8 @@ def main() -> int:
                              "findings are all verified gone from the current text")
     ag.add_argument("slug", choices=sorted(ISSUES))
     ag.add_argument("--file", choices=("assessment", "email"), required=True)
-    ag.add_argument("--reason", required=True,
-                    help="why proceeding is right, in one line, on the record")
+    ag.add_argument("--reason",
+                    help="optional; defaults to what the run actually found")
     ag.add_argument("--by", default=os.environ.get("USER") or "operator",
                     help="who is deciding")
     ag.add_argument("--despite", metavar="IDS",
