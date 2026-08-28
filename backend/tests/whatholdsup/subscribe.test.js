@@ -104,8 +104,17 @@ const failFetch = (status, body) => router({ resend: { ok: false, status, body }
 
   o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
                    fetchImpl: router({ record: { throws: "db unreachable" } }) });
-  t("a throw on the record -> E3/x, distinguishable from a status",
-    o.code === 500 && /Reference: E3\/x/.test(o.body));
+  o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
+                   fetchImpl: router({ record: { throws: "Failed to parse URL from x" } }) });
+  t("a throw on a bad URL -> E3/url", o.code === 500 && /Reference: E3\/url/.test(o.body));
+
+  o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
+                   fetchImpl: router({ record: { throws: "Invalid value for header Authorization" } }) });
+  t("a throw on a bad header -> E3/hdr", o.code === 500 && /Reference: E3\/hdr/.test(o.body));
+
+  o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
+                   fetchImpl: router({ record: { throws: "fetch failed" } }) });
+  t("any other throw -> E3/net", o.code === 500 && /Reference: E3\/net/.test(o.body));
 
   o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
                    fetchImpl: router({ resend: { throws: "network down" } }) });

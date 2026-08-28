@@ -161,7 +161,27 @@ module.exports = async function handler(req, res) {
     why = String(r.status);
     if (!r.ok) console.error("subscribe E3: record failed", r.status, await r.text());
   } catch (err) {
-    console.error("subscribe E3: record threw", err && err.message);
+    // A throw means the request never got a status, so there is no upstream
+    // code to report. The three causes are distinguishable from the message and
+    // none of them needs the value quoted: a URL that will not parse, a header
+    // value carrying a character a header cannot hold — a newline pasted into
+    // the middle of a key does this, and is invisible in a dashboard — or the
+    // network. Guessing between them cost three round trips on 2026-08-28.
+    const m = String((err && err.message) || "");
+    why = /invalid url|failed to parse url|cannot be parsed/i.test(m) ? "url"
+        : /header|invalid character|ERR_INVALID_CHAR/i.test(m) ? "hdr"
+        : "net";
+    // Fingerprint, never the value: enough to compare against the key known to
+    // work without putting a credential in a log.
+    let fp = "?";
+    try {
+      fp = require("crypto").createHash("sha256").update(dbKey).digest("hex").slice(0, 8);
+    } catch { /* not worth failing a signup over */ }
+    console.error("subscribe E3 threw:", m,
+                  "| url host:", String(dbUrl).replace(/^https?:\/\//, "").split("/")[0],
+                  "| url length:", String(dbUrl).length,
+                  "| key fingerprint:", fp,
+                  "| key length:", String(dbKey).length);
   }
   if (!recorded) {
     res.status(500).send(page("Something is wrong at our end",
