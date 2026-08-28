@@ -1,0 +1,29 @@
+{
+  "what_this_is": "Decisions to proceed on a gate run that judged an earlier version of the file, taken only where every blocking finding from that run was verified absent from the current text. Bound to the content hash, so the next edit voids the acceptance.",
+  "acceptances": [
+    {
+      "file": "melanoma.html",
+      "sha": "b491276bd33151e6dc51ea6229100d69ff394a5a22232131d4ec96a7b30e9a27",
+      "gate_report_sha": "393c69f1bd2d2c645e6296689960afe8b048539d85be06557010e106cd8a752d",
+      "gate_checked_at": "2026-08-28",
+      "at": "2026-08-28T14:52:42+00:00",
+      "by": "fredugast",
+      "reason": "your reason",
+      "findings_in_that_run": 12,
+      "verified_gone": 6,
+      "accepted_despite": []
+    },
+    {
+      "file": "issue1-melanoma.html",
+      "sha": "712aad66c0d773586464a083ec9917f3e976e4880809e6fbe5becac03e168659",
+      "gate_report_sha": "dc65193a28188e327fb655ae5f85de602c6b0b38110161ecdeb4918a1fcfa3b7",
+      "gate_checked_at": "2026-08-28",
+      "at": "2026-08-28T14:52:42+00:00",
+      "by": "fredugast",
+      "reason": "your reason",
+      "findings_in_that_run": 8,
+      "verified_gone": 3,
+      "accepted_despite": []
+    }
+  ]
+}

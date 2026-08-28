@@ -525,6 +525,23 @@ def outside_review(page: Path, slug: str) -> tuple[str, str]:
         return OK, (f"reviewed {latest.get('at', '?')[:10]} by "
                     f"{latest.get('reviewer', 'unnamed')}, "
                     f"{latest.get('findings', '?')} finding(s), all adjudicated")
+    # A review of an earlier draft is not a review of this one, and pretending
+    # otherwise is the failure this function exists to prevent. But the changes
+    # after a review are usually the ones it asked for, and re-running the whole
+    # review to say so is not proportionate. So: a confirmation, bound to BOTH
+    # hashes — the version reviewed and the version now — naming who looked at
+    # the difference. It reads as a confirmation on the board, never as a review.
+    try:
+        confs = json.loads(REVIEWS.read_text()).get("confirmations", [])
+    except Exception:
+        confs = []
+    now = sha(page)
+    for c in reversed(confs):
+        if (c.get("issue") == slug and c.get("reviewed_sha") == latest.get("sha")
+                and c.get("now_sha") == now):
+            return OK, (f"reviewed {latest.get('at', '?')[:10]} by "
+                        f"{latest.get('reviewer', 'unnamed')}; changes since confirmed "
+                        f"{c.get('at', '?')[:10]} by {c.get('by', '?')}")
     return WARN, (f"the last review read a different version "
                   f"({latest.get('at', '?')[:10]}, sha {str(latest.get('sha'))[:8]}). "
                   f"Confirm the only changes since were the ones it asked for.")
@@ -867,6 +884,42 @@ def cmd_review(args) -> int:
 
 
 
+def cmd_confirm_review(args) -> int:
+    """Record that the changes made after a review were the ones it asked for."""
+    cfg = ISSUES[args.slug]
+    page = ROOT / cfg["page"]
+    try:
+        data = json.loads(REVIEWS.read_text())
+    except Exception:
+        print("\n  no reviews recorded for anything yet\n")
+        return 2
+    mine = [r for r in data.get("reviews", []) if r.get("issue") == args.slug]
+    if not mine:
+        print("\n  no outside review recorded for %s — there is nothing to carry\n" % args.slug)
+        return 2
+    latest = mine[-1]
+    now = sha(page)
+    if latest.get("sha") == now:
+        print("\n  the review already covers this exact text; nothing to confirm\n")
+        return 2
+    if len((args.reason or "").strip()) < 8:
+        print("\n  Say what changed and why the review still stands. One line.\n")
+        return 2
+    data.setdefault("confirmations", []).append({
+        "issue": args.slug,
+        "reviewed_sha": latest.get("sha"),
+        "now_sha": now,
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "by": args.by,
+        "reason": args.reason.strip(),
+    })
+    REVIEWS.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    print("\n  Confirmed: the review of %s still applies to %s."
+          % (str(latest.get("sha"))[:12], now[:12]))
+    print("  Any further edit voids this and asks again.\n")
+    return 0
+
+
 def cmd_register(_args) -> int:
     """Regenerate issue-register.csv from the case files.
 
@@ -955,7 +1008,7 @@ def next_action(slug: str) -> tuple[str, str]:
                 "python scripts/whatholdsup/publish.py send-for-review %s" % slug)
     if st == WARN:
         return ("confirm the outside review still applies — %s" % detail,
-                "python scripts/whatholdsup/publish.py send-for-review %s" % slug)
+                'python scripts/whatholdsup/publish.py confirm-review %s --reason "..."' % slug)
 
     blocked = [l for l, s_, _d in preflight(slug, for_email=False) if s_ == BAD]
     if blocked:
@@ -1074,6 +1127,17 @@ ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;cursor:poin
 padding:.28rem .5rem;border:1px solid var(--rule);border-radius:2px;
 background:var(--card);color:var(--ink-3)}
 .cmd button:hover{color:var(--ink);border-color:var(--ink-3)}
+button.go{display:inline-block;margin-top:.7rem;font:600 .78rem/1 Karla,system-ui,sans-serif;
+cursor:pointer;padding:.55rem .95rem;border-radius:3px;border:1px solid var(--accent);
+background:var(--accent);color:var(--paper)}
+button.go:hover{filter:brightness(1.12)}
+button.go.danger{border-color:var(--nope);background:var(--nope)}
+button.go[disabled]{opacity:.5;cursor:default;filter:none}
+pre.out{margin:.7rem 0 0;padding:.7rem .8rem;border-radius:2px;background:var(--card-2);
+color:var(--ink-2);font:400 .78rem/1.5 "IBM Plex Mono",ui-monospace,monospace;
+white-space:pre-wrap;overflow-wrap:anywhere}
+pre.out.bad{border-left:2px solid var(--nope)}
+pre.out.ok{border-left:2px solid var(--holds)}
 .livestate{font:400 .85rem/1.5 "IBM Plex Mono",ui-monospace,monospace;margin:0 0 1.2rem}
 .livestate.done{color:var(--holds)}.livestate.warn{color:var(--partly)}
 .livestate.blocked{color:var(--nope)}
@@ -1170,9 +1234,9 @@ def _step_states(slug: str) -> list[dict]:
     rec = [r for r in load_record() if r["issue"] == slug]
     out = []
 
-    def add(name, why, state, detail, cmd="", finds=None):
+    def add(name, why, state, detail, cmd="", finds=None, action=None):
         out.append({"name": name, "why": why, "state": state, "detail": detail,
-                    "cmd": cmd, "finds": finds or [], "fold": ""})
+                    "cmd": cmd, "finds": finds or [], "fold": "", "action": action})
 
     add(*STEPS[0], "done" if page.exists() and ehtml.exists() else "blocked",
         "assessment and email present" if page.exists() and ehtml.exists() else "missing")
@@ -1192,30 +1256,49 @@ def _step_states(slug: str) -> list[dict]:
             cmd = ("python scripts/signal/factcheck_draft.py ../%s%s --report ../%s.gate.json"
                    % (rel, since, rel))
         st = out.__len__()
+        act = None
+        # Not once it has been signed. A button offering to do a thing already
+        # done is how a board teaches you to stop reading it.
+        if g["exists"] and not g["fresh"] and not g["outstanding"] and not g["accepted"]:
+            act = {"action": "accept-gate", "slug": slug, "file": which,
+                   "label": "Sign off", "ask": "reason"}
         add(name, why, {OK: "done", WARN: "warn", BAD: "blocked"}[g["state"]],
-            g["detail"], cmd, finds=_finding_rows(g))
+            g["detail"], cmd, finds=_finding_rows(g), action=act)
         srows = _settled_rows(g)
         out[st]["fold"] = _fold(srows, "%d already dealt with" % len(srows)) if srows else ""
 
     st, detail = outside_review(page, slug)
-    add(*STEPS[3], {OK: "done", WARN: "warn", BAD: "blocked"}[st], detail,
-        "python scripts/whatholdsup/publish.py send-for-review %s" % slug)
+    if st == WARN:
+        rcmd = 'python scripts/whatholdsup/publish.py confirm-review %s --reason "..."' % slug
+        ract = {"action": "confirm-review", "slug": slug, "ask": "reason",
+                "label": "Confirm it still applies"}
+    else:
+        rcmd = "python scripts/whatholdsup/publish.py send-for-review %s" % slug
+        ract = {"action": "send-for-review", "slug": slug, "label": "Snapshot for review"}
+    add(*STEPS[3], {OK: "done", WARN: "warn", BAD: "blocked"}[st], detail, rcmd,
+        action=None if st == OK else ract)
 
     case = case_dir(slug)
     adj = sorted((case / "review").glob("*-adjudication.md")) if case else []
     add(*STEPS[4], "done" if st == OK else "pending",
         ("%s on file" % adj[-1].name) if adj else "no adjudication recorded",
-        "python scripts/whatholdsup/publish.py review %s --reviewer NAME --findings N --accepted M" % slug)
+        "python scripts/whatholdsup/publish.py review %s --reviewer NAME --findings N --accepted M" % slug,
+        action={"action": "review", "slug": slug, "label": "Record a review",
+                "ask": "review"} if st != OK else None)
 
     pub = [r for r in rec if r["action"] == "publish"]
     add(*STEPS[5], "done" if pub else "pending",
         ("published %s" % pub[-1]["at"][:10]) if pub else "not published",
-        "python scripts/whatholdsup/publish.py publish %s --yes" % slug)
+        "python scripts/whatholdsup/publish.py publish %s --yes" % slug,
+        action=None if pub else {"action": "publish", "slug": slug,
+                                 "label": "Publish", "ask": "confirm", "danger": 1})
 
     ann = [r for r in rec if r["action"] == "announce"]
     add(*STEPS[6], "done" if ann else "pending",
         ("sent %s" % ann[-1]["at"][:10]) if ann else "not sent",
-        "python scripts/whatholdsup/publish.py announce %s --yes" % slug)
+        "python scripts/whatholdsup/publish.py announce %s --yes" % slug,
+        action=None if ann else {"action": "announce", "slug": slug,
+                                 "label": "Announce", "ask": "confirm", "danger": 1})
     return out
 
 
@@ -1281,6 +1364,22 @@ def _cmd(c: str) -> str:
             % _esc(c)) if c else ""
 
 
+INTERACTIVE = False
+
+
+def _act(a: dict | None) -> str:
+    """A button, only on a board that can actually run it.
+
+    The static copy and the one at /api/admin render nothing here. A button
+    that does nothing when clicked is worse than no button: it tells you the
+    thing is possible from where you are standing, and it is not.
+    """
+    if not a or not INTERACTIVE:
+        return ""
+    return ('<button class="go%s" data-act="%s">%s</button>'
+            % (" danger" if a.get("danger") else "", _esc(json.dumps(a)), _esc(a["label"])))
+
+
 def _row(s: dict) -> str:
     finds = "".join('<li class="f %s"><b>%s</b><span>%s</span></li>'
                     % (_esc(x["tone"]), _esc(x["head"]), _esc(x["text"]))
@@ -1291,7 +1390,8 @@ def _row(s: dict) -> str:
             % (s["state"], _esc(s["name"]), _esc(s["detail"]), _esc(s["why"]),
                ('<ul class="finds">%s</ul>' % finds) if finds else "",
                s.get("fold", ""),
-               _cmd(s["cmd"]) if s["state"] != "done" and s["cmd"] else ""))
+               (_act(s.get("action"))
+                + (_cmd(s["cmd"]) if s["state"] != "done" and s["cmd"] else ""))))
 
 
 
@@ -1357,7 +1457,9 @@ module.exports = function handler(req, res) {
 };
 """
 
-def cmd_dashboard(args) -> int:
+def _dashboard_html(interactive: bool = False) -> str:
+    global INTERACTIVE
+    INTERACTIVE = interactive
     parts = []
     for slug in sorted(ISSUES):
         cfg = ISSUES[slug]
@@ -1391,6 +1493,79 @@ def cmd_dashboard(args) -> int:
         "when": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "issues": "".join(parts),
     }
+    if interactive:
+        html = html.replace("</body>", ACTION_JS + "</body>")
+    INTERACTIVE = False
+    return html
+
+
+ACTION_JS = """<script>
+(function () {
+  function ask(a) {
+    if (a.ask === "reason") {
+      var r = prompt("Why is proceeding right? This goes on the record, bound to "
+                     + "the file's hash, and the next edit voids it.");
+      if (r === null) return null;
+      a.reason = r;
+      return a;
+    }
+    if (a.ask === "confirm") {
+      var c = prompt("This cannot be taken back. Type " + a.action.toUpperCase()
+                     + " to go ahead.");
+      if (c === null) return null;
+      a.confirm = c;
+      return a;
+    }
+    if (a.ask === "review") {
+      a.reviewer = prompt("Who or what reviewed it?");
+      if (a.reviewer === null) return null;
+      a.findings = prompt("How many findings did it return?");
+      if (a.findings === null) return null;
+      a.accepted = prompt("How many did we act on?");
+      if (a.accepted === null) return null;
+      a.note = prompt("One line on what it changed (optional)") || "";
+      return a;
+    }
+    return a;
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button.go");
+    if (!b) return;
+    var a;
+    try { a = JSON.parse(b.dataset.act); } catch (err) { return; }
+    a = ask(a);
+    if (a === null) return;
+    var box = b.parentNode.querySelector("pre.out");
+    if (!box) {
+      box = document.createElement("pre");
+      box.className = "out";
+      b.parentNode.appendChild(box);
+    }
+    b.disabled = true;
+    box.className = "out";
+    box.textContent = "working...";
+    fetch("/do", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(a)
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      box.className = "out " + (j.ok ? "ok" : "bad");
+      box.textContent = j.output || (j.ok ? "done" : "failed");
+      b.disabled = false;
+      if (j.ok) setTimeout(function () { location.reload(); }, 1600);
+    }).catch(function (err) {
+      box.className = "out bad";
+      box.textContent = String(err);
+      b.disabled = false;
+    });
+  });
+})();
+</script>
+"""
+
+
+def cmd_dashboard(args) -> int:
+    html = _dashboard_html(interactive=False)
     DASHBOARD.parent.mkdir(parents=True, exist_ok=True)
     DASHBOARD.write_text(html, encoding="utf-8")
 
@@ -1529,6 +1704,157 @@ def cmd_accept_gate(args) -> int:
     return 0
 
 
+# ---------------------------------------------------------------------------
+# the board, served from this machine, with the buttons wired up
+#
+# The copy at /api/admin is a function in Vercel's cloud. It has no repo, no
+# git and no python, so a button there cannot accept a gate or publish an
+# issue — it can only show what was true when it was generated. That is worth
+# having for reading from a phone, and it is the wrong place to work.
+#
+# This runs where the work already is. Every button calls the same function
+# the CLI calls, the page is regenerated on every request rather than baked in,
+# and it binds to the loopback address only: no port is open to the network,
+# and nothing but this machine can reach it.
+# ---------------------------------------------------------------------------
+
+def _run_action(payload: dict) -> tuple[bool, str]:
+    """Call the same command function the CLI would, and capture what it says.
+
+    One map, one place. If a button and a command could diverge, they would,
+    and the first anyone would know is a board reporting something that did not
+    happen.
+    """
+    import contextlib
+    import io
+    from argparse import Namespace
+
+    kind = payload.get("action")
+    slug = payload.get("slug")
+    if slug not in ISSUES:
+        return False, "unknown issue: %r" % slug
+
+    if kind == "accept-gate":
+        reason = (payload.get("reason") or "").strip()
+        if len(reason) < 8:
+            return False, ("A reason is the whole point of an acceptance. "
+                           "Write one a stranger could disagree with.")
+        args = Namespace(slug=slug, file=payload.get("file"), reason=reason,
+                         by=payload.get("by") or os.environ.get("USER") or "operator",
+                         despite=payload.get("despite"))
+        fn = cmd_accept_gate
+    elif kind == "send-for-review":
+        args, fn = Namespace(slug=slug), cmd_send_for_review
+    elif kind == "confirm-review":
+        reason = (payload.get("reason") or "").strip()
+        args = Namespace(slug=slug, reason=reason,
+                         by=payload.get("by") or os.environ.get("USER") or "operator")
+        fn = cmd_confirm_review
+    elif kind == "review":
+        try:
+            findings = int(payload.get("findings"))
+            accepted = int(payload.get("accepted"))
+        except (TypeError, ValueError):
+            return False, "findings and accepted must both be numbers"
+        args = Namespace(slug=slug, reviewer=(payload.get("reviewer") or "").strip(),
+                         findings=findings, accepted=accepted,
+                         note=payload.get("note") or "")
+        if not args.reviewer:
+            return False, "who reviewed it?"
+        fn = cmd_review
+    elif kind in ("publish", "announce"):
+        # Irreversible. The CLI makes you type --yes; this makes you type the
+        # word. Neither is a real safeguard against a determined mistake, and
+        # both are enough to stop an absent-minded click.
+        if (payload.get("confirm") or "").strip().upper() != kind.upper():
+            return False, "not confirmed"
+        args = Namespace(slug=slug, yes=True, waive=payload.get("waive") or None)
+        fn = cmd_publish if kind == "publish" else cmd_announce
+    elif kind == "gate-status":
+        args, fn = Namespace(slug=slug), cmd_gate_status
+    elif kind == "check":
+        args, fn = Namespace(slug=slug, yes=False, waive=None), cmd_check
+    else:
+        return False, "unknown action: %r" % kind
+
+    buf = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(buf):
+            code = fn(args)
+    except Exception as exc:                    # a traceback in a browser is
+        return False, "%s\n\n%s: %s" % (buf.getvalue(), type(exc).__name__, exc)
+    return code == 0, buf.getvalue().strip() or "done"
+
+
+def cmd_board(args) -> int:
+    import http.server
+    import socketserver
+    import webbrowser
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def log_message(self, *_a):
+            pass
+
+        def _send(self, code, body, ctype):
+            b = body if isinstance(body, bytes) else body.encode("utf-8")
+            self.send_response(code)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(len(b)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(b)
+
+        def do_GET(self):
+            if self.path.split("?")[0] not in ("/", "/index.html"):
+                self._send(404, "no", "text/plain; charset=utf-8")
+                return
+            # Regenerated per request. The served copy is a snapshot because a
+            # serverless function cannot read the repo; this one can, so it is
+            # never stale and never needs regenerating by hand.
+            self._send(200, _dashboard_html(interactive=True), "text/html; charset=utf-8")
+
+        def do_POST(self):
+            if self.path != "/do":
+                self._send(404, "no", "text/plain; charset=utf-8")
+                return
+            n = int(self.headers.get("Content-Length") or 0)
+            try:
+                payload = json.loads(self.rfile.read(n) or b"{}")
+            except Exception as exc:
+                self._send(400, json.dumps({"ok": False, "output": str(exc)}),
+                           "application/json")
+                return
+            ok, out = _run_action(payload)
+            self._send(200, json.dumps({"ok": ok, "output": out}), "application/json")
+
+    socketserver.TCPServer.allow_reuse_address = True
+    try:
+        srv = socketserver.TCPServer(("127.0.0.1", args.port), Handler)
+    except OSError as exc:
+        print("\n  cannot listen on 127.0.0.1:%d — %s" % (args.port, exc))
+        print("  another copy may already be running; try --port %d\n" % (args.port + 1))
+        return 2
+    url = "http://127.0.0.1:%d/" % args.port
+    print()
+    print("  Publication board: %s" % url)
+    print("  Loopback only — nothing outside this machine can reach it.")
+    print("  Every button runs the same function the CLI runs.")
+    print("  Ctrl-C to stop.")
+    print()
+    if not args.no_open:
+        try:
+            webbrowser.open(url)
+        except Exception:
+            pass
+    try:
+        srv.serve_forever()
+    except KeyboardInterrupt:
+        print("\n  stopped\n")
+    finally:
+        srv.server_close()
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -1573,6 +1899,19 @@ def main() -> int:
                             "waived. Use it when a check has stopped buying anything, not "
                             "when it is inconvenient.")
         p.set_defaults(fn=fn)
+    bd = sub.add_parser("board",
+                        help="serve the board on this machine with the buttons live")
+    bd.add_argument("--port", type=int, default=8787)
+    bd.add_argument("--no-open", action="store_true", help="do not open a browser")
+    bd.set_defaults(fn=cmd_board)
+
+    cr = sub.add_parser("confirm-review",
+                        help="record that the changes since a review were the ones it asked for")
+    cr.add_argument("slug", choices=sorted(ISSUES))
+    cr.add_argument("--reason", required=True)
+    cr.add_argument("--by", default=os.environ.get("USER") or "operator")
+    cr.set_defaults(fn=cmd_confirm_review)
+
     gs = sub.add_parser("gate-status",
                         help="read what the last gate run found, without running one")
     gs.add_argument("slug", choices=sorted(ISSUES))
