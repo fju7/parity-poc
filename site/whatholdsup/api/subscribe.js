@@ -137,7 +137,14 @@ module.exports = async function handler(req, res) {
   //    person exist in the mail system and nowhere else, which is the drift this
   //    table was added to prevent — so a record that cannot be written stops the
   //    signup rather than producing a subscriber we have no history for.
+  // The upstream status travels with the reference code. "E3" alone sent the
+  // operator to hunt through deployment logs; "E3/401" is a wrong key, "E3/404"
+  // a wrong URL or a missing table, "E3/403" a permissions or RLS problem, and
+  // "E3/x" means the call threw before it got a status. A status code tells an
+  // outsider nothing they could use — they cannot reach the database at all —
+  // and it saves a deploy cycle every time this breaks.
   let recorded = false;
+  let why = "x";
   try {
     const r = await fetch(`${dbUrl}/rest/v1/whatholdsup_subscribers?on_conflict=email`, {
       method: "POST",
@@ -151,6 +158,7 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({ email, source: "site" }),
     });
     recorded = r.ok;
+    why = String(r.status);
     if (!r.ok) console.error("subscribe E3: record failed", r.status, await r.text());
   } catch (err) {
     console.error("subscribe E3: record threw", err && err.message);
@@ -160,7 +168,7 @@ module.exports = async function handler(req, res) {
       "<p>We could not add you just now. Please write to " +
       "<a href='mailto:hello@whatholdsup.org'>hello@whatholdsup.org</a> and we " +
       "will add you by hand.</p>" +
-      "<p class='muted'>Reference: E3</p>"));
+      "<p class='muted'>Reference: E3/" + why + "</p>"));
     return;
   }
 

@@ -104,7 +104,8 @@ const failFetch = (status, body) => router({ resend: { ok: false, status, body }
 
   o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
                    fetchImpl: router({ record: { throws: "db unreachable" } }) });
-  t("a throw on the record -> E3", o.code === 500 && /Reference: E3/.test(o.body));
+  t("a throw on the record -> E3/x, distinguishable from a status",
+    o.code === 500 && /Reference: E3\/x/.test(o.body));
 
   o = await call({ env: CONFIGURED, body: { email: "a@b.com" },
                    fetchImpl: router({ resend: { throws: "network down" } }) });
@@ -133,7 +134,8 @@ const failFetch = (status, body) => router({ resend: { ok: false, status, body }
 
   f = router({ record: { ok: false, status: 500, body: "db down" } });
   o = await call({ env: CONFIGURED, body: { email: "a@b.com" }, fetchImpl: f });
-  t("if the record fails -> 500 and says E3", o.code === 500 && /Reference: E3/.test(o.body));
+  t("if the record fails -> 500 and says E3 with the upstream status",
+    o.code === 500 && /Reference: E3\/500/.test(o.body));
   t("and nothing is sent to Resend, so no unrecorded subscriber exists",
     f.calls.every(c => !c.url.includes("audiences")));
 
