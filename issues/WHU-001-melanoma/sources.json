@@ -1,0 +1,84 @@
+{
+  "what_this_is": "Every source the assessment rests on, typed. The types are the point: rule 11 says find the best of the coverage before criticising it, and a register showing only company releases and no specialist press is a piece that did not look. Extracted from the page's own link list on 2026-08-27; used_for is filled in by hand.",
+  "types": [
+    "registry",
+    "company",
+    "regulator",
+    "journal",
+    "specialist press",
+    "press",
+    "commentary"
+  ],
+  "sources": [
+    {
+      "id": "S001",
+      "url": "https://fonts.googleapis.com",
+      "type": "press",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S002",
+      "url": "https://fonts.gstatic.com",
+      "type": "press",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S003",
+      "url": "https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;1,400&family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap",
+      "type": "press",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S004",
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "type": "company",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S005",
+      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+      "type": "company",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S006",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38246194/",
+      "type": "journal",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S007",
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "type": "journal",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S008",
+      "url": "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/",
+      "type": "company",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S009",
+      "url": "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/",
+      "type": "specialist press",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    },
+    {
+      "id": "S010",
+      "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
+      "type": "journal",
+      "accessed": "2026-08-27",
+      "used_for": ""
+    }
+  ]
+}

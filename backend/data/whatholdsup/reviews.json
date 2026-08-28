@@ -1,0 +1,16 @@
+{
+  "what_this_is": "Outside reviews of full assessments, and what we did with them. Bound to the content hash the reviewer actually read, because a review of an earlier draft is not a review of this one. Findings we rejected belong in draft_decisions.json with a reason, like every other finding we reject.",
+  "reviews": [
+    {
+      "issue": "melanoma",
+      "at": "2026-08-28T14:31:36+00:00",
+      "sha": "bd101cd121688eade902203628ddc2a1d3764646c4f6a11480a2ce5b1697c1d0",
+      "reviewed_file": "issues/WHU-001-melanoma/review/2026-08-28-sent.html",
+      "standards_version": "1.1",
+      "reviewer": "outside reviewer (independent)",
+      "findings": 1,
+      "accepted": 1,
+      "note": "Rule 7: two-sided p = 0.053 quoted without naming the prespecified one-sided framework in the same sentence. Accepted and fixed with the reviewer's own wording."
+    }
+  ]
+}

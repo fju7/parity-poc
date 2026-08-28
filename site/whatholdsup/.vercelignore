@@ -17,3 +17,12 @@ __pycache__/
 # But it should be a decision with a page built for it, not a JSON file
 # sitting at a guessable URL. Excluded until that decision is made.
 *.gate.json
+
+# Editor and tooling leftovers. cmd_publish does `git add site/whatholdsup`,
+# so anything that lands in this directory is committed and served unless it
+# is named here. A .bak of the assessment sat here for four minutes on
+# 2026-08-28 and would have been deployed beside it.
+*.bak
+*.orig
+*.rej
+.DS_Store

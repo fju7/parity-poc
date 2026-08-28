@@ -1,0 +1,38 @@
+{
+  "id": "WHU-001",
+  "slug": "melanoma",
+  "title": "The Melanoma Result",
+  "topic": "medicine",
+  "status": "draft",
+  "_status_values": [
+    "draft",
+    "gated",
+    "reviewed",
+    "published",
+    "superseded"
+  ],
+  "standards_version": "1.1",
+  "page": "site/whatholdsup/melanoma.html",
+  "url": "https://whatholdsup.org/melanoma",
+  "email": {
+    "html": "site/whatholdsup/email/issue1-melanoma.html",
+    "text": "site/whatholdsup/email/issue1-melanoma.txt"
+  },
+  "dates": {
+    "event": "2026-08-19",
+    "draft_started": "2026-08-26",
+    "outside_review": null,
+    "published": null,
+    "announced": null
+  },
+  "review": {
+    "findings": null,
+    "accepted": null,
+    "rejected": null
+  },
+  "corrections": {
+    "count": 0,
+    "last": null
+  },
+  "note": "Merck and Moderna announced a Phase 3 melanoma result with no effect size. The figures in the coverage belong to a different, smaller, open-label trial."
+}
