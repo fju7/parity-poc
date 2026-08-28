@@ -1,10 +1,10 @@
 {
-  "what_this_is": "Findings the fact-check gate has raised that a human has read and decided to accept. It exists because the gate is a nondeterministic model reading a long document: it will never return zero twice running, so a repeat run repeats itself, and without this record those repeats are indistinguishable in the output from genuinely new problems. Across three passes of issue one the unverified-claim count went 7, 6, 13 — the rise almost entirely claims added while fixing earlier findings. A decision here is keyed on the QUOTE: change the sentence and the decision stops applying, which is right, because it was a decision about that sentence.",
-  "how_to_use_it": "Accept a finding only after reading it. Write why in terms someone else could disagree with. If the gate later reports the same quote at a different severity the run is STALE and blocks — a judgment accepted as MINOR is not thereby accepted as SERIOUS.",
+  "what_this_is": "Findings the fact-check gate has raised that a human has read and decided to accept. It exists because the gate is a nondeterministic model reading a long document: it will never return zero twice running, so a repeat run repeats itself, and without this record those repeats are indistinguishable in the output from genuinely new problems. Across three passes of issue one the unverified-claim count went 7, 6, 13 \u2014 the rise almost entirely claims added while fixing earlier findings. A decision here is keyed on the QUOTE: change the sentence and the decision stops applying, which is right, because it was a decision about that sentence.",
+  "how_to_use_it": "Accept a finding only after reading it. Write why in terms someone else could disagree with. If the gate later reports the same quote at a different severity the run is STALE and blocks \u2014 a judgment accepted as MINOR is not thereby accepted as SERIOUS.",
   "publication_criterion": [
     "No finding of class FACT, CONTRADICTION or THIRD_PARTY that is an actual error, as opposed to a judgment recorded here.",
     "Every CALIBRATION finding read once. Fix what you agree with; publish either way.",
-    "No claim added in this pass that is not itself verified — this is the rule that would have prevented most of pass three."
+    "No claim added in this pass that is not itself verified \u2014 this is the rule that would have prevented most of pass three."
   ],
   "decisions": [
     {
@@ -30,7 +30,7 @@
     {
       "draft": "site/whatholdsup/melanoma.html",
       "role": "ADVOCATE",
-      "quote": "Merck's own description of the Phase 3 defines its primary endpoint as recurrence “as assessed by the investigator” rather than by central adjudication.",
+      "quote": "Merck's own description of the Phase 3 defines its primary endpoint as recurrence \u201cas assessed by the investigator\u201d rather than by central adjudication.",
       "severity": "MINOR",
       "decision": "accept",
       "decided": "2026-08-27",
@@ -346,7 +346,7 @@
     {
       "draft": "site/whatholdsup/melanoma.html",
       "role": "SOURCE",
-      "quote": "Practical Dermatology listed what was missing — hazard ratios, absolute event rates, p-values — and said so twice.",
+      "quote": "Practical Dermatology listed what was missing \u2014 hazard ratios, absolute event rates, p-values \u2014 and said so twice.",
       "severity": "WRONG_VALUE",
       "decision": "accept in part - the count goes",
       "decided": "2026-08-28",
@@ -454,7 +454,7 @@
       "draft": "site/whatholdsup/melanoma.html",
       "role": "SOURCE",
       "severity": "SERIOUS",
-      "quote": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing from the Phase 3 announcement — hazard ratios, absolute event rates, p-values.",
+      "quote": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing from the Phase 3 announcement \u2014 hazard ratios, absolute event rates, p-values.",
       "decision": "accept - the claim overstated what two of the three said",
       "reason": "The role read them: only MLQ News enumerated those metrics. The sentence now attributes to each outlet only what it verifiably said, and drops the two that did not say it. This was the same class of error the piece retracts two paragraphs later.",
       "what_would_change_it": "Nothing; the sentence has been narrowed to what was checked.",
@@ -519,6 +519,46 @@
       "reason": "Same class. A disclosure about our own funding, verifiable only by us, and stated on the who-pays-for-this page for that reason.",
       "what_would_change_it": "A filing or record showing outside investment.",
       "decided": "2026-08-28"
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "HR 0.96 (0.78\u20131.18)",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-28",
+      "reason": "The role's own evidence is the JCO paper's 0.956 (0.777\u20131.177), and it calls our 0.96 (0.78\u20131.18) wrong because those rounded figures 'appear in secondary reporting only'. Rounding a hazard ratio and its interval to two decimals is the ordinary convention of the field and does not make a secondary source the origin of the figure. The page cites the JCO paper and the sources list gives the unrounded values.",
+      "what_would_change_it": "If a rounded bound ever crossed a decision line the unrounded one did not \u2014 an interval printed as clearing 1.0 that does not clear it."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "P = .34",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-28",
+      "reason": "Same shape. The source gives one-sided P = 0.3378; we print .34. At a p-value of a third the extra digits carry no information, and the sources list gives the exact figure.",
+      "what_would_change_it": "A p-value near a threshold, where the rounding direction decides the call."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "HR 0.80 (0.64\u20131.02)",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-28",
+      "reason": "Instrument defect, not a draft problem. The role's own note works through the arithmetic, concludes 'both rounded values are consistent with the source values', writes 'Revising to VERIFIED' \u2014 and then emits WRONG_VALUE anyway. This is the second recorded occurrence of VERDICT_CONTRADICTS_ITS_OWN_NOTE.",
+      "what_would_change_it": "Nothing about the draft. The verdict field has to follow the note."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "category 1",
+      "severity": "NOT_FOUND",
+      "decision": "accept-as-unreachable",
+      "decided": "2026-08-28",
+      "reason": "NCCN v6.2026 is not publicly reachable and its licence forbids putting it through an AI tool, so no automated check can ever verify a claim about it. It was read directly by a human on 2026-08-28, who quoted the sentences. NOT_FOUND here is a true statement about the checker's reach and not about the claim, which is the distinction the standing rules already draw. The sources list says so on the page.",
+      "what_would_change_it": "A publicly reachable rendering of v6.2026, or a licence that permits machine reading. Neither is in prospect."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",
