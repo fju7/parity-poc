@@ -195,16 +195,97 @@ KNOWN_ERRORS = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "fac
 _client = None
 
 
+KEY_VAR = "ANTHROPIC_API_KEY"
+ENVFILE = Path(__file__).resolve().parents[2] / ".env"
+
+
+def _api_key() -> str:
+    """The key, from the shell or from backend/.env.
+
+    This script read os.environ and nothing else, so it ran from a shell where
+    the key had been exported and failed from one where it had not — the same
+    command, the same machine, two different outcomes and no way to tell which
+    you were in until it exited. Configuration that lives in a file the repo
+    already has should be read from that file.
+
+    An exported value still wins, so a different key can be forced for a run.
+    Only this one variable is read; the file holds two dozen secrets and none of
+    the others are this script's business. The value is never printed.
+    """
+    key = os.environ.get(KEY_VAR)
+    if key:
+        return key.strip()
+    if ENVFILE.exists():
+        try:
+            for line in ENVFILE.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if line.startswith(KEY_VAR + "=") :
+                    return line.split("=", 1)[1].strip().strip('"').strip("'")
+        except Exception:
+            pass
+    return ""
+
+
 def _get_client():
     global _client
     if _client is None:
-        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        api_key = _api_key()
         if not api_key:
-            print("[ERROR] ANTHROPIC_API_KEY is not set.")
+            print("[ERROR] %s is not set, and is not in %s." % (KEY_VAR, ENVFILE))
             sys.exit(2)
         import anthropic
         _client = anthropic.Anthropic(api_key=api_key)
     return _client
+
+
+
+def format_usage(entries=None):
+    """The cost of the run, for the terminal.
+
+    usage_summary() was written into the report JSON and printed nowhere. The
+    number existed but nobody saw it: to learn what an issue cost you had to
+    know the report had a usage key, open the JSON and read it -- and a run
+    without --report recorded no cost at all. Instrumentation you have to go
+    looking for does not change behaviour. This puts it under the findings,
+    where the person who just spent the money is already reading.
+
+    Roles are listed most expensive first, because the reason to show a
+    breakdown is to say which role to look at. A role with more calls than
+    its share of the work took retries, and retries are charged in full, so
+    the call count is printed next to the money rather than hidden behind it.
+    """
+    u = usage_summary(entries)
+    t = u["total"]
+    if not t["calls"]:
+        return ""
+    L = []
+    L.append("=" * 72)
+    money = ("$%.2f" % t["usd"]) if t["priced"] else "cost unknown"
+    L.append("COST     %s - %d API call(s) - %s tokens in, %s out - %d web search(es)"
+             % (money, t["calls"], "{:,}".format(t["input"]),
+                "{:,}".format(t["output"]), t["web_searches"]))
+    L.append("=" * 72)
+    L.append("")
+    rows = sorted(u["by_role"].items(), key=lambda kv: -kv[1]["usd"])
+    for name, r in rows:
+        flag = ("  <- %d calls; the extra one(s) were retries, charged in full"
+                % r["calls"]) if r["calls"] > 1 else ""
+        L.append("  %-38s %7s  %s tok  %2d search%s" %
+                 (name[:38],
+                  ("$%.2f" % r["usd"]) if r["priced"] else "  -  ",
+                  "{:>7,}".format(r["input"] + r["output"]),
+                  r["web_searches"], flag))
+    L.append("")
+    if not t["priced"]:
+        L.append("  Some calls ran on a model absent from the price table, so the")
+        L.append("  total is tokens only. Models seen: %s"
+                 % ", ".join(sorted(u["models"])))
+    else:
+        L.append("  Priced from %s," % u["prices_source"])
+        L.append("  read %s. Prices go stale; a figure here older than the"
+                 % u["prices_checked"])
+        L.append("  page it came from is a figure to re-check.")
+    return "\n".join(L)
 
 
 # ---------------------------------------------------------------------------
@@ -244,37 +325,87 @@ def _response_text(response) -> str:
     return "\n".join(parts).strip()
 
 
+def _salvage_rank(value) -> int:
+    """How much a salvaged JSON value looks like a role's answer.
+
+    Parseable is not the same as wanted. A response that opens "Per the paper
+    [1], here is the result:" contains a perfectly valid JSON array before the
+    real one, and returning [1] is worse than returning nothing: nothing makes
+    the caller retry, while [1] is silently accepted as "the role found no
+    findings" and the check reports a clean pass it never performed.
+
+    Every role in this file returns an object, or a list of objects, or an
+    empty list meaning it found nothing. Nothing else is an answer.
+    """
+    if isinstance(value, dict):
+        return 3
+    if isinstance(value, list):
+        if value and all(isinstance(v, dict) for v in value):
+            return 3
+        if not value:
+            return 1          # a real "nothing found", but so is any stray []
+    return 0
+
+
 def _first_json_value(text: str) -> str | None:
-    """Salvage the first complete JSON object or array from prose."""
-    start = None
-    for i, ch in enumerate(text):
-        if ch in "{[":
-            start = i
-            break
-    if start is None:
+    """Salvage a complete JSON object or array from prose.
+
+    The earlier version scanned for the FIRST '{' or '[' in the response and
+    committed to it. Models write prose before their JSON, and that prose
+    routinely contains a bracket -- a citation marker, an interval like
+    [0.63, 0.93], a fenced block's language tag. When it did, the salvage
+    started at the wrong character, produced something unparseable, and the
+    caller burned two more API calls re-asking for output it had already been
+    given. On 2026-08-28 that cost three calls on one MONALEESA-2 check whose
+    response ended, verbatim, in a well-formed array followed by a code fence.
+
+    Now: strip fences, then try every candidate start and return the first that
+    actually parses. Wrong guesses are free; API calls are not.
+    """
+    if not text:
         return None
-    opener = text[start]
-    closer = "}" if opener == "{" else "]"
-    depth, in_str, esc = 0, False, False
-    for i in range(start, len(text)):
-        ch = text[i]
-        if in_str:
-            if esc:
-                esc = False
-            elif ch == "\\":
-                esc = True
-            elif ch == '"':
-                in_str = False
-            continue
-        if ch == '"':
-            in_str = True
-        elif ch == opener:
-            depth += 1
-        elif ch == closer:
-            depth -= 1
-            if depth == 0:
-                return text[start:i + 1]
-    return None
+
+    # ```json ... ``` and bare ``` ... ``` fences
+    fenced = re.findall(r"```(?:json|JSON)?\s*(.*?)```", text, re.S)
+    candidates_text = [f.strip() for f in fenced] + [text]
+
+    found = []
+    for body in candidates_text:
+        for start, ch in enumerate(body):
+            if ch not in "{[":
+                continue
+            closer = "}" if ch == "{" else "]"
+            depth, in_str, esc = 0, False, False
+            for i in range(start, len(body)):
+                c = body[i]
+                if in_str:
+                    if esc:
+                        esc = False
+                    elif c == "\\":
+                        esc = True
+                    elif c == '"':
+                        in_str = False
+                    continue
+                if c == '"':
+                    in_str = True
+                elif c == ch:
+                    depth += 1
+                elif c == closer:
+                    depth -= 1
+                    if depth == 0:
+                        chunk = body[start:i + 1]
+                        try:
+                            value = json.loads(chunk)
+                        except json.JSONDecodeError:
+                            break          # this start is wrong; try the next
+                        rank = _salvage_rank(value)
+                        if rank:
+                            found.append((rank, chunk))
+                        break
+    if not found:
+        return None
+    found.sort(key=lambda x: -x[0])
+    return found[0][1]
 
 
 def call(system: str, user: str, *, search: bool, max_tokens: int = 8000, label: str = ""):
@@ -401,7 +532,23 @@ extracted, with attributed_to set to null. Those are the dangerous ones."""
 # factcheck_recall.py exists to measure. Do not change this block without
 # running it before and after.
 
-RECALL_BRIEF_LIMIT = 8
+# NOT a limit of 8 on the brief. It is applied twice, to two lists -- the
+# classes a role is expected to catch, and (for instrument entries) that role's
+# own recorded failure modes -- so a role can receive up to 16. On 2026-08-28
+# SOURCE was receiving 12, ADVOCATE and INFERENCE 9 each, while every comment
+# here said 8. Left as it is, because changing the brief is the one thing this
+# block says not to do without a measurement, and the measurement of 2026-08-28
+# could not resolve a change this small: see RECALL_MEASUREMENT_UNDERPOWERED.
+# The comment is corrected; the behaviour is not, yet.
+#
+# Two other things that printing the brief made visible and neither has been
+# changed for the same reason:
+#   - DROPPED appears twice in SOURCE's brief, because two recorded entries
+#     share that class name. The role is told one class twice, which weights it
+#     against every other class, and nobody chose that.
+#   - COVERAGE received no recorded classes at all until 2026-08-28. It has one
+#     now. A role with an empty learning record is not being taught anything.
+RECALL_BRIEF_LIMIT = 8          # per list, not per brief
 
 
 def recall_brief(role: str) -> str:
@@ -1534,11 +1681,26 @@ def main():
         sys.exit(0)
 
     if args.verify:
-        ok = bool(os.environ.get("ANTHROPIC_API_KEY"))
-        print(f"ANTHROPIC_API_KEY : {'set' if ok else 'MISSING'}")
-        print(f"model             : {SIGNAL_MODEL}")
-        print(f"known-errors      : {'present' if KNOWN_ERRORS.exists() else 'MISSING'}")
-        sys.exit(0 if ok else 2)
+        # --verify must answer the same question the run asks, by the same
+        # route. It read os.environ while the run reads _api_key(), so on a
+        # machine where the key lives in backend/.env -- the normal case, and
+        # the one _api_key() was written for -- this printed MISSING and exited
+        # 2 for a run that would have worked. A check that disagrees with the
+        # thing it checks is worse than no check: it sends you to fix a
+        # configuration that was already correct.
+        key = _api_key()
+        where = ("the shell" if os.environ.get(KEY_VAR)
+                 else str(ENVFILE) if key else "")
+        print("%-18s: %s" % (KEY_VAR, ("set, from " + where) if key else "MISSING"))
+        if not key:
+            print("%-18s  looked in the shell and in %s" % ("", ENVFILE))
+        print("%-18s: %s" % ("model", SIGNAL_MODEL))
+        print("%-18s: %s" % ("known-errors",
+                             "present" if KNOWN_ERRORS.exists() else "MISSING"))
+        print("%-18s: %s" % ("decisions",
+                             "present" if Path(args.decisions).exists()
+                             else "absent (no adjudications recorded yet)"))
+        sys.exit(0 if key else 2)
 
     if args.survey:
         cov = coverage(args.survey)
@@ -1680,6 +1842,7 @@ def main():
         raise
 
     print(report)
+    print(format_usage())
     save(not failed)
     if args.report:
         print(f"\nFull result written to {args.report}")
