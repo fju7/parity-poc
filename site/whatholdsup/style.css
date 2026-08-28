@@ -466,3 +466,28 @@ h3.mini { font-family: Bitter, Georgia, serif; font-weight: 500; font-size: 1.12
 }
 .issue p { font-size: .95rem; margin-bottom: .7rem; }
 .issue .more { font-family: "IBM Plex Mono", monospace; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* ---- signup ------------------------------------------------------------ */
+
+.signup { display: flex; flex-wrap: wrap; gap: .6rem; align-items: flex-end; }
+.signup label { display: block; font-size: .82rem; letter-spacing: .02em;
+                text-transform: uppercase; color: var(--ink-3, #7C858B);
+                margin: 0 0 .35rem; }
+.signup input[type="email"] { font: inherit; padding: .55rem .7rem; min-width: 18rem;
+                flex: 1 1 18rem; border: 1px solid var(--rule, #CFD3CE);
+                border-radius: 2px; background: var(--card, #FBFBFA);
+                color: var(--ink, #15181A); }
+.signup input[type="email"]:focus { outline: 2px solid var(--accent, #2C4A63);
+                outline-offset: 1px; }
+.signup button { font: inherit; padding: .6rem 1.3rem; cursor: pointer;
+                border: 1px solid var(--accent, #2C4A63); border-radius: 2px;
+                background: var(--accent, #2C4A63); color: #fff; }
+.signup button:hover { opacity: .9; }
+/* Off-screen rather than display:none, so form-filling bots still reach it. */
+.signup .hp { position: absolute; left: -9999px; width: 1px; height: 1px;
+                overflow: hidden; }
+.fineprint { font-size: .9rem; color: var(--ink-2, #4C545A); margin-top: .9rem; }
+
+@media (max-width: 30rem) {
+  .signup input[type="email"], .signup button { width: 100%; flex-basis: 100%; }
+}

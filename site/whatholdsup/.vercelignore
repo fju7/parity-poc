@@ -1,0 +1,19 @@
+# What is served from whatholdsup.org, and what is not.
+#
+# Until 2026-08-27 everything in this directory was deployed, so
+# https://whatholdsup.org/email/send_broadcast.py returned 200 and served our
+# sending logic, and the gate reports were fetchable alongside it. Neither was
+# a decision. Nothing secret was exposed — credentials are environment
+# variables — but a directory is not an access policy.
+
+# Operational tooling. Not part of the publication.
+email/
+*.py
+__pycache__/
+
+# Gate reports. Publishing these may well be a good idea — they are the full
+# record of every objection raised against a draft, including the ones we
+# rejected and why, which is the most honest thing we could put on the site.
+# But it should be a decision with a page built for it, not a JSON file
+# sitting at a guessable URL. Excluded until that decision is made.
+*.gate.json
