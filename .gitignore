@@ -41,3 +41,6 @@ frontend/dist/
 backend/data/pfs_rates_2024.csv
 backend/data/pfs_rates_2025.csv
 .claude/
+
+# Generated ops board. Local only — it carries subscriber data.
+backend/data/whatholdsup/dashboard.html

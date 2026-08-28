@@ -91,6 +91,20 @@ ISSUES = {
         "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
         "email_subject": "The Melanoma Result — a Phase 3 success with no numbers",
     },
+    "cdk46": {
+        "number": 2,
+        "title": "The Category Difference",
+        "page": "site/whatholdsup/cdk46.html",
+        "url": "https://whatholdsup.org/cdk46",
+        # The email does not exist yet. These paths are recorded so the board
+        # reports its absence rather than omitting the step: an issue with no
+        # email is a real state, and a board that hides it is worse than one
+        # that shows it red.
+        "email_html": "site/whatholdsup/email/issue2-cdk46.html",
+        "email_txt": "site/whatholdsup/email/issue2-cdk46.txt",
+        "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
+        "email_subject": "",
+    },
 }
 
 SENDER = ROOT / "site" / "whatholdsup" / "email" / "send_broadcast.py"
