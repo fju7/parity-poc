@@ -1,0 +1,987 @@
+{
+  "draft": "../site/whatholdsup/melanoma.html",
+  "sha256": "393c69f1bd2d2c645e6296689960afe8b048539d85be06557010e106cd8a752d",
+  "passed": false,
+  "carried": [
+    "22 claim verdict(s) carried forward",
+    "recency carried (0d)",
+    "coverage carried (0d)"
+  ],
+  "checked_at": "2026-08-28",
+  "model": "claude-sonnet-4-6",
+  "claims": [
+    {
+      "id": "c1",
+      "figure": "1,137 patients",
+      "claim": "The Phase 3 trial INTerpath-001 enrolled 1,137 patients.",
+      "attributed_to": "Merck & Moderna \u2014 Phase 3 INTerpath-001 met RFS and DMFS endpoints, 19 August 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c2",
+      "figure": "n=14",
+      "claim": "The overall survival analysis in KEYNOTE-942 rests on only 14 deaths (seven in each arm).",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c3",
+      "figure": "0.165\u20131.345",
+      "claim": "The confidence interval around the overall survival hazard ratio in KEYNOTE-942 runs from 0.165 to 1.345.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c4",
+      "figure": "49% reduction in the hazard of recurrence or death",
+      "claim": "The 49% reduction in the hazard of recurrence or death describes KEYNOTE-942, the 157-patient open-label trial, not the Phase 3 trial.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c5",
+      "figure": "59% reduction in the hazard of distant metastasis or death",
+      "claim": "The 59% reduction in the hazard of distant metastasis or death describes KEYNOTE-942, the 157-patient open-label trial, not the Phase 3 trial.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c6",
+      "figure": "157 patients",
+      "claim": "KEYNOTE-942 enrolled 157 patients (107 versus 50).",
+      "attributed_to": "KEYNOTE-942: a randomised, phase 2b study \u2014 The Lancet, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c7",
+      "figure": "HR 0.510",
+      "claim": "KEYNOTE-942 reported a recurrence-free survival hazard ratio of 0.510 at five years.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c8",
+      "figure": "HR 0.411",
+      "claim": "KEYNOTE-942 reported a distant metastasis-free survival hazard ratio of 0.411 at five years.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c9",
+      "figure": "68.8% versus 49.1%",
+      "claim": "At five years in KEYNOTE-942, 68.8% of combination patients were recurrence-free versus 49.1% on pembrolizumab alone.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c10",
+      "figure": "HR 0.561, 95% CI 0.309\u20131.017",
+      "claim": "When KEYNOTE-942 first reported in 2023, its recurrence-free survival result was HR 0.561 with 95% CI 0.309\u20131.017.",
+      "attributed_to": "KEYNOTE-942: a randomised, phase 2b study \u2014 The Lancet, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c11",
+      "figure": "HR 0.510, 95% CI 0.288\u20130.906",
+      "claim": "At the three-year readout (ASCO 2024), KEYNOTE-942 reported recurrence-free survival HR 0.510 with 95% CI 0.288\u20130.906.",
+      "attributed_to": "Three-Year Update \u2014 JCO Oncology Advances, 2026 / ASCO 2024 presentation",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c12",
+      "figure": "HR 0.510, 95% CI 0.294\u20130.887",
+      "claim": "At five years, KEYNOTE-942 reported recurrence-free survival HR 0.510 with 95% CI 0.294\u20130.887.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c13",
+      "figure": "62% reduction in hazard at three years and 59% at five",
+      "claim": "Distant metastasis-free survival was a 62% reduction in hazard at three years and 59% at five years in KEYNOTE-942.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c14",
+      "figure": "HR 0.471 (0.165\u20131.345)",
+      "claim": "KEYNOTE-942 reported an exploratory overall survival hazard ratio of 0.471 with 95% CI 0.165\u20131.345.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c15",
+      "figure": "92.2% alive versus 71.3%",
+      "claim": "The five-year overall survival rates in KEYNOTE-942 were 92.2% in the combination arm versus 71.3% in the control arm.",
+      "attributed_to": "The ASCO Post",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c16",
+      "figure": "95% CI 84.2\u201396.3 and 35.4\u201389.6",
+      "claim": "The confidence intervals around the five-year overall survival rates in KEYNOTE-942 were 84.2\u201396.3 and 35.4\u201389.6 respectively.",
+      "attributed_to": "The ASCO Post",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c17",
+      "figure": "one-sided p = 0.0075",
+      "claim": "The companies' five-year topline of 20 January 2026 reported a one-sided nominal p-value of 0.0075 for recurrence-free survival.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 topline, 20 January 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c18",
+      "figure": "one-sided p = 0.0266",
+      "claim": "The April 2023 press release reported KEYNOTE-942 as having a one-sided p-value of 0.0266.",
+      "attributed_to": "Merck & Moderna \u2014 first detailed KEYNOTE-942 results, 16 April 2023",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c19",
+      "figure": "two-sided p = 0.053",
+      "claim": "When the KEYNOTE-942 data were published in The Lancet, they came with a two-sided p-value of 0.053.",
+      "attributed_to": "KEYNOTE-942: a randomised, phase 2b study \u2014 The Lancet, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c20",
+      "figure": "45.2% versus 44%",
+      "claim": "Any-grade immune-related adverse events were 45.2% on the combination versus 44% on pembrolizumab alone in KEYNOTE-942.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c21",
+      "figure": "25% versus 18%",
+      "claim": "Grade 3 or worse treatment-related events were 25% in the combination arm versus 18% in the pembrolizumab-alone arm in KEYNOTE-942.",
+      "attributed_to": "KEYNOTE-942: a randomised, phase 2b study \u2014 The Lancet, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c22",
+      "figure": "fatigue 59.6%, injection-site pain 59.6%, chills 51.0%",
+      "claim": "The most common side effects in KEYNOTE-942 were fatigue (59.6%), injection-site pain (59.6%), and chills (51.0%).",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c23",
+      "figure": "Median follow-up 60.3 months, data cutoff 15 December 2025",
+      "claim": "The five-year KEYNOTE-942 analysis had a median follow-up of 60.3 months and a data cutoff of 15 December 2025.",
+      "attributed_to": "Five-year results \u2014 Journal of Clinical Oncology, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c24",
+      "figure": "HR 0.411 (0.200\u20130.843)",
+      "claim": "KEYNOTE-942 reported a distant metastasis-free survival hazard ratio of 0.411 with 95% CI 0.200\u20130.843 at five years.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c25",
+      "figure": "Stage IIB\u2013IV resected",
+      "claim": "INTerpath-001 enrolled patients with stage IIB\u2013IV resected melanoma, whereas KEYNOTE-942 enrolled stage IIIB\u2013IV.",
+      "attributed_to": "Merck & Moderna \u2014 Phase 3 INTerpath-001 met RFS and DMFS endpoints, 19 August 2026",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c26",
+      "figure": "2:1",
+      "claim": "INTerpath-001 randomised patients in a 2:1 ratio.",
+      "attributed_to": "Merck & Moderna \u2014 Phase 3 INTerpath-001 met RFS and DMFS endpoints, 19 August 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c27",
+      "figure": "DOI 10.1200/OA-25-00008",
+      "claim": "The peer-reviewed publication of the three-year KEYNOTE-942 readout was published in JCO Oncology Advances with DOI 10.1200/OA-25-00008.",
+      "attributed_to": "Three-Year Update \u2014 JCO Oncology Advances, 2026",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c28",
+      "figure": "20 August",
+      "claim": "Morning Glory Sciences published its analysis of INTerpath-001 on 20 August 2026.",
+      "attributed_to": "Morning Glory Sciences",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c29",
+      "figure": "19 August",
+      "claim": "Pharmacy Times published its coverage of the Phase 3 trial result on 19 August 2026.",
+      "attributed_to": "Pharmacy Times",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c30",
+      "figure": "19 August 2026",
+      "claim": "Merck and Moderna announced the INTerpath-001 Phase 3 trial results on 19 August 2026.",
+      "attributed_to": "Merck & Moderna \u2014 Phase 3 INTerpath-001 met RFS and DMFS endpoints",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c31",
+      "figure": "1 June 2026",
+      "claim": "The five-year KEYNOTE-942 peer-reviewed paper was published in the Journal of Clinical Oncology on 1 June 2026, the day it was presented.",
+      "attributed_to": "Five-year results \u2014 Journal of Clinical Oncology, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c32",
+      "figure": "about four and a half months",
+      "claim": "The gap between the KEYNOTE-942 topline and the published peer-reviewed paper was about four and a half months.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c33",
+      "figure": null,
+      "claim": "The outlets The ASCO Post, Dermatology Times, OncLive, FierceBiotech and the Spanish Science Media Centre attributed the KEYNOTE-942 figures correctly to that trial rather than to the Phase 3.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c34",
+      "figure": null,
+      "claim": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing from the Phase 3 announcement \u2014 hazard ratios, absolute event rates, p-values.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c35",
+      "figure": null,
+      "claim": "Dermatology Times, Pharmacy Times and Medical Daily stated plainly that no Phase 3 efficacy numbers had been released.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c36",
+      "figure": null,
+      "claim": "No randomised trial of adjuvant PD-1 inhibitors against placebo has reported a statistically significant overall survival benefit as a prespecified endpoint in its own population.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c37",
+      "figure": null,
+      "claim": "Morning Glory Sciences argued that the Phase 3's addition of stage IIB/IIC patients means absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.",
+      "attributed_to": "Morning Glory Sciences, 20 August 2026",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c38",
+      "figure": null,
+      "claim": "Pharmacy Times argued that resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "attributed_to": "Pharmacy Times, 19 August 2026",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c39",
+      "figure": null,
+      "claim": "The Phase 3 INTerpath-001 defines its primary endpoint as recurrence as assessed by the investigator rather than by central adjudication.",
+      "attributed_to": "Merck & Moderna \u2014 Phase 3 INTerpath-001 met RFS and DMFS endpoints, 19 August 2026",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c40",
+      "figure": "3.4",
+      "claim": "Applying the publication's six-dimension rubric to the central claim yields a score of 3.4 (Moderate).",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c41",
+      "figure": "(3\u00d7.25)+(1\u00d7.20)+(4\u00d7.15)+(4\u00d7.15)+(5\u00d7.15)+(5\u00d7.10)",
+      "claim": "The weighted score of 3.4 is calculated as (3\u00d7.25)+(1\u00d7.20)+(4\u00d7.15)+(4\u00d7.15)+(5\u00d7.15)+(5\u00d7.10).",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c42",
+      "figure": "48 hours",
+      "claim": "The publication's corrections policy acknowledges corrections within 48 hours.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "internal"
+    },
+    {
+      "id": "c43",
+      "figure": "10 business days",
+      "claim": "The publication's corrections policy resolves or explains corrections within 10 business days.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "internal"
+    },
+    {
+      "id": "c44",
+      "figure": "21 August 2026",
+      "claim": "The ASCO Post confirmed on 21 August 2026 that no Phase 3 efficacy numbers had been released two days after the announcement.",
+      "attributed_to": "The ASCO Post",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c45",
+      "figure": "20 January 2026",
+      "claim": "Merck and Moderna released a five-year KEYNOTE-942 topline on 20 January 2026.",
+      "attributed_to": "Merck & Moderna \u2014 five-year KEYNOTE-942 topline",
+      "kind": "figure",
+      "scope": "external"
+    }
+  ],
+  "verdicts": {
+    "c1": {
+      "id": "c1",
+      "verdict": "VERIFIED",
+      "found_value": "1,137 patients",
+      "actual_source": "Merck/Moderna joint press release, 19 August 2026, corroborated by BioPharm International, Cancer Therapy Advisor, Dermatology Times, and multiple other sources citing the press release directly",
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c2": {
+      "id": "c2",
+      "verdict": "VERIFIED",
+      "found_value": "7 of 107 patients in the intismeran + pembrolizumab arm and 7 of 50 in the pembrolizumab arm died (14 total deaths, seven in each arm)",
+      "actual_source": "JCO 2026 \u2014 Carlino et al., 'Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study'",
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c3": {
+      "id": "c3",
+      "verdict": "VERIFIED",
+      "found_value": "OS HR (95% CI) = 0.471 (0.165 to 1.345)",
+      "actual_source": "JCO paper: Carlino et al., J Clin Oncol 2026 (doi:10.1200/JCO-26-00835); confirmed by Merck/Moderna press release June 1 2026",
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c4": {
+      "id": "c4",
+      "verdict": "VERIFIED",
+      "found_value": "49% reduction in the risk of recurrence or death (HR=0.510; 95% CI, 0.294\u20130.887) at 5-year follow-up",
+      "actual_source": "Merck/Moderna press release, January 20, 2026; confirmed in JCO paper (ascopubs.org/doi/10.1200/JCO-26-00835) and ASCO abstract (ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500)",
+      "url": "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c5": {
+      "id": "c5",
+      "verdict": "VERIFIED",
+      "found_value": "59% reduction in the risk of distant metastasis or death (HR=0.411; 95% CI, 0.200\u20130.843) at 5-year follow-up",
+      "actual_source": "Merck/Moderna ASCO press release, June 1, 2026; confirmed in JCO abstract (ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500) and ASCO Post",
+      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c6": {
+      "id": "c6",
+      "verdict": "VERIFIED",
+      "found_value": "157 patients enrolled; open-label design confirmed",
+      "actual_source": "The Lancet, 2024 (Weber et al., Lancet 403:632\u2013644); also confirmed in ScienceDirect full-text and PubMed abstract",
+      "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)02268-7/abstract",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c7": {
+      "id": "c7",
+      "verdict": "VERIFIED",
+      "found_value": "HR 0.510 (95% CI 0.294\u20130.887; P = .0075) for recurrence-free survival at five years",
+      "actual_source": "Merck/Moderna press release (January 2026), corroborated by CancerNetwork reporting on the five-year KEYNOTE-942 data",
+      "url": "https://www.cancernetwork.com/view/mrna-vaccine-pembrolizumab-shows-sustained-5-year-rfs-in-high-risk-melanoma",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c8": {
+      "id": "c8",
+      "verdict": "VERIFIED",
+      "found_value": "HR 0.411 (95% CI 0.200\u20130.843) for distant metastasis-free survival at five years",
+      "actual_source": "JCO 2026 / ASCO 2026 presentation, as reported by OncLive and CancerNetwork citing the five-year KEYNOTE-942 data",
+      "url": "https://www.onclive.com/view/intismeran-autogene-plus-pembrolizumab-meets-rfs-dmfs-end-points-in-resected-melanoma",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c9": {
+      "id": "c9",
+      "verdict": "VERIFIED",
+      "found_value": "5-year RFS rate 68.8% (95% CI 56.3%\u201378.3%) in combination arm vs 49.1% (95% CI 33.3%\u201363.0%) in monotherapy arm, per ASCO Post citing the JCO 5-year paper",
+      "actual_source": "ASCO Post (June 3, 2026) citing JCO 5-year paper (doi:10.1200/JCO-26-00835)",
+      "url": "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c12": {
+      "id": "c12",
+      "verdict": "VERIFIED",
+      "found_value": "HR 0.510 (95% CI 0.294 to 0.887) for RFS",
+      "actual_source": "Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study, Journal of Clinical Oncology, 1 June 2026",
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c13": {
+      "id": "c13",
+      "verdict": "VERIFIED",
+      "found_value": "62% DMFS hazard reduction at 3 years (HR=0.384; 95% CI, 0.172\u20130.858); 59% DMFS hazard reduction at 5 years (HR=0.411; 95% CI, 0.200\u20130.843)",
+      "actual_source": "3-year figure: Merck/Moderna 3-year press release and Targeted Oncology; 5-year figure: Merck/Moderna ASCO press release June 1, 2026 and JCO abstract",
+      "url": "https://www.targetedonc.com/view/mrna-4157-plus-pembrolizumab-continues-to-improve-rfs-in-high-risk-melanoma",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c14": {
+      "id": "c14",
+      "verdict": "VERIFIED",
+      "found_value": "OS HR (95% CI) was 0.471 (0.165 to 1.345), based on 7 deaths in each arm",
+      "actual_source": "JCO 2026 \u2014 Carlino et al., 'Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study'",
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c18": {
+      "id": "c18",
+      "verdict": "VERIFIED",
+      "found_value": "one-sided p value=0.0266 (HR=0.56 [95% CI, 0.309-1.017])",
+      "actual_source": "Merck/Moderna press release dated April 16, 2023, on merck.com",
+      "url": "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c19": {
+      "id": "c19",
+      "verdict": "VERIFIED",
+      "found_value": "two-sided p=0.053",
+      "actual_source": "The Lancet, Vol. 403, Issue 10427, pp. 632\u2013644 (Feb 17, 2024); abstract states HR 0.561 [95% CI 0.309\u20131.017]; two-sided p=0.053. Also confirmed in the UPenn-hosted PDF of the Lancet article and the JCO 5-year update citing the primary analysis.",
+      "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)02268-7/abstract",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c20": {
+      "id": "c20",
+      "verdict": "VERIFIED",
+      "found_value": "Immune-related adverse events occurred in 45.2% of patients receiving the combination and 44% receiving KEYTRUDA alone",
+      "actual_source": "Merck/Moderna official press release, June 1 2026 (merck.com); confirmed by official joint news release PDF (s2.q4cdn.com) and drugs.com reprint",
+      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c21": {
+      "id": "c21",
+      "verdict": "VERIFIED",
+      "found_value": "Grade \u22653 treatment-related adverse events: 25% in the combination group and 18% in the monotherapy group",
+      "actual_source": "The Lancet, 2024 (Weber et al., Lancet 403:632\u2013644)",
+      "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)02268-7/abstract",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c23": {
+      "id": "c23",
+      "verdict": "VERIFIED",
+      "found_value": "Median planned follow-up 60.3 (range, 50.5\u201376.4) months; data cutoff December 15, 2025",
+      "actual_source": "Journal of Clinical Oncology, DOI 10.1200/JCO-26-00835; also confirmed in ASCO abstract DOI 10.1200/JCO.2026.44.16_suppl.9500",
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c24": {
+      "id": "c24",
+      "verdict": "VERIFIED",
+      "found_value": "DMFS HR 0.411 (95% CI 0.200\u20130.843) at five years",
+      "actual_source": "JCO 2026 / ASCO 2026 presentation, as reported by OncLive and CancerNetwork citing the five-year KEYNOTE-942 data",
+      "url": "https://www.onclive.com/view/intismeran-autogene-plus-pembrolizumab-meets-rfs-dmfs-end-points-in-resected-melanoma",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c26": {
+      "id": "c26",
+      "verdict": "VERIFIED",
+      "found_value": "2:1 randomisation (intismeran + pembrolizumab vs pembrolizumab alone)",
+      "actual_source": "Merck/Moderna press release, 19 August 2026; BioPharm International; Dermatology Times; JCO ASCO abstract TPS9616 (planned 2:1)",
+      "url": "https://www.biopharminternational.com/view/merck-moderna-intismeran-autogene-pembrolizumab-phase-3-melanoma",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c27": {
+      "id": "c27",
+      "verdict": "VERIFIED",
+      "found_value": "DOI 10.1200/OA-25-00008 resolves to the three-year KEYNOTE-942 update in JCO Oncology Advances, Volume 3, Number 1, 2026 (cited as JCO Oncol Adv 3:e2500008, 2026)",
+      "actual_source": "JCO Oncology Advances, ascopubs.org/doi/10.1200/OA-25-00008",
+      "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c32": {
+      "id": "c32",
+      "verdict": "VERIFIED",
+      "found_value": "Topline 5-year data released January 20, 2026 (Merck press release); full JCO paper published June 1, 2026 \u2014 a gap of approximately 4 months and 11 days, consistent with 'about four and a half months'",
+      "actual_source": "Merck press release dated January 20, 2026; JCO paper dated June 1, 2026 (ascopubs.org/doi/10.1200/JCO-26-00835)",
+      "url": "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c36": {
+      "id": "c36",
+      "verdict": "VERIFIED",
+      "found_value": "No randomised placebo-controlled trial of adjuvant PD-1 inhibitors in melanoma has reported a statistically significant OS benefit as a prespecified endpoint; multiple sources confirm OS remains unclear or not yet demonstrated in this setting",
+      "actual_source": "ScienceDirect/Swedish registry study (2025): 'effect on overall survival (OS) from adjuvant PD-1 inhibitors is still unclear'; PMC review (2023): 'the effect on overall survival is still unclear'; KEYNOTE-054 5-year NEJM Evidence paper reports no OS analysis as primary endpoint",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0959804925010871",
+      "note": null,
+      "carried_from": "cf79fd95918415b5"
+    },
+    "c10": {
+      "id": "c10",
+      "verdict": "VERIFIED",
+      "found_value": "HR 0.561 (95% CI 0.309\u20131.017), two-sided p = 0.053",
+      "actual_source": "The Lancet, Vol. 403, Issue 10427, pp. 632\u2013644 (2024); also confirmed in the ASCO 2023 DMFS abstract (JCO LBA9503) and the JCO 5-year update (2026)",
+      "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)02268-7/abstract",
+      "note": null
+    },
+    "c11": {
+      "id": "c11",
+      "verdict": "VERIFIED",
+      "found_value": "HR 0.510 (95% CI 0.288\u20130.906), 2-sided nominal p-value 0.019",
+      "actual_source": "ASCO 2024 abstract LBA9512 (J Clin Oncol 2024;42:suppl 17), confirmed verbatim in the peer-reviewed JCO Oncology Advances three-year update (Carlino et al., JCO Oncol Adv 3:e2500008, 2026)",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2024.42.17_suppl.LBA9512",
+      "note": null
+    },
+    "c15": {
+      "id": "c15",
+      "verdict": "VERIFIED",
+      "found_value": "5-year OS rate 92.2% (95% CI 84.2%\u201396.3%) for intismeran + pembrolizumab vs 71.3% (95% CI 35.4%\u201389.6%) for pembrolizumab alone",
+      "actual_source": "JCO abstract (ASCO 2026 Abstract 9500) and ASCO Post June 2026 article, both citing the 5-year KEYNOTE-942 update",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500",
+      "note": null
+    },
+    "c16": {
+      "id": "c16",
+      "verdict": "VERIFIED",
+      "found_value": "95% CI 84.2%\u201396.3% (combination arm) and 35.4%\u201389.6% (pembrolizumab alone arm) for 5-year OS in KEYNOTE-942",
+      "actual_source": "JCO abstract (ASCO 2026 Abstract 9500) and ASCO Post June 2026 article",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500",
+      "note": null
+    },
+    "c44": {
+      "id": "c44",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": "The ASCO Post published an August 2026 article on the INTerpath-001 announcement (dated 19 August 2026); it covers the topline readout and notes that detailed Phase 3 efficacy metrics were not disclosed, but no separately dated '21 August 2026' ASCO Post piece making that specific statement could be located.",
+      "url": "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/",
+      "note": "The INTerpath-001 announcement was on 19 August 2026; the ASCO Post article on it exists but carries no specific '21 August 2026' dateline and does not contain the quoted statement that 'no Phase 3 efficacy numbers had been released two days after the announcement' \u2014 that framing and date cannot be verified against any source reached."
+    },
+    "c17": {
+      "id": "c17",
+      "verdict": "VERIFIED",
+      "found_value": "HR=0.510; [95% CI, 0.294\u20130.887]; one-sided nominal p=0.0075",
+      "actual_source": "Merck/Moderna press release, January 20, 2026 \u2014 'Moderna & Merck Announce 5-Year Data for Intismeran Autogene in Combination With KEYTRUDA\u00ae (pembrolizumab)\u2026'",
+      "url": "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/",
+      "note": null
+    },
+    "c22": {
+      "id": "c22",
+      "verdict": "WRONG_VALUE",
+      "found_value": "Fatigue 60.6%, injection-site pain 55.8%, chills 50.0% \u2014 confirmed in the ASCO 2023 conference slide deck (NCT03897881 / KEYNOTE-942 safety table, n=104) and in the Merck/Moderna press release of June 5, 2023.",
+      "actual_source": "ASCO 2023 oral presentation slide deck (s29.q4cdn.com/435878511/files/doc_presentations/2023/06/ASCO-23-mRNA4157-DMFS-Oral-MMA-75884-_Final-003.pdf) and Merck press release (merck.com, June 5 2023)",
+      "url": "https://s29.q4cdn.com/435878511/files/doc_presentations/2023/06/ASCO-23-mRNA4157-DMFS-Oral-MMA-75884-_Final-003.pdf",
+      "note": "All three figures in the draft are wrong: the primary source gives fatigue 60.6% (63/104), injection-site pain 55.8% (58/104), and chills 50.0% (52/104); the draft's values of 59.6%, 59.6%, and 51.0% do not appear in any readout of KEYNOTE-942 I could reach."
+    },
+    "c33": {
+      "id": "c33",
+      "verdict": "NOT_FOUND",
+      "found_value": "ASCO Post, OncLive, FierceBiotech, and Dermatology Times are all confirmed to have attributed KEYNOTE-942 Phase 2b figures correctly to that trial and not to the Phase 3. The Spanish Science Media Centre could not be located in any search result.",
+      "actual_source": "ascopost.com; onclive.com; fiercebiotech.com; dermatologytimes.com",
+      "url": "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/",
+      "note": "Four of the five named outlets are verifiable and appear to have attributed figures correctly; the Spanish Science Media Centre did not appear in any search result I could reach, so the five-outlet claim as a whole cannot be fully verified."
+    },
+    "c34": {
+      "id": "c34",
+      "verdict": "WRONG_VALUE",
+      "found_value": "MLQ News explicitly listed 'hazard ratios, confidence intervals, p-values, median follow-up or event counts' as undisclosed. Practical Dermatology stated only that 'the companies have not yet disclosed phase 3 efficacy estimates.' Pharmacy Times listed 'absolute benefit, stage/biomarker subgroup effects, discontinuation and feasibility metrics, and overall survival' as remaining readouts \u2014 not specifically hazard ratios, absolute event rates, or p-values.",
+      "actual_source": "mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/; practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/; pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+      "url": "https://mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/",
+      "note": "The claim that all three outlets specifically listed 'hazard ratios, absolute event rates, p-values' as missing is inaccurate; only MLQ News enumerated those specific metrics, while Practical Dermatology and Pharmacy Times used different and less specific framings."
+    },
+    "c35": {
+      "id": "c35",
+      "verdict": "NOT_FOUND",
+      "found_value": "Dermatology Times stated plainly that 'detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed.' Pharmacy Times discussed remaining readouts but did not state plainly that no Phase 3 efficacy numbers had been released. Medical Daily did not appear in any search result.",
+      "actual_source": "dermatologytimes.com/view/personalized-mrna-based-melanoma-vaccine-meets-primary-endpoints-in-landmark-phase-3-trial; pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+      "url": "https://www.dermatologytimes.com/view/personalized-mrna-based-melanoma-vaccine-meets-primary-endpoints-in-landmark-phase-3-trial",
+      "note": "Dermatology Times is confirmed; Pharmacy Times's framing does not plainly state no efficacy numbers were released; Medical Daily could not be found in any search result I could reach, so the three-outlet claim cannot be fully verified."
+    },
+    "c25": {
+      "id": "c25",
+      "verdict": "VERIFIED",
+      "found_value": "INTerpath-001: stage IIB, IIC, III, or IV (i.e. IIB\u2013IV). KEYNOTE-942: stage IIIB, IIIC, IIID, or IV (i.e. IIIB\u2013IV).",
+      "actual_source": "INTerpath-001 enrollment confirmed in the Merck/Moderna August 19 2026 press release and the JCO 2024 trial design abstract (NCT05933577). KEYNOTE-942 enrollment confirmed in the 5-year JCO update (JCO-26-00835), the Lancet phase 2b paper, and multiple secondary sources citing the original protocol.",
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "note": null
+    },
+    "c39": {
+      "id": "c39",
+      "verdict": "VERIFIED",
+      "found_value": "RFS is defined as the time from randomization to any disease recurrence (local, locoregional, regional or distant) as assessed by the investigator, or death due to any cause.",
+      "actual_source": "Merck press release (August 19, 2026) and Moderna press release (August 19, 2026), both verbatim; also confirmed by ASCO Post coverage of the same announcement.",
+      "url": "https://news.modernatx.com/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-plus-keytruda-met-endpoints-of-rfs-and-dmfs-in-melanoma",
+      "note": null
+    },
+    "c28": {
+      "id": "c28",
+      "verdict": "WRONG_VALUE",
+      "found_value": "The INTerpath-001 topline results were announced on 19 August 2026 by Merck and Moderna \u2014 not 20 August. No entity called 'Morning Glory Sciences' could be found in any source.",
+      "actual_source": "Merck press release (merck.com) and Moderna press release (news.modernatx.com), both dated August 19, 2026; corroborated by CancerNetwork, OncoDaily, KOL Pulse, and Yahoo Finance, all citing August 19, 2026.",
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "note": "Two errors: (1) the date is 19 August 2026, not 20 August; (2) 'Morning Glory Sciences' cannot be found in any reachable source \u2014 the announcement was made by Merck and Moderna jointly."
+    },
+    "c29": {
+      "id": "c29",
+      "verdict": "NOT_FOUND",
+      "found_value": "The Pharmacy Times article exists and covers the INTerpath-001 Phase 3 result, with search metadata showing it was published approximately 1 week before 28 August 2026, but no explicit datestamp of '19 August 2026' appears in any content retrieved from the page.",
+      "actual_source": null,
+      "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+      "note": "The Pharmacy Times article is real and on-topic, but its own publication date could not be confirmed as '19 August' from retrieved content \u2014 only a relative 'about 1 week ago' timestamp was visible; the underlying Merck/Moderna press release is dated 19 August 2026, but that does not establish when Pharmacy Times published its coverage."
+    },
+    "c30": {
+      "id": "c30",
+      "verdict": "VERIFIED",
+      "found_value": "August 19, 2026",
+      "actual_source": "Merck and Moderna joint press release, published on Merck.com and Moderna's newsroom (news.modernatx.com), dated August 19, 2026",
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "note": null
+    },
+    "c31": {
+      "id": "c31",
+      "verdict": "VERIFIED",
+      "found_value": "Published in the Journal of Clinical Oncology on June 1, 2026, simultaneously with presentation at the 2026 ASCO Annual Meeting",
+      "actual_source": "ASCO JCO (ascopubs.org/doi/10.1200/JCO-26-00835) and Moderna/Merck press release dated June 1, 2026",
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "note": null
+    },
+    "c37": {
+      "id": "c37",
+      "verdict": "VERIFIED",
+      "found_value": "The Phase 2b population was stage IIIB\u2013IV; the Phase 3 adds stage IIB and IIC \u2014 node-negative disease. Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.",
+      "actual_source": "Morning Glory Sciences, 'The First Phase 3 Win for an Individualized Neoantigen Therapy: What the 1,137-Patient INTerpath-001 Readout Shows, and the Seven Numbers Not Disclosed', published ~20 August 2026",
+      "url": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/",
+      "note": null
+    },
+    "c38": {
+      "id": "c38",
+      "verdict": "VERIFIED",
+      "found_value": "Patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "actual_source": "Pharmacy Times, 19 August 2026 \u2014 https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+      "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+      "note": null
+    },
+    "c45": {
+      "id": "c45",
+      "verdict": "VERIFIED",
+      "found_value": "January 20, 2026 \u2014 Moderna & Merck joint press release announcing five-year follow-up data from the Phase 2b KEYNOTE-942/mRNA-4157-P201 study",
+      "actual_source": "Merck.com official press release and Moderna investor PDF (s2.q4cdn.com), both dated January 20, 2026",
+      "url": "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/",
+      "note": null
+    },
+    "c40": {
+      "id": "c40",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c41": {
+      "id": "c41",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c42": {
+      "id": "c42",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c43": {
+      "id": "c43",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    }
+  },
+  "recency": {
+    "studies": [
+      {
+        "name": "KEYNOTE-942 / mRNA-4157-P201 \u2014 primary analysis (April 2023 press release)",
+        "draft_uses": "One-sided p = 0.0266 for RFS at primary analysis; HR 0.561 (0.309\u20131.017) at ~18-month follow-up",
+        "latest_known": "Five-year peer-reviewed update in JCO (JCO-26-00835) and ASCO abstract 9500, published 1 June 2026. Primary-analysis figures are superseded by three-year and five-year readouts, but the draft uses the primary-analysis p-value only to make a specific methodological point about one-sided vs two-sided framing \u2014 it does not present the primary HR as a current efficacy figure.",
+        "status": "CURRENT",
+        "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+        "what_changed": "The draft correctly uses the primary-analysis HR 0.561 (0.309\u20131.017) and p = 0.0266 only as historical context for the one-sided/two-sided p-value discussion, not as a current efficacy claim. No figure is misattributed."
+      },
+      {
+        "name": "KEYNOTE-942 \u2014 Lancet publication (2024), primary analysis peer-reviewed",
+        "draft_uses": "HR 0.561 (0.309\u20131.017) with two-sided p = 0.053; stage IIIB\u2013IV enrolment; 107/50 arm sizes; open-label design; grade 3+ treatment-related events 25% vs 18%",
+        "latest_known": "Five-year JCO paper (JCO-26-00835, 1 June 2026) is the most recent peer-reviewed publication. The Lancet figures are used by the draft only for the p-value framing discussion and the grade 3+ AE figures. The five-year JCO paper does not appear to supersede the Lancet's grade 3+ AE figures (25% vs 18%) \u2014 those were from the primary analysis safety population and are not re-reported with different values in available five-year excerpts. However, I cannot positively confirm the five-year paper does not update these AE figures, as the full safety table is behind a paywall.",
+        "status": "UNKNOWN",
+        "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+        "what_changed": "Grade 3+ treatment-related AE rates of 25% vs 18% are from the Lancet primary analysis. The five-year JCO paper may report updated cumulative safety figures; I cannot confirm the Lancet figures are unchanged in the five-year paper from available excerpts. All other Lancet figures the draft uses (HR 0.561, p = 0.053, design details) are used correctly as historical context."
+      },
+      {
+        "name": "KEYNOTE-942 \u2014 three-year readout (ASCO 2024 abstract LBA9512 / JCO Oncology Advances DOI 10.1200/OA-25-00008)",
+        "draft_uses": "RFS HR 0.510 (0.288\u20130.906); DMFS HR 0.384 (0.172\u20130.858) described as '62% risk reduction at three years'; median follow-up 34.9 months",
+        "latest_known": "Five-year JCO paper (JCO-26-00835, 1 June 2026) is the most recent readout. The three-year figures are used by the draft correctly as historical context to show the interval cleared the no-effect line by year three. The ASCO 2024 abstract (index 41-10) confirms RFS HR 0.510 (0.288\u20130.906), matching the draft exactly. One secondary outlet (Targeted Oncology, index 42-3, 45-3) reports the three-year RFS HR as 0.501 rather than 0.510, but the primary ASCO abstract and company press release confirm 0.510. The draft's figure matches the primary source.",
+        "status": "CURRENT",
+        "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
+        "what_changed": "No discrepancy. Draft's three-year RFS HR 0.510 (0.288\u20130.906) matches the ASCO 2024 primary abstract. Three-year DMFS HR 0.384 (0.172\u20130.858) confirmed. These figures are used as historical context, not as current efficacy claims, which is correct."
+      },
+      {
+        "name": "KEYNOTE-942 \u2014 five-year readout (ASCO 2026 abstract 9500 / JCO paper JCO-26-00835, 1 June 2026)",
+        "draft_uses": "RFS HR 0.510 (0.294\u20130.887); DMFS HR 0.411 (0.200\u20130.843); OS HR 0.471 (0.165\u20131.345) exploratory, n=14; absolute RFS rates 68.8% vs 49.1% at five years; irAEs 45.2% vs 44%; fatigue 59.6%, injection-site pain 59.6%, chills 51.0%; median follow-up 60.3 months; data cutoff 15 December 2025; five-year analyses described as descriptive",
+        "latest_known": "This IS the latest readout, published 1 June 2026 in JCO (JCO-26-00835) and simultaneously as ASCO abstract 9500. Key figure checks: (1) RFS HR 0.510 (0.294\u20130.887) \u2014 confirmed by JCO paper (index 37-1, 37-11) and multiple sources. (2) DMFS HR 0.411 (0.200\u20130.843) \u2014 confirmed by multiple sources. (3) OS HR: draft states 0.471 (0.165\u20131.345); ASCO abstract gives 0.47 (0.17\u20131.35) \u2014 same data, different rounding; the January 2026 topline press release used more decimal places. No substantive discrepancy. (4) Absolute RFS rates: draft states 68.8% vs 49.1% at five years. The JCO paper (index 37-2, 37-12) gives the FOUR-year RFS as 72.4% vs 49.1%. The five-year absolute RFS rate of 68.8% for the combination arm cannot be confirmed from available search results; the 49.1% control-arm figure matches the four-year rate in the JCO paper, not a confirmed five-year figure. This is a potential figure-level error or the five-year rate is in the full paper but not in available excerpts. (5) Fatigue 59.6%, injection-site pain 59.6%, chills 51.0% \u2014 confirmed by Drugs.com/Merck press release (index 46-1). (6) irAE rates 45.2% vs 44% \u2014 not confirmed or refuted in available excerpts. (7) Descriptive five-year analyses \u2014 confirmed (index 26-5, 64-5).",
+        "status": "UNKNOWN",
+        "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+        "what_changed": "The absolute five-year RFS rate of 68.8% (combination arm) cannot be positively confirmed from available search results. The JCO paper reports the four-year combination-arm RFS as 72.4% and the four-year control-arm RFS as 49.1%. The draft's control-arm figure of 49.1% matches the four-year rate, not a confirmed five-year rate. It is possible the draft is quoting a five-year rate that appears in the full paper but not in available excerpts, or it may be conflating the four-year control-arm figure (49.1%) with a five-year comparison. The irAE rates (45.2% vs 44%) also cannot be confirmed from available excerpts. These figures require verification against the full JCO paper text."
+      },
+      {
+        "name": "Merck/Moderna January 2026 topline press release (five-year KEYNOTE-942 data)",
+        "draft_uses": "One-sided nominal p = 0.0075 for RFS at five years",
+        "latest_known": "The five-year JCO paper (JCO-26-00835, 1 June 2026) is the peer-reviewed version of the same data. The draft correctly notes the p = 0.0075 is from the company topline and that the peer-reviewed paper describes the five-year analyses as descriptive. This distinction is the draft's explicit point.",
+        "status": "CURRENT",
+        "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+        "what_changed": "No discrepancy. The draft uses p = 0.0075 correctly as a company figure and explicitly contrasts it with the peer-reviewed paper's characterisation of the analyses as descriptive."
+      },
+      {
+        "name": "INTerpath-001 Phase 3 trial \u2014 topline announcement (19 August 2026)",
+        "draft_uses": "Trial met primary RFS endpoint and key secondary DMFS endpoint at interim analysis; 1,137 patients; 2:1 randomisation; double-blind, placebo- and active-comparator-controlled; no efficacy numbers released; investigator-assessed recurrence as primary endpoint",
+        "latest_known": "As of 28 August 2026, no updated data release has been identified beyond the 19 August 2026 topline announcement. Multiple sources (Merck.com, ASCO Post, ecancer, Dermatology Times, Drugs.com) confirm the trial design details and the absence of released efficacy numbers. Full data are stated to be presented at an upcoming international medical meeting.",
+        "status": "CURRENT",
+        "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+        "what_changed": "No newer readout exists. The draft's characterisation \u2014 endpoints met, no efficacy numbers released, data to be presented at a future meeting \u2014 is confirmed by all available sources."
+      }
+    ]
+  },
+  "objections": [
+    {
+      "objection": "The draft attributes a specific argument and near-verbatim quote to 'Morning Glory Sciences' but this outlet cannot be verified to exist or to have published what is claimed.",
+      "quote": "Morning Glory Sciences, on 20 August: the Phase 2b population was stage IIIB\u2013IV, the Phase 3 adds node-negative disease, and \"absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.\"",
+      "severity": "SERIOUS",
+      "why": "Morning Glory Sciences does not appear in any search results for this story or in general. The draft attributes a specific argument and a quoted phrase to a named outlet on a named date. If the outlet does not exist, or did not publish this, the draft has fabricated a source. Even if the outlet exists but is obscure, the quote is presented as direct and the argument is used to anchor a substantive claim about the Phase 3 population. A named outlet with a named date and a quoted argument is a verifiable third-party claim, and it cannot be verified.",
+      "class": "THIRD_PARTY",
+      "fix": "Either provide a URL or DOI for the Morning Glory Sciences piece so it can be verified, or remove the attribution and present the argument on its own merits without crediting a source that cannot be confirmed to exist."
+    },
+    {
+      "objection": "The draft names 'MLQ News' as one of three outlets that listed missing data, but this outlet cannot be verified to have covered this story.",
+      "quote": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing \u2014 hazard ratios, absolute event rates, p-values.",
+      "severity": "SERIOUS",
+      "why": "MLQ News does not appear in any search results for this story. The draft makes a specific factual claim about what a named outlet reported. If the outlet did not publish what is claimed, this is a false attribution. The claim is also used to support the draft's argument that the coverage was more careful than its original accusation suggested \u2014 so the accuracy of the named outlets matters to the piece's own credibility.",
+      "class": "THIRD_PARTY",
+      "fix": "Provide a URL for the MLQ News piece, or remove it from the list of named outlets."
+    },
+    {
+      "objection": "The draft names 'Medical Daily' as one of three outlets that made the point about missing data 'in their own words,' but this cannot be verified.",
+      "quote": "Dermatology Times, Pharmacy Times and Medical Daily made the same point in their own words.",
+      "severity": "SERIOUS",
+      "why": "Medical Daily does not appear in any search results for this story. The draft makes a specific factual claim about what a named outlet reported. If Medical Daily did not make this point, the attribution is false. This is the same class of error the draft itself retracts in its 'Why this is worth a whole article' section \u2014 attributing conduct to named outlets without checking.",
+      "class": "THIRD_PARTY",
+      "fix": "Provide a URL for the Medical Daily piece, or remove it from the list of named outlets."
+    },
+    {
+      "objection": "The draft names 'the Spanish Science Media Centre' as one of the outlets that attributed the Phase 2b figures correctly, but this cannot be verified from any available source.",
+      "quote": "among them The ASCO Post, Dermatology Times, OncLive, FierceBiotech and the Spanish Science Media Centre",
+      "severity": "MINOR",
+      "why": "The Spanish Science Media Centre does not appear in any search results for this story. The draft makes a specific factual claim about what a named outlet reported. The claim is less consequential than the others \u2014 it is praise rather than criticism \u2014 but it is still an unverifiable attribution to a named third party. If the outlet did not cover this story, or did not attribute correctly, the claim is false.",
+      "class": "THIRD_PARTY",
+      "fix": "Provide a URL for the Spanish Science Media Centre piece, or remove it from the list."
+    },
+    {
+      "objection": "The draft says the five-year RFS confidence interval lower bound 'had drifted out from 0.288,' implying this is a meaningful change, but the drift is from 0.288 to 0.294 \u2014 a trivially small movement that the draft itself says is 'well inside the noise of a trial this size' when discussing DMFS.",
+      "quote": "the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close to unchanged",
+      "severity": "MINOR",
+      "why": "The draft applies its own standard inconsistently. When DMFS eases from 62% to 59%, the draft says 'that is a small easing, well inside the noise of a trial this size.' The lower-bound drift on RFS (0.288 to 0.294) is an even smaller movement in a trial of the same size, but the draft presents it without the same caveat. A reader could take 'drifted out' as a meaningful signal when the draft's own logic says it is not.",
+      "class": "CALIBRATION",
+      "fix": "Add a parenthetical noting that the lower-bound movement is negligible, consistent with the caveat applied to the DMFS easing."
+    },
+    {
+      "objection": "The draft says 'a recurrence effect that held up rather than fading \u2014 one of the better signs that an effect is real,' presenting durability as near-diagnostic of a true effect, which overstates what durability alone establishes.",
+      "quote": "More data, more certainty, and a recurrence effect that held up rather than fading \u2014 one of the better signs that an effect is real.",
+      "severity": "MINOR",
+      "why": "Durability of a relative hazard ratio in a small open-label trial is consistent with a real effect but is not 'one of the better signs' in any formal evidentiary sense \u2014 it is one of several consistent signs. The draft elsewhere is careful to distinguish what is established from what is suggested. This sentence is more assertive than the evidence warrants and is in tension with the piece's own caution about the Phase 2b's limitations.",
+      "class": "CALIBRATION",
+      "fix": "Soften to 'consistent with a real effect' or 'one encouraging sign,' which matches the draft's own epistemic standard elsewhere."
+    },
+    {
+      "objection": "The draft says the five-year RFS rates are '68.8% of combination patients were recurrence-free versus 49.1% on pembrolizumab alone,' but the JCO paper shows 49.1% is the four-year monotherapy rate, not the five-year rate; the five-year figure for the monotherapy arm is confirmed by the ASCO Post but the JCO abstract lists 49.1% as the four-year figure for that arm.",
+      "quote": "68.8% of combination patients were recurrence-free versus 49.1% on pembrolizumab alone",
+      "severity": "MINOR",
+      "why": "The JCO abstract (ASCO 2026 presentation) lists the four-year RFS as 72.4% vs 49.1%, and the five-year RFS as 68.8% vs 49.1%. The monotherapy arm's four-year and five-year rates are both reported as 49.1%, which is numerically coincidental but potentially confusing. The ASCO Post confirms 49.1% as the five-year monotherapy figure. The draft is likely correct, but the coincidence of the same figure at two timepoints for the monotherapy arm warrants a note or a check against the full paper to confirm the five-year figure is not a carry-forward of the four-year figure.",
+      "class": "CALIBRATION",
+      "fix": "Confirm against the full JCO paper that 49.1% is the five-year monotherapy rate and not a repeated four-year figure; if confirmed, add the year explicitly ('at five years, 68.8% vs 49.1%') to distinguish from the four-year figure."
+    }
+  ],
+  "inferences": [
+    {
+      "quote": "Data support scores 1 \u2014 the rubric's anchor for 1 is 'no data cited,' and for the size of the effect, none was.",
+      "problem": "The draft's own framework explicitly distinguishes 'no results' from 'no numbers,' and states that the announcement 'reports a result \u2014 the trial met its primary endpoint... which is a real and significant finding'; applying the rubric anchor 'no data cited' to a trial the draft itself says reported a real and significant result contradicts that stated distinction.",
+      "severity": "SERIOUS",
+      "correct_reading": "Directional data were cited \u2014 the trial met its pre-registered endpoints, which the draft correctly calls a real and significant result. What was absent was magnitude data (hazard ratio, interval, percentage). The rubric anchor 'no data cited' does not fit; a score between 1 and the next level, with an explicit note that directional but not quantitative data were released, would be consistent with the draft's own framework.",
+      "fix": "Data support scores 1 \u2014 the rubric's anchor for 1 is 'no data cited.' That is not quite right here: a directional result was cited (the trial met its endpoints), but no magnitude data \u2014 no hazard ratio, interval, or percentage \u2014 were released. A score of 1 reflects the absence of any quantifiable effect size, not the absence of any result at all.",
+      "class": "CONTRADICTION"
+    },
+    {
+      "quote": "Overall survival \u00b7 HR 0.471 (0.165\u20131.345) exploratory, \"n=14\" still being measured",
+      "problem": "The comparison table describes INTerpath-001's OS column only as 'still being measured,' omitting that OS is a formally pre-registered key secondary endpoint of INTerpath-001, not merely an outcome being tracked; the official press release states the trial will continue to evaluate 'other key secondary endpoints, including overall survival.'",
+      "severity": "MINOR",
+      "correct_reading": "OS is a key secondary endpoint of INTerpath-001 \u2014 pre-registered and part of the formal testing hierarchy \u2014 not merely an exploratory or incidental follow-up measure. The distinction matters because it signals that the trial is powered and designed to eventually test OS formally.",
+      "fix": "Overall survival \u00b7 HR 0.471 (0.165\u20131.345) exploratory, \"n=14\" key secondary endpoint; not yet mature",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "The Phase 3 is still measuring it.",
+      "problem": "The body text describes INTerpath-001's OS measurement only as ongoing, without noting that OS is a formally pre-registered key secondary endpoint of the trial; this understates the endpoint's formal status in the same way as the table entry.",
+      "severity": "MINOR",
+      "correct_reading": "OS is a key secondary endpoint of INTerpath-001, meaning it is pre-registered and part of the formal testing hierarchy; the trial is not merely tracking it incidentally but is designed to test it formally once sufficient events accrue.",
+      "fix": "The Phase 3 is still measuring it \u2014 as a pre-registered key secondary endpoint, not an exploratory one.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "A nominal p-value was still computed and released \u2014 the one-sided 0.0075 in the January topline, which describes recurrence-free survival and not this survival analysis",
+      "problem": "The January 2026 topline press release is cited in the body as the source for the one-sided p = 0.0075 figure, but it does not appear in the sources section; every other primary figure in the draft traces to a listed source.",
+      "severity": "MINOR",
+      "correct_reading": "The January 2026 Merck/Moderna topline press release is a primary source that should be listed alongside the other primary sources so readers can verify the p-value attribution.",
+      "fix": "Add the January 2026 Merck/Moderna KEYNOTE-942 five-year topline press release to the primary sources section, as it is the stated source for the one-sided nominal p = 0.0075.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "Neither is dishonest, and a one-sided test pre-specified for a mid-stage trial is a normal choice.",
+      "problem": "The draft correctly notes the test was pre-specified but omits that the pre-specified alpha was 0.10 one-sided \u2014 more permissive than the conventional 0.05 two-sided threshold \u2014 which is directly relevant to why 0.0266 reads as a clear win against that bar; a reader is left thinking only the directionality of the test, not its threshold, was the unusual feature.",
+      "severity": "MINOR",
+      "correct_reading": "The one-sided test was pre-specified, but so was the alpha of 0.10 \u2014 roughly equivalent to a two-sided alpha of 0.20 \u2014 which is more permissive than convention. Both the direction and the threshold of the test are relevant to understanding why the same data produce p = 0.0266 against the trial's own bar and p = 0.053 against the conventional two-sided bar.",
+      "fix": "Neither is dishonest, and a one-sided test pre-specified for a mid-stage trial is a normal choice \u2014 though it is worth noting that the pre-specified alpha was 0.10 one-sided, more permissive than the conventional 0.05 two-sided threshold, which is part of why 0.0266 reads as a clear win against the trial's own bar.",
+      "class": "CALIBRATION"
+    }
+  ],
+  "coverage": {
+    "best_coverage": [
+      {
+        "outlet": "Practical Dermatology",
+        "url": "https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/",
+        "got_right": "Explicitly stated that 'The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement' \u2014 the clearest single-sentence statement of what was missing. Also correctly attributed the 49%/59% figures to the Phase 2b KEYNOTE-942 five-year follow-up, not to INTerpath-001. Noted the trial will continue to evaluate overall survival as an additional secondary endpoint.",
+        "still_omitted": "No discussion of the OS exploratory analysis, the n=14 event count, the width of the survival confidence interval, the one-sided vs. two-sided p-value distinction, the open-label weakness of KEYNOTE-942 versus the blinded Phase 3, or the population-expansion question (stage IIB/IIC patients not enrolled in KEYNOTE-942). The absolute benefit figures (68.8% vs 49.1% RFS at five years) were not mentioned."
+      },
+      {
+        "outlet": "Morning Glory Sciences",
+        "url": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/",
+        "got_right": "Titled the piece around 'the seven numbers not disclosed,' explicitly flagging that Phase 3 hazard ratios, confidence intervals, absolute RFS/DMFS rates, subgroup analyses, and detailed safety results had not been released. Correctly identified the population expansion to stage IIB/IIC as a key open question, noting that absolute recurrence risk in that group is lower and therefore the same hazard ratio delivers a smaller absolute benefit. Provided full trial registry detail (NCT05933577, EU CT number, jRCT number, start date, dosing schedule, endpoint time frame). Correctly attributed all circulating hazard ratios to KEYNOTE-942.",
+        "still_omitted": "No discussion of the OS exploratory analysis or the n=14 event count and its confidence interval (0.165\u20131.345). No treatment of the one-sided vs. two-sided p-value distinction. No explanation of what 'met its primary endpoint' does and does not convey about effect size. No absolute benefit figures from KEYNOTE-942. No discussion of the investigator-assessed endpoint in the Phase 3 or the open-label weakness of KEYNOTE-942."
+      },
+      {
+        "outlet": "OncoDaily",
+        "url": "https://oncodaily.com/oncolibrary/immune-oncology/interpath-001",
+        "got_right": "Stated explicitly that 'The Phase 3 hazard ratios, confidence intervals, absolute RFS and DMFS rates, subgroup analyses, and detailed safety results have not yet been reported in the available announcement.' Correctly distinguished OS status: 'overall survival is a key secondary endpoint of INTerpath-001, but the OS analysis is not yet mature' and noted that 'the current Phase 3 result establishes a significant improvement in RFS and DMFS, but it does not yet demonstrate an overall survival benefit.' Correctly attributed the 49%/59% figures to KEYNOTE-942.",
+        "still_omitted": "No discussion of the OS exploratory analysis from KEYNOTE-942 (n=14, HR 0.471, CI 0.165\u20131.345). No treatment of the p-value framing issue (one-sided vs. two-sided). No absolute benefit figures. No discussion of the population expansion to stage IIB/IIC or what it means for absolute benefit. No discussion of the open-label weakness of KEYNOTE-942 versus the blinded Phase 3."
+      },
+      {
+        "outlet": "KOL Pulse",
+        "url": "https://kolpulse.com/kol-pulse-trial-profile-interpath001",
+        "got_right": "Provided the most complete chronological hazard ratio table of any outlet found, tracing KEYNOTE-942 from primary analysis (HR 0.561, 95% CI 0.309\u20131.017) through three-year (HR 0.510, 0.288\u20130.906) to five-year (HR 0.510, 0.294\u20130.887), with a clear warning repeated twice that 'hazard-ratio figures circulating on announcement day are these Phase 2b figures \u2014 INTerpath-001's own magnitude is not yet disclosed.' Correctly noted the Phase 3 numbers are not yet disclosed and the trial is investigational.",
+        "still_omitted": "No discussion of the OS exploratory analysis or the n=14 event count. No treatment of the p-value framing issue. No absolute benefit figures. No discussion of the population expansion to stage IIB/IIC. No discussion of the open-label weakness of KEYNOTE-942 or the investigator-assessed endpoint in the Phase 3."
+      },
+      {
+        "outlet": "TechTimes",
+        "url": "https://www.techtimes.com/articles/325350/20260824/personalized-mrna-cancer-vaccine-clears-phase-3-melanoma-recurrence-cut-half.htm",
+        "got_right": "Correctly attributed the 49%/59% figures to KEYNOTE-942 as 'the closest available proxy for the magnitude of benefit,' not as Phase 3 results. Explicitly stated that 'The full numerical data from Phase 3 \u2014 hazard ratios, confidence intervals, Kaplan-Meier curves \u2014 had not been publicly released as of August 24, 2026.' Noted INTerpath-001 was designed at 'nearly eight times that Phase 2b enrollment to confirm this benefit at scale,' contextualising the confirmatory intent.",
+        "still_omitted": "The headline ('Melanoma Recurrence Cut by Half') attributes the 'roughly half' figure to the 1,137-patient Phase 3 ('Merck and Moderna announced August 19 that intismeran autogene cut melanoma recurrence risk by roughly half in 1,137 patients'), which is precisely the conflation the draft warns against \u2014 the body corrects it but the headline does not. No discussion of OS exploratory analysis, n=14, the CI width, the p-value framing issue, absolute benefit figures, or the population expansion question."
+      },
+      {
+        "outlet": "Targeted Oncology",
+        "url": "https://www.targetedonc.com/view/mrna-vaccine-pembrolizumab-rfs-dmfs-benefit-resectable-melanoma",
+        "got_right": "Correctly attributed the 49%/59% figures to 'that trial of 157 patients with stage IIIB to IV resected melanoma,' explicitly naming the patient count and stage range of KEYNOTE-942 in the same sentence as the hazard ratios \u2014 one of the cleaner attributions in the coverage. Correctly described INTerpath-001 as double-blind and placebo- and active-comparator-controlled.",
+        "still_omitted": "No discussion of what was not released from the Phase 3 (no explicit statement that no hazard ratio, CI, or p-value was disclosed). No OS exploratory analysis discussion. No absolute benefit figures. No p-value framing issue. No population expansion question."
+      },
+      {
+        "outlet": "Life Science Daily News",
+        "url": "https://lifesciencedaily.news/intismeran-autogene-phase-3-melanoma/",
+        "got_right": "Explicitly told readers: 'Readers should note that these figures belong to KEYNOTE-942, not to INTerpath-001' \u2014 a direct, plain-language statement of the attribution problem. Correctly noted that neither FDA Breakthrough Therapy Designation nor EMA PRIME designation 'guarantees approval' or 'shortens the evidence bar.' Correctly described the manufacturing constraint (bespoke per patient).",
+        "still_omitted": "No discussion of what specific numbers were absent from the Phase 3 announcement. No OS exploratory analysis or n=14 discussion. No absolute benefit figures. No p-value framing issue. No population expansion question."
+      },
+      {
+        "outlet": "Pharmacy Times",
+        "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+        "got_right": "Explicitly listed 'absolute benefit, stage/biomarker subgroup effects, discontinuation and feasibility metrics, and overall survival' as remaining readouts \u2014 the most complete enumeration of missing data found in any outlet. Made the affirmative case for stage IIB/IIC risk, noting that 'high-risk resected stage IIB/IIC melanoma carries recurrence and melanoma-specific mortality comparable to stage III.' Correctly attributed KEYNOTE-942 figures to the Phase 2b.",
+        "still_omitted": "No discussion of the OS exploratory analysis from KEYNOTE-942 (n=14, CI 0.165\u20131.345). No treatment of the p-value framing issue. No absolute benefit figures from KEYNOTE-942. No discussion of the open-label weakness of KEYNOTE-942 versus the blinded Phase 3. The patient count cited (~1089) differs from the announced 1,137."
+      },
+      {
+        "outlet": "MLQ News",
+        "url": "https://mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/",
+        "got_right": "Explicitly stated that 'The companies have not disclosed the Phase 3 hazard ratios, p-values, median follow-up or detailed adverse-event rates.' Also noted that Phase 2b safety figures 'cannot substitute for the Phase 3 safety analysis' and that 'a larger trial may reveal uncommon toxicities, differences across disease stages and practical challenges associated with producing a separate therapy for each patient' \u2014 one of the few outlets to flag the safety data gap alongside the efficacy data gap.",
+        "still_omitted": "No discussion of the OS exploratory analysis or n=14. No absolute benefit figures. No p-value framing issue. No population expansion question. No discussion of the open-label weakness of KEYNOTE-942."
+      }
+    ],
+    "contradictions": [
+      {
+        "quote": "Most coverage repeated the earlier trial's figures without saying they should not be read onto the new one; a few outlets did say so, and said it clearly.",
+        "counterexample": "At least eight outlets found \u2014 Practical Dermatology, Morning Glory Sciences, OncoDaily, KOL Pulse, TechTimes (body text), Targeted Oncology, Life Science Daily News, and MLQ News \u2014 explicitly attributed the 49%/59% figures to KEYNOTE-942 and not to INTerpath-001, several with direct warnings to readers. The ASCO Post, OncLive, CancerNetwork, BioPharm International, and Targeted Oncology all framed the figures as Phase 2b context for the Phase 3 readout. The 'few outlets' characterisation understates the breadth of correct attribution found.",
+        "url": "https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/",
+        "severity": "MINOR",
+        "fix": "Revise to: 'Most specialist outlets correctly attributed the earlier trial's figures to KEYNOTE-942; the problem is not misattribution but the inferential work those correctly-attributed figures still do in proximity to a Phase 3 headline.' The draft's own body already makes this subtler point \u2014 the framing sentence should match it."
+      },
+      {
+        "quote": "Practical Dermatology listed what was missing \u2014 hazard ratios, absolute event rates, p-values \u2014 and said so twice.",
+        "counterexample": "Pharmacy Times listed an equally complete or more complete set of missing readouts ('absolute benefit, stage/biomarker subgroup effects, discontinuation and feasibility metrics, and overall survival'), and MLQ News explicitly named 'hazard ratios, p-values, median follow-up or detailed adverse-event rates' as undisclosed. The draft credits Practical Dermatology for a practice that at least two other outlets also performed.",
+        "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+        "severity": "MINOR",
+        "fix": "Expand the credit: 'Practical Dermatology, Pharmacy Times, and MLQ News each listed specific categories of missing Phase 3 data.' The draft's correction log already added Pharmacy Times and Medical Daily; this finding confirms Pharmacy Times belongs and adds MLQ News."
+      },
+      {
+        "quote": "And one thing almost nobody mentioned \u2026 Morning Glory Sciences, on 20 August: the Phase 2b population was stage IIIB\u2013IV, the Phase 3 adds node-negative disease, and 'absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.'",
+        "counterexample": "Pharmacy Times also addressed the stage IIB/IIC population directly, making the opposite argument: 'High-risk resected stage IIB/IIC melanoma carries recurrence and melanoma-specific mortality comparable to stage III, supporting intensified adjuvant strategies beyond PD-1 monotherapy.' The draft correctly notes the disagreement between Morning Glory Sciences and Pharmacy Times, so this is not a contradiction of the draft's conclusion \u2014 but the draft's framing ('almost nobody mentioned') is slightly undermined by the fact that two outlets did address it, and the draft already names both. No change needed to the substance; the framing is accurate.",
+        "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+        "severity": "MINOR",
+        "fix": "The draft already names both outlets and their disagreement, so no fix is required. The phrase 'almost nobody mentioned' is defensible given that only two specialist outlets raised it and neither reached general coverage."
+      },
+      {
+        "quote": "The outlets we reached attributed them correctly to KEYNOTE-942 \u2014 among them The ASCO Post, Dermatology Times, OncLive, FierceBiotech and the Spanish Science Media Centre",
+        "counterexample": "TechTimes's headline \u2014 'Personalized mRNA Cancer Vaccine Clears Phase 3: Melanoma Recurrence Cut by Half' \u2014 and its lede attribute the 'roughly half' recurrence reduction to 'Merck and Moderna announced August 19 that intismeran autogene cut melanoma recurrence risk by roughly half in 1,137 patients,' which is the Phase 3 patient count paired with the Phase 2b effect size. The body text correctly attributes the figure to KEYNOTE-942, but the headline and lede perform exactly the conflation the draft describes. This shows the problem is not confined to outlets the draft did not check \u2014 it exists in outlets that also got the body text right.",
+        "url": "https://www.techtimes.com/articles/325350/20260824/personalized-mrna-cancer-vaccine-clears-phase-3-melanoma-recurrence-cut-half.htm",
+        "severity": "MINOR",
+        "fix": "Add a note that correct attribution in body text does not prevent conflation in headlines, and cite TechTimes as an example of an outlet that did both simultaneously. This strengthens rather than weakens the draft's central argument about inferential work."
+      }
+    ],
+    "what_this_piece_can_add": "No outlet found discussed the OS exploratory analysis from KEYNOTE-942 \u2014 the n=14 event count, the HR 0.471 with its 0.165\u20131.345 confidence interval, or what that width means for the survival question \u2014 nor did any treat the one-sided versus two-sided p-value distinction or the gap between the January topline's nominal p=0.0075 and the JCO paper's characterisation of the five-year analyses as descriptive. Those two layers \u2014 the survival interval that cannot separate large benefit from small harm, and the p-value that changed meaning between press release and journal \u2014 are the pieces of the story that even the most careful specialist coverage left entirely untouched."
+  }
+}

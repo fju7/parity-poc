@@ -4,49 +4,61 @@ Issue one - 27 August 2026
 THE MELANOMA TRIAL THAT SUCCEEDED WITHOUT SHOWING ITS WORK
 
 On 19 August, Merck and Moderna announced that a large Phase 3
-trial of a personalised mRNA cancer therapy met both of its
-endpoints in melanoma. Several outlets called it a landmark. On
-the evidence so far it may well be.
+trial of a personalised mRNA cancer therapy met its primary
+endpoint in melanoma, and a key secondary endpoint as well.
+Several outlets called it a landmark. On the evidence so far it
+may well be.
 
-The announcement reports that both endpoints were met, and no
-effect size. That both were met is a real finding, from 1,137
-patients in a double-blind trial. What is missing is how large
-the effect was: no hazard ratio, no interval, no percentage. The
-figures in the headlines, a 49% reduction in the hazard of
-recurrence or death and 59% in the hazard of distant metastasis
-or death, come from a different study: an open-label trial of
-157 patients, whose five-year results were presented in June.
-Those are mature numbers. They are just not this trial's, and
-157 unblinded patients is not 1,137 blinded ones.
+The announcement establishes that the effect is real and
+statistically significant. It does not say how large. Both were
+met - the primary endpoint and the key secondary - and that is a
+finding in its own right, from 1,137 patients in a double-blind
+trial: it establishes the direction. What is missing is the size -
+no hazard ratio, no interval, no absolute rates. The companies say
+those will come at a medical meeting, which is normal. The figures
+in the headlines, a 49% reduction in the hazard of recurrence or
+death and 59% in the hazard of distant metastasis or death, come
+from a different study: a randomised but open-label trial of 157
+patients, whose five-year results were presented at ASCO in June.
+Those are numbers with five years behind them. They are just not
+this trial's, and 157 patients in an open-label trial is not 1,137
+in a double-blind one.
 
 Survival is the question that stays open. In that earlier trial,
-five-year overall survival - an exploratory endpoint the trial
-was never powered to test - rests on fourteen deaths in total.
+five-year overall survival - an exploratory endpoint the trial was
+never powered to test - rests on fourteen deaths in total - seven
+in each arm.
 
-  Fourteen deaths. The hazard ratio is 0.471 and the interval
-  runs from 0.165 to 1.345 - compatible with a hazard of death
-  roughly 83% lower than the comparison group's, and with one
-  about 35% higher. The magnitude is what the data cannot yet
-  establish; the direction points to benefit.
+  Fourteen deaths. For overall survival, the hazard ratio is
+  0.471 and the interval runs from 0.165 to 1.345 - compatible
+  with the treated group's hazard of death being about 35%
+  higher than the comparison group's, and with it being roughly
+  84% lower. The point estimate favours benefit, but the
+  interval reaches into harm. On this exploratory analysis
+  alone, neither the size of the effect nor the direction is
+  established with any statistical confidence.
 
-None of this means the treatment does not work. It probably
-does. It means the public has not been shown how well.
+None of this means the treatment does not work. It probably does.
+It means the public has not been shown how large this trial's
+effect is.
 
 
 WHAT THE FULL ASSESSMENT ADDS
 
-Every figure in this issue traces to a company release or a
-peer-reviewed paper. Before publishing we read the specialist
-coverage of the announcement, and the careful outlets got the
-attribution right: the 49% and 59% belong to the earlier trial,
-and several said plainly that the Phase 3 numbers had not been
-released.
+Every figure in this issue traces to a company release or a peer-
+reviewed paper. Before publishing we read the specialist coverage
+of the announcement, and it got the attribution right: the 49% and
+59% belong to the earlier trial, and most said plainly that the
+Phase 3 numbers had not been released.
 
-What the full assessment adds is the layer underneath. Why
-figures from a smaller, open-label trial - where an investigator
-who knows the assignment can influence when a recurrence is
-looked for and called - cannot be read as the size of a blinded
-trial's effect. What fourteen deaths can establish about
+What the full assessment adds is the layer underneath. Why figures
+from a smaller trial cannot be read as the size of a blinded
+trial's effect. Both trials leave the recurrence call to the
+investigator; the difference is that in the Phase 3 those
+investigators do not know who got what. In an open-label trial
+scan timing and ambiguous calls can tilt a result without anyone
+intending it, which is why the blinded trial's own numbers are the
+ones that matter. What fourteen deaths can establish about
 direction, and what they cannot establish about magnitude. And
 what the absolute numbers look like beside the relative ones.
 
