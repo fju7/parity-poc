@@ -1,0 +1,35 @@
+==============================================================
+scan 2026-08-29T17:45:28Z  week 35  set 3
+  "could increase" study                   191 outlet(s) / 250 article(s)   spike 1.16
+        dw.com                             5
+        larepublica.pe                     4
+        index.hr                           4
+        az-online.de                       4
+        aa.com.tr                          3
+  "may cause" research suggests             16 outlet(s) /  21 article(s)   spike <urlopen error _ssl.c:
+        prevention.com                     4
+        manilatimes.net                    2
+        asiaone.com                        2
+        nypost.com                         1
+        forbes.com                         1
+  "raises risk" study finds                  1 outlet(s) /   2 article(s)   spike <urlopen error timed o
+        naturalnews.com                    2
+
+  most-read on en.wikipedia:
+    Tim Curry                                  1,571,639
+    Dolly Parton                               1,269,538
+    Peter Cullen                               872,730
+    Toxic (2026 film)                          840,222
+    Lake Ontario                               272,461
+    Yayoi Kusama                               232,885
+    2026 Nepal floods                          214,895
+    Killing of the Clancy children             203,204
+    Ratko Mladić                               186,777
+    The Rocky Horror Picture Show              173,435
+    2026–27 UEFA Champions League              147,330
+    Samuel Monroe Jr.                          142,687
+
+  wrote issues/leads/2026-08-29-scan.json
+  Nothing here is a subject yet. Run the funnel on anything that looks live:
+    publish.py funnel <query>
+exit=0

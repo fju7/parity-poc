@@ -174,8 +174,21 @@ def outlet_spread(query: str, timespan: str = "14d") -> dict:
     for a in arts:
         domains[a.get("domain", "?")] = domains.get(a.get("domain", "?"), 0) + 1
     ranked = sorted(domains.items(), key=lambda kv: -kv[1])
+
+    # Deduplicate on the opening of the headline: syndicated copy is the same
+    # story in forty outlets, and forty outlets running one wire is one carrier,
+    # not forty. What we want is the distinct CLAIMS in circulation.
+    seen, titles = set(), []
+    for a in arts:
+        t = (a.get("title") or "").strip()
+        k = t.lower()[:55]
+        if t and k not in seen:
+            seen.add(k)
+            titles.append({"title": t, "domain": a.get("domain"),
+                           "url": a.get("url"), "seendate": a.get("seendate")})
     return {"query": query, "articles": len(arts), "distinct_outlets": len(domains),
-            "top_outlets": ranked[:15]}
+            "distinct_headlines": len(titles),
+            "top_outlets": ranked[:15], "headlines": titles[:40]}
 
 
 def attention(day: date | None = None, limit: int = 40) -> list[dict]:
@@ -220,13 +233,14 @@ def cmd_scan(args) -> int:
         row.update(coverage_volume(q, args.timespan) if not args.fast else
                    {"volume_unavailable": "--fast"})
         report["queries"].append(row)
-        print("  %-40s %3s outlet(s) / %3s article(s)   spike %s"
-              % (q[:40], row.get("distinct_outlets"), row.get("articles"),
-                 row.get("spike_ratio") or row.get("volume_unavailable", "-")[:22]))
+        print("  %-38s %3s outlet(s) / %3s distinct headline(s)   spike %s"
+              % (q[:38], row.get("distinct_outlets"), row.get("distinct_headlines"),
+                 row.get("spike_ratio") or str(row.get("volume_unavailable", "-"))[:18]))
         for dom, n in (row.get("top_outlets") or [])[:5]:
             print("        %-34s %d" % (dom[:34], n))
-        for a in (row.get("top_articles") or [])[:3]:
-            print("        \u2022 %s" % str(a.get("title"))[:78])
+        for a in (row.get("headlines") or [])[:8]:
+            print("        \u2022 %-72s %s" % (str(a.get("title"))[:72],
+                                                str(a.get("domain"))[:22]))
 
     if not args.no_attention:
         report["attention"] = attention()

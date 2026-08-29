@@ -1,76 +1,362 @@
 {
   "_what_this_is": "A volume reading, not a judgement. High coverage is a necessary condition for a What Holds Up subject and nowhere near a sufficient one: the test is whether a claim in circulation outruns its evidence, and that needs reading.",
   "scanned": "2026-08-29",
-  "timespan": "7d",
+  "timespan": "14d",
   "queries": [
     {
-      "query": "\"linked to\" study children",
+      "query": "\"could increase\" study",
       "articles": 250,
-      "distinct_outlets": 205,
+      "distinct_outlets": 191,
       "top_outlets": [
         [
-          "dailymail.com",
-          8
-        ],
-        [
-          "naturalnews.com",
+          "dw.com",
           5
         ],
         [
-          "timesofindia.indiatimes.com",
-          5
-        ],
-        [
-          "krdo.com",
+          "larepublica.pe",
           4
         ],
         [
-          "news-medical.net",
+          "index.hr",
+          4
+        ],
+        [
+          "az-online.de",
+          4
+        ],
+        [
+          "aa.com.tr",
           3
         ],
         [
-          "almasryalyoum.com",
-          3
-        ],
-        [
-          "cnn.com",
-          3
-        ],
-        [
-          "sudanile.com",
+          "hna.de",
           3
         ],
         [
           "economictimes.indiatimes.com",
+          3
+        ],
+        [
+          "naukawpolsce.pl",
+          3
+        ],
+        [
+          "timesofindia.indiatimes.com",
+          3
+        ],
+        [
+          "soester-anzeiger.de",
+          3
+        ],
+        [
+          "acento.com.do",
+          3
+        ],
+        [
+          "moneycontrol.com",
+          3
+        ],
+        [
+          "aol.co.uk",
           2
         ],
         [
-          "prnewswire.com",
+          "elcolombiano.com",
           2
         ],
         [
-          "dostor.org",
-          2
-        ],
-        [
-          "elwatannews.com",
-          2
-        ],
-        [
-          "elpais.com",
-          2
-        ],
-        [
-          "ynetnews.com",
-          2
-        ],
-        [
-          "business-standard.com",
+          "diariolibre.com",
           2
         ]
       ],
-      "volume_unavailable": "--fast"
+      "points": 14,
+      "peak": 0.0256,
+      "recent_mean": 0.0155,
+      "baseline": 0.0133,
+      "spike_ratio": 1.16,
+      "top_articles": []
+    },
+    {
+      "query": "\"may cause\" research suggests",
+      "articles": 21,
+      "distinct_outlets": 16,
+      "top_outlets": [
+        [
+          "prevention.com",
+          4
+        ],
+        [
+          "manilatimes.net",
+          2
+        ],
+        [
+          "asiaone.com",
+          2
+        ],
+        [
+          "nypost.com",
+          1
+        ],
+        [
+          "forbes.com",
+          1
+        ],
+        [
+          "economictimes.indiatimes.com",
+          1
+        ],
+        [
+          "aljazeera.net",
+          1
+        ],
+        [
+          "wbap.com",
+          1
+        ],
+        [
+          "klif.com",
+          1
+        ],
+        [
+          "engineeringevil.com",
+          1
+        ],
+        [
+          "theconversation.com",
+          1
+        ],
+        [
+          "timesofindia.indiatimes.com",
+          1
+        ],
+        [
+          "rte.ie",
+          1
+        ],
+        [
+          "runnersworld.com",
+          1
+        ],
+        [
+          "dailymail.com",
+          1
+        ]
+      ],
+      "volume_unavailable": "<urlopen error _ssl.c:1112: The handshake operation timed out>"
+    },
+    {
+      "query": "\"raises risk\" study finds",
+      "articles": 2,
+      "distinct_outlets": 1,
+      "top_outlets": [
+        [
+          "naturalnews.com",
+          2
+        ]
+      ],
+      "volume_unavailable": "<urlopen error timed out>"
     }
   ],
-  "attention": []
+  "attention": [
+    {
+      "article": "Tim Curry",
+      "views": 1571639,
+      "rank": 2
+    },
+    {
+      "article": "Dolly Parton",
+      "views": 1269538,
+      "rank": 3
+    },
+    {
+      "article": "Peter Cullen",
+      "views": 872730,
+      "rank": 4
+    },
+    {
+      "article": "Toxic (2026 film)",
+      "views": 840222,
+      "rank": 6
+    },
+    {
+      "article": "Lake Ontario",
+      "views": 272461,
+      "rank": 8
+    },
+    {
+      "article": "Yayoi Kusama",
+      "views": 232885,
+      "rank": 9
+    },
+    {
+      "article": "2026 Nepal floods",
+      "views": 214895,
+      "rank": 10
+    },
+    {
+      "article": "Killing of the Clancy children",
+      "views": 203204,
+      "rank": 11
+    },
+    {
+      "article": "Ratko Mladić",
+      "views": 186777,
+      "rank": 13
+    },
+    {
+      "article": "The Rocky Horror Picture Show",
+      "views": 173435,
+      "rank": 14
+    },
+    {
+      "article": "2026–27 UEFA Champions League",
+      "views": 147330,
+      "rank": 15
+    },
+    {
+      "article": "Samuel Monroe Jr.",
+      "views": 142687,
+      "rank": 16
+    },
+    {
+      "article": ".xxx",
+      "views": 139253,
+      "rank": 18
+    },
+    {
+      "article": "Hayden Panettiere",
+      "views": 134172,
+      "rank": 19
+    },
+    {
+      "article": "Geetu Mohandas",
+      "views": 120511,
+      "rank": 20
+    },
+    {
+      "article": "Nepal",
+      "views": 118095,
+      "rank": 21
+    },
+    {
+      "article": "Spider-Man: Brand New Day",
+      "views": 108750,
+      "rank": 22
+    },
+    {
+      "article": "Assassination of Lord Mountbatten",
+      "views": 102581,
+      "rank": 23
+    },
+    {
+      "article": "Kuku Kohli",
+      "views": 98885,
+      "rank": 24
+    },
+    {
+      "article": "Jaye P. Morgan",
+      "views": 95127,
+      "rank": 25
+    },
+    {
+      "article": "Stella Parton",
+      "views": 92460,
+      "rank": 26
+    },
+    {
+      "article": "Jed York",
+      "views": 85737,
+      "rank": 27
+    },
+    {
+      "article": "The Odyssey (2026 film)",
+      "views": 84583,
+      "rank": 28
+    },
+    {
+      "article": "2026–27 UEFA Conference League",
+      "views": 83706,
+      "rank": 29
+    },
+    {
+      "article": "2026–27 UEFA Europa League",
+      "views": 82994,
+      "rank": 30
+    },
+    {
+      "article": "Harald V",
+      "views": 78642,
+      "rank": 31
+    },
+    {
+      "article": "Neatsville, Kentucky",
+      "views": 76810,
+      "rank": 32
+    },
+    {
+      "article": "Rachel Parton George",
+      "views": 75173,
+      "rank": 33
+    },
+    {
+      "article": "Kenny Rogers",
+      "views": 73391,
+      "rank": 34
+    },
+    {
+      "article": "Anna's Archive",
+      "views": 70892,
+      "rank": 35
+    },
+    {
+      "article": "Kyle Singler",
+      "views": 70299,
+      "rank": 36
+    },
+    {
+      "article": "Bradley Barcola",
+      "views": 69882,
+      "rank": 37
+    },
+    {
+      "article": "Pikachu",
+      "views": 66990,
+      "rank": 38
+    },
+    {
+      "article": "I Will Always Love You",
+      "views": 65737,
+      "rank": 39
+    },
+    {
+      "article": ".xyz",
+      "views": 65647,
+      "rank": 40
+    },
+    {
+      "article": "Randy Parton",
+      "views": 64388,
+      "rank": 41
+    },
+    {
+      "article": "Marianne Bachmeier",
+      "views": 62481,
+      "rank": 42
+    },
+    {
+      "article": "Mattéo Guendouzi",
+      "views": 61018,
+      "rank": 44
+    },
+    {
+      "article": "Porter Wagoner",
+      "views": 60490,
+      "rank": 45
+    },
+    {
+      "article": "The Dog Stars (film)",
+      "views": 58341,
+      "rank": 47
+    }
+  ]
 }
