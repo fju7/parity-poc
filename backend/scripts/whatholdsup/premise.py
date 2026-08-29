@@ -144,6 +144,14 @@ TEMPLATE = {
 
 
 def case_dir(slug: str) -> Path:
+    # Leads resolve first. _all_directions() already globs issues/leads, so the
+    # gate could read a candidate's direction while being unable to run ON that
+    # candidate -- which is how the entry gate came to be unrunnable against
+    # the one issue it was rebuilt for. Third place this same fix was needed;
+    # counterexample.py and source_ledger.py were the other two.
+    lead = CASES / "leads" / slug
+    if lead.is_dir():
+        return lead
     hits = sorted(CASES.glob(f"WHU-*-{slug}"))
     if not hits:
         raise SystemExit(f"no case directory for {slug!r}")

@@ -509,6 +509,16 @@
       "was": "six outlets reported the retraction, so the specifics are well attested",
       "should_have_been": "Six outlets reporting one audit is one source. Every specific about what a paper found is a claim about that paper, and it is checked in that paper. Where the paper cannot be opened by machine, it is opened by a person before anything from it is printed — which is the rule we wrote after issue two and had not yet had to use.",
       "why_it_survived": "The ledger DID hold it correctly — S005 blocked, S015 marked as deriving from it, used_for set to 'NOTHING YET'. The machinery worked. What nearly failed was the prose around it: the specifics were repeated to the operator in conversation as though established, three times, while the file beside them said they were not."
+    },
+    {
+      "class": "GATE_PASSED_A_STALE_ANSWER",
+      "kind": "process",
+      "caught_by": "running the entry gate on the candidate after four reframes",
+      "found_by": "issue three, 2026-08-29",
+      "summary": "The entry gate returned ok on nine of ten rows for a candidate whose central fields still described the FIRST of four framings. 'What the sources show' described a mode-of-use split we had abandoned; the kill condition named a test we had already run and superseded; 'our contribution' named a claim the counterexample hunter had already broken.",
+      "was": "the gate checks the premise",
+      "should_have_been": "The gate checks that a field is FILLED, not that it is CURRENT. A premise that has been reframed is a premise whose answers are stale by default, and a gate that cannot tell the difference is measuring paperwork. At minimum it should compare the recorded kill-condition test against the recorded kill condition and warn when the condition has changed since the test.",
+      "why_it_survived": "Every check we have asks whether something was recorded. Almost none asks whether what was recorded is still true. The same shape as the announce-sha problem, in a different place: a verdict unbound from the thing it judged."
     }
   ],
   "standing_rules": [
@@ -543,7 +553,8 @@
     "Every check must fire on the path the content actually takes to a reader, not only on the path we intend to use. Ask of each gate: what is the command that reaches the world without passing through this?",
     "A finding is filed against a piece. Before writing one, confirm the slug names the piece the finding is about -- an adverse finding in the wrong case file is a false accusation the machine will enforce.",
     "Search the working-paper repositories by name as their own step — SSRN, NBER, OSF/PsyArXiv, arXiv — before concluding what the evidence on a question is. Following a belief's citations finds only what the belief already cites. The single most rigorous study behind issue three was on SSRN and no journal or press search returned it.",
-    "A fairness claim about a named person — that they did not answer, did not correct, did not respond — is held to the strictest sourcing on the page. It is checked in the primary document, never taken from coverage, and the other half of the story is looked for on purpose. Wang and Fan answered their critics within days; only the retraction correspondence went unanswered, and reporting the second without the first would have been false."
+    "A fairness claim about a named person — that they did not answer, did not correct, did not respond — is held to the strictest sourcing on the page. It is checked in the primary document, never taken from coverage, and the other half of the story is looked for on purpose. Wang and Fan answered their critics within days; only the retraction correspondence went unanswered, and reporting the second without the first would have been false.",
+    "A recorded answer is bound to the question it answered. When a premise is reframed, every field written for the old framing is stale until rewritten, and a gate that reports 'ok' on a filled field is reporting paperwork. Bind the kill-condition test to the kill-condition text, as acceptances are bound to a sha."
   ],
   "second_pass": {
     "run": "2026-08-26",

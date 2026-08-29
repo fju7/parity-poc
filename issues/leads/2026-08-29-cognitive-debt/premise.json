@@ -32,16 +32,21 @@
     ]
   },
   "what_the_sources_show": {
-    "statement": "The belief is PARTLY RIGHT, and almost nobody citing it is citing the evidence that supports it.\n\nWHAT STRONG EVIDENCE SUPPORTS. 'AI Assistance Reduces Persistence and Hurts Independent Performance' — three randomised controlled trials, N=1,222, random assignment. Causal, not correlational. Unassisted solve rate after AI help fell to 0.57 against 0.73 in controls (d = -0.42), replicated at d = -0.19, and -0.42 again on reading comprehension. Skip rates — giving up rather than attempting — rose. The effects appeared after ten to fifteen minutes. This is the best evidence for the belief and it is not what anybody quotes.\n\nWHAT STRONG EVIDENCE CONTRADICTS. A meta-analysis of 35 experimental studies, 4,193 participants, 134 effect sizes: ChatGPT use IMPROVES learning outcomes, g = 0.670. Cognitive skills g = 0.872. Critical thinking g = 1.008 — a large POSITIVE effect on precisely the faculty the belief says is being destroyed. (A pooled g above 1.0 in education research is large enough to warrant its own scepticism about publication bias, and the piece should say so.)\n\nTHESE DO NOT CONTRADICT EACH OTHER. They measure different things. The meta-analysis measures learning when AI is used as an instructional tool inside a designed course. The RCTs measure unassisted performance after AI has supplied answers. Teaching versus answering.\n\nWHAT THE FAMOUS STUDIES SHOW. The three everyone cites are the weakest: Sparrow 2011, whose Google Stroop experiment Hesselmann failed to replicate in 2020 (N=89, Bayes factor about 5:1 for the null); the MIT preprint, 54 participants with the persistence claim resting on 18 across two crossover arms, unreviewed fourteen months on; and Gerlich's r = -0.68, cross-sectional, social-media recruited, both sides self-reported in one instrument.",
+    "statement": "FOUR DIFFERENT THINGS ARE BEING MEASURED AND REPORTED AS ONE.\n\nWITHDRAWAL, over minutes. Liu, Christian, Dumbalska, Bakker & Dubey: three randomised experiments, 1,060 analysed. Twelve to fourteen practice problems, the AI removed without warning, then three test problems immediately. Solve rates fell (d = -0.42, -0.19, -0.42) and skip rates rose. Causal, replicated, and about fifteen minutes long. Preprint.\n\nDEFERENCE, within a session. Shaw & Nave: three PREREGISTERED experiments, N = 1,372, 9,593 trials, AI accuracy randomised. Conditional on consulting it, participants followed the assistant on 79.8% of FAULTY trials. Of trials where it was engaged and wrong, 73.2% were surrender. Access to it raised confidence by 11.7 points while about half its answers were wrong, and confidence did not fall as errors accumulated. Working paper.\n\nINSTRUCTION, within a course. The meta-analytic literature. Its most-cited synthesis (Wang & Fan, 51 studies, 500+ citations) was RETRACTED on 22 April 2026 — its heaviest study, 19% of the weight, had itself been retracted two months before publication, and its second heaviest measured self-efficacy rather than learning. Weidlich, Gašević, Drachsler & Kirschner audited the next one (Deng et al.) and found four of nineteen comparisons met three basic criteria. The surviving 35-study meta-analysis reports its bias check as a funnel plot read by eye.\n\nDESKILLING, over months, in real work. Budzyń et al., Lancet Gastroenterology & Hepatology: 1,443 UNASSISTED colonoscopies by 19 endoscopists with 2,000+ procedures each, before and after four Polish centres adopted AI. Adenoma detection fell from 28.4% to 22.4%, -6.0 points (95% CI -10.5 to -1.6). Peer reviewed, retrospective, confounded — the authors list eleven limitations and say 'may reduce'.\n\nAND A PILE THAT MEASURES NONE OF IT. Gerlich's r = -0.68, both variables self-reported in one instrument. Wang & Zhang's 912 students, self-report, concluding offloading HELPS. Georgiou's randomised trial whose entire outcome is 40 people rating their own mental effort on four Likert items, titled 'ChatGPT produces more lazy thinkers'. Cited in both directions with equal confidence.",
     "sources": [
-      "Sparrow, Liu & Wegner, Science 2011",
-      "Hesselmann, PeerJ 2020 (replication failure)",
-      "Kosmyna et al., arXiv 2025 (preprint)",
-      "Gerlich, Societies 2025",
-      "Correction, Societies 15(9) 252",
-      "Mollick, 'Against Brain Damage', July 2025",
-      "Frontiers in Education, Oct 2025 (self-report critique of Gerlich)",
-      "Nature Reviews Psychology, Oct 2025 (common-method bias)"
+      "S001 Liu et al.",
+      "S017 Shaw & Nave",
+      "S021 Budzyń et al.",
+      "S002 Wu et al.",
+      "S003/S004 Wang & Fan and the retraction",
+      "S005 Ingebrigtsen & Lukic",
+      "S006 Weidlich et al.",
+      "S007 Kosmyna et al.",
+      "S019 Stankovic et al.",
+      "S008 Gerlich",
+      "S018 Wang & Zhang",
+      "S020 Georgiou",
+      "S009 Hesselmann"
     ]
   },
   "direction": {
@@ -51,27 +56,23 @@
   "reader_with_a_decision": "Anyone writing an AI policy for a school, a university or a team right now, where the cost of over-restricting is as real as the cost of over-trusting; and any knowledge worker deciding which parts of their thinking to hand over. Both have live decisions and no time to read four papers and six Substacks.",
   "public_record_check": {
     "prior_art_found": [
-      "Hesselmann 2020 — the replication failure, in PeerJ, open",
-      "ScienceABC explainer naming Camerer 2018 and Hesselmann 2020",
-      "Mollick, 'Against Brain Damage', July 2025 — on the MIT preprint",
-      "Digital Learning Lab Substack — traces Google effect to MIT preprint, flags the n=18 subsample",
-      "Psychology Today, May 2025 — connects Sparrow 2011 to Gerlich 2025 for a lay reader",
-      "Frontiers in Education, Oct 2025 — Gerlich and related models 'often rely on self-reported perceptions without examining underlying cognitive constructs'",
-      "Michelle Miller PhD, Feb 2025 — flags both sides being self-reported",
-      "Nature Reviews Psychology, Oct 2025 — common method bias producing spurious associations",
-      "Space Daily, June 2026 — quotes Gerlich's own hedge about correlation not causation"
+      "Weidlich, Gašević, Drachsler & Kirschner (JCAL 2025) — the audit of the positive literature. Peer reviewed, and in a journal a general reader will never open.",
+      "Stankovic, Hirche, Kollatzsch & Doetsch (arXiv 2601.00856) — the Comment on the MIT preprint. Both flagships have critiques; neither critique has reached a general reader.",
+      "Ingebrigtsen & Lukic (PsyArXiv) — the audit that produced the retraction.",
+      "Babaei-Balderlou & Shakya (The Conversation, 30 April 2026) and Hana Lee Goldin (Substack, 26 May 2026) — both state a mode-of-use distinction for a lay reader, neither from the evidence.",
+      "STAT News (12 Aug 2025) carried the colonoscopy result to a professional audience, with the 'may' intact."
     ],
-    "carried_in_general_coverage": "NO, and this is the whole subject. Every piece of the scrutiny exists and every piece is somewhere else: a PeerJ replication, a ScienceABC explainer, two Substacks, a Psychology Today post, a Frontiers paper, a Nature Reviews note. The counterexample hunter broke both novelty claims and then said so itself: the counterexamples are 'scattered across blogs, Substacks, and science-communication outlets rather than consolidated in a single article that systematically traces all three nodes of the lineage'. A reader who believes AI is degrading their thinking has met none of it.",
-    "our_contribution": "TRANSLATION, and the finding is that the public conversation is citing the wrong studies for a conclusion that has better support elsewhere. We discover nothing. Hesselmann ran the replication, Mollick corrected the MIT reading, Frontiers and Miller raised the self-report problem, and other researchers ran the RCTs and the meta-analysis. What does not exist anywhere a general reader would find it is the sentence: the evidence says it matters enormously whether the machine is teaching you or answering for you."
+    "carried_in_general_coverage": "NO. Every piece of the scrutiny exists and every piece is somewhere else — a JCAL audit, an arXiv comment, a PsyArXiv audit, a retraction notice, a gastroenterology journal. A reader who believes AI is degrading their thinking has met none of it, and is instead meeting the MIT preprint in Forbes and EDUCAUSE Review.",
+    "our_contribution": "TRANSLATION, and specifically ONE CROSSING. The best real-world evidence that AI use degrades a real skill is in gastroenterology, and the AI-and-thinking conversation has not picked it up: none of the four general-audience pieces in our ledger cites Budzyń. Setting the colonoscopy result beside the essay-writing and reasoning studies — and being honest that it is retrospective and confounded — is the piece.\n\nTHE UNBOUNDED VERSION OF THIS CLAIM IS NOT OURS TO ASSERT. 'No general-audience account has brought the colonoscopy deskilling result into the same frame as the essay-writing and reasoning studies' is a universal negative over everything published. It goes to the counterexample hunter before drafting, and every counterexample gets opened."
   },
   "sources_are_open": "Yes, entirely. arXiv preprint, MIT project page, Mollick free to read. The opposite of issue two, where the deciding document could not be machine-read at all.",
   "evidence_base_is_bounded": "Yes. Essentially one study and a handful of named critiques. Omission is detectable, which is what issue two's unbounded literature never allowed.",
-  "kill_condition": "Any of: (1) somebody has consolidated the lineage for a general audience and we missed it — the hunter says not, at HIGH confidence, but it is the thing to re-check before drafting; (2) the MIT preprint has been peer reviewed and strengthened since December 2025; (3) a longitudinal or experimental study exists that does support the broad belief, in which case the belief is better founded than the three studies suggest and the piece becomes a different one — possibly a CONFIRMS, which the guard says we are overdue.",
+  "kill_condition": "Any of: (1) a general-audience piece already sets the colonoscopy deskilling result beside the essay-writing and reasoning studies — this is the live novelty claim and it has NOT been hunted; (2) the colonoscopy result fails on reading the accompanying Lancet comment and correspondence, which we have not read; (3) Wu et al.'s reference list turns out to include the retracted study or the g = 4.009 study, in which case the surviving meta-analysis is not the clean survivor we are about to call it; (4) Wang & Zhang measured its two constructs separately, in which case the mirror-image-of-Gerlich claim collapses.",
   "kill_condition_tested": {
     "by": "claude",
     "on": "2026-08-29",
-    "result": "narrowed",
-    "note": "The untested kill condition was the right one to test and it changed the piece twice over. Strong causal evidence for the belief EXISTS — three RCTs, N=1,222 — which kills the lineage-of-weak-studies framing as unfair. And strong evidence against a broad reading exists too, in a 35-study meta-analysis finding a large POSITIVE effect on critical thinking. The honest piece is the distinction between the two, which is actionable and which nobody is carrying."
+    "result": "NOT YET TESTED FOR THE CURRENT SHAPE",
+    "note": "The earlier kill conditions were tested and reframed the piece twice, which is the process working. These four are new, written tonight for the four-mechanism shape, and none has been tested. The gate marked this 'ok' because the FIELD was filled. It should compare the recorded test against the recorded condition, and it does not."
   },
   "lead_came_from": "The lead scanner, 2026-08-29, first run after the move. Query: '\"may cause\" research suggests'. The headline shape the belief gate was rebuilt to find.",
   "_open_items": [
@@ -313,5 +314,6 @@
     "the_piece": "Four different things are being measured and reported as one. The public argument cites the weakest study from each camp. The strongest evidence describes mechanisms almost nobody is arguing about — that you take the machine's answer four times in five when it is wrong, and feel more certain for having asked; and that experienced professionals lost six points of detection on the unassisted task after their hospitals installed the tool. Neither of those is 'AI is making you stupid', and neither is 'AI helps you learn'.",
     "what_the_reader_gets": "A test they can apply to the next study they meet. Was the tool there when they measured? Did anyone watch the person, or only ask them? How long after? And an honest answer to the question they came with: the best evidence that AI use degrades a real skill in the real world is one observational study of nineteen endoscopists, and the best evidence that it helps you learn is a literature whose flagship was retracted. Nobody has run the trial that would settle it. Shaw & Nave say so themselves — 'a snapshot of decision-making under a single set of exposures' — and ask for the longitudinal work in their own limitations.",
     "direction": "Still narrows. A real, causal, professionally consequential core survives; the sweeping version does not."
-  }
+  },
+  "_STALE_FIELD_WARNING": "2026-08-29. The entry gate passed this candidate on fields written for the FIRST framing, after four reframes. belief.what_the_sources_show, public_record_check and kill_condition all still describe a piece we are no longer writing. The gate checks that a field is FILLED, not that it is CURRENT. That is a defect in the gate and it is recorded as one; the fields below are now rewritten to the current shape."
 }
