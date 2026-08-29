@@ -499,6 +499,16 @@
       "was": "we searched the literature",
       "should_have_been": "We searched journals and the press. Working-paper repositories are a separate habitat with separate indexing — SSRN, NBER, OSF/PsyArXiv, and the economics and business-school preprint series — and a question that touches productivity, decision-making or behaviour will have work sitting in them that a journal search never returns. Each is its own search step, by name.",
       "why_it_survived": "The scanner was built to find BELIEFS in coverage, which it does. Nothing in the process was built to find the best EVIDENCE, and we assumed that following the belief's citations would lead to it. It leads only to what the belief already cites."
+    },
+    {
+      "class": "ONE_SECONDARY_SOURCE_TREATED_AS_THE_RECORD",
+      "kind": "sourcing",
+      "caught_by": "the operator obtaining the PDF a machine could not fetch",
+      "found_by": "issue three, S005, 2026-08-29",
+      "summary": "For several hours the file recorded, from a single blog post, that the corrected effect size was read off Wang & Fan's FOREST plot and that the authors never responded to correspondence. The paper says FUNNEL plot, and says the authors replied promptly and blamed a typesetting error. One of those is a detail; the other would have printed an unfairness about two named academics.",
+      "was": "six outlets reported the retraction, so the specifics are well attested",
+      "should_have_been": "Six outlets reporting one audit is one source. Every specific about what a paper found is a claim about that paper, and it is checked in that paper. Where the paper cannot be opened by machine, it is opened by a person before anything from it is printed — which is the rule we wrote after issue two and had not yet had to use.",
+      "why_it_survived": "The ledger DID hold it correctly — S005 blocked, S015 marked as deriving from it, used_for set to 'NOTHING YET'. The machinery worked. What nearly failed was the prose around it: the specifics were repeated to the operator in conversation as though established, three times, while the file beside them said they were not."
     }
   ],
   "standing_rules": [
@@ -532,7 +542,8 @@
     "Never report to the operator that something was or was not published, sent or accepted from the state of a button. Open published.json and read the record. The board reflects what may be done next, not what has been done.",
     "Every check must fire on the path the content actually takes to a reader, not only on the path we intend to use. Ask of each gate: what is the command that reaches the world without passing through this?",
     "A finding is filed against a piece. Before writing one, confirm the slug names the piece the finding is about -- an adverse finding in the wrong case file is a false accusation the machine will enforce.",
-    "Search the working-paper repositories by name as their own step — SSRN, NBER, OSF/PsyArXiv, arXiv — before concluding what the evidence on a question is. Following a belief's citations finds only what the belief already cites. The single most rigorous study behind issue three was on SSRN and no journal or press search returned it."
+    "Search the working-paper repositories by name as their own step — SSRN, NBER, OSF/PsyArXiv, arXiv — before concluding what the evidence on a question is. Following a belief's citations finds only what the belief already cites. The single most rigorous study behind issue three was on SSRN and no journal or press search returned it.",
+    "A fairness claim about a named person — that they did not answer, did not correct, did not respond — is held to the strictest sourcing on the page. It is checked in the primary document, never taken from coverage, and the other half of the story is looked for on purpose. Wang and Fan answered their critics within days; only the retraction correspondence went unanswered, and reporting the second without the first would have been false."
   ],
   "second_pass": {
     "run": "2026-08-26",

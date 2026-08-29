@@ -62,6 +62,14 @@
           "the funnel plot itself"
         ],
         "note": "BLOCKING for the central claim. Whether its post-tests were taken with ChatGPT in hand is the hinge of the piece and the paper's own text does not say."
+      },
+      "contamination_check": {
+        "_why": "Once the retracted meta-analysis turned out to rest on a retracted study and a study measuring self-efficacy, the obvious question was whether the surviving one rests on the same material. Asking it was necessary; assuming the answer either way would have been the error we recorded this morning.",
+        "checked": "2026-08-29. The article's reference PDF was searched for the five studies Ingebrigtsen & Lukic identify as the worst in Wang & Fan.",
+        "result": "NOT FOUND: Chan et al. (2024b, the retracted one), Ji et al. (2023, the g = 4.009 clustering error), Huang et al. (2024, the self-efficacy study), Hsu (2024, the 80-vs-20-hours confound), Almohesh (2024). FOUND: a Chen & Chang (2024) — 'Effectiveness of AI-assisted game-based learning on science learning outcomes, intrinsic motivation, cognitive load, and learning behavior', Education and Information Technologies — which may or may not be the Chen and Chang paper Ingebrigtsen & Lukic say appears four times in Wang & Fan under two different education levels. We cannot tell from the citation and must not guess.",
+        "STRENGTH_OF_THIS_FINDING": "WEAK. It is a machine read of a reference PDF by a summarising model, not our own eyes on the list, and such a read can truncate. A 'not found' from it is not proof of absence. Before anything is printed either way, somebody reads the reference list directly.",
+        "what_it_means_if_it_holds": "That the surviving meta-analysis is NOT built on the same bad material, and the piece must say so. The temptation to let a retraction next door discredit a neighbouring paper is exactly the reasoning we recorded as CHAIN_BETWEEN_DOCUMENTS_ASSUMED.",
+        "what_still_stands_against_it_regardless": "Its own account of its own methods. It reports the funnel plot as symmetric on visual inspection, and uses the classic fail-safe N — a method Borenstein (2019, pp. 180-181) and Van Aert, Wicherts & Van Assen (2019) advise against for assessing publication bias. That is a criticism of a stated method, sourced to methodologists, and it stands without reference to what happened to Wang & Fan. IT IS OURS, not anybody else's finding, and the counterexample hunter should be pointed at it."
       }
     },
     {
@@ -113,7 +121,7 @@
       "type": "critique",
       "url": "https://osf.io/preprints/psyarxiv/wgu56_v2",
       "doi": "10.31234/osf.io/wgu56",
-      "title": "Ingebrigtsen & Lukic — Substantial Errors Invalidate the Conclusion from Wang and Fan (2025) About ChatGPT and Learning Outcomes",
+      "title": "Ingebrigtsen & Lukic — Substantial Errors Invalidate the Conclusion from Wang and Fan (2025) About ChatGPT and Learning Outcomes. Submitted 26 June 2025; preprint v1 2 July 2025; v2 23 April 2026. A Matters Arising submitted to Humanities and Social Sciences Communications, CC BY 4.0.",
       "also_called": [
         "the Norwegian audit",
         "Ingebrigtsen and Lukic",
@@ -121,18 +129,36 @@
       ],
       "used_for": "The specific errors in Wang & Fan, and the corrected effect size. THIS IS THE LOAD-BEARING SOURCE for everything the piece would say about what was wrong with the retracted paper.",
       "access": {
-        "state": "blocked",
-        "by": "claude",
+        "state": "human_read",
+        "by": "fred",
         "on": "2026-08-29",
         "sections": [
-          "abstract only, via Sciety: 'numerous data extraction errors, inconsistent reporting and several analytical issues'; v1 2 July 2025, v2 23 April 2026"
+          "the whole paper, v1 — all four pages of argument plus references"
         ],
         "not_read": [
-          "the entire paper"
+          "v2 of 23 April 2026, if it differs"
         ],
-        "note": "OSF's download endpoint and API are both disallowed to machine fetch. This is issue two's problem exactly: the one document nothing automated can open is the one carrying information no other document has. Everything specific we have about these errors comes from ONE secondary source (S015). It needs a human read before a word of it is printed."
+        "note": "The operator obtained and supplied the PDF after OSF refused machine fetch. This is the second time the deciding document on an issue has had to be read by a human, and the second time it changed what we would have printed."
       },
-      "needs_human_read": true
+      "authors": "Magnus Ingebrigtsen (Department of Psychology, UiT The Arctic University of Norway) and Marko Lukic (Centre for Faculty Development (HelPed), UiT). Competing interests: none declared. They thank Torstein Låg of the UiT University Library for advice on assessing bias in meta-analysis.",
+      "what_it_actually_says": {
+        "the_corrected_effect": "'the funnel plot for learning performance indicates that the pooled effect size was approximately 0.5, and not 0.867.' READ OFF WANG AND FAN'S OWN FUNNEL PLOT — not a recomputation, and NOT a forest plot. Plagiarism Today said forest plot. It is wrong.",
+        "the_retracted_study": "Chan, Lo & Wong (2024b), '[RETRACTED] Generative AI and Essay Writing: Impacts of Automated Feedback on Revision Performance and Engagement', rEFLections 31(3) 1249-1284. It had the LOWEST standard error in the whole meta-analysis, SE = 0.066, carrying about 19% of the total weight, and it had been officially retracted TWO MONTHS BEFORE Wang and Fan's paper was published. Ingebrigtsen and Lukic further note the same study appears in two other journals with acceptance dates of October 2024 and December 2024.",
+        "the_second_heaviest_study": "Huang, Liu & Dong (2024), SE = 0.092, roughly 10% of total weight — AND IT DID NOT MEASURE LEARNING PERFORMANCE. Its outcomes were self-efficacy and technology acceptance. So two studies contributing nearly 30% of the weight, one retracted and one measuring a different construct entirely.",
+        "how_many_studies": "Table 3 lists only 41 unique entries for learning performance while the analysis reports k = 44. Two entries for Bašić et al. (2023a, 2023b) with a participant count matching only one of the cited papers. Chen and Chang (2024), who studied 7th graders, appear FOUR times — two entries labelled 'college' and two 'secondary'. One entry is itself a meta-analysis, contradicting the authors' own inclusion criteria.",
+        "the_clustering_error": "Ji et al. (2023) divided 36 students into groups of five to six, each group receiving a single shared grade. Wang and Fan treated it as though each student had an individual score. Ignoring the clustering artificially reduces variance and inflates the effect, which was entered as g = 4.009.",
+        "sample_size_discrepancies": "Chan et al. (2024b) reported 918 participants, but its t-test degrees of freedom (192) indicate only 194 analysed. Almohesh (2024) reports 250 participants in the abstract and 150 in the results.",
+        "the_confounding": "Many included studies are quasi-experimental and do not control time-on-task. In Hsu (2024) the ChatGPT group practised medical terminology for about 80 hours against the control group's 20.",
+        "the_generalising_claim": "Effect sizes above 1 are rare in educational research (citing Kraft 2023), yet appear in ABOUT 36% of Wang and Fan's included studies. Ingebrigtsen and Lukic call this 'systemic overestimation'. This is the one place they generalise beyond the single paper.",
+        "on_publication_bias_method": "Wang and Fan relied on Fail-safe N, which Ingebrigtsen and Lukic note experts strongly advise against for this purpose, citing Borenstein (2019, pp. 180-181) and Van Aert, Wicherts & Van Assen (2019). They also say Wang and Fan declared their funnel plots symmetric despite visual evidence otherwise, and that standard tests for funnel asymmetry would 'clearly' have shown asymmetry.",
+        "heterogeneity": "I-squared of approximately 90%.",
+        "the_correspondence": "They contacted the authors directly under Springer Nature's policy and asked for the dataset and a forest plot, which the paper did not contain. WANG AND FAN REPLIED PROMPTLY, attributing several discrepancies to 'a formatting error during the typesetting process'. They did not supply a complete dataset. Their data availability statement read: 'No datasets were generated or analysed during the current study.' Problems remained unresolved after two weeks of correspondence, at which point the critics asked the editors to consider retraction."
+      },
+      "corrections_to_our_record": [
+        "We had 'forest plot'. It is the FUNNEL plot. That came from Plagiarism Today and was wrong.",
+        "We had, from the retraction notice, 'the authors have not responded to correspondence'. That is true of the journal's correspondence about the retraction in 2026. It is NOT true of the critics' approach in June 2025, which Wang and Fan answered promptly. Printing the first without the second would have been unfair to them.",
+        "We had a vague 'improper weighting'. The actual finding is sharper and more damaging: the two heaviest studies, together nearly 30% of the weight, were one retracted paper and one that measured self-efficacy rather than learning."
+      ]
     },
     {
       "id": "S006",
@@ -341,7 +367,7 @@
       "also_called": [
         "Plagiarism Today"
       ],
-      "used_for": "NOTHING YET. It is currently the only source for every specific error attributed to the Norwegian audit — the 0.5 forest-plot figure, the included retracted study, the mislabelled studies, the weighting.",
+      "used_for": "NOTHING. Superseded by S005, now read at source. Retained in the ledger as the record of what a single secondary source got wrong: it said forest plot where the paper says funnel plot, and it dated the retraction to May where the notice says 22 April.",
       "derives_from": "S005",
       "access": {
         "state": "machine_read",

@@ -88,6 +88,7 @@
   },
   "_reframed": "2026-08-29, after the operator asked where the general sense that AI lowers mental performance actually comes from. That question IS the piece. It has a traceable answer.",
   "_open_before_drafting": [
+    "Read Wu et al.'s reference list directly — our own eyes, not a summarising fetch — to settle whether the surviving meta-analysis includes any of the five worst studies from the retracted one. Currently a WEAK not-found.",
     "READ Shaw & Nave in full (SSRN 6097646). We have the abstract only. It may be the spine of the piece and we have not opened it.",
     "READ Wang & Zhang's instrument (IJETHE 10.1186/s41239-026-00585-x) — were offloading and transformative learning measured in the same questionnaire at the same wave? The mirror-image claim depends on it entirely.",
     "S005, the Norwegian audit — human read. Request written.",
@@ -257,5 +258,23 @@
     "why_three_is_the_one_readers_recognise": "Neither of the first two describes what people report when they say AI has changed how they think. They do not say 'I was worse at fractions afterwards' or 'my course grade improved'. They say they reach for it before thinking, and take what it gives them. That is deference, and it is the only one of the three with a preregistered experiment behind it.",
     "the_mirror_image": "Wang & Zhang (IJETHE, March 2026) surveyed 912 students and concluded that cognitive offloading above a threshold IMPROVES transformative learning. It is a self-report survey with no performance measure — the same design that makes Gerlich's r = -0.68 uninterpretable, pointed the other way and just as confident. A reader who wants reassurance cites one; a reader who wants alarm cites the other; neither is measuring what its citer thinks.",
     "what_this_does_to_the_piece": "It gets better again. The piece is now: three different things are being measured and called one thing, the public argument cites the weakest study from each camp, and the strongest evidence in the whole field — preregistered, 1,372 people — describes a mechanism nobody is arguing about."
+  },
+  "S005_read_at_source_2026_08_29": {
+    "_how": "The operator obtained the PDF after OSF refused every machine route. Second time running that the deciding document on an issue had to be read by a human, and the second time it changed what we would have printed.",
+    "the_three_corrections_it_forced": [
+      "We had 'forest plot'. The paper says FUNNEL plot — the ~0.5 figure is read off Wang & Fan's own funnel plot. Our only source for 'forest' was one blog post, and it was wrong.",
+      "We had 'the authors never responded'. Wang and Fan REPLIED PROMPTLY to the critics in June 2025, attributing discrepancies to 'a formatting error during the typesetting process'. It is the journal's 2026 correspondence about the retraction they did not answer. Printing the first without the second would have been unfair to them, and we were one step from doing it.",
+      "We had a vague 'improper weighting'. The real finding is sharper: the two heaviest studies, together nearly 30% of the total weight, were one paper retracted two months before Wang & Fan published and one that measured self-efficacy and technology acceptance rather than learning."
+    ],
+    "the_facts_that_carry_the_piece": {
+      "the_retracted_study": "Chan, Lo & Wong (2024b), retracted, SE = 0.066 — the lowest in the meta-analysis — carrying about 19% of the total weight. Retracted two months before Wang & Fan was published. Also appearing in two other journals with acceptance dates of October and December 2024.",
+      "the_second_heaviest": "Huang, Liu & Dong (2024), about 10% of the weight, measuring self-efficacy and technology acceptance rather than learning performance.",
+      "the_arithmetic": "Table 3 lists 41 unique entries where the analysis reports k = 44. Chen and Chang, a study of 7th graders, appears four times — twice as 'college' and twice as 'secondary'. One entry is itself a meta-analysis.",
+      "the_impossible_effect": "Ji et al. (2023) gave 36 students a single shared grade per group of five or six. Entered as though each student had an individual score, which is how a g of 4.009 gets into an education meta-analysis.",
+      "the_pattern": "Effect sizes above 1 are rare in educational research. In Wang & Fan they appear in about 36% of included studies. Ingebrigtsen and Lukic call it systemic overestimation, and it is the one place they generalise past the single paper.",
+      "the_sentence_that_will_stop_a_reader": "Wang & Fan's data availability statement, on a meta-analysis, read: 'No datasets were generated or analysed during the current study.'",
+      "the_timeline": "Submitted 26 June 2025. Preprint public 2 July 2025. Retracted 22 April 2026. Nine and a half months, during which the paper went on being cited."
+    },
+    "fairness_note": "The piece must carry that the authors answered the critics quickly, and that the journal's own reviewers passed a meta-analysis containing a g of 4.009 and a retracted study at 19% weight. The failure is not only theirs."
   }
 }
