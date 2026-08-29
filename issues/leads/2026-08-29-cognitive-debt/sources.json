@@ -27,14 +27,21 @@
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
-          "arXiv HTML v2 — design, per-experiment N, effect sizes, post-test procedure, authors' own limitation on Exp 1 exclusions"
+          "arXiv HTML v2 and then v4 — design, per-experiment recruited and analysed N, effect sizes with CIs, post-test procedure, the authors' Exp 1 exclusion limitation",
+          "the v4 abstract verbatim"
         ],
         "not_read": [
-          "v4 (5 Aug 2026), which is the current version — v2 was what rendered",
           "the supplement",
-          "any pre-registration record"
+          "any OSF record"
         ],
-        "note": "Read v2 and cited as if current. Before drafting, confirm every figure against v4."
+        "note": "CHECKED AGAINST v4, the current version. Every figure is identical to v2. Submission history: v1 6 Apr 2026, v2 7 Apr, v3 4 Aug, v4 5 Aug 2026; no changelog is published."
+      },
+      "verified_against_v4": {
+        "recruited": "354 + 667 + 201 = 1,222, which is the N the abstract reports.",
+        "analysed": "307 (185 AI / 122 control) + 585 (308 / 277) + 168 (85 / 83) = 1,060.",
+        "effects": "Exp 1 solve d = -0.42 [-0.66, -0.19], skip d = 0.25 [0.02, 0.48]. Exp 2 solve d = -0.19 [-0.36, -0.03], skip d = 0.10 [-0.07, 0.26] (not significant). Exp 3 solve d = -0.42 [-0.73, -0.11], skip d = 0.42 [0.11, 0.72]. Unchanged from v2.",
+        "PREREGISTRATION": "NO STATEMENT ANYWHERE, in v2 or v4. The paper does not claim preregistration and gives no repository. Settled.",
+        "the_asymmetry_worth_printing": "The study measuring WITHDRAWAL is not preregistered. The study measuring DEFERENCE (Shaw & Nave) is preregistered, with materials and codebooks on OSF. Both are preprints. If the piece praises one for rigour it has to say which kind of rigour, and where each falls short."
       }
     },
     {
@@ -69,7 +76,11 @@
         "result": "NOT FOUND: Chan et al. (2024b, the retracted one), Ji et al. (2023, the g = 4.009 clustering error), Huang et al. (2024, the self-efficacy study), Hsu (2024, the 80-vs-20-hours confound), Almohesh (2024). FOUND: a Chen & Chang (2024) — 'Effectiveness of AI-assisted game-based learning on science learning outcomes, intrinsic motivation, cognitive load, and learning behavior', Education and Information Technologies — which may or may not be the Chen and Chang paper Ingebrigtsen & Lukic say appears four times in Wang & Fan under two different education levels. We cannot tell from the citation and must not guess.",
         "STRENGTH_OF_THIS_FINDING": "WEAK. It is a machine read of a reference PDF by a summarising model, not our own eyes on the list, and such a read can truncate. A 'not found' from it is not proof of absence. Before anything is printed either way, somebody reads the reference list directly.",
         "what_it_means_if_it_holds": "That the surviving meta-analysis is NOT built on the same bad material, and the piece must say so. The temptation to let a retraction next door discredit a neighbouring paper is exactly the reasoning we recorded as CHAIN_BETWEEN_DOCUMENTS_ASSUMED.",
-        "what_still_stands_against_it_regardless": "Its own account of its own methods. It reports the funnel plot as symmetric on visual inspection, and uses the classic fail-safe N — a method Borenstein (2019, pp. 180-181) and Van Aert, Wicherts & Van Assen (2019) advise against for assessing publication bias. That is a criticism of a stated method, sourced to methodologists, and it stands without reference to what happened to Wang & Fan. IT IS OURS, not anybody else's finding, and the counterexample hunter should be pointed at it."
+        "what_still_stands_against_it_regardless": "Its own account of its own methods. It reports the funnel plot as symmetric on visual inspection, and uses the classic fail-safe N — a method Borenstein (2019, pp. 180-181) and Van Aert, Wicherts & Van Assen (2019) advise against for assessing publication bias. That is a criticism of a stated method, sourced to methodologists, and it stands without reference to what happened to Wang & Fan. IT IS OURS, not anybody else's finding, and the counterexample hunter should be pointed at it.",
+        "second_attempt_2026_08_29": "Went back to transcribe the reference list rather than ask a model to search it. The A-D range came back verbatim and complete-looking: no Almohesh (2024), and no Chan, Lo & Wong essay-writing paper — the retracted one. Chan, C.K.Y. & Lee and Chan, C.K.Y. & Zhou are present and are a different Chan (Cecilia Chan, HKU). Chen, C.H. & Chang, C.L. (2024), 'Effectiveness of AI-assisted game-based learning...', Education and Information Technologies, IS present; whether it is the Chen and Chang paper Ingebrigtsen & Lukic say appears four times in Wang & Fan cannot be told from the citation.\n\nThe E-L pass came back PARAPHRASED rather than transcribed, and a targeted H-J pass returned 'full reference not included' — the fetch is truncating the PDF. So Ji (2023), Huang (2024) and Hsu (2024) CANNOT BE SETTLED this way.",
+        "STATUS": "TWO OF FIVE confidently absent (Almohesh, Chan et al. 2024b). THREE UNSETTLED (Ji, Huang, Hsu).",
+        "AND_IT_IS_THE_WRONG_TEST_ANYWAY": "A reference list mixes included studies with cited works — Cohen (1992), Anderson & Krathwohl (2001) and Biggs et al. (2022) are all in it. The question 'which 35 studies were included' is answered by the study-characteristics table, not the bibliography. We were about to settle a question with an instrument that cannot answer it.",
+        "DECISION": "DOWNGRADED from blocking to optional, and the piece is rewritten not to need it. We do not have to certify Wu et al. as clean. What is true, checkable and sufficient is what the paper says about ITSELF: its publication-bias assessment is a funnel plot judged by eye plus Begg's test and a classic fail-safe N — a method Borenstein (2019) and Van Aert et al. (2019) advise against for this purpose — and it does not state whether its post-tests were taken with ChatGPT available, and reports no delayed or retention measure. That stands on the paper's own account and needs no adjudication of what it included.\n\nOne fact worth keeping: Wu et al. DOES cite Deng et al. (2025), the meta-analysis Weidlich and colleagues audited. Confirmed in the verbatim A-D pass."
       }
     },
     {
@@ -215,24 +226,26 @@
       "id": "S008",
       "type": "primary",
       "url": "https://www.mdpi.com/2075-4698/15/1/6",
-      "title": "Gerlich (2025), Societies — AI tools and critical thinking",
+      "title": "Gerlich, M. (2025) — AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies 15(1), 6, 3 January 2025. Center for Strategic Corporate Foresight and Sustainability, SBS Swiss Business School.",
       "also_called": [
         "Gerlich"
       ],
-      "used_for": "r = -0.68; cross-sectional; social-media recruited; both variables self-reported in one instrument. Correction at Societies 15(9) 252 was a duplicated table, conclusions unaffected.",
+      "used_for": "666 valid responses of 669. Recruited by convenience and purposive sampling, promoted on social media in the UK. Cross-sectional survey plus semi-structured interviews. AI tool use measured by self-report on a 6-point Likert scale. CRITICAL THINKING measured by self-report too — items drawn from the Halpern Critical Thinking Assessment and Terenzini's self-reported measures, combined into a self-reported scale. r = -0.68 between AI use and critical thinking; r = +0.72 between AI use and cognitive offloading; r = -0.75 between offloading and critical thinking. The paper does not claim causation.",
       "access": {
         "state": "machine_read",
         "by": "claude",
-        "on": "earlier session",
+        "on": "2026-08-29",
         "sections": [
-          "abstract, design, the correction notice"
+          "the MDPI article page: citation, affiliation, sample, recruitment, design, both measures, all correlations, the causation disclaimer"
         ],
         "not_read": [
-          "full methods"
+          "the limitations section in full",
+          "the correction notice at Societies 15(9) 252, which our file describes as a duplicated table with conclusions unaffected and which has NOT been opened"
         ],
-        "note": "URL from memory and NOT verified. S009's memory-recorded URL turned out to be a different paper entirely. Verify before printing."
+        "note": "URL VERIFIED — it was recorded from memory and this time memory was right. The sibling that was wrong was Hesselmann."
       },
-      "verify_identifier": true
+      "doi": "10.3390/soc15010006",
+      "the_precise_criticism": "Not 'it is only a correlation' — the author says that himself. The point is that all three constructs are self-reported in one instrument, and the three correlations are uniformly strong: 0.68, 0.72, 0.75. That uniformity is the signature of common-method variance rather than three separately established relationships. Note also that the critical-thinking items are DERIVED from the Halpern assessment rather than being the Halpern assessment administered as a test; the piece must say 'items drawn from' and not imply a test was sat."
     },
     {
       "id": "S009",
@@ -292,7 +305,7 @@
         "not_read": [
           "the paper itself"
         ],
-        "note": "Read ABOUT, not read. Its effect size and scope come from S006. If the piece states them, it states them as Weidlich et al. report them, or somebody opens Deng."
+        "note": "Elsevier blocks machine fetch on both the DOI redirect and the ScienceDirect page. NOT READ, and now formally NOT NEEDED: the piece cites Deng's scope and effect size as WEIDLICH ET AL. REPORT THEM (19 comparisons audited from the academic-performance subset, g = 0.7), which is how it must be worded. Wu et al. cites Deng, confirmed in the verbatim A-D pass of Wu's reference list."
       }
     },
     {
@@ -468,14 +481,22 @@
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
-          "article page: design, sample, the three path coefficients, the offloading claim"
+          "article page: design, sample, the three path coefficients, the offloading claim",
+          "the measurement section: instrument sources, seven-point Likert, the three-wave allocation, and the common-method-bias statement"
         ],
         "not_read": [
-          "the instrument itself — which items measured 'offloading' and which measured 'transformative learning', and whether they came from the same questionnaire at the same wave"
+          "Table 1 in full — the individual items"
         ],
         "note": "BLOCKING for the mirror-image claim. Whether both constructs were self-reported in one instrument is the whole basis for setting it beside Gerlich, and that has to be read at source, not inferred from the design description."
       },
-      "found_via": "A Reddit thread the operator passed on, 2026-08-29, where a commenter offered it as support for a nuanced view of cognitive offloading."
+      "found_via": "A Reddit thread the operator passed on, 2026-08-29, where a commenter offered it as support for a nuanced view of cognitive offloading.",
+      "what_it_actually_says": {
+        "instrument": "Everything is self-report on seven-point Likert scales. Offloading items adapted from Gilbert et al. (2023) and Risko & Gilbert (2016); transformative learning from Mezirow (1991) via Janssens et al. (2024) and Kim et al. (2023).",
+        "waves": "Time 1: human-GenAI pedagogical partnership, efficiency orientation, controls. Time 2 (+2 weeks): cognitive vigilance, cognitive offloading. Time 3 (+2 weeks): transformative learning experience.",
+        "objective_measures": "NONE. No test score, no behavioural measure, nothing a participant did.",
+        "their_own_bias_statement": "'Common method bias was mitigated procedurally through three-wave temporal separation, anonymity assurances, and an academic-purpose cover story that discouraged socially desirable responding.'",
+        "CORRECTION_TO_OUR_CLAIM": "We called this 'the mirror image of Gerlich — the same design weakness pointed the other way'. That is unfair and now corrected. Gerlich measured both variables in ONE instrument at ONE sitting. Wang & Zhang separated theirs across six weeks and three waves, with anonymity and a cover story, and say so. That is meaningfully better practice and the piece must credit it.\n\nWhat survives, and is the point: NEITHER MEASURED ANYTHING A PERSON DID. Wang & Zhang's outcome is how students rate their own learning experience, not what they can do. Temporal separation fixes common-method variance; it does not turn a self-report into a performance measure."
+      }
     },
     {
       "id": "S019",
@@ -488,21 +509,27 @@
         "Stankovic and colleagues"
       ],
       "used_for": "Five criticisms of Kosmyna et al.: limited sample size; concerns about reproducibility of the analyses; methodological problems in the EEG analysis; inconsistencies in the reporting of results; limited transparency in procedures and findings. Their conclusion is that some of Kosmyna et al.'s results 'could be interpreted more conservatively'. The tone is constructive — they credit the original authors for opening the question.",
-      "why_it_matters": "SYMMETRY. The flagship of the pessimistic side has a published methodological critique, exactly as the flagship of the optimistic side does. Both critiques exist; neither has reached a general reader. And this one, like everything else here, is a preprint.",
+      "why_it_matters": "The flagship of the pessimistic side has a detailed, specific, technically competent critique in public since December 2025, by four clinical psychologists at Vienna and Dresden, and no general reader has met it. It is the mirror of Weidlich et al. on the optimistic side. Between them, both halves of the public argument have been audited by people who read the papers, and neither audit has travelled.",
       "peer_review": "NONE. arXiv preprint.",
       "access": {
         "state": "machine_read",
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
-          "abstract page: authors, date, the five concerns, the conclusion"
+          "the full PDF: the power analysis, the reproducibility objections, the EEG critique, the reporting inconsistencies, the transparency objections and the conclusion"
         ],
-        "not_read": [
-          "the paper itself — the specific EEG objections and the reporting inconsistencies"
-        ],
-        "note": "Read the abstract. The five headings are all we have; the substance under each is unread and may not be characterised."
+        "not_read": [],
+        "note": "Read in full, replacing the five bare headings we had from the abstract page."
       },
-      "found_via": "Verifying the MIT preprint's arXiv identifier. It was two results below the thing we were checking, and six rounds of searching had not surfaced it."
+      "found_via": "Verifying the MIT preprint's arXiv identifier. It was two results below the thing we were checking, and six rounds of searching had not surfaced it.",
+      "authors": "Miloš Stanković (University of Vienna, Department of Clinical and Health Psychology); Ella Hirche, Sarah Kollatzsch and Julia Nadine Doetsch (Technische Universität Dresden, Institute of Clinical Psychology and Psychotherapy). Submitted 29 December 2025.",
+      "what_it_actually_says": {
+        "power": "A G*Power analysis indicating approximately N = 159 would be needed for adequate power, against 54 participants in sessions 1-3 and 18 in session 4. And: 'several topic-specific figures were interpreted based on extremely small subsamples (sometimes only 2-4 essays per group), which is insufficient for identifying stable patterns.'",
+        "reproducibility": "The paper states 55 participants completed all experiments while 54 appear in the analysis, with no exclusion criteria given. Numerous repeated-measures ANOVAs are reported without specifying whether comparisons were analysed separately or corrected for multiplicity. F-statistics are often omitted and p-values given without explanation of their derivation.",
+        "THE_EEG_POINT_THAT_MATTERS_MOST": "Up to 1,000 ANOVAs were run, one per electrode pair, with the selection criteria unspecified, and FDR correction applied only 'when multiple comparisons were involved'. And the definition problem: a 'significant connection' meant a directed coupling significantly STRONGER IN ONE GROUP THAN ANOTHER — a relative measure. So, in their words, 'no direct conclusions could be drawn regarding the absolute strength of the connections. Thus, a group with fewer significant connections should not necessarily be interpreted as exhibiting weaker overall neural activity.'\n\nTHAT IS THE SENTENCE. The entire press narrative — brain scans showing AI users' brains less active, 'your brain on ChatGPT' — rests on reading fewer significant connections as less brain activity, and the measure does not support that reading.",
+        "reporting_inconsistencies": "A figure on p.42 reporting a metric for groups that do not align with the rest of the manuscript, including a 'Brain-only-to-Search-Engine' group. Session 1 satisfaction ratings lower in the Brain-only group, while the discussion says Brain-only participants 'reported higher satisfaction'. And the session-4 interview quoting results reported in ONE DIRECTION on p.37 and THE OPPOSITE DIRECTION in the discussion.",
+        "their_conclusion": "They stop short of calling the cognitive-debt conclusion unsupported. 'Although the authors provided a compelling and intriguingly consistent narrative regarding tool usage, many of their conclusions remain speculative, lacking further control experiments to confirm these hypotheses.' They argue the findings 'appear to reflect attention-oriented differences rather than meaningful variability in learning ability', and that 'there is no strong evidence that the LLM use negatively affects performance itself.'"
+      }
     },
     {
       "id": "S020",
@@ -586,6 +613,101 @@
         "state": "not_opened",
         "note": "Headline only, from a search result. Open it before citing even the headline."
       }
+    },
+    {
+      "id": "S023",
+      "type": "carrier",
+      "url": "https://fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study",
+      "title": "Sasha Rogelberg, Fortune, 26 August 2025 — on the colonoscopy deskilling study",
+      "also_called": [
+        "Fortune",
+        "the Fortune piece on colonoscopy"
+      ],
+      "used_for": "Evidence that the colonoscopy result DID cross into the general conversation about AI and human capability. Fortune connects it to the Microsoft/Carnegie Mellon study on reduced critical engagement and 'atrophying judgment skills', to the 2009 Air France 447 crash as an automation-erosion analogy, and quotes Lynn Wu of Wharton. It also carries Dr Romańczyk's own 'Google Maps effect' framing.",
+      "what_it_does_not_do": "It reports NONE of the eleven limitations. Not the retrospective design, not the confounding, not the Polish screening-programme suspension that nearly doubled procedure volume, not the missing withdrawal times, not the absence of blinding. It notes only that the researchers 'did not collect data on why this happened'. And it does not cite the MIT preprint or any of the cognitive literature.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "full text"
+        ],
+        "not_read": []
+      },
+      "found_via": "Searching for coverage of Budzyń, after recording a novelty claim that assumed there was none."
+    },
+    {
+      "id": "S024",
+      "type": "critique",
+      "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00164-5/abstract",
+      "pubmed": "40816300",
+      "title": "Comment — 'Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?', The Lancet Gastroenterology & Hepatology, 2025",
+      "used_for": "NOTHING YET.",
+      "why_it_is_needed": "It is the argument the journal published ALONGSIDE the deskilling result, and our piece leans on that result. A peer-reviewed finding with an accompanying comment and a later correspondence thread has an argument around it, and we have heard only one side. If the comment raises an alternative explanation the authors' own eleven limitations do not cover, the piece has to carry it.",
+      "access": {
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "title and journal only"
+        ],
+        "not_read": [
+          "everything"
+        ],
+        "note": "thelancet.com returns 403 to machine fetch; PubMed and ResearchGate rate-limited; Europe PMC served its homepage. Needs a human read."
+      },
+      "needs_human_read": true
+    },
+    {
+      "id": "S025",
+      "type": "prior_art",
+      "url": "https://www.nature.com/articles/s41591-026-04438-y",
+      "title": "Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Compton, Narayan, Keane, Wong, Bates, Tan & Liu (2026) — AI-induced never-skilling in medical education. Nature Medicine 32(6), Perspective, 22 May 2026.",
+      "also_called": [
+        "Ke and colleagues",
+        "the never-skilling paper",
+        "the Nature Medicine perspective"
+      ],
+      "used_for": "The three-way distinction the piece should borrow and credit: DESKILLING, experienced practitioners losing a skill they had; NEVER-SKILLING, trainees who 'rely on AI during the early formative years of clinical education [and] may fail to develop the foundational reasoning skills that safe, independent practice requires'; and MIS-SKILLING, internalising AI errors as fact. It cites Budzyn (ref 8) and Kosmyna (ref 9) — the connection our novelty claim assumed nobody had made. And: 'AI is not inherently harmful to learning; its educational impact depends on how and when it is introduced.' They propose a three-phase framework: AI-independent baseline competency, then critical calibration through structured pedagogy, then supervised integration.",
+      "why_it_matters": "It settles what our contribution is. The connecting has been done — by seventeen clinicians in Nature Medicine, for doctors. It has not been done for the reader who is deciding whether their teenager should use ChatGPT for homework, or writing an AI policy for a team. Carrying a good frame across a professional boundary is exactly translation, and it is the honest description of what we would be doing.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "article page: authors, affiliations, date, type, the three-way distinction, the two references, the framework and the key sentence"
+        ],
+        "not_read": [
+          "the full text"
+        ],
+        "note": "BLOCKING if the piece borrows the frame. Read it properly before using their taxonomy."
+      },
+      "found_via": "The counterexample hunter's own search trail, listed under what it had reviewed and set aside."
+    },
+    {
+      "id": "S026",
+      "type": "prior_art",
+      "url": "https://arxiv.org/abs/2605.03512",
+      "title": "Chalkidis & Søgaard — Brainrot: Deskilling and Addiction are Overlooked AI Risks. arXiv 2605.03512, submitted 5 May 2026, accepted to FAccT '26.",
+      "also_called": [
+        "Chalkidis and Søgaard",
+        "the Brainrot paper"
+      ],
+      "used_for": "A position paper arguing that AI safety and alignment work has confined itself to discrimination, harmful content, information hazards and malicious use, while the public conversation is about cognition, mental health and over-reliance — 'deskilling associated with cognitive offloading and the atrophy of critical thinking... and addiction associated with attachment and dependence'. Their point: 'Such risks are rarely addressed, if at all, in the AI safety and alignment literature.'",
+      "why_it_matters": "Independent confirmation, from inside the AI research community and accepted at FAccT, that this gap is real and recognised. Not a counterexample to our claim; a corroboration of the premise underneath it.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "abstract page: title, authors, date, venue, abstract verbatim"
+        ],
+        "not_read": [
+          "the paper"
+        ],
+        "note": "Abstract only."
+      },
+      "found_via": "The counterexample hunter's search trail."
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",
@@ -596,6 +718,7 @@
     "_the_finding": "The single best real-world study of skill degradation from AI use sits in gastroenterology, and the AI-and-thinking conversation has not picked it up.",
     "checked": "Of the four general-audience pieces in this ledger — Forbes (S in premise carriers), EDUCAUSE Review (S014), Goldin (S013) and The Conversation (S012) — NONE cites Budzyń et al. EDUCAUSE cites the MIT preprint, Singh et al., Lee et al. and Dergaa et al.; Goldin cites the MIT preprint, the 758-consultant study, a Scientific Reports tutor study and an October 2025 guided-versus-unguided experiment; The Conversation cites one crutch-effect study; the Forbes piece cites nothing at all.",
     "HOW_FAR_THIS_CAN_BE_STATED": "As written: 'none of the four pieces we examined cites it'. NOT as 'nobody has connected them', which is an unbounded universal over everything published and belongs to the counterexample hunter, not to us. The claim to be attacked before drafting is: 'No general-audience account of AI and thinking has brought the colonoscopy deskilling result into the same frame as the essay-writing and reasoning studies.'",
-    "why_it_would_be_the_contribution": "It is the only place in this literature where the question is asked about a real skill, in real work, with a real consequence, over months — and it is in a journal the people arguing about ChatGPT and essays have no reason to read. Carrying it across is translation, which is what this publication is for."
+    "why_it_would_be_the_contribution": "It is the only place in this literature where the question is asked about a real skill, in real work, with a real consequence, over months — and it is in a journal the people arguing about ChatGPT and essays have no reason to read. Carrying it across is translation, which is what this publication is for.",
+    "NARROWED_2026_08_29": "The claim as first written — that the AI-and-thinking conversation has not picked the colonoscopy result up — is TOO STRONG. Fortune carried it on 26 August 2025 to a general business readership and connected it to the Microsoft/CMU judgment-atrophy work and to Air France 447. STAT carried it to a professional audience. The crossing has happened.\n\nWHAT HAS NOT HAPPENED, and this is the third narrowing of a novelty claim today: nobody has set it beside the essay-writing and reasoning studies AND been honest about what it does and does not show. Fortune printed the result with none of the eleven limitations its own authors list. The contribution is not the crossing. It is the crossing done carefully — which is the whole premise of this publication and a smaller, truer claim than the one we had an hour ago."
   }
 }
