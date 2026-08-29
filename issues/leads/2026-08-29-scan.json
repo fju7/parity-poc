@@ -1,71 +1,75 @@
 {
   "_what_this_is": "A volume reading, not a judgement. High coverage is a necessary condition for a What Holds Up subject and nowhere near a sufficient one: the test is whether a claim in circulation outruns its evidence, and that needs reading.",
   "scanned": "2026-08-29",
-  "timespan": "14d",
+  "timespan": "7d",
   "queries": [
     {
-      "query": "regulator fine investigation findings",
-      "points": 14,
-      "peak": 0.0025,
-      "recent_mean": 0.0003,
-      "baseline": 0.0,
-      "spike_ratio": null,
-      "top_articles": [],
-      "distinct_outlets": 13,
+      "query": "\"linked to\" study children",
+      "articles": 250,
+      "distinct_outlets": 205,
       "top_outlets": [
         [
-          "just-style.com",
-          1
+          "dailymail.com",
+          8
         ],
         [
-          "inewsgr.com",
-          1
+          "naturalnews.com",
+          5
         ],
         [
-          "just-auto.com",
-          1
+          "timesofindia.indiatimes.com",
+          5
         ],
         [
-          "techmoran.com",
-          1
+          "krdo.com",
+          4
         ],
         [
-          "igamingbusiness.com",
-          1
+          "news-medical.net",
+          3
         ],
         [
-          "sbctv.gr",
-          1
+          "almasryalyoum.com",
+          3
         ],
         [
-          "riotimesonline.com",
-          1
+          "cnn.com",
+          3
         ],
         [
-          "medianama.com",
-          1
+          "sudanile.com",
+          3
         ],
         [
-          "dailysabah.com",
-          1
+          "economictimes.indiatimes.com",
+          2
         ],
         [
-          "yahoo.com",
-          1
+          "prnewswire.com",
+          2
         ],
         [
-          "politicsweb.co.za",
-          1
+          "dostor.org",
+          2
         ],
         [
-          "newjerseytelegraph.com",
-          1
+          "elwatannews.com",
+          2
         ],
         [
-          "livelaw.in",
-          1
+          "elpais.com",
+          2
+        ],
+        [
+          "ynetnews.com",
+          2
+        ],
+        [
+          "business-standard.com",
+          2
         ]
-      ]
+      ],
+      "volume_unavailable": "--fast"
     }
   ],
   "attention": []

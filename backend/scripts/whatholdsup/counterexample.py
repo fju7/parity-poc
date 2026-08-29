@@ -273,9 +273,15 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
 
 
 def cmd_run(args) -> int:
-    page = ROOT / args.page
-    text = lint.plain(page.read_text(encoding="utf-8"))
-    claims = universal_negatives(text)
+    if args.claim:
+        claims = list(args.claim)
+    else:
+        if not args.page:
+            print("  give --page or --claim")
+            return 2
+        page = ROOT / args.page
+        text = lint.plain(page.read_text(encoding="utf-8"))
+        claims = universal_negatives(text)
     if args.only:
         claims = [c for c in claims if any(k.lower() in c.lower() for k in args.only)]
     if not claims:
@@ -316,7 +322,15 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="try to break the page's universal negatives")
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run"); r.add_argument("slug")
-    r.add_argument("--page", required=True); r.add_argument("--only", nargs="*")
+    r.add_argument("--page"); r.add_argument("--only", nargs="*")
+    r.add_argument("--claim", action="append",
+                   help="attack this sentence directly, instead of extracting from a page. "
+                        "Use it at CANDIDATE stage, before anything is drafted, and use it "
+                        "above all on the novelty claim: 'nobody has already made this "
+                        "argument in public'. That claim is a universal negative over "
+                        "everything anyone has published, this publication makes it in every "
+                        "issue, and until 2026-08-29 nothing attacked it. Two consecutive "
+                        "issues had their central contribution already in print.")
     r.add_argument("--day"); r.set_defaults(fn=cmd_run)
     l = sub.add_parser("list"); l.add_argument("slug")
     l.add_argument("--page", required=True); l.set_defaults(fn=cmd_list)

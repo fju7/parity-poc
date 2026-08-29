@@ -1,0 +1,35 @@
+{
+  "belief": {
+    "statement": "A large trial showed that a personalised mRNA cancer vaccine works in melanoma, and we know how well it works.",
+    "how_we_know_they_believe_it": "The announcement was carried widely and repeated without its numbers.",
+    "carried_by": [
+      {
+        "outlet": "specialist oncology press and general wires",
+        "url": "",
+        "date": "2026-08-19",
+        "what_it_said": "reported the trial met its endpoints"
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "statement": "The announcement met its endpoints and released no effect sizes. The second half of the belief — that we know how well — is not supported by anything published at the time.",
+    "sources": [
+      "Merck & Moderna releases",
+      "KEYNOTE-942 publications"
+    ]
+  },
+  "direction": {
+    "value": "narrows",
+    "_note": "The claim of success stands; the confidence about magnitude does not."
+  },
+  "reader_with_a_decision": "A patient or clinician weighing an investigational therapy, and any reader deciding how much weight to give an announcement with no numbers in it.",
+  "public_record_check": {
+    "prior_art_found": [],
+    "carried_in_general_coverage": "The absence of released figures was not the story anyone told.",
+    "our_contribution": "correction"
+  },
+  "sources_are_open": "yes — company releases and the journal publications",
+  "evidence_base_is_bounded": "yes — one trial programme",
+  "lead_came_from": "a public announcement",
+  "_backfilled": "Recorded retroactively on 2026-08-29 when the entry gate was rebuilt around the belief test. Kept so the contrarianism guard has something to count."
+}

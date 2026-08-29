@@ -44,11 +44,12 @@
   "kill_condition": "Any of: (1) the Substack post 'You can't analogize the evidence on social media harms to that on smoking!' already does this comparison carefully — UNREAD, 429 rate limit, must be read before drafting; (2) the unsealed Meta documents plus the epidemiology turn out to be comparable in strength to the tobacco record, in which case the analogy holds and there is no story; (3) the age-restriction evidence stands on its own terms without the tobacco parallel, in which case the analogy is doing no work and the piece is about something else.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
-    "note": ""
+    "by": "fred, who opened the post and supplied it in full",
+    "on": "2026-08-29",
+    "result": "killed",
+    "note": "Tibor Rutar, 'You can't analogize the evidence on social media harms to that on smoking!', Political Economy, Stats, and Society, 2 April 2026. It is the piece this candidate proposed to write, done five months earlier and done better. It separates the comparison into four sections -- strength of association, consistency, experimental evidence, and alternative explanations -- which is the 'three legs' structure this funnel identified, with one more leg and with the citations attached. Relative risks around 25 for smoking against correlations of 0.07 to 0.12 for social media; near-universal consistency against I-squared of 72.6 to 98.8 per cent; animal carcinogenesis and cessation quasi-experiments against small, contested, mostly-adult restriction trials; Fisher's genetic confounding hypothesis tested and dismantled against reverse causality and confounding that remain live. Writing our version would have been a worse version of his."
   },
   "lead_came_from": "The operator, from the Meta settlement of 26 August 2026 — and then REFRAMED by the operator away from the settlement figure, which is already widely reported, toward the argument the case is being used to carry. That reframing is the funnel working: the first framing failed the 'already covered' test.",
-  "scope_decision": "The piece is about whether the analogy's evidentiary legs transfer. It is NOT about whether social media harms teenagers — an unbounded literature of the kind that produced issue two's false universals. And it reaches no policy conclusion: this publication assesses evidence, and whether to age-restrict turns on values and rights that no evidence assessment settles."
+  "scope_decision": "The piece is about whether the analogy's evidentiary legs transfer. It is NOT about whether social media harms teenagers — an unbounded literature of the kind that produced issue two's false universals. And it reaches no policy conclusion: this publication assesses evidence, and whether to age-restrict turns on values and rights that no evidence assessment settles.",
+  "what_survives": "One leg, and not enough for a piece. Rutar is answering a claim about the SCIENTIFIC evidence base and does not touch the leg the litigation actually turns on: industry knowledge and concealment, which is what the tobacco documents established and what the states allege here. That leg is untouched by him and is also the one we are least equipped for -- it needs court filings we have not accessed and may be partly sealed. And a piece about it would have to open by conceding that the effect-size and mechanism legs were settled in April by someone else, which makes it a footnote to his work rather than an issue."
 }

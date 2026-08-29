@@ -1,0 +1,66 @@
+{
+  "_what_this_is": "A candidate that replaces the tobacco-analogy one, after the operator pointed out that the kill was answering the wrong question. The original framing asked whether the EVIDENCE on social media harm matches the evidence on smoking — which Tibor Rutar settled in April 2026. The operator's actual question was about ACCESS: whether minors' use should be restricted the way tobacco and alcohol sales are. Those are different questions, and the assistant substituted the one it knew how to falsify for the one that was asked.",
+  "falsifiable_proposition": "The evidence Australia set out when it became the first country to bar under-16s from social media, and the evidence now available on whether that restriction changed anything, are both weaker than the confidence with which the policy is being exported.",
+  "public_claim": {
+    "_note": "Not a sentence from a news outlet but a government act and the documents accompanying it — which is a stronger version of the same thing. Issue one's shape: a decision announced with confidence whose evidentiary basis exists and is not circulating with it.",
+    "quote": "Online Safety Amendment (Social Media Minimum Age) Act 2024",
+    "who_said_it": "the Parliament of Australia, with a published Explanatory Memorandum and a formal Impact Analysis Equivalent (OIA24-08210)",
+    "url": "https://oia.pmc.gov.au",
+    "date": "2024-12"
+  },
+  "carried_by": [
+    {
+      "outlet": "BMJ Group",
+      "url": "https://bmjgroup.com/little-evidence-that-australias-under-16-social-media-restrictions-have-curbed-use-among-adolescents/",
+      "date": "2026-06"
+    },
+    {
+      "outlet": "Science Media Centre (expert reaction)",
+      "url": "https://www.sciencemediacentre.org/expert-reaction-to-study-assessing-early-evidence-of-association-between-australias-social-media-minimum-age-act-and-adolescents-social-media-use/",
+      "date": "2026-06"
+    },
+    {
+      "outlet": "Phys.org",
+      "url": "https://phys.org/news/2026-06-australia-social-media-early-effect.html",
+      "date": "2026-06"
+    },
+    {
+      "outlet": "TechXplore",
+      "url": "https://techxplore.com/news/2026-06-evidence-australia-social-media-restrictions.html",
+      "date": "2026-06"
+    }
+  ],
+  "we_think_missing": "Nobody appears to have audited the Australian evidentiary basis claim by claim — what the Explanatory Memorandum and Impact Analysis actually cite, and whether each cited source supports what it was cited for. That is precisely this publication's method, applied to an open document that a growing number of jurisdictions are treating as precedent. STATED AS A BELIEF, NOT A FINDING: we have not read the memorandum, the impact analysis, the outcome study, or the adjacent prior art listed below.",
+  "kill_condition": "Any of: (1) the claim-by-claim audit has already been done — the nearest candidates are Leanne O'Donnell in the Alternative Law Journal (2025), the Sydney 'policy cycle' analysis, and an MDPI comparative review, ALL UNREAD; (2) the Explanatory Memorandum turns out to cite evidence that plainly supports what it was cited for, in which case the policy is well founded and there is no story; (3) the early outcome study turns out to be too underpowered or too early to say anything, in which case the 'it did not work' line is itself the overclaim and the piece is about that instead — which would still be a piece, but a different one that must be named now rather than discovered later.",
+  "kill_condition_tested": {
+    "by": "claude, from the paper the operator obtained",
+    "on": "2026-08-29",
+    "result": "killed",
+    "note": "Horwood, Torjinski, Hemmings & Jarman, '(Dis)Connected', International Journal of Human-Computer Interaction, 6 July 2026, states in its opening paragraph that the legislative process 'has received several major criticisms (e.g., see Archer, 2025; J. Fatt & Fardouly, 2025; Scimex, 2024; UNSW, 2025), including citing only one source of academic evidence (Orben et al., 2022) and remarks by the US Surgeon General (Murthy, 2023) as the justification for the ban.'\n\nThe thin-evidence-base finding is published, peer-reviewed, and carries four prior critiques behind it. Our increment would have been narrow — that the Surgeon General citation traces to Orben by endnote 17, so the two are one source cited twice rather than two sources — which is a footnote to a paragraph somebody else already wrote.\n\nAnd the field is far more crowded than that. Fatt & Fardouly in Child and Adolescent Mental Health (2025); Blake, Sourander, Kato & Scott in ANZJP (2025); 'Small effects, big questions: the unfinished business of social media restriction science' (2025); 'Beyond the debate: toward pragmatic evaluation of Australia's social media age restrictions' (2026); 'A Seatbelt Moment or a Missed Opportunity for a Nuanced Approach?' in Crisis 46(5); Flew, Koskie & Stepnik (2025); a Journal of Public Health Policy piece (2026); the MDPI comparative review; and repeated Scimex and UNSW expert reactions. The design-versus-access argument is very likely in there too."
+  },
+  "lead_came_from": "The operator, twice: first the Meta settlement, then a correction when the assistant killed the candidate on a question the operator had not asked.",
+  "scope_decision": "Three bounded questions, none of which is 'does social media harm teenagers': (1) what did Australia cite; (2) does the early outcome evidence show the restriction changed behaviour; (3) are other jurisdictions citing Australia as precedent. Each has an enumerable source set. The harm literature is referenced only where the Australian documents reference it, and Rutar's April 2026 comparison is cited rather than re-derived.",
+  "what_this_piece_must_not_do": "Reach a policy conclusion. Whether to restrict minors' access turns on values, rights and trade-offs no evidence assessment settles. The piece can say what was cited and whether it holds. It cannot say whether the law is right.",
+  "what_reading_found": {
+    "the_outcome_study": "The BMJ, 25 June 2026. 408 adolescents aged 12-17 in New South Wales only, surveyed before the Act took effect in December 2025 and again three months later; self-reported. Over 85% of under-16 participants were still using restricted platforms at follow-up. Daily use was stable among 12-13s, fell from 78% to 69% among 14-15s, and ROSE from 80% to 89% among those over 16. Between 15 and 19% used fake accounts and 6 to 11% used private browsers. The authors themselves flag the small single-state self-reported sample and call for longer-term evaluation.",
+    "the_gap_between_paper_and_press_release": "This is the finding. Dr Victoria Baines (BCS) states on the record that the press release 'slightly overstates the findings' -- the article used the more cautious 'little evidence of immediate substantive reductions' -- and that the release 'does not state the baseline, pre-ban, percentage of u16s using social media', which is the number a reader needs to interpret the 85%. Prof Matt Williams (Cardiff) calls the quasi-experimental design stronger than most work in the area AND says it 'should not be read as proof that age-based restrictions cannot work' because it covers only three months and modest effects cannot be ruled out. Prof Dennis Ougrin (QMUL) says three months 'is unlikely to be sufficient to assess the full impact of a policy.'\n\nThat is issue one's shape exactly: an announcement outrunning the paper it describes, with a missing baseline figure, being carried onward as a settled result.",
+    "a_source_we_did_not_have": "The Australian Parliamentary Library's Bills Digest, quoted by O'Donnell as finding 'limited evidence to suggest that a blanket ban to prohibit children from using social media is the most advantageous solution to addressing online harms.' A public document, produced for legislators before the vote, already flagging the gap. UNREAD by us."
+  },
+  "_still_unread": [
+    "the Explanatory Memorandum",
+    "the Impact Analysis Equivalent (OIA24-08210)",
+    "the Parliamentary Library Bills Digest",
+    "the BMJ paper itself, as opposed to the press release and the expert reactions"
+  ],
+  "operator_recollection_tested": {
+    "_what_this_is": "The operator recalled that Facebook, early on, did not let parents restrict what their children could do. Recorded here rather than acted on, because a recollection is the weakest form of claim there is and this publication has already published one unchecked name this week.",
+    "as_stated": "Facebook provided parents no means to supervise or restrict their teenagers for the platform's first fifteen years.",
+    "verdict": "BROKEN as stated, and the narrowing is the interesting part.",
+    "what_broke_it": "Messenger Kids, December 2017 — thirteen years in — shipped with explicit parental controls: parents built the contact list and approved every contact. That is a parent-facing restriction tool on a Facebook product inside the window.",
+    "what_survives_the_narrowing": "Messenger Kids was for UNDER-13s. The claim about TEENAGERS may still hold: Instagram's teen supervision tools arrived in 2022, roughly eighteen years after Facebook launched and ten after the Instagram acquisition. That narrower claim is UNTESTED and would need its own hunt before anyone writes it down.",
+    "the_more_useful_finding": "A second claim — that Facebook never resisted proposals to give parents control — also broke, and this is conduct rather than motive, which makes it the evidenceable version of what the operator was reaching for. Meta is reported to have lobbied against the Kids Online Safety Act, whose provisions include mandatory parental control tools over teenagers' use, and to have dropped that opposition only after negotiating legal-immunity language into the bill. Senator Blackburn is quoted on a figure of $20 million and 87 lobbyists in nine months.\n\nTHIS IS A LEAD, NOT A FINDING. The chain runs Reuters -> Fox Business -> aggregators, and two of the URLs the hunter returned are a crypto site and a partisan Substack, which are not sources this publication cites. Nothing here goes on a page until the Reuters report and the Axios piece are opened directly. Recorded under the standing rule that a claim about a third party's conduct is not published from search results.",
+    "why_it_may_be_in_scope": "The operator said this was not directly relevant. It may be. Flew identifies the driver of the Australian law as 'growing impatience with tech sector self-regulation'. Documented resistance to parental-control legislation is an input to that, and it is conduct with a paper trail rather than an attribution of motive.",
+    "on_motive": "Motive is not unfalsifiable in principle — it is unfalsifiable from the outside. An internal document in which a company weighs a known harm against revenue and chooses revenue is evidence of motive, and that is precisely what made the tobacco documents decisive rather than merely suggestive. So the rule is not 'never discuss why'. It is: we do not infer motive, and we may quote it when somebody wrote it down. If the unsealed Meta material contains that, it is quotable. If it does not, no amount of conduct adds up to it."
+  },
+  "status": "KILLED on prior art, 29 August 2026 — the fourth consecutive candidate to die this way, which is the finding."
+}

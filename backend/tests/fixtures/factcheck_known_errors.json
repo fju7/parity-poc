@@ -419,6 +419,26 @@
       "was": "the rule is in the fixture and in the role prompts",
       "should_have_been": "A check in code at the moment of writing. The two rules that became code -- the source ledger and the deterministic lint -- are the two that fired. Prose in a fixture is a reminder for someone already looking.",
       "why_it_survived": "A checklist nobody is required to act on is documentation, not a control."
+    },
+    {
+      "class": "NOVELTY_ASSUMED_NOT_SEARCHED",
+      "kind": "process",
+      "caught_by": "the entry gate's kill condition, before drafting — and the day before, by a reviewer, after publication",
+      "found_by": "candidate assessment, tobacco analogy, 2026-08-29",
+      "summary": "Twice in two days the thing we were about to present as our own contribution was already in print. On 28-29 August the page argued that MONARCH 3's wider interval reflected trial power rather than drug effect; Tanguy et al. made that argument formally in npj Breast Cancer in 2018 and we found it only through a gate run, after writing it. On 29 August a candidate proposed separating the tobacco analogy into its evidentiary legs; Tibor Rutar had published exactly that, in four sections with citations, on 2 April 2026.",
+      "was": "we identified a gap in the coverage",
+      "should_have_been": "'The coverage missed this' is a universal negative over everything anyone has published, and it is the single claim this publication makes in every issue. It gets the same adversarial treatment as any other universal negative: one call whose job is to find the person who already said it.",
+      "why_it_survived": "We search for evidence that supports the premise with far more energy than we search for someone who got there first, because the first search feels like research and the second feels like looking for a reason to stop. The counterexample hunter was built for universal negatives ON the page and was never pointed at the premise behind it."
+    },
+    {
+      "class": "LOOKED_FOR_THE_GAP_IN_THE_WRONG_RECORD",
+      "kind": "process",
+      "caught_by": "four consecutive candidates dying on prior art in eight hours",
+      "found_by": "candidate assessment, 2026-08-29",
+      "summary": "Four subjects were killed in one session because the finding was already published: the MONARCH 3 power argument (Tanguy et al. 2018, found after we wrote it); the tobacco evidentiary comparison (Rutar, April 2026); 'what evidence would settle this' (National Academies 2024, plus Piccardi et al. in Science 2025 falsifying the premise outright); and the audit of Australia's cited evidence (Horwood et al. 2026, citing four earlier critiques).\n\nIn every case the prior art was in the ACADEMIC record and we had been reading the NEWS record. The premise 'wide coverage missed a fact readers would want' is usually false in its first half and true in its second: the fact is rarely missed, it is published in a journal the reader will never open.",
+      "was": "find what everyone missed",
+      "should_have_been": "Find what the specialists established and the coverage never carried. That is a translation function rather than a discovery function: it credits rather than claims, it is achievable by a small operation, and it survives the prior-art check by construction, because the prior art IS the material.",
+      "why_it_survived": "The entry gate asks whether anyone has said this. On any contested scientific or policy question the answer is almost always yes, so the gate kills every candidate and the publication has nothing to write. The question it should ask is whether anyone has said it where a general reader would find it."
     }
   ],
   "standing_rules": [
@@ -443,7 +463,9 @@
     "A claim verified only as a quotation may be published only as a quotation, with attribution. Verifying that a source says X is not verifying X, and the scope of the source's sentence travels with it.",
     "Every universal negative on the page -- no trial has, nobody has, none exists -- gets one adversarial search whose only job is to find a counterexample, and that search must include the trial registries and the regulatory reviews, not only the literature.",
     "Before writing that something could not be established, search ClinicalTrials.gov's results tab, the FDA review documents and the EMA assessment report. Two of five findings in the second post-publication review were facts declared unknowable that sit in a registry.",
-    "Any proper noun introduced onto the page from gate output -- an author, an institution, a trial name -- is verified against the source before it ships. 'Jacot and colleagues' was printed from a COVERAGE finding while fixing an attribution gap; the paper is by Tanguy et al."
+    "Any proper noun introduced onto the page from gate output -- an author, an institution, a trial name -- is verified against the source before it ships. 'Jacot and colleagues' was printed from a COVERAGE finding while fixing an attribution gap; the paper is by Tanguy et al.",
+    "Before a candidate is drafted, run the counterexample hunter on the novelty claim itself -- 'nobody has already made this argument' -- with the same instruction to find one instance. Two consecutive issues had their central contribution already in print, one found by a reviewer after publication and one by the kill condition before drafting.",
+    "The novelty test is not 'has anyone published this' but 'has anyone published this where a general reader would find it'. A finding established in a journal and absent from the coverage is a subject; a finding absent from both is usually a sign we have not looked hard enough."
   ],
   "second_pass": {
     "run": "2026-08-26",

@@ -1,29 +1,43 @@
 {
-  "_what_this_is": "The entry gate for this issue, answered BEFORE drafting. This one was answered AFTER publication, retroactively, on 29 August 2026, because the gate did not exist when the issue was drafted. It is recorded honestly rather than favourably: this issue would not have passed it.",
-  "_recorded": {
-    "by": "claude",
-    "on": "2026-08-29",
-    "retroactive": true,
-    "note": "Kept as the gate's first specimen. The value of an entry test is that it can reject work we have already done, and the only way to know whether this one can is to run it against a piece we published."
+  "belief": {
+    "statement": "The guideline ranks ribociclib above abemaciclib and palbociclib, so it is the better drug.",
+    "how_we_know_they_believe_it": "The category difference is reported without the preference designation. We held this belief ourselves and published it.",
+    "carried_by": [
+      {
+        "outlet": "OncoDaily",
+        "url": "https://oncodaily.com/oncolibrary/breast-oncology/breast-cancer-nccn-v4",
+        "date": "2026",
+        "what_it_said": "reported the categories without the preference system"
+      },
+      {
+        "outlet": "What Holds Up, issue two, first version",
+        "url": "https://whatholdsup.org/cdk46",
+        "date": "2026-08-28",
+        "what_it_said": "we made the error ourselves"
+      }
+    ]
   },
-  "falsifiable_proposition": "The evidence behind NCCN's category 1 for ribociclib plus an aromatase inhibitor does not establish that ribociclib works better than abemaciclib.",
-  "public_claim": {
-    "_note": "The sentence already in circulation that this issue examines. THERE WAS NONE. No public claim was identified before drafting, and none has been identified since. What the piece opened with -- 'a guideline grades one of them above the other two' -- was written by us, not found by us, and it is the sentence that turned out to be false.",
-    "quote": "",
-    "who_said_it": "",
-    "url": "",
-    "date": ""
+  "what_the_sources_show": {
+    "statement": "NCCN v6.2026 lists all three combinations as Preferred. Only the category of evidence differs, and the guideline makes no comparative efficacy claim.",
+    "sources": [
+      "NCCN v6.2026, read by the operator"
+    ]
   },
-  "carried_by": [
-    {
-      "_note": "No outlet was identified as carrying a claim this issue corrects. The topic is covered, but no specific miscarried claim was located before drafting.",
-      "outlet": "",
-      "url": "",
-      "date": ""
-    }
-  ],
-  "we_think_missing": "Written after the fact, and therefore not evidence of anything: that a category difference between two drugs rests on where one confidence interval stopped, and is read as a statement about the drugs.",
-  "kill_condition": "If the guideline itself distinguishes the strength of its evidence from its preference between the regimens -- for instance by listing all three combinations as equally preferred -- then the guideline is not ranking the drugs, the premise as drafted is false, and the piece has to be about how the label is READ rather than about what the guideline claims.",
+  "direction": {
+    "value": "corrects"
+  },
+  "reader_with_a_decision": "A patient choosing between three drugs, or a clinician explaining to a patient why one carries a different label.",
+  "public_record_check": {
+    "prior_art_found": [
+      "OncLive and Pharmacy Times carried the preference distinction"
+    ],
+    "carried_in_general_coverage": "Partly. Two clinical outlets carried it; the general reporting did not, and neither did we.",
+    "our_contribution": "translation, and a correction of ourselves"
+  },
+  "sources_are_open": "NO — NCCN's licence forbids any automated check reading it. This is why the error survived.",
+  "evidence_base_is_bounded": "the guideline yes; the comparative literature no, which is where the false universals came from",
+  "lead_came_from": "a Signal inquiry, which is a lead and not a premise",
+  "_backfilled": "Recorded retroactively on 2026-08-29 when the entry gate was rebuilt around the belief test. Kept so the contrarianism guard has something to count.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked. This one was not tested before publication. It was met, by an outside reader, the day after.",
     "by": "outside reader, via the operator",
@@ -31,5 +45,5 @@
     "result": "narrowed",
     "note": "The condition was MET: all three AI+CDK4/6 combinations are listed as preferred and only the category of evidence differs. Recorded as 'narrowed' rather than 'killed' because the piece survives in a smaller and better form -- it is now about an evidence label being read as a ranking, which is a claim the piece can evidence from its own conduct. Had this been tested before drafting, the piece would have been written that way from the start and the correction would not have been needed."
   },
-  "lead_came_from": "A Signal inquiry: somebody asked which breast cancer drug was most effective on current evidence. That is a lead and not a premise. Signal answers a question somebody asked; What Holds Up examines a claim already in circulation. Running the second from the first meant arriving with an answer and going looking for a public claim it corrected -- and settling for one we had written ourselves. This is the selection error that caused the reporting error."
+  "kill_condition": "If the guideline itself distinguishes the strength of its evidence from its preference between the regimens -- for instance by listing all three combinations as equally preferred -- then the guideline is not ranking the drugs, the premise as drafted is false, and the piece has to be about how the label is READ rather than about what the guideline claims."
 }

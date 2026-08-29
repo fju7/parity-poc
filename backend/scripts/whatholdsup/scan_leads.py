@@ -59,6 +59,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / "issues" / "leads"
 UA = "WhatHoldsUp-lead-scanner/1.0 (corrections@whatholdsup.org)"
+MIN_GAP_SECONDS = 5.0
+_LAST_CALL = 0.0
 
 GDELT = "https://api.gdeltproject.org/api/v2/doc/doc"
 PAGEVIEWS_TOP = ("https://wikimedia.org/api/rest_v1/metrics/pageviews/top/"
@@ -82,14 +84,32 @@ def _get(url: str, timeout: int = 45, tries: int = 3):
     returning empty, and the caller records the error in the report.
     """
     import time
+    global _LAST_CALL
+    # GDELT rate-limits, and being rate-limited looks exactly like finding
+    # nothing. On 2026-08-29 an interactive session ran the scanner hard enough
+    # to earn a 429 within a few minutes. A minimum gap between calls costs
+    # nothing on a weekly schedule and is the difference between a scan and a
+    # silence.
+    gap = time.time() - _LAST_CALL
+    if gap < MIN_GAP_SECONDS:
+        time.sleep(MIN_GAP_SECONDS - gap)
     last = None
     for n in range(tries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA})
             with urllib.request.urlopen(req, timeout=timeout) as r:
+                _LAST_CALL = time.time()
                 return json.loads(r.read().decode("utf-8", "replace"))
-        except Exception as e:                       # noqa: BLE001
+        except urllib.error.HTTPError as e:           # noqa: PERF203
             last = e
+            _LAST_CALL = time.time()
+            if e.code == 429:
+                time.sleep(30 * (n + 1))              # back off hard, not politely
+            elif n < tries - 1:
+                time.sleep(2 + 3 * n)
+        except Exception as e:                        # noqa: BLE001
+            last = e
+            _LAST_CALL = time.time()
             if n < tries - 1:
                 time.sleep(2 + 3 * n)
     raise last
@@ -98,14 +118,22 @@ def _get(url: str, timeout: int = 45, tries: int = 3):
 # ---------------------------------------------------------------------------
 
 def coverage_volume(query: str, timespan: str = "14d") -> dict:
-    """How heavily a claim is being carried, and by whom."""
+    """How heavily a claim is being carried, and by whom.
+
+    GDELT's timeline mode is markedly slower than its article list and times out
+    under load on broad queries. It gets one short attempt; if it fails, the scan
+    continues on outlet spread alone rather than hanging, and the report says the
+    volume reading is missing rather than reporting zero. A scanner that reports
+    "no coverage" because an API was busy is the volume equivalent of every
+    failure in this repository.
+    """
     q = urllib.parse.urlencode({
         "query": query, "mode": "timelinevolinfo",
         "timespan": timespan, "format": "json"})
     try:
-        d = _get(f"{GDELT}?{q}")
+        d = _get(f"{GDELT}?{q}", timeout=25, tries=1)
     except Exception as e:
-        return {"query": query, "error": str(e)}
+        return {"query": query, "volume_unavailable": str(e)[:80]}
     series = (d.get("timeline") or [{}])[0].get("data", [])
     vals = [p.get("value", 0) for p in series]
     peak = max(vals) if vals else 0
@@ -183,16 +211,22 @@ def cmd_scan(args) -> int:
               "scanned": day, "timespan": args.timespan, "queries": [], "attention": []}
 
     for q in args.query:
-        vol = coverage_volume(q, args.timespan)
         spread = outlet_spread(q, args.timespan)
-        vol["distinct_outlets"] = spread.get("distinct_outlets")
-        vol["top_outlets"] = spread.get("top_outlets")
-        report["queries"].append(vol)
-        if vol.get("error"):
-            print("  %-46s ERROR %s" % (q[:46], vol["error"][:60]))
+        if spread.get("error"):
+            report["queries"].append({"query": q, "error": spread["error"]})
+            print("  %-40s ERROR %s" % (q[:40], spread["error"][:50]))
             continue
-        print("  %-46s peak %-8s spike x%-6s %s outlet(s)"
-              % (q[:46], vol["peak"], vol["spike_ratio"], vol["distinct_outlets"]))
+        row = dict(spread)
+        row.update(coverage_volume(q, args.timespan) if not args.fast else
+                   {"volume_unavailable": "--fast"})
+        report["queries"].append(row)
+        print("  %-40s %3s outlet(s) / %3s article(s)   spike %s"
+              % (q[:40], row.get("distinct_outlets"), row.get("articles"),
+                 row.get("spike_ratio") or row.get("volume_unavailable", "-")[:22]))
+        for dom, n in (row.get("top_outlets") or [])[:5]:
+            print("        %-34s %d" % (dom[:34], n))
+        for a in (row.get("top_articles") or [])[:3]:
+            print("        \u2022 %s" % str(a.get("title"))[:78])
 
     if not args.no_attention:
         report["attention"] = attention()
@@ -218,6 +252,8 @@ def main() -> int:
     s.add_argument("query", nargs="+", help="one or more GDELT queries, quoted")
     s.add_argument("--timespan", default="14d")
     s.add_argument("--no-attention", action="store_true")
+    s.add_argument("--fast", action="store_true",
+                   help="skip the slow timeline call; outlet spread only")
     s.set_defaults(fn=cmd_scan)
     a = ap.parse_args()
     return a.fn(a)
