@@ -519,6 +519,16 @@
       "was": "the gate checks the premise",
       "should_have_been": "The gate checks that a field is FILLED, not that it is CURRENT. A premise that has been reframed is a premise whose answers are stale by default, and a gate that cannot tell the difference is measuring paperwork. At minimum it should compare the recorded kill-condition test against the recorded kill condition and warn when the condition has changed since the test.",
       "why_it_survived": "Every check we have asks whether something was recorded. Almost none asks whether what was recorded is still true. The same shape as the announce-sha problem, in a different place: a verdict unbound from the thing it judged."
+    },
+    {
+      "class": "THE_REVIEW_IS_A_HOP_TOO",
+      "kind": "sourcing",
+      "caught_by": "reading a scoping review against two papers we had already read at source",
+      "found_by": "issue three, 2026-08-29",
+      "summary": "A peer-reviewed scoping review of AI deskilling — the document a doctor would read to find out what this literature says — calls a retrospective observational study 'a multicenter randomized trial' in its abstract, and attaches a description of a 2023 automation-bias experiment (27 radiologists, incorrect BI-RADS suggestions) to a citation for a different 2025 paper that found AI improved accuracy. We caught both only because we had read both underlying papers ourselves that evening.",
+      "was": "a systematic or scoping review is a safe place to take a study's description from",
+      "should_have_been": "A review is another hop, and caveats fall off at every hop. Any claim taken from a review about what a primary study found is checked in the primary study, exactly as a claim taken from a news article is. The safest-looking hop is the one where nobody checks.",
+      "why_it_survived": "We were about to use the review to answer a question that decided the piece's confidence — is this one study or a pattern — and we would have taken its characterisations with it. The only reason we did not is that we happened to have read two of its sources hours earlier."
     }
   ],
   "standing_rules": [
@@ -555,7 +565,8 @@
     "Search the working-paper repositories by name as their own step — SSRN, NBER, OSF/PsyArXiv, arXiv — before concluding what the evidence on a question is. Following a belief's citations finds only what the belief already cites. The single most rigorous study behind issue three was on SSRN and no journal or press search returned it.",
     "A fairness claim about a named person — that they did not answer, did not correct, did not respond — is held to the strictest sourcing on the page. It is checked in the primary document, never taken from coverage, and the other half of the story is looked for on purpose. Wang and Fan answered their critics within days; only the retraction correspondence went unanswered, and reporting the second without the first would have been false.",
     "A recorded answer is bound to the question it answered. When a premise is reframed, every field written for the old framing is stale until rewritten, and a gate that reports 'ok' on a filled field is reporting paperwork. Bind the kill-condition test to the kill-condition text, as acceptances are bound to a sha.",
-    "Read the adversary's DISCARD PILE, not only its verdict. The counterexample hunter lists what it reviewed and set aside; on issue three the two best sources in the file — a Nature Medicine Perspective that gave the piece its frame, and a FAccT paper — were sitting in that list, classified as 'not general-audience' and therefore not reported as counterexamples. The role is a search we paid for; taking only its conclusion throws most of it away."
+    "Read the adversary's DISCARD PILE, not only its verdict. The counterexample hunter lists what it reviewed and set aside; on issue three the two best sources in the file — a Nature Medicine Perspective that gave the piece its frame, and a FAccT paper — were sitting in that list, classified as 'not general-audience' and therefore not reported as counterexamples. The role is a search we paid for; taking only its conclusion throws most of it away.",
+    "A systematic or scoping review is a hop, not a source. Every description of a primary study taken from a review is verified in that primary study before it is printed. On issue three a peer-reviewed review promoted an observational study to a randomised trial in its own abstract and mis-cited an automation-bias experiment to a paper that found the opposite."
   ],
   "second_pass": {
     "run": "2026-08-26",
