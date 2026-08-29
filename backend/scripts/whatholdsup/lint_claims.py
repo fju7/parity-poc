@@ -212,11 +212,20 @@ def subhead_counts(html_text: str) -> list[str]:
 
     Issue two's comparative-studies section was subheaded "Three times, by three
     methods" over a body whose first line read "This page examines four of
-    them." Both sentences were written in the same pass; the subhead was left
-    behind when a fourth study was added in review. The same-noun check misses
-    it -- "times" and "methods" against "them" -- so this one ignores nouns and
-    asks only whether the number in the subhead is a number the section ever
-    uses again.
+    them." The same-noun check misses it -- "times" and "methods" against
+    "them" -- so this one ignores nouns and asks only whether the number in the
+    subhead is a number the section ever uses again.
+
+    IT WARNS, IT DOES NOT BLOCK, and its first live firing is why. On
+    2026-08-29 it stopped issue one over "Our published six-dimension rubric",
+    a section that then lists exactly six dimensions -- source quality, data
+    support, reproducibility, consensus, recency, rigor -- and never writes the
+    word "six" again because it enumerates them instead. The count was right.
+    A section that ENUMERATES what it counted is the normal way to write this,
+    and a check that cannot tell enumeration from contradiction has no business
+    stopping a publish. The same reasoning as the universal-quantifier check:
+    the ones that block are literal, the ones that need judgement are lists to
+    walk.
     """
     out = []
     for block in re.split(r"(?=<section\b)", html_text):
@@ -254,6 +263,81 @@ HISTORICAL = re.compile(
     r"before publication it|earlier draft)\b", re.I)
 
 
+# ---------------------------------------------------------------------------
+# attributions and unknowability
+# ---------------------------------------------------------------------------
+#
+# Both of these are here because of the second post-publication review of issue
+# two, and both are things a machine can find and a person kept not finding.
+
+# "Jacot and colleagues made it formally in npj Breast Cancer in 2018" was put
+# on the page on 2026-08-29, taken from a COVERAGE finding, while FIXING an
+# attribution gap. The paper is by Tanguy, Cabel, Berger, Pierga, Savignoni and
+# Bidard, and contains no Jacot. The standing rule against publishing a claim
+# about a third party's document unread has been in the fixture since the 0.754
+# incident and its banner prints on every RECENCY run. It did not fire, because
+# a rule in prose fires only for someone already looking.
+#
+# A name is a findable pattern. This does not check whether the name is right --
+# nothing here can -- it produces the list that has to be checked, and blocks
+# when a name on the page is not in the issue's verified-attributions record.
+ATTRIBUTION = re.compile(
+    r"\b([A-Z][a-zA-Zà-ÿ'\u2019-]+)\s+"
+    r"(?:et\s+al\.?|and\s+colleagues|and\s+co-?workers)")
+
+# "We have not established the direction of that test" was written about a fact
+# published on ClinicalTrials.gov's results tab. "MONALEESA-7's direction could
+# not be determined" was written when it was in an ASCO abstract. Twice, in one
+# document, we turned a thing we had not found into evidence that did not exist.
+UNKNOWABILITY = re.compile(
+    r"\b(we (?:have not|could not|cannot) (?:establish|determine|verify|confirm|source)|"
+    r"could not be (?:established|determined|verified|confirmed)|"
+    r"not established by us|we do not know|is not established|"
+    r"behind a wall we could not open|every route we tried returned a block)\b", re.I)
+
+# Where a fact about a trial actually lives when the journal is shut.
+REGISTRY = re.compile(
+    r"\b(clinicaltrials\.gov|clinical trials\.gov|the registry|trial registry|"
+    r"FDA review|FDA (?:medical|statistical) review|drugs@fda|accessdata\.fda\.gov|"
+    r"EMA assessment|EPAR|ISRCTN|EudraCT|WHO ICTRP)\b", re.I)
+
+
+def attributions(text: str) -> list[str]:
+    out = []
+    for s in sentences(text):
+        for m in ATTRIBUTION.finditer(s):
+            out.append(f"{m.group(0)} — {s[:120]}")
+    return out
+
+
+def unknowability(text: str) -> list[str]:
+    """Claims of unknowability that never name a registry.
+
+    A registry named anywhere in the same sentence is taken as evidence
+    somebody went and looked. That is a weak test and deliberately so: the
+    point is to make the absence visible, not to adjudicate the search.
+    """
+    return [f"{s[:170]}" for s in sentences(text)
+            if UNKNOWABILITY.search(s) and not REGISTRY.search(s)]
+
+
+def verified_attributions(slug: str | None) -> set[str]:
+    """Names an issue has recorded as checked against the source itself."""
+    if not slug:
+        return set()
+    import json
+    for d in (ROOT / "issues").glob("WHU-*-%s" % slug):
+        f = d / "attributions.json"
+        if f.exists():
+            try:
+                rec = json.loads(f.read_text(encoding="utf-8"))
+            except Exception:
+                return set()
+            return {a.get("name", "").strip() for a in rec.get("verified", [])
+                    if a.get("checked_against")}
+    return set()
+
+
 def self_description(html_text: str) -> list[str]:
     """The page's account of itself, against the page.
 
@@ -281,7 +365,7 @@ def self_description(html_text: str) -> list[str]:
 
 # ---------------------------------------------------------------------------
 
-def lint(html_text: str) -> list[tuple[str, str, str]]:
+def lint(html_text: str, slug: str | None = None) -> list[tuple[str, str, str]]:
     """Rows for the board.
 
     WHAT BLOCKS AND WHAT DOES NOT
@@ -310,6 +394,27 @@ def lint(html_text: str) -> list[tuple[str, str, str]]:
                  "the page's account of its own status is consistent"
                  if not sd else " || ".join(sd)))
 
+    names = attributions(text)
+    known = verified_attributions(slug)
+    unchecked = [a for a in names if a.split()[0] not in known]
+    rows.append(("attributions checked against the source",
+                 OK if not unchecked else BAD,
+                 f"{len(names)} attribution(s), each recorded as checked"
+                 if not unchecked else
+                 f"{len(unchecked)} name(s) on the page with no record that anyone "
+                 f"opened the author list. 'Jacot and colleagues' was published this "
+                 f"way, from gate output, while fixing an attribution gap; the paper "
+                 f"is by Tanguy et al.: " + " || ".join(unchecked[:3])))
+
+    unk = unknowability(text)
+    rows.append(("unknowability claims searched the registries",
+                 OK if not unk else BAD,
+                 "every claim that something could not be established names where it looked"
+                 if not unk else
+                 f"{len(unk)} claim(s) that something is unestablished without naming a "
+                 f"registry. Two of five findings in the second review were facts sitting "
+                 f"on ClinicalTrials.gov: " + " || ".join(x[:90] for x in unk[:3])))
+
     u = unbounded_universals(text)
     rows.append(("universal claims — scope named?", OK if not u else WARN,
                  "every universal claim over a body of evidence names what it surveyed"
@@ -318,7 +423,7 @@ def lint(html_text: str) -> list[tuple[str, str, str]]:
                  f"no scope and no attribution. Walk each: " + " || ".join(u[:3])))
 
     sc = subhead_counts(html_text)
-    rows.append(("subhead counts corroborated", OK if not sc else BAD,
+    rows.append(("subhead counts corroborated", OK if not sc else WARN,
                  "every count in a section standfirst is used again in that section"
                  if not sc else " || ".join(sc[:3])))
 
@@ -340,6 +445,7 @@ def lint(html_text: str) -> list[tuple[str, str, str]]:
 def main() -> int:
     ap = argparse.ArgumentParser(description="deterministic claim lint")
     ap.add_argument("page", help="repo-relative or absolute path to an HTML page")
+    ap.add_argument("--slug", help="issue slug, for the verified-attributions record")
     ap.add_argument("--verbose", action="store_true",
                     help="print every hit, not the first few")
     args = ap.parse_args()
@@ -347,7 +453,7 @@ def main() -> int:
     if not p.is_absolute():
         p = ROOT / args.page
     html_text = p.read_text(encoding="utf-8")
-    rows = lint(html_text)
+    rows = lint(html_text, args.slug)
     print()
     for label, st, detail in rows:
         mark = {OK: "  ok ", BAD: " STOP", WARN: " warn"}[st]

@@ -73,6 +73,27 @@
       "gate_basis": "gate reconciled rather than re-run: gated 2026-08-28 on an earlier draft (1fb1d818); 3 of 5 open \u2014 2 still in the text, 1 unlocatable, 2 gone \u2014 proceeding past them was signed off 2026-08-29 by Claude (post-review reconciliation)",
       "subject": "The Category Difference \u2014 what separates a category 1 from a category 2A",
       "waived": null
+    },
+    {
+      "issue": "cdk46",
+      "action": "publish",
+      "at": "2026-08-29T14:26:09+00:00",
+      "sha": "7c9ca64ad9e68dc0a4761690104be46b1e0ba468a2be55f318c7378720fc8ad9",
+      "commit": "5b2775e478c1324f9d96571ff92a8900f679eaa5",
+      "url": "https://whatholdsup.org/cdk46",
+      "note": "issue 2 \u2014 The Category Difference",
+      "waived": null
+    },
+    {
+      "issue": "cdk46",
+      "action": "announce",
+      "at": "2026-08-29T14:33:42+00:00",
+      "sha": "f4fa716462ff6cd7140f3c070fdde058979849f9b8f57964cc2c6ee40b933452",
+      "commit": "5b2775e478c1324f9d96571ff92a8900f679eaa5",
+      "note": "sent to segment bae12ea6-cbad-4b91-b250-81991bf6b4b5, broadcast 7a95a526-1a2d-443c-aed8-a19f95e0699e",
+      "gate_basis": "gate reconciled rather than re-run: gated 2026-08-28 on an earlier draft (1fb1d818); 2 of 5 open \u2014 1 still in the text, 1 unlocatable, 3 gone \u2014 proceeding past them was signed off 2026-08-29 by claude",
+      "subject": "The Category Difference \u2014 what separates a category 1 from a category 2A",
+      "waived": null
     }
   ]
 }

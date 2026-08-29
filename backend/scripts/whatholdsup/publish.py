@@ -109,6 +109,23 @@ advocate = _sibling("source_advocate")
 premise = _sibling("premise")
 intake = _sibling("corrections_intake")
 
+# Added 2026-08-29 after a second post-publication review found two randomised
+# head-to-head trials behind a sentence the piece printed four times.
+#
+#   counterexample     the lint had already listed "no randomised trial has
+#                      compared any of the three" as an unbounded universal.
+#                      That list was a checklist nobody had to act on, which is
+#                      documentation and not a control. This makes it an input:
+#                      one adversarial call per universal negative, registries
+#                      required. Run against the published page it broke all
+#                      four in a single call.
+#   inherited_claims   verifying that a source SAYS X is not verifying X. NCCN's
+#                      sentence was true and scoped to one setting; ours was
+#                      unscoped and false, and every step in between was done
+#                      correctly.
+counterexample = _sibling("counterexample")
+inherited = _sibling("inherited_claims")
+
 # The registry lives in code rather than in the served directory: a JSON file
 # under site/ is deployed and fetchable, and this names files, not content.
 ISSUES = {
@@ -665,6 +682,16 @@ def outside_review(page: Path, slug: str) -> tuple[str, str]:
 # preflight
 # ---------------------------------------------------------------------------
 
+def fc_parity_provenance(page_text: str, email_text: str) -> list[str]:
+    """Sourcing claims the email makes that the page does not.
+
+    Figure parity would never have caught this: the figures matched exactly.
+    What differed was the sentence saying what the figures ARE.
+    """
+    ep = _sibling("email_parity")
+    return ep.provenance_parity(page_text, email_text)
+
+
 def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
     cfg = ISSUES[slug]
     page = ROOT / cfg["page"]
@@ -690,6 +717,15 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
                 "every figure in the email appears on the page" if not stray
                 else f"in the email and not on the page: {', '.join(sorted(stray))}"))
 
+    _pp = fc_parity_provenance(ptext, etext)
+    out.append(("email sourcing claims match the page", OK if not _pp else BAD,
+                "the email describes where its figures come from the way the page does"
+                if not _pp else
+                "%d sourcing claim(s) in the email that the page does not make. The "
+                "email said every figure came from a trial publication or a drug "
+                "label while quoting two observational studies: %s"
+                % (len(_pp), " || ".join(x[:120] for x in _pp[:2]))))
+
     drift = figures(etext) ^ figures(ttext)
     out.append(("html/text parity", OK if not drift else BAD,
                 "same figures in both" if not drift
@@ -709,7 +745,10 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
     # The four checks added after the 29 August corrections. Order is
     # deliberate: the cheap deterministic ones first, so that a page failing on
     # a stale count is not first made to wait on a model call.
-    out.extend(lint.lint(page.read_text(encoding="utf-8")))
+    _ptext = ledger.plain(page.read_text(encoding="utf-8"))
+    out.extend(lint.lint(page.read_text(encoding="utf-8"), slug))
+    out.extend(counterexample.preflight_rows(slug, _ptext))
+    out.extend(inherited.preflight_rows(slug, _ptext))
     try:
         _live = live_body(cfg["url"])
         out.extend(ledger.audit(
@@ -758,13 +797,34 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
                            % (tz, slug))
         except Exception:
             pass
-    out.append(("page dateline", OK if hd == today else BAD, detail))
+    # Whether a stale dateline blocks depends on whether anything is actually
+    # being published. This check exists because an assessment went out on the
+    # 28th with a masthead saying the 26th. It does NOT exist to make a page
+    # that is already live, and identical to the repo, re-date itself every
+    # morning. On 2026-08-29 it blocked issue one for saying 28 August, which
+    # is the day issue one was last changed and therefore the correct date.
+    # `live_body` is fetched below for the live-page check; do it once, here,
+    # so the two checks agree about what is being published.
+    _live_now = live_body(cfg["url"])
+    _nothing_to_publish = (
+        _live_now is not None
+        and hashlib.sha256(_live_now.encode()).hexdigest() == sha(page))
+    if hd != today and _nothing_to_publish:
+        out.append(("page dateline", OK,
+                    f"says {hd}, and the live page is identical to the repo — "
+                    f"nothing is being published, so that is the day it last changed"))
+    else:
+        out.append(("page dateline", OK if hd == today else BAD, detail))
     ao = as_of_date(page.read_text(encoding="utf-8"))
     if ao:
-        out.append(("evidence 'as of'", OK if ao == today else WARN,
-                    f"says {ao}" + ("" if ao == today else f", and today is {today}")))
+        out.append(("evidence 'as of'",
+                    OK if (ao == today or _nothing_to_publish) else WARN,
+                    f"says {ao}" + ("" if ao == today else
+                                    (", and nothing is being published"
+                                     if _nothing_to_publish
+                                     else f", and today is {today}"))))
 
-    body = live_body(cfg["url"])
+    body = _live_now
     if body is None:
         out.append(("live page", WARN, f"could not reach {cfg['url']}"))
     else:
@@ -2089,18 +2149,44 @@ def _step_states(slug: str) -> list[dict]:
                                      "label": "Publish" if not pub else "Republish",
                                      "ask": "confirm", "danger": 1})
 
+    # A send is a statement about the content that went out, and it stops being
+    # true the moment that content changes. This is the same rule the gate
+    # acceptances and the publish record already follow -- a verdict unbound
+    # from the sha it judged is meaningless -- and it was missing here.
+    #
+    # Until 2026-08-29 this read `action=None if ann else ...`, so an issue that
+    # had ever been announced could never be announced again. Issue two was
+    # announced at 02:26 carrying a claim about the NCCN guideline that was
+    # corrected the same day; the corrected email was rewritten, re-gated and
+    # committed, and the board offered no way to send it, while reporting the
+    # step "done" on the strength of a send of different text hours earlier.
     ann = [r for r in rec if r["action"] == "announce"]
     void = [r for r in rec if r["action"] == "announce_void"]
-    adetail = ("sent %s to %s" % (ann[-1]["at"][:10], ann[-1].get("note", "")[:60])
-               if ann else "not sent")
+    esha = sha(ehtml) if ehtml.exists() else None
+    sent_this = bool(ann) and ann[-1].get("sha") == esha
+
     if not ann and void:
+        astate = "pending"
         adetail = ("not sent — a %s row recorded a send that never happened and has been "
                    "voided" % void[-1]["at"][:10])
-    add(*STEPS[6], "done" if ann else "pending", adetail,
+    elif not ann:
+        astate, adetail = "pending", "not sent"
+    elif sent_this:
+        astate = "done"
+        adetail = "sent %s, and this is that email" % ann[-1]["at"][:10]
+    else:
+        astate = "warn"
+        adetail = ("sent %s — but that send carried a different email. Subscribers have "
+                   "%s; the repo has %s. The earlier send cannot be recalled."
+                   % (ann[-1]["at"][:10], str(ann[-1].get("sha"))[:8], str(esha)[:8]))
+
+    add(*STEPS[6], astate, adetail,
         "python scripts/whatholdsup/publish.py announce %s --yes" % slug,
-        action=None if ann else {"action": "announce", "slug": slug,
-                                 "label": "Announce", "ask": "announce", "danger": 1,
-                                 "subject": ISSUES[slug].get("email_subject", "")})
+        action=None if sent_this else {
+            "action": "announce", "slug": slug,
+            "label": "Announce" if not ann else "Send the corrected email",
+            "ask": "announce", "danger": 1,
+            "subject": ISSUES[slug].get("email_subject", "")})
     return out
 
 

@@ -379,6 +379,46 @@
       "was": "1.015 printed as 1.02, dismissed as correct rounding",
       "should_have_been": "1.015 at the one sentence whose argument is where that bound landed. The rounding was correct; the precision claim was not. And the rounding was asymmetric -- 0.804 down to 0.80, 1.015 up to 1.02 -- which widened the apparent gap in the direction that flattered the argument.",
       "why_it_survived": "Nothing in the process distinguishes 'we considered this and it is fine' from 'we stopped reading it'. Both look identical in draft_decisions.json, and the second is what a seventh identical dismissal actually is. The role's argument had been getting sharper each run and nobody was reading it closely enough to notice."
+    },
+    {
+      "class": "QUOTATION_PROMOTED_TO_FACT",
+      "kind": "reasoning",
+      "caught_by": "a second post-publication review, which searched for the counterexample",
+      "found_by": "post-publication review of the CDK4/6 assessment, 2026-08-29",
+      "summary": "A claim was verified as something a source SAYS and then written as something WE KNOW. NCCN v6.2026 states 'the CDK4/6 inhibitors have not been directly compared in clinical trials'. The source advocate asked whether the guideline says this; the operator opened the guideline and confirmed the exact sentence. That verification was of a quotation. The page then wrote 'No randomised trial has tested one of these drugs against another' as its own unscoped assertion about the world, and went further -- 'In guideline language, directly compared in clinical trials means a randomised head-to-head trial, and none exists.'",
+      "was": "No randomised trial has compared any of the three against another",
+      "should_have_been": "Either the attributed form -- 'the guideline records that they have not been directly compared' -- or a claim we had actually checked against the world. A randomised phase III open-label trial of ribociclib vs palbociclib, each with fulvestrant, was published in the Asian Pacific Journal of Cancer Prevention in 2024 (PFS 12.69 vs 13.67 months, no significant difference), and HARMONIA (NCT05207709, SOLTI-2101/AFT-58) is a registered head-to-head phase III of the same two drugs.",
+      "why_it_survived": "Confirming that a source says X is not confirming X, and nothing in the pipeline distinguishes the two. Worse, the guideline's sentence is scoped to the first-line AI setting it is discussing, and the scope was dropped in the adoption. The missed trial's result AGREES with the page's conclusion, so the omission did not bias the argument -- it made our claim broader than we could support while making our evidence base look thinner than it was."
+    },
+    {
+      "class": "AGREEMENT_MISTAKEN_FOR_CORROBORATION",
+      "kind": "process",
+      "caught_by": "asking where each agreeing source got it",
+      "found_by": "post-publication review of the CDK4/6 assessment, 2026-08-29",
+      "summary": "The COVERAGE role reported multiple sources agreeing that no head-to-head comparison exists. Every one of them was downstream of the same claim: NCCN summaries repeating the guideline, and P-VERIFY, which the page itself quotes as describing its purpose as working 'in the absence of randomised trials that directly compare the three'. The page cited that as confirmation. It is an echo.",
+      "was": "several independent sources agree, so the claim is well supported",
+      "should_have_been": "Sources that descend from one upstream document are one source. Count independent derivations, not agreeing documents.",
+      "why_it_survived": "The gate counts agreement and has no notion of independence, so a claim everybody repeats reads as a claim everybody has checked."
+    },
+    {
+      "class": "SEARCHED_THE_SPACE_THE_PREMISE_IMPLIED",
+      "kind": "process",
+      "caught_by": "the reviewer running the obvious query we never ran",
+      "found_by": "post-publication review of the CDK4/6 assessment, 2026-08-29",
+      "summary": "The comparative-evidence section was framed as 'indirect comparisons', and the searches went looking for network meta-analyses and real-world cohorts. A search framed as 'what indirect comparisons exist' cannot return a randomised trial. The plain question -- has anyone randomised these against each other? -- was never asked, and neither registry was ever searched.",
+      "was": "four indirect comparisons are the comparative evidence",
+      "should_have_been": "A registry query for the two drug names plus 'randomized' returns HARMONIA on the first page. Trials that terminate early or publish outside the high-visibility journals do not surface in a literature-and-coverage sweep and are in the registry.",
+      "why_it_survived": "Every search was framed by the conclusion we had already reached. This is the premise-fitting failure that the entry gate addresses at the level of the piece, recurring at the level of a single load-bearing sentence."
+    },
+    {
+      "class": "RULE_WRITTEN_DOWN_IS_NOT_A_RULE_THAT_FIRES",
+      "kind": "process",
+      "caught_by": "committing the same error twice in one document, and once more the next day",
+      "found_by": "post-publication review of the CDK4/6 assessment, 2026-08-29",
+      "summary": "Three standing rules in this repository failed to fire at the moment of writing. (1) After MONALEESA-7 we recorded that treating a fact as unknowable because we could not open one paper 'was turning a number we had not found into evidence that did not exist' -- and then wrote exactly that about MONALEESA-2's test direction, four sections later, when it is on ClinicalTrials.gov's results tab. (2) GATE_CLAIM_ABOUT_A_THIRD_PARTY_PUBLISHED_UNCHECKED, whose banner prints on every RECENCY output, did not stop 'Jacot and colleagues' being taken from gate output and printed as an attribution; the paper is by Tanguy et al. and contains no Jacot. That was introduced while FIXING an attribution gap. (3) The universal-quantifier lint produced the list containing 'No randomised trial has compared any of the three' and nobody was required to act on it.",
+      "was": "the rule is in the fixture and in the role prompts",
+      "should_have_been": "A check in code at the moment of writing. The two rules that became code -- the source ledger and the deterministic lint -- are the two that fired. Prose in a fixture is a reminder for someone already looking.",
+      "why_it_survived": "A checklist nobody is required to act on is documentation, not a control."
     }
   ],
   "standing_rules": [
@@ -399,7 +439,11 @@
     "When a limit is raised because something hit it, grep for every other use of that limit before moving on. A constant that was wrong once is wrong everywhere it appears, and the second failure will arrive later and look like a new problem.",
     "No finding that asserts something about a third party's document may be written onto a page until somebody has opened that document and read the sentence. This binds findings the gate generates as hard as it binds claims we write ourselves -- harder, because a finding arrives looking like a check that has already happened.",
     "Two gate runs per draft before outside review, one after. Enforced in code by RUNS_PER_CYCLE, overridable only with --past-cap and a written reason. Issue two was gated eighteen times for $66.76, of which about $27 bought nothing and one run put a false claim into the page.",
-    "A finding dismissed three times on the same reasoning gets read again, properly, by someone who has not written the earlier dismissals -- or its dismissal is escalated to the operator. A repeat finding is evidence the role is confident, not evidence it is broken. Recorded after 1.015 was dismissed seven times and upheld on the eighth."
+    "A finding dismissed three times on the same reasoning gets read again, properly, by someone who has not written the earlier dismissals -- or its dismissal is escalated to the operator. A repeat finding is evidence the role is confident, not evidence it is broken. Recorded after 1.015 was dismissed seven times and upheld on the eighth.",
+    "A claim verified only as a quotation may be published only as a quotation, with attribution. Verifying that a source says X is not verifying X, and the scope of the source's sentence travels with it.",
+    "Every universal negative on the page -- no trial has, nobody has, none exists -- gets one adversarial search whose only job is to find a counterexample, and that search must include the trial registries and the regulatory reviews, not only the literature.",
+    "Before writing that something could not be established, search ClinicalTrials.gov's results tab, the FDA review documents and the EMA assessment report. Two of five findings in the second post-publication review were facts declared unknowable that sit in a registry.",
+    "Any proper noun introduced onto the page from gate output -- an author, an institution, a trial name -- is verified against the source before it ships. 'Jacot and colleagues' was printed from a COVERAGE finding while fixing an attribution gap; the paper is by Tanguy et al."
   ],
   "second_pass": {
     "run": "2026-08-26",

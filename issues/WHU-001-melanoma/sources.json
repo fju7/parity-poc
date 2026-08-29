@@ -1,5 +1,5 @@
 {
-  "what_this_is": "Every source the assessment rests on, typed. The types are the point: rule 11 says find the best of the coverage before criticising it, and a register showing only company releases and no specialist press is a piece that did not look. Extracted from the page's own link list on 2026-08-27; used_for is filled in by hand.",
+  "what_this_is": "Every source the melanoma assessment draws on, rebuilt on 2026-08-29 from the page's own sources section rather than from a sweep of its links. The previous version was built by sweeping links, which collected the webfont CDN and the stylesheet host as S001, S002 and S003 -- typed 'press', with empty used_for fields and no titles at all. That bug was found and documented while building issue two's source list, and was never fixed here. It surfaced again when the source ledger reported this page completely clean: with no titles, the audit could not match a single sentence to a single source, and an audit that matches nothing is indistinguishable from an audit that finds nothing.",
   "types": [
     "registry",
     "company",
@@ -12,73 +12,169 @@
   "sources": [
     {
       "id": "S001",
-      "url": "https://fonts.googleapis.com",
-      "type": "press",
-      "accessed": "2026-08-27",
-      "used_for": ""
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "type": "primary",
+      "title": "Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints",
+      "accessed": "2026-08-28",
+      "used_for": "19 August 2026. Source of the trial design, enrolment, blinding and randomisation. Contains no efficacy numbers, which is the finding.",
+      "also_called": [
+        "the Phase 3 announcement",
+        "the 19 August release",
+        "the announcement"
+      ],
+      "access": {
+        "state": "machine_read",
+        "by": "the fact-check gate",
+        "on": "2026-08-29",
+        "sections": [
+          "whatever the search tool returned for this URL"
+        ],
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+      }
     },
     {
       "id": "S002",
-      "url": "https://fonts.gstatic.com",
-      "type": "press",
-      "accessed": "2026-08-27",
-      "used_for": ""
+      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+      "type": "primary",
+      "title": "Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026",
+      "accessed": "2026-08-28",
+      "used_for": "1 June 2026. Source of HR 0.510 (0.294–0.887), HR 0.411 (0.200–0.843), the exploratory OS figure HR 0.471 (0.165–1.345) reported as \"n=14\", and the adverse-event rates.",
+      "also_called": [
+        "the five-year data",
+        "the ASCO 2026 presentation",
+        "the five-year release"
+      ],
+      "access": {
+        "state": "machine_read",
+        "by": "the fact-check gate",
+        "on": "2026-08-29",
+        "sections": [
+          "whatever the search tool returned for this URL"
+        ],
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+      }
     },
     {
       "id": "S003",
-      "url": "https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;1,400&family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap",
-      "type": "press",
-      "accessed": "2026-08-27",
-      "used_for": ""
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38246194/",
+      "type": "primary",
+      "title": "KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024",
+      "accessed": "2026-08-28",
+      "used_for": "The peer-reviewed publication. Source of HR 0.561 (0.309–1.017) with two-sided p = 0.053, the stage IIIB–IV enrolment, the 107/50 arm sizes, the open-label design, and grade 3+ treatment-related events at 25% versus 18%.",
+      "also_called": [
+        "The Lancet",
+        "the Lancet paper",
+        "the peer-reviewed publication"
+      ],
+      "access": {
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-29",
+        "blocked_by": "paywall",
+        "not_read": [
+          "the full text"
+        ],
+        "note": "No gate run on this issue cited this URL and nothing here has opened it. Recorded as blocked rather than read, because an unread source is not a source that agrees with us. Backfilled on 2026-08-29, after the ledger was built; this issue was drafted before it existed."
+      }
     },
     {
       "id": "S004",
-      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
-      "type": "company",
-      "accessed": "2026-08-27",
-      "used_for": ""
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "type": "primary",
+      "title": "Five-year results — Journal of Clinical Oncology, 1 June 2026",
+      "accessed": "2026-08-28",
+      "used_for": "The peer-reviewed five-year analysis, published the day it was presented. Median follow-up 60.3 months, data cutoff 15 December 2025, and the statement that the five-year analyses were descriptive.",
+      "also_called": [
+        "Journal of Clinical Oncology",
+        "the five-year analysis"
+      ],
+      "access": {
+        "state": "machine_read",
+        "by": "the fact-check gate",
+        "on": "2026-08-29",
+        "sections": [
+          "whatever the search tool returned for this URL"
+        ],
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+      }
     },
     {
       "id": "S005",
-      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
-      "type": "company",
-      "accessed": "2026-08-27",
-      "used_for": ""
+      "url": "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/",
+      "type": "primary",
+      "title": "Merck & Moderna — first detailed KEYNOTE-942 results",
+      "accessed": "2026-08-28",
+      "used_for": "16 April 2023. The source of the one-sided p = 0.0266, which is a company figure and not a journal one.",
+      "also_called": [
+        "the 2023 release",
+        "the company release",
+        "the April 2023 release"
+      ],
+      "access": {
+        "state": "machine_read",
+        "by": "the fact-check gate",
+        "on": "2026-08-29",
+        "sections": [
+          "whatever the search tool returned for this URL"
+        ],
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+      }
     },
     {
       "id": "S006",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/38246194/",
-      "type": "journal",
-      "accessed": "2026-08-27",
-      "used_for": ""
+      "url": "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/",
+      "type": "coverage",
+      "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints (with 2 further outlet(s), listed in also_urls)",
+      "accessed": "2026-08-28",
+      "used_for": "Specialist coverage. Source of the quoted argument that absolute recurrence risk is lower in the stage IIB and IIC patients the Phase 3 adds.",
+      "also_called": [
+        "The ASCO Post",
+        "Morning Glory Sciences",
+        "Pharmacy Times",
+        "specialist coverage"
+      ],
+      "also_urls": [
+        {
+          "url": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/",
+          "title": "Morning Glory Sciences — INTerpath-001"
+        },
+        {
+          "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+          "title": "Pharmacy Times — Phase 3 trial marks first success"
+        }
+      ],
+      "access": {
+        "state": "machine_read",
+        "by": "the fact-check gate",
+        "on": "2026-08-29",
+        "sections": [
+          "whatever the search tool returned for this URL"
+        ],
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+      }
     },
     {
       "id": "S007",
-      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
-      "type": "journal",
-      "accessed": "2026-08-27",
-      "used_for": ""
-    },
-    {
-      "id": "S008",
-      "url": "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/",
-      "type": "company",
-      "accessed": "2026-08-27",
-      "used_for": ""
-    },
-    {
-      "id": "S009",
-      "url": "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/",
-      "type": "specialist press",
-      "accessed": "2026-08-27",
-      "used_for": ""
-    },
-    {
-      "id": "S010",
       "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
-      "type": "journal",
-      "accessed": "2026-08-27",
-      "used_for": ""
+      "type": "primary",
+      "title": "Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances, 2026",
+      "accessed": "2026-08-28",
+      "used_for": "DOI 10.1200/OA-25-00008. The peer-reviewed publication of the three-year readout. The three-year figures quoted above are taken from the ASCO 2024 presentation of the same analysis; the journal site blocks automated access, so we have verified the citation but not read the full text ourselves.",
+      "also_called": [
+        "Three-Year Update",
+        "the three-year readout",
+        "the three-year publication"
+      ],
+      "access": {
+        "state": "machine_read",
+        "by": "the fact-check gate",
+        "on": "2026-08-29",
+        "sections": [
+          "whatever the search tool returned for this URL"
+        ],
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+      }
     }
-  ]
+  ],
+  "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."
 }

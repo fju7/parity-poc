@@ -1,0 +1,24 @@
+{
+  "_what_this_is": "Every author attribution printed on this page, and the record that somebody opened the author list. A name is a claim about real people and it is the cheapest kind of claim to get wrong, because it arrives already-formed in a gate finding or a secondary source and reads as detail rather than as an assertion.",
+  "_why": "On 2026-08-29 this page printed 'Jacot and colleagues made it formally in npj Breast Cancer in 2018'. The name came from a COVERAGE finding in a gate run and was put on the page without opening the paper — while fixing an attribution gap, on the same day the standing rule against exactly this was being written into the fixture, with its banner printing on every RECENCY run. The paper is by Tanguy, Cabel, Berger, Pierga, Savignoni and Bidard.",
+  "verified": [
+    {
+      "name": "Tanguy",
+      "as_printed": "Tanguy and colleagues",
+      "work": "Cdk4/6 inhibitors and overall survival: power of first-line trials in metastatic breast cancer",
+      "publication": "npj Breast Cancer, 2018",
+      "url": "https://www.nature.com/articles/s41523-018-0068-4",
+      "full_author_list": [
+        "Marie-Laure Tanguy",
+        "Luc Cabel",
+        "Fréderique Berger",
+        "Jean-Yves Pierga",
+        "Alexia Savignoni",
+        "François-Clément Bidard"
+      ],
+      "checked_against": "the paper's own author list, opened 2026-08-29",
+      "checked_by": "claude",
+      "corrects": "'Jacot and colleagues', published 2026-08-29 and corrected the same day. William Jacot is not an author of this paper."
+    }
+  ]
+}

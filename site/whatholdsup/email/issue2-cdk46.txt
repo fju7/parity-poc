@@ -69,7 +69,7 @@ piece does not claim they do. Nor does the guideline claim the drugs
 differ. What the category difference rests on is where one interval
 stopped, and the assessment shows the arithmetic in full - including
 that the width of abemaciclib's interval is itself a consequence of
-what that trial was powered to detect - a point Jacot and colleagues
+what that trial was powered to detect - a point Tanguy and colleagues
 made formally in npj Breast Cancer in 2018, before any of these trials
 had mature survival data.
 

@@ -1,6 +1,6 @@
 {
   "what_this_is": "Every change to the prose of this issue since the outside reviewer read it, and the decision each one came from. It exists because the board used to ask a human to confirm that the changes matched the adjudication, which is a reconciliation nobody but the person who made the changes could perform. Now the board performs it, and the only thing that reaches a human is a change with no decision behind it — which is a question a human can actually answer.",
-  "because_refers_to": "A section heading in review/<date>-adjudication.md (OR-nnn for the reviewer's findings, GATE-cnn for the gate's), or a decision in backend/tests/fixtures/draft_decisions.json.",
+  "because_refers_to": "A section heading in review/<date>-adjudication.md (OR-nnn for the reviewer's findings, GATE-cnn for the gate's), or a decision in backend/tests/fixtures/draft_decisions.json. NAV-001 is recorded in issues/WHU-001-melanoma/corrections.md, 29 August 2026.",
   "changes": [
     {
       "at": "2026-08-28T15:53:47+00:00",
@@ -442,6 +442,15 @@
       "now": "Checked outlet by outlet, that characterisation did not hold: most specialist outlets attributed the figures correctly, and the section now says so and leads with it.",
       "because": "VOICE-001",
       "note": "the section leads with what the coverage did, not with our earlier framing of it"
+    },
+    {
+      "at": "2026-08-29T14:28:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The Melanoma Result - What Holds Up What Holds Up What this is Issue one Who pays for this Issue one Evidence review 26 August 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "now": "The Melanoma Result - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 28 August 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "because": "NAV-001",
+      "note": "issue two was published on 28 August and linked from nowhere but its own navigation bar. This page's nav now carries it. A published page was edited and nothing recorded it until the reconciliation refused to pass -- which is the check doing exactly what it is for, on the person who wrote it."
     }
   ]
 }

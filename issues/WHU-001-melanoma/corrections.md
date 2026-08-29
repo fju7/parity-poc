@@ -50,3 +50,20 @@ re-read off Merck's five-year release and are unchanged; what changed was the se
 around them, which had described them as the trial's side effects where the source
 attributes them to the vaccine specifically.
 
+## 29 August 2026 — a navigation link, and how we found out we had not recorded it
+
+Issue two published on 28 August and was reachable from its own navigation bar
+and nowhere else — not from the homepage, not from this page, not from the
+sitemap. On 29 August a link to it was added to the navigation on this page,
+along with the other three.
+
+That is a small change and it is recorded here for a reason that is not small.
+It was made without being written down, and it stayed unrecorded until the
+publish reconciliation refused to pass this issue and named one changed
+sentence with no decision behind it. `who-pays-for-this` says we do not make
+quiet edits. This was one, for about an hour, made by the person who built the
+check that caught it.
+
+Nothing else on this page changed. No figure, interval, source or conclusion
+differs from the version published on 28 August.
+

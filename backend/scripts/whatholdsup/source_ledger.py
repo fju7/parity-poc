@@ -135,6 +135,15 @@ def identifiers(src: dict) -> list[str]:
     Taken from the title rather than guessed: trial names, journal names and
     organisations are what a page actually says when it refers to a study.
     """
+    # An explicit alias list is authoritative. Titles are inferred from, and a
+    # title like "KEYNOTE-942: a randomised, phase 2b study - The Lancet, 2024"
+    # yields the trial name, which three separate sources on this page share.
+    # Inference is a fallback for sources nobody has named; where somebody has
+    # said how a document is referred to, that is the answer.
+    explicit = [t for t in (src.get("also_called") or []) if str(t).strip()]
+    if explicit:
+        return sorted(set(explicit), key=len, reverse=True)
+
     out: list[str] = []
     title = src.get("title", "")
     # Trial and programme names: runs of capitals, often hyphenated with a digit.
@@ -151,8 +160,7 @@ def identifiers(src: dict) -> list[str]:
     # So the role-nouns a page actually uses have to be declared per source, and
     # an undeclared reference is invisible here. That is the known limit of this
     # check and the reason `also_called` is not optional in practice.
-    explicit = src.get("also_called") or []
-    out += list(explicit)
+    # (reached only when no explicit alias was given)
     # Deduplicate, longest first so "MONALEESA-2" beats "MONALEESA".
     seen, uniq = set(), []
     for t in sorted(set(out), key=len, reverse=True):
@@ -226,6 +234,72 @@ def audit(slug: str, page_text: str,
         if not missing else
         f"{len(missing)} source(s) with no record that anyone opened them: "
         + ", ".join(missing)))
+
+    # A source this audit cannot recognise on the page is a source this audit
+    # does not check -- and a check that matches nothing looks exactly like a
+    # check that found nothing. That is the failure this whole file exists to
+    # prevent, and on 2026-08-29 this file committed it: run against issue one,
+    # every row came back clean because issue one's sources.json carries no
+    # titles, so identifiers() returned an empty list for all ten sources and
+    # not one sentence was ever compared. It reported "no claim says what an
+    # unopened source says" about a page it had not read a word of.
+    mute = [s["id"] for s in srcs if not identifiers(s)]
+    rows.append((
+        "sources are identifiable on the page",
+        OK if not mute else BAD,
+        "every source has a name or an alias this audit can find in the prose"
+        if not mute else
+        f"{len(mute)} source(s) with nothing to match on — no title, no "
+        f"also_called. Every check below silently skips them and reports clean: "
+        + ", ".join(mute)))
+
+    # A row in sources.json is not thereby a source. Issue one's was built by
+    # sweeping the page's links, which collected the font CDN and the
+    # stylesheet host; they are still S001, S002 and S003, typed "press", with
+    # an empty used_for. The ledger will faithfully record an access state for
+    # a webfont, because it checks whether anyone opened a thing, not whether
+    # the thing is a source.
+    ASSET_HOSTS = ("fonts.googleapis.com", "fonts.gstatic.com", "cdnjs.",
+                   "cdn.jsdelivr.net", "code.jquery.com")
+    junk = [s["id"] for s in srcs
+            if any(h in (s.get("url") or "") for h in ASSET_HOSTS)
+            or not (s.get("used_for") or "").strip()]
+    rows.append((
+        "every source is a source",
+        OK if not junk else BAD,
+        "no asset hosts or empty entries in the source list"
+        if not junk else
+        f"{len(junk)} entr(y/ies) that cite nothing or point at an asset host — "
+        f"build the list from the page's own sources section, not from a link "
+        f"sweep: " + ", ".join(junk)))
+
+    # Sources that descend from one upstream document are one source.
+    #
+    # Issue two said no randomised head-to-head trial existed, and the COVERAGE
+    # role found agreement everywhere. Every agreeing document was downstream of
+    # the same claim: NCCN summaries repeating the guideline, and P-VERIFY,
+    # which the page itself quotes as describing its purpose as working "in the
+    # absence of randomised trials that directly compare the three" -- and the
+    # page cited that as confirmation. Counting agreeing documents is not
+    # counting evidence. There is no way for a machine to detect an echo it has
+    # not been told about, so this reports the derivation structure the issue
+    # has declared and says plainly how much of it is independent.
+    derived = [(s["id"], s.get("derives_from"))
+               for s in srcs if s.get("derives_from")]
+    independent = len(srcs) - len(derived)
+    if derived:
+        rows.append((
+            "independent sources", WARN,
+            "%d of %d source(s) declare an upstream: %s. Agreement between these "
+            "is an echo, not corroboration."
+            % (len(derived), len(srcs),
+               "; ".join("%s <- %s" % (i, d if isinstance(d, str) else ", ".join(d))
+                         for i, d in derived[:4]))))
+    else:
+        rows.append((
+            "independent sources", OK,
+            "no source declares an upstream. That is either true or unexamined — "
+            "`derives_from` is only as good as the reading behind it."))
 
     read_ids = {s["id"] for s in srcs if access_of(s).get("state") in READ_STATES}
 

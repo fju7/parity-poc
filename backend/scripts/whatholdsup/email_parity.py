@@ -141,3 +141,42 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+# ---------------------------------------------------------------------------
+# provenance parity
+# ---------------------------------------------------------------------------
+#
+# The email said "Every figure above comes from a trial publication or a drug
+# label" while quoting P-VERIFY and PALMARES-2 -- observational comparative
+# studies that are neither. The page said it correctly: "a trial publication, a
+# drug label, or a comparative study". One half of the audience was told a
+# narrower and false thing about where the numbers came from.
+#
+# Figure parity would never catch this: the figures matched exactly. What
+# differed was the sentence describing what the figures ARE. So this compares
+# the claims a document makes about its own sourcing, which is a small closed
+# set of sentences and worth checking literally.
+
+PROVENANCE = re.compile(
+    r"[^.]*\b(every figure|all figures|each figure|every number|figures above|"
+    r"comes from|traces to|drawn from)\b[^.]*\.", re.I)
+
+
+def provenance_claims(text: str) -> list[str]:
+    return [re.sub(r"\s+", " ", m.group(0)).strip()
+            for m in PROVENANCE.finditer(text)]
+
+
+def provenance_parity(page_text: str, email_text: str) -> list[str]:
+    """Sourcing claims the email makes that the page does not."""
+    pg = {re.sub(r"[^a-z ]", "", c.lower()) for c in provenance_claims(page_text)}
+    out = []
+    for c in provenance_claims(email_text):
+        k = re.sub(r"[^a-z ]", "", c.lower())
+        if k in pg:
+            continue
+        # near-match: same claim, different list of source types
+        close = [x for x in pg if len(set(k.split()) & set(x.split())) > 6]
+        out.append(c + ("   [page says: " + sorted(close, key=len)[0][:110] + "]"
+                        if close else "   [no matching sentence on the page]"))
+    return out

@@ -1,0 +1,42 @@
+{
+  "_what_this_is": "Claims this issue takes from a source rather than establishes itself. Each records the source's ACTUAL wording and scope, so the check can compare what we wrote against what they wrote. A claim marked `quoted` may appear on the page only as a quotation or an attribution; a claim marked `established` may be asserted, and the `how_established` field says what we did beyond reading the source.",
+  "_why": "Issue two took 'the CDK4/6 inhibitors have not been directly compared in clinical trials' from NCCN — a sentence about first-line aromatase-inhibitor combinations — verified that the guideline says it, then printed it as an unqualified claim about the world. Two randomised head-to-head trials existed. Verifying that a source says X is not verifying X.",
+  "claims": [
+    {
+      "id": "IC-001",
+      "we_wrote": "No randomised trial has compared any of the three against another",
+      "provenance": "quoted",
+      "source": "S001 — NCCN Guidelines, Breast Cancer, v6.2026",
+      "their_wording": "However, the CDK4/6 inhibitors have not been directly compared in clinical trials.",
+      "their_scope": "The passage discussing first-line aromatase-inhibitor plus CDK4/6-inhibitor combinations. The sentence is not offered as a survey of every setting and every line of therapy, which is how this page used it.",
+      "how_established": "",
+      "checked_by": "fred",
+      "checked_on": "2026-08-29",
+      "note": "Verified as a quotation on 29 August, via the source advocate's question S001-04, and printed as our own unscoped assertion. A randomised phase III open-label trial of ribociclib versus palbociclib with fulvestrant (second line) was published in APJCP in 2024, and HARMONIA (NCT05207709) is a registered head-to-head phase III of the same pair. Both were found by the counterexample hunter in one call. The claim does survive for abemaciclib against either of the other two."
+    },
+    {
+      "id": "IC-002",
+      "we_wrote": "the guideline lists all three as preferred first-line options",
+      "provenance": "quoted",
+      "source": "S001 — NCCN Guidelines, Breast Cancer, v6.2026",
+      "their_wording": "The NCCN Panel has included CDK4/6 inhibitors in combination with AI as preferred first-line options ... Due to the clear OS benefit seen with ribociclib in combination with AI, it is a category 1 recommendation. Abemaciclib and palbociclib are both category 2A.",
+      "their_scope": "First-line HR+/HER2- recurrent or stage IV disease, postmenopausal patients and premenopausal patients on ovarian ablation or suppression. Confirmed by the operator across every line and subgroup in that section (advocate questions S001-01 and S001-09).",
+      "how_established": "",
+      "checked_by": "fred",
+      "checked_on": "2026-08-29",
+      "note": "Correctly attributed on the page throughout. This is what a quoted claim should look like."
+    },
+    {
+      "id": "IC-003",
+      "we_wrote": "MONALEESA-2's final analysis prints p = 0.008",
+      "provenance": "quoted",
+      "source": "S005 — MONALEESA-2 overall survival, N Engl J Med, 2022",
+      "their_wording": "P=0.008",
+      "their_scope": "The final overall-survival analysis. The paper's statistical section — which states the direction of the test and the boundary — was never opened by anyone here.",
+      "how_established": "",
+      "checked_by": "claude",
+      "checked_on": "2026-08-29",
+      "note": "The page says the direction 'could not be established'. A reviewer found it on ClinicalTrials.gov's results tab for NCT01958021: the prespecified final OS analysis used a log-rank test at a one-sided cumulative 2.5% level. We searched the journal, gave up, and called the fact unknowable without ever searching the registry."
+    }
+  ]
+}

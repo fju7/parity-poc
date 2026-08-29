@@ -176,7 +176,9 @@
           "whatever the search tool returned for this URL"
         ],
         "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
-      }
+      },
+      "derives_from": "S001",
+      "derives_note": "For the claim that no randomised head-to-head comparison exists, only. P-VERIFY opens by describing its own purpose as working in the absence of randomised trials that directly compare the three, and this page cited that as confirmation of NCCN's statement. It is the same background assumption, not a second observation. P-VERIFY's own figures are independent and are not affected by this."
     },
     {
       "id": "S010",
@@ -302,5 +304,6 @@
     }
   ],
   "also_called_note": "The role-nouns the page actually uses for a source. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",
-  "characterisation_supported_by_note": "Source ids that support a characterisation of THIS source. A claim about a document nobody opened is blocked unless the page takes it from a document somebody did open, and names it."
+  "characterisation_supported_by_note": "Source ids that support a characterisation of THIS source. A claim about a document nobody opened is blocked unless the page takes it from a document somebody did open, and names it.",
+  "derives_from_note": "Where a source's support for a claim is inherited from another source rather than observed. Agreement between a document and its own upstream is an echo. Scope the note to the claim it applies to: a study can be derivative on one point and primary on others."
 }
