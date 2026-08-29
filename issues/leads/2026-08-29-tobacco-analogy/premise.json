@@ -1,0 +1,54 @@
+{
+  "_what_this_is": "The entry gate for a CANDIDATE, answered before drafting. This is what issue two's premise.json should have contained and did not: it was written retroactively there, and records that the issue would not have passed.",
+  "falsifiable_proposition": "The argument that social media should be regulated like tobacco and alcohol for minors rests on three empirical parallels — industry knowledge and concealment, epidemiological effect size, and mechanism — and they are not in the same evidentiary condition as each other.",
+  "public_claim": {
+    "_note": "The argument in circulation that this candidate examines.",
+    "quote": "Social media addiction lawsuits: the deceptively flawed tobacco analogy",
+    "who_said_it": "The analogy is carried by the state attorneys general's case and its coverage; the named opposition is in print at AEI, TechFreedom and Notre Dame Law Review. Both sides argue the analogy; neither separates its legs.",
+    "url": "https://www.aei.org/technology-and-innovation/social-media-addiction-lawsuits-the-deceptively-flawed-tobacco-analogy/",
+    "date": "2026-08"
+  },
+  "carried_by": [
+    {
+      "outlet": "CNN Business",
+      "url": "https://www.cnn.com/2026/08/26/tech/meta-states-settle-trial-children",
+      "date": "2026-08-26"
+    },
+    {
+      "outlet": "NBC News",
+      "url": "https://www.nbcnews.com/tech/social-media/meta-settles-social-media-addiction-suit-16-billion-rcna594492",
+      "date": "2026-08-26"
+    },
+    {
+      "outlet": "Axios",
+      "url": "https://www.axios.com/2026/08/26/meta-lawsuit-settlement-states-facebook",
+      "date": "2026-08-26"
+    },
+    {
+      "outlet": "France 24",
+      "url": "https://www.france24.com/en/americas/20260826-meta-reaches-17-billion-settlement-with-us-states-over-social-media-harm-teens",
+      "date": "2026-08-26"
+    },
+    {
+      "outlet": "TechPolicy.Press",
+      "url": "https://www.techpolicy.press/whats-in-metas-teen-social-media-settlement-and-what-hinges-on-its-rivals/",
+      "date": "2026-08"
+    },
+    {
+      "outlet": "NPR",
+      "url": "https://www.npr.org/2026/08/17/nx-s1-5923392/a-group-of-attorneys-general-is-suing-meta-over-mental-health-risks-for-youths",
+      "date": "2026-08-17"
+    }
+  ],
+  "we_think_missing": "That the analogy is three claims, not one, and that they are in three different evidentiary conditions. The most prominent published critique argues the products are unalike — First Amendment status, physical versus mental harm, offsetting benefits, whether behavioural addiction is a category. That is not the same as arguing the EVIDENCE is unalike, which is the question a reader has.",
+  "kill_condition": "Any of: (1) the Substack post 'You can't analogize the evidence on social media harms to that on smoking!' already does this comparison carefully — UNREAD, 429 rate limit, must be read before drafting; (2) the unsealed Meta documents plus the epidemiology turn out to be comparable in strength to the tobacco record, in which case the analogy holds and there is no story; (3) the age-restriction evidence stands on its own terms without the tobacco parallel, in which case the analogy is doing no work and the piece is about something else.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "note": ""
+  },
+  "lead_came_from": "The operator, from the Meta settlement of 26 August 2026 — and then REFRAMED by the operator away from the settlement figure, which is already widely reported, toward the argument the case is being used to carry. That reframing is the funnel working: the first framing failed the 'already covered' test.",
+  "scope_decision": "The piece is about whether the analogy's evidentiary legs transfer. It is NOT about whether social media harms teenagers — an unbounded literature of the kind that produced issue two's false universals. And it reaches no policy conclusion: this publication assesses evidence, and whether to age-restrict turns on values and rights that no evidence assessment settles."
+}

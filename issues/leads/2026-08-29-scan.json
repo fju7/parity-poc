@@ -1,0 +1,287 @@
+{
+  "_what_this_is": "A volume reading, not a judgement. High coverage is a necessary condition for a What Holds Up subject and nowhere near a sufficient one: the test is whether a claim in circulation outruns its evidence, and that needs reading.",
+  "scanned": "2026-08-29",
+  "timespan": "14d",
+  "queries": [
+    {
+      "query": "\"social media\" (teens OR adolescents) settlement",
+      "error": "<urlopen error timed out>",
+      "distinct_outlets": 199,
+      "top_outlets": [
+        [
+          "wesh.com",
+          4
+        ],
+        [
+          "businessinsider.com",
+          3
+        ],
+        [
+          "wyff4.com",
+          3
+        ],
+        [
+          "wdsu.com",
+          3
+        ],
+        [
+          "nbcconnecticut.com",
+          3
+        ],
+        [
+          "fox26houston.com",
+          3
+        ],
+        [
+          "kcra.com",
+          3
+        ],
+        [
+          "cnet.com",
+          3
+        ],
+        [
+          "yahoo.com",
+          3
+        ],
+        [
+          "lbc.co.uk",
+          3
+        ],
+        [
+          "nypost.com",
+          3
+        ],
+        [
+          "wired.com",
+          2
+        ],
+        [
+          "aljazeera.com",
+          2
+        ],
+        [
+          "rappler.com",
+          2
+        ],
+        [
+          "houstonpublicmedia.org",
+          2
+        ]
+      ]
+    },
+    {
+      "query": "age verification social media minors",
+      "points": 14,
+      "peak": 0.0318,
+      "recent_mean": 0.0157,
+      "baseline": 0.0048,
+      "spike_ratio": 3.28,
+      "top_articles": [],
+      "distinct_outlets": null,
+      "top_outlets": null
+    }
+  ],
+  "attention": [
+    {
+      "article": "Tim Curry",
+      "views": 1571639,
+      "rank": 2
+    },
+    {
+      "article": "Dolly Parton",
+      "views": 1269538,
+      "rank": 3
+    },
+    {
+      "article": "Peter Cullen",
+      "views": 872730,
+      "rank": 4
+    },
+    {
+      "article": "Toxic (2026 film)",
+      "views": 840222,
+      "rank": 6
+    },
+    {
+      "article": "Lake Ontario",
+      "views": 272461,
+      "rank": 8
+    },
+    {
+      "article": "Yayoi Kusama",
+      "views": 232885,
+      "rank": 9
+    },
+    {
+      "article": "2026 Nepal floods",
+      "views": 214895,
+      "rank": 10
+    },
+    {
+      "article": "Killing of the Clancy children",
+      "views": 203204,
+      "rank": 11
+    },
+    {
+      "article": "Ratko Mladić",
+      "views": 186777,
+      "rank": 13
+    },
+    {
+      "article": "The Rocky Horror Picture Show",
+      "views": 173435,
+      "rank": 14
+    },
+    {
+      "article": "2026–27 UEFA Champions League",
+      "views": 147330,
+      "rank": 15
+    },
+    {
+      "article": "Samuel Monroe Jr.",
+      "views": 142687,
+      "rank": 16
+    },
+    {
+      "article": ".xxx",
+      "views": 139253,
+      "rank": 18
+    },
+    {
+      "article": "Hayden Panettiere",
+      "views": 134172,
+      "rank": 19
+    },
+    {
+      "article": "Geetu Mohandas",
+      "views": 120511,
+      "rank": 20
+    },
+    {
+      "article": "Nepal",
+      "views": 118095,
+      "rank": 21
+    },
+    {
+      "article": "Spider-Man: Brand New Day",
+      "views": 108750,
+      "rank": 22
+    },
+    {
+      "article": "Assassination of Lord Mountbatten",
+      "views": 102581,
+      "rank": 23
+    },
+    {
+      "article": "Kuku Kohli",
+      "views": 98885,
+      "rank": 24
+    },
+    {
+      "article": "Jaye P. Morgan",
+      "views": 95127,
+      "rank": 25
+    },
+    {
+      "article": "Stella Parton",
+      "views": 92460,
+      "rank": 26
+    },
+    {
+      "article": "Jed York",
+      "views": 85737,
+      "rank": 27
+    },
+    {
+      "article": "The Odyssey (2026 film)",
+      "views": 84583,
+      "rank": 28
+    },
+    {
+      "article": "2026–27 UEFA Conference League",
+      "views": 83706,
+      "rank": 29
+    },
+    {
+      "article": "2026–27 UEFA Europa League",
+      "views": 82994,
+      "rank": 30
+    },
+    {
+      "article": "Harald V",
+      "views": 78642,
+      "rank": 31
+    },
+    {
+      "article": "Neatsville, Kentucky",
+      "views": 76810,
+      "rank": 32
+    },
+    {
+      "article": "Rachel Parton George",
+      "views": 75173,
+      "rank": 33
+    },
+    {
+      "article": "Kenny Rogers",
+      "views": 73391,
+      "rank": 34
+    },
+    {
+      "article": "Anna's Archive",
+      "views": 70892,
+      "rank": 35
+    },
+    {
+      "article": "Kyle Singler",
+      "views": 70299,
+      "rank": 36
+    },
+    {
+      "article": "Bradley Barcola",
+      "views": 69882,
+      "rank": 37
+    },
+    {
+      "article": "Pikachu",
+      "views": 66990,
+      "rank": 38
+    },
+    {
+      "article": "I Will Always Love You",
+      "views": 65737,
+      "rank": 39
+    },
+    {
+      "article": ".xyz",
+      "views": 65647,
+      "rank": 40
+    },
+    {
+      "article": "Randy Parton",
+      "views": 64388,
+      "rank": 41
+    },
+    {
+      "article": "Marianne Bachmeier",
+      "views": 62481,
+      "rank": 42
+    },
+    {
+      "article": "Mattéo Guendouzi",
+      "views": 61018,
+      "rank": 44
+    },
+    {
+      "article": "Porter Wagoner",
+      "views": 60490,
+      "rank": 45
+    },
+    {
+      "article": "The Dog Stars (film)",
+      "views": 58341,
+      "rank": 47
+    }
+  ]
+}
