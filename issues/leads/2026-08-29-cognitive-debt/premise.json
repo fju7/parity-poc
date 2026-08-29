@@ -88,12 +88,13 @@
   },
   "_reframed": "2026-08-29, after the operator asked where the general sense that AI lowers mental performance actually comes from. That question IS the piece. It has a traceable answer.",
   "_open_before_drafting": [
-    "Read the RCT paper in full. It is an arXiv preprint — check peer-review status, as we did for MIT, and hold it to the same standard rather than a friendlier one because it is interesting.",
-    "Read the meta-analysis in full and look hard at publication bias. g = 1.008 for critical thinking is very large; funnel plot and any trim-and-fill matter.",
-    "Read the MIT preprint itself, not its abstract.",
-    "Read Hesselmann in full.",
-    "Check whether the two bodies of evidence differ in outcome measure in a way that makes the comparison unfair — the meta-analysis may measure course grades where the RCTs measure unassisted transfer.",
-    "Code a sample of the 35 meta-analysis studies for outcome type (assisted vs unassisted, immediate vs delayed) before recommending that re-analysis, so we are not asking for work whose answer is already visible."
+    "Read the Ingebrigtsen & Lukic preprint at OSF (10.31234/osf.io/wgu56) at source. Every specific error attributed to them here came from a news summary and none of it may be printed until it is confirmed in their own words.",
+    "Get the full text of Wu et al. (2026) and read the bias section, the study table and the outcome coding directly, rather than the article page.",
+    "Confirm whether Liu et al. (2604.04721) pre-registered. Check OSF and the paper's own supplement.",
+    "Read Hesselmann (PeerJ 2020) in full -- still the one unopened source from the original framing.",
+    "Read the MIT preprint's session-4 methods directly to confirm the 18/two-arm figure at source rather than from the project page.",
+    "Re-run the novelty hunt on the NEW shape of the piece, and this time open every counterexample before letting it count.",
+    "Read Deng et al. (2025) enough to state its effect size and scope accurately, since Weidlich et al.'s audit is of the studies behind it."
   ],
   "_reframed_again": "2026-08-29, second reframe, after testing the kill condition nobody had tested. The lineage framing — three weak studies propping up a belief — was incomplete and would have been unfair. Strong evidence exists on BOTH sides. It is simply not the evidence anyone cites.",
   "novelty_hunt": {
@@ -182,6 +183,57 @@
         "what_would_settle_it": "Nothing but time and a journal. 'Your Brain on ChatGPT' has been a preprint for fourteen months, revised once. We hold the trials we like to the same test -- the RCT paper's review status is an open item on this candidate and must be settled before we cite it as stronger evidence."
       }
     ],
-    "the_honest_summary": "Two of the six can be answered this month by re-analysing numbers that already exist. One is a single cheap experiment nobody has run. The expensive one is the only one that answers the question as ordinarily asked, and nobody is funding it. That gap -- between how confidently the question is discussed and how little of it anyone has tried to settle -- is the second half of the piece."
+    "the_honest_summary": "Two of the six can be answered this month by re-analysing numbers that already exist. One is a single cheap experiment nobody has run. The expensive one is the only one that answers the question as ordinarily asked, and nobody is funding it. That gap -- between how confidently the question is discussed and how little of it anyone has tried to settle -- is the second half of the piece.",
+    "_revised": "2026-08-29 evening. Questions 1 and 2 were written on the assumption that nobody had examined the positive literature. Weidlich, Gasevic, Drachsler & Kirschner did exactly that in JCAL in 2025 and Ingebrigtsen & Lukic audited Wang & Fan in 2026. We do not propose that work; we report it, and we credit them. What remains unanswered is questions 3, 4 and 5 -- the head-to-head test of mode of use, persistence beyond a session, and any population-level effect -- and Weidlich et al. have already specified how the first of them should be designed: hold the instructional method constant and vary only the tool, define the treatment, describe the control, and measure learning after the tool is gone rather than while it is still there."
+  },
+  "reading_2026_08_29_evening": {
+    "_what_this_is": "Clearing the open items by reading the papers. It changed the candidate again -- the third time -- and this time in the direction of a much stronger piece.",
+    "the_rcts_are_real_and_far_narrower_than_advertised": {
+      "citation": "Liu, Christian, Dumbalska, Bakker & Dubey, 'AI Assistance Reduces Persistence and Hurts Independent Performance', arXiv 2604.04721. v1 6 April 2026, v4 5 August 2026.",
+      "peer_review": "NONE. Still a preprint, four versions in, four months on. We held the MIT preprint to this standard and we hold this one to it too, however much we like the result.",
+      "design": "Three randomised experiments. Randomised 1,222; ANALYSED 1,060 after exclusions (307 / 585 / 168). Participants worked 12-14 learning problems with or without AI, then the AI was removed WITHOUT WARNING and they did THREE test problems, immediately, asked not to use outside help.",
+      "results": "Exp 1 (fractions): solve rate d = -0.42 [-0.66, -0.19]; skip rate d = 0.25 [0.02, 0.48]. Exp 2 (fractions, replication): solve d = -0.19 [-0.36, -0.03]; skip d = 0.10 [-0.07, 0.26], NOT significant. Exp 3 (reading comprehension): solve d = -0.42 [-0.73, -0.11]; skip d = 0.42 [0.11, 0.72].",
+      "what_this_actually_establishes": "That immediately after fifteen minutes of AI-assisted practice, people do worse on the next three problems and give up sooner. Causal, replicated, and true. It is not a finding about anyone's mind a week later, and the paper does not claim to be.",
+      "why_it_matters_to_the_piece": "We were about to present this as the strong evidence the pessimists should be citing. It is the strongest evidence in the argument, and its horizon is minutes. The authors are careful; the framing around it would not be.",
+      "authors_own_limitation": "Exp 1's exclusion rule dropped participants who could not solve basic fractions but could not drop AI-condition participants who were equally unable and submitted the AI's answer -- possibly retaining lower-ability people in the AI arm and inflating the gap. They say so, and fixed it in Exp 2. Note that the effect halved, to d = -0.19, when they did.",
+      "not_preregistered": "No pre-registration statement found in the paper. To be confirmed against OSF before any claim is made either way."
+    },
+    "the_optimistic_literature_is_in_worse_shape_than_the_pessimistic_one": {
+      "_this_is_the_finding": "We went looking for publication bias in the meta-analysis and found something larger: the most-cited paper on this side of the argument has been retracted, and the field's own methodologists say the rest of it does not measure learning.",
+      "the_retraction": {
+        "paper": "Wang & Fan (2025), 'The effect of ChatGPT on students' learning performance, learning perception, and higher-order thinking: insights from a meta-analysis', Humanities and Social Sciences Communications. 51 studies. Reported g = 0.867 on learning performance.",
+        "retracted": "22 April 2026 by the Editor. Retraction note DOI 10.1057/s41599-026-07310-z. Stated ground: 'concerns relating to discrepancies in the meta-analysis' which 'undermine the confidence the Editor can place in the validity of the analysis and resulting conclusions'. The authors did not respond to correspondence about the retraction.",
+        "who_found_it": "Magnus Ingebrigtsen and Marko Lukic, The Arctic University of Norway. Their audit, reported in coverage: inconsistent counts of included studies; improper weighting; the 0.867 effect inflated, and closer to 0.5 on correction; a RETRACTED study among the included ones; several mislabelled studies; studies with sample sizes too small or effects too large to be plausible; inadequate control of confounders.",
+        "reach_before_retraction": "Cited over 500 times; 99th percentile attention score.",
+        "TO_VERIFY": "Read the Ingebrigtsen & Lukic preprint itself (OSF 10.31234/osf.io/wgu56) rather than press summaries of it. The specific errors above come from Plagiarism Today's account and must be confirmed at source before any of them is printed."
+      },
+      "the_methodological_critique": {
+        "paper": "Weidlich, Gasevic, Drachsler & Kirschner (2025), 'ChatGPT in Education: An Effect in Search of a Cause', Journal of Computer Assisted Learning 41, e70105. Peer reviewed. Kirschner and Gasevic are not fringe critics; they are among the field's most cited methodologists.",
+        "what_they_audited": "The studies behind Deng et al. (2025, Computers & Education 227:105224, g = 0.7 across 18 studies), naming Wang & Fan as exhibiting the same problems.",
+        "the_numbers_that_matter": "Only 53% of the audited studies used a VALID LEARNING MEASURE. The rest used self-reports, or performance DURING the treatment -- that is, with ChatGPT still in front of the student. Only 42% adequately described what the control group did. Controls ranged from no treatment to one-to-one human tutoring to playing video games.",
+        "their_conclusion": "'Observed gains cannot, at this time, be confidently attributed to ChatGPT, and meta-analytic effect sizes may over- or understate its benefits.'",
+        "why_this_is_the_hinge": "Our whole reconciliation was going to be: the two literatures do not contradict because the meta-analyses measure ASSISTED performance and the RCTs measure UNASSISTED performance. Weidlich et al. have established that -- with an audit, in a journal, a year ago. We did not need to propose the re-analysis. It has been done, and it says roughly half the positive literature is measuring performance with the tool in hand."
+      },
+      "the_surviving_meta_analysis": {
+        "paper": "Wu, Zhu, Zhang, Yin & Wang (2026), 'ChatGPT's impact on student learning outcomes: a meta-analysis of 35 experimental studies', Humanities and Social Sciences Communications 13(1) 684, 26 March 2026. Peer reviewed. g = 0.670 [0.495, 0.844], 4,193 participants, 134 effect sizes. Cognitive skills g = 0.872; critical thinking g = 1.008.",
+        "publication_bias": "Reported as a funnel plot read by eye -- 'the points... were evenly distributed on both sides of the central axis' -- plus Begg's test and a classic fail-safe N, neither with numbers given in the text we could reach. For a pooled g of 0.670 with a subgroup at 1.008, that is a thin bias assessment.",
+        "outcome_measures": "The paper does not say whether its post-tests were taken with ChatGPT available or without it, and reports no delayed or retention measure at all. Given Weidlich et al.'s audit of the neighbouring literature, that silence is the single most important thing about it.",
+        "same_journal": "It is in the journal that retracted Wang & Fan four weeks later, and it does not cite the problem.",
+        "TO_VERIFY": "Get the full text and read the bias section and the study table directly. Everything above is from the article page and must be confirmed before publication."
+      },
+      "who_has_said_this_publicly": [
+        "Ben Williamson (Edinburgh) in Ars Technica, 404 Media and Sciences et Avenir: the retracted paper aggregated 'very low quality research published in disreputable journals', recycling 'junk science into headline-grabbing claims'. 'What educators, parents and policy officials really needed was high quality data and evidence... What they have had to deal with instead is some substandard research.'",
+        "Ilkka Tuomi, on Deng et al.: 'the heterogeneity of the analysed studies makes the quantitative results... meaningless'.",
+        "General coverage of the retraction itself was wide: GovTech, Computing, 404 Media, Technology.org, Plagiarism Today, EdTech Innovation Hub, winbuzzer."
+      ]
+    },
+    "what_this_does_to_the_candidate": {
+      "the_old_shape": "The evidence splits by mode of use: AI as teacher improves learning, AI as answer-machine degrades unassisted performance. Both halves well evidenced, nobody carrying it.",
+      "why_it_no_longer_holds": "The 'AI as teacher improves learning' half rests on a literature whose most-cited synthesis has been retracted and whose methodology has been audited by four senior learning scientists who found half of it does not measure learning. We would have been presenting as the reassuring half of a balanced picture the half that is in the worst condition.",
+      "the_new_shape": "Neither side of the public argument has what it claims, and they fail in opposite directions. The belief that AI is degrading thinking travels on three weak studies. The reassurance that it improves learning travels on a retracted meta-analysis and a literature that, on its own field's audit, is measuring performance with the tool still in hand. The one piece of strong causal evidence -- three randomised trials, a thousand people, replicated -- establishes something much smaller than either side wants: that immediately after a fifteen-minute AI-assisted session, you do worse on the next three problems. And the question everyone is actually asking, about months and years, has no study behind it at all, on either side.",
+      "why_this_is_better": "It is truer, it is harder to get from one prompt, and it gives the reader with a decision something to do: it tells them which studies to stop citing, in both directions, and what the honest answer to their question is, which is that nobody knows yet.",
+      "direction_unchanged": "narrows. A core of the belief survives -- causally, within a session -- and the piece must not read as a debunking."
+    },
+    "_reframed_a_third_time": "2026-08-29 evening, by reading the four papers instead of their abstracts. Every reframe so far has come from testing something we had assumed. This one came from asking about publication bias in a meta-analysis and discovering its predecessor had been retracted."
   }
 }
