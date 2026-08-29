@@ -818,6 +818,56 @@
         "note": "Read from an institutional repository copy. Confirm against the RSNA version before printing."
       },
       "found_via": "Checking a citation in the ESMO scoping review that did not match its own description."
+    },
+    {
+      "id": "S031",
+      "type": "primary",
+      "url": "https://doi.org/10.1055/a-1770-7353",
+      "title": "Troya J, Fitting D, Brand M, et al. — The influence of computer-aided polyp detection systems on reaction time for polyp detection and eye gaze. Endoscopy 2022;54(10):1009-1014.",
+      "also_called": [
+        "Troya",
+        "the eye gaze study",
+        "the CADe eye-tracking study"
+      ],
+      "used_for": "THE MECHANISM, measured in the right procedure four years before the deskilling result. Per Zhou's description: use of CADe was associated with a significant reduction in eye travel distance compared with non-CADe examinations, and the authors raise deskilling as a possible consequence. It is cited in Budzyn's own reference list.",
+      "why_it_matters": "It removes any claim of novelty from the attention hypothesis and replaces it with something better: the narrowing was measured directly, in colonoscopy, by people who then said what it might mean. The piece credits Troya and Zhou rather than proposing anything.",
+      "access": {
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "only Zhou's one-sentence description of it"
+        ],
+        "not_read": [
+          "everything — participants, design, the eye-travel numbers, the deskilling sentence in the authors' own words"
+        ],
+        "note": "Thieme 404s on both routes tried and ResearchGate rate-limited. LOAD-BEARING AND UNREAD: nothing from it may be printed until it is read at source. This is the third document tonight in that position."
+      },
+      "needs_human_read": true
+    },
+    {
+      "id": "S032",
+      "type": "critique",
+      "url": "https://gi.org/journals-publications/ebgi/zhou_sep2025/",
+      "title": "Zhou MJ (Stanford) — 'Artificial intelligence in colonoscopy: Could it be making us worse?', ACG Evidence-Based GI, September 2025",
+      "also_called": [
+        "Zhou",
+        "the ACG appraisal"
+      ],
+      "used_for": "Both the critical appraisal of Budzyn we relied on earlier — observational design, selection bias, the post-AI shift in patient mix, only 19 endoscopists, no withdrawal time, low baseline ADR — AND the mechanism: 'the potential impact on visual gaze could potentially be a mechanism by which prolonged CADe exposure could potentially impact performance over time', citing Troya et al.",
+      "the_lesson": "We read this page hours ago and asked it only about limitations. It also contained the mechanism, and the citation that made our own hypothesis redundant. A source is not read when it has answered the question you brought to it. Recorded as a class.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the appraisal of Budzyn's design and limitations; the mechanism paragraph; the Troya citation; author identification"
+        ],
+        "not_read": [
+          "the remainder of the commentary"
+        ],
+        "note": "Read twice, with different questions, and the second reading changed the piece."
+      }
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

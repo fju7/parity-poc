@@ -53,7 +53,7 @@
     "value": "narrows",
     "_note": "Deliberately NOT 'corrects'. A core part of the belief is CONFIRMED by randomised controlled evidence — AI assistance really does degrade unassisted performance and persistence, causally, within minutes. What narrows is the scope: it is a claim about how you use it, not about what it does to you. A piece that reads as a debunking would be wrong on the evidence, and a piece that reads as vindication would be equally wrong."
   },
-  "reader_with_a_decision": "Anyone writing an AI policy for a school, a university or a team right now, where the cost of over-restricting is as real as the cost of over-trusting; and any knowledge worker deciding which parts of their thinking to hand over. Both have live decisions and no time to read four papers and six Substacks.",
+  "reader_with_a_decision": "Clinicians and training directors deciding how and when to put AI in front of trainees; hospital and professional-body policy makers; and, through the generalisation, any reader whose own work is being reshaped the same way and who wants to know whether what is happening to endoscopists is happening to them. The medical reader has the sharper decision. The general reader has the same question and much worse evidence, and that gap is the piece.",
   "public_record_check": {
     "prior_art_found": [
       "Weidlich, Gašević, Drachsler & Kirschner (JCAL 2025) — the audit of the positive literature. Peer reviewed, and in a journal a general reader will never open.",
@@ -343,5 +343,17 @@
       "and_the_study_it_led_us_to": "Dratsch et al., Radiology 2023: when the AI gave a wrong BI-RADS suggestion, radiologists were correct 19.8% of the time if inexperienced and 45.5% if very experienced. Cognitive surrender, in a hospital, with cancer on the line, three years before Shaw & Nave named it — and we found it only by checking a citation that did not match its own description."
     },
     "verdict": "READY, subject to one pass. The blocking list is closed. The last question is answered and the answer strengthened rather than reshaped the piece. What remains is verification of the two newest sources at their publishers rather than through repository copies, and one counterexample run on the two claims that are ours rather than anyone else's: the Gommers/Budzyn attention hypothesis, and the assertion that the caveats do not survive the hops."
+  },
+  "FRAMING_DECIDED": {
+    "_when": "2026-08-29, by the operator, presented with three framings.",
+    "chosen": "MEDICINE, GENERALISING OUTWARD. A piece about what happens to trained professionals when AI arrives in their work — endoscopists, radiologists, pathologists — which then asks what it implies for everyone else.",
+    "why_it_was_offered": "It is where the evidence actually is. Every study that measures a real skill, in real work, unassisted, with a consequence that matters, is medical. The general-audience argument about AI and thinking is being conducted on essays, trivia questions and self-report questionnaires.",
+    "the_cost_the_operator_accepted": "It makes issue three the second consecutive health issue, against a stated wish to get this publication out of health. That was raised and accepted. The mitigating fact is that the SUBJECT is not health — it is AI and human capability — and medicine is where the measurements are. Issue four should not be medical, and the scanner's non-health query sets exist for that reason.",
+    "what_this_changes": {
+      "belief_tested": "Unchanged in substance — 'using AI degrades your thinking, and there is now real evidence for it' — but the piece tests it where the claim is actually testable, and reports that the strongest evidence anyone has comes from operating rooms and reading rooms rather than from the studies everyone quotes.",
+      "reader_with_a_decision": "Widened and sharpened. Clinicians and clinical training directors deciding how to introduce AI into a residency; hospital and professional-body policy makers; AND, through the generalisation, anyone whose own work is being reshaped the same way — the reader who wants to know whether the thing happening to endoscopists is happening to them. The medical reader has the sharper decision; the general reader has the same question and worse evidence.",
+      "structure_implied": "Open in the endoscopy suite with a number a reader can hold — detection falling from 28.4% to 22.4% — then immediately what that study is and is not. Then the pattern across specialties, twelve studies, including Savardi's null at three months. Then the mechanism, with Dratsch's collapse to 19.8%/45.5% and Gommers's narrowed gaze. Then outward: the same question asked of everyone else, and the answer that the general evidence is far weaker than the medical evidence — essays, trivia and questionnaires. Then Ke et al.'s deskilling / never-skilling / mis-skilling frame, credited. Then what would settle it.",
+      "what_gets_cut": "The retraction story and the meta-analysis audit shrink to a paragraph. They were going to be a third of the piece; in this framing they are the answer to 'but doesn't AI help you learn?' and nothing more. Wang & Fan, Ingebrigtsen & Lukic, Weidlich and Wu stay in the sources and mostly leave the page. That is a real loss of good material and it is the right call."
+    }
   }
 }

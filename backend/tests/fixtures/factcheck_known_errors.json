@@ -529,6 +529,26 @@
       "was": "a systematic or scoping review is a safe place to take a study's description from",
       "should_have_been": "A review is another hop, and caveats fall off at every hop. Any claim taken from a review about what a primary study found is checked in the primary study, exactly as a claim taken from a news article is. The safest-looking hop is the one where nobody checks.",
       "why_it_survived": "We were about to use the review to answer a question that decided the piece's confidence — is this one study or a pattern — and we would have taken its characterisations with it. The only reason we did not is that we happened to have read two of its sources hours earlier."
+    },
+    {
+      "class": "ABSENCE_ASSERTED_WITHOUT_READING_THE_REFERENCE_LIST",
+      "kind": "reasoning",
+      "caught_by": "the counterexample hunter, at HIGH confidence, correctly",
+      "found_by": "issue three, 2026-08-29",
+      "summary": "We proposed that a narrowing of visual search measured in radiologists was a plausible mechanism for the detection loss measured in endoscopists, and asserted that no published work linked the two or tested the mechanism. It had been measured IN ENDOSCOPY in 2022 by Troya et al., who raised deskilling themselves; Troya sits in the reference list of the very paper we were linking from; and a Stanford commentary we had already opened that evening proposes exactly that mechanism and cites it.",
+      "was": "nobody has connected these",
+      "should_have_been": "Before asserting that a link between two findings is unmade, read the reference list of both papers. This is the CHAIN_BETWEEN_DOCUMENTS error inverted — there we asserted a link without checking for a citation; here we asserted the absence of one without checking either. Both are claims about the relationship between documents made without opening them.",
+      "why_it_survived": "It felt like an insight, and insights are the thing this process is worst at doubting. The saving grace is that the hunt ran BEFORE drafting, so the sentence was struck before it was ever written."
+    },
+    {
+      "class": "A_SOURCE_IS_NOT_READ_WHEN_IT_ANSWERS_YOUR_QUESTION",
+      "kind": "sourcing",
+      "caught_by": "the same hunt naming a page we had already opened",
+      "found_by": "issue three, 2026-08-29",
+      "summary": "We fetched Zhou's ACG commentary on the colonoscopy study and asked it for the study's limitations. It gave them, and we moved on. It also contained the proposed mechanism and the citation that made our own hypothesis redundant. We found that out hours later from an adversarial role that searched the open web.",
+      "was": "we read that source",
+      "should_have_been": "A targeted fetch answers the question asked and hides everything else. A source the piece will rely on is read for what it CONTAINS, not for what we went to it for — and the ledger should record which question was asked, so 'machine_read' does not overstate what was seen.",
+      "why_it_survived": "The ledger records access state, not the question asked. Every 'sections' field on this issue is really a list of what we asked for."
     }
   ],
   "standing_rules": [
@@ -566,7 +586,9 @@
     "A fairness claim about a named person — that they did not answer, did not correct, did not respond — is held to the strictest sourcing on the page. It is checked in the primary document, never taken from coverage, and the other half of the story is looked for on purpose. Wang and Fan answered their critics within days; only the retraction correspondence went unanswered, and reporting the second without the first would have been false.",
     "A recorded answer is bound to the question it answered. When a premise is reframed, every field written for the old framing is stale until rewritten, and a gate that reports 'ok' on a filled field is reporting paperwork. Bind the kill-condition test to the kill-condition text, as acceptances are bound to a sha.",
     "Read the adversary's DISCARD PILE, not only its verdict. The counterexample hunter lists what it reviewed and set aside; on issue three the two best sources in the file — a Nature Medicine Perspective that gave the piece its frame, and a FAccT paper — were sitting in that list, classified as 'not general-audience' and therefore not reported as counterexamples. The role is a search we paid for; taking only its conclusion throws most of it away.",
-    "A systematic or scoping review is a hop, not a source. Every description of a primary study taken from a review is verified in that primary study before it is printed. On issue three a peer-reviewed review promoted an observational study to a randomised trial in its own abstract and mis-cited an automation-bias experiment to a paper that found the opposite."
+    "A systematic or scoping review is a hop, not a source. Every description of a primary study taken from a review is verified in that primary study before it is printed. On issue three a peer-reviewed review promoted an observational study to a randomised trial in its own abstract and mis-cited an automation-bias experiment to a paper that found the opposite.",
+    "Before asserting that nobody has linked two findings, read the reference lists of both papers. The link is most often already inside the one you are arguing from.",
+    "Record in the ledger WHAT QUESTION was asked of each source, not only that it was opened. A targeted fetch answers what it was asked and conceals the rest; on issue three a commentary read for its limitations also held the mechanism that made one of our claims redundant."
   ],
   "second_pass": {
     "run": "2026-08-26",
