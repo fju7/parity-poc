@@ -540,7 +540,7 @@
         "the deskilling study",
         "the endoscopy study"
       ],
-      "used_for": "Four endoscopy centres in Poland; 19 endoscopists (16 gastroenterologists, 3 general surgeons) with a mean 28 years of experience; 1,443 colonoscopies performed WITHOUT AI — 795 before the centres adopted AI detection, 648 after. Adenoma detection rate in those unassisted procedures fell from 28.4% to 22.4%, a difference of -6.0 percentage points (95% CI -10.5 to -1.6, p = 0.009).",
+      "used_for": "The only study in this body of evidence measuring real professional performance, unassisted, after sustained real-world AI exposure. ADR 28.4% to 22.4%, -6.0 points (95% CI -10.5 to -1.6), 1,443 non-AI colonoscopies, 19 experienced endoscopists, four Polish centres. Peer reviewed. Retrospective and confounded, and the authors are the ones who say so most fully.",
       "WHY_THIS_IS_THE_MOST_IMPORTANT_SOURCE_HERE": "It is the ONLY study in this entire body of evidence that measures real professional performance, unassisted, after sustained real-world exposure to AI — and it is peer reviewed, in a Lancet journal, with a clinical outcome that matters. We told the operator that the durable real-world question 'has no study behind it at all, on either side'. That was wrong, and this is the study.",
       "peer_review": "YES. The Lancet Gastroenterology & Hepatology. Note that a preprint version also sits on SSRN (abstract_id 5070304), and the journal ran an accompanying comment, 'Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?' (S2468-1253(25)00164-5), plus later correspondence (S2468-1253(25)00290-0). Neither has been read.",
       "limitations_that_must_travel_with_it": "OBSERVATIONAL, and the piece must say so as loudly as it says the result. Per the American College of Gastroenterology's appraisal: susceptible to confounding and selection bias; patient characteristics differed between periods (more women, less sedation after AI introduction), requiring adjustment that may leave residual bias; only 19 endoscopists, too few colonoscopies for a per-endoscopist analysis; the overall ADR of 25.7% is low against a US target of about 35%; and withdrawal time — which strongly affects detection — was not reported.",
@@ -549,18 +549,53 @@
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
-          "the ACG Evidence-Based GI appraisal, which reports the design, N, periods, the 28.4%/22.4% figures and the confidence interval, and the critical limitations"
+          "the accepted manuscript, Warwick WRAP repository copy (CC BY-NC-ND): methods, results, the full eleven-point limitations paragraph, the causal language and the concluding sentences",
+          "the SSRN preprint abstract (abstract_id 5070304, 26 December 2024) for the structured abstract and the regression result"
         ],
         "not_read": [
-          "THE PAPER ITSELF. Everything above is from a secondary appraisal. The Lancet page and PubMed abstract were not machine-readable."
+          "the published Lancet version's final typeset text",
+          "the Appendix, including per-endoscopist volumes on p2",
+          "the accompanying Lancet comment and the later correspondence"
         ],
-        "note": "BLOCKING. This is exactly the position we were in with the Norwegian audit at 6pm: a load-bearing claim resting on one secondary source. Nothing here may be printed until the paper is read."
+        "note": "Read at source, replacing the secondary appraisal. The appraisal was broadly right and missed the largest confounder."
       },
-      "found_via": "Its own citation inside Shaw & Nave's reference list. It was not returned by any search we ran, including the working-paper sweep."
+      "found_via": "Its own citation inside Shaw & Nave's reference list. It was not returned by any search we ran, including the working-paper sweep.",
+      "what_it_actually_says": {
+        "design": "Retrospective observational, four Polish endoscopy centres which implemented AI polyp detection at the end of 2021. After implementation, colonoscopies were conducted with or without AI according to the date of examination. Three months before against three months after, September 2021 to March 2022. Primary outcome: ADR of standard, NON-AI-assisted colonoscopy. Multivariable logistic regression for independent factors.",
+        "who": "19 endoscopists — 16 physicians, 3 surgeons — each with more than 2,000 colonoscopies, averaging 27.6 years since graduation, range 8 to 39.",
+        "result": "1,443 standard non-AI colonoscopies, 795 before and 648 after. Mean patient age 58, 59% female. ADR fell from 28.4% (226/795) to 22.4% (145/648): -6.0 percentage points, 95% CI -10.5 to -1.6. In the regression, the independent factors lowering ADR were patient female sex, age under 60, operator specialty (surgeons vs physicians), and exposure to AI.",
+        "THE_CONFOUNDER_THAT_MATTERS_MOST": "Their eighth limitation, and the one the secondary appraisal missed entirely. Procedures nearly DOUBLED after implementation — 795 before against 1,382 after (734 with AI, 648 without) — across equal three-month windows, because Poland suspended its colonoscopy-based colorectal cancer screening programme on 1 January 2022. That freed capacity and the centres drew patients off the waiting list. The population being scoped in the second period was plausibly different from the first, and the authors say so.",
+        "other_limitations_they_state": "Cohorts may not be comparable on indication and procedural context (mitigated by regression); only one AI system; only 19 experienced endoscopists, so generalisability to trainees is unknown and they call for that work; too few procedures per endoscopist for a reliable endoscopist-level analysis, treated as a subgroup with cautious interpretation; a possible time effect, mitigated by the short window and the operators' long experience; NO BLINDING, which 'may introduce unforeseen biases'; NO WITHDRAWAL TIME DATA and no sample size calculation; sessile serrated lesions excluded from ADR, which a recent Dutch study links to post-colonoscopy cancer; the first 100 colonoscopies per centre excluded for familiarisation, with uneven per-endoscopist exposure inside that; and low examination counts for some endoscopists.",
+        "their_causal_language": "'Continuous exposure to AI MAY reduce ADR of standard, non-AI assisted colonoscopy, suggesting a negative impact on endoscopist BEHAVIOUR.'",
+        "their_own_call": "'We emphasize the urgent need for robust prospective studies such as randomized crossover trials to assess its generalizability and call for more behavioral research to understand the currently under-investigated mechanisms of how AI affects physician capability.'",
+        "PEER_REVIEW_VISIBLY_DID_ITS_JOB": "The SSRN preprint of 26 December 2024 concluded: 'Continuous exposure to AI REDUCED ADR... suggesting a negative impact on endoscopist PERFORMANCE.' The accepted version says 'MAY reduce... a negative impact on endoscopist BEHAVIOUR.' The hedge was added and the noun changed. That is worth printing: in a literature where almost nothing is peer reviewed, here is a case where review made a claim more careful, and the softening is visible in the record.",
+        "what_the_piece_must_carry_alongside_the_result": "The screening-programme suspension, the absence of withdrawal-time data, the absence of blinding, the 19 operators, and the authors' own 'may'. A headline that says AI is deskilling doctors drops all five."
+      }
+    },
+    {
+      "id": "S022",
+      "type": "secondary",
+      "url": "https://www.statnews.com/2025/08/12/ai-deskilling-doctors-colonoscopy-study-lancet/",
+      "title": "STAT News, 12 August 2025 — 'AI use may be deskilling doctors, new Lancet study warns'",
+      "also_called": [
+        "STAT"
+      ],
+      "used_for": "Evidence that the colonoscopy result DID reach a professional press audience, and reached it with the 'may' intact. Not to be cited for the study's content.",
+      "derives_from": "S021",
+      "access": {
+        "state": "not_opened",
+        "note": "Headline only, from a search result. Open it before citing even the headline."
+      }
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",
   "also_called_note": "Declared explicitly rather than inferred from titles, because the ledger audit can only see a source in the prose if it knows the words the prose uses.",
   "the_blocked_one": "S005. Same shape as issue two's NCCN guideline: exactly one document that machines cannot open, carrying exactly the information no other document has.",
-  "what_the_verify_flags_caught": "Two identifiers in this ledger were written from memory. One was checked and was wrong: the PeerJ URL pointed at a soil-microbiology paper, not Hesselmann. Two remain unchecked (S007, S008). This is the argument for the flag existing — and for never printing an identifier that carries one."
+  "what_the_verify_flags_caught": "Two identifiers in this ledger were written from memory. One was checked and was wrong: the PeerJ URL pointed at a soil-microbiology paper, not Hesselmann. Two remain unchecked (S007, S008). This is the argument for the flag existing — and for never printing an identifier that carries one.",
+  "crossing_observation": {
+    "_the_finding": "The single best real-world study of skill degradation from AI use sits in gastroenterology, and the AI-and-thinking conversation has not picked it up.",
+    "checked": "Of the four general-audience pieces in this ledger — Forbes (S in premise carriers), EDUCAUSE Review (S014), Goldin (S013) and The Conversation (S012) — NONE cites Budzyń et al. EDUCAUSE cites the MIT preprint, Singh et al., Lee et al. and Dergaa et al.; Goldin cites the MIT preprint, the 758-consultant study, a Scientific Reports tutor study and an October 2025 guided-versus-unguided experiment; The Conversation cites one crutch-effect study; the Forbes piece cites nothing at all.",
+    "HOW_FAR_THIS_CAN_BE_STATED": "As written: 'none of the four pieces we examined cites it'. NOT as 'nobody has connected them', which is an unbounded universal over everything published and belongs to the counterexample hunter, not to us. The claim to be attacked before drafting is: 'No general-audience account of AI and thinking has brought the colonoscopy deskilling result into the same frame as the essay-writing and reasoning studies.'",
+    "why_it_would_be_the_contribution": "It is the only place in this literature where the question is asked about a real skill, in real work, with a real consequence, over months — and it is in a journal the people arguing about ChatGPT and essays have no reason to read. Carrying it across is translation, which is what this publication is for."
+  }
 }
