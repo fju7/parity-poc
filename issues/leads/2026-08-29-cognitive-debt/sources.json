@@ -641,22 +641,24 @@
       "type": "critique",
       "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00164-5/abstract",
       "pubmed": "40816300",
-      "title": "Comment — 'Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?', The Lancet Gastroenterology & Hepatology, 2025",
+      "title": "Omer F. Ahmad — 'Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?' Comment, The Lancet Gastroenterology & Hepatology, 13 August 2025. doi 10.1016/S2468-1253(25)00164-5, PMID 40816300.",
       "used_for": "NOTHING YET.",
       "why_it_is_needed": "It is the argument the journal published ALONGSIDE the deskilling result, and our piece leans on that result. A peer-reviewed finding with an accompanying comment and a later correspondence thread has an argument around it, and we have heard only one side. If the comment raises an alternative explanation the authors' own eleven limitations do not cover, the piece has to carry it.",
       "access": {
         "state": "blocked",
-        "by": "claude",
+        "by": "fred",
         "on": "2026-08-29",
         "sections": [
-          "title and journal only"
+          "the summary only"
         ],
         "not_read": [
-          "everything"
+          "the argument"
         ],
-        "note": "thelancet.com returns 403 to machine fetch; PubMed and ResearchGate rate-limited; Europe PMC served its homepage. Needs a human read."
+        "note": "CLOSED AS UNREAD. The operator tried and could not get past the summary. Every free route was attempted: the Lancet fulltext URL, ResearchGate, PubMed, Europe PMC, Google Scholar, and UCL's own repost, which is a stub. This is a decision, not an oversight, and the piece must carry it."
       },
-      "needs_human_read": true
+      "needs_human_read": true,
+      "author": "Dr Omer Ahmad, UCL Division of Surgery & Interventional Science. Identified from UCL's own news page, which reposts it as an Opinion but carries only the headline and a link. NOTE FOR FAIRNESS: Ahmad works on AI in endoscopy himself. If the piece quotes him, that interest is stated.",
+      "what_the_piece_must_say": "If the piece leans on the colonoscopy study — and it does — it states that The Lancet Gastroenterology & Hepatology published a Comment alongside it, by Omer Ahmad of UCL, that we could not read. Not 'there was no dissent'. An unread commentary is not a commentary that agrees with us, which is the same rule as an unrun check not being a pass."
     },
     {
       "id": "S025",
@@ -708,6 +710,69 @@
         "note": "Abstract only."
       },
       "found_via": "The counterexample hunter's search trail."
+    },
+    {
+      "id": "S027",
+      "type": "secondary",
+      "url": "https://www.nature.com/articles/s41575-025-01122-3",
+      "title": "Katrina Ray — 'AI-assisted colonoscopy and risk of endoscopist deskilling', Research Highlight, Nature Reviews Gastroenterology & Hepatology, 5 September 2025",
+      "used_for": "Evidence of how the result travelled inside the field. It is a straight summary: no limitations named, no alternative explanations, no quotes from anyone including Ahmad's Comment. It reports the 28.4%-to-22.4% fall and p = 0.0089 as fact. Even in Nature Reviews, the eleven limitations did not travel.",
+      "derives_from": "S021",
+      "POSSIBLE_DISCREPANCY_TO_RESOLVE": "Ray writes that 'exposure to AI, MALE versus female patient sex and patient age (>=60 versus <60 years)' were independent factors associated with ADR. The SSRN abstract of the paper says the independent factors of DECREASING ADR were 'patient's FEMALE sex, age < 60'. These may simply be different labellings of the same covariate contrast rather than a contradiction — Ray gives no direction. NOT a finding, and not to be printed either way. If the piece ever cites the covariates, resolve it in the accepted manuscript first. Recorded so it is not silently forgotten.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the highlight in full"
+        ],
+        "not_read": []
+      }
+    },
+    {
+      "id": "S028",
+      "type": "primary",
+      "url": "https://pubs.rsna.org/doi/10.1148/radiol.243688",
+      "title": "Gommers, Verboom, Duvivier et al. — Influence of AI Decision Support on Radiologists' Performance and Visual Search in Screening Mammography. Radiology 2025; 316(1): e243688, online 8 July 2025.",
+      "also_called": [
+        "Gommers",
+        "the mammography eye-tracking study"
+      ],
+      "used_for": "Retrospective multireader multicase study. 12 breast screening radiologists (4-32 years, median 12) from 10 institutions, 150 screening mammograms (75 malignant). Unaided readings first, AI-assisted readings at least 52 days later using Transpara. AI support RAISED accuracy: AUC 0.93 [0.91, 0.96] unaided against 0.97 [0.95, 0.98] with AI, p < .001. AND THE EYE TRACKING: with AI, radiologists covered LESS of the breast with fixations (9.5% against 11.1%, p = .004) and spent LONGER inside lesion regions (5.4s against 4.4s, p = .006). The authors read this as 'a more efficient search'.",
+      "WHY_IT_IS_INTERESTING_AND_HOW_FAR_WE_CAN_GO": "This is the mechanism Budzyn's team can only speculate about — their Dr Romanczyk calls it a 'Google Maps effect' — measured directly with eye tracking. The same narrowing of attention is read as EFFICIENCY by one team, with the tool present, and worried about as the route to lost detection by another, with the tool absent.\n\nTHAT LINK IS OURS, NOT THEIRS, AND IT IS A HYPOTHESIS. Different radiologists, different modality, different task, and Gommers measures with AI available while Budzyn measures without. Neither team makes the connection. If the piece draws it, it draws it as a question worth asking and hands it to the counterexample hunter first. It must not be written as a finding.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "design, participants, both AUC figures, both eye-tracking figures, the conclusion"
+        ],
+        "not_read": [
+          "the full paper"
+        ]
+      },
+      "found_via": "The sweep for a second Budzyn-like study."
+    },
+    {
+      "id": "S029",
+      "type": "synthesis",
+      "url": "https://www.esmorwd.org/article/S2949-8201(26)00012-3/fulltext",
+      "title": "Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology, 2026.",
+      "used_for": "NOTHING YET.",
+      "why_it_matters": "It is the one document that would answer the question deciding whether this piece is ready: IS BUDZYN ALONE? If there are several studies measuring physician performance without AI after exposure to it, the piece is about a pattern. If Budzyn is the only one, the piece is about a single observational study carrying an enormous amount of weight — which is a different and more cautious piece.",
+      "access": {
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "title and journal only"
+        ],
+        "not_read": [
+          "everything"
+        ],
+        "note": "esmorwd.org 403s and ScienceDirect is disallowed by robots. Not attempted by a human yet."
+      },
+      "needs_human_read": true
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",
