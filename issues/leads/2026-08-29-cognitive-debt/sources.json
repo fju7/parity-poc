@@ -407,7 +407,7 @@
       "id": "S017",
       "type": "primary",
       "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646",
-      "title": "Shaw & Nave (2026) — Thinking—Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender. Wharton School Research Paper, posted 2 February 2026",
+      "title": "Shaw & Nave — Thinking—Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender. Wharton School Research Paper, version v20260111, posted 2 February 2026.",
       "also_called": [
         "Shaw and Nave",
         "the cognitive surrender experiments",
@@ -415,20 +415,39 @@
       ],
       "used_for": "THREE PREREGISTERED EXPERIMENTS, N = 1,372, 9,593 trials, adapted Cognitive Reflection Tests with AI accuracy randomised. Participants consulted the AI on more than half of trials. Accurate AI raised accuracy by about 25 percentage points; erroneous AI lowered it by about 15. The pattern held under time pressure and under financial incentives. Higher trust in AI and lower need for cognition predicted more deference.",
       "why_it_matters": "A THIRD mechanism, distinct from both existing strands. Not 'you get worse when the tool is taken away' (Liu et al.) and not 'you learn more with a tutor' (the meta-analyses), but 'you adopt the machine's answer over your own reasoning, including when it is wrong, and pay for it'. It is also the mechanism that matches what people actually describe when they say AI has changed their thinking. And it is PREREGISTERED, which Liu et al. appears not to be — so on that axis it is the most rigorous study in the whole set.",
-      "peer_review": "NONE. A Wharton working paper. Same standard as the MIT preprint and Liu et al.: say so plainly.",
+      "peer_review": "NONE. Wharton working paper, v20260111. The same standard we applied to the MIT preprint applies here.",
       "access": {
-        "state": "machine_read",
-        "by": "claude",
+        "state": "human_read",
+        "by": "fred",
         "on": "2026-08-29",
         "sections": [
-          "SSRN abstract page: design, N, trial count, preregistration, the three headline effects, the moderators"
+          "pp.1-8 (abstract, framing, design overview), 17-28 (empirical overview, common procedures, Study 1 in full, Study 2 methods and results), 29-40 (Study 2 results, Study 3 in full), 41-48 (general discussion, trial-level synthesis, surrender-vs-offloading, limitations begin), 49-52 (limitations, conclusion, references)"
         ],
         "not_read": [
-          "the paper itself — effect sizes beyond the percentage-point figures, the Tri-System framing, limitations"
+          "Web Appendices A-D, including the preregistered hypotheses summary (D) and the detailed sample exclusions (C)"
         ],
-        "note": "Read the abstract, not the paper. Nothing beyond what is listed here may be printed until the PDF is read."
+        "note": "The operator supplied the PDF; SSRN's delivery endpoint 404s. Read directly, page by page, not summarised."
       },
-      "found_via": "A Reddit thread the operator passed on, 2026-08-29. Recorded because provenance matters: it is not something our scanner or our searches surfaced, and that is worth knowing about our own coverage."
+      "found_via": "A Reddit thread the operator passed on, 2026-08-29. Recorded because provenance matters: it is not something our scanner or our searches surfaced, and that is worth knowing about our own coverage.",
+      "what_it_actually_says": {
+        "THE_ANSWER_TO_THE_QUESTION_THAT_MATTERED": "Accuracy was measured WITH THE AI AVAILABLE. Participants worked seven open-ended CRT items with an assistant embedded in the survey and 'retained full autonomy over whether to follow its suggestions'. This is a DEFERENCE measure, not an after-the-tool-is-gone measure. Our own file had it filed under 'measures unassisted performance', and that was wrong. It is not a flaw in the study — assisted performance is exactly the right measure for deference — it was a flaw in our filing.",
+        "design": "Three preregistered experiments plus a preregistered trial-level synthesis. Seven open-ended CRT items adapted from Manfredi & Nave (2022). AI was ChatGPT (GPT-4o) embedded in each trial, returning either the correct deliberative answer (AI-Accurate) or a confidently presented intuitive error (AI-Faulty) with a short rationale, randomised at item level via hidden seed prompts. Data collected in person (private cubicles, standardised hardware) and online (desktop/laptop only). Penn IRB #858904. Materials, preregistrations and codebooks on OSF. Funded by the Wharton Behavioral Lab.",
+        "study_1": "N = 359, in person. Brain-Only n = 121, AI-Assisted n = 238 (oversampled 2:1). Plus an ancillary online sample of 81, excluded from Study 1 results but included in the synthesis. Chat used on 54.4% of AI-Accurate and 52.8% of AI-Faulty trials. CONDITIONAL ON USING IT: followed the AI on 92.7% of accurate trials and 79.8% of FAULTY trials — overriding a wrong answer only one time in five. Accuracy: Brain-Only 45.8% [42.5, 49.2]; AI-Accurate 71.0% [67.9, 74.1]; AI-Faulty 31.5% [28.3, 34.6]. Accurate vs faulty OR = 0.07 [0.05, 0.11] — about 14 times lower odds of being right. Cohen's h = 0.81 [0.72, 0.91].",
+        "the_confidence_finding": "Access to AI raised confidence by 11.7 percentage points (77.0% vs 65.3%; Hedges' g = 0.54 [0.32, 0.77]) DESPITE approximately half of the AI's answers being faulty. And within the AI-Assisted condition, confidence did NOT decline as the number of faulty trials increased (p = 0.202). People met more wrong answers and did not get less sure.",
+        "study_2": "N = 485 (lab 138, Prolific 347). All had AI access except one randomly placed Brain-Only probe trial. Time Pressure n = 228 (30-second countdown) vs Control n = 257. Time pressure lowered accuracy everywhere but did not change the selectivity of following accurate vs faulty advice (interaction p = 0.102). Brain-Only probe: 32.6% under time pressure vs 46.9% control.",
+        "study_3": "N = 450, Prolific. Incentives + Feedback n = 238 ($0.20 per correct answer, a $20 lottery entry, and immediate item-level correct/incorrect feedback) vs Control n = 212. It WORKED, partially: override of faulty advice more than doubled, 20.0% to 42.3%. But surrender persisted — the accuracy gap between accurate and faulty trials was still about 44 points under incentives against about 50 under control.",
+        "the_synthesis": "Preregistered trial-level synthesis, N = 1,372, 9,593 trials. Correct responding over 16 times greater when the AI was correct (OR = 16.07 [11.50, 22.46]). Cohen's h by study 0.83 / 0.86 / 0.78; trial-weighted 0.82.",
+        "the_number_to_quote": "On trials where the AI was engaged AND WRONG: 73.2% cognitive surrender (followed it), 19.7% cognitive offloading (overrode it and got the answer right), 7.1% failed overrides (resisted it and were still wrong). Incentives and feedback moved surrender down to 57.9%; time pressure cut offloading to 6.2%.",
+        "individual_differences": "Trust in AI predicted more surrender over offloading (OR = 4.36 [2.95, 6.46]). Need for Cognition (OR = 0.46) and fluid intelligence (OR = 0.37) predicted resistance. In Study 2, AI-Users and Independents did NOT differ in fluid IQ — the split is disposition, not ability.",
+        "limitations_verbatim_substance": [
+          "Controlled experimental environments: high internal validity, 'may limit generalizability to real-world settings'. They call for field experiments.",
+          "The CRT 'captures a specific form of cognition'; they call for probabilistic reasoning, everyday decision-making and moral judgment.",
+          "THE ONE THAT MATTERS FOR US: 'the current studies provide a snapshot of decision-making under a single set of exposures to System 3.' They explicitly call for longitudinal or adaptive paradigms and ask 'Does trust in System 3 grow or attenuate with experience? How do people learn to detect or correct faulty AI outputs over time?' They are not claiming the durable effect. Nobody in this literature is.",
+          "Other moderators and individual differences unexamined — cognitive load, accountability, age, gender, personality, neurotypicality, technological ability."
+        ],
+        "arithmetic_check": "359 + 485 + 450 = 1,294, against a synthesis N of 1,372. Footnote 1 explains it: the ancillary Study 1 online sample was included in the synthesis. 1,294 + 81 = 1,375, three more than reported — presumably exclusions, detailed in Web Appendix C, which we have not read. Checked because we hold others to it; it reconciles.",
+        "the_framing_question": "Tri-System Theory is a wrapper. The empirical results stand without it: people consulted the assistant, followed it four times in five even when it was wrong, and got more confident while doing so. The piece should report the experiments and mention the framing, not lead with System 3."
+      }
     },
     {
       "id": "S018",
@@ -508,6 +527,36 @@
         "note": "Read from arXiv's PDF."
       },
       "found_via": "Same search as S019."
+    },
+    {
+      "id": "S021",
+      "type": "primary",
+      "url": "https://doi.org/10.1016/S2468-1253(25)00133-5",
+      "pubmed": "40816301",
+      "title": "Budzyń, Romańczyk, Kitala, Kołodziej, Bugajski, Adami, Blom, Buszkiewicz, Halvorsen, Hassan, Romańczyk, Holme, Jarus, Fielding, Kunar, Pellisé, Pilonis, Kamiński, Kalager, Bretthauer & Mori (2025) — Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study. The Lancet Gastroenterology & Hepatology 10(10), 896-903.",
+      "also_called": [
+        "Budzyń",
+        "the colonoscopy study",
+        "the deskilling study",
+        "the endoscopy study"
+      ],
+      "used_for": "Four endoscopy centres in Poland; 19 endoscopists (16 gastroenterologists, 3 general surgeons) with a mean 28 years of experience; 1,443 colonoscopies performed WITHOUT AI — 795 before the centres adopted AI detection, 648 after. Adenoma detection rate in those unassisted procedures fell from 28.4% to 22.4%, a difference of -6.0 percentage points (95% CI -10.5 to -1.6, p = 0.009).",
+      "WHY_THIS_IS_THE_MOST_IMPORTANT_SOURCE_HERE": "It is the ONLY study in this entire body of evidence that measures real professional performance, unassisted, after sustained real-world exposure to AI — and it is peer reviewed, in a Lancet journal, with a clinical outcome that matters. We told the operator that the durable real-world question 'has no study behind it at all, on either side'. That was wrong, and this is the study.",
+      "peer_review": "YES. The Lancet Gastroenterology & Hepatology. Note that a preprint version also sits on SSRN (abstract_id 5070304), and the journal ran an accompanying comment, 'Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?' (S2468-1253(25)00164-5), plus later correspondence (S2468-1253(25)00290-0). Neither has been read.",
+      "limitations_that_must_travel_with_it": "OBSERVATIONAL, and the piece must say so as loudly as it says the result. Per the American College of Gastroenterology's appraisal: susceptible to confounding and selection bias; patient characteristics differed between periods (more women, less sedation after AI introduction), requiring adjustment that may leave residual bias; only 19 endoscopists, too few colonoscopies for a per-endoscopist analysis; the overall ADR of 25.7% is low against a US target of about 35%; and withdrawal time — which strongly affects detection — was not reported.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the ACG Evidence-Based GI appraisal, which reports the design, N, periods, the 28.4%/22.4% figures and the confidence interval, and the critical limitations"
+        ],
+        "not_read": [
+          "THE PAPER ITSELF. Everything above is from a secondary appraisal. The Lancet page and PubMed abstract were not machine-readable."
+        ],
+        "note": "BLOCKING. This is exactly the position we were in with the Norwegian audit at 6pm: a load-bearing claim resting on one secondary source. Nothing here may be printed until the paper is read."
+      },
+      "found_via": "Its own citation inside Shaw & Nave's reference list. It was not returned by any search we ran, including the working-paper sweep."
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

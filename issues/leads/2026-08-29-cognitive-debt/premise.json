@@ -88,18 +88,15 @@
   },
   "_reframed": "2026-08-29, after the operator asked where the general sense that AI lowers mental performance actually comes from. That question IS the piece. It has a traceable answer.",
   "_open_before_drafting": [
-    "READ Shaw & Nave in full. SSRN's PDF is not machine-reachable — the direct delivery URL 404s. This is the second document that needs a human, and it may be the spine of the piece.",
-    "Read Wu et al.'s reference list directly — our own eyes, not a summarising fetch — to settle whether the surviving meta-analysis includes any of the five worst studies from the retracted one. Currently a WEAK not-found.",
-    "READ Shaw & Nave in full (SSRN 6097646). We have the abstract only. It may be the spine of the piece and we have not opened it.",
-    "READ Wang & Zhang's instrument (IJETHE 10.1186/s41239-026-00585-x) — were offloading and transformative learning measured in the same questionnaire at the same wave? The mirror-image claim depends on it entirely.",
-    "S005, the Norwegian audit — human read. Request written.",
-    "Get the full text of Wu et al. (2026) and read the study table and outcome coding.",
-    "Confirm every Liu et al. figure against v4, not the v2 HTML we read.",
-    "Confirm Weidlich et al.'s percentages against the Wiley version, not the author's copy.",
-    "Verify the arXiv id for the MIT preprint and the URL for Gerlich. Both are still recorded from memory and one sibling was wrong when checked.",
+    "READ Budzyń et al. at source. Everything we have is from one secondary appraisal — the identical position we were in with the Norwegian audit, and the rule says nothing may be printed until the paper is read. Try the Warwick repository copy or the SSRN preprint (abstract_id 5070304) before asking for a human read.",
+    "Read the Lancet comment 'Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?' and the later correspondence. A peer-reviewed result with an accompanying comment and a correspondence thread has an argument around it we have not heard.",
+    "Read Wu et al.'s reference list with our own eyes, to settle the weak not-found on whether the surviving meta-analysis includes any of the five worst studies from the retracted one.",
+    "Read Wang & Zhang's instrument — were offloading and transformative learning measured in the same questionnaire at the same wave?",
+    "Confirm Liu et al.'s figures against v4 rather than the v2 HTML we read, and settle whether it was preregistered.",
+    "Verify the Gerlich URL, still recorded from memory.",
     "Read Deng et al. (2025) rather than reading about it through Weidlich.",
-    "Re-run the novelty hunt on the THREE-MECHANISM shape, and open every counterexample before letting it count.",
-    "Search SSRN, NBER, OSF/PsyArXiv and arXiv by name — the new standing rule — before deciding we know what the evidence is."
+    "Read the Stankovic Comment in full — we have only its five headings.",
+    "Re-run the counterexample hunter on the FOUR-MECHANISM shape and on our own claim that Wu et al.'s fail-safe N is inadequate, and open every counterexample before letting it count."
   ],
   "_reframed_again": "2026-08-29, second reframe, after testing the kill condition nobody had tested. The lineage framing — three weak studies propping up a belief — was incomplete and would have been unfair. Strong evidence exists on BOTH sides. It is simply not the evidence anyone cites.",
   "novelty_hunt": {
@@ -302,5 +299,19 @@
     "the_symmetry_worth_printing": "Both flagships have methodological critiques in public and neither critique has reached a general reader. Weidlich et al. on the optimistic side, in a journal. Stankovic et al. on the pessimistic side, on arXiv. A person reading about this in Forbes or EDUCAUSE has met neither.",
     "the_sentence_the_piece_is_for": "The argument about whether AI is making us stupider is being conducted almost entirely in studies that measure how people feel, or how they perform with the machine still in front of them. Two studies measure what you can do after it is taken away. Both are preprints, and both measure minutes.",
     "why_this_is_the_right_piece": "It is not a debunking and not a vindication, so it cannot be accused of either. It gives the reader with a decision a test they can apply themselves to the next study they see — was the tool there when they measured, and did anyone ask the person or watch them? And it makes 'what would settle it' inevitable rather than tacked on."
+  },
+  "the_shape_after_reading_shaw_and_nave": {
+    "_when": "2026-08-29, late. Fourth reframe, and this one completes the piece rather than replacing it.",
+    "CORRECTION_TO_WHAT_WE_TOLD_THE_OPERATOR": "We said twice that the question people actually ask — does this change how well you think, over months, in real life — 'has no study behind it at all, on either side'. That was wrong. Budzyń et al., in The Lancet Gastroenterology & Hepatology, measured adenoma detection in 1,443 UNASSISTED colonoscopies by 19 experienced endoscopists across four Polish centres, before and after those centres adopted AI detection. It fell from 28.4% to 22.4%, -6.0 points (95% CI -10.5 to -1.6). It is observational and confounded and must be reported as such. It is also peer reviewed, real-world, longitudinal in effect, and about a task where the answer matters. We found it in Shaw & Nave's reference list, not in any search we ran.",
+    "the_four_things_being_measured": {
+      "1_withdrawal_minutes": "Liu et al. Three problems, immediately, after a fifteen-minute session. d = -0.42, -0.19, -0.42. Causal, replicated, preprint.",
+      "2_deference_within_session": "Shaw & Nave. Preregistered, 1,372 people, 9,593 trials. Followed faulty AI on four of five engaged trials; 73.2% of engaged-and-wrong trials were surrender; confidence rose 11.7 points while half the answers were wrong AND DID NOT FALL as errors accumulated. Working paper.",
+      "3_instruction_within_a_course": "The meta-analyses. Most-cited one retracted; the next audited to four of nineteen comparisons meeting three basic criteria; the survivor's bias check is a funnel plot read by eye. Peer reviewed, and that is the problem rather than the reassurance.",
+      "4_deskilling_over_months": "Budzyń et al. Experienced doctors, real patients, unassisted procedures, six points of detection lost. Peer reviewed, observational, confounded, 19 endoscopists."
+    },
+    "and_the_pile_that_measures_none_of_it": "Gerlich, Wang & Zhang, Georgiou — self-report outcomes, cited in both directions with equal confidence. Georgiou is randomised and still measures only how forty people rated their own mental effort.",
+    "the_piece": "Four different things are being measured and reported as one. The public argument cites the weakest study from each camp. The strongest evidence describes mechanisms almost nobody is arguing about — that you take the machine's answer four times in five when it is wrong, and feel more certain for having asked; and that experienced professionals lost six points of detection on the unassisted task after their hospitals installed the tool. Neither of those is 'AI is making you stupid', and neither is 'AI helps you learn'.",
+    "what_the_reader_gets": "A test they can apply to the next study they meet. Was the tool there when they measured? Did anyone watch the person, or only ask them? How long after? And an honest answer to the question they came with: the best evidence that AI use degrades a real skill in the real world is one observational study of nineteen endoscopists, and the best evidence that it helps you learn is a literature whose flagship was retracted. Nobody has run the trial that would settle it. Shaw & Nave say so themselves — 'a snapshot of decision-making under a single set of exposures' — and ask for the longitudinal work in their own limitations.",
+    "direction": "Still narrows. A real, causal, professionally consequential core survives; the sweeping version does not."
   }
 }
