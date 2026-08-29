@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>org.whatholdsup.leadscan</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/fredugast/Desktop/AI Projects/Parity Medical/parity-poc-repo/backend/scripts/whatholdsup/schedule/run_scan.sh</string>
+  </array>
+
+  <!-- Mondays at 09:00 local. launchd runs it at the next opportunity if the
+       machine was asleep, which is the behaviour we want: a missed scan is
+       worse than a late one. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>1</integer>
+    <key>Hour</key><integer>9</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/whatholdsup-leadscan.out</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/whatholdsup-leadscan.err</string>
+</dict>
+</plist>
