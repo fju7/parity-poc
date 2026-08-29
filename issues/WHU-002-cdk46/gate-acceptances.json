@@ -182,6 +182,55 @@
         "c32",
         "c33"
       ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "746e4bf3ab977ae8096949efb057f8f1dd4140a00ae7db6841a9f7494beac4f4",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T14:21:29+00:00",
+      "by": "claude",
+      "reason": "Re-accepted on the sha carrying the GATE-06 fixes (1.015 at the hinge, Jacot et al. cited). Dispositions unchanged and recorded in review/2026-08-29-post-publication-adjudication.md.",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "7c9ca64ad9e68dc0a4761690104be46b1e0ba468a2be55f318c7378720fc8ad9",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T14:22:09+00:00",
+      "by": "claude",
+      "reason": "Re-accepted on the sha carrying the GATE-06 fixes. Dispositions unchanged, in review/2026-08-29-post-publication-adjudication.md.",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
+    },
+    {
+      "file": "issue2-cdk46.html",
+      "sha": "f4fa716462ff6cd7140f3c070fdde058979849f9b8f57964cc2c6ee40b933452",
+      "gate_report_sha": "1fb1d8185ce341d4f262d92ed91857d96c1726da603374e6ba985fdd00b3cee3",
+      "gate_checked_at": "2026-08-28",
+      "at": "2026-08-29T14:22:15+00:00",
+      "by": "claude",
+      "reason": "GATE-06 (29 August) supersedes the 28 August run and is adjudicated in draft_decisions.json and review/2026-08-29-post-publication-adjudication.md. The 1.015 rounding, the 0.64-1.02 interval, and 'nowhere near the no-effect line' are all UPHELD and fixed -- the first two after seven prior dismissals. Jacot 2018 is now cited. The coverage-universality objection is rejected with reasons. c16 is confirmed by guideline language the operator read directly; c35 is superseded by the fix just made to that sentence.",
+      "findings_in_that_run": 5,
+      "verified_gone": 3,
+      "accepted_despite": [
+        "c16",
+        "c35"
+      ]
     }
   ]
 }

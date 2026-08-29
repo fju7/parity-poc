@@ -110,3 +110,37 @@ interpretive note, in the definitions, the principles section, the discussion or
 any footnote. That absence is now on the page. It is not a fault — a reference
 document is not a reading primer — but it is the answer to why this misreading
 is so easy, and it is the closest thing this assessment has to a finding.
+
+## 29 August 2026 — a figure we had defended seven times, and a citation we owed
+
+**The interval stopped at 1.015, not 1.02.** MONARCH 3's published overall-survival
+interval is 0.637–1.015. This page rounds to two decimal places throughout, and
+1.015 does round to 1.02, so the figure was not wrong. What was wrong is that the
+one sentence the whole argument turns on — where that upper bound landed —
+presented the rounded number as the precise stopping point. The rounding was also
+asymmetric: 0.804 down to 0.80, 1.015 up to 1.02, which widens the apparent gap in
+the direction that suits the argument. The hinge sentence and the email now print
+the published bound, and the distance it describes is eight and a half hundredths
+rather than nine.
+
+A fact-check run raised this eight times. We dismissed it seven, each time faster
+than the last, and recorded the dismissal in a file whose purpose is to stop a
+known over-firing check from wasting attention. That record then became the reason
+for every dismissal after it. Nothing in the process distinguished "we considered
+this and it is fine" from "we stopped reading it," and the second is what a seventh
+identical dismissal actually was.
+
+**The power argument was not ours.** This page argues that MONARCH 3's wider
+interval reflects what that trial was powered to detect rather than a property of
+the drug. Jacot and colleagues made that argument formally in *npj Breast Cancer*
+in 2018, before any of these trials had mature survival data, and reached the same
+conclusion: that divergent significance across the three might reflect chance
+rather than different drug efficacy. We found their paper through a fact-check run
+on this page, after making the argument. It is now cited by name, and the fact that
+we came to it late is on the page rather than in this file alone.
+
+**One toxicity figure was rounded the unflattering way.** "Grade 3 or worse
+neutropenia in two thirds" is 66.7%; the label says 66%. It was also the only
+figure in that sentence with no source attached, while the abemaciclib figure
+beside it was attributed to the label. Both fixed.
+

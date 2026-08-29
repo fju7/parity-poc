@@ -193,3 +193,55 @@ combinations showed an overall survival benefit in MONALEESA-3 and MONARCH 2.
 rather than a sentence from the draft, so it cannot be matched against the text
 and its absence proves nothing either way. **Accepted as unlocatable**, and
 recorded as an instance of the extractor paraphrasing where it should quote.
+
+---
+
+## GATE-06 — the email gate run of 29 August
+
+One run, $4.60, on the rewritten email. Six findings adjudicated in
+`backend/tests/fixtures/draft_decisions.json`. Two changed the page and the
+email; one is rejected with reasons; three are recorded without change.
+
+**Upheld, after seven dismissals.** The role objected that MONARCH 3's published
+upper bound is 1.015 and the piece prints 1.02. That is correct rounding, which
+is why it was dismissed as an over-fire seven consecutive times and recorded in
+the fixture as `RECALL_BRIEF_OVERFIRED_A_NEW_CLASS`. The dismissals were wrong.
+The sentence presents the number as the precise place the interval stopped, in
+the one piece whose argument is about exactly that, and the rounding runs in
+opposite directions on the two figures — 0.804 down, 1.015 up — which widens the
+apparent gap the way that suits us. Fixed at the hinge in both the page and the
+email. Recorded as a new class, `DISMISSAL_HARDENED_INTO_A_HABIT`, with a
+standing rule: a finding dismissed three times on the same reasoning gets read
+again by someone who did not write the earlier dismissals.
+
+**Upheld, and the most useful thing in the run.** The COVERAGE role found Jacot
+et al., *npj Breast Cancer* 2018, which makes this page's power argument
+formally and six years earlier. We had presented it as our own analysis. Now
+cited by name, with the fact that we came to it late stated on the page.
+
+**Rejected, with reasons.** The role objected that our claim about missed
+coverage is unsupportable, citing OncLive and Pharmacy Times as outlets that did
+carry the two-system distinction. The objection answers a claim we do not make:
+the sentence is about this page's omission, not about the coverage. It is
+nonetheless useful, and it bears on the premise gate — if the distinction was
+carried in clinical coverage, the case that this was a widely-missed fact is
+weaker than the piece implies, and issue two's `premise.json` already records
+that no public claim was ever identified. Worth noting that the role contradicted
+itself inside a single run: its closing section states that no coverage explains
+the two-system distinction, while its own evidence names two outlets that do.
+Neither half is adopted. Both are claims about documents nobody here has opened.
+
+**Recorded without change.** The PALMARES-2 interval objection is already
+disposed of on the page, which names both the conference figure (0.91,
+0.70–1.19) and the published one, and says which it uses — the role reached the
+abstract and not the paywalled paper, exactly the case the disclosure was
+written for. The CivicScale funding claim is unverifiable externally because it
+is a statement by the publisher about the publisher, of the same kind as the
+pre-publication access disclosure beside it.
+
+**On the two runs.** The gate ran twice on nearly identical text and returned
+materially different severities: run one put three SERIOUS findings in
+INFERENCE and none in ADVOCATE; run two put zero in INFERENCE and two in
+ADVOCATE, on the same underlying fact. Same file, same model, same day. That
+instability is the argument for the deterministic checks, which returned
+identical output both times because they contain no model.

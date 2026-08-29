@@ -1,10 +1,10 @@
 {
-  "what_this_is": "Findings the fact-check gate has raised that a human has read and decided to accept. It exists because the gate is a nondeterministic model reading a long document: it will never return zero twice running, so a repeat run repeats itself, and without this record those repeats are indistinguishable in the output from genuinely new problems. Across three passes of issue one the unverified-claim count went 7, 6, 13 \u2014 the rise almost entirely claims added while fixing earlier findings. A decision here is keyed on the QUOTE: change the sentence and the decision stops applying, which is right, because it was a decision about that sentence.",
-  "how_to_use_it": "Accept a finding only after reading it. Write why in terms someone else could disagree with. If the gate later reports the same quote at a different severity the run is STALE and blocks \u2014 a judgment accepted as MINOR is not thereby accepted as SERIOUS.",
+  "what_this_is": "Findings the fact-check gate has raised that a human has read and decided to accept. It exists because the gate is a nondeterministic model reading a long document: it will never return zero twice running, so a repeat run repeats itself, and without this record those repeats are indistinguishable in the output from genuinely new problems. Across three passes of issue one the unverified-claim count went 7, 6, 13 — the rise almost entirely claims added while fixing earlier findings. A decision here is keyed on the QUOTE: change the sentence and the decision stops applying, which is right, because it was a decision about that sentence.",
+  "how_to_use_it": "Accept a finding only after reading it. Write why in terms someone else could disagree with. If the gate later reports the same quote at a different severity the run is STALE and blocks — a judgment accepted as MINOR is not thereby accepted as SERIOUS.",
   "publication_criterion": [
     "No finding of class FACT, CONTRADICTION or THIRD_PARTY that is an actual error, as opposed to a judgment recorded here.",
     "Every CALIBRATION finding read once. Fix what you agree with; publish either way.",
-    "No claim added in this pass that is not itself verified \u2014 this is the rule that would have prevented most of pass three."
+    "No claim added in this pass that is not itself verified — this is the rule that would have prevented most of pass three."
   ],
   "decisions": [
     {
@@ -30,7 +30,7 @@
     {
       "draft": "site/whatholdsup/melanoma.html",
       "role": "ADVOCATE",
-      "quote": "Merck's own description of the Phase 3 defines its primary endpoint as recurrence \u201cas assessed by the investigator\u201d rather than by central adjudication.",
+      "quote": "Merck's own description of the Phase 3 defines its primary endpoint as recurrence “as assessed by the investigator” rather than by central adjudication.",
       "severity": "MINOR",
       "decision": "accept",
       "decided": "2026-08-27",
@@ -346,7 +346,7 @@
     {
       "draft": "site/whatholdsup/melanoma.html",
       "role": "SOURCE",
-      "quote": "Practical Dermatology listed what was missing \u2014 hazard ratios, absolute event rates, p-values \u2014 and said so twice.",
+      "quote": "Practical Dermatology listed what was missing — hazard ratios, absolute event rates, p-values — and said so twice.",
       "severity": "WRONG_VALUE",
       "decision": "accept in part - the count goes",
       "decided": "2026-08-28",
@@ -454,7 +454,7 @@
       "draft": "site/whatholdsup/melanoma.html",
       "role": "SOURCE",
       "severity": "SERIOUS",
-      "quote": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing from the Phase 3 announcement \u2014 hazard ratios, absolute event rates, p-values.",
+      "quote": "Practical Dermatology, Pharmacy Times and MLQ News each listed what was missing from the Phase 3 announcement — hazard ratios, absolute event rates, p-values.",
       "decision": "accept - the claim overstated what two of the three said",
       "reason": "The role read them: only MLQ News enumerated those metrics. The sentence now attributes to each outlet only what it verifiably said, and drops the two that did not say it. This was the same class of error the piece retracts two paragraphs later.",
       "what_would_change_it": "Nothing; the sentence has been narrowed to what was checked.",
@@ -523,12 +523,12 @@
     {
       "draft": "site/whatholdsup/cdk46.html",
       "role": "SOURCE",
-      "quote": "HR 0.96 (0.78\u20131.18)",
+      "quote": "HR 0.96 (0.78–1.18)",
       "severity": "WRONG_VALUE",
       "decision": "decline",
       "decided": "2026-08-28",
-      "reason": "The role's own evidence is the JCO paper's 0.956 (0.777\u20131.177), and it calls our 0.96 (0.78\u20131.18) wrong because those rounded figures 'appear in secondary reporting only'. Rounding a hazard ratio and its interval to two decimals is the ordinary convention of the field and does not make a secondary source the origin of the figure. The page cites the JCO paper and the sources list gives the unrounded values.",
-      "what_would_change_it": "If a rounded bound ever crossed a decision line the unrounded one did not \u2014 an interval printed as clearing 1.0 that does not clear it."
+      "reason": "The role's own evidence is the JCO paper's 0.956 (0.777–1.177), and it calls our 0.96 (0.78–1.18) wrong because those rounded figures 'appear in secondary reporting only'. Rounding a hazard ratio and its interval to two decimals is the ordinary convention of the field and does not make a secondary source the origin of the figure. The page cites the JCO paper and the sources list gives the unrounded values.",
+      "what_would_change_it": "If a rounded bound ever crossed a decision line the unrounded one did not — an interval printed as clearing 1.0 that does not clear it."
     },
     {
       "draft": "site/whatholdsup/cdk46.html",
@@ -543,11 +543,11 @@
     {
       "draft": "site/whatholdsup/cdk46.html",
       "role": "SOURCE",
-      "quote": "HR 0.80 (0.64\u20131.02)",
+      "quote": "HR 0.80 (0.64–1.02)",
       "severity": "WRONG_VALUE",
       "decision": "decline",
       "decided": "2026-08-28",
-      "reason": "Instrument defect, not a draft problem. The role's own note works through the arithmetic, concludes 'both rounded values are consistent with the source values', writes 'Revising to VERIFIED' \u2014 and then emits WRONG_VALUE anyway. This is the second recorded occurrence of VERDICT_CONTRADICTS_ITS_OWN_NOTE.",
+      "reason": "Instrument defect, not a draft problem. The role's own note works through the arithmetic, concludes 'both rounded values are consistent with the source values', writes 'Revising to VERIFIED' — and then emits WRONG_VALUE anyway. This is the second recorded occurrence of VERDICT_CONTRADICTS_ITS_OWN_NOTE.",
       "what_would_change_it": "Nothing about the draft. The verdict field has to follow the note."
     },
     {
@@ -563,11 +563,11 @@
     {
       "draft": "site/whatholdsup/cdk46.html",
       "role": "ADVOCATE",
-      "quote": "HR 0.54 (0.41\u20130.72)",
+      "quote": "HR 0.54 (0.41–0.72)",
       "severity": "SERIOUS",
       "decision": "decline",
       "decided": "2026-08-28",
-      "reason": "The finding compares the cell against MONARCH 3's FINAL PFS analysis, 0.540 (0.418\u20130.698). The cell is labelled 'primary analysis, JCO 2017' and JCO 2017 prints 'hazard ratio, 0.54; 95% CI, 0.41 to 0.72; P = .000021' verbatim. Fifth recorded occurrence of WRONG_READOUT_COMPARISON, and the first in which the draft had already named the readout in the cell the role was checking.",
+      "reason": "The finding compares the cell against MONARCH 3's FINAL PFS analysis, 0.540 (0.418–0.698). The cell is labelled 'primary analysis, JCO 2017' and JCO 2017 prints 'hazard ratio, 0.54; 95% CI, 0.41 to 0.72; P = .000021' verbatim. Fifth recorded occurrence of WRONG_READOUT_COMPARISON, and the first in which the draft had already named the readout in the cell the role was checking.",
       "what_would_change_it": "If the page ever prints that interval without naming the analysis, or pairs it with a figure from a different readout of the same trial."
     },
     {
@@ -583,7 +583,7 @@
     {
       "draft": "site/whatholdsup/cdk46.html",
       "role": "SOURCE",
-      "quote": "66.8 vs 53.7 mo HR 0.80 (0.64\u20131.02)",
+      "quote": "66.8 vs 53.7 mo HR 0.80 (0.64–1.02)",
       "severity": "WRONG_VALUE",
       "decision": "decline",
       "decided": "2026-08-28",
@@ -723,7 +723,7 @@
     {
       "draft": "site/whatholdsup/cdk46.html",
       "role": "SOURCE",
-      "quote": "On the rounded published bounds, 96.7% of ribociclib's overall survival interval lies inside abemaciclib's interval (0.29 \u00f7 0.30).",
+      "quote": "On the rounded published bounds, 96.7% of ribociclib's overall survival interval lies inside abemaciclib's interval (0.29 ÷ 0.30).",
       "severity": "NOT_FOUND",
       "decision": "accept-and-fixed",
       "decided": "2026-08-29",
@@ -743,12 +743,75 @@
     {
       "draft": "site/whatholdsup/cdk46.html",
       "role": "SOURCE",
-      "quote": "The network meta-analysis's Table 1 lists MONARCH 3 at HR 0.804 (0.637\u20131.015) with 97.2 months of follow-up, citing the SABCS 2023 final overall-survi",
+      "quote": "The network meta-analysis's Table 1 lists MONARCH 3 at HR 0.804 (0.637–1.015) with 97.2 months of follow-up, citing the SABCS 2023 final overall-survi",
       "severity": "NOT_FOUND",
       "decision": "accept-and-fixed",
       "decided": "2026-08-29",
       "reason": "The role verified the HR and CI and the SABCS 2023 citation but could not confirm from the table that 97.2 months is MONARCH 3's own follow-up rather than the range maximum across all seven trials. Neither could we: our source for that attribution was a fetcher's summary, not a quote from the table. Under the rule adopted today -- no claim about a third party's document without opening it -- the attribution is removed. The page now gives what is quoted: the HR, the CI, the 'year of updated data 2023', the SABCS reference, and separately the pooled 73.3-month median over a 48.7-97.2 range, which the paper states in its own text.",
       "what_would_change_it": "A direct reading of the network meta-analysis's Table 1."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue2-cdk46.html",
+      "role": "ADVOCATE",
+      "quote": "One interval stopped at 0.93. The other stopped at 1.02.",
+      "severity": "SERIOUS",
+      "decision": "accept-and-fixed",
+      "decided": "2026-08-29",
+      "reason": "UPHELD ON THE EIGHTH FIRING. This class -- 1.015 printed as 1.02 -- was dismissed as an over-fire seven consecutive times and recorded in the fixture as RECALL_BRIEF_OVERFIRED_A_NEW_CLASS. The dismissals were wrong, and the role's argument got sharper each run until it was right. The rounding is correct: 1.015 does round to 1.02. The error is that this sentence presents the number as the precise place the interval stopped, in the one piece whose entire argument is about where that bound landed -- and the rounding is asymmetric, 0.804 down to 0.80 and 1.015 up to 1.02, which widens the apparent gap in the direction that flatters the argument. Both the page and the email now print 1.015 at the hinge, and the page says in the same breath that a gate run made this objection eight times before we took it. Worth recording as a class in its own right: a check dismissed repeatedly on the same reasoning deserves re-reading, not a faster dismissal."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue2-cdk46.html",
+      "role": "SOURCE",
+      "quote": "0.91 on 0.73 to 1.14",
+      "severity": "WRONG_VALUE",
+      "decision": "accept-and-recorded",
+      "decided": "2026-08-29",
+      "reason": "Already disposed of on the page, and the finding is evidence the disclosure works. The role reached the ASCO 2024 conference abstract, which gives 0.91 (0.70-1.19), and not the published Annals paper, which is paywalled. The page's PALMARES-2 source entry already carries: 'the ASCO 2024 conference presentation of the same study gave 0.91 (0.70-1.19) for abemaciclib versus ribociclib; the figures above are the published paper's.' No change. The underlying uncertainty is real and is recorded in the ledger, where S011's access state and what we could not open are on file."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue2-cdk46.html",
+      "role": "COVERAGE",
+      "quote": "The page reported the category difference, asked what a reader should make of it, and never mentioned that the guideline had already answered the question elsewhere in the same document.",
+      "severity": "SERIOUS",
+      "decision": "reject",
+      "decided": "2026-08-29",
+      "reason": "Rejected as stated, because it answers a claim the email does not make. The sentence is about THIS PAGE's omission, not about the coverage. We have never claimed that all coverage missed the two-system distinction, and after this finding we will not: the role cites OncLive and Pharmacy Times as having carried it. Note the role contradicted itself inside one run -- its closing section says 'no coverage found ... explicitly explains that NCCN operates two separate classification systems' while its own evidence names two outlets that did. Neither half is adopted: both are claims about documents nobody here has opened."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue2-cdk46.html",
+      "role": "COVERAGE",
+      "quote": "The grade turns instead on overall survival, and the three trials did not design that analysis the same way.",
+      "severity": "MINOR",
+      "decision": "accept-and-fixed",
+      "decided": "2026-08-29",
+      "reason": "A real attribution gap and the most useful finding of the run. Jacot et al., npj Breast Cancer 2018, made the power argument formally six years before this page made it -- that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference, and that divergent significance might reflect chance rather than different drug efficacy. We reached it through this gate run, after making the argument ourselves. Now cited by name on the page and in the email, with the fact that we found it late stated plainly."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue2-cdk46.html",
+      "role": "ADVOCATE",
+      "quote": "Palbociclib causes grade 3 or worse neutropenia in two thirds.",
+      "severity": "MINOR",
+      "decision": "accept-and-fixed",
+      "decided": "2026-08-29",
+      "reason": "Accepted. 'Two thirds' is 66.7% and the label figure is 66%, so the phrasing rounds a toxicity figure up, in the direction that makes the drug look worse -- and it was the one figure in that sentence with no source attached while the abemaciclib figure beside it was attributed to the label. Now '66% of PALOMA-2 patients, per the label'."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue2-cdk46.html",
+      "role": "SOURCE",
+      "quote": "no outside investment",
+      "severity": "NOT_FOUND",
+      "decision": "accept-and-recorded",
+      "decided": "2026-08-29",
+      "reason": "Not verifiable externally and correctly flagged. It is a statement by the publisher about the publisher, of the same kind as 'neither Novartis nor Eli Lilly nor Pfizer saw this before publication'. The gate lists both under internal claims. No external source can confirm either; the operator is the source and the who-pays-for-this page is where the commitment lives."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue2-cdk46.html",
+      "role": "SOURCE",
+      "quote": "PALMARES-2 found abemaciclib and ribociclib each ahead of palbociclib on progression-free survival on intervals nowhere near the no-effect line.",
+      "severity": "WRONG_SOURCE",
+      "decision": "accept-and-fixed",
+      "decided": "2026-08-29",
+      "reason": "Accepted under the rule adopted an hour earlier. The directional finding is verified, but 'nowhere near the no-effect line' overstates it for ribociclib, whose upper bound of 0.95 sits 0.05 from 1.00. This is the same class as the 1.015 finding -- an overstatement running in the direction that suits the argument -- and it would have been dismissed as a quibble on any day before we recorded DISMISSAL_HARDENED_INTO_A_HABIT. Both bounds are now named: abemaciclib's clears by 0.08 and ribociclib's by 0.05, 'significant but not comfortably so'. Fixed on the page and in both halves of the email."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

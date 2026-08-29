@@ -55,11 +55,11 @@ every figure falls between 0.52 and 0.58.
 The grade turns instead on overall survival, and the three trials
 did not design that analysis the same way.
 
-  Abemaciclib's hazard ratio for death is 0.80, on an interval
-  running 0.64 to 1.02. Ribociclib's is 0.76, on 0.63 to 0.93.
+  Abemaciclib's hazard ratio for death is 0.804, on an interval
+  running 0.637 to 1.015. Ribociclib's is 0.76, on 0.63 to 0.93.
   The point estimates are four hundredths apart.
 
-  One interval stopped at 0.93 and the other at 1.02. That is
+  One interval stopped at 0.93 and the other at 1.015. That is
   the difference between a significant result and a
   non-significant one, and it is what separates the two
   evidence grades.
@@ -69,7 +69,9 @@ piece does not claim they do. Nor does the guideline claim the drugs
 differ. What the category difference rests on is where one interval
 stopped, and the assessment shows the arithmetic in full - including
 that the width of abemaciclib's interval is itself a consequence of
-what that trial was powered to detect.
+what that trial was powered to detect - a point Jacot and colleagues
+made formally in npj Breast Cancer in 2018, before any of these trials
+had mature survival data.
 
 Palbociclib is a different case, and the difference is real. A
 hazard ratio of 0.96 on an interval from 0.78 to 1.18 is not a near
@@ -112,8 +114,9 @@ On palbociclib they contradict each other. P-VERIFY reported
 survival and progression in two separate papers from the same
 cohort, and neither found any separation. PALMARES-2 finds
 abemaciclib and ribociclib each ahead of palbociclib on
-progression-free survival, on intervals nowhere near the no-effect
-line. The full assessment reports that conflict rather than
+progression-free survival, on intervals that exclude the no-effect line -
+abemaciclib's by 0.08 and ribociclib's by 0.05, which is significant
+but not comfortably so. The full assessment reports that conflict rather than
 resolving it, and records one fact a reader weighing the two is
 entitled to have: P-VERIFY's full name is the Palbociclib Verifying
 Evidence of Real-world Impact study, and its own poster states that
@@ -138,7 +141,8 @@ The assessment also sets out what each drug actually costs a
 patient, from the labels. Ribociclib requires cardiac monitoring.
 Abemaciclib carries a labelled thrombosis warning and causes
 diarrhoea in 81 to 90 percent of patients. Palbociclib causes
-grade 3 or worse neutropenia in two thirds. Three different
+grade 3 or worse neutropenia in 66% of PALOMA-2 patients, per the
+label. Three different
 burdens, and none of them is what the category measures.
 
 And it records what we tested and could not stand up: three

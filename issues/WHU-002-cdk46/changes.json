@@ -1153,6 +1153,78 @@
       "now": "The page uses the publication's figure, as it does throughout, and the difference is one of rounding rather than of data.",
       "because": "S001-07",
       "note": "S001-07: the guideline prints a different rounding of MONALEESA-2's PFS than the publication the page cites — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T14:21:06+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "(0.637 and 1.015 are abemaciclib's bounds throughout; ribociclib's are 0.63 and 0.93.) One interval stopped at 0.93 and the other at 1.02, and that is the whole of it: ribociclib's result reached statistical significance (two-sided p = 0.008) and abemaciclib's did not (P = .0664, against its own boundary of .034).",
+      "now": "(0.637 and 1.015 are abemaciclib's bounds throughout; ribociclib's are 0.63 and 0.93.) One interval stopped at 0.93 and the other at 1.015 , and that is the whole of it: ribociclib's result reached statistical significance (p = 0.008) and abemaciclib's did not (P = .0664, against its own boundary of .034).",
+      "because": "GATE-06",
+      "note": "1.015 at the hinge: the published bound, after the same finding was dismissed seven times as a rounding over-fire and upheld on the eighth"
+    },
+    {
+      "at": "2026-08-29T14:21:06+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What separates a category 1 from a category 2A here is nine hundredths in where an upper bound landed, on point estimates four hundredths apart.",
+      "now": "What separates a category 1 from a category 2A here is eight and a half hundredths in where an upper bound landed, on point estimates four hundredths apart.",
+      "because": "GATE-06",
+      "note": "1.015 at the hinge: the published bound, after the same finding was dismissed seven times as a rounding over-fire and upheld on the eighth"
+    },
+    {
+      "at": "2026-08-29T14:21:06+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Those are the published bounds, 0.93 and 1.015.",
+      "because": "GATE-06",
+      "note": "1.015 at the hinge: the published bound, after the same finding was dismissed seven times as a rounding over-fire and upheld on the eighth"
+    },
+    {
+      "at": "2026-08-29T14:21:06+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page rounds to two decimal places elsewhere and prints 1.02, which is correct rounding; here, where the whole argument is about where a bound landed, the rounded figure was doing work the published one should do.",
+      "because": "GATE-06",
+      "note": "1.015 at the hinge: the published bound, after the same finding was dismissed seven times as a rounding over-fire and upheld on the eighth"
+    },
+    {
+      "at": "2026-08-29T14:21:06+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A gate run made that objection eight times before we accepted it.",
+      "because": "GATE-06",
+      "note": "1.015 at the hinge: the published bound, after the same finding was dismissed seven times as a rounding over-fire and upheld on the eighth"
+    },
+    {
+      "at": "2026-08-29T14:21:06+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Nor is this observation ours: Jacot and colleagues made it formally in npj Breast Cancer in 2018 , before any of these trials had mature survival data, arguing that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference and that divergent significance across the three might reflect chance rather than different drug efficacy.",
+      "because": "GATE-06",
+      "note": "the power argument was made in print in 2018 by Jacot et al.; found by a gate run after we had made it ourselves, and now cited"
+    },
+    {
+      "at": "2026-08-29T14:21:06+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We found that paper through a fact-check run on this page, after making the argument, and it belongs here with their names on it.",
+      "because": "GATE-06",
+      "note": "1.015 at the hinge: the published bound, after the same finding was dismissed seven times as a rounding over-fire and upheld on the eighth"
+    },
+    {
+      "at": "2026-08-29T14:22:08+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The smaller one finds palbociclib behind on progression, on intervals nowhere near the no-effect line, and reports an exploratory survival result pointing the same way on data its own authors call immature.",
+      "now": "The smaller one finds palbociclib behind on progression, on intervals that exclude the no-effect line - abemaciclib's by 0.08 and ribociclib's by 0.05, which is significant but not comfortably so, and reports an exploratory survival result pointing the same way on data its own authors call immature.",
+      "because": "GATE-06",
+      "note": "'nowhere near the no-effect line' overstated ribociclib's margin, which is 0.05; both margins now named"
     }
   ]
 }
