@@ -1,0 +1,120 @@
+{
+  "what_this_is": "Decisions to proceed on a gate run that judged an earlier version of the file, taken only where every blocking finding from that run was verified absent from the current text. Bound to the content hash, so the next edit voids the acceptance.",
+  "acceptances": [
+    {
+      "file": "cdk46.html",
+      "sha": "40c563250a07da92a5586db6e00ecfcc05ddc3ce0b30e6ff0809cb2c1f865ff6",
+      "gate_report_sha": "9db69f876ef81dc0df5f6a38b6d7531b81167f6d595cda6df6ed8514db64b2e9",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T01:08:22+00:00",
+      "by": "Claude (gate reconciliation)",
+      "reason": "6 finding(s) from the 2026-08-29 run: 3 verified gone from the text, 1 already decided in draft_decisions.json; c2, c62 accepted past",
+      "findings_in_that_run": 6,
+      "verified_gone": 3,
+      "accepted_despite": [
+        "c2",
+        "c62"
+      ]
+    },
+    {
+      "file": "issue2-cdk46.html",
+      "sha": "05ef5a651cb7c7f026c9b96a7caf3e1103bbbf6161e972a44680440eac5bd0cd",
+      "gate_report_sha": "1fb1d8185ce341d4f262d92ed91857d96c1726da603374e6ba985fdd00b3cee3",
+      "gate_checked_at": "2026-08-28",
+      "at": "2026-08-29T01:08:36+00:00",
+      "by": "Claude (gate reconciliation)",
+      "reason": "5 finding(s) from the 2026-08-28 run: 2 verified gone from the text, 0 already decided in draft_decisions.json; c16, c35, o1 accepted past",
+      "findings_in_that_run": 5,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c16",
+        "c35",
+        "o1"
+      ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "dc102436a1c9f8d760165c80d7593b8d02fa71e68e27313ab2dd152df45be80f",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T02:09:00+00:00",
+      "by": "Claude (post-review reconciliation)",
+      "reason": "7 finding(s) from the 2026-08-29 run: 2 verified gone from the text, 1 already decided in draft_decisions.json; c2, c31, c32, c33 accepted past",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
+    },
+    {
+      "file": "issue2-cdk46.html",
+      "sha": "4639055f6177aeb38d86053550ef96f12cc536c6b38a926843bf8efc6dc223a1",
+      "gate_report_sha": "1fb1d8185ce341d4f262d92ed91857d96c1726da603374e6ba985fdd00b3cee3",
+      "gate_checked_at": "2026-08-28",
+      "at": "2026-08-29T02:09:34+00:00",
+      "by": "Claude (post-review reconciliation)",
+      "reason": "5 finding(s) from the 2026-08-28 run: 2 verified gone from the text, 0 already decided in draft_decisions.json; c16, c35, o1 accepted past",
+      "findings_in_that_run": 5,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c16",
+        "c35",
+        "o1"
+      ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "a24e65364e44f8ec21f474c43dbec10df4ab1899e525096001756e706764f8c8",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T02:13:30+00:00",
+      "by": "Claude (post-review reconciliation)",
+      "reason": "7 finding(s) from the 2026-08-29 run: 2 verified gone from the text, 1 already decided in draft_decisions.json; c2, c31, c32, c33 accepted past",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "3ca22e72fe461feaba6c0c94c667cd3ee0e2264b5064de1d6e0f6d41cc2ce979",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T02:16:14+00:00",
+      "by": "Claude (post-review reconciliation)",
+      "reason": "7 finding(s) from the 2026-08-29 run: 2 verified gone from the text, 1 already decided in draft_decisions.json; c2, c31, c32, c33 accepted past",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "3ca22e72fe461feaba6c0c94c667cd3ee0e2264b5064de1d6e0f6d41cc2ce979",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T02:17:00+00:00",
+      "by": "Claude (post-review reconciliation)",
+      "reason": "7 finding(s) from the 2026-08-29 run: 2 verified gone from the text, 1 already decided in draft_decisions.json; c2, c31, c32, c33 accepted past",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
+    }
+  ]
+}

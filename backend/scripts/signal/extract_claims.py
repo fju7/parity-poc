@@ -27,7 +27,7 @@ import os
 import re
 import sys
 import time
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 # Add backend/ to sys.path so we can import supabase_client
@@ -39,6 +39,12 @@ from topic_config import get_topic
 # Configured in signal_model so pinning is one change, not six.
 EXTRACTION_MODEL = SIGNAL_MODEL
 BACKOFF_DELAYS = [2, 5, 10]
+
+# Share of raw claims allowed back with no valid category before the run
+# stops. They land in the topic's LAST category as a holding pen, so past
+# this point that category is mostly other categories' claims and any
+# consensus label computed over it answers the wrong question.
+UNPLACED_LIMIT = 0.05
 
 # ---------------------------------------------------------------------------
 # Anthropic Claude client (lazy singleton)
@@ -424,6 +430,16 @@ def main():
         help="Process only first N sources (0 = all, for testing)",
     )
     parser.add_argument(
+        "--allow-unplaced",
+        action="store_true",
+        # No literal '%' in this string: argparse runs help text through
+        # %-formatting and a stray percent sign raises at --help time.
+        help="Proceed even when the share of raw claims with no valid "
+             "category exceeds UNPLACED_LIMIT. They are placed in the "
+             "topic's last category, which is a holding pen and not a "
+             "judgment.",
+    )
+    parser.add_argument(
         "--force",
         action="store_true",
         help="Clear existing claims before re-extracting",
@@ -549,7 +565,13 @@ def main():
         for c in raw_claims:
             final_claims.append({
                 "claim_text": c["claim_text"],
-                "category": c.get("category", "emerging"),
+                # --phase=extract stores raw claims without dedup. 'emerging'
+                # was hardcoded here as the default for a claim with no
+                # category, which is meaningless for any topic that has no
+                # such category. The topic's own last category is at least
+                # the same holding pen Phase 2 uses.
+                "category": (c.get("category") if c.get("category") in categories
+                             else categories[-1]),
                 "specificity": c.get("specificity", "qualitative"),
                 "source_slugs": [c["source_slug"]],
                 "source_contexts": {c["source_slug"]: c.get("source_context", "")},
@@ -574,13 +596,57 @@ def main():
         print(f"PHASE 2: Deduplicating across {len(categories)} categories")
         print(f"{'='*60}\n")
 
-        # Group raw claims by category
+        # Group raw claims by category.
+        #
+        # This used to read:
+        #
+        #     cat = c.get("category", categories[-1])
+        #     if cat not in categories:
+        #         cat = categories[-1]      # fallback to last category
+        #
+        # Silently. A claim the model returned with a missing or invalid
+        # category was assigned to whichever category happened to be listed
+        # last for the topic, and nothing said so. For glp1-drugs that is
+        # 'emerging'; for social-media-teen-mental-health it is 'methodology'.
+        # Both of those categories were later found to hold claims that do not
+        # belong to them, and the second is the one whose side attribution
+        # inverts between runs. Whether the fallback caused either is what
+        # audit_categories.py measures — but a default that changes the data
+        # and reports nothing is indefensible on its own terms, and it is the
+        # third instance of that same pattern recorded in label_decisions.json.
+        #
+        # The claim still has to go somewhere: dropping it would lose evidence,
+        # and there is no 'unassigned' category in the schema. So it still
+        # lands in the last category, and now it is counted, named, and can
+        # stop the run.
         by_category: dict[str, list[dict]] = defaultdict(list)
+        unplaced: list[dict] = []
         for c in raw_claims:
-            cat = c.get("category", categories[-1])
+            cat = c.get("category")
             if cat not in categories:
-                cat = categories[-1]  # fallback to last category
+                unplaced.append(c)
+                cat = categories[-1]
             by_category[cat].append(c)
+
+        if unplaced:
+            share = len(unplaced) / len(raw_claims)
+            print(f"\n  [WARN] {len(unplaced)} of {len(raw_claims)} raw claims "
+                  f"({share:.0%}) came back with no valid category.")
+            print(f"         They have been placed in '{categories[-1]}' — the last "
+                  "category — which is a holding pen, not a judgment.")
+            seen_bad = Counter(str(c.get("category")) for c in unplaced)
+            for bad, n in seen_bad.most_common(5):
+                print(f"           {n:>4}x category={bad!r}")
+            for c in unplaced[:3]:
+                print(f"           e.g. {c['claim_text'][:110]}")
+            if share > UNPLACED_LIMIT and not args.allow_unplaced:
+                print(f"\n  [STOP] More than {UNPLACED_LIMIT:.0%} of claims could not be "
+                      "categorised, so the last category would be mostly claims that")
+                print("         belong somewhere else, and every consensus label computed "
+                      "over it would be a label about the wrong question.")
+                print("         Fix the extraction prompt, or re-run with "
+                      "--allow-unplaced to accept this.")
+                sys.exit(1)
 
         for cat in categories:
             group = by_category.get(cat, [])

@@ -155,6 +155,34 @@ const failFetch = (status, body) => router({ resend: { ok: false, status, body }
     && f.calls[0].url.includes("whatholdsup_subscribers")
     && f.calls.length === 2);
 
+  // --- config pasted the ways people actually paste it ---------------------
+  for (const [label, value] of [
+    ["a host with no scheme",      "db.example"],
+    ["a trailing slash",           "https://db.example/"],
+    ["several trailing slashes",   "https://db.example///"],
+    ["surrounding whitespace",     "  https://db.example  "],
+    ["a trailing newline",         "https://db.example\n"],
+  ]) {
+    const rt = router();
+    o = await call({ env: { ...CONFIGURED, SUPABASE_URL: value },
+                     body: { email: "a@b.com" }, fetchImpl: rt });
+    t("URL with " + label + " still works",
+      o.code === 200 && rt.calls[0].url.startsWith("https://db.example/rest/v1/"));
+  }
+
+  {
+    const rt = router();
+    o = await call({ env: { ...CONFIGURED, SUPABASE_SERVICE_KEY: "  svc_test\n" },
+                     body: { email: "a@b.com" }, fetchImpl: rt });
+    t("a key with whitespace does not poison the header",
+      o.code === 200 && rt.calls[0].headers.apikey === "svc_test");
+  }
+
+  o = await call({ env: { ...CONFIGURED, SUPABASE_URL: "   " },
+                   body: { email: "a@b.com" }, fetchImpl: router() });
+  t("a URL of only whitespace is still E1, not a broken request",
+    o.code === 500 && /Reference: E1/.test(o.body));
+
   o = await call({ env: { ...CONFIGURED, SUPABASE_URL: "" },
                    body: { email: "a@b.com" }, fetchImpl: router() });
   t("missing database config is E1, not a silent half-signup",

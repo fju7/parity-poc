@@ -1,0 +1,1594 @@
+{
+  "draft": "../site/whatholdsup/cdk46.html",
+  "sha256": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+  "passed": false,
+  "carried": [
+    "45 claim verdict(s) carried forward",
+    "recency carried (0d)",
+    "coverage carried (0d)"
+  ],
+  "checked_at": "2026-08-29",
+  "model": "claude-sonnet-4-6",
+  "usage": {
+    "total": {
+      "calls": 14,
+      "input": 646578,
+      "output": 34736,
+      "cache_write": 0,
+      "cache_read": 0,
+      "web_searches": 37,
+      "usd": 2.8308,
+      "priced": true
+    },
+    "by_role": {
+      "extract": {
+        "calls": 1,
+        "input": 11749,
+        "output": 9563,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 0,
+        "usd": 0.1787,
+        "priced": true
+      },
+      "source:NCCN Clinical Practice Guideli": {
+        "calls": 1,
+        "input": 42800,
+        "output": 977,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 3,
+        "usd": 0.1731,
+        "priced": true
+      },
+      "source:MONARCH 3 \u2014 final overall surv": {
+        "calls": 1,
+        "input": 62515,
+        "output": 883,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 3,
+        "usd": 0.2308,
+        "priced": true
+      },
+      "source:MONALEESA-7 \u2014 overall survival": {
+        "calls": 1,
+        "input": 22508,
+        "output": 804,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.0996,
+        "priced": true
+      },
+      "source:PALOMA-2 \u2014 final overall survi": {
+        "calls": 1,
+        "input": 24154,
+        "output": 569,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.101,
+        "priced": true
+      },
+      "source:no source credited in the draf": {
+        "calls": 1,
+        "input": 69031,
+        "output": 1738,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 5,
+        "usd": 0.2832,
+        "priced": true
+      },
+      "source:Network meta-analysis of CDK4/": {
+        "calls": 1,
+        "input": 51521,
+        "output": 1374,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 3,
+        "usd": 0.2052,
+        "priced": true
+      },
+      "source:P-VERIFY \u2014 comparative overall": {
+        "calls": 1,
+        "input": 22203,
+        "output": 1238,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.1052,
+        "priced": true
+      },
+      "source:PALMARES-2 \u2014 ASCO 2024 confere": {
+        "calls": 1,
+        "input": 15448,
+        "output": 483,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 1,
+        "usd": 0.0636,
+        "priced": true
+      },
+      "source:Indirect comparison from recon": {
+        "calls": 1,
+        "input": 66579,
+        "output": 2209,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 4,
+        "usd": 0.2729,
+        "priced": true
+      },
+      "source:VERZENIO (abemaciclib) \u2014 US pr": {
+        "calls": 1,
+        "input": 32629,
+        "output": 821,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.1302,
+        "priced": true
+      },
+      "source:IBRANCE (palbociclib) \u2014 warnin": {
+        "calls": 1,
+        "input": 32891,
+        "output": 988,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.1335,
+        "priced": true
+      },
+      "advocate": {
+        "calls": 1,
+        "input": 43086,
+        "output": 4911,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.2229,
+        "priced": true
+      },
+      "inference": {
+        "calls": 1,
+        "input": 149464,
+        "output": 8178,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 6,
+        "usd": 0.6311,
+        "priced": true
+      }
+    },
+    "models": [
+      "claude-sonnet-4-6"
+    ],
+    "prices_checked": "2026-08-28",
+    "prices_source": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "figure": "version 6.2026",
+      "claim": "The NCCN breast cancer guidelines version 6.2026 cover first-line treatment of hormone-receptor-positive, HER2-negative advanced breast cancer.",
+      "attributed_to": "NCCN Clinical Practice Guidelines in Oncology \u2014 Breast Cancer, version 6.2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c2",
+      "figure": "category 1",
+      "claim": "The NCCN guideline assigns ribociclib combined with an aromatase inhibitor category 1 for first-line treatment of HR+/HER2- advanced breast cancer.",
+      "attributed_to": "NCCN Clinical Practice Guidelines in Oncology \u2014 Breast Cancer, version 6.2026",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c3",
+      "figure": "category 2A",
+      "claim": "The NCCN guideline assigns abemaciclib and palbociclib combined with an aromatase inhibitor category 2A for first-line treatment of HR+/HER2- advanced breast cancer.",
+      "attributed_to": "NCCN Clinical Practice Guidelines in Oncology \u2014 Breast Cancer, version 6.2026",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c4",
+      "figure": "category 1",
+      "claim": "In combination with fulvestrant, both ribociclib and abemaciclib are assigned category 1 by the NCCN guideline.",
+      "attributed_to": "NCCN Clinical Practice Guidelines in Oncology \u2014 Breast Cancer, version 6.2026",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c5",
+      "figure": "MONALEESA-3 and MONARCH 2",
+      "claim": "The NCCN guideline states that ribociclib and abemaciclib with fulvestrant are category 1 because those combinations showed an overall survival benefit in MONALEESA-3 and MONARCH 2.",
+      "attributed_to": "NCCN Clinical Practice Guidelines in Oncology \u2014 Breast Cancer, version 6.2026",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c6",
+      "figure": "not reached vs 14.7 mo HR 0.54 (0.41\u20130.72)",
+      "claim": "MONARCH 3's primary progression-free survival analysis showed median not reached versus 14.7 months with HR 0.54 (95% CI 0.41\u20130.72).",
+      "attributed_to": "MONARCH 3 \u2014 abemaciclib as initial therapy. J Clin Oncol, 2017",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c7",
+      "figure": "66.8 vs 53.7 mo HR 0.80 (0.64\u20131.02)",
+      "claim": "MONARCH 3's final overall survival analysis at 8.1 years showed 66.8 versus 53.7 months with HR 0.80 (0.64\u20131.02).",
+      "attributed_to": "MONARCH 3 \u2014 final overall survival. Ann Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c8",
+      "figure": "two-sided P = .0664",
+      "claim": "MONARCH 3's final overall survival analysis reported a two-sided P = .0664.",
+      "attributed_to": "MONARCH 3 \u2014 final overall survival. Ann Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c9",
+      "figure": ".034",
+      "claim": "MONARCH 3's final overall survival analysis was judged against a significance threshold of .034.",
+      "attributed_to": "MONARCH 3 \u2014 final overall survival. Ann Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c10",
+      "figure": "8.1 y",
+      "claim": "MONARCH 3's final overall survival analysis was conducted at 8.1 years of median follow-up.",
+      "attributed_to": "MONARCH 3 \u2014 final overall survival. Ann Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c11",
+      "figure": "25.3 vs 16.0 mo HR 0.57 (0.46\u20130.70)",
+      "claim": "MONALEESA-2's updated progression-free survival analysis showed 25.3 versus 16.0 months with HR 0.57 (0.46\u20130.70).",
+      "attributed_to": "MONALEESA-2 \u2014 updated results. Ann Oncol, 2018",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c12",
+      "figure": "63.9 vs 51.4 mo HR 0.76 (0.63\u20130.93)",
+      "claim": "MONALEESA-2's final overall survival analysis showed 63.9 versus 51.4 months with HR 0.76 (0.63\u20130.93).",
+      "attributed_to": "MONALEESA-2 \u2014 overall survival with ribociclib plus letrozole. N Engl J Med, 2022",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c13",
+      "figure": "p = 0.008",
+      "claim": "MONALEESA-2's final overall survival analysis reported a two-sided p = 0.008.",
+      "attributed_to": "MONALEESA-2 \u2014 overall survival with ribociclib plus letrozole. N Engl J Med, 2022",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c14",
+      "figure": "6.6 y",
+      "claim": "MONALEESA-2's final overall survival analysis was conducted at 6.6 years of median follow-up.",
+      "attributed_to": "MONALEESA-2 \u2014 overall survival with ribociclib plus letrozole. N Engl J Med, 2022",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c15",
+      "figure": "23.8 vs 13.0 mo HR 0.55",
+      "claim": "MONALEESA-7's primary progression-free survival analysis showed 23.8 versus 13.0 months with HR 0.55.",
+      "attributed_to": "MONALEESA-7 \u2014 ribociclib plus endocrine therapy in premenopausal women. Lancet Oncol, 2018",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c16",
+      "figure": "not reached vs 40.9 mo HR 0.71 (0.54\u20130.95)",
+      "claim": "MONALEESA-7's protocol-specified interim overall survival analysis showed median not reached versus 40.9 months with HR 0.71 (0.54\u20130.95).",
+      "attributed_to": "MONALEESA-7 \u2014 overall survival. N Engl J Med, 2019",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c17",
+      "figure": "one-sided P = .00973",
+      "claim": "MONALEESA-7's protocol-specified interim overall survival analysis reported a one-sided P = .00973.",
+      "attributed_to": "MONALEESA-7 \u2014 overall survival. N Engl J Med, 2019",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c18",
+      "figure": ".01018",
+      "claim": "MONALEESA-7's protocol-specified interim overall survival analysis was tested against a prespecified stopping boundary of P = .01018.",
+      "attributed_to": "MONALEESA-7 \u2014 overall survival. N Engl J Med, 2019",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c19",
+      "figure": "34.6 mo",
+      "claim": "MONALEESA-7's protocol-specified interim overall survival analysis was conducted at 34.6 months of median follow-up.",
+      "attributed_to": "MONALEESA-7 \u2014 overall survival. N Engl J Med, 2019",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c20",
+      "figure": "58.7 vs 48.0 mo, HR 0.76 (0.61\u20130.96)",
+      "claim": "MONALEESA-7's exploratory extended follow-up at 53.5 months showed 58.7 versus 48.0 months overall survival with HR 0.76 (0.61\u20130.96).",
+      "attributed_to": "MONALEESA-7 \u2014 updated overall survival. Clin Cancer Res, 2022;28:851",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c21",
+      "figure": "53.5 mo",
+      "claim": "MONALEESA-7's exploratory extended follow-up was conducted at 53.5 months.",
+      "attributed_to": "MONALEESA-7 \u2014 updated overall survival. Clin Cancer Res, 2022;28:851",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c22",
+      "figure": "24.8 vs 14.5 mo HR 0.58 (0.46\u20130.72)",
+      "claim": "PALOMA-2's primary progression-free survival analysis showed 24.8 versus 14.5 months with HR 0.58 (0.46\u20130.72).",
+      "attributed_to": "PALOMA-2 \u2014 palbociclib and letrozole. N Engl J Med, 2016",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c23",
+      "figure": "53.9 vs 51.2 mo HR 0.96 (0.78\u20131.18)",
+      "claim": "PALOMA-2's final overall survival analysis showed 53.9 versus 51.2 months with HR 0.96 (0.78\u20131.18).",
+      "attributed_to": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c24",
+      "figure": "one-sided P = .34",
+      "claim": "PALOMA-2's final overall survival analysis reported a one-sided P = .34.",
+      "attributed_to": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c25",
+      "figure": "90.1 mo",
+      "claim": "PALOMA-2's final overall survival analysis was conducted at 90.1 months of median follow-up.",
+      "attributed_to": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c26",
+      "figure": "at least 390 events, with 80% power to detect a hazard ratio of 0.74 or better at a one-sided 0.025",
+      "claim": "PALOMA-2's final survival analysis was planned after at least 390 events, with 80% power to detect a hazard ratio of 0.74 or better at a one-sided significance level of 0.025.",
+      "attributed_to": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c27",
+      "figure": "13.3% of the palbociclib arm and 21.2% of the placebo arm",
+      "claim": "PALOMA-2 investigators recorded that survival status was unknown for 13.3% of the palbociclib arm and 21.2% of the placebo arm.",
+      "attributed_to": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c28",
+      "figure": "9.2% and 11.7%",
+      "claim": "PALOMA-2's sensitivity analysis using recovered data cut the unknowns to 9.2% and 11.7%.",
+      "attributed_to": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c29",
+      "figure": "0.92 (0.76\u20131.12)",
+      "claim": "PALOMA-2's sensitivity analysis using recovered data moved the overall survival hazard ratio from 0.96 to 0.92 (0.76\u20131.12).",
+      "attributed_to": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c30",
+      "figure": "about 315 events with alpha split between the whole population and a visceral-disease subgroup",
+      "claim": "MONARCH 3's survival was a gated secondary endpoint with its final analysis planned at about 315 events with alpha split between the whole population and a visceral-disease subgroup.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c31",
+      "figure": "97%",
+      "claim": "97% of ribociclib's overall survival confidence interval lies inside abemaciclib's overall survival confidence interval.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c32",
+      "figure": "96.7%",
+      "claim": "On the rounded published bounds, 96.7% of ribociclib's overall survival interval lies inside abemaciclib's interval (0.29 \u00f7 0.30).",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c33",
+      "figure": "97.7%",
+      "claim": "On the unrounded published bounds (0.637, 1.015), 97.7% of ribociclib's overall survival interval lies inside abemaciclib's interval.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c34",
+      "figure": "seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months",
+      "claim": "A network meta-analysis published in Scientific Reports in February 2024 pooled seven phase III randomised trials with 4,415 patients at a median follow-up of 73.3 months.",
+      "attributed_to": "Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c35",
+      "figure": "no statistically significant difference in overall survival between any pair of the three",
+      "claim": "The Scientific Reports February 2024 network meta-analysis found no statistically significant difference in overall survival between any pair of the three CDK4/6 inhibitors.",
+      "attributed_to": "Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c36",
+      "figure": "HR 0.804 (0.637\u20131.015), at 97.2 months",
+      "claim": "The network meta-analysis's Table 1 lists MONARCH 3 at HR 0.804 (0.637\u20131.015) with 97.2 months of follow-up, citing the SABCS 2023 final overall-survival abstract.",
+      "attributed_to": "Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c37",
+      "figure": "9,146 patients",
+      "claim": "P-VERIFY took 9,146 patients from US oncology records.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c38",
+      "figure": "6,831 patients on palbociclib, 1,279 on ribociclib, 1,036 on abemaciclib",
+      "claim": "P-VERIFY enrolled 6,831 patients on palbociclib, 1,279 on ribociclib, and 1,036 on abemaciclib.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c39",
+      "figure": "ribociclib versus palbociclib 0.98 (0.87\u20131.10, P = 0.75)",
+      "claim": "P-VERIFY found an overall survival hazard ratio of 0.98 (0.87\u20131.10, P = 0.75) for ribociclib versus palbociclib.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c40",
+      "figure": "abemaciclib versus palbociclib 0.95 (0.84\u20131.08, P = 0.43)",
+      "claim": "P-VERIFY found an overall survival hazard ratio of 0.95 (0.84\u20131.08, P = 0.43) for abemaciclib versus palbociclib.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c41",
+      "figure": "abemaciclib versus ribociclib 0.97 (0.82\u20131.14, P = 0.70)",
+      "claim": "P-VERIFY found an overall survival hazard ratio of 0.97 (0.82\u20131.14, P = 0.70) for abemaciclib versus ribociclib.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c42",
+      "figure": "funded by Pfizer Inc.",
+      "claim": "P-VERIFY's own SABCS 2024 poster states that the study was funded by Pfizer Inc.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c43",
+      "figure": "Palbociclib Verifying Evidence of Real-world Impact",
+      "claim": "P-VERIFY's full name is the Palbociclib Verifying Evidence of Real-world Impact study.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c44",
+      "figure": "1,982 patients across eighteen Italian centres",
+      "claim": "PALMARES-2 followed 1,982 patients across eighteen Italian centres.",
+      "attributed_to": "PALMARES-2 \u2014 real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c45",
+      "figure": "abemaciclib vs palbociclib aHR 0.76 (0.63\u20130.92), p = 0.004",
+      "claim": "PALMARES-2 found an adjusted progression-free survival hazard ratio of 0.76 (0.63\u20130.92), p = 0.004 for abemaciclib versus palbociclib.",
+      "attributed_to": "PALMARES-2 \u2014 real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c46",
+      "figure": "ribociclib vs palbociclib 0.83 (0.73\u20130.95), p = 0.007",
+      "claim": "PALMARES-2 found an adjusted progression-free survival hazard ratio of 0.83 (0.73\u20130.95), p = 0.007 for ribociclib versus palbociclib.",
+      "attributed_to": "PALMARES-2 \u2014 real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c47",
+      "figure": "abemaciclib vs ribociclib 0.91 (0.73\u20131.14), p = 0.425",
+      "claim": "PALMARES-2 found an adjusted progression-free survival hazard ratio of 0.91 (0.73\u20131.14), p = 0.425 for abemaciclib versus ribociclib.",
+      "attributed_to": "PALMARES-2 \u2014 real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c48",
+      "figure": "464 events at a median 31.3 months",
+      "claim": "PALMARES-2's overall survival data are immature with 464 events at a median 31.3 months.",
+      "attributed_to": "PALMARES-2 \u2014 real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c49",
+      "figure": "45.7 months on palbociclib against 25.2 on ribociclib and 22.4 on abemaciclib",
+      "claim": "PALMARES-2 had uneven follow-up between arms: 45.7 months on palbociclib against 25.2 on ribociclib and 22.4 on abemaciclib.",
+      "attributed_to": "PALMARES-2 \u2014 real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c50",
+      "figure": "0.91 (0.70\u20131.19)",
+      "claim": "The ASCO 2024 conference presentation of PALMARES-2 gave 0.91 (0.70\u20131.19) for abemaciclib versus ribociclib on progression-free survival.",
+      "attributed_to": "PALMARES-2 \u2014 ASCO 2024 conference presentation",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c51",
+      "figure": "1,827 patients",
+      "claim": "The Cancers 2023 indirect comparison rebuilt patient-level survival curves from PALOMA-2, MONALEESA-2 and MONARCH 3 covering 1,827 patients.",
+      "attributed_to": "Indirect comparison from reconstructed patient data. Cancers, 2023;15(18)",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c52",
+      "figure": "abemaciclib vs ribociclib 0.933 (0.753\u20131.157), p = 0.528",
+      "claim": "The Cancers 2023 indirect comparison found an overall survival hazard ratio of 0.933 (0.753\u20131.157), p = 0.528 for abemaciclib versus ribociclib.",
+      "attributed_to": "Indirect comparison from reconstructed patient data. Cancers, 2023;15(18)",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c53",
+      "figure": "abemaciclib vs ribociclib 0.722 (0.520\u20131.002), p = 0.051",
+      "claim": "The Cancers 2023 indirect comparison found a progression-free survival hazard ratio of 0.722 (0.520\u20131.002), p = 0.051 for abemaciclib versus ribociclib in its one-stage model.",
+      "attributed_to": "Indirect comparison from reconstructed patient data. Cancers, 2023;15(18)",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c54",
+      "figure": "0.921 (0.597\u20131.420), p = 0.710",
+      "claim": "The Cancers 2023 indirect comparison's two-stage model gave a progression-free survival hazard ratio of 0.921 (0.597\u20131.420), p = 0.710 for abemaciclib versus ribociclib.",
+      "attributed_to": "Indirect comparison from reconstructed patient data. Cancers, 2023;15(18)",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c55",
+      "figure": "ribociclib vs palbociclib 0.903 (0.746\u20131.094, p = 0.297)",
+      "claim": "The Cancers 2023 indirect comparison found an overall survival hazard ratio of 0.903 (0.746\u20131.094, p = 0.297) for ribociclib versus palbociclib.",
+      "attributed_to": "Indirect comparison from reconstructed patient data. Cancers, 2023;15(18)",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c56",
+      "figure": "abemaciclib vs palbociclib 0.843 (0.690\u20131.030, p = 0.094)",
+      "claim": "The Cancers 2023 indirect comparison found an overall survival hazard ratio of 0.843 (0.690\u20131.030, p = 0.094) for abemaciclib versus palbociclib.",
+      "attributed_to": "Indirect comparison from reconstructed patient data. Cancers, 2023;15(18)",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c57",
+      "figure": "2% to 5%",
+      "claim": "Abemaciclib's label reports venous thromboembolism events in 2% to 5% of patients treated across the trials the label reports.",
+      "attributed_to": "VERZENIO (abemaciclib) \u2014 US prescribing information",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c58",
+      "figure": "81% to 90%",
+      "claim": "Abemaciclib's label reports diarrhoea in 81% to 90% of patients across four trials.",
+      "attributed_to": "VERZENIO (abemaciclib) \u2014 US prescribing information",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c59",
+      "figure": "grade 3 in 8% to 20%",
+      "claim": "Abemaciclib's label reports grade 3 diarrhoea in 8% to 20% of patients across four trials.",
+      "attributed_to": "VERZENIO (abemaciclib) \u2014 US prescribing information",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c60",
+      "figure": "3,691 patients across four trials",
+      "claim": "Abemaciclib's label reports diarrhoea rates based on 3,691 patients across four trials.",
+      "attributed_to": "VERZENIO (abemaciclib) \u2014 US prescribing information",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c61",
+      "figure": "80% of patients in PALOMA-2, grade 3 or worse in 66%",
+      "claim": "Palbociclib's label reports neutropenia in 80% of PALOMA-2 patients, grade 3 or worse in 66%.",
+      "attributed_to": "IBRANCE (palbociclib) \u2014 warnings and precautions",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c62",
+      "figure": "statistical comparison was made by 1-sided stratified log-rank test",
+      "claim": "The ASCO 2019 abstract of the MONALEESA-7 overall survival analysis states that 'statistical comparison was made by 1-sided stratified log-rank test'.",
+      "attributed_to": "ASCO 2019 abstract of MONALEESA-7 overall survival analysis",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c63",
+      "figure": "Ann Oncol 2025;36:1556",
+      "claim": "A corrigendum to the MONARCH 3 final overall survival paper exists at Ann Oncol 2025;36:1556.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c64",
+      "figure": "Flatiron Health electronic-health-record-derived deidentified longitudinal database",
+      "claim": "P-VERIFY drew its patients from the Flatiron Health electronic-health-record-derived deidentified longitudinal database.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c65",
+      "figure": "ribociclib vs palbociclib aHR 0.98 (0.87\u20131.10, P = 0.7531)",
+      "claim": "P-VERIFY found an overall survival adjusted hazard ratio of 0.98 (0.87\u20131.10, P = 0.7531) for ribociclib versus palbociclib.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c66",
+      "figure": "abemaciclib vs palbociclib 0.95 (0.84\u20131.08, P = 0.4292)",
+      "claim": "P-VERIFY found an overall survival adjusted hazard ratio of 0.95 (0.84\u20131.08, P = 0.4292) for abemaciclib versus palbociclib.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c67",
+      "figure": "abemaciclib vs ribociclib 0.97 (0.82\u20131.14, P = 0.6956)",
+      "claim": "P-VERIFY found an overall survival adjusted hazard ratio of 0.97 (0.82\u20131.14, P = 0.6956) for abemaciclib versus ribociclib.",
+      "attributed_to": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c68",
+      "figure": "HR 0.568 (95% CI 0.457\u20130.704)",
+      "claim": "MONALEESA-2's updated progression-free survival analysis reported HR 0.568 (95% CI 0.457\u20130.704).",
+      "attributed_to": "MONALEESA-2 \u2014 updated results. Ann Oncol, 2018",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c69",
+      "figure": "P = .000021",
+      "claim": "MONARCH 3's primary progression-free survival analysis reported P = .000021.",
+      "attributed_to": "MONARCH 3 \u2014 abemaciclib as initial therapy. J Clin Oncol, 2017",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c70",
+      "figure": "HR 0.956 (95% CI 0.777\u20131.177)",
+      "claim": "PALOMA-2's final overall survival analysis reported HR 0.956 (95% CI 0.777\u20131.177).",
+      "attributed_to": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c71",
+      "figure": "the guideline records that the three drugs have not been directly compared in clinical trials",
+      "claim": "The NCCN guideline records that the three CDK4/6 inhibitors have not been directly compared in clinical trials.",
+      "attributed_to": "NCCN Clinical Practice Guidelines in Oncology \u2014 Breast Cancer, version 6.2026",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c72",
+      "figure": "2026-08-29",
+      "claim": "An outside reviewer supplied the Cancers 2023 indirect comparison study to this publication on 2026-08-29.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c73",
+      "figure": "three fact-check gate runs on 28 August 2026",
+      "claim": "This draft underwent three fact-check gate runs on 28 August 2026.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c74",
+      "figure": "seven serious findings, then nine, then nine again",
+      "claim": "The three fact-check gate runs produced seven serious findings, then nine, then nine again.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    }
+  ],
+  "verdicts": {
+    "c1": {
+      "id": "c1",
+      "verdict": "VERIFIED",
+      "found_value": "Breast Cancer Version 6.2026 is the current version listed on nccn.org; the guidelines cover first-line treatment of HR+/HER2- advanced breast cancer.",
+      "actual_source": "NCCN guidelines listing page (nccn.org/guidelines/category_1) confirms Breast Cancer is at Version 6.2026; JNCCN Version 4.2026 article confirms first-line HR+/HER2- advanced BC coverage.",
+      "url": "https://www.nccn.org/guidelines/category_1",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c3": {
+      "id": "c3",
+      "verdict": "VERIFIED",
+      "found_value": "Abemaciclib and palbociclib are both category 2A recommendations in combination with an AI in the first-line HR+/HER2- advanced breast cancer setting.",
+      "actual_source": "Breast Cancer, Version 4.2026, NCCN Clinical Practice Guidelines in Oncology (JNCCN, July 2026).",
+      "url": "https://jnccn.org/view/journals/jnccn/24/7/article-e260033.xml",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c4": {
+      "id": "c4",
+      "verdict": "VERIFIED",
+      "found_value": "Ribociclib and abemaciclib in combination with fulvestrant are both listed as category 1 options, based on OS benefit in MONALEESA-3 and MONARCH 2 respectively.",
+      "actual_source": "JNCCN, Breast Cancer Version 4.2026: 'ribociclib and abemaciclib in combination with fulvestrant have shown OS benefit\u2026 these two regimens are listed as category 1 options.'",
+      "url": "https://jnccn.org/view/journals/jnccn/24/7/article-e260033.xml",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c5": {
+      "id": "c5",
+      "verdict": "VERIFIED",
+      "found_value": "MONARCH 2 (abemaciclib + fulvestrant) and MONALEESA-3 (ribociclib + fulvestrant) are cited as the OS-benefit trials underpinning the category 1 designations for those two combinations.",
+      "actual_source": "NCCN Breast Cancer Version 4.2026 (JNCCN, July 2026), which states verbatim that OS benefit was shown 'in MONARCH 2 and MONALEESA-3 trials' as the basis for the category 1 listings.",
+      "url": "https://jnccn.org/view/journals/jnccn/24/7/article-e260033.xml",
+      "note": "The full text of v6.2026 is paywalled; verified against the v4.2026 JNCCN publication, which contains the exact trial names and rationale. The trial attribution (MONALEESA-3 for ribociclib + fulvestrant, MONARCH 2 for abemaciclib + fulvestrant) is correct.",
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c6": {
+      "id": "c6",
+      "verdict": "VERIFIED",
+      "found_value": "HR 0.54; 95% CI, 0.41 to 0.72; median: not reached vs 14.7 months",
+      "actual_source": "Goetz et al., J Clin Oncol 2017;35(32):3638-3646 (planned interim analysis after 189 events)",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2017.75.6155",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c7": {
+      "id": "c7",
+      "verdict": "VERIFIED",
+      "found_value": "Median OS 66.8 vs 53.7 months; HR 0.804 (95% CI 0.637\u20131.015)",
+      "actual_source": "Goetz et al., Ann Oncol 2024;35(8):718-727 (MONARCH 3 final OS), confirmed at annalsofoncology.org and sciencedirect.com/S092375342400139X",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c10": {
+      "id": "c10",
+      "verdict": "VERIFIED",
+      "found_value": "Median follow-up of 8.1 years at the final OS analysis",
+      "actual_source": "Goetz et al., Ann Oncol 2024; 35(8):718-727",
+      "url": "https://www.sciencedirect.com/science/article/pii/S092375342400139X",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c11": {
+      "id": "c11",
+      "verdict": "VERIFIED",
+      "found_value": "Median PFS 25.3 months (ribociclib + letrozole) vs 16.0 months (placebo + letrozole); hazard ratio 0.568; 95% CI 0.457\u20130.704",
+      "actual_source": "Hortobagyi GN et al. Ann Oncol. 2018 Jul 1;29(7):1541\u20131547 (doi: 10.1093/annonc/mdy155)",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(19)32105-2/fulltext",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c12": {
+      "id": "c12",
+      "verdict": "VERIFIED",
+      "found_value": "63.9 vs 51.4 months; HR 0.76 (95% CI 0.63\u20130.93)",
+      "actual_source": "Hortobagyi et al., N Engl J Med 2022;386:942-950 (NEJMoa2114663), confirmed via NEJM abstract page and multiple secondary sources citing the paper directly",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2114663",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c13": {
+      "id": "c13",
+      "verdict": "VERIFIED",
+      "found_value": "two-sided p = 0.008",
+      "actual_source": "Hortobagyi et al., N Engl J Med 2022;386:942-950. Note: the earlier ESMO 2021 conference abstract (Annals of Oncology) reported p = 0.004; the NEJM publication reports two-sided p = 0.008. The draft correctly attributes p = 0.008 to the NEJM paper.",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2114663",
+      "note": "The p = 0.004 figure circulating in some sources (Novartis press release, ESMO abstract) is from the pre-publication ESMO 2021 presentation; the NEJM paper itself reports two-sided p = 0.008, consistent with the draft's claim.",
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c14": {
+      "id": "c14",
+      "verdict": "VERIFIED",
+      "found_value": "6.6 years median follow-up",
+      "actual_source": "Hortobagyi GN et al., 'Overall Survival with Ribociclib plus Letrozole in Advanced Breast Cancer,' N Engl J Med 2022;386(10):942-950 (doi:10.1056/NEJMoa2114663)",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2114663",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c15": {
+      "id": "c15",
+      "verdict": "VERIFIED",
+      "found_value": "Median PFS 23.8 vs 13.0 months, HR 0.55 (95% CI 0.44\u20130.69; P < 0.0001)",
+      "actual_source": "Tripathy D et al. Ribociclib plus endocrine therapy for premenopausal women with hormone-receptor-positive, advanced breast cancer (MONALEESA-7): a randomised phase 3 trial. Lancet Oncol 2018;19:904\u2013915.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29804902/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c16": {
+      "id": "c16",
+      "verdict": "VERIFIED",
+      "found_value": "Median OS not reached (ribociclib) vs 40.9 months (placebo); HR 0.71 (95% CI 0.54\u20130.95)",
+      "actual_source": "Im SA et al. N Engl J Med 2019 (NEJMoa1903765), confirmed also in Clinical Cancer Research 2022 and NEJM 2020 (NEJMoa1911149)",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1903765",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c19": {
+      "id": "c19",
+      "verdict": "VERIFIED",
+      "found_value": "median follow-up 34.6 months",
+      "actual_source": "Im et al., N Engl J Med 2019, confirmed also in Tripathy et al., Clin Cancer Res 2022 (doi:10.1158/1078-0432.CCR-21-3032)",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1903765",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c20": {
+      "id": "c20",
+      "verdict": "VERIFIED",
+      "found_value": "Median OS 58.7 months (ribociclib) vs 48.0 months (placebo); HR 0.76 (95% CI 0.61\u20130.96)",
+      "actual_source": "Clin Cancer Res 2022;28(5):851\u2013859 (AACR Journals / PubMed PMID 34965945)",
+      "url": "https://aacrjournals.org/clincancerres/article/28/5/851/681697/Updated-Overall-Survival-of-Ribociclib-plus",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c21": {
+      "id": "c21",
+      "verdict": "VERIFIED",
+      "found_value": "median follow-up of 53.5 months",
+      "actual_source": "Clin Cancer Res 2022;28(5):851\u2013859 (AACR Journals, confirmed via abstract and PubMed)",
+      "url": "https://aacrjournals.org/clincancerres/article/28/5/851/681697/Updated-Overall-Survival-of-Ribociclib-plus",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c22": {
+      "id": "c22",
+      "verdict": "VERIFIED",
+      "found_value": "24.8 vs 14.5 months; HR 0.58 (95% CI, 0.46 to 0.72)",
+      "actual_source": "PALOMA-2 primary analysis, N Engl J Med 2016 (NEJMoa1607303)",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1607303",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c23": {
+      "id": "c23",
+      "verdict": "VERIFIED",
+      "found_value": "53.9 vs 51.2 months; HR 0.96 (95% CI 0.78\u20131.18); one-sided P = .34",
+      "actual_source": "Slamon et al., J Clin Oncol 42:994-1000 (2024), DOI 10.1200/JCO.23.00137; also PMC10950136",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10950136/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c24": {
+      "id": "c24",
+      "verdict": "VERIFIED",
+      "found_value": "Primary ITT OS: HR 0.956 (95% CI 0.777\u20131.177), one-sided P = .34 (reported as .3378 in the 2022 ASCO abstract, rounded to .34 in JCO 2024); the paper uses one-sided p-values throughout, confirmed by the explicitly labelled sensitivity-analysis result of one-sided P = .21.",
+      "actual_source": "Slamon DJ et al. Overall Survival With Palbociclib Plus Letrozole in Advanced Breast Cancer. J Clin Oncol. 2024;42(9):994\u20131000. doi:10.1200/JCO.23.00137 (PMC10950136)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10950136/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c25": {
+      "id": "c25",
+      "verdict": "VERIFIED",
+      "found_value": "90.1 months median follow-up",
+      "actual_source": "Slamon et al., J Clin Oncol 42:994-1000 (2024), as summarised by ASCO Post (ascopost.com)",
+      "url": "https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c27": {
+      "id": "c27",
+      "verdict": "VERIFIED",
+      "found_value": "13.3% (palbociclib arm) vs 21.2% (placebo arm) with unknown survival outcome",
+      "actual_source": "Slamon et al., J Clin Oncol 42:994-1000 (2024), DOI 10.1200/JCO.23.00137",
+      "url": "https://ascopubs.org/doi/pdfdirect/10.1200/jco.23.00137",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c28": {
+      "id": "c28",
+      "verdict": "VERIFIED",
+      "found_value": "Recovery of survival data reduced unknowns to 9.2% vs 11.7%",
+      "actual_source": "Slamon et al., J Clin Oncol 42:994-1000 (2024), DOI 10.1200/JCO.23.00137",
+      "url": "https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c29": {
+      "id": "c29",
+      "verdict": "VERIFIED",
+      "found_value": "HR = 0.92, 95% CI = 0.76\u20131.12 (recovered-data sensitivity analysis)",
+      "actual_source": "Slamon et al., J Clin Oncol 42:994-1000 (2024), as summarised by ASCO Post (ascopost.com)",
+      "url": "https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c34": {
+      "id": "c34",
+      "verdict": "VERIFIED",
+      "found_value": "Seven studies comprising 4,415 patients; median follow-up 73.3 months (range: 48.7\u201397.2 months) \u2014 as stated in the abstract. Note: the paper's own results section gives a different figure of 70.2 months for the same range, an internal inconsistency within the source itself.",
+      "actual_source": "Kappel C, Elliott MJ, Kumar V et al. 'Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer.' Sci Rep 14, 3129 (2024). Published 7 February 2024.",
+      "url": "https://www.nature.com/articles/s41598-024-53151-8",
+      "note": "All three figures (seven phase III RCTs, 4,415 patients, 73.3-month median follow-up) are confirmed in the abstract of the named Scientific Reports paper; however, the paper's results section reports the median follow-up as 70.2 months \u2014 an internal discrepancy within the source that editors should be aware of.",
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c35": {
+      "id": "c35",
+      "verdict": "VERIFIED",
+      "found_value": "There were no statistically significant differences in OS between any of the CDK4/6i.",
+      "actual_source": "Kappel C, Elliott MJ, Kumar V, Nadler MB, Desnoyers A, Amir E. 'Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer.' Sci Rep 14, 3129 (2024). Published 2024-02-07.",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10850180/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c37": {
+      "id": "c37",
+      "verdict": "VERIFIED",
+      "found_value": "9146 patients",
+      "actual_source": "Rugo et al., ESMO Open 2025 (OS paper), PMC11758200 / ScienceDirect S205970292401874X",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c38": {
+      "id": "c38",
+      "verdict": "VERIFIED",
+      "found_value": "6,831 on palbociclib, 1,279 on ribociclib, 1,036 on abemaciclib (total 9,146)",
+      "actual_source": "Rugo et al., ESMO Open 2025 (P-VERIFY OS paper), PubMed 39754979; confirmed identically in the rwPFS follow-up paper, PubMed 40896879",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39754979/",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c39": {
+      "id": "c39",
+      "verdict": "VERIFIED",
+      "found_value": "aHR 0.98 (95% CI 0.87\u20131.10, P = 0.7531) for ribociclib vs palbociclib",
+      "actual_source": "Rugo et al., ESMO Open 2025 (OS paper), PMC11758200 / ScienceDirect S205970292401874X",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/",
+      "note": "P = 0.75 is a rounded form of P = 0.7531 from the primary source; HR and CI match exactly.",
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c40": {
+      "id": "c40",
+      "verdict": "VERIFIED",
+      "found_value": "aHR 0.95 (95% CI 0.84\u20131.08, P = 0.4292) for abemaciclib vs palbociclib",
+      "actual_source": "Rugo et al., ESMO Open 2025 (OS paper), PMC11758200 / ScienceDirect S205970292401874X",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/",
+      "note": "P = 0.43 is a rounded form of P = 0.4292 from the primary source; HR and CI match exactly.",
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c41": {
+      "id": "c41",
+      "verdict": "VERIFIED",
+      "found_value": "aHR 0.97 (95% CI 0.82\u20131.14, P = 0.6956) for abemaciclib vs ribociclib",
+      "actual_source": "Rugo et al., ESMO Open 2025 (OS paper), PMC11758200 / ScienceDirect S205970292401874X",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/",
+      "note": "P = 0.70 is a rounded form of P = 0.6956 from the primary source; HR and CI match exactly.",
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c42": {
+      "id": "c42",
+      "verdict": "VERIFIED",
+      "found_value": "This study was funded by Pfizer Inc. Medical writing support was provided by Diana Avery, PhD, of Oxford PharmaGenesis Inc., Newtown, PA, USA, and was funded by Pfizer Inc., USA. Funding source: Study sponsored by Pfizer Inc.",
+      "actual_source": "P-VERIFY SABCS 2024 poster (hosted at sygkounas.gr/wp-content/uploads/2025/02/P-VERIFY_SABC-POSTER_12-2024.pdf), Acknowledgments section",
+      "url": "https://sygkounas.gr/wp-content/uploads/2025/02/P-VERIFY_SABC-POSTER_12-2024.pdf",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c44": {
+      "id": "c44",
+      "verdict": "VERIFIED",
+      "found_value": "1,982 patients enrolled across 18 Italian cancer centres (data cut-off 31 January 2024)",
+      "actual_source": "Annals of Oncology, PALMARES-2 primary publication (Provenzano et al., Ann Oncol 2025)",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c45": {
+      "id": "c45",
+      "verdict": "VERIFIED",
+      "found_value": "aHR 0.76 (95% CI 0.63\u20130.92; p = 0.004) for abemaciclib versus palbociclib",
+      "actual_source": "PALMARES-2, Annals of Oncology (April 2025), doi: 10.1016/j.annonc.2025.03.023",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c46": {
+      "id": "c46",
+      "verdict": "VERIFIED",
+      "found_value": "aHR 0.83 (95% CI 0.73\u20130.95; p = 0.007) for ribociclib versus palbociclib",
+      "actual_source": "PALMARES-2, Annals of Oncology (April 2025), doi: 10.1016/j.annonc.2025.03.023",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c47": {
+      "id": "c47",
+      "verdict": "VERIFIED",
+      "found_value": "abemaciclib vs ribociclib: aHR 0.91, 95% CI 0.73\u20131.14, P = 0.425 (no significant difference in rwPFS)",
+      "actual_source": "Provenzano et al., PALMARES-2, Annals of Oncology, April 7 2025 (Annals of Oncology / ScienceDirect, S0923-7534(25)00134-6)",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0923753425001346",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c48": {
+      "id": "c48",
+      "verdict": "VERIFIED",
+      "found_value": "464 death events confirmed in the Annals paper; 31.3 months as overall median follow-up confirmed in a secondary summary of the same paper (Oncodaily); the Annals paper itself states median rwPFS follow-up of 34.1 months but does not display '31.3 months' in the text snippets retrieved",
+      "actual_source": "Annals of Oncology, April 2025 (DOI: 10.1016/j.annonc.2025.03.023) for 464 events; Oncodaily summary for 31.3 months",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext",
+      "note": "The 464 events figure is directly confirmed in the Annals paper. The 31.3 months median follow-up figure is confirmed by a secondary summary (Oncodaily) of the same paper; it was not visible in the primary text snippets retrieved, but the Annals paper is the underlying source.",
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c49": {
+      "id": "c49",
+      "verdict": "VERIFIED",
+      "found_value": "45.7 months (palbociclib), 25.2 months (ribociclib), 22.4 months (abemaciclib)",
+      "actual_source": "Provenzano et al., 'Real-world effectiveness comparison of first-line palbociclib, ribociclib or abemaciclib plus endocrine therapy in advanced HR-positive/HER2-negative BC patients: results from the multicenter PALMARES-2 study,' Annals of Oncology, Vol. 36, Issue 7, 2025, pp. 819\u2013831 (published April 7, 2025)",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c57": {
+      "id": "c57",
+      "verdict": "VERIFIED",
+      "found_value": "Across three clinical trials in 3559 patients (monarchE, MONARCH 2, MONARCH 3), venous thromboembolic events were reported in 2% to 5% of patients treated with VERZENIO.",
+      "actual_source": "VERZENIO (abemaciclib) US Prescribing Information \u2014 FDA accessdata (multiple label versions, including 208716s010s011lbl.pdf and 208716s017lbl.pdf)",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2023/208716s010s011lbl.pdf",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c60": {
+      "id": "c60",
+      "verdict": "VERIFIED",
+      "found_value": "Across four clinical trials in 3,691 patients",
+      "actual_source": "VERZENIO US Prescribing Information / Lilly Important Safety Information",
+      "url": "https://verzenio.lilly.com/hcp",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c62": {
+      "id": "c62",
+      "verdict": "VERIFIED",
+      "found_value": "OS was evaluated by Kaplan-Meier methods, and statistical comparison was made by 1-sided stratified log-rank test, with a protocol-defined Lan-DeMets (O'Brien-Fleming) stopping boundary",
+      "actual_source": "ASCO 2019 Abstract LBA1008, Hurvitz et al., J Clin Oncol 37, LBA1008 (2019), Methods section",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2019.37.18_suppl.LBA1008",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c63": {
+      "id": "c63",
+      "verdict": "VERIFIED",
+      "found_value": "Annals of Oncology, Volume 36, Issue 12, December 2025, Page 1556",
+      "actual_source": "ScienceDirect / Annals of Oncology corrigendum page for MONARCH 3 final OS paper",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0923753425008518",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c68": {
+      "id": "c68",
+      "verdict": "VERIFIED",
+      "found_value": "Hazard ratio 0.568; 95% CI 0.457\u20130.704",
+      "actual_source": "Hortobagyi GN et al. Ann Oncol. 2018 Jul 1;29(7):1541\u20131547 (doi: 10.1093/annonc/mdy155)",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(19)32105-2/fulltext",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c69": {
+      "id": "c69",
+      "verdict": "VERIFIED",
+      "found_value": "P = .000021",
+      "actual_source": "Goetz et al., J Clin Oncol 2017;35(32):3638-3646 (planned interim analysis after 189 events)",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2017.75.6155",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c70": {
+      "id": "c70",
+      "verdict": "VERIFIED",
+      "found_value": "HR 0.956 (95% CI 0.777\u20131.177), confirmed in the ASCO 2022 abstract (JCO suppl LBA1003) and corroborated by the Pfizer press release and ASCO Post summary of the JCO 2024 paper. This figure is the pre-recovery-data OS analysis; the JCO 2024 paper also reports a recovered-data HR of 0.92 (95% CI 0.76\u20131.12) as its primary result.",
+      "actual_source": "ASCO 2022 abstract: JCO 2022;40(suppl 17):LBA1003; also present in Slamon et al., J Clin Oncol 2024 42:994\u20131000.",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2022.40.17_suppl.LBA1003",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c71": {
+      "id": "c71",
+      "verdict": "VERIFIED",
+      "found_value": "The guideline highlights that CDK4/6 inhibitors have not been directly compared in randomized trials, and treatment selection should consider efficacy, toxicity, comorbidities, monitoring requirements, and patient preference.",
+      "actual_source": "OncoDaily summary of NCCN Breast Cancer v4.2026; corroborated by a Novartis NCCN flashcard noting 'there are no head-to-head comparisons between the agents'",
+      "url": "https://oncodaily.com/oncolibrary/breast-oncology/breast-cancer-nccn-v4",
+      "note": null,
+      "carried_from": "033297d0d90d1fb6"
+    },
+    "c2": {
+      "id": "c2",
+      "verdict": "NOT_FOUND",
+      "found_value": "Ribociclib + AI is listed as Category 1 for first-line HR+/HER2- metastatic breast cancer in NCCN Breast Cancer Version 4.2026 (JNCCN, July 2026) and in all versions back to January 2023; the recommendation has been stable across every version I could access.",
+      "actual_source": "NCCN Breast Cancer Version 4.2026, published in JNCCN (doi:10.6004/jnccn.2026.0033); NCCN guidelines detail page confirms Version 6.2026 exists but the full PDF requires an NCCN login.",
+      "url": "https://jnccn.org/view/journals/jnccn/24/7/article-e260033.xml",
+      "note": "The full text of Version 6.2026 is behind an NCCN login wall and could not be opened; the claim is consistent with every accessible version through 4.2026, but direct verification against the exact cited version (6.2026) was not possible \u2014 NOT_FOUND reflects inability to reach that specific document, not absence of the recommendation."
+    },
+    "c8": {
+      "id": "c8",
+      "verdict": "VERIFIED",
+      "found_value": "P = 0.0664 (two-sided), ITT population, final OS analysis at 8.1 years median follow-up",
+      "actual_source": "Goetz et al., Ann Oncol 2024;35(8):718-727 (primary publication, confirmed also in SABCS 2023 abstract GS01-12)",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+      "note": null
+    },
+    "c9": {
+      "id": "c9",
+      "verdict": "VERIFIED",
+      "found_value": "Two-sided P value boundary of 0.034 for the ITT population at the final OS analysis, per the Lan\u2013DeMets spending function with O'Brien\u2013Fleming boundary",
+      "actual_source": "Goetz et al., Ann Oncol 2024;35(8):718-727 (Methods/Statistical analysis section)",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+      "note": null
+    },
+    "c17": {
+      "id": "c17",
+      "verdict": "VERIFIED",
+      "found_value": "one-sided stratified log-rank P value = 0.00973",
+      "actual_source": "Im S-A et al., N Engl J Med 2019;381:307-316 (NEJMoa1903765)",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1903765",
+      "note": null
+    },
+    "c18": {
+      "id": "c18",
+      "verdict": "VERIFIED",
+      "found_value": "prespecified stopping boundary P = 0.01018",
+      "actual_source": "Im S-A et al., N Engl J Med 2019;381:307-316 (NEJMoa1903765)",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1903765",
+      "note": null
+    },
+    "c26": {
+      "id": "c26",
+      "verdict": "VERIFIED",
+      "found_value": "The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] \u22640.74, using a stratified log-rank test with a one-sided significance level of 0.025.",
+      "actual_source": "Slamon DJ et al. Overall Survival With Palbociclib Plus Letrozole in Advanced Breast Cancer. J Clin Oncol. 2024;42(9):994\u20131000. doi:10.1200/JCO.23.00137",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10950136/",
+      "note": null
+    },
+    "c30": {
+      "id": "c30",
+      "verdict": "VERIFIED",
+      "found_value": "OS was a gated secondary endpoint; final analysis planned after approximately 315 OS events in the ITT population with alpha split between the ITT population and the subgroup with visceral disease (sVD) via a prespecified graphical testing scheme",
+      "actual_source": "MONARCH 3 final OS abstract (AACR/Cancer Research, May 2024) and Annals of Oncology final OS paper (Goetz et al., 2024)",
+      "url": "https://aacrjournals.org/cancerres/article/84/9_Supplement/GS01-12/743808/Abstract-GS01-12-MONARCH-3-Final-overall-survival",
+      "note": null
+    },
+    "c31": {
+      "id": "c31",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+      "note": "The bounds (0.637, 1.015) attributed to ribociclib's OS CI are in fact abemaciclib's OS CI from MONARCH 3 (HR 0.804; 95% CI 0.637\u20131.015). No ribociclib trial in any MONALEESA study produces a CI with these bounds; the comparison as stated is built on a misattribution of CIs between the two drugs, so the 97% figure cannot be verified against any primary source."
+    },
+    "c32": {
+      "id": "c32",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+      "note": "The claim uses 0.637 and 1.015 as ribociclib's OS CI bounds, but these are abemaciclib's own MONARCH 3 final OS CI bounds (95% CI 0.637\u20131.015); ribociclib's published OS CIs across MONALEESA-2, -3, and -7 are entirely different (e.g., 0.63\u20130.93, 0.59\u20130.90, 0.54\u20130.95). The 96.7% figure cannot be verified because the premise \u2014 that ribociclib's CI is (0.637, 1.015) \u2014 is wrong."
+    },
+    "c33": {
+      "id": "c33",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+      "note": "Same misattribution as c31 and c32: the bounds (0.637, 1.015) described as ribociclib's 'unrounded published bounds' are abemaciclib's MONARCH 3 final OS CI; no ribociclib trial produces these bounds, so the 97.7% figure rests on a false premise and cannot be verified."
+    },
+    "c36": {
+      "id": "c36",
+      "verdict": "NOT_FOUND",
+      "found_value": "HR 0.804 (0.637\u20131.015) is confirmed in the SABCS 2023 abstract (GS01-12) and all primary MONARCH 3 sources at 8.1 years (\u224897.2 months) follow-up. The Kappel et al. Scientific Reports paper (PMC10850180) reports 97.2 months as the upper bound of the range across all seven included trials (range: 48.7\u201397.2 months), not as a MONARCH 3-specific figure in Table 1. Full Table 1 content could not be accessed to confirm whether 97.2 months is specifically assigned to MONARCH 3.",
+      "actual_source": "MONARCH 3 final OS: SABCS 2023 abstract GS01-12 (Cancer Res 84:9_Supplement, GS01-12); Annals of Oncology 2024;35(8):718-727. Kappel et al. NMA: PMC10850180 / https://www.nature.com/articles/s41598-024-53151-8",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10850180/",
+      "note": "The HR and CI are verified against the SABCS 2023 primary source; 97.2 months is confirmed as the range maximum across all trials in Kappel et al., but Table 1 of the NMA could not be fully accessed to verify that 97.2 months is specifically listed as MONARCH 3's follow-up rather than another trial's, so the precise table-level claim cannot be confirmed or refuted."
+    },
+    "c43": {
+      "id": "c43",
+      "verdict": "VERIFIED",
+      "found_value": "Palbociclib Verifying Evidence of Real-world Impact Study",
+      "actual_source": "Rugo et al., ESMO Open 2025 (P-VERIFY OS paper), PMC11758200 / ESMO Open S2059-7029(24)01874-X",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11758200/",
+      "note": null
+    },
+    "c64": {
+      "id": "c64",
+      "verdict": "VERIFIED",
+      "found_value": "Flatiron Health electronic health record-derived deidentified longitudinal database",
+      "actual_source": "Rugo et al., ESMO Open 2025 (P-VERIFY OS paper), PMC11758200",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11758200/",
+      "note": null
+    },
+    "c65": {
+      "id": "c65",
+      "verdict": "VERIFIED",
+      "found_value": "ribociclib vs palbociclib: aHR 0.98, 95% CI 0.87\u20131.10, P = 0.7531",
+      "actual_source": "Rugo et al., ESMO Open 2025 (P-VERIFY OS paper), PMC11758200 and ESMO Open fulltext S2059-7029(24)01874-X",
+      "url": "https://www.esmoopen.com/article/S2059-7029(24)01874-X/fulltext",
+      "note": null
+    },
+    "c66": {
+      "id": "c66",
+      "verdict": "VERIFIED",
+      "found_value": "abemaciclib vs palbociclib: aHR 0.95, 95% CI 0.84\u20131.08, P = 0.4292",
+      "actual_source": "Rugo et al., ESMO Open 2025 (P-VERIFY OS paper), PMC11758200 and ESMO Open fulltext S2059-7029(24)01874-X",
+      "url": "https://www.esmoopen.com/article/S2059-7029(24)01874-X/fulltext",
+      "note": null
+    },
+    "c67": {
+      "id": "c67",
+      "verdict": "VERIFIED",
+      "found_value": "abemaciclib vs ribociclib: aHR 0.97, 95% CI 0.82\u20131.14, P = 0.6956",
+      "actual_source": "Rugo et al., ESMO Open 2025 (P-VERIFY OS paper), PMC11758200 and ESMO Open fulltext S2059-7029(24)01874-X",
+      "url": "https://www.esmoopen.com/article/S2059-7029(24)01874-X/fulltext",
+      "note": null
+    },
+    "c50": {
+      "id": "c50",
+      "verdict": "VERIFIED",
+      "found_value": "aHR 0.91, 95% CI 0.70-1.19; p=0.505",
+      "actual_source": "JCO 2024 42:16_suppl, 1014-1014 \u2014 ASCO 2024 Annual Meeting abstract for PALMARES-2 (Provenzano et al.), available at https://ascopubs.org/doi/10.1200/JCO.2024.42.16_suppl.1014",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2024.42.16_suppl.1014",
+      "note": null
+    },
+    "c51": {
+      "id": "c51",
+      "verdict": "VERIFIED",
+      "found_value": "Three randomized phase III trials\u2014PALOMA-2, MONALEESA-2 and MONARCH-3\u2014comprising 1827 patients were included.",
+      "actual_source": "Cancers 2023;15(18):4558 (PMC10527344 / doi.org/10.3390/cancers15184558)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10527344/",
+      "note": null
+    },
+    "c52": {
+      "id": "c52",
+      "verdict": "VERIFIED",
+      "found_value": "abemaciclib vs. ribociclib (one-stage model: HR = 0.933, 95%-CI: 0.753\u20131.157, p = 0.528)",
+      "actual_source": "Cancers 2023;15(18):4558 (PMC10527344 / doi.org/10.3390/cancers15184558), OS results section",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10527344/",
+      "note": null
+    },
+    "c53": {
+      "id": "c53",
+      "verdict": "VERIFIED",
+      "found_value": "abemaciclib vs. ribociclib (one-stage model: HR = 0.722, 95%-CI: 0.520\u20131.002, p = 0.051)",
+      "actual_source": "Cancers 2023;15(18):4558 (PMC10527344 / doi.org/10.3390/cancers15184558), PFS results section",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10527344/",
+      "note": null
+    },
+    "c54": {
+      "id": "c54",
+      "verdict": "VERIFIED",
+      "found_value": "abemaciclib vs. ribociclib (two-stage model: HR = 0.921, 95%-CI: 0.597\u20131.420, p = 0.710)",
+      "actual_source": "Cancers 2023;15(18):4558 (PMC10527344 / doi.org/10.3390/cancers15184558), PFS results section",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10527344/",
+      "note": null
+    },
+    "c55": {
+      "id": "c55",
+      "verdict": "VERIFIED",
+      "found_value": "ribociclib vs. palbociclib (one-stage model: HR = 0.903, 95%-CI: 0.746\u20131.094, p = 0.297)",
+      "actual_source": "Cancers 2023;15(18):4558 (PMC10527344 / doi.org/10.3390/cancers15184558), OS results section",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10527344/",
+      "note": null
+    },
+    "c56": {
+      "id": "c56",
+      "verdict": "VERIFIED",
+      "found_value": "abemaciclib vs. palbociclib (one-stage model: HR = 0.843, 95%-CI: 0.690\u20131.030, p = 0.094)",
+      "actual_source": "Cancers 2023;15(18):4558 (PMC10527344 / doi.org/10.3390/cancers15184558), OS results section",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10527344/",
+      "note": null
+    },
+    "c58": {
+      "id": "c58",
+      "verdict": "VERIFIED",
+      "found_value": "81% to 90% across four clinical trials in 3691 patients",
+      "actual_source": "VERZENIO (abemaciclib) US Prescribing Information \u2014 FDA label (accessdata.fda.gov/drugsatfda_docs/label/2023/208716s010s011lbl.pdf) and DailyMed (dailymed.nlm.nih.gov)",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2023/208716s010s011lbl.pdf",
+      "note": null
+    },
+    "c59": {
+      "id": "c59",
+      "verdict": "VERIFIED",
+      "found_value": "Grade 3 diarrhea in 8% to 20% of patients receiving VERZENIO",
+      "actual_source": "VERZENIO (abemaciclib) US Prescribing Information \u2014 FDA label (accessdata.fda.gov/drugsatfda_docs/label/2023/208716s010s011lbl.pdf) and DailyMed (dailymed.nlm.nih.gov)",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2023/208716s010s011lbl.pdf",
+      "note": null
+    },
+    "c61": {
+      "id": "c61",
+      "verdict": "VERIFIED",
+      "found_value": "Neutropenia incidence 80% in PALOMA-2; Grade \u22653 decrease in neutrophil counts 66% in PALOMA-2 (IBRANCE plus letrozole) \u2014 both figures appear in the Warnings and Precautions section of the IBRANCE prescribing information",
+      "actual_source": "IBRANCE (palbociclib) full prescribing information, Section 5.1 Warnings and Precautions \u2014 Neutropenia; confirmed across FDA label (accessdata.fda.gov), Pfizer labeling portal (labeling.pfizer.com), Pfizer Medical Information (pfizermedicalinformation.com), and DailyMed (dailymed.nlm.nih.gov)",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/207103s021,212436s009lbl.pdf",
+      "note": null
+    },
+    "c72": {
+      "id": "c72",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c73": {
+      "id": "c73",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c74": {
+      "id": "c74",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    }
+  },
+  "recency": {
+    "studies": [
+      {
+        "name": "MONARCH 3 (abemaciclib + NSAI, first-line HR+/HER2\u2212 ABC)",
+        "draft_uses": "OS HR 0.80 (0.64\u20131.02); medians 66.8 vs 53.7 months",
+        "latest_known": "Final OS analysis, Annals of Oncology, May 2024 (8.1 years median follow-up): HR 0.804 (95% CI 0.637\u20131.015; P=0.0664, NS); medians 66.8 vs 53.7 months",
+        "status": "CURRENT",
+        "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+        "what_changed": "The draft's figures (HR 0.80, CI 0.64\u20131.02) are rounded representations of the final analysis values (HR 0.804, CI 0.637\u20131.015). Medians are identical. No figures move. Note: an earlier interim analysis (5.8 years, HR 0.754, CI 0.584\u20130.974) existed; the draft correctly uses the final analysis numbers, not the interim."
+      },
+      {
+        "name": "MONALEESA-2 (ribociclib + letrozole, postmenopausal, first-line)",
+        "draft_uses": "OS 63.9 vs 51.4 months; HR 0.76 (0.63\u20130.93); two-sided p=0.008; 80 months median follow-up",
+        "latest_known": "Protocol-specified final OS analysis, NEJM, March 2022 (data cutoff June 2021, 80 months median follow-up): median OS 63.9 vs 51.4 months, HR 0.76 (95% CI 0.63\u20130.93), P=0.008. No subsequent OS update identified.",
+        "status": "CURRENT",
+        "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2114663",
+        "what_changed": "All draft figures match the final published analysis exactly. No newer OS readout found."
+      },
+      {
+        "name": "MONALEESA-7 (ribociclib + ET, pre/perimenopausal, first-line)",
+        "draft_uses": "OS 58.7 vs 48.0 months; HR 0.76 (0.61\u20130.96)",
+        "latest_known": "Exploratory updated OS analysis, Clinical Cancer Research, March 2022 (53.5 months median follow-up): median OS 58.7 vs 48.0 months, HR 0.76 (95% CI 0.61\u20130.96). No subsequent OS update identified.",
+        "status": "CURRENT",
+        "url": "https://aacrjournals.org/clincancerres/article/28/5/851/681697/Updated-Overall-Survival-of-Ribociclib-plus",
+        "what_changed": "All draft figures match the published updated analysis exactly. No newer OS readout found."
+      },
+      {
+        "name": "PALOMA-2 (palbociclib + letrozole, first-line)",
+        "draft_uses": "OS 53.9 vs 51.2 months; HR 0.96 (0.78\u20131.20)",
+        "latest_known": "Final OS analysis, JCO, January 2024 (90.1 months median follow-up): median OS 53.9 months vs 51.2 months, HR 0.96 (95% CI 0.777\u20131.177; not significant). This is the prespecified final analysis.",
+        "status": "CURRENT",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10950136/",
+        "what_changed": "The draft's CI (0.78\u20131.20) is a rounded version of the published final CI (0.777\u20131.177). Medians are identical. No figures move materially. The draft does not cite the Pfizer press-release interim (HR 0.956, CI 0.777\u20131.177 at 90 months, ASCO 2022) separately from the final JCO publication \u2014 both give the same numbers, confirming the draft is using the final analysis."
+      },
+      {
+        "name": "Network meta-analysis of CDK4/6 inhibitors (7 phase III RCTs, 4,415 patients, 73.3 months median follow-up)",
+        "draft_uses": "No statistically significant difference in OS between any pair of the three CDK4/6 inhibitors; 7 phase III RCTs, 4,415 patients, 73.3 months median follow-up",
+        "latest_known": "Scientific Reports, February 2024 (Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer). This is the paper the draft describes. However, its MONARCH 3 data input was the interim OS analysis (HR 0.754, 5.8 years follow-up), which has since been superseded by the final OS analysis (HR 0.804, 8.1 years, May 2024). A newer Lancet Oncology reconstructed individual patient data meta-analysis (Beshr et al., 2026) exists but addresses CDK4/6i vs endocrine therapy alone, not head-to-head drug comparisons.",
+        "status": "SUPERSEDED",
+        "url": "https://www.nature.com/articles/s41598-024-53151-8",
+        "what_changed": "The NMA incorporated the MONARCH 3 interim OS HR of 0.754 (95% CI 0.584\u20130.974, 5.8 years follow-up) as its MONARCH 3 data point. The final MONARCH 3 OS analysis (May 2024, 8.1 years) gives HR 0.804 (95% CI 0.637\u20131.015). The point estimate and interval both shifted \u2014 the final HR is less favorable for abemaciclib and the CI now crosses 1.0 (non-significant), whereas the interim HR did not cross 1.0. The NMA's conclusion of no significant OS difference between drugs is directionally unchanged, but the underlying MONARCH 3 figure it used is now outdated. The draft does not itself quote the NMA's internal MONARCH 3 HR, so no draft figure is directly wrong, but the NMA it cites as evidence was built on superseded MONARCH 3 data."
+      },
+      {
+        "name": "Real-world weighted comparison (Flatiron Health oncology records cohort, sIPTW, CDK4/6i + AI, first-line, n=9,146)",
+        "draft_uses": "Ribociclib vs palbociclib aHR 0.98 (P=0.75); abemaciclib vs palbociclib aHR 0.95 (P=0.43); abemaciclib vs ribociclib aHR 0.97 (P=0.70)",
+        "latest_known": "Rugo et al., ESMO Open, published January 2025 (PMC January 2025): ribociclib vs palbociclib aHR 0.98 (95% CI 0.87\u20131.10, P=0.7531); abemaciclib vs palbociclib aHR 0.95 (95% CI 0.84\u20131.08, P=0.4292); abemaciclib vs ribociclib aHR 0.97 (95% CI 0.82\u20131.14, P=0.6956). A companion real-world PFS paper from the same cohort was published September 2025 but does not update the OS figures.",
+        "status": "CURRENT",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11758200/",
+        "what_changed": "The draft's P-values (0.75, 0.43, 0.70) are rounded versions of the published values (0.7531, 0.4292, 0.6956). The aHR point estimates (0.98, 0.95, 0.97) match exactly. No figures move. This is the most recent OS readout from this cohort."
+      },
+      {
+        "name": "NCCN Breast Cancer Guidelines (CDK4/6 inhibitor category assignments, first-line HR+/HER2\u2212 advanced breast cancer)",
+        "draft_uses": "Version 6.2026; ribociclib category 1 with AI; abemaciclib and palbociclib category 2A with AI; ribociclib and abemaciclib category 1 with fulvestrant",
+        "latest_known": "NCCN v4.2026 (July 2026 summary, OncoDaily): ribociclib + AI listed as category 1; abemaciclib and palbociclib + AI remain category 2A. Category structure confirmed consistent with v5.2024 and v6.2026 descriptions. The draft cites v6.2026 specifically; the category assignments are confirmed current as of the most recent publicly available summary.",
+        "status": "CURRENT",
+        "url": "https://oncodaily.com/oncolibrary/breast-oncology/breast-cancer-nccn-v4",
+        "what_changed": "No change to the category assignments the draft describes. The guideline's own statement that the three drugs have not been directly compared in randomized trials is also confirmed as still present in v4.2026."
+      }
+    ]
+  },
+  "objections": [
+    {
+      "objection": "The draft states the MONARCH 3 corrigendum is 'behind the publisher's wall' and therefore unread, but the corrigendum is open access under a Creative Commons licence.",
+      "quote": "A corrigendum to this paper exists \u2014 Ann Oncol 2025;36:1556 \u2014 and we have not been able to read it: it is behind the publisher's wall.",
+      "severity": "SERIOUS",
+      "class": "FACT",
+      "why": "The corrigendum (doi 10.1016/j.annonc.2025.07.002) is published open access under a Creative Commons Attribution\u2013NonCommercial\u2013NoDerivs licence, as shown by the publisher's own page. The draft's disclaimer of access is factually wrong. The corrigendum corrects a figure-4 event count (placebo arm: 162 \u2192 132) and does not appear to affect the HR, CI or p-value the draft relies on \u2014 but the draft cannot honestly say it has not read a document that is freely available. A reader who checks will find the corrigendum open and will conclude either that the draft did not look carefully or that the disclaimer is false.",
+      "fix": "Read the corrigendum (it is open access). If the correction does not affect any figure used on this page, say so positively: 'The corrigendum corrects an event-count label in Figure 4 of the original paper; it does not affect the HR, CI or p-value reported here.' Remove the claim that it is behind a paywall."
+    },
+    {
+      "objection": "The draft says the MONARCH 3 corrigendum has not been checked, then immediately asserts 'we have no reason to think any of them is affected' \u2014 a confidence claim that contradicts the stated ignorance.",
+      "quote": "Every MONARCH 3 figure on this page matches both the original article and the SABCS 2023 presentation of the same analysis, so we have no reason to think any of them is affected, but we have not checked and say so rather than leave the reader to assume we had.",
+      "severity": "MINOR",
+      "class": "CONTRADICTION",
+      "why": "The draft simultaneously disclaims having read the corrigendum and asserts a conclusion ('no reason to think any of them is affected') that can only be reached by reading it or by knowing what it corrects. The two halves of the sentence are in tension: if you have not read it, you cannot know whether your figures are affected. The corrigendum in fact corrects a figure-4 event-count label, not the statistical outputs \u2014 so the substantive conclusion is correct \u2014 but the reasoning as written is self-contradicting.",
+      "fix": "Since the corrigendum is open access and corrects only a figure label, read it and state the finding directly: 'The corrigendum corrects an event-count label in Figure 4 and does not affect the HR, CI or p-value used here.'"
+    },
+    {
+      "objection": "The draft describes the PALOMA-2 missing-data imbalance as something 'they said limits interpretation' and attributes the sensitivity analysis to the investigators, but does not note that the JCO 2024 paper itself was published with errors and carries its own correction notice.",
+      "quote": "PALOMA-2 is also the trial whose investigators recorded a large and disproportionate imbalance in missing survival data between its arms \u2014 survival status was unknown for 13.3% of the palbociclib arm and 21.2% of the placebo arm \u2014 which they said limits interpretation.",
+      "severity": "MINOR",
+      "class": "CALIBRATION",
+      "why": "The JCO 2024 PALOMA-2 paper was published with errors and a correction was issued (the paper's own PubMed entry notes it was 'published online January 22, 2024, with errors'). The draft cites this paper as a primary source for the missing-data figures and the sensitivity analysis without noting this. The missing-data percentages and sensitivity-analysis HR appear unaffected by the correction, but the draft's sourcing section does not flag the correction the way it flags the MONARCH 3 corrigendum \u2014 creating an inconsistency in how it treats corrections to its two primary sources.",
+      "fix": "Add a note in the PALOMA-2 sources entry analogous to the MONARCH 3 corrigendum note: acknowledge the correction notice exists, state which figures it affects, and confirm whether the missing-data and sensitivity-analysis figures used here are affected."
+    },
+    {
+      "objection": "The draft presents the 97% interval-overlap figure as though it measures how similar the two drugs' effects are, but interval overlap is a function of sample size and event count, not of effect size \u2014 a point the draft makes about p-values but does not apply to this derived statistic.",
+      "quote": "97% of ribociclib's interval lies inside abemaciclib's.",
+      "severity": "MINOR",
+      "class": "CALIBRATION",
+      "why": "The draft correctly warns that where an interval ends 'is set by how many patients were enrolled, how many events occurred and how variable they were' \u2014 but it applies that warning only to the significance threshold, not to the overlap figure it has just calculated from those same interval bounds. A reader will take '97% overlap' as a measure of how similar the drugs are; it is equally a measure of how wide abemaciclib's interval is, which is itself a function of the trial's power for OS. The figure is not wrong, but it is presented without the same caveat the draft applies to the p-values.",
+      "fix": "Add a one-sentence caveat after the 97% figure: 'That overlap is also a function of how wide abemaciclib's interval is \u2014 itself a consequence of that trial's power for overall survival \u2014 not only of how close the point estimates are.'"
+    },
+    {
+      "objection": "The draft says 'Survival was a secondary endpoint in all three' trials, but PALOMA-2's OS analysis was powered prospectively with 80% power and a pre-specified event count \u2014 a design feature the draft itself describes two paragraphs later \u2014 making 'secondary' potentially misleading about its statistical standing.",
+      "quote": "Survival was a secondary endpoint in all three.",
+      "severity": "MINOR",
+      "class": "CALIBRATION",
+      "why": "The draft correctly distinguishes PALOMA-2 (powered for OS) from MONARCH 3 (not powered for OS) two paragraphs later, but the sentence 'Survival was a secondary endpoint in all three' \u2014 offered as a statement about statistical power \u2014 flattens that distinction at the moment it introduces it. A reader who stops at that sentence will not know that 'secondary' covers both a powered and an unpowered analysis. The draft repairs this in the next paragraph, but the repair comes after the flattening, not alongside it.",
+      "fix": "Qualify the sentence on first use: 'Survival was a secondary endpoint in all three \u2014 though, as the next paragraph explains, secondary does not mean equally powered.'"
+    },
+    {
+      "objection": "The draft says 'no number on this page comes from a news report' in a way that implicitly characterises news reports as a class of unreliable sources, without identifying any specific report or error.",
+      "quote": "No number on this page comes from a news report, and none from a guideline's summary of a trial.",
+      "severity": "MINOR",
+      "class": "CALIBRATION",
+      "why": "This is a sourcing statement about the draft's own practice, not an accusation against a named outlet. It is close to the line, however: it implies that news reports and guideline summaries are sources from which wrong numbers could come, without citing an instance. As written it is a statement of method rather than a charge, and it does not name anyone \u2014 so it does not reach the level of the recorded UNSUPPORTED error. It is worth softening to make clear it is a positive claim about sourcing discipline, not a negative claim about others.",
+      "fix": "Rephrase as a positive sourcing statement: 'Every figure above traces to a primary trial publication or label, cited by name in the entry below.' Remove the implicit contrast with news reports."
+    }
+  ],
+  "inferences": [
+    {
+      "quote": "its cumulative two-sided type I error of 0.05 was divided between the intention-to-treat population and a visceral-disease subgroup, and spent across interim and final analyses under an O'Brien-Fleming spending function",
+      "problem": "The description conflates two distinct alpha-reduction operations \u2014 a graphical population split (initial allocation 0.04 to ITT, 0.01 to sVD) and an O'Brien-Fleming time-spending function \u2014 presenting them as a single mechanism, and 'divided' implies an unspecified or equal split when the actual ratio was 4:1.",
+      "severity": "MINOR",
+      "correct_reading": "The 0.05 was first allocated between populations by a graphical testing procedure (0.04 to ITT, 0.01 to sVD), and then within each population the cumulative type I error was controlled across interim and final analyses using a Lan-DeMets O'Brien-Fleming spending function; both operations together produced the final ITT boundary of 0.034.",
+      "fix": "its cumulative two-sided type I error of 0.05 was first split between the intention-to-treat population and a visceral-disease subgroup by a graphical testing procedure \u2014 with an initial allocation of 0.04 to the ITT population and 0.01 to the subgroup \u2014 and then spent across interim and final analyses within each population under a Lan-DeMets O'Brien-Fleming spending function",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "MONALEESA-2 states a two-sided p of 0.008; what boundary its final analysis was tested against we could not establish, and if it too spent alpha at an interim then its bar also sat below .05",
+      "problem": "The ESMO 2021 conference abstract of the same final analysis (same data cutoff, same 400 events) reports P=.004 \u2014 half the NEJM figure \u2014 which is consistent with the NEJM paper reporting the two-sided value of a one-sided test; this published discrepancy is evidence bearing directly on the boundary question the draft says it cannot resolve, and the draft does not acknowledge it.",
+      "severity": "MINOR",
+      "correct_reading": "The ESMO 2021 abstract of the same analysis gives P=.004 and the NEJM 2022 paper gives p=0.008; the most parsimonious explanation is that the ESMO figure is one-sided and the NEJM figure is two-sided, which would confirm that the final analysis used a one-sided test and that the boundary sat below 0.025 one-sided \u2014 supporting the draft's inference that the bar sat below .05, and providing the sourced evidence the draft says it lacks.",
+      "fix": "MONALEESA-2 states a two-sided p of 0.008 in the NEJM publication; the ESMO 2021 abstract of the same analysis gives P=.004, consistent with the NEJM figure being the two-sided equivalent of a one-sided test \u2014 which would mean the boundary sat below 0.025 one-sided, and below .05 two-sided. What the prespecified boundary was we could not establish from the publications we could open, but the discrepancy between the two published p-values is itself evidence that alpha was spent at an interim.",
+      "class": "CALIBRATION"
+    }
+  ],
+  "coverage": {
+    "best_coverage": [
+      {
+        "outlet": "Scientific Reports (Elliott et al., February 2024)",
+        "url": "https://www.nature.com/articles/s41598-024-53151-8",
+        "got_right": "Correctly performed a network meta-analysis of seven phase III RCTs (4,415 patients) and found no statistically significant OS difference between any pair of the three CDK4/6 inhibitors. Explicitly noted the absence of direct comparisons as the reason for the indirect method. Also reported that in the AI-backbone subgroup, palbociclib had a non-significantly worse OS vs ribociclib and abemaciclib (HR 1.26 and 1.19 respectively, both non-significant), preserving the nuance that palbociclib's result is directionally different even if not statistically separable. Reported safety differences (GI toxicity, neutropenia, diarrhea, discontinuation rates) between the three drugs.",
+        "still_omitted": "Does not address the NCCN category grading system or explain what the category 1 vs 2A distinction means for clinical practice. Does not discuss the cardiac monitoring burden unique to ribociclib as a countervailing consideration. Does not note that MONARCH 3 OS was a secondary endpoint with limited power, or that the trial's OS analysis was originally planned as part of a pooled analysis with MONARCH 2."
+      },
+      {
+        "outlet": "Annals of Oncology \u2014 MONARCH 3 final OS (Goetz et al., May 2024)",
+        "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+        "got_right": "Published the prespecified final OS results for MONARCH 3: HR 0.804 (95% CI 0.637\u20131.015; P=0.0664, non-significant) after a median follow-up of 8.1 years. Correctly preserved the composite picture \u2014 statistically significant PFS benefit (HR 0.535) persisting at final analysis, but OS not reaching significance. This is the definitive source for the MONARCH 3 OS figure the draft uses.",
+        "still_omitted": "Does not compare MONARCH 3's OS result to MONALEESA-2's in the context of what the difference in statistical significance means for guideline grading. Does not discuss whether the OS discrepancy between trials reflects drug differences or trial-design differences (power, population, follow-up)."
+      },
+      {
+        "outlet": "Flatiron Health / PMC real-world study (published January 2025)",
+        "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/",
+        "got_right": "Largest real-world comparative OS analysis of all three CDK4/6 inhibitors plus AI. Used stabilised inverse-probability of treatment weighting (sIPTW). Found no significant OS differences: ribociclib vs palbociclib aHR 0.98 (P=0.7531), abemaciclib vs palbociclib aHR 0.95 (P=0.4292), abemaciclib vs ribociclib aHR 0.97 (P=0.6956). Sensitivity analyses confirmed findings. Correctly described as the largest such real-world study.",
+        "still_omitted": "The paper itself frames the absence of RCTs as the reason for the study, using the phrase 'in the absence of RCTs to directly compare' \u2014 it does not characterise its own design as a 'direct comparison,' which is a semantic distinction the draft makes but the paper does not. Does not address NCCN category grading or the cardiac monitoring asymmetry."
+      },
+      {
+        "outlet": "ASCO Post \u2014 PALOMA-2 OS coverage (August 2022 and February 2024)",
+        "url": "https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/",
+        "got_right": "Explicitly reported the missing survival data imbalance (13.3% vs 21.2%) and stated that 'interpretation of these overall survival data was limited' because of it. Also reported the recovered-data analysis (HR 0.92 after data recovery), which the draft does not mention. Correctly identified OS as a secondary endpoint.",
+        "still_omitted": "Does not compare the PALOMA-2 OS result to MONALEESA-2 or MONARCH 3 in the context of what the difference means for guideline grading. Does not discuss the statistical power argument \u2014 that the OS discrepancy may reflect chance rather than drug differences."
+      },
+      {
+        "outlet": "npj Breast Cancer \u2014 power analysis (Jacot et al., 2018)",
+        "url": "https://www.nature.com/articles/s41523-018-0068-4",
+        "got_right": "Explicitly argued that 'if a significant OS improvement is observed in some but not all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy.' Calculated that the power of all four trials to demonstrate a statistically significant OS improvement is less than 70% if the OS gain is \u226412 months. Correctly identified OS as a secondary endpoint in all three trials. Noted MONARCH 3's OS analysis was originally planned as a pooled analysis with MONARCH 2, making standalone MONARCH 3 OS results exploratory.",
+        "still_omitted": "Predates the final OS results from all three trials, so cannot apply the power argument to the actual observed HRs. Does not address the real-world comparative data or the NCCN grading implications."
+      },
+      {
+        "outlet": "ASCO Daily News / ASCO Post \u2014 MONALEESA-2 OS and CDK4/6 inhibitor comparison",
+        "url": "https://dailynews.ascopubs.org/do/making-sense-paloma-2-and-monaleesa-2-data-treatment-hr-positive-her2-negative",
+        "got_right": "Correctly reported MONALEESA-2 OS HR 0.76 (0.63\u20130.93) as significant and PALOMA-2 HR 0.96 (0.78\u20131.18) as not significant. Noted MONARCH 3 data were still maturing at time of writing. Explicitly stated 'the reasons why palbociclib has not demonstrated a survival advantage remain unclear' \u2014 acknowledging uncertainty rather than asserting drug inferiority. Recommended either ribociclib or abemaciclib over palbociclib as first-line with an AI.",
+        "still_omitted": "Does not discuss the overlapping confidence intervals between ribociclib and abemaciclib or what the four-hundredths difference in point estimates means. Does not address the network meta-analysis or real-world comparative data. Does not discuss the cardiac monitoring burden of ribociclib as a countervailing factor."
+      }
+    ],
+    "contradictions": [
+      {
+        "quote": "The record that the drugs have not been directly compared in clinical trials is broader than the evidence supports \u2014 the real-world cohort is a direct comparison of all three. It is not randomised. It is direct.",
+        "counterexample": "The Flatiron real-world study (PMC11758200) itself uses the phrase 'in the absence of RCTs to directly compare the effectiveness of the three CDK4/6is' as its own framing \u2014 the paper does not characterise its design as a 'direct comparison.' The NCCN statement refers to clinical trials; a retrospective observational database study is not a clinical trial by any standard definition, so the guideline's statement is technically accurate as written.",
+        "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/",
+        "severity": "MINOR",
+        "fix": "Reframe as: 'The guideline's statement is technically accurate \u2014 no clinical trial has directly compared the three drugs. What exists is a large real-world observational comparison, which is direct in the sense of comparing the drugs against each other, but is not a clinical trial and is not randomised. The distinction matters and the guideline's language, while narrow, is defensible.'"
+      },
+      {
+        "quote": "Abemaciclib's hazard ratio is 0.80, on an interval running 0.64 to 1.02.",
+        "counterexample": "The final prespecified OS analysis of MONARCH 3 (Annals of Oncology, May 2024, after 8.1 years median follow-up) reports HR 0.804 (95% CI 0.637\u20131.015; P=0.0664). The draft's figures (0.80, 0.64\u20131.02) appear to derive from an interim analysis, not the final OS result. The final upper bound is 1.015, not 1.02, and the lower bound is 0.637, not 0.64. The draft's figures are close but not the final published numbers.",
+        "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+        "severity": "MINOR",
+        "fix": "Update to the final MONARCH 3 OS figures: HR 0.804 (95% CI 0.637\u20131.015; P=0.0664, non-significant) after a median follow-up of 8.1 years. Note explicitly that this is the prespecified final OS analysis, not an interim."
+      },
+      {
+        "quote": "A network meta-analysis pooled seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months.",
+        "counterexample": "The Scientific Reports paper (Elliott et al.) reports median follow-up as 70.2 months in the methods/results section (range 48.7\u201397.2 months), while the abstract states 73.3 months. The draft uses the abstract figure. This is an internal inconsistency in the source paper, but the draft should note which figure it is using and from where.",
+        "url": "https://www.nature.com/articles/s41598-024-53151-8",
+        "severity": "MINOR",
+        "fix": "Cite the figure as reported in the abstract of Elliott et al. (73.3 months) and note the methods section reports 70.2 months, or use the more conservative methods-section figure."
+      },
+      {
+        "quote": "PALOMA-2 is also the trial whose investigators recorded a large and disproportionate imbalance in missing survival data between its arms, which they said limits interpretation.",
+        "counterexample": "This is fully confirmed and not a contradiction \u2014 the ASCO Post, OncLive, and the JCO paper all explicitly report the 13.3% vs 21.2% imbalance and the investigators' own statement that it 'limited interpretation.' The draft's characterisation is accurate and well-supported.",
+        "url": "https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/",
+        "severity": "MINOR",
+        "fix": "No change needed. However, the draft omits the recovered-data sensitivity analysis (HR 0.92, 95% CI 0.76\u20131.12 after data recovery), which still did not reach significance but narrowed the gap. Adding this would strengthen the argument that even correcting for the missing data defect, palbociclib's OS result remains non-significant."
+      }
+    ],
+    "what_this_piece_can_add": "No existing coverage \u2014 including the most careful peer-reviewed treatments \u2014 connects all three threads simultaneously for a lay reader: (1) that the trials were individually underpowered for OS as a secondary endpoint and the OS discrepancy is statistically expected by chance alone, (2) that the one documented asymmetry between ribociclib and the other two drugs (mandatory cardiac monitoring) runs counter to the direction of the grade, and (3) that the recovered-data PALOMA-2 sensitivity analysis (HR 0.92 after correcting the missing-data imbalance) moves palbociclib's point estimate meaningfully closer to the other two drugs \u2014 a fact that further undermines the premise that the OS results reflect stable drug-level differences rather than trial-level artefacts."
+  }
+}

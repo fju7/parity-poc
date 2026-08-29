@@ -1,0 +1,407 @@
+{
+  "fixture": "/home/claude/recall_before/backend/tests/fixtures/factcheck_broken_fixture.html",
+  "roles_run": [
+    "SOURCE",
+    "RECENCY",
+    "ADVOCATE",
+    "INFERENCE"
+  ],
+  "today": "2026-08-27",
+  "found": 11,
+  "missed": 4,
+  "not_run": 0,
+  "mislabelled": [],
+  "blind_classes": [
+    "HAZARD_AS_RISK",
+    "SELECTIVE",
+    "SOURCE_FAULTED_ON_OUR_OWN_DEFINITION"
+  ],
+  "results": [
+    {
+      "id": "s1",
+      "class": "MISSING_NUMBER_AS_MISSING_EVIDENCE",
+      "expect": "INFERENCE",
+      "quote": "The Phase 3 announcement reports no Phase 3 results.",
+      "why_it_is_wrong": "It reports a result \u2014 that the trial met its endpoints. What it withholds is the magnitude. Absence of a number is not absence of a finding.",
+      "published_reads": "The Phase 3 announcement reports no numerical Phase 3 results. It reports a result \u2014 the trial met both of its prespecified endpoints, which is a real and significant finding.",
+      "verdict": "FOUND BY ANOTHER ROLE",
+      "matched_role": "SOURCE",
+      "score": 0.33,
+      "matched_quote": "The ASCO Post confirmed that no Phase 3 efficacy numbers had been released two days after the announcement, on 21 August 2026.",
+      "matched_severity": "WRONG_SOURCE",
+      "matched_class": ""
+    },
+    {
+      "id": "s2",
+      "class": "MISSING_NUMBER_AS_MISSING_EVIDENCE",
+      "expect": "INFERENCE",
+      "quote": "Of the 1,137-patient trial it is announcing, the quantitative content is nil.",
+      "why_it_is_wrong": "Second instance of s1 in the same draft. The release states both endpoints were met; what it gives no figure for is the size.",
+      "published_reads": "Of the 1,137-patient trial it is announcing, the release states that both endpoints were met and gives no figure for either.",
+      "verdict": "MISSED",
+      "matched_role": "SOURCE",
+      "score": 0.07,
+      "matched_quote": "The five-year update of KEYNOTE-942 carried a one-sided nominal p = 0.0031.",
+      "matched_severity": "WRONG_VALUE",
+      "matched_class": ""
+    },
+    {
+      "id": "s3",
+      "class": "RATIO_AS_LIVES",
+      "expect": "INFERENCE",
+      "quote": "It is consistent with the therapy preventing five deaths in six, and also with it causing a third more.",
+      "why_it_is_wrong": "A hazard ratio converted into a count of people. The interval bounds are rate comparisons; neither end says how many lives.",
+      "published_reads": "At one end the treated group's rate of death would be about a sixth of the control group's; at the other it would be about a third higher.",
+      "verdict": "FOUND",
+      "matched_role": "INFERENCE",
+      "score": 1.0,
+      "matched_quote": "It is consistent with the therapy preventing five deaths in six, and also with it causing a third more.",
+      "matched_severity": "SERIOUS",
+      "matched_class": "CONTRADICTION"
+    },
+    {
+      "id": "s4",
+      "class": "HAZARD_AS_RISK",
+      "expect": "INFERENCE",
+      "quote": "The range around it runs from an 84% reduction in the risk of death to a 35% increase.",
+      "why_it_is_wrong": "Risk, not hazard. A hazard ratio is an instantaneous rate comparison and is not a share of patients. The same substitution is seeded again at 'a 49% reduction in the risk of recurrence or death'.",
+      "published_reads": "The interval around it runs from a hazard ratio of 0.165 \u2014 a rate of death about 84% lower than the comparison group's \u2014 to 1.345, about 35% higher. Both ends are rate comparisons, not numbers of lives.",
+      "verdict": "MISSED",
+      "matched_role": "",
+      "score": 0.0,
+      "matched_quote": "",
+      "matched_severity": "",
+      "matched_class": ""
+    },
+    {
+      "id": "s5",
+      "class": "OVERSTATED",
+      "expect": "ADVOCATE",
+      "quote": "seven times larger, and free of the bias the earlier one carried",
+      "why_it_is_wrong": "The Phase 3's primary endpoint is investigator-assessed too. Blinding substantially protects against the bias running in one direction; it does not make the trial free of it.",
+      "published_reads": "seven times larger, and blinded against exactly the bias the earlier one carried",
+      "verdict": "FOUND BY ANOTHER ROLE",
+      "matched_role": "INFERENCE",
+      "score": 1.0,
+      "matched_quote": "It is the more trustworthy trial by a wide margin \u2014 seven times larger, and free of the bias the earlier one carried.",
+      "matched_severity": "SERIOUS",
+      "matched_class": "CONTRADICTION"
+    },
+    {
+      "id": "s6",
+      "class": "STALE",
+      "expect": "RECENCY",
+      "quote": "In the earlier Phase 2b at five years, patients on the combination were recurring or dying at about half the rate (HR 0.510, 0.288-0.906) and reaching distant metastasis at about two-fifths the rate (HR 0.384, 0.172-0.858)",
+      "why_it_is_wrong": "Three-year figures presented as five-year. The five-year readout published 1 June 2026 gives RFS 0.510 (0.294-0.887) and DMFS 0.411 (0.200-0.843). The stale DMFS point estimate 0.384 also appears in the forest plot and the source list.",
+      "published_reads": "HR 0.510, 0.294-0.887 ... HR 0.411, 0.200-0.843",
+      "verdict": "FOUND",
+      "matched_role": "RECENCY",
+      "score": 1.0,
+      "matched_quote": "Five-year data, citing: RFS HR 0.510 (0.288\u20130.906); DMFS HR 0.384 (0.172\u20130.858); OS HR 0.471 (0.165\u20131.345); irAEs 37.5% vs 36%",
+      "matched_severity": "SUPERSEDED",
+      "matched_class": ""
+    },
+    {
+      "id": "s7",
+      "class": "STALE",
+      "expect": "RECENCY",
+      "quote": "Immune-related adverse events were 37.5% on the combination versus 36% on pembrolizumab alone - essentially no extra immune toxicity from the added therapy.",
+      "why_it_is_wrong": "Superseded rates, and the conclusion drawn from them is contradicted by the five-year data: any-grade irAEs were 45.2% versus 44%, and grade 3 or worse treatment-related events 25% versus 18%.",
+      "published_reads": "Any-grade immune-related adverse events were similar \u2014 45.2% versus 44% \u2014 but grade 3 or worse treatment-related events were higher: 25% versus 18%.",
+      "verdict": "FOUND BY ANOTHER ROLE",
+      "matched_role": "SOURCE",
+      "score": 1.0,
+      "matched_quote": "Immune-related adverse events were 37.5% on the combination versus 36% on pembrolizumab alone.",
+      "matched_severity": "WRONG_VALUE",
+      "matched_class": ""
+    },
+    {
+      "id": "s8",
+      "class": "SELECTIVE",
+      "expect": "ADVOCATE",
+      "quote": "essentially no extra immune toxicity from the added therapy",
+      "why_it_is_wrong": "Reports the safety measure that favours the therapy and omits the one that does not. Grade 3 or worse treatment-related events were 25% versus 18%.",
+      "published_reads": "Reading only the first pair would tell you the added therapy costs nothing, and it does not.",
+      "verdict": "MISSED",
+      "matched_role": "SOURCE",
+      "score": 0.08,
+      "matched_quote": "The release contains a hazard ratio of 0.411 for distant metastasis from KEYNOTE-942.",
+      "matched_severity": "WRONG_SOURCE",
+      "matched_class": ""
+    },
+    {
+      "id": "s9",
+      "class": "ATTRIBUTED",
+      "expect": "SOURCE",
+      "quote": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266",
+      "why_it_is_wrong": "The one-sided 0.0266 comes from the April 2023 company press release. The Lancet published the same data with two-sided p = 0.053. Crediting the journal with the company's figure is the error the record calls ATTRIBUTED.",
+      "published_reads": "The April 2023 press release reported KEYNOTE-942 as one-sided p = 0.0266. When the same data were published in The Lancet, they came with two-sided p = 0.053.",
+      "verdict": "FOUND",
+      "matched_role": "SOURCE",
+      "score": 1.0,
+      "matched_quote": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266.",
+      "matched_severity": "WRONG_SOURCE",
+      "matched_class": ""
+    },
+    {
+      "id": "s10",
+      "class": "PHANTOM_FIGURE",
+      "expect": "SOURCE",
+      "quote": "The five-year update carried one-sided nominal p = 0.0031",
+      "why_it_is_wrong": "No source reports 0.0031. The nominal one-sided p-value in the January 2026 topline is 0.0075.",
+      "published_reads": "a nominal p-value was still computed and released \u2014 the one-sided 0.0075 in the January topline",
+      "verdict": "FOUND BY ANOTHER ROLE",
+      "matched_role": "ADVOCATE",
+      "score": 1.0,
+      "matched_quote": "The five-year update carried one-sided nominal p = 0.0031.",
+      "matched_severity": "SERIOUS",
+      "matched_class": "FACT"
+    },
+    {
+      "id": "s11",
+      "class": "DROPPED",
+      "expect": "SOURCE",
+      "quote": "One claim is cut as unverifiable: 30-month recurrence-free rates of 74.8% versus 55.6%, which appear in no source we can find.",
+      "why_it_is_wrong": "The figures exist and the draft uses them elsewhere. Declaring a real figure unverifiable is the DROPPED class, and the fixture does it in its own correction notice while quoting the numbers upstream.",
+      "published_reads": "the five-year figures 68.8% versus 49.1% are used, and the correction notice records replacing the 30-month rates rather than cutting them as unfindable",
+      "verdict": "FOUND BY ANOTHER ROLE",
+      "matched_role": "ADVOCATE",
+      "score": 1.0,
+      "matched_quote": "One claim is cut as unverifiable: 30-month recurrence-free rates of 74.8% versus 55.6%, which appear in no source we can find.",
+      "matched_severity": "MINOR",
+      "matched_class": "FACT"
+    },
+    {
+      "id": "s12",
+      "class": "ENDPOINT_DEMOTED",
+      "expect": "INFERENCE",
+      "quote": "RFS tells you the cancer stayed away longer, which is meaningful and is not the same claim.",
+      "why_it_is_wrong": "Treats recurrence-free and distant metastasis-free survival as lesser stand-ins for survival. All three are meaningful endpoints and none is a substitute for another; DMFS in particular is clinically important in its own right.",
+      "published_reads": "DMFS tells you the cancer did not reach distant organs \u2014 a clinically important outcome in its own right, not a stand-in for survival. RFS tells you the cancer stayed away anywhere, or the patient survived. All three are meaningful and none is a substitute for another.",
+      "verdict": "FOUND",
+      "matched_role": "INFERENCE",
+      "score": 1.0,
+      "matched_quote": "Only OS tells you people live longer. RFS tells you the cancer stayed away longer, which is meaningful and is not the same claim.",
+      "matched_severity": "MINOR",
+      "matched_class": "CONTRADICTION"
+    },
+    {
+      "id": "s13",
+      "class": "UNSUPPORTED",
+      "expect": "ADVOCATE",
+      "quote": "They are being used to fill the hole where the Phase 3's numbers should be, mostly without saying so.",
+      "why_it_is_wrong": "An accusation against the coverage with no evidence behind it, and false: the outlets checked attributed the figures to KEYNOTE-942 correctly, several saying plainly that no Phase 3 efficacy data had been released. This is the accusation the published piece cut.",
+      "published_reads": "Our first draft of this piece accused the coverage of passing the earlier trial's figures off as the new one's. Then we checked, and that is not what happened.",
+      "verdict": "FOUND",
+      "matched_role": "ADVOCATE",
+      "score": 1.0,
+      "matched_quote": "They are being used to fill the hole where the Phase 3's numbers should be, mostly without saying so.",
+      "matched_severity": "SERIOUS",
+      "matched_class": "THIRD_PARTY"
+    },
+    {
+      "id": "s14",
+      "class": "STALE",
+      "expect": "RECENCY",
+      "quote": "By five years it had tightened to 0.288-0.906 and cleared the line. More data, more certainty, and an effect that strengthened rather than faded",
+      "why_it_is_wrong": "0.288-0.906 is the three-year interval. At five years the interval was 0.294-0.887 \u2014 the crossing was resolved by year three, and the width was close to unchanged, so 'more certainty' is not what the extra two years bought.",
+      "published_reads": "It had already cleared the line by the three-year readout at ASCO 2024 ... At five years the point estimate was unchanged at 0.510 and the interval read 0.294-0.887 ... the width was close to unchanged.",
+      "verdict": "FOUND BY ANOTHER ROLE",
+      "matched_role": "SOURCE",
+      "score": 1.0,
+      "matched_quote": "At five years, the recurrence-free survival confidence interval for KEYNOTE-942 tightened to 0.288\u20130.906.",
+      "matched_severity": "WRONG_VALUE",
+      "matched_class": ""
+    },
+    {
+      "id": "s15",
+      "class": "SOURCE_FAULTED_ON_OUR_OWN_DEFINITION",
+      "expect": "ADVOCATE",
+      "quote": "which is broader than the design supports",
+      "why_it_is_wrong": "'Double-blind' is a term of art meaning patients and investigators are blind to allocation, which this trial's design provides; an active-comparator arm with its own schedule is a recognised feature of double-blind trials and does not make the label an overstatement. The sentence takes a term the source used correctly, applies a stricter reading of our own, and accuses the source of overstating on that basis.",
+      "seeded": "2026-08-28",
+      "why_it_is_here": "Second occurrence of this class in two issues. It is seeded in the melanoma fixture rather than a CDK4/6 one because recall is measured against this fixture and a class that is not seeded is not measured.",
+      "verdict": "MISSED",
+      "matched_role": "ADVOCATE",
+      "score": 0.15,
+      "matched_quote": "So the numbers carried in the coverage \u2014 the 49% reduction, the 59% reduction \u2014 describe a different trial: an open-label study of 157 patients, not the blinded study of 1,137 that was announced.",
+      "matched_severity": "MINOR",
+      "matched_class": "CONTRADICTION"
+    }
+  ],
+  "raw": {
+    "SOURCE": [
+      {
+        "quote": "The release contains a hazard ratio of 0.411 for distant metastasis from KEYNOTE-942.",
+        "text": "The release contains a hazard ratio of 0.411 for distant metastasis from KEYNOTE-942. 0.411 WRONG_SOURCE HR 0.411 (95% CI 0.200\u20130.843) for DMFS at 5-year follow-up The figure originates from the peer-reviewed 5-year KEYNOTE-942 update published in the Journal of Clinical Oncology (JCO-26-00835, June 1, 2026); it is cited as background context in the INTerpath-001 press release but is not a result of that release \u2014 the primary source is the JCO paper, not the press release The figure is real and correct, but its primary source is the JCO 5-year KEYNOTE-942 paper; the press release references it as prior-study context, so attributing it solely 'to the release' misidentifies the originating source.",
+        "severity": "WRONG_SOURCE"
+      },
+      {
+        "quote": "At five years, the recurrence-free survival confidence interval for KEYNOTE-942 tightened to 0.288\u20130.906.",
+        "text": "At five years, the recurrence-free survival confidence interval for KEYNOTE-942 tightened to 0.288\u20130.906. 0.288\u20130.906 WRONG_VALUE The 5-year RFS CI is 0.294\u20130.887 (JCO paper and Merck press release). The CI 0.288\u20130.906 belongs to the 3-year update (data cutoff November 2023, median follow-up ~34.9 months). 5-year CI from JCO paper (ascopubs.org/doi/10.1200/JCO-26-00835); 3-year CI 0.288\u20130.906 confirmed at CancerNetwork and The Oncology Nurse The draft attributes the 3-year-update RFS confidence interval (0.288\u20130.906) to the 5-year analysis; the 5-year CI is 0.294\u20130.887.",
+        "severity": "WRONG_VALUE"
+      },
+      {
+        "quote": "KEYNOTE-942 reported a distant metastasis-free survival hazard ratio of 0.384 with a 95% CI of 0.172\u20130.858 at five years.",
+        "text": "KEYNOTE-942 reported a distant metastasis-free survival hazard ratio of 0.384 with a 95% CI of 0.172\u20130.858 at five years. HR 0.384 (0.172\u20130.858) WRONG_VALUE The 5-year DMFS HR is 0.411 (95% CI 0.200\u20130.843). HR 0.384 (95% CI 0.172\u20130.858) is from the 3-year update (data cutoff November 2023). 5-year DMFS from JCO paper and Merck ASCO 2026 press release; 3-year DMFS HR 0.384 (0.172\u20130.858) confirmed at The Oncology Nurse (theoncologynurse.com) The draft attributes the 3-year-update DMFS hazard ratio and CI to the 5-year analysis; the 5-year figures are HR 0.411 (95% CI 0.200\u20130.843).",
+        "severity": "WRONG_VALUE"
+      },
+      {
+        "quote": "Immune-related adverse events were 37.5% on the combination versus 36% on pembrolizumab alone.",
+        "text": "Immune-related adverse events were 37.5% on the combination versus 36% on pembrolizumab alone. 37.5% versus 36% WRONG_VALUE The Merck/Moderna ASCO 2026 press release (drugs.com mirror) reports immune-related AEs in 45.2% of the combination arm vs 44% of the pembrolizumab-alone arm. The figure 37.5% vs 36% appears in a CancerNetwork article but that article conflates data from the January 2026 RFS-only press release with the ASCO presentation. Merck/Moderna ASCO 2026 press release via drugs.com (June 1, 2026); CancerNetwork five-year article also cites 37.5%/36% but this appears to be from an earlier data cut The ASCO 2026 press release gives irAE rates of 45.2% vs 44%; the 37.5%/36% figures appear in secondary reporting and likely derive from an earlier analysis or a different AE categorisation.",
+        "severity": "WRONG_VALUE"
+      },
+      {
+        "quote": "The five-year update of KEYNOTE-942 carried a one-sided nominal p = 0.0031.",
+        "text": "The five-year update of KEYNOTE-942 carried a one-sided nominal p = 0.0031. one-sided nominal p = 0.0031 WRONG_VALUE one-sided nominal p = 0.0075 (not 0.0031) for RFS at the 5-year update of KEYNOTE-942 Merck/Moderna January 20, 2026 press release (merck.com); confirmed by OncLive, Targeted Oncology, and CancerNetwork citing the same figure Every primary and secondary source for the 5-year KEYNOTE-942 update reports a one-sided nominal p = 0.0075; p = 0.0031 does not appear in any source found for this trial at any readout.",
+        "severity": "WRONG_VALUE"
+      },
+      {
+        "quote": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266.",
+        "text": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266. one-sided p = 0.0266 WRONG_SOURCE two-sided p = 0.053 The Lancet (Weber et al., Lancet 403:632\u2013644, 2024) reports a two-sided p = 0.053. The one-sided p = 0.0266 originates from the Moderna/Merck joint press release of December 13, 2022, and is also reproduced in ASCO/JCO conference abstracts \u2014 not in The Lancet paper. The Lancet phase 2b publication reports a two-sided p = 0.053 for the RFS hazard ratio; the one-sided p = 0.0266 appears in the December 2022 Moderna\u2013Merck press release and in ASCO conference abstracts, not in The Lancet article. Attributing the one-sided value to The Lancet is wrong \u2014 this is the same class of error flagged in the publication's recorded mistakes (ATTRIBUTED).",
+        "severity": "WRONG_SOURCE"
+      },
+      {
+        "quote": "The first KEYNOTE-942 readout was released on 16 April 2023.",
+        "text": "The first KEYNOTE-942 readout was released on 16 April 2023. 16 April 2023 WRONG_VALUE The first KEYNOTE-942 readout (topline primary endpoint announcement) was released on December 13, 2022. The April 16, 2023 date corresponds to the first detailed/full presentation of results at the AACR Annual Meeting, which Merck itself described as 'the first presentation of detailed results' \u2014 explicitly noting the companies 'previously announced positive data from this study in December 2022.' Merck press release, December 13, 2022 (primary topline); Merck press release, April 16, 2023 (first detailed presentation at AACR) The first KEYNOTE-942 readout was December 13, 2022; April 16, 2023 was the first detailed presentation at AACR, not the first readout.",
+        "severity": "WRONG_VALUE"
+      },
+      {
+        "quote": "The ASCO Post confirmed that no Phase 3 efficacy numbers had been released two days after the announcement, on 21 August 2026.",
+        "text": "The ASCO Post confirmed that no Phase 3 efficacy numbers had been released two days after the announcement, on 21 August 2026. 21 August 2026 WRONG_SOURCE The ASCO Post article (posted 8/21/2026) reports the topline announcement and Phase 2b context figures; it does not contain any statement confirming that no Phase 3 efficacy numbers had been released. The observation that INTerpath-001's own efficacy magnitude had not yet been disclosed comes from sources such as KOL Pulse and Life Science Daily News, not from The ASCO Post article cited. The ASCO Post article exists and is dated 21 August 2026, but it does not 'confirm that no Phase 3 efficacy numbers had been released' \u2014 that characterisation is not present in the article; the claim misattributes a statement to The ASCO Post that the article does not make.",
+        "severity": "WRONG_SOURCE"
+      }
+    ],
+    "RECENCY": [
+      {
+        "quote": "Five-year data, citing: RFS HR 0.510 (0.288\u20130.906); DMFS HR 0.384 (0.172\u20130.858); OS HR 0.471 (0.165\u20131.345); irAEs 37.5% vs 36%",
+        "text": "KEYNOTE-942 \u2014 five-year update (JCO / ASCO 2026) Five-year data, citing: RFS HR 0.510 (0.288\u20130.906); DMFS HR 0.384 (0.172\u20130.858); OS HR 0.471 (0.165\u20131.345); irAEs 37.5% vs 36% JCO paper published 1 June 2026 (ascopubs.org/doi/10.1200/JCO-26-00835), simultaneously with ASCO 2026 presentation. Confirmed figures: RFS HR 0.510 (95% CI 0.294\u20130.887); DMFS HR 0.411 (95% CI 0.200\u20130.843). The draft's RFS CI (0.288\u20130.906) and DMFS point estimate and CI (0.384, 0.172\u20130.858) do not match the JCO five-year paper. The DMFS figure of 0.384 (0.172\u20130.858) matches the three-year readout, not the five-year paper. The RFS CI lower bound 0.288 vs 0.294 and upper bound 0.906 vs 0.887 are also wrong for the five-year paper. The irAE rate of 37.5% vs 36% does not match the Lancet primary analysis figure of 36% vs 36%; the five-year paper's irAE figure could not be confirmed from available abstracts but the Lancet gives 36%/36%, not 37.5%/36%. SUPERSEDED https://ascopubs.org/doi/10.1200/JCO-26-00835 THREE FIGURE ERRORS IDENTIFIED: (1) RFS 95% CI: draft prints 0.288\u20130.906; JCO five-year paper gives 0.294\u20130.887. (2) DMFS HR and CI: draft prints 0.384 (0.172\u20130.858), which is the three-year readout figure; JCO five-year paper gives 0.411 (0.200\u20130.843). The draft names the five-year data as its source but quotes the three-year interval for DMFS \u2014 the same class of error flagged in RECORDED MISTAKES. (3) irAE rate: draft states 37.5% vs 36% in the 'Established' section; the Lancet primary analysis (the only peer-reviewed source with a confirmed irAE percentage) gives 36% vs 36%, not 37.5% vs 36%. The five-year JCO paper's irAE figure was not retrievable in full from search results, so the 37.5% figure cannot be positively confirmed against that source either \u2014 treated as UNKNOWN for that specific figure.",
+        "severity": "SUPERSEDED"
+      }
+    ],
+    "ADVOCATE": [
+      {
+        "quote": "By five years it had tightened to 0.288\u20130.906 and cleared the line.",
+        "text": "By five years it had tightened to 0.288\u20130.906 and cleared the line. The five-year RFS confidence interval is stated as 0.288\u20130.906, which is the three-year figure; the five-year peer-reviewed paper gives 0.294\u20130.887. The JCO five-year paper (ASCO 2026) gives the five-year RFS CI as 0.294\u20130.887. The interval 0.288\u20130.906 belongs to the three-year update. The draft's own sources table cites the correct five-year figure elsewhere (HR 0.510, 0.288\u20130.906 appears in the comparison table attributed to the five-year data, compounding the error). Using the wrong interval at the wrong timepoint misstates the degree of tightening and which line was cleared. Replace '0.288\u20130.906' with '0.294\u20130.887' and confirm the timepoint label reads 'five years'.",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "Distant metastasis-free HR 0.384 (0.172\u20130.858)",
+        "text": "Distant metastasis-free HR 0.384 (0.172\u20130.858) The comparison table lists the five-year DMFS as HR 0.384 (0.172\u20130.858), which is the three-year figure; the five-year peer-reviewed paper gives HR 0.411 (0.200\u20130.843). The JCO five-year paper and the Merck/Moderna five-year press release both give the five-year DMFS hazard ratio as 0.411 (95% CI 0.200\u20130.843). HR 0.384 (0.172\u20130.858) is the three-year update figure. The table header implies these are the five-year results (since the RFS row cites the five-year HR 0.510). Mixing timepoints in the same table row without labelling them is a factual error that understates the DMFS hazard ratio at five years. Replace 'HR 0.384 (0.172\u20130.858)' in the DMFS row with 'HR 0.411 (0.200\u20130.843)' and confirm the source annotation points to the five-year paper.",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266.",
+        "text": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266. The draft attributes the one-sided p = 0.0266 framing to The Lancet, but The Lancet paper reports a two-sided p = 0.053; the one-sided figure originated with the company and AACR presentation. The JCO five-year paper explicitly states the primary analysis result as 'two-sided P = .053', consistent with The Lancet publication. The one-sided p = 0.0266 appears in the company press release and the AACR/ASCO conference abstract, not in The Lancet paper. Attributing the one-sided framing to The Lancet is factually wrong and unfairly implies the journal chose the more favourable presentation. Change to: 'The company's first readout reported one-sided p = 0.0266; The Lancet paper reported the same result as two-sided p = 0.053.'",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "The five-year update carried one-sided nominal p = 0.0031.",
+        "text": "The five-year update carried one-sided nominal p = 0.0031. The five-year one-sided nominal p-value for RFS is stated as 0.0031, but the Merck/Moderna five-year press release and peer-reviewed sources give it as 0.0075. Every available source for the five-year KEYNOTE-942 RFS result \u2014 the Merck topline press release, the JCO paper, and multiple trade publications \u2014 gives the one-sided nominal p as 0.0075. The figure 0.0031 does not appear in any source for this result. Stating a p-value that is more than twice as small as the actual one overstates the statistical strength of the finding. Replace '0.0031' with '0.0075'.",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "The companies' five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075.",
+        "text": "The companies' five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075. The five-year topline press release is dated '20 January 2026', but the five-year data were presented at ASCO on 1 June 2026 and the press release is dated that same day. The Merck/Moderna five-year KEYNOTE-942 press release is dated in connection with the 2026 ASCO Annual Meeting presentation on 1 June 2026. The draft's own sources section lists this as 'Merck & Moderna \u2014 five-year KEYNOTE-942 data, ASCO 2026 / 1 June 2026.' A January 2026 date for this release is not supported by any source and contradicts the draft's own source list. Replace '20 January 2026' with '1 June 2026' (or the verified date of the Merck topline press release for the five-year data).",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "They are being used to fill the hole where the Phase 3's numbers should be, mostly without saying so.",
+        "text": "They are being used to fill the hole where the Phase 3's numbers should be, mostly without saying so. The draft accuses 'the coverage' of using Phase 2b figures to fill the Phase 3 gap 'mostly without saying so', an assertion about the conduct of named and unnamed outlets that is offered without a single cited example. This is a claim about editorial behaviour \u2014 that outlets reported Phase 2b figures without attributing them to the earlier trial. It is not a claim about the data; it is a claim about what journalists did or failed to do. No outlet is named, no headline is quoted, and no example is given. The recorded mistake log for this publication notes that an identical accusation in a prior draft was checked and found to be false \u2014 all outlets had attributed correctly. The same verification has not been shown here. Either name specific outlets and quote the specific passages that omit attribution, or remove the clause 'mostly without saying so' and replace it with a neutral statement that the figures originate in KEYNOTE-942.",
+        "severity": "SERIOUS",
+        "class": "THIRD_PARTY"
+      },
+      {
+        "quote": "reaching distant metastasis at about two-fifths the rate (HR 0.384, 0.172\u20130.858)",
+        "text": "reaching distant metastasis at about two-fifths the rate (HR 0.384, 0.172\u20130.858) The 'Established' section states the five-year DMFS hazard ratio as HR 0.384 (0.172\u20130.858), repeating the three-year figure a second time in a section explicitly headed with the five-year timeframe. This is a second instance of the same DMFS timepoint error identified in the comparison table. The five-year peer-reviewed paper gives HR 0.411 (0.200\u20130.843). The 'Established' section is explicitly framed as the state of knowledge 'as of 26 August 2026' and cites 'five years of follow-up', making the wrong figure doubly misleading. Reporting the same error in two separate locations means a correction in one place would leave it standing in the other. Replace 'HR 0.384, 0.172\u20130.858' with 'HR 0.411, 0.200\u20130.843' and verify the timepoint label reads 'at five years'.",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "So the numbers carried in the coverage \u2014 the 49% reduction, the 59% reduction \u2014 describe a different trial: an open-label study of 157 patients, not the blinded study of 1,137 that was announced.",
+        "text": "So the numbers carried in the coverage \u2014 the 49% reduction, the 59% reduction \u2014 describe a different trial: an open-label study of 157 patients, not the blinded study of 1,137 that was announced. The draft describes the Phase 3 as 'double-blind' in the short version but then argues in the body that the blind is 'partial at best' \u2014 the summary and the body contradict each other on a material design point. The short version calls INTerpath-001 'the blinded study of 1,137', presenting the double-blind label as straightforwardly accurate. Four paragraphs later the draft argues the companies 'should not call it double' because the active-comparator arm undermines the blind. A reader who reads only the summary takes away a different characterisation of the trial design than a reader who reads the full piece. The draft should be consistent: either the blind is valid (and the short version is fine) or it is partial (and the short version should say so). In the short version, change 'the blinded study of 1,137' to 'the double-blind study of 1,137' with a parenthetical such as '(though see the blinding caveat below)' \u2014 or resolve the body argument before publication so both sections carry the same conclusion.",
+        "severity": "MINOR",
+        "class": "CONTRADICTION"
+      },
+      {
+        "quote": "the blind is partial at best and the companies should not call it double.",
+        "text": "the blind is partial at best and the companies should not call it double. The draft frames the active-comparator blinding issue as a company misrepresentation without establishing that partial blinding in active-comparator arms is abnormal or that the companies' description departs from regulatory convention. Trials with an active-comparator arm routinely describe themselves as double-blind when the experimental assignment (vaccine vs placebo) is blinded, even if the comparator schedule differs. This is a recognised and accepted design convention, not a misrepresentation. Saying the companies 'should not' use the term implies a departure from standard practice that the draft does not demonstrate. The concern about partial unblinding may be legitimate, but it needs to be framed as a limitation to note, not a labelling error. Replace 'the companies should not call it double' with 'the double-blind label applies to the experimental assignment; the active-comparator schedule may allow inference of arm allocation in some patients, which is a recognised limitation of this design.'",
+        "severity": "MINOR",
+        "class": "CALIBRATION"
+      },
+      {
+        "quote": "One claim is cut as unverifiable: 30-month recurrence-free rates of 74.8% versus 55.6%, which appear in no source we can find.",
+        "text": "One claim is cut as unverifiable: 30-month recurrence-free rates of 74.8% versus 55.6%, which appear in no source we can find. The draft states the Checking note that the 74.8%/55.6% figures 'appear in no source we can find', but these figures appear in the published three-year update and in the JCO Oncology Advances paper. The three-year update (reported in The Oncology Nurse and the JCO Oncology Advances paper) explicitly states: 'The 2.5-year RFS rate for the combination treatment versus pembrolizumab alone was 74.8% versus 55.6%.' The figures are verifiable and sourced to the three-year analysis. Describing them as unverifiable is incorrect and, because the Checking note is published, implies a due-diligence failure that did not occur. The timepoint label in the draft body ('30 months') is also slightly imprecise \u2014 the source says '2.5-year', which is 30 months, so that part is consistent. Restore the figures with the correct source citation (three-year update, data cutoff November 2023) and remove the 'unverifiable' note, or correct the Checking note to read 'verified against the three-year update'.",
+        "severity": "MINOR",
+        "class": "FACT"
+      }
+    ],
+    "INFERENCE": [
+      {
+        "quote": "It is consistent with the therapy preventing five deaths in six, and also with it causing a third more.",
+        "text": "It is consistent with the therapy preventing five deaths in six, and also with it causing a third more. A hazard ratio of 0.165 (the lower CI bound) is converted into a count of lives prevented \u2014 'five deaths in six' \u2014 which treats a hazard ratio as an absolute risk reduction and implies a headcount that the data do not support. HR 0.165 means the lower bound of the confidence interval is consistent with an 83.5% lower instantaneous hazard of death, not that five out of every six deaths are prevented. The upper bound of 1.345 is consistent with a 34.5% higher hazard. Neither bound is an absolute risk figure. It is consistent with an 83% lower hazard of death at one extreme, and a 35% higher hazard at the other \u2014 a range that wide reflects the small number of events, not a meaningful estimate of effect.",
+        "severity": "SERIOUS",
+        "class": "CONTRADICTION"
+      },
+      {
+        "quote": "Recurrence-free 5-year \u00b7 HR 0.510",
+        "text": "Recurrence-free 5-year \u00b7 HR 0.510 The confidence interval shown in the chart key for the five-year RFS result is 0.288\u20130.906, which is the three-year update figure, not the five-year figure. The five-year peer-reviewed paper reports 0.294\u20130.887. The five-year JCO paper (Carlino et al., 2026) reports HR 0.510 (95% CI 0.294\u20130.887). The interval 0.288\u20130.906 belongs to the three-year update presented at ASCO 2024. Recurrence-free 5-year \u00b7 HR 0.510 (0.294\u20130.887)",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "Distant metastasis-free HR 0.384 (0.172\u20130.858)",
+        "text": "Distant metastasis-free HR 0.384 (0.172\u20130.858) The five-year DMFS result in the comparison table is given as HR 0.384 (0.172\u20130.858), which is the three-year figure. The five-year peer-reviewed paper reports HR 0.411 (0.200\u20130.843). The five-year JCO paper reports DMFS HR 0.411 (95% CI 0.200\u20130.843). HR 0.384 (0.172\u20130.858) is from the three-year update. Distant metastasis-free HR 0.411 (0.200\u20130.843) at 5 years",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "Distant metastasis-free 5-year \u00b7 HR 0.384 (0.172\u20130.858)",
+        "text": "Distant metastasis-free 5-year \u00b7 HR 0.384 (0.172\u20130.858) Same error as above, appearing a second time in the chart legend: the five-year DMFS CI is stated as 0.172\u20130.858, which is the three-year figure, not the five-year one. The five-year DMFS HR is 0.411 (0.200\u20130.843) per the JCO 2026 paper. Distant metastasis-free 5-year \u00b7 HR 0.411 (0.200\u20130.843)",
+        "severity": "SERIOUS",
+        "class": "FACT"
+      },
+      {
+        "quote": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266.",
+        "text": "The Lancet reported KEYNOTE-942 as one-sided p = 0.0266. The Lancet paper (Weber et al., 2024) reports a two-sided p = 0.053. The one-sided p = 0.0266 is the company/AACR figure from the April 2023 press release, not the Lancet publication. The draft's own sources section lists the Lancet paper as the source for 'two-sided p = 0.053', making this a direct self-contradiction. The Lancet primary analysis paper reports two-sided p = 0.053. The one-sided p = 0.0266 was reported by the company at AACR 2023 and in the April 2023 press release, which the draft lists as a separate source. The company's AACR 2023 presentation reported KEYNOTE-942 as one-sided p = 0.0266; the peer-reviewed Lancet publication of the same data reported two-sided p = 0.053.",
+        "severity": "SERIOUS",
+        "class": "CONTRADICTION"
+      },
+      {
+        "quote": "It is the more trustworthy trial by a wide margin \u2014 seven times larger, and free of the bias the earlier one carried.",
+        "text": "It is the more trustworthy trial by a wide margin \u2014 seven times larger, and free of the bias the earlier one carried. The INTerpath-001 primary endpoint (RFS) is investigator-assessed, exactly as in KEYNOTE-942. The double-blind design reduces but does not eliminate investigator-assessment bias for a subjective endpoint; the draft's own checking note at the bottom acknowledges this correction was made, but the body text still contains the uncorrected claim. INTerpath-001's primary endpoint is investigator-assessed RFS. The double-blind design substantially reduces the risk of unconscious bias in assessment compared to the open-label Phase 2b, but does not eliminate it entirely, since investigators still judge recurrence. It is the more trustworthy trial by a wide margin \u2014 seven times larger, and with the assessment bias of the earlier trial substantially reduced by double-blinding, though its primary endpoint remains investigator-assessed.",
+        "severity": "SERIOUS",
+        "class": "CONTRADICTION"
+      },
+      {
+        "quote": "30-month recurrence-free rates of 74.8% versus 55.6%, which appear in no source we can find",
+        "text": "30-month recurrence-free rates of 74.8% versus 55.6%, which appear in no source we can find The draft's own checking note disavows these figures as unverifiable, but they appear in the published three-year update of KEYNOTE-942 (CancerNetwork citing the ASCO 2024 presentation): 74.8% vs 55.6% at 30 months. Calling them unverifiable when they are in a peer-reviewed-adjacent source is itself a factual error in the checking note. The 30-month RFS rates of 74.8% vs 55.6% appear in the three-year update of KEYNOTE-942 presented at ASCO 2024 and reported in multiple oncology publications. They are verifiable against that source. Remove the disclaimer or attribute the figures to the three-year KEYNOTE-942 update (ASCO 2024 / JCO Oncology Advances 2025).",
+        "severity": "MINOR",
+        "class": "FACT"
+      },
+      {
+        "quote": "Only OS tells you people live longer. RFS tells you the cancer stayed away longer, which is meaningful and is not the same claim.",
+        "text": "Only OS tells you people live longer. RFS tells you the cancer stayed away longer, which is meaningful and is not the same claim. While the distinction between RFS and OS is real and worth drawing, the sentence 'Only OS tells you people live longer' implies RFS and DMFS are not clinically meaningful endpoints for regulatory or patient purposes. FDA has approved adjuvant melanoma therapies on RFS alone, and DMFS is a direct measure of a clinically important event. The draft elsewhere correctly calls these endpoints 'clinically meaningful'; this sentence contradicts that framing. RFS and DMFS are clinically meaningful endpoints in adjuvant melanoma \u2014 FDA has approved therapies in this setting on RFS \u2014 but they do not directly establish that patients live longer. OS is the only endpoint that does. Only OS directly tells you people live longer. RFS tells you the cancer stayed away longer \u2014 a clinically meaningful outcome in its own right, and one regulators have accepted as a basis for approval in this setting, but not the same claim as a survival benefit.",
+        "severity": "MINOR",
+        "class": "CONTRADICTION"
+      },
+      {
+        "quote": "The five-year update carried one-sided nominal p = 0.0031.",
+        "text": "The five-year update carried one-sided nominal p = 0.0031. The five-year analyses were explicitly described as descriptive in the JCO paper \u2014 no alpha was assigned and no hypothesis test was pre-specified for them. Reporting a p-value for a descriptive analysis without immediately flagging that it carries no inferential weight in this context invites the reader to treat it as a significance test, which the paper's own authors say it is not. The five-year analyses were descriptive; the JCO paper states they were not designed to test a hypothesis. Any p-value attached to them is nominal only and does not constitute a significance test. The five-year update carried a nominal p = 0.0031 \u2014 but as the peer-reviewed paper states, the five-year analyses were descriptive and not designed to test a hypothesis, so this figure carries no inferential weight.",
+        "severity": "MINOR",
+        "class": "CALIBRATION"
+      },
+      {
+        "quote": "The companies' five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075.",
+        "text": "The companies' five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075. Same class as the finding above, appearing a second time: a p-value from a descriptive analysis is quoted without the sentence itself noting it is nominal and non-inferential. The qualification appears only in the following sentence, which a reader quoting this sentence alone will not carry. The p = 0.0075 is a nominal figure from a descriptive analysis not designed to test a hypothesis. Quoting it without that caveat in the same sentence implies inferential weight it does not have. The companies' five-year topline of 20 January 2026 reported a nominal one-sided p = 0.0075 \u2014 a descriptive figure, not a pre-specified hypothesis test.",
+        "severity": "MINOR",
+        "class": "CALIBRATION"
+      }
+    ]
+  }
+}

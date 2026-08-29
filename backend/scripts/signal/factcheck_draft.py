@@ -88,7 +88,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -103,6 +103,15 @@ MAX_SEARCHES_PER_CALL = 12
 
 BACKOFF_DELAYS = [5, 15, 40]
 JSON_RETRIES = 2
+
+# Above this many output tokens the SDK requires streaming, because its
+# estimate of how long the call will take crosses ten minutes.
+STREAM_ABOVE = 8192
+
+# The model's ceiling, used for every role that reads the whole draft.
+# Confirmed accepted on 2026-08-29. Raising this costs nothing until a
+# role actually generates more; lowering it costs nothing but outages.
+MAX_OUTPUT_TOKENS = 64000
 
 # ---------------------------------------------------------------------------
 # what a run costs
@@ -195,16 +204,97 @@ KNOWN_ERRORS = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "fac
 _client = None
 
 
+KEY_VAR = "ANTHROPIC_API_KEY"
+ENVFILE = Path(__file__).resolve().parents[2] / ".env"
+
+
+def _api_key() -> str:
+    """The key, from the shell or from backend/.env.
+
+    This script read os.environ and nothing else, so it ran from a shell where
+    the key had been exported and failed from one where it had not — the same
+    command, the same machine, two different outcomes and no way to tell which
+    you were in until it exited. Configuration that lives in a file the repo
+    already has should be read from that file.
+
+    An exported value still wins, so a different key can be forced for a run.
+    Only this one variable is read; the file holds two dozen secrets and none of
+    the others are this script's business. The value is never printed.
+    """
+    key = os.environ.get(KEY_VAR)
+    if key:
+        return key.strip()
+    if ENVFILE.exists():
+        try:
+            for line in ENVFILE.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if line.startswith(KEY_VAR + "=") :
+                    return line.split("=", 1)[1].strip().strip('"').strip("'")
+        except Exception:
+            pass
+    return ""
+
+
 def _get_client():
     global _client
     if _client is None:
-        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        api_key = _api_key()
         if not api_key:
-            print("[ERROR] ANTHROPIC_API_KEY is not set.")
+            print("[ERROR] %s is not set, and is not in %s." % (KEY_VAR, ENVFILE))
             sys.exit(2)
         import anthropic
         _client = anthropic.Anthropic(api_key=api_key)
     return _client
+
+
+
+def format_usage(entries=None):
+    """The cost of the run, for the terminal.
+
+    usage_summary() was written into the report JSON and printed nowhere. The
+    number existed but nobody saw it: to learn what an issue cost you had to
+    know the report had a usage key, open the JSON and read it -- and a run
+    without --report recorded no cost at all. Instrumentation you have to go
+    looking for does not change behaviour. This puts it under the findings,
+    where the person who just spent the money is already reading.
+
+    Roles are listed most expensive first, because the reason to show a
+    breakdown is to say which role to look at. A role with more calls than
+    its share of the work took retries, and retries are charged in full, so
+    the call count is printed next to the money rather than hidden behind it.
+    """
+    u = usage_summary(entries)
+    t = u["total"]
+    if not t["calls"]:
+        return ""
+    L = []
+    L.append("=" * 72)
+    money = ("$%.2f" % t["usd"]) if t["priced"] else "cost unknown"
+    L.append("COST     %s - %d API call(s) - %s tokens in, %s out - %d web search(es)"
+             % (money, t["calls"], "{:,}".format(t["input"]),
+                "{:,}".format(t["output"]), t["web_searches"]))
+    L.append("=" * 72)
+    L.append("")
+    rows = sorted(u["by_role"].items(), key=lambda kv: -kv[1]["usd"])
+    for name, r in rows:
+        flag = ("  <- %d calls; the extra one(s) were retries, charged in full"
+                % r["calls"]) if r["calls"] > 1 else ""
+        L.append("  %-38s %7s  %s tok  %2d search%s" %
+                 (name[:38],
+                  ("$%.2f" % r["usd"]) if r["priced"] else "  -  ",
+                  "{:>7,}".format(r["input"] + r["output"]),
+                  r["web_searches"], flag))
+    L.append("")
+    if not t["priced"]:
+        L.append("  Some calls ran on a model absent from the price table, so the")
+        L.append("  total is tokens only. Models seen: %s"
+                 % ", ".join(sorted(u["models"])))
+    else:
+        L.append("  Priced from %s," % u["prices_source"])
+        L.append("  read %s. Prices go stale; a figure here older than the"
+                 % u["prices_checked"])
+        L.append("  page it came from is a figure to re-check.")
+    return "\n".join(L)
 
 
 # ---------------------------------------------------------------------------
@@ -244,40 +334,91 @@ def _response_text(response) -> str:
     return "\n".join(parts).strip()
 
 
+def _salvage_rank(value) -> int:
+    """How much a salvaged JSON value looks like a role's answer.
+
+    Parseable is not the same as wanted. A response that opens "Per the paper
+    [1], here is the result:" contains a perfectly valid JSON array before the
+    real one, and returning [1] is worse than returning nothing: nothing makes
+    the caller retry, while [1] is silently accepted as "the role found no
+    findings" and the check reports a clean pass it never performed.
+
+    Every role in this file returns an object, or a list of objects, or an
+    empty list meaning it found nothing. Nothing else is an answer.
+    """
+    if isinstance(value, dict):
+        return 3
+    if isinstance(value, list):
+        if value and all(isinstance(v, dict) for v in value):
+            return 3
+        if not value:
+            return 1          # a real "nothing found", but so is any stray []
+    return 0
+
+
 def _first_json_value(text: str) -> str | None:
-    """Salvage the first complete JSON object or array from prose."""
-    start = None
-    for i, ch in enumerate(text):
-        if ch in "{[":
-            start = i
-            break
-    if start is None:
+    """Salvage a complete JSON object or array from prose.
+
+    The earlier version scanned for the FIRST '{' or '[' in the response and
+    committed to it. Models write prose before their JSON, and that prose
+    routinely contains a bracket -- a citation marker, an interval like
+    [0.63, 0.93], a fenced block's language tag. When it did, the salvage
+    started at the wrong character, produced something unparseable, and the
+    caller burned two more API calls re-asking for output it had already been
+    given. On 2026-08-28 that cost three calls on one MONALEESA-2 check whose
+    response ended, verbatim, in a well-formed array followed by a code fence.
+
+    Now: strip fences, then try every candidate start and return the first that
+    actually parses. Wrong guesses are free; API calls are not.
+    """
+    if not text:
         return None
-    opener = text[start]
-    closer = "}" if opener == "{" else "]"
-    depth, in_str, esc = 0, False, False
-    for i in range(start, len(text)):
-        ch = text[i]
-        if in_str:
-            if esc:
-                esc = False
-            elif ch == "\\":
-                esc = True
-            elif ch == '"':
-                in_str = False
-            continue
-        if ch == '"':
-            in_str = True
-        elif ch == opener:
-            depth += 1
-        elif ch == closer:
-            depth -= 1
-            if depth == 0:
-                return text[start:i + 1]
-    return None
+
+    # ```json ... ``` and bare ``` ... ``` fences
+    fenced = re.findall(r"```(?:json|JSON)?\s*(.*?)```", text, re.S)
+    candidates_text = [f.strip() for f in fenced] + [text]
+
+    found = []
+    for body in candidates_text:
+        for start, ch in enumerate(body):
+            if ch not in "{[":
+                continue
+            closer = "}" if ch == "{" else "]"
+            depth, in_str, esc = 0, False, False
+            for i in range(start, len(body)):
+                c = body[i]
+                if in_str:
+                    if esc:
+                        esc = False
+                    elif c == "\\":
+                        esc = True
+                    elif c == '"':
+                        in_str = False
+                    continue
+                if c == '"':
+                    in_str = True
+                elif c == ch:
+                    depth += 1
+                elif c == closer:
+                    depth -= 1
+                    if depth == 0:
+                        chunk = body[start:i + 1]
+                        try:
+                            value = json.loads(chunk)
+                        except json.JSONDecodeError:
+                            break          # this start is wrong; try the next
+                        rank = _salvage_rank(value)
+                        if rank:
+                            found.append((rank, chunk))
+                        break
+    if not found:
+        return None
+    found.sort(key=lambda x: -x[0])
+    return found[0][1]
 
 
-def call(system: str, user: str, *, search: bool, max_tokens: int = 8000, label: str = ""):
+def call(system: str, user: str, *, search: bool,
+         max_tokens: int = MAX_OUTPUT_TOKENS, label: str = ""):
     """One model call, optionally with web search. Returns parsed JSON or None."""
     client = _get_client()
     kwargs = {}
@@ -288,7 +429,15 @@ def call(system: str, user: str, *, search: bool, max_tokens: int = 8000, label:
         response = None
         for attempt in range(len(BACKOFF_DELAYS) + 1):
             try:
-                response = client.messages.create(
+                # The SDK refuses a non-streaming request whose estimated
+                # duration exceeds ten minutes, and a large max_tokens is what
+                # triggers that estimate. Raising the extraction budget for a
+                # long draft therefore broke the call outright -- the fix for
+                # one limit walked into another. Stream above the threshold and
+                # take the final message, which carries stop_reason and usage
+                # exactly as the non-streaming response does, so nothing
+                # downstream can tell the difference.
+                params = dict(
                     model=SIGNAL_MODEL,
                     max_tokens=max_tokens,
                     temperature=0,
@@ -296,6 +445,11 @@ def call(system: str, user: str, *, search: bool, max_tokens: int = 8000, label:
                     messages=[{"role": "user", "content": user}],
                     **kwargs,
                 )
+                if max_tokens > STREAM_ABOVE:
+                    with client.messages.stream(**params) as stream:
+                        response = stream.get_final_message()
+                else:
+                    response = client.messages.create(**params)
                 _record_usage(label, response)
                 break
             except Exception as exc:
@@ -310,9 +464,23 @@ def call(system: str, user: str, *, search: bool, max_tokens: int = 8000, label:
         if response is None:
             return None
 
+        # A response cut off at max_tokens is not a malformed answer, it is an
+        # incomplete one, and the two need different handling. On 2026-08-28 the
+        # extractor hit the cap on a 27,647-character draft: the array never
+        # closed, the salvage recovered the first complete object inside it, and
+        # extraction reported "no claims" on a draft full of them. Retrying an
+        # identical call that was cut off just spends the money again, so this
+        # says what happened and gives up rather than looping.
+        truncated = getattr(response, "stop_reason", None) == "max_tokens"
         text = _response_text(response)
         try:
-            return json.loads(text)
+            parsed = json.loads(text)
+            if truncated:
+                print(f"  [ERROR] {label}: the answer was cut off at max_tokens "
+                      f"({max_tokens}). Raise the cap for this role; the draft has "
+                      f"outgrown it.")
+                return None
+            return parsed
         except json.JSONDecodeError:
             salvaged = _first_json_value(text)
             if salvaged:
@@ -320,6 +488,11 @@ def call(system: str, user: str, *, search: bool, max_tokens: int = 8000, label:
                     return json.loads(salvaged)
                 except json.JSONDecodeError:
                     pass
+            if truncated:
+                print(f"  [ERROR] {label}: the answer was cut off at max_tokens "
+                      f"({max_tokens}) and cannot be salvaged. Raise the cap for "
+                      f"this role; the draft has outgrown it.")
+                return None
             if json_attempt < JSON_RETRIES:
                 print(f"  [RETRY] {label}: response was not JSON, {json_attempt + 1}/{JSON_RETRIES}...")
                 time.sleep(1)
@@ -401,7 +574,23 @@ extracted, with attributed_to set to null. Those are the dangerous ones."""
 # factcheck_recall.py exists to measure. Do not change this block without
 # running it before and after.
 
-RECALL_BRIEF_LIMIT = 8
+# NOT a limit of 8 on the brief. It is applied twice, to two lists -- the
+# classes a role is expected to catch, and (for instrument entries) that role's
+# own recorded failure modes -- so a role can receive up to 16. On 2026-08-28
+# SOURCE was receiving 12, ADVOCATE and INFERENCE 9 each, while every comment
+# here said 8. Left as it is, because changing the brief is the one thing this
+# block says not to do without a measurement, and the measurement of 2026-08-28
+# could not resolve a change this small: see RECALL_MEASUREMENT_UNDERPOWERED.
+# The comment is corrected; the behaviour is not, yet.
+#
+# Two other things that printing the brief made visible and neither has been
+# changed for the same reason:
+#   - DROPPED appears twice in SOURCE's brief, because two recorded entries
+#     share that class name. The role is told one class twice, which weights it
+#     against every other class, and nobody chose that.
+#   - COVERAGE received no recorded classes at all until 2026-08-28. It has one
+#     now. A role with an empty learning record is not being taught anything.
+RECALL_BRIEF_LIMIT = 8          # per list, not per brief
 
 
 def recall_brief(role: str) -> str:
@@ -471,6 +660,90 @@ def recall_brief(role: str) -> str:
         for cls, summary, _was, _shipped in mine_own[:RECALL_BRIEF_LIMIT]:
             lines.append(f"- {cls}: {summary}")
     return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# how many times one draft may be gated
+# ---------------------------------------------------------------------------
+#
+# Issue two was gated eighteen times on the assessment and six on the email, at
+# $66.76. Roughly $27 of that bought nothing: repairs chasing repairs, phrasing
+# notes, two runs that failed mid-way, and one run that put a false claim INTO
+# the page. The comment on the incremental-re-run block below already described
+# the trap -- "the unverified count across three passes went 7, 6, 13, the rise
+# almost entirely claims introduced while fixing earlier findings" -- and it was
+# read and then walked into anyway, which is the argument for a limit in code
+# rather than a limit in judgment.
+#
+# The shape that works is: gate a complete draft, adjudicate everything in one
+# pass, make every edit at once, gate once to confirm. Two runs. Then the
+# outside review, which is where the expensive findings actually came from --
+# all three of issue two's review findings survived fourteen gate runs, and the
+# single worst error in the piece was GENERATED by the gate and could not be
+# caught by running it again. One more run after the review closes the cycle.
+#
+# A cycle is reset by --new-cycle, which is what the outside review step does.
+# --past-cap exists because a rule with no override gets worked around, and a
+# reason is required so that going past it is a decision on the record.
+
+RUNS_PER_CYCLE = 2
+
+
+def _cycle_path(report: str) -> Path:
+    return Path(report + ".runs.json")
+
+
+def cycle_state(report: str) -> dict:
+    p = _cycle_path(report)
+    if not p.exists():
+        return {"cycle": 1, "runs": [], "reason": None}
+    try:
+        return json.loads(p.read_text())
+    except Exception:
+        return {"cycle": 1, "runs": [], "reason": None}
+
+
+def cycle_record(report: str, sha: str, past_cap: str | None) -> None:
+    st = cycle_state(report)
+    st["runs"].append({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                       "sha": sha, "past_cap": past_cap})
+    _cycle_path(report).write_text(json.dumps(st, indent=2), encoding="utf-8")
+
+
+def cycle_check(report: str, past_cap: str | None, new_cycle: bool) -> bool:
+    """False means stop. Prints why."""
+    if not report:
+        return True
+    p = _cycle_path(report)
+    st = cycle_state(report)
+    if new_cycle:
+        st = {"cycle": st.get("cycle", 1) + 1, "runs": [], "reason": None}
+        p.write_text(json.dumps(st, indent=2), encoding="utf-8")
+        print("  Cycle %d. The run counter is reset." % st["cycle"])
+        return True
+    used = len(st.get("runs", []))
+    if used < RUNS_PER_CYCLE or past_cap:
+        if past_cap:
+            print("  Past the cap of %d, on the record: %s" % (RUNS_PER_CYCLE, past_cap))
+        return True
+    print()
+    print("  STOP. This draft has been gated %d times in cycle %d, which is the cap." % (used, st["cycle"]))
+    print()
+    print("  The cap is %d because runs past it stop paying. On issue two, gate runs" % RUNS_PER_CYCLE)
+    print("  11 onwards returned phrasing notes and rounding false positives, one run")
+    print("  introduced an error into the page, and every finding that mattered after")
+    print("  run 10 came from a human reading rather than from another pass.")
+    print()
+    print("  What to do instead, in order:")
+    print("    1. Adjudicate what the last run found -- all of it, in one pass.")
+    print("    2. Make every edit at once. Re-running between edits is the trap.")
+    print("    3. Send it to outside review. That is where the findings are.")
+    print("    4. After the review: --new-cycle, then one run.")
+    print()
+    print("  If you are certain another run is warranted:")
+    print("    --past-cap \"why this run is different from the last two\"")
+    print()
+    return False
 
 
 # ---------------------------------------------------------------------------
@@ -589,12 +862,50 @@ def carry_verdicts(claims: list[dict], prior: dict) -> tuple[list[dict], dict, i
     return todo, carried, len(carried)
 
 
+def read_budget(_draft: str = "") -> int:
+    """Output tokens for a role that reads the whole draft and writes findings.
+
+    A constant, and a large one, because MAX_TOKENS IS A CEILING AND NOT A
+    RESERVATION. Billing is on tokens actually generated: a call made with a
+    cap of 64,000 that answers in 400 costs the same as one capped at 500 that
+    answers in 400. Verified on 2026-08-29 -- a request at max_tokens=64000
+    returned four tokens and was billed for four. There is therefore no saving
+    anywhere in this file that a low cap was buying, and never was.
+
+    What the low cap bought instead was three separate failures in one day, on
+    a draft that grew while the gate improved it:
+
+      * extraction cut off at 27,647 characters; reported "no claims"
+      * the raise for extraction pushed max_tokens past the SDK's ten-minute
+        estimate and broke the call a different way, needing streaming
+      * INFERENCE cut off at 33,000 characters, four runs later, on the same
+        constant nobody had grepped for
+
+    Each was fixed at the site of the failure and each fix was a formula with a
+    new ceiling in it, which is the same bug with a longer fuse. The ceiling is
+    now the model's, not ours. If a role ever hits this, the draft has a real
+    problem and the truncation detector in call() will say so rather than
+    returning silence that reads like a clean check.
+    """
+    return MAX_OUTPUT_TOKENS
+
+
 def extract_claims(draft: str) -> list[dict] | None:
+    """Every checkable claim in the draft.
+
+    The output budget scales with the draft. A fixed 8,000 tokens was enough
+    for an 8,000-character page and not for a 27,000-character one: the answer
+    was cut off mid-array and the run blocked on "no claims" for a draft that
+    had fifty-odd. The cap now tracks the input, because the one role whose
+    output grows with the document should not be the one with a constant
+    budget. Roughly one claim per 500 characters, a few hundred tokens each.
+    """
     print("[1/6] Extracting checkable claims...")
+    budget = read_budget(draft)
     out = call(
         EXTRACT_SYSTEM,
         f"Draft follows.\n\n---\n{draft}\n---",
-        search=False, label="extract",
+        search=False, label="extract", max_tokens=budget,
     )
     if out is None:
         return None
@@ -778,7 +1089,7 @@ def sweep_recency(draft: str, today: str) -> dict | None:
     out = call(
         RECENCY_SYSTEM + recall_brief("RECENCY"),
         f"Today's date is {today}. Draft follows.\n\n---\n{draft}\n---",
-        search=True, label="recency",
+        search=True, label="recency", max_tokens=read_budget(draft),
     )
     if out is None:
         return None
@@ -871,7 +1182,7 @@ def advocate(draft: str) -> list[dict] | None:
     out = call(
         ADVOCATE_SYSTEM + recall_brief("ADVOCATE"),
         f"Draft follows.\n\n---\n{draft}\n---",
-        search=True, label="advocate",
+        search=True, label="advocate", max_tokens=read_budget(draft),
     )
     if out is None:
         return None
@@ -1007,7 +1318,7 @@ def inference(draft: str) -> list[dict] | None:
     out = call(
         INFERENCE_SYSTEM + recall_brief("INFERENCE"),
         f"Draft follows.\n\n---\n{draft}\n---",
-        search=True, label="inference",
+        search=True, label="inference", max_tokens=read_budget(draft),
     )
     if out is None:
         return None
@@ -1091,7 +1402,7 @@ def coverage(draft: str) -> dict | None:
     out = call(
         COVERAGE_SYSTEM,
         f"Draft follows.\n\n---\n{draft}\n---",
-        search=True, label="coverage",
+        search=True, label="coverage", max_tokens=read_budget(draft),
     )
     if out is None:
         return None
@@ -1312,6 +1623,21 @@ def render(claims, verdicts, recency, objections, inferences, cov,
     lines.append("=" * 72)
     lines.append(f"RECENCY  {len((recency or {}).get('studies', []))} assessed · {len(stale)} superseded or unknown")
     lines.append("=" * 72)
+    if stale:
+        lines.append("")
+        lines.append("  " + "!" * 68)
+        lines.append("  EVERY FINDING BELOW IS A CLAIM ABOUT SOMEBODY ELSE'S DOCUMENT.")
+        lines.append("  This role has not opened that document. It has read search results")
+        lines.append("  about it. Do not put any of this on the page until you have opened")
+        lines.append("  the source and read the sentence yourself.")
+        lines.append("")
+        lines.append("  On 2026-08-29 this role reported, over three runs, that a published")
+        lines.append("  meta-analysis had used a superseded MONARCH 3 figure. It had not.")
+        lines.append("  The claim went onto the page as a disclosure -- 'we would rather say")
+        lines.append("  so than have it found' -- and an outside reviewer opened the paper's")
+        lines.append("  Table 1 and corrected us. No further gate run could have caught it:")
+        lines.append("  the gate wrote it, and no role here audits another role's output.")
+        lines.append("  " + "!" * 68)
     for s in stale:
         failed = True
         lines.append("")
@@ -1322,6 +1648,7 @@ def render(claims, verdicts, recency, objections, inferences, cov,
             lines.append(f"     changes       : {s['what_changed']}")
         if s.get("url"):
             lines.append(f"     source        : {s['url']}")
+        lines.append("     BEFORE ACTING : open the source above and read the sentence.")
 
     serious = [o for o in (objections or []) if o.get("severity") == "SERIOUS"]
     lines.append("")
@@ -1493,6 +1820,14 @@ def main():
                     help="Record of findings already read and accepted. Findings "
                          "matching one are reported as ADJUDICATED and do not block; "
                          "a finding whose severity has moved since is STALE and does.")
+    ap.add_argument("--new-cycle", action="store_true",
+                    help="Start a new gate cycle and reset the run counter. This is what "
+                         "happens after an outside review: the draft has changed for a "
+                         "reason other than our own findings.")
+    ap.add_argument("--past-cap", metavar="REASON",
+                    help="Run past the per-cycle cap, recording why. A cap with no "
+                         "override gets worked around; one with a required reason gets "
+                         "used deliberately.")
     ap.add_argument("--since", metavar="REPORT",
                     help="A previous gate report for this draft. Claims whose sentences "
                          "are unchanged keep their verdicts; RECENCY and COVERAGE are "
@@ -1534,11 +1869,26 @@ def main():
         sys.exit(0)
 
     if args.verify:
-        ok = bool(os.environ.get("ANTHROPIC_API_KEY"))
-        print(f"ANTHROPIC_API_KEY : {'set' if ok else 'MISSING'}")
-        print(f"model             : {SIGNAL_MODEL}")
-        print(f"known-errors      : {'present' if KNOWN_ERRORS.exists() else 'MISSING'}")
-        sys.exit(0 if ok else 2)
+        # --verify must answer the same question the run asks, by the same
+        # route. It read os.environ while the run reads _api_key(), so on a
+        # machine where the key lives in backend/.env -- the normal case, and
+        # the one _api_key() was written for -- this printed MISSING and exited
+        # 2 for a run that would have worked. A check that disagrees with the
+        # thing it checks is worse than no check: it sends you to fix a
+        # configuration that was already correct.
+        key = _api_key()
+        where = ("the shell" if os.environ.get(KEY_VAR)
+                 else str(ENVFILE) if key else "")
+        print("%-18s: %s" % (KEY_VAR, ("set, from " + where) if key else "MISSING"))
+        if not key:
+            print("%-18s  looked in the shell and in %s" % ("", ENVFILE))
+        print("%-18s: %s" % ("model", SIGNAL_MODEL))
+        print("%-18s: %s" % ("known-errors",
+                             "present" if KNOWN_ERRORS.exists() else "MISSING"))
+        print("%-18s: %s" % ("decisions",
+                             "present" if Path(args.decisions).exists()
+                             else "absent (no adjudications recorded yet)"))
+        sys.exit(0 if key else 2)
 
     if args.survey:
         cov = coverage(args.survey)
@@ -1586,6 +1936,13 @@ def main():
 
     warn_if_unpinned()
     path = Path(args.draft)
+
+    # Before any money is spent. The cap is checked against the report path
+    # because that is what identifies the draft across runs, and the counter
+    # lives beside it so it travels with the issue rather than with a machine.
+    if not cycle_check(args.report, args.past_cap, args.new_cycle):
+        sys.exit(3)
+
     draft = read_draft(path)
     today = args.today or time.strftime("%Y-%m-%d")
     print(f"\nFact-checking {path.name} ({len(draft):,} chars of prose) as of {today}\n")
@@ -1667,6 +2024,8 @@ def main():
         }, indent=2), encoding="utf-8")
 
     save(None)
+    cycle_record(args.report, hashlib.sha256(path.read_bytes()).hexdigest(),
+                 args.past_cap) if args.report else None
 
     try:
         report, failed = render(claims, verdicts, recency, objections, inferences, cov,
@@ -1680,6 +2039,7 @@ def main():
         raise
 
     print(report)
+    print(format_usage())
     save(not failed)
     if args.report:
         print(f"\nFull result written to {args.report}")
