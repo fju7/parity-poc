@@ -439,6 +439,56 @@
       "was": "find what everyone missed",
       "should_have_been": "Find what the specialists established and the coverage never carried. That is a translation function rather than a discovery function: it credits rather than claims, it is achievable by a small operation, and it survives the prior-art check by construction, because the prior art IS the material.",
       "why_it_survived": "The entry gate asks whether anyone has said this. On any contested scientific or policy question the answer is almost always yes, so the gate kills every candidate and the publication has nothing to write. The question it should ask is whether anyone has said it where a general reader would find it."
+    },
+    {
+      "class": "CHAIN_BETWEEN_DOCUMENTS_ASSUMED",
+      "kind": "reasoning",
+      "caught_by": "clearing the open items before drafting",
+      "found_by": "candidate assessment, cognitive debt, 2026-08-29",
+      "summary": "A candidate was built on the claim that a Forbes piece of August 2026 was still carrying a misread of a June 2025 preprint, thirteen months after Ethan Mollick corrected it. The Forbes piece does not cite the preprint. It argues from general neuroplasticity. The chain was inferred from a headline that sounded like the study's conclusion.",
+      "was": "the belief travels in Forbes, the correction travels in Substack",
+      "should_have_been": "Two documents on the same topic are not thereby linked. Every claim of the form 'A is carrying B' is a claim about a citation, and a citation is a thing you open the document and look for.",
+      "why_it_survived": "Nothing checks the relationship BETWEEN sources. The ledger records whether we opened each document; the inherited-claims file records what we took from each. Neither asks whether a link we assert between two of them exists. This is the same shape as the endnote-17 finding — where we caught a government treating two citations as independent when one contained the other — arrived at from the opposite direction."
+    },
+    {
+      "class": "ADVERSARY_TAKEN_AT_ITS_WORD",
+      "kind": "process",
+      "caught_by": "opening the four counterexamples the hunter returned",
+      "found_by": "novelty hunt, cognitive debt candidate, 2026-08-29",
+      "summary": "The counterexample hunter reported BROKEN at HIGH confidence against the novelty claim, naming four prior-art counterexamples. Opened one by one: one accurate (The Conversation, 30 April 2026 -- the closing sentence is verbatim what the hunter quoted); one partly accurate (a Substack that states the mode-of-use thesis but cites only the favourable evidence); and two -- Stanford SCALE and Education Week -- about a different distinction entirely, human-led versus AI-led tutoring delivery, which is not the teaching-versus-answering cognitive claim. The hunter also misdated the accurate one by four months.",
+      "was": "the hunter says BROKEN at HIGH confidence, so the claim is broken",
+      "should_have_been": "The hunter produces candidate counterexamples, not verdicts. Each one is opened, read, and matched against the actual proposition before it is allowed to kill anything. A source that shares the vocabulary is not a source that makes the claim.",
+      "why_it_survived": "We built the adversarial role to stop us believing ourselves, and then believed it without applying to it the rule we already had for everything else: verifying that a source SAYS X is not verifying X. The role's own output is a source. Half of what it returned would not have survived the source ledger."
+    },
+    {
+      "class": "BUTTON_LABEL_READ_AS_HISTORY",
+      "kind": "process",
+      "caught_by": "the operator saying he had received the email",
+      "found_by": "issue two announce state, 2026-08-29",
+      "summary": "I told the operator the corrected issue-two email was still unsent, because the board offered a 'Send the corrected email' action. The record shows it was sent at 14:33:42Z, which is 10:33 his time, matching the copy in his inbox. The button was offering a RE-send: the email file had changed by one word 23 minutes after the send, so its sha no longer matched the announce record. An action being available is not evidence the action has never been taken.",
+      "was": "the board offers Send, therefore nothing has been sent",
+      "should_have_been": "State of the world comes from published.json, not from what the dashboard is willing to let you do. Before reporting that something has or has not happened, read the record that would say so.",
+      "why_it_survived": "The sha-binding fix we built was correct and did exactly its job -- it reopened the action because the content changed. Nothing was wrong with the machine. What was wrong was reading an affordance as a history, and repeating it to the operator across three messages without once opening the file that records it."
+    },
+    {
+      "class": "PUBLISHED_THROUGH_THE_SIDE_DOOR",
+      "kind": "process",
+      "caught_by": "the operator asking whether the email had been changed again",
+      "found_by": "issue two, 2026-08-29",
+      "summary": "Every check this publication has runs inside publish.py. The deploy serves whatever lands on the default branch. So an ordinary `git commit` and `git push` puts a page in front of a reader with no preflight, no gate, no record -- and that is how a one-word fix to issue two went live at 14:56 while published.json still described the 14:26 version. Checking for it afterwards found the same thing had happened to issue one: a nav link added on 29 August, live, unrecorded. Two of two published issues were serving content nothing had signed off on.",
+      "was": "the gates are thorough, therefore what is published has been through them",
+      "should_have_been": "A gate that only fires on one path is not a gate, it is a convention. The check has to live where the content leaves -- at the push -- or it protects nothing.",
+      "why_it_survived": "Nobody looked. The record is in the repo precisely so it can be diffed against reality, and for two days nothing diffed it. The fix is a pre-push hook that compares the page's content hash on the branch being pushed against the last publication record, plus `publish.py record-live` so a change too small for the front door still gets written down instead of pushed past the guard with --no-verify."
+    },
+    {
+      "class": "FINDINGS_FILED_AGAINST_THE_WRONG_PIECE",
+      "kind": "process",
+      "caught_by": "issue two's preflight blocking on eleven counterexample verdicts about subjects it does not mention",
+      "found_by": "2026-08-29",
+      "summary": "counterexample.py resolves a slug through source_ledger.case_dir, which only knows issues/WHU-nnn-<slug>. Candidate-stage hunts are about leads, which live in issues/leads/<slug>. With no lead resolvable, seven hunts -- on minors' social-media access, on Australia's impact analysis, on AI and cognition -- were written into issues/WHU-002-cdk46/counterexample/ because cdk46 was the slug that resolved. They then read as unadjudicated adverse findings against issue two.",
+      "was": "the wrong directory is untidy",
+      "should_have_been": "A finding in the wrong case file is a false finding about that piece, indistinguishable from a real one, and it blocks the piece it was never about. Leads resolve first, and a bare-claim hunt into a published case file must be asked for twice.",
+      "why_it_survived": "The tool took a slug and never asked whether the slug named the thing being examined. It was easier to reuse a resolvable slug than to make the lead directory the tool would accept."
     }
   ],
   "standing_rules": [
@@ -465,7 +515,13 @@
     "Before writing that something could not be established, search ClinicalTrials.gov's results tab, the FDA review documents and the EMA assessment report. Two of five findings in the second post-publication review were facts declared unknowable that sit in a registry.",
     "Any proper noun introduced onto the page from gate output -- an author, an institution, a trial name -- is verified against the source before it ships. 'Jacot and colleagues' was printed from a COVERAGE finding while fixing an attribution gap; the paper is by Tanguy et al.",
     "Before a candidate is drafted, run the counterexample hunter on the novelty claim itself -- 'nobody has already made this argument' -- with the same instruction to find one instance. Two consecutive issues had their central contribution already in print, one found by a reviewer after publication and one by the kill condition before drafting.",
-    "The novelty test is not 'has anyone published this' but 'has anyone published this where a general reader would find it'. A finding established in a journal and absent from the coverage is a subject; a finding absent from both is usually a sign we have not looked hard enough."
+    "The novelty test is not 'has anyone published this' but 'has anyone published this where a general reader would find it'. A finding established in a journal and absent from the coverage is a subject; a finding absent from both is usually a sign we have not looked hard enough.",
+    "A claim that one document is carrying, repeating or responding to another is a claim about a citation. Open the citing document and find the reference before writing it. A headline that sounds like a study's conclusion is not evidence that it came from that study.",
+    "The counterexample hunter returns candidates, not verdicts. Every counterexample it names is opened and read before it is allowed to narrow or kill a claim, and it is matched against the proposition rather than the vocabulary. Its confidence rating is not evidence. Half of one high-confidence break was off-target on inspection.",
+    "When a hunt for prior art returns a near miss, ask what the near miss did NOT do. A piece that states our sentence but does not show the evidence behind it has taken the headline, not the subject. That is a narrowing of the novelty claim, not the end of it -- and the narrowed claim must then be stated in the piece, crediting whoever got there first.",
+    "Never report to the operator that something was or was not published, sent or accepted from the state of a button. Open published.json and read the record. The board reflects what may be done next, not what has been done.",
+    "Every check must fire on the path the content actually takes to a reader, not only on the path we intend to use. Ask of each gate: what is the command that reaches the world without passing through this?",
+    "A finding is filed against a piece. Before writing one, confirm the slug names the piece the finding is about -- an adverse finding in the wrong case file is a false accusation the machine will enforce."
   ],
   "second_pass": {
     "run": "2026-08-26",

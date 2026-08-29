@@ -94,6 +94,21 @@
       "gate_basis": "gate reconciled rather than re-run: gated 2026-08-28 on an earlier draft (1fb1d818); 2 of 5 open \u2014 1 still in the text, 1 unlocatable, 3 gone \u2014 proceeding past them was signed off 2026-08-29 by claude",
       "subject": "The Category Difference \u2014 what separates a category 1 from a category 2A",
       "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "republish",
+      "at": "2026-08-29T20:03:12+00:00",
+      "sha": "c2d05ae3ad11ecfc27db1ab957dfc5e24747e1f2539c06403de1716b96f7eff7",
+      "commit": "d62101c1975344a4f86c40b8068b5ce5b8676e56",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "Added the nav link to issue two. Chrome, not argument: one anchor in the site nav, no change to a word of the assessment.",
+      "basis": "NOT a preflight. A person read the diff below and signed it as not touching the argument. 1 changed line(s).",
+      "diff": [
+        "+  <a href=\"/cdk46\">Issue two</a>"
+      ],
+      "supersedes": "5028bee1f56e337d710fecc9eab8629cdda46288b8d80449e8b576e720d73f7c",
+      "waived": null
     }
   ]
 }

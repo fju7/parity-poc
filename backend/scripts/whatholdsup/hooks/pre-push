@@ -1,0 +1,30 @@
+#!/bin/sh
+# What Holds Up — refuse to push a published page nobody signed off on.
+#
+# git gives us, on stdin, one line per ref being pushed:
+#     <local ref> <local sha> <remote ref> <remote sha>
+# We check the content of the commit that would land on the deploy branch,
+# not the working tree, because the deploy serves what is pushed.
+#
+# Installed by hooks/install.sh. Bypass with `git push --no-verify`, which
+# records nothing — that is the point of making it a separate word.
+
+ROOT=$(git rev-parse --show-toplevel) || exit 0
+GUARD="$ROOT/backend/scripts/whatholdsup/guard_published.py"
+[ -f "$GUARD" ] || exit 0
+
+DEFAULT=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|^origin/||')
+[ -n "$DEFAULT" ] || DEFAULT=main
+
+status=0
+while read -r local_ref local_sha remote_ref remote_sha; do
+    [ -z "$local_sha" ] && continue
+    case "$local_sha" in *[!0]*) ;; *) continue ;; esac   # all-zeroes = branch deletion
+    case "$remote_ref" in
+        "refs/heads/$DEFAULT") ;;
+        *) continue ;;                                    # only the branch that deploys
+    esac
+    python3 "$GUARD" --ref "$local_sha" --against "$remote_sha" --quiet || status=1
+done
+
+exit $status

@@ -979,7 +979,14 @@ def cmd_publish(args) -> int:
         print()
         return 2
 
-    code, out = git("push", "origin", "HEAD")
+    # The pre-push guard refuses any push that would change a published
+    # page without a record. This push is the one that creates the record,
+    # so it would block itself. Say who is knocking.
+    os.environ["WHATHOLDSUP_PUBLISHING"] = "1"
+    try:
+        code, out = git("push", "origin", "HEAD")
+    finally:
+        os.environ.pop("WHATHOLDSUP_PUBLISHING", None)
     if code != 0:
         print(f"\npush failed: {out}")
         return 2
@@ -1092,6 +1099,116 @@ def sender_env(wanted: tuple[str, ...] = ()) -> dict:
 
 def has_sender_key() -> bool:
     return bool(sender_env().get(SENDER_KEY))
+
+
+def cmd_record_live(args) -> int:
+    """Sign off a change to an already-published page without a full publish.
+
+    The hole this fills. On 2026-08-29 a wrong first author was fixed on
+    issue two and pushed in an ordinary commit; the deploy served it and
+    published.json still described the version from half an hour before.
+    The pre-push guard now refuses that push. But the guard would also
+    refuse the change that put a link to issue two in issue one's nav bar
+    -- a change nobody could object to -- and the full publish path will
+    not take it either, because issue one now fails four checks that did
+    not exist when it was published. A guard whose only escape is
+    --no-verify is a guard that will be bypassed, and a bypass records
+    nothing at all.
+
+    So: this records that a person read the diff and stands behind it. It
+    is weaker than a publish and says so in the record. It refuses
+    anything large enough to deserve the front door.
+    """
+    cfg = ISSUES[args.slug]
+    page = ROOT / cfg["page"]
+    rec = [r for r in load_record() if r["issue"] == args.slug
+           and r["action"] in ("publish", "republish")]
+    if not rec:
+        print("\n%s has never been published. Use `publish`, not this.\n" % args.slug)
+        return 2
+
+    last, now = rec[-1], sha(page)
+    if last.get("sha") == now:
+        print("\nNothing to record — %s is byte-identical to what was signed off "
+              "on %s.\n" % (cfg["page"], last["at"][:19]))
+        return 0
+
+    # Find the commit whose blob matches the recorded sha, so we can show a
+    # real diff rather than asking someone to trust a hash comparison.
+    base = None
+    _c, log = git("log", "--format=%H", "--", cfg["page"])
+    for commit in [x for x in log.split() if x]:
+        blob = subprocess.run(["git", "show", "%s:%s" % (commit, cfg["page"])],
+                              cwd=ROOT, capture_output=True)
+        if blob.returncode == 0 and hashlib.sha256(blob.stdout).hexdigest() == last["sha"]:
+            base = commit
+            break
+
+    if base is None:
+        print("\nCannot show you what changed: no commit in this history holds the "
+              "content\nthat was published on %s. That is itself worth knowing. "
+              "Use the full\npublish path so the new content is checked on its own "
+              "merits.\n" % last["at"][:19])
+        return 2
+
+    _c, diff = git("diff", base, "--", cfg["page"])
+    changed = [l for l in diff.splitlines()
+               if (l.startswith("+") or l.startswith("-"))
+               and not l.startswith(("+++", "---"))]
+    prose = [l for l in changed if re.search(r">[^<>]{60,}", l)]
+
+    print("\nWhat changed in %s since it was signed off on %s:\n"
+          % (cfg["page"], last["at"][:19]))
+    for l in changed[:60]:
+        print("   " + l[:160])
+    if len(changed) > 60:
+        print("   ... and %d more" % (len(changed) - 60))
+    print()
+
+    LIMIT = 24
+    if len(changed) > LIMIT or prose:
+        why = ("%d changed lines, more than the %d this path will take"
+               % (len(changed), LIMIT)) if len(changed) > LIMIT else \
+              ("%d of them rewrite a sentence a reader will read" % len(prose))
+        print("REFUSED — %s.\n" % why)
+        print("  This is a change to what the piece SAYS, and it belongs in front of")
+        print("  the checks, not beside them:\n")
+        print("      python3 scripts/whatholdsup/publish.py publish %s --yes\n"
+              % args.slug)
+        print("  If that path is blocked by checks written after this issue was")
+        print("  published, that is the right argument to have. Have it there.\n")
+        return 1
+
+    if not args.reason:
+        print("Small enough to record here. Say what it is and why it is not a")
+        print("change to the argument, and run again:\n")
+        print('      python3 scripts/whatholdsup/publish.py record-live %s \\\n'
+              '          --reason "..."\n' % args.slug)
+        return 1
+
+    if not args.yes:
+        print("Reason: %s\n" % args.reason)
+        print("Re-run with --yes to record it.\n")
+        return 0
+
+    _c, commit = git("rev-parse", "HEAD")
+    append_record({
+        "issue": args.slug,
+        "action": "republish",
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "sha": now,
+        "commit": commit.strip(),
+        "url": cfg["url"],
+        "note": args.reason,
+        "basis": "NOT a preflight. A person read the diff below and signed it as "
+                 "not touching the argument. %d changed line(s)." % len(changed),
+        "diff": changed,
+        "supersedes": last["sha"],
+        "waived": None,
+    })
+    print("Recorded. %s is now signed off at %s.\n" % (cfg["page"], now[:16]))
+    print("Commit backend/data/whatholdsup/published.json and push.\n")
+    return 0
 
 
 def cmd_announce(args) -> int:
@@ -2997,6 +3114,12 @@ def main() -> int:
                             "waived. Use it when a check has stopped buying anything, not "
                             "when it is inconvenient.")
         p.set_defaults(fn=fn)
+    rl = sub.add_parser("record-live",
+                        help="sign off a small change to an already-published page")
+    rl.add_argument("slug", choices=sorted(ISSUES))
+    rl.add_argument("--reason", help="what changed and why it is not a change to the argument")
+    rl.add_argument("--yes", action="store_true", help="actually record it")
+    rl.set_defaults(fn=cmd_record_live)
     bd = sub.add_parser("board",
                         help="serve the board on this machine with the buttons live")
     bd.add_argument("--port", type=int, default=8787)

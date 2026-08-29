@@ -167,7 +167,30 @@ def universal_negatives(text: str) -> list[str]:
     return uniq
 
 
+LEADS = ROOT / "issues" / "leads"
+
+
 def case_dir(slug: str) -> Path:
+    """Where this hunt's files belong.
+
+    A hunt run with --claim is candidate-stage work, and candidates live
+    under issues/leads/<slug>, not issues/WHU-nnn-<slug>. On 2026-08-29
+    seven such hunts -- on minors' social-media access, on the Australian
+    impact analysis, on AI and cognition -- were written into
+    issues/WHU-002-cdk46, because that was the only slug source_ledger's
+    case_dir could resolve and it was the slug to hand. They then appeared
+    in issue two's preflight as eleven unadjudicated counterexample
+    verdicts against a page that mentions none of those subjects, and
+    blocked its republication.
+
+    That is not a filing error. It is a false finding about a different
+    piece, sitting inside that piece's case file, indistinguishable from a
+    real one. Leads resolve first, and a --claim run into a published case
+    file has to be asked for twice.
+    """
+    lead = LEADS / slug
+    if lead.is_dir():
+        return lead
     return sl.case_dir(slug)
 
 
@@ -275,6 +298,16 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
 def cmd_run(args) -> int:
     if args.claim:
         claims = list(args.claim)
+        if not (LEADS / args.slug).is_dir() and not args.anyway:
+            print("\n  %s is a published case file, not a lead." % args.slug)
+            print("  A --claim hunt is candidate-stage work and its verdicts will sit in")
+            print("  that issue's preflight forever, unadjudicated, blocking it. Seven of")
+            print("  these landed in cdk46 on 2026-08-29 and did exactly that.\n")
+            print("  If this claim really is about %s's page, say so:" % args.slug)
+            print("      ... run %s --claim \"...\" --anyway\n" % args.slug)
+            print("  Otherwise make the lead first:")
+            print("      mkdir -p issues/leads/<slug>\n")
+            return 2
     else:
         if not args.page:
             print("  give --page or --claim")
@@ -331,7 +364,11 @@ def main() -> int:
                         "everything anyone has published, this publication makes it in every "
                         "issue, and until 2026-08-29 nothing attacked it. Two consecutive "
                         "issues had their central contribution already in print.")
-    r.add_argument("--day"); r.set_defaults(fn=cmd_run)
+    r.add_argument("--day")
+    r.add_argument("--anyway", action="store_true",
+                   help="write a --claim hunt into a published case file anyway. "
+                        "Only when the claim is genuinely about that issue's page.")
+    r.set_defaults(fn=cmd_run)
     l = sub.add_parser("list"); l.add_argument("slug")
     l.add_argument("--page", required=True); l.set_defaults(fn=cmd_list)
     a = ap.parse_args()

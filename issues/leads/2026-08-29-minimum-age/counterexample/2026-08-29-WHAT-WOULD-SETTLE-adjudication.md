@@ -1,4 +1,4 @@
-# cdk46 — counterexample hunt, 2026-08-29-WHAT-WOULD-SETTLE
+# minimum-age — counterexample hunt, 2026-08-29-WHAT-WOULD-SETTLE
 
 One section per universal negative on the page. A claim is not cleared
 by a SURVIVED verdict alone: somebody has to read what was searched and

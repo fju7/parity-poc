@@ -1,0 +1,187 @@
+{
+  "_what_this_is": "First candidate surfaced by the scanner and run through the belief gate. From the 2026-08-29 scan, query '\"may cause\" research suggests'.",
+  "belief": {
+    "statement": "Using AI lowers your mental performance. There is now real evidence for it — brain scans, and a large study finding AI users think less critically.",
+    "how_we_know_they_believe_it": "A year of coverage built on one preprint, still being reinforced in mainstream outlets thirteen months after the correction was published.",
+    "carried_by": [
+      {
+        "outlet": "Forbes",
+        "url": "https://www.forbes.com/sites/jonathanwai/2026/08/19/using-ai-might-reduce-your-mental-fitness/",
+        "date": "2026-08-19",
+        "what_it_said": "Using A.I. Might Reduce Your Mental Fitness"
+      },
+      {
+        "outlet": "MIT Media Lab's own press round-up",
+        "url": "https://www.media.mit.edu/projects/your-brain-on-chatgpt/updates",
+        "date": "2025",
+        "what_it_said": "Study: Using AI Could Cost You Brainpower"
+      },
+      {
+        "outlet": "widely-read newsletters",
+        "url": "https://bradstulberg.substack.com/p/a-new-study-shows-chatgpt-is-dramatically",
+        "date": "2025",
+        "what_it_said": "A New Study Shows ChatGPT is Dramatically Weakening Our Brains"
+      },
+      {
+        "outlet": "EDUCAUSE Review",
+        "url": "https://er.educause.edu/articles/2025/12/the-paradox-of-ai-assistance-better-results-worse-thinking",
+        "date": "2025-12-15",
+        "what_it_said": "'The Paradox of AI Assistance: Better Results, Worse Thinking' -- Kate Hurley, University of Michigan ITS. Argues AI erodes critical thinking, memory and cognitive development, especially in 17-25 year olds. Cites the MIT preprint (Kosmyna), Singh et al. April 2025, Lee et al. (Microsoft/CMU/Cambridge survey) and Dergaa et al. Cites NO randomised trial and NO meta-analysis. Notes in passing that users 'ask AI tools for answers instead of assistance' and does not develop it.",
+        "why_it_matters": "This is a better carrier than Forbes. EDUCAUSE Review is read by exactly the reader we named -- people writing AI policy for universities. The belief is reaching the decision-maker through a practitioner venue, sourced on the weakest study in the set, and the sentence that would have resolved it is sitting unremarked in its own third paragraph."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "statement": "The belief is PARTLY RIGHT, and almost nobody citing it is citing the evidence that supports it.\n\nWHAT STRONG EVIDENCE SUPPORTS. 'AI Assistance Reduces Persistence and Hurts Independent Performance' — three randomised controlled trials, N=1,222, random assignment. Causal, not correlational. Unassisted solve rate after AI help fell to 0.57 against 0.73 in controls (d = -0.42), replicated at d = -0.19, and -0.42 again on reading comprehension. Skip rates — giving up rather than attempting — rose. The effects appeared after ten to fifteen minutes. This is the best evidence for the belief and it is not what anybody quotes.\n\nWHAT STRONG EVIDENCE CONTRADICTS. A meta-analysis of 35 experimental studies, 4,193 participants, 134 effect sizes: ChatGPT use IMPROVES learning outcomes, g = 0.670. Cognitive skills g = 0.872. Critical thinking g = 1.008 — a large POSITIVE effect on precisely the faculty the belief says is being destroyed. (A pooled g above 1.0 in education research is large enough to warrant its own scepticism about publication bias, and the piece should say so.)\n\nTHESE DO NOT CONTRADICT EACH OTHER. They measure different things. The meta-analysis measures learning when AI is used as an instructional tool inside a designed course. The RCTs measure unassisted performance after AI has supplied answers. Teaching versus answering.\n\nWHAT THE FAMOUS STUDIES SHOW. The three everyone cites are the weakest: Sparrow 2011, whose Google Stroop experiment Hesselmann failed to replicate in 2020 (N=89, Bayes factor about 5:1 for the null); the MIT preprint, 54 participants with the persistence claim resting on 18 across two crossover arms, unreviewed fourteen months on; and Gerlich's r = -0.68, cross-sectional, social-media recruited, both sides self-reported in one instrument.",
+    "sources": [
+      "Sparrow, Liu & Wegner, Science 2011",
+      "Hesselmann, PeerJ 2020 (replication failure)",
+      "Kosmyna et al., arXiv 2025 (preprint)",
+      "Gerlich, Societies 2025",
+      "Correction, Societies 15(9) 252",
+      "Mollick, 'Against Brain Damage', July 2025",
+      "Frontiers in Education, Oct 2025 (self-report critique of Gerlich)",
+      "Nature Reviews Psychology, Oct 2025 (common-method bias)"
+    ]
+  },
+  "direction": {
+    "value": "narrows",
+    "_note": "Deliberately NOT 'corrects'. A core part of the belief is CONFIRMED by randomised controlled evidence — AI assistance really does degrade unassisted performance and persistence, causally, within minutes. What narrows is the scope: it is a claim about how you use it, not about what it does to you. A piece that reads as a debunking would be wrong on the evidence, and a piece that reads as vindication would be equally wrong."
+  },
+  "reader_with_a_decision": "Anyone writing an AI policy for a school, a university or a team right now, where the cost of over-restricting is as real as the cost of over-trusting; and any knowledge worker deciding which parts of their thinking to hand over. Both have live decisions and no time to read four papers and six Substacks.",
+  "public_record_check": {
+    "prior_art_found": [
+      "Hesselmann 2020 — the replication failure, in PeerJ, open",
+      "ScienceABC explainer naming Camerer 2018 and Hesselmann 2020",
+      "Mollick, 'Against Brain Damage', July 2025 — on the MIT preprint",
+      "Digital Learning Lab Substack — traces Google effect to MIT preprint, flags the n=18 subsample",
+      "Psychology Today, May 2025 — connects Sparrow 2011 to Gerlich 2025 for a lay reader",
+      "Frontiers in Education, Oct 2025 — Gerlich and related models 'often rely on self-reported perceptions without examining underlying cognitive constructs'",
+      "Michelle Miller PhD, Feb 2025 — flags both sides being self-reported",
+      "Nature Reviews Psychology, Oct 2025 — common method bias producing spurious associations",
+      "Space Daily, June 2026 — quotes Gerlich's own hedge about correlation not causation"
+    ],
+    "carried_in_general_coverage": "NO, and this is the whole subject. Every piece of the scrutiny exists and every piece is somewhere else: a PeerJ replication, a ScienceABC explainer, two Substacks, a Psychology Today post, a Frontiers paper, a Nature Reviews note. The counterexample hunter broke both novelty claims and then said so itself: the counterexamples are 'scattered across blogs, Substacks, and science-communication outlets rather than consolidated in a single article that systematically traces all three nodes of the lineage'. A reader who believes AI is degrading their thinking has met none of it.",
+    "our_contribution": "TRANSLATION, and the finding is that the public conversation is citing the wrong studies for a conclusion that has better support elsewhere. We discover nothing. Hesselmann ran the replication, Mollick corrected the MIT reading, Frontiers and Miller raised the self-report problem, and other researchers ran the RCTs and the meta-analysis. What does not exist anywhere a general reader would find it is the sentence: the evidence says it matters enormously whether the machine is teaching you or answering for you."
+  },
+  "sources_are_open": "Yes, entirely. arXiv preprint, MIT project page, Mollick free to read. The opposite of issue two, where the deciding document could not be machine-read at all.",
+  "evidence_base_is_bounded": "Yes. Essentially one study and a handful of named critiques. Omission is detectable, which is what issue two's unbounded literature never allowed.",
+  "kill_condition": "Any of: (1) somebody has consolidated the lineage for a general audience and we missed it — the hunter says not, at HIGH confidence, but it is the thing to re-check before drafting; (2) the MIT preprint has been peer reviewed and strengthened since December 2025; (3) a longitudinal or experimental study exists that does support the broad belief, in which case the belief is better founded than the three studies suggest and the piece becomes a different one — possibly a CONFIRMS, which the guard says we are overdue.",
+  "kill_condition_tested": {
+    "by": "claude",
+    "on": "2026-08-29",
+    "result": "narrowed",
+    "note": "The untested kill condition was the right one to test and it changed the piece twice over. Strong causal evidence for the belief EXISTS — three RCTs, N=1,222 — which kills the lineage-of-weak-studies framing as unfair. And strong evidence against a broad reading exists too, in a 35-study meta-analysis finding a large POSITIVE effect on critical thinking. The honest piece is the distinction between the two, which is actionable and which nobody is carrying."
+  },
+  "lead_came_from": "The lead scanner, 2026-08-29, first run after the move. Query: '\"may cause\" research suggests'. The headline shape the belief gate was rebuilt to find.",
+  "_open_items": [
+    "Read the arXiv preprint. Everything above is from MIT's project page and Mollick.",
+    "Read the Forbes piece — 403 on fetch. Its headline may be worse than its body, and if the body is careful the belief-carrier is the headline, which is a different and smaller piece.",
+    "Confirm the n=9 persistence figure against the preprint rather than Mollick's summary.",
+    "Check whether the preprint has since been peer reviewed."
+  ],
+  "open_items_cleared": {
+    "the_preprint": "Kosmyna, Hauptmann, Yuan, Situ, Liao, Beresnitzky, Braunstein & Maes, 'Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI Assistant for Essay Writing Task', arXiv, submitted 10 June 2025, revised 31 December 2025. 54 participants completed sessions 1-3. SESSION 4 HAD 18 PARTICIPANTS, split into two crossover arms — LLM users moved to brain-only and brain-only users moved to LLM. So the persistence finding that carries the whole 'lasting damage' framing rests on roughly nine people per arm, which matches Mollick's 'nine prior ChatGPT users'. Confirmed at source rather than from his summary.",
+    "peer_review": "Still an arXiv preprint fourteen months after first submission, revised once. No evidence of peer review found. Checkable and worth stating plainly if this publishes.",
+    "the_title_problem": "The framing that travelled came from the AUTHORS, not the press. The paper is titled 'Accumulation of Cognitive Debt'. That is a causal, cumulative, deficit-implying phrase and it is the researchers' own. Any piece blaming the coverage for the distortion has to reckon with the fact that the coverage took the headline from the paper.",
+    "the_forbes_piece": "READ VIA SYNDICATION — and it kills the framing this candidate was built on. Jonathan Wai's piece DOES NOT CITE THE MIT STUDY AT ALL. It argues from general neuroplasticity — 'pathways that are frequently utilized are strengthened, while those that are neglected wither' — plus the 'efficiency trap', and it proposes remedies ('cognitive sanctuaries', scaffolding). Body and headline align; it is not a case of a loose headline over a careful body."
+  },
+  "_reframed": "2026-08-29, after the operator asked where the general sense that AI lowers mental performance actually comes from. That question IS the piece. It has a traceable answer.",
+  "_open_before_drafting": [
+    "Read the RCT paper in full. It is an arXiv preprint — check peer-review status, as we did for MIT, and hold it to the same standard rather than a friendlier one because it is interesting.",
+    "Read the meta-analysis in full and look hard at publication bias. g = 1.008 for critical thinking is very large; funnel plot and any trim-and-fill matter.",
+    "Read the MIT preprint itself, not its abstract.",
+    "Read Hesselmann in full.",
+    "Check whether the two bodies of evidence differ in outcome measure in a way that makes the comparison unfair — the meta-analysis may measure course grades where the RCTs measure unassisted transfer.",
+    "Code a sample of the 35 meta-analysis studies for outcome type (assisted vs unassisted, immediate vs delayed) before recommending that re-analysis, so we are not asking for work whose answer is already visible."
+  ],
+  "_reframed_again": "2026-08-29, second reframe, after testing the kill condition nobody had tested. The lineage framing — three weak studies propping up a belief — was incomplete and would have been unfair. Strong evidence exists on BOTH sides. It is simply not the evidence anyone cites.",
+  "novelty_hunt": {
+    "run": "2026-08-29, counterexample.py --claim, on the reframed novelty claim: 'nobody has explained for a general reader that the evidence splits by mode of use -- AI as instructional tool improves learning, AI supplying answers degrades unassisted performance.'",
+    "hunter_verdict": "BROKEN, HIGH confidence, four counterexamples named.",
+    "verified_by_opening_each": "2026-08-29, claude. Result: one accurate, one partial, two off-target. The hunter's confidence was not earned and its date on the strongest hit was four months wrong.",
+    "counterexamples": [
+      {
+        "source": "The Conversation, 'We designed an AI tutor that helps college students reason rather than give them answers', Babaei-Balderlou (UW-La Crosse) & Shakya (Appalachian State)",
+        "date": "2026-04-30 (hunter said ~Aug 2026)",
+        "verified": "YES, via syndication (theconversation.com disallows machine fetch; read at caledonianrecord.com and goodmenproject.com)",
+        "stands": "PARTLY. The closing line is verbatim what the hunter quoted: 'AI can be used to replace thinking, or it can be used to support it.' That is our sentence, in a general-reader venue, four months ago. But the piece is a first-person account of the authors' own macroeconomics tutor ('Macro Buddy', spring 2024). It draws the distinction as a design lesson from one classroom tool. It cites one study on the crutch effect and NEITHER the randomised trials NOR the meta-analysis. It asserts the distinction; it does not show that the literature splits along it."
+      },
+      {
+        "source": "Hana Lee Goldin, MLIS, 'How to Use AI to Make Us Smarter', Card Catalog (Substack)",
+        "date": "2026-05-26",
+        "verified": "YES, read in full",
+        "stands": "PARTLY. Thesis is engagement mode -- passive use disengages, active questioning enhances. Cites the MIT preprint, the 758-consultant study, a Scientific Reports AI-tutor study and an Oct 2025 guided-vs-unguided experiment. It does NOT cite the degradation RCTs, the meta-analysis, Sparrow or Gerlich. It is one-sided in the opposite direction from the doom pieces: it marshals the favourable evidence and does not reckon with the unfavourable. And it is a Substack."
+      },
+      {
+        "source": "Stanford SCALE Initiative, 'AI Tutoring is Not a Monolith: What We Actually Know'",
+        "date": "2026-08-20",
+        "verified": "YES, read in full",
+        "stands": "NO. Different distinction. SCALE splits human-led tutoring / human-led with AI support / AI-led with human oversight / AI-only -- a taxonomy of DELIVERY MODELS for district leaders, not a claim about what AI does to a user's cognition. It cites two district RCTs on platform engagement. It does not cite the MIT preprint or any meta-analysis of ChatGPT and learning. The hunter matched on vocabulary, not on the proposition."
+      },
+      {
+        "source": "Education Week, 'When Does AI Help Most With Tutoring? What Emerging Research Says'",
+        "date": "2026-08",
+        "verified": "YES, read in full",
+        "stands": "NO. A trade-press write-up of the SCALE brief above. Same delivery-model taxonomy, names no studies. Not our distinction."
+      },
+      {
+        "source": "aitoolsforkids.com parent guide (hunter, May 2026)",
+        "date": "not verified",
+        "verified": "NO",
+        "stands": "UNKNOWN. Not load-bearing either way; recorded so the gap is visible rather than silently dropped."
+      }
+    ],
+    "narrowed_novelty_claim": "NOT: 'nobody has drawn this distinction for a general reader' -- two people have, one of them in The Conversation. BUT: nobody has put the two bodies of evidence side by side and shown WHY the distinction holds. The Conversation asserts it from one classroom. Goldin asserts it from the favourable half of the literature. Neither cites both the randomised trials that show degradation and the 35-study meta-analysis that shows improvement, and neither explains that these do not contradict because they measure different things. That reconciliation is the piece, and it does not exist anywhere we can find.",
+    "consequence_for_the_draft": "The piece must credit Babaei-Balderlou & Shakya and Goldin by name and link to them, and must not present the distinction as a discovery. Our contribution is the evidence behind a sentence other people have already written on intuition. That is a smaller claim and a defensible one."
+  },
+  "what_would_settle_it": {
+    "_why": "Fred, 2026-08-29: the piece should be useful by specifying what would be needed to settle the question rather than only reporting that it is unsettled. Ordered by cost. The first two require no new data.",
+    "questions": [
+      {
+        "n": 1,
+        "question": "Do the two literatures disagree, or do they measure different things?",
+        "status": "Answerable today from data already collected.",
+        "what_would_settle_it": "Re-analyse the 35 studies in the meta-analysis split by outcome type: assisted versus unassisted post-test, and immediate versus delayed. The randomised trials measure what a person can do after the AI is taken away. If the meta-analysis's positive effect concentrates in assisted or immediate outcomes and shrinks or reverses on unassisted and delayed ones, the contradiction dissolves and the mode-of-use reading is confirmed from existing data.",
+        "cost": "One re-analysis. Weeks, not years. Nobody has done it.",
+        "our_check": "We should code a sample of the 35 ourselves for outcome type before publishing this, so the recommendation is not made blind. If the split is already obvious, that is the finding."
+      },
+      {
+        "n": 2,
+        "question": "Is the positive literature inflated by publication bias?",
+        "status": "Answerable today. Not yet answered.",
+        "what_would_settle_it": "Funnel plot, trim-and-fill, and a p-curve on the 35 studies, plus a count of how many were pre-registered. A pooled g of 1.008 for critical thinking is extraordinarily large for an education intervention. If the corrected estimate falls substantially, the 'AI improves learning' half of the story weakens and the honest answer moves toward the pessimistic reading.",
+        "cost": "Days, from the published effect sizes.",
+        "our_check": "Read the meta-analysis's own bias section first -- it may already report this, in which case we report what it found rather than asking for it."
+      },
+      {
+        "n": 3,
+        "question": "Does the mode-of-use split hold when tested head to head?",
+        "status": "NEVER TESTED. This is the gap.",
+        "what_would_settle_it": "One trial, three arms, same students, same material, same outcome: AI constrained to withhold answers and prompt reasoning; AI unconstrained; and no AI. Two post-tests, one assisted and one unassisted. Pre-registered. Every study we have tested a single mode against a control, which is why the literature looks contradictory -- no one experiment contains both.",
+        "cost": "A single semester, one course, a few hundred students. This is a cheap, obvious experiment and its absence is the most surprising thing we found."
+      },
+      {
+        "n": 4,
+        "question": "Does the degradation persist, or is 'cognitive debt' a metaphor?",
+        "status": "Not settled. The entire persistence claim rests on roughly nine participants per arm in session 4 of an unreviewed preprint.",
+        "what_would_settle_it": "A randomised trial with mode assigned rather than chosen, running over a term, with unassisted transfer tests at four and twelve weeks. Powered to detect a small effect -- roughly 175 per arm for d = 0.3 -- and pre-registered. The outcome must be unassisted performance, not course grade: a course grade measures what the student produces with the tool, which is the thing nobody disputes has improved.",
+        "cost": "One academic year."
+      },
+      {
+        "n": 5,
+        "question": "Is there a real effect on cognition in the population, over years?",
+        "status": "No adequate evidence exists. This is what people mean when they ask the question, and it is the one nobody can currently answer.",
+        "what_would_settle_it": "A cohort with objective cognitive measures at baseline and follow-up, and AI use measured from logs rather than self-report, with pre-registered analyses. The current best-known correlational finding has both variables self-reported in a single instrument, which is the condition under which spurious associations are expected. Objective measurement on both sides is the whole fix.",
+        "cost": "Years and real money. Worth saying plainly that nobody is running it."
+      },
+      {
+        "n": 6,
+        "question": "Has the evidence everyone cites been peer reviewed?",
+        "status": "Checkable, and the answer is currently no for the most-cited study.",
+        "what_would_settle_it": "Nothing but time and a journal. 'Your Brain on ChatGPT' has been a preprint for fourteen months, revised once. We hold the trials we like to the same test -- the RCT paper's review status is an open item on this candidate and must be settled before we cite it as stronger evidence."
+      }
+    ],
+    "the_honest_summary": "Two of the six can be answered this month by re-analysing numbers that already exist. One is a single cheap experiment nobody has run. The expensive one is the only one that answers the question as ordinarily asked, and nobody is funding it. That gap -- between how confidently the question is discussed and how little of it anyone has tried to settle -- is the second half of the piece."
+  }
+}

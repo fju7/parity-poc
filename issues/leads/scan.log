@@ -33,3 +33,53 @@ scan 2026-08-29T17:45:28Z  week 35  set 3
   Nothing here is a subject yet. Run the funnel on anything that looks live:
     publish.py funnel <query>
 exit=0
+==============================================================
+scan 2026-08-29T19:18:05Z  week 35  set 3
+  "could increase" study                 191 outlet(s) / 189 distinct headline(s)   spike HTTP Error 429: To
+        dw.com                             5
+        larepublica.pe                     4
+        index.hr                           4
+        az-online.de                       4
+        aa.com.tr                          3
+        • Lurer . com | Աղտոտված օդը կարող է մեծացնել ատամների կորստի վտանգը ․ գիտ lurer.com
+        • Chewing gum branded as  sugar free  could increase your risk of heart at mirror.co.uk
+        • UOKiK stawia zarzut znanej uczelni . Mogła bezprawnie podnosić czesne    pb.pl
+        • University of Houston researchers warn electricity demand could spike in abc13.com
+        • Glacier retreat could increase disease risk for bees : Study             aa.com.tr
+        • More than 1 , 500 ships stuck in Strait of Hormuz may trigger global bio aa.com.tr
+        • Изменение климата могло повысить риск разрушительного наводнения в Гимал mignews.com
+        • Manter padrão de vida exige salto na produtividade alemã                 dw.com
+  "may cause" research suggests           16 outlet(s) /  19 distinct headline(s)   spike 0.61
+        prevention.com                     4
+        manilatimes.net                    2
+        asiaone.com                        2
+        nypost.com                         1
+        forbes.com                         1
+        • Ozempic may help people with serious mental health condition             nypost.com
+        • Using A . I . Might Reduce Your Mental Fitness                           forbes.com
+        • In 1500s , Spanish explorers introduced pigs into North America . Now ar economictimes.indiatim
+        • بعد 25 عاما من  أشباح المريخ .. هل اقترب البشر من العيش على الكوكب الأحم aljazeera.net
+        • Garlic Vs . Ginger : A Dietitian Reveals Which Is Best for Immunity      prevention.com
+        • Trethera Appoints World - Renowned ALS Researcher Dr . Merit Cudkowicz t manilatimes.net
+        • Can Screenshots Hurt Your Memory Instead Of Helping It ?                 wbap.com
+        • What do 77 % of HDB flat owners want most in their next home ? Survey re asiaone.com
+  "raises risk" study finds                ERROR <urlopen error timed out>
+
+  most-read on en.wikipedia:
+    Tim Curry                                  1,571,639
+    Dolly Parton                               1,269,538
+    Peter Cullen                               872,730
+    Toxic (2026 film)                          840,222
+    Lake Ontario                               272,461
+    Yayoi Kusama                               232,885
+    2026 Nepal floods                          214,895
+    Killing of the Clancy children             203,204
+    Ratko Mladić                               186,777
+    The Rocky Horror Picture Show              173,435
+    2026–27 UEFA Champions League              147,330
+    Samuel Monroe Jr.                          142,687
+
+  wrote issues/leads/2026-08-29-scan.json
+  Nothing here is a subject yet. Run the funnel on anything that looks live:
+    publish.py funnel <query>
+exit=0

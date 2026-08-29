@@ -7,6 +7,7 @@
       "query": "\"could increase\" study",
       "articles": 250,
       "distinct_outlets": 191,
+      "distinct_headlines": 189,
       "top_outlets": [
         [
           "dw.com",
@@ -69,17 +70,255 @@
           2
         ]
       ],
-      "points": 14,
-      "peak": 0.0256,
-      "recent_mean": 0.0155,
-      "baseline": 0.0133,
-      "spike_ratio": 1.16,
-      "top_articles": []
+      "headlines": [
+        {
+          "title": "Lurer . com | Աղտոտված օդը կարող է մեծացնել ատամների կորստի վտանգը ․ գիտնականներ",
+          "domain": "lurer.com",
+          "url": "https://lurer.com/article/748413/am",
+          "seendate": "20260821T173000Z"
+        },
+        {
+          "title": "Chewing gum branded as  sugar free  could increase your risk of heart attack and stroke",
+          "domain": "mirror.co.uk",
+          "url": "https://www.mirror.co.uk/news/health/gum-sweetener-xylitol-heart-stroke-37603266",
+          "seendate": "20260828T113000Z"
+        },
+        {
+          "title": "UOKiK stawia zarzut znanej uczelni . Mogła bezprawnie podnosić czesne",
+          "domain": "pb.pl",
+          "url": "https://www.pb.pl/uokik-stawia-zarzut-znanej-uczelni-mogla-bezprawnie-podnosic-czesne-1266014",
+          "seendate": "20260826T111500Z"
+        },
+        {
+          "title": "University of Houston researchers warn electricity demand could spike in coming years",
+          "domain": "abc13.com",
+          "url": "https://abc13.com/post/university-houston-researchers-warn-electricity-demand-could-spike-coming-years/19747488/",
+          "seendate": "20260828T013000Z"
+        },
+        {
+          "title": "Glacier retreat could increase disease risk for bees : Study",
+          "domain": "aa.com.tr",
+          "url": "https://aa.com.tr/en/environment/-glacier-retreat-could-increase-disease-risk-for-bees-study/4035942",
+          "seendate": "20260824T154500Z"
+        },
+        {
+          "title": "More than 1 , 500 ships stuck in Strait of Hormuz may trigger global biological invasions",
+          "domain": "aa.com.tr",
+          "url": "https://aa.com.tr/en/us-israel-iran-war/more-than-1-500-ships-stuck-in-strait-of-hormuz-may-trigger-global-biological-invasions/4033716",
+          "seendate": "20260821T110000Z"
+        },
+        {
+          "title": "Изменение климата могло повысить риск разрушительного наводнения в Гималаях | MigNews - Новости Израиля и Мира на русском языке",
+          "domain": "mignews.com",
+          "url": "https://mignews.com/news/disasters/izmenenie-klimata-moglo-povysit-risk-razrushitelnogo-navodneniya-v-gimalayah.html",
+          "seendate": "20260827T133000Z"
+        },
+        {
+          "title": "Manter padrão de vida exige salto na produtividade alemã",
+          "domain": "dw.com",
+          "url": "https://www.dw.com/pt-br/alemanha-precisa-quintuplicar-produtividade-para-manter-padr%C3%A3o-de-vida/a-78400348",
+          "seendate": "20260818T084500Z"
+        },
+        {
+          "title": "¿ La leche desnatada aumenta el riesgo de Parkinson ?",
+          "domain": "hoy.com.do",
+          "url": "https://hoy.com.do/opinion/consultorios/leche-desnatada-aumenta-riesgo-parkinson_1100239.html",
+          "seendate": "20260827T043000Z"
+        },
+        {
+          "title": "Así se calcularon los $30 billones en pérdidas que deja el terremoto en Colombia ; la cifra podría aumentar",
+          "domain": "elcolombiano.com",
+          "url": "https://www.elcolombiano.com/inicio/calculo-perdidas-terremoto-colombia-plan-milagro-JA40049330",
+          "seendate": "20260818T224500Z"
+        },
+        {
+          "title": "Predložena velika reforma taksi tržišta u Beogradu",
+          "domain": "blic.rs",
+          "url": "https://www.blic.rs/biznis/vesti/predlozena-velika-reforma-taksi-trzista-u-beogradu/zsbctld",
+          "seendate": "20260826T153000Z"
+        },
+        {
+          "title": "¿ Haces ejercicio en el trabajo ? No protege tu cerebro de la demencia : solo el de ocio , según un estudio",
+          "domain": "que.es",
+          "url": "https://www.que.es/2026/08/19/ejercicio-trabajo-manual-demencia-ocio/",
+          "seendate": "20260819T150000Z"
+        },
+        {
+          "title": "Auxiliares de vuelo y pilotos tienen mayor riesgo de morir por cáncer",
+          "domain": "diariolibre.com",
+          "url": "https://www.diariolibre.com/usa/actualidad/2026/08/18/auxiliares-de-vuelo-y-pilotos-tienen-mayor-riesgo-de-morir-por-cancer/3632575",
+          "seendate": "20260819T024500Z"
+        },
+        {
+          "title": "¿ Reutilizas botellas de plástico ? Un estudio revela el problema invisible que puede aparecer después de varios días",
+          "domain": "larepublica.pe",
+          "url": "https://larepublica.pe/ciencia/2026/08/18/reutilizas-botellas-de-plastico-un-estudio-revela-el-problema-invisible-que-puede-aparecer-despues-de-varios-dias-1024128",
+          "seendate": "20260819T020000Z"
+        },
+        {
+          "title": "Familiärer Brust - und Eierstockkrebs : Neue Risikofaktoren ?",
+          "domain": "aponet.de",
+          "url": "https://www.aponet.de/artikel/familiaerer-brust-und-eierstockkrebs-neue-risikofaktoren-33711",
+          "seendate": "20260818T124500Z"
+        },
+        {
+          "title": "Yağışlar gecikəcək - Amma daha dağıdıcı olacaq",
+          "domain": "adalet.az",
+          "url": "https://www.adalet.az/az/posts/detail/yagislar-gecikecek-amma-daha-dagidici-olacaq-1787202848",
+          "seendate": "20260820T080000Z"
+        },
+        {
+          "title": "Zašto komarci neke ljude obožavaju , a druge gotovo uopće ne diraju ?",
+          "domain": "dnevnik.ba",
+          "url": "https://www.dnevnik.ba/lifestyle/zasto-komarci-neke-ljude-obozavaju-a-druge-gotovo-uopce-ne-diraju/",
+          "seendate": "20260828T081500Z"
+        },
+        {
+          "title": "Namibia to rebury remains of political prisoners returned by South Africa",
+          "domain": "aol.co.uk",
+          "url": "https://www.aol.co.uk/articles/namibia-rebury-remains-political-prisoners-045511000.html",
+          "seendate": "20260826T060000Z"
+        },
+        {
+          "title": "Bay Area Voice : California studied employee ownership . SB 1174 would put the evidence to work .",
+          "domain": "marinij.com",
+          "url": "https://www.marinij.com/2026/08/20/opinion-california-studied-employee-ownership-sb-1174-would-put-the-evidence-to-work/",
+          "seendate": "20260820T231500Z"
+        },
+        {
+          "title": "Folgen des Klimawandels : Zerstörungen durch Waldbrände in Europa könnten sich verdreifachen",
+          "domain": "stuttgarter-zeitung.de",
+          "url": "https://www.stuttgarter-zeitung.de/wissen/folgen-des-klimawandels-waldbrand-zerstoerungen-in-europa-koennten-sich-verdreifachen-79399292.html",
+          "seendate": "20260820T101500Z"
+        },
+        {
+          "title": "Certas árvores urbanas atrapalham o clima em vez de só ajudar , sugere estudo",
+          "domain": "revistagalileu.globo.com",
+          "url": "https://revistagalileu.globo.com/ciencia/meio-ambiente/noticia/2026/08/certas-arvores-urbanas-atrapalham-o-clima-em-vez-de-so-ajudar-sugere-estudo.ghtml",
+          "seendate": "20260821T233000Z"
+        },
+        {
+          "title": "Researchers warn type 2 diabetes is rising rapidly among children and teens",
+          "domain": "wkbw.com",
+          "url": "https://www.wkbw.com/health/researchers-warn-type-2-diabetes-is-rising-rapidly-among-children-and-teens",
+          "seendate": "20260826T161500Z"
+        },
+        {
+          "title": "Popular daily drinking habit could nearly triple risk of stomach cancer , major study finds",
+          "domain": "fox4news.com",
+          "url": "https://www.fox4news.com/news/popular-daily-drinking-habit-could-nearly-triple-risk-stomach-cancer-major-study-finds",
+          "seendate": "20260819T164500Z"
+        },
+        {
+          "title": "Copacii bătrâni ar putea proteja sănătatea mai mult decât cei nou plantați . Ce arată un studiu din Chicago",
+          "domain": "mediafax.ro",
+          "url": "https://www.mediafax.ro/stiinta-sanatate/copacii-batrani-ar-putea-proteja-sanatatea-mai-mult-decat-cei-nou-plantati-ce-arata-un-studiu-din-chicago-23791296",
+          "seendate": "20260816T084500Z"
+        },
+        {
+          "title": "Prosty skan CT serca może o połowę zmniejszyć liczbę skierowań do kardiologa",
+          "domain": "rynekzdrowia.pl",
+          "url": "https://www.rynekzdrowia.pl/Serwis-Kardiologia/Prosty-skan-CT-serca-moze-o-polowe-zmniejszyc-liczbe-skierowan-do-kardiologa,287817,1014.html",
+          "seendate": "20260817T181500Z"
+        },
+        {
+          "title": "Holandia : prosty skan CT może o połowę zmniejszyć liczbę skierowań do kardiologa",
+          "domain": "rynekzdrowia.pl",
+          "url": "https://www.rynekzdrowia.pl/Serwis-Kardiologia/Holandia-prosty-skan-CT-moze-o-polowe-zmniejszyc-liczbe-skierowan-do-kardiologa,287817,1014.html",
+          "seendate": "20260817T133000Z"
+        },
+        {
+          "title": "Frühe Menopause und Armut : Studie belegt höheres Gesundheitsrisiko",
+          "domain": "merkur.de",
+          "url": "http://www.merkur.de/welt/fruehe-menopause-und-armut-studie-belegt-hoeheres-gesundheitsrisiko-zr-94455499.html",
+          "seendate": "20260823T070000Z"
+        },
+        {
+          "title": "PUTOVANJA U SVIJETU Pogledajte gdje se najviše trošilo ...",
+          "domain": "vecernji.ba",
+          "url": "https://www.vecernji.ba/vijesti/putovanja-u-svijetu-pogledajte-gdje-se-najvise-trosilo-1987462",
+          "seendate": "20260818T200000Z"
+        },
+        {
+          "title": "El Niño a devenit cu aproape 40 % mai puternic : „ Nicio țară nu este pe deplin protejată . Avertismentul cercetătorilor",
+          "domain": "digi24.ro",
+          "url": "https://www.digi24.ro/stiri/sci-tech/natura-si-mediu/el-nino-a-devenit-cu-aproape-40-mai-puternic-nicio-tara-nu-este-pe-deplin-protejata-avertismentul-cercetatorilor-3925199",
+          "seendate": "20260829T064500Z"
+        },
+        {
+          "title": "Cercetătorii au descoperit un beneficiu important al copacilor din oraşe . Ce se întâmplă când aceştia încep să dispară",
+          "domain": "stirileprotv.ro",
+          "url": "https://stirileprotv.ro/stiri/stiinta/cercetatorii-au-descoperit-un-beneficiu-important-al-copacilor-din-orase-ce-se-intampla-cand-acestia-incep-sa-dispara.html",
+          "seendate": "20260816T150000Z"
+        },
+        {
+          "title": "El canvi climàtic podria triplicar la superfície afectada pels incendis forestals a Europa",
+          "domain": "elperiodico.cat",
+          "url": "https://www.elperiodico.cat/societat/20260820/canvi-climatic-multiplicar-superficie-incendis-forestals-europa-estudi-133492381",
+          "seendate": "20260820T123000Z"
+        },
+        {
+          "title": "Dürre in Deutschland und Europa : Je trockener , desto teurer",
+          "domain": "dw.com",
+          "url": "https://www.dw.com/de/d%C3%BCrre-in-deutschland-und-europa-je-trockener-desto-teurer/a-78392039",
+          "seendate": "20260817T103000Z"
+        },
+        {
+          "title": "Waldbrände in Europa : Bis 2100 drohen 192 Prozent mehr Fläche",
+          "domain": "merkur.de",
+          "url": "https://www.merkur.de/wissen/waldbraende-in-europa-bis-2100-drohen-192-prozent-mehr-flaeche-zr-94454309.html",
+          "seendate": "20260821T143000Z"
+        },
+        {
+          "title": "El Niño devine tot mai puternic . Schimbările climatice ar putea amplifica fenomenele extreme la nivel global",
+          "domain": "stirileprotv.ro",
+          "url": "https://stirileprotv.ro/stiri/international/el-nino-devine-tot-mai-puternic-schimbarile-climatice-ar-putea-amplifica-fenomenele-extreme-la-nivel-global.html",
+          "seendate": "20260829T163000Z"
+        },
+        {
+          "title": "CAMBIO CLIMÁTICO / Europa podría triplicar la superficie afectada por incendios forestales a finales de siglo",
+          "domain": "elperiodico.com",
+          "url": "https://www.elperiodico.com/es/tendencias21/20260821/europa-triplicar-superficie-afectada-incendios-133535517",
+          "seendate": "20260821T080000Z"
+        },
+        {
+          "title": "¿ El secreto de la longevidad ? Un estudio desvela que los supercentenarios  remodelan  su sistema inmune después de los 100 años",
+          "domain": "elperiodico.com",
+          "url": "https://www.elperiodico.com/es/sociedad/20260819/estudio-supercentenarios-remodelan-sistema-inmunitario-secreto-longevidad-133478974",
+          "seendate": "20260819T153000Z"
+        },
+        {
+          "title": "BBVA Research revela eficiencia agua en San Luis Potosí",
+          "domain": "pulsoslp.com.mx",
+          "url": "https://pulsoslp.com.mx/slp/bbva-research-revela-eficiencia-agua-en-san-luis-potosi/2076677",
+          "seendate": "20260816T100000Z"
+        },
+        {
+          "title": "Renan Santos sugere substituir a Justiça do Trabalho",
+          "domain": "imirante.com",
+          "url": "https://imirante.com/noticias/brasil/2026/08/27/ipolitica-renan-santos-sugere-substituir-a-justica-do-trabalho",
+          "seendate": "20260827T220000Z"
+        },
+        {
+          "title": "Η κλιματική αλλαγή απειλεί να τριπλασιάσει τις εκτάσεις που καίγονται στην Ευρώπη",
+          "domain": "in.gr",
+          "url": "https://www.in.gr/2026/08/20/in-science/perivallon-b-science/i-klimatiki-allagi-apeilei-na-triplasiasei-tis-ektaseis-pou-kaigontai-stin-eyropi/",
+          "seendate": "20260820T144500Z"
+        },
+        {
+          "title": "El cambio climático podría multiplicar hasta por tres la superficie afectada por incendios forestales en Europa",
+          "domain": "laopiniondezamora.es",
+          "url": "https://www.laopiniondezamora.es/medio-ambiente/2026/08/23/cambio-climatico-multiplicar-superficie-incendios-forestales-europa-estudio-133582982.html",
+          "seendate": "20260823T113000Z"
+        }
+      ],
+      "volume_unavailable": "HTTP Error 429: Too Many Requests"
     },
     {
       "query": "\"may cause\" research suggests",
       "articles": 21,
       "distinct_outlets": 16,
+      "distinct_headlines": 19,
       "top_outlets": [
         [
           "prevention.com",
@@ -142,19 +381,132 @@
           1
         ]
       ],
-      "volume_unavailable": "<urlopen error _ssl.c:1112: The handshake operation timed out>"
+      "headlines": [
+        {
+          "title": "Ozempic may help people with serious mental health condition",
+          "domain": "nypost.com",
+          "url": "https://nypost.com/2026/08/26/health/ozempic-may-help-people-with-serious-mental-health-condition/",
+          "seendate": "20260826T143000Z"
+        },
+        {
+          "title": "Using A . I . Might Reduce Your Mental Fitness",
+          "domain": "forbes.com",
+          "url": "https://www.forbes.com/sites/jonathanwai/2026/08/19/using-ai-might-reduce-your-mental-fitness/",
+          "seendate": "20260819T211500Z"
+        },
+        {
+          "title": "In 1500s , Spanish explorers introduced pigs into North America . Now areas where they roam free have fewer invasive species",
+          "domain": "economictimes.indiatimes.com",
+          "url": "https://economictimes.indiatimes.com/news/international/global-trends/in-1500s-spanish-explorers-introduced-pigs-into-north-america-now-areas-where-they-roam-free-have-fewer-invasive-species/articleshow/133321913.cms",
+          "seendate": "20260818T124500Z"
+        },
+        {
+          "title": "بعد 25 عاما من  أشباح المريخ .. هل اقترب البشر من العيش على الكوكب الأحمر ؟ | علوم",
+          "domain": "aljazeera.net",
+          "url": "https://www.aljazeera.net/science/2026/8/25/%D8%A8%D8%B9%D8%AF-25-%D8%B9%D8%A7%D9%85%D8%A7-%D9%85%D9%86-%D8%A3%D8%B4%D8%A8%D8%A7%D8%AD-%D8%A7%D9%84%D9%85%D8%B1%D9%8A%D8%AE-%D9%87%D9%84-%D8%A7%D9%82%D8%AA%D8%B1%D8%A8",
+          "seendate": "20260825T164500Z"
+        },
+        {
+          "title": "Garlic Vs . Ginger : A Dietitian Reveals Which Is Best for Immunity",
+          "domain": "prevention.com",
+          "url": "https://www.prevention.com/food-nutrition/a73464212/garlic-vs-ginger-immune-health/",
+          "seendate": "20260819T183000Z"
+        },
+        {
+          "title": "Trethera Appoints World - Renowned ALS Researcher Dr . Merit Cudkowicz to Scientific Advisory Board",
+          "domain": "manilatimes.net",
+          "url": "https://www.manilatimes.net/2026/08/18/tmt-newswire/globenewswire/trethera-appoints-world-renowned-als-researcher-dr-merit-cudkowicz-to-scientific-advisory-board/2407803",
+          "seendate": "20260818T150000Z"
+        },
+        {
+          "title": "Can Screenshots Hurt Your Memory Instead Of Helping It ?",
+          "domain": "wbap.com",
+          "url": "https://www.wbap.com/2026/08/17/can-screenshots-hurt-your-memory-instead-of-helping-it/",
+          "seendate": "20260817T220000Z"
+        },
+        {
+          "title": "What do 77 % of HDB flat owners want most in their next home ? Survey reveals it not about price or space",
+          "domain": "asiaone.com",
+          "url": "https://www.asiaone.com:443/money/what-do-77-hdb-flat-owners-want-most-their-next-home-survey-reveals-its-not-about-price-or",
+          "seendate": "20260816T080000Z"
+        },
+        {
+          "title": "Research investigates whether solar events could trigger birth defects on Earth",
+          "domain": "engineeringevil.com",
+          "url": "https://engineeringevil.com/2015/07/20/research-investigates-whether-solar-events-could-trigger-birth-defects-on-earth/",
+          "seendate": "20260826T200000Z"
+        },
+        {
+          "title": "Do Weight Loss Patches Work ? Effectiveness , Side Effects , Uses",
+          "domain": "prevention.com",
+          "url": "https://www.prevention.com/weight-loss/a73345973/what-are-weight-loss-patches/",
+          "seendate": "20260825T190000Z"
+        },
+        {
+          "title": "Alexandria Ocasio - Cortez is freezing her eggs – here what to consider if youre thinking of doing the same",
+          "domain": "theconversation.com",
+          "url": "https://theconversation.com/alexandria-ocasio-cortez-is-freezing-her-eggs-heres-what-to-consider-if-youre-thinking-of-doing-the-same-290101",
+          "seendate": "20260824T143000Z"
+        },
+        {
+          "title": "Why August can become a hungry month for honeybees , despite summer still being in full swing",
+          "domain": "timesofindia.indiatimes.com",
+          "url": "https://timesofindia.indiatimes.com/science/why-august-can-become-a-hungry-month-for-honeybees-despite-summer-still-being-in-full-swing/articleshow/133461424.cms",
+          "seendate": "20260824T211500Z"
+        },
+        {
+          "title": "What life like as a wild animal ? Not as bad as you might think",
+          "domain": "rte.ie",
+          "url": "https://www.rte.ie/brainstorm/2026/0820/1588653-wildlife-nature-experiences/",
+          "seendate": "20260823T071500Z"
+        },
+        {
+          "title": "How Downhill Training Helps Runners Fight Late - Race Fatigue",
+          "domain": "runnersworld.com",
+          "url": "https://www.runnersworld.com/training/a73455348/durability-workout-downhill-running/",
+          "seendate": "20260818T221500Z"
+        },
+        {
+          "title": "Melatonin Vs . Magnesium for Sleep : Which Is Best ? Experts Explain",
+          "domain": "prevention.com",
+          "url": "https://www.prevention.com/health/sleep-energy/a73346174/melatonin-vs-magnesium-for-better-sleep/",
+          "seendate": "20260821T161500Z"
+        },
+        {
+          "title": "Coffee Drinkers May Have Less Fat and More Muscle , Scientists Find",
+          "domain": "prevention.com",
+          "url": "https://www.prevention.com/health/a73510982/coffee-linked-to-less-fat-more-muscle-study/",
+          "seendate": "20260827T130000Z"
+        },
+        {
+          "title": "Akari Therapeutics Builds Momentum for AKTX - 101 with Compelling Urothelial Cancer Data Supporting Differentiated ADC Strategy",
+          "domain": "manilatimes.net",
+          "url": "https://www.manilatimes.net/2026/08/18/tmt-newswire/globenewswire/akari-therapeutics-builds-momentum-for-aktx-101-with-compelling-urothelial-cancer-data-supporting-differentiated-adc-strategy/2407635",
+          "seendate": "20260818T134500Z"
+        },
+        {
+          "title": "Long - thought cause of autism not linked to symptoms , study finds",
+          "domain": "dailymail.com",
+          "url": "https://www.dailymail.com/health/article-16078589/autism-pesticides-link-nyu-study.html",
+          "seendate": "20260825T184500Z"
+        },
+        {
+          "title": "أفضل أكسسوارات للسيارات مثل لاند كروزر ، ورجال الأعمال في الظهران وحي اليرموك",
+          "domain": "elmawkefalarabi.com",
+          "url": "https://www.elmawkefalarabi.com/life-style/entertainment/news-20260818182234",
+          "seendate": "20260818T191500Z"
+        }
+      ],
+      "points": 14,
+      "peak": 0.003,
+      "recent_mean": 0.0002,
+      "baseline": 0.0003,
+      "spike_ratio": 0.61,
+      "top_articles": []
     },
     {
       "query": "\"raises risk\" study finds",
-      "articles": 2,
-      "distinct_outlets": 1,
-      "top_outlets": [
-        [
-          "naturalnews.com",
-          2
-        ]
-      ],
-      "volume_unavailable": "<urlopen error timed out>"
+      "error": "<urlopen error timed out>"
     }
   ],
   "attention": [
