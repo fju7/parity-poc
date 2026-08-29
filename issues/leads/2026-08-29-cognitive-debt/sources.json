@@ -208,9 +208,8 @@
         "not_read": [
           "the methods section at source; the EEG analysis"
         ],
-        "note": "The n=18 session-4 figure was confirmed against the paper's own reporting. The METHODS still need reading directly. THE ARXIV ID RECORDED HERE IS FROM MEMORY AND IS NOT VERIFIED — the sibling case, S009, was wrong when checked. Verify before it is printed."
-      },
-      "verify_identifier": true
+        "note": "arXiv id 2506.08872 VERIFIED 2026-08-29. Session-4 methods still to be read at source."
+      }
     },
     {
       "id": "S008",
@@ -458,6 +457,57 @@
         "note": "BLOCKING for the mirror-image claim. Whether both constructs were self-reported in one instrument is the whole basis for setting it beside Gerlich, and that has to be read at source, not inferred from the design description."
       },
       "found_via": "A Reddit thread the operator passed on, 2026-08-29, where a commenter offered it as support for a nuanced view of cognitive offloading."
+    },
+    {
+      "id": "S019",
+      "type": "critique",
+      "url": "https://arxiv.org/abs/2601.00856",
+      "title": "Stankovic, Hirche, Kollatzsch & Doetsch — Comment on: Your Brain on ChatGPT. arXiv 2601.00856, submitted 29 December 2025",
+      "also_called": [
+        "the Comment",
+        "the comment on the MIT preprint",
+        "Stankovic and colleagues"
+      ],
+      "used_for": "Five criticisms of Kosmyna et al.: limited sample size; concerns about reproducibility of the analyses; methodological problems in the EEG analysis; inconsistencies in the reporting of results; limited transparency in procedures and findings. Their conclusion is that some of Kosmyna et al.'s results 'could be interpreted more conservatively'. The tone is constructive — they credit the original authors for opening the question.",
+      "why_it_matters": "SYMMETRY. The flagship of the pessimistic side has a published methodological critique, exactly as the flagship of the optimistic side does. Both critiques exist; neither has reached a general reader. And this one, like everything else here, is a preprint.",
+      "peer_review": "NONE. arXiv preprint.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "abstract page: authors, date, the five concerns, the conclusion"
+        ],
+        "not_read": [
+          "the paper itself — the specific EEG objections and the reporting inconsistencies"
+        ],
+        "note": "Read the abstract. The five headings are all we have; the substance under each is unread and may not be characterised."
+      },
+      "found_via": "Verifying the MIT preprint's arXiv identifier. It was two results below the thing we were checking, and six rounds of searching had not surfaced it."
+    },
+    {
+      "id": "S020",
+      "type": "primary",
+      "url": "https://arxiv.org/abs/2507.00181",
+      "title": "Georgiou (2025), University of Nicosia — ChatGPT produces more “lazy” thinkers: Evidence of cognitive engagement decline. arXiv 2507.00181",
+      "also_called": [
+        "Georgiou",
+        "the lazy thinkers paper"
+      ],
+      "used_for": "A randomised experiment — 40 participants, 20 per group, aged 25-47 — whose ENTIRE outcome is a newly built four-item self-report scale (deep processing, mental effort, sustained attention, strategic thinking) on a 5-point Likert, administered immediately after the writing task. ChatGPT group 2.95 (SD 1.18) against control 4.19 (SD 0.45), F(1,38) = 19.2, p < 0.001. No objective performance measure of any kind. The author says so: 'self-reports may not fully capture the actual depth or quality of cognitive engagement.'",
+      "why_it_matters": "The title is 'ChatGPT produces more lazy thinkers'. The evidence is forty people rating their own mental effort on four questions. Randomisation does not rescue a self-report outcome, and this is the clearest single illustration of the piece's through-line.",
+      "peer_review": "NONE that we have established. arXiv preprint.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the PDF: design, N, instrument, means and SDs, F statistic, the author's own limitation"
+        ],
+        "not_read": [],
+        "note": "Read from arXiv's PDF."
+      },
+      "found_via": "Same search as S019."
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

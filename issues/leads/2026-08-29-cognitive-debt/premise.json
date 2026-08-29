@@ -88,6 +88,7 @@
   },
   "_reframed": "2026-08-29, after the operator asked where the general sense that AI lowers mental performance actually comes from. That question IS the piece. It has a traceable answer.",
   "_open_before_drafting": [
+    "READ Shaw & Nave in full. SSRN's PDF is not machine-reachable — the direct delivery URL 404s. This is the second document that needs a human, and it may be the spine of the piece.",
     "Read Wu et al.'s reference list directly — our own eyes, not a summarising fetch — to settle whether the surviving meta-analysis includes any of the five worst studies from the retracted one. Currently a WEAK not-found.",
     "READ Shaw & Nave in full (SSRN 6097646). We have the abstract only. It may be the spine of the piece and we have not opened it.",
     "READ Wang & Zhang's instrument (IJETHE 10.1186/s41239-026-00585-x) — were offloading and transformative learning measured in the same questionnaire at the same wave? The mirror-image claim depends on it entirely.",
@@ -276,5 +277,30 @@
       "the_timeline": "Submitted 26 June 2025. Preprint public 2 July 2025. Retracted 22 April 2026. Nine and a half months, during which the paper went on being cited."
     },
     "fairness_note": "The piece must carry that the authors answered the critics quickly, and that the journal's own reviewers passed a meta-analysis containing a g of 4.009 and a retracted study at 19% weight. The failure is not only theirs."
+  },
+  "the_through_line_2026_08_29": {
+    "_what_changed": "After twenty sources, the shape of the piece stopped being 'who is right' and became 'almost nobody is measuring the thing'.",
+    "the_finding": "Nearly every study in this argument, on both sides, measures one of two things that are not the question. It measures performance WHILE THE TOOL IS AVAILABLE, or it measures HOW PEOPLE SAY THEY FEEL. Very few measure what a person can do after the tool is taken away.",
+    "the_roll_call": {
+      "self_report_outcomes": [
+        "Gerlich — r = -0.68, both variables self-reported in one instrument. Cited for alarm.",
+        "Wang & Zhang (IJETHE 2026) — 912 students, structural equation modelling, no performance measure at all. Cited for reassurance.",
+        "Georgiou (arXiv 2507.00181) — RANDOMISED, and the outcome is 40 people rating their own mental effort on four Likert items. Titled 'ChatGPT produces more lazy thinkers'.",
+        "Huang et al. (2024) — self-efficacy and technology acceptance, carrying ~10% of the weight in a meta-analysis of LEARNING PERFORMANCE."
+      ],
+      "performance_measured_with_the_tool_in_hand": [
+        "Roughly half the studies Weidlich, Gašević, Drachsler & Kirschner audited: a learning measure was present in only 10 of 19. 'If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning.'"
+      ],
+      "actually_measures_unassisted_performance": [
+        "Liu, Christian, Dumbalska, Bakker & Dubey — three problems, immediately, after fifteen minutes. Preprint.",
+        "Shaw & Nave — preregistered, N = 1,372, 9,593 trials, AI accuracy randomised. Working paper. STILL UNREAD BY US."
+      ],
+      "brain_measures": [
+        "Kosmyna et al. — EEG, 54 through session 3, 18 in session 4 across two arms. Preprint, and now with a published Comment (Stankovic et al., arXiv 2601.00856) raising sample size, reproducibility, EEG methodology, reporting inconsistencies and transparency."
+      ]
+    },
+    "the_symmetry_worth_printing": "Both flagships have methodological critiques in public and neither critique has reached a general reader. Weidlich et al. on the optimistic side, in a journal. Stankovic et al. on the pessimistic side, on arXiv. A person reading about this in Forbes or EDUCAUSE has met neither.",
+    "the_sentence_the_piece_is_for": "The argument about whether AI is making us stupider is being conducted almost entirely in studies that measure how people feel, or how they perform with the machine still in front of them. Two studies measure what you can do after it is taken away. Both are preprints, and both measure minutes.",
+    "why_this_is_the_right_piece": "It is not a debunking and not a vindication, so it cannot be accused of either. It gives the reader with a decision a test they can apply themselves to the next study they see — was the tool there when they measured, and did anyone ask the person or watch them? And it makes 'what would settle it' inevitable rather than tacked on."
   }
 }
