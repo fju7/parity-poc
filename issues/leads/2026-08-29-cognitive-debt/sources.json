@@ -377,9 +377,64 @@
         ],
         "note": "Quotations here are at two removes. If Williamson is quoted in the piece, quote him from the original interview."
       }
+    },
+    {
+      "id": "S017",
+      "type": "primary",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646",
+      "title": "Shaw & Nave (2026) — Thinking—Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender. Wharton School Research Paper, posted 2 February 2026",
+      "also_called": [
+        "Shaw and Nave",
+        "the cognitive surrender experiments",
+        "the Wharton experiments"
+      ],
+      "used_for": "THREE PREREGISTERED EXPERIMENTS, N = 1,372, 9,593 trials, adapted Cognitive Reflection Tests with AI accuracy randomised. Participants consulted the AI on more than half of trials. Accurate AI raised accuracy by about 25 percentage points; erroneous AI lowered it by about 15. The pattern held under time pressure and under financial incentives. Higher trust in AI and lower need for cognition predicted more deference.",
+      "why_it_matters": "A THIRD mechanism, distinct from both existing strands. Not 'you get worse when the tool is taken away' (Liu et al.) and not 'you learn more with a tutor' (the meta-analyses), but 'you adopt the machine's answer over your own reasoning, including when it is wrong, and pay for it'. It is also the mechanism that matches what people actually describe when they say AI has changed their thinking. And it is PREREGISTERED, which Liu et al. appears not to be — so on that axis it is the most rigorous study in the whole set.",
+      "peer_review": "NONE. A Wharton working paper. Same standard as the MIT preprint and Liu et al.: say so plainly.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "SSRN abstract page: design, N, trial count, preregistration, the three headline effects, the moderators"
+        ],
+        "not_read": [
+          "the paper itself — effect sizes beyond the percentage-point figures, the Tri-System framing, limitations"
+        ],
+        "note": "Read the abstract, not the paper. Nothing beyond what is listed here may be printed until the PDF is read."
+      },
+      "found_via": "A Reddit thread the operator passed on, 2026-08-29. Recorded because provenance matters: it is not something our scanner or our searches surfaced, and that is worth knowing about our own coverage."
+    },
+    {
+      "id": "S018",
+      "type": "primary",
+      "url": "https://link.springer.com/article/10.1186/s41239-026-00585-x",
+      "doi": "10.1186/s41239-026-00585-x",
+      "title": "Wang & Zhang (2026) — Pedagogical partnerships with generative AI in higher education: how dual cognitive pathways paradoxically enable transformative learning. Int J Educ Technol High Educ, 25 March 2026",
+      "also_called": [
+        "Wang and Zhang",
+        "the offloading-helps paper",
+        "the IJETHE study"
+      ],
+      "used_for": "912 business students across China, Europe and the US; three-wave time-lagged surveys over six weeks; PLS-SEM, IPMA and fsQCA. Finds that cognitive offloading above a threshold FREES capacity for higher-order reflection and improves transformative learning. Partnership to offloading beta = 0.351; offloading to transformative learning beta = 0.333; quadratic term 0.102.",
+      "why_it_matters": "It is the mirror image of Gerlich, and that is the point. It is a SELF-REPORT SURVEY with structural equation modelling and no performance measure at all — the same design weakness that makes Gerlich's r = -0.68 uninterpretable, running in the opposite direction and producing an equally confident conclusion. It measures no unassisted performance, has no delayed or transfer outcome, and does not distinguish AI-as-tutor from AI-as-answer-machine. A reader who wants reassurance can cite this; a reader who wants alarm can cite Gerlich; neither is measuring what either thinks.",
+      "CAUTION": "Do not confuse with Wang & Fan (S003, the retracted meta-analysis) or Wu et al. (S002, the 35-study meta-analysis). Three different papers, similar surnames, opposite roles in the argument.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "article page: design, sample, the three path coefficients, the offloading claim"
+        ],
+        "not_read": [
+          "the instrument itself — which items measured 'offloading' and which measured 'transformative learning', and whether they came from the same questionnaire at the same wave"
+        ],
+        "note": "BLOCKING for the mirror-image claim. Whether both constructs were self-reported in one instrument is the whole basis for setting it beside Gerlich, and that has to be read at source, not inferred from the design description."
+      },
+      "found_via": "A Reddit thread the operator passed on, 2026-08-29, where a commenter offered it as support for a nuanced view of cognitive offloading."
     }
   ],
-  "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source.",
+  "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",
   "also_called_note": "Declared explicitly rather than inferred from titles, because the ledger audit can only see a source in the prose if it knows the words the prose uses.",
   "the_blocked_one": "S005. Same shape as issue two's NCCN guideline: exactly one document that machines cannot open, carrying exactly the information no other document has.",
   "what_the_verify_flags_caught": "Two identifiers in this ledger were written from memory. One was checked and was wrong: the PeerJ URL pointed at a soil-microbiology paper, not Hesselmann. Two remain unchecked (S007, S008). This is the argument for the flag existing — and for never printing an identifier that carries one."

@@ -88,13 +88,16 @@
   },
   "_reframed": "2026-08-29, after the operator asked where the general sense that AI lowers mental performance actually comes from. That question IS the piece. It has a traceable answer.",
   "_open_before_drafting": [
-    "Read the Ingebrigtsen & Lukic preprint at OSF (10.31234/osf.io/wgu56) at source. Every specific error attributed to them here came from a news summary and none of it may be printed until it is confirmed in their own words.",
-    "Get the full text of Wu et al. (2026) and read the bias section, the study table and the outcome coding directly, rather than the article page.",
-    "Confirm whether Liu et al. (2604.04721) pre-registered. Check OSF and the paper's own supplement.",
-    "Read Hesselmann (PeerJ 2020) in full -- still the one unopened source from the original framing.",
-    "Read the MIT preprint's session-4 methods directly to confirm the 18/two-arm figure at source rather than from the project page.",
-    "Re-run the novelty hunt on the NEW shape of the piece, and this time open every counterexample before letting it count.",
-    "Read Deng et al. (2025) enough to state its effect size and scope accurately, since Weidlich et al.'s audit is of the studies behind it."
+    "READ Shaw & Nave in full (SSRN 6097646). We have the abstract only. It may be the spine of the piece and we have not opened it.",
+    "READ Wang & Zhang's instrument (IJETHE 10.1186/s41239-026-00585-x) — were offloading and transformative learning measured in the same questionnaire at the same wave? The mirror-image claim depends on it entirely.",
+    "S005, the Norwegian audit — human read. Request written.",
+    "Get the full text of Wu et al. (2026) and read the study table and outcome coding.",
+    "Confirm every Liu et al. figure against v4, not the v2 HTML we read.",
+    "Confirm Weidlich et al.'s percentages against the Wiley version, not the author's copy.",
+    "Verify the arXiv id for the MIT preprint and the URL for Gerlich. Both are still recorded from memory and one sibling was wrong when checked.",
+    "Read Deng et al. (2025) rather than reading about it through Weidlich.",
+    "Re-run the novelty hunt on the THREE-MECHANISM shape, and open every counterexample before letting it count.",
+    "Search SSRN, NBER, OSF/PsyArXiv and arXiv by name — the new standing rule — before deciding we know what the evidence is."
   ],
   "_reframed_again": "2026-08-29, second reframe, after testing the kill condition nobody had tested. The lineage framing — three weak studies propping up a belief — was incomplete and would have been unfair. Strong evidence exists on BOTH sides. It is simply not the evidence anyone cites.",
   "novelty_hunt": {
@@ -244,5 +247,15 @@
       "second_failure": "Hesselmann places his result alongside Camerer et al. (2018), which also failed to replicate Sparrow. So the oldest strand of the belief has TWO independent replication failures behind it, not one.",
       "correction_to_our_file": "Our own record had the wrong PeerJ article number. Caught by the ledger's verify flag before anything was printed."
     }
+  },
+  "third_mechanism_2026_08_29": {
+    "_why_this_matters": "Two sources the operator forwarded change the shape again, and this time by addition rather than subtraction.",
+    "the_finding": "There are not two things being measured in this argument. There are three.",
+    "one": "WITHDRAWAL. Liu, Christian, Dumbalska, Bakker & Dubey: after fifteen minutes of AI-assisted practice, you do worse on the next three problems and give up sooner. Causal, replicated, immediate, not preregistered so far as the paper shows, still a preprint.",
+    "two": "INSTRUCTION. The meta-analytic literature: students taught with AI inside a designed course do better on the course's own measures. Its most-cited synthesis is retracted; of the nineteen comparisons audited in the next one, four met all three basic criteria; and roughly half of what is being called learning was measured with the tool still in front of the student.",
+    "three": "DEFERENCE. Shaw & Nave, three preregistered experiments, N = 1,372, 9,593 trials, AI accuracy randomised: people consult the machine on more than half of trials and adopt its answer over their own reasoning. When it is right they gain about 25 points; when it is wrong they lose about 15. Time pressure does not stop it and paying people does not stop it.",
+    "why_three_is_the_one_readers_recognise": "Neither of the first two describes what people report when they say AI has changed how they think. They do not say 'I was worse at fractions afterwards' or 'my course grade improved'. They say they reach for it before thinking, and take what it gives them. That is deference, and it is the only one of the three with a preregistered experiment behind it.",
+    "the_mirror_image": "Wang & Zhang (IJETHE, March 2026) surveyed 912 students and concluded that cognitive offloading above a threshold IMPROVES transformative learning. It is a self-report survey with no performance measure — the same design that makes Gerlich's r = -0.68 uninterpretable, pointed the other way and just as confident. A reader who wants reassurance cites one; a reader who wants alarm cites the other; neither is measuring what its citer thinks.",
+    "what_this_does_to_the_piece": "It gets better again. The piece is now: three different things are being measured and called one thing, the public argument cites the weakest study from each camp, and the strongest evidence in the whole field — preregistered, 1,372 people — describes a mechanism nobody is arguing about."
   }
 }

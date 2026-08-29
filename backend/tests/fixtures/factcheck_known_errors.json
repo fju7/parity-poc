@@ -489,6 +489,16 @@
       "was": "the wrong directory is untidy",
       "should_have_been": "A finding in the wrong case file is a false finding about that piece, indistinguishable from a real one, and it blocks the piece it was never about. Leads resolve first, and a bare-claim hunt into a published case file must be asked for twice.",
       "why_it_survived": "The tool took a slug and never asked whether the slug named the thing being examined. It was easier to reuse a resolvable slug than to make the lead directory the tool would accept."
+    },
+    {
+      "class": "SEARCHED_THE_VENUES_WE_KNOW",
+      "kind": "process",
+      "caught_by": "the operator forwarding a Reddit thread",
+      "found_by": "issue three candidate, 2026-08-29",
+      "summary": "Six rounds of targeted search plus a purpose-built lead scanner did not surface Shaw & Nave's 'Cognitive Surrender' — three PREREGISTERED experiments, N = 1,372, 9,593 trials, posted on SSRN in February 2026. On preregistration it is the most rigorous study in the whole set, and it identifies a mechanism neither of the two literatures we had assembled contains. A stranger on Reddit had it.",
+      "was": "we searched the literature",
+      "should_have_been": "We searched journals and the press. Working-paper repositories are a separate habitat with separate indexing — SSRN, NBER, OSF/PsyArXiv, and the economics and business-school preprint series — and a question that touches productivity, decision-making or behaviour will have work sitting in them that a journal search never returns. Each is its own search step, by name.",
+      "why_it_survived": "The scanner was built to find BELIEFS in coverage, which it does. Nothing in the process was built to find the best EVIDENCE, and we assumed that following the belief's citations would lead to it. It leads only to what the belief already cites."
     }
   ],
   "standing_rules": [
@@ -521,7 +531,8 @@
     "When a hunt for prior art returns a near miss, ask what the near miss did NOT do. A piece that states our sentence but does not show the evidence behind it has taken the headline, not the subject. That is a narrowing of the novelty claim, not the end of it -- and the narrowed claim must then be stated in the piece, crediting whoever got there first.",
     "Never report to the operator that something was or was not published, sent or accepted from the state of a button. Open published.json and read the record. The board reflects what may be done next, not what has been done.",
     "Every check must fire on the path the content actually takes to a reader, not only on the path we intend to use. Ask of each gate: what is the command that reaches the world without passing through this?",
-    "A finding is filed against a piece. Before writing one, confirm the slug names the piece the finding is about -- an adverse finding in the wrong case file is a false accusation the machine will enforce."
+    "A finding is filed against a piece. Before writing one, confirm the slug names the piece the finding is about -- an adverse finding in the wrong case file is a false accusation the machine will enforce.",
+    "Search the working-paper repositories by name as their own step — SSRN, NBER, OSF/PsyArXiv, arXiv — before concluding what the evidence on a question is. Following a belief's citations finds only what the belief already cites. The single most rigorous study behind issue three was on SSRN and no journal or press search returned it."
   ],
   "second_pass": {
     "run": "2026-08-26",
