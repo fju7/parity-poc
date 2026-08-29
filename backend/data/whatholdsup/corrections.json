@@ -1,0 +1,197 @@
+{
+  "_what_this_is": "",
+  "items": [
+    {
+      "id": "COR-001",
+      "received": "2026-08-29T12:00:00+00:00",
+      "from": "outside reader (via the operator, not corrections@)",
+      "issue": "cdk46",
+      "claim": "The page treats NCCN's category of evidence as a ranking of the drugs. NCCN runs a separate Categories of Preference system, and all three AI+CDK4/6 combinations are listed Preferred. The page never says so.",
+      "state": "closed",
+      "acknowledged": {
+        "at": "2026-08-29T13:39:13+00:00",
+        "by": "claude",
+        "note": "acknowledged same day"
+      },
+      "adjudication": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "verdict": "upheld",
+        "reason": "Correct and the most serious error either issue has carried. The guideline lists all three combinations as preferred and grades only the evidence. The page reported the category difference and omitted the fact that answered the question it posed.",
+        "checked": "NCCN v6.2026, read by the operator; guideline language supplied verbatim"
+      },
+      "closed": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "told_the_reader": "Upheld; page reframed around the preference/evidence distinction and the omission named as ours.",
+        "recorded_in": "29 August 2026 — the guideline lists all three drugs as preferred, and we did not say so"
+      },
+      "history": [
+        {
+          "at": "2026-08-29T13:39:13+00:00",
+          "by": "claude",
+          "what": "logged"
+        },
+        {
+          "at": "2026-08-29T13:39:13+00:00",
+          "by": "claude",
+          "what": "acknowledged"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "adjudicated upheld"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "closed"
+        }
+      ]
+    },
+    {
+      "id": "COR-002",
+      "received": "2026-08-29T12:00:00+00:00",
+      "from": "outside reader (via the operator, not corrections@)",
+      "issue": "cdk46",
+      "claim": "MONALEESA-2's final overall-survival p-value is described as two-sided in five places, without a source. The analysis was one-sided against an adjusted boundary.",
+      "state": "closed",
+      "acknowledged": {
+        "at": "2026-08-29T13:39:13+00:00",
+        "by": "claude",
+        "note": "acknowledged same day"
+      },
+      "adjudication": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "verdict": "partly_upheld",
+        "reason": "Upheld as to our error: 'two-sided' was asserted, not read, and is removed from all five places. Not upheld as to the replacement: we could not open the paper's statistical section either, so the one-sided reading is recorded as the reviewer's contention and not printed as fact. The same rule that removed our claim forbids adopting theirs unread.",
+        "checked": "nejm.org 403; PMC CAPTCHA; Europe PMC returned its homepage — the statistical section was not opened by anyone here"
+      },
+      "closed": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "told_the_reader": "Partly upheld; our claim removed, yours recorded as a contention we also cannot check.",
+        "recorded_in": "29 August 2026 — three smaller corrections made the same day"
+      },
+      "history": [
+        {
+          "at": "2026-08-29T13:39:13+00:00",
+          "by": "claude",
+          "what": "logged"
+        },
+        {
+          "at": "2026-08-29T13:39:13+00:00",
+          "by": "claude",
+          "what": "acknowledged"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "adjudicated partly_upheld"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "closed"
+        }
+      ]
+    },
+    {
+      "id": "COR-003",
+      "received": "2026-08-29T12:00:00+00:00",
+      "from": "outside reader (via the operator, not corrections@)",
+      "issue": "cdk46",
+      "claim": "'No study that compares them by other means finds a difference' is broader than the literature supports, and 'all three indirect comparisons' says three where the page examines four.",
+      "state": "closed",
+      "acknowledged": {
+        "at": "2026-08-29T13:39:13+00:00",
+        "by": "claude",
+        "note": "acknowledged same day"
+      },
+      "adjudication": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "verdict": "upheld",
+        "reason": "Both correct. The universal claim now names the four studies it is about and says four studies are not the literature; the counts are reconciled in three places.",
+        "checked": "the page's own comparative-studies section"
+      },
+      "closed": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "told_the_reader": "Upheld; claims narrowed and counts reconciled.",
+        "recorded_in": "29 August 2026 — three smaller corrections made the same day"
+      },
+      "history": [
+        {
+          "at": "2026-08-29T13:39:13+00:00",
+          "by": "claude",
+          "what": "logged"
+        },
+        {
+          "at": "2026-08-29T13:39:13+00:00",
+          "by": "claude",
+          "what": "acknowledged"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "adjudicated upheld"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "closed"
+        }
+      ]
+    },
+    {
+      "id": "COR-004",
+      "received": "2026-08-29T12:00:00+00:00",
+      "from": "outside reader (via the operator, not corrections@)",
+      "issue": "cdk46",
+      "claim": "The footer describes the page as a draft that is not published, under a masthead that says Published, on a live page.",
+      "state": "closed",
+      "acknowledged": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "note": "acknowledged same day"
+      },
+      "adjudication": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "verdict": "upheld",
+        "reason": "Correct. Fixed the same day.",
+        "checked": "the live page"
+      },
+      "closed": {
+        "at": "2026-08-29T13:39:14+00:00",
+        "by": "claude",
+        "told_the_reader": "Upheld; fixed the same day.",
+        "recorded_in": "29 August 2026 — three smaller corrections made the same day"
+      },
+      "history": [
+        {
+          "at": "2026-08-29T13:39:13+00:00",
+          "by": "claude",
+          "what": "logged"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "acknowledged"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "adjudicated upheld"
+        },
+        {
+          "at": "2026-08-29T13:39:14+00:00",
+          "by": "claude",
+          "what": "closed"
+        }
+      ]
+    }
+  ]
+}

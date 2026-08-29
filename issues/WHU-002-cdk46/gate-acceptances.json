@@ -115,6 +115,73 @@
         "c32",
         "c33"
       ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "f78c768acb6773a8b038588d2d6bcc8464638924b5432e8e29df6ce0d235a1c2",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T13:17:39+00:00",
+      "by": "claude",
+      "reason": "Stale on sha f78c768a after the 29 August corrections. All four dispositioned in review/2026-08-29-post-publication.md: c2 is an absence of machine access to a licence-restricted source now recorded as S001 human_read; c31-c33 were correctly found and their sentences removed before publication, and the figures that remain are correctly attributed to abemaciclib.",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
+    },
+    {
+      "file": "issue2-cdk46.html",
+      "sha": "4639055f6177aeb38d86053550ef96f12cc536c6b38a926843bf8efc6dc223a1",
+      "gate_report_sha": "1fb1d8185ce341d4f262d92ed91857d96c1726da603374e6ba985fdd00b3cee3",
+      "gate_checked_at": "2026-08-28",
+      "at": "2026-08-29T13:17:45+00:00",
+      "by": "claude",
+      "reason": "Dispositioned in review/2026-08-29-post-publication.md: o1 is the recorded rounding over-fire (1.02 is 1.015 to the precision the sentence uses); c16 is confirmed by the guideline language the operator supplied verbatim, the source being licence-restricted from any automated check; c35 quotes the extractor's own paraphrase and cannot be located either way.",
+      "findings_in_that_run": 5,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c16",
+        "c35",
+        "o1"
+      ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "f78c768acb6773a8b038588d2d6bcc8464638924b5432e8e29df6ce0d235a1c2",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T13:23:10+00:00",
+      "by": "claude",
+      "reason": "Supersedes the acceptance recorded earlier today, whose reason was wrong: it said the 97% interval-overlap sentences had been removed before publication. They had not. The claim is on the page, and what changed was that the misattributed bounds were corrected, the arithmetic shown, and the bounds explicitly named as abemaciclib's. Corrected disposition in review/2026-08-29-post-publication-adjudication.md. c2 remains an absence of machine access to a licence-restricted source, recorded as S001 human_read in the ledger.",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
+    },
+    {
+      "file": "cdk46.html",
+      "sha": "d45930efa2c6d8e0b87cac76ba9e1ade02b6028575f019ad53e36f08a39985aa",
+      "gate_report_sha": "3d7c7f856a9f51f1b03e87b4c19777696b5dbacf56ae88a15f546b64ef969526",
+      "gate_checked_at": "2026-08-29",
+      "at": "2026-08-29T13:53:20+00:00",
+      "by": "claude",
+      "reason": "Re-accepted on sha d45930ef after the source-advocate answers of 29 August. Dispositions unchanged and recorded in review/2026-08-29-post-publication-adjudication.md: c2 is an absence of machine access to a licence-restricted source, now recorded as S001 human_read with the sections read named and ten advocate questions answered from it; c31-c33 found a real misattribution which is corrected, and the 97% claim that carried it now shows its derivation and names whose bounds are whose.",
+      "findings_in_that_run": 7,
+      "verified_gone": 2,
+      "accepted_despite": [
+        "c2",
+        "c31",
+        "c32",
+        "c33"
+      ]
     }
   ]
 }

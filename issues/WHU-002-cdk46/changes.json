@@ -1,6 +1,6 @@
 {
   "what_this_is": "Every change to the CDK4/6 assessment since the version an outside reviewer read, each tied to the decision that caused it. The reconciliation in publish.py matches these against the actual diff: a change with no entry here, or an entry citing a label that resolves to nothing, is an unexplained change and the board says so.",
-  "because_refers_to": "A heading in issues/WHU-002-cdk46/review/2026-08-29-adjudication.md. OR-* are the outside reviewer's findings and suspicion; GATE-* are findings from the single post-review gate run, recorded in the same file.",
+  "because_refers_to": "A heading in issues/WHU-002-cdk46/review/2026-08-29-adjudication.md or issues/WHU-002-cdk46/review/2026-08-29-post-publication.md. OR-* are the outside reviewer's pre-publication findings and suspicion; GATE-* are findings from the single post-review gate run; PUB-* are the post-publication reviewer's findings; PUB-S* are ours, found while fixing PUB-*.",
   "changes": [
     {
       "at": "2026-08-29T02:12:27+00:00",
@@ -69,7 +69,7 @@
       "at": "2026-08-29T02:12:27+00:00",
       "by": "claude",
       "kind": "changed",
-      "was": "That figure is ours, not a published one, and it is one subtraction, on the same rounded bounds shown above: ribociclib's interval runs 0.63 to 0.93, a width of 0.30; the part of it inside abemaciclib's runs 0.64 to 0.93, a width of 0.29. 0.29 \u00f7 0.30 = 96.7%.",
+      "was": "That figure is ours, not a published one, and it is one subtraction, on the same rounded bounds shown above: ribociclib's interval runs 0.63 to 0.93, a width of 0.30; the part of it inside abemaciclib's runs 0.64 to 0.93, a width of 0.29. 0.29 ÷ 0.30 = 96.7%.",
       "now": "That overlap is also a function of how wide abemaciclib's interval is - itself a consequence of what that trial was powered to detect - and not only of how close the two point estimates are.",
       "because": "GATE-02",
       "note": "the overlap figure needed the caveat the page applies to thresholds"
@@ -88,7 +88,7 @@
       "by": "claude",
       "kind": "added",
       "was": "",
-      "now": "The figure is ours, not a published one, and it is one subtraction, on the same rounded bounds shown above: ribociclib's interval runs 0.63 to 0.93, a width of 0.30; the part of it inside abemaciclib's runs 0.64 to 0.93, a width of 0.29. 0.29 \u00f7 0.30 = 96.7%.",
+      "now": "The figure is ours, not a published one, and it is one subtraction, on the same rounded bounds shown above: ribociclib's interval runs 0.63 to 0.93, a width of 0.30; the part of it inside abemaciclib's runs 0.64 to 0.93, a width of 0.29. 0.29 ÷ 0.30 = 96.7%.",
       "because": "GATE-02",
       "note": "the overlap figure needed the caveat the page applies to thresholds"
     },
@@ -277,7 +277,7 @@
       "by": "claude",
       "kind": "changed",
       "was": "Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators' recovered-data sensitivity analysis (9.2% vs 11.7%; HR 0.92, 95% CI 0.76-1.12, P = .21).",
-      "now": "Source also of the survival analysis's design: \"The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] \u22640.74, using a stratified log-rank test with a one-sided significance level of 0.025.\" Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators' recovered-data sensitivity analysis (9.2% vs 11.7%; HR 0.92, 95% CI 0.76-1.12, P = .21).",
+      "now": "Source also of the survival analysis's design: \"The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025.\" Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators' recovered-data sensitivity analysis (9.2% vs 11.7%; HR 0.92, 95% CI 0.76-1.12, P = .21).",
       "because": "OR-002",
       "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
     },
@@ -349,9 +349,810 @@
       "by": "claude",
       "kind": "changed",
       "was": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review DRAFT - not published The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
-      "now": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 \u00b7 guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "now": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
       "because": "PREFLIGHT-01",
       "note": "masthead date set to the publishing machine's date. The first attempt said 29 August because it was typed from a UTC machine while the publisher's is on Pacific time, seven hours behind and across midnight."
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "now": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 29 August 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A guideline grades one of them above the other two, and says why.",
+      "now": "A guideline lists all three as preferred, and grades the evidence behind one of them higher than the evidence behind the other two.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "No trial has ever tested one against another.",
+      "now": "That grade gets read as a ranking of the drugs - it was read that way by this page, in the version published on 28 August.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Every comparison this page could find of the two it grades apart finds nothing between them - and on the endpoint the trials were designed to measure, they are indistinguishable.",
+      "now": "It is not one.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "No trial has ever tested these drugs against each other, and every comparison this page examined of the two the guideline grades apart finds nothing between them.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That is one of two systems NCCN runs, and it is not the one that says which drug to prefer.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The Categories of Evidence and Consensus - the 1 and the 2A above - record how strong the evidence is that an intervention is appropriate .",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A separate set, the Categories of Preference, ranks regimens against one another on efficacy, safety and evidence together.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On that second system the guideline lists all three aromatase-inhibitor-plus-CDK4/6-inhibitor combinations as preferred first-line options - for postmenopausal patients and for premenopausal patients on ovarian suppression alike - and then explains the evidence grade separately: Due to the clear OS benefit seen with ribociclib in combination with AI, it is a category 1 recommendation.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Abemaciclib and palbociclib are category 2A.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The preference designation does not differ across the three.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Only the category of evidence does.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The version of this assessment published on 28 August did not say that.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It reported the category difference, asked what a reader should make of it, and never mentioned that the guideline itself had already answered the question elsewhere in the same document.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That was a selective omission: the one fact most likely to change a reader's conclusion, left out of a page built to criticise how the rest of the document reads.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is corrected here and recorded below.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is also, exactly, the failure this assessment is about - an evidence label read as a ranking of drugs, this time by us, after eighteen automated checks and two reviews on the question of whether it was one.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Among the three postmenopausal aromatase-inhibitor trials - the three the guideline grades against each other - the progression-free hazard ratios are 0.54, 0.57 and 0.58.",
+      "now": "Among the three postmenopausal aromatase-inhibitor trials - the three the guideline lists side by side - the progression-free hazard ratios are 0.54, 0.57 and 0.58.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "MONALEESA-2 states a two-sided p of 0.008; what boundary its final analysis was tested against we could not establish, and if it too spent alpha at an interim then its bar also sat below .05.",
+      "now": "MONALEESA-2's final analysis prints p = 0.008.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We have not established the direction of that test, or the boundary it faced.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An earlier version of this page called the p-value two-sided; we cannot source that, and a reader who reviewed this page after publication contends it was one-sided against an adjusted boundary.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The paper's statistical section is behind a wall we could not open, so neither reading is printed here as fact: the number stands as the publication states it, with nothing added to it.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "If it too spent alpha at an interim, its bar also sat below .05.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "(0.637 and 1.015 are abemaciclib's bounds throughout; ribociclib's are 0.63 and 0.93.) One interval stopped at 0.93 and the other at 1.02, and that is the whole of it: ribociclib's result reached statistical significance (two-sided p = 0.008) and abemaciclib's did not (P = .0664, against its own boundary of .034).",
+      "now": "(0.637 and 1.015 are abemaciclib's bounds throughout; ribociclib's are 0.63 and 0.93.) One interval stopped at 0.93 and the other at 1.02, and that is the whole of it: ribociclib's result reached statistical significance (p = 0.008) and abemaciclib's did not (P = .0664, against its own boundary of .034).",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What happens when you do compare them Three times, by three methods.",
+      "now": "What happens when you do compare them Four studies, by three methods.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What all three agree on The studies disagree about palbociclib.",
+      "now": "What all four agree on The studies disagree about palbociclib.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The guideline grades them apart.",
+      "now": "The guideline grades the evidence behind them apart.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Ribociclib plus letrozole improved overall survival against letrozole alone: 63.9 versus 51.4 months, HR 0.76 (0.63-0.93), two-sided p = 0.008, at 6.6 years of median follow-up.",
+      "now": "Ribociclib plus letrozole improved overall survival against letrozole alone: 63.9 versus 51.4 months, HR 0.76 (0.63-0.93), p = 0.008, at 6.6 years of median follow-up.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "No study that compares them by other means finds a difference between abemaciclib and ribociclib - not the network meta-analysis, not P-VERIFY on 9,146 patients, not PALMARES-2 on 1,982.",
+      "now": "None of the four comparative studies examined on this page separates abemaciclib from ribociclib: not the network meta-analysis, not P-VERIFY on 9,146 patients, not PALMARES-2 on 1,982, not the reconstructed patient-data comparison - whose progression-free estimate comes closest, at p = 0.051, and still does not reach significance.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That is a statement about four studies we read, not about a literature we have surveyed to the end.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "No randomised trial has tested it, and all three indirect comparisons that have looked found nothing between them.",
+      "now": "No randomised trial has tested it, and none of the four comparative studies examined here separates them.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Indirect comparisons are weaker evidence than a randomised trial would be.",
+      "now": "Indirect comparisons are weaker evidence than a randomised trial would be, and four studies are not the whole literature.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "On the evidence: the category reflects which trial produced a survival result, not which drug produces better survival.",
+      "now": "There are two answers and they point the same way.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The guideline's own answer is no: it lists all three as preferred first-line options, and the category records how strong the evidence behind each one is, not which drug works better.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The evidence's answer is that nothing has been shown to separate them: no randomised trial has compared them, and none of the four comparative studies on this page can tell abemaciclib and ribociclib apart.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Which leaves the question of why a reader would have thought otherwise.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Not because the guideline says so - it does not.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Because a category 1 and a category 2A printed in one column look like a ranking, and the preference designation that would correct the impression sits somewhere else in the document.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page made that mistake in its first published version, which is the most direct evidence it can offer that the mistake is easy to make.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "N Engl J Med , 2022 63.9 vs 51.4 months, HR 0.76 (95% CI 0.63-0.93), two-sided P = 0.008, at 6.6 years median follow-up.",
+      "now": "N Engl J Med , 2022 63.9 vs 51.4 months, HR 0.76 (95% CI 0.63-0.93), P = 0.008 as the paper prints it, at 6.6 years median follow-up.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The direction of that test and the boundary it was judged against are not established by us.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A group-sequential test with an adjusted threshold, which is why its p-value cannot be read beside MONALEESA-2's two-sided 0.008 as though the two numbers meant the same thing.",
+      "now": "A group-sequential test with an adjusted threshold, which is why its p-value cannot be read beside MONALEESA-2's 0.008 as though the two numbers meant the same thing.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Draft.",
+      "now": "Publication history.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Three fact-check gate runs on 28 August 2026, all blocking: seven serious findings, then nine, then nine again, and each set was largely about the previous set's repairs.",
+      "now": "Drafted 28 August 2026 and published the same day.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Runs one and two: the PALOMA-2 overall-survival interval was wrong (0.78-1.18, not 1.20); the significance status of every overall-survival result is now stated rather than given for one trial only; MONALEESA-7's protocol-specified result was restored beside the exploratory one that had displaced it; PALOMA-2's missing-data problem now carries the investigators' own recovered-data analysis; a charge that the guideline overstated the absence of direct comparison was withdrawn, because it did not; every cell of the table names the analysis it comes from; and a sources list was added, which this page did not have.",
+      "now": "Before publication it went through eighteen fact-check runs on this page and six on the summary email; an outside reader then reviewed it against the standards, without being shown any of our own findings, and returned three findings and one unsourced suspicion.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Run three found the piece failing its own standard: it had MONALEESA-7 - a different population on a different endocrine backbone - on a chart beside three postmenopausal aromatase-inhibitor trials, and was making exactly the cross-trial comparison it spends its second half warning against.",
+      "now": "All four were accepted.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "It also found a claim that MONALEESA-2 was the only first-line survival result to reach significance, which is true only of those three trials and was not written that way, and four p-values from four different testing frameworks set out in one column as though they could be compared.",
+      "now": "The reviewed version, the review, our adjudication of it, and every change made since - each one tied to the decision that caused it - are kept in the repository that produces this page.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "All three are fixed.",
+      "now": "What the outside review changed.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Outstanding: not re-gated on this revision, not outside-reviewed, not published.",
+      "now": "This page had claimed a complete comparative literature it had not surveyed; a fourth study was added, including the one figure on this page that cuts against its own conclusion.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It had said none of these trials was powered for overall survival, which is false - PALOMA-2 was, and MONARCH 3 was not, and flattening that erased a real difference between the two results.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And it had called MONARCH 3's significance threshold \"the conventional one\" several paragraphs after explaining that it was .034.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 29 August 2026, the day after publication.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A review conducted after this page went out raised four items.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "All four are now fixed above, and one of them changed the premise of the piece rather than a sentence in it. 1.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The guideline lists all three drugs as preferred, and the first published version of this page did not say so.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "NCCN operates two separate systems: categories of evidence and consensus, which grade how strong the evidence is that a treatment is appropriate, and categories of preference, which rank regimens against one another.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "All three aromatase-inhibitor-plus-CDK4/6-inhibitor combinations carry the same preference designation.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Only the evidence category differs.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The version published on 28 August reported the category difference, asked what a reader should make of it, and omitted the answer the guideline had already given elsewhere in the same document.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A reader who saw that version would reasonably have concluded that the guideline ranked one drug above the other two.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It does not, and the page now says so in the standfirst, in what the guideline says , and in what a reader is owed.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The announcement email for this issue carried the same omission.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It was generated from this page and sent through the announcement list on 29 August; the correction will be carried at the top of the next issue's email. 2.",
+      "because": "PUB-01",
+      "note": "the guideline lists all three combinations as preferred; only the category of evidence differs, and the published version omitted that"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page had called MONALEESA-2's p-value two-sided without a source.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The claim has been removed from all five places it appeared.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We could not open the paper's statistical section to establish the direction of the test or the boundary it faced, and the reviewer's contention that it was one-sided is recorded above without being adopted, for the same reason: we have not read it either. 3.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Two claims were broader than the evidence behind them.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "\"No study that compares them by other means finds a difference\" was a claim about a literature we had not surveyed; it now names the four studies it is a claim about.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "\"All three indirect comparisons\" said three where the page examines four, an error introduced when the fourth study was added in review and the count above it was not updated. 4.",
+      "because": "PUB-03",
+      "note": "a universal claim over an unsurveyed literature, and a count left stale when a fourth study was added"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The footer described this page as an unpublished draft for the first hours after it went live, under a masthead that said Published.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Fixed the same day.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "None of the trial figures, hazard ratios, intervals or source attributions changed on 29 August.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What changed was the framing built on top of them, and one unsourced word about a test.",
+      "because": "PUB-04",
+      "note": "the footer described a published page as a draft, and the publication history did not record the corrections"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Still unread by us, and disclosed rather than assumed.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A corrigendum to the MONARCH 3 final overall-survival paper ( Ann Oncol 2025;36:1556) - open access, but every route we tried returned a block.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "MONALEESA-2's prespecified significance boundary, and whether its final overall-survival p-value was one-sided or two-sided - both in a statistical section we could not reach.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:19:30+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "If you can open either, please write: corrections@whatholdsup.org , acknowledged in 48 hours.",
+      "because": "PUB-02",
+      "note": "'two-sided' was asserted about a statistical section nobody opened; removed, and the open question stated as open"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A separate set, the Categories of Preference, records the panel's assessment of a regimen's value - Preferred being defined as based on superior efficacy, safety, and evidence taken together.",
+      "because": "S001-05",
+      "note": "S001-05: our gloss said the preference categories rank regimens against one another; the guideline's definitions do not say that — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is not an ordinal ranking and the guideline does not present it as one.",
+      "because": "S001-05",
+      "note": "S001-05: our gloss said the preference categories rank regimens against one another; the guideline's definitions do not say that — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On that second system the guideline lists all three aromatase-inhibitor-plus-CDK4/6-inhibitor combinations as preferred first-line options - for postmenopausal patients and for premenopausal patients on ovarian suppression alike - and explains the evidence grade elsewhere, in the categories-of-evidence discussion rather than beside the preference listing: Due to the clear OS benefit seen with ribociclib in combination with AI, it is a category 1 recommendation.",
+      "because": "S001-02",
+      "note": "S001-02: the explanation sits in the evidence discussion, not beside the preference listing — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And there the guideline stops.",
+      "because": "S001-10",
+      "note": "S001-10: the guideline offers no guidance on reading a category 1 beside a category 2A when both regimens are Preferred — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We asked whether it anywhere tells a reader how to read a category 1 sitting beside a category 2A when all three regimens are equally preferred - whether it cautions, in the discussion, the principles section, a footnote or a panel comment, against taking the higher evidence grade for the better drug.",
+      "because": "S001-10",
+      "note": "S001-10: the guideline offers no guidance on reading a category 1 beside a category 2A when both regimens are Preferred — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It does not.",
+      "because": "S001",
+      "note": "S001: from the advocate answers — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The tables print the preference tier and the evidence category side by side and offer no interpretive guidance about what the difference between them means.",
+      "because": "S001-10",
+      "note": "S001-10: the guideline offers no guidance on reading a category 1 beside a category 2A when both regimens are Preferred — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That is not a criticism of the guideline, which is a reference document and not a reading primer.",
+      "because": "S001-10",
+      "note": "S001-10: the guideline offers no guidance on reading a category 1 beside a category 2A when both regimens are Preferred — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is the answer to why this misreading is so easy: the document that draws the distinction carefully is silent on the one question a reader arrives with, and the silence is filled by whoever is reading.",
+      "because": "S001-10",
+      "note": "S001-10: the guideline offers no guidance on reading a category 1 beside a category 2A when both regimens are Preferred — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Ann Oncol , 2018 Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457-0.704).",
+      "now": "Ann Oncol , 2018 Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457-0.704), which this page rounds to 0.57 (0.46-0.70).",
+      "because": "S001-07",
+      "note": "S001-07: the guideline prints a different rounding of MONALEESA-2's PFS than the publication the page cites — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The guideline prints the same medians against HR 0.56 (0.45-0.70) .",
+      "because": "S001-07",
+      "note": "S001-07: the guideline prints a different rounding of MONALEESA-2's PFS than the publication the page cites — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
+    },
+    {
+      "at": "2026-08-29T13:52:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The page uses the publication's figure, as it does throughout, and the difference is one of rounding rather than of data.",
+      "because": "S001-07",
+      "note": "S001-07: the guideline prints a different rounding of MONALEESA-2's PFS than the publication the page cites — answered by the operator from NCCN v6.2026 on 29 August, against the questions the source advocate put on behalf of the NCCN panel; see advocate/2026-08-29-adjudication.md"
     }
   ]
 }

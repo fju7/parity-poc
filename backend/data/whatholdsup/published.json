@@ -52,6 +52,27 @@
       "gate_basis": "gate reconciled rather than re-run: gated 2026-08-28 on an earlier draft (dc65193a); every one of its 8 finding(s) is resolved \u2014 3 gone from the text, 5 decided in draft_decisions.json",
       "subject": "The Melanoma Result \u2014 a Phase 3 success with no numbers",
       "waived": null
+    },
+    {
+      "issue": "cdk46",
+      "action": "publish",
+      "at": "2026-08-29T02:22:50+00:00",
+      "sha": "3ca22e72fe461feaba6c0c94c667cd3ee0e2264b5064de1d6e0f6d41cc2ce979",
+      "commit": "51478a7d84773edc9288a90eea8d83f1dcdcb6e6",
+      "url": "https://whatholdsup.org/cdk46",
+      "note": "issue 2 \u2014 The Category Difference",
+      "waived": null
+    },
+    {
+      "issue": "cdk46",
+      "action": "announce",
+      "at": "2026-08-29T02:26:29+00:00",
+      "sha": "4639055f6177aeb38d86053550ef96f12cc536c6b38a926843bf8efc6dc223a1",
+      "commit": "51478a7d84773edc9288a90eea8d83f1dcdcb6e6",
+      "note": "sent to segment bae12ea6-cbad-4b91-b250-81991bf6b4b5, broadcast 921e7086-6eb7-45b5-a131-e258132a4192",
+      "gate_basis": "gate reconciled rather than re-run: gated 2026-08-28 on an earlier draft (1fb1d818); 3 of 5 open \u2014 2 still in the text, 1 unlocatable, 2 gone \u2014 proceeding past them was signed off 2026-08-29 by Claude (post-review reconciliation)",
+      "subject": "The Category Difference \u2014 what separates a category 1 from a category 2A",
+      "waived": null
     }
   ]
 }

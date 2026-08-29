@@ -23,6 +23,18 @@
       "findings": 4,
       "accepted": 4,
       "note": "3 findings + 1 unsourced suspicion, all accepted: false claim of an exhaustive comparative literature; 'none of these trials was powered for' OS, false \u2014 PALOMA-2 was; and a self-contradiction calling MONARCH 3's threshold conventional after saying it was .034."
+    },
+    {
+      "issue": "cdk46",
+      "at": "2026-08-29T13:18:19+00:00",
+      "sha": "3ca22e72fe461feaba6c0c94c667cd3ee0e2264b5064de1d6e0f6d41cc2ce979",
+      "sha_after_adjudication": "f78c768acb6773a8b038588d2d6bcc8464638924b5432e8e29df6ce0d235a1c2",
+      "reviewed_file": "issues/WHU-002-cdk46/review/2026-08-29-post-publication-sent.html",
+      "standards_version": "1.1",
+      "reviewer": "outside reader (post-publication), run by the operator outside this environment",
+      "findings": 4,
+      "accepted": 4,
+      "note": "Read the live page after publication. Found that the guideline lists all three drugs as preferred and the page never said so; that MONALEESA-2's p-value was called two-sided without a source; that two claims were broader than their evidence; and that the footer described a published page as a draft. All four accepted and fixed. Adjudicated in review/2026-08-29-post-publication.md."
     }
   ]
 }

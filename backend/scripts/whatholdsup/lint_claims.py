@@ -1,0 +1,373 @@
+#!/usr/bin/env python3
+"""
+What Holds Up: deterministic claim lint.
+
+WHY THIS EXISTS
+---------------
+Of the four findings a reader returned against issue two after publication, two
+needed no model at all:
+
+  "No study that compares them by other means finds a difference"
+      A universal claim over a literature the same page admits it has not
+      surveyed. An outside reviewer caught one instance of this class before
+      publication; the fix did not reach the second instance, four sections
+      away, and that instance published.
+
+  "all three indirect comparisons"
+      The page examines four. The section heading above the paragraph said
+      "Three times, by three methods" while the paragraph beneath it said "This
+      page examines four of them." Both sentences were written in the same
+      editing pass, after a fourth study was added in review and the count above
+      it was not updated.
+
+Eighteen model-driven fact-check runs, costing $66.76, passed both. They were
+looking at whether each figure was right. Both figures were right. The error was
+in the quantifier and the count, which are syntax, and syntax is the one thing a
+machine is unambiguously better at than a careful reader at four in the morning.
+
+So this file has no model in it, makes no API call, costs nothing, and runs in
+milliseconds. It is the cheapest check in the pipeline and it catches a class
+that the most expensive one cannot.
+
+WHAT A "BOUND" IS
+-----------------
+A universal claim is not wrong. It is wrong *unbounded*. "No study finds a
+difference" is a claim about every study that exists. "None of the four
+comparative studies examined on this page separates them" is a claim about four
+studies, and it is one we can defend. The lint asks only whether the sentence
+names its own scope — not whether the claim is true.
+"""
+from __future__ import annotations
+
+import argparse
+import html as _html
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+OK, BAD, WARN = "ok", "BLOCKED", "warn"
+
+# ---------------------------------------------------------------------------
+
+NUMWORD = {
+    "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+    "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
+    "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16,
+    "seventeen": 17, "eighteen": 18, "nineteen": 19, "twenty": 20,
+}
+
+# Words that assert over a whole class.
+UNIVERSAL = re.compile(
+    r"\b("
+    r"every|all|no|none|nobody|no one|not one|never|each|any|the only|only"
+    r")\b", re.I)
+
+# The nouns that make a universal claim dangerous. "All three drugs improve
+# progression-free survival" is a claim over a set the page itself defines and
+# lists; "no study finds a difference" is a claim over every study that exists.
+# Only the second kind can be wrong in the way issue two was wrong, and firing
+# on the first kind is how a lint gets switched off. The first version of this
+# file returned 39 hits on a page with two real instances, which is a check
+# nobody would keep.
+EVIDENCE_BODY = (
+    "study", "studies", "trial", "trials", "research", "literature",
+    "analysis", "analyses", "comparison", "comparisons", "paper", "papers",
+    "publication", "publications", "report", "reports", "coverage",
+    "outlet", "outlets", "source", "sources", "evidence", "data",
+)
+
+GOVERNS = re.compile(
+    r"\b(every|all|no|none|nobody|not one|never|each|any|the only|only)\b"
+    r"(?:\s+\w+){0,3}?\s+(" + "|".join(EVIDENCE_BODY) + r")\b", re.I)
+
+# Anything that names the scope the claim is actually made over. A sentence
+# carrying one of these has told the reader what it surveyed. Attribution
+# counts: a universal claim the page attributes to a named source is that
+# source's claim, bounded by the citation, and the check for it is the ledger.
+BOUND = re.compile(
+    r"\b("
+    r"this page|on this page|examined here|examined on this page|"
+    r"we (?:examined|checked|read|could find|surveyed|have read)|"
+    r"that we (?:examined|checked|read|found)|"
+    r"of the (?:two|three|four|five|six|seven|eight|nine|ten|\d+)|"
+    r"the (?:two|three|four|five|six|seven|eight|nine|ten|\d+) "
+    r"(?:studies|trials|comparisons|sources|papers|analyses|readouts)|"
+    r"(?:the guideline|the label|the paper|the authors?|its own) "
+    r"(?:records?|states?|says?|reports?)|"
+    r"named (?:in|below)|listed (?:in|below)|these four|these three|"
+    r"not a literature|not the literature|four studies we read"
+    r")\b", re.I)
+
+# Countable things this publication makes claims about. Restricting the noun
+# vocabulary is what keeps the count check from firing on every number on the
+# page — "0.76" and "63.9 months" are not counts of anything.
+COUNTABLE = (
+    "studies", "study", "trials", "trial", "comparisons", "comparison",
+    "sources", "papers", "analyses", "methods", "method", "readouts",
+    "findings", "runs", "reviews", "places", "sentences", "drugs",
+    "objections", "corrections", "programmes", "cohorts", "endpoints",
+)
+
+COUNT_RE = re.compile(
+    r"\b(" + "|".join(NUMWORD) + r"|\d{1,3})\s+(?:\w+\s+){0,2}?(" +
+    "|".join(COUNTABLE) + r")\b", re.I)
+
+SIDEDNESS = re.compile(r"\b(one|two)-sided\b", re.I)
+
+SENTENCE = re.compile(r"(?<=[.!?])\s+")
+
+
+def plain(html_text: str) -> str:
+    return _html.unescape(re.sub(r"<[^>]+>", " ", html_text))
+
+
+def sentences(text: str) -> list[str]:
+    return [re.sub(r"\s+", " ", s).strip()
+            for s in SENTENCE.split(text) if s.strip()]
+
+
+def sections(html_text: str) -> list[tuple[str, str]]:
+    """(heading, plain text) per <section>, so a count is compared with the
+    counts near it rather than with every number on the page."""
+    out = []
+    for block in re.split(r"(?=<section\b)", html_text):
+        if not block.strip():
+            continue
+        m = re.search(r"<h2[^>]*>(.*?)</h2>", block, re.S)
+        head = plain(m.group(1)).strip() if m else "(no heading)"
+        out.append((head, plain(block)))
+    return out
+
+
+# ---------------------------------------------------------------------------
+# the checks
+# ---------------------------------------------------------------------------
+
+def unbounded_universals(text: str) -> list[str]:
+    hits = []
+    for s in sentences(text):
+        m = GOVERNS.search(s)
+        if not m:
+            continue
+        if BOUND.search(s):
+            continue
+        hits.append(f"[{m.group(0)}] {s[:150]}")
+    return hits
+
+
+def count_disagreements(html_text: str) -> list[str]:
+    """The same countable noun given two different numbers in one section."""
+    out = []
+    for head, text in sections(html_text):
+        seen: dict[str, set[int]] = {}
+        where: dict[str, list[str]] = {}
+        for m in COUNT_RE.finditer(text):
+            raw, noun = m.group(1).lower(), m.group(2).lower()
+            n = NUMWORD.get(raw) or (int(raw) if raw.isdigit() else None)
+            if n is None or n > 50:
+                continue
+            key = noun.rstrip("s")
+            seen.setdefault(key, set()).add(n)
+            where.setdefault(key, []).append(m.group(0))
+        for key, ns in seen.items():
+            if len(ns) > 1:
+                out.append(f"'{head[:40]}' gives {key} as "
+                           + " and ".join(str(n) for n in sorted(ns))
+                           + f"  ({'; '.join(where[key][:4])})")
+    return out
+
+
+def enumeration_mismatch(text: str) -> list[str]:
+    """A stated number followed by an explicit "not A, not B, not C" list.
+
+    This is the highest-precision check in the file, because both halves are
+    literal: the number is a word and the list is punctuation. It is the one
+    that blocks.
+    """
+    out = []
+    for s in sentences(text):
+        # A list item is "not <determiner-or-Name>": "not the network
+        # meta-analysis", "not P-VERIFY". This deliberately does not match "not
+        # reached", "not significant" or "not powered" -- the table is full of
+        # those, and the first version of this check counted them as list items
+        # and blocked the publish on a hazard-ratio table.
+        ITEM = r"(?:[:\u2014-]|,)\s+not\s+(?:the|a|an|its|our|their)\b|" \
+               r"(?:[:\u2014-]|,)\s+not\s+[A-Z]"
+        if not re.search(r"[:\u2014-]\s+not\s+(?:the|a|an|its|our|their)\b|"
+                         r"[:\u2014-]\s+not\s+[A-Z]", s):
+            continue
+        items = len(re.findall(ITEM, s))
+        nums = [NUMWORD.get(m.group(1).lower())
+                if m.group(1).lower() in NUMWORD else int(m.group(1))
+                for m in COUNT_RE.finditer(s)]
+        nums = [n for n in nums if n and n <= 20]
+        if items >= 2 and nums and items not in nums:
+            out.append(f"says {nums[0]} and then lists {items}: {s[:170]}")
+    return out
+
+
+def subhead_counts(html_text: str) -> list[str]:
+    """A count in a section's standfirst that appears nowhere in its body.
+
+    Issue two's comparative-studies section was subheaded "Three times, by three
+    methods" over a body whose first line read "This page examines four of
+    them." Both sentences were written in the same pass; the subhead was left
+    behind when a fourth study was added in review. The same-noun check misses
+    it -- "times" and "methods" against "them" -- so this one ignores nouns and
+    asks only whether the number in the subhead is a number the section ever
+    uses again.
+    """
+    out = []
+    for block in re.split(r"(?=<section\b)", html_text):
+        m = re.search(r"<h2[^>]*>(.*?)</h2>\s*<p[^>]*>(.*?)</p>", block, re.S)
+        if not m:
+            continue
+        head, sub = plain(m.group(1)).strip(), plain(m.group(2))
+        body = plain(block[m.end():])
+        for w in re.findall(r"\b(" + "|".join(NUMWORD) + r")\b", sub, re.I):
+            n = NUMWORD[w.lower()]
+            words = [k for k, v in NUMWORD.items() if v == n]
+            pat = r"\b(?:" + "|".join(words + [str(n)]) + r")\b"
+            if not re.search(pat, body, re.I):
+                out.append(f"'{head[:34]}' is subheaded {w!r} and the section "
+                           f"never says {n} again: {sub[:90]}")
+    return out
+
+
+def sidedness_claims(text: str) -> list[str]:
+    return [f"[{m.group(0)}] {s[:130]}"
+            for s in sentences(text)
+            for m in [SIDEDNESS.search(s)] if m]
+
+
+# A page that has been corrected describes what it used to say. That is a
+# confession, not an offence, and a check that cannot tell them apart trains
+# people to ignore it. The first version of this file excluded the <footer> to
+# get that right -- and thereby stopped detecting the very error it was written
+# for, because issue two's stale "Draft." sat IN the footer. So the test is
+# tense, not location.
+HISTORICAL = re.compile(
+    r"\b(an earlier version|the version published|described this page|"
+    r"used to (?:say|read)|had said|for the first hours|"
+    r"was fixed|fixed the same day|no longer|previously|"
+    r"before publication it|earlier draft)\b", re.I)
+
+
+def self_description(html_text: str) -> list[str]:
+    """The page's account of itself, against the page.
+
+    Issue two went live with a footer opening "Draft." and closing "Outstanding:
+    not re-gated on this revision, not outside-reviewed, not published", beneath
+    a masthead reading "Published 28 August 2026", and stayed that way for
+    hours. Nothing checked, because nothing was looking at the page as a
+    statement about itself.
+    """
+    t = plain(html_text)
+    published = re.search(r"\bPublished\s+\d{1,2}\s+\w+\s+\d{4}", t)
+    if not published:
+        return []
+    out = []
+    for sent in sentences(t):
+        if HISTORICAL.search(sent):
+            continue
+        m = re.search(r"(?:^|\s)(Draft\.|Draft\s*[:\u2014-]|not published|"
+                      r"unpublished|not yet published|Outstanding:)", sent)
+        if m:
+            out.append(f"masthead says {published.group(0)!r}, and the page "
+                       f"says {m.group(1)!r}: {sent[:110]}")
+    return out
+
+
+# ---------------------------------------------------------------------------
+
+def lint(html_text: str) -> list[tuple[str, str, str]]:
+    """Rows for the board.
+
+    WHAT BLOCKS AND WHAT DOES NOT
+    -----------------------------
+    Two of these checks are literal — a list length against a stated number,
+    and a page calling itself a draft while its masthead says published. Those
+    block, because there is no defensible reading in which they are fine.
+
+    The other two are checklists. "Every universal claim on this page, and
+    whether it names its scope" is a useful thing to walk before publishing and
+    a terrible thing to block on: the first version of this file returned 39
+    hits on a page with two real instances. A check that blocks on judgement
+    gets waived, and a habit of waiving is worse than no check, because it
+    launders the ones that mattered along with the ones that did not.
+    """
+    text = plain(html_text)
+    rows: list[tuple[str, str, str]] = []
+
+    e = enumeration_mismatch(text)
+    rows.append(("stated counts match their lists", OK if not e else BAD,
+                 "no list contradicts its own count"
+                 if not e else " || ".join(e[:3])))
+
+    sd = self_description(html_text)
+    rows.append(("page describes itself accurately", OK if not sd else BAD,
+                 "the page's account of its own status is consistent"
+                 if not sd else " || ".join(sd)))
+
+    u = unbounded_universals(text)
+    rows.append(("universal claims — scope named?", OK if not u else WARN,
+                 "every universal claim over a body of evidence names what it surveyed"
+                 if not u else
+                 f"{len(u)} claim(s) over studies, trials, literature or coverage with "
+                 f"no scope and no attribution. Walk each: " + " || ".join(u[:3])))
+
+    sc = subhead_counts(html_text)
+    rows.append(("subhead counts corroborated", OK if not sc else BAD,
+                 "every count in a section standfirst is used again in that section"
+                 if not sc else " || ".join(sc[:3])))
+
+    c = count_disagreements(html_text)
+    rows.append(("counts within a section", OK if not c else WARN,
+                 "no section gives one thing two numbers"
+                 if not c else " || ".join(c[:3])))
+
+    d = sidedness_claims(text)
+    rows.append(("p-value sidedness claims", OK if not d else WARN,
+                 "none on the page" if not d else
+                 f"{len(d)} claim(s) about the direction of a statistical test. "
+                 "Each must trace to a source the ledger says someone opened — "
+                 "five of these were published about a paywalled section: "
+                 + " || ".join(x[:70] for x in d[:2])))
+    return rows
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="deterministic claim lint")
+    ap.add_argument("page", help="repo-relative or absolute path to an HTML page")
+    ap.add_argument("--verbose", action="store_true",
+                    help="print every hit, not the first few")
+    args = ap.parse_args()
+    p = Path(args.page)
+    if not p.is_absolute():
+        p = ROOT / args.page
+    html_text = p.read_text(encoding="utf-8")
+    rows = lint(html_text)
+    print()
+    for label, st, detail in rows:
+        mark = {OK: "  ok ", BAD: " STOP", WARN: " warn"}[st]
+        print(f"{mark:>7}  {label:32} {detail if args.verbose else detail[:200]}")
+    print()
+    if args.verbose:
+        text = plain(html_text)
+        for name, fn in (("universals", lambda: unbounded_universals(text)),
+                         ("counts", lambda: count_disagreements(html_text)),
+                         ("enumerations", lambda: enumeration_mismatch(text)),
+                         ("subhead counts", lambda: subhead_counts(html_text)),
+                         ("sidedness", lambda: sidedness_claims(text))):
+            hits = fn()
+            if hits:
+                print(f"--- {name} ({len(hits)}) ---")
+                for h in hits:
+                    print("   ", h)
+                print()
+    return 0 if not any(st == BAD for _l, st, _d in rows) else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

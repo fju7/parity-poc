@@ -4,8 +4,10 @@ Issue two - 28 August 2026
 THE CATEGORY DIFFERENCE
 
 Three drugs of the same class treat the same disease. A guideline
-grades one of them above the other two, and says why. No trial has
-ever tested one against another.
+lists all three as preferred, and grades the evidence behind one of
+them higher than the evidence behind the other two. That grade gets
+read as a ranking of the drugs. It is not one - and the first
+version of this assessment read it that way too.
 
 The NCCN breast cancer guidelines, version 6.2026, cover first-line
 treatment of hormone-receptor-positive, HER2-negative advanced
@@ -13,6 +15,31 @@ breast cancer. Combined with an aromatase inhibitor, ribociclib is
 category 1. The same combination with abemaciclib or palbociclib is
 category 2A. The guideline states the reason: the overall survival
 benefit seen with ribociclib.
+
+That is one of two systems NCCN runs, and it is not the one that
+says which drug to prefer. The categories of evidence and consensus
+- the 1 and the 2A - record how strong the evidence is that a
+treatment is appropriate. A separate set, the categories of
+preference, ranks regimens against one another. On that second
+system all three aromatase-inhibitor-plus-CDK4/6-inhibitor
+combinations are preferred first-line options. The preference
+designation does not differ across the three. Only the category of
+evidence does.
+
+The version of this assessment published on 28 August did not say
+that, and this email is going out because of it. The page reported
+the category difference, asked what a reader should make of it, and
+never mentioned that the guideline had already answered the question
+elsewhere in the same document. A reader would reasonably have
+concluded the guideline ranked one drug above the other two. It does
+not. The page was corrected on 29 August 2026 and the full account
+is in the correction history at its foot.
+
+That leaves the more useful question, which is what the evidence
+behind the grade actually shows.
+
+
+THE TRIALS
 
 Three trials sit behind that grade - MONARCH 3 for abemaciclib,
 MONALEESA-2 for ribociclib, PALOMA-2 for palbociclib. Each tested
@@ -25,24 +52,24 @@ separates them. Progression-free survival hazard ratios of 0.54,
 eight investigator-assessed readouts these trials have published,
 every figure falls between 0.52 and 0.58.
 
-The grade turns instead on overall survival, which in these trials
-was a secondary endpoint.
+The grade turns instead on overall survival, and the three trials
+did not design that analysis the same way.
 
   Abemaciclib's hazard ratio for death is 0.80, on an interval
   running 0.64 to 1.02. Ribociclib's is 0.76, on 0.63 to 0.93.
-  The point estimates are four hundredths apart. The intervals
-  overlap along almost their whole length - 97% of ribociclib's
-  lies inside abemaciclib's.
+  The point estimates are four hundredths apart.
 
   One interval stopped at 0.93 and the other at 1.02. That is
   the difference between a significant result and a
-  non-significant one, and it is what the two drugs are graded
-  on.
+  non-significant one, and it is what separates the two
+  evidence grades.
 
 Overlapping intervals do not prove two effects are equal, and this
-piece does not claim they do. It is the guideline that is claiming
-a difference. What that claim rests on is where one interval
-stopped.
+piece does not claim they do. Nor does the guideline claim the drugs
+differ. What the category difference rests on is where one interval
+stopped, and the assessment shows the arithmetic in full - including
+that the width of abemaciclib's interval is itself a consequence of
+what that trial was powered to detect.
 
 Palbociclib is a different case, and the difference is real. A
 hazard ratio of 0.96 on an interval from 0.78 to 1.18 is not a near
@@ -77,8 +104,9 @@ The assessment examines four: a network meta-analysis of seven
 randomised trials; P-VERIFY, a US real-world cohort of 9,146
 patients; PALMARES-2, an Italian study of 1,982; and an indirect
 comparison that rebuilt patient-level data from three of the
-trials. It does not claim to have the whole literature - an outside
-reviewer found two more that we had missed.
+trials. Four studies are not the whole literature, and the
+assessment says so - an outside reviewer found two more that we had
+missed.
 
 On palbociclib they contradict each other. P-VERIFY reported
 survival and progression in two separate papers from the same
@@ -96,12 +124,15 @@ interests is behind a wall we could not open, so neither study is
 offered as the disinterested one.
 
 On the one comparison the category difference is actually about -
-abemaciclib against ribociclib - they do not disagree at all.
+abemaciclib against ribociclib - none of the four separates them.
 P-VERIFY puts it at 0.97 on 0.82 to 1.14 for survival. PALMARES-2,
 the study that did separate palbociclib, puts it at 0.91 on 0.73 to
-1.14 for progression. Eleven thousand patients, two endpoints, and
-not one of them can tell those two drugs apart. The guideline grades
-them apart.
+1.14 for progression. The reconstructed patient-data comparison
+comes closest, at 0.722 on 0.520 to 1.002, p = 0.051 - and still
+does not reach significance. Eleven thousand patients, two
+endpoints, and not one of those four studies can tell abemaciclib
+and ribociclib apart. The guideline grades the evidence behind them
+apart, which is a different statement, and the whole point.
 
 The assessment also sets out what each drug actually costs a
 patient, from the labels. Ribociclib requires cardiac monitoring.
@@ -112,6 +143,7 @@ burdens, and none of them is what the category measures.
 
 And it records what we tested and could not stand up: three
 separate criticisms of the guideline, all three withdrawn before
+publication - and a fourth, ours, that a reader had to catch after
 publication.
 
 

@@ -78,6 +78,37 @@ _spec = importlib.util.spec_from_file_location("factcheck_draft", GATE)
 fc = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(fc)
 
+
+def _sibling(name):
+    """Load a module that lives beside this one.
+
+    These four were written after the 29 August corrections, each because
+    something in that round got past the checks that existed:
+
+      source_ledger       six adverse claims about a guideline nobody in the
+                          pipeline was permitted to read
+      lint_claims         a universal quantifier and a stale count, both
+                          syntax, both passed by eighteen model runs
+      source_advocate     no role had ever been asked what the source would
+                          say back
+      premise             the piece's premise was fitted to what we had found,
+                          and nothing checks a premise -- checks run against one
+      corrections_intake  the site promised a 48-hour acknowledgement in writing
+                          and nothing anywhere kept a clock
+    """
+    path = Path(__file__).resolve().parent / (name + ".py")
+    sp = importlib.util.spec_from_file_location(name, path)
+    m = importlib.util.module_from_spec(sp)
+    sp.loader.exec_module(m)
+    return m
+
+
+ledger = _sibling("source_ledger")
+lint = _sibling("lint_claims")
+advocate = _sibling("source_advocate")
+premise = _sibling("premise")
+intake = _sibling("corrections_intake")
+
 # The registry lives in code rather than in the served directory: a JSON file
 # under site/ is deployed and fetchable, and this names files, not content.
 ISSUES = {
@@ -675,6 +706,23 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
     st, detail = outside_review(page, slug)
     out.append(("outside review", st, detail))
 
+    # The four checks added after the 29 August corrections. Order is
+    # deliberate: the cheap deterministic ones first, so that a page failing on
+    # a stale count is not first made to wait on a model call.
+    out.extend(lint.lint(page.read_text(encoding="utf-8")))
+    try:
+        _live = live_body(cfg["url"])
+        out.extend(ledger.audit(
+            slug, ledger.plain(page.read_text(encoding="utf-8")),
+            ledger.plain(_live) if _live else None))
+    except SystemExit as e:
+        out.append(("source ledger", BAD, str(e)))
+    out.extend(advocate.preflight_rows(slug))
+    out.extend(premise.preflight_rows(
+        slug, already_published=any(r["issue"] == slug and r["action"] == "publish"
+                                    for r in load_record())))
+    out.extend(intake.preflight_rows(slug))
+
     if for_email:
         # Presence only. The value is never read into any output, here or
         # anywhere else in this file.
@@ -703,10 +751,11 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
         try:
             d1 = datetime.strptime(hd, "%d %B %Y").date() if hd else None
             if d1 and abs((d1 - datetime.now().date()).days) == 1:
-                detail += (". One day out, and this machine is %s while the record is kept "
-                           "in UTC — if the two were set from different clocks, that is why. "
-                           "Run: publish.py dateline %s"
-                           % (datetime.now().astimezone().tzname() or "on local time", slug))
+                tz = datetime.now().astimezone().tzname() or "local time"
+                detail += (". Exactly one day out, which is what a dateline set from a "
+                           "machine in another time zone looks like — this one is on %s. "
+                           "Set it from the machine that publishes: publish.py dateline %s"
+                           % (tz, slug))
         except Exception:
             pass
     out.append(("page dateline", OK if hd == today else BAD, detail))
@@ -903,6 +952,47 @@ ENVFILE = ROOT / "backend" / ".env"
 SENDER_KEY = "RESEND_WHATHOLDSUP_KEY"
 
 
+def sender_python() -> tuple[str | None, str]:
+    """An interpreter that can actually run the sender, and how we found it.
+
+    The sender was launched with sys.executable -- whichever python happened to
+    be running this file. On 2026-08-28 that was the system python3, which does
+    not have `resend`, while the repo's own venv does. The send failed at the
+    last step of a process that had passed every check before it, on a
+    dependency that was installed six inches away.
+
+    This is the same fault as --verify reading os.environ while the run read
+    backend/.env: a tool that depends on which shell you happened to be in,
+    rather than looking for what it needs. Look for it.
+
+    Order: the repo's venv, then whatever is running us. A path is only
+    returned if it can actually import the package, because a venv that exists
+    and cannot send is not an answer.
+    """
+    import subprocess as _sp
+
+    def can_send(exe: str) -> bool:
+        try:
+            r = _sp.run([exe, "-c", "import resend"], capture_output=True, timeout=20)
+            return r.returncode == 0
+        except Exception:
+            return False
+
+    tried = []
+    for cand in (ROOT / "backend" / "venv" / "bin" / "python",
+                 ROOT / "backend" / "venv" / "bin" / "python3",
+                 ROOT / "venv" / "bin" / "python",
+                 ROOT / ".venv" / "bin" / "python"):
+        if cand.exists():
+            tried.append(str(cand))
+            if can_send(str(cand)):
+                return str(cand), "the repo venv at %s" % cand.parent.parent.relative_to(ROOT)
+    tried.append(sys.executable)
+    if can_send(sys.executable):
+        return sys.executable, "the interpreter running this script"
+    return None, "\n".join("    %s" % t for t in dict.fromkeys(tried))
+
+
 def sender_env(wanted: tuple[str, ...] = ()) -> dict:
     """The environment the sender needs, filled in from backend/.env.
 
@@ -1000,7 +1090,21 @@ def cmd_announce(args) -> int:
     basis = args.waive
     if not basis and g["state"] in (OK, WARN) and not g["fresh"]:
         basis = "gate reconciled rather than re-run: %s" % g["detail"]
-    cmd = [sys.executable, str(SENDER),
+    exe, how = sender_python()
+    if exe is None:
+        print()
+        print("  No interpreter available here can import `resend`, so the send")
+        print("  cannot run. Tried:")
+        print(how)
+        print()
+        print("  Install it where the sender will look first:")
+        print("    %s/backend/venv/bin/pip install resend" % ROOT)
+        print()
+        print("  Nothing has been sent and nothing recorded.")
+        print()
+        return 2
+    print("  sender: %s" % how)
+    cmd = [exe, str(SENDER),
            "--segment", audience,
            "--subject", subject,
            "--html", str(ROOT / cfg["email_html"]),
@@ -1151,10 +1255,12 @@ def cmd_review(args) -> int:
     # Both hashes go on the record: the one the reviewer read, and the one the
     # page reached after we acted. A review is a statement about the first, and
     # the second is what says how far the page has travelled since.
-    if not match and args.reviewed:
-        named = [f for f in snaps if f.name == args.reviewed or str(f) == args.reviewed]
+    if not match and getattr(args, "reviewed", None):
+        want = getattr(args, "reviewed", None)
+        named = [f for f in snaps if f.name == want or str(f) == want]
         if not named:
-            print("\nNo snapshot called %s under %s/review/." % (args.reviewed, case.name))
+            print("\nNo snapshot called %s under %s/review/."
+                  % (getattr(args, "reviewed", None), case.name))
             for f in snaps:
                 print(f"  have: {f.name}  sha {hashlib.sha256(f.read_bytes()).hexdigest()[:16]}")
             return 2
@@ -1295,8 +1401,21 @@ def decision_labels(slug: str) -> set[str]:
     out = set()
     case = case_dir(slug)
     if case:
-        for adj in (case / "review").glob("*-adjudication.md"):
+        # Both directories: review/ holds what an outside reader found, advocate/
+        # holds what a source's own counsel argued and how we answered. A change
+        # made because the NCCN panel's advocate asked a question, and the
+        # operator went and read the guideline, has a decision behind it in
+        # exactly the sense this check means -- it just does not live in review/.
+        adjs = list((case / "review").glob("*-adjudication.md"))
+        adjs += [f for f in (case / "advocate").glob("*-adjudication.md")
+                 if "TEST" not in f.name]
+        for adj in adjs:
             for line in adj.read_text(encoding="utf-8").splitlines():
+                # "### S001-05" is a per-question decision and is citable on its
+                # own; "## S001 — ..." is the source it belongs to.
+                if line.startswith("### "):
+                    out.add(line[4:].strip())
+                    out.add(re.split(r"\s+[\u2014-]\s+", line[4:].strip())[0].strip())
                 if line.startswith("## "):
                     head = line[3:].strip()
                     # "GATE-c34 / c35 — ACCEPT" cites as GATE-c34/c35 or GATE-c34
@@ -2624,7 +2743,8 @@ def _run_action(payload: dict) -> tuple[bool, str]:
             return False, "findings and accepted must both be numbers"
         args = Namespace(slug=slug, reviewer=(payload.get("reviewer") or "").strip(),
                          findings=findings, accepted=accepted,
-                         note=payload.get("note") or "")
+                         note=payload.get("note") or "",
+                         reviewed=(payload.get("reviewed") or "").strip() or None)
         if not args.reviewer:
             return False, "who reviewed it?"
         fn = cmd_review

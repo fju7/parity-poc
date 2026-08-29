@@ -1,0 +1,89 @@
+[
+  {
+    "source": "S001",
+    "title": "NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026",
+    "mode": "questions",
+    "state": "human_read",
+    "principal": "the NCCN Breast Cancer Panel, authors of the guideline version this page cites",
+    "objections": [
+      {
+        "claim_quoted": "On that second system the guideline lists all three aromatase-inhibitor-plus-CDK4/6-inhibitor combinations as preferred first-line options — for postmenopausal patients and for premenopausal patients on ovarian suppression alike",
+        "question": "In the Categories of Preference section (or equivalent preference-ranking table), are ribociclib + AI, abemaciclib + AI, and palbociclib + AI all explicitly listed as 'Preferred' first-line regimens for both postmenopausal patients AND premenopausal patients receiving ovarian suppression, or is any one of the three listed at a different preference tier (e.g., 'Other Recommended') for either population?",
+        "where_to_look": "The Categories of Preference table or regimen list for HR+/HER2- advanced breast cancer, first-line, covering both postmenopausal and premenopausal (with ovarian suppression) subsections",
+        "why_it_matters": "If any of the three combinations is not listed as 'Preferred' for one or both populations, the page's central corrective claim — that the guideline treats all three as equally preferred — is itself inaccurate and must be revised",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "Due to the clear OS benefit seen with ribociclib in combination with AI, it is a category 1 recommendation.",
+        "question": "Does the guideline use this exact explanatory language (or language to this effect) in the Categories of Preference section or in a footnote attached to the ribociclib + AI preferred listing, or does this language appear only in the Categories of Evidence and Consensus section?",
+        "where_to_look": "Any footnotes, discussion text, or annotations attached to the ribociclib + AI entry in the preference-ranking table or preferred-regimen list",
+        "why_it_matters": "If the OS-benefit rationale appears only in the evidence-category section and not near the preference listing, the page's claim that the guideline 'explains the evidence grade separately' within the preference context may misrepresent where and how the explanation appears",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "That second setting is worth pausing on, because the guideline gives the same reason for it: ribociclib and abemaciclib with fulvestrant are category 1 because those combinations showed an overall survival benefit, in MONALEESA-3 and MONARCH 2.",
+        "question": "In the first-line fulvestrant combination section, does the guideline assign ribociclib + fulvestrant category 1 AND abemaciclib + fulvestrant category 1, and does it explicitly cite OS benefit from MONALEESA-3 and MONARCH 2 respectively as the stated basis for both category 1 assignments?",
+        "where_to_look": "First-line HR+/HER2- advanced breast cancer regimens listing fulvestrant combinations, including any footnotes citing MONALEESA-3 and MONARCH 2",
+        "why_it_matters": "If either drug is not category 1 with fulvestrant, or if the OS-benefit rationale is not explicitly stated for both, the page's parallel argument about the fulvestrant setting is wrong",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "The guideline also records that the three drugs have not been directly compared in clinical trials.",
+        "question": "Does the guideline contain an explicit statement — in a discussion section, footnote, or table note — that ribociclib, abemaciclib, and palbociclib have not been directly compared with each other in clinical trials, or is this absence of head-to-head comparison only implied by the structure of the evidence citations?",
+        "where_to_look": "Any discussion, footnote, or annotation in the HR+/HER2- advanced breast cancer section that addresses cross-trial or head-to-head comparison of CDK4/6 inhibitors",
+        "why_it_matters": "If the guideline does not explicitly state this, the page is attributing a claim to the guideline that the guideline does not actually make, which would need to be reworded",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "NCCN operates two separate systems: categories of evidence and consensus, which grade how strong the evidence is that a treatment is appropriate, and categories of preference, which rank regimens against one another.",
+        "question": "Does the guideline's own definitions section describe categories of preference as ranking or comparing regimens 'against one another,' or does it define them differently (e.g., as reflecting the panel's assessment of the regimen's value relative to others based on efficacy, safety, and evidence)?",
+        "where_to_look": "The 'Categories of Evidence and Consensus' and 'Categories of Preference' definitions, typically in the front matter or a 'About These Guidelines' section",
+        "why_it_matters": "If the guideline defines 'preferred' differently from 'ranked above others' — for instance, if 'preferred' simply means the panel endorses it without implying superiority — the page's characterisation of what the preference system does may itself be imprecise",
+        "severity": "MINOR"
+      },
+      {
+        "claim_quoted": "For an aromatase inhibitor combined with a CDK4/6 inhibitor, the guideline assigns ribociclib category 1.",
+        "question": "Is ribociclib + AI assigned category 1 in the first-line setting specifically, and are abemaciclib + AI and palbociclib + AI both assigned category 2A (not category 2B or any other designation) in that same first-line setting?",
+        "where_to_look": "The evidence-category designations next to each CDK4/6 inhibitor + AI regimen in the first-line HR+/HER2- advanced breast cancer table",
+        "why_it_matters": "If the category assignments differ from what the page states (e.g., abemaciclib is also category 1, or palbociclib is 2B), the factual foundation of the page's entire argument changes",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "Among the three postmenopausal aromatase-inhibitor trials — the three the guideline lists side by side — the progression-free hazard ratios are 0.54, 0.57 and 0.58.",
+        "question": "Does the guideline list the PFS hazard ratios for MONALEESA-2 (ribociclib), MONARCH 3 (abemaciclib), and PALOMA-2 (palbociclib) anywhere in the document, and if so, are those figures 0.54, 0.57, and 0.58 respectively (or in any order)?",
+        "where_to_look": "Any evidence table, trial summary, or footnote citing PFS results for the three postmenopausal AI combination trials",
+        "why_it_matters": "The page uses these figures to argue the drugs perform similarly; if the guideline cites different HR values, or does not cite them at all, the page is importing external data and should not attribute these numbers to the guideline",
+        "severity": "MINOR"
+      },
+      {
+        "claim_quoted": "The guideline does not make that mistake, and it is worth being exact about what it does instead. The guideline applied each trial's result correctly.",
+        "question": "Does the guideline anywhere in the HR+/HER2- advanced breast cancer section make any comparative statement about the relative efficacy of ribociclib versus abemaciclib versus palbociclib, or does it restrict itself to reporting each trial's own results without cross-trial efficacy comparisons?",
+        "where_to_look": "Any discussion text, footnotes, or panel commentary in the first-line HR+/HER2- advanced breast cancer section that addresses CDK4/6 inhibitor selection or comparison",
+        "why_it_matters": "If the guideline does make a comparative efficacy statement favouring one drug, the page's defence of the guideline as carefully avoiding cross-trial comparison would be undermined",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "The guideline lists all three drugs as preferred, and the first published version of this page did not say so.",
+        "question": "Is there any preference designation in the guideline — for any line of therapy or any patient subgroup within the HR+/HER2- advanced breast cancer section — where palbociclib + AI is listed at a lower preference tier than ribociclib + AI or abemaciclib + AI?",
+        "where_to_look": "All preference-tier tables or lists for HR+/HER2- advanced breast cancer, first-line and subsequent lines, across all patient subgroups",
+        "why_it_matters": "If palbociclib is 'Other Recommended' rather than 'Preferred' in any relevant subgroup, the blanket statement that all three are preferred is incomplete and the correction itself would be partially wrong",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "does this document say anything, anywhere, that answers the criticism this page is making of it?",
+        "question": "Does the guideline contain any statement — in discussion text, a 'Principles of Systemic Therapy' section, panel commentary, or footnotes — that directly addresses how readers should interpret a category 1 versus category 2A difference when all regimens involved are listed as 'Preferred,' specifically cautioning against inferring that a higher evidence category implies a clinically superior drug?",
+        "where_to_look": "Any explanatory or interpretive text accompanying the Categories of Evidence and Consensus or Categories of Preference definitions, and any discussion section for HR+/HER2- advanced breast cancer addressing CDK4/6 inhibitor selection",
+        "why_it_matters": "If such a statement exists, it directly refutes the criticism that the guideline's category difference is misleading; if it does not exist, the page's defence of the guideline rests entirely on structural inference rather than the guideline's own words, which is a weaker claim",
+        "severity": "SERIOUS"
+      }
+    ]
+  },
+  {
+    "source": "S005",
+    "title": "MONALEESA-2 — overall survival with ribociclib plus letrozole. N Engl J Med, 2022",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  }
+]
