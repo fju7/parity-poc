@@ -1,0 +1,139 @@
+{
+  "what_this_is": "Every source the CDK4/6 assessment draws on, taken from the page's own sources section rather than from its links, because a sweep of links collects font CDNs and stylesheet hosts -- which is how issue one's sources.json ended up with fonts.googleapis.com as S001.",
+  "types": {
+    "guideline": "A clinical practice guideline. Cited for what it says, never for a trial's figures.",
+    "primary": "A trial publication. The only acceptable source for a trial's numbers.",
+    "comparison": "A study comparing the drugs against each other by indirect means.",
+    "label": "Approved prescribing information. The source for monitoring requirements and rates."
+  },
+  "sources": [
+    {
+      "id": "S001",
+      "url": "https://www.nccn.org/guidelines/guidelines-detail?id=1419",
+      "type": "guideline",
+      "title": "NCCN Clinical Practice Guidelines in Oncology \u2014 Breast Cancer, version 6.2026",
+      "accessed": "2026-08-28",
+      "used_for": "The category assignments and the guideline's stated reason for them, first-line with an aromatase inhibitor and with fulvestrant, and the record that the three drugs have not been directly compared in clinical trials. Read directly by a human on 2026-08-28: the licence forbids putting the document through an AI tool, so no automated check on this issue has seen it. Its own trial figures are not used."
+    },
+    {
+      "id": "S002",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2017.75.6155",
+      "type": "primary",
+      "title": "MONARCH 3 \u2014 abemaciclib as initial therapy. J Clin Oncol, 2017",
+      "accessed": "2026-08-28",
+      "used_for": "Primary progression-free survival: median not reached vs 14.7 months, HR 0.54 (95% CI 0.41\u20130.72), P = .000021."
+    },
+    {
+      "id": "S003",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+      "type": "primary",
+      "title": "MONARCH 3 \u2014 final overall survival. Ann Oncol, 2024",
+      "accessed": "2026-08-28",
+      "used_for": "66.8 vs 53.7 months, HR 0.804 (95% CI 0.637\u20131.015), two-sided P = .0664, at 8.1 years median follow-up. Not statistically significant. The trial maintained a cumulative two-sided type I error of 0.05 by the Lan-DeMets method with an O\u2019Brien"
+    },
+    {
+      "id": "S004",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29718092/",
+      "type": "primary",
+      "title": "MONALEESA-2 \u2014 updated results. Ann Oncol, 2018",
+      "accessed": "2026-08-28",
+      "used_for": "Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457\u20130.704)."
+    },
+    {
+      "id": "S005",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2114663",
+      "type": "primary",
+      "title": "MONALEESA-2 \u2014 overall survival with ribociclib plus letrozole. N Engl J Med, 2022",
+      "accessed": "2026-08-28",
+      "used_for": "63.9 vs 51.4 months, HR 0.76 (95% CI 0.63\u20130.93), two-sided P = 0.008, at 80 months median follow-up. The only overall-survival result among the three first-line postmenopausal aromatase-inhibitor trials that reached significance."
+    },
+    {
+      "id": "S006",
+      "url": "https://www.thelancet.com/journals/lanonc/article/PIIS1470-2045(18)30292-4/abstract",
+      "type": "primary",
+      "title": "MONALEESA-7 \u2014 ribociclib plus endocrine therapy in premenopausal women. Lancet Oncol, 2018",
+      "accessed": "2026-08-28",
+      "used_for": "Progression-free survival 23.8 vs 13.0 months, HR 0.55, P < .0001."
+    },
+    {
+      "id": "S007",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1903765",
+      "type": "primary",
+      "title": "MONALEESA-7 \u2014 overall survival. N Engl J Med, 2019",
+      "accessed": "2026-08-28",
+      "used_for": "The protocol-specified interim analysis: median not reached vs 40.9 months, HR 0.71 (95% CI 0.54\u20130.95), one-sided P = .00973 against a prespecified stopping boundary of P = .01018, at 34.6 months median follow-up. The direction of the test "
+    },
+    {
+      "id": "S008",
+      "url": "https://aacrjournals.org/clincancerres/article/28/5/851/681697/Updated-Overall-Survival-of-Ribociclib-plus",
+      "type": "primary",
+      "title": "MONALEESA-7 \u2014 updated overall survival. Clin Cancer Res, 2022;28:851",
+      "accessed": "2026-08-28",
+      "used_for": "The exploratory extended follow-up at 53.5 months: 58.7 vs 48.0 months, HR 0.76 (95% CI 0.61\u20130.96). The authors describe it as exploratory in those words. It is not the figure this page leads with for MONALEESA-7 and it is not on the interv"
+    },
+    {
+      "id": "S009",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1607303",
+      "type": "primary",
+      "title": "PALOMA-2 \u2014 palbociclib and letrozole. N Engl J Med, 2016",
+      "accessed": "2026-08-28",
+      "used_for": "Primary progression-free survival: 24.8 vs 14.5 months, HR 0.58 (95% CI 0.46\u20130.72), two-sided P < .001. These are the figures the paper prints, and they are what the table shows. The unrounded 0.576 (0.463\u20130.718) appears in the 2019 extende"
+    },
+    {
+      "id": "S010",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10950136/",
+      "type": "primary",
+      "title": "PALOMA-2 \u2014 final overall survival. J Clin Oncol, 2024",
+      "accessed": "2026-08-28",
+      "used_for": "53.9 vs 51.2 months, HR 0.956 (95% CI 0.777\u20131.177), one-sided P = .34, at 90.1 months median follow-up. Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators\u2019 recovered-data sensitivity "
+    },
+    {
+      "id": "S011",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext",
+      "type": "comparison",
+      "title": "PALMARES-2 \u2014 real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025",
+      "accessed": "2026-08-28",
+      "used_for": "1,982 patients, eighteen Italian centres, inverse-probability weighting. Progression-free survival: abemaciclib vs palbociclib aHR 0.76 (0.63\u20130.92), p = 0.004; ribociclib vs palbociclib 0.83 (0.73\u20130.95), p = 0.007; abemaciclib vs ribociclib"
+    },
+    {
+      "id": "S012",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/209935s030lbl.pdf",
+      "type": "label",
+      "title": "KISQALI (ribociclib) \u2014 US prescribing information",
+      "accessed": "2026-08-28",
+      "used_for": "Source of the cardiac requirement: ECG before starting and at about day 14 of the first cycle; serum electrolytes before starting and at the beginning of each of the first six cycles; liver function tests every two weeks for the first two c"
+    },
+    {
+      "id": "S013",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/208716s019lbl.pdf",
+      "type": "label",
+      "title": "VERZENIO (abemaciclib) \u2014 US prescribing information",
+      "accessed": "2026-08-28",
+      "used_for": "Source of the venous thromboembolism warning \u2014 events in 2% to 5% of patients treated across the metastatic trials, with monitoring for signs and symptoms \u2014 and of diarrhoea in 81% to 90% of 3,691 patients across four trials, grade 3 in 8% "
+    },
+    {
+      "id": "S014",
+      "url": "https://www.pfizermedical.com/ibrance/warnings",
+      "type": "label",
+      "title": "IBRANCE (palbociclib) \u2014 warnings and precautions",
+      "accessed": "2026-08-28",
+      "used_for": "Source of neutropenia in 80% of PALOMA-2 patients, grade 3 or worse in 66%, and of the requirement for blood counts on day 15 of each of the first two cycles."
+    },
+    {
+      "id": "S015",
+      "url": "https://www.nature.com/articles/s41598-024-53151-8",
+      "type": "comparison",
+      "title": "Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024",
+      "accessed": "2026-08-28",
+      "used_for": "Seven phase III trials, 4,415 patients, 73.3 months median follow-up. No significant pairwise overall-survival difference. Published before MONARCH 3\u2019s final overall-survival analysis, so its MONARCH 3 input is the interim HR 0.754 rather t"
+    },
+    {
+      "id": "S016",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39754979/",
+      "type": "comparison",
+      "title": "P-VERIFY \u2014 comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
+      "accessed": "2026-08-28",
+      "used_for": "The Palbociclib Verifying Evidence of Real-world Impact study. 9,146 patients from the Flatiron Health record database \u2014 6,831 on palbociclib, 1,279 on ribociclib, 1,036 on abemaciclib \u2014 with stabilised inverse-probability weighting. Overal"
+    }
+  ]
+}

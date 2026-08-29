@@ -11,6 +11,18 @@
       "findings": 1,
       "accepted": 1,
       "note": "Rule 7: two-sided p = 0.053 quoted without naming the prespecified one-sided framework in the same sentence. Accepted and fixed with the reviewer's own wording."
+    },
+    {
+      "issue": "cdk46",
+      "at": "2026-08-29T02:10:39+00:00",
+      "sha": "033297d0d90d1fb6da1c077dedbfbc55e5fca7815c2c93d3e106e91bfaee980b",
+      "sha_after_adjudication": "dc102436a1c9f8d760165c80d7593b8d02fa71e68e27313ab2dd152df45be80f",
+      "reviewed_file": "issues/WHU-002-cdk46/review/2026-08-29-sent.html",
+      "standards_version": "1.1",
+      "reviewer": "outside reviewer, arranged by Fred outside this environment",
+      "findings": 4,
+      "accepted": 4,
+      "note": "3 findings + 1 unsourced suspicion, all accepted: false claim of an exhaustive comparative literature; 'none of these trials was powered for' OS, false \u2014 PALOMA-2 was; and a self-contradiction calling MONARCH 3's threshold conventional after saying it was .034."
     }
   ]
 }

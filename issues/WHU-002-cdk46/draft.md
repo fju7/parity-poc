@@ -162,6 +162,132 @@ draft must not reach for one. Three separate charges against NCCN have now been
 tested in this issue and all three failed. That is worth one honest sentence in
 the published piece and no more.
 
+### 2d. Added by gate runs 4-6, 2026-08-28
+
+**PALMARES-2** (Annals of Oncology, April 2025; 1,982 patients, 18 Italian
+centres, IPTW). Real-world **progression-free** survival:
+
+| comparison | aHR | 95% CI | p |
+|---|---|---|---|
+| abemaciclib vs palbociclib | 0.76 | 0.63–0.92 | 0.004 |
+| ribociclib vs palbociclib | 0.83 | 0.73–0.95 | 0.007 |
+| **abemaciclib vs ribociclib** | **0.91** | **0.73–1.14** | **0.425** |
+
+OS was exploratory and immature (464 events): abemaciclib vs palbociclib HR 0.85
+(p=0.014), ribociclib vs palbociclib 0.83 (p<0.001). **[VERIFIED 2026-08-28 —
+two independent secondary reports of the Annals paper agree on all three CIs.
+Note: the ASCO 2024 conference presentation of the same study gave 0.91
+(0.70–1.19) for abemaciclib vs ribociclib. The page uses the published figures
+and says so, because the gate flagged our number against the conference one —
+sixth occurrence of WRONG_READOUT_COMPARISON.]**
+
+**Flatiron cohort, corrected.** The page previously gave only p-values and called
+PALMARES-2 "the largest". Both wrong. Flatiron is **9,146** patients — 6,831
+palbociclib, 1,279 ribociclib, 1,036 abemaciclib — and compares **overall**
+survival: ribociclib vs palbociclib 0.98 (0.87–1.10, P=0.7531); abemaciclib vs
+palbociclib 0.95 (0.84–1.08, P=0.4292); **abemaciclib vs ribociclib 0.97
+(0.82–1.14, P=0.6956)**. **[VERIFIED — PubMed 39754979]**
+
+**The reconciliation, which is the finding.** The two real-world studies are
+routinely described as disagreeing. They do not: **Flatiron measured overall
+survival, PALMARES-2 measured progression-free survival.** A drug can delay
+progression without extending life. Both find nothing between abemaciclib and
+ribociclib.
+
+**MONARCH 3's threshold was .034, not .05.** The SABCS 2023 presentation states
+the cumulative two-sided type I error of 0.05 was maintained by Lan-DeMets with
+an O'Brien-Fleming spending function, alpha split with the visceral-disease
+subgroup, leaving **0.034** at the final OS analysis. P = .0664 missed it — and
+would have missed .05 too, which the page says explicitly so nobody reads this
+as a rescue. It also settles that MONARCH 3's p-values are **two-sided**.
+**[VERIFIED — SABCS 2023 GS01-12 slide deck]** *[STILL NEEDED: the direction of
+MONALEESA-7's test. Not stated in any source reached. The page says so.]*
+
+**The three labels.** **[VERIFIED — US prescribing information, 2025]**
+
+- **Ribociclib** (KISQALI): ECG before starting and at ~day 14 of cycle 1;
+  serum electrolytes before starting and at the beginning of each of the first
+  6 cycles; LFTs every 2 weeks for 2 cycles, then each 4 cycles; CBC likewise.
+- **Abemaciclib** (VERZENIO): venous thromboembolic events in **2% to 5%** of
+  patients across the metastatic trials, with monitoring required; diarrhoea in
+  **81% to 90%** of 3,691 patients across four trials, grade 3 in **8% to 20%**.
+- **Palbociclib** (IBRANCE): neutropenia in **80%** of PALOMA-2 patients, grade
+  ≥3 in **66%**; CBC on day 15 of each of the first two cycles and at the start
+  of every cycle.
+
+This replaced the claim that ribociclib's cardiac requirement was "the one
+documented difference" and "runs the other way from the grade" — a SELECTIVE
+omission the gate caught twice in one run. It also makes the ending better: the
+three burdens do not line up with the grade in any direction, which is a
+stronger statement than the one it replaced.
+
+**Fulvestrant, confirmed by direct reading 2026-08-28.** Fulvestrant + ribociclib
+category 1; fulvestrant + abemaciclib category 1; fulvestrant + palbociclib not.
+The guideline's stated reason: *"Since ribociclib and abemaciclib in combination
+with fulvestrant have shown OS benefit (in MONARCH 2 and MONALEESA-3 trials),
+these two regimens are listed as category 1 options."* **[VERIFIED — read off v6.2026 on 2026-08-28 and again on 2026-08-29, after the gate disputed it. The gate's SOURCE role reported that palbociclib is also category 1 with fulvestrant; it is not, and the role could not open v6.2026 — its own notes in the same run say v4.2026 was the latest it could reach. Declined in draft_decisions.json with the guideline's own sentence quoted.]** This is now the centre of both the page and the email: abemaciclib is
+category 1 in one setting and 2A in another, on one standard consistently
+applied. The grade records which trial produced a significant survival result,
+and the guideline says so itself.
+
+**PALOMA-2's sensitivity analysis, restated.** The page said the recovered-data
+analysis meant "the result did not move" (0.96 → 0.92). The gate pointed out
+that a piece arguing four hundredths separates a category 1 from a category 2A
+cannot call four hundredths no movement. It now says the point estimate moved and
+the conclusion did not. **[VERIFIED — PMC10950136]**
+
+### 2e. Added by gate runs 7-9, 2026-08-28
+
+**P-VERIFY, named and sourced.** The 9,146-patient US cohort has a name: the
+**Palbociclib Verifying Evidence of Real-world Impact** study. Its SABCS 2024
+poster states: *"This study was funded by Pfizer Inc."* Pfizer makes palbociclib.
+**[VERIFIED — study's own poster]** A second paper from the same cohort (ESMO
+Open, Sept 2025; PubMed 40896879) reports real-world progression-free survival
+and also finds no significant differences; the PFS2 analysis gives HR 0.95-0.99,
+all P > .42, medians 35.8 / 41.7 / 35.6 months. **[VERIFIED]**
+
+**The reconciliation was wrong and has been withdrawn.** The page had said the
+two real-world studies did not really disagree because they measured different
+endpoints. Both programmes reported both endpoints. **They contradict each other
+on palbociclib**, and the page now says so and adds it to Not established. This
+was the fourth tidy construction of the day that the evidence did not support,
+and the only one that survived long enough to be published to a gate.
+
+The funding fact is reported as a fact with an explicit refusal to draw an
+inference from it. Two contradictory studies, one industry-sponsored and one
+academic; the reader is told which is which and nothing more is claimed.
+
+**What survives: on abemaciclib vs ribociclib, nothing separates them anywhere.**
+NMA: no significant difference. P-VERIFY (OS): 0.97 (0.82-1.14), P = 0.6956.
+PALMARES-2 (PFS): 0.91 (0.73-1.14), p = 0.425. That is the comparison the
+category difference rests on, and it is the one comparison every study agrees on.
+
+### 2f. The absolute scale — Fred's note, 2026-08-28
+
+A hazard ratio is not a probability and not a percentage of people. HR 0.80 does
+not mean 20% fewer deaths. It is a ratio of instantaneous rates over follow-up,
+averaged, and it conceals any change in that ratio over time. The page now says
+this in as many words, and gives the absolute figures:
+
+| Trial | Median OS | Difference | HR | Category |
+|---|---|---|---|---|
+| MONARCH 3 (abemaciclib) | 66.8 vs 53.7 mo | **13.1 mo** | 0.80 | 2A |
+| MONALEESA-2 (ribociclib) | 63.9 vs 51.4 mo | **12.5 mo** | 0.76 | **1** |
+| PALOMA-2 (palbociclib) | 53.9 vs 51.2 mo | 2.7 mo | 0.96 | 2A |
+
+**[VERIFIED — arithmetic on figures already sourced in Table B above.]**
+
+On the absolute scale the category 2A drug's trial reported the larger figure.
+Six-tenths of a month, across trials with different patients and follow-up, is
+noise — which is the point: the two are indistinguishable on the absolute scale
+as well as the relative one, and the ordering happens to run the other way from
+the grade.
+
+The page carries two warnings with that table, both aimed at us: these are
+medians and not lifespans, and comparing medians across trials is the same
+cross-trial move the piece criticises elsewhere. It is an illustration of scale,
+not a comparison of drugs.
+
 ### 3. What happens when you compare them directly
 
 **Nobody has run the head-to-head randomised trial.** The guideline says so

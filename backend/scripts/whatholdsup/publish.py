@@ -96,14 +96,10 @@ ISSUES = {
         "title": "The Category Difference",
         "page": "site/whatholdsup/cdk46.html",
         "url": "https://whatholdsup.org/cdk46",
-        # The email does not exist yet. These paths are recorded so the board
-        # reports its absence rather than omitting the step: an issue with no
-        # email is a real state, and a board that hides it is worse than one
-        # that shows it red.
         "email_html": "site/whatholdsup/email/issue2-cdk46.html",
         "email_txt": "site/whatholdsup/email/issue2-cdk46.txt",
         "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
-        "email_subject": "",
+        "email_subject": "The Category Difference \u2014 what separates a category 1 from a category 2A",
     },
 }
 
@@ -690,11 +686,30 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
     # The page's own date, against the day it is actually going out. An
     # assessment published on the 28th whose masthead says the 26th is the
     # error this publication exists to point at, printed on itself.
+    # datetime.now() is the clock of whoever runs this, and that is deliberate:
+    # the masthead should say the day the piece went out where it went out from.
+    # But it means two machines in different zones disagree for part of every
+    # day. On 2026-08-29 this check passed at 02:15 UTC and failed on the
+    # publisher's Mac at 19:15 Pacific the evening before, on the same file,
+    # because the date had been typed from the wrong side of midnight. Whoever
+    # sets it should not be typing it at all -- see the `dateline` command --
+    # and when it is off by exactly one day the message says why rather than
+    # leaving somebody to work it out.
     today = pretty(datetime.now().date())
     hd = header_date(ptext if False else page.read_text(encoding="utf-8"))
-    out.append(("page dateline", OK if hd == today else BAD,
-                f"says {hd or 'nothing'}, and today is {today}"
-                + ("" if hd == today else " — a reader reads that as when it was written")))
+    detail = f"says {hd or 'nothing'}, and today is {today}"
+    if hd != today:
+        detail += " — a reader reads that as when it was written"
+        try:
+            d1 = datetime.strptime(hd, "%d %B %Y").date() if hd else None
+            if d1 and abs((d1 - datetime.now().date()).days) == 1:
+                detail += (". One day out, and this machine is %s while the record is kept "
+                           "in UTC — if the two were set from different clocks, that is why. "
+                           "Run: publish.py dateline %s"
+                           % (datetime.now().astimezone().tzname() or "on local time", slug))
+        except Exception:
+            pass
+    out.append(("page dateline", OK if hd == today else BAD, detail))
     ao = as_of_date(page.read_text(encoding="utf-8"))
     if ao:
         out.append(("evidence 'as of'", OK if ao == today else WARN,
@@ -817,9 +832,44 @@ def cmd_publish(args) -> int:
         git("add", "site/whatholdsup")
         code, out = git("commit", "-m",
                         f"whatholdsup: publish {args.slug} (issue {cfg['number']})")
-        if code != 0 and "nothing to commit" not in out:
+        # git says "nothing to commit" when the tree is clean and "no changes
+        # added to commit" when other files are dirty but none of OURS are.
+        # The guard knew the first phrase and not the second, so a second
+        # publish attempt -- or any attempt where the site files were already
+        # committed and unrelated work was outstanding -- aborted with "commit
+        # failed" and a wall of git status, having in fact succeeded earlier.
+        # Both phrases mean the same thing here: there is nothing of ours left
+        # to commit, which is not a failure.
+        nothing_new = ("nothing to commit" in out
+                       or "no changes added to commit" in out
+                       or "nothing added to commit" in out)
+        if code != 0 and not nothing_new:
             print(f"\ncommit failed: {out}")
             return 2
+        if code != 0:
+            print("  nothing new to commit — the site files are already committed.")
+    # A push to a branch nobody deploys is a push that will never go live, and
+    # the only symptom is ten minutes of polling followed by "the live page
+    # still differs". On 2026-08-28 that is exactly what happened: the whole
+    # issue was committed and pushed to a feature branch while the host deploys
+    # the default one. Say so before spending the ten minutes.
+    _c, branch = git("rev-parse", "--abbrev-ref", "HEAD")
+    _c, default = git("symbolic-ref", "--short", "refs/remotes/origin/HEAD")
+    default = (default or "origin/main").split("/", 1)[-1].strip()
+    branch = (branch or "").strip()
+    if branch and default and branch != default:
+        print()
+        print("  STOP. You are on %s, and the host deploys %s." % (branch, default))
+        print("  Pushing here will not put anything in front of a reader. Merge to")
+        print("  %s first, then publish from there." % default)
+        print()
+        print("    git checkout %s && git merge --no-ff %s && git push origin %s"
+              % (default, branch, default))
+        print()
+        print("  Then re-run this command. Nothing has been recorded.")
+        print()
+        return 2
+
     code, out = git("push", "origin", "HEAD")
     if code != 0:
         print(f"\npush failed: {out}")
@@ -1092,10 +1142,28 @@ def cmd_review(args) -> int:
     case = case_dir(args.slug)
     snaps = sorted((case / "review").glob("*-sent.html")) if case else []
     match = [f for f in snaps if hashlib.sha256(f.read_bytes()).hexdigest() == sha(page)]
+
+    # A review that produced accepted findings necessarily changed the page, so
+    # requiring the snapshot to match the CURRENT text made every useful review
+    # unrecordable. The old message told you to "record the review against that
+    # version, not this one" and then gave you no way to do it. --reviewed does.
+    #
+    # Both hashes go on the record: the one the reviewer read, and the one the
+    # page reached after we acted. A review is a statement about the first, and
+    # the second is what says how far the page has travelled since.
+    if not match and args.reviewed:
+        named = [f for f in snaps if f.name == args.reviewed or str(f) == args.reviewed]
+        if not named:
+            print("\nNo snapshot called %s under %s/review/." % (args.reviewed, case.name))
+            for f in snaps:
+                print(f"  have: {f.name}  sha {hashlib.sha256(f.read_bytes()).hexdigest()[:16]}")
+            return 2
+        match = named
     if not match:
-        print("\nNo snapshot matches the current page. Run send-for-review first, or —")
-        print("if the page changed after review — say which snapshot was reviewed and")
-        print("record the review against that version, not this one.")
+        print("\nNo snapshot matches the current page.")
+        print("If the page has changed since the review — which it will have, if you")
+        print("acted on anything the reviewer found — name the snapshot they read:")
+        print("    --reviewed <name>-sent.html")
         for f in snaps:
             print(f"  have: {f.name}  sha {hashlib.sha256(f.read_bytes()).hexdigest()[:16]}")
         return 2
@@ -1103,7 +1171,8 @@ def cmd_review(args) -> int:
     rows.append({
         "issue": args.slug,
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "sha": sha(page),
+        "sha": hashlib.sha256(match[-1].read_bytes()).hexdigest(),
+        "sha_after_adjudication": sha(page),
         "reviewed_file": str(match[-1].relative_to(ROOT)),
         "standards_version": json.loads((case / "issue.json").read_text()).get("standards_version"),
         "reviewer": args.reviewer,
@@ -2331,6 +2400,42 @@ def cmd_dashboard(args) -> int:
     return 0
 
 
+def cmd_dateline(args) -> int:
+    """Set the masthead date from this machine's clock.
+
+    A date somebody types is a date somebody can type wrong, and on 2026-08-29
+    it was: set to 29 August from a UTC machine while the publisher's own clock
+    said the 28th, seven hours and one midnight behind. The preflight caught it,
+    which is the system working, but the fix for a field nobody should be typing
+    is to stop typing it.
+
+    Run this on the machine that will publish, which is the machine whose day
+    the masthead is claiming.
+    """
+    cfg = ISSUES[args.slug]
+    page = ROOT / cfg["page"]
+    if not page.exists():
+        print("missing: %s" % page)
+        return 2
+    text = page.read_text(encoding="utf-8")
+    was = header_date(text)
+    today = pretty(datetime.now().date())
+    if was == today:
+        print("\n  Already %s. Nothing to change.\n" % today)
+        return 0
+    if not was:
+        print("\n  No dateline found in the masthead to replace. The header needs a")
+        print("  <span class=\"meta\"> carrying a date before this can set one.\n")
+        return 2
+    page.write_text(text.replace(was, today, 1), encoding="utf-8")
+    print("\n  %s  ->  %s" % (was, today))
+    print("  Set from this machine's clock (%s)."
+          % (datetime.now().astimezone().tzname() or "local time"))
+    print("  This edit voids any gate acceptance bound to the old bytes, which is")
+    print("  correct: re-accept before publishing.\n")
+    return 0
+
+
 def cmd_gate_status(args) -> int:
     """Everything the last gate run says, without spending another one.
 
@@ -2663,6 +2768,10 @@ def main() -> int:
     r.add_argument("--findings", type=int, required=True, help="how many findings it returned")
     r.add_argument("--accepted", type=int, required=True, help="how many we acted on")
     r.add_argument("--note", help="one line on what the review changed")
+    r.add_argument("--reviewed", metavar="SNAPSHOT",
+                   help="the -sent.html the reviewer actually read, when the page has "
+                        "changed since — which it will have if you acted on anything "
+                        "they found. Both hashes are recorded.")
     r.set_defaults(fn=cmd_review)
 
     for name, fn, helptext in (("check", cmd_check, "run the preflight and stop"),
@@ -2709,6 +2818,11 @@ def main() -> int:
     cr.add_argument("--reason", help="optional; the reconciliation is recorded either way")
     cr.add_argument("--by", default=os.environ.get("USER") or "operator")
     cr.set_defaults(fn=cmd_confirm_review)
+
+    dl = sub.add_parser("dateline",
+                        help="set the masthead date from this machine's clock")
+    dl.add_argument("slug", choices=sorted(ISSUES))
+    dl.set_defaults(fn=cmd_dateline)
 
     gs = sub.add_parser("gate-status",
                         help="read what the last gate run found, without running one")

@@ -347,6 +347,28 @@
       "corrected_to": "strip code fences, try every candidate start rather than the first, and rank what parses by whether it has the shape of an answer -- an object, a list of objects, or an empty list. Covered by backend/tests/signal/test_json_salvage.py, 13 cases.",
       "why_it_survived": "It looks like a model failure and reads like one in the log: 'response was not JSON'. The error line was already printing the evidence that it was JSON, and nobody had read it. Retries hid the cost as spend rather than as breakage.",
       "why_it_matters": "The second-order failure is worse than the waste. A preamble such as 'Per the paper [1], the result:' contains a VALID array, and the old salvage would return [1] -- silently accepted as 'this role found nothing'. That is a clean pass on a check that never ran, which is the one output of this gate that must never be manufacturable by accident."
+    },
+    {
+      "class": "FIXED_THE_INSTANCE_NOT_THE_CLASS",
+      "kind": "process",
+      "caught_by": "the truncation detector added earlier the same day",
+      "found_by": "gate run 14 on site/whatholdsup/cdk46.html, 2026-08-29",
+      "summary": "A fixed output budget ran out, was raised for the one role that hit it, and ran out again a few hours later on the role beside it. Every role in the file reads the whole draft; there was never a reason for one of them to have a different cap.",
+      "was": "max_tokens was a constant 8,000, set when the only draft was 8,000 characters. Extraction overflowed at 27,647 characters and was given a draft-scaled budget. INFERENCE overflowed at 33,000 with the same constant, four runs later. The second failure was invisible before that morning's other fix: a truncated response used to print 'response was not JSON', retry twice at full price, and return nothing -- reported as a role with zero findings, which reads exactly like a clean check.",
+      "corrected_to": "one read_budget() shared by extraction, RECENCY, ADVOCATE, INFERENCE and COVERAGE, scaled to the draft",
+      "why_it_survived": "The first fix was made under the pressure of a failing run, at the site of the failure, and it worked. Nothing then asked whether anything else had the same constant. The class was visible in one grep.",
+      "why_it_matters": "The failure mode is silent. A role that returns nothing looks identical in the report to a role that found nothing, and this gate's entire value is that an unrun check is not a pass. It was caught here only because a separate fix that morning taught the caller to distinguish 'cut off' from 'malformed'. Without that, run 14 would have reported a clean statistical check on a draft it never finished reading."
+    },
+    {
+      "class": "GATE_CLAIM_ABOUT_A_THIRD_PARTY_PUBLISHED_UNCHECKED",
+      "kind": "process",
+      "caught_by": "the outside reviewer, who opened the paper",
+      "found_by": "outside review of the CDK4/6 assessment, 2026-08-29",
+      "summary": "A finding the gate generated about somebody else's published work was written onto the page without anyone opening that work. It was wrong. No number of further gate runs could have caught it, because the gate produced it and no role audits another role's output.",
+      "was": "RECENCY reported, on three separate runs, that the Scientific Reports network meta-analysis had used MONARCH 3's interim overall-survival figure (HR 0.754) rather than the final (0.804). The page said so, and framed it as a disclosure -- 'the input is out of date, and we would rather say so than have it found'. The paper's Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015), 97.2 months, 'year of updated data 2023', citing the SABCS 2023 final analysis. It had used the final figure all along.",
+      "corrected_to": "the claim withdrawn and replaced with the sourced opposite, with the correction recorded on the page. The RECENCY section of every report now carries a banner saying that its findings are claims about documents the role has not opened, and each stale study carries the line 'BEFORE ACTING: open the source above and read the sentence.'",
+      "why_it_survived": "Self-criticism reads as verified. A sentence that admits a weakness in our own evidence gets less scrutiny than one that asserts a strength, and this one borrowed the credibility of a disclosure for an unchecked assertion about a third party. Three gate runs repeated it and each repetition made it look more settled.",
+      "why_it_matters": "This is the class the publication exists to find in other people, committed against a named research group, on the strength of our own instrument. It is also the clearest available argument for the outside review step: fourteen gate runs could not see it, and one reader with the table open saw it immediately."
     }
   ],
   "standing_rules": [
@@ -363,7 +385,10 @@
     "A NOT_FOUND is a statement about our reach, not about the world. Before acting on one, open the URL if one exists anywhere in the run. Where two roles disagree about the same source, the disagreement is the finding.",
     "Before a draft goes to the gate, every figure on the page is diffed against the working brief it came from. The brief is not evidence - it is a record of what we decided we knew - but a figure on the page that is not in the brief, or a column in the brief that is not on the page, is a transcription question that must be answered before spending a gate run on it.",
     "A guideline, a review or a press release may be cited for what it says and for pointing at a trial. It is never the source of a trial's figures. Every number in a table of ours is re-derived from the trial publication, and one trial's figures all come from the same analysis.",
-    "A before/after comparison of the gate against itself is not evidence at n = 1. The gate is a sampler: two runs of the same fixture disagree on about half their rows. Any claim that a change to the prompts or the recall brief helped or hurt requires at least three runs per arm, and the claim is about the rates, not about any single row."
+    "A before/after comparison of the gate against itself is not evidence at n = 1. The gate is a sampler: two runs of the same fixture disagree on about half their rows. Any claim that a change to the prompts or the recall brief helped or hurt requires at least three runs per arm, and the claim is about the rates, not about any single row.",
+    "When a limit is raised because something hit it, grep for every other use of that limit before moving on. A constant that was wrong once is wrong everywhere it appears, and the second failure will arrive later and look like a new problem.",
+    "No finding that asserts something about a third party's document may be written onto a page until somebody has opened that document and read the sentence. This binds findings the gate generates as hard as it binds claims we write ourselves -- harder, because a finding arrives looking like a check that has already happened.",
+    "Two gate runs per draft before outside review, one after. Enforced in code by RUNS_PER_CYCLE, overridable only with --past-cap and a written reason. Issue two was gated eighteen times for $66.76, of which about $27 bought nothing and one run put a false claim into the page."
   ],
   "second_pass": {
     "run": "2026-08-26",

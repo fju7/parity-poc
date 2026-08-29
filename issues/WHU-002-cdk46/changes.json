@@ -1,0 +1,357 @@
+{
+  "what_this_is": "Every change to the CDK4/6 assessment since the version an outside reviewer read, each tied to the decision that caused it. The reconciliation in publish.py matches these against the actual diff: a change with no entry here, or an entry citing a label that resolves to nothing, is an unexplained change and the board says so.",
+  "because_refers_to": "A heading in issues/WHU-002-cdk46/review/2026-08-29-adjudication.md. OR-* are the outside reviewer's findings and suspicion; GATE-* are findings from the single post-review gate run, recorded in the same file.",
+  "changes": [
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Every study that has compared the two it grades apart finds nothing between them - and on the endpoint the trials were actually designed to measure, they are indistinguishable.",
+      "now": "Every comparison this page could find of the two it grades apart finds nothing between them - and on the endpoint the trials were designed to measure, they are indistinguishable.",
+      "because": "OR-S01",
+      "note": "an exhaustive claim from a survey shown to be incomplete"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The grade turns instead on overall survival, which in these trials was a secondary endpoint.",
+      "now": "The grade turns instead on overall survival, and the three trials did not design that analysis the same way.",
+      "because": "OR-002",
+      "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "PALOMA-2 powered for it: its final survival analysis was planned after at least 390 events, with 80% power to detect a hazard ratio of 0.74 or better at a one-sided 0.025.",
+      "because": "OR-002",
+      "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "MONARCH 3 did not: survival there was a gated secondary endpoint, its final analysis planned at about 315 events with alpha split between the whole population and a visceral-disease subgroup.",
+      "because": "OR-002",
+      "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "So palbociclib's null result comes from an analysis built to find an effect of that size, and abemaciclib's near-miss comes from one that was not.",
+      "because": "OR-002",
+      "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An earlier version of this page said none of these trials was powered for survival, which is false and flattened exactly this difference; an outside reviewer caught it.",
+      "because": "OR-002",
+      "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Survival was a secondary endpoint in all three - which, as the paragraph above shows, covers both a powered analysis and an unpowered one.",
+      "because": "OR-002",
+      "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "That figure is ours, not a published one, and it is one subtraction, on the same rounded bounds shown above: ribociclib's interval runs 0.63 to 0.93, a width of 0.30; the part of it inside abemaciclib's runs 0.64 to 0.93, a width of 0.29. 0.29 \u00f7 0.30 = 96.7%.",
+      "now": "That overlap is also a function of how wide abemaciclib's interval is - itself a consequence of what that trial was powered to detect - and not only of how close the two point estimates are.",
+      "because": "GATE-02",
+      "note": "the overlap figure needed the caveat the page applies to thresholds"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "On the unrounded published bounds (0.637, 1.015) it is 97.7%.",
+      "now": "The same caution this page applies to thresholds applies to it.",
+      "because": "GATE-02",
+      "note": "the overlap figure needed the caveat the page applies to thresholds"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The figure is ours, not a published one, and it is one subtraction, on the same rounded bounds shown above: ribociclib's interval runs 0.63 to 0.93, a width of 0.30; the part of it inside abemaciclib's runs 0.64 to 0.93, a width of 0.29. 0.29 \u00f7 0.30 = 96.7%.",
+      "because": "GATE-02",
+      "note": "the overlap figure needed the caveat the page applies to thresholds"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Using abemaciclib's unrounded lower bound of 0.637 in place of the rounded 0.64, the same subtraction gives 97.7%.",
+      "because": "GATE-03",
+      "note": "the parenthetical bounds had no owner named"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "One interval stopped at 0.93 and the other at 1.02, and that is the whole of it: ribociclib's result reached statistical significance (two-sided p = 0.008) and abemaciclib's did not (P = .0664).",
+      "now": "(0.637 and 1.015 are abemaciclib's bounds throughout; ribociclib's are 0.63 and 0.93.) One interval stopped at 0.93 and the other at 1.02, and that is the whole of it: ribociclib's result reached statistical significance (two-sided p = 0.008) and abemaciclib's did not (P = .0664, against its own boundary of .034).",
+      "because": "GATE-03",
+      "note": "the parenthetical bounds had no owner named"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The threshold is the conventional one and the guideline applied it correctly.",
+      "now": "The guideline applied each trial's result correctly.",
+      "because": "OR-003",
+      "note": "the threshold was not the conventional one; our own paragraph said so"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Three research programmes have compared them anyway, and reported across four papers.",
+      "now": "Several research programmes have compared them indirectly or observationally.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page examines four of them.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It does not claim to have the whole literature - an outside reviewer found two more that we had missed, one of which is now the fourth below.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A fourth, an indirect comparison from reconstructed patient data ( Cancers , 2023 ), rebuilt patient-level survival curves from PALOMA-2, MONALEESA-2 and MONARCH 3 - 1,827 patients - and estimated every pairwise difference directly.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On overall survival it separates nobody: abemaciclib versus ribociclib 0.933 (0.753-1.157), p = 0.528 .",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On progression-free survival its one-stage model puts abemaciclib against ribociclib at 0.722 (0.520-1.002), p = 0.051 - the closest any study has come to separating those two, and it does not, while its two-stage model on the same data gives 0.921 (0.597-1.420), p = 0.710.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That borderline figure belongs in this piece precisely because it is the one number that cuts against its conclusion.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The reconstructed patient-data comparison, on survival: 0.933, on 0.753 to 1.157 , p = 0.528.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "That it reflects anything about the drugs beyond which trial's survival analysis crossed its own significance threshold - on an endpoint none of these trials was powered for.",
+      "now": "That it reflects anything about the drugs beyond which trial's survival analysis crossed its own significance threshold.",
+      "because": "OR-002",
+      "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Sources Every figure above traces to one of these, and each cell of the table names which.",
+      "now": "Sources Every figure above traces to one of these, and each cell of the table names which: a trial publication, a drug label, or a comparative study, cited by name in the entry below.",
+      "because": "GATE-04",
+      "note": "a sourcing statement doing the work of a charge against outlets"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "No number on this page comes from a news report, and none from a guideline's summary of a trial.",
+      "now": "Where a correction to one of these sources is known to us, it is noted in that source's entry.",
+      "because": "GATE-04",
+      "note": "a sourcing statement doing the work of a charge against outlets"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A corrigendum to this paper exists - Ann Oncol 2025;36:1556 - and we have not been able to read it: it is behind the publisher's wall.",
+      "now": "A corrigendum to this paper exists - Ann Oncol 2025;36:1556, doi 10.1016/j.annonc.2025.07.002 - and we have not read it .",
+      "because": "GATE-01",
+      "note": "the corrigendum is open access; we could not retrieve it; the contradiction removed"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Every MONARCH 3 figure on this page matches both the original article and the SABCS 2023 presentation of the same analysis, so we have no reason to think any of them is affected, but we have not checked and say so rather than leave the reader to assume we had.",
+      "now": "It is published open access; an earlier version of this page said it sat behind a paywall, which was wrong.",
+      "because": "GATE-01",
+      "note": "the corrigendum is open access; we could not retrieve it; the contradiction removed"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Every retrieval route available to us returned a block, which is a limit of our tooling and not of the licence.",
+      "because": "GATE-01",
+      "note": "the corrigendum is open access; we could not retrieve it; the contradiction removed"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What we can say is that every MONARCH 3 figure here matches the original article and the SABCS 2023 presentation of the same analysis.",
+      "because": "GATE-01",
+      "note": "the corrigendum is open access; we could not retrieve it; the contradiction removed"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What we cannot say is whether the corrigendum touches any of them, because that requires reading it.",
+      "because": "GATE-01",
+      "note": "the corrigendum is open access; we could not retrieve it; the contradiction removed"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Anyone who can open it, please do - corrections@whatholdsup.org.",
+      "because": "GATE-01",
+      "note": "the corrigendum is open access; we could not retrieve it; the contradiction removed"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators' recovered-data sensitivity analysis (9.2% vs 11.7%; HR 0.92, 95% CI 0.76-1.12, P = .21).",
+      "now": "Source also of the survival analysis's design: \"The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] \u22640.74, using a stratified log-rank test with a one-sided significance level of 0.025.\" Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators' recovered-data sensitivity analysis (9.2% vs 11.7%; HR 0.92, 95% CI 0.76-1.12, P = .21).",
+      "because": "OR-002",
+      "note": "PALOMA-2 was powered for overall survival; MONARCH 3 was not"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Comparison Indirect comparison from reconstructed patient data.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Cancers , 2023;15(18) Patient-level survival curves rebuilt from PALOMA-2, MONALEESA-2 and MONARCH 3 by graphical reconstruction, 1,827 patients, every pair estimated directly.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Overall survival: ribociclib vs palbociclib 0.903 (0.746-1.094, p = 0.297); abemaciclib vs palbociclib 0.843 (0.690-1.030, p = 0.094); abemaciclib vs ribociclib 0.933 (0.753-1.157, p = 0.528) .",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Progression-free survival, one-stage model: abemaciclib vs ribociclib 0.722 (0.520-1.002, p = 0.051 ); two-stage model on the same data, 0.921 (0.597-1.420, p = 0.710).",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page did not have this study until an outside reviewer supplied it on 2026-08-29.",
+      "because": "OR-001",
+      "note": "the comparative literature is not three programmes; the reconstructed-patient-data study added"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) with 97.2 months of follow-up and \"year of updated data 2023\", citing the SABCS 2023 final overall-survival abstract - the final analysis, not the interim.",
+      "now": "Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) with \"year of updated data 2023\", and its reference list cites the SABCS 2023 final overall-survival abstract - the final analysis, not the interim.",
+      "because": "GATE-05",
+      "note": "the 97.2-month attribution could not be sourced to the table"
+    },
+    {
+      "at": "2026-08-29T02:12:27+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "An earlier version of this page stated the opposite, on the strength of our own automated check rather than the paper; an outside reviewer opened the table and corrected us.",
+      "now": "(The 73.3 months above is the pooled median across the seven trials, over a range of 48.7 to 97.2 months.) An earlier version of this page stated the opposite, on the strength of our own automated check rather than the paper; an outside reviewer opened the table and corrected us.",
+      "because": "GATE-05",
+      "note": "the 97.2-month attribution could not be sourced to the table"
+    },
+    {
+      "at": "2026-08-29T02:16:14+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review DRAFT - not published The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "now": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 \u00b7 guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "because": "PREFLIGHT-01",
+      "note": "masthead date set to the publishing machine's date. The first attempt said 29 August because it was typed from a UTC machine while the publisher's is on Pacific time, seven hours behind and across midnight."
+    }
+  ]
+}
