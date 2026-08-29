@@ -175,6 +175,18 @@ def identifiers(src: dict) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def case_dir(slug: str) -> Path:
+    """The directory holding this piece's case file.
+
+    Leads resolve first. A candidate under issues/leads/<slug> has sources,
+    and they need a ledger from the moment somebody starts reading -- the
+    reading that decides whether to draft is the reading most likely to go
+    unrecorded. Until 2026-08-29 this resolved only WHU-nnn-<slug>, so
+    candidate-stage work had nowhere of its own to go and landed in a
+    published issue's case file instead.
+    """
+    lead = CASES / "leads" / slug
+    if lead.is_dir():
+        return lead
     hits = sorted(CASES.glob(f"WHU-*-{slug}"))
     if not hits:
         raise SystemExit(f"no case directory for {slug!r} under {CASES}")

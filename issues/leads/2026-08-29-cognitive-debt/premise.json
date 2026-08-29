@@ -209,10 +209,12 @@
       },
       "the_methodological_critique": {
         "paper": "Weidlich, Gasevic, Drachsler & Kirschner (2025), 'ChatGPT in Education: An Effect in Search of a Cause', Journal of Computer Assisted Learning 41, e70105. Peer reviewed. Kirschner and Gasevic are not fringe critics; they are among the field's most cited methodologists.",
-        "what_they_audited": "The studies behind Deng et al. (2025, Computers & Education 227:105224, g = 0.7 across 18 studies), naming Wang & Fan as exhibiting the same problems.",
-        "the_numbers_that_matter": "Only 53% of the audited studies used a VALID LEARNING MEASURE. The rest used self-reports, or performance DURING the treatment -- that is, with ChatGPT still in front of the student. Only 42% adequately described what the control group did. Controls ranged from no treatment to one-to-one human tutoring to playing video games.",
+        "what_they_audited": "Deng et al. (2025), 'Does ChatGPT Enhance Student Learning? A Systematic Review and Meta-Analysis of Experimental Studies', Computers & Education 227:105224, g = 0.7 across the academic-performance studies. They coded 19 comparisons from it.",
+        "the_numbers_that_matter": "ONLY FOUR OF NINETEEN COMPARISONS (21%) met all three basic criteria. Individually: the ChatGPT treatment was well defined in 14/19 (74%); the control group was well defined in 8/19 (42%); a valid learning measure was present in 10/19 (53%). The rest used self-reports, or performance measured while ChatGPT was still available.",
         "their_conclusion": "'Observed gains cannot, at this time, be confidently attributed to ChatGPT, and meta-analytic effect sizes may over- or understate its benefits.'",
-        "why_this_is_the_hinge": "Our whole reconciliation was going to be: the two literatures do not contradict because the meta-analyses measure ASSISTED performance and the RCTs measure UNASSISTED performance. Weidlich et al. have established that -- with an audit, in a journal, a year ago. We did not need to propose the re-analysis. It has been done, and it says roughly half the positive literature is measuring performance with the tool in hand."
+        "why_this_is_the_hinge": "Our whole reconciliation was going to be: the two literatures do not contradict because the meta-analyses measure ASSISTED performance and the RCTs measure UNASSISTED performance. Weidlich et al. have established that -- with an audit, in a journal, a year ago. We did not need to propose the re-analysis. It has been done, and it says roughly half the positive literature is measuring performance with the tool in hand.",
+        "the_sentence_that_decides_it": "'If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning.'",
+        "SCOPE_WARNING": "These figures are about DENG's included studies. They are not about the 35-study meta-analysis (Wu et al. 2026), which nobody has audited. Attaching them to Wu would be precisely the error class recorded this morning as CHAIN_BETWEEN_DOCUMENTS_ASSUMED."
       },
       "the_surviving_meta_analysis": {
         "paper": "Wu, Zhu, Zhang, Yin & Wang (2026), 'ChatGPT's impact on student learning outcomes: a meta-analysis of 35 experimental studies', Humanities and Social Sciences Communications 13(1) 684, 26 March 2026. Peer reviewed. g = 0.670 [0.495, 0.844], 4,193 participants, 134 effect sizes. Cognitive skills g = 0.872; critical thinking g = 1.008.",
@@ -234,6 +236,13 @@
       "why_this_is_better": "It is truer, it is harder to get from one prompt, and it gives the reader with a decision something to do: it tells them which studies to stop citing, in both directions, and what the honest answer to their question is, which is that nobody knows yet.",
       "direction_unchanged": "narrows. A core of the belief survives -- causally, within a session -- and the piece must not read as a debunking."
     },
-    "_reframed_a_third_time": "2026-08-29 evening, by reading the four papers instead of their abstracts. Every reframe so far has come from testing something we had assumed. This one came from asking about publication bias in a meta-analysis and discovering its predecessor had been retracted."
+    "_reframed_a_third_time": "2026-08-29 evening, by reading the four papers instead of their abstracts. Every reframe so far has come from testing something we had assumed. This one came from asking about publication bias in a meta-analysis and discovering its predecessor had been retracted.",
+    "hesselmann_read": {
+      "citation": "Hesselmann (2020), PeerJ 8:e10325, doi 10.7717/peerj.10325.",
+      "what_it_found": "117 recruited, 89 analysed. The Google Stroop interaction did not appear. BF01 = 5.07 — about five times likelier under the null. Against the original's specific predicted pattern, BF0+ = 16.43.",
+      "conclusion_verbatim": "'no conclusive evidence in favor of the notion that the concept of the Internet or internet access (via computers or smartphones) is automatically activated whenever participants are faced with hard trivia questions.'",
+      "second_failure": "Hesselmann places his result alongside Camerer et al. (2018), which also failed to replicate Sparrow. So the oldest strand of the belief has TWO independent replication failures behind it, not one.",
+      "correction_to_our_file": "Our own record had the wrong PeerJ article number. Caught by the ledger's verify flag before anything was printed."
+    }
   }
 }

@@ -1,0 +1,386 @@
+{
+  "what_this_is": "Every source behind the AI-and-cognition candidate, with an honest access record. Started at CANDIDATE stage rather than at drafting, because the reading that decides whether to draft is the reading most likely to go unrecorded — which is how issue two reached publication with its deciding document unread.",
+  "types": {
+    "primary": "A study reporting its own data. The only acceptable source for its own numbers.",
+    "synthesis": "A meta-analysis or systematic review.",
+    "critique": "A paper or audit whose subject is another paper.",
+    "editorial": "A retraction notice or correction issued by a journal.",
+    "carrier": "A piece of general or trade coverage that carries the belief to a reader.",
+    "prior_art": "Someone who has already made some part of our argument in public.",
+    "secondary": "Journalism about a source. Never cited for the source's own content."
+  },
+  "sources": [
+    {
+      "id": "S001",
+      "type": "primary",
+      "url": "https://arxiv.org/abs/2604.04721",
+      "title": "Liu, Christian, Dumbalska, Bakker & Dubey — AI Assistance Reduces Persistence and Hurts Independent Performance",
+      "also_called": [
+        "the randomised trials",
+        "the RCTs",
+        "the persistence trials",
+        "Liu and colleagues"
+      ],
+      "used_for": "The three experiments, their Ns before and after exclusion, the effect sizes, and above all the DESIGN — twelve to fourteen practice problems, AI removed without warning, three test problems immediately after.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "arXiv HTML v2 — design, per-experiment N, effect sizes, post-test procedure, authors' own limitation on Exp 1 exclusions"
+        ],
+        "not_read": [
+          "v4 (5 Aug 2026), which is the current version — v2 was what rendered",
+          "the supplement",
+          "any pre-registration record"
+        ],
+        "note": "Read v2 and cited as if current. Before drafting, confirm every figure against v4."
+      }
+    },
+    {
+      "id": "S002",
+      "type": "synthesis",
+      "url": "https://www.nature.com/articles/s41599-026-07019-z",
+      "title": "Wu, Zhu, Zhang, Yin & Wang (2026) — ChatGPT's impact on student learning outcomes: a meta-analysis of 35 experimental studies, Hum Soc Sci Commun 13(1) 684",
+      "also_called": [
+        "the 35-study meta-analysis",
+        "the meta-analysis",
+        "Wu and colleagues"
+      ],
+      "used_for": "g = 0.670 overall, cognitive skills 0.872, critical thinking 1.008; the publication-bias method; the absence of any delayed or retention measure.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "article page: abstract, results, subgroups",
+          "publication bias and limitations via the section anchor"
+        ],
+        "not_read": [
+          "the study table — which studies, what outcome each measured, assisted or unassisted",
+          "numeric results of Begg's test and the fail-safe N",
+          "the funnel plot itself"
+        ],
+        "note": "BLOCKING for the central claim. Whether its post-tests were taken with ChatGPT in hand is the hinge of the piece and the paper's own text does not say."
+      }
+    },
+    {
+      "id": "S003",
+      "type": "synthesis",
+      "url": "https://www.nature.com/articles/s41599-025-04787-y",
+      "title": "Wang & Fan (2025) — The effect of ChatGPT on students' learning performance, learning perception, and higher-order thinking, Hum Soc Sci Commun. RETRACTED.",
+      "also_called": [
+        "the retracted meta-analysis",
+        "Wang and Fan"
+      ],
+      "used_for": "That it existed, what it claimed (g = 0.867 performance, 0.456 perception, 0.457 higher-order thinking, 51 studies), and that it was retracted.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "article page, retraction banner, reported effect sizes"
+        ],
+        "not_read": [
+          "the full text and its forest plot"
+        ],
+        "note": "Cited only for what it claimed and that it was withdrawn. Never for a finding."
+      }
+    },
+    {
+      "id": "S004",
+      "type": "editorial",
+      "url": "https://www.nature.com/articles/s41599-026-07310-z",
+      "title": "Retraction Note, Hum Soc Sci Commun, 22 April 2026",
+      "also_called": [
+        "the retraction notice",
+        "the retraction"
+      ],
+      "used_for": "The date, that the Editor retracted it, the stated ground ('concerns relating to discrepancies in the meta-analysis'), that Ingebrigtsen and Lukic raised the concerns, and that the authors did not respond to correspondence.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the whole notice"
+        ],
+        "not_read": [],
+        "note": "Primary and authoritative for the retraction date. Note that Plagiarism Today dates the retraction to May 2026; the notice says 22 April. The notice wins."
+      }
+    },
+    {
+      "id": "S005",
+      "type": "critique",
+      "url": "https://osf.io/preprints/psyarxiv/wgu56_v2",
+      "doi": "10.31234/osf.io/wgu56",
+      "title": "Ingebrigtsen & Lukic — Substantial Errors Invalidate the Conclusion from Wang and Fan (2025) About ChatGPT and Learning Outcomes",
+      "also_called": [
+        "the Norwegian audit",
+        "Ingebrigtsen and Lukic",
+        "the audit"
+      ],
+      "used_for": "The specific errors in Wang & Fan, and the corrected effect size. THIS IS THE LOAD-BEARING SOURCE for everything the piece would say about what was wrong with the retracted paper.",
+      "access": {
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "abstract only, via Sciety: 'numerous data extraction errors, inconsistent reporting and several analytical issues'; v1 2 July 2025, v2 23 April 2026"
+        ],
+        "not_read": [
+          "the entire paper"
+        ],
+        "note": "OSF's download endpoint and API are both disallowed to machine fetch. This is issue two's problem exactly: the one document nothing automated can open is the one carrying information no other document has. Everything specific we have about these errors comes from ONE secondary source (S015). It needs a human read before a word of it is printed."
+      },
+      "needs_human_read": true
+    },
+    {
+      "id": "S006",
+      "type": "critique",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/jcal.70105",
+      "open_copy": "https://joshuaweidlich.wordpress.com/wp-content/uploads/2025/09/weidlich-et-al-2025-chatgpt-in-education.pdf",
+      "title": "Weidlich, Gašević, Drachsler & Kirschner (2025) — ChatGPT in Education: An Effect in Search of a Cause, J Comput Assist Learn 41, e70105",
+      "also_called": [
+        "Weidlich and colleagues",
+        "the JCAL critique",
+        "the audit of the positive literature"
+      ],
+      "used_for": "The audit of Deng et al.'s 19 academic-performance comparisons: only 4 (21%) met all three criteria; ChatGPT treatment well defined 14/19 (74%); control group well defined 8/19 (42%); a learning measure present 10/19 (53%). And the sentence that decides our piece: ‘If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning.’",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the author's own PDF of the published paper: argument, three non-negotiables, audit percentages, conclusion, recommendations",
+          "audit table and the 21% all-three-criteria figure, confirmed by a second read"
+        ],
+        "not_read": [
+          "the appendix listing which studies were audited"
+        ],
+        "note": "Read from the author's copy rather than the publisher's, which 403s. Confirm the percentages against the Wiley version before printing."
+      }
+    },
+    {
+      "id": "S007",
+      "type": "primary",
+      "url": "https://arxiv.org/abs/2506.08872",
+      "title": "Kosmyna, Hauptmann, Yuan, Situ, Liao, Beresnitzky, Braunstein & Maes — Your Brain on ChatGPT: Accumulation of Cognitive Debt, arXiv preprint",
+      "also_called": [
+        "the MIT preprint",
+        "the MIT study",
+        "Your Brain on ChatGPT",
+        "the cognitive debt paper"
+      ],
+      "used_for": "54 participants through session 3; session 4 with 18 across two crossover arms; still unreviewed.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "MIT project page and abstract; session-4 participant counts"
+        ],
+        "not_read": [
+          "the methods section at source; the EEG analysis"
+        ],
+        "note": "The n=18 session-4 figure was confirmed against the paper's own reporting. The METHODS still need reading directly. THE ARXIV ID RECORDED HERE IS FROM MEMORY AND IS NOT VERIFIED — the sibling case, S009, was wrong when checked. Verify before it is printed."
+      },
+      "verify_identifier": true
+    },
+    {
+      "id": "S008",
+      "type": "primary",
+      "url": "https://www.mdpi.com/2075-4698/15/1/6",
+      "title": "Gerlich (2025), Societies — AI tools and critical thinking",
+      "also_called": [
+        "Gerlich"
+      ],
+      "used_for": "r = -0.68; cross-sectional; social-media recruited; both variables self-reported in one instrument. Correction at Societies 15(9) 252 was a duplicated table, conclusions unaffected.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "earlier session",
+        "sections": [
+          "abstract, design, the correction notice"
+        ],
+        "not_read": [
+          "full methods"
+        ],
+        "note": "URL from memory and NOT verified. S009's memory-recorded URL turned out to be a different paper entirely. Verify before printing."
+      },
+      "verify_identifier": true
+    },
+    {
+      "id": "S009",
+      "type": "primary",
+      "url": "https://peerj.com/articles/10325/",
+      "title": "Hesselmann (2020) — No conclusive evidence that difficult general knowledge questions cause a “Google Stroop effect”. A replication study. PeerJ 8:e10325",
+      "also_called": [
+        "Hesselmann",
+        "the replication failure"
+      ],
+      "used_for": "N = 89 analysed of 117 recruited. BF01 = 5.07 — the data about five times likelier under the null than under the alternative; BF0+ = 16.43 against the original's specific predicted pattern. Conclusion verbatim: ‘no conclusive evidence in favor of the notion that the concept of the Internet or internet access... is automatically activated whenever participants are faced with hard trivia questions.’ The author places it alongside Camerer et al. (2018), which also failed to replicate Sparrow.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "full text via PubMed Central: N, both Bayes factors, the reaction-time means, the conclusion, the relation to Camerer 2018"
+        ],
+        "not_read": [],
+        "note": "The URL previously recorded here (peerj.com/articles/9986) was wrong — it is a soil-microbiology paper. It came from memory and the ledger's verify flag caught it. Correct article is 10325."
+      },
+      "doi": "10.7717/peerj.10325"
+    },
+    {
+      "id": "S010",
+      "type": "primary",
+      "url": "https://www.science.org/doi/10.1126/science.1207745",
+      "title": "Sparrow, Liu & Wegner (2011), Science — Google Effects on Memory",
+      "also_called": [
+        "Sparrow",
+        "Sparrow 2011",
+        "the Google effect study"
+      ],
+      "used_for": "The origin of the belief's oldest strand.",
+      "access": {
+        "state": "not_opened",
+        "note": "Paywalled. If it stays unread, the piece says what Hesselmann tested rather than what Sparrow found."
+      }
+    },
+    {
+      "id": "S011",
+      "type": "synthesis",
+      "url": "https://doi.org/10.1016/j.compedu.2024.105224",
+      "title": "Deng et al. (2025) — Does ChatGPT Enhance Student Learning? A Systematic Review and Meta-Analysis of Experimental Studies. Computers & Education 227, 105224",
+      "also_called": [
+        "Deng and colleagues",
+        "Deng et al."
+      ],
+      "used_for": "g = 0.7 on academic performance. This is the meta-analysis Weidlich et al. audited — NOT the 35-study one (S002). The 21/74/42/53 percentages belong to Deng's included studies and must never be attached to S002.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "identified and characterised through S006's audit, which reports its scope and effect size"
+        ],
+        "not_read": [
+          "the paper itself"
+        ],
+        "note": "Read ABOUT, not read. Its effect size and scope come from S006. If the piece states them, it states them as Weidlich et al. report them, or somebody opens Deng."
+      }
+    },
+    {
+      "id": "S012",
+      "type": "prior_art",
+      "url": "https://theconversation.com/we-designed-an-ai-tutor-that-helps-college-students-reason-rather-than-give-them-answers-276584",
+      "title": "Babaei-Balderlou & Shakya, The Conversation, 30 April 2026",
+      "also_called": [
+        "The Conversation",
+        "the Macro Buddy piece"
+      ],
+      "used_for": "That the mode-of-use sentence has already been written for a general reader, and by whom.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "full text via caledonianrecord and goodmenproject syndications"
+        ],
+        "not_read": [
+          "the canonical theconversation.com version, which disallows machine fetch"
+        ],
+        "note": "The closing sentence was confirmed in the syndicated text."
+      }
+    },
+    {
+      "id": "S013",
+      "type": "prior_art",
+      "url": "https://cardcatalogforlife.substack.com/p/how-to-use-ai-to-make-us-smarter",
+      "title": "Hana Lee Goldin, Card Catalog, 26 May 2026",
+      "also_called": [
+        "Goldin",
+        "the Card Catalog piece"
+      ],
+      "used_for": "That the engagement-mode thesis exists for a lay reader, and that it is argued from the favourable half of the literature only.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "full text"
+        ],
+        "not_read": []
+      }
+    },
+    {
+      "id": "S014",
+      "type": "carrier",
+      "url": "https://er.educause.edu/articles/2025/12/the-paradox-of-ai-assistance-better-results-worse-thinking",
+      "title": "Kate Hurley, EDUCAUSE Review, 15 December 2025 — The Paradox of AI Assistance",
+      "also_called": [
+        "EDUCAUSE",
+        "the EDUCAUSE piece"
+      ],
+      "used_for": "The belief reaching the reader with a decision, sourced on the MIT preprint and no trial or meta-analysis.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "full text, citation list"
+        ],
+        "not_read": []
+      }
+    },
+    {
+      "id": "S015",
+      "type": "secondary",
+      "url": "https://www.plagiarismtoday.com/2026/07/15/study-claiming-ai-helps-students-learn-retracted/",
+      "title": "Plagiarism Today, 15 July 2026 — Study Claiming AI Helps Students Learn Retracted",
+      "also_called": [
+        "Plagiarism Today"
+      ],
+      "used_for": "NOTHING YET. It is currently the only source for every specific error attributed to the Norwegian audit — the 0.5 forest-plot figure, the included retracted study, the mislabelled studies, the weighting.",
+      "derives_from": "S005",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "full text"
+        ],
+        "not_read": [],
+        "note": "A secondary account of S005. Until S005 is read, nothing here may be printed as fact about S005's findings. It also dates the retraction to May 2026, which S004 contradicts."
+      }
+    },
+    {
+      "id": "S016",
+      "type": "secondary",
+      "url": "https://nepc.colorado.edu/blog/nature-publisher",
+      "title": "NEPC, on 404 Media's coverage — Williamson and Tuomi quoted",
+      "also_called": [
+        "NEPC",
+        "the Williamson coverage"
+      ],
+      "used_for": "Williamson's characterisation of the literature and Tuomi on Deng et al.'s heterogeneity.",
+      "derives_from": "404 Media / Ars Technica interviews, not read directly",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "full text"
+        ],
+        "not_read": [
+          "the 404 Media and Ars Technica originals"
+        ],
+        "note": "Quotations here are at two removes. If Williamson is quoted in the piece, quote him from the original interview."
+      }
+    }
+  ],
+  "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source.",
+  "also_called_note": "Declared explicitly rather than inferred from titles, because the ledger audit can only see a source in the prose if it knows the words the prose uses.",
+  "the_blocked_one": "S005. Same shape as issue two's NCCN guideline: exactly one document that machines cannot open, carrying exactly the information no other document has.",
+  "what_the_verify_flags_caught": "Two identifiers in this ledger were written from memory. One was checked and was wrong: the PeerJ URL pointed at a soil-microbiology paper, not Hesselmann. Two remain unchecked (S007, S008). This is the argument for the flag existing — and for never printing an identifier that carries one."
+}
