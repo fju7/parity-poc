@@ -1325,5 +1325,10 @@
     "what": "Pedersen et al. was published online on 3 June 2026 — in Endoscopy, in the same specialty, on the same question, with the senior author of our central study as a co-author — and this page was drafted on 30 August 2026 saying no null result existed. Two fact-check gate runs, a source advocate pass, five counterexample hunts and a lint pass all went over the page without finding it. An outside reviewer found it in one sitting.",
     "why_it_survived": "Not because it was hidden. Because the search that would have found it was recorded as NOT RUN and the piece was written anyway. The watch entry for 2026-08-30 lists under not_checked: 'W1 — no registry search run' and 'W2 — no citation sweep run'. The machinery correctly reported that it had not looked; nothing stopped the draft proceeding past that report. An unrun check is not a pass — the rule was already written, and it was applied to the gate's findings and not to our own.",
     "the_fix_this_argues_for": "preflight should block a draft whose own watch file records an unrun check on a question that would change the piece. The watch module already knows which questions are open and when each was last checked; nothing consults it before a draft is gated. That is a code change, not a resolution."
+  },
+  "THE_CITATION_COUNT": {
+    "recorded": "2026-08-30",
+    "what_happened": "The retracted meta-analysis's citation count was printed three ways in one day. The page said 'more than 500'. A gate run VERIFIED 500+. The next run said 266. Nature's own article page read 402 at about 17:00 and 399 an hour later. Independent reports give 262, 266 and 270 depending on whether they count the journal's own counter, Springer Nature journals only, or everything.",
+    "the_rule": "A live metric is not a fact and should not be printed as one, however carefully it is dated. It moves while you look at it, and a reader who checks will find a different number and conclude we were careless. Page and email now say 'several hundred', which is true on every count and will stay true."
   }
 }

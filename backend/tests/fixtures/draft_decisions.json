@@ -1440,16 +1440,6 @@
       "what_would_change_it": "The SMC page listing a different number of contributors."
     },
     {
-      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
-      "role": "ADVOCATE",
-      "quote": "At the source, it did not [strip the evidence of its qualifications].",
-      "severity": "MINOR",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "The gate's COVERAGE role confirms this sentence is accurate and then asks the email to name which outlets failed. The email is a summary; the page does that work, naming Time, the ASCO Post and Healthgrades as outlets that carried the caveats and Fortune and the Nature Reviews highlight as ones that did not. Putting the audit in the email would duplicate the page at the cost of the email's length.",
-      "what_would_change_it": "The page dropping that audit."
-    },
-    {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Professor Venet Osmani of Queen Mary University of London",
@@ -1728,6 +1718,226 @@
       "decided": "2026-08-30",
       "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
       "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "three named academics",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Opened the SMC page twice today. Three: Dr Catherine Menon (Hertfordshire), Prof Venet Osmani (Queen Mary), Prof Allan Tucker (Brunel). This run's snippets returned Menon and Tucker and missed Osmani — who is the one whose comments the page relies on most. Second run to undercount the same page.",
+      "what_would_change_it": "The SMC page listing a different number."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "Stanković and colleagues have published a comment noting that the brain-scan preprint's brain measure was relative, so fewer significant connections does not mean less activity.",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate suggested this framing came from a Substack rather than the paper. Opened arXiv 2601.00856 directly. The paper says, verbatim: 'a \"significant connection\" was defined as a directed statistical coupling between two electrodes that was significantly stronger in one group than in another. Therefore, no direct conclusions could be drawn regarding the absolute strength of the connections. Thus, a group with fewer significant connections should not necessarily be interpreted as exhibiting weaker overall neural activity.' That is the relative-measure argument in the authors' own words, and it is the sentence the page quotes.",
+      "what_would_change_it": "A revision to the comment."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "Yuichi Mori is an author of both the Polish study and the Pedersen trial.",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Second run to report that no 'Pedersen trial' can be found. It is Endoscopy 2026;58:1003-1014, doi 10.1055/a-2858-7084, PMID 42235541, and Mori is its second author. The operator supplied the full text; it is recorded verbatim in S043.",
+      "what_would_change_it": "Either author list changing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "95% confidence interval of −10.5 to −1.6",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate reversed itself inside its own note: 'On re-examination this is VERIFIED — the draft's CI matches the source precisely.' The flag was the Lancet's middle-dot decimal notation.",
+      "what_would_change_it": "Nothing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "more than 2,000 colonoscopies",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "27.6 years",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "eleven",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "1 January 2022",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "three weeks apart",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "248.86 cm to 232.68 cm",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "about 6.5%",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "about 8%",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "about 3%",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "4 cases without the AI and 6 cases with it",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "373 records",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "twelve studies",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "eight residents",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "2011",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "−0.68",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "11 September 2025",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
+      "what_would_change_it": "A figure in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "was retracted in April 2026, with 402 citations on the journal's own counter",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "UPHELD, and the fix is to stop printing a live metric. The journal's own counter read 402 at one point on 30 August 2026 and 399 an hour later; other counts of the same paper run from 262 to over 500 depending on what is being counted. A number that moves while you look at it is not a fact a page should assert, however carefully it is dated. Page and email now say 'several hundred', and the page says why. This is the third different figure we have printed or been offered for this one paper today.",
+      "what_would_change_it": "Nothing — the point is that the number is not stable enough to print."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "COVERAGE",
+      "quote": "A consistent direction, carried by very few measurements.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "UPHELD on ordering. The sentence is a fair report of what the scoping review found, but in the email it sits several paragraphs before the Pedersen result that contests it, and a reader who stops there is misled. Now scoped to the review and flagged forward.",
+      "what_would_change_it": "Nothing."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

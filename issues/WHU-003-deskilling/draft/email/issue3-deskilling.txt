@@ -37,8 +37,9 @@ its qualifications. At the source, it did not.
 
   ----------------------------------------------------------------
   When the AI's suggestion was right, twenty-seven radiologists
-  scored about 80%. When it was wrong, the same readers scored
-  19.8%, 24.8% and 45.5% by experience. The most experienced were
+  scored about 80%. When it was wrong, the least experienced scored
+  19.8%, the moderately experienced 24.8%, and the most experienced
+  45.5%. The most experienced were
   wrong more often than right whenever the machine was.
   ----------------------------------------------------------------
 
@@ -56,14 +57,14 @@ not captured by the system".
 
 Two findings in the same study cut against any simple story. The system
 detected polyps faster than people did, but the people using it were no
-faster than the people without it. And misreading got worse:
-participants falsely identified a polyp in a median of 4 cases without
+faster than the people without it. And false positives got worse:
+participants wrongly flagged a polyp in a median of 4 cases without
 the AI and 6 cases with it.
 
 IS IT ONE STUDY, OR A PATTERN? A 2026 scoping review screened 373
 records and included twelve studies, describing the evidence as scarce,
-limited and fragmented. A consistent direction, carried by very few
-measurements.
+limited and fragmented. A consistent direction as that review saw it,
+carried by very few measurements - and contested since, as below.
 
 We had planned to set a null result beside all this - a training study
 the review reports as finding performance stable at three months. A
@@ -89,7 +90,8 @@ authors point out that they measured performance AFTER the AI was
 withdrawn, while the Polish study measured it DURING a period when
 endoscopists were still using AI on their other lists - so deskilling
 "may be a temporal phenomenon that disappears over time after CADe is
-removed". They call their own endpoint their most important limitation,
+removed". That is their reading; finding nothing after withdrawal is
+also consistent with there never having been an effect. They call their own endpoint their most important limitation,
 and their discussion is narrower than that conclusion: it argues
 against skill erosion "at least for nonexperienced endoscopists", and
 points at the Polish study for the experienced.
@@ -107,8 +109,7 @@ behind it. The famous correlation of -0.68 measured all three of its
 variables by self-report in one instrument. And the most-cited
 meta-analysis on the other side of that argument - that ChatGPT
 IMPROVES learning, which is a different question from deskilling - was
-retracted in April 2026, with 402 citations on the journal's own
-counter.
+retracted in April 2026, having been cited several hundred times.
 
 Read the full assessment: https://whatholdsup.org/deskilling
 
