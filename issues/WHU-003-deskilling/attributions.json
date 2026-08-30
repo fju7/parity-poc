@@ -217,6 +217,19 @@
       "checked_against": "NOT READ — paywalled, and the page says so. The three names come from Hesselmann's citation, and the page describes only what the replications tested.",
       "first_author": "Betsy Sparrow",
       "caveat": "kept out of `verified` deliberately if the page ever attributes a FINDING to it rather than naming it"
+    },
+    {
+      "name": "Weidlich",
+      "as_printed": "Weidlich and colleagues",
+      "first_author": "Joshua Weidlich",
+      "checked_against": "the author's own copy of the published paper, title page and full byline, read 2026-08-29: Weidlich, Gasevic, Drachsler and Kirschner, J Comput Assist Learn 2025;41:e70105. The Wiley page refuses machine access; the byline is identical on both the Monash and Semantic Scholar records."
+    },
+    {
+      "name": "Deng",
+      "as_printed": "Deng et al.",
+      "first_author": "Ruiqi Deng",
+      "checked_against": "NOT READ AT SOURCE, and the page says so in the same sentence. The citation appears verbatim in Weidlich et al., which we read, and in the reference list of Wu et al. (2026), which we transcribed. The page attributes its scope and effect size to Weidlich and colleagues rather than stating them as our own reading.",
+      "caveat": "Recorded as verified only for the NAME AND CITATION, which two independent documents we read agree on. Nothing about the paper's contents is asserted on this page except as Weidlich and colleagues report it."
     }
   ],
   "removed_from_the_page": [

@@ -142,6 +142,16 @@ ISSUES = {
         "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
         "email_subject": "The Melanoma Result — a Phase 3 success with no numbers",
     },
+    "deskilling": {
+        "number": 3,
+        "title": "What Happens to the Experts First",
+        "page": "site/whatholdsup/deskilling.html",
+        "url": "https://whatholdsup.org/deskilling",
+        "email_html": "site/whatholdsup/email/issue3-deskilling.html",
+        "email_txt": "site/whatholdsup/email/issue3-deskilling.txt",
+        "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
+        "email_subject": "What Happens to the Experts First \u2014 what AI does to people who are already good at something",
+    },
     "cdk46": {
         "number": 2,
         "title": "The Category Difference",
