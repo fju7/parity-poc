@@ -1122,6 +1122,16 @@
       "decided": "2026-08-30",
       "reason": "Not a transcription error. 'though scarce, consistent across specialties' is the review's own wording, read in the PDF and recorded verbatim in source ledger S029. The awkwardness the gate detected was real but had a different cause: the page attached the phrase to 'clinical deskilling' rather than to the EVIDENCE of it, which is what the review's sentence is about. That has been fixed; the quotation has not been touched.",
       "what_would_change_it": "A reading of the review's PDF giving different words."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Access to the AI raised participants' confidence by 11.7 percentage points while about half its answers were faulty.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Settled at the paper by the operator, who holds the PDF. The sentence reads: “Despite approximately half of System 3 answers being faulty, access to AI increased confidence by 11.7 percentage points (AI-Assisted: M = 77.0%, SE = 1.30%, 95% CI [74.4, 79.6]; Brain-Only: M = 65.3%, SE = 2.21%, 95% CI [61.0, 69.6]; t(202.91) = 4.57, p = 8.55 × 10-6; Hedges’ g = 0.54, 95% CI [0.32, 0.77]).” Two means on a 0-100 confidence scale, 77.0 and 65.3, whose difference is 11.7 exactly. The paper itself uses the words 'percentage points'. The page's wording is the paper's wording and the arithmetic checks. The gate could not reach the preprint — SSRN's delivery endpoint 404s to a machine — and graded the claim on secondary coverage that was split between an absolute and a relative reading. This is the fourth time on this issue that the deciding document had to be opened by a human, and the fourth time the machine's uncertainty was about access rather than about the fact.",
+      "what_would_change_it": "A revised version of the working paper reporting a different figure or a different scale."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

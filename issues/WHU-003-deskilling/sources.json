@@ -443,7 +443,8 @@
         "by": "fred",
         "on": "2026-08-29",
         "sections": [
-          "pp.1-8 (abstract, framing, design overview), 17-28 (empirical overview, common procedures, Study 1 in full, Study 2 methods and results), 29-40 (Study 2 results, Study 3 in full), 41-48 (general discussion, trial-level synthesis, surrender-vs-offloading, limitations begin), 49-52 (limitations, conclusion, references)"
+          "pp.1-8 (abstract, framing, design overview), 17-28 (empirical overview, common procedures, Study 1 in full, Study 2 methods and results), 29-40 (Study 2 results, Study 3 in full), 41-48 (general discussion, trial-level synthesis, surrender-vs-offloading, limitations begin), 49-52 (limitations, conclusion, references)",
+          "the confidence result sentence with both means, SEs, CIs and the t-test, read 2026-08-30"
         ],
         "not_read": [
           "Web Appendices A-D, including the preregistered hypotheses summary (D) and the detailed sample exclusions (C)"
@@ -469,6 +470,12 @@
         ],
         "arithmetic_check": "359 + 485 + 450 = 1,294, against a synthesis N of 1,372. Footnote 1 explains it: the ancillary Study 1 online sample was included in the synthesis. 1,294 + 81 = 1,375, three more than reported — presumably exclusions, detailed in Web Appendix C, which we have not read. Checked because we hold others to it; it reconciles.",
         "the_framing_question": "Tri-System Theory is a wrapper. The empirical results stand without it: people consulted the assistant, followed it four times in five even when it was wrong, and got more confident while doing so. The piece should report the experiments and mention the framing, not lead with System 3."
+      },
+      "the_confidence_figure": {
+        "_why": "The page gate could not open the preprint and flagged the 11.7 figure as unverifiable, because secondary coverage splits between 'nearly 12 percentage points' and '11.7% higher'. The two are not interchangeable: from a 75% baseline they differ by nearly three points.",
+        "verbatim": "Despite approximately half of System 3 answers being faulty, access to AI increased confidence by 11.7 percentage points (AI-Assisted: M = 77.0%, SE = 1.30%, 95% CI [74.4, 79.6]; Brain-Only: M = 65.3%, SE = 2.21%, 95% CI [61.0, 69.6]; t(202.91) = 4.57, p = 8.55 × 10-6; Hedges’ g = 0.54, 95% CI [0.32, 0.77]).",
+        "settled": "PERCENTAGE POINTS, and the page is right as printed. 77.0 minus 65.3 is 11.7, on a 0-100 confidence scale, and the paper uses the words 'percentage points' itself.",
+        "read_by": "fred, in the PDF, 2026-08-30"
       }
     },
     {
