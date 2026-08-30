@@ -132,7 +132,7 @@ identical dismissal actually was.
 
 **The power argument was not ours.** This page argues that MONARCH 3's wider
 interval reflects what that trial was powered to detect rather than a property of
-the drug. Jacot and colleagues made that argument formally in *npj Breast Cancer*
+the drug. Tanguy and colleagues made that argument formally in *npj Breast Cancer*
 in 2018, before any of these trials had mature survival data, and reached the same
 conclusion: that divergent significance across the three might reflect chance
 rather than different drug efficacy. We found their paper through a fact-check run
@@ -144,3 +144,15 @@ neutropenia in two thirds" is 66.7%; the label says 66%. It was also the only
 figure in that sentence with no source attached, while the abemaciclib figure
 beside it was attributed to the label. Both fixed.
 
+**The correction record misnamed the authors it was about.** The entry above
+originally read "Jacot and colleagues". The paper is by Tanguy, Cabel, Berger,
+Pierga, Savignoni and Bidard; William Jacot is not an author of it. The wrong
+name was taken from a fact-check run's coverage finding and printed without
+anyone opening the paper — while fixing an attribution gap, on the day the
+standing rule against exactly that was being written into the fixture. It was
+corrected on the live page the same day, 29 August 2026, and the correction was
+never recorded in the publication ledger; the pre-push guard has been reporting
+the resulting divergence ever since. This file, which exists to record what we
+got wrong, carried the error in the very entry describing the passage it was in,
+until 30 August 2026. `attributions.json` for this issue holds the full author
+list.
