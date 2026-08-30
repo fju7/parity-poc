@@ -112,9 +112,9 @@ turns up nothing is still recorded as a review.
 
 Every figure above comes from the study that produced it, read
 directly. Where we could not read something, the assessment says so
-rather than passing on somebody else's account of it - including a
-correction to the colonoscopy study itself, which exists and which we
-have not been able to open.
+rather than passing on somebody else's account of it. The colonoscopy
+study carries a correction, published 11 September 2025; we have read
+it, and it does not touch any figure above.
 
 Published by CivicScale, which sells healthcare software and takes no
 outside investment. Who pays for this:

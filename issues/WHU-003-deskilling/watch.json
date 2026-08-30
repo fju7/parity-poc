@@ -59,7 +59,7 @@
         "Budzyn Lancet Gastroenterology Hepatology 2025 correction erratum e12",
         "Lancet Gastroenterol Hepatol volume 10 issue 11 corrections November 2025"
       ],
-      "specific_open_lead": "2026-08-30. A page-gate search surfaced what may be a correction notice on the colonoscopy study at Lancet Gastroenterol Hepatol 2025 Nov;10(11):e12. Europe PMC returned its own homepage rather than the record and we could not confirm the notice exists, what it corrects, or whether it touches any figure this page prints. UNRESOLVED. This is the single most consequential open item on the watch list: the page's central number comes from that paper."
+      "specific_open_lead": "CLOSED 2026-08-30. The correction exists, was found, and has been read in full: Lancet Gastroenterol Hepatol 2025;10(11):e12, online 11 September 2025. A covariate (indication for colonoscopy) omitted from the multivariable analysis in supplementary table 6; the only affected findings are 'After AI introduction (using AI in colonoscopy)' and 'Age >60 years'; the journal states interpretation is unaffected. None of the figures this page prints is touched, because they are the unadjusted comparison. Quoted verbatim in sources.json S021. The QUESTION stays open - it asks about everything we rely on, not this one notice - but its named lead is resolved."
     },
     {
       "id": "W5",
@@ -157,6 +157,21 @@
         "W8 — closed earlier today"
       ],
       "THE_HONEST_PART": "This check happened because a reviewer told us what to look for. The searches listed above are the ones W1 and W2 have specified since the watch file was written on 2026-08-30, and they were recorded as not run on the same day the piece was drafted. Running them now, after somebody else found the paper, is not the watch working."
+    },
+    {
+      "on": "2026-08-30",
+      "by": "claude, with the operator supplying the document",
+      "questions_checked": [
+        "W4"
+      ],
+      "searched": [
+        "the Lancet corrections page for Vol 10, November 2025, e12, read as a PDF supplied by the operator after seven fetch routes failed"
+      ],
+      "found": "The Budzyn correction, read in full and recorded verbatim. It does not touch any figure on this page. One of the two affected variables is the exposure itself in the adjusted model, which the page now notes.",
+      "not_checked": [
+        "W1 (randomised crossover) still open",
+        "W3, W5, W6, W7 not re-run this pass"
+      ]
     }
   ],
   "changelog": [],

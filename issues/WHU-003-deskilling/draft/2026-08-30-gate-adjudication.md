@@ -258,3 +258,42 @@ The reviewer also declined to find a rule-11 problem in the coverage section —
 because it is the part we had least confidence in.
 
 **The cycle resets.** These are not our own findings, so the next gate run is a new cycle, not a third run.
+
+---
+
+## Finding 2 — CLOSED, and read in our own voice
+
+The operator obtained the Lancet corrections page. Seven fetch routes had failed; an eighth, a person with a
+PDF, worked. The notice in full:
+
+> Budzyń K, Romańczyk M, Kitala D, et al. Endoscopist deskilling risk after exposure to artificial
+> intelligence in colonoscopy: a multicentre, observational study. *Lancet Gastroenterol Hepatol* 2025;
+> 10: 896–903 — A covariate (indication for colonoscopy) had been mistakenly omitted from the multivariable
+> analysis presented in supplementary table 6 in the appendix of this Article. The appendix has been updated
+> with the corrected analysis; **the only affected findings are for the variables "After AI introduction
+> (using AI in colonoscopy)" and "Age >60 years"**. These changes do not affect the interpretation of the
+> data. This correction has been made as of Sept 11, 2025.
+
+Published online 11 September 2025; printed at Vol 10, November 2025, e12.
+
+**The reviewer's account was accurate in every particular** — the covariate, supplementary table 6, two
+variables, interpretation unchanged, headline figures untouched. For the few hours between their review and
+the PDF arriving, the page carried it labelled as theirs. That labelling was right, and removing it now is
+the right end to it.
+
+**What we added that the reviewer did not say.** One of the two affected findings is *"After AI introduction
+(using AI in colonoscopy)"* — the exposure variable itself, in the adjusted model. The journal says
+interpretation is unchanged and we have no basis to disagree, and the page says exactly that. But the page
+also notes that the corrected estimate is the one for the thing the study is about, because a reader should
+know that whichever direction it moved. The figures we print are the unadjusted comparison and are untouched.
+
+The page's still-unread list is down from four items to three. The email said the correction existed and was
+unopened; it now says it has been read and touches nothing above.
+
+## Both review findings are now closed.
+
+One open item remains and it is not blocking: the Pedersen full text. The page is built on its complete
+abstract, read at Europe PMC, and every figure on the page from it is verbatim in S043. Reading the paper
+would tell us how long each phase ran, how the endoscopists were selected, and what the authors say limits
+it — which is the standard this page holds everything else to, for a section that now carries half the
+argument.
