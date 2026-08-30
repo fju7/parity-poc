@@ -15,7 +15,8 @@
         "prospective trial adenoma detection rate withdrawal of AI assistance",
         "ClinicalTrials.gov deskilling colonoscopy CADe crossover",
         "WHO ICTRP endoscopist artificial intelligence skill retention"
-      ]
+      ],
+      "answered_in_part": "2026-08-30, by the outside reviewer, not by us. The randomised crossover trial has NOT been run and W1 stays open. But a prospective, multicentre, registry-based trial with a before/during/after-removal sequence has — Pedersen et al., Endoscopy, online 3 June 2026 — and it found no deskilling. It is now on the page. W1 remains open for the randomised design specifically."
     },
     {
       "id": "W2",
@@ -28,7 +29,8 @@
         "automation bias clinicians AI withdrawn performance specialty",
         "AI skill erosion radiology pathology dermatology surgery empirical",
         "citations of Budzyn Lancet Gastroenterol Hepatol 2025 deskilling"
-      ]
+      ],
+      "THE_MISS": "This question's search was recorded as NOT RUN on 2026-08-30 and the piece was drafted anyway. Pedersen et al. had been in print for nearly three months. An outside reviewer found it. See sources.json THE_MISS."
     },
     {
       "id": "W3",
@@ -132,6 +134,29 @@
         "W6 — attempted and blocked, four routes"
       ],
       "CORRECTION": "This entry was first written listing four searches including a Retraction Watch sweep of every source and a ClinicalTrials.gov search for a crossover trial. NEITHER WAS RUN. The list was written from the watch questions rather than from what actually happened — the first check recorded against the first watch we ever built was a false one, inside ten minutes of writing a module whose docstring says an unrun check must not look like a check that found nothing. Corrected the same evening, before it reached a page."
+    },
+    {
+      "on": "2026-08-30",
+      "by": "claude, prompted by the outside review",
+      "questions_checked": [
+        "W1",
+        "W2",
+        "W4"
+      ],
+      "searched": [
+        "Europe PMC REST, DOI 10.1055/a-2858-7084 and EXT_ID:42235541 — read the Pedersen abstract in full",
+        "web search for the Pedersen conclusion sentence verbatim, to confirm the paper exists as described",
+        "W4: chased the Budzyn correction to 'Correction to Lancet Gastroenterol Hepatol 2025; 10: 896-903' and tried the publisher (403), ScienceDirect (robots), PubMed (challenge page), Europe PMC (metadata only, no notice text), the Warwick repository and an EBRS course page (neither mentions it)"
+      ],
+      "found": "W1/W2: PEDERSEN ET AL. — the null result, prospective, 13 endoscopists, 5,013 colonoscopies, before/during/after CADe removal, 'no upskilling or deskilling was observed following a period of CADe exposure'. Published 3 June 2026. WE DID NOT FIND IT; the outside reviewer did. Now on the page. W4: the correction exists and its content is still unread by us after six routes.",
+      "not_checked": [
+        "W3 — not re-run",
+        "W5 — not searched",
+        "W6 — not retried this pass",
+        "W7 — not re-run",
+        "W8 — closed earlier today"
+      ],
+      "THE_HONEST_PART": "This check happened because a reviewer told us what to look for. The searches listed above are the ones W1 and W2 have specified since the watch file was written on 2026-08-30, and they were recorded as not run on the same day the piece was drafted. Running them now, after somebody else found the paper, is not the watch working."
     }
   ],
   "changelog": [],

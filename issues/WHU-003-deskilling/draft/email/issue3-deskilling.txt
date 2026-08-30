@@ -67,8 +67,22 @@ the review reports as finding performance stable at three months. A
 check on this page requires every name to be verified against the
 paper's own byline, so we opened it. It has eight residents, not 32. It
 measures scoring error and agreement between readers, not sensitivity
-or reading time. AND IT HAS NO THREE-MONTH FOLLOW-UP AT ALL. So we do
-not have a null result, and the assessment says so.
+or reading time. AND IT HAS NO THREE-MONTH FOLLOW-UP AT ALL.
+
+THERE IS A REAL NULL RESULT, AND WE MISSED IT. On 3 June 2026 -
+nearly three months before we drafted this - Pedersen and colleagues
+published a prospective, multicentre trial in Endoscopy: thirteen
+endoscopists, 5,013 colonoscopies, run in three phases, before the AI,
+during it, and after it was taken away. Among inexperienced
+endoscopists detection rose while the AI ran and returned to baseline
+after it went (odds ratio 1.03, 95% CI 0.79-1.34). Among experienced
+endoscopists there was no significant effect at any phase. Their
+conclusion: "In non-CADe-assisted colonoscopy, no upskilling or
+deskilling was observed following a period of CADe exposure." It is
+not randomised and its endpoint is polyp detection at 5 mm rather than
+adenoma detection - and Yuichi Mori is an author of it and of the
+Polish study both. An outside reviewer found it after our own checks
+had passed over it twice. The assessment says so.
 
 AND THE STUDIES A GENERAL READER HAS ACTUALLY BEEN OFFERED ARE THE WEAK
 ONES. The brain-scan preprint everyone cites had 54 participants, and

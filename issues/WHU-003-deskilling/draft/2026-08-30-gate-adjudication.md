@@ -175,3 +175,86 @@ paper discovered and disclosed unread.
 
 The next step is **outside review**, which resets the cycle — not a third run. A reviewer who has not seen
 our findings is the check neither gate run can be.
+
+---
+
+# Outside review — adjudication
+
+Reviewed content: `issues/WHU-003-deskilling/draft/deskilling.html`, sha256 `3900205df166c3ba`
+Received 2026-08-30. Two publish-blocking findings, no unsourced suspicions.
+**Both upheld. Both were right. One of them is the most important finding this issue has had.**
+
+The reviewer was given the prompt and the page. Not the gate reports, not this file, not `sources.json`.
+
+## Finding 1 — UPHELD. There is a null result, and we said there wasn't.
+
+The page said: *"So the honest position on a null result is that we do not have one."*
+
+**Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF.** "Learning and deskilling
+effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a
+pragmatic, prospective trial." *Endoscopy* 2026, doi 10.1055/a-2858-7084, PMID 42235541, **published online
+3 June 2026** — nearly three months before this page was drafted.
+
+Verified independently before any edit: the abstract was read in full from the Europe PMC REST core record,
+not taken from the review. Prospective, multicentre, registry-based, pragmatic. Thirteen endoscopists (seven
+inexperienced, six experienced), 5,013 colonoscopies, three successive phases — before CADe, during CADe,
+**after CADe removal**. Inexperienced: PDR-5 31.9% (216/678) → 39.5% (257/651) with CADe, OR 1.43 (1.11–1.84);
+phase 1 to phase 3, 31.9% → 36.3% (173/476), OR **1.03** (0.79–1.34). No significant effect among the
+experienced at any phase. Conclusion, verbatim: *"In non-CADe-assisted colonoscopy, no upskilling or
+deskilling was observed following a period of CADe exposure."*
+
+**And Yuichi Mori is an author of it and the senior author of Budzyń.** The same researcher is on the
+retrospective study that found a fall and the prospective study that found nothing. The reviewer did not
+know that; it makes the omission worse and the addition better.
+
+Four page changes: the false sentence is gone and replaced with four paragraphs on Pedersen; the section
+standfirst now promises "a null we were offered that is not one, and a null we missed that is"; the
+longer-horizon watch item is rewritten; and the disclosure section says plainly what happened. New source
+S043 with the abstract verbatim, new attribution record, watch W1 and W2 annotated. The email carried the
+same false sentence and has been rewritten too.
+
+### Why this survived everything
+
+Not because the paper was hidden. **Because the search that would have found it was recorded as not run, and
+the piece was written anyway.** The watch entry for 2026-08-30 says, in writing, under `not_checked`:
+*"W1 — no registry search run"* and *"W2 — no citation sweep run"*.
+
+Two gate runs, a source-advocate pass, five counterexample hunts and a lint pass went over this page. None of
+them looks at the watch file. The rule "an unrun check is not a pass" was already written in this repository
+and was being applied to the gate's findings while our own unrun checks sat in a file nobody consulted.
+
+**The fix this argues for is a code change, not a resolution:** `preflight` should refuse a draft whose watch
+file records an unrun check on a question that would change the piece. `watch.py` already knows which
+questions are open and when each was last checked. Nothing asks it. Recorded in `sources.json` under
+`THE_MISS`.
+
+## Finding 2 — UPHELD in substance, and we still cannot open the document
+
+The page said we did not know what the correction to Budzyń contained. The reviewer opened it and reports:
+a covariate — indication for colonoscopy — omitted from the multivariable analysis in supplementary table 6;
+two variables affected; the journal states interpretation is unchanged. Nothing touching the unadjusted 28.4%
+and 22.4%.
+
+**We tried a sixth and seventh route and still could not open it**: the publisher (403), ScienceDirect
+(robots), PubMed and Europe PMC (challenge page; the Europe PMC record is metadata only and carries no notice
+text), the Warwick repository, an EBRS course page. None carries it.
+
+So the page now carries the reviewer's reading, **labelled as the reviewer's reading**, with the explicit
+sentence that we are passing on somebody else's account — the thing this page otherwise refuses to do — and
+that a reader should treat the multivariable analysis as corrected in a way we have not personally checked.
+The reviewer's suggested fix was to state the content and drop the request for help; we have kept a narrowed
+request, because "a reviewer told us" and "we read it" are different states and the page should not blur them.
+
+**This is the one open item.** One person opening one PDF converts it from a second-hand account into a read.
+
+## What the review cost and what it bought
+
+Two findings. One of them falsified a sentence in the piece's central section that eighteen dollars of
+machine checking had passed over twice, and did it by reading the literature rather than the page. The other
+resolved an uncertainty we had disclosed and could not close.
+
+The reviewer also declined to find a rule-11 problem in the coverage section — the part rewritten twice today
+— and said the piece answers the four required questions unusually explicitly. That is worth recording
+because it is the part we had least confidence in.
+
+**The cycle resets.** These are not our own findings, so the next gate run is a new cycle, not a third run.

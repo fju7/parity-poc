@@ -168,6 +168,16 @@
       "on": "2026-08-30",
       "where": "the PLOS ONE article page",
       "note": "Bellahsen-Harrar Y, Lubrano M, Lepine C, et al. EIGHT pathologists, no time-pressure condition, no 7% figure. Named on the page only as the paper the scoping review's Table 1 attaches the pathology figures to."
+    },
+    {
+      "name": "Pedersen and colleagues",
+      "paper": "Learning and deskilling effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a pragmatic, prospective trial. Endoscopy 2026, epub 3 June 2026, doi 10.1055/a-2858-7084, PMID 42235541",
+      "first_author": "T. A. Pedersen",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-30",
+      "where": "the Europe PMC core record for DOI 10.1055/a-2858-7084, full author list",
+      "note": "Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF. The indexed record gives initials only and the publisher's page could not be opened, so the first author's given name is not recorded here rather than guessed. YUICHI MORI IS THE SECOND AUTHOR and is also the senior author of the Budzyn deskilling study this page is built on."
     }
   ],
   "still_blocking": [],
@@ -278,6 +288,12 @@
       "as_printed": "Bellahsen-Harrar and colleagues",
       "checked_against": "the PLOS ONE article page, author list, read 2026-08-30",
       "first_author": "Yaelle Bellahsen-Harrar"
+    },
+    {
+      "name": "Pedersen",
+      "as_printed": "Pedersen and colleagues",
+      "checked_against": "the Europe PMC core record for DOI 10.1055/a-2858-7084, full author list, read 2026-08-30",
+      "first_author": "T. A. Pedersen"
     }
   ],
   "removed_from_the_page": [

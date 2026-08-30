@@ -1179,6 +1179,41 @@
         "note": "Does not mention the volume change, the screening suspension or the withdrawal times."
       },
       "found_via": "The page gate's coverage pass."
+    },
+    {
+      "id": "S043",
+      "type": "primary",
+      "url": "https://doi.org/10.1055/a-2858-7084",
+      "doi": "10.1055/a-2858-7084",
+      "pmid": "42235541",
+      "title": "Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF (2026) — Learning and deskilling effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a pragmatic, prospective trial. Endoscopy, published online 3 June 2026.",
+      "also_called": [
+        "Pedersen and colleagues",
+        "the prospective trial",
+        "the null result"
+      ],
+      "used_for": "THE NULL RESULT. Three successive phases — before CADe, during CADe, after CADe removal — with the same endoscopists throughout. 13 endoscopists (7 inexperienced, 6 experienced), 5,013 colonoscopies. Primary endpoint PDR-5, the proportion of colonoscopies detecting at least one polyp 5 mm or larger. Inexperienced: 31.9% (216/678) to 39.5% (257/651) with CADe, OR 1.43, 95% CI 1.11–1.84; phase 1 to phase 3, 31.9% (216/678) to 36.3% (173/476), OR 1.03, 95% CI 0.79–1.34. No significant effect among the experienced between any phases.",
+      "why_it_matters": "It falsifies the sentence this page carried: 'So the honest position on a null result is that we do not have one.' It also has the design the page says the field needs — the same operators watched before, during and after withdrawal, rather than two periods compared after the fact. It is not randomised and its endpoint is polyp detection at 5 mm, not adenoma detection, so it does not settle the question; but it is prospective, multicentre, larger than the Polish study in procedures, and it points the other way.",
+      "VERBATIM": {
+        "_why": "Under THE_EXTRACT_RULE.",
+        "conclusion": "Conclusions: PDR-5 of inexperienced endoscopists increased when CADe was used. In non-CADe-assisted colonoscopy, no upskilling or deskilling was observed following a period of CADe exposure.",
+        "design": "Methods: We performed a prospective, multicenter, registry-based, pragmatic clinical trial. The primary end point was change in the proportion of colonoscopies with detection of at least one polyp >=5 mm (PDR-5). Each endoscopist performed colonoscopies in three successive phases: 1) before CADe exposure, 2) during CADe use, and 3) after CADe removal.",
+        "results": "Results: 13 endoscopists (7 inexperienced, 6 experienced) performed 5013 colonoscopies; median patient age was 59 years (interquartile range 44-71) and 2703 (53.9%) were women. ... CADe temporarily increased PDR-5 among inexperienced endoscopists from phase 1 to 2 (31.9% [216/678] to 39.5% [257/651]; odds ratio [OR] 1.43, 95%CI 1.11-1.84). There was no significant change between phases 1 and 3 (31.9% [216/678] to 36.3% [173/476]; OR 1.03, 95%CI 0.79-1.34). There was no significant CADe effect on PDR-5 among experienced endoscopists between phases."
+      },
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
+        "sections": [
+          "the full abstract, via the Europe PMC REST core record for the DOI"
+        ],
+        "not_read": [
+          "the full text — the Thieme publisher page returns 404 to us on every URL form tried"
+        ],
+        "note": "Verified independently before any edit was made. The reviewer supplied a PubMed link; the abstract was read at Europe PMC rather than taken from the review."
+      },
+      "found_via": "THE OUTSIDE REVIEWER, 2026-08-30. Not by us. Watch question W1 exists to catch exactly this and its search had not been run; the 2026-08-30 watch entry says so in writing, under 'not_checked'.",
+      "the_overlap_that_makes_it_sharper": "Yuichi Mori is the second author here and the senior author of Budzyn et al. The same researcher is on the retrospective study that found a fall and the prospective study that found nothing. That is not a contradiction to be scored — it is what a field looks like when it is still working the question out, and the page now says so."
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",
@@ -1244,5 +1279,11 @@
     "rule": "A source whose access state is human_read, or any source this page takes a FIGURE or a QUOTATION from, must carry the sentences that figure or quotation comes from, VERBATIM, in this file. Not a summary of them. Not a page range. The sentences.",
     "why": "The operator supplied the Shaw & Nave PDF on 2026-08-29 and it was read. S017 recorded the page ranges read and what the study means, but not the sentence carrying the 11.7 confidence figure. When the page gate questioned that figure on 2026-08-30 the record could not answer, and the operator had to be sent back to a document he had already provided. He was right to be surprised. A conversation is not storage: it is compacted, and an attachment's text goes with it. This file is storage. What is not written down here did not survive.",
     "the_second_half_of_the_lesson": "The PDFs were still on disk in the session's own upload directory the whole time. The search that concluded they were gone looked in the working directory and the mounted folders and did not look there, and the conclusion was reported to the operator as fact. Not finding something is a statement about where you looked."
+  },
+  "THE_MISS": {
+    "recorded": "2026-08-30",
+    "what": "Pedersen et al. was published online on 3 June 2026 — in Endoscopy, in the same specialty, on the same question, with the senior author of our central study as a co-author — and this page was drafted on 30 August 2026 saying no null result existed. Two fact-check gate runs, a source advocate pass, five counterexample hunts and a lint pass all went over the page without finding it. An outside reviewer found it in one sitting.",
+    "why_it_survived": "Not because it was hidden. Because the search that would have found it was recorded as NOT RUN and the piece was written anyway. The watch entry for 2026-08-30 lists under not_checked: 'W1 — no registry search run' and 'W2 — no citation sweep run'. The machinery correctly reported that it had not looked; nothing stopped the draft proceeding past that report. An unrun check is not a pass — the rule was already written, and it was applied to the gate's findings and not to our own.",
+    "the_fix_this_argues_for": "preflight should block a draft whose own watch file records an unrun check on a question that would change the piece. The watch module already knows which questions are open and when each was last checked; nothing consults it before a draft is gated. That is a code change, not a resolution."
   }
 }
