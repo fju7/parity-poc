@@ -171,13 +171,13 @@
     },
     {
       "name": "Pedersen and colleagues",
-      "paper": "Learning and deskilling effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a pragmatic, prospective trial. Endoscopy 2026, epub 3 June 2026, doi 10.1055/a-2858-7084, PMID 42235541",
-      "first_author": "T. A. Pedersen",
+      "paper": "Learning and deskilling effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a pragmatic, prospective trial. Endoscopy 2026;58:1003-1014, epub 3 June 2026, doi 10.1055/a-2858-7084, PMID 42235541",
+      "first_author": "Tom Andre Pedersen",
       "author_list_read": true,
       "by": "claude",
       "on": "2026-08-30",
-      "where": "the Europe PMC core record for DOI 10.1055/a-2858-7084, full author list",
-      "note": "Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF. The indexed record gives initials only and the publisher's page could not be opened, so the first author's given name is not recorded here rather than guessed. YUICHI MORI IS THE SECOND AUTHOR and is also the senior author of the Budzyn deskilling study this page is built on."
+      "where": "the paper itself, title page and running footer ('Pedersen Tom Andre et al.')",
+      "note": "Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF. First recorded from the Europe PMC indexed record as 'T. A. Pedersen' because only initials were available and a given name is not something to guess; completed to Tom Andre from the paper's own running footer once the operator supplied it. YUICHI MORI IS THE SECOND AUTHOR and is also the senior author of the Budzyn deskilling study this page is built on."
     }
   ],
   "still_blocking": [],
@@ -292,8 +292,8 @@
     {
       "name": "Pedersen",
       "as_printed": "Pedersen and colleagues",
-      "checked_against": "the Europe PMC core record for DOI 10.1055/a-2858-7084, full author list, read 2026-08-30",
-      "first_author": "T. A. Pedersen"
+      "checked_against": "the paper's own title page and running footer, read 2026-08-30",
+      "first_author": "Tom Andre Pedersen"
     }
   ],
   "removed_from_the_page": [

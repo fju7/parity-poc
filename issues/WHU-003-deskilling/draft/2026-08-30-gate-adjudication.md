@@ -297,3 +297,64 @@ abstract, read at Europe PMC, and every figure on the page from it is verbatim i
 would tell us how long each phase ran, how the endoscopists were selected, and what the authors say limits
 it — which is the standard this page holds everything else to, for a section that now carries half the
 argument.
+
+---
+
+# The Pedersen full text — and why an abstract is a hop
+
+The operator supplied the paper. **Endoscopy 2026;58:1003–1014.** First author **Tom Andre Pedersen**, completed
+from the running footer; the indexed record had only initials and a given name is not something to guess.
+
+Four paragraphs had been written from the abstract. The full paper changed all of them, and the section is
+better for it.
+
+**1. The authors reconcile the two studies themselves, and nobody has reported it.** Verbatim:
+
+> We evaluated the effect of exposure to CADe "after" CADe was removed, whereas Budzyń et al. investigated how
+> endoscopists perform non-CADe-assisted colonoscopy "while" they were exposed to CADe in the other
+> colonoscopies they performed during the same time period. Thus, it is considered that the effect of exposure
+> to CADe will be stronger in the Budzyń study than in our study, **suggesting that the deskilling effect may
+> be a temporal phenomenon that disappears over time after CADe is removed.**
+
+The Polish endoscopists were still working with the AI most days and being measured on the days they were
+not. The Norwegian endoscopists had it taken away. That is not two studies disagreeing; it is two studies
+measuring different things, and the second study's authors saying so. **They also name Troya as the mechanism
+for the Polish result** — the link this page makes independently, two sections earlier.
+
+**2. They narrow their own conclusion, and leave Budzyń standing.** The absence of a fall *"argues against the
+idea that exposure to CADe erodes skills, **at least for nonexperienced endoscopists**, although such skill
+reduction has been observed in another study involving only experienced endoscopists"* — and reference 10
+there is Budzyń.
+
+**3. Their limitations are substantial and we now carry them.** PDR-5 rather than ADR, which they call *"the
+most important"* and *"less well-validated than ADR"*. A run from November 2021 to June 2025, over which
+*"there is always a time effect in which endoscopists may naturally upskill or deskill"* — their inexperienced
+endoscopists averaged 6.8 months of practice in phase 1 and 23.8 by phase 3. A case-mix shift between phases.
+Possible underpowering. One device.
+
+**4. The correction to my own writing.** The page had said the prospective study found nothing *"most clearly
+in its experienced group."* **That was wrong in emphasis.** The experienced group shows no effect in *either*
+direction — including no benefit while the tool was running — and the authors attribute part of that to
+algorithm aversion: experienced endoscopists *"may also be less enthusiastic about a software tool intended to
+improve their performance."* Two of thirteen ran it throughout; the rest switched it on only at withdrawal. A
+group that did not visibly gain from a tool is weak evidence about what losing it does to them. The page now
+says that. It also carries the endoscopist-level split, which is a wash both ways: among the inexperienced,
+three declined, two unchanged, two improved; among the experienced, three declined and three improved.
+
+## The rule this breaks is one we already had
+
+*A review is a hop, not a source* — written after taking Savardi's figures from a scoping review's table. **An
+abstract is a hop too.** Every figure quoted from the abstract was correct; what the abstract could not carry
+was the authors' own reasoning about what their result means, which is the part that mattered most. Recorded
+in S043 under `WHAT_THE_ABSTRACT_DID_NOT_SAY`.
+
+The page was accurate at every intermediate stage and better at each one. That is the process working — but
+it worked because a person kept opening documents, not because the machinery asked for them.
+
+## State
+
+Both outside-review findings closed. The correction read. Pedersen read in full. Nothing on this page now
+rests on an abstract, a review's summary, or somebody else's reading, except the three items the page names
+as unread and one meta-analysis described as its auditors reported it.
+
+Next: a fresh gate cycle (`--new-cycle`) on a page whose central section is new since any gate saw it.

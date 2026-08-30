@@ -80,9 +80,16 @@ endoscopists there was no significant effect at any phase. Their
 conclusion: "In non-CADe-assisted colonoscopy, no upskilling or
 deskilling was observed following a period of CADe exposure." It is
 not randomised and its endpoint is polyp detection at 5 mm rather than
-adenoma detection - and Yuichi Mori is an author of it and of the
-Polish study both. An outside reviewer found it after our own checks
-had passed over it twice. The assessment says so.
+adenoma detection. And the two results do not cancel: the Norwegian
+authors point out that they measured performance AFTER the AI was
+withdrawn, while the Polish study measured it DURING a period when
+endoscopists were still using AI on their other lists - so deskilling
+"may be a temporal phenomenon that disappears over time after CADe is
+removed". They call their own endpoint their most important limitation,
+and they narrow their conclusion to less experienced endoscopists.
+Yuichi Mori is an author of both papers. An outside reviewer found this
+study after our own checks had passed over it twice; the assessment
+says so.
 
 AND THE STUDIES A GENERAL READER HAS ACTUALLY BEEN OFFERED ARE THE WEAK
 ONES. The brain-scan preprint everyone cites had 54 participants, and
