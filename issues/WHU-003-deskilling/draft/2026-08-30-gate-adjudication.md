@@ -95,3 +95,83 @@ opened at a primary document first.
 - `lint_claims.py` — all STOP checks pass; 8 universal-claim warnings, each previously walked. One new STOP appeared during editing ("Rebolj and colleagues" named on the page without an author-list check) and was cleared by removing the name rather than by asserting a byline nobody had opened.
 - One assumption caught in the act: the new Rosbach attribution was first recorded with the first name **Elena**. The arXiv author list says **Emely**. Corrected before it reached anything, and the false start left in `attributions.json` on purpose.
 - Run 2 of 2 remains, to confirm.
+
+---
+
+# Page gate, run 2 of 2 — adjudication
+
+Run: 2026-08-30, `--since` run 1 · 90 claims · 28 carried unchanged, 62 re-checked · 65 verified, 25 not
+9 objections (5 serious) · 5 inferences (1 serious) · RECENCY and COVERAGE both carried (0 days old)
+**Cost: $7.55**, 26 API calls, 96 web searches — down from $10.89, which is what `--since` is for.
+
+## The cap is spent. This was run 2 of 2.
+
+## 1. The one finding that mattered
+
+**The page contradicted its own correction.** In the closing section: *"Every measurement here is three
+months or less, and one of the three-month results found no decay at all."* There is no such result. The
+only study described as having a three-month follow-up is Savardi — and four sections earlier this page
+establishes, at length, that the scoping review invented that follow-up and the paper has none. The page
+corrected somebody else's error and then leaned on it as fact in its own conclusion.
+
+INFERENCE caught it. Nothing else could have: every figure in the sentence is right, and the two sentences
+are thirty paragraphs apart. Fixed.
+
+## 2. Acted on
+
+| Finding | What was wrong | Now |
+|---|---|---|
+| **The lede still carried the abandoned thesis** | *"Almost none of that survived the trip out of gastroenterology"* — the sentence the whole travel section was rewritten to stop saying. Fixing a claim in one place and leaving it standing in another is the exact failure recorded for issue two. | *"…some of that did travel. What did not is the part that tells you how loosely to hold the number."* |
+| **"almost nobody outside medicine has met it"** | Overstated, and contradicted by our own coverage section. | *"…has met it with its qualifications intact"* |
+| **"four clinical psychologists at Vienna and Dresden"** | A professional designation applied to four named people. S019 records a full-PDF read and says nothing about it; the arXiv page carries no affiliation block. We could not show it. | *"four researchers at Vienna and Dresden"* |
+| **The *Communications of the ACM* field list** | We wrote "law, journalism and software". The article says *"Similar issues pop up in law, education, journalism, software development, and other fields."* We dropped **education** — the field closest to this page's own subject. | Quoted verbatim. Read via the `?p=` permalink after `/news/` returned 403. |
+| **Ke, "in May 2026"** | Online 22 May; the issue is 32(6), June. | *"online in May, in the June issue"* |
+| **The *Nature Reviews* highlight** | We said it "reported the figures as fact", implying it misdescribed the design. It labelled the study observational and retrospective correctly. | Says so, then makes the narrower true complaint. |
+| **The cytology laboratory counts** | Presented as a discrepancy between the College (48) and the review (45). | Not a discrepancy: NHS Digital records three of the 48 closing before the 2019–20 consolidation. 48 is the starting number, 45 the number still open. An explanation is better than a caveat. |
+| **The Stanković quote in the sources section** | The limiting clause was in the body only; a reader meeting the sources entry alone gets a field-level verdict. | The limit is now in both places. |
+
+## 3. The correction we did not know existed
+
+The COVERAGE role found a PubMed record of a correction **to the colonoscopy study itself**. Chased it to
+**"Correction to *Lancet Gastroenterol Hepatol* 2025; 10: 896–903"** — the page numbers of the study this
+whole page is built on — indexed at 10(11):e12.
+
+**We could not read it.** Publisher 403; ScienceDirect robots refusal; PubMed and Europe PMC both returned
+challenge pages. Four routes, none open.
+
+It is now disclosed twice on the page — in the Budzyń source note and in the still-unread list — with the
+four routes named and an explicit statement that we do not know what it corrects. This was watch question
+W4's open lead. Its existence is now confirmed; its content is not. It is the first item on the watch list.
+
+## 4. Rejected, with the document open
+
+- **The Heudel volume number** (SERIOUS, FACT). The gate says the publisher's site gives volume 12. The article's own running footer, on all six pages of the PDF, reads *"Volume 11 ■ Issue C ■ 2026"*. For a citation of the article, the article wins.
+- **Troya's 247.89 appearing twice** (raised in both runs). Table 1, read in the open-access PDF: experienced 247.89 → 227.09; novice 255.66 → **247.89**. Two medians that coincide. Not a transposition. Now recorded verbatim in S031 so it cannot be raised a third time.
+- **Ke's institutions.** The gate is right that Thirunavukarasu is at LSHTM. The page attributes no institution to any author — it says the sixteen are drawn "across Duke-NUS, King's College London, Harvard and others", and Josip Car is at KCL.
+- **Four carried COVERAGE contradictions** quoting text that no longer exists. COVERAGE is not re-run when the page changes; in run 2 it was still quoting run 1's draft. Every one had already been acted on.
+
+## 5. The decisions file did not work, and the reason is a one-word bug
+
+**`ADJUDICATION 0 already decided · 9 moved since`.** Thirty-one decisions written this morning; not one
+recognised.
+
+They were not wrong and they were not unmatched. For SOURCE findings `factcheck_draft.py` passes the claim's
+**verdict** into the severity slot — `NOT_FOUND`, `WRONG_VALUE`, `VERIFIED` — not a severity word. All 29
+SOURCE decisions carried `"severity": "SERIOUS"`, so every one matched on quote and then reported as *moved
+since*, which still blocks.
+
+Twenty-six corrected. `THE_SEVERITY_FIELD` written into the fixture so the next person does not spend a gate
+run finding out. One orphaned decision removed — the gate flagged it itself, quoting a sentence no longer in
+the draft.
+
+This is worth more than the $7.55. A record that silently fails to match is worse than no record: it looks
+like diligence and behaves like nothing.
+
+## 6. Where this leaves the cycle
+
+Both runs are spent. Eleven page changes across the two, four rejections settled against primary documents,
+one internal contradiction caught that nothing else would have caught, and one correction to the central
+paper discovered and disclosed unread.
+
+The next step is **outside review**, which resets the cycle — not a third run. A reviewer who has not seen
+our findings is the check neither gate run can be.

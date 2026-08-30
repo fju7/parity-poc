@@ -817,251 +817,276 @@
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Professor Venet Osmani argued that three months is too short a window for genuine skill loss in experienced clinicians.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "Checked against the Science Media Centre page itself, which says verbatim: 'the study suggests a drop in skill over just three months. This is a very short period, especially for a clinician with over 27 years of experience.' The gate reported that Osmani made no such argument. He did, in the source the page cites. The gate read secondary reports of his SMC comments rather than the SMC page.",
-      "what_would_change_it": "The SMC page changing, or a demonstration that the quoted sentence is not Osmani's."
+      "what_would_change_it": "The SMC page changing, or a demonstration that the quoted sentence is not Osmani's.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The Heudel scoping review summarises the Savardi study as showing 32 radiology residents gaining 12 percentage points of sensitivity, reading 18% faster, and holding that performance at a three-month follow-up.",
-      "severity": "SERIOUS",
+      "severity": "WRONG_VALUE",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "The gate read the draft's framing backwards. The page does not claim 32 residents; it says the REVIEW summarises Savardi that way and that the paper has eight. The gate's own finding — 8 residents, no three-month follow-up — is the page's finding, printed in the same paragraph and again in the Savardi source note.",
-      "what_would_change_it": "Nothing about the paper; only a rewrite of the paragraph that stopped attributing the 32 to the review."
+      "what_would_change_it": "Nothing about the paper; only a rewrite of the paragraph that stopped attributing the 32 to the review.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Three randomised experiments had 1,222 people randomised and 1,060 analysed, working through practice problems with or without AI.",
-      "severity": "SERIOUS",
+      "severity": "WRONG_VALUE",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "307 + 585 + 168 = 1,060, checked against the paper's per-experiment analysed counts. The gate reconstructed a third figure of 201 from t-statistic degrees of freedom and got ~1,093. Degrees of freedom are not an analysed-N when tests are run on subsets.",
-      "what_would_change_it": "The paper stating an analysed total other than 1,060."
+      "what_would_change_it": "The paper stating an analysed total other than 1,060.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Unassisted solve rates fell at effect sizes of −0.42, −0.19 and −0.42 across the three experiments when AI was withdrawn.",
-      "severity": "SERIOUS",
+      "severity": "WRONG_VALUE",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "Both figures exist in Experiment 3 and describe different outcomes: d = -0.42 on the unassisted solve rate and d = +0.42 on the skip rate. The gate found the skip-rate figure, saw the same magnitude with the opposite sign, and concluded the page had conflated them. It is the gate that conflated them.",
-      "what_would_change_it": "The paper reporting only one d of magnitude 0.42 in Experiment 3."
+      "what_would_change_it": "The paper reporting only one d of magnitude 0.42 in Experiment 3.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Ingebrigtsen and Lukic first posted their audit of the retracted meta-analysis on PsyArXiv on 2 July 2025.",
-      "severity": "MINOR",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "The operator read v1 of the preprint as a PDF on 2026-08-29 after OSF refused machine fetch; source ledger S005 records 'Submitted 26 June 2025; preprint v1 2 July 2025; v2 23 April 2026' from the document itself. The gate could reach only the v2 landing page, which displays the v2 date. An unread source is not a source that disagrees with us either.",
-      "what_would_change_it": "The v1 posting date on OSF differing from the date printed on the PDF the operator read."
+      "what_would_change_it": "The v1 posting date on OSF differing from the date printed on the PDF the operator read.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Two researchers at the Arctic University of Norway documented the problems with the meta-analysis publicly in July 2025, nine months before the retraction.",
-      "severity": "MINOR",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "The operator read v1 of the preprint as a PDF on 2026-08-29 after OSF refused machine fetch; source ledger S005 records 'Submitted 26 June 2025; preprint v1 2 July 2025; v2 23 April 2026' from the document itself. The gate could reach only the v2 landing page, which displays the v2 date. An unread source is not a source that disagrees with us either.",
-      "what_would_change_it": "The v1 posting date on OSF differing from the date printed on the PDF the operator read."
+      "what_would_change_it": "The v1 posting date on OSF differing from the date printed on the PDF the operator read.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "A radiologist writing for trainees paired the colonoscopy result with the mammography experiment in a piece published 15 May 2026.",
-      "severity": "SERIOUS",
+      "severity": "WRONG_VALUE",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "Checked at the page. The byline is 'Josh Decker, MD' and the date line reads 'May 15, 2026' followed by an update stamp of 'July 31, 2026'. The page's '15 May 2026' and 'Decker J' are both right; the gate read the update stamp as the publication date and missed the byline. Source ledger S034 already recorded both.",
-      "what_would_change_it": "The article's byline or original publication date changing."
+      "what_would_change_it": "The article's byline or original publication date changing.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Poland suspended its colonoscopy-based screening programme on 1 January 2022.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the Polish screening suspension date sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The authors of the colonoscopy study list eleven limitations of their own study.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the count of eleven limitations sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The first 100 procedures per centre after AI installation were excluded to allow for familiarisation.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the 100-procedure per-centre exclusion sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The Heudel scoping review assessed 65 articles in full and included twelve studies.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the review's 65-assessed figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The Heudel scoping review included twelve studies.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the review's twelve-included figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The Heudel review's flow diagram does not reconcile: 432 database records and 41 from grey literature, less 37 duplicates, equals 436 rather than the 373 printed.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the review's flow-diagram arithmetic sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "In the Heudel review's flow diagram, 373 less 332 excluded equals 41, not the 65 articles it then reports assessing.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the review's flow-diagram arithmetic sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Among novices in the Troya study, eye travel distance fell from 255.66 cm to 247.89 cm.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the novice eye-travel figures sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "In the Troya study, participants inspected the AI's false-positive boxes for only 43.8% of the time those boxes were on screen.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the 43.8% false-positive inspection figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "In the Troya study, experienced participants' eye travel distance fell from 247.89 cm to 227.09 cm.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the experienced eye-travel figures sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The study carrying the greatest weight in the retracted meta-analysis accounted for about 19% of it, and had itself been retracted two months before the meta-analysis was published.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the ~19% weight figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The second heaviest study in the retracted meta-analysis accounted for about 10% of it and measured self-efficacy and technology acceptance rather than learning.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the ~10% weight figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "In the retracted meta-analysis, a table listing 41 unique entries supported an analysis reporting 44.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the 41 unique table entries sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "One included study in the retracted meta-analysis gave 36 students a single shared grade per group and was entered as though each had an individual score.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the 36 shared-grade students sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Treating shared group grades as individual scores in the retracted meta-analysis produced an effect size of 4.009.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the effect size of 4.009 sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Effect sizes above 1 appeared in about 36% of included studies in the retracted meta-analysis.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the ~36% above 1 sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "A valid learning measure was present in 10 of the 19 comparisons audited by Weidlich and colleagues.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the 10-of-19 valid learning measure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "The Heudel review's radiology section describes a 2023 reader study of 27 radiologists but attaches that description to a citation for a different 2025 paper with 12 radiologists that found AI improved accuracy.",
-      "severity": "SERIOUS",
+      "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "NOT_FOUND for access, not for content: the review's radiology citation mismatch sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
@@ -1115,25 +1140,100 @@
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Access to the AI raised participants' confidence by 11.7 percentage points while about half its answers were faulty.",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Settled at the paper by the operator, who holds the PDF. The sentence reads: “Despite approximately half of System 3 answers being faulty, access to AI increased confidence by 11.7 percentage points (AI-Assisted: M = 77.0%, SE = 1.30%, 95% CI [74.4, 79.6]; Brain-Only: M = 65.3%, SE = 2.21%, 95% CI [61.0, 69.6]; t(202.91) = 4.57, p = 8.55 × 10-6; Hedges’ g = 0.54, 95% CI [0.32, 0.77]).” Two means on a 0-100 confidence scale, 77.0 and 65.3, whose difference is 11.7 exactly. The paper itself uses the words 'percentage points'. The page's wording is the paper's wording and the arithmetic checks. The gate could not reach the preprint — SSRN's delivery endpoint 404s to a machine — and graded the claim on secondary coverage that was split between an absolute and a relative reading. This is the fourth time on this issue that the deciding document had to be opened by a human, and the fourth time the machine's uncertainty was about access rather than about the fact.",
+      "what_would_change_it": "A revised version of the working paper reporting a different figure or a different scale.",
+      "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Checked in the article PDF itself, which the operator supplied. The running footer on all six pages reads 'Volume 11 [square] Issue C [square] 2026'. Our citation reproduces what the article prints. If the publisher's site now shows volume 12, that is a discrepancy between the publisher's record and its own typeset article, and the article wins for a citation of the article.",
+      "what_would_change_it": "The publisher issuing a correction to the volume number, or the PDF being revised."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "INFERENCE",
-      "quote": "clinical deskilling is though scarce, consistent across specialties",
+      "quote": "experienced 247.89 to 227.09; novice 255.66 to 247.89",
       "severity": "MINOR",
       "decision": "accept",
       "decided": "2026-08-30",
-      "reason": "Not a transcription error. 'though scarce, consistent across specialties' is the review's own wording, read in the PDF and recorded verbatim in source ledger S029. The awkwardness the gate detected was real but had a different cause: the page attached the phrase to 'clinical deskilling' rather than to the EVIDENCE of it, which is what the review's sentence is about. That has been fixed; the quotation has not been touched.",
-      "what_would_change_it": "A reading of the review's PDF giving different words."
+      "reason": "Settled at the paper. Troya et al., Table 1, 'Eye travel distance with and without computer-aided detection', median (99% CI), cm: All participants 248.86 (221.39-282.88) to 232.68 (210.43-262.33), P < 0.001; Experienced 247.89 (209.68-299.26) to 227.09 (192.39-278.32); Novice 255.66 (221.40-297.99) to 247.89 (216.31-266.20). The figure 247.89 does appear twice, as the experienced without-CADe median and the novice with-CADe median. It is a coincidence of two medians, not a transposition. Read in the open-access PDF on 2026-08-30.",
+      "what_would_change_it": "A corrected version of Troya Table 1."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
-      "quote": "Access to the AI raised participants' confidence by 11.7 percentage points while about half its answers were faulty.",
+      "quote": "Sixteen authors",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The count is confirmed correct by the gate itself. Its objection is to the institutional list: Thirunavukarasu is at LSHTM, not King's College London. But the page does not attribute any institution to any author — it says the sixteen are drawn 'across Duke-NUS, King's College London, Harvard and others', and Josip Car is at King's College London, so all three named institutions are represented. The 'and others' carries LSHTM and the rest.",
+      "what_would_change_it": "One of the three named institutions turning out to have no author on the paper."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "A research highlight in Nature Reviews Gastroenterology & Hepatology reported the figures as fact with no limitations and no quotes.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Upheld and fixed rather than rejected, but recorded here because the COVERAGE role was carried from run 1 and will raise it again against text that no longer exists. The sentence now reads that the highlight 'labelled the study observational and retrospective, as it should, and then reported the figures with no limitations and no quotes.' The gate was right that our phrasing implied a design misdescription that did not happen.",
+      "what_would_change_it": "The highlight turning out not to carry the design label after all."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "What we did find is that none of it crossed the boundary.",
       "severity": "SERIOUS",
       "decision": "accept",
       "decided": "2026-08-30",
-      "reason": "Settled at the paper by the operator, who holds the PDF. The sentence reads: “Despite approximately half of System 3 answers being faulty, access to AI increased confidence by 11.7 percentage points (AI-Assisted: M = 77.0%, SE = 1.30%, 95% CI [74.4, 79.6]; Brain-Only: M = 65.3%, SE = 2.21%, 95% CI [61.0, 69.6]; t(202.91) = 4.57, p = 8.55 × 10-6; Hedges’ g = 0.54, 95% CI [0.32, 0.77]).” Two means on a 0-100 confidence scale, 77.0 and 65.3, whose difference is 11.7 exactly. The paper itself uses the words 'percentage points'. The page's wording is the paper's wording and the arithmetic checks. The gate could not reach the preprint — SSRN's delivery endpoint 404s to a machine — and graded the claim on secondary coverage that was split between an absolute and a relative reading. This is the fourth time on this issue that the deciding document had to be opened by a human, and the fourth time the machine's uncertainty was about access rather than about the fact.",
-      "what_would_change_it": "A revised version of the working paper reporting a different figure or a different scale."
+      "reason": "Already acted on. The COVERAGE role is CARRIED between runs — it is not re-run when the page changes, because it depends on the world rather than on our wording — so in run 2 it quoted run 1's text. Every one of these sentences was rewritten in the run 1 adjudication on the same evidence the role is citing here: the travel thesis now says the general caution travelled and the specific limitations did not, and Time, the ASCO Post and Healthgrades are named on the page as the instances. The finding is right and the page already reflects it.",
+      "what_would_change_it": "Nothing — this is a stale quote. The decision exists so a carried COVERAGE block does not read as a live objection."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "Fortune carried the six-point fall to a business readership on 26 August 2025, connected it to an automation analogy and to a Microsoft and Carnegie Mellon study, and reported none of the eleven limitations.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Already acted on. The COVERAGE role is CARRIED between runs — it is not re-run when the page changes, because it depends on the world rather than on our wording — so in run 2 it quoted run 1's text. Every one of these sentences was rewritten in the run 1 adjudication on the same evidence the role is citing here: the travel thesis now says the general caution travelled and the specific limitations did not, and Time, the ASCO Post and Healthgrades are named on the page as the instances. The finding is right and the page already reflects it.",
+      "what_would_change_it": "Nothing — this is a stale quote. The decision exists so a carried COVERAGE block does not read as a live objection."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "Three named academics said so publicly the day it appeared. Almost none of that survived the trip out of gastroenterology.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Already acted on. The COVERAGE role is CARRIED between runs — it is not re-run when the page changes, because it depends on the world rather than on our wording — so in run 2 it quoted run 1's text. Every one of these sentences was rewritten in the run 1 adjudication on the same evidence the role is citing here: the travel thesis now says the general caution travelled and the specific limitations did not, and Time, the ASCO Post and Healthgrades are named on the page as the instances. The finding is right and the page already reflects it.",
+      "what_would_change_it": "Nothing — this is a stale quote. The decision exists so a carried COVERAGE block does not read as a live objection."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "Its headline put the same result a different way: doctors became 20% worse at spotting abnormalities on their own.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Already acted on. The COVERAGE role is CARRIED between runs — it is not re-run when the page changes, because it depends on the world rather than on our wording — so in run 2 it quoted run 1's text. Every one of these sentences was rewritten in the run 1 adjudication on the same evidence the role is citing here: the travel thesis now says the general caution travelled and the specific limitations did not, and Time, the ASCO Post and Healthgrades are named on the page as the instances. The finding is right and the page already reflects it.",
+      "what_would_change_it": "Nothing — this is a stale quote. The decision exists so a carried COVERAGE block does not read as a live objection."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",
-  "why_the_criterion_changed": "2026-08-28. The old first line was 'no SERIOUS finding that is an actual error', which sounds equivalent and is not, because SERIOUS was measuring how strongly a role felt rather than whether we would have to correct anything. Across six runs of issue one the factual errors went 3, 3, 1, 0, 0, 0 and stayed at zero, while the total finding count did not fall at all: what kept arriving was phrasing, ordering, emphasis and degree. Those have no floor. There is always a defensible alternative wording, so a check that blocks on wording never stops, and the piece sat unpublished with no factual error in it for three runs. The test now is the one a reader would apply: if they found this after publication, would we have to print a correction? FACT, CONTRADICTION and THIRD_PARTY yes; CALIBRATION no."
+  "why_the_criterion_changed": "2026-08-28. The old first line was 'no SERIOUS finding that is an actual error', which sounds equivalent and is not, because SERIOUS was measuring how strongly a role felt rather than whether we would have to correct anything. Across six runs of issue one the factual errors went 3, 3, 1, 0, 0, 0 and stayed at zero, while the total finding count did not fall at all: what kept arriving was phrasing, ordering, emphasis and degree. Those have no floor. There is always a defensible alternative wording, so a check that blocks on wording never stops, and the piece sat unpublished with no factual error in it for three runs. The test now is the one a reader would apply: if they found this after publication, would we have to print a correction? FACT, CONTRADICTION and THIRD_PARTY yes; CALIBRATION no.",
+  "THE_SEVERITY_FIELD": {
+    "note": "For ADVOCATE, INFERENCE and COVERAGE findings this field holds the severity word (SERIOUS / MINOR). For SOURCE findings it holds the VERDICT (VERIFIED / NOT_FOUND / WRONG_VALUE), because that is what factcheck_draft.py passes into classify() for that role. Getting this wrong does not lose the decision — it downgrades it from 'already decided' to 'moved since', which still blocks. Learned the expensive way on 2026-08-30: 31 decisions, 0 recognised.",
+    "recorded": "2026-08-30"
+  }
 }
