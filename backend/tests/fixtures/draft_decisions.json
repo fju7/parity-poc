@@ -1938,6 +1938,266 @@
       "decided": "2026-08-30",
       "reason": "UPHELD on ordering. The sentence is a fair report of what the scoping review found, but in the email it sits several paragraphs before the Pedersen result that contests it, and a reader who stops there is misled. Now scoped to the review and flagged forward.",
       "what_would_change_it": "Nothing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The endoscopists averaged 27.6 years since graduation, over a range of 8 to 39 years.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "The accepted manuscript is open access at Warwick WRAP (CC BY-NC-ND) and we read it. Fifth limitation, verbatim: “all participants were experienced endoscopists (average 27.6 years of experience, ranging from 8 to 39 years)”. The appendix regression table names the same variable “Years since graduation from medical school”, which is the draft's wording. The gate reached only the paywalled abstract and recorded that; it recorded its access correctly and its verdict is an access verdict, not a finding.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The total number of procedures in the second period nearly doubled, from 795 to 1,382, after Poland suspended its colonoscopy-based screening programme on 1 January 2022.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "The paper's EIGHTH limitation, verbatim: “we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to the pre-AI phase (795 before vs. 1382 after AI implementation including 734 with AI-assistance and 648 without AI-assistance)... This was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022”. Both the figure and the reason are the authors' own, in one sentence. The gate had the abstract's 648 and reasoned that 1,382 must be wrong; 648 is the measured non-AI subset of the 1,382. This is the single most load-bearing number on the page and it is now read at source.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The authors of the colonoscopy deskilling study list eleven limitations of their own study.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Counted in the accepted manuscript: First, Second, Third, Fourth, Fifth, Sixth, Seventh, Eighth, Ninth, Tenth, and “Finally”. Eleven.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel review's flow diagram shows 432 database records and 41 from grey literature, less 37 duplicates, which equals 436 rather than the 373 printed.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "From the PDF: “n = 432” database, “n = 41” grey literature, “Duplicates removed n = 37”, “Total records identified n = 373”. 432 + 41 - 37 = 436. The arithmetic on the page is the review's own numbers.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel review's flow diagram shows 373 less 332 excluded equals 41, not the 65 articles it reports assessing in full.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "From the PDF: “Total records identified n = 373”, “Records excluded ... n = 332”, then “Total records screened n = 65” and “Full-text articles assessed for eligibility n = 65”. 373 - 332 = 41.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel scoping review puts the cytology workload cut at 80–85% and the laboratories at 45 consolidating to 8.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Abstract, verbatim: “leading to an 80%-85% reduction in case volumes and consolidation of laboratories from 45 to 8 centers”. Table 1 repeats it. The gate saw the sentence truncated in every snippet it could reach; the PDF is not truncated.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel scoping review summarises the Savardi study as showing 32 radiology residents gaining 12 percentage points of sensitivity, reading 18% faster, and holding performance at a three-month follow-up.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the gate checked the paper, and the claim is about the review",
+      "decided": "2026-08-30",
+      "reason": "The claim is about what the REVIEW says, and the review says it. Heudel body, verbatim: “This study evaluated 32 radiology residents trained with an AI-assisted module for detecting COVID-19 pneumonia on chest X-rays. While AI-supported training resulted in a 12% improvement in sensitivity (from 0.73 to 0.85, P < 0.01) and an 18% reduction in mean reading time per case (from 68 s to 56 s)”; Table 1 adds “performance stable at 3 months”. Savardi itself, verbatim: “We involved eight residents evaluating 150 CXRs in three scenarios”, with scoring error against a consensus standard and inter-reader ICC as outcomes and no follow-up. The gate read Savardi, found eight, and failed the draft — for saying exactly that.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel review's radiology section attaches a description of a 2023 reader study of 27 radiologists to its reference 16, which is actually a different 2025 paper with 12 radiologists that found AI improved accuracy.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the gate checked the paper, and the claim is about the review",
+      "decided": "2026-08-30",
+      "reason": "Heudel body, verbatim: “In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support. When AI provided incorrect recommendations, radiologists' error rates increased by 12%-15%” — with superscript 16, and reference 16 is Gommers JJJ, Verboom SD, Duvivier KM et al. Read in the PDF.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel review's Table 1 attributes the 28 pathologists and 7% figure to Bellahsen-Harrar and colleagues (PLOS ONE 2025;20(8):e0323270), which studied eight pathologists, had no time-pressure condition and reports no such figure.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the gate checked the paper, and the claim is about the review",
+      "decided": "2026-08-30",
+      "reason": "Table 1 of the PDF, verbatim row: “Bellahsen-Harrar et al. (2025)35 ... Pathology (computational) ... 28 pathologists, 7% of correct initial diagnoses reversed due to misleading AI”. That the underlying paper has eight pathologists and no such figure is the draft's point, not a refutation of it.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The inexperienced endoscopists in the Pedersen trial averaged 6.8 months of practice in the first phase and 23.8 months by the third phase.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Full text, verbatim: “inexperienced vs. experienced groups were 6.8 vs. 2.2 months in phase 1, 17.7 vs. 7.6 months in phase 2, and 23.8 vs. 11.8”. Read in the publisher's PDF, which the operator supplied.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Pedersen trial ran from November 2021 to June 2025.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Full text, verbatim: “matic clinical trial from November 2021 to June 2025” (pragmatic clinical trial). Read in the PDF.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Yuichi Mori is the senior author of the Budzyń deskilling study and a co-author of the Pedersen prospective study.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Pedersen author list, verbatim, second author: “Tom Andre Pedersen, Yuichi Mori, Edoardo Botteri, Trond Engjom, Birgitte Seip...”, and the contributions section names “Yuichi Mori: Conceptualization, Methodology, Supervision”. Mori is last author of Budzyń. The gate could not link the Endoscopy trial to the name ‘Pedersen’; the PDF's own title page does.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Troya eye-tracking study involved 21 participants — ten novices and eleven experienced staff.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Verbatim: “The ratio of professional experience was balanced, with 10 novice and 11 experienced participants.”",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "With the AI running, median eye travel distance fell from 248.86 cm to 232.68 cm (P < 0.001) in the Troya study.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Table 1, All participants row: 248.86 (221.39-282.88) without CADe, 232.68 (210.43-262.33) with, P < 0.001.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Among experienced participants in the Troya study, eye travel distance fell from 247.89 cm to 227.09 cm with AI.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Table 1, Experienced row: 247.89 (209.68-299.26) to 227.09 (192.39-278.32).",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Among novice participants in the Troya study, eye travel distance fell from 255.66 cm to 247.89 cm with AI.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Table 1, Novice row: 255.66 (221.40-297.99) to 247.89 (216.31-266.20). The gate flagged as suspicious that 247.89 appears twice. It does — in the paper. It is the experienced group's without-CADe value and the novice group's with-CADe value, to two decimal places, by coincidence. Checked in the PDF, both rows, both columns.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "In the Troya study, participants falsely identified a polyp in a median of 4 cases without the AI and 6 cases with it (P = 0.001).",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Verbatim: “Participants falsely identified a polyp in a median of 4 cases (99 %CI 2-5) without CADe and a median of 6 cases (99 %CI 4-7) with CADe support (P = 0.001, n = 21).”",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The study carrying the greatest weight in the retracted meta-analysis, about 19% of it, had itself been retracted two months before the meta-analysis was published.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Ingebrigtsen & Lukic, verbatim: “the study with the lowest standard error by (SE = 0.066), carrying approximately 19% of the total weight, was officially retracted two months before the publication of Wang and Fan's meta-analysis (Chan et al., 2024b)”. The operator supplied the preprint PDF; the gate could not reach OSF.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The second-heaviest study in the retracted meta-analysis, about 10% of its weight, measured self-efficacy and technology acceptance rather than learning.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Verbatim: “The second most influential study, Huang et al. (2024), had an SE of 0.092 and accounted for roughly 10% of the total weight. However, it did not measure learning performance. Its primary outcomes were self-efficacy and technology acceptance”.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "A table listing 41 unique entries in the retracted meta-analysis supported an analysis reporting 44.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Verbatim: “the table lists only 41 unique entries for learning performance, despite the analysis reporting k = 44”.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "One included study in the retracted meta-analysis gave 36 students a single shared grade per group and was entered as though each had an individual score, producing an effect size of 4.009.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Verbatim: “Ji et al. (2023) divided 36 students into groups of five to six, with each group receiving a single, shared grade. In Wang and Fan's meta-analysis, however, this group-based assessment was treated as if each student had received an individual score... which was reported as g = 4.009”.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Three randomised experiments by Liu and colleagues had 1,222 people randomised and 1,060 analysed.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "Re-derived from v4 today, per experiment: recruited 354 + 667 + 201 = 1,222; final samples “a final sample of 307 participants”, “a final sample of 585 participants”, “a final sample of 168 participants (N = 85 in the AI condition and N = 83 in the control condition)” — 307 + 585 + 168 = 1,060. The gate could not retrieve Experiment 3's results section and said so; its own note concedes the verdict is about access.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Unassisted solve rates fell at effect sizes of −0.42, −0.19 and −0.42 across the three Liu experiments after AI was withdrawn.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the document was open to us and closed to the gate",
+      "decided": "2026-08-30",
+      "reason": "v4, verbatim: Exp 1 “Cohen's d = -0.42, 95% CI [-0.66, -0.19]”; Exp 2 “Cohen's d = -0.19, 95% CI [-0.36, -0.03]”; Exp 3 “t(166) = -2.72, P = 0.007; Cohen's d = -0.42, 95% CI [-0.73, -0.11]”.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Time reported on the colonoscopy study on 13 August 2025, quoting Professor Osmani on the rise in procedure volume and Professor Tucker on automation bias.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - THIRD confirmation; the gate is reading an update timestamp",
+      "decided": "2026-08-30",
+      "reason": "The page prints, verbatim, “by Miranda Jeyaretnam” and “Aug 13, 2025 9:45 AM UTC”, and it does quote Osmani: “The total number of colonoscopies—including both AI-assisted and non-AI-assisted ones—increased over the course of the study.” The gate has now returned “March 11, 2026” three times across three runs; that is a later metadata timestamp, not the dateline. THIS DECISION EXISTS TO STOP A FOURTH RUN SPENDING MONEY ON IT.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Fortune carried the six-point fall to a business readership on 26 August 2025, reporting none of the study's eleven limitations.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - the URL on the page opens; the gate found a different Fortune article",
+      "decided": "2026-08-30",
+      "reason": "https://fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study — the URL the page cites — returns “By Sasha Rogelberg, Reporter”, “August 26, 2025, 7:00 AM ET”, and the headline “Doctors who used AI assistance in procedures became 20% worse at spotting abnormalities on their own”. The gate searched, landed on a different Rogelberg piece of the same date about Stanford and entry-level employment, and reported not finding ours. Opening the cited URL settles it. Note that reading this article again is what produced the correction now printed in the same paragraph.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "A radiologist writing for trainees paired the colonoscopy result with the mammography experiment in Rad Insights on 15 May 2026.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - the gate is reading an update timestamp",
+      "decided": "2026-08-30",
+      "reason": "The page prints “Josh Decker, MD” and “May 15, 2026 (Updated July 31, 2026)”. The gate's “May 16, 2026” is neither of those; the byline it could not confirm is on the page.",
+      "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

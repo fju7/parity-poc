@@ -358,3 +358,105 @@ rests on an abstract, a review's summary, or somebody else's reading, except the
 as unread and one meta-analysis described as its auditors reported it.
 
 Next: a fresh gate cycle (`--new-cycle`) on a page whose central section is new since any gate saw it.
+
+---
+
+# Page gate, cycle 2 run 2 — adjudication
+
+Draft judged: sha `12e71a9d0207114b4e596667b5fa463fbdf1c27e06d558015522ad0edfd6e7f3`
+Run: 2026-08-30 · 102 claims · 66 VERIFIED, 25 NOT_FOUND, 8 WRONG_VALUE, 1 WRONG_SOURCE, 2 INTERNAL ·
+4 objections · 19 inferences · 24 verdicts carried on `--since`
+Cost: $10.63. **The cycle-2 cap is now spent, 2 of 2.**
+
+## 1. Three findings were real. The page changed.
+
+**Fortune got the study design wrong, and we said nothing false had been printed.**
+The page's own framework is that the Polish endoscopists were measured *during* AI deployment, on the days
+they worked without it — not after the tool was taken away. Fortune's article says, verbatim: *"went from
+detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to
+the AI tools they were introduced to."* Neither half is the study. 28.4% is the rate **before** the AI
+arrived; 22.4% was measured **while** it was in routine use elsewhere in the same rooms. The paragraph
+praised the headline's accuracy and then said nothing false was printed. The headline was accurate. The
+sentence under it commits the exact error this page exists to describe, in a business magazine with a larger
+readership than the journal. Found by the ADVOCATE role, confirmed by opening the article. The page now
+prints Fortune's sentence, the correction, and the fact that we got this wrong first.
+
+**Stanković reported the 55/54 gap; the paper answers it, and we printed only the complaint.**
+The page said the comment "observes that the paper reports 55 completers while analysing 54 *without
+explaining the difference*." Kosmyna et al., read in full today, verbatim: *"55 completed the experiment in
+full... To ensure data distribution, we are here only reporting data from 54 participants (as participants
+were assigned in three groups, see details below)."* The paper explains it. The comment does not address that
+sentence. The page now carries both, and says so. Recorded in S007 under `the_55_and_the_54`.
+
+**The Heudel citation carried the wrong volume.** We cite the proof PDF's running footer, which reads
+"Volume 11 ■ Issue C" above "Available online xxx" — a pre-pagination placeholder. CrossRef's registered
+metadata for the version of record gives volume 12 and no issue. Corrected, with the discrepancy disclosed in
+the source note, because a reader checking the reference would hit exactly this.
+
+Two smaller additions, both strengthening findings the page already had: the Heudel abstract's colonoscopy
+sentence contains a **second** design error in the same breath as the "multicenter randomized trial" one
+(*"reverted to non-AI procedures after repeated AI use"* implies withdrawal; there was none), and the
+paper's title says "scoping review" where its methods say "a narrative review". Also: two of the thirteen
+Norwegian endoscopists ran CADe throughout, and that now appears where the contrast is drawn rather than
+only later.
+
+## 2. The letter stays unread, and stays unprinted.
+
+The gate reported, at SERIOUS, that the Levartovsky and Kopylov abstract is publicly accessible and confirms
+the mischaracterisation, quoting it as describing a decline *"after computer-aided detection introduction and
+subsequent removal."* We went looking. Europe PMC's core record for DOI 10.1016/S2468-1253(25)00289-4 carries
+**no abstract**. PubMed shows none. The Lancet full-text URL returns 403; ScienceDirect is robots-disallowed.
+The exact phrase the gate quoted returns **zero results** on the open web.
+
+So the page does not move. *A gate's quotation of a document neither of us can open is not evidence.*
+This is the same rule as *an unread source is not a source that agrees with us*, pointed the other way —
+and it is the more dangerous direction, because the quotation was plausible, was exactly what we expected to
+find, and would have flattered the page's thesis.
+
+## 3. Everything else was the gate failing to reach documents we hold.
+
+Thirty-three SOURCE verdicts came back NOT_FOUND, WRONG_VALUE or WRONG_SOURCE. **Thirty were access
+failures or misreadings of what the claim asserts.** Each was checked at source today and recorded in
+`draft_decisions.json` with the verbatim sentence, so a future run costs nothing to dismiss:
+
+- **Budzyń** — the accepted manuscript is open access at Warwick WRAP. The eighth limitation carries 795 vs
+  1382, the 734/648 split, and the screening-programme suspension **in one sentence, in the authors' own
+  words**. The gate had the abstract's 648, reasoned that 1,382 must be wrong, and returned WRONG_VALUE on
+  the most load-bearing number on the page. Eleven limitations counted First through Tenth plus "Finally".
+- **Heudel** — the PRISMA flow diagram extracts as text from the publisher's PDF: 432, 41, 37, 373, 332,
+  65, 12. The gate said the numbers were image-only. They are not.
+- **Savardi, Bellahsen-Harrar, Gommers** — the gate checked the underlying papers, found the real figures,
+  and failed the draft for reporting that the review's figures differ from them. That is the draft's point.
+- **Troya, Pedersen, Ingebrigtsen & Lukic, Liu et al.** — every figure verified in PDFs on disk, including
+  1,222 randomised and 1,060 analysed re-derived per experiment (307 + 585 + 168) from v4.
+- **Time, 13 August 2025** — the gate has now returned "March 11, 2026" in three consecutive runs. The page
+  prints "by Miranda Jeyaretnam · Aug 13, 2025 9:45 AM UTC" and does quote Osmani on procedure volume. The
+  decision recorded today says, in terms, *stop spending money on this*.
+- **Rad Insights** — same failure mode: the gate read an "Updated July 31, 2026" timestamp as the dateline.
+
+One gate suspicion deserves its own note. It flagged that 247.89 cm appears twice in the Troya figures and
+said the overlap "would be suspicious if confirmed." It is confirmed, and it is a coincidence in the paper:
+247.89 is the experienced group's distance **without** CADe and the novice group's distance **with** it, to
+two decimals. Checked in the PDF, all four cells.
+
+## 4. What this run says about the machine
+
+This is the question the whole project is really asking, so it is worth stating plainly.
+
+**The gate is good at pointing and bad at concluding.** Its judgement roles — ADVOCATE and the objection
+pass — found two real errors that four human passes, an outside reviewer and six earlier gate runs had all
+walked past, one of which contradicted the page's own central framework. That is the machine doing the thing
+it was built to do, and doing it well.
+
+Its verification role, which returns *verdicts*, was wrong about thirty times out of thirty-three. Not
+randomly wrong: wrong in one direction. It cannot open paywalls, cannot read figures, cannot tell "the
+review says X" from "X is true", and reports all three failures in the same grammar as a finding. A verdict
+is a claim about the world; what it actually produces is a claim about what a search returned.
+
+The practical rule this yields, and it is now the working rule of this publication:
+
+> **Treat the gate's pointing as evidence and its verdicts as questions.** Every verdict is adjudicated
+> against a document opened by hand. The decisions file is what keeps that from being re-paid for.
+
+The uncomfortable half: three of the four real errors caught across this whole issue were caught because a
+person put a PDF in front of it. The machine asks good questions. It cannot yet fetch its own answers.

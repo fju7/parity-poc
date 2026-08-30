@@ -210,17 +210,19 @@
       ],
       "used_for": "54 participants through session 3; session 4 with 18 across two crossover arms; still unreviewed.",
       "access": {
-        "state": "machine_read",
+        "state": "machine_read_full_text",
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
-          "MIT project page and abstract; session-4 participant counts"
+          "MIT project page and abstract; session-4 participant counts",
+          "the full v1 PDF, participants section — the 55/54 sentence read at source on 2026-08-30"
         ],
         "not_read": [
           "the methods section at source; the EEG analysis"
         ],
-        "note": "arXiv id 2506.08872 VERIFIED 2026-08-29. Session-4 methods still to be read at source."
-      }
+        "note": "arXiv id 2506.08872 VERIFIED 2026-08-29. Session-4 methods still to be read at source. Full PDF read 2026-08-30 to settle the 55/54 question."
+      },
+      "the_55_and_the_54": "VERBATIM, from the v1 PDF read in full on 2026-08-30: “55 completed the experiment in full (attending a minimum of three sessions, defined later). To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below).” This matters because the Comment (S019) reports the 55/54 gap and says the exclusion criteria remain unclear. The paper does give a reason, in the sentence above, and the Comment does not address it. The page now prints both."
     },
     {
       "id": "S008",
