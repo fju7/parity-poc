@@ -42,7 +42,8 @@ its qualifications. At the source, it did not.
   wrong more often than right whenever the machine was.
   ----------------------------------------------------------------
 
-The mechanism was measured in 2022, in the same procedure, by people
+The mechanism was measured in 2021 and published in 2022, in the same
+procedure, by people
 who then said what worried them about it. Twenty-one participants
 watched 29 recorded colonoscopy sequences in eye-tracking glasses, each
 sequence once with the AI overlay and once without, three weeks apart.
@@ -76,8 +77,9 @@ nearly three months before we drafted this - Pedersen and colleagues
 published a prospective, multicentre trial in Endoscopy: thirteen
 endoscopists, 5,013 colonoscopies, run in three phases, before the AI,
 during it, and after it was taken away. Among inexperienced
-endoscopists detection rose while the AI ran and returned to baseline
-after it went (odds ratio 1.03, 95% CI 0.79-1.34). Among experienced
+endoscopists detection rose while the AI ran - odds ratio 1.43, 95% CI
+1.11-1.84 - and was back at baseline once it went, at 1.03 on 0.79 to
+1.34, an interval wide enough to be worth stating. Among experienced
 endoscopists there was no significant effect at any phase. Their
 conclusion: "In non-CADe-assisted colonoscopy, no upskilling or
 deskilling was observed following a period of CADe exposure." It is
@@ -88,21 +90,25 @@ withdrawn, while the Polish study measured it DURING a period when
 endoscopists were still using AI on their other lists - so deskilling
 "may be a temporal phenomenon that disappears over time after CADe is
 removed". They call their own endpoint their most important limitation,
-and they narrow their conclusion to less experienced endoscopists.
+and their discussion is narrower than that conclusion: it argues
+against skill erosion "at least for nonexperienced endoscopists", and
+points at the Polish study for the experienced.
 Yuichi Mori is an author of both papers. An outside reviewer found this
 study after our own checks had passed over it twice; the assessment
 says so.
 
-AND THE STUDIES A GENERAL READER HAS ACTUALLY BEEN OFFERED ARE THE WEAK
-ONES. The brain-scan preprint everyone cites had 54 participants, and
-18 in the session carrying its claim about lasting effects; four
-researchers have published a comment noting that its brain
+AND THE STUDIES THAT CIRCULATE IN THE GENERAL ARGUMENT THAT AI IS
+MAKING US WORSE AT THINKING ARE THE WEAK ONES. The brain-scan preprint everyone cites had 54 participants, and
+18 in the session carrying its claim about lasting effects; Stankovic
+and colleagues have published a comment noting that its brain
 measure was relative, so fewer significant connections does not mean
 less activity. The 2011 memory result has two failed replications
 behind it. The famous correlation of -0.68 measured all three of its
 variables by self-report in one instrument. And the most-cited
-meta-analysis on the reassuring side, with more than 500 citations, was
-retracted in April 2026.
+meta-analysis on the other side of that argument - that ChatGPT
+IMPROVES learning, which is a different question from deskilling - was
+retracted in April 2026, with 402 citations on the journal's own
+counter.
 
 Read the full assessment: https://whatholdsup.org/deskilling
 

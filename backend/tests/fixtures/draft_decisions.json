@@ -1298,6 +1298,166 @@
       "decided": "2026-08-30",
       "reason": "The asymmetry the gate names is real but the direction is backwards. Liu et al. is the study on the ALARM side of the ledger — it finds that withdrawing AI degrades unassisted performance — so noting its lack of pre-registration weakens the alarming case, not the reassuring one. The note stays because the page's own Shaw & Nave entry makes a point of being pre-registered, and the contrast is the reason that matters.",
       "what_would_change_it": "Evidence that the paper is pre-registered after all."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "eleven limitations",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The email is a summary and credits no sources; 44 of its 49 claims were checked against 'no source credited in the draft', so most NOT_FOUNDs here are the gate not knowing which paper a figure belongs to rather than failing to find it. Every figure in this email appears on the page, where it is sourced and where publish.py's 'email figures on page' check enforces exactly that. This one is read in the Warwick accepted manuscript and recorded in S021.",
+      "what_would_change_it": "A figure appearing in the email that is not on the page."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "795 to 1,382",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. T. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.he totals are from the paper's own limitation 8 and the email now states total-versus-non-AI explicitly",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "1 January 2022",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. R. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.ead in the accepted manuscript, recorded in S021",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "248.86 cm",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. T. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.roya Table 1, recorded verbatim in S031",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "232.68 cm",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. T. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.roya Table 1, recorded verbatim in S031",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "three weeks apart",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. T. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.roya methods, read in the open-access PDF",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "median of 4 cases without the AI and 6 cases with it",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. T. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.roya body text, read in the PDF",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "373 records",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. H. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.eudel PRISMA diagram, recorded verbatim in S029",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "twelve studies",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. H. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.eudel PRISMA diagram, recorded verbatim in S029",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "eight residents",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. S. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.avardi, read at source and recorded in S030's neighbour entry",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "Yuichi Mori is an author of both papers",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. B. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.oth author lists opened; recorded in attributions.json and S043",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "11 September 2025",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same class: the email credits no sources, so the gate had no document to open. T. The page carries this figure with its source, and publish.py checks that every figure in the email appears on the page.he correction notice itself, read on 2026-08-30 and quoted verbatim in S021",
+      "what_would_change_it": "A figure in the email that is not on the page, or a change to the underlying document."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "about 80%",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The three groups scored 79.7%, 81.3% and 82.3% when the AI was right. 'About 80%' is a fair summary of three figures within 2.6 points of each other, and the point of the sentence is that experience made no difference when the machine was right — which is exactly what those three numbers show. The gate's objection is that no pooled figure is published; none is needed for 'about 80%'.",
+      "what_would_change_it": "The three group figures diverging."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "27.6 years since graduation",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the accepted manuscript: mean 27.6 years since graduation, range 8 to 39. The gate found a secondary summary giving 'mean experience of 28 years' and preferred it to the paper. A rounded figure in an outlet's summary does not correct the paper.",
+      "what_would_change_it": "The paper reporting a different mean."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "three named academics",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate's own COVERAGE role, in this same run, opened the Science Media Centre page and named them: Tucker, a second expert on the three-month window, and Ahmad's companion commentary via the ASCO Post. The page-gate run earlier today named Osmani, Tucker and Menon. Settled twice, inside the machinery.",
+      "what_would_change_it": "The SMC page listing a different number of contributors."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "At the source, it did not [strip the evidence of its qualifications].",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate's COVERAGE role confirms this sentence is accurate and then asks the email to name which outlets failed. The email is a summary; the page does that work, naming Time, the ASCO Post and Healthgrades as outlets that carried the caveats and Fortune and the Nature Reviews highlight as ones that did not. Putting the audit in the email would duplicate the page at the cost of the email's length.",
+      "what_would_change_it": "The page dropping that audit."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",
