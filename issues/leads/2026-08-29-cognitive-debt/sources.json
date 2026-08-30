@@ -824,7 +824,7 @@
       "id": "S031",
       "type": "primary",
       "url": "https://doi.org/10.1055/a-1770-7353",
-      "title": "Troya J, Fitting D, Brand M, et al. — The influence of computer-aided polyp detection systems on reaction time for polyp detection and eye gaze. Endoscopy 2022;54(10):1009-1014.",
+      "title": "Troya J, Fitting D, Brand M, Sudarevic B, Kather JN, Meining A, Hann A — The influence of computer-aided polyp detection systems on reaction time for polyp detection and eye gaze. Endoscopy 2022; 54: 1009-1014. doi 10.1055/a-1770-7353. OPEN ACCESS, CC BY-NC-ND.",
       "also_called": [
         "Troya",
         "the eye gaze study",
@@ -833,18 +833,30 @@
       "used_for": "THE MECHANISM, measured in the right procedure four years before the deskilling result. Per Zhou's description: use of CADe was associated with a significant reduction in eye travel distance compared with non-CADe examinations, and the authors raise deskilling as a possible consequence. It is cited in Budzyn's own reference list.",
       "why_it_matters": "It removes any claim of novelty from the attention hypothesis and replaces it with something better: the narrowing was measured directly, in colonoscopy, by people who then said what it might mean. The piece credits Troya and Zhou rather than proposing anything.",
       "access": {
-        "state": "blocked",
-        "by": "claude",
+        "state": "human_read",
+        "by": "fred",
         "on": "2026-08-29",
         "sections": [
-          "only Zhou's one-sentence description of it"
+          "the whole paper: infographic, abstract, introduction, methods, all results, Tables 1 and 2, the discussion including the deskilling and learning-curve passages, limitations, conclusion, competing interests, funding and references"
         ],
         "not_read": [
-          "everything — participants, design, the eye-travel numbers, the deskilling sentence in the authors' own words"
+          "the online-only supplementary material (Tables 1s, 2s; Figures 1s-4s)"
         ],
-        "note": "Thieme 404s on both routes tried and ResearchGate rate-limited. LOAD-BEARING AND UNREAD: nothing from it may be printed until it is read at source. This is the third document tonight in that position. Further attempts: Thieme 404 on two URL forms, ResearchGate 429, Semantic Scholar disallowed by robots, PubMed served a CAPTCHA. The Würzburg group's own project page (ukw.de, the Hann group, where Troya works) confirms the design — portable eye-tracking glasses, colonoscopy videos, button-press on polyp detection, reaction time and gaze recorded — and that they study how false-positive CADe activations affect inspection patterns and how AI alters 'the learning curve for young endoscopists'. It gives NO numbers. Still unread for anything quantitative."
+        "note": "The operator supplied the PDF after Thieme 404'd on two URL forms, ResearchGate rate-limited, Semantic Scholar was robots-disallowed and PubMed served a CAPTCHA. Fourth document tonight that needed a human."
       },
-      "needs_human_read": true
+      "affiliations": "Interventional and Experimental Endoscopy (InExEn), Internal Medicine II, University Hospital Würzburg; and Department of Medicine III, University Hospital RWTH Aachen. Submitted 19 Sep 2021, accepted 10 Feb 2022, published 14 Feb 2022. Funded by the Bavarian Center for Cancer Research, the IZKF Würzburg and Forum Gesundheitsstandort Baden-Württemberg. No conflicts of interest declared.",
+      "what_it_actually_says": {
+        "design": "NOT LIVE COLONOSCOPY. 21 participants — 10 novice (6 physicians, 4 nurses) and 11 experienced (7 physicians, 4 nurses) — watched 29 recorded colonoscopy video sequences while wearing eye-tracking glasses, pressing a button on detecting a polyp. Crossover design, two assessments with a THREE-WEEK WASHOUT, each participant seeing every video once with and once without CADe overlay. 1,218 experiments. The CADe system was GI Genius (Medtronic), March 2020 version, run without audio cues. 17 videos contained a single polyp; the other 12 contained only false-positive activations, graded mild (<1s), moderate (1-3s) and severe (>3s). Eye-tracking data were analysable for 17 of the 21 — four were excluded because prescription glasses interfered with the device.",
+        "reaction_time": "The CADe system's own first detection time was a median 1.16s (99%CI 0.40-3.43) against participants' 2.97s (2.53-3.77). But participants USING CADe were at 2.90s (2.55-3.38) — statistically indistinguishable from working without it. The machine was faster; the people were not.",
+        "THE_EYE_TRAVEL_NUMBERS": "Table 1, median eye travel distance in cm, 99% CI. All participants, all videos: 248.86 (221.39-282.88) without CADe against 232.68 (210.43-262.33) with, P<0.001. Experienced: 247.89 against 227.09. Novice: 255.66 against 247.89. False-positive-only videos: 368.95 against 329.76.\n\nTHE EFFECT IS REAL AND MODEST — about 6.5% overall, and only about 3% in novices. The piece prints the numbers, not the word 'reduced'.",
+        "misinterpretation_got_WORSE": "Participants falsely identified a polyp in a median of 4 cases (99%CI 2-5) without CADe and 6 cases (4-7) WITH it, P=0.001. Both novices and experienced participants misread normal mucosa more often with the AI. That is mis-skilling in Ke et al.'s sense, measured.",
+        "they_barely_looked_at_the_boxes": "Participants inspected the false-positive bounding boxes for less than half the time the boxes were on screen — 43.79% overall (95%CI 40.71-54.89), novices 49.50%, experienced 42.68%, and lowest of all for the briefest activations.",
+        "their_own_interpretation_verbatim": "'Effort, as expressed by eye travel distance, decreased, and gaze remained more focused, presumably waiting for a bounding box to appear. This might be efficient but risks missing a polyp that is not captured by the system.'",
+        "the_learning_curve_sentence": "'Extrapolating this finding raises the concern that CADe systems may have an impact on the learning curve of colonoscopy trainees by preventing them from developing the visual \"bottom U\" pattern of high-performing endoscopists.' The bottom-U pattern comes from Lami et al., Endoscopy 2018.",
+        "the_deskilling_sentence_verbatim": "Abstract: 'Possible consequences of these findings might be prolonged examination time and deskilling.' Conclusion: '...suggests a potential risk of overreliance and deskilling when these systems are used.' NOTE THE HEDGING — 'possible', 'might', 'potential risk'. They are careful and the piece is careful with them.",
+        "their_stated_limitation": "'Limitations of the study include the experimental design using only short video sequences that were chosen in order to increase the number of voluntary participants.' Twenty-one people watching clips is not twenty-one people doing colonoscopies."
+      },
+      "how_the_piece_uses_it": "As the MECHANISM, credited to Troya and colleagues and to Zhou for proposing it — with its own limits stated in the same breath: a video study of 21 people, a 6.5% change in eye travel, and authors who wrote 'possible' and 'might'. It is not proof that narrowed gaze caused Budzyn's six-point fall. It is the only direct measurement of the thing that would have to be true."
     },
     {
       "id": "S032",
