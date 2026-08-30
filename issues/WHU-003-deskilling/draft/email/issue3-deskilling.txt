@@ -7,7 +7,8 @@ WHAT HAPPENS TO THE EXPERTS FIRST
 There is a widely held sense that using AI is making us worse at
 thinking, and that there is now real evidence for it. The evidence
 usually offered is weak. The best evidence anyone has is real, and
-almost nobody outside medicine has met it.
+almost nobody outside medicine has met it with its qualifications
+intact.
 
 Four endoscopy centres in Poland adopted computer-aided polyp detection
 at the end of 2021. Looking only at the colonoscopies performed WITHOUT
@@ -44,7 +45,8 @@ who then said what worried them about it. Twenty-one participants
 watched 29 recorded colonoscopy sequences in eye-tracking glasses, each
 sequence once with the AI overlay and once without, three weeks apart.
 Median eye travel distance fell from 248.86 cm to 232.68 cm - about
-6.5%, and about 3% among novices. Their reading of it: effort decreased
+6.5% across all participants, about 8% among the experienced and about
+3% among novices. Their reading of it: effort decreased
 and gaze "remained more focused, presumably waiting for a bounding box
 to appear", which "might be efficient but risks missing a polyp that is
 not captured by the system".
@@ -71,7 +73,7 @@ not have a null result, and the assessment says so.
 AND THE STUDIES A GENERAL READER HAS ACTUALLY BEEN OFFERED ARE THE WEAK
 ONES. The brain-scan preprint everyone cites had 54 participants, and
 18 in the session carrying its claim about lasting effects; four
-clinical psychologists have published a comment noting that its brain
+researchers have published a comment noting that its brain
 measure was relative, so fewer significant connections does not mean
 less activity. The 2011 memory result has two failed replications
 behind it. The famous correlation of -0.68 measured all three of its
@@ -96,7 +98,9 @@ turns up nothing is still recorded as a review.
 
 Every figure above comes from the study that produced it, read
 directly. Where we could not read something, the assessment says so
-rather than passing on somebody else's account of it.
+rather than passing on somebody else's account of it - including a
+correction to the colonoscopy study itself, which exists and which we
+have not been able to open.
 
 Published by CivicScale, which sells healthcare software and takes no
 outside investment. Who pays for this:
