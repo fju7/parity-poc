@@ -1111,16 +1111,6 @@
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "ADVOCATE",
-      "quote": "the number of procedures in the second period nearly doubled, from 795 to 1,382",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "Checked against the paper's own limitation 8, which gives 1,382 as the TOTAL number of colonoscopies in the post-AI period — 734 with AI and 648 without — against 795 in the pre-AI period. The gate has 1,382 as the non-AI subset; it is the total. Acting on this finding would have inserted an arithmetic error into the page and, worse, published a correction of a named academic who had it right.",
-      "what_would_change_it": "The published paper's limitation 8 reading differently from the accepted manuscript we hold."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "ADVOCATE",
       "quote": "Professor Venet Osmani of Queen Mary University of London named the volume problem exactly — the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382",
       "severity": "SERIOUS",
       "decision": "accept",
@@ -1458,6 +1448,286 @@
       "decided": "2026-08-30",
       "reason": "The gate's COVERAGE role confirms this sentence is accurate and then asks the email to name which outlets failed. The email is a summary; the page does that work, naming Time, the ASCO Post and Healthgrades as outlets that carried the caveats and Fortune and the Nature Reviews highlight as ones that did not. Putting the audit in the email would duplicate the page at the cost of the email's length.",
       "what_would_change_it": "The page dropping that audit."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Professor Venet Osmani of Queen Mary University of London",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "THIRD RUN TO RAISE THIS, AND WRONG EACH TIME. Opened the Science Media Centre page again on 2026-08-30. Osmani, Professor of Clinical AI and Machine Learning at Queen Mary University of London, is quoted saying BOTH things: 'the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382' AND 'the study suggests a drop in skill over just three months. This is a very short period, especially for a clinician with over 27 years of experience.' The same page also settles the count of named academics: Menon (Hertfordshire), Osmani (QMUL), Tucker (Brunel). Three.",
+      "what_would_change_it": "The SMC page changing what it attributes to him."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Yuichi Mori is an author of both papers",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Both author lists opened. Budzyn: Mori is last-listed, the senior position. Pedersen TA, MORI Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF — second author. The gate could not identify the Pedersen paper at all this run, which is a failure to reach it, not evidence against it; it is PMID 42235541, doi 10.1055/a-2858-7084, and the operator supplied the full text.",
+      "what_would_change_it": "Either author list changing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "247.89 cm to 227.09 cm",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "THIRD RUN. Troya Table 1, recorded verbatim in S031: All participants 248.86 to 232.68 (P<0.001); Experienced 247.89 (209.68-299.26) to 227.09 (192.39-278.32); Novice 255.66 (221.40-297.99) to 247.89 (216.31-266.20). 247.89 genuinely appears twice — the experienced without-CADe median and the novice with-CADe median. Two medians that coincide. The gate has now flagged this as a suspected transcription error in three separate runs; the table is an image in every web rendering it can reach.",
+      "what_would_change_it": "A correction to Troya Table 1."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "255.66 cm to 247.89 cm",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same table, same reason. See the decision on the experienced figures.",
+      "what_would_change_it": "A correction to Troya Table 1."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "5 June 2026",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate matched the wrong trial. It read 'the Norwegian trial' as the NordICC 13-year update in the Lancet (5 May 2026) and concluded the editorial came a month later. The Norwegian trial this page means is Pedersen et al., Endoscopy, published online 3 June 2026 — and the editorial is dated 5 June 2026, which is two days later. Both dates verified: PMID 42250888 and PMID 42235541.",
+      "what_would_change_it": "Either publication date changing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "a valid learning measure was present in 10 of the 19",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the corresponding author's own copy of the published paper on 2026-08-29 and recorded in S006 as a full four-figure breakdown: all three criteria 4/19 (21%), ChatGPT treatment well defined 14/19 (74%), control group well defined 8/19 (42%), learning measure present 10/19 (53%). Those four numbers are what reading an audit table looks like; the gate has the headline 4/19 from a co-author's public summary and infers that nothing else exists. The page now says which copy we read, since the publisher's site refuses us.",
+      "what_would_change_it": "The Wiley version giving different per-criterion counts."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "79.7% and 82.3%",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Not a suppression: the sentence's point is that all three groups scored about the same when the AI was right, and a range is the natural way to say so. Fixed anyway by printing all three — 79.7%, 81.3% and 82.3% — because it costs four words and removes the objection permanently.",
+      "what_would_change_it": "The three figures diverging."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "80–85% and the laboratories at 45",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The page reports what the review says, and the review says 45 to 8. Fixed by printing the pair rather than the starting figure alone.",
+      "what_would_change_it": "The review's own figures changing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "SECOND RUN to give the volume as 12 against our 11. The article's own running footer reads 'Volume 11 [box] Issue C [box] 2026' on all six pages of the PDF the operator supplied. For a citation of the article, the article wins over a publisher landing page.",
+      "what_would_change_it": "A correction to the article's own pagination, or the PDF being revised."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "first 100 procedures per centre",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "eleven limitations",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "432 database records and 41 from grey literature, less 37 duplicates, is 436 rather than the 373 printed",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "373 less 332 excluded is 41 rather than the 65 it then reports assessing",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "November 2021 to June 2025",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "6.8 months of practice in the first phase and 23.8 months by the third",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "median of 4 cases without the AI and 6 cases with it (P = 0.001)",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "43.8% overall",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "55 completers while analysing 54",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "about 19% of it",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "about 10%",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "41 unique entries supported an analysis reporting 44",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "effect sizes of −0.42, −0.19 and −0.42",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the document. Every one of these sits in a paywalled full text, a figure, or a supplementary table that the gate's web tools cannot render, and every one is recorded verbatim or by section in sources.json with what was read and what was not. The '100 procedures' claim is the exception in one respect: the gate quoted a sentence suggesting the exclusion was 100 in total rather than 100 per centre, and since we cannot reopen the full text today the page now says 'the first 100 procedures after AI was introduced', which is true on either reading.",
+      "what_would_change_it": "A reading of the same document giving a different figure."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "13 August 2025",
+      "severity": "WRONG_SOURCE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Opened the Time article on 2026-08-30. The byline is Miranda Jeyaretnam, named as a TIME reporter and appearing several times on the page. Second run to report the surname as unfindable; it is on the article.",
+      "what_would_change_it": "The byline changing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "7 November 2025",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate found the article page dated 10 November and a site-wide news ticker labelling it 'News Nov 7 2025'. Two dates on the publisher's own site. The page cites it as an instance of coverage, not for any figure, and nothing turns on which of the two is canonical. Recorded rather than chased.",
+      "what_would_change_it": "Anything on this page coming to depend on the date."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "What we did find is that none of it crossed the boundary.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
+      "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "Fortune carried the six-point fall to a business readership on 26 August 2025, connected it to an automation analogy and to a Microsoft and Carnegie Mellon study, and reported none of the eleven limitations.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
+      "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "Three named academics said so publicly the day it appeared. Almost none of that survived the trip out of gastroenterology.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
+      "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "COVERAGE",
+      "quote": "A research highlight in Nature Reviews Gastroenterology & Hepatology reported the figures as fact with no limitations and no quotes.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
+      "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

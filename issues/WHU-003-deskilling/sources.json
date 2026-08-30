@@ -1115,7 +1115,8 @@
         ],
         "note": "Read during the page-gate adjudication. The gate had flagged 80-85% against a ~70% primary; checking it also turned up the 45-versus-48 error the gate did not flag."
       },
-      "found_via": "The page gate's WRONG_VALUE finding on the cytology workload figure."
+      "found_via": "The page gate's WRONG_VALUE finding on the cytology workload figure.",
+      "THE_45_VERSUS_48_MISTAKE": "2026-08-30. A gate run noted that NHS Digital's Appendix J records three of 48 laboratories closing before the 2019-20 consolidation, which would reconcile the College's 48 with the review's 45. The page was edited to say so. THAT WAS TAKEN FROM A GATE NOTE AND NOT FROM NHS DIGITAL. The next run opened NHS Digital's own annual report and found it says the shift 'resulted in a consolidation of cytology service to 8 sites from the previous 48', with no mention of earlier closures. The reconciliation was ours, built on a machine's summary of a document nobody had opened — the exact fault this file exists to prevent, committed while acting on a finding about accuracy. Removed. The page now says the two counts differ and we cannot say why."
     },
     {
       "id": "S040",

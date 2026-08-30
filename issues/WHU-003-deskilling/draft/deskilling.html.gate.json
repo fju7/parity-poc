@@ -1,0 +1,2361 @@
+{
+  "draft": "../issues/WHU-003-deskilling/draft/deskilling.html",
+  "sha256": "f5d1c6dcdf3c89602849c2450dbb5682209cc924a87edd75379dd59818a7b34e",
+  "passed": false,
+  "carried": [
+    "27 claim verdict(s) carried forward",
+    "recency carried (0d)",
+    "coverage carried (0d)"
+  ],
+  "checked_at": "2026-08-30",
+  "model": "claude-sonnet-4-6",
+  "usage": {
+    "total": {
+      "calls": 27,
+      "input": 2416420,
+      "output": 64701,
+      "cache_write": 0,
+      "cache_read": 0,
+      "web_searches": 114,
+      "usd": 9.3598,
+      "priced": true
+    },
+    "by_role": {
+      "extract": {
+        "calls": 1,
+        "input": 14631,
+        "output": 13046,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 0,
+        "usd": 0.2396,
+        "priced": true
+      },
+      "source:Budzy\u0144 K, Roma\u0144czyk M, Kitala ": {
+        "calls": 1,
+        "input": 97397,
+        "output": 1558,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 6,
+        "usd": 0.3756,
+        "priced": true
+      },
+      "source:Science Media Centre \u2014 expert ": {
+        "calls": 1,
+        "input": 67471,
+        "output": 1491,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 4,
+        "usd": 0.2648,
+        "priced": true
+      },
+      "source:Heudel PE, Crochet H, Filori Q": {
+        "calls": 1,
+        "input": 167473,
+        "output": 4028,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 8,
+        "usd": 0.6428,
+        "priced": true
+      },
+      "source:Wang DY, Ding J, Sun AL, et al": {
+        "calls": 1,
+        "input": 52736,
+        "output": 1073,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 3,
+        "usd": 0.2043,
+        "priced": true
+      },
+      "source:Rosbach E, Ganz J, Ammeling J,": {
+        "calls": 1,
+        "input": 20506,
+        "output": 697,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.092,
+        "priced": true
+      },
+      "source:Royal College of Pathologists.": {
+        "calls": 1,
+        "input": 19537,
+        "output": 796,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.0906,
+        "priced": true
+      },
+      "source:Savardi M, Signoroni A, Benini": {
+        "calls": 1,
+        "input": 36384,
+        "output": 627,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.1386,
+        "priced": true
+      },
+      "source:Pedersen TA, Mori Y, Botteri E": {
+        "calls": 1,
+        "input": 149155,
+        "output": 2306,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 7,
+        "usd": 0.5521,
+        "priced": true
+      },
+      "source:no source credited in the draf": {
+        "calls": 1,
+        "input": 103397,
+        "output": 2149,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 8,
+        "usd": 0.4224,
+        "priced": true
+      },
+      "source:Troya J, Fitting D, Brand M, e": {
+        "calls": 1,
+        "input": 255658,
+        "output": 3418,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 9,
+        "usd": 0.9082,
+        "priced": true
+      },
+      "source:Gommers JJJ, Verboom SD, Duviv": {
+        "calls": 1,
+        "input": 59092,
+        "output": 1677,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 4,
+        "usd": 0.2424,
+        "priced": true
+      },
+      "source:Dratsch T, Chen X, Rezazade Me": {
+        "calls": 1,
+        "input": 56647,
+        "output": 1953,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 3,
+        "usd": 0.2292,
+        "priced": true
+      },
+      "source:Ke Y, Jin L, Ong JCL, et al. N": {
+        "calls": 1,
+        "input": 17778,
+        "output": 1358,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 1,
+        "usd": 0.0837,
+        "priced": true
+      },
+      "source:Gastroenterology": {
+        "calls": 1,
+        "input": 96670,
+        "output": 1210,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 5,
+        "usd": 0.3582,
+        "priced": true
+      },
+      "source:Kosmyna N, Hauptmann E, Yuan Y": {
+        "calls": 1,
+        "input": 15826,
+        "output": 529,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 1,
+        "usd": 0.0654,
+        "priced": true
+      },
+      "source:Stankovi\u0107 M, Hirche E, Kollatz": {
+        "calls": 1,
+        "input": 152831,
+        "output": 1259,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 6,
+        "usd": 0.5374,
+        "priced": true
+      },
+      "source:Ingebrigtsen M and Lukic M, Ps": {
+        "calls": 1,
+        "input": 229260,
+        "output": 3422,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 8,
+        "usd": 0.8191,
+        "priced": true
+      },
+      "source:Weidlich J, Ga\u0161evi\u0107 D, Drachsl": {
+        "calls": 1,
+        "input": 93523,
+        "output": 1389,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 5,
+        "usd": 0.3514,
+        "priced": true
+      },
+      "source:Liu, Christian, Dumbalska, Bak": {
+        "calls": 1,
+        "input": 150701,
+        "output": 2282,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 6,
+        "usd": 0.5463,
+        "priced": true
+      },
+      "source:Shaw SD, Nave G. Wharton Schoo": {
+        "calls": 1,
+        "input": 44124,
+        "output": 969,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 3,
+        "usd": 0.1769,
+        "priced": true
+      },
+      "source:Jeyaretnam M. Time, 13 August ": {
+        "calls": 1,
+        "input": 84296,
+        "output": 1022,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 4,
+        "usd": 0.3082,
+        "priced": true
+      },
+      "source:The ASCO Post Staff. The ASCO ": {
+        "calls": 1,
+        "input": 15338,
+        "output": 299,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 1,
+        "usd": 0.0605,
+        "priced": true
+      },
+      "source:Greengard S. Communications of": {
+        "calls": 1,
+        "input": 11448,
+        "output": 453,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 1,
+        "usd": 0.0511,
+        "priced": true
+      },
+      "source:Lancet Gastroenterol Hepatol 2": {
+        "calls": 1,
+        "input": 22588,
+        "output": 634,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.0973,
+        "priced": true
+      },
+      "advocate": {
+        "calls": 1,
+        "input": 222860,
+        "output": 10648,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 7,
+        "usd": 0.8983,
+        "priced": true
+      },
+      "inference": {
+        "calls": 1,
+        "input": 159093,
+        "output": 4408,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 6,
+        "usd": 0.6034,
+        "priced": true
+      }
+    },
+    "models": [
+      "claude-sonnet-4-6"
+    ],
+    "prices_checked": "2026-08-28",
+    "prices_source": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "figure": "28.4%",
+      "claim": "The adenoma detection rate in non-AI colonoscopies before AI adoption was 28.4% (226 of 795 procedures).",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c2",
+      "figure": "22.4%",
+      "claim": "The adenoma detection rate in non-AI colonoscopies after AI adoption was 22.4% (145 of 648 procedures).",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c3",
+      "figure": "\u221210.5 to \u22121.6 percentage points",
+      "claim": "The 95% confidence interval for the drop in adenoma detection rate was \u221210.5 to \u22121.6 percentage points.",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c4",
+      "figure": "P = 0.0089",
+      "claim": "The p-value for the drop in adenoma detection rate was 0.0089.",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c5",
+      "figure": "nineteen endoscopists",
+      "claim": "The study involved nineteen endoscopists, each of whom had performed more than 2,000 colonoscopies.",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c6",
+      "figure": "27.6 years since graduation, over a range of 8 to 39",
+      "claim": "The nineteen endoscopists averaged 27.6 years since graduation, over a range of 8 to 39 years.",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c7",
+      "figure": "795 to 1,382",
+      "claim": "The total number of procedures in the second period nearly doubled, from 795 to 1,382.",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c8",
+      "figure": "1 January 2022",
+      "claim": "Poland suspended its colonoscopy-based screening programme on 1 January 2022.",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c9",
+      "figure": "eleven limitations",
+      "claim": "The authors of the colonoscopy deskilling study list eleven limitations of their own.",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c10",
+      "figure": "first 100 procedures per centre",
+      "claim": "The first 100 procedures per centre after AI installation were excluded to allow for familiarisation.",
+      "attributed_to": "Budzy\u0144 K, Roma\u0144czyk M, Kitala D, et al. Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c11",
+      "figure": "12 August 2025",
+      "claim": "The Science Media Centre published three named academics' comments on the colonoscopy study on 12 August 2025, the day the study published.",
+      "attributed_to": "Science Media Centre \u2014 expert reaction to the colonoscopy study, 12 August 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c12",
+      "figure": "Professor Venet Osmani of Queen Mary University of London",
+      "claim": "Professor Venet Osmani of Queen Mary University of London identified the volume problem and argued that three months is too short a window for genuine skill loss in experienced clinicians.",
+      "attributed_to": "Science Media Centre \u2014 expert reaction to the colonoscopy study, 12 August 2025",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c13",
+      "figure": "Professor Allan Tucker of Brunel",
+      "claim": "Professor Allan Tucker of Brunel noted that only one AI system was studied and that randomised crossover trials are needed for firmer claims.",
+      "attributed_to": "Science Media Centre \u2014 expert reaction to the colonoscopy study, 12 August 2025",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c14",
+      "figure": "Dr Catherine Menon of the University of Hertfordshire",
+      "claim": "Dr Catherine Menon of the University of Hertfordshire took the underlying concern about AI deskilling seriously.",
+      "attributed_to": "Science Media Centre \u2014 expert reaction to the colonoscopy study, 12 August 2025",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c15",
+      "figure": "65 articles in full",
+      "claim": "The Heudel scoping review assessed 65 articles in full and included twelve studies.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c16",
+      "figure": "432 database records and 41 from grey literature, less 37 duplicates, is 436 rather than the 373 printed",
+      "claim": "The scoping review's flow diagram does not reconcile: 432 database records plus 41 from grey literature minus 37 duplicates equals 436, not the 373 printed.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c17",
+      "figure": "373 less 332 excluded is 41 rather than the 65 it then reports assessing",
+      "claim": "The scoping review's flow diagram shows 373 minus 332 excluded equals 41, not the 65 articles it reports assessing in full.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c18",
+      "figure": "40 clinicians",
+      "claim": "Wang and colleagues ran a randomised crossover study of 40 clinicians diagnosing anterior cruciate ligament tears on MRI.",
+      "attributed_to": "Wang DY, Ding J, Sun AL, et al. J Am Med Inform Assoc 2023;30(10):1684\u20131692",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c19",
+      "figure": "87.2% to 96.4%",
+      "claim": "AI assistance raised overall diagnostic accuracy from 87.2% to 96.4% in the Wang et al. ACL study.",
+      "attributed_to": "Wang DY, Ding J, Sun AL, et al. J Am Med Inform Assoc 2023;30(10):1684\u20131692",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c20",
+      "figure": "45.5% of the errors made under AI assistance were attributable to automation bias",
+      "claim": "In the Wang et al. study, 45.5% of errors made under AI assistance were attributable to automation bias across all levels of experience.",
+      "attributed_to": "Wang DY, Ding J, Sun AL, et al. J Am Med Inform Assoc 2023;30(10):1684\u20131692",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c21",
+      "figure": "41.7%",
+      "claim": "Selectively withholding AI outputs likely to mislead reduced automation bias by 41.7% in the Wang et al. study.",
+      "attributed_to": "Wang DY, Ding J, Sun AL, et al. J Am Med Inform Assoc 2023;30(10):1684\u20131692",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c22",
+      "figure": "28 trained pathology experts",
+      "claim": "Rosbach and colleagues put 28 trained pathology experts through a diagnostic task with an AI decision-support system.",
+      "attributed_to": "Rosbach E, Ganz J, Ammeling J, Riener A, Aubreville M. arXiv:2411.00998 / arXiv:2603.11821",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c23",
+      "figure": "7% of judgments the pathologists had initially got right were overturned by it",
+      "claim": "In the Rosbach et al. pathology study, 7% of judgments the pathologists had initially got right were overturned by erroneous AI advice.",
+      "attributed_to": "Rosbach E, Ganz J, Ammeling J, Riener A, Aubreville M. arXiv:2411.00998 / arXiv:2603.11821",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c24",
+      "figure": "about 70%",
+      "claim": "England's move to HPV primary screening cut cytology workload by about 70%, on Public Health England's estimate as reported by the Royal College of Pathologists.",
+      "attributed_to": "Royal College of Pathologists. Cervical cancer and human papillomavirus screening in the UK: a cytopathology and histopathology perspective",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c25",
+      "figure": "48 accredited laboratories fell to 8",
+      "claim": "The number of accredited cytology laboratories fell from 48 to 8 following consolidation after the move to HPV primary screening.",
+      "attributed_to": "Royal College of Pathologists. Cervical cancer and human papillomavirus screening in the UK: a cytopathology and histopathology perspective",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c26",
+      "figure": "80\u201385% and the laboratories at 45",
+      "claim": "The Heudel scoping review gives the cytology workload cut as 80\u201385% and the number of laboratories as 45.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c27",
+      "figure": "32 radiology residents gaining 12 percentage points of sensitivity, reading 18% faster, and holding that performance at a three-month follow-up",
+      "claim": "The Heudel scoping review summarises the Savardi study as showing 32 radiology residents gaining 12 percentage points of sensitivity, reading 18% faster, and holding performance at a three-month follow-up.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c28",
+      "figure": "eight radiologists in training",
+      "claim": "The Savardi et al. paper has eight radiologists in training, not 32 as reported by the scoping review.",
+      "attributed_to": "Savardi M, Signoroni A, Benini S, et al. Insights into Imaging 2025;16:23",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c29",
+      "figure": "150 chest X-rays",
+      "claim": "In the Savardi study, eight trainees scored 150 chest X-rays for COVID-19 severity across three conditions.",
+      "attributed_to": "Savardi M, Signoroni A, Benini S, et al. Insights into Imaging 2025;16:23",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c30",
+      "figure": "intraclass correlation of 0.665 without AI to 0.813 with it integrated",
+      "claim": "In the Savardi study, agreement between readers rose from an intraclass correlation of 0.665 without AI to 0.813 with it integrated.",
+      "attributed_to": "Savardi M, Signoroni A, Benini S, et al. Insights into Imaging 2025;16:23",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c31",
+      "figure": "70% of cases",
+      "claim": "In the Savardi study, residents asked for the AI in 70% of cases.",
+      "attributed_to": "Savardi M, Signoroni A, Benini S, et al. Insights into Imaging 2025;16:23",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c32",
+      "figure": "3 June 2026",
+      "claim": "Pedersen and colleagues published their prospective, multicentre, registry-based trial in Endoscopy on 3 June 2026.",
+      "attributed_to": "Pedersen TA, Mori Y, Botteri E, et al. Endoscopy 2026;58:1003\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c33",
+      "figure": "thirteen endoscopists, 5,013 colonoscopies",
+      "claim": "The Pedersen et al. trial involved thirteen endoscopists and 5,013 colonoscopies.",
+      "attributed_to": "Pedersen TA, Mori Y, Botteri E, et al. Endoscopy 2026;58:1003\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c34",
+      "figure": "31.9% (216 of 678) to 39.5% (257 of 651)",
+      "claim": "Among inexperienced endoscopists, detection of at least one polyp of 5 mm or more rose from 31.9% (216 of 678) to 39.5% (257 of 651) while the AI was running.",
+      "attributed_to": "Pedersen TA, Mori Y, Botteri E, et al. Endoscopy 2026;58:1003\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c35",
+      "figure": "odds ratio of 1.43 on a 95% confidence interval of 1.11 to 1.84",
+      "claim": "The odds ratio for the rise in polyp detection among inexperienced endoscopists during AI use was 1.43 on a 95% confidence interval of 1.11 to 1.84.",
+      "attributed_to": "Pedersen TA, Mori Y, Botteri E, et al. Endoscopy 2026;58:1003\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c36",
+      "figure": "36.3% (173 of 476)",
+      "claim": "After the AI was removed, polyp detection among inexperienced endoscopists was 36.3% (173 of 476).",
+      "attributed_to": "Pedersen TA, Mori Y, Botteri E, et al. Endoscopy 2026;58:1003\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c37",
+      "figure": "adjusted odds ratio of 1.03, on 0.79 to 1.34",
+      "claim": "After AI removal, the adjusted odds ratio for polyp detection among inexperienced endoscopists was 1.03 on 0.79 to 1.34, indicating no change from baseline.",
+      "attributed_to": "Pedersen TA, Mori Y, Botteri E, et al. Endoscopy 2026;58:1003\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c38",
+      "figure": "November 2021 to June 2025",
+      "claim": "The Pedersen et al. trial ran from November 2021 to June 2025.",
+      "attributed_to": "Pedersen TA, Mori Y, Botteri E, et al. Endoscopy 2026;58:1003\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c39",
+      "figure": "6.8 months of practice in the first phase and 23.8 months by the third",
+      "claim": "The inexperienced endoscopists in the Pedersen trial averaged 6.8 months of practice in the first phase and 23.8 months by the third.",
+      "attributed_to": "Pedersen TA, Mori Y, Botteri E, et al. Endoscopy 2026;58:1003\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c40",
+      "figure": "Yuichi Mori is an author of both papers",
+      "claim": "Yuichi Mori is the senior author of the Polish deskilling study and a co-author of the Pedersen prospective study.",
+      "attributed_to": null,
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c41",
+      "figure": "21 participants \u2014 ten novices and eleven experienced staff",
+      "claim": "The Troya et al. eye-tracking study involved 21 participants \u2014 ten novices and eleven experienced staff.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c42",
+      "figure": "29 recorded colonoscopy sequences",
+      "claim": "In the Troya study, participants watched 29 recorded colonoscopy sequences.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c43",
+      "figure": "three-week washout",
+      "claim": "The Troya study used a crossover design with a three-week washout between assessments.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c44",
+      "figure": "1,218 experiments",
+      "claim": "The Troya study produced 1,218 experiments in all.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c45",
+      "figure": "248.86 cm to 232.68 cm (P < 0.001)",
+      "claim": "With the AI running, median eye travel distance fell from 248.86 cm to 232.68 cm (P < 0.001) across all participants.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c46",
+      "figure": "247.89 cm to 227.09 cm",
+      "claim": "Among experienced participants, eye travel distance fell from 247.89 cm to 227.09 cm with AI.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c47",
+      "figure": "255.66 cm to 247.89 cm",
+      "claim": "Among novice participants, eye travel distance fell from 255.66 cm to 247.89 cm with AI.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c48",
+      "figure": "median 1.16 seconds against 2.97",
+      "claim": "The AI system detected polyps faster than people did \u2014 a median 1.16 seconds against 2.97 seconds for participants.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c49",
+      "figure": "2.90 seconds",
+      "claim": "Participants using the AI were no faster than those working without it \u2014 2.90 seconds versus 2.97 seconds.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c50",
+      "figure": "median of 4 cases without the AI and 6 cases with it (P = 0.001)",
+      "claim": "Participants falsely identified a polyp in a median of 4 cases without the AI and 6 cases with it (P = 0.001).",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c51",
+      "figure": "43.8% overall",
+      "claim": "Participants inspected the AI's false-positive boxes for only 43.8% of the time those boxes were on screen.",
+      "attributed_to": "Troya J, Fitting D, Brand M, et al. Endoscopy 2022;54:1009\u20131014",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c52",
+      "figure": "12 radiologists across 150 screening mammograms",
+      "claim": "Gommers and colleagues eye-tracked 12 radiologists across 150 screening mammograms.",
+      "attributed_to": "Gommers JJJ, Verboom SD, Duvivier KM, et al. Radiology 2025;316(1):e243688",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c53",
+      "figure": "area under the curve rising from 0.93 to 0.97",
+      "claim": "With AI support, radiologists' accuracy improved with area under the curve rising from 0.93 to 0.97 in the Gommers study.",
+      "attributed_to": "Gommers JJJ, Verboom SD, Duvivier KM, et al. Radiology 2025;316(1):e243688",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c54",
+      "figure": "11.1% to 9.5%",
+      "claim": "The share of the breast covered by radiologists' fixations fell from 11.1% to 9.5% with AI support in the Gommers study.",
+      "attributed_to": "Gommers JJJ, Verboom SD, Duvivier KM, et al. Radiology 2025;316(1):e243688",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c55",
+      "figure": "4.4 to 5.4 seconds",
+      "claim": "Dwell time inside lesion regions rose from 4.4 to 5.4 seconds with AI support in the Gommers study.",
+      "attributed_to": "Gommers JJJ, Verboom SD, Duvivier KM, et al. Radiology 2025;316(1):e243688",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c56",
+      "figure": "27 radiologists",
+      "claim": "Dratsch and colleagues showed 27 radiologists a set of mammograms alongside AI-generated BI-RADS category suggestions.",
+      "attributed_to": "Dratsch T, Chen X, Rezazade Mehrizi M, et al. Radiology 2023;307(4):e222176",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c57",
+      "figure": "ten cases carried correct suggestions \u2026 twelve were wrong",
+      "claim": "In the Dratsch study, the first ten cases carried correct AI suggestions, and twelve of the remaining forty were wrong.",
+      "attributed_to": "Dratsch T, Chen X, Rezazade Mehrizi M, et al. Radiology 2023;307(4):e222176",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c58",
+      "figure": "79.7% and 82.3%",
+      "claim": "When the AI's suggestion was correct, all three experience groups performed similarly, scoring roughly 79.7% to 82.3%.",
+      "attributed_to": "Dratsch T, Chen X, Rezazade Mehrizi M, et al. Radiology 2023;307(4):e222176",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c59",
+      "figure": "19.8% if inexperienced, 24.8% if moderately experienced, and 45.5% if very experienced",
+      "claim": "When the AI's suggestion was incorrect, readers scored 19.8% if inexperienced, 24.8% if moderately experienced, and 45.5% if very experienced.",
+      "attributed_to": "Dratsch T, Chen X, Rezazade Mehrizi M, et al. Radiology 2023;307(4):e222176",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c60",
+      "figure": "standard deviations of 14.0, 11.6 and 9.1",
+      "claim": "The standard deviations for the three experience groups' scores when AI was wrong were 14.0, 11.6 and 9.1 respectively.",
+      "attributed_to": "Dratsch T, Chen X, Rezazade Mehrizi M, et al. Radiology 2023;307(4):e222176",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c61",
+      "figure": "Nature Medicine in 2026 \u2014 online in May, in the June issue",
+      "claim": "Ke and fifteen colleagues published their three-way distinction paper in Nature Medicine in 2026, online in May, in the June issue.",
+      "attributed_to": "Ke Y, Jin L, Ong JCL, et al. Nature Medicine 2026;32(6)",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c62",
+      "figure": "5 June 2026",
+      "claim": "Gastroenterology published an editorial by Weinberg and Bretthauer on 5 June 2026, two days after the Norwegian trial appeared.",
+      "attributed_to": "Gastroenterology",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c63",
+      "figure": "Michael Bretthauer is an author of the Polish deskilling study",
+      "claim": "Michael Bretthauer is an author of the Polish deskilling study.",
+      "attributed_to": null,
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c64",
+      "figure": "54 participants completed its first three sessions; the fourth session \u2026 had eighteen",
+      "claim": "The MIT Media Lab preprint had 54 participants through the first three sessions and only 18 in the fourth session.",
+      "attributed_to": "Kosmyna N, Hauptmann E, Yuan YT, et al. arXiv 2506.08872",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c65",
+      "figure": "June 2025",
+      "claim": "The MIT Media Lab preprint 'Your Brain on ChatGPT' has been a preprint since June 2025.",
+      "attributed_to": "Kosmyna N, Hauptmann E, Yuan YT, et al. arXiv 2506.08872",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c66",
+      "figure": "roughly 159 participants would have been needed for adequate power",
+      "claim": "A comment by four researchers at Vienna and Dresden calculates that roughly 159 participants would have been needed for adequate power in the MIT preprint.",
+      "attributed_to": "Stankovi\u0107 M, Hirche E, Kollatzsch S, Doetsch JN. arXiv 2601.00856",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c67",
+      "figure": "55 completers while analysing 54",
+      "claim": "The MIT preprint reports 55 completers while analysing 54 without explaining the difference.",
+      "attributed_to": "Stankovi\u0107 M, Hirche E, Kollatzsch S, Doetsch JN. arXiv 2601.00856",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c68",
+      "figure": "89 participants of 117 recruited",
+      "claim": "Hesselmann's 2020 replication analysed 89 participants of 117 recruited.",
+      "attributed_to": "Hesselmann G. PeerJ 2020;8:e10325",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c69",
+      "figure": "about five times more likely under the null than under the alternative",
+      "claim": "Hesselmann's replication found the data were about five times more likely under the null than under the alternative.",
+      "attributed_to": "Hesselmann G. PeerJ 2020;8:e10325",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c70",
+      "figure": "about sixteen times more likely when tested against the original's specific predicted pattern",
+      "claim": "Hesselmann's replication found the data were about sixteen times more likely under the null when tested against the original's specific predicted pattern.",
+      "attributed_to": "Hesselmann G. PeerJ 2020;8:e10325",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c71",
+      "figure": "\u22120.68 between AI use and critical thinking",
+      "claim": "Gerlich's 2025 study found a correlation of \u22120.68 between AI use and critical thinking.",
+      "attributed_to": "Gerlich M. Societies 2025;15(1):6",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c72",
+      "figure": "666 people recruited through social media in the UK",
+      "claim": "Gerlich's 2025 study surveyed 666 people recruited through social media in the UK.",
+      "attributed_to": "Gerlich M. Societies 2025;15(1):6",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c73",
+      "figure": "\u22120.68, +0.72 and \u22120.75",
+      "claim": "The three correlations among AI use, cognitive offloading and critical thinking in Gerlich's study are uniformly strong: \u22120.68, +0.72 and \u22120.75.",
+      "attributed_to": "Gerlich M. Societies 2025;15(1):6",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c74",
+      "figure": "10 September 2025",
+      "claim": "Gerlich's paper carries a published correction of 10 September 2025, in which Table 4 had duplicated Table 3 and was replaced.",
+      "attributed_to": "Gerlich M. Societies 2025;15(1):6",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c75",
+      "figure": "402 citations and 546,000 accesses",
+      "claim": "The most-cited meta-analysis finding that ChatGPT improves learning had 402 citations and 546,000 accesses on the journal's own counters when checked on 30 August 2026.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c76",
+      "figure": "22 April 2026",
+      "claim": "The most-cited meta-analysis finding that ChatGPT improves learning was retracted by its journal on 22 April 2026.",
+      "attributed_to": "Retraction Note, Humanities and Social Sciences Communications, 22 April 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c77",
+      "figure": "July 2025",
+      "claim": "Two researchers at the Arctic University of Norway documented the problems with the meta-analysis publicly in July 2025, nine months before the retraction.",
+      "attributed_to": "Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c78",
+      "figure": "about 19% of it",
+      "claim": "The study carrying the greatest weight in the retracted meta-analysis, about 19% of it, had itself been retracted two months before the meta-analysis was published.",
+      "attributed_to": "Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c79",
+      "figure": "about 10%",
+      "claim": "The second heaviest study in the retracted meta-analysis, about 10% of its weight, measured self-efficacy and technology acceptance rather than learning.",
+      "attributed_to": "Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c80",
+      "figure": "41 unique entries supported an analysis reporting 44",
+      "claim": "A table listing 41 unique entries in the retracted meta-analysis supported an analysis reporting 44.",
+      "attributed_to": "Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c81",
+      "figure": "36 students a single shared grade per group \u2026 effect size of 4.009",
+      "claim": "One included study in the retracted meta-analysis gave 36 students a single shared grade per group and was entered as though each had an individual score, producing an effect size of 4.009.",
+      "attributed_to": "Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c82",
+      "figure": "about 36% of included studies",
+      "claim": "Effect sizes above 1 appeared in about 36% of included studies in the retracted meta-analysis.",
+      "attributed_to": "Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c83",
+      "figure": "four of nineteen comparisons met three basic criteria",
+      "claim": "Four learning scientists found that of 19 comparisons in the next-most-cited synthesis, four met three basic criteria: a well-defined treatment, an adequately described control, and a valid learning measure.",
+      "attributed_to": "Weidlich J, Ga\u0161evi\u0107 D, Drachsler H, Kirschner PA. J Comput Assist Learn 2025;41:e70105",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c84",
+      "figure": "a valid learning measure was present in 10 of the 19",
+      "claim": "A valid learning measure was present in only 10 of the 19 comparisons audited by Weidlich and colleagues.",
+      "attributed_to": "Weidlich J, Ga\u0161evi\u0107 D, Drachsler H, Kirschner PA. J Comput Assist Learn 2025;41:e70105",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c85",
+      "figure": "1,222 people randomised, 1,060 analysed",
+      "claim": "Three randomised experiments had 1,222 people randomised and 1,060 analysed.",
+      "attributed_to": "Liu, Christian, Dumbalska, Bakker & Dubey. arXiv 2604.04721",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c86",
+      "figure": "effect sizes of \u22120.42, \u22120.19 and \u22120.42",
+      "claim": "Unassisted solve rates fell at effect sizes of \u22120.42, \u22120.19 and \u22120.42 across the three experiments after AI was withdrawn.",
+      "attributed_to": "Liu, Christian, Dumbalska, Bakker & Dubey. arXiv 2604.04721",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c87",
+      "figure": "1,372 participants across 9,593 trials",
+      "claim": "Three pre-registered experiments involved 1,372 participants across 9,593 trials randomising whether an AI assistant's answer was right or wrong.",
+      "attributed_to": "Shaw SD, Nave G. Wharton School Research Paper, February 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c88",
+      "figure": "79.8% of the trials where it was wrong",
+      "claim": "Participants consulted the AI on more than half of trials and, having consulted it, followed it on 79.8% of the trials where it was wrong.",
+      "attributed_to": "Shaw SD, Nave G. Wharton School Research Paper, February 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c89",
+      "figure": "11.7 percentage points",
+      "claim": "Access to the AI raised participants' confidence by 11.7 percentage points while about half its answers were faulty.",
+      "attributed_to": "Shaw SD, Nave G. Wharton School Research Paper, February 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c90",
+      "figure": "13 August 2025",
+      "claim": "Time carried the colonoscopy study story on 13 August 2025, quoting Professor Osmani and Professor Tucker.",
+      "attributed_to": "Jeyaretnam M. Time, 13 August 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c91",
+      "figure": "13 August 2025",
+      "claim": "The ASCO Post reported on the colonoscopy study on 13 August 2025.",
+      "attributed_to": "The ASCO Post Staff. The ASCO Post, 13 August 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c92",
+      "figure": "26 August 2025",
+      "claim": "Fortune carried the six-point fall to a business readership on 26 August 2025.",
+      "attributed_to": "Rogelberg S. Fortune, 26 August 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c93",
+      "figure": "doctors became 20% worse at spotting abnormalities on their own",
+      "claim": "Fortune's headline put the result as doctors becoming 20% worse at spotting abnormalities on their own.",
+      "attributed_to": "Rogelberg S. Fortune, 26 August 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c94",
+      "figure": "5 September 2025",
+      "claim": "A research highlight in Nature Reviews Gastroenterology & Hepatology labelled the study observational and retrospective on 5 September 2025.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c95",
+      "figure": "7 November 2025",
+      "claim": "Communications of the ACM published 'The AI Deskilling Paradox' on 7 November 2025.",
+      "attributed_to": "Greengard S. Communications of the ACM, 7 November 2025",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c96",
+      "figure": "multicenter randomized trial",
+      "claim": "The Heudel scoping review's abstract describes the colonoscopy deskilling study as 'a multicenter randomized trial', when it is in fact a retrospective observational study.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c97",
+      "figure": "over 30% of participants reversed correct initial diagnoses",
+      "claim": "The Heudel scoping review's abstract reports that over 30% of participants reversed correct initial diagnoses in a pathology experiment under time pressure, while its body puts the same study at 7% of judgments.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c98",
+      "figure": "27 radiologists interpreting 720 mammograms \u2026 reference 16 \u2026 2025 paper \u2026 12 radiologists and 150 mammograms",
+      "claim": "The Heudel scoping review's radiology section describes a 2023 reader study of 27 radiologists and 720 mammograms but attaches it to reference 16, which is a different 2025 paper with 12 radiologists and 150 mammograms.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c99",
+      "figure": "11 September 2025",
+      "claim": "The Budzy\u0144 et al. colonoscopy study carries a correction published online 11 September 2025.",
+      "attributed_to": "Lancet Gastroenterol Hepatol 2025;10(11):e12, doi 10.1016/S2468-1253(25)00294-8",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c100",
+      "figure": "December 2024 preprint",
+      "claim": "The December 2024 preprint of the colonoscopy deskilling study used stronger language than the published version, saying 'reduced' and 'a negative impact on endoscopist performance' rather than 'may reduce' and 'behaviour'.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c101",
+      "figure": "Sixteen authors in all, across Duke-NUS, King's College London, Harvard and others",
+      "claim": "The Ke et al. Nature Medicine paper has sixteen authors in all, across Duke-NUS, King's College London, Harvard and others.",
+      "attributed_to": "Ke Y, Jin L, Ong JCL, et al. Nature Medicine 2026;32(6)",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c102",
+      "figure": "Bellahsen-Harrar and colleagues, PLOS ONE 2025;20(8):e0323270, which studied eight pathologists",
+      "claim": "The Heudel scoping review's Table 1 attaches the 28 pathologists and 7% figure to Bellahsen-Harrar et al. PLOS ONE 2025, which studied eight pathologists and reports no such figure.",
+      "attributed_to": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c103",
+      "figure": "15 May 2026",
+      "claim": "Decker J published 'When AI Reads the Easy Cases' in Rad Insights on 15 May 2026.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c104",
+      "figure": "three of the 48 accredited laboratories had already closed before the 2019\u201320 consolidation",
+      "claim": "NHS Digital records that three of the 48 accredited cytology laboratories had already closed before the 2019\u201320 consolidation, so 48 is the starting number and 45 the number still open when it happened.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    }
+  ],
+  "verdicts": {
+    "c1": {
+      "id": "c1",
+      "verdict": "VERIFIED",
+      "found_value": "28\u00b74% (226 of 795) before AI exposure",
+      "actual_source": "Budzy\u0144 et al., Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903 (abstract visible at thelancet.com and sciencedirect.com)",
+      "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00133-5/abstract",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c2": {
+      "id": "c2",
+      "verdict": "VERIFIED",
+      "found_value": "22\u00b74% (145 of 648) after AI exposure",
+      "actual_source": "Budzy\u0144 et al., Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903 (abstract visible at thelancet.com and sciencedirect.com)",
+      "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00133-5/abstract",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c3": {
+      "id": "c3",
+      "verdict": "VERIFIED",
+      "found_value": "95% CI \u201310\u00b75 to \u20131\u00b76",
+      "actual_source": "Budzy\u0144 et al., Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903 (abstract visible at thelancet.com and sciencedirect.com)",
+      "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00133-5/abstract",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c4": {
+      "id": "c4",
+      "verdict": "VERIFIED",
+      "found_value": "p=0\u00b70089",
+      "actual_source": "Budzy\u0144 et al., Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903 (abstract visible at thelancet.com and sciencedirect.com)",
+      "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00133-5/abstract",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c5": {
+      "id": "c5",
+      "verdict": "VERIFIED",
+      "found_value": "19 endoscopists, each having performed more than 2,000 colonoscopies",
+      "actual_source": "Confirmed in multiple secondary sources citing the paper (Healio, ASCO Post, healthcare-in-europe.com), all drawing from the published article",
+      "url": "https://www.healio.com/news/gastroenterology/20250904/stay-vigilant-routine-exposure-to-ai-may-reduce-adr-in-standard-colonoscopy",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c6": {
+      "id": "c6",
+      "verdict": "VERIFIED",
+      "found_value": "Mean experience of 27.6 years (range, 8\u201339)",
+      "actual_source": "Healio report citing the published paper directly",
+      "url": "https://www.healio.com/news/gastroenterology/20250904/stay-vigilant-routine-exposure-to-ai-may-reduce-adr-in-standard-colonoscopy",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c11": {
+      "id": "c11",
+      "verdict": "VERIFIED",
+      "found_value": "The SMC page is dated 12 August 2025 and quotes three named academics: Dr. Catherine Menon (University of Hertfordshire), Prof. Venet Osmani (Queen Mary University of London), and Prof. Allan Tucker (Brunel University London).",
+      "actual_source": "Science Media Centre expert reaction page, 12 August 2025",
+      "url": "https://www.sciencemediacentre.org/expert-reaction-to-observational-study-looking-at-detection-rate-of-precancerous-growths-in-colonoscopies-by-health-professionals-who-perform-them-before-and-after-the-routine-introduction-of-ai/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c18": {
+      "id": "c18",
+      "verdict": "VERIFIED",
+      "found_value": "Forty clinicians were invited to diagnose 200 ACLs with and without AI assistance, in a randomized cross-over design",
+      "actual_source": "Wang DY et al. J Am Med Inform Assoc 2023;30(10):1684\u20131692 (PMC10531198)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10531198/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c29": {
+      "id": "c29",
+      "verdict": "VERIFIED",
+      "found_value": "eight residents evaluating 150 CXRs in three scenarios: no AI, on-demand AI, and integrated-AI",
+      "actual_source": "Savardi M et al. Insights into Imaging 2025;16:23 \u2014 abstract, Materials and methods",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11780016/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c30": {
+      "id": "c30",
+      "verdict": "VERIFIED",
+      "found_value": "increase in inter-rater correlation from 0.665 to 0.813 across scenarios",
+      "actual_source": "Savardi M et al. Insights into Imaging 2025;16:23 \u2014 page 8 of 11 (ResearchGate full-text PDF)",
+      "url": "https://www.researchgate.net/publication/388516385_Upskilling_or_deskilling_Measurable_role_of_an_AI-supported_training_for_radiology_residents_a_lesson_from_the_pandemic",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c31": {
+      "id": "c31",
+      "verdict": "VERIFIED",
+      "found_value": "Residents required AI in 70% of cases when left free to choose",
+      "actual_source": "Savardi M et al. Insights into Imaging 2025;16:23 \u2014 abstract, Results; also confirmed in PubMed abstract and Springer landing page",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39881013/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c43": {
+      "id": "c43",
+      "verdict": "VERIFIED",
+      "found_value": "3-week washout period between the two assessments",
+      "actual_source": "Troya J et al. Endoscopy 2022;54:1009\u20131014 (Thieme full text)",
+      "url": "https://www.thieme-connect.com/products/ejournals/html/10.1055/a-1770-7353",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c44": {
+      "id": "c44",
+      "verdict": "VERIFIED",
+      "found_value": "1218 experiments",
+      "actual_source": "Troya J et al. Endoscopy 2022;54:1009\u20131014 (Thieme abstract and full text)",
+      "url": "https://www.thieme-connect.com/products/ejournals/html/10.1055/a-1770-7353",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c68": {
+      "id": "c68",
+      "verdict": "VERIFIED",
+      "found_value": "N = 89 participants analysed (out of N = 117 recruited)",
+      "actual_source": "Hesselmann G. PeerJ 2020;8:e10325 (peerj.com/articles/10325/ and PMC7651475)",
+      "url": "https://peerj.com/articles/10325/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c69": {
+      "id": "c69",
+      "verdict": "VERIFIED",
+      "found_value": "BF01 = 5.07; the paper states 'The observed data are thus 5 times more likely under the null model than under the alternative model'",
+      "actual_source": "Hesselmann G. PeerJ 2020;8:e10325 (peerj.com/articles/10325/ and PMC7651475)",
+      "url": "https://peerj.com/articles/10325/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c70": {
+      "id": "c70",
+      "verdict": "VERIFIED",
+      "found_value": "BF0+ = 16.43; the paper states 'our data were 16 times more likely under the null model' when the original study's specific data pattern was used as the alternative model in an exploratory analysis",
+      "actual_source": "Hesselmann G. PeerJ 2020;8:e10325 (peerj.com/articles/10325/ and PMC7651475)",
+      "url": "https://peerj.com/articles/10325/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c71": {
+      "id": "c71",
+      "verdict": "VERIFIED",
+      "found_value": "r = \u22120.68 between AI tool use and critical thinking",
+      "actual_source": "Gerlich M. Societies 2025;15(1):6 (MDPI full-text page)",
+      "url": "https://www.mdpi.com/2075-4698/15/1/6",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c72": {
+      "id": "c72",
+      "verdict": "VERIFIED",
+      "found_value": "666 participants; sample promoted online in the UK on different social media platforms",
+      "actual_source": "Gerlich M. Societies 2025;15(1):6 \u2014 methods section (reproduced via Studocu and confirmed on MDPI page)",
+      "url": "https://www.mdpi.com/2075-4698/15/1/6",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c73": {
+      "id": "c73",
+      "verdict": "VERIFIED",
+      "found_value": "AI use vs. critical thinking r = \u22120.68; AI use vs. cognitive offloading r = +0.72; cognitive offloading vs. critical thinking r = \u22120.75",
+      "actual_source": "Gerlich M. Societies 2025;15(1):6, as reported in phys.org press coverage quoting the paper's results directly",
+      "url": "https://phys.org/news/2025-01-ai-linked-eroding-critical-skills.html",
+      "note": "All three figures confirmed: \u22120.68 appears on the MDPI page itself; +0.72 and \u22120.75 appear in phys.org's direct quotation of the paper's results. No conflicting values found in any source.",
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c74": {
+      "id": "c74",
+      "verdict": "VERIFIED",
+      "found_value": "Correction published 10 September 2025 (Societies 2025, 15(9), 252); Table 4 was a duplicate of Table 3 and was replaced",
+      "actual_source": "MDPI article page for Societies 2025;15(1):6 and ResearchGate PDF of the correction notice",
+      "url": "https://www.mdpi.com/2075-4698/15/1/6",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c76": {
+      "id": "c76",
+      "verdict": "VERIFIED",
+      "found_value": "Retraction Note published April 22, 2026, in Humanities and Social Sciences Communications (Wang, J., Fan, W. Humanit Soc Sci Commun 13, 528 (2026), doi:10.1057/s41599-026-07310-z)",
+      "actual_source": "Retraction Note, Humanities and Social Sciences Communications, Nature Portfolio \u2014 https://www.nature.com/articles/s41599-026-07310-z; corroborated by the retracted original article page at https://www.nature.com/articles/s41599-025-04787-y (dated April 22, 2026)",
+      "url": "https://www.nature.com/articles/s41599-026-07310-z",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c83": {
+      "id": "c83",
+      "verdict": "VERIFIED",
+      "found_value": "Only four comparisons (21%) satisfied all three criteria, out of 19 comparisons audited",
+      "actual_source": "Weidlich J et al., J Comput Assist Learn 2025;41:e70105, confirmed at https://onlinelibrary.wiley.com/doi/10.1111/jcal.70105",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/jcal.70105",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c87": {
+      "id": "c87",
+      "verdict": "VERIFIED",
+      "found_value": "Three pre-registered experiments with 1,372 participants across 9,593 trials",
+      "actual_source": "Shaw & Nave, 'Thinking\u2014Fast, Slow, and Artificial,' PsyArXiv/SSRN (January 12, 2026), corroborated by OSF preprint page and multiple secondary sources citing the paper directly",
+      "url": "https://osf.io/preprints/psyarxiv/yk25n_v1",
+      "note": "The figures 1,372 participants and 9,593 trials are confirmed across the OSF preprint abstract and multiple independent secondary sources. However, the draft's attributed date of 'February 2026' is wrong \u2014 the preprint was posted January 12, 2026, per the OSF page and The Next Web's coverage.",
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c88": {
+      "id": "c88",
+      "verdict": "VERIFIED",
+      "found_value": "On chat-engaged faulty trials, 79.8% of responses followed the AI's incorrect suggestion",
+      "actual_source": "Shaw & Nave preprint, as reproduced in the datachutney.io interactive explainer and confirmed by Futurism's direct coverage of the paper",
+      "url": "https://datachutney.io/cognitive-surrender-explainer/",
+      "note": "The 79.8% figure is real and sourced from the paper, but it applies specifically to chat-engaged faulty trials (i.e., trials where participants actually consulted the AI and the AI was wrong), not to all trials where the AI was wrong. The draft's phrasing 'trials where it was wrong' omits this chat-engagement qualifier, which is a meaningful restriction.",
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c92": {
+      "id": "c92",
+      "verdict": "VERIFIED",
+      "found_value": "Fortune article dated August 26, 2025, at fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study/",
+      "actual_source": "Fortune (Sasha Rogelberg), 26 August 2025",
+      "url": "https://fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c93": {
+      "id": "c93",
+      "verdict": "VERIFIED",
+      "found_value": "Fortune's headline reads: 'Doctors who used AI assistance in procedures became 20% worse at spotting abnormalities on their own, study finds, raising concern about overreliance'",
+      "actual_source": "Fortune (Sasha Rogelberg), 26 August 2025, fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study/",
+      "url": "https://fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study/",
+      "note": null,
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c94": {
+      "id": "c94",
+      "verdict": "VERIFIED",
+      "found_value": "Published 05 September 2025 (version of record: 05 September 2025; issue date: October 2025). The piece is a brief research highlight by Katrina Ray reporting the colonoscopy ADR findings from the Budzy\u0144 et al. Lancet study.",
+      "actual_source": "Ray, K. 'AI-assisted colonoscopy and risk of endoscopist deskilling.' Nat Rev Gastroenterol Hepatol 22, 672 (2025). DOI: 10.1038/s41575-025-01122-3",
+      "url": "https://www.nature.com/articles/s41575-025-01122-3",
+      "note": "Publication date of 5 September 2025 is confirmed. The characterisation of the piece as having 'no limitations and no quotes' could not be fully verified from the abstract alone, as the full text is paywalled; however the date and journal are confirmed.",
+      "carried_from": "637d53be8f9fd4af"
+    },
+    "c7": {
+      "id": "c7",
+      "verdict": "WRONG_VALUE",
+      "found_value": "795 before AI and 648 after AI, totalling 1,443 non-AI-assisted colonoscopies; 2,177 total colonoscopies (AI + non-AI)",
+      "actual_source": "Budzy\u0144 et al., Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903 (abstract via thelancet.com and sciencedirect.com)",
+      "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00133-5/abstract",
+      "note": "The paper reports 795 (before) and 648 (after) non-AI colonoscopies, totalling 1,443 \u2014 not 1,382; the figure 1,382 does not appear in any source reached."
+    },
+    "c8": {
+      "id": "c8",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00133-5/abstract",
+      "note": "No accessible source \u2014 including the paper's abstract, press releases, or secondary coverage \u2014 mentions Poland suspending its colonoscopy screening programme on 1 January 2022; the paper's observation window ends March 9, 2022 and the study uses a clinical, not screening, population."
+    },
+    "c9": {
+      "id": "c9",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S2468125325001335",
+      "note": "The full text is paywalled; no accessible source enumerates the number of limitations listed by the authors, so the count of 'eleven' cannot be verified or refuted."
+    },
+    "c10": {
+      "id": "c10",
+      "verdict": "WRONG_VALUE",
+      "found_value": "100 colonoscopies total (not per centre) conducted after AI introduction were excluded",
+      "actual_source": "Budzy\u0144 et al., Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903 (ScienceDirect abstract)",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S2468125325001335",
+      "note": "The paper states 'excluding the 100 colonoscopies conducted after the introduction of AI' \u2014 a single aggregate exclusion, not 100 per centre; the draft's 'per centre' qualifier is not supported by the source."
+    },
+    "c12": {
+      "id": "c12",
+      "verdict": "WRONG_VALUE",
+      "found_value": "Osmani's documented argument on the SMC page is that the volume of colonoscopies nearly doubled after AI introduction (795 to 1382), and that this workload increase \u2014 not AI itself \u2014 could explain the lower detection rate through fatigue. No source, including the SMC primary page, contains any argument from Osmani that three months is too short a window for genuine skill loss in experienced clinicians.",
+      "actual_source": "Science Media Centre, expert reaction to colonoscopy deskilling study, 12 August 2025",
+      "url": "https://www.sciencemediacentre.org/expert-reaction-to-observational-study-looking-at-detection-rate-of-precancerous-growths-in-colonoscopies-by-health-professionals-who-perform-them-before-and-after-the-routine-introduction-of-ai/",
+      "note": "Osmani's affiliation and his volume/workload argument are verified, but the specific claim that he argued 'three months is too short a window for genuine skill loss in experienced clinicians' does not appear in any source reached, including the SMC primary page; his actual argument is about confounding by increased workload, not about the adequacy of the observation window."
+    },
+    "c13": {
+      "id": "c13",
+      "verdict": "VERIFIED",
+      "found_value": "Prof Allan Tucker, Professor of Artificial Intelligence in the Department of Computer Science, Brunel University of London, noted that 'authors only looked at one AI system' and that 'the authors make it clear that randomised crossover trials are needed to make more robust claims.'",
+      "actual_source": "Science Media Centre, expert reaction to colonoscopy deskilling study, 12 August 2025",
+      "url": "https://www.sciencemediacentre.org/expert-reaction-to-observational-study-looking-at-detection-rate-of-precancerous-growths-in-colonoscopies-by-health-professionals-who-perform-them-before-and-after-the-routine-introduction-of-ai/",
+      "note": null
+    },
+    "c14": {
+      "id": "c14",
+      "verdict": "VERIFIED",
+      "found_value": "Dr Catherine Menon is identified as Principal Lecturer at the University of Hertfordshire's Department of Computer Science. She called this 'the first to present real-world data that might potentially indicate de-skilling arising from the use of AI in diagnostic colonoscopies,' engaging seriously with the underlying concern.",
+      "actual_source": "Science Media Centre, expert reaction to colonoscopy deskilling study, 12 August 2025",
+      "url": "https://www.sciencemediacentre.org/expert-reaction-to-observational-study-looking-at-detection-rate-of-precancerous-growths-in-colonoscopies-by-health-professionals-who-perform-them-before-and-after-the-routine-introduction-of-ai/",
+      "note": null
+    },
+    "c15": {
+      "id": "c15",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.sciencedirect.com/science/article/pii/S2949820126000123",
+      "note": "The Heudel paper's PRISMA flowchart (Figure 1) is referenced in the ScienceDirect page but the specific counts of 65 full-text articles assessed and 12 studies included are not reproduced in any accessible text snippet; the paper also describes itself in the abstract as a 'narrative review', making a formal PRISMA inclusion count unexpected."
+    },
+    "c16": {
+      "id": "c16",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.sciencedirect.com/science/article/pii/S2949820126000123",
+      "note": "The specific PRISMA flow-diagram numbers (432 database records, 41 grey literature, 37 duplicates, 373 screened) are not reproduced in any accessible text of the Heudel paper; the figure itself is paywalled and could not be read directly."
+    },
+    "c17": {
+      "id": "c17",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.sciencedirect.com/science/article/pii/S2949820126000123",
+      "note": "The specific PRISMA flow-diagram numbers (373 screened, 332 excluded, 65 assessed in full) are not reproduced in any accessible text of the Heudel paper; the figure itself could not be read directly to confirm or refute the arithmetic."
+    },
+    "c26": {
+      "id": "c26",
+      "verdict": "WRONG_VALUE",
+      "found_value": "80%-85% reduction in case volumes and consolidation of laboratories from 45 to 8 centers",
+      "actual_source": "Heudel et al. ESMO Real World Data and Digital Oncology 2026;12:100693, body text (ScienceDirect full text)",
+      "url": "https://www.sciencedirect.com/science/article/pii/S2949820126000123",
+      "note": "The paper gives the cytology workload cut as 80-85% and states laboratories consolidated from 45 to 8 centers; the draft's claim that the paper gives 'the number of laboratories as 45' is incomplete \u2014 45 is the pre-consolidation figure, not a standalone count, and the paper explicitly pairs it with the post-consolidation figure of 8."
+    },
+    "c27": {
+      "id": "c27",
+      "verdict": "WRONG_VALUE",
+      "found_value": "Savardi et al. studied eight radiology residents evaluating 150 CXRs in three scenarios (no AI, on-demand AI, integrated-AI) for COVID-19 severity scoring; AI reduced severity score errors and increased inter-rater agreement by 22%; no figures of 32 residents, 12 percentage-point sensitivity gain, 18% faster reading, or 3-month follow-up are present",
+      "actual_source": "Savardi M et al. Insights Imaging 16, 23 (2025). https://doi.org/10.1186/s13244-024-01893-4; also PMC11780016",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11780016/",
+      "note": "The Savardi paper enrolled eight residents (not 32) reading 150 chest X-rays for COVID-19 severity scoring; the figures of 12 percentage-point sensitivity gain and 18% faster reading do not appear in the paper; the '27 radiologists / 12% false-positive increase' figure in the Heudel body text belongs to the Dratsch mammography study, not Savardi."
+    },
+    "c96": {
+      "id": "c96",
+      "verdict": "VERIFIED",
+      "found_value": "The Heudel abstract states 'In a multicenter randomized trial in colonoscopy, the adenoma detection rate (ADR) dropped significantly from 28.4% to 22.4%...'; the actual colonoscopy deskilling study (Budzy\u0144 et al.) is described by its own authors as 'a retrospective, observational study at four endoscopy centres in Poland'",
+      "actual_source": "Heudel abstract: esmorwd.org/article/S2949-8201(26)00012-3/fulltext; Budzy\u0144 et al.: Lancet Gastroenterol Hepatol (PubMed 40816301) and SSRN 5070304",
+      "url": "https://www.esmorwd.org/article/S2949-8201(26)00012-3/fulltext",
+      "note": "The Heudel abstract does call the colonoscopy study 'a multicenter randomized trial'; the underlying Budzy\u0144 et al. paper explicitly describes itself as a retrospective observational study, confirming the draft's claim that this is a mislabelling."
+    },
+    "c97": {
+      "id": "c97",
+      "verdict": "VERIFIED",
+      "found_value": "Heudel abstract: 'over 30% of participants reversed correct initial diagnoses when exposed to incorrect AI suggestions under time constraints'; Heudel body: '28 pathologists found that under time pressure, participants abandoned 7% of initially correct judgments when faced with erroneous AI suggestions'",
+      "actual_source": "Heudel et al. ESMO Real World Data and Digital Oncology 2026;12:100693, abstract and body text (ScienceDirect)",
+      "url": "https://www.sciencedirect.com/science/article/pii/S2949820126000123",
+      "note": "Both figures appear in the Heudel paper \u2014 >30% in the abstract and 7% in the body \u2014 applied to what appears to be the same pathology experiment, confirming the internal inconsistency the draft describes."
+    },
+    "c98": {
+      "id": "c98",
+      "verdict": "WRONG_VALUE",
+      "found_value": "The mammography study with 27 radiologists (Dratsch et al., Radiology 2023) used 50 mammograms (not 720); the Savardi paper used 8 residents and 150 CXRs (not mammograms)",
+      "actual_source": "Dratsch et al. Radiology 2023 (pubs.rsna.org/doi/10.1148/radiol.222176; PubMed 37129490); Savardi et al. Insights Imaging 2025 (PMC11780016)",
+      "url": "https://pubs.rsna.org/doi/10.1148/radiol.222176",
+      "note": "The 27-radiologist mammography study (Dratsch et al.) used 50 mammograms, not 720; the figure of 720 mammograms does not match any source found; the Savardi paper (8 residents, 150 CXRs) is a separate study on COVID-19 chest X-ray scoring, not mammography."
+    },
+    "c102": {
+      "id": "c102",
+      "verdict": "VERIFIED",
+      "found_value": "Bellahsen-Harrar et al. PLOS ONE 2025;20(8):e0323270 studied eight pathologists; the Heudel body attributes '28 pathologists' and '7% of initially correct judgments' to what appears to be this reference",
+      "actual_source": "Bellahsen-Harrar Y et al. PLoS One 20(8): e0323270 (journals.plos.org/plosone/article?id=10.1371/journal.pone.0323270)",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0323270",
+      "note": "The Bellahsen-Harrar PLOS ONE paper explicitly states 'Eight pathologists from different hospitals and with varying levels of experience, participated in the study'; the Heudel body attributes 28 pathologists to what is cited as reference 17 (this paper), confirming the participant count is wrong by a factor of 3.5; the 7% figure could not be confirmed in accessible text of the Bellahsen-Harrar paper."
+    },
+    "c19": {
+      "id": "c19",
+      "verdict": "VERIFIED",
+      "found_value": "87.2% \u00b1 13.1% to 96.4% \u00b1 1.9% (P < .001)",
+      "actual_source": "Wang DY et al., J Am Med Inform Assoc 2023;30(10):1684\u20131692 (Oxford Academic abstract and PMC full text)",
+      "url": "https://academic.oup.com/jamia/article-abstract/30/10/1684/7240558",
+      "note": null
+    },
+    "c20": {
+      "id": "c20",
+      "verdict": "VERIFIED",
+      "found_value": "45.5% of total mistakes in the AI-assisted round were associated with automation bias, affecting clinicians of all levels of expertise",
+      "actual_source": "Wang DY et al., J Am Med Inform Assoc 2023;30(10):1684\u20131692 (Oxford Academic abstract)",
+      "url": "https://academic.oup.com/jamia/article-abstract/30/10/1684/7240558",
+      "note": null
+    },
+    "c21": {
+      "id": "c21",
+      "verdict": "VERIFIED",
+      "found_value": "The proposed AI suppression strategy was estimated to decrease clinicians' automation bias by 41.7%",
+      "actual_source": "Wang DY et al., J Am Med Inform Assoc 2023;30(10):1684\u20131692 (Oxford Academic abstract)",
+      "url": "https://academic.oup.com/jamia/article-abstract/30/10/1684/7240558",
+      "note": null
+    },
+    "c22": {
+      "id": "c22",
+      "verdict": "VERIFIED",
+      "found_value": "trained pathology experts (n=28)",
+      "actual_source": "arXiv:2411.00998 abstract (confirmed also in arXiv:2603.11821 abstract and PDF)",
+      "url": "https://arxiv.org/abs/2411.00998",
+      "note": null
+    },
+    "c23": {
+      "id": "c23",
+      "verdict": "VERIFIED",
+      "found_value": "7% automation bias rate, where initially correct evaluations were overturned by erroneous AI advice",
+      "actual_source": "arXiv:2411.00998 abstract; identical figure confirmed in arXiv:2603.11821 abstract",
+      "url": "https://arxiv.org/abs/2411.00998",
+      "note": null
+    },
+    "c24": {
+      "id": "c24",
+      "verdict": "VERIFIED",
+      "found_value": "approximately 70%, according to Public Health England",
+      "actual_source": "Royal College of Pathologists. Cervical cancer and human papillomavirus screening in the UK: a cytopathology and histopathology perspective. https://www.rcpath.org/resource-report/cervical-cancer-and-human-papillomavirus-screening-in-the-uk-a-cytopathology-and-histopathology-perspective.html",
+      "url": "https://www.rcpath.org/resource-report/cervical-cancer-and-human-papillomavirus-screening-in-the-uk-a-cytopathology-and-histopathology-perspective.html",
+      "note": null
+    },
+    "c25": {
+      "id": "c25",
+      "verdict": "VERIFIED",
+      "found_value": "reducing 48 accredited labs to 8 centralised labs as of 2019",
+      "actual_source": "Royal College of Pathologists. Cervical cancer and human papillomavirus screening in the UK: a cytopathology and histopathology perspective. https://www.rcpath.org/resource-report/cervical-cancer-and-human-papillomavirus-screening-in-the-uk-a-cytopathology-and-histopathology-perspective.html",
+      "url": "https://www.rcpath.org/resource-report/cervical-cancer-and-human-papillomavirus-screening-in-the-uk-a-cytopathology-and-histopathology-perspective.html",
+      "note": null
+    },
+    "c28": {
+      "id": "c28",
+      "verdict": "VERIFIED",
+      "found_value": "eight radiology residents (trainee radiologists)",
+      "actual_source": "Savardi M et al., Insights into Imaging 2025;16:23 (DOI: 10.1186/s13244-024-01893-4). The abstract states 'We involved eight residents evaluating 150 CXRs in three scenarios'; Figure 3 caption on p. 6 of 11 refers to 'the eight trainee radiologists.'",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11780016/",
+      "note": null
+    },
+    "c32": {
+      "id": "c32",
+      "verdict": "VERIFIED",
+      "found_value": "Article published online: 03 June 2026",
+      "actual_source": "Thieme E-Journals \u2013 Endoscopy abstract page for DOI 10.1055/a-2858-7084",
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-2858-7084",
+      "note": null
+    },
+    "c33": {
+      "id": "c33",
+      "verdict": "VERIFIED",
+      "found_value": "13 endoscopists (7 inexperienced, 6 experienced) performed 5013 colonoscopies",
+      "actual_source": "Thieme E-Journals \u2013 Endoscopy abstract page for DOI 10.1055/a-2858-7084",
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-2858-7084",
+      "note": null
+    },
+    "c34": {
+      "id": "c34",
+      "verdict": "VERIFIED",
+      "found_value": "31.9% [216/678] to 39.5% [257/651]",
+      "actual_source": "Thieme E-Journals \u2013 Endoscopy abstract page for DOI 10.1055/a-2858-7084",
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-2858-7084",
+      "note": null
+    },
+    "c35": {
+      "id": "c35",
+      "verdict": "VERIFIED",
+      "found_value": "OR 1.43, 95%CI 1.11\u20131.84",
+      "actual_source": "Thieme E-Journals \u2013 Endoscopy abstract page for DOI 10.1055/a-2858-7084",
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-2858-7084",
+      "note": null
+    },
+    "c36": {
+      "id": "c36",
+      "verdict": "VERIFIED",
+      "found_value": "36.3% [173/476]",
+      "actual_source": "Thieme E-Journals \u2013 Endoscopy abstract page for DOI 10.1055/a-2858-7084",
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-2858-7084",
+      "note": null
+    },
+    "c37": {
+      "id": "c37",
+      "verdict": "VERIFIED",
+      "found_value": "OR 1.03, 95%CI 0.79\u20131.34",
+      "actual_source": "Thieme E-Journals \u2013 Endoscopy abstract page for DOI 10.1055/a-2858-7084",
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-2858-7084",
+      "note": null
+    },
+    "c38": {
+      "id": "c38",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-2858-7084",
+      "note": "Trial dates (November 2021 to June 2025) do not appear in the publicly accessible abstract; the full paper body is paywalled and no secondary source reproducing these dates was found."
+    },
+    "c39": {
+      "id": "c39",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-2858-7084",
+      "note": "The figures of 6.8 months and 23.8 months of practice appear nowhere in the abstract or in any secondary source reached; they would be in the full paper body, which is paywalled."
+    },
+    "c40": {
+      "id": "c40",
+      "verdict": "WRONG_VALUE",
+      "found_value": "Yuichi Mori is the last (senior) author of the Polish deskilling study (Budzy\u0144 et al., Lancet Gastroenterol Hepatol 2025). No study identifiable as the 'Pedersen prospective study' with Mori as co-author was found in any source reached.",
+      "actual_source": "PubMed PMID 40816301; Lancet Gastroenterol Hepatol 2025;10(10):896-903; SSRN 5070304",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40816301/",
+      "note": "The senior-author half of the claim is correct, but the second half \u2014 that Mori is a co-author of a 'Pedersen prospective study' \u2014 could not be verified against any source reached; no study by that name or description with Mori as co-author was found."
+    },
+    "c63": {
+      "id": "c63",
+      "verdict": "VERIFIED",
+      "found_value": "Michael Bretthauer is listed as the penultimate author (position 20 of 21) on Budzy\u0144 et al., Lancet Gastroenterol Hepatol 2025;10(10):896-903.",
+      "actual_source": "PubMed PMID 40816301; Lancet Gastroenterol Hepatol abstract; SSRN 5070304",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40816301/",
+      "note": null
+    },
+    "c75": {
+      "id": "c75",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://www.nature.com/articles/s41599-025-04787-y",
+      "note": "Citation and access counts are live metrics that change daily and are not archived in any static source reachable at the time of this check; the figure of 402 citations and 546,000 accesses as of 30 August 2026 cannot be verified or refuted from any source reached. The Nature article (now marked RETRACTED) was located but displays no static counter values in search results."
+    },
+    "c100": {
+      "id": "c100",
+      "verdict": "VERIFIED",
+      "found_value": "SSRN preprint (December 2024, doi:10.2139/ssrn.5070304) conclusion reads: 'Continuous exposure to AI reduced ADR of standard, non-AI assisted colonoscopy, suggesting a negative impact on endoscopist performance.' Published Lancet version reads: 'Continuous exposure to AI might reduce the ADR of standard non-AI assisted colonoscopy, suggesting a negative effect on endoscopist behaviour.'",
+      "actual_source": "SSRN preprint 5070304 (December 2024); PubMed PMID 40816301 (published version)",
+      "url": "https://www.ssrn.com/abstract=5070304",
+      "note": null
+    },
+    "c103": {
+      "id": "c103",
+      "verdict": "WRONG_VALUE",
+      "found_value": "The article 'When AI Reads the Easy Cases: Radiology's Training Paradox' exists on rad-insights.com but the page metadata shows a date of 16 May 2026, not 15 May 2026. No author named 'Decker J' is identified in any search result for this article.",
+      "actual_source": "rad-insights.com",
+      "url": "https://rad-insights.com/ai-deskilling-radiology-training/",
+      "note": "The date in the draft (15 May 2026) conflicts with the page metadata date of 16 May 2026, and the author attribution 'Decker J' does not appear in any source reached for this article."
+    },
+    "c104": {
+      "id": "c104",
+      "verdict": "WRONG_VALUE",
+      "found_value": "NHS Digital's own 2019-20 cervical screening annual report states that HPV primary screening implementation 'resulted in a consolidation of cytology service to 8 sites from the previous 48.' There is no mention of three laboratories having already closed before the consolidation, nor of 45 being the number still open when it happened.",
+      "actual_source": "NHS Digital, Cervical Screening Annual Report England 2019-20, Section 1: Call and recall",
+      "url": "https://digital.nhs.uk/data-and-information/publications/statistical/cervical-screening-annual/england---2019-20/section-1-call-and-recall",
+      "note": "The primary source says 48 laboratories consolidated to 8; it does not record any prior closures reducing the starting number to 45. The claim that 'three of the 48 had already closed' and '45 is the number still open when it happened' is not supported by the NHS Digital source."
+    },
+    "c41": {
+      "id": "c41",
+      "verdict": "VERIFIED",
+      "found_value": "21 participants (stratified into novices and experienced endoscopy staff); the specific 10/11 split is in the paper body but the total of 21 is confirmed in the abstract",
+      "actual_source": "Troya et al., Endoscopy 2022;54:1009\u20131014 (PMC9500006)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9500006/",
+      "note": null
+    },
+    "c42": {
+      "id": "c42",
+      "verdict": "VERIFIED",
+      "found_value": "29 colonoscopy video sequences per assessment",
+      "actual_source": "Troya et al., Endoscopy 2022;54:1009\u20131014 (PMC9500006)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9500006/",
+      "note": null
+    },
+    "c45": {
+      "id": "c45",
+      "verdict": "VERIFIED",
+      "found_value": "Eye travel distance without CADe: 248.86 cm [99% CI 221.39\u2013282.88]; with CADe: 232.68 cm [99% CI 210.43\u2013262.33]; P < 0.001 implied by 'significantly shorter'",
+      "actual_source": "Troya et al., Endoscopy 2022;54:1009\u20131014, as cited and quoted in Sivananthan et al., Dig Endosc 2023 (PMC12136275)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12136275/",
+      "note": "The P-value threshold used in the paper was P < 0.01 (not P < 0.001); the paper states 'A P value of < 0.01 indicated statistical significance.' The draft's claim of 'P < 0.001' may overstate the reported significance threshold, though the actual p-value could be anywhere below 0.01."
+    },
+    "c46": {
+      "id": "c46",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9500006/",
+      "note": "The subgroup eye travel figures for experienced participants (247.89 cm \u2192 227.09 cm) appear in the body of the paper, which I could not fully retrieve; no secondary source I reached quotes these specific values."
+    },
+    "c47": {
+      "id": "c47",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9500006/",
+      "note": "The subgroup eye travel figures for novice participants (255.66 cm \u2192 247.89 cm) appear in the body of the paper, which I could not fully retrieve; no secondary source I reached quotes these specific values. Note also that c47's 'without AI' baseline (255.66 cm) is higher than c46's (247.89 cm), which would mean novices travel more distance than experienced staff \u2014 plausible but unverified."
+    },
+    "c48": {
+      "id": "c48",
+      "verdict": "VERIFIED",
+      "found_value": "CADe median 1.16 seconds [99% CI 0.40\u20133.43] vs. participants median 2.97 seconds [99% CI 2.53\u20133.77]",
+      "actual_source": "Troya et al., Endoscopy 2022;54:1009\u20131014 (PMC9500006)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9500006/",
+      "note": null
+    },
+    "c49": {
+      "id": "c49",
+      "verdict": "VERIFIED",
+      "found_value": "Reaction time with CADe: median 2.90 seconds [99% CI 2.55\u20133.38], similar to 2.97 seconds without CADe",
+      "actual_source": "Troya et al., Endoscopy 2022;54:1009\u20131014 (Thieme full text)",
+      "url": "https://www.thieme-connect.com/products/ejournals/html/10.1055/a-1770-7353",
+      "note": null
+    },
+    "c50": {
+      "id": "c50",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9500006/",
+      "note": "The false-positive misidentification counts (median 4 cases without AI vs. 6 cases with AI, P = 0.001) appear in the body of the paper; I could not retrieve the full results section and no secondary source I reached quotes these specific figures. The paper's abstract confirms CADe 'increased misinterpretation of normal mucosa' but gives no case counts."
+    },
+    "c51": {
+      "id": "c51",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9500006/",
+      "note": "The 43.8% figure (time participants inspected AI false-positive bounding boxes) appears in the body of the paper; I could not retrieve the full results section and no secondary source I reached quotes this figure."
+    },
+    "c52": {
+      "id": "c52",
+      "verdict": "WRONG_VALUE",
+      "found_value": "12 radiologists read mammography examinations from 150 women (not 150 mammograms); the paper specifies 150 women (75 with breast cancer, 75 without)",
+      "actual_source": "Gommers JJJ et al., Radiology 2025;316(1):e243688, abstract (pubs.rsna.org) and RSNA press release",
+      "url": "https://pubs.rsna.org/doi/10.1148/radiol.243688",
+      "note": "The participant count of 12 radiologists is correct, but the draft says '150 screening mammograms' where the paper says '150 women' (cases); each woman's examination may comprise multiple mammographic images, so '150 mammograms' understates the image count and misidentifies the unit \u2014 the paper's unit is women/cases, not individual mammogram images."
+    },
+    "c53": {
+      "id": "c53",
+      "verdict": "VERIFIED",
+      "found_value": "Mean AUC unaided 0.93 (95% CI: 0.91, 0.96); AI-supported 0.97 (95% CI: 0.95, 0.98); P < .001",
+      "actual_source": "Gommers JJJ et al., Radiology 2025;316(1):e243688, abstract (pubs.rsna.org)",
+      "url": "https://pubs.rsna.org/doi/10.1148/radiol.243688",
+      "note": null
+    },
+    "c54": {
+      "id": "c54",
+      "verdict": "VERIFIED",
+      "found_value": "Breast fixation coverage was lower with AI support (11.1% vs 9.5% of breast area; P = .004)",
+      "actual_source": "Gommers JJJ et al., Radiology 2025;316(1):e243688, abstract (pubs.rsna.org)",
+      "url": "https://pubs.rsna.org/doi/10.1148/radiol.243688",
+      "note": null
+    },
+    "c55": {
+      "id": "c55",
+      "verdict": "VERIFIED",
+      "found_value": "Fixation time in the lesion region was higher with AI support (4.4 vs 5.4 seconds; P = .006)",
+      "actual_source": "Gommers JJJ et al., Radiology 2025;316(1):e243688, abstract (pubs.rsna.org)",
+      "url": "https://pubs.rsna.org/doi/10.1148/radiol.243688",
+      "note": null
+    },
+    "c56": {
+      "id": "c56",
+      "verdict": "VERIFIED",
+      "found_value": "27 radiologists read 50 mammograms with AI-generated BI-RADS suggestions",
+      "actual_source": "Dratsch et al., Radiology 2023;307(4):e222176",
+      "url": "https://pubs.rsna.org/doi/full/10.1148/radiol.222176",
+      "note": null
+    },
+    "c57": {
+      "id": "c57",
+      "verdict": "VERIFIED",
+      "found_value": "Training set of 10 mammograms with correct AI suggestions, then a second set of 40 mammograms with incorrect AI suggestions for 12 of them",
+      "actual_source": "Dratsch et al., Radiology 2023;307(4):e222176 (confirmed also in HealthDay summary citing the paper)",
+      "url": "https://pubs.rsna.org/doi/full/10.1148/radiol.222176",
+      "note": null
+    },
+    "c58": {
+      "id": "c58",
+      "verdict": "WRONG_VALUE",
+      "found_value": "When AI correct: inexperienced 79.7% \u00b1 11.7, moderately experienced 81.3% \u00b1 10.1, very experienced 82.3% \u00b1 4.2",
+      "actual_source": "Dratsch et al., Radiology 2023;307(4):e222176",
+      "url": "https://pubs.rsna.org/doi/full/10.1148/radiol.222176",
+      "note": "The draft states 'roughly 79.7% to 82.3%' as if these are the only two values, but the paper reports three distinct means: 79.7%, 81.3%, and 82.3%. The middle group (moderately experienced) scored 81.3%, not a value implied by the range '79.7% to 82.3%' alone. The range framing suppresses the moderately experienced group's actual figure and implies only two data points."
+    },
+    "c59": {
+      "id": "c59",
+      "verdict": "VERIFIED",
+      "found_value": "When AI incorrect: inexperienced 19.8%, moderately experienced 24.8%, very experienced 45.5%",
+      "actual_source": "Dratsch et al., Radiology 2023;307(4):e222176",
+      "url": "https://pubs.rsna.org/doi/full/10.1148/radiol.222176",
+      "note": null
+    },
+    "c60": {
+      "id": "c60",
+      "verdict": "VERIFIED",
+      "found_value": "SDs when AI incorrect: inexperienced \u00b114.0, moderately experienced \u00b111.6, very experienced \u00b19.1",
+      "actual_source": "Dratsch et al., Radiology 2023;307(4):e222176",
+      "url": "https://pubs.rsna.org/doi/full/10.1148/radiol.222176",
+      "note": null
+    },
+    "c61": {
+      "id": "c61",
+      "verdict": "VERIFIED",
+      "found_value": "Published online May 22, 2026; Nature Medicine Vol. 32, Issue 6, pp. 1997\u20132006",
+      "actual_source": "King's College London KCL Pure repository; Nature Medicine DOI page; LSHTM Research Online",
+      "url": "https://kclpure.kcl.ac.uk/portal/en/publications/ai-induced-never-skilling-in-medical-education/",
+      "note": null
+    },
+    "c101": {
+      "id": "c101",
+      "verdict": "VERIFIED",
+      "found_value": "Sixteen authors: Yuhe Ke, Liyuan Jin, Jasmine Chiat Ling Ong, Arun J. Thirunavukarasu, Josip Car, Carol Y. Cheung, Yih Chung Tham, Daniel Shu Wei Ting, Marcus Eng Hock Ong, Scott Compton, Aditee Narayan, Pearse A. Keane, Tien Yin Wong, David W. Bates, Patrick Tan, Nan Liu; institutions include Duke-NUS, King's College London, Harvard, and UCL among others",
+      "actual_source": "UCL Discovery repository and NEJM AI crossref listing, both giving the complete 16-author list",
+      "url": "https://discovery.ucl.ac.uk/id/eprint/10225785/",
+      "note": null
+    },
+    "c62": {
+      "id": "c62",
+      "verdict": "WRONG_VALUE",
+      "found_value": "The Weinberg & Bretthauer editorial was published in Gastroenterology on 5 June 2026 (PMID 42250888, DOI 10.1053/j.gastro.2026.05.026) \u2014 the date is correct. However, the Norwegian trial it accompanied (NordICC 13-year update, Kaminski et al.) was published in The Lancet with an epub date of 5 May 2026 and an issue date of 9 May 2026 (PMID 42102826), not on 3 June 2026. The editorial appeared roughly 31 days after the trial, not two days after.",
+      "actual_source": "PubMed PMID 42250888 for the editorial date; PubMed PMID 42102826 for the NordICC Lancet paper date (epub 2026 May 5, issue 2026 May 9).",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42250888/",
+      "note": "The editorial date of 5 June 2026 is verified, but the claim that it appeared 'two days after the Norwegian trial' is wrong: the NordICC 13-year update was epublished on 5 May 2026 in The Lancet, approximately a month before the editorial, not two days before."
+    },
+    "c64": {
+      "id": "c64",
+      "verdict": "VERIFIED",
+      "found_value": "A total of 54 participants took part in Sessions 1-3, with 18 completing session 4.",
+      "actual_source": "arXiv:2506.08872 abstract (Kosmyna et al., 2025)",
+      "url": "https://arxiv.org/abs/2506.08872",
+      "note": null
+    },
+    "c65": {
+      "id": "c65",
+      "verdict": "VERIFIED",
+      "found_value": "Submitted on 10 Jun 2025 (v1); a v2 was posted 31 Dec 2025.",
+      "actual_source": "arXiv:2506.08872 submission history",
+      "url": "https://arxiv.org/abs/2506.08872v1",
+      "note": null
+    },
+    "c66": {
+      "id": "c66",
+      "verdict": "VERIFIED",
+      "found_value": "approximately N = 159 participants would be required for adequate power",
+      "actual_source": "Stankovi\u0107 et al., arXiv:2601.00856, PDF text",
+      "url": "https://arxiv.org/pdf/2601.00856",
+      "note": null
+    },
+    "c67": {
+      "id": "c67",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://arxiv.org/pdf/2601.00856",
+      "note": "The PDF of 2601.00856 was reachable and confirms n=54 as the analysed sample (consistent with secondary sources), and the paper does flag 'inconsistencies in the reporting of results' as a primary concern, but the specific sentence stating '55 completers while analysing 54' was not returned in any retrieved passage from the primary source; the exact 55/54 figure could not be verified directly from the paper's text."
+    },
+    "c77": {
+      "id": "c77",
+      "verdict": "NOT_FOUND",
+      "found_value": "v2 of the preprint was posted April 23, 2026 per Sciety; Plagiarism Today implies the preprint appeared 'the very next month' after the May 2025 paper, suggesting June 2025 for v1",
+      "actual_source": null,
+      "url": "https://osf.io/preprints/psyarxiv/wgu56_v2",
+      "note": "The OSF page for wgu56_v1 returned no content; the exact v1 posting date of '2 July 2025' cannot be confirmed or denied from sources I could reach, and Plagiarism Today's phrasing ('the very next month' after May 2025) implies June 2025, not July \u2014 the nine-months-before-retraction arithmetic is approximately consistent with July but cannot be verified."
+    },
+    "c78": {
+      "id": "c78",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://osf.io/preprints/psyarxiv/wgu56_v2",
+      "note": "The specific claim that the heaviest-weighted study (about 19% of weight) had itself been retracted two months before the meta-analysis was published comes from the Ingebrigtsen & Lukic preprint, which I could not access in full; no other source I reached contains this figure."
+    },
+    "c79": {
+      "id": "c79",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://osf.io/preprints/psyarxiv/wgu56_v2",
+      "note": "The specific claim that the second-heaviest study (about 10% of weight) measured self-efficacy and technology acceptance rather than learning comes from the Ingebrigtsen & Lukic preprint, which I could not access in full; no other source I reached contains this figure."
+    },
+    "c80": {
+      "id": "c80",
+      "verdict": "NOT_FOUND",
+      "found_value": "The Wang & Fan paper itself reports '44 experimental and quasi-experimental studies' for the learning-performance analysis; the claim that the supporting table lists only 41 unique entries comes from the Ingebrigtsen & Lukic preprint",
+      "actual_source": null,
+      "url": "https://www.nature.com/articles/s41599-025-04787-y",
+      "note": "The '44' figure is confirmed in the primary paper; the '41 unique entries' figure is from the critique preprint, which I could not access in full, so the specific discrepancy claim cannot be verified against the primary source."
+    },
+    "c81": {
+      "id": "c81",
+      "verdict": "NOT_FOUND",
+      "found_value": "The Wang & Fan paper's data table (visible via ResearchGate) shows Ji et al. (2023) with an effect size of 4.009, confirming that figure; the '36 students' and 'single shared grade per group' characterisation comes from the Ingebrigtsen & Lukic preprint",
+      "actual_source": "Wang & Fan (2025), Humanities and Social Sciences Communications, Table visible at researchgate.net/publication/391494932",
+      "url": "https://www.researchgate.net/publication/391494932_The_effect_of_ChatGPT_on_students%27_learning_performance_learning_perception_and_higher-order_thinking_insights_from_a_meta-analysis",
+      "note": "The 4.009 effect size for Ji et al. (2023) is confirmed in the primary paper; the '36 students given a single shared grade per group' characterisation is from the critique preprint, which I could not access in full, so that part of the claim cannot be verified."
+    },
+    "c82": {
+      "id": "c82",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://osf.io/preprints/psyarxiv/wgu56_v2",
+      "note": "The specific claim that effect sizes above 1 appeared in about 36% of included studies comes from the Ingebrigtsen & Lukic preprint, which I could not access in full; no other source I reached contains this figure."
+    },
+    "c84": {
+      "id": "c84",
+      "verdict": "WRONG_VALUE",
+      "found_value": "The paper audited 19 comparisons against three criteria; only 4 of 19 (21%) met all three. The figure '10 of 19' does not appear in any source reached. The paper may report per-criterion counts in Table 1, but the headline finding is 4/19, not 10/19.",
+      "actual_source": "Weidlich et al. 2025, J Comput Assist Learn 41:e70105, as reproduced on the Wiley Online Library page and summarised on kirschnered.nl and paulkirschner173727.substack.com",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/jcal.70105",
+      "note": "The paper's stated result is that only 4 of 19 comparisons satisfied all three criteria (including a valid learning measure); the draft's figure of '10 of 19' for a valid learning measure alone is not confirmed by any source reached, and conflicts with the paper's own summary language."
+    },
+    "c85": {
+      "id": "c85",
+      "verdict": "NOT_FOUND",
+      "found_value": "N = 1,222 randomised is confirmed in the abstract of all versions. The 1,060 analysed figure could not be confirmed: per-experiment final Ns recoverable from the PDF are Exp 1 = 307, Exp 2 = 585; Exp 3 final N after exclusions is not stated in any source I could reach, so the total analysed cannot be verified.",
+      "actual_source": "arXiv 2604.04721 (PDF and HTML, v2 and v4)",
+      "url": "https://arxiv.org/pdf/2604.04721",
+      "note": "The 1,222 randomised figure is verified; the 1,060 analysed figure cannot be confirmed because the Experiment 3 post-exclusion N is not present in any source I could reach, making the total unverifiable."
+    },
+    "c86": {
+      "id": "c86",
+      "verdict": "NOT_FOUND",
+      "found_value": "Experiment 1 solve rate d = \u22120.42 and Experiment 2 solve rate d = \u22120.19 are both confirmed in the paper PDF. The Experiment 3 solve-rate effect size of \u22120.42 could not be confirmed: the only d = 0.42 figure retrieved for Experiment 3 from the PDF appears in the context of the skip rate (positive d), not the solve rate.",
+      "actual_source": "arXiv 2604.04721 PDF",
+      "url": "https://arxiv.org/pdf/2604.04721",
+      "note": "Two of the three effect sizes (\u22120.42 for Exp 1 and \u22120.19 for Exp 2) are verified; the Experiment 3 solve-rate d = \u22120.42 could not be confirmed from sources reached \u2014 the only d = 0.42 found for Exp 3 in the PDF excerpt is associated with the skip rate, not the solve rate, and the sign is positive."
+    },
+    "c89": {
+      "id": "c89",
+      "verdict": "NOT_FOUND",
+      "found_value": "11.7 percentage points (confirmed in multiple secondary sources citing the paper; the Wharton Executive Education page confirms AI was wrong 'roughly half the time' and that confidence rose; the paper's own SSRN abstract page does not display the figure in the abstract snippet)",
+      "actual_source": "Shaw SD, Nave G. 'Thinking\u2014Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender.' The Wharton School Research Paper, posted January 11, 2026. SSRN abstract_id=6097646.",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646",
+      "note": "The 11.7 figure and the 'roughly half' error-rate description are consistent across many secondary sources and one source that explicitly cites the SSRN paper for both figures, but the full paper text was not directly accessible to confirm the exact unit ('percentage points' vs 'percent'); additionally, the paper's posted date is January 11, 2026, not February 2026 as attributed \u2014 the February date appears to be when SSRN indexed it, not when it was posted."
+    },
+    "c90": {
+      "id": "c90",
+      "verdict": "WRONG_SOURCE",
+      "found_value": "The Time article at time.com/7309274 ('Using AI Made Doctors Worse at Spotting Cancer Without Assistance') does exist, quotes Professor Osmani and Professor Tucker, and was published around 13 August 2025 \u2014 but no source I could reach names 'Jeyaretnam M.' as its author. The byline does not appear in any search snippet or mirror of the article.",
+      "actual_source": "time.com/7309274 \u2014 author byline unconfirmed; the article's content (Osmani and Tucker quotes, date) is otherwise consistent with the claim",
+      "url": "https://time.com/7309274/ai-lancet-study-artificial-intelligence-colonoscopy-cancer-detection-medicine-deskilling/",
+      "note": "The Time article, its date (~13 August 2025), and its quotation of Osmani and Tucker are all verifiable, but the attributed author surname 'Jeyaretnam' does not appear in any snippet or mirror of the article I could reach; the byline cannot be confirmed and should be checked directly on the Time page."
+    },
+    "c91": {
+      "id": "c91",
+      "verdict": "VERIFIED",
+      "found_value": "August 13, 2025",
+      "actual_source": "The ASCO Post \u2013 'Routine AI Assistance May Lead to Loss of Skills in Endoscopists, Study Shows'",
+      "url": "https://ascopost.com/news/august-2025/routine-ai-assistance-may-lead-to-loss-of-skills-in-endoscopists-study-shows/",
+      "note": null
+    },
+    "c95": {
+      "id": "c95",
+      "verdict": "WRONG_VALUE",
+      "found_value": "The article exists at cacm.acm.org/news/the-ai-deskilling-paradox/ by Samuel Greengard in Communications of the ACM, but the page metadata date is November 10, 2025. A site-wide news ticker on other CACM pages labels it 'News Nov 7 2025', suggesting an internal editorial date of 7 November but a live publication date of 10 November.",
+      "actual_source": "Communications of the ACM (cacm.acm.org)",
+      "url": "https://cacm.acm.org/news/the-ai-deskilling-paradox/",
+      "note": "The article and author are confirmed, but the page itself carries a date of November 10, 2025; the '7 November 2025' date appears only in a site-wide news-ticker widget on other CACM pages, not on the article's own page \u2014 the draft's date cannot be fully verified as the canonical publication date."
+    },
+    "c99": {
+      "id": "c99",
+      "verdict": "VERIFIED",
+      "found_value": "Epub 2025 Sep 11; published in Lancet Gastroenterol Hepatol 2025; 10(11): e12, doi 10.1016/S2468-1253(25)00294-8",
+      "actual_source": "The Lancet Gastroenterology & Hepatology (thelancet.com) and PubMed (PMID 40946709)",
+      "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00294-8/fulltext",
+      "note": null
+    }
+  },
+  "recency": {
+    "studies": [
+      {
+        "name": "Budzy\u0144 et al. \u2014 endoscopist deskilling colonoscopy study",
+        "draft_uses": "Published version: ADR fall from 28.4% (226/795) to 22.4% (145/648), \u22126.0 pp, 95% CI \u221210.5 to \u22121.6, P = 0.0089; 19 endoscopists, mean 27.6 years since graduation, range 8\u201339; 795 pre-AI vs 1,382 total post-AI procedures; Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903",
+        "latest_known": "Same published article (Lancet Gastroenterol Hepatol 2025;10(10):896\u2013903, epub 12 Aug 2025). Authors' reply to correspondence published in Lancet Gastroenterol Hepatol Vol 10 Issue 12, December 2025, pp. 1062 \u2014 no new data, response to letters. No updated analysis or follow-up study found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00133-5/abstract",
+        "what_changed": "No figures changed. Authors' reply (Dec 2025) is a correspondence response, not a data update. All draft figures confirmed against the published record."
+      },
+      {
+        "name": "Heudel et al. \u2014 scoping review of deskilling risk among physicians",
+        "draft_uses": "ESMO Real World Data and Digital Oncology 2026;11(C):100693; 65 articles assessed in full, 12 included; characterisation of evidence as 'scarce, consistent across specialties'; abstract mis-describes Budzy\u0144 as 'multicenter randomized trial'; Savardi summary does not match the paper",
+        "latest_known": "Same published article confirmed (ESMO Real World Data and Digital Oncology 2026, article 100693, published online ~March 2026). No correction notice or updated version found. The review's abstract still describes the Budzy\u0144 study as 'a multicenter randomized trial' and its Savardi summary (32 residents, 12-point sensitivity gain, 18% faster, 3-month follow-up) still does not match the Savardi paper (8 residents, no sensitivity/speed/follow-up data). No erratum found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://www.esmorwd.org/article/S2949-8201(26)00012-3/fulltext",
+        "what_changed": "No figures changed. The draft's characterisation of the review's errors (abstract mis-labelling, Savardi mismatch) is confirmed accurate. No correction has been issued."
+      },
+      {
+        "name": "Wang et al. \u2014 AI suppression to mitigate automation bias (ACL MRI, JAMIA 2023)",
+        "draft_uses": "40 clinicians, randomised crossover, 200 ACL MRI cases; accuracy 87.2% without AI vs 96.4% with AI (P < .001); 45.5% of errors under AI attributable to automation bias; suppression strategy reduced automation bias by 41.7%; JAMIA 2023;30(10):1684\u20131692",
+        "latest_known": "Same published article confirmed (JAMIA 2023;30(10):1684\u20131692, doi:10.1093/jamia/ocad118). No follow-up study, correction, or retraction found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://academic.oup.com/jamia/article-abstract/30/10/1684/7240558",
+        "what_changed": "No figures changed."
+      },
+      {
+        "name": "Savardi et al. \u2014 upskilling/deskilling radiology residents (Insights into Imaging 2025)",
+        "draft_uses": "8 residents, 150 chest X-rays, 3 conditions (no AI / on-demand AI / integrated AI); ICC rising from 0.665 to 0.813; residents requested AI in 70% of cases; overrode AI when errors exceeded threshold; no follow-up; Insights Imaging 2025;16:23. Draft explicitly flags that the Heudel review's summary (32 residents, 12-point sensitivity gain, 18% faster, 3-month follow-up) does not match this paper.",
+        "latest_known": "Same published article confirmed (Insights Imaging 16, 23, published 29 Jan 2025, doi:10.1186/s13244-024-01893-4). No correction, retraction, or follow-up found as of 30 Aug 2026. Draft figures (8 residents, ICC 0.665\u21920.813, 70% AI request rate) are consistent with the published record.",
+        "status": "CURRENT",
+        "url": "https://link.springer.com/article/10.1186/s13244-024-01893-4",
+        "what_changed": "No figures changed."
+      },
+      {
+        "name": "Troya et al. \u2014 eye-tracking colonoscopy AI study (Endoscopy 2022)",
+        "draft_uses": "21 participants (10 novice, 11 experienced), 29 video sequences, crossover with 3-week washout, 1,218 experiments; eye travel distance fell from median 248.86 cm to 232.68 cm (P < 0.001); experienced 247.89\u2192227.09, novice 255.66\u2192247.89; AI detection 1.16 s vs participants' 2.97 s (unassisted) and 2.90 s (AI-assisted); false polyp IDs rose from median 4 to 6 (P = 0.001); 43.8% of false-positive box display time inspected; Endoscopy 2022;54:1009\u20131014",
+        "latest_known": "Same published article confirmed (Endoscopy 2022;54:1009\u20131014). No correction, retraction, or follow-up study found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(25)00133-5/abstract",
+        "what_changed": "No figures changed. Note: the draft's experienced-group figures (247.89\u2192227.09) and novice figures (255.66\u2192247.89) are internally consistent with the overall fall from 248.86 to 232.68 cm."
+      },
+      {
+        "name": "Dratsch et al. \u2014 automation bias in mammography BI-RADS (Radiology 2023)",
+        "draft_uses": "27 radiologists, 50 mammograms (49 analysed), 10 correct-suggestion openers, 12 incorrect suggestions among remaining 40; accuracy 79.7%\u201382.3% when AI correct; 19.8% \u00b1 14.0 (inexperienced), 24.8% \u00b1 11.6 (moderate), 45.5% \u00b1 9.1 (very experienced) when AI wrong; Radiology 2023;307(4):e222176",
+        "latest_known": "Same published article confirmed (Radiology 2023;307(4):e222176). No correction, retraction, or follow-up found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://pubs.rsna.org/doi/10.1148/radiol.222176",
+        "what_changed": "No figures changed."
+      },
+      {
+        "name": "Gommers et al. \u2014 AI decision support and visual search in screening mammography (Radiology 2025)",
+        "draft_uses": "12 radiologists, 150 screening mammograms; AUC 0.93\u21920.97 (P < .001); fixation coverage 11.1%\u21929.5% (P = .004); lesion dwell time 4.4\u21925.4 s (P = .006); Radiology 2025;316(1):e243688",
+        "latest_known": "Same published article confirmed (Radiology 2025;316(1):e243688). No correction, retraction, or follow-up found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://pubs.rsna.org/doi/10.1148/radiol.243688",
+        "what_changed": "No figures changed."
+      },
+      {
+        "name": "Ke et al. \u2014 AI-induced never-skilling in medical education (Nature Medicine 2026)",
+        "draft_uses": "Perspective article; three-way deskilling/never-skilling/mis-skilling distinction; quoted language about trainees failing to develop foundational reasoning skills; conclusion that AI is not inherently harmful and impact depends on how/when introduced; Nature Medicine May 2026; 17 authors across Duke-NUS, King's College London, Harvard and others",
+        "latest_known": "Published: Nature Medicine 32(6):1997\u20132006, epub 22 May 2026 (doi:10.1038/s41591-026-04438-y). Author count confirmed as 16 named authors (Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong MEH, Compton, Narayan, Keane, Wong, Bates, Tan, Liu) \u2014 the draft says '17 authors.' No correction or retraction found as of 30 Aug 2026.",
+        "status": "SUPERSEDED",
+        "url": "https://www.nature.com/articles/s41591-026-04438-y",
+        "what_changed": "Author count: the draft states '17 authors across Duke-NUS, King's College London, Harvard and others.' PubMed and institutional repositories list 16 named authors. The draft's author count is off by one. No substantive data figures are affected \u2014 this is a Perspective, not an empirical study \u2014 but the stated author count is incorrect."
+      },
+      {
+        "name": "Kosmyna et al. \u2014 'Your Brain on ChatGPT' (arXiv 2506.08872)",
+        "draft_uses": "54 participants through sessions 1\u20133; 18 in session 4 across two crossover arms; submitted June 2025; still a preprint",
+        "latest_known": "Still a preprint on arXiv as of at least May 2026 (arXiv:2506.08872, submitted 10 Jun 2025). MIT Media Lab project page confirms 'not yet peer-reviewed' as of June 2025. No peer-reviewed publication found as of 30 Aug 2026. Stankovi\u0107 et al. comment (arXiv:2601.00856) also remains a preprint.",
+        "status": "CURRENT",
+        "url": "https://arxiv.org/abs/2506.08872",
+        "what_changed": "No figures changed. Preprint status confirmed. Draft's description of the Stankovi\u0107 comment (power calculation ~159 participants, 55 completers vs 54 analysed, relative-measure interpretation of 'significant connection') is consistent with the arXiv comment text."
+      },
+      {
+        "name": "Stankovi\u0107 et al. \u2014 comment on 'Your Brain on ChatGPT' (arXiv 2601.00856)",
+        "draft_uses": "Power calculation of ~159 participants needed; some figures rest on 2\u20134 essays per group; discrepancy between 55 completers and 54 analysed; 'significant connection' is a relative measure; conclusion that there is no strong evidence LLM use negatively affects performance itself",
+        "latest_known": "arXiv:2601.00856, posted ~29 Dec 2025. Still a preprint. No peer-reviewed publication found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://arxiv.org/abs/2601.00856",
+        "what_changed": "No figures changed."
+      },
+      {
+        "name": "Hesselmann \u2014 Google Stroop effect replication (PeerJ 2020)",
+        "draft_uses": "89 of 117 participants analysed; Bayes factor 5.07 against alternative, 16.43 against original's specific predicted pattern; PeerJ 2020;8:e10325",
+        "latest_known": "Same published article (PeerJ 2020;8:e10325). No correction, retraction, or follow-up found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://peerj.com/articles/10325/",
+        "what_changed": "No figures changed."
+      },
+      {
+        "name": "Gerlich \u2014 AI tools, cognitive offloading and critical thinking (Societies 2025)",
+        "draft_uses": "666 valid responses; UK social media recruitment; cross-sectional; correlations \u22120.68, +0.72, \u22120.75; correction of 10 September 2025 replaced Table 4 (duplicate of Table 3); correction notice states scientific conclusions unaffected; Societies 2025;15(1):6",
+        "latest_known": "Correction confirmed published 10 September 2025 (Societies 2025;15(9):252, doi:10.3390/soc15090252). Correction replaced Table 4 (ANOVA results for deep thinking activities) which had duplicated Table 3. Author states scientific conclusions unaffected. No further correction or retraction found as of 30 Aug 2026. Draft's account of the correction is accurate.",
+        "status": "CURRENT",
+        "url": "https://doi.org/10.3390/soc15090252",
+        "what_changed": "No figures used by the draft changed. The draft correctly describes the correction and its scope."
+      },
+      {
+        "name": "Liu, Christian, Dumbalska, Bakker & Dubey \u2014 'AI Assistance Reduces Persistence' (arXiv 2604.04721)",
+        "draft_uses": "Three randomised experiments; N = 1,222 randomised, 1,060 analysed; effect sizes \u22120.42, \u22120.19, \u22120.42 on unassisted solve rates; AI withdrawn without warning before 3 test problems; no pre-registration statement in any version; checked against version 4",
+        "latest_known": "arXiv:2604.04721v4, dated 5 August 2026 (confirmed from HTML page showing 'arXiv:2604.04721v4 [cs.AI] 05 Aug 2026'). The draft says it checked against version 4, which is the current version. Still a preprint; no peer-reviewed publication found as of 30 Aug 2026. The project website confirms Experiment 1 solve rates (0.57 vs 0.73, Cohen's d = \u22120.42), consistent with draft figures.",
+        "status": "CURRENT",
+        "url": "https://arxiv.org/abs/2604.04721",
+        "what_changed": "No figures changed between the version the draft checked (v4) and the current version (v4). Pre-registration status: draft correctly states no pre-registration statement appears in any version."
+      },
+      {
+        "name": "Shaw & Nave \u2014 'Thinking\u2014Fast, Slow, and Artificial' / Wharton working paper (Feb 2026)",
+        "draft_uses": "Three pre-registered experiments; N = 1,372 participants, 9,593 trials; participants followed faulty AI advice on 79.8% of chat-engaged trials where it was wrong; confidence rose 11.7 percentage points; confidence did not fall as faulty trials accumulated; working paper, not peer reviewed",
+        "latest_known": "Still a working paper/preprint (PsyArXiv/SSRN, posted 11\u201312 January 2026, doi:10.31234/osf.io/yk25n_v1). No peer-reviewed publication found as of 30 Aug 2026. The Wharton Executive Education page and The Next Web report the wrong-answer follow rate as '80%'; the draft's figure of 79.8% appears to be the more precise figure from the paper itself and is not contradicted. The confidence rise of 11.7 percentage points is confirmed by the Wharton Executive Education page.",
+        "status": "CURRENT",
+        "url": "https://osf.io/preprints/psyarxiv/yk25n_v1",
+        "what_changed": "No figures changed. The 79.8% figure in the draft is consistent with the paper (secondary sources round to 80%). Working paper status confirmed."
+      },
+      {
+        "name": "Retracted meta-analysis \u2014 ChatGPT improves learning (Humanities and Social Sciences Communications, retracted 22 April 2026)",
+        "draft_uses": "Retracted 22 April 2026; audit by Ingebrigtsen & Lukic (PsyArXiv, first posted 2 July 2025); retracted study carried ~19% of weight; second-heaviest measured self-efficacy not learning; 41 unique table entries vs reported 44; effect size 4.009 from shared group grades; effect sizes above 1 in ~36% of included studies",
+        "latest_known": "Retraction confirmed (Humanities and Social Sciences Communications, retraction note dated 22 April 2026). The audit paper by Ingebrigtsen & Lukic was first posted 2 July 2025 on PsyArXiv. No reversal of retraction or further update found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://www.nature.com/articles/s41599-026-04000-0",
+        "what_changed": "No figures changed. Retraction stands."
+      },
+      {
+        "name": "Weidlich, Ga\u0161evi\u0107, Drachsler & Kirschner \u2014 ChatGPT in Education critique (J Comput Assist Learn 2025)",
+        "draft_uses": "Audit of Deng et al. (Computers & Education 2025;227:105224); 4 of 19 comparisons met all 3 criteria; valid learning measure in 10 of 19; quoted sentence about differences during treatment reflecting availability not durable learning; J Comput Assist Learn 2025;41:e70105",
+        "latest_known": "Same published article confirmed (J Comput Assist Learn 2025;41:e70105). No correction or retraction found as of 30 Aug 2026.",
+        "status": "CURRENT",
+        "url": "https://onlinelibrary.wiley.com/doi/10.1111/jcal.70105",
+        "what_changed": "No figures changed."
+      }
+    ]
+  },
+  "objections": [
+    {
+      "objection": "The draft quotes the Heudel review's abstract as calling the colonoscopy study 'a multicenter randomized trial' but does not reproduce the exact abstract sentence, only a paraphrase.",
+      "quote": "The 2026 scoping review that assembles this literature for doctors describes the colonoscopy study in its own abstract as a multicenter randomized trial.",
+      "severity": "SERIOUS",
+      "why": "This is a serious accusation against a named peer-reviewed publication. The draft says it read the review in full but does not quote the exact abstract wording. If the abstract uses different language \u2014 for example, describing the ACCEPT trial (which is randomised) rather than the deskilling sub-study \u2014 the characterisation is wrong. A paraphrase is not sufficient evidence for an accusation of this weight. The exact sentence should be quoted.",
+      "class": "THIRD_PARTY"
+    },
+    {
+      "objection": "The draft says the Heudel review's Savardi summary reports '32 residents' and 'performance stable at a three-month follow-up,' but the published Heudel review text I can verify only confirms '12%' sensitivity and '18%' reading time \u2014 not the resident count or the follow-up claim.",
+      "quote": "Heudel and colleagues summarise Savardi and colleagues as showing 32 radiology residents gaining 12 percentage points of sensitivity, reading 18% faster, and holding that performance at a three-month follow-up.",
+      "severity": "SERIOUS",
+      "why": "The draft makes four specific claims about what the review says about Savardi. Two ('12%' and '18%') are confirmed by the published review text. Two ('32 residents' and 'three-month follow-up') cannot be confirmed from the published text and may be in the review's table rather than its body \u2014 or may not be there at all. If the review does not say '32 residents' or 'three-month follow-up,' the draft has overstated the review's error. The draft should quote the review's exact Savardi summary rather than paraphrase it.",
+      "class": "THIRD_PARTY"
+    },
+    {
+      "objection": "The draft says the Heudel review's radiology section 'attaches that sentence to its reference 16, which is a 2025 paper by different authors, 12 radiologists and 150 mammograms, that found AI improved accuracy' and that 'the 2023 study the description otherwise fits is not in the review's reference list at all' \u2014 but offers no quotation from the review to support either claim.",
+      "quote": "A radiologist writing for trainees paired the colonoscopy result with the mammography experiment \u2014 the closest thing to this page in general-audience writing \u2014 and reported the limitations of neither.",
+      "severity": "SERIOUS",
+      "why": "This is a claim that a named peer-reviewed review mis-cites a paper and omits the paper it should have cited. It is a serious accusation of scholarly error against named authors. The draft says it noticed this 'only because we had read both underlying papers that evening,' which is plausible, but the draft does not quote the review's exact sentence or identify reference 16 by name, making the claim unverifiable by a reader and undefendable if challenged. The review's reference 16 should be named.",
+      "class": "THIRD_PARTY"
+    },
+    {
+      "objection": "The draft says the Heudel review's Table 1 'attributes a pathology experiment's figures to a paper that did not produce them' but does not name the paper Table 1 incorrectly cites, making the accusation unverifiable.",
+      "quote": "And its Table 1 attributes a pathology experiment's figures to a paper that did not produce them, while its own body cites the paper that did.",
+      "severity": "SERIOUS",
+      "why": "This is a claim of a specific scholarly error in a named publication. The draft names the correct paper (Rosbach/Aubreville) and the incorrect one (Bellahsen-Harrar) only in the sources section, not in the body. A reader of the body text cannot verify the claim. More importantly, the accusation is made in the body without the evidence that would allow a reader \u2014 or the review's authors \u2014 to check it. The body text should name both papers.",
+      "class": "THIRD_PARTY"
+    },
+    {
+      "objection": "The draft says 'Not one piece of coverage we read named the suspension of the Polish screening programme as the reason the volume rose' \u2014 a claim about the conduct of multiple named outlets \u2014 but the draft has already shown it missed the Pedersen paper for three months and initially misstated what Communications of the ACM carried, which weakens the authority of a comprehensive coverage claim.",
+      "quote": "Not one piece of coverage we read named the suspension of the Polish screening programme as the reason the volume rose, or the absence of withdrawal-time data, or the eleven limitations as a body.",
+      "severity": "MINOR",
+      "why": "The draft has been admirably honest about its own errors \u2014 missing the Pedersen paper, initially misstating the ACM piece. That honesty cuts against the confidence of 'not one piece of coverage we read.' The draft qualifies it as 'coverage we read,' which is appropriate, but the same fallibility that produced the other misses could have produced this one. The claim should be further qualified: 'of the coverage we read' and 'we may have missed instances.'",
+      "class": "CALIBRATION"
+    },
+    {
+      "objection": "The draft says the Dratsch study involved '50 mammograms of which 49 were analysed' in the sources, but the body text describes the study as having 'The first ten cases' and 'the remaining forty' \u2014 implying all 50 were used \u2014 without accounting for the one excluded case.",
+      "quote": "The first ten cases carried correct suggestions, which established the system's credibility. Of the remaining forty, twelve were wrong.",
+      "severity": "MINOR",
+      "why": "10 + 40 = 50, but the sources say 49 were analysed. The body text implies all 50 were used in the analysis. A reader who checks the sources against the body will find a discrepancy. The body text should note that one case was excluded, or the sources should explain which case was excluded and why.",
+      "class": "CONTRADICTION"
+    },
+    {
+      "objection": "The draft describes the Budzy\u0144 study's correction as affecting 'the exposure variable itself, AI introduction, in the adjusted model' but does not say in which direction the estimate moved, which is the information a reader would need to assess whether 'interpretation is unchanged' is plausible.",
+      "quote": "the only affected findings are for the variables 'After AI introduction (using AI in colonoscopy)' and 'Age >60 years', and that these changes do not affect the interpretation of the data.",
+      "severity": "MINOR",
+      "why": "The draft correctly discloses the correction and correctly notes that the journal says interpretation is unchanged. But a correction to the adjusted estimate for the primary exposure variable is material, and the direction of the change \u2014 whether the corrected estimate was larger or smaller \u2014 is the one piece of information that would let a reader judge the journal's claim. The draft says it read the correction; it should say which way the estimate moved.",
+      "class": "CALIBRATION"
+    },
+    {
+      "objection": "The draft says the Budzy\u0144 study's correction was 'published online 11 September 2025' but does not say whether this date was verified independently or taken from the correction notice itself, which the draft says it could not open through seven routes and only read when 'the operator obtained the notice.'",
+      "quote": "This paper carries a correction, published online 11 September 2025 (Lancet Gastroenterol Hepatol 2025;10(11):e12, doi 10.1016/S2468-1253(25)00294-8), and we have now read it.",
+      "severity": "MINOR",
+      "why": "The draft is transparent that it could not open the correction through seven routes and only read it when the operator obtained it. But it does not say whether the date '11 September 2025' comes from the correction notice itself or from another source. If the date comes only from the notice, and the notice was obtained through an unusual route, the date should be flagged as taken from the document rather than independently verified.",
+      "class": "CALIBRATION"
+    }
+  ],
+  "inferences": [
+    {
+      "quote": "doctors became 20% worse at spotting abnormalities on their own",
+      "problem": "The draft presents this as a relative restatement of the six-point absolute fall without flagging that the two framings carry very different impressions of severity, and does not make clear that '20% worse' is a relative change in the detection rate (6/28.4 \u2248 21%), not a percentage-point figure \u2014 a distinction the draft elsewhere treats as important enough to explain.",
+      "severity": "MINOR",
+      "correct_reading": "The absolute fall was 6.0 percentage points (28.4% to 22.4%). The relative fall is approximately 21%. Both are arithmetically accurate descriptions of the same data; the draft's point is that the relative framing is the more alarming one, which is correct \u2014 but the sentence is quoted approvingly as an illustration of how numbers travel, and a reader who does not follow the surrounding argument will take it as the draft's own characterisation of the finding.",
+      "fix": "Fortune carried the six-point fall to a business readership on 26 August 2025 and reported none of the eleven limitations. Its headline put the same result a different way: doctors became 20% worse at spotting abnormalities on their own \u2014 the relative restatement of the same absolute fall, arithmetically accurate and considerably more alarming.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "the senior author of the deskilling study is a co-author of the prospective study that found none",
+      "problem": "The Budzy\u0144 paper lists Yuichi Mori last (position 18 of 18), which is the conventional senior-author position in biomedical publishing, and the ASCO Post confirms Mori as senior author. However, the draft does not name Mori here \u2014 it says 'the senior author of the deskilling study' without naming them, while having named Mori as an author of the Pedersen study. A reader who has not memorised the author list cannot verify the claim, and the draft's own standard (stated in the sources section) is that 'a check on this page requires every name to be verified against the author list.'",
+      "severity": "MINOR",
+      "correct_reading": "Yuichi Mori is the senior (last-listed) author of the Budzy\u0144 deskilling study and a co-author of the Pedersen prospective study. The claim is correct; it should name him.",
+      "fix": "Yuichi Mori is an author of both papers \u2014 the senior author of the deskilling study is a co-author of the prospective study that found none.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "the absence of a fall argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists, although such skill reduction has been observed in another study involving only experienced endoscopists \u2014 and the study they cite there is the Polish one",
+      "problem": "The draft attributes the scope of the Pedersen authors' own conclusion ('at least for nonexperienced endoscopists') correctly in this sentence, but the parenthetical claim that the Polish study involved 'only experienced endoscopists' is the draft's gloss, not the Pedersen paper's. The Budzy\u0144 study does not stratify by experience level in its primary analysis \u2014 it reports a fall in ADR across nineteen endoscopists who each had more than 2,000 procedures, which the draft itself describes as 'experienced.' The Pedersen paper's reference to the Polish study as involving 'only experienced endoscopists' is the Pedersen authors' characterisation; the draft presents it as its own verified fact.",
+      "severity": "MINOR",
+      "correct_reading": "The Pedersen authors characterise the Budzy\u0144 study as involving only experienced endoscopists. The Budzy\u0144 study does not formally stratify by experience level; it reports that all nineteen endoscopists had more than 2,000 procedures. The draft should attribute this characterisation to the Pedersen authors rather than presenting it as an independent finding.",
+      "fix": "\u2026although such skill reduction has been observed in another study \u2014 the Polish one \u2014 which the Pedersen authors describe as involving only experienced endoscopists.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "Among the experienced it was larger \u2014 247.89 cm to 227.09 cm, about 8% \u2014 and among novices smaller: 255.66 cm to 247.89 cm, about 3%.",
+      "problem": "The novice baseline (255.66 cm) is larger than the experienced baseline (247.89 cm), and the experienced post-AI figure (227.09 cm) is the same number the draft uses as the novice post-AI figure. The draft reports the novice post-AI distance as 247.89 cm \u2014 which is the experienced group's pre-AI distance, not the novice post-AI distance. If the numbers are taken from the paper as stated, the novice post-AI figure should be a distinct value; as written, the novice post-AI distance equals the experienced pre-AI distance, which is arithmetically possible but creates a strong appearance of a transcription error that a reader will notice.",
+      "severity": "SERIOUS",
+      "correct_reading": "The draft should verify from the Troya paper whether 247.89 cm is indeed the novice post-AI eye travel distance, or whether a different figure belongs there. As written, the experienced pre-AI distance and the novice post-AI distance are identical (247.89 cm), which may be correct but requires explicit confirmation from the source.",
+      "fix": "Among the experienced it was larger \u2014 247.89 cm to 227.09 cm, about 8% \u2014 and among novices smaller: 255.66 cm to [verified novice post-AI figure], about 3%.",
+      "class": "FACT"
+    },
+    {
+      "quote": "The effect is real, statistically clear, and modest.",
+      "problem": "The confidence interval for the overall eye-travel-distance reduction is not reported. The draft gives the p-value (P < 0.001) but not the interval, so a reader cannot assess the range of plausible effect sizes. The draft's own standard for confidence intervals \u2014 applied carefully to the ADR fall and the Pedersen odds ratios \u2014 is not applied here.",
+      "severity": "MINOR",
+      "correct_reading": "The statistical significance is clear (P < 0.001), but without the confidence interval the reader cannot judge how precisely the effect is estimated or how 'modest' the upper bound is.",
+      "fix": "The effect is real and statistically clear (P < 0.001); the confidence interval is not reported in the paper's abstract and should be verified from the full text before characterising the precision of the estimate.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "On 5 June 2026, two days after the Norwegian trial appeared, Gastroenterology published an editorial by Weinberg and Bretthauer titled Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy? Michael Bretthauer is an author of the Polish deskilling study.",
+      "problem": "Michael Bretthauer is listed as a co-author of the Budzy\u0144 (Polish) deskilling study, not as its senior author. The draft's phrasing 'is an author of the Polish deskilling study' is accurate, but the juxtaposition with the earlier sentence identifying Mori as 'the senior author of the deskilling study' creates a potential confusion: a reader may wonder whether Bretthauer's authorship is the notable connection, when the more notable connection is that Mori \u2014 the senior author \u2014 is on both papers. This is not an error, but the emphasis is misplaced.",
+      "severity": "MINOR",
+      "correct_reading": "Bretthauer is a co-author of the Budzy\u0144 study. The more structurally notable overlap is that Mori, the senior author of the Budzy\u0144 study, is also a co-author of the Pedersen study \u2014 a connection the draft makes separately. Bretthauer's co-authorship of the Budzy\u0144 study is relevant context for the editorial but does not carry the same weight.",
+      "fix": "Michael Bretthauer is a co-author of the Polish deskilling study \u2014 and Yuichi Mori, its senior author, is also a co-author of the Norwegian trial.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "Thirteen endoscopists, 5,013 colonoscopies.",
+      "problem": "This sentence appears in the body of the piece when introducing the Pedersen study, and again in the sources section. In the body it is accurate. However, the draft's body also states 'two of the thirteen ran it throughout while the rest switched it on only during withdrawal' \u2014 this is a claim about how the experienced endoscopists used the CADe device, and it is presented as a finding from the Pedersen paper. The draft does not flag that this detail (two of thirteen running it throughout) applies specifically to the experienced subgroup, not to all thirteen endoscopists. A reader will read 'two of the thirteen' as applying to the full cohort of thirteen.",
+      "severity": "MINOR",
+      "correct_reading": "The detail about two endoscopists running CADe throughout applies to the experienced subgroup (six endoscopists), not to all thirteen. 'Two of the thirteen' is therefore a misleading denominator.",
+      "fix": "\u2026two of the six experienced endoscopists ran it throughout while the rest switched it on only during withdrawal.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "It settled the confounding that the volume doubling introduced, and it is the single study that would move this from a worry to a finding.",
+      "problem": "This sentence describes a hypothetical randomised crossover trial as the study that 'would move this from a worry to a finding.' But the draft has already reported a finding \u2014 the Budzy\u0144 study found a statistically significant six-point fall. The sentence slides from 'would settle the confounding' (accurate) to 'would move this from a worry to a finding' (inaccurate: there is already a finding; what is missing is a finding that is causally interpretable). This is an instance of MISSING_NUMBER_AS_MISSING_EVIDENCE applied to causal inference: the absence of a causal design is presented as the absence of any finding.",
+      "severity": "SERIOUS",
+      "correct_reading": "The Budzy\u0144 study is a finding \u2014 a statistically significant association. What a randomised crossover trial would provide is a causally interpretable finding, not the first finding. The distinction matters because the draft elsewhere correctly characterises the Budzy\u0144 result as real evidence.",
+      "fix": "It would settle the confounding that the volume doubling introduced, and it is the single study that would move this from an association to a causal finding.",
+      "class": "CONTRADICTION"
+    },
+    {
+      "quote": "The training study we were offered as the null result is not one. This one is, with the limits its own authors put on it.",
+      "problem": "The draft correctly identifies the Pedersen study as the null result and the Savardi study as not one. But 'null result' is used loosely: the Pedersen study found a significant benefit during CADe use among inexperienced endoscopists (OR 1.43, 95% CI 1.11\u20131.84), and found no significant change after CADe removal (OR 1.03, 95% CI 0.79\u20131.34). The null is specifically on the post-removal comparison, not on the study as a whole. Calling the Pedersen study 'the null result' without qualification implies the entire study found nothing, which is not what it found.",
+      "severity": "MINOR",
+      "correct_reading": "The Pedersen study found a significant upskilling effect during CADe use among inexperienced endoscopists, and a null result on the post-removal comparison (the deskilling question). It is a null result on the specific question of deskilling after removal, not a null result overall.",
+      "fix": "The training study we were offered as the null result on deskilling is not one. This one is \u2014 specifically on the question of what happens after the AI is removed \u2014 with the limits its own authors put on it.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "the total number of procedures in the second period nearly doubled, from 795 to 1,382",
+      "problem": "This sentence, and the parallel sentence attributed to Professor Osmani ('the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382'), conflates two different denominators. The 795 figure is the number of non-AI-assisted colonoscopies in the pre-period. The 1,382 figure is the total number of colonoscopies (AI-assisted and non-AI-assisted combined) in the post-period. The volume confounder is real, but the comparison being made \u2014 795 non-AI procedures before versus 1,382 total procedures after \u2014 mixes denominators. The correct comparison for total volume would be total procedures before versus total procedures after.",
+      "severity": "SERIOUS",
+      "correct_reading": "The 795 figure is the number of non-AI-assisted colonoscopies in the pre-period (which was also the total, since AI had not yet been introduced). The 1,382 figure is the total colonoscopies in the post-period, of which 648 were non-AI-assisted and 734 were AI-assisted. The volume increase is real, but the comparison should be stated as: total procedures rose from 795 to 1,382, while the non-AI procedures measured fell from 795 to 648.",
+      "fix": "the total number of procedures in the second period nearly doubled, from 795 to 1,382 \u2014 while the non-AI procedures actually measured fell from 795 to 648, because the additional capacity was filled by AI-assisted colonoscopies",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "Professor Venet Osmani of Queen Mary University of London named the volume problem exactly \u2014 the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382",
+      "problem": "Same denominator-mixing problem as above, now attributed to Professor Osmani. The 795 is non-AI procedures pre-period; the 1,382 is total procedures post-period. If this is an accurate quotation of what Osmani said, the draft is faithfully reporting a loose comparison made by the expert. If it is the draft's paraphrase, the draft is introducing the error. Either way, the sentence as it stands presents a mixed-denominator comparison as 'naming the volume problem exactly.'",
+      "severity": "MINOR",
+      "correct_reading": "The volume problem is real. The precise statement is that total procedures rose from 795 to 1,382, while non-AI procedures fell from 795 to 648. Osmani's point stands; the numbers need the clarification the draft provides elsewhere.",
+      "fix": "Professor Venet Osmani of Queen Mary University of London named the volume problem \u2014 total colonoscopies nearly doubled after the AI tool was introduced, from 795 to 1,382, while the non-AI procedures being measured fell from 795 to 648",
+      "class": "CALIBRATION"
+    }
+  ],
+  "coverage": {
+    "best_coverage": [
+      {
+        "outlet": "Time (time.com), August 2025",
+        "url": "https://time.com/7309274/ai-lancet-study-artificial-intelligence-colonoscopy-cancer-detection-medicine-deskilling/",
+        "got_right": "Carried the SMC volume-confounder caveat by name, quoting Osmani's point that the total number of colonoscopies increased and that increased workload could have led to fatigue and poorer detection. Also quoted Tucker on automation bias not being unique to AI. Correctly framed the study as observational throughout. Preserved both the absolute and relative framings of the result.",
+        "still_omitted": "Did not name the Polish screening-programme suspension as the specific mechanism behind the volume doubling, did not mention withdrawal-time data being absent, did not note the eleven limitations as a count, and did not flag that the study was retrospective in a way that would alert a lay reader to what that forecloses causally."
+      },
+      {
+        "outlet": "ASCO Post, August 13 2025",
+        "url": "https://ascopost.com/news/august-2025/routine-ai-assistance-may-lead-to-loss-of-skills-in-endoscopists-study-shows/",
+        "got_right": "Reported both the 20% relative and 6% absolute reduction correctly. Quoted the authors acknowledging the observational nature and that factors other than AI may have influenced findings. Quoted senior author Mori raising the implication for prior RCTs. Quoted the companion UCL commentary with appropriate hedging language. Noted limited generalisability to less experienced endoscopists and called for further studies.",
+        "still_omitted": "Did not name the Polish screening-programme suspension or quantify the volume doubling (795 to 1,382 total procedures). Did not mention withdrawal-time data being absent, blinding, or the exclusion of the first 100 procedures per centre. Did not report the confidence interval or P-value."
+      },
+      {
+        "outlet": "American College of Gastroenterology Evidence-Based GI (Zhou), September 2025",
+        "url": "https://gi.org/journals-publications/ebgi/zhou_sep2025/",
+        "got_right": "Explicitly flagged observational design susceptible to confounding and selection bias. Noted residual confounding despite multivariable adjustment. Flagged insufficient colonoscopies per endoscopist to allow per-operator analysis. Cited Troya et al. (the eye-tracking paper) as a proposed mechanism. Correctly labelled the study as observational throughout.",
+        "still_omitted": "The draft notes it missed the mechanism paragraph on first read (its own disclosed error). The publicly accessible text does not appear to name the Polish screening-programme suspension as the specific driver of the volume change, nor does it report the confidence interval. The draft also notes it could not access the companion commentary published in the same journal issue."
+      },
+      {
+        "outlet": "Medscape, August 25 2025",
+        "url": "https://www.medscape.com/viewarticle/ai-use-causing-endoscopists-lose-their-skills-2025a1000mcn",
+        "got_right": "Correctly described the study as 'a large observational study.' Reported both the 20% relative and 6% absolute reduction in the same sentence, preserving both framings without choosing the more alarming one exclusively. Reported the AI-assisted ADR (25.3%) alongside the non-AI figures, giving readers the full comparison. Noted that the number of adenomas per colonoscopy and advanced adenomas per colonoscopy did not change significantly between periods \u2014 a finding the draft does not mention and which is relevant to the severity question.",
+        "still_omitted": "No mention of the volume doubling or its cause, no confidence interval, no withdrawal-time limitation, no call for prospective trials, no mention of the eleven limitations as a body."
+      },
+      {
+        "outlet": "Healthgrades, August 19 2025",
+        "url": "https://resources.healthgrades.com/pro/ai-assistance-colonoscopies-doctors-skill-loss",
+        "got_right": "Correctly labelled the study as a 'retrospective observational study' in the body text. Noted that multivariable logistic regression was used to control for confounders including patient age, sex, sedation, bowel prep, and endoscopist characteristics. Quoted an external expert (ASGE chair Prateek Sharma) contextualising the result against the broader AI-in-colonoscopy literature. Fact-checked by a named PhD.",
+        "still_omitted": "Did not name the Polish screening-programme suspension or quantify the volume doubling. Did not report the confidence interval. Did not mention withdrawal-time data being absent or the exclusion of the first 100 procedures per centre."
+      },
+      {
+        "outlet": "Nature Reviews Gastroenterology & Hepatology research highlight (Ray), September 5 2025",
+        "url": "https://www.nature.com/articles/s41575-025-01122-3",
+        "got_right": "Correctly labelled the study as 'a new multicentre, observational study' and 'retrospective study' in its own text. Correctly reported the n=795 before and n=648 after figures for non-AI-assisted colonoscopies. Did not misrepresent the study design as randomised.",
+        "still_omitted": "No limitations stated, no confidence interval, no mention of the volume doubling or its cause, no expert quotes, no call for prospective trials. The draft's characterisation of this piece as reporting 'figures as fact with no limitations and no quotes' is accurate for the limitations and quotes, but the design label is correct \u2014 it is not a case of misrepresenting the study as randomised."
+      }
+    ],
+    "contradictions": [
+      {
+        "quote": "A research highlight in Nature Reviews Gastroenterology & Hepatology reported the figures as fact with no limitations and no quotes.",
+        "counterexample": "Nature Reviews Gastroenterology & Hepatology (Ray, September 2025) correctly labelled the study as 'a new multicentre, observational study' and 'retrospective study' in its own text, and accurately reported the n=795/n=648 split. It did not misrepresent the design. The draft's complaint that it carried 'no limitations and no quotes' is accurate, but the implicit suggestion that it misrepresented the study type is not supported.",
+        "url": "https://www.nature.com/articles/s41575-025-01122-3",
+        "severity": "MINOR",
+        "fix": "Narrow the claim: 'A research highlight in Nature Reviews Gastroenterology & Hepatology correctly labelled the study as retrospective and observational, but reported the figures without limitations, without expert quotes, and without naming the volume confounder.'"
+      },
+      {
+        "quote": "Fortune carried the six-point fall to a business readership on 26 August 2025, connected it to an automation analogy and to a Microsoft and Carnegie Mellon study, and reported none of the eleven limitations.",
+        "counterexample": "This is accurate as far as it goes for Fortune itself. However, the draft uses Fortune as its lead instance of the general failure of caveats to travel, immediately after saying 'none of it crossed the boundary.' Time.com \u2014 a comparable general-audience outlet \u2014 did carry the volume-confounder caveat by name on the same day the study published, citing Osmani's SMC comment directly. The claim that caveats did not cross the boundary to general-audience coverage is therefore overstated: at least one major general outlet carried the key confounder on day one.",
+        "url": "https://time.com/7309274/ai-lancet-study-artificial-intelligence-colonoscopy-cancer-detection-medicine-deskilling/",
+        "severity": "SERIOUS",
+        "fix": "Distinguish between outlets: 'Fortune reported none of the eleven limitations. Time, by contrast, carried the volume-confounder caveat on the day of publication, citing Osmani directly. The failure was not uniform across general-audience coverage.'"
+      },
+      {
+        "quote": "What we did find is that none of it crossed the boundary.",
+        "counterexample": "Time.com quoted Osmani's SMC comment on the volume confounder and Tucker on automation bias not being unique to AI, on the day of publication. ASCO Post quoted the authors' own acknowledgement of the observational limitation and Mori's caveat about prior RCTs. Both are non-specialist outlets that carried substantive caveats.",
+        "url": "https://time.com/7309274/ai-lancet-study-artificial-intelligence-colonoscopy-cancer-detection-medicine-deskilling/",
+        "severity": "SERIOUS",
+        "fix": "Replace 'none of it crossed the boundary' with a more precise claim: 'The volume confounder and the observational design did cross the boundary in some outlets \u2014 notably Time and ASCO Post \u2014 but the eleven limitations as a body, the Polish screening-programme suspension as the specific mechanism, and the call for randomised crossover trials did not appear in general-audience coverage.'"
+      },
+      {
+        "quote": "Its headline put the same result a different way: doctors became 20% worse at spotting abnormalities on their own.",
+        "counterexample": "Medscape, writing for clinicians, also reported both the 20% relative and 6% absolute reduction in the same sentence without choosing between them, and additionally reported the AI-assisted ADR (25.3%) for comparison \u2014 a figure Fortune omitted. The dual-framing problem Fortune exemplifies is real, but it is not universal even in non-specialist medical coverage.",
+        "url": "https://www.medscape.com/viewarticle/ai-use-causing-endoscopists-lose-their-skills-2025a1000mcn",
+        "severity": "MINOR",
+        "fix": "Note that Medscape preserved both framings in the same sentence, making Fortune's headline-only relative framing a specific editorial choice rather than a universal pattern."
+      },
+      {
+        "quote": "Three named academics said so publicly the day it appeared. Almost none of that survived the trip out of gastroenterology.",
+        "counterexample": "Time.com quoted two of the three SMC academics (Osmani and Tucker) on the day of publication, carrying their specific caveats about workload and automation bias to a general readership. 'Almost none' is an overstatement; the most important single confounder (volume doubling) did survive in at least one major general outlet.",
+        "url": "https://time.com/7309274/ai-lancet-study-artificial-intelligence-colonoscopy-cancer-detection-medicine-deskilling/",
+        "severity": "SERIOUS",
+        "fix": "Revise to: 'Three named academics said so publicly the day it appeared. The volume confounder reached at least one general outlet (Time) via those comments. What did not travel was the full body of eleven limitations, the specific mechanism of the Polish screening suspension, and the call for randomised crossover trials.'"
+      },
+      {
+        "quote": "The paper carries a published correction of 10 September 2025 [referring to Gerlich]",
+        "counterexample": "PubMed records a correction to the Budzy\u0144 colonoscopy paper itself, published November 2025 (Lancet Gastroenterol Hepatol 2025 Nov;10(11):e12, epub September 11 2025). The draft does not mention this correction to its primary study anywhere in the text or sources, though it tracks corrections carefully for other papers.",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40816301/",
+        "severity": "MINOR",
+        "fix": "Add to the Budzy\u0144 source entry: 'A correction to this paper was published in Lancet Gastroenterol Hepatol November 2025 (10(11):e12). The nature and scope of that correction should be verified and disclosed.'"
+      }
+    ],
+    "what_this_piece_can_add": "No outlet found \u2014 including the careful specialist ones \u2014 reported the specific mechanism behind the volume doubling (the Polish national screening-programme suspension on 1 January 2022 freeing capacity to draw from waiting lists), nor did any general-audience piece report the confidence interval, the absence of withdrawal-time data, or the exclusion of the first 100 procedures per centre as a named limitation. The draft's unique contribution is therefore not the existence of caveats \u2014 those did travel, partially \u2014 but the precise causal account of why the population plausibly changed, and the demonstration that even the 2026 scoping review that assembles this literature for doctors mislabels the study design in its own abstract and miscites the Savardi paper: failures of transmission that occurred inside the specialty, not just at its boundary."
+  }
+}
