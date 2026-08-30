@@ -70,5 +70,31 @@ esac
   echo "exit=$?"
 } >> "$LOG" 2>&1
 
+# ---------------------------------------------------------------------------
+# The source sweeps. Added 2026-08-30, after an outside reviewer found a
+# prospective trial we had said did not exist -- Pedersen et al., in print
+# since 3 June 2026, citing our central study, with that study's senior author
+# on it -- and after we discovered a correction to that same central study that
+# had been sitting in PubMed since 11 September 2025.
+#
+# The scan above watches ATTENTION: GDELT and Wikipedia, what is being
+# published and read. That is how a SUBJECT is found. It is not how a subject
+# already published is watched, and nothing we owned did that. These two do,
+# for free, against Europe PMC.
+#
+# Every issue with a sources.json is swept, so a page does not fall off the
+# watch because nobody remembered it.
+for SRC in "$REPO"/issues/*/sources.json; do
+  [ -e "$SRC" ] || continue
+  SLUG="$(basename "$(dirname "$SRC")")"
+  {
+    echo "--------------------------------------------------------------"
+    echo "sweep $(date -u +%Y-%m-%dT%H:%M:%SZ)  $SLUG"
+    /usr/bin/python3 -u "$REPO/backend/scripts/whatholdsup/sweep_sources.py" status "$SLUG" --quiet
+    /usr/bin/python3 -u "$REPO/backend/scripts/whatholdsup/sweep_sources.py" citations "$SLUG"
+    echo "exit=$?"
+  } >> "$LOG" 2>&1
+done
+
 # Keep the log from growing without bound.
 tail -n 2000 "$LOG" > "$LOG.tmp" && mv "$LOG.tmp" "$LOG"
