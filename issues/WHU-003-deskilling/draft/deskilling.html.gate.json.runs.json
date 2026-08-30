@@ -7,5 +7,6 @@
       "past_cap": null
     }
   ],
-  "reason": null
+  "reason": null,
+  "THE_COUNTER_IS_WRONG_AND_HERE_IS_WHY": "Recorded 2026-08-30. This file says one run. Three page gate runs were actually performed and paid for: run 1 at 14:23 (98 claims, $10.89), run 2 with --since ($7.55), and a new-cycle run ($13.37). Only the first wrote anything here, because factcheck_draft.py records a run ONLY when --report is given — 'if not args.report: return', and the cycle_record call sits behind the same condition. The commands for runs 2 and 3 were written by claude and omitted --report. So $20.92 of gating produced no artifact, no sha binding, and no increment to the cap that exists to stop exactly that kind of spending. The ADJUDICATIONS from those runs stand: they were made from the runs' real terminal output, which the operator pasted, and every change they produced is in the page and in draft_decisions.json. What is missing is the machine-readable evidence and the counter. Two files were also committed under names claiming to preserve run 2 and the new-cycle run. Both were byte-identical copies of the run 1 report. They have been moved to _to_delete/false-gate-reports/ rather than left in the repository under names that describe evidence that does not exist."
 }
