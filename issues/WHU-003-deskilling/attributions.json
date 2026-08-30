@@ -148,6 +148,26 @@
       "on": "2026-08-30",
       "where": "the arXiv abstract page, full author list",
       "note": "Rosbach, Ganz, Ammeling, Riener & Aubreville. First author Emely Rosbach — recorded as 'Elena' on first entry and corrected the same minute against the arXiv author list, which is why this file exists. Added when the pathology bullet was moved off the scoping review's summary and onto the paper the figures come from."
+    },
+    {
+      "name": "Rebolj and colleagues",
+      "paper": "Cytology interpretation after a change to HPV testing in primary cervical screening: observational study from the English pilot. Cancer Cytopathology 2022;130(7):531-541",
+      "first_author": "Matejka Rebolj",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-30",
+      "where": "the King's College London Pure record, full author list in order",
+      "note": "Rebolj, Mathews, Denton and 26 others plus the HPV Pilot Steering Group. Named on the page only as the paper the scoping review cites for the cytology figures; this page does not use any figure from it, because it could not be reached at the publisher, on PubMed or in PMC."
+    },
+    {
+      "name": "Bellahsen-Harrar and colleagues",
+      "paper": "Exploring the risks of over-reliance on AI in diagnostic pathology. What lessons can be learned to support the training of young pathologists? PLOS ONE 2025;20(8):e0323270",
+      "first_author": "Yaelle Bellahsen-Harrar",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-30",
+      "where": "the PLOS ONE article page",
+      "note": "Bellahsen-Harrar Y, Lubrano M, Lepine C, et al. EIGHT pathologists, no time-pressure condition, no 7% figure. Named on the page only as the paper the scoping review's Table 1 attaches the pathology figures to."
     }
   ],
   "still_blocking": [],
@@ -246,6 +266,18 @@
       "as_printed": "Rosbach and colleagues",
       "checked_against": "the arXiv 2411.00998 abstract page, full author list, read 2026-08-30",
       "first_author": "Emely Rosbach"
+    },
+    {
+      "name": "Rebolj",
+      "as_printed": "Rebolj and colleagues",
+      "checked_against": "the King's College London Pure record, full author list, read 2026-08-30",
+      "first_author": "Matejka Rebolj"
+    },
+    {
+      "name": "Bellahsen-Harrar",
+      "as_printed": "Bellahsen-Harrar and colleagues",
+      "checked_against": "the PLOS ONE article page, author list, read 2026-08-30",
+      "first_author": "Yaelle Bellahsen-Harrar"
     }
   ],
   "removed_from_the_page": [

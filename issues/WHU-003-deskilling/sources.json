@@ -439,9 +439,9 @@
       "why_it_matters": "A THIRD mechanism, distinct from both existing strands. Not 'you get worse when the tool is taken away' (Liu et al.) and not 'you learn more with a tutor' (the meta-analyses), but 'you adopt the machine's answer over your own reasoning, including when it is wrong, and pay for it'. It is also the mechanism that matches what people actually describe when they say AI has changed their thinking. And it is PREREGISTERED, which Liu et al. appears not to be — so on that axis it is the most rigorous study in the whole set.",
       "peer_review": "NONE. Wharton working paper, v20260111. The same standard we applied to the MIT preprint applies here.",
       "access": {
-        "state": "human_read",
-        "by": "fred",
-        "on": "2026-08-29",
+        "state": "human_read_and_machine_read",
+        "by": "fred, then claude",
+        "on": "2026-08-29, re-read for extracts 2026-08-30",
         "sections": [
           "pp.1-8 (abstract, framing, design overview), 17-28 (empirical overview, common procedures, Study 1 in full, Study 2 methods and results), 29-40 (Study 2 results, Study 3 in full), 41-48 (general discussion, trial-level synthesis, surrender-vs-offloading, limitations begin), 49-52 (limitations, conclusion, references)",
           "the confidence result sentence with both means, SEs, CIs and the t-test, read 2026-08-30"
@@ -476,6 +476,14 @@
         "verbatim": "Despite approximately half of System 3 answers being faulty, access to AI increased confidence by 11.7 percentage points (AI-Assisted: M = 77.0%, SE = 1.30%, 95% CI [74.4, 79.6]; Brain-Only: M = 65.3%, SE = 2.21%, 95% CI [61.0, 69.6]; t(202.91) = 4.57, p = 8.55 × 10-6; Hedges’ g = 0.54, 95% CI [0.32, 0.77]).",
         "settled": "PERCENTAGE POINTS, and the page is right as printed. 77.0 minus 65.3 is 11.7, on a 0-100 confidence scale, and the paper uses the words 'percentage points' itself.",
         "read_by": "fred, in the PDF, 2026-08-30"
+      },
+      "VERBATIM": {
+        "_why": "Under THE_EXTRACT_RULE, adopted 2026-08-30 because this source is the reason the rule exists.",
+        "the_confidence_result": "Despite approximately half of System 3 answers being faulty, access to AI increased confidence by 11.7 percentage points (AI-Assisted: M = 77.0%, SE = 1.30%, 95% CI [74.4, 79.6]; Brain-Only: M = 65.3%, SE = 2.21%, 95% CI [61.0, 69.6]; t(202.91) = 4.57, p = 8.55 x 10-6; Hedges' g = 0.54, 95% CI [0.32, 0.77]).",
+        "design_and_scale": "Across three preregistered experiments using an adapted Cognitive Reflection Test (N = 1,372; 9,593 trials), we randomized AI accuracy via hidden seed prompts. Participants chose to consult an AI assistant on a majority of trials (>50%).",
+        "the_accuracy_swing": "Relative to baseline (no System 3 access), accuracy significantly rose when AI was accurate and fell when it erred (+25/-15 percentage points; Study 1), the behavioral signature of cognitive surrender (AI-Accurate vs. AI-Faulty contrast; Cohen's h = 0.81).",
+        "the_follow_rate_on_faulty_advice": "Conditional on using System 3, participants followed AI's advice on 92.7% of AI-Accurate trials (SE = 1.2%, 95% CI [90.2, 95.0]), overriding it only 7.3% of the time, and 79.8% of AI-Faulty trials (SE = 1.9%, 95% CI [75.9, 83.4]), overriding it 20.2% of the time. ... participants followed faulty AI recommendations on roughly four out of five chat-engaged trials.",
+        "_status": "COMPLIANT with THE_EXTRACT_RULE as of 2026-08-30. Every figure this page takes from this paper is now recorded here in the paper's own words. Extracted from the PDF the operator supplied on 2026-08-29, which was on disk in the session's upload directory the whole time."
       }
     },
     {
@@ -768,14 +776,14 @@
       "used_for": "THE ANSWER TO WHETHER BUDZYN IS ALONE. He is not — but the company is thin and mostly of a different kind. 432 records from PubMed, Embase, Web of Science and Scopus plus 41 from grey literature; 373 after duplicates; 65 at full text; TWELVE STUDIES included in the synthesis, with six in the key-studies table. The authors' own words: evidence of clinical deskilling is 'though scarce, consistent across specialties', 'the number of high-quality empirical studies remains limited', and 'many reports are based on expert opinion or small-scale qualitative investigations rather than large multi-center trials'.",
       "why_it_matters": "It is the one document that would answer the question deciding whether this piece is ready: IS BUDZYN ALONE? If there are several studies measuring physician performance without AI after exposure to it, the piece is about a pattern. If Budzyn is the only one, the piece is about a single observational study carrying an enormous amount of weight — which is a different and more cautious piece.",
       "access": {
-        "state": "human_read",
-        "by": "fred",
-        "on": "2026-08-29",
+        "state": "human_read_and_machine_read",
+        "by": "fred, then claude",
+        "on": "2026-08-29, re-read in full 2026-08-30",
         "sections": [
           "the whole paper: abstract, methods, PRISMA flowchart, all specialty sections, Table 1, cross-cutting patterns, discussion, limitations, conclusion and the full reference list"
         ],
         "not_read": [],
-        "note": "The operator supplied the PDF after esmorwd.org 403'd and ScienceDirect refused robots."
+        "note": "The operator supplied the PDF after esmorwd.org 403'd and ScienceDirect refused robots. Re-supplied and read end to end by claude on 2026-08-30 to settle watch question W8. Every sentence this page uses from the review is now recorded verbatim below."
       },
       "needs_human_read": true,
       "the_six_key_studies": [
@@ -798,7 +806,36 @@
           "Check whether the review has a correction notice."
         ]
       },
-      "FOURTH_PROBLEM_THE_PRISMA_FLOW": "Read off Figure 1 directly on 2026-08-30, after the source advocate asked whether the numbers we quote are the numbers the paper prints. They are, and they do not reconcile with each other. 432 database records plus 41 from grey literature, less 37 duplicates removed, is 436 — the figure prints 373. And 373 total records identified less 332 excluded is 41 — the figure then prints 65 records screened and 65 full-text articles assessed. The last step is the only one that works: 65 assessed, less 29 plus 14 plus 10 excluded with reasons, leaves the 12 included. Our page now cites the twelve from the 65, which is the arithmetic that holds, and discloses the rest."
+      "FOURTH_PROBLEM_THE_PRISMA_FLOW": "Read off Figure 1 directly on 2026-08-30, after the source advocate asked whether the numbers we quote are the numbers the paper prints. They are, and they do not reconcile with each other. 432 database records plus 41 from grey literature, less 37 duplicates removed, is 436 — the figure prints 373. And 373 total records identified less 332 excluded is 41 — the figure then prints 65 records screened and 65 full-text articles assessed. The last step is the only one that works: 65 assessed, less 29 plus 14 plus 10 excluded with reasons, leaves the 12 included. Our page now cites the twelve from the 65, which is the arithmetic that holds, and discloses the rest.",
+      "VERBATIM": {
+        "_why": "Under THE_EXTRACT_RULE. Every figure and quotation this page takes from the review, in the review's own words.",
+        "abstract_results_opening": "Evidence of clinical deskilling, though scarce, is consistent across specialties.",
+        "abstract_on_the_colonoscopy_study": "In a multicenter randomized trial in colonoscopy, the adenoma detection rate (ADR) dropped significantly from 28.4% to 22.4% when endoscopists reverted to non-AI procedures after repeated AI use, while ADR remained stable with AI assistance (25.3%).",
+        "abstract_on_pathology": "In computational pathology, experimental web-based tasks revealed that over 30% of participants reversed correct initial diagnoses when exposed to incorrect AI suggestions under time constraints.",
+        "abstract_on_cytology": "Structural deskilling has been reported in cytology following the UK's transition to human papillomavirus primary screening, leading to an 80%-85% reduction in case volumes and consolidation of laboratories from 45 to 8 centers, with major implications for training capacity.",
+        "body_on_the_evidence": "Overall, the number of high-quality empirical studies remains limited, but consistent",
+        "body_radiology_the_miscited_sentence": "In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support. When AI provided incorrect recommendations, radiologists' error rates increased by 12%-15%, even among experienced readers, demonstrating a clear manifestation of automation bias.16",
+        "body_pathology": "An experimental study involving 28 pathologists found that under time pressure, participants abandoned 7% of initially correct judgments when faced with erroneous AI suggestions, and the severity of diagnostic errors increased.17",
+        "body_cytology": "following the transition to human papillomavirus primary screening in the UK, cytology workloads declined by 80%-85%, raising concerns about the erosion of morphological expertise and the reduction of training opportunities for junior pathologists.18,19",
+        "body_savardi": "This study evaluated 32 radiology residents trained with an AI-assisted module for detecting COVID-19 pneumonia on chest X-rays. While AI-supported training resulted in a 12% improvement in sensitivity (from 0.73 to 0.85, P < 0.01) and an 18% reduction in mean reading time per case (from 68 s to 56 s) ... Although performance remained stable at 3-month follow-up, indicating a short-term upskilling effect with specificity maintained at ~0.80",
+        "limitations": "Many reports are based on expert opinion or small-scale qualitative investigations rather than large multi-center trials, which restricts the generalizability of findings.",
+        "prisma_flow_as_printed": "Records identified through database searching n = 432; Additional records identified through gray literature n = 41; Duplicates removed n = 37; Total records identified n = 373; Total records screened n = 65; Records excluded n = 332; Full-text articles assessed for eligibility n = 65; Studies included in qualitative synthesis n = 12",
+        "table1_pathology_row": "Bellahsen-Harrar et al. (2025)35 (Mod Pathol, PMID: 40875775) | Pathology (computational) | 28 pathologists, 7% of correct initial diagnoses reversed due to misleading AI | Erosion of independent judgment",
+        "table1_cytology_row": "Rebolj et al. (2022)36 (Cytopathology, PMID: 35377967) | Pathology (HPV screening shift, UK) | National cytology practice: workload down 80%-85%, laboratories reduced from 45 to 8 | Reduced training opportunities",
+        "reference_16": "Gommers JJJ, Verboom SD, Duvivier KM, et al. Influence of AI decision support on radiologists' performance and visual search in screening mammography. Radiology. 2025;316(1):e243688.",
+        "reference_17": "Rosbach N, Schuffenhauer S, Bulten W, et al. Artificial intelligence under time pressure: how diagnostic support systems affect pathologists' decisions. arXiv. 2024;2411:00998.",
+        "references_18_and_19": "18. NHS Digital. Cervical Screening Programme, England: Annual Report 2019. 19. UK National Screening Committee. Evidence Review: HPV Primary Screening in Cervical Cancer Prevention. UK: NSC; 2020.",
+        "reference_35": "Bellahsen-Harrar Y, Lubrano M, Lepine C, et al. Exploring the risks of over-reliance on AI in diagnostic pathology: What lessons can be learned to support the training of young pathologists? PLoS One. 2025;20(8):e0323270.",
+        "reference_36": "Rebolj M, Mathews CS, Denton K, HPV Pilot Steering Group. Cytology interpretation after a change to HPV testing in primary cervical screening: Observational study from the English pilot. Cancer Cytopathol. 2022;130(7):531-541."
+      },
+      "W8_ANSWERED": {
+        "on": "2026-08-30",
+        "question": "Does the review's pathology entry cite the paper its figures come from?",
+        "answer": "Both, in different places. The BODY cites reference 17, which is arXiv 2411.00998 — the right paper. The TABLE attributes the same 28 pathologists and the same 7% to reference 35, Bellahsen-Harrar et al., PLOS ONE 2025;20(8):e0323270 — eight pathologists, no time-pressure condition, no 7% figure. So the review cites it correctly once and incorrectly once, and the table is the part a reader skims.",
+        "and_a_further_problem_with_reference_17": "The arXiv number is right and everything else about the reference is wrong. It reads 'Rosbach N, Schuffenhauer S, Bulten W, et al. Artificial intelligence under time pressure: how diagnostic support systems affect pathologists' decisions.' The paper at arXiv 2411.00998 is by Rosbach E, Ganz J, Ammeling J, Riener A and Aubreville M, and is titled 'Automation Bias in AI-Assisted Medical Decision-Making under Time Pressure in Computational Pathology'. Wrong first initial, wrong co-authors, wrong title, right identifier.",
+        "what_our_own_note_got_right_and_wrong": "The 2026-08-29 transcription into this file recorded the review's pathology entry as Bellahsen-Harrar, Mod Pathol. That is exactly what Table 1 says, including the journal, which the review's own reference list contradicts. The transcription did not cross two rows, as was suspected on 2026-08-30 before the PDF was reopened. It was right about the table and silent about the body.",
+        "what_the_page_says": "The body paragraph gained one sentence, on the abstract's 'over 30% of participants' against the body's 7% of judgments — different denominators, both possibly true, the larger one in the abstract. The citation mismatch itself is in the Rosbach source note, stated factually and with the review's body credited for getting it right."
+      }
     },
     {
       "id": "S030",
@@ -1185,5 +1222,11 @@
       "tried": "The article URL returned 402 (paywall).",
       "what_we_did_instead": "Left it off the page. An unread source is not a source that agrees with us, and that holds when it would have helped our new claim as readily as when it would have hurt the old one."
     }
-  ]
+  ],
+  "THE_EXTRACT_RULE": {
+    "adopted": "2026-08-30",
+    "rule": "A source whose access state is human_read, or any source this page takes a FIGURE or a QUOTATION from, must carry the sentences that figure or quotation comes from, VERBATIM, in this file. Not a summary of them. Not a page range. The sentences.",
+    "why": "The operator supplied the Shaw & Nave PDF on 2026-08-29 and it was read. S017 recorded the page ranges read and what the study means, but not the sentence carrying the 11.7 confidence figure. When the page gate questioned that figure on 2026-08-30 the record could not answer, and the operator had to be sent back to a document he had already provided. He was right to be surprised. A conversation is not storage: it is compacted, and an attachment's text goes with it. This file is storage. What is not written down here did not survive.",
+    "the_second_half_of_the_lesson": "The PDFs were still on disk in the session's own upload directory the whole time. The search that concluded they were gone looked in the working directory and the mounted folders and did not look there, and the conclusion was reported to the operator as fact. Not finding something is a statement about where you looked."
+  }
 }

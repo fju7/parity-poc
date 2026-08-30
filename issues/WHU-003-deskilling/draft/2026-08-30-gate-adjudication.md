@@ -53,9 +53,31 @@ rather than new.
 ## 3. Left open — needs the operator, or needs time
 
 1. **A possible correction on the colonoscopy study.** *Lancet Gastroenterol Hepatol* 2025 Nov;10(11):e12. Europe PMC returned its homepage; we could not confirm the notice exists or what it touches. Added to watch question **W4** as the most consequential open item on the list — the page's central number comes from that paper.
-2. **The scoping review's pathology citation.** The 28-pathologist / 7% figures are Rosbach's. S029 records the review citing Bellahsen-Harrar et al. (2025) for that entry; that paper is *PLOS ONE* 2025;20(8):e0323270, with **eight** pathologists, no time-pressure condition and no 7% figure. Either the review misattributes a third study, or the transcription into S029 crossed two rows. **The page prints nothing about this.** New watch question **W8**; needs the review PDF, which only the operator holds.
+2. ~~**The scoping review's pathology citation.**~~ **CLOSED 2026-08-30, same day.** The operator re-supplied the review PDF and it was read end to end. The answer is *both*: the review's **body** cites reference 17 — arXiv 2411.00998, the right paper — while its **Table 1** attributes the same 28 pathologists and the same 7% to reference 35, Bellahsen-Harrar et al., *PLOS ONE* 2025;20(8):e0323270, which has eight pathologists, no time-pressure condition and no such figure. Reference 17 itself carries the right arXiv identifier under the wrong first initial, wrong co-authors and a wrong title. Our 2026-08-29 note had transcribed the table correctly and was silent about the body — it had not crossed two rows, as was suspected before the PDF was reopened. The citation mismatch is recorded in the Rosbach source note, with the review's body credited for getting it right; the body paragraph gained one sentence, on a *different* finding the re-read turned up — the review's abstract puts the same pathology experiment at "over 30% of participants" where its body puts it at 7% of judgments. Different denominators, both possibly true, and the larger number is the one in the abstract. Watch question **W8** closed.
 3. ~~**Shaw & Nave, "11.7 percentage points"** (c86).~~ **CLOSED 2026-08-30, same day.** The operator read the sentence in the PDF: *"Despite approximately half of System 3 answers being faulty, access to AI increased confidence by 11.7 percentage points (AI-Assisted: M = 77.0%, SE = 1.30%, 95% CI [74.4, 79.6]; Brain-Only: M = 65.3%, SE = 2.21%, 95% CI [61.0, 69.6]; t(202.91) = 4.57, p = 8.55 x 10-6; Hedges' g = 0.54, 95% CI [0.32, 0.77])."* Two means on a 0-100 scale, 77.0 and 65.3, differing by 11.7 exactly, and the paper uses the words "percentage points" itself. **The page is right as printed and nothing changed.** Recorded in `draft_decisions.json` and in source ledger S017. Fourth time on this issue that the deciding document had to be opened by a human, and the fourth time the machine's uncertainty was about access rather than about the fact.
 4. **Medscape, 25 August 2025.** The gate's coverage pass reported it carried both framings and the finding that adenomas per colonoscopy did not change significantly — a point worth having. The article returns 402. Left off the page, and recorded in `sources.json` under `not_reached`: an unread source is not a source that agrees with us, and that holds when it would have helped the new claim as readily as when it would have hurt the old one.
+
+## 3b. The process failure this turn exposed
+
+The operator asked why he was being sent back to a PDF he had already supplied. He was right to ask, and the
+answer is worse than the first reply I gave him.
+
+**First failure.** S017 recorded that the Shaw & Nave PDF had been read, by whom, on what date, and which page
+ranges — but not the sentence carrying the figure. A summary of a document is not the document. When the gate
+questioned one number, the ledger could not answer.
+
+**Second failure.** I then told him there was nothing on disk to reopen. The search behind that claim looked in
+the working directory and in the three mounted folders and did not look in the session's own upload directory,
+where every PDF he had ever attached was still sitting — the scoping review, Shaw & Nave, the Norwegian audit,
+Troya. *Not finding something is a statement about where you looked*, and it was reported to him as a statement
+about the world. That is the same error class as telling him the issue-two email was unsent because a button
+said so.
+
+**The fix, adopted this turn:** `THE_EXTRACT_RULE` in `sources.json`. Any source this page takes a figure or a
+quotation from must carry those sentences verbatim in the ledger. Not a page range. The sentences. S029 now
+holds nineteen verbatim extracts from the scoping review, including every PRISMA number, both miscited
+references, and the table rows. S017 holds the four sentences behind every figure the page prints from it. Both
+are marked compliant.
 
 ## 4. What this run cost and what it bought
 
