@@ -50,7 +50,9 @@ On the endpoint every one of them was powered to measure, nothing
 separates them. Progression-free survival hazard ratios of 0.54,
 0.57 and 0.58, each from the analysis named on the page. Across the
 eight investigator-assessed readouts these trials have published,
-every figure falls between 0.52 and 0.58.
+every hazard ratio falls between 0.52 and 0.58. That is a claim about
+the eight we checked, not about every analysis ever run on these
+datasets.
 
 The grade turns instead on overall survival, and the three trials
 did not design that analysis the same way.
@@ -161,8 +163,8 @@ toxicity, monitoring burden, comorbidities, interactions and cost,
 none of which a page like this can see, and all of which your
 oncologist can.
 
-Every figure above comes from a trial publication or a drug label,
-each one named on the page with the analysis it belongs to. None
+Every figure above traces to a trial publication, a drug label, or
+a comparative study, and each cell of the table names which. None
 comes from a news report, and none from a guideline's summary of a
 trial.
 

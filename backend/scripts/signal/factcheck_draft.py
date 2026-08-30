@@ -310,6 +310,16 @@ def read_draft(path: Path) -> str:
     if "<" not in raw:
         return raw
     body = re.sub(r"(?is)<(script|style|head)\b.*?</\1>", " ", raw)
+    # Block-level boundaries become NEWLINES, not spaces. Until 2026-08-30 every
+    # tag became a space, so `<h2>Sources</h2><p>Every figure above traces to...`
+    # arrived as one run of prose reading "Sources Every figure above traces
+    # to...". Any check that works on sentences then sees the heading glued to
+    # the first sentence beneath it — which is how the email/page provenance
+    # comparison reported a mismatch between two sentences that were identical
+    # apart from the word "Sources" in front of one of them. The text is
+    # unchanged; only the line breaks are new.
+    body = re.sub(r"(?is)</(h[1-6]|p|li|td|th|div|blockquote|section|tr)\s*>", "\n", body)
+    body = re.sub(r"(?is)<(br|hr)\s*/?>", "\n", body)
     body = re.sub(r"(?s)<[^>]+>", " ", body)
     body = html.unescape(body)
     body = re.sub(r"[ \t]+", " ", body)

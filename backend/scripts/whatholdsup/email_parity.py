@@ -157,9 +157,13 @@ if __name__ == "__main__":
 # the claims a document makes about its own sourcing, which is a small closed
 # set of sentences and worth checking literally.
 
+# [^.\n] rather than [^.]: a sourcing claim does not span a paragraph break.
+# With [^.] the match ran backwards past a heading into whatever preceded it,
+# so the page's claim was captured as "Sources Every figure above traces to..."
+# and the email's identical sentence did not match it.
 PROVENANCE = re.compile(
-    r"[^.]*\b(every figure|all figures|each figure|every number|figures above|"
-    r"comes from|traces to|drawn from)\b[^.]*\.", re.I)
+    r"[^.\n]*\b(every figure|all figures|each figure|every number|figures above|"
+    r"comes from|traces to|drawn from)\b[^.\n]*\.", re.I)
 
 
 def provenance_claims(text: str) -> list[str]:
