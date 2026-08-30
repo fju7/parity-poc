@@ -1815,7 +1815,22 @@ def render(claims, verdicts, recency, objections, inferences, cov,
 def main():
     ap = argparse.ArgumentParser(description="Pre-publication fact-check gate.")
     ap.add_argument("draft", nargs="?", help="Path to the draft (HTML or text).")
-    ap.add_argument("--report", help="Write the full JSON result here.")
+    # DEFAULTS TO <draft>.gate.json, and did not until 2026-08-30.
+    #
+    # Before that, omitting --report meant the run printed its findings, wrote
+    # no report, bound no sha, and did not increment the per-cycle counter --
+    # because save() and cycle_record() both sit behind `if not args.report`.
+    # Three runs were commissioned that day without it: $23.78 of checking that
+    # left no artifact, no sha binding, and a cap counter still reading one run.
+    # The findings were real and were acted on; the evidence for them was not
+    # written down, and publish.py went on reading a report from the original
+    # draft as though it certified the current one.
+    #
+    # A flag whose absence silently spends money and records nothing is a trap.
+    # The report path is now derived from the draft, which is the only sensible
+    # place for it, and --report remains available to override.
+    ap.add_argument("--report", help="Write the full JSON result here. "
+                                     "Defaults to <draft>.gate.json.")
     ap.add_argument("--decisions", default=str(DECISIONS),
                     help="Record of findings already read and accepted. Findings "
                          "matching one are reported as ADJUDICATED and do not block; "
@@ -1846,6 +1861,14 @@ def main():
                          "moment to learn that the coverage is better than assumed — "
                          "after drafting, the framing is already built.")
     args = ap.parse_args()
+
+    # See the note on --report above. A run that writes nothing is never what
+    # the caller wanted, and on 2026-08-30 it was what the caller got, three
+    # times, because the flag was easy to forget when writing a command by hand.
+    if args.draft and not args.report:
+        args.report = str(Path(args.draft).with_suffix(
+            Path(args.draft).suffix + ".gate.json"))
+        print("  --report not given; writing to %s" % args.report)
 
     if args.known_errors:
         if not KNOWN_ERRORS.exists():
