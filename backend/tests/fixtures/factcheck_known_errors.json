@@ -549,6 +549,16 @@
       "was": "we read that source",
       "should_have_been": "A targeted fetch answers the question asked and hides everything else. A source the piece will rely on is read for what it CONTAINS, not for what we went to it for — and the ledger should record which question was asked, so 'machine_read' does not overstate what was seen.",
       "why_it_survived": "The ledger records access state, not the question asked. Every 'sections' field on this issue is really a list of what we asked for."
+    },
+    {
+      "class": "NOVELTY_DEFENDED_BY_CONJUNCTION",
+      "kind": "reasoning",
+      "caught_by": "the second counterexample hunt on the reframed claim",
+      "found_by": "issue three, 2026-08-29",
+      "summary": "After two hunts narrowed our novelty claim, what remained was a four-part conjunction that survived only because no single piece had assembled all four elements — the colonoscopy loss, the mammography experiments, the null result and the limitations. Each element had been carried by somebody. The claim was technically true and rhetorically worthless.",
+      "was": "the claim survived the hunt, so we can make it",
+      "should_have_been": "When a novelty claim survives only by adding conjuncts, it has already failed. Retire it and find something DEMONSTRABLE instead. Here the replacement was better: rather than asserting that nobody has assembled this, show five named carriers that each dropped the caveats. A thing you can exhibit beats a thing you can only assert.",
+      "why_it_survived": "Surviving the adversary felt like passing, and each narrowing looked like a refinement rather than a retreat. Three narrowings in one day should have been the signal."
     }
   ],
   "standing_rules": [
@@ -588,7 +598,9 @@
     "Read the adversary's DISCARD PILE, not only its verdict. The counterexample hunter lists what it reviewed and set aside; on issue three the two best sources in the file — a Nature Medicine Perspective that gave the piece its frame, and a FAccT paper — were sitting in that list, classified as 'not general-audience' and therefore not reported as counterexamples. The role is a search we paid for; taking only its conclusion throws most of it away.",
     "A systematic or scoping review is a hop, not a source. Every description of a primary study taken from a review is verified in that primary study before it is printed. On issue three a peer-reviewed review promoted an observational study to a randomised trial in its own abstract and mis-cited an automation-bias experiment to a paper that found the opposite.",
     "Before asserting that nobody has linked two findings, read the reference lists of both papers. The link is most often already inside the one you are arguing from.",
-    "Record in the ledger WHAT QUESTION was asked of each source, not only that it was opened. A targeted fetch answers what it was asked and conceals the rest; on issue three a commentary read for its limitations also held the mechanism that made one of our claims redundant."
+    "Record in the ledger WHAT QUESTION was asked of each source, not only that it was opened. A targeted fetch answers what it was asked and conceals the rest; on issue three a commentary read for its limitations also held the mechanism that made one of our claims redundant.",
+    "A novelty claim that survives only by accumulating conjuncts has failed. Retire it and replace it with something demonstrable — named instances a reader can check — rather than an absence a reader must take on trust.",
+    "When the piece demonstrates a pattern from named instances, look on purpose for the instances that would contradict it and count honestly. Five examples chosen by us, to show a pattern we proposed, is the shape of a selected sample whether or not it is one."
   ],
   "second_pass": {
     "run": "2026-08-26",

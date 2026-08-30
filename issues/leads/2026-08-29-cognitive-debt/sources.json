@@ -657,7 +657,7 @@
         "note": "CLOSED AS UNREAD. The operator tried and could not get past the summary. Every free route was attempted: the Lancet fulltext URL, ResearchGate, PubMed, Europe PMC, Google Scholar, and UCL's own repost, which is a stub. This is a decision, not an oversight, and the piece must carry it."
       },
       "needs_human_read": true,
-      "author": "Dr Omer Ahmad, UCL Division of Surgery & Interventional Science. Identified from UCL's own news page, which reposts it as an Opinion but carries only the headline and a link. NOTE FOR FAIRNESS: Ahmad works on AI in endoscopy himself. If the piece quotes him, that interest is stated.",
+      "author": "Dr Omer Ahmad, UCL Division of Surgery & Interventional Science. Identified from UCL's own news page, which reposts it as an Opinion but carries only the headline and a link. NOTE FOR FAIRNESS: Ahmad works on AI in endoscopy himself. If the piece quotes him, that interest is stated. CONFIRMED RELEVANT EXPERTISE: Ahmad is himself an eye-tracking-in-endoscopy researcher — Ahmad et al., 'Identifying key mechanisms leading to visual recognition errors for missed colorectal polyps using eye-tracking technology', J Gastroenterol Hepatol 2023. So the Comment on deskilling was written by someone who studies exactly the mechanism Zhou proposes. That makes it more worth reading, and makes his interest worth stating if he is quoted.",
       "what_the_piece_must_say": "If the piece leans on the colonoscopy study — and it does — it states that The Lancet Gastroenterology & Hepatology published a Comment alongside it, by Omer Ahmad of UCL, that we could not read. Not 'there was no dissent'. An unread commentary is not a commentary that agrees with us, which is the same rule as an unrun check not being a pass."
     },
     {
@@ -810,14 +810,15 @@
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
-          "the Vrije Universiteit repository PDF: citation, participants by experience level, design including the 10 credibility-building cases, the three accuracy figures with SDs, the conclusion"
+          "the RSNA publisher page: citation, the three experience groups, case count, accuracy when the AI was WRONG and when it was RIGHT, and the conclusion verbatim"
         ],
         "not_read": [
           "the full paper"
         ],
-        "note": "Read from an institutional repository copy. Confirm against the RSNA version before printing."
+        "note": "VERIFIED AT THE PUBLISHER, not only the Vrije Universiteit repository copy. Figures identical."
       },
-      "found_via": "Checking a citation in the ESMO scoping review that did not match its own description."
+      "found_via": "Checking a citation in the ESMO scoping review that did not match its own description.",
+      "the_number_pair": "The figure the piece should carry. Same radiologists, same task, same session.\n\n  When the AI's BI-RADS suggestion was CORRECT: all three experience groups scored about the same, roughly 79.7% to 82.3% correct.\n  When the AI's suggestion was WRONG: 19.8% (SD 14.0) for inexperienced readers, 24.8% (11.6) for moderately experienced, 45.5% (9.1) for very experienced.\n\nTwenty-seven radiologists went from roughly four in five right to roughly one in five right, according to whether the machine was right. The most experienced were wrong more often than not. Their conclusion: 'inexperienced, moderately experienced, and very experienced radiologists reading mammograms are prone to automation bias when being supported by an AI-based system.'"
     },
     {
       "id": "S031",
@@ -841,7 +842,7 @@
         "not_read": [
           "everything — participants, design, the eye-travel numbers, the deskilling sentence in the authors' own words"
         ],
-        "note": "Thieme 404s on both routes tried and ResearchGate rate-limited. LOAD-BEARING AND UNREAD: nothing from it may be printed until it is read at source. This is the third document tonight in that position."
+        "note": "Thieme 404s on both routes tried and ResearchGate rate-limited. LOAD-BEARING AND UNREAD: nothing from it may be printed until it is read at source. This is the third document tonight in that position. Further attempts: Thieme 404 on two URL forms, ResearchGate 429, Semantic Scholar disallowed by robots, PubMed served a CAPTCHA. The Würzburg group's own project page (ukw.de, the Hann group, where Troya works) confirms the design — portable eye-tracking glasses, colonoscopy videos, button-press on polyp detection, reaction time and gaze recorded — and that they study how false-positive CADe activations affect inspection patterns and how AI alters 'the learning curve for young endoscopists'. It gives NO numbers. Still unread for anything quantitative."
       },
       "needs_human_read": true
     },
@@ -867,6 +868,52 @@
           "the remainder of the commentary"
         ],
         "note": "Read twice, with different questions, and the second reading changed the piece."
+      }
+    },
+    {
+      "id": "S033",
+      "type": "carrier",
+      "url": "https://cacm.acm.org/news/the-ai-deskilling-paradox/",
+      "title": "Samuel Greengard — 'The AI Deskilling Paradox', Communications of the ACM",
+      "also_called": [
+        "CACM",
+        "Greengard",
+        "the ACM piece"
+      ],
+      "used_for": "A general computing and knowledge-worker audience meeting the colonoscopy result, alongside a 2025 Microsoft Research survey and Illinois Law School work on law students using chatbots, extended to law, journalism and software. 'If left unchecked, deskilling can erode the expertise of individuals and the capacity of organizations.'",
+      "what_it_omits": "No mammography study. No limitations from any study cited. No null result.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "author, audience, named studies, key sentences"
+        ],
+        "not_read": [
+          "the full article — cacm.acm.org/news/ 403s; read via the ?p= permalink"
+        ],
+        "note": "Verified as a real and relevant carrier."
+      }
+    },
+    {
+      "id": "S034",
+      "type": "carrier",
+      "url": "https://rad-insights.com/ai-deskilling-radiology-training/",
+      "title": "Josh Decker MD — 'When AI Reads the Easy Cases: Radiology's Training Paradox', Rad Insights, 15 May 2026 (updated 31 July 2026)",
+      "also_called": [
+        "Rad Insights",
+        "Decker"
+      ],
+      "used_for": "The closest thing to our piece that exists. A board-certified radiologist writing for trainees and program directors, citing BOTH Budzyn and Dratsch by name, and making the never-skilling argument: 'AI is absorbing exactly the cases residents need for pattern recognition... If AI absorbs the easy cases, this calibration substrate disappears.' He concludes: 'We do not have curricula that prevent this.'",
+      "what_it_omits": "No limitations from either study. No null result. And its audience is radiologists, not the reader we named.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "author, date, audience, both citations, the argument, the conclusion"
+        ],
+        "not_read": []
       }
     }
   ],
