@@ -225,15 +225,20 @@ def check(ref: str | None = None,
                     "small enough."
                     % (slug, rel, pub.get("at", "?")[:19], was[:16], now[:16],
                        slug, slug))
-                continue
-            blocking.append(
-                "%s: %s has changed since it was published.\n"
-                "        published %s  content %s\n"
-                "        this push  %s  content %s\n"
-                "        Nothing has signed off on the new content. The deploy "
-                "takes whatever\n        lands on this branch, so pushing puts it "
-                "in front of a reader unreviewed."
-                % (slug, rel, pub.get("at", "?")[:19], was[:16], "(pending)", now[:16]))
+            else:
+                # A divergence this push CREATES. Never reachable from the
+                # acknowledgement branches above, which is the point: an
+                # acknowledgement can quiet something already live and can
+                # never wave through something new.
+                blocking.append(
+                    "%s: %s has changed since it was published.\n"
+                    "        published %s  content %s\n"
+                    "        this push  %s  content %s\n"
+                    "        Nothing has signed off on the new content. The deploy "
+                    "takes whatever\n        lands on this branch, so pushing puts it "
+                    "in front of a reader unreviewed."
+                    % (slug, rel, pub.get("at", "?")[:19], was[:16], "(pending)",
+                       now[:16]))
 
         ann = _last(rows, slug, "announce")
         for key in ("email_html", "email_txt"):
