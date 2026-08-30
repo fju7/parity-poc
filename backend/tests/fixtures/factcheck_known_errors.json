@@ -569,6 +569,16 @@
       "was": "we can exhibit five instances, so the pattern is shown rather than claimed",
       "should_have_been": "Five instances chosen by us, to demonstrate a pattern we proposed, is a selected sample until somebody searches for the counter-instances on purpose. Exhibiting examples is not evidence of a pattern; it is evidence that examples exist. The search that would disprove it has to be run, and run before the claim is made, not after.",
       "why_it_survived": "Retiring the novelty claim in favour of 'something demonstrable' felt like a tightening of standards, and the new claim inherited none of the scepticism the old one had earned. A claim that replaces a broken one starts at zero, not at the credibility of the process that broke it."
+    },
+    {
+      "class": "THE_FIRST_CHECK_WAS_A_FALSE_ONE",
+      "kind": "process",
+      "caught_by": "re-reading the entry before committing it",
+      "found_by": "issue three watch list, 2026-08-30",
+      "summary": "Ten minutes after writing a module whose docstring says an unrun check must not look like a check that found nothing, the first check recorded against the first watch list we ever built listed four searches — including a Retraction Watch sweep of every source and a ClinicalTrials.gov search for a crossover trial — and two of them had not been run. The list had been written from the watch's QUESTIONS rather than from what actually happened.",
+      "was": "recording that the watch ran",
+      "should_have_been": "A check records what was DONE, never what was due. The temptation is structural: the questions are sitting right there in the file, they read like a checklist, and filling them in feels like completing the form rather than making a claim. It is a claim.",
+      "why_it_survived": "It did not — it was corrected the same evening, before it reached a page. But it survived long enough to be written, and it would have been the single most damaging thing in this issue: a living page whose freshness promise rests on a check that says it searched places it did not search."
     }
   ],
   "standing_rules": [
@@ -612,7 +622,8 @@
     "A novelty claim that survives only by accumulating conjuncts has failed. Retire it and replace it with something demonstrable — named instances a reader can check — rather than an absence a reader must take on trust.",
     "When the piece demonstrates a pattern from named instances, look on purpose for the instances that would contradict it and count honestly. Five examples chosen by us, to show a pattern we proposed, is the shape of a selected sample whether or not it is one.",
     "Before asserting a pattern from named instances, run the search designed to find the counter-instances, and record what it returns even when it returns nothing. On issue three the first such search overturned the thesis in its first result.",
-    "A claim that replaces a broken claim starts at zero. It inherits none of the credibility of the process that broke its predecessor, and it gets the same adversarial treatment the first one got."
+    "A claim that replaces a broken claim starts at zero. It inherits none of the credibility of the process that broke its predecessor, and it gets the same adversarial treatment the first one got.",
+    "A recorded check lists what was searched, not what the watch asks. Any question not actually checked is written into the record as not checked. The form is not the work, and filling in the form is a claim about the work."
   ],
   "second_pass": {
     "run": "2026-08-26",

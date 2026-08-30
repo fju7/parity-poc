@@ -124,6 +124,7 @@ intake = _sibling("corrections_intake")
 #                      unscoped and false, and every step in between was done
 #                      correctly.
 counterexample = _sibling("counterexample")
+watch = _sibling("watch")
 inherited = _sibling("inherited_claims")
 
 # The registry lives in code rather than in the served directory: a JSON file
@@ -761,6 +762,12 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
         slug, already_published=any(r["issue"] == slug and r["action"] == "publish"
                                     for r in load_record())))
     out.extend(intake.preflight_rows(slug))
+    # A LIVING issue promises a reader it is current. That promise is only
+    # honest if somebody has actually looked, and the page has to display the
+    # date of the last CHECK rather than the last change. These rows are empty
+    # for an ordinary issue: silence is not a living issue, and nothing here
+    # may invent one.
+    out.extend(watch.preflight_rows(slug, page.read_text(encoding="utf-8")))
 
     if for_email:
         # Presence only. The value is never read into any output, here or
