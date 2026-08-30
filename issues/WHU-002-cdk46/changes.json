@@ -1778,6 +1778,27 @@
       "now": "MONALEESA-2's exact critical value at its final look, if alpha had been spent at an interim - the direction of that test is now settled from the registry, but the spending schedule is in a statistical section we could not reach.",
       "because": "CORR-02",
       "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "No trial has ever tested abemaciclib against either of the other two, and every comparison this page examined of the two the guideline grades apart finds nothing between them.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "No randomised trial has tested one of these drugs against another.",
+      "now": "Two randomised trials have tested one of these drugs against another - both ribociclib against palbociclib, both outside the first-line aromatase-inhibitor setting, and neither separated them.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "None has tested abemaciclib against either of the others, which is the pair the category difference turns on.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
     }
   ]
 }
