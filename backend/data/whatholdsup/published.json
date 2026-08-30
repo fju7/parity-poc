@@ -109,6 +109,31 @@
       ],
       "supersedes": "5028bee1f56e337d710fecc9eab8629cdda46288b8d80449e8b576e720d73f7c",
       "waived": null
+    },
+    {
+      "issue": "deskilling",
+      "action": "publish",
+      "at": "2026-08-30T19:57:20+00:00",
+      "sha": "2e644545214e3751eb9b9e0f9a68524e64311e1cf8e82de433b9796216c28829",
+      "commit": "2ea2d3c1bf4830ff1b4f4726e57e8cb3eefe9b6e",
+      "url": "https://whatholdsup.org/deskilling",
+      "note": "issue 3 \u2014 What Happens to the Experts First",
+      "waived": "Contrarianism guard: three of four recorded directions are 'narrows' and none is 'confirms'. That is a true observation about the selection and a reason to pick a confirming subject next, not a defect in this assessment. Waived on the record; the next candidate is chosen against it."
+    },
+    {
+      "issue": "melanoma",
+      "action": "republish",
+      "at": "2026-08-30T20:01:02+00:00",
+      "sha": "59f37a7321cf7bd3b7b0a705c533e6d785699a662ffec0e650b7ecc0197c01d6",
+      "commit": "3aeec8abb832444b17cbed6b4a5e3fb8162d93bd",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "Nav only: an 'Issue three' link added to the site navigation when issue three published on 30 August 2026. No sentence, figure, source or claim on this page changed; the diff is one anchor tag in the header.",
+      "basis": "NOT a preflight. A person read the diff below and signed it as not touching the argument. 1 changed line(s).",
+      "diff": [
+        "+  <a href=\"/deskilling\">Issue three</a>"
+      ],
+      "supersedes": "c2d05ae3ad11ecfc27db1ab957dfc5e24747e1f2539c06403de1716b96f7eff7",
+      "waived": null
     }
   ]
 }
