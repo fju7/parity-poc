@@ -4,15 +4,15 @@
   "claims": [
     {
       "id": "IC-001",
-      "we_wrote": "No randomised trial has compared any of the three against another",
-      "provenance": "quoted",
+      "we_wrote": "No randomised trial has compared abemaciclib against either of the other two, in any setting",
+      "provenance": "established",
       "source": "S001 — NCCN Guidelines, Breast Cancer, v6.2026",
       "their_wording": "However, the CDK4/6 inhibitors have not been directly compared in clinical trials.",
       "their_scope": "The passage discussing first-line aromatase-inhibitor plus CDK4/6-inhibitor combinations. The sentence is not offered as a survey of every setting and every line of therapy, which is how this page used it.",
-      "how_established": "",
-      "checked_by": "fred",
-      "checked_on": "2026-08-29",
-      "note": "Verified as a quotation on 29 August, via the source advocate's question S001-04, and printed as our own unscoped assertion. A randomised phase III open-label trial of ribociclib versus palbociclib with fulvestrant (second line) was published in APJCP in 2024, and HARMONIA (NCT05207709) is a registered head-to-head phase III of the same pair. Both were found by the counterexample hunter in one call. The claim does survive for abemaciclib against either of the other two."
+      "how_established": "Not by reading NCCN. By searching for the counterexample and finding two, then checking what survived. Shaaban et al., Asian Pac J Cancer Prev 2024;25(9):3039-3049, is a randomised open-label phase III of ribociclib against palbociclib in the second line with fulvestrant and reports no difference between them. HARMONIA, NCT05207709, is a registered phase III of the same pair, terminated at 61 patients. Both were read at source on 2026-08-30 (S017, S018). Neither compares abemaciclib against anything, and no search of ClinicalTrials.gov or the literature surfaced one that does. The claim as now written is about abemaciclib only, and it is ours rather than the guideline's.",
+      "checked_by": "claude",
+      "checked_on": "2026-08-30",
+      "note": "Verified as a quotation on 29 August, via the source advocate's question S001-04, and printed as our own unscoped assertion. A randomised phase III open-label trial of ribociclib versus palbociclib with fulvestrant (second line) was published in APJCP in 2024, and HARMONIA (NCT05207709) is a registered head-to-head phase III of the same pair. Both were found by the counterexample hunter in one call. The claim does survive for abemaciclib against either of the other two. RESOLVED 2026-08-30. The unscoped version was live for two days after this record was created warning that it was unscoped. The record was right and nothing acted on it, because acting on it meant re-opening this issue's checks and we had decided not to spend on that. A flag nobody is required to clear is documentation, not a control."
     },
     {
       "id": "IC-002",

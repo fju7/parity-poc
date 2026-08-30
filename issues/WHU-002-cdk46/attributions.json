@@ -19,6 +19,24 @@
       "checked_against": "the paper's own author list, opened 2026-08-29",
       "checked_by": "claude",
       "corrects": "'Jacot and colleagues', published 2026-08-29 and corrected the same day. William Jacot is not an author of this paper."
+    },
+    {
+      "name": "Shaaban",
+      "as_printed": "Shaaban and colleagues",
+      "work": "Comparing ribociclib versus palbociclib as a second line treatment in combination with fulvestrant in metastatic breast cancer: a randomized clinical trial",
+      "publication": "Asian Pacific Journal of Cancer Prevention, 2024;25(9):3039-3049",
+      "url": "https://doi.org/10.31557/APJCP.2024.25.9.3039",
+      "full_author_list": [
+        "Manar Hamed Ahmed Shaaban",
+        "Mohamed Ali Elbaiomy",
+        "Ahmed Eltantawy",
+        "Abdel-Hady El-Gilany Abdel-Fattah",
+        "Sameh Sayed Ahmed Shamaa"
+      ],
+      "checked_against": "the journal's own article record at journal.waocp.org, opened 2026-08-30",
+      "checked_by": "claude",
+      "corrects": "",
+      "note": "Manar Hamed Ahmed Shaaban is first author. The page prints 'Shaaban and colleagues' and nothing about seniority or correspondence, because the record read does not designate either."
     }
   ]
 }

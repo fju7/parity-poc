@@ -163,10 +163,9 @@ toxicity, monitoring burden, comorbidities, interactions and cost,
 none of which a page like this can see, and all of which your
 oncologist can.
 
-Every figure above traces to a trial publication, a drug label, or
-a comparative study, and each cell of the table names which. None
-comes from a news report, and none from a guideline's summary of a
-trial.
+Every figure above traces to a named source, and each cell of the
+table names which: a trial publication, a drug label, or a
+comparative study.
 
 Published by CivicScale, which sells healthcare software and takes
 no outside investment. Neither Novartis nor Eli Lilly nor Pfizer

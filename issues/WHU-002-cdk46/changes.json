@@ -1225,6 +1225,559 @@
       "now": "The smaller one finds palbociclib behind on progression, on intervals that exclude the no-effect line - abemaciclib's by 0.08 and ribociclib's by 0.05, which is significant but not comfortably so, and reports an exploratory survival result pointing the same way on data its own authors call immature.",
       "because": "GATE-06",
       "note": "'nowhere near the no-effect line' overstated ribociclib's margin, which is 0.05; both margins now named"
+    },
+    {
+      "kind": "changed",
+      "was": "MONALEESA-2 states a two-sided p of 0.008; what boundary its final analysis was tested against we could not establish, and if it too spent alpha at an interim then its bar also sat below .05.",
+      "now": "MONALEESA-2's final analysis prints p = 0.008, and it is one-sided .",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "PALOMA-2 states a one-sided p at an alpha of 0.025, which puts the critical value in the same place on the benefit side - a result that clears one clears the other - while differing in what the test was capable of concluding at all: a one-sided test is built to detect benefit and cannot declare harm.",
+      "now": "The trial's own results posting on ClinicalTrials.gov (NCT01958021) states that the distribution of overall survival between the arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance .",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Two earlier versions of this page got this wrong in opposite directions - one called it two-sided, which we could not source from ClinicalTrials.gov or anywhere else because it is not so; the next said the direction could not be established, which was not true either, because the trial registry had it posted by the sponsor the whole time.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The reader who reviewed this page after publication and said it was one-sided was right.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "PALOMA-2 is one-sided too, at an alpha of 0.025 - its registry record (NCT01740427) labels every log-rank p-value on the study 1-sided p-value from the stratified log-rank test - which puts the critical value in the same place on the benefit side - a result that clears one clears the other - while differing in what the test was capable of concluding at all: a one-sided test is built to detect benefit and cannot declare harm.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "An earlier version of this page said the direction could not be determined, which was not true - it could not be determined from the journal paper we could open , and treating that as unknowable was turning a number we had not found into evidence that did not exist.",
+      "now": "An earlier version of this page said the direction could not be determined, which was not true - the trial registry states it plainly, and it could not be determined from the journal paper we could open , and treating that as unknowable was turning a number we had not found into evidence that did not exist.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Nor is this observation ours: Tanguy and colleagues made it formally in npj Breast Cancer in 2018 , before any of these trials had mature survival data, arguing that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference and that divergent significance across the three might reflect chance rather than different drug efficacy.",
+      "because": "CORR-05",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones, the paper itself is behind a wall we could not open, and a figure we cannot attribute to a primary source is a figure this page does not carry.",
+      "now": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones; the paper itself is behind a wall we could not open, and its ClinicalTrials.gov record (NCT06805812, still recruiting toward an estimated 3,500 patients) has no results posted; and a figure we cannot attribute to a primary source is a figure this page does not carry.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "In guideline language, \"directly compared in clinical trials\" means a randomised head-to-head trial, and none exists.",
+      "now": "In guideline language, \"directly compared in clinical trials\" means a randomised head-to-head trial, and none exists in the setting that sentence is about - first line, with an aromatase inhibitor.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "What these comparisons add is not a correction to it, but the only evidence there is on the question it records as untested.",
+      "now": "What these comparisons add is not a correction to it, but the best evidence there is on the question it records as untested.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Two randomised head-to-head trials do exist, in other settings, and this page said they did not.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Both put ribociclib against palbociclib.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Shaaban and colleagues randomised patients to palbociclib plus fulvestrant or ribociclib plus fulvestrant in the second line and reported a clinical benefit rate at six months of 58.6% in both arms and median progression-free survival of 12.69 against 13.67 months; their conclusion, in their words, is that both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "HARMONIA (NCT05207709) is a phase III, randomised, open-label trial of the same pair in the HER2-enriched subtype; it opened in March 2022 and terminated with 61 patients enrolled.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Neither is first line with an aromatase inhibitor, which is why neither contradicts the guideline sentence.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Both contradict what this page printed, which was that nobody had run one at all.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "What they do not do is close the abemaciclib question: no randomised trial has compared abemaciclib against either of the other two , in any setting, and that is the comparison the category difference actually turns on.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "No randomised trial has compared any of the three against another.",
+      "now": "No randomised trial has compared abemaciclib against either of the other two, in any setting.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "No study that compares them by other means finds a difference between abemaciclib and ribociclib - not the network meta-analysis, not P-VERIFY on 9,146 patients, not PALMARES-2 on 1,982.",
+      "now": "Ribociclib and palbociclib have been compared head to head twice - Shaaban and colleagues in the second line with fulvestrant, and HARMONIA, which terminated at 61 patients - and neither separated them.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The guideline's own sentence, that the CDK4/6 inhibitors have not been directly compared in clinical trials , is about first-line aromatase-inhibitor combinations and is accurate in that scope.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "None of the four comparative studies examined on this page separates abemaciclib from ribociclib: not the network meta-analysis, not P-VERIFY on 9,146 patients, not PALMARES-2 on 1,982, not the reconstructed patient-data comparison - whose progression-free estimate comes closest, at p = 0.051, and still does not reach significance.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "What a head-to-head trial would find.",
+      "now": "What a first-line head-to-head trial would find.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Nobody has run one.",
+      "now": "Nobody has run one in that setting.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Whether anybody will is not something this page knows - an earlier version asserted that nobody would, which was a prediction about the decisions of companies and funding bodies we have not asked and cannot read.",
+      "now": "The two that have been run - both ribociclib against palbociclib, elsewhere in the treatment course - found no difference, and one of them stopped at 61 patients, which is a thin basis for either conclusion.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Whether anybody will run a first-line trial is not something this page knows; an earlier version asserted that nobody would, which was a prediction about the decisions of companies and funding bodies we have not asked and cannot read.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The evidence's answer is that nothing has been shown to separate them: the two randomised trials that have put any pair of them head to head, both ribociclib against palbociclib, found no difference; no randomised trial has compared abemaciclib against either of the others; and none of the four comparative studies on this page can tell abemaciclib and ribociclib apart.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Sources Every figure above traces to one of these, and each cell of the table names which: a trial publication, a drug label, or a comparative study, cited by name in the entry below.",
+      "now": "Sources Every figure above traces to a named source, and each cell of the table names which: a trial publication, a drug label, or a comparative study.",
+      "because": "CORR-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Where a correction to one of these sources is known to us, it is noted in that source's entry.",
+      "now": "Each is cited by name in the entry below, and where a correction to one of those sources is known to us, it is noted in that source's entry.",
+      "because": "CORR-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Registry MONALEESA-2 - ClinicalTrials.gov results posting.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "NCT01958021 Source of the direction of the final overall-survival test, which this page twice failed to establish from the journal.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The sponsor's own posting states that overall survival was compared using a log-rank test at one-sided cumulative 2.5% level of significance , and gives HR 0.765 (95% CI 0.628-0.932), p = 0.004 for that analysis.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Read from the ClinicalTrials.gov record itself on 30 August 2026.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Registry PALOMA-2 - ClinicalTrials.gov results posting.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "NCT01740427 Independent confirmation that PALOMA-2's log-rank p-values are one-sided: every such analysis in the posting is annotated 1-sided p-value from the stratified log-rank test .",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Also gives the final overall-survival analysis as HR 0.921 (0.755-1.124).",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Read from the record itself on 30 August 2026.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Primary Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Comparing ribociclib versus palbociclib as a second line treatment in combination with fulvestrant in metastatic breast cancer: a randomized clinical trial.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Asian Pac J Cancer Prev 2024;25(9):3039-3049 A randomised, open-label phase III trial putting two of these three drugs directly against each other.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Source of the clinical benefit rate at six months, 58.6% in both arms, the median progression-free survival of 12.69 against 13.67 months, and the authors' conclusion that both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Read here as its abstract and article record on the journal's own site, not the full text : we have not seen its randomisation procedure, its power calculation or its patient flow, and this page draws nothing from it that is not in the abstract.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Second line, with fulvestrant - not the first-line aromatase-inhibitor setting the guideline sentence describes.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Registry HARMONIA - ribociclib vs palbociclib in HR+/HER2-/HER2-enriched advanced breast cancer.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "NCT05207709 The second head-to-head randomised trial of the same pair.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Source of the design (phase III, randomised, open label, parallel), the start date of 28 March 2022, and the fact that it terminated with 61 patients enrolled.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Read from the ClinicalTrials.gov record itself.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "No results publication was found.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Sixty-one patients is a thin basis for any conclusion, and this page draws none from it beyond the fact that the trial was run.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "It is published open access; an earlier version of this page said it sat behind a paywall, which was wrong.",
+      "now": "An earlier version of this page said it sat behind a paywall; the next said that was wrong and it was open access.",
+      "because": "CORR-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Every retrieval route available to us returned a block, which is a limit of our tooling and not of the licence.",
+      "now": "The first was right.",
+      "because": "CORR-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Europe PMC's record for it (PMID 41093689) marks it not open access and lists one route, the publisher's DOI, as Subscription required .",
+      "because": "CORR-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It is not in the trial registry either, corrigenda not being registry items.",
+      "because": "CORR-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "So the block is the licence and not our tooling, and this page has now been wrong about this corrigendum in both directions.",
+      "because": "CORR-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The test is one-sided, at a cumulative 2.5% level of significance, per the trial's own results posting on ClinicalTrials.gov (NCT01958021), which also gives HR 0.765 (0.628-0.932).",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "What that posting does not give is the critical value at the final look if alpha had been spent earlier, so this page does not print one.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis - \"statistical comparison was made by 1-sided stratified log-rank test\" - which is where this page takes it from, the journal paper being behind a wall we could not open.",
+      "now": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis - \"statistical comparison was made by 1-sided stratified log-rank test\" - and confirmed independently in the trial's ClinicalTrials.gov results posting (NCT01740427), which annotates each log-rank p-value 1-sided p-value from the stratified log-rank test .",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The journal paper is behind a wall we could not open; the registry is not.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 30 August 2026.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "This page said, in four places, that no randomised trial had compared any of these three drugs against another, and that nobody had run a head-to-head trial.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Two exist, both of ribociclib against palbociclib: a randomised open-label phase III in the second line with fulvestrant, published in 2024, which found no difference between them; and HARMONIA, registered as NCT05207709, which opened in March 2022 and terminated with 61 patients.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Neither is in the first-line aromatase-inhibitor setting the guideline sentence describes, so the guideline remains accurate as written - but this page had taken that sentence, verified that the guideline says it, and then printed it unscoped as a claim about the world.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "That is the error, and it is the second time this issue has made it.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The claim that survives is narrower and is now what the page says: no randomised trial has compared abemaciclib against either of the other two, which is the comparison the category difference actually turns on.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Both trials were found by a counterexample role whose only instruction is to break this page's universal negatives; nothing else in the pipeline was pointed at that sentence.",
+      "because": "CORR-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Also corrected: an author surname in the section on trial power.",
+      "because": "CORR-05",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The page named the wrong researcher; the first author of that 2018 npj Breast Cancer paper is Marie-Laure Tanguy, and the page now says so.",
+      "because": "CORR-05",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The fix had been written a day earlier and had not reached the live site, because publishing it meant re-opening this issue's checks and we had decided not to spend on that.",
+      "because": "CORR-05",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It sat live and wrong for a day as a result.",
+      "because": "CORR-05",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "What was in the registry all along.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "This page said, in four places, that it could not establish whether MONALEESA-2's final overall-survival p-value was one-sided or two-sided, and that the answer sat in a statistical section behind a paywall.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It sat in the trial's own results posting on ClinicalTrials.gov, put there by the sponsor: compared using a log-rank test at one-sided cumulative 2.5% level of significance .",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "PALOMA-2's posting says the same of its own tests, in a field labelled for the purpose.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Both were one search away.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "That is now the third fact this issue declared unfindable and then found in a registry - the first two were the head-to-head trials above.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "A registry is a list of what was started and what was reported; a journal is a list of what got published.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "This page had been searching only the second.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The check that made us look is the one that asks what registry was searched before a sentence says something cannot be known, and it had been reporting these seven sentences for two days.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "A corrigendum to the MONARCH 3 final overall-survival paper ( Ann Oncol 2025;36:1556, PMID 41093689) - Europe PMC marks it not open access and offers only the publisher's DOI, Subscription required ; ClinicalTrials.gov does not carry corrigenda.",
+      "because": "CORR-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "MONALEESA-2's exact critical value at its final look, if alpha had been spent at an interim - the direction of that test is now settled from the registry, but the spending schedule is in a statistical section we could not reach.",
+      "because": "CORR-02",
+      "at": "2026-08-30"
     }
   ]
 }
