@@ -35,6 +35,18 @@
       "findings": 4,
       "accepted": 4,
       "note": "Read the live page after publication. Found that the guideline lists all three drugs as preferred and the page never said so; that MONALEESA-2's p-value was called two-sided without a source; that two claims were broader than their evidence; and that the footer described a published page as a draft. All four accepted and fixed. Adjudicated in review/2026-08-29-post-publication.md."
+    },
+    {
+      "issue": "deskilling",
+      "at": "2026-08-30T19:29:20+00:00",
+      "sha": "3900205df166c3ba66199fc95cadd6b499bb969c2fecb8e5da1117865af492f7",
+      "sha_after_adjudication": "5a6819aaeec6278f09896f11eb852413ce0b92b7cc2ee1b4bad63afa1b53870a",
+      "reviewed_file": "issues/WHU-003-deskilling/review/2026-08-30-sent.html",
+      "standards_version": "1.1",
+      "reviewer": "outside reviewer (independent, given the page and the review prompt only)",
+      "findings": 2,
+      "accepted": 2,
+      "note": "Both publish-blocking. Finding 1: the page said no null result existed; Pedersen et al. (Endoscopy, 3 June 2026) is one, and is now read in full and carried as its own section. Finding 2: the Lancet correction was described as unread; it was obtained, read, and its content disclosed."
     }
   ]
 }

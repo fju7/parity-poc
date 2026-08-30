@@ -1141,26 +1141,6 @@
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "ADVOCATE",
-      "quote": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "Checked in the article PDF itself, which the operator supplied. The running footer on all six pages reads 'Volume 11 [square] Issue C [square] 2026'. Our citation reproduces what the article prints. If the publisher's site now shows volume 12, that is a discrepancy between the publisher's record and its own typeset article, and the article wins for a citation of the article.",
-      "what_would_change_it": "The publisher issuing a correction to the volume number, or the PDF being revised."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "INFERENCE",
-      "quote": "experienced 247.89 to 227.09; novice 255.66 to 247.89",
-      "severity": "MINOR",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "Settled at the paper. Troya et al., Table 1, 'Eye travel distance with and without computer-aided detection', median (99% CI), cm: All participants 248.86 (221.39-282.88) to 232.68 (210.43-262.33), P < 0.001; Experienced 247.89 (209.68-299.26) to 227.09 (192.39-278.32); Novice 255.66 (221.40-297.99) to 247.89 (216.31-266.20). The figure 247.89 does appear twice, as the experienced without-CADe median and the novice with-CADe median. It is a coincidence of two medians, not a transposition. Read in the open-access PDF on 2026-08-30.",
-      "what_would_change_it": "A corrected version of Troya Table 1."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "SOURCE",
       "quote": "Sixteen authors",
       "severity": "WRONG_VALUE",
@@ -1680,46 +1660,6 @@
       "what_would_change_it": "Anything on this page coming to depend on the date."
     },
     {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "COVERAGE",
-      "quote": "What we did find is that none of it crossed the boundary.",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
-      "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "COVERAGE",
-      "quote": "Fortune carried the six-point fall to a business readership on 26 August 2025, connected it to an automation analogy and to a Microsoft and Carnegie Mellon study, and reported none of the eleven limitations.",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
-      "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "COVERAGE",
-      "quote": "Three named academics said so publicly the day it appeared. Almost none of that survived the trip out of gastroenterology.",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
-      "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "COVERAGE",
-      "quote": "A research highlight in Nature Reviews Gastroenterology & Hepatology reported the figures as fact with no limitations and no quotes.",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "STALE BY CONSTRUCTION. The COVERAGE role is carried between runs — it depends on the world rather than on our wording — so this run quoted the draft as it stood before the travel section was rewritten. None of these sentences is on the page. Each was acted on in the run-1 adjudication, on the same evidence this role is citing.",
-      "what_would_change_it": "Nothing. These decisions exist so a carried COVERAGE block is not mistaken for a live objection."
-    },
-    {
       "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
       "role": "SOURCE",
       "quote": "three named academics",
@@ -1918,26 +1858,6 @@
       "decided": "2026-08-30",
       "reason": "Structural, not evidential: the email is a summary and credits no sources, so 37 of its 46 claims were checked against 'no source credited in the draft' and the gate had no document to open. Every figure here is on the page with its source, read at source, and publish.py enforces that no figure appears in the email that is not on the page. The underlying documents are recorded in sources.json with what was read and what was not.",
       "what_would_change_it": "A figure in the email that is not on the page."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
-      "role": "ADVOCATE",
-      "quote": "was retracted in April 2026, with 402 citations on the journal's own counter",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "UPHELD, and the fix is to stop printing a live metric. The journal's own counter read 402 at one point on 30 August 2026 and 399 an hour later; other counts of the same paper run from 262 to over 500 depending on what is being counted. A number that moves while you look at it is not a fact a page should assert, however carefully it is dated. Page and email now say 'several hundred', and the page says why. This is the third different figure we have printed or been offered for this one paper today.",
-      "what_would_change_it": "Nothing — the point is that the number is not stable enough to print."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
-      "role": "COVERAGE",
-      "quote": "A consistent direction, carried by very few measurements.",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "UPHELD on ordering. The sentence is a fair report of what the scoping review found, but in the email it sits several paragraphs before the Pedersen result that contests it, and a reader who stops there is misled. Now scoped to the review and flagged forward.",
-      "what_would_change_it": "Nothing."
     },
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",

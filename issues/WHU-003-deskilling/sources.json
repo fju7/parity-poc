@@ -210,17 +210,17 @@
       ],
       "used_for": "54 participants through session 3; session 4 with 18 across two crossover arms; still unreviewed.",
       "access": {
-        "state": "machine_read_full_text",
+        "state": "machine_read",
         "by": "claude",
-        "on": "2026-08-29",
+        "on": "2026-08-30",
         "sections": [
-          "MIT project page and abstract; session-4 participant counts",
-          "the full v1 PDF, participants section — the 55/54 sentence read at source on 2026-08-30"
+          "the full v1 PDF end to end: participants section (the 55-completed / 54-reported sentence read at source), sessions 1-3 and session 4 counts, group assignment",
+          "the MIT project page and abstract"
         ],
         "not_read": [
-          "the methods section at source; the EEG analysis"
+          "the EEG analysis in technical detail"
         ],
-        "note": "arXiv id 2506.08872 VERIFIED 2026-08-29. Session-4 methods still to be read at source. Full PDF read 2026-08-30 to settle the 55/54 question."
+        "note": "arXiv id 2506.08872 verified 2026-08-29. Full PDF read 2026-08-30 to settle the 55/54 question; the paper explains the drop and the Comment does not address that sentence. Recorded verbatim in sources.json under the_55_and_the_54."
       },
       "the_55_and_the_54": "VERBATIM, from the v1 PDF read in full on 2026-08-30: “55 completed the experiment in full (attending a minimum of three sessions, defined later). To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below).” This matters because the Comment (S019) reports the 55/54 gap and says the exclusion criteria remain unclear. The paper does give a reason, in the sentence above, and the Comment does not address it. The page now prints both."
     },
@@ -441,17 +441,17 @@
       "why_it_matters": "A THIRD mechanism, distinct from both existing strands. Not 'you get worse when the tool is taken away' (Liu et al.) and not 'you learn more with a tutor' (the meta-analyses), but 'you adopt the machine's answer over your own reasoning, including when it is wrong, and pay for it'. It is also the mechanism that matches what people actually describe when they say AI has changed their thinking. And it is PREREGISTERED, which Liu et al. appears not to be — so on that axis it is the most rigorous study in the whole set.",
       "peer_review": "NONE. Wharton working paper, v20260111. The same standard we applied to the MIT preprint applies here.",
       "access": {
-        "state": "human_read_and_machine_read",
-        "by": "fred, then claude",
-        "on": "2026-08-29, re-read for extracts 2026-08-30",
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
         "sections": [
-          "pp.1-8 (abstract, framing, design overview), 17-28 (empirical overview, common procedures, Study 1 in full, Study 2 methods and results), 29-40 (Study 2 results, Study 3 in full), 41-48 (general discussion, trial-level synthesis, surrender-vs-offloading, limitations begin), 49-52 (limitations, conclusion, references)",
-          "the confidence result sentence with both means, SEs, CIs and the t-test, read 2026-08-30"
+          "pp.1-8 (abstract, framing, design), 17-28 (empirical overview, Study 1 in full, Study 2 methods and results), 29-40 (Study 2 results, Study 3 in full), 41-48 (general discussion, trial-level synthesis, limitations), 49-52 (conclusion, references)",
+          "the confidence result sentence with both means, SEs, CIs and the t-test, re-read for extracts 2026-08-30"
         ],
         "not_read": [
           "Web Appendices A-D, including the preregistered hypotheses summary (D) and the detailed sample exclusions (C)"
         ],
-        "note": "The operator supplied the PDF; SSRN's delivery endpoint 404s. Read directly, page by page, not summarised."
+        "note": "Read first by fred, who supplied the PDF after SSRN's delivery endpoint 404'd, then page by page by claude. Not summarised."
       },
       "found_via": "A Reddit thread the operator passed on, 2026-08-29. Recorded because provenance matters: it is not something our scanner or our searches surfaced, and that is worth knowing about our own coverage.",
       "what_it_actually_says": {
@@ -787,14 +787,13 @@
       "used_for": "THE ANSWER TO WHETHER BUDZYN IS ALONE. He is not — but the company is thin and mostly of a different kind. 432 records from PubMed, Embase, Web of Science and Scopus plus 41 from grey literature; 373 after duplicates; 65 at full text; TWELVE STUDIES included in the synthesis, with six in the key-studies table. The authors' own words: evidence of clinical deskilling is 'though scarce, consistent across specialties', 'the number of high-quality empirical studies remains limited', and 'many reports are based on expert opinion or small-scale qualitative investigations rather than large multi-center trials'.",
       "why_it_matters": "It is the one document that would answer the question deciding whether this piece is ready: IS BUDZYN ALONE? If there are several studies measuring physician performance without AI after exposure to it, the piece is about a pattern. If Budzyn is the only one, the piece is about a single observational study carrying an enormous amount of weight — which is a different and more cautious piece.",
       "access": {
-        "state": "human_read_and_machine_read",
-        "by": "fred, then claude",
-        "on": "2026-08-29, re-read in full 2026-08-30",
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
         "sections": [
-          "the whole paper: abstract, methods, PRISMA flowchart, all specialty sections, Table 1, cross-cutting patterns, discussion, limitations, conclusion and the full reference list"
+          "the whole paper: abstract, methods, the PRISMA flowchart (which extracts as text: 432, 41, 37, 373, 332, 65, 12), every specialty section, Table 1 row by row, discussion, limitations, conclusion and the full reference list"
         ],
-        "not_read": [],
-        "note": "The operator supplied the PDF after esmorwd.org 403'd and ScienceDirect refused robots. Re-supplied and read end to end by claude on 2026-08-30 to settle watch question W8. Every sentence this page uses from the review is now recorded verbatim below."
+        "note": "Supplied by fred after esmorwd.org 403'd and ScienceDirect refused robots; read end to end by claude on 2026-08-29 and again on 2026-08-30. Every adverse claim this page makes about the review is quoted from this PDF. NOTE the proof's running footer prints 'Volume 11, Issue C' above 'Available online xxx'; CrossRef's registered record for the version of record gives volume 12 and no issue, which is what the page cites."
       },
       "needs_human_read": true,
       "the_six_key_studies": [
@@ -1216,16 +1215,16 @@
         "setting": "pragmatic clinical trial from November 2021 to June 2025 ... 5013 patients, 3 centers, Norway. The 13 endoscopists comprised 12 physicians and 1 surgeon. Inexperienced mean age 41.1 years, experienced 50.7 years. Median withdrawal time across all phases 10 minutes (IQR 8-16) inexperienced, 9 minutes (IQR 7-11) experienced."
       },
       "access": {
-        "state": "machine_read_full_text",
+        "state": "machine_read",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
-          "the whole paper: abstract, methods, results, all tables in the body, discussion, limitations, conclusion, and the reference list entry for Budzyn"
+          "the whole paper: abstract, methods, results, every table in the body, discussion, limitations, conclusion, and the reference-list entry for Budzyn"
         ],
         "not_read": [
           "the online-only supplementary tables 1s-3s"
         ],
-        "note": "The abstract was read at Europe PMC first and four paragraphs were written from it. The operator then supplied the full paper, and the full paper materially changed those paragraphs — see WHAT_THE_ABSTRACT_DID_NOT_SAY. The publisher's page returned 404 to every URL form tried."
+        "note": "The abstract was read at Europe PMC first and four paragraphs were written from it; fred then supplied the full paper and it materially changed all four -- see WHAT_THE_ABSTRACT_DID_NOT_SAY. A review is a hop, and so is an abstract."
       },
       "found_via": "THE OUTSIDE REVIEWER, 2026-08-30. Not by us. Watch question W1 exists to catch exactly this and its search had not been run; the 2026-08-30 watch entry says so in writing, under 'not_checked'.",
       "the_overlap_that_makes_it_sharper": "Yuichi Mori is the second author here and the senior author of Budzyn et al. The same researcher is on the retrospective study that found a fall and the prospective study that found nothing. That is not a contradiction to be scored — it is what a field looks like when it is still working the question out, and the page now says so.",
