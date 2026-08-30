@@ -15,6 +15,8 @@ This is the join. It answers three questions:
     what have we published, and is it still what we meant?   -> status
     is this issue safe to publish right now?                 -> check
     publish it, and write down that we did                   -> publish / announce
+    a new study appeared and two paragraphs changed          -> update
+    a nav link changed on a page nobody is republishing      -> record-live
 
 THE PREFLIGHT IS THE POINT
 --------------------------
@@ -693,7 +695,43 @@ def fc_parity_provenance(page_text: str, email_text: str) -> list[str]:
     return ep.provenance_parity(page_text, email_text)
 
 
-def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
+# Rows an UPDATE to a living issue does not have to re-earn, and why.
+#
+# An update is judged on what it ADDS. Re-running the whole first-publication
+# battery for a two-paragraph change is how a living issue stops being updated
+# at all -- and an issue that is never updated while displaying a changelog is
+# worse than one that never promised.
+#
+# The list is a whitelist, not a blacklist, and that is deliberate: anything
+# NOT named here blocks an update, INCLUDING checks added after this list was
+# written. A list of exemptions will be forgotten; a list of exemptions that
+# fails closed is forgotten safely.
+UPDATE_SOFTENS = {
+    "page gate": "the fact-check gate was run on this piece; a change is judged "
+                 "by the checks below, and a substantive rewrite should go "
+                 "through `publish` instead",
+    "email gate": "the email is not what is changing",
+    "email figures on page": "the email is not what is changing",
+    "email sourcing claims match the page": "the email is not what is changing",
+    "html/text parity": "the email is not what is changing",
+    "email adjudications": "the email is not what is changing",
+    "outside review": "the piece was reviewed once; if THIS change needs "
+                      "reviewing, that is a judgement, not a gate",
+    "belief stated": "the premise is about how the piece was conceived, not "
+                     "about what it now says",
+    "belief shown to be held": "as above",
+    "what the sources show": "as above",
+    "direction recorded": "as above",
+    "reader with a decision": "as above",
+    "carried in general coverage?": "as above",
+    "our contribution named": "as above",
+    "kill condition written": "superseded for a living issue by the watch list",
+    "kill condition tested": "superseded for a living issue by the watch list",
+}
+
+
+def preflight(slug: str, *, for_email: bool,
+              for_update: bool = False) -> list[tuple[str, str, str]]:
     cfg = ISSUES[slug]
     page = ROOT / cfg["page"]
     ehtml = ROOT / cfg["email_html"]
@@ -852,6 +890,19 @@ def preflight(slug: str, *, for_email: bool) -> list[tuple[str, str, str]]:
                         + (f", and corrections.md carries a {today} entry" if logged
                            else f", and corrections.md has no {today} entry — "
                                 "who-pays-for-this promises every change is recorded")))
+
+    if for_update:
+        softened = []
+        for i, (label, st, detail) in enumerate(out):
+            if st == BAD and label in UPDATE_SOFTENS:
+                out[i] = (label, WARN, detail + "  [not re-earned for an update: %s]"
+                          % UPDATE_SOFTENS[label])
+                softened.append(label)
+        if softened:
+            out.append(("softened for this update", WARN,
+                        "%d check(s) downgraded because an update is judged on what "
+                        "it adds: %s. Anything not on that list still blocks."
+                        % (len(softened), ", ".join(softened))))
     return out
 
 
@@ -1215,6 +1266,126 @@ def cmd_record_live(args) -> int:
     })
     print("Recorded. %s is now signed off at %s.\n" % (cfg["page"], now[:16]))
     print("Commit backend/data/whatholdsup/published.json and push.\n")
+    return 0
+
+
+def cmd_update(args) -> int:
+    """The third mode: a substantive change to a LIVING issue.
+
+    `publish` is for a first publication and for a rewrite. `record-live` is
+    for a change too small to touch the argument -- it refuses anything that
+    rewrites a sentence. Neither fits the ordinary event in a living issue's
+    life, which is that a new study appeared and two paragraphs changed.
+
+    Without this, that event has only bad options: run the whole
+    first-publication battery for a paragraph, which nobody will keep doing;
+    or push past the guard with --no-verify, which records nothing. An issue
+    that displays a changelog and is never updated is worse than one that
+    never promised.
+
+    What an update must still earn is everything about what it ADDS: the claim
+    lint, the source ledger on any new source, a counterexample run on any new
+    universal negative, inherited-claims attribution, and the living-issue rows
+    -- including that the page's 'Last reviewed' date matches a check that
+    actually ran. See UPDATE_SOFTENS for what it does not have to re-earn, and
+    why each one is on that list.
+    """
+    cfg = ISSUES[args.slug]
+    page = ROOT / cfg["page"]
+    w = _sibling("watch")
+
+    if w.load(args.slug) is None:
+        print("\n  %s is not a living issue — no watch.json." % args.slug)
+        print("  Use `publish` for a rewrite, or `record-live` for a change too")
+        print("  small to touch the argument. `update` exists for the event in")
+        print("  between, and only a living issue has those.\n")
+        return 2
+
+    rec = [r for r in load_record() if r["issue"] == args.slug
+           and r["action"] in ("publish", "republish", "update")]
+    if not rec:
+        print("\n  %s has never been published.\n" % args.slug)
+        return 2
+    if rec[-1].get("sha") == sha(page):
+        print("\n  Nothing to update — the page is byte-identical to what was "
+              "signed off on %s.\n" % rec[-1]["at"][:19])
+        return 0
+
+    print("\nPreflight (update): %s\n" % args.slug)
+    if not show(preflight(args.slug, for_email=False, for_update=True), args.waive):
+        print("\nBLOCKED — nothing updated.")
+        return 1
+
+    if not (args.what and args.changed):
+        print("\n  An update needs --what (what appeared in the world) and")
+        print("  --changed (what changed on the page). These are the changelog")
+        print("  entry a reader will see, and the update is not recorded without")
+        print("  them. 'The evidence moved' is the whole distinction between this")
+        print("  and a correction.\n")
+        return 1
+
+    if not args.yes:
+        print("\nPreflight passed. Re-run with --yes to commit, push, wait for the")
+        print("deploy, record the update and write the changelog entry.\n")
+        return 0
+
+    for f in ("page", "email_html", "email_txt"):
+        git("add", cfg[f])
+    git("add", "site/whatholdsup")
+    git("add", str((ledger.case_dir(args.slug) / "watch.json").relative_to(ROOT)))
+    git("add", str((ledger.case_dir(args.slug) / "changelog.md").relative_to(ROOT)))
+    code, out = git("commit", "-m", "whatholdsup: update %s — %s"
+                    % (args.slug, args.what[:60]))
+    if code != 0 and not any(x in out for x in
+                             ("nothing to commit", "no changes added to commit",
+                              "nothing added to commit")):
+        print("\ncommit failed: %s" % out)
+        return 2
+
+    os.environ["WHATHOLDSUP_PUBLISHING"] = "1"
+    try:
+        code, out = git("push", "origin", "HEAD")
+    finally:
+        os.environ.pop("WHATHOLDSUP_PUBLISHING", None)
+    if code != 0:
+        print("\npush failed: %s" % out)
+        return 2
+    print("  pushed. waiting for the deploy to serve it...")
+
+    want = sha(page)
+    for attempt in range(40):
+        body = live_body(cfg["url"])
+        if body and hashlib.sha256(body.encode()).hexdigest() == want:
+            print("  live matches the repo after %ds" % (attempt * 15))
+            break
+        time.sleep(15)
+    else:
+        print("  the live page still differs after 10 minutes. Not recorded.")
+        return 3
+
+    _c, commit = git("rev-parse", "HEAD")
+    append_record({
+        "issue": args.slug, "action": "update",
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "sha": want, "commit": commit.strip(), "url": cfg["url"],
+        "note": args.what,
+        "changed": args.changed,
+        "source": args.source,
+        "basis": "living issue update — judged on what it adds. Softened checks "
+                 "are listed in the preflight output above and in UPDATE_SOFTENS.",
+        "waived": args.waive,
+    })
+    doc = w.load(args.slug)
+    doc.setdefault("changelog", []).append({
+        "on": datetime.now(timezone.utc).date().isoformat(),
+        "by": "publish.py update",
+        "what": args.what, "changed": args.changed, "source": args.source,
+        "page_sha": want,
+    })
+    w.save(args.slug, doc)
+    print("\n  Recorded, and a changelog entry written against sha %s." % want[:16])
+    print("  Now write the reader-facing version into %s and commit it.\n"
+          % (ledger.case_dir(args.slug) / "changelog.md").relative_to(ROOT))
     return 0
 
 
@@ -3121,6 +3292,16 @@ def main() -> int:
                             "waived. Use it when a check has stopped buying anything, not "
                             "when it is inconvenient.")
         p.set_defaults(fn=fn)
+    up = sub.add_parser("update",
+                        help="record a substantive change to a LIVING issue")
+    up.add_argument("slug", choices=sorted(ISSUES))
+    up.add_argument("--what", help="what appeared in the world")
+    up.add_argument("--changed", help="what changed on the page")
+    up.add_argument("--source", help="the new source's id in sources.json")
+    up.add_argument("--yes", action="store_true", help="actually do it")
+    up.add_argument("--waive", metavar="REASON",
+                    help="update despite a blocking item. Recorded, with the reason.")
+    up.set_defaults(fn=cmd_update)
     rl = sub.add_parser("record-live",
                         help="sign off a small change to an already-published page")
     rl.add_argument("slug", choices=sorted(ISSUES))

@@ -623,7 +623,9 @@
     "When the piece demonstrates a pattern from named instances, look on purpose for the instances that would contradict it and count honestly. Five examples chosen by us, to show a pattern we proposed, is the shape of a selected sample whether or not it is one.",
     "Before asserting a pattern from named instances, run the search designed to find the counter-instances, and record what it returns even when it returns nothing. On issue three the first such search overturned the thesis in its first result.",
     "A claim that replaces a broken claim starts at zero. It inherits none of the credibility of the process that broke its predecessor, and it gets the same adversarial treatment the first one got.",
-    "A recorded check lists what was searched, not what the watch asks. Any question not actually checked is written into the record as not checked. The form is not the work, and filling in the form is a claim about the work."
+    "A recorded check lists what was searched, not what the watch asks. Any question not actually checked is written into the record as not checked. The form is not the work, and filling in the form is a claim about the work.",
+    "A living issue needs three ways to change a published page, not one. `publish` for a rewrite, `update` for the ordinary event of a new study changing two paragraphs, `record-live` for a change too small to touch the argument. With only the first, nobody keeps updating, and a page displaying a changelog that is never updated is worse than a page that never promised.",
+    "Exemption lists fail closed. UPDATE_SOFTENS names the checks an update does not re-earn; anything absent from it blocks, including checks added later. A list of exemptions will be forgotten, so it has to be forgotten safely."
   ],
   "second_pass": {
     "run": "2026-08-26",

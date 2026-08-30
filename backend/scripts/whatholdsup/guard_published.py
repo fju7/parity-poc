@@ -121,7 +121,13 @@ def _last(rows: list[dict], slug: str, action: str) -> dict | None:
     the record -- but it is a sign-off, and the guard's only question is
     whether the content on the branch is content somebody approved.
     """
-    wanted = {"publish", "republish"} if action == "publish" else {action}
+    # "update" counts too: a living issue changes on purpose, and publish.py
+    # update signs the change off with the checks a change actually needs.
+    # If the guard did not accept it, every update would have to be forced
+    # past with --no-verify, which records nothing -- the exact hole this
+    # guard exists to close.
+    wanted = ({"publish", "republish", "update"} if action == "publish"
+              else {action})
     hits = [r for r in rows if r.get("issue") == slug and r.get("action") in wanted]
     return hits[-1] if hits else None
 
