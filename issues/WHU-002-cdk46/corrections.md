@@ -156,3 +156,27 @@ the resulting divergence ever since. This file, which exists to record what we
 got wrong, carried the error in the very entry describing the passage it was in,
 until 30 August 2026. `attributions.json` for this issue holds the full author
 list.
+
+**The email said something untrue about where its own figures came from.** The
+summary email carried the sentence "Every figure above comes from a trial
+publication or a drug label." Four paragraphs earlier the same email describes
+P-VERIFY as "a US real-world cohort of 9,146 patients" and PALMARES-2 as "an
+Italian study of 1,982", and then quotes hazard ratios from both. The page never
+made that claim — its own sourcing sentence has always read "a trial
+publication, a drug label, or a comparative study" — so this was the email
+narrowing a true claim into a false one, and nothing compared the two before it
+was sent.
+
+The email also carried the eight-readouts figure without the bound the page puts
+on it: the page says "That is a claim about the eight we checked, not about every
+analysis ever run on these datasets," and the email said only that every figure
+falls between 0.52 and 0.58.
+
+Both are fixed in the email as of 30 August 2026. Nobody received the version
+with the error — issue two went to a test segment during prototyping — which is
+luck rather than process, and the process has been changed accordingly:
+`publish.py` now refuses to let a `--waive` cover the gate, the sourcing-parity
+check, the figure-parity check or the html/text check when an email is being
+SENT. A page can be corrected after publication; an email cannot be recalled.
+On 29 August all of those were waived in one line, and this is the error that
+went through the gap.

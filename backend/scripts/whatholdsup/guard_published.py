@@ -132,6 +132,39 @@ def _last(rows: list[dict], slug: str, action: str) -> dict | None:
     return hits[-1] if hits else None
 
 
+ACK_FILE = ROOT / "backend" / "data" / "whatholdsup" / "known_divergences.json"
+
+
+def _acknowledged(slug: str) -> dict:
+    """{content_sha: record} for divergences somebody has deliberately accepted.
+
+    WHY THIS EXISTS, AND WHY IT IS NOT A BACK DOOR
+    ----------------------------------------------
+    The guard warns on every push when a published page is live at a version
+    the ledger does not record. That is right: it is how issue two's silent
+    divergence was found. But a warning that fires on every push forever, for a
+    divergence somebody has looked at and decided not to act on yet, trains the
+    reader to skip the whole block -- and the next real one goes with it.
+
+    So a divergence can be ACKNOWLEDGED. Not published, not recorded as
+    published: acknowledged, with a reason and a date, BOUND TO THE EXACT
+    CONTENT HASH. The warning still prints, once, saying it is known. The
+    moment the live content changes by one byte, the hash no longer matches and
+    the full warning returns.
+
+    It cannot be used to silence a divergence the pusher is creating: that path
+    is `blocking`, not `warnings`, and this function is never consulted there.
+    """
+    if not ACK_FILE.exists():
+        return {}
+    try:
+        data = json.loads(ACK_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {r["content"]: r for r in data.get("acknowledged", [])
+            if r.get("issue") == slug and r.get("content")}
+
+
 def check(ref: str | None = None,
           against: str | None = None) -> tuple[list[str], list[str]]:
     """(blocking problems, warnings).
@@ -172,7 +205,16 @@ def check(ref: str | None = None,
                 prev = _blob(against, rel)
                 if prev is not None:
                     already = hashlib.sha256(prev).hexdigest()
-            if already == now:
+            if already == now and now in _acknowledged(slug):
+                ack = _acknowledged(slug)[now]
+                warnings.append(
+                    "%s: %s is live at a version recorded as KNOWN AND UNPUBLISHED "
+                    "on %s.\n        reason: %s\n        This is an acknowledgement, "
+                    "not a publication. It is bound to content\n        %s and returns "
+                    "the moment that content changes."
+                    % (slug, rel, ack.get("on", "?"), ack.get("reason", "")[:150],
+                       now[:16]))
+            elif already == now:
                 warnings.append(
                     "%s: %s has been live at an unrecorded version since before this "
                     "push.\n        published %s  content %s\n        live now"

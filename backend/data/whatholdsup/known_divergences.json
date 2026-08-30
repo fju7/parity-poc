@@ -1,0 +1,16 @@
+{
+  "what_this_is": "Divergences between a published page and the version the ledger records, that somebody has looked at and deliberately decided not to close yet. NOT publications. The guard still prints a line for each, saying it is known; it prints the full warning again the moment the live content changes by one byte, because each entry is bound to a content hash rather than to an issue.",
+  "the_rule": "An entry here is a decision to leave something outstanding, with a name and a reason on it. It can never cover a divergence the current push is CREATING -- that path blocks, and this file is not consulted there. It only quiets a divergence that already existed.",
+  "acknowledged": [
+    {
+      "issue": "cdk46",
+      "content": "c2cb2f6d85a20d112ed2ec0410676003db7d9490ce776551d89d41bab214d5bc",
+      "on": "2026-08-30",
+      "by": "fred, via claude",
+      "reason": "Issue two is live at a version the ledger does not record, and closing it properly costs money we have decided not to spend on a prototype nobody subscribed to. The whole difference is one word: 'Jacot and colleagues' corrected to 'Tanguy and colleagues', who are the paper's actual authors. The live page is therefore MORE correct than the signed-off one, which is why leaving it is tolerable.",
+      "what_it_would_take_to_close": "publish.py publish cdk46 --yes, blocked by: a fresh page gate, a fresh email gate, four outside-review changes with no decision, seven unknowability claims naming no registry, a counterexample hunt on twelve universal negatives, one quoted claim printed as our own, and the dateline. Two cost money. Deliberately not being done: issue two is a prototype with no subscribers and the lessons have been taken into the process instead.",
+      "this_is_not": "a record that issue two has been republished. It has not been.",
+      "what_is_still_wrong_with_issue_two": "The EMAIL claimed every figure came from a trial publication or a drug label while quoting P-VERIFY and PALMARES-2, which it describes in its own body as real-world cohorts. Fixed in site/whatholdsup/email/ on 2026-08-30. The email is not covered by this acknowledgement because the guard does not block on emails -- an email reaches nobody until somebody sends it -- and nobody has been sent this one since. The page's own sourcing sentence was always correct and is untouched."
+    }
+  ]
+}

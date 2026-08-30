@@ -923,12 +923,64 @@ def preflight(slug: str, *, for_email: bool,
     return out
 
 
-def show(rows: list[tuple[str, str, str]], waive: str | None = None) -> bool:
+# Rows a --waive cannot cover when an email is being SENT.
+#
+# On 2026-08-29 issue two was announced with the publication record reading
+# "gate reconciled rather than re-run: gated 2026-08-28 on an earlier draft".
+# One --waive string covered every STOP, including a stale email gate. The
+# email that went out said "Every figure above comes from a trial publication
+# or a drug label" while quoting, four paragraphs earlier, a US real-world
+# cohort of 9,146 patients and an Italian study of 1,982. The check that
+# compares the email's sourcing claims to the page's would have caught it. It
+# was waived along with everything else.
+#
+# The asymmetry is the whole reason this list exists: A PAGE CAN BE CORRECTED
+# AFTER PUBLICATION AND AN EMAIL CANNOT BE RECALLED. So on the announce path,
+# the rows standing between a false claim and somebody's inbox are not
+# waivable at all. Everything else still is, with a reason and a name.
+UNWAIVABLE_ON_SEND = {
+    "email gate": "the email is what is being sent; a gate on an earlier draft "
+                  "is a gate on a different email",
+    "page gate": "the email links to the page and vouches for it",
+    "email sourcing claims match the page": "this is the exact check that would "
+                                            "have stopped the 29 August send",
+    "email figures on page": "a figure in an inbox that is not on the page cannot "
+                             "be corrected by editing the page",
+    "html/text parity": "half the recipients would get a different issue",
+    "live page": "subscribers follow the link",
+}
+
+
+def show(rows: list[tuple[str, str, str]], waive: str | None = None,
+         unwaivable: dict | None = None) -> bool:
+    """Print the preflight and say whether it passes.
+
+    `unwaivable` names rows a --waive must not cover. See UNWAIVABLE_ON_SEND.
+    """
+    unwaivable = unwaivable or {}
     mark = {OK: "  ok ", BAD: " STOP", WARN: " warn"}
+    hard = [l for l, st, _d in rows if st == BAD and l in unwaivable]
     for label, st, detail in rows:
-        m = " WAIVED" if (waive and st == BAD) else mark[st]
+        if st == BAD and label in unwaivable:
+            m = " STOP"
+        elif waive and st == BAD:
+            m = " WAIVED"
+        else:
+            m = mark[st]
         print(f"{m:>7}  {label:24} {detail}")
     blocked = [l for l, st, _d in rows if st == BAD]
+    if hard:
+        print()
+        print("  NOT WAIVABLE: %s" % ", ".join(hard))
+        for l in hard:
+            print("    %-38s %s" % (l, unwaivable[l]))
+        print()
+        print("  A page can be corrected after publication. An email cannot be")
+        print("  recalled. On 29 August a stale gate was waived and an email went")
+        print("  out saying every figure came from a trial publication or a drug")
+        print("  label, over figures from two real-world cohorts. Fix these, or")
+        print("  do not send.")
+        return False
     if blocked and waive:
         print()
         print(f"  WAIVED: {', '.join(blocked)}")
@@ -1411,7 +1463,7 @@ def cmd_announce(args) -> int:
     ehtml = ROOT / cfg["email_html"]
     print(f"\nPreflight: {args.slug}\n")
     rows = preflight(args.slug, for_email=True)
-    if not show(rows, args.waive):
+    if not show(rows, args.waive, UNWAIVABLE_ON_SEND):
         print("\nBLOCKED — nothing sent.")
         return 1
     live = [d for l, _s, d in rows if l == "live page"]
