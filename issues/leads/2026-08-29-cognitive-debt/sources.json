@@ -927,6 +927,70 @@
         ],
         "not_read": []
       }
+    },
+    {
+      "id": "S035",
+      "type": "critique",
+      "url": "https://www.sciencemediacentre.org/expert-reaction-to-observational-study-looking-at-detection-rate-of-precancerous-growths-in-colonoscopies-by-health-professionals-who-perform-them-before-and-after-the-routine-introduction-of-ai/",
+      "title": "Science Media Centre — expert reaction to the colonoscopy deskilling study, 12 August 2025",
+      "also_called": [
+        "the SMC roundup",
+        "the expert reaction"
+      ],
+      "used_for": "THE DISCONFIRMING INSTANCE, and it is a strong one. On the day of publication the SMC put three named academics on the record for journalists.\n\nDr Catherine Menon, University of Hertfordshire — supportive of the concern: health professionals must 'retain their original diagnostic skills. If not, we risk poorer patient outcomes.'\n\nProf Venet Osmani, Queen Mary University of London — SCEPTICAL, and he names the exact confounder: 'the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382'. He also says three months is too short for genuine skill loss in experienced clinicians.\n\nProf Allan Tucker, Brunel — mixed: only one AI system was studied, and 'randomised crossover trials are needed to make more robust claims.'",
+      "WHY_IT_MATTERS_TO_US": "It falsifies the strong version of our thesis. The caveats did not fail to appear — they were published, by three named academics, on day one, through the exact institution built to put them in front of journalists. Any claim that this finding travelled without its caveats has to reckon with this page first.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the three experts, their affiliations, their positions and the quoted caveats"
+        ],
+        "not_read": [
+          "the full text of each expert's comment"
+        ],
+        "note": "Found by deliberately searching for what would DISPROVE our pattern, which is why it was found at all."
+      },
+      "found_via": "Testing kill condition 4."
+    },
+    {
+      "id": "S036",
+      "type": "carrier",
+      "url": "https://www.statnews.com/2025/08/12/ai-deskilling-doctors-colonoscopy-study-lancet/",
+      "title": "Katie Palmer, STAT News, 12 August 2025 — 'AI use may be deskilling doctors, new Lancet study warns'",
+      "used_for": "NOTHING. Status undetermined.",
+      "access": {
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the free portion, which ends at the STAT+ paywall after reporting the 28% to 22% fall"
+        ],
+        "not_read": [
+          "everything after the paywall"
+        ],
+        "note": "WE CANNOT SAY WHETHER STAT CARRIED THE CAVEATS. The free portion does not, and the article continues behind a paywall. It must be recorded as undetermined and must NOT be counted as an instance of caveats being dropped. Counting it would be exactly the selection we are testing ourselves for."
+      }
+    },
+    {
+      "id": "S037",
+      "type": "carrier",
+      "url": "https://www.foxnews.com/health/colon-cancer-may-missed-doctors-rely-ai-alarming-study-warns",
+      "title": "Fox News Health — 'Colon cancer may be missed as doctors rely on AI, alarming study warns'",
+      "used_for": "A general-audience carrier. It reports the 28.4% to 22.4% fall and quotes ONE independent expert, Dr Paul E. Oberstein, with mild caution: 'It was a relatively small study in one setting, so I'd recommend further validation'. It does not report the observational design, the volume doubling, the screening-programme suspension, the missing withdrawal times or the 19 endoscopists.",
+      "A_DISCREPANCY_NOT_TO_REPEAT": "The version we read describes the study as 'the ACCEPT (Artificial Intelligence in Colonoscopy for Cancer Prevention) trial' published 21 August 2025, while reporting Budzyn's figures. ACCEPT may be a separate real trial. WE DO NOT KNOW whether Fox conflated two studies or whether the summarising fetch did, and we must not print this until somebody reads the article directly.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "print version of the article"
+        ],
+        "not_read": [
+          "the canonical web version"
+        ],
+        "note": "Partial caveat present (one expert, mild). Not a clean instance either way."
+      }
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",
