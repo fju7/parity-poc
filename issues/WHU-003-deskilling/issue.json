@@ -1,0 +1,34 @@
+{
+  "id": "WHU-003",
+  "slug": "deskilling",
+  "title": "What Happens to the Experts First",
+  "topic": "AI and human capability",
+  "status": "draft",
+  "_status_values": ["draft", "gated", "reviewed", "published", "superseded"],
+  "standards_version": "1.1",
+  "living": true,
+  "_living_note": "The first living issue. The question is standing rather than settled, the literature is active, and the authors of its strongest study explicitly asked for the trial that would change the answer. The page carries a Last reviewed date — the date somebody last LOOKED, not the date something last changed — and watch.json holds seven standing questions with the searches that would answer each.",
+  "page": "site/whatholdsup/deskilling.html",
+  "url": "https://whatholdsup.org/deskilling",
+  "email": {
+    "html": "site/whatholdsup/email/issue3-deskilling.html",
+    "text": "site/whatholdsup/email/issue3-deskilling.txt"
+  },
+  "dates": {
+    "event": "2026-08-29",
+    "draft_started": "2026-08-30",
+    "outside_review": null,
+    "published": null,
+    "announced": null
+  },
+  "review": {"findings": null, "accepted": null, "rejected": null},
+  "corrections": {"count": 0, "last": null},
+  "note": "The belief that AI degrades thinking travels on three weak studies — an unreviewed 54-person EEG preprint whose persistence claim rests on 18, a 2011 result with two failed replications, and a cross-sectional survey with all three constructs self-reported. The strongest evidence anyone has is medical and almost nobody outside medicine has met it: adenoma detection in unassisted colonoscopy falling from 28.4% to 22.4% across 1,443 procedures, and 27 radiologists scoring about 80% when an AI's BI-RADS suggestion was right and 19.8% to 45.5% when it was wrong. The medical evidence is also much better caveated than the coverage of it: the authors list eleven limitations, and the Science Media Centre put three named academics on the record the day it published. The caveats did not survive the boundary out of the specialty.",
+  "gate": {"runs": 0, "note": "not yet gated"},
+  "provenance": {
+    "lead": "issues/leads/2026-08-29-cognitive-debt",
+    "found_by": "the lead scanner, 2026-08-29, query '\"may cause\" research suggests'",
+    "reframed": 4,
+    "_reframe_note": "Reframed four times before drafting, each time because a source arrived that we had not searched for: the RCTs' actual scope, the retraction of the most-cited meta-analysis, Shaw & Nave, and the colonoscopy study. Two of the four came from outside our own searching — a Reddit thread the operator forwarded, and a reference list."
+  }
+}

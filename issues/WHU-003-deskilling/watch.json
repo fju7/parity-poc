@@ -1,0 +1,121 @@
+{
+  "what_this_is": "The standing watch on a LIVING issue. These are the findings that would change or kill the piece, carried forward past publication instead of being tested once and forgotten. A kill condition that fires after publication is the process working.",
+  "living": true,
+  "review_interval_days": 30,
+  "the_promise": "The page displays the date of the LAST CHECK, not the last change. 'Last reviewed <date>; nothing has changed' is the honest line and the only one that cannot be told by a page nobody has opened.",
+  "questions": [
+    {
+      "id": "W1",
+      "status": "open",
+      "opened": "2026-08-30",
+      "question": "Has the randomised crossover trial been run?",
+      "would_change": "Everything. Budzyn is retrospective and observational and its own authors call for exactly this: 'robust prospective studies such as randomized crossover trials'. Allan Tucker said the same in the Science Media Centre roundup. A trial that confirms the six-point fall turns the piece's central caution into a finding; one that does not turns the piece into a story about how a confounded result travelled.",
+      "queries": [
+        "randomized crossover trial endoscopist deskilling artificial intelligence colonoscopy",
+        "prospective trial adenoma detection rate withdrawal of AI assistance",
+        "ClinicalTrials.gov deskilling colonoscopy CADe crossover",
+        "WHO ICTRP endoscopist artificial intelligence skill retention"
+      ]
+    },
+    {
+      "id": "W2",
+      "status": "open",
+      "opened": "2026-08-30",
+      "question": "Have new deskilling studies appeared in other specialties?",
+      "would_change": "The strength of the pattern claim. Heudel et al. found twelve studies and called the evidence 'scarce'. Three more good ones and the piece is about an established phenomenon; three more nulls and it is about a field that has not settled its own question.",
+      "queries": [
+        "deskilling artificial intelligence physicians unassisted performance study",
+        "automation bias clinicians AI withdrawn performance specialty",
+        "AI skill erosion radiology pathology dermatology surgery empirical",
+        "citations of Budzyn Lancet Gastroenterol Hepatol 2025 deskilling"
+      ]
+    },
+    {
+      "id": "W3",
+      "status": "open",
+      "opened": "2026-08-30",
+      "question": "Have the three preprints we lean on been peer reviewed, revised or withdrawn?",
+      "would_change": "How much weight each carries, and the piece says plainly that all three are preprints. Liu et al. (arXiv 2604.04721), Shaw & Nave (SSRN 6097646) and Kosmyna et al. (arXiv 2506.08872). If Kosmyna is reviewed and survives Stankovic's objections, the pessimistic flagship stops being weak. If Liu is reviewed and its exclusion confound is challenged, the withdrawal finding weakens.",
+      "queries": [
+        "Liu Christian Dumbalska Bakker Dubey AI assistance persistence published journal",
+        "Shaw Nave cognitive surrender tri-system theory published",
+        "Kosmyna Your Brain on ChatGPT peer reviewed published journal",
+        "arXiv 2604.04721 OR 2506.08872 journal version"
+      ]
+    },
+    {
+      "id": "W4",
+      "status": "open",
+      "opened": "2026-08-30",
+      "question": "Has anything we rely on been corrected or retracted?",
+      "would_change": "Possibly a paragraph, possibly the piece. This is not paranoid: the most-cited meta-analysis in this literature was retracted in April 2026 after nine months of public criticism, and the ESMO scoping review that synthesises the deskilling evidence mis-cites a mammography experiment to a paper that found the opposite. Every source in sources.json is checked against Retraction Watch and its own journal's notices.",
+      "queries": [
+        "Retraction Watch artificial intelligence deskilling colonoscopy",
+        "retraction correction Budzyn OR Troya OR Dratsch OR Gommers OR Heudel",
+        "expression of concern Lancet Gastroenterology Hepatology 2025 deskilling",
+        "correction notice Endoscopy 2022 computer-aided polyp detection eye gaze"
+      ]
+    },
+    {
+      "id": "W5",
+      "status": "open",
+      "opened": "2026-08-30",
+      "question": "Has the mechanism been measured in live procedures rather than video?",
+      "would_change": "The mechanism section, which currently rests on 21 people watching clips. Troya's own stated limitation is 'the experimental design using only short video sequences'. Eye tracking during real colonoscopy, or a study linking gaze narrowing to detection outcomes, would move this from plausible to shown.",
+      "queries": [
+        "eye tracking live colonoscopy CADe gaze pattern endoscopist prospective",
+        "visual search AI assistance real procedure detection outcome",
+        "eye-tracking dataset endoscopist AI teaming colonoscopy"
+      ]
+    },
+    {
+      "id": "W6",
+      "status": "open",
+      "opened": "2026-08-30",
+      "question": "Can we finally read the Lancet Comment and its correspondence?",
+      "would_change": "Possibly nothing, possibly a paragraph. We published saying we could not read Omer Ahmad's Comment or the later correspondence. That is honest but it is a debt to the reader, and it stays open until it is paid or until we can say what is in them.",
+      "queries": [
+        "Ahmad endoscopist deskilling unintended consequence AI-assisted colonoscopy full text",
+        "Lancet Gastroenterology Hepatology correspondence deskilling 2025 reply authors"
+      ]
+    },
+    {
+      "id": "W7",
+      "status": "open",
+      "opened": "2026-08-30",
+      "question": "Has anyone carried this evidence to a general reader WITH its limitations?",
+      "would_change": "Our stated contribution. The whole claim is that the caveats did not cross the boundary out of the specialty. The Science Media Centre carried them on day one to journalists; if a general-audience piece now carries them too, we say so and the piece becomes a companion rather than a first.",
+      "queries": [
+        "colonoscopy AI deskilling limitations observational confounding general audience explainer",
+        "AI deskilling doctors what the study does and does not show"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "on": "2026-08-30",
+      "by": "claude",
+      "questions_checked": [
+        "W3",
+        "W7"
+      ],
+      "searched": [
+        "peer-review and version status of Liu et al. (arXiv 2604.04721) — read v4 directly",
+        "peer-review status of Shaw & Nave (SSRN 6097646) — read the paper, still a Wharton working paper",
+        "peer-review status of Kosmyna et al. (arXiv 2506.08872) — identifier verified, still a preprint",
+        "coverage of Budzyn carrying its own stated limitations — found the Science Media Centre roundup of 12 Aug 2025"
+      ],
+      "found": "W3 and W7 only. All three preprints are still preprints. On W7, the Science Media Centre DID carry the caveats on day one with three named academics, which falsified the strong version of our thesis before publication.",
+      "not_checked": [
+        "W1 — no registry search run",
+        "W2 — no citation sweep run",
+        "W4 — NO retraction sweep run",
+        "W5 — not searched",
+        "W6 — attempted and blocked, four routes"
+      ],
+      "CORRECTION": "This entry was first written listing four searches including a Retraction Watch sweep of every source and a ClinicalTrials.gov search for a crossover trial. NEITHER WAS RUN. The list was written from the watch questions rather than from what actually happened — the first check recorded against the first watch we ever built was a false one, inside ten minutes of writing a module whose docstring says an unrun check must not look like a check that found nothing. Corrected the same evening, before it reached a page."
+    }
+  ],
+  "changelog": [],
+  "_seeding_note": "The kill conditions seeded four questions and they were the wrong four — they are PRE-PUBLICATION tests, and three of them are already answered. A living issue's watch has to be forward-looking: not 'did we get this right' but 'what would arrive that changes it'. Rewritten by hand, which is the honest use of `init`: it finds the questions, a person turns them into a watch."
+}

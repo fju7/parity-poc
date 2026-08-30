@@ -579,6 +579,16 @@
       "was": "recording that the watch ran",
       "should_have_been": "A check records what was DONE, never what was due. The temptation is structural: the questions are sitting right there in the file, they read like a checklist, and filling them in feels like completing the form rather than making a claim. It is a claim.",
       "why_it_survived": "It did not — it was corrected the same evening, before it reached a page. But it survived long enough to be written, and it would have been the single most damaging thing in this issue: a living page whose freshness promise rests on a check that says it searched places it did not search."
+    },
+    {
+      "class": "THE_RULE_WAS_WRITTEN_AND_THEN_BROKEN_THE_SAME_DAY",
+      "kind": "sourcing",
+      "caught_by": "lint_claims blocking a name with no record that anyone opened the author list",
+      "found_by": "issue three draft, 2026-08-30",
+      "summary": "Hours after recording the standing rule that a systematic or scoping review is a hop and not a source, and that every description of a primary study taken from a review must be verified in that primary study, the draft carried a whole paragraph of figures lifted from that same review's summary table: 32 radiology residents, sensitivity up 12 points, reading time down 18%, performance stable at a three-month follow-up. The paper has EIGHT residents, reports mean absolute error and inter-rater agreement rather than sensitivity or reading time, and contains no three-month follow-up at all. It had been given prominence on the page as the null result the piece was honour-bound to carry.",
+      "was": "the review reports the study's figures, so we can report them",
+      "should_have_been": "The rule as written. What made it break was that the paragraph FELT like scrupulousness — it was the finding that cut against our own argument, and carrying it was the honest thing to do, which made its provenance invisible. A figure that flatters the other side gets the same sourcing as one that flatters ours.",
+      "why_it_survived": "It did not reach a page, and the reason is worth stating exactly: nothing about the figures caught it. What caught it was a check on the NAME. lint_claims blocks any 'X and colleagues' with no record that somebody opened the author list — a check built after issue two published 'Jacot and colleagues' for a paper by Tanguy. Opening the author list meant opening the paper, and the paper was not the study we had described. A check aimed at surnames caught a wrong study."
     }
   ],
   "standing_rules": [
@@ -625,7 +635,9 @@
     "A claim that replaces a broken claim starts at zero. It inherits none of the credibility of the process that broke its predecessor, and it gets the same adversarial treatment the first one got.",
     "A recorded check lists what was searched, not what the watch asks. Any question not actually checked is written into the record as not checked. The form is not the work, and filling in the form is a claim about the work.",
     "A living issue needs three ways to change a published page, not one. `publish` for a rewrite, `update` for the ordinary event of a new study changing two paragraphs, `record-live` for a change too small to touch the argument. With only the first, nobody keeps updating, and a page displaying a changelog that is never updated is worse than a page that never promised.",
-    "Exemption lists fail closed. UPDATE_SOFTENS names the checks an update does not re-earn; anything absent from it blocks, including checks added later. A list of exemptions will be forgotten, so it has to be forgotten safely."
+    "Exemption lists fail closed. UPDATE_SOFTENS names the checks an update does not re-earn; anything absent from it blocks, including checks added later. A list of exemptions will be forgotten, so it has to be forgotten safely.",
+    "A figure that cuts against our own argument is sourced exactly as strictly as one that supports it. Carrying the other side's best evidence feels like scrupulousness, and that feeling is what hides where the figure came from.",
+    "Checks catch things they were not aimed at, which is an argument for keeping the cheap deterministic ones even when they seem pedantic. The attribution check exists to stop a wrong surname; on issue three it stopped a wrong study."
   ],
   "second_pass": {
     "run": "2026-08-26",

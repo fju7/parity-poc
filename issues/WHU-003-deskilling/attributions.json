@@ -1,0 +1,228 @@
+{
+  "what_this_is": "Every 'X and colleagues' or 'X et al.' on the page, with a record that somebody opened the author list and checked that X is the first author. This file exists because issue two published 'Jacot and colleagues' from a gate summary while in the middle of fixing an attribution gap. The paper is by Tanguy and colleagues. A name is the one thing on a page that a reader cannot check against context — it either matches the byline or it does not.",
+  "attributions": [
+    {
+      "name": "Budzyń and colleagues",
+      "paper": "Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study. Lancet Gastroenterol Hepatol 2025;10(10):896-903",
+      "first_author": "Krzysztof Budzyń",
+      "author_list_read": true,
+      "by": "fred and claude",
+      "on": "2026-08-29",
+      "where": "the accepted manuscript in the University of Warwick repository, and the SSRN preprint author list",
+      "note": "Twenty-one authors. Budzyń is first; Yuichi Mori is last."
+    },
+    {
+      "name": "Heudel and colleagues",
+      "paper": "Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "first_author": "Pierre E. Heudel",
+      "author_list_read": true,
+      "by": "fred and claude",
+      "on": "2026-08-29",
+      "where": "the PDF, title page",
+      "note": "Heudel, Crochet, Filori, Bachelot & Blay, Centre Léon Bérard, Lyon. The title page states all authors contributed equally; Heudel is first and corresponding."
+    },
+    {
+      "name": "Troya and colleagues",
+      "paper": "The influence of computer-aided polyp detection systems on reaction time for polyp detection and eye gaze. Endoscopy 2022;54:1009-1014",
+      "first_author": "Joel Troya",
+      "author_list_read": true,
+      "by": "fred and claude",
+      "on": "2026-08-29",
+      "where": "the PDF, title page",
+      "note": "Troya, Fitting, Brand, Sudarevic, Kather, Meining, Hann. Troya and Fitting are marked as contributing equally; Troya is printed first and the running head is 'Troya Joel et al.'"
+    },
+    {
+      "name": "Dratsch and colleagues",
+      "paper": "Automation Bias in Mammography: The Impact of Artificial Intelligence BI-RADS Suggestions on Reader Performance. Radiology 2023;307(4):e222176",
+      "first_author": "Thomas Dratsch",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-29",
+      "where": "the RSNA publisher page and the Vrije Universiteit repository copy, both checked",
+      "note": "Dratsch, Chen, Rezazade Mehrizi, Kloeckner, Mähringer-Kunz, Püsken, Baeßler, Sauer, Maintz, dos Santos."
+    },
+    {
+      "name": "Gommers and colleagues",
+      "paper": "Influence of AI Decision Support on Radiologists' Performance and Visual Search in Screening Mammography. Radiology 2025;316(1):e243688",
+      "first_author": "Jessie J. J. Gommers",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-29",
+      "where": "the RSNA publisher page",
+      "note": "Gommers, Verboom, Duvivier, et al."
+    },
+    {
+      "name": "Ke and sixteen colleagues",
+      "paper": "AI-induced never-skilling in medical education. Nature Medicine 2026;32(6), Perspective",
+      "first_author": "Yuhe Ke",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-29",
+      "where": "the Nature article page, full author list",
+      "note": "Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Compton, Narayan, Keane, Wong, Bates, Tan, Liu. THE COUNT ON THE PAGE SAYS 'sixteen colleagues' — the listed authors number seventeen in total including Ke, so sixteen colleagues is correct. Recount before publishing if the page's wording changes."
+    },
+    {
+      "name": "Wang and colleagues",
+      "paper": "Artificial intelligence suppression as a strategy to mitigate artificial intelligence automation bias. J Am Med Inform Assoc 2023;30(10):1684-1692, doi 10.1093/jamia/ocad118",
+      "first_author": "Ding-Yu Wang",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-30",
+      "where": "the Oxford Academic article page: full byline, design, all figures",
+      "BLOCKING": "This attribution has not been checked against the paper's own byline. Either open the JAMIA paper and confirm, or rewrite the sentence on the page so it does not carry a name.",
+      "note": "Wang, Ding, Sun, Liu, Jiang, Li, Yu. VERIFIED, and every figure the scoping review reported about this paper is correct: a laboratory study with a randomised crossover design, 40 clinicians, 200 anterior cruciate ligament cases on MRI, accuracy 87.2% ± 13.1% without AI against 96.4% ± 1.9% with (P < .001), errors under AI 'associated with automation bias, accounting for 45.5% of the total mistakes', and the suppression strategy 'estimated to decrease clinicians' automation bias by 41.7%'."
+    },
+    {
+      "name": "Savardi and colleagues",
+      "paper": "Upskilling or deskilling? Measurable role of an AI-supported training for radiology residents: a lesson from the pandemic. Insights into Imaging 2025;16:23, doi 10.1186/s13244-024-01893-4",
+      "first_author": "Mattia Savardi",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-30",
+      "where": "the Springer article page: full byline, design, outcomes",
+      "BLOCKING": "Same as above. This one matters more than most: it is the null result, and the page gives it prominence deliberately. Open it, confirm the byline and the figures, or drop the name.",
+      "note": "Savardi, Signoroni, Benini, Vaccher, Alberti, Ciolli, Di Meo, Falcone, Ramanzin, Romano, Sozzi, Farina. VERIFIED, AND THE SCOPING REVIEW'S ACCOUNT OF IT IS WRONG. See the note below.",
+      "THE_REVIEW_MISDESCRIBED_THIS_PAPER": {
+        "what_the_review_says": "32 radiology residents; sensitivity up 12 percentage points from 0.73 to 0.85 (P < 0.01); mean reading time down 18% from 68s to 56s; performance stable at a three-month follow-up with specificity around 0.80.",
+        "what_the_paper_says": "EIGHT radiologists in training — four first-year, four third-year. 150 chest X-rays, 50 in each of three conditions: no AI, AI on demand, AI integrated into the reporting system. The AI is BS-Net, providing regional severity scores with confidence levels and explainability maps. The outcomes are mean absolute error against a consensus gold standard and inter-rater agreement, which rose from an intraclass correlation of 0.665 without AI to 0.813 with it integrated. Residents requested AI in 70% of cases and overrode it when its errors exceeded an acceptability threshold. NO THREE-MONTH FOLLOW-UP EXISTS IN THE PAPER. No sensitivity, specificity or reading-time figures are reported for the residents.",
+        "how_bad_this_was_going_to_be": "We had built a paragraph on the review's version and given it prominence as the null result the piece was honour-bound to carry as loudly as the positive one. It would have published. The only reason it did not is that lint_claims blocks any 'X and colleagues' with no record that somebody opened the author list — a check built after issue two published 'Jacot and colleagues'. Opening the author list meant opening the paper.",
+        "confidence": "The byline, the count of eight, the three-condition design and the ICC figures are structural facts from the publisher's own page. We are confident the paper is not what the review describes. We are NOT asserting how the review's figures arose, and the page does not speculate."
+      }
+    },
+    {
+      "name": "Hesselmann",
+      "paper": "No conclusive evidence that difficult general knowledge questions cause a “Google Stroop effect”. A replication study. PeerJ 2020;8:e10325",
+      "first_author": "Guido Hesselmann",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-29",
+      "where": "the PubMed Central full text",
+      "note": "Sole author."
+    },
+    {
+      "name": "Sparrow, Liu and Wegner",
+      "paper": "Google Effects on Memory: Cognitive Consequences of Having Information at Our Fingertips. Science 2011",
+      "first_author": "Betsy Sparrow",
+      "author_list_read": false,
+      "by": "claude",
+      "on": "2026-08-29",
+      "where": "NOT READ — paywalled. The three names come from Hesselmann's citation of it, which the page discloses.",
+      "note": "The page names all three authors rather than 'and colleagues', and describes only what the replications tested. Acceptable because the page says plainly that we have not read it."
+    },
+    {
+      "name": "Camerer and colleagues",
+      "paper": "Evaluating the replicability of social science experiments in Nature and Science between 2010 and 2015 (2018)",
+      "first_author": "Colin F. Camerer",
+      "author_list_read": false,
+      "by": "claude",
+      "on": "2026-08-30",
+      "where": "NOT READ AT SOURCE — taken from Hesselmann's discussion, which the page attributes to him.",
+      "note": "The page says Hesselmann places his result alongside it, which is a claim about Hesselmann's text and is checked. It is not a claim about Camerer's paper."
+    },
+    {
+      "name": "Gerlich",
+      "paper": "AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies 2025;15(1):6",
+      "first_author": "Michael Gerlich",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-29",
+      "where": "the MDPI article page",
+      "note": "Sole author, SBS Swiss Business School."
+    },
+    {
+      "name": "Stanković and colleagues",
+      "paper": "Comment on: Your Brain on ChatGPT: Accumulation of Cognitive Debt When Using an AI Assistant for Essay Writing Tasks. arXiv 2601.00856, 29 December 2025",
+      "first_author": "Miloš Stanković",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-29",
+      "where": "the arXiv abstract page and the PDF",
+      "note": "Stanković (University of Vienna), Hirche, Kollatzsch and Doetsch (TU Dresden)."
+    }
+  ],
+  "still_blocking": [],
+  "the_rule": "A name on the page is checked against the paper's own byline, not against a reference list in a third document. Two of the twelve here are not, and both are flagged. Either they get opened before publication or the sentences lose the names.",
+  "what_this_check_caught": "On 30 August 2026 this file's own requirement — that a name be checked against the paper's byline — forced us to open two papers we had only read about. One matched its summary exactly. The other did not match it in the number of participants, the design, the outcome measures, or the existence of the follow-up the summary's whole value to us depended on. The check was built to stop a wrong surname reaching a page. It stopped a wrong study.",
+  "_schema_note": "lint_claims matches the FIRST WORD of each 'X and colleagues' on the page against the `name` field in `verified`, and only counts an entry when `checked_against` is filled. The rich record below stays under `attributions`; `verified` is the machine-readable half. Both are maintained by hand and both must agree.",
+  "verified": [
+    {
+      "name": "Budzyń",
+      "as_printed": "Budzyń and colleagues",
+      "checked_against": "the accepted manuscript in the University of Warwick repository and the SSRN preprint byline, read 2026-08-29",
+      "first_author": "Krzysztof Budzyń"
+    },
+    {
+      "name": "Heudel",
+      "as_printed": "Heudel and colleagues",
+      "checked_against": "the PDF title page, read 2026-08-29",
+      "first_author": "Pierre E. Heudel"
+    },
+    {
+      "name": "Troya",
+      "as_printed": "Troya and colleagues",
+      "checked_against": "the open-access PDF title page, read 2026-08-29",
+      "first_author": "Joel Troya"
+    },
+    {
+      "name": "Dratsch",
+      "as_printed": "Dratsch and colleagues",
+      "checked_against": "the RSNA publisher page and the Vrije Universiteit repository copy, read 2026-08-29",
+      "first_author": "Thomas Dratsch"
+    },
+    {
+      "name": "Gommers",
+      "as_printed": "Gommers and colleagues",
+      "checked_against": "the RSNA publisher page, read 2026-08-29",
+      "first_author": "Jessie J. J. Gommers"
+    },
+    {
+      "name": "Ke",
+      "as_printed": "Ke and sixteen colleagues",
+      "checked_against": "the Nature Medicine article page, full author list, read 2026-08-29",
+      "first_author": "Yuhe Ke"
+    },
+    {
+      "name": "Wang",
+      "as_printed": "Wang and colleagues",
+      "checked_against": "the Oxford Academic article page, full byline and every reported figure, read 2026-08-30",
+      "first_author": "Ding-Yu Wang"
+    },
+    {
+      "name": "Savardi",
+      "as_printed": "Savardi and colleagues",
+      "checked_against": "the Springer article page, full byline, design and outcomes, read 2026-08-30 — and the scoping review's account of this paper does not match it",
+      "first_author": "Mattia Savardi"
+    },
+    {
+      "name": "Hesselmann",
+      "as_printed": "Hesselmann",
+      "checked_against": "the PubMed Central full text, read 2026-08-29",
+      "first_author": "Guido Hesselmann"
+    },
+    {
+      "name": "Gerlich",
+      "as_printed": "Gerlich",
+      "checked_against": "the MDPI article page, read 2026-08-29",
+      "first_author": "Michael Gerlich"
+    },
+    {
+      "name": "Stanković",
+      "as_printed": "Stanković and colleagues",
+      "checked_against": "the arXiv abstract page and PDF, read 2026-08-29",
+      "first_author": "Miloš Stanković"
+    },
+    {
+      "name": "Sparrow",
+      "as_printed": "Sparrow, Liu and Wegner",
+      "checked_against": "NOT READ — paywalled, and the page says so. The three names come from Hesselmann's citation, and the page describes only what the replications tested.",
+      "first_author": "Betsy Sparrow",
+      "caveat": "kept out of `verified` deliberately if the page ever attributes a FINDING to it rather than naming it"
+    }
+  ],
+  "removed_from_the_page": [
+    {
+      "name": "Camerer and colleagues",
+      "why": "Named in a sentence about Hesselmann placing his result alongside an earlier replication project. We had not opened its author list, and the check would not pass a name we had not checked. Rather than open a paper the page does not otherwise rely on, the sentence was rewritten to describe the project without naming anyone. A name you cannot check is a name you can do without."
+    }
+  ]
+}
