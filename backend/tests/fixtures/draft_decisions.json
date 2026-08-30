@@ -1182,52 +1182,122 @@
     {
       "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
       "role": "COVERAGE",
-      "quote": "A research highlight in Nature Reviews Gastroenterology & Hepatology reported the figures as fact with no limitations and no quotes.",
-      "severity": "MINOR",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "Upheld and fixed rather than rejected, but recorded here because the COVERAGE role was carried from run 1 and will raise it again against text that no longer exists. The sentence now reads that the highlight 'labelled the study observational and retrospective, as it should, and then reported the figures with no limitations and no quotes.' The gate was right that our phrasing implied a design misdescription that did not happen.",
-      "what_would_change_it": "The highlight turning out not to carry the design label after all."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "COVERAGE",
-      "quote": "What we did find is that none of it crossed the boundary.",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "Already acted on. The COVERAGE role is CARRIED between runs — it is not re-run when the page changes, because it depends on the world rather than on our wording — so in run 2 it quoted run 1's text. Every one of these sentences was rewritten in the run 1 adjudication on the same evidence the role is citing here: the travel thesis now says the general caution travelled and the specific limitations did not, and Time, the ASCO Post and Healthgrades are named on the page as the instances. The finding is right and the page already reflects it.",
-      "what_would_change_it": "Nothing — this is a stale quote. The decision exists so a carried COVERAGE block does not read as a live objection."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "COVERAGE",
-      "quote": "Fortune carried the six-point fall to a business readership on 26 August 2025, connected it to an automation analogy and to a Microsoft and Carnegie Mellon study, and reported none of the eleven limitations.",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "Already acted on. The COVERAGE role is CARRIED between runs — it is not re-run when the page changes, because it depends on the world rather than on our wording — so in run 2 it quoted run 1's text. Every one of these sentences was rewritten in the run 1 adjudication on the same evidence the role is citing here: the travel thesis now says the general caution travelled and the specific limitations did not, and Time, the ASCO Post and Healthgrades are named on the page as the instances. The finding is right and the page already reflects it.",
-      "what_would_change_it": "Nothing — this is a stale quote. The decision exists so a carried COVERAGE block does not read as a live objection."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "COVERAGE",
-      "quote": "Three named academics said so publicly the day it appeared. Almost none of that survived the trip out of gastroenterology.",
-      "severity": "SERIOUS",
-      "decision": "accept",
-      "decided": "2026-08-30",
-      "reason": "Already acted on. The COVERAGE role is CARRIED between runs — it is not re-run when the page changes, because it depends on the world rather than on our wording — so in run 2 it quoted run 1's text. Every one of these sentences was rewritten in the run 1 adjudication on the same evidence the role is citing here: the travel thesis now says the general caution travelled and the specific limitations did not, and Time, the ASCO Post and Healthgrades are named on the page as the instances. The finding is right and the page already reflects it.",
-      "what_would_change_it": "Nothing — this is a stale quote. The decision exists so a carried COVERAGE block does not read as a live objection."
-    },
-    {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "COVERAGE",
       "quote": "Its headline put the same result a different way: doctors became 20% worse at spotting abnormalities on their own.",
       "severity": "SERIOUS",
       "decision": "accept",
       "decided": "2026-08-30",
       "reason": "Already acted on. The COVERAGE role is CARRIED between runs — it is not re-run when the page changes, because it depends on the world rather than on our wording — so in run 2 it quoted run 1's text. Every one of these sentences was rewritten in the run 1 adjudication on the same evidence the role is citing here: the travel thesis now says the general caution travelled and the specific limitations did not, and Time, the ASCO Post and Healthgrades are named on the page as the instances. The finding is right and the page already reflects it.",
       "what_would_change_it": "Nothing — this is a stale quote. The decision exists so a carried COVERAGE block does not read as a live objection."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "13 August 2025",
+      "severity": "WRONG_SOURCE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Opened the Time article. The byline is 'Miranda Jeyaretnam', named as a TIME reporter and appearing several times on the page. The gate reported that no source connects the surname to the article; it does. Its second point is right and already on the page: the Osmani and Tucker quotes originate at the Science Media Centre and Time cites them, which is exactly what the page says.",
+      "what_would_change_it": "The byline changing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "about five times more likely under the null … about sixteen times more likely",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Opened the paper at peerj.com/articles/10325. Both figures are there and both are ours: BF01 = 5.07 for the primary question-type-by-word-type interaction (N=89), and BF0+ = 16.43 for the exploratory analysis against the original study's specific predicted pattern, described in the paper as 'our data were 16 times more likely under the null model'. The gate found 5.07, 5.01 and 9.31 and concluded no ~16 exists; it did not reach the exploratory analysis. The page's sentence names that analysis explicitly, which is what makes 16.43 the right number.",
+      "what_would_change_it": "A correction to the reported Bayes factors."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "−0.68, +0.72 and −0.75",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Opened the paper at mdpi.com/2075-4698/15/1/6. All three are in Table 6: AI tool use and critical thinking r = -0.68; AI tool use and cognitive offloading r = +0.72; cognitive offloading and critical thinking r = -0.75. The gate verified the first two and could not reach the third.",
+      "what_would_change_it": "A correction to Table 6."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "12 August 2025",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate's SOURCE role could confirm only two named academics on the SMC page; its own COVERAGE role, in the same run, names three — Osmani, Tucker and Menon — and describes what each said. Settled inside the run, by the run.",
+      "what_would_change_it": "The SMC page listing a different number of contributors."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "32 residents",
+      "severity": "WRONG_VALUE",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate is describing the page's own finding back to it. The page does not claim 32 residents; it reports that the scoping review claims 32 and that the paper has eight, and gives the paper's actual outcome measures. Both facts are read at source and recorded verbatim in S029 and S030.",
+      "what_would_change_it": "Nothing about the papers; only a rewrite that stopped attributing the 32 to the review."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "6.8 months … 23.8 months",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the Pedersen paper itself, supplied by the operator on 2026-08-30 and recorded verbatim in S043: 'Mean inclusion time from the first colonoscopy among the inexperienced group was 6.8 months in phase 1, 17.7 months in phase 2, and 23.8 months in phase 3.' The gate had only the abstract; the publisher's page 404s to it.",
+      "what_would_change_it": "A correction to the paper."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "November 2021 to June 2025",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in the Pedersen paper itself: 'pragmatic clinical trial from November 2021 to June 2025'. Recorded verbatim in S043. Abstract-only access is not absence.",
+      "what_would_change_it": "A correction to the paper."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "247.89 cm to 227.09 cm",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Read in Troya Table 1, recorded verbatim in S031: experienced 247.89 (209.68-299.26) to 227.09 (192.39-278.32). The table is an image in every web rendering the gate can reach; the operator supplied the PDF.",
+      "what_would_change_it": "A correction to Troya Table 1."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "median of 4 cases without the AI and 6 cases with it (P = 0.001)",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same document, same reason: body-text result in the open-access PDF, not rendered in any snippet the gate can reach.",
+      "what_would_change_it": "A correction to the paper."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "43.8%",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Settled from Troya Table 2 on 2026-08-30 and recorded verbatim in S031: the All/All cell is 43.79 (95% CI 40.71-54.89). Third gate run to report this as unreachable; it is now in the ledger so it need not be opened again.",
+      "what_would_change_it": "A correction to Troya Table 2."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "It is also about fifteen minutes long, and it is a preprint with no pre-registration statement.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The asymmetry the gate names is real but the direction is backwards. Liu et al. is the study on the ALARM side of the ledger — it finds that withdrawing AI degrades unassisted performance — so noting its lack of pre-registration weakens the alarming case, not the reassuring one. The note stays because the page's own Shaw & Nave entry makes a point of being pre-registered, and the contrast is the reason that matters.",
+      "what_would_change_it": "Evidence that the paper is pre-registered after all."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

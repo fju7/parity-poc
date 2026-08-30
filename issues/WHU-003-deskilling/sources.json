@@ -1227,6 +1227,32 @@
       "found_via": "THE OUTSIDE REVIEWER, 2026-08-30. Not by us. Watch question W1 exists to catch exactly this and its search had not been run; the 2026-08-30 watch entry says so in writing, under 'not_checked'.",
       "the_overlap_that_makes_it_sharper": "Yuichi Mori is the second author here and the senior author of Budzyn et al. The same researcher is on the retrospective study that found a fall and the prospective study that found nothing. That is not a contradiction to be scored — it is what a field looks like when it is still working the question out, and the page now says so.",
       "WHAT_THE_ABSTRACT_DID_NOT_SAY": "Four things, and each of them changed the page. (1) The authors reconcile their result with Budzyn themselves, on a design difference — during exposure versus after withdrawal — that no coverage of either study has reported, and they propose that deskilling may be temporary. (2) They cite Troya as the mechanism for Budzyn, which is the link this page makes independently. (3) They narrow their own conclusion to nonexperienced endoscopists and explicitly leave Budzyn's finding in experienced endoscopists standing. (4) They give the limitations that matter: PDR-5 rather than ADR as 'the most important', a three-and-a-half-year time effect, a case-mix shift between phases, possible underpowering, and one device. THE PAGE HAD SAID the prospective study found nothing 'most clearly in its experienced group'. That was wrong in emphasis and has been removed: the experienced group shows no effect in EITHER direction, including no benefit while the tool ran, which the authors attribute partly to algorithm aversion. A group that did not visibly gain from a tool is weak evidence about what losing it does. Reading the abstract and writing four paragraphs from it was the same error this repository already has a rule against: a review is a hop, not a source, and so is an abstract."
+    },
+    {
+      "id": "S044",
+      "type": "prior_art",
+      "url": "https://doi.org/10.1053/j.gastro.2026.05.026",
+      "doi": "10.1053/j.gastro.2026.05.026",
+      "pmid": "42250888",
+      "title": "Weinberg DS, Bretthauer M (2026) — Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy? Gastroenterology, published 5 June 2026.",
+      "also_called": [
+        "the Gastroenterology editorial"
+      ],
+      "used_for": "The fact that the three-way frame this page borrows from Ke et al. has already been applied to the colonoscopy literature, in a specialty journal, two days after the Pedersen trial appeared.",
+      "why_it_matters": "It bears directly on what this page can claim as its own. We say we are carrying Ke's distinction across a boundary. That is still true — this editorial is written for gastroenterologists — but the page cannot imply the connection to colonoscopy is ours. MICHAEL BRETTHAUER IS AN AUTHOR OF THE BUDZYN STUDY, so this is the deskilling study's own author group working the taxonomy over their own result.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
+        "sections": [
+          "the Europe PMC core record: title, authors, journal, publication date, DOI, PMID"
+        ],
+        "not_read": [
+          "the editorial text — Europe PMC carries no abstract for it and the publisher was not tried"
+        ],
+        "note": "NOT READ IN FULL. The page states only what the title and authorship establish, and says we found it through a gate run after writing the section."
+      },
+      "found_via": "The page gate's COVERAGE role, 2026-08-30, on the new-cycle run — the third instance this week of a role finding prior art our own searches did not."
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

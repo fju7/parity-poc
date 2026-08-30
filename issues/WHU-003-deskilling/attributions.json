@@ -178,6 +178,16 @@
       "on": "2026-08-30",
       "where": "the paper itself, title page and running footer ('Pedersen Tom Andre et al.')",
       "note": "Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF. First recorded from the Europe PMC indexed record as 'T. A. Pedersen' because only initials were available and a given name is not something to guess; completed to Tom Andre from the paper's own running footer once the operator supplied it. YUICHI MORI IS THE SECOND AUTHOR and is also the senior author of the Budzyn deskilling study this page is built on."
+    },
+    {
+      "name": "Weinberg and Bretthauer",
+      "paper": "Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy? Gastroenterology 2026, doi 10.1053/j.gastro.2026.05.026, published 5 June 2026",
+      "first_author": "David S. Weinberg",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-30",
+      "where": "the Europe PMC core record for PMID 42250888, author list",
+      "note": "Weinberg DS, Bretthauer M. Two authors. MICHAEL BRETTHAUER IS ALSO AN AUTHOR OF THE BUDZYN DESKILLING STUDY. Given name for Weinberg taken from the Gastroenterology record; if the page ever prints it, recheck."
     }
   ],
   "still_blocking": [],
@@ -294,6 +304,12 @@
       "as_printed": "Pedersen and colleagues",
       "checked_against": "the paper's own title page and running footer, read 2026-08-30",
       "first_author": "Tom Andre Pedersen"
+    },
+    {
+      "name": "Weinberg",
+      "as_printed": "Weinberg and Bretthauer",
+      "checked_against": "the Europe PMC core record for PMID 42250888, read 2026-08-30",
+      "first_author": "David S. Weinberg"
     }
   ],
   "removed_from_the_page": [

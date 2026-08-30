@@ -20,9 +20,11 @@ more than 2,000 colonoscopies and averaged 27.6 years since graduation.
 
 IT IS A RETROSPECTIVE OBSERVATIONAL STUDY, and that governs everything
 you can take from it. Its authors list eleven limitations of their own.
-The largest is that procedures in the second period nearly doubled,
-from 795 to 1,382, because Poland suspended its screening programme on
-1 January 2022 and the centres drew patients off the waiting list.
+The largest is that the TOTAL number of procedures in the second
+period nearly doubled, from 795 to 1,382 - while the non-AI procedures
+actually measured fell from 795 to 648 - because Poland suspended its
+screening programme on 1 January 2022 and the centres drew patients
+off the waiting list.
 Withdrawal time was not recorded. There was no blinding. The authors
 write that AI exposure MAY reduce detection, and call for randomised
 crossover trials.
