@@ -985,8 +985,8 @@
       "severity": "NOT_FOUND",
       "decision": "accept",
       "decided": "2026-08-30",
-      "reason": "NOT_FOUND for access, not for content: the 43.8% false-positive inspection figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
-      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it.",
+      "reason": "SETTLED AT SOURCE 2026-08-30, no longer a paywall judgement. Troya et al., Table 2, 'Percentage of time an examiner inspected false-positive bounding boxes relative to duration of the bounding box on screen': the All/All cell is 43.79 (95% CI 40.71-54.89). The page prints 43.8. Read in the paper's own PDF. Both gate runs returned NOT_FOUND on this because the table is an image in every web rendering they could reach.",
+      "what_would_change_it": "A corrected Table 2.",
       "_severity_note": "Corrected 2026-08-30 after run 2. For SOURCE findings the gate compares this field against the claim's VERDICT (NOT_FOUND / WRONG_VALUE / VERIFIED), not against a severity word. All 29 SOURCE decisions written this morning carried 'SERIOUS' here, so run 2 reported every one of them as 'moved since' and the adjudication line read '0 already decided'. The decisions were right; the key was wrong."
     },
     {
