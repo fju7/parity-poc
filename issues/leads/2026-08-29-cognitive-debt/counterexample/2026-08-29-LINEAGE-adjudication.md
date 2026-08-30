@@ -27,9 +27,9 @@ say whether that search would have found the thing.
 
 **Searched.** Google Web Search: (1) 'Google effect memory offloading replication failure 2011 Sparrow' — found Hesselmann 2020 PeerJ, Camerer 2018 Nature Human Behaviour, ScienceABC explainer, PMC full text. (2) 'Gerlich 2025 AI critical thinking survey critique methodology' — found PsyPost, phys.org, SSRN, ResearchGate, DZone, Ethical Psychology, ANSI Blog, SF Examiner, Space Daily, Big Think, RealClearScience, Psychology Today. (3) 'AI degrades thinking evidential lineage critique Google effect MIT Gerlich published article' — found IE.edu blog, Big Think, RealClearScience. (4) 'MIT cognitive debt AI preprint 2025 replication cross-sectional criticism' — found AI CERTs, MIT Media Lab, Coacharya, arXiv:2601.00856 (Stanković et al. comment), Mad In America, Quasa.io, Digital Learning Lab Substack, Nick Potkalitsky Substack. No ClinicalTrials.gov, WHO ICTRP, EudraCT, ISRCTN, FDA Drugs@FDA, or EMA EPAR searches were run — these registries are not relevant to a claim about cognitive science literature and general-reader journalism.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: broken
+BASIS:   This hunt belongs to the FIRST framing of this issue, in which the piece was to trace a lineage of three weak studies propping up a belief. The role broke it, correctly: the scrutiny of each of those studies already exists in public -- a PeerJ replication, a Substack correction of the MIT reading, a Frontiers paper on self-report. It is scattered rather than absent.
+DID:     The framing was abandoned. Testing its kill condition then found strong randomised evidence on both sides that the lineage story had no room for, and the piece was reframed. This adjudication is recorded rather than deleted because the reframes are part of how this issue was made, and the footer tells a reader there were four of them.
 
 
 ---
@@ -50,7 +50,7 @@ DID:
 
 **Searched.** Google Web Search: (1) 'Gerlich 2025 AI critical thinking survey critique methodology' — found Frontiers in Education article raising self-report/construct concern, PsyPost, phys.org, DZone, Ethical Psychology, ANSI Blog, SF Examiner, Space Daily, Big Think, RealClearScience, Psychology Today, Michelle Miller Substack. (2) 'Gerlich 2025 common method variance self-report bias criticism' — found Frontiers in Education (direct hit), Nature Reviews Psychology on common method bias (Richler 2025), Michelle Miller Substack, Space Daily. (3) 'AI degrades thinking evidential lineage critique Google effect MIT Gerlich published article' — supplementary context. No ClinicalTrials.gov, WHO ICTRP, EudraCT, ISRCTN, FDA Drugs@FDA, or EMA EPAR searches were run — not relevant to a claim about methodological critique of a survey study.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: broken
+BASIS:   This hunt belongs to the FIRST framing of this issue, in which the piece was to trace a lineage of three weak studies propping up a belief. The role broke it, correctly: the scrutiny of each of those studies already exists in public -- a PeerJ replication, a Substack correction of the MIT reading, a Frontiers paper on self-report. It is scattered rather than absent.
+DID:     The framing was abandoned. Testing its kill condition then found strong randomised evidence on both sides that the lineage story had no room for, and the piece was reframed. This adjudication is recorded rather than deleted because the reframes are part of how this issue was made, and the footer tells a reader there were four of them.
 

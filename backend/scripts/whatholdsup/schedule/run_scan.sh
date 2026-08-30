@@ -45,8 +45,20 @@ mkdir -p "$REPO/issues/leads"
 # "debunked" headlines are where those live.
 WEEK=$(date +%V)
 case $(( 10#$WEEK % 4 )) in
+  # 2026-08-30: the contrarianism guard fired at four issues with no
+  # confirmation, and asked whether our selection was picking for the answer.
+  # It was, and the evidence was here. Three of the four sets hunted the shape
+  # of an OVERSTATED claim -- "linked to", "proves", "may cause" -- and only
+  # one hunted the shape of an overstated DEBUNKING, which is where an issue
+  # confirming a widely held belief would come from. Three to one against ever
+  # finding one. Nobody chose that; a query for an inflated claim is simply
+  # easier to write than a query for a belief that turns out to be right.
+  #
+  # Set 1 now takes half the rotation. This does not manufacture a
+  # confirmation. It stops the instrument making one three times less likely.
+  1|3) QUERIES=( '"no evidence" study claim' '"debunked" study researchers' '"myth" experts say' \
+                 '"turns out to be true" study' '"was right all along" research' ) ;;
   0) QUERIES=( '"linked to" study children' '"linked to" study risk' '"study finds" causes' ) ;;
-  1) QUERIES=( '"no evidence" study claim' '"debunked" study researchers' '"myth" experts say' ) ;;
   2) QUERIES=( '"proves" study researchers' '"shows that" new research' '"first time" study demonstrates' ) ;;
   *) QUERIES=( '"could increase" study' '"may cause" research suggests' '"raises risk" study finds' ) ;;
 esac

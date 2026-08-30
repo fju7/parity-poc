@@ -281,8 +281,16 @@
       ],
       "used_for": "The origin of the belief's oldest strand.",
       "access": {
-        "state": "not_opened",
-        "note": "Paywalled. If it stays unread, the piece says what Hesselmann tested rather than what Sparrow found."
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the citation only, as Hesselmann reports it"
+        ],
+        "not_read": [
+          "the paper"
+        ],
+        "note": "Paywalled at Science. The page names the authors and describes only what the replications tested, and says in the sources list that it has not been read here. Recorded as blocked rather than left as not_opened, because nobody is going to open it and the distinction between 'we have not got to it' and 'we cannot' is one a reader deserves."
       }
     },
     {
@@ -610,8 +618,16 @@
       "used_for": "Evidence that the colonoscopy result DID reach a professional press audience, and reached it with the 'may' intact. Not to be cited for the study's content.",
       "derives_from": "S021",
       "access": {
-        "state": "not_opened",
-        "note": "Headline only, from a search result. Open it before citing even the headline."
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-29",
+        "sections": [
+          "the free portion, which ends at the STAT+ paywall after the headline figures"
+        ],
+        "not_read": [
+          "everything after the paywall"
+        ],
+        "note": "Recorded as blocked, and explicitly NOT counted as an instance of coverage dropping the caveats. We cannot see whether it carried them. Counting it either way would be the selection we tested ourselves for."
       }
     },
     {
@@ -727,7 +743,12 @@
           "the highlight in full"
         ],
         "not_read": []
-      }
+      },
+      "also_called": [
+        "Nature Reviews Gastroenterology & Hepatology",
+        "the research highlight",
+        "Katrina Ray"
+      ]
     },
     {
       "id": "S028",
@@ -990,7 +1011,11 @@
           "the canonical web version"
         ],
         "note": "Partial caveat present (one expert, mild). Not a clean instance either way."
-      }
+      },
+      "also_called": [
+        "Fox News",
+        "the Fox News health piece"
+      ]
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

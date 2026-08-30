@@ -78,7 +78,7 @@ broken | narrowed | survived   — yours, not the role's
 
 No ClinicalTrials.gov, WHO ICTRP, EudraCT, ISRCTN, FDA Drugs@FDA, or EMA EPAR searches were conducted because the claim is about science journalism coverage, not about whether a clinical trial exists. Those registries are irrelevant to this claim's logical structure.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: narrowed
+BASIS:   Both counterexamples verified. Greengard in Communications of the ACM takes the colonoscopy result to knowledge workers and extends it to law and software, with no limitations and no null result. Decker, a radiologist writing for trainees, pairs Budzyn with Dratsch and reports the limitations of neither. The role stated precisely which prongs each broke and which it did not.
+DID:     The novelty claim was RETIRED rather than narrowed: what survived was a four-part conjunction, technically true and rhetorically worthless. It was replaced with something demonstrable -- five named carriers that dropped the caveats -- and that replacement was then itself half-falsified by a deliberate search for the disconfirming case, which found the Science Media Centre carrying them on day one. The page states the narrow version.
 
