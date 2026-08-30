@@ -53,8 +53,11 @@
         "Retraction Watch artificial intelligence deskilling colonoscopy",
         "retraction correction Budzyn OR Troya OR Dratsch OR Gommers OR Heudel",
         "expression of concern Lancet Gastroenterology Hepatology 2025 deskilling",
-        "correction notice Endoscopy 2022 computer-aided polyp detection eye gaze"
-      ]
+        "correction notice Endoscopy 2022 computer-aided polyp detection eye gaze",
+        "Budzyn Lancet Gastroenterology Hepatology 2025 correction erratum e12",
+        "Lancet Gastroenterol Hepatol volume 10 issue 11 corrections November 2025"
+      ],
+      "specific_open_lead": "2026-08-30. A page-gate search surfaced what may be a correction notice on the colonoscopy study at Lancet Gastroenterol Hepatol 2025 Nov;10(11):e12. Europe PMC returned its own homepage rather than the record and we could not confirm the notice exists, what it corrects, or whether it touches any figure this page prints. UNRESOLVED. This is the single most consequential open item on the watch list: the page's central number comes from that paper."
     },
     {
       "id": "W5",
@@ -89,6 +92,19 @@
         "colonoscopy AI deskilling limitations observational confounding general audience explainer",
         "AI deskilling doctors what the study does and does not show"
       ]
+    },
+    {
+      "id": "W8",
+      "status": "open",
+      "opened": "2026-08-30",
+      "question": "Does the scoping review's pathology entry cite the paper its figures actually come from?",
+      "would_change": "Whether the page can say the review misdescribes three of its included studies rather than two. The review reports 28 pathologists and a 7% overturn rate under time pressure. Those are the figures in Rosbach et al. (arXiv 2411.00998), read at source on 2026-08-30. Source ledger S029 records the review's citation for that entry as Bellahsen-Harrar et al. (2025) in Mod Pathol; the Bellahsen-Harrar paper is PLOS ONE 2025;20(8):e0323270, has EIGHT pathologists, no time-pressure condition and no 7% figure. Either the review attaches Rosbach's numbers to a Bellahsen-Harrar citation, or the transcription into S029 crossed two rows of the review's table. THE PAGE PRINTS NOTHING ABOUT THIS. It is an accusation against named authors and it is not going on a page until somebody opens the review's PDF and reads the pathology row and its reference number.",
+      "queries": [
+        "Heudel scoping review deskilling pathology entry reference list Bellahsen-Harrar Rosbach",
+        "Bellahsen-Harrar PLOS ONE 2025 over-reliance AI diagnostic pathology eight pathologists",
+        "Rosbach automation bias time pressure computational pathology 28 pathologists 7%"
+      ],
+      "needs": "The review PDF, which only the operator holds."
     }
   ],
   "checks": [

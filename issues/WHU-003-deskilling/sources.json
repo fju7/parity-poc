@@ -665,7 +665,7 @@
         "the Nature Medicine perspective"
       ],
       "used_for": "The three-way distinction the piece should borrow and credit: DESKILLING, experienced practitioners losing a skill they had; NEVER-SKILLING, trainees who 'rely on AI during the early formative years of clinical education [and] may fail to develop the foundational reasoning skills that safe, independent practice requires'; and MIS-SKILLING, internalising AI errors as fact. It cites Budzyn (ref 8) and Kosmyna (ref 9) — the connection our novelty claim assumed nobody had made. And: 'AI is not inherently harmful to learning; its educational impact depends on how and when it is introduced.' They propose a three-phase framework: AI-independent baseline competency, then critical calibration through structured pedagogy, then supervised integration.",
-      "why_it_matters": "It settles what our contribution is. The connecting has been done — by seventeen clinicians in Nature Medicine, for doctors. It has not been done for the reader who is deciding whether their teenager should use ChatGPT for homework, or writing an AI policy for a team. Carrying a good frame across a professional boundary is exactly translation, and it is the honest description of what we would be doing.",
+      "why_it_matters": "It settles what our contribution is. The connecting has been done — by sixteen clinicians in Nature Medicine, for doctors. It has not been done for the reader who is deciding whether their teenager should use ChatGPT for homework, or writing an AI policy for a team. Carrying a good frame across a professional boundary is exactly translation, and it is the honest description of what we would be doing.",
       "access": {
         "state": "machine_read",
         "by": "claude",
@@ -678,7 +678,8 @@
         ],
         "note": "BLOCKING if the piece borrows the frame. Read it properly before using their taxonomy."
       },
-      "found_via": "The counterexample hunter's own search trail, listed under what it had reviewed and set aside."
+      "found_via": "The counterexample hunter's own search trail, listed under what it had reviewed and set aside.",
+      "count_correction": "2026-08-30. The page said 'Ke and sixteen colleagues' and its source note said 'Seventeen authors'. The author list is sixteen names, so it is Ke and fifteen colleagues. Recounted against PubMed PMID 42174254, the Nature Medicine article page and three institutional repositories."
     },
     {
       "id": "S026",
@@ -1000,6 +1001,124 @@
         "Fox News",
         "the Fox News health piece"
       ]
+    },
+    {
+      "id": "S038",
+      "type": "primary",
+      "url": "https://arxiv.org/abs/2411.00998",
+      "doi": "10.1007/978-3-658-47422-5_27",
+      "title": "Rosbach E, Ganz J, Ammeling J, Riener A, Aubreville M — Automation Bias in AI-assisted Medical Decision-making under Time Pressure in Computational Pathology. arXiv 2411.00998; published as a chapter, doi 10.1007/978-3-658-47422-5_27.",
+      "also_called": [
+        "Rosbach and colleagues",
+        "the pathology time-pressure experiment"
+      ],
+      "used_for": "28 trained pathology experts; a 7% automation-bias rate, being initially correct evaluations overturned by erroneous AI advice; and the finding that time pressure did not increase the FREQUENCY of automation bias but appeared to increase its SEVERITY, through heavier reliance on the system's negative consultations and a subsequent performance decline.",
+      "why_it_matters": "The page's pathology bullet previously carried these figures from the scoping review's summary alone, while the sentence above the bullet said every study in the list had been read at source. That was not true of this one. It is now: the figures are read here at the paper.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
+        "sections": [
+          "the arXiv abstract page: full author list, participant count, the 7% figure, the time-pressure finding"
+        ],
+        "not_read": [
+          "the full chapter text"
+        ],
+        "note": "Read during the page-gate adjudication after the gate could not verify the pathology bullet against any source."
+      },
+      "found_via": "Searching for the primary behind a figure the page had taken from a review summary.",
+      "the_discrepancy_to_check": "sources.json S029 records the scoping review's pathology entry as 'Bellahsen-Harrar et al. (2025), Mod Pathol — 28 pathologists under time pressure abandoned 7% of initially correct judgments'. Bellahsen-Harrar Y, Lubrano M, Lepine C, et al., 'Exploring the risks of over-reliance on AI in diagnostic pathology', is PLOS ONE 2025;20(8):e0323270 — EIGHT pathologists, no time-pressure condition, and no 7% figure. The 28/7%/time-pressure figures are Rosbach's. Either the review attaches Rosbach's figures to a Bellahsen-Harrar citation — a third miscitation, after the colonoscopy trial description and the mammography reference — or the transcription into S029 crossed two rows of its table. THE PAGE PRINTS NO ACCUSATION ON THIS. It must be checked against the review PDF, which only the operator holds, before anything is said."
+    },
+    {
+      "id": "S039",
+      "type": "primary",
+      "url": "https://www.rcpath.org/resource-report/cervical-cancer-and-human-papillomavirus-screening-in-the-uk-a-cytopathology-and-histopathology-perspective.html",
+      "title": "Royal College of Pathologists — Cervical cancer and human papillomavirus screening in the UK: a cytopathology and histopathology perspective",
+      "also_called": [
+        "the RCPath report",
+        "the College's report"
+      ],
+      "used_for": "The cytology figures, verbatim: 'The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England' and 'reducing 48 accredited labs to 8 centralised labs as of 2019'.",
+      "why_it_matters": "The page carried 80-85% and 45 laboratories, taken from the scoping review's summary of Rebolj et al. (2022), Cancer Cytopathology — a paper we could not reach at the publisher, on PubMed or in PMC. Two of the three numbers in that sentence were not ours to print. These are.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
+        "sections": [
+          "the report page: the workforce section, both figures quoted verbatim"
+        ],
+        "not_read": [
+          "the full report PDF"
+        ],
+        "note": "Read during the page-gate adjudication. The gate had flagged 80-85% against a ~70% primary; checking it also turned up the 45-versus-48 error the gate did not flag."
+      },
+      "found_via": "The page gate's WRONG_VALUE finding on the cytology workload figure."
+    },
+    {
+      "id": "S040",
+      "type": "coverage",
+      "url": "https://time.com/7309274/ai-lancet-study-artificial-intelligence-colonoscopy-cancer-detection-medicine-deskilling/",
+      "title": "Jeyaretnam M, Time, 13 August 2025 — on the colonoscopy deskilling study",
+      "also_called": [
+        "the Time piece"
+      ],
+      "used_for": "THE COUNTEREXAMPLE TO OUR OWN TRAVEL THESIS. Carries Osmani's volume-and-fatigue caveat by name, Tucker on automation bias not being peculiar to AI, and calls the study observational throughout. Does not name the Polish screening suspension, the missing withdrawal times, or the eleven limitations as a body.",
+      "why_it_matters": "The page said 'none of it crossed the boundary'. This crossed. So did the ASCO Post and Healthgrades. The claim is now that the general caution travelled and the specific limitations did not — which is what the evidence supports.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
+        "sections": [
+          "the whole article"
+        ],
+        "not_read": [],
+        "note": "Verified before any edit was made to the travel section."
+      },
+      "found_via": "The page gate's coverage pass."
+    },
+    {
+      "id": "S041",
+      "type": "coverage",
+      "url": "https://ascopost.com/news/august-2025/routine-ai-assistance-may-lead-to-loss-of-skills-in-endoscopists-study-shows/",
+      "title": "The ASCO Post Staff, The ASCO Post, 13 August 2025 (updated 11 November 2025)",
+      "also_called": [
+        "the ASCO Post piece"
+      ],
+      "used_for": "The quoted acknowledgements 'its observational nature' and 'factors other than the implementation of AI use may have influenced the findings', and senior author Yuichi Mori's question about the randomised trials that preceded the result.",
+      "why_it_matters": "Second instance of the caution travelling. Confirms the split: design and confounding travelled; the screening suspension, withdrawal times and limitation count did not.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
+        "sections": [
+          "the whole article"
+        ],
+        "not_read": [],
+        "note": "Confirmed it does NOT mention the screening suspension, withdrawal times, or a count of eleven limitations."
+      },
+      "found_via": "The page gate's coverage pass."
+    },
+    {
+      "id": "S042",
+      "type": "coverage",
+      "url": "https://resources.healthgrades.com/pro/ai-assistance-colonoscopies-doctors-skill-loss",
+      "title": "Schimelpfening N (fact-checked by Seladi-Schulman J), Healthgrades, 19 August 2025",
+      "also_called": [
+        "the Healthgrades piece"
+      ],
+      "used_for": "'This retrospective observational study was conducted across four Polish endoscopy centers participating in the ACCEPT trial', and an outside expert's judgement that 'the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven'.",
+      "why_it_matters": "Third instance, and the strongest: a named outside expert calling the concern hypothetical. The page does not name him or state his specialty, because we verified the quotation and not the description of the man.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude",
+        "on": "2026-08-30",
+        "sections": [
+          "the whole article"
+        ],
+        "not_read": [],
+        "note": "Does not mention the volume change, the screening suspension or the withdrawal times."
+      },
+      "found_via": "The page gate's coverage pass."
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",
@@ -1042,6 +1161,22 @@
         },
         "retired": true
       }
+    }
+  ],
+  "not_reached": [
+    {
+      "on": "2026-08-30",
+      "what": "Rebolj M et al. (2022), Cytology interpretation after a change to HPV testing in primary cervical screening, Cancer Cytopathology, doi 10.1002/cncy.22572",
+      "why_wanted": "It is the paper the scoping review cites for the 80-85% cytology workload cut and the 45-to-8 laboratory figure the page used to print.",
+      "tried": "Wiley (403), PubMed (captcha), PMC (captcha), and two searches for a mirrored full text.",
+      "what_we_did_instead": "Printed the Royal College of Pathologists' own figures (approximately 70%; 48 laboratories to 8), which we could read, and said on the page that the review's figures differ and why."
+    },
+    {
+      "on": "2026-08-30",
+      "what": "Medscape, 25 August 2025 — 'AI use causing endoscopists to lose their skills'",
+      "why_wanted": "The gate's coverage pass reported that it carried both the relative and absolute framings and the finding that adenomas per colonoscopy did not change significantly.",
+      "tried": "The article URL returned 402 (paywall).",
+      "what_we_did_instead": "Left it off the page. An unread source is not a source that agrees with us, and that holds when it would have helped our new claim as readily as when it would have hurt the old one."
     }
   ]
 }

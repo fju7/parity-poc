@@ -812,6 +812,316 @@
       "decision": "accept-and-fixed",
       "decided": "2026-08-29",
       "reason": "Accepted under the rule adopted an hour earlier. The directional finding is verified, but 'nowhere near the no-effect line' overstates it for ribociclib, whose upper bound of 0.95 sits 0.05 from 1.00. This is the same class as the 1.015 finding -- an overstatement running in the direction that suits the argument -- and it would have been dismissed as a quibble on any day before we recorded DISMISSAL_HARDENED_INTO_A_HABIT. Both bounds are now named: abemaciclib's clears by 0.08 and ribociclib's by 0.05, 'significant but not comfortably so'. Fixed on the page and in both halves of the email."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Professor Venet Osmani argued that three months is too short a window for genuine skill loss in experienced clinicians.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Checked against the Science Media Centre page itself, which says verbatim: 'the study suggests a drop in skill over just three months. This is a very short period, especially for a clinician with over 27 years of experience.' The gate reported that Osmani made no such argument. He did, in the source the page cites. The gate read secondary reports of his SMC comments rather than the SMC page.",
+      "what_would_change_it": "The SMC page changing, or a demonstration that the quoted sentence is not Osmani's."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel scoping review summarises the Savardi study as showing 32 radiology residents gaining 12 percentage points of sensitivity, reading 18% faster, and holding that performance at a three-month follow-up.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The gate read the draft's framing backwards. The page does not claim 32 residents; it says the REVIEW summarises Savardi that way and that the paper has eight. The gate's own finding — 8 residents, no three-month follow-up — is the page's finding, printed in the same paragraph and again in the Savardi source note.",
+      "what_would_change_it": "Nothing about the paper; only a rewrite of the paragraph that stopped attributing the 32 to the review."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Three randomised experiments had 1,222 people randomised and 1,060 analysed, working through practice problems with or without AI.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "307 + 585 + 168 = 1,060, checked against the paper's per-experiment analysed counts. The gate reconstructed a third figure of 201 from t-statistic degrees of freedom and got ~1,093. Degrees of freedom are not an analysed-N when tests are run on subsets.",
+      "what_would_change_it": "The paper stating an analysed total other than 1,060."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Unassisted solve rates fell at effect sizes of −0.42, −0.19 and −0.42 across the three experiments when AI was withdrawn.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Both figures exist in Experiment 3 and describe different outcomes: d = -0.42 on the unassisted solve rate and d = +0.42 on the skip rate. The gate found the skip-rate figure, saw the same magnitude with the opposite sign, and concluded the page had conflated them. It is the gate that conflated them.",
+      "what_would_change_it": "The paper reporting only one d of magnitude 0.42 in Experiment 3."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Ingebrigtsen and Lukic first posted their audit of the retracted meta-analysis on PsyArXiv on 2 July 2025.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The operator read v1 of the preprint as a PDF on 2026-08-29 after OSF refused machine fetch; source ledger S005 records 'Submitted 26 June 2025; preprint v1 2 July 2025; v2 23 April 2026' from the document itself. The gate could reach only the v2 landing page, which displays the v2 date. An unread source is not a source that disagrees with us either.",
+      "what_would_change_it": "The v1 posting date on OSF differing from the date printed on the PDF the operator read."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Two researchers at the Arctic University of Norway documented the problems with the meta-analysis publicly in July 2025, nine months before the retraction.",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The operator read v1 of the preprint as a PDF on 2026-08-29 after OSF refused machine fetch; source ledger S005 records 'Submitted 26 June 2025; preprint v1 2 July 2025; v2 23 April 2026' from the document itself. The gate could reach only the v2 landing page, which displays the v2 date. An unread source is not a source that disagrees with us either.",
+      "what_would_change_it": "The v1 posting date on OSF differing from the date printed on the PDF the operator read."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "A radiologist writing for trainees paired the colonoscopy result with the mammography experiment in a piece published 15 May 2026.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Checked at the page. The byline is 'Josh Decker, MD' and the date line reads 'May 15, 2026' followed by an update stamp of 'July 31, 2026'. The page's '15 May 2026' and 'Decker J' are both right; the gate read the update stamp as the publication date and missed the byline. Source ledger S034 already recorded both.",
+      "what_would_change_it": "The article's byline or original publication date changing."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Poland suspended its colonoscopy-based screening programme on 1 January 2022.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the Polish screening suspension date sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The authors of the colonoscopy study list eleven limitations of their own study.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the count of eleven limitations sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The first 100 procedures per centre after AI installation were excluded to allow for familiarisation.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the 100-procedure per-centre exclusion sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel scoping review assessed 65 articles in full and included twelve studies.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the review's 65-assessed figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel scoping review included twelve studies.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the review's twelve-included figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel review's flow diagram does not reconcile: 432 database records and 41 from grey literature, less 37 duplicates, equals 436 rather than the 373 printed.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the review's flow-diagram arithmetic sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "In the Heudel review's flow diagram, 373 less 332 excluded equals 41, not the 65 articles it then reports assessing.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the review's flow-diagram arithmetic sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Among novices in the Troya study, eye travel distance fell from 255.66 cm to 247.89 cm.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the novice eye-travel figures sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "In the Troya study, participants inspected the AI's false-positive boxes for only 43.8% of the time those boxes were on screen.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the 43.8% false-positive inspection figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "In the Troya study, experienced participants' eye travel distance fell from 247.89 cm to 227.09 cm.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the experienced eye-travel figures sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The study carrying the greatest weight in the retracted meta-analysis accounted for about 19% of it, and had itself been retracted two months before the meta-analysis was published.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the ~19% weight figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The second heaviest study in the retracted meta-analysis accounted for about 10% of it and measured self-efficacy and technology acceptance rather than learning.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the ~10% weight figure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "In the retracted meta-analysis, a table listing 41 unique entries supported an analysis reporting 44.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the 41 unique table entries sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "One included study in the retracted meta-analysis gave 36 students a single shared grade per group and was entered as though each had an individual score.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the 36 shared-grade students sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Treating shared group grades as individual scores in the retracted meta-analysis produced an effect size of 4.009.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the effect size of 4.009 sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Effect sizes above 1 appeared in about 36% of included studies in the retracted meta-analysis.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the ~36% above 1 sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "A valid learning measure was present in 10 of the 19 comparisons audited by Weidlich and colleagues.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the 10-of-19 valid learning measure sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The Heudel review's radiology section describes a 2023 reader study of 27 radiologists but attaches that description to a citation for a different 2025 paper with 12 radiologists that found AI improved accuracy.",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "NOT_FOUND for access, not for content: the review's radiology citation mismatch sits behind a paywall, in a figure, or in a supplementary table that the gate's web tools cannot render. Every one of these was read in the document itself — the Warwick accepted manuscript, the operator-supplied PDFs of the scoping review and the Norwegian audit, the open-access Troya paper, the Wiley PDF — and the reading is recorded in sources.json with the sections read and the sections not read. The rule that an unread source is not a source that agrees with us cuts both ways: the gate's inability to open a document is not evidence against what the document says.",
+      "what_would_change_it": "A reading of the same document that gives a different figure, or a correction notice on it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "the 27 radiologists in three experience groups, the 50 mammograms of which 49 were analysed",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Checked in the paper's Materials and Methods, which state that one mammogram was excluded from the final analysis because the sides of the lesions in the original report had been switched. 50 read, 49 analysed. The gate reasoned from the abstract and from secondary summaries, none of which report the exclusion, and read that silence as contradiction. Removing '49 were analysed' would have deleted a correct fact the page had gone to the methods section to get.",
+      "what_would_change_it": "The published Methods not containing the exclusion sentence."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "Its abstract describes the colonoscopy study as \"a multicenter randomized trial\"",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "The body text already carries the phrase inside <q> tags, exactly as the sources section does. The gate reads stripped prose, in which <q> leaves no mark, and reported a missing quotation mark that is present in the HTML.",
+      "what_would_change_it": "The <q> tags being removed from the body sentence."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "the number of procedures in the second period nearly doubled, from 795 to 1,382",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Checked against the paper's own limitation 8, which gives 1,382 as the TOTAL number of colonoscopies in the post-AI period — 734 with AI and 648 without — against 795 in the pre-AI period. The gate has 1,382 as the non-AI subset; it is the total. Acting on this finding would have inserted an arithmetic error into the page and, worse, published a correction of a named academic who had it right.",
+      "what_would_change_it": "The published paper's limitation 8 reading differently from the accepted manuscript we hold."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "Professor Venet Osmani of Queen Mary University of London named the volume problem exactly — the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Checked against the paper's own limitation 8, which gives 1,382 as the TOTAL number of colonoscopies in the post-AI period — 734 with AI and 648 without — against 795 in the pre-AI period. The gate has 1,382 as the non-AI subset; it is the total. Acting on this finding would have inserted an arithmetic error into the page and, worse, published a correction of a named academic who had it right.",
+      "what_would_change_it": "The published paper's limitation 8 reading differently from the accepted manuscript we hold."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "INFERENCE",
+      "quote": "50 mammograms of which 49 were analysed",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Same finding as the first advocate objection and rejected for the same reason: the exclusion is in the Methods. See that decision.",
+      "what_would_change_it": "The published Methods not containing the exclusion sentence."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "INFERENCE",
+      "quote": "clinical deskilling is though scarce, consistent across specialties",
+      "severity": "MINOR",
+      "decision": "accept",
+      "decided": "2026-08-30",
+      "reason": "Not a transcription error. 'though scarce, consistent across specialties' is the review's own wording, read in the PDF and recorded verbatim in source ledger S029. The awkwardness the gate detected was real but had a different cause: the page attached the phrase to 'clinical deskilling' rather than to the EVIDENCE of it, which is what the review's sentence is about. That has been fixed; the quotation has not been touched.",
+      "what_would_change_it": "A reading of the review's PDF giving different words."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

@@ -52,14 +52,14 @@
       "note": "Gommers, Verboom, Duvivier, et al."
     },
     {
-      "name": "Ke and sixteen colleagues",
+      "name": "Ke and fifteen colleagues",
       "paper": "AI-induced never-skilling in medical education. Nature Medicine 2026;32(6), Perspective",
       "first_author": "Yuhe Ke",
       "author_list_read": true,
       "by": "claude",
-      "on": "2026-08-29",
+      "on": "2026-08-30",
       "where": "the Nature article page, full author list",
-      "note": "Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Compton, Narayan, Keane, Wong, Bates, Tan, Liu. THE COUNT ON THE PAGE SAYS 'sixteen colleagues' — the listed authors number seventeen in total including Ke, so sixteen colleagues is correct. Recount before publishing if the page's wording changes."
+      "note": "Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Compton, Narayan, Keane, Wong, Bates, Tan, Liu. SIXTEEN authors in all, so fifteen colleagues. The page said 'sixteen colleagues' and the source note said 'Seventeen authors'; this file's own note miscounted the list it had correctly transcribed. Corrected 2026-08-30 after the page gate flagged it; recounted against PubMed (PMID 42174254), the Nature Medicine article page and three institutional repositories, all of which list sixteen."
     },
     {
       "name": "Wang and colleagues",
@@ -138,6 +138,16 @@
       "on": "2026-08-29",
       "where": "the arXiv abstract page and the PDF",
       "note": "Stanković (University of Vienna), Hirche, Kollatzsch and Doetsch (TU Dresden)."
+    },
+    {
+      "name": "Rosbach and colleagues",
+      "paper": "Automation Bias in AI-assisted Medical Decision-making under Time Pressure in Computational Pathology, 2025 (preprint arXiv:2411.00998; chapter doi 10.1007/978-3-658-47422-5_27)",
+      "first_author": "Emely Rosbach",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-08-30",
+      "where": "the arXiv abstract page, full author list",
+      "note": "Rosbach, Ganz, Ammeling, Riener & Aubreville. First author Emely Rosbach — recorded as 'Elena' on first entry and corrected the same minute against the arXiv author list, which is why this file exists. Added when the pathology bullet was moved off the scoping review's summary and onto the paper the figures come from."
     }
   ],
   "still_blocking": [],
@@ -177,8 +187,8 @@
     },
     {
       "name": "Ke",
-      "as_printed": "Ke and sixteen colleagues",
-      "checked_against": "the Nature Medicine article page, full author list, read 2026-08-29",
+      "as_printed": "Ke and fifteen colleagues",
+      "checked_against": "the Nature Medicine article page and PubMed PMID 42174254, recounted 2026-08-30: sixteen authors in all",
       "first_author": "Yuhe Ke"
     },
     {
@@ -230,6 +240,12 @@
       "first_author": "Ruiqi Deng",
       "checked_against": "NOT READ AT SOURCE, and the page says so in the same sentence. The citation appears verbatim in Weidlich et al., which we read, and in the reference list of Wu et al. (2026), which we transcribed. The page attributes its scope and effect size to Weidlich and colleagues rather than stating them as our own reading.",
       "caveat": "Recorded as verified only for the NAME AND CITATION, which two independent documents we read agree on. Nothing about the paper's contents is asserted on this page except as Weidlich and colleagues report it."
+    },
+    {
+      "name": "Rosbach",
+      "as_printed": "Rosbach and colleagues",
+      "checked_against": "the arXiv 2411.00998 abstract page, full author list, read 2026-08-30",
+      "first_author": "Emely Rosbach"
     }
   ],
   "removed_from_the_page": [
