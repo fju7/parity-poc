@@ -465,8 +465,20 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
     for f in gate_findings(r):
         f["where"] = still_in_text(f, body)
         f["flags"] = instrument_flags(f, sources)
+        # A decision on a SOURCE finding is keyed on the VERDICT -- NOT_FOUND,
+        # WRONG_VALUE, WRONG_SOURCE -- because that is what factcheck_draft.py
+        # passes to classify() when it writes one (see its line "classify(
+        # 'SOURCE', c.get('claim'), v.get('verdict'), ...)"). gate_findings
+        # translates the verdict into a severity WORD for display, and passing
+        # that word here instead made every SOURCE decision come back STALE:
+        # found by quote, rejected on a severity the recorder never wrote.
+        # STALE blocks, so the effect was that adjudicating a source finding
+        # made the board worse. Thirty-one decisions were silently unmatched
+        # this way before anyone noticed. The key must be the same string on
+        # both sides.
+        _key = f["class"] if f["kind"] == "verdict" else f["severity"]
         f["decided"], dec, _how = fc.classify(ROLE_OF.get(f["kind"], ""), f["quote"],
-                                              f["severity"], decisions)
+                                              _key, decisions)
         if f["decided"] == "NEW" and f["kind"] == "verdict":
             byfig = decided_by_figure(f, decisions)
             if byfig:

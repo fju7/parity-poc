@@ -2118,6 +2118,66 @@
       "decided": "2026-08-30",
       "reason": "The page prints “Josh Decker, MD” and “May 15, 2026 (Updated July 31, 2026)”. The gate's “May 16, 2026” is neither of those; the byline it could not confirm is on the page.",
       "what_would_change_it": "The document itself changing, or a reading of it that contradicts the sentence quoted here. Not another run of the same search."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "INFERENCE",
+      "quote": "A fact-check run on this page reported that this letter mis-describes the study's design in its opening sentence. That would be a second instance of the error this page is about, in the same journal as the study — and we are not printing it as a finding, because we could not open the letter to read the sentence ourselves.",
+      "severity": "SERIOUS",
+      "decision": "reject - the abstract the finding quotes does not exist anywhere we can reach",
+      "decided": "2026-08-30",
+      "reason": "The finding says the Levartovsky and Kopylov abstract is publicly visible and describes a decline “after computer-aided detection introduction and subsequent removal”. We went looking, hard, on 2026-08-30. Europe PMC's core record for DOI 10.1016/S2468-1253(25)00289-4 (PMID 41205615) carries NO abstractText. PubMed shows no abstract. thelancet.com returns 403 and ScienceDirect is robots-disallowed. An exact-phrase search for the sentence quoted returns ZERO results on the open web. So the page does not move. A gate's quotation of a document neither of us can open is not evidence — and this is the more dangerous direction than a missing source, because the quotation was plausible, was what we expected, and would have flattered the page's thesis. The paragraph already names every route we tried and asks readers who can open it to write.",
+      "what_would_change_it": "Anyone sending us the letter's opening sentence, or the abstract appearing at a URL we can reach. Then it is printed as a finding, sourced."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "The 'Your Brain on ChatGPT' paper reports 55 completers while analysing 54 without explaining the difference.",
+      "severity": "WRONG_SOURCE",
+      "decision": "accept - the finding is right and the sentence is fixed",
+      "decided": "2026-08-30",
+      "reason": "UPHELD, and acted on. The Kosmyna PDF, read in full on 2026-08-30, says verbatim: “55 completed the experiment in full (attending a minimum of three sessions, defined later). To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below).” The paper does explain it. What the Comment says (verbatim, its reproducibility section) is that “The criteria for excluding the participant who completed all experimental sessions from the analysis remain unclear” — so the observation IS in the Comment, contrary to the second half of the finding, but our flat “without explaining the difference” was a claim about the world and it was wrong. The page now carries the Comment's objection AND the paper's answer, and says we read both. Recorded in sources.json S007 under the_55_and_the_54.",
+      "what_would_change_it": "Nothing. The sentence is gone."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "severity": "SERIOUS",
+      "decision": "accept - corrected to volume 12, with the discrepancy disclosed",
+      "decided": "2026-08-30",
+      "reason": "UPHELD. CrossRef's registered record for DOI 10.1016/j.esmorw.2026.100693 gives volume 12, no issue, article 100693, June 2026. Our 11(C) came from the PDF's own running footer — which reads “Volume 11 ■ Issue C ■ 2026” above “Available online xxx”, the marker of a pre-pagination proof. The citation now says 2026;12:100693 and the source note records where the two disagree and why we cite the registered record, because a reader checking the reference would hit exactly this.",
+      "what_would_change_it": "Nothing. Corrected."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "On the day the study published, the Science Media Centre put three named academics on the record for journalists.",
+      "severity": "WRONG_VALUE",
+      "decision": "reject - there are three, and the page names all three",
+      "decided": "2026-08-30",
+      "reason": "The SMC expert-reaction page, read on 2026-08-30, carries exactly three named experts: Dr Catherine Menon (Principal Lecturer, Computer Science, University of Hertfordshire), Prof Venet Osmani (Professor of Clinical AI and Machine Learning, Queen Mary University of London) and Prof Allan Tucker (Professor of Artificial Intelligence, Brunel University of London). The gate's search snippets returned two. Osmani is the one it missed, and he is the one who names the confounder the whole page turns on.",
+      "what_would_change_it": "The SMC page changing. Not another search of it."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+      "role": "SOURCE",
+      "quote": "The 2011 memory result has two failed replications behind it.",
+      "severity": "NOT_FOUND",
+      "decision": "reject - both replications are named on the page and both are verified",
+      "decided": "2026-08-30",
+      "reason": "The two are Camerer et al. (2018), the Social Sciences Replication Project in Nature Human Behaviour, and Hesselmann (2020) in PeerJ. FORRT's replication atlas entry for doi 10.1126/science.1207745 records the Camerer outcome as “failed”, noting the original “did not replicate in the first round of data collection” and stayed non-significant when rounds were pooled. Hesselmann is S009, read in full: BF01 = 5.07, BF0+ = 16.43, and the author places his result alongside Camerer. The gate called the claim “too vague to locate”; the email is the compressed form and the page names both.",
+      "what_would_change_it": "Either replication being withdrawn or reinterpreted."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "SOURCE",
+      "quote": "Two researchers at the Arctic University of Norway documented the problems with the retracted meta-analysis publicly in July 2025, nine months before the retraction.",
+      "severity": "WRONG_VALUE",
+      "decision": "accept - the finding is right and the page now says nine and a half",
+      "decided": "2026-08-30",
+      "reason": "UPHELD. Preprint v1 posted 2 July 2025; retraction notice 22 April 2026. That is nine months and twenty days, and “nine months” rounded the wrong way on a page whose whole argument is that people round the wrong way. Both occurrences now read “nine and a half months”, and the first now gives the date as 2 July 2025 rather than “July 2025”, so a reader can do the subtraction themselves.",
+      "what_would_change_it": "Nothing. Corrected in both places."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",
