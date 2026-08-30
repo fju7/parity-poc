@@ -2140,16 +2140,6 @@
       "what_would_change_it": "Nothing. The sentence is gone."
     },
     {
-      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
-      "role": "ADVOCATE",
-      "quote": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
-      "severity": "SERIOUS",
-      "decision": "accept - corrected to volume 12, with the discrepancy disclosed",
-      "decided": "2026-08-30",
-      "reason": "UPHELD. CrossRef's registered record for DOI 10.1016/j.esmorw.2026.100693 gives volume 12, no issue, article 100693, June 2026. Our 11(C) came from the PDF's own running footer — which reads “Volume 11 ■ Issue C ■ 2026” above “Available online xxx”, the marker of a pre-pagination proof. The citation now says 2026;12:100693 and the source note records where the two disagree and why we cite the registered record, because a reader checking the reference would hit exactly this.",
-      "what_would_change_it": "Nothing. Corrected."
-    },
-    {
       "draft": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
       "role": "SOURCE",
       "quote": "On the day the study published, the Science Media Centre put three named academics on the record for journalists.",
@@ -2178,6 +2168,16 @@
       "decided": "2026-08-30",
       "reason": "UPHELD. Preprint v1 posted 2 July 2025; retraction notice 22 April 2026. That is nine months and twenty days, and “nine months” rounded the wrong way on a page whose whole argument is that people round the wrong way. Both occurrences now read “nine and a half months”, and the first now gives the date as 2 July 2025 rather than “July 2025”, so a reader can do the subtraction themselves.",
       "what_would_change_it": "Nothing. Corrected in both places."
+    },
+    {
+      "draft": "issues/WHU-003-deskilling/draft/deskilling.html",
+      "role": "ADVOCATE",
+      "quote": "Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY. Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 2026;11(C):100693",
+      "severity": "SERIOUS",
+      "decision": "accept - corrected to volume 12, with the discrepancy disclosed",
+      "decided": "2026-08-30",
+      "reason": "UPHELD. CrossRef's registered record for DOI 10.1016/j.esmorw.2026.100693 gives volume 12, no issue, article 100693, June 2026. Our 11(C) came from the PDF's own running footer, which reads “Volume 11 ■ Issue C ■ 2026” above “Available online xxx” — the marker of a pre-pagination proof. The citation now reads 2026;12:100693 and the source note records where the two disagree and why we cite the registered record. KEEP THIS DECISION EVEN THOUGH THE QUOTED STRING IS GONE FROM THE PAGE: the orphan check looks for the sentence in the text, the gate keys on the finding it raised, and until a fresh run the finding is still reported against the old citation. Deleting it as dead weight re-opened this on the board an hour after it was fixed.",
+      "what_would_change_it": "A fresh gate run, after which the finding is gone and this can go with it."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

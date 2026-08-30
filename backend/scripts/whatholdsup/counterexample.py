@@ -262,6 +262,24 @@ def open_items(slug: str) -> list[str]:
     return out
 
 
+_SMART = {u"\u2018": "'", u"\u2019": "'", u"\u201c": '"', u"\u201d": '"',
+          u"\u2013": "-", u"\u2014": "-", u"\u00a0": " "}
+
+
+def _key(text: str) -> str:
+    """Comparison key for a claim.
+
+    The role echoes our sentences back through a model, and a model normalises
+    punctuation: the page's curly apostrophe comes back straight. Comparing raw
+    strings meant two of nine claims on issue three could never be marked
+    attacked no matter how many hunts were bought, because the only difference
+    was a quotation mark. Punctuation is not identity.
+    """
+    for a, b in _SMART.items():
+        text = text.replace(a, b)
+    return " ".join(text.split())[:60]
+
+
 def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
     claims = universal_negatives(page_text)
     d = case_dir(slug) / "counterexample"
@@ -276,11 +294,21 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
                  f"compared these drugs' published, twice, with two such trials in "
                  f"the registry")]
     try:
-        done = {r.get("claim", "")[:60] for r in
-                json.loads(runs[-1].read_text(encoding="utf-8"))}
+        rows_ = json.loads(runs[-1].read_text(encoding="utf-8"))
     except Exception:
-        done = set()
-    missed = [c for c in claims if c[:60] not in done]
+        rows_ = []
+    done = set()
+    for r in rows_:
+        # A claim REWRITTEN in response to the hunt has been attacked. Without
+        # this the check ratchets: act on a finding, and the sentence you wrote
+        # because of it reads as a claim nobody has tried to break, so the only
+        # way to clear the board is to buy the same hunt again. Record the new
+        # sentence as `became` when adjudicating and both forms match.
+        for field in ("claim", "became"):
+            v = r.get(field) or ""
+            if v:
+                done.add(_key(v))
+    missed = [c for c in claims if _key(c) not in done]
     rows = [("counterexample hunt", OK if not missed else BAD,
              f"{len(runs)} run(s), latest {runs[-1].name[:10]}, covering "
              f"{len(claims) - len(missed)} of {len(claims)} universal negative(s)"

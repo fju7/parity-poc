@@ -1,0 +1,103 @@
+[
+  {
+    "claim": "So, within the twelve studies that review includes: not one study, and not a settled literature either.",
+    "verdict": "SURVIVED",
+    "counterexample": "",
+    "citation": "",
+    "quote": "",
+    "why_it_still_matters": "Cannot be evaluated without knowing which review and which twelve studies are referenced. The claim is internally self-referential to a document not identified in the input. No counterexample can be found or ruled out without that anchor. The survival verdict here is a verdict of insufficient context, not a clean search result.",
+    "inherited_from": "",
+    "searched": "No targeted search was possible because the claim names no review, no condition, no drug, and no field. The claim is a fragment that requires its parent document to be testable. Registries searched would depend entirely on the subject matter of the unnamed review. This is an untestable claim as written.",
+    "confidence": "LOW"
+  },
+  {
+    "claim": "Not one piece of coverage we read named the suspension of the Polish screening programme as the reason the volume rose, or the absence of withdrawal-time data, or the eleven limitations as a body.",
+    "verdict": "NARROWED",
+    "counterexample": "The Science Media Centre expert reaction (published 12 August 2025, the same day as the Budzyń et al. Lancet paper) explicitly names the volume increase — from 795 to 1,382 colonoscopies — as a potential confound for the deskilling finding, and raises workload/fatigue as an alternative explanation. This is a named limitation about volume, though it attributes the rise to AI introduction workload rather than specifically to the suspension of the Polish screening programme.",
+    "citation": "https://www.sciencemediacentre.org/expert-reaction-to-observational-study-looking-at-detection-rate-of-precancerous-growths-in-colonoscopies-by-health-professionals-who-perform-them-before-and-after-the-routine-introduction-of-ai/",
+    "quote": "\"the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382\"",
+    "why_it_still_matters": "The claim is about what 'coverage we read' named — a set the authors define. The SMC piece is expert commentary, not standard press coverage, and it names the volume rise as a confound but does not specifically attribute it to the suspension of the Polish screening programme. The claim about the screening-suspension explanation specifically, and about the eleven limitations as a body, may still hold within the defined coverage set. The sentence is narrowed, not broken: the volume-rise confound was publicly named in expert commentary on publication day, so any coverage set that included the SMC piece would break the claim.",
+    "inherited_from": "The claim appears to be the authors' own assertion about their own reading of coverage, not inherited from a guideline or review.",
+    "searched": "Web search: 'Polish screening programme suspension colonoscopy volume'; 'Budzyń colonoscopy deskilling study volume increase Polish screening suspension limitation'; 'Fortune August 26 2025 AI deskilling colonoscopy article'; Science Media Centre expert reaction page (August 2025); PMC article on COVID-19 and Polish cancer screening coverage (PMC8314399); Lancet Gastroenterology & Hepatology abstract (PIIS2468-1253(25)00133-5). No registry search was applicable (this is a claim about press coverage, not a clinical trial claim).",
+    "confidence": "MEDIUM",
+    "became": "What did not travel is why it rose: not one piece of coverage we read named the suspension of the Polish screening programme as the reason, or the absence of withdrawal-time data, or the eleven limitations as a body.",
+    "became_why": "Rewritten in response to this hunt. The role was right that a reader could take the old sentence to mean nobody named the volume rise; Osmani did, at the SMC, on the day. The sentence now credits him and claims only that the REASON for the rise did not travel. See CE-02 in 2026-08-30-adjudication.md."
+  },
+  {
+    "claim": "Communications of the ACM took the finding to knowledge workers, observing that similar issues pop up in law, education, journalism, software development, and other fields ; it carries caveats of its own, about governance and about deskilling having good outcomes as well as bad ones, but none of this study's.",
+    "verdict": "BROKEN",
+    "counterexample": "The CACM article by Greengard (7 November 2025) does carry the Budzyń et al. colonoscopy finding and does note that deskilling can have positive and negative outcomes and raises governance, but the article also explicitly references the Lancet colonoscopy study's own finding (the 28.4%→22.4% ADR drop) as its anchor example — meaning it carries at least the study's headline result. Whether it carries the study's methodological limitations is a separate question, but the claim 'none of this study's' is contradicted by the article reproducing the study's central quantitative finding.",
+    "citation": "https://cacm.acm.org/news/the-ai-deskilling-paradox/",
+    "quote": "\"The detection rate for precancerous lesions dropped from 28.4% to 22.4% without AI in the picture.\"",
+    "why_it_still_matters": "The piece's conclusion — that coverage omits the study's limitations — may still hold if 'none of this study's' is read narrowly as referring only to methodological caveats (observational design, confounds, etc.) rather than the headline result. But the sentence as written says 'none of this study's' without qualification, and the CACM piece does carry the study's own numerical finding. The sentence is broken on its face; the underlying point about limitations being omitted may survive a more carefully worded version.",
+    "inherited_from": "Claim 9 in this same batch is a self-correction of this exact claim, acknowledging it was wrong. That self-correction confirms the break.",
+    "searched": "Web search: 'Greengard AI Deskilling Paradox Communications ACM 2025'; direct retrieval of cacm.acm.org/news/the-ai-deskilling-paradox/. No registry search applicable.",
+    "confidence": "HIGH"
+  },
+  {
+    "claim": "arXiv 2601.00856 Their closing sentence — that there is no strong evidence the tool use negatively affects performance itself — is a verdict on the paper they audited, not on the field.",
+    "verdict": "SURVIVED",
+    "counterexample": "",
+    "citation": "",
+    "quote": "",
+    "why_it_still_matters": "The claim is an interpretive characterisation of the scope of a conclusion in arXiv:2601.00856 (Stankovic et al., 'Comment on: Your Brain on ChatGPT'). The paper exists and is confirmed (submitted 29 December 2025, commenting on arXiv:2506.08872, Kosmyna et al.). The interpretive claim — that the closing sentence is scoped to the audited paper, not the field — is a reading of the text that cannot be falsified by a registry or database search. No counterexample was found that would show the closing sentence makes a field-level claim. The claim survives as a matter of textual interpretation, not empirical fact.",
+    "inherited_from": "",
+    "searched": "Web search: 'arXiv 2601.00856'; arxiv.org/abs/2601.00856 abstract page; ResearchGate listing; ADS abstract (ui.adsabs.harvard.edu). The abstract confirms the paper's scope (concerns about sample size, EEG methodology, reproducibility, reporting inconsistencies, transparency) but the full text closing sentence is behind the PDF and was not retrieved. Confidence is therefore MEDIUM rather than HIGH.",
+    "confidence": "MEDIUM"
+  },
+  {
+    "claim": "Source of the power calculation of roughly 159 participants, the observation that some reported figures rest on two to four essays per group, the discrepancy between 55 completers and 54 analysed — on which the paper itself gives a reason the comment does not address, and this page prints the paper's — the definition of a \"significant connection\" as a relative measure and the consequence they draw from it, and their assessment that there is no strong evidence that the tool use negatively affects performance itself.",
+    "verdict": "SURVIVED",
+    "counterexample": "",
+    "citation": "",
+    "quote": "",
+    "why_it_still_matters": "This claim is a list of specific methodological points attributed to arXiv:2601.00856 and to 'this page' (the publishing outlet being audited). It is an internal editorial claim about what specific sources do and do not contain. Verifying it requires full-text access to both the comment paper and the outlet's own page — neither of which is fully accessible via web search. No counterexample was found, but the survival verdict reflects inability to access the full texts, not a clean search. The claim is untestable at the level of granularity required without the source documents.",
+    "inherited_from": "",
+    "searched": "Web search: 'arXiv 2601.00856'; arxiv.org abstract page; ResearchGate and ADS listings for the Stankovic et al. comment. The abstract lists five primary concerns (sample size, reproducibility, EEG methodology, reporting inconsistencies, transparency) but does not enumerate the specific sub-points listed in the claim. Full PDF not retrieved.",
+    "confidence": "LOW"
+  },
+  {
+    "claim": "No conclusive evidence that difficult general knowledge questions cause a \"Google Stroop effect\".",
+    "verdict": "SURVIVED",
+    "counterexample": "",
+    "citation": "",
+    "quote": "",
+    "why_it_still_matters": "This sentence is the verbatim title of a published, peer-reviewed replication study: Hesselmann G. (2020), PeerJ 8:e10325. The claim is not an assertion made by the piece being audited — it IS the title of a source paper. As a title, it accurately represents the paper's conclusion. The paper found no evidence for the Google Stroop effect across four experiments. Two prior replication attempts (2018) also failed. The original 2011 Sparrow et al. Science finding has not been successfully replicated. The claim survives as an accurate summary of the replication literature as of the search date.",
+    "inherited_from": "Hesselmann G. 2020. 'No conclusive evidence that difficult general knowledge questions cause a \"Google Stroop effect\". A replication study.' PeerJ 8:e10325. https://doi.org/10.7717/peerj.10325. The claim is the paper's own title, not a secondary paraphrase.",
+    "searched": "Web search: 'Google Stroop effect difficult general knowledge questions study'; PubMed (PMID 33194451); PeerJ (peerj.com/articles/10325); Semantic Scholar; ResearchGate. No registry search applicable (this is a cognitive psychology replication study, not a clinical trial). ClinicalTrials.gov, WHO ICTRP, EudraCT, ISRCTN not searched as irrelevant to this claim type.",
+    "confidence": "HIGH"
+  },
+  {
+    "claim": "The first time we asked it only about the study's limitations, and so missed the mechanism paragraph entirely; the repository records that as our error rather than its omission.",
+    "verdict": "SURVIVED",
+    "counterexample": "",
+    "citation": "",
+    "quote": "",
+    "why_it_still_matters": "This is an internal editorial/process claim about the authors' own interaction with an AI tool and their own repository log. It is not a factual claim about the external world that can be verified or falsified by searching databases, registries, or published literature. No counterexample is possible from external sources. The claim survives by default — it is untestable from outside the authors' workflow.",
+    "inherited_from": "",
+    "searched": "No external search is possible or meaningful for a claim about an internal editorial process and a private repository log. No registries, databases, or literature sources are relevant.",
+    "confidence": "LOW"
+  },
+  {
+    "claim": "Fortune , 26 August 2025 Carries the six-point fall to a business readership, connects it to a Microsoft and Carnegie Mellon survey and to an aviation analogy, and reports none of the study's eleven limitations.",
+    "verdict": "NARROWED",
+    "counterexample": "The Fortune article of 26 August 2025 (dc.fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study, by Sasha Rogelberg) does exist and does cover the Budzyń et al. finding. However, the claim that it 'connects it to a Microsoft and Carnegie Mellon survey and to an aviation analogy' cannot be confirmed from the retrieved snippet — those elements appear in the CACM Greengard piece, not necessarily in the Fortune piece. The Fortune article's connection to the Microsoft/CMU survey and aviation analogy is unverified; those details may have been misattributed from the CACM article.",
+    "citation": "https://dc.fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study",
+    "quote": "\"Doctors who used AI assistance in procedures became 20% worse at spotting abnormalities on their own, study finds\"",
+    "why_it_still_matters": "The Fortune article exists on the stated date and does carry the deskilling finding. The specific claim that it connects to a Microsoft/CMU survey and an aviation analogy is unverified — those elements are confirmed in the CACM piece (Greengard), not in the Fortune piece from the retrieved text. If those elements are absent from the Fortune piece, the characterisation of its content is partially wrong. The claim about 'none of the study's eleven limitations' cannot be verified or falsified without full-text access to the Fortune article.",
+    "inherited_from": "",
+    "searched": "Web search: 'Fortune AI deskilling six-point August 2025'; 'Fortune August 26 2025 AI deskilling colonoscopy article'; dc.fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study retrieved. CACM article retrieved separately. No registry search applicable.",
+    "confidence": "MEDIUM"
+  },
+  {
+    "claim": "Greengard S, \"The AI Deskilling Paradox\", Communications of the ACM , 7 November 2025, carries none of this study's limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying none, and that was wrong.",
+    "verdict": "SURVIVED",
+    "counterexample": "",
+    "citation": "",
+    "quote": "",
+    "why_it_still_matters": "This claim is itself a self-correction of Claim 3 above. It asserts: (a) the CACM piece carries no limitations from the Budzyń et al. study; (b) it does carry its own caveats on governance and on deskilling having good and bad outcomes; (c) the prior description of it as carrying 'none' was wrong. Parts (b) and (c) are confirmed by the retrieved CACM text — the article does note that 'Deskilling can lead to a variety of positive and negative outcomes' and discusses governance. Part (a) — that it carries none of the study's own methodological limitations — is consistent with the retrieved text, which reproduces the headline finding but shows no discussion of the study's observational design, confounds, or other limitations. The self-correction in (c) is accurate. No counterexample to the corrected claim was found.",
+    "inherited_from": "",
+    "searched": "Web search: 'Greengard AI Deskilling Paradox Communications ACM 2025'; cacm.acm.org/news/the-ai-deskilling-paradox/ retrieved. Confirmed: article discusses governance, positive/negative deskilling outcomes, and carries the headline ADR figures. No methodological limitations of the Budzyń study were found in the retrieved text.",
+    "confidence": "HIGH"
+  }
+]

@@ -152,10 +152,15 @@ ISSUES = {
         # guard compares a published page against its publication record, and a
         # page that has never been published has no record to differ from. It
         # protected the two live issues and was blind to a third appearing.
-        "page": "issues/WHU-003-deskilling/draft/deskilling.html",
+        # Moved under site/ on 2026-08-30, at publication and not before. The
+        # note above is why: for six commits this file sat here unpublished and
+        # every push served an ungated draft under a masthead that said it was
+        # published. Promotion is the last step, taken once the preflight is
+        # clean, and it is deliberately manual.
+        "page": "site/whatholdsup/deskilling.html",
         "url": "https://whatholdsup.org/deskilling",
-        "email_html": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
-        "email_txt": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.txt",
+        "email_html": "site/whatholdsup/email/issue3-deskilling.html",
+        "email_txt": "site/whatholdsup/email/issue3-deskilling.txt",
         "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
         "email_subject": "What Happens to the Experts First \u2014 what AI does to people who are already good at something",
     },
