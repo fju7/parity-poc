@@ -1,0 +1,803 @@
+{
+  "what_this_is": "Every sentence that changed between the text an outside reviewer read (sha 3900205df166c3ba) and the text published, with the decision it came from. `because` cites a section heading in review/2026-08-30-adjudication.md; the reasoning lives there and in the files it points to. Written after the fact on 2026-08-30, because send-for-review was never run for this issue and so nothing was recording changes as they were made.",
+  "changes": [
+    {
+      "kind": "changed",
+      "was": "The authors list eleven limitations of their own, and the largest is not subtle: the number of procedures in the second period nearly doubled, from 795 to 1,382, because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to draw patients off the waiting list.",
+      "now": "The authors list eleven limitations of their own, and the largest is not subtle: the total number of procedures in the second period nearly doubled, from 795 to 1,382 - while the non-AI procedures actually measured fell from 795 to 648 - because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to draw patients off the waiting list.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Twelve studies, a consistent direction, and one result pointing the other way.",
+      "now": "Twelve studies, a consistent direction, a null we were offered that is not one, and a null we missed that is - whose authors explain why it does not cancel the first result.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "(The scoping review puts the cut at 80-85% and the laboratories at 45 - citing, in its body, an NHS Digital annual report and a UK National Screening Committee evidence review, and, in its table, Rebolj and colleagues in Cancer Cytopathology , which we could not reach at the publisher, on PubMed or in PMC.",
+      "now": "(The scoping review puts the cut at 80-85% and the laboratories at 45 consolidating to 8 - citing, in its body, an NHS Digital annual report and a UK National Screening Committee evidence review, and, in its table, Rebolj and colleagues in Cancer Cytopathology , which we could not reach at the publisher, on PubMed or in PMC.",
+      "because": "POST-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The two laboratory counts are not in conflict: NHS Digital records that three of the 48 accredited laboratories had already closed before the 2019-20 consolidation, so 48 is the starting number and 45 the number still open when it happened.",
+      "now": "The two counts differ and we cannot say why: the College's report and the review's source disagree about the starting number, and NHS Digital's own annual report says 48 consolidated to 8 without mentioning any earlier closures.",
+      "because": "POST-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "We give the College's own figures because those are the ones we could read.) And the study the review offers as pointing the other way - which is not what that study says.",
+      "now": "We give the College's figures because those are the ones we read at source.) And the study the review offers as pointing the other way - which is not what that study says.",
+      "because": "POST-01",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "So the honest position on a null result is that we do not have one.",
+      "now": "And there is a null result.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "There is a training study in which supported trainees agreed with the reference standard more and retained the judgement to reject bad AI advice.",
+      "now": "We missed it, and an outside reviewer found it.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "There is no study on this page that followed anyone for months and found no decay, because the one we were told was that study is not.",
+      "now": "On 3 June 2026 - nearly three months before this page was drafted - Pedersen and colleagues published a prospective, multicentre, registry-based trial in Endoscopy that did the thing this page says the field needs: it ran endoscopists through three successive phases, before computer-aided detection, during it, and after it was taken away .",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Thirteen endoscopists, 5,013 colonoscopies.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Among the seven inexperienced endoscopists, detection of at least one polyp of 5 mm or more rose while the AI was running, from 31.9% (216 of 678) to 39.5% (257 of 651), an odds ratio of 1.43 on a 95% confidence interval of 1.11 to 1.84.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "After the AI was removed it was 36.3% (173 of 476) against the 31.9% baseline - an adjusted odds ratio of 1.03 , on 0.79 to 1.34, which is no change.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Among the six experienced endoscopists there was no significant effect between any of the phases.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The authors' conclusion, in their words: In non-CADe-assisted colonoscopy, no upskilling or deskilling was observed following a period of CADe exposure.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The two studies do not contradict each other, and the reason is the best thing in either paper.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Pedersen and colleagues address the Polish result directly, and identify a difference in design that we had not seen and did not find in the coverage we read.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "In their words: We evaluated the effect of exposure to CADe 'after' CADe was removed, whereas Budzyń et al. investigated how endoscopists perform non-CADe-assisted colonoscopy 'while' they were exposed to CADe in the other colonoscopies they performed during the same time period.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The Polish endoscopists were still working with the AI most days and being measured on the days they were not.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The Norwegian endoscopists had it taken away entirely - all but two of the thirteen, who reported running it throughout.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The authors draw the obvious inference: the effect will be stronger in the Budzyń study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "That is their reading, and it is worth saying what their design cannot separate: finding no deskilling after the tool is withdrawn is consistent with an effect that faded, and equally consistent with one that was never there.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "They also point at Troya and colleagues - the eye-tracking study in the section above - as the mechanism that would explain the Polish result.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "What the Norwegian authors say their own study cannot do.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Its endpoint is not adenoma detection but polyp detection at 5 mm and above, which they call the most important limitation and less well-validated than ADR .",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It ran from November 2021 to June 2025, and they warn that over three and a half years there is always a time effect in which endoscopists may naturally upskill or deskill over time - their inexperienced endoscopists averaged 6.8 months of practice in the first phase and 23.8 months by the third, so the tool is not the only thing that changed.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The case mix moved between phases.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The multivariable analysis may be underpowered.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It is not randomised.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "And on the question this page is about, their discussion is narrower than their stated conclusion, which covers all experience levels: the absence of a fall argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists, although such skill reduction has been observed in another study involving only experienced endoscopists - and the study they cite there is the Polish one.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The experienced group is where care is needed.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It shows no significant effect in any phase - but that includes no benefit while the AI was running, and the authors suggest why: experienced endoscopists may also be less enthusiastic about a software tool intended to improve their performance , and two endoscopists ran it throughout while the rest switched it on only during withdrawal.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "A group that did not visibly gain from the tool is weak evidence about what losing the tool does to them.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "At the level of individual endoscopists the split is a wash in both directions: among the inexperienced, three declined, two were unchanged and two improved; among the experienced, three declined and three improved.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "One more thing.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Yuichi Mori is an author of both papers - the senior author of the deskilling study is a co-author of the prospective study that found none.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "That is not a contradiction to be scored.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It is what a field looks like when the people in it are still working the question out.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "So the honest position is this.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "A retrospective comparison found a six-point fall in experienced endoscopists measured during a period of AI use.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "A larger prospective study found no fall in endoscopists measured after the AI was withdrawn, most clearly among the inexperienced, on a different and weaker endpoint.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Those are compatible, and the second study's authors say so.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Neither is the randomised crossover trial.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The training study we were offered as the null result is not one.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "This one is - specifically on the question of what happens after the tool is withdrawn, since it found a real gain while the tool was running - with the limits its own authors put on it.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "When the AI's suggestion was correct, all three experience groups performed similarly, scoring roughly 80% - between 79.7% and 82.3%.",
+      "now": "When the AI's suggestion was correct, all three experience groups performed similarly, scoring roughly 80% - 79.7%, 81.3% and 82.3%.",
+      "because": "POST-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "And it has already been applied to this exact literature, by someone with standing to do it.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "On 5 June 2026, two days after the Norwegian trial appeared, Gastroenterology published an editorial by Weinberg and Bretthauer titled Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy?",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Michael Bretthauer is an author of the Polish deskilling study.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "So the specialty is working this frame over its own evidence, in its own journals, and has been since the week the null result was published.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "We found that editorial through a fact-check run on this page, after writing the section above.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "What this page does that it does not is carry the distinction out of the specialty to a reader deciding something about their own work - and that, rather than the frame, is the part we can claim.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "A comment on it by four researchers at Vienna and Dresden calculates that roughly 159 participants would have been needed for adequate power, notes that some reported figures rest on two to four essays per group, and observes that the paper reports 55 completers while analysing 54 without explaining the difference.",
+      "now": "A comment on it by four researchers at Vienna and Dresden calculates that roughly 159 participants would have been needed for adequate power, notes that some reported figures rest on two to four essays per group, and observes that the paper reports 55 completers while analysing 54, and that the criteria for dropping the one remain unclear.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The paper does give a reason - it says it reports 54 to ensure data distribution (as participants were assigned in three groups) - and the comment does not address that sentence.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "We read both.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The most-cited meta-analysis finding that ChatGPT improves learning - more than 500 citations - was retracted by its journal on 22 April 2026.",
+      "now": "The most-cited meta-analysis finding that ChatGPT improves learning - cited several hundred times - its own journal's counter read 402 at one point on 30 August 2026 and 399 an hour later, which is what live metrics do, and other counts of the same paper run from 262 to over 500 - was retracted by its journal on 22 April 2026.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Two researchers at the Arctic University of Norway had documented the problems publicly in July 2025, nine months earlier.",
+      "now": "Two researchers at the Arctic University of Norway had documented the problems publicly on 2 July 2025, nine and a half months earlier.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The strongest evidence that AI use degrades a real skill, in real work, measured after the tool is taken away, comes from an endoscopy suite - and it is a retrospective study with eleven limitations.",
+      "now": "The strongest evidence that AI use degrades a real skill, in real work, comes from an endoscopy suite - measured not after the tool was taken away but on the days it was not used, during a period when it was in use on the others.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "And it is a retrospective study with eleven limitations.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Not one piece of coverage we read named the suspension of the Polish screening programme as the reason the volume rose, or the absence of withdrawal-time data, or the eleven limitations as a body, or the authors' own call for randomised crossover trials.",
+      "now": "Professor Osmani had named the rise itself at the Science Media Centre on the day of publication, and Time carried him saying so.",
+      "because": "POST-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "What did not travel is why it rose: not one piece of coverage we read named the suspension of the Polish screening programme as the reason, or the absence of withdrawal-time data, or the eleven limitations as a body.",
+      "because": "POST-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The authors' call for randomised crossover trials did travel, but only inside the specialty: Professor Tucker made it at the Science Media Centre on the day of publication, and the American College of Gastroenterology's appraisal asked for prospective before-and-after trials.",
+      "because": "POST-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It did not reach a general reader.",
+      "because": "POST-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Six points is the absolute fall and about a fifth is the relative one, and both are true - which is the point.",
+      "now": "Six points is the absolute fall and about a fifth - 21% - is the relative one, and both are true .",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Nothing false was printed.",
+      "now": "The headline was accurate.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The number simply arrived in its most alarming accurate form, with none of the reasons to hold it loosely.",
+      "now": "The sentence under it was not.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Fortune told its readers that the endoscopists went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to .",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Neither half of that describes the study.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The 28.4% is the rate before the AI arrived, not with it; the 22.4% was measured while the AI was in routine use on other days, not after it was taken away.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "That is the same design error this page is about, in a magazine read by more people than the journal - and a draft of this section said nothing false had been printed here.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "That was wrong.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "We caught it by opening the article again rather than trusting our note of it.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "A radiologist writing for trainees paired the colonoscopy result with the mammography experiment - the closest thing to this page that exists - and reported the limitations of neither.",
+      "now": "A radiologist writing for trainees paired the colonoscopy result with the mammography experiment - the closest thing to this page in general-audience writing - and reported the limitations of neither.",
+      "because": "POST-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Communications of the ACM took the finding to knowledge workers, observing that similar issues pop up in law, education, journalism, software development, and other fields ; it carries caveats of its own, about governance and about deskilling having good outcomes as well as bad ones, but none of this study's.",
+      "now": "Communications of the ACM took the finding to knowledge workers, observing that similar issues pop up in law, education, journalism, software development, and other fields ; it carries caveats of its own, about governance and about deskilling having good outcomes as well as bad ones, but none of this study's caveats.",
+      "because": "POST-03",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The same sentence carries a second error, and it is the one this page is about: it says the rate dropped when endoscopists reverted to non-AI procedures after repeated AI use , which implies the tool had been withdrawn.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "It had not.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "They were still using it on other days of the same period.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Its radiology section then says that a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support and that error rates rose when the AI was wrong - and attaches that sentence to its reference 16, which is a 2025 paper by different authors, 12 radiologists and 150 mammograms, that found AI improved accuracy.",
+      "now": "Its radiology section then says that a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support and that error rates rose when the AI was wrong - and attaches that sentence to its reference 16, which is a 2025 paper by different authors, 12 radiologists reading examinations from 150 women, that found AI improved accuracy.",
+      "because": "POST-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "It settles the confounding that the volume doubling introduced, and it is the single study that would move this from a worry to a finding.",
+      "now": "It settles the confounding that the volume doubling introduced, and it is the single study that would move this from an association to a causal finding.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Every measurement here is three months or less, and none of them followed anyone for months and found no decay - the one we were told was that study is not, as set out above.",
+      "now": "The Polish comparison is three months either side.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The question people actually ask is about years.",
+      "now": "The prospective trial runs three phases and is the longest sequence on this page, and it found no decay.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Neither reaches the horizon people actually ask about, which is years.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "One meta-analysis in this literature has already been retracted after nine months of public criticism, and a scoping review in it mis-cites a paper.",
+      "now": "One meta-analysis in this literature has already been retracted after nine and a half months of public criticism, and a scoping review in it mis-cites a paper.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "And one thing was not unread but unfound: the prospective trial above had been in print for nearly three months when we drafted this page, and our own standing search for exactly that study had not been run.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "An outside reviewer found it.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "We had recorded that the search was outstanding and wrote the piece anyway, which is the failure - not the missing paper, but proceeding past our own note that we had not looked.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Lancet Gastroenterol Hepatol 2025;10(10):896-903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the -6.0 percentage-point difference on a 95% confidence interval of -10.5 to -1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures per centre.",
+      "now": "Lancet Gastroenterol Hepatol 2025;10(10):896-903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the -6.0 percentage-point difference on a 95% confidence interval of -10.5 to -1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introduced.",
+      "because": "POST-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "A correction to this paper exists and we have not read it.",
+      "now": "This paper carries a correction, published online 11 September 2025 ( Lancet Gastroenterol Hepatol 2025;10(11):e12, doi 10.1016/S2468-1253(25)00294-8), and we have now read it.",
+      "because": "OR-002",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "It is \"Correction to Lancet Gastroenterol Hepatol 2025; 10: 896-903\" , the page numbers of the study above, indexed at 2025;10(11):e12.",
+      "now": "In full, it says that a covariate - indication for colonoscopy - had been mistakenly omitted from the multivariable analysis presented in supplementary table 6 in the appendix of this Article , that the appendix has been updated, that the only affected findings are for the variables 'After AI introduction (using AI in colonoscopy)' and 'Age >60 years' , and that these changes do not affect the interpretation of the data .",
+      "because": "OR-002",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "We found it on 30 August 2026 through a page-gate search and then tried to read it at the publisher (403), on ScienceDirect (robots refusal), on PubMed and at Europe PMC (both returned a challenge page rather than the record).",
+      "now": "Two things a reader should take from that.",
+      "because": "OR-002",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "We therefore do not know what it corrects or whether it touches any figure on this page.",
+      "now": "The figures on this page - 28.4%, 22.4%, the six-point difference and its interval - are the unadjusted comparison and are not touched by it.",
+      "because": "OR-002",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "If you can open it, please write.",
+      "now": "But one of the two findings that was affected is the exposure variable itself, AI introduction, in the adjusted model.",
+      "because": "OR-002",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "It is the first item on our watch list.",
+      "now": "The journal says interpretation is unchanged and we have no basis to disagree; we note it because a correction to the adjusted estimate for the thing a study is about is worth a reader knowing, whichever way it went.",
+      "because": "OR-002",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "We found the correction on 30 August 2026 through a page-gate search, could not open it through seven routes, and read it only when the operator obtained the notice.",
+      "because": "OR-002",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "ESMO Real World Data and Digital Oncology 2026;11(C):100693 Source of the count of included work - twelve studies from 373 records screened - and of the authors' own characterisation of the evidence as scarce, limited and fragmented.",
+      "now": "ESMO Real World Data and Digital Oncology 2026;12:100693 Source of the count of included work - twelve studies from 373 records screened - and of the authors' own characterisation of the evidence as scarce, limited and fragmented.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The paper's title calls it a scoping review; its methods section describes a narrative review .",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "We use the title's term.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The proof we hold prints \"Volume 11 ■ Issue C\" in its running footer, above \"Available online xxx\"; the publisher's registered metadata for the version of record gives volume 12 and no issue, which is what we cite.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Automation Bias in AI-assisted Medical Decision-making under Time Pressure in Computational Pathology. 2025 (preprint arXiv:2411.00998) Source of the 28 trained pathology experts, the 7% automation-bias rate - initially correct evaluations overturned by erroneous AI advice - and the finding that time pressure did not raise the frequency of automation bias but appeared to increase its severity, through heavier reliance on the system's negative consultations and a subsequent fall in performance.",
+      "now": "Automation Bias in AI-assisted Medical Decision-making under Time Pressure in Computational Pathology. 2025 (arXiv:2411.00998).",
+      "because": "POST-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Extended and peer reviewed as Rosbach E, Ammeling J, Ganz J, Bertram CA, Conrad T, Riener A, Aubreville M, \"Stuck on Suggestions\", accepted at the Journal of Machine Learning for Biomedical Imaging , 2026 (arXiv:2603.11821) Source of the 28 trained pathology experts, the 7% automation-bias rate - initially correct evaluations overturned by erroneous AI advice - and the finding that time pressure did not raise the frequency of automation bias but appeared to increase its severity, through heavier reliance on the system's negative consultations and a subsequent fall in performance.",
+      "because": "POST-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Primary Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Learning and deskilling effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a pragmatic, prospective trial.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Endoscopy 2026;58:1003-1014, published online 3 June 2026 The null result on the central question, and the study whose design is closest to the causal sequence.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Source of the three phases - before CADe, during CADe, after CADe removal - the thirteen endoscopists (seven inexperienced, six experienced) and 5,013 colonoscopies, the primary endpoint of detection of at least one polyp of 5 mm or more, the rise among inexperienced endoscopists from 31.9% (216/678) to 39.5% (257/651) at an odds ratio of 1.43 on 1.11-1.84, the 36.3% (173/476) after removal at an adjusted odds ratio of 1.03 on 0.79-1.34, the absence of any significant effect among the experienced, and the quoted conclusion.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Read in full in the paper: three centres in Norway, November 2021 to June 2025; thirteen endoscopists, twelve physicians and one surgeon; PDR-5 by phase for all endoscopists 29.7% (520/1753), 31.5% (548/1739) and 30.0% (457/1521), and for the experienced 28.3%, 26.7% and 27.2%.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Also the source of the authors' own reconciliation with the Polish study, of their limitations - PDR-5 rather than ADR, the three-and-a-half-year time effect, the case-mix shift, possible underpowering, one device - and of the endoscopist-level split.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "The abstract was read at Europe PMC on 30 August 2026 and the full paper the same evening, after the operator obtained it; the publisher's own page returned 404 to every URL form we tried.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "This page did not find this study.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "An outside reviewer did, on 30 August 2026, after both fact-check runs had passed over it.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Note that Yuichi Mori is an author of this paper and the senior author of the Budzyń study.",
+      "because": "OR-001",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "Source of the power calculation of roughly 159 participants, the observation that some reported figures rest on two to four essays per group, the discrepancy between 55 completers and 54 analysed, the definition of a \"significant connection\" as a relative measure and the consequence they draw from it, and their assessment that there is no strong evidence that the tool use negatively affects performance itself.",
+      "now": "Source of the power calculation of roughly 159 participants, the observation that some reported figures rest on two to four essays per group, the discrepancy between 55 completers and 54 analysed - on which the paper itself gives a reason the comment does not address, and this page prints the paper's - the definition of a \"significant connection\" as a relative measure and the consequence they draw from it, and their assessment that there is no strong evidence that the tool use negatively affects performance itself.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "J Comput Assist Learn 2025;41:e70105 Source of the audit finding four of nineteen comparisons meeting all three criteria, a valid learning measure present in ten of nineteen, and the quoted sentence about differences measured during treatment reflecting the availability of the treatment rather than durable learning.",
+      "now": "J Comput Assist Learn 2025;41:e70105 Read in the corresponding author's own copy of the published paper, the publisher's site having refused us; the audit table gives four of nineteen comparisons meeting all three criteria, the treatment well described in fourteen, the control in eight, and a valid learning measure present in ten.",
+      "because": "POST-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Also the source of and the quoted sentence about differences measured during treatment reflecting the availability of the treatment rather than durable learning.",
+      "because": "POST-04",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The correction to the colonoscopy study itself, \"Correction to Lancet Gastroenterol Hepatol 2025; 10: 896-903\", indexed at 10(11):e12 - tried at the publisher, on ScienceDirect, on PubMed and at Europe PMC.",
+      "now": "The commentary published alongside it in the same journal, and the later correspondence on it - which we can now name: Levartovsky A and Kopylov U, Lancet Gastroenterol Hepatol , December 2025, doi 10.1016/S2468-1253(25)00289-4.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "changed",
+      "was": "The commentary published alongside it in the same journal, and the later correspondence on it.",
+      "now": "A fact-check run on this page reported that this letter mis-describes the study's design in its opening sentence.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "That would be a second instance of the error this page is about, in the same journal as the study - and we are not printing it as a finding, because we could not open the letter to read the sentence ourselves.",
+      "because": "POST-02",
+      "at": "2026-08-30"
+    }
+  ]
+}
