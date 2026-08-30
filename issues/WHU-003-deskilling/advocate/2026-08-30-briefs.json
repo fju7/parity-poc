@@ -1,0 +1,133 @@
+[
+  {
+    "source": "S008",
+    "title": "Gerlich, M. (2025) — AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies 15(1), 6, 3 January 2025. Center for Strategic Corporate Foresight and Sustainability, SBS Swiss Business School.",
+    "mode": "objections",
+    "state": "machine_read",
+    "principal": "the investigators and statisticians who published Gerlich, M. (2025) — AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies 15(1), 6, 3 January 2025. Center for Strategic Corporate Foresight and Sustainability, SBS Swiss Business School.",
+    "objections": [
+      {
+        "claim_quoted": "a correlation of −0.68 between AI use and critical thinking",
+        "objection": "The page omits that both variables are self-reported: AI use was measured on a 6-point Likert scale and critical thinking was measured by a self-reported scale (items drawn from the Halpern Critical Thinking Assessment and Terenzini's self-reported measures), not by a performance-based assessment — a methodological fact that is the primary qualification on the figure's interpretability.",
+        "source_says": "\"A 6-step Likert scale (1 = Never/Strongly Disagree to 6 = Always/Strongly Agree) was used for most items\" (Section 2, Methods / Appendix A); critical thinking items drawn from Halpern Critical Thinking Assessment and Terenzini's self-reported measures, combined into a self-reported scale (Methods, instrument description).",
+        "locator": "Section 2 (Methodology), instrument description and Appendix A",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "A reader who sees '−0.68 between AI use and critical thinking' without the self-report qualifier will treat it as evidence that AI use predicts objectively measured critical thinking ability. The paper's own instrument is a self-reported proxy, which means the correlation may partly reflect a shared-method artefact (people who report heavy AI use also report lower confidence in their own thinking). The page's implicit claim — that this figure measures something about actual cognitive capacity — does not survive the qualifier."
+      },
+      {
+        "claim_quoted": "a correlation of −0.68 between AI use and critical thinking",
+        "objection": "The page presents −0.68 as the paper's headline finding, but the paper also reports r = −0.75 between cognitive offloading and critical thinking — a stronger correlation and the one on which the paper's mediation argument centrally rests — without which the reader cannot understand what the paper actually argues.",
+        "source_says": "r = +0.72 between AI use and cognitive offloading; r = −0.75 between offloading and critical thinking; r = −0.68 between AI use and critical thinking (Results, correlation table). Hypothesis 2: 'Cognitive offloading mediates the relationship between AI tool usage and critical thinking' (Section 1, Hypotheses).",
+        "locator": "Section 1 (Hypotheses), Section 3 (Results), correlation table",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "Quoting only −0.68 implies the paper's claim is a direct AI-use-to-critical-thinking link. The paper's actual argument is a mediated one: AI use → cognitive offloading (r = +0.72) → reduced critical thinking (r = −0.75). The −0.68 is the total-effect correlation; the paper's thesis is about the mechanism. A page that cites only the total-effect figure and not the mediation structure misrepresents what the paper concludes and what the figure is evidence for."
+      },
+      {
+        "claim_quoted": "Gerlich's 2025 study is the source of the figure most often quoted, a correlation of −0.68 between AI use and critical thinking.",
+        "objection": "The page does not disclose that a formal correction to this paper was published by MDPI on 10 September 2025 (Societies 2025, 15(9), 252), which any characterisation of the paper as a reliable source for a widely-quoted figure is obliged to note.",
+        "source_says": "\"Correction published on 10 September 2025, see Societies 2025, 15(9), 252.\" (MDPI article page, published notice attached to the original article at doi:10.3390/soc15010006).",
+        "locator": "MDPI article page header / correction notice; Societies 2025, 15(9), 252",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "If the page is recommending or relying on −0.68 as a figure that 'holds up,' readers are entitled to know that the paper carrying that figure has a published correction. Depending on what the correction addresses, the figure itself or the analysis supporting it may be affected. The page cannot assess whether the figure holds up without disclosing and engaging with the correction."
+      },
+      {
+        "claim_quoted": "Gerlich's 2025 study is the source of the figure most often quoted, a correlation of −0.68 between AI use and critical thinking.",
+        "objection": "The page omits that the sample was recruited by convenience and purposive sampling promoted on social media in the UK, which limits the generalisability of the correlation and is the fact most relevant to whether the figure 'holds up' as a population-level claim.",
+        "source_says": "Recruited by convenience and purposive sampling, promoted on social media in the UK (Methods, sampling section); \"Utilising a mixed-method approach, we conducted surveys and in-depth interviews with 666 participants across diverse age groups and educational backgrounds\" (Abstract).",
+        "locator": "Section 2 (Methodology), sampling description",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "A convenience sample recruited via social media in a single country is not a basis for a universal claim about AI use and critical thinking. The page's framing — 'the figure most often quoted' — implies the correlation has broad evidential standing. The sampling design is the primary reason it does not, and omitting it prevents the reader from evaluating the figure's scope."
+      },
+      {
+        "claim_quoted": "Primary\n       Gerlich M.",
+        "objection": "The bare citation does not flag the published correction (Societies 2025, 15(9), 252), which a source list for a document called 'What Holds Up' should include so readers can locate and assess the corrected version.",
+        "source_says": "\"Correction published on 10 September 2025, see Societies 2025, 15(9), 252.\" (MDPI article page, correction notice).",
+        "locator": "MDPI article page header / correction notice",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The citation label itself does not make a substantive claim, so the conclusion is unaffected; but a source list that omits the correction notice is incomplete and will send readers to an uncorrected version."
+      }
+    ]
+  },
+  {
+    "source": "S029",
+    "title": "Heudel, Crochet, Filori, Bachelot & Blay (2026) — Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 11(C), 100693. Centre Léon Bérard, Lyon. Open access, CC BY-NC-ND.",
+    "mode": "questions",
+    "state": "human_read",
+    "principal": "the authors of Heudel, Crochet, Filori, Bachelot & Blay (2026) — Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 11(C), 100693. Centre Léon Bérard, Lyon. Open access, CC BY-NC-ND.",
+    "objections": [
+      {
+        "claim_quoted": "twelve studies from 373 records screened",
+        "question": "Does the PRISMA flow diagram or methods section state exactly 373 records remaining after duplicate removal, and exactly 12 studies included in the final synthesis — or are these numbers different (e.g., 373 is the post-deduplication pool but a different number reached full-text screening, or the final included count is not 12)?",
+        "where_to_look": "PRISMA flow diagram and/or the 'Study selection' subsection of the Methods",
+        "why_it_matters": "If the 373 figure refers to a different stage of screening (e.g., records after title/abstract screening rather than after deduplication), or if the final included count is not 12, the page misrepresents the review's scope and the density of the evidence base it is being used to characterise.",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "432 records from PubMed, Embase, Web of Science and Scopus plus 41 from grey literature",
+        "question": "Does the paper state that exactly 432 records came from the four named databases (PubMed, Embase, Web of Science, Scopus) and exactly 41 from grey literature — and are those the only four databases searched?",
+        "where_to_look": "Search strategy table or 'Information sources' subsection of the Methods, and the PRISMA flow diagram top box",
+        "why_it_matters": "If the database count, grey-literature count, or the list of databases is different, the page's description of the search is factually wrong, which could mislead readers about how comprehensive the review was.",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "65 at full text",
+        "question": "Does the paper report exactly 65 records assessed at full-text stage, or is this number different?",
+        "where_to_look": "PRISMA flow diagram, 'full-text articles assessed for eligibility' box",
+        "why_it_matters": "A wrong full-text number misrepresents the attrition rate and the selectivity of the review; if the true number is substantially higher or lower, the characterisation of the evidence funnel changes.",
+        "severity": "MINOR"
+      },
+      {
+        "claim_quoted": "six in the key-studies table",
+        "question": "Does the paper contain a table explicitly labelled as a 'key studies' table (or equivalent), and does it contain exactly six entries — or does the table contain a different number, or is there no such distinguished table?",
+        "where_to_look": "Any summary or characteristics-of-included-studies table in the Results section",
+        "why_it_matters": "If the table has more or fewer than six entries, or does not exist as a distinct 'key studies' table, the page's claim about which studies are foregrounded is inaccurate and could misrepresent how the authors weighted the evidence.",
+        "severity": "MINOR"
+      },
+      {
+        "claim_quoted": "evidence of clinical deskilling is 'though scarce, consistent across specialties'",
+        "question": "Do those exact words — or words with that precise meaning — appear in the paper, and in what context (e.g., abstract, conclusion, discussion caveat)? Specifically, does the paper say the evidence is both scarce AND consistent, or does it qualify consistency more heavily than the page implies?",
+        "where_to_look": "Abstract conclusions, Discussion section, and any 'Conclusions' or 'Summary of findings' subsection",
+        "why_it_matters": "If the paper's actual language is more hedged about consistency, or if 'consistent' is qualified by specialty or study type in ways the page omits, the page overstates the review's positive finding and understates its uncertainty — which is the central claim being made about the state of the evidence.",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "'the number of high-quality empirical studies remains limited'",
+        "question": "Does this phrase, or a phrase with this meaning, appear verbatim or near-verbatim in the paper — and does the paper define what it means by 'high-quality' (e.g., by reference to a quality-appraisal tool or criteria applied to the 12 included studies)?",
+        "where_to_look": "Discussion or Limitations subsection; any quality-appraisal table or narrative",
+        "why_it_matters": "If the paper does not use a formal quality-appraisal instrument, the phrase 'high-quality' is the authors' informal judgment; if it does use one, the page should say so. Either way, misquoting or decontextualising this phrase changes how readers assess the review's own confidence in its conclusions.",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "'many reports are based on expert opinion or small-scale qualitative investigations rather than large multi-center trials'",
+        "question": "Does this characterisation appear in the paper, and does the paper provide any breakdown (e.g., a table or count) of how many of the 12 included studies fall into each category (expert opinion, qualitative, quantitative, multi-centre trial) — or is this an unquantified narrative claim?",
+        "where_to_look": "Characteristics of included studies table; study-design column; Discussion section",
+        "why_it_matters": "If the paper actually quantifies the study-type breakdown, the page should cite those numbers rather than paraphrase; if it does not quantify it, the page's use of 'many' may be stronger than the paper warrants, affecting how the evidence gap is characterised.",
+        "severity": "MINOR"
+      },
+      {
+        "claim_quoted": "Source of the count of included work — twelve studies from 373 records screened — and of the authors' own characterisation of the evidence as scarce, limited and fragmented",
+        "question": "Does the paper itself use the word 'fragmented' (or a direct equivalent) to describe the evidence base — or does the page add that descriptor beyond what the authors actually wrote?",
+        "where_to_look": "Abstract, Discussion, and Conclusions sections — search for 'fragment' or synonyms",
+        "why_it_matters": "If 'fragmented' is the page's own gloss rather than a quotation or close paraphrase, the page is attributing a characterisation to the authors that they did not make, which misrepresents the review's conclusions.",
+        "severity": "SERIOUS"
+      },
+      {
+        "claim_quoted": "Source of the count of included work — twelve studies from 373 records screened",
+        "question": "Does the paper anywhere address, rebut, or contextualise the specific criticism that twelve studies is too thin a base to support cross-specialty generalisations about deskilling — i.e., does it contain any passage that anticipates and responds to the very concern the page is raising about it?",
+        "where_to_look": "Limitations subsection; Discussion paragraphs on generalisability or future research",
+        "why_it_matters": "This is the single most important question: if the authors themselves acknowledge and bound the limitation the page is criticising, the page must represent that acknowledgment fairly; if the authors do not acknowledge it, that absence is itself significant and the page's criticism is stronger.",
+        "severity": "SERIOUS"
+      }
+    ]
+  }
+]

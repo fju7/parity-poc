@@ -145,10 +145,17 @@ ISSUES = {
     "deskilling": {
         "number": 3,
         "title": "What Happens to the Experts First",
-        "page": "site/whatholdsup/deskilling.html",
+        # NOT under site/ until it publishes. On 2026-08-30 this file sat at
+        # site/whatholdsup/deskilling.html for six commits, and every push put an
+        # ungated, unreviewed draft on the public web under a masthead reading
+        # "Published 30 August 2026". The pre-push guard did not catch it: the
+        # guard compares a published page against its publication record, and a
+        # page that has never been published has no record to differ from. It
+        # protected the two live issues and was blind to a third appearing.
+        "page": "issues/WHU-003-deskilling/draft/deskilling.html",
         "url": "https://whatholdsup.org/deskilling",
-        "email_html": "site/whatholdsup/email/issue3-deskilling.html",
-        "email_txt": "site/whatholdsup/email/issue3-deskilling.txt",
+        "email_html": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.html",
+        "email_txt": "issues/WHU-003-deskilling/draft/email/issue3-deskilling.txt",
         "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
         "email_subject": "What Happens to the Experts First \u2014 what AI does to people who are already good at something",
     },

@@ -245,7 +245,8 @@
         "note": "URL VERIFIED — it was recorded from memory and this time memory was right. The sibling that was wrong was Hesselmann."
       },
       "doi": "10.3390/soc15010006",
-      "the_precise_criticism": "Not 'it is only a correlation' — the author says that himself. The point is that all three constructs are self-reported in one instrument, and the three correlations are uniformly strong: 0.68, 0.72, 0.75. That uniformity is the signature of common-method variance rather than three separately established relationships. Note also that the critical-thinking items are DERIVED from the Halpern assessment rather than being the Halpern assessment administered as a test; the piece must say 'items drawn from' and not imply a test was sat."
+      "the_precise_criticism": "Not 'it is only a correlation' — the author says that himself. The point is that all three constructs are self-reported in one instrument, and the three correlations are uniformly strong: 0.68, 0.72, 0.75. That uniformity is the signature of common-method variance rather than three separately established relationships. Note also that the critical-thinking items are DERIVED from the Halpern assessment rather than being the Halpern assessment administered as a test; the piece must say 'items drawn from' and not imply a test was sat.",
+      "the_correction": "Correction, Societies 2025, 15(9), 252, published 10 September 2025: Table 4 had duplicated Table 3 and a corrected Table 4 of ANOVA results for deep thinking activities was supplied. The notice states the scientific conclusions are unaffected. READ AT SOURCE 2026-08-30, after the source advocate objected that the page used this paper as an example of weak evidence without disclosing that it carries a correction. The advocate was right and the page now carries it, with the fact that it was minor."
     },
     {
       "id": "S009",
@@ -608,29 +609,6 @@
       }
     },
     {
-      "id": "S022",
-      "type": "secondary",
-      "url": "https://www.statnews.com/2025/08/12/ai-deskilling-doctors-colonoscopy-study-lancet/",
-      "title": "STAT News, 12 August 2025 — 'AI use may be deskilling doctors, new Lancet study warns'",
-      "also_called": [
-        "STAT"
-      ],
-      "used_for": "Evidence that the colonoscopy result DID reach a professional press audience, and reached it with the 'may' intact. Not to be cited for the study's content.",
-      "derives_from": "S021",
-      "access": {
-        "state": "blocked",
-        "by": "claude",
-        "on": "2026-08-29",
-        "sections": [
-          "the free portion, which ends at the STAT+ paywall after the headline figures"
-        ],
-        "not_read": [
-          "everything after the paywall"
-        ],
-        "note": "Recorded as blocked, and explicitly NOT counted as an instance of coverage dropping the caveats. We cannot see whether it carried them. Counting it either way would be the selection we tested ourselves for."
-      }
-    },
-    {
       "id": "S023",
       "type": "carrier",
       "url": "https://fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study",
@@ -811,7 +789,8 @@
           "Confirm reference 16 in the published version, in case the online version differs from the PDF the operator supplied.",
           "Check whether the review has a correction notice."
         ]
-      }
+      },
+      "FOURTH_PROBLEM_THE_PRISMA_FLOW": "Read off Figure 1 directly on 2026-08-30, after the source advocate asked whether the numbers we quote are the numbers the paper prints. They are, and they do not reconcile with each other. 432 database records plus 41 from grey literature, less 37 duplicates removed, is 436 — the figure prints 373. And 373 total records identified less 332 excluded is 41 — the figure then prints 65 records screened and 65 full-text articles assessed. The last step is the only one that works: 65 assessed, less 29 plus 14 plus 10 excluded with reasons, leaves the 12 included. Our page now cites the twelve from the 65, which is the arithmetic that holds, and discloses the rest."
     },
     {
       "id": "S030",
@@ -991,7 +970,12 @@
           "everything after the paywall"
         ],
         "note": "WE CANNOT SAY WHETHER STAT CARRIED THE CAVEATS. The free portion does not, and the article continues behind a paywall. It must be recorded as undetermined and must NOT be counted as an instance of caveats being dropped. Counting it would be exactly the selection we are testing ourselves for."
-      }
+      },
+      "also_called": [
+        "STAT News",
+        "Katie Palmer"
+      ],
+      "_merged_note": "S022 was an earlier, thinner entry for this same article — added on 2026-08-29 from a search result, then added again the same night after the piece was fetched. Duplicate source entries are not cosmetic: the ledger's audit matches page sentences to sources by alias, so one article under two ids made every sentence match twice and produced four false 'new claim about an unread source' findings on 2026-08-30. S022 is retired below."
     },
     {
       "id": "S037",
@@ -1028,5 +1012,36 @@
     "HOW_FAR_THIS_CAN_BE_STATED": "As written: 'none of the four pieces we examined cites it'. NOT as 'nobody has connected them', which is an unbounded universal over everything published and belongs to the counterexample hunter, not to us. The claim to be attacked before drafting is: 'No general-audience account of AI and thinking has brought the colonoscopy deskilling result into the same frame as the essay-writing and reasoning studies.'",
     "why_it_would_be_the_contribution": "It is the only place in this literature where the question is asked about a real skill, in real work, with a real consequence, over months — and it is in a journal the people arguing about ChatGPT and essays have no reason to read. Carrying it across is translation, which is what this publication is for.",
     "NARROWED_2026_08_29": "The claim as first written — that the AI-and-thinking conversation has not picked the colonoscopy result up — is TOO STRONG. Fortune carried it on 26 August 2025 to a general business readership and connected it to the Microsoft/CMU judgment-atrophy work and to Air France 447. STAT carried it to a professional audience. The crossing has happened.\n\nWHAT HAS NOT HAPPENED, and this is the third narrowing of a novelty claim today: nobody has set it beside the essay-writing and reasoning studies AND been honest about what it does and does not show. Fortune printed the result with none of the eleven limitations its own authors list. The contribution is not the crossing. It is the crossing done carefully — which is the whole premise of this publication and a smaller, truer claim than the one we had an hour ago."
-  }
+  },
+  "duplicate_check": "Run 2026-08-30 after the audit produced four false findings from one article held under two ids. Every source's URL was compared against every other's. S022 and S036 were the only pair. A ledger that can hold the same document twice can also report agreement between a source and itself, which is the corroboration error in its purest form.",
+  "retired_sources": [
+    {
+      "id": "S022",
+      "retired_on": "2026-08-30",
+      "why": "A duplicate entry for the same STAT News article held at S036. Added twice on 2026-08-29, once from a search result and once after the piece was fetched. Retiring it in place was not enough: the audit still read its URL and kept matching page sentences to it, so it is removed from `sources` and kept here instead. A ledger that can hold one document twice can report agreement between a source and itself, which is the corroboration error in its purest form.",
+      "superseded_by": "S036",
+      "original": {
+        "id": "S022",
+        "type": "secondary",
+        "url": "https://www.statnews.com/2025/08/12/ai-deskilling-doctors-colonoscopy-study-lancet/",
+        "title": "RETIRED — duplicate of S036 (Katie Palmer, STAT News, 12 August 2025)",
+        "also_called": [],
+        "used_for": "NOTHING. Retired 2026-08-30 as a duplicate. See S036.",
+        "derives_from": "S021",
+        "access": {
+          "state": "blocked",
+          "by": "claude",
+          "on": "2026-08-29",
+          "sections": [
+            "the free portion, which ends at the STAT+ paywall after the headline figures"
+          ],
+          "not_read": [
+            "everything after the paywall"
+          ],
+          "note": "Recorded as blocked, and explicitly NOT counted as an instance of coverage dropping the caveats. We cannot see whether it carried them. Counting it either way would be the selection we tested ourselves for."
+        },
+        "retired": true
+      }
+    }
+  ]
 }

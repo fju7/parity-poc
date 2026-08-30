@@ -599,6 +599,26 @@
       "was": "the adjudication is written down",
       "should_have_been": "Written where the check reads. A record that satisfies a human reading the file and not the machine that gates on it is worse than no record, because it looks done.",
       "why_it_survived": "Nothing surfaced it until the full preflight ran for the first time, which needed the summary email to exist. Two of these had been reported to the operator as adjudicated, and in substance they were — the reasoning was real and is now in the right place."
+    },
+    {
+      "class": "ABSENCE_REPORTED_FROM_THE_WRONG_DIRECTORY",
+      "kind": "process",
+      "caught_by": "looking again, in the place the thing actually lives",
+      "found_by": "2026-08-30",
+      "summary": "The operator said we had decided on a cap of two gate passes. I searched the known-errors fixture, the whatholdsup scripts and docs, found nothing, and told him I could not find a record of it and that the precedent ran the other way. RUNS_PER_CYCLE = 2 is defined in scripts/signal/factcheck_draft.py, one directory over, with a comment giving the exact reasoning he had described.",
+      "was": "I searched and it is not there",
+      "should_have_been": "I searched three places and it was not in them. The gate's cap lives in the gate, which is the first place to look and the one place I did not. An absence is only as wide as the search behind it, and a search that stops at the directory you expected is not a search of the repository.",
+      "why_it_survived": "It did not survive long, but it produced the worst kind of wrong: telling a person their own recollection of their own project was unsupported, on the strength of a partial grep. The same failure shape as asserting nobody had linked two findings without reading either reference list."
+    },
+    {
+      "class": "AN_UNPUBLISHED_PAGE_WENT_LIVE_BY_EXISTING",
+      "kind": "process",
+      "caught_by": "a preflight row saying 11 sentences differed from what readers see now, on a page we believed nobody could see",
+      "found_by": "issue three, 2026-08-30",
+      "summary": "The issue-three draft was written to site/whatholdsup/deskilling.html, which is the deploy path. Every push put it on the public web. It was live at whatholdsup.org/deskilling for six commits — 47,214 bytes, HTTP 200 — ungated, un-reviewed, with no counterexample hunt completed and no outside review, under a masthead reading 'Published 30 August 2026'. Nothing linked to it and it was not in the sitemap, which is luck and not a control.",
+      "was": "the guard stops unreviewed content reaching readers",
+      "should_have_been": "The guard compares a PUBLISHED page against its publication record. A page that has never been published has no record to differ from, so it was invisible: the guard protected the two live issues and was blind to a third simply appearing. Presence at the deploy path is publication. A draft belongs in its issue directory until the publish step moves it.",
+      "why_it_survived": "Every preceding issue was drafted straight into site/ and published within a day, so the window never opened. Issue three spent a day and a half in draft with a page that said Published. And the check that finally caught it was not looking for this at all — 'correction recorded' compares the page against the live version, and it found a live version because there was one. Read as a bug for twenty minutes before it was read as a fact."
     }
   ],
   "standing_rules": [
@@ -648,7 +668,12 @@
     "Exemption lists fail closed. UPDATE_SOFTENS names the checks an update does not re-earn; anything absent from it blocks, including checks added later. A list of exemptions will be forgotten, so it has to be forgotten safely.",
     "A figure that cuts against our own argument is sourced exactly as strictly as one that supports it. Carrying the other side's best evidence feels like scrupulousness, and that feeling is what hides where the figure came from.",
     "Checks catch things they were not aimed at, which is an argument for keeping the cheap deterministic ones even when they seem pedantic. The attribution check exists to stop a wrong surname; on issue three it stopped a wrong study.",
-    "Write a record where the check reads it, not merely into the file. A first-occurrence string replacement lands in the template's instructions; verify by re-running the check that gates on it, never by re-reading the file."
+    "Write a record where the check reads it, not merely into the file. A first-occurrence string replacement lands in the template's instructions; verify by re-running the check that gates on it, never by re-reading the file.",
+    "Before telling anyone a record does not exist, search the component that would own it, not only the places you have been working. State the scope of the search alongside the conclusion: 'not in X, Y or Z' is a finding; 'it is not there' is a claim about the whole repository.",
+    "The gate's cycle is two runs, reset by the outside review, with one run after the review to close it. The reason is on the record: all three of issue two's outside-review findings survived fourteen gate runs, and the single worst error in that piece was GENERATED by the gate and could not have been caught by running it again. Going past the cap requires --past-cap and a reason.",
+    "The gate is scoped to FACTS and INFERENCES. A finding about word choice, emphasis, tone or framing is adjudicated once and closed; it is not iterated on. Accuracy and fairness are the touchstone, and there is no version of a sentence that every reader reads identically — treating that as a defect to be fixed produces an endless loop and buys nothing.",
+    "Presence at the deploy path IS publication. A draft lives in its issue directory and the publish step moves it; nothing under site/ is ever a work in progress. The pre-push guard now refuses any top-level page there that is neither a standing site page nor an issue with a publication record.",
+    "A masthead that says Published is a claim, and it is false on an ungated draft. If a draft must carry a date line at all, it says what it is."
   ],
   "second_pass": {
     "run": "2026-08-26",

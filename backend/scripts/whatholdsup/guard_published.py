@@ -210,6 +210,39 @@ def check(ref: str | None = None,
                     "until somebody sends it."
                     % (slug, erel, ann.get("at", "?")[:19]))
 
+    # An unpublished page on the deploy branch.
+    #
+    # The check above asks whether a PUBLISHED page still matches its record.
+    # It is blind to a page that has never been published, because such a page
+    # has no record to differ from -- and on 2026-08-30 that blindness put an
+    # ungated, un-reviewed draft of issue three on the public web for six
+    # commits, under a masthead reading "Published 30 August 2026". Nothing
+    # linked to it and it was not in the sitemap, which is luck rather than a
+    # control.
+    #
+    # So: every top-level page under site/whatholdsup must be either a standing
+    # site page or an issue with a publication record. A draft lives in its
+    # issue directory until it publishes, and the publish step is what moves it.
+    STANDING = {"index.html", "what-this-is.html", "who-pays-for-this.html"}
+    published_pages = {
+        Path(cfg["page"]).name
+        for slug, cfg in issues.items()
+        if cfg.get("page") and _last(rows, slug, "publish")
+    }
+    _c, listing = _git("ls-tree", "--name-only",
+                       (ref or "HEAD"), "site/whatholdsup/")
+    for line in listing.splitlines():
+        name = Path(line.strip()).name
+        if not name.endswith(".html"):
+            continue
+        if name in STANDING or name in published_pages:
+            continue
+        blocking.append(
+            "site/whatholdsup/%s is on the deploy branch and is not a standing "
+            "site page\n        or a published issue. Anything at that path is "
+            "served to readers the\n        moment this is pushed. A draft lives "
+            "in its issue directory until\n        publish.py moves it." % name)
+
     return blocking, warnings
 
 
