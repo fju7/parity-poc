@@ -134,6 +134,26 @@
       ],
       "supersedes": "c2d05ae3ad11ecfc27db1ab957dfc5e24747e1f2539c06403de1716b96f7eff7",
       "waived": null
+    },
+    {
+      "issue": "cdk46",
+      "action": "publish",
+      "at": "2026-08-31T16:42:31+00:00",
+      "sha": "89f11c67bb085b9362339b77b05d0e781f3a0665523e2055e4459664b6fcd323",
+      "commit": "9eb83315a8f1f0fd585c4514d907d6d4434ce03c",
+      "url": "https://whatholdsup.org/cdk46",
+      "note": "issue 2 \u2014 The Category Difference",
+      "waived": null
+    },
+    {
+      "issue": "cdk46",
+      "action": "publish",
+      "at": "2026-08-31T16:58:05+00:00",
+      "sha": "4e4bb50b371fcd3adb4b40e3adf64b0c03411a3c2f8768eb418237b5484bbccd",
+      "commit": "dd6ec469cfffb90ea3cbcbde6821dc0c75280a0b",
+      "url": "https://whatholdsup.org/cdk46",
+      "note": "issue 2 \u2014 The Category Difference",
+      "waived": null
     }
   ]
 }

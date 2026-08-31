@@ -83,3 +83,395 @@ scan 2026-08-29T19:18:05Z  week 35  set 3
   Nothing here is a subject yet. Run the funnel on anything that looks live:
     publish.py funnel <query>
 exit=0
+==============================================================
+scan 2026-08-31T13:00:04Z  week 36  set 0
+  "linked to" study children             175 outlet(s) / 213 distinct headline(s)   spike 2.28
+        news-medical.net                   8
+        naturalnews.com                    8
+        theconversation.com                6
+        timesofindia.indiatimes.com        5
+        thestar.com.my                     4
+        • Parent phone use may harm kid speech                                     femalefirst.co.uk
+        • Atlanta researchers find premature birth can affect brain development in wsbradio.com
+        • In London , children lungs grow faster as traffic pollution falls        euronews.com
+        • Is your smartphone making your kid dumber ? What a new study found       fox5atlanta.com
+        • HOMETOWN HEALTH : Young people exposed to other suicide attempts are mor wdbj7.com
+        • Ulez linked with better lung growth in children , research finds         theconversation.com
+        • Parental loss doubles children risk of mental health disorders           news-medical.net
+        • Ultra low emission zones linked to improved lung capacity in kids : unit globalnews.ca
+  "linked to" study risk                 167 outlet(s) / 170 distinct headline(s)   spike 0.83
+        naturalnews.com                    26
+        news-medical.net                   10
+        medscape.com                       7
+        nypost.com                         5
+        aol.com                            3
+        • Study : Two Hours of Weekly Strength Training Tied to 13 % Lower Mortali naturalnews.com
+        • Sugary drinks linked to high blood pressure                              thestar.com.my
+        • Popular daily drinking habit could nearly triple risk of deadly cancer , health.yahoo.com
+        • دراسة تربط بين مواعيد تناول الطعام وخطر الوفاة                           vetogate.com
+        • Meta - Analysis Finds Higher ALS Risk in Workers Exposed to Pesticides – naturalnews.com
+        • جو 24 : توقيت وجباتك قد يؤثر في صحتك وطول عمرك                           jo24.net
+        • Study : Vegetable - Rich Diet Pattern Linked to Up to 8 . 3 Additional Y naturalnews.com
+        • The breakfast mistake you shouldnt make after age 40 it can raise your r aol.com
+  "study finds" causes                    11 outlet(s) /  13 distinct headline(s)   spike HTTP Error 429: To
+        timesofindia.indiatimes.com        2
+        naturalnews.com                    2
+        wxyz.com                           1
+        newsweek.com                       1
+        globalnews.ca                      1
+        • Sugar And Cancer Risk : Less sugar in the first 1 , 000 days may change  timesofindia.indiatime
+        • At least 1 in 4 former NFL players had CTE at death , major study finds  timesofindia.indiatime
+        • What poison center data about liver damage cases means for Acetaminophen wxyz.com
+        • Dollar Store Groceries May Come With a Hidden Health Risk , Study Finds  newsweek.com
+        • We will do better for women hearts , says new research chair at Manitoba globalnews.ca
+        • Study : Two Hours of Weekly Strength Training Tied to 13 % Lower Mortali naturalnews.com
+        • Prostate cancer biopsies are unnecessary for many men , study finds      mirror.co.uk
+        • These viruses have the opportunity to wake up : Severe COVID can reactiv livescience.com
+
+  most-read on en.wikipedia:
+    Toxic (2026 film)                          466,227
+    Dolly Parton                               450,416
+    .xyz                                       251,462
+    Killing of the Clancy children             250,473
+    Tim Curry                                  234,497
+    Harald V                                   188,507
+    The Whisper Man                            156,733
+    Haakon VIII                                151,224
+    Milo Yiannopoulos                          147,306
+    Umar Nurmagomedov                          144,997
+    Spider-Man: Brand New Day                  132,151
+    2026 Nepal floods                          117,084
+
+  wrote issues/leads/2026-08-31-scan.json
+  Nothing here is a subject yet. Run the funnel on anything that looks live:
+    publish.py funnel <query>
+exit=0
+--------------------------------------------------------------
+sweep 2026-08-31T13:05:48Z  WHU-001-melanoma
+
+  CORRECTION AND RETRACTION SWEEP — WHU-001-melanoma
+  3 source(s) with an identifier, 4 without
+
+  No corrections, errata or retractions on any source we could resolve.
+
+  ------------------------------------------------------------------
+  2 source(s) queried.
+
+  COULD NOT RESOLVE — not the same as nothing to report:
+    S007   10.1200/OA-25-00008 not in the index
+    Europe PMC indexes the biomedical literature. It does not
+    carry MDPI's Societies, Wiley's J Comput Assist Learn,
+    Elsevier's Computers & Education, OSF preprints, or arXiv
+    computer-science preprints. Those are watched by hand.
+
+  NOT SWEEPABLE — no DOI, PMID or arXiv id:
+    S001   Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoin
+    S002   Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026
+    S005   Merck & Moderna — first detailed KEYNOTE-942 results
+    S006   The ASCO Post — INTerpath-001 meets primary and key secondary en
+
+  baseline written to issues/WHU-001-melanoma/sweeps.json
+
+
+  CITATION SWEEP — WHU-001-melanoma
+  3 source(s) with an identifier, 4 without
+
+  S003  KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024
+      661 citing paper(s) — FIRST SWEEP, so all of them
+        2026  Exp Mol Med Take Five: harmonization in personalized cancer vaccines for c
+                              Cho S, Lee J, Lee YM, Nam JH.
+        2026  Cancer Trea Neoantigen cancer vaccines in the mRNA Era: antigen selection,
+                              Ge M, Wu N.
+        2026  Int J Nanom Nanoplatform-Mediated Remodeling of the Immune Microenvironmen
+                              Luo M, Tang P, Chen X, Lan W, Tang S, Liu Q, Zhou L, Huang Y.
+        2026  Adv Drug De Redox-responsive nanomaterials for mRNA delivery: From rationa
+                              Li M, Wang Y, Gao J, An S, Tang Z, Tao W.
+        2026  MedComm (20 Turning Cold Tumors Into Hot Tumors: Implications for Cancer T
+                              Ge X, Han D, Wang J, Dai X, Ma C, Chen F.
+        2026  Immunol Res Past achievements and future perspectives of personalized vacc
+                              Sadat Larijani M, Bavand A, Moradi L, Ramezani A.
+        ... and 655 more, in sweeps.json
+
+  ------------------------------------------------------------------
+  2 source(s) queried, 661 new citation(s).
+
+  COULD NOT RESOLVE — not the same as nothing to report:
+    S007   10.1200/OA-25-00008 not in the index
+
+  NOT SWEEPABLE — no DOI, PMID or arXiv id. These are watched by
+  hand or not at all, and this list is the honest size of that gap:
+    S001   Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoin
+    S002   Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026
+    S005   Merck & Moderna — first detailed KEYNOTE-942 results
+    S006   The ASCO Post — INTerpath-001 meets primary and key secondary en
+
+  baseline written to issues/WHU-001-melanoma/sweeps.json
+
+exit=0
+--------------------------------------------------------------
+sweep 2026-08-31T13:06:00Z  WHU-002-cdk46
+
+  CORRECTION AND RETRACTION SWEEP — WHU-002-cdk46
+  7 source(s) with an identifier, 14 without
+
+  CORRECTIONS, ERRATA AND RETRACTIONS
+    NEW S004  MONALEESA-2 — updated results. Ann Oncol, 2018
+           Erratum in — europepmc.org/article/MED/31407010
+
+  ------------------------------------------------------------------
+  7 source(s) queried.
+
+  NOT SWEEPABLE — no DOI, PMID or arXiv id:
+    S001   NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, v
+    S003   MONARCH 3 — final overall survival. Ann Oncol, 2024
+    S006   MONALEESA-7 — ribociclib plus endocrine therapy in premenopausal
+    S008   MONALEESA-7 — updated overall survival. Clin Cancer Res, 2022;28
+    S010   PALOMA-2 — final overall survival. J Clin Oncol, 2024
+    S011   PALMARES-2 — real-world comparison of first-line palbociclib, ri
+    S012   KISQALI (ribociclib) — US prescribing information
+    S013   VERZENIO (abemaciclib) — US prescribing information
+    S014   IBRANCE (palbociclib) — warnings and precautions
+    S015   Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, 
+    S018   HARMONIA — A Phase III, Multicenter, Open-label Study of Ribocic
+    S019   MONALEESA-2 — ClinicalTrials.gov results posting. NCT01958021.
+    S020   PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427.
+    S021   PALMARES-2 — ClinicalTrials.gov record. NCT06805812.
+
+  baseline written to issues/WHU-002-cdk46/sweeps.json
+
+
+  CITATION SWEEP — WHU-002-cdk46
+  7 source(s) with an identifier, 14 without
+
+  S002  MONARCH 3 — abemaciclib as initial therapy. J Clin Oncol, 2017
+      1000 citing paper(s) — FIRST SWEEP, so all of them
+        2026  Ther Adv Me Rationale and trial design of RIBOLARIS: A phase II trial of n
+                              Cottu P, Pascual T, Lemonnier J, Hu H, Roux E, Connolly RM, Ma
+        2026              Variation in uptake and dose reduction of CDK4/6 inhibitors fo
+                              Fisher L, Polwart C, Wood C, Goldacre B, Anderson L, Isherwood
+        2026  Int J Mol S Homer3 Promotes Aggressive Phenotypes in Triple-Negative Breas
+                              Tsai KY, Chang YJ, Lin JC, Prince GMSH, Batzorig U, Lee AW, Hu
+        2026  Case Rep On Immune-Mediated Hepatotoxicity Associated With Ribociclib: A M
+                              Buchalter J, O Donovan H, Jordan E, Galvin Z, Walshe JM.
+        2026  Breast Canc Machine learning and cox model-based prediction of CDK4/6 inhi
+                              Liu B, Wu T, Ding S, Liu X, Zeng X, Liu Z, Lu K, She J, Chen J
+        2026  ESMO Open   Impact of BRCA2 pathogenic variants on outcomes to first-line 
+                              Cruellas M, Rodriguez-Hernandez A, Carità L, Seguí E, Cejuela 
+        ... and 994 more, in sweeps.json
+
+  S004  MONALEESA-2 — updated results. Ann Oncol, 2018
+      648 citing paper(s) — FIRST SWEEP, so all of them
+        2026  Drug Dev Re Alternative Splicing in Cyclin-Dependent Kinase 4/6 Inhibitor 
+                              Cui Y, Xie J, Cai J, Si Y, Huang H, Yu S, Sun H.
+        2026  Transl Onco Time-varying hazard rates reveal patterns of progression in HR
+                              Cucciniello L, Giudici F, Foffano L, Franzoni A, Pastò B, Molt
+        2026  ESMO Open   Impact of BRCA2 pathogenic variants on outcomes to first-line 
+                              Cruellas M, Rodriguez-Hernandez A, Carità L, Seguí E, Cejuela 
+        2026  Front Oncol Molecular characteristics and advances in precision therapeuti
+                              Xia Y, Song J, Zhang H, Liu S, Luo J.
+        2026  Cancer Lett Membrane bionic supramolecular nanomaterials for co-delivered 
+                              Yu Y, Liu L, Cai Y, Wang T, Qiu K, Huang X, Wang Y, Shi M, Ni 
+        2026  Curr Oncol  Evolving First-Line Endocrine Therapy in HR+/HER2- Metastatic 
+                              Abdel-Razeq H, Sharaf B.
+        ... and 642 more, in sweeps.json
+
+  S005  MONALEESA-2 — overall survival with ribociclib plus letrozole. N E
+      644 citing paper(s) — FIRST SWEEP, so all of them
+        2026  Ther Adv Me Rationale and trial design of RIBOLARIS: A phase II trial of n
+                              Cottu P, Pascual T, Lemonnier J, Hu H, Roux E, Connolly RM, Ma
+        2026              Variation in uptake and dose reduction of CDK4/6 inhibitors fo
+                              Fisher L, Polwart C, Wood C, Goldacre B, Anderson L, Isherwood
+        2026  Case Rep On Immune-Mediated Hepatotoxicity Associated With Ribociclib: A M
+                              Buchalter J, O Donovan H, Jordan E, Galvin Z, Walshe JM.
+        2026  BJC Rep     Therapeutic challenges of a renal collision tumour comprising 
+                              Fulton A, Warren AY, Appukutty S, Matakidou A, Ince W, O'Carri
+        2026  J Manag Car Economic value of ribociclib in early breast cancer in the Uni
+                              Brufsky A, Tolaney SM, Gadi VK, Chai X, Yang F, Chen W, Ma W, 
+        2026  JAMA Oncol  Survival in the SONIA Trial.
+                              Kurose T, Shimomura A, Shimizu C.
+        ... and 638 more, in sweeps.json
+
+  S007  MONALEESA-7 — overall survival. N Engl J Med, 2019
+      759 citing paper(s) — FIRST SWEEP, so all of them
+        2026  Ther Adv Me Rationale and trial design of RIBOLARIS: A phase II trial of n
+                              Cottu P, Pascual T, Lemonnier J, Hu H, Roux E, Connolly RM, Ma
+        2026  Drugs       Emerging Strategies Targeting the PI3K/AKT/mTOR Pathway in HR+
+                              Lei L, Canning M, Sakach E, Lateef A, Kamga L, Abid M, Kalinsk
+        2026  ESMO Open   Impact of BRCA2 pathogenic variants on outcomes to first-line 
+                              Cruellas M, Rodriguez-Hernandez A, Carità L, Seguí E, Cejuela 
+        2026  Crit Rev On Molecular mechanisms of targeted therapy in breast cancer: An 
+                              Wang Y, Zhang M, Zhang X, Guo T, Wang Y, Yu C.
+        2026  Curr Oncol  Evolving First-Line Endocrine Therapy in HR+/HER2- Metastatic 
+                              Abdel-Razeq H, Sharaf B.
+        2026  Biochim Bio Cyclin-dependent kinases as signaling integrators in cancer: S
+                              Upadhyay S, Khan S, Bhardwaj M, Hassan MI.
+        ... and 753 more, in sweeps.json
+
+  S009  PALOMA-2 — palbociclib and letrozole. N Engl J Med, 2016
+      1000 citing paper(s) — FIRST SWEEP, so all of them
+        2026  Ther Adv Me Rationale and trial design of RIBOLARIS: A phase II trial of n
+                              Cottu P, Pascual T, Lemonnier J, Hu H, Roux E, Connolly RM, Ma
+        2026              Variation in uptake and dose reduction of CDK4/6 inhibitors fo
+                              Fisher L, Polwart C, Wood C, Goldacre B, Anderson L, Isherwood
+        2026  BMC Med     The tumour microenvironment influences long-term tamoxifen ben
+                              Camargo-Romera P, Castresana-Aguirre M, Danielsson O, Dar H, Ö
+        2026  Case Rep On Immune-Mediated Hepatotoxicity Associated With Ribociclib: A M
+                              Buchalter J, O Donovan H, Jordan E, Galvin Z, Walshe JM.
+        2026  JAMA Oncol  Survival in the SONIA Trial.
+                              Kurose T, Shimomura A, Shimizu C.
+        2026  Breast Canc Machine learning and cox model-based prediction of CDK4/6 inhi
+                              Liu B, Wu T, Ding S, Liu X, Zeng X, Liu Z, Lu K, She J, Chen J
+        ... and 994 more, in sweeps.json
+
+  S016  P-VERIFY — comparative overall survival of CDK4/6 inhibitors plus 
+      53 citing paper(s) — FIRST SWEEP, so all of them
+        2026  Cancers (Ba A Systematic Literature Review of the Effectiveness of CDK 4/6
+                              Pluard T, Grinda T, Dienstmann R, Thill M, Korytowsky B, Chen 
+        2026  ESMO Open   Real-world postprogression outcomes after first-line treatment
+                              Hart L, Rugo HS, Sharma P, Sammons S, Gadi VK, Mavros P, Kaur 
+        2026  Front Oncol Cyclin-dependent kinase 4/6 inhibitors in granulosa cell tumor
+                              Pacholczak-Madej R, Łupkowski R, Górniak K, Puskulluoglu M.
+        2026  BMC Cancer  Real-world outcomes of CDK4/6 inhibitors in combination with e
+                              Guo X, Li P, Hu S, Ding Y, Xie B, Cai Y, Chen H, Li X, Guo S, 
+        2026  Acta Oncol  PIK3CA mutation testing and alpelisib use in metastatic breast
+                              Drakenberg Danese MB, Vannas CP, Fagman HA, Karlsson PO, Larss
+        2026  Front Oncol Impact of socioeconomic status on tumor stage, molecular subty
+                              Li T, Liu H, Ma S, Guo L, Li J.
+        ... and 47 more, in sweeps.json
+
+  S017  Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa S
+      1 citing paper(s) — FIRST SWEEP, so all of them
+        2026  Clin Breast Palbociclib in Patients With HR+/HER2- Advanced or Metastatic 
+                              O'Shaughnessy J, Jahan N, Barry AL, Watters RJ, Korytowsky B, 
+
+  ------------------------------------------------------------------
+  7 source(s) queried, 4105 new citation(s).
+
+  NOT SWEEPABLE — no DOI, PMID or arXiv id. These are watched by
+  hand or not at all, and this list is the honest size of that gap:
+    S001   NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, v
+    S003   MONARCH 3 — final overall survival. Ann Oncol, 2024
+    S006   MONALEESA-7 — ribociclib plus endocrine therapy in premenopausal
+    S008   MONALEESA-7 — updated overall survival. Clin Cancer Res, 2022;28
+    S010   PALOMA-2 — final overall survival. J Clin Oncol, 2024
+    S011   PALMARES-2 — real-world comparison of first-line palbociclib, ri
+    S012   KISQALI (ribociclib) — US prescribing information
+    S013   VERZENIO (abemaciclib) — US prescribing information
+    S014   IBRANCE (palbociclib) — warnings and precautions
+    S015   Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, 
+    S018   HARMONIA — A Phase III, Multicenter, Open-label Study of Ribocic
+    S019   MONALEESA-2 — ClinicalTrials.gov results posting. NCT01958021.
+    S020   PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427.
+    S021   PALMARES-2 — ClinicalTrials.gov record. NCT06805812.
+
+  baseline written to issues/WHU-002-cdk46/sweeps.json
+
+exit=0
+--------------------------------------------------------------
+sweep 2026-08-31T13:06:42Z  WHU-003-deskilling
+
+  CORRECTION AND RETRACTION SWEEP — WHU-003-deskilling
+  19 source(s) with an identifier, 24 without
+
+  CORRECTIONS, ERRATA AND RETRACTIONS
+        S021  Budzyń, Romańczyk, Kitala, Kołodziej, Bugajski, Adami, Blo
+           Erratum in — europepmc.org/article/MED/40946709
+
+  ------------------------------------------------------------------
+  8 source(s) queried.
+
+  COULD NOT RESOLVE — not the same as nothing to report:
+    S001   2604.04721 not in the index
+    S005   10.31234/osf.io/wgu56 not in the index
+    S006   10.1111/jcal.70105 not in the index
+    S007   2506.08872 not in the index
+    S008   10.3390/soc15010006 not in the index
+    S011   10.1016/j.compedu.2024.105224 not in the index
+    S018   10.1186/s41239-026-00585-x not in the index
+    S019   2601.00856 not in the index
+    S020   2507.00181 not in the index
+    S026   2605.03512 not in the index
+    S038   10.1007/978-3-658-47422-5_27 not in the index
+    Europe PMC indexes the biomedical literature. It does not
+    carry MDPI's Societies, Wiley's J Comput Assist Learn,
+    Elsevier's Computers & Education, OSF preprints, or arXiv
+    computer-science preprints. Those are watched by hand.
+
+  NOT SWEEPABLE — no DOI, PMID or arXiv id:
+    S002   Wu, Zhu, Zhang, Yin & Wang (2026) — ChatGPT's impact on student 
+    S003   Wang & Fan (2025) — The effect of ChatGPT on students' learning 
+    S004   Retraction Note, Hum Soc Sci Commun, 22 April 2026
+    S012   Babaei-Balderlou & Shakya, The Conversation, 30 April 2026
+    S013   Hana Lee Goldin, Card Catalog, 26 May 2026
+    S014   Kate Hurley, EDUCAUSE Review, 15 December 2025 — The Paradox of 
+    S015   Plagiarism Today, 15 July 2026 — Study Claiming AI Helps Student
+    S016   NEPC, on 404 Media's coverage — Williamson and Tuomi quoted
+    S017   Shaw & Nave — Thinking—Fast, Slow, and Artificial: How AI is Res
+    S023   Sasha Rogelberg, Fortune, 26 August 2025 — on the colonoscopy de
+    S024   Omer F. Ahmad — 'Endoscopist deskilling: an unintended consequen
+    S025   Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Com
+    S027   Katrina Ray — 'AI-assisted colonoscopy and risk of endoscopist d
+    S029   Heudel, Crochet, Filori, Bachelot & Blay (2026) — Artificial int
+    S032   Zhou MJ (Stanford) — 'Artificial intelligence in colonoscopy: Co
+    S033   Samuel Greengard — 'The AI Deskilling Paradox', Communications o
+    S034   Josh Decker MD — 'When AI Reads the Easy Cases: Radiology's Trai
+    S035   Science Media Centre — expert reaction to the colonoscopy deskil
+    S036   Katie Palmer, STAT News, 12 August 2025 — 'AI use may be deskill
+    S037   Fox News Health — 'Colon cancer may be missed as doctors rely on
+    S039   Royal College of Pathologists — Cervical cancer and human papill
+    S040   Jeyaretnam M, Time, 13 August 2025 — on the colonoscopy deskilli
+    S041   The ASCO Post Staff, The ASCO Post, 13 August 2025 (updated 11 N
+    S042   Schimelpfening N (fact-checked by Seladi-Schulman J), Healthgrad
+
+  baseline written to issues/WHU-003-deskilling/sweeps.json
+
+
+  CITATION SWEEP — WHU-003-deskilling
+  19 source(s) with an identifier, 24 without
+
+  ------------------------------------------------------------------
+  8 source(s) queried, 0 new citation(s).
+
+  COULD NOT RESOLVE — not the same as nothing to report:
+    S001   2604.04721 not in the index
+    S005   10.31234/osf.io/wgu56 not in the index
+    S006   10.1111/jcal.70105 not in the index
+    S007   2506.08872 not in the index
+    S008   10.3390/soc15010006 not in the index
+    S011   10.1016/j.compedu.2024.105224 not in the index
+    S018   10.1186/s41239-026-00585-x not in the index
+    S019   2601.00856 not in the index
+    S020   2507.00181 not in the index
+    S026   2605.03512 not in the index
+    S038   10.1007/978-3-658-47422-5_27 not in the index
+
+  NOT SWEEPABLE — no DOI, PMID or arXiv id. These are watched by
+  hand or not at all, and this list is the honest size of that gap:
+    S002   Wu, Zhu, Zhang, Yin & Wang (2026) — ChatGPT's impact on student 
+    S003   Wang & Fan (2025) — The effect of ChatGPT on students' learning 
+    S004   Retraction Note, Hum Soc Sci Commun, 22 April 2026
+    S012   Babaei-Balderlou & Shakya, The Conversation, 30 April 2026
+    S013   Hana Lee Goldin, Card Catalog, 26 May 2026
+    S014   Kate Hurley, EDUCAUSE Review, 15 December 2025 — The Paradox of 
+    S015   Plagiarism Today, 15 July 2026 — Study Claiming AI Helps Student
+    S016   NEPC, on 404 Media's coverage — Williamson and Tuomi quoted
+    S017   Shaw & Nave — Thinking—Fast, Slow, and Artificial: How AI is Res
+    S023   Sasha Rogelberg, Fortune, 26 August 2025 — on the colonoscopy de
+    S024   Omer F. Ahmad — 'Endoscopist deskilling: an unintended consequen
+    S025   Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Com
+    S027   Katrina Ray — 'AI-assisted colonoscopy and risk of endoscopist d
+    S029   Heudel, Crochet, Filori, Bachelot & Blay (2026) — Artificial int
+    S032   Zhou MJ (Stanford) — 'Artificial intelligence in colonoscopy: Co
+    S033   Samuel Greengard — 'The AI Deskilling Paradox', Communications o
+    S034   Josh Decker MD — 'When AI Reads the Easy Cases: Radiology's Trai
+    S035   Science Media Centre — expert reaction to the colonoscopy deskil
+    S036   Katie Palmer, STAT News, 12 August 2025 — 'AI use may be deskill
+    S037   Fox News Health — 'Colon cancer may be missed as doctors rely on
+    S039   Royal College of Pathologists — Cervical cancer and human papill
+    S040   Jeyaretnam M, Time, 13 August 2025 — on the colonoscopy deskilli
+    S041   The ASCO Post Staff, The ASCO Post, 13 August 2025 (updated 11 N
+    S042   Schimelpfening N (fact-checked by Seladi-Schulman J), Healthgrad
+
+  baseline written to issues/WHU-003-deskilling/sweeps.json
+
+exit=0
