@@ -100,3 +100,34 @@ def test_vacuous_recovery_blocks(tmp_path, monkeypatch):
     rows = u.preflight_rows("x", page)
     assert states(rows)["sentences the gate has seen"] == BLOCKED
     assert "proves nothing" in rows[0][2]
+
+
+def test_cost_estimate_never_exceeds_a_full_run(tmp_path):
+    """An estimate above the price of the thing it replaces is wrong by inspection.
+
+    The first version fed every new sentence into the claim estimate instead of
+    the ones carrying claims, and quoted $7.41 to re-gate a page whose last full
+    run cost $2.83. It read as evidence because it printed its own derivation.
+    """
+    # cdk46's real bill: 11 source roles averaging $0.16, doc roles $1.03,
+    # total $2.83. A fixture of two source calls at $0.90 is not this pipeline
+    # and made the test assert against arithmetic nobody runs.
+    by = {"extract": {"usd": 0.18}, "advocate": {"usd": 0.22}, "inference": {"usd": 0.63}}
+    by.update({f"source:{i}": {"usd": 0.16} for i in range(11)})
+    report = {"usage": {"total": {"usd": 2.83}, "by_role": by},
+              "claims": [{"claim": "c"}] * 74,
+              "sentence_fingerprints": ["f"] * 296}
+    page = tmp_path / "p.html"
+    page.write_text("<p>x</p>", encoding="utf-8")
+
+    small = u.regate_cost(page, report, 28)
+    assert "about $" in small and "at most" not in small, small
+    huge = u.regate_cost(page, report, 155)
+    assert "at most $2.83" in huge, huge
+
+
+def test_cost_note_is_absent_when_the_last_run_recorded_no_usage(tmp_path):
+    """melanoma's report predates usage accounting. Say nothing rather than guess."""
+    page = tmp_path / "p.html"
+    page.write_text("<p>x</p>", encoding="utf-8")
+    assert u.regate_cost(page, {"claims": []}, 10) == ""

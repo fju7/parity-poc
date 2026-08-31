@@ -130,6 +130,67 @@ def judged_text(page: Path, report: dict) -> tuple[str | None, str]:
     return old, f"recovered from git at {commit[:8]}"
 
 
+def regate_cost(page: Path, report: dict, n_unjudged: int) -> str:
+    """What re-gating this page would actually cost, from the last run's own bill.
+
+    THIS EXISTS BECAUSE THE COST WAS THE CAUSE.
+
+    Issue two went ten days and nine commits without a model run, and the
+    reason was written down at the time: "I don't want to spend any more money
+    on issue 2 -- do the no cost fixes." That was a rational answer to a number
+    nobody had. The remembered price of a gate run was $10.63, which was
+    deskilling's FIRST full run, where SOURCE had to search every claim.
+
+    The last run's own usage says what the parts cost:
+
+        cdk46       SOURCE 64%   advocate+inference+extract  $0.85
+        deskilling  SOURCE 84%   advocate+inference+extract  $1.44
+
+    SOURCE is the expensive role and --since already scopes it: a claim whose
+    sentence is untouched keeps its verdict. The roles that must always re-run
+    -- ADVOCATE and INFERENCE read the whole document, and scoping THEM to the
+    diff is what lets a fixed sentence break a distant one -- are the cheap
+    ones.
+
+    So a correct re-gate after a correction is a couple of dollars, not ten.
+    Nobody was refusing to pay it; they were refusing to pay a price that was
+    never the real one. Printing the estimate next to the STOP puts the true
+    number where the decision is made.
+    """
+    usage = (report.get("usage") or {})
+    by = usage.get("by_role") or {}
+    total = (usage.get("total") or {}).get("usd")
+    if not by or not total:
+        return ""
+    doc_roles = sum(u.get("usd") or 0 for r, u in by.items()
+                    if r.split(":")[0] in ("advocate", "inference", "extract"))
+    src = [(r, u) for r, u in by.items() if r.split(":")[0] == "source"]
+    per_claim = (sum(u.get("usd") or 0 for _r, u in src) / len(src)) if src else 0.0
+    # One unjudged sentence rarely means one new claim; the last run's own
+    # ratio of claims to sentences is the closest thing to evidence we have.
+    n_claims = len(report.get("claims") or [])
+    n_sents = len(report.get("sentence_fingerprints") or []) or max(n_claims * 4, 1)
+    est_claims = max(1, round(n_unjudged * (n_claims / n_sents)))
+    est = doc_roles + per_claim * est_claims
+
+    # AN ESTIMATE THAT EXCEEDS THE THING IT IS AN ALTERNATIVE TO IS WRONG BY
+    # INSPECTION. The first version fed it every new sentence rather than the
+    # ones carrying claims, and quoted $7.41 to re-gate a page whose last FULL
+    # run cost $2.83. Nothing caught it, because a plausible-looking number
+    # with a derivation printed beside it reads as evidence -- which is the
+    # unanchored-judgment failure in miniature, in my own arithmetic.
+    #
+    # Re-checking part of a page cannot cost more than re-checking all of it,
+    # so the full-run price is the ceiling and the estimate says when it hits it.
+    if est >= total:
+        return ("re-gating costs at most $%.2f, what the last full run cost — the estimate "
+                "for the changed part came out no cheaper, so there is nothing to save by "
+                "being clever about it." % total)
+    return ("re-gating costs about $%.2f — $%.2f for the roles that must read the whole "
+            "page and roughly %d new claim(s) at $%.2f each. The last FULL run was $%.2f."
+            % (est, doc_roles, est_claims, per_claim, total))
+
+
 def preflight_rows(slug: str, page: Path) -> list[tuple[str, str, str]]:
     rp = page.with_suffix(page.suffix + ".gate.json")
     if not rp.exists():
@@ -183,13 +244,17 @@ def preflight_rows(slug: str, page: Path) -> list[tuple[str, str, str]]:
              "in markup or formatting" if not new else
              "%d sentence(s) on the page did not exist in the draft the gate judged (%s)"
              % (len(new), how))]
+    # The empirical ones, not every new sentence: prose generates no claims and
+    # counting it inflated the first estimate to more than a full run.
+    note = regate_cost(page, report, len(empirical))
     rows.append(("empirical sentences never judged",
                  OK if not empirical else BAD,
                  "every new sentence is prose, not a claim about the world"
                  if not empirical else
                  "%d sentence(s) carrying figures, trials or registry ids have never been "
-                 "examined by any role: %s"
-                 % (len(empirical), " || ".join(s[:90] for s in empirical[:3]))))
+                 "examined by any role: %s%s"
+                 % (len(empirical), " || ".join(s[:90] for s in empirical[:3]),
+                    ("  —  " + note) if note else "")))
     return rows
 
 
