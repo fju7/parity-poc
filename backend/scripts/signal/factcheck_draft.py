@@ -143,6 +143,22 @@ WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
 USAGE = []                       # one entry per API response, in call order
 
 
+_unjudged = None
+try:
+    import importlib.util as _ilu
+    _sp = _ilu.spec_from_file_location(
+        "unjudged",
+        Path(__file__).resolve().parents[1] / "whatholdsup" / "unjudged.py")
+    _unjudged = _ilu.module_from_spec(_sp)
+    _sp.loader.exec_module(_unjudged)
+except Exception:
+    class _NoFP:
+        @staticmethod
+        def fingerprints(_t):
+            return {}
+    _unjudged = _NoFP()
+
+
 def _record_usage(label, response):
     """Append what one response cost us. Never raises: this is bookkeeping."""
     try:
@@ -2044,9 +2060,28 @@ def main():
     def save(passed):
         if not args.report:
             return
+        # A fingerprint per sentence, so a later run can tell which sentences
+        # this report actually examined.
+        #
+        # Without it, the only way to answer that is to recover the judged
+        # draft from git -- and on 2026-08-31 that recovery silently proved
+        # nothing for issue three, because the gate report had been committed
+        # alongside the final page and `git show` handed back the same file.
+        # The comparison passed by comparing the page to itself.
+        #
+        # The failure it exists for: issue two's board read "state ok, every
+        # one of its 7 findings resolved" while the live page carried 28
+        # sentences of figures, trial names and registry ids added by a later
+        # correction, none of which any role had read. An absence of findings
+        # about a sentence is not a verdict about that sentence.
+        try:
+            _fps = sorted(_unjudged.fingerprints(path.read_text(encoding="utf-8")))
+        except Exception:
+            _fps = []
         Path(args.report).write_text(json.dumps({
             "draft": str(path),
             "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "sentence_fingerprints": _fps,
             "passed": passed,
             "carried": carried_note,
             "checked_at": today, "model": SIGNAL_MODEL,

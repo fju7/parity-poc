@@ -145,6 +145,15 @@ quotations = _sibling("quotations")
 # one asks ClinicalTrials.gov instead of asking a model.
 study_design = _sibling("study_design")
 
+# Added 2026-08-31. The gate reports "<- differs" when the page is not the
+# draft it judged, and then computes its state from the findings it has, which
+# say nothing about text added since. Issue two's board read "state ok, every
+# one of its 7 findings resolved" while the live page carried 28 sentences of
+# figures, trial names and registry ids introduced by the 30 August correction
+# -- the gate report does not contain the word Shaaban. Corrections are the
+# least-checked text on a page and the likeliest place for a second error.
+unjudged = _sibling("unjudged")
+
 # The registry lives in code rather than in the served directory: a JSON file
 # under site/ is deployed and fetchable, and this names files, not content.
 ISSUES = {
@@ -845,6 +854,7 @@ def preflight(slug: str, *, for_email: bool,
         out.extend(study_design.preflight_rows(slug, page.read_text(encoding="utf-8")))
     except SystemExit as e:
         out.append(("study-design characterisations", BAD, str(e)))
+    out.extend(unjudged.preflight_rows(slug, page))
     try:
         _live = live_body(cfg["url"])
         out.extend(ledger.audit(
