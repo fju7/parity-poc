@@ -301,11 +301,6 @@ function SideEvidence({ claimIds, claimsById, compositeMap, tone }) {
 
   if (cited.length === 0) return null;
 
-  const scored = cited.filter((c) => c.score != null);
-  const mean = scored.length
-    ? (scored.reduce((sum, c) => sum + c.score, 0) / scored.length).toFixed(1)
-    : null;
-
   const accent = tone === "for" ? "text-emerald-700" : "text-red-700";
 
   return (
@@ -314,11 +309,21 @@ function SideEvidence({ claimIds, claimsById, compositeMap, tone }) {
         onClick={() => setOpen(!open)}
         className={`w-full flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0 text-left text-[11px] font-semibold ${accent}`}
       >
-        <span className="tabular-nums">
-          {cited.length} claim{cited.length === 1 ? "" : "s"}
-          {mean ? ` · mean ${mean}` : ""}
+        {/* NO COUNT, NO MEAN. Removed 2026-08-31. Both were measurements of a
+            set whose membership our own mapping could not reproduce: the same
+            23 claims in diet/protective_foods_and_nutrients were split 7-4,
+            then 3-5, then 2-1 in three runs minutes apart, and one pass
+            assigned 3 of the 23. A mean over an arbitrary subset is arbitrary
+            too, and printing either as a tabular figure told a reader we had
+            weighed something. Even where the split IS stable, a claim count is
+            a count of sentences we extracted, not of evidence: ten claims from
+            one paper outnumber three from three independent trials. The claims
+            themselves stay -- a reader can open them and judge -- and each
+            keeps its own score, which is a real measurement OF that claim. */}
+        <span>{open ? "Hide the claims" : "Read the claims"}</span>
+        <span className="text-gray-400 font-normal" aria-hidden="true">
+          {open ? "\u2191" : "\u2193"}
         </span>
-        <span className="text-gray-400 font-normal">{open ? "hide" : "show"}</span>
       </button>
 
       {open && (
@@ -597,8 +602,8 @@ function DebateItem({ item, glossary, claimsById, compositeMap }) {
                 </div>
                 <p className="text-xs text-gray-700 leading-relaxed m-0">
                   Repeated measurement put these two positions within a claim or two
-                  of each other every time. Read the counts below as a tie, not as a
-                  lead for either side.
+                  of each other every time. Neither side leads. Both are below, in
+                  no order.
                 </p>
               </div>
             )}
