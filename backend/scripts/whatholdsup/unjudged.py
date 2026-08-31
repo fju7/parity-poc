@@ -166,29 +166,50 @@ def regate_cost(page: Path, report: dict, n_unjudged: int) -> str:
                     if r.split(":")[0] in ("advocate", "inference", "extract"))
     src = [(r, u) for r, u in by.items() if r.split(":")[0] == "source"]
     per_claim = (sum(u.get("usd") or 0 for _r, u in src) / len(src)) if src else 0.0
-    # One unjudged sentence rarely means one new claim; the last run's own
-    # ratio of claims to sentences is the closest thing to evidence we have.
+
+    # HOW MANY CLAIMS ACTUALLY GET RE-CHECKED, which is not what I first
+    # assumed. The first version estimated fresh claims from the count of
+    # unjudged empirical SENTENCES, and predicted 7. The run re-checked 46 and
+    # cost $5.20 against a $2.18 estimate.
+    #
+    # --since carries a verdict forward only when the claim's (figure, source)
+    # key matches exactly. Rewording a sentence changes the extracted claim and
+    # breaks the key even when the figure did not move, so far more claims are
+    # re-checked than "new sentences" implies. The last run's own carry rate is
+    # the honest predictor: cdk46 carried 45 of 74, and 39% of 74 is 29 claims
+    # at $0.16 -- $5.67 against an actual $5.20, instead of $2.18.
     n_claims = len(report.get("claims") or [])
-    n_sents = len(report.get("sentence_fingerprints") or []) or max(n_claims * 4, 1)
-    est_claims = max(1, round(n_unjudged * (n_claims / n_sents)))
+    carried = 0
+    for line in (report.get("carried") or []):
+        m = re.search(r"(\d+)\s+claim verdict", str(line))
+        if m:
+            carried = int(m.group(1))
+    if not n_claims:
+        return ""
+    fresh_rate = max(0.0, 1.0 - (carried / n_claims)) if carried else 1.0
+    est_claims = max(1, round(n_claims * fresh_rate))
     est = doc_roles + per_claim * est_claims
 
-    # AN ESTIMATE THAT EXCEEDS THE THING IT IS AN ALTERNATIVE TO IS WRONG BY
-    # INSPECTION. The first version fed it every new sentence rather than the
-    # ones carrying claims, and quoted $7.41 to re-gate a page whose last FULL
-    # run cost $2.83. Nothing caught it, because a plausible-looking number
-    # with a derivation printed beside it reads as evidence -- which is the
-    # unanchored-judgment failure in miniature, in my own arithmetic.
+    # NO CEILING. An earlier version clamped the estimate to the last full
+    # run's price, reasoning that re-checking part of a page cannot cost more
+    # than re-checking all of it. That is only true if the page has not grown.
+    # Issue two's re-gate cost $5.20 against a previous full run of $2.83,
+    # because the page had gained 155 sentences and the run extracted 92 claims
+    # where the old one found 74. The clamp would have reported "at most $2.83"
+    # about a run that cost nearly twice that -- a comforting number, and false.
     #
-    # Re-checking part of a page cannot cost more than re-checking all of it,
-    # so the full-run price is the ceiling and the estimate says when it hits it.
-    if est >= total:
-        return ("re-gating costs at most $%.2f, what the last full run cost — the estimate "
-                "for the changed part came out no cheaper, so there is nothing to save by "
-                "being clever about it." % total)
-    return ("re-gating costs about $%.2f — $%.2f for the roles that must read the whole "
-            "page and roughly %d new claim(s) at $%.2f each. The last FULL run was $%.2f."
-            % (est, doc_roles, est_claims, per_claim, total))
+    # An estimate that is allowed to exceed its reference point is less tidy and
+    # more honest, so it says what it rests on and where it can be wrong.
+    grew = ""
+    if n_unjudged:
+        grew = (" The page has %d unjudged sentence(s) since that run, so it has grown and "
+                "the real figure is likely HIGHER than this." % n_unjudged)
+    return ("re-gating costs roughly $%.2f — $%.2f for the roles that must read the whole "
+            "page, plus about %d claim(s) at $%.2f. The claim count comes from the last "
+            "run's carry rate (%d of %d carried), not from counting what changed: the "
+            "estimator that counted changed sentences predicted $2.18 for a run that cost "
+            "$5.20.%s The last full run was $%.2f on a page with %d claims."
+            % (est, doc_roles, est_claims, per_claim, carried, n_claims, grew, total, n_claims))
 
 
 def preflight_rows(slug: str, page: Path) -> list[tuple[str, str, str]]:

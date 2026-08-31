@@ -102,28 +102,41 @@ def test_vacuous_recovery_blocks(tmp_path, monkeypatch):
     assert "proves nothing" in rows[0][2]
 
 
-def test_cost_estimate_never_exceeds_a_full_run(tmp_path):
-    """An estimate above the price of the thing it replaces is wrong by inspection.
+def test_cost_estimate_uses_the_carry_rate_and_may_exceed_the_last_run():
+    """Replaces an assertion that was wrong, and cost real money to disprove.
 
-    The first version fed every new sentence into the claim estimate instead of
-    the ones carrying claims, and quoted $7.41 to re-gate a page whose last full
-    run cost $2.83. It read as evidence because it printed its own derivation.
+    The first estimator counted unjudged SENTENCES and predicted $2.18. The run
+    cost $5.20. Two separate mistakes:
+
+    1. --since carries a verdict forward only when a claim's (figure, source)
+       key matches exactly, so rewording a sentence breaks the key even when
+       the figure did not move. Far more claims are re-checked than "new
+       sentences" suggests. The last run's own carry rate is the honest
+       predictor: 45 of 74 carried, so 29 fresh at $0.16 plus $1.03 of
+       document-level roles is $5.67 — within 9% of the actual.
+
+    2. The estimate was then CLAMPED to the last full run's price, on the
+       reasoning that re-checking part of a page cannot cost more than
+       re-checking all of it. True only if the page has not grown. Issue two
+       had gained 155 sentences and the run extracted 92 claims where the old
+       one found 74, so the clamp would have reported "at most $2.83" about a
+       run that cost nearly double. A comforting number, and false.
+
+    The estimate is now allowed to exceed its reference point and says so.
     """
-    # cdk46's real bill: 11 source roles averaging $0.16, doc roles $1.03,
-    # total $2.83. A fixture of two source calls at $0.90 is not this pipeline
-    # and made the test assert against arithmetic nobody runs.
     by = {"extract": {"usd": 0.18}, "advocate": {"usd": 0.22}, "inference": {"usd": 0.63}}
     by.update({f"source:{i}": {"usd": 0.16} for i in range(11)})
     report = {"usage": {"total": {"usd": 2.83}, "by_role": by},
               "claims": [{"claim": "c"}] * 74,
-              "sentence_fingerprints": ["f"] * 296}
-    page = tmp_path / "p.html"
+              "carried": ["45 claim verdict(s) carried forward"]}
+    page = Path("/tmp/estimator-probe.html")
     page.write_text("<p>x</p>", encoding="utf-8")
 
-    small = u.regate_cost(page, report, 28)
-    assert "about $" in small and "at most" not in small, small
-    huge = u.regate_cost(page, report, 155)
-    assert "at most $2.83" in huge, huge
+    note = u.regate_cost(page, report, 28)
+    assert "$5.67" in note, note
+    assert "at most" not in note, "the false ceiling is back"
+    assert "45 of 74 carried" in note, "the estimate must show what it rests on"
+    assert "likely HIGHER" in note, "a grown page must be flagged as under-estimated"
 
 
 def test_cost_note_is_absent_when_the_last_run_recorded_no_usage(tmp_path):

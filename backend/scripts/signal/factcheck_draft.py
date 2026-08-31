@@ -172,6 +172,7 @@ def _load_spend():
 
 
 _spend = _load_spend()
+_SPEND_RECORDED = False
 
 _unjudged = None
 try:
@@ -2133,7 +2134,18 @@ def main():
         # Into the append-only ledger as well as the report. The report is
         # overwritten by the next run, which is why git preserved only $20.66
         # of a spend the operator experienced as roughly $100 an issue.
-        if _spend is not None:
+        # ONCE PER PROCESS, not once per save(). save() is called twice --
+        # save(None) partway through and save(not failed) at the end -- so the
+        # first wiring recorded every run TWICE. Issue two's re-gate cost $5.20
+        # and the ledger said $10.39, which is how it was noticed: the estimate
+        # was checked against the actual, and the actual was wrong.
+        #
+        # A ledger that overcounts is not the safe direction. It would have
+        # tripped the $40 cap at real spend of $20 and stopped work for a
+        # reason that was not true.
+        global _SPEND_RECORDED
+        if _spend is not None and not _SPEND_RECORDED:
+            _SPEND_RECORDED = True
             _issue = Path(path).name.split(".")[0]
             for _role, _u in (usage_summary().get("by_role") or {}).items():
                 _spend.record(script="factcheck_draft.py", role=_role, issue=_issue,
