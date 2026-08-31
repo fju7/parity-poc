@@ -2178,6 +2178,83 @@
       "decided": "2026-08-30",
       "reason": "UPHELD. CrossRef's registered record for DOI 10.1016/j.esmorw.2026.100693 gives volume 12, no issue, article 100693, June 2026. Our 11(C) came from the PDF's own running footer, which reads “Volume 11 ■ Issue C ■ 2026” above “Available online xxx” — the marker of a pre-pagination proof. The citation now reads 2026;12:100693 and the source note records where the two disagree and why we cite the registered record. KEEP THIS DECISION EVEN THOUGH THE QUOTED STRING IS GONE FROM THE PAGE: the orphan check looks for the sentence in the text, the gate keys on the finding it raised, and until a fresh run the finding is still reported against the old citation. Deleting it as dead weight re-opened this on the board an hour after it was fixed.",
       "what_would_change_it": "A fresh gate run, after which the finding is gone and this can go with it."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "HR 0.921 (0.755–1.124)",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude, checked at the registry",
+      "reason": "The role asserted that no primary or secondary source gives HR 0.921 (0.755-1.124). ClinicalTrials.gov posts exactly that for NCT01740427 under 'Overall Survival (OS): Final Analysis', HR 0.921, CI 0.755-1.124, p = 0.208706, annotated '1-sided p-value from the stratified log-rank test'. The role searches the web and cannot reach the registry's structured results; its own notes on neighbouring claims say so. Acting on this would have replaced a correct figure with 0.956, which is the PRIMARY analysis, not the final one.",
+      "what_would_change_it": "The registry changing what it posts for that outcome measure."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "HR 0.765 (95% CI 0.628–0.932), p = 0.004",
+      "severity": "NOT_FOUND",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude, checked at the registry",
+      "reason": "ClinicalTrials.gov posts exactly these figures for NCT01958021's overall-survival outcome: HR 0.765, CI 0.628-0.932, p = 0.004. NOT_FOUND was a statement about what the role could reach, which is what the prompt says it should mean, but it was raised as a finding against a figure that is posted.",
+      "what_would_change_it": "The registry changing what it posts."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "one-sided cumulative 2.5% level of significance",
+      "severity": "NOT_FOUND",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude, checked at the registry",
+      "reason": "The phrase is verbatim in NCT01958021's overall-survival description: 'The distribution of OS between the two treatment arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance.' The role reported it unverifiable because the results page would not load for it.",
+      "what_would_change_it": "The registry record changing its wording."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "1-sided p-value from the stratified log-rank test",
+      "severity": "NOT_FOUND",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude, checked at the registry",
+      "reason": "NCT01740427 carries this annotation on both posted overall-survival analyses, primary and final. Confirmed by direct API call.",
+      "what_would_change_it": "The registry changing its annotations."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "the guideline lists all three as preferred first-line options",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "Fred Ugast (read v6.2026 directly); claude",
+      "reason": "The role's objection is that this obscures ribociclib+AI being category 1 while the other two are 2A. The page states exactly that, in the sentence before one of the quoted uses: 'Abemaciclib and palbociclib are category 2A. The preference designation does not differ across the three. Only the category of evidence does.' It is also the piece's title and thesis. The role reads a quote without its surrounding text. Separately, the underlying grading was verified by a human reading v6.2026 on 28 and 29 August, which no automated check may open: abemaciclib is category 1 with fulvestrant and 2A with an AI.",
+      "what_would_change_it": "The page dropping the category sentence, or the guideline regrading."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "PMID 41093689",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude, checked at Europe PMC",
+      "reason": "The role says the publisher marks the corrigendum open access under Creative Commons, so 'not open access' is wrong. The page's claim is specifically about Europe PMC's record, and Europe PMC returns isOpenAccess: N, inEPMC: N, inPMC: N, with a single route: DOI, 'Subscription required'. The licence field does read cc by-nc-nd, and the role read a licence as an access status. The page's sentence is precisely scoped and correct. This page has been wrong about this corrigendum in both directions before, and is now right.",
+      "what_would_change_it": "Europe PMC changing the record to open access, or a readable route appearing."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "COVERAGE",
+      "quote": "Abemaciclib’s hazard ratio is 0.80 , on an interval running 0.64 to 1.02 .",
+      "severity": "MINOR",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude",
+      "reason": "The role says these figures 'appear to derive from an interim analysis, not the final OS result'. They do not. The source entry gives HR 0.804 (95% CI 0.637-1.015), two-sided P = .0664 at 8.1 years, and the table labels the row 'final analysis, 8.1 y, Ann Oncol 2024'. The body rounds to two decimals, which is standard, and the exact values are on the page where precision matters.",
+      "what_would_change_it": "A later MONARCH 3 readout superseding the 8.1-year final analysis."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",
