@@ -863,6 +863,62 @@ def append_record(entry: dict) -> None:
 
 
 
+JOBS = ROOT / "backend" / "data" / "jobs"
+JOB_STALE_MINUTES = 20
+
+
+def queued_jobs_rows() -> list[tuple[str, str, str]]:
+    """Is the unattended runner actually running the work we handed it?
+
+    WHY THIS EXISTS
+    ---------------
+    On 2026-08-31 two gate runs were queued for the launchd runner, whose
+    StartInterval is 30 seconds. Ninety seconds later the queue was untouched
+    and backend/data/jobs/logs/ was EMPTY -- not a failed run, not a refusal,
+    no runner.out and no runner.err, which launchd creates on any invocation.
+    The runner has never executed a job.
+
+    That is not the interesting part. The interesting part is that nothing
+    anywhere would have said so. The queue is a directory; a job sitting in it
+    forever looks exactly like a job about to start, and the board that blocks
+    on "the gate has not read these sentences" would have gone on saying so
+    while the run meant to fix it sat unread on disk. The operator would have
+    come back tomorrow to the same board and no way to tell whether he was
+    waiting on a run or on nothing.
+
+    An unstarted job is not a job in progress. Every other check here exists
+    because a disclosure that nothing could act on turned out to be no control
+    at all; this is the same principle applied to our own automation.
+    """
+    q = JOBS / "queue"
+    if not q.exists():
+        return []
+    jobs = sorted(q.glob("*.json"))
+    if not jobs:
+        return []
+    now = time.time()
+    oldest = min(f.stat().st_mtime for f in jobs)
+    waited = int((now - oldest) / 60)
+    log_dir = JOBS / "logs"
+    ran_ever = any(log_dir.glob("*")) if log_dir.exists() else False
+    names = ", ".join(f.stem for f in jobs[:4])
+    if waited < JOB_STALE_MINUTES:
+        return [("queued jobs", OK,
+                 "%d job(s) waiting for the runner, oldest %d min: %s"
+                 % (len(jobs), waited, names))]
+    return [("queued jobs", BAD,
+             "%d job(s) have been in the queue %d minutes and nothing has run them: %s. "
+             "%s Check the runner: `launchctl list org.whatholdsup.jobrunner` on the Mac, "
+             "and `bash backend/scripts/whatholdsup/schedule/runner.sh` runs the queue "
+             "in the foreground. A job nobody started is not a job in progress, and a "
+             "board that cannot tell the difference is telling you to wait for nothing."
+             % (len(jobs), waited, names,
+                "backend/data/jobs/logs/ is EMPTY, so the runner has never executed "
+                "anything -- launchd writes runner.out on any invocation."
+                if not ran_ever else
+                "The runner has run before, so this is a new failure."))]
+
+
 def outside_review(page: Path, slug: str) -> tuple[str, str]:
     """Has an independent reviewer read THIS version of the assessment?
 
@@ -1074,6 +1130,7 @@ def preflight(slug: str, *, for_email: bool,
         slug, already_published=any(r["issue"] == slug and r["action"] == "publish"
                                     for r in load_record())))
     out.extend(intake.preflight_rows(slug))
+    out.extend(queued_jobs_rows())
     # A LIVING issue promises a reader it is current. That promise is only
     # honest if somebody has actually looked, and the page has to display the
     # date of the last CHECK rather than the last change. These rows are empty
