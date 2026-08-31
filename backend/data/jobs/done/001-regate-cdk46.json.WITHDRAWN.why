@@ -1,0 +1,11 @@
+Withdrawn 2026-08-31 before the runner was installed.
+
+The operator was already running this exact re-gate by hand. Installing the
+runner with this job still queued would have run it a SECOND time, minutes
+later, and spent the $2.18 twice — on the same page, for the same answer.
+
+The runner's own guard does not cover this: it claims a job before running so
+two launchd ticks cannot both start it, but a job queued here and a person
+running the same command in a terminal are two different launch paths, and
+nothing reconciles them. Worth remembering the next time a job is queued for
+something a human may already be doing.

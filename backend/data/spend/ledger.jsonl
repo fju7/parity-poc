@@ -66,3 +66,4 @@
 {"at": "2026-08-30T12:00:00+00:00", "script": "factcheck_draft.py", "role": "source:Decker J, 'When AI Reads the E", "issue": "deskilling", "usd": 0.3678, "input": 99419, "output": 1301, "web_searches": 5, "note": "backfilled from git 7c95f924"}
 {"at": "2026-08-30T12:00:00+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "deskilling", "usd": 0.7981, "input": 214710, "output": 6266, "web_searches": 6, "note": "backfilled from git 7c95f924"}
 {"at": "2026-08-30T12:00:00+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "deskilling", "usd": 0.6373, "input": 159560, "output": 6573, "web_searches": 6, "note": "backfilled from git 7c95f924"}
+{"at": "2026-08-31T21:26:24+00:00", "script": "spend_ledger", "role": "override", "issue": "cdk46", "usd": 0.0, "input": 0, "output": 0, "web_searches": 0, "note": "cap $5.00, already $10.03, about to spend $3.00 \u2014 testing that an override is written to the ledger"}

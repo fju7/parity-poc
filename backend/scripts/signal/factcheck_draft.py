@@ -2013,6 +2013,28 @@ def main():
     if not args.draft:
         ap.error("a draft path is required (or use --verify / --known-errors / --survey)")
 
+    # THE CAP, ENFORCED RATHER THAN REPORTED.
+    #
+    # The ledger was wired to RECORD spend and nothing was wired to STOP it, so
+    # for an hour the "$40 cap" existed only as a number printed on a board --
+    # which is the same thing the old two-runs cap was, and it eroded because
+    # nothing enforced it. A cap that reports is a gauge, not a cap.
+    #
+    # This matters more now that jobs can run unattended: the operator agreed to
+    # that on the condition the cap was real.
+    if _spend is not None:
+        _issue_slug = Path(args.draft).name.split(".")[0]
+        try:
+            _spend.check_cap(_issue_slug, about_to_spend=3.0)
+        except Exception as _exc:
+            if type(_exc).__name__ == "OverCap":
+                print("\n  STOPPED BEFORE SPENDING.\n")
+                for _line in str(_exc).splitlines():
+                    print("  " + _line)
+                print()
+                sys.exit(3)
+            raise
+
     warn_if_unpinned()
     path = Path(args.draft)
 
