@@ -1,0 +1,11 @@
+{
+  "note": "Issue two re-gate. 28 empirical sentences on the page have never been examined by any role; the gate report is from 28 August and the page has nine commits after it. Estimated $2.18, ceiling $2.83 (the last full run).",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/cdk46.html",
+    "--since", "../site/whatholdsup/cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/cdk46.html.gate.json"
+  ]
+}
