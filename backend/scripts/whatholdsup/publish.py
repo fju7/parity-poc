@@ -503,13 +503,66 @@ def acceptance_for(slug: str | None, target: Path, digest: str) -> dict | None:
     return None
 
 
+def registry_overturns(slug: str, target: Path) -> set[str]:
+    """Numbers the trial registry confirms, so a model verdict cannot outrank it.
+
+    THE REASON THIS IS CODE AND NOT A BETTER PROMPT.
+
+    SOURCE_SYSTEM already forbids what happened on 2026-08-31, in its own
+    words, having been taught by three earlier incidents:
+
+        NOT_FOUND ... This is a statement about what you could reach, NOT
+        about whether the thing exists.
+
+        If you cannot establish that, the verdict is NOT_FOUND -- you could
+        not reach the right source -- and not WRONG_VALUE.
+
+    The role returned WRONG_VALUE on PALOMA-2's HR 0.921 (0.755-1.124),
+    asserting that no source gives it. ClinicalTrials.gov posts it under
+    "Overall Survival (OS): Final Analysis". The instruction was explicit, the
+    reasoning behind it was in the prompt, and the role broke it anyway.
+
+    A rule a model is told is not a control. So where a deterministic check and
+    a model verdict disagree, the deterministic one wins and the disagreement is
+    recorded. That is the whole architecture, applied to the one place it was
+    still missing: the check that decides whether a figure is real.
+    """
+    try:
+        confirmed = {f["norm"] for f in registry_figures.findings(
+            slug, target.read_text(encoding="utf-8")) if f["in_registry"]}
+    except Exception as exc:
+        # NOT a silent return. The first version swallowed the exception and
+        # returned an empty set, so the reconciliation reported "0 overturned"
+        # and looked like a considered answer rather than a crash. A check that
+        # fails quietly is indistinguishable from a check that found nothing,
+        # which is the whole reason this file exists.
+        print("  [WARN] registry reconciliation failed, so no model verdict was "
+              "checked against the registry: %s: %s" % (type(exc).__name__, exc))
+        return set()
+    return confirmed
+
+
+def _figures_all_confirmed(figure: str, confirmed: set[str]) -> bool:
+    """True only if EVERY number in the finding's figure is posted by the registry.
+
+    Every one, not any: overturning "HR 0.921 (0.755-1.124)" because the
+    registry happens to post 0.921 somewhere, while the interval is a different
+    analysis, would be the same over-reach in the opposite direction.
+    """
+    nums = re.findall(r"\d+\.\d+", figure or "")
+    if not nums:
+        return False
+    return all(("%g" % float(n)) in confirmed for n in nums)
+
+
 def gate_state(target: Path, slug: str | None = None) -> dict:
     """Everything knowable about this file's gate without spending a run."""
     slug = slug or slug_for(target)
     rp = target.with_suffix(target.suffix + ".gate.json")
     d = {"report": rp, "target": target, "exists": rp.exists(), "fresh": False,
          "findings": [], "blocking": [], "outstanding": [], "resolved": [],
-         "suspect": [], "unlocatable": [], "settled": [], "calibration": 0, "accepted": None,
+         "suspect": [], "unlocatable": [], "settled": [], "overturned": [],
+         "calibration": 0, "accepted": None,
          "state": BAD, "detail": "", "notes": []}
     if not rp.exists():
         d["detail"] = "never gated — there is no %s" % rp.name
@@ -528,6 +581,7 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
 
     body = flatten(target.read_text(encoding="utf-8"))
     sources = coverage_sources(r)
+    confirmed_by_registry = registry_overturns(slug, target)
     decisions = fc.load_decisions(fc.DECISIONS, target.name)
     for f in gate_findings(r):
         f["where"] = still_in_text(f, body)
@@ -543,6 +597,19 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
         # made the board worse. Thirty-one decisions were silently unmatched
         # this way before anyone noticed. The key must be the same string on
         # both sides.
+        # A verdict the registry refutes stops blocking, and says who overruled
+        # it. Only SOURCE verdicts: the advocate and inference roles are not
+        # making a claim about what a document contains.
+        if (f["kind"] == "verdict" and f["class"] in ("WRONG_VALUE", "NOT_FOUND")
+                and _figures_all_confirmed(f.get("figure", ""), confirmed_by_registry)):
+            f["blocking"] = False
+            f["overturned"] = True
+            d["overturned"].append(f)
+            f["why"] = ("the trial registry posts every figure in this claim; the role "
+                        "reported %s having searched the web, which does not reach "
+                        "ClinicalTrials.gov's structured results. Deterministic check wins. "
+                        "Original note: %s" % (f["class"], (f.get("why") or "")[:160]))
+
         _key = f["class"] if f["kind"] == "verdict" else f["severity"]
         f["decided"], dec, _how = fc.classify(ROLE_OF.get(f["kind"], ""), f["quote"],
                                               _key, decisions)
@@ -569,6 +636,15 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
             d["outstanding"].append(f)
             if f["where"] == "unknown":
                 d["unlocatable"].append(f)
+
+    if d["overturned"]:
+        d["notes"].append(
+            "%d SOURCE verdict(s) overturned by ClinicalTrials.gov — the role reported a "
+            "figure missing or wrong having searched the web, which does not reach the "
+            "registry's structured results, and the registry posts every number in the "
+            "claim: %s. A deterministic check outranks a model verdict, and the disagreement "
+            "is recorded rather than dropped."
+            % (len(d["overturned"]), ", ".join(f["id"] for f in d["overturned"])))
 
     d["accepted"] = acceptance_for(slug, target, d["current_sha"])
     nb, no_, nr = len(d["blocking"]), len(d["outstanding"]), len(d["resolved"])
