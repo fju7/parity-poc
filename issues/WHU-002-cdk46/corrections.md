@@ -64,6 +64,35 @@ that its power calculation is on response rate, and that **progression-free
 survival is a secondary endpoint** — which this page now says where it prints
 those figures.
 
+## 31 August 2026 — three found by our own checks, after publication
+
+**A registry number that belonged to a different trial.** In correcting itself
+on 30 August this page added a second, independent confirmation of the direction
+of MONALEESA-7's overall-survival test, and cited NCT01740427 for it. That is
+PALOMA-2's registry number. MONALEESA-7 is NCT02278120, whose posting gives the
+analysis as p = 0.00973 annotated "One-sided stratified log-rank test" — so the
+claim was right and the citation sent a reader checking it to the wrong study,
+which is worse than a visible error. Corrected, and the right record is now in
+the source list.
+
+**A quotation that was not one.** This page put the words "year of updated data
+2023" inside quotation marks and attributed them to Table 1 of the network
+meta-analysis. That string is not in the paper. "Year of updated data" is a row
+label and 2023 is a cell four columns along it. The meaning was right and the
+quotation was invented, and a reader who went looking for those words would not
+have found them. The page now quotes the label and states the value outside the
+marks. Found by a quotation matcher written the same day, on its first run.
+
+**A source that prints two different numbers.** The network meta-analysis gives
+its pooled median follow-up as 73.3 months in its abstract and 70.2 months in
+its results section, over the same range of 48.7 to 97.2 months. This page had
+printed 73.3 alone. We cannot say which is right — the range is identical in
+both, so it is one dataset with two summary statistics, and both readings come from the paper
+itself, read on the publisher's site and again in the Europe PMC full text.
+A meta-analysis has no registry record to settle it against. Printing one
+figure from a source that prints two, without saying so, is the thing this
+page exists not to do. The page keeps the abstract's figure and now discloses the other.
+
 ## 29 August 2026 — the guideline lists all three drugs as preferred, and we did not say so
 
 The version of this assessment published on 28 August reported that NCCN's

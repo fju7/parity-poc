@@ -279,16 +279,22 @@
       "url": "https://www.nature.com/articles/s41598-024-53151-8",
       "type": "comparison",
       "title": "Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024",
-      "accessed": "2026-08-28",
-      "used_for": "Seven phase III trials, 4,415 patients, 73.3 months median follow-up. No significant pairwise overall-survival difference. Published before MONARCH 3’s final overall-survival analysis, so its MONARCH 3 input is the interim HR 0.754 rather t",
+      "accessed": "2026-08-31",
+      "used_for": "Seven phase III trials, 4,415 patients. No significant pairwise overall-survival difference between the three drugs. Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) and its “Year of updated data” row gives 2023 for that trial, and its reference list cites the SABCS 2023 final overall-survival abstract — so its MONARCH 3 input is the FINAL analysis, not the interim HR 0.754. An earlier version of this page said the opposite, on the strength of our own automated check rather than the paper; an outside reviewer opened the table and corrected us (CORR-01 era). Median follow-up: the abstract gives 73.3 months (range 48.7-97.2), the results section gives 70.2 over the same range. The page prints the abstract's and discloses the discrepancy, which is the source's own; see CORR-08.",
       "access": {
         "state": "machine_read",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
+        "by": "claude, via retrieval — not read by a human",
+        "on": "2026-08-31",
         "sections": [
-          "whatever the search tool returned for this URL"
+          "abstract and results section, retrieved from the nature.com article page",
+          "abstract and results section, retrieved again from the Europe PMC full-text XML for PMC10850180 — a different host and representation",
+          "Table 1, read through Europe PMC full text on 31 August (recorded as Q-16)"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "not_read": [
+          "the supplementary material",
+          "Table 1 on nature.com — that URL is disallowed by robots.txt, and PMC's HTML is behind a CAPTCHA; the table was reached only through Europe PMC"
+        ],
+        "note": "Provenance recorded because it decided the outcome. Four retrievals were run for the median-follow-up figures. Three returned both sentences verbatim, across two hosts. One returned “this string does not appear in the document” for 70.2 — and in the same answer said Table 1 was not fully present in what it had received. It was reporting absence from a document it did not hold. An absence reported by a truncated retrieval is not evidence of absence."
       }
     },
     {

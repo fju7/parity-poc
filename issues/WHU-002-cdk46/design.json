@@ -1,6 +1,6 @@
 {
   "what_this_is": "Trial name to ClinicalTrials.gov identifier for issue two, so study_design.py can check the page's design characterisations against the registry instead of against a model's guess.",
-  "how_these_were_established": "Each NCT was confirmed by reading the registry's own title on 2026-08-31, not by recall and not by taking the first search hit. Searching 'MONARCH 2' by title returns NCT02747004 and NCT02102490 first, and neither is MONARCH 2; the right record is NCT02107703, whose official title begins 'MONARCH 2: A Randomized, Double-Blind, Placebo-Controlled, Phase 3 Study'. A trial map assembled from search results without that check would have quietly pointed three claims at the wrong studies.",
+  "how_these_were_established": "Each NCT was confirmed by reading the registry's own title on 2026-08-31, not by recall and not by taking the first search hit. Searching 'MONARCH 2' by title returns NCT02747004 and NCT02102490 first, and neither is MONARCH 2; the right record is NCT02107703, whose official title begins 'MONARCH 2: A Randomized, Double-Blind, Placebo-Controlled, Phase 3 Study'. A trial map assembled from search results without that check would have quietly pointed three claims at the wrong studies. HARMONIA added 2026-08-31 by the same test: NCT05207709's official title ends '- HARMONIA Trial' and its acronym field is HARMONIA. It had been absent because the name-to-NCT harvester required a digit in the trial name, so a trial named by a word alone was invisible to every registry check on this page — the design check, the figures check and the facts check all skipped it silently. That is a hole in coverage, not a finding, and it is the reason a check must report what it did NOT look at.",
   "trials": {
     "PALOMA-1": "NCT00721461",
     "PALOMA-2": "NCT01740427",
@@ -11,7 +11,8 @@
     "MONARCH 2": "NCT02107703",
     "MONARCH-2": "NCT02107703",
     "MONARCH 3": "NCT02246621",
-    "MONARCH-3": "NCT02246621"
+    "MONARCH-3": "NCT02246621",
+    "HARMONIA": "NCT05207709"
   },
   "registry_says": {
     "PALOMA-2": "QUADRUPLE masked, RANDOMIZED, PHASE3",

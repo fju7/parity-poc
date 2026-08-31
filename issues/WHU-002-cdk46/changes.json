@@ -1885,6 +1885,231 @@
       "because": "CORR-03",
       "at": "2026-08-31",
       "note": "The unknowability check was widened across tenses on 2026-08-31 and then caught this sentence, which claimed something could not be said while naming nowhere it had been looked for. Europe PMC is now named in the sentence rather than only in the one before it."
+    },
+    {
+      "at": "2026-08-31T22:20:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis - \"statistical comparison was made by 1-sided stratified log-rank test\" - which is where this page takes it from, the journal paper being behind a wall we could not open.",
+      "now": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis - \"statistical comparison was made by 1-sided stratified log-rank test\" - and confirmed independently in the trial's ClinicalTrials.gov results posting ( NCT02278120 ), whose overall-survival analysis is posted with p = 0.00973 and the annotation One-sided stratified log-rank test .",
+      "because": "CORR-06",
+      "note": "the registry cited for MONALEESA-7's test direction was PALOMA-2's number; corrected to NCT02278120, whose posting gives p = 0.00973 annotated “One-sided stratified log-rank test” and the Cox HR 0.712 (0.535-0.948) that the note had said appeared only in conference reporting; read from the ClinicalTrials.gov v2 API on 31 August; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:20:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The paper prints 0.71; the more precise 0.712 appears in conference reporting and not in the publication this page cites.",
+      "now": "The journal paper is behind a wall we could not open; the registry is not.",
+      "because": "CORR-06",
+      "note": "the registry cited for MONALEESA-7's test direction was PALOMA-2's number; corrected to NCT02278120, whose posting gives p = 0.00973 annotated “One-sided stratified log-rank test” and the Cox HR 0.712 (0.535-0.948) that the note had said appeared only in conference reporting; read from the ClinicalTrials.gov v2 API on 31 August; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:20:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A group-sequential test with an adjusted threshold, which is why its p-value cannot be read beside MONALEESA-2's two-sided 0.008 as though the two numbers meant the same thing.",
+      "now": "The paper prints 0.71; the more precise 0.712 is the Cox hazard ratio in that same registry posting (95% CI 0.535-0.948), and does not appear in the publication this page cites.",
+      "because": "CORR-06",
+      "note": "the registry cited for MONALEESA-7's test direction was PALOMA-2's number; corrected to NCT02278120, whose posting gives p = 0.00973 annotated “One-sided stratified log-rank test” and the Cox HR 0.712 (0.535-0.948) that the note had said appeared only in conference reporting; read from the ClinicalTrials.gov v2 API on 31 August; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:20:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A group-sequential test with an adjusted threshold, which is why its p-value cannot be read beside MONALEESA-2's 0.008 as though the two numbers meant the same thing.",
+      "because": "CORR-06",
+      "note": "the registry cited for MONALEESA-7's test direction was PALOMA-2's number; corrected to NCT02278120, whose posting gives p = 0.00973 annotated “One-sided stratified log-rank test” and the Cox HR 0.712 (0.535-0.948) that the note had said appeared only in conference reporting; read from the ClinicalTrials.gov v2 API on 31 August; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:20:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) with \"year of updated data 2023\", and its reference list cites the SABCS 2023 final overall-survival abstract - the final analysis, not the interim.",
+      "now": "Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) and its \"Year of updated data\" row gives 2023 for that trial, and its reference list cites the SABCS 2023 final overall-survival abstract - the final analysis, not the interim.",
+      "because": "CORR-07",
+      "note": "the page quoted “year of updated data 2023” as a phrase; in Table 1 that is a row label and a cell four columns apart, and the string does not exist in the paper. Found by the quotation check on its first run; the label is now quoted and the value stated outside the marks; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:20:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "(The 73.3 months above is the pooled median across the seven trials, over a range of 48.7 to 97.2 months.) An earlier version of this page stated the opposite, on the strength of our own automated check rather than the paper; an outside reviewer opened the table and corrected us.",
+      "now": "(The 73.3 months above is the pooled median across the seven trials, over a range of 48.7 to 97.2 months - the figure its abstract gives.",
+      "because": "CORR-08",
+      "note": "the meta-analysis prints two different median follow-ups for the same range — 73.3 in its abstract, 70.2 in its results. The page keeps the abstract's and now discloses the other, because printing one figure from a source that prints two is the thing this page exists not to do. Confirmed by three retrievals across two hosts; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:20:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Its results section gives 70.2 months over the same range.",
+      "because": "CORR-08",
+      "note": "the meta-analysis prints two different median follow-ups for the same range — 73.3 in its abstract, 70.2 in its results. The page keeps the abstract's and now discloses the other, because printing one figure from a source that prints two is the thing this page exists not to do. Confirmed by three retrievals across two hosts; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:20:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The paper states both; we have used the abstract's, and note the discrepancy because it is the source's own.) An earlier version of this page stated the opposite, on the strength of our own automated check rather than the paper; an outside reviewer opened the table and corrected us.",
+      "because": "CORR-08",
+      "note": "the meta-analysis prints two different median follow-ups for the same range — 73.3 in its abstract, 70.2 in its results. The page keeps the abstract's and now discloses the other, because printing one figure from a source that prints two is the thing this page exists not to do. Confirmed by three retrievals across two hosts; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 31 August 2026, by our own checks.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Three things went out wrong and are fixed here.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A registry number belonging to a different trial.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The 30 August correction above added a second, independent confirmation of the direction of MONALEESA-7's survival test and cited NCT01740427 for it - which is PALOMA-2's number.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "MONALEESA-7 is NCT02278120 , and its posting gives the analysis as p = 0.00973, annotated One-sided stratified log-rank test .",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The claim was right and the citation sent anyone checking it to the wrong study, which is worse than a visible error.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A quotation that was not one.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page put the words \"year of updated data 2023\" in quotation marks and attributed them to Table 1 of the network meta-analysis.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That string is not in the paper: \"Year of updated data\" is a row label and 2023 is a cell four columns along it.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The meaning was right and the quotation was invented.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A source that prints two different numbers.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That meta-analysis gives its pooled median follow-up as 73.3 months in its abstract and 70.2 months in its results section, over the same range; this page had printed 73.3 alone.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We cannot say which is correct, and printing one figure from a source that prints two, without saying so, is the thing this page exists not to do.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The first was found by a re-run of the fact-check gate over text the gate had never read; the second by a quotation matcher written that morning, on its first run; the third by the same re-run.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:28:38+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "None was found by a reader, and all three had been live for a day.",
+      "because": "CORR-09",
+      "note": "the reader-facing record of the three corrections made on 31 August. All three were live: whatholdsup.org/cdk46 was serving NCT01740427 for MONALEESA-7, the invented quotation “year of updated data 2023”, and 73.3 months with no mention of the 70.2 its source also prints. A page that prints a correction record and then leaves three of its own corrections out of it is keeping the record for itself, not for a reader. Substance in CORR-06, CORR-07 and CORR-08; see review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:29:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We cannot say which is correct: both come from the paper itself, read on the publisher's site and again in the Europe PMC full text, and a meta-analysis has no registry record to settle it against - so there is nowhere further to look.",
+      "because": "CORR-08",
+      "note": "the unknowability check refused the sentence: it said a figure could not be resolved without naming where it had looked. It was right to. The sentence now names both reads of the paper and says why no registry can settle a meta-analysis's internal discrepancy. See CORR-08 and review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T22:29:36+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Printing one figure from a source that prints two, without saying so, is the thing this page exists not to do.",
+      "because": "CORR-08",
+      "note": "the unknowability check refused the sentence: it said a figure could not be resolved without naming where it had looked. It was right to. The sentence now names both reads of the paper and says why no registry can settle a meta-analysis's internal discrepancy. See CORR-08 and review/2026-08-31-adjudication.md"
     }
   ]
 }

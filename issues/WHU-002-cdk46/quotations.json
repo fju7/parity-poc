@@ -193,6 +193,18 @@
         "by": "claude, Europe PMC full text PMC10850180",
         "on": "2026-08-31"
       }
+    },
+    {
+      "id": "Q-17",
+      "quote": "year of updated data 2023",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "rhetorical",
+      "why": "This is not a quotation from a source. It is the page quoting ITS OWN earlier wording, in the correction that withdraws it — the whole point of the sentence is that these words appear nowhere in the paper. Recording it as a source quotation would ask the matcher to confirm a string we are on the record as having invented. The passage it corrects is Q-16, which quotes the row label that does exist.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-08-31"
+      }
     }
   ]
 }
