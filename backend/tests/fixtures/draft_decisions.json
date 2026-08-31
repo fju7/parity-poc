@@ -2255,6 +2255,50 @@
       "decided_by": "claude",
       "reason": "The role says these figures 'appear to derive from an interim analysis, not the final OS result'. They do not. The source entry gives HR 0.804 (95% CI 0.637-1.015), two-sided P = .0664 at 8.1 years, and the table labels the row 'final analysis, 8.1 y, Ann Oncol 2024'. The body rounds to two decimals, which is standard, and the exact values are on the page where precision matters.",
       "what_would_change_it": "A later MONARCH 3 readout superseding the 8.1-year final analysis."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "The Scientific Reports 2024 network meta-analysis gives its pooled median follow-up as 73.3 months in its abstract and 70.2 months in its results sect",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude, four retrievals across two hosts",
+      "reason": "The role says 70.2 is not in the results section and belongs to a preceding ASCO abstract. It is in the results section. Europe PMC's full-text XML for PMC10850180 returns it with its surrounding sentences: '...the analysis comprised of 4415 patients, of which 2718 patients received a CDK4/6 inhibitor (1153 ribociclib, 791 palbociclib, 774 abemaciclib). The median follow-up was 70.2 months (range: 48.7-97.2 months).' under the Results heading. Four reads across nature.com and Europe PMC return it; the one read that denied it also reported Table 1 absent from what it had received, i.e. it was reporting absence from a truncated document.",
+      "what_would_change_it": "A read of the paper that has the whole Results section and does not contain the sentence."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "MONALEESA-7's ClinicalTrials.gov results posting gives the overall survival analysis as p = 0.00973, annotated 'One-sided stratified log-rank test'.",
+      "severity": "NOT_FOUND",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude, ClinicalTrials.gov API v2",
+      "reason": "The role says it could not read the posting to confirm the annotation string. The v2 API returns it in under a second: NCT02278120, resultsSection.outcomeMeasuresModule, Overall Survival (OS), pValue 0.00973, pValueComment verbatim 'One-sided stratified log-rank test', Cox hazard ratio 0.712 (95% CI 0.535-0.948). NOT_FOUND is the right verdict for what the role could reach and is not a finding against the claim.",
+      "what_would_change_it": "The registry changing what it posts."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "The NCCN guideline prints the MONALEESA-2 progression-free survival HR as 0.56 (0.45",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "Fred Ugast, reading NCCN v6.2026 directly",
+      "reason": "The claim is about what the GUIDELINE prints, not about what MONALEESA-2 reported, and the role checked it against the trial publications. Fred read the guideline on 29 August in answer to advocate question S001-07: 'The guideline lists MONALEESA-2 at HR 0.56 (0.45-0.70), MONARCH 3 at 0.54 (0.41-0.72), PALOMA-2 at 0.58 (0.46-0.72).' The page already records that this is a different rounding of the updated analysis from the one it uses, and says which it uses and why. NCCN's licence forbids any automated check reading it, so this finding can only ever be raised and only ever be answered this way.",
+      "what_would_change_it": "A later guideline version printing a different figure."
+    },
+    {
+      "draft": "site/whatholdsup/cdk46.html",
+      "role": "SOURCE",
+      "quote": "The ASCO 2024 conference presentation of PALMARES-2 gave 0.91 (0.70",
+      "severity": "WRONG_VALUE",
+      "decision": "decline",
+      "decided": "2026-08-31",
+      "decided_by": "claude, reading the page",
+      "reason": "The role says the draft conflates the ASCO 2024 presentation with the Ann Oncol paper. The draft separates them explicitly. It prints the paper's figures as 0.91 (0.73-1.14), p = 0.425, attributed to the paper, and then notes that the ASCO 2024 presentation of the same study gave 0.91 (0.70-1.19), attributed to the presentation, with no p-value attached. The page says 'the figures above are the published paper's' in the same sentence. The finding is about a conflation the page does not make.",
+      "what_would_change_it": "The page attaching a p-value to the conference figure, or dropping the attribution."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

@@ -878,15 +878,23 @@ def queued_jobs_rows() -> list[tuple[str, str, str]]:
     its first version said, in the operator's face, "the runner has never
     executed anything".
 
-    THAT WAS WRONG, and it was wrong in the way this repository keeps being
-    wrong. Nine minutes later the runner claimed both jobs and ran them. It had
-    been firing all along; logs/ holds one file PER CLAIMED JOB, and it was
-    empty because no job had ever been queued, not because nothing had ever
-    run. An empty directory was read as evidence of failure when it was only
-    evidence of nothing having happened yet -- the same shape as a retrieval
-    that could not reach a page reporting the figure absent, which is the error
-    registry_facts.py exists to outrank. Written into a check built to catch
-    that error, an hour after writing it.
+    THAT WAS WRONG, and so was the correction. Nine minutes later a job was
+    claimed and run, and this docstring was rewritten to say the runner "had
+    been firing all along". It may not have been: the operator had just been
+    given the command to run the queue by hand, and the timing fits that as
+    well as it fits a launchd tick. Thirty minutes later a canary job sat
+    unclaimed, which is not what a 30-second StartInterval looks like.
+
+    So the honest state is: WE DO NOT KNOW WHETHER LAUNCHD HAS EVER FIRED THIS.
+    What is established is narrower and still worth having -- logs/ holds one
+    file PER CLAIMED JOB, so an empty logs/ means no job was ever claimed, and
+    it does not distinguish an agent that never ran from an agent that never
+    had work. Reading it as the first was the error: an absence observed by
+    something that could not have seen the thing is not an absence. That is the
+    same error as a retrieval that could not reach a page reporting the figure
+    absent, written into a check built to catch it, an hour after writing it --
+    and then a second time, in the fix, by asserting a cause the evidence did
+    not carry.
 
     So the block below states the wait, which is a fact, and offers the two
     readings of an empty logs/ without choosing between them.

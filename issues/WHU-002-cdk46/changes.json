@@ -2110,6 +2110,177 @@
       "now": "Printing one figure from a source that prints two, without saying so, is the thing this page exists not to do.",
       "because": "CORR-08",
       "note": "the unknowability check refused the sentence: it said a figure could not be resolved without naming where it had looked. It was right to. The sentence now names both reads of the paper and says why no registry can settle a meta-analysis's internal discrepancy. See CORR-08 and review/2026-08-31-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "MONALEESA-2 states a two-sided p of 0.008; what boundary its final analysis was tested against we could not establish, and if it too spent alpha at an interim then its bar also sat below .05.",
+      "now": "MONALEESA-2's test was one-sided: the trial's own results posting on ClinicalTrials.gov (NCT01958021) states that the distribution of overall survival between the arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance .",
+      "because": "CORR-11",
+      "note": "the footnote called NEJM's p = 0.008 one-sided on the strength of the registry's statement about the test. The registry's own p is 0.004 — exactly half — so the page had paired two documents' figures as one. Fourth position on this fact. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "PALOMA-2 states a one-sided p at an alpha of 0.025, which puts the critical value in the same place on the benefit side - a result that clears one clears the other - while differing in what the test was capable of concluding at all: a one-sided test is built to detect benefit and cannot declare harm.",
+      "now": "But the p = 0.008 in the table above is not that test's p-value.",
+      "because": "CORR-11",
+      "note": "the footnote called NEJM's p = 0.008 one-sided on the strength of the registry's statement about the test. The registry's own p is 0.004 — exactly half — so the page had paired two documents' figures as one. Fourth position on this fact. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The registry posts the result as p = 0.004 , alongside HR 0.765 (0.628-0.932); the NEJM paper prints P = 0.008 alongside HR 0.76 (0.63-0.93).",
+      "because": "CORR-11",
+      "note": "the footnote called NEJM's p = 0.008 one-sided on the strength of the registry's statement about the test. The registry's own p is 0.004 — exactly half — so the page had paired two documents' figures as one. Fourth position on this fact. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Those are the same comparison, and 0.008 is exactly twice 0.004 - which is what a one-sided and a two-sided presentation of one log-rank test look like side by side.",
+      "because": "CORR-11",
+      "note": "the footnote called NEJM's p = 0.008 one-sided on the strength of the registry's statement about the test. The registry's own p is 0.004 — exactly half — so the page had paired two documents' figures as one. Fourth position on this fact. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page prints the journal's figure, because the journal is what a reader will find, and it does not call that figure one-sided, because it is not.",
+      "because": "CORR-11",
+      "note": "the footnote called NEJM's p = 0.008 one-sided on the strength of the registry's statement about the test. The registry's own p is 0.004 — exactly half — so the page had paired two documents' figures as one. Fourth position on this fact. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We have not read NEJM's statistical section, so the doubling is stated as arithmetic and not as the paper's own account of itself.",
+      "because": "CORR-11",
+      "note": "the footnote called NEJM's p = 0.008 one-sided on the strength of the registry's statement about the test. The registry's own p is 0.004 — exactly half — so the page had paired two documents' figures as one. Fourth position on this fact. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This is the fourth position this page has taken on one fact: two-sided with no source, then unknowable, then one-sided with the registry's directionality attached to the journal's number, and now this.",
+      "because": "CORR-11",
+      "note": "the footnote called NEJM's p = 0.008 one-sided on the strength of the registry's statement about the test. The registry's own p is 0.004 — exactly half — so the page had paired two documents' figures as one. Fourth position on this fact. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The first was unsourced, the second was a search we had not done, and the third was the error of pairing two documents' figures as though they were one - found by our own gate, on the run that read the correction which introduced it.",
+      "because": "CORR-11",
+      "note": "the footnote called NEJM's p = 0.008 one-sided on the strength of the registry's statement about the test. The registry's own p is 0.004 — exactly half — so the page had paired two documents' figures as one. Fourth position on this fact. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "We could not open PALMARES-2's declaration of interests.",
+      "now": "This page has not read PALMARES-2's declaration of interests, and the honest reason is that we did not go and get it.",
+      "because": "CORR-10",
+      "note": "the page told a reader a paper was behind a wall while our own source ledger records S011 as machine_read. A wall is a property of the document; a failure is a property of our attempt, and only the second was ours to claim. It also asserted we knew nothing about the investigators' interests, an absence we never searched for. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "That is a statement about our access and not about its investigators, of whom we know nothing and about whom this page will not speculate.",
+      "now": "An earlier version said we could not open it, which put the failure in the document rather than in our attempt and was not true of the document: our own source ledger records that an automated check reached the paper on 29 August.",
+      "because": "CORR-10",
+      "note": "the page told a reader a paper was behind a wall while our own source ledger records S011 as machine_read. A wall is a property of the document; a failure is a property of our attempt, and only the second was ours to claim. It also asserted we knew nothing about the investigators' interests, an absence we never searched for. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Nor is it true that we know nothing about its investigators' interests, which is what this page said next: sub-analyses of the same study are published separately and carry their own declarations, and our fact-check gate reports that those list fees from Pfizer, Novartis and Lilly.",
+      "because": "CORR-10",
+      "note": "the page told a reader a paper was behind a wall while our own source ledger records S011 as machine_read. A wall is a property of the document; a failure is a property of our attempt, and only the second was ours to claim. It also asserted we knew nothing about the investigators' interests, an absence we never searched for. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We have not read them and do not repeat that detail as our own finding.",
+      "because": "CORR-10",
+      "note": "the page told a reader a paper was behind a wall while our own source ledger records S011 as machine_read. A wall is a property of the document; a failure is a property of our attempt, and only the second was ours to claim. It also asserted we knew nothing about the investigators' interests, an absence we never searched for. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What we can say is that we did not look, and that is a choice rather than a wall.",
+      "because": "CORR-10",
+      "note": "the page told a reader a paper was behind a wall while our own source ledger records S011 as machine_read. A wall is a property of the document; a failure is a property of our attempt, and only the second was ours to claim. It also asserted we knew nothing about the investigators' interests, an absence we never searched for. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones, the paper itself is behind a wall we could not open, and a figure we cannot attribute to a primary source is a figure this page does not carry.",
+      "now": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones; we have not obtained the paper's full text ourselves - what this page carries from it came through an automated search route, which is weaker than reading it, and every direct route we tried on 31 August was refused by the publisher; and its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recruiting) has no results posted, though the paper itself already reports on 1,982; and a figure we cannot attribute to a primary source is a figure this page does not carry.",
+      "because": "CORR-10",
+      "note": "the page told a reader a paper was behind a wall while our own source ledger records S011 as machine_read. A wall is a property of the document; a failure is a property of our attempt, and only the second was ours to claim. It also asserted we knew nothing about the investigators' interests, an absence we never searched for. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Whether anybody will is not something this page knows - an earlier version asserted that nobody would, which was a prediction about the decisions of companies and funding bodies we have not asked and cannot read.",
+      "now": "Of the two that have been run - both ribociclib against palbociclib, elsewhere in the treatment course - one found no difference and the other stopped at 61 patients and never reported, which is a thin basis for either conclusion.",
+      "because": "CORR-12",
+      "note": "HARMONIA terminated at 61 patients with no results publication, so it cannot have found no difference; the page said both head-to-head trials did. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The evidence's answer is that nothing has been shown to separate them: of the two randomised trials that have put any pair of them head to head, both ribociclib against palbociclib, the one that reported found no difference and the other stopped at 61 patients without reporting at all; no randomised trial has compared abemaciclib against either of the others; and none of the four comparative studies on this page can tell abemaciclib and ribociclib apart.",
+      "because": "CORR-12",
+      "note": "HARMONIA terminated at 61 patients with no results publication, so it cannot have found no difference; the page said both head-to-head trials did. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Source of the 116 patients and the 58 per arm, the randomisation in blocks of four by opaque sealed envelope - an earlier version of this note said \"29 blocks\" of four, and no source we can reach states a number of blocks. 29 is 116 divided by four: our own arithmetic, printed as though the paper had said it.",
+      "because": "CORR-13",
+      "note": "“29 blocks of four” is 116 divided by four — our arithmetic printed as the paper's statement. Withdrawn on the page rather than silently. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Withdrawn - the clinical benefit rate at six months of 58.6% in both arms (34 of 58 either way), the median progression-free survival of 13.67 months on palbociclib against 12.69 on ribociclib, and the authors' conclusion that both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
+      "because": "CORR-13",
+      "note": "“29 blocks of four” is 116 divided by four — our arithmetic printed as the paper's statement. Withdrawn on the page rather than silently. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-08-31T23:34:18+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Two exist, both of ribociclib against palbociclib: a randomised open-label phase III in the second line with fulvestrant, published in 2024, which found no difference between them; and HARMONIA, registered as NCT05207709, which opened in March 2022 and terminated with 61 patients enrolled and no results publication, so it establishes that the comparison was attempted and nothing about its answer.",
+      "because": "CORR-12",
+      "note": "HARMONIA terminated at 61 patients with no results publication, so it cannot have found no difference; the page said both head-to-head trials did. See review/2026-08-31b-adjudication.md"
     }
   ]
 }

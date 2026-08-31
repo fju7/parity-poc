@@ -174,6 +174,75 @@ def identifiers(src: dict) -> list[str]:
 # loading
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# a wall is a property of the document; a failure is a property of our attempt
+# ---------------------------------------------------------------------------
+
+# Phrases in which the page says a source could not be opened. Deliberately
+# narrow: these are the page's set formulas for it, not every sentence about
+# access.
+INACCESSIBLE = re.compile(
+    r"\b(behind a (?:pay)?wall|paywalled|"
+    r"(?:could|can) ?not (?:be )?(?:open|opened|reach|reached|read|access|accessed)|"
+    r"we (?:could|can) ?not open|not (?:publicly )?accessible|"
+    r"every route we tried returned a block)\b", re.I)
+
+
+def inaccessibility_claims(page_text: str, srcs: list[dict]) -> list[tuple[str, dict, str]]:
+    """(sentence, source, its access state) where the page says a source could
+    not be opened and the ledger says somebody read it.
+
+    WHY THIS EXISTS
+    ---------------
+    On 2026-08-31 the gate reported, as its most consequential finding, that
+    this page says of PALMARES-2:
+
+        "the paper itself is behind a wall we could not open"
+        "We could not open PALMARES-2's declaration of interests. That is a
+         statement about our access and not about its investigators, of whom we
+         know nothing"
+
+    and builds a fairness argument on it -- P-VERIFY's Pfizer funding is
+    disclosed, PALMARES-2's is not, and the asymmetry is attributed to access
+    rather than to a choice.
+
+    S011's ledger entry says `machine_read`. The page contradicted its own
+    ledger, in the same repository, and nothing compared them.
+
+    THE DISTINCTION THIS CHECK IS ABOUT. "Behind a wall" is a claim about the
+    DOCUMENT. "We could not open it" is a claim about OUR ATTEMPT. They are not
+    the same sentence and only the second one is ours to make. Every version of
+    today's recurring error is this confusion: a SOURCE role that could not
+    reach a registry reporting the figure wrong; a fetch that received a
+    truncated document reporting a string absent; a check reading an empty
+    directory as an agent that never ran. Here it is in the page's own voice,
+    in front of a reader, load-bearing for an argument about whose funding gets
+    disclosed.
+
+    WHAT IT DOES NOT DO. It does not decide whether the document is in fact
+    open. It cannot: that needs a retrieval, and a retrieval that fails is
+    exactly the evidence this check exists to distrust. It reports the tension
+    and makes a person resolve it -- by correcting the page, or by downgrading
+    a ledger entry that overstates what was read. Both are real answers and
+    both should be made knowingly.
+    """
+    out = []
+    for sent in sentences(plain(page_text)):
+        if not INACCESSIBLE.search(sent):
+            continue
+        for src in srcs:
+            names = identifiers(src)
+            if not names:
+                continue
+            if not any(re.search(r"\b%s\b" % re.escape(n), sent, re.I) for n in names):
+                continue
+            state = (access_of(src) or {}).get("state")
+            if state in READ_STATES:
+                out.append((" ".join(sent.split())[:190], src, state))
+            break
+    return out
+
+
 def case_dir(slug: str) -> Path:
     """The directory holding this piece's case file.
 
@@ -358,6 +427,22 @@ def audit(slug: str, page_text: str,
             f"{len(backlog)} sentence(s) already live say what an unopened source "
             f"says. Not blocking this correction, and not fine either: "
             + " | ".join(backlog[:3])))
+
+    # A wall is a property of the document; a failure is a property of our
+    # attempt. See inaccessibility_claims.
+    walls = inaccessibility_claims(page_text, srcs)
+    rows.append((
+        "claims a source could not be opened",
+        OK if not walls else BAD,
+        "no sentence says a source is unreachable that the ledger records as read"
+        if not walls else
+        "%d sentence(s) tell a reader a source could not be opened, and the ledger "
+        "says it WAS read. One of the two is wrong and only a person can say which: "
+        "correct the page, or downgrade a ledger entry that overstates what was "
+        "read. %s"
+        % (len(walls),
+           " | ".join("%s (%s, ledger: %s)" % (s, src["id"], state)
+                      for s, src, state in walls[:3]))))
 
     rows.append((
         "adverse claims needing the human reader",

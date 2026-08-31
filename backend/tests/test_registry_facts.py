@@ -201,3 +201,26 @@ def test_a_trial_named_without_a_digit_enters_the_trial_map(tmp_path, monkeypatc
         got = m.trials_for(mod[:3])
         assert got.get("HARMONIA") == HARMONIA, (mod, got)
         assert got.get("PALOMA-2") == PALOMA2, (mod, got)
+
+
+def test_it_reads_enrolment_phrased_as_a_noun(case):
+    """Coverage must not depend on how the page happens to be worded.
+
+    The page said "recruiting toward an estimated 3,500 patients" and this
+    check confirmed it. An edit reworded it to "an estimated enrolment of
+    3,500" -- and the check stopped confirming, silently, so a finding it had
+    settled an hour earlier came back open. A check whose reach depends on the
+    page's phrasing loses reach every time the page is edited, in the direction
+    of looking cleaner.
+    """
+    for phrasing in ("recruiting toward an estimated 3,500 patients",
+                     "an estimated enrolment of 3,500",
+                     "target enrollment of 3500",
+                     "3,500 patients were enrolled"):
+        got = [(f, v) for f, v, _m in rfa.claims_in(phrasing)]
+        assert ("enrolment", 3500) in got, (phrasing, got)
+
+
+def test_a_noun_phrase_without_an_enrolment_word_is_still_ignored(case):
+    assert rfa.claims_in("a cohort of 3,500") == []
+    assert rfa.claims_in("followed 3,500 patients") == []

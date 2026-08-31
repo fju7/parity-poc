@@ -180,12 +180,20 @@ CLOSED = re.compile(
     r"(?:on|in)\s*"
     r"(?:(\d{1,2})\s+)?(" + "|".join(MONTHS) + r")\s+(\d{4})", re.I)
 
-# A count next to "patients" or "participants", in an enrolment context.
+# A count in an enrolment context. Two shapes, and the second was missing until
+# the page was reworded from "3,500 patients" to "an estimated enrolment of
+# 3,500" -- at which point the checker stopped confirming a claim it had
+# confirmed an hour earlier, and the finding it had settled came back open. A
+# check whose coverage depends on the page's phrasing will lose coverage every
+# time the page is edited, silently, in the direction of looking cleaner.
 ENROL = re.compile(
+    # "enrolled 61 patients", "recruiting toward an estimated 3,500 patients"
     r"(?:\b(?:enrolled|enrolment|enrollment|randomised|randomized|recruited|"
     r"recruiting toward|toward)\b[^.;]{0,40}?)?"
     r"\b([\d][\d,]{1,6})\s+(?:patients|participants|women|people)\b"
-    r"(?:[^.;]{0,30}?\b(?:enrolled|were enrolled|randomised|randomized|recruited)\b)?",
+    r"(?:[^.;]{0,30}?\b(?:enrolled|were enrolled|randomised|randomized|recruited)\b)?"
+    # "an enrolment of 3,500", "target enrollment of 3500"
+    r"|\b(?:enroll?ment)\s+of\s+([\d][\d,]{1,6})\b",
     re.I)
 
 
@@ -232,11 +240,13 @@ def claims_in(text: str) -> list[tuple[str, object, str]]:
         for m in rx.finditer(text):
             out.append((field, _iso(m.group(1), m.group(2), m.group(3)), m.group(0)))
     for m in ENROL.finditer(text):
-        raw = m.group(1)
+        raw = m.group(1) or m.group(2)
+        if not raw:
+            continue
         # A bare number beside "patients" is not an enrolment claim unless the
         # sentence says so. Without this, "1,982 patients" from a different
         # study in the same paragraph enters as an enrolment assertion.
-        if not re.search(r"enroll?ed|enrol?ment|randomi[sz]ed|recruit", m.group(0), re.I):
+        if not re.search(r"enroll?ed|enroll?ment|randomi[sz]ed|recruit", m.group(0), re.I):
             continue
         try:
             out.append(("enrolment", int(raw.replace(",", "")), m.group(0)))

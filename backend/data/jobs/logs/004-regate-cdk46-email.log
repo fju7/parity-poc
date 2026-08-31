@@ -1,0 +1,43 @@
+=== 004-regate-cdk46-email
+=== queued job:
+{
+  "note": "Re-gate issue two's announcement email. Last gated 2026-08-28 on draft 1fb1d818; four sentences carrying figures have never been examined by any role, including the corrected sourcing sentence written on 30 August after the email claimed an absence the page did not make (CORR-04). An email cannot be recalled, so this one gets a run rather than a signature. Estimated $2.09 -- $1.08 for the whole-page roles plus 4 claims at $0.25. Queued alongside the page run rather than after it, deliberately: the two files are gated independently, and serialising them costs two more round trips through the operator to save a run we will probably not need. If the page run forces a change to shared wording, this run is spent and we pay for it again -- that is the accepted risk, written down here so it is not rediscovered as a surprise.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/email/issue2-cdk46.html",
+    "--since", "../site/whatholdsup/email/issue2-cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/email/issue2-cdk46.html.gate.json"
+  ]
+}
+=== started 2026-08-31T23:18:45Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+
+Fact-checking issue2-cdk46.html (8,047 chars of prose) as of 2026-08-31
+
+[1/6] Extracting checkable claims...
+      35 claims extracted
+      15 claim(s) unchanged since 1fb1d8185ce3 — verdicts carried, 20 to check
+      5 internal claim(s) recorded, not source-checked
+[2/6] Source audit across 6 attributed source(s)...
+      checking  4 claim(s) against: NCCN breast cancer guidelines, version 6.2026
+      checking  7 claim(s) against: no source credited in the draft
+      checking  1 claim(s) against: P-VERIFY poster
+  [ERROR] source:P-VERIFY poster: {'type': 'error', 'error': {'details': None, 'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CebgdFCMVdSHDC4ibR9mc'}
+      checking  1 claim(s) against: abemaciclib drug label
+  [ERROR] source:abemaciclib drug label: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011Cebge89Drwejqju8aHxiy'}
+      checking  1 claim(s) against: palbociclib drug label
+  [ERROR] source:palbociclib drug label: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011Cebge8rdo8uTsUawQSvhK'}
+      checking  1 claim(s) against: Tanguy and colleagues, npj Breast Cancer, 2018
+  [ERROR] source:Tanguy and colleagues, npj Bre: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011Cebge9R7hSW1jCbEmRrXL'}
+[3/6] Recency sweep... carried (3d old, fresh under 7d — the literature does not move because we edited)
+[4/6] Subject's advocate...
+  [ERROR] advocate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011Cebge9zbPeKMvzV3xcRwW'}
+[5/6] Statistical inference...
+  [ERROR] inference: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CebgeAYaiAbtd7uVamEcJ'}
+[6/6] Best coverage elsewhere... carried (3d old, fresh under 14d — other outlets did not republish because we edited)
+
+[BLOCKED] A required check did not run. An unrun check is not a pass.
+=== finished 2026-08-31T23:21:00Z exit=2

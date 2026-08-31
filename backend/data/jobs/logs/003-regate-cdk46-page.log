@@ -1,0 +1,459 @@
+=== 003-regate-cdk46-page
+=== queued job:
+{
+  "note": "Re-gate issue two's page, on FINAL text. All the free work is done first, which is the whole point of holding job 002: the outside review is reconciled (190 changes, each traced to a decision), every quotation is recorded and matched, and the page carries a reader-facing correction for the three errors found on 31 August. Eight sentences on the page have never been read by any role and this run reads them. The seven false findings from the 31 August run are recorded in draft_decisions.json and should come back as already decided rather than as news; c49, c61 and c62 are now overturned deterministically by registry_facts.py and should not need a model verdict at all. Estimated $2.68 -- $1.00 for the roles that must read the whole page, plus 6 claims whose figure has left it at $0.28 each. Counted, not estimated from a rate.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/cdk46.html",
+    "--since", "../site/whatholdsup/cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/cdk46.html.gate.json"
+  ]
+}
+=== started 2026-08-31T23:03:51Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+
+Fact-checking cdk46.html (60,485 chars of prose) as of 2026-08-31
+
+[1/6] Extracting checkable claims...
+      77 claims extracted
+      36 claim(s) unchanged since 4e4bb50b371f — verdicts carried, 41 to check
+      10 internal claim(s) recorded, not source-checked
+[2/6] Source audit across 17 attributed source(s)...
+      checking  3 claim(s) against: NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version
+      checking  1 claim(s) against: MONARCH 3 — final overall survival. Ann Oncol, 2024
+      checking  1 claim(s) against: MONALEESA-2 — overall survival with ribociclib plus letrozole. N Engl 
+      checking  3 claim(s) against: MONALEESA-2 — ClinicalTrials.gov results posting. NCT01958021
+      checking  1 claim(s) against: MONALEESA-7 — overall survival. N Engl J Med, 2019
+      checking  1 claim(s) against: MONALEESA-7 — updated overall survival. Clin Cancer Res, 2022;28:851
+      checking  1 claim(s) against: PALOMA-2 — final overall survival. J Clin Oncol, 2024
+      checking  3 claim(s) against: PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427
+      checking  1 claim(s) against: Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, Februa
+      checking  1 claim(s) against: P-VERIFY — comparative overall survival of CDK4/6 inhibitors plus an a
+      checking  2 claim(s) against: PALMARES-2 — real-world comparison of first-line palbociclib, ribocicl
+      checking  3 claim(s) against: Shaaban MHA et al. Asian Pac J Cancer Prev 2024;25(9):3039–3049
+      checking  2 claim(s) against: HARMONIA — ClinicalTrials.gov record. NCT05207709
+      checking  3 claim(s) against: no source credited in the draft
+      checking  3 claim(s) against: MONALEESA-7 — ClinicalTrials.gov results posting. NCT02278120
+      checking  1 claim(s) against: Indirect comparison from reconstructed patient data. Cancers, 2023;15(
+      checking  1 claim(s) against: PALOMA-2 — 2019 extended-follow-up paper. Breast Cancer Res Treat
+[3/6] Recency sweep... carried (0d old, fresh under 7d — the literature does not move because we edited)
+[4/6] Subject's advocate...
+      10 objection(s), 3 serious
+[5/6] Statistical inference...
+      13 finding(s), 5 serious
+[6/6] Best coverage elsewhere... carried (0d old, fresh under 14d — other outlets did not republish because we edited)
+[WARN] 1 decision(s) quote a sentence that is no longer in cdk46.html. They can never match again — remove them:
+       [ADVOCATE] the draft cites PALMARES-2's abemaciclib-vs-ribociclib PFS result but 
+
+========================================================================
+CLAIMS   67 external · 52 verified · 15 not, 1 already decided  (10 internal, not source-checkable)
+========================================================================
+
+  [OVERLAP · NOT_FOUND] one-sided cumulative 2.5% level of significance
+     already decided about this claim, on other grounds: The phrase is verbatim in NCT01958021's overall-survival description: 'The distribution of OS between the two treatment arms was compared using a log-
+     draft credits : MONALEESA-2 — ClinicalTrials.gov results posting. NCT01958021
+     note          : The ClinicalTrials.gov results page for NCT01958021 returned only a browser-check stub and was unreadable. The NEJM publication (the primary peer-reviewed source) reports a two-sided P = 0.008, not a one-sided threshold; the one-sided 2.5% significance language may appear in the ClinicalTrials.gov statistical plan section, but I could not reach and read that document to confirm or deny it.
+     checked       : https://clinicaltrials.gov/ct2/show/results/NCT01958021
+
+  [NEW · NOT_FOUND] HR 0.765 (95% CI 0.628–0.932), p = 0.004
+     draft credits : MONALEESA-2 — ClinicalTrials.gov results posting. NCT01958021
+     source says   : HR=0.765 (95% CI: 0.628–0.932); P=0.004 — confirmed on Novartis's Kisqali HCP product page (a company release), which cites the ClinicalTrials.gov posting as its source. The NEJM publication rounds to HR 0.76 (95% CI 0.63–0.93; two-sided P=0.008).
+     really from   : Kisqali HCP site (Novartis company release): https://www.kisqali-hcp.com/metastatic-breast-cancer/efficacy/efficacy-across-trials
+     note          : The figures HR 0.765, CI 0.628–0.932, and p=0.004 are real and appear on Novartis's own HCP product page (citing the ClinicalTrials.gov posting), consistent with the claim's attributed source; however, the ClinicalTrials.gov results page itself was unreadable (browser-check stub), so I cannot directly verify the figures as they appear in that posting. The NEJM paper rounds to 0.76 / 0.63–0.93 / two-sided P=0.008. The figures are not wrong, but the primary source could not be directly accessed.
+     checked       : https://clinicaltrials.gov/ct2/show/results/NCT01958021
+
+  [OVERLAP · NOT_FOUND] 1-sided p-value from the stratified log-rank test
+     already decided about this claim, on other grounds: NCT01740427 carries this annotation on both posted overall-survival analyses, primary and final. Confirmed by direct API call.
+     draft credits : PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427
+     note          : The ClinicalTrials.gov results posting page for NCT01740427 returned only a generic header with no retrievable content; I could not verify the exact annotation wording '1-sided p-value from the stratified log-rank test' in that specific document. The JCO publication and the PALOMA-2 SAP both confirm a one-sided stratified log-rank test was used, but the claim is specifically about the results posting's annotation language, which I could not directly access.
+     checked       : https://clinicaltrials.gov/study/NCT01740427
+
+  [NEW · WRONG_VALUE] HR 0.921 (0.755–1.124)
+     draft credits : PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427
+     source says   : Primary OS analysis: HR 0.96 (95% CI, 0.78–1.18), stratified one-sided P = .34. Recovered-data sensitivity analysis: HR 0.92 (95% CI, 0.76–1.12), one-sided P = .21. Pfizer press release / ASCO abstract: HR 0.956 (95% CI, 0.777–1.177).
+     really from   : JCO publication (Finn et al., J Clin Oncol 2024, PMC10950136); Pfizer press release (June 2022); ASCO 2022 abstract LBA1003
+     note          : No primary source found gives HR 0.921 (0.755–1.124). The primary OS analysis HR is 0.96 (0.78–1.18); the recovered-data sensitivity analysis HR is 0.92 (0.76–1.12). The draft's figures match neither analysis exactly: the point estimate 0.921 is close to the sensitivity analysis (0.92) but the CI bounds 0.755–1.124 do not match any reported analysis (sensitivity CI is 0.76–1.12; primary CI is 0.78–1.18).
+     checked       : https://pmc.ncbi.nlm.nih.gov/articles/PMC10950136/
+
+  [NEW · WRONG_VALUE] 73.3 months in its abstract and 70.2 months in its results section
+     draft credits : Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024
+     source says   : The Scientific Reports 2024 paper (Kappel et al., Sci Rep 14, 3129) gives median follow-up as 73.3 months (range: 48.7–97.2 months) in both its abstract and its results section. The figure 70.2 months does not appear in the Scientific Reports paper at all; it appears in the earlier ASCO 2023 conference abstract (JCO 2023 suppl., same authors, 4,087 patients), which is a distinct document with a smaller patient count.
+     really from   : For 73.3 months: Kappel et al., Sci Rep 14, 3129 (2024-02-07), abstract and results — verified. For 70.2 months: ASCO 2023 conference abstract, JCO 41(16_suppl):1056 — a prior, separate publication by the same group.
+     note          : The claim that 70.2 months appears in the results section of the Scientific Reports paper is false; 73.3 months is used consistently throughout that paper. The 70.2-month figure belongs to the preceding ASCO conference abstract (different patient count: 4,087 vs. 4,415), not to any section of the published Scientific Reports article.
+     checked       : https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10850180/
+
+  [NEW · WRONG_VALUE] 0.91 (0.70–1.19)
+     draft credits : PALMARES-2 — real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025
+     source says   : ASCO 2024 Abstract 1014 gives aHR 0.91, 95% CI 0.70–1.19, p=0.505 — the CI matches the draft but the p-value does not; the draft's p=0.425 belongs to the Ann Oncol 2025 publication (which also has a different CI of 0.73–1.14)
+     really from   : ASCO 2024 Annual Meeting Abstract 1014, J Clin Oncol 42:16_suppl (ascopubs.org/doi/10.1200/JCO.2024.42.16_suppl.1014); confirmed in ASCO 2024 PDF (s3.amazonaws.com/files.oncologymeetings.org/prod/s3fs-public/2024-05/AM24-Breast-Metastatic.pdf)
+     note          : The ASCO 2024 presentation gives CI 0.70–1.19 with p=0.505, not p=0.425; the draft's p=0.425 is from the Ann Oncol 2025 paper, which has a different CI (0.73–1.14) — the draft has conflated figures from two different readouts.
+     checked       : https://ascopubs.org/doi/10.1200/JCO.2024.42.16_suppl.1014
+
+  [OVERLAP · WRONG_VALUE] category 1
+     already decided about this claim, on other grounds: The role reported that palbociclib also carries category 1 with fulvestrant, which would make our sentence a selective omission. It does not. NCCN v6.
+     draft credits : NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026
+     source says   : Ribociclib + fulvestrant is category 1 (confirmed). Abemaciclib + fulvestrant does NOT appear as category 1 in the metastatic setting in sources covering 2024–2026 NCCN versions; abemaciclib + AI is explicitly listed as category 2A in v4.2026.
+     really from   : OncoDaily NCCN v4.2026 summary; Novartis press release Oct 2024; OncLive reporting on NCCN updates
+     note          : Every source found confirms ribociclib + fulvestrant as category 1, but none supports abemaciclib + fulvestrant as category 1 in the metastatic setting; abemaciclib combinations are consistently described as category 2A in 2026 NCCN versions, making the claim that both are category 1 with fulvestrant unsupported.
+     checked       : https://oncodaily.com/oncolibrary/breast-oncology/breast-cancer-nccn-v4
+
+  [NEW · NOT_FOUND] opened in March 2022 and terminated with 61 patients enrolled
+     draft credits : HARMONIA — ClinicalTrials.gov record. NCT05207709
+     source says   : Start date 2022-03-28 (ACTUAL) confirmed; trial status TERMINATED confirmed; enrollment count not returned in any snippet from the ClinicalTrials.gov record or any other source reached
+     note          : The ClinicalTrials.gov record confirms the trial opened on 28 March 2022 and is TERMINATED (halted due to significantly delayed enrollment), but the actual enrollment count of 61 patients did not appear in any search result snippet retrieved; the figure cannot be verified or refuted from sources reached.
+     checked       : https://clinicaltrials.gov/study/NCT05207709
+
+  [NEW · NOT_FOUND] p = 0.00973, annotated One-sided stratified log-rank test
+     draft credits : MONALEESA-7 — ClinicalTrials.gov results posting. NCT02278120
+     source says   : p = 0.00973 is confirmed across multiple sources; the annotation 'One-sided stratified log-rank test' is consistent with the ASCO 2019 abstract methodology, but the exact annotation wording as it appears in the ClinicalTrials.gov results posting could not be read directly.
+     really from   : p = 0.00973 appears in the NEJM paper (NEJMoa1903765) and ASCO 2019 abstract (JCO LBA1008); the one-sided stratified log-rank test methodology is described in the ASCO abstract. The ClinicalTrials.gov results page (NCT02278120) was reachable only as a stub with no results table visible in search output.
+     note          : Could not directly read the ClinicalTrials.gov results posting to confirm the precise annotation string 'One-sided stratified log-rank test'; the p-value itself is well-attested in primary publications but the specific annotation wording in the CT.gov posting remains unverified from the primary source.
+     checked       : https://clinicaltrials.gov/study/NCT02278120
+
+  [NEW · NOT_FOUND] HR 0.712 (95% CI 0.535–0.948)
+     draft credits : MONALEESA-7 — ClinicalTrials.gov results posting. NCT02278120
+     source says   : HR 0.712 (95% CI 0.535–0.948) appears in the ASCO 2019 conference abstract and trade press; the NEJM paper rounds to HR 0.71 (95% CI 0.54–0.95). The ClinicalTrials.gov results posting itself could not be read directly to confirm these exact unrounded figures as they appear there.
+     really from   : HR 0.712 with CI 0.535–0.948 is reported in the ASCO 2019 abstract (NCT02278120, JCO 2019 LBA1008) and Cancer Therapy Advisor coverage of that presentation. The NEJM publication (NEJMoa1903765) uses rounded values (0.71; 0.54–0.95). The ClinicalTrials.gov results page was reachable only as a stub.
+     note          : The figures are real and consistent with the trial's final OS analysis, but the ClinicalTrials.gov results posting — the attributed source — could not be opened to confirm the exact unrounded values (0.712; 0.535–0.948) as they appear in that specific document.
+     checked       : https://clinicaltrials.gov/study/NCT02278120
+
+  [NEW · NOT_FOUND] PMID 41093689
+     source says   : PMID 41093689 is confirmed as the MONARCH 3 corrigendum (Ann Oncol 2025 Dec;36(12):1556), verified on PubMed. The open-access status on Europe PMC specifically could not be confirmed from any source reached.
+     really from   : PubMed: https://pubmed.ncbi.nlm.nih.gov/41093689/
+     note          : The PMID and its identity as the MONARCH 3 corrigendum are verified; the specific claim that Europe PMC marks it 'not open access' could not be confirmed — no Europe PMC record page was reached to check the OA flag.
+     checked       : https://pubmed.ncbi.nlm.nih.gov/41093689/
+
+  [NEW · NOT_FOUND] NCT06805812, still recruiting toward an estimated 3,500 patients
+     source says   : NCT06805812 is confirmed as PALMARES-2, a retrospective/prospective multicenter Italian real-world study. Published sub-analyses (2025–2026) report an enrolled cohort of 1,982 patients. The figure of 3,500 as an estimated enrollment target does not appear in any source reached, including the ClinicalTrials.gov protocol PDF.
+     really from   : ClinicalTrials.gov protocol PDF and multiple published sub-analyses: https://cdn.clinicaltrials.gov/large-docs/12/NCT06805812/Prot_000.pdf
+     note          : The NCT number is correct and the study is ongoing, but the '3,500 patients' enrollment target cannot be verified in any source reached; published analyses consistently report ~1,982 patients enrolled, making the 3,500 figure unconfirmed and potentially wrong.
+     checked       : https://cdn.clinicaltrials.gov/large-docs/12/NCT06805812/Prot_000.pdf
+
+  [NEW · WRONG_VALUE] HR 0.56 (0.45–0.70)
+     draft credits : NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026
+     source says   : Primary analysis (NEJM 2016 / data cut Jan 2016): HR 0.556, 95% CI 0.429–0.720. Updated analysis (Ann Oncol 2018 / data cut Jan 2017): HR 0.568, 95% CI 0.457–0.704. The NEJM OS paper (2022) summarises the updated PFS as HR 0.57, 95% CI 0.46–0.70.
+     really from   : Hortobagyi et al., NEJM 2016 (primary); Hortobagyi et al., Ann Oncol 2018 (updated); Hortobagyi et al., NEJM 2022 (OS paper citing updated PFS)
+     note          : The figure 0.56 (0.45–0.70) matches no published MONALEESA-2 analysis: the primary HR is 0.556 (CI 0.429–0.720), the updated HR is 0.568 (CI 0.457–0.704), and the OS paper rounds the updated analysis to 0.57 (0.46–0.70); the lower bound 0.45 appears in no ITT analysis and the point estimate 0.56 belongs to a regional subgroup (EU patients) in the updated paper, not the overall population.
+     checked       : https://www.nejm.org/doi/full/10.1056/NEJMoa2114663
+
+  [NEW · WRONG_SOURCE] the unrounded 0.576 (0.463–0.718) appears in the 2019 extended-follow-up paper (Breast Cancer Res Treat)
+     draft credits : PALOMA-2 — 2019 extended-follow-up paper. Breast Cancer Res Treat
+     source says   : HR 0.576 (95% CI 0.463–0.718) appears in the 2019 extended-follow-up paper in Breast Cancer Research and Treatment, but it is cited there as the PRIMARY ANALYSIS figure (data cut-off February 26, 2016, median follow-up 23 months), not a new result of the extended follow-up. The extended follow-up paper's own new PFS result is HR 0.563 (95% CI not identically matching) at ~38 months median follow-up.
+     really from   : The unrounded HR 0.576 (95% CI 0.463–0.718) originates from the primary PALOMA-2 analysis (NEJM 2016, data cut-off February 26, 2016). The 2019 Breast Cancer Research and Treatment extended-follow-up paper (Finn et al., doi:10.1007/s10549-018-05125-4) reproduces this figure in its introduction as a citation to the prior primary analysis [refs 4, 5], not as a new finding of the extended follow-up. The extended follow-up paper's own new PFS result is HR 0.563 at ~38 months median follow-up.
+     note          : The figure 0.576 (0.463–0.718) does appear in the 2019 Breast Cancer Research and Treatment paper, but it is the primary-analysis HR cited from the original NEJM publication, not a result generated by the extended follow-up; the extended follow-up paper's own new PFS HR is 0.563. Attributing this figure to the extended-follow-up paper as if it were that paper's finding misrepresents the source's role.
+     checked       : https://link.springer.com/article/10.1007/s10549-018-05125-4
+
+  A NOT_FOUND means we could not REACH a source, not that none exists.
+  Open any URL above before treating one as a finding — and check
+  whether COVERAGE cited the same page, because it often has the link.
+
+  Internal claims — no external source can confirm these. Check them
+  against your own records before publishing:
+     · 97% of ribociclib's interval lies inside abemaciclib's
+     · 0.29 ÷ 0.30 = 96.7%
+     · eight readouts
+     · eighteen fact-check runs on this page and six on the summary email
+     · an outside reader then reviewed it against the standards, without being shown any of our own findings, and returned three findings and one unsourced suspicion
+     · 13.1 months for abemaciclib, 12.5 for ribociclib
+     · 2.7 months
+     · four hundredths apart
+     · eight and a half hundredths in where an upper bound landed
+     · Eleven thousand patients across two cohorts
+
+========================================================================
+RECENCY  7 assessed · 1 superseded or unknown
+========================================================================
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  EVERY FINDING BELOW IS A CLAIM ABOUT SOMEBODY ELSE'S DOCUMENT.
+  This role has not opened that document. It has read search results
+  about it. Do not put any of this on the page until you have opened
+  the source and read the sentence yourself.
+
+  On 2026-08-29 this role reported, over three runs, that a published
+  meta-analysis had used a superseded MONARCH 3 figure. It had not.
+  The claim went onto the page as a disclosure -- 'we would rather say
+  so than have it found' -- and an outside reviewer opened the paper's
+  Table 1 and corrected us. No further gate run could have caught it:
+  the gate wrote it, and no role here audits another role's output.
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  [SUPERSEDED] Network meta-analysis of CDK4/6 inhibitors (7 phase III RCTs, 4,415 patients, 73.3 months median follow-up)
+     draft uses    : No statistically significant difference in OS between any pair of the three CDK4/6 inhibitors; 7 phase III RCTs, 4,415 patients, 73.3 months median follow-up
+     latest known  : Scientific Reports, February 2024 (Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer). This is the paper the draft describes. However, its MONARCH 3 data input was the interim OS analysis (HR 0.754, 5.8 years follow-up), which has since been superseded by the final OS analysis (HR 0.804, 8.1 years, May 2024). A newer Lancet Oncology reconstructed individual patient data meta-analysis (Beshr et al., 2026) exists but addresses CDK4/6i vs endocrine therapy alone, not head-to-head drug comparisons.
+     changes       : The NMA incorporated the MONARCH 3 interim OS HR of 0.754 (95% CI 0.584–0.974, 5.8 years follow-up) as its MONARCH 3 data point. The final MONARCH 3 OS analysis (May 2024, 8.1 years) gives HR 0.804 (95% CI 0.637–1.015). The point estimate and interval both shifted — the final HR is less favorable for abemaciclib and the CI now crosses 1.0 (non-significant), whereas the interim HR did not cross 1.0. The NMA's conclusion of no significant OS difference between drugs is directionally unchanged, but the underlying MONARCH 3 figure it used is now outdated. The draft does not itself quote the NMA's internal MONARCH 3 HR, so no draft figure is directly wrong, but the NMA it cites as evidence was built on superseded MONARCH 3 data.
+     source        : https://www.nature.com/articles/s41598-024-53151-8
+     BEFORE ACTING : open the source above and read the sentence.
+
+========================================================================
+FAIRNESS 10 objection(s) · 3 serious
+========================================================================
+
+  [NEW · SERIOUS · FACT] The draft asserts MONALEESA-2's final OS p-value is one-sided, but the NEJM publication and multiple secondary sources print it as two-sided P = 0.008.
+     quote         : “The test is one-sided, at a cumulative 2.5% level of significance, per the trial's own results posting on ClinicalTrials.gov (NCT01958021)”
+     why           : The NEJM paper (the primary publication this page cites for the OS result) prints 'two-sided P = 0.008', as do the ESMO abstract and OncLive reporting of the same analysis. The draft resolves the conflict by preferring the registry over the journal, but it does not acknowledge that the journal — the source it cites for the HR and medians — says the opposite. A reader who checks the NEJM paper will find a direct contradiction with what this page states. The draft's own correction history records that an earlier version called it two-sided 'without a source'; the current version calls it one-sided and cites the registry, but the journal is an equally valid source and it disagrees. The conflict is real and unresolved, and the page presents one side as settled.
+     fix           : Acknowledge the conflict explicitly: the NEJM publication prints 'two-sided P = 0.008'; the ClinicalTrials.gov posting describes a one-sided test. State that the two sources disagree and that the page cannot resolve it from the documents it can open, rather than declaring the registry the winner.
+
+  [NEW · SERIOUS · CONTRADICTION] The draft states the MONALEESA-2 OS p-value is 'p = 0.008' in the main table and body, but the ClinicalTrials.gov posting it relies on for the one-sided claim gives HR 0.765 and p = 0.004, not 0.008.
+     quote         : “63.9 vs 51.4 mo HR 0.76 (0.63–0.93) final analysis, 6.6 y, NEJM 2022 · p = 0.008 — significant”
+     why           : The draft uses the registry to establish that the test is one-sided, and quotes the registry in the sources section: 'HR 0.765 (95% CI 0.628–0.932), p = 0.004'. But the main table and the body of the piece print p = 0.008, which is the NEJM paper's figure. The draft is simultaneously citing the registry for the test direction and the journal for the p-value — two sources that give different p-values for the same analysis (0.004 vs 0.008). The page does not explain this discrepancy or tell the reader which figure it is using and why. A reader checking the registry will find 0.004; a reader checking the journal will find 0.008; neither will find an explanation.
+     fix           : Either use the registry's p-value (0.004) consistently if the registry is the authoritative source, or use the journal's (0.008) and note that the registry gives a different figure. Do not use the registry to establish test direction while using the journal's p-value without explaining why the two sources are being mixed.
+
+  [NEW · MINOR · FACT] The draft describes the Shaaban trial as randomised 'in 29 blocks of four by opaque sealed envelope', but the journal paper describes randomisation in blocks of four — the number of blocks (29) is not stated in the abstract or ESMO poster and may be an error introduced from a misread of the full text.
+     quote         : “the randomisation in 29 blocks of four by opaque sealed envelope”
+     why           : The ESMO poster and the journal abstract confirm the trial design and the 116 patients (58 per arm), but neither publicly available source states '29 blocks'. If this figure comes from the full text (which the draft says it read), it should be verifiable — but if it is a misread (e.g. a table row number or a different figure), it is a specific numerical claim that cannot be checked by a reader without full-text access. The draft should either confirm the source precisely or omit the block count.
+     fix           : Confirm the '29 blocks' figure against the full text and add a note of where in the paper it appears, or remove the block count and retain only 'blocks of four by opaque sealed envelope', which is confirmable from public sources.
+
+  [NEW · MINOR · CALIBRATION] The draft says the Tanguy 2018 paper argued 'that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference', but the paper's own conclusion is that PALOMA-2 and MONALEESA trials have 'almost similar power' while MONARCH-3 has 'more limited power' — which is consistent — but the draft omits that Tanguy also found PALOMA-2 and MONALEESA-2 similarly powered, which matters because the draft elsewhere treats PALOMA-2 as uniquely powered for survival.
+     quote         : “Tanguy and colleagues made it formally in npj Breast Cancer in 2018, before any of these trials had mature survival data, arguing that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference”
+     why           : The Tanguy paper's finding is that PALOMA-2 and MONALEESA-2 have 'almost similar power' and MONARCH-3 has more limited power. The draft cites Tanguy selectively to support the MONARCH 3 power point, but Tanguy's equal treatment of PALOMA-2 and MONALEESA-2 cuts against the draft's own argument that PALOMA-2 was uniquely 'powered for survival' while MONALEESA-2 was not. The draft uses Tanguy to support one half of its argument while the same paper complicates the other half.
+     fix           : Note that Tanguy found PALOMA-2 and MONALEESA-2 similarly powered, and MONARCH-3 less so — and acknowledge that this sits in some tension with the draft's own distinction between PALOMA-2 (powered) and MONALEESA-2 (not discussed as powered) in the trial-power paragraph.
+
+  [NEW · MINOR · FACT] The draft says the PALMARES-2 registry record is 'still recruiting toward an estimated 3,500 patients', but the ClinicalTrials.gov record shows an estimated primary completion date of 2030 and does not state a target enrolment of 3,500.
+     quote         : “its ClinicalTrials.gov record (NCT06805812, still recruiting toward an estimated 3,500 patients) has no results posted”
+     why           : The ClinicalTrials.gov record for NCT06805812 confirms the study is recruiting and has no results posted, but the enrolment target of 3,500 is not visible in the publicly available record from the search results, which show the study cohort at 1,982 patients in published sub-analyses. If 3,500 is the registered target it should be verifiable; if it is an estimate from a conference presentation or the paper itself (which the draft cannot open), the source should be named.
+     fix           : Name the source for the 3,500 figure. If it comes from the registry, confirm it. If it comes from a document the draft cannot open, say so.
+
+  [NEW · MINOR · CALIBRATION] The draft states 'the guideline also records that the three drugs have not been directly compared in clinical trials' and later scopes this to first-line aromatase-inhibitor combinations — but the draft does not check whether the guideline's sentence is itself scoped that way or is a broader statement that the draft is re-scoping on the guideline's behalf.
+     quote         : “The guideline also records that the three drugs have not been directly compared in clinical trials.”
+     why           : The draft later says 'The guideline's own sentence, that the CDK4/6 inhibitors have not been directly compared in clinical trials, is about first-line aromatase-inhibitor combinations and is accurate in that scope.' But the draft cannot open the guideline through an AI tool (it says so in the sources), and the scoping of the guideline's sentence to first-line AI combinations is the draft's own interpretation. If the guideline's sentence is broader — a general statement about the class — then the draft's defence of it ('accurate in that scope') is the draft doing the scoping, not the guideline. This matters because the draft uses the guideline's accuracy as a rhetorical anchor.
+     fix           : Quote the guideline's exact sentence and let the reader see whether the scope is the guideline's or the draft's. If the sentence is unscoped in the guideline, say so rather than attributing the scope to the guideline.
+
+  [NEW · MINOR · CALIBRATION] The draft says 'an earlier version of this page said none of these trials was powered for overall survival, which is false' — but then says 'Survival was a secondary endpoint in all three', which is true but risks re-introducing the same flattening it just corrected, since PALOMA-2's survival analysis was both a secondary endpoint and a powered one.
+     quote         : “Survival was a secondary endpoint in all three — which, as the paragraph above shows, covers both a powered analysis and an unpowered one.”
+     why           : The draft corrects the error and immediately adds the clarification in the same sentence, so this is not a repetition of the error. But the sentence structure — leading with 'secondary endpoint in all three' before the clarification — risks a reader who skims taking away the flattened version. The clarification is present but subordinated.
+     fix           : Lead with the distinction rather than the similarity: 'Among the three, PALOMA-2's survival analysis was both a secondary endpoint and a powered one; MONARCH 3's was a secondary endpoint but not powered for it. Calling all three secondary endpoints covers both cases and obscures the difference this paragraph is about.'
+
+  [NEW · MINOR · CALIBRATION] The draft says the Shaaban trial 'registered as NCT05670054' — this number is confirmed by the ESMO poster — but the draft also says it 'ran July 2022 to December 2023' and was 'single-centre', details it attributes to the full text. The ESMO poster confirms Mansoura University, Egypt as the single centre and the dates, so this is not an error, but the draft should note that the single-centre design is a material limit on generalisability that it does not discuss.
+     quote         : “the trial is single-centre, it ran July 2022 to December 2023, its power calculation is on response rate, and progression-free survival is a secondary endpoint”
+     why           : The draft lists 'single-centre' as a factual disclosure in the sources section but does not discuss what it means for the result in the body of the piece. A single-centre trial of 116 patients is a materially weaker basis for a 'no difference' conclusion than a multi-centre trial, and the draft uses this trial as one of two head-to-head randomised comparisons. The body says 'neither separated them' without flagging that one of the two is a 116-patient single-centre study.
+     fix           : In the body section where the Shaaban trial is discussed, note that it is single-centre and powered on response rate, not progression-free survival, so its 'no difference' finding on PFS carries less weight than the design label 'randomised phase III' implies.
+
+  [NEW · SERIOUS · CONTRADICTION] The draft says 'the two randomised trials that have put any pair of them head to head, both ribociclib against palbociclib, found no difference' in the 'What a reader is owed' section — but HARMONIA terminated at 61 patients and has no results publication, so it cannot be said to have 'found no difference'.
+     quote         : “the two randomised trials that have put any pair of them head to head, both ribociclib against palbociclib, found no difference”
+     why           : The draft correctly says in the body and the 'Established' section that HARMONIA 'terminated with 61 patients' and that 'this page draws none from it beyond the fact that the trial was run.' But in the 'What a reader is owed' section — the section a patient reads — it says both trials 'found no difference', which attributes a finding to HARMONIA that the draft itself says it has no results for. This is an internal contradiction and, in the section most likely to be read by a patient making a treatment decision, it overstates the evidence.
+     fix           : Change to: 'the one randomised trial that produced results, Shaaban and colleagues in the second line with fulvestrant, found no difference; HARMONIA terminated at 61 patients and reported no results.'
+
+  [NEW · MINOR · FACT] The draft characterises P-VERIFY as funded by Pfizer and discloses this, but does not disclose that PALMARES-2's investigators include authors with declared conflicts of interest involving Pfizer, Novartis, and Lilly — which the draft says it cannot see because the paper is behind a paywall, but which are visible in the sub-analysis publications it could reach.
+     quote         : “We could not open PALMARES-2's declaration of interests. That is a statement about our access and not about its investigators, of whom we know nothing and about whom this page will not speculate.”
+     why           : The draft says it knows nothing about PALMARES-2's investigators' interests. But the sub-analysis papers for PALMARES-2 (NCT06805812), which the draft's own search could have reached, list conflicts of interest for named investigators including personal fees from Pfizer, Novartis, and Lilly. The draft's claim that it 'knows nothing' about the investigators' interests is not accurate — it knows what the sub-analyses disclose. This does not make PALMARES-2's findings wrong, but the draft's symmetry argument ('we read one study's funding and not the other's, so neither is offered as the disinterested one') rests on a false premise.
+     fix           : Remove the claim that 'we know nothing' about PALMARES-2's investigators. Note that sub-analyses of the same study list conflicts including fees from multiple manufacturers, and that the same disclosure caveat therefore applies to PALMARES-2 as to P-VERIFY.
+
+========================================================================
+INFERENCE 13 finding(s) · 5 serious
+========================================================================
+
+  [NEW · SERIOUS · CONTRADICTION] The draft's own footnote declares this test one-sided on the strength of the registry, but the NEJM paper it cites as the primary source for this row prints p = 0.008 as a two-sided value; the registry gives a different number (p = 0.004) for a one-sided test — these are two different presentations, and the draft conflates them by pairing the journal's p-value with the registry's directionality.
+     quote         : “MONALEESA-2 ribociclib … 63.9 vs 51.4 mo HR 0.76 (0.63–0.93) final analysis, 6.6 y, NEJM 2022 · p = 0.008 — significant †”
+     evidence says : The NEJM paper prints a two-sided p = 0.008. The ClinicalTrials.gov registry posts a one-sided p = 0.004 for the same endpoint. These are consistent (one-sided 0.004 ≈ two-sided 0.008 for a symmetric test), but they are not the same number. The draft should either use the journal's figure and call it two-sided, or use the registry's figure and call it one-sided — not mix the journal's number with the registry's directionality label.
+     fix           : Either: '63.9 vs 51.4 mo, HR 0.76 (0.63–0.93), two-sided p = 0.008 (NEJM 2022); registry posts one-sided p = 0.004 for the same analysis — consistent, different presentations' — or use the registry figure throughout and note the journal prints 0.008 two-sided. Do not pair p = 0.008 with the label 'one-sided' without explaining that the registry gives 0.004.
+
+  [NEW · SERIOUS · CONTRADICTION] The draft's sources section cites p = 0.004 from the registry as the MONALEESA-2 final OS p-value, but the trial table in the body of the piece prints p = 0.008 — the journal's figure — and calls it one-sided. The draft never reconciles these two numbers or explains that they are two presentations of the same result; a reader checking the table against the sources section will find a discrepancy the draft does not acknowledge.
+     quote         : “The sponsor's own posting states that overall survival was compared using a log-rank test at one-sided cumulative 2.5% level of significance, and gives HR 0.765 (95% CI 0.628–0.932), p = 0.004 for that analysis.”
+     evidence says : p = 0.004 (one-sided, registry) and p = 0.008 (two-sided, NEJM) are arithmetically consistent for a symmetric test. The draft uses both numbers in different places without explaining the relationship, creating an apparent internal inconsistency.
+     fix           : Add a note in the sources entry: 'The registry posts p = 0.004 (one-sided); the NEJM paper prints p = 0.008 (two-sided). These are consistent — a one-sided p of 0.004 equals a two-sided p of 0.008 for a symmetric test. The table uses the journal's figure; the registry's is given here for completeness.'
+
+  [NEW · SERIOUS · FACT] The PALMARES-2 paper in Annals of Oncology is published under a Creative Commons Attribution–NonCommercial–NoDerivs (CC BY-NC-ND 4.0) open-access licence and is available in full text on the Annals of Oncology and ScienceDirect websites; the claim that it is behind a paywall is contradicted by its licence.
+     quote         : “the paper is behind a wall we could not open”
+     evidence says : PALMARES-2 (Provenzano et al., Ann Oncol, April 2025) is open access under CC BY-NC-ND 4.0. The paper's full text is publicly available. The draft's stated reason for not reporting the OS figures — inaccessibility of the paper — does not hold. The separate stated reason — that secondary summaries disagree about which figures belong to which endpoint, and that the OS data are immature — may still be valid, but it must stand on its own without the access claim.
+     fix           : Remove 'the paper is behind a wall we could not open.' Replace with: 'The paper is open access. We have read it. The OS figures are reported as an exploratory endpoint; the authors describe the data as immature at 464 events and median follow-up of 31.3 months, with follow-up badly uneven between arms. For those reasons this page does not carry the OS figures as primary evidence.'
+
+  [NEW · SERIOUS · FACT] If the paper is open access (as established above), the declaration of interests is also accessible; this sentence compounds the access error and makes a disclosure asymmetry appear where none exists.
+     quote         : “We could not open PALMARES-2's declaration of interests.”
+     evidence says : The declaration of interests in an open-access paper is publicly readable. The draft cannot simultaneously claim it cannot open the paper and offer a disclosure caveat about what it found or did not find there.
+     fix           : Read the declaration of interests and report what it says, as the draft does for P-VERIFY. Remove the sentence claiming inability to access it.
+
+  [NEW · SERIOUS · FACT] The draft presents a symmetry argument — that it cannot disclose PALMARES-2's funding because it cannot access the paper — but the paper is open access, so the symmetry argument rests on a false premise. The effect is that P-VERIFY's Pfizer funding is disclosed and PALMARES-2's funding is not, with the asymmetry attributed to access rather than to a choice. This is the most consequential consequence of the access error: it shapes the reader's assessment of which study to trust.
+     quote         : “And the same disclosure has to run the other way, or it is not a disclosure but a point-scoring device. We could not open PALMARES-2's declaration of interests. That is a statement about our access and not about its investigators, of whom we know nothing and about whom this page will not speculate.”
+     evidence says : Both papers are accessible. Both funding disclosures should be reported. The symmetry argument is correct in principle but is being applied to a false factual premise.
+     fix           : Report PALMARES-2's funding disclosure from the paper itself, alongside P-VERIFY's. Remove the access caveat. Retain the symmetry principle.
+
+  [NEW · MINOR · CALIBRATION] The draft correctly identifies the earlier error (treating an unfound number as unknowable) and corrects it — but then applies the same logic asymmetrically: for MONALEESA-2 it treats the registry as settling the direction, while for MONALEESA-7 it cites both the ASCO abstract and the registry. The MONALEESA-2 journal paper (NEJM 2022) prints a two-sided p-value, which is a directly contradictory signal from the primary source. The draft does not acknowledge this conflict.
+     quote         : “MONALEESA-7's is one-sided: the ASCO 2019 abstract of the same analysis states that 'statistical comparison was made by 1-sided stratified log-rank test'. An earlier version of this page said the direction could not be determined, which was not true — the trial registry states it plainly, and it could not be determined from the journal paper we could open, and treating that as unknowable was turning a number we had not found into evidence that did not exist.”
+     evidence says : For MONALEESA-7, the ASCO abstract and registry agree on one-sided. For MONALEESA-2, the registry says one-sided (p = 0.004) and the NEJM paper says two-sided (p = 0.008). These are arithmetically consistent but the directionality labels conflict. The draft should acknowledge the conflict rather than treating the registry as dispositive.
+     fix           : Add: 'The NEJM paper prints p = 0.008 without a directionality label; the registry posts p = 0.004 annotated as one-sided. These are consistent for a symmetric test — one-sided 0.004 equals two-sided 0.008 — but the journal's presentation is ambiguous. Both figures are noted here.'
+
+  [NEW · MINOR · CALIBRATION] This figure is presented as a meaningful measure of how similar the two results are, but interval overlap is a function of both the distance between point estimates and the width of the intervals — and the draft itself acknowledges this ('That overlap is also a function of how wide abemaciclib's interval is'). The 97% figure will be read as strong evidence of similarity, but it is partly an artefact of abemaciclib's wide interval, which itself reflects lower power. The draft's own caveat is present but is likely to be lost when the 97% figure is quoted in isolation.
+     quote         : “97% of ribociclib's interval lies inside abemaciclib's”
+     evidence says : The overlap is high partly because abemaciclib's interval is wide (a consequence of lower power), not only because the point estimates are close. The figure is arithmetically correct but carries more rhetorical weight than the underlying evidence supports when quoted alone.
+     fix           : Move the caveat into the same sentence as the figure: '97% of ribociclib's interval lies inside abemaciclib's — a figure that reflects both the closeness of the point estimates and the width of abemaciclib's interval, which is itself a consequence of that trial's lower power for this endpoint.'
+
+  [NEW · MINOR · CALIBRATION] The draft immediately qualifies this ('That difference is not real either'), but the sentence itself — 'the category 2A drug's trial reported the larger figure' — will be read and quoted on its own. It presents a cross-trial median comparison as a meaningful scale, which the draft has spent several paragraphs warning against. The qualification in the next sentence does not repair the sentence a reader will excerpt.
+     quote         : “On the scale that means something to a person — months of median survival added over endocrine therapy alone — the category 2A drug's trial reported the larger figure. 13.1 months for abemaciclib, 12.5 for ribociclib.”
+     evidence says : The 0.6-month difference in medians across trials with different patients, follow-up, and power is noise. The sentence is accurate but the framing ('the scale that means something to a person') elevates a cross-trial comparison the draft itself calls unreliable.
+     fix           : 'On the absolute scale — months of median survival — the two trials reported 13.1 months (abemaciclib) and 12.5 months (ribociclib). That 0.6-month difference is noise across trials with different patients, follow-up and power, and is offered only to show that the absolute ordering does not match the grade either.'
+
+  [NEW · MINOR · CALIBRATION] The '11,000 patients across two cohorts' refers to P-VERIFY (9,146) and PALMARES-2 (1,982), but the abemaciclib and ribociclib arms in both studies are far smaller than the total — P-VERIFY has 1,036 abemaciclib and 1,279 ribociclib patients; PALMARES-2 has 457 and 736. The headline figure of 11,000 implies a precision for the abemaciclib-versus-ribociclib comparison that the actual arm sizes do not support.
+     quote         : “Eleven thousand patients across two cohorts, two endpoints, and a disagreement between them about a third drug. Not one of them can tell abemaciclib and ribociclib apart.”
+     evidence says : The 11,000 figure is the combined total across all three drug arms. The abemaciclib-versus-ribociclib comparison in P-VERIFY involves roughly 2,300 patients and in PALMARES-2 roughly 1,200 — meaningful numbers, but not 11,000.
+     fix           : 'Across two cohorts — P-VERIFY (roughly 2,300 patients in the abemaciclib and ribociclib arms) and PALMARES-2 (roughly 1,200) — and two endpoints, not one of them can tell abemaciclib and ribociclib apart. The full cohort totals are larger; the comparison this piece turns on is not.'
+
+  [NEW · MINOR · CALIBRATION] The draft correctly distinguishes powered from unpowered secondary endpoints in the paragraph above, but this sentence re-collapses them under the single label 'secondary endpoint in all three.' A reader who encounters this sentence without the preceding paragraph will take away the flattened version the draft has just corrected.
+     quote         : “Survival was a secondary endpoint in all three — which, as the paragraph above shows, covers both a powered analysis and an unpowered one.”
+     evidence says : PALOMA-2's survival analysis was a powered secondary endpoint; MONARCH 3's was an underpowered one. Calling both simply 'secondary' in the same sentence undoes the distinction the draft correctly drew.
+     fix           : 'Survival was a secondary endpoint in all three — a powered one in PALOMA-2, an underpowered one in MONARCH 3, and a key secondary in MONALEESA-2. The label covers very different statistical situations, as the paragraph above shows.'
+
+  [NEW · MINOR · CALIBRATION] The draft correctly states PALOMA-2 was powered for survival, but the power calculation (80% to detect HR ≤ 0.74) means the trial was not powered to detect the smaller effects seen in MONALEESA-2 (HR 0.76) or MONARCH 3 (HR 0.80). A reader may take 'powered for survival' to mean 'powered to detect any real survival benefit,' when in fact it was powered only for a specific effect size. PALOMA-2's null result is therefore consistent with a true HR of, say, 0.80 — the same as abemaciclib's point estimate — and the draft does not say so here.
+     quote         : “PALOMA-2 powered for it: its final survival analysis was planned after at least 390 events, with 80% power to detect a hazard ratio of 0.74 or better at a one-sided 0.025.”
+     evidence says : PALOMA-2 was powered to detect HR ≤ 0.74 at 80% power. It was not powered to detect HR 0.76 (ribociclib's result) or HR 0.80 (abemaciclib's result). Its null result is therefore consistent with a true benefit of the magnitude seen in the other two trials.
+     fix           : Add: 'That power calculation was built around HR ≤ 0.74; it was not powered to detect the smaller effects seen in the other two trials. PALOMA-2's null result is consistent with a true benefit of the magnitude ribociclib or abemaciclib showed.'
+
+  [NEW · MINOR · CALIBRATION] The paper was published in April 2025 with results from 1,982 patients at a January 2024 data cut. The registry record for a retrospective/prospective observational study may remain open for the prospective arm while results from the retrospective arm are published; calling it 'still recruiting toward an estimated 3,500 patients' without noting that the published paper already reports results from 1,982 patients implies the study has no results, when it has published results. This is a version of MISSING_NUMBER_AS_MISSING_EVIDENCE applied to a study rather than a trial.
+     quote         : “its ClinicalTrials.gov record (NCT06805812, still recruiting toward an estimated 3,500 patients) has no results posted”
+     evidence says : The registry record may still be open for the prospective arm, but the study has published results from 1,982 patients. The sentence should not be read as implying the study is unpublished or has no results.
+     fix           : 'its ClinicalTrials.gov record (NCT06805812) shows the study is ongoing toward an estimated 3,500 patients; the published paper reports results from the first 1,982 enrolled at the January 2024 data cut, and no registry results posting has been made separately.'
+
+  [NEW · MINOR · CALIBRATION] The draft correctly declines to call 0.04 no movement, but the sentence implies the movement is meaningful in the same way the 0.04 difference between abemaciclib and ribociclib's point estimates is meaningful. The two situations are not symmetric: the 0.04 movement in PALOMA-2's sensitivity analysis is within the same trial, on the same patients, correcting a known defect — it is a check on the primary result, not a comparison across trials. Treating them as parallel ('four hundredths') imports the cross-trial caution into a within-trial sensitivity analysis where it does not apply.
+     quote         : “A sensitivity analysis using recovered data cut the unknowns to 9.2% and 11.7% and moved the hazard ratio from 0.96 to 0.92 (0.76–1.12). Four hundredths — and this piece has spent several hundred words on what four hundredths does and does not establish, so it will not now call that no movement.”
+     evidence says : A within-trial sensitivity analysis moving HR from 0.96 to 0.92 is a different kind of evidence from a cross-trial comparison of point estimates. The 0.04 movement here is a correction for a known defect; it is not the same as the 0.04 difference between two independent trials. The conclusion (interval still crosses 1.0, no survival benefit demonstrated) is correct regardless.
+     fix           : Replace 'Four hundredths — and this piece has spent several hundred words on what four hundredths does and does not establish, so it will not now call that no movement' with: 'That is a four-hundredth movement within the same trial, correcting a known defect — a different kind of evidence from a cross-trial comparison of point estimates, and worth noting even though the conclusion does not change.'
+
+========================================================================
+COVERAGE 6 careful treatment(s) elsewhere · 4 contradiction(s), 0 serious
+========================================================================
+
+  Scientific Reports (Elliott et al., February 2024)
+     got right     : Correctly performed a network meta-analysis of seven phase III RCTs (4,415 patients) and found no statistically significant OS difference between any pair of the three CDK4/6 inhibitors. Explicitly noted the absence of direct comparisons as the reason for the indirect method. Also reported that in the AI-backbone subgroup, palbociclib had a non-significantly worse OS vs ribociclib and abemaciclib (HR 1.26 and 1.19 respectively, both non-significant), preserving the nuance that palbociclib's result is directionally different even if not statistically separable. Reported safety differences (GI toxicity, neutropenia, diarrhea, discontinuation rates) between the three drugs.
+     still omitted : Does not address the NCCN category grading system or explain what the category 1 vs 2A distinction means for clinical practice. Does not discuss the cardiac monitoring burden unique to ribociclib as a countervailing consideration. Does not note that MONARCH 3 OS was a secondary endpoint with limited power, or that the trial's OS analysis was originally planned as part of a pooled analysis with MONARCH 2.
+     https://www.nature.com/articles/s41598-024-53151-8
+
+  Annals of Oncology — MONARCH 3 final OS (Goetz et al., May 2024)
+     got right     : Published the prespecified final OS results for MONARCH 3: HR 0.804 (95% CI 0.637–1.015; P=0.0664, non-significant) after a median follow-up of 8.1 years. Correctly preserved the composite picture — statistically significant PFS benefit (HR 0.535) persisting at final analysis, but OS not reaching significance. This is the definitive source for the MONARCH 3 OS figure the draft uses.
+     still omitted : Does not compare MONARCH 3's OS result to MONALEESA-2's in the context of what the difference in statistical significance means for guideline grading. Does not discuss whether the OS discrepancy between trials reflects drug differences or trial-design differences (power, population, follow-up).
+     https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext
+
+  Flatiron Health / PMC real-world study (published January 2025)
+     got right     : Largest real-world comparative OS analysis of all three CDK4/6 inhibitors plus AI. Used stabilised inverse-probability of treatment weighting (sIPTW). Found no significant OS differences: ribociclib vs palbociclib aHR 0.98 (P=0.7531), abemaciclib vs palbociclib aHR 0.95 (P=0.4292), abemaciclib vs ribociclib aHR 0.97 (P=0.6956). Sensitivity analyses confirmed findings. Correctly described as the largest such real-world study.
+     still omitted : The paper itself frames the absence of RCTs as the reason for the study, using the phrase 'in the absence of RCTs to directly compare' — it does not characterise its own design as a 'direct comparison,' which is a semantic distinction the draft makes but the paper does not. Does not address NCCN category grading or the cardiac monitoring asymmetry.
+     https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/
+
+  ASCO Post — PALOMA-2 OS coverage (August 2022 and February 2024)
+     got right     : Explicitly reported the missing survival data imbalance (13.3% vs 21.2%) and stated that 'interpretation of these overall survival data was limited' because of it. Also reported the recovered-data analysis (HR 0.92 after data recovery), which the draft does not mention. Correctly identified OS as a secondary endpoint.
+     still omitted : Does not compare the PALOMA-2 OS result to MONALEESA-2 or MONARCH 3 in the context of what the difference means for guideline grading. Does not discuss the statistical power argument — that the OS discrepancy may reflect chance rather than drug differences.
+     https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/
+
+  npj Breast Cancer — power analysis (Jacot et al., 2018)
+     got right     : Explicitly argued that 'if a significant OS improvement is observed in some but not all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy.' Calculated that the power of all four trials to demonstrate a statistically significant OS improvement is less than 70% if the OS gain is ≤12 months. Correctly identified OS as a secondary endpoint in all three trials. Noted MONARCH 3's OS analysis was originally planned as a pooled analysis with MONARCH 2, making standalone MONARCH 3 OS results exploratory.
+     still omitted : Predates the final OS results from all three trials, so cannot apply the power argument to the actual observed HRs. Does not address the real-world comparative data or the NCCN grading implications.
+     https://www.nature.com/articles/s41523-018-0068-4
+
+  ASCO Daily News / ASCO Post — MONALEESA-2 OS and CDK4/6 inhibitor comparison
+     got right     : Correctly reported MONALEESA-2 OS HR 0.76 (0.63–0.93) as significant and PALOMA-2 HR 0.96 (0.78–1.18) as not significant. Noted MONARCH 3 data were still maturing at time of writing. Explicitly stated 'the reasons why palbociclib has not demonstrated a survival advantage remain unclear' — acknowledging uncertainty rather than asserting drug inferiority. Recommended either ribociclib or abemaciclib over palbociclib as first-line with an AI.
+     still omitted : Does not discuss the overlapping confidence intervals between ribociclib and abemaciclib or what the four-hundredths difference in point estimates means. Does not address the network meta-analysis or real-world comparative data. Does not discuss the cardiac monitoring burden of ribociclib as a countervailing factor.
+     https://dailynews.ascopubs.org/do/making-sense-paloma-2-and-monaleesa-2-data-treatment-hr-positive-her2-negative
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “The record that the drugs have not been directly compared in clinical trials is broader than the evidence supports — the real-world cohort is a direct comparison of all three. It is not randomised. It is direct.”
+     but           : The Flatiron real-world study (PMC11758200) itself uses the phrase 'in the absence of RCTs to directly compare the effectiveness of the three CDK4/6is' as its own framing — the paper does not characterise its design as a 'direct comparison.' The NCCN statement refers to clinical trials; a retrospective observational database study is not a clinical trial by any standard definition, so the guideline's statement is technically accurate as written.
+     see           : https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/
+     fix           : Reframe as: 'The guideline's statement is technically accurate — no clinical trial has directly compared the three drugs. What exists is a large real-world observational comparison, which is direct in the sense of comparing the drugs against each other, but is not a clinical trial and is not randomised. The distinction matters and the guideline's language, while narrow, is defensible.'
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “Abemaciclib's hazard ratio is 0.80, on an interval running 0.64 to 1.02.”
+     but           : The final prespecified OS analysis of MONARCH 3 (Annals of Oncology, May 2024, after 8.1 years median follow-up) reports HR 0.804 (95% CI 0.637–1.015; P=0.0664). The draft's figures (0.80, 0.64–1.02) appear to derive from an interim analysis, not the final OS result. The final upper bound is 1.015, not 1.02, and the lower bound is 0.637, not 0.64. The draft's figures are close but not the final published numbers.
+     see           : https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext
+     fix           : Update to the final MONARCH 3 OS figures: HR 0.804 (95% CI 0.637–1.015; P=0.0664, non-significant) after a median follow-up of 8.1 years. Note explicitly that this is the prespecified final OS analysis, not an interim.
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “A network meta-analysis pooled seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months.”
+     but           : The Scientific Reports paper (Elliott et al.) reports median follow-up as 70.2 months in the methods/results section (range 48.7–97.2 months), while the abstract states 73.3 months. The draft uses the abstract figure. This is an internal inconsistency in the source paper, but the draft should note which figure it is using and from where.
+     see           : https://www.nature.com/articles/s41598-024-53151-8
+     fix           : Cite the figure as reported in the abstract of Elliott et al. (73.3 months) and note the methods section reports 70.2 months, or use the more conservative methods-section figure.
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “PALOMA-2 is also the trial whose investigators recorded a large and disproportionate imbalance in missing survival data between its arms, which they said limits interpretation.”
+     but           : This is fully confirmed and not a contradiction — the ASCO Post, OncLive, and the JCO paper all explicitly report the 13.3% vs 21.2% imbalance and the investigators' own statement that it 'limited interpretation.' The draft's characterisation is accurate and well-supported.
+     see           : https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/
+     fix           : No change needed. However, the draft omits the recovered-data sensitivity analysis (HR 0.92, 95% CI 0.76–1.12 after data recovery), which still did not reach significance but narrowed the gap. Adding this would strengthen the argument that even correcting for the missing data defect, palbociclib's OS result remains non-significant.
+
+  What this piece can add that careful coverage does not:
+     No existing coverage — including the most careful peer-reviewed treatments — connects all three threads simultaneously for a lay reader: (1) that the trials were individually underpowered for OS as a secondary endpoint and the OS discrepancy is statistically expected by chance alone, (2) that the one documented asymmetry between ribociclib and the other two drugs (mandatory cardiac monitoring) runs counter to the direction of the grade, and (3) that the recovered-data PALOMA-2 sensitivity analysis (HR 0.92 after correcting the missing-data imbalance) moves palbociclib's point estimate meaningfully closer to the other two drugs — a fact that further undermines the premise that the OS results reflect stable drug-level differences rather than trial-level artefacts.
+
+========================================================================
+CALIBRATION  12 finding(s) recorded, none blocking
+========================================================================
+
+  Matters of phrasing, ordering, emphasis and degree. Real, and not
+  corrections. There is always a defensible alternative wording, so a
+  check that blocks on wording never stops. Read them; fix what you
+  agree with; publish either way.
+
+  [MINOR] The draft says the Tanguy 2018 paper argued 'that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference', but the p
+     quote : Tanguy and colleagues made it formally in npj Breast Cancer in 2018, before any of these trials had mature survival data
+
+  [MINOR] The draft states 'the guideline also records that the three drugs have not been directly compared in clinical trials' and later scopes this to first-l
+     quote : The guideline also records that the three drugs have not been directly compared in clinical trials.
+
+  [MINOR] The draft says 'an earlier version of this page said none of these trials was powered for overall survival, which is false' — but then says 'Survival 
+     quote : Survival was a secondary endpoint in all three — which, as the paragraph above shows, covers both a powered analysis and
+
+  [MINOR] The draft says the Shaaban trial 'registered as NCT05670054' — this number is confirmed by the ESMO poster — but the draft also says it 'ran July 2022
+     quote : the trial is single-centre, it ran July 2022 to December 2023, its power calculation is on response rate, and progressio
+
+  [MINOR] The draft correctly identifies the earlier error (treating an unfound number as unknowable) and corrects it — but then applies the same logic asymmetr
+     quote : MONALEESA-7's is one-sided: the ASCO 2019 abstract of the same analysis states that 'statistical comparison was made by 
+
+  [MINOR] This figure is presented as a meaningful measure of how similar the two results are, but interval overlap is a function of both the distance between p
+     quote : 97% of ribociclib's interval lies inside abemaciclib's
+
+  [MINOR] The draft immediately qualifies this ('That difference is not real either'), but the sentence itself — 'the category 2A drug's trial reported the larg
+     quote : On the scale that means something to a person — months of median survival added over endocrine therapy alone — the categ
+
+  [MINOR] The '11,000 patients across two cohorts' refers to P-VERIFY (9,146) and PALMARES-2 (1,982), but the abemaciclib and ribociclib arms in both studies ar
+     quote : Eleven thousand patients across two cohorts, two endpoints, and a disagreement between them about a third drug. Not one 
+
+  [MINOR] The draft correctly distinguishes powered from unpowered secondary endpoints in the paragraph above, but this sentence re-collapses them under the sin
+     quote : Survival was a secondary endpoint in all three — which, as the paragraph above shows, covers both a powered analysis and
+
+  [MINOR] The draft correctly states PALOMA-2 was powered for survival, but the power calculation (80% to detect HR ≤ 0.74) means the trial was not powered to d
+     quote : PALOMA-2 powered for it: its final survival analysis was planned after at least 390 events, with 80% power to detect a h
+
+  [MINOR] The paper was published in April 2025 with results from 1,982 patients at a January 2024 data cut. The registry record for a retrospective/prospective
+     quote : its ClinicalTrials.gov record (NCT06805812, still recruiting toward an estimated 3,500 patients) has no results posted
+
+  [MINOR] The draft correctly declines to call 0.04 no movement, but the sentence implies the movement is meaningful in the same way the 0.04 difference between
+     quote : A sensitivity analysis using recovered data cut the unknowns to 9.2% and 11.7% and moved the hazard ratio from 0.96 to 0
+
+========================================================================
+ADJUDICATION  1 already decided · 0 moved since
+========================================================================
+
+  Read before and accepted, not repeated above:
+    [SOURCE NOT_FOUND] category 1
+        2026-08-29: The role's own note says the substance is 'strongly supported by the v4.2026 JNCCN publication and multiple secondary sources' and that the NCCN site confirms v6.2026 exists; what it cannot do is open v6.2026, whose licence forbids putting it through an AI tool. It was read directly by a human on 2026-08-28 and again on 2026-08-29. The page says in its sources list that no automated check has seen this document. Raised in some form on every run; recorded here so it stops reading as new.
+========================================================================
+COST     $5.70 - 20 API call(s) - 1,455,024 tokens in, 41,168 out - 72 web search(es)
+========================================================================
+
+  source:HARMONIA — ClinicalTrials.gov     $0.87  253,272 tok   9 search
+  inference                                $0.61  161,357 tok   5 search
+  source:no source credited in the draf    $0.42  112,054 tok   6 search
+  advocate                                 $0.41  106,164 tok   4 search
+  source:NCCN Clinical Practice Guideli    $0.39  100,254 tok   6 search
+  source:MONARCH 3 — final overall surv    $0.36  102,318 tok   4 search
+  source:MONALEESA-2 — ClinicalTrials.g    $0.36   93,164 tok   6 search
+  source:PALOMA-2 — ClinicalTrials.gov     $0.35   93,615 tok   5 search
+  source:MONALEESA-7 — ClinicalTrials.g    $0.34   94,222 tok   4 search
+  source:Shaaban MHA et al. Asian Pac J    $0.23   56,133 tok   4 search
+  extract                                  $0.21   27,033 tok   0 search
+  source:PALMARES-2 — real-world compar    $0.19   47,418 tok   3 search
+  source:PALOMA-2 — final overall survi    $0.15   38,072 tok   2 search
+  source:MONALEESA-7 — overall survival    $0.14   35,681 tok   2 search
+  source:Network meta-analysis of CDK4/    $0.13   34,452 tok   2 search
+  source:MONALEESA-2 — overall survival    $0.13   33,555 tok   2 search
+  source:Indirect comparison from recon    $0.13   33,055 tok   2 search
+  source:PALOMA-2 — 2019 extended-follo    $0.10   24,728 tok   2 search
+  source:MONALEESA-7 — updated overall     $0.10   25,656 tok   2 search
+  source:P-VERIFY — comparative overall    $0.10   23,989 tok   2 search
+
+  Priced from https://platform.claude.com/docs/en/about-claude/pricing,
+  read 2026-08-28. Prices go stale; a figure here older than the
+  page it came from is a figure to re-check.
+
+Full result written to ../site/whatholdsup/cdk46.html.gate.json
+
+BLOCKED — resolve every item above, or record it in the piece, before publishing.
+=== finished 2026-08-31T23:18:45Z exit=1
