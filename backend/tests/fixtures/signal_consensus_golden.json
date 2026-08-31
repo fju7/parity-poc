@@ -29,8 +29,11 @@
       "slug": "breast-cancer-therapies",
       "category": "survival_outcomes",
       "claims": 41,
-      "expected_status": "consensus",
-      "expected_debated_sides": null
+      "expected_status": "debated",
+      "expected_debated_sides": [
+        5,
+        2
+      ]
     },
     {
       "slug": "breast-cancer-therapies",

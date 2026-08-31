@@ -29,12 +29,12 @@
       "slug": "breast-cancer-therapies",
       "category": "survival_outcomes",
       "moved": "consensus -> debated",
-      "decision": "undecided_pending_policy",
-      "action": "NOT re-baselined. Needs an editorial rule, not more reading.",
-      "decided_by": "claude — escalated, not decided",
+      "decision": "model_is_right",
+      "action": "re-baselined 2026-08-31, under the minority-dispute rule below",
+      "decided_by": "Fred Ugast (editorial rule); claude (claims read at source)",
       "decided_on": "2026-08-31",
-      "reason": "41 claims, of which roughly 35 are uncontested trial results and epidemiology. But a real dispute sits inside them: ribociclib showed overall-survival benefit across MONALEESA-2, -3 and -7, MONARCH-2 reached significance, and PALOMA-2 and PALOMA-3 did not — with one claim asserting PALOMA-3's OS was significant at p=0.0221 and another asserting it was numerical but not significant, a flat contradiction inside the corpus that is itself worth fixing. Whether all CDK4/6 inhibitors extend life is genuinely unsettled and is the subject of What Holds Up issue two. So the question is not what the claims say. It is whether a real but minority dispute inside a large category makes that category 'debated'. That rule governs all 53 categories and belongs to the operator.",
-      "what_would_change_it": "An editorial rule on minority disputes. Separately, the PALOMA-3 contradiction should be resolved in the corpus regardless of which way the rule goes."
+      "reason": "35 of 41 claims are uncontested trial results and epidemiology, but a real dispute sits inside them: ribociclib showed overall-survival benefit across MONALEESA-2, -3 and -7 and MONARCH-2 reached significance, while PALOMA-2 and PALOMA-3 did not. Whether all CDK4/6 inhibitors extend life is genuinely unsettled and is the subject of What Holds Up issue two. Under the standing rule recorded below, a real minority dispute makes the category debated. So 'debated' is correct and the model was right. SEPARATELY AND STILL OPEN: two claims in this category contradict each other on PALOMA-3 — one gives OS HR 0.81 at p=0.0221, the other says PALOMA-2 and PALOMA-3 showed numerical but not statistically significant benefit. One of them is wrong. That is a corpus defect, not a mapping question, and re-baselining does not fix it.",
+      "what_would_change_it": "The minority-dispute rule changing. The PALOMA-3 contradiction is outstanding regardless and should be resolved in the corpus."
     }
   ],
   "open_instrument_finding": {
@@ -42,6 +42,21 @@
     "what": "THE ALIAS MOVES, AND IT MOVED WITHIN THREE HOURS. The 13:00 UTC scheduled run and two local runs a few hours later disagreed on three categories — breast-cancer-therapies/treatment_selection, mrna-vaccine-myocarditis/clinical_outcomes_and_severity, and social-media-teen-mental-health/methodology, whose side balance reversed [10,3] -> [3,8] while its published label stayed 'debated'. Everything else was held constant and checked: identical claim corpus (207/205/2, 136/134/2, 130/130/0, 211/202/9 — matching CI exactly), same fixture, no SIGNAL_MODEL override in .env or CI, no commit touching map_consensus.py, signal_model.py, topic_config.py or score_claims.py, and temperature=0 with no caching and no seed. Deterministic decoding on identical inputs produced different judgments three hours apart.",
     "why_it_matters": "This is the failure golden_set.py was built for and its docstring predicts: 'no dated snapshot is published for it... Judgments can move without a code change.' Last time the detection window was five months. This time it was three hours. It also means those three categories cannot be fixed by re-baselining — record today and tomorrow goes red on a different three.",
     "not_yet_confirmed": "The conclusion 'the alias moved' is reached by elimination, not observation. The confirming test is to re-run those four topics after a gap: a FOURTH distinct result means continuous drift and no baseline can hold for any of the 53; a match with today's local pair means it moved once and settled.",
-    "consequence_for_whatholdsup": "The whatholdsup gate binds every verdict to the sha it judged, which is right, and records model 'claude-sonnet-4-6', which is an alias and therefore does not identify what actually judged. Its --since optimisation carries claim verdicts forward from earlier runs to save money. If the model can move in three hours, a carried verdict was produced by a judge that may no longer exist. Any measurement taken through a model role — including the fatal-class recall baseline of 2026-08-31 — has a shelf life. Deterministic checks do not."
-  }
+    "consequence_for_whatholdsup": "The whatholdsup gate binds every verdict to the sha it judged, which is right, and records model 'claude-sonnet-4-6', which is an alias and therefore does not identify what actually judged. Its --since optimisation carries claim verdicts forward from earlier runs to save money. If the model can move in three hours, a carried verdict was produced by a judge that may no longer exist. Any measurement taken through a model role — including the fatal-class recall baseline of 2026-08-31 — has a shelf life. Deterministic checks do not.",
+    "confirmed_2026_08_31": "FOUR observations now: the 13:00 UTC CI run, two local passes minutes apart, and a third pass hours later. TWO categories drift in every one — breast-cancer/survival_outcomes and mrna-myocarditis/biological_mechanism. THREE flicker: treatment_selection drifted in the two back-to-back local passes and in neither CI nor the later pass; clinical_outcomes_and_severity and the social-media/methodology side reversal appeared in CI alone. Three observations, three different sets. So it is not 'the alias moved once and settled' — within a short window the pipeline is deterministic, and across hours the result flickers. The two stable drifts are real and have been decided. The three flickering ones cannot be fixed by re-baselining: record one and the next run goes red on whichever way the coin lands. They need the mapping to stop sitting on the boundary, which R-01 above may itself help with by writing the threshold down."
+  },
+  "standing_rules": [
+    {
+      "id": "R-01",
+      "rule": "A real but minority dispute inside a category makes that category DEBATED, not consensus.",
+      "set_by": "Fred Ugast",
+      "set_on": "2026-08-31",
+      "in_his_words": "A real but minority dispute does make a 41 claim category debated. Many times a minority turns out to be more right than wrong. At some level there might be a case where we judge the minority too small or undercredentialed to take seriously, but that should be pretty rare for our purposes.",
+      "why": "An evidence assessment that rounds minority positions away is doing the thing it exists to criticise. The cost of calling a genuine dispute 'consensus' is that a reader is told the question is closed when it is not; the cost of the reverse is only that they are told to look closer.",
+      "consequences_not_yet_acted_on": [
+        "THE RULE BELONGS IN THE MAPPING PROMPT, not only here. Until it is in _build_category_prompt the model applies its own unwritten threshold and every category gets adjudicated one at a time, forever. Editing that file triggers a full 53-category run, which is the right price for a rule change.",
+        "CONSENSUS SHOULD GET RARER. 47 of 53 categories currently read consensus. If a genuine minority dispute is enough, some of those 47 are mislabelled — and the label flips we have been chasing may partly be the model wobbling around a threshold nobody had ever written down. Worth one deliberate sweep after the rule is in the prompt, rather than discovering it through failing runs."
+      ]
+    }
+  ]
 }
