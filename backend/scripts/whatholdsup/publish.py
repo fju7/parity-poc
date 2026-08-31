@@ -153,6 +153,7 @@ study_design = _sibling("study_design")
 # -- the gate report does not contain the word Shaaban. Corrections are the
 # least-checked text on a page and the likeliest place for a second error.
 unjudged = _sibling("unjudged")
+registry_figures = _sibling("registry_figures")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -939,6 +940,16 @@ def preflight(slug: str, *, for_email: bool,
     except SystemExit as e:
         out.append(("study-design characterisations", BAD, str(e)))
     out.extend(unjudged.preflight_rows(slug, page))
+    # Ask the registry before the SOURCE role does. On 2026-08-31 that role
+    # reported four figures NOT_FOUND -- twice escalating to WRONG_VALUE --
+    # because ClinicalTrials.gov's structured results are not reliably
+    # reachable by web search. Its own notes said so: "only a stub page was
+    # returned". The API returns them in under a second. Acting on that report
+    # would have replaced a correct HR 0.921 with 0.956.
+    try:
+        out.extend(registry_figures.preflight_rows(slug, page.read_text(encoding="utf-8")))
+    except SystemExit as e:
+        out.append(("registry figures", BAD, str(e)))
     try:
         _live = live_body(cfg["url"])
         out.extend(ledger.audit(
