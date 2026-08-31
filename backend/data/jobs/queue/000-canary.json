@@ -1,0 +1,6 @@
+{
+  "note": "Prove the runner runs jobs. Prints and exits; reads nothing, writes nothing, spends nothing. Sorts first, so a manual `bash runner.sh` runs this before the two paid gate runs and separates two failures that look identical from outside: runner.sh being broken, and launchd never invoking it. If 000-canary.exit appears and the gate jobs also ran, the script is fine and the agent is the problem.",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/schedule/canary.py",
+  "args": []
+}

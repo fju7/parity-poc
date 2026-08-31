@@ -31,7 +31,14 @@ esac
 [ -x "$REPO/backend/venv/bin/python3" ] || {
   echo "  No venv at $REPO/backend/venv — install dependencies first."; exit 1; }
 
-mkdir -p "$HOME/Library/LaunchAgents" "$REPO/backend/data/jobs/queue"
+# logs/ must exist BEFORE launchd loads this, not when runner.sh gets around
+# to creating it. launchd opens StandardOutPath and StandardErrorPath at SPAWN;
+# if the directory is missing it cannot, and the first install left logs/
+# absent while pointing both redirects into it.
+mkdir -p "$HOME/Library/LaunchAgents" \
+         "$REPO/backend/data/jobs/queue" \
+         "$REPO/backend/data/jobs/logs" \
+         "$REPO/backend/data/jobs/done"
 cat > "$PLIST" <<PLIST_END
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
@@ -69,7 +76,50 @@ fi
 
 if launchctl list | grep -q "$LABEL"; then
     echo
-    echo "  REGISTERED and verified: $LABEL"
+    echo "  REGISTERED: $LABEL"
+
+    # A REGISTERED AGENT IS NOT AN AGENT THAT RUNS.
+    #
+    # This installer reported success twice for an agent that never executed a
+    # job. The second version verified registration -- and on 2026-08-31
+    # `launchctl list org.whatholdsup.jobrunner` returned a full record with
+    # LastExitStatus 0 while logs/ was empty and two gate runs had sat unstarted
+    # in the queue for an hour. Registered and working are different states and
+    # the check could not tell them apart.
+    #
+    # So: queue a job that does nothing, and wait for the runner to eat it. If
+    # it is gone and its exit code is on disk, the runner works, because it just
+    # worked. Anything else is a failed install, whatever launchctl says.
+    CANARY="$REPO/backend/data/jobs/queue/000-canary.json"
+    cat > "$CANARY" <<'CANARY_END'
+{
+  "note": "Queued by install_runner.sh to prove the runner runs jobs. Prints and exits; reads nothing, writes nothing, spends nothing. If this file is still in the queue, the install failed.",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/schedule/canary.py",
+  "args": []
+}
+CANARY_END
+    echo "  waiting up to 90s for the runner to pick up a canary job..."
+    ok=""
+    for _ in $(seq 1 18); do
+        sleep 5
+        if [ -f "$REPO/backend/data/jobs/done/000-canary.exit" ]; then ok="yes"; break; fi
+    done
+    if [ -n "$ok" ]; then
+        echo "  VERIFIED — the runner executed a queued job:"
+        sed -n 's/^/      /p' "$REPO/backend/data/jobs/logs/000-canary.log" 2>/dev/null | tail -4
+    else
+        echo
+        echo "  NOT WORKING. The agent is registered and did not run a job in 90"
+        echo "  seconds, with StartInterval set to 30. The canary is still at:"
+        echo "      $CANARY"
+        echo "  Anything queued here will sit unstarted. Look at:"
+        echo "      launchctl list $LABEL"
+        echo "      cat $REPO/backend/data/jobs/logs/runner.err"
+        echo "  and run the queue by hand meanwhile:"
+        echo "      bash $REPO/backend/scripts/whatholdsup/schedule/runner.sh"
+        exit 1
+    fi
 else
     echo
     echo "  NOT REGISTERED. The plist is written at $PLIST but launchd has not"

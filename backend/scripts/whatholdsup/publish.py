@@ -874,21 +874,29 @@ def queued_jobs_rows() -> list[tuple[str, str, str]]:
     ---------------
     On 2026-08-31 two gate runs were queued for the launchd runner, whose
     StartInterval is 30 seconds. Ninety seconds later the queue was untouched
-    and backend/data/jobs/logs/ was EMPTY -- not a failed run, not a refusal,
-    no runner.out and no runner.err, which launchd creates on any invocation.
-    The runner has never executed a job.
+    and backend/data/jobs/logs/ was empty, so this function was written -- and
+    its first version said, in the operator's face, "the runner has never
+    executed anything".
 
-    That is not the interesting part. The interesting part is that nothing
-    anywhere would have said so. The queue is a directory; a job sitting in it
-    forever looks exactly like a job about to start, and the board that blocks
-    on "the gate has not read these sentences" would have gone on saying so
-    while the run meant to fix it sat unread on disk. The operator would have
-    come back tomorrow to the same board and no way to tell whether he was
-    waiting on a run or on nothing.
+    THAT WAS WRONG, and it was wrong in the way this repository keeps being
+    wrong. Nine minutes later the runner claimed both jobs and ran them. It had
+    been firing all along; logs/ holds one file PER CLAIMED JOB, and it was
+    empty because no job had ever been queued, not because nothing had ever
+    run. An empty directory was read as evidence of failure when it was only
+    evidence of nothing having happened yet -- the same shape as a retrieval
+    that could not reach a page reporting the figure absent, which is the error
+    registry_facts.py exists to outrank. Written into a check built to catch
+    that error, an hour after writing it.
 
-    An unstarted job is not a job in progress. Every other check here exists
-    because a disclosure that nothing could act on turned out to be no control
-    at all; this is the same principle applied to our own automation.
+    So the block below states the wait, which is a fact, and offers the two
+    readings of an empty logs/ without choosing between them.
+
+    The reason to keep the check is unchanged and is not about the runner. A
+    job sitting in the queue forever looks exactly like a job about to start,
+    and the board that blocks on "the gate has not read these sentences" will
+    go on saying so while the run meant to read them sits unstarted on disk.
+    An unstarted job is not a job in progress, and a board that cannot tell the
+    difference is telling someone to wait for nothing.
     """
     q = JOBS / "queue"
     if not q.exists():
@@ -913,10 +921,12 @@ def queued_jobs_rows() -> list[tuple[str, str, str]]:
              "in the foreground. A job nobody started is not a job in progress, and a "
              "board that cannot tell the difference is telling you to wait for nothing."
              % (len(jobs), waited, names,
-                "backend/data/jobs/logs/ is EMPTY, so the runner has never executed "
-                "anything -- launchd writes runner.out on any invocation."
+                "backend/data/jobs/logs/ holds no job log, which means no job has ever "
+                "been CLAIMED -- either the runner has never run, or it has never had "
+                "one to take. Those are different problems and this cannot tell them "
+                "apart; runner.out and runner.err, if launchd wrote them, can."
                 if not ran_ever else
-                "The runner has run before, so this is a new failure."))]
+                "The runner has claimed a job before, so it is not the install."))]
 
 
 def outside_review(page: Path, slug: str) -> tuple[str, str]:

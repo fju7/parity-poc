@@ -65,17 +65,24 @@ def test_a_job_nobody_started_blocks(jobs):
 
 
 def test_it_distinguishes_never_ran_from_a_new_failure(jobs):
-    """These are different problems and must not read as one.
+    """And must not overclaim from an empty directory.
 
-    An empty logs/ means the runner has never executed anything -- an install
-    that reported success and does not run. A logs/ with history means it ran
-    before and has stopped, which is a different thing to go and look at.
+    The first version of this check said an empty logs/ meant "the runner has
+    never executed anything". Nine minutes later the runner claimed both jobs
+    and ran them: logs/ holds one file PER CLAIMED JOB, and it was empty
+    because nothing had ever been queued. An empty directory was read as
+    evidence of failure when it was evidence of nothing having happened -- the
+    error registry_facts.py exists to outrank, committed inside a check written
+    to catch it.
     """
     _queue(jobs, "003-regate", age_minutes=45)
-    assert "has never executed anything" in p.queued_jobs_rows()[0][2]
+    detail = p.queued_jobs_rows()[0][2]
+    assert "no job has ever been CLAIMED" in detail
+    assert "different problems and this cannot tell them apart" in detail
+    assert "never executed" not in detail          # the overclaim, gone
 
     (jobs / "logs" / "runner.out").write_text("", encoding="utf-8")
-    assert "a new failure" in p.queued_jobs_rows()[0][2]
+    assert "not the install" in p.queued_jobs_rows()[0][2]
 
 
 def test_the_age_is_the_oldest_job_not_the_newest(jobs):
