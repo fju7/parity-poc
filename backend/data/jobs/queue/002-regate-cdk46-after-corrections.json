@@ -1,0 +1,11 @@
+{
+  "note": "Re-gate issue two after two verified corrections: the MONALEESA-7 entry now cites NCT02278120 (it cited PALOMA-2's NCT01740427), and the network meta-analysis entry now notes that the paper gives 73.3 months in its abstract and 70.2 in its results. Both new sentences are text no role has read, so the board blocks until this runs. The seven false findings from the 2026-08-31 run are recorded in draft_decisions.json and should come back as already decided rather than as news.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/cdk46.html",
+    "--since", "../site/whatholdsup/cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/cdk46.html.gate.json"
+  ]
+}

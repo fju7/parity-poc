@@ -65,10 +65,16 @@ for job in "$JOBS"/queue/*.json; do
     echo "127" > "$JOBS/done/$name.exit"; continue
   fi
 
-  mapfile -t args < <("$PY" -c "import json,sys;[print(a) for a in json.load(open(sys.argv[1])).get('args',[])]" "$claimed" 2>/dev/null)
+  # NOT mapfile: macOS ships bash 3.2 and mapfile arrived in bash 4. The plist
+  # calls /bin/bash, so this script has to run on 3.2 or it does not run at
+  # all. Read the args with a while-read loop instead, NUL-free and portable.
+  args=()
+  while IFS= read -r a; do
+    args+=("$a")
+  done < <("$PY" -c "import json,sys;[print(a) for a in json.load(open(sys.argv[1])).get('args',[])]" "$claimed" 2>/dev/null)
 
   cd "$REPO/$cwd" || { echo "no such cwd: $cwd" >> "$log"; echo "127" > "$JOBS/done/$name.exit"; continue; }
-  "$PY" "$REPO/backend/$script" "${args[@]}" >> "$log" 2>&1
+  "$PY" "$REPO/backend/$script" ${args[@]+"${args[@]}"} >> "$log" 2>&1
   code=$?
   echo "$code" > "$JOBS/done/$name.exit"
   echo "=== finished $(date -u +%Y-%m-%dT%H:%M:%SZ) exit=$code" >> "$log"
