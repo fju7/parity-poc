@@ -310,7 +310,7 @@
     },
     {
       "id": "S017",
-      "url": "https://doi.org/10.31557/APJCP.2024.25.9.3039",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11700305/",
       "type": "primary",
       "title": "Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA (2024) — Comparing ribociclib versus palbociclib as a second line treatment in combination with fulvestrant in metastatic breast cancer: a randomized clinical trial. Asian Pacific Journal of Cancer Prevention 25(9), 3039-3049.",
       "accessed": "2026-08-30",
@@ -319,20 +319,20 @@
         "Shaaban",
         "the second-line head-to-head"
       ],
-      "used_for": "THE COUNTEREXAMPLE. A randomised, open-label phase III trial putting ribociclib directly against palbociclib, which this page said did not exist. Source of the clinical benefit rate at six months (58.6% in both arms), the median progression-free survival (12.69 vs 13.67 months), and the authors' conclusion verbatim: “Both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile.” Second line, with fulvestrant — outside the first-line aromatase-inhibitor setting the NCCN sentence describes, which is why it does not contradict the guideline.",
+      "used_for": "THE COUNTEREXAMPLE. A randomised, open-label phase III trial putting ribociclib directly against palbociclib, which this page said did not exist. 116 patients, 58 per arm, randomised in 29 blocks of four by opaque sealed envelope, single centre (Oncology Centre Mansoura University, Egypt), July 2022 to December 2023. Clinical benefit at six months 58.6% in both arms (34/58 each). Median PFS 13.67 months palbociclib vs 12.69 ribociclib, not significant. Conclusion verbatim: “Both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile.” Second line with fulvestrant — outside the first-line aromatase-inhibitor setting the NCCN sentence describes.",
       "WHY_THIS_MATTERS": "This page verified that NCCN says the CDK4/6 inhibitors have not been directly compared, and then printed that as an unscoped claim about the world, four times. This trial is why that was wrong. It was found by the counterexample role, whose only instruction is to break the page's universal negatives; eighteen fact-check runs and an outside review had passed over the sentence.",
       "access": {
         "state": "machine_read",
         "by": "claude",
-        "on": "2026-08-30",
+        "on": "2026-08-31",
         "sections": [
-          "the journal's own article record at journal.waocp.org: full title, author list, volume, issue, pages, DOI, design, arms, the CBR and PFS figures, and the conclusion verbatim"
+          "the full text, open access at Europe PMC (PMC11700305): abstract, methods, sample-size calculation, randomisation method, Tables 1-3, results, discussion"
         ],
-        "not_read": [
-          "the full text: randomisation procedure, power calculation, patient flow, total enrolment, toxicity tables"
-        ],
-        "note": "ABSTRACT AND ARTICLE RECORD ONLY. A review is a hop and so is an abstract — the page draws nothing from this source that is not in what was read, and says so in the source entry."
-      }
+        "not_read": [],
+        "note": "UPGRADED FROM ABSTRACT-ONLY on 2026-08-31. The first version of this entry recorded abstract-and-article-record only and said the page drew nothing beyond it. That was true when written. It stopped being true the moment anyone checked for an open-access copy, and nobody had. Found by the counterexample hunt naming a PMC id in a citation. This is the open-access-route expansion earning its place on its first outing."
+      },
+      "registry": "NCT05670054",
+      "endpoint_note": "PRIMARY objectives are clinical benefit rate, quality of life and toxicity. Progression-free survival and overall survival are SECONDARY. The sample size was calculated on overall response rate (58 per group at 80% power). The page now says so where it prints the PFS figures."
     },
     {
       "id": "S018",

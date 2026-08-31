@@ -7,6 +7,63 @@ histories a reader sees, and mixing them makes it useless to them.
 Each entry: what a reader who saw the earlier version needs to know, and when.
 Not how the process failed; that is in the repository.
 
+## 31 August 2026 — two randomised trials had compared these drugs, and we said none had
+
+This assessment said, in four places, that no randomised trial had ever
+compared any of these three drugs against another, and that nobody had run a
+head-to-head trial. **Two exist**, both putting ribociclib against palbociclib.
+
+Shaaban and colleagues randomised 116 patients at a single centre in Egypt to
+palbociclib with fulvestrant or ribociclib with fulvestrant in the second line,
+and found no meaningful difference between them: clinical benefit at six months
+of 58.6% in both arms, median progression-free survival of 13.67 months against
+12.69 (*Asian Pacific Journal of Cancer Prevention* 2024;25(9):3039–3049,
+NCT05670054). HARMONIA (NCT05207709) is a phase III randomised trial of the
+same pair; it opened in March 2022 and terminated with 61 patients enrolled.
+
+Neither trial is in the first-line aromatase-inhibitor setting the guideline
+sentence describes, so the guideline itself remains accurate as written. What
+was wrong was this page: it took the guideline's sentence, confirmed the
+guideline says it, and reprinted it as a statement about the world. **The claim
+that survives is narrower, and is now what the page says**: no randomised trial
+has compared *abemaciclib* against either of the other two, in any setting —
+and that is the comparison the category difference actually turns on.
+
+A reader who saw the earlier version would have believed no direct randomised
+evidence existed for any pair of these drugs. Some does, for one pair, and it
+found nothing between them.
+
+## 31 August 2026 — the direction of MONALEESA-2's survival test
+
+This page said seven times that it could not establish whether MONALEESA-2's
+final overall-survival p-value was one-sided or two-sided, and named a
+subscription-only statistical section as the reason. The answer was published
+by the trial's sponsor in the trial's own results posting on ClinicalTrials.gov
+(NCT01958021), which states that overall survival "was compared using a
+log-rank test at one-sided cumulative 2.5% level of significance". The page now
+says so. An earlier version had asserted the test was two-sided with no source
+at all; that was withdrawn on 29 August, and this replaces the uncertainty that
+replaced it.
+
+## 31 August 2026 — smaller corrections
+
+**An author's name.** This page named the wrong researcher for the 2018
+*npj Breast Cancer* paper on trial power. The first author is Marie-Laure
+Tanguy. The correction was written on 29 August and did not reach the live site
+until today.
+
+**The MONARCH 3 corrigendum.** This page said it was behind a paywall, then
+corrected itself to say it was open access. The first version was right: Europe
+PMC's record marks it not open access, with a single subscription-only route.
+It remains unread and is still disclosed as unread.
+
+**A source we had only read in part.** The Shaaban trial above was recorded
+here as read from its abstract only. It is open access in full at PMC11700305,
+and nobody had looked. Read in full, it adds that the trial is single-centre,
+that its power calculation is on response rate, and that **progression-free
+survival is a secondary endpoint** — which this page now says where it prints
+those figures.
+
 ## 29 August 2026 — the guideline lists all three drugs as preferred, and we did not say so
 
 The version of this assessment published on 28 August reported that NCCN's

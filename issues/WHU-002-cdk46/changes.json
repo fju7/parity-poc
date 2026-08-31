@@ -1799,6 +1799,84 @@
       "now": "None has tested abemaciclib against either of the others, which is the pair the category difference turns on.",
       "because": "CORR-01",
       "at": "2026-08-30"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "No trial has ever tested abemaciclib against either of the other two, and every comparison this page examined of abemaciclib against ribociclib finds nothing between them.",
+      "because": "CE-01",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Shaaban and colleagues randomised 116 patients - 58 to each arm, in blocks of four by sealed envelope, at a single centre in Egypt - to palbociclib plus fulvestrant or ribociclib plus fulvestrant in the second line.",
+      "because": "CE-10",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Clinical benefit at six months was 58.6% in both arms, exactly 34 patients of 58 either way.",
+      "because": "CE-10",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Median progression-free survival was 13.67 months on palbociclib against 12.69 on ribociclib, and not significantly different - though progression-free survival was a secondary endpoint there, the trial being powered on response rate.",
+      "because": "CE-10",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Their conclusion, in their words: both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
+      "because": "CE-10",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "changed",
+      "was": "No randomised trial has tested it, and all three indirect comparisons that have looked found nothing between them.",
+      "now": "No randomised trial has tested that pair against each other, and none of the four comparative studies examined here separates them.",
+      "because": "CE-06",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Asian Pac J Cancer Prev 2024;25(9):3039-3049 A randomised, open-label phase III trial putting two of these three drugs directly against each other, registered as NCT05670054 .",
+      "because": "CE-10",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Source of the 116 patients and the 58 per arm, the randomisation in 29 blocks of four by opaque sealed envelope, the clinical benefit rate at six months of 58.6% in both arms (34 of 58 either way), the median progression-free survival of 13.67 months on palbociclib against 12.69 on ribociclib, and the authors' conclusion that both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
+      "because": "CE-10",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "Read in full text , open access at PMC11700305 - an earlier version of this entry said we had only its abstract, which was true when it was written and stopped being true when we looked for a repository copy.",
+      "because": "CE-10",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "added",
+      "was": "",
+      "now": "What that full text adds and the abstract did not: the trial is single-centre, it ran July 2022 to December 2023, its power calculation is on response rate, and progression-free survival is a secondary endpoint .",
+      "because": "CE-10",
+      "at": "2026-08-31"
+    },
+    {
+      "kind": "changed",
+      "was": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "now": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 31 August 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "because": "PREFLIGHT-01",
+      "at": "2026-08-31",
+      "note": "Dateline reset from the publishing machine's clock by publish.py dateline, as the preflight requires."
     }
   ]
 }

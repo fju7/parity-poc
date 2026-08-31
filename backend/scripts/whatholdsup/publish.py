@@ -1850,6 +1850,13 @@ def decision_labels(slug: str) -> set[str]:
         adjs = list((case / "review").glob("*-adjudication.md"))
         adjs += [f for f in (case / "advocate").glob("*-adjudication.md")
                  if "TEST" not in f.name]
+        # And counterexample/. A hunt adjudication is a decision a person wrote
+        # down and can be made to read -- which is the entire test this function
+        # applies. Leaving it out meant a sentence rewritten BECAUSE a hunt broke
+        # it could not cite the hunt that broke it, so the most directly evidenced
+        # changes on the page were the ones that read as unexplained.
+        adjs += [f for f in (case / "counterexample").glob("*-adjudication.md")
+                 if "TEST" not in f.name]
         for adj in adjs:
             for line in adj.read_text(encoding="utf-8").splitlines():
                 # "### S001-05" is a per-question decision and is citable on its
