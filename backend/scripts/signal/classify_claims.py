@@ -72,6 +72,25 @@ VALID_CONSENSUS_TYPES = [
 _anthropic_client = None
 
 
+def _metered(client, *, role=""):
+    """Wrap the client so every call lands in the spend ledger.
+
+    By PATH, never by putting backend/scripts on sys.path: scripts/signal/ is a
+    package named `signal` and shadows the stdlib from there, which broke the
+    gate outright on 2026-08-31.
+    """
+    try:
+        import importlib.util
+        from pathlib import Path as _P
+        _p = _P(__file__).resolve().parents[1] / "spend_ledger.py"
+        _s = importlib.util.spec_from_file_location("spend_ledger", _p)
+        _m = importlib.util.module_from_spec(_s)
+        _s.loader.exec_module(_m)
+        return _m.metered(client, script=_P(__file__).name, role=role)
+    except Exception:
+        return client
+
+
 def _get_anthropic_client():
     """Lazy singleton for Anthropic client."""
     global _anthropic_client
@@ -81,7 +100,7 @@ def _get_anthropic_client():
             print("ERROR: ANTHROPIC_API_KEY not set.")
             sys.exit(1)
         import anthropic
-        _anthropic_client = anthropic.Anthropic(api_key=api_key)
+        _anthropic_client = _metered(anthropic.Anthropic(api_key=api_key))
     return _anthropic_client
 
 

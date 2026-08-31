@@ -122,6 +122,39 @@ class OverCap(Exception):
     pass
 
 
+def check_day_cap(about_to_spend: float = 0.0) -> None:
+    """Stop when today's total across EVERYTHING is past the daily cap.
+
+    The per-issue cap cannot see Signal work, which is not attributed to an
+    issue, and it cannot see a bad afternoon spread across three issues. On
+    2026-08-31 roughly $100 an issue was spent with nothing counting; a daily
+    ceiling is the backstop that does not depend on getting attribution right,
+    and it matters most now that jobs can run unattended.
+    """
+    c = caps()
+    limit = c.get("default_per_day")
+    if not limit:
+        return
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    spent_today = round(sum(e.get("usd") or 0 for e in entries()
+                            if (e.get("at") or "").startswith(today)), 4)
+    if spent_today + about_to_spend <= float(limit):
+        return
+    why = os.environ.get("WHU_SPEND_OVERRIDE", "").strip()
+    if why:
+        record(script="spend_ledger", role="override", usd=0.0,
+               note="DAY cap $%.2f, today $%.2f, about to spend $%.2f — %s"
+                    % (float(limit), spent_today, about_to_spend, why))
+        return
+    raise OverCap(
+        "$%.2f has been spent today against a $%.2f daily cap, and this run would\n"
+        "add about $%.2f. This ceiling covers everything, including work not\n"
+        "attributed to an issue.\n"
+        "Raise default_per_day in backend/data/spend/caps.json, or set\n"
+        "WHU_SPEND_OVERRIDE='reason' for one run, which is recorded."
+        % (spent_today, float(limit), about_to_spend))
+
+
 def check_cap(issue: str, about_to_spend: float = 0.0) -> None:
     """Stop before spending past the cap. Fails closed.
 
@@ -129,6 +162,7 @@ def check_cap(issue: str, about_to_spend: float = 0.0) -> None:
     written into the ledger, so an override is a fact on the record rather than
     a decision that leaves no trace.
     """
+    check_day_cap(about_to_spend)
     c = caps()
     limit = (c.get("per_issue") or {}).get(issue, c.get("default_per_issue"))
     if not limit:
@@ -182,3 +216,95 @@ if __name__ == "__main__":
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--issue")
     print(report(ap.parse_args().issue))
+
+
+# ---------------------------------------------------------------------------
+# Pricing, and a client that meters itself.
+#
+# The table used to live in factcheck_draft.py, which was the only script that
+# priced anything. Eight scripts construct an Anthropic client and seven of
+# them recorded nothing, so "what did this cost" had no answer and the cap
+# covered the gate alone. Rather than copy the table seven times -- copies go
+# stale separately, which is worse than one stale copy -- it moves here and
+# factcheck_draft reads it from here too.
+
+PRICES_CHECKED = "2026-08-28"
+PRICES = {                       # US dollars per million tokens
+    "claude-sonnet-4-6": {"input": 3.00, "output": 15.00,
+                          "cache_write": 3.75, "cache_read": 0.30},
+    "claude-opus-4-6":   {"input": 5.00, "output": 25.00,
+                          "cache_write": 6.25, "cache_read": 0.50},
+}
+WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
+
+
+def price(model: str, usage) -> tuple[float | None, dict]:
+    """(usd, counts) for one API response. None when the model is not in the
+    table -- an invented number would be worse than no number, because it would
+    be used."""
+    counts = {
+        "input": int(getattr(usage, "input_tokens", 0) or 0),
+        "output": int(getattr(usage, "output_tokens", 0) or 0),
+        "cache_write": int(getattr(usage, "cache_creation_input_tokens", 0) or 0),
+        "cache_read": int(getattr(usage, "cache_read_input_tokens", 0) or 0),
+        "web_searches": 0,
+    }
+    stu = getattr(usage, "server_tool_use", None)
+    if stu is not None:
+        counts["web_searches"] = int(getattr(stu, "web_search_requests", 0) or 0)
+    base = (model or "").strip()
+    p = PRICES.get(base)
+    if not p:
+        return None, counts
+    usd = (counts["input"] * p["input"] + counts["output"] * p["output"]
+           + counts["cache_write"] * p["cache_write"]
+           + counts["cache_read"] * p["cache_read"]) / 1_000_000.0
+    usd += counts["web_searches"] * WEB_SEARCH_PER_1000 / 1000.0
+    return round(usd, 6), counts
+
+
+class _MeteredMessages:
+    def __init__(self, inner, script, issue, role):
+        self._inner, self._script, self._issue, self._role = inner, script, issue, role
+
+    def create(self, *a, **kw):
+        r = self._inner.create(*a, **kw)
+        try:
+            usd, counts = price(getattr(r, "model", "") or kw.get("model", ""),
+                                getattr(r, "usage", None))
+            record(script=self._script, role=self._role, issue=self._issue,
+                   usd=usd or 0.0, input_tokens=counts["input"],
+                   output_tokens=counts["output"],
+                   web_searches=counts["web_searches"],
+                   note="" if usd is not None else "model not in the price table")
+        except Exception:
+            pass
+        return r
+
+    def __getattr__(self, k):
+        return getattr(self._inner, k)
+
+
+class MeteredClient:
+    """Wraps an Anthropic client so every call lands in the ledger.
+
+    Wrapping the CLIENT rather than each call site is the point: a script with
+    four `messages.create` calls needs one change, and a call added later is
+    metered without anybody remembering to meter it. That is the difference
+    between a control and a convention.
+    """
+
+    def __init__(self, inner, *, script: str, issue: str = "", role: str = ""):
+        self._inner = inner
+        self.messages = _MeteredMessages(inner.messages, script, issue, role)
+
+    def __getattr__(self, k):
+        return getattr(self._inner, k)
+
+
+def metered(inner, *, script: str, issue: str = "", role: str = ""):
+    """Wrap a client; on any failure return it unwrapped rather than break a run."""
+    try:
+        return MeteredClient(inner, script=script, issue=issue, role=role)
+    except Exception:
+        return inner

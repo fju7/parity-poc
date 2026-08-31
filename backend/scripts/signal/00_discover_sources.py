@@ -165,6 +165,25 @@ Return ONLY a JSON array of 6 strings. No explanation. Example:
 # Claude API helper
 # ---------------------------------------------------------------------------
 
+def _metered(client, *, role=""):
+    """Wrap the client so every call lands in the spend ledger.
+
+    By PATH, never by putting backend/scripts on sys.path: scripts/signal/ is a
+    package named `signal` and shadows the stdlib from there, which broke the
+    gate outright on 2026-08-31.
+    """
+    try:
+        import importlib.util
+        from pathlib import Path as _P
+        _p = _P(__file__).resolve().parents[1] / "spend_ledger.py"
+        _s = importlib.util.spec_from_file_location("spend_ledger", _p)
+        _m = importlib.util.module_from_spec(_s)
+        _s.loader.exec_module(_m)
+        return _m.metered(client, script=_P(__file__).name, role=role)
+    except Exception:
+        return client
+
+
 def _get_client():
     """Create Anthropic client."""
     import anthropic
@@ -172,7 +191,7 @@ def _get_client():
     if not api_key:
         print("ERROR: ANTHROPIC_API_KEY not set")
         sys.exit(1)
-    return anthropic.Anthropic(api_key=api_key)
+    return _metered(anthropic.Anthropic(api_key=api_key))
 
 
 def _call_claude(client, system: str, user_msg: str, max_tokens: int = 8192) -> str:
