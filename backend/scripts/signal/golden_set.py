@@ -220,6 +220,60 @@ def judge(measured: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
     return failures, warnings, unmeasured
 
 
+def published_mismatches(entries: list[dict]) -> list[dict]:
+    """Categories whose LIVE label differs from the baseline.
+
+    THIS IS THE GAP THAT LET THE GLP-1 BUG RUN FOR FIVE MONTHS, and it was
+    still open on 2026-08-31. Everything else in this file compares the model
+    against a FIXTURE. Nothing compared the fixture against what a reader
+    actually sees. So the check could report "no published judgment moved"
+    while the site served a label that no longer matched anything -- which is
+    exactly what it was doing: seven of 53 categories were live with a label
+    the adjudicated baseline contradicted, including breast-cancer/
+    survival_outcomes published as 'consensus' while What Holds Up issue two
+    argued in public that the same question was unsettled.
+
+    The site goes stale because map_consensus.py writes to the database only
+    when the pipeline is run for a topic. A baseline can be corrected, a
+    decision recorded, and a commit pushed, and the page changes none of it.
+
+    A mismatch fails unless it is listed in published_exceptions in the
+    decisions file, keyed on slug + category + "live -> baseline". Deliberate
+    is fine; unnoticed is not.
+    """
+    sb = mc._get_supabase()
+    iss = {r["slug"]: r["id"]
+           for r in (sb.table("signal_issues").select("id,slug").execute().data or [])}
+    live: dict[tuple[str, str], str] = {}
+    for slug, issue_id in iss.items():
+        rows = sb.table("signal_consensus").select("category,consensus_status")\
+                 .eq("issue_id", issue_id).execute().data or []
+        for r in rows:
+            live[(slug, r["category"])] = r["consensus_status"]
+
+    out = []
+    for e in entries:
+        got = live.get((e["slug"], e["category"]))
+        if got is None:
+            out.append({**e, "live": "MISSING",
+                        "why": f"no published row -> baseline says {e['expected_status']}"})
+        elif got != e["expected_status"]:
+            out.append({**e, "live": got,
+                        "why": f"{got} -> {e['expected_status']}"})
+    return out
+
+
+def load_published_exceptions() -> dict:
+    if not DECISIONS.exists():
+        return {}
+    try:
+        raw = json.loads(DECISIONS.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {(d["slug"], d["category"], d["mismatch"]): d
+            for d in raw.get("published_exceptions", []) if d.get("reason")}
+
+
 def verify() -> int:
     """Check that credentials and fixture are usable, without a real check run.
 
@@ -458,6 +512,29 @@ def main():
         print("cause and re-run — a green check here would be a lie.")
         return 1
 
+    # What a READER sees, which is the only thing that reaches anyone.
+    stale = published_mismatches(entries)
+    allowed = load_published_exceptions()
+    stale_new = [m for m in stale
+                 if (m["slug"], m["category"], m["why"]) not in allowed]
+    stale_known = [m for m in stale if m not in stale_new]
+
+    if stale_known:
+        print("\nPUBLISHED DIFFERENTLY, ON PURPOSE — recorded exceptions.")
+        for m in stale_known:
+            d = allowed[(m["slug"], m["category"], m["why"])]
+            print("  %-52s %-26s live=%s" % (m["slug"], m["category"], m["live"]))
+            print("      %s" % d["reason"][:150])
+
+    if stale_new:
+        print("\nTHE SITE IS SERVING SOMETHING ELSE.")
+        print("These categories are LIVE with a label the baseline contradicts. The")
+        print("model is not the problem here — the page is, and no amount of")
+        print("re-baselining touches it. Re-map the category, or record why the")
+        print("difference is deliberate in published_exceptions.")
+        for m in stale_new:
+            print("  %-52s %-26s %s" % (m["slug"], m["category"], m["why"]))
+
     decisions = load_decisions()
     decided, undecided = [], []
     for f in failures:
@@ -491,6 +568,11 @@ def main():
             print("  every run. Re-baselining cannot fix that; the fix is upstream, in what")
             print("  the page prints.")
 
+    if stale_new and not undecided:
+        print("\n%d categor%s live with a label nobody meant to publish."
+              % (len(stale_new), "y is" if len(stale_new) == 1 else "ies are"))
+        return 1
+
     if undecided:
         print("\nA judgment moved and nobody has decided about it yet.")
         for f, _d in undecided:
@@ -503,7 +585,7 @@ def main():
 
     if decided:
         print("\nEvery drift in this run has a recorded decision behind it.")
-        return 0
+        return 1 if stale_new else 0
 
     n_measured = len(measured) - len(unmeasured)
     tail = f" ({len(warnings)} warning{'s' if len(warnings) != 1 else ''} to read)" if warnings else ""
