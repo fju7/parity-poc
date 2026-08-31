@@ -1,0 +1,42 @@
+{
+  "_what_this_is": "Corrections to published Signal claims. Mirrors backend/data/whatholdsup/corrections.json in shape so a maintainer reading both recognises the format, with two differences: a Signal correction is usually found by us rather than reported by a reader, so it carries 'found_by' instead of 'from', and it carries 'sources_checked', because a correction to a figure that does not name the primary source it was checked against is a second guess rather than a correction. It exists because Signal had no such record at all: detect_changes.py logs score and status movement for the reader-facing changelog, but nothing recorded that the TEXT of a live claim was factually wrong, so a claim could be edited in the database and neither a reader nor a later reader of this repo would ever know.",
+  "items": [
+    {
+      "id": "SIG-COR-001",
+      "received": "2026-08-31T18:00:00+00:00",
+      "found_by": "claude, while adjudicating an unrelated golden-set drift in the same category",
+      "issue": "breast-cancer-therapies",
+      "category": "survival_outcomes",
+      "claim_id": "30008938-02ac-4a52-ac5a-80b946ffa773",
+      "claim": "Two claims in one category contradicted each other. This one asserted the PALOMA-3 overall-survival benefit was statistically significant (p=0.0221); another asserted PALOMA-2 and PALOMA-3 showed numerical but not statistically significant benefit. One of them had to be wrong.",
+      "state": "closed",
+      "adjudication": {
+        "at": "2026-08-31T19:10:00+00:00",
+        "by": "claude",
+        "verdict": "upheld — the p-value was fabricated",
+        "reason": "Everything else in the sentence was right: correct trial, correct arms, correct medians, correct hazard ratio. The p-value alone was invented, and it was the one figure that turned a result which did not reach significance into one that appeared to. The claim it contradicted was correct and is untouched.",
+        "was": "In the updated overall survival analysis of PALOMA-3, median OS was 34.9 months in the palbociclib plus fulvestrant arm versus 28.0 months in the placebo plus fulvestrant arm (HR 0.81, p=0.0221).",
+        "now": "In the prespecified overall survival analysis of PALOMA-3, median OS was 34.9 months with palbociclib plus fulvestrant versus 28.0 months with placebo plus fulvestrant, an absolute difference of 6.9 months (HR 0.81, 95% CI 0.64-1.03; P=0.09). The difference did not reach statistical significance."
+      },
+      "sources_checked": [
+        {
+          "source": "ClinicalTrials.gov NCT01942135 — the source the claim itself cited",
+          "how": "v2 API, outcome measure 'Overall Survival (OS)', retrieved 2026-08-31",
+          "reports": "median 34.9 months (95% CI 28.8-40.0) vs 28.0 months (95% CI 23.6-34.6); HR 0.814, 95% CI 0.644-1.029; p=0.0429 one-sided stratified log-rank, stratified by visceral metastases and sensitivity to prior endocrine therapy"
+        },
+        {
+          "source": "Turner et al., 'Overall Survival with Palbociclib and Fulvestrant in Advanced Breast Cancer', New England Journal of Medicine 2018; PMID 30345905; DOI 10.1056/NEJMoa1810527",
+          "how": "abstract retrieved from Europe PMC, 2026-08-31",
+          "reports": "median OS 34.9 vs 28.0 months; hazard ratio for death 0.81, 95% CI 0.64-1.03; P=0.09; absolute difference 6.9 months"
+        }
+      ],
+      "closed": {
+        "at": "2026-08-31T19:10:00+00:00",
+        "by": "claude",
+        "action": "Claim text corrected in production. The NEJM paper added as a signal_sources row for this issue and linked to the claim, so the corrected p-value has a citable home; the claim previously cited only the registry entry.",
+        "why_it_mattered": "This claim sat in the category What Holds Up issue two is about. Issue two argues that whether all CDK4/6 inhibitors extend life is unsettled, resting partly on PALOMA-2 and PALOMA-3 missing significance where the MONALEESA trials did not. Signal was publishing the opposite figure at the same time. A reader checking one CivicScale product against the other would have found them contradicting each other in public, and the version that was wrong was the one that made the evidence look stronger."
+      },
+      "control_this_implies": "NOTHING IN SIGNAL READS A CLAIM AGAINST ITS SOURCE, and nothing compares two claims in a category against each other. whatholdsup has a citation gate that does the first. Signal extracts, scores, maps and publishes, and no step in that chain would notice a fabricated figure inside an otherwise accurate sentence. This one surfaced only because a human-facing adjudication of an unrelated drift happened to put both claims on the same screen. That is not a control, it is luck."
+    }
+  ]
+}

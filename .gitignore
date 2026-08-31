@@ -8,7 +8,11 @@ backend/data/employer_benchmarks/*.xlsx
 
 # Signal pipeline data (lives in Supabase, not git)
 data/signal/sources/
-backend/data/signal/
+backend/data/signal/*
+# ...but the corrections record is not scraped content, it is the account of
+# what we got wrong and how we checked it. whatholdsup keeps its equivalent in
+# git (backend/data/whatholdsup/corrections.json); Signal's belongs there too.
+!backend/data/signal/corrections.json
 
 # Test bills (NEVER commit real medical bills)
 data/test-bills/
