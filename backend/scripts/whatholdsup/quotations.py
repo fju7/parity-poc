@@ -93,8 +93,21 @@ def path(slug: str) -> Path:
 
 
 def load(slug: str) -> dict | None:
+    """The record, or None. An unreadable file is treated as absent.
+
+    An empty or half-written quotations.json used to raise JSONDecodeError out
+    of here and take the whole gate down with it. A malformed record is a
+    reason to block a publish, which is what None does; it is not a reason for
+    the board to stop working.
+    """
     p = path(slug)
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+    if not p.exists():
+        return None
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    return d if isinstance(d, dict) else None
 
 
 def extract(page_text: str) -> list[str]:
@@ -238,14 +251,24 @@ TEMPLATE_NOTE = (
 def init(slug: str, page: Path) -> Path:
     p = path(slug)
     existing = {norm(r.get("quote", "")): r for r in _records(load(slug) or {})}
+    # Ids must be unique across the file. The first version numbered new
+    # entries by position while reusing prior entries' own ids, so a re-init
+    # produced two Q-02s, two Q-03s and so on -- in a record whose whole
+    # purpose is to be looked up by id.
+    taken = {r.get("id") for r in existing.values() if r.get("id")}
     out = []
-    for i, q in enumerate(extract(page.read_text(encoding="utf-8")), 1):
+    n = 0
+    for q in extract(page.read_text(encoding="utf-8")):
         prior = existing.get(norm(q))
         if prior:
             out.append(prior)
             continue
+        n += 1
+        while ("Q-%02d" % n) in taken:
+            n += 1
+        taken.add("Q-%02d" % n)
         out.append({
-            "id": "Q-%02d" % i,
+            "id": "Q-%02d" % n,
             "quote": q,
             "source_id": "",
             "verbatim": "",

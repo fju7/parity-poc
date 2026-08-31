@@ -75,7 +75,7 @@
       }
     },
     {
-      "id": "Q-02",
+      "id": "Q-07",
       "quote": "statistical comparison was made by 1-sided stratified log-rank test",
       "source_id": "",
       "verbatim": "",
@@ -87,7 +87,7 @@
       }
     },
     {
-      "id": "Q-03",
+      "id": "Q-08",
       "quote": "No study that compares them by other means finds a difference",
       "source_id": "",
       "verbatim": "",
@@ -123,7 +123,7 @@
       }
     },
     {
-      "id": "Q-04",
+      "id": "Q-11",
       "quote": "directly compared in clinical trials",
       "source_id": "",
       "verbatim": "",
@@ -135,7 +135,7 @@
       }
     },
     {
-      "id": "Q-05",
+      "id": "Q-12",
       "quote": "This study was funded by Pfizer Inc.",
       "source_id": "",
       "verbatim": "",
@@ -147,7 +147,19 @@
       }
     },
     {
-      "id": "Q-06",
+      "id": "Q-13",
+      "quote": "One-sided stratified log-rank test",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-14",
       "quote": "All three indirect comparisons",
       "source_id": "",
       "verbatim": "",
@@ -159,7 +171,7 @@
       }
     },
     {
-      "id": "Q-07",
+      "id": "Q-15",
       "quote": "palbociclib does not work",
       "source_id": "",
       "verbatim": "",
@@ -171,7 +183,7 @@
       }
     },
     {
-      "id": "Q-08",
+      "id": "Q-16",
       "quote": "year of updated data 2023",
       "source_id": "",
       "verbatim": "",
