@@ -1,0 +1,47 @@
+{
+  "what_this_is": "Golden-set drifts a person has read and decided about. It exists because between 26 and 31 August 2026 the Signal golden set failed six consecutive full runs, an email went out every time, and nothing was done about any of them. The check was correct on all six. What was missing was anywhere to write down 'we looked at this, here is what we decided, and here is what would change it' — so every run reported the same unactioned drift as if it were news, and the signal was lost in its own repetition. whatholdsup has draft_decisions.json for exactly this; Signal had nothing.",
+  "how_to_use_it": "A decision is keyed on slug + category + the direction of the move. Record one only after reading the claims. A decision does NOT silence the category: a drift in a NEW direction, or a new category, still fails. It only stops a judgment you have already made from failing again.",
+  "the_hard_case": "A decision of 'fixture_is_right' means the model is wrong and the baseline stays. Those categories will keep failing until the mapping improves, and that is correct — but they must be visible as KNOWN and separated from drifts nobody has looked at, or you are back where you started.",
+  "decisions": [
+    {
+      "slug": "crispr-gene-therapy",
+      "category": "comparative_effectiveness",
+      "moved": "debated -> consensus",
+      "decision": "model_is_right",
+      "action": "re-baselined 2026-08-31",
+      "decided_by": "claude, claims read at source",
+      "decided_on": "2026-08-31",
+      "reason": "Seven claims, and every substantive one says the modalities are comparable: transfusion independence RR 1.04 (95% CI 0.91-1.19), no statistically significant difference in vaso-occlusive crisis reduction between exa-cel and lentiviral therapies, similar engraftment and neutrophil recovery, comparable or superior fetal haemoglobin induction. There is no second side — no claim holds that either modality outperforms the other. The one caveat claim says no head-to-head randomised trial exists and indirect comparison is limited; that is a statement about EVIDENCE QUALITY, not a competing position, and treating it as one is what produced the old 'debated' label. The single aplasia-event claim compares two CRISPR approaches to each other, not CRISPR to lentiviral.",
+      "what_would_change_it": "A claim entering the corpus that asserts one modality is superior, or a head-to-head trial reporting a difference."
+    },
+    {
+      "slug": "mrna-vaccine-myocarditis",
+      "category": "biological_mechanism",
+      "moved": "debated -> consensus",
+      "decision": "fixture_is_right",
+      "action": "NOT re-baselined. This category will keep failing until the mapping improves.",
+      "decided_by": "claude, claims read at source",
+      "decided_on": "2026-08-31",
+      "reason": "Five of six claims converge on FINDINGS — CD4+/CD8+ T-lymphocyte and macrophage infiltration, no eosinophilic infiltrate, no spike protein detected in myocardial tissue, a histopathological pattern distinct from viral myocarditis, and late gadolinium enhancement on MRI. The sixth says mechanisms remain 'proposed' and names three competing candidates: molecular mimicry between spike protein and cardiac myosin, mRNA-induced immune activation, and hypersensitivity reactions — the last of which claim 2 arguably rules out. The category asks what the mechanism IS. That is unsettled and the claims say so. The model read agreement about observations as agreement about mechanism, which is the conflation of four different things measured and reported as one.",
+      "what_would_change_it": "Claims entering the corpus that settle on one mechanism, or the mapping learning to separate agreement about findings from agreement about explanations."
+    },
+    {
+      "slug": "breast-cancer-therapies",
+      "category": "survival_outcomes",
+      "moved": "consensus -> debated",
+      "decision": "undecided_pending_policy",
+      "action": "NOT re-baselined. Needs an editorial rule, not more reading.",
+      "decided_by": "claude — escalated, not decided",
+      "decided_on": "2026-08-31",
+      "reason": "41 claims, of which roughly 35 are uncontested trial results and epidemiology. But a real dispute sits inside them: ribociclib showed overall-survival benefit across MONALEESA-2, -3 and -7, MONARCH-2 reached significance, and PALOMA-2 and PALOMA-3 did not — with one claim asserting PALOMA-3's OS was significant at p=0.0221 and another asserting it was numerical but not significant, a flat contradiction inside the corpus that is itself worth fixing. Whether all CDK4/6 inhibitors extend life is genuinely unsettled and is the subject of What Holds Up issue two. So the question is not what the claims say. It is whether a real but minority dispute inside a large category makes that category 'debated'. That rule governs all 53 categories and belongs to the operator.",
+      "what_would_change_it": "An editorial rule on minority disputes. Separately, the PALOMA-3 contradiction should be resolved in the corpus regardless of which way the rule goes."
+    }
+  ],
+  "open_instrument_finding": {
+    "recorded": "2026-08-31",
+    "what": "THE ALIAS MOVES, AND IT MOVED WITHIN THREE HOURS. The 13:00 UTC scheduled run and two local runs a few hours later disagreed on three categories — breast-cancer-therapies/treatment_selection, mrna-vaccine-myocarditis/clinical_outcomes_and_severity, and social-media-teen-mental-health/methodology, whose side balance reversed [10,3] -> [3,8] while its published label stayed 'debated'. Everything else was held constant and checked: identical claim corpus (207/205/2, 136/134/2, 130/130/0, 211/202/9 — matching CI exactly), same fixture, no SIGNAL_MODEL override in .env or CI, no commit touching map_consensus.py, signal_model.py, topic_config.py or score_claims.py, and temperature=0 with no caching and no seed. Deterministic decoding on identical inputs produced different judgments three hours apart.",
+    "why_it_matters": "This is the failure golden_set.py was built for and its docstring predicts: 'no dated snapshot is published for it... Judgments can move without a code change.' Last time the detection window was five months. This time it was three hours. It also means those three categories cannot be fixed by re-baselining — record today and tomorrow goes red on a different three.",
+    "not_yet_confirmed": "The conclusion 'the alias moved' is reached by elimination, not observation. The confirming test is to re-run those four topics after a gap: a FOURTH distinct result means continuous drift and no baseline can hold for any of the 53; a match with today's local pair means it moved once and settled.",
+    "consequence_for_whatholdsup": "The whatholdsup gate binds every verdict to the sha it judged, which is right, and records model 'claude-sonnet-4-6', which is an alias and therefore does not identify what actually judged. Its --since optimisation carries claim verdicts forward from earlier runs to save money. If the model can move in three hours, a carried verdict was produced by a judge that may no longer exist. Any measurement taken through a model role — including the fatal-class recall baseline of 2026-08-31 — has a shelf life. Deterministic checks do not."
+  }
+}

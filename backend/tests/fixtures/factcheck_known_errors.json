@@ -619,6 +619,14 @@
       "was": "the guard stops unreviewed content reaching readers",
       "should_have_been": "The guard compares a PUBLISHED page against its publication record. A page that has never been published has no record to differ from, so it was invisible: the guard protected the two live issues and was blind to a third simply appearing. Presence at the deploy path is publication. A draft belongs in its issue directory until the publish step moves it.",
       "why_it_survived": "Every preceding issue was drafted straight into site/ and published within a day, so the window never opened. Issue three spent a day and a half in draft with a page that said Published. And the check that finally caught it was not looking for this at all — 'correction recorded' compares the page against the live version, and it found a live version because there was one. Read as a bug for twenty minutes before it was read as a fact."
+    },
+    {
+      "class": "VERDICT_BOUND_TO_AN_ALIAS",
+      "summary": "Every gate report binds its verdicts to the sha of the draft it judged — which is right, and is the founding rule. It also records model 'claude-sonnet-4-6'. That is an ALIAS, and on 2026-08-31 the alias was shown to move within three hours: the Signal golden set, running at temperature 0 with no caching, on a byte-identical claim corpus and an unchanged fixture and no code change to the mapping, produced different judgments at 13:00 UTC and three hours later on three of 53 categories. So a verdict is bound to the text it judged and to the NAME of a judge that cannot be identified or re-obtained.",
+      "why_it_matters": "A verdict unbound from the sha it judged is meaningless. A verdict bound to a judge that may no longer exist is meaningful only for as long as the judge does. The --since optimisation carries claim verdicts forward from earlier runs to save money; it saved about fourteen dollars on issue three. Those carried verdicts were produced by a model that may have moved in between, and nothing records or checks that.",
+      "caught_by": "the Signal golden set, by elimination, after everything else was held constant and checked",
+      "owned_by": "factcheck_draft.py, counterexample.py, fatal_recall.py",
+      "should_have_been": "Record the full timestamp, not just a date, and record what the model actually returned as its identity rather than what we asked for. Where they differ, say so. And prefer a deterministic check to a model judgment wherever the choice exists: a string match against a held document does not have a shelf life."
     }
   ],
   "standing_rules": [

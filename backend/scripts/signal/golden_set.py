@@ -303,6 +303,32 @@ def verify() -> int:
     return 0 if ok else 1
 
 
+DECISIONS = FIXTURE.parent / "signal_golden_decisions.json"
+
+
+def load_decisions() -> dict:
+    """Drifts a person has already read and decided about.
+
+    Between 26 and 31 August 2026 this check failed six consecutive full runs.
+    It was correct every time. An email went out every time. Nothing was done,
+    because there was nowhere to write down that a drift had been looked at --
+    so run six reported the same unactioned judgment as run one, and the signal
+    drowned in its own repetition. A control that reports into a channel with no
+    record attached is a control nobody can finish acting on.
+
+    A decision is keyed on slug, category AND direction. It never silences a
+    category: a move in a NEW direction still fails, because that is news.
+    """
+    if not DECISIONS.exists():
+        return {}
+    try:
+        raw = json.loads(DECISIONS.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {(d["slug"], d["category"], d["moved"]): d
+            for d in raw.get("decisions", []) if d.get("decision")}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--verify", action="store_true",
@@ -409,11 +435,39 @@ def main():
         print("cause and re-run — a green check here would be a lie.")
         return 1
 
-    if failures:
-        print("\nA judgment moved. That is not automatically wrong — three of the five")
-        print("drifts in the original sweep were the model improving. Read the claims,")
-        print("decide, and re-baseline with --record only once you understand it.")
+    decisions = load_decisions()
+    decided, undecided = [], []
+    for f in failures:
+        # f["why"] is already exactly "consensus -> debated". A side-balance
+        # reversal carries a different string and so can never accidentally be
+        # matched by a decision recorded about a status move -- which is right.
+        key = (f["slug"], f["category"], f["why"])
+        d = decisions.get(key)
+        (decided if d else undecided).append((f, d))
+
+    if decided:
+        print("\nALREADY DECIDED — read, judged, and written down. Not news.")
+        for f, d in decided:
+            print("  %-52s %-26s %s" % (f["slug"], f["category"], d["decision"]))
+            print("      %s" % d["reason"][:150])
+        print("\n  %d of these are decisions that the FIXTURE is right and the model is"
+              % sum(1 for _f, d in decided if d["decision"] == "fixture_is_right"))
+        print("  wrong. They will keep failing until the mapping improves, which is")
+        print("  correct — but they are known, and they are not what to look at today.")
+
+    if undecided:
+        print("\nA judgment moved and nobody has decided about it yet.")
+        for f, _d in undecided:
+            print("  %-52s %-26s %s" % (f["slug"], f["category"], f["why"]))
+        print("\nThat is not automatically wrong — three of the five drifts in the")
+        print("original sweep were the model improving. Read the claims, decide, and")
+        print("record it in %s." % DECISIONS.name)
+        print("Re-baseline with --record only once you understand it.")
         return 1
+
+    if decided:
+        print("\nEvery drift in this run has a recorded decision behind it.")
+        return 0
 
     n_measured = len(measured) - len(unmeasured)
     tail = f" ({len(warnings)} warning{'s' if len(warnings) != 1 else ''} to read)" if warnings else ""

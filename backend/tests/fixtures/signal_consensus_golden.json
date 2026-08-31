@@ -92,11 +92,8 @@
       "slug": "crispr-gene-therapy",
       "category": "comparative_effectiveness",
       "claims": 7,
-      "expected_status": "debated",
-      "expected_debated_sides": [
-        4,
-        2
-      ]
+      "expected_status": "consensus",
+      "expected_debated_sides": null
     },
     {
       "slug": "crispr-gene-therapy",

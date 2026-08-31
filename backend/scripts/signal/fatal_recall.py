@@ -128,6 +128,15 @@ def main():
         print("  [%s] %-30s %-15s %s" % (mark, seed["class"], ctrl, NOTE.get(ctrl, "")))
         print("         %s" % seed["quote"][:96])
 
+    # A measurement taken through a model role has a shelf life. On 2026-08-31
+    # the alias behind these roles was shown to move within three hours, at
+    # temperature 0, on identical inputs. The two deterministic lints below are
+    # stable by construction; anything scored by a model is a reading of one
+    # moment. Stamp the run so a future reader knows which moment.
+    import datetime as _dt
+    stamp = _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds")
+    print("\n  measured %s  ·  model roles resolve through an alias and can move" % stamp)
+
     built = [r for r in rows if r["verdict"] != MISSING]
     print("=" * 74)
     print("  %d of %d fatal classes have a control that ran." % (len(built), len(rows)))
@@ -135,7 +144,7 @@ def main():
     print("  %d classes have NO CONTROL AT ALL -- not a pass, an absence." %
           (len(rows) - len(built)))
     if a.report:
-        json.dump({"at": "fatal_recall", "rows": rows,
+        json.dump({"at": stamp, "note": "model roles resolve through an unpinnable alias; deterministic lints do not", "rows": rows,
                    "controls_built": len(built), "controls_total": len(rows), "found": hits},
                   io.open(a.report, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
         print("  report: %s" % a.report)
