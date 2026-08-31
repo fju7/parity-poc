@@ -560,6 +560,45 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
         return d
 
     old = (d["recorded_sha"] or "?")[:8]
+
+    # WHAT THE RECONCILIATION BELOW CANNOT SEE, and did not, for ten days.
+    #
+    # The reasoning underneath it is sound about the findings the run RAISED:
+    # every one is gone from the text or decided on the record, so the check
+    # was performed. It is silent about text the run never saw, because a
+    # sentence written after the run generates no finding to reconcile, and no
+    # finding reads as nothing wrong.
+    #
+    # Issue two: gated 28 August, then nine commits of edits. On 30 August the
+    # commit "issue two said no head-to-head trial existed, and two do" added
+    # the Shaaban trial and HARMONIA — 116 patients, 58.6% clinical benefit in
+    # both arms, 13.67 against 12.69 months, NCT05207709. The report does not
+    # contain the word Shaaban. The board said ok every time it was asked.
+    #
+    # An absence of findings about a sentence is not a verdict about it.
+    d["unjudged"] = []
+    if not d["fresh"]:
+        try:
+            # ANY blocking row, not just the one about new figures. The first
+            # wiring filtered on the name "empirical sentences never judged"
+            # and so dropped the other blocking case -- a comparison that could
+            # not be made at all, because the judged draft recovered from git
+            # was identical to the current page. Issue three hit exactly that
+            # and kept reading "ok" while the filter looked past it. Narrowing
+            # a check to the failure you have in mind is how the other one gets
+            # through.
+            for _n, _st, _detail in unjudged.preflight_rows(slug, target):
+                if _st == BAD:
+                    d["unjudged"].append(_detail)
+        except Exception as exc:                       # never let this hide the board
+            d["notes"].append("could not tell which sentences were judged: %s" % exc)
+
+    if d["unjudged"]:
+        d["state"] = BAD
+        d["detail"] = ("gated %s on an earlier draft (%s) and the page has changed since: %s"
+                       % (d["checked_at"], old, d["unjudged"][0]))
+        return d
+
     # A run that judged an earlier draft, every finding of which is now either
     # gone from the text or decided on the record, is a check that has been
     # performed. Requiring a signature on it asks a person to attest to a
