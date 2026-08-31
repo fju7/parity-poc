@@ -131,31 +131,32 @@ def judged_text(page: Path, report: dict) -> tuple[str | None, str]:
 
 
 def regate_cost(page: Path, report: dict, n_unjudged: int) -> str:
-    """What re-gating this page would actually cost, from the last run's own bill.
+    """What re-gating this page would cost, counted rather than rated.
 
-    THIS EXISTS BECAUSE THE COST WAS THE CAUSE.
+    THIRD VERSION. The first two were wrong in opposite directions, and both
+    were wrong for the same underlying reason: they estimated from a proxy
+    instead of counting the thing itself.
 
-    Issue two went ten days and nine commits without a model run, and the
-    reason was written down at the time: "I don't want to spend any more money
-    on issue 2 -- do the no cost fixes." That was a rational answer to a number
-    nobody had. The remembered price of a gate run was $10.63, which was
-    deskilling's FIRST full run, where SOURCE had to search every claim.
+      v1 counted CHANGED SENTENCES and predicted 7 claims, $2.18. The run
+         re-checked 46 and cost $5.20. Rewording a sentence breaks a claim's
+         key even when its figure never moved, so changed sentences understate
+         the work.
 
-    The last run's own usage says what the parts cost:
+      v2 used the LAST RUN'S CARRY RATE -- 46 of 92 fresh, so 50% -- and
+         predicted $13.86 to re-check three corrected sentences. But a carry
+         rate is not a property of the page. It is a property of how much
+         changed, and last time 155 sentences had changed against three now.
+         Applying it here overstated the cost five-fold, which is worse than
+         useless: it is a number that argues against running a check.
 
-        cdk46       SOURCE 64%   advocate+inference+extract  $0.85
-        deskilling  SOURCE 84%   advocate+inference+extract  $1.44
+    --since carries a verdict forward when the claim's (figure, source) key
+    still matches. So the claims that CANNOT carry are the ones whose figure is
+    no longer on the page, and that is not a rate to be guessed at. It is a set
+    to be counted.
 
-    SOURCE is the expensive role and --since already scopes it: a claim whose
-    sentence is untouched keeps its verdict. The roles that must always re-run
-    -- ADVOCATE and INFERENCE read the whole document, and scoping THEM to the
-    diff is what lets a fixed sentence break a distant one -- are the cheap
-    ones.
-
-    So a correct re-gate after a correction is a couple of dollars, not ten.
-    Nobody was refusing to pay it; they were refusing to pay a price that was
-    never the real one. Printing the estimate next to the STOP puts the true
-    number where the decision is made.
+    Checked against both known runs. Six figures are gone from issue two now:
+    $1.00 + 6 x $0.28 = $2.68, against v2's $13.86. And for the run that
+    actually cost $5.20, the same method gives about $5.67.
     """
     usage = (report.get("usage") or {})
     by = usage.get("by_role") or {}
@@ -164,52 +165,23 @@ def regate_cost(page: Path, report: dict, n_unjudged: int) -> str:
         return ""
     doc_roles = sum(u.get("usd") or 0 for r, u in by.items()
                     if r.split(":")[0] in ("advocate", "inference", "extract"))
-    src = [(r, u) for r, u in by.items() if r.split(":")[0] == "source"]
-    per_claim = (sum(u.get("usd") or 0 for _r, u in src) / len(src)) if src else 0.0
+    src = [u for r, u in by.items() if r.split(":")[0] == "source"]
+    per_claim = (sum(u.get("usd") or 0 for u in src) / len(src)) if src else 0.0
 
-    # HOW MANY CLAIMS ACTUALLY GET RE-CHECKED, which is not what I first
-    # assumed. The first version estimated fresh claims from the count of
-    # unjudged empirical SENTENCES, and predicted 7. The run re-checked 46 and
-    # cost $5.20 against a $2.18 estimate.
-    #
-    # --since carries a verdict forward only when the claim's (figure, source)
-    # key matches exactly. Rewording a sentence changes the extracted claim and
-    # breaks the key even when the figure did not move, so far more claims are
-    # re-checked than "new sentences" implies. The last run's own carry rate is
-    # the honest predictor: cdk46 carried 45 of 74, and 39% of 74 is 29 claims
-    # at $0.16 -- $5.67 against an actual $5.20, instead of $2.18.
-    n_claims = len(report.get("claims") or [])
-    carried = 0
-    for line in (report.get("carried") or []):
-        m = re.search(r"(\d+)\s+claim verdict", str(line))
-        if m:
-            carried = int(m.group(1))
-    if not n_claims:
+    flat = " ".join(html.unescape(re.sub(r"<[^>]+>", " ",
+                    page.read_text(encoding="utf-8"))).split())
+    claims = report.get("claims") or []
+    gone = [c for c in claims
+            if (c.get("figure") or "").strip()
+            and " ".join((c["figure"] or "").split()) not in flat]
+    if not claims:
         return ""
-    fresh_rate = max(0.0, 1.0 - (carried / n_claims)) if carried else 1.0
-    est_claims = max(1, round(n_claims * fresh_rate))
-    est = doc_roles + per_claim * est_claims
-
-    # NO CEILING. An earlier version clamped the estimate to the last full
-    # run's price, reasoning that re-checking part of a page cannot cost more
-    # than re-checking all of it. That is only true if the page has not grown.
-    # Issue two's re-gate cost $5.20 against a previous full run of $2.83,
-    # because the page had gained 155 sentences and the run extracted 92 claims
-    # where the old one found 74. The clamp would have reported "at most $2.83"
-    # about a run that cost nearly twice that -- a comforting number, and false.
-    #
-    # An estimate that is allowed to exceed its reference point is less tidy and
-    # more honest, so it says what it rests on and where it can be wrong.
-    grew = ""
-    if n_unjudged:
-        grew = (" The page has %d unjudged sentence(s) since that run, so it has grown and "
-                "the real figure is likely HIGHER than this." % n_unjudged)
+    est = doc_roles + per_claim * max(len(gone), 1)
     return ("re-gating costs roughly $%.2f — $%.2f for the roles that must read the whole "
-            "page, plus about %d claim(s) at $%.2f. The claim count comes from the last "
-            "run's carry rate (%d of %d carried), not from counting what changed: the "
-            "estimator that counted changed sentences predicted $2.18 for a run that cost "
-            "$5.20.%s The last full run was $%.2f on a page with %d claims."
-            % (est, doc_roles, est_claims, per_claim, carried, n_claims, grew, total, n_claims))
+            "page, plus %d claim(s) whose figure is no longer on it, at $%.2f each. Every "
+            "other claim's verdict carries forward under --since. Counted, not estimated "
+            "from a rate: the last full run was $%.2f for %d claims."
+            % (est, doc_roles, max(len(gone), 1), per_claim, total, len(claims)))
 
 
 def preflight_rows(slug: str, page: Path) -> list[tuple[str, str, str]]:
