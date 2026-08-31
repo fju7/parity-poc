@@ -143,6 +143,14 @@ WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
 USAGE = []                       # one entry per API response, in call order
 
 
+_spend = None
+try:
+    import sys as _sys
+    _sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    import spend_ledger as _spend
+except Exception:
+    _spend = None
+
 _unjudged = None
 try:
     import importlib.util as _ilu
@@ -2078,6 +2086,18 @@ def main():
             _fps = sorted(_unjudged.fingerprints(path.read_text(encoding="utf-8")))
         except Exception:
             _fps = []
+        # Into the append-only ledger as well as the report. The report is
+        # overwritten by the next run, which is why git preserved only $20.66
+        # of a spend the operator experienced as roughly $100 an issue.
+        if _spend is not None:
+            _issue = Path(path).name.split(".")[0]
+            for _role, _u in (usage_summary().get("by_role") or {}).items():
+                _spend.record(script="factcheck_draft.py", role=_role, issue=_issue,
+                              usd=_u.get("usd") or 0,
+                              input_tokens=_u.get("input") or 0,
+                              output_tokens=_u.get("output") or 0,
+                              web_searches=_u.get("web_searches") or 0,
+                              note="gate run %s" % today)
         Path(args.report).write_text(json.dumps({
             "draft": str(path),
             "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),

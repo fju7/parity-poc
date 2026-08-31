@@ -1,0 +1,6 @@
+{
+  "_what_this_is": "Spending caps per issue, in US dollars, enforced by spend_ledger.check_cap before a priced run starts. A cap here is a number in a committed file rather than a sentence in a conversation, which is the difference between a cap and an intention.",
+  "_why_the_number": "Recorded gate runs cost $2.56 to $10.63 each, and the first full run on a new issue is the expensive one because SOURCE searches every claim. A re-gate after corrections is roughly $2. An issue that has been through a first run, an outside review, two re-gates and a counterexample hunt should land near $25. $40 leaves room for a bad week; hitting it means something is wrong with the process, not with the budget.",
+  "default_per_issue": 40,
+  "per_issue": {}
+}

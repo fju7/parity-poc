@@ -154,6 +154,16 @@ study_design = _sibling("study_design")
 # least-checked text on a page and the likeliest place for a second error.
 unjudged = _sibling("unjudged")
 
+# The spend ledger. Fourteen of the fifteen scripts in this repo that make
+# priced model calls record nothing about what they cost, and the one that does
+# writes it into a report the next run overwrites -- which is why "what has this
+# issue cost" had no answer, and why an agreed cap of "two gate runs" could be
+# renegotiated twice without anyone seeing the running total. A cap you cannot
+# measure against is an intention.
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import spend_ledger as spend
+
 # The registry lives in code rather than in the served directory: a JSON file
 # under site/ is deployed and fetchable, and this names files, not content.
 ISSUES = {
@@ -878,6 +888,15 @@ def preflight(slug: str, *, for_email: bool,
 
     st, detail = outside_review(page, slug)
     out.append(("outside review", st, detail))
+
+    _cap = (spend.caps().get("per_issue") or {}).get(slug, spend.caps().get("default_per_issue"))
+    _so_far = spend.spent(issue=slug)
+    out.append(("spend on this issue",
+                OK if not _cap or _so_far < 0.8 * float(_cap) else WARN,
+                "$%.2f recorded%s. This is a floor: only factcheck_draft.py reports its "
+                "cost, so counterexample hunts, advocate and premise calls and every "
+                "Signal script are missing from it."
+                % (_so_far, (" of a $%.0f cap" % float(_cap)) if _cap else "")))
 
     # The four checks added after the 29 August corrections. Order is
     # deliberate: the cheap deterministic ones first, so that a page failing on
