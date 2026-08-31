@@ -155,6 +155,15 @@ study_design = _sibling("study_design")
 unjudged = _sibling("unjudged")
 registry_figures = _sibling("registry_figures")
 
+# Added 2026-08-31, an hour after registry_figures, because registry_figures
+# only sees decimals. Three of the eight open findings on issue two were a
+# trial's STATUS, its START DATE and its ENROLMENT -- all structured registry
+# fields, all reported NOT_FOUND by a role that searches the web, and none of
+# them reachable by a checker that looks for hazard ratios. Enumerating the
+# claim classes is only half the work; the other half is noticing that a class
+# you thought was covered is covered for one data type and silent for the rest.
+registry_facts = _sibling("registry_facts")
+
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
 # writes it into a report the next run overwrites -- which is why "what has this
@@ -542,6 +551,23 @@ def registry_overturns(slug: str, target: Path) -> set[str]:
     return confirmed
 
 
+def registry_fact_overturns(slug: str, target: Path) -> dict:
+    """Trial status, dates and enrolment the registry confirms.
+
+    Same argument as registry_overturns one field-type over, and the same
+    refusal to fail quietly: an exception here is printed, not swallowed, so
+    "nothing overturned" can never be a crash wearing the clothes of a verdict.
+    """
+    try:
+        return registry_facts.confirmed_keys(
+            slug, target.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print("  [WARN] registry fact reconciliation failed, so no model verdict "
+              "about a trial's status, dates or enrolment was checked against the "
+              "registry: %s: %s" % (type(exc).__name__, exc))
+        return {}
+
+
 def _figures_all_confirmed(figure: str, confirmed: set[str]) -> bool:
     """True only if EVERY number in the finding's figure is posted by the registry.
 
@@ -582,6 +608,7 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
     body = flatten(target.read_text(encoding="utf-8"))
     sources = coverage_sources(r)
     confirmed_by_registry = registry_overturns(slug, target)
+    facts_by_registry = registry_fact_overturns(slug, target)
     decisions = fc.load_decisions(fc.DECISIONS, target.name)
     for f in gate_findings(r):
         f["where"] = still_in_text(f, body)
@@ -601,14 +628,22 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
         # it. Only SOURCE verdicts: the advocate and inference roles are not
         # making a claim about what a document contains.
         if (f["kind"] == "verdict" and f["class"] in ("WRONG_VALUE", "NOT_FOUND")
-                and _figures_all_confirmed(f.get("figure", ""), confirmed_by_registry)):
+                and (_figures_all_confirmed(f.get("figure", ""), confirmed_by_registry)
+                     or registry_facts.quote_fully_confirmed(
+                         f.get("quote", ""), facts_by_registry))):
             f["blocking"] = False
             f["overturned"] = True
             d["overturned"].append(f)
-            f["why"] = ("the trial registry posts every figure in this claim; the role "
+            _by = ("figure" if _figures_all_confirmed(
+                       f.get("figure", ""), confirmed_by_registry) else "fact")
+            f["why"] = ("the trial registry posts every %s in this claim (%s); the role "
                         "reported %s having searched the web, which does not reach "
                         "ClinicalTrials.gov's structured results. Deterministic check wins. "
-                        "Original note: %s" % (f["class"], (f.get("why") or "")[:160]))
+                        "Original note: %s"
+                        % (_by,
+                           "hazard ratios, bounds and p-values" if _by == "figure"
+                           else "status, dates and enrolment",
+                           f["class"], (f.get("why") or "")[:160]))
 
         _key = f["class"] if f["kind"] == "verdict" else f["severity"]
         f["decided"], dec, _how = fc.classify(ROLE_OF.get(f["kind"], ""), f["quote"],
@@ -640,10 +675,10 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
     if d["overturned"]:
         d["notes"].append(
             "%d SOURCE verdict(s) overturned by ClinicalTrials.gov — the role reported a "
-            "figure missing or wrong having searched the web, which does not reach the "
-            "registry's structured results, and the registry posts every number in the "
-            "claim: %s. A deterministic check outranks a model verdict, and the disagreement "
-            "is recorded rather than dropped."
+            "figure or a trial fact missing or wrong having searched the web, which does "
+            "not reach the registry's structured results, and the registry posts every "
+            "checkable part of the claim: %s. A deterministic check outranks a model "
+            "verdict, and the disagreement is recorded rather than dropped."
             % (len(d["overturned"]), ", ".join(f["id"] for f in d["overturned"])))
 
     d["accepted"] = acceptance_for(slug, target, d["current_sha"])
@@ -1024,6 +1059,7 @@ def preflight(slug: str, *, for_email: bool,
     # would have replaced a correct HR 0.921 with 0.956.
     try:
         out.extend(registry_figures.preflight_rows(slug, page.read_text(encoding="utf-8")))
+        out.extend(registry_facts.preflight_rows(slug, page.read_text(encoding="utf-8")))
     except SystemExit as e:
         out.append(("registry figures", BAD, str(e)))
     try:

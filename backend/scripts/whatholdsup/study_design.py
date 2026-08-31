@@ -151,10 +151,26 @@ def trials_for(slug: str) -> dict:
                 continue
             # The trial's short name, when the title carries one: "PALOMA-3: ..."
             t = s.get("title") or ""
-            nm = re.match(r"([A-Za-z][A-Za-z0-9]*[-\s]?\d+[a-z]?)\s*[:—-]", t)
+            nm = _TRIAL_IN_TITLE.match(t)
             if nm:
                 out.setdefault(nm.group(1).strip(), m.group(1).upper())
     return out
+
+
+# A trial's name at the head of a source title. Two shapes, and the second was
+# missing until 2026-08-31: a name carrying a number (PALOMA-2, MONARCH 3,
+# KEYNOTE-522) and a name that is just a word (HARMONIA, PALMARES, SOLTI). The
+# digit was required, so HARMONIA never entered the trial map, and every
+# registry check on this page skipped it in silence -- the design check, the
+# figures check and the facts check alike. Three claims about HARMONIA sat
+# unchecked and read as unverifiable, when the registry posts all three.
+#
+# A check that cannot see a thing must not be indistinguishable from a check
+# that looked and found nothing.
+_TRIAL_IN_TITLE = re.compile(
+    r"([A-Za-z][A-Za-z0-9]*[-\s]?\d+[a-z]?"          # PALOMA-2, MONARCH 3, 2b
+    r"|[A-Z][A-Z0-9]{3,})"                            # HARMONIA, SOLTI
+    r"\s*[:\u2014-]")
 
 
 def registry(nct: str) -> dict | None:
