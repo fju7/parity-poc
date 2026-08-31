@@ -1,0 +1,11 @@
+{
+  "note": "Re-gate issue two's announcement email. Last gated 2026-08-28 on draft 1fb1d818; four sentences carrying figures have never been examined by any role, including the corrected sourcing sentence written on 30 August after the email claimed an absence the page did not make (CORR-04). An email cannot be recalled, so this one gets a run rather than a signature. Estimated $2.09 -- $1.08 for the whole-page roles plus 4 claims at $0.25. Queued alongside the page run rather than after it, deliberately: the two files are gated independently, and serialising them costs two more round trips through the operator to save a run we will probably not need. If the page run forces a change to shared wording, this run is spent and we pay for it again -- that is the accepted risk, written down here so it is not rediscovered as a surprise.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/email/issue2-cdk46.html",
+    "--since", "../site/whatholdsup/email/issue2-cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/email/issue2-cdk46.html.gate.json"
+  ]
+}

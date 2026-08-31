@@ -1,0 +1,11 @@
+{
+  "note": "Re-gate issue two's page, on FINAL text. All the free work is done first, which is the whole point of holding job 002: the outside review is reconciled (190 changes, each traced to a decision), every quotation is recorded and matched, and the page carries a reader-facing correction for the three errors found on 31 August. Eight sentences on the page have never been read by any role and this run reads them. The seven false findings from the 31 August run are recorded in draft_decisions.json and should come back as already decided rather than as news; c49, c61 and c62 are now overturned deterministically by registry_facts.py and should not need a model verdict at all. Estimated $2.68 -- $1.00 for the roles that must read the whole page, plus 6 claims whose figure has left it at $0.28 each. Counted, not estimated from a rate.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/cdk46.html",
+    "--since", "../site/whatholdsup/cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/cdk46.html.gate.json"
+  ]
+}
