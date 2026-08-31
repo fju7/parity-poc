@@ -1,0 +1,172 @@
+"""One place that asks the registry before anything asks a model.
+
+WHY THIS EXISTS
+---------------
+The 2026-08-31 page gate cost $5.70. Its single most expensive line:
+
+    source:HARMONIA — ClinicalTrials.gov    $0.87   253,272 tok   9 searches
+
+Nine web searches and eighty-seven cents to establish that HARMONIA opened in
+March 2022, terminated, and enrolled 61 patients. All three are structured
+fields. The ClinicalTrials.gov API returns them in under a second, for nothing.
+`registry_facts.py` had ALREADY CONFIRMED ALL THREE, on the board, before the
+run started -- and the run went and bought them again.
+
+The deterministic tier was overturning the model's verdict AFTER the spend.
+registry_figures.py's own docstring says it
+
+    "runs BEFORE the SOURCE role, settles what it can, and is both cheaper and
+     more accurate than the thing it short-circuits"
+
+and it did not. It ran in the preflight, which is a different program. The
+sentence described an intention.
+
+WHAT THIS DOES
+--------------
+It is the one object both callers use, so they cannot drift:
+
+    the GATE   asks it before building each source group, drops the claims it
+               settles, and skips the API call entirely when a group empties.
+    the BOARD  asks it when deciding whether a model's NOT_FOUND or WRONG_VALUE
+               survives contact with the registry.
+
+Same evidence, same rule, one implementation.
+
+A SETTLED CLAIM IS NOT A SKIPPED CLAIM. It comes back with a verdict, a reason
+and the registry record behind it, and it appears in the report as VERIFIED by
+the registry. A claim that vanishes because it was cheap to settle would make
+the report say less than it knows, which is the failure mode of every
+optimisation in this pipeline.
+
+WHAT IT WILL NOT SETTLE
+-----------------------
+Everything else. It confirms; it never contradicts, and it never settles a
+claim whose checkable parts it cannot ALL confirm. Where it is silent the model
+runs exactly as before and costs exactly what it cost. The saving comes only
+from work that did not need doing.
+"""
+from __future__ import annotations
+
+import importlib.util
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+
+
+def _sibling(name):
+    sp = importlib.util.spec_from_file_location(name, HERE / (name + ".py"))
+    m = importlib.util.module_from_spec(sp)
+    sp.loader.exec_module(m)
+    return m
+
+
+class Settler:
+    """What the trial registry can confirm about this page, asked once."""
+
+    def __init__(self, slug: str, page_text: str):
+        self.slug = slug
+        self.numbers: set[str] = set()
+        self.facts: dict = {}
+        self.error: str | None = None
+        try:
+            rfig = _sibling("registry_figures")
+            rfac = _sibling("registry_facts")
+            self._rfac = rfac
+            self.numbers = {f["norm"] for f in rfig.findings(slug, page_text)
+                            if f["in_registry"]}
+            self.facts = rfac.confirmed_keys(slug, page_text)
+        except Exception as exc:
+            # NOT a silent empty result. A settler that fails quietly is
+            # indistinguishable from a registry with nothing to say, and the
+            # caller would report "0 settled" as though it were an answer.
+            self._rfac = None
+            self.error = "%s: %s" % (type(exc).__name__, exc)
+
+    def __bool__(self) -> bool:
+        return bool(self.numbers or self.facts)
+
+    def settles(self, figure: str = "", quote: str = "",
+                attributed_to: str = "") -> str | None:
+        """A reason, if the registry confirms every checkable part. Else None."""
+        if self.error:
+            return None
+        import re
+
+        # 1. Against the record the claim ITSELF names.
+        #
+        # This was missing from the first version and it is where nearly all
+        # the saving is. registry_figures only reads figures out of SHORT page
+        # blocks carrying one NCT -- a scope rule it needed, because it was
+        # attributing figures found in prose. Here there is nothing to guess:
+        # the gate has already told us this claim is attributed to
+        # "MONALEESA-7 — ClinicalTrials.gov results posting. NCT02278120", and
+        # the question is only whether that record contains these numbers.
+        #
+        # Without this, a claim reading "MONALEESA-7's results posting gives
+        # p = 0.00973" went to a model with web search, which could not reach
+        # the posting, and came back NOT_FOUND -- about a number sitting in the
+        # record the claim names.
+        ncts = {n.upper() for n in re.findall(r"NCT\d{8}", attributed_to or "", re.I)}
+        if len(ncts) == 1:
+            why = self._against_record(ncts.pop(), figure, quote)
+            if why:
+                return why
+
+        # 2. Against what the registry confirms elsewhere on the page.
+        nums = re.findall(r"\d+\.\d+", figure or "")
+        if nums and all(("%g" % float(n)) in self.numbers for n in nums):
+            return ("every figure in this claim is posted in the trial's "
+                    "ClinicalTrials.gov record: %s" % ", ".join(sorted(set(nums))))
+        if self._rfac is not None:
+            for text in (quote, figure):
+                if text and self._rfac.quote_fully_confirmed(text, self.facts):
+                    parts = ", ".join(
+                        "%s=%s" % (f, v)
+                        for f, v, _m in self._rfac.claims_in(text))
+                    return ("every trial fact in this claim is a structured field "
+                            "in its ClinicalTrials.gov record: %s" % parts)
+        return None
+
+    def _against_record(self, nct: str, figure: str, quote: str) -> str | None:
+        """Confirm a claim against one named registry record."""
+        import re
+        try:
+            rfig = _sibling("registry_figures") if not hasattr(self, "_rfig") else self._rfig
+            self._rfig = rfig
+            raw = rfig.registry_text(nct)
+        except Exception:
+            return None
+        if not raw:
+            return None
+
+        text = "%s %s" % (figure or "", quote or "")
+
+        # The claim is that the trial HAS this registry number. The record
+        # answers it: does it name the trial? "HARMONIA is registered as
+        # NCT05207709" went to a model with web search, three times over three
+        # runs, for a string comparison against a document we already had.
+        if re.fullmatch(r"\s*NCT\d{8}\s*", figure or ""):
+            names = re.findall(r"\b[A-Z][A-Z0-9]{3,}(?:-\d+[a-z]?)?\b", quote or "")
+            named = [n for n in names if not n.startswith("NCT")]
+            hits = [n for n in named if re.search(r"\b%s\b" % re.escape(n), raw, re.I)]
+            if named and len(hits) == len(named):
+                return ("the record for %s names %s, so the registration this claim "
+                        "states is the registration the registry holds"
+                        % (nct, ", ".join(sorted(set(hits)))))
+            return None
+
+        nums = re.findall(r"\d+\.\d+", figure or "")
+        if not nums:
+            return None
+        posted = rfig.numbers_in(raw)
+        if all(("%g" % float(n)) in posted for n in nums):
+            return ("every figure in this claim appears in %s, the "
+                    "ClinicalTrials.gov record the claim itself names: %s"
+                    % (nct, ", ".join(sorted(set(nums)))))
+        return None
+
+    def summary(self) -> str:
+        if self.error:
+            return "the registry check did not run (%s)" % self.error
+        return ("%d figure(s) and %d trial fact(s) confirmed at ClinicalTrials.gov"
+                % (len(self.numbers), sum(len(v) for v in self.facts.values())))

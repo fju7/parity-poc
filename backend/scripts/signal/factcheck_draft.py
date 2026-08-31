@@ -141,6 +141,7 @@ PRICES = {                       # US dollars per million tokens
 WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
 
 USAGE = []                       # one entry per API response, in call order
+_LEDGER_ISSUE = ""               # set from the draft filename before any call
 
 
 def _load_spend():
@@ -202,7 +203,7 @@ def _record_usage(label, response):
         stu = getattr(u, "server_tool_use", None)
         if stu is not None:
             searches = int(getattr(stu, "web_search_requests", 0) or 0)
-        USAGE.append({
+        entry = {
             "label": label or "call",
             "model": getattr(response, "model", SIGNAL_MODEL),
             "input": n("input_tokens"),
@@ -210,7 +211,52 @@ def _record_usage(label, response):
             "cache_write": n("cache_creation_input_tokens"),
             "cache_read": n("cache_read_input_tokens"),
             "web_searches": searches,
-        })
+        }
+        USAGE.append(entry)
+        _ledger_now(entry)
+    except Exception:
+        pass
+
+
+def _ledger_now(entry):
+    """Write this one call to the spend ledger, NOW.
+
+    WHY NOT AT THE END OF THE RUN, WHICH IS WHERE THIS USED TO BE.
+    On 2026-08-31 the email gate died partway through:
+
+        [ERROR] source:P-VERIFY poster: Your credit balance is too low to
+        access the Anthropic API.
+
+    Eleven source calls had already succeeded and been billed. The ledger wrote
+    once, at the end, inside the report-writing branch -- which that run never
+    reached. So the money was spent and the ledger recorded NONE of it, and the
+    issue total is now understated by an amount nobody can recover.
+
+    A ledger that only records runs that finish is not a ledger of what was
+    spent. It is a ledger of what was spent successfully, which is the figure
+    least likely to matter when someone is asking why the bill is high: a run
+    that fails partway is exactly the run whose cost is invisible and exactly
+    the run that gets retried.
+
+    One line per API response, at the moment of the response. record() never
+    raises, so this cannot break a run, and there is no aggregate left to
+    double-count -- which is the other way this went wrong, when save() ran
+    twice and turned $5.20 into $10.39.
+    """
+    if _spend is None:
+        return
+    try:
+        # Price it through usage_summary rather than repeating the arithmetic.
+        # The first draft of this function multiplied per-million rates by raw
+        # token counts and would have recorded a $0.30 call as $300,000 --
+        # tripping the cap on the first API response of every run. One place
+        # that knows how to turn tokens into dollars, and this is not it.
+        u = usage_summary([entry])["total"]
+        _spend.record(script="factcheck_draft.py", role=entry["label"],
+                      issue=_LEDGER_ISSUE or "", usd=u.get("usd") or 0.0,
+                      input_tokens=entry["input"], output_tokens=entry["output"],
+                      web_searches=entry["web_searches"],
+                      note="" if u.get("priced") else "model not in the price table")
     except Exception:
         pass
 
@@ -1044,7 +1090,8 @@ publication can least afford to have made falsely.
 """
 
 
-def audit_sources(claims: list[dict], draft_title: str) -> dict[str, dict]:
+def audit_sources(claims: list[dict], draft_title: str,
+                  settler=None) -> dict[str, dict]:
     external = [c for c in claims if c.get("scope", "external") != "internal"]
     internal = [c for c in claims if c.get("scope") == "internal"]
     if internal:
@@ -1056,6 +1103,54 @@ def audit_sources(claims: list[dict], draft_title: str) -> dict[str, dict]:
 
     print(f"[2/6] Source audit across {len(groups)} attributed source(s)...")
     verdicts: dict[str, dict] = {}
+
+    # ASK THE REGISTRY BEFORE ASKING A MODEL.
+    #
+    # The 31 August run spent $0.87 and nine web searches on source:HARMONIA to
+    # establish a start date, a status and an enrolment count -- three
+    # structured fields the API returns in under a second, and which the board
+    # had already confirmed before the run began. The deterministic tier was
+    # overturning the model AFTER the spend.
+    #
+    # A settled claim is not a skipped claim: it gets a verdict, a reason and
+    # the record behind it, and appears in the report as VERIFIED. A claim that
+    # vanished because it was cheap to settle would make the report say less
+    # than it knows.
+    if settler is not None:
+        if getattr(settler, "error", None):
+            print(f"      [WARN] registry pre-check did not run, so nothing was "
+                  f"settled before the model: {settler.error}")
+        else:
+            settled_n = 0
+            for src, items in list(groups.items()):
+                keep = []
+                for c in items:
+                    why = settler.settles(c.get("figure") or "",
+                                          c.get("claim") or "",
+                                          c.get("attributed_to") or "")
+                    if not why:
+                        keep.append(c)
+                        continue
+                    verdicts[c["id"]] = {
+                        "id": c["id"], "verdict": "VERIFIED",
+                        "found_value": c.get("figure") or c.get("claim"),
+                        "actual_source": "ClinicalTrials.gov, read as structured "
+                                         "data by registry_settle before the "
+                                         "source audit",
+                        "note": why + ". Settled deterministically; no model was "
+                                      "asked and nothing was spent on it.",
+                        "settled_by": "registry",
+                    }
+                    settled_n += 1
+                if keep:
+                    groups[src] = keep
+                else:
+                    del groups[src]
+            if settled_n:
+                print(f"      {settled_n} claim(s) settled at the registry for "
+                      f"nothing, before any model call "
+                      f"({len(groups)} source(s) left to check)")
+
     for src, items in groups.items():
         shown = "no source credited in the draft" if src == "__UNATTRIBUTED__" else src
         print(f"      checking {len(items):>2} claim(s) against: {shown[:70]}")
@@ -2025,6 +2120,10 @@ def main():
     # that on the condition the cap was real.
     if _spend is not None:
         _issue_slug = Path(args.draft).name.split(".")[0]
+        # Set BEFORE any API call, so every ledger line written during the run
+        # is attributed to the right issue. _ledger_now reads this.
+        global _LEDGER_ISSUE
+        _LEDGER_ISSUE = _issue_slug
         try:
             _spend.check_cap(_issue_slug, about_to_spend=3.0)
         except Exception as _exc:
@@ -2057,15 +2156,36 @@ def main():
     prior = load_prior(args.since)
     carried_note = []
 
+    # Ask the registry once, before anything asks a model. See registry_settle.
+    _settler = None
+    try:
+        import importlib.util as _ilu2
+        _sp = _ilu2.spec_from_file_location(
+            "registry_settle",
+            Path(__file__).resolve().parents[1] / "whatholdsup" / "registry_settle.py")
+        _rs = _ilu2.module_from_spec(_sp)
+        _sp.loader.exec_module(_rs)
+        _settler = _rs.Settler(Path(args.draft).name.split(".")[0],
+                               path.read_text(encoding="utf-8"))
+        print("      registry pre-check: %s" % _settler.summary())
+    except Exception as _exc:
+        # Loudly. A pre-check that fails silently looks exactly like a registry
+        # with nothing to say, and the run would go on to buy what it could
+        # have had for nothing while reporting that it had checked.
+        print("      [WARN] registry pre-check unavailable (%s: %s) — every claim "
+              "goes to the model, including any the registry could have settled"
+              % (type(_exc).__name__, _exc))
+
     if prior:
         todo, carried, n = carry_verdicts(claims, prior)
         if n:
             print(f"      {n} claim(s) unchanged since {prior.get('sha256','')[:12]} — "
                   f"verdicts carried, {len(todo)} to check")
             carried_note.append(f"{n} claim verdict(s) carried forward")
-        verdicts = {**carried, **(audit_sources(todo, path.stem) if todo else {})}
+        verdicts = {**carried,
+                    **(audit_sources(todo, path.stem, _settler) if todo else {})}
     else:
-        verdicts = audit_sources(claims, path.stem)
+        verdicts = audit_sources(claims, path.stem, _settler)
 
     age = _days_since(prior.get("checked_at")) if prior else 1e9
     if prior and prior.get("recency") and age <= RECENCY_FRESH_DAYS:
@@ -2143,17 +2263,13 @@ def main():
         # A ledger that overcounts is not the safe direction. It would have
         # tripped the $40 cap at real spend of $20 and stopped work for a
         # reason that was not true.
-        global _SPEND_RECORDED
-        if _spend is not None and not _SPEND_RECORDED:
-            _SPEND_RECORDED = True
-            _issue = Path(path).name.split(".")[0]
-            for _role, _u in (usage_summary().get("by_role") or {}).items():
-                _spend.record(script="factcheck_draft.py", role=_role, issue=_issue,
-                              usd=_u.get("usd") or 0,
-                              input_tokens=_u.get("input") or 0,
-                              output_tokens=_u.get("output") or 0,
-                              web_searches=_u.get("web_searches") or 0,
-                              note="gate run %s" % today)
+        # The end-of-run aggregate write that used to live here is GONE.
+        # Every response is now recorded by _ledger_now at the moment it
+        # arrives, so writing the totals again here would double every run --
+        # which is precisely the bug that turned $5.20 into $10.39 when save()
+        # ran twice. Recording at the end also meant a run that died partway
+        # spent money and recorded none of it, which is how the 31 August email
+        # gate billed eleven successful source calls and left no trace.
         Path(args.report).write_text(json.dumps({
             "draft": str(path),
             "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
