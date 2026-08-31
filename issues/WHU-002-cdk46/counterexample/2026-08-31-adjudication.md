@@ -51,8 +51,8 @@ DID:     Rewritten to name the drugs: “every comparison this page examined of 
 **Searched.** 1. ClinicalTrials.gov: searched 'abemaciclib palbociclib ribociclib head-to-head metastatic breast cancer' and 'CDK4/6 inhibitor comparative randomized HR-positive breast cancer' — found NCT06344780 (abemaciclib/palbociclib/dalpiciclib real-world, not randomized head-to-head); no randomized head-to-head trial among all three found. 2. Literature/secondary sources: searched 'NCCN breast cancer CDK4/6 preferred category palbociclib abemaciclib ribociclib 2024 2025'; 'NCCN breast cancer abemaciclib palbociclib other recommended useful in certain circumstances'; 'NCCN breast cancer v4.2026 abemaciclib palbociclib other recommended first-line metastatic'; 'NCCN categories preference preferred other recommended useful in certain circumstances definition breast cancer'. 3. JNCCN v4.2026 (doi:10.6004/jnccn.2026.0033): confirmed all three listed as 'Preferred' first-line; ribociclib Category 1, abemaciclib/palbociclib Category 2A; guideline text states CDK4/6 inhibitors 'have not been directly compared in clinical trials.' 4. NCCN.org official definitions page: confirmed 'Preferred' definition includes 'superior efficacy, safety, and evidence.' 5. OncLive (Feb 2026): confirmed abemaciclib and palbociclib 'also hold recommendations as preferred regimens.' 6. OncoDaily (NCCN v4.2026 summary, July 2026): confirmed all three listed as preferred; ribociclib Cat 1, others Cat 2A. 7. WHO ICTRP, EudraCT/CTIS, ISRCTN, FDA Drugs@FDA, EMA EPAR: not directly searched for this structural/definitional claim (those registries are relevant to the 'no head-to-head trial' sub-claim in the paragraph, not to the sentence under attack, which is about the NCCN preference designation system). The sentence under attack is a claim about NCCN guideline structure, not about trial existence.
 
 VERDICT: survived
-BASIS:   The role's own description confirms the page: “ribociclib+AI is listed as Preferred with Category 1, while abemaciclib+AI and palbociclib+AI are listed as Preferred with Category 2A.” All three carry the same preference tier. Its argument is semantic, not factual — that because NCCN defines Preferred partly in terms of evidence, the two systems are not independent. That is worth knowing and it is not a counterexample. NOTE FOR THE OPERATOR: the licence forbids putting the guideline through any AI tool, so I cannot check the wording of the Preferred definition. Fred read the Categories of Preference tables and definitions at source on 2026-08-29 and recorded that all three carry the same designation, which is what this page rests on. Recorded as an open question in watch.json rather than printed.
-DID:     Nothing on the page. An open question logged for the next human reading of the guideline.
+BASIS:   The role's own description confirms the page: “ribociclib+AI is listed as Preferred with Category 1, while abemaciclib+AI and palbociclib+AI are listed as Preferred with Category 2A.” All three carry the same preference tier. Its argument is semantic, not factual — that because NCCN defines Preferred partly in terms of evidence, the two systems are not independent. That is worth knowing and it is not a counterexample. AND IT IS ALREADY ANSWERED, TWICE OVER, AND I ESCALATED IT ANYWAY. Question S001-05 in advocate/2026-08-29-adjudication.md asks precisely this, and Fred answered it from the guideline on 2026-08-29: the preference categories record “the panel's assessment of a regimen's value relative to others, on efficacy, safety and quality of evidence. Not a strict ordinal ranking.” So the hunter's premise is correct — evidence quality IS one of the criteria — and the page already says so, three sentences before the one attacked: “Preferred being defined as based on superior efficacy, safety, and evidence taken together. It is not an ordinal ranking.” The role was given the paragraph as context and argued for what the paragraph states. No page change, and no question for the operator: I put one to him that his own recorded answer had already closed, costing him attention on a licence-restricted document for nothing.
+DID:     Nothing. The question was asked and answered on 2026-08-29 (S001-05) and the answer is already reflected in the paragraph.
 
 
 ---
@@ -249,8 +249,8 @@ DID:     Nothing.
 **Searched.** Web search 1: 'NCCN guidelines aromatase inhibitor CDK4/6 inhibitor categories of evidence preference 2024 2025' — returned OncLive, Pharmacy Times, Novartis press release, OncoDaily (NCCN v4.2026), ASCO Post, ClinicalTrials.gov protocol documents. Web search 2: 'NCCN category of evidence consensus breast cancer CDK4/6 inhibitor palbociclib ribociclib abemaciclib difference' — returned OncLive, SABCS Meeting News, PMC review articles, Pharmacy Times, JNCCN. Web search 3: 'NCCN breast cancer guidelines categories of preference same all three CDK4/6 inhibitors aromatase inhibitor metastatic' — returned Novartis press release, OncLive, JNCCN v4.2026 abstract, OncoDaily, US Pharmacist, Novartis NCCN flashcard PDF. Web search 4: 'NCCN breast cancer guideline preferred palbociclib ribociclib abemaciclib aromatase inhibitor category 2A category 1 preference designation metastatic first-line 2025 2026' — returned OncLive, JNCCN v4.2026 (direct guideline publication), OncoDaily, US Pharmacist, Novartis flashcard. Registries checked via search: ClinicalTrials.gov protocol documents surfaced in results (NCT05169567, NCT06307457, NCT05012644, NCT02246621). No direct EudraCT/CTIS, WHO ICTRP, ISRCTN, FDA Drugs@FDA, or EMA EPAR searches were run separately, as the claim is about NCCN guideline designation structure, not about trial existence — the counterexample was found in the guideline's own published text (JNCCN v4.2026) and corroborated by multiple independent secondary sources.
 
 VERDICT: survived
-BASIS:   Same claim as CE-02 and the same answer, but the citation is worse: its strongest evidence is a NOVARTIS FLASHCARD — marketing material from the manufacturer of the drug that benefits from the reading — offered as evidence of what the guideline says. That is the hop-is-not-a-source error, committed by the instrument meant to catch it. Its own factual description again confirms all three are Preferred.
-DID:     Nothing. Logged with CE-02 as an open question for a human reading of the guideline.
+BASIS:   Same claim as CE-02 and the same answer, but the citation is worse: its strongest evidence is a NOVARTIS FLASHCARD — marketing material from the manufacturer of the drug that benefits from the reading — offered as evidence of what the guideline says. That is the hop-is-not-a-source error, committed by the instrument meant to catch it. Its own factual description again confirms all three are Preferred. And as with CE-02, the substantive half of its objection is already on the page and already answered at source under S001-05.
+DID:     Nothing. Closed by S001-05, as CE-02.
 
 
 ---
@@ -286,3 +286,25 @@ VERDICT: survived
 BASIS:   An internal claim about what changed on this page on a given date, checkable only against our own files, and correct.
 DID:     Nothing.
 
+
+
+---
+
+## What this hunt cost that it should not have
+
+Two of the fourteen findings (CE-02, CE-12) were escalated to the operator as an open
+question about a licence-restricted document he would have had to re-read. Both were
+already answered: by his own reading on 29 August, recorded under S001-05 in
+`advocate/2026-08-29-adjudication.md`, and by the page itself three sentences above the
+sentence under attack.
+
+Nothing was wrong with the record. It was correctly written, correctly filed, and
+indexed under the source id the finding was about. The failure was not consulting it.
+
+**The control this implies is mechanical, not a resolution to be more careful.** A
+finding that concerns a source should not reach a human until two lookups have run:
+does that source have an answered question covering it, and does the page already say
+it? Both are keyed on the source id. Neither needs judgement. Until they exist, the
+hunter's real cost includes the operator's attention on questions the repository has
+already closed — which is the same failure as the counterexample hunter existing and
+never being run, one level up.
