@@ -1,0 +1,27 @@
+{
+  "what_this_is": "Trial name to ClinicalTrials.gov identifier for issue two, so study_design.py can check the page's design characterisations against the registry instead of against a model's guess.",
+  "how_these_were_established": "Each NCT was confirmed by reading the registry's own title on 2026-08-31, not by recall and not by taking the first search hit. Searching 'MONARCH 2' by title returns NCT02747004 and NCT02102490 first, and neither is MONARCH 2; the right record is NCT02107703, whose official title begins 'MONARCH 2: A Randomized, Double-Blind, Placebo-Controlled, Phase 3 Study'. A trial map assembled from search results without that check would have quietly pointed three claims at the wrong studies.",
+  "trials": {
+    "PALOMA-1": "NCT00721461",
+    "PALOMA-2": "NCT01740427",
+    "PALOMA-3": "NCT01942135",
+    "MONALEESA-2": "NCT01958021",
+    "MONALEESA-3": "NCT02422615",
+    "MONALEESA-7": "NCT02278120",
+    "MONARCH 2": "NCT02107703",
+    "MONARCH-2": "NCT02107703",
+    "MONARCH 3": "NCT02246621",
+    "MONARCH-3": "NCT02246621"
+  },
+  "registry_says": {
+    "PALOMA-2": "QUADRUPLE masked, RANDOMIZED, PHASE3",
+    "PALOMA-3": "TRIPLE masked, RANDOMIZED, PHASE3",
+    "MONALEESA-2": "QUADRUPLE masked, RANDOMIZED, PHASE3",
+    "MONALEESA-3": "QUADRUPLE masked, RANDOMIZED, PHASE3",
+    "MONALEESA-7": "QUADRUPLE masked, RANDOMIZED, PHASE3",
+    "MONARCH 2": "DOUBLE masked, RANDOMIZED, PHASE3",
+    "MONARCH 3": "DOUBLE masked, RANDOMIZED, PHASE3"
+  },
+  "note_on_PALOMA-1": "NCT00721461 is recorded here because the page names PALOMA-1, but that identifier does NOT resolve to PALOMA-1 -- it is a tolerability study of an electroporation device. It is the wrong id, carried over from sources.json, and is flagged in the source audit of 2026-08-31. Left in place deliberately so the checker reports it rather than silently skipping the trial.",
+  "attested": []
+}

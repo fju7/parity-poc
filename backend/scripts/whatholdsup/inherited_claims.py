@@ -89,6 +89,43 @@ TEMPLATE = {
 }
 
 
+# A claim of priority or uniqueness is the shape a source's own boast takes
+# when it is printed as ours. "The first individualised cancer vaccine to reach
+# Phase 3 in any tumour type" is a sentence a company writes about itself; the
+# error is not that it is false but that the page states it in its own voice,
+# with nothing recording who said it or what was checked.
+# "the only" is deliberately ABSENT. It appeared in the first version and made
+# three of four hits on the recall fixture noise -- "the only route to it is a
+# clinical trial", "the only survival figure in the programme is descriptive"
+# -- both the page's own analysis rather than anybody's boast. Precision is
+# worth more than reach in a surfacer a person has to read.
+PRIORITY = re.compile(
+    r"\b(the first|first[- ]ever|the largest|the longest|"
+    r"never before|no other|unprecedented|for the first time)\b", re.I)
+
+_SENTENCE = re.compile(r"(?<=[.!?])\s+(?=[A-Z(\u201c\"])")
+
+
+def unattributed_priority_claims(page_text: str) -> list[str]:
+    """Priority claims stated in the page's own voice.
+
+    This is the INHERITED class's surfacer, and it exists because the class had
+    a module but no way to fire: preflight_rows needs the issue's
+    inherited.json, so on any page without one -- including the recall fixture
+    -- the check could not run at all, and fatal_recall.py scored it MISSING.
+    A control that cannot be exercised is not a control.
+
+    Deterministic and deliberately narrow. It surfaces the sentence; whether
+    the claim is ours to make is decided in inherited.json by a person.
+    """
+    flat = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", page_text))
+    out = []
+    for sent in _SENTENCE.split(flat):
+        if PRIORITY.search(sent) and not ATTRIBUTED.search(sent):
+            out.append(" ".join(sent.split()))
+    return out
+
+
 def case_dir(slug: str) -> Path:
     hits = sorted(CASES.glob(f"WHU-*-{slug}"))
     if not hits:
@@ -110,9 +147,18 @@ def _real(c: dict) -> bool:
 
 
 def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
+    # Surfaced whether or not inherited.json exists. Until today this check
+    # returned early on a missing file and looked at nothing, so a page with no
+    # record got a warning about the record rather than a reading of the page.
+    priority = unattributed_priority_claims(page_text)
+    pri_row = [("priority claims stated as ours", WARN,
+                "%d claim(s) of being first, largest or unprecedented, in our own voice "
+                "with nothing recording whose claim it is: %s"
+                % (len(priority), " || ".join(c[:90] for c in priority[:2])))] if priority else []
+
     d = load(slug)
     if d is None:
-        return [("inherited claims recorded", WARN,
+        return pri_row + [("inherited claims recorded", WARN,
                  "no inherited.json — nothing records which claims on this page are "
                  "somebody else's and which are ours. publish.py inherited init %s" % slug)]
     claims = [c for c in d.get("claims", []) if _real(c)]
@@ -138,6 +184,7 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
         window = flat[max(0, i - 240): i + len(frag) + 60]
         if not ATTRIBUTED.search(window):
             bare.append("%s: %s" % (c.get("id", "?"), frag))
+    rows.extend(pri_row)
     rows.append(("quoted claims are attributed on the page",
                  OK if not bare else BAD,
                  "every claim we took from a source is attributed to it"

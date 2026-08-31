@@ -49,6 +49,8 @@ def _load(name, path):
 lint = _load("lint_claims", WH / "lint_claims.py")
 CE   = _load("counterexample", WH / "counterexample.py")
 QU   = _load("quotations", WH / "quotations.py")
+SD   = _load("study_design", WH / "study_design.py")
+IC   = _load("inherited_claims", WH / "inherited_claims.py")
 
 FOUND, MISS, MISSING = "FOUND", "MISS", "NO CONTROL"
 
@@ -100,6 +102,28 @@ def control_quotation(_text, raw):
 # the failure mode this meter exists to expose -- a control that cannot see
 # its own input is indistinguishable from one that does not work.
 
+def control_design(text, _raw):
+    """Sentences characterising a study design. The control's INPUT.
+
+    Scored like COUNTEREXAMPLE and QUOTATION: surfacing the sentence is not
+    settling it. In the gate, study_design.py ties the characterisation to a
+    trial and asks ClinicalTrials.gov -- KEYNOTE-942's masking is NONE, so
+    "the double-blind Phase 2b trial" is contradicted by a field rather than by
+    an opinion. A fixture has no issue directory and therefore no trial map, so
+    what is measured here is whether the defect reaches the check at all.
+    """
+    return SD.loose_characterisations(text)
+
+def control_inherited(_text, raw):
+    """Priority claims stated in the page's own voice. The control's INPUT.
+
+    inherited_claims.py existed before today but could not be exercised: its
+    preflight needs the issue's inherited.json, so on any page without one --
+    the recall fixture included -- it did not run, and this meter scored the
+    class MISSING. A module is not a control until something can make it fire.
+    """
+    return IC.unattributed_priority_claims(raw)
+
 def control_missing(_text, _raw):
     return None                       # built? no.
 
@@ -108,16 +132,18 @@ CONTROLS = {
     "UNKNOWABILITY":  control_unknowability,
     "COUNTEREXAMPLE": control_universal,
     "QUOTATION":      control_quotation,
-    "DESIGN":         control_missing,
-    "INHERITED":      control_missing,
+    "DESIGN":         control_design,
+    "INHERITED":      control_inherited,
 }
 
 NOTE = {
     "COUNTEREXAMPLE": "lint surfaced the sentence as a candidate; --hunt attacks it",
     "QUOTATION":      "quotations.py surfaces the passage; the gate compares it "
                       "against the source's own wording in quotations.json",
-    "DESIGN":         "no design-characterisation check exists",
-    "INHERITED":      "inherited.json has no entry for this fixture; the check cannot fire",
+    "DESIGN":         "study_design.py surfaces the sentence; the gate checks the "
+                      "trial's masking, allocation and phase against ClinicalTrials.gov",
+    "INHERITED":      "inherited_claims.py surfaces the priority claim; whether it is "
+                      "ours to make is decided in the issue's inherited.json",
 }
 
 def main():

@@ -137,6 +137,14 @@ inherited = _sibling("inherited_claims")
 # is the habit being broken.
 quotations = _sibling("quotations")
 
+# Added 2026-08-31 with the quotation matcher, and for the failure named in
+# source_ledger.py: the page called MONALEESA-2's final OS p-value "two-sided"
+# in five places, nobody had opened the statistical section, and three gate
+# runs agreed with the guess because a model checker re-derives the writer's
+# guess and it reads like corroboration. Design facts are registered, so this
+# one asks ClinicalTrials.gov instead of asking a model.
+study_design = _sibling("study_design")
+
 # The registry lives in code rather than in the served directory: a JSON file
 # under site/ is deployed and fetchable, and this names files, not content.
 ISSUES = {
@@ -833,6 +841,10 @@ def preflight(slug: str, *, for_email: bool,
     # Reads the page's own markup, not the flattened text: the extractor strips
     # tags itself and needs the quotation marks as the page sets them.
     out.extend(quotations.preflight_rows(slug, page.read_text(encoding="utf-8")))
+    try:
+        out.extend(study_design.preflight_rows(slug, page.read_text(encoding="utf-8")))
+    except SystemExit as e:
+        out.append(("study-design characterisations", BAD, str(e)))
     try:
         _live = live_body(cfg["url"])
         out.extend(ledger.audit(
