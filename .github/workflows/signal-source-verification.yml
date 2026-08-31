@@ -1,0 +1,108 @@
+# Does every source point at a document that exists?
+#
+# WHY THIS EXISTS, AND WHY IT IS SEPARATE FROM THE GOLDEN SET
+# ----------------------------------------------------------
+# The golden set watches whether the MODEL's judgment moves. This watches
+# whether the CORPUS is real. On 2026-08-31 the second question had never been
+# asked, and the answer was that 380 of 381 sources had never had their content
+# fetched: `content_text` held a model-written summary, median 473 characters,
+# and every claim in Signal was extracted from those summaries rather than from
+# the documents they name. 41% of DOIs pointed at nothing or at a different
+# paper.
+#
+# collect_sources.py already called the CrossRef endpoint this check calls. For
+# a fabricated DOI it returned nothing, printed "No content fetched, using
+# summary", substituted the model's own text and stored the row. The capability
+# existed and the failure was advisory.
+#
+# So this job exists to make it not advisory. It is deterministic -- no model,
+# no API key, no drift, nothing to re-measure -- and it fails.
+#
+# IT WILL FAIL UNTIL THE CORPUS IS REBUILT. That is not a broken pipeline, it
+# is an accurate one. Do not add an allowlist to make it green; the corpus is
+# either citable or it is not.
+
+name: Signal source verification
+
+on:
+  schedule:
+    # Mondays 12:30 UTC, half an hour before the golden set — if the corpus is
+    # not real, the golden set's answer about it does not mean much.
+    - cron: "30 12 * * 1"
+  push:
+    branches: [main]
+    paths:
+      - "backend/scripts/signal/verify_sources.py"
+      - "backend/scripts/signal/collect_sources.py"
+      - "backend/scripts/signal/00_discover_sources.py"
+      - "backend/scripts/signal/extract_claims.py"
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Check one topic only (blank = all)"
+        required: false
+        type: string
+      offline:
+        description: "Provenance only — no network, runs in seconds"
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: signal-source-verification-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r backend/requirements.txt
+
+      - name: Verify sources
+        id: verify
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        working-directory: backend
+        run: |
+          set -o pipefail
+          ARGS=""
+          [ -n "${{ inputs.slug }}" ] && ARGS="$ARGS --slug ${{ inputs.slug }}"
+          [ "${{ inputs.offline }}" = "true" ] && ARGS="$ARGS --offline"
+          python scripts/signal/verify_sources.py $ARGS --json /tmp/sources.json 2>&1 \
+            | tee /tmp/verify.log
+
+      - name: Report to the run summary
+        if: always()
+        run: |
+          {
+            echo "## Signal source verification"
+            echo ""
+            if [ "${{ steps.verify.outcome }}" = "success" ]; then
+              echo "Every source resolves to the document it names."
+            else
+              echo "**Sources in this corpus cannot be cited.** This is deterministic —"
+              echo "no model judgment is involved and there is nothing to re-measure."
+              echo "A source that was never fetched did not supply the claims attributed"
+              echo "to it. Rebuilding the corpus from fetched documents is the only fix."
+            fi
+            echo ""
+            echo '```'
+            tail -45 /tmp/verify.log 2>/dev/null || echo "(no output captured)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the full result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-verification
+          path: |
+            /tmp/verify.log
+            /tmp/sources.json
+          retention-days: 90
