@@ -456,6 +456,28 @@
         ],
         "note": "Read as structured JSON from the API, not by web search. The gate's SOURCE role reported this record unreachable in the same period; the API returns it in under a second."
       }
+    },
+    {
+      "id": "S023",
+      "url": "https://ascopubs.org/doi/abs/10.1200/JCO.2019.37.18_suppl.LBA1008",
+      "type": "conference",
+      "title": "MONALEESA-7 — overall survival, ASCO 2019 late-breaking abstract LBA1008. J Clin Oncol 37, no. 18_suppl.",
+      "accessed": "2026-08-31",
+      "also_called": [
+        "the ASCO 2019 abstract"
+      ],
+      "used_for": "One sentence, quoted on the page: “statistical comparison was made by 1-sided stratified log-rank test”. This entry exists because that quotation was on the page with NO SOURCE ENTRY AT ALL — it was found by the quotation check on 31 August, which asks of every quoted passage which source it came from and whether anyone opened it.",
+      "WHY_THIS_MATTERS": "The fact does not rest on this abstract any more. S022, MONALEESA-7's own ClinicalTrials.gov posting, states the same thing in a structured field — p = 0.00973, annotated “One-sided stratified log-rank test” — and that record WAS read. So the page's claim is anchored; the QUOTATION is not, and those are different things. The quotation stays flagged until someone opens the abstract.",
+      "access": {
+        "state": "blocked",
+        "by": "claude",
+        "on": "2026-08-31",
+        "sections": [],
+        "not_read": [
+          "everything — ascopubs.org returns HTTP 403 to this environment"
+        ],
+        "note": "Tried once on 31 August: 403. Recorded as blocked rather than not_opened, because somebody tried and the attempt has a result. A person with ASCO access can settle it in a minute."
+      }
     }
   ],
   "also_called_note": "The role-nouns the page actually uses for a source. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",

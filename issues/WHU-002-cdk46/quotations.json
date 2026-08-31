@@ -77,10 +77,10 @@
     {
       "id": "Q-07",
       "quote": "statistical comparison was made by 1-sided stratified log-rank test",
-      "source_id": "",
+      "source_id": "S023",
       "verbatim": "",
       "kind": "",
-      "why": "THE ASCO 2019 ABSTRACT IS QUOTED ON THE PAGE AND IS NOT IN sources.json, and nobody here has opened it. Recorded as a gap rather than attached to a neighbouring source. Note that S022, the MONALEESA-7 registry, independently establishes the same fact — the analysis is posted as a one-sided stratified log-rank test — so the page does not depend on this quotation for the claim.",
+      "why": "NEEDS A PERSON WITH ASCO ACCESS. The abstract is now recorded as S023, access state 'blocked' — ascopubs.org returns 403 here, tried 31 August. It had been quoted on the page with no source entry at all, which the quotation check found. The FACT the quotation supports is independently established by S022, MONALEESA-7's registry posting, which was read: p = 0.00973 annotated “One-sided stratified log-rank test”. An anchored fact and an anchored quotation are different things, and this is only the first.",
       "attested": {
         "by": "",
         "on": ""
