@@ -151,7 +151,7 @@
       "slug": "diet-and-breast-cancer-risk-prevention-and-recurrence",
       "category": "mechanisms_and_biomarkers",
       "claims": 14,
-      "expected_status": "consensus",
+      "expected_status": "debated",
       "expected_debated_sides": null
     },
     {
@@ -314,7 +314,7 @@
       "slug": "mrna-vaccine-myocarditis",
       "category": "clinical_outcomes_and_severity",
       "claims": 27,
-      "expected_status": "consensus",
+      "expected_status": "debated",
       "expected_debated_sides": null
     },
     {

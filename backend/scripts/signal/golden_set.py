@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -325,8 +326,30 @@ def load_decisions() -> dict:
         raw = json.loads(DECISIONS.read_text(encoding="utf-8"))
     except Exception:
         return {}
-    return {(d["slug"], d["category"], d["moved"]): d
+    return {(d["slug"], d["category"], decision_key(d["moved"])): d
             for d in raw.get("decisions", []) if d.get("decision")}
+
+
+def decision_key(why: str) -> str:
+    """Normalise a drift reason into something a decision can be recorded about.
+
+    A status move reads exactly "consensus -> debated" and is used as-is.
+
+    A side-count reason carries the numbers -- "side BALANCE REVERSED [10, 3]
+    -> [4, 9]" -- and the numbers are different every run, so a decision keyed
+    on the raw string could never match twice. That made side reversals
+    permanently undecidable: the one class of drift we have MOST evidence about
+    (social-media/methodology has now reversed in four separate runs) was the
+    one class no human judgment could ever be recorded against, so it reported
+    as fresh news every time. That is the exact failure this file exists to
+    stop, reproduced inside the fix for it.
+
+    Stripping the counts keys the decision on the KIND of move, which is what a
+    person actually decides about. It does NOT weaken the guard: a status
+    change still keys separately, and a decision still only covers the category
+    it names.
+    """
+    return re.sub(r"\s*\[.*$", "", why).strip().rstrip(":")
 
 
 def main():
@@ -438,10 +461,10 @@ def main():
     decisions = load_decisions()
     decided, undecided = [], []
     for f in failures:
-        # f["why"] is already exactly "consensus -> debated". A side-balance
-        # reversal carries a different string and so can never accidentally be
-        # matched by a decision recorded about a status move -- which is right.
-        key = (f["slug"], f["category"], f["why"])
+        # A status move keys on "consensus -> debated"; a side-balance reversal
+        # keys on "side BALANCE REVERSED" with the run's counts stripped, so a
+        # decision about it can match more than once. The two never collide.
+        key = (f["slug"], f["category"], decision_key(f["why"]))
         d = decisions.get(key)
         (decided if d else undecided).append((f, d))
 
@@ -450,10 +473,23 @@ def main():
         for f, d in decided:
             print("  %-52s %-26s %s" % (f["slug"], f["category"], d["decision"]))
             print("      %s" % d["reason"][:150])
-        print("\n  %d of these are decisions that the FIXTURE is right and the model is"
-              % sum(1 for _f, d in decided if d["decision"] == "fixture_is_right"))
-        print("  wrong. They will keep failing until the mapping improves, which is")
-        print("  correct — but they are known, and they are not what to look at today.")
+        n_fixture = sum(1 for _f, d in decided if d["decision"] == "fixture_is_right")
+        n_instr = sum(1 for _f, d in decided
+                      if d["decision"] == "instrument_not_fit_to_publish")
+        # Only print a count that is non-zero. The first version printed "0 of
+        # these are decisions that the fixture is right" above a block of three
+        # decisions, which reads as though nothing had been decided at all.
+        if n_fixture:
+            print("\n  %d of these say the FIXTURE is right and the model is wrong. They"
+                  % n_fixture)
+            print("  will keep failing until the mapping improves, which is correct — but")
+            print("  they are known, and they are not what to look at today.")
+        if n_instr:
+            print("\n  %d of these say the MEASUREMENT is not fit to publish — the category"
+                  % n_instr)
+            print("  is not a single proposition, so its side counts mean nothing and change")
+            print("  every run. Re-baselining cannot fix that; the fix is upstream, in what")
+            print("  the page prints.")
 
     if undecided:
         print("\nA judgment moved and nobody has decided about it yet.")

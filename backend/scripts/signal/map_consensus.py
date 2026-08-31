@@ -349,7 +349,46 @@ def _build_category_prompt(category: str, claims: list[dict]) -> str:
     scored.sort(key=lambda c: c["composite_score"], reverse=True)
     all_claims = scored + unscored
 
+    # R-01 and the two distinctions that produced it, 2026-08-31.
+    #
+    # The threshold between consensus and debated had never been written down
+    # anywhere. The model applied its own, and four categories flipped across
+    # runs with no code change, some of them sitting on the line. A rule nobody
+    # has stated cannot be applied consistently and cannot be argued with.
+    #
+    # The rule is the operator's, in his words: "a real but minority dispute
+    # does make a 41 claim category debated. Many times a minority turns out to
+    # be more right than wrong." An evidence assessment that rounds minority
+    # positions away is doing the thing it exists to criticise.
+    #
+    # The two distinctions come from reading three drifted categories at source
+    # on 2026-08-31, where the model had got each one wrong in a different way.
+    RULE = (
+        "HOW TO DECIDE consensus vs debated:\n"
+        "\n"
+        "1. A REAL BUT MINORITY DISPUTE MAKES THE CATEGORY DEBATED. Do not weigh "
+        "by headcount. If a substantive, credible position contradicts the "
+        "majority on the question this category names, the category is debated, "
+        "even if most claims agree. A minority is often right. The only exception "
+        "is a position too small or unqualified to take seriously, and that "
+        "should be rare.\n"
+        "\n"
+        "2. A CLAIM ABOUT EVIDENCE QUALITY IS NOT A SECOND SIDE. 'No head-to-head "
+        "randomised trial exists', 'the comparison is indirect', 'follow-up is "
+        "short' — these describe how good the evidence is, not a competing answer "
+        "to the question. A category where every substantive claim agrees, plus "
+        "one noting the evidence is indirect, is CONSENSUS with a caveat.\n"
+        "\n"
+        "3. AGREEMENT ABOUT FINDINGS IS NOT AGREEMENT ABOUT EXPLANATIONS. If the "
+        "category asks about a mechanism, a cause, or a reason, then unanimity on "
+        "what was OBSERVED does not settle it. Where the claims still call the "
+        "explanation 'proposed', or name competing candidate mechanisms, the "
+        "category is DEBATED however consistent the observations are.\n"
+    )
+
     parts = [
+        RULE,
+        "",
         f"Category: {category}",
         f"Total claims: {len(all_claims)}",
         "",
