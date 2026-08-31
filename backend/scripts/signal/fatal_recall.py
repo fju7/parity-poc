@@ -48,6 +48,7 @@ def _load(name, path):
 
 lint = _load("lint_claims", WH / "lint_claims.py")
 CE   = _load("counterexample", WH / "counterexample.py")
+QU   = _load("quotations", WH / "quotations.py")
 
 FOUND, MISS, MISSING = "FOUND", "MISS", "NO CONTROL"
 
@@ -64,34 +65,57 @@ def overlaps(a, b):
     return len(wa & wb) / max(1, min(len(wa), len(wb))) > 0.7
 
 
-def control_attribution(text):
+def control_attribution(text, _raw):
     """Names on the page with no record that anyone opened the author list."""
     return [s for s in lint.attributions(text)]
 
-def control_unknowability(text):
+def control_unknowability(text, _raw):
     """Claims something cannot be known, naming no registry."""
     return lint.unknowability(text)
 
-def control_universal(text):
+def control_universal(text, _raw):
     """The counterexample hunter's INPUT. Surfacing the sentence is not breaking
     it -- scored separately, and only --hunt actually attacks."""
     return CE.universal_negatives(text)
 
-def control_missing(_text):
+def control_quotation(_text, raw):
+    """Every quoted passage on the page. Extraction is the control's INPUT.
+
+    Scored the same way as COUNTEREXAMPLE, and for the same reason: surfacing a
+    quoted sentence is not checking it. The matcher's verdict needs the issue's
+    quotations.json, which a fixture does not have, so what is measured here is
+    whether the seeded altered quotation is CAUGHT AS A CANDIDATE at all. A
+    class whose defect never even reaches the check scores zero however good
+    the check is.
+    """
+    return QU.extract(raw)
+
+
+# NOTE ON THE SIGNATURE. Every other control reads lint.plain(raw) -- the page
+# with its tags removed -- because every other fatal class is a defect in the
+# WORDS. QUOTATION is the first that is partly a defect in the MARKUP: <q> and
+# <blockquote> are what make a passage a quotation, and flattening the page
+# deletes exactly the evidence the control needs. Passing only plain text
+# scored this class MISS while the extractor was working correctly, which is
+# the failure mode this meter exists to expose -- a control that cannot see
+# its own input is indistinguishable from one that does not work.
+
+def control_missing(_text, _raw):
     return None                       # built? no.
 
 CONTROLS = {
     "ATTRIBUTION":    control_attribution,
     "UNKNOWABILITY":  control_unknowability,
     "COUNTEREXAMPLE": control_universal,
-    "QUOTATION":      control_missing,
+    "QUOTATION":      control_quotation,
     "DESIGN":         control_missing,
     "INHERITED":      control_missing,
 }
 
 NOTE = {
     "COUNTEREXAMPLE": "lint surfaced the sentence as a candidate; --hunt attacks it",
-    "QUOTATION":      "no quotation matcher exists",
+    "QUOTATION":      "quotations.py surfaces the passage; the gate compares it "
+                      "against the source's own wording in quotations.json",
     "DESIGN":         "no design-characterisation check exists",
     "INHERITED":      "inherited.json has no entry for this fixture; the check cannot fire",
 }
@@ -114,7 +138,7 @@ def main():
     for seed in fatal:
         ctrl = seed["expect"]
         fn = CONTROLS.get(ctrl, control_missing)
-        out = fn(text)
+        out = fn(text, raw)
         if out is None:
             verdict = MISSING
         else:

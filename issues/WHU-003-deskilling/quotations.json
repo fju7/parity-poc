@@ -1,0 +1,522 @@
+{
+  "what_this_is": "What Holds Up: quotations on deskilling and what the sources actually say.",
+  "how_to_use_it": "One entry per quoted passage on the page. Two kinds, and the difference matters: a quotation FROM A SOURCE carries source_id and verbatim -- the source's own wording, copied, so the check can compare rather than trust -- while a passage in the page's own voice carries kind: rhetorical and a reason. An entry with neither blocks, and so does a quoted passage on the page with no entry at all.",
+  "quotations": [
+    {
+      "id": "Q-01",
+      "quote": "We evaluated the effect of exposure to CADe ‘after’ CADe was removed, whereas Budzyń et al. investigated how endoscopists perform non-CADe-assisted colonoscopy ‘while’ they were exposed to CADe in the other colonoscopies they performed during the same time period.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-02",
+      "quote": "Effort, as expressed by eye travel distance, decreased, and gaze remained more focused, presumably waiting for a bounding box to appear. This might be efficient but risks missing a polyp that is not captured by the system.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-03",
+      "quote": "argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists, although such skill reduction has been observed in another study involving only experienced endoscopists",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-04",
+      "quote": "the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-05",
+      "quote": "will be stronger in the Budzyń study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-06",
+      "quote": "may have an impact on the learning curve of colonoscopy trainees by preventing them from developing the visual ‘bottom U’ pattern of high-performing endoscopists",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-07",
+      "quote": "If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-08",
+      "quote": "went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-09",
+      "quote": "had been mistakenly omitted from the multivariable analysis presented in supplementary table 6 in the appendix of this Article",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-10",
+      "quote": "a group with fewer significant connections should not necessarily be interpreted as exhibiting weaker overall neural activity",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-11",
+      "quote": "a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-12",
+      "quote": "the only affected findings are for the variables ‘After AI introduction (using AI in colonoscopy)’ and ‘Age >60 years’",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-13",
+      "quote": "In non-CADe-assisted colonoscopy, no upskilling or deskilling was observed following a period of CADe exposure.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-14",
+      "quote": "a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-15",
+      "quote": "the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-16",
+      "quote": "AI is not inherently harmful to learning; its educational impact depends on how and when it is introduced.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-17",
+      "quote": "Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy?",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-18",
+      "quote": "there is always a time effect in which endoscopists may naturally upskill or deskill over time",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-19",
+      "quote": "may fail to develop the foundational reasoning skills that safe, independent practice requires",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-20",
+      "quote": "similar issues pop up in law, education, journalism, software development, and other fields",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-21",
+      "quote": "possible consequences of these findings might be prolonged examination time and deskilling",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-22",
+      "quote": "may also be less enthusiastic about a software tool intended to improve their performance",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-23",
+      "quote": "Evidence of clinical deskilling, though scarce, is consistent across specialties",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-24",
+      "quote": "factors other than the implementation of AI use may have influenced the findings",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-25",
+      "quote": "to ensure data distribution (as participants were assigned in three groups)",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-26",
+      "quote": "are prone to automation bias when being supported by an AI-based system",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-27",
+      "quote": "when endoscopists reverted to non-AI procedures after repeated AI use",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-28",
+      "quote": "robust prospective studies such as randomized crossover trials",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-29",
+      "quote": "the number of high-quality empirical studies remains limited",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-30",
+      "quote": "over 30% of participants reversed correct initial diagnoses",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-31",
+      "quote": "these changes do not affect the interpretation of the data",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-32",
+      "quote": "the experimental design using only short video sequences",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-33",
+      "quote": "became 20% worse at spotting abnormalities on their own",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-34",
+      "quote": "48 accredited labs to 8 centralised labs as of 2019",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-35",
+      "quote": "a potential risk of overreliance and deskilling",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-36",
+      "quote": "a negative impact on endoscopist performance",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-37",
+      "quote": "accounting for 45.5% of the total mistakes",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-38",
+      "quote": "remains hypothetical rather than proven",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-39",
+      "quote": "a retrospective observational study",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-40",
+      "quote": "a multicenter randomized trial",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-41",
+      "quote": "less well-validated than ADR",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-42",
+      "quote": "When AI Reads the Easy Cases",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-43",
+      "quote": "The AI Deskilling Paradox",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "what_this_is": "What Holds Up: quotations on cdk46 and what the sources actually say.",
+  "how_to_use_it": "One entry per quoted passage on the page. Two kinds, and the difference matters: a quotation FROM A SOURCE carries source_id and verbatim -- the source's own wording, copied, so the check can compare rather than trust -- while a passage in the page's own voice carries kind: rhetorical and a reason. An entry with neither blocks, and so does a quoted passage on the page with no entry at all.",
+  "quotations": [
+    {
+      "id": "Q-01",
+      "quote": "The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-02",
+      "quote": "Due to the clear OS benefit seen with ribociclib in combination with AI, it is a category 1 recommendation.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-03",
+      "quote": "was compared using a log-rank test at one-sided cumulative 2.5% level of significance",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-04",
+      "quote": "compared using a log-rank test at one-sided cumulative 2.5% level of significance",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-05",
+      "quote": "both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-06",
+      "quote": "the CDK4/6 inhibitors have not been directly compared in clinical trials",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-02",
+      "quote": "statistical comparison was made by 1-sided stratified log-rank test",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-03",
+      "quote": "No study that compares them by other means finds a difference",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-09",
+      "quote": "1-sided p-value from the stratified log-rank test",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-10",
+      "quote": "superior efficacy, safety, and evidence",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-04",
+      "quote": "directly compared in clinical trials",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-05",
+      "quote": "This study was funded by Pfizer Inc.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-06",
+      "quote": "All three indirect comparisons",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-07",
+      "quote": "palbociclib does not work",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-08",
+      "quote": "year of updated data 2023",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    }
+  ]
+}

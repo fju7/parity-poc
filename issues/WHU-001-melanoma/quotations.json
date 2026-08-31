@@ -1,0 +1,174 @@
+{
+  "what_this_is": "What Holds Up: quotations on melanoma and what the sources actually say.",
+  "how_to_use_it": "One entry per quoted passage on the page. Two kinds, and the difference matters: a quotation FROM A SOURCE carries source_id and verbatim -- the source's own wording, copied, so the check can compare rather than trust -- while a passage in the page's own voice carries kind: rhetorical and a reason. An entry with neither blocks, and so does a quoted passage on the page with no entry at all.",
+  "quotations": [
+    {
+      "id": "Q-01",
+      "quote": "0 0.5 1.0 — no effect 1.5 All four intervals are from KEYNOTE-942, the 157-patient Phase 2b. Amber bars cross the no-effect line; green ones clear it. The Phase 3 has no bar here, because it has released no effect size to draw. What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-02",
+      "quote": "means the threshold was crossed. It is a pass/fail statement. It contains no information about size. A therapy that reduces the hazard of recurrence by 8% and one that halves it both produce that sentence. This is why the absence of a hazard ratio in the Phase 3 announcement matters:",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-03",
+      "quote": "Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-04",
+      "quote": "absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-05",
+      "quote": "Before a trial starts, researchers register one main question and a statistical threshold for answering it.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-06",
+      "quote": "can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-07",
+      "quote": "will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-08",
+      "quote": "statistically significant and clinically meaningful.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-09",
+      "quote": "a 49% reduction in the hazard of recurrence or death",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-10",
+      "quote": "delays recurrence, not that it extends life.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-11",
+      "quote": "is it different, in either direction?",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-12",
+      "quote": "as assessed by the investigator",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-13",
+      "quote": "this treatment does nothing",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    },
+    {
+      "id": "Q-14",
+      "quote": "reports no Phase 3 results",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      }
+    }
+  ]
+}

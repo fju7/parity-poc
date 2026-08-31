@@ -129,6 +129,14 @@ counterexample = _sibling("counterexample")
 watch = _sibling("watch")
 inherited = _sibling("inherited_claims")
 
+# Added 2026-08-31. QUOTATION was one of three fatal classes that fatal_recall.py
+# scored as MISSING rather than MISSED -- "no quotation matcher exists", written
+# in its own source. Unlike the modules above, this one is not a response to an
+# incident: the class is known, an altered quotation costs a reader all trust in
+# every other sentence, and waiting for the failure before building the control
+# is the habit being broken.
+quotations = _sibling("quotations")
+
 # The registry lives in code rather than in the served directory: a JSON file
 # under site/ is deployed and fetchable, and this names files, not content.
 ISSUES = {
@@ -822,6 +830,9 @@ def preflight(slug: str, *, for_email: bool,
     out.extend(lint.lint(page.read_text(encoding="utf-8"), slug))
     out.extend(counterexample.preflight_rows(slug, _ptext))
     out.extend(inherited.preflight_rows(slug, _ptext))
+    # Reads the page's own markup, not the flattened text: the extractor strips
+    # tags itself and needs the quotation marks as the page sets them.
+    out.extend(quotations.preflight_rows(slug, page.read_text(encoding="utf-8")))
     try:
         _live = live_body(cfg["url"])
         out.extend(ledger.audit(
