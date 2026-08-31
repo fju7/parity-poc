@@ -160,9 +160,35 @@ unjudged = _sibling("unjudged")
 # issue cost" had no answer, and why an agreed cap of "two gate runs" could be
 # renegotiated twice without anyone seeing the running total. A cap you cannot
 # measure against is an intention.
-import sys as _sys
-_sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import spend_ledger as spend
+def _load_spend():
+    """Load spend_ledger by PATH, never by adding backend/scripts to sys.path.
+
+    backend/scripts/signal/ is a package literally named `signal`. Putting
+    backend/scripts on sys.path makes it importable as top-level `signal` and
+    it shadows the standard library -- so anyio's `from signal import Signals`
+    resolves to our package and every import of anthropic dies. That is what
+    the first wiring of this ledger did, and it broke the gate outright:
+
+        ImportError: cannot import name 'Signals' from 'signal'
+        (backend/scripts/signal/__init__.py)
+
+    The rest of this repo loads siblings with spec_from_file_location for
+    exactly this reason. So does this.
+    """
+    import importlib.util
+    p = Path(__file__).resolve().parents[1] / "spend_ledger.py"
+    if not p.exists():
+        return None
+    try:
+        sp = importlib.util.spec_from_file_location("spend_ledger", p)
+        m = importlib.util.module_from_spec(sp)
+        sp.loader.exec_module(m)
+        return m
+    except Exception:
+        return None
+
+
+spend = _load_spend()
 
 # The registry lives in code rather than in the served directory: a JSON file
 # under site/ is deployed and fetchable, and this names files, not content.

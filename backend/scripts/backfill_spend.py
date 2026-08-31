@@ -19,8 +19,12 @@ import subprocess
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-import spend_ledger as sl
+# NOT sys.path: this file lives in backend/scripts, and putting that on the
+# path makes backend/scripts/signal/ importable as the stdlib's `signal`.
+import importlib.util as _ilu
+_sp = _ilu.spec_from_file_location("spend_ledger", Path(__file__).resolve().parent / "spend_ledger.py")
+sl = _ilu.module_from_spec(_sp)
+_sp.loader.exec_module(sl)
 
 REPORTS = ["site/whatholdsup/cdk46.html.gate.json",
            "site/whatholdsup/melanoma.html.gate.json",

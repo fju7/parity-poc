@@ -143,13 +143,35 @@ WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
 USAGE = []                       # one entry per API response, in call order
 
 
-_spend = None
-try:
-    import sys as _sys
-    _sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-    import spend_ledger as _spend
-except Exception:
-    _spend = None
+def _load_spend():
+    """Load spend_ledger by PATH, never by adding backend/scripts to sys.path.
+
+    backend/scripts/signal/ is a package literally named `signal`. Putting
+    backend/scripts on sys.path makes it importable as top-level `signal` and
+    it shadows the standard library -- so anyio's `from signal import Signals`
+    resolves to our package and every import of anthropic dies. That is what
+    the first wiring of this ledger did, and it broke the gate outright:
+
+        ImportError: cannot import name 'Signals' from 'signal'
+        (backend/scripts/signal/__init__.py)
+
+    The rest of this repo loads siblings with spec_from_file_location for
+    exactly this reason. So does this.
+    """
+    import importlib.util
+    p = Path(__file__).resolve().parents[1] / "spend_ledger.py"
+    if not p.exists():
+        return None
+    try:
+        sp = importlib.util.spec_from_file_location("spend_ledger", p)
+        m = importlib.util.module_from_spec(sp)
+        sp.loader.exec_module(m)
+        return m
+    except Exception:
+        return None
+
+
+_spend = _load_spend()
 
 _unjudged = None
 try:
