@@ -1,15 +1,15 @@
 {
-  "what_this_is": "The answer key for factcheck_broken_fixture.html. The fixture is a deliberately corrupted copy of the published melanoma article; this file says what was corrupted, which recorded error class each corruption belongs to, and which role should find it. Without it the fixture is unusable \u2014 it was committed with the note 'Eight known errors have been reintroduced' and no record of which eight, so nothing could be measured against it.",
+  "what_this_is": "The answer key for factcheck_broken_fixture.html. The fixture is a deliberately corrupted copy of the published melanoma article; this file says what was corrupted, which recorded error class each corruption belongs to, and which role should find it. Without it the fixture is unusable — it was committed with the note 'Eight known errors have been reintroduced' and no record of which eight, so nothing could be measured against it.",
   "how_it_was_reconstructed": "Sentence-level diff of the fixture against site/whatholdsup/melanoma.html on 2026-08-27, cross-referenced against the classes in factcheck_known_errors.json. Where the page has since been edited for reasons unrelated to the seeding, those regions are not listed here.",
-  "how_to_read_a_result": "Recall is the fraction of these found. A class that goes unfound is the finding: it means the gate cannot see that kind of mistake, and the prompt for the named role is what has to change. Precision is NOT measured here \u2014 the fixture is full of real errors, so a role reporting many findings on it is not thereby wrong. Precision comes from the adjudication records of real drafts.",
+  "how_to_read_a_result": "Recall is the fraction of these found. A class that goes unfound is the finding: it means the gate cannot see that kind of mistake, and the prompt for the named role is what has to change. Precision is NOT measured here — the fixture is full of real errors, so a role reporting many findings on it is not thereby wrong. Precision comes from the adjudication records of real drafts.",
   "seeded": [
     {
       "id": "s1",
       "class": "MISSING_NUMBER_AS_MISSING_EVIDENCE",
       "expect": "INFERENCE",
       "quote": "The Phase 3 announcement reports no Phase 3 results.",
-      "why_it_is_wrong": "It reports a result \u2014 that the trial met its endpoints. What it withholds is the magnitude. Absence of a number is not absence of a finding.",
-      "published_reads": "The Phase 3 announcement reports no numerical Phase 3 results. It reports a result \u2014 the trial met both of its prespecified endpoints, which is a real and significant finding."
+      "why_it_is_wrong": "It reports a result — that the trial met its endpoints. What it withholds is the magnitude. Absence of a number is not absence of a finding.",
+      "published_reads": "The Phase 3 announcement reports no numerical Phase 3 results. It reports a result — the trial met both of its prespecified endpoints, which is a real and significant finding."
     },
     {
       "id": "s2",
@@ -33,7 +33,7 @@
       "expect": "INFERENCE",
       "quote": "The range around it runs from an 84% reduction in the risk of death to a 35% increase.",
       "why_it_is_wrong": "Risk, not hazard. A hazard ratio is an instantaneous rate comparison and is not a share of patients. The same substitution is seeded again at 'a 49% reduction in the risk of recurrence or death'.",
-      "published_reads": "The interval around it runs from a hazard ratio of 0.165 \u2014 a rate of death about 84% lower than the comparison group's \u2014 to 1.345, about 35% higher. Both ends are rate comparisons, not numbers of lives."
+      "published_reads": "The interval around it runs from a hazard ratio of 0.165 — a rate of death about 84% lower than the comparison group's — to 1.345, about 35% higher. Both ends are rate comparisons, not numbers of lives."
     },
     {
       "id": "s5",
@@ -57,7 +57,7 @@
       "expect": "RECENCY",
       "quote": "Immune-related adverse events were 37.5% on the combination versus 36% on pembrolizumab alone - essentially no extra immune toxicity from the added therapy.",
       "why_it_is_wrong": "Superseded rates, and the conclusion drawn from them is contradicted by the five-year data: any-grade irAEs were 45.2% versus 44%, and grade 3 or worse treatment-related events 25% versus 18%.",
-      "published_reads": "Any-grade immune-related adverse events were similar \u2014 45.2% versus 44% \u2014 but grade 3 or worse treatment-related events were higher: 25% versus 18%."
+      "published_reads": "Any-grade immune-related adverse events were similar — 45.2% versus 44% — but grade 3 or worse treatment-related events were higher: 25% versus 18%."
     },
     {
       "id": "s8",
@@ -81,7 +81,7 @@
       "expect": "SOURCE",
       "quote": "The five-year update carried one-sided nominal p = 0.0031",
       "why_it_is_wrong": "No source reports 0.0031. The nominal one-sided p-value in the January 2026 topline is 0.0075.",
-      "published_reads": "a nominal p-value was still computed and released \u2014 the one-sided 0.0075 in the January topline"
+      "published_reads": "a nominal p-value was still computed and released — the one-sided 0.0075 in the January topline"
     },
     {
       "id": "s11",
@@ -97,7 +97,7 @@
       "expect": "INFERENCE",
       "quote": "RFS tells you the cancer stayed away longer, which is meaningful and is not the same claim.",
       "why_it_is_wrong": "Treats recurrence-free and distant metastasis-free survival as lesser stand-ins for survival. All three are meaningful endpoints and none is a substitute for another; DMFS in particular is clinically important in its own right.",
-      "published_reads": "DMFS tells you the cancer did not reach distant organs \u2014 a clinically important outcome in its own right, not a stand-in for survival. RFS tells you the cancer stayed away anywhere, or the patient survived. All three are meaningful and none is a substitute for another."
+      "published_reads": "DMFS tells you the cancer did not reach distant organs — a clinically important outcome in its own right, not a stand-in for survival. RFS tells you the cancer stayed away anywhere, or the patient survived. All three are meaningful and none is a substitute for another."
     },
     {
       "id": "s13",
@@ -112,7 +112,7 @@
       "class": "STALE",
       "expect": "RECENCY",
       "quote": "By five years it had tightened to 0.288-0.906 and cleared the line. More data, more certainty, and an effect that strengthened rather than faded",
-      "why_it_is_wrong": "0.288-0.906 is the three-year interval. At five years the interval was 0.294-0.887 \u2014 the crossing was resolved by year three, and the width was close to unchanged, so 'more certainty' is not what the extra two years bought.",
+      "why_it_is_wrong": "0.288-0.906 is the three-year interval. At five years the interval was 0.294-0.887 — the crossing was resolved by year three, and the width was close to unchanged, so 'more certainty' is not what the extra two years bought.",
       "published_reads": "It had already cleared the line by the three-year readout at ASCO 2024 ... At five years the point estimate was unchanged at 0.510 and the interval read 0.294-0.887 ... the width was close to unchanged."
     },
     {
@@ -123,6 +123,55 @@
       "why_it_is_wrong": "'Double-blind' is a term of art meaning patients and investigators are blind to allocation, which this trial's design provides; an active-comparator arm with its own schedule is a recognised feature of double-blind trials and does not make the label an overstatement. The sentence takes a term the source used correctly, applies a stricter reading of our own, and accuses the source of overstating on that basis.",
       "seeded": "2026-08-28",
       "why_it_is_here": "Second occurrence of this class in two issues. It is seeded in the melanoma fixture rather than a CDK4/6 one because recall is measured against this fixture and a class that is not seeded is not measured."
+    },
+    {
+      "id": "f1",
+      "class": "UNIVERSAL_NEGATIVE_UNCHECKED",
+      "expect": "COUNTEREXAMPLE",
+      "quote": "No randomised trial has ever tested an individualised neoantigen therapy against standard adjuvant immunotherapy in melanoma, which is why the indirect comparison below is the only one available.",
+      "why_it_is_wrong": "KEYNOTE-942 — the very trial this article is about — randomised patients to mRNA-4157 plus pembrolizumab against pembrolizumab alone. The counterexample is the article's own subject. This is the class that published 'no randomised trial has compared these drugs' in issue two, twice, with two such trials in the registry.",
+      "published_reads": "No trial has compared this therapy against another individualised therapy; the randomised comparison that exists is against pembrolizumab alone."
+    },
+    {
+      "id": "f2",
+      "class": "SOURCE_CLAIM_PRINTED_AS_OURS",
+      "expect": "INHERITED",
+      "quote": "The therapy is the first individualised cancer vaccine to reach Phase 3 in any tumour type.",
+      "why_it_is_wrong": "A sponsor's promotional framing, printed as this page's own assertion about the world with no attribution and no scope. Verifying that a company says something is not verifying it. This is IC-001's class: the sentence must appear as a quotation or carry the source's scope, or be established independently and record how.",
+      "published_reads": "Merck and Moderna describe it as the first individualised cancer vaccine to reach Phase 3; we have not checked that against any register of trials."
+    },
+    {
+      "id": "f3",
+      "class": "DESIGN_MISCHARACTERISED",
+      "expect": "DESIGN",
+      "quote": "In the double-blind Phase 2b trial, patients receiving the combination had markedly fewer recurrences than those on pembrolizumab alone.",
+      "why_it_is_wrong": "KEYNOTE-942 was OPEN-LABEL, as this fixture's own text says elsewhere ('157 patients in an open-label study'). It is the PHASE 3 that is double-blind — NCT05933577 records triple masking. Calling the open-label trial double-blind removes the single most important limitation on its result.",
+      "published_reads": "In the open-label Phase 2b trial, patients receiving the combination had fewer recurrences."
+    },
+    {
+      "id": "f4",
+      "class": "QUOTATION_ALTERED",
+      "expect": "QUOTATION",
+      "quote": "demonstrated a clear survival benefit in the intention-to-treat population",
+      "why_it_is_wrong": "Presented as the companies' own words inside quotation marks. What they announced was that the trial met its prespecified endpoints; no survival claim and no ITT language was made, and the Phase 3's overall-survival endpoint is secondary and not reported. A quotation that upgrades what a source said is the least defensible error a publication can make, and nothing in the pipeline currently matches quoted strings against a held document.",
+      "published_reads": "The companies said the trial met both of its prespecified endpoints."
+    },
+    {
+      "id": "f5",
+      "class": "UNKNOWABILITY_UNSEARCHED",
+      "expect": "UNKNOWABILITY",
+      "quote": "Whether the Phase 3 trial was powered for overall survival cannot be established from anything published.",
+      "why_it_is_wrong": "Declares a fact about a trial unknowable while naming nowhere it was looked for. The trial's own registry record (NCT05933577) lists recurrence-free survival as primary and overall survival among the secondary endpoints. A registry is a list of what was started and what was reported; this page had searched only journals. Same class as MONALEESA-2's test direction, which sat in the sponsor's own posting through seven sentences saying it could not be established.",
+      "published_reads": "The Phase 3 trial's registry record lists recurrence-free survival as its primary endpoint and overall survival as a secondary one."
+    },
+    {
+      "id": "f6",
+      "class": "ATTRIBUTION_WRONG_NAME",
+      "expect": "ATTRIBUTION",
+      "quote": "Ribas and colleagues reported the Phase 2b result in The New England Journal of Medicine.",
+      "why_it_is_wrong": "Wrong first author and wrong journal, and nothing in the fixture records that anyone opened the author list. This is the class that published 'Jacot and colleagues' for a paper by Tanguy, and 'Elena Rosbach' for Emely — twice in one week, both times while fixing something else.",
+      "published_reads": "The Phase 2b result was reported in a peer-reviewed paper whose author list we have opened and recorded."
     }
-  ]
+  ],
+  "fatal_classes_note": "f1-f6 are the six classes that end a reader's trust if one gets through — a false universal negative, a source's claim reprinted as ours, a mischaracterised study design, an altered quotation, an unsearched claim of unknowability, and a wrong name. They were added on 2026-08-31, after issue two published three of them. Their `expect` values name controls that are NOT the four gate roles: COUNTEREXAMPLE is a separate script, DESIGN and QUOTATION do not exist yet, and ATTRIBUTION and UNKNOWABILITY are deterministic lints. A baseline run against today's pipeline is therefore expected to miss some of them. That is the measurement."
 }

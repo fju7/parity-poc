@@ -1877,6 +1877,14 @@
       "because": "PREFLIGHT-01",
       "at": "2026-08-31",
       "note": "Dateline reset from the publishing machine's clock by publish.py dateline, as the preflight requires."
+    },
+    {
+      "kind": "changed",
+      "was": "What we cannot say is whether the corrigendum touches any of them, because that requires reading it.",
+      "now": "What we cannot say is whether the corrigendum touches any of them, because that requires reading it - and Europe PMC lists exactly one route to it, marked Subscription required .",
+      "because": "CORR-03",
+      "at": "2026-08-31",
+      "note": "The unknowability check was widened across tenses on 2026-08-31 and then caught this sentence, which claimed something could not be said while naming nowhere it had been looked for. Europe PMC is now named in the sentence rather than only in the one before it."
     }
   ]
 }

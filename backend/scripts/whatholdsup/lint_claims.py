@@ -289,17 +289,47 @@ ATTRIBUTION = re.compile(
 # published on ClinicalTrials.gov's results tab. "MONALEESA-7's direction could
 # not be determined" was written when it was in an ASCO abstract. Twice, in one
 # document, we turned a thing we had not found into evidence that did not exist.
+# Tense matters and this regex did not cover it. On 2026-08-31 the fatal-class
+# recall harness seeded "cannot be established from anything published" and the
+# check did not fire: it knew "could not be established" and not "cannot be".
+# A claim of unknowability is the same claim in either tense, and the present
+# tense is the one a page reaches for when the thing is still unknown -- which
+# is exactly when the registry has not been searched. Found by the ruler within
+# minutes of the ruler existing, which is the argument for building it first.
 UNKNOWABILITY = re.compile(
-    r"\b(we (?:have not|could not|cannot) (?:establish|determine|verify|confirm|source)|"
-    r"could not be (?:established|determined|verified|confirmed)|"
-    r"not established by us|we do not know|is not established|"
+    r"\b(we (?:have not|could not|cannot|can't|are unable to) "
+    r"(?:establish|determine|verify|confirm|source|say)|"
+    r"(?:can|could)ot be (?:established|determined|verified|confirmed|sourced)|"
+    r"cannot be (?:established|determined|verified|confirmed|sourced)|"
+    r"could not be (?:established|determined|verified|confirmed|sourced)|"
+    r"(?:is|are|remains?) (?:not|un)(?:established|determined|verifiable|knowable)|"
+    r"not established by us|we do not know|no way (?:for us )?to (?:know|tell)|"
     r"behind a wall we could not open|every route we tried returned a block)\b", re.I)
 
 # Where a fact about a trial actually lives when the journal is shut.
 REGISTRY = re.compile(
     r"\b(clinicaltrials\.gov|clinical trials\.gov|the registry|trial registry|"
+    r"registry record|NCT\d{8}|"
     r"FDA review|FDA (?:medical|statistical) review|drugs@fda|accessdata\.fda\.gov|"
     r"EMA assessment|EPAR|ISRCTN|EudraCT|WHO ICTRP)\b", re.I)
+
+# Not every unknowable thing is a trial fact. On 2026-08-31 this check failed a
+# sentence on issue three that named THREE places it had looked -- the College's
+# report, the review's source, and NHS Digital's annual report -- because none of
+# them is a trial registry, and there is no registry of cytology laboratory
+# counts. Demanding the wrong artefact teaches people to satisfy the check rather
+# than do the search, which is worse than not having it. The rule the docstring
+# actually wants is: SAY WHERE YOU LOOKED. For a trial fact that place is a
+# registry and the message still says so; for anything else a named place will do.
+# A named place, not a gesture: "the paper's statistical section" is not a place
+# that was searched, and still fails.
+NAMED_PLACE = re.compile(
+    r"\b(europe ?pmc|pubmed|\bPMC\b|pmc\d+|crossref|unpaywall|openalex|"
+    r"google scholar|researchgate|osf|arxiv|medrxiv|biorxiv|"
+    r"the publisher(?:'s|&rsquo;s)? (?:own )?site|publisher(?:'s|&rsquo;s)? site|"
+    r"NHS Digital|the College(?:'s|&rsquo;s)? report|"
+    r"[A-Z][a-z]+(?:'s|&rsquo;s)? (?:own )?(?:annual )?report|"
+    r"university repository|institutional repository|WRAP)\b")
 
 
 def attributions(text: str) -> list[str]:
@@ -318,7 +348,8 @@ def unknowability(text: str) -> list[str]:
     point is to make the absence visible, not to adjudicate the search.
     """
     return [f"{s[:170]}" for s in sentences(text)
-            if UNKNOWABILITY.search(s) and not REGISTRY.search(s)]
+            if UNKNOWABILITY.search(s)
+            and not REGISTRY.search(s) and not NAMED_PLACE.search(s)]
 
 
 def verified_attributions(slug: str | None) -> set[str]:
