@@ -5,22 +5,22 @@
     {
       "id": "Q-01",
       "quote": "The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025.",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S010",
+      "verbatim": "The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025. OS analysis was conducted in the intent-to-treat (ITT) population.",
       "kind": "",
       "why": "",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude, Europe PMC full text PMC10950136",
+        "on": "2026-08-31"
       }
     },
     {
       "id": "Q-02",
       "quote": "Due to the clear OS benefit seen with ribociclib in combination with AI, it is a category 1 recommendation.",
-      "source_id": "",
+      "source_id": "S001",
       "verbatim": "",
       "kind": "",
-      "why": "",
+      "why": "NEEDS A HUMAN. NCCN v6.2026's licence forbids putting the document through an AI tool. Read directly by Fred on 2026-08-28 and again on 2026-08-29; the wording needs transcribing here from the document.",
       "attested": {
         "by": "",
         "on": ""
@@ -29,46 +29,46 @@
     {
       "id": "Q-03",
       "quote": "was compared using a log-rank test at one-sided cumulative 2.5% level of significance",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S019",
+      "verbatim": "The distribution of OS between the two treatment arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance.",
       "kind": "",
       "why": "",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude, ClinicalTrials.gov API NCT01958021",
+        "on": "2026-08-31"
       }
     },
     {
       "id": "Q-04",
       "quote": "compared using a log-rank test at one-sided cumulative 2.5% level of significance",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S019",
+      "verbatim": "The distribution of OS between the two treatment arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance.",
       "kind": "",
       "why": "",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude, ClinicalTrials.gov API NCT01958021",
+        "on": "2026-08-31"
       }
     },
     {
       "id": "Q-05",
       "quote": "both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S017",
+      "verbatim": "Conclusions: Both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile.",
       "kind": "",
       "why": "",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude, Europe PMC full text PMC11700305",
+        "on": "2026-08-31"
       }
     },
     {
       "id": "Q-06",
       "quote": "the CDK4/6 inhibitors have not been directly compared in clinical trials",
-      "source_id": "",
+      "source_id": "S001",
       "verbatim": "",
       "kind": "",
-      "why": "",
+      "why": "NEEDS A HUMAN — same NCCN licence restriction.",
       "attested": {
         "by": "",
         "on": ""
@@ -80,7 +80,7 @@
       "source_id": "",
       "verbatim": "",
       "kind": "",
-      "why": "",
+      "why": "THE ASCO 2019 ABSTRACT IS QUOTED ON THE PAGE AND IS NOT IN sources.json, and nobody here has opened it. Recorded as a gap rather than attached to a neighbouring source. Note that S022, the MONALEESA-7 registry, independently establishes the same fact — the analysis is posted as a one-sided stratified log-rank test — so the page does not depend on this quotation for the claim.",
       "attested": {
         "by": "",
         "on": ""
@@ -91,32 +91,32 @@
       "quote": "No study that compares them by other means finds a difference",
       "source_id": "",
       "verbatim": "",
-      "kind": "",
-      "why": "",
+      "kind": "rhetorical",
+      "why": "the page quoting a sentence from its OWN earlier version, in the correction section, in order to say why it was too broad",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-08-31"
       }
     },
     {
       "id": "Q-09",
       "quote": "1-sided p-value from the stratified log-rank test",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S020",
+      "verbatim": "1-sided p-value from the stratified log-rank test.",
       "kind": "",
       "why": "",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude, ClinicalTrials.gov API NCT01740427",
+        "on": "2026-08-31"
       }
     },
     {
       "id": "Q-10",
       "quote": "superior efficacy, safety, and evidence",
-      "source_id": "",
+      "source_id": "S001",
       "verbatim": "",
       "kind": "",
-      "why": "",
+      "why": "NEEDS A HUMAN — same NCCN licence restriction. This is the Categories of Preference definition.",
       "attested": {
         "by": "",
         "on": ""
@@ -125,10 +125,10 @@
     {
       "id": "Q-11",
       "quote": "directly compared in clinical trials",
-      "source_id": "",
+      "source_id": "S001",
       "verbatim": "",
       "kind": "",
-      "why": "",
+      "why": "NEEDS A HUMAN — same NCCN licence restriction.",
       "attested": {
         "by": "",
         "on": ""
@@ -137,10 +137,10 @@
     {
       "id": "Q-12",
       "quote": "This study was funded by Pfizer Inc.",
-      "source_id": "",
+      "source_id": "S016",
       "verbatim": "",
       "kind": "",
-      "why": "",
+      "why": "Quoted from the P-VERIFY SABCS 2024 poster. Posters are not indexed and I could not reach it; the funding statement needs checking against the poster by someone who has it.",
       "attested": {
         "by": "",
         "on": ""
@@ -149,13 +149,13 @@
     {
       "id": "Q-13",
       "quote": "One-sided stratified log-rank test",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S022",
+      "verbatim": "One-sided stratified log-rank test",
       "kind": "",
       "why": "",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude, ClinicalTrials.gov API NCT02278120",
+        "on": "2026-08-31"
       }
     },
     {
@@ -163,11 +163,11 @@
       "quote": "All three indirect comparisons",
       "source_id": "",
       "verbatim": "",
-      "kind": "",
-      "why": "",
+      "kind": "rhetorical",
+      "why": "the page quoting its own earlier sentence in the correction section",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-08-31"
       }
     },
     {
@@ -175,23 +175,23 @@
       "quote": "palbociclib does not work",
       "source_id": "",
       "verbatim": "",
-      "kind": "",
-      "why": "",
+      "kind": "rhetorical",
+      "why": "our own framing of a position the piece then rejects — nobody is quoted as saying it",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-08-31"
       }
     },
     {
       "id": "Q-16",
-      "quote": "year of updated data 2023",
-      "source_id": "",
-      "verbatim": "",
+      "quote": "Year of updated data",
+      "source_id": "S015",
+      "verbatim": "Year of updated data 2022 2022 2022 2023 2021 2021 2020 — Table 1; the columns run PAL-2, MONALEESA-2, MONALEESA-7, MONARCH-3, PALOMA-3, MONALEESA-3, MONARCH 2, so MONARCH-3 reads 2023.",
       "kind": "",
-      "why": "",
+      "why": "The page had quoted “year of updated data 2023” as one phrase. In Table 1 those are a ROW LABEL and a CELL five columns apart, not adjacent words. The quotation now covers the label only and the page states the value outside the quotation marks.",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude, Europe PMC full text PMC10850180",
+        "on": "2026-08-31"
       }
     }
   ]

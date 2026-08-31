@@ -433,6 +433,23 @@
         ],
         "note": "A registry search that comes back empty is a result, and is recorded as one."
       }
+    },
+    {
+      "id": "S022",
+      "url": "https://clinicaltrials.gov/study/NCT02278120",
+      "type": "registry",
+      "title": "MONALEESA-7 — ClinicalTrials.gov results posting. NCT02278120.",
+      "accessed": "2026-08-31",
+      "used_for": "The direction of MONALEESA-7's overall-survival test. The posting gives the analysis as p = 0.00973 with the annotation “One-sided stratified log-rank test”, Cox proportional hazard 0.712. Added 2026-08-31 because the page had been citing NCT01740427 for this — PALOMA-2's registry number — and the correction to NCT02278120 would otherwise have been a citation with no source entry behind it.",
+      "access": {
+        "state": "machine_read",
+        "by": "claude, ClinicalTrials.gov API v2",
+        "on": "2026-08-31",
+        "sections": [
+          "resultsSection.outcomeMeasuresModule, Overall Survival (OS) outcome and its analysis"
+        ],
+        "note": "Read as structured JSON from the API, not by web search. The gate's SOURCE role reported this record unreachable in the same period; the API returns it in under a second."
+      }
     }
   ],
   "also_called_note": "The role-nouns the page actually uses for a source. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",
