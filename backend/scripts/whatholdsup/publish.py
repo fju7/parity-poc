@@ -2547,7 +2547,12 @@ def _step_states(slug: str) -> list[dict]:
         # A stale run whose findings are all gone has already answered the
         # question. Sending someone to re-run it is the expensive answer, and
         # it is the one this board used to give.
-        if g["exists"] and not g["fresh"] and not g["outstanding"]:
+        # ...unless the page has text the run never saw. A signature can settle
+        # a finding somebody read and decided about. It cannot settle a
+        # sentence nobody has read, and offering accept-gate here would let one
+        # bless the 28 unjudged claims on issue two -- turning the new check
+        # into a speed bump with a documented way round it.
+        if g["exists"] and not g["fresh"] and not g["outstanding"] and not g.get("unjudged"):
             cmd = ('python scripts/whatholdsup/publish.py accept-gate %s --file %s '
                    '--reason "..."' % (slug, which))
         else:
@@ -3179,6 +3184,20 @@ def cmd_accept_gate(args) -> int:
         print("\n  The report already describes this exact text. Nothing to accept:")
         print("  %s\n" % g["detail"])
         return 2
+    # A signature settles a finding somebody read. It cannot settle a sentence
+    # nobody has read. Issue two's stale run had every finding resolved AND 28
+    # unjudged claims added afterwards; accepting it would have recorded a
+    # human decision about text no human or role had seen, which is worse than
+    # no record at all because it looks like diligence.
+    if g.get("unjudged"):
+        print("\n  This page carries text the gate never saw, so there is nothing here")
+        print("  a signature can settle:")
+        for u in g["unjudged"]:
+            print("    %s" % u[:300])
+        print("\n  Re-gate it. accept-gate is for findings that were read and decided,")
+        print("  not for sentences nobody has read.\n")
+        return 2
+
     named = {t.strip() for t in (args.despite or "").split(",") if t.strip()}
     open_ids = {x["id"] for x in g["outstanding"]}
     unnamed = open_ids - named
