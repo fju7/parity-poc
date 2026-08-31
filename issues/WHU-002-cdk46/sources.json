@@ -467,16 +467,18 @@
         "the ASCO 2019 abstract"
       ],
       "used_for": "One sentence, quoted on the page: “statistical comparison was made by 1-sided stratified log-rank test”. This entry exists because that quotation was on the page with NO SOURCE ENTRY AT ALL — it was found by the quotation check on 31 August, which asks of every quoted passage which source it came from and whether anyone opened it.",
-      "WHY_THIS_MATTERS": "The fact does not rest on this abstract any more. S022, MONALEESA-7's own ClinicalTrials.gov posting, states the same thing in a structured field — p = 0.00973, annotated “One-sided stratified log-rank test” — and that record WAS read. So the page's claim is anchored; the QUOTATION is not, and those are different things. The quotation stays flagged until someone opens the abstract.",
+      "WHY_THIS_MATTERS": "This entry was created on 31 August recording the abstract as BLOCKED, because ascopubs.org returned 403 to this environment. That was wrong, and wrong in the most instructive direction: the gate had already read it on 29 August and recorded the Methods sentence verbatim as claim c73, VERIFIED. One retrieval route failing is not the document being unreachable — the same error the SOURCE role makes when it turns “I could not reach it” into NOT_FOUND, made here by me, about my own pipeline's own report. The fact is separately posted in S022's registry record.",
       "access": {
-        "state": "blocked",
-        "by": "claude",
-        "on": "2026-08-31",
-        "sections": [],
-        "not_read": [
-          "everything — ascopubs.org returns HTTP 403 to this environment"
+        "state": "machine_read",
+        "by": "the fact-check gate",
+        "on": "2026-08-29",
+        "sections": [
+          "the Methods section, as returned by the gate's search route and recorded in cdk46.html.gate.json under verdict c73"
         ],
-        "note": "Tried once on 31 August: 403. Recorded as blocked rather than not_opened, because somebody tried and the attempt has a result. A person with ASCO access can settle it in a minute."
+        "not_read": [
+          "the full abstract; ascopubs.org returns 403 to direct fetches from this environment, tried 31 August"
+        ],
+        "note": "Weaker than 'the full text was read': a search route may return a fragment. It is stronger than 'nobody opened it', which is what this entry said for an hour."
       }
     }
   ],

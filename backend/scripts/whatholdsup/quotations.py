@@ -170,7 +170,107 @@ def _sources(slug: str) -> dict:
     return {s.get("id"): s for s in items if isinstance(s, dict)}
 
 
-def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
+# ---------------------------------------------------------------------------
+# attestations already on file
+# ---------------------------------------------------------------------------
+
+def attestations_on_file(slug: str, page: Path | None = None) -> list[dict]:
+    """Every wording of a source this issue has ALREADY recorded, and where.
+
+    WHY THIS EXISTS
+    ---------------
+    On 2026-08-31 this check reported six quotations resting on a source nobody
+    had opened, four of them from NCCN v6.2026 -- a document whose licence
+    forbids putting it through any AI tool, so clearing them meant asking the
+    operator to read a guideline again.
+
+    He had already read it. On 29 August he answered ten advocate questions from
+    that document, by name and with locators, and the wording of every one of
+    those four quotations was sitting in the repository:
+
+        Q-02  inherited.json, IC-002 their_wording, checked_by fred
+        Q-06  advocate/2026-08-29-adjudication.md, S001-04 ANSWER
+        Q-10  advocate/2026-08-29-adjudication.md, S001-10 ANSWER
+        Q-11  the same sentence as Q-06
+
+    The other two had been read by the gate and recorded in its own report:
+
+        Q-07  cdk46.html.gate.json, verdict c73, VERIFIED
+        Q-12  cdk46.html.gate.json, verdict c41, VERIFIED
+
+    Seven attestations, in three files, and a check written in a fourth asked
+    for all of them again -- because it was built from the page and never looked
+    at the record. That is not a missing attestation. It is a check that cannot
+    read its own repository, and the cost of it falls on the one participant
+    whose time cannot be bought back with a faster model.
+
+    IT DOES NOT AUTO-FILL. A check that satisfies itself from its own fuzzy
+    match is worth nothing; the whole value of `verbatim` is that a person or a
+    named run put it there. What this does is make the BLOCK say WHERE THE
+    ANSWER ALREADY IS, so nobody is ever again sent to re-read a licensed
+    document for a sentence we transcribed two days ago.
+    """
+    out: list[dict] = []
+    case = case_dir(slug)
+
+    ip = case / "inherited.json"
+    if ip.exists():
+        try:
+            for c in (json.loads(ip.read_text(encoding="utf-8")).get("claims") or []):
+                if (c.get("their_wording") or "").strip():
+                    out.append({"text": c["their_wording"],
+                                "by": c.get("checked_by") or "?",
+                                "on": c.get("checked_on") or "?",
+                                "where": "inherited.json, %s their_wording" % c.get("id", "?")})
+        except Exception:
+            pass
+
+    # ANSWER: blocks in the advocate adjudications -- the operator's own words,
+    # from a source only a person is permitted to read.
+    for adj in sorted((case / "advocate").glob("*-adjudication.md")):
+        if "TEST" in adj.name:
+            continue
+        head, who, when = None, "?", "?"
+        for line in adj.read_text(encoding="utf-8").splitlines():
+            if line.startswith("### "):
+                head, who, when = line[4:].strip(), "?", "?"
+            elif line.startswith("ANSWERED BY:"):
+                who = line.split(":", 1)[1].strip()
+            elif line.startswith("ON:"):
+                when = line.split(":", 1)[1].strip()
+            elif line.startswith("ANSWER:"):
+                out.append({"text": line.split(":", 1)[1].strip(), "by": who, "on": when,
+                            "where": "%s, %s ANSWER" % (adj.name, head or "?")})
+
+    # VERIFIED verdicts in the gate's own report carry the source's wording in
+    # found_value. The gate reaches routes this environment does not.
+    if page is not None:
+        rp = page.with_suffix(page.suffix + ".gate.json")
+        if rp.exists():
+            try:
+                rep = json.loads(rp.read_text(encoding="utf-8"))
+            except Exception:
+                rep = {}
+            for vid, v in (rep.get("verdicts") or {}).items():
+                if isinstance(v, dict) and v.get("verdict") == "VERIFIED" and v.get("found_value"):
+                    out.append({"text": v["found_value"], "by": "the fact-check gate",
+                                "on": "", "where": "%s, verdict %s" % (rp.name, vid)})
+    return out
+
+
+def already_recorded(quote: str, on_file: list[dict]) -> dict | None:
+    """The attestation that already contains this quotation, if there is one."""
+    q = norm(quote)
+    if not q:
+        return None
+    for a in on_file:
+        if q in norm(a["text"]):
+            return a
+    return None
+
+
+def preflight_rows(slug: str, page_text: str,
+                   page: Path | None = None) -> list[tuple[str, str, str]]:
     on_page = extract(page_text)
     if not on_page:
         return [("quotation matcher", OK, "no quoted passages on the page")]
@@ -196,6 +296,15 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
     # A record whose page quote is not what the source says.
     altered, unattested, rhetorical = [], [], 0
     srcs = _sources(slug)
+    # Before saying nobody has this wording, look. Seven attestations were
+    # already on file when this check first ran and it asked for all of them
+    # again -- four of them from a document only the operator is licensed to
+    # read. See attestations_on_file.
+    try:
+        on_file = attestations_on_file(slug, page)
+    except Exception:
+        on_file = []
+    found_already = []
     for q in on_page:
         r = by_key.get(norm(q))
         if not r:
@@ -205,7 +314,16 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
             continue
         verbatim = norm(r.get("verbatim", ""))
         if not verbatim:
-            unattested.append("%s: nothing recorded as the source's wording" % (r.get("id") or q[:40]))
+            a = already_recorded(q, on_file)
+            if a:
+                found_already.append(
+                    "%s: THE WORDING IS ALREADY ON FILE — %s, recorded by %s%s. Copy it "
+                    "into quotations.json; do not go and read the source again."
+                    % (r.get("id") or q[:40], a["where"], a["by"],
+                       " on %s" % a["on"] if a["on"] else ""))
+            else:
+                unattested.append("%s: nothing recorded as the source's wording"
+                                  % (r.get("id") or q[:40]))
             continue
         if norm(q) not in verbatim:
             altered.append("%s: page has %r; source has %r"
@@ -229,12 +347,22 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
                  % (len(altered), " || ".join(altered[:2]))))
 
     rows.append(("quotation sources were opened",
-                 OK if not unattested else BAD,
+                 OK if not (unattested or found_already) else BAD,
                  "every quoted source has been read"
                  + (", %d passage(s) declared as our own phrasing" % rhetorical if rhetorical else "")
-                 if not unattested else
+                 if not (unattested or found_already) else
                  "%d quotation(s) rest on a source nobody opened or recorded: %s"
-                 % (len(unattested), " || ".join(unattested[:2]))))
+                 % (len(unattested) + len(found_already),
+                    " || ".join((found_already + unattested)[:2]))))
+    # A separate row, because these two are not the same problem and must not
+    # read as one. "Nobody has this wording" is work to be done. "The wording is
+    # in the repository and this check did not look" is an hour of someone's
+    # life about to be spent for nothing.
+    if found_already:
+        rows.append(("wording already in the record", BAD,
+                     "%d quotation(s) can be closed from what is ALREADY on file, "
+                     "without opening any source: %s"
+                     % (len(found_already), " || ".join(found_already[:3]))))
     return rows
 
 

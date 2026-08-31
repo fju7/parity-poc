@@ -1045,7 +1045,7 @@ def preflight(slug: str, *, for_email: bool,
     out.extend(inherited.preflight_rows(slug, _ptext))
     # Reads the page's own markup, not the flattened text: the extractor strips
     # tags itself and needs the quotation marks as the page sets them.
-    out.extend(quotations.preflight_rows(slug, page.read_text(encoding="utf-8")))
+    out.extend(quotations.preflight_rows(slug, page.read_text(encoding="utf-8"), page))
     try:
         out.extend(study_design.preflight_rows(slug, page.read_text(encoding="utf-8")))
     except SystemExit as e:
