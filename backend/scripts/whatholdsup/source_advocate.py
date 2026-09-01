@@ -441,7 +441,26 @@ def cmd_run(args) -> int:
             briefs.append(b)
             k = len(b.get("objections") or [])
             print(f"        -> {k} {b['mode']}")
-    briefs_path(args.slug, day).write_text(
+    # A PARTIAL RUN MERGES. It used to overwrite.
+    #
+    # --only is documented as "source ids, for a cheap partial run", and it
+    # wrote the day's brief file from the sources it had just run -- deleting
+    # the briefs for every source it had not. Running the advocate over eleven
+    # sources three at a time, which is the only way to run it where each call
+    # is time-limited, would have left the briefs for the last three and a file
+    # claiming that was the whole review. The adjudication template is built
+    # from that file, so the objections would have gone with it.
+    bp = briefs_path(args.slug, day)
+    keep = []
+    if bp.exists():
+        try:
+            ran = {b.get("source") for b in briefs}
+            keep = [b for b in json.loads(bp.read_text(encoding="utf-8"))
+                    if b.get("source") not in ran]
+        except Exception:
+            keep = []
+    briefs = sorted(keep + briefs, key=lambda b: b.get("source") or "")
+    bp.write_text(
         json.dumps(briefs, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     p = write_template(args.slug, day, briefs)
     print()
