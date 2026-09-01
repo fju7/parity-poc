@@ -275,15 +275,38 @@ def put(slug: str, sid: str, data: bytes, *, url: str, via: str,
     iix = load_issue_index(slug)
     prior = (iix.get("sources") or {}).get(sid) or {}
     versions = list(prior.get("superseded") or [])
+    alsos = list(prior.get("also_held") or [])
     if prior.get("sha256") and prior["sha256"] != digest:
-        # NOT overwritten. The version we read when we wrote the page is what a
-        # correction request will be about.
-        versions.append({"sha256": prior["sha256"], "held": prior.get("held"),
-                         "replaced": date.today().isoformat()})
+        # SUPERSEDED AND ALSO_HELD ARE DIFFERENT THINGS, and conflating them
+        # destroys the reason for keeping old bytes at all.
+        #
+        # The Shaaban paper arrived twice on 2026-09-01: as Europe PMC full-text
+        # XML from acquisition, and as the published PDF the operator supplied.
+        # The first version of this recorded the XML as "superseded" by the PDF.
+        # They are the same paper in two representations. A later diff of one
+        # against the other would report that everything changed, which would
+        # make the version history worse than useless -- it would make it
+        # misleading, on precisely the question it exists to answer.
+        #
+        # SUPERSEDED means the document itself changed: same representation,
+        # different bytes -- a corrected paper, a new guideline version, a
+        # registry record updated after we published. That is a real diff and a
+        # real changelog event.
+        #
+        # ALSO_HELD means another form of the same thing.
+        prior_ext = Path(prior.get("file", "")).suffix
+        entry = {"sha256": prior["sha256"], "file": prior.get("file"),
+                 "held": prior.get("held"), "url": prior.get("url"),
+                 "recorded": date.today().isoformat()}
+        if prior_ext and prior_ext != ext:
+            alsos.append(entry)
+        else:
+            entry["replaced"] = date.today().isoformat()
+            versions.append(entry)
     iix.setdefault("sources", {})[sid] = {
         "sha256": digest, "file": row["file"], "bytes": len(data), "url": url,
         "held": date.today().isoformat(), "via": via, "note": note,
-        "superseded": versions}
+        "superseded": versions, "also_held": alsos}
     save_issue_index(slug, iix)
     return {"sha256": digest, "file": row["file"], "bytes": len(data),
             "retrieved": date.today().isoformat(), "url": url}

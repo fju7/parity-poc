@@ -275,14 +275,20 @@
       "accessed": "2026-08-28",
       "used_for": "Source of neutropenia in 80% of PALOMA-2 patients, grade 3 or worse in 66%, and of the requirement for blood counts on day 15 of each of the first two cycles.",
       "access": {
-        "state": "blocked",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-29",
         "blocked_by": "paywall",
         "not_read": [
           "the full text"
         ],
-        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us."
+        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us.",
+        "held": {
+          "file": "docs/d4/d4688e51d9cb7d0af3d3b1e00dfa65b40661c64bf908c21d9bd4892c80cb8eeb.html",
+          "sha256": "d4688e51d9cb7d0af3d3b1e00dfa65b40661c64bf908c21d9bd4892c80cb8eeb",
+          "bytes": 55248,
+          "identified_by": "contains 4 of 4 distinctive title words"
+        }
       }
     },
     {
@@ -293,7 +299,7 @@
       "accessed": "2026-08-31",
       "used_for": "Seven phase III trials, 4,415 patients. No significant pairwise overall-survival difference between the three drugs. Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) and its “Year of updated data” row gives 2023 for that trial, and its reference list cites the SABCS 2023 final overall-survival abstract — so its MONARCH 3 input is the FINAL analysis, not the interim HR 0.754. An earlier version of this page said the opposite, on the strength of our own automated check rather than the paper; an outside reviewer opened the table and corrected us (CORR-01 era). Median follow-up: the abstract gives 73.3 months (range 48.7-97.2), the results section gives 70.2 over the same range. The page prints the abstract's and discloses the discrepancy, which is the source's own; see CORR-08.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude, via retrieval — not read by a human",
         "on": "2026-08-31",
         "sections": [
@@ -305,7 +311,13 @@
           "the supplementary material",
           "Table 1 on nature.com — that URL is disallowed by robots.txt, and PMC's HTML is behind a CAPTCHA; the table was reached only through Europe PMC"
         ],
-        "note": "Provenance recorded because it decided the outcome. Four retrievals were run for the median-follow-up figures. Three returned both sentences verbatim, across two hosts. One returned “this string does not appear in the document” for 70.2 — and in the same answer said Table 1 was not fully present in what it had received. It was reporting absence from a document it did not hold. An absence reported by a truncated retrieval is not evidence of absence.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
+        "note": "Provenance recorded because it decided the outcome. Four retrievals were run for the median-follow-up figures. Three returned both sentences verbatim, across two hosts. One returned “this string does not appear in the document” for 70.2 — and in the same answer said Table 1 was not fully present in what it had received. It was reporting absence from a document it did not hold. An absence reported by a truncated retrieval is not evidence of absence.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store.",
+        "held": {
+          "file": "docs/66/66a5b3d6e327e0aaa392c77dc80374c7ad795c02a017604c4e492b13bb750d77.html",
+          "sha256": "66a5b3d6e327e0aaa392c77dc80374c7ad795c02a017604c4e492b13bb750d77",
+          "bytes": 345413,
+          "identified_by": "contains 7 of 7 distinctive title words"
+        }
       }
     },
     {
@@ -339,7 +351,7 @@
       "used_for": "A randomised, open-label phase III trial putting two of these three drugs directly against each other, 1:1, registered NCT05670054, at the Oncology Centre Mansoura University, Egypt, July 2022 to December 2023. 116 patients, 58 per arm, randomised “using 29 blocks with block size of four” by opaque sealed envelope. Clinical benefit at six months 58.6% in both arms (34 of 58 either way); median progression-free survival 13.67 months on palbociclib against 12.69 on ribociclib, not significantly different. Conclusion: “Both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile.” Overall survival was immature and median OS was not calculated.",
       "WHY_THIS_MATTERS": "This page verified that NCCN says the CDK4/6 inhibitors have not been directly compared, and then printed that as an unscoped claim about the world, four times. This trial is why that was wrong. It was found by the counterexample role, whose only instruction is to break the page's universal negatives; eighteen fact-check runs and an outside review had passed over the sentence.",
       "access": {
-        "state": "human_read",
+        "state": "full_text_held",
         "by": "Fred Ugast, who supplied the full PDF on 2026-09-01 after every automated route from this environment was refused or rate-limited",
         "on": "2026-09-01",
         "sections": [
@@ -350,7 +362,12 @@
           "Table 2",
           "results"
         ],
-        "note": "Read in full. This entry previously said the full text had been read via PMC11700305; what had been read was whatever a search route returned. The difference is not academic: on 31 August this page withdrew the paper's own “29 blocks with block size of four” as our arithmetic, because nobody had opened the Methods."
+        "note": "Read in full. This entry previously said the full text had been read via PMC11700305; what had been read was whatever a search route returned. The difference is not academic: on 31 August this page withdrew the paper's own “29 blocks with block size of four” as our arithmetic, because nobody had opened the Methods.\n\n2026-09-01: the PDF is now IN THE LIBRARY, hashed, identity confirmed by its own registration number NCT05670054 in the extracted text. Was human_read (the operator had read it); now also held, so the next person to question a sentence sourced here can open the same bytes rather than re-acquire the paper.",
+        "held": {
+          "sha256": "7033f3727af4725fef07d6c5f8cf24c692aa986aa00cef61376b392c3ac7b9f4",
+          "file": "docs/70/7033f3727af4725fef07d6c5f8cf24c692aa986aa00cef61376b392c3ac7b9f4.pdf",
+          "bytes": 488088
+        }
       },
       "registry": "NCT05670054",
       "endpoint_note": "PRIMARY objectives are clinical benefit rate, quality of life and toxicity. Progression-free survival and overall survival are SECONDARY. The sample size was calculated on overall response rate (58 per group at 80% power). The page now says so where it prints the PFS figures.",
@@ -369,7 +386,7 @@
       ],
       "used_for": "The second randomised head-to-head of the same pair. Source of the design (interventional, phase 3, randomised, parallel, open label), the start date of 2022-03-28, the overall status TERMINATED, and the enrolment count of 61. No results publication was found. The page draws nothing from it beyond the fact that the trial was run and stopped.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -380,7 +397,13 @@
           "the protocol document",
           "any publication"
         ],
-        "note": "A REGISTRY IS A LIST OF WHAT WAS STARTED, not of what got attention. That is the whole reason the unknowability check demands one be named: both of this page's missed trials were findable this way.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
+        "note": "A REGISTRY IS A LIST OF WHAT WAS STARTED, not of what got attention. That is the whole reason the unknowability check demands one be named: both of this page's missed trials were findable this way.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store.",
+        "held": {
+          "file": "docs/54/5474028f255ae65cda9c55331703b99b23f6fd56c1fedc9bf577f4a401ae0fb9.json",
+          "sha256": "5474028f255ae65cda9c55331703b99b23f6fd56c1fedc9bf577f4a401ae0fb9",
+          "bytes": 22116,
+          "identified_by": "contains its identifier NCT05207709"
+        }
       }
     },
     {
@@ -396,7 +419,7 @@
       "used_for": "The direction and level of the final overall-survival test, which this page twice failed to establish from the journal. Verbatim from the sponsor's posting: the distribution of OS between the arms “was compared using a log-rank test at one-sided cumulative 2.5% level of significance”. The same posting gives HR 0.765 (95% CI 0.628-0.932), p = 0.004, log-rank.",
       "WHY_THIS_MATTERS": "The page said this could not be established and named a paywalled statistical section as the reason. It was posted by the sponsor in a public registry. Third fact on this page declared unfindable and then found in a registry.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -405,7 +428,13 @@
         "not_read": [
           "the protocol or statistical analysis plan documents"
         ],
-        "note": "What the posting does NOT give is the critical value at the final look if alpha had been spent at an interim. The page prints the cumulative level and no critical value.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
+        "note": "What the posting does NOT give is the critical value at the final look if alpha had been spent at an interim. The page prints the cumulative level and no critical value.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store.",
+        "held": {
+          "file": "docs/ce/cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317.json",
+          "sha256": "cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317",
+          "bytes": 210042,
+          "identified_by": "contains its identifier NCT01958021"
+        }
       }
     },
     {
@@ -420,7 +449,7 @@
       ],
       "used_for": "Independent confirmation that PALOMA-2's log-rank p-values are one-sided — each analysis is annotated “1-sided p-value from the stratified log-rank test”. Also the final overall-survival analysis, HR 0.921 (0.755-1.124), and the primary analysis, HR 0.956 (0.777-1.177).",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -429,7 +458,13 @@
         "not_read": [
           "the protocol document"
         ],
-        "note": "The page had this from an ASCO 2019 abstract only; the registry is a second, independent route.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
+        "note": "The page had this from an ASCO 2019 abstract only; the registry is a second, independent route.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store.",
+        "held": {
+          "file": "docs/5b/5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6.json",
+          "sha256": "5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6",
+          "bytes": 221560,
+          "identified_by": "contains its identifier NCT01740427"
+        }
       }
     },
     {
@@ -444,7 +479,7 @@
       ],
       "used_for": "Establishing that the study is registered, observational, still recruiting toward an estimated 3,500 patients, with overall survival as its primary outcome — and that NO RESULTS ARE POSTED. That is why this page still does not print PALMARES-2's survival figures: the paper did not open and the registry has nothing to fall back on.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -453,7 +488,13 @@
         "not_read": [
           "nothing further exists to read; hasResults is false"
         ],
-        "note": "A registry search that comes back empty is a result, and is recorded as one.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
+        "note": "A registry search that comes back empty is a result, and is recorded as one.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store.",
+        "held": {
+          "file": "docs/67/67e39a7e875f0d5681ef468692d93809ecddda3b7d7d971043ddaef5f1ed410b.json",
+          "sha256": "67e39a7e875f0d5681ef468692d93809ecddda3b7d7d971043ddaef5f1ed410b",
+          "bytes": 18811,
+          "identified_by": "contains its identifier NCT06805812"
+        }
       }
     },
     {
@@ -464,13 +505,19 @@
       "accessed": "2026-08-31",
       "used_for": "The direction of MONALEESA-7's overall-survival test. The posting gives the analysis as p = 0.00973 with the annotation “One-sided stratified log-rank test”, Cox proportional hazard 0.712. Added 2026-08-31 because the page had been citing NCT01740427 for this — PALOMA-2's registry number — and the correction to NCT02278120 would otherwise have been a citation with no source entry behind it.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude, ClinicalTrials.gov API v2",
         "on": "2026-08-31",
         "sections": [
           "resultsSection.outcomeMeasuresModule, Overall Survival (OS) outcome and its analysis"
         ],
-        "note": "Read as structured JSON from the API, not by web search. The gate's SOURCE role reported this record unreachable in the same period; the API returns it in under a second.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
+        "note": "Read as structured JSON from the API, not by web search. The gate's SOURCE role reported this record unreachable in the same period; the API returns it in under a second.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store.",
+        "held": {
+          "file": "docs/46/460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff.json",
+          "sha256": "460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff",
+          "bytes": 182694,
+          "identified_by": "contains its identifier NCT02278120"
+        }
       }
     },
     {
@@ -512,7 +559,7 @@
       "WHAT_IT_DOES_NOT_SAY": "ANYTHING ABOUT CONFIDENCE INTERVAL WIDTH. The paper computes power to reach significance and nothing else. Both this page and the announcement email attributed to it the observation that an interval's width follows from what a trial was powered to detect. That observation is ours. The misattribution was live from 28 August to 1 September, and was found by the fact-check gate on the email, not on the page — the page's version was better hidden, because it attached our observation to their names and then described their real argument correctly in the next clause.",
       "declared_interests": "“F.-C. Bidard is part of advisory boards and received research grants (unrelated to this study) from Pfizer, Novartis, and Lilly. Other authors have no competing interest.” Recorded because this page runs a disclosure-symmetry argument about P-VERIFY and PALMARES-2, and a source it leans on for the power argument carries the same entanglement. Funded by Institut Curie SIRIC 2, grant INCa-DGOS-Inserm_12554.",
       "access": {
-        "state": "human_read",
+        "state": "full_text_held",
         "by": "Fred Ugast, who retrieved the full text and supplied it on 2026-09-01, after every automated route from this environment was rate-limited or refused",
         "on": "2026-09-01",
         "sections": [
@@ -526,7 +573,13 @@
           "competing interests",
           "acknowledgements"
         ],
-        "note": "Read in full. Three separate attempts to reach it from here over forty minutes returned HTTP 429 from Europe PMC. Until this read, every claim this page made about the paper rested on gate summaries of search results — which is how our own observation ended up under their names for four days."
+        "note": "Read in full. Three separate attempts to reach it from here over forty minutes returned HTTP 429 from Europe PMC. Until this read, every claim this page made about the paper rested on gate summaries of search results — which is how our own observation ended up under their names for four days.",
+        "held": {
+          "file": "docs/e4/e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2.html",
+          "sha256": "e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2",
+          "bytes": 277558,
+          "identified_by": "contains 12 of 12 distinctive title words"
+        }
       }
     }
   ],

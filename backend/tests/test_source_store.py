@@ -161,3 +161,39 @@ def test_an_unreadable_pdf_says_so_rather_than_calling_it_wrong():
     ok, why = store.identifies(fake, SRC, "application/pdf")
     assert not ok
     assert "could not be checked either way" in why
+
+
+def test_a_new_format_is_also_held_not_superseded(issue):
+    """Conflating them destroys the reason for keeping old bytes at all.
+
+    The Shaaban paper arrived twice on 2026-09-01 -- Europe PMC full-text XML
+    from acquisition, and the published PDF the operator supplied. The first
+    version of this recorded the XML as superseded BY the PDF. They are the same
+    paper in two representations, and a later diff of one against the other
+    would report that everything had changed: worse than useless, misleading on
+    exactly the question the history exists to answer.
+    """
+    store.put("t", "S002", b"<xml>" + b"x" * 3000 + b"Palbociclib letrozole PALOMA</xml>",
+              url="u1", via="v", content_type="text/xml")
+    store.put("t", "S002", b"%PDF-1.4" + b"x" * 3000, url="u2", via="v",
+              content_type="application/pdf")
+    row = store.held("t")["S002"]
+    assert row["file"].endswith(".pdf")
+    assert len(row["also_held"]) == 1 and row["also_held"][0]["file"].endswith(".xml")
+    assert row["superseded"] == []
+
+
+def test_the_same_format_with_different_bytes_is_superseded(issue):
+    """A corrected paper, a new guideline version, a registry record updated
+    after we published. That is a real diff and a real changelog event."""
+    store.put("t", "S002", b"%PDF-1.4" + b"a" * 3000, url="u", via="v",
+              content_type="application/pdf")
+    first = store.held("t")["S002"]["sha256"]
+    store.put("t", "S002", b"%PDF-1.4" + b"b" * 3000, url="u", via="v",
+              content_type="application/pdf")
+    row = store.held("t")["S002"]
+    assert row["sha256"] != first
+    assert [v["sha256"] for v in row["superseded"]] == [first]
+    assert row["also_held"] == []
+    # and the old bytes are still there to diff against
+    assert (store.LIB / row["superseded"][0]["file"]).exists()

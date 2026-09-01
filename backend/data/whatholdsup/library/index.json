@@ -32,6 +32,166 @@
         "cdk46:S013"
       ],
       "note": ""
+    },
+    "d4688e51d9cb7d0af3d3b1e00dfa65b40661c64bf908c21d9bd4892c80cb8eeb": {
+      "file": "docs/d4/d4688e51d9cb7d0af3d3b1e00dfa65b40661c64bf908c21d9bd4892c80cb8eeb.html",
+      "bytes": 55248,
+      "content_type": "text/html;charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.pfizermedical.com/ibrance/warnings"
+      ],
+      "titles": [
+        "IBRANCE (palbociclib) — warnings and precautions"
+      ],
+      "used_by": [
+        "cdk46:S014"
+      ],
+      "note": ""
+    },
+    "66a5b3d6e327e0aaa392c77dc80374c7ad795c02a017604c4e492b13bb750d77": {
+      "file": "docs/66/66a5b3d6e327e0aaa392c77dc80374c7ad795c02a017604c4e492b13bb750d77.html",
+      "bytes": 345413,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.nature.com/articles/s41598-024-53151-8?error=cookies_not_supported&code=bd5f1a3b-19ec-4e64-bdcf-72fa6bb8dafa"
+      ],
+      "titles": [
+        "Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024"
+      ],
+      "used_by": [
+        "cdk46:S015"
+      ],
+      "note": ""
+    },
+    "676643dcfc6925e9ceef148b81ba70d23759c5d171f272aec24afce09cd63369": {
+      "file": "docs/67/676643dcfc6925e9ceef148b81ba70d23759c5d171f272aec24afce09cd63369.xml",
+      "bytes": 111586,
+      "content_type": "application/xml",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11700305/fullTextXML"
+      ],
+      "titles": [
+        "Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA (2024) — Comparing ribociclib versus palbociclib as a second line treatment in combination with fulvestrant in metastatic breast cancer: a randomized clinical trial. Asian Pacific Journal of Cancer Prevention 25(9), 3039-3049."
+      ],
+      "used_by": [
+        "cdk46:S017"
+      ],
+      "note": ""
+    },
+    "5474028f255ae65cda9c55331703b99b23f6fd56c1fedc9bf577f4a401ae0fb9": {
+      "file": "docs/54/5474028f255ae65cda9c55331703b99b23f6fd56c1fedc9bf577f4a401ae0fb9.json",
+      "bytes": 22116,
+      "content_type": "application/json",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://clinicaltrials.gov/api/v2/studies/NCT05207709?format=json"
+      ],
+      "titles": [
+        "HARMONIA — A Phase III, Multicenter, Open-label Study of Ribociclib vs. Palbociclib in Patients With Advanced Hormone Receptor-positive/HER2-negative/HER2-Enriched Breast Cancer. NCT05207709."
+      ],
+      "used_by": [
+        "cdk46:S018"
+      ],
+      "note": ""
+    },
+    "cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317": {
+      "file": "docs/ce/cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317.json",
+      "bytes": 210042,
+      "content_type": "application/json",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://clinicaltrials.gov/api/v2/studies/NCT01958021?format=json"
+      ],
+      "titles": [
+        "MONALEESA-2 — ClinicalTrials.gov results posting. NCT01958021."
+      ],
+      "used_by": [
+        "cdk46:S019"
+      ],
+      "note": ""
+    },
+    "5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6": {
+      "file": "docs/5b/5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6.json",
+      "bytes": 221560,
+      "content_type": "application/json",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://clinicaltrials.gov/api/v2/studies/NCT01740427?format=json"
+      ],
+      "titles": [
+        "PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427."
+      ],
+      "used_by": [
+        "cdk46:S020"
+      ],
+      "note": ""
+    },
+    "67e39a7e875f0d5681ef468692d93809ecddda3b7d7d971043ddaef5f1ed410b": {
+      "file": "docs/67/67e39a7e875f0d5681ef468692d93809ecddda3b7d7d971043ddaef5f1ed410b.json",
+      "bytes": 18811,
+      "content_type": "application/json",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://clinicaltrials.gov/api/v2/studies/NCT06805812?format=json"
+      ],
+      "titles": [
+        "PALMARES-2 — ClinicalTrials.gov record. NCT06805812."
+      ],
+      "used_by": [
+        "cdk46:S021"
+      ],
+      "note": ""
+    },
+    "460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff": {
+      "file": "docs/46/460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff.json",
+      "bytes": 182694,
+      "content_type": "application/json",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://clinicaltrials.gov/api/v2/studies/NCT02278120?format=json"
+      ],
+      "titles": [
+        "MONALEESA-7 — ClinicalTrials.gov results posting. NCT02278120."
+      ],
+      "used_by": [
+        "cdk46:S022"
+      ],
+      "note": ""
+    },
+    "e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2": {
+      "file": "docs/e4/e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2.html",
+      "bytes": 277558,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.nature.com/articles/s41523-018-0068-4?error=cookies_not_supported&code=5d7a5547-1571-46c4-8ab2-b8d78405a9ec"
+      ],
+      "titles": [
+        "Tanguy M-L, Cabel L, Berger F, Pierga J-Y, Savignoni A, Bidard F-C. Cdk4/6 inhibitors and overall survival: power of first-line trials in metastatic breast cancer. npj Breast Cancer 4:14 (2018)."
+      ],
+      "used_by": [
+        "cdk46:S024"
+      ],
+      "note": ""
+    },
+    "7033f3727af4725fef07d6c5f8cf24c692aa986aa00cef61376b392c3ac7b9f4": {
+      "file": "docs/70/7033f3727af4725fef07d6c5f8cf24c692aa986aa00cef61376b392c3ac7b9f4.pdf",
+      "bytes": 488088,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11700305/"
+      ],
+      "titles": [
+        "Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA (2024) — Comparing ribociclib versus palbociclib as a second line treatment in combination with fulvestrant in metastatic breast cancer: a randomized clinical trial. Asian Pacific Journal of Cancer Prevention 25(9), 3039-3049."
+      ],
+      "used_by": [
+        "cdk46:S017"
+      ],
+      "note": "Asian Pac J Cancer Prev 2024;25(9):3039-3049, doi 10.31557/APJCP.2024.25.9.3039. The paper that settled CORR-18 and CORR-19."
     }
   }
 }

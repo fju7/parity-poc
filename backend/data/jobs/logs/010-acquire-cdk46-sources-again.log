@@ -8,3 +8,91 @@
   "args": ["cdk46", "--refetch"]
 }
 === started 2026-09-01T13:06:50Z
+
+  HELD     S014   d4688e51d9cb                                      55248 B  (contains 4 of 4 distinctive title words)
+  HELD     S015   66a5b3d6e327                                     345413 B  (contains 7 of 7 distinctive title words)
+  HELD     S017   676643dcfc69                                     111586 B  (contains its identifier NCT05670054)
+  HELD     S018   5474028f255a                                      22116 B  (contains its identifier NCT05207709)
+  HELD     S019   cecc1b5f6e46                                     210042 B  (contains its identifier NCT01958021)
+  HELD     S020   5b719bb4d0d7                                     221560 B  (contains its identifier NCT01740427)
+  HELD     S021   67e39a7e875f                                      18811 B  (contains its identifier NCT06805812)
+  HELD     S022   460d498f6ac3                                     182694 B  (contains its identifier NCT02278120)
+  HELD     S024   e49e76bb82e2                                     277558 B  (contains 12 of 12 distinctive title words)
+
+  held now: 9   failed: 14   skipped: 1
+
+  ====================================================================
+  HUMAN SEARCH LIST — nobody holds these, so nothing may characterise them
+  ====================================================================
+    S002   MONARCH 3 — abemaciclib as initial therapy. J Clin Oncol, 2017
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S002 <path-to-file> --url <url> --via "how you got it"
+    S003   MONARCH 3 — final overall survival. Ann Oncol, 2024
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S003 <path-to-file> --url <url> --via "how you got it"
+    S004   MONALEESA-2 — updated results. Ann Oncol, 2018
+           why: nothing in these bytes identifies them as this document (0 of 4 title words, no DOI/PMID/NCT match)
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S004 <path-to-file> --url <url> --via "how you got it"
+    S005   MONALEESA-2 — overall survival with ribociclib plus letrozole.
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S005 <path-to-file> --url <url> --via "how you got it"
+    S006   MONALEESA-7 — ribociclib plus endocrine therapy in premenopaus
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S006 <path-to-file> --url <url> --via "how you got it"
+    S007   MONALEESA-7 — overall survival. N Engl J Med, 2019
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S007 <path-to-file> --url <url> --via "how you got it"
+    S008   MONALEESA-7 — updated overall survival. Clin Cancer Res, 2022;
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S008 <path-to-file> --url <url> --via "how you got it"
+    S009   PALOMA-2 — palbociclib and letrozole. N Engl J Med, 2016
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S009 <path-to-file> --url <url> --via "how you got it"
+    S010   PALOMA-2 — final overall survival. J Clin Oncol, 2024
+           why: HTTP 502
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S010 <path-to-file> --url <url> --via "how you got it"
+    S011   PALMARES-2 — real-world comparison of first-line palbociclib, 
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S011 <path-to-file> --url <url> --via "how you got it"
+    S012   KISQALI (ribociclib) — US prescribing information
+           why: no text could be extracted from this PDF (pdftotext is not installed), so identity could not be checked either way — look at it yourself and use --force if it is right
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S012 <path-to-file> --url <url> --via "how you got it"
+    S013   VERZENIO (abemaciclib) — US prescribing information
+           why: no text could be extracted from this PDF (pdftotext is not installed), so identity could not be checked either way — look at it yourself and use --force if it is right
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S013 <path-to-file> --url <url> --via "how you got it"
+    S016   P-VERIFY — comparative overall survival of CDK4/6 inhibitors p
+           why: nothing in these bytes identifies them as this document (0 of 11 title words, no DOI/PMID/NCT match)
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S016 <path-to-file> --url <url> --via "how you got it"
+    S023   MONALEESA-7 — overall survival, ASCO 2019 late-breaking abstra
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S023 <path-to-file> --url <url> --via "how you got it"
+
+=== finished 2026-09-01T13:07:29Z exit=1
