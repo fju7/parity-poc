@@ -75,10 +75,15 @@ class Settler:
             self.numbers = {f["norm"] for f in rfig.findings(slug, page_text)
                             if f["in_registry"]}
             self.facts = rfac.confirmed_keys(slug, page_text)
-        except Exception as exc:
-            # NOT a silent empty result. A settler that fails quietly is
-            # indistinguishable from a registry with nothing to say, and the
-            # caller would report "0 settled" as though it were an answer.
+        except BaseException as exc:   # noqa: BLE001
+            # BaseException, NOT Exception. registry_figures.case_dir() raises
+            # SystemExit for an unknown slug, and SystemExit is not an Exception
+            # -- so the first version of this let it straight through and a
+            # cost-saving pre-check killed the email gate, after that run had
+            # already paid for claim extraction. A helper that promises never to
+            # break its caller has to mean every exit path.
+            if isinstance(exc, KeyboardInterrupt):
+                raise
             self._rfac = None
             self.error = "%s: %s" % (type(exc).__name__, exc)
 

@@ -191,6 +191,43 @@ except Exception:
     _unjudged = _NoFP()
 
 
+def issue_slug_for(draft_path) -> str:
+    """The case slug this draft belongs to.
+
+    WHY THIS IS NOT Path(draft).stem.
+
+    The page is site/whatholdsup/cdk46.html and its case is issues/WHU-002-cdk46,
+    so the stem works. The EMAIL is site/whatholdsup/email/issue2-cdk46.html, and
+    the stem is "issue2-cdk46", which is not a slug. Two things went wrong on
+    2026-09-01 because of it:
+
+      - registry_settle was constructed with it, case_dir raised SystemExit,
+        and the email gate DIED after paying for claim extraction.
+      - every email gate run this project has ever done was recorded in the
+        spend ledger against an issue called "issue2-cdk46", so email spend has
+        never counted toward the $40 per-issue cap. The cap was measuring less
+        than it was believed to measure, which is the failure the ledger exists
+        to prevent.
+
+    Resolution is by what exists on disk, never by guessing: the case
+    directories are the authority.
+    """
+    stem = Path(draft_path).name.split(".")[0]
+    cases = Path(__file__).resolve().parents[2].parent / "issues"
+    try:
+        names = [p.name for p in cases.glob("WHU-*-*") if p.is_dir()]
+    except Exception:
+        return stem
+    slugs = sorted({n.split("-", 2)[2] for n in names if n.count("-") >= 2},
+                   key=len, reverse=True)
+    if stem in slugs:
+        return stem
+    for s in slugs:                       # "issue2-cdk46" -> "cdk46"
+        if stem.endswith("-" + s) or stem.endswith(s):
+            return s
+    return stem
+
+
 def _record_usage(label, response):
     """Append what one response cost us. Never raises: this is bookkeeping."""
     try:
@@ -1125,9 +1162,24 @@ def audit_sources(claims: list[dict], draft_title: str,
             for src, items in list(groups.items()):
                 keep = []
                 for c in items:
-                    why = settler.settles(c.get("figure") or "",
-                                          c.get("claim") or "",
-                                          c.get("attributed_to") or "")
+                    # Guarded at the CALL SITE as well as inside the settler.
+                    # This is a cost optimisation sitting in the middle of the
+                    # only check that protects a reader; if it throws, the
+                    # correct outcome is that the claim goes to the model and
+                    # the run continues, never that the run dies. On
+                    # 2026-09-01 it died -- a SystemExit from a case-directory
+                    # lookup, after the run had already paid for extraction.
+                    try:
+                        why = settler.settles(c.get("figure") or "",
+                                              c.get("claim") or "",
+                                              c.get("attributed_to") or "")
+                    except KeyboardInterrupt:
+                        raise
+                    except BaseException as _e:      # noqa: BLE001
+                        print("      [WARN] registry pre-check failed on %s "
+                              "(%s: %s) — sending it to the model"
+                              % (c.get("id"), type(_e).__name__, _e))
+                        why = None
                     if not why:
                         keep.append(c)
                         continue
@@ -2119,7 +2171,7 @@ def main():
     # This matters more now that jobs can run unattended: the operator agreed to
     # that on the condition the cap was real.
     if _spend is not None:
-        _issue_slug = Path(args.draft).name.split(".")[0]
+        _issue_slug = issue_slug_for(args.draft)
         # Set BEFORE any API call, so every ledger line written during the run
         # is attributed to the right issue. _ledger_now reads this.
         global _LEDGER_ISSUE
@@ -2165,10 +2217,21 @@ def main():
             Path(__file__).resolve().parents[1] / "whatholdsup" / "registry_settle.py")
         _rs = _ilu2.module_from_spec(_sp)
         _sp.loader.exec_module(_rs)
-        _settler = _rs.Settler(Path(args.draft).name.split(".")[0],
+        _settler = _rs.Settler(issue_slug_for(args.draft),
                                path.read_text(encoding="utf-8"))
         print("      registry pre-check: %s" % _settler.summary())
-    except Exception as _exc:
+    except BaseException as _exc:      # noqa: BLE001 - see below
+        # BaseException, NOT Exception. registry_settle reaches case_dir(), which
+        # raises SystemExit when it cannot find a case directory -- and SystemExit
+        # does not inherit from Exception. So `except Exception` did not catch it,
+        # and on 2026-09-01 a COST-SAVING pre-check killed the email gate outright,
+        # after it had already paid for claim extraction.
+        #
+        # A guard that says it never breaks a run has to actually not break the
+        # run. "Never raises" is a promise about every exit path, not about the
+        # ones that were anticipated.
+        if isinstance(_exc, KeyboardInterrupt):
+            raise
         # Loudly. A pre-check that fails silently looks exactly like a registry
         # with nothing to say, and the run would go on to buy what it could
         # have had for nothing while reporting that it had checked.

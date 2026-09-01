@@ -1,0 +1,34 @@
+=== 005-regate-cdk46-page
+=== queued job:
+{
+  "note": "Re-gate the page after the 31 August findings were acted on. Nine sentences are new since report 1a414838: the rewritten MONALEESA-2 p-value footnote (CORR-11), the PALMARES-2 access and disclosure passage (CORR-10), the HARMONIA wording (CORR-12) and the withdrawn block count (CORR-13). Four findings from the last run are recorded as declined in draft_decisions.json with the evidence and should come back already decided. This is the first run with registry_settle wired in: on the previous run's claims it settled 12 deterministically and emptied three source groups, so source:HARMONIA, source:MONALEESA-2 and source:MONALEESA-7 should not be called at all and the run should come in under the $5.70 that one cost. If those groups DO get called, registry_settle is not working and that is worth more than the money.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/cdk46.html",
+    "--since", "../site/whatholdsup/cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/cdk46.html.gate.json"
+  ]
+}
+=== started 2026-09-01T00:02:30Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+
+  STOP. This draft has been gated 2 times in cycle 1, which is the cap.
+
+  The cap is 2 because runs past it stop paying. On issue two, gate runs
+  11 onwards returned phrasing notes and rounding false positives, one run
+  introduced an error into the page, and every finding that mattered after
+  run 10 came from a human reading rather than from another pass.
+
+  What to do instead, in order:
+    1. Adjudicate what the last run found -- all of it, in one pass.
+    2. Make every edit at once. Re-running between edits is the trap.
+    3. Send it to outside review. That is where the findings are.
+    4. After the review: --new-cycle, then one run.
+
+  If you are certain another run is warranted:
+    --past-cap "why this run is different from the last two"
+
+=== finished 2026-09-01T00:02:30Z exit=3

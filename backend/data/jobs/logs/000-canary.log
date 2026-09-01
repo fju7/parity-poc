@@ -1,0 +1,12 @@
+=== 000-canary
+=== queued job:
+{
+  "note": "Prove the runner runs jobs. Prints and exits; reads nothing, writes nothing, spends nothing. Sorts first, so a manual `bash runner.sh` runs this before the two paid gate runs and separates two failures that look identical from outside: runner.sh being broken, and launchd never invoking it. If 000-canary.exit appears and the gate jobs also ran, the script is fine and the agent is the problem.",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/schedule/canary.py",
+  "args": []
+}
+=== started 2026-09-01T00:02:30Z
+canary: the runner executed a queued job at 2026-09-01T00:02:30+00:00
+canary: python is /Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3
+=== finished 2026-09-01T00:02:30Z exit=0

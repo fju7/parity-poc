@@ -219,3 +219,62 @@ def test_a_record_that_cannot_be_fetched_settles_nothing(settler):
     """An unreachable record is not a record that disagrees, and it is not a
     record that agrees either."""
     assert settler.settles("HR 0.712", "", "X — NCT09999999") is None
+
+
+# ---------------------------------------------------------------------------
+# a guard that promises never to break a run has to mean every exit path
+# ---------------------------------------------------------------------------
+
+def test_the_settler_survives_a_systemexit_from_the_case_lookup():
+    """SystemExit does not inherit from Exception.
+
+    registry_figures.case_dir() raises SystemExit for an unknown slug. The
+    first version of Settler caught `Exception`, so it did not catch that --
+    and on 2026-09-01 a COST-SAVING pre-check killed the email gate outright,
+    after that run had already paid for claim extraction. The saving cost more
+    than it saved, in the most literal way available.
+    """
+    s = rs.Settler("no-such-issue-anywhere", "<p>nothing</p>")
+    assert s.error and "SystemExit" in s.error
+    assert s.settles("HR 0.712", "x", "y — NCT05207709") is None
+    assert "did not run" in s.summary()
+
+
+def test_the_gate_survives_a_settler_that_exits(monkeypatch, capsys):
+    """And the caller must survive it too, loudly.
+
+    This is a cost optimisation sitting in the middle of the only check that
+    protects a reader. If it throws, the claim goes to the model and the run
+    continues. It must never be the reason a gate run dies -- which is what it
+    was, once, after the run had already been paid for.
+    """
+    class Exiter:
+        error = None
+        def settles(self, *_a, **_kw):
+            raise SystemExit("no case directory")
+        def summary(self):
+            return "x"
+    calls = []
+    monkeypatch.setattr(fc, "call",
+                        lambda *a, **kw: calls.append(kw.get("label")) or [])
+    fc.audit_sources(CLAIMS, "draft", Exiter())          # must not raise
+    assert len(calls) == 2, calls                        # everything still checked
+    assert "registry pre-check failed" in capsys.readouterr().out
+
+
+def test_an_email_draft_resolves_to_its_issue_slug():
+    """site/whatholdsup/email/issue2-cdk46.html belongs to issues/WHU-002-cdk46.
+
+    Every email gate run this project has done was recorded against an issue
+    called "issue2-cdk46", so email spend never counted toward the $40
+    per-issue cap. The cap was measuring less than it was believed to measure
+    -- the exact failure the ledger exists to prevent.
+    """
+    assert fc.issue_slug_for("site/whatholdsup/email/issue2-cdk46.html") == "cdk46"
+    assert fc.issue_slug_for("site/whatholdsup/cdk46.html") == "cdk46"
+    assert fc.issue_slug_for("site/whatholdsup/email/issue1-melanoma.html") == "melanoma"
+    assert fc.issue_slug_for("site/whatholdsup/deskilling.html") == "deskilling"
+
+
+def test_an_unknown_draft_falls_back_to_its_stem_rather_than_guessing():
+    assert fc.issue_slug_for("/tmp/something-else.html") == "something-else"
