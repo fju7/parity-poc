@@ -1,0 +1,14 @@
+=== 007-regate-cdk46-email
+=== queued job:
+{
+  "note": "Third attempt at the email gate. 004 died on the credit error; 006 died on a bug of mine — registry_settle was constructed with the draft's filename stem, 'issue2-cdk46', which is not a case slug, and case_dir raised SystemExit, which is not an Exception and so was not caught. A cost-saving pre-check killed a paid run after it had already paid for claim extraction. Fixed at both the settler and the call site, with the slug now resolved against the case directories that actually exist. The email is uncapped (no runs.json), so this one is free to proceed.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/email/issue2-cdk46.html",
+    "--since", "../site/whatholdsup/email/issue2-cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/email/issue2-cdk46.html.gate.json"
+  ]
+}
+=== started 2026-09-01T00:12:43Z

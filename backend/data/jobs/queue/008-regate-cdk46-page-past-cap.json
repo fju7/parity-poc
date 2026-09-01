@@ -1,0 +1,15 @@
+{
+  "note": "Page gate past the cycle-1 cap, approved by the operator. Reason recorded in the run history by --past-cap, not just here. Also the first page run with registry_settle live: on the previous run's claims it settled 12 deterministically and emptied source:HARMONIA, source:MONALEESA-2 and source:MONALEESA-7. If those three appear in the cost breakdown, the pre-check is not working and that matters more than the $1.57.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/cdk46.html",
+    "--since",
+    "../site/whatholdsup/cdk46.html.gate.json",
+    "--report",
+    "../site/whatholdsup/cdk46.html.gate.json",
+    "--past-cap",
+    "The two runs already in cycle 1 read different text from this one and from each other. Run 1 (21:31) read the page before the day's corrections. Run 2 (23:18) read that page and returned four real errors, one serious: a wall claimed over a paper our own ledger records as read; NEJM's p = 0.008 called one-sided when the registry's one-sided figure is 0.004, exactly half; both head-to-head trials described as finding no difference when HARMONIA terminated at 61 patients without reporting; and a block count that was our own arithmetic. All four are fixed, and the fixes are nine sentences no role has read. This run reads those. The cap's premise is that runs past it stop paying -- on issue two, runs 11 onwards returned phrasing notes. Run 2 of this cycle was not that: it paid for itself several times over, and the text it produced has never been checked. Operator approved 2026-09-01."
+  ]
+}
