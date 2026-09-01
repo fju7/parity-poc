@@ -1,0 +1,266 @@
+#!/usr/bin/env python3
+"""Does any of this work? — the recall test.
+
+WHY
+---
+On 2026-09-01 the operator set a condition: be confident the process is correct
+and complete before subscribers exist. Confidence by inspection is not available
+here. In one day five mechanisms were built and every one was wrong on its first
+RUN: substance() called four registry postings and three drug labels "pages
+about documents"; inaccessibility_claims blocked the publish over three true
+sentences; the errata type allow-list marked twenty journal articles "not
+applicable"; the errata DOI fallback matched a registry record to a Clinical
+Pharmacokinetics paper; the ingest identity test matched this publication's own
+page as a source document, in two different ways.
+
+None of those would have been caught by more thinking. All were caught within
+minutes of being run against something real.
+
+So the only honest form of "correct and complete" is a number: given the errors
+we have ACTUALLY made and written down, how many does a check catch when run
+against the real bytes?
+
+THE RULE THIS FILE EXISTS TO ENFORCE
+------------------------------------
+A check "would have caught it" only if it is EXECUTED here and observed to
+fire. Nothing is counted because it looks like it would work. Four outcomes:
+
+    CAUGHT      the check ran against the real document and fired
+    MISSED      the check ran against the real document and did NOT fire
+                -- the most useful row in the file
+    UNBUILT     the spec names a check for this and it does not exist yet
+    UNCOVERED   nothing in the spec would have caught this
+
+The headline number counts CAUGHT only.
+"""
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import spancheck  # noqa: E402
+import errata     # noqa: E402
+import bindings   # noqa: E402
+
+CAUGHT, MISSED, UNBUILT, UNCOVERED = "CAUGHT", "MISSED", "UNBUILT", "UNCOVERED"
+
+
+# ---------------------------------------------------------------------------
+# The corpus. Every row is an error we actually published or nearly published,
+# with the real source, the real span, and the sentence as it stood.
+# ---------------------------------------------------------------------------
+
+CASES = [
+  dict(id="CORR-25", slug="cdk46", check="B2/B3",
+       what="PALOMA-2's final survival hazard ratio printed under the journal's "
+            "byline when the figures are the registry's",
+       sid="S010", span="0.956",
+       sentence="53.9 vs 51.2 months, HR 0.956 (95% CI 0.777-1.177), one-sided P = .34.",
+       expect="B2 fails on S010 and B3 names S020"),
+
+  dict(id="CORR-25b", slug="cdk46", check="B2/B3",
+       what="the same, for the lower confidence limit",
+       sid="S010", span="0.777",
+       sentence="HR 0.956 (95% CI 0.777-1.177)",
+       expect="B2 fails on S010 and B3 names S020"),
+
+  dict(id="CORR-28", slug="cdk46", check="B5",
+       what="grade 3 diarrhoea reported as its own floor; the label says 8% to 20%",
+       sid="S013", span="Grade 3 diarrhea occurred in 8%",
+       sentence="diarrhoea in 81% to 90% of 3,691 patients across four trials, grade 3 in 8%",
+       expect="B5 fires: the span stops before 'to'"),
+
+  dict(id="CORR-29", slug="cdk46", check="B5",
+       what="the ribociclib monitoring schedule cut off at cycle 2",
+       sid="S012", span="Monitor LFTs every 2 weeks for the first 2 cycles",
+       sentence="liver function tests every two weeks for the first two cycles",
+       expect="B5 fires: the document continues 'at the beginning of each subsequent 4 cycles'"),
+
+  dict(id="CORR-20", slug="cdk46", check="B6",
+       what="'every log-rank p-value on the study' -- 15 log-rank analyses, 3 annotated",
+       sid="S020", span="1-sided p-value from the stratified log-rank test.",
+       sentence="its registry record labels every log-rank p-value on the study "
+                "1-sided p-value from the stratified log-rank test",
+       expect="B6 fires on 'every'"),
+
+  dict(id="CORR-30", slug="cdk46", check="B6",
+       what="'restricted to the HER2-enriched intrinsic subtype' against an "
+            "inclusion criterion reading HER2-E or Basal-like",
+       sid="S018", span="HER2-E or Basal-like subtype as per central PAM50 analysis.",
+       sentence="HARMONIA was restricted to the HER2-enriched intrinsic subtype, "
+                "a molecularly selected population",
+       expect="B6 fires on 'restricted'"),
+
+  dict(id="CORR-26", slug="cdk46", check="B6",
+       what="'what PALOMA-2 established' against authors who say interpretation was limited",
+       sid="S010", span="OS was not significantly improved with palbociclib plus letrozole",
+       sentence="What PALOMA-2 established is that it did not demonstrate a survival benefit.",
+       expect="B6 fires on 'established'"),
+
+  dict(id="CORR-27", slug="cdk46", check="B2",
+       what="MONARCH 3's hazard ratio quoted from Table 1 of a stored copy "
+            "containing zero tables",
+       sid="S015", span="0.804",
+       sentence="Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015)",
+       expect="B2 fails: the stored HTML has no table bodies"),
+
+  dict(id="CORR-27b", slug="cdk46", check="B2",
+       what="the row label quoted from that same absent table",
+       sid="S015", span="year of updated data",
+       sentence="its 'Year of updated data' row gives 2023 for that trial",
+       expect="B2 fails"),
+
+  dict(id="CORR-31", slug="cdk46", check="B2",
+       what="P-VERIFY 'opens by describing its own purpose as working in the "
+            "absence of randomised trials'",
+       sid="S016", span="In the absence of head-to-head RCTs",
+       sentence="it opens by describing its own purpose as working in the absence "
+                "of randomised trials that directly compare the three",
+       expect="B2 PASSES", verdict_when_pass=UNCOVERED,
+       why_uncaught="The phrase is in the paper and modifies OTHER AUTHORS' "
+                    "indirect comparisons, not the study's own rationale. No "
+                    "span test can see that. This is the faithfulness question "
+                    "and it needs a reader given the envelope."),
+
+  dict(id="CORR-13", slug="cdk46", check="B2",
+       what="a correction that DELETED A TRUE STATEMENT: '29 blocks of four' "
+            "withdrawn as our arithmetic",
+       sid="S017", span="29 blocks with block size of four",
+       sentence="randomised 116 patients in 29 blocks of four",
+       expect="B2 PASSES", verdict_when_pass=UNBUILT,
+       why_uncaught="B2 proves the sentence was TRUE when we deleted it, which "
+                    "is what the deletion rule in spec section 8 would use. "
+                    "That rule is not built, so nothing today refuses the "
+                    "deletion."),
+
+  dict(id="CORR-32", slug="cdk46", check="B10",
+       what="MONALEESA-2's updated-results paper carries a 2019 correction "
+            "nobody had read",
+       sid="S004", check_kind="errata"),
+
+  dict(id="CORR-19b", slug="cdk46", check="B10",
+       what="MONARCH 3's final survival paper carries a 2025 corrigendum",
+       sid="S003", check_kind="errata"),
+
+  dict(id="CORR-23", slug="cdk46", check="B2",
+       what="Lan-DeMets and O'Brien-Fleming inverted: we call one the spending "
+            "function and the other the boundary, the paper says the reverse",
+       sid="S003", span="Lan",
+       sentence="the Lan-DeMets method with an O'Brien-Fleming spending function",
+       expect="B2 PASSES", verdict_when_pass=UNCOVERED,
+       why_uncaught="Both names are in the paper. What is wrong is which is "
+                    "which, and a presence test cannot see word order."),
+
+  dict(id="CORR-21", slug="cdk46", check="B8",
+       what="MONALEESA-7's one-sidedness sourced to a conference abstract while "
+            "the NEJM paper we hold states it directly",
+       sid="S007", span="The one-sided stratified log-rank P value was 0.00973",
+       sentence="the ASCO 2019 abstract of the same analysis states that "
+                "statistical comparison was made by 1-sided stratified log-rank test",
+       expect="B8, closer source available"),
+
+  dict(id="CORR-24", slug="cdk46", check="B9",
+       what="the Cancers 2023 study: eight figures on the page, its own entry in "
+            "the visible source list, no row in sources.json",
+       sid="", span="", sentence="", expect="B9, page-to-ledger reconciliation"),
+
+  dict(id="CORR-26b", slug="cdk46", check="B6",
+       what="'the investigators recovered-data sensitivity analysis' -- the paper "
+            "calls it Revised Results Including Recovered Data",
+       sid="S010", span="Revised Results Including Recovered Data",
+       sentence="the investigators' recovered-data sensitivity analysis",
+       expect="B6 has no scope word to catch here"),
+
+  dict(id="S016-SUB", slug="cdk46", check="B6",
+       what="'none of the four comparative studies separates abemaciclib from "
+            "ribociclib' -- true of the overall analysis, and three subgroup "
+            "intervals in P-VERIFY exclude 1",
+       sid="S016", span="no significant differences when comparing OS between "
+                        "different CDK4/6i treatment groups",
+       sentence="None of the four comparative studies examined on this page "
+                "separates abemaciclib from ribociclib",
+       expect="B6 fires on 'none'?"),
+
+  dict(id="DESK-01", slug="deskilling", check="B10",
+       what="issue three's central study carries a 2025 correction",
+       sid="S021", check_kind="errata"),
+]
+
+
+def run_case(c: dict) -> tuple[str, str]:
+    kind = c.get("check_kind")
+    if kind == "errata":
+        doc = errata.load(c["slug"])
+        row = (doc.get("checked") or {}).get(c["sid"]) or {}
+        if row.get("amendments"):
+            return CAUGHT, "errata records %d amendment(s) on %s" % (
+                len(row["amendments"]), c["sid"])
+        if row.get("state") in ("UNCHECKED", "UNCHECKABLE"):
+            return MISSED, "errata could not look %s up: %s" % (
+                c["sid"], row.get("why", "")[:60])
+        return MISSED, "errata reports %s clean" % c["sid"]
+
+    span, slug, sid = c["span"], c["slug"], c["sid"]
+    expect_pass = "PASSES" in c.get("expect", "")
+
+    if c["check"].startswith("B2"):
+        ok, why = spancheck.b2_present(span, slug, sid)
+        if expect_pass:
+            # A CHECK BEHAVING AS DESIGNED IS NOT AN ERROR CAUGHT, and the
+            # first version of this file scored it as one, returning 100% on a
+            # corpus I had written myself. B2 confirming that a span is present
+            # means B2 found NOTHING WRONG. The error was real and something
+            # else has to see it.
+            return (c.get("verdict_when_pass", UNCOVERED),
+                    "B2 confirms the span is present, so B2 sees nothing here. %s"
+                    % c.get("why_uncaught", ""))
+        if ok:
+            return MISSED, "B2 found %r in %s; it should not be there" % (span, sid)
+        other, why2 = spancheck.b3_elsewhere(span, slug, sid)
+        return CAUGHT, ("B2 fails on %s; %s" % (sid, why2))
+
+    if c["check"] == "B5":
+        ok, why = spancheck.b5_complete(span, slug, sid)
+        return (MISSED, "B5 sees nothing wrong: " + why) if ok else (CAUGHT, why)
+
+    if c["check"] == "B6":
+        bad = spancheck.b6_scope(c["sentence"], span)
+        if bad:
+            return CAUGHT, "B6 flags %s" % ", ".join(w for w, _ in bad)
+        return MISSED, "B6 maps every scope word in the sentence to the span"
+
+    if c["check"] in ("B8", "B9"):
+        return UNBUILT, ("%s is specified in section 4 of the spec and is not "
+                         "built; step 3 and 4 of the build order" % c["check"])
+    return UNBUILT, "no check implemented for %s" % c["check"]
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--verbose", action="store_true")
+    args = ap.parse_args()
+
+    print("\n  RECALL TEST — %d recorded errors, each run against the real bytes\n"
+          % len(CASES))
+    tally = {}
+    for c in CASES:
+        state, why = run_case(c)
+        tally[state] = tally.get(state, 0) + 1
+        print("  %-9s %-10s %s" % (state, c["id"], c["what"][:64]))
+        if args.verbose or state != CAUGHT:
+            print("            %s" % why[:150])
+    print()
+    caught = tally.get(CAUGHT, 0)
+    print("  %d CAUGHT, %d MISSED, %d UNBUILT, %d UNCOVERED  —  %.0f%% of %d "
+          "recorded errors are caught by a check that was RUN, not asserted"
+          % (caught, tally.get(MISSED, 0), tally.get(UNBUILT, 0),
+             tally.get(UNCOVERED, 0), 100.0 * caught / len(CASES), len(CASES)))
+    print()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
