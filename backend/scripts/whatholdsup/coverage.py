@@ -64,20 +64,24 @@ def substance_coverage(slug: str) -> dict:
     """Which held documents the article test actually examined."""
     types = {s["id"]: s.get("type", "") for s in store.sources(slug)}
     lib = store.held(slug) or {}
-    article, floor_only, unknown = [], [], []
+    article, page, floor_only, unknown = [], [], [], []
     for sid in sorted(lib):
         t = types.get(sid, "")
         src = next((x for x in store.sources(slug) if x["id"] == sid), {})
         form = store.form_of(src)
         if form == "article":
             article.append(sid)
+        elif form == "page":
+            # A page gets a real substance test now — prose sentences, not a
+            # character floor — so it counts as examined.
+            page.append(sid)
         elif form is None:
             unknown.append(sid)
         elif t in TYPES:
             floor_only.append(sid)
         else:
             unknown.append(sid)
-    return {"held": len(lib), "article_test": article,
+    return {"held": len(lib), "article_test": article, "page_test": page,
             "length_floor_only": floor_only, "type_unknown": unknown}
 
 
@@ -98,14 +102,16 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                                             for t, v in und.items()))))
 
     held = cov["held"]
-    art, floor = len(cov["article_test"]), len(cov["length_floor_only"])
+    art, pg = len(cov["article_test"]), len(cov["page_test"])
+    floor = len(cov["length_floor_only"])
+    examined = art + pg
     if held:
-        state = OK if art == held else WARN
-        rows.append(("documents the article test examined", state,
-                     "%d of %d held document(s). %d were checked only against a "
-                     "length floor because their kind does not carry an "
-                     "article's furniture%s"
-                     % (art, held, floor,
+        state = OK if examined == held else WARN
+        rows.append(("documents a substance test examined", state,
+                     "%d of %d held document(s) — %d by the article test, %d by "
+                     "the page test. %d were checked only against a length "
+                     "floor, which is a weaker thing%s"
+                     % (examined, held, art, pg, floor,
                         "" if not cov["type_unknown"] else
                         ", and %d are UNDETERMINED — their type does not settle "
                         "whether they are journal articles and they declare no "

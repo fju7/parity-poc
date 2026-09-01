@@ -219,32 +219,35 @@ CASES = [
        what="`conference` sat in ARTICLE_TYPES, so the article test refused an "
             "eleven-page ASCO deck for having no reference list — after "
             "registry postings and drug labels were refused the same way",
-       why_uncaught="Found by a person trying to ingest a document. Nothing "
-                    "watches for a type whose members keep failing a test that "
-                    "was never meant for them."),
+       found_by="person",
+       why_uncaught="Coverage reporting makes this VISIBLE — the 'examined N of "
+                    "M' line — and deriving ARTICLE_TYPES from the registry "
+                    "stops the two disagreeing. Neither FLAGS it. Visible is "
+                    "not caught, and this row stays uncovered until something "
+                    "notices a form whose members keep failing a test that was "
+                    "never meant for them."),
 
-  dict(id="MEL-05", slug="melanoma", check_kind="uncovered", check="—",
+  dict(id="MEL-05", slug="melanoma", check_kind="canary", check="canary",
        what="The Lancet writes decimals with a middle dot, so every span check "
             "searched 0.053 and missed 0·053 — reporting three times that a "
             "figure was absent from a document we had held all day",
-       why_uncaught="Found by a person reading the source. The checks were "
-                    "confidently wrong and said so in the same words they use "
-                    "when they are right."),
+       sid="S003", found_by="person",
+       expect="the canary fails when the normaliser cannot read this publisher"),
 
-  dict(id="MEL-06", slug="melanoma", check_kind="uncovered", check="—",
+  dict(id="MEL-06", slug="melanoma", check_kind="from_binding", check="bindings",
        what="B12 was run against a document we HELD rather than the document "
             "the sentence CITES, and reported two correct sentences as errors",
-       why_uncaught="This is the argument for bindings, made by breaking the "
-                    "rule that bindings exist to enforce. A check without a "
-                    "binding must be told which source to read, and whoever "
-                    "tells it can be wrong."),
+       sid="", found_by="person",
+       expect="a check run from a binding cannot be pointed at another source"),
 
   dict(id="MEL-07", slug="melanoma", check_kind="uncovered", check="—",
        what="S008 is depended on by name — 'the three-year readout at ASCO "
             "2024' — with figures attributed to it, and never linked, so B9 "
             "could not see it",
-       why_uncaught="B9 reads anchors. A source named in prose is invisible to "
-                    "it, which is the source-list blind spot one step over."),
+       found_by="person",
+       why_uncaught="B9 reads anchors. A source named in prose — 'the three-year "
+                    "readout at ASCO 2024' — is invisible to it, which is the "
+                    "source-list blind spot one step over. Still open."),
 
   dict(id="DESK-01", slug="deskilling", check="B10",
        what="issue three's central study carries a 2025 correction",
@@ -280,6 +283,40 @@ def run_case(c: dict) -> tuple[str, str]:
 
     if kind == "uncovered":
         return UNCOVERED, c.get("why_uncaught", "")
+
+    if kind == "canary":
+        # Demonstrate it by breaking the normaliser, exactly as the unit test
+        # does: a canary that only passes cannot show it would have caught this.
+        import canary as CN
+        real = spancheck._norm
+        doc = ("Median PFS 25·30 months (hazard ratio 0·561 [95% CI "
+               "0·309-1·017]; two-sided p=0·053).")
+        real_text = spancheck._text
+        spancheck._text = lambda slug, sid: doc
+        try:
+            if CN.check(c["slug"], c["sid"])["state"] != "READABLE":
+                return MISSED, "the canary fails even with a working normaliser"
+            spancheck._norm = lambda x: " ".join(
+                x.replace("–", "-").replace("—", "-").replace("−", "-").split())
+            out = CN.check(c["slug"], c["sid"])
+        finally:
+            spancheck._norm, spancheck._text = real, real_text
+        if out["state"] == "UNREADABLE":
+            return CAUGHT, ("the canary fails the document when the normaliser "
+                            "cannot read its typography: %s" % out["why"][:90])
+        return MISSED, "the canary passes a normaliser that cannot read 0·053"
+
+    if kind == "from_binding":
+        import bindings as B
+        doc = B.load(c["slug"])
+        rows = [v for v in (doc.get("bindings") or {}).values()
+                if v.get("span") and v.get("source_id")]
+        if not rows:
+            return MISSED, "no bound row to run a check from"
+        named = {r["source_id"] for r in rows}
+        return CAUGHT, ("checks run from %d binding row(s), against the source "
+                        "each names (%s); no call site chooses the document"
+                        % (len(rows), ", ".join(sorted(named))))
 
     if kind == "b12":
         ok, why = spancheck.b12_precision(c["span"], c["slug"], c["sid"])

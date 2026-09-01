@@ -417,6 +417,10 @@ def classify(slug: str, sid: str, data: bytes,
     form = form_of(src)
     if form == "article":
         return substance(data, content_type)
+    if form == "page":
+        kind, why = substance_page(data, content_type)
+        return ("document" if kind == "full_page" else "shell",
+                "form 'page' — " + why)
     if form in FORM_FLOOR:
         text, _how = text_of(data, content_type, pages=0)
         if data[:5] != b"%PDF-" and data[:1] not in (b"{", b"["):
@@ -471,6 +475,41 @@ def classify(slug: str, sid: str, data: bytes,
                             "does not apply to it. %d characters held, not "
                             "examined further" % (stype, stype, n))
     return substance(data, content_type)
+
+
+def substance_page(data: bytes, content_type: str = "") -> tuple[str, str]:
+    """Is this the page, or the shell of one? — the article test's analogue.
+
+    A character floor is a weak test and it was standing in for a real one. Ten
+    of issue three's seventeen held documents are pages -- journalism, an
+    expert-reaction page, a newsletter -- and all a page had to do was exceed
+    2,000 characters. A paywall teaser, a consent wall with boilerplate, or a
+    cookie notice wrapped in navigation all clear that comfortably.
+
+    What separates a page from its shell is PROSE: sentences of the length
+    people write in. Navigation, menus, cookie text and teasers are short
+    fragments and legal boilerplate; an article is paragraphs. Counted on what
+    is actually in the library, a real news page carries dozens of sentences
+    over sixty characters and a wall carries a handful.
+
+    Positive, like every other test here: it looks for what a page has, not for
+    phrases a wall has been caught using.
+    """
+    text, _how = text_of(data, content_type, pages=0)
+    if data[:5] != b"%PDF-" and data[:1] not in (b"{", b"["):
+        text = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", text,
+                      flags=re.S | re.I)
+        text = re.sub(r"<[^>]+>", " ", text)
+    t = " ".join(text.split())
+    sents = [x for x in re.split(r"(?<=[.!?])\s+", t) if len(x) >= 60]
+    words = len(t.split())
+    if len(sents) >= 12 and words >= 400:
+        return "full_page", ("%d prose sentence(s) over sixty characters, %d "
+                             "words — this reads as the page itself"
+                             % (len(sents), words))
+    return "shell", ("only %d prose sentence(s) over sixty characters in %d "
+                     "words — a teaser, a wall or navigation, not the page"
+                     % (len(sents), words))
 
 
 def identifies(data: bytes, src: dict, content_type: str = "") -> tuple[bool, str]:
