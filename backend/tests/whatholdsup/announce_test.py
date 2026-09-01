@@ -40,7 +40,7 @@ def run_with(stdout, code):
     m.subprocess.run = lambda *a, **k: types.SimpleNamespace(
         returncode=code, stdout=stdout, stderr="")
     m.preflight = lambda slug, *, for_email: [("stub", m.OK, "ok")]
-    m.show = lambda rows, waive=None: True
+    m.show = lambda rows, waive=None, unwaivable=(): True
     try:
         rc = m.cmd_announce(Namespace(slug="melanoma", yes=True, waive=None,
                                       subject="Test subject", dry_run=False))

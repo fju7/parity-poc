@@ -269,3 +269,83 @@ def test_abstract_held_licenses_the_abstract_and_not_the_paper():
     permit = ledger.PERMITS[ledger.ABSTRACT_HELD]
     assert "NOT what the study found" in permit
     assert ledger.ABSTRACT_HELD in ledger.READ_STATES
+
+
+# --- the question only applies where it is the question ---------------------
+
+REGISTRY = json.dumps({"protocolSection": {
+    "identificationModule": {"nctId": "NCT01958021",
+                             "briefTitle": "Ribociclib overall survival MONALEESA trial"},
+    "outcomesModule": {"primaryOutcomes": [{"measure": "Progression-free survival"}]},
+}}).encode()
+
+
+def test_a_registry_posting_is_not_a_landing_page(issue, monkeypatch):
+    """substance() reads an ARTICLE's furniture -- reference list, discussion,
+    introduction. Run over a ClinicalTrials.gov results posting or a drug label
+    it answers "landing" with full confidence, and the answer looks exactly
+    like the right one. A first pass at the 2026-09-01 backfill labelled the
+    KISQALI prescribing information, the IBRANCE warnings section and all four
+    registry postings as pages ABOUT documents we hold in full; one of them was
+    221,525 characters long."""
+    srcs = json.loads((issue / "issues" / "WHU-999-t" / "sources.json").read_text())
+    srcs["sources"][0]["type"] = "registry"
+    (issue / "issues" / "WHU-999-t" / "sources.json").write_text(json.dumps(srcs))
+
+    alone, _why = store.substance(REGISTRY, "application/json")
+    assert alone == "landing", "the article test, asked out of turn, says landing"
+
+    kind, why = store.classify("t", "S001", REGISTRY, "application/json")
+    assert kind == "document"
+    assert "does not apply" in why
+
+
+def test_an_article_is_still_held_to_the_article_test(issue):
+    kind, _why = store.classify("t", "S001", LANDING, "text/html")
+    assert kind == "landing", "no type given, so the article test governs"
+
+
+def test_every_route_into_the_library_records_what_kind_it_holds(issue):
+    """substance() existed for three hours before put() called it, and in that
+    gap the CLI add path -- the one a human uses -- stored three documents with
+    identity confirmed and substance never asked."""
+    row = store.put("t", "S002", FULL, url="https://example.org/b",
+                    via="test", content_type="text/html")
+    assert row["kind"] == "full_text"
+    assert store.held("t")["S002"]["kind"] == "full_text"
+    assert "reference list" in store.held("t")["S002"]["kind_why"]
+
+
+# --- the gap list is derived, not maintained --------------------------------
+
+def test_the_gap_list_is_generated_from_the_library(issue):
+    before = store.gaps_markdown("t")
+    assert "### S002" in before, "S002 is not held yet, so it is a gap"
+    store.put("t", "S002", FULL, url="https://example.org/b",
+              via="test", content_type="text/html")
+    after = store.gaps_markdown("t")
+    assert "### S002" not in after, "held in full, so no longer a gap"
+    assert "### S001" in after
+
+
+def test_a_document_the_licence_forbids_is_not_listed_as_one_nobody_got(issue):
+    """The hand-written file listed the NCCN guideline among documents we could
+    not get. A person had read it and answered ten questions from it. The
+    licence is why it is not in the library, and saying so is the point."""
+    path = issue / "issues" / "WHU-999-t" / "sources.json"
+    srcs = json.loads(path.read_text())
+    srcs["sources"][0]["licence_forbids_machine_reading"] = True
+    path.write_text(json.dumps(srcs))
+    md = store.gaps_markdown("t")
+    head, lic = md.split("## The licence forbids machine reading", 1)
+    assert "### S001" in lic
+    assert "### S001" not in head
+
+
+def test_the_gap_list_says_when_we_hold_only_part_of_a_document(issue):
+    store.put("t", "S002", ABSTRACT_PAGE, url="https://example.org/b",
+              via="test", content_type="text/html")
+    md = store.gaps_markdown("t")
+    part = md.split("## In the library, but not the whole document", 1)[1]
+    assert "### S002" in part
+    assert "abstract" in part

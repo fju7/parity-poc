@@ -236,6 +236,11 @@ def text_of(data: bytes, content_type: str = "", pages: int = 8) -> tuple[str, s
 # article and is not held to this.
 ARTICLE_TYPES = {"primary", "comparison", "methods", "conference", "review"}
 
+# The NCCN guideline licence forbids putting the document through any AI tool.
+# A source carrying this flag is never acquired, never classified, and never
+# quoted except from an answer a person gave after reading it.
+LICENCE_KEY = "licence_forbids_machine_reading"
+
 _MARKS = ("abstract", "introduction", "methods", "results", "discussion",
           "conclusion", "references", "acknowledg", "funding", "supplementary")
 
@@ -291,6 +296,33 @@ def substance(data: bytes, content_type: str = "") -> tuple[str, str]:
                             % len(t))
     return "landing", ("%d characters, sections %s — cannot show it is the document"
                        % (len(t), ",".join(sorted(hits))))
+
+
+def classify(slug: str, sid: str, data: bytes,
+             content_type: str = "") -> tuple[str, str]:
+    """(kind, why), asking the substance question ONLY where it is the question.
+
+    substance() discriminates a paper from a page about a paper, using an
+    article's furniture: a reference list, a discussion, an introduction. Run it
+    over a drug label or a ClinicalTrials.gov results posting and it returns
+    "landing" with full confidence -- which is how a first pass at this
+    backfill labelled the KISQALI prescribing information, all four registry
+    postings and the IBRANCE warnings section as pages ABOUT documents we hold
+    in full. A 221,525-character results posting is not a landing page. It is a
+    complete document of a kind that has no discussion section because its kind
+    does not have one.
+
+    A test applied outside the domain it was built for does not become silent.
+    It answers, and it answers wrongly, and the answer looks exactly like the
+    right one. So the type decides whether the question applies at all.
+    """
+    src = next((x for x in sources(slug) if x.get("id") == sid), {})
+    stype = src.get("type", "")
+    if stype and stype not in ARTICLE_TYPES:
+        return "document", ("type '%s' — a %s is a complete document of its own "
+                            "kind; the article test (reference list, discussion) "
+                            "does not apply to it" % (stype, stype))
+    return substance(data, content_type)
 
 
 def identifies(data: bytes, src: dict, content_type: str = "") -> tuple[bool, str]:
@@ -358,6 +390,17 @@ def put(slug: str, sid: str, data: bytes, *, url: str, via: str,
         row["used_by"].append(tag)
     save_index(ix)
 
+    # WHAT KIND OF DOCUMENT IS THIS, recorded at the moment of storing.
+    #
+    # substance() existed for three hours before this line did, and in that gap
+    # the CLI "add" path -- the path a human uses, which is the path we told
+    # ourselves was the trustworthy one -- stored three documents with no
+    # substance classification at all. Identity was confirmed; substance was
+    # never asked. That is the same split the landing-page incident was about,
+    # reintroduced one function to the left. Every route into the library now
+    # answers both questions.
+    kind, kind_why = classify(slug, sid, data, content_type)
+
     iix = load_issue_index(slug)
     prior = (iix.get("sources") or {}).get(sid) or {}
     versions = list(prior.get("superseded") or [])
@@ -392,10 +435,12 @@ def put(slug: str, sid: str, data: bytes, *, url: str, via: str,
     iix.setdefault("sources", {})[sid] = {
         "sha256": digest, "file": row["file"], "bytes": len(data), "url": url,
         "held": date.today().isoformat(), "via": via, "note": note,
+        "kind": kind, "kind_why": kind_why,
         "superseded": versions, "also_held": alsos}
     save_issue_index(slug, iix)
     return {"sha256": digest, "file": row["file"], "bytes": len(data),
-            "retrieved": date.today().isoformat(), "url": url}
+            "retrieved": date.today().isoformat(), "url": url,
+            "kind": kind, "kind_why": kind_why}
 
 
 def put_file(slug: str, sid: str, path: Path, *, url: str, via: str,
@@ -425,6 +470,99 @@ def verify(slug: str) -> tuple[list[str], list[str]]:
 def sources(slug: str) -> list[dict]:
     raw = json.loads((case_dir(slug) / "sources.json").read_text(encoding="utf-8"))
     return raw.get("sources", raw) if isinstance(raw, dict) else raw
+
+
+GAPS_FILE = "documents-we-do-not-hold.md"
+
+
+def gaps_markdown(slug: str) -> str:
+    """The list of documents we do not hold, DERIVED rather than maintained.
+
+    The hand-written version of this file listed S004 and S016 as documents we
+    could not get, hours after both were in the library. A stale gap list is
+    worse than none: it is a claim about what we cannot see, made by something
+    that had stopped looking, and this project has now written that sentence
+    about five different mechanisms. So the file is generated from sources.json
+    and the library, and regenerating it is the only way to edit it.
+    """
+    h = held(slug)
+    lines = ["# %s — documents we do not hold" % slug.upper(),
+             "",
+             "GENERATED by `source_store.py %s gaps --write`. Do not hand-edit:"
+             " re-run it." % slug,
+             "Generated %s." % date.today().isoformat(),
+             ""]
+
+    missing, partial, forbidden = [], [], []
+    for src in sources(slug):
+        sid = src.get("id")
+        rec = h.get(sid)
+        acc = src.get("access") or {}
+        # The flag sits on the SOURCE, not inside access. Reading only one of
+        # the two places listed the NCCN guideline as a document nobody had
+        # got, when in fact a person had read it and answered ten questions
+        # from it -- the licence is why it is not in the library, and saying so
+        # is the whole purpose of this section.
+        if src.get(LICENCE_KEY) or acc.get(LICENCE_KEY):
+            forbidden.append((src, rec))
+        elif not rec:
+            missing.append((src, None))
+        elif rec.get("kind") not in ("full_text", "document"):
+            partial.append((src, rec))
+
+    lines += ["We hold %d of %d. Not held: %d. Held but not the whole document: %d."
+              % (len(h), len(sources(slug)), len(missing), len(partial)), ""]
+
+    def block(title, why, rows, show_kind=False):
+        if not rows:
+            return []
+        out = ["## %s" % title, "", why, ""]
+        for src, rec in rows:
+            out.append("### %s — %s" % (src.get("id"), src.get("title", "")))
+            out.append("")
+            out.append("    state  %s" % ((src.get("access") or {}).get("state", "?")))
+            out.append("    url    %s" % src.get("url", ""))
+            if show_kind and rec:
+                out.append("    held   %s — %s" % (rec.get("kind"), rec.get("kind_why", "")))
+            used = src.get("used_for")
+            if used:
+                out.append("    we use it for: %s" % (used if isinstance(used, str)
+                                                      else "; ".join(used)))
+            out.append("")
+        return out
+
+    lines += block(
+        "Not in the library at all", 
+        "Until each is in the library the ledger permits only the figures a "
+        "retrieval literally returned, attributed to that retrieval, and NO "
+        "characterisation of the document.",
+        missing)
+    lines += block(
+        "In the library, but not the whole document",
+        "These bytes identify themselves as the right document and are not it: "
+        "an abstract, or a page about it. Everything the missing part would "
+        "license -- the statistical analysis, the limitations, anything the "
+        "abstract does not print -- is not licensed.",
+        partial, show_kind=True)
+    lines += block(
+        "The licence forbids machine reading",
+        "This document may not be put through any AI tool. Only a person may "
+        "read it, and the page may say only what that person answered, in "
+        "answers recorded as such.",
+        forbidden)
+
+    lines += ["## How to add one", "",
+              "Open it with whatever access you have, save the file, then, from "
+              "the `backend` directory:", "",
+              "    venv/bin/python3 scripts/whatholdsup/source_store.py %s \\" % slug,
+              "      add <SID> <path-to-the-file> --url <url> --via \"how you got it\"",
+              "",
+              "It refuses a file whose text does not identify it as that "
+              "document, and refuses an article whose text shows it is a page "
+              "ABOUT the article. Then re-run:", "",
+              "    venv/bin/python3 scripts/whatholdsup/source_store.py %s gaps --write" % slug,
+              ""]
+    return "\n".join(lines)
 
 
 def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
@@ -472,6 +610,9 @@ def main() -> int:
     a.add_argument("--note", default="")
     a.add_argument("--force", action="store_true",
                    help="store even if the bytes do not identify themselves")
+    g = sub.add_parser("gaps", help="regenerate the list of documents we do not hold")
+    g.add_argument("--write", action="store_true",
+                   help="write it into the issue directory instead of printing it")
     sub.add_parser("status")
     sub.add_parser("library", help="everything the library holds, across issues")
     args = ap.parse_args()
@@ -484,11 +625,32 @@ def main() -> int:
             print("\n  REFUSED: %s\n  Use --force only if you have looked at the file "
                   "yourself.\n" % why)
             return 2
+        ct, _ = mimetypes.guess_type(str(args.path))
+        kind, kind_why = classify(args.slug, args.sid, data, ct or "")
+        if kind == "landing" and src.get("type") in ARTICLE_TYPES and not args.force:
+            print("\n  REFUSED: %s\n  It identifies itself as the right document, but it "
+                  "is not the document.\n  Use --force only if you have opened the file "
+                  "yourself and disagree.\n" % kind_why)
+            return 2
         row = put_file(args.slug, args.sid, Path(args.path), url=args.url, via=args.via,
                        title=src.get("title", ""), note=args.note)
-        print("\n  held %s -> %s  (%d bytes, sha %s)\n  %s\n"
+        print("\n  held %s -> %s  (%d bytes, sha %s)\n  identity:  %s\n  substance: %s — %s\n"
               % (args.sid, row["file"], row["bytes"], row["sha256"][:16],
-                 why if ok else "stored with --force, identity NOT confirmed"))
+                 why if ok else "stored with --force, identity NOT confirmed",
+                 row["kind"], row["kind_why"]))
+        if row["kind"] != "full_text" and src.get("type") in ARTICLE_TYPES:
+            print("  The ledger state for %s is %s_held, NOT full_text_held.\n"
+                  % (args.sid, row["kind"]))
+        return 0
+
+    if args.cmd == "gaps":
+        text = gaps_markdown(args.slug)
+        if args.write:
+            out = case_dir(args.slug) / GAPS_FILE
+            out.write_text(text, encoding="utf-8")
+            print("\n  wrote %s\n" % out)
+        else:
+            print(text)
         return 0
 
     if args.cmd == "library":

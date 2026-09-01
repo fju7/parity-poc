@@ -48,3 +48,22 @@ backend/data/pfs_rates_2025.csv
 
 # Generated ops board. Local only — it carries subscriber data.
 backend/data/whatholdsup/dashboard.html
+
+# The source library's DOCUMENTS. This repository is public.
+#
+# The library holds the papers, labels, registry postings and guidelines the
+# issues are checked against, so that a sentence can be reopened against the
+# bytes it came from. Some of those documents are subscription content — three
+# NEJM papers were downloaded through the editor's own access on 2026-09-01 —
+# and putting them in a public repository would be republishing them.
+#
+# The MANIFESTS stay in git: backend/data/whatholdsup/library/index.json and
+# library/issues/*.json carry the sha256, the URL, how it was obtained, and
+# whether the bytes are the full text, an abstract or a page about it. What we
+# hold and what that licenses is the public record; the copyrighted bytes are
+# a local archive.
+#
+# A clone therefore verifies the manifests and re-acquires the documents. Run
+#   backend/venv/bin/python3 scripts/whatholdsup/source_store.py <slug> gaps
+# to see what is missing.
+backend/data/whatholdsup/library/docs/

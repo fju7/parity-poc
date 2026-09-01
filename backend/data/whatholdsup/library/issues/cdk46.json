@@ -11,7 +11,9 @@
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
       "superseded": [],
-      "also_held": []
+      "also_held": [],
+      "kind": "document",
+      "kind_why": "type 'label' \u2014 a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S013": {
       "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
@@ -22,7 +24,9 @@
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
       "superseded": [],
-      "also_held": []
+      "also_held": [],
+      "kind": "document",
+      "kind_why": "type 'label' \u2014 a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S014": {
       "sha256": "d4688e51d9cb7d0af3d3b1e00dfa65b40661c64bf908c21d9bd4892c80cb8eeb",
@@ -32,7 +36,9 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "kind": "document",
+      "kind_why": "type 'label' \u2014 a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S015": {
       "sha256": "66a5b3d6e327e0aaa392c77dc80374c7ad795c02a017604c4e492b13bb750d77",
@@ -42,7 +48,9 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "kind": "full_text",
+      "kind_why": "32880 characters, reference list and discussion/introduction present"
     },
     "S017": {
       "sha256": "7033f3727af4725fef07d6c5f8cf24c692aa986aa00cef61376b392c3ac7b9f4",
@@ -50,7 +58,7 @@
       "bytes": 488088,
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11700305/",
       "held": "2026-09-01",
-      "via": "supplied by Fred Ugast on 2026-09-01 after every automated route from the assistant's environment was refused; byte-identical to the copy he uploaded (sha256 7033f372…)",
+      "via": "supplied by Fred Ugast on 2026-09-01 after every automated route from the assistant's environment was refused; byte-identical to the copy he uploaded (sha256 7033f372\u2026)",
       "note": "Asian Pac J Cancer Prev 2024;25(9):3039-3049, doi 10.31557/APJCP.2024.25.9.3039. The paper that settled CORR-18 and CORR-19.",
       "superseded": [],
       "also_held": [
@@ -58,9 +66,11 @@
           "sha256": "676643dcfc6925e9ceef148b81ba70d23759c5d171f272aec24afce09cd63369",
           "held": "2026-09-01",
           "file": "docs/67/676643dcfc6925e9ceef148b81ba70d23759c5d171f272aec24afce09cd63369.xml",
-          "note": "Europe PMC full-text XML of the same paper, retrieved by acquisition. NOT a superseded version — a second representation. Kept because it is machine-searchable where the PDF is the published artifact."
+          "note": "Europe PMC full-text XML of the same paper, retrieved by acquisition. NOT a superseded version \u2014 a second representation. Kept because it is machine-searchable where the PDF is the published artifact."
         }
-      ]
+      ],
+      "kind": "full_text",
+      "kind_why": "46077 characters, reference list and discussion/introduction present"
     },
     "S018": {
       "sha256": "5474028f255ae65cda9c55331703b99b23f6fd56c1fedc9bf577f4a401ae0fb9",
@@ -70,7 +80,9 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "kind": "document",
+      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S019": {
       "sha256": "cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317",
@@ -80,7 +92,9 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "kind": "document",
+      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S020": {
       "sha256": "5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6",
@@ -90,7 +104,9 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "kind": "document",
+      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S021": {
       "sha256": "67e39a7e875f0d5681ef468692d93809ecddda3b7d7d971043ddaef5f1ed410b",
@@ -100,7 +116,9 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "kind": "document",
+      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S022": {
       "sha256": "460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff",
@@ -110,7 +128,9 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "kind": "document",
+      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S024": {
       "sha256": "e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2",
@@ -120,7 +140,9 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "kind": "full_text",
+      "kind_why": "20688 characters, reference list and discussion/introduction present"
     },
     "S004": {
       "sha256": "1adaa89a9ca058a7ff80c648042c26f1654e343df8d8105ceff77577c37613ed",
@@ -131,7 +153,9 @@
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
       "superseded": [],
-      "also_held": []
+      "also_held": [],
+      "kind": "abstract",
+      "kind_why": "17891 characters, abstract present but no reference list or discussion \u2014 this is the abstract, not the paper"
     },
     "S016": {
       "sha256": "0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236",
@@ -141,6 +165,47 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
+      "superseded": [],
+      "also_held": [],
+      "kind": "full_text",
+      "kind_why": "56301 characters, reference list and discussion/introduction present"
+    },
+    "S007": {
+      "sha256": "54315e60c8770154ef4c535672950230ac0bce1b16164edea231e36b65d0b431",
+      "file": "docs/54/54315e60c8770154ef4c535672950230ac0bce1b16164edea231e36b65d0b431.pdf",
+      "bytes": 387855,
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1903765",
+      "held": "2026-09-01",
+      "via": "publisher PDF, downloaded manually in a browser by the editor",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "45527 characters, reference list and discussion present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S005": {
+      "sha256": "df9a13100028c51fa6ae677e40a9eb4bba059dea5feb75d1e2b71101452f446a",
+      "file": "docs/df/df9a13100028c51fa6ae677e40a9eb4bba059dea5feb75d1e2b71101452f446a.pdf",
+      "bytes": 589007,
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2114663",
+      "held": "2026-09-01",
+      "via": "publisher PDF, downloaded manually in a browser by the editor",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "38369 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S009": {
+      "sha256": "aa06b6992e09b95847f9a6cb320e32b499a26b60e67729e1e826f9dc8006bb8f",
+      "file": "docs/aa/aa06b6992e09b95847f9a6cb320e32b499a26b60e67729e1e826f9dc8006bb8f.pdf",
+      "bytes": 349743,
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1607303",
+      "held": "2026-09-01",
+      "via": "publisher PDF, downloaded manually in a browser by the editor",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "46115 characters, reference list and discussion present",
       "superseded": [],
       "also_held": []
     }

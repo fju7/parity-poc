@@ -224,6 +224,54 @@
         "cdk46:S016"
       ],
       "note": ""
+    },
+    "54315e60c8770154ef4c535672950230ac0bce1b16164edea231e36b65d0b431": {
+      "file": "docs/54/54315e60c8770154ef4c535672950230ac0bce1b16164edea231e36b65d0b431.pdf",
+      "bytes": 387855,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.nejm.org/doi/full/10.1056/NEJMoa1903765"
+      ],
+      "titles": [
+        "MONALEESA-7 — overall survival. N Engl J Med, 2019"
+      ],
+      "used_by": [
+        "cdk46:S007"
+      ],
+      "note": ""
+    },
+    "df9a13100028c51fa6ae677e40a9eb4bba059dea5feb75d1e2b71101452f446a": {
+      "file": "docs/df/df9a13100028c51fa6ae677e40a9eb4bba059dea5feb75d1e2b71101452f446a.pdf",
+      "bytes": 589007,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.nejm.org/doi/full/10.1056/NEJMoa2114663"
+      ],
+      "titles": [
+        "MONALEESA-2 — overall survival with ribociclib plus letrozole. N Engl J Med, 2022"
+      ],
+      "used_by": [
+        "cdk46:S005"
+      ],
+      "note": ""
+    },
+    "aa06b6992e09b95847f9a6cb320e32b499a26b60e67729e1e826f9dc8006bb8f": {
+      "file": "docs/aa/aa06b6992e09b95847f9a6cb320e32b499a26b60e67729e1e826f9dc8006bb8f.pdf",
+      "bytes": 349743,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.nejm.org/doi/full/10.1056/NEJMoa1607303"
+      ],
+      "titles": [
+        "PALOMA-2 — palbociclib and letrozole. N Engl J Med, 2016"
+      ],
+      "used_by": [
+        "cdk46:S009"
+      ],
+      "note": ""
     }
   }
 }

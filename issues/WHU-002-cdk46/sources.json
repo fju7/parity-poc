@@ -106,14 +106,21 @@
       "accessed": "2026-08-28",
       "used_for": "63.9 vs 51.4 months, HR 0.76 (95% CI 0.63–0.93), two-sided P = 0.008, at 80 months median follow-up. The only overall-survival result among the three first-line postmenopausal aromatase-inhibitor trials that reached significance.",
       "access": {
-        "state": "blocked",
-        "by": "claude",
-        "on": "2026-08-29",
-        "not_read": [
-          "the statistical analysis section"
+        "state": "full_text_held",
+        "by": "Fred Ugast, who downloaded the publisher's PDF in a browser on 2026-09-01",
+        "on": "2026-09-01",
+        "note": "2026-09-01: a free repository copy was fetched and stored as full text. It was the University of Edinburgh Research Explorer LANDING PAGE — the title, the DOI, and nothing else. It passed the identity test because a page about a paper carries the paper's title and DOI. Removed. The paper itself is still unheld.\n\n2026-09-01: the publisher's PDF is now IN THE LIBRARY. Fred Ugast opened the article page in a browser and downloaded it; nothing about this route was automated, and the paywall on the JCO paper (S002) is why it is one of three rather than four. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by classify() -- reference list and discussion present, so these are the bytes of the paper and not a page about it.\n\nSTATE MEANS HELD, NOT READ. full_text_held says the complete document is on disk and can be reopened by the next person who questions a sentence sourced here. It does not say any sentence on the page has yet been checked against it. Those are separate acts and this project has already conflated them once -- S017 said machine_read while nobody had opened the paper.",
+        "sections": [
+          "the complete published article is held; no section of it has yet been read against the page"
         ],
-        "blocked_by": "paywall",
-        "note": "2026-09-01: a free repository copy was fetched and stored as full text. It was the University of Edinburgh Research Explorer LANDING PAGE — the title, the DOI, and nothing else. It passed the identity test because a page about a paper carries the paper's title and DOI. Removed. The paper itself is still unheld."
+        "held": {
+          "sha256": "df9a13100028c51fa6ae677e40a9eb4bba059dea5feb75d1e2b71101452f446a",
+          "file": "docs/df/df9a13100028c51fa6ae677e40a9eb4bba059dea5feb75d1e2b71101452f446a.pdf",
+          "bytes": 589007,
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2114663",
+          "via": "publisher PDF, downloaded manually in a browser by the editor",
+          "substance": "38369 characters, reference list and discussion/introduction present"
+        }
       },
       "also_called": [
         "MONALEESA-2"
@@ -148,13 +155,21 @@
       "accessed": "2026-08-28",
       "used_for": "The protocol-specified interim analysis: median not reached vs 40.9 months, HR 0.71 (95% CI 0.54–0.95), one-sided P = .00973 against a prespecified stopping boundary of P = .01018, at 34.6 months median follow-up. The direction of the test ",
       "access": {
-        "state": "fragment_only",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "Fred Ugast, who downloaded the publisher's PDF in a browser on 2026-09-01",
+        "on": "2026-09-01",
         "sections": [
-          "whatever the search tool returned for this URL"
+          "the complete published article is held; no section of it has yet been read against the page"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits.\n\n2026-09-01: the publisher's PDF is now IN THE LIBRARY. Fred Ugast opened the article page in a browser and downloaded it; nothing about this route was automated, and the paywall on the JCO paper (S002) is why it is one of three rather than four. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by classify() -- reference list and discussion present, so these are the bytes of the paper and not a page about it.\n\nSTATE MEANS HELD, NOT READ. full_text_held says the complete document is on disk and can be reopened by the next person who questions a sentence sourced here. It does not say any sentence on the page has yet been checked against it. Those are separate acts and this project has already conflated them once -- S017 said machine_read while nobody had opened the paper.",
+        "held": {
+          "sha256": "54315e60c8770154ef4c535672950230ac0bce1b16164edea231e36b65d0b431",
+          "file": "docs/54/54315e60c8770154ef4c535672950230ac0bce1b16164edea231e36b65d0b431.pdf",
+          "bytes": 387855,
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1903765",
+          "via": "publisher PDF, downloaded manually in a browser by the editor",
+          "substance": "45527 characters, reference list and discussion present"
+        }
       }
     },
     {
@@ -182,13 +197,21 @@
       "accessed": "2026-08-28",
       "used_for": "Primary progression-free survival: 24.8 vs 14.5 months, HR 0.58 (95% CI 0.46–0.72), two-sided P < .001. These are the figures the paper prints, and they are what the table shows. The unrounded 0.576 (0.463–0.718) appears in the 2019 extende",
       "access": {
-        "state": "fragment_only",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "Fred Ugast, who downloaded the publisher's PDF in a browser on 2026-09-01",
+        "on": "2026-09-01",
         "sections": [
-          "whatever the search tool returned for this URL"
+          "the complete published article is held; no section of it has yet been read against the page"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits.\n\n2026-09-01: the publisher's PDF is now IN THE LIBRARY. Fred Ugast opened the article page in a browser and downloaded it; nothing about this route was automated, and the paywall on the JCO paper (S002) is why it is one of three rather than four. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by classify() -- reference list and discussion present, so these are the bytes of the paper and not a page about it.\n\nSTATE MEANS HELD, NOT READ. full_text_held says the complete document is on disk and can be reopened by the next person who questions a sentence sourced here. It does not say any sentence on the page has yet been checked against it. Those are separate acts and this project has already conflated them once -- S017 said machine_read while nobody had opened the paper.",
+        "held": {
+          "sha256": "aa06b6992e09b95847f9a6cb320e32b499a26b60e67729e1e826f9dc8006bb8f",
+          "file": "docs/aa/aa06b6992e09b95847f9a6cb320e32b499a26b60e67729e1e826f9dc8006bb8f.pdf",
+          "bytes": 349743,
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1607303",
+          "via": "publisher PDF, downloaded manually in a browser by the editor",
+          "substance": "46115 characters, reference list and discussion present"
+        }
       },
       "derives_from": "S001",
       "derives_note": "For the claim that no randomised head-to-head comparison exists, only. P-VERIFY opens by describing its own purpose as working in the absence of randomised trials that directly compare the three, and this page cited that as confirmation of NCCN's statement. It is the same background assumption, not a second observation. P-VERIFY's own figures are independent and are not affected by this."
