@@ -186,6 +186,22 @@ CASES = [
                 "separates abemaciclib from ribociclib",
        expect="B6 fires on 'none'?"),
 
+  dict(id="MEL-01", slug="melanoma", check_kind="b12", check="B12",
+       what="the page prints HR 0.510; the Merck release it cites says HR=0.51",
+       sid="S002", span="0.510", sentence="HR 0.510 (0.294-0.887)",
+       expect="B12 reports the added decimal"),
+
+  dict(id="MEL-02", slug="melanoma", check_kind="b12", check="B12",
+       what="the page prints HR 0.561 for the Lancet paper; the digits we hold "
+            "are 0.56, and they are in a company press release",
+       sid="S005", span="0.561", sentence="HR 0.561 (0.309-1.017)",
+       expect="B12 reports the added decimal"),
+
+  dict(id="MEL-03", slug="melanoma", check_kind="ledger", check="states",
+       what="44 sources on two live pages carried machine_read, a state the "
+            "ledger no longer defines",
+       sid="", span="", sentence="", expect="undefined_states finds none now"),
+
   dict(id="DESK-01", slug="deskilling", check="B10",
        what="issue three's central study carries a 2025 correction",
        sid="S021", check_kind="errata"),
@@ -217,6 +233,23 @@ def run_case(c: dict) -> tuple[str, str]:
             return CAUGHT, "B9 reports %s as a document the ledger does not know" % (
                 hit[0]["url"][:60])
         return MISSED, "B9 does not report this link as unreconciled"
+
+    if kind == "b12":
+        ok, why = spancheck.b12_precision(c["span"], c["slug"], c["sid"])
+        return (MISSED, "B12 sees nothing: " + why) if ok else (CAUGHT, why)
+
+    if kind == "ledger":
+        import source_ledger as SL
+        import source_store as ST
+        bad = {}
+        for slug in ("melanoma", "cdk46", "deskilling"):
+            u = SL.undefined_states(ST.sources(slug))
+            if u:
+                bad[slug] = u
+        if bad:
+            return MISSED, "states with no definition remain: %s" % bad
+        return CAUGHT, ("undefined_states now runs over every issue; the 44 "
+                        "machine_read entries are migrated to fragment_only")
 
     if kind == "b8":
         other, why = reconcile.b8_closer(c["slug"], c["span"], c["sid"])

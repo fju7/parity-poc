@@ -261,6 +261,31 @@ INACCESSIBLE = re.compile(
     r"every route we tried returned a block)\b", re.I)
 
 
+def undefined_states(srcs: list[dict]) -> dict[str, list[str]]:
+    """Access states this module does not define, by state.
+
+    WHY. On 2026-09-01 machine_read was abolished here: its only evidence was
+    that a URL had appeared in a gate report's citation list, and it sat in
+    READ_STATES licensing characterisation and adverse claims. Issue two's
+    entries were rewritten to fragment_only, which licenses neither.
+
+    Issues one and three were not. Forty-four sources on two LIVE pages went on
+    carrying a state with no definition, no permit and no place in READ_STATES,
+    and nothing noticed, because every check asks what a state permits and none
+    asks whether the state exists.
+
+    A vocabulary that drifts between issues is a ledger that contradicts itself
+    in the same repository -- the same failure as a page contradicting its own
+    source list, one level down.
+    """
+    out: dict[str, list[str]] = {}
+    for s in srcs:
+        st = (access_of(s) or {}).get("state")
+        if st and st not in STATES:
+            out.setdefault(st, []).append(s.get("id", "?"))
+    return out
+
+
 def inaccessibility_claims(page_text: str, srcs: list[dict]) -> list[tuple[str, dict, str]]:
     """(sentence, source, its access state) where the page says a source could
     not be opened and the ledger says somebody read it.

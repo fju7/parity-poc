@@ -13,7 +13,7 @@
     {
       "id": "S001",
       "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
-      "type": "primary",
+      "type": "press_release",
       "title": "Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints",
       "accessed": "2026-08-28",
       "used_for": "19 August 2026. Source of the trial design, enrolment, blinding and randomisation. Contains no efficacy numbers, which is the finding.",
@@ -23,19 +23,25 @@
         "the announcement"
       ],
       "access": {
-        "state": "machine_read",
+        "state": "full_text_held",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
+        "held": {
+          "file": "docs/8d/8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c.html",
+          "sha256": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+          "bytes": 195653,
+          "identified_by": "contains 6 of 6 distinctive title words"
+        }
       }
     },
     {
       "id": "S002",
       "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
-      "type": "primary",
+      "type": "press_release",
       "title": "Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026",
       "accessed": "2026-08-28",
       "used_for": "1 June 2026. Source of HR 0.510 (0.294–0.887), HR 0.411 (0.200–0.843), the exploratory OS figure HR 0.471 (0.165–1.345) reported as \"n=14\", and the adverse-event rates.",
@@ -45,13 +51,19 @@
         "the five-year release"
       ],
       "access": {
-        "state": "machine_read",
+        "state": "abstract_held",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
+        "held": {
+          "file": "docs/b6/b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590.html",
+          "sha256": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
+          "bytes": 188576,
+          "identified_by": "contains 6 of 6 distinctive title words — 89874 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
+        }
       }
     },
     {
@@ -67,14 +79,20 @@
         "the peer-reviewed publication"
       ],
       "access": {
-        "state": "blocked",
+        "state": "abstract_held",
         "by": "claude",
         "on": "2026-08-29",
         "blocked_by": "paywall",
         "not_read": [
           "the full text"
         ],
-        "note": "No gate run on this issue cited this URL and nothing here has opened it. Recorded as blocked rather than read, because an unread source is not a source that agrees with us. Backfilled on 2026-08-29, after the ledger was built; this issue was drafted before it existed."
+        "note": "No gate run on this issue cited this URL and nothing here has opened it. Recorded as blocked rather than read, because an unread source is not a source that agrees with us. Backfilled on 2026-08-29, after the ledger was built; this issue was drafted before it existed.",
+        "held": {
+          "file": "docs/e8/e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61.html",
+          "sha256": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+          "bytes": 202260,
+          "identified_by": "contains 5 of 5 distinctive title words — 23016 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
+        }
       }
     },
     {
@@ -89,19 +107,19 @@
         "the five-year analysis"
       ],
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
       }
     },
     {
       "id": "S005",
       "url": "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/",
-      "type": "primary",
+      "type": "press_release",
       "title": "Merck & Moderna — first detailed KEYNOTE-942 results",
       "accessed": "2026-08-28",
       "used_for": "16 April 2023. The source of the one-sided p = 0.0266, which is a company figure and not a journal one.",
@@ -111,13 +129,19 @@
         "the April 2023 release"
       ],
       "access": {
-        "state": "machine_read",
+        "state": "abstract_held",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
+        "held": {
+          "file": "docs/ee/ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5.html",
+          "sha256": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
+          "bytes": 173432,
+          "identified_by": "contains 6 of 6 distinctive title words — 71675 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
+        }
       }
     },
     {
@@ -144,13 +168,19 @@
         }
       ],
       "access": {
-        "state": "machine_read",
+        "state": "full_text_held",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "held": {
+          "file": "docs/98/98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1.html",
+          "sha256": "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1",
+          "bytes": 54745,
+          "identified_by": "contains 7 of 12 distinctive title words"
+        }
       }
     },
     {
@@ -166,13 +196,13 @@
         "the three-year publication"
       ],
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
       }
     }
   ],

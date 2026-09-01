@@ -30,6 +30,13 @@ def _text(slug: str, sid: str) -> str | None:
           ".html": "text/html", ".xml": "application/xml"}.get(f.suffix, "")
     txt, _how = store.text_of(f.read_bytes(), ct, pages=0)
     if ct in ("text/html", "application/xml"):
+        # SCRIPT AND STYLE CONTENTS ARE NOT THE DOCUMENT. Autobind's first run
+        # on issue one bound "the overall survival interval runs 0.165 to 1.345"
+        # to a span of CSS and JSON-LD from a press release's page furniture,
+        # because the numbers occur inside a <script> block. A span drawn from
+        # markup is worse than no span: it looks like evidence.
+        txt = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", txt,
+                     flags=re.S | re.I)
         txt = re.sub(r"<[^>]+>", " ", txt)
     return " ".join(txt.split())
 
@@ -148,3 +155,42 @@ def b6_scope(sentence: str, span: str) -> list[tuple[str, str]]:
             seen.add(w)
             uniq.append((w, why))
     return uniq
+
+
+# --- B12 --------------------------------------------------------------------
+
+def b12_precision(figure: str, slug: str, sid: str) -> tuple[bool, str]:
+    """Does the source carry the precision we print?
+
+    Issue one prints "HR 0.510 (0.294-0.887)". The Merck release it cites says
+    "HR=0.51". The interval limits match to three decimals and the point
+    estimate does not, because the source never gave three. It prints
+    "HR 0.561" for the Lancet paper; the digits we hold are "0.56", and they
+    are in a company press release rather than in the paper.
+
+    A reader seeing 0.510 infers the source reported three significant figures.
+    It reported two. This is not a rounding quibble: added precision is a claim
+    about how finely the underlying result was measured, and it is ours rather
+    than theirs.
+
+    Deterministic and cheap: if the figure is absent but a SHORTER rounding of
+    it is present, say so.
+    """
+    doc = _text(slug, sid)
+    if doc is None:
+        return True, "%s is not in the library" % sid
+    d = _norm(doc)
+    f = _norm(figure)
+    if f.lower() in d.lower():
+        return True, "the source carries this figure as printed"
+    if "." not in f:
+        return True, "not a decimal figure"
+    whole, frac = f.split(".", 1)
+    for keep in range(len(frac) - 1, 0, -1):
+        shorter = "%s.%s" % (whole, frac[:keep])
+        # a bare prefix match would find 0.51 inside 0.519; require a boundary
+        if re.search(r"(?<![0-9.])%s(?![0-9])" % re.escape(shorter), d):
+            return False, ("the source prints %s, not %s — we show %d decimal "
+                           "place(s) the source does not"
+                           % (shorter, f, len(frac) - keep))
+    return True, "no shorter rounding of this figure is in the source either"

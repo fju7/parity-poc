@@ -336,6 +336,86 @@
         "deskilling:S045"
       ],
       "note": ""
+    },
+    "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590": {
+      "file": "docs/b6/b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590.html",
+      "bytes": 188576,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/"
+      ],
+      "titles": [
+        "Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026"
+      ],
+      "used_by": [
+        "melanoma:S002"
+      ],
+      "note": ""
+    },
+    "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5": {
+      "file": "docs/ee/ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5.html",
+      "bytes": 173432,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/"
+      ],
+      "titles": [
+        "Merck & Moderna — first detailed KEYNOTE-942 results"
+      ],
+      "used_by": [
+        "melanoma:S005"
+      ],
+      "note": ""
+    },
+    "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1": {
+      "file": "docs/98/98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1.html",
+      "bytes": 54745,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/"
+      ],
+      "titles": [
+        "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints (with 2 further outlet(s), listed in also_urls)"
+      ],
+      "used_by": [
+        "melanoma:S006"
+      ],
+      "note": ""
+    },
+    "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61": {
+      "file": "docs/e8/e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61.html",
+      "bytes": 202260,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/38246194/"
+      ],
+      "titles": [
+        "KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024"
+      ],
+      "used_by": [
+        "melanoma:S003"
+      ],
+      "note": ""
+    },
+    "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c": {
+      "file": "docs/8d/8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c.html",
+      "bytes": 195653,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/"
+      ],
+      "titles": [
+        "Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints"
+      ],
+      "used_by": [
+        "melanoma:S001"
+      ],
+      "note": ""
     }
   }
 }

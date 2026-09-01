@@ -1,0 +1,71 @@
+{
+  "what_this_is": "Which document in the library each of this issue's sources points at. The library holds the bytes; this says what we were reading when we wrote the page.",
+  "issue": "melanoma",
+  "sources": {
+    "S002": {
+      "sha256": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
+      "file": "docs/b6/b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590.html",
+      "bytes": 188576,
+      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "abstract",
+      "kind_why": "89874 characters, abstract present but no reference list or discussion — this is the abstract, not the paper",
+      "superseded": [],
+      "also_held": []
+    },
+    "S005": {
+      "sha256": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
+      "file": "docs/ee/ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5.html",
+      "bytes": 173432,
+      "url": "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "abstract",
+      "kind_why": "71675 characters, abstract present but no reference list or discussion — this is the abstract, not the paper",
+      "superseded": [],
+      "also_held": []
+    },
+    "S006": {
+      "sha256": "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1",
+      "file": "docs/98/98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1.html",
+      "bytes": 54745,
+      "url": "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "type 'coverage' — a coverage is a complete document of its own kind; the article test (reference list, discussion) does not apply to it",
+      "superseded": [],
+      "also_held": []
+    },
+    "S003": {
+      "sha256": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "file": "docs/e8/e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61.html",
+      "bytes": 202260,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38246194/",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "abstract",
+      "kind_why": "23016 characters, abstract present but no reference list or discussion — this is the abstract, not the paper",
+      "superseded": [],
+      "also_held": []
+    },
+    "S001": {
+      "sha256": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "file": "docs/8d/8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c.html",
+      "bytes": 195653,
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "type 'press_release' — a press_release is a complete document of its own kind; the article test (reference list, discussion) does not apply to it",
+      "superseded": [],
+      "also_held": []
+    }
+  }
+}

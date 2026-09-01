@@ -236,6 +236,18 @@ def text_of(data: bytes, content_type: str = "", pages: int = 8) -> tuple[str, s
 # article and is not held to this.
 ARTICLE_TYPES = {"primary", "comparison", "methods", "conference", "review"}
 
+# A COMPANY STATEMENT ABOUT A STUDY IS NOT THE STUDY.
+#
+# Issue one types three Merck press releases as `primary`, the same type as a
+# peer-reviewed publication. Two consequences, both wrong and both invisible
+# until issue one was run through these checks on 2026-09-01. The article test
+# was applied to them, so a 93,668-character press release was REFUSED
+# acquisition for failing to look like a paper. And B8 ranks `primary` closest
+# to a claim, so a company release would have been offered as a closer source
+# than The Lancet for the same figure -- on a page whose own argument turns on
+# the difference between a company figure and a journal one.
+PRESS = "press_release"
+
 # The NCCN guideline licence forbids putting the document through any AI tool.
 # A source carrying this flag is never acquired, never classified, and never
 # quoted except from an answer a person gave after reading it.

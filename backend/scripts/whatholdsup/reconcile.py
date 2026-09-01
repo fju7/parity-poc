@@ -49,9 +49,15 @@ import spancheck as SC        # noqa: E402
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
 
 # Nearest to the claim first.
+# Nearest to the claim first. A press_release is a company's account of its own
+# study and ranks BELOW the registry posting of that study: the registry is at
+# least a structured record filed under a regulator's rules, while a release is
+# written to be read a particular way. B8 must never offer one as a closer
+# source than the publication.
 CLOSENESS = {"primary": 0, "corrigendum": 0, "methods": 1, "comparison": 1,
              "review": 2, "conference": 3, "registry": 4, "guideline": 4,
-             "label": 4, "coverage": 5, "secondary": 5, "critique": 5}
+             "label": 4, "coverage": 5, "secondary": 5, "critique": 5,
+             "press_release": 6}
 
 # ONLY ANCHORS. A stylesheet or a preconnect is not a document the page sends a
 # reader to, and the first run reported Google Fonts as three missing sources on

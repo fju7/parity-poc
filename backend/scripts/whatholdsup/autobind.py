@@ -283,6 +283,11 @@ def propose(slug: str, *, limit: int | None = None) -> dict:
         if not ok5:
             row.setdefault("flags", []).append({"check": "B5", "why": why5})
             stat["b5_flag"] += 1
+        for a in anc:
+            ok12, why12 = SC.b12_precision(a, slug, sid)
+            if not ok12:
+                row.setdefault("flags", []).append({"check": "B12", "why": why12})
+                stat["b12_flag"] = stat.get("b12_flag", 0) + 1
         bad6 = SC.b6_scope(row["sentence"], span)
         if bad6:
             row.setdefault("flags", []).append(
@@ -314,8 +319,9 @@ def main() -> int:
     print("    %4d a claim about where a figure appears, not a claim from it"
           % st.get("about_a_document", 0))
     print()
-    print("    of the proposals: %d flagged by B5 (truncation), %d by B6 (scope)"
-          % (st["b5_flag"], st["b6_flag"]))
+    print("    of the proposals: %d flagged by B5 (truncation), %d by B6 (scope), "
+          "%d by B12 (precision)"
+          % (st["b5_flag"], st["b6_flag"], st.get("b12_flag", 0)))
     print()
     return 0
 
