@@ -53,14 +53,15 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: statistically significant and clinically meaningful. (strength 3, need 4)",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "0436c6ee06315550": {
       "sentence": "So the numbers carried in the coverage — the 49% reduction in the hazard of recurrence or death, the 59% reduction in the hazard of distant metastasis or death — describe a different trial : an open-label study of 157 patients, not the blinded study of 1,137 that was announced.",
@@ -350,7 +351,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 0.510 (strength 2, need 4)",
       "proposed_by": "model",
       "confirmed": false,
@@ -548,19 +549,13 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "2 held documents contain all these anchors (S003, S004) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-01",
       "left_page": "2026-09-01"
     },
@@ -583,14 +578,15 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "the only document with these anchors (S008) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S008; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "ca51c4a1a62dc00b": {
       "sentence": "At five years the point estimate was unchanged at 0.510 and the interval read 0.294–0.887 — the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close to unchanged.",
@@ -662,7 +658,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone",
       "source_id": "S004",
       "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
@@ -764,7 +760,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)",
       "left_page": "2026-09-01"
     },
@@ -809,7 +805,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 0.0266 (strength 2, need 4)",
       "proposed_by": "model",
       "confirmed": false,
@@ -1297,7 +1293,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1342,7 +1338,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1415,7 +1411,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1438,7 +1434,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1484,8 +1480,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "ec284c90e65a58b4": {
       "sentence": "We had called a 62% figure a “risk reduction” where it is a reduction in hazard.",
@@ -1713,8 +1710,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "352a985b2cd69305": {
       "sentence": "The Melanoma Result — What Holds Up 1,137 patients in the Phase 3 trial 0 Phase 3 efficacy numbers released n=14 the whole survival analysis 0.165–1.345 the interval around that trend The short version The Phase 3 announcement reports no numerical Phase 3 results.",
@@ -1757,7 +1755,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "e128b5bfbdc57d10": {
       "sentence": "0.165–1.345 the interval around that trend",
@@ -1826,7 +1825,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "a2dd44b983849981": {
       "sentence": "At five years of follow-up, KEYNOTE-942 reported a recurrence-free survival hazard ratio of 0.510 .",
@@ -1847,13 +1847,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "6b630d7f31ac12ad": {
       "sentence": "95% CI",
@@ -1874,7 +1875,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "54da954fff6294e8": {
       "sentence": "Recurrence-free first readout, 2023 · HR 0.561",
@@ -2006,13 +2008,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "136d284e8ca972ce": {
       "sentence": "The overall survival interval runs 0.165 to 1.345 .",
@@ -2033,13 +2036,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "9d6b47d9d9a3793c": {
       "sentence": "A p-value of 0.05 does not mean a 95% chance the drug works.",
@@ -2060,7 +2064,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "c243c2f7cbf7661d": {
       "sentence": "The April 2023 press release reported KEYNOTE-942 as one-sided p = 0.0266 .",
@@ -2081,13 +2086,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "372d6aaf62804bd6": {
       "sentence": "1,137 (2:1)",
@@ -2213,7 +2219,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "dbf96bbfe1561adc": {
       "sentence": "KEYNOTE-942: a randomised, phase 2b study — The Lancet , 2024",
@@ -2234,7 +2241,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "f5f66d63771fcf24": {
       "sentence": "Five-year results — Journal of Clinical Oncology , 1 June 2026",
@@ -2255,7 +2263,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "6e0d3394b7cf0991": {
       "sentence": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints",
@@ -2276,7 +2285,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "81f7c279024e273b": {
       "sentence": "Morning Glory Sciences — INTerpath-001",
@@ -2297,7 +2307,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "1641d55dca5cc811": {
       "sentence": "Pharmacy Times — Phase 3 trial marks first success",
@@ -2318,7 +2329,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "55e6c63db2f9ce65": {
       "sentence": "Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026",
@@ -2339,7 +2351,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "cb9fb4ffbae11b27": {
       "sentence": "DOI 10.1200/OA-25-00008.",
@@ -2360,7 +2373,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "9b941c6a6b233cf3": {
       "sentence": "It does contain hazard ratios — 0.51 for recurrence, 0.411 for distant metastasis — but those are the five-year results of KEYNOTE-942, the 157-patient trial that preceded this one, and the release says so.",
@@ -2442,6 +2456,231 @@
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
       "checked_on": "2026-09-01"
+    },
+    "6877a3601e07fc94": {
+      "sentence": "The Melanoma Result — What Holds Up 1,137 patients in the Phase 3 trial",
+      "sentence_sha": "6877a3601e07fc94",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "a91903fd523589f3": {
+      "sentence": "Of the study it is actually announcing it says only that the endpoints were met, \"statistically significant and clinically meaningful\".",
+      "sentence_sha": "a91903fd523589f3",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "At a pre-specified interim analysis, intismeran in combination with KEYTRUDA as adjuvant therapy demonstrated statistically significant and clinically meaningful improvements in RFS and DMFS compared to KEYTRUDA alone for patients with completely resected stage IIB, IIC, III or IV cutaneous melanoma who had not undergone prior treatment with systemic therapy.",
+      "envelope": "d cancer therapy, as well as the first Phase 3 study to demonstrate a clinically meaningful improvement over KEYTRUDA alone, a standard-of-care immunotherapy, in the adjuvant setting for patients with resected melanoma. At a pre-specified interim analysis, intismeran in combination with KEYTRUDA as adjuvant therapy demonstrated statistically significant and clinically meaningful improvements in RFS and DMFS compared to KEYTRUDA alone for patients with completely resected stage IIB, IIC, III or IV cutaneous melanoma who had not undergone prior treatment with systemic therapy. In accordance with the trial protocol, the study will continue in order to evaluate other key secondary endpoints, including overall survival (OS). The safety profiles of intismeran and KEYTRUDA in this trial were consi",
+      "scope_words": [
+        {
+          "word": "only",
+          "why": "The sentence makes an ABSENCE claim about the whole of S001, not a claim about the span it is bound to. The span is what the release does say about the Phase 3; 'only' is the assertion that it says nothing more. No span can carry that, and the sentence immediately before it on the page states the countervailing fact in the open: the release does print hazard ratios, and they belong to the earlier trial, and the release says so.",
+          "falsifier": "a hazard ratio, confidence interval, p-value or percentage appearing anywhere in S001 that describes INTerpath-001, the 1,137-patient Phase 3, rather than KEYNOTE-942. S001 is held in full, so anyone can run this.",
+          "by": "claude",
+          "on": "2026-09-01",
+          "bucket": "judgement call — which trial a figure in the release belongs to is read from its context, not matched from a string"
+        }
+      ],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "63643ad6aacfb654": {
+      "sentence": "Why this is worth a whole article The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.",
+      "sentence_sha": "63643ad6aacfb654",
+      "why_empirical": "names The ASCO Post",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "a5c078a60f5f07c0": {
+      "sentence": "MLQ News enumerated what was missing: hazard ratios, confidence intervals, p-values, median follow-up, event counts.",
+      "sentence_sha": "a5c078a60f5f07c0",
+      "why_empirical": "names MLQ News",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "6d6910cf08bebf0b": {
+      "sentence": "Confidence interval 95% CI",
+      "sentence_sha": "6d6910cf08bebf0b",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "2a5ab63e6db0fcd1": {
+      "sentence": "3.4 Moderate (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10)",
+      "sentence_sha": "2a5ab63e6db0fcd1",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "389fa2fdb6bcd167": {
+      "sentence": "By the three-year readout at ASCO 2024, since published in full, the interval no longer crossed it: HR 0.510, 95% CI 0.288–0.906 — though that paper states plainly that its analyses were descriptive only and not intended for formal hypothesis testing, so this is an interval that stopped including 1.0 rather than a threshold anyone crossed.",
+      "sentence_sha": "389fa2fdb6bcd167",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "5685121c9e992b4c": {
+      "sentence": "Primary Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026 DOI 10.1200/OA-25-00008.",
+      "sentence_sha": "5685121c9e992b4c",
+      "why_empirical": "DOI",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "60c85b96f39cb5e4": {
+      "sentence": "The peer-reviewed publication of the three-year readout, held in full and read since 1 September 2026.",
+      "sentence_sha": "60c85b96f39cb5e4",
+      "why_empirical": "names the three-year readout",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "a0a2e2b7553ee03a": {
+      "sentence": "It reports the recurrence hazard ratio with an 80% confidence interval of 0.351–0.743 in the text, and the 95% interval 0.288–0.906 in its results table; the 95% interval is the one quoted above, so that it can be read beside the others on this page.",
+      "sentence_sha": "a0a2e2b7553ee03a",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
     }
   }
 }

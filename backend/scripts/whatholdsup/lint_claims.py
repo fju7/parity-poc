@@ -340,28 +340,9 @@ def attributions(text: str) -> list[str]:
     return out
 
 
-# THE CHANGE LOG IS NOT THE ARTICLE.
-#
-# The updates footer records what the page USED TO SAY and why it stopped. Read
-# as though it were the body, it produces findings that are exactly backwards:
-# on 2026-09-01 the unknowability check demanded that two sentences name a
-# registry, and both were disclosures --
-#
-#   "We could not establish that expanded access is categorically unavailable,
-#    so the sentence no longer claims it is."
-#
-# -- a claim being WITHDRAWN, flagged as a claim being made. Satisfying it would
-# mean deleting the record of the correction.
-#
-# Checks that read the page's CLAIMS take the body. Checks that read the page's
-# ACCOUNT OF ITSELF (self_description) take the whole document, footer included,
-# because that is the thing they are about.
-CHANGE_LOG = re.compile(r"<footer[^>]*id=[\"']updates[\"'][^>]*>.*?</footer>",
-                        re.I | re.S)
-
-
-def body_only(html_text: str) -> str:
-    return CHANGE_LOG.sub(" ", html_text)
+# body_only moved to source_ledger, where plain() lives and where the
+# reasoning is recorded. Four modules needed it; one should own it.
+from source_ledger import body_only  # noqa: E402
 
 
 def unknowability(text: str) -> list[str]:

@@ -27,9 +27,9 @@ say whether that search would have found the thing.
 
 **Searched.** PubMed/literature: 'adjuvant PD-1 inhibitor melanoma overall survival randomised trial placebo'; 'adjuvant melanoma PD-1 pembrolizumab nivolumab overall survival benefit statistically significant'; 'KEYNOTE-054 overall survival final results 2024 2025'; 'CheckMate 238 nivolumab overall survival final analysis melanoma adjuvant'; 'ipilimumab adjuvant melanoma EORTC 18071 overall survival statistically significant placebo'; 'adjuvant melanoma PD-1 overall survival prespecified endpoint statistically significant 2024 2025'. ClinicalTrials.gov: NCT02362594 (KEYNOTE-054) — OS listed as secondary endpoint, NOT_POSTED, anticipated posting 2026-11. NCT02388906 (CheckMate 238) — comparator is ipilimumab, not placebo. ESMO 2024 abstract 1095P (KEYNOTE-054 7-year update): OS analysis planned after 380 deaths. Annals of Oncology 2025 (CheckMate 238 9-year final): OS HR 0.88, not statistically significant vs. ipilimumab. EudraCT 2014-004944-37 (KEYNOTE-054). WHO ICTRP and ISRCTN: no additional placebo-controlled PD-1 adjuvant melanoma OS results found. FDA Drugs@FDA and EMA EPAR: not separately searched due to query limit, but regulatory approvals for pembrolizumab and nivolumab in adjuvant melanoma were based on RFS, not OS.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: NARROWED — the objection is right about the scope
+BASIS:   The sentence opened on 'adjuvant melanoma trials' and then narrowed to PD-1, so a reader could take the broad class as the claim. The claim about PD-1 inhibitors survives and is unchanged.
+DID:     Rewrote the sentence to say explicitly that it is a claim about PD-1 inhibitors and NOT about adjuvant checkpoint inhibitors as a class. It does NOT assert the ipilimumab result the hunter cites: acquire_sources refused the PubMed bytes for EORTC 18071 (0 of 12 title words, no identifier match) and WebFetch returned metadata without the abstract. S012 is entered and `blocked`. Writing the counter-fact into the page from a finding rather than a document is the error recorded three times on this page today; when the paper is held the sentence can name what broke the broader pattern instead of stepping around it.
 
 
 ---
@@ -42,9 +42,9 @@ DID:
 
 **Searched.** General searches on adjuvant melanoma PD-1 OS exploratory analysis did not surface any trial reporting OS on n=14. The claim cannot be evaluated without knowing the specific programme referenced. Searched: 'adjuvant melanoma PD-1 overall survival exploratory n=14'; 'adjuvant melanoma overall survival 14 patients exploratory'. No results found matching this description.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: NARROWED — the reading it worries about is the one a reader gets
+BASIS:   'n=14' is a faithful quotation: S002 prints '(HR=0.471; [95% CI, 0.165-1.345]; n=14)'. But the hunter is right that it reads as fourteen PATIENTS, and it says so at the two places the page did not gloss it.
+DID:     Glossed it at the lede and in the body: 'fourteen deaths, seven in each arm, not fourteen patients', and 'fourteen deaths in 157 patients'. Both counts are S004's own prose: '7 of 107 patients (6.5%) ... and 7 of 50 (14.0%) ... died'. The quotation and its attribution are unchanged.
 
 
 ---
@@ -57,9 +57,9 @@ DID:
 
 **Searched.** This claim is about journalistic coverage of an unspecified finding. No registry or database search can adjudicate it without knowing the specific topic and the two outlets. No search was run because the claim is entirely context-dependent.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: WITHDRAWN — not a claim on the page
+BASIS:   'And one thing almost nobody mentioned Two specialist outlets touched it, and they disagree' is a HEADING glued to the sentence after it by the extractor, not a sentence anybody wrote. The hunter had nothing to attack and returned LOW.
+DID:     Nothing on the page. The extractor now ends a sentence at a block boundary, so this string no longer exists as a claim.
 
 
 ---
@@ -72,9 +72,9 @@ DID:
 
 **Searched.** No external search is possible or appropriate for an internal rubric scoring decision. The claim is about the application of an editorial standard, not an empirical fact.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: SURVIVED — and it is a statement about our own rubric
+BASIS:   The role agrees. The sentence describes how we scored, against an anchor we published; there is no external fact to break.
+DID:     Nothing.
 
 
 ---
@@ -87,9 +87,9 @@ DID:
 
 **Searched.** No external search can adjudicate a provenance claim about a specific document's internal citations without access to that document. No search was run.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: SURVIVED — and it is now mechanically checkable
+BASIS:   'Every number above traces to one of these, and none to a news report' is a universal claim about this page's own figures. It was checked rather than argued: no figure on the page is found ONLY in a coverage document, with four news outlets now in the ledger.
+DID:     Nothing on the page. Recorded here as the method, so the next person checks it the same way instead of re-reasoning about it.
 
 
 ---
@@ -102,9 +102,9 @@ DID:
 
 **Searched.** Searched 'melanoma adjuvant five-year topline January 2026 p=0.0075 press release' and 'melanoma adjuvant overall survival January 2026 company release nominal p-value'. No matching press release was found in search results. Without knowing the company or drug, this cannot be confirmed or denied. The claim remains unverifiable from available search results.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: WITHDRAWN — the hunter was attacking our change log
+BASIS:   'We described, dated and quoted a company release ... that is in nothing we hold' is the correction entry for the January topline, written hours earlier. It is a record of an error already removed, handed to the hunter as a claim to break.
+DID:     Nothing on the page. counterexample now reads the body and not the change log — see source_ledger.body_only. Four modules made this mistake separately; one of them owns the distinction now.
 
 
 ---
@@ -117,9 +117,9 @@ DID:
 
 **Searched.** No external search is possible or appropriate for an internal rubric scoring decision.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: WITHDRAWN — same reason as CE-06
+BASIS:   Our own record of a scoring correction, read as a live claim.
+DID:     Nothing on the page; the hunter no longer sees the change log.
 
 
 ---
@@ -140,7 +140,7 @@ DID:
 
 **Searched.** ClinicalTrials.gov: NCT02362594 (KEYNOTE-054) — OS secondary endpoint status confirmed as NOT_POSTED, anticipated 2026-11. NCT02388906 (CheckMate 238). PubMed/literature: 'KEYNOTE-054 overall survival final results 2024 2025'; 'CheckMate 238 nivolumab overall survival final analysis melanoma adjuvant'; 'adjuvant melanoma PD-1 overall survival prespecified endpoint statistically significant 2024 2025'. ESMO 2024 abstract 1095P (KEYNOTE-054 7-year): OS not yet reported. ESMO 2025 / Annals of Oncology (CheckMate 238 9-year final): OS HR 0.88, not significant vs. ipilimumab. ASCO Post Oct 2025 (CheckMate 238 9-year). EudraCT 2014-004944-37. WHO ICTRP and ISRCTN: no additional placebo-controlled PD-1 adjuvant melanoma OS results found.
 
-VERDICT: 
-BASIS:   
-DID:     
+VERDICT: WITHDRAWN as an attack, kept as a finding
+BASIS:   The hunter was attacking a change-log entry, so the item is withdrawn. What it says inside the attack is not withdrawn: it observes that our own correction is imprecise, because CheckMate 238 compared nivolumab with ipilimumab rather than placebo. That is the same scope problem as CE-01 and it is fixed by the same edit.
+DID:     Handled under CE-01. The live sentence now scopes itself to PD-1 versus placebo and says what it is not about.
 

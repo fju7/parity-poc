@@ -110,6 +110,18 @@
         "by": "claude",
         "on": "2026-09-01"
       }
+    },
+    {
+      "id": "Q-10",
+      "quote": "These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only)",
+      "kind": "source",
+      "source_id": "S007",
+      "verbatim": "These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only). The statistical analysis plan prespecified estimation of HRs and 95% CIs using stratified Cox proportional hazards models",
+      "why": "The three-year paper's own statement of what its analyses are, added on 2026-09-01 when the source advocate objected that 'cleared the line' implies a formal test the paper says it did not run. Read off S007, held in full.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-01"
+      }
     }
   ]
 }

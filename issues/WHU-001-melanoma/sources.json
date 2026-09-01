@@ -182,7 +182,7 @@
       "id": "S007",
       "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
       "type": "primary",
-      "title": "Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances, 2026",
+      "title": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances, 2026",
       "accessed": "2026-08-28",
       "used_for": "DOI 10.1200/OA-25-00008. The peer-reviewed publication of the three-year readout, held in full since 2026-09-01. The three-year figures this page prints — HR 0.510, 95% CI 0.288-0.906 — are in this paper and, independently, in the ASCO 2024 presentation of the same analysis (S008).",
       "also_called": [
@@ -295,6 +295,27 @@
           "identified_by": "contains 8 of 9 distinctive title words"
         }
       }
+    },
+    {
+      "id": "S012",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27717298/",
+      "type": "prior_art",
+      "title": "Eggermont AMM, Chiarion-Sileni V, Grob J-J, et al. Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy. N Engl J Med 2016;375:1845-1855 (EORTC 18071)",
+      "accessed": "",
+      "used_for": "The one adjuvant checkpoint inhibitor that has reported a statistically significant overall survival benefit against placebo as a prespecified endpoint. It is a CTLA-4 inhibitor, not a PD-1 inhibitor, which is why the page's claim about PD-1 inhibitors survives and why the sentence now says so.",
+      "also_called": [
+        "EORTC 18071",
+        "Eggermont"
+      ],
+      "access": {
+        "state": "blocked",
+        "by": "acquire_sources.py, then WebFetch",
+        "on": "2026-09-01",
+        "sections": [],
+        "note": "Entered 2026-09-01 because the counterexample hunt narrowed a universal negative on this page and named this paper as what breaks it. A finding is not a source: the sentence citing it does not stand until these bytes are held.\n\n2026-09-01: acquire_sources fetched the PubMed page and REFUSED it -- 0 of 12 title words, no DOI/PMID/NCT in the bytes, so whatever came back was not the record. WebFetch returned the page's metadata (title, journal, PMID, DOI) but not the abstract. Nothing here licenses a claim about what this trial found.\n\nThe page does not make one. The sentence the counterexample hunt narrowed now says what the claim is NOT about -- PD-1 inhibitors, not checkpoint inhibitors as a class -- rather than asserting the ipilimumab result from a finding. Writing a page correction out of a gate finding instead of a document is the error this repository recorded three times today.\n\n2026-09-01, and this is the part worth keeping: the errata check looked S012 up by its PMID and found that IT CARRIES A FORMAL CORRECTION (erratum, PMID 31442371) which nobody here has read. Had the sentence gone in from the counterexample hunt's finding, the page would have cited, as the fact that broke a pattern, a paper we do not hold and whose correction we have not seen."
+      },
+      "_to_do": "Get the NEJM paper or its PMC copy and add it, then the sentence can name what broke the broader pattern instead of stepping around it.",
+      "_not_cited_on_the_page": "This source is recorded, not used. The page makes no claim about EORTC 18071; the sentence the hunt narrowed says only what it is NOT about. The entry exists so the next person knows why, and so that acquiring the paper is a task rather than a rediscovery."
     }
   ],
   "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."

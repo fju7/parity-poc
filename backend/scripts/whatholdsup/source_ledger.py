@@ -187,6 +187,40 @@ ADVERSE = re.compile(
 SENTENCE = re.compile(r"(?<=[.!?])\s+")
 
 
+BREAK = "\x00"          # block boundary; cannot occur in page text
+
+# THE CHANGE LOG IS NOT THE ARTICLE, AND FOUR MODULES HAVE NOW LEARNED IT
+# SEPARATELY.
+#
+# The updates footer records what the page USED TO SAY and why it stopped.
+# Every check that reads the page's CLAIMS and reads the footer too produces
+# findings that are exactly inverted, because a withdrawal looks like an
+# assertion:
+#
+#   b13          demanded a source for figures the log quotes as WRONG
+#   quotations   demanded a source's wording for a sentence we had made up
+#   lint         demanded a registry for "we could not establish X, so the
+#                sentence no longer claims it"
+#   advocate     spent 7 of 28 objections arguing against corrections we had
+#                already made, including one it could not evaluate because the
+#                sentence was a fragment of a correction
+#
+# In each case the only way to satisfy the check was to stop recording our own
+# errors, which is the one thing this publication promises not to do.
+#
+# Checks that read the page's claims take body_only(). Checks that read the
+# page's ACCOUNT OF ITSELF -- the dateline, self_description, the correction
+# reconciliation -- take the whole document, because that is what they are
+# about.
+CHANGE_LOG = re.compile(r"<footer[^>]*id=[\"']updates[\"'][^>]*>.*?</footer>",
+                        re.I | re.S)
+
+
+def body_only(html_text: str) -> str:
+    """The page without its change log. See CHANGE_LOG."""
+    return CHANGE_LOG.sub(" ", html_text)
+
+
 BLOCK = re.compile(
     r"</(?:h[1-6]|p|li|td|th|tr|blockquote|figcaption|caption|div|section|"
     r"article|dt|dd|option|label)\s*>|<br\s*/?>", re.I)
@@ -215,14 +249,28 @@ def plain(html_text: str) -> str:
     A heading ends a sentence. So does a cell, a list item, and a line break.
     """
     import html as _h
-    return _h.unescape(re.sub(r"<[^>]+>", " ", BLOCK.sub("\n", html_text)))
+    # A SENTINEL, NOT A NEWLINE.
+    #
+    # The first version substituted "\n" and had sentences() split on it -- so
+    # every LINE BREAK IN THE SOURCE FILE became a sentence boundary. The body
+    # paragraphs are single long lines and were unaffected; the change log is
+    # hand-wrapped, and it shredded. The source advocate was handed "We had
+    # called the announcement one that" and "We had skipped the three-year
+    # readout, which is where the" as sentences and objected, correctly, that
+    # it could not evaluate a fragment.
+    #
+    # A newline inside a paragraph is typesetting. A block boundary is
+    # structure. Only the second ends a sentence, so only the second gets a
+    # mark, and it is a character that cannot occur in page text.
+    t = _h.unescape(re.sub(r"<[^>]+>", " ", BLOCK.sub(BREAK, html_text)))
+    return t.replace("\r", " ").replace("\n", " ")
 
 
 def sentences(text: str) -> list[str]:
     """Split on terminal punctuation AND on block boundaries (see plain())."""
     out: list[str] = []
-    for line in text.split("\n"):
-        out += [s.strip() for s in SENTENCE.split(line) if s.strip()]
+    for chunk in re.split(r"[%s\n]" % BREAK, text):
+        out += [s.strip() for s in SENTENCE.split(chunk) if s.strip()]
     return out
 
 
@@ -278,10 +326,31 @@ def identifiers(src: dict) -> list[str]:
 # Phrases in which the page says a source could not be opened. Deliberately
 # narrow: these are the page's set formulas for it, not every sentence about
 # access.
+# A LIST OF PHRASINGS THIS CHECK HAS MET. It failed on 2026-09-01, on a
+# sentence that had been on a live page for four days:
+#
+#   "the journal site blocks automated access, so we have verified the citation
+#    but not read the full text ourselves"
+#
+# -- while the ledger recorded that source as full_text_held. Neither "blocks
+# automated access" nor "not read the full text" was in the list, so the page
+# claimed a document was unreachable that we hold, and the check built for
+# exactly that said nothing. Found by the source advocate, arguing the paper's
+# case, not by this.
+#
+# Allow-lists and blocklists built from vocabulary already met are always
+# wrong; this is the fourth time that has been written down here. The entries
+# below are broadened toward SHAPE rather than phrase -- a negated reading or
+# access verb, a blocking verb near "access" -- but the honest statement is
+# that this catches the phrasings somebody thought of.
 INACCESSIBLE = re.compile(
     r"\b(behind a (?:pay)?wall|paywalled|"
-    r"(?:could|can) ?not (?:be )?(?:open|opened|reach|reached|read|access|accessed)|"
+    r"(?:could|can|did|do|does|have|has|had) ?n[o']?t (?:be |been )?"
+    r"(?:fully |yet |ourselves )?(?:open|opened|reach|reached|read|access|"
+    r"accessed|retrieve|retrieved|obtain|obtained)|"
     r"we (?:could|can) ?not open|not (?:publicly )?accessible|"
+    r"(?:blocks?|blocked|refus\w+|denie[sd]|prevents?) [a-z ]{0,20}access|"
+    r"not read the full text|"
     r"every route we tried returned a block)\b", re.I)
 
 

@@ -421,7 +421,13 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
 
 def cmd_run(args) -> int:
     page = ROOT / args.page
-    text = sl.plain(page.read_text(encoding="utf-8"))
+    # THE BODY, NOT THE CHANGE LOG. On its first run the advocate spent 7 of 28
+    # objections arguing against corrections this page had already made and
+    # printed -- "it credited the five-year data with clearing the no-effect
+    # line when the body says year three" is our own record of an error we
+    # fixed, and it was handed to counsel as a claim to attack. See
+    # source_ledger.body_only.
+    text = sl.plain(sl.body_only(page.read_text(encoding="utf-8")))
     doc = sl.load(args.slug)
     srcs = doc.get("sources", [])
     if args.only:

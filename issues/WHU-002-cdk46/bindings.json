@@ -154,7 +154,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1832,7 +1832,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1850,7 +1850,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: NCT01958021 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1885,7 +1885,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: NCT01740427 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1929,7 +1929,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1947,7 +1947,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: NCT05670054 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2008,7 +2008,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2026,7 +2026,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: NCT05207709 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2044,7 +2044,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 6.2026 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2062,7 +2062,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 4 anchors: 14.7, 0.54, 0.41, 0.72",
       "left_page": "2026-09-01"
     },
@@ -2080,7 +2080,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "source_id": "S003",
       "span": "After a median follow-up of 8.1 years, there were 198 OS events (60.4%) in the abemaciclib arm and 116 (70.3%) in the placebo arm (hazard ratio, 0.804; 95% conﬁdence interval 0.637-1.015; P ¼ 0.0664, non-signiﬁcant). Median OS was 66.8 versus 53.7 months for abemaciclib versus placebo.",
       "envelope": "was a gated secondary endpoint, and chemotherapy-free survival was an exploratory endpoint. Results: A total of 493 women were randomized 2 : 1 to receive abemaciclib plus NSAI (n ¼ 328) or placebo plus NSAI (n ¼ 165). After a median follow-up of 8.1 years, there were 198 OS events (60.4%) in the abemaciclib arm and 116 (70.3%) in the placebo arm (hazard ratio, 0.804; 95% conﬁdence interval 0.637-1.015; P ¼ 0.0664, non-signiﬁcant). Median OS was 66.8 versus 53.7 months for abemaciclib versus placebo. In the subgroup with visceral disease, there were 113 OS events (65.3%) in the abemaciclib arm and 65 (72.2%) in the placebo arm (hazard ratio, 0.758; 95% conﬁdence interval 0.558-1.030; P ¼ 0.0757, non-signiﬁcant). Med",
@@ -2142,7 +2142,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2160,7 +2160,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 8 anchors: 25.3, 16.0, 0.568, 0.457, 0.704",
       "left_page": "2026-09-01"
     },
@@ -2195,7 +2195,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2213,7 +2213,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "source_id": "S005",
       "span": "METHODS RESULTS After a median follow-up of 6.6 years, 181 deaths had occurred among 334 patients (54.2%) in the ribociclib group and 219 among 334 (65.6%) in the placebo group. Ribociclib plus letrozole showed a significant overall survival benefit as compared with placebo plus letrozole. Median overall survival was 63.9 months (95% confidence interval [CI], 52.4 to 71.0) with ribociclib plus letrozole and 51.4 months (95% CI, 47.2 to 59.7) with placebo plus letrozole (hazard ratio for death, 0.76; 95% CI, 0.63 to 0.93; two-sided P = 0.008).",
       "envelope": "00 deaths had occurred. A hierarchical testing strategy was used for the analysis of progression-free survival and overall survival to ensure the validity of the findings. Copyright © 2022 Massachusetts Medical Society. METHODS RESULTS After a median follow-up of 6.6 years, 181 deaths had occurred among 334 patients (54.2%) in the ribociclib group and 219 among 334 (65.6%) in the placebo group. Ribociclib plus letrozole showed a significant overall survival benefit as compared with placebo plus letrozole. Median overall survival was 63.9 months (95% confidence interval [CI], 52.4 to 71.0) with ribociclib plus letrozole and 51.4 months (95% CI, 47.2 to 59.7) with placebo plus letrozole (hazard ratio for death, 0.76; 95% CI, 0.63 to 0.93; two-sided P = 0.008). No new safety signals were observed. CONCLUSIONS First-line therapy with ribociclib plus letrozole showed a significant overall survival benefit as compared with placebo plus letrozole in patients with HR-positive, HER2",
@@ -2258,7 +2258,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 3 anchors: 23.8, 13.0, 0.55",
       "left_page": "2026-09-01"
     },
@@ -2276,7 +2276,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 5 anchors: 40.9, 0.71, 0.54, 0.95, 34.6",
       "left_page": "2026-09-01"
     },
@@ -2346,7 +2346,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 6 anchors: 53.5, 58.7, 48.0, 0.76, 0.61",
       "left_page": "2026-09-01"
     },
@@ -2364,7 +2364,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "source_id": "S009",
       "span": "RESULTS The median progression-free survival was 24.8 months (95% confidence interval [CI], 22.1 to not estimable) in the palbociclib-letrozole group, as compared with 14.5 months (95% CI, 12.9 to 17.1) in the placebo-letrozole group (hazard ratio for disease progression or death, 0.58; 95% CI, 0.46 to 0.72; P<0.001).",
       "envelope": "was progression-free survival, as assessed by the investigators; secondary end points were overall survival, objective response, clinical benefit response, patient-reported outcomes, pharmacokinetic effects, and safety. RESULTS The median progression-free survival was 24.8 months (95% confidence interval [CI], 22.1 to not estimable) in the palbociclib-letrozole group, as compared with 14.5 months (95% CI, 12.9 to 17.1) in the placebo-letrozole group (hazard ratio for disease progression or death, 0.58; 95% CI, 0.46 to 0.72; P<0.001). The most common grade 3 or 4 adverse events were neutropenia (occurring in 66.4% of the patients in the palbociclib- letrozole group vs. 1.4% in the placebo-letrozole group), leukopenia (24.8% vs. 0%), anemia (5.4% vs.",
@@ -2409,7 +2409,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 6 anchors: 53.9, 51.2, 0.956, 0.777, 1.177",
       "left_page": "2026-09-01"
     },
@@ -2444,7 +2444,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 1,827 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2496,7 +2496,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 1,982 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2565,7 +2565,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 3,691 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2583,7 +2583,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2601,7 +2601,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 2 anchors: 4,415, 73.3",
       "left_page": "2026-09-01"
     },
@@ -3202,7 +3202,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "fc6f0ad6fc27515b": {
       "sentence": "That is not a criticism of the guideline, which is a reference",
@@ -3223,7 +3224,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "4adf0301370d0c7f": {
       "sentence": "not reached vs 14.7 mo",
@@ -3790,13 +3792,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "7c58cbbcdb97cf48": {
       "sentence": "(0.637 and 1.015 are abemaciclib’s bounds throughout; ribociclib’s are 0.63 and 0.93.)",
@@ -4006,7 +4009,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "5ca6da4bd9066e54": {
       "sentence": "NCT01958021",
@@ -4027,7 +4031,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "35c832986c71ec22": {
       "sentence": "NCT01740427",
@@ -4048,7 +4053,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "64508e0eea05a4c1": {
       "sentence": "Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA.",
@@ -4069,7 +4075,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "93cad7b1c2634b90": {
       "sentence": "A randomised, open-label phase III trial putting two of these three drugs directly against each other, registered as NCT05670054 .",
@@ -4090,7 +4097,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "6fc103a59ba1288c": {
       "sentence": "HARMONIA — ribociclib vs palbociclib in HR+/HER2−/HER2-enriched advanced breast cancer.",
@@ -4111,7 +4119,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "82ced218c32e4b61": {
       "sentence": "NCT05207709",
@@ -4132,7 +4141,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "d5a9cfb8e30b8744": {
       "sentence": "NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026",
@@ -4153,7 +4163,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "ce8709a79757564c": {
       "sentence": "Primary progression-free survival: median not reached vs 14.7 months, HR 0.54 (95% CI 0.41–0.72), P = .000021.",
@@ -4174,7 +4185,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "9598af335d9f274c": {
       "sentence": "66.8 vs 53.7 months, HR 0.804 (95% CI 0.637–1.015), two-sided P = .0664, at 8.1 years median follow-up.",
@@ -4195,13 +4207,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "3c65038ed8c79a19": {
       "sentence": "MONALEESA-2 — updated results.",
@@ -4222,7 +4235,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "94b5771732b4e291": {
       "sentence": "Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457–0.704), which this page rounds to 0.57 (0.46–0.70).",
@@ -4243,7 +4257,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "7f5ecca6a1e989d0": {
       "sentence": "MONALEESA-2 — overall survival with ribociclib plus letrozole.",
@@ -4264,7 +4279,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "86ce27ea53062f9f": {
       "sentence": "63.9 vs 51.4 months, HR 0.76 (95% CI 0.63–0.93), P = 0.008 as the paper prints it, at 6.6 years median follow-up.",
@@ -4285,13 +4301,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "e5b6a455a8437cd6": {
       "sentence": "Progression-free survival 23.8 vs 13.0 months, HR 0.55, P < .0001.",
@@ -4312,7 +4329,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "d9375976554445fd": {
       "sentence": "The protocol-specified interim analysis: median not reached vs 40.9 months, HR 0.71 (95% CI 0.54–0.95), one-sided P = .00973 against a prespecified stopping boundary of P = .01018, at 34.6 months median follow-up.",
@@ -4333,7 +4351,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "3aab33d13de1248b": {
       "sentence": "The exploratory extended follow-up at 53.5 months: 58.7 vs 48.0 months, HR 0.76 (95% CI 0.61–0.96).",
@@ -4354,7 +4373,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "a65528739ef2efda": {
       "sentence": "Primary progression-free survival: 24.8 vs 14.5 months, HR 0.58 (95% CI 0.46–0.72), two-sided P < .001.",
@@ -4375,13 +4395,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S009; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "7a25f44e04b43971": {
       "sentence": "53.9 vs 51.2 months, HR 0.956 (95% CI 0.777–1.177), one-sided P = .34, at 90.1 months median follow-up.",
@@ -4402,7 +4423,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "db2410b8addd5f27": {
       "sentence": "Patient-level survival curves rebuilt from PALOMA-2, MONALEESA-2 and MONARCH 3 by graphical reconstruction, 1,827 patients, every pair estimated directly.",
@@ -4423,7 +4445,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "b5879eb1c0b1d05d": {
       "sentence": "1,982 patients, eighteen Italian centres, inverse-probability weighting.",
@@ -4444,7 +4467,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "aa62c7876d73dd97": {
       "sentence": "Source of the venous thromboembolism warning — events in 2% to 5% of patients treated across the trials the label reports — the early-breast-cancer trial as well as the metastatic ones — with monitoring for signs and symptoms — and of diarrhoea in 81% to 90% of 3,691 patients across four trials, grade 3 in 8% to 20%.",
@@ -4465,7 +4489,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "122351849ab6f266": {
       "sentence": "Source of neutropenia in 80% of PALOMA-2 patients, grade 3 or worse in 66%, and of the requirement for blood counts on day 15 of each of the first two cycles.",
@@ -4486,11 +4511,55 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "3fdff1a783739652": {
       "sentence": "Seven phase III trials, 4,415 patients, 73.3 months median follow-up.",
       "sentence_sha": "3fdff1a783739652",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": false,
+      "left_page": "2026-09-01"
+    },
+    "9bed92e4dab8edc4": {
+      "sentence": "The Category Difference — What Holds Up What the guideline says",
+      "sentence_sha": "9bed92e4dab8edc4",
+      "why_empirical": "names the guideline",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "3e453b7a7cc18d8c": {
+      "sentence": "The distance that separates a category 1 from a category 2A Abemaciclib’s hazard ratio is 0.80 , on an interval running 0.64 to 1.02 .",
+      "sentence_sha": "3e453b7a7cc18d8c",
       "why_empirical": "figure",
       "bucket": null,
       "source_id": null,

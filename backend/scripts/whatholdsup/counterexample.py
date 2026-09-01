@@ -242,8 +242,47 @@ def write_template(slug: str, day: str, rows: list[dict]) -> Path:
     return p
 
 
-VERDICT = re.compile(r"^\s*VERDICT:\s*(broken|narrowed|survived)\b", re.I | re.M)
+# WITHDRAWN is the fourth verdict, and it exists because three of the first
+# eight items on issue one were attacks on things nobody claimed: two change-log
+# entries recording corrections already made, and a heading the extractor had
+# glued to the sentence after it. None of broken / narrowed / survived is true
+# of a claim that was never on the page, and calling such an item SURVIVED would
+# assert that we tested something we did not.
+#
+# It is the verdict most able to become an escape hatch, so it is the only one
+# with a condition attached: a WITHDRAWN item whose claim is STILL among the
+# page's universal negatives is itself a STOP. See withdrawn_but_still_claimed.
+VERDICT = re.compile(r"^\s*VERDICT:\s*(broken|narrowed|survived|withdrawn)\b",
+                     re.I | re.M)
+WITHDRAWN = re.compile(r"^\s*VERDICT:\s*withdrawn\b", re.I | re.M)
 BASIS = re.compile(r"^\s*BASIS:\s*(\S.*)$", re.M)
+
+
+
+def withdrawn_but_still_claimed(slug: str, claims: list[str]) -> list[str]:
+    """Items closed as WITHDRAWN whose claim the page still makes.
+
+    WITHDRAWN means "the page does not claim this" -- an attack on a change-log
+    entry, on an extractor artifact, on a sentence since deleted. If the claim
+    is still among the page's universal negatives, the item was closed on a
+    false premise and the claim has not been attacked by anybody.
+    """
+    d = case_dir(slug) / "counterexample"
+    if not d.exists():
+        return []
+    live = {_key(c) for c in claims}
+    out = []
+    for f in sorted(d.glob("*-adjudication.md")):
+        if "TEST" in f.name:
+            continue
+        for chunk in re.split(r"(?=^### )", f.read_text(encoding="utf-8"),
+                              flags=re.M)[1:]:
+            if not WITHDRAWN.search(chunk):
+                continue
+            m = re.search(r"\*\*We say\.\*\*\s*(.+?)(?=\n\n|\n\*\*)", chunk, re.S)
+            if m and _key(" ".join(m.group(1).split())) in live:
+                out.append("%s: %s" % (f.name, chunk.splitlines()[0][4:].strip()))
+    return out
 
 
 def open_items(slug: str) -> list[str]:
@@ -315,6 +354,12 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
              if not missed else
              f"{len(missed)} universal negative(s) added since the last hunt and "
              f"never attacked: " + " || ".join(c[:70] for c in missed[:2]))]
+    still = withdrawn_but_still_claimed(slug, claims)
+    rows.append(("withdrawn items are really gone", OK if not still else BAD,
+                 "no item marked WITHDRAWN is still a universal negative on the "
+                 "page" if not still else
+                 "%d item(s) marked WITHDRAWN whose claim is still on the page: "
+                 "%s" % (len(still), "; ".join(still[:3]))))
     op = open_items(slug)
     rows.append(("counterexample verdicts recorded", OK if not op else BAD,
                  "every claim attacked has a verdict and a basis"
@@ -341,7 +386,7 @@ def cmd_run(args) -> int:
             print("  give --page or --claim")
             return 2
         page = ROOT / args.page
-        text = lint.plain(page.read_text(encoding="utf-8"))
+        text = lint.plain(lint.body_only(page.read_text(encoding="utf-8")))
         claims = universal_negatives(text)
     if args.only:
         claims = [c for c in claims if any(k.lower() in c.lower() for k in args.only)]
@@ -373,7 +418,7 @@ def cmd_run(args) -> int:
 
 def cmd_list(args) -> int:
     page = ROOT / args.page
-    text = lint.plain(page.read_text(encoding="utf-8"))
+    text = lint.plain(lint.body_only(page.read_text(encoding="utf-8")))
     for c in universal_negatives(text):
         print(" -", c[:150])
     return 0

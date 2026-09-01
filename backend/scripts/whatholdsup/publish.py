@@ -1146,14 +1146,19 @@ def preflight(slug: str, *, for_email: bool,
     out.append(("spend on this issue",
                 OK if not _cap or _so_far < 0.8 * float(_cap) else WARN,
                 "$%.2f recorded%s. This is a floor: only factcheck_draft.py reports its "
-                "cost, so counterexample hunts, advocate and premise calls and every "
-                "Signal script are missing from it."
+                "cost DIRECTLY -- but every script that reaches the model now goes "
+                "through factcheck_draft.call, which refuses to spend until a "
+                "caller declares an issue, so advocate and counterexample runs "
+                "land here too. Signal scripts still do not."
                 % (_so_far, (" of a $%.0f cap" % float(_cap)) if _cap else "")))
 
     # The four checks added after the 29 August corrections. Order is
     # deliberate: the cheap deterministic ones first, so that a page failing on
     # a stale count is not first made to wait on a model call.
-    _ptext = ledger.plain(page.read_text(encoding="utf-8"))
+    # THE BODY, NOT THE CHANGE LOG, for the checks that read the page's claims.
+    # counterexample was given the whole document and spent three of eight
+    # attacks on our own correction entries. See source_ledger.body_only.
+    _ptext = ledger.plain(ledger.body_only(page.read_text(encoding="utf-8")))
     out.extend(lint.lint(page.read_text(encoding="utf-8"), slug))
     out.extend(counterexample.preflight_rows(slug, _ptext))
     out.extend(inherited.preflight_rows(slug, _ptext))

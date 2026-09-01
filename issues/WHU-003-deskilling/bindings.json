@@ -1528,7 +1528,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1551,7 +1551,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 9 anchors: 28.4%, 22.4%, 6.0, 10.5, 1.6",
       "left_page": "2026-09-01"
     },
@@ -1618,7 +1618,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1685,7 +1685,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 7 anchors: 87.2%, 13.1%, 96.4%, 1.9%, 45.5%",
       "left_page": "2026-09-01"
     },
@@ -1730,7 +1730,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 2603.11821 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1775,7 +1775,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "proposed_by": "autobind",
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England, 48 accredited labs to 8 centralised labs as of 2019), sharing 16 subject word(s) with the sentence: according, accredited, approximately, centralised, consolidation, cytology",
@@ -1890,7 +1890,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 2 anchors: 0.665, 0.813",
       "left_page": "2026-09-01"
     },
@@ -1935,7 +1935,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -1980,7 +1980,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2003,7 +2003,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 8 anchors: 79.7%, 82.3%, 19.8%, 14.0, 24.8%",
       "left_page": "2026-09-01"
     },
@@ -2026,7 +2026,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2049,7 +2049,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 6 anchors: 0.93, 0.97, 11.1%, 9.5%, 4.4",
       "left_page": "2026-09-01"
     },
@@ -2094,7 +2094,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 2506.08872 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2139,7 +2139,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 2601.00856 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2162,7 +2162,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2185,7 +2185,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 2 anchors: 5.07, 16.43",
       "left_page": "2026-09-01"
     },
@@ -2230,7 +2230,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2253,7 +2253,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: 0.68, 0.72, 0.75 (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2298,7 +2298,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2343,7 +2343,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 5 anchors: 2604.04721, 1,222, 1,060, 0.42, 0.19",
       "left_page": "2026-09-01"
     },
@@ -2366,7 +2366,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 4 anchors: 1,372, 9,593, 79.8%, 11.7",
       "left_page": "2026-09-01"
     },
@@ -2389,7 +2389,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2434,7 +2434,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: factors other than the implementation of AI use may have influenced the findings (strength 3, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2457,7 +2457,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "no held document contains all 2 anchors: a retrospective observational study, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven",
       "left_page": "2026-09-01"
     },
@@ -2480,7 +2480,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "left_page": "2026-09-01"
     },
@@ -2616,7 +2616,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "c61225a9c4902781": {
       "sentence": "Source of the 28.4% (226/795) to 22.4% (145/648) fall, the −6.0 percentage-point difference on a 95% confidence interval of −10.5 to −1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introduced.",
@@ -2637,7 +2638,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "72fbd315ba4c92e6": {
       "sentence": "Science Media Centre — expert reaction to the colonoscopy study, 12 August 2025",
@@ -2658,7 +2660,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "ad924bd4f34ebf2e": {
       "sentence": "Source of the 40 clinicians, the randomised crossover design over 200 anterior cruciate ligament cases on MRI, accuracy of 87.2% ± 13.1% without AI against 96.4% ± 1.9% with it at P < .001, errors under AI “accounting for 45.5% of the total mistakes”, and the suppression strategy estimated to reduce automation bias by 41.7%.",
@@ -2679,7 +2682,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "1e1f6f7c2c430e52": {
       "sentence": "Extended and peer reviewed as Rosbach E, Ammeling J, Ganz J, Bertram CA, Conrad T, Riener A, Aubreville M, “Stuck on Suggestions”, accepted at the Journal of Machine Learning for Biomedical Imaging , 2026 (arXiv:2603.11821)",
@@ -2700,7 +2704,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "3cf3cf8c771b23b4": {
       "sentence": "Source of the 28 trained pathology experts, the 7% automation-bias rate — initially correct evaluations overturned by erroneous AI advice — and the finding that time pressure did not raise the frequency of automation bias but appeared to increase its severity, through heavier reliance on the system’s negative consultations and a subsequent fall in performance.",
@@ -2721,7 +2726,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "d792fe131cf025c9": {
       "sentence": "Source of the cytology figures: the move to primary HPV testing produced “a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England”, and consolidation reduced “48 accredited labs to 8 centralised labs as of 2019”.",
@@ -2742,13 +2748,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S039; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "4d13ff0957b0d253": {
       "sentence": "Source of the eight radiologists in training, the 150 chest X-rays across three conditions, the intraclass correlation rising from 0.665 without AI to 0.813 with it integrated, the 70% of cases in which residents requested the AI, and their overriding it when its errors exceeded an acceptability threshold.",
@@ -2769,7 +2776,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "9c5d38b5cdec7ed7": {
       "sentence": "Troya J, Fitting D, Brand M, et al.",
@@ -2790,7 +2798,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "ac695a36eea65261": {
       "sentence": "Dratsch T, Chen X, Rezazade Mehrizi M, et al.",
@@ -2811,7 +2820,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "fd3e3c8d83a4cb8e": {
       "sentence": "Source of the 27 radiologists in three experience groups, the 50 mammograms of which 49 were analysed, the ten opening cases with correct suggestions and twelve incorrect suggestions among the remaining forty, the accuracy of roughly 79.7% to 82.3% across all groups when the suggestion was correct, and of 19.8% ± 14.0, 24.8% ± 11.6 and 45.5% ± 9.1 when it was wrong.",
@@ -2832,7 +2842,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "4c385dfd744cae16": {
       "sentence": "Gommers JJJ, Verboom SD, Duvivier KM, et al.",
@@ -2853,7 +2864,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "93f15efa53d2db80": {
       "sentence": "Source of the 12 radiologists, the 150 screening mammograms, the area under the curve rising from 0.93 to 0.97 at P < .001, the fixation coverage falling from 11.1% to 9.5% at P = .004, the lesion dwell time rising from 4.4 to 5.4 seconds at P = .006, and the authors’ description of that pattern as a more efficient search.",
@@ -2874,7 +2886,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "c172c525cca9cb8d": {
       "sentence": "arXiv 2506.08872",
@@ -2895,7 +2908,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "28c6f7967a73a7be": {
       "sentence": "arXiv 2601.00856",
@@ -2916,7 +2930,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "536298f150a8b0a7": {
       "sentence": "Hesselmann G.",
@@ -2937,7 +2952,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "b86457c6a729c3e6": {
       "sentence": "Source of the 89 participants analysed of 117 recruited, and of the Bayes factors of 5.07 against the alternative and 16.43 against the original’s specific predicted pattern.",
@@ -2958,7 +2974,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "f0b06cc7353cbe8d": {
       "sentence": "Gerlich M.",
@@ -2979,7 +2996,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "6098efd1cee05f62": {
       "sentence": "Source of the 666 valid responses of 669, the recruitment through social media in the United Kingdom, the cross-sectional design, and the three correlations of −0.68, +0.72 and −0.75.",
@@ -3000,7 +3018,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "71a78c0887103323": {
       "sentence": "Read in the corresponding author's own copy of the published paper, the publisher's site having refused us; the audit table gives four of nineteen comparisons meeting all three criteria, the treatment well described in fourteen, the control in eight, and a valid learning measure present in ten.",
@@ -3021,7 +3040,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "36074621c4369083": {
       "sentence": "arXiv 2604.04721",
@@ -3042,7 +3062,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "e13c029e01ef37a3": {
       "sentence": "Source of the three randomised experiments, 1,222 randomised and 1,060 analysed, the effect sizes of −0.42, −0.19 and −0.42 on unassisted solve rates, and the design in which the AI is withdrawn without warning before three test problems.",
@@ -3063,7 +3084,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "63a0ab50b0f630f8": {
       "sentence": "Source of the three pre-registered experiments, 1,372 participants and 9,593 trials, the 79.8% of chat-engaged trials on which participants followed faulty advice, and the confidence rise of 11.7 percentage points that did not decline as faulty trials accumulated.",
@@ -3084,7 +3106,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "7d58ccda3577a89e": {
       "sentence": "Zhou MJ.",
@@ -3105,7 +3128,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "35234c7edd298431": {
       "sentence": "Source of the quoted acknowledgements — “its observational nature” and “factors other than the implementation of AI use may have influenced the findings” — and of the senior author’s question about the randomised trials that preceded this result.",
@@ -3126,7 +3150,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "1821bc1a697aff36": {
       "sentence": "Calls it “a retrospective observational study” and carries an outside expert’s judgement that “the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven”.",
@@ -3147,7 +3172,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     },
     "8f4cfb56a8d880b2": {
       "sentence": "Fortune , 26 August 2025",
@@ -3168,7 +3194,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-01"
     }
   }
 }

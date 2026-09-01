@@ -43,9 +43,9 @@ read the source, the person is the check.
 
 **Why it matters.** The page's framing is that the announcement says only 'met its endpoint' — the floor of what could be said. But the announcement also says the improvements were 'statistically significant and clinically meaningful', which is a second-order characterisation of magnitude, not merely a binary pass/fail. The page's conclusion that the announcement provides no information beyond the floor is therefore too broad; the announcement does provide a qualitative magnitude claim, even if it withholds the hazard ratio.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The objection is that the page 'does not quote or engage with' the release's 'statistically significant and clinically meaningful'. The page quotes that exact phrase, inside the sentence this objection is about: 'Of the study it is actually announcing it says only that the endpoints were met, "statistically significant and clinically meaningful".' It is recorded as Q-05 in quotations.json, matched verbatim against S001.
+EFFECT: none
+DID:    Nothing. The premise is false against the page as it stands.
 
 
 ### S001-02 — SERIOUS / NARROWS
@@ -59,9 +59,9 @@ DID:
 
 **Why it matters.** The page's argument is built on the premise that 'met its endpoint' is the entirety of what the announcement conveys about results. That premise is factually incomplete: the announcement also characterises the improvements as both statistically significant and clinically meaningful. The page's conclusion — that the announcement tells us nothing beyond the binary floor — does not survive as written; it survives only in the narrower form that the announcement withholds the numerical hazard ratio.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — Same phrase, same sentence, same quotation record. The page's argument is not that the release says nothing beyond the binary; it is that the release gives no NUMBER, which the very next sentence enumerates: 'No hazard ratio, no interval, no p-value, no percentage.'
+EFFECT: none
+DID:    Nothing.
 
 
 ### S001-03 — MINOR / NONE
@@ -75,9 +75,9 @@ DID:
 
 **Why it matters.** Because the sentence is truncated, the severity is limited; but if the missing completion characterises the announcement as purely binary or uninformative about magnitude, the press release's qualitative magnitude language is the answer the page must address.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The sentence the advocate was given — 'We had called the announcement one that' — is a fragment, and it is a fragment of the CHANGE LOG. Two defects met here: the extractor was ending sentences at source-file line breaks, so hand-wrapped paragraphs shredded; and the advocate was reading the change log as though it were the article. Both fixed. There is no live claim to answer.
+EFFECT: none
+DID:    source_ledger.plain marks block boundaries with a sentinel instead of a newline, and the advocate reads source_ledger.body_only.
 
 
 ---
@@ -97,9 +97,9 @@ DID:
 
 **Why it matters.** The page correctly identifies the summary's error, but should note that the error is confined to the summary and is directly contradicted by the body of our document — the body cannot be faulted for the summary's misstatement, and any conclusion that our document itself conflates the endpoints is wrong.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The advocate agrees with the page ('the page's characterisation of the summary's error is correct') and objects only that the error belongs to a summary rather than to the body. The page says exactly that. The sentence is also a change-log entry, recording a correction already made.
+EFFECT: none
+DID:    Nothing.
 
 
 ### S002-05 — SERIOUS / NARROWS
@@ -113,9 +113,9 @@ DID:
 
 **Why it matters.** If the page concludes that our document overclaims blinding as a solution to investigator-assessment bias in KEYNOTE-942 itself, that conclusion is not supported: our document never applies the Phase 3 blinding retroactively to the Phase 2b endpoint; the two trials are described separately and the Phase 2b's open-label, investigator-assessed design is stated plainly.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — Also a change-log entry, and the advocate's own reading of it agrees with ours: the release describes the Phase 3 as double-blind and does not apply that retroactively to the Phase 2b endpoint, which is what our correction says we had wrongly implied.
+EFFECT: none
+DID:    Nothing.
 
 
 ### S002-06 — SERIOUS / CHANGES
@@ -133,6 +133,8 @@ MERIT:
 EFFECT: 
 DID:    
 
+> JUDGEMENT — FOR THE EDITOR. A change-log entry, so the advocate should not have seen it, and the underlying question is real: our correction says we credited the five-year data with clearing the no-effect line when it cleared at year three. S007 confirms the three-year 95% CI was 0.288-0.906. What needs a person is whether the correction entry describes the original error accurately enough, which is a question about our own record and not about a source.
+
 
 ### S002-07 — MINOR / NONE
 
@@ -145,9 +147,9 @@ DID:
 
 **Why it matters.** The page's characterisation that the summary wrongly says INTerpath-001 'published nothing' when in fact it released a topline result (positive RFS and DMFS, no magnitude) is a framing dispute: a topline with no effect size is not a publication of results in the conventional sense, and our document does not misrepresent this. The conclusion stands but the framing is imprecise.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — A change-log entry. The advocate's point — that a topline with no effect size is not 'publishing nothing' — is the correction we already made and printed.
+EFFECT: none
+DID:    Nothing.
 
 
 ### S002-08 — MINOR / NONE
@@ -164,6 +166,8 @@ DID:
 MERIT:  
 EFFECT: 
 DID:    
+
+> JUDGEMENT — FOR THE EDITOR. The advocate says 'n=14' is our compression of its fourteen deaths across both arms. It is not ours: S002 prints '(HR=0.471; [95% CI, 0.165-1.345]; n=14)' literally, and the page quotes it as the companies' own label. The counterexample hunt raised the same ambiguity from the other side, and I have glossed it at the two places it appeared bare — 'fourteen deaths, seven in each arm, not fourteen patients'. Whether to keep quoting the label at all is an editorial call.
 
 
 ---
@@ -187,6 +191,8 @@ MERIT:
 EFFECT: 
 DID:    
 
+> JUDGEMENT — FOR THE EDITOR. The advocate says The Lancet reports both the two-sided p and the prespecified one-sided design, so the page's framing implies a shift the paper did not make. It cites a prespecified one-sided alpha of 0.10; that figure is in NO document this issue holds, and the abstract we hold for S003 does not contain the strings 'one-sided', 'alpha' or '0.0266'. So the objection cannot be closed on the advocate's evidence, and closing it on our own reading of an abstract we hold only in part is the error this page has already made three times today.
+
 
 ### S003-10 — SERIOUS / CHANGES
 
@@ -199,9 +205,9 @@ DID:
 
 **Why it matters.** The entire rationale for the score-3 downgrade is that the claim rests on a press release rather than the peer-reviewed paper. The peer-reviewed paper exists and is the source being assessed. A score of 3 assigned on this basis is wrong on its face and the scoring conclusion does not survive.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The advocate has conflated two trials. The score being defended is for the PHASE 3 claim — 'improves recurrence-free survival ... in resected stage IIB-IV melanoma', the Phase 3 population — which rests on a company release and nothing else. The Lancet 2024 paper is the Phase 2b, stage IIIB-IV, a different trial in a different population. A peer-reviewed paper about another study does not raise the source quality of this claim.
+EFFECT: none
+DID:    Nothing.
 
 
 ### S003-11 — SERIOUS / CHANGES
@@ -215,9 +221,9 @@ DID:
 
 **Why it matters.** Any assessment that treats the Lancet 2024 paper as the three-year readout will misread its follow-up duration, event counts, and HR. The Lancet paper reports 44 events at ~23 months median follow-up; the three-year readout reports 47 events and HR 0.510. Conclusions drawn about what the Lancet paper 'shows' at three years are conclusions about a different document.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — 'The peer-reviewed publication of the three-year readout' is the ledger's used_for for S007, the JCO Oncology Advances paper. S003's used_for reads 'The peer-reviewed publication. Source of HR 0.561 (0.309-1.017)...' and makes no three-year claim. The advocate was shown both source blocks and attributed one description to the other.
+EFFECT: none
+DID:    Nothing.
 
 
 ### S003-12 — MINOR / NONE
@@ -231,9 +237,9 @@ DID:
 
 **Why it matters.** The citation itself is correct. The objection is contextual: the accurate label does not immunise the surrounding characterisations (press release; three-year readout) from correction.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The advocate raises no objection to the citation itself and defers to S003-10 and S003-13, both of which rest on the same conflation.
+EFFECT: none
+DID:    Nothing.
 
 
 ### S003-13 — SERIOUS / CHANGES
@@ -247,9 +253,9 @@ DID:
 
 **Why it matters.** The page's own source block confirms this is the peer-reviewed publication, which directly invalidates the score-3 downgrade applied on the grounds that it is a press release. The internal contradiction is not a matter of interpretation — the same document calls it both a press release (for scoring) and a peer-reviewed publication (in the metadata). The scoring conclusion does not survive.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — Same conflation as S003-10. There is no contradiction: S003 is the peer-reviewed publication OF THE PHASE 2b, and the score-3 is for the PHASE 3 claim, which has no peer-reviewed publication at all. Two sentences about two different trials.
+EFFECT: none
+DID:    Nothing.
 
 
 ---
@@ -275,9 +281,9 @@ DID:
 
 **Why it matters.** The page's characterisation of our article is accurate; we confirm it rather than contest it. No correction is warranted.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The advocate confirms the page's characterisation and states plainly that no correction is warranted.
+EFFECT: none
+DID:    Nothing.
 
 
 ### S006-15 — MINOR / NONE
@@ -291,9 +297,9 @@ DID:
 
 **Why it matters.** The headline citation is accurate; the omission of the specific endpoint names (RFS and DMFS) is a minor imprecision that does not change any conclusion the page draws.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  partly — The advocate is right that the source line gives the headline without the endpoint names, and right that nothing turns on it: the page names both endpoints, RFS and DMFS, in its own prose several times.
+EFFECT: none
+DID:    Nothing. Recorded rather than acted on, because the information the objection asks for is already on the page in its own voice.
 
 
 ### S006-16 — SERIOUS / NARROWS
@@ -307,9 +313,9 @@ DID:
 
 **Why it matters.** If the page is tracing the origin of '35.4' and listing The ASCO Post as a document it examined, it must make clear that our article contains only Phase 2b figures attributed to KEYNOTE-942, and that the absence of 35.4 from our article is therefore expected and uninformative about where that figure originated. Treating our article as a failed source for a Phase 3 number misrepresents what our article was ever positioned to contain.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The advocate confirms the finding it was asked about — its article publishes no Phase 3 efficacy figures — which is exactly what the page says. Its caution, that the absence of 35.4 from a document that publishes no Phase 3 figures is uninformative about where 35.4 came from, is correct and is the reason the correction entry says the figure is in NOTHING we hold rather than blaming this outlet.
+EFFECT: none
+DID:    Nothing.
 
 
 ---
@@ -329,9 +335,9 @@ DID:
 
 **Why it matters.** If the page's argument depends on the three-year readout having 'cleared' a formal efficacy boundary, that argument is wrong: the three-year analysis was pre-specified as supportive and descriptive, not a formal test. The HR and CI are real, but they do not constitute a crossed efficacy line in the regulatory or statistical sense.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes — Upheld, from the paper itself. S007 states: 'These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only).' 'Cleared the line' implies a threshold crossed in a test that was run; no test was run.
+EFFECT: narrows
+DID:    The sentence now reads that the interval no longer crossed 1.0 at three years, and says the paper calls its analyses descriptive only and not intended for formal hypothesis testing — 'an interval that stopped including 1.0 rather than a threshold anyone crossed'. The summary bullet is narrowed the same way.
 
 
 ### S007-18 — SERIOUS / NARROWS
@@ -345,9 +351,9 @@ DID:
 
 **Why it matters.** Quoting the HR and CI without the 'nominal/descriptive' qualifier attached to the p-value creates the impression of a formally significant result; the paper's own framing is more cautious and that caution is material to any conclusion drawn about evidentiary weight.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes — Same finding as S007-17, and it adds one the advocate did not: S007 reports this hazard ratio with an 80% confidence interval (0.351-0.743) in its text, giving the 95% interval (0.288-0.906) in the results table. The page had quoted the 95% interval without saying which the paper leads with.
+EFFECT: narrows
+DID:    The source note now states both intervals, says which one the page quotes and why, and carries the paper's 'descriptive only' sentence as a quotation.
 
 
 ### S007-19 — MINOR / NONE
@@ -361,9 +367,9 @@ DID:
 
 **Why it matters.** A truncated title is a bibliographic inaccuracy; it does not change the page's substantive conclusions but could impede readers trying to retrieve the source.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes — Upheld. The published title is 'Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma'. We had dropped 'the Individualized Neoantigen Therapy' and the drug synonyms, which are how a reader finds it.
+EFFECT: none
+DID:    Restored the full published title on the page and in the ledger, read off the held document.
 
 
 ### S007-20 — SERIOUS / CHANGES
@@ -376,9 +382,9 @@ DID:
 
 **Why it matters.** An incomplete sentence that purports to characterise our paper cannot be verified or rebutted; it must be completed and resubmitted. As written, it makes an unverifiable assertion about what the three-year readout contains, and any conclusion built on it is unsupported.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The advocate is right that it was handed a fragment ending mid-clause and could not evaluate it, and right that the truncation is itself an error. It was ours: the sentence extractor was breaking at source-file line breaks. There is no claim here to answer.
+EFFECT: none
+DID:    Extractor fixed; see S001-03.
 
 
 ---
@@ -398,9 +404,9 @@ DID:
 
 **Why it matters.** The page presents LBA9512 as the peer-reviewed publication of the three-year readout, lending it a weight it does not carry as a conference abstract. The actual full peer-reviewed three-year publication (Carlino et al., JCO Oncology Advances, 2026) is omitted entirely, meaning the page's characterisation of the evidentiary status of the three-year data is materially incomplete.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes — Upheld in substance. The page's source note called the ASCO 2024 material the publication of the three-year readout while the actual peer-reviewed paper — Carlino et al., JCO Oncology Advances 2026 — is S007 and sat in the same source list.
+EFFECT: changes
+DID:    The note is rewritten. It now describes S007 as the peer-reviewed publication, held in full and read on 1 September, and no longer routes the three-year figures through the conference presentation.
 
 
 ### S008-22 — SERIOUS / NARROWS
@@ -414,9 +420,9 @@ DID:
 
 **Why it matters.** The page's disclaimer that it 'verified the citation but not read the full text' implies epistemic uncertainty about the figures it quotes; in fact the abstract text is publicly accessible and the figures are confirmed, so the disclaimer overstates the limitation and may cause readers to discount the reliability of the cited numbers.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes — Upheld, and worse than the advocate knew. The note said 'the journal site blocks automated access, so we have verified the citation but not read the full text ourselves' while the ledger recorded S007 as full_text_held. The page claimed it could not read a document we hold.
+EFFECT: changes
+DID:    Note rewritten from the held bytes. Separately: inaccessibility_claims, the check built to catch exactly this, missed it — neither 'blocks automated access' nor 'not read the full text' was in its list of phrasings. Broadened, with the failure recorded in the source.
 
 
 ### S008-23 — SERIOUS / NARROWS
@@ -430,9 +436,9 @@ DID:
 
 **Why it matters.** The page's stated inability to read the full text of the three-year data is rendered moot by the existence of a full open-access peer-reviewed publication of the same data; omitting this source means the page's epistemic caveat is unfounded and its characterisation of the evidence base is incomplete.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes — Upheld and already answered by the same edit: the full peer-reviewed three-year paper is S007, we hold it, and the page now says so.
+EFFECT: changes
+DID:    Covered by S008-21 and S008-22.
 
 
 ### S008-24 — MINOR / NONE
@@ -446,9 +452,9 @@ DID:
 
 **Why it matters.** The HR figure itself is correct; the objection is to the implied publication status. The conclusion that the CI cleared the no-effect line is accurate, but the page should distinguish the conference abstract from the full peer-reviewed article and cite the latter.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes — Upheld. 'Since published in full' was ambiguous between the conference abstract and the journal article.
+EFFECT: none
+DID:    The phrase now sits beside a note naming the journal publication explicitly.
 
 
 ### S008-25 — MINOR / NONE
@@ -462,9 +468,9 @@ DID:
 
 **Why it matters.** The self-correction is welcome, but its scope is understated: the page implies it missed only a conference presentation, when in fact it also missed a full peer-reviewed journal article of the same data. This affects how readers assess the thoroughness of the page's literature review.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — A change-log entry — our record of having skipped the three-year readout — read as a live claim. The advocate's point that the data have since been published in full is true and the page now says so in the source list.
+EFFECT: none
+DID:    Nothing beyond the S008-21 edit.
 
 
 ---
@@ -488,6 +494,8 @@ MERIT:
 EFFECT: 
 DID:    
 
+> JUDGEMENT — FOR THE EDITOR. The advocate says its document carries a second, independent caution the page does not report. It is quoting a passage we now hold (S009, acquired today), so this is answerable — but what to carry from a source into a paragraph about two outlets disagreeing is an editorial choice about balance, not a fact to be checked.
+
 
 ### S009-27 — SERIOUS / NARROWS
 
@@ -504,6 +512,8 @@ MERIT:
 EFFECT: 
 DID:    
 
+> JUDGEMENT — FOR THE EDITOR. The strongest of the twenty-eight. S009 says: 'Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result.' Our sentence asks which of the two outlets is right, as though the answer were available and merely ignored. On the advocate's reading — and it is quoting a document we hold — the question cannot be resolved by anyone until the Phase 3 figures exist. That would change what the paragraph is about.
+
 
 ### S009-28 — MINOR / NONE
 
@@ -516,9 +526,9 @@ DID:
 
 **Why it matters.** The page's summary is factually accurate as far as it goes; the omission of the inferential context (that Phase 2b HRs cannot be applied to the Phase 3 IIB/IIC subgroup) does not change the page's conclusion but does misrepresent the logical structure of our argument, making it look like a simple epidemiological claim rather than a warning about cross-population inference.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  no — The advocate agrees the summary is factually accurate and objects to what it leaves out. That is the same point as S009-26 and S009-27 and is carried there.
+EFFECT: none
+DID:    Nothing.
 
 
 ---

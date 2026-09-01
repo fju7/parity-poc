@@ -72,7 +72,7 @@
     },
     "S007": {
       "source": "S007",
-      "title": "Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Rese",
+      "title": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-415",
       "checked_on": "2026-09-01",
       "identifier": "DOI 10.1200/OA-25-00008",
       "identifier_from": "the held document",
@@ -116,6 +116,56 @@
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
+    },
+    "S012": {
+      "source": "S012",
+      "title": "Eggermont AMM, Chiarion-Sileni V, Grob J-J, et al. Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant The",
+      "checked_on": "2026-09-01",
+      "identifier": "PMID 27717298",
+      "identifier_from": "the source URL",
+      "resolved_title": "Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy.",
+      "identity": "resolved title shares 7 word(s) with ours: adjuvant, ipilimumab, melanoma, prolonged, stage, survival, therapy",
+      "amendments": [
+        {
+          "id": "31442371",
+          "source": "MED",
+          "reference": "N Engl J Med. 2018 Nov 29;379(22):2185. doi: 10.1056/NEJMx180040",
+          "type": "Erratum in",
+          "orderIn": 5
+        }
+      ],
+      "comments": [
+        {
+          "id": "28121506",
+          "source": "MED",
+          "reference": "N Engl J Med. 2017 Jan 26;376(4):399. doi: 10.1056/NEJMc1615564",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "id": "28125193",
+          "source": "MED",
+          "reference": "N Engl J Med. ;376(4):398. doi: 10.1056/NEJMc1615564",
+          "type": "Comment in",
+          "orderIn": 2
+        },
+        {
+          "id": "28125194",
+          "source": "MED",
+          "reference": "N Engl J Med. ;376(4):398-9. doi: 10.1056/NEJMc1615564",
+          "type": "Comment in",
+          "orderIn": 3
+        },
+        {
+          "id": "30943345",
+          "source": "MED",
+          "reference": "N Engl J Med. 2019 Apr 4;380(14):1374-1376. doi: 10.1056/NEJMc1902228",
+          "type": "Comment in",
+          "orderIn": 4
+        }
+      ],
+      "state": "AMENDED",
+      "why": "matched on PMID 27717298"
     }
   }
 }
