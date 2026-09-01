@@ -1,0 +1,197 @@
+#!/usr/bin/env python3
+"""B13 -- IS THIS FIGURE IN ANYTHING WE HOLD?
+
+WHY THIS CHECK EXISTS
+---------------------
+On 2026-09-01, three figures were found on the live melanoma page that appear
+in NONE of the eight documents that issue holds:
+
+    68.8%   a recurrence-free rate "at five years". The cited paper prints
+            72.4% at four years, against the 49.1% the page pairs it with.
+    35.4    the lower bound of a survival interval, attributed to The ASCO
+            Post, whose full text we hold and which prints no such number.
+    0.0075  a one-sided p-value, quoted from a "20 January 2026 topline" that
+            has no entry in the source list at all.
+
+Not one was caught. Every check in this repository asks a question that starts
+one step too late:
+
+    B2  is this span in the source THIS ROW NAMES     -- needs a binding first
+    B12 does the cited source carry this precision    -- needs a citation first
+    B9  is this anchor in the ledger                   -- reads links, not digits
+    B6  is this scope word carried by the span         -- reads words, not digits
+
+All four presuppose that the figure came from somewhere. The question none of
+them asks is the one a reader would ask first:
+
+    DOES THIS NUMBER APPEAR ANYWHERE IN ANYTHING WE HOLD?
+
+It needs no binding, no citation and no judgement. It runs over every figure on
+a page in one pass, and it would have caught all three on the day they were
+written.
+
+WHAT A HIT AND A MISS MEAN -- AND DO NOT MEAN
+---------------------------------------------
+A HIT IS NOT "TRUE". 49.1% is in the paper and the sentence around it is still
+wrong: the page calls it a five-year figure and pairs it with a number that
+does not exist. Presence is presence. R1 governs here as everywhere.
+
+A MISS IS NOT "FALSE". A figure can be absent for an honest reason -- most
+often because the document it came from is not held. cdk46's MONARCH 3 row
+prints HR 0.54 (0.41-0.72) from the 2017 primary paper, which is
+`fragment_only`; the figures are missing from the library, not from the
+literature. So every report of an absence carries the count of sources this
+issue names and does not hold, and the check refuses to say more than it knows.
+
+AN ABSENCE OBSERVED BY SOMETHING THAT COULD NOT HAVE SEEN THE THING IS NOT AN
+ABSENCE. Recorded here for the ninth time. The whole value of this check is in
+reporting absence, so the two ways it could report a false one are closed
+explicitly: the normaliser handles The Lancet's middle dot (the eighth
+occurrence, caused by a character), and the page's OWN ARITHMETIC -- figures
+this page computed and says it computed -- is excluded rather than searched
+for, because no source will ever contain it.
+
+WHAT COUNTS AS A FIGURE
+-----------------------
+Decimals, and integers of three digits or more. Not bare one- and two-digit
+integers: "eight trainees", "three conditions", "50 patients" are in every
+document ever written and finding them proves nothing. Not years. Percentages
+count when they carry a decimal (68.8%) or three digits, because those are the
+ones a page gets wrong; a bare "70%" is excluded for the same reason "8" is.
+"""
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import source_store as store   # noqa: E402
+import source_ledger as ledger  # noqa: E402
+import spancheck as SC          # noqa: E402
+import bindings as B            # noqa: E402
+import autobind as AB           # noqa: E402
+
+# a decimal, or an integer of three digits or more (with optional separators)
+FIGURE = re.compile(r"(?<![A-Za-z0-9.$-])"
+                    r"(\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+\.\d+|\d{3,})"
+                    r"(?![0-9])")
+
+# Figures that mean something other than a measurement, in the page's own voice.
+NOT_A_MEASUREMENT = re.compile(
+    r"NCT\d+|10\.\d{4,9}/|ISSN|ISBN|\d+\.\d+\.\d+"
+    # An identifier is not a measurement. The NCCN guideline's edition is
+    # "version 6.2026" and Europe PMC's record is "PMID 41093689"; both were
+    # reported as figures in no held document, which is true and useless.
+    r"|\bversion\b|\bPMID\b|\bPMCID\b|\bPMC\d|\bISRCTN\b|\bEudraCT\b", re.I)
+
+
+def _is_year(f: str) -> bool:
+    return "." not in f and "," not in f and len(f) == 4 and 1900 <= int(f) <= 2099
+
+
+def figures_on_page(slug: str) -> list[tuple[str, str]]:
+    """(figure, the sentence it is in) for every checkable figure on the page."""
+    out, seen = [], set()
+    for sent in B.page_sentences(slug):
+        if AB.OURS.search(sent):
+            continue                      # the page says it did this sum itself
+        for m in FIGURE.finditer(SC._norm(sent)):
+            f = m.group(1).replace(",", "")
+            if _is_year(f) or NOT_A_MEASUREMENT.search(
+                    sent[max(0, m.start() - 12):m.end() + 12]):
+                continue
+            if (f, sent) in seen:
+                continue
+            seen.add((f, sent))
+            out.append((f, sent))
+    return out
+
+
+def _forms(fig: str) -> list[str]:
+    """The ways a document may print this figure.
+
+    The page writes "1,137" and the press release writes "1,137", but this
+    check strips separators so that both reduce to one figure -- and then
+    searched the sources for the STRIPPED form, which is in neither. It
+    reported a figure printed identically in both documents as being in nothing
+    we hold, four times on one page. An absence reported by something that
+    could not have seen the thing is not an absence.
+    """
+    forms = {fig}
+    if "." not in fig and len(fig) > 3:
+        whole = fig
+    else:
+        whole = fig.split(".")[0]
+    if len(whole) > 3:
+        grouped = ""
+        while len(whole) > 3:
+            grouped = "," + whole[-3:] + grouped
+            whole = whole[:-3]
+        grouped = whole + grouped
+        forms.add(grouped + fig[len(fig.split(".")[0]):])
+    return sorted(forms)
+
+
+def where(fig: str, slug: str) -> list[str]:
+    """Every held source whose bytes carry this figure, however it prints it."""
+    pat = re.compile("|".join(r"(?<![0-9.])%s(?![0-9])" % re.escape(f)
+                              for f in _forms(fig)))
+    hits = []
+    for sid in sorted(store.held(slug)):
+        text = SC._text(slug, sid) or ""
+        if pat.search(SC._norm(text)):
+            hits.append(sid)
+    return hits
+
+
+def unheld(slug: str) -> list[str]:
+    held = store.held(slug)
+    return [s["id"] for s in store.sources(slug) if s["id"] not in held]
+
+
+def run(slug: str) -> dict:
+    missing, present = [], 0
+    for fig, sent in figures_on_page(slug):
+        hits = where(fig, slug)
+        if hits:
+            present += 1
+        else:
+            missing.append((fig, sent))
+    return {"checked": present + len(missing), "present": present,
+            "missing": missing, "unheld": unheld(slug),
+            "sources": len(store.sources(slug))}
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("slug")
+    ap.add_argument("--limit", type=int, default=60)
+    a = ap.parse_args()
+
+    r = run(a.slug)
+    print("\n  %d figure(s) on the page checked against every held document"
+          % r["checked"])
+    print("  %d found in something we hold, %d in nothing we hold"
+          % (r["present"], len(r["missing"])))
+    print("  %d of this issue's %d sources are not held -- an absence below "
+          "may be theirs" % (len(r["unheld"]), r["sources"]))
+    if r["unheld"]:
+        print("  not held: %s" % ", ".join(r["unheld"]))
+    print()
+    for fig, sent in r["missing"][:a.limit]:
+        print("  %-10s %s" % (fig, sent[:110]))
+    if len(r["missing"]) > a.limit:
+        print("  ... %d more" % (len(r["missing"]) - a.limit))
+    print("\n  A figure found is not a sentence that is true. A figure missing "
+          "is not a\n  sentence that is false. Both are questions for a "
+          "person.\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -187,19 +187,43 @@ ADVERSE = re.compile(
 SENTENCE = re.compile(r"(?<=[.!?])\s+")
 
 
+BLOCK = re.compile(
+    r"</(?:h[1-6]|p|li|td|th|tr|blockquote|figcaption|caption|div|section|"
+    r"article|dt|dd|option|label)\s*>|<br\s*/?>", re.I)
+
+
 def plain(html_text: str) -> str:
-    """Tag-stripped, entity-decoded page text.
+    """Tag-stripped, entity-decoded page text, WITH BLOCK BOUNDARIES KEPT.
 
     Entities matter: the page writes &ldquo; and &mdash;, and a sentence
     splitter that sees them as words splits in the wrong places, which silently
     shortens the sentences this file matches against.
+
+    SO DO BLOCK BOUNDARIES. Every tag used to become a space, and a heading has
+    no full stop, so </h3><p> glued the heading to the sentence after it. The
+    page's own sentences arrived as "What time did to the top two bars When
+    KEYNOTE-942 first reported in 2023, ..." and "In this story - and this is
+    the interesting part The April 2023 press release reported ...". Table rows
+    and chart labels arrived as one sentence each, a whole trial table in one
+    string.
+
+    Four of the five flags on the first checked batch of model bindings were
+    this: a scope word from a HEADING, reported as unmapped against a span that
+    was never meant to carry it. The check was right that the words were not in
+    the span. The words were not in the sentence either.
+
+    A heading ends a sentence. So does a cell, a list item, and a line break.
     """
     import html as _h
-    return _h.unescape(re.sub(r"<[^>]+>", " ", html_text))
+    return _h.unescape(re.sub(r"<[^>]+>", " ", BLOCK.sub("\n", html_text)))
 
 
 def sentences(text: str) -> list[str]:
-    return [s.strip() for s in SENTENCE.split(text) if s.strip()]
+    """Split on terminal punctuation AND on block boundaries (see plain())."""
+    out: list[str] = []
+    for line in text.split("\n"):
+        out += [s.strip() for s in SENTENCE.split(line) if s.strip()]
+    return out
 
 
 def identifiers(src: dict) -> list[str]:

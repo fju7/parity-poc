@@ -195,6 +195,27 @@ REPORTS = re.compile(
     re.I)
 
 
+
+_QUOTES = [("\u201c", "\u201d"), ('"', '"'), ("\u2018", "\u2019"), ("'", "'")]
+
+
+def _quoted_spans(text: str) -> list[tuple[int, int]]:
+    """Character ranges of quoted material, curly or straight."""
+    out = []
+    for open_q, close_q in _QUOTES:
+        i = 0
+        while True:
+            a = text.find(open_q, i)
+            if a < 0:
+                break
+            b = text.find(close_q, a + 1)
+            if b < 0:
+                break
+            out.append((a + 1, b))
+            i = b + 1
+    return out
+
+
 def b6_scope(sentence: str, span: str) -> list[tuple[str, str]]:
     """(word, why) for every quantifier or hedge with nothing under it.
 
@@ -218,11 +239,24 @@ def b6_scope(sentence: str, span: str) -> list[tuple[str, str]]:
     # false ones, which is a worse trade than the one it replaced.
     reports = bool(REPORTS.search(sentence))
     sp = set(re.findall(r"[a-z]+", _norm(span).lower()))
+    text = _norm(sentence)
+    quoted = _quoted_spans(text)
     out = []
-    for w in re.findall(r"[a-z]+", _norm(sentence).lower()):
+    for m in re.finditer(r"[a-z]+", text.lower()):
+        w = m.group(0)
         if w not in SCOPE_WORDS:
             continue
         if w in QUANTIFIERS and not reports:
+            continue
+        # A QUANTIFIER INSIDE QUOTATION MARKS IS A NAME, NOT A CLAIM.
+        # "the interval crossed 1.0, so 'no effect' could not be ruled out" was
+        # flagged because "reported in 2023" satisfied the reporting guard and
+        # "no" is a quantifier. But "no effect" there is the null hypothesis
+        # being named, not an assertion that the source says no. The page is
+        # not claiming scope over the document; it is using a term of art.
+        # Quoted material has its own check -- whether the quotation is
+        # faithful -- and does not need this one applied to its vocabulary.
+        if any(a <= m.start() and m.end() <= b for a, b in quoted):
             continue
         ok = EQUIVALENT.get(w, {w}) & sp
         if not ok:

@@ -22,19 +22,20 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "no held document contains all 3 anchors: 1,137, 0.165, 1.345"
+      "autobind": "no held document contains all 3 anchors: 1,137, 0.165, 1.345",
+      "left_page": "2026-09-01"
     },
     "9f0ee44d4314c963": {
       "sentence": "Of the study it is actually announcing it says only that the endpoints were met, \"statistically significant and clinically meaningful.\" No hazard ratio, no interval, no p-value, no percentage.",
       "sentence_sha": "9f0ee44d4314c963",
       "why_empirical": "quoted passage",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "At a pre-specified interim analysis, intismeran in combination with KEYTRUDA as adjuvant therapy demonstrated statistically significant and clinically meaningful improvements in RFS and DMFS compared to KEYTRUDA alone for patients with completely resected stage IIB, IIC, III or IV cutaneous melanoma who had not undergone prior treatment with systemic therapy.",
+      "envelope": "d cancer therapy, as well as the first Phase 3 study to demonstrate a clinically meaningful improvement over KEYTRUDA alone, a standard-of-care immunotherapy, in the adjuvant setting for patients with resected melanoma. At a pre-specified interim analysis, intismeran in combination with KEYTRUDA as adjuvant therapy demonstrated statistically significant and clinically meaningful improvements in RFS and DMFS compared to KEYTRUDA alone for patients with completely resected stage IIB, IIC, III or IV cutaneous melanoma who had not undergone prior treatment with systemic therapy. In accordance with the trial protocol, the study will continue in order to evaluate other key secondary endpoints, including overall survival (OS). The safety profiles of intismeran and KEYTRUDA in this trial were consi",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -44,19 +45,31 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: statistically significant and clinically meaningful. (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: statistically significant and clinically meaningful. (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "only — the sentence says 'only' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-09-01"
     },
     "0436c6ee06315550": {
       "sentence": "So the numbers carried in the coverage — the 49% reduction in the hazard of recurrence or death, the 59% reduction in the hazard of distant metastasis or death — describe a different trial : an open-label study of 157 patients, not the blinded study of 1,137 that was announced.",
       "sentence_sha": "0436c6ee06315550",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S006",
+      "document_sha": "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The phase III readout builds on previously reported phase IIb results for intismeran in combination with pembrolizumab from the KEYNOTE-942/mRNA-4157-P201 trial, including the 5-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death (hazard ratio [HR] = 0.51, 95% confidence interval [CI] = 0.294–0.887) and a 59% reduction in the risk of distant metastasis or death (HR = 0.411, 95% CI = 0.200–0.843) compared to pembrolizumab alone.",
+      "envelope": "-free survival, overall survival, safety, tolerability, and quality of life. Endpoints Met The trial met its primary endpoint of recurrence-free survival and a key secondary endpoint of distant metastasis-free survival. The phase III readout builds on previously reported phase IIb results for intismeran in combination with pembrolizumab from the KEYNOTE-942/mRNA-4157-P201 trial, including the 5-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death (hazard ratio [HR] = 0.51, 95% confidence interval [CI] = 0.294-0.887) and a 59% reduction in the risk of distant metastasis or death (HR = 0.411, 95% CI = 0.200-0.843) compared to pembrolizumab alone. This represents the first positive phase III readout for an individualized neoantigen therapy and for an mRNA-based cancer therapy, as well as the first phase III study to demonstrate a clinically meaningful improvement",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -66,19 +79,25 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S006; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "42e607450a6b1ad7": {
       "sentence": "The interval around it runs from a hazard ratio of 0.165 — a rate of death about 84% lower than the comparison group's — to 1.345, about 35% higher.",
       "sentence_sha": "42e607450a6b1ad7",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+      "envelope": " 83.9% (74.1 to 90.3) with intismeran plus pembrolizumab versus 65.4% (49.1 to 77.6) with pembrolizumab. DMFS results were generally consistent across baseline subgroups analyzed (Data Supplement, Table S3 and Fig S2B). Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345). T-Cell Receptor Repertoire Analyses Among patients with available data (intismeran plus pembrolizumab, n 5 78; pembrolizumab, n 5 38), baseline TCR clonality was comparable between treatment arms (intismeran plus pembro",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -88,19 +107,25 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "dde5cc8e1babb00c": {
       "sentence": "On 19 August 2026, Merck and Moderna announced that INTerpath-001 — a randomised, double-blind, placebo- and active-comparator-controlled Phase 3 trial in 1,137 patients — met its primary endpoint of recurrence-free survival and its key secondary endpoint of distant metastasis-free survival at an interim analysis.",
       "sentence_sha": "dde5cc8e1babb00c",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "INTerpath-001 is a randomized, double-blind, placebo- and active-comparator-controlled global Phase 3 trial (ClinicalTrials.gov, NCT05933577 ) evaluating the safety and efficacy of intismeran in combination with KEYTRUDA compared to KEYTRUDA alone in patients with high-risk (stage IIB-IV) resected cutaneous melanoma. The trial enrolled 1,137 patients who, following complete surgical resection, were randomized 2:1 to receive intismeran (1 mg every three weeks for up to nine doses) and KEYTRUDA (400 mg every six weeks up to nine cycles [for approximately one year]) versus KEYTRUDA alone for approximately one year until disease recurrence or unacceptable toxicity, or for a total treatment duration of up to approximately 56 weeks, whichever was sooner.",
+      "envelope": "uction in the risk of recurrence or death (HR=0.51; [95% CI, 0.294-0.887]) and a 59% reduction in the risk of distant metastasis or death (HR=0.411; [95% CI, 0.200-0.843]) compared to KEYTRUDA alone. About INTerpath-001 INTerpath-001 is a randomized, double-blind, placebo- and active-comparator-controlled global Phase 3 trial (ClinicalTrials.gov, NCT05933577 ) evaluating the safety and efficacy of intismeran in combination with KEYTRUDA compared to KEYTRUDA alone in patients with high-risk (stage IIB-IV) resected cutaneous melanoma. The trial enrolled 1,137 patients who, following complete surgical resection, were randomized 2:1 to receive intismeran (1 mg every three weeks for up to nine doses) and KEYTRUDA (400 mg every six weeks up to nine cycles [for approximately one year]) versus KEYTRUDA alone for approximately one year until disease recurrence or unacceptable toxicity, or for a total treatment duration of up to approximately 56 weeks, whichever was sooner. The primary endpoint is RFS, defined as the time from randomization to any disease recurrence (local, locoregional, regional or distant) as assessed by the investigator, or death due to any cause. Key secondary endpoint",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -110,19 +135,25 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "26e08f1c59095a38": {
       "sentence": "It does contain hazard ratios — 0.510 for recurrence, 0.411 for distant metastasis — but those are the five-year results of KEYNOTE-942, the 157-patient trial that preceded this one, and the release says so.",
       "sentence_sha": "26e08f1c59095a38",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Today’s Phase 3 readout builds on previously reported Phase 2b results for intismeran in combination with KEYTRUDA from the KEYNOTE-942/mRNA-4157-P201 trial, including the five-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death (HR=0.51; [95% CI, 0.294-0.887]) and a 59% reduction in the risk of distant metastasis or death (HR=0.411; [95% CI, 0.200-0.843]) compared to KEYTRUDA alone.",
+      "envelope": "inical studies include the Phase 2b KEYNOTE-942/mRNA-4157-P201 trial in adjuvant melanoma and a Phase 1 study exploring adjuvant pancreatic ductal adenocarcinoma, perioperative gastric carcinoma and perioperative NSCLC. Today's Phase 3 readout builds on previously reported Phase 2b results for intismeran in combination with KEYTRUDA from the KEYNOTE-942/mRNA-4157-P201 trial, including the five-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death (HR=0.51; [95% CI, 0.294-0.887]) and a 59% reduction in the risk of distant metastasis or death (HR=0.411; [95% CI, 0.200-0.843]) compared to KEYTRUDA alone. About INTerpath-001 INTerpath-001 is a randomized, double-blind, placebo- and active-comparator-controlled global Phase 3 trial (ClinicalTrials.gov, NCT05933577 ) evaluating the safety and efficacy of intismeran in comb",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -131,8 +162,21 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "the only document with these anchors (S004) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not"
+      "on_page": false,
+      "autobind": "the only document with these anchors (S004) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [
+        {
+          "check": "B12",
+          "verdict": "added precision",
+          "why": "the source prints 0.51, not 0.510 — we show 1 decimal place(s) the source does not"
+        }
+      ],
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "1e5061ab408e4aeb": {
       "sentence": "Of the 1,137-patient trial it is announcing, the release states that both endpoints were met and gives no figure for either.",
@@ -161,12 +205,12 @@
       "sentence_sha": "0a832252c2769c9a",
       "why_empirical": "quoted passage",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "envelope": " including overall survival (OS). The safety profiles of intismeran and KEYTRUDA in this trial were consistent with those observed in previously reported studies for the combination, with no new safety signals observed. These data will be presented at an upcoming international medical meeting and shared with regulatory authorities. \"Today's results represent a landmark moment for adjuvant melanoma treatment. This is the first Phase 3 study to show that intismeran, a treatment designed based on the unique mutational ‘fingerprint' of a patient's own",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -175,8 +219,26 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: will be presented at an upcoming international medical meeting and shared with regulatory authorities. (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: will be presented at an upcoming international medical meeting and shared with regulatory authorities. (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "whole — the sentence says 'whole' and the span contains no word carrying that force"
+        },
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "1fb7e3d56ed92a57": {
       "sentence": "A reader who sees \"49% reduction\" three paragraphs under \"Phase 3 succeeds\" comes away with a sense of how large this effect is.",
@@ -271,12 +333,12 @@
       "sentence_sha": "2c267ff81fe18aab",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "s pembrolizumab 200 mg once every 3 weeks. The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety proﬁle continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -285,20 +347,27 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.510 (strength 2, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.510 (strength 2, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "30f541e0460fd7b3": {
       "sentence": "Reported as a percentage that becomes \"a 49% reduction in the hazard of recurrence or death\" — a correct restatement of the ratio, and still a relative rate rather than a share of patients spared.",
       "sentence_sha": "30f541e0460fd7b3",
       "why_empirical": "quoted passage",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S002",
+      "document_sha": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "With a median follow-up of 60.3 months (range, 50.5-76.4), adjuvant treatment with intismeran autogene in combination with KEYTRUDA continued to prolong recurrence-free survival (RFS), the study’s primary endpoint, reducing the risk of recurrence or death by 49% (HR=0.51; [95% CI, 0.294-0.887]) compared to KEYTRUDA alone.",
+      "envelope": "lowing complete resection. These data will be presented today at the 2026 American Society of Clinical Oncology (ASCO) Annual Meeting (May 29-June 2) and published simultaneously in ASCO's Journal of Clinical Oncology . With a median follow-up of 60.3 months (range, 50.5-76.4), adjuvant treatment with intismeran autogene in combination with KEYTRUDA continued to prolong recurrence-free survival (RFS), the study's primary endpoint, reducing the risk of recurrence or death by 49% (HR=0.51; [95% CI, 0.294-0.887]) compared to KEYTRUDA alone. Intismeran autogene in combination with KEYTRUDA also continued to demonstrate a meaningful improvement in distant metastasis-free survival (DMFS), a key secondary endpoint of the study, reducing the risk of distant met",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -308,7 +377,13 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: a 49% reduction in the hazard of recurrence or death (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: a 49% reduction in the hazard of recurrence or death (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S002; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "3539d41e4e4da4c5": {
       "sentence": "The absolute figures from the same trial, at five years: 68.8% of combination patients were recurrence-free versus 49.1% on pembrolizumab alone.",
@@ -351,8 +426,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "eb82e4c6ade97876": {
       "sentence": "The single most useful question to ask of any interval: does it cross 1.0?",
@@ -425,12 +501,12 @@
       "sentence_sha": "f78278a06de20599",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "s pembrolizumab 200 mg once every 3 weeks. The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety proﬁle continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -439,20 +515,27 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 7 anchors: 0.561, 0.510, 0.411, 0.471, 0.5"
+      "on_page": false,
+      "autobind": "no held document contains all 7 anchors: 0.561, 0.510, 0.411, 0.471, 0.5",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "926d08585c2098c1": {
       "sentence": "What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so \"no effect\" could not be ruled out.",
       "sentence_sha": "926d08585c2098c1",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0·561 [95% CI 0·309-1·017]; two-sided p=0·053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69·0-85·6) versus 62% (46·9-74·3).",
+      "envelope": "om July 18, 2019, to Sept 30, 2021, 157 patients were assigned to mRNA-4157 plus pembrolizumab combination therapy (n=107) or pembrolizumab monotherapy (n=50); median follow-up was 23 months and 24 months, respectively. Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69.0-85.6) versus 62% (46.9-74.3). Most treatment-related adverse events were grade 1-2. Grade ≥3 treatment-related adverse events occurred in 25% of patients in the combination group and 18% of patients in the monotherapy group, with no mRNA-4157-relate",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -461,20 +544,33 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S003, S004) — which one the sentence rests on is not decidable by presence alone"
+      "on_page": false,
+      "autobind": "2 held documents contain all these anchors (S003, S004) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "4751c2ec2e6d93bb": {
       "sentence": "It had already cleared the line by the three-year readout at ASCO 2024, since published in full: HR 0.510, 95% CI 0.288–0.906 .",
       "sentence_sha": "4751c2ec2e6d93bb",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S008",
+      "document_sha": "6e4763535187595d97f97e17eee86a621e3f60d3b93aca22982ae350ecc909e9",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Hazard ratio (95% CI)a NE 23.4 (25/107) 42.51 (16.59–NE) 44.0 (22/50) 0.510 (0.288–0.906) P = 0.019b mRNA-4157 (V940) + pembrolizumab pembrolizumab aThe hazard ratio and 95% CI for mRNA-4157 (V940) + pembrolizumab versus pembrolizumab were estimated using a Cox proportional hazards model with treatment group as a covariate, stratified by disease stage (stages IIIB or IIIC or IIID vs stage IV) used for randomization.",
+      "envelope": "ts at risk mRNA-4157 (V940) + pembrolizumab Pembrolizumab 18 24 30 36 42 48 54 Time from first dose of pembrolizumab (months) 107 87 83 77 52 29 12 6 1 0 50 41 37 29 27 10 5 2 0 0 Median (95% CI), months Events, % (n/N) Hazard ratio (95% CI)a NE 23.4 (25/107) 42.51 (16.59-NE) 44.0 (22/50) 0.510 (0.288-0.906) P = 0.019b mRNA-4157 (V940) + pembrolizumab pembrolizumab aThe hazard ratio and 95% CI for mRNA-4157 (V940) + pembrolizumab versus pembrolizumab were estimated using a Cox proportional hazards model with treatment group as a covariate, stratified by disease stage (stages IIIB or IIIC or IIID vs stage IV) used for randomization. The P value is based on a 2-sided log-rank test stratified by disease stage (stages IIIB or IIIC or IIID vs stage IV) used for randomization; bFormal hypothesis testing of RFS was performed using November 2022 data cut.",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -484,19 +580,25 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S008) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "the only document with these anchors (S008) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S008; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "ca51c4a1a62dc00b": {
       "sentence": "At five years the point estimate was unchanged at 0.510 and the interval read 0.294–0.887 — the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close to unchanged.",
       "sentence_sha": "ca51c4a1a62dc00b",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Analysis of RFS is summarized in Figure 1A and the Data Supplement (Table S1). The HR (95% CI) for RFS was 0.510 (0.294 to 0.887).",
+      "envelope": "t. RESULTS By data cutoff (December 15, 2025), the median (range) planned follow-up was 60.3 (50.5-76.4) months. Baseline demographics and clinical characteristics were balanced between treatment arms (Table 1). Efﬁcacy Analysis of RFS is summarized in Figure 1A and the Data Supplement (Table S1). The HR (95% CI) for RFS was 0.510 (0.294 to 0.887). The four-year RFS (95% CI) was 72.4% (62.2 to 80.2) with intismeran plus pembrolizumab versus 49.1% (33.3 to 63.0) with pembrolizumab. RFS results were generally consistent across baseline subgroups analyzed (Data Suppl",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -506,19 +608,25 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 5 anchors: 0.510, 0.294, 0.887, 0.906, 0.288"
+      "autobind": "no held document contains all 5 anchors: 0.510, 0.294, 0.887, 0.906, 0.288",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "af33b2d95bcce8b6": {
       "sentence": "Distant metastasis-free survival was a 62% reduction in hazard at three years and 59% at five.",
       "sentence_sha": "af33b2d95bcce8b6",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S002",
+      "document_sha": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The findings build on the primary analysis and supportive analysis at an approximately three-year follow-up (34.9 months), presented at the 2024 ASCO Annual Meeting , in which intismeran autogene in combination with KEYTRUDA resulted in a 49% RFS risk reduction and 62% DMFS risk reduction compared to KEYTRUDA alone.",
+      "envelope": "une-related adverse events occurred in 45.2% of patients receiving the combination and 44% receiving KEYTRUDA alone. Intismeran autogene in combination with KEYTRUDA did not result in potentiation of immune-related AEs. The findings build on the primary analysis and supportive analysis at an approximately three-year follow-up (34.9 months), presented at the 2024 ASCO Annual Meeting , in which intismeran autogene in combination with KEYTRUDA resulted in a 49% RFS risk reduction and 62% DMFS risk reduction compared to KEYTRUDA alone. Additional subgroup and translational data Data from an exploratory subgroup analysis continued to indicate that improvement in RFS was maintained with intismeran autogene in combination with KEYTRUDA across subpopulati",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -528,7 +636,13 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S002; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "5ca6a9cd32ed495a": {
       "sentence": "What the bottom bar is telling you The overall survival interval runs 0.165 to 1.345 .",
@@ -544,8 +658,20 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone"
+      "on_page": false,
+      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone",
+      "source_id": "S004",
+      "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+      "envelope": " 83.9% (74.1 to 90.3) with intismeran plus pembrolizumab versus 65.4% (49.1 to 77.6) with pembrolizumab. DMFS results were generally consistent across baseline subgroups analyzed (Data Supplement, Table S3 and Fig S2B). Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345). T-Cell Receptor Repertoire Analyses Among patients with available data (intismeran plus pembrolizumab, n 5 78; pembrolizumab, n 5 38), baseline TCR clonality was comparable between treatment arms (intismeran plus pembro",
+      "locator_type": "prose",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "830a84cf800eb508": {
       "sentence": "Reported as survival rates the same five-year analysis reads 92.2% alive versus 71.3% — 95% CI 84.2–96.3 and 35.4–89.6, as The ASCO Post reported them from the five-year data.",
@@ -632,8 +758,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)",
+      "left_page": "2026-09-01"
     },
     "add5e46e440fe9d0": {
       "sentence": "It means: if the drug were useless, you would see a result this good about 5% of the time by luck.",
@@ -662,12 +789,12 @@
       "sentence_sha": "a280ba77f0e86253",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S005",
+      "document_sha": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "In the overall intention-to-treat population, adjuvant treatment with mRNA-4157 (V940) in combination with KEYTRUDA demonstrated a statistically significant and clinically meaningful improvement in recurrence-free survival (RFS), and reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone.",
+      "envelope": "7-P201 trial evaluating mRNA-4157 (V940), an investigational individualized neoantigen therapy (INT), in combination with KEYTRUDA, Merck's anti-PD-1 therapy, in patients with resected high-risk melanoma (stage III/IV). In the overall intention-to-treat population, adjuvant treatment with mRNA-4157 (V940) in combination with KEYTRUDA demonstrated a statistically significant and clinically meaningful improvement in recurrence-free survival (RFS), and reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone. These findings will be presented during the American Association for Cancer Research (AACR) Annual Meeting 2023 plenary session and press conference (Abstract #CT001). Data from a subgroup analysis of KEYNOTE-942/mRNA-4",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -676,20 +803,27 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.0266 (strength 2, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.0266 (strength 2, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "d1c8e04b1b2ad6d1": {
       "sentence": "When the same data were published in The Lancet , they came with two-sided p = 0.053 , although the prespecified analysis was one-sided.",
       "sentence_sha": "d1c8e04b1b2ad6d1",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0·561 [95% CI 0·309-1·017]; two-sided p=0·053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69·0-85·6) versus 62% (46·9-74·3).",
+      "envelope": "om July 18, 2019, to Sept 30, 2021, 157 patients were assigned to mRNA-4157 plus pembrolizumab combination therapy (n=107) or pembrolizumab monotherapy (n=50); median follow-up was 23 months and 24 months, respectively. Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69.0-85.6) versus 62% (46.9-74.3). Most treatment-related adverse events were grade 1-2. Grade ≥3 treatment-related adverse events occurred in 25% of patients in the combination group and 18% of patients in the monotherapy group, with no mRNA-4157-relate",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -699,7 +833,13 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.053 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.053 (strength 1, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "719177281168499d": {
       "sentence": "A one-sided test asks only \"is it better?\" A two-sided test asks \"is it different, in either direction?\" For a symmetric test the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question.",
@@ -750,12 +890,12 @@
       "sentence_sha": "e1c3d925d06311dd",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0·561 [95% CI 0·309-1·017]; two-sided p=0·053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69·0-85·6) versus 62% (46·9-74·3).",
+      "envelope": "om July 18, 2019, to Sept 30, 2021, 157 patients were assigned to mRNA-4157 plus pembrolizumab combination therapy (n=107) or pembrolizumab monotherapy (n=50); median follow-up was 23 months and 24 months, respectively. Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69.0-85.6) versus 62% (46.9-74.3). Most treatment-related adverse events were grade 1-2. Grade ≥3 treatment-related adverse events occurred in 25% of patients in the combination group and 18% of patients in the monotherapy group, with no mRNA-4157-relate",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -765,7 +905,13 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "3 held documents contain all these anchors (S003, S004, S005) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "3 held documents contain all these anchors (S003, S004, S005) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "9bb4125d2d1163ac": {
       "sentence": "The companies' five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075 .",
@@ -852,8 +998,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 10 anchors: 1,137, 0.510, 0.294, 0.887, 0.411"
+      "on_page": false,
+      "autobind": "no held document contains all 10 anchors: 1,137, 0.510, 0.294, 0.887, 0.411",
+      "left_page": "2026-09-01"
     },
     "be0bfb3078f25857": {
       "sentence": "Merck's own description of the Phase 3 defines its primary endpoint as recurrence \"as assessed by the investigator\" rather than by central adjudication.",
@@ -1010,8 +1157,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "the sentence shows its own working ('×') — it rests on figures already on the page, not on a source"
+      "on_page": false,
+      "autobind": "the sentence shows its own working ('×') — it rests on figures already on the page, not on a source",
+      "left_page": "2026-09-01"
     },
     "1e0f81bd919ac7ff": {
       "sentence": "Rigor scores 5 — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets.",
@@ -1142,8 +1290,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "8173b971dc258e03": {
       "sentence": "Source of HR 0.561 (0.309–1.017) with two-sided p = 0.053 , the stage IIIB–IV enrolment, the 107/50 arm sizes, the open-label design, and grade 3+ treatment-related events at 25% versus 18%.",
@@ -1186,8 +1335,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "cad9c81fc170a16d": {
       "sentence": "Median follow-up 60.3 months, data cutoff 15 December 2025, and the statement that the five-year analyses were descriptive.",
@@ -1252,8 +1402,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "0101b9e00164637e": {
       "sentence": "Pharmacy Times — Phase 3 trial marks first success Specialist coverage.",
@@ -1274,8 +1425,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "7a31eef9a444229b": {
       "sentence": "Primary Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026 DOI 10.1200/OA-25-00008.",
@@ -1296,8 +1448,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 10.1200/OA-25-00008. (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 10.1200/OA-25-00008. (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "c352ff21f2163e16": {
       "sentence": "The peer-reviewed publication of the three-year readout.",
@@ -1341,7 +1494,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "14a3344d95fb8feb": {
       "sentence": "And we had given 92.2% versus 71.3% alive at five years without the interval, which is what shows that a large observed gap is one the data can neither confirm nor rule out.",
@@ -1363,7 +1517,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "no held document contains all 2 anchors: 92.2%, 71.3%"
+      "autobind": "no held document contains all 2 anchors: 92.2%, 71.3%",
+      "left_page": "2026-09-01"
     },
     "8692151651c67954": {
       "sentence": "We had written that the honest sentence is that this therapy “delays recurrence, not that it extends life.” It reduces recurrence and distant metastasis; whether it extends life is an open question rather than a settled no, and the piece now says so.",
@@ -1385,7 +1540,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: delays recurrence, not that it extends life. (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: delays recurrence, not that it extends life. (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "f788786199408858": {
       "sentence": "We had written that three outlets each listed what the announcement was missing — hazard ratios, absolute event rates, p-values — when only one of them enumerated those metrics; the sentence now attributes to each outlet only what it actually said, and drops two we could not stand up.",
@@ -1407,7 +1563,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "7d8fed63e862b7a9": {
       "sentence": "We had called the announcement one that \"reports no Phase 3 results\" — it reports that both endpoints were met, and what it withholds is the numbers, so the piece now says that.",
@@ -1429,7 +1586,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: reports no Phase 3 results (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: reports no Phase 3 results (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "d7b5bd72883d1d99": {
       "sentence": "We had skipped the three-year readout, which is where the recurrence interval actually cleared the no-effect line.",
@@ -1451,7 +1609,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "65205fa7c2b58db7": {
       "sentence": "We had given the 59% figure without saying it describes distant metastasis or death.",
@@ -1473,7 +1632,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "9ef509fbfe891142": {
       "sentence": "A first pass through our own checks of this page, which until now had only been run against the email summarising it, found eight sentences where the summary at the top said something the body below corrects: it called the trial’s two endpoints co-primary when one is primary and one key secondary; it repeated an accusation against the coverage that the body itself retracts; it said the Phase 3 was blinded against “exactly” a bias its own investigator-assessed endpoint still carries; it credited the five-year data with clearing the no-effect line when the body says year three; and it twice desc",
@@ -1495,7 +1655,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "56209b4ae141e4c0": {
       "sentence": "What materially changed: the five-year KEYNOTE-942 results replaced an earlier readout; distant metastasis-free survival eased from 62% to 59% over that period and is now stated next to the recurrence figure that improved; grade 3 or worse treatment-related events, 25% against 18%, were added; and the claim that the Phase 3 is free of the earlier trial's assessment bias was softened, because its primary endpoint is investigator-assessed too.",
@@ -1517,7 +1678,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "a8a0a11a92efffe0": {
       "sentence": "The three-year figures quoted above are taken from the ASCO 2024 presentation of the same analysis; the journal site blocks automated access, so we have verified the citation but not read the full text ourselves.",
@@ -1560,7 +1722,657 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
+      "on_page": false,
+      "left_page": "2026-09-01"
+    },
+    "4da903c51df0dc83": {
+      "sentence": "1,137 patients in the Phase 3 trial",
+      "sentence_sha": "4da903c51df0dc83",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
       "on_page": true
+    },
+    "e128b5bfbdc57d10": {
+      "sentence": "0.165–1.345 the interval around that trend",
+      "sentence_sha": "e128b5bfbdc57d10",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "fa3b7745cc06ce41": {
+      "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\"",
+      "sentence_sha": "fa3b7745cc06ce41",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "envelope": " including overall survival (OS). The safety profiles of intismeran and KEYTRUDA in this trial were consistent with those observed in previously reported studies for the combination, with no new safety signals observed. These data will be presented at an upcoming international medical meeting and shared with regulatory authorities. \"Today's results represent a landmark moment for adjuvant melanoma treatment. This is the first Phase 3 study to show that intismeran, a treatment designed based on the unique mutational ‘fingerprint' of a patient's own",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "d1e8f24478af9d9d": {
+      "sentence": "The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.",
+      "sentence_sha": "d1e8f24478af9d9d",
+      "why_empirical": "names The ASCO Post",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "a2dd44b983849981": {
+      "sentence": "At five years of follow-up, KEYNOTE-942 reported a recurrence-free survival hazard ratio of 0.510 .",
+      "sentence_sha": "a2dd44b983849981",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "s pembrolizumab 200 mg once every 3 weeks. The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety proﬁle continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone ",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "6b630d7f31ac12ad": {
+      "sentence": "95% CI",
+      "sentence_sha": "6b630d7f31ac12ad",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "54da954fff6294e8": {
+      "sentence": "Recurrence-free first readout, 2023 · HR 0.561",
+      "sentence_sha": "54da954fff6294e8",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "b7ec0d96346893ab": {
+      "sentence": "Recurrence-free 5-year · HR 0.510",
+      "sentence_sha": "b7ec0d96346893ab",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "2560dcc038541b47": {
+      "sentence": "Distant metastasis-free 5-year · HR 0.411",
+      "sentence_sha": "2560dcc038541b47",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "6d8b1ca818cb8d50": {
+      "sentence": "Overall survival exploratory · HR 0.471 · \"n=14\"",
+      "sentence_sha": "6d8b1ca818cb8d50",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "s pembrolizumab 200 mg once every 3 weeks. The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety proﬁle continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone ",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "ce4dfd12e8ef5751": {
+      "sentence": "0 0.5 1.0 — no effect 1.5",
+      "sentence_sha": "ce4dfd12e8ef5751",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "05b63c6758eac12e": {
+      "sentence": "When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so \"no effect\" could not be ruled out.",
+      "sentence_sha": "05b63c6758eac12e",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0·561 [95% CI 0·309-1·017]; two-sided p=0·053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69·0-85·6) versus 62% (46·9-74·3).",
+      "envelope": "om July 18, 2019, to Sept 30, 2021, 157 patients were assigned to mRNA-4157 plus pembrolizumab combination therapy (n=107) or pembrolizumab monotherapy (n=50); median follow-up was 23 months and 24 months, respectively. Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69.0-85.6) versus 62% (46.9-74.3). Most treatment-related adverse events were grade 1-2. Grade ≥3 treatment-related adverse events occurred in 25% of patients in the combination group and 18% of patients in the monotherapy group, with no mRNA-4157-relate",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "136d284e8ca972ce": {
+      "sentence": "The overall survival interval runs 0.165 to 1.345 .",
+      "sentence_sha": "136d284e8ca972ce",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+      "envelope": " 83.9% (74.1 to 90.3) with intismeran plus pembrolizumab versus 65.4% (49.1 to 77.6) with pembrolizumab. DMFS results were generally consistent across baseline subgroups analyzed (Data Supplement, Table S3 and Fig S2B). Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345). T-Cell Receptor Repertoire Analyses Among patients with available data (intismeran plus pembrolizumab, n 5 78; pembrolizumab, n 5 38), baseline TCR clonality was comparable between treatment arms (intismeran plus pembro",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "9d6b47d9d9a3793c": {
+      "sentence": "A p-value of 0.05 does not mean a 95% chance the drug works.",
+      "sentence_sha": "9d6b47d9d9a3793c",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "c243c2f7cbf7661d": {
+      "sentence": "The April 2023 press release reported KEYNOTE-942 as one-sided p = 0.0266 .",
+      "sentence_sha": "c243c2f7cbf7661d",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "In the overall intention-to-treat population, adjuvant treatment with mRNA-4157 (V940) in combination with KEYTRUDA demonstrated a statistically significant and clinically meaningful improvement in recurrence-free survival (RFS), and reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone.",
+      "envelope": "7-P201 trial evaluating mRNA-4157 (V940), an investigational individualized neoantigen therapy (INT), in combination with KEYTRUDA, Merck's anti-PD-1 therapy, in patients with resected high-risk melanoma (stage III/IV). In the overall intention-to-treat population, adjuvant treatment with mRNA-4157 (V940) in combination with KEYTRUDA demonstrated a statistically significant and clinically meaningful improvement in recurrence-free survival (RFS), and reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone. These findings will be presented during the American Association for Cancer Research (AACR) Annual Meeting 2023 plenary session and press conference (Abstract #CT001). Data from a subgroup analysis of KEYNOTE-942/mRNA-4",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "372d6aaf62804bd6": {
+      "sentence": "1,137 (2:1)",
+      "sentence_sha": "372d6aaf62804bd6",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "b003ac91d8f72c71": {
+      "sentence": "HR 0.510 (0.294–0.887)",
+      "sentence_sha": "b003ac91d8f72c71",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "249bf5363088486d": {
+      "sentence": "HR 0.411 (0.200–0.843)",
+      "sentence_sha": "249bf5363088486d",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "33aa3fcd1fb9c5e5": {
+      "sentence": "HR 0.471 (0.165–1.345)",
+      "sentence_sha": "33aa3fcd1fb9c5e5",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "669e6a70d9211c32": {
+      "sentence": "\"Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.\"",
+      "sentence_sha": "669e6a70d9211c32",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "72d73db944cf6d9a": {
+      "sentence": "3.4",
+      "sentence_sha": "72d73db944cf6d9a",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "dbf96bbfe1561adc": {
+      "sentence": "KEYNOTE-942: a randomised, phase 2b study — The Lancet , 2024",
+      "sentence_sha": "dbf96bbfe1561adc",
+      "why_empirical": "names The Lancet",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "f5f66d63771fcf24": {
+      "sentence": "Five-year results — Journal of Clinical Oncology , 1 June 2026",
+      "sentence_sha": "f5f66d63771fcf24",
+      "why_empirical": "names Journal of Clinical Oncology",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "6e0d3394b7cf0991": {
+      "sentence": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints",
+      "sentence_sha": "6e0d3394b7cf0991",
+      "why_empirical": "names The ASCO Post",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "81f7c279024e273b": {
+      "sentence": "Morning Glory Sciences — INTerpath-001",
+      "sentence_sha": "81f7c279024e273b",
+      "why_empirical": "names Morning Glory Sciences",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "1641d55dca5cc811": {
+      "sentence": "Pharmacy Times — Phase 3 trial marks first success",
+      "sentence_sha": "1641d55dca5cc811",
+      "why_empirical": "names Pharmacy Times",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "55e6c63db2f9ce65": {
+      "sentence": "Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026",
+      "sentence_sha": "55e6c63db2f9ce65",
+      "why_empirical": "names Three-Year Update",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "cb9fb4ffbae11b27": {
+      "sentence": "DOI 10.1200/OA-25-00008.",
+      "sentence_sha": "cb9fb4ffbae11b27",
+      "why_empirical": "DOI",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "9b941c6a6b233cf3": {
+      "sentence": "It does contain hazard ratios — 0.51 for recurrence, 0.411 for distant metastasis — but those are the five-year results of KEYNOTE-942, the 157-patient trial that preceded this one, and the release says so.",
+      "sentence_sha": "9b941c6a6b233cf3",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Today’s Phase 3 readout builds on previously reported Phase 2b results for intismeran in combination with KEYTRUDA from the KEYNOTE-942/mRNA-4157-P201 trial, including the five-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death (HR=0.51; [95% CI, 0.294-0.887]) and a 59% reduction in the risk of distant metastasis or death (HR=0.411; [95% CI, 0.200-0.843]) compared to KEYTRUDA alone.",
+      "envelope": "inical studies include the Phase 2b KEYNOTE-942/mRNA-4157-P201 trial in adjuvant melanoma and a Phase 1 study exploring adjuvant pancreatic ductal adenocarcinoma, perioperative gastric carcinoma and perioperative NSCLC. Today's Phase 3 readout builds on previously reported Phase 2b results for intismeran in combination with KEYTRUDA from the KEYNOTE-942/mRNA-4157-P201 trial, including the five-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death (HR=0.51; [95% CI, 0.294-0.887]) and a 59% reduction in the risk of distant metastasis or death (HR=0.411; [95% CI, 0.200-0.843]) compared to KEYTRUDA alone. About INTerpath-001 INTerpath-001 is a randomized, double-blind, placebo- and active-comparator-controlled global Phase 3 trial (ClinicalTrials.gov, NCT05933577 ) evaluating the safety and efficacy of intismeran in comb",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it"
     }
   }
 }

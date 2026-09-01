@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -65,6 +66,56 @@ def task(slug: str, limit: int = 40) -> dict:
     return {"slug": slug, "sentences": want, "held_sources": srcs}
 
 
+# WHAT COUNTS AS SUBJECT MATTER
+# -----------------------------
+# The first guard counted words of five letters or more and nothing else. On its
+# first run at scale it rejected seven of nine melanoma proposals that were
+# right: the sentence "the interval runs from 0.165 to 1.345" and the passage
+# "the OS HR (95% CI) was 0.471 (0.165 to 1.345)" have, by that measure, nothing
+# in common. For a sentence about a figure, THE FIGURE IS THE SUBJECT MATTER,
+# and it is more distinctive than any word in either text.
+#
+# So a shared figure earns points on the same scale as a shared word, and the
+# threshold does not move: two independent pieces of evidence, whatever kind.
+# Years are excluded -- two documents about the same trial share "2023" for
+# reasons that say nothing -- and so are bare one- and two-digit integers, which
+# is what kept the RECIST passage ("20%", "30%", "5 mm") from being accepted as
+# evidence for a sentence about p-values.
+
+WORD = 2          # a content word in common
+FIGURE = 2        # a figure in common
+DISTINCTIVE = 4   # a decimal carrying four significant digits: 1.017, 0.0266
+ENOUGH = 4        # unchanged: two words, or one four-digit decimal, or a pair
+
+_NUM = re.compile(r"(?<![A-Za-z0-9.])\d{1,3}(?:,\d{3})*(?:\.\d+)?(?![0-9])")
+
+
+def figures(t: str) -> set[str]:
+    """Numbers as they compare ACROSS documents: middle dots and thousands
+    separators normalised away, so the Lancet's 0(mid-dot)561 meets our 0.561.
+    """
+    return {m.group(0).replace(",", "") for m in _NUM.finditer(SC._norm(t))}
+
+
+def _weight(fig: str) -> int:
+    digits = fig.replace(".", "").lstrip("0")
+    if "." not in fig:
+        if len(digits) == 4 and 1900 <= int(digits) <= 2099:
+            return 0                     # a year is not evidence
+        return FIGURE if len(digits) >= 3 else 0
+    return DISTINCTIVE if len(digits) >= 4 else FIGURE
+
+
+def relevance(sentence: str, span: str) -> tuple[int, str]:
+    """How much this span and this sentence are about the same thing."""
+    words = AB.content_words(sentence) & AB.content_words(span)
+    figs = {f: _weight(f) for f in (figures(sentence) & figures(span))}
+    figs = {f: w for f, w in figs.items() if w}
+    score = WORD * len(words) + sum(figs.values())
+    return score, "%d word(s) and %d figure(s) in common" % (
+        len(words), len(figs))
+
+
 def accept(slug: str, proposals: list[dict]) -> dict:
     """Record only the proposals whose span is actually in the document named.
 
@@ -91,6 +142,19 @@ def accept(slug: str, proposals: list[dict]) -> dict:
         if present is not True:
             out["rejected"].append(
                 (sha, "the proposed span is not in %s" % sid))
+            continue
+        # B2 CONFIRMS EXISTENCE, NOT RELEVANCE — and within minutes of this
+        # harness being built, a hand-made proposal bound a sentence about
+        # one-sided p-values to a passage defining RECIST progression. The
+        # string was really in the document; it was about something else.
+        # autobind has carried this guard since its own first run bound an
+        # argument about p-values to a table of patient ages. The model path
+        # must not be weaker than the deterministic one.
+        score, why_rel = relevance(row["sentence"], span)
+        if score < ENOUGH:
+            out["rejected"].append(
+                (sha, "the span is in %s but shares too little subject matter "
+                      "with the sentence (%s)" % (sid, why_rel)))
             continue
         text = SC._text(slug, sid) or ""
         i = SC._norm(text).lower().find(SC._norm(span).lower())

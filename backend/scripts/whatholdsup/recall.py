@@ -249,6 +249,30 @@ CASES = [
                     "readout at ASCO 2024' — is invisible to it, which is the "
                     "source-list blind spot one step over. Still open."),
 
+
+  # 2026-09-01, found by three model binders reading sources for spans and then
+  # verified by hand against the held bytes. All three are the same shape: a
+  # figure printed on a live page that is in NO document the issue holds. All
+  # eight melanoma sources are held, so no absence here is the library's fault.
+  dict(id="MEL-08", slug="melanoma", check="B13", check_kind="b13",
+       figure="68.8", found_by="check",
+       what="'68.8% recurrence-free at five years' — the cited paper prints "
+            "72.4% at FOUR years against the 49.1% the page pairs it with, and "
+            "68.8 is in none of the eight held documents"),
+
+  dict(id="MEL-09", slug="melanoma", check="B13", check_kind="b13",
+       figure="35.4", found_by="check",
+       what="'92.2% versus 71.3%, CI 84.2-96.3 and 35.4-89.6, as The ASCO Post "
+            "reported them' — the paper prints 85.6% (70.5 to 93.3) for the "
+            "comparator; 35.4 is in nothing held, and The ASCO Post, whose "
+            "full text we hold, prints none of these figures"),
+
+  dict(id="MEL-10", slug="melanoma", check="B13", check_kind="b13",
+       figure="0.0075", found_by="check",
+       what="'one-sided nominal p = 0.0075' quoted from a '20 January 2026 "
+            "topline' — the figure is in nothing held and the document has no "
+            "entry in the source list at all"),
+
   dict(id="DESK-01", slug="deskilling", check="B10",
        what="issue three's central study carries a 2025 correction",
        sid="S021", check_kind="errata"),
@@ -280,6 +304,16 @@ def run_case(c: dict) -> tuple[str, str]:
             return CAUGHT, "B9 reports %s as a document the ledger does not know" % (
                 hit[0]["url"][:60])
         return MISSED, "B9 does not report this link as unreconciled"
+
+    if kind == "b13":
+        import b13
+        r = b13.run(c["slug"])
+        if any(f == c["figure"] for f, _s in r["missing"]):
+            return CAUGHT, ("B13 reports %s as a figure in none of the %d "
+                            "document(s) this issue holds"
+                            % (c["figure"], len(r["missing"]) and
+                               r["checked"] - len(r["missing"])))
+        return MISSED, ("B13 finds %s somewhere in the library" % c["figure"])
 
     if kind == "uncovered":
         return UNCOVERED, c.get("why_uncaught", "")

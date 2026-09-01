@@ -203,6 +203,7 @@ def scan(slug: str) -> tuple[dict, list[str], list[str]]:
     for sha, row in rows.items():
         if sha not in live:
             row["on_page"] = False
+            row["left_page"] = row.get("left_page") or date.today().isoformat()
             stale.append(sha)
     save(slug, doc)
     return doc, unbound, stale
@@ -338,6 +339,11 @@ def main() -> int:
         print("  %d flag(s), %d undetermined\n" % (t["flags"], t["undetermined"]))
         doc = load(args.slug)
         for sha, row in (doc.get("bindings") or {}).items():
+            # ONLY WHAT IS STILL ON THE PAGE. A row whose sentence has been
+            # edited keeps its old flags as history and is no longer a finding;
+            # printing them made the header say "0 flags" above two flags.
+            if not row.get("on_page"):
+                continue
             for f in (row.get("check_flags") or []):
                 print("  %-7s %-20s %s" % (f["check"], f["verdict"],
                                            row["sentence"][:78]))

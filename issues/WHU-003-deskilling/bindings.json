@@ -22,7 +22,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "5 held documents contain all these anchors (S032, S033, S037, S041, S042) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "5 held documents contain all these anchors (S032, S033, S037, S041, S042) — which one the sentence rests on is not decidable by presence alone",
+      "left_page": "2026-09-01"
     },
     "11147b19c29ad883": {
       "sentence": "Budzyń and colleagues went back through the records and compared the three months before with the three months after, looking only at the colonoscopies performed without AI assistance in both periods — 1,443 of them, 795 before and 648 after.",
@@ -253,12 +254,12 @@
       "sentence_sha": "c4888b894425b52a",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S039",
+      "document_sha": "7bec9861abbd5d41045898aad1252018bb7f7fedf46babb68a4b7a333fb730ce",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England. Fewer cytology cases requiring assessment have led to erosion of the cytology screening workforce and a change of role from screening to targeted interpretation. The effect on the workforce was further exacerbated by the centralisation and consolidation of NHSCSP labs, reducing 48 accredited labs to 8 centralised labs as of 2019.",
+      "envelope": "ccine and continued cervical screening, the disease could be effectively eradicated. This was echoed in NHS England&rsquo;s 2023 announcement of a target to eliminate cervical cancer by 2040. 10 Effects on the workforce The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England. Fewer cytology cases requiring assessment have led to erosion of the cytology screening workforce and a change of role from screening to targeted interpretation. The effect on the workforce was further exacerbated by the centralisation and consolidation of NHSCSP labs, reducing 48 accredited labs to 8 centralised labs as of 2019. Histopathology remains crucial in the diagnosis and management of high-grade lesions and cancer. Cytologists and histopathologists are an integral part of multi-disciplinary team meetings to discuss complex cases requir",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -268,7 +269,13 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S039; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "120466a97746b3d0": {
       "sentence": "(The scoping review puts the cut at 80–85% and the laboratories at 45 consolidating to 8 — citing, in its body, an NHS Digital annual report and a UK National Screening Committee evidence review, and, in its table, Rebolj and colleagues in Cancer Cytopathology , which we could not reach at the publisher, on PubMed or in PMC.",
@@ -1521,8 +1528,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "c2f8c733ea6082f1": {
       "sentence": "Lancet Gastroenterol Hepatol 2025;10(10):896–903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the −6.0 percentage-point difference on a 95% confidence interval of −10.5 to −1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introd",
@@ -1543,8 +1551,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 9 anchors: 28.4%, 22.4%, 6.0, 10.5, 1.6"
+      "on_page": false,
+      "autobind": "no held document contains all 9 anchors: 28.4%, 22.4%, 6.0, 10.5, 1.6",
+      "left_page": "2026-09-01"
     },
     "ea7550a9c4f4de50": {
       "sentence": "This paper carries a correction, published online 11 September 2025 ( Lancet Gastroenterol Hepatol 2025;10(11):e12, doi 10.1016/S2468-1253(25)00294-8), and we have now read it.",
@@ -1609,8 +1618,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "26e94905c0222d49": {
       "sentence": "Its abstract describes the colonoscopy study as “a multicenter randomized trial”; the study is retrospective and observational, as the review’s own body says.",
@@ -1675,8 +1685,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 7 anchors: 87.2%, 13.1%, 96.4%, 1.9%, 45.5%"
+      "on_page": false,
+      "autobind": "no held document contains all 7 anchors: 87.2%, 13.1%, 96.4%, 1.9%, 45.5%",
+      "left_page": "2026-09-01"
     },
     "5986125504ce1494": {
       "sentence": "2025 (arXiv:2411.00998).",
@@ -1719,8 +1730,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 2603.11821 (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 2603.11821 (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "a841be7b1223e544": {
       "sentence": "The review’s body cites this paper correctly by its arXiv number, though under the wrong author names and a wrong title; its Table 1 attaches the same 28 pathologists and the same 7% to a different reference — Bellahsen-Harrar and colleagues, PLOS ONE 2025;20(8):e0323270, which studied eight pathologists, had no time-pressure condition and reports no such figure.",
@@ -1763,12 +1775,13 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "autobind",
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England, 48 accredited labs to 8 centralised labs as of 2019), sharing 16 subject word(s) with the sentence: according, accredited, approximately, centralised, consolidation, cytology",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-01",
+      "left_page": "2026-09-01"
     },
     "4845354b59c1918e": {
       "sentence": "The scoping review gives 80–85% and 45 laboratories, citing a 2022 cytopathology paper we could not reach at the publisher, on PubMed or in PMC; we print the College’s figures because we could read them.",
@@ -1877,8 +1890,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 2 anchors: 0.665, 0.813"
+      "on_page": false,
+      "autobind": "no held document contains all 2 anchors: 0.665, 0.813",
+      "left_page": "2026-09-01"
     },
     "d5e49f63198fe467": {
       "sentence": "Read at source because a check on this page requires it, and it is not the study the scoping review describes: the review reports 32 residents, a 12-point sensitivity gain, an 18% reduction in reading time and stability at a three-month follow-up.",
@@ -1921,8 +1935,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "0f7a738768a4a384": {
       "sentence": "Source of the 21 participants — ten novice and eleven experienced — the 29 recorded video sequences, the crossover design with a three-week washout and 1,218 experiments, the fall in median eye travel distance from 248.86 cm to 232.68 cm at P < 0.001 (experienced 247.89 to 227.09; novice 255.66 to 247.89), the system’s 1.16-second median detection time against participants’ 2.97 seconds and their 2.90 seconds when using it, the rise in false polyp identification from a median of 4 cases to 6 at P = 0.001, and the 43.8% of display time for which participants inspected false-positive boxes.",
@@ -1965,8 +1980,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "48a03a9ad7d9bd40": {
       "sentence": "Radiology 2023;307(4):e222176 Source of the 27 radiologists in three experience groups, the 50 mammograms of which 49 were analysed, the ten opening cases with correct suggestions and twelve incorrect suggestions among the remaining forty, the accuracy of roughly 79.7% to 82.3% across all groups when the suggestion was correct, and of 19.8% ± 14.0, 24.8% ± 11.6 and 45.5% ± 9.1 when it was wrong.",
@@ -1987,8 +2003,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 8 anchors: 79.7%, 82.3%, 19.8%, 14.0, 24.8%"
+      "on_page": false,
+      "autobind": "no held document contains all 8 anchors: 79.7%, 82.3%, 19.8%, 14.0, 24.8%",
+      "left_page": "2026-09-01"
     },
     "0ba88eb0ad73cbd6": {
       "sentence": "Primary Gommers JJJ, Verboom SD, Duvivier KM, et al.",
@@ -2009,8 +2026,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "3da7203ece172c5a": {
       "sentence": "Radiology 2025;316(1):e243688 Source of the 12 radiologists, the 150 screening mammograms, the area under the curve rising from 0.93 to 0.97 at P < .001, the fixation coverage falling from 11.1% to 9.5% at P = .004, the lesion dwell time rising from 4.4 to 5.4 seconds at P = .006, and the authors’ description of that pattern as a more efficient search.",
@@ -2031,8 +2049,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 6 anchors: 0.93, 0.97, 11.1%, 9.5%, 4.4"
+      "on_page": false,
+      "autobind": "no held document contains all 6 anchors: 0.93, 0.97, 11.1%, 9.5%, 4.4",
+      "left_page": "2026-09-01"
     },
     "43f8f175be65b85d": {
       "sentence": "Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI Assistant for Essay Writing Task.",
@@ -2075,8 +2094,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 2506.08872 (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 2506.08872 (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "7df5a8402ac5c3b2": {
       "sentence": "Comment on: Your Brain on ChatGPT.",
@@ -2119,8 +2139,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 2601.00856 (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 2601.00856 (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "acf2d4db64f7031e": {
       "sentence": "Primary Hesselmann G.",
@@ -2141,8 +2162,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "57c41ddd709a875e": {
       "sentence": "PeerJ 2020;8:e10325 Source of the 89 participants analysed of 117 recruited, and of the Bayes factors of 5.07 against the alternative and 16.43 against the original’s specific predicted pattern.",
@@ -2163,8 +2185,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 2 anchors: 5.07, 16.43"
+      "on_page": false,
+      "autobind": "no held document contains all 2 anchors: 5.07, 16.43",
+      "left_page": "2026-09-01"
     },
     "70c1e16d7298ac07": {
       "sentence": "We have not opened Sparrow, Liu and Wegner’s 2011 Science paper, which is paywalled.",
@@ -2207,8 +2230,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "34b99db8c9186cbc": {
       "sentence": "Societies 2025;15(1):6 Source of the 666 valid responses of 669, the recruitment through social media in the United Kingdom, the cross-sectional design, and the three correlations of −0.68, +0.72 and −0.75.",
@@ -2229,8 +2253,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.68, 0.72, 0.75 (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.68, 0.72, 0.75 (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "5850f3bd7194a4c2": {
       "sentence": "The audit that prompted it — Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025 — is the source of the corrected effect read off the original’s own funnel plot, the retracted study carrying about 19% of the weight, the second-heaviest study measuring self-efficacy rather than learning, the 41 unique table entries against a reported 44, the effect size of 4.009 produced by treating shared group grades as individual scores, and effect sizes above 1 in about 36% of included studies.",
@@ -2273,8 +2298,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "f1804bd40ec16ff1": {
       "sentence": "The meta-analysis they audit is Deng et al., Computers & Education 2025;227:105224, which this page has not read: its scope and effect size are given here as Weidlich and colleagues report them.",
@@ -2317,8 +2343,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 5 anchors: 2604.04721, 1,222, 1,060, 0.42, 0.19"
+      "on_page": false,
+      "autobind": "no held document contains all 5 anchors: 2604.04721, 1,222, 1,060, 0.42, 0.19",
+      "left_page": "2026-09-01"
     },
     "8762158c9c0f0e5f": {
       "sentence": "Wharton School Research Paper, February 2026 Source of the three pre-registered experiments, 1,372 participants and 9,593 trials, the 79.8% of chat-engaged trials on which participants followed faulty advice, and the confidence rise of 11.7 percentage points that did not decline as faulty trials accumulated.",
@@ -2339,8 +2366,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 1,372, 9,593, 79.8%, 11.7"
+      "on_page": false,
+      "autobind": "no held document contains all 4 anchors: 1,372, 9,593, 79.8%, 11.7",
+      "left_page": "2026-09-01"
     },
     "133eeeb9bb33b8dd": {
       "sentence": "Coverage Zhou MJ.",
@@ -2361,8 +2389,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "cb9a2502dcd4f181": {
       "sentence": "Source of the proposal that visual gaze is the mechanism, citing Troya and colleagues.",
@@ -2405,8 +2434,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: factors other than the implementation of AI use may have influenced the findings (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: factors other than the implementation of AI use may have influenced the findings (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "e07130366e4bb255": {
       "sentence": "Healthgrades , 19 August 2025 Calls it “a retrospective observational study” and carries an outside expert’s judgement that “the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven”.",
@@ -2427,8 +2457,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 2 anchors: a retrospective observational study, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven"
+      "on_page": false,
+      "autobind": "no held document contains all 2 anchors: a retrospective observational study, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven",
+      "left_page": "2026-09-01"
     },
     "434e658a4d0f88e0": {
       "sentence": "Fortune , 26 August 2025 Carries the six-point fall to a business readership, connects it to a Microsoft and Carnegie Mellon survey and to an aviation analogy, and reports none of the study’s eleven limitations.",
@@ -2449,8 +2480,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "ad3f7c73ab856584": {
       "sentence": "The same is true of the research highlight in Nature Reviews Gastroenterology & Hepatology of 5 September 2025 and of Decker J, “When AI Reads the Easy Cases”, Rad Insights, 15 May 2026 — which pairs the colonoscopy and mammography results and is the closest published thing to this page.",
@@ -2516,7 +2548,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
     },
     "f72df4846d9beefd": {
       "sentence": "The commentary published alongside it in the same journal, and the later correspondence on it — which we can now name: Levartovsky A and Kopylov U, Lancet Gastroenterol Hepatol , December 2025, doi 10.1016/S2468-1253(25)00289-4.",
@@ -2538,7 +2571,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: 10.1016/S2468-1253(25)00289-4. (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 10.1016/S2468-1253(25)00289-4. (strength 3, need 4)",
+      "left_page": "2026-09-01"
     },
     "1b1a986073c3d5b4": {
       "sentence": "Sparrow, Liu and Wegner (2011).",
@@ -2560,7 +2594,581 @@
       },
       "first_seen": "2026-09-01",
       "on_page": false,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-01"
+    },
+    "94026924ff5b4242": {
+      "sentence": "Budzyń K, Romańczyk M, Kitala D, et al.",
+      "sentence_sha": "94026924ff5b4242",
+      "why_empirical": "names Budzyń",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "c61225a9c4902781": {
+      "sentence": "Source of the 28.4% (226/795) to 22.4% (145/648) fall, the −6.0 percentage-point difference on a 95% confidence interval of −10.5 to −1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introduced.",
+      "sentence_sha": "c61225a9c4902781",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "72fbd315ba4c92e6": {
+      "sentence": "Science Media Centre — expert reaction to the colonoscopy study, 12 August 2025",
+      "sentence_sha": "72fbd315ba4c92e6",
+      "why_empirical": "names the colonoscopy study",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "ad924bd4f34ebf2e": {
+      "sentence": "Source of the 40 clinicians, the randomised crossover design over 200 anterior cruciate ligament cases on MRI, accuracy of 87.2% ± 13.1% without AI against 96.4% ± 1.9% with it at P < .001, errors under AI “accounting for 45.5% of the total mistakes”, and the suppression strategy estimated to reduce automation bias by 41.7%.",
+      "sentence_sha": "ad924bd4f34ebf2e",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "1e1f6f7c2c430e52": {
+      "sentence": "Extended and peer reviewed as Rosbach E, Ammeling J, Ganz J, Bertram CA, Conrad T, Riener A, Aubreville M, “Stuck on Suggestions”, accepted at the Journal of Machine Learning for Biomedical Imaging , 2026 (arXiv:2603.11821)",
+      "sentence_sha": "1e1f6f7c2c430e52",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "3cf3cf8c771b23b4": {
+      "sentence": "Source of the 28 trained pathology experts, the 7% automation-bias rate — initially correct evaluations overturned by erroneous AI advice — and the finding that time pressure did not raise the frequency of automation bias but appeared to increase its severity, through heavier reliance on the system’s negative consultations and a subsequent fall in performance.",
+      "sentence_sha": "3cf3cf8c771b23b4",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "d792fe131cf025c9": {
+      "sentence": "Source of the cytology figures: the move to primary HPV testing produced “a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England”, and consolidation reduced “48 accredited labs to 8 centralised labs as of 2019”.",
+      "sentence_sha": "d792fe131cf025c9",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": "S039",
+      "document_sha": "7bec9861abbd5d41045898aad1252018bb7f7fedf46babb68a4b7a333fb730ce",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "10 Effects on the workforce The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England. Fewer cytology cases requiring assessment have led to erosion of the cytology screening workforce and a change of role from screening to targeted interpretation. The effect on the workforce was further exacerbated by the centralisation and consolidation of NHSCSP labs, reducing 48 accredited labs to 8 centralised labs as of 2019.",
+      "envelope": "creased uptake of the HPV vaccine and continued cervical screening, the disease could be effectively eradicated. This was echoed in NHS England&rsquo;s 2023 announcement of a target to eliminate cervical cancer by 2040. 10 Effects on the workforce The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England. Fewer cytology cases requiring assessment have led to erosion of the cytology screening workforce and a change of role from screening to targeted interpretation. The effect on the workforce was further exacerbated by the centralisation and consolidation of NHSCSP labs, reducing 48 accredited labs to 8 centralised labs as of 2019. Histopathology remains crucial in the diagnosis and management of high-grade lesions and cancer. Cytologists and histopathologists are an integral part of multi-disciplinary team meetings to discuss complex cases requir",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S039; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "4d13ff0957b0d253": {
+      "sentence": "Source of the eight radiologists in training, the 150 chest X-rays across three conditions, the intraclass correlation rising from 0.665 without AI to 0.813 with it integrated, the 70% of cases in which residents requested the AI, and their overriding it when its errors exceeded an acceptability threshold.",
+      "sentence_sha": "4d13ff0957b0d253",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "9c5d38b5cdec7ed7": {
+      "sentence": "Troya J, Fitting D, Brand M, et al.",
+      "sentence_sha": "9c5d38b5cdec7ed7",
+      "why_empirical": "names Troya",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "ac695a36eea65261": {
+      "sentence": "Dratsch T, Chen X, Rezazade Mehrizi M, et al.",
+      "sentence_sha": "ac695a36eea65261",
+      "why_empirical": "names Dratsch",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "fd3e3c8d83a4cb8e": {
+      "sentence": "Source of the 27 radiologists in three experience groups, the 50 mammograms of which 49 were analysed, the ten opening cases with correct suggestions and twelve incorrect suggestions among the remaining forty, the accuracy of roughly 79.7% to 82.3% across all groups when the suggestion was correct, and of 19.8% ± 14.0, 24.8% ± 11.6 and 45.5% ± 9.1 when it was wrong.",
+      "sentence_sha": "fd3e3c8d83a4cb8e",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "4c385dfd744cae16": {
+      "sentence": "Gommers JJJ, Verboom SD, Duvivier KM, et al.",
+      "sentence_sha": "4c385dfd744cae16",
+      "why_empirical": "names Gommers",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "93f15efa53d2db80": {
+      "sentence": "Source of the 12 radiologists, the 150 screening mammograms, the area under the curve rising from 0.93 to 0.97 at P < .001, the fixation coverage falling from 11.1% to 9.5% at P = .004, the lesion dwell time rising from 4.4 to 5.4 seconds at P = .006, and the authors’ description of that pattern as a more efficient search.",
+      "sentence_sha": "93f15efa53d2db80",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "c172c525cca9cb8d": {
+      "sentence": "arXiv 2506.08872",
+      "sentence_sha": "c172c525cca9cb8d",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "28c6f7967a73a7be": {
+      "sentence": "arXiv 2601.00856",
+      "sentence_sha": "28c6f7967a73a7be",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "536298f150a8b0a7": {
+      "sentence": "Hesselmann G.",
+      "sentence_sha": "536298f150a8b0a7",
+      "why_empirical": "names Hesselmann",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "b86457c6a729c3e6": {
+      "sentence": "Source of the 89 participants analysed of 117 recruited, and of the Bayes factors of 5.07 against the alternative and 16.43 against the original’s specific predicted pattern.",
+      "sentence_sha": "b86457c6a729c3e6",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "f0b06cc7353cbe8d": {
+      "sentence": "Gerlich M.",
+      "sentence_sha": "f0b06cc7353cbe8d",
+      "why_empirical": "names Gerlich",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "6098efd1cee05f62": {
+      "sentence": "Source of the 666 valid responses of 669, the recruitment through social media in the United Kingdom, the cross-sectional design, and the three correlations of −0.68, +0.72 and −0.75.",
+      "sentence_sha": "6098efd1cee05f62",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "71a78c0887103323": {
+      "sentence": "Read in the corresponding author's own copy of the published paper, the publisher's site having refused us; the audit table gives four of nineteen comparisons meeting all three criteria, the treatment well described in fourteen, the control in eight, and a valid learning measure present in ten.",
+      "sentence_sha": "71a78c0887103323",
+      "why_empirical": "names the audit",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "36074621c4369083": {
+      "sentence": "arXiv 2604.04721",
+      "sentence_sha": "36074621c4369083",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "e13c029e01ef37a3": {
+      "sentence": "Source of the three randomised experiments, 1,222 randomised and 1,060 analysed, the effect sizes of −0.42, −0.19 and −0.42 on unassisted solve rates, and the design in which the AI is withdrawn without warning before three test problems.",
+      "sentence_sha": "e13c029e01ef37a3",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "63a0ab50b0f630f8": {
+      "sentence": "Source of the three pre-registered experiments, 1,372 participants and 9,593 trials, the 79.8% of chat-engaged trials on which participants followed faulty advice, and the confidence rise of 11.7 percentage points that did not decline as faulty trials accumulated.",
+      "sentence_sha": "63a0ab50b0f630f8",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "7d58ccda3577a89e": {
+      "sentence": "Zhou MJ.",
+      "sentence_sha": "7d58ccda3577a89e",
+      "why_empirical": "names Zhou",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "35234c7edd298431": {
+      "sentence": "Source of the quoted acknowledgements — “its observational nature” and “factors other than the implementation of AI use may have influenced the findings” — and of the senior author’s question about the randomised trials that preceded this result.",
+      "sentence_sha": "35234c7edd298431",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "1821bc1a697aff36": {
+      "sentence": "Calls it “a retrospective observational study” and carries an outside expert’s judgement that “the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven”.",
+      "sentence_sha": "1821bc1a697aff36",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "8f4cfb56a8d880b2": {
+      "sentence": "Fortune , 26 August 2025",
+      "sentence_sha": "8f4cfb56a8d880b2",
+      "why_empirical": "names Fortune",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
     }
   }
 }
