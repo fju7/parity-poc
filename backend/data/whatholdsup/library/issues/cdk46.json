@@ -121,6 +121,28 @@
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
       "superseded": []
+    },
+    "S004": {
+      "sha256": "1adaa89a9ca058a7ff80c648042c26f1654e343df8d8105ceff77577c37613ed",
+      "file": "docs/1a/1adaa89a9ca058a7ff80c648042c26f1654e343df8d8105ceff77577c37613ed.html",
+      "bytes": 64285,
+      "url": "https://www.research.ed.ac.uk/en/publications/updated-results-from-monaleesa-2-a-phase-iii-trial-of-first-line-/",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "superseded": [],
+      "also_held": []
+    },
+    "S016": {
+      "sha256": "0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236",
+      "file": "docs/0e/0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236.pdf",
+      "bytes": 838359,
+      "url": "https://europepmc.org/api/getPdf?pmcid=PMC11758200",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

@@ -221,3 +221,51 @@ def test_pdftotext_is_found_where_PATH_will_not_look(monkeypatch, tmp_path):
         return real_exists(self)
     monkeypatch.setattr(store.Path, "exists", exists)
     assert store.pdftotext_path() == "/opt/homebrew/bin/pdftotext"
+
+
+# --- identity is not substance ---------------------------------------------
+
+FULL = ("<html><body>%s Introduction. Methods. Results. Discussion. "
+        "References: Smith et al. 2019.</body>" % ("word " * 2000)).encode()
+ABSTRACT_PAGE = ("<html><body>%s Abstract Background: the phase III study "
+                 "demonstrated prolonged survival.</body>" % ("word " * 2000)).encode()
+LANDING = b"<html><body>Research Explorer. Overall Survival With Ribociclib. DOI 10.1056/x</body>"
+
+
+def test_a_landing_page_is_refused_although_it_identifies_itself():
+    """A page ABOUT a paper carries the paper's title and DOI, so it passes the
+    identity test. Two were stored as full text on 2026-09-01 before this
+    existed: the Edinburgh landing page for MONALEESA-2's survival paper, and
+    the repository abstract page for its updated results."""
+    kind, why = store.substance(LANDING, "text/html")
+    assert kind == "landing"
+    assert "ABOUT the document" in why
+
+
+def test_an_abstract_page_is_recognised_as_an_abstract():
+    kind, why = store.substance(ABSTRACT_PAGE, "text/html")
+    assert kind == "abstract"
+    assert "not the paper" in why
+
+
+def test_a_full_text_is_recognised_by_its_reference_list():
+    kind, why = store.substance(FULL, "text/html")
+    assert kind == "full_text"
+    assert "reference list" in why
+
+
+def test_html_markup_is_not_counted_as_prose():
+    """Measuring raw HTML counted navigation chrome as prose and menu labels as
+    sections: a 5,559-character landing page scored 26,946 characters and two
+    sections it did not have."""
+    navvy = (b"<html><head><style>.introduction{}</style></head><body>"
+             + b"<nav>Discussion Forum References Home</nav>"
+             + b"<p>short</p></body></html>")
+    kind, _why = store.substance(navvy, "text/html")
+    assert kind == "landing"
+
+
+def test_abstract_held_licenses_the_abstract_and_not_the_paper():
+    permit = ledger.PERMITS[ledger.ABSTRACT_HELD]
+    assert "NOT what the study found" in permit
+    assert ledger.ABSTRACT_HELD in ledger.READ_STATES

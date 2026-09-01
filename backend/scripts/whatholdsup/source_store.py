@@ -188,7 +188,7 @@ def pdftotext_path() -> str | None:
     return None
 
 
-def text_of(data: bytes, content_type: str = "") -> tuple[str, str]:
+def text_of(data: bytes, content_type: str = "", pages: int = 8) -> tuple[str, str]:
     """The document's readable text, for the identity test.
 
     A PDF's text is compressed, so decoding its bytes as latin-1 finds almost
@@ -209,8 +209,8 @@ def text_of(data: bytes, content_type: str = "") -> tuple[str, str]:
         with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as fh:
             fh.write(data); tmp = fh.name
         try:
-            out = subprocess.run([exe, "-q", "-l", "8", tmp, "-"], capture_output=True,
-                                 timeout=60)
+            cmd = [exe, "-q"] + (["-l", str(pages)] if pages else []) + [tmp, "-"]
+            out = subprocess.run(cmd, capture_output=True, timeout=120)
             if out.returncode == 0 and len(out.stdout) > 200:
                 return out.stdout.decode("utf-8", "replace"), "pdftotext"
         except Exception:
@@ -225,6 +225,72 @@ def text_of(data: bytes, content_type: str = "") -> tuple[str, str]:
     # extracted -- so it can say "nobody here can read this" instead of "this is
     # the wrong document". Those are different statements and only one is true.
     return data.decode("latin-1", "replace"), "unextracted"
+
+
+# ---------------------------------------------------------------------------
+# is it the document, or a page about the document?
+# ---------------------------------------------------------------------------
+
+# Source types whose document is an ARTICLE, and so must show an article's
+# substance. A registry record, a drug label or a guideline page is not an
+# article and is not held to this.
+ARTICLE_TYPES = {"primary", "comparison", "methods", "conference", "review"}
+
+_MARKS = ("abstract", "introduction", "methods", "results", "discussion",
+          "conclusion", "references", "acknowledg", "funding", "supplementary")
+
+
+def substance(data: bytes, content_type: str = "") -> tuple[str, str]:
+    """(kind, why) — full_text, abstract, or landing.
+
+    WHY THIS EXISTS, AND IT IS THE THIRD TIME IN ONE SESSION.
+
+    Acquisition found a free repository copy of the MONALEESA-2 overall-survival
+    paper, fetched it, and stored it as full_text_held. It was the University of
+    Edinburgh RESEARCH EXPLORER LANDING PAGE: 34 KB, 5,559 characters, no
+    sections, the paper's title and DOI and nothing else. The identity test
+    passed it precisely BECAUSE a landing page carries the title and the DOI.
+
+    A second one, for the MONALEESA-2 updated-results paper, was the repository
+    ABSTRACT page -- structured abstract, no body, no references.
+
+    Identity and substance are different questions. "Are these bytes about the
+    right paper" is not "are these bytes the paper", and every version of this
+    week's error is one of those two being answered when the other was asked.
+
+    The discriminator, measured on what is actually in the library: a full text
+    carries BOTH a reference list and a discussion or introduction, and cites
+    heavily (et al x22, x11 for the two real ones); the abstract page has
+    neither and cites three times; the landing page has nothing at all.
+    """
+    # The WHOLE pdf, not the first eight pages. The identity test reads eight
+    # for speed; substance must see the end of the document, because the thing
+    # that separates a paper from its abstract is the REFERENCE LIST, and that
+    # is on the last pages. With the eight-page limit this classified the
+    # Shaaban paper -- which we hold in full and have read -- as an abstract.
+    raw, _how = text_of(data, content_type, pages=0)
+    if data[:5] != b"%PDF-" and data[:1] not in (b"{", b"["):
+        # And strip the markup. Measuring raw HTML counted navigation chrome as
+        # prose and menu labels as sections: a landing page scored 26,946
+        # "characters" and two "sections" it did not have.
+        raw = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", raw, flags=re.S | re.I)
+        raw = re.sub(r"<[^>]+>", " ", raw)
+    t = " ".join(raw.split()).lower()
+    hits = {m for m in _MARKS if m in t}
+    if len(t) < 6000 or not hits:
+        return "landing", ("%d characters and %d section markers — this is a page "
+                           "ABOUT the document, not the document"
+                           % (len(t), len(hits)))
+    if "references" in hits and ({"discussion", "introduction"} & hits):
+        return "full_text", ("%d characters, reference list and %s present"
+                             % (len(t), "/".join(sorted(hits & {"discussion",
+                                                                "introduction"}))))
+    if "abstract" in hits:
+        return "abstract", ("%d characters, abstract present but no reference list "
+                            "or discussion — this is the abstract, not the paper"
+                            % len(t))
+    return "landing", ("%d characters, sections %s — cannot show it is the document"
+                       % (len(t), ",".join(sorted(hits))))
 
 
 def identifies(data: bytes, src: dict, content_type: str = "") -> tuple[bool, str]:

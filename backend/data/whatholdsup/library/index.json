@@ -192,6 +192,38 @@
         "cdk46:S017"
       ],
       "note": "Asian Pac J Cancer Prev 2024;25(9):3039-3049, doi 10.31557/APJCP.2024.25.9.3039. The paper that settled CORR-18 and CORR-19."
+    },
+    "1adaa89a9ca058a7ff80c648042c26f1654e343df8d8105ceff77577c37613ed": {
+      "file": "docs/1a/1adaa89a9ca058a7ff80c648042c26f1654e343df8d8105ceff77577c37613ed.html",
+      "bytes": 64285,
+      "content_type": "text/html;charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.research.ed.ac.uk/en/publications/updated-results-from-monaleesa-2-a-phase-iii-trial-of-first-line-/"
+      ],
+      "titles": [
+        "MONALEESA-2 — updated results. Ann Oncol, 2018"
+      ],
+      "used_by": [
+        "cdk46:S004"
+      ],
+      "note": ""
+    },
+    "0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236": {
+      "file": "docs/0e/0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236.pdf",
+      "bytes": 838359,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://europepmc.org/api/getPdf?pmcid=PMC11758200"
+      ],
+      "titles": [
+        "P-VERIFY — comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025"
+      ],
+      "used_by": [
+        "cdk46:S016"
+      ],
+      "note": ""
     }
   }
 }

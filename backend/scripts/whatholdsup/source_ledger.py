@@ -95,19 +95,39 @@ OK, BAD, WARN = "ok", "BLOCKED", "warn"
 # A fragment cannot be re-examined, cannot be diffed, and cannot tell you what
 # it did NOT contain -- which is exactly how a true sentence got deleted.
 
-FULL_TEXT_HELD = "full_text_held"   # in the store, hashed; we can prove what it says
+FULL_TEXT_HELD = "full_text_held"   # in the library, hashed; we can prove what it says
 HUMAN_READ = "human_read"           # a person opened it. Required where a licence
                                     # forbids machine reading, as NCCN's does.
-FRAGMENT_ONLY = "fragment_only"     # a search returned something. Not a read.
+ABSTRACT_HELD = "abstract_held"     # we hold the ABSTRACT and not the paper.
+FRAGMENT_ONLY = "fragment_only"     # a retrieval returned something. Not a read.
 BLOCKED = "blocked"                 # we tried, by a named route, and could not get it
 NOT_OPENED = "not_opened"           # nobody tried
 
-STATES = (FULL_TEXT_HELD, HUMAN_READ, FRAGMENT_ONLY, BLOCKED, NOT_OPENED)
+# ABSTRACT_HELD exists because of what acquisition actually brought back on
+# 2026-09-01. Free repository copies of two MONALEESA-2 papers were fetched and
+# stored as full text. One was the University of Edinburgh landing page -- the
+# title, the DOI, and nothing else. The other was the repository ABSTRACT page:
+# structured abstract, no body, no references.
+#
+# Both passed the identity test, and they passed it BECAUSE a page about a paper
+# carries the paper's title and DOI. Identity and substance are different
+# questions, and every version of this week's error is one of them being
+# answered when the other was asked.
+#
+# An abstract is worth holding: it is stable, quotable and re-readable, which a
+# fragment is not. It is not the paper. A claim about what the STUDY found needs
+# the paper; a claim about what the abstract says needs this.
+
+STATES = (FULL_TEXT_HELD, HUMAN_READ, ABSTRACT_HELD, FRAGMENT_ONLY, BLOCKED,
+          NOT_OPENED)
 
 # What each state permits, as prose the board prints. The distinction that
 # matters is between "somebody read this" and "somebody guessed".
 PERMITS = {
     FULL_TEXT_HELD: "figures, characterisation, adverse claims, and quotation",
+    ABSTRACT_HELD: ("what the ABSTRACT says, quoted and attributed to the abstract. "
+                    "NOT what the study found, NOT its methods, and no adverse claim "
+                    "about what the paper omits — we do not hold the paper"),
     HUMAN_READ: ("figures and characterisation; adverse claims and quotations need "
                  "the reader's own answer, recorded"),
     FRAGMENT_ONLY: ("ONLY the figures the retrieval literally returned, attributed to "
@@ -118,7 +138,9 @@ PERMITS = {
 }
 
 # FRAGMENT_ONLY IS DELIBERATELY NOT HERE. That is the whole change.
-READ_STATES = (FULL_TEXT_HELD, HUMAN_READ)
+# ABSTRACT_HELD is a read state: somebody can open those bytes and check the
+# sentence against them. What it licenses is narrower, and PERMITS says so.
+READ_STATES = (FULL_TEXT_HELD, HUMAN_READ, ABSTRACT_HELD)
 
 # Sources whose licence forbids putting the document through any automated tool.
 # They can never reach FULL_TEXT_HELD, and HUMAN_READ is the ceiling: a person

@@ -103,9 +103,31 @@ def main() -> int:
     ap.add_argument("--only", help="comma-separated source ids")
     ap.add_argument("--refetch", action="store_true",
                     help="fetch even sources already in the store")
+    ap.add_argument("--use-routes", action="store_true",
+                    help="try the free routes find_access.py recorded, in order, "
+                         "before the source's own url")
     args = ap.parse_args()
-
     case = store.case_dir(args.slug)
+
+    # The free routes found by find_access.py. A publisher url that 403s a
+    # script often has an open repository copy or a Europe PMC copy that does
+    # not, and those are the SAME DOCUMENT -- the identity test decides that,
+    # not the hostname.
+    routes = {}
+    if args.use_routes:
+        rp = case / "access-routes.json"
+        if rp.exists():
+            for sid, r in (json.loads(rp.read_text(encoding="utf-8"))
+                           .get("sources") or {}).items():
+                # Repositories and Europe PMC first: they are archives, they do
+                # not run bot detection, and a publisher 403 is what sent us
+                # here in the first place.
+                ordered = sorted(r.get("routes") or [],
+                                 key=lambda x: (0 if ("PMC" in (x[0] or "")
+                                                      or "repository" in (x[0] or ""))
+                                                else 1))
+                routes[sid] = [u for _s, _st, u in ordered if u]
+
     sp = case / "sources.json"
     doc = json.loads(sp.read_text(encoding="utf-8"))
     srcs = doc.get("sources", doc)
@@ -129,19 +151,36 @@ def main() -> int:
         if not url:
             failed.append((sid, "no url recorded", s.get("title", "")))
             continue
-        target = acquisition_url(s)
-        try:
-            data, ct, final = fetch(target)
-        except urllib.error.HTTPError as e:
-            failed.append((sid, "HTTP %s" % e.code, s.get("title", ""))); continue
-        except Exception as e:
-            failed.append((sid, "%s: %s" % (type(e).__name__, e), s.get("title", ""))); continue
-        ok, why = store.identifies(data, s, ct)
-        if not ok:
+        targets = list(routes.get(sid) or []) + [acquisition_url(s)]
+        data = ct = final = None
+        why, held_kind = "no route tried", "record"
+        for target in targets:
+            try:
+                data, ct, final = fetch(target)
+            except urllib.error.HTTPError as e:
+                why = "HTTP %s at %s" % (e.code, target[:60]); data = None; continue
+            except Exception as e:
+                why = "%s at %s" % (type(e).__name__, target[:60]); data = None; continue
+            ok, why = store.identifies(data, s, ct)
+            if ok and s.get("type") in store.ARTICLE_TYPES:
+                # Identity is not substance. A repository landing page carries
+                # the paper's title and DOI and passes the identity test; it is
+                # a page ABOUT the document. Two were stored as full text on
+                # 2026-09-01 before this existed.
+                kind, swhy = store.substance(data, ct)
+                if kind == "landing":
+                    why = "identified, but %s" % swhy; data = None; continue
+                held_kind, why = kind, "%s — %s" % (why, swhy)
+                break
+            if ok:
+                held_kind = "record"
+                break
+            why = "%s (%s)" % (why, target[:60]); data = None
+        if data is None:
             failed.append((sid, why, s.get("title", ""))); continue
         row = store.put(args.slug, sid, data, url=final, via="acquire_sources.py on the "
                         "operator's machine", content_type=ct, title=s.get("title", ""))
-        acc["state"] = "full_text_held"
+        acc["state"] = ("abstract_held" if held_kind == "abstract" else "full_text_held")
         acc["held"] = {"file": row["file"], "sha256": row["sha256"], "bytes": row["bytes"],
                        "identified_by": why}
         acc.setdefault("on", row["retrieved"])

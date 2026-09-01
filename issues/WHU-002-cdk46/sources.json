@@ -79,14 +79,20 @@
       "accessed": "2026-08-28",
       "used_for": "Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457–0.704).",
       "access": {
-        "state": "blocked",
+        "state": "abstract_held",
         "by": "claude",
         "on": "2026-08-29",
         "blocked_by": "paywall",
         "not_read": [
           "the full text"
         ],
-        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us. RESOLVED 2026-08-30 FROM THE REGISTRY, NOT FROM THIS PAPER: the direction and level of the final overall-survival test are stated in the trial's own ClinicalTrials.gov results posting (S019, NCT01958021) — “compared using a log-rank test at one-sided cumulative 2.5% level of significance”. This paper is still unread. What the page says about the test is sourced to the registry and says so.\n\n2026-09-01: acquisition stored a PubMed COOKIE-CONSENT PAGE for this source and promoted it to full_text_held. The file was 5,565 bytes of “cookies required”. The wall blocklist did not have that phrase on it, which is the whole argument against blocklists. Removed; the identity test is now positive — bytes must contain the document's DOI, PMID, NCT or enough of its title."
+        "note": "2026-09-01: what we hold is the repository ABSTRACT page — the structured abstract, no body, no reference list. Held, hashed and quotable, which a fragment is not. It licenses what the abstract says, attributed to the abstract; it does not license claims about the study's methods or about what the paper omits.",
+        "held": {
+          "file": "docs/1a/1adaa89a9ca058a7ff80c648042c26f1654e343df8d8105ceff77577c37613ed.html",
+          "sha256": "1adaa89a9ca058a7ff80c648042c26f1654e343df8d8105ceff77577c37613ed",
+          "bytes": 64285,
+          "identified_by": "contains its identifier NCT01958021"
+        }
       },
       "characterisation_supported_by": [
         "S019"
@@ -107,7 +113,7 @@
           "the statistical analysis section"
         ],
         "blocked_by": "paywall",
-        "note": "nejm.org returns 403, PMC returns a CAPTCHA challenge, Europe PMC returns its homepage. The headline figures were taken from secondary reporting that quotes them. The direction of the overall-survival test and the boundary it faced have never been read by anyone here, which is how 'two-sided' reached the page five times. RESOLVED 2026-08-30 FROM THE REGISTRY, NOT FROM THIS PAPER: the direction and level of the final overall-survival test are stated in the trial's own ClinicalTrials.gov results posting (S019, NCT01958021) — “compared using a log-rank test at one-sided cumulative 2.5% level of significance”. This paper is still unread. What the page says about the test is sourced to the registry and says so."
+        "note": "2026-09-01: a free repository copy was fetched and stored as full text. It was the University of Edinburgh Research Explorer LANDING PAGE — the title, the DOI, and nothing else. It passed the identity test because a page about a paper carries the paper's title and DOI. Removed. The paper itself is still unheld."
       },
       "also_called": [
         "MONALEESA-2"
@@ -330,13 +336,19 @@
       "accessed": "2026-08-28",
       "used_for": "The Palbociclib Verifying Evidence of Real-world Impact study. 9,146 patients from the Flatiron Health record database — 6,831 on palbociclib, 1,279 on ribociclib, 1,036 on abemaciclib — with stabilised inverse-probability weighting. Overal",
       "access": {
-        "state": "blocked",
+        "state": "full_text_held",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits.\n\n2026-09-01: acquisition stored a PubMed COOKIE-CONSENT PAGE for this source and promoted it to full_text_held. The file was 5,565 bytes of “cookies required”. The wall blocklist did not have that phrase on it, which is the whole argument against blocklists. Removed; the identity test is now positive — bytes must contain the document's DOI, PMID, NCT or enough of its title."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits.\n\n2026-09-01: acquisition stored a PubMed COOKIE-CONSENT PAGE for this source and promoted it to full_text_held. The file was 5,565 bytes of “cookies required”. The wall blocklist did not have that phrase on it, which is the whole argument against blocklists. Removed; the identity test is now positive — bytes must contain the document's DOI, PMID, NCT or enough of its title.",
+        "held": {
+          "file": "docs/0e/0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236.pdf",
+          "sha256": "0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236",
+          "bytes": 838359,
+          "identified_by": "contains 11 of 11 distinctive title words"
+        }
       }
     },
     {
