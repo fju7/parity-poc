@@ -195,3 +195,64 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+# ---------------------------------------------------------------------------
+# the gate
+# ---------------------------------------------------------------------------
+#
+# WHY THIS IS A STOP AND NOT A WARNING.
+#
+# The three figures this check was built for reached a published page because
+# NOTHING IN THE PROCESS EVER REQUIRED A DOCUMENT TO EXIST BEFORE A SENTENCE
+# ABOUT IT COULD BE WRITTEN. The dates are in the history:
+#
+#   2026-08-26  the melanoma page is written, carrying 35.4 and 0.0075
+#   2026-08-27  68.8% is added, as "the five-year absolute rates"
+#   2026-08-28  the issue's source ledger is created -- two days later, with
+#               no access state on any of its ten entries
+#   2026-08-29  S004, the paper that settles all three, is entered for the
+#               first time, in the state `machine_read`, whose only evidence
+#               was that a URL had appeared in a gate report's citation list
+#   2026-09-01  S004's full text is held for the first time, six days after
+#               the sentence that misquotes it was published
+#
+# Every gate ran downstream of the writing. They asked whether the page was
+# internally consistent, whether its links resolved, whether its coverage
+# claims were supported. None asked whether the numbers came from anywhere,
+# because on 26 August there was nowhere for them to come from.
+#
+# So this is not another check on prose. It is the check that says the library
+# has to exist first.
+
+# The same three strings every other check module uses. Defining BAD as "bad"
+# here instead of "BLOCKED" made this row vanish from the preflight entirely --
+# printed under a mark the display had no key for -- which is a check that does
+# not run being indistinguishable from a check that passes.
+OK, BAD, WARN = "ok", "BLOCKED", "warn"
+
+
+def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
+    r = run(slug)
+    if not r["checked"]:
+        return [("figures in held documents", WARN,
+                 "no figures found on the page to check")]
+    n = len(r["missing"])
+    if not n:
+        return [("figures in held documents", OK,
+                 "all %d figure(s) on the page appear in a document we hold"
+                 % r["checked"])]
+    shown = ", ".join(f for f, _s in r["missing"][:6])
+    why = ("%d of %d figure(s) are in no document this issue holds: %s%s"
+           % (n, r["checked"], shown, " ..." if n > 6 else ""))
+    if r["unheld"]:
+        # An absence observed by something that could not have seen the thing
+        # is not an absence. With sources unheld, this cannot be a STOP.
+        return [("figures in held documents", WARN,
+                 "%s — but %d of %d source(s) are unheld (%s), so an absence "
+                 "here may be theirs. Acquire them and this becomes decidable."
+                 % (why, len(r["unheld"]), r["sources"],
+                    ", ".join(r["unheld"][:8])))]
+    return [("figures in held documents", BAD,
+             "%s — and every source is held, so there is nowhere else they "
+             "could have come from. Run b13.py %s." % (why, slug))]

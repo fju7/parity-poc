@@ -198,6 +198,11 @@ coverage = _sibling("coverage")
 # after B2 said "not there" three times about a figure held since morning,
 # because The Lancet writes its decimals with a middle dot.
 canary = _sibling("canary")
+# B13: does this figure appear in ANY document we hold? The one check that does
+# not need a binding, a citation or a judgement -- and the one that would have
+# stopped three figures reaching a live page, written between two and six days
+# before the paper that settles them was held. See b13.preflight_rows.
+b13 = _sibling("b13")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -1197,6 +1202,7 @@ def preflight(slug: str, *, for_email: bool,
                     % (type(exc).__name__, exc)))
     for _mod, _name in ((errata, "errata check"), (bindings, "claim bindings"),
                         (coverage, "check coverage"),
+                        (b13, "figures in held documents"),
                         (canary, "checks can read the documents")):
         try:
             out.extend(_mod.preflight_rows(slug))
@@ -1345,6 +1351,19 @@ def show(rows: list[tuple[str, str, str]], waive: str | None = None,
     """
     unwaivable = unwaivable or {}
     mark = {OK: "  ok ", BAD: " STOP", WARN: " warn"}
+    # A ROW UNDER A MARK THIS DISPLAY DOES NOT KNOW IS A SILENT PASS.
+    # b13 was wired in returning "bad" where every other check module returns
+    # "BLOCKED". It ran, it found the three figures, and its row printed under
+    # no mark at all -- indistinguishable, in a screen of forty rows, from a
+    # check that had nothing to say. Any state this display cannot render is
+    # promoted to a STOP naming the module, because a check whose verdict
+    # cannot be read has not been run.
+    rows = [(l, st if st in mark else BAD,
+             d if st in mark else
+             "this check returned the state %r, which is not one of %s -- its "
+             "verdict could not be displayed and is treated as a STOP: %s"
+             % (st, sorted(mark), d))
+            for l, st, d in rows]
     hard = [l for l, st, _d in rows if st == BAD and l in unwaivable]
     for label, st, detail in rows:
         if st == BAD and label in unwaivable:
