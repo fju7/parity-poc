@@ -319,26 +319,31 @@
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11700305/",
       "type": "primary",
       "title": "Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA (2024) — Comparing ribociclib versus palbociclib as a second line treatment in combination with fulvestrant in metastatic breast cancer: a randomized clinical trial. Asian Pacific Journal of Cancer Prevention 25(9), 3039-3049.",
-      "accessed": "2026-08-30",
+      "accessed": "2026-09-01",
       "also_called": [
         "the Egyptian trial",
         "Shaaban",
         "the second-line head-to-head"
       ],
-      "used_for": "THE COUNTEREXAMPLE. A randomised, open-label phase III trial putting ribociclib directly against palbociclib, which this page said did not exist. 116 patients, 58 per arm, randomised in 29 blocks of four by opaque sealed envelope, single centre (Oncology Centre Mansoura University, Egypt), July 2022 to December 2023. Clinical benefit at six months 58.6% in both arms (34/58 each). Median PFS 13.67 months palbociclib vs 12.69 ribociclib, not significant. Conclusion verbatim: “Both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile.” Second line with fulvestrant — outside the first-line aromatase-inhibitor setting the NCCN sentence describes.",
+      "used_for": "A randomised, open-label phase III trial putting two of these three drugs directly against each other, 1:1, registered NCT05670054, at the Oncology Centre Mansoura University, Egypt, July 2022 to December 2023. 116 patients, 58 per arm, randomised “using 29 blocks with block size of four” by opaque sealed envelope. Clinical benefit at six months 58.6% in both arms (34 of 58 either way); median progression-free survival 13.67 months on palbociclib against 12.69 on ribociclib, not significantly different. Conclusion: “Both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile.” Overall survival was immature and median OS was not calculated.",
       "WHY_THIS_MATTERS": "This page verified that NCCN says the CDK4/6 inhibitors have not been directly compared, and then printed that as an unscoped claim about the world, four times. This trial is why that was wrong. It was found by the counterexample role, whose only instruction is to break the page's universal negatives; eighteen fact-check runs and an outside review had passed over the sentence.",
       "access": {
-        "state": "machine_read",
-        "by": "claude",
-        "on": "2026-08-31",
+        "state": "human_read",
+        "by": "Fred Ugast, who supplied the full PDF on 2026-09-01 after every automated route from this environment was refused or rate-limited",
+        "on": "2026-09-01",
         "sections": [
-          "the full text, open access at Europe PMC (PMC11700305): abstract, methods, sample-size calculation, randomisation method, Tables 1-3, results, discussion"
+          "abstract",
+          "introduction",
+          "materials and methods (study setting, design, target population, inclusion/exclusion, sample size calculation, methods of randomization, outcome measurement, statistical analysis, registration)",
+          "Table 1",
+          "Table 2",
+          "results"
         ],
-        "not_read": [],
-        "note": "UPGRADED FROM ABSTRACT-ONLY on 2026-08-31. The first version of this entry recorded abstract-and-article-record only and said the page drew nothing beyond it. That was true when written. It stopped being true the moment anyone checked for an open-access copy, and nobody had. Found by the counterexample hunt naming a PMC id in a citation. This is the open-access-route expansion earning its place on its first outing."
+        "note": "Read in full. This entry previously said the full text had been read via PMC11700305; what had been read was whatever a search route returned. The difference is not academic: on 31 August this page withdrew the paper's own “29 blocks with block size of four” as our arithmetic, because nobody had opened the Methods."
       },
       "registry": "NCT05670054",
-      "endpoint_note": "PRIMARY objectives are clinical benefit rate, quality of life and toxicity. Progression-free survival and overall survival are SECONDARY. The sample size was calculated on overall response rate (58 per group at 80% power). The page now says so where it prints the PFS figures."
+      "endpoint_note": "PRIMARY objectives are clinical benefit rate, quality of life and toxicity. Progression-free survival and overall survival are SECONDARY. The sample size was calculated on overall response rate (58 per group at 80% power). The page now says so where it prints the PFS figures.",
+      "ENDPOINT_DISCREPANCY": "The paper names one primary endpoint and powers on another. Its Introduction: “The primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles... Secondary objectives were assessment of Progression free survival and Overall survival.” Its Sample size calculation: “The primary outcome of interest is the overall response rate (ORR)”, sized from ORR 55% (MONALEESA-2) against 25% (PALOMA-3), alpha 5%, power 80%. CBR counts stable disease and ORR does not, so these are different endpoints. The page prints both because the source states both. Same shape as the network meta-analysis printing 73.3 and 70.2."
     },
     {
       "id": "S018",

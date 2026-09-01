@@ -43,6 +43,21 @@ from pathlib import Path
 REGISTRY, LEDGER, QUOTATION, ARITHMETIC, READING, HUMAN = (
     "REGISTRY", "LEDGER", "QUOTATION", "ARITHMETIC", "READING", "HUMAN")
 
+# A class this file did not have until 2026-09-01, because it had not happened
+# where anyone could see it. CORR-13 withdrew "29 blocks of four" from the page
+# as our own arithmetic, on a fact-check finding that no reachable source stated
+# a block count. The paper says, in its Methods: "Legible patients were
+# randomised into either arm using 29 blocks with block size of four."
+#
+# The correction deleted a true statement. Nobody had opened the paper; the
+# withdrawal was written from the finding.
+#
+# It is tracked separately because it is not a detection failure and no check
+# would have caught it. Every control here asks "is this claim supported?" and
+# none asks "was this deletion?". A pipeline that only validates what the page
+# SAYS cannot see what a correction TOOK OUT.
+DELETED_A_TRUTH = "DELETED_A_TRUTH"
+
 # Every adjudicated correction on issue two, and what actually settled it.
 # `check` is the module that would catch it today, or "" if nothing would.
 ERRORS = [
@@ -77,8 +92,12 @@ ERRORS = [
       settled_by=ARITHMETIC, check="", found_by="gate", introduced_by="CORR-02"),
  dict(id="CORR-12", what="HARMONIA credited with finding no difference; it never reported",
       settled_by=REGISTRY, check="", found_by="gate", introduced_by="CORR-01"),
- dict(id="CORR-13", what="'29 blocks of four' is 116/4, our arithmetic as the paper's",
-      settled_by=ARITHMETIC, check="", found_by="gate", introduced_by=""),
+ dict(id="CORR-13", what="'29 blocks of four' withdrawn as our arithmetic - THE PAPER SAYS IT",
+      settled_by=READING, check="", found_by="the operator supplying the PDF",
+      introduced_by="", note="NOT AN ERROR IN THE PAGE. The error was the correction: "
+                             "CORR-13 removed a true statement, written from a fact-check "
+                             "finding by someone who had not read the paper. Reverted "
+                             "2026-09-01.", deleted_a_truth=True),
  dict(id="CORR-14", what="our interval-width observation attributed to Tanguy, who never makes it",
       settled_by=READING, check="", found_by="gate on the email", introduced_by=""),
  dict(id="CORR-15", what="'neither is first line with an AI'; HARMONIA's arms include letrozole",
@@ -101,6 +120,7 @@ def report() -> str:
     uncovered = [e for e in mech if not e["check"]]
     judgment = [e for e in ERRORS if e["settled_by"] not in MECHANICAL]
     introduced = [e for e in ERRORS if e["introduced_by"]]
+    deletions = [e for e in ERRORS if e.get("deleted_a_truth")]
 
     L.append("=" * 72)
     L.append("WHAT WOULD HAVE CAUGHT IT — %d adjudicated errors on issue two" % n)
@@ -132,6 +152,22 @@ def report() -> str:
     for e in introduced:
         L.append("  %-9s came in with %-10s %s" % (e["id"], e["introduced_by"], e["what"]))
     L.append("")
+    if deletions:
+        L.append("-" * 72)
+        L.append("A CORRECTION THAT DELETED A TRUE STATEMENT — %d" % len(deletions))
+        L.append("-" * 72)
+        for e in deletions:
+            L.append("  %-9s %s" % (e["id"], e["what"]))
+            L.append("            %s" % e.get("note", ""))
+        L.append("")
+        L.append("  No check here would have caught this and none is proposed, because")
+        L.append("  every control asks whether a claim on the page is supported and")
+        L.append("  none asks whether a deletion was. A pipeline that validates only")
+        L.append("  what the page SAYS is blind to what a correction TOOK OUT.")
+        L.append("")
+        L.append("  It is the strongest evidence for the rule adopted on 1 September:")
+        L.append("  WRITE THE CORRECTION FROM THE SOURCE RECORD, NOT FROM THE FINDING.")
+        L.append("")
     L.append("  Corrections are the least-checked text on this page and the")
     L.append("  likeliest place for the next error. That is measurable, it is")
     L.append("  %d%% of everything found, and nothing currently gates a" % round(100 * len(introduced) / n))

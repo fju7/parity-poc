@@ -64,6 +64,42 @@ that its power calculation is on response rate, and that **progression-free
 survival is a secondary endpoint** — which this page now says where it prints
 those figures.
 
+## 1 September 2026 — a correction of ours that deleted something true
+
+**We removed a number the paper had stated.** On 31 August a fact-check run
+objected that our source note's "randomisation in 29 blocks of four by opaque
+sealed envelope" could not be verified — no source it reached gave a number of
+blocks. We noticed that 29 is 116 divided by four, concluded the figure was our
+own arithmetic dressed as the paper's, withdrew it, and printed a note saying so.
+
+The paper's Methods say: "Legible patients were randomised into either arm using
+**29 blocks with block size of four**. Randomization method was done with opaque
+sealed envelopes."
+
+The number was theirs. The correction deleted a true statement and the note
+explaining the deletion was false. Nobody here had opened the paper — everything
+we knew about it came from what a search tool had returned — and the correction
+was written from the finding rather than from the source. It is restored, and
+quoted.
+
+This is worth stating plainly because of what it implies about the rest of this
+page. Every check we run asks whether something we have written is supported.
+Not one asks whether something we removed should have been. A correction that
+takes out a true sentence leaves a page that passes every check, reads more
+cautiously, and is less accurate — and nothing in the process would ever raise
+it. The rule we have adopted in response is that a correction is written from
+the source record, not from the finding that prompted it.
+
+**The trial names one primary endpoint and powers on another.** In the same
+paper: its stated primary objectives are "the clinical benefit rate (CBR),
+quality of life and toxicity profiles", while its sample-size calculation says
+"The primary outcome of interest is the overall response rate (ORR)" and sizes
+the arms from response rates of 55% and 25%. Clinical benefit counts stable
+disease; response does not. This page said the trial was powered on response
+rate, which is what the sample-size calculation says, and did not mention that
+the paper names a different endpoint as its objective. Both now appear, because
+the source states both.
+
 ## 1 September 2026 — an observation we put under someone else's name, and a true conclusion with a false reason
 
 **We credited our own point to a paper that does not make it.** This page argued

@@ -224,6 +224,45 @@
         "on": "2026-09-01",
         "recorded_in": "sources.json S024 used_for"
       }
+    },
+    {
+      "id": "Q-19",
+      "quote": "using 29 blocks with block size of four",
+      "source_id": "S017",
+      "verbatim": "Legible patients were randomised into either arm using 29 blocks with block size of four. Randomization method was done with opaque sealed envelopes.",
+      "kind": "",
+      "why": "Methods of randomization, p. 3040. THE PAGE WITHDREW THIS NUMBER ON 31 AUGUST as our own arithmetic. It is the paper's, verbatim. The withdrawal was written from a fact-check finding rather than from the paper, and nobody here had opened the paper. Restored.",
+      "attested": {
+        "by": "Fred Ugast, who supplied the full PDF on 2026-09-01; matched by claude against the file",
+        "on": "2026-09-01",
+        "recorded_in": "the paper's Methods, pp. 3040 (Sample size calculation; Methods of randomization) and its Introduction (primary objectives)"
+      }
+    },
+    {
+      "id": "Q-20",
+      "quote": "to compare the clinical benefit rate (CBR), quality of life and toxicity profiles",
+      "source_id": "S017",
+      "verbatim": "The primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles of Ribociclib and Palbociclib. Secondary objectives were assessment of Progression free survival and Overall survival.",
+      "kind": "",
+      "why": "Introduction, p. 3040. The trial's stated primary objectives.",
+      "attested": {
+        "by": "Fred Ugast, who supplied the full PDF on 2026-09-01; matched by claude against the file",
+        "on": "2026-09-01",
+        "recorded_in": "the paper's Methods, pp. 3040 (Sample size calculation; Methods of randomization) and its Introduction (primary objectives)"
+      }
+    },
+    {
+      "id": "Q-21",
+      "quote": "The primary outcome of interest is the overall response rate (ORR)",
+      "source_id": "S017",
+      "verbatim": "Sample size was calculated using Medcalc 15.8. The primary outcome of interest is the overall response rate (ORR). Previous studies found ORR was 55% in Ribociclib (MONALEESA 2) and 25% in Palbociclib (PALOMA 3). With an alpha error of 5% and study power of 80% and 20% to compensate for drop out, then the sample size is 58 patients per group at least.",
+      "kind": "",
+      "why": "Sample size calculation, p. 3040. The paper names CBR as its primary objective and powers on ORR. Both are quoted on the page because the discrepancy is the source's own.",
+      "attested": {
+        "by": "Fred Ugast, who supplied the full PDF on 2026-09-01; matched by claude against the file",
+        "on": "2026-09-01",
+        "recorded_in": "the paper's Methods, pp. 3040 (Sample size calculation; Methods of randomization) and its Introduction (primary objectives)"
+      }
     }
   ]
 }

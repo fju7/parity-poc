@@ -2452,6 +2452,105 @@
       "now": "The block size is the paper's; the count was ours, and it is withdrawn - the clinical benefit rate at six months of 58.6% in both arms (34 of 58 either way), the median progression-free survival of 13.67 months on palbociclib against 12.69 on ribociclib, and the authors' conclusion that both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
       "because": "CORR-13",
       "note": "“29 blocks of four” is 116 divided by four — our arithmetic printed as the paper's statement. Withdrawn on the page rather than silently. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Shaaban and colleagues randomised 116 patients - 58 to each arm, in 29 blocks of four by opaque sealed envelope, at a single centre in Egypt - to palbociclib plus fulvestrant or ribociclib plus fulvestrant in the second line.",
+      "because": "CORR-18",
+      "note": "the 31 August correction withdrew the paper's own “29 blocks with block size of four” as our arithmetic. The paper states it in its Methods. The correction deleted a true statement and the note explaining the deletion was false; it was written from a fact-check finding by someone who had not opened the paper. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Median progression-free survival was 13.67 months on palbociclib against 12.69 on ribociclib, and not significantly different - though progression-free survival was a secondary endpoint there.",
+      "because": "CORR-18",
+      "note": "the 31 August correction withdrew the paper's own “29 blocks with block size of four” as our arithmetic. The paper states it in its Methods. The correction deleted a true statement and the note explaining the deletion was false; it was written from a fact-check finding by someone who had not opened the paper. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What this trial was built to measure takes some care: its stated primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles , while its sample-size calculation says The primary outcome of interest is the overall response rate (ORR) and sizes the arms from response rates of 55% and 25% taken from MONALEESA-2 and PALOMA-3.",
+      "because": "CORR-19",
+      "note": "the Shaaban paper names clinical benefit rate as its primary objective and powers on overall response rate. Both our sentence and the gate's objection were accurate and incomplete; the source disagrees with itself and the page now prints both. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Those are different endpoints - clinical benefit counts stable disease and response does not - and the paper names one and powers on the other.",
+      "because": "CORR-19",
+      "note": "the Shaaban paper names clinical benefit rate as its primary objective and powers on overall response rate. Both our sentence and the gate's objection were accurate and incomplete; the source disagrees with itself and the page now prints both. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We print both because the paper does.",
+      "because": "CORR-19",
+      "note": "the Shaaban paper names clinical benefit rate as its primary objective and powers on overall response rate. Both our sentence and the gate's objection were accurate and incomplete; the source disagrees with itself and the page now prints both. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Source of the 116 patients and the 58 per arm, and of the randomisation using 29 blocks with block size of four by opaque sealed envelope.",
+      "because": "CORR-18",
+      "note": "the 31 August correction withdrew the paper's own “29 blocks with block size of four” as our arithmetic. The paper states it in its Methods. The correction deleted a true statement and the note explaining the deletion was false; it was written from a fact-check finding by someone who had not opened the paper. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On 31 August this page withdrew the number 29 , on a fact-check finding that no reachable source stated a block count, reasoning that 29 was only 116 divided by four.",
+      "because": "CORR-18",
+      "note": "the 31 August correction withdrew the paper's own “29 blocks with block size of four” as our arithmetic. The paper states it in its Methods. The correction deleted a true statement and the note explaining the deletion was false; it was written from a fact-check finding by someone who had not opened the paper. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The paper states it, in those words, in its Methods.",
+      "because": "CORR-18",
+      "note": "the 31 August correction withdrew the paper's own “29 blocks with block size of four” as our arithmetic. The paper states it in its Methods. The correction deleted a true statement and the note explaining the deletion was false; it was written from a fact-check finding by someone who had not opened the paper. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Nobody here had opened the paper: the withdrawal was written from the finding instead of from the source, and it deleted something true.",
+      "because": "CORR-18",
+      "note": "the 31 August correction withdrew the paper's own “29 blocks with block size of four” as our arithmetic. The paper states it in its Methods. The correction deleted a true statement and the note explaining the deletion was false; it was written from a fact-check finding by someone who had not opened the paper. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Restored 1 September from the full text - the clinical benefit rate at six months of 58.6% in both arms (34 of 58 either way), the median progression-free survival of 13.67 months on palbociclib against 12.69 on ribociclib, and the authors' conclusion that both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
+      "because": "CORR-18",
+      "note": "the 31 August correction withdrew the paper's own “29 blocks with block size of four” as our arithmetic. The paper states it in its Methods. The correction deleted a true statement and the note explaining the deletion was false; it was written from a fact-check finding by someone who had not opened the paper. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T12:36:44+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What that full text adds and the abstract did not: the trial is single-centre, it ran July 2022 to December 2023, its power calculation is on overall response rate while its stated primary objectives are clinical benefit rate, quality of life and toxicity - the paper names one endpoint and powers on another - and progression-free survival is a secondary endpoint .",
+      "because": "CORR-19",
+      "note": "the Shaaban paper names clinical benefit rate as its primary objective and powers on overall response rate. Both our sentence and the gate's objection were accurate and incomplete; the source disagrees with itself and the page now prints both. See review/2026-09-01-adjudication.md"
     }
   ]
 }

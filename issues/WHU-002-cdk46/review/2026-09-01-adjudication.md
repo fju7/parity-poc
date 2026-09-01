@@ -149,3 +149,91 @@ concerning what trials were built to measure, this matters. Europe PMC has refus
 request for PMC11700305 today. **Not changed, because nobody here has read the sentence.**
 
 Fifteen calibration findings are recorded and deliberately not acted on.
+
+---
+
+## CORR-18 — the correction that deleted something true
+
+**The finding.** Not a finding about the page. A finding about how this page is
+corrected, and it is the clearest instance yet.
+
+On 31 August the fact-check gate objected that the source note's "randomisation
+in **29 blocks** of four by opaque sealed envelope" could not be verified: no
+source it reached stated a number of blocks. I reasoned that 29 is 116 divided
+by four, concluded it was our own arithmetic printed as the paper's statement,
+withdrew it, and wrote a note on the page saying so.
+
+The paper, Materials and Methods, *Methods of randomization*, p. 3040:
+
+> Legible patients were randomised into either arm **using 29 blocks with block
+> size of four**. Randomization method was done with opaque sealed envelopes.
+
+**The number was the paper's. The correction removed a true statement**, and
+the note explaining the removal was itself false.
+
+**Why it happened, exactly.** Nobody here had opened the paper. S017's access
+record said `machine_read` — "whatever the search tool returned for this URL" —
+and the correction was written from the gate's finding, which is prose *about* a
+source, rather than from the source. When the operator supplied the PDF on
+1 September the Methods section settled it in one line.
+
+This is the same failure as the Tanguy misattribution six hours earlier, where I
+compared the gate's summary of our page against the gate's summary of the paper.
+Both were resolved the same way: a person went and got the document.
+
+**Why no check would have caught it.** Every control in this repository asks
+whether a claim on the page is supported. **Not one asks whether a deletion
+was.** A pipeline that validates what the page says is structurally blind to
+what a correction takes out — and a correction that removes a true sentence
+leaves a page that passes every check, reads more cautious, and is less
+accurate. It is recorded in `error_taxonomy.py` as its own class,
+`DELETED_A_TRUTH`, with no check proposed, because the honest answer is that the
+rule is the control:
+
+    WRITE THE CORRECTION FROM THE SOURCE RECORD, NOT FROM THE FINDING.
+
+Adopted 1 September at the operator's direction.
+
+**Disposition** — ACCEPT. The withdrawal is reverted.
+
+**Change.** "29 blocks of four" restored in both places, quoted from the paper
+(Q-19). The source note now records that this page withdrew the paper's own
+number on a finding, and why. S017 rewritten from the full text, access state
+**human_read**.
+
+---
+
+## CORR-19 — the trial names one primary endpoint and powers on another
+
+**The finding.** The gate said, as a SERIOUS FACT and twice over, that the page
+calls the Shaaban trial "powered on response rate" when its primary endpoint is
+clinical benefit rate. Reading the paper, **both statements are true and they
+are about different sentences in it.**
+
+Introduction, p. 3040:
+
+> The primary objectives are to compare the **clinical benefit rate (CBR)**,
+> quality of life and toxicity profiles of Ribociclib and Palbociclib. Secondary
+> objectives were assessment of Progression free survival and Overall survival.
+
+Sample size calculation, p. 3040:
+
+> Sample size was calculated using Medcalc 15.8. **The primary outcome of
+> interest is the overall response rate (ORR).** Previous studies found ORR was
+> 55% in Ribociclib (MONALEESA 2) and 25% in Palbociclib (PALOMA 3). With an
+> alpha error of 5% and study power of 80%... the sample size is 58 patients per
+> group at least.
+
+CBR counts stable disease at ≥24 weeks; ORR does not. They are different
+endpoints. The paper names one as its objective and sizes the trial on the other.
+
+**Disposition** — ACCEPT, as a disclosure rather than a correction. The page's
+"powered on response rate" was accurate and incomplete; the gate's objection was
+accurate and incomplete; the source disagrees with itself.
+
+**Change.** The page now quotes both sentences and says plainly that the paper
+names one endpoint and powers on the other. Recorded in S017 as
+`ENDPOINT_DISCREPANCY`. Same shape as the network meta-analysis printing 73.3 in
+its abstract and 70.2 in its results — the second time on this page that a
+gate finding turned out to be a source contradicting itself, and the second time
+the right answer was to print both.

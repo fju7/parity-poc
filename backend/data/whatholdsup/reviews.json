@@ -4924,6 +4924,1106 @@
           "now": "If you can open either, please write: corrections@whatholdsup.org , acknowledged in 48 hours."
         }
       ]
+    },
+    {
+      "issue": "cdk46",
+      "reviewed_sha": "3ca22e72fe461feaba6c0c94c667cd3ee0e2264b5064de1d6e0f6d41cc2ce979",
+      "now_sha": "320919ac4dfe3ecf6b2d40c5b2c48223cc4a27b9488d53474c265c7025685873",
+      "at": "2026-09-01T12:36:53+00:00",
+      "by": "claude",
+      "reason": "all 218 change(s) since the review reconcile to a recorded decision: CE-01, CE-06, CE-10, CORR-01, CORR-02, CORR-03, CORR-04, CORR-05, CORR-06, CORR-07, CORR-08, CORR-09, CORR-10, CORR-11, CORR-12, CORR-14, CORR-15, CORR-16, CORR-17, CORR-18, CORR-19, GATE-06, PREFLIGHT-01, PUB-01, PUB-02, PUB-03, PUB-04, S001, S001-02, S001-05, S001-07, S001-10",
+      "reconciled": [
+        {
+          "because": "PREFLIGHT-01",
+          "was": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · guideline version 6.2026 The Category Diff",
+          "now": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 1 September 2026 · guideline versi"
+        },
+        {
+          "because": "PUB-01",
+          "was": "A guideline grades one of them above the other two, and says why.",
+          "now": "A guideline lists all three as preferred, and grades the evidence behind one of them higher than the evidence behind the other two."
+        },
+        {
+          "because": "PUB-01",
+          "was": "No trial has ever tested one against another.",
+          "now": "That grade gets read as a ranking of the drugs - it was read that way by this page, in the version published on 28 August."
+        },
+        {
+          "because": "PUB-01",
+          "was": "Every comparison this page could find of the two it grades apart finds nothing between them - and on the endpoint the trials were designed to measure, they are indistinguishable.",
+          "now": "It is not one."
+        },
+        {
+          "because": "CE-01",
+          "was": "",
+          "now": "No trial has ever tested abemaciclib against either of the other two, and every comparison this page examined of abemaciclib against ribociclib finds nothing between them."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "That is one of two systems NCCN runs, and it is not the one that says which drug to prefer."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "The Categories of Evidence and Consensus - the 1 and the 2A above - record how strong the evidence is that an intervention is appropriate ."
+        },
+        {
+          "because": "S001-05",
+          "was": "",
+          "now": "A separate set, the Categories of Preference, records the panel's assessment of a regimen's value - Preferred being defined as based on superior efficacy, safety, and evidence taken together."
+        },
+        {
+          "because": "S001-05",
+          "was": "",
+          "now": "It is not an ordinal ranking and the guideline does not present it as one."
+        },
+        {
+          "because": "S001-02",
+          "was": "",
+          "now": "On that second system the guideline lists all three aromatase-inhibitor-plus-CDK4/6-inhibitor combinations as preferred first-line options - for postmenopausal patients and for premenopausal patients "
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "Abemaciclib and palbociclib are category 2A."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "The preference designation does not differ across the three."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "Only the category of evidence does."
+        },
+        {
+          "because": "S001-10",
+          "was": "",
+          "now": "And there the guideline stops."
+        },
+        {
+          "because": "S001-10",
+          "was": "",
+          "now": "We asked whether it anywhere tells a reader how to read a category 1 sitting beside a category 2A when all three regimens are equally preferred - whether it cautions, in the discussion, the principles"
+        },
+        {
+          "because": "S001",
+          "was": "",
+          "now": "It does not."
+        },
+        {
+          "because": "S001-10",
+          "was": "",
+          "now": "The tables print the preference tier and the evidence category side by side and offer no interpretive guidance about what the difference between them means."
+        },
+        {
+          "because": "S001-10",
+          "was": "",
+          "now": "That is not a criticism of the guideline, which is a reference document and not a reading primer."
+        },
+        {
+          "because": "S001-10",
+          "was": "",
+          "now": "It is the answer to why this misreading is so easy: the document that draws the distinction carefully is silent on the one question a reader arrives with, and the silence is filled by whoever is readi"
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "The version of this assessment published on 28 August did not say that."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "It reported the category difference, asked what a reader should make of it, and never mentioned that the guideline itself had already answered the question elsewhere in the same document."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "That was a selective omission: the one fact most likely to change a reader's conclusion, left out of a page built to criticise how the rest of the document reads."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "It is corrected here and recorded below."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "It is also, exactly, the failure this assessment is about - an evidence label read as a ranking of drugs, this time by us, after eighteen automated checks and two reviews on the question of whether it"
+        },
+        {
+          "because": "PUB-01",
+          "was": "Among the three postmenopausal aromatase-inhibitor trials - the three the guideline grades against each other - the progression-free hazard ratios are 0.54, 0.57 and 0.58.",
+          "now": "Among the three postmenopausal aromatase-inhibitor trials - the three the guideline lists side by side - the progression-free hazard ratios are 0.54, 0.57 and 0.58."
+        },
+        {
+          "because": "CORR-11",
+          "was": "MONALEESA-2 states a two-sided p of 0.008; what boundary its final analysis was tested against we could not establish, and if it too spent alpha at an interim then its bar also sat below .05.",
+          "now": "MONALEESA-2's test was one-sided: the trial's own results posting on ClinicalTrials.gov (NCT01958021) states that the distribution of overall survival between the arms was compared using a log-rank te"
+        },
+        {
+          "because": "CORR-11",
+          "was": "PALOMA-2 states a one-sided p at an alpha of 0.025, which puts the critical value in the same place on the benefit side - a result that clears one clears the other - while differing in what the test w",
+          "now": "But the p = 0.008 in the table above is not that test's p-value."
+        },
+        {
+          "because": "CORR-11",
+          "was": "",
+          "now": "The registry posts the result as p = 0.004 , alongside HR 0.765 (0.628-0.932); the NEJM paper prints P = 0.008 alongside HR 0.76 (0.63-0.93)."
+        },
+        {
+          "because": "CORR-11",
+          "was": "",
+          "now": "Those are the same comparison, and 0.008 is exactly twice 0.004 - which is what a one-sided and a two-sided presentation of one log-rank test look like side by side."
+        },
+        {
+          "because": "CORR-11",
+          "was": "",
+          "now": "This page prints the journal's figure, because the journal is what a reader will find, and it does not call that figure one-sided, because it is not."
+        },
+        {
+          "because": "CORR-11",
+          "was": "",
+          "now": "We have not read NEJM's statistical section, so the doubling is stated as arithmetic and not as the paper's own account of itself."
+        },
+        {
+          "because": "CORR-11",
+          "was": "",
+          "now": "This is the fourth position this page has taken on one fact: two-sided with no source, then unknowable, then one-sided with the registry's directionality attached to the journal's number, and now this"
+        },
+        {
+          "because": "CORR-11",
+          "was": "",
+          "now": "The first was unsourced, the second was a search we had not done, and the third was the error of pairing two documents' figures as though they were one - found by our own gate, on the run that read th"
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "PALOMA-2 is one-sided too, at an alpha of 0.025 - its registry record (NCT01740427) labels every log-rank p-value on the study 1-sided p-value from the stratified log-rank test - which puts the critic"
+        },
+        {
+          "because": "CORR-02",
+          "was": "An earlier version of this page said the direction could not be determined, which was not true - it could not be determined from the journal paper we could open , and treating that as unknowable was t",
+          "now": "An earlier version of this page said the direction could not be determined, which was not true - the trial registry states it plainly, and it could not be determined from the journal paper we could op"
+        },
+        {
+          "because": "GATE-06",
+          "was": "(0.637 and 1.015 are abemaciclib's bounds throughout; ribociclib's are 0.63 and 0.93.) One interval stopped at 0.93 and the other at 1.02, and that is the whole of it: ribociclib's result reached stat",
+          "now": "(0.637 and 1.015 are abemaciclib's bounds throughout; ribociclib's are 0.63 and 0.93.) One interval stopped at 0.93 and the other at 1.015 , and that is the whole of it: ribociclib's result reached st"
+        },
+        {
+          "because": "GATE-06",
+          "was": "What separates a category 1 from a category 2A here is nine hundredths in where an upper bound landed, on point estimates four hundredths apart.",
+          "now": "What separates a category 1 from a category 2A here is eight and a half hundredths in where an upper bound landed, on point estimates four hundredths apart."
+        },
+        {
+          "because": "GATE-06",
+          "was": "",
+          "now": "Those are the published bounds, 0.93 and 1.015."
+        },
+        {
+          "because": "GATE-06",
+          "was": "",
+          "now": "This page rounds to two decimal places elsewhere and prints 1.02, which is correct rounding; here, where the whole argument is about where a bound landed, the rounded figure was doing work the publish"
+        },
+        {
+          "because": "GATE-06",
+          "was": "",
+          "now": "A gate run made that objection eight times before we accepted it."
+        },
+        {
+          "because": "CORR-14",
+          "was": "",
+          "now": "That observation is ours."
+        },
+        {
+          "because": "CORR-14",
+          "was": "",
+          "now": "An earlier version of this page handed it to Tanguy and colleagues, npj Breast Cancer , 2018 , and they do not make it: their paper contains nothing about the width of a confidence interval."
+        },
+        {
+          "because": "CORR-14",
+          "was": "",
+          "now": "What they did, before any of these trials had mature survival data, was compute each trial's statistical power to reach significance on survival - finding MONARCH 3 less powered than PALOMA-2, MONALEE"
+        },
+        {
+          "because": "CORR-14",
+          "was": "",
+          "now": "That supports this page's argument and is not the same claim, and the difference is the sort this page exists to insist on."
+        },
+        {
+          "because": "CORR-14",
+          "was": "",
+          "now": "We found the paper through a fact-check run on this page, after making the argument, and attached our own observation to it; the misattribution stood for four days and was corrected on 1 September, fr"
+        },
+        {
+          "because": "PUB-03",
+          "was": "What happens when you do compare them Three times, by three methods.",
+          "now": "What happens when you do compare them Four studies, by three methods."
+        },
+        {
+          "because": "CORR-17",
+          "was": "No randomised trial has tested one of these drugs against another.",
+          "now": "Two randomised trials have tested one of these drugs against another - both ribociclib against palbociclib, neither in the population the guideline sentence describes."
+        },
+        {
+          "because": "CORR-17",
+          "was": "",
+          "now": "One found no significant difference between them; the other stopped at 61 patients and never reported, so it establishes nothing either way."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "None has tested abemaciclib against either of the others, which is the pair the category difference turns on."
+        },
+        {
+          "because": "CORR-10",
+          "was": "We could not open PALMARES-2's declaration of interests.",
+          "now": "This page has not read PALMARES-2's declaration of interests, and the honest reason is that we did not go and get it."
+        },
+        {
+          "because": "CORR-10",
+          "was": "That is a statement about our access and not about its investigators, of whom we know nothing and about whom this page will not speculate.",
+          "now": "An earlier version said we could not open it, which put the failure in the document rather than in our attempt and was not true of the document: our own source ledger records that an automated check r"
+        },
+        {
+          "because": "CORR-10",
+          "was": "",
+          "now": "Nor is it true that we know nothing about its investigators' interests, which is what this page said next: sub-analyses of the same study are published separately and carry their own declarations, and"
+        },
+        {
+          "because": "CORR-10",
+          "was": "",
+          "now": "We have not read them and do not repeat that detail as our own finding."
+        },
+        {
+          "because": "CORR-10",
+          "was": "",
+          "now": "What we can say is that we did not look, and that is a choice rather than a wall."
+        },
+        {
+          "because": "CORR-16",
+          "was": "It also reports overall survival, as an exploratory endpoint, pointing the same way.",
+          "now": "It also reports overall survival, pointing the same way."
+        },
+        {
+          "because": "CORR-16",
+          "was": "",
+          "now": "This page called that an exploratory endpoint until 1 September, which was wrong twice over: the paper treats it as secondary to that data cut, and the study's registry record lists overall survival a"
+        },
+        {
+          "because": "CORR-16",
+          "was": "",
+          "now": "The endpoint is the one the study exists to measure; what is exploratory is the maturity of this particular look at it."
+        },
+        {
+          "because": "CORR-10",
+          "was": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones, the paper itself is behind a wall we could not open, and a",
+          "now": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones; we have not obtained the paper's full text ourselves - wha"
+        },
+        {
+          "because": "GATE-06",
+          "was": "The smaller one finds palbociclib behind on progression, on intervals nowhere near the no-effect line, and reports an exploratory survival result pointing the same way on data its own authors call imm",
+          "now": "The smaller one finds palbociclib behind on progression, on intervals that exclude the no-effect line - abemaciclib's by 0.08 and ribociclib's by 0.05, which is significant but not comfortably so, and"
+        },
+        {
+          "because": "PUB-03",
+          "was": "What all three agree on The studies disagree about palbociclib.",
+          "now": "What all four agree on The studies disagree about palbociclib."
+        },
+        {
+          "because": "PUB-01",
+          "was": "The guideline grades them apart.",
+          "now": "The guideline grades the evidence behind them apart."
+        },
+        {
+          "because": "CORR-01",
+          "was": "In guideline language, \"directly compared in clinical trials\" means a randomised head-to-head trial, and none exists.",
+          "now": "In guideline language, \"directly compared in clinical trials\" means a randomised head-to-head trial, and none exists in the setting that sentence is about - first line, with an aromatase inhibitor."
+        },
+        {
+          "because": "CORR-01",
+          "was": "What these comparisons add is not a correction to it, but the only evidence there is on the question it records as untested.",
+          "now": "What these comparisons add is not a correction to it, but the best evidence there is on the question it records as untested."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Two randomised head-to-head trials do exist, in other settings, and this page said they did not."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Both put ribociclib against palbociclib."
+        },
+        {
+          "because": "CORR-18",
+          "was": "",
+          "now": "Shaaban and colleagues randomised 116 patients - 58 to each arm, in 29 blocks of four by opaque sealed envelope, at a single centre in Egypt - to palbociclib plus fulvestrant or ribociclib plus fulves"
+        },
+        {
+          "because": "CE-10",
+          "was": "",
+          "now": "Clinical benefit at six months was 58.6% in both arms, exactly 34 patients of 58 either way."
+        },
+        {
+          "because": "CORR-18",
+          "was": "",
+          "now": "Median progression-free survival was 13.67 months on palbociclib against 12.69 on ribociclib, and not significantly different - though progression-free survival was a secondary endpoint there."
+        },
+        {
+          "because": "CORR-19",
+          "was": "",
+          "now": "What this trial was built to measure takes some care: its stated primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles , while its sample-size calcul"
+        },
+        {
+          "because": "CORR-19",
+          "was": "",
+          "now": "Those are different endpoints - clinical benefit counts stable disease and response does not - and the paper names one and powers on the other."
+        },
+        {
+          "because": "CORR-19",
+          "was": "",
+          "now": "We print both because the paper does."
+        },
+        {
+          "because": "CE-10",
+          "was": "",
+          "now": "Their conclusion, in their words: both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile ."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "HARMONIA (NCT05207709) is a phase III, randomised, open-label trial of the same pair in the HER2-enriched subtype; it opened in March 2022 and terminated with 61 patients enrolled."
+        },
+        {
+          "because": "CORR-15",
+          "was": "",
+          "now": "Neither enrolled the population the guideline sentence describes, which is why neither contradicts it - but not for the reason this page gave until 1 September."
+        },
+        {
+          "because": "CORR-15",
+          "was": "",
+          "now": "It said neither was first line with an aromatase inhibitor."
+        },
+        {
+          "because": "CORR-15",
+          "was": "",
+          "now": "HARMONIA's registry record lists its arms as ribociclib or palbociclib plus letrozole or fulvestrant , and it enrolled first-line patients; letrozole is an aromatase inhibitor."
+        },
+        {
+          "because": "CORR-15",
+          "was": "",
+          "now": "The reason that actually holds is in the trial's title: HARMONIA was restricted to the HER2-enriched intrinsic subtype , a molecularly selected population, not the unselected HR+/HER2- one the guideli"
+        },
+        {
+          "because": "CORR-15",
+          "was": "",
+          "now": "Shaaban is second line with fulvestrant."
+        },
+        {
+          "because": "CORR-15",
+          "was": "",
+          "now": "The conclusion survives; the reason we published for it did not, and a reader opening the registry would have found that before we did."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Both contradict what this page printed, which was that nobody had run one at all."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "What they do not do is close the abemaciclib question: no randomised trial has compared abemaciclib against either of the other two , in any setting, and that is the comparison the category difference"
+        },
+        {
+          "because": "PUB-02",
+          "was": "Ribociclib plus letrozole improved overall survival against letrozole alone: 63.9 versus 51.4 months, HR 0.76 (0.63-0.93), two-sided p = 0.008, at 6.6 years of median follow-up.",
+          "now": "Ribociclib plus letrozole improved overall survival against letrozole alone: 63.9 versus 51.4 months, HR 0.76 (0.63-0.93), p = 0.008, at 6.6 years of median follow-up."
+        },
+        {
+          "because": "CORR-01",
+          "was": "No randomised trial has compared any of the three against another.",
+          "now": "No randomised trial has compared abemaciclib against either of the other two, in any setting."
+        },
+        {
+          "because": "CORR-01",
+          "was": "No study that compares them by other means finds a difference between abemaciclib and ribociclib - not the network meta-analysis, not P-VERIFY on 9,146 patients, not PALMARES-2 on 1,982.",
+          "now": "Ribociclib and palbociclib have been compared head to head twice - Shaaban and colleagues in the second line with fulvestrant, and HARMONIA, which terminated at 61 patients - and neither separated the"
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "The guideline's own sentence, that the CDK4/6 inhibitors have not been directly compared in clinical trials , is about first-line aromatase-inhibitor combinations and is accurate in that scope."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "None of the four comparative studies examined on this page separates abemaciclib from ribociclib: not the network meta-analysis, not P-VERIFY on 9,146 patients, not PALMARES-2 on 1,982, not the recons"
+        },
+        {
+          "because": "PUB-03",
+          "was": "",
+          "now": "That is a statement about four studies we read, not about a literature we have surveyed to the end."
+        },
+        {
+          "because": "CE-06",
+          "was": "No randomised trial has tested it, and all three indirect comparisons that have looked found nothing between them.",
+          "now": "No randomised trial has tested that pair against each other, and none of the four comparative studies examined here separates them."
+        },
+        {
+          "because": "PUB-03",
+          "was": "Indirect comparisons are weaker evidence than a randomised trial would be.",
+          "now": "Indirect comparisons are weaker evidence than a randomised trial would be, and four studies are not the whole literature."
+        },
+        {
+          "because": "CORR-01",
+          "was": "What a head-to-head trial would find.",
+          "now": "What a first-line head-to-head trial would find."
+        },
+        {
+          "because": "CORR-01",
+          "was": "Nobody has run one.",
+          "now": "Nobody has run one in that setting."
+        },
+        {
+          "because": "CORR-12",
+          "was": "Whether anybody will is not something this page knows - an earlier version asserted that nobody would, which was a prediction about the decisions of companies and funding bodies we have not asked and ",
+          "now": "Of the two that have been run - both ribociclib against palbociclib, elsewhere in the treatment course - one found no difference and the other stopped at 61 patients and never reported, which is a thi"
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Whether anybody will run a first-line trial is not something this page knows; an earlier version asserted that nobody would, which was a prediction about the decisions of companies and funding bodies "
+        },
+        {
+          "because": "PUB-01",
+          "was": "On the evidence: the category reflects which trial produced a survival result, not which drug produces better survival.",
+          "now": "There are two answers and they point the same way."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "The guideline's own answer is no: it lists all three as preferred first-line options, and the category records how strong the evidence behind each one is, not which drug works better."
+        },
+        {
+          "because": "CORR-12",
+          "was": "",
+          "now": "The evidence's answer is that nothing has been shown to separate them: of the two randomised trials that have put any pair of them head to head, both ribociclib against palbociclib, the one that repor"
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "Which leaves the question of why a reader would have thought otherwise."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "Not because the guideline says so - it does not."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "Because a category 1 and a category 2A printed in one column look like a ranking, and the preference designation that would correct the impression sits somewhere else in the document."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "This page made that mistake in its first published version, which is the most direct evidence it can offer that the mistake is easy to make."
+        },
+        {
+          "because": "CORR-04",
+          "was": "Sources Every figure above traces to one of these, and each cell of the table names which: a trial publication, a drug label, or a comparative study, cited by name in the entry below.",
+          "now": "Sources Every figure above traces to a named source, and each cell of the table names which: a trial publication, a drug label, or a comparative study."
+        },
+        {
+          "because": "CORR-04",
+          "was": "Where a correction to one of these sources is known to us, it is noted in that source's entry.",
+          "now": "Each is cited by name in the entry below, and where a correction to one of those sources is known to us, it is noted in that source's entry."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "Registry MONALEESA-2 - ClinicalTrials.gov results posting."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "NCT01958021 Source of the direction of the final overall-survival test, which this page twice failed to establish from the journal."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "The sponsor's own posting states that overall survival was compared using a log-rank test at one-sided cumulative 2.5% level of significance , and gives HR 0.765 (95% CI 0.628-0.932), p = 0.004 for th"
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "Read from the ClinicalTrials.gov record itself on 30 August 2026."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "Registry PALOMA-2 - ClinicalTrials.gov results posting."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "NCT01740427 Independent confirmation that PALOMA-2's log-rank p-values are one-sided: every such analysis in the posting is annotated 1-sided p-value from the stratified log-rank test ."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "Also gives the final overall-survival analysis as HR 0.921 (0.755-1.124)."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "Read from the record itself on 30 August 2026."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Primary Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Comparing ribociclib versus palbociclib as a second line treatment in combination with fulvestrant in metastatic breast cancer: a randomized clinical trial."
+        },
+        {
+          "because": "CE-10",
+          "was": "",
+          "now": "Asian Pac J Cancer Prev 2024;25(9):3039-3049 A randomised, open-label phase III trial putting two of these three drugs directly against each other, registered as NCT05670054 ."
+        },
+        {
+          "because": "CORR-18",
+          "was": "",
+          "now": "Source of the 116 patients and the 58 per arm, and of the randomisation using 29 blocks with block size of four by opaque sealed envelope."
+        },
+        {
+          "because": "CORR-18",
+          "was": "",
+          "now": "On 31 August this page withdrew the number 29 , on a fact-check finding that no reachable source stated a block count, reasoning that 29 was only 116 divided by four."
+        },
+        {
+          "because": "CORR-18",
+          "was": "",
+          "now": "The paper states it, in those words, in its Methods."
+        },
+        {
+          "because": "CORR-18",
+          "was": "",
+          "now": "Nobody here had opened the paper: the withdrawal was written from the finding instead of from the source, and it deleted something true."
+        },
+        {
+          "because": "CORR-18",
+          "was": "",
+          "now": "Restored 1 September from the full text - the clinical benefit rate at six months of 58.6% in both arms (34 of 58 either way), the median progression-free survival of 13.67 months on palbociclib again"
+        },
+        {
+          "because": "CE-10",
+          "was": "",
+          "now": "Read in full text , open access at PMC11700305 - an earlier version of this entry said we had only its abstract, which was true when it was written and stopped being true when we looked for a reposito"
+        },
+        {
+          "because": "CORR-19",
+          "was": "",
+          "now": "What that full text adds and the abstract did not: the trial is single-centre, it ran July 2022 to December 2023, its power calculation is on overall response rate while its stated primary objectives "
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Second line, with fulvestrant - not the first-line aromatase-inhibitor setting the guideline sentence describes."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Registry HARMONIA - ribociclib vs palbociclib in HR+/HER2-/HER2-enriched advanced breast cancer."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "NCT05207709 The second head-to-head randomised trial of the same pair."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Source of the design (phase III, randomised, open label, parallel), the start date of 28 March 2022, and the fact that it terminated with 61 patients enrolled."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Read from the ClinicalTrials.gov record itself."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "No results publication was found."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Sixty-one patients is a thin basis for any conclusion, and this page draws none from it beyond the fact that the trial was run."
+        },
+        {
+          "because": "CORR-03",
+          "was": "It is published open access; an earlier version of this page said it sat behind a paywall, which was wrong.",
+          "now": "An earlier version of this page said it sat behind a paywall; the next said that was wrong and it was open access."
+        },
+        {
+          "because": "CORR-03",
+          "was": "Every retrieval route available to us returned a block, which is a limit of our tooling and not of the licence.",
+          "now": "The first was right."
+        },
+        {
+          "because": "CORR-03",
+          "was": "",
+          "now": "Europe PMC's record for it (PMID 41093689) marks it not open access and lists one route, the publisher's DOI, as Subscription required ."
+        },
+        {
+          "because": "CORR-03",
+          "was": "",
+          "now": "It is not in the trial registry either, corrigenda not being registry items."
+        },
+        {
+          "because": "CORR-03",
+          "was": "",
+          "now": "So the block is the licence and not our tooling, and this page has now been wrong about this corrigendum in both directions."
+        },
+        {
+          "because": "CORR-03",
+          "was": "What we cannot say is whether the corrigendum touches any of them, because that requires reading it.",
+          "now": "What we cannot say is whether the corrigendum touches any of them, because that requires reading it - and Europe PMC lists exactly one route to it, marked Subscription required ."
+        },
+        {
+          "because": "S001-07",
+          "was": "Ann Oncol , 2018 Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457-0.704).",
+          "now": "Ann Oncol , 2018 Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457-0.704), which this page rounds to 0.57 (0.46-0.70)."
+        },
+        {
+          "because": "S001-07",
+          "was": "",
+          "now": "The guideline prints the same medians against HR 0.56 (0.45-0.70) ."
+        },
+        {
+          "because": "S001-07",
+          "was": "",
+          "now": "The page uses the publication's figure, as it does throughout, and the difference is one of rounding rather than of data."
+        },
+        {
+          "because": "PUB-02",
+          "was": "N Engl J Med , 2022 63.9 vs 51.4 months, HR 0.76 (95% CI 0.63-0.93), two-sided P = 0.008, at 6.6 years median follow-up.",
+          "now": "N Engl J Med , 2022 63.9 vs 51.4 months, HR 0.76 (95% CI 0.63-0.93), P = 0.008 as the paper prints it, at 6.6 years median follow-up."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "The test is one-sided, at a cumulative 2.5% level of significance, per the trial's own results posting on ClinicalTrials.gov (NCT01958021), which also gives HR 0.765 (0.628-0.932)."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "What that posting does not give is the critical value at the final look if alpha had been spent earlier, so this page does not print one."
+        },
+        {
+          "because": "CORR-06",
+          "was": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis - \"statistical comparison was made by 1-sided stratified log-rank test\" - which is where this page takes it from, the",
+          "now": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis - \"statistical comparison was made by 1-sided stratified log-rank test\" - and confirmed independently in the trial's "
+        },
+        {
+          "because": "CORR-06",
+          "was": "The paper prints 0.71; the more precise 0.712 appears in conference reporting and not in the publication this page cites.",
+          "now": "The journal paper is behind a wall we could not open; the registry is not."
+        },
+        {
+          "because": "CORR-06",
+          "was": "A group-sequential test with an adjusted threshold, which is why its p-value cannot be read beside MONALEESA-2's two-sided 0.008 as though the two numbers meant the same thing.",
+          "now": "The paper prints 0.71; the more precise 0.712 is the Cox hazard ratio in that same registry posting (95% CI 0.535-0.948), and does not appear in the publication this page cites."
+        },
+        {
+          "because": "CORR-06",
+          "was": "",
+          "now": "A group-sequential test with an adjusted threshold, which is why its p-value cannot be read beside MONALEESA-2's 0.008 as though the two numbers meant the same thing."
+        },
+        {
+          "because": "CORR-07",
+          "was": "Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) with \"year of updated data 2023\", and its reference list cites the SABCS 2023 final overall-survival abstract - the final analysis, not the interi",
+          "now": "Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) and its \"Year of updated data\" row gives 2023 for that trial, and its reference list cites the SABCS 2023 final overall-survival abstract - the fi"
+        },
+        {
+          "because": "CORR-08",
+          "was": "(The 73.3 months above is the pooled median across the seven trials, over a range of 48.7 to 97.2 months.) An earlier version of this page stated the opposite, on the strength of our own automated che",
+          "now": "(The 73.3 months above is the pooled median across the seven trials, over a range of 48.7 to 97.2 months - the figure its abstract gives."
+        },
+        {
+          "because": "CORR-08",
+          "was": "",
+          "now": "Its results section gives 70.2 months over the same range."
+        },
+        {
+          "because": "CORR-08",
+          "was": "",
+          "now": "The paper states both; we have used the abstract's, and note the discrepancy because it is the source's own.) An earlier version of this page stated the opposite, on the strength of our own automated "
+        },
+        {
+          "because": "PUB-04",
+          "was": "Draft.",
+          "now": "Publication history."
+        },
+        {
+          "because": "PUB-04",
+          "was": "Three fact-check gate runs on 28 August 2026, all blocking: seven serious findings, then nine, then nine again, and each set was largely about the previous set's repairs.",
+          "now": "Drafted 28 August 2026 and published the same day."
+        },
+        {
+          "because": "PUB-04",
+          "was": "Runs one and two: the PALOMA-2 overall-survival interval was wrong (0.78-1.18, not 1.20); the significance status of every overall-survival result is now stated rather than given for one trial only; M",
+          "now": "Before publication it went through eighteen fact-check runs on this page and six on the summary email; an outside reader then reviewed it against the standards, without being shown any of our own find"
+        },
+        {
+          "because": "PUB-03",
+          "was": "Run three found the piece failing its own standard: it had MONALEESA-7 - a different population on a different endocrine backbone - on a chart beside three postmenopausal aromatase-inhibitor trials, a",
+          "now": "All four were accepted."
+        },
+        {
+          "because": "PUB-04",
+          "was": "It also found a claim that MONALEESA-2 was the only first-line survival result to reach significance, which is true only of those three trials and was not written that way, and four p-values from four",
+          "now": "The reviewed version, the review, our adjudication of it, and every change made since - each one tied to the decision that caused it - are kept in the repository that produces this page."
+        },
+        {
+          "because": "PUB-04",
+          "was": "All three are fixed.",
+          "now": "What the outside review changed."
+        },
+        {
+          "because": "PUB-04",
+          "was": "Outstanding: not re-gated on this revision, not outside-reviewed, not published.",
+          "now": "This page had claimed a complete comparative literature it had not surveyed; a fourth study was added, including the one figure on this page that cuts against its own conclusion."
+        },
+        {
+          "because": "PUB-04",
+          "was": "",
+          "now": "It had said none of these trials was powered for overall survival, which is false - PALOMA-2 was, and MONARCH 3 was not, and flattening that erased a real difference between the two results."
+        },
+        {
+          "because": "PUB-04",
+          "was": "",
+          "now": "And it had called MONARCH 3's significance threshold \"the conventional one\" several paragraphs after explaining that it was .034."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Corrected 30 August 2026."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "This page said, in four places, that no randomised trial had compared any of these three drugs against another, and that nobody had run a head-to-head trial."
+        },
+        {
+          "because": "CORR-12",
+          "was": "",
+          "now": "Two exist, both of ribociclib against palbociclib: a randomised open-label phase III in the second line with fulvestrant, published in 2024, which found no difference between them; and HARMONIA, regis"
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Neither is in the first-line aromatase-inhibitor setting the guideline sentence describes, so the guideline remains accurate as written - but this page had taken that sentence, verified that the guide"
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "That is the error, and it is the second time this issue has made it."
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "The claim that survives is narrower and is now what the page says: no randomised trial has compared abemaciclib against either of the other two, which is the comparison the category difference actuall"
+        },
+        {
+          "because": "CORR-01",
+          "was": "",
+          "now": "Both trials were found by a counterexample role whose only instruction is to break this page's universal negatives; nothing else in the pipeline was pointed at that sentence."
+        },
+        {
+          "because": "CORR-05",
+          "was": "",
+          "now": "Also corrected: an author surname in the section on trial power."
+        },
+        {
+          "because": "CORR-05",
+          "was": "",
+          "now": "The page named the wrong researcher; the first author of that 2018 npj Breast Cancer paper is Marie-Laure Tanguy, and the page now says so."
+        },
+        {
+          "because": "CORR-05",
+          "was": "",
+          "now": "The fix had been written a day earlier and had not reached the live site, because publishing it meant re-opening this issue's checks and we had decided not to spend on that."
+        },
+        {
+          "because": "CORR-05",
+          "was": "",
+          "now": "It sat live and wrong for a day as a result."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "What was in the registry all along."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "This page said, in four places, that it could not establish whether MONALEESA-2's final overall-survival p-value was one-sided or two-sided, and that the answer sat in a statistical section behind a p"
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "It sat in the trial's own results posting on ClinicalTrials.gov, put there by the sponsor: compared using a log-rank test at one-sided cumulative 2.5% level of significance ."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "PALOMA-2's posting says the same of its own tests, in a field labelled for the purpose."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "Both were one search away."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "That is now the third fact this issue declared unfindable and then found in a registry - the first two were the head-to-head trials above."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "A registry is a list of what was started and what was reported; a journal is a list of what got published."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "This page had been searching only the second."
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "The check that made us look is the one that asks what registry was searched before a sentence says something cannot be known, and it had been reporting these seven sentences for two days."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "Corrected 31 August 2026, by our own checks."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "Three things went out wrong and are fixed here."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "A registry number belonging to a different trial."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "The 30 August correction above added a second, independent confirmation of the direction of MONALEESA-7's survival test and cited NCT01740427 for it - which is PALOMA-2's number."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "MONALEESA-7 is NCT02278120 , and its posting gives the analysis as p = 0.00973, annotated One-sided stratified log-rank test ."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "The claim was right and the citation sent anyone checking it to the wrong study, which is worse than a visible error."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "A quotation that was not one."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "This page put the words \"year of updated data 2023\" in quotation marks and attributed them to Table 1 of the network meta-analysis."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "That string is not in the paper: \"Year of updated data\" is a row label and 2023 is a cell four columns along it."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "The meaning was right and the quotation was invented."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "A source that prints two different numbers."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "That meta-analysis gives its pooled median follow-up as 73.3 months in its abstract and 70.2 months in its results section, over the same range; this page had printed 73.3 alone."
+        },
+        {
+          "because": "CORR-08",
+          "was": "",
+          "now": "We cannot say which is correct: both come from the paper itself, read on the publisher's site and again in the Europe PMC full text, and a meta-analysis has no registry record to settle it against - s"
+        },
+        {
+          "because": "CORR-08",
+          "was": "",
+          "now": "Printing one figure from a source that prints two, without saying so, is the thing this page exists not to do."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "The first was found by a re-run of the fact-check gate over text the gate had never read; the second by a quotation matcher written that morning, on its first run; the third by the same re-run."
+        },
+        {
+          "because": "CORR-09",
+          "was": "",
+          "now": "None was found by a reader, and all three had been live for a day."
+        },
+        {
+          "because": "PUB-04",
+          "was": "",
+          "now": "Corrected 29 August 2026, the day after publication."
+        },
+        {
+          "because": "PUB-04",
+          "was": "",
+          "now": "A review conducted after this page went out raised four items."
+        },
+        {
+          "because": "PUB-03",
+          "was": "",
+          "now": "All four are now fixed above, and one of them changed the premise of the piece rather than a sentence in it. 1."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "The guideline lists all three drugs as preferred, and the first published version of this page did not say so."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "NCCN operates two separate systems: categories of evidence and consensus, which grade how strong the evidence is that a treatment is appropriate, and categories of preference, which rank regimens agai"
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "All three aromatase-inhibitor-plus-CDK4/6-inhibitor combinations carry the same preference designation."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "Only the evidence category differs."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "The version published on 28 August reported the category difference, asked what a reader should make of it, and omitted the answer the guideline had already given elsewhere in the same document."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "A reader who saw that version would reasonably have concluded that the guideline ranked one drug above the other two."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "It does not, and the page now says so in the standfirst, in what the guideline says , and in what a reader is owed."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "The announcement email for this issue carried the same omission."
+        },
+        {
+          "because": "PUB-01",
+          "was": "",
+          "now": "It was generated from this page and sent through the announcement list on 29 August; the correction will be carried at the top of the next issue's email. 2."
+        },
+        {
+          "because": "PUB-02",
+          "was": "",
+          "now": "This page had called MONALEESA-2's p-value two-sided without a source."
+        },
+        {
+          "because": "PUB-02",
+          "was": "",
+          "now": "The claim has been removed from all five places it appeared."
+        },
+        {
+          "because": "PUB-02",
+          "was": "",
+          "now": "We could not open the paper's statistical section to establish the direction of the test or the boundary it faced, and the reviewer's contention that it was one-sided is recorded above without being a"
+        },
+        {
+          "because": "PUB-03",
+          "was": "",
+          "now": "Two claims were broader than the evidence behind them."
+        },
+        {
+          "because": "PUB-03",
+          "was": "",
+          "now": "\"No study that compares them by other means finds a difference\" was a claim about a literature we had not surveyed; it now names the four studies it is a claim about."
+        },
+        {
+          "because": "PUB-03",
+          "was": "",
+          "now": "\"All three indirect comparisons\" said three where the page examines four, an error introduced when the fourth study was added in review and the count above it was not updated. 4."
+        },
+        {
+          "because": "PUB-04",
+          "was": "",
+          "now": "The footer described this page as an unpublished draft for the first hours after it went live, under a masthead that said Published."
+        },
+        {
+          "because": "PUB-04",
+          "was": "",
+          "now": "Fixed the same day."
+        },
+        {
+          "because": "PUB-04",
+          "was": "",
+          "now": "None of the trial figures, hazard ratios, intervals or source attributions changed on 29 August."
+        },
+        {
+          "because": "PUB-04",
+          "was": "",
+          "now": "What changed was the framing built on top of them, and one unsourced word about a test."
+        },
+        {
+          "because": "PUB-02",
+          "was": "",
+          "now": "Still unread by us, and disclosed rather than assumed."
+        },
+        {
+          "because": "CORR-03",
+          "was": "",
+          "now": "A corrigendum to the MONARCH 3 final overall-survival paper ( Ann Oncol 2025;36:1556, PMID 41093689) - Europe PMC marks it not open access and offers only the publisher's DOI, Subscription required ; "
+        },
+        {
+          "because": "CORR-02",
+          "was": "",
+          "now": "MONALEESA-2's exact critical value at its final look, if alpha had been spent at an interim - the direction of that test is now settled from the registry, but the spending schedule is in a statistical"
+        },
+        {
+          "because": "PUB-02",
+          "was": "",
+          "now": "If you can open either, please write: corrections@whatholdsup.org , acknowledged in 48 hours."
+        }
+      ]
     }
   ]
 }
