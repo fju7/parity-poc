@@ -1,0 +1,85 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints",
+      "checked_on": "2026-09-01",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026",
+      "checked_on": "2026-09-01",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S003": {
+      "source": "S003",
+      "title": "KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024",
+      "checked_on": "2026-09-01",
+      "identifier": "PMID 38246194",
+      "identifier_from": "the source URL",
+      "resolved_title": "Individualised neoantigen therapy mRNA-4157 (V940) plus pembrolizumab versus pembrolizumab monotherapy in resected melanoma (KEYNOTE-942): a randomised, phase 2",
+      "identity": "resolved title shares 4 word(s) with ours: keynote, phase, randomised, study",
+      "amendments": [],
+      "comments": [
+        {
+          "id": "38246193",
+          "source": "MED",
+          "reference": "Lancet. 2024 Feb 17;403(10427):590-591. doi: 10.1016/S0140-6736(23)02463-7",
+          "type": "Comment in",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMID 38246194"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Five-year results — Journal of Clinical Oncology, 1 June 2026",
+      "checked_on": "2026-09-01",
+      "identifier": "DOI 10.1200/JCO-26-00835",
+      "identifier_from": "the source URL",
+      "resolved_title": "Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study.",
+      "state": "UNCHECKED",
+      "why": "lookup on DOI 10.1200/JCO-26-00835 resolved to a DIFFERENT document: 'Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in H' shares nothing distinctive with 'Five-year results — Journal of Clinical Oncology, 1 June 2026'",
+      "amendments": [],
+      "comments": []
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Merck & Moderna — first detailed KEYNOTE-942 results",
+      "checked_on": "2026-09-01",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S006": {
+      "source": "S006",
+      "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints (with 2 further outlet(s), listed in also_urls)",
+      "checked_on": "2026-09-01",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'coverage' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Rese",
+      "checked_on": "2026-09-01",
+      "identifier": "DOI 10.1200/OA-25-00008",
+      "identifier_from": "the source URL",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.1200/OA-25-00008",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}

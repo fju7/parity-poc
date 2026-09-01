@@ -172,6 +172,20 @@ registry_facts = _sibling("registry_facts")
 # document it was written from.
 source_store = _sibling("source_store")
 
+# B10 and B1 of the claim-bindings spec (docs/whatholdsup-claim-bindings-spec.md).
+#
+# errata: an erratum is the ONE class of secondary document that can silently
+# falsify a figure already published, and it is free to look for. Two were found
+# by hand on 2026-09-01 in metadata nobody had read -- one nine months old, one
+# seven years -- and a third turned up on the LIVE issue-three page within
+# minutes of this running for the first time.
+#
+# bindings: which words in which document support each sentence. Reports how
+# much of the page rests on nothing this system can name. It reports presence
+# and absence and never truth.
+errata = _sibling("errata")
+bindings = _sibling("bindings")
+
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
 # writes it into a report the next run overwrites -- which is why "what has this
@@ -1162,6 +1176,12 @@ def preflight(slug: str, *, for_email: bool,
     except Exception as exc:
         out.append(("source store", WARN, "the store check did not run: %s: %s"
                     % (type(exc).__name__, exc)))
+    for _mod, _name in ((errata, "errata check"), (bindings, "claim bindings")):
+        try:
+            out.extend(_mod.preflight_rows(slug))
+        except BaseException as exc:   # SystemExit is not an Exception
+            out.append((_name, WARN, "did not run: %s: %s"
+                        % (type(exc).__name__, exc)))
     # A LIVING issue promises a reader it is current. That promise is only
     # honest if somebody has actually looked, and the page has to display the
     # date of the last CHECK rather than the last change. These rows are empty

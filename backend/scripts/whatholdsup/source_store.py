@@ -598,6 +598,111 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     return rows
 
 
+def strong_identifiers(src: dict) -> list[str]:
+    """The identifiers a document PRINTS ABOUT ITSELF, parsed from the URL we
+    hold. A DOI, a PMID, a PMCID, an NCT number. Never a title, never a guess."""
+    url = src.get("url") or ""
+    out = []
+    for pat in (r"(10\.\d{4,9}/[^\s?#]+)", r"/articles/(PMC\d+)",
+                r"pubmed\.ncbi\.nlm\.nih\.gov/(\d{6,9})",
+                r"(NCT\d{8})", r"/article/(S\d{4}-\d{4}\(\d{2}\)\d{5}-[\dX])"):
+        m = re.search(pat, url, re.I)
+        if m:
+            out.append(m.group(1).rstrip(".,;)"))
+    for extra in ("nct", "pmid", "doi"):
+        v = src.get(extra)
+        if v:
+            out.append(str(v))
+    return out
+
+
+def _searchable(data: bytes) -> str:
+    txt, _how = text_of(data, "application/pdf" if data[:5] == b"%PDF-" else "",
+                        pages=0)
+    return txt
+
+
+def ingest_scan(slug: str, folder: Path, *, limit_mb: int = 40) -> list[dict]:
+    """Which files in a folder ARE sources of this issue that we do not hold.
+
+    WHY THIS EXISTS
+    ---------------
+    On 2026-09-01 the errata check reported that MONARCH 3's corrigendum and the
+    correction to the colonoscopy deskilling study were not in the library. Both
+    were true. Both documents were also sitting in the operator's Downloads
+    folder -- the colonoscopy correction since 30 August, read on the day it was
+    downloaded and accurately described on the published page.
+
+    The gap was never knowledge. It was that a document read by a person and
+    then closed leaves no trace, which is the entire reason the library exists,
+    and the library had only ever been run against one issue. Two live pages
+    rest on fifty source documents and the library holds none of them.
+
+    So: point this at a folder and it tells you what is already on disk. It
+    decides nothing by filename. Every candidate must pass the same positive
+    identity test as any other acquisition -- the bytes must contain the
+    document's own DOI, PMID, NCT number or enough of its title -- so a wrong
+    file cannot be matched in by being hopefully named.
+    """
+    srcs = [s for s in sources(slug) if s.get("id") not in held(slug)]
+    out = []
+    rejected = []
+    files = sorted([f for f in Path(folder).iterdir()
+                    if f.is_file() and f.suffix.lower() in
+                    (".pdf", ".html", ".htm", ".xml", ".json", ".txt")])
+    for f in files:
+        try:
+            if f.stat().st_size > limit_mb * 1024 * 1024:
+                continue
+            data = f.read_bytes()
+        except Exception:
+            continue
+        # STRONG IDENTIFIERS ONLY, and never a title-word match.
+        #
+        # identifies() accepts "contains 7 of 12 distinctive title words",
+        # which is sound for a document fetched FROM A SOURCE'S OWN URL and
+        # unsound for a file found lying in a folder. Run over Downloads it
+        # matched this publication's own melanoma page, its issue-one email and
+        # three gate reports as source documents, because a page that CITES a
+        # paper contains that paper's title. A document about a source is not
+        # the source; it is the same identity-versus-substance confusion this
+        # module was written for, arriving from the other direction.
+        # The multi-match test runs over ALL sources of the issue, not only the
+        # unheld ones. Restricted to unheld sources it let our own published
+        # page through: every other identifier on it belonged to a source we
+        # already hold, so the page looked like a single-source match.
+        about = []
+        for src in sources(slug):
+            for k in strong_identifiers(src):
+                if k.lower() in _searchable(data).lower():
+                    about.append(src["id"])
+                    break
+        if len(about) > 1:
+            rejected.append({"file": str(f), "why":
+                             "carries the identifiers of %d different sources "
+                             "(%s) — a document about them, not one of them"
+                             % (len(about), ", ".join(about[:6]))})
+            continue
+        hits = []
+        for src in srcs:
+            strong = strong_identifiers(src)
+            if not strong:
+                continue
+            found = [k for k in strong if k.lower() in _searchable(data).lower()]
+            if found:
+                hits.append((src, found))
+        if hits:
+            src, found = hits[0]
+            ct, _ = mimetypes.guess_type(str(f))
+            kind, kwhy = classify(slug, src["id"], data, ct or "")
+            out.append({"file": str(f), "source": src["id"],
+                        "title": (src.get("title") or "")[:70],
+                        "identity": "contains its own %s" % ", ".join(found),
+                        "kind": kind, "kind_why": kwhy, "bytes": len(data)})
+    ingest_scan.rejected = rejected
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -613,6 +718,13 @@ def main() -> int:
     g = sub.add_parser("gaps", help="regenerate the list of documents we do not hold")
     g.add_argument("--write", action="store_true",
                    help="write it into the issue directory instead of printing it")
+    ing = sub.add_parser("ingest",
+                         help="find documents we already have on disk somewhere")
+    ing.add_argument("folder")
+    ing.add_argument("--apply", action="store_true",
+                     help="actually add the matches to the library")
+    ing.add_argument("--via", default="",
+                     help="how these were obtained, required with --apply")
     sub.add_parser("status")
     sub.add_parser("library", help="everything the library holds, across issues")
     args = ap.parse_args()
@@ -641,6 +753,42 @@ def main() -> int:
         if row["kind"] != "full_text" and src.get("type") in ARTICLE_TYPES:
             print("  The ledger state for %s is %s_held, NOT full_text_held.\n"
                   % (args.sid, row["kind"]))
+        return 0
+
+    if args.cmd == "ingest":
+        hits = ingest_scan(args.slug, Path(args.folder).expanduser())
+        rej = getattr(ingest_scan, "rejected", [])
+        if rej:
+            print("\n  %d file(s) refused as documents ABOUT our sources rather "
+                  "than the sources themselves:" % len(rej))
+            for r in rej[:6]:
+                print("    %-42s %s" % (Path(r["file"]).name[:42], r["why"][:70]))
+        if not hits:
+            print("\n  nothing in %s matches a source of %s that we do not "
+                  "already hold\n" % (args.folder, args.slug))
+            return 0
+        print("\n  %d file(s) in %s are sources of %s that the library does not "
+              "hold:\n" % (len(hits), args.folder, args.slug))
+        for h in hits:
+            print("  %-6s %-10s %s" % (h["source"], h["kind"],
+                                       Path(h["file"]).name[:60]))
+            print("         %s | %s" % (h["identity"][:60], h["title"]))
+        if not args.apply:
+            print("\n  Nothing added. Re-run with --apply --via \"how you got "
+                  "them\" to store them.\n")
+            return 0
+        if not args.via:
+            print("\n  REFUSED: --apply needs --via. How a document was obtained "
+                  "is part of what the library is for.\n")
+            return 2
+        for h in hits:
+            src = next(x for x in sources(args.slug) if x["id"] == h["source"])
+            row = put_file(args.slug, h["source"], Path(h["file"]),
+                           url=src.get("url", ""), via=args.via,
+                           title=src.get("title", ""))
+            print("  held %s -> %s (%s)" % (h["source"], row["file"][:40],
+                                            row["kind"]))
+        print()
         return 0
 
     if args.cmd == "gaps":

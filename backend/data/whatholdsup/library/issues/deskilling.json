@@ -1,0 +1,19 @@
+{
+  "what_this_is": "Which document in the library each of this issue's sources points at. The library holds the bytes; this says what we were reading when we wrote the page.",
+  "issue": "deskilling",
+  "sources": {
+    "S045": {
+      "sha256": "cef89cd565d393842ade7274482d178e8638f9e988ac4f537330c7fb1056b983",
+      "file": "docs/ce/cef89cd565d393842ade7274482d178e8638f9e988ac4f537330c7fb1056b983.pdf",
+      "bytes": 31625,
+      "url": "https://doi.org/10.1016/S2468-1253(25)00294-8",
+      "held": "2026-09-01",
+      "via": "publisher PDF, downloaded by the editor on 2026-08-30 and read the same day",
+      "note": "",
+      "kind": "document",
+      "kind_why": "type 'corrigendum' — a corrigendum is a complete document of its own kind; the article test (reference list, discussion) does not apply to it",
+      "superseded": [],
+      "also_held": []
+    }
+  }
+}

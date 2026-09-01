@@ -1255,6 +1255,24 @@
         "note": "NOT READ IN FULL. The page states only what the title and authorship establish, and says we found it through a gate run after writing the section."
       },
       "found_via": "The page gate's COVERAGE role, 2026-08-30, on the new-cycle run — the third instance this week of a role finding prior art our own searches did not."
+    },
+    {
+      "id": "S045",
+      "url": "https://doi.org/10.1016/S2468-1253(25)00294-8",
+      "type": "corrigendum",
+      "amends": "S021",
+      "title": "Correction to Lancet Gastroenterol Hepatol 2025; 10: 896-903 [Budzyn et al., endoscopist deskilling]. Lancet Gastroenterol Hepatol, published online 11 September 2025",
+      "accessed": "2026-08-30",
+      "used_for": "The published correction to this page's central study. In full: a covariate (indication for colonoscopy) was mistakenly omitted from the multivariable analysis in supplementary table 6 of the appendix; the appendix has been updated; the only affected findings are the variables 'After AI introduction (using AI in colonoscopy)' and 'Age >60 years'; and the journal states the changes do not affect the interpretation of the data. The figures this page prints — 28.4%, 22.4%, the six-point difference and its interval — are the unadjusted comparison and are untouched by it.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast, who obtained the PDF on 2026-08-30",
+        "on": "2026-08-30",
+        "sections": [
+          "the entire notice"
+        ],
+        "note": "THIS ENTRY IS LATE, AND WHY IT IS LATE IS THE POINT. The correction was obtained on 30 August, read the same day, and described accurately on the published page, which tells readers what it changed and states that one of the two affected findings is the exposure variable itself. None of that was ever written into the ledger: no source id, no access record, no copy in the library.\n\nSo on 2026-09-01 the new errata check reported that this page's central study had been corrected and that we did not hold the correction. That was true about the library and false about our knowledge, and it was narrated as 'nobody knew' — an absence asserted by something not in a position to observe it, which is the error this repository has now recorded seven times, this time in the narration rather than in the code.\n\nA document read by a person and then closed leaves no trace. That is the whole reason the library exists, and the library had only ever been run against issue two."
+      }
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

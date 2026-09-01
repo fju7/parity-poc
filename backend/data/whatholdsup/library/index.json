@@ -320,6 +320,22 @@
         "cdk46:S025"
       ],
       "note": ""
+    },
+    "cef89cd565d393842ade7274482d178e8638f9e988ac4f537330c7fb1056b983": {
+      "file": "docs/ce/cef89cd565d393842ade7274482d178e8638f9e988ac4f537330c7fb1056b983.pdf",
+      "bytes": 31625,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://doi.org/10.1016/S2468-1253(25)00294-8"
+      ],
+      "titles": [
+        "Correction to Lancet Gastroenterol Hepatol 2025; 10: 896-903 [Budzyn et al., endoscopist deskilling]. Lancet Gastroenterol Hepatol, published online 11 September 2025"
+      ],
+      "used_by": [
+        "deskilling:S045"
+      ],
+      "note": ""
     }
   }
 }
