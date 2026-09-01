@@ -234,7 +234,91 @@ def text_of(data: bytes, content_type: str = "", pages: int = 8) -> tuple[str, s
 # Source types whose document is an ARTICLE, and so must show an article's
 # substance. A registry record, a drug label or a guideline page is not an
 # article and is not held to this.
-ARTICLE_TYPES = {"primary", "comparison", "methods", "conference", "review"}
+# `conference` was in this set from the day it was written and should never
+# have been. A conference abstract or presentation deck is a complete document
+# of its own kind: it has no reference list, no discussion section, and no
+# introduction in the sense the article test means. Asked about ASCO 2024's
+# LBA9512 -- eleven pages carrying the three-year hazard ratio this page prints
+# -- the test answered "cannot show it is the document" and refused it.
+#
+# Third instance of one error today: registry postings, drug labels, and now a
+# conference deck, each judged by the furniture of a journal article they were
+# never going to have. The set is what the article test APPLIES to, and it has
+# to be earned rather than assumed.
+# Every source type this publication uses, what it is, and — where the type
+# settles it — what FORM of document it is. None means the type does not settle
+# the form and the source must declare one; see the note below.
+TYPES = {
+    # journal articles
+    "primary":       ("a study's own publication", "article"),
+    "comparison":    ("a study comparing others", "article"),
+    "methods":       ("a methodological paper", "article"),
+    "review":        ("a review article", "article"),
+    "synthesis":     ("a systematic review or meta-analysis", "article"),
+    # short journal items
+    "corrigendum":   ("a correction or erratum notice", "notice"),
+    "editorial":     ("an editorial or retraction notice", "notice"),
+    # structured records
+    "registry":      ("a trial registry record", "record"),
+    "label":         ("a regulator-published drug label", "record"),
+    "guideline":     ("a clinical guideline", "record"),
+    # pages
+    "conference":    ("a conference abstract or presentation", "page"),
+    "press_release": ("a company's announcement about its own study", "page"),
+    "coverage":      ("journalism about a study", "page"),
+    "carrier":       ("a piece that carried a claim onward", "page"),
+    "secondary":     ("secondary coverage or commentary on a study", "page"),
+    # the type names a ROLE and does not settle the form
+    "critique":      ("a critique of a study, in any form", None),
+    "prior_art":     ("earlier work the page cites for context, in any form", None),
+}
+
+# THE TYPE FIELD IS OVERLOADED, and this is the finding that mattered on
+# 2026-09-01.
+#
+# It encodes the source's ROLE in the argument -- critique, prior art, carrier,
+# coverage -- and not its FORM -- journal article, news piece, registry record,
+# expert-reaction page. The article test needs form. B8's closeness ranking
+# needs role. One field is carrying both, so it can answer neither reliably.
+#
+# Issue three proves it. Under `critique` sit an OSF preprint, an arXiv comment,
+# an ACG review piece and a Science Media Centre expert-reaction page: two are
+# papers with reference lists, two are not. Under `prior_art` sit a
+# Gastroenterology editorial and an article in The Conversation. Declaring
+# either type article-or-not is guessing, and this file guessed twice and was
+# wrong twice within the hour.
+#
+# The fix is a second field: `form`, on the source, saying what kind of document
+# it is. Until every ambiguous source carries one, a type marked None here
+# reports as UNDETERMINED rather than being silently assigned -- which is the
+# whole point of the coverage report it feeds.
+# WHAT EACH FORM MEANS, and what test it earns.
+#
+#   article  a research paper, review or preprint: should carry a reference
+#            list and a discussion, so the article test applies
+#   notice   a short journal item -- erratum, editorial, comment, letter:
+#            complete at a few hundred words, no article furniture expected
+#   record   a structured record -- registry posting, drug label
+#   page     a web page -- journalism, a press release, an expert-reaction
+#            page, a newsletter
+FORMS = {"article", "notice", "record", "page"}
+FORM_FLOOR = {"notice": 600, "record": 2000, "page": 2000}
+
+
+def form_of(src: dict) -> str | None:
+    """The form declared on the source, or the one its type settles."""
+    f = src.get("form")
+    if f in FORMS:
+        return f
+    return TYPES.get(src.get("type", ""), (None, None))[1]
+
+# DERIVED, NEVER WRITTEN TWICE.
+#
+# For one hour on 2026-09-01 the registry above and this set disagreed:
+# synthesis, critique and secondary were declared journal articles in one place
+# and omitted from the article test in the other. The coverage report caught it
+# within a minute of existing, which is the argument for both.
+ARTICLE_TYPES = {t for t, (_d, form) in TYPES.items() if form == "article"}
 
 # A COMPANY STATEMENT ABOUT A STUDY IS NOT THE STUDY.
 #
@@ -330,10 +414,62 @@ def classify(slug: str, sid: str, data: bytes,
     """
     src = next((x for x in sources(slug) if x.get("id") == sid), {})
     stype = src.get("type", "")
+    form = form_of(src)
+    if form == "article":
+        return substance(data, content_type)
+    if form in FORM_FLOOR:
+        text, _how = text_of(data, content_type, pages=0)
+        if data[:5] != b"%PDF-" and data[:1] not in (b"{", b"["):
+            text = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", text,
+                          flags=re.S | re.I)
+            text = re.sub(r"<[^>]+>", " ", text)
+        n = len(" ".join(text.split()))
+        if n < FORM_FLOOR[form]:
+            return "stub", ("form '%s', and only %d characters — too little to "
+                            "be the document" % (form, n))
+        return "document", ("form '%s' — %d characters held. The article test "
+                            "does not apply to this form" % (form, n))
+    if form is None and stype:
+        return "undetermined", ("type '%s' does not settle whether this is a "
+                                "journal article, and the source declares no "
+                                "form — so no substance test applies and none "
+                                "has run" % stype)
     if stype and stype not in ARTICLE_TYPES:
+        # THE ARTICLE TEST DOES NOT APPLY — BUT ONE QUESTION STILL DOES.
+        #
+        # ARTICLE_TYPES is an allow-list, and issue three's vocabulary is not in
+        # it: synthesis, critique, prior_art, carrier, secondary, editorial. So
+        # eighteen of the nineteen documents held for a LIVE page skipped the
+        # substance test entirely and were recorded as "a complete document of
+        # its own kind" without anything looking at them. That is the same
+        # anti-pattern this repository documented in errata.py the same evening
+        # — an allow-list built from the nouns one issue happens to use — left
+        # standing here.
+        #
+        # A proper fix decides by the document rather than by the type name, and
+        # needs to know what furniture each kind should have. Until then, the
+        # one question that applies to EVERY kind: is there enough here to be a
+        # document at all, or is this a stub? A Time article, an EDUCAUSE essay
+        # and a retraction notice are all complete at very different lengths,
+        # but none of them is 800 characters.
+        text, _how = text_of(data, content_type, pages=0)
+        if data[:5] != b"%PDF-" and data[:1] not in (b"{", b"["):
+            text = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", text,
+                          flags=re.S | re.I)
+            text = re.sub(r"<[^>]+>", " ", text)
+        n = len(" ".join(text.split()))
+        # A corrigendum or a retraction notice is complete at a few hundred
+        # words; the Budzyn correction is 1,492 characters and says everything
+        # it has to say. A threshold that calls those stubs is a threshold that
+        # gets waived.
+        floor = 600 if stype in ("corrigendum", "editorial") else 2000
+        if n < floor:
+            return "stub", ("type '%s', and only %d characters — too little to "
+                            "be the document, whatever kind it is" % (stype, n))
         return "document", ("type '%s' — a %s is a complete document of its own "
                             "kind; the article test (reference list, discussion) "
-                            "does not apply to it" % (stype, stype))
+                            "does not apply to it. %d characters held, not "
+                            "examined further" % (stype, stype, n))
     return substance(data, content_type)
 
 

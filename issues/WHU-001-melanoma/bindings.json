@@ -88,7 +88,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S002) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone"
     },
     "dde5cc8e1babb00c": {
       "sentence": "On 19 August 2026, Merck and Moderna announced that INTerpath-001 — a randomised, double-blind, placebo- and active-comparator-controlled Phase 3 trial in 1,137 patients — met its primary endpoint of recurrence-free survival and its key secondary endpoint of distant metastasis-free survival at an interim analysis.",
@@ -132,7 +132,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 2 anchors: 0.510, 0.411"
+      "autobind": "the only document with these anchors (S004) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not"
     },
     "1e5061ab408e4aeb": {
       "sentence": "Of the 1,137-patient trial it is announcing, the release states that both endpoints were met and gives no figure for either.",
@@ -462,7 +462,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 0.561, 0.309, 1.017, 1.0"
+      "autobind": "2 held documents contain all these anchors (S003, S004) — which one the sentence rests on is not decidable by presence alone"
     },
     "4751c2ec2e6d93bb": {
       "sentence": "It had already cleared the line by the three-year readout at ASCO 2024, since published in full: HR 0.510, 95% CI 0.288–0.906 .",
@@ -484,7 +484,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 0.510, 0.288, 0.906"
+      "autobind": "the only document with these anchors (S008) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not"
     },
     "ca51c4a1a62dc00b": {
       "sentence": "At five years the point estimate was unchanged at 0.510 and the interval read 0.294–0.887 — the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close to unchanged.",
@@ -535,12 +535,7 @@
       "sentence_sha": "5ca6a9cd32ed495a",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": "S002",
-      "document_sha": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
-      "locator_type": "prose",
       "locator": null,
-      "span": "img:is([sizes=\"auto\" i], [sizes^=\"auto,\" i]) { contain-intrinsic-size: 3000px 1500px } { \"@context\": \"https://schema.org\", \"@graph\": [{\"@type\":\"Organization\",\"@id\":\"https://www.merck.com/#organization\",\"name\":\"Merck & Co., Inc., Rahway, NJ, USA\",\"description\":\"We aspire to be the premier research-intensive biopharmaceutical company\",\"url\":\"https://www.merck.com/\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.merck.com/wp-content/uploads/sites/124/2026/04/Merck_Logo_Horizontal_Teal_Grey_RGB.png\",\"contentUrl\":\"https://www.merck.com/wp-content/uploads/sites/124/2026/04/Merck_Logo_Horizontal_Teal_Grey_RGB.png\"},\"legalName\":\"Merck & Co., Inc., Rahway, NJ, USA\",\"foundingDate\":\"1891-01-01\",\"sameAs\":[\"https://twitter.com/Merck\",\"https://www.facebook.com/MerckInvents\",\"https://www.linkedin.com/company/merck\",\"https://www.instagram.com/merck\",\"https://www.youtube.com/user/Merck\",\"https://en.wikipedia.org/wiki/Merck_%26_Co.\"]},{\"@type\":\"WebSite\",\"@id\":\"https://www.merck.com/#website\",\"name\":\"Merck & Co., Inc., Rahway, NJ, USA\",\"url\":\"https://www.merck.com/\",\"inLanguage\":\"en-US\",\"publisher\":{\"@id\":\"https://www.merck.com/#organization\"}},{\"@type\":\"WebPage\",\"@id\":\"https://www.merck.com/news/m",
-      "envelope": "img:is([sizes=\"auto\" i], [sizes^=\"auto,\" i]) { contain-intrinsic-size: 3000px 1500px } { \"@context\": \"https://schema.org\", \"@graph\": [{\"@type\":\"Organization\",\"@id\":\"https://www.merck.com/#organization\",\"name\":\"Merck & Co., Inc., Rahway, NJ, USA\",\"description\":\"We aspire to be the premier research-intensive biopharmaceutical company\",\"url\":\"https://www.merck.com/\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.merck.com/wp-content/uploads/sites/124/2026/04/Merck_Logo_Horizontal_Teal_Grey_RGB.png\",\"contentUrl\":\"https://www.merck.com/wp-content/uploads/sites/124/2026/04/Merck_Logo_Horizontal_Teal_Grey_RGB.png\"},\"legalName\":\"Merck & Co., Inc., Rahway, NJ, USA\",\"foundingDate\":\"1891-01-01\",\"sameAs\":[\"https://twitter.com/Merck\",\"https://www.facebook.com/MerckInvents\",\"https://www.linkedin.com/company/merck\",\"https://www.instagram.com/merck\",\"https://www.youtube.com/user/Merck\",\"https://en.wikipedia.org/wiki/Merck_%26_Co.\"]},{\"@type\":\"WebSite\",\"@id\":\"https://www.merck.com/#website\",\"name\":\"Merck & Co., Inc., Rahway, NJ, USA\",\"url\":\"https://www.merck.com/\",\"inLanguage\":\"en-US\",\"publisher\":{\"@id\":\"https://www.merck.com/#organization\"}},{\"@type\":\"WebPage\",\"@id\":\"https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/#webpage\",\"url\":\"https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/\",\"name\":\"Moderna and Merck Present 5-Year Data for Intismeran Autogene in Combination With KEYTRUDA® (pembrolizumab) in Patients With High-Risk Stage III/IV Melanoma Following Complete Resection at the 2026 ASCO Annual Meeting - Merck.com\",\"description\":\"At a median 5-year (60.3 months) planned follow-up of the Phase 2b KEYNOTE-942/mRNA-4157-P201 study, intismeran aut",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -550,9 +545,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "proposed_by": "autobind",
-      "confirmed": false,
-      "autobind": "the only held document containing all 2 anchors (0.165, 1.345), sharing 2 subject word(s) with the sentence: overall, survival"
+      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone"
     },
     "830a84cf800eb508": {
       "sentence": "Reported as survival rates the same five-year analysis reads 92.2% alive versus 71.3% — 95% CI 84.2–96.3 and 35.4–89.6, as The ASCO Post reported them from the five-year data.",
@@ -772,7 +765,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S005) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "3 held documents contain all these anchors (S003, S004, S005) — which one the sentence rests on is not decidable by presence alone"
     },
     "9bb4125d2d1163ac": {
       "sentence": "The companies' five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075 .",
@@ -926,7 +919,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 6 anchors: 0.510, 0.294, 0.887, 0.411, 0.200"
+      "autobind": "the only document with these anchors (S004) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not"
     },
     "113d1ac01b52cc9d": {
       "sentence": "Any-grade immune-related adverse events were similar — 45.2% on the combination versus 44% on pembrolizumab alone — but grade 3 or worse treatment-related events were higher: 25% versus 18%.",
@@ -972,7 +965,9 @@
       "on_page": true,
       "proposed_by": "autobind",
       "confirmed": false,
-      "autobind": "the only held document containing all 2 anchors (59.6%, 51.0%), sharing 4 subject word(s) with the sentence: attributed, chills, fatigue, injection"
+      "autobind": "the only held document containing all 2 anchors (59.6%, 51.0%), sharing 4 subject word(s) with the sentence: attributed, chills, fatigue, injection",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "3580c200250f4ff8": {
       "sentence": "The only survival figure in the programme is descriptive and rests on fourteen deaths; its interval, 0.165 to 1.345, is too wide to separate a large benefit from a small harm.",
@@ -994,7 +989,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S002) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone"
     },
     "ee91cf76edff9ccb": {
       "sentence": "\"Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.\" Source quality 3 / 5 Data support 1 / 5 Reproducibility 4 / 5 Consensus 4 / 5 Recency 5 / 5 Rigor 5 / 5 3.4 Moderate (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10) The two extremes are the whole story.",
@@ -1126,7 +1121,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 9 anchors: 0.510, 0.294, 0.887, 0.411, 0.200"
+      "autobind": "the only document with these anchors (S004) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not"
     },
     "8349d700f3568a14": {
       "sentence": "Primary KEYNOTE-942: a randomised, phase 2b study — The Lancet , 2024 The peer-reviewed publication.",
@@ -1170,7 +1165,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 0.561, 0.309, 1.017, 0.053"
+      "autobind": "the only document with these anchors (S003) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not"
     },
     "0bd99da75af4bb4d": {
       "sentence": "Primary Five-year results — Journal of Clinical Oncology , 1 June 2026 The peer-reviewed five-year analysis, published the day it was presented.",
@@ -1506,6 +1501,28 @@
       "sentence": "What materially changed: the five-year KEYNOTE-942 results replaced an earlier readout; distant metastasis-free survival eased from 62% to 59% over that period and is now stated next to the recurrence figure that improved; grade 3 or worse treatment-related events, 25% against 18%, were added; and the claim that the Phase 3 is free of the earlier trial's assessment bias was softened, because its primary endpoint is investigator-assessed too.",
       "sentence_sha": "56209b4ae141e4c0",
       "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+    },
+    "a8a0a11a92efffe0": {
+      "sentence": "The three-year figures quoted above are taken from the ASCO 2024 presentation of the same analysis; the journal site blocks automated access, so we have verified the citation but not read the full text ourselves.",
+      "sentence_sha": "a8a0a11a92efffe0",
+      "why_empirical": "names the ASCO 2024 presentation",
       "bucket": null,
       "source_id": null,
       "document_sha": null,

@@ -189,6 +189,15 @@ bindings = _sibling("bindings")
 # see a source nobody wrote down. B8 asks whether a closer document says the
 # same thing.
 page_ledger = _sibling("reconcile")
+# What each check did NOT examine, as a number beside what it found. Built after
+# the substance test was found not to be running on eighteen of the nineteen
+# documents held for a live issue, and saying so in no way at all.
+coverage = _sibling("coverage")
+# Whether the span checks can read each held document at all. A figure taken out
+# of a document must be findable in it written the way the page writes it. Built
+# after B2 said "not there" three times about a figure held since morning,
+# because The Lancet writes its decimals with a middle dot.
+canary = _sibling("canary")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -1186,7 +1195,9 @@ def preflight(slug: str, *, for_email: bool,
     except BaseException as exc:
         out.append(("page to ledger", WARN, "did not run: %s: %s"
                     % (type(exc).__name__, exc)))
-    for _mod, _name in ((errata, "errata check"), (bindings, "claim bindings")):
+    for _mod, _name in ((errata, "errata check"), (bindings, "claim bindings"),
+                        (coverage, "check coverage"),
+                        (canary, "checks can read the documents")):
         try:
             out.extend(_mod.preflight_rows(slug))
         except BaseException as exc:   # SystemExit is not an Exception

@@ -1,0 +1,124 @@
+{
+  "_what_this_is": "Whether the span checks can read each held document at all. A figure taken out of a document must be findable in it through the same pipeline the checks use. Where it is not, an absence reported against that document means 'could not determine'.",
+  "checked": {
+    "S012": {
+      "source": "S012",
+      "state": "READABLE",
+      "tried": [
+        "10.64628"
+      ],
+      "why": "1 figures round-tripped"
+    },
+    "S013": {
+      "source": "S013",
+      "state": "READABLE",
+      "tried": [
+        "0.73"
+      ],
+      "why": "1 figures round-tripped"
+    },
+    "S015": {
+      "source": "S015",
+      "state": "READABLE",
+      "tried": [
+        "0.867",
+        "0.456",
+        "0.457"
+      ],
+      "why": "3 figures round-tripped"
+    },
+    "S016": {
+      "source": "S016",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S019": {
+      "source": "S019",
+      "state": "READABLE",
+      "tried": [
+        "2601.00856",
+        "2506.08872",
+        "10.48550"
+      ],
+      "why": "3 figures round-tripped"
+    },
+    "S026": {
+      "source": "S026",
+      "state": "READABLE",
+      "tried": [
+        "2605.03512",
+        "10.48550"
+      ],
+      "why": "2 figures round-tripped"
+    },
+    "S032": {
+      "source": "S032",
+      "state": "READABLE",
+      "tried": [
+        "0.05",
+        "0.005",
+        "0.02",
+        "0.009",
+        "0.54",
+        "0.43"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S033": {
+      "source": "S033",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S034": {
+      "source": "S034",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S035": {
+      "source": "S035",
+      "state": "READABLE",
+      "tried": [
+        "10.1016"
+      ],
+      "why": "1 figures round-tripped"
+    },
+    "S036": {
+      "source": "S036",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S037": {
+      "source": "S037",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S039": {
+      "source": "S039",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S040": {
+      "source": "S040",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S041": {
+      "source": "S041",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S042": {
+      "source": "S042",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S045": {
+      "source": "S045",
+      "state": "READABLE",
+      "tried": [
+        "10.1016"
+      ],
+      "why": "1 figures round-tripped"
+    }
+  }
+}

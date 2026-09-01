@@ -416,6 +416,342 @@
         "melanoma:S001"
       ],
       "note": ""
+    },
+    "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657": {
+      "file": "docs/4c/4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657.pdf",
+      "bytes": 306380,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://ascopubs.org/doi/10.1200/JCO-26-00835"
+      ],
+      "titles": [
+        "Five-year results — Journal of Clinical Oncology, 1 June 2026"
+      ],
+      "used_by": [
+        "melanoma:S004"
+      ],
+      "note": ""
+    },
+    "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e": {
+      "file": "docs/a2/a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e.pdf",
+      "bytes": 416532,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://ascopubs.org/doi/10.1200/OA-25-00008"
+      ],
+      "titles": [
+        "Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances, 2026"
+      ],
+      "used_by": [
+        "melanoma:S007"
+      ],
+      "note": ""
+    },
+    "6e4763535187595d97f97e17eee86a621e3f60d3b93aca22982ae350ecc909e9": {
+      "file": "docs/6e/6e4763535187595d97f97e17eee86a621e3f60d3b93aca22982ae350ecc909e9.pdf",
+      "bytes": 546733,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://meetings.asco.org/abstracts-presentations/230175"
+      ],
+      "titles": [
+        "Weber JS, Khattak MA, Carlino MS, et al. Individualized neoantigen therapy mRNA-4157 (V940) plus pembrolizumab in resected melanoma: 3-year update from the mRNA-4157-P201 (KEYNOTE-942) trial. ASCO 2024, abstract LBA9512"
+      ],
+      "used_by": [
+        "melanoma:S008"
+      ],
+      "note": ""
+    },
+    "6036a43497b38e3a8a1071909f50dfe8174f0bceeba8967b8c5a7a910a2ee85b": {
+      "file": "docs/60/6036a43497b38e3a8a1071909f50dfe8174f0bceeba8967b8c5a7a910a2ee85b.html",
+      "bytes": 2715,
+      "content_type": "text/html;charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://linkinghub.elsevier.com/retrieve/pii/S0360131524002380"
+      ],
+      "titles": [
+        "Deng et al. (2025) — Does ChatGPT Enhance Student Learning? A Systematic Review and Meta-Analysis of Experimental Studies. Computers & Education 227, 105224"
+      ],
+      "used_by": [
+        "deskilling:S011"
+      ],
+      "note": ""
+    },
+    "47b758ab798cd6f26cf3cefb5de30e6d79f6a93eba7db0c9df4f8f664a7be7e8": {
+      "file": "docs/47/47b758ab798cd6f26cf3cefb5de30e6d79f6a93eba7db0c9df4f8f664a7be7e8.html",
+      "bytes": 185388,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://theconversation.com/we-designed-an-ai-tutor-that-helps-college-students-reason-rather-than-give-them-answers-276584"
+      ],
+      "titles": [
+        "Babaei-Balderlou & Shakya, The Conversation, 30 April 2026"
+      ],
+      "used_by": [
+        "deskilling:S012"
+      ],
+      "note": ""
+    },
+    "43212bd3fa4f5b09f7b8d0ff25a8f13170ab517cf4b98bd8bbe850feb38f1edf": {
+      "file": "docs/43/43212bd3fa4f5b09f7b8d0ff25a8f13170ab517cf4b98bd8bbe850feb38f1edf.html",
+      "bytes": 295617,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://cardcatalogforlife.substack.com/p/how-to-use-ai-to-make-us-smarter"
+      ],
+      "titles": [
+        "Hana Lee Goldin, Card Catalog, 26 May 2026"
+      ],
+      "used_by": [
+        "deskilling:S013"
+      ],
+      "note": ""
+    },
+    "ea0fd380a929a803a7f4246443092aa5de2f72882b78887670ad35a5c80ef73c": {
+      "file": "docs/ea/ea0fd380a929a803a7f4246443092aa5de2f72882b78887670ad35a5c80ef73c.html",
+      "bytes": 128417,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.plagiarismtoday.com/2026/07/15/study-claiming-ai-helps-students-learn-retracted/"
+      ],
+      "titles": [
+        "Plagiarism Today, 15 July 2026 — Study Claiming AI Helps Students Learn Retracted"
+      ],
+      "used_by": [
+        "deskilling:S015"
+      ],
+      "note": ""
+    },
+    "39c55dcf2b619415479ad0120ade87eff6d9c6a24bd440c572b96ed28e3b7cb0": {
+      "file": "docs/39/39c55dcf2b619415479ad0120ade87eff6d9c6a24bd440c572b96ed28e3b7cb0.html",
+      "bytes": 59593,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://nepc.colorado.edu/blog/nature-publisher"
+      ],
+      "titles": [
+        "NEPC, on 404 Media's coverage — Williamson and Tuomi quoted"
+      ],
+      "used_by": [
+        "deskilling:S016"
+      ],
+      "note": ""
+    },
+    "d811e9038b17daa1f07bf9fe1c4c28c112712c40106ee56452cf34c516014331": {
+      "file": "docs/d8/d811e9038b17daa1f07bf9fe1c4c28c112712c40106ee56452cf34c516014331.html",
+      "bytes": 41086,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://arxiv.org/abs/2601.00856"
+      ],
+      "titles": [
+        "Stankovic, Hirche, Kollatzsch & Doetsch — Comment on: Your Brain on ChatGPT. arXiv 2601.00856, submitted 29 December 2025"
+      ],
+      "used_by": [
+        "deskilling:S019"
+      ],
+      "note": ""
+    },
+    "945bd6e22b82612820de84f4ba5835d653389fdf87259fd3c9b2f888d3b5610f": {
+      "file": "docs/94/945bd6e22b82612820de84f4ba5835d653389fdf87259fd3c9b2f888d3b5610f.html",
+      "bytes": 41228,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://arxiv.org/abs/2605.03512"
+      ],
+      "titles": [
+        "Chalkidis & Søgaard — Brainrot: Deskilling and Addiction are Overlooked AI Risks. arXiv 2605.03512, submitted 5 May 2026, accepted to FAccT '26."
+      ],
+      "used_by": [
+        "deskilling:S026"
+      ],
+      "note": ""
+    },
+    "153788ef3f415dd255f25cf4ba000846fbd415c5b8bac3f143c28f9fb872168d": {
+      "file": "docs/15/153788ef3f415dd255f25cf4ba000846fbd415c5b8bac3f143c28f9fb872168d.html",
+      "bytes": 125565,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://gi.org/journals-publications/ebgi/zhou_sep2025/"
+      ],
+      "titles": [
+        "Zhou MJ (Stanford) — 'Artificial intelligence in colonoscopy: Could it be making us worse?', ACG Evidence-Based GI, September 2025"
+      ],
+      "used_by": [
+        "deskilling:S032"
+      ],
+      "note": ""
+    },
+    "22b9f8ec6603a9a88f12ea19c9f472920b54c6ccf365706b4cd9d236938ab828": {
+      "file": "docs/22/22b9f8ec6603a9a88f12ea19c9f472920b54c6ccf365706b4cd9d236938ab828.html",
+      "bytes": 159793,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://rad-insights.com/ai-deskilling-radiology-training/"
+      ],
+      "titles": [
+        "Josh Decker MD — 'When AI Reads the Easy Cases: Radiology's Training Paradox', Rad Insights, 15 May 2026 (updated 31 July 2026)"
+      ],
+      "used_by": [
+        "deskilling:S034"
+      ],
+      "note": ""
+    },
+    "fc4cec4315589a6b64bccd9a47b409cb75f7e2bde4ac8bb0532c48121fbc648a": {
+      "file": "docs/fc/fc4cec4315589a6b64bccd9a47b409cb75f7e2bde4ac8bb0532c48121fbc648a.html",
+      "bytes": 83262,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.sciencemediacentre.org/expert-reaction-to-observational-study-looking-at-detection-rate-of-precancerous-growths-in-colonoscopies-by-health-professionals-who-perform-them-before-and-after-the-routine-introduction-of-ai/"
+      ],
+      "titles": [
+        "Science Media Centre — expert reaction to the colonoscopy deskilling study, 12 August 2025"
+      ],
+      "used_by": [
+        "deskilling:S035"
+      ],
+      "note": ""
+    },
+    "e69ea730cd054aa4e866c96cf6ba9d504512638d156977bc9f40cd788c270565": {
+      "file": "docs/e6/e69ea730cd054aa4e866c96cf6ba9d504512638d156977bc9f40cd788c270565.html",
+      "bytes": 178810,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.statnews.com/2025/08/12/ai-deskilling-doctors-colonoscopy-study-lancet/"
+      ],
+      "titles": [
+        "Katie Palmer, STAT News, 12 August 2025 — 'AI use may be deskilling doctors, new Lancet study warns'"
+      ],
+      "used_by": [
+        "deskilling:S036"
+      ],
+      "note": ""
+    },
+    "754db9aff2c49a641fc225514407d7e0f8a739f2a5ffa509ecb649988d5e8926": {
+      "file": "docs/75/754db9aff2c49a641fc225514407d7e0f8a739f2a5ffa509ecb649988d5e8926.html",
+      "bytes": 475091,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.foxnews.com/health/colon-cancer-may-missed-doctors-rely-ai-alarming-study-warns"
+      ],
+      "titles": [
+        "Fox News Health — 'Colon cancer may be missed as doctors rely on AI, alarming study warns'"
+      ],
+      "used_by": [
+        "deskilling:S037"
+      ],
+      "note": ""
+    },
+    "7bec9861abbd5d41045898aad1252018bb7f7fedf46babb68a4b7a333fb730ce": {
+      "file": "docs/7b/7bec9861abbd5d41045898aad1252018bb7f7fedf46babb68a4b7a333fb730ce.html",
+      "bytes": 61952,
+      "content_type": "text/html;charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.rcpath.org/resource-report/cervical-cancer-and-human-papillomavirus-screening-in-the-uk-a-cytopathology-and-histopathology-perspective.html"
+      ],
+      "titles": [
+        "Royal College of Pathologists — Cervical cancer and human papillomavirus screening in the UK: a cytopathology and histopathology perspective"
+      ],
+      "used_by": [
+        "deskilling:S039"
+      ],
+      "note": ""
+    },
+    "89e4509da3eabba6228e18cef55c06cf53d1681f3de49a83b464c0892885e306": {
+      "file": "docs/89/89e4509da3eabba6228e18cef55c06cf53d1681f3de49a83b464c0892885e306.html",
+      "bytes": 276284,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://time.com/7309274/ai-lancet-study-artificial-intelligence-colonoscopy-cancer-detection-medicine-deskilling/"
+      ],
+      "titles": [
+        "Jeyaretnam M, Time, 13 August 2025 — on the colonoscopy deskilling study"
+      ],
+      "used_by": [
+        "deskilling:S040"
+      ],
+      "note": ""
+    },
+    "1c5c2894f6932a55a3885042f26e672b662f7b356381d3785b74f2c289706f04": {
+      "file": "docs/1c/1c5c2894f6932a55a3885042f26e672b662f7b356381d3785b74f2c289706f04.html",
+      "bytes": 53300,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://ascopost.com/news/august-2025/routine-ai-assistance-may-lead-to-loss-of-skills-in-endoscopists-study-shows/"
+      ],
+      "titles": [
+        "The ASCO Post Staff, The ASCO Post, 13 August 2025 (updated 11 November 2025)"
+      ],
+      "used_by": [
+        "deskilling:S041"
+      ],
+      "note": ""
+    },
+    "d34349d5c41a5563b984103e970ae8f9247ccf781f4e0c257051dd5816b609b6": {
+      "file": "docs/d3/d34349d5c41a5563b984103e970ae8f9247ccf781f4e0c257051dd5816b609b6.html",
+      "bytes": 294053,
+      "content_type": "text/html;charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://resources.healthgrades.com/pro/ai-assistance-colonoscopies-doctors-skill-loss"
+      ],
+      "titles": [
+        "Schimelpfening N (fact-checked by Seladi-Schulman J), Healthgrades, 19 August 2025"
+      ],
+      "used_by": [
+        "deskilling:S042"
+      ],
+      "note": ""
+    },
+    "e04a2dd34821cfe5d5edafae217620cb99af1f0326e67e941b5e0fa538bcd095": {
+      "file": "docs/e0/e04a2dd34821cfe5d5edafae217620cb99af1f0326e67e941b5e0fa538bcd095.html",
+      "bytes": 2671,
+      "content_type": "text/html;charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://linkinghub.elsevier.com/retrieve/pii/S0016508526069507"
+      ],
+      "titles": [
+        "Weinberg DS, Bretthauer M (2026) — Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy? Gastroenterology, published 5 June 2026."
+      ],
+      "used_by": [
+        "deskilling:S044"
+      ],
+      "note": ""
+    },
+    "1b1fd98e89208dccd929c4d3d6f1a574be1bd3e0c96619f876d4b27f1be9d7c3": {
+      "file": "docs/1b/1b1fd98e89208dccd929c4d3d6f1a574be1bd3e0c96619f876d4b27f1be9d7c3.html",
+      "bytes": 128537,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://cacm.acm.org/news/the-ai-deskilling-paradox/"
+      ],
+      "titles": [
+        "Samuel Greengard — 'The AI Deskilling Paradox', Communications of the ACM"
+      ],
+      "used_by": [
+        "deskilling:S033"
+      ],
+      "note": ""
     }
   }
 }

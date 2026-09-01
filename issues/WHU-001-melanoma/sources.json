@@ -107,13 +107,20 @@
         "the five-year analysis"
       ],
       "access": {
-        "state": "fragment_only",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "Fred Ugast, who downloaded the publisher PDF on 2026-09-01",
+        "on": "2026-09-01",
         "sections": [
-          "whatever the search tool returned for this URL"
+          "the complete published article is held; it has not yet been read against every sentence that cites it"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: held in full. Until today every direct route to ascopubs.org returned HTTP 403 and this source rested on what a retrieval had returned. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by reference list and discussion.",
+        "held": {
+          "sha256": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+          "file": "docs/4c/4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657.pdf",
+          "bytes": 306380,
+          "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
+          "substance": "36104 characters, reference list and discussion/introduction present"
+        }
       }
     },
     {
@@ -189,20 +196,49 @@
       "type": "primary",
       "title": "Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances, 2026",
       "accessed": "2026-08-28",
-      "used_for": "DOI 10.1200/OA-25-00008. The peer-reviewed publication of the three-year readout. The three-year figures quoted above are taken from the ASCO 2024 presentation of the same analysis; the journal site blocks automated access, so we have verified the citation but not read the full text ourselves.",
+      "used_for": "DOI 10.1200/OA-25-00008. The peer-reviewed publication of the three-year readout, held in full since 2026-09-01. The three-year figures this page prints — HR 0.510, 95% CI 0.288-0.906 — are in this paper and, independently, in the ASCO 2024 presentation of the same analysis (S008).",
       "also_called": [
         "Three-Year Update",
         "the three-year readout",
         "the three-year publication"
       ],
       "access": {
-        "state": "fragment_only",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "Fred Ugast, who downloaded the publisher PDF on 2026-09-01",
+        "on": "2026-09-01",
         "sections": [
-          "whatever the search tool returned for this URL"
+          "the complete published article is held; it has not yet been read against every sentence that cites it"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: held in full. Until today every direct route to ascopubs.org returned HTTP 403 and this source rested on what a retrieval had returned. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by reference list and discussion.\n\n2026-09-01: the sentence 'we have verified the citation but not read the full text ourselves' is withdrawn. It was true when written and is not now. The paper is held, and its figures are confirmed against the presentation of the same analysis.",
+        "held": {
+          "sha256": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+          "file": "docs/a2/a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e.pdf",
+          "bytes": 416532,
+          "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
+          "substance": "42938 characters, reference list and discussion/introduction present"
+        }
+      }
+    },
+    {
+      "id": "S008",
+      "url": "https://meetings.asco.org/abstracts-presentations/230175",
+      "type": "conference",
+      "title": "Weber JS, Khattak MA, Carlino MS, et al. Individualized neoantigen therapy mRNA-4157 (V940) plus pembrolizumab in resected melanoma: 3-year update from the mRNA-4157-P201 (KEYNOTE-942) trial. ASCO 2024, abstract LBA9512",
+      "also_called": [
+        "the ASCO 2024 presentation",
+        "the three-year readout",
+        "LBA9512"
+      ],
+      "accessed": "2026-09-01",
+      "used_for": "The three-year readout this page describes as the point at which the recurrence interval cleared the no-effect line: HR 0.510, 95% CI 0.288-0.906. All three figures are in this deck.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast, who supplied the presentation PDF on 2026-09-01",
+        "on": "2026-09-01",
+        "sections": [
+          "the complete presentation, eleven pages"
+        ],
+        "note": "THIS ENTRY EXISTS BECAUSE THE PAGE ALREADY DEPENDED ON IT AND THE LEDGER DID NOT KNOW. The page names 'the three-year readout at ASCO 2024' and attributes HR 0.510 (0.288-0.906) to it, and S007's own note says the three-year figures 'are taken from the ASCO 2024 presentation of the same analysis'. There was no source row for it. B9 did not catch this one because the page names the presentation without linking it, so a check that reads anchors could not see it -- a limit of B9 worth recording beside the case it did catch.\n\nIt also re-confirms, independently, that 0.510 is the figure the evidence carries to three decimals. The 0.51 that a precision check flagged on 2026-09-01 is only ever the company press release."
       }
     }
   ],

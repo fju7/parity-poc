@@ -10,8 +10,8 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "kind": "abstract",
-      "kind_why": "89874 characters, abstract present but no reference list or discussion — this is the abstract, not the paper",
+      "kind": "document",
+      "kind_why": "form 'page' — 89874 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
     },
@@ -23,8 +23,8 @@
       "held": "2026-09-01",
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "kind": "abstract",
-      "kind_why": "71675 characters, abstract present but no reference list or discussion — this is the abstract, not the paper",
+      "kind": "document",
+      "kind_why": "form 'page' — 71675 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
     },
@@ -37,7 +37,7 @@
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
       "kind": "document",
-      "kind_why": "type 'coverage' — a coverage is a complete document of its own kind; the article test (reference list, discussion) does not apply to it",
+      "kind_why": "form 'page' — 7805 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
     },
@@ -63,7 +63,46 @@
       "via": "acquire_sources.py on the operator's machine",
       "note": "",
       "kind": "document",
-      "kind_why": "type 'press_release' — a press_release is a complete document of its own kind; the article test (reference list, discussion) does not apply to it",
+      "kind_why": "form 'page' — 93668 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
+    },
+    "S004": {
+      "sha256": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "file": "docs/4c/4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657.pdf",
+      "bytes": 306380,
+      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+      "held": "2026-09-01",
+      "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "36104 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S007": {
+      "sha256": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+      "file": "docs/a2/a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e.pdf",
+      "bytes": 416532,
+      "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
+      "held": "2026-09-01",
+      "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "42938 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S008": {
+      "sha256": "6e4763535187595d97f97e17eee86a621e3f60d3b93aca22982ae350ecc909e9",
+      "file": "docs/6e/6e4763535187595d97f97e17eee86a621e3f60d3b93aca22982ae350ecc909e9.pdf",
+      "bytes": 546733,
+      "url": "https://meetings.asco.org/abstracts-presentations/230175",
+      "held": "2026-09-01",
+      "via": "presentation PDF supplied by the editor on 2026-09-01",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 14629 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
     }

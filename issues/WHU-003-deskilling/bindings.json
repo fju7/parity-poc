@@ -21,7 +21,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "5 held documents contain all these anchors (S032, S033, S037, S041, S042) — which one the sentence rests on is not decidable by presence alone"
     },
     "11147b19c29ad883": {
       "sentence": "Budzyń and colleagues went back through the records and compared the three months before with the three months after, looking only at the colonoscopies performed without AI assistance in both periods — 1,443 of them, 795 before and 648 after.",
@@ -42,7 +43,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 1,443 (strength 3, need 4)"
     },
     "f83a6cfe5ced96dc": {
       "sentence": "The adenoma detection rate — the share of procedures in which at least one precancerous growth is found, and the standard quality measure for the procedure — fell from 28.4% (226 of 795) to 22.4% (145 of 648).",
@@ -63,7 +65,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "5 held documents contain all these anchors (S032, S033, S037, S041, S042) — which one the sentence rests on is not decidable by presence alone"
     },
     "b2fff6c7deed25e8": {
       "sentence": "That is a drop of 6.0 percentage points , 95% confidence interval −10.5 to −1.6 percentage points — both ends below zero — at P = 0.0089.",
@@ -84,19 +87,20 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 4 anchors: 6.0, 10.5, 1.6, 0.0089"
     },
     "dab1a46d94d804de": {
       "sentence": "The nineteen endoscopists involved were not novices: each had performed more than 2,000 colonoscopies, and they averaged 27.6 years since graduation, over a range of 8 to 39.",
       "sentence_sha": "dab1a46d94d804de",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S042",
+      "document_sha": "d34349d5c41a5563b984103e970ae8f9247ccf781f4e0c257051dd5816b609b6",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "AI exposure linked with declining adenoma detection rate Between September 2021 and March 2022, a total of 1,443 non-AI-assisted colonoscopies were analyzed: 795 before AI implementation and 648 after.&nbsp; These were performed by 19 experienced endoscopists, each with more than 2,000 lifetime colonoscopies under their belt and an average of 27.6 years of experience.",
+      "envelope": "ion to control for potential confounders such as patient age, sex, sedation, bowel prep, and endoscopist characteristics.&nbsp; Stratified analyses by patient age and sex were also performed to explore subgroup effects. AI exposure linked with declining adenoma detection rate Between September 2021 and March 2022, a total of 1,443 non-AI-assisted colonoscopies were analyzed: 795 before AI implementation and 648 after.&nbsp; These were performed by 19 experienced endoscopists, each with more than 2,000 lifetime colonoscopies under their belt and an average of 27.6 years of experience. Interestingly, the adenoma detection rate (ADR) in non-AI-assisted colonoscopies dropped significantly after the introduction of AI, from 28.4% before exposure to 22.4% after - a 6.0% absolute decline.&nbsp; This decrea",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -105,7 +109,12 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "proposed_by": "autobind",
+      "confirmed": false,
+      "autobind": "the only held document containing all 2 anchors (2,000, 27.6), sharing 4 subject word(s) with the sentence: colonoscopies, endoscopists, performed, years",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "94cd79d439867548": {
       "sentence": "The authors list eleven limitations of their own, and the largest is not subtle: the total number of procedures in the second period nearly doubled, from 795 to 1,382 — while the non-AI procedures actually measured fell from 795 to 648 — because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to draw patients off the waiting list.",
@@ -126,7 +135,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 1,382 (strength 3, need 4)"
     },
     "c8d0e2c5bfbb6600": {
       "sentence": "AI assistance raised overall diagnostic accuracy from 87.2% to 96.4%.",
@@ -147,7 +157,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 2 anchors: 87.2%, 96.4%"
     },
     "5bd6e3b7ba6a8127": {
       "sentence": "It also accounted for the errors that remained: 45.5% of the errors made under AI assistance were attributable to automation bias , across all levels of experience.",
@@ -168,7 +179,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 45.5% (strength 2, need 4)"
     },
     "b8844660760b8fab": {
       "sentence": "When the authors tested selectively withholding AI outputs that were likely to mislead, automation bias fell by 41.7%.",
@@ -189,7 +201,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 41.7% (strength 2, need 4)"
     },
     "8367d5ea091c8bf6": {
       "sentence": "Rosbach and colleagues put 28 trained pathology experts through a diagnostic task with an AI decision-support system, some of whose advice was wrong.",
@@ -210,7 +223,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "d42675d64e616ebf": {
       "sentence": "Where it was, 7% of judgments the pathologists had initially got right were overturned by it .",
@@ -231,7 +245,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "c4888b894425b52a": {
       "sentence": "England's move to HPV primary screening cut cytology workload by about 70% , on Public Health England's estimate as reported by the Royal College of Pathologists, and the number of accredited laboratories fell from 48 to 8 .",
@@ -252,7 +267,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "120466a97746b3d0": {
       "sentence": "(The scoping review puts the cut at 80–85% and the laboratories at 45 consolidating to 8 — citing, in its body, an NHS Digital annual report and a UK National Screening Committee evidence review, and, in its table, Rebolj and colleagues in Cancer Cytopathology , which we could not reach at the publisher, on PubMed or in PMC.",
@@ -273,7 +289,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "0eba33487a931165": {
       "sentence": "The two counts differ and we cannot say why: the College's report and the review's source disagree about the starting number, and NHS Digital's own annual report says 48 consolidated to 8 without mentioning any earlier closures.",
@@ -294,7 +311,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "9e43899cec809a1a": {
       "sentence": "Heudel and colleagues summarise Savardi and colleagues as showing 32 radiology residents gaining 12 percentage points of sensitivity, reading 18% faster, and holding that performance at a three-month follow-up.",
@@ -315,7 +333,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "7a69a5308797e574": {
       "sentence": "Agreement between readers rose from an intraclass correlation of 0.665 without AI to 0.813 with it integrated.",
@@ -336,7 +355,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 2 anchors: 0.665, 0.813"
     },
     "175d7353309177d7": {
       "sentence": "Residents asked for the AI in 70% of cases.",
@@ -357,7 +377,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "156950e751650914": {
       "sentence": "On 3 June 2026 — nearly three months before this page was drafted — Pedersen and colleagues published a prospective, multicentre, registry-based trial in Endoscopy that did the thing this page says the field needs: it ran endoscopists through three successive phases, before computer-aided detection, during it, and after it was taken away .",
@@ -378,7 +399,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "695c1c4e048e8603": {
       "sentence": "Thirteen endoscopists, 5,013 colonoscopies.",
@@ -399,7 +421,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 5,013 (strength 3, need 4)"
     },
     "849a833ee8fd206c": {
       "sentence": "Among the seven inexperienced endoscopists, detection of at least one polyp of 5 mm or more rose while the AI was running, from 31.9% (216 of 678) to 39.5% (257 of 651), an odds ratio of 1.43 on a 95% confidence interval of 1.11 to 1.84.",
@@ -420,7 +443,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 5 anchors: 31.9%, 39.5%, 1.43, 1.11, 1.84"
     },
     "32db25e0d55b2a80": {
       "sentence": "After the AI was removed it was 36.3% (173 of 476) against the 31.9% baseline — an adjusted odds ratio of 1.03 , on 0.79 to 1.34, which is no change.",
@@ -441,7 +465,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 5 anchors: 36.3%, 31.9%, 1.03, 0.79, 1.34"
     },
     "f19dfde1448f865f": {
       "sentence": "Pedersen and colleagues address the Polish result directly, and identify a difference in design that we had not seen and did not find in the coverage we read.",
@@ -462,7 +487,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "34dbcad21a63be8d": {
       "sentence": "In their words: We evaluated the effect of exposure to CADe ‘after’ CADe was removed, whereas Budzyń et al.",
@@ -483,7 +509,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "08236360ff65fa18": {
       "sentence": "The authors draw the obvious inference: the effect will be stronger in the Budzyń study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed.",
@@ -504,7 +531,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "991b00d0dd17227d": {
       "sentence": "They also point at Troya and colleagues — the eye-tracking study in the section above — as the mechanism that would explain the Polish result.",
@@ -525,7 +553,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "8e62c8a74c798b8d": {
       "sentence": "It ran from November 2021 to June 2025, and they warn that over three and a half years there is always a time effect in which endoscopists may naturally upskill or deskill over time — their inexperienced endoscopists averaged 6.8 months of practice in the first phase and 23.8 months by the third, so the tool is not the only thing that changed.",
@@ -546,7 +575,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 6.8, 23.8 (strength 3, need 4)"
     },
     "520bd737785c81b6": {
       "sentence": "Yuichi Mori is an author of both papers — the senior author of the deskilling study is a co-author of the prospective study that found none.",
@@ -567,7 +597,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "959ec1bf77826cde": {
       "sentence": "The training study we were offered as the null result is not one.",
@@ -588,7 +619,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "5b9166b71d2f6acd": {
       "sentence": "Troya and colleagues at the University Hospital Würzburg measured it three years before the deskilling study was published, and are cited in that paper's own reference list.",
@@ -609,7 +641,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "b9b79e7bc8122742": {
       "sentence": "Each sequence was viewed once with the AI overlay and once without, in a crossover design with a three-week washout between assessments, for 1,218 experiments in all.",
@@ -630,7 +663,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 1,218 (strength 3, need 4)"
     },
     "b61e583d8596dfb5": {
       "sentence": "With the AI running, eye travel distance fell from a median of 248.86 cm to 232.68 cm (P < 0.001).",
@@ -651,7 +685,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 3 anchors: 248.86, 232.68, 0.001"
     },
     "9675c628d62f8254": {
       "sentence": "That is a reduction of about 6.5% across all participants.",
@@ -672,7 +707,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 6.5% (strength 1, need 4)"
     },
     "f2072847c5289da8": {
       "sentence": "Among the experienced it was larger — 247.89 cm to 227.09 cm, about 8% — and among novices smaller: 255.66 cm to 247.89 cm, about 3%.",
@@ -693,7 +729,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 3 anchors: 247.89, 227.09, 255.66"
     },
     "509b18f63d6799c5": {
       "sentence": "The system detected polyps faster than people did — a median 1.16 seconds against 2.97 — but the people using it were no faster than the people working without it (2.90 seconds, indistinguishable from 2.97).",
@@ -714,7 +751,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 3 anchors: 1.16, 2.97, 2.90"
     },
     "7332d1e1d8b45c9b": {
       "sentence": "And misreading got worse, not better: participants falsely identified a polyp in a median of 4 cases without the AI and 6 cases with it (P = 0.001), at both experience levels.",
@@ -735,7 +773,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 0.001 (strength 1, need 4)"
     },
     "fa3d66499aa6575b": {
       "sentence": "They also inspected the AI's false-positive boxes for less than half the time those boxes were on screen — 43.8% overall, and least of all for the briefest ones.",
@@ -756,7 +795,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 43.8% (strength 2, need 4)"
     },
     "495cfe6ae24e67be": {
       "sentence": "Gommers and colleagues eye-tracked 12 radiologists across 150 screening mammograms: with AI support their accuracy improved, area under the curve rising from 0.93 to 0.97, while the share of the breast covered by their fixations fell from 11.1% to 9.5% and their dwell time inside lesion regions rose from 4.4 to 5.4 seconds.",
@@ -777,7 +817,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 6 anchors: 0.93, 0.97, 11.1%, 9.5%, 4.4"
     },
     "73aed151fb771438": {
       "sentence": "Dratsch and colleagues showed 27 radiologists a set of mammograms alongside AI-generated BI-RADS category suggestions.",
@@ -798,7 +839,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "03ea8e0e611b3e84": {
       "sentence": "When the AI's suggestion was correct, all three experience groups performed similarly, scoring roughly 80% — 79.7%, 81.3% and 82.3%.",
@@ -819,7 +861,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 3 anchors: 79.7%, 81.3%, 82.3%"
     },
     "f9eb567ec0992f96": {
       "sentence": "When the AI's suggestion was incorrect, the same readers scored 19.8% if inexperienced, 24.8% if moderately experienced, and 45.5% if very experienced, on standard deviations of 14.0, 11.6 and 9.1.",
@@ -840,7 +883,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 6 anchors: 19.8%, 24.8%, 45.5%, 14.0, 11.6"
     },
     "ff258fcb7375e1a2": {
       "sentence": "The most experienced readers in the study were wrong more often than they were right, on average, whenever the machine was wrong — though 9.1 is a spread wide enough that the group reaches across the halfway line.",
@@ -861,7 +905,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 9.1 (strength 1, need 4)"
     },
     "8dfd8a4240947bff": {
       "sentence": "So the specialty is working this frame over its own evidence, in its own journals, and has been since the week the null result was published.",
@@ -882,7 +927,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "3225e517bf86d671": {
       "sentence": "That is what the colonoscopy study is about.",
@@ -903,7 +949,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "416ee441cf1c34da": {
       "sentence": "Troya and colleagues reached the same worry from the other direction in 2022, suggesting AI systems may have an impact on the learning curve of colonoscopy trainees by preventing them from developing the visual ‘bottom U’ pattern of high-performing endoscopists .",
@@ -924,7 +971,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "e204516e70a6cc8b": {
       "sentence": "That is Dratsch's forty-point swing, and the pathologists who abandoned correct judgments, and the endoscopists who saw more polyps that were not there.",
@@ -945,7 +993,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "062050812f814e03": {
       "sentence": "The MIT Media Lab preprint Your Brain on ChatGPT has been widely read as showing that AI users' brains are less active.",
@@ -966,7 +1015,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "600c85272347f5a6": {
       "sentence": "Sparrow, Liu and Wegner's 2011 finding that people offload memory to the internet is the origin of the modern version of this worry.",
@@ -987,7 +1037,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "f8238a88808dfe2e": {
       "sentence": "Hesselmann's 2020 replication analysed 89 participants of 117 recruited and did not find the effect: the data were about five times more likely under the null than under the alternative, and about sixteen times more likely when tested against the original's specific predicted pattern.",
@@ -1008,7 +1059,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "41c3df15fc008e85": {
       "sentence": "Gerlich's 2025 study is the source of the figure most often quoted, a correlation of −0.68 between AI use and critical thinking.",
@@ -1029,7 +1081,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 0.68 (strength 1, need 4)"
     },
     "43a5da1b31da88b5": {
       "sentence": "The more specific problem is that AI use, cognitive offloading and critical thinking were all three measured by self-report in the same instrument, and the three correlations among them are uniformly strong — −0.68, +0.72 and −0.75.",
@@ -1050,7 +1103,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 0.68, 0.72, 0.75 (strength 3, need 4)"
     },
     "79a88270faa75b89": {
       "sentence": "Their audit found that the study carrying the greatest weight in the analysis, about 19% of it, had itself been retracted two months before the meta-analysis was published, and that the second heaviest, about 10%, measured self-efficacy and technology acceptance rather than learning.",
@@ -1071,7 +1125,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "a84075d9f06dcc6a": {
       "sentence": "One included study gave 36 students a single shared grade per group and was entered as though each had an individual score, producing an effect size of 4.009.",
@@ -1092,7 +1147,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 4.009 (strength 3, need 4)"
     },
     "c41b6d69248ce5c4": {
       "sentence": "Effect sizes above 1 are rare in education research; in that analysis they appeared in about 36% of included studies.",
@@ -1113,7 +1169,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "a42670149ac55782": {
       "sentence": "Three randomised experiments — 1,222 people randomised, 1,060 analysed — had participants work through practice problems with or without AI, then removed the AI without warning and gave them three more.",
@@ -1134,7 +1191,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 2 anchors: 1,222, 1,060"
     },
     "1c761af80e48fa57": {
       "sentence": "Unassisted solve rates fell, at effect sizes of −0.42, −0.19 and −0.42, and people gave up sooner.",
@@ -1155,7 +1213,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 0.42, 0.19 (strength 2, need 4)"
     },
     "94b39b65d10df1ea": {
       "sentence": "Separately, three pre-registered experiments with 1,372 participants across 9,593 trials randomised whether an AI assistant's answer was right or wrong: participants consulted it on more than half of trials and, having consulted it, followed it on 79.8% of the trials where it was wrong .",
@@ -1176,7 +1235,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 3 anchors: 1,372, 9,593, 79.8%"
     },
     "bd8b242cd8c7093a": {
       "sentence": "Access to it raised their confidence by 11.7 percentage points while about half its answers were faulty — and their confidence did not fall as they met more wrong answers.",
@@ -1197,7 +1257,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 11.7 (strength 2, need 4)"
     },
     "fef38b29fc3dce36": {
       "sentence": "The ASCO Post reported the same day that the authors had acknowledged its observational nature and that factors other than the implementation of AI use may have influenced the findings , and quoted the senior author on what the result implies for the randomised trials that came before it.",
@@ -1218,7 +1279,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "f20aa68ba0aff7f4": {
       "sentence": "Fortune carried the six-point fall to a business readership on 26 August 2025, connected it to an aviation analogy and to a Microsoft and Carnegie Mellon study, and reported none of the eleven limitations.",
@@ -1239,7 +1301,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "06c652b2b4cb55e5": {
       "sentence": "Its headline put the same result a different way: doctors became 20% worse at spotting abnormalities on their own .",
@@ -1260,7 +1323,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "9c4da3ef97405a16": {
       "sentence": "Six points is the absolute fall and about a fifth — 21% — is the relative one, and both are true .",
@@ -1281,7 +1345,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "875ef76c081998e4": {
       "sentence": "Fortune told its readers that the endoscopists went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to .",
@@ -1302,7 +1367,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "5 held documents contain all these anchors (S032, S033, S037, S041, S042) — which one the sentence rests on is not decidable by presence alone"
     },
     "ae6de87f8facde88": {
       "sentence": "The 28.4% is the rate before the AI arrived, not with it; the 22.4% was measured while the AI was in routine use on other days, not after it was taken away.",
@@ -1323,7 +1389,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "5 held documents contain all these anchors (S032, S033, S037, S041, S042) — which one the sentence rests on is not decidable by presence alone"
     },
     "3224a88185d797c4": {
       "sentence": "A research highlight in Nature Reviews Gastroenterology & Hepatology labelled the study observational and retrospective, as it should, and then reported the figures with no limitations and no quotes.",
@@ -1344,7 +1411,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "c68f6dce4f0ceac9": {
       "sentence": "The 2026 scoping review that assembles this literature for doctors describes the colonoscopy study in its own abstract as a multicenter randomized trial .",
@@ -1365,7 +1433,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "9f2624ac1ffae178": {
       "sentence": "Its abstract also reports that over 30% of participants reversed correct initial diagnoses in a pathology experiment under time pressure, where its body puts the same study at 7% of judgments.",
@@ -1386,7 +1455,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "6843d335193ecd83": {
       "sentence": "Three things on this page fall into that category: a commentary published alongside the colonoscopy study, which we could not open; the 2011 memory study, which is paywalled; and one meta-analysis whose scope we describe as its auditors reported it rather than as we read it.",
@@ -1407,7 +1477,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "5e5ad2ed0dd88c6b": {
       "sentence": "And one thing was not unread but unfound: the prospective trial above had been in print for nearly three months when we drafted this page, and our own standing search for exactly that study had not been run.",
@@ -1428,7 +1499,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "e8148e0a64dd9448": {
       "sentence": "Primary Budzyń K, Romańczyk M, Kitala D, et al.",
@@ -1449,7 +1521,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "c2f8c733ea6082f1": {
       "sentence": "Lancet Gastroenterol Hepatol 2025;10(10):896–903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the −6.0 percentage-point difference on a 95% confidence interval of −10.5 to −1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introd",
@@ -1470,7 +1543,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 9 anchors: 28.4%, 22.4%, 6.0, 10.5, 1.6"
     },
     "ea7550a9c4f4de50": {
       "sentence": "This paper carries a correction, published online 11 September 2025 ( Lancet Gastroenterol Hepatol 2025;10(11):e12, doi 10.1016/S2468-1253(25)00294-8), and we have now read it.",
@@ -1491,7 +1565,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 10.1016/S2468-1253(25)00294-8), (strength 3, need 4)"
     },
     "d250f28bf5a8a3d5": {
       "sentence": "The figures on this page — 28.4%, 22.4%, the six-point difference and its interval — are the unadjusted comparison and are not touched by it.",
@@ -1512,7 +1587,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "5 held documents contain all these anchors (S032, S033, S037, S041, S042) — which one the sentence rests on is not decidable by presence alone"
     },
     "53c78deb6e204c92": {
       "sentence": "Expert reaction Science Media Centre — expert reaction to the colonoscopy study, 12 August 2025 Source of the three named comments published on the day of release: Professor Venet Osmani of Queen Mary University of London on the near-doubling of procedures and on three months being too short a window; Professor Allan Tucker of Brunel on the single AI system and the need for randomised crossover trials; Dr Catherine Menon of the University of Hertfordshire on the underlying concern.",
@@ -1533,7 +1609,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "26e94905c0222d49": {
       "sentence": "Its abstract describes the colonoscopy study as “a multicenter randomized trial”; the study is retrospective and observational, as the review’s own body says.",
@@ -1554,7 +1631,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: a multicenter randomized trial (strength 3, need 4)"
     },
     "c89ff6a93d11d389": {
       "sentence": "Its summary of the Savardi study — 32 residents, a 12% sensitivity gain, 18% faster readings and performance stable at three months — does not match that paper, which has eight residents and no follow-up.",
@@ -1575,7 +1653,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "086f4a02e3cf528d": {
       "sentence": "J Am Med Inform Assoc 2023;30(10):1684–1692 Source of the 40 clinicians, the randomised crossover design over 200 anterior cruciate ligament cases on MRI, accuracy of 87.2% ± 13.1% without AI against 96.4% ± 1.9% with it at P < .001, errors under AI “accounting for 45.5% of the total mistakes”, and the suppression strategy estimated to reduce automation bias by 41.7%.",
@@ -1596,7 +1675,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 7 anchors: 87.2%, 13.1%, 96.4%, 1.9%, 45.5%"
     },
     "5986125504ce1494": {
       "sentence": "2025 (arXiv:2411.00998).",
@@ -1617,7 +1697,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 2411.00998 (strength 3, need 4)"
     },
     "7a05297be06db4d9": {
       "sentence": "Extended and peer reviewed as Rosbach E, Ammeling J, Ganz J, Bertram CA, Conrad T, Riener A, Aubreville M, “Stuck on Suggestions”, accepted at the Journal of Machine Learning for Biomedical Imaging , 2026 (arXiv:2603.11821) Source of the 28 trained pathology experts, the 7% automation-bias rate — initially correct evaluations overturned by erroneous AI advice — and the finding that time pressure did not raise the frequency of automation bias but appeared to increase its severity, through heavier reliance on the system’s negative consultations and a subsequent fall in performance.",
@@ -1638,7 +1719,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 2603.11821 (strength 3, need 4)"
     },
     "a841be7b1223e544": {
       "sentence": "The review’s body cites this paper correctly by its arXiv number, though under the wrong author names and a wrong title; its Table 1 attaches the same 28 pathologists and the same 7% to a different reference — Bellahsen-Harrar and colleagues, PLOS ONE 2025;20(8):e0323270, which studied eight pathologists, had no time-pressure condition and reports no such figure.",
@@ -1659,19 +1741,20 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "3feaa37a5055b237": {
       "sentence": "Cervical cancer and human papillomavirus screening in the UK: a cytopathology and histopathology perspective Source of the cytology figures: the move to primary HPV testing produced “a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England”, and consolidation reduced “48 accredited labs to 8 centralised labs as of 2019”.",
       "sentence_sha": "3feaa37a5055b237",
       "why_empirical": "quoted passage",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S039",
+      "document_sha": "7bec9861abbd5d41045898aad1252018bb7f7fedf46babb68a4b7a333fb730ce",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "10 Effects on the workforce The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England. Fewer cytology cases requiring assessment have led to erosion of the cytology screening workforce and a change of role from screening to targeted interpretation. The effect on the workforce was further exacerbated by the centralisation and consolidation of NHSCSP labs, reducing 48 accredited labs to 8 centralised labs as of 2019.",
+      "envelope": "creased uptake of the HPV vaccine and continued cervical screening, the disease could be effectively eradicated. This was echoed in NHS England&rsquo;s 2023 announcement of a target to eliminate cervical cancer by 2040. 10 Effects on the workforce The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England. Fewer cytology cases requiring assessment have led to erosion of the cytology screening workforce and a change of role from screening to targeted interpretation. The effect on the workforce was further exacerbated by the centralisation and consolidation of NHSCSP labs, reducing 48 accredited labs to 8 centralised labs as of 2019. Histopathology remains crucial in the diagnosis and management of high-grade lesions and cancer. Cytologists and histopathologists are an integral part of multi-disciplinary team meetings to discuss complex cases requir",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1680,7 +1763,12 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "proposed_by": "autobind",
+      "confirmed": false,
+      "autobind": "the only held document containing all 2 anchors (a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England, 48 accredited labs to 8 centralised labs as of 2019), sharing 16 subject word(s) with the sentence: according, accredited, approximately, centralised, consolidation, cytology",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "4845354b59c1918e": {
       "sentence": "The scoping review gives 80–85% and 45 laboratories, citing a 2022 cytopathology paper we could not reach at the publisher, on PubMed or in PMC; we print the College’s figures because we could read them.",
@@ -1701,7 +1789,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "ed48b4516a10773f": {
       "sentence": "Source of the three phases — before CADe, during CADe, after CADe removal — the thirteen endoscopists (seven inexperienced, six experienced) and 5,013 colonoscopies, the primary endpoint of detection of at least one polyp of 5 mm or more, the rise among inexperienced endoscopists from 31.9% (216/678) to 39.5% (257/651) at an odds ratio of 1.43 on 1.11–1.84, the 36.3% (173/476) after removal at an adjusted odds ratio of 1.03 on 0.79–1.34, the absence of any significant effect among the experienced, and the quoted conclusion.",
@@ -1722,7 +1811,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 10 anchors: 5,013, 31.9%, 39.5%, 1.43, 1.11"
     },
     "36c83e6fff18ba8d": {
       "sentence": "Read in full in the paper: three centres in Norway, November 2021 to June 2025; thirteen endoscopists, twelve physicians and one surgeon; PDR-5 by phase for all endoscopists 29.7% (520/1753), 31.5% (548/1739) and 30.0% (457/1521), and for the experienced 28.3%, 26.7% and 27.2%.",
@@ -1743,7 +1833,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 6 anchors: 29.7%, 31.5%, 30.0%, 28.3%, 26.7%"
     },
     "40e3e69240dfa312": {
       "sentence": "Note that Yuichi Mori is an author of this paper and the senior author of the Budzyń study.",
@@ -1764,7 +1855,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "e2d620f3e3ff691b": {
       "sentence": "Insights into Imaging 2025;16:23 Source of the eight radiologists in training, the 150 chest X-rays across three conditions, the intraclass correlation rising from 0.665 without AI to 0.813 with it integrated, the 70% of cases in which residents requested the AI, and their overriding it when its errors exceeded an acceptability threshold.",
@@ -1785,7 +1877,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 2 anchors: 0.665, 0.813"
     },
     "d5e49f63198fe467": {
       "sentence": "Read at source because a check on this page requires it, and it is not the study the scoping review describes: the review reports 32 residents, a 12-point sensitivity gain, an 18% reduction in reading time and stability at a three-month follow-up.",
@@ -1806,7 +1899,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "dcd7f58ed552f7e3": {
       "sentence": "Primary Troya J, Fitting D, Brand M, et al.",
@@ -1827,7 +1921,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "0f7a738768a4a384": {
       "sentence": "Source of the 21 participants — ten novice and eleven experienced — the 29 recorded video sequences, the crossover design with a three-week washout and 1,218 experiments, the fall in median eye travel distance from 248.86 cm to 232.68 cm at P < 0.001 (experienced 247.89 to 227.09; novice 255.66 to 247.89), the system’s 1.16-second median detection time against participants’ 2.97 seconds and their 2.90 seconds when using it, the rise in false polyp identification from a median of 4 cases to 6 at P = 0.001, and the 43.8% of display time for which participants inspected false-positive boxes.",
@@ -1848,7 +1943,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 11 anchors: 1,218, 248.86, 232.68, 0.001, 247.89"
     },
     "c038e86887752fe3": {
       "sentence": "Primary Dratsch T, Chen X, Rezazade Mehrizi M, et al.",
@@ -1869,7 +1965,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "48a03a9ad7d9bd40": {
       "sentence": "Radiology 2023;307(4):e222176 Source of the 27 radiologists in three experience groups, the 50 mammograms of which 49 were analysed, the ten opening cases with correct suggestions and twelve incorrect suggestions among the remaining forty, the accuracy of roughly 79.7% to 82.3% across all groups when the suggestion was correct, and of 19.8% ± 14.0, 24.8% ± 11.6 and 45.5% ± 9.1 when it was wrong.",
@@ -1890,7 +1987,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 8 anchors: 79.7%, 82.3%, 19.8%, 14.0, 24.8%"
     },
     "0ba88eb0ad73cbd6": {
       "sentence": "Primary Gommers JJJ, Verboom SD, Duvivier KM, et al.",
@@ -1911,7 +2009,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "3da7203ece172c5a": {
       "sentence": "Radiology 2025;316(1):e243688 Source of the 12 radiologists, the 150 screening mammograms, the area under the curve rising from 0.93 to 0.97 at P < .001, the fixation coverage falling from 11.1% to 9.5% at P = .004, the lesion dwell time rising from 4.4 to 5.4 seconds at P = .006, and the authors’ description of that pattern as a more efficient search.",
@@ -1932,7 +2031,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 6 anchors: 0.93, 0.97, 11.1%, 9.5%, 4.4"
     },
     "43f8f175be65b85d": {
       "sentence": "Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI Assistant for Essay Writing Task.",
@@ -1953,7 +2053,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "286c807dac1c3f40": {
       "sentence": "arXiv 2506.08872 Source of the 54 participants through the first three sessions and the 18 in session four across two crossover arms.",
@@ -1974,7 +2075,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 2506.08872 (strength 3, need 4)"
     },
     "7df5a8402ac5c3b2": {
       "sentence": "Comment on: Your Brain on ChatGPT.",
@@ -1995,7 +2097,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "8598e9cadc51c594": {
       "sentence": "arXiv 2601.00856 Their closing sentence — that there is no strong evidence the tool use negatively affects performance itself — is a verdict on the paper they audited, not on the field.",
@@ -2016,7 +2119,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 2601.00856 (strength 3, need 4)"
     },
     "acf2d4db64f7031e": {
       "sentence": "Primary Hesselmann G.",
@@ -2037,7 +2141,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "57c41ddd709a875e": {
       "sentence": "PeerJ 2020;8:e10325 Source of the 89 participants analysed of 117 recruited, and of the Bayes factors of 5.07 against the alternative and 16.43 against the original’s specific predicted pattern.",
@@ -2058,7 +2163,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 2 anchors: 5.07, 16.43"
     },
     "70c1e16d7298ac07": {
       "sentence": "We have not opened Sparrow, Liu and Wegner’s 2011 Science paper, which is paywalled.",
@@ -2079,7 +2185,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "5e56afea8fc7ce1b": {
       "sentence": "Primary Gerlich M.",
@@ -2100,7 +2207,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "34b99db8c9186cbc": {
       "sentence": "Societies 2025;15(1):6 Source of the 666 valid responses of 669, the recruitment through social media in the United Kingdom, the cross-sectional design, and the three correlations of −0.68, +0.72 and −0.75.",
@@ -2121,7 +2229,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 0.68, 0.72, 0.75 (strength 3, need 4)"
     },
     "5850f3bd7194a4c2": {
       "sentence": "The audit that prompted it — Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025 — is the source of the corrected effect read off the original’s own funnel plot, the retracted study carrying about 19% of the weight, the second-heaviest study measuring self-efficacy rather than learning, the 41 unique table entries against a reported 44, the effect size of 4.009 produced by treating shared group grades as individual scores, and effect sizes above 1 in about 36% of included studies.",
@@ -2142,7 +2251,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 4.009 (strength 3, need 4)"
     },
     "7675d3e4f6eef724": {
       "sentence": "J Comput Assist Learn 2025;41:e70105 Read in the corresponding author's own copy of the published paper, the publisher's site having refused us; the audit table gives four of nineteen comparisons meeting all three criteria, the treatment well described in fourteen, the control in eight, and a valid learning measure present in ten.",
@@ -2163,7 +2273,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "f1804bd40ec16ff1": {
       "sentence": "The meta-analysis they audit is Deng et al., Computers & Education 2025;227:105224, which this page has not read: its scope and effect size are given here as Weidlich and colleagues report them.",
@@ -2184,7 +2295,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "09ba5473df6f7b86": {
       "sentence": "arXiv 2604.04721 Source of the three randomised experiments, 1,222 randomised and 1,060 analysed, the effect sizes of −0.42, −0.19 and −0.42 on unassisted solve rates, and the design in which the AI is withdrawn without warning before three test problems.",
@@ -2205,7 +2317,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 5 anchors: 2604.04721, 1,222, 1,060, 0.42, 0.19"
     },
     "8762158c9c0f0e5f": {
       "sentence": "Wharton School Research Paper, February 2026 Source of the three pre-registered experiments, 1,372 participants and 9,593 trials, the 79.8% of chat-engaged trials on which participants followed faulty advice, and the confidence rise of 11.7 percentage points that did not decline as faulty trials accumulated.",
@@ -2226,7 +2339,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 4 anchors: 1,372, 9,593, 79.8%, 11.7"
     },
     "133eeeb9bb33b8dd": {
       "sentence": "Coverage Zhou MJ.",
@@ -2247,7 +2361,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "cb9a2502dcd4f181": {
       "sentence": "Source of the proposal that visual gaze is the mechanism, citing Troya and colleagues.",
@@ -2268,7 +2383,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "83bed04bda808ab1": {
       "sentence": "The ASCO Post , 13 August 2025 Source of the quoted acknowledgements — “its observational nature” and “factors other than the implementation of AI use may have influenced the findings” — and of the senior author’s question about the randomised trials that preceded this result.",
@@ -2289,7 +2405,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: factors other than the implementation of AI use may have influenced the findings (strength 3, need 4)"
     },
     "e07130366e4bb255": {
       "sentence": "Healthgrades , 19 August 2025 Calls it “a retrospective observational study” and carries an outside expert’s judgement that “the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven”.",
@@ -2310,7 +2427,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "no held document contains all 2 anchors: a retrospective observational study, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven"
     },
     "434e658a4d0f88e0": {
       "sentence": "Fortune , 26 August 2025 Carries the six-point fall to a business readership, connects it to a Microsoft and Carnegie Mellon survey and to an aviation analogy, and reports none of the study’s eleven limitations.",
@@ -2331,7 +2449,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "ad3f7c73ab856584": {
       "sentence": "The same is true of the research highlight in Nature Reviews Gastroenterology & Hepatology of 5 September 2025 and of Decker J, “When AI Reads the Easy Cases”, Rad Insights, 15 May 2026 — which pairs the colonoscopy and mammography results and is the closest published thing to this page.",
@@ -2352,7 +2471,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: When AI Reads the Easy Cases (strength 3, need 4)"
     },
     "d49da6c26316623b": {
       "sentence": "Greengard S, “The AI Deskilling Paradox”, Communications of the ACM , 7 November 2025, carries none of this study’s limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying none, and that was wrong.",
@@ -2373,7 +2493,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: The AI Deskilling Paradox (strength 3, need 4)"
     },
     "61068fb5aeb4136f": {
       "sentence": "It became a piece about a distinction between AI that teaches and AI that answers; a check found that distinction already in print, and the retraction of the meta-analysis it rested on.",
@@ -2394,7 +2515,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "f72df4846d9beefd": {
       "sentence": "The commentary published alongside it in the same journal, and the later correspondence on it — which we can now name: Levartovsky A and Kopylov U, Lancet Gastroenterol Hepatol , December 2025, doi 10.1016/S2468-1253(25)00289-4.",
@@ -2415,7 +2537,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 10.1016/S2468-1253(25)00289-4. (strength 3, need 4)"
     },
     "1b1a986073c3d5b4": {
       "sentence": "Sparrow, Liu and Wegner (2011).",
@@ -2436,7 +2559,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     }
   }
 }

@@ -186,21 +186,65 @@ CASES = [
                 "separates abemaciclib from ribociclib",
        expect="B6 fires on 'none'?"),
 
+  # MEL-01 AND MEL-02 WERE WITHDRAWN, and the withdrawal is the record.
+  #
+  # Both were reported to the operator as errors on the live page: "we print
+  # 0.510, the Merck release says 0.51". The page does not cite the release. It
+  # cites the JCO five-year paper, which prints 0.510 exactly as we do -- and
+  # which nobody held at the time, so the check was pointed at a document we
+  # HAD rather than the document the claim rests on. Two correct sentences were
+  # reported as wrong by the instrument built to stop exactly that.
+  #
+  # What survives is the check itself, now documented as meaningful only against
+  # the cited source, and this note. A corpus that quietly drops its own false
+  # positives measures nothing.
   dict(id="MEL-01", slug="melanoma", check_kind="b12", check="B12",
-       what="the page prints HR 0.510; the Merck release it cites says HR=0.51",
-       sid="S002", span="0.510", sentence="HR 0.510 (0.294-0.887)",
-       expect="B12 reports the added decimal"),
-
-  dict(id="MEL-02", slug="melanoma", check_kind="b12", check="B12",
-       what="the page prints HR 0.561 for the Lancet paper; the digits we hold "
-            "are 0.56, and they are in a company press release",
-       sid="S005", span="0.561", sentence="HR 0.561 (0.309-1.017)",
-       expect="B12 reports the added decimal"),
+       what="WITHDRAWN — 'HR 0.510 is an added decimal' was measured against a "
+            "press release the page does not cite; the JCO paper prints 0.510",
+       sid="S004", span="0.510", sentence="HR 0.510 (0.294-0.887)",
+       expect="B12 PASSES against the cited source", verdict_when_pass=UNCOVERED,
+       why_uncaught="Not an error. Kept as a record of one the checks "
+                    "manufactured by being asked about the wrong document."),
 
   dict(id="MEL-03", slug="melanoma", check_kind="ledger", check="states",
        what="44 sources on two live pages carried machine_read, a state the "
             "ledger no longer defines",
        sid="", span="", sentence="", expect="undefined_states finds none now"),
+
+  # THE FOUR ERRORS OF 1 SEPTEMBER EVENING, none of which a check found.
+  # They are in the corpus because a corpus of errors the checks were built from
+  # measures the checks against themselves. These lower the number, correctly.
+
+  dict(id="MEL-04", slug="melanoma", check_kind="uncovered", check="—",
+       what="`conference` sat in ARTICLE_TYPES, so the article test refused an "
+            "eleven-page ASCO deck for having no reference list — after "
+            "registry postings and drug labels were refused the same way",
+       why_uncaught="Found by a person trying to ingest a document. Nothing "
+                    "watches for a type whose members keep failing a test that "
+                    "was never meant for them."),
+
+  dict(id="MEL-05", slug="melanoma", check_kind="uncovered", check="—",
+       what="The Lancet writes decimals with a middle dot, so every span check "
+            "searched 0.053 and missed 0·053 — reporting three times that a "
+            "figure was absent from a document we had held all day",
+       why_uncaught="Found by a person reading the source. The checks were "
+                    "confidently wrong and said so in the same words they use "
+                    "when they are right."),
+
+  dict(id="MEL-06", slug="melanoma", check_kind="uncovered", check="—",
+       what="B12 was run against a document we HELD rather than the document "
+            "the sentence CITES, and reported two correct sentences as errors",
+       why_uncaught="This is the argument for bindings, made by breaking the "
+                    "rule that bindings exist to enforce. A check without a "
+                    "binding must be told which source to read, and whoever "
+                    "tells it can be wrong."),
+
+  dict(id="MEL-07", slug="melanoma", check_kind="uncovered", check="—",
+       what="S008 is depended on by name — 'the three-year readout at ASCO "
+            "2024' — with figures attributed to it, and never linked, so B9 "
+            "could not see it",
+       why_uncaught="B9 reads anchors. A source named in prose is invisible to "
+                    "it, which is the source-list blind spot one step over."),
 
   dict(id="DESK-01", slug="deskilling", check="B10",
        what="issue three's central study carries a 2025 correction",
@@ -234,8 +278,15 @@ def run_case(c: dict) -> tuple[str, str]:
                 hit[0]["url"][:60])
         return MISSED, "B9 does not report this link as unreconciled"
 
+    if kind == "uncovered":
+        return UNCOVERED, c.get("why_uncaught", "")
+
     if kind == "b12":
         ok, why = spancheck.b12_precision(c["span"], c["slug"], c["sid"])
+        if "PASSES" in c.get("expect", ""):
+            return (c.get("verdict_when_pass", UNCOVERED),
+                    "B12 passes against the cited source. %s"
+                    % c.get("why_uncaught", ""))
         return (MISSED, "B12 sees nothing: " + why) if ok else (CAUGHT, why)
 
     if kind == "ledger":
@@ -260,6 +311,10 @@ def run_case(c: dict) -> tuple[str, str]:
 
     if c["check"].startswith("B2"):
         ok, why = spancheck.b2_present(span, slug, sid)
+        if ok == spancheck.UNDETERMINED:
+            # Not a catch and not a miss. The checks could not read the
+            # document, so they have no opinion to grade.
+            return UNCOVERED, "b2 could not determine: %s" % why
         if expect_pass:
             # A CHECK BEHAVING AS DESIGNED IS NOT AN ERROR CAUGHT, and the
             # first version of this file scored it as one, returning 100% on a
@@ -298,6 +353,13 @@ def main() -> int:
 
     print("\n  RECALL TEST — %d recorded errors, each run against the real bytes\n"
           % len(CASES))
+    # TWO NUMBERS, because one flatters.
+    #
+    # A corpus of errors the checks were built from measures the checks against
+    # themselves. On 2026-09-01 recall read 71% until four errors found by
+    # PEOPLE were added, and then read 60%. The second number is the one that
+    # predicts the next unknown failure, because the next unknown failure will
+    # resemble the errors nothing caught.
     tally = {}
     for c in CASES:
         state, why = run_case(c)
@@ -306,11 +368,21 @@ def main() -> int:
         if args.verbose or state != CAUGHT:
             print("            %s" % why[:150])
     print()
+    by_person = [c for c in CASES if c.get("check_kind") == "uncovered"
+                 or c.get("found_by") == "person"]
+    person_caught = sum(1 for c in by_person if run_case(c)[0] == CAUGHT)
     caught = tally.get(CAUGHT, 0)
     print("  %d CAUGHT, %d MISSED, %d UNBUILT, %d UNCOVERED  —  %.0f%% of %d "
           "recorded errors are caught by a check that was RUN, not asserted"
           % (caught, tally.get(MISSED, 0), tally.get(UNBUILT, 0),
              tally.get(UNCOVERED, 0), 100.0 * caught / len(CASES), len(CASES)))
+    if by_person:
+        print("  of those, %d were found by a PERSON rather than by a check, and "
+              "%d of those %d are caught now — %.0f%%"
+              % (len(by_person), person_caught, len(by_person),
+                 100.0 * person_caught / len(by_person)))
+        print("  the second number is the one that predicts the next unknown "
+              "failure")
     print()
     return 0
 

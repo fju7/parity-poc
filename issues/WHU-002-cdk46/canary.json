@@ -1,0 +1,243 @@
+{
+  "_what_this_is": "Whether the span checks can read each held document at all. A figure taken out of a document must be findable in it through the same pipeline the checks use. Where it is not, an absence reported against that document means 'could not determine'.",
+  "checked": {
+    "S003": {
+      "source": "S003",
+      "state": "READABLE",
+      "tried": [
+        "0.804",
+        "0.637",
+        "1.015",
+        "0.0664",
+        "0.758",
+        "0.558"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S004": {
+      "source": "S004",
+      "state": "READABLE",
+      "tried": [
+        "0.568",
+        "0.457",
+        "0.704",
+        "9.63",
+        "0.746",
+        "0.517"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S005": {
+      "source": "S005",
+      "state": "READABLE",
+      "tried": [
+        "10.1056",
+        "0.76",
+        "0.63",
+        "0.93",
+        "0.008",
+        "0.57"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S007": {
+      "source": "S007",
+      "state": "READABLE",
+      "tried": [
+        "10.1056",
+        "0.71",
+        "0.54",
+        "0.95",
+        "0.00973",
+        "0.70"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S009": {
+      "source": "S009",
+      "state": "READABLE",
+      "tried": [
+        "0.58",
+        "0.46",
+        "0.72",
+        "0.001",
+        "10.1056",
+        "0.004"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S010": {
+      "source": "S010",
+      "state": "READABLE",
+      "tried": [
+        "10.1200",
+        "0.96",
+        "0.78",
+        "1.18",
+        "0.92",
+        "0.76"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S012": {
+      "source": "S012",
+      "state": "READABLE",
+      "tried": [
+        "4.03",
+        "254.40",
+        "0.003",
+        "0.01",
+        "0.03",
+        "0.002"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S013": {
+      "source": "S013",
+      "state": "READABLE",
+      "tried": [
+        "5.020",
+        "0.03",
+        "506.59",
+        "0.02",
+        "0.05",
+        "0.65"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S014": {
+      "source": "S014",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S015": {
+      "source": "S015",
+      "state": "READABLE",
+      "tried": [
+        "1.87",
+        "1.37",
+        "2.56",
+        "2.27",
+        "1.59",
+        "3.23"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S016": {
+      "source": "S016",
+      "state": "READABLE",
+      "tried": [
+        "0.98",
+        "0.87",
+        "1.10",
+        "0.7531",
+        "0.95",
+        "0.84"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S017": {
+      "source": "S017",
+      "state": "READABLE",
+      "tried": [
+        "10.31557",
+        "2.85",
+        "0.13",
+        "0.39",
+        "3.36",
+        "13.67"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S018": {
+      "source": "S018",
+      "state": "READABLE",
+      "tried": [
+        "27.96585",
+        "82.8001",
+        "25.72149",
+        "80.26838",
+        "26.0112",
+        "80.14949"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S019": {
+      "source": "S019",
+      "state": "READABLE",
+      "tried": [
+        "33.30616",
+        "111.84125",
+        "34.86974",
+        "111.76099",
+        "36.06258",
+        "94.15743"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S020": {
+      "source": "S020",
+      "state": "READABLE",
+      "tried": [
+        "10.51",
+        "33.88168",
+        "118.11701",
+        "34.07362",
+        "118.40036",
+        "33.87029"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S021": {
+      "source": "S021",
+      "state": "READABLE",
+      "tried": [
+        "46.07056",
+        "12.59472",
+        "45.53558",
+        "10.21472",
+        "37.49223",
+        "15.07041"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S022": {
+      "source": "S022",
+      "state": "READABLE",
+      "tried": [
+        "35.37329",
+        "119.01871",
+        "34.05223",
+        "118.24368",
+        "39.73915",
+        "104.9847"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S024": {
+      "source": "S024",
+      "state": "READABLE",
+      "tried": [
+        "0.94",
+        "0.89",
+        "0.81",
+        "0.77",
+        "0.43",
+        "0.35"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S025": {
+      "source": "S025",
+      "state": "READABLE",
+      "tried": [
+        "0.0010",
+        "0.693",
+        "0.557",
+        "0.863",
+        "10.1016"
+      ],
+      "why": "5 figures round-tripped"
+    }
+  }
+}

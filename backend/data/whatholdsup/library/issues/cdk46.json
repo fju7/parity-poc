@@ -13,7 +13,7 @@
       "superseded": [],
       "also_held": [],
       "kind": "document",
-      "kind_why": "type 'label' — a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "form 'record' — 113291 characters held. The article test does not apply to this form"
     },
     "S013": {
       "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
@@ -26,7 +26,7 @@
       "superseded": [],
       "also_held": [],
       "kind": "document",
-      "kind_why": "type 'label' — a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "form 'record' — 82745 characters held. The article test does not apply to this form"
     },
     "S014": {
       "sha256": "d4688e51d9cb7d0af3d3b1e00dfa65b40661c64bf908c21d9bd4892c80cb8eeb",
@@ -38,7 +38,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'label' — a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "form 'record' — 13530 characters held. The article test does not apply to this form"
     },
     "S015": {
       "sha256": "66a5b3d6e327e0aaa392c77dc80374c7ad795c02a017604c4e492b13bb750d77",
@@ -82,7 +82,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "form 'record' — 22082 characters held. The article test does not apply to this form"
     },
     "S019": {
       "sha256": "cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317",
@@ -94,7 +94,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "form 'record' — 209971 characters held. The article test does not apply to this form"
     },
     "S020": {
       "sha256": "5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6",
@@ -106,7 +106,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "form 'record' — 221525 characters held. The article test does not apply to this form"
     },
     "S021": {
       "sha256": "67e39a7e875f0d5681ef468692d93809ecddda3b7d7d971043ddaef5f1ed410b",
@@ -118,7 +118,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "form 'record' — 18810 characters held. The article test does not apply to this form"
     },
     "S022": {
       "sha256": "460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff",
@@ -130,7 +130,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "form 'record' — 182660 characters held. The article test does not apply to this form"
     },
     "S024": {
       "sha256": "e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2",
@@ -244,7 +244,7 @@
       "via": "publisher PDF, obtained by the editor on 2026-09-01",
       "note": "",
       "kind": "document",
-      "kind_why": "type 'corrigendum' — a corrigendum is a complete document of its own kind; the article test (reference list, discussion) does not apply to it",
+      "kind_why": "form 'notice' — 3248 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
     }

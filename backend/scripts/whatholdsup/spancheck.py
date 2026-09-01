@@ -42,7 +42,22 @@ def _text(slug: str, sid: str) -> str | None:
 
 
 def _norm(s: str) -> str:
-    """Whitespace and dash normalisation only. Nothing that changes a number."""
+    """Whitespace, dash and DECIMAL-SEPARATOR normalisation. Nothing that
+    changes a number's value.
+
+    THE LANCET WRITES ITS DECIMALS WITH A MIDDLE DOT: 0·561, 0·309-1·017,
+    two-sided p=0·053. Every check in this file searched for "0.053" with a
+    full stop, so on 2026-09-01 B2 reported three times that a figure was in no
+    document we held while it sat in an abstract we had held all day, and sent
+    the operator looking for a paywalled PDF he did not need.
+
+    An absence reported by something that could not have seen the thing is not
+    an absence -- recorded here for the eighth time, and the first time it was
+    caused by a character.
+
+    Only BETWEEN DIGITS, so a middle dot used as anything else is left alone.
+    """
+    s = re.sub(r"(?<=\d)[·•](?=\d)", ".", s)
     s = s.replace("–", "-").replace("—", "-").replace("−", "-")
     s = s.replace("’", "'").replace("“", '"').replace("”", '"')
     return " ".join(s.split())
@@ -50,13 +65,45 @@ def _norm(s: str) -> str:
 
 # --- B2 ---------------------------------------------------------------------
 
-def b2_present(span: str, slug: str, sid: str) -> tuple[bool, str]:
-    """Is this span in the document the sentence cites?"""
+UNDETERMINED = "undetermined"
+
+
+def b2_present(span: str, slug: str, sid: str,
+               *, trust_canary: bool = True) -> tuple[bool | str, str]:
+    """Is this span in the document the sentence cites?
+
+    THREE ANSWERS, NOT TWO. True, False, or UNDETERMINED.
+
+    On 2026-09-01 this function said False three times about a figure sitting in
+    a document held since morning, because the publisher writes decimals with a
+    middle dot and the normaliser could not read them. It said False in exactly
+    the words it uses when it is right, and an operator went looking for a
+    paywalled PDF on the strength of it.
+
+    A document that fails the canary round trip is not one this function can
+    report absences about. It returns UNDETERMINED, which callers must not treat
+    as False -- "we could not tell" and "it is not there" are different states
+    and merging them is the oldest error recorded in this repository.
+    """
     doc = _text(slug, sid)
     if doc is None:
-        return False, "%s is not in the library, so the span cannot be checked" % sid
-    return (_norm(span).lower() in _norm(doc).lower(),
-            "searched the held bytes of %s" % sid)
+        return UNDETERMINED, ("%s is not in the library, so the span cannot be "
+                              "checked either way" % sid)
+    if _norm(span).lower() in _norm(doc).lower():
+        return True, "searched the held bytes of %s" % sid
+    if trust_canary:
+        try:
+            import canary as _canary
+            if sid in _canary.unreadable(slug):
+                return UNDETERMINED, (
+                    "%s fails the canary round trip — figures taken out of it "
+                    "cannot be found in it, so this pipeline cannot read this "
+                    "document and its absences mean nothing" % sid)
+        except BaseException:
+            # case_dir raises SystemExit, which is not an Exception. Third time
+            # in one day that this distinction has broken something here.
+            pass
+    return False, "searched the held bytes of %s" % sid
 
 
 # --- B3 ---------------------------------------------------------------------
@@ -160,7 +207,22 @@ def b6_scope(sentence: str, span: str) -> list[tuple[str, str]]:
 # --- B12 --------------------------------------------------------------------
 
 def b12_precision(figure: str, slug: str, sid: str) -> tuple[bool, str]:
-    """Does the source carry the precision we print?
+    """Does the source carry the precision we print? ASK IT OF THE CITED SOURCE.
+
+    THIS CHECK IS ONLY MEANINGFUL AGAINST THE DOCUMENT THE SENTENCE CITES.
+
+    On 2026-09-01 it was run against whatever document happened to be in the
+    library and reported that issue one's "HR 0.510" was an added decimal,
+    because the Merck press release prints HR=0.51. The page does not cite the
+    press release. It cites the Journal of Clinical Oncology five-year paper,
+    which prints 0.510 exactly as we do -- and which nobody held until an hour
+    later. A correct sentence was reported to the operator as an error because
+    the check was pointed at a document we had rather than the document the
+    claim rests on.
+
+    That is the failure this whole layer exists to prevent, committed inside the
+    layer. It is also the argument for bindings: a check without a binding has
+    to be told which source to look at, and whoever tells it can be wrong.
 
     Issue one prints "HR 0.510 (0.294-0.887)". The Merck release it cites says
     "HR=0.51". The interval limits match to three decimals and the point
@@ -186,7 +248,16 @@ def b12_precision(figure: str, slug: str, sid: str) -> tuple[bool, str]:
     if "." not in f:
         return True, "not a decimal figure"
     whole, frac = f.split(".", 1)
-    for keep in range(len(frac) - 1, 0, -1):
+    # ONE DECIMAL PLACE AT A TIME, and never down to a single digit.
+    #
+    # The first version walked all the way down, so asked about 0.561 it found
+    # "0.5" somewhere in a paper and reported that the source prints 0.5. A bare
+    # 0.5 in a document is not a statement of the same quantity; it is a digit.
+    # Only a rounding one place shorter is evidence that the source reported the
+    # figure less precisely than we do.
+    for keep in range(len(frac) - 1, max(0, len(frac) - 2), -1):
+        if keep < 2:
+            break
         shorter = "%s.%s" % (whole, frac[:keep])
         # a bare prefix match would find 0.51 inside 0.519; require a boundary
         if re.search(r"(?<![0-9.])%s(?![0-9])" % re.escape(shorter), d):

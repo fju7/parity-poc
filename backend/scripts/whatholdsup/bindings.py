@@ -192,6 +192,73 @@ def scan(slug: str) -> tuple[dict, list[str], list[str]]:
 
 
 # ---------------------------------------------------------------------------
+# running the checks FROM the binding, never from a caller's choice
+# ---------------------------------------------------------------------------
+
+def run_checks(slug: str, *, only: str = "") -> dict:
+    """Run every span check against the source THE ROW NAMES.
+
+    WHY THIS IS THE ONLY SANCTIONED WAY TO CALL THEM.
+
+    On 2026-09-01 B12 was run against a document that happened to be in the
+    library rather than the one the sentence cites, and reported two correct
+    sentences on a live page as errors: "we print 0.510, the source says 0.51".
+    The page cites the Journal of Clinical Oncology five-year paper, which
+    prints 0.510. What prints 0.51 is a company press release the page does not
+    cite. The check was right about the document it was given and the document
+    it was given was the wrong one.
+
+    Every span check takes a source id. Whoever supplies it can be wrong, and
+    was. The binding row is the answer to "which document does this sentence
+    rest on", recorded once, reviewable, and not re-decided at each call site.
+
+    A caller reaching past this into b2_present or b12_precision directly is
+    asserting provenance it has to be able to defend. The canary does, because
+    it asks about a document rather than about a sentence. Preflight does not,
+    and uses this.
+    """
+    import spancheck as SC
+    doc = load(slug)
+    rows = doc.get("bindings") or {}
+    tally = {"checked": 0, "flags": 0, "undetermined": 0}
+    for sha, row in rows.items():
+        if only and sha != only:
+            continue
+        if not row.get("on_page") or not row.get("span") or not row.get("source_id"):
+            continue
+        sid, span, sent = row["source_id"], row["span"], row["sentence"]
+        found = []
+        tally["checked"] += 1
+
+        present, why = SC.b2_present(span, slug, sid)
+        if present is SC.UNDETERMINED:
+            tally["undetermined"] += 1
+            found.append({"check": "B2", "verdict": "undetermined", "why": why})
+        elif present is not True:
+            other, why2 = SC.b3_elsewhere(span, slug, sid)
+            found.append({"check": "B2/B3", "verdict": "absent",
+                          "why": "%s; %s" % (why, why2)})
+        else:
+            ok5, why5 = SC.b5_complete(span, slug, sid)
+            if not ok5:
+                found.append({"check": "B5", "verdict": "truncated", "why": why5})
+            for w, why6 in SC.b6_scope(sent, span):
+                found.append({"check": "B6", "verdict": "unmapped scope word",
+                              "why": "%s — %s" % (w, why6)})
+            import autobind as AB
+            for a in AB.anchors_of(sent):
+                ok12, why12 = SC.b12_precision(a, slug, sid)
+                if not ok12:
+                    found.append({"check": "B12", "verdict": "added precision",
+                                  "why": why12})
+        row["check_flags"] = found
+        row["checked_on"] = date.today().isoformat()
+        tally["flags"] += len(found)
+    save(slug, doc)
+    return tally
+
+
+# ---------------------------------------------------------------------------
 # B1
 # ---------------------------------------------------------------------------
 
@@ -215,6 +282,18 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
             "%d of %d empirical sentence(s) are bound to a span; %d rest on "
             "nothing this system can name"
             % (len(bound), len(on_page), len(on_page) - len(bound)))]
+    flagged = [k for k, v in on_page.items() if v.get("check_flags")]
+    checked = [k for k, v in on_page.items() if v.get("checked_on")]
+    if checked:
+        out.append(("bound sentences the span checks flagged",
+                    OK if not flagged else BAD,
+                    "none of the %d bound sentence(s) is flagged" % len(checked)
+                    if not flagged else
+                    "%d of %d bound sentence(s) carry a flag: %s"
+                    % (len(flagged), len(checked),
+                       " || ".join("%s %s" % (f["check"], f["verdict"])
+                                   for k in flagged[:4]
+                                   for f in on_page[k]["check_flags"][:1]))))
     if unbucketed:
         out.append(("sentences with no declared bucket", WARN,
                     "%d of %d — a sentence whose kind nobody declared cannot be "
@@ -231,8 +310,23 @@ def main() -> int:
     sub.add_parser("scan", help="add a blank row for every unbound empirical sentence")
     u = sub.add_parser("unbound", help="print the sentences that rest on nothing named")
     u.add_argument("--limit", type=int, default=25)
+    sub.add_parser("check", help="run the span checks from the bindings")
     sub.add_parser("status")
     args = ap.parse_args()
+
+    if args.cmd == "check":
+        t = run_checks(args.slug)
+        print("\n  %d bound sentence(s) checked against the source each row "
+              "names" % t["checked"])
+        print("  %d flag(s), %d undetermined\n" % (t["flags"], t["undetermined"]))
+        doc = load(args.slug)
+        for sha, row in (doc.get("bindings") or {}).items():
+            for f in (row.get("check_flags") or []):
+                print("  %-7s %-20s %s" % (f["check"], f["verdict"],
+                                           row["sentence"][:78]))
+                print("          %s" % f["why"][:130])
+        print()
+        return 0
 
     if args.cmd == "scan":
         doc, unbound, stale = scan(args.slug)

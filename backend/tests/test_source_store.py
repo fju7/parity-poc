@@ -296,8 +296,15 @@ def test_a_registry_posting_is_not_a_landing_page(issue, monkeypatch):
     assert alone == "landing", "the article test, asked out of turn, says landing"
 
     kind, why = store.classify("t", "S001", REGISTRY, "application/json")
+    assert kind == "stub", "a 200-character registry record IS too little"
+    assert "too little to be the document" in why
+
+    # ...and a real one, which is what the check is actually for: the article
+    # test must not be applied to it, and it must not be called a landing page.
+    big = REGISTRY[:-1] + b', "pad": "' + b"x" * 3000 + b'"}'
+    kind, why = store.classify("t", "S001", big, "application/json")
     assert kind == "document"
-    assert "does not apply" in why
+    assert "does not apply to this form" in why
 
 
 def test_an_article_is_still_held_to_the_article_test(issue):
@@ -373,3 +380,53 @@ def test_holding_an_abstract_does_not_contradict_not_having_read_the_methods():
 
     src["access"]["state"] = ledger.FULL_TEXT_HELD
     assert len(ledger.inaccessibility_claims(page, [src])) == 1
+
+
+# --- the canary, and the tri-state it licenses ------------------------------
+
+canary = _load("canary")
+# canary imported spancheck itself; _load would build a SECOND module object and
+# leave canary pointing at the first, so patching the second would do nothing.
+# Use the one canary actually calls.
+spancheck = canary.SC
+
+
+def test_the_canary_catches_a_normaliser_that_cannot_read_a_publisher(monkeypatch):
+    """The Lancet writes 0·561 with a middle dot. Before 2026-09-01 every span
+    check searched 0.561 with a full stop, so B2 reported three times that a
+    figure was absent from a document held since morning. Nothing was broken in
+    a way any check could see: the document was held, hashed, identified and
+    classified. The pipeline the checks read it THROUGH was broken.
+
+    So the canary must fail when the normaliser cannot read a publisher, and
+    this test breaks the normaliser to prove it does."""
+    doc = ("Median PFS was 25·30 months (hazard ratio 0·561 [95% CI "
+           "0·309-1·017]; two-sided p=0·053).")
+    monkeypatch.setattr(spancheck, "_text", lambda slug, sid: doc)
+
+    figs = canary.sample("t", "S001")
+    assert figs, "the round trip needs figures taken out of the document"
+
+    # working normaliser: every figure taken out is findable in
+    assert canary.check("t", "S001")["state"] == "READABLE"
+
+    # the normaliser as it stood before the fix — no middle-dot handling
+    import re as _re
+    def blind(s):
+        s = s.replace("–", "-").replace("—", "-").replace("−", "-")
+        return " ".join(s.split())
+    monkeypatch.setattr(spancheck, "_norm", blind)
+    out = canary.check("t", "S001")
+    assert out["state"] == "UNREADABLE", (
+        "a normaliser that cannot read this publisher must fail the round trip")
+    assert "worthless" in out["why"]
+
+
+def test_an_absence_against_an_unreadable_document_is_not_an_absence():
+    """What the canary licenses. b2_present must not say 'not there' about a
+    document the checks demonstrably cannot read."""
+    assert hasattr(spancheck, "b2_present")
+    doc = "Median PFS 25·30 months (hazard ratio 0·561)."
+    # the figure IS in the document, written the publisher's way
+    assert spancheck._norm("0·561") == "0.561"
+    assert "0.561" in spancheck._norm(doc)
