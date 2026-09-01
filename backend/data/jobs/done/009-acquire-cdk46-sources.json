@@ -1,0 +1,7 @@
+{
+  "note": "Acquire and store every source document issue two is written from. This runs on the operator's machine with the operator's own network, because the assistant's retrieval returns a model's summary of a page rather than the page — and a summary is what we have been mistaking for a source all week. Skips S001: NCCN's licence forbids putting the guideline through any automated tool, so its ceiling is human_read and a person answers recorded questions about it. Everything it cannot get is printed as a human search list, with the exact command to put a copy in the store.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/acquire_sources.py",
+  "args": ["cdk46"]
+}

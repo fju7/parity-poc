@@ -164,6 +164,14 @@ registry_figures = _sibling("registry_figures")
 # you thought was covered is covered for one data type and silent for the rest.
 registry_facts = _sibling("registry_facts")
 
+# The document store. Added 2026-09-01, when the ledger for issue two read: 24
+# sources, 3 opened by a person, 8 resting on nothing but "whatever the search
+# tool returned for this URL". We had never acquired the sources -- every role
+# did its own retrieval, took a fragment, and threw it away. This asks the only
+# question that makes a sentence checkable a year from now: do we HOLD the
+# document it was written from.
+source_store = _sibling("source_store")
+
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
 # writes it into a report the next run overwrites -- which is why "what has this
@@ -1149,6 +1157,11 @@ def preflight(slug: str, *, for_email: bool,
                                     for r in load_record())))
     out.extend(intake.preflight_rows(slug))
     out.extend(queued_jobs_rows())
+    try:
+        out.extend(source_store.preflight_rows(slug))
+    except Exception as exc:
+        out.append(("source store", WARN, "the store check did not run: %s: %s"
+                    % (type(exc).__name__, exc)))
     # A LIVING issue promises a reader it is current. That promise is only
     # honest if somebody has actually looked, and the page has to display the
     # date of the last CHECK rather than the last change. These rows are empty

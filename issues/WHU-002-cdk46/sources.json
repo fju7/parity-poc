@@ -28,13 +28,14 @@
         "not_read": [
           "everything outside the HR+/HER2- advanced breast cancer section"
         ],
-        "note": "NCCN's licence forbids putting the document through an AI tool, so no automated check may ever read this source. Ten questions from the source advocate were answered from it by the operator on 2026-08-29 and are recorded in advocate/2026-08-29-adjudication.md. Two of the ten changed the page."
+        "note": "NCCN's licence forbids putting the document through an AI tool, so no automated check may ever read this source. Ten questions from the source advocate were answered from it by the operator on 2026-08-29 and are recorded in advocate/2026-08-29-adjudication.md. Two of the ten changed the page.\n\nNCCN's licence forbids putting the guideline through any automated tool. This source can never reach full_text_held and must never be fetched by acquire_sources.py. Its ceiling is human_read: the operator opens it and answers specific recorded questions, as in advocate/2026-08-29-adjudication.md, where ten questions were answered by name with locators on 29 August."
       },
       "also_called": [
         "the guideline",
         "the NCCN breast cancer guideline",
         "NCCN"
-      ]
+      ],
+      "licence_forbids_machine_reading": true
     },
     {
       "id": "S002",
@@ -44,13 +45,13 @@
       "accessed": "2026-08-28",
       "used_for": "Primary progression-free survival: median not reached vs 14.7 months, HR 0.54 (95% CI 0.41–0.72), P = .000021.",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
       }
     },
     {
@@ -61,13 +62,13 @@
       "accessed": "2026-08-28",
       "used_for": "66.8 vs 53.7 months, HR 0.804 (95% CI 0.637–1.015), two-sided P = .0664, at 8.1 years median follow-up. Not statistically significant. The trial maintained a cumulative two-sided type I error of 0.05 by the Lan-DeMets method with an O’Brien",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
       }
     },
     {
@@ -78,14 +79,19 @@
       "accessed": "2026-08-28",
       "used_for": "Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457–0.704).",
       "access": {
-        "state": "blocked",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-29",
         "blocked_by": "paywall",
         "not_read": [
           "the full text"
         ],
-        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us. RESOLVED 2026-08-30 FROM THE REGISTRY, NOT FROM THIS PAPER: the direction and level of the final overall-survival test are stated in the trial's own ClinicalTrials.gov results posting (S019, NCT01958021) — “compared using a log-rank test at one-sided cumulative 2.5% level of significance”. This paper is still unread. What the page says about the test is sourced to the registry and says so."
+        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us. RESOLVED 2026-08-30 FROM THE REGISTRY, NOT FROM THIS PAPER: the direction and level of the final overall-survival test are stated in the trial's own ClinicalTrials.gov results posting (S019, NCT01958021) — “compared using a log-rank test at one-sided cumulative 2.5% level of significance”. This paper is still unread. What the page says about the test is sourced to the registry and says so.",
+        "held": {
+          "file": "S004.html",
+          "sha256": "18842a9150fd5321113048e15d3502507d38c65d55cb59367e5b12f8362cf922",
+          "bytes": 5565
+        }
       },
       "characterisation_supported_by": [
         "S019"
@@ -141,13 +147,13 @@
       "accessed": "2026-08-28",
       "used_for": "The protocol-specified interim analysis: median not reached vs 40.9 months, HR 0.71 (95% CI 0.54–0.95), one-sided P = .00973 against a prespecified stopping boundary of P = .01018, at 34.6 months median follow-up. The direction of the test ",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
       }
     },
     {
@@ -158,13 +164,13 @@
       "accessed": "2026-08-28",
       "used_for": "The exploratory extended follow-up at 53.5 months: 58.7 vs 48.0 months, HR 0.76 (95% CI 0.61–0.96). The authors describe it as exploratory in those words. It is not the figure this page leads with for MONALEESA-7 and it is not on the interv",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
       }
     },
     {
@@ -175,13 +181,13 @@
       "accessed": "2026-08-28",
       "used_for": "Primary progression-free survival: 24.8 vs 14.5 months, HR 0.58 (95% CI 0.46–0.72), two-sided P < .001. These are the figures the paper prints, and they are what the table shows. The unrounded 0.576 (0.463–0.718) appears in the 2019 extende",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
       },
       "derives_from": "S001",
       "derives_note": "For the claim that no randomised head-to-head comparison exists, only. P-VERIFY opens by describing its own purpose as working in the absence of randomised trials that directly compare the three, and this page cited that as confirmation of NCCN's statement. It is the same background assumption, not a second observation. P-VERIFY's own figures are independent and are not affected by this."
@@ -194,13 +200,13 @@
       "accessed": "2026-08-28",
       "used_for": "53.9 vs 51.2 months, HR 0.956 (95% CI 0.777–1.177), one-sided P = .34, at 90.1 months median follow-up. Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators’ recovered-data sensitivity ",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
       }
     },
     {
@@ -211,13 +217,13 @@
       "accessed": "2026-08-28",
       "used_for": "1,982 patients, eighteen Italian centres, inverse-probability weighting. Progression-free survival: abemaciclib vs palbociclib aHR 0.76 (0.63–0.92), p = 0.004; ribociclib vs palbociclib 0.83 (0.73–0.95), p = 0.007; abemaciclib vs ribociclib",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
       }
     },
     {
@@ -228,14 +234,19 @@
       "accessed": "2026-08-28",
       "used_for": "Source of the cardiac requirement: ECG before starting and at about day 14 of the first cycle; serum electrolytes before starting and at the beginning of each of the first six cycles; liver function tests every two weeks for the first two c",
       "access": {
-        "state": "blocked",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-29",
         "blocked_by": "paywall",
         "not_read": [
           "the full text"
         ],
-        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us."
+        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us.",
+        "held": {
+          "file": "S012.pdf",
+          "sha256": "8d21fe9e1ab020a88613e57f2426b1ee520270abdcc1dfc0b894c714e675fccd",
+          "bytes": 1240458
+        }
       }
     },
     {
@@ -246,14 +257,19 @@
       "accessed": "2026-08-28",
       "used_for": "Source of the venous thromboembolism warning — events in 2% to 5% of patients treated across the metastatic trials, with monitoring for signs and symptoms — and of diarrhoea in 81% to 90% of 3,691 patients across four trials, grade 3 in 8% ",
       "access": {
-        "state": "blocked",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-29",
         "blocked_by": "paywall",
         "not_read": [
           "the full text"
         ],
-        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us."
+        "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us.",
+        "held": {
+          "file": "S013.pdf",
+          "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
+          "bytes": 990433
+        }
       }
     },
     {
@@ -282,7 +298,7 @@
       "accessed": "2026-08-31",
       "used_for": "Seven phase III trials, 4,415 patients. No significant pairwise overall-survival difference between the three drugs. Its Table 1 lists MONARCH 3 at HR 0.804 (0.637-1.015) and its “Year of updated data” row gives 2023 for that trial, and its reference list cites the SABCS 2023 final overall-survival abstract — so its MONARCH 3 input is the FINAL analysis, not the interim HR 0.754. An earlier version of this page said the opposite, on the strength of our own automated check rather than the paper; an outside reviewer opened the table and corrected us (CORR-01 era). Median follow-up: the abstract gives 73.3 months (range 48.7-97.2), the results section gives 70.2 over the same range. The page prints the abstract's and discloses the discrepancy, which is the source's own; see CORR-08.",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "claude, via retrieval — not read by a human",
         "on": "2026-08-31",
         "sections": [
@@ -294,7 +310,7 @@
           "the supplementary material",
           "Table 1 on nature.com — that URL is disallowed by robots.txt, and PMC's HTML is behind a CAPTCHA; the table was reached only through Europe PMC"
         ],
-        "note": "Provenance recorded because it decided the outcome. Four retrievals were run for the median-follow-up figures. Three returned both sentences verbatim, across two hosts. One returned “this string does not appear in the document” for 70.2 — and in the same answer said Table 1 was not fully present in what it had received. It was reporting absence from a document it did not hold. An absence reported by a truncated retrieval is not evidence of absence."
+        "note": "Provenance recorded because it decided the outcome. Four retrievals were run for the median-follow-up figures. Three returned both sentences verbatim, across two hosts. One returned “this string does not appear in the document” for 70.2 — and in the same answer said Table 1 was not fully present in what it had received. It was reporting absence from a document it did not hold. An absence reported by a truncated retrieval is not evidence of absence.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
       }
     },
     {
@@ -305,13 +321,18 @@
       "accessed": "2026-08-28",
       "used_for": "The Palbociclib Verifying Evidence of Real-world Impact study. 9,146 patients from the Flatiron Health record database — 6,831 on palbociclib, 1,279 on ribociclib, 1,036 on abemaciclib — with stabilised inverse-probability weighting. Overal",
       "access": {
-        "state": "machine_read",
+        "state": "full_text_held",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits.",
+        "held": {
+          "file": "S016.html",
+          "sha256": "cad19a097b83d37db2b0c2893bf156bf76b032425a3003da830cef338270b64e",
+          "bytes": 5565
+        }
       }
     },
     {
@@ -358,7 +379,7 @@
       ],
       "used_for": "The second randomised head-to-head of the same pair. Source of the design (interventional, phase 3, randomised, parallel, open label), the start date of 2022-03-28, the overall status TERMINATED, and the enrolment count of 61. No results publication was found. The page draws nothing from it beyond the fact that the trial was run and stopped.",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -369,7 +390,7 @@
           "the protocol document",
           "any publication"
         ],
-        "note": "A REGISTRY IS A LIST OF WHAT WAS STARTED, not of what got attention. That is the whole reason the unknowability check demands one be named: both of this page's missed trials were findable this way."
+        "note": "A REGISTRY IS A LIST OF WHAT WAS STARTED, not of what got attention. That is the whole reason the unknowability check demands one be named: both of this page's missed trials were findable this way.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
       }
     },
     {
@@ -385,7 +406,7 @@
       "used_for": "The direction and level of the final overall-survival test, which this page twice failed to establish from the journal. Verbatim from the sponsor's posting: the distribution of OS between the arms “was compared using a log-rank test at one-sided cumulative 2.5% level of significance”. The same posting gives HR 0.765 (95% CI 0.628-0.932), p = 0.004, log-rank.",
       "WHY_THIS_MATTERS": "The page said this could not be established and named a paywalled statistical section as the reason. It was posted by the sponsor in a public registry. Third fact on this page declared unfindable and then found in a registry.",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -394,7 +415,7 @@
         "not_read": [
           "the protocol or statistical analysis plan documents"
         ],
-        "note": "What the posting does NOT give is the critical value at the final look if alpha had been spent at an interim. The page prints the cumulative level and no critical value."
+        "note": "What the posting does NOT give is the critical value at the final look if alpha had been spent at an interim. The page prints the cumulative level and no critical value.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
       }
     },
     {
@@ -409,7 +430,7 @@
       ],
       "used_for": "Independent confirmation that PALOMA-2's log-rank p-values are one-sided — each analysis is annotated “1-sided p-value from the stratified log-rank test”. Also the final overall-survival analysis, HR 0.921 (0.755-1.124), and the primary analysis, HR 0.956 (0.777-1.177).",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -418,7 +439,7 @@
         "not_read": [
           "the protocol document"
         ],
-        "note": "The page had this from an ASCO 2019 abstract only; the registry is a second, independent route."
+        "note": "The page had this from an ASCO 2019 abstract only; the registry is a second, independent route.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
       }
     },
     {
@@ -433,7 +454,7 @@
       ],
       "used_for": "Establishing that the study is registered, observational, still recruiting toward an estimated 3,500 patients, with overall survival as its primary outcome — and that NO RESULTS ARE POSTED. That is why this page still does not print PALMARES-2's survival figures: the paper did not open and the registry has nothing to fall back on.",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -442,7 +463,7 @@
         "not_read": [
           "nothing further exists to read; hasResults is false"
         ],
-        "note": "A registry search that comes back empty is a result, and is recorded as one."
+        "note": "A registry search that comes back empty is a result, and is recorded as one.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
       }
     },
     {
@@ -453,13 +474,13 @@
       "accessed": "2026-08-31",
       "used_for": "The direction of MONALEESA-7's overall-survival test. The posting gives the analysis as p = 0.00973 with the annotation “One-sided stratified log-rank test”, Cox proportional hazard 0.712. Added 2026-08-31 because the page had been citing NCT01740427 for this — PALOMA-2's registry number — and the correction to NCT02278120 would otherwise have been a citation with no source entry behind it.",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "claude, ClinicalTrials.gov API v2",
         "on": "2026-08-31",
         "sections": [
           "resultsSection.outcomeMeasuresModule, Overall Survival (OS) outcome and its analysis"
         ],
-        "note": "Read as structured JSON from the API, not by web search. The gate's SOURCE role reported this record unreachable in the same period; the API returns it in under a second."
+        "note": "Read as structured JSON from the API, not by web search. The gate's SOURCE role reported this record unreachable in the same period; the API returns it in under a second.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
       }
     },
     {
@@ -474,7 +495,7 @@
       "used_for": "One sentence, quoted on the page: “statistical comparison was made by 1-sided stratified log-rank test”. This entry exists because that quotation was on the page with NO SOURCE ENTRY AT ALL — it was found by the quotation check on 31 August, which asks of every quoted passage which source it came from and whether anyone opened it.",
       "WHY_THIS_MATTERS": "This entry was created on 31 August recording the abstract as BLOCKED, because ascopubs.org returned 403 to this environment. That was wrong, and wrong in the most instructive direction: the gate had already read it on 29 August and recorded the Methods sentence verbatim as claim c73, VERIFIED. One retrieval route failing is not the document being unreachable — the same error the SOURCE role makes when it turns “I could not reach it” into NOT_FOUND, made here by me, about my own pipeline's own report. The fact is separately posted in S022's registry record.",
       "access": {
-        "state": "machine_read",
+        "state": "fragment_only",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
@@ -483,7 +504,7 @@
         "not_read": [
           "the full abstract; ascopubs.org returns 403 to direct fetches from this environment, tried 31 August"
         ],
-        "note": "Weaker than 'the full text was read': a search route may return a fragment. It is stronger than 'nobody opened it', which is what this entry said for an hour."
+        "note": "Weaker than 'the full text was read': a search route may return a fragment. It is stronger than 'nobody opened it', which is what this entry said for an hour.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
       }
     },
     {

@@ -63,23 +63,68 @@ OK, BAD, WARN = "ok", "BLOCKED", "warn"
 #
 # Ordered by what they license. A claim needs a state at or above its bar.
 
-MACHINE_READ = "machine_read"   # an automated check opened the primary text
-HUMAN_READ = "human_read"       # a person opened it; no automated check may
-BLOCKED = "blocked"             # we tried and could not open it
-NOT_OPENED = "not_opened"       # nobody tried
+# WHAT machine_read WAS, AND WHY IT IS GONE
+# ------------------------------------------
+# This file opens with "AN UNREAD SOURCE IS NOT A SOURCE THAT AGREES WITH US"
+# and then defined a state called `machine_read` that meant, in practice:
+#
+#     "sections": ["whatever the search tool returned for this URL"]
+#
+# which is not a read. It records that a URL appeared in the citation list of a
+# gate report. Nothing checked what came back, or whether anything did. And it
+# sat in READ_STATES, licensing "figures, characterisation, and adverse claims"
+# -- the most permissive grant in the file -- on the weakest possible evidence.
+#
+# On 2026-09-01 the ledger for issue two read: 24 sources, 3 opened by a person,
+# 8 resting on nothing but that string. All three that had been opened were
+# opened by the operator, and every one of the three produced a correction. The
+# read rate and the error rate were the same number seen from two sides.
+#
+# Every incident that week happened inside that permission. Our own observation
+# published under Tanguy's name for four days; the paper's own "29 blocks with
+# block size of four" deleted from the page as if it were our arithmetic;
+# PALMARES-2 described as behind a wall while the ledger called it read; a
+# registry number belonging to another trial.
+#
+# The state that hid all of it is replaced by two that cannot:
+#
+#     FULL_TEXT_HELD   the document is IN THE STORE, hashed, quotable, and
+#                      re-readable next year when a correction request arrives
+#     FRAGMENT_ONLY    a retrieval returned something. NOT A READ STATE.
+#
+# A fragment cannot be re-examined, cannot be diffed, and cannot tell you what
+# it did NOT contain -- which is exactly how a true sentence got deleted.
 
-STATES = (MACHINE_READ, HUMAN_READ, BLOCKED, NOT_OPENED)
+FULL_TEXT_HELD = "full_text_held"   # in the store, hashed; we can prove what it says
+HUMAN_READ = "human_read"           # a person opened it. Required where a licence
+                                    # forbids machine reading, as NCCN's does.
+FRAGMENT_ONLY = "fragment_only"     # a search returned something. Not a read.
+BLOCKED = "blocked"                 # we tried, by a named route, and could not get it
+NOT_OPENED = "not_opened"           # nobody tried
+
+STATES = (FULL_TEXT_HELD, HUMAN_READ, FRAGMENT_ONLY, BLOCKED, NOT_OPENED)
 
 # What each state permits, as prose the board prints. The distinction that
 # matters is between "somebody read this" and "somebody guessed".
 PERMITS = {
-    MACHINE_READ: "figures, characterisation, and adverse claims",
-    HUMAN_READ: "figures and characterisation; adverse claims need the reader's answer",
-    BLOCKED: "figures already extracted; NO new characterisation",
-    NOT_OPENED: "nothing. Cite it or open it.",
+    FULL_TEXT_HELD: "figures, characterisation, adverse claims, and quotation",
+    HUMAN_READ: ("figures and characterisation; adverse claims and quotations need "
+                 "the reader's own answer, recorded"),
+    FRAGMENT_ONLY: ("ONLY the figures the retrieval literally returned, attributed to "
+                    "that retrieval. NO characterisation of the document, because "
+                    "nobody holds the document"),
+    BLOCKED: "figures already extracted, disclosed as such; NO new characterisation",
+    NOT_OPENED: "nothing. Cite it or get it.",
 }
 
-READ_STATES = (MACHINE_READ, HUMAN_READ)
+# FRAGMENT_ONLY IS DELIBERATELY NOT HERE. That is the whole change.
+READ_STATES = (FULL_TEXT_HELD, HUMAN_READ)
+
+# Sources whose licence forbids putting the document through any automated tool.
+# They can never reach FULL_TEXT_HELD, and HUMAN_READ is the ceiling: a person
+# reads it and answers specific recorded questions, which is how issue two's
+# NCCN claims were established (advocate/2026-08-29-adjudication.md).
+LICENCE_FORBIDS_MACHINE_READING = "licence_forbids_machine_reading"
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,45 @@
+{
+  "what_this_is": "Every source document this issue is written from, as retrieved, with the hash of the bytes we actually read. A sentence on the page can be checked against the file named here, by anyone, without a network. When a correction request arrives about a sentence, this is what answers it.",
+  "held": {
+    "S004": {
+      "file": "S004.html",
+      "sha256": "18842a9150fd5321113048e15d3502507d38c65d55cb59367e5b12f8362cf922",
+      "bytes": 5565,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29718092/",
+      "retrieved": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "content_type": "text/html; charset=utf-8",
+      "note": ""
+    },
+    "S012": {
+      "file": "S012.pdf",
+      "sha256": "8d21fe9e1ab020a88613e57f2426b1ee520270abdcc1dfc0b894c714e675fccd",
+      "bytes": 1240458,
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/209935s030lbl.pdf",
+      "retrieved": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "content_type": "application/pdf",
+      "note": ""
+    },
+    "S013": {
+      "file": "S013.pdf",
+      "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
+      "bytes": 990433,
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/208716s019lbl.pdf",
+      "retrieved": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "content_type": "application/pdf",
+      "note": ""
+    },
+    "S016": {
+      "file": "S016.html",
+      "sha256": "cad19a097b83d37db2b0c2893bf156bf76b032425a3003da830cef338270b64e",
+      "bytes": 5565,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39754979/",
+      "retrieved": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "content_type": "text/html; charset=utf-8",
+      "note": ""
+    }
+  }
+}

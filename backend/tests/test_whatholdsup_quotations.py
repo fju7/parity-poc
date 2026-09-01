@@ -38,7 +38,10 @@ def _case(tmp_path, monkeypatch, quotations, sources=None):
     (case / "quotations.json").write_text(
         json.dumps({"quotations": quotations}), encoding="utf-8")
     (case / "sources.json").write_text(json.dumps({"sources": sources or [
-        {"id": "S001", "title": "Trial report", "access": {"state": "machine_read"}},
+        # full_text_held, not the old machine_read: on 2026-09-01 that state was
+        # removed, because its only evidence was that a URL had appeared in a
+        # gate report's citation list, and it licensed quotation.
+        {"id": "S001", "title": "Trial report", "access": {"state": "full_text_held"}},
     ]}), encoding="utf-8")
     monkeypatch.setattr(q, "CASES", tmp_path)
     return case

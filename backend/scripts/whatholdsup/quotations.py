@@ -66,7 +66,7 @@ _SMART = {u"‘": "'", u"’": "'", u"“": '"', u"”": '"',
 # The states source_ledger.py treats as "somebody opened this". Kept as a
 # literal rather than imported so this module has no load-order dependency on
 # the ledger; the ledger owns the definition and this list must track it.
-READ_STATES = ("machine_read", "human_read")
+READ_STATES = ("full_text_held", "human_read")   # see source_ledger: machine_read is gone
 
 
 def norm(text: str) -> str:

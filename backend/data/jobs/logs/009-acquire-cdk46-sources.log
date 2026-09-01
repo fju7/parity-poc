@@ -1,0 +1,118 @@
+=== 009-acquire-cdk46-sources
+=== queued job:
+{
+  "note": "Acquire and store every source document issue two is written from. This runs on the operator's machine with the operator's own network, because the assistant's retrieval returns a model's summary of a page rather than the page — and a summary is what we have been mistaking for a source all week. Skips S001: NCCN's licence forbids putting the guideline through any automated tool, so its ceiling is human_read and a person answers recorded questions about it. Everything it cannot get is printed as a human search list, with the exact command to put a copy in the store.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/acquire_sources.py",
+  "args": ["cdk46"]
+}
+=== started 2026-09-01T12:56:12Z
+
+  HELD     S004   S004.html                                      5565 bytes
+  HELD     S012   S012.pdf                                    1240458 bytes
+  HELD     S013   S013.pdf                                     990433 bytes
+  HELD     S016   S016.html                                      5565 bytes
+
+  held now: 4   failed: 19   skipped: 1
+
+  ====================================================================
+  HUMAN SEARCH LIST — nobody holds these, so nothing may characterise them
+  ====================================================================
+    S002   MONARCH 3 — abemaciclib as initial therapy. J Clin Oncol, 2017
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S002 <path-to-file> --url <url> --via "how you got it"
+    S003   MONARCH 3 — final overall survival. Ann Oncol, 2024
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S003 <path-to-file> --url <url> --via "how you got it"
+    S005   MONALEESA-2 — overall survival with ribociclib plus letrozole.
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S005 <path-to-file> --url <url> --via "how you got it"
+    S006   MONALEESA-7 — ribociclib plus endocrine therapy in premenopaus
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S006 <path-to-file> --url <url> --via "how you got it"
+    S007   MONALEESA-7 — overall survival. N Engl J Med, 2019
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S007 <path-to-file> --url <url> --via "how you got it"
+    S008   MONALEESA-7 — updated overall survival. Clin Cancer Res, 2022;
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S008 <path-to-file> --url <url> --via "how you got it"
+    S009   PALOMA-2 — palbociclib and letrozole. N Engl J Med, 2016
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S009 <path-to-file> --url <url> --via "how you got it"
+    S010   PALOMA-2 — final overall survival. J Clin Oncol, 2024
+           why: the response reads like a wall ('captcha')
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S010 <path-to-file> --url <url> --via "how you got it"
+    S011   PALMARES-2 — real-world comparison of first-line palbociclib, 
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S011 <path-to-file> --url <url> --via "how you got it"
+    S014   IBRANCE (palbociclib) — warnings and precautions
+           why: html with no body
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S014 <path-to-file> --url <url> --via "how you got it"
+    S015   Network meta-analysis of CDK4/6 inhibitors. Scientific Reports
+           why: html with no body
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S015 <path-to-file> --url <url> --via "how you got it"
+    S017   Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Sham
+           why: the response reads like a wall ('captcha')
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S017 <path-to-file> --url <url> --via "how you got it"
+    S018   HARMONIA — A Phase III, Multicenter, Open-label Study of Riboc
+           why: html with no body
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S018 <path-to-file> --url <url> --via "how you got it"
+    S019   MONALEESA-2 — ClinicalTrials.gov results posting. NCT01958021.
+           why: html with no body
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S019 <path-to-file> --url <url> --via "how you got it"
+    S020   PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427.
+           why: html with no body
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S020 <path-to-file> --url <url> --via "how you got it"
+    S021   PALMARES-2 — ClinicalTrials.gov record. NCT06805812.
+           why: html with no body
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S021 <path-to-file> --url <url> --via "how you got it"
+    S022   MONALEESA-7 — ClinicalTrials.gov results posting. NCT02278120.
+           why: html with no body
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S022 <path-to-file> --url <url> --via "how you got it"
+    S023   MONALEESA-7 — overall survival, ASCO 2019 late-breaking abstra
+           why: HTTP 403
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S023 <path-to-file> --url <url> --via "how you got it"
+    S024   Tanguy M-L, Cabel L, Berger F, Pierga J-Y, Savignoni A, Bidard
+           why: html with no body
+           put a copy in the store with:
+             python3 backend/scripts/whatholdsup/source_store.py cdk46 \
+               add S024 <path-to-file> --url <url> --via "how you got it"
+
+=== finished 2026-09-01T12:56:19Z exit=1
