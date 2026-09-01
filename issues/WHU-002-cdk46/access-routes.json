@@ -1,0 +1,196 @@
+{
+  "what_this_is": "Where each document we do not hold can be got. Every route here was title-checked against our own record for that source, because the first hand-typed attempt at this returned three wrong papers from three wrong DOIs.",
+  "checked": "2026-09-01",
+  "sources": {
+    "S002": {
+      "ids": {
+        "doi": "10.1200/JCO.2017.75.6155"
+      },
+      "routes": [
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://ascopubs.org/doi/pdf/10.1200/JCO.2017.75.6155"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1200/JCO.2017.75.6155 came from the url we already hold, not a search",
+        "resolved title: 'MONARCH 3: Abemaciclib As Initial Therapy for Advanced Breast Cancer'"
+      ],
+      "verified_title": "MONARCH 3: Abemaciclib As Initial Therapy for Advanced Breast Cancer."
+    },
+    "S003": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S004": {
+      "ids": {
+        "pmid": "29718092"
+      },
+      "routes": [
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "http://hdl.handle.net/20.500.11820/d05c713d-b2c6-4bb2-b06c-bd54c84fcc5a"
+        ]
+      ],
+      "notes": [
+        "identifier pmid=29718092 came from the url we already hold, not a search",
+        "resolved title: 'Updated results from MONALEESA-2, a phase III trial of first-line riboci'"
+      ],
+      "verified_title": "Updated results from MONALEESA-2, a phase III trial of first-line ribociclib plus letrozole versus placebo plus letrozole in hormone receptor-positive, HER2-negative advanced breast cancer."
+    },
+    "S005": {
+      "ids": {
+        "doi": "10.1056/NEJMoa2114663"
+      },
+      "routes": [
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "https://www.nejm.org/doi/pdf/10.1056/NEJMoa2114663?articleTools=true"
+        ],
+        [
+          "Unpaywall: repository",
+          "publishedVersion",
+          "https://www.research.ed.ac.uk/en/publications/dd260873-99e3-4a49-92cf-a952ba95fa2f"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1056/NEJMoa2114663 came from the url we already hold, not a search",
+        "resolved title: 'Overall Survival with Ribociclib plus Letrozole in Advanced Breast Cance'"
+      ],
+      "verified_title": "Overall Survival with Ribociclib plus Letrozole in Advanced Breast Cancer."
+    },
+    "S006": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S007": {
+      "ids": {
+        "doi": "10.1056/NEJMoa1903765"
+      },
+      "routes": [
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "https://www.nejm.org/doi/pdf/10.1056/NEJMoa1903765?articleTools=true"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1056/NEJMoa1903765 came from the url we already hold, not a search",
+        "resolved title: 'Overall Survival with Ribociclib plus Endocrine Therapy in Breast Cancer'"
+      ],
+      "verified_title": "Overall Survival with Ribociclib plus Endocrine Therapy in Breast Cancer."
+    },
+    "S008": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S009": {
+      "ids": {
+        "doi": "10.1056/NEJMoa1607303"
+      },
+      "routes": [
+        [
+          "Europe PMC: Unpaywall",
+          "pdf",
+          "https://www.nejm.org/doi/pdf/10.1056/NEJMoa1607303?articleTools=true"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1056/NEJMoa1607303 came from the url we already hold, not a search",
+        "resolved title: 'Palbociclib and Letrozole in Advanced Breast Cancer'",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": "Palbociclib and Letrozole in Advanced Breast Cancer."
+    },
+    "S010": {
+      "ids": {
+        "pmcid": "PMC10950136"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for pmcid PMC10950136",
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S011": {
+      "ids": {
+        "pii": "S0923-7534(25)00134-6"
+      },
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S016": {
+      "ids": {
+        "pmid": "39754979"
+      },
+      "routes": [
+        [
+          "Europe PMC: Europe_PMC",
+          "html",
+          "https://europepmc.org/articles/PMC11758200"
+        ],
+        [
+          "Europe PMC: Europe_PMC",
+          "pdf",
+          "https://europepmc.org/articles/PMC11758200?pdf=render"
+        ],
+        [
+          "Europe PMC full-text XML",
+          "xml",
+          "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11758200/fullTextXML"
+        ],
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "https://doi.org/10.1016/j.esmoop.2024.104103"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://air.unimi.it/bitstream/2434/1250753/2/1-s2.0-S205970292401874X-main.pdf"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC11758200/pdf/main.pdf"
+        ]
+      ],
+      "notes": [
+        "identifier pmid=39754979 came from the url we already hold, not a search",
+        "resolved title: 'Comparative overall survival of CDK4/6 inhibitors plus an aromatase inhi'"
+      ],
+      "verified_title": "Comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor in HR+/HER2- metastatic breast cancer in the US real-world setting."
+    },
+    "S023": {
+      "ids": {
+        "doi": "10.1200/JCO.2019.37.18_suppl.LBA1008"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for doi 10.1200/JCO.2019.37.18_suppl.LBA1008",
+        "resolved title: 'Phase III MONALEESA-7 trial of premenopausal patients with HR+/HER2− adv'",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": ""
+    }
+  }
+}
