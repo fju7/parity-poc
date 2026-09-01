@@ -1,0 +1,11 @@
+{
+  "note": "Re-gate the announcement email. Job 004 attempted this at 23:18 and died partway on 'Your credit balance is too low to access the Anthropic API' after eleven source calls had already been billed; it wrote no report, so the email is still gated on the 28 August draft 1fb1d818. Four sentences carrying figures have never been examined. An email cannot be recalled, so this gets a run and not a signature. This is also the first run under the incremental ledger: if it dies partway again, the spend up to that point will be on the record instead of vanishing.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/email/issue2-cdk46.html",
+    "--since", "../site/whatholdsup/email/issue2-cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/email/issue2-cdk46.html.gate.json"
+  ]
+}

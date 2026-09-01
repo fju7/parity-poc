@@ -1,0 +1,11 @@
+{
+  "note": "Re-gate the page after the 31 August findings were acted on. Nine sentences are new since report 1a414838: the rewritten MONALEESA-2 p-value footnote (CORR-11), the PALMARES-2 access and disclosure passage (CORR-10), the HARMONIA wording (CORR-12) and the withdrawn block count (CORR-13). Four findings from the last run are recorded as declined in draft_decisions.json with the evidence and should come back already decided. This is the first run with registry_settle wired in: on the previous run's claims it settled 12 deterministically and emptied three source groups, so source:HARMONIA, source:MONALEESA-2 and source:MONALEESA-7 should not be called at all and the run should come in under the $5.70 that one cost. If those groups DO get called, registry_settle is not working and that is worth more than the money.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/cdk46.html",
+    "--since", "../site/whatholdsup/cdk46.html.gate.json",
+    "--report", "../site/whatholdsup/cdk46.html.gate.json"
+  ]
+}
