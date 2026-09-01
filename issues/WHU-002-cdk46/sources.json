@@ -480,6 +480,38 @@
         ],
         "note": "Weaker than 'the full text was read': a search route may return a fragment. It is stronger than 'nobody opened it', which is what this entry said for an hour."
       }
+    },
+    {
+      "id": "S024",
+      "url": "https://www.nature.com/articles/s41523-018-0068-4",
+      "type": "methods",
+      "title": "Tanguy M-L, Cabel L, Berger F, Pierga J-Y, Savignoni A, Bidard F-C. Cdk4/6 inhibitors and overall survival: power of first-line trials in metastatic breast cancer. npj Breast Cancer 4:14 (2018).",
+      "also_called": [
+        "Tanguy and colleagues",
+        "the 2018 npj Breast Cancer paper",
+        "the power paper"
+      ],
+      "accessed": "2026-09-01",
+      "used_for": "What the paper ACTUALLY establishes, now that it has been read in full: the statistical power of PALOMA-2, MONALEESA-2, MONALEESA-7 and MONARCH-3 to reach significance on overall survival, computed with Freedman's formula at a two-sided 5% type I error. “PALOMA-2 and MONALEESA trials have an almost similar power despite different allocation ratios, while MONARCH-3 has a more limited power.” All four are under 70% power unless the median OS gain exceeds twelve months. Its conclusion: “if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy.” It also records that MONARCH-3's main OS analysis was planned as part of a pooled analysis with MONARCH-2, so “OS analyses of MONARCH-3 as a single study could be reported as exploratory analyses with no prespecified maturity”.",
+      "WHAT_IT_DOES_NOT_SAY": "ANYTHING ABOUT CONFIDENCE INTERVAL WIDTH. The paper computes power to reach significance and nothing else. Both this page and the announcement email attributed to it the observation that an interval's width follows from what a trial was powered to detect. That observation is ours. The misattribution was live from 28 August to 1 September, and was found by the fact-check gate on the email, not on the page — the page's version was better hidden, because it attached our observation to their names and then described their real argument correctly in the next clause.",
+      "declared_interests": "“F.-C. Bidard is part of advisory boards and received research grants (unrelated to this study) from Pfizer, Novartis, and Lilly. Other authors have no competing interest.” Recorded because this page runs a disclosure-symmetry argument about P-VERIFY and PALMARES-2, and a source it leans on for the power argument carries the same entanglement. Funded by Institut Curie SIRIC 2, grant INCa-DGOS-Inserm_12554.",
+      "access": {
+        "state": "human_read",
+        "by": "Fred Ugast, who retrieved the full text and supplied it on 2026-09-01, after every automated route from this environment was rate-limited or refused",
+        "on": "2026-09-01",
+        "sections": [
+          "abstract",
+          "introduction",
+          "results",
+          "discussion",
+          "methods",
+          "Table 1",
+          "Table 2",
+          "competing interests",
+          "acknowledgements"
+        ],
+        "note": "Read in full. Three separate attempts to reach it from here over forty minutes returned HTTP 429 from Europe PMC. Until this read, every claim this page made about the paper rested on gate summaries of search results — which is how our own observation ended up under their names for four days."
+      }
     }
   ],
   "also_called_note": "The role-nouns the page actually uses for a source. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",

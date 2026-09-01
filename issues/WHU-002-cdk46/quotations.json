@@ -211,6 +211,19 @@
         "by": "claude",
         "on": "2026-08-31"
       }
+    },
+    {
+      "id": "Q-18",
+      "quote": "might be more attributable to chance than to a truly different drug efficacy",
+      "source_id": "S024",
+      "verbatim": "Conversely, if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy.",
+      "kind": "",
+      "why": "The paper's own concluding sentence, from the abstract. Read in full on 2026-09-01 from the text the operator retrieved after every automated route here was refused. Note the source's own typo, 'some but not at all trials', reproduced here because that is what it says; the page quotes only the clause after it.",
+      "attested": {
+        "by": "Fred Ugast, full text supplied 2026-09-01; matched by claude",
+        "on": "2026-09-01",
+        "recorded_in": "sources.json S024 used_for"
+      }
     }
   ]
 }

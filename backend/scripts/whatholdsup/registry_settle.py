@@ -162,12 +162,105 @@ class Settler:
 
         nums = re.findall(r"\d+\.\d+", figure or "")
         if not nums:
-            return None
+            return self._annotation(nct, figure, quote)
         posted = rfig.numbers_in(raw)
         if all(("%g" % float(n)) in posted for n in nums):
             return ("every figure in this claim appears in %s, the "
                     "ClinicalTrials.gov record the claim itself names: %s"
                     % (nct, ", ".join(sorted(set(nums)))))
+        return None
+
+    _JSON: dict = {}
+
+    def _record_json(self, nct: str):
+        """The results section as structured data, cached per process."""
+        if nct in Settler._JSON:
+            return Settler._JSON[nct]
+        import json as _json
+        import urllib.request
+        out = None
+        try:
+            url = ("https://clinicaltrials.gov/api/v2/studies/" + nct
+                   + "?fields=ResultsSection")
+            req = urllib.request.Request(
+                url, headers={"User-Agent": "civicscale-registry-check"})
+            out = _json.load(urllib.request.urlopen(req, timeout=30))
+        except Exception:
+            out = None
+        Settler._JSON[nct] = out
+        return out
+
+    def _annotation(self, nct: str, figure: str, quote: str) -> str | None:
+        """A quoted annotation the registry attaches to its own analyses.
+
+        WHY THIS IS SEPARATE FROM THE NUMBERS.
+
+        The claim that cost the most in the 2026-09-01 run was not a number:
+
+            PALOMA-2's ClinicalTrials.gov results posting annotates every
+            log-rank p-value as '1-sided p-value from the stratified log-rank
+            test'.
+
+            source:PALOMA-2 — ClinicalTrials.gov   $0.92  270,004 tok  8 searches
+
+        Eight web searches and ninety-two cents for a string comparison against
+        a document the API hands over in a second. It was the only claim in its
+        group the settler could not take, and one unsettled claim keeps the
+        whole group's call alive -- so it cost more than the three groups the
+        settler eliminated saved.
+
+        AND THE WORD "EVERY" IS THE POINT. Finding the string once would not
+        establish the claim; the claim is universal. So this does not search for
+        the string, it ENUMERATES: take the analyses whose statistical method
+        the claim names, and require that every one of them carries it. Three of
+        three, for PALOMA-2. If some carry it and some do not, the universal is
+        false or narrower than stated, and this stays silent and lets the model
+        and then a person deal with it.
+
+        Confirming a universal by finding one instance is the error this whole
+        apparatus exists to prevent. It would have been the cheap way to write
+        this function.
+        """
+        import re
+        fig = " ".join((figure or "").split()).strip().strip("'\u2018\u2019\"\u201c\u201d")
+        if len(fig) < 20 or re.fullmatch(r"[\d\s.,%()\u2013-]+", fig):
+            return None
+        doc = self._record_json(nct)
+        if not doc:
+            return None
+        try:
+            oms = doc["resultsSection"]["outcomeMeasuresModule"]["outcomeMeasures"]
+        except Exception:
+            return None
+
+        text = ((figure or "") + " " + (quote or "")).lower()
+        want = None
+        for key, needle in (("log-rank", "log rank"), ("log rank", "log rank"),
+                            ("fisher", "fisher"), ("cox", "cox"),
+                            ("chi-square", "chi-squar")):
+            if key in text:
+                want = needle
+                break
+
+        matched, carrying = [], []
+        for om in oms:
+            for a in om.get("analyses", []) or []:
+                method = (a.get("statisticalMethod") or "").lower()
+                comment = a.get("pValueComment") or ""
+                if want is not None:
+                    if want not in method:
+                        continue
+                elif not comment:
+                    continue
+                matched.append(a)
+                if fig.lower().rstrip(".") in " ".join(comment.split()).lower():
+                    carrying.append(a)
+
+        if matched and len(carrying) == len(matched):
+            return ("every one of the %d %sanalysis/analyses in %s carries this "
+                    "annotation verbatim -- enumerated in the record, not found "
+                    "once and generalised"
+                    % (len(matched), (want + " ") if want else "", nct))
         return None
 
     def summary(self) -> str:

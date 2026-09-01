@@ -1,0 +1,423 @@
+=== 008-regate-cdk46-page-past-cap
+=== queued job:
+{
+  "note": "Page gate past the cycle-1 cap, approved by the operator. Reason recorded in the run history by --past-cap, not just here. Also the first page run with registry_settle live: on the previous run's claims it settled 12 deterministically and emptied source:HARMONIA, source:MONALEESA-2 and source:MONALEESA-7. If those three appear in the cost breakdown, the pre-check is not working and that matters more than the $1.57.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": [
+    "../site/whatholdsup/cdk46.html",
+    "--since",
+    "../site/whatholdsup/cdk46.html.gate.json",
+    "--report",
+    "../site/whatholdsup/cdk46.html.gate.json",
+    "--past-cap",
+    "The two runs already in cycle 1 read different text from this one and from each other. Run 1 (21:31) read the page before the day's corrections. Run 2 (23:18) read that page and returned four real errors, one serious: a wall claimed over a paper our own ledger records as read; NEJM's p = 0.008 called one-sided when the registry's one-sided figure is 0.004, exactly half; both head-to-head trials described as finding no difference when HARMONIA terminated at 61 patients without reporting; and a block count that was our own arithmetic. All four are fixed, and the fixes are nine sentences no role has read. This run reads those. The cap's premise is that runs past it stop paying -- on issue two, runs 11 onwards returned phrasing notes. Run 2 of this cycle was not that: it paid for itself several times over, and the text it produced has never been checked. Operator approved 2026-09-01."
+  ]
+}=== started 2026-09-01T00:20:17Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+  Past the cap of 2, on the record: The two runs already in cycle 1 read different text from this one and from each other. Run 1 (21:31) read the page before the day's corrections. Run 2 (23:18) read that page and returned four real errors, one serious: a wall claimed over a paper our own ledger records as read; NEJM's p = 0.008 called one-sided when the registry's one-sided figure is 0.004, exactly half; both head-to-head trials described as finding no difference when HARMONIA terminated at 61 patients without reporting; and a block count that was our own arithmetic. All four are fixed, and the fixes are nine sentences no role has read. This run reads those. The cap's premise is that runs past it stop paying -- on issue two, runs 11 onwards returned phrasing notes. Run 2 of this cycle was not that: it paid for itself several times over, and the text it produced has never been checked. Operator approved 2026-09-01.
+
+Fact-checking cdk46.html (62,407 chars of prose) as of 2026-08-31
+
+[1/6] Extracting checkable claims...
+      95 claims extracted
+      registry pre-check: 7 figure(s) and 5 trial fact(s) confirmed at ClinicalTrials.gov
+      38 claim(s) unchanged since 1a4148389c13 — verdicts carried, 57 to check
+      10 internal claim(s) recorded, not source-checked
+[2/6] Source audit across 20 attributed source(s)...
+      6 claim(s) settled at the registry for nothing, before any model call (17 source(s) left to check)
+      checking  3 claim(s) against: NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version
+      checking  4 claim(s) against: MONARCH 3 — final overall survival. Ann Oncol, 2024
+      checking  2 claim(s) against: MONALEESA-2 — overall survival with ribociclib plus letrozole. N Engl 
+      checking  2 claim(s) against: MONALEESA-7 — overall survival. N Engl J Med, 2019
+      checking  1 claim(s) against: MONALEESA-7 — updated overall survival. Clin Cancer Res, 2022;28:851
+      checking  3 claim(s) against: PALOMA-2 — final overall survival. J Clin Oncol, 2024
+      checking  1 claim(s) against: PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427
+      checking  2 claim(s) against: Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, Februa
+      checking  7 claim(s) against: P-VERIFY — comparative overall survival of CDK4/6 inhibitors plus an a
+      checking  3 claim(s) against: PALMARES-2 — real-world comparison of first-line palbociclib, ribocicl
+      checking  2 claim(s) against: PALMARES-2 ASCO 2024 conference presentation
+      checking  4 claim(s) against: no source credited in the draft
+      checking  2 claim(s) against: Shaaban MHA et al. Asian Pac J Cancer Prev 2024;25(9):3039–3049
+      checking  1 claim(s) against: Tanguy et al., npj Breast Cancer, 2018
+      checking  1 claim(s) against: MONARCH 3 — final overall survival. Ann Oncol, 2024; MONALEESA-2 — ove
+      checking  2 claim(s) against: Indirect comparison from reconstructed patient data. Cancers, 2023;15(
+      checking  1 claim(s) against: MONARCH 3 — abemaciclib as initial therapy. J Clin Oncol, 2017
+[3/6] Recency sweep... carried (0d old, fresh under 7d — the literature does not move because we edited)
+[4/6] Subject's advocate...
+      7 objection(s), 3 serious
+[5/6] Statistical inference...
+      17 finding(s), 6 serious
+[6/6] Best coverage elsewhere... carried (0d old, fresh under 14d — other outlets did not republish because we edited)
+[WARN] 1 decision(s) quote a sentence that is no longer in cdk46.html. They can never match again — remove them:
+       [ADVOCATE] the draft cites PALMARES-2's abemaciclib-vs-ribociclib PFS result but 
+
+========================================================================
+CLAIMS   85 external · 79 verified · 6 not  (10 internal, not source-checkable)
+========================================================================
+
+  [OVERLAP · NOT_FOUND] 1-sided p-value from the stratified log-rank test
+     already decided about this claim, on other grounds: NCT01740427 carries this annotation on both posted overall-survival analyses, primary and final. Confirmed by direct API call.
+     draft credits : PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427
+     note          : The ClinicalTrials.gov results posting page for NCT01740427 returned only a stub in search results and could not be fully loaded to inspect the structured p-value field labels. The PALOMA-2 protocol and SAP (both hosted at cdn.clinicaltrials.gov/large-docs/27/NCT01740427/) do pre-specify a one-sided stratified log-rank test for the primary PFS endpoint, and published papers (extended follow-up, OS analysis) report 1-sided p-values from the stratified log-rank test; however, the NEJM primary publication reports a two-sided p-value, and the specific claim that the results posting labels *every* log-rank p-value as '1-sided p-value from the stratified log-rank test' could not be verified against the actual structured results tab, which I was unable to render.
+     checked       : https://clinicaltrials.gov/study/NCT01740427
+
+  [NEW · NOT_FOUND] HR 0.804 (0.637–1.015)
+     draft credits : Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024
+     source says   : HR 0.804 (0.637–1.015) is confirmed as the correct final OS figure for MONARCH 3 itself (Annals of Oncology 2024; PMC full text of the Scientific Reports paper does not display the per-trial HR table in the snippets retrieved)
+     really from   : The MONARCH 3 final OS figure (HR 0.804, 95% CI 0.637–1.015) is verified in the primary trial publication: Goetz et al., Annals of Oncology 2024, doi:10.1016/j.annonc.2024.02.006. Whether the Kappel Scientific Reports NMA table lists exactly this value could not be confirmed from the accessible portions of that paper.
+     note          : The HR 0.804 (0.637–1.015) is correct for MONARCH 3 final OS, but the Scientific Reports paper (Feb 7 2024) predates the Annals of Oncology publication (May 2024); the SABCS 2023 presentation made the figure public before the NMA was published. The NMA's per-trial table was not accessible in the retrieved snippets, so whether it lists exactly this value cannot be confirmed from the source itself — only that the figure is real and attributable to MONARCH 3 final OS.
+     checked       : https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext
+
+  [OVERLAP · WRONG_VALUE] category 1
+     already decided about this claim, on other grounds: The role reported that palbociclib also carries category 1 with fulvestrant, which would make our sentence a selective omission. It does not. NCCN v6.
+     draft credits : NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026
+     source says   : Ribociclib + fulvestrant is category 1; abemaciclib + fulvestrant is category 1; palbociclib + fulvestrant is NOT category 1 — this part is correct. However, the claim as written is verified for the fulvestrant combinations. The complication is that the attributed source is v6.2026, which I cannot access directly; the most recent verifiable version is v4.2026 (JNCCN July 2026), which confirms ribociclib and abemaciclib as category 1 with fulvestrant and palbociclib as category 2A with AI. Palbociclib's category with fulvestrant specifically is not explicitly stated in the v4.2026 JNCCN text retrieved, but all secondary sources confirm it is not category 1 with fulvestrant.
+     really from   : JNCCN Breast Cancer v4.2026 (July 2026) confirms ribociclib cat 1 with AI, abemaciclib and palbociclib cat 2A with AI; OncLive (Feb 2026) and Pharmacy Times confirm ribociclib and abemaciclib cat 1 with fulvestrant, palbociclib not listed as cat 1 with fulvestrant
+     note          : The claim that palbociclib is not category 1 with fulvestrant appears correct and consistent across all sources; however, the attributed version (v6.2026) could not be directly accessed — only v4.2026 (July 2026) was verifiable. The substance of the claim is supported but cannot be confirmed against v6.2026 specifically.
+     checked       : https://jnccn.org/view/journals/jnccn/24/7/article-e260033.xml
+
+  [NEW · NOT_FOUND] PMID 41093689
+     note          : The MONARCH 3 corrigendum exists on ScienceDirect (pii/S0923753425008518), but I could not reach the Europe PMC record for PMID 41093689 directly; no search result returned that specific Europe PMC page or confirmed its open-access status there — absence of access, not absence of the record.
+     checked       : https://europepmc.org/
+
+  [NEW · WRONG_VALUE] HR 0.56 (0.45–0.70)
+     draft credits : NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026
+     source says   : Primary analysis (NEJM 2016): HR 0.556, 95% CI 0.429–0.720. Updated analysis (Ann Oncol 2018): HR 0.568, 95% CI 0.457–0.704. NEJM OS paper (2022) rounds the updated PFS HR to 0.57, 95% CI 0.46–0.70. No source gives HR 0.56 with CI 0.45–0.70.
+     really from   : NEJM 2016 primary analysis (Hortobagyi et al., DOI 10.1056/NEJMoa1609709); Ann Oncol 2018 updated analysis; NEJM 2022 OS paper (DOI 10.1056/NEJMoa2114663)
+     note          : The lower CI bound of 0.45 does not appear in any primary MONALEESA-2 publication for the ITT PFS analysis at any readout. The primary analysis gives 0.43–0.72 (rounded to 0.56) and the updated analysis gives 0.457–0.704 (rounded to 0.57, 0.46–0.70 in the NEJM OS paper). The draft's CI of 0.45–0.70 is a hybrid that matches no single published analysis.
+     checked       : https://www.annalsofoncology.org/article/S0923-7534(19)32105-2/fulltext
+
+  [NEW · WRONG_VALUE] cumulative two-sided type I error of 0.05 was divided between the intention-to-treat population and a visceral-disease subgroup, and spent across interim and final analyses under an O'Brien-Fleming spending function
+     draft credits : MONARCH 3 — final overall survival. Ann Oncol, 2024
+     source says   : The paper states: 'The cumulative type I error rate within each population was maintained using the Lan–DeMets spending function with O'Brien–Fleming boundary.' The spending function is Lan–DeMets; O'Brien–Fleming describes the boundary shape used within that function. The total two-sided type I error of 0.05 was split between ITT (0.04) and sVD (0.01) via a graphical approach, not simply 'divided between' the two populations as the draft implies.
+     really from   : Goetz et al., Ann Oncol 2024;35(8):718-727, statistical methods section; also confirmed in SABCS 2023 slide deck (Goetz, assets.ctfassets.net)
+     note          : The draft calls it an 'O'Brien-Fleming spending function'; the paper specifies it is the Lan–DeMets spending function with an O'Brien–Fleming-type boundary — these are not the same thing. The spending function is Lan–DeMets; O'Brien–Fleming is the boundary shape. The alpha split (0.04 ITT / 0.01 sVD) and the graphical testing procedure are correctly described, but the name of the spending function is imprecise in a way that could mislead a statistically literate reader.
+     checked       : https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext
+
+  A NOT_FOUND means we could not REACH a source, not that none exists.
+  Open any URL above before treating one as a finding — and check
+  whether COVERAGE cited the same page, because it often has the link.
+
+  Internal claims — no external source can confirm these. Check them
+  against your own records before publishing:
+     · 97%
+     · 0.29 ÷ 0.30 = 96.7%
+     · eight hundredths and a half in where an upper bound landed, on point estimates four hundredths apart
+     · eighteen fact-check runs on this page and six on the summary email
+     · an outside reader then reviewed it against the standards, without being shown any of our own findings, and returned three findings and one unsourced suspicion
+     · Published 28 August 2026 · Updated 31 August 2026
+     · an outside reviewer found two more that we had missed
+     · found by our own gate, on the run that read the correction which introduced it
+     · an automated check reached the paper on 29 August
+     · the fix had been written a day earlier and had not reached the live site
+
+========================================================================
+RECENCY  7 assessed · 1 superseded or unknown
+========================================================================
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  EVERY FINDING BELOW IS A CLAIM ABOUT SOMEBODY ELSE'S DOCUMENT.
+  This role has not opened that document. It has read search results
+  about it. Do not put any of this on the page until you have opened
+  the source and read the sentence yourself.
+
+  On 2026-08-29 this role reported, over three runs, that a published
+  meta-analysis had used a superseded MONARCH 3 figure. It had not.
+  The claim went onto the page as a disclosure -- 'we would rather say
+  so than have it found' -- and an outside reviewer opened the paper's
+  Table 1 and corrected us. No further gate run could have caught it:
+  the gate wrote it, and no role here audits another role's output.
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  [SUPERSEDED] Network meta-analysis of CDK4/6 inhibitors (7 phase III RCTs, 4,415 patients, 73.3 months median follow-up)
+     draft uses    : No statistically significant difference in OS between any pair of the three CDK4/6 inhibitors; 7 phase III RCTs, 4,415 patients, 73.3 months median follow-up
+     latest known  : Scientific Reports, February 2024 (Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer). This is the paper the draft describes. However, its MONARCH 3 data input was the interim OS analysis (HR 0.754, 5.8 years follow-up), which has since been superseded by the final OS analysis (HR 0.804, 8.1 years, May 2024). A newer Lancet Oncology reconstructed individual patient data meta-analysis (Beshr et al., 2026) exists but addresses CDK4/6i vs endocrine therapy alone, not head-to-head drug comparisons.
+     changes       : The NMA incorporated the MONARCH 3 interim OS HR of 0.754 (95% CI 0.584–0.974, 5.8 years follow-up) as its MONARCH 3 data point. The final MONARCH 3 OS analysis (May 2024, 8.1 years) gives HR 0.804 (95% CI 0.637–1.015). The point estimate and interval both shifted — the final HR is less favorable for abemaciclib and the CI now crosses 1.0 (non-significant), whereas the interim HR did not cross 1.0. The NMA's conclusion of no significant OS difference between drugs is directionally unchanged, but the underlying MONARCH 3 figure it used is now outdated. The draft does not itself quote the NMA's internal MONARCH 3 HR, so no draft figure is directly wrong, but the NMA it cites as evidence was built on superseded MONARCH 3 data.
+     source        : https://www.nature.com/articles/s41598-024-53151-8
+     BEFORE ACTING : open the source above and read the sentence.
+
+========================================================================
+FAIRNESS 7 objection(s) · 3 serious
+========================================================================
+
+  [NEW · SERIOUS · FACT] The draft says HARMONIA does not contradict the guideline sentence because it is 'not first line with an aromatase inhibitor,' but HARMONIA enrolled both first- and second-line patients and allowed letrozole as the endocrine therapy partner.
+     quote         : “Neither is first line with an aromatase inhibitor, which is why neither contradicts the guideline sentence.”
+     why           : HARMONIA (NCT05207709) randomised patients to ribociclib or palbociclib plus letrozole OR fulvestrant, and enrolled patients in the first or second line. It is not excluded from the first-line aromatase-inhibitor setting by its design. The reason it does not contradict the guideline sentence is that it was restricted to the HER2-enriched intrinsic subtype — a molecularly selected population distinct from the unselected HR+/HER2- population the guideline sentence describes. The draft's stated reason is factually wrong, and a reader checking the registry will find it.
+     fix           : Replace 'Neither is first line with an aromatase inhibitor' with 'Neither enrolled the unselected HR+/HER2- population the guideline sentence describes: the Shaaban trial is second-line with fulvestrant, and HARMONIA, though it allowed letrozole and first-line patients, was restricted to the HER2-enriched intrinsic subtype.'
+
+  [NEW · SERIOUS · FACT] The draft says the Shaaban trial was 'powered on response rate' in both the body and the sources section, but the paper's stated primary endpoint is clinical benefit rate (CBR), not objective response rate.
+     quote         : “the trial being powered on response rate”
+     why           : Clinical benefit rate (CBR) and objective response rate (ORR/response rate) are different endpoints: CBR includes stable disease of ≥24 weeks duration, ORR does not. The paper's abstract states 'Assessment of CBR, PFS, QOL and toxicity profile' as its aim, and the methods confirm CBR as the primary endpoint. Calling it 'response rate' misstates the trial's design and, in a piece whose entire argument turns on precision about what trials were built to measure, this is a material error.
+     fix           : Replace 'response rate' with 'clinical benefit rate (CBR)' in both the body text and the sources entry.
+
+  [NEW · SERIOUS · FACT] The sources section repeats the same 'response rate' error for the Shaaban trial's power calculation.
+     quote         : “its power calculation is on response rate”
+     why           : Same error as above, in the sources section. The paper's primary endpoint is CBR, not response rate. Two instances of the same factual error in the same piece need two corrections.
+     fix           : Replace 'response rate' with 'clinical benefit rate (CBR)' in the sources entry for the Shaaban paper.
+
+  [NEW · MINOR · CALIBRATION] The draft says the Cancers 2023 paper 'estimated every pairwise difference directly,' using 'directly' in a way that could be read as claiming a direct comparison equivalent to a head-to-head trial.
+     quote         : “rebuilt patient-level survival curves from PALOMA-2, MONALEESA-2 and MONARCH 3 — 1,827 patients — and estimated every pairwise difference directly”
+     why           : The word 'directly' here means the statistical method produced pairwise estimates without going through a network node, not that the patients were directly randomised against each other. The piece correctly labels this study an 'indirect comparison' in the sources section and in the 'What this comparison cannot show' section, but 'estimated every pairwise difference directly' in the body could mislead a reader into thinking this is stronger evidence than it is. The sources section's label 'indirect comparison from reconstructed patient data' is the accurate description.
+     fix           : Replace 'estimated every pairwise difference directly' with 'estimated every pairwise difference in a single model, without going through a network node' or similar, to avoid implying the comparison is direct in the clinical sense.
+
+  [NEW · MINOR · CALIBRATION] The draft characterises the Tanguy 2018 paper as arguing that 'MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2,' omitting that the paper also included MONALEESA-7 in its analysis and found all three MONALEESA trials had similar power to PALOMA-2.
+     quote         : “arguing that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference”
+     why           : The Tanguy paper compared all four trials — PALOMA-2, MONALEESA-2, MONALEESA-7, and MONARCH-3 — and found PALOMA-2 and the MONALEESA trials had 'almost similar power' while MONARCH-3 had 'more limited power.' Omitting MONALEESA-7 from the characterisation is not wrong but is incomplete, and in a piece that is careful about scope it is worth being precise about what the paper actually compared.
+     fix           : Add 'and MONALEESA-7' after 'MONALEESA-2' so the sentence reads 'arguing that MONARCH 3 was less powered than PALOMA-2, MONALEESA-2 and MONALEESA-7 to detect a survival difference.'
+
+  [NEW · MINOR · CALIBRATION] The draft says the MONARCH 3 significance threshold was reached by dividing alpha 'between the intention-to-treat population and a visceral-disease subgroup' but does not say which operation came first — the graphical testing procedure or the O'Brien-Fleming spending — and then says 'whatever the order of those two operations... the arithmetic that reaches the reader is the same.' This is presented as a resolution but is actually an unresolved uncertainty about the trial's design that the draft acknowledges it cannot source.
+     quote         : “Whatever the order of those two operations — and an earlier version of this page asserted an order it could not source — the arithmetic that reaches the reader is the same: the final overall-survival analysis faced .034, not .05.”
+     why           : The draft correctly discloses that it cannot source the order of operations, but then uses 'whatever the order' to wave past the uncertainty. If the order matters to the threshold — and the draft implies it might — then saying 'the arithmetic is the same' needs a source or a demonstration, not just an assertion. The draft's own gate objected to this eight times. The disclosure is honest but the resolution is not fully supported.
+     fix           : Either source the claim that the threshold is .034 regardless of the order of operations, or add a sentence acknowledging that the .034 figure comes from the SABCS 2023 presentation and that the page relies on that figure without being able to reconstruct the full spending schedule.
+
+  [NEW · MINOR · CALIBRATION] The draft says the PALMARES-2 registry record 'posts an estimated enrolment of 3,500 and still shows the study recruiting,' which it presents as a tension with the paper reporting on 1,982 patients, but does not note that PALMARES-2 is a multi-sub-study programme and the 3,500 figure may refer to the whole programme rather than the real-world data sub-study the paper reports.
+     quote         : “its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recruiting) has no results posted, though the paper itself already reports on 1,982”
+     why           : The PALMARES-2 protocol document shows it is a multi-sub-study programme. The 3,500 estimated enrolment likely covers all sub-studies, not just the real-world data sub-study that the Annals of Oncology paper reports. Presenting the discrepancy between 3,500 and 1,982 as unexplained, without noting this structural reason, implies a more serious inconsistency than may exist.
+     fix           : Add a parenthetical noting that PALMARES-2 is a multi-sub-study programme and the 3,500 figure may cover the full programme, so the discrepancy with the 1,982-patient paper may reflect sub-study scope rather than a registry anomaly.
+
+========================================================================
+INFERENCE 17 finding(s) · 6 serious
+========================================================================
+
+  [NEW · SERIOUS · FACT] The draft describes overall survival as an 'exploratory endpoint' in PALMARES-2, but the study's own registry record and the 2025 ASCO updated abstract (NCT06805812 / Provenzano et al., JCO 2025 suppl.) state that overall survival is the primary endpoint of the PALMARES-2 study, with rwPFS as a secondary endpoint. The published Annals of Oncology paper designates rwPFS as the primary endpoint of 'this analysis' — a data-cut analysis, not the study's pre-registered primary — and the draft conflates the two, calling OS exploratory when it is the study's registered primary outcome.
+     quote         : “PALMARES-2 ( Annals of Oncology, April 2025 ) followed 1,982 patients across eighteen Italian centres and weighted them the same way. On progression-free survival it found abemaciclib ahead of palbociclib at an adjusted hazard ratio of 0.76 (0.63–0.92), p = 0.004 , and ribociclib ahead of palbociclib at 0.83 (0.73–0.95), p = 0.007 . It also reports overall survival, as an exploratory endpoint, pointing the same way.”
+     evidence says : The published Annals of Oncology paper designates rwPFS as the primary endpoint of that first data-cut analysis; OS is reported secondarily in that paper. However, the PALMARES-2 study's registered primary endpoint is overall survival, with rwPFS as a secondary endpoint. Calling OS 'exploratory' mischaracterises the study's design; the more accurate description is that OS results in the published paper are from an immature, secondary analysis of a study whose pre-registered primary endpoint is OS.
+     fix           : Replace 'as an exploratory endpoint' with 'as a secondary endpoint in this analysis, though overall survival is the study's registered primary endpoint; the authors describe the data as immature at this cut.'
+
+  [NEW · MINOR · CALIBRATION] The draft states the registry 'still shows the study recruiting' and 'has no results posted', but the published Annals of Oncology paper (April 2025) reports results on 1,982 patients from this study, and the 2025 ASCO abstract reports updated results on a larger cohort. The absence of results on the registry page does not mean the study has no results — it means the registry has not been updated with them. The draft's own text acknowledges the paper 'already reports on 1,982', making the sentence 'has no results posted' a statement about the registry, not about the study — but the surrounding construction implies the study's results are in doubt, which slides from absence of a registry posting to absence of results.
+     quote         : “Its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recruiting) has no results posted”
+     evidence says : The registry has no results posted, but the study has published results in a peer-reviewed journal. The absence of a registry posting is a registry-maintenance issue, not evidence that results are unavailable or unreliable.
+     fix           : Replace 'has no results posted' with 'has no results posted to the registry, though the paper itself reports on 1,982 patients enrolled.' Remove or qualify the implication that the registry status casts doubt on the published findings.
+
+  [NEW · SERIOUS · CONTRADICTION] The draft later corrects itself by noting that PALOMA-2 was powered for overall survival and MONARCH 3 was not — but this sentence, which will be read and quoted on its own, implies all four trials were powered only for progression-free survival. That is false for PALOMA-2. The sentence contradicts the draft's own later correction.
+     quote         : “On the endpoint every one of these trials was powered to measure, nothing separates them.”
+     evidence says : All four trials were powered for progression-free survival as their primary endpoint, and on that endpoint nothing separates them. PALOMA-2 was additionally powered for overall survival; MONARCH 3 was not.
+     fix           : Replace with: 'On progression-free survival — the primary endpoint all four trials were powered to measure — nothing separates them.'
+
+  [NEW · MINOR · CALIBRATION] This sentence correctly notes that 'secondary endpoint' covers both powered and unpowered analyses, but it refers to 'all three' when the table and surrounding text cover four trials (MONARCH 3, MONALEESA-2, MONALEESA-7, PALOMA-2). MONALEESA-7 is excluded from the interval chart but is discussed in the power paragraph. The count 'all three' is ambiguous at best and wrong if it refers to the three postmenopausal aromatase-inhibitor trials, since MONALEESA-2's survival analysis was also a secondary endpoint and the sentence is making a point about the class of endpoint, not the population.
+     quote         : “Survival was a secondary endpoint in all three — which, as the paragraph above shows, covers both a powered analysis and an unpowered one.”
+     evidence says : Overall survival was a secondary endpoint in all four trials discussed, covering both powered (PALOMA-2) and unpowered (MONARCH 3) analyses, and the distinction matters for interpreting null results.
+     fix           : Replace 'all three' with 'all four trials discussed here' or, if the sentence is intentionally scoped to the three postmenopausal aromatase-inhibitor trials, say so explicitly.
+
+  [NEW · MINOR · CALIBRATION] This is a derived figure computed by the draft itself from rounded published bounds, and the draft discloses this. However, the sentence presents the 97% figure as a standalone claim about the evidence without the qualification that it is a function of abemaciclib's wide interval (itself a consequence of lower power) rather than of the closeness of the two point estimates alone. The draft does add this caveat in the next sentence, but the 97% figure will be quoted without it. This is a calibration issue, not a factual error — the arithmetic is correct and the caveat is present — but the sentence as a standalone overstates what the overlap demonstrates.
+     quote         : “97% of ribociclib's interval lies inside abemaciclib's”
+     evidence says : The 97% overlap is arithmetically correct but is as much a function of abemaciclib's wide interval (lower power) as of the closeness of the point estimates. The figure illustrates scale but does not independently establish similarity of effect.
+     fix           : Merge the caveat into the same sentence: '97% of ribociclib's interval lies inside abemaciclib's — a figure that reflects abemaciclib's wider interval as much as the closeness of the two point estimates.'
+
+  [NEW · MINOR · CALIBRATION] The 'eight and a half hundredths' figure (0.085, the gap between upper bounds 0.93 and 1.015) is presented as the sole thing separating the categories, but the category difference also reflects the different significance thresholds the two trials faced: MONALEESA-2 used a one-sided test at cumulative 2.5%, while MONARCH 3 used a two-sided test with alpha split between subgroups and spent under an O'Brien-Fleming function, yielding a final threshold of 0.034. The draft explains this elsewhere but this sentence, read alone, implies the only operative difference was where a bound landed — not that the two bounds were measured against different bars.
+     quote         : “What separates a category 1 from a category 2A here is eight and a half hundredths in where an upper bound landed, on point estimates four hundredths apart.”
+     evidence says : The category difference reflects both where the upper bounds landed and the different significance thresholds the two trials faced. The bound difference is the most visible expression of the distinction, but it is not the only one.
+     fix           : Add: 'What separates a category 1 from a category 2A here is eight and a half hundredths in where an upper bound landed, on point estimates four hundredths apart — and the fact that those bounds were judged against different thresholds, as the section above describes.'
+
+  [NEW · MINOR · CALIBRATION] The Tanguy 2018 paper (confirmed by search) states that 'PALOMA-2 and MONALEESA trials have an almost similar power despite different allocation ratios, while MONARCH-3 has a more limited power.' The draft's characterisation is accurate for MONARCH 3 versus PALOMA-2 and MONALEESA-2, but the paper's framing groups MONALEESA-2 and MONALEESA-7 together as 'MONALEESA trials' with similar power to PALOMA-2. The draft's summary is not wrong, but it omits that Tanguy found PALOMA-2 and MONALEESA-2 to have 'almost similar power' — a finding that slightly complicates the draft's broader argument that PALOMA-2's null result comes from a better-powered analysis than MONARCH 3's near-miss.
+     quote         : “Tanguy and colleagues made it formally in npj Breast Cancer in 2018 , before any of these trials had mature survival data, arguing that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference”
+     evidence says : Tanguy et al. found PALOMA-2 and the MONALEESA trials had similar power to each other, and MONARCH 3 had more limited power than all of them. The draft's characterisation of MONARCH 3 as less powered is accurate; the omission of PALOMA-2 and MONALEESA-2's similar power to each other is a minor incompleteness.
+     fix           : Expand to: 'arguing that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference — and that PALOMA-2 and MONALEESA-2 had almost similar power to each other.'
+
+  [NEW · SERIOUS · CONTRADICTION] The draft's own correction note (31 August) records that the paper gives its pooled median follow-up as 73.3 months in the abstract and 70.2 months in the results section, and states 'we cannot say which is correct.' The body text still prints only 73.3 months without the disclosed discrepancy, even though the correction section at the bottom of the same document flags it. A reader who reads only the body — the majority — will see only 73.3 months and not know the paper itself prints two different figures.
+     quote         : “A network meta-analysis ( Scientific Reports, February 2024 ) pooled seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months.”
+     evidence says : The paper prints two different figures for pooled median follow-up (73.3 months in the abstract, 70.2 months in the results section) and the draft cannot determine which is correct. Both should appear in the body text, not only in the correction footnote.
+     fix           : Replace '73.3 months' with '73.3 months (abstract) or 70.2 months (results section) — the paper states both and this page cannot determine which is correct.'
+
+  [NEW · SERIOUS · CONTRADICTION] The draft later establishes — and records as a correction — that two randomised head-to-head trials do exist (Shaaban et al. and HARMONIA), both of ribociclib against palbociclib, and that the guideline sentence is accurate only within its scope of first-line aromatase-inhibitor combinations. This sentence in the body, appearing before the scoping discussion, presents the guideline's statement as a claim about all clinical trials without the scope qualification. A reader who stops here will take away an unqualified claim that no head-to-head trials exist, which the draft itself has corrected.
+     quote         : “The guideline also records that the three drugs have not been directly compared in clinical trials.”
+     evidence says : The guideline records that the three drugs have not been directly compared in clinical trials in the first-line aromatase-inhibitor setting. Two head-to-head trials of ribociclib versus palbociclib exist in other settings.
+     fix           : Replace with: 'The guideline also records that the three drugs have not been directly compared in clinical trials — a statement that is accurate in the first-line aromatase-inhibitor setting, as the section below explains.'
+
+  [NEW · SERIOUS · CONTRADICTION] The statement 'neither separated them' is accurate for Shaaban et al. but is not established for HARMONIA, which terminated at 61 patients and never reported efficacy results. Saying HARMONIA 'did not separate them' implies a null efficacy result, when the correct statement is that HARMONIA produced no efficacy result at all. The draft elsewhere correctly says HARMONIA 'establishes that the comparison was attempted and nothing about its answer', making this sentence a contradiction of that more careful formulation.
+     quote         : “Two randomised trials have tested one of these drugs against another — both ribociclib against palbociclib, both outside the first-line aromatase-inhibitor setting, and neither separated them. None has tested abemaciclib against either of the others, which is the pair the category difference turns on.”
+     evidence says : Shaaban et al. found no significant difference between ribociclib and palbociclib. HARMONIA terminated at 61 patients without reporting efficacy results and establishes nothing about whether the drugs differ.
+     fix           : Replace 'neither separated them' with 'one found no significant difference between them (Shaaban et al.) and the other terminated at 61 patients without reporting efficacy results (HARMONIA).'
+
+  [NEW · MINOR · CALIBRATION] 'A thin basis for either conclusion' implies that both 'no difference' and 'a difference exists' are equally unsupported by the two trials taken together. But the Shaaban trial did report a result (no significant difference), so 'no difference' has one trial's support. The phrase 'thin basis for either conclusion' treats the two conclusions symmetrically when they are not: one has a reported result behind it and the other has none.
+     quote         : “Of the two that have been run — both ribociclib against palbociclib, elsewhere in the treatment course — one found no difference and the other stopped at 61 patients and never reported, which is a thin basis for either conclusion.”
+     evidence says : Shaaban et al. supports 'no significant difference' in that setting; HARMONIA supports neither conclusion. Together they are a thin basis for generalising, but the asymmetry should be stated.
+     fix           : Replace with: 'one found no significant difference and the other stopped at 61 patients without reporting — a thin basis for generalising, and no basis at all for the conclusion that a difference exists.'
+
+  [NEW · MINOR · CALIBRATION] This is sound as written and is not a finding. Recorded here only to confirm it was checked.
+     quote         : “Whether anybody will run a first-line trial is not something this page knows; an earlier version asserted that nobody would, which was a prediction about the decisions of companies and funding bodies we have not asked and cannot read.”
+     evidence says : No inference error. The sentence correctly identifies a prior overreach and retracts it.
+     fix           : No change needed.
+
+  [NEW · MINOR · CALIBRATION] The 2025 ASCO updated abstract of PALMARES-2 (Provenzano et al., JCO 2025 suppl.) reports that after IPTW adjustment, 'only R was associated with better OS' compared to palbociclib, and that 'R and A did not show significant rwPFS, TTC or OS differences' — implying an abemaciclib-versus-ribociclib OS comparison was performed and found non-significant. If that updated analysis contains an abemaciclib-versus-ribociclib OS figure, the draft's claim that PALMARES-2 'publishes no abemaciclib-versus-ribociclib survival figure' may be incorrect for the updated data, though it may be accurate for the published Annals of Oncology paper. The draft should distinguish between the published paper and the conference update.
+     quote         : “PALMARES-2 publishes no abemaciclib-versus-ribociclib survival figure, so on that pairing the survival evidence is P-VERIFY's and the meta-analysis's.”
+     evidence says : The published Annals of Oncology paper may not report an abemaciclib-versus-ribociclib OS figure, but the 2025 ASCO updated abstract indicates that abemaciclib and ribociclib did not differ significantly on OS in the updated analysis. The claim should be scoped to the published paper.
+     fix           : Replace with: 'The published Annals of Oncology paper does not report an abemaciclib-versus-ribociclib overall survival figure; the 2025 ASCO update of the same study reports no significant OS difference between the two but does not give a hazard ratio this page can cite to a primary source.'
+
+  [NEW · MINOR · CALIBRATION] 'Eleven thousand patients across two cohorts' refers to P-VERIFY (9,146) and PALMARES-2 (1,982), totalling approximately 11,128. But the two cohorts overlap in what they measure: both include patients on all three drugs, so the 11,000 figure double-counts the patient population conceptually (different databases, but the same claim is being made about the same drug pair). More importantly, the sentence 'not one of them can tell abemaciclib and ribociclib apart' is accurate for the four comparative studies but the rhetorical force of '11,000 patients' implies a pooled analysis, which it is not. The studies are independent and cannot be summed as though they were.
+     quote         : “Eleven thousand patients across two cohorts, two endpoints, and a disagreement between them about a third drug. Not one of them can tell abemaciclib and ribociclib apart.”
+     evidence says : P-VERIFY enrolled 9,146 patients and PALMARES-2 enrolled 1,982; these are separate cohorts and their patient counts cannot be added to imply a pooled sample. Each independently found no significant abemaciclib-versus-ribociclib difference.
+     fix           : Replace 'Eleven thousand patients across two cohorts' with 'Across two independent real-world cohorts — 9,146 patients in P-VERIFY and 1,982 in PALMARES-2 —'.
+
+  [NEW · MINOR · CALIBRATION] The draft does not establish that the guideline's sentence is scoped to first-line aromatase-inhibitor combinations — it asserts this as the correct reading. The draft states it read the guideline directly but cannot reproduce the exact wording. If the guideline's sentence is unscoped (i.e., says simply that the drugs have not been directly compared in clinical trials, without specifying the setting), then the draft's claim that it 'is about first-line aromatase-inhibitor combinations' is the draft's own interpretive gloss, not the guideline's statement. This matters because the draft uses this scoping to exonerate the guideline from the error the draft itself made in its first version.
+     quote         : “The guideline's own sentence, that the CDK4/6 inhibitors have not been directly compared in clinical trials , is about first-line aromatase-inhibitor combinations and is accurate in that scope.”
+     evidence says : The draft should either quote the guideline's exact sentence and let the reader assess its scope, or acknowledge that the scoping is the draft's interpretation of an unscoped statement.
+     fix           : Add a parenthetical: 'The guideline's own sentence — [exact wording] — is about first-line aromatase-inhibitor combinations (or, if unscoped, is accurate only when read in that context).'
+
+  [NEW · SERIOUS · CONTRADICTION] The sentence 'it will not now call that no movement' implies the 0.04 shift in the hazard ratio (0.96 to 0.92) is meaningful in the same way the 0.04 difference between MONARCH 3 and MONALEESA-2 point estimates is meaningful. But the two contexts are different: the 0.04 between trial point estimates is used to argue the drugs are similar; the 0.04 shift in the sensitivity analysis is used to argue the missing-data correction made a real difference. Using the same number to argue both 'this is too small to distinguish drugs' and 'this is large enough to matter in a sensitivity analysis' is internally inconsistent without an explanation of why the same magnitude carries different weight in the two contexts.
+     quote         : “A sensitivity analysis using recovered data cut the unknowns to 9.2% and 11.7% and moved the hazard ratio from 0.96 to 0.92 (0.76–1.12) . Four hundredths — and this piece has spent several hundred words on what four hundredths does and does not establish, so it will not now call that no movement.”
+     evidence says : A 0.04 shift in a hazard ratio is used elsewhere in the draft to argue that two drugs cannot be distinguished. Using the same magnitude to argue that a sensitivity analysis produced meaningful movement is inconsistent unless the draft explains why the contexts differ (e.g., direction of shift, interval behaviour, or the specific claim being made).
+     fix           : Add an explicit acknowledgement of the tension: 'Four hundredths — the same magnitude this piece elsewhere treats as too small to distinguish drugs. The difference here is that the shift moves the estimate further from the no-effect line, not that the magnitude itself is large; the interval still runs through 1.0 and the conclusion does not change.'
+
+  [NEW · MINOR · CALIBRATION] The draft states 'it does not call that figure one-sided, because it is not' — meaning the NEJM's P = 0.008 is a two-sided p-value. But the draft also establishes that the underlying test was one-sided (at cumulative 2.5%), and that 0.008 is twice the one-sided p of 0.004. A two-sided p-value derived by doubling a one-sided test statistic is not the same as a p-value from a two-sided test: it is the one-sided result expressed on a two-sided scale. The draft's statement that the NEJM figure 'is not' one-sided is therefore ambiguous at best and misleading at worst — the number is the two-sided expression of a one-sided test, not the result of a two-sided test.
+     quote         : “the p = 0.008 in the table above is not that test's p-value. The registry posts the result as p = 0.004 , alongside HR 0.765 (0.628–0.932); the NEJM paper prints P = 0.008 alongside HR 0.76 (0.63–0.93). Those are the same comparison, and 0.008 is exactly twice 0.004 — which is what a one-sided and a two-sided presentation of one log-rank test look like side by side. This page prints the journal's figure, because the journal is what a reader will find, and it does not call that figure one-sided, because it is not.”
+     evidence says : The NEJM's P = 0.008 appears to be the two-sided expression of a one-sided test (double the registry's one-sided p = 0.004). It is not the result of a two-sided test. The draft should say so rather than simply saying the figure 'is not' one-sided.
+     fix           : Replace 'it does not call that figure one-sided, because it is not' with 'it does not call that figure one-sided; it appears to be the two-sided expression of the one-sided test result, not the output of a two-sided test, and this page cannot confirm that from the journal paper alone.'
+
+========================================================================
+COVERAGE 6 careful treatment(s) elsewhere · 4 contradiction(s), 0 serious
+========================================================================
+
+  Scientific Reports (Elliott et al., February 2024)
+     got right     : Correctly performed a network meta-analysis of seven phase III RCTs (4,415 patients) and found no statistically significant OS difference between any pair of the three CDK4/6 inhibitors. Explicitly noted the absence of direct comparisons as the reason for the indirect method. Also reported that in the AI-backbone subgroup, palbociclib had a non-significantly worse OS vs ribociclib and abemaciclib (HR 1.26 and 1.19 respectively, both non-significant), preserving the nuance that palbociclib's result is directionally different even if not statistically separable. Reported safety differences (GI toxicity, neutropenia, diarrhea, discontinuation rates) between the three drugs.
+     still omitted : Does not address the NCCN category grading system or explain what the category 1 vs 2A distinction means for clinical practice. Does not discuss the cardiac monitoring burden unique to ribociclib as a countervailing consideration. Does not note that MONARCH 3 OS was a secondary endpoint with limited power, or that the trial's OS analysis was originally planned as part of a pooled analysis with MONARCH 2.
+     https://www.nature.com/articles/s41598-024-53151-8
+
+  Annals of Oncology — MONARCH 3 final OS (Goetz et al., May 2024)
+     got right     : Published the prespecified final OS results for MONARCH 3: HR 0.804 (95% CI 0.637–1.015; P=0.0664, non-significant) after a median follow-up of 8.1 years. Correctly preserved the composite picture — statistically significant PFS benefit (HR 0.535) persisting at final analysis, but OS not reaching significance. This is the definitive source for the MONARCH 3 OS figure the draft uses.
+     still omitted : Does not compare MONARCH 3's OS result to MONALEESA-2's in the context of what the difference in statistical significance means for guideline grading. Does not discuss whether the OS discrepancy between trials reflects drug differences or trial-design differences (power, population, follow-up).
+     https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext
+
+  Flatiron Health / PMC real-world study (published January 2025)
+     got right     : Largest real-world comparative OS analysis of all three CDK4/6 inhibitors plus AI. Used stabilised inverse-probability of treatment weighting (sIPTW). Found no significant OS differences: ribociclib vs palbociclib aHR 0.98 (P=0.7531), abemaciclib vs palbociclib aHR 0.95 (P=0.4292), abemaciclib vs ribociclib aHR 0.97 (P=0.6956). Sensitivity analyses confirmed findings. Correctly described as the largest such real-world study.
+     still omitted : The paper itself frames the absence of RCTs as the reason for the study, using the phrase 'in the absence of RCTs to directly compare' — it does not characterise its own design as a 'direct comparison,' which is a semantic distinction the draft makes but the paper does not. Does not address NCCN category grading or the cardiac monitoring asymmetry.
+     https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/
+
+  ASCO Post — PALOMA-2 OS coverage (August 2022 and February 2024)
+     got right     : Explicitly reported the missing survival data imbalance (13.3% vs 21.2%) and stated that 'interpretation of these overall survival data was limited' because of it. Also reported the recovered-data analysis (HR 0.92 after data recovery), which the draft does not mention. Correctly identified OS as a secondary endpoint.
+     still omitted : Does not compare the PALOMA-2 OS result to MONALEESA-2 or MONARCH 3 in the context of what the difference means for guideline grading. Does not discuss the statistical power argument — that the OS discrepancy may reflect chance rather than drug differences.
+     https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/
+
+  npj Breast Cancer — power analysis (Jacot et al., 2018)
+     got right     : Explicitly argued that 'if a significant OS improvement is observed in some but not all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy.' Calculated that the power of all four trials to demonstrate a statistically significant OS improvement is less than 70% if the OS gain is ≤12 months. Correctly identified OS as a secondary endpoint in all three trials. Noted MONARCH 3's OS analysis was originally planned as a pooled analysis with MONARCH 2, making standalone MONARCH 3 OS results exploratory.
+     still omitted : Predates the final OS results from all three trials, so cannot apply the power argument to the actual observed HRs. Does not address the real-world comparative data or the NCCN grading implications.
+     https://www.nature.com/articles/s41523-018-0068-4
+
+  ASCO Daily News / ASCO Post — MONALEESA-2 OS and CDK4/6 inhibitor comparison
+     got right     : Correctly reported MONALEESA-2 OS HR 0.76 (0.63–0.93) as significant and PALOMA-2 HR 0.96 (0.78–1.18) as not significant. Noted MONARCH 3 data were still maturing at time of writing. Explicitly stated 'the reasons why palbociclib has not demonstrated a survival advantage remain unclear' — acknowledging uncertainty rather than asserting drug inferiority. Recommended either ribociclib or abemaciclib over palbociclib as first-line with an AI.
+     still omitted : Does not discuss the overlapping confidence intervals between ribociclib and abemaciclib or what the four-hundredths difference in point estimates means. Does not address the network meta-analysis or real-world comparative data. Does not discuss the cardiac monitoring burden of ribociclib as a countervailing factor.
+     https://dailynews.ascopubs.org/do/making-sense-paloma-2-and-monaleesa-2-data-treatment-hr-positive-her2-negative
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “The record that the drugs have not been directly compared in clinical trials is broader than the evidence supports — the real-world cohort is a direct comparison of all three. It is not randomised. It is direct.”
+     but           : The Flatiron real-world study (PMC11758200) itself uses the phrase 'in the absence of RCTs to directly compare the effectiveness of the three CDK4/6is' as its own framing — the paper does not characterise its design as a 'direct comparison.' The NCCN statement refers to clinical trials; a retrospective observational database study is not a clinical trial by any standard definition, so the guideline's statement is technically accurate as written.
+     see           : https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/
+     fix           : Reframe as: 'The guideline's statement is technically accurate — no clinical trial has directly compared the three drugs. What exists is a large real-world observational comparison, which is direct in the sense of comparing the drugs against each other, but is not a clinical trial and is not randomised. The distinction matters and the guideline's language, while narrow, is defensible.'
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “Abemaciclib's hazard ratio is 0.80, on an interval running 0.64 to 1.02.”
+     but           : The final prespecified OS analysis of MONARCH 3 (Annals of Oncology, May 2024, after 8.1 years median follow-up) reports HR 0.804 (95% CI 0.637–1.015; P=0.0664). The draft's figures (0.80, 0.64–1.02) appear to derive from an interim analysis, not the final OS result. The final upper bound is 1.015, not 1.02, and the lower bound is 0.637, not 0.64. The draft's figures are close but not the final published numbers.
+     see           : https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext
+     fix           : Update to the final MONARCH 3 OS figures: HR 0.804 (95% CI 0.637–1.015; P=0.0664, non-significant) after a median follow-up of 8.1 years. Note explicitly that this is the prespecified final OS analysis, not an interim.
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “A network meta-analysis pooled seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months.”
+     but           : The Scientific Reports paper (Elliott et al.) reports median follow-up as 70.2 months in the methods/results section (range 48.7–97.2 months), while the abstract states 73.3 months. The draft uses the abstract figure. This is an internal inconsistency in the source paper, but the draft should note which figure it is using and from where.
+     see           : https://www.nature.com/articles/s41598-024-53151-8
+     fix           : Cite the figure as reported in the abstract of Elliott et al. (73.3 months) and note the methods section reports 70.2 months, or use the more conservative methods-section figure.
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “PALOMA-2 is also the trial whose investigators recorded a large and disproportionate imbalance in missing survival data between its arms, which they said limits interpretation.”
+     but           : This is fully confirmed and not a contradiction — the ASCO Post, OncLive, and the JCO paper all explicitly report the 13.3% vs 21.2% imbalance and the investigators' own statement that it 'limited interpretation.' The draft's characterisation is accurate and well-supported.
+     see           : https://ascopost.com/news/february-2024/addition-of-palbociclib-to-letrozole-in-er-positive-her2-negative-advanced-breast-cancer-overall-survival-in-paloma-2/
+     fix           : No change needed. However, the draft omits the recovered-data sensitivity analysis (HR 0.92, 95% CI 0.76–1.12 after data recovery), which still did not reach significance but narrowed the gap. Adding this would strengthen the argument that even correcting for the missing data defect, palbociclib's OS result remains non-significant.
+
+  What this piece can add that careful coverage does not:
+     No existing coverage — including the most careful peer-reviewed treatments — connects all three threads simultaneously for a lay reader: (1) that the trials were individually underpowered for OS as a secondary endpoint and the OS discrepancy is statistically expected by chance alone, (2) that the one documented asymmetry between ribociclib and the other two drugs (mandatory cardiac monitoring) runs counter to the direction of the grade, and (3) that the recovered-data PALOMA-2 sensitivity analysis (HR 0.92 after correcting the missing-data imbalance) moves palbociclib's point estimate meaningfully closer to the other two drugs — a fact that further undermines the premise that the OS results reflect stable drug-level differences rather than trial-level artefacts.
+
+========================================================================
+CALIBRATION  15 finding(s) recorded, none blocking
+========================================================================
+
+  Matters of phrasing, ordering, emphasis and degree. Real, and not
+  corrections. There is always a defensible alternative wording, so a
+  check that blocks on wording never stops. Read them; fix what you
+  agree with; publish either way.
+
+  [MINOR] The draft says the Cancers 2023 paper 'estimated every pairwise difference directly,' using 'directly' in a way that could be read as claiming a direc
+     quote : rebuilt patient-level survival curves from PALOMA-2, MONALEESA-2 and MONARCH 3 — 1,827 patients — and estimated every pa
+
+  [MINOR] The draft characterises the Tanguy 2018 paper as arguing that 'MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2,' omitting that the paper also
+     quote : arguing that MONARCH 3 was less powered than PALOMA-2 and MONALEESA-2 to detect a survival difference
+
+  [MINOR] The draft says the MONARCH 3 significance threshold was reached by dividing alpha 'between the intention-to-treat population and a visceral-disease su
+     quote : Whatever the order of those two operations — and an earlier version of this page asserted an order it could not source —
+
+  [MINOR] The draft says the PALMARES-2 registry record 'posts an estimated enrolment of 3,500 and still shows the study recruiting,' which it presents as a ten
+     quote : its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recrui
+
+  [MINOR] The draft states the registry 'still shows the study recruiting' and 'has no results posted', but the published Annals of Oncology paper (April 2025) 
+     quote : Its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recrui
+
+  [MINOR] This sentence correctly notes that 'secondary endpoint' covers both powered and unpowered analyses, but it refers to 'all three' when the table and su
+     quote : Survival was a secondary endpoint in all three — which, as the paragraph above shows, covers both a powered analysis and
+
+  [MINOR] This is a derived figure computed by the draft itself from rounded published bounds, and the draft discloses this. However, the sentence presents the 
+     quote : 97% of ribociclib's interval lies inside abemaciclib's
+
+  [MINOR] The 'eight and a half hundredths' figure (0.085, the gap between upper bounds 0.93 and 1.015) is presented as the sole thing separating the categories
+     quote : What separates a category 1 from a category 2A here is eight and a half hundredths in where an upper bound landed, on po
+
+  [MINOR] The Tanguy 2018 paper (confirmed by search) states that 'PALOMA-2 and MONALEESA trials have an almost similar power despite different allocation ratio
+     quote : Tanguy and colleagues made it formally in npj Breast Cancer in 2018 , before any of these trials had mature survival dat
+
+  [MINOR] 'A thin basis for either conclusion' implies that both 'no difference' and 'a difference exists' are equally unsupported by the two trials taken toget
+     quote : Of the two that have been run — both ribociclib against palbociclib, elsewhere in the treatment course — one found no di
+
+  [MINOR] This is sound as written and is not a finding. Recorded here only to confirm it was checked.
+     quote : Whether anybody will run a first-line trial is not something this page knows; an earlier version asserted that nobody wo
+
+  [MINOR] The 2025 ASCO updated abstract of PALMARES-2 (Provenzano et al., JCO 2025 suppl.) reports that after IPTW adjustment, 'only R was associated with bett
+     quote : PALMARES-2 publishes no abemaciclib-versus-ribociclib survival figure, so on that pairing the survival evidence is P-VER
+
+  [MINOR] 'Eleven thousand patients across two cohorts' refers to P-VERIFY (9,146) and PALMARES-2 (1,982), totalling approximately 11,128. But the two cohorts o
+     quote : Eleven thousand patients across two cohorts, two endpoints, and a disagreement between them about a third drug. Not one 
+
+  [MINOR] The draft does not establish that the guideline's sentence is scoped to first-line aromatase-inhibitor combinations — it asserts this as the correct r
+     quote : The guideline's own sentence, that the CDK4/6 inhibitors have not been directly compared in clinical trials , is about f
+
+  [MINOR] The draft states 'it does not call that figure one-sided, because it is not' — meaning the NEJM's P = 0.008 is a two-sided p-value. But the draft also
+     quote : the p = 0.008 in the table above is not that test's p-value. The registry posts the result as p = 0.004 , alongside HR 0
+
+========================================================================
+ADJUDICATION  0 already decided · 0 moved since
+========================================================================
+
+  Nothing has been adjudicated for this draft. Every finding above
+  is new. Record the ones you accept in draft_decisions.json so the
+  next run can tell a fresh problem from a settled one.
+========================================================================
+COST     $5.82 - 20 API call(s) - 1,483,217 tokens in, 45,985 out - 68 web search(es)
+========================================================================
+
+  source:PALOMA-2 — ClinicalTrials.gov     $0.92  271,698 tok   8 search
+  advocate                                 $0.77  208,653 tok   6 search
+  inference                                $0.60  157,024 tok   5 search
+  source:MONARCH 3 — final overall surv    $0.44  116,919 tok   6 search  <- 2 calls; the extra one(s) were retries, charged in full
+  source:no source credited in the draf    $0.40  106,120 tok   6 search
+  source:NCCN Clinical Practice Guideli    $0.39  101,192 tok   6 search
+  source:Shaaban MHA et al. Asian Pac J    $0.34   93,867 tok   5 search
+  source:PALMARES-2 ASCO 2024 conferenc    $0.31   84,395 tok   4 search
+  source:Network meta-analysis of CDK4/    $0.31   83,004 tok   4 search
+  extract                                  $0.24   29,539 tok   0 search
+  source:Indirect comparison from recon    $0.23   62,507 tok   3 search
+  source:PALMARES-2 — real-world compar    $0.19   49,155 tok   3 search
+  source:MONALEESA-2 — overall survival    $0.13   33,851 tok   2 search
+  source:P-VERIFY — comparative overall    $0.13   27,295 tok   2 search
+  source:PALOMA-2 — final overall survi    $0.11   24,885 tok   2 search
+  source:MONALEESA-7 — overall survival    $0.10   23,356 tok   2 search
+  source:MONALEESA-7 — updated overall     $0.10   23,158 tok   2 search
+  source:MONARCH 3 — abemaciclib as ini    $0.07   16,477 tok   1 search
+  source:Tanguy et al., npj Breast Canc    $0.06   16,107 tok   1 search
+
+  Priced from https://platform.claude.com/docs/en/about-claude/pricing,
+  read 2026-08-28. Prices go stale; a figure here older than the
+  page it came from is a figure to re-check.
+
+Full result written to ../site/whatholdsup/cdk46.html.gate.json
+
+BLOCKED — resolve every item above, or record it in the piece, before publishing.
+=== finished 2026-09-01T00:36:12Z exit=1

@@ -64,6 +64,49 @@ that its power calculation is on response rate, and that **progression-free
 survival is a secondary endpoint** — which this page now says where it prints
 those figures.
 
+## 1 September 2026 — an observation we put under someone else's name, and a true conclusion with a false reason
+
+**We credited our own point to a paper that does not make it.** This page argued
+that where a confidence interval ends is set by how many patients were enrolled,
+how many events occurred and how variable they were — and then said "nor is this
+observation ours", handing it to Tanguy and colleagues in *npj Breast Cancer*,
+2018. Their paper contains nothing about the width of a confidence interval. It
+computes each trial's statistical **power** to reach significance on survival,
+and concludes that if significance appears in some trials and not others the
+difference "might be more attributable to chance than to a truly different drug
+efficacy." That supports our argument. It is not our argument, and the
+observation is ours to defend. The same sentence went out in the announcement
+email in a barer form.
+
+It stood for four days, through an outside review. Nobody here had opened the
+paper: every claim we made about it came from summaries produced by our own
+fact-check runs. It was found when a gate run read the email, and settled when
+the operator went and got the full text after every automated route from here
+was refused.
+
+**HARMONIA is a first-line aromatase-inhibitor trial, and we said it was not.**
+This page said neither head-to-head trial contradicts the guideline's sentence
+because "neither is first line with an aromatase inhibitor." HARMONIA's registry
+record lists both arms as ribociclib or palbociclib plus **letrozole or**
+fulvestrant, and it enrolled first-line patients. Letrozole is an aromatase
+inhibitor. The conclusion holds for a different reason, which is in the trial's
+own title: it was restricted to the HER2-enriched intrinsic subtype, not the
+unselected population the guideline describes. A true conclusion resting on a
+false reason is worse than a visible error, because nothing downstream of it
+looks wrong.
+
+**We downgraded an endpoint.** This page called overall survival an "exploratory"
+endpoint in PALMARES-2. The study's registry record lists overall survival as its
+**primary** outcome. The published paper treats progression-free survival as
+primary for that particular data cut, and we collapsed the two — in the direction
+that made the survival signal easier to set aside.
+
+**And a third time on HARMONIA.** A summary sentence still said both head-to-head
+trials "neither separated them". HARMONIA reported nothing. Two other instances
+were corrected on 31 August; this one was missed because the wording differed.
+
+Two of these four errors were introduced by earlier corrections on this page.
+
 ## 31 August 2026 — three found by our own checks, after publication
 
 **A registry number that belonged to a different trial.** In correcting itself

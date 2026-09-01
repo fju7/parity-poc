@@ -1,0 +1,974 @@
+{
+  "_what_this_is": "A volume reading, not a judgement. High coverage is a necessary condition for a What Holds Up subject and nowhere near a sufficient one: the test is whether a claim in circulation outruns its evidence, and that needs reading.",
+  "scanned": "2026-08-31",
+  "timespan": "14d",
+  "queries": [
+    {
+      "query": "\"linked to\" study children",
+      "articles": 250,
+      "distinct_outlets": 175,
+      "distinct_headlines": 213,
+      "top_outlets": [
+        [
+          "news-medical.net",
+          8
+        ],
+        [
+          "naturalnews.com",
+          8
+        ],
+        [
+          "theconversation.com",
+          6
+        ],
+        [
+          "timesofindia.indiatimes.com",
+          5
+        ],
+        [
+          "thestar.com.my",
+          4
+        ],
+        [
+          "dostor.org",
+          4
+        ],
+        [
+          "theguardian.com",
+          4
+        ],
+        [
+          "index.hr",
+          4
+        ],
+        [
+          "economictimes.indiatimes.com",
+          3
+        ],
+        [
+          "independent.co.uk",
+          3
+        ],
+        [
+          "aol.co.uk",
+          3
+        ],
+        [
+          "lesaffaires.com",
+          3
+        ],
+        [
+          "vetogate.com",
+          3
+        ],
+        [
+          "nzherald.co.nz",
+          3
+        ],
+        [
+          "miragenews.com",
+          3
+        ]
+      ],
+      "headlines": [
+        {
+          "title": "Parent phone use may harm kid speech",
+          "domain": "femalefirst.co.uk",
+          "url": "http://www.femalefirst.co.uk/bizarre/parents-phone-use-may-harm-kids-speech-1449245.html",
+          "seendate": "20260818T161500Z"
+        },
+        {
+          "title": "Atlanta researchers find premature birth can affect brain development into middle school",
+          "domain": "wsbradio.com",
+          "url": "https://www.wsbradio.com/news/local/atlanta-researchers-find-premature-birth-can-affect-brain-development-into-middle-school/NTYFEFXPJFBQXOO7EWMEMBIWOI/",
+          "seendate": "20260818T184500Z"
+        },
+        {
+          "title": "In London , children lungs grow faster as traffic pollution falls",
+          "domain": "euronews.com",
+          "url": "https://www.euronews.com/health/2026/08/20/london-childrens-lungs-grow-faster-as-traffic-pollution-falls",
+          "seendate": "20260820T081500Z"
+        },
+        {
+          "title": "Is your smartphone making your kid dumber ? What a new study found",
+          "domain": "fox5atlanta.com",
+          "url": "https://www.fox5atlanta.com/news/your-smartphone-use-making-kid-dumber-study",
+          "seendate": "20260824T213000Z"
+        },
+        {
+          "title": "HOMETOWN HEALTH : Young people exposed to other suicide attempts are more likely to attempt suicide themselves , study says",
+          "domain": "wdbj7.com",
+          "url": "https://www.wdbj7.com/2026/08/25/hometown-health-young-people-exposed-others-suicide-attempts-are-more-likely-attempt-suicide-themselves-study-says/",
+          "seendate": "20260825T164500Z"
+        },
+        {
+          "title": "Ulez linked with better lung growth in children , research finds",
+          "domain": "theconversation.com",
+          "url": "https://theconversation.com/ulez-linked-with-better-lung-growth-in-children-research-finds-289997",
+          "seendate": "20260819T180000Z"
+        },
+        {
+          "title": "Parental loss doubles children risk of mental health disorders",
+          "domain": "news-medical.net",
+          "url": "https://www.news-medical.net/news/20260819/Parental-loss-doubles-childrens-risk-of-mental-health-disorders.aspx",
+          "seendate": "20260820T041500Z"
+        },
+        {
+          "title": "Ultra low emission zones linked to improved lung capacity in kids : united kingdom study - National",
+          "domain": "globalnews.ca",
+          "url": "https://globalnews.ca/news/12027239/ultra-low-emissions-zones-improved-lung-capacity-children/",
+          "seendate": "20260819T210000Z"
+        },
+        {
+          "title": "جو 24 : نتائج غير متوقعة لتقنين وقت استخدام الأطفال للشاشات",
+          "domain": "jo24.net",
+          "url": "https://jo24.net/article/575492",
+          "seendate": "20260821T010000Z"
+        },
+        {
+          "title": "نتائج غير متوقعة لتقنين وقت استخدام الأطفال للشاشات – تلفزيون الفجر",
+          "domain": "alfajertv.com",
+          "url": "https://alfajertv.com/cocktail/cases/739437.html",
+          "seendate": "20260820T201500Z"
+        },
+        {
+          "title": "Pesticide Exposure Linked to Parkinson Disease Risk , Review Finds – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-22-review-pesticide-exposure-linked-parkinsons-disease-risk.html",
+          "seendate": "20260823T040000Z"
+        },
+        {
+          "title": "Heat stress severely impacting children under 9",
+          "domain": "rte.ie",
+          "url": "https://www.rte.ie/news/world/2026/0826/1589362-heat-stress-children/",
+          "seendate": "20260826T201500Z"
+        },
+        {
+          "title": "Sugary drinks linked to high blood pressure",
+          "domain": "thestar.com.my",
+          "url": "https://www.thestar.com.my/lifestyle/health/2026/08/18/sugary-drinks-linked-to-high-blood-pressure",
+          "seendate": "20260818T123000Z"
+        },
+        {
+          "title": "Paternal valproate use not linked to offspring neurodevelopmental risks",
+          "domain": "news-medical.net",
+          "url": "https://www.news-medical.net/news/20260819/Paternal-valproate-use-not-linked-to-offspring-neurodevelopmental-risks.aspx",
+          "seendate": "20260820T033000Z"
+        },
+        {
+          "title": "What research shows about how divorce affects children academic performance",
+          "domain": "wsbtv.com",
+          "url": "https://www.wsbtv.com/news/what-research-shows/D33DRA2BB46QNPXUJRE66S2TNI/",
+          "seendate": "20260817T160000Z"
+        },
+        {
+          "title": "Common pesticides alter timing of girl puberty Study",
+          "domain": "tribuneonlineng.com",
+          "url": "https://tribuneonlineng.com/common-pesticides-alter-timing-of-girls-puberty-study/",
+          "seendate": "20260820T071500Z"
+        },
+        {
+          "title": "Ulez roll - out linked to better lung growth in London children in seven years since introduction",
+          "domain": "lbc.co.uk",
+          "url": "https://www.lbc.co.uk/article/ulez-air-quality-lung-growth-children-london-5HjdgGS_2/",
+          "seendate": "20260819T021500Z"
+        },
+        {
+          "title": "Researchers followed children for a decade to see whether screen time really mattered",
+          "domain": "news-medical.net",
+          "url": "https://www.news-medical.net/news/20260824/Researchers-followed-children-for-a-decade-to-see-whether-screen-time-really-mattered.aspx",
+          "seendate": "20260824T064500Z"
+        },
+        {
+          "title": "Study of 5 , 227 kids find early social media use linked to lower maths and language scores . Studies reveal one way to reduce impact",
+          "domain": "economictimes.indiatimes.com",
+          "url": "https://economictimes.indiatimes.com/magazines/panache/study-of-5227-kids-find-early-social-media-use-linked-to-lower-maths-and-language-scores-studies-reveal-one-way-to-reduce-impact/articleshow/133539168.cms",
+          "seendate": "20260826T121500Z"
+        },
+        {
+          "title": "Prenatal exposure to higher water fluoride levels associated with lower child cognition",
+          "domain": "news-medical.net",
+          "url": "https://www.news-medical.net/news/20260818/Prenatal-exposure-to-higher-water-fluoride-levels-associated-with-lower-child-cognition.aspx",
+          "seendate": "20260818T191500Z"
+        },
+        {
+          "title": "New study finds children with more screen time didnt score worse on cognitive tests . They scored better",
+          "domain": "thestar.com.my",
+          "url": "https://www.thestar.com.my/tech/tech-news/2026/08/21/new-study-finds-children-with-more-screen-time-didnt-score-worse-on-cognitive-tests-they-scored-better",
+          "seendate": "20260821T063000Z"
+        },
+        {
+          "title": "Brothers found to be at risk of rare condition after  bored  mum enrolled them in study",
+          "domain": "independent.co.uk",
+          "url": "https://www.independent.co.uk/news/uk/home-news/nhs-generation-study-adrenoleukodystrophy-ald-b3036514.html",
+          "seendate": "20260821T003000Z"
+        },
+        {
+          "title": "Le changement climatique expose 560 millions denfants à la chaleur extrême",
+          "domain": "fr.euronews.com",
+          "url": "https://fr.euronews.com/sante/2026/08/28/le-changement-climatique-expose-560-millions-denfants-a-la-chaleur-extreme",
+          "seendate": "20260828T093000Z"
+        },
+        {
+          "title": "Ulez linked to improved lung growth in children , major study finds",
+          "domain": "aol.co.uk",
+          "url": "https://www.aol.co.uk/articles/ulez-linked-improved-lung-growth-223047000.html",
+          "seendate": "20260818T230000Z"
+        },
+        {
+          "title": "A London Scheme to Cut Car Pollution Restored Lung Growth in Children",
+          "domain": "e360.yale.edu",
+          "url": "https://e360.yale.edu/digest/ulez-children-lung-growth",
+          "seendate": "20260819T121500Z"
+        },
+        {
+          "title": "Early - onset epilepsy tied to lower academic achievement",
+          "domain": "news-medical.net",
+          "url": "https://www.news-medical.net/news/20260818/Early-onset-epilepsy-tied-to-lower-academic-achievement.aspx",
+          "seendate": "20260819T040000Z"
+        },
+        {
+          "title": "Higher fluoride levels in public drinking water during pregnancy may be linked to differences in children cognition scores , NIH - funded study finds",
+          "domain": "eurekalert.org",
+          "url": "https://www.eurekalert.org:443/news-releases/1140564",
+          "seendate": "20260819T230000Z"
+        },
+        {
+          "title": "61 % of children in India exposed to 1 more month of heat stress due to climate change : Study",
+          "domain": "tribuneindia.com",
+          "url": "https://www.tribuneindia.com/news/health/61-of-children-in-india-exposed-to-1-more-month-of-heat-stress-due-to-climate-change-study/",
+          "seendate": "20260828T133000Z"
+        },
+        {
+          "title": "Study Associates Frequent TV Watching with Reduced Brain Volume Over 22 Years – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-23-study-associates-tv-watching-reduced-brain-volume.html",
+          "seendate": "20260823T140000Z"
+        },
+        {
+          "title": "Researchers Find No Connection Between Pesticide Exposure and Social Difficulties Common in Autism",
+          "domain": "prnewswire.com",
+          "url": "http://www.prnewswire.com/news-releases/researchers-find-no-connection-between-pesticide-exposure-and-social-difficulties-common-in-autism-302856081.html",
+          "seendate": "20260824T153000Z"
+        },
+        {
+          "title": "VRS : pourquoi la vaccination maternelle est importante pour les bébés",
+          "domain": "pourquoidocteur.fr",
+          "url": "https://www.pourquoidocteur.fr/Articles/Question-d-actu/55596-VRS-vaccination-maternelle-importante-bebes",
+          "seendate": "20260821T110000Z"
+        },
+        {
+          "title": "Ultra - Processed Foods Associated With Smaller Brain Regions in Young Children , Study Finds – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-22-how-processed-foods-are-reshaping-childrens-brain.html",
+          "seendate": "20260822T134500Z"
+        },
+        {
+          "title": "Mum  massive relief  after major study links Ulez to healthier kid lungs",
+          "domain": "metro.co.uk",
+          "url": "https://metro.co.uk/2026/08/18/mums-massive-relief-major-study-links-ulez-healthier-kids-lungs-29407388/",
+          "seendate": "20260818T171500Z"
+        },
+        {
+          "title": "Most Adults Not Immune to Hepatitis A or B : Study",
+          "domain": "theepochtimes.com",
+          "url": "https://www.theepochtimes.com/us/most-adults-not-immune-to-hepatitis-a-or-b-study-6076054",
+          "seendate": "20260817T211500Z"
+        },
+        {
+          "title": "Rentrée scolaire : un cartable trop lourd peut - il vraiment abîmer le dos des enfants ?",
+          "domain": "rtl.fr",
+          "url": "https://www.rtl.fr/actu/sante/rentree-scolaire-un-cartable-trop-lourd-peut-il-vraiment-abimer-le-dos-des-enfants-7900666127",
+          "seendate": "20260828T113000Z"
+        },
+        {
+          "title": "Climate change exposing up to 560 million children globally to at least 1 additional month of dangerous heat per year",
+          "domain": "eurekalert.org",
+          "url": "https://www.eurekalert.org:443/news-releases/1140655",
+          "seendate": "20260827T220000Z"
+        },
+        {
+          "title": "مدرسة مياه الشرب والصرف الصحي للتكنولوجيا التطبيقية بسوهاج تستعد لاستقبال أول دفعة",
+          "domain": "dostor.org",
+          "url": "https://www.dostor.org/5676682",
+          "seendate": "20260823T084500Z"
+        },
+        {
+          "title": "I Quit Ordering From Amazon For Six Months",
+          "domain": "forbes.com",
+          "url": "https://www.forbes.com/sites/yassprize/2026/08/17/i-quit-ordering-from-amazon-for-six-months/",
+          "seendate": "20260818T000000Z"
+        },
+        {
+          "title": "Unexpected discovery points to a possible route for childhood brain tumor treatments",
+          "domain": "news-medical.net",
+          "url": "https://www.news-medical.net/news/20260827/Unexpected-discovery-points-to-a-possible-route-for-childhood-brain-tumor-treatments.aspx",
+          "seendate": "20260827T193000Z"
+        },
+        {
+          "title": "محمد أبو الغار : التعليم كان الطريق الحقيقي للصعود الاجتماعي .. والأسر تدفع « دم قلبها » لأجل أبنائها",
+          "domain": "shorouknews.com",
+          "url": "https://www.shorouknews.com/news/view.aspx?cdate=27082026&id=d112778d-9372-4086-9e3e-8db7590d3bcc",
+          "seendate": "20260827T200000Z"
+        }
+      ],
+      "points": 14,
+      "peak": 0.0696,
+      "recent_mean": 0.0415,
+      "baseline": 0.0182,
+      "spike_ratio": 2.28,
+      "top_articles": []
+    },
+    {
+      "query": "\"linked to\" study risk",
+      "articles": 250,
+      "distinct_outlets": 167,
+      "distinct_headlines": 170,
+      "top_outlets": [
+        [
+          "naturalnews.com",
+          26
+        ],
+        [
+          "news-medical.net",
+          10
+        ],
+        [
+          "medscape.com",
+          7
+        ],
+        [
+          "nypost.com",
+          5
+        ],
+        [
+          "aol.com",
+          3
+        ],
+        [
+          "shasha.ps",
+          3
+        ],
+        [
+          "newsweek.com",
+          3
+        ],
+        [
+          "thestar.com.my",
+          2
+        ],
+        [
+          "jo24.net",
+          2
+        ],
+        [
+          "timesofindia.indiatimes.com",
+          2
+        ],
+        [
+          "arabic.rt.com",
+          2
+        ],
+        [
+          "samaa.tv",
+          2
+        ],
+        [
+          "independent.co.uk",
+          2
+        ],
+        [
+          "wccfradio.iheart.com",
+          2
+        ],
+        [
+          "600wmtradio.iheart.com",
+          2
+        ]
+      ],
+      "headlines": [
+        {
+          "title": "Study : Two Hours of Weekly Strength Training Tied to 13 % Lower Mortality Risk – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-18-weekly-strength-training-tied-lower-mortality-risk.html",
+          "seendate": "20260818T143000Z"
+        },
+        {
+          "title": "Sugary drinks linked to high blood pressure",
+          "domain": "thestar.com.my",
+          "url": "https://www.thestar.com.my/lifestyle/health/2026/08/18/sugary-drinks-linked-to-high-blood-pressure",
+          "seendate": "20260818T123000Z"
+        },
+        {
+          "title": "Popular daily drinking habit could nearly triple risk of deadly cancer , major study finds",
+          "domain": "health.yahoo.com",
+          "url": "https://health.yahoo.com/conditions/cancer/stomach-cancer/articles/popular-daily-drinking-habit-could-110023427.html",
+          "seendate": "20260819T144500Z"
+        },
+        {
+          "title": "دراسة تربط بين مواعيد تناول الطعام وخطر الوفاة",
+          "domain": "vetogate.com",
+          "url": "https://www.vetogate.com/5716817",
+          "seendate": "20260821T043000Z"
+        },
+        {
+          "title": "Meta - Analysis Finds Higher ALS Risk in Workers Exposed to Pesticides – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-29-pesticide-exposure-workers-linked-higher-als-risk.html",
+          "seendate": "20260829T163000Z"
+        },
+        {
+          "title": "جو 24 : توقيت وجباتك قد يؤثر في صحتك وطول عمرك",
+          "domain": "jo24.net",
+          "url": "https://jo24.net/article/575493",
+          "seendate": "20260821T010000Z"
+        },
+        {
+          "title": "Study : Vegetable - Rich Diet Pattern Linked to Up to 8 . 3 Additional Years of Life – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-17-high-vegetable-eating-pattern-additional-years-life.html",
+          "seendate": "20260818T043000Z"
+        },
+        {
+          "title": "The breakfast mistake you shouldnt make after age 40 it can raise your risk of death by up to 29 %",
+          "domain": "aol.com",
+          "url": "https://www.aol.com/articles/breakfast-mistake-shouldn-t-age-163203000.html",
+          "seendate": "20260825T111500Z"
+        },
+        {
+          "title": "The breakfast mistake that can raise your risk of death by up to 29 %",
+          "domain": "nypost.com",
+          "url": "https://nypost.com/2026/08/24/health/the-breakfast-mistake-that-can-raise-your-risk-of-death-by-up-to-29/",
+          "seendate": "20260824T174500Z"
+        },
+        {
+          "title": "HOMETOWN HEALTH : Young people exposed to other suicide attempts are more likely to attempt suicide themselves , study says",
+          "domain": "wdbj7.com",
+          "url": "https://www.wdbj7.com/2026/08/25/hometown-health-young-people-exposed-others-suicide-attempts-are-more-likely-attempt-suicide-themselves-study-says/",
+          "seendate": "20260825T164500Z"
+        },
+        {
+          "title": "Large Review Links Diet , Lifestyle Factors to Ulcerative Colitis Risk – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-26-nutrition-lifestyle-linked-to-ulcerative-colitis-risk.html",
+          "seendate": "20260827T081500Z"
+        },
+        {
+          "title": "Sitting for hours may raise cancer risk , but 3 minutes of vigorous movement could help ; why short bursts of activity matter",
+          "domain": "timesofindia.indiatimes.com",
+          "url": "https://timesofindia.indiatimes.com/etimes/wellness/just-3-minutes-of-jogging-up-and-down-stairs-may-lower-risk-of-13-cancers-new-study-finds/articleshow/133316632.cms",
+          "seendate": "20260818T093000Z"
+        },
+        {
+          "title": "دراسة : توقيت تناول الوجبات قد يرتبط بخطر الوفاة",
+          "domain": "libyaakhbar.com",
+          "url": "https://www.libyaakhbar.com/entertainment/2859199.html",
+          "seendate": "20260821T001500Z"
+        },
+        {
+          "title": "توقيت وجباتك قد يؤثر في صحتك وطول عمرك",
+          "domain": "arabic.rt.com",
+          "url": "https://arabic.rt.com/health/1823280-%D8%AA%D9%88%D9%82%D9%8A%D8%AA-%D9%88%D8%AC%D8%A8%D8%A7%D8%AA%D9%83-%D8%B5%D8%AD%D8%AA%D9%83-%D8%B7%D9%88%D9%84-%D8%B9%D9%85%D8%B1%D9%83/",
+          "seendate": "20260820T214500Z"
+        },
+        {
+          "title": "Study Associates Meal Timing With Mortality Risk in Adults 40 and Older – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-18-study-associates-meal-timing-with-mortality-risk-adults.html",
+          "seendate": "20260818T190000Z"
+        },
+        {
+          "title": "Study Links Ultra - Processed Food Intake to More Severe Age - Related Muscle Loss – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-18-ultraprocessed-food-linked-severe-age-related-muscle-loss.html",
+          "seendate": "20260818T234500Z"
+        },
+        {
+          "title": "Daily sugary drinks linked to nearly twice the risk of stomach cancer",
+          "domain": "samaa.tv",
+          "url": "https://www.samaa.tv/2087355832-daily-sugary-drinks-linked-to-nearly-twice-the-risk-of-stomach-cancer",
+          "seendate": "20260827T070000Z"
+        },
+        {
+          "title": "Sugary drinks linked to doubled stomach cancer",
+          "domain": "arynews.tv",
+          "url": "https://arynews.tv/sugary-drinks-linked-to-doubled-stomach-cancer",
+          "seendate": "20260819T173000Z"
+        },
+        {
+          "title": "Pesticide Exposure Linked to Parkinson Disease Risk , Review Finds – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-22-review-pesticide-exposure-linked-parkinsons-disease-risk.html",
+          "seendate": "20260823T040000Z"
+        },
+        {
+          "title": "دراسة : حفنة من المكسرات يوميًا تقلل خطر ارتفاع ضغط الدم",
+          "domain": "slaati.com",
+          "url": "https://slaati.com/2026/08/26/p2860683.html",
+          "seendate": "20260826T040000Z"
+        },
+        {
+          "title": "Retinal Thinning Predicts Cognitive Decline in MS",
+          "domain": "medscape.com",
+          "url": "https://www.medscape.com/viewarticle/retinal-thinning-predicts-cognitive-decline-multiple-2026a1000t69",
+          "seendate": "20260821T134500Z"
+        },
+        {
+          "title": "Larger waist linked to higher heart disease and death risk , study finds",
+          "domain": "samaa.tv",
+          "url": "https://www.samaa.tv/2087355639-larger-waist-linked-to-higher-heart-disease-and-death-risk-study-finds",
+          "seendate": "20260823T073000Z"
+        },
+        {
+          "title": "ليس ما تأكله فقط .. توقيت وجباتك قد يرتبط بطول عمرك | صحة و جمال | وكالة أنباء سرايا الإخبارية",
+          "domain": "sarayanews.com",
+          "url": "https://www.sarayanews.com/article/1103196/%D9%84%D9%8A%D8%B3-%D9%85%D8%A7-%D8%AA%D8%A3%D9%83%D9%84%D9%87-%D9%81%D9%82%D8%B7-%D8%AA%D9%88%D9%82%D9%8A%D8%AA-%D9%88%D8%AC%D8%A8%D8%A7%D8%AA%D9%83-%D9%82%D8%AF-%D9%8A%D8%B1%D8%AA%D8%A8%D8%B7",
+          "seendate": "20260825T163000Z"
+        },
+        {
+          "title": "Target Your Sleep Window To Slow Down Biological Ageing",
+          "domain": "huffingtonpost.co.uk",
+          "url": "https://www.huffingtonpost.co.uk/entry/sleep-ageing-longevity_uk_6a8ff61be4b0a9d5e57cda82",
+          "seendate": "20260827T093000Z"
+        },
+        {
+          "title": "Wild swimming linked to higher risk of stomach bugs and skin rashes",
+          "domain": "theguardian.com",
+          "url": "https://www.theguardian.com/lifeandstyle/2026/aug/27/wild-swimming-higher-risk-stomach-bugs-skin-rashes-uea",
+          "seendate": "20260827T060000Z"
+        },
+        {
+          "title": "Daily Consumption of Sugar - Sweetened Beverages Linked to Higher Gastric Cancer Risk , Study Finds – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-30-daily-consumption-sugar-sweetened-beverages-linked-gastric-cancer.html",
+          "seendate": "20260831T011500Z"
+        },
+        {
+          "title": "Study Associates Frequent TV Watching with Reduced Brain Volume Over 22 Years – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-23-study-associates-tv-watching-reduced-brain-volume.html",
+          "seendate": "20260823T140000Z"
+        },
+        {
+          "title": "Leisure exercise tops work exercise for lowering dementia risk , USC study finds",
+          "domain": "independent.co.uk",
+          "url": "https://www.independent.co.uk/news/health/leisure-exercise-lowering-dementia-risk-alzheimers-b3035923.html",
+          "seendate": "20260819T220000Z"
+        },
+        {
+          "title": "Daily Sugary Drinks Linked To Higher Stomach Cancer Risk",
+          "domain": "wmrn.iheart.com",
+          "url": "https://wmrn.iheart.com/content/2026-08-19-daily-sugary-drinks-linked-to-higher-stomach-cancer-risk/",
+          "seendate": "20260819T154500Z"
+        },
+        {
+          "title": "علماء : الاستهلاك المنتظم للقهوة يرتبط بتكوين جسم صحي",
+          "domain": "emaratalyoum.com",
+          "url": "https://www.emaratalyoum.com/life/four-sides/2026-08-22-1.2076015",
+          "seendate": "20260822T031500Z"
+        },
+        {
+          "title": "Cancer risk may be higher for people with one particular type of job",
+          "domain": "fox10phoenix.com",
+          "url": "https://www.fox10phoenix.com/news/cancer-risk-may-be-higher-people-one-particular-type-job",
+          "seendate": "20260819T233000Z"
+        },
+        {
+          "title": "One specific job could raise your risk of certain cancers , Harvard study suggests",
+          "domain": "foxnews.com",
+          "url": "https://www.foxnews.com/health/cancer-risk-higher-people-particular-type-job",
+          "seendate": "20260818T233000Z"
+        },
+        {
+          "title": "Sweetener used in chewing gum and jam linked to strokes and heart attacks",
+          "domain": "aol.co.uk",
+          "url": "https://www.aol.co.uk/articles/sweetener-used-chewing-gum-jam-130516000.html",
+          "seendate": "20260828T133000Z"
+        },
+        {
+          "title": "GLP - 1 Medications Could Treat Addiction",
+          "domain": "wtkg.iheart.com",
+          "url": "https://wtkg.iheart.com/content/2026-08-24-glp-1-medications-could-treat-addiction/",
+          "seendate": "20260824T230000Z"
+        },
+        {
+          "title": "GLP - 1 Medications Could Treat Addiction | NewsRadio 600 WMT",
+          "domain": "600wmtradio.iheart.com",
+          "url": "https://600wmtradio.iheart.com/content/2026-08-24-glp-1-medications-could-treat-addiction/",
+          "seendate": "20260824T230000Z"
+        },
+        {
+          "title": "GLP - 1 Medications Could Treat Addiction | NewsRadio 1360 KKTX",
+          "domain": "1360kktx.iheart.com",
+          "url": "https://1360kktx.iheart.com/content/2026-08-24-glp-1-medications-could-treat-addiction/",
+          "seendate": "20260824T233000Z"
+        },
+        {
+          "title": "GLP - 1 Medications Could Treat Addiction | NewsRadio WKCY",
+          "domain": "newsradiowkcy.iheart.com",
+          "url": "https://newsradiowkcy.iheart.com/content/2026-08-24-glp-1-medications-could-treat-addiction/",
+          "seendate": "20260824T233000Z"
+        },
+        {
+          "title": "GLP - 1 Medications Could Treat Addiction | PowerTalk 1460 AM & 101 . 1 FM",
+          "domain": "powertalk1460.iheart.com",
+          "url": "https://powertalk1460.iheart.com/content/2026-08-24-glp-1-medications-could-treat-addiction/",
+          "seendate": "20260824T233000Z"
+        },
+        {
+          "title": "GLP - 1 Medications Could Treat Addiction | NewsRadio 910 WLTP",
+          "domain": "newsradio910wltp.iheart.com",
+          "url": "https://newsradio910wltp.iheart.com/content/2026-08-24-glp-1-medications-could-treat-addiction/",
+          "seendate": "20260824T233000Z"
+        },
+        {
+          "title": "GLP - 1 Medications Could Treat Addiction | News Radio 101 . 9 Big WAAX",
+          "domain": "1019bigwaax.iheart.com",
+          "url": "https://1019bigwaax.iheart.com/content/2026-08-24-glp-1-medications-could-treat-addiction/",
+          "seendate": "20260824T233000Z"
+        }
+      ],
+      "points": 14,
+      "peak": 0.0991,
+      "recent_mean": 0.035,
+      "baseline": 0.0423,
+      "spike_ratio": 0.83,
+      "top_articles": []
+    },
+    {
+      "query": "\"study finds\" causes",
+      "articles": 13,
+      "distinct_outlets": 11,
+      "distinct_headlines": 13,
+      "top_outlets": [
+        [
+          "timesofindia.indiatimes.com",
+          2
+        ],
+        [
+          "naturalnews.com",
+          2
+        ],
+        [
+          "wxyz.com",
+          1
+        ],
+        [
+          "newsweek.com",
+          1
+        ],
+        [
+          "globalnews.ca",
+          1
+        ],
+        [
+          "mirror.co.uk",
+          1
+        ],
+        [
+          "livescience.com",
+          1
+        ],
+        [
+          "bioxconomy.com",
+          1
+        ],
+        [
+          "news-medical.net",
+          1
+        ],
+        [
+          "dynamicbusiness.com",
+          1
+        ],
+        [
+          "yahoo.com",
+          1
+        ]
+      ],
+      "headlines": [
+        {
+          "title": "Sugar And Cancer Risk : Less sugar in the first 1 , 000 days may change health decades later , study finds lower cancer risk and slower ageing",
+          "domain": "timesofindia.indiatimes.com",
+          "url": "https://timesofindia.indiatimes.com/health/less-sugar-in-the-first-1000-days-may-change-health-decades-later-study-finds-lower-cancer-risk-and-slower-ageing/articleshow/133628181.cms",
+          "seendate": "20260830T121500Z"
+        },
+        {
+          "title": "At least 1 in 4 former NFL players had CTE at death , major study finds : What the new research means",
+          "domain": "timesofindia.indiatimes.com",
+          "url": "https://timesofindia.indiatimes.com/etimes/wellness/at-least-1-in-4-former-nfl-players-had-cte-at-death-major-study-finds-what-the-new-research-means/articleshow/133528472.cms",
+          "seendate": "20260826T040000Z"
+        },
+        {
+          "title": "What poison center data about liver damage cases means for Acetaminophen",
+          "domain": "wxyz.com",
+          "url": "https://www.wxyz.com/news/health/ask-dr-nandi/ask-dr-nandi-what-poison-center-data-about-liver-damage-cases-means-for-acetaminophen",
+          "seendate": "20260817T224500Z"
+        },
+        {
+          "title": "Dollar Store Groceries May Come With a Hidden Health Risk , Study Finds",
+          "domain": "newsweek.com",
+          "url": "https://www.newsweek.com/dollar-store-groceries-may-come-with-a-hidden-health-risk-study-finds-12340962",
+          "seendate": "20260819T171500Z"
+        },
+        {
+          "title": "We will do better for women hearts , says new research chair at Manitoba hospital - Winnipeg",
+          "domain": "globalnews.ca",
+          "url": "https://globalnews.ca/news/12033337/research-chair-women-heart-health-manitoba/",
+          "seendate": "20260824T221500Z"
+        },
+        {
+          "title": "Study : Two Hours of Weekly Strength Training Tied to 13 % Lower Mortality Risk – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-18-weekly-strength-training-tied-lower-mortality-risk.html",
+          "seendate": "20260818T143000Z"
+        },
+        {
+          "title": "Prostate cancer biopsies are unnecessary for many men , study finds",
+          "domain": "mirror.co.uk",
+          "url": "https://www.mirror.co.uk/news/health/prostate-cancer-biopsy-mri-nhs-37564943",
+          "seendate": "20260818T233000Z"
+        },
+        {
+          "title": "These viruses have the opportunity to wake up : Severe COVID can reactivate other viruses lurking in the body , study suggests",
+          "domain": "livescience.com",
+          "url": "https://www.livescience.com/health/viruses-infections-disease/severe-covid-19-may-wake-up-dormant-viruses-and-lead-to-lasting-physical-disability-study-finds",
+          "seendate": "20260824T170000Z"
+        },
+        {
+          "title": "Blockchain and ML improve trial data quality",
+          "domain": "bioxconomy.com",
+          "url": "https://www.bioxconomy.com/clinical-and-research/machine-learning-pre-processing-boosts-blockchain-data-integrity-in-trials-study-finds",
+          "seendate": "20260820T064500Z"
+        },
+        {
+          "title": "Daily Consumption of Sugar - Sweetened Beverages Linked to Higher Gastric Cancer Risk , Study Finds – NaturalNews . com",
+          "domain": "naturalnews.com",
+          "url": "https://www.naturalnews.com/2026-08-30-daily-consumption-sugar-sweetened-beverages-linked-gastric-cancer.html",
+          "seendate": "20260831T011500Z"
+        },
+        {
+          "title": "AI can recreate food convincingly , but there is one thing it still struggles to trigger",
+          "domain": "news-medical.net",
+          "url": "https://www.news-medical.net/news/20260817/AI-can-recreate-food-convincingly-but-there-is-one-thing-it-still-struggles-to-trigger.aspx",
+          "seendate": "20260818T010000Z"
+        },
+        {
+          "title": "Three hours per decision . That what bad HR data is costing leaders Dynamic Business",
+          "domain": "dynamicbusiness.com",
+          "url": "https://dynamicbusiness.com/topics/news/three-hours-per-decision-thats-what-bad-hr-data-is-costing-leaders.html",
+          "seendate": "20260828T061500Z"
+        },
+        {
+          "title": "No , Marijuana Legalization Didnt Fill Emergency Rooms With Stoned Drivers",
+          "domain": "yahoo.com",
+          "url": "https://www.yahoo.com/news/us/articles/no-marijuana-legalization-didnt-fill-144019749.html",
+          "seendate": "20260828T154500Z"
+        }
+      ],
+      "volume_unavailable": "HTTP Error 429: Too Many Requests"
+    }
+  ],
+  "attention": [
+    {
+      "article": "Toxic (2026 film)",
+      "views": 466227,
+      "rank": 4
+    },
+    {
+      "article": "Dolly Parton",
+      "views": 450416,
+      "rank": 5
+    },
+    {
+      "article": ".xyz",
+      "views": 251462,
+      "rank": 6
+    },
+    {
+      "article": "Killing of the Clancy children",
+      "views": 250473,
+      "rank": 7
+    },
+    {
+      "article": "Tim Curry",
+      "views": 234497,
+      "rank": 8
+    },
+    {
+      "article": "Harald V",
+      "views": 188507,
+      "rank": 9
+    },
+    {
+      "article": "The Whisper Man",
+      "views": 156733,
+      "rank": 10
+    },
+    {
+      "article": "Haakon VIII",
+      "views": 151224,
+      "rank": 11
+    },
+    {
+      "article": "Milo Yiannopoulos",
+      "views": 147306,
+      "rank": 12
+    },
+    {
+      "article": "Umar Nurmagomedov",
+      "views": 144997,
+      "rank": 13
+    },
+    {
+      "article": "Spider-Man: Brand New Day",
+      "views": 132151,
+      "rank": 15
+    },
+    {
+      "article": "2026 Nepal floods",
+      "views": 117084,
+      "rank": 16
+    },
+    {
+      "article": "Coyote vs. Acme",
+      "views": 115058,
+      "rank": 17
+    },
+    {
+      "article": "Song Yadong",
+      "views": 114845,
+      "rank": 18
+    },
+    {
+      "article": ".xxx",
+      "views": 112164,
+      "rank": 19
+    },
+    {
+      "article": "The Odyssey (2026 film)",
+      "views": 106907,
+      "rank": 20
+    },
+    {
+      "article": "Peter Cullen",
+      "views": 105414,
+      "rank": 21
+    },
+    {
+      "article": "Moses Itauma",
+      "views": 104016,
+      "rank": 22
+    },
+    {
+      "article": "Buddy (2026 film)",
+      "views": 102076,
+      "rank": 23
+    },
+    {
+      "article": "Víctor Muñoz (footballer, born 2003)",
+      "views": 95652,
+      "rank": 24
+    },
+    {
+      "article": "Neatsville, Kentucky",
+      "views": 82982,
+      "rank": 25
+    },
+    {
+      "article": "Filip Hrgović",
+      "views": 75763,
+      "rank": 27
+    },
+    {
+      "article": "The Dog Stars (film)",
+      "views": 73940,
+      "rank": 28
+    },
+    {
+      "article": "Lake Ontario",
+      "views": 72441,
+      "rank": 29
+    },
+    {
+      "article": "Dimethylmercury",
+      "views": 72400,
+      "rank": 30
+    },
+    {
+      "article": "Michael Jackson",
+      "views": 70265,
+      "rank": 31
+    },
+    {
+      "article": "UFC Fight Night: Nurmagomedov vs. Song",
+      "views": 68941,
+      "rank": 32
+    },
+    {
+      "article": "Hayden Panettiere",
+      "views": 68450,
+      "rank": 33
+    },
+    {
+      "article": "The Rocky Horror Picture Show",
+      "views": 64858,
+      "rank": 34
+    },
+    {
+      "article": "Karen Wetterhahn",
+      "views": 64363,
+      "rank": 35
+    },
+    {
+      "article": "Silo (TV series)",
+      "views": 63682,
+      "rank": 36
+    },
+    {
+      "article": "Nepal",
+      "views": 63395,
+      "rank": 37
+    },
+    {
+      "article": "Anna's Archive",
+      "views": 63218,
+      "rank": 38
+    },
+    {
+      "article": "Rukidi IV of Tooro",
+      "views": 60499,
+      "rank": 39
+    },
+    {
+      "article": "Hanuman Ansh",
+      "views": 60097,
+      "rank": 40
+    },
+    {
+      "article": "Glacier mice",
+      "views": 58157,
+      "rank": 41
+    },
+    {
+      "article": "Limonene",
+      "views": 57765,
+      "rank": 42
+    },
+    {
+      "article": "Jai Arrow",
+      "views": 56941,
+      "rank": 43
+    },
+    {
+      "article": "Bethlehem Kudumba Unit",
+      "views": 55676,
+      "rank": 44
+    },
+    {
+      "article": "9 to 5 (film)",
+      "views": 53769,
+      "rank": 45
+    }
+  ]
+}

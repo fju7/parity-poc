@@ -12,3 +12,247 @@
   ]
 }
 === started 2026-09-01T00:12:43Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+
+Fact-checking issue2-cdk46.html (8,047 chars of prose) as of 2026-08-31
+
+[1/6] Extracting checkable claims...
+      42 claims extracted
+      registry pre-check: 0 figure(s) and 0 trial fact(s) confirmed at ClinicalTrials.gov
+      20 claim(s) unchanged since 1fb1d8185ce3 — verdicts carried, 22 to check
+      7 internal claim(s) recorded, not source-checked
+[2/6] Source audit across 6 attributed source(s)...
+      checking  4 claim(s) against: NCCN breast cancer guidelines, version 6.2026
+      checking  6 claim(s) against: no source credited in the draft
+      checking  2 claim(s) against: PALMARES-2
+      checking  1 claim(s) against: the labels
+      checking  1 claim(s) against: the label
+      checking  1 claim(s) against: Tanguy and colleagues, npj Breast Cancer, 2018
+[3/6] Recency sweep... carried (3d old, fresh under 7d — the literature does not move because we edited)
+[4/6] Subject's advocate...
+      6 objection(s), 1 serious
+[5/6] Statistical inference...
+      1 finding(s), 0 serious
+[6/6] Best coverage elsewhere... carried (3d old, fresh under 14d — other outlets did not republish because we edited)
+[WARN] 3 decision(s) quote a sentence that is no longer in issue2-cdk46.html. They can never match again — remove them:
+       [ADVOCATE] One interval stopped at 0.93. The other stopped at 1.02.
+       [ADVOCATE] P-VERIFY finds no separation, on survival or on progression.
+       [ADVOCATE] Palbociclib causes grade 3 or worse neutropenia in two thirds.
+
+========================================================================
+CLAIMS   35 external · 32 verified · 3 not  (7 internal, not source-checkable)
+========================================================================
+
+  [NEW · NOT_FOUND] 2018
+     draft credits : Tanguy and colleagues, npj Breast Cancer, 2018
+     source says   : Tanguy 2018 (PMC6018749) argues that MONARCH-3 has 'more limited power' than PALOMA-2/MONALEESA trials to demonstrate OS benefit, and that 'OS results are jeopardized by limited powers.' The paper is about statistical power for OS, not about CI width as a consequence of trial powering.
+     really from   : Tanguy ML et al., npj Breast Cancer 4:14 (2018), PMC6018749 — the paper exists and discusses MONARCH-3's limited OS power, but the specific framing of 'CI width as a consequence of what the trial was powered to detect' does not appear in the accessible text; the paper's argument is about power to reach statistical significance, not about explaining CI width.
+     note          : The paper is real and discusses MONARCH-3's limited statistical power for OS, but the draft's specific claim — that it formally made the point about CI width being a consequence of trial powering — is a reframing the paper's accessible text does not support; the paper argues about power, not CI width, and no text linking CI width to powering assumptions for abemaciclib was retrievable.
+     checked       : https://pmc.ncbi.nlm.nih.gov/articles/PMC6018749/
+
+  [NEW · NOT_FOUND] preferred first-line options
+     draft credits : NCCN breast cancer guidelines, version 6.2026
+     source says   : In JNCCN v4.2026, all three AI+CDK4/6i combinations are listed as preferred first-line options, but ribociclib is category 1 while abemaciclib and palbociclib are category 2A — so they are not all preferred at the same category level. The specific v6.2026 text could not be accessed.
+     really from   : JNCCN Breast Cancer Version 4.2026; NCCN.org confirms v6.2026 exists but full text is paywalled
+     note          : The claim that all three are 'preferred first-line options' is consistent with v4.2026 in that all three are listed under the preferred first-line CDK4/6i class, but they carry different category designations (ribociclib = category 1; abemaciclib and palbociclib = category 2A). I could not access the full v6.2026 text to confirm whether this changed; the claim as written is potentially misleading because it implies parity of designation that does not exist in v4.2026.
+     checked       : https://jnccn.org/view/journals/jnccn/24/7/article-e260033.xml
+
+  [NEW · NOT_FOUND] Eleven thousand patients
+     source says   : The largest single comparative study found is P-VERIFY (n = 9,146). No source found describing four distinct comparative studies of abemaciclib vs ribociclib totalling approximately 11,000 patients. The P-VERIFY OS and rwPFS papers draw on the same 9,146-patient cohort and cannot be double-counted.
+     note          : Could not locate any primary source enumerating four separate comparative studies with a combined ~11,000 patients specifically comparing abemaciclib and ribociclib; the figure may conflate the same P-VERIFY cohort across two publications or aggregate studies with different scopes.
+     checked       : https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/
+
+  A NOT_FOUND means we could not REACH a source, not that none exists.
+  Open any URL above before treating one as a finding — and check
+  whether COVERAGE cited the same page, because it often has the link.
+
+  Internal claims — no external source can confirm these. Check them
+  against your own records before publishing:
+     · 29 August 2026
+     · 28 August
+     · eight
+     · two more
+     · 48 hours
+     · four
+     · three separate criticisms
+
+========================================================================
+RECENCY  6 assessed · 1 superseded or unknown
+========================================================================
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  EVERY FINDING BELOW IS A CLAIM ABOUT SOMEBODY ELSE'S DOCUMENT.
+  This role has not opened that document. It has read search results
+  about it. Do not put any of this on the page until you have opened
+  the source and read the sentence yourself.
+
+  On 2026-08-29 this role reported, over three runs, that a published
+  meta-analysis had used a superseded MONARCH 3 figure. It had not.
+  The claim went onto the page as a disclosure -- 'we would rather say
+  so than have it found' -- and an outside reviewer opened the paper's
+  Table 1 and corrected us. No further gate run could have caught it:
+  the gate wrote it, and no role here audits another role's output.
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  [UNKNOWN] NCCN Breast Cancer Guidelines, version cited in draft
+     draft uses    : Version 6.2026, ribociclib + AI as Category 1; abemaciclib + AI and palbociclib + AI as Category 2A
+     latest known  : NCCN.org confirms Breast Cancer guidelines are currently at Version 6.2026 as of 28 Aug 2026. A published summary in JNCCN (July 2026) covers Version 4.2026; the live NCCN site lists Version 6.2026 as current. The specific category assignments (Cat 1 vs 2A) cannot be confirmed from publicly available search results, as the full guideline text requires NCCN login.
+     changes       : Version number is confirmed current (6.2026). The specific Category 1 / Category 2A assignments for ribociclib vs abemaciclib/palbociclib in first-line HR+/HER2- advanced BC cannot be independently verified from publicly accessible sources. The draft's version citation is not stale, but the category assignments themselves could not be positively confirmed or refuted.
+     source        : https://www.nccn.org/guidelines/guidelines-detail?category=1&id=1419
+     BEFORE ACTING : open the source above and read the sentence.
+
+========================================================================
+FAIRNESS 6 objection(s) · 1 serious
+========================================================================
+
+  [NEW · MINOR · CALIBRATION] The MONALEESA-2 PFS hazard ratio cited as '0.57' does not correspond to the primary analysis figure; it is the updated analysis figure, and the draft does not say which analysis it is drawing from in the newsletter body itself.
+     quote         : “Progression-free survival hazard ratios of 0.54, 0.57 and 0.58, each from the analysis named on the page.”
+     why           : The primary MONALEESA-2 PFS HR was 0.556 (first interim) or 0.568 (updated); the figure 0.57 appears in the NEJM OS paper as a rounded citation of the updated analysis. The newsletter defers to 'the analysis named on the page' but the newsletter itself does not name it, so a reader of the newsletter alone cannot verify which analysis produced 0.57 or confirm it is comparable to the 0.54 and 0.58 figures from the other trials. The cross-reference to the full assessment is doing work the newsletter body should do itself.
+     fix           : Name the specific analysis (e.g., 'updated PFS analysis, HR 0.568, rounded to 0.57') in the newsletter body, or round all three to two decimal places from the same class of analysis and state which class.
+
+  [NEW · SERIOUS · FACT] The draft attributes the argument about MONARCH 3's interval width to Tanguy et al. in a way that implies the paper specifically addressed abemaciclib's CI width, when the paper's actual finding was that MONARCH 3 was less powered than the other two trials — meaning a significant OS result was less likely in MONARCH 3, not that its CI width was a designed consequence.
+     quote         : “the width of abemaciclib's interval is itself a consequence of what that trial was powered to detect — a point Tanguy and colleagues made formally in npj Breast Cancer in 2018”
+     why           : The Tanguy 2018 paper calculated that MONARCH 3 had less statistical power to detect an OS benefit than PALOMA-2 or MONALEESA-2, because MONARCH 3 had a smaller sample and fewer planned events. The paper's conclusion was that MONARCH 3 was more likely to miss a true OS benefit — i.e., it was underpowered relative to the other trials. The draft's phrasing 'a consequence of what that trial was powered to detect' implies the CI width follows from a deliberate power calculation for OS, when in fact MONARCH 3 was powered for PFS and the Tanguy paper was an external post-hoc power analysis showing MONARCH 3 was underpowered for OS. The citation is directionally consistent with the draft's argument but mischaracterises what Tanguy et al. specifically 'made formally': they showed MONARCH 3 was less likely to reach OS significance, not that its CI width was a designed feature. A reader checking the citation will find the paper says the opposite of what 'powered to detect' implies — MONARCH 3 was powered to detect less.
+     fix           : Replace 'a consequence of what that trial was powered to detect' with 'a consequence of MONARCH 3 having fewer planned events than the other two trials — a point Tanguy and colleagues made formally in npj Breast Cancer in 2018, showing MONARCH 3 had less power to detect an OS benefit than PALOMA-2 or MONALEESA-2.'
+
+  [NEW · MINOR · CALIBRATION] The draft presents the PALOMA-2 OS hazard ratio as '0.96 on an interval from 0.78 to 1.18' without noting that the primary OS analysis was complicated by a significant imbalance in missing survival data between arms (21% vs 13%), which the trial investigators themselves flagged as limiting the interpretation of that figure.
+     quote         : “A hazard ratio of 0.96 on an interval from 0.78 to 1.18 is not a near miss.”
+     why           : The primary PALOMA-2 OS analysis had 21% of placebo-arm patients with unknown survival status versus 13% in the palbociclib arm — an imbalance the investigators flagged as limiting interpretation. A sensitivity analysis excluding those patients gave HR 0.869 (0.706–1.069), meaningfully different from 0.96. The draft uses 0.96 to argue palbociclib's result 'is not a near miss,' but the more complete sensitivity analysis gives a result closer to abemaciclib's. The draft is entitled to use the primary analysis figure, but using it without noting the data-quality caveat — when that caveat was prominent in the original publication — makes the contrast with abemaciclib look sharper than the data fully support.
+     fix           : Add a parenthetical noting that the primary analysis was subject to a missing-data imbalance and that a sensitivity analysis gave HR 0.869, so the 0.96 figure should be read with that caveat.
+
+  [NEW · MINOR · CALIBRATION] The draft states the MONARCH 3 PFS hazard ratio is '0.54' without specifying whether this is the interim or final analysis figure; the interim was 0.543 and the final was 0.540, but the draft's claim that all three PFS HRs come from 'the analysis named on the page' is not verifiable from the newsletter alone.
+     quote         : “Progression-free survival hazard ratios of 0.54, 0.57 and 0.58, each from the analysis named on the page.”
+     why           : MONARCH 3 has two investigator-assessed PFS HRs in the literature: 0.543 (interim) and 0.540 (final). Both round to 0.54, so the figure is not wrong, but the newsletter defers to 'the analysis named on the page' for all three drugs without naming any of them in the newsletter itself. A reader who checks the figures will find multiple analyses for each trial and cannot determine from the newsletter which one was used or whether they are comparable (e.g., primary vs. updated).
+     fix           : Either name the specific analysis for each drug in the newsletter body, or add a footnote stating 'all three figures are from the primary/final investigator-assessed PFS analysis for each trial.'
+
+  [NEW · MINOR · CALIBRATION] The draft says 'abemaciclib carries a labelled thrombosis warning' without specifying the type or severity of thrombosis events, which could overstate the clinical significance of the warning relative to how it appears on the label.
+     quote         : “Abemaciclib carries a labelled thrombosis warning and causes diarrhoea in 81 to 90 percent of patients.”
+     why           : The abemaciclib label includes a warning for venous thromboembolic events (VTE). Describing this simply as a 'thrombosis warning' without specifying VTE, or noting the incidence rate from the label, gives the warning more weight than a reader can assess. The diarrhoea figure (81–90%) is attributed to the label and is verifiable; the thrombosis warning is real but the bare word 'thrombosis' carries more alarm than 'VTE warning with stated incidence.' The draft applies this characterisation to abemaciclib but does not apply equivalent specificity to the ribociclib cardiac monitoring requirement or the palbociclib neutropenia figure, creating an asymmetry in how the three burdens are described.
+     fix           : Specify 'venous thromboembolic events (VTE)' and add the label incidence figure, matching the level of specificity used for palbociclib's neutropenia (66%, grade 3+).
+
+  [NEW · MINOR · CALIBRATION] The draft says 'the assessment examines four' comparative studies and then says 'an outside reviewer found two more that we had missed,' but does not say whether those two additional studies were examined and incorporated or merely acknowledged — leaving the reader uncertain whether the assessment is complete.
+     quote         : “Four studies are not the whole literature, and the assessment says so: an outside reviewer found two more that we had missed.”
+     why           : The sentence acknowledges the gap but does not close it. A reader does not know whether the two additional studies were reviewed and found to change or not change the conclusions, or whether they were simply noted as existing. If they were reviewed and found consistent with the four, saying so would strengthen the piece. If they were not reviewed, the acknowledgement of their existence without their content is incomplete disclosure.
+     fix           : Add one sentence stating whether the two additional studies were reviewed after the reviewer flagged them, and if so, whether they materially changed the conclusions.
+
+========================================================================
+INFERENCE 1 finding(s) · 0 serious
+========================================================================
+
+  [NEW · MINOR · CALIBRATION] 0.804 minus 0.76 equals 0.044, not 0.040; a reader doing the arithmetic will get a different number than the one stated.
+     quote         : “The point estimates are four hundredths apart.”
+     evidence says : The point estimates differ by 0.044, which is closer to four hundredths than five but is not exactly four hundredths.
+     fix           : The point estimates are 0.044 apart.
+
+========================================================================
+COVERAGE 6 careful treatment(s) elsewhere · 3 contradiction(s), 2 serious
+========================================================================
+
+  Scientific Reports (Kappel et al., 2024) — 'Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer'
+     got right     : Correctly identified that individual trials show differing statistical significance for OS despite similar PFS HRs (0.50–0.59 across trials); performed a 7-trial, 4415-patient network meta-analysis and found no statistically significant OS differences between any of the three CDK4/6 inhibitors; explicitly noted that ribociclib and abemaciclib both showed significantly higher GI toxicity than palbociclib; found treatment discontinuation and death due to AEs were significantly higher with abemaciclib than with palbociclib or ribociclib; correctly attributed all figures to their source trials.
+     still omitted : Does not compute the degree of CI overlap between the MONARCH 3 and MONALEESA-2 OS intervals, nor frame the grading question as one about threshold-crossing versus evidence about the drug. Does not discuss the cardiac monitoring burden specific to ribociclib as a countervailing factor to its guideline advantage.
+     https://www.nature.com/articles/s41598-024-53151-8
+
+  ESMO Open (Flatiron Health real-world study, Jan 2025) — 'Comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor in HR+/HER2− metastatic breast cancer in the US real-world setting'
+     got right     : Used stabilized inverse probability of treatment weighting (sIPTW) on 9,146 patients; found no significant OS differences between ribociclib, abemaciclib, and palbociclib plus AI (ribociclib vs. palbociclib aHR 0.98 [0.87–1.10]; abemaciclib vs. palbociclib aHR 0.95 [0.84–1.08]; abemaciclib vs. ribociclib aHR 0.97 [0.82–1.14]); explicitly excluded clinical trial participants to avoid selection bias; noted findings should inform treatment selection alongside safety and quality of life.
+     still omitted : Does not discuss the CI-overlap argument between MONARCH 3 and MONALEESA-2 or the threshold-crossing framing. Does not address the cardiac monitoring burden of ribociclib. Does not note that the real-world study's own presenter (Wisinski at SABCS 2024) described abemaciclib as showing 'clinically meaningful benefit' on OS even without statistical significance — a framing that partially endorses the guideline's direction.
+     https://www.esmoopen.com/article/S2059-7029(24)01874-X/fulltext
+
+  Annals of Oncology — Final OS results of MONARCH 3 (Goetz et al., 2024)
+     got right     : Correctly reported the final OS HR as 0.804 (95% CI 0.637–1.015; P=0.0664, non-significant) after 8.1 years median follow-up; explicitly stated OS was a 'gated secondary endpoint' and that 'no power assumptions were made for the secondary endpoint of OS'; reported median OS of 66.8 vs. 53.7 months (13.1-month numerical difference); did not overstate the result.
+     still omitted : Does not compare the MONARCH 3 CI to the MONALEESA-2 CI or quantify their overlap. Does not discuss whether the threshold-crossing difference between the two trials is a meaningful basis for differential guideline grading.
+     https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext
+
+  OncoDaily — 'NCCN Breast Cancer Version 4.2026: Metastatic Treatment Moves Further Toward Biomarker-Driven Sequencing'
+     got right     : Correctly reported that ribociclib plus AI is Category 1 and abemaciclib/palbociclib plus AI remain Category 2A; explicitly stated the guideline's own language that 'CDK4/6 inhibitors have not been directly compared in randomized trials'; noted treatment selection should consider 'efficacy, toxicity, comorbidities, monitoring requirements, and patient preference' — acknowledging monitoring burden as a selection factor.
+     still omitted : Does not discuss the CI-overlap between MONARCH 3 and MONALEESA-2, does not quantify how close abemaciclib's OS result came to significance, and does not engage with the network meta-analysis or real-world comparative data.
+     https://oncodaily.com/oncolibrary/breast-oncology/breast-cancer-nccn-v4
+
+  Pharmacy Times — 'NCCN Guidelines on CDK4/6 Inhibitor Treatment Regimens' (June 2026)
+     got right     : Explicitly stated that Category 1 designation is 'based off whether or not overall survival has been demonstrated' and correctly identified this as the 'delineating' factor between ribociclib and the other two agents; acknowledged all three drugs are listed in first-line guidelines.
+     still omitted : Does not engage with the CI-overlap argument, the secondary-endpoint status of OS in these trials, or the comparative evidence from NMA and real-world studies.
+     https://www.pharmacytimes.com/view/nccn-guidelines-on-cdk4-6-inhibitor-treatment-regimens
+
+  ScienceDirect / meta-analysis (2025) — 'Risk of QTc prolongation and major cardiovascular adverse events associated with CDK4/6 inhibitors'
+     got right     : Correctly identified that ribociclib specifically warrants routine ECG surveillance for QTc prolongation; found VTE risk was highest with abemaciclib (RR 5.14); explicitly called for 'drug-tailored rather than class-wide cardiovascular monitoring'; confirmed ribociclib's QTc signal is not shared by abemaciclib or palbociclib at the same level.
+     still omitted : Does not connect the drug-specific monitoring burdens to the guideline grading question. Does not note that abemaciclib's VTE risk represents a countervailing monitoring burden that the draft's framing ('the one documented difference') understates.
+     https://www.sciencedirect.com/science/article/abs/pii/S0305737225001914
+
+  [NEW · SERIOUS] the draft's claim about the coverage is contradicted
+     quote         : “The one documented difference between the drugs runs the other way from the grade. Ribociclib alone requires cardiac monitoring — electrocardiograms before treatment and during it. That is a burden, not a benefit.”
+     but           : The Kappel et al. 2024 NMA (Scientific Reports) found that treatment discontinuation and death due to adverse events were significantly higher with abemaciclib than with palbociclib and ribociclib, and that abemaciclib carried significantly more grade 3–4 diarrhea and higher GI toxicity. The 2025 cardiovascular meta-analysis (ScienceDirect) found abemaciclib carries a VTE risk of RR 5.14 (95% CI 3.09–8.54), requiring its own intensified monitoring. These are additional documented differences between the drugs — not captured by the draft's claim that cardiac monitoring is 'the one documented difference.'
+     see           : https://www.nature.com/articles/s41598-024-53151-8
+     fix           : Revise to: 'The most clinically salient documented difference that runs counter to the grade is ribociclib's requirement for cardiac monitoring. But the drugs differ in other ways too: abemaciclib carries significantly higher VTE risk and higher rates of treatment discontinuation due to adverse events than either comparator in network meta-analysis — differences that cut against abemaciclib rather than ribociclib, and that the grade does not reflect either.'
+
+  [NEW · SERIOUS] the draft's claim about the coverage is contradicted
+     quote         : “Two studies have compared all three anyway, by different methods on different data — a network meta-analysis of seven randomised trials, and a large real-world weighted comparison. Neither is a randomised head-to-head trial and neither should be read as one. They agree with each other: no separation between the three.”
+     but           : The PALMARES-2 real-world study (Annals of Oncology, published ~August 2026, reported by Targeted Oncology) found that abemaciclib and ribociclib were associated with significantly longer real-world PFS compared with palbociclib (abemaciclib vs. palbociclib aHR 0.76 [0.63–0.92]; ribociclib vs. palbociclib aHR 0.83 [0.73–0.95]) in endocrine-sensitive HR+/HER2− advanced breast cancer. This is a third real-world comparative study that does find separation — specifically on PFS, not OS — and it does not agree with the draft's summary of 'no separation between the three.'
+     see           : https://www.targetedonc.com/view/real-world-study-shows-differences-in-efficacy-among-cdk4-6-inhibitors-for-advanced-breast-cancer
+     fix           : Revise to specify that the two studies cited agree on OS specifically, and acknowledge that at least one additional real-world study (PALMARES-2) finds PFS separation favoring abemaciclib and ribociclib over palbociclib — which is consistent with the draft's separate point that palbociclib's result is a different case.
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “Abemaciclib's hazard ratio for death is 0.80, on an interval running 0.64 to 1.02.”
+     but           : The published final OS result from MONARCH 3 (Annals of Oncology, Goetz et al. 2024) is HR 0.804, 95% CI 0.637–1.015. The draft rounds the lower bound to 0.64 (correct) but rounds the upper bound to 1.02 (the actual figure is 1.015, which rounds to 1.02 — acceptable). However, the point estimate of 0.80 is a rounding of 0.804. These are minor rounding differences but a careful reader comparing to the source will notice the CI is 0.637–1.015, not 0.64–1.02.
+     see           : https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext
+     fix           : Report as HR 0.804 (95% CI 0.637–1.015) to match the published figure exactly, or note that figures are rounded to two decimal places throughout.
+
+  What this piece can add that careful coverage does not:
+     No existing coverage — including the NMA and real-world studies — quantifies the degree of CI overlap between the MONARCH 3 and MONALEESA-2 OS intervals or frames the grading question as one about what a threshold-crossing on a secondary endpoint tells us about the drug versus the trial's statistical power. The draft's specific calculation that 97% of ribociclib's CI lies inside abemaciclib's CI is original and not present in any source found; this is the layer beneath even the most careful comparative coverage, and it is the piece's strongest contribution.
+
+========================================================================
+CALIBRATION  6 finding(s) recorded, none blocking
+========================================================================
+
+  Matters of phrasing, ordering, emphasis and degree. Real, and not
+  corrections. There is always a defensible alternative wording, so a
+  check that blocks on wording never stops. Read them; fix what you
+  agree with; publish either way.
+
+  [MINOR] The MONALEESA-2 PFS hazard ratio cited as '0.57' does not correspond to the primary analysis figure; it is the updated analysis figure, and the draft 
+     quote : Progression-free survival hazard ratios of 0.54, 0.57 and 0.58, each from the analysis named on the page.
+
+  [MINOR] The draft presents the PALOMA-2 OS hazard ratio as '0.96 on an interval from 0.78 to 1.18' without noting that the primary OS analysis was complicated
+     quote : A hazard ratio of 0.96 on an interval from 0.78 to 1.18 is not a near miss.
+
+  [MINOR] The draft states the MONARCH 3 PFS hazard ratio is '0.54' without specifying whether this is the interim or final analysis figure; the interim was 0.5
+     quote : Progression-free survival hazard ratios of 0.54, 0.57 and 0.58, each from the analysis named on the page.
+
+  [MINOR] The draft says 'abemaciclib carries a labelled thrombosis warning' without specifying the type or severity of thrombosis events, which could overstate
+     quote : Abemaciclib carries a labelled thrombosis warning and causes diarrhoea in 81 to 90 percent of patients.
+
+  [MINOR] The draft says 'the assessment examines four' comparative studies and then says 'an outside reviewer found two more that we had missed,' but does not 
+     quote : Four studies are not the whole literature, and the assessment says so: an outside reviewer found two more that we had mi
+
+  [MINOR] 0.804 minus 0.76 equals 0.044, not 0.040; a reader doing the arithmetic will get a different number than the one stated.
+     quote : The point estimates are four hundredths apart.
+
+========================================================================
+ADJUDICATION  0 already decided · 0 moved since
+========================================================================
+
+  Nothing has been adjudicated for this draft. Every finding above
+  is new. Record the ones you accept in draft_decisions.json so the
+  next run can tell a fresh problem from a settled one.
+========================================================================
+COST     $2.76 - 9 API call(s) - 705,124 tokens in, 19,949 out - 35 web search(es)
+========================================================================
+
+  advocate                                 $0.65  174,376 tok   7 search
+  source:Tanguy and colleagues, npj Bre    $0.62  179,379 tok   6 search
+  source:no source credited in the draf    $0.44  114,754 tok   7 search
+  source:NCCN breast cancer guidelines,    $0.34   89,768 tok   5 search
+  inference                                $0.27   65,088 tok   4 search
+  source:the labels                        $0.13   34,718 tok   2 search
+  source:PALMARES-2                        $0.12   30,401 tok   2 search
+  source:the label                         $0.12   30,254 tok   2 search
+  extract                                  $0.06    6,335 tok   0 search
+
+  Priced from https://platform.claude.com/docs/en/about-claude/pricing,
+  read 2026-08-28. Prices go stale; a figure here older than the
+  page it came from is a figure to re-check.
+
+Full result written to ../site/whatholdsup/email/issue2-cdk46.html.gate.json
+
+BLOCKED — resolve every item above, or record it in the piece, before publishing.
+=== finished 2026-09-01T00:19:28Z exit=1

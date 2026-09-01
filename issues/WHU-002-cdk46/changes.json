@@ -2281,6 +2281,177 @@
       "now": "Two exist, both of ribociclib against palbociclib: a randomised open-label phase III in the second line with fulvestrant, published in 2024, which found no difference between them; and HARMONIA, registered as NCT05207709, which opened in March 2022 and terminated with 61 patients enrolled and no results publication, so it establishes that the comparison was attempted and nothing about its answer.",
       "because": "CORR-12",
       "note": "HARMONIA terminated at 61 patients with no results publication, so it cannot have found no difference; the page said both head-to-head trials did. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "now": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 1 September 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "because": "PREFLIGHT-01",
+      "note": "Dateline reset from the publishing machine's clock by publish.py dateline, as the preflight requires."
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That observation is ours.",
+      "because": "CORR-14",
+      "note": "the interval-width observation is ours and both documents put it under Tanguy's name. The paper computes power to reach significance and says nothing about interval width; read in full on 1 September from the text the operator retrieved. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An earlier version of this page handed it to Tanguy and colleagues, npj Breast Cancer , 2018 , and they do not make it: their paper contains nothing about the width of a confidence interval.",
+      "because": "CORR-14",
+      "note": "the interval-width observation is ours and both documents put it under Tanguy's name. The paper computes power to reach significance and says nothing about interval width; read in full on 1 September from the text the operator retrieved. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What they did, before any of these trials had mature survival data, was compute each trial's statistical power to reach significance on survival - finding MONARCH 3 less powered than PALOMA-2, MONALEESA-2 and MONALEESA-7, all four under 70% unless the survival gain exceeded twelve months, and concluding that if significance appeared in some trials and not others the difference \"might be more attributable to chance than to a truly different drug efficacy\".",
+      "because": "CORR-14",
+      "note": "the interval-width observation is ours and both documents put it under Tanguy's name. The paper computes power to reach significance and says nothing about interval width; read in full on 1 September from the text the operator retrieved. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That supports this page's argument and is not the same claim, and the difference is the sort this page exists to insist on.",
+      "because": "CORR-14",
+      "note": "the interval-width observation is ours and both documents put it under Tanguy's name. The paper computes power to reach significance and says nothing about interval width; read in full on 1 September from the text the operator retrieved. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We found the paper through a fact-check run on this page, after making the argument, and attached our own observation to it; the misattribution stood for four days and was corrected on 1 September, from the paper.",
+      "because": "CORR-14",
+      "note": "the interval-width observation is ours and both documents put it under Tanguy's name. The paper computes power to reach significance and says nothing about interval width; read in full on 1 September from the text the operator retrieved. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "No randomised trial has tested one of these drugs against another.",
+      "now": "Two randomised trials have tested one of these drugs against another - both ribociclib against palbociclib, neither in the population the guideline sentence describes.",
+      "because": "CORR-17",
+      "note": "third instance of crediting HARMONIA with a finding it never reported. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "One found no significant difference between them; the other stopped at 61 patients and never reported, so it establishes nothing either way.",
+      "because": "CORR-17",
+      "note": "third instance of crediting HARMONIA with a finding it never reported. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "It also reports overall survival, as an exploratory endpoint, pointing the same way.",
+      "now": "It also reports overall survival, pointing the same way.",
+      "because": "CORR-16",
+      "note": "NCT06805812 lists overall survival as PALMARES-2's primary outcome; the page called it exploratory. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page called that an exploratory endpoint until 1 September, which was wrong twice over: the paper treats it as secondary to that data cut, and the study's registry record lists overall survival as its primary outcome , with real-world progression-free survival secondary.",
+      "because": "CORR-16",
+      "note": "NCT06805812 lists overall survival as PALMARES-2's primary outcome; the page called it exploratory. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The endpoint is the one the study exists to measure; what is exploratory is the maturity of this particular look at it.",
+      "because": "CORR-16",
+      "note": "NCT06805812 lists overall survival as PALMARES-2's primary outcome; the page called it exploratory. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Neither enrolled the population the guideline sentence describes, which is why neither contradicts it - but not for the reason this page gave until 1 September.",
+      "because": "CORR-15",
+      "note": "HARMONIA's registry record lists letrozole in both arms and it enrolled first-line patients, so 'neither is first line with an aromatase inhibitor' is false. The reason that holds is the HER2-enriched subtype restriction. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It said neither was first line with an aromatase inhibitor.",
+      "because": "CORR-15",
+      "note": "HARMONIA's registry record lists letrozole in both arms and it enrolled first-line patients, so 'neither is first line with an aromatase inhibitor' is false. The reason that holds is the HER2-enriched subtype restriction. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "HARMONIA's registry record lists its arms as ribociclib or palbociclib plus letrozole or fulvestrant , and it enrolled first-line patients; letrozole is an aromatase inhibitor.",
+      "because": "CORR-15",
+      "note": "HARMONIA's registry record lists letrozole in both arms and it enrolled first-line patients, so 'neither is first line with an aromatase inhibitor' is false. The reason that holds is the HER2-enriched subtype restriction. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The reason that actually holds is in the trial's title: HARMONIA was restricted to the HER2-enriched intrinsic subtype , a molecularly selected population, not the unselected HR+/HER2- one the guideline is describing.",
+      "because": "CORR-15",
+      "note": "HARMONIA's registry record lists letrozole in both arms and it enrolled first-line patients, so 'neither is first line with an aromatase inhibitor' is false. The reason that holds is the HER2-enriched subtype restriction. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Shaaban is second line with fulvestrant.",
+      "because": "CORR-15",
+      "note": "HARMONIA's registry record lists letrozole in both arms and it enrolled first-line patients, so 'neither is first line with an aromatase inhibitor' is false. The reason that holds is the HER2-enriched subtype restriction. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The conclusion survives; the reason we published for it did not, and a reader opening the registry would have found that before we did.",
+      "because": "CORR-15",
+      "note": "HARMONIA's registry record lists letrozole in both arms and it enrolled first-line patients, so 'neither is first line with an aromatase inhibitor' is false. The reason that holds is the HER2-enriched subtype restriction. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Source of the 116 patients and the 58 per arm, the randomisation in blocks of four by opaque sealed envelope - an earlier version of this note said \"29 blocks\" of four. 29 is 116 divided by four: our own arithmetic, printed as though the paper had stated it.",
+      "because": "CORR-13",
+      "note": "“29 blocks of four” is 116 divided by four — our arithmetic printed as the paper's statement. Withdrawn on the page rather than silently. See review/2026-08-31b-adjudication.md"
+    },
+    {
+      "at": "2026-09-01T00:42:00+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The block size is the paper's; the count was ours, and it is withdrawn - the clinical benefit rate at six months of 58.6% in both arms (34 of 58 either way), the median progression-free survival of 13.67 months on palbociclib against 12.69 on ribociclib, and the authors' conclusion that both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
+      "because": "CORR-13",
+      "note": "“29 blocks of four” is 116 divided by four — our arithmetic printed as the paper's statement. Withdrawn on the page rather than silently. See review/2026-08-31b-adjudication.md"
     }
   ]
 }
