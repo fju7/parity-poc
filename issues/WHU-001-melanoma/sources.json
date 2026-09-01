@@ -155,24 +155,11 @@
       "id": "S006",
       "url": "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/",
       "type": "coverage",
-      "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints (with 2 further outlet(s), listed in also_urls)",
+      "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints",
       "accessed": "2026-08-28",
-      "used_for": "Specialist coverage. Source of the quoted argument that absolute recurrence risk is lower in the stage IIB and IIC patients the Phase 3 adds.",
+      "used_for": "Specialist coverage of the Phase 3 announcement. What it does and does not report about effect sizes.",
       "also_called": [
-        "The ASCO Post",
-        "Morning Glory Sciences",
-        "Pharmacy Times",
-        "specialist coverage"
-      ],
-      "also_urls": [
-        {
-          "url": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/",
-          "title": "Morning Glory Sciences — INTerpath-001"
-        },
-        {
-          "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
-          "title": "Pharmacy Times — Phase 3 trial marks first success"
-        }
+        "The ASCO Post"
       ],
       "access": {
         "state": "full_text_held",
@@ -188,7 +175,8 @@
           "bytes": 54745,
           "identified_by": "contains 7 of 12 distinctive title words"
         }
-      }
+      },
+      "_split_on_2026-09-01": "This entry used to carry Morning Glory Sciences and Pharmacy Times in also_urls, under one id, with one access state reading full_text_held -- and the document the library held for it was The ASCO Post's. Two quotations on the page, one from each of the other two outlets, were therefore attributed to an entry whose held bytes are a third outlet's article, and neither quotation appears in them. Identity is not substance: an entry that holds one of three documents holds one document. They are now S009 and S010, each with its own url and its own access state."
     },
     {
       "id": "S007",
@@ -239,6 +227,73 @@
           "the complete presentation, eleven pages"
         ],
         "note": "THIS ENTRY EXISTS BECAUSE THE PAGE ALREADY DEPENDED ON IT AND THE LEDGER DID NOT KNOW. The page names 'the three-year readout at ASCO 2024' and attributes HR 0.510 (0.288-0.906) to it, and S007's own note says the three-year figures 'are taken from the ASCO 2024 presentation of the same analysis'. There was no source row for it. B9 did not catch this one because the page names the presentation without linking it, so a check that reads anchors could not see it -- a limit of B9 worth recording beside the case it did catch.\n\nIt also re-confirms, independently, that 0.510 is the figure the evidence carries to three decimals. The 0.51 that a precision check flagged on 2026-09-01 is only ever the company press release."
+      }
+    },
+    {
+      "id": "S009",
+      "url": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/",
+      "type": "coverage",
+      "title": "Morning Glory Sciences — INTerpath-001",
+      "accessed": "",
+      "used_for": "Specialist coverage. Source of the quoted argument that absolute recurrence risk is lower in the stage IIB and IIC patients the Phase 3 adds, so the same hazard ratio delivers a smaller absolute benefit.",
+      "also_called": [
+        "Morning Glory Sciences"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "by": "",
+        "on": "",
+        "sections": [],
+        "note": "Split out of S006 on 2026-09-01. It was never held under that entry either -- S006's held document is The ASCO Post's article, and the passage this page quotes from this outlet is not in it. The page quotes this document directly, so it must be acquired or the quotation must go.",
+        "held": {
+          "file": "docs/26/26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720.html",
+          "sha256": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
+          "bytes": 192066,
+          "identified_by": "contains 4 of 4 distinctive title words"
+        }
+      }
+    },
+    {
+      "id": "S010",
+      "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+      "type": "coverage",
+      "title": "Pharmacy Times — Phase 3 trial marks first success for personalized mRNA cancer therapy in resected melanoma",
+      "accessed": "",
+      "used_for": "Specialist coverage. Source of the quoted counter-argument that resected stage IIB and IIC patients can face recurrence and mortality risks similar to stage III.",
+      "also_called": [
+        "Pharmacy Times"
+      ],
+      "access": {
+        "state": "blocked",
+        "by": "acquire_sources.py, then WebFetch",
+        "on": "2026-09-01",
+        "sections": [],
+        "note": "Split out of S006 on 2026-09-01. State is `blocked`: we tried, by named routes, and could not get the bytes. It was entered as `not_held`, which is not one of this ledger's states -- caught by undefined_states once that function stopped asking access_of(), which had been laundering unknown states into not_opened before the check could see them. It was never held under that entry either -- S006's held document is The ASCO Post's article, and the passage this page quotes from this outlet is not in it. The page quotes this document directly, so it must be acquired or the quotation must go.\n\n2026-09-01: acquire_sources gets HTTP 403 from pharmacytimes.com, with and without the recorded free routes. A WebFetch of the same URL DID return the page and confirmed the sentence this page quotes, verbatim: \"Notably, patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\"\n\nTHE STATE IS NOT CHANGED ON THAT EVIDENCE. A fetch that returns a sentence is not the document in the library, and this issue abolished `machine_read` today precisely because a state was being licensed by the fact that something automated had reached a URL. The quotation stays unattested until somebody holds the bytes."
+      },
+      "_to_do": "Save the page (the browser's Save As, or print to PDF) and run: python3 backend/scripts/whatholdsup/source_store.py melanoma add S010 <path> --url https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma --via \"saved from the browser by fred\""
+    },
+    {
+      "id": "S011",
+      "url": "https://mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/",
+      "type": "coverage",
+      "title": "MLQ News — Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints",
+      "accessed": "",
+      "used_for": "Coverage. The page cites it as the outlet that enumerated what the announcement did not contain: hazard ratios, confidence intervals, p-values, median follow-up, event counts.",
+      "also_called": [
+        "MLQ News"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "by": "",
+        "on": "",
+        "sections": [],
+        "note": "Entered 2026-09-01. The page linked and characterised this document with no source entry at all, which B9 reported; nothing had ever checked what it says.",
+        "held": {
+          "file": "docs/a4/a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253.html",
+          "sha256": "a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253",
+          "bytes": 82470,
+          "identified_by": "contains 8 of 9 distinctive title words"
+        }
       }
     }
   ],

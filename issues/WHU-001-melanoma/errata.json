@@ -63,7 +63,7 @@
     },
     "S006": {
       "source": "S006",
-      "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints (with 2 further outlet(s), listed in also_urls)",
+      "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints",
       "checked_on": "2026-09-01",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
@@ -78,6 +78,42 @@
       "identifier_from": "the held document",
       "state": "UNCHECKED",
       "why": "Europe PMC has no record for DOI 10.1200/OA-25-00008",
+      "amendments": [],
+      "comments": []
+    },
+    "S008": {
+      "source": "S008",
+      "title": "Weber JS, Khattak MA, Carlino MS, et al. Individualized neoantigen therapy mRNA-4157 (V940) plus pembrolizumab in resect",
+      "checked_on": "2026-09-01",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S009": {
+      "source": "S009",
+      "title": "Morning Glory Sciences — INTerpath-001",
+      "checked_on": "2026-09-01",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S010": {
+      "source": "S010",
+      "title": "Pharmacy Times — Phase 3 trial marks first success for personalized mRNA cancer therapy in resected melanoma",
+      "checked_on": "2026-09-01",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S011": {
+      "source": "S011",
+      "title": "MLQ News — Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints",
+      "checked_on": "2026-09-01",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     }

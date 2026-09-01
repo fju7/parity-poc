@@ -301,13 +301,42 @@ def undefined_states(srcs: list[dict]) -> dict[str, list[str]]:
     A vocabulary that drifts between issues is a ledger that contradicts itself
     in the same repository -- the same failure as a page contradicting its own
     source list, one level down.
+
+    THE RAW STATE, NOT access_of(). This function asked access_of, which
+    SANITISES an unknown state into NOT_OPENED before returning it -- so the
+    value it tested was always one of STATES and this check could never report
+    anything. It was written after forty-four undefined states reached two live
+    pages, it has sat in the recall test scoring CAUGHT ever since, and on
+    2026-09-01 three sources were entered with the state `not_held`, which is
+    not a state, and it returned {}.
+
+    A check that consumes a laundered value is not a check. This is the same
+    shape as the canary passing because both sides of the comparison used the
+    same broken normaliser, and as a preflight row printed under a mark the
+    display had no key for: the control ran, and could not have failed.
     """
     out: dict[str, list[str]] = {}
     for s in srcs:
-        st = (access_of(s) or {}).get("state")
+        a = s.get("access")
+        st = a.get("state") if isinstance(a, dict) else None
         if st and st not in STATES:
             out.setdefault(st, []).append(s.get("id", "?"))
     return out
+
+
+def undefined_state_rows(slug: str, srcs: list[dict]) -> list[tuple[str, str, str]]:
+    """The preflight row. NOTHING CALLED undefined_states -- it existed, it was
+    in the recall test, and no gate ran it, so the vocabulary could drift on a
+    live page exactly as before."""
+    bad = undefined_states(srcs)
+    if not bad:
+        return [("access states are defined",
+                 "ok", "every source carries one of: %s" % ", ".join(STATES))]
+    return [("access states are defined", "BLOCKED",
+             "%d source(s) carry a state this ledger does not define, so nothing "
+             "knows what they permit: %s"
+             % (sum(len(v) for v in bad.values()),
+                "; ".join("%s on %s" % (k, ", ".join(v)) for k, v in bad.items())))]
 
 
 def inaccessibility_claims(page_text: str, srcs: list[dict]) -> list[tuple[str, dict, str]]:

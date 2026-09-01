@@ -260,9 +260,40 @@ def run_checks(slug: str, *, only: str = "") -> dict:
             ok5, why5 = SC.b5_complete(span, slug, sid)
             if not ok5:
                 found.append({"check": "B5", "verdict": "truncated", "why": why5})
+            # A SCOPE WORD MAY BE DISPOSED OF, BY A PERSON, IN THE ROW.
+            #
+            # "Of the study it is actually announcing it says only that the
+            # endpoints were met ... No hazard ratio, no interval, no p-value,
+            # no percentage" is an absence claim about a WHOLE DOCUMENT. No span
+            # can carry "only", so B6 is right that nothing maps and will be
+            # right forever. Left alone it becomes the flag the operator learns
+            # to scroll past, which is how a check stops working.
+            #
+            # So the row may carry a disposition: the word, why it is not a
+            # claim the span is meant to bear, WHAT WOULD SHOW IT WRONG, and who
+            # signed. Same discipline as b13's declared exclusions -- a
+            # signature, not a filter. A disposition with no falsifier or no
+            # signer does not count, and one whose word is no longer in the
+            # sentence is itself a flag.
+            disposed = {}
+            for d in (row.get("scope_words") or []):
+                if isinstance(d, dict) and d.get("word") and \
+                        (d.get("falsifier") or "").strip() and \
+                        (d.get("by") or "").strip():
+                    disposed[d["word"]] = d
             for w, why6 in SC.b6_scope(sent, span):
+                if w in disposed:
+                    continue
                 found.append({"check": "B6", "verdict": "unmapped scope word",
                               "why": "%s — %s" % (w, why6)})
+            live_words = {w for w, _ in SC.b6_scope(sent, "")}
+            for w, d in disposed.items():
+                if w not in live_words:
+                    found.append({
+                        "check": "B6", "verdict": "stale disposition",
+                        "why": "%r is disposed of in this row and is no longer a "
+                               "scope word in the sentence; a disposition that "
+                               "outlives its word is a filter" % w})
             import autobind as AB
             for a in AB.anchors_of(sent):
                 ok12, why12 = SC.b12_precision(a, slug, sid)

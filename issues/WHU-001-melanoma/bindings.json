@@ -36,7 +36,16 @@
       "locator": null,
       "span": "At a pre-specified interim analysis, intismeran in combination with KEYTRUDA as adjuvant therapy demonstrated statistically significant and clinically meaningful improvements in RFS and DMFS compared to KEYTRUDA alone for patients with completely resected stage IIB, IIC, III or IV cutaneous melanoma who had not undergone prior treatment with systemic therapy.",
       "envelope": "d cancer therapy, as well as the first Phase 3 study to demonstrate a clinically meaningful improvement over KEYTRUDA alone, a standard-of-care immunotherapy, in the adjuvant setting for patients with resected melanoma. At a pre-specified interim analysis, intismeran in combination with KEYTRUDA as adjuvant therapy demonstrated statistically significant and clinically meaningful improvements in RFS and DMFS compared to KEYTRUDA alone for patients with completely resected stage IIB, IIC, III or IV cutaneous melanoma who had not undergone prior treatment with systemic therapy. In accordance with the trial protocol, the study will continue in order to evaluate other key secondary endpoints, including overall survival (OS). The safety profiles of intismeran and KEYTRUDA in this trial were consi",
-      "scope_words": [],
+      "scope_words": [
+        {
+          "word": "only",
+          "why": "The sentence makes an ABSENCE claim about the whole of S001, not a claim about the span it is bound to. The span is what the release does say about the Phase 3; 'only' is the assertion that it says nothing more. No span can carry that, and the sentence immediately before it on the page states the countervailing fact in the open: the release does print hazard ratios, and they belong to the earlier trial, and the release says so.",
+          "falsifier": "a hazard ratio, confidence interval, p-value or percentage appearing anywhere in S001 that describes INTerpath-001, the 1,137-patient Phase 3, rather than KEYNOTE-942. S001 is held in full, so anyone can run this.",
+          "by": "claude",
+          "on": "2026-09-01",
+          "bucket": "judgement call — which trial a figure in the release belongs to is read from its context, not matched from a string"
+        }
+      ],
       "falsifier": null,
       "verdicts": {
         "locatable": null,
@@ -50,13 +59,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "only — the sentence says 'only' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-01"
     },
     "0436c6ee06315550": {

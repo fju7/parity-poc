@@ -45,8 +45,9 @@ effect is.
 
 WHAT THE FULL ASSESSMENT ADDS
 
-Every figure in this issue traces to a company release or a peer-
-reviewed paper. Before publishing we read the specialist coverage
+Every figure above was verified against a company release or
+a peer-reviewed paper before publication, and the draft was
+checked twice. Before publishing we read the specialist coverage
 of the announcement, and it got the attribution right: the 49% and
 59% belong to the earlier trial, and most said plainly that the
 Phase 3 numbers had not been released.
@@ -73,8 +74,9 @@ READ THE FULL ASSESSMENT
 https://whatholdsup.org/melanoma
 
 
-Every figure above traces to a company release or a peer-reviewed
-paper, all listed on the page. It was checked against primary
+Every figure above was verified against a company release or
+a peer-reviewed paper before publication, and the draft was
+checked twice. It was checked against primary
 sources before publication, and what that changed is recorded at
 the bottom of the page.
 

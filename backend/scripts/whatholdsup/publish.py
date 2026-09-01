@@ -1183,6 +1183,15 @@ def preflight(slug: str, *, for_email: bool,
             ledger.plain(_live) if _live else None))
     except SystemExit as e:
         out.append(("source ledger", BAD, str(e)))
+    # NOTHING RAN undefined_states. It was written after 44 undefined states
+    # reached two live pages, it sits in the recall test scoring CAUGHT, and no
+    # gate called it -- so on 2026-09-01 three sources were entered with the
+    # state `not_held`, which is not a state, and nothing said so.
+    try:
+        out.extend(ledger.undefined_state_rows(slug, source_store.sources(slug)))
+    except BaseException as exc:
+        out.append(("access states are defined", WARN,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
     out.extend(advocate.preflight_rows(slug))
     out.extend(premise.preflight_rows(
         slug, already_published=any(r["issue"] == slug and r["action"] == "publish"

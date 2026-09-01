@@ -152,10 +152,29 @@ def extract(page_text: str) -> list[str]:
 
     t = html.unescape(re.sub(r"<[^>]+>", " ", page_text))
     t = " ".join(t.split())
-    literal = []
-    for pat in (r"\u201c([^\u201d]{%d,400})\u201d" % MIN_QUOTE,
-                r'"([^"]{%d,400})"' % MIN_QUOTE):
-        literal += re.findall(pat, t)
+    # CURLY QUOTES ARE DIRECTIONAL and pair themselves. Straight ones do not,
+    # and pairing them with a length floor in the pattern DESYNCHRONISES the
+    # whole page: "is it better?" is fourteen characters, below the floor, so
+    # the pattern skipped it and paired ITS closing mark with the next opening
+    # one. Everything after ran inverted, and the check pulled out four
+    # "quotations" that were the page's own prose lying between real ones --
+    # including one that put words in a press release's mouth that the page
+    # never attributed to it.
+    #
+    # So: pair the marks first, sequentially, then apply the floor. Splitting
+    # on the character is exactly that pairing -- odd segments are inside.
+    literal = re.findall(r"\u201c([^\u201d]{%d,400})\u201d" % MIN_QUOTE, t)
+    parts = t.split('"')
+    inside = [parts[i] for i in range(1, len(parts), 2)]
+    if len(parts) % 2 == 0:
+        # An unbalanced straight quote makes every pairing after it a guess.
+        # Say so rather than emit the guesses.
+        inside = [q for q in inside if MIN_QUOTE <= len(q) <= 400]
+        sys.stderr.write(
+            "quotations: the page has an odd number of straight quotation "
+            "marks, so straight-quoted passages after the unbalanced one may "
+            "be paired wrongly\n")
+    literal += [q for q in inside if MIN_QUOTE <= len(q) <= 400]
 
     seen, out = set(), []
     for q in sorted(marked + literal, key=len, reverse=True):

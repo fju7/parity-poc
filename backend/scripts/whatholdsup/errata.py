@@ -132,6 +132,18 @@ def identifier_from_held(slug: str, src: dict) -> tuple[str, str] | None:
     hold is evidence; one recalled is a guess, and on 2026-08-31 three of five
     guesses resolved to entirely different papers.
     """
+    if src.get("type") == "coverage":
+        # A NEWS ARTICLE ABOUT A PAPER PRINTS THE PAPER'S DOI. Reading it out
+        # and treating it as the news article's own identifier is the
+        # corrigendum mistake wearing a different hat: it asks Europe PMC for
+        # errata on somebody else's document and reports the answer against
+        # ours. On 2026-09-01 an MLQ News article yielded 10.1200/JCO.2026.44.
+        # 16_suppl.9500 -- a JCO meeting abstract it cites. Nothing came back,
+        # so nothing was misfiled, which is luck and not a control.
+        #
+        # Coverage has no errata. It has corrections, which are printed on the
+        # article itself and need the document, not a bibliographic database.
+        return None
     if src.get("type") == "corrigendum":
         # A corrigendum prints the DOI of the article it corrects, prominently
         # and often first. Reading a DOI out of one and calling it that

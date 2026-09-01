@@ -1,173 +1,114 @@
 {
-  "what_this_is": "What Holds Up: quotations on melanoma and what the sources actually say.",
-  "how_to_use_it": "One entry per quoted passage on the page. Two kinds, and the difference matters: a quotation FROM A SOURCE carries source_id and verbatim -- the source's own wording, copied, so the check can compare rather than trust -- while a passage in the page's own voice carries kind: rhetorical and a reason. An entry with neither blocks, and so does a quoted passage on the page with no entry at all.",
+  "_what_this_is": "Every quoted passage on the page, with either the source's own wording to match against, or a declaration that the marks are the page's own voice and why. A quotation nobody has checked against the source is not a quotation.",
+  "_rebuilt": "2026-09-01. The previous file held fourteen entries, four of which were not quotations at all: the extractor paired straight quotation marks left to right with a 25-character floor in the pattern, so a short quoted phrase ('is it better?', fourteen characters) was skipped and its closing mark paired with the next opening one. Everything after ran inverted. One of the four put a phrase in a press release's mouth that the page never attributed to it. extract() now pairs the marks first and applies the floor second.",
   "quotations": [
     {
       "id": "Q-01",
-      "quote": "0 0.5 1.0 — no effect 1.5 All four intervals are from KEYNOTE-942, the 157-patient Phase 2b. Amber bars cross the no-effect line; green ones clear it. The Phase 3 has no bar here, because it has released no effect size to draw. What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so",
+      "quote": "Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.",
+      "kind": "rhetorical",
       "source_id": "",
       "verbatim": "",
-      "kind": "",
-      "why": "",
+      "why": "The claim this page scores, formulated by us. It sits in the scoring block as the proposition under assessment, not as anything anyone said. No document is being quoted.",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-09-01"
       }
     },
     {
       "id": "Q-02",
-      "quote": "means the threshold was crossed. It is a pass/fail statement. It contains no information about size. A therapy that reduces the hazard of recurrence by 8% and one that halves it both produce that sentence. This is why the absence of a hazard ratio in the Phase 3 announcement matters:",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
+      "quote": "absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.",
+      "kind": "source",
+      "source_id": "S009",
+      "verbatim": "The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.",
+      "why": "Morning Glory Sciences' argument that the Phase 3's added population changes what the hazard ratio delivers. Acquired and entered as S009 on 2026-09-01, split out of S006, which had carried this outlet in also_urls while holding a different outlet's article.",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-09-01"
       }
     },
     {
       "id": "Q-03",
-      "quote": "Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
+      "quote": "can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "kind": "source",
+      "source_id": "S010",
+      "verbatim": "Patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "why": "Pharmacy Times' counter-argument about the population the Phase 3 adds. The wording is the fact-check gate's own found_value for verdict c38, recorded VERIFIED against this URL on 2026-08-28, and a WebFetch of the same URL on 2026-09-01 returned the same sentence independently. S010 is nonetheless `blocked` — pharmacytimes.com returns 403 to acquisition — so nobody HOLDS the document, and this quotation stays unattested until somebody does. Two retrievals agreeing is evidence; it is not the bytes.",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "_wording_on_file": "melanoma.html.gate.json, verdict c38, found_value, by the fact-check gate"
     },
     {
       "id": "Q-04",
-      "quote": "absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
+      "quote": "will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "kind": "source",
+      "source_id": "S001",
+      "verbatim": "These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "why": "The companies' own statement about when the Phase 3 data will appear. Read off S001, whose full text is held.",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-09-01"
       }
     },
     {
       "id": "Q-05",
-      "quote": "Before a trial starts, researchers register one main question and a statistical threshold for answering it.",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
+      "quote": "statistically significant and clinically meaningful",
+      "kind": "source",
+      "source_id": "S001",
+      "verbatim": "First and only combination regimen to demonstrate statistically significant and clinically meaningful improvements in RFS and DMFS compared to KEYTRUDA alone for these patients in the adjuvant melanoma setting",
+      "why": "The only characterisation the release gives of the Phase 3 result. The page previously closed the quotation with a full stop inside the marks; S001 does not end a sentence there, so the stop was ours and now sits outside them.",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-09-01"
       }
     },
     {
       "id": "Q-06",
-      "quote": "can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "quote": "a 49% reduction in the hazard of recurrence or death",
+      "kind": "rhetorical",
       "source_id": "",
       "verbatim": "",
-      "kind": "",
-      "why": "",
+      "why": "The page's own restatement of HR 0.510 as a percentage, and the sentence containing it says so: 'a correct restatement of the ratio'. NOTE FOR THE EDITOR: S001 carries the near-identical 'a 49% reduction in the risk of recurrence or death', and this page deliberately writes hazard where the release writes risk. A reader could take these marks as attribution. Removing them would end the ambiguity.",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-09-01"
       }
     },
     {
       "id": "Q-07",
-      "quote": "will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "quote": "is it different, in either direction?",
+      "kind": "rhetorical",
       "source_id": "",
       "verbatim": "",
-      "kind": "",
-      "why": "",
+      "why": "The page explaining what a two-sided test asks. Its own words, in the voice of the test.",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-09-01"
       }
     },
     {
       "id": "Q-08",
-      "quote": "statistically significant and clinically meaningful.",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
+      "quote": "as assessed by the investigator",
+      "kind": "source",
+      "source_id": "S001",
+      "verbatim": "The primary endpoint is RFS, defined as the time from randomization to any disease recurrence (local, locoregional, regional or distant) as assessed by the investigator, or death due to any cause.",
+      "why": "How the release defines the Phase 3 primary endpoint, which is the point the paragraph turns on: clinical judgement rather than central adjudication. Read off S001, whose full text is held.",
       "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-09-01"
       }
     },
     {
       "id": "Q-09",
-      "quote": "a 49% reduction in the hazard of recurrence or death",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
-      "attested": {
-        "by": "",
-        "on": ""
-      }
-    },
-    {
-      "id": "Q-10",
-      "quote": "delays recurrence, not that it extends life.",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
-      "attested": {
-        "by": "",
-        "on": ""
-      }
-    },
-    {
-      "id": "Q-11",
-      "quote": "is it different, in either direction?",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
-      "attested": {
-        "by": "",
-        "on": ""
-      }
-    },
-    {
-      "id": "Q-12",
-      "quote": "as assessed by the investigator",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
-      "attested": {
-        "by": "",
-        "on": ""
-      }
-    },
-    {
-      "id": "Q-13",
       "quote": "this treatment does nothing",
+      "kind": "rhetorical",
       "source_id": "",
       "verbatim": "",
-      "kind": "",
-      "why": "",
+      "why": "The null hypothesis, named in plain words so a reader can see what an interval crossing 1.0 leaves open. Nobody said it.",
       "attested": {
-        "by": "",
-        "on": ""
-      }
-    },
-    {
-      "id": "Q-14",
-      "quote": "reports no Phase 3 results",
-      "source_id": "",
-      "verbatim": "",
-      "kind": "",
-      "why": "",
-      "attested": {
-        "by": "",
-        "on": ""
+        "by": "claude",
+        "on": "2026-09-01"
       }
     }
   ]

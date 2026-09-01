@@ -394,8 +394,20 @@ def run_case(c: dict) -> tuple[str, str]:
         return (MISSED, "B12 sees nothing: " + why) if ok else (CAUGHT, why)
 
     if kind == "ledger":
+        # PROVE THE CHECK CAN FAIL, then that the estate is clean.
+        #
+        # This case scored CAUGHT for a day against a function that could not
+        # report anything: undefined_states read access_of(), which sanitises an
+        # unknown state into NOT_OPENED before returning it. Asking it about a
+        # source whose state is `not_held` returned {}. "No undefined states
+        # found" and "cannot find undefined states" are the same output.
         import source_ledger as SL
         import source_store as ST
+        probe = SL.undefined_states([{"id": "PROBE",
+                                      "access": {"state": "not_a_state"}}])
+        if probe.get("not_a_state") != ["PROBE"]:
+            return MISSED, ("undefined_states does not report a source whose "
+                            "state is 'not_a_state' — the check cannot fail")
         bad = {}
         for slug in ("melanoma", "cdk46", "deskilling"):
             u = SL.undefined_states(ST.sources(slug))
@@ -403,7 +415,8 @@ def run_case(c: dict) -> tuple[str, str]:
                 bad[slug] = u
         if bad:
             return MISSED, "states with no definition remain: %s" % bad
-        return CAUGHT, ("undefined_states now runs over every issue; the 44 "
+        return CAUGHT, ("undefined_states reports a planted bad state, runs over "
+                        "every issue, and is now called by the preflight; the 44 "
                         "machine_read entries are migrated to fragment_only")
 
     if kind == "b8":
