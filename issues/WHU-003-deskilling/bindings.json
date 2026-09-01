@@ -21,7 +21,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "5 held documents contain all these anchors (S032, S033, S037, S041, S042) — which one the sentence rests on is not decidable by presence alone"
     },
     "11147b19c29ad883": {
@@ -2515,7 +2515,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "f72df4846d9beefd": {
@@ -2537,7 +2537,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: 10.1016/S2468-1253(25)00289-4. (strength 3, need 4)"
     },
     "1b1a986073c3d5b4": {
@@ -2559,7 +2559,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     }
   }

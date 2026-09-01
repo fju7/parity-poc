@@ -21,7 +21,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "no held document contains all 3 anchors: 1,137, 0.165, 1.345"
     },
     "9f0ee44d4314c963": {
@@ -1340,7 +1340,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "14a3344d95fb8feb": {
@@ -1362,7 +1362,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "no held document contains all 2 anchors: 92.2%, 71.3%"
     },
     "8692151651c67954": {
@@ -1384,7 +1384,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: delays recurrence, not that it extends life. (strength 3, need 4)"
     },
     "f788786199408858": {
@@ -1406,7 +1406,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "7d8fed63e862b7a9": {
@@ -1428,7 +1428,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: reports no Phase 3 results (strength 3, need 4)"
     },
     "d7b5bd72883d1d99": {
@@ -1450,7 +1450,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "65205fa7c2b58db7": {
@@ -1472,7 +1472,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "9ef509fbfe891142": {
@@ -1494,7 +1494,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "56209b4ae141e4c0": {
@@ -1516,7 +1516,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "a8a0a11a92efffe0": {
@@ -1540,6 +1540,27 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+    },
+    "352a985b2cd69305": {
+      "sentence": "The Melanoma Result — What Holds Up 1,137 patients in the Phase 3 trial 0 Phase 3 efficacy numbers released n=14 the whole survival analysis 0.165–1.345 the interval around that trend The short version The Phase 3 announcement reports no numerical Phase 3 results.",
+      "sentence_sha": "352a985b2cd69305",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
     }
   }
 }

@@ -90,10 +90,27 @@ def is_empirical(sent: str, names: set[str]) -> tuple[bool, str]:
     return False, ""
 
 
+# Page furniture is not a claim.
+#
+# The pages carry no <main> or <article>, so sentence extraction was taking the
+# whole document — and the first "empirical sentence" needing a binding was the
+# site navigation: "The Category Difference — What Holds Up What Holds Up What
+# this is Issue one Issue two Who pays for this". It contains digits and proper
+# nouns, so it looked empirical to a check counting digits and proper nouns.
+#
+# Every denominator this file has reported was inflated by it. Removing the nav,
+# header and footer is not cosmetic: it changes what "141 sentences rest on
+# nothing" means, and a number that is wrong in our favour is worse than one
+# that is merely large.
+FURNITURE = re.compile(r"<(nav|header|footer|aside)\b[^>]*>.*?</\1>",
+                       re.S | re.I)
+
+
 def page_sentences(slug: str) -> list[str]:
     html = ledger.page_text(slug) if hasattr(ledger, "page_text") else None
     if html is None:
         html = _page_html(slug)
+    html = FURNITURE.sub(" ", html)
     return [" ".join(s.split()) for s in ledger.sentences(ledger.plain(html))]
 
 

@@ -155,6 +155,9 @@ def b5_complete(span: str, slug: str, sid: str) -> tuple[bool, str]:
 
 # --- B6 ---------------------------------------------------------------------
 
+QUANTIFIERS = {"every", "all", "each", "none", "no", "any", "never", "always",
+               "entire", "whole", "universally", "invariably"}
+
 SCOPE_WORDS = {
     "every", "all", "each", "none", "no", "never", "always", "only", "any",
     "restricted", "limited", "solely", "exclusively", "established",
@@ -178,6 +181,20 @@ EQUIVALENT = {
 }
 
 
+# A scope word only matters where the sentence is making a claim ABOUT WHAT THE
+# SOURCE SAYS. Run without this, B6 flagged "no" in the chart label "0.5 1.0 —
+# no effect 1.5", "any" in "before any of these trials had mature survival
+# data", and "whole" in an aside — none of which quantifies over a document's
+# contents. Five false flags in six teaches a reader to skip the sixth, which
+# was the real one: "labels EVERY log-rank p-value on the study".
+REPORTS = re.compile(
+    r"\b(?:say|says|said|state|states|stated|label|labels|labelled|list|lists|"
+    r"post|posts|posted|print|prints|printed|record|records|recorded|report|"
+    r"reports|reported|show|shows|showed|give|gives|given|carr(?:y|ies|ied)|"
+    r"describe|describes|described|annotat\w+|contain|contains|contained)\b",
+    re.I)
+
+
 def b6_scope(sentence: str, span: str) -> list[tuple[str, str]]:
     """(word, why) for every quantifier or hedge with nothing under it.
 
@@ -186,10 +203,26 @@ def b6_scope(sentence: str, span: str) -> list[tuple[str, str]]:
     against "HER2-E OR Basal-like". "What PALOMA-2 ESTABLISHED" against "OS was
     not significantly improved".
     """
+    # TWO KINDS OF SCOPE WORD, and only one needs the reporting guard.
+    #
+    # QUANTIFIERS — every, all, none, any — are the ones that produced the false
+    # flags: "no effect" on a chart axis, "any of these trials". They only make
+    # a claim about a document's contents when the sentence says the document
+    # says something, so they are guarded by REPORTS.
+    #
+    # EPISTEMIC words — established, confirmed, demonstrated, restricted, only —
+    # are claims about what the source SUPPORTS, and need no reporting verb.
+    # "What PALOMA-2 established" and "HARMONIA was restricted to the
+    # HER2-enriched subtype" carry no reporting verb and are both errors this
+    # check exists to catch. Guarding them cost two true positives for five
+    # false ones, which is a worse trade than the one it replaced.
+    reports = bool(REPORTS.search(sentence))
     sp = set(re.findall(r"[a-z]+", _norm(span).lower()))
     out = []
     for w in re.findall(r"[a-z]+", _norm(sentence).lower()):
         if w not in SCOPE_WORDS:
+            continue
+        if w in QUANTIFIERS and not reports:
             continue
         ok = EQUIVALENT.get(w, {w}) & sp
         if not ok:
@@ -260,6 +293,16 @@ def b12_precision(figure: str, slug: str, sid: str) -> tuple[bool, str]:
             break
         shorter = "%s.%s" % (whole, frac[:keep])
         # a bare prefix match would find 0.51 inside 0.519; require a boundary
+        # AND IT MUST BE THE CORRECT ROUNDING. Truncating 0.008 gives "0.00",
+        # which is not what a source reporting that figure less precisely would
+        # print — it would print 0.01. Run over a registry posting, the
+        # truncating version announced that "the source prints 0.00, not 0.008".
+        try:
+            rounded = ("%%.%df" % keep) % float(f)
+        except ValueError:
+            break
+        if rounded != shorter:
+            continue
         if re.search(r"(?<![0-9.])%s(?![0-9])" % re.escape(shorter), d):
             return False, ("the source prints %s, not %s — we show %d decimal "
                            "place(s) the source does not"

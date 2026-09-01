@@ -16,7 +16,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: 6.2026 (strength 3, need 4)"
     },
     "3c085e7996cc6645": {
@@ -33,7 +33,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "f313e987bb86b905": {
@@ -255,7 +255,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.55 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.55 (strength 1, need 4)",
+      "source_id": "S022",
+      "span": "\"classes\":[{\"categories\":[{\"measurements\":[{\"groupId\":\"OG000\",\"value\":\"23.8\",\"lowerLimit\":\"19.2\",\"upperLimit\":\"NA\",\"comment\":\"NA = The value was not estimable due to insufficient number of participants with events\"},{\"groupId\":\"OG001\",\"value\":\"13.0\",\"lowerLimit\":\"11.0\",\"upperLimit\":\"16.4\"}]}]}],\"analyses\":[{\"groupIds\":[\"OG000\",\"OG001\"],\"nonInferiorityType\":\"SUPERIORITY\",\"pValue\":\"<0.0000001\",\"statisticalMethod\":\"Log Rank\",\"paramType\":\"Hazard Ratio, log\",\"paramValue\":\"0.553\",\"ciPctValue\":\"95\",\"ciNumSides\":\"TWO_SIDED\",\"ciLowerLimit\":\"0.441\",\"ciUpperLimit\":\"0.694\"}]",
+      "envelope": "ral or anastrozole 1 mg daily oral) and goserelin 3.6 mg subcutaneous injection (once every 28 days).\"}],\"denoms\":[{\"units\":\"Participants\",\"counts\":[{\"groupId\":\"OG000\",\"value\":\"335\"},{\"groupId\":\"OG001\",\"value\":\"337\"}]}],\"classes\":[{\"categories\":[{\"measurements\":[{\"groupId\":\"OG000\",\"value\":\"23.8\",\"lowerLimit\":\"19.2\",\"upperLimit\":\"NA\",\"comment\":\"NA = The value was not estimable due to insufficient number of participants with events\"},{\"groupId\":\"OG001\",\"value\":\"13.0\",\"lowerLimit\":\"11.0\",\"upperLimit\":\"16.4\"}]}]}],\"analyses\":[{\"groupIds\":[\"OG000\",\"OG001\"],\"nonInferiorityType\":\"SUPERIORITY\",\"pValue\":\"<0.0000001\",\"statisticalMethod\":\"Log Rank\",\"paramType\":\"Hazard Ratio, log\",\"paramValue\":\"0.553\",\"ciPctValue\":\"95\",\"ciNumSides\":\"TWO_SIDED\",\"ciLowerLimit\":\"0.441\",\"ciUpperLimit\":\"0.694\"}]},{\"type\":\"SECONDARY\",\"title\":\"Overall Survival (OS)\",\"description\":\"OS was defined as the time from the date of randomization to the date of death from any cause. In cases where the patient's death was not recorded, the",
+      "locator_type": "prose",
+      "document_sha": "460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "6f3ca3b188f5c808": {
       "sentence": "Across the investigator-assessed progression-free analyses these four trials have published between them — primary, updated and final, eight readouts, all named in the sources below — every hazard ratio falls between 0.52 and 0.58.",
@@ -289,7 +300,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 2 anchors: NCT01958021, 2.5%"
+      "autobind": "no held document contains all 2 anchors: NCT01958021, 2.5%",
+      "source_id": "S019",
+      "span": "The distribution of OS between the two treatment arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance.",
+      "envelope": " the Kaplan-Meier method. As per protocol, the final OS analysis was conducted after approximately 400 deaths were documented.\\n\\nThe median OS, along with 95% confidence intervals, was reported for each treatment group.The distribution of OS between the two treatment arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance. A stratified Cox regression was used to estimate the OS hazard ratio and the associated 95% CI.\",\"timeFrame\":\"Up to approximately 87 months\"},{\"measure\":\"Overall Response Rate (ORR) by Investigator Assessment\",\"descript",
+      "locator_type": "prose",
+      "document_sha": "cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S019; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "30eb66f6a9eb99c4": {
       "sentence": "But the p = 0.008 in the table above is not that test’s p-value.",
@@ -323,7 +345,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 8 anchors: 0.004, 0.765, 0.628, 0.932, 0.008"
+      "autobind": "no held document contains all 8 anchors: 0.004, 0.765, 0.628, 0.932, 0.008",
+      "source_id": "S019",
+      "span": "\"analyses\":[{\"groupIds\":[\"OG000\",\"OG001\"],\"nonInferiorityType\":\"SUPERIORITY\",\"pValue\":\"0.004\",\"statisticalMethod\":\"Log Rank\",\"paramType\":\"Hazard Ratio (HR)\",\"paramValue\":\"0.765\",\"ciPctValue\":\"95\",\"ciNumSides\":\"TWO_SIDED\",\"ciLowerLimit\":\"0.628\",\"ciUpperLimit\":\"0.932\"}]",
+      "envelope": "01\",\"value\":\"334\"}]}],\"classes\":[{\"categories\":[{\"measurements\":[{\"groupId\":\"OG000\",\"value\":\"63.9\",\"lowerLimit\":\"52.4\",\"upperLimit\":\"71.0\"},{\"groupId\":\"OG001\",\"value\":\"51.4\",\"lowerLimit\":\"47.2\",\"upperLimit\":\"59.7\"}]}]}],\"analyses\":[{\"groupIds\":[\"OG000\",\"OG001\"],\"nonInferiorityType\":\"SUPERIORITY\",\"pValue\":\"0.004\",\"statisticalMethod\":\"Log Rank\",\"paramType\":\"Hazard Ratio (HR)\",\"paramValue\":\"0.765\",\"ciPctValue\":\"95\",\"ciNumSides\":\"TWO_SIDED\",\"ciLowerLimit\":\"0.628\",\"ciUpperLimit\":\"0.932\"}]},{\"type\":\"SECONDARY\",\"title\":\"Overall Response Rate (ORR) by Investigator Assessment\",\"description\":\"ORR is the percentage of participants with the best overall response of complete response (CR) or partial response (PR",
+      "locator_type": "prose",
+      "document_sha": "cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S019; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "b93e2916e048967b": {
       "sentence": "Those are the same comparison, and 0.008 is exactly twice 0.004 — which is what a one-sided and a two-sided presentation of one log-rank test look like side by side.",
@@ -358,7 +391,29 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 2 anchors: 0.025, NCT01740427"
+      "autobind": "no held document contains all 2 anchors: 0.025, NCT01740427",
+      "source_id": "S020",
+      "span": "\"analyses\":[{\"groupIds\":[\"OG000\",\"OG001\"],\"nonInferiorityType\":\"SUPERIORITY_OR_OTHER_LEGACY\",\"pValue\":\"0.337750\",\"pValueComment\":\"1-sided p-value from the stratified log-rank test.\",\"statisticalMethod\":\"Stratified Log Rank\",\"paramType\":\"Hazard Ratio (HR)\",\"paramValue\":\"0.956\",\"ciPctValue\":\"95\",\"ciNumSides\":\"TWO_SIDED\",\"ciLowerLimit\":\"0.777\",\"ciUpperLimit\":\"1.177\"}]",
+      "envelope": "01\",\"value\":\"222\"}]}],\"classes\":[{\"categories\":[{\"measurements\":[{\"groupId\":\"OG000\",\"value\":\"53.9\",\"lowerLimit\":\"49.8\",\"upperLimit\":\"60.8\"},{\"groupId\":\"OG001\",\"value\":\"51.2\",\"lowerLimit\":\"43.7\",\"upperLimit\":\"58.9\"}]}]}],\"analyses\":[{\"groupIds\":[\"OG000\",\"OG001\"],\"nonInferiorityType\":\"SUPERIORITY_OR_OTHER_LEGACY\",\"pValue\":\"0.337750\",\"pValueComment\":\"1-sided p-value from the stratified log-rank test.\",\"statisticalMethod\":\"Stratified Log Rank\",\"paramType\":\"Hazard Ratio (HR)\",\"paramValue\":\"0.956\",\"ciPctValue\":\"95\",\"ciNumSides\":\"TWO_SIDED\",\"ciLowerLimit\":\"0.777\",\"ciUpperLimit\":\"1.177\"}]},{\"type\":\"SECONDARY\",\"title\":\"Overall Survival (OS): Final Analysis\",\"description\":\"OS was defined as the time from date of randomization to date of death due to any cause. Participants without survival data beyond the ",
+      "locator_type": "prose",
+      "document_sha": "5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S020; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "every — the sentence says 'every' and the span contains no word carrying that force"
+        },
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "all — the sentence says 'all' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-09-01"
     },
     "a6e2ce1b30a67560": {
       "sentence": "MONARCH 3’s is two-sided and was judged against .034 , not .05: its cumulative two-sided type I error of 0.05 was divided between the intention-to-treat population and a visceral-disease subgroup, and spent across interim and final analyses under an O’Brien-Fleming spending function.",
@@ -375,7 +430,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)",
+      "source_id": "S003",
+      "span": "A gate-keeping hierarchical strategy between the primary PFS and secondary OS endpoints was used to control the overall familywise two-sided type I error rate at 5%, such that OS was to be tested only if PFS was statistically signiﬁcant. The alpha of 0.05 was split between the ITT population and the subgroup with visceral disease (sVD) using a graphical approach, with an initial allocation of 0.04 for the ITT population and 0.01 for sVD. The cumulative type I error rate within each population was maintained using the Lane DeMets spending function with O’BrieneFleming boundary https://doi.org/10.1016/j.annonc.2024.04.013 719 M. P. Goetz et al. Annals of Oncology used to control multiplicity for all the interim and ﬁnal analyses. The ﬁnal OS analysis was to be carried out after observing w315 events. For this ﬁnal OS analysis, based on the actual number of events observed, the two-sided P value boundary was 0.034 for the ITT population and 0.009 for sVD.",
+      "envelope": ", or NSAI. With 240 PFS events, the study was powered to 80% with a two-sided alpha of 5% assuming a hazard ratio of 0.67 in favor of the abemaciclib arm. No power assumptions were made for the secondary endpoint of OS. A gate-keeping hierarchical strategy between the primary PFS and secondary OS endpoints was used to control the overall familywise two-sided type I error rate at 5%, such that OS was to be tested only if PFS was statistically signiﬁcant. The alpha of 0.05 was split between the ITT population and the subgroup with visceral disease (sVD) using a graphical approach, with an initial allocation of 0.04 for the ITT population and 0.01 for sVD. The cumulative type I error rate within each population was maintained using the Lane DeMets spending function with O'BrieneFleming boundary https://doi.org/10.1016/j.annonc.2024.04.013 719 M. P. Goetz et al. Annals of Oncology used to control multiplicity for all the interim and ﬁnal analyses. The ﬁnal OS analysis was to be carried out after observing w315 events. For this ﬁnal OS analysis, based on the actual number of events observed, the two-sided P value boundary was 0.034 for the ITT population and 0.009 for sVD. The KaplaneMeier method was used to estimate survival curves. OS of the treatment groups was compared in the ITT population using a stratiﬁed log-rank test and in sVD using an unstratiﬁed log-rank test. Cox proportional",
+      "locator_type": "prose",
+      "document_sha": "5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "b34f3930fab654df": {
       "sentence": "MONALEESA-7’s is one-sided : the ASCO 2019 abstract of the same analysis states that “statistical comparison was made by 1-sided stratified log-rank test”.",
@@ -409,7 +475,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.74, 0.025 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.74, 0.025 (strength 2, need 4)",
+      "source_id": "S010",
+      "span": "The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025.",
+      "envelope": "nfirmation of death, survival time was censored to the last date the patient was known to be alive. The median OS was assumed to be 34 months in first-line treatment with letrozole for ABC at the time of study design. 7 The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025. OS analysis was conducted in the intent-to-treat (ITT) population. Median OS was estimated using the Kaplan-Meier method with the one-sided stratified log-rank test adjusting for the disease site at the α = .025 overall",
+      "locator_type": "prose",
+      "document_sha": "8529b5842ca380b3251bf8dfc228b1710d27772729d9530c87790770fd33306d",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "763c5a7266d4fdfa": {
       "sentence": "Abemaciclib MONARCH 3 · HR 0.80 Ribociclib MONALEESA-2 · HR 0.76 Palbociclib PALOMA-2 · HR 0.96 0 0.5 1.0 — no effect 1.5 The distance that separates a category 1 from a category 2A Abemaciclib’s hazard ratio is 0.80 , on an interval running 0.64 to 1.02 .",
@@ -426,7 +503,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 8 anchors: 0.80, 0.76, 0.96, 0.5, 1.0"
+      "autobind": "no held document contains all 8 anchors: 0.80, 0.76, 0.96, 0.5, 1.0",
+      "source_id": "S003",
+      "span": "After a median follow-up of 8.1 years, there were 198 OS events (60.4%) in the abemaciclib arm and 116 (70.3%) in the placebo arm (hazard ratio, 0.804; 95% conﬁdence interval 0.637-1.015; P ¼ 0.0664, non-signiﬁcant). Median OS was 66.8 versus 53.7 months for abemaciclib versus placebo.",
+      "envelope": " was a gated secondary endpoint, and chemotherapy-free survival was an exploratory endpoint. Results: A total of 493 women were randomized 2 : 1 to receive abemaciclib plus NSAI (n ¼ 328) or placebo plus NSAI (n ¼ 165). After a median follow-up of 8.1 years, there were 198 OS events (60.4%) in the abemaciclib arm and 116 (70.3%) in the placebo arm (hazard ratio, 0.804; 95% conﬁdence interval 0.637-1.015; P ¼ 0.0664, non-signiﬁcant). Median OS was 66.8 versus 53.7 months for abemaciclib versus placebo. In the subgroup with visceral disease, there were 113 OS events (65.3%) in the abemaciclib arm and 65 (72.2%) in the placebo arm (hazard ratio, 0.758; 95% conﬁdence interval 0.558-1.030; P ¼ 0.0757, non-signiﬁcant). Med",
+      "locator_type": "prose",
+      "document_sha": "5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "efc374fd45a1dd78": {
       "sentence": "Ribociclib’s is 0.76 , on 0.63 to 0.93 .",
@@ -443,7 +531,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.76, 0.63, 0.93 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.76, 0.63, 0.93 (strength 3, need 4)",
+      "source_id": "S005",
+      "span": "A significant overall survival benefit was observed, with a median overall survival of 63.9 months (95% CI, 52.4 to 71.0) in the ribociclib group and 51.4 months (95% CI, 47.2 to 59.7) in the placebo group (hazard ratio for death, 0.76; 95% CI, 0.63 to 0.93; two-sided P = 0.008) (Fig. 1).",
+      "envelope": "ib group (in 2 from breast cancer, in 2 from respiratory failure, in 1 from pneumonia, and in 3 from other causes) and in 3 of 330 patients in the placebo group (in 2 from breast cancer and in 1 from subdural hematoma). A significant overall survival benefit was observed, with a median overall survival of 63.9 months (95% CI, 52.4 to 71.0) in the ribociclib group and 51.4 months (95% CI, 47.2 to 59.7) in the placebo group (hazard ratio for death, 0.76; 95% CI, 0.63 to 0.93; two-sided P = 0.008) (Fig. 1). The Kaplan-Meier estimate of overall survival at 60 months was 52.3% (95% CI, 46.5 to 57.7) in the ribociclib group and 43.9% (95% CI, 38.3 to 49.4) in the placebo group and at 72 months was 44.2% (95% CI, 38.5 to 49.8)",
+      "locator_type": "prose",
+      "document_sha": "df9a13100028c51fa6ae677e40a9eb4bba059dea5feb75d1e2b71101452f446a",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "7786ca2c9c63cca8": {
       "sentence": "The intervals overlap along almost their entire length: 97% of ribociclib’s interval lies inside abemaciclib’s .",
@@ -548,7 +647,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 5 anchors: 0.637, 1.015, 0.63, 0.93, 0.008"
+      "autobind": "no held document contains all 5 anchors: 0.637, 1.015, 0.63, 0.93, 0.008",
+      "source_id": "S003",
+      "span": "After a median follow-up of 8.1 years, there were 198 OS events (60.4%) in the abemaciclib arm and 116 (70.3%) in the placebo arm (hazard ratio, 0.804; 95% conﬁdence interval 0.637-1.015; P ¼ 0.0664, non-signiﬁcant). Median OS was 66.8 versus 53.7 months for abemaciclib versus placebo.",
+      "envelope": " was a gated secondary endpoint, and chemotherapy-free survival was an exploratory endpoint. Results: A total of 493 women were randomized 2 : 1 to receive abemaciclib plus NSAI (n ¼ 328) or placebo plus NSAI (n ¼ 165). After a median follow-up of 8.1 years, there were 198 OS events (60.4%) in the abemaciclib arm and 116 (70.3%) in the placebo arm (hazard ratio, 0.804; 95% conﬁdence interval 0.637-1.015; P ¼ 0.0664, non-signiﬁcant). Median OS was 66.8 versus 53.7 months for abemaciclib versus placebo. In the subgroup with visceral disease, there were 113 OS events (65.3%) in the abemaciclib arm and 65 (72.2%) in the placebo arm (hazard ratio, 0.758; 95% conﬁdence interval 0.558-1.030; P ¼ 0.0757, non-signiﬁcant). Med",
+      "locator_type": "prose",
+      "document_sha": "5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "a15b492596c528fc": {
       "sentence": "Those are the published bounds, 0.93 and 1.015.",
@@ -616,7 +726,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: might be more attributable to chance than to a truly different drug efficacy (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: might be more attributable to chance than to a truly different drug efficacy (strength 3, need 4)",
+      "source_id": "S024",
+      "span": "PALOMA-2 and MONALEESA trials have an almost similar power despite different allocation ratios, while MONARCH-3 has a more limited power. Overall, the power of the four trials to demonstrate a statistically significant improvement in OS is less than 70% if the prolongation in median OS is ≤12 months, whatever the OS data maturity. This analysis shows that OS results are jeopardized by limited powers, and a meta-analysis might be required to demonstrate OS benefit. Conversely, if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy.",
+      "envelope": "orrespond to absolute 3, 6, 12, and 15 months gain in OS, respectively. For these calculations, the type I error rate was stated at 5% with a two-sided test, and we assumed that the risk of death was constant over time. PALOMA-2 and MONALEESA trials have an almost similar power despite different allocation ratios, while MONARCH-3 has a more limited power. Overall, the power of the four trials to demonstrate a statistically significant improvement in OS is less than 70% if the prolongation in median OS is ≤12 months, whatever the OS data maturity. This analysis shows that OS results are jeopardized by limited powers, and a meta-analysis might be required to demonstrate OS benefit. Conversely, if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy. Similar content being viewed by others Comparative biological activity of palbociclib and ribociclib in hormone receptor-positive breast cancer Article Open access 11 July 2024 Cost-effectiveness of CDK4/6 inhibitors fo",
+      "locator_type": "prose",
+      "document_sha": "e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S024; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "2294f8d5be3c9918": {
       "sentence": "A hazard ratio of 0.96 on an interval from 0.78 to 1.18 is not a near miss.",
@@ -2459,7 +2580,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: NCT05207709 (strength 3, need 4)"
     },
     "fd26577b64b7a44b": {
@@ -2476,7 +2597,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "0df0ac3dd23f0f44": {
@@ -2493,7 +2614,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "8b8512792cd47c92": {
@@ -2510,7 +2631,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: 2.5% (strength 1, need 4)"
     },
     "7456468cfc77a82b": {
@@ -2527,7 +2648,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: NCT01740427 (strength 3, need 4)"
     },
     "8c354fc2484f6d1a": {
@@ -2544,7 +2665,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "no held document contains all 2 anchors: NCT02278120, 0.00973"
     },
     "350815c2e675390f": {
@@ -2561,7 +2682,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: year of updated data 2023 (strength 3, need 4)"
     },
     "75ad4a4e36a15428": {
@@ -2578,7 +2699,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "no held document contains all 2 anchors: 73.3, 70.2"
     },
     "a1214b62dbfeded4": {
@@ -2595,7 +2716,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "b1a58ac0fc09fe1a": {
@@ -2612,7 +2733,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "8cd324dedfab0b89": {
@@ -2629,7 +2750,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "1dca8f7b81bba536": {
@@ -2646,7 +2767,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "6359ad0946f18731": {
@@ -2663,7 +2784,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
     },
     "04397ea8f4804343": {
@@ -2680,7 +2801,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: No study that compares them by other means finds a difference (strength 3, need 4)"
     },
     "90d4ecc401be053e": {
@@ -2697,7 +2818,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: All three indirect comparisons (strength 3, need 4)"
     },
     "3197294aa5b94887": {
@@ -2714,8 +2835,29 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+    },
+    "75ea97373a413a25": {
+      "sentence": "The Category Difference — What Holds Up What the guideline says And the reason it gives.",
+      "sentence_sha": "75ea97373a413a25",
+      "why_empirical": "names the guideline",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true
     }
   }
 }
