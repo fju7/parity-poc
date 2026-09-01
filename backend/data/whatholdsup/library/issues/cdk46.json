@@ -1,0 +1,26 @@
+{
+  "what_this_is": "Which document in the library each of this issue's sources points at. The library holds the bytes; this says what we were reading when we wrote the page.",
+  "issue": "cdk46",
+  "sources": {
+    "S012": {
+      "sha256": "8d21fe9e1ab020a88613e57f2426b1ee520270abdcc1dfc0b894c714e675fccd",
+      "file": "docs/8d/8d21fe9e1ab020a88613e57f2426b1ee520270abdcc1dfc0b894c714e675fccd.pdf",
+      "bytes": 1240458,
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/209935s030lbl.pdf",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine, 2026-09-01",
+      "note": "",
+      "superseded": []
+    },
+    "S013": {
+      "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
+      "file": "docs/81/81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b.pdf",
+      "bytes": 990433,
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/208716s019lbl.pdf",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine, 2026-09-01",
+      "note": "",
+      "superseded": []
+    }
+  }
+}

@@ -44,6 +44,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -57,28 +58,36 @@ UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36",
       "Accept": "text/html,application/pdf,application/json;q=0.9,*/*;q=0.8"}
 
-MIN_BYTES = 2000            # below this it is an error page, not a paper
+# A DOCUMENT IS ACCEPTED BECAUSE IT IDENTIFIES ITSELF, NOT BECAUSE IT FAILED TO
+# LOOK LIKE A WALL.
+#
+# The first version of this file rejected responses by a blocklist -- "captcha",
+# "subscribe to continue", "enable javascript". Within the hour of being written
+# it stored TWO PubMed cookie-consent pages as full text, promoted both to
+# full_text_held, and reported success, because "cookies required" was not a
+# phrase anyone had been caught by yet.
+#
+# A blocklist can only refuse what has already gone wrong once. That is the same
+# correction this project has now made in four places, and it is the same
+# sentence every time: confirm the thing you want, do not merely fail to detect
+# the thing you fear. source_store.identifies() asks whether the bytes contain
+# the document's DOI, PMID, NCT number, or enough of its title.
 
-# Text that means we fetched a wall rather than a document. Deliberately short:
-# a false negative here stores junk and reports full_text_held, which is the one
-# outcome worse than storing nothing.
-WALL = ("access to this page has been denied", "just a moment...", "enable javascript",
-        "captcha", "subscribe to continue", "purchase access", "sign in to continue",
-        "your institution does not", "403 forbidden", "cloudflare")
-
-
-def looks_like_a_wall(data: bytes, content_type: str) -> str:
-    if len(data) < MIN_BYTES:
-        return "only %d bytes" % len(data)
-    if data[:5] == b"%PDF-":
-        return ""
-    head = data[:6000].decode("utf-8", "replace").lower()
-    for w in WALL:
-        if w in head:
-            return "the response reads like a wall (%r)" % w
-    if "html" in (content_type or "").lower() and "<body" not in head and "<p" not in head:
-        return "html with no body"
-    return ""
+# Registry records are a JS application at clinicaltrials.gov/study/NCT..., which
+# fetches as an empty shell. The document is the API record, and it is also the
+# only form of it we can check a claim against.
+def acquisition_url(src: dict) -> str:
+    url = (src.get("url") or "").strip()
+    m = re.search(r"clinicaltrials\.gov/study/(NCT\d{8})", url, re.I)
+    if m:
+        return ("https://clinicaltrials.gov/api/v2/studies/%s?format=json"
+                % m.group(1).upper())
+    m = re.search(r"(?:pmc\.ncbi\.nlm\.nih\.gov|europepmc\.org)[^ ]*?(PMC\d{6,9})",
+                  url, re.I)
+    if m:
+        return ("https://www.ebi.ac.uk/europepmc/webservices/rest/%s/fullTextXML"
+                % m.group(1).upper())
+    return url
 
 
 def fetch(url: str, timeout: int = 45) -> tuple[bytes, str, str]:
@@ -120,22 +129,25 @@ def main() -> int:
         if not url:
             failed.append((sid, "no url recorded", s.get("title", "")))
             continue
+        target = acquisition_url(s)
         try:
-            data, ct, final = fetch(url)
+            data, ct, final = fetch(target)
         except urllib.error.HTTPError as e:
             failed.append((sid, "HTTP %s" % e.code, s.get("title", ""))); continue
         except Exception as e:
             failed.append((sid, "%s: %s" % (type(e).__name__, e), s.get("title", ""))); continue
-        wall = looks_like_a_wall(data, ct)
-        if wall:
-            failed.append((sid, wall, s.get("title", ""))); continue
+        ok, why = store.identifies(data, s, ct)
+        if not ok:
+            failed.append((sid, why, s.get("title", ""))); continue
         row = store.put(args.slug, sid, data, url=final, via="acquire_sources.py on the "
-                        "operator's machine", content_type=ct)
+                        "operator's machine", content_type=ct, title=s.get("title", ""))
         acc["state"] = "full_text_held"
-        acc["held"] = {"file": row["file"], "sha256": row["sha256"], "bytes": row["bytes"]}
+        acc["held"] = {"file": row["file"], "sha256": row["sha256"], "bytes": row["bytes"],
+                       "identified_by": why}
         acc.setdefault("on", row["retrieved"])
         got.append((sid, row["file"], row["bytes"]))
-        print("  HELD     %-6s %-42s %8d bytes" % (sid, row["file"], row["bytes"]))
+        print("  HELD     %-6s %-46s %8d B  (%s)"
+              % (sid, row["sha256"][:12], row["bytes"], why))
 
     sp.write_text(json.dumps(doc, indent=2, ensure_ascii=False), encoding="utf-8")
 

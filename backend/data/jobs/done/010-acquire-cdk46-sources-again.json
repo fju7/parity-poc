@@ -1,0 +1,7 @@
+{
+  "note": "Second acquisition pass, after two defects in the first. (1) The wall check was a BLOCKLIST and stored two PubMed cookie-consent pages as full text, promoting both to full_text_held, because 'cookies required' was not a phrase anyone had been caught by yet. It is now a POSITIVE identity test: the bytes must contain the document's DOI, PMID, NCT number or enough of its own title, read through pdftotext for PDFs. (2) Registry sources were fetched from clinicaltrials.gov/study/NCT..., which is a JavaScript shell; they now go to the v2 API, and PMC articles to the Europe PMC full-text XML. Also stores into the LIBRARY: content-addressed, one copy per distinct document across all issues, older versions kept rather than overwritten.",
+  "issue": "cdk46",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/acquire_sources.py",
+  "args": ["cdk46", "--refetch"]
+}

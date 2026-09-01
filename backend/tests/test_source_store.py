@@ -40,11 +40,15 @@ def issue(tmp_path, monkeypatch):
     case = tmp_path / "issues" / "WHU-999-t"
     case.mkdir(parents=True)
     (case / "sources.json").write_text(json.dumps({"sources": [
-        {"id": "S001", "url": "https://example.org/a", "access": {"state": "fragment_only"}},
-        {"id": "S002", "url": "https://example.org/b", "access": {"state": "full_text_held"}},
+        {"id": "S001", "url": "https://example.org/a",
+         "title": "Ribociclib overall survival MONALEESA trial",
+         "access": {"state": "fragment_only"}},
+        {"id": "S002", "url": "https://example.org/b",
+         "title": "Palbociclib letrozole PALOMA advanced breast cancer",
+         "access": {"state": "full_text_held"}},
     ]}), encoding="utf-8")
     monkeypatch.setattr(store, "CASES", tmp_path / "issues")
-    monkeypatch.setattr(store, "STORE", tmp_path / "store")
+    monkeypatch.setattr(store, "LIB", tmp_path / "library")
     return tmp_path
 
 
@@ -71,7 +75,7 @@ def test_fragment_only_licenses_no_characterisation():
 def test_a_stored_document_is_hashed_and_findable(issue):
     row = store.put("t", "S002", b"%PDF-1.4 hello", url="https://example.org/b",
                     via="test", content_type="application/pdf")
-    assert row["file"] == "S002.pdf"
+    assert row["file"].startswith("docs/")
     assert row["sha256"] == hashlib.sha256(b"%PDF-1.4 hello").hexdigest()
     assert store.held("t")["S002"]["bytes"] == 14
     intact, broken = store.verify("t")
@@ -81,7 +85,7 @@ def test_a_stored_document_is_hashed_and_findable(issue):
 def test_a_manifest_row_whose_bytes_changed_is_reported(issue):
     store.put("t", "S002", b"%PDF-1.4 hello", url="u", via="v",
               content_type="application/pdf")
-    (store.issue_dir("t") / "S002.pdf").write_bytes(b"%PDF-1.4 tampered")
+    (store.LIB / store.held("t")["S002"]["file"]).write_bytes(b"%PDF-1.4 tampered")
     _intact, broken = store.verify("t")
     assert broken and "does not match its recorded hash" in broken[0]
 
@@ -89,16 +93,16 @@ def test_a_manifest_row_whose_bytes_changed_is_reported(issue):
 def test_a_manifest_row_with_no_file_is_reported(issue):
     store.put("t", "S002", b"%PDF-1.4 hello", url="u", via="v",
               content_type="application/pdf")
-    (store.issue_dir("t") / "S002.pdf").unlink()
+    (store.LIB / store.held("t")["S002"]["file"]).unlink()
     _intact, broken = store.verify("t")
-    assert broken and "is not in the store" in broken[0]
+    assert broken and "is not in the library" in broken[0]
 
 
 def test_claiming_full_text_held_without_the_bytes_blocks(issue):
     """A field asserting a read that did not happen -- one level up from the
     failure the state was created to end."""
     rows = {n: (s, d) for n, s, d in store.preflight_rows("t")}
-    state, detail = rows["source store matches the ledger"]
+    state, detail = rows["library matches the ledger"]
     assert state == "BLOCKED"
     assert "S002" in detail and "did not happen" in detail
 
@@ -107,21 +111,53 @@ def test_it_passes_once_the_document_is_actually_held(issue):
     store.put("t", "S002", b"%PDF-1.4 hello", url="u", via="v",
               content_type="application/pdf")
     rows = {n: (s, d) for n, s, d in store.preflight_rows("t")}
-    assert rows["source store matches the ledger"][0] == "ok"
-    assert "1 of 2" in rows["sources we actually hold"][1]
+    assert rows["library matches the ledger"][0] == "ok"
+    assert "1 of 2" in rows["sources we hold"][1]
     assert "S001" in rows["sources that are only a fragment"][1]
 
 
 # --- what acquisition must refuse ------------------------------------------
 
-def test_a_wall_is_not_a_document():
-    """A store full of paywall notices is worse than an empty one, because it
-    would report full_text_held."""
-    acq = _load("acquire_sources")
-    assert acq.looks_like_a_wall(b"tiny", "text/html")
-    assert acq.looks_like_a_wall(
-        b"<html><body>" + b"x" * 3000 + b"Please enable JavaScript" + b"</body>", "text/html")
-    assert acq.looks_like_a_wall(
-        ("<html><body>%s Subscribe to continue reading</body>" % ("x" * 3000)).encode(),
-        "text/html")
-    assert not acq.looks_like_a_wall(b"%PDF-1.4" + b"x" * 5000, "application/pdf")
+SRC = {"id": "S002", "url": "https://doi.org/10.1056/NEJMoa1607303",
+       "title": "Palbociclib letrozole PALOMA advanced breast cancer"}
+
+
+def test_a_document_is_accepted_because_it_identifies_itself():
+    body = ("<html><body>%s Palbociclib and letrozole in PALOMA-2, advanced breast "
+            "cancer</body>" % ("x" * 3000)).encode()
+    ok, why = store.identifies(body, SRC, "text/html")
+    assert ok and "title words" in why
+
+
+def test_a_cookie_wall_is_refused_although_no_blocklist_names_it():
+    """This is the case that got through. Within an hour of a blocklist being
+    written, acquisition stored two PubMed cookie-consent pages as full text and
+    promoted both to full_text_held, because "cookies required" was not a phrase
+    anyone had been caught by yet. A blocklist can only refuse what has already
+    gone wrong once."""
+    wall = ("<html><body>%s This site requires cookies to continue. Please enable "
+            "cookies in your browser.</body>" % ("x" * 3000)).encode()
+    ok, why = store.identifies(wall, SRC, "text/html")
+    assert not ok
+    assert "identifies" in why
+
+
+def test_an_identifier_alone_is_enough():
+    body = b"<html><body>" + b"x" * 3000 + b" NCT01740427 " + b"</body>"
+    ok, why = store.identifies(body, {"id": "S", "url": "", "title": "",
+                                      "also_called": ["NCT01740427"]}, "text/html")
+    assert ok and "NCT01740427" in why
+
+
+def test_a_tiny_response_is_never_a_document():
+    assert not store.identifies(b"nope", SRC, "text/html")[0]
+
+
+def test_an_unreadable_pdf_says_so_rather_than_calling_it_wrong():
+    """Refusing a real document is the safer error and is still an error. The
+    first version of this test rejected two genuine FDA labels reporting
+    "1 of 4 title words", because a PDF's text is compressed."""
+    fake = b"%PDF-1.4" + bytes(4000)
+    ok, why = store.identifies(fake, SRC, "application/pdf")
+    assert not ok
+    assert "could not be checked either way" in why
