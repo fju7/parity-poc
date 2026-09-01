@@ -349,3 +349,27 @@ def test_the_gap_list_says_when_we_hold_only_part_of_a_document(issue):
     part = md.split("## In the library, but not the whole document", 1)[1]
     assert "### S002" in part
     assert "abstract" in part
+
+
+# --- a check must not fire where its premise does not hold -------------------
+
+def test_holding_an_abstract_does_not_contradict_not_having_read_the_methods():
+    """inaccessibility_claims exists because the page said it could not open
+    PALMARES-2 while the ledger said the source had been read. For one day it
+    used READ_STATES, which contains ABSTRACT_HELD, and on 2026-09-01 it
+    stopped the publish over three sentences saying MONALEESA-2's updated
+    results had a statistical section we could not open -- while the ledger
+    said abstract_held. Those agree. Holding an abstract is the usual REASON
+    for not having reached the methods."""
+    assert ledger.ABSTRACT_HELD in ledger.READ_STATES
+    assert ledger.ABSTRACT_HELD not in ledger.HOLDS_WHOLE_DOCUMENT
+
+    src = {"id": "S004", "title": "MONALEESA-2 updated results",
+           "also_called": ["MONALEESA-2"],
+           "access": {"state": ledger.ABSTRACT_HELD}}
+    page = ("<p>The spending schedule is in a statistical section of "
+            "MONALEESA-2 that we could not open.</p>")
+    assert ledger.inaccessibility_claims(page, [src]) == []
+
+    src["access"]["state"] = ledger.FULL_TEXT_HELD
+    assert len(ledger.inaccessibility_claims(page, [src])) == 1

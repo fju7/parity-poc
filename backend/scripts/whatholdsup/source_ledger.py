@@ -140,6 +140,12 @@ PERMITS = {
 # FRAGMENT_ONLY IS DELIBERATELY NOT HERE. That is the whole change.
 # ABSTRACT_HELD is a read state: somebody can open those bytes and check the
 # sentence against them. What it licenses is narrower, and PERMITS says so.
+# The states in which we hold the ENTIRE document, so that a claim on the page
+# that some part of it could not be opened contradicts the ledger. ABSTRACT_HELD
+# is deliberately absent: holding the abstract is compatible with -- is usually
+# the reason for -- not having reached the methods.
+HOLDS_WHOLE_DOCUMENT = (FULL_TEXT_HELD, HUMAN_READ)
+
 READ_STATES = (FULL_TEXT_HELD, HUMAN_READ, ABSTRACT_HELD)
 
 # Sources whose licence forbids putting the document through any automated tool.
@@ -304,7 +310,23 @@ def inaccessibility_claims(page_text: str, srcs: list[dict]) -> list[tuple[str, 
             if not any(re.search(r"\b%s\b" % re.escape(n), sent, re.I) for n in names):
                 continue
             state = (access_of(src) or {}).get("state")
-            if state in READ_STATES:
+            # WHOLE DOCUMENT, not READ_STATES.
+            #
+            # ABSTRACT_HELD is a read state -- the abstract was read -- and for
+            # one day this check treated it as a contradiction of "we could not
+            # open it". On 2026-09-01 it stopped the publish over three
+            # sentences saying MONALEESA-2's updated-results paper had a
+            # statistical section we could not open, while the ledger said
+            # abstract_held. Those sentences and that ledger entry AGREE. A
+            # source whose abstract we hold is precisely a source whose
+            # statistical section we did not open.
+            #
+            # Only holding the whole document contradicts a claim that part of
+            # it could not be reached. The check that fires where its premise
+            # does not hold is the error this repository has now recorded in
+            # five other places; here it was about to make a person edit a true
+            # sentence to satisfy it.
+            if state in HOLDS_WHOLE_DOCUMENT:
                 out.append((" ".join(sent.split())[:190], src, state))
             break
     return out

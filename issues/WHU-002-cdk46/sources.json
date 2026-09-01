@@ -62,14 +62,23 @@
       "accessed": "2026-08-28",
       "used_for": "66.8 vs 53.7 months, HR 0.804 (95% CI 0.637–1.015), two-sided P = .0664, at 8.1 years median follow-up. Not statistically significant. The trial maintained a cumulative two-sided type I error of 0.05 by the Lan-DeMets method with an O’Brien",
       "access": {
-        "state": "fragment_only",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "Fred Ugast, who obtained the publisher PDF on 2026-09-01",
+        "on": "2026-09-01",
         "sections": [
-          "whatever the search tool returned for this URL"
+          "the complete published article is held; its statistical methods have been read against the page, nothing else has"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
-      }
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits.\n\n2026-09-01: HELD IN FULL. Until today this page rested six figures and a whole paragraph of methodology on what a retrieval returned for this URL. Four of the figures were confirmable from the abstract; the methodology paragraph was not, and reading it found the page had inverted which part of the design is the spending function and which is the boundary. The paper: \"The cumulative type I error rate within each population was maintained using the Lan-DeMets spending function with O'Brien-Fleming boundary\". It also gives the split this page did not: an initial allocation of 0.04 for the ITT population and 0.01 for the visceral-disease subgroup, and final-analysis two-sided P value boundaries of 0.034 and 0.009 respectively.\n\nA CORRIGENDUM to this paper exists (S025, Ann Oncol 2025;36:1556). It is held and read. It corrects one event count in Figure 4, chemotherapy-free survival, which this page does not use.",
+        "held": {
+          "sha256": "5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74",
+          "file": "docs/5d/5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74.pdf",
+          "bytes": 533325,
+          "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+          "via": "publisher PDF, obtained by the editor on 2026-09-01",
+          "substance": "45190 characters, reference list and discussion/introduction present"
+        }
+      },
+      "corrected_by": "S025"
     },
     {
       "id": "S004",
@@ -224,13 +233,19 @@
       "accessed": "2026-08-28",
       "used_for": "53.9 vs 51.2 months, HR 0.956 (95% CI 0.777–1.177), one-sided P = .34, at 90.1 months median follow-up. Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators’ recovered-data sensitivity ",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "the fact-check gate",
         "on": "2026-08-29",
         "sections": [
           "whatever the search tool returned for this URL"
         ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
+        "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits.",
+        "held": {
+          "file": "docs/85/8529b5842ca380b3251bf8dfc228b1710d27772729d9530c87790770fd33306d.xml",
+          "sha256": "8529b5842ca380b3251bf8dfc228b1710d27772729d9530c87790770fd33306d",
+          "bytes": 62336,
+          "identified_by": "contains its identifier PMC10950136 — 29862 characters, reference list and discussion present"
+        }
       }
     },
     {
@@ -617,6 +632,24 @@
           "bytes": 277558,
           "identified_by": "contains 12 of 12 distinctive title words"
         }
+      }
+    },
+    {
+      "id": "S025",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00851-8/fulltext",
+      "type": "corrigendum",
+      "title": "Corrigendum to “Abemaciclib plus a nonsteroidal aromatase inhibitor as initial therapy for HR+, HER2- advanced breast cancer: final overall survival results of MONARCH 3”. Ann Oncol, 2025;36:1556",
+      "accessed": "2026-09-01",
+      "amends": "S003",
+      "used_for": "The record that MONARCH 3's final overall-survival paper was formally corrected in December 2025, and that the correction does not touch any figure this page prints. The corrigendum's whole content is one error in Figure 4: in the placebo plus NSAI arm of the CHEMOTHERAPY-FREE SURVIVAL analysis, the number of events was published as 162 and is 132. Chemotherapy-free survival is an exploratory endpoint and appears nowhere on this page. The overall-survival results, the hazard ratio, the P value, the alpha-spending description and the follow-up duration are unaffected.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast, who obtained the publisher PDF on 2026-09-01",
+        "on": "2026-09-01",
+        "sections": [
+          "the entire notice, which is one page"
+        ],
+        "note": "THIS ENTRY EXISTS BECAUSE OF A FIELD IN A BIBLIOGRAPHIC RECORD. On 2026-09-01 the operator pasted PubMed's MEDLINE record for S003 while asking whether similar and citing articles were worth reviewing. Its EIN field read: Ann Oncol. 2025 Dec;36(12):1556. This page had been printing six figures from a paper that had been formally corrected, and nothing in this repository knew.\n\nAn erratum is the one class of secondary document that can silently falsify a figure already published. It is also mechanically detectable: every MEDLINE record carries EIN and CIN fields. Checking them is free and requires no judgement, and not checking them is how a correction notice sits unread for nine months.\n\nWhat it says is now known and it is narrow. Read in full, the notice corrects one number in one figure of an exploratory endpoint this page does not use. That is a real answer rather than an assumed one: the document was obtained and read, and the claim that it does not affect us rests on the notice itself and not on its title."
       }
     }
   ],

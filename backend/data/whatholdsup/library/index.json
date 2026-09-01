@@ -272,6 +272,54 @@
         "cdk46:S009"
       ],
       "note": ""
+    },
+    "8529b5842ca380b3251bf8dfc228b1710d27772729d9530c87790770fd33306d": {
+      "file": "docs/85/8529b5842ca380b3251bf8dfc228b1710d27772729d9530c87790770fd33306d.xml",
+      "bytes": 62336,
+      "content_type": "application/xml",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10950136/fullTextXML"
+      ],
+      "titles": [
+        "PALOMA-2 — final overall survival. J Clin Oncol, 2024"
+      ],
+      "used_by": [
+        "cdk46:S010"
+      ],
+      "note": ""
+    },
+    "5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74": {
+      "file": "docs/5d/5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74.pdf",
+      "bytes": 533325,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext"
+      ],
+      "titles": [
+        "MONARCH 3 — final overall survival. Ann Oncol, 2024"
+      ],
+      "used_by": [
+        "cdk46:S003"
+      ],
+      "note": ""
+    },
+    "95b628897f5287210544071a7f1a17495f51d01f21d2aa80edb6298dd0a1ffda": {
+      "file": "docs/95/95b628897f5287210544071a7f1a17495f51d01f21d2aa80edb6298dd0a1ffda.pdf",
+      "bytes": 255647,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.annalsofoncology.org/article/S0923-7534(25)00851-8/fulltext"
+      ],
+      "titles": [
+        "Corrigendum to “Abemaciclib plus a nonsteroidal aromatase inhibitor as initial therapy for HR+, HER2- advanced breast cancer: final overall survival results of MONARCH 3”. Ann Oncol, 2025;36:1556"
+      ],
+      "used_by": [
+        "cdk46:S025"
+      ],
+      "note": ""
     }
   }
 }

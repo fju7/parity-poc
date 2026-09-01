@@ -13,7 +13,7 @@
       "superseded": [],
       "also_held": [],
       "kind": "document",
-      "kind_why": "type 'label' \u2014 a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "type 'label' — a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S013": {
       "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
@@ -26,7 +26,7 @@
       "superseded": [],
       "also_held": [],
       "kind": "document",
-      "kind_why": "type 'label' \u2014 a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "type 'label' — a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S014": {
       "sha256": "d4688e51d9cb7d0af3d3b1e00dfa65b40661c64bf908c21d9bd4892c80cb8eeb",
@@ -38,7 +38,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'label' \u2014 a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "type 'label' — a label is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S015": {
       "sha256": "66a5b3d6e327e0aaa392c77dc80374c7ad795c02a017604c4e492b13bb750d77",
@@ -58,7 +58,7 @@
       "bytes": 488088,
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11700305/",
       "held": "2026-09-01",
-      "via": "supplied by Fred Ugast on 2026-09-01 after every automated route from the assistant's environment was refused; byte-identical to the copy he uploaded (sha256 7033f372\u2026)",
+      "via": "supplied by Fred Ugast on 2026-09-01 after every automated route from the assistant's environment was refused; byte-identical to the copy he uploaded (sha256 7033f372…)",
       "note": "Asian Pac J Cancer Prev 2024;25(9):3039-3049, doi 10.31557/APJCP.2024.25.9.3039. The paper that settled CORR-18 and CORR-19.",
       "superseded": [],
       "also_held": [
@@ -66,7 +66,7 @@
           "sha256": "676643dcfc6925e9ceef148b81ba70d23759c5d171f272aec24afce09cd63369",
           "held": "2026-09-01",
           "file": "docs/67/676643dcfc6925e9ceef148b81ba70d23759c5d171f272aec24afce09cd63369.xml",
-          "note": "Europe PMC full-text XML of the same paper, retrieved by acquisition. NOT a superseded version \u2014 a second representation. Kept because it is machine-searchable where the PDF is the published artifact."
+          "note": "Europe PMC full-text XML of the same paper, retrieved by acquisition. NOT a superseded version — a second representation. Kept because it is machine-searchable where the PDF is the published artifact."
         }
       ],
       "kind": "full_text",
@@ -82,7 +82,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S019": {
       "sha256": "cecc1b5f6e464162429a9fc4f8bc203f87ce2d13bbb4c1aadefcd701fa83b317",
@@ -94,7 +94,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S020": {
       "sha256": "5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6",
@@ -106,7 +106,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S021": {
       "sha256": "67e39a7e875f0d5681ef468692d93809ecddda3b7d7d971043ddaef5f1ed410b",
@@ -118,7 +118,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S022": {
       "sha256": "460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff",
@@ -130,7 +130,7 @@
       "note": "",
       "superseded": [],
       "kind": "document",
-      "kind_why": "type 'registry' \u2014 a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
+      "kind_why": "type 'registry' — a registry is a complete document of its own kind; the article test (reference list, discussion) does not apply to it"
     },
     "S024": {
       "sha256": "e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2",
@@ -155,7 +155,7 @@
       "superseded": [],
       "also_held": [],
       "kind": "abstract",
-      "kind_why": "17891 characters, abstract present but no reference list or discussion \u2014 this is the abstract, not the paper"
+      "kind_why": "17891 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
     },
     "S016": {
       "sha256": "0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236",
@@ -206,6 +206,45 @@
       "note": "",
       "kind": "full_text",
       "kind_why": "46115 characters, reference list and discussion present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S010": {
+      "sha256": "8529b5842ca380b3251bf8dfc228b1710d27772729d9530c87790770fd33306d",
+      "file": "docs/85/8529b5842ca380b3251bf8dfc228b1710d27772729d9530c87790770fd33306d.xml",
+      "bytes": 62336,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10950136/fullTextXML",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "29862 characters, reference list and discussion present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S003": {
+      "sha256": "5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74",
+      "file": "docs/5d/5d9c53fe1b81effdc5c1270fe9088bb4cbd0b708529b301064d33904d4d67b74.pdf",
+      "bytes": 533325,
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(24)00139-X/fulltext",
+      "held": "2026-09-01",
+      "via": "publisher PDF, obtained by the editor on 2026-09-01",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "45190 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S025": {
+      "sha256": "95b628897f5287210544071a7f1a17495f51d01f21d2aa80edb6298dd0a1ffda",
+      "file": "docs/95/95b628897f5287210544071a7f1a17495f51d01f21d2aa80edb6298dd0a1ffda.pdf",
+      "bytes": 255647,
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00851-8/fulltext",
+      "held": "2026-09-01",
+      "via": "publisher PDF, obtained by the editor on 2026-09-01",
+      "note": "",
+      "kind": "document",
+      "kind_why": "type 'corrigendum' — a corrigendum is a complete document of its own kind; the article test (reference list, discussion) does not apply to it",
       "superseded": [],
       "also_held": []
     }
