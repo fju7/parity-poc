@@ -256,12 +256,20 @@ CASES = [
   # eight melanoma sources are held, so no absence here is the library's fault.
   dict(id="MEL-08", slug="melanoma", check="B13", check_kind="b13",
        figure="68.8", found_by="check",
+       sentence="The absolute figures from the same trial, at five years: 68.8% "
+                "of combination patients were recurrence-free versus 49.1% on "
+                "pembrolizumab alone. That is a gap of roughly 20 percentage "
+                "points at the five-year mark.",
        what="'68.8% recurrence-free at five years' — the cited paper prints "
             "72.4% at FOUR years against the 49.1% the page pairs it with, and "
             "68.8 is in none of the eight held documents"),
 
   dict(id="MEL-09", slug="melanoma", check="B13", check_kind="b13",
        figure="35.4", found_by="check",
+       sentence="Reported as survival rates the same five-year analysis reads "
+                "92.2% alive versus 71.3% \u2014 95% CI 84.2\u201396.3 and "
+                "35.4\u201389.6, as The ASCO Post reported them from the "
+                "five-year data.",
        what="'92.2% versus 71.3%, CI 84.2-96.3 and 35.4-89.6, as The ASCO Post "
             "reported them' — the paper prints 85.6% (70.5 to 93.3) for the "
             "comparator; 35.4 is in nothing held, and The ASCO Post, whose "
@@ -269,6 +277,8 @@ CASES = [
 
   dict(id="MEL-10", slug="melanoma", check="B13", check_kind="b13",
        figure="0.0075", found_by="check",
+       sentence="The companies' five-year topline of 20 January 2026 reported "
+                "one-sided nominal p = 0.0075.",
        what="'one-sided nominal p = 0.0075' quoted from a '20 January 2026 "
             "topline' — the figure is in nothing held and the document has no "
             "entry in the source list at all"),
@@ -306,14 +316,37 @@ def run_case(c: dict) -> tuple[str, str]:
         return MISSED, "B9 does not report this link as unreconciled"
 
     if kind == "b13":
+        # REPRODUCE THE ERROR; DO NOT LOOK FOR IT ON THE PAGE.
+        #
+        # The first version scanned the live page and scored CAUGHT when B13
+        # still reported the figure. Within an hour of the three figures being
+        # corrected, all three cases went MISSED and recall fell from 71% to
+        # 61% -- because the errors were FIXED. A recall test that degrades
+        # when you fix things is measuring the page, not the check.
+        #
+        # So the case carries the sentence as it was published, and both halves
+        # of the check are run against it: does the figure get extracted from
+        # that sentence, and is it absent from every held document. That is
+        # what B13 would have done on the day, and it stays true afterwards.
         import b13
-        r = b13.run(c["slug"])
-        if any(f == c["figure"] for f, _s in r["missing"]):
-            return CAUGHT, ("B13 reports %s as a figure in none of the %d "
-                            "document(s) this issue holds"
-                            % (c["figure"], len(r["missing"]) and
-                               r["checked"] - len(r["missing"])))
-        return MISSED, ("B13 finds %s somewhere in the library" % c["figure"])
+        sent = c["sentence"]
+        got = {m.group(1).replace(",", "") for m in b13.FIGURE.finditer(
+            spancheck._norm(sent))}
+        if c["figure"] not in got:
+            return MISSED, ("B13 does not extract %s from the sentence as "
+                            "published" % c["figure"])
+        if b13._excluded(c["figure"], sent, b13.load_exclusions(c["slug"])):
+            return MISSED, ("a declared exclusion would have covered %s"
+                            % c["figure"])
+        hits = b13.where(c["figure"], c["slug"])
+        if hits:
+            return MISSED, ("B13 finds %s in %s" % (c["figure"], ", ".join(hits)))
+        n_unheld = len(b13.unheld(c["slug"]))
+        return CAUGHT, ("B13 takes %s out of the sentence as published and "
+                        "finds it in none of the document(s) this issue holds"
+                        "%s" % (c["figure"],
+                                "" if not n_unheld else
+                                " (%d unheld, so this would be a WARN)" % n_unheld))
 
     if kind == "uncovered":
         return UNCOVERED, c.get("why_uncaught", "")

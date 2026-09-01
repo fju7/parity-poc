@@ -131,6 +131,20 @@ def extract(page_text: str) -> list[str]:
     # them font declarations, which would have buried every real one.
     page_text = re.sub(r"<(style|script)[^>]*>.*?</\1>", " ", page_text, flags=re.I | re.S)
     page_text = re.sub(r"<!--.*?-->", " ", page_text, flags=re.S)
+    # AND THE CHANGE LOG, WHICH QUOTES THIS PAGE'S OWN WITHDRAWN SENTENCES.
+    #
+    # On 2026-09-01 three figures were corrected, and the log entry recording
+    # the correction quoted each wrong sentence so a reader could see what it
+    # had said. This check then demanded a source record for all three -- for
+    # wording we had just established appears in no source, because we made it
+    # up. Satisfying it was impossible and the only way to clear it would have
+    # been to stop quoting our own errors.
+    #
+    # A quotation in the change log is a quotation of THIS PAGE, and the record
+    # of what it said is the correction entry around it. Quotations of sources
+    # live in the body, which is what this check reads.
+    page_text = re.sub(r"<footer[^>]*id=[\"']updates[\"'][^>]*>.*?</footer>",
+                       " ", page_text, flags=re.I | re.S)
 
     marked = re.findall(r"<q[^>]*>(.*?)</q>", page_text, re.I | re.S)
     marked += re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", page_text, re.I | re.S)

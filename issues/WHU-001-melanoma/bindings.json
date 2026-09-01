@@ -404,8 +404,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 2 anchors: 68.8%, 49.1%"
+      "on_page": false,
+      "autobind": "no held document contains all 2 anchors: 68.8%, 49.1%",
+      "left_page": "2026-09-01"
     },
     "9c3708e818a10063": {
       "sentence": "Confidence interval 95% CI Every trial measures a sample, not the world.",
@@ -692,8 +693,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 6 anchors: 92.2%, 71.3%, 84.2, 96.3, 35.4"
+      "on_page": false,
+      "autobind": "no held document contains all 6 anchors: 92.2%, 71.3%, 84.2, 96.3, 35.4",
+      "left_page": "2026-09-01"
     },
     "807813b4d3db03de": {
       "sentence": "A nominal p-value was still computed and released — the one-sided 0.0075 in the January topline, which describes recurrence-free survival and not this survival analysis, for which no p-value was released at all — but it was computed for context, not to cross a threshold anyone had registered in advance.",
@@ -714,8 +716,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.0075 (strength 1, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.0075 (strength 1, need 4)",
+      "left_page": "2026-09-01"
     },
     "582aa366f92596e0": {
       "sentence": "By convention, below 0.05 is called statistically significant — an arbitrary line, but a widely used one.",
@@ -932,8 +935,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.0075 (strength 1, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.0075 (strength 1, need 4)",
+      "left_page": "2026-09-01"
     },
     "0fa58168803686c3": {
       "sentence": "A therapy that reduces the hazard of recurrence by 8% and one that halves it both produce that sentence.",
@@ -1344,12 +1348,12 @@
       "sentence_sha": "cad9c81fc170a16d",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Five-year analyses were descriptive.",
+      "envelope": "ery 3 weeks or 18 doses of intravenous pembrolizumab 200 mg once every 3 weeks. The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus p",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1359,7 +1363,13 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 60.3 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 60.3 (strength 2, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     },
     "595504aa7d365ad8": {
       "sentence": "The source of the one-sided p = 0.0266, which is a company figure and not a journal one.",
@@ -2372,7 +2382,63 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "58c4dba68702236f": {
+      "sentence": "The absolute figures the paper reports — the five-year update gives its recurrence-free rates at four years — are 72.4% of combination patients recurrence-free (95% CI 62.2–80.2) versus 49.1% on pembrolizumab alone (33.3–63.0).",
+      "sentence_sha": "58c4dba68702236f",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "The four-year RFS (95% CI) was 72.4% (62.2 to 80.2) with intismeran plus pembrolizumab versus 49.1% (33.3 to 63.0) with pembrolizumab.",
+      "envelope": "ics and clinical characteristics were balanced between treatment arms (Table 1). Efﬁcacy Analysis of RFS is summarized in Figure 1A and the Data Supplement (Table S1). The HR (95% CI) for RFS was 0.510 (0.294 to 0.887). The four-year RFS (95% CI) was 72.4% (62.2 to 80.2) with intismeran plus pembrolizumab versus 49.1% (33.3 to 63.0) with pembrolizumab. RFS results were generally consistent across baseline subgroups analyzed (Data Supplement, Table S2 and Fig S2A and Fig S3). Analysis of DMFS is summarized in Figure 1B and the Data Supplement (Table S1). The HR (95% CI",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
+    },
+    "061aabbc00bc6585": {
+      "sentence": "Reported as survival rates, the same analysis reads 92.2% alive versus 85.6% at four years — 95% CI 84.2–96.3 and 70.5–93.3.",
+      "sentence_sha": "061aabbc00bc6585",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "figure",
+      "locator": null,
+      "span": "92.2% (84.2 to 96.3) 85.6% (70.5 to 93.3)",
+      "envelope": "Pembrolizumab 42 (4) 39 (5) 30 (8) 27 (10) 22 (13) 19 (16) 17 (18) 13 (22) 8 (27) 3 (32) 0 (35) 50 (0) C 96.0% (89.8 to 98.5) 100 90 93.4% (80.9 to 97.8) 80 96.0% (89.8 to 98.5) 93.4% (80.9 to 97.8) 93.8% (86.6 to 97.2) 92.2% (84.2 to 96.3) 85.6% (70.5 to 93.3) 85.6% (70.5 to 93.3) 70 OS (%) Downloaded from ascopubs.org by 73.135.186.24 on September 1, 2026 from 073.135.186.024 Copyright © 2026 American Society of Clinical Oncology. All rights reserved. Number at risk (number ",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-01",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "check_flags": [],
+      "checked_on": "2026-09-01"
     }
   }
 }

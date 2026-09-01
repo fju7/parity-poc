@@ -1,0 +1,22 @@
+{
+  "_what_this_is": "Figures on this page that are not claims about any document, each declared by a person with the sentence it belongs to and the reason. B13 counts them in its report and reports one that no longer matches a sentence as stale, so this file cannot quietly become a filter.",
+  "_the_rule": "An exclusion says 'this figure is not taken from a source', never 'do not check this figure'. If the sentence changes so that the figure IS a claim about a document, the exclusion stops matching and the check comes back.",
+  "exclusions": [
+    {
+      "figure": "0.05",
+      "in_sentence": "below 0.05 is called statistically significant",
+      "why": "The conventional significance threshold, being explained to the reader. It is not a figure taken out of any study, and the sentence says so: 'an arbitrary line, but a widely used one.'",
+      "by": "claude",
+      "on": "2026-09-01",
+      "falsifier": "the sentence is rewritten to attribute 0.05 to a particular trial's prespecified alpha, at which point it is a claim about a document and this exclusion must go"
+    },
+    {
+      "figure": "0.05",
+      "in_sentence": "A p-value of 0.05 does not mean",
+      "why": "The same convention, used in the explanation of what a p-value is and is not. No source is being characterised.",
+      "by": "claude",
+      "on": "2026-09-01",
+      "falsifier": "the sentence is rewritten to report 0.05 as a value some study obtained"
+    }
+  ]
+}

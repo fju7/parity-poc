@@ -152,17 +152,67 @@ def unheld(slug: str) -> list[str]:
     return [s["id"] for s in store.sources(slug) if s["id"] not in held]
 
 
+
+# ---------------------------------------------------------------------------
+# declared exclusions
+# ---------------------------------------------------------------------------
+#
+# Some figures on a page are not claims about any document. "Below 0.05 is
+# called statistically significant" is a convention being explained, not a
+# number taken out of a paper, and no source will ever contain it in that
+# sense.
+#
+# The wrong fix is an allow-list built from vocabulary this check has met --
+# "ignore 0.05", "ignore round numbers" -- which is the mistake this repository
+# has now made twice. The right one is a DECLARED exclusion: a person writes
+# down the figure, enough of the sentence to pin it to that sentence and no
+# other, and why. It is a signature, not a filter.
+#
+# Every exclusion is counted in the report, so a page cannot quietly acquire
+# them, and one that no longer matches any sentence is named as stale rather
+# than dropped -- an exclusion outliving the sentence it was written for is how
+# a filter starts.
+
+def exclusions_path(slug: str) -> Path:
+    return store.case_dir(slug) / "figure-exclusions.json"
+
+
+def load_exclusions(slug: str) -> list[dict]:
+    p = exclusions_path(slug)
+    if not p.exists():
+        return []
+    import json
+    doc = json.loads(p.read_text(encoding="utf-8"))
+    return doc.get("exclusions") or []
+
+
+def _excluded(fig: str, sent: str, rules: list[dict]) -> dict | None:
+    for r in rules:
+        if r.get("figure") == fig and (r.get("in_sentence") or "") and \
+                r["in_sentence"] in sent:
+            return r
+    return None
+
+
 def run(slug: str) -> dict:
-    missing, present = [], 0
+    rules = load_exclusions(slug)
+    used: set[int] = set()
+    missing, present, excluded = [], 0, []
     for fig, sent in figures_on_page(slug):
         hits = where(fig, slug)
         if hits:
             present += 1
-        else:
-            missing.append((fig, sent))
-    return {"checked": present + len(missing), "present": present,
-            "missing": missing, "unheld": unheld(slug),
-            "sources": len(store.sources(slug))}
+            continue
+        r = _excluded(fig, sent, rules)
+        if r is not None:
+            used.add(id(r))
+            excluded.append((fig, r))
+            continue
+        missing.append((fig, sent))
+    stale = [r for r in rules if id(r) not in used]
+    return {"checked": present + len(missing) + len(excluded), "present": present,
+            "missing": missing, "excluded": excluded, "stale": stale,
+            "unheld": unheld(slug), "sources": len(store.sources(slug))}
 
 
 def main() -> int:
@@ -187,6 +237,13 @@ def main() -> int:
         print("  %-10s %s" % (fig, sent[:110]))
     if len(r["missing"]) > a.limit:
         print("  ... %d more" % (len(r["missing"]) - a.limit))
+    for fig, rule in r["excluded"]:
+        print("  %-10s excluded by %s on %s: %s"
+              % (fig, rule.get("by", "?"), rule.get("on", "?"),
+                 rule.get("why", "")[:80]))
+    for rule in r["stale"]:
+        print("  %-10s STALE EXCLUSION — matches no sentence on the page now"
+              % rule.get("figure", "?"))
     print("\n  A figure found is not a sentence that is true. A figure missing "
           "is not a\n  sentence that is false. Both are questions for a "
           "person.\n")
@@ -237,11 +294,19 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     if not r["checked"]:
         return [("figures in held documents", WARN,
                  "no figures found on the page to check")]
+    if r["stale"]:
+        return [("figures in held documents", BAD,
+                 "%d declared exclusion(s) no longer match any sentence on the "
+                 "page: %s. An exclusion that outlives its sentence is a filter."
+                 % (len(r["stale"]),
+                    ", ".join(x.get("figure", "?") for x in r["stale"])))]
     n = len(r["missing"])
     if not n:
+        note = ("" if not r["excluded"] else
+                "; %d declared exclusion(s)" % len(r["excluded"]))
         return [("figures in held documents", OK,
-                 "all %d figure(s) on the page appear in a document we hold"
-                 % r["checked"])]
+                 "all %d figure(s) on the page appear in a document we hold%s"
+                 % (r["checked"], note))]
     shown = ", ".join(f for f, _s in r["missing"][:6])
     why = ("%d of %d figure(s) are in no document this issue holds: %s%s"
            % (n, r["checked"], shown, " ..." if n > 6 else ""))
