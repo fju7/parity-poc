@@ -43,6 +43,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import spancheck  # noqa: E402
 import errata     # noqa: E402
 import bindings   # noqa: E402
+import reconcile  # noqa: E402
 
 CAUGHT, MISSED, UNBUILT, UNCOVERED = "CAUGHT", "MISSED", "UNBUILT", "UNCOVERED"
 
@@ -153,18 +154,20 @@ CASES = [
        why_uncaught="Both names are in the paper. What is wrong is which is "
                     "which, and a presence test cannot see word order."),
 
-  dict(id="CORR-21", slug="cdk46", check="B8",
-       what="MONALEESA-7's one-sidedness sourced to a conference abstract while "
-            "the NEJM paper we hold states it directly",
-       sid="S007", span="The one-sided stratified log-rank P value was 0.00973",
-       sentence="the ASCO 2019 abstract of the same analysis states that "
-                "statistical comparison was made by 1-sided stratified log-rank test",
-       expect="B8, closer source available"),
+  dict(id="CORR-21", slug="cdk46", check_kind="b8",
+       check="B8",
+       what="MONALEESA-7's one-sidedness sourced to a registry posting while the "
+            "NEJM paper we hold states it directly",
+       sid="S022",
+       span="hazard ratio for death, 0.71; 95% CI, 0.54 to 0.95; P = 0.00973",
+       sentence="the direction of the test is stated in the ASCO 2019 abstract",
+       expect="B8 names S007"),
 
-  dict(id="CORR-24", slug="cdk46", check="B9",
+  dict(id="CORR-24", slug="cdk46", check_kind="b9", check="B9",
        what="the Cancers 2023 study: eight figures on the page, its own entry in "
             "the visible source list, no row in sources.json",
-       sid="", span="", sentence="", expect="B9, page-to-ledger reconciliation"),
+       sid="", span="pmc.ncbi.nlm.nih.gov/articles/PMC10527344",
+       sentence="", expect="B9 reports the link as unreconciled"),
 
   dict(id="CORR-26b", slug="cdk46", check="B6",
        what="'the investigators recovered-data sensitivity analysis' -- the paper "
@@ -201,6 +204,23 @@ def run_case(c: dict) -> tuple[str, str]:
             return MISSED, "errata could not look %s up: %s" % (
                 c["sid"], row.get("why", "")[:60])
         return MISSED, "errata reports %s clean" % c["sid"]
+
+    if kind == "b9":
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "pub", str(Path(__file__).resolve().parent / "publish.py"))
+        m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+        html = (m.ROOT / m.ISSUES[c["slug"]]["page"]).read_text(encoding="utf-8")
+        loose = reconcile.b9_unreconciled(c["slug"], html)
+        hit = [r for r in loose if c["span"] in r["url"] and not r["same_as"]]
+        if hit:
+            return CAUGHT, "B9 reports %s as a document the ledger does not know" % (
+                hit[0]["url"][:60])
+        return MISSED, "B9 does not report this link as unreconciled"
+
+    if kind == "b8":
+        other, why = reconcile.b8_closer(c["slug"], c["span"], c["sid"])
+        return (CAUGHT, why) if other else (MISSED, why)
 
     span, slug, sid = c["span"], c["slug"], c["sid"]
     expect_pass = "PASSES" in c.get("expect", "")

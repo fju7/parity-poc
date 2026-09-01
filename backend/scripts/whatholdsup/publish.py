@@ -185,6 +185,10 @@ source_store = _sibling("source_store")
 # and absence and never truth.
 errata = _sibling("errata")
 bindings = _sibling("bindings")
+# B9 starts from the PAGE rather than the source list, which is the only way to
+# see a source nobody wrote down. B8 asks whether a closer document says the
+# same thing.
+page_ledger = _sibling("reconcile")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -1175,6 +1179,12 @@ def preflight(slug: str, *, for_email: bool,
         out.extend(source_store.preflight_rows(slug))
     except Exception as exc:
         out.append(("source store", WARN, "the store check did not run: %s: %s"
+                    % (type(exc).__name__, exc)))
+    try:
+        out.extend(page_ledger.preflight_rows(
+            slug, page.read_text(encoding="utf-8")))
+    except BaseException as exc:
+        out.append(("page to ledger", WARN, "did not run: %s: %s"
                     % (type(exc).__name__, exc)))
     for _mod, _name in ((errata, "errata check"), (bindings, "claim bindings")):
         try:

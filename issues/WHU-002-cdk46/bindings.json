@@ -17,7 +17,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 6.2026 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 6.2026 (strength 3, need 4)"
     },
     "3c085e7996cc6645": {
       "sentence": "What the guideline says And the reason it gives.",
@@ -51,7 +51,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 6.2026 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 6.2026 (strength 3, need 4)"
     },
     "02311196265d1957": {
       "sentence": "For an aromatase inhibitor combined with a CDK4/6 inhibitor, the guideline assigns ribociclib category 1 .",
@@ -238,7 +238,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 0.54, 0.57, 0.58"
+      "autobind": "anchors too weak to identify a document: 0.54, 0.57, 0.58 (strength 3, need 4)"
     },
     "1996f72f4c6cf18e": {
       "sentence": "MONALEESA-7, in a different population, reports 0.55.",
@@ -255,7 +255,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.55 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.55 (strength 1, need 4)"
     },
     "6f3ca3b188f5c808": {
       "sentence": "Across the investigator-assessed progression-free analyses these four trials have published between them — primary, updated and final, eight readouts, all named in the sources below — every hazard ratio falls between 0.52 and 0.58.",
@@ -272,14 +272,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "source_id": "S016",
-      "span": "ESMO Open A Subgroups All patients Age 18‐49 years Age 50‐64 years Age 65‐74 years Age ≥ 75 years Race, White Race, Black Race, other Community practice Academic practice Stage at initial Dx, I Stage at initial Dx, II Stage at initial Dx, III Stage at initial Dx, IV Stage at initial Dx, ND ECOG PS at baseline, 0 ECOG PS at baseline, 1 ECOG PS at baseline, 2‐4 ECOG PS at baseline, ND De novo metastatic DFI ≤ 1 years DFI > 1‐5 years DFI > 5 years No visceral disease Visceral disease No bone-only disease Bone-only disease Metastatic sites, 1 Metastatic sites, 2 Metastatic sites, ≥ 3 Metastatic sites, ND Patients, n ABE PAL + AI + AI 1038 118 359 316 246 654 94 290 872 166 112 238 110 523 56 369 275 119 275 523 42 162 311 680 358 557 481 611 240 92 95 Overall survival ABE + AI versus PAL + AI Hazard ratio (95% CI) 6832 775 2333 2108 1616 4272 638 1922 5782 1050 720 1538 731 3473 370 2444 1806 780 1801 3473 276 1082 2001 4458 2374 3661 3171 4010 1585 615 622 0.95 (0.84‐1.08) 0.68 (0.46‐0.99) 0.94 (0.76‐1.17) 0.90 (0.70‐1.14) 1.14 (0.89‐1.45) 0.88 (0.74‐1.05) 1.29 (0.92‐1.81) 1.00 (0.80‐1.25) 0.92 (0.80‐1.06) 1.12 (0.78‐1.61) 1.00 (0.65‐1.55) 0.59 (0.41‐0.85) 0.98 (0.70‐1.38) 1.06 (0.90‐",
-      "envelope": "PAL, palbociclib; RIB, ribociclib; sIPTW, stabilized inverse probability of treatment weighting; uHR, unadjusted hazard ratio. Volume 10 - Issue 1 - 2025 https://doi.org/10.1016/j.esmoop.2024.104103 7 H. S. Rugo et al. ESMO Open A Subgroups All patients Age 18‐49 years Age 50‐64 years Age 65‐74 years Age ≥ 75 years Race, White Race, Black Race, other Community practice Academic practice Stage at initial Dx, I Stage at initial Dx, II Stage at initial Dx, III Stage at initial Dx, IV Stage at initial Dx, ND ECOG PS at baseline, 0 ECOG PS at baseline, 1 ECOG PS at baseline, 2‐4 ECOG PS at baseline, ND De novo metastatic DFI ≤ 1 years DFI > 1‐5 years DFI > 5 years No visceral disease Visceral disease No bone-only disease Bone-only disease Metastatic sites, 1 Metastatic sites, 2 Metastatic sites, ≥ 3 Metastatic sites, ND Patients, n ABE PAL + AI + AI 1038 118 359 316 246 654 94 290 872 166 112 238 110 523 56 369 275 119 275 523 42 162 311 680 358 557 481 611 240 92 95 Overall survival ABE + AI versus PAL + AI Hazard ratio (95% CI) 6832 775 2333 2108 1616 4272 638 1922 5782 1050 720 1538 731 3473 370 2444 1806 780 1801 3473 276 1082 2001 4458 2374 3661 3171 4010 1585 615 622 0.95 (0.84‐1.08) 0.68 (0.46‐0.99) 0.94 (0.76‐1.17) 0.90 (0.70‐1.14) 1.14 (0.89‐1.45) 0.88 (0.74‐1.05) 1.29 (0.92‐1.81) 1.00 (0.80‐1.25) 0.92 (0.80‐1.06) 1.12 (0.78‐1.61) 1.00 (0.65‐1.55) 0.59 (0.41‐0.85) 0.98 (0.70‐1.38) 1.06 (0.90‐1.24) 1.26 (0.74‐2.14) 0.61 (0.48‐0.78) 1.22 (0.96‐1.54) 1.15 (0.81‐1.62) 1.03 (0.80‐1.32) 1.06 (0.90‐1.24) 0.58 (0.30‐1.13) 1.06 (0.80‐1.42) 0.70 (0.52‐0.96) 0.88 (0.74‐1.05) 1.07 (0.88‐1.29) 0.96 (0.81‐1.13) 0.93 (0.76‐1.14) 0.92 (0.77‐1.11) 0.98 (0.78‐1.24) 1.16 (0.83‐1.63) 0.73 (0.44‐1.22) 0.0 B Subgroups All patients Age 18‐49 years Age 50‐64 years Age 65‐74 years Age ≥ 75 years Race, White Race, Black Race, other Community practice Academic practice Stage at initial Dx, I Stage at initial Dx, II Stage at initial Dx, III Stage at initial Dx, IV Stage at initial Dx, ND E",
-      "locator_type": "prose",
-      "document_sha": "0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236",
-      "proposed_by": "autobind",
-      "confirmed": false,
-      "autobind": "the only held document containing all 2 anchors (0.52, 0.58), sharing 2 subject word(s) with the sentence: hazard, ratio"
+      "autobind": "anchors too weak to identify a document: 0.52, 0.58 (strength 2, need 4)"
     },
     "8d67ec97d4d8fde5": {
       "sentence": "MONALEESA-2’s test was one-sided: the trial’s own results posting on ClinicalTrials.gov (NCT01958021) states that the distribution of overall survival between the arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance .",
@@ -296,14 +289,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "source_id": "S004",
-      "span": "The ORR was 42.5% versus 28.7% for all patients treated with ribociclib plus letrozole versus placebo plus letrozole, respectively, and 54.5% versus 38.8%, respectively, for patients with measurable disease. Safety results, after a further 11.1 months of follow-up, were comparable with those reported at the first analysis, with no new or unexpected toxicities observed, and no evidence of cumulative toxicity. Conclusions: The improved efficacy outcomes and manageable tolerability observed with first-line ribociclib plus letrozole are maintained with longer follow-up, relative to letrozole monotherapy. Clinical trials number: NCT01958021.",
-      "envelope": "in patients with wild-type versus altered receptor tyrosine kinase genes. OS data remain immature, with 116 deaths observed; 50 in the ribociclib arm and 66 in the placebo arm (hazard ratio: 0.746; 95% CI, 0.517-1.078). The ORR was 42.5% versus 28.7% for all patients treated with ribociclib plus letrozole versus placebo plus letrozole, respectively, and 54.5% versus 38.8%, respectively, for patients with measurable disease. Safety results, after a further 11.1 months of follow-up, were comparable with those reported at the first analysis, with no new or unexpected toxicities observed, and no evidence of cumulative toxicity. Conclusions: The improved efficacy outcomes and manageable tolerability observed with first-line ribociclib plus letrozole are maintained with longer follow-up, relative to letrozole monotherapy. Clinical trials number: NCT01958021. Original language English Journal Annals of Oncology Early online date 27 Apr 2018 DOIs https://doi.org/10.1093/annonc/mdy155 https://doi.org/10.1093/annonc/mdy155 Publication status Published - Jul 2018 Keywords / Mate",
-      "locator_type": "prose",
-      "document_sha": "1adaa89a9ca058a7ff80c648042c26f1654e343df8d8105ceff77577c37613ed",
-      "proposed_by": "autobind",
-      "confirmed": false,
-      "autobind": "the only held document containing all 2 anchors (NCT01958021, 2.5%), sharing 2 subject word(s) with the sentence: cumulative, results"
+      "autobind": "no held document contains all 2 anchors: NCT01958021, 2.5%"
     },
     "30eb66f6a9eb99c4": {
       "sentence": "But the p = 0.008 in the table above is not that test’s p-value.",
@@ -320,7 +306,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.008 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.008 (strength 1, need 4)"
     },
     "5394fb4322f98477": {
       "sentence": "The registry posts the result as p = 0.004 , alongside HR 0.765 (0.628–0.932); the NEJM paper prints P = 0.008 alongside HR 0.76 (0.63–0.93).",
@@ -354,7 +340,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S016) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not"
+      "locator_type": "none",
+      "autobind": "the sentence shows its own working ('is exactly twice') — it rests on figures already on the page, not on a source"
     },
     "e08fe8ee946c5c4d": {
       "sentence": "PALOMA-2 is one-sided too, at an alpha of 0.025 — its registry record (NCT01740427) labels every log-rank p-value on the study 1-sided p-value from the stratified log-rank test — which puts the critical value in the same place on the benefit side — a result that clears one clears the other — while differing in what the test was capable of concluding at all: a one-sided test is built to detect benefit and cannot declare harm.",
@@ -388,7 +375,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.05 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)"
     },
     "b34f3930fab654df": {
       "sentence": "MONALEESA-7’s is one-sided : the ASCO 2019 abstract of the same analysis states that “statistical comparison was made by 1-sided stratified log-rank test”.",
@@ -422,14 +409,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "source_id": "S010",
-      "span": "7 The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025.",
-      "envelope": "confirmation of death, survival time was censored to the last date the patient was known to be alive. The median OS was assumed to be 34 months in first-line treatment with letrozole for ABC at the time of study design. 7 The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025. OS analysis was conducted in the intent-to-treat (ITT) population. Median OS was estimated using the Kaplan-Meier method with the one-sided stratified log-rank test adjusting for the disease site at the α = .025 overall",
-      "locator_type": "prose",
-      "document_sha": "8529b5842ca380b3251bf8dfc228b1710d27772729d9530c87790770fd33306d",
-      "proposed_by": "autobind",
-      "confirmed": false,
-      "autobind": "the only held document containing all 2 anchors (0.74, 0.025), sharing 11 subject word(s) with the sentence: after, analysis, detect, events, final, hazard"
+      "autobind": "anchors too weak to identify a document: 0.74, 0.025 (strength 2, need 4)"
     },
     "763c5a7266d4fdfa": {
       "sentence": "Abemaciclib MONARCH 3 · HR 0.80 Ribociclib MONALEESA-2 · HR 0.76 Palbociclib PALOMA-2 · HR 0.96 0 0.5 1.0 — no effect 1.5 The distance that separates a category 1 from a category 2A Abemaciclib’s hazard ratio is 0.80 , on an interval running 0.64 to 1.02 .",
@@ -463,7 +443,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S005) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "anchors too weak to identify a document: 0.76, 0.63, 0.93 (strength 3, need 4)"
     },
     "7786ca2c9c63cca8": {
       "sentence": "The intervals overlap along almost their entire length: 97% of ribociclib’s interval lies inside abemaciclib’s .",
@@ -497,7 +477,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 5 anchors: 0.63, 0.93, 0.30, 0.64, 0.29"
+      "locator_type": "none",
+      "autobind": "the sentence shows its own working ('The figure is ours') — it rests on figures already on the page, not on a source"
     },
     "92ce71614deebe9b": {
       "sentence": "0.29 ÷ 0.30 = 96.7%.",
@@ -514,7 +495,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 0.29, 0.30, 96.7%"
+      "locator_type": "none",
+      "autobind": "the sentence shows its own working ('0.29 ÷ 0.30 =') — it rests on figures already on the page, not on a source"
     },
     "143d2bd4ce132389": {
       "sentence": "Using abemaciclib’s unrounded lower bound of 0.637 in place of the rounded 0.64, the same subtraction gives 97.7%.",
@@ -531,7 +513,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 0.637, 0.64, 97.7%"
+      "locator_type": "none",
+      "autobind": "the sentence shows its own working ('subtraction') — it rests on figures already on the page, not on a source"
     },
     "d77f81b0696ca5d4": {
       "sentence": "We print 97%.",
@@ -749,7 +732,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.80 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.80 (strength 1, need 4)"
     },
     "382a1e37ffebfda7": {
       "sentence": "It does not mean a 20% better chance of anything, and it is not a probability that applies to a person.",
@@ -851,7 +834,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 2.7, 0.96, 0.92"
+      "autobind": "anchors too weak to identify a document: 2.7, 0.96, 0.92 (strength 3, need 4)"
     },
     "9f72b2307339aa4a": {
       "sentence": "On the two drugs the guideline grades apart, they do not.",
@@ -936,7 +919,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 9,146 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 9,146 (strength 3, need 4)"
     },
     "266f65f37128d432": {
       "sentence": "On overall survival it found nothing anywhere: ribociclib versus palbociclib 0.98 (0.87–1.10, P = 0.75), abemaciclib versus palbociclib 0.95 (0.84–1.08, P = 0.43), abemaciclib versus ribociclib 0.97 (0.82–1.14, P = 0.70).",
@@ -987,7 +970,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,982 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,982 (strength 3, need 4)"
     },
     "db42cbafc1dd4317": {
       "sentence": "On progression-free survival it found abemaciclib ahead of palbociclib at an adjusted hazard ratio of 0.76 (0.63–0.92), p = 0.004 , and ribociclib ahead of palbociclib at 0.83 (0.73–0.95), p = 0.007 .",
@@ -1055,7 +1038,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,827 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,827 (strength 3, need 4)"
     },
     "26e7714faa78103c": {
       "sentence": "On overall survival it separates nobody: abemaciclib versus ribociclib 0.933 (0.753–1.157), p = 0.528 .",
@@ -1106,14 +1089,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "source_id": "S016",
-      "span": "Patient characteristics in unadjusted total cohort Characteristic Age at mBC diagnosis, years Mean (SD) Median (IQR) Sex, n (%) Male Female Race, n (%) White Black Other Practice type, n (%) Community Academic Insurance type, n (%) Commercial health plan plus any other Commercial health plan Medicare Medicaid Other payer type Disease stage at initial diagnosis, n (%) I II III IV Not documented ECOG PS, n (%) 0 1 2, 3, or 4 Not documented Disease-free interval, n (%) De novo mBC \u00051 year >1-5 years >5 years Visceral metastasis, n (%)a No Yes Bone-only metastasis, n (%)b No Yes Number of metastatic sites, n (%)c 1 2 \u00043 Not documented Menopausal status at initial diagnosis, n (%) Premenopausal Postmenopausal Not documented Not applicable (patient is male) Year of index date, n (%) 2015 2016 2017 2018 2019 2020 2021 2022 2023 Median follow-up duration (IQR), months Cohort Standardized difference PAL þ AI (n ¼ 6831) RIB þ AI (n ¼ 1279) ABE þ AI (n ¼ 1036) RIB þ AI versus PAL þ AI ABE þ AI versus PAL þ AI ABE þ AI versus RIB þ AI 65.6 (11.4) 66.0 (16.0) 62.3 (12.8) 64.0 (19.0) 63.3 (12.5) 64.0 (18.0) \u00030.2725 \u00030.1934 0.0784 75 (1.1) 6756 (98.9) 7 (0.5) 1272 (99.5) 12 (1.2) 1024 (98.8) \u00030.0",
-      "envelope": "ded in the multivariable Cox proportional hazards model as covariates. All data analyses were conducted with SAS version 9.4 or higher. https://doi.org/10.1016/j.esmoop.2024.104103 3 H. S. Rugo et al. ESMO Open Table 1. Patient characteristics in unadjusted total cohort Characteristic Age at mBC diagnosis, years Mean (SD) Median (IQR) Sex, n (%) Male Female Race, n (%) White Black Other Practice type, n (%) Community Academic Insurance type, n (%) Commercial health plan plus any other Commercial health plan Medicare Medicaid Other payer type Disease stage at initial diagnosis, n (%) I II III IV Not documented ECOG PS, n (%) 0 1 2, 3, or 4 Not documented Disease-free interval, n (%) De novo mBC \u00051 year >1-5 years >5 years Visceral metastasis, n (%)a No Yes Bone-only metastasis, n (%)b No Yes Number of metastatic sites, n (%)c 1 2 \u00043 Not documented Menopausal status at initial diagnosis, n (%) Premenopausal Postmenopausal Not documented Not applicable (patient is male) Year of index date, n (%) 2015 2016 2017 2018 2019 2020 2021 2022 2023 Median follow-up duration (IQR), months Cohort Standardized difference PAL þ AI (n ¼ 6831) RIB þ AI (n ¼ 1279) ABE þ AI (n ¼ 1036) RIB þ AI versus PAL þ AI ABE þ AI versus PAL þ AI ABE þ AI versus RIB þ AI 65.6 (11.4) 66.0 (16.0) 62.3 (12.8) 64.0 (19.0) 63.3 (12.5) 64.0 (18.0) \u00030.2725 \u00030.1934 0.0784 75 (1.1) 6756 (98.9) 7 (0.5) 1272 (99.5) 12 (1.2) 1024 (98.8) \u00030.0610 0.0057 0.0665 4385 (64.2) 608 (8.9) 1838 (26.9) 759 (59.3) 125 (9.8) 395 (30.9) 572 (55.2) 124 (12.0) 340 (32.8) \u00030.0999 0.0300 0.0878 \u00030.1839 0.1005 0.1294 \u00030.0836 0.0706 0.0415 5696 (83.4) 1135 (16.6) 1140 (89.1) 139 (10.9) 902 (87.1) 134 (12.9) 0.1675 0.1039 \u00030.0639 2515 (36.8) 2143 (31.4) 323 (4.7) 116 (1.7) 1734 (25.4) 411 (32.1) 495 (38.7) 44 (3.4) 34 (2.7) 295 (23.1) 340 (32.8) 401 (38.7) 27 (2.6) 15 (1.4) 253 (24.4) \u00030.0986 0.1541 \u00030.0651 0.0658 \u00030.0542 \u00030.0840 0.1542 \u00030.1131 \u00030.0201 \u00030.0223 0.0146 0.0001 \u00030.0487 \u00030.0854 0.0319 719 (10.5) 1552 (22.7) 732 (10.7) ",
-      "locator_type": "prose",
-      "document_sha": "0e92606c224eb02adad3ce29ef608df0f4774e49b324ff61f9a8d15f4df4e236",
-      "proposed_by": "autobind",
-      "confirmed": false,
-      "autobind": "the only held document containing all 2 anchors (0.08, 0.05), sharing 3 subject word(s) with the sentence: abemaciclib, palbociclib, ribociclib"
+      "autobind": "anchors too weak to identify a document: 0.08, 0.05 (strength 2, need 4)"
     },
     "b6ae442c7e90d2a3": {
       "sentence": "The reconstructed patient-data comparison, on survival: 0.933, on 0.753 to 1.157 , p = 0.528.",
@@ -1181,7 +1157,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 2 anchors: 0.76, 0.83"
+      "autobind": "anchors too weak to identify a document: 0.76, 0.83 (strength 2, need 4)"
     },
     "60030fb3126653b5": {
       "sentence": "They do not contradict the guideline’s own statement, and it is worth saying so plainly.",
@@ -1794,7 +1770,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 6.2026 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 6.2026 (strength 3, need 4)"
     },
     "574018a0d6bef965": {
       "sentence": "J Clin Oncol , 2017 Primary progression-free survival: median not reached vs 14.7 months, HR 0.54 (95% CI 0.41–0.72), P = .000021.",
@@ -1869,7 +1845,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.05 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)"
     },
     "e5bcc4992eaa845c": {
       "sentence": "Primary MONALEESA-2 — updated results.",
@@ -1920,7 +1896,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S004) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "anchors too weak to identify a document: 0.56, 0.45, 0.70 (strength 3, need 4)"
     },
     "6a5d074828dc9fdc": {
       "sentence": "Primary MONALEESA-2 — overall survival with ribociclib plus letrozole.",
@@ -2046,14 +2022,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "source_id": "S022",
-      "span": "A stratified Cox regression was used to estimate the OS hazard ratio and the associated 95% CI.\",\"populationDescription\":\"FAS including all randomized participants\",\"reportingStatus\":\"POSTED\",\"paramType\":\"MEDIAN\",\"dispersionType\":\"95% Confidence Interval\",\"unitOfMeasure\":\"Months\",\"timeFrame\":\"From randomization to death, assessed up to approximately 45 months\",\"groups\":[{\"id\":\"OG000\",\"title\":\"Ribociclib + NSAI/Tamoxifen + Goserelin\",\"description\":\"Ribociclib 600 mg daily oral (3 weeks on/ 1 week off) in combination with NSAI or tamoxifen (tamoxifen 20 mg daily oral or letrozole 2.5 mg daily oral or anastrozole 1 mg daily oral) and goserelin 3.6 mg subcutaneous injection (once every 28 days)\"},{\"id\":\"OG001\",\"title\":\"Placebo + NSAI/Tamoxifen+ Goserelin\",\"description\":\"Placebo daily oral (3 weeks on/ 1 week off) in combination with NSAI or tamoxifen (tamoxifen 20 mg daily oral or letrozole 2.5 mg daily oral or anastrozole 1 mg daily oral) and goserelin 3.6 mg subcutaneous injection (once every 28 days).\"}],\"denoms\":[{\"units\":\"Participants\",\"counts\":[{\"groupId\":\"OG000\",\"value\":\"335\"},{\"groupId\":\"OG001\",\"value\":\"337\"}]}],\"classes\":[{\"categories\":[{\"measurements\":[{\"groupId\":\"OG000\",\"val",
-      "envelope": "OS, along with 95% confidence intervals, was reported for each treatment group.The distribution of OS between the two treatment arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance. A stratified Cox regression was used to estimate the OS hazard ratio and the associated 95% CI.\",\"populationDescription\":\"FAS including all randomized participants\",\"reportingStatus\":\"POSTED\",\"paramType\":\"MEDIAN\",\"dispersionType\":\"95% Confidence Interval\",\"unitOfMeasure\":\"Months\",\"timeFrame\":\"From randomization to death, assessed up to approximately 45 months\",\"groups\":[{\"id\":\"OG000\",\"title\":\"Ribociclib + NSAI/Tamoxifen + Goserelin\",\"description\":\"Ribociclib 600 mg daily oral (3 weeks on/ 1 week off) in combination with NSAI or tamoxifen (tamoxifen 20 mg daily oral or letrozole 2.5 mg daily oral or anastrozole 1 mg daily oral) and goserelin 3.6 mg subcutaneous injection (once every 28 days)\"},{\"id\":\"OG001\",\"title\":\"Placebo + NSAI/Tamoxifen+ Goserelin\",\"description\":\"Placebo daily oral (3 weeks on/ 1 week off) in combination with NSAI or tamoxifen (tamoxifen 20 mg daily oral or letrozole 2.5 mg daily oral or anastrozole 1 mg daily oral) and goserelin 3.6 mg subcutaneous injection (once every 28 days).\"}],\"denoms\":[{\"units\":\"Participants\",\"counts\":[{\"groupId\":\"OG000\",\"value\":\"335\"},{\"groupId\":\"OG001\",\"value\":\"337\"}]}],\"classes\":[{\"categories\":[{\"measurements\":[{\"groupId\":\"OG000\",\"value\":\"NA\",\"lowerLimit\":\"NA\",\"upperLimit\":\"NA\",\"comment\":\"NA: Not estimable due to the insufficient number of participants with events\"},{\"groupId\":\"OG001\",\"value\":\"40.9\",\"lowerLimit\":\"37.8\",\"upperLimit\":\"NA\",\"comment\":\"NA: Not estimable due to the insufficient number of participants with events\"}]}]}],\"analyses\":[{\"groupIds\":[\"OG000\",\"OG001\"],\"nonInferiorityType\":\"SUPERIORITY\",\"pValue\":\"0.00973\",\"pValueComment\":\"One-sided stratified log-rank test\",\"statisticalMethod\":\"Log Rank\",\"paramType\":\"Cox Proportional Hazard\",\"paramValue\":\"0.712\",\"ciPctValue\":\"95\",\"ciNumSides\":\"TWO_SID",
-      "locator_type": "prose",
-      "document_sha": "460d498f6ac3480ec68c850e7ed2553e0622508711688fd4a6bdd67e366a82ff",
-      "proposed_by": "autobind",
-      "confirmed": false,
-      "autobind": "the only held document containing all 4 anchors (0.71, 0.712, 0.535, 0.948), sharing 2 subject word(s) with the sentence: hazard, ratio"
+      "locator_type": null,
+      "autobind": "the sentence is a claim about WHERE a figure appears ('does not appear in the publication'), so its numbers will be found somewhere that is not what the sentence is about"
     },
     "98de0f199c008202": {
       "sentence": "A group-sequential test with an adjusted threshold, which is why its p-value cannot be read beside MONALEESA-2’s 0.008 as though the two numbers meant the same thing.",
@@ -2070,7 +2040,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.008 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.008 (strength 1, need 4)"
     },
     "ee90aa2f5f12f640": {
       "sentence": "Clin Cancer Res , 2022;28:851 The exploratory extended follow-up at 53.5 months: 58.7 vs 48.0 months, HR 0.76 (95% CI 0.61–0.96).",
@@ -2128,14 +2098,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "source_id": "S020",
-      "span": "Progression is defined using RECIST v1.1, as a 20% increase in the sum of diameters of target measurable lesions above the smallest sum observed (over baseline if no decrease in the sum is observed during therapy), with a minimum absolute increase of 5 mm, or unequivocal progression of pre-existing non-target lesions, or the appearance of new lesions.\",\"populationDescription\":\"ITT population or full analysis set included all participants who were randomized, with study drug assignment designated according to initial randomization, regardless of whether participants received study medication or received a different drug from that to which they were randomized.\",\"reportingStatus\":\"POSTED\",\"paramType\":\"MEDIAN\",\"dispersionType\":\"95% Confidence Interval\",\"unitOfMeasure\":\"Months\",\"timeFrame\":\"From randomization date to date of first documentation of progression or death (up to approximately 2.5 years)\",\"groups\":[{\"id\":\"OG000\",\"title\":\"Palbociclib Plus Letrozole\",\"description\":\"Participants received letrozole 2.5 milligram (mg) orally QD (once daily) combined with palbociclib 125 mg QD for 21 days of every-28-day cycle, followed by 7 days off treatment.\"},{\"id\":\"OG001\",\"title\":\"Placebo Pl",
-      "envelope": "e absence of documented PD, whichever occurs first. If tumor progression data include more than 1 date, the first date will be used. PFS (in months) will be calculated as (first event date - randomization date +1)/30.4. Progression is defined using RECIST v1.1, as a 20% increase in the sum of diameters of target measurable lesions above the smallest sum observed (over baseline if no decrease in the sum is observed during therapy), with a minimum absolute increase of 5 mm, or unequivocal progression of pre-existing non-target lesions, or the appearance of new lesions.\",\"populationDescription\":\"ITT population or full analysis set included all participants who were randomized, with study drug assignment designated according to initial randomization, regardless of whether participants received study medication or received a different drug from that to which they were randomized.\",\"reportingStatus\":\"POSTED\",\"paramType\":\"MEDIAN\",\"dispersionType\":\"95% Confidence Interval\",\"unitOfMeasure\":\"Months\",\"timeFrame\":\"From randomization date to date of first documentation of progression or death (up to approximately 2.5 years)\",\"groups\":[{\"id\":\"OG000\",\"title\":\"Palbociclib Plus Letrozole\",\"description\":\"Participants received letrozole 2.5 milligram (mg) orally QD (once daily) combined with palbociclib 125 mg QD for 21 days of every-28-day cycle, followed by 7 days off treatment.\"},{\"id\":\"OG001\",\"title\":\"Placebo Plus Letrozole\",\"description\":\"Participants received letrozole 2.5 mg orally QD combined with placebo QD for 21 days of every-28-day cycle, followed by 7 days off treatment.\"}],\"denoms\":[{\"units\":\"Participants\",\"counts\":[{\"groupId\":\"OG000\",\"value\":\"444\"},{\"groupId\":\"OG001\",\"value\":\"222\"}]}],\"classes\":[{\"categories\":[{\"measurements\":[{\"groupId\":\"OG000\",\"value\":\"24.8\",\"lowerLimit\":\"22.1\",\"upperLimit\":\"NA\",\"comment\":\"The value was not available because there was not enough disease progression events in the treatment group at the time of analysis, due to drug benefit.\"},{\"groupId",
-      "locator_type": "prose",
-      "document_sha": "5b719bb4d0d7780f6c7717e3e80f99ab7132cca0fbe0b48ef6cfcd4db1a589e6",
-      "proposed_by": "autobind",
-      "confirmed": false,
-      "autobind": "the only held document containing all 3 anchors (0.576, 0.463, 0.718), sharing 2 subject word(s) with the sentence: analysis, which"
+      "locator_type": null,
+      "autobind": "the sentence is a claim about WHERE a figure appears ('appears in the 2019 extended-follow-up paper'), so its numbers will be found somewhere that is not what the sentence is about"
     },
     "19f1bd663fc7bc2f": {
       "sentence": "J Clin Oncol , 2024 53.9 vs 51.2 months, HR 0.956 (95% CI 0.777–1.177), one-sided P = .34, at 90.1 months median follow-up.",
@@ -2186,7 +2150,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,827 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,827 (strength 3, need 4)"
     },
     "c8fd88b3b2e89780": {
       "sentence": "Overall survival: ribociclib vs palbociclib 0.903 (0.746–1.094, p = 0.297); abemaciclib vs palbociclib 0.843 (0.690–1.030, p = 0.094); abemaciclib vs ribociclib 0.933 (0.753–1.157, p = 0.528) .",
@@ -2237,7 +2201,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,982 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,982 (strength 3, need 4)"
     },
     "c0348f8c2e540a0a": {
       "sentence": "Progression-free survival: abemaciclib vs palbociclib aHR 0.76 (0.63–0.92), p = 0.004; ribociclib vs palbociclib 0.83 (0.73–0.95), p = 0.007; abemaciclib vs ribociclib 0.91 (0.73–1.14), p = 0.425 .",
@@ -2305,7 +2269,7 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 3,691 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 3,691 (strength 3, need 4)"
     },
     "3d24a59326cd8fc8": {
       "sentence": "Label IBRANCE (palbociclib) — warnings and precautions Source of neutropenia in 80% of PALOMA-2 patients, grade 3 or worse in 66%, and of the requirement for blood counts on day 15 of each of the first two cycles.",
