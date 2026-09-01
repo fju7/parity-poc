@@ -473,6 +473,10 @@ def main() -> int:
     s.add_argument("slug")
     s.set_defaults(fn=cmd_status)
     a = ap.parse_args()
+    # WHOSE BUDGET. Without this the calls below land in the ledger with no
+    # issue and outside every per-issue cap; fc.call refuses rather than spend
+    # unattributed. See factcheck_draft.call.
+    fc.enter_issue(getattr(a, "slug", "") or "")
     return a.fn(a)
 
 

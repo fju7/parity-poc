@@ -283,6 +283,18 @@ CASES = [
             "topline' — the figure is in nothing held and the document has no "
             "entry in the source list at all"),
 
+
+  # 2026-09-01. Not an error about evidence -- an error about the one control
+  # the operator made a condition of letting jobs run unattended.
+  dict(id="SPEND-01", slug="melanoma", check="spend cap", check_kind="spend",
+       found_by="check",
+       what="the per-issue cap was enforced in factcheck_draft.main() only. "
+            "Every other script reaches the model by importing that module and "
+            "calling fc.call directly -- source_advocate, counterexample, "
+            "premise -- so their spend was written with no issue and no cap "
+            "was ever checked. Found by running the advocate: two calls, $0.37, "
+            "against no issue and no limit"),
+
   dict(id="DESK-01", slug="deskilling", check="B10",
        what="issue three's central study carries a 2025 correction",
        sid="S021", check_kind="errata"),
@@ -347,6 +359,29 @@ def run_case(c: dict) -> tuple[str, str]:
                         "%s" % (c["figure"],
                                 "" if not n_unheld else
                                 " (%d unheld, so this would be a WARN)" % n_unheld))
+
+    if kind == "spend":
+        # The check is that AN UNDECLARED CALLER CANNOT SPEND. Prove it by
+        # being one.
+        import importlib.util
+        from pathlib import Path as _P
+        gate = _P(__file__).resolve().parents[2] / "scripts" / "signal" / "factcheck_draft.py"
+        spec = importlib.util.spec_from_file_location("fc_probe", gate)
+        fc = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(fc)
+        try:
+            fc.call("probe", "probe", search=False)
+        except SystemExit as exc:
+            if "no issue declared" in str(exc):
+                return CAUGHT, ("fc.call refuses to spend when no caller has "
+                                "declared an issue, so no script can spend "
+                                "outside a cap by importing it")
+            return MISSED, "fc.call exited, but not because the issue was undeclared: %s" % str(exc)[:80]
+        except Exception as exc:
+            return MISSED, ("fc.call did not refuse; it reached %s, which means "
+                            "it was willing to spend undeclared"
+                            % type(exc).__name__)
+        return MISSED, "fc.call returned without refusing an undeclared caller"
 
     if kind == "uncovered":
         return UNCOVERED, c.get("why_uncaught", "")

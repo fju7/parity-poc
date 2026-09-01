@@ -340,6 +340,30 @@ def attributions(text: str) -> list[str]:
     return out
 
 
+# THE CHANGE LOG IS NOT THE ARTICLE.
+#
+# The updates footer records what the page USED TO SAY and why it stopped. Read
+# as though it were the body, it produces findings that are exactly backwards:
+# on 2026-09-01 the unknowability check demanded that two sentences name a
+# registry, and both were disclosures --
+#
+#   "We could not establish that expanded access is categorically unavailable,
+#    so the sentence no longer claims it is."
+#
+# -- a claim being WITHDRAWN, flagged as a claim being made. Satisfying it would
+# mean deleting the record of the correction.
+#
+# Checks that read the page's CLAIMS take the body. Checks that read the page's
+# ACCOUNT OF ITSELF (self_description) take the whole document, footer included,
+# because that is the thing they are about.
+CHANGE_LOG = re.compile(r"<footer[^>]*id=[\"']updates[\"'][^>]*>.*?</footer>",
+                        re.I | re.S)
+
+
+def body_only(html_text: str) -> str:
+    return CHANGE_LOG.sub(" ", html_text)
+
+
 def unknowability(text: str) -> list[str]:
     """Claims of unknowability that never name a registry.
 
@@ -437,7 +461,8 @@ def lint(html_text: str, slug: str | None = None) -> list[tuple[str, str, str]]:
                  f"way, from gate output, while fixing an attribution gap; the paper "
                  f"is by Tanguy et al.: " + " || ".join(unchecked[:3])))
 
-    unk = unknowability(text)
+    # the BODY, not the change log -- see body_only
+    unk = unknowability(plain(body_only(html_text)))
     rows.append(("unknowability claims searched the registries",
                  OK if not unk else BAD,
                  "every claim that something could not be established names where it looked"

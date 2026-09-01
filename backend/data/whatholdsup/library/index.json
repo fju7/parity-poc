@@ -752,6 +752,38 @@
         "deskilling:S033"
       ],
       "note": ""
+    },
+    "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720": {
+      "file": "docs/26/26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720.html",
+      "bytes": 192066,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/"
+      ],
+      "titles": [
+        "Morning Glory Sciences — INTerpath-001"
+      ],
+      "used_by": [
+        "melanoma:S009"
+      ],
+      "note": ""
+    },
+    "a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253": {
+      "file": "docs/a4/a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253.html",
+      "bytes": 82470,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-01",
+      "urls": [
+        "https://mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/"
+      ],
+      "titles": [
+        "MLQ News — Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints"
+      ],
+      "used_by": [
+        "melanoma:S011"
+      ],
+      "note": ""
     }
   }
 }

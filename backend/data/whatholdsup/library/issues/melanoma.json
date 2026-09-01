@@ -105,6 +105,32 @@
       "kind_why": "form 'page' — 29 prose sentence(s) over sixty characters, 2296 words — this reads as the page itself",
       "superseded": [],
       "also_held": []
+    },
+    "S009": {
+      "sha256": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
+      "file": "docs/26/26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720.html",
+      "bytes": 192066,
+      "url": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 84 prose sentence(s) over sixty characters, 2880 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
+    },
+    "S011": {
+      "sha256": "a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253",
+      "file": "docs/a4/a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253.html",
+      "bytes": 82470,
+      "url": "https://mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/",
+      "held": "2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 52 prose sentence(s) over sixty characters, 1286 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

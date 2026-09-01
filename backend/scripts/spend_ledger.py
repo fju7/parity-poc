@@ -97,9 +97,19 @@ def entries() -> list[dict]:
 
 def spent(issue: str | None = None, since: str | None = None,
           script: str | None = None) -> float:
+    """`issue=None` means every issue. `issue=""` means the entries that name
+    NO issue, which is a real and interesting set -- not a request for all of
+    them.
+
+    It used to mean "no filter", because the test was `if issue and ...`. So
+    spent("") returned the whole estate's total: $40.57 against a $40 per-issue
+    cap. Anything asking about unattributed spend got an answer about
+    everything, and check_cap("") would have blocked every run in the
+    repository for a reason that had nothing to do with the run.
+    """
     total = 0.0
     for e in entries():
-        if issue and e.get("issue") != issue:
+        if issue is not None and (e.get("issue") or "") != issue:
             continue
         if script and e.get("script") != script:
             continue

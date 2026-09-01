@@ -400,6 +400,10 @@ def main() -> int:
     l = sub.add_parser("list"); l.add_argument("slug")
     l.add_argument("--page", required=True); l.set_defaults(fn=cmd_list)
     a = ap.parse_args()
+    # WHOSE BUDGET. Without this the calls below land in the ledger with no
+    # issue and outside every per-issue cap; fc.call refuses rather than spend
+    # unattributed. See factcheck_draft.call.
+    fc.enter_issue(getattr(a, "slug", "") or "")
     return a.fn(a)
 
 

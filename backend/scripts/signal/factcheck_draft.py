@@ -557,9 +557,55 @@ def _first_json_value(text: str) -> str | None:
     return found[0][1]
 
 
+def enter_issue(slug: str) -> None:
+    """Declare whose budget the calls that follow are spending.
+
+    EVERY ENTRY POINT MUST CALL THIS. See call().
+    """
+    global _LEDGER_ISSUE
+    _LEDGER_ISSUE = (slug or "").strip()
+
+
 def call(system: str, user: str, *, search: bool,
          max_tokens: int = MAX_OUTPUT_TOKENS, label: str = ""):
-    """One model call, optionally with web search. Returns parsed JSON or None."""
+    """One model call, optionally with web search. Returns parsed JSON or None.
+
+    THE CAP IS ENFORCED HERE, NOT IN main().
+
+    It used to be enforced in main(), which set _LEDGER_ISSUE from the draft
+    filename and called check_cap once before starting. Every other script in
+    the repository reaches the model by IMPORTING THIS MODULE and calling this
+    function -- source_advocate, counterexample, premise -- so for all of them:
+
+      * _LEDGER_ISSUE stayed "", and their spend was written to the ledger with
+        no issue, landing in a bucket called "(none)";
+      * check_cap was never called at all;
+      * and had it been called with "", it would have compared the WHOLE
+        estate's spend against one issue's cap -- spent("") meant "no filter",
+        so it returned $40.57 -- and blocked every run in the repository for a
+        reason unrelated to the run. Both halves of the arithmetic were wrong;
+        only the fact that nothing called it kept that invisible.
+
+    Found on 2026-09-01 by running the source advocate on issue one: two calls,
+    $0.37, recorded against no issue, against no cap. The comment in main()
+    fifteen hundred lines below reads "the operator agreed to that on the
+    condition the cap was real."
+
+    So the check moves to the one function every caller goes through, and it
+    FAILS CLOSED: a caller that has not declared an issue cannot spend. Per
+    call rather than per run, because a cap checked once at the start does not
+    stop a run that crosses it in the middle.
+    """
+    if not _LEDGER_ISSUE:
+        raise SystemExit(
+            "refusing to spend: no issue declared. Call "
+            "factcheck_draft.enter_issue(<slug>) before any model call, so the "
+            "spend lands against that issue's cap. An unattributed call is an "
+            "uncapped call.")
+    if _spend is not None:
+        # A per-call estimate. Deliberately not free: the point is that a run
+        # near the cap stops before the call that would cross it.
+        _spend.check_cap(_LEDGER_ISSUE, about_to_spend=0.75)
     client = _get_client()
     kwargs = {}
     if search:
@@ -2174,8 +2220,7 @@ def main():
         _issue_slug = issue_slug_for(args.draft)
         # Set BEFORE any API call, so every ledger line written during the run
         # is attributed to the right issue. _ledger_now reads this.
-        global _LEDGER_ISSUE
-        _LEDGER_ISSUE = _issue_slug
+        enter_issue(_issue_slug)
         try:
             _spend.check_cap(_issue_slug, about_to_spend=3.0)
         except Exception as _exc:
