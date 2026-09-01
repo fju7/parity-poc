@@ -238,9 +238,10 @@
         ],
         "note": "The document is in the library, hashed. A sentence sourced here can be checked against these bytes by anyone, without a network, next year. Identity confirmed positively: the extracted text contains the document's own title words.",
         "held": {
-          "sha256": "8d21fe9e1ab020a88613e57f2426b1ee520270abdcc1dfc0b894c714e675fccd",
           "file": "docs/8d/8d21fe9e1ab020a88613e57f2426b1ee520270abdcc1dfc0b894c714e675fccd.pdf",
-          "bytes": 1240458
+          "sha256": "8d21fe9e1ab020a88613e57f2426b1ee520270abdcc1dfc0b894c714e675fccd",
+          "bytes": 1240458,
+          "identified_by": "contains 4 of 4 distinctive title words"
         }
       }
     },
@@ -261,9 +262,10 @@
         ],
         "note": "The document is in the library, hashed. A sentence sourced here can be checked against these bytes by anyone, without a network, next year. Identity confirmed positively: the extracted text contains the document's own title words.",
         "held": {
-          "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
           "file": "docs/81/81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b.pdf",
-          "bytes": 990433
+          "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
+          "bytes": 990433,
+          "identified_by": "contains 4 of 4 distinctive title words"
         }
       }
     },

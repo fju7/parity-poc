@@ -167,6 +167,27 @@ def identifying_tokens(src: dict) -> list[str]:
     return uniq
 
 
+def pdftotext_path() -> str | None:
+    """Find pdftotext, including where PATH will not.
+
+    launchd starts jobs with a minimal PATH that does not include
+    /opt/homebrew/bin, so shutil.which() returns nothing on a Mac where poppler
+    is installed and working. The acquisition job would then report "pdftotext
+    is not installed", refuse every PDF it fetched, and be believed -- a tool
+    reporting an absence it was not in a position to observe, which is the error
+    this repository has now recorded five times.
+    """
+    import shutil as _sh
+    found = _sh.which("pdftotext")
+    if found:
+        return found
+    for p in ("/opt/homebrew/bin/pdftotext", "/usr/local/bin/pdftotext",
+              "/usr/bin/pdftotext", "/opt/local/bin/pdftotext"):
+        if Path(p).exists():
+            return p
+    return None
+
+
 def text_of(data: bytes, content_type: str = "") -> tuple[str, str]:
     """The document's readable text, for the identity test.
 
@@ -181,10 +202,9 @@ def text_of(data: bytes, content_type: str = "") -> tuple[str, str]:
     """
     if data[:5] != b"%PDF-":
         return data.decode("utf-8", "replace"), "text"
-    import shutil as _sh
     import subprocess
     import tempfile
-    exe = _sh.which("pdftotext")
+    exe = pdftotext_path()
     if exe:
         with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as fh:
             fh.write(data); tmp = fh.name
@@ -232,11 +252,11 @@ def identifies(data: bytes, src: dict, content_type: str = "") -> tuple[bool, st
         # No text came out. That is not "this is the wrong document", it is
         # "nobody here can read this document", and saying the first when you
         # mean the second is the error this whole apparatus exists to stop.
-        import shutil as _s
         return False, ("no text could be extracted from this PDF (pdftotext %s), so "
                        "identity could not be checked either way — look at it yourself "
                        "and use --force if it is right"
-                       % ("failed" if _s.which("pdftotext") else "is not installed"))
+                       % ("at %s failed on it" % pdftotext_path() if pdftotext_path()
+                          else "was not found on this machine"))
     return False, ("nothing in these bytes identifies them as this document "
                    "(%d of %d title words, no DOI/PMID/NCT match)"
                    % (len(hits), len(words)))

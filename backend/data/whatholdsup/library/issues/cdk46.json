@@ -8,9 +8,10 @@
       "bytes": 1240458,
       "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/209935s030lbl.pdf",
       "held": "2026-09-01",
-      "via": "acquire_sources.py on the operator's machine, 2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "also_held": []
     },
     "S013": {
       "sha256": "81a0578ec2db6bc0cbdf58e2ef153b9d341e732cd6c7505baf478d0a0ba6386b",
@@ -18,9 +19,10 @@
       "bytes": 990433,
       "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/208716s019lbl.pdf",
       "held": "2026-09-01",
-      "via": "acquire_sources.py on the operator's machine, 2026-09-01",
+      "via": "acquire_sources.py on the operator's machine",
       "note": "",
-      "superseded": []
+      "superseded": [],
+      "also_held": []
     },
     "S014": {
       "sha256": "d4688e51d9cb7d0af3d3b1e00dfa65b40661c64bf908c21d9bd4892c80cb8eeb",

@@ -197,3 +197,27 @@ def test_the_same_format_with_different_bytes_is_superseded(issue):
     assert row["also_held"] == []
     # and the old bytes are still there to diff against
     assert (store.LIB / row["superseded"][0]["file"]).exists()
+
+
+def test_pdftotext_is_found_where_PATH_will_not_look(monkeypatch, tmp_path):
+    """launchd starts jobs with a minimal PATH that excludes /opt/homebrew/bin.
+
+    shutil.which() then returns nothing on a Mac where poppler is installed and
+    working, acquisition reports "pdftotext is not installed", refuses every PDF
+    it fetched, and is believed. A tool reporting an absence it was not in a
+    position to observe -- the fifth time this repository has recorded that
+    shape.
+    """
+    import shutil
+    monkeypatch.setattr(shutil, "which", lambda _n: None)
+    fake = tmp_path / "pdftotext"
+    fake.write_text("#!/bin/sh\n")
+    monkeypatch.setattr(store, "Path", store.Path)
+    real_exists = store.Path.exists
+
+    def exists(self):
+        if str(self) == "/opt/homebrew/bin/pdftotext":
+            return True
+        return real_exists(self)
+    monkeypatch.setattr(store.Path, "exists", exists)
+    assert store.pdftotext_path() == "/opt/homebrew/bin/pdftotext"
