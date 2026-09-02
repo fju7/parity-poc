@@ -361,6 +361,68 @@ def run_checks(slug: str, *, only: str = "") -> dict:
 RULE_ADOPTED = "2026-09-02"
 
 
+def bind_field(slug: str, sha: str, sid: str, path: str) -> tuple[bool, str]:
+    """Bind a sentence to a STRUCTURED FIELD in a held registry record.
+
+    WHY THIS IS NOT THE PROSE PATH
+    ------------------------------
+    modelbind rejects a field binding, and it is right to. Its guard asks
+    whether the span shares subject matter with the sentence, because a span
+    that shares only digits is a coincidence of numbers. But a registry field
+    reads `"hasResults":false`, and the sentence reads "the registry carries no
+    posted results" -- zero words in common, and the binding is nonetheless
+    exactly right. Loosening the prose guard to let this through would loosen
+    it for everything.
+
+    So relevance is established differently here, and the record says which:
+    the caller names the FIELD PATH, this walks the held JSON to it, and the
+    span is that field as the document actually writes it. A path that does not
+    resolve is refused. The claim being made is still only R1's -- this field,
+    with this value, is in this document -- and not that the sentence is true.
+    """
+    text = _held_text(slug, sid)
+    if text is None:
+        return False, "%s is not in the library" % sid
+    try:
+        data = json.loads(text)
+    except ValueError:
+        return False, "%s is not JSON, so it has no fields to bind to" % sid
+    node, walked = data, []
+    for key in path.split("."):
+        walked.append(key)
+        if isinstance(node, list):
+            try:
+                node = node[int(key)]
+            except (ValueError, IndexError):
+                return False, "%s does not resolve in %s" % (".".join(walked), sid)
+        elif isinstance(node, dict) and key in node:
+            node = node[key]
+        else:
+            return False, "%s does not resolve in %s" % (".".join(walked), sid)
+    span = "%s:%s" % (json.dumps(path.split(".")[-1]), json.dumps(node))
+    if span.replace(" ", "") not in text.replace(" ", ""):
+        return False, ("%s resolves to %r but that is not how %s writes it"
+                       % (path, node, sid))
+    doc = load(slug)
+    row = (doc.get("bindings") or {}).get(sha)
+    if row is None:
+        return False, "no binding row %s" % sha[:8]
+    row.update(source_id=sid, span=span, locator="$." + path,
+               locator_type="field", envelope=None,
+               document_sha=(store.held(slug).get(sid) or {}).get("sha256"),
+               proposed_by="bind_field", confirmed=False,
+               proposed_on=date.today().isoformat(),
+               why_bound="the field %s in %s carries this value; relevance is "
+                         "the named field path, not prose overlap" % (path, sid))
+    save(slug, doc)
+    return True, "bound to $.%s in %s" % (path, sid)
+
+
+def _held_text(slug: str, sid: str):
+    import spancheck as SC
+    return SC._text(slug, sid)
+
+
 def _claim_figures(text: str) -> set[str]:
     """The figures a sentence CLAIMS, which is not every digit string in it.
 

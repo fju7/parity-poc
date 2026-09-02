@@ -286,3 +286,44 @@ def test_a_number_inside_an_identifier_is_not_a_figure():
 def test_the_identifier_rule_does_not_hide_a_real_figure_beside_a_name():
     got = B._claim_figures("KEYNOTE-942 enrolled 157 patients.")
     assert "157" in got and "942" not in got
+
+
+# ---------------------------------------------------------------------------
+# Field bindings: relevance by named path, never by loosening the prose guard
+# ---------------------------------------------------------------------------
+
+def test_bind_field_resolves_and_records_the_path(tmp_path, monkeypatch):
+    import json as _json
+    record = {"hasResults": False,
+              "protocolSection": {"statusModule": {"overallStatus": "ACTIVE"}}}
+    monkeypatch.setattr(B, "_held_text",
+                        lambda slug, sid: _json.dumps(record))
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S013": {"sha256": "x"}})
+    put({})
+    sha = list(B.load(SLUG)["bindings"])[0]
+    ok, why = B.bind_field(SLUG, sha, "S013", "hasResults")
+    assert ok, why
+    row = B.load(SLUG)["bindings"][sha]
+    assert row["locator"] == "$.hasResults"
+    assert row["locator_type"] == "field"
+    assert row["span"] == '"hasResults":false'
+
+
+def test_bind_field_refuses_a_path_that_does_not_resolve(tmp_path, monkeypatch):
+    import json as _json
+    monkeypatch.setattr(B, "_held_text", lambda slug, sid: _json.dumps({"a": 1}))
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S013": {"sha256": "x"}})
+    put({})
+    sha = list(B.load(SLUG)["bindings"])[0]
+    ok, why = B.bind_field(SLUG, sha, "S013", "a.b.c")
+    assert not ok and "does not resolve" in why
+    assert not B.load(SLUG)["bindings"][sha].get("span"), "nothing written on failure"
+
+
+def test_bind_field_refuses_a_document_that_is_not_json(tmp_path, monkeypatch):
+    monkeypatch.setattr(B, "_held_text", lambda slug, sid: "a press release")
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S013": {"sha256": "x"}})
+    put({})
+    sha = list(B.load(SLUG)["bindings"])[0]
+    ok, why = B.bind_field(SLUG, sha, "S013", "hasResults")
+    assert not ok and "not JSON" in why

@@ -2978,12 +2978,12 @@
       "sentence_sha": "f088ceecb9290762",
       "why_empirical": "quoted passage",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S009",
+      "document_sha": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.",
+      "envelope": "os have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result . They belong to the Phase 2b population, not to this one. A design change also bears directly on interpretation. The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit. A significant result across a denominator of 1,137 patients is not the same thing as an established rationale for treating a stage IIB patient. What has not been disclosed Hazard ratios, confidence intervals, p-values, ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2993,19 +2993,29 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "no held document contains all 2 anchors: absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit., can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease."
+      "autobind": "no held document contains all 2 anchors: absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit., can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S009; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S010",
+          "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
+        }
+      ]
     },
     "a1c0d514137eace8": {
       "sentence": "Morning Glory says as much in the same article, and it is the more important half of its argument: Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result.",
       "sentence_sha": "a1c0d514137eace8",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S009",
+      "document_sha": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result . They belong to the Phase 2b population, not to this one.",
+      "envelope": "patients 2:1 (107 to the combination, 50 to pembrolizumab alone, in stage IIIB-IV disease), and reported a five-year RFS hazard ratio of 0.51 (95% CI, 0.294-0.887) and a DMFS hazard ratio of 0.411 (95% CI, 0.200-0.843). Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result . They belong to the Phase 2b population, not to this one. A design change also bears directly on interpretation. The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3015,18 +3025,22 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S009; nobody has yet signed that the sentence is warranted by it"
     },
     "e40ceb0952ce74d1": {
       "sentence": "We looked: no hazard ratio, interval or p-value for this trial appears in either company release, in any of the specialist or general coverage we hold, or in the trial’s own registry record, which as of 2 September 2026 carries no posted results at all and gives an estimated primary completion date of 26 October 2029 ( NCT05933577 ).",
       "sentence_sha": "e40ceb0952ce74d1",
       "why_empirical": "registry identifier",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
+      "source_id": "S013",
+      "document_sha": "5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59",
+      "locator_type": "field",
+      "locator": "$.protocolSection.statusModule.primaryCompletionDateStruct.date",
+      "span": "\"date\":\"2029-10-26\"",
       "envelope": null,
       "scope_words": [],
       "falsifier": null,
@@ -3037,7 +3051,17 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: NCT05933577 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: NCT05933577 (strength 3, need 4)",
+      "proposed_by": "bind_field",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "the field protocolSection.statusModule.primaryCompletionDateStruct.date in S013 carries this value; relevance is the named field path, not prose overlap",
+      "also_rests_on": [
+        {
+          "source_id": "S013",
+          "span": "\"hasResults\":false"
+        }
+      ]
     },
     "075bae729c357078": {
       "sentence": "They do not share a statistical standing: the Phase 2b’s later analyses are, in its own words, descriptive only , against a one-sided alpha of 0.10, while the Phase 3 crossed a prespecified interim threshold.",
@@ -3098,12 +3122,12 @@
       "sentence_sha": "d6292f3c92a2389f",
       "why_empirical": "names Pharmacy Times",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S009",
+      "document_sha": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.",
+      "envelope": "os have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result . They belong to the Phase 2b population, not to this one. A design change also bears directly on interpretation. The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit. A significant result across a denominator of 1,137 patients is not the same thing as an established rationale for treating a stage IIB patient. What has not been disclosed Hazard ratios, confidence intervals, p-values, ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3113,7 +3137,17 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S009; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S010",
+          "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
+        }
+      ]
     },
     "3060d6a65e7bff8c": {
       "sentence": "Primary Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints 19 August 2026.",
@@ -3212,11 +3246,11 @@
       "sentence_sha": "415dd318acf7a9c1",
       "why_empirical": "registry identifier",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
+      "source_id": "S013",
+      "document_sha": "5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59",
+      "locator_type": "field",
+      "locator": "$.hasResults",
+      "span": "\"hasResults\":false",
       "envelope": null,
       "scope_words": [],
       "falsifier": null,
@@ -3227,7 +3261,11 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: NCT05933577 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: NCT05933577 (strength 3, need 4)",
+      "proposed_by": "bind_field",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "the field hasResults in S013 carries this value; relevance is the named field path, not prose overlap"
     },
     "706ba49ee7f5bd0a": {
       "sentence": "Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released.",
@@ -3256,12 +3294,12 @@
       "sentence_sha": "180a81052fba84f6",
       "why_empirical": "names MLQ News",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S011",
+      "document_sha": "a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.",
+      "envelope": "interim analysis, the combination met the recurrence-free survival endpoint and the distant metastasis-free survival endpoint. The study will continue to assess other key secondary endpoints, including overall survival. The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial. [1] [2] Safety signal is described, but not quantified The Phase 3 announcement said the safety profiles of intismeran and Keytruda were consistent with previously reported studies and that no new safety signals were ob",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3271,19 +3309,23 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S011; nobody has yet signed that the sentence is warranted by it"
     },
     "e7d5b14d13996719": {
       "sentence": "Practical Dermatology : The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
       "sentence_sha": "e7d5b14d13996719",
       "why_empirical": "names Practical Dermatology",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S018",
+      "document_sha": "6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
+      "envelope": "umab alone. Individualized mRNA Therapy Advances in Adjuvant Melanoma INTerpath-001 included patients with completely resected stage IIB, IIC, III, or IV cutaneous melanoma who were not recieving prior systemic therapy. The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement. According to a news release from Merck, the study will continue according to protocol to evaluate additional secondary endpoints, including overall survival. No new safety signals were reported, and the safety profiles ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3293,7 +3335,11 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S018; nobody has yet signed that the sentence is warranted by it"
     },
     "3cb4fe795701a102": {
       "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature.",
@@ -3422,12 +3468,12 @@
       "sentence_sha": "5a291aed136e394e",
       "why_empirical": "names OncLive",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S016",
+      "document_sha": "d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature, while safety was consistent with prior combination experience.",
+      "envelope": " to 9 doses plus pembrolizumab 400 mg Q6W up to 9 cycles. Intismeran is manufactured from each patient's tumor, encoding up to 34 neoantigens intended to drive tumor-specific T-cell responses after antigen presentation. Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature, while safety was consistent with prior combination experience. SHOW MORE Phase 3 data from Merck and Moderna show mRNA vaccine intismeran plus pembrolizumab cuts melanoma relapse and spread after surgery, hinting at new adjuvant standard. Advertisement This week, Merck and Moderna ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3437,19 +3483,23 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S016; nobody has yet signed that the sentence is warranted by it"
     },
     "d05f97fc20a30388": {
       "sentence": "That rests on the two registry records: KEYNOTE-054 , which is pembrolizumab against placebo, lists overall survival as a secondary endpoint with no result posted and a time frame running to about eleven years; and CheckMate 238 , whose arms are nivolumab and ipilimumab — there is no placebo arm to report against.",
       "sentence_sha": "d05f97fc20a30388",
       "why_empirical": "names CheckMate 238",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S020",
+      "document_sha": "7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316",
+      "locator_type": "field",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "{\"measure\":\"Overall Survival (OS) for All Participants\"",
+      "envelope": "last visit/contact with disease assessments. The percentage of participants with DMFS will be reported for all participants with PD-L1-positive tumors in both treatment arms.\",\"timeFrame\":\"Up to approximately 11 years\"},{\"measure\":\"Overall Survival (OS) for All Participants\",\"description\":\"OS will be defined as the time from the date of randomization to the date of death, whatever the cause. The follow-up of participants still alive will be censored at the moment of last visit/contact. OS w",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3459,7 +3509,17 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S020; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S021",
+          "span": "Efficacy Study of Nivolumab Compared to Ipilimumab in Prevention of Recurrence of Melanoma After Complete Resection of Stage IIIb/c or Stage IV Melanoma"
+        }
+      ]
     }
   }
 }
