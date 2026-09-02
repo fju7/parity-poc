@@ -203,6 +203,10 @@ canary = _sibling("canary")
 # stopped three figures reaching a live page, written between two and six days
 # before the paper that settles them was held. See b13.preflight_rows.
 b13 = _sibling("b13")
+# B14: what a correction TOOK OUT. Every other check asks whether a claim on the
+# page is supported; none asked whether a REMOVAL was, and 35% of the recorded
+# errors on issue two came in with an earlier correction. See deletions.py.
+deletions = _sibling("deletions")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -1115,6 +1119,22 @@ def preflight(slug: str, *, for_email: bool,
     out.append(("email figures on page", OK if not stray else BAD,
                 "every figure in the email appears on the page" if not stray
                 else f"in the email and not on the page: {', '.join(sorted(stray))}"))
+
+    # B14 -- against what readers can actually see. A removal is only checkable
+    # against the published version, so this row is silent when the live page
+    # cannot be fetched, and says so rather than passing.
+    try:
+        _live_for_del = live_body(cfg["url"])
+        if _live_for_del:
+            out.extend(deletions.check(slug, _live_for_del,
+                                       page.read_text(encoding="utf-8")))
+        else:
+            out.append(("figures a correction removed", WARN,
+                        "the live page could not be fetched, so nothing here "
+                        "knows what a correction took out"))
+    except BaseException as exc:
+        out.append(("figures a correction removed", WARN,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     _pp = fc_parity_provenance(ptext, etext)
     out.append(("email sourcing claims match the page", OK if not _pp else BAD,

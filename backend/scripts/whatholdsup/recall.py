@@ -312,7 +312,16 @@ CASES = [
             "prose written before documents existed. Two of the three were "
             "real. Accusing ourselves of inventing figures we had not invented "
             "is worse than the missing intervals it replaced",
-       why_uncaught="NOTHING AUDITS THE PROSE WRITTEN ABOUT A FINDING. Every "
+       why_uncaught="Half of this is now covered. B14 (deletions.py) refuses a "
+                    "removal argued from ABSENCE unless a bound row's span was "
+                    "reported missing from the source that row names -- which "
+                    "is the spec's own rule, written the same day and deferred "
+                    "-- and it adds the word the correction lacked: UNSOURCED, "
+                    "we cannot show where this came from, which is a claim "
+                    "about our shelf rather than about the world. Run against "
+                    "the 1 September draft it fires on all four removed "
+                    "figures. What is still open: NOTHING AUDITS THE PROSE "
+                    "WRITTEN ABOUT A FINDING. Every "
                     "check here examines the page against documents; none "
                     "examines a claim about what a check found against what the "
                     "check actually said. This is the same shape as the "
@@ -321,6 +330,15 @@ CASES = [
                     "counterexample hunt on 2026-09-01 -- a finding treated as "
                     "evidence -- and it is the only one of the three that "
                     "reached a reader. Open."),
+
+
+  # Proves B14 by replaying the day it was needed.
+  dict(id="MEL-12", slug="melanoma", check="B14", check_kind="deletion",
+       found_by="check",
+       what="four figures were removed from the live page on 2026-09-01 with "
+            "nothing recording what each removal was argued from; two of them "
+            "were real",
+       figures=["0.0075", "35.4", "68.8", "71.3"]),
 
   dict(id="DESK-01", slug="deskilling", check="B10",
        what="issue three's central study carries a 2025 correction",
@@ -409,6 +427,26 @@ def run_case(c: dict) -> tuple[str, str]:
                             "it was willing to spend undeclared"
                             % type(exc).__name__)
         return MISSED, "fc.call returned without refusing an undeclared caller"
+
+    if kind == "deletion":
+        # Replay it: the page readers saw against the draft as it stood after
+        # the removals. A check that only passes on today's page proves nothing.
+        import subprocess, deletions as DEL
+        repo = str(Path(__file__).resolve().parents[3])
+        def at(rev):
+            return subprocess.run(["git", "show",
+                                   "%s:site/whatholdsup/melanoma.html" % rev],
+                                  cwd=repo, capture_output=True, text=True).stdout
+        live, draft = at("66eac06"), at("4a20ad7")
+        if not live or not draft:
+            return MISSED, "could not recover the two versions from git"
+        missing = set(DEL.gone(c["slug"], live, draft))
+        want = set(c["figures"])
+        if want <= missing:
+            return CAUGHT, ("B14 reports all %d figure(s) removed that day as "
+                            "unaccounted for: %s"
+                            % (len(want), ", ".join(sorted(want))))
+        return MISSED, ("B14 misses %s" % ", ".join(sorted(want - missing)))
 
     if kind == "uncovered":
         return UNCOVERED, c.get("why_uncaught", "")

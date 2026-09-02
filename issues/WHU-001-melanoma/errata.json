@@ -125,6 +125,26 @@
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
       "comments": []
+    },
+    "S014": {
+      "source": "S014",
+      "title": "KEYNOTE-942 five-year update — ASCO 2026 abstract 9500. J Clin Oncol 44 (suppl 16; abstr 9500)",
+      "checked_on": "2026-09-02",
+      "identifier": "DOI 10.1200/JCO.2026.44.16_suppl.9500",
+      "identifier_from": "the source URL",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.1200/JCO.2026.44.16_suppl.9500",
+      "amendments": [],
+      "comments": []
+    },
+    "S015": {
+      "source": "S015",
+      "title": "The ASCO Post, June 2026 — Vaccine Plus Pembrolizumab Reduces Risk of Recurrence in High-Risk Resected Melanoma",
+      "checked_on": "2026-09-02",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
     }
   }
 }

@@ -335,11 +335,11 @@
         "abstract 9500"
       ],
       "access": {
-        "state": "not_opened",
-        "by": "",
-        "on": "",
+        "state": "blocked",
+        "by": "acquire_sources.py",
+        "on": "2026-09-02",
         "sections": [],
-        "note": "Entered 2026-09-02 after the page gate."
+        "note": "HTTP 403 at ascopubs.org. Entered because the page gate named it as the document carrying the five-year landmark rates. The ASCO Post (S015) reports the same figures and IS held, so nothing on the page depends on this entry; it is kept because the abstract and the full paper give landmark rates at different time points, and somebody should eventually read both."
       }
     },
     {

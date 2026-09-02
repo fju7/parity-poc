@@ -1,0 +1,15 @@
+{
+  "_what_this_is": "Figures a correction removed from this page, and what each removal was argued from. See deletions.py: a removal is the least-checked text here and 35% of recorded errors came in with one.",
+  "deletions": [
+    {
+      "figure": "0.0075",
+      "removed_on": "2026-09-01",
+      "reason": "unsourced",
+      "source_id": "",
+      "searched": "Both company releases (S001, S002, S005), every piece of coverage held (S006, S009, S010, S011, S015), the JCO paper (S004), the three-year paper (S007), the ASCO 2024 deck (S008), The Lancet abstract (S003) and the registry record (S013). Also a web search on 2026-09-02 for any presentation of INTerpath-001 figures. No document this page cites is dated 20 January 2026, and no source list on this page has ever carried one.",
+      "by": "claude",
+      "library_at_the_time": "8 sources, all held. The library has since grown to 15 and the figure is in none of them.",
+      "note": "Recorded on 2026-09-02, after two figures removed the same day for ABSENCE turned out to be real. This one is UNSOURCED, which is the claim we can actually support: we cannot show where it came from. If the 20 January topline is produced, the sentence goes back."
+    }
+  ]
+}
