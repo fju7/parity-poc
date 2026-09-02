@@ -169,6 +169,42 @@
         "by": "claude",
         "on": "2026-09-02"
       }
+    },
+    {
+      "id": "Q-15",
+      "quote": "At 5 years, the recurrence-free survival rate was 68.8% (95% confidence interval [CI] = 56.3%-78.3%) in the combination arm and 49.1% (95% CI = 33.3%-63.0%) in the monotherapy arm",
+      "kind": "source",
+      "source_id": "S015",
+      "verbatim": "At 5 years, the recurrence-free survival rate was 68.8% (95% confidence interval [CI] = 56.3%-78.3%) in the combination arm and 49.1% (95% CI = 33.3%-63.0%) in the monotherapy arm.",
+      "why": "The five-year recurrence-free rates, reported from the analysis. Held since 2026-09-02. This is the document that shows 68.8% was never invented — it was removed from this page on 1 September as a figure in no held document, which was true of what we then held and not true of the literature.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
+    },
+    {
+      "id": "Q-16",
+      "quote": "5-year rates of 92.2% (95% CI = 84.2%-96.3%) in the combination arm and 71.3% (95% CI = 35.4%-89.6%) in the pembrolizumab alone arm",
+      "kind": "source",
+      "source_id": "S015",
+      "verbatim": "There was a trend for improved overall survival as well, an exploratory endpoint (HR = 0.47; 95% CI = 0.17-1.35) with 5-year rates of 92.2% (95% CI = 84.2%-96.3%) in the combination arm and 71.3% (95% CI = 35.4%-89.6%) in the pembrolizumab alone arm.",
+      "why": "The five-year survival rates, with the wide interval that is the point of the paragraph. Same document, same reason as Q-15.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
+    },
+    {
+      "id": "Q-17",
+      "quote": "Seven patients died during follow-up in each arm",
+      "kind": "source",
+      "source_id": "S015",
+      "verbatim": "Seven patients died during follow-up in each arm.",
+      "why": "The per-arm split of the fourteen deaths, stated in plain words. The gate could not verify 7-and-7 from anything it reached; this document says it outright, and the JCO paper says it as 7 of 107 and 7 of 50.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
     }
   ]
 }

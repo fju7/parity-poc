@@ -1,0 +1,7 @@
+{
+  "note": "Issue one page gate, first run on the corrected text. The 28 August gate judged a draft that differs by 83 sentences: three figures that were in no held document have been corrected (68.8, 35.4, 0.0075), the January topline removed, the three-year 'cleared the line' claim narrowed to what the paper says (descriptive only), the S007 note rewritten because it claimed we could not read a document we hold, the trial's prespecified one-sided alpha of 0.10 added, and the two-outlets section rebuilt around the fact that the disagreement cannot be settled -- NCT05933577 carries no posted results. Ordered by the editor: gate, then edits from its findings, then a re-gate to confirm nothing else significant, then the email gate, then the outside review.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html", "--new-cycle"]
+}

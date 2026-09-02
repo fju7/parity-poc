@@ -224,3 +224,57 @@ masked), or a statistical standing (analyses the earlier paper calls
 nothing to compare to — the Phase 3 has released no effect size, so quoting 0.51
 next to "met its endpoints" is a substitution rather than a comparison. That is
 what the headlines did.
+
+## 2 September 2026, later — the correction was wrong, and this is the record
+
+The page gate ran for the first time on the corrected text and reported that two
+of the three figures removed on 1 September were real. They were. Both are
+restored.
+
+**What we removed, and why that was wrong.** On 1 September a new check (B13)
+asked, of every figure on the page, whether it appears in any document this
+issue holds. Three did not. Two of those three were the five-year landmark
+rates: 68.8% recurrence-free against 49.1%, and 92.2% alive against 71.3% on an
+interval of 35.4–89.6.
+
+What this issue held was the full *Journal of Clinical Oncology* paper, and that
+paper reports landmark rates only at 18, 24, 36 and 48 months — its own figure
+legend says so. The five-year rates were reported from the same analysis in *The
+ASCO Post*, which we did not hold. Acquired today, it reads:
+
+> At 5 years, the recurrence-free survival rate was 68.8% (95% confidence
+> interval [CI] = 56.3%–78.3%) in the combination arm and 49.1% (95% CI =
+> 33.3%–63.0%) in the monotherapy arm.
+
+> There was a trend for improved overall survival as well, an exploratory
+> endpoint (HR = 0.47; 95% CI = 0.17–1.35) with 5-year rates of 92.2% (95% CI =
+> 84.2%–96.3%) in the combination arm and 71.3% (95% CI = 35.4%–89.6%) in the
+> pembrolizumab alone arm.
+
+**What was actually wrong with the original sentences.** Not the figures — the
+intervals. 68.8% and 71.3% were printed without them, and 35.4–89.6 is the whole
+point of the survival number: on seven deaths in fifty patients it runs from a
+third of that arm alive to nine in ten. And the attribution was wrong: they were
+credited to a paper that does not print them.
+
+**What was worse than the error.** The correction notice. It said the figures
+"came from no document" and that one "exists nowhere", and drew a general lesson
+about prose being written before documents existed. The check had been careful —
+it reports that a figure is in *nothing we hold*, and prints, in its own output,
+that a miss is not a falsehood and that a figure can be absent because the source
+is not held. The sentence written around it said something stronger and worse.
+
+Accusing ourselves of inventing figures we had not invented is a more serious
+failure than publishing them without intervals. It is recorded here at length
+because the check did its job and the writing did not, which is the failure this
+publication is least able to see in itself.
+
+**What remains removed.** The "five-year topline of 20 January 2026" reporting a
+one-sided nominal p = 0.0075. That document is in nothing we hold and in no
+source list on this page, and nothing found since has changed it. It stays out.
+
+**And the four-year figures.** The JCO paper's own sentence — "The four-year RFS
+(95% CI) was 72.4% (62.2 to 80.2) with intismeran plus pembrolizumab versus
+49.1% (33.3 to 63.0) with pembrolizumab" — is real too, at a different time
+point. The page carries the five-year rates, which is what it always meant to
+report, and notes the 48-month values where they differ.

@@ -157,6 +157,19 @@
       "kind_why": "form 'page' — 59 prose sentence(s) over sixty characters, 1977 words — this reads as the page itself",
       "superseded": [],
       "also_held": []
+    },
+    "S015": {
+      "sha256": "d5a0dc0fa9e7ba4ec017203ec01779726a0b8b762fb16501cd2901692186fdc2",
+      "file": "docs/d5/d5a0dc0fa9e7ba4ec017203ec01779726a0b8b762fb16501cd2901692186fdc2.html",
+      "bytes": 52559,
+      "url": "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 22 prose sentence(s) over sixty characters, 799 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

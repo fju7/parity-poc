@@ -32,6 +32,19 @@ written.
 
 WHAT A HIT AND A MISS MEAN -- AND DO NOT MEAN
 ---------------------------------------------
+READ THIS BEFORE WRITING ANYTHING FROM THIS CHECK'S OUTPUT. On 2026-09-01 it
+reported three figures as being in nothing this issue held. That was true. Two
+of them were real five-year landmark rates, reported from the same analysis in a
+document nobody had entered as a source, and they were removed from a live page
+and described in a correction notice as figures that "came from no document".
+The check said "in nothing we hold" and printed, under every run, that a miss is
+not a falsehood. The prose written around it said something else.
+
+A control that states its limits precisely is no protection if the report of it
+overstates. The gap between what this file prints and what was written about it
+is where the damage happened.
+
+
 A HIT IS NOT "TRUE". 49.1% is in the paper and the sentence around it is still
 wrong: the page calls it a five-year figure and pairs it with a number that
 does not exist. Presence is presence. R1 governs here as everywhere.

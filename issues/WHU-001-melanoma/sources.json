@@ -322,6 +322,45 @@
           "identified_by": "contains its identifier NCT05933577"
         }
       }
+    },
+    {
+      "id": "S014",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500",
+      "type": "conference",
+      "title": "KEYNOTE-942 five-year update — ASCO 2026 abstract 9500. J Clin Oncol 44 (suppl 16; abstr 9500)",
+      "accessed": "",
+      "used_for": "The other document from the same readout. The page gate reports that this abstract gives FIVE-YEAR landmark rates — combination RFS 68.8% and pembrolizumab OS 71.3% (35.4-89.6) — where the full JCO paper we hold reports only 18-, 24-, 36- and 48-month rates. If so, the figures this page printed before 1 September were this document's, not nobody's.",
+      "also_called": [
+        "ASCO 2026 abstract 9500",
+        "abstract 9500"
+      ],
+      "access": {
+        "state": "not_opened",
+        "by": "",
+        "on": "",
+        "sections": [],
+        "note": "Entered 2026-09-02 after the page gate."
+      }
+    },
+    {
+      "id": "S015",
+      "url": "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/",
+      "type": "coverage",
+      "title": "The ASCO Post, June 2026 — Vaccine Plus Pembrolizumab Reduces Risk of Recurrence in High-Risk Resected Melanoma",
+      "accessed": "2026-09-02",
+      "used_for": "The five-year landmark rates: recurrence-free 68.8% (56.3-78.3) versus 49.1% (33.3-63.0), survival 92.2% (84.2-96.3) versus 71.3% (35.4-89.6), and 'Seven patients died during follow-up in each arm'. The full JCO paper we hold reports landmark rates only to 48 months, so these five-year figures are in this document and not in that one.",
+      "also_called": [
+        "The ASCO Post, June 2026"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "by": "acquire_sources.py",
+        "on": "2026-09-02",
+        "sections": [
+          "the whole article"
+        ],
+        "note": "Acquired after the page gate reported that the figures removed from this page on 1 September were this document's. They were."
+      }
     }
   ],
   "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."

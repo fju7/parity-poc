@@ -1,0 +1,349 @@
+=== 011-melanoma-page-gate
+=== queued job:
+{
+  "note": "Issue one page gate, first run on the corrected text. The 28 August gate judged a draft that differs by 83 sentences: three figures that were in no held document have been corrected (68.8, 35.4, 0.0075), the January topline removed, the three-year 'cleared the line' claim narrowed to what the paper says (descriptive only), the S007 note rewritten because it claimed we could not read a document we hold, the trial's prespecified one-sided alpha of 0.10 added, and the two-outlets section rebuilt around the fact that the disagreement cannot be settled -- NCT05933577 carries no posted results. Ordered by the editor: gate, then edits from its findings, then a re-gate to confirm nothing else significant, then the email gate, then the outside review.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html", "--new-cycle"]
+}
+=== started 2026-09-02T12:34:03Z
+  --report not given; writing to ../site/whatholdsup/melanoma.html.gate.json
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+  Cycle 3. The run counter is reset.
+
+Fact-checking melanoma.html (38,072 chars of prose) as of 2026-09-02
+
+[1/6] Extracting checkable claims...
+      50 claims extracted
+      registry pre-check: 0 figure(s) and 0 trial fact(s) confirmed at ClinicalTrials.gov
+      6 internal claim(s) recorded, not source-checked
+[2/6] Source audit across 14 attributed source(s)...
+      checking  6 claim(s) against: Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints, 19
+      checking  8 claim(s) against: Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026
+      checking  8 claim(s) against: no source credited in the draft
+      checking  5 claim(s) against: KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024
+      checking  5 claim(s) against: Five-year results — Journal of Clinical Oncology, 1 June 2026
+      checking  3 claim(s) against: Three-Year Update — JCO Oncology Advances, 2026
+      checking  1 claim(s) against: Merck & Moderna — first detailed KEYNOTE-942 results, 16 April 2023
+      checking  2 claim(s) against: Three-Year Update — JCO Oncology Advances, 2026, DOI 10.1200/OA-25-000
+      checking  1 claim(s) against: MLQ News
+      checking  1 claim(s) against: Practical Dermatology
+      checking  1 claim(s) against: Dermatology Times
+      checking  1 claim(s) against: Morning Glory Sciences
+      checking  1 claim(s) against: Pharmacy Times
+      checking  1 claim(s) against: ASCO 2024 deck
+[3/6] Recency sweep...
+      6 study/studies assessed
+[4/6] Subject's advocate...
+      9 objection(s), 3 serious
+[5/6] Statistical inference...
+      3 finding(s), 1 serious
+[6/6] Best coverage elsewhere...
+      11 careful treatment(s) found · 4 contradiction(s), 1 serious
+[WARN] 4 decision(s) quote a sentence that is no longer in melanoma.html. They can never match again — remove them:
+       [RECENCY] 68.8% of combination patients were recurrence-free versus 49.1% on pem
+       [ADVOCATE] Morning Glory Sciences, on 20 August: the Phase 2b population was stag
+       [ADVOCATE] Practical Dermatology, Pharmacy Times and MLQ News each listed what wa
+       [ADVOCATE] Dermatology Times, Pharmacy Times and Medical Daily made the same poin
+
+========================================================================
+CLAIMS   44 external · 36 verified · 8 not  (6 internal, not source-checkable)
+========================================================================
+
+  [NEW · WRONG_VALUE] 72.4% (95% CI 62.2–80.2) versus 49.1% (33.3–63.0)
+     draft credits : Five-year results — Journal of Clinical Oncology, 1 June 2026
+     source says   : The 5-year RFS rate for the combination arm is 68.8% (95% CI 56.3%–78.3%), not 72.4% (62.2–80.2); the pembro arm 5-year rate of 49.1% (33.3–63.0) is confirmed. The 72.4% figure with CI 62.2–80.2 appears to be the 4-year landmark rate for the combination arm, while 49.1% (33.3–63.0) is the 5-year rate for the pembro arm — the two figures are from different timepoints.
+     really from   : ASCO Post (citing JCO paper doi:10.1200/JCO-26-00835) gives 5-year combo RFS as 68.8% (56.3%–78.3%) and 5-year pembro RFS as 49.1% (33.3%–63.0%); Cancer Therapy Advisor and planet-today.com identify 72.4% vs 49.1% as either 5-year or 4-year rates respectively, indicating a timepoint conflict
+     note          : The claim conflates two different timepoints: 72.4% (95% CI 62.2–80.2) is the 4-year RFS rate for the combination arm, while 49.1% (95% CI 33.3–63.0) is the 5-year RFS rate for the pembrolizumab arm; they cannot both be described as 'four-year' rates.
+     checked       : https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/
+
+  [NEW · WRONG_VALUE] 92.2% alive versus 85.6% at four years — 95% CI 84.2–96.3 and 70.5–93.3
+     draft credits : Five-year results — Journal of Clinical Oncology, 1 June 2026
+     source says   : 5-year OS: 92.2% (95% CI 84.2%–96.3%) for the combination arm and 71.3% (95% CI 35.4%–89.6%) for the pembrolizumab arm
+     really from   : JCO ASCO 2026 abstract (doi:10.1200/JCO.2026.44.16_suppl.9500) and ASCO Post citing the JCO paper
+     note          : The pembrolizumab arm OS figure is wrong on both the point estimate (85.6% in draft vs 71.3% in source) and the confidence interval (70.5–93.3 in draft vs 35.4–89.6 in source); the combination arm figure of 92.2% (84.2–96.3) is correct.
+     checked       : https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500
+
+  [NEW · NOT_FOUND] n=14
+     draft credits : Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026
+     source says   : 14 total deaths confirmed; per-arm split of 7 in each arm not found in any source reached
+     note          : The total of 14 OS deaths is confirmed by multiple sources including the editorial visualization site and the Merck/Moderna press release; however, no publicly accessible source I could reach breaks this down as 7 per arm — that per-arm split may be in the full JCO paper (paywalled) but could not be verified.
+     checked       : https://intismeranautogene.ai/
+
+  [NEW · NOT_FOUND] most specialist outlets attributed the figures correctly
+     note          : This is an editorial characterisation ('most specialist outlets attributed the figures correctly') that cannot be verified against a primary source; it requires a systematic survey of outlet coverage that no single retrievable document provides.
+
+  [NEW · NOT_FOUND] The ASCO Post, Dermatology Times, OncLive and FierceBiotech
+     source says   : The ASCO Post is confirmed to attribute the 49%/59% figures to KEYNOTE-942 (Phase 2b). OncLive's retrievable 2023 article reports the primary-analysis DMFS figure (65% reduction, HR 0.347), not the 5-year figures. No Dermatology Times or FierceBiotech articles were retrieved to verify their attribution.
+     really from   : ASCO Post (ascopost.com, June 2026) confirmed; OncLive (onclive.com, 2023 article) reports different figures from the primary analysis; Dermatology Times and FierceBiotech not retrieved
+     note          : Could not retrieve Dermatology Times or FierceBiotech articles to verify their attribution; OncLive's retrievable article covers the 2023 primary-analysis data (65% DMFS reduction), not the 5-year figures, so the claim that OncLive attributed the 49%/59% figures to KEYNOTE-942 cannot be confirmed from what was reached.
+     checked       : https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/
+
+  [NEW · WRONG_SOURCE] 49% reduction in the hazard of recurrence or death
+     source says   : 49% reduction in risk of recurrence or death (HR 0.51; 95% CI 0.294–0.887) — confirmed in KEYNOTE-942, but from the 5-year update (JCO, June 2026 / 2026 ASCO), not the primary analysis (which showed 44% reduction, HR 0.561)
+     really from   : 5-year update of KEYNOTE-942, published JCO June 2026 and presented at 2026 ASCO Annual Meeting; also cited verbatim in the Merck/Moderna August 19 2026 INTerpath-001 press release
+     note          : The figure is real and from KEYNOTE-942's 157-patient open-label trial, but it belongs to the 5-year readout (data cutoff December 15, 2025), not the primary analysis; the primary analysis showed HR 0.561 (44% reduction). If the draft implies this is the primary-analysis figure, the readout is misidentified.
+     checked       : https://ascopubs.org/doi/10.1200/JCO-26-00835
+
+  [NEW · WRONG_VALUE] gap between the topline and the published paper was about four and a half months, not five
+     source says   : Topline press release: December 13, 2022. Lancet online publication: January 18, 2024. Gap: approximately 13 months, not four and a half months.
+     really from   : Merck/Moderna press release dated December 13, 2022 (merck.com); The Lancet abstract page dated January 18, 2024 (thelancet.com/journals/lancet/article/PIIS0140-6736(23)02268-7); UPenn PDF confirms 'Vol 403 February 17, 2024' for print
+     note          : The topline was released December 13, 2022; the Lancet paper was published online January 18, 2024 (print February 17, 2024), a gap of approximately 13 months (online) or 14 months (print), not four and a half months.
+     checked       : https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-personalized-mrna-cancer-vaccine-in-combination-with-keytruda-pembrolizumab-met-primary-efficacy-endpoint-in-phase-2b-keynote-94/
+
+  [NEW · WRONG_SOURCE] 59% reduction in the hazard of distant metastasis or death
+     source says   : 59% reduction in risk of distant metastasis or death (HR 0.411; 95% CI 0.200–0.843) — confirmed in KEYNOTE-942, but from the 5-year update (JCO, June 2026 / 2026 ASCO), not the primary analysis (which showed 65% reduction, HR 0.347)
+     really from   : 5-year update of KEYNOTE-942, JCO June 2026 / 2026 ASCO Annual Meeting; also cited in the Merck/Moderna August 19 2026 INTerpath-001 press release
+     note          : The figure is real and from KEYNOTE-942, but it is from the 5-year readout, not the primary analysis; the primary analysis (ASCO 2023 / Lancet 2024) showed HR 0.347, a 65% reduction. If the draft presents this as the primary-analysis DMFS figure, the readout is misidentified.
+     checked       : https://ascopubs.org/doi/10.1200/JCO-26-00835
+
+  A NOT_FOUND means we could not REACH a source, not that none exists.
+  Open any URL above before treating one as a finding — and check
+  whether COVERAGE cited the same page, because it often has the link.
+
+  Internal claims — no external source can confirm these. Check them
+  against your own records before publishing:
+     · 3.4
+     · 48 hours … 10 business days
+     · 26 August 2026
+     · source ledger for the issue was not created until 28 August
+     · the paper that settles all three was not held until 1 September — six days after publication
+     · five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075
+
+========================================================================
+RECENCY  6 assessed · 1 superseded or unknown
+========================================================================
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  EVERY FINDING BELOW IS A CLAIM ABOUT SOMEBODY ELSE'S DOCUMENT.
+  This role has not opened that document. It has read search results
+  about it. Do not put any of this on the page until you have opened
+  the source and read the sentence yourself.
+
+  On 2026-08-29 this role reported, over three runs, that a published
+  meta-analysis had used a superseded MONARCH 3 figure. It had not.
+  The claim went onto the page as a disclosure -- 'we would rather say
+  so than have it found' -- and an outside reviewer opened the paper's
+  Table 1 and corrected us. No further gate run could have caught it:
+  the gate wrote it, and no role here audits another role's output.
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  [SUPERSEDED] KEYNOTE-942 / mRNA-4157-P201 — 5-year update (ASCO 2026 abstract + JCO full paper, 1 June 2026)
+     draft uses    : RFS HR 0.510 (95% CI 0.294–0.887); DMFS HR 0.411 (95% CI 0.200–0.843); OS HR 0.471 (95% CI 0.165–1.345) exploratory, n=14 deaths (7 per arm); 4-year RFS rates 72.4% (62.2–80.2) vs 49.1% (33.3–63.0); OS survival rates 92.2% (84.2–96.3) vs 85.6% (70.5–93.3); median follow-up 60.3 months; data cutoff 15 December 2025; five-year analyses described as descriptive.
+     latest known  : This IS the latest readout, published simultaneously as an ASCO 2026 abstract (JCO 44, suppl 16, abstract 9500; doi:10.1200/JCO.2026.44.16_suppl.9500) and as a full JCO paper (JCO-26-00835, 1 June 2026). The RFS and DMFS hazard ratios and the OS hazard ratio in the draft match the press release and the ASCO abstract. HOWEVER: a figure-level conflict exists between the ASCO abstract and the draft's corrected body text for the pembrolizumab-alone arm 5-year OS rate. The ASCO abstract (suppl 9500) gives this as 71.3% (95% CI 35.4–89.6). The draft's corrected body text gives 85.6% (95% CI 70.5–93.3), which it attributes to the JCO full paper (JCO-26-00835). The draft's own 2 September update log explicitly documents this correction, stating it changed from 71.3%/35.4–89.6 to 85.6%/70.5–93.3 and that '71.3 is in the paper once, as the lower bound of a different curve.' Full-text access to JCO-26-00835 is paywalled and the specific figure cannot be independently confirmed from available search results. The conflict between the abstract's 71.3% (35.4–89.6) and the draft's corrected 85.6% (70.5–93.3) for the same arm at the same timepoint is unresolved from external sources.
+     changes       : The draft's corrected body text gives the pembrolizumab-alone 5-year OS rate as 85.6% (95% CI 70.5–93.3). The ASCO 2026 abstract from the same data presentation gives 71.3% (95% CI 35.4–89.6) for the same arm. These are materially different figures (85.6% vs 71.3%; CI 70.5–93.3 vs 35.4–89.6). The draft's update log states it corrected to the JCO paper's figure, but the abstract — a citable document from the same readout — gives the lower figure. One of the two figures the draft prints for this endpoint is wrong. The draft cannot be confirmed CURRENT on this specific number without full-text verification of JCO-26-00835. All other figures cited from this readout (RFS HR 0.510 / 0.294–0.887; DMFS HR 0.411 / 0.200–0.843; OS HR 0.471 / 0.165–1.345; combination-arm OS 92.2% / 84.2–96.3; 4-year RFS rates 72.4% / 49.1%) are consistent with the press release and abstract.
+     source        : https://ascopubs.org/doi/10.1200/JCO-26-00835
+     BEFORE ACTING : open the source above and read the sentence.
+
+========================================================================
+FAIRNESS 9 objection(s) · 3 serious
+========================================================================
+
+  [NEW · SERIOUS · THIRD_PARTY] The draft attributes specific enumerated omissions to MLQ News but MLQ News does not appear in any verifiable source, making the characterisation of their coverage unverifiable.
+     quote         : “MLQ News enumerated what was missing: hazard ratios, confidence intervals, p-values, median follow-up, event counts.”
+     why           : This is a specific factual claim about a named outlet's editorial conduct — that it listed five specific missing data items. MLQ News does not appear in any search result or in the draft's source list. If the outlet did not enumerate all five items, or if the outlet does not exist under that name, the sentence is wrong and attributes conduct to a third party without evidence. A wronged outlet would be right to object.
+     fix           : Either add MLQ News to the source list with a link to the specific article, quote the enumeration directly, or remove the attribution and describe the enumeration without naming the outlet.
+
+  [NEW · MINOR · FACT] The draft says 'A week on, no numbers have been released' but the piece was updated on 2 September, two weeks after the 19 August announcement.
+     quote         : “A week on, no numbers have been released.”
+     why           : The original publication was 26 August (one week after the announcement), so 'a week on' was accurate at first publication. After the 2 September update, the same sentence now reads as if only one week has elapsed when it has been two. A reader arriving on 2 September is misled about the timeline.
+     fix           : Change to 'As of this update, no numbers have been released' or 'Two weeks on, no numbers have been released' and update as needed.
+
+  [NEW · SERIOUS · FACT] The draft makes a significant factual claim about adjuvant PD-1 inhibitors and overall survival without citing any source.
+     quote         : “For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — no randomised trial against placebo has reported a statistically significant overall survival benefit as a prespecified endpoint in its own population, though indirect comparisons have suggested a signal.”
+     why           : This is a sweeping claim about the entire adjuvant PD-1 inhibitor evidence base. It is presented as established fact, but no source is cited for it anywhere in the piece or source list. If it is wrong — if any such trial has reported a prespecified OS benefit — the piece has made a false factual claim in a clinical context where it matters. The absence of a citation is the problem, not necessarily the claim itself.
+     fix           : Add a citation to a systematic review, meta-analysis, or the specific trial records that support this claim, or qualify it as the authors' reading of the literature with a note that readers should verify.
+
+  [NEW · MINOR · THIRD_PARTY] The draft characterises FierceBiotech as having attributed the figures correctly, but provides no link, quote or date for FierceBiotech's coverage.
+     quote         : “The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech”
+     why           : The ASCO Post and OncLive coverage is verifiable from search results and consistent with the characterisation. FierceBiotech is named but does not appear in the source list and cannot be verified. Naming an outlet as having done something correctly is still a claim about their conduct; if FierceBiotech's article did not attribute correctly, the sentence is wrong.
+     fix           : Add FierceBiotech to the source list with a link, or remove it from the named list and keep the characterisation general.
+
+  [NEW · MINOR · THIRD_PARTY] The draft characterises Dermatology Times as having stated that 'detailed Phase 3 efficacy metrics were not disclosed,' but Dermatology Times does not appear in the source list and the specific quote cannot be verified.
+     quote         : “Dermatology Times that detailed Phase 3 efficacy metrics were not disclosed.”
+     why           : This is a specific claim about what a named outlet wrote. Dermatology Times is named in the body but does not appear in the source list. If the outlet did not use that characterisation, the attribution is wrong. A named outlet that did not write what is attributed to it would be right to object.
+     fix           : Add Dermatology Times to the source list with a link and the specific passage, or remove the named attribution and describe the point without naming the outlet.
+
+  [NEW · MINOR · CALIBRATION] The draft says 'blinded against the assessment bias the earlier one carried,' implying the Phase 3 is fully protected against that bias, when the draft's own body immediately notes the Phase 3's primary endpoint is investigator-assessed.
+     quote         : “It is the more trustworthy trial by a wide margin — seven times larger, and blinded against the assessment bias the earlier one carried.”
+     why           : The phrase 'blinded against the assessment bias' implies the bias is eliminated. The very next paragraph explains that the Phase 3's primary endpoint is 'assessed by the investigator' and that an independent review committee would be needed to remove clinical judgement from the endpoint. The sentence is not false — blinding substantially reduces the bias — but 'blinded against' implies a completeness the draft itself qualifies. This is the same issue the correction log says was fixed by removing 'exactly,' but the residual phrasing still overstates.
+     fix           : Change to 'blinded against most of the assessment bias the earlier one carried' or 'substantially protected against the assessment bias the earlier one carried,' consistent with the qualification in the paragraph that follows.
+
+  [NEW · MINOR · THIRD_PARTY] The draft says 'Neither reading reached the general coverage' about the Morning Glory Sciences and Pharmacy Times arguments on stage IIB/IIC risk, but offers no evidence that general coverage was checked for this point.
+     quote         : “Neither reading reached the general coverage.”
+     why           : This is a claim about what general coverage did not contain — a claim about omission across an unspecified set of outlets. The draft does not say which general outlets were checked or how many. 'Nobody reported X' is a claim about behaviour that requires instances. If any general outlet did cover this point, the sentence is wrong.
+     fix           : Change to 'Neither reading appeared in the general coverage we reviewed' and specify which general outlets were checked, or remove the claim about general coverage entirely.
+
+  [NEW · MINOR · FACT] The draft describes the April 2023 source of the one-sided p-value as a 'press release' in the body but the source list calls it 'first detailed KEYNOTE-942 results,' which was an AACR conference presentation, not a press release.
+     quote         : “The April 2023 press release reported KEYNOTE-942 as one-sided p = 0.0266.”
+     why           : The AACR 2023 abstract (CT001) is the primary source for the one-sided p = 0.0266 and was a conference presentation, not a press release. The source list labels it 'first detailed KEYNOTE-942 results' without calling it a press release. Calling it a press release in the body mischaracterises the document type, which matters in a piece about the difference between press releases and peer-reviewed data.
+     fix           : Change 'The April 2023 press release' to 'The April 2023 AACR presentation' or 'The April 2023 company announcement' to match the source list and the actual document type.
+
+  [NEW · SERIOUS · THIRD_PARTY] The draft attributes a specific argument to Morning Glory Sciences — including a direct quote — but Morning Glory Sciences does not appear in the source list and cannot be verified from any search result.
+     quote         : “Morning Glory Sciences: the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and 'absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.'”
+     why           : A direct quote is attributed to a named outlet. Morning Glory Sciences appears in the body's source attribution but not in the formal source list, and returns no results in search. If the outlet did not publish this argument in these words, the attribution is wrong. A direct quote attributed to a named outlet that did not write it is a correction-level error.
+     fix           : Add Morning Glory Sciences to the source list with a URL and confirm the quote against the original article, or remove the quotation marks and paraphrase with a note that the source is held.
+
+========================================================================
+INFERENCE 3 finding(s) · 1 serious
+========================================================================
+
+  [NEW · SERIOUS · FACT] The expansion was only downward: KEYNOTE-942 already enrolled stage IV, so the upper end did not change; IIB, IIC, and IIIA are all lower-risk stages added below the earlier trial's floor of IIIB.
+     quote         : “the Phase 3 enrolled stage IIB–IV, widening it at both ends — down into IIB and IIC, and into IIIA, none of which the earlier trial included”
+     evidence says : INTerpath-001 widened the population downward only, adding stage IIB, IIC, and IIIA below KEYNOTE-942's lower boundary of IIIB; the upper boundary (stage IV) was unchanged.
+     fix           : the Phase 3 enrolled stage IIB–IV, widening it downward — adding IIB, IIC, and IIIA below the earlier trial's floor of IIIB; the upper boundary, stage IV, was already included
+
+  [NEW · MINOR · CALIBRATION] The sentence is correct for a two-sided 95% CI / alpha=0.05 framework, but it omits that the prespecified one-sided 90% CI (corresponding to the trial's registered one-sided alpha=0.10) would not cross 1.0 — leaving the reader to infer that the CI crossing 1.0 is a neutral, framework-independent fact, when it is only a feature of the two-sided framing the draft is critiquing.
+     quote         : “The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided test keys on.”
+     evidence says : The 95% CI crossing 1.0 is consistent with the two-sided p=0.053 exceeding 0.05; under the prespecified one-sided framework at alpha=0.10, the corresponding 90% CI would not cross 1.0, which is why the trial's own threshold was met.
+     fix           : The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% CI keys on — but the same data, read against the prespecified one-sided 90% CI, would not cross it.
+
+  [NEW · MINOR · CALIBRATION] The one-sided p = 0.0266 also appears in the ASCO 2023 conference abstract (ASCO abstract LBA9503), which is a peer-reviewed publication, not only in the company press release; characterising it as purely a company figure overstates the distinction.
+     quote         : “The source of the one-sided p = 0.0266, which is a company figure and not a journal one.”
+     evidence says : The one-sided p = 0.0266 appears in both the April 2023 company press release and the ASCO 2023 conference abstract; the Lancet peer-reviewed paper is the source that switched to two-sided p = 0.053.
+     fix           : The source of the one-sided p = 0.0266 — a figure that appears in the company release and the ASCO conference abstract, but not in the peer-reviewed Lancet publication, which reported two-sided p = 0.053 instead.
+
+========================================================================
+COVERAGE 11 careful treatment(s) elsewhere · 4 contradiction(s), 1 serious
+========================================================================
+
+  Practical Dermatology
+     got right     : Explicitly stated that 'The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement' — the most complete single-sentence enumeration of what was missing found in any outlet. Correctly attributed the 49%/59% figures to the Phase 2b KEYNOTE-942 trial. Noted that OS and other secondary endpoints remain under evaluation.
+     still omitted : No discussion of the open-label design of KEYNOTE-942 versus the double-blind Phase 3, no mention of the stage IIB/IIC population expansion and its implications for absolute benefit, no explanation of what a hazard ratio is or why its absence matters, no discussion of the OS interval width or the exploratory/descriptive status of the survival analysis, and no note on the one-sided versus two-sided p-value distinction.
+     https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/
+
+  Dermatology Times
+     got right     : Stated explicitly that 'Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed' and that 'OS and other secondary endpoints remain immature.' Correctly attributed the 49% and 59% figures to the Phase 2b KEYNOTE-942 five-year follow-up, not to INTerpath-001. Noted the double-blind design of the Phase 3.
+     still omitted : No discussion of the open-label weakness of KEYNOTE-942, no mention of the stage IIB/IIC population expansion, no absolute event rates or RFS percentages, no explanation of the OS interval or its width, no note on the descriptive-only status of the five-year analyses, and no discussion of the p-value framing difference.
+     https://www.dermatologytimes.com/view/personalized-mrna-based-melanoma-vaccine-meets-primary-endpoints-in-landmark-phase-3-trial
+
+  OncLive
+     got right     : Correctly attributed the 49% and 59% figures to the Phase 2b KEYNOTE-942 five-year follow-up data presented at ASCO 2026, with full hazard ratios and confidence intervals, clearly framed as context for the Phase 3 rather than as Phase 3 results. Cited the trial registry record (NCT05933577).
+     still omitted : No statement that Phase 3 efficacy numbers were not released, no discussion of the open-label versus double-blind design difference, no mention of the stage IIB/IIC population expansion, no OS interval or survival rates, no note on the descriptive status of the five-year analyses.
+     https://www.onclive.com/view/intismeran-autogene-plus-pembrolizumab-meets-rfs-dmfs-end-points-in-resected-melanoma
+
+  The ASCO Post
+     got right     : Correctly attributed the 49% and 59% figures with full HRs and CIs to the Phase 2b KEYNOTE-942 trial presented at ASCO 2026, not to INTerpath-001. Described the Phase 3 as double-blind and placebo- and active-comparator-controlled. Noted the trial enrolled 1,137 patients.
+     still omitted : No explicit statement that Phase 3 efficacy numbers were withheld, no discussion of the open-label weakness of KEYNOTE-942, no mention of the stage IIB/IIC population expansion, no OS interval or survival rates, no note on the descriptive status of the five-year analyses, and no p-value discussion.
+     https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/
+
+  Morning Glory Sciences
+     got right     : Explicitly stated that Phase 3 hazard ratios have not been disclosed and therefore the Phase 2b figures 'cannot be placed alongside the 1,137-patient result' and 'belong to the Phase 2b population, not to this one.' Correctly identified the stage IIB/IIC population expansion and argued that lower absolute recurrence risk in that group means 'the same hazard ratio delivers a smaller absolute benefit.' Noted the open-label design of KEYNOTE-942 versus the double-blind Phase 3.
+     still omitted : No discussion of the OS interval width or the exploratory/descriptive status of the survival analysis, no absolute RFS percentage rates, no explanation of the one-sided versus two-sided p-value distinction, and no discussion of the investigator-assessed endpoint detail in the Phase 3.
+     https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/
+
+  KOL Pulse
+     got right     : Explicitly warned that 'Hazard ratios circulating on announcement day are these Phase 2b figures — INTerpath-001's own magnitude is not yet disclosed.' Provided a complete chronological table of KEYNOTE-942 hazard ratios across all readouts (primary, 3-year, 5-year) with correct CIs, correctly attributed to the Phase 2b. Noted the open-label design of KEYNOTE-942.
+     still omitted : No discussion of the OS interval width or the exploratory/descriptive status of the survival analysis, no absolute RFS percentage rates, no discussion of the stage IIB/IIC population expansion and its implications for absolute benefit, and no p-value framing discussion.
+     https://kolpulse.com/kol-pulse-trial-profile-interpath001
+
+  Life Science Daily News
+     got right     : Explicitly flagged to readers: 'these figures belong to KEYNOTE-942, not to INTerpath-001.' Stated that 'effect size remains unknown' and 'The companies have confirmed direction, not magnitude.' Noted the manufacturing and scalability constraints of a per-patient therapy. Cited both HRs and CIs correctly as Phase 2b figures.
+     still omitted : No discussion of the OS interval width or the exploratory/descriptive status of the survival analysis, no absolute RFS percentage rates, no discussion of the stage IIB/IIC population expansion and its implications for absolute benefit, no p-value framing discussion, and no discussion of the open-label weakness of KEYNOTE-942.
+     https://lifesciencedaily.news/intismeran-autogene-phase-3-melanoma/
+
+  Biotech Blueprint
+     got right     : Stated plainly that 'The companies released no effect sizes, no hazard ratios and no survival curves' and that 'Overall survival data are still being collected.' Correctly attributed the Phase 2b hazard ratios to KEYNOTE-942 and noted the wide confidence interval on the RFS HR, explaining that the data were 'compatible with a halving of risk, and also with a fairly modest benefit.'
+     still omitted : No discussion of the OS interval width or the exploratory/descriptive status of the survival analysis, no absolute RFS percentage rates, no discussion of the stage IIB/IIC population expansion and its implications for absolute benefit, no p-value framing discussion, and no discussion of the open-label weakness of KEYNOTE-942 versus the double-blind Phase 3.
+     https://www.biotechblueprint.com/p/moderna-mrna-cancer-vaccine-won-phase
+
+  OncoDaily
+     got right     : Stated explicitly that 'The Phase 3 hazard ratios, confidence intervals, absolute RFS and DMFS rates, subgroup analyses, and detailed safety results have not yet been reported' and that 'These data will therefore be essential for determining the magnitude and clinical context of the observed benefit.' Also noted that INTerpath-001 does not establish efficacy across other tumor types.
+     still omitted : No discussion of the OS interval width or the exploratory/descriptive status of the survival analysis, no discussion of the stage IIB/IIC population expansion and its implications for absolute benefit, no p-value framing discussion, and no discussion of the open-label weakness of KEYNOTE-942 versus the double-blind Phase 3.
+     https://oncodaily.com/oncolibrary/immune-oncology/interpath-001
+
+  Targeted Oncology
+     got right     : Correctly attributed the 49% and 59% figures with full HRs and CIs to 'that trial of 157 patients with stage IIIB to IV resected melanoma,' explicitly distinguishing the Phase 2b population from the Phase 3. Noted the double-blind, placebo- and active-comparator-controlled design of INTerpath-001.
+     still omitted : No explicit statement that Phase 3 efficacy numbers were withheld, no discussion of the open-label weakness of KEYNOTE-942, no mention of the stage IIB/IIC population expansion, no OS interval or survival rates, no note on the descriptive status of the five-year analyses.
+     https://www.targetedonc.com/view/mrna-vaccine-pembrolizumab-rfs-dmfs-benefit-resectable-melanoma
+
+  EMJ Reviews
+     got right     : Stated that 'numerical efficacy estimates, confidence intervals, follow-up duration, and detailed subgroup findings were not disclosed' and that 'Detailed efficacy and safety data, overall survival results, presentation at a medical meeting, and regulatory review will be necessary before its potential clinical role can be fully established.'
+     still omitted : No discussion of the open-label weakness of KEYNOTE-942, no mention of the stage IIB/IIC population expansion, no OS interval or survival rates, no note on the descriptive status of the five-year analyses, and no p-value framing discussion.
+     https://www.emjreviews.com/dermatology/news/landmark-phase-iii-win-for-personalized-mrna-cancer-therapy/
+
+  [NEW · SERIOUS] the draft's claim about the coverage is contradicted
+     quote         : “MLQ News enumerated what was missing: hazard ratios, confidence intervals, p-values, median follow-up, event counts.”
+     but           : No MLQ News article appeared in any search result for this story. The outlet that most completely enumerated what was missing — 'hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates' — was Practical Dermatology, which the draft credits only with saying the companies 'had not disclosed Phase 3 efficacy estimates.' The full enumeration the draft attributes to MLQ News is in fact Practical Dermatology's language.
+     see           : https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/
+     fix           : Replace 'MLQ News enumerated what was missing: hazard ratios, confidence intervals, p-values, median follow-up, event counts' with 'Practical Dermatology enumerated what was missing: hazard ratios, absolute event rates, and P values.' Remove the claim about median follow-up and event counts unless a source for those specific items can be identified.
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “Most specialist outlets attributed the earlier trial's figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.”
+     but           : The attribution finding is correct and if anything understated: Targeted Oncology, CancerNetwork, Biotech Blueprint, Life Science Daily News, KOL Pulse, OncoDaily, EMJ Reviews, Pharmacally, and BioPharm International also correctly attributed the figures to KEYNOTE-942. However, FierceBiotech does not appear in any search result for this story and cannot be confirmed as having covered it at all. The draft should not list FierceBiotech as a confirmed example without a verifiable source.
+     see           : https://www.onclive.com/view/intismeran-autogene-plus-pembrolizumab-meets-rfs-dmfs-end-points-in-resected-melanoma
+     fix           : Remove FierceBiotech from the named list unless the article can be located and verified. The broader claim that most specialist outlets attributed figures correctly is well-supported and can be strengthened by adding Targeted Oncology, CancerNetwork, Life Science Daily News, and KOL Pulse to the examples.
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “Practical Dermatology wrote that the companies had not disclosed Phase 3 efficacy estimates”
+     but           : Practical Dermatology's actual language was more specific: 'The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.' The draft's paraphrase is accurate but understates the precision of what Practical Dermatology said, which included the specific enumeration the draft attributes to MLQ News.
+     see           : https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/
+     fix           : Credit Practical Dermatology with the full enumeration — hazard ratios, absolute event rates, and P values — rather than the shorter paraphrase, and remove the same credit from MLQ News.
+
+  [NEW · MINOR] the draft's claim about the coverage is contradicted
+     quote         : “Two specialist outlets touched it [the stage IIB/IIC population difference], and they disagree. Morning Glory Sciences: the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease... Pharmacy Times makes the opposite case.”
+     but           : This framing is broadly accurate, but the draft presents these as the only two outlets to raise the population difference. KOL Pulse also noted that KEYNOTE-942 enrolled 'stage III/IV melanoma' while INTerpath-001 enrolled stage IIB–IV, and Morning Glory Sciences' argument about absolute benefit in the lower-risk population is more fully developed than the draft conveys — it explicitly states that the Phase 3 hazard ratios have not been disclosed and therefore the comparison cannot be made at all, which is a methodological point rather than merely a clinical one.
+     see           : https://kolpulse.com/kol-pulse-trial-profile-interpath001
+     fix           : Note that KOL Pulse also flagged the population difference, and clarify that Morning Glory Sciences' primary argument is methodological (the figures cannot be compared because Phase 3 numbers are absent) rather than purely clinical.
+
+  What this piece can add that careful coverage does not:
+     No outlet found — including the most careful specialist coverage — discussed the OS interval's actual width (0.165–1.345) and what it means arithmetically, the descriptive-only status of the five-year KEYNOTE-942 analyses and why that matters for interpreting the interval clearing 1.0, the one-sided versus two-sided p-value distinction and the trial's own prespecified alpha of 0.10, the investigator-assessed endpoint detail in the Phase 3 and how blinding partially but not fully addresses it, or the absolute RFS percentage rates alongside the hazard ratios. These are the layers the draft uniquely adds beneath even the most careful reporting.
+
+========================================================================
+CALIBRATION  3 finding(s) recorded, none blocking
+========================================================================
+
+  Matters of phrasing, ordering, emphasis and degree. Real, and not
+  corrections. There is always a defensible alternative wording, so a
+  check that blocks on wording never stops. Read them; fix what you
+  agree with; publish either way.
+
+  [MINOR] The draft says 'blinded against the assessment bias the earlier one carried,' implying the Phase 3 is fully protected against that bias, when the draf
+     quote : It is the more trustworthy trial by a wide margin — seven times larger, and blinded against the assessment bias the earl
+
+  [MINOR] The sentence is correct for a two-sided 95% CI / alpha=0.05 framework, but it omits that the prespecified one-sided 90% CI (corresponding to the trial
+     quote : The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided test keys on.
+
+  [MINOR] The one-sided p = 0.0266 also appears in the ASCO 2023 conference abstract (ASCO abstract LBA9503), which is a peer-reviewed publication, not only in 
+     quote : The source of the one-sided p = 0.0266, which is a company figure and not a journal one.
+
+========================================================================
+ADJUDICATION  0 already decided · 0 moved since
+========================================================================
+
+  Nothing has been adjudicated for this draft. Every finding above
+  is new. Record the ones you accept in draft_decisions.json so the
+  next run can tell a fresh problem from a settled one.
+========================================================================
+COST     $6.44 - 19 API call(s) - 1,602,997 tokens in, 55,601 out - 80 web search(es)
+========================================================================
+
+  source:Morning Glory Sciences            $0.76  223,052 tok   8 search
+  coverage                                 $0.67  179,998 tok   7 search
+  source:Merck & Moderna — Phase 3 INTe    $0.67  185,475 tok   8 search
+  source:Five-year results — Journal of    $0.59  158,847 tok   7 search
+  advocate                                 $0.55  129,808 tok   6 search
+  source:no source credited in the draf    $0.55  143,667 tok   8 search
+  recency                                  $0.53  133,620 tok   7 search
+  inference                                $0.43   89,805 tok   4 search
+  source:Three-Year Update — JCO Oncolo    $0.42  107,039 tok   7 search  <- 2 calls; the extra one(s) were retries, charged in full
+  source:Merck & Moderna — five-year KE    $0.37   95,565 tok   5 search
+  source:KEYNOTE-942: a randomised, pha    $0.24   58,727 tok   4 search
+  source:ASCO 2024 deck                    $0.18   46,652 tok   3 search
+  extract                                  $0.12   16,456 tok   0 search
+  source:Practical Dermatology             $0.12   30,352 tok   2 search
+  source:MLQ News                          $0.06   15,648 tok   1 search
+  source:Merck & Moderna — first detail    $0.06   15,230 tok   1 search
+  source:Pharmacy Times                    $0.06   14,776 tok   1 search
+  source:Dermatology Times                 $0.06   13,881 tok   1 search
+
+  Priced from https://platform.claude.com/docs/en/about-claude/pricing,
+  read 2026-08-28. Prices go stale; a figure here older than the
+  page it came from is a figure to re-check.
+
+Full result written to ../site/whatholdsup/melanoma.html.gate.json
+
+BLOCKED — resolve every item above, or record it in the piece, before publishing.
+=== finished 2026-09-02T12:53:27Z exit=1

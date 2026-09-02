@@ -2424,13 +2424,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-02"
+      "checked_on": "2026-09-02",
+      "left_page": "2026-09-02"
     },
     "061aabbc00bc6585": {
       "sentence": "Reported as survival rates, the same analysis reads 92.2% alive versus 85.6% at four years — 95% CI 84.2–96.3 and 70.5–93.3.",
@@ -2451,13 +2452,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-02"
+      "checked_on": "2026-09-02",
+      "left_page": "2026-09-02"
     },
     "6877a3601e07fc94": {
       "sentence": "The Melanoma Result — What Holds Up 1,137 patients in the Phase 3 trial",
@@ -2919,6 +2921,90 @@
       "sentence": "Primary Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints 19 August 2026.",
       "sentence_sha": "3060d6a65e7bff8c",
       "why_empirical": "names INTerpath-001",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "ed441bb66a145bb8": {
+      "sentence": "The absolute figures, at five years: 68.8% of combination patients were recurrence-free (95% CI 56.3–78.3) versus 49.1% on pembrolizumab alone (33.3–63.0).",
+      "sentence_sha": "ed441bb66a145bb8",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "387ebc8bd86908d9": {
+      "sentence": "Reported as survival rates, the same analysis reads 92.2% alive at five years versus 71.3% — 95% CI 84.2–96.3 and 35.4–89.6 .",
+      "sentence_sha": "387ebc8bd86908d9",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "8a5c58222fbd7bc0": {
+      "sentence": "(The full paper reports its landmark rates only to 48 months, where the same two arms read 92.2% and 85.6%; the five-year figures above are the ones reported from the analysis, and the difference between them is a year of follow-up, not a disagreement.) This is what \"an encouraging trend\" looks like underneath, and it is why the trend is labelled exploratory.",
+      "sentence_sha": "8a5c58222fbd7bc0",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "415dd318acf7a9c1": {
+      "sentence": "The registry was checked that day: NCT05933577 still carries no posted results.",
+      "sentence_sha": "415dd318acf7a9c1",
+      "why_empirical": "registry identifier",
       "bucket": null,
       "source_id": null,
       "document_sha": null,

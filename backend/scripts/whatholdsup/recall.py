@@ -254,26 +254,31 @@ CASES = [
   # verified by hand against the held bytes. All three are the same shape: a
   # figure printed on a live page that is in NO document the issue holds. All
   # eight melanoma sources are held, so no absence here is the library's fault.
-  dict(id="MEL-08", slug="melanoma", check="B13", check_kind="b13",
-       figure="68.8", found_by="check",
-       sentence="The absolute figures from the same trial, at five years: 68.8% "
-                "of combination patients were recurrence-free versus 49.1% on "
-                "pembrolizumab alone. That is a gap of roughly 20 percentage "
-                "points at the five-year mark.",
-       what="'68.8% recurrence-free at five years' — the cited paper prints "
-            "72.4% at FOUR years against the 49.1% the page pairs it with, and "
-            "68.8 is in none of the eight held documents"),
+  # RESCORED 2026-09-02. Recorded on 1 September as "a figure in no document".
+  # It is in a document: The ASCO Post's report of the same analysis, which this
+  # issue did not hold. What was actually wrong with the sentence was that it
+  # printed the rate WITHOUT ITS CONFIDENCE INTERVAL and credited it to a paper
+  # that does not print it. A check catches that -- B2, against the source the
+  # row names -- but only for a sentence somebody has bound, and this one was
+  # among the sixty that rest on nothing.
+  dict(id="MEL-08", slug="melanoma", check="B2", check_kind="uncovered",
+       found_by="check",
+       what="'68.8% recurrence-free at five years', printed without its 95% CI "
+            "and credited to the JCO paper, which reports landmark rates only "
+            "to 48 months. The figure is real and is in The ASCO Post",
+       why_uncaught="B2 would report the span absent from the source the row "
+                    "names -- if the row existed. The sentence was unbound. "
+                    "This is what the binding backlog costs, stated as a "
+                    "specific published error rather than a ratio."),
 
-  dict(id="MEL-09", slug="melanoma", check="B13", check_kind="b13",
-       figure="35.4", found_by="check",
-       sentence="Reported as survival rates the same five-year analysis reads "
-                "92.2% alive versus 71.3% \u2014 95% CI 84.2\u201396.3 and "
-                "35.4\u201389.6, as The ASCO Post reported them from the "
-                "five-year data.",
-       what="'92.2% versus 71.3%, CI 84.2-96.3 and 35.4-89.6, as The ASCO Post "
-            "reported them' — the paper prints 85.6% (70.5 to 93.3) for the "
-            "comparator; 35.4 is in nothing held, and The ASCO Post, whose "
-            "full text we hold, prints none of these figures"),
+  # RESCORED 2026-09-02, same reason as MEL-08.
+  dict(id="MEL-09", slug="melanoma", check="B2", check_kind="uncovered",
+       found_by="check",
+       what="'92.2% alive versus 71.3%' printed without the interval "
+            "35.4-89.6, which is the whole content of the claim, and credited "
+            "to a paper that prints neither",
+       why_uncaught="Same as MEL-08: unbound, so no check was pointed at a "
+                    "source to compare it against."),
 
   dict(id="MEL-10", slug="melanoma", check="B13", check_kind="b13",
        figure="0.0075", found_by="check",
@@ -294,6 +299,28 @@ CASES = [
             "premise -- so their spend was written with no issue and no cap "
             "was ever checked. Found by running the advocate: two calls, $0.37, "
             "against no issue and no limit"),
+
+  # THE ERROR OF 2026-09-01, recorded on 2026-09-02.
+  dict(id="MEL-11", slug="melanoma", check="—", check_kind="uncovered",
+       found_by="check",
+       what="the correction notice asserted more than the check that prompted "
+            "it. B13 reported three figures as being in NOTHING WE HOLD and "
+            "printed, under every run, that a miss is not a falsehood and that "
+            "a figure can be absent because the source is not held. The notice "
+            "published on a live page said the figures 'came from no document' "
+            "and that one 'exists nowhere', and drew a general lesson about "
+            "prose written before documents existed. Two of the three were "
+            "real. Accusing ourselves of inventing figures we had not invented "
+            "is worse than the missing intervals it replaced",
+       why_uncaught="NOTHING AUDITS THE PROSE WRITTEN ABOUT A FINDING. Every "
+                    "check here examines the page against documents; none "
+                    "examines a claim about what a check found against what the "
+                    "check actually said. This is the same shape as the "
+                    "corrections written from gate findings on 2026-08-31 and "
+                    "the ipilimumab sentence nearly written from the "
+                    "counterexample hunt on 2026-09-01 -- a finding treated as "
+                    "evidence -- and it is the only one of the three that "
+                    "reached a reader. Open."),
 
   dict(id="DESK-01", slug="deskilling", check="B10",
        what="issue three's central study carries a 2025 correction",
@@ -520,6 +547,13 @@ def main() -> int:
         if args.verbose or state != CAUGHT:
             print("            %s" % why[:150])
     print()
+    # THE NAME WAS WRONG FOR THE SET. This bucket is every case a check did not
+    # catch: the ones a person noticed, AND the ones marked `uncovered`, which
+    # are the classes nothing here tests for. On 2026-09-02 three uncovered
+    # cases were added whose found_by is "check" -- the page gate surfaced them
+    # -- and the line went on calling all seven person-found. The number is the
+    # useful one either way; it is the count of recorded errors that no control
+    # would stop today. It just is not the count of things a human spotted.
     by_person = [c for c in CASES if c.get("check_kind") == "uncovered"
                  or c.get("found_by") == "person"]
     person_caught = sum(1 for c in by_person if run_case(c)[0] == CAUGHT)
@@ -529,7 +563,7 @@ def main() -> int:
           % (caught, tally.get(MISSED, 0), tally.get(UNBUILT, 0),
              tally.get(UNCOVERED, 0), 100.0 * caught / len(CASES), len(CASES)))
     if by_person:
-        print("  of those, %d were found by a PERSON rather than by a check, and "
+        print("  of those, %d were found WITHOUT a check finding them -- a person noticed, or nothing here covers the class, and "
               "%d of those %d are caught now — %.0f%%"
               % (len(by_person), person_caught, len(by_person),
                  100.0 * person_caught / len(by_person)))

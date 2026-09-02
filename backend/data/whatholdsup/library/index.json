@@ -816,6 +816,22 @@
         "melanoma:S010"
       ],
       "note": ""
+    },
+    "d5a0dc0fa9e7ba4ec017203ec01779726a0b8b762fb16501cd2901692186fdc2": {
+      "file": "docs/d5/d5a0dc0fa9e7ba4ec017203ec01779726a0b8b762fb16501cd2901692186fdc2.html",
+      "bytes": 52559,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/"
+      ],
+      "titles": [
+        "The ASCO Post, June 2026 — Vaccine Plus Pembrolizumab Reduces Risk of Recurrence in High-Risk Resected Melanoma"
+      ],
+      "used_by": [
+        "melanoma:S015"
+      ],
+      "note": ""
     }
   }
 }
