@@ -445,7 +445,7 @@ def _as_numbers(figs) -> set[float]:
     return out
 
 
-def _claim_figures(text: str) -> set[str]:
+def _claim_figures(text: str, names: set[str] | None = None) -> set[str]:
     """The figures a sentence CLAIMS, which is not every digit string in it.
 
     "KEYNOTE-942" and "mRNA-4157" are names. The first run of the coverage
@@ -461,6 +461,15 @@ def _claim_figures(text: str) -> set[str]:
     for tok in re.split(r"\s+", text):
         if re.search(r"[A-Za-z]", tok) and re.search(r"\d", tok):
             named |= MB.figures(tok)
+    # A NAME CAN HAVE A SPACE IN IT. "CheckMate 238" is two tokens, so the
+    # token-shape rule above let 238 through and the check reported it as a
+    # figure in no bound span. The names come from the source ledger's own
+    # `also_called` lists -- what THIS issue's documents are called -- and not
+    # from a list of the trials I happen to have met, which is the mistake this
+    # repository has made four times.
+    for name in (names or set()):
+        if re.search(r"\b%s\b" % re.escape(name), text):
+            named |= MB.figures(name)
     return {f for f in MB.figures(text) if f not in named}
 
 
@@ -488,6 +497,8 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # where a report needs only its span. Declaring a sentence a judgement to
     # escape rule 1 buys strictly more work, which is the property that keeps
     # the bucket honest.
+    known_names = trial_names(store.sources(slug))
+
     def covering(v):
         spans = []
         if v.get("span"):
@@ -524,7 +535,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                 continue
             covered += " " + SC._norm(span)
         held = _as_numbers(MB.figures(covered))
-        missing = [f for f in _claim_figures(v["sentence"])
+        missing = [f for f in _claim_figures(v["sentence"], known_names)
                    if MB._weight(f) and not _as_numbers([f]) <= held]
         if missing:
             loose.append("%s: %s in no span it is bound to (%s)"

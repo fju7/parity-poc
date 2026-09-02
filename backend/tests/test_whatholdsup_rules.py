@@ -80,6 +80,7 @@ class _Stub:
 def stub_store(tmp_path, monkeypatch):
     monkeypatch.setitem(sys.modules, "spancheck", _Stub())
     monkeypatch.setattr(B, "path", lambda slug: tmp_path / "bindings.json")
+    monkeypatch.setattr(B.store, "sources", lambda slug: [])
     keep = dict(HELD)
     yield
     HELD.clear()
@@ -381,3 +382,20 @@ def test_numeric_comparison_does_not_cover_a_figure_that_is_absent():
          "bucket": "context", "source_id": "S100",
          "span": "If HR = 1 then the two hazard functions"})
     assert verdicts()[R1] == B.BAD
+
+
+def test_a_name_with_a_space_in_it_is_still_a_name():
+    """"CheckMate 238" is two tokens, so the token-shape rule alone missed it.
+
+    The names come from the source ledger's own `also_called` lists — what this
+    issue's documents are called — not from a list of trials I happened to meet.
+    """
+    got = B._claim_figures("That rests on CheckMate 238 and KEYNOTE-054.",
+                           {"CheckMate 238", "KEYNOTE-054"})
+    assert "238" not in got and "054" not in got
+
+
+def test_a_real_figure_beside_a_spaced_name_survives():
+    got = B._claim_figures("CheckMate 238 enrolled 906 patients.",
+                           {"CheckMate 238"})
+    assert "906" in got and "238" not in got

@@ -378,9 +378,13 @@
         {
           "source_id": "S025",
           "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        },
+        {
+          "source_id": "S001",
+          "span": "the combination demonstrated a 49% reduction in the risk of recurrence or death (HR=0.51; [95% CI, 0.294-0.887])"
         }
       ],
-      "step": "The hazard ratio is a ratio of hazard RATES between two groups, not a count or share of individuals. A quantity defined as a ratio of rates cannot also be a percentage of patients, so 0.51 does not license 'half the patients were saved' — that reading substitutes people for rates."
+      "step": "0.51 is the hazard ratio this programme reported, and a hazard ratio is a ratio of hazard rates between two groups, not a count or share of individuals. So it cannot be read as a percentage of patients."
     },
     "2c267ff81fe18aab": {
       "sentence": "In this story At five years of follow-up, KEYNOTE-942 reported a recurrence-free survival hazard ratio of 0.510 .",
@@ -613,7 +617,7 @@
       "sentence": "What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so \"no effect\" could not be ruled out.",
       "sentence_sha": "926d08585c2098c1",
       "why_empirical": "figure",
-      "bucket": "context",
+      "bucket": "judgement",
       "source_id": "S003",
       "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
       "locator_type": "prose",
@@ -636,7 +640,18 @@
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
       "checked_on": "2026-09-02",
-      "left_page": "2026-09-01"
+      "left_page": "2026-09-01",
+      "premises": [
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        },
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "The Lancet reports the interval as 0.309 to 1.017, and a hazard ratio of 1 is the value at which the two groups' hazard rates are equal. 1.0 lies between 0.309 and 1.017, so 'no difference' is inside the range the data do not exclude."
     },
     "4751c2ec2e6d93bb": {
       "sentence": "It had already cleared the line by the three-year readout at ASCO 2024, since published in full: HR 0.510, 95% CI 0.288–0.906 .",
@@ -834,7 +849,7 @@
       "sentence": "The universal misreading A p-value of 0.05 does not mean a 95% chance the drug works.",
       "sentence_sha": "e70db7671fac367f",
       "why_empirical": "figure",
-      "bucket": "context",
+      "bucket": "judgement",
       "source_id": "S022",
       "document_sha": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
       "locator_type": "prose",
@@ -855,7 +870,14 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it",
+      "premises": [
+        {
+          "source_id": "S022",
+          "span": "the P value is degraded into a dichotomy in which results are declared \"statistically significant\" if P falls on or below a cut-off (usually 0.05) and declared \"nonsignificant\" otherwise"
+        }
+      ],
+      "step": "0.05 is named in the source only as the conventional cut-off. Greenland et al. state that the P value is not a hypothesis probability, so a p of 0.05 cannot be read as a 95% chance that the drug works."
     },
     "add5e46e440fe9d0": {
       "sentence": "It means: if the drug were useless, you would see a result this good about 5% of the time by luck.",
@@ -947,7 +969,7 @@
       "sentence": "A one-sided test asks only \"is it better?\" A two-sided test asks \"is it different, in either direction?\" For a symmetric test the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question.",
       "sentence_sha": "719177281168499d",
       "why_empirical": "quoted passage",
-      "bucket": "context",
+      "bucket": "judgement",
       "source_id": "S022",
       "document_sha": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
       "locator_type": "prose",
@@ -967,7 +989,18 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it",
+      "premises": [
+        {
+          "source_id": "S005",
+          "span": "reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone"
+        },
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        }
+      ],
+      "step": "The company release reports one-sided p = 0.0266 and the Lancet reports two-sided p = 0.053 for the same hazard ratio and the same interval. The pair shows what the one-sided and two-sided questions do to the same data."
     },
     "f9afac861dfe75a4": {
       "sentence": "But 0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.",
@@ -2883,7 +2916,7 @@
       "sentence": "By the three-year readout at ASCO 2024, since published in full, the interval no longer crossed it: HR 0.510, 95% CI 0.288–0.906 — though that paper states plainly that its analyses were descriptive only and not intended for formal hypothesis testing, so this is an interval that stopped including 1.0 rather than a threshold anyone crossed.",
       "sentence_sha": "389fa2fdb6bcd167",
       "why_empirical": "figure",
-      "bucket": "context",
+      "bucket": "judgement",
       "source_id": "S007",
       "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
       "locator_type": "prose",
@@ -2909,7 +2942,18 @@
           "source_id": "S007",
           "span": "These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only)."
         }
-      ]
+      ],
+      "premises": [
+        {
+          "source_id": "S007",
+          "span": "HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906"
+        },
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "The three-year paper's 95% interval runs from 0.288 to 0.906. 1.0 is above 0.906, so unlike the first readout's interval this one does not contain the no-difference value."
     },
     "5685121c9e992b4c": {
       "sentence": "Primary Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026 DOI 10.1200/OA-25-00008.",
@@ -3056,6 +3100,10 @@
         {
           "source_id": "S003",
           "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        },
+        {
+          "source_id": "S022",
+          "span": "the P value is degraded into a dichotomy in which results are declared \"statistically significant\" if P falls on or below a cut-off (usually 0.05) and declared \"nonsignificant\" otherwise"
         }
       ],
       "step": "The three-year paper records that the trial was designed against a one-sided alpha of 0.10. The company release reports one-sided p = 0.0266 and the Lancet reports two-sided p = 0.053 for the same comparison. 0.0266 is below 0.10; 0.053 is above 0.05 but 0.05 is not the threshold this trial registered."
@@ -3332,13 +3380,13 @@
       "sentence": "Primary Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints 19 August 2026.",
       "sentence_sha": "3060d6a65e7bff8c",
       "why_empirical": "names INTerpath-001",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "bucket": "context",
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Merck and Moderna Announce Phase 3 INTerpath-001 Trial of Intismeran Autogene Plus KEYTRUDA® Met Endpoints of Recurrence-Free Survival (RFS) and Distant Metastasis-Free Survival (DMFS) in Patients With Completely Resected Stage IIB-IV Melanoma Save August 19, 2026",
+      "envelope": "edia library &amp; contacts Company fact sheet Careers Who we are Learn more Contact us Worldwide See our worldwide locations information What can we help you find? Search for: Media &gt; News releases &gt; News release Merck and Moderna Announce Phase 3 INTerpath-001 Trial of Intismeran Autogene Plus KEYTRUDA® Met Endpoints of Recurrence-Free Survival (RFS) and Distant Metastasis-Free Survival (DMFS) in Patients With Completely Resected Stage IIB-IV Melanoma Save August 19, 2026 6:45 am EDT First and only combination regimen to demonstrate statistically significant and clinically meaningful improvements in RFS and DMFS compared to KEYTRUDA alone for these patients in the adjuvant melanoma setti",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3348,7 +3396,11 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it"
     },
     "ed441bb66a145bb8": {
       "sentence": "The absolute figures, at five years: 68.8% of combination patients were recurrence-free (95% CI 56.3–78.3) versus 49.1% on pembrolizumab alone (33.3–63.0).",
@@ -3579,7 +3631,7 @@
       "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — and the same data, read against the one-sided 90% interval the trial actually registered, would not cross it.",
       "sentence_sha": "213d41f92f5db000",
       "why_empirical": "figure",
-      "bucket": "context",
+      "bucket": "judgement",
       "source_id": "S003",
       "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
       "locator_type": "prose",
@@ -3599,7 +3651,18 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "premises": [
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        },
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "The two-sided 95% interval is 0.309 to 1.017 and 1.0 falls inside it, which is why the two-sided p of 0.053 sits just above 0.05: the interval and the test are the same statement about the same data."
     },
     "9896f5ed7196d682": {
       "sentence": "The source of the one-sided p = 0.0266.",
