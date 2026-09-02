@@ -85,6 +85,65 @@ reports louder than a miss. A miss is silence. A mislabel is a false all-clear.
 These come from real errors. Each was made, caught, and is recorded in
 `backend/tests/fixtures/factcheck_known_errors.json`.
 
+### 0. Write nothing we have not read, and mark every inference
+
+Two rules, and they come before the other eleven because they are about the
+draft rather than about the analysis.
+
+**Nothing enters a draft unless it rests on a document we hold and have read.**
+Not remembered, not inferred from an abstract, not carried over from an earlier
+sentence of our own. The binding row is written when the sentence is written,
+not recovered afterwards by a check.
+
+**Every inference is declared as one, and shows its work** — which held
+documents it stands on, and the step from those to the claim, written out in a
+sentence a reader could disagree with.
+
+Both are enforced: `bindings.py` refuses to pass an issue whose new sentences
+have no span, no declared kind, or an inference with no premises. Their tests
+are `backend/tests/test_whatholdsup_rules.py`, and those tests exist to make the
+rules **fail**, because a check that has only ever passed has not been tested.
+
+#### Why these are first
+
+Issue one's second page gate returned eleven real defects. Two were of the kind
+our string checks look for — a span that was not in the document it cited. Nine
+were not: a figure with no citation, an inference presented as a report, a
+subheading contradicting the paragraph beneath it, a claim about what other
+outlets said that no held article supported. Not one of those can be caught by
+asking "is this string in that document", because the sentence was written
+before anyone opened a document. Tested against that corpus, these two rules
+would have prevented ten of the eleven.
+
+The gates are not where mistakes should be found. They are the second net.
+
+#### And why they are in code
+
+Both rules were **already in this repository** when the gate found those
+defects. `bucket` — the field that declares whether a sentence is a report or
+an inference — had existed since the binding row was designed, and was null on
+all eighty-five sentences of issue one. "Empirical sentences bound" had been a
+WARN for weeks. The deletion rule, the rule that a correction is written from
+the source record, and `undefined_states` were the same: each written down,
+each gating nothing, and each followed by the error it described.
+
+A rule that does not block is a rule that will be broken by whoever is tired.
+
+#### The grandfathering, and what it cost to get right
+
+Sixty-four sentences of issue one were written before 2026-09-02 and are marked
+`predates_the_rule`. The count is printed on every run and can only fall.
+
+The first version of that mark excused every unbound sentence on the page —
+including one written that same afternoon, which the gate had never examined. A
+waiver drawn around whatever happens to be in front of it is not a waiver, it
+is an off switch. The mark is now drawn from the page as git recorded it before
+adoption, and a sentence rewritten today is new writing. That is deliberate:
+sentences written while correcting other sentences are where this project's
+errors have actually come from.
+
+---
+
 ### 1. A missing number is not a missing result
 
 "No results" and "no numerical efficacy results" are different claims and only
@@ -241,6 +300,9 @@ the piece has something to be wrong about.
 
 ## Before an issue publishes
 
+- Rule 0 passes: `bindings.py melanoma preflight` shows both writing rules OK.
+  This is checked FIRST. Running the roles over a draft whose sentences rest on
+  nothing spends money to rediscover that they rest on nothing.
 - `factcheck_draft.py` exits 0 — six roles, including COVERAGE.
 - `--survey` was run BEFORE drafting, not after.
 - The four questions are answerable from the piece.

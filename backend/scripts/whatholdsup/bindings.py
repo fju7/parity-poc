@@ -311,6 +311,161 @@ def run_checks(slug: str, *, only: str = "") -> dict:
 # B1
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# THE WRITING RULE
+# ---------------------------------------------------------------------------
+#
+# Adopted 2026-09-02, by the editor, after two page-gate runs produced eleven
+# findings that were right:
+#
+#   1. NO FACTUAL STATEMENT THAT IS NOT BASED ON A DOCUMENT WE HAVE AND HAVE
+#      FULLY READ.
+#   2. EVERY INFERENCE FLAGGED, WITH THE LOGIC AND THE FACTS THAT SUPPORT IT.
+#
+# Ten of the eleven would have been prevented by those two sentences. The
+# eleventh -- a subheading contradicting the paragraph beneath it -- is a
+# relation between two things we wrote, which no sourcing rule can reach; that
+# is B16's contradiction question.
+#
+# WHY THIS IS IN CODE AND NOT IN A DOCUMENT
+#
+# Both rules were ALREADY in this repository. `bucket` has been a field on every
+# binding row since the row was designed, and it is null on all eighty sentences
+# of issue one. "Empirical sentences bound" has been a WARN reporting 20 of 80.
+# The spec's deletion rule, the "write the correction from the source record"
+# rule, and undefined_states were the same: written down, gating nothing, and
+# each one was followed by the error it described.
+#
+# A rule that does not block is a rule that will be broken by whoever is tired.
+#
+# GRANDFATHERING, AND WHY IT IS A LIST AND NOT A DATE
+#
+# Sixty sentences on issue one predate the rule. Blocking them all today would
+# stop the issue and teach the operator to waive the check, which is how a
+# control dies. They are marked, once, by `predates_the_rule`. The mark cannot
+# be earned by a new sentence -- a date could be, by a row written with an old
+# first_seen -- and the count only ever shrinks, printed on every run so the
+# debt is visible rather than absorbed.
+
+RULE_ADOPTED = "2026-09-02"
+
+
+def mark_grandfathered(slug: str, ref: str) -> int:
+    """Mark the sentences that were on the page before the rule was adopted.
+
+    NOT "everything unbound today". The first version of this function marked
+    every on-page row, and it excused a sentence written that same afternoon --
+    one of the two the gate had never examined. A waiver drawn to fit whatever
+    is in front of it is not a waiver, it is an off switch.
+
+    So the mark is drawn from evidence outside this file: `ref` is a git
+    revision of the page from before RULE_ADOPTED, and a sentence is
+    grandfathered if and only if its exact text was on that page. A sentence
+    rewritten today is new writing and is held to the rule, which is the point
+    -- sentences written while correcting other sentences are where this
+    project's errors have actually come from.
+
+    Once only. The recorded ref is the guard: a second pass would draw a new
+    line around whatever had since been written.
+    """
+    doc = load(slug)
+    if doc.get("_grandfathered_from"):
+        raise RuntimeError(
+            "%s was grandfathered on %s from %s already. Running this again "
+            "would excuse every sentence written since. Bind or bucket the new "
+            "sentence instead." % (slug, RULE_ADOPTED,
+                                   doc["_grandfathered_from"]))
+    before = _sentences_at(slug, ref)
+    n = 0
+    for row in (doc.get("bindings") or {}).values():
+        if row.get("on_page") and fingerprint(row["sentence"]) in before:
+            row["predates_the_rule"] = RULE_ADOPTED
+            n += 1
+    doc["_grandfathered_from"] = ref
+    doc["_grandfathered_note"] = (
+        "%d sentence(s) on the page at %s are not held to the two writing "
+        "rules adopted %s. Every sentence written or rewritten since is."
+        % (n, ref, RULE_ADOPTED))
+    save(slug, doc)
+    return n
+
+
+def _sentences_at(slug: str, ref: str) -> set[str]:
+    """Fingerprints of every sentence on the page as of a git revision."""
+    import subprocess
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "pub", str(Path(__file__).resolve().parent / "publish.py"))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    rel = m.ISSUES[slug]["page"]
+    html = subprocess.run(["git", "show", "%s:%s" % (ref, rel)],
+                          cwd=str(m.ROOT), capture_output=True, text=True,
+                          check=True).stdout
+    html = FURNITURE.sub(" ", html)
+    return {fingerprint(" ".join(s.split()))
+            for s in ledger.sentences(ledger.plain(html))}
+
+
+def rule_rows(slug: str) -> list[tuple[str, str, str]]:
+    """The two rules, as blocking rows."""
+    import spancheck as SC
+    doc = load(slug)
+    rows = doc.get("bindings") or {}
+    on_page = {k: v for k, v in rows.items() if v.get("on_page")}
+    old = {k for k, v in on_page.items() if v.get("predates_the_rule")}
+    new = {k: v for k, v in on_page.items() if k not in old}
+
+    unbound = [k for k, v in new.items() if not v.get("span")]
+    out = [("rule 1 — written from a document we hold",
+            OK if not unbound else BAD,
+            "every sentence written since %s names the words it rests on"
+            % RULE_ADOPTED if not unbound else
+            "%d sentence(s) written since %s rest on nothing: %s"
+            % (len(unbound), RULE_ADOPTED,
+               " || ".join(on_page[k]["sentence"][:60] for k in unbound[:3])))]
+
+    unbucketed = [k for k, v in new.items() if not v.get("bucket")]
+    bad_inf = []
+    for k, v in new.items():
+        if (v.get("bucket") or "") != "inference":
+            continue
+        prem = v.get("premises") or []
+        if not prem:
+            bad_inf.append("%s: an inference with no premises" % k[:8])
+            continue
+        for pr in prem:
+            sid, span = pr.get("source_id"), pr.get("span") or ""
+            if not sid or not span:
+                bad_inf.append("%s: a premise with no source or no span" % k[:8])
+                continue
+            present, why = SC.b2_present(span, slug, sid)
+            if present is not True:
+                bad_inf.append("%s: a premise whose span is not in %s"
+                               % (k[:8], sid))
+        if not (v.get("step") or "").strip():
+            bad_inf.append("%s: an inference with no step written out" % k[:8])
+    out.append(("rule 2 — inferences flagged and shown",
+                OK if not (unbucketed or bad_inf) else BAD,
+                "every sentence written since %s declares its kind, and every "
+                "inference shows its premises" % RULE_ADOPTED
+                if not (unbucketed or bad_inf) else
+                "%d undeclared, %d inference problem(s): %s"
+                % (len(unbucketed), len(bad_inf),
+                   " || ".join((bad_inf + [on_page[k]["sentence"][:50]
+                                           for k in unbucketed])[:3]))))
+    debt = [k for k in old
+            if not on_page[k].get("span") or not on_page[k].get("bucket")]
+    if debt:
+        out.append(("sentences that predate the rule", WARN,
+                    "%d of %d sentence(s) written before %s would fail one of "
+                    "the two rules and are not held to them. This number can "
+                    "only go down: binding or bucketing one removes it, and "
+                    "nothing written from now on can enter it."
+                    % (len(debt), len(on_page), RULE_ADOPTED)))
+    return out
+
+
 def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     try:
         doc = load(slug)
@@ -331,6 +486,7 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
             "%d of %d empirical sentence(s) are bound to a span; %d rest on "
             "nothing this system can name"
             % (len(bound), len(on_page), len(on_page) - len(bound)))]
+    out.extend(rule_rows(slug))
     flagged = [k for k, v in on_page.items() if v.get("check_flags")]
     checked = [k for k, v in on_page.items() if v.get("checked_on")]
     if checked:
