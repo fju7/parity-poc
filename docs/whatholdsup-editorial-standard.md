@@ -129,18 +129,37 @@ each gating nothing, and each followed by the error it described.
 
 A rule that does not block is a rule that will be broken by whoever is tired.
 
-#### The grandfathering, and what it cost to get right
+#### No exemption for what was already written
 
-Sixty-four sentences of issue one were written before 2026-09-02 and are marked
-`predates_the_rule`. The count is printed on every run and can only fall.
+The rules apply to every empirical sentence on every page of all three issues.
+Nothing is grandfathered.
 
-The first version of that mark excused every unbound sentence on the page —
-including one written that same afternoon, which the gate had never examined. A
-waiver drawn around whatever happens to be in front of it is not a waiver, it
-is an off switch. The mark is now drawn from the page as git recorded it before
-adoption, and a sentence rewritten today is new writing. That is deliberate:
-sentences written while correcting other sentences are where this project's
-errors have actually come from.
+The first implementation did grandfather. The reasoning was that blocking 318
+sentences would stop three issues and teach the operator to waive the check —
+which is the reasoning behind every waiver anyone has ever granted, and the
+editor rejected it in one line: given the state of the drafting, every sentence
+in all three articles is to be revalidated or rewritten.
+
+The exemption had already proved him right before he said it. Drawn the obvious
+way — "everything unbound today" — it excused a sentence written that same
+afternoon, one of two the gate had never examined. Redrawn from git it still
+excused sixty-four sentences whose only claim to exemption was that nobody had
+checked them yet. A rule whose scope is *not the things we already did* is not
+a rule.
+
+So the backlog is the honest number, printed on every run:
+
+| issue | sentences | bound | to revalidate |
+|---|---|---|---|
+| melanoma | 85 | 17 | 68 |
+| deskilling | 112 | 3 | 109 |
+| cdk46 | 168 | 27 | 141 |
+
+Zero of the 365 declare whether they are a report or an inference. Nothing
+publishes until its own column reads zero. A sentence leaves that column by
+being bound to the words it rests on, by being declared an inference and shown,
+or by coming off the page — and the third is a legitimate outcome, not a
+failure.
 
 ---
 
@@ -300,9 +319,10 @@ the piece has something to be wrong about.
 
 ## Before an issue publishes
 
-- Rule 0 passes: `bindings.py melanoma preflight` shows both writing rules OK.
-  This is checked FIRST. Running the roles over a draft whose sentences rest on
-  nothing spends money to rediscover that they rest on nothing.
+- Rule 0 passes: `bindings.py <slug> preflight` shows both writing rules OK,
+  with no sentence left to revalidate. This is checked FIRST. Running the roles
+  over a draft whose sentences rest on nothing spends money to rediscover that
+  they rest on nothing.
 - `factcheck_draft.py` exits 0 — six roles, including COVERAGE.
 - `--survey` was run BEFORE drafting, not after.
 - The four questions are answerable from the piece.

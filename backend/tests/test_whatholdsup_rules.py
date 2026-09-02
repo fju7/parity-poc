@@ -1,11 +1,13 @@
-"""The two writing rules must be able to fail.
+"""The two writing rules must be able to fail, and must exempt nothing.
 
-Adopted 2026-09-02, after a page gate found eleven real defects and only two of
-them were of the kind our string checks look for. Nine were about the page's
-relation to itself: a figure with no citation, an inference presented as a
-report, a subheading contradicting its own paragraph. No check that asks "is
-this string in that document" can see any of those, because the sentence was
-written before anyone opened a document.
+Adopted 2026-09-02, after two page gates on issue one produced eleven findings
+that were right. Two were of the kind our string checks look for -- a span that
+was not in the document it cited. Nine were not: a figure with no citation, an
+inference presented as a report, a subheading contradicting its own paragraph,
+a claim about what other outlets said that no held article supported. None of
+those can be caught by asking "is this string in that document", because the
+sentence was written before anyone opened a document. Tested against that
+corpus, two rules would have prevented ten of the eleven:
 
   Rule 1: no factual sentence enters a draft unless it rests on a document we
           hold and have read.
@@ -13,16 +15,23 @@ written before anyone opened a document.
           step.
 
 Both rules were ALREADY in the schema, unenforced -- `bucket` existed and was
-null on all eighty sentences of issue one. So was the deletion rule. So was
+null on all 365 sentences of all three issues. So was the deletion rule. So was
 undefined_states. Each was written down, gated nothing, and was followed by the
 error it described. That is why they are here as tests and not as prose.
 
-The grandfathering mark is the risk this file watches. It exists so adopting a
-rule does not stop the issue, and it is exactly the sort of waiver that quietly
-grows to cover everything. It already tried: the first version marked every
-sentence on the page, which excused one written that same afternoon. The mark
-is now drawn from the page as it stood in git before adoption -- evidence from
-outside the file it excuses -- and the last three tests pin it shut.
+NO EXEMPTION FOR WHAT WAS ALREADY WRITTEN
+
+The first implementation grandfathered every sentence on the page, reasoning
+that blocking 318 sentences would stop three issues and teach the operator to
+waive the check. Drawn that way it excused a sentence written the same
+afternoon. Redrawn from git it still excused sixty-four whose only claim was
+that nobody had checked them yet. The editor removed it: given the state of the
+drafting, every sentence in all three articles is to be revalidated or
+rewritten.
+
+The last two tests are the ones that matter most here. They fail if any
+exemption -- by mark, by date, by field -- ever gets a sentence past these
+rules again.
 """
 import importlib.util
 import sys
@@ -35,8 +44,7 @@ WHU = ROOT / "backend" / "scripts" / "whatholdsup"
 
 
 def _load(name):
-    spec = importlib.util.spec_from_file_location(
-        name, WHU / ("%s.py" % name))
+    spec = importlib.util.spec_from_file_location(name, WHU / ("%s.py" % name))
     mod = importlib.util.module_from_spec(spec)
     sys.path.insert(0, str(WHU))
     try:
@@ -64,16 +72,10 @@ class _Stub:
         return (span.lower() in doc.lower()), "searched the held bytes"
 
 
-# What the page said before the rule, as the snapshot reader would report it.
-BEFORE = set()
-
-
 @pytest.fixture(autouse=True)
 def stub_store(tmp_path, monkeypatch):
     monkeypatch.setitem(sys.modules, "spancheck", _Stub())
     monkeypatch.setattr(B, "path", lambda slug: tmp_path / "bindings.json")
-    monkeypatch.setattr(B, "_sentences_at", lambda slug, ref: set(BEFORE))
-    BEFORE.clear()
     yield
 
 
@@ -97,12 +99,12 @@ R2 = "rule 2 — inferences flagged and shown"
 BOUND = {"source_id": "S002", "span": "still alive at five years"}
 
 
-def test_new_sentence_resting_on_nothing_blocks():
+def test_a_sentence_resting_on_nothing_blocks():
     put({})
     assert verdicts()[R1] == B.BAD
 
 
-def test_bound_new_sentence_satisfies_rule_one():
+def test_a_bound_and_declared_sentence_passes():
     put(dict(BOUND, bucket="reported"))
     v = verdicts()
     assert v[R1] == B.OK and v[R2] == B.OK
@@ -149,81 +151,43 @@ def test_a_sound_inference_passes():
     assert v[R1] == B.OK and v[R2] == B.OK
 
 
-def test_grandfathering_excuses_only_what_it_marked():
-    """The waiver must not spread. One old sentence, one new one, one verdict."""
-    put({"predates_the_rule": B.RULE_ADOPTED}, {})
-    assert verdicts()[R1] == B.BAD, "a new unbound sentence beside an old one"
+def test_one_bad_sentence_blocks_a_page_of_good_ones():
+    """No proportion of compliance buys a pass for the rest."""
+    put(*([dict(BOUND, bucket="reported")] * 40 + [{}]))
+    assert verdicts()[R1] == B.BAD
 
 
-def test_the_mark_is_drawn_from_the_page_not_from_what_is_unbound():
-    """The bug this caught: a sentence written the same afternoon, excused.
+def test_the_backlog_count_is_printed_and_falls_only_by_doing_the_work():
+    label = "sentences still to revalidate"
+    put({}, {})
+    assert "2 of 2" in [w for n, _, w in B.rule_rows(SLUG) if n == label][0]
+    put(dict(BOUND, bucket="reported"), {})
+    assert "1 of 2" in [w for n, _, w in B.rule_rows(SLUG) if n == label][0]
+    put(dict(BOUND, bucket="reported"), dict(BOUND, bucket="reported"))
+    assert not [n for n, _, w in B.rule_rows(SLUG) if n == label]
 
-    Two sentences, both unbound, neither distinguishable from the other by
-    anything inside bindings.json. Only one was on the page before the rule.
+
+def test_no_field_exempts_a_sentence_from_rule_one():
+    """The exemption is gone. Nothing resembling one may bring it back.
+
+    A row carrying every plausible waiver -- the mark the first version used, a
+    date, an explicit exemption flag, a signature -- and still no span, blocks.
     """
-    put({}, {})
-    doc = B.load(SLUG)
-    BEFORE.add(B.fingerprint(doc["bindings"]["R00"]["sentence"]))
-    assert B.mark_grandfathered(SLUG, "abc123") == 1
-    doc = B.load(SLUG)
-    assert doc["bindings"]["R00"].get("predates_the_rule")
-    assert not doc["bindings"]["R01"].get("predates_the_rule")
-    assert verdicts()[R1] == B.BAD, "the sentence written today is still held"
-
-
-def test_a_rewritten_sentence_is_new_writing():
-    """Editing a grandfathered sentence pulls it back under the rule."""
-    put({})
-    doc = B.load(SLUG)
-    BEFORE.add(B.fingerprint(doc["bindings"]["R00"]["sentence"]))
-    assert B.mark_grandfathered(SLUG, "abc123") == 1
-    assert verdicts()[R1] == B.OK
-    doc = B.load(SLUG)
-    doc["bindings"]["R00"]["sentence"] = "Rewritten today into something else."
-    doc["bindings"]["R00"].pop("predates_the_rule")
-    B.save(SLUG, doc)
+    put({"predates_the_rule": "2026-09-02", "grandfathered": True,
+         "exempt": True, "first_seen": "2020-01-01", "waived_by": "the editor",
+         "reason": "written before the rule"})
     assert verdicts()[R1] == B.BAD
 
 
-def test_the_debt_count_falls_when_the_debt_is_paid():
-    put({"predates_the_rule": B.RULE_ADOPTED},
-        {"predates_the_rule": B.RULE_ADOPTED})
-    label = "sentences that predate the rule"
-    before = [w for n, _, w in B.rule_rows(SLUG) if n == label][0]
-    assert "2 of 2" in before
-    put(dict(BOUND, bucket="reported", predates_the_rule=B.RULE_ADOPTED),
-        {"predates_the_rule": B.RULE_ADOPTED})
-    after = [w for n, _, w in B.rule_rows(SLUG) if n == label][0]
-    assert "1 of 2" in after
+def test_no_field_exempts_a_sentence_from_rule_two():
+    put(dict(BOUND, predates_the_rule="2026-09-02", grandfathered=True,
+             exempt=True, waived_by="the editor"))
+    assert verdicts()[R2] == B.BAD
 
 
-def test_marking_never_excuses_a_sentence_written_after_it():
-    put({}, {})
-    doc = B.load(SLUG)
-    for r in doc["bindings"].values():
-        BEFORE.add(B.fingerprint(r["sentence"]))
-    assert B.mark_grandfathered(SLUG, "abc123") == 2
-    doc = B.load(SLUG)
-    doc["bindings"]["NEW"] = {"sentence": "Written after the rule.",
-                              "sentence_sha": "NEW", "on_page": True,
-                              "bucket": None, "source_id": None, "span": None}
-    B.save(SLUG, doc)
-    assert verdicts()[R1] == B.BAD
-
-
-def test_grandfathering_refuses_to_run_twice():
-    """The waiver is carved once. A second pass would swallow the rule."""
-    put({}, {})
-    doc = B.load(SLUG)
-    for r in doc["bindings"].values():
-        BEFORE.add(B.fingerprint(r["sentence"]))
-    assert B.mark_grandfathered(SLUG, "abc123") == 2
-    doc = B.load(SLUG)
-    doc["bindings"]["NEW"] = {"sentence": "Written after the rule.",
-                              "sentence_sha": "NEW", "on_page": True,
-                              "bucket": None, "source_id": None, "span": None}
-    B.save(SLUG, doc)
-    BEFORE.add(B.fingerprint("Written after the rule."))
-    with pytest.raises(RuntimeError):
-        B.mark_grandfathered(SLUG, "def456")
-    assert verdicts()[R1] == B.BAD
+def test_the_grandfathering_machinery_is_gone():
+    """Not merely unused -- absent. An unused waiver is one import away."""
+    assert not hasattr(B, "mark_grandfathered")
+    src = (WHU / "bindings.py").read_text(encoding="utf-8")
+    for token in ("predates_the_rule", "_grandfathered_from", "grandfather"):
+        assert token not in src, "%s survives in bindings.py" % token
