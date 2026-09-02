@@ -258,19 +258,20 @@
       "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
       "type": "coverage",
       "title": "Pharmacy Times — Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma (Ryu Kariyawasam-Chavez, 19 August 2026)",
-      "accessed": "",
+      "accessed": "2026-09-02",
       "used_for": "Specialist coverage. Source of the quoted counter-argument that resected stage IIB and IIC patients can face recurrence and mortality risks similar to stage III.",
       "also_called": [
         "Pharmacy Times"
       ],
       "access": {
-        "state": "blocked",
-        "by": "acquire_sources.py, then WebFetch",
-        "on": "2026-09-01",
-        "sections": [],
-        "note": "Split out of S006 on 2026-09-01. State is `blocked`: we tried, by named routes, and could not get the bytes. It was entered as `not_held`, which is not one of this ledger's states -- caught by undefined_states once that function stopped asking access_of(), which had been laundering unknown states into not_opened before the check could see them. It was never held under that entry either -- S006's held document is The ASCO Post's article, and the passage this page quotes from this outlet is not in it. The page quotes this document directly, so it must be acquired or the quotation must go.\n\n2026-09-01: acquire_sources gets HTTP 403 from pharmacytimes.com, with and without the recorded free routes. A WebFetch of the same URL DID return the page and confirmed the sentence this page quotes, verbatim: \"Notably, patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\"\n\nTHE STATE IS NOT CHANGED ON THAT EVIDENCE. A fetch that returns a sentence is not the document in the library, and this issue abolished `machine_read` today precisely because a state was being licensed by the fact that something automated had reached a URL. The quotation stays unattested until somebody holds the bytes."
-      },
-      "_to_do": "Save the page (the browser's Save As, or print to PDF) and run: python3 backend/scripts/whatholdsup/source_store.py melanoma add S010 <path> --url https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma --via \"saved from the browser by fred\""
+        "state": "full_text_held",
+        "by": "fred (saved from the browser), stored by source_store",
+        "on": "2026-09-02",
+        "sections": [
+          "the whole article as the browser rendered it"
+        ],
+        "note": "Split out of S006 on 2026-09-01. State is `blocked`: we tried, by named routes, and could not get the bytes. It was entered as `not_held`, which is not one of this ledger's states -- caught by undefined_states once that function stopped asking access_of(), which had been laundering unknown states into not_opened before the check could see them. It was never held under that entry either -- S006's held document is The ASCO Post's article, and the passage this page quotes from this outlet is not in it. The page quotes this document directly, so it must be acquired or the quotation must go.\n\n2026-09-01: acquire_sources gets HTTP 403 from pharmacytimes.com, with and without the recorded free routes. A WebFetch of the same URL DID return the page and confirmed the sentence this page quotes, verbatim: \"Notably, patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\"\n\nTHE STATE IS NOT CHANGED ON THAT EVIDENCE. A fetch that returns a sentence is not the document in the library, and this issue abolished `machine_read` today precisely because a state was being licensed by the fact that something automated had reached a URL. The quotation stays unattested until somebody holds the bytes.\n\n2026-09-02: HELD. Saved from the browser by fred and added to the library; 12 of 12 distinctive title words present, and the page's quotation matches the bytes. Two independent retrievals had already agreed on the sentence and neither was allowed to change the state -- the bytes did."
+      }
     },
     {
       "id": "S011",

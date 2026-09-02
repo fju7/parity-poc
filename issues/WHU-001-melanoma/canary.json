@@ -103,6 +103,56 @@
         "0.019"
       ],
       "why": "6 figures round-tripped"
+    },
+    "S009": {
+      "source": "S009",
+      "state": "READABLE",
+      "tried": [
+        "0.51",
+        "0.294",
+        "0.887",
+        "0.411",
+        "0.200",
+        "0.843"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S010": {
+      "source": "S010",
+      "state": "READABLE",
+      "tried": [
+        "0.51",
+        "0.411",
+        "0.294",
+        "0.887",
+        "0.200",
+        "0.843"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S011": {
+      "source": "S011",
+      "state": "READABLE",
+      "tried": [
+        "0.51",
+        "0.41",
+        "140.12",
+        "6.31"
+      ],
+      "why": "4 figures round-tripped"
+    },
+    "S013": {
+      "source": "S013",
+      "state": "READABLE",
+      "tried": [
+        "36.18674",
+        "94.12881",
+        "34.05223",
+        "118.24368",
+        "37.77493",
+        "122.41942"
+      ],
+      "why": "6 figures round-tripped"
     }
   }
 }

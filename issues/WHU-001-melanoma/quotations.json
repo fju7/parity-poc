@@ -31,13 +31,12 @@
       "quote": "can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
       "kind": "source",
       "source_id": "S010",
-      "verbatim": "Patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
-      "why": "Pharmacy Times' counter-argument about the population the Phase 3 adds. The wording is the fact-check gate's own found_value for verdict c38, recorded VERIFIED against this URL on 2026-08-28, and a WebFetch of the same URL on 2026-09-01 returned the same sentence independently. S010 is nonetheless `blocked` — pharmacytimes.com returns 403 to acquisition — so nobody HOLDS the document, and this quotation stays unattested until somebody does. Two retrievals agreeing is evidence; it is not the bytes.",
+      "verbatim": "Notably, patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "why": "Pharmacy Times' counter-argument about the population the Phase 3 adds. Held since 2026-09-02: the operator saved the page from his browser after pharmacytimes.com returned 403 to every automated route. The wording had been confirmed twice before it was held -- by the fact-check gate on 2026-08-28 (verdict c38, found_value) and by a WebFetch on 2026-09-01 -- and it is now matched against the bytes themselves, which is the only one of the three that this system treats as an attestation.",
       "attested": {
-        "by": "",
-        "on": ""
-      },
-      "_wording_on_file": "melanoma.html.gate.json, verdict c38, found_value, by the fact-check gate"
+        "by": "claude",
+        "on": "2026-09-02"
+      }
     },
     {
       "id": "Q-04",

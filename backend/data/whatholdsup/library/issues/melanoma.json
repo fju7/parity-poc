@@ -144,6 +144,19 @@
       "kind_why": "form 'record' — 42445 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
+    },
+    "S010": {
+      "sha256": "10e432848b1993c81fa848aa3c76555224724759615b38248ffbd7969181d0b0",
+      "file": "docs/10/10e432848b1993c81fa848aa3c76555224724759615b38248ffbd7969181d0b0.pdf",
+      "bytes": 18546365,
+      "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+      "held": "2026-09-02",
+      "via": "saved from the browser by fred, 2026-09-02, after pharmacytimes.com returned 403 to every automated route",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 59 prose sentence(s) over sixty characters, 1977 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

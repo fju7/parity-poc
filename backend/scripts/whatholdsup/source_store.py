@@ -777,6 +777,29 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     rows.append(("sources we hold", OK if not unheld else WARN,
                  "all %d source documents are in the library" % len(srcs) if not unheld else
                  "%d of %d held — not held: %s" % (len(h), len(srcs), ", ".join(unheld[:8]))))
+    # THE LEDGER CAN UNDERSTATE TOO, AND ONLY OVERSTATEMENT WAS CHECKED.
+    #
+    # "library matches the ledger" asks whether a source CLAIMING full text has
+    # one. It does not ask the reverse: a document sitting in the library under
+    # a state that says nobody opened it. On 2026-09-02 S010 was added to the
+    # library from a saved copy and its access state stayed `blocked`, so a
+    # quotation whose wording had just been matched against those very bytes
+    # went on blocking the publish for want of a source nobody had opened.
+    #
+    # An overstatement licenses a claim that was never checked. An
+    # understatement blocks one that was, and sends somebody to fetch a document
+    # already on disk. Both are the ledger disagreeing with the shelf.
+    silent = [s["id"] for s in srcs
+              if s["id"] in h and (s.get("access") or {}).get("state") in
+              ("blocked", "not_opened", "fragment_only")]
+    rows.append(("the ledger knows what the library holds",
+                 OK if not silent else BAD,
+                 "no held document is recorded as unread"
+                 if not silent else
+                 "%d document(s) are IN the library under a state that says "
+                 "nobody has them: %s — update the state or say why the bytes "
+                 "do not count as a read"
+                 % (len(silent), ", ".join(silent))))
     frag = [s["id"] for s in srcs if (s.get("access") or {}).get("state") == "fragment_only"]
     if frag:
         rows.append(("sources that are only a fragment", WARN,

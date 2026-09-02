@@ -800,6 +800,22 @@
         "melanoma:S013"
       ],
       "note": ""
+    },
+    "10e432848b1993c81fa848aa3c76555224724759615b38248ffbd7969181d0b0": {
+      "file": "docs/10/10e432848b1993c81fa848aa3c76555224724759615b38248ffbd7969181d0b0.pdf",
+      "bytes": 18546365,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma"
+      ],
+      "titles": [
+        "Pharmacy Times — Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma (Ryu Kariyawasam-Chavez, 19 August 2026)"
+      ],
+      "used_by": [
+        "melanoma:S010"
+      ],
+      "note": ""
     }
   }
 }
