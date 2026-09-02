@@ -95,7 +95,8 @@ def verdicts():
 
 
 R1 = "rule 1 — written from a document we hold"
-R2 = "rule 2 — inferences flagged and shown"
+R2 = ("rule 2 — every sentence declares its kind, judgements show "
+      "their work")
 BOUND = {"source_id": "S002", "span": "still alive at five years"}
 
 
@@ -105,7 +106,7 @@ def test_a_sentence_resting_on_nothing_blocks():
 
 
 def test_a_bound_and_declared_sentence_passes():
-    put(dict(BOUND, bucket="reported"))
+    put(dict(BOUND, bucket="deterministic"))
     v = verdicts()
     assert v[R1] == B.OK and v[R2] == B.OK
 
@@ -115,34 +116,34 @@ def test_a_sentence_that_does_not_say_what_kind_it_is_blocks():
     assert verdicts()[R2] == B.BAD
 
 
-def test_inference_without_premises_blocks():
-    put(dict(BOUND, bucket="inference", step="because x, therefore y"))
+def test_judgement_without_premises_blocks():
+    put(dict(BOUND, bucket="judgement", step="because x, therefore y"))
     assert verdicts()[R2] == B.BAD
 
 
-def test_inference_without_a_written_step_blocks():
-    put(dict(BOUND, bucket="inference",
+def test_judgement_without_a_written_step_blocks():
+    put(dict(BOUND, bucket="judgement",
              premises=[{"source_id": "S002",
                         "span": "still alive at five years"}]))
     assert verdicts()[R2] == B.BAD
 
 
-def test_inference_whose_premise_is_not_in_the_source_blocks():
-    put(dict(BOUND, bucket="inference", step="because x, therefore y",
+def test_judgement_whose_premise_is_not_in_the_source_blocks():
+    put(dict(BOUND, bucket="judgement", step="because x, therefore y",
              premises=[{"source_id": "S002",
                         "span": "no such words are in that document"}]))
     assert verdicts()[R2] == B.BAD
 
 
-def test_inference_whose_premise_source_is_not_held_blocks():
+def test_judgement_whose_premise_source_is_not_held_blocks():
     """UNDETERMINED is not permission. We could not check, so it does not pass."""
-    put(dict(BOUND, bucket="inference", step="because x, therefore y",
+    put(dict(BOUND, bucket="judgement", step="because x, therefore y",
              premises=[{"source_id": "S404", "span": "anything at all"}]))
     assert verdicts()[R2] == B.BAD
 
 
-def test_a_sound_inference_passes():
-    put(dict(BOUND, bucket="inference",
+def test_a_sound_judgement_passes():
+    put(dict(BOUND, bucket="judgement",
              step="The paper reports five-year survival, so the figure the "
                   "coverage calls 'long-term' is that one.",
              premises=[{"source_id": "S002",
@@ -153,7 +154,7 @@ def test_a_sound_inference_passes():
 
 def test_one_bad_sentence_blocks_a_page_of_good_ones():
     """No proportion of compliance buys a pass for the rest."""
-    put(*([dict(BOUND, bucket="reported")] * 40 + [{}]))
+    put(*([dict(BOUND, bucket="deterministic")] * 40 + [{}]))
     assert verdicts()[R1] == B.BAD
 
 
@@ -161,9 +162,9 @@ def test_the_backlog_count_is_printed_and_falls_only_by_doing_the_work():
     label = "sentences still to revalidate"
     put({}, {})
     assert "2 of 2" in [w for n, _, w in B.rule_rows(SLUG) if n == label][0]
-    put(dict(BOUND, bucket="reported"), {})
+    put(dict(BOUND, bucket="deterministic"), {})
     assert "1 of 2" in [w for n, _, w in B.rule_rows(SLUG) if n == label][0]
-    put(dict(BOUND, bucket="reported"), dict(BOUND, bucket="reported"))
+    put(dict(BOUND, bucket="deterministic"), dict(BOUND, bucket="deterministic"))
     assert not [n for n, _, w in B.rule_rows(SLUG) if n == label]
 
 
@@ -191,3 +192,31 @@ def test_the_grandfathering_machinery_is_gone():
     src = (WHU / "bindings.py").read_text(encoding="utf-8")
     for token in ("predates_the_rule", "_grandfathered_from", "grandfather"):
         assert token not in src, "%s survives in bindings.py" % token
+
+
+def test_a_bucket_outside_the_spec_vocabulary_blocks():
+    """No new words. BUCKETS is the spec's list and the only list."""
+    put(dict(BOUND, bucket="reported"))
+    assert verdicts()[R2] == B.BAD
+    put(dict(BOUND, bucket="inference"))
+    assert verdicts()[R2] == B.BAD, "the name the first draft invented"
+
+
+def test_a_figure_based_sentence_needs_a_named_human_and_a_record():
+    """Spec s3: for a figure-based sentence 'locatable' is NOT POSSIBLE.
+
+    The NCCN guideline's licence forbids putting it through any automated tool,
+    so no check will ever read it. A sentence resting on it is bound by the
+    operator's recorded reading, and the row must say who read it, where that
+    reading is written down, and where in the document to look. A machine that
+    reported such a span as verified would be claiming to have read a document
+    it is forbidden to open.
+    """
+    put(dict(BOUND, bucket="figure"))
+    assert verdicts()[R2] == B.BAD
+    put(dict(BOUND, bucket="figure", attested_by="fred"))
+    assert verdicts()[R2] == B.BAD, "a name with no record behind it"
+    put(dict(BOUND, bucket="figure", attested_by="fred",
+             attested_in="advocate/2026-08-29-adjudication.md",
+             locator="Categories of Preference table, BINV-Q 3 of 5"))
+    assert verdicts()[R2] == B.OK

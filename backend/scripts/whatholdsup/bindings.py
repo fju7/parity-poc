@@ -377,37 +377,71 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
             % (len(unbound), len(on_page),
                " || ".join(on_page[k]["sentence"][:60] for k in unbound[:3])))]
 
+    # RULE 2, IN THE SPEC'S VOCABULARY AND NOT A NEW ONE
+    #
+    # The first draft of this check invented a bucket called "inference".
+    # BUCKETS had been defined at the top of this file since the spec was
+    # written -- deterministic, context, judgement, figure -- and used by
+    # nothing. Section 3 already says an unclassified sentence is a defect;
+    # section 7 already routes a licence-reserved source to the operator by
+    # recorded question and answer. Both were written down and neither ran.
+    # That is the fifth instance of this pattern in three days, so: no new
+    # words. An inference is a `judgement` sentence, and the editor's demand
+    # that it show its logic and its facts is the premises-and-step
+    # requirement below.
     unbucketed = [k for k, v in on_page.items() if not v.get("bucket")]
-    bad_inf = []
-    for k, v in on_page.items():
-        if (v.get("bucket") or "") != "inference":
-            continue
-        prem = v.get("premises") or []
-        if not prem:
-            bad_inf.append("%s: an inference with no premises" % k[:8])
-            continue
-        for pr in prem:
-            sid, span = pr.get("source_id"), pr.get("span") or ""
-            if not sid or not span:
-                bad_inf.append("%s: a premise with no source or no span" % k[:8])
-                continue
-            present, why = SC.b2_present(span, slug, sid)
-            if present is not True:
-                bad_inf.append("%s: a premise whose span is not in %s"
-                               % (k[:8], sid))
-        if not (v.get("step") or "").strip():
-            bad_inf.append("%s: an inference with no step written out" % k[:8])
-    out.append(("rule 2 — inferences flagged and shown",
-                OK if not (unbucketed or bad_inf) else BAD,
-                "all %d sentence(s) declare their kind, and every inference "
-                "shows its premises" % len(on_page)
-                if not (unbucketed or bad_inf) else
-                "%d undeclared, %d inference problem(s): %s"
-                % (len(unbucketed), len(bad_inf),
-                   " || ".join((bad_inf + [on_page[k]["sentence"][:50]
-                                           for k in unbucketed])[:3]))))
+    wrong = [k for k, v in on_page.items()
+             if v.get("bucket") and v["bucket"] not in BUCKETS]
+    bad = ["%s: bucket %r is not one of %s"
+           % (k[:8], on_page[k]["bucket"], ", ".join(BUCKETS)) for k in wrong]
 
-    todo = {k for k in on_page if k in set(unbound) | set(unbucketed)}
+    for k, v in on_page.items():
+        bucket = v.get("bucket") or ""
+        if bucket == "judgement":
+            # The editor's rule 2: flag the inference, show the logic and the
+            # facts. Premises are checked against held bytes; the step is
+            # written out so a reader can disagree with the reasoning rather
+            # than only with the conclusion.
+            prem = v.get("premises") or []
+            if not prem:
+                bad.append("%s: a judgement with no premises" % k[:8])
+            for pr in prem:
+                sid, span = pr.get("source_id"), pr.get("span") or ""
+                if not sid or not span:
+                    bad.append("%s: a premise with no source or no span" % k[:8])
+                    continue
+                present, why = SC.b2_present(span, slug, sid)
+                if present is not True:
+                    bad.append("%s: a premise whose span is not in %s"
+                               % (k[:8], sid))
+            if not (v.get("step") or "").strip():
+                bad.append("%s: a judgement with no step written out" % k[:8])
+        elif bucket == "figure":
+            # Spec section 3: for a figure-based sentence "locatable" is NOT
+            # POSSIBLE by machine, and section 7 routes anything a licence
+            # reserves to a person to the operator, by recorded question and
+            # answer. So the row must name the person, the record, and the
+            # place in the document -- and this check must never report such a
+            # span as verified, because it has not read the document.
+            for field, what in (("attested_by", "who read it"),
+                                ("attested_in", "the record of the reading"),
+                                ("locator", "where in the document")):
+                if not (v.get(field) or "").strip():
+                    bad.append("%s: a figure-based sentence with no %s"
+                               % (k[:8], what))
+
+    out.append(("rule 2 — every sentence declares its kind, judgements show "
+                "their work",
+                OK if not (unbucketed or bad) else BAD,
+                "all %d sentence(s) declare a bucket, and every judgement "
+                "shows its premises and its step" % len(on_page)
+                if not (unbucketed or bad) else
+                "%d undeclared, %d problem(s): %s"
+                % (len(unbucketed), len(bad),
+                   " || ".join((bad + [on_page[k]["sentence"][:50]
+                                       for k in unbucketed])[:3]))))
+
+    todo = set(unbound) | set(unbucketed) | set(wrong)
     if todo:
         out.append(("sentences still to revalidate", WARN,
                     "%d of %d. Adopted %s with no exemption for what was "
