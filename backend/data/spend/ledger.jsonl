@@ -167,3 +167,24 @@
 {"at": "2026-09-02T12:48:26+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "melanoma", "usd": 0.5531, "input": 121169, "output": 8639, "web_searches": 6, "note": ""}
 {"at": "2026-09-02T12:51:41+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "melanoma", "usd": 0.4321, "input": 79580, "output": 10225, "web_searches": 4, "note": ""}
 {"at": "2026-09-02T12:53:27+00:00", "script": "factcheck_draft.py", "role": "coverage", "issue": "melanoma", "usd": 0.6723, "input": 174806, "output": 5192, "web_searches": 7, "note": ""}
+{"at": "2026-09-02T16:35:02+00:00", "script": "factcheck_draft.py", "role": "extract", "issue": "melanoma", "usd": 0.1212, "input": 10930, "output": 5894, "web_searches": 0, "note": ""}
+{"at": "2026-09-02T16:35:36+00:00", "script": "factcheck_draft.py", "role": "source:Merck & Moderna \u2014 Phase 3 INTe", "issue": "melanoma", "usd": 0.2904, "input": 74717, "output": 1748, "web_searches": 4, "note": ""}
+{"at": "2026-09-02T16:36:35+00:00", "script": "factcheck_draft.py", "role": "source:Merck & Moderna \u2014 five-year KE", "issue": "melanoma", "usd": 0.5778, "input": 155180, "output": 2815, "web_searches": 7, "note": ""}
+{"at": "2026-09-02T16:37:35+00:00", "script": "factcheck_draft.py", "role": "source:no source credited in the draf", "issue": "melanoma", "usd": 0.4978, "input": 129092, "output": 2700, "web_searches": 7, "note": ""}
+{"at": "2026-09-02T16:38:25+00:00", "script": "factcheck_draft.py", "role": "source:KEYNOTE-942: a randomised, pha", "issue": "melanoma", "usd": 0.2463, "input": 55839, "output": 2587, "web_searches": 4, "note": ""}
+{"at": "2026-09-02T16:38:50+00:00", "script": "factcheck_draft.py", "role": "source:Merck & Moderna \u2014 Phase 3 INTe", "issue": "melanoma", "usd": 0.1874, "input": 47090, "output": 1074, "web_searches": 3, "note": ""}
+{"at": "2026-09-02T16:39:32+00:00", "script": "factcheck_draft.py", "role": "source:Three-Year Update \u2014 JCO Oncolo", "issue": "melanoma", "usd": 0.4213, "input": 115642, "output": 1623, "web_searches": 5, "note": ""}
+{"at": "2026-09-02T16:40:26+00:00", "script": "factcheck_draft.py", "role": "source:Five-year results \u2014 Journal of", "issue": "melanoma", "usd": 0.3498, "input": 88114, "output": 2361, "web_searches": 5, "note": ""}
+{"at": "2026-09-02T16:40:54+00:00", "script": "factcheck_draft.py", "role": "source:The ASCO Post", "issue": "melanoma", "usd": 0.2277, "input": 55032, "output": 1508, "web_searches": 4, "note": ""}
+{"at": "2026-09-02T16:41:05+00:00", "script": "factcheck_draft.py", "role": "source:Merck & Moderna \u2014 first detail", "issue": "melanoma", "usd": 0.0626, "input": 15230, "output": 460, "web_searches": 1, "note": ""}
+{"at": "2026-09-02T16:41:17+00:00", "script": "factcheck_draft.py", "role": "source:ASCO 2024 presentation", "issue": "melanoma", "usd": 0.0865, "input": 19654, "output": 503, "web_searches": 2, "note": ""}
+{"at": "2026-09-02T16:41:48+00:00", "script": "factcheck_draft.py", "role": "source:Three-Year Update \u2014 JCO Oncolo", "issue": "melanoma", "usd": 0.2766, "input": 70134, "output": 1078, "web_searches": 5, "note": ""}
+{"at": "2026-09-02T16:42:12+00:00", "script": "factcheck_draft.py", "role": "source:MLQ News", "issue": "melanoma", "usd": 0.1733, "input": 43217, "output": 913, "web_searches": 3, "note": ""}
+{"at": "2026-09-02T16:42:36+00:00", "script": "factcheck_draft.py", "role": "source:Practical Dermatology", "issue": "melanoma", "usd": 0.1601, "input": 38578, "output": 959, "web_searches": 3, "note": ""}
+{"at": "2026-09-02T16:42:44+00:00", "script": "factcheck_draft.py", "role": "source:Dermatology Times", "issue": "melanoma", "usd": 0.0889, "input": 21403, "output": 313, "web_searches": 2, "note": ""}
+{"at": "2026-09-02T16:42:59+00:00", "script": "factcheck_draft.py", "role": "source:Morning Glory Sciences", "issue": "melanoma", "usd": 0.149, "input": 37665, "output": 401, "web_searches": 3, "note": ""}
+{"at": "2026-09-02T16:43:15+00:00", "script": "factcheck_draft.py", "role": "source:Pharmacy Times", "issue": "melanoma", "usd": 0.0907, "input": 20625, "output": 589, "web_searches": 2, "note": ""}
+{"at": "2026-09-02T16:44:54+00:00", "script": "factcheck_draft.py", "role": "recency", "issue": "melanoma", "usd": 0.5648, "input": 138348, "output": 4648, "web_searches": 8, "note": ""}
+{"at": "2026-09-02T16:46:38+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "melanoma", "usd": 0.3452, "input": 78222, "output": 4703, "web_searches": 4, "note": ""}
+{"at": "2026-09-02T16:49:07+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "melanoma", "usd": 0.5393, "input": 130221, "output": 6575, "web_searches": 5, "note": ""}
+{"at": "2026-09-02T16:50:58+00:00", "script": "factcheck_draft.py", "role": "coverage", "issue": "melanoma", "usd": 0.7223, "input": 189109, "output": 4996, "web_searches": 8, "note": ""}

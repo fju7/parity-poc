@@ -320,3 +320,58 @@ transcription that matched the page passed. It reads the document now, and the
 first run turned up two of our own quotations that do not survive it: one where
 the page ends a sentence the source continues, and one where a PDF ligature made
 a true quotation unmatchable. Both are fixed.
+
+## 2 September 2026 — the second page gate
+
+Nineteen blocking findings, all closed against documents. Four were right and
+three of those four were sentences written earlier the same day.
+
+**A subheading that contradicted the paragraph under it.** "The distinction the
+coverage collapsed" sat directly above "every outlet whose article we hold
+attributed those figures correctly". A subheading is a claim. It now reads "What
+correct attribution still leaves open".
+
+**An accusation the page's own check does not sustain.** The piece said "That is
+what the headlines did" — of substituting the earlier trial's figures for the
+Phase 3's — immediately after establishing that every outlet it holds attributed
+correctly. We hold no example of a headline doing it. The sentence now describes
+the structural effect without accusing anyone of it.
+
+**An interval we calculated and did not say we had.** "The same data, read
+against the one-sided 90% interval, would not cross 1.0" is arithmetic this page
+performed. It checks out, and that is not the point: the page's own rule is that
+figures we compute are marked as ours. Removed.
+
+**A parenthetical resting on a figure panel nobody has read.** The claim that
+the full paper's 48-month arms read 92.2% and 85.6% came from a figure whose
+text extracts jumbled. It now says only what the figure legend says.
+
+### Where the gate was wrong, and why it is worth recording
+
+Five findings were claims about documents this issue holds, made without opening
+them.
+
+It reported all three of our adverse-event percentages as wrong, giving 60.6%,
+56.7% and 49.0%. Those are the three-year figures. The five-year release we hold
+prints "fatigue (59.6%), injection site pain (59.6%), and chills (51.0%)" — the
+page's three exactly.
+
+It reported the three-year hazard ratio as 0.501 rather than 0.510. The
+three-year paper, which we hold in full, says "The updated RFS HR improved to
+0.510" and prints 0.510 in its results table. 0.501 appears nowhere in it.
+
+It said MLQ News does not name confidence intervals or event counts. The article
+contains two sentences listing what was withheld; the gate found one and we
+quote the other, verbatim.
+
+And on Practical Dermatology it contradicted its own previous run: the first
+gate said that outlet's enumeration was *fuller* than our paraphrase, this one
+says it does not enumerate at all. We hold the article. It carries the sentence
+we quote.
+
+None of this makes the gate less useful — it found four real problems in text
+that had already passed every deterministic check here. It means a finding is a
+claim about a document, and a claim about a document is settled by opening the
+document. Every one of the nineteen is now recorded with the source and the
+sentence that settled it, and those quotations are checked against the bytes on
+every run.

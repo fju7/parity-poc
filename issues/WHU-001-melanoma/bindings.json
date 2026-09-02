@@ -3003,7 +3003,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-02"
     },
     "415dd318acf7a9c1": {
       "sentence": "The registry was checked that day: NCT05933577 still carries no posted results.",
@@ -3108,7 +3109,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-02"
     },
     "cafc712a810e5586": {
       "sentence": "(An earlier version of this sentence also named OncLive and FierceBiotech.",
@@ -3129,7 +3131,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-02"
     },
     "213d41f92f5db000": {
       "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — and the same data, read against the one-sided 90% interval the trial actually registered, would not cross it.",
@@ -3177,6 +3180,48 @@
       "sentence": "It is the company's figure, and the peer-reviewed Lancet paper prints the two-sided 0.053 instead.",
       "sentence_sha": "984d7992fdf5948f",
       "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "5a291aed136e394e": {
+      "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature (An earlier version of this sentence also named OncLive and FierceBiotech.",
+      "sentence_sha": "5a291aed136e394e",
+      "why_empirical": "names OncLive",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "d05f97fc20a30388": {
+      "sentence": "That rests on the two registry records: KEYNOTE-054 , which is pembrolizumab against placebo, lists overall survival as a secondary endpoint with no result posted and a time frame running to about eleven years; and CheckMate 238 , whose arms are nivolumab and ipilimumab — there is no placebo arm to report against.",
+      "sentence_sha": "d05f97fc20a30388",
+      "why_empirical": "names CheckMate 238",
       "bucket": null,
       "source_id": null,
       "document_sha": null,

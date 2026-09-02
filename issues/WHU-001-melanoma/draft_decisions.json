@@ -1,0 +1,45 @@
+{
+  "what_this_is": "Findings the fact-check gate raised that were read and decided, so a repeat run can tell a settled problem from a fresh one. Keyed on the quote: change the sentence and the decision stops applying, which is right, because it was a decision about that sentence. The full record, with the document and the verified quotation that settled each, is in gate-findings.json.",
+  "decisions": [
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "The overall survival analysis in KEYNOTE-942 rests on fourteen deaths (seven in each arm).",
+      "severity": "NOT_FOUND",
+      "decision": "accept",
+      "decided": "2026-09-02",
+      "reason": "The gate could not reach a source giving the per-arm split. We hold two that state it. The ASCO Post: 'Seven patients died during follow-up in each arm.' The JCO paper: '7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died.' A NOT_FOUND is a statement about what the role reached, not about what exists.",
+      "what_would_change_it": "Either quotation turning out not to be in the document the ledger names for it. Both are checked against the bytes on every run."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "The coverage carried a 49% reduction in the hazard of recurrence or death from KEYNOTE-942.",
+      "severity": "WRONG_SOURCE",
+      "decision": "accept",
+      "decided": "2026-09-02",
+      "reason": "The objection was conditional — 'if the draft implies this is the primary-analysis figure'. It does not. The page says these figures 'describe a different trial: an open-label study of 157 patients'. Practical Dermatology, held: 'At 5-year follow-up, intismeran plus pembrolizumab was associated with a 49% reduction in the risk of recurrence or death (HR, 0.51; 95% CI, 0.294 to 0.887).'",
+      "what_would_change_it": "The page coming to attribute these figures to the primary analysis, which reported HR 0.561."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "quote": "The coverage carried a 59% reduction in the hazard of distant metastasis or death from KEYNOTE-942.",
+      "severity": "WRONG_SOURCE",
+      "decision": "accept",
+      "decided": "2026-09-02",
+      "reason": "Same as the 49% figure, and settled by the same held sentence.",
+      "what_would_change_it": "The same."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "FAIRNESS",
+      "quote": "Morning Glory Sciences: the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease",
+      "severity": "SERIOUS",
+      "decision": "accept",
+      "decided": "2026-09-02",
+      "reason": "The objection was that a direct quote is attributed to an outlet absent from the source list and returning no search results. It is S009 in the source list, acquired 2026-09-02, and the quoted sentence is in its bytes: 'Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.' The outlet not appearing in a search is a fact about the search.",
+      "what_would_change_it": "The quotation failing to match S009's bytes, which the quotation check now tests on every run."
+    }
+  ]
+}

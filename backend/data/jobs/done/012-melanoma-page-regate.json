@@ -1,0 +1,7 @@
+{
+  "note": "Issue one page re-gate, ordered by the editor: gate, edits from its findings, re-gate to confirm nothing else significant, then the email gate, then the outside review. Since the first run: the five-year rates restored with their intervals after the gate showed the 1 September removal was itself the error; the adjuvant PD-1 survival claim now cited to two registry records; the population widening corrected to downward-only; the outlet list cut to outlets we hold and quoting three of them; a change-log date gap corrected from 'four and a half months' to nine; eight new sources acquired. Four rejections are recorded in draft_decisions.json so this run can tell a settled finding from a fresh one.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html", "--decisions", "../issues/WHU-001-melanoma/draft_decisions.json"]
+}
