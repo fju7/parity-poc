@@ -131,6 +131,19 @@
       "kind_why": "form 'page' — 52 prose sentence(s) over sixty characters, 1286 words — this reads as the page itself",
       "superseded": [],
       "also_held": []
+    },
+    "S013": {
+      "sha256": "5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59",
+      "file": "docs/57/5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59.json",
+      "bytes": 42529,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT05933577?format=json",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'record' — 42445 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

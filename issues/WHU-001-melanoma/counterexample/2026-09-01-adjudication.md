@@ -31,6 +31,28 @@ VERDICT: NARROWED — the objection is right about the scope
 BASIS:   The sentence opened on 'adjuvant melanoma trials' and then narrowed to PD-1, so a reader could take the broad class as the claim. The claim about PD-1 inhibitors survives and is unchanged.
 DID:     Rewrote the sentence to say explicitly that it is a claim about PD-1 inhibitors and NOT about adjuvant checkpoint inhibitors as a class. It does NOT assert the ipilimumab result the hunter cites: acquire_sources refused the PubMed bytes for EORTC 18071 (0 of 12 title words, no identifier match) and WebFetch returned metadata without the abstract. S012 is entered and `blocked`. Writing the counter-fact into the page from a finding rather than a document is the error recorded three times on this page today; when the paper is held the sentence can name what broke the broader pattern instead of stepping around it.
 
+         2026-09-02, and this is the record of it, because the source entry is
+         not being kept: acquire_sources refused the PubMed bytes for EORTC
+         18071 (0 of 12 title words, no identifier match) and WebFetch returned
+         the page's metadata without the abstract. Then the errata check looked
+         it up by PMID and found it CARRIES A CORRECTION nobody has read —
+         PMID 31442371. That notice turns out to be a bulk NEJM erratum covering
+         THIRTEEN articles at once, of which "Prolonged Survival in Stage III
+         Melanoma with Ipilimumab Adjuvant Therapy" is one, so it is probably
+         journal housekeeping rather than anything touching a figure. Probably
+         is not knowledge, and nobody here has read it.
+
+         The source entry (S012) is REMOVED, and this is why: the page makes no
+         claim about EORTC 18071. It says only that its own claim is about PD-1
+         inhibitors and not about checkpoint inhibitors as a class. A source
+         list is what a page rests on; an entry the page does not use, kept
+         only as a note to self, blocks every publish on an erratum for a claim
+         nobody is making. The note belongs here, where the question was raised.
+
+         TO REOPEN THIS: get the NEJM paper (PMID 27717298) and the erratum,
+         then the sentence can name what broke the wider pattern instead of
+         stepping around it.
+
 
 ---
 

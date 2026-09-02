@@ -146,6 +146,30 @@
         "by": "claude",
         "on": "2026-09-02"
       }
+    },
+    {
+      "id": "Q-13",
+      "quote": "7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died",
+      "kind": "source",
+      "source_id": "S004",
+      "verbatim": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+      "why": "What 'n=14' is fourteen OF. The label is the press release's (S002 prints 'n=14' literally) and it does not say; the paper does, explicitly, arm by arm. Quoted on the page so a reader is not asked to take the split on our word.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
+    },
+    {
+      "id": "Q-14",
+      "quote": "Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result. They belong to the Phase 2b population, not to this one.",
+      "kind": "source",
+      "source_id": "S009",
+      "verbatim": "Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result . They belong to the Phase 2b population, not to this one.",
+      "why": "The half of Morning Glory's argument the page had left out, and the one that decides what the section is about: the disagreement between the two outlets cannot be settled from anything published, because the Phase 3 has released no effect size.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
     }
   ]
 }

@@ -4,7 +4,7 @@
     "S001": {
       "source": "S001",
       "title": "Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -13,7 +13,7 @@
     "S002": {
       "source": "S002",
       "title": "Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -22,7 +22,7 @@
     "S003": {
       "source": "S003",
       "title": "KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "identifier": "PMID 38246194",
       "identifier_from": "the source URL",
       "resolved_title": "Individualised neoantigen therapy mRNA-4157 (V940) plus pembrolizumab versus pembrolizumab monotherapy in resected melanoma (KEYNOTE-942): a randomised, phase 2",
@@ -43,7 +43,7 @@
     "S004": {
       "source": "S004",
       "title": "Five-year results — Journal of Clinical Oncology, 1 June 2026",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "identifier": "DOI 10.1200/JCO-26-00835",
       "identifier_from": "the source URL",
       "resolved_title": "Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study.",
@@ -55,7 +55,7 @@
     "S005": {
       "source": "S005",
       "title": "Merck & Moderna — first detailed KEYNOTE-942 results",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -64,7 +64,7 @@
     "S006": {
       "source": "S006",
       "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -73,7 +73,7 @@
     "S007": {
       "source": "S007",
       "title": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-415",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "identifier": "DOI 10.1200/OA-25-00008",
       "identifier_from": "the held document",
       "state": "UNCHECKED",
@@ -84,7 +84,7 @@
     "S008": {
       "source": "S008",
       "title": "Weber JS, Khattak MA, Carlino MS, et al. Individualized neoantigen therapy mRNA-4157 (V940) plus pembrolizumab in resect",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -93,7 +93,7 @@
     "S009": {
       "source": "S009",
       "title": "Morning Glory Sciences — INTerpath-001",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -101,8 +101,8 @@
     },
     "S010": {
       "source": "S010",
-      "title": "Pharmacy Times — Phase 3 trial marks first success for personalized mRNA cancer therapy in resected melanoma",
-      "checked_on": "2026-09-01",
+      "title": "Pharmacy Times — Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma (Ryu Kariya",
+      "checked_on": "2026-09-02",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -111,61 +111,20 @@
     "S011": {
       "source": "S011",
       "title": "MLQ News — Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     },
-    "S012": {
-      "source": "S012",
-      "title": "Eggermont AMM, Chiarion-Sileni V, Grob J-J, et al. Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant The",
-      "checked_on": "2026-09-01",
-      "identifier": "PMID 27717298",
-      "identifier_from": "the source URL",
-      "resolved_title": "Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy.",
-      "identity": "resolved title shares 7 word(s) with ours: adjuvant, ipilimumab, melanoma, prolonged, stage, survival, therapy",
-      "amendments": [
-        {
-          "id": "31442371",
-          "source": "MED",
-          "reference": "N Engl J Med. 2018 Nov 29;379(22):2185. doi: 10.1056/NEJMx180040",
-          "type": "Erratum in",
-          "orderIn": 5
-        }
-      ],
-      "comments": [
-        {
-          "id": "28121506",
-          "source": "MED",
-          "reference": "N Engl J Med. 2017 Jan 26;376(4):399. doi: 10.1056/NEJMc1615564",
-          "type": "Comment in",
-          "orderIn": 1
-        },
-        {
-          "id": "28125193",
-          "source": "MED",
-          "reference": "N Engl J Med. ;376(4):398. doi: 10.1056/NEJMc1615564",
-          "type": "Comment in",
-          "orderIn": 2
-        },
-        {
-          "id": "28125194",
-          "source": "MED",
-          "reference": "N Engl J Med. ;376(4):398-9. doi: 10.1056/NEJMc1615564",
-          "type": "Comment in",
-          "orderIn": 3
-        },
-        {
-          "id": "30943345",
-          "source": "MED",
-          "reference": "N Engl J Med. 2019 Apr 4;380(14):1374-1376. doi: 10.1056/NEJMc1902228",
-          "type": "Comment in",
-          "orderIn": 4
-        }
-      ],
-      "state": "AMENDED",
-      "why": "matched on PMID 27717298"
+    "S013": {
+      "source": "S013",
+      "title": "INTerpath-001 — ClinicalTrials.gov record. NCT05933577.",
+      "checked_on": "2026-09-02",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
     }
   }
 }

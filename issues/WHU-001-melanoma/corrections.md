@@ -193,3 +193,34 @@ Five findings remain open, and they are judgement rather than fact: how much of
 one outlet's argument to carry, and whether a question we pose as unanswered is
 in fact unanswerable. They are recorded in this issue's adjudication files with
 what is known and what is not.
+
+### Later on 2 September — the three questions the checks could not answer
+
+Three findings needed an editor rather than a document, and the answers changed
+the piece.
+
+**"n=14" stays, and now says what it counts.** The label is the companies' own
+— their release prints it and does not say fourteen of what. The paper does, and
+the page now quotes it: "7 of 107 patients (6.5%) in the intismeran plus
+pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died."
+
+**The disagreement between two outlets is not a digression.** An earlier note of
+ours called it one. That was wrong. Whether the benefit reaches the patients the
+Phase 3 newly includes is the question of what these numbers, when they come,
+will support, which is what this issue is about.
+
+**But the disagreement cannot be settled, and the page now shows the checking.**
+No hazard ratio, confidence interval or p-value for this trial appears in either
+company release, in any coverage we hold, or in the trial's own registry record:
+ClinicalTrials.gov NCT05933577 carries no posted results at all and gives an
+estimated primary completion date of 26 October 2029. The August announcement
+was a prespecified interim look.
+
+So placing the earlier trial's figures beside this result would mislead, and the
+page now says how: the trials do not share a population (stage IIIB–IV against
+IIB–IV), a design (open-label against double-blind with the outcomes assessor
+masked), or a statistical standing (analyses the earlier paper calls
+"descriptive only", against a prespecified interim threshold). And there is
+nothing to compare to — the Phase 3 has released no effect size, so quoting 0.51
+next to "met its endpoints" is a substitution rather than a comparison. That is
+what the headlines did.

@@ -784,6 +784,22 @@
         "melanoma:S011"
       ],
       "note": ""
+    },
+    "5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59": {
+      "file": "docs/57/5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59.json",
+      "bytes": 42529,
+      "content_type": "application/json",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://clinicaltrials.gov/api/v2/studies/NCT05933577?format=json"
+      ],
+      "titles": [
+        "INTerpath-001 — ClinicalTrials.gov record. NCT05933577."
+      ],
+      "used_by": [
+        "melanoma:S013"
+      ],
+      "note": ""
     }
   }
 }

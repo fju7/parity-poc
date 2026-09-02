@@ -1047,8 +1047,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "no held document contains all 2 anchors: absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit., can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease."
+      "on_page": false,
+      "autobind": "no held document contains all 2 anchors: absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit., can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
+      "left_page": "2026-09-02"
     },
     "191e7be0d50f8057": {
       "sentence": "In the earlier Phase 2b at five years, patients on the combination were recurring or dying at about half the rate (HR 0.510, 0.294–0.887) and reaching distant metastasis at about two-fifths the rate (HR 0.411, 0.200–0.843).",
@@ -2729,6 +2730,195 @@
       "sentence": "0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.",
       "sentence_sha": "aa435898838c3cee",
       "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "cd91d64a4b01292f": {
+      "sentence": "The label is the release's and it does not say fourteen of what; the paper does, in its own sentence: 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died .",
+      "sentence_sha": "cd91d64a4b01292f",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "158f4e8d35f55013": {
+      "sentence": "INTerpath-001",
+      "sentence_sha": "158f4e8d35f55013",
+      "why_empirical": "names INTerpath-001",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "f088ceecb9290762": {
+      "sentence": "Morning Glory Sciences: the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading reached the general coverage.",
+      "sentence_sha": "f088ceecb9290762",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "a1c0d514137eace8": {
+      "sentence": "Morning Glory says as much in the same article, and it is the more important half of its argument: Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result.",
+      "sentence_sha": "a1c0d514137eace8",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "e40ceb0952ce74d1": {
+      "sentence": "We looked: no hazard ratio, interval or p-value for this trial appears in either company release, in any of the specialist or general coverage we hold, or in the trial’s own registry record, which as of 2 September 2026 carries no posted results at all and gives an estimated primary completion date of 26 October 2029 ( NCT05933577 ).",
+      "sentence_sha": "e40ceb0952ce74d1",
+      "why_empirical": "registry identifier",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "075bae729c357078": {
+      "sentence": "They do not share a statistical standing: the Phase 2b’s later analyses are, in its own words, descriptive only , against a one-sided alpha of 0.10, while the Phase 3 crossed a prespecified interim threshold.",
+      "sentence_sha": "075bae729c357078",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "44195c42d6bcb59b": {
+      "sentence": "And most simply, there is nothing to put beside them: the Phase 3 has released no effect size, so quoting 0.51 next to “met its endpoints” is not a comparison but a substitution — the reader supplies the missing number from the smaller, older, differently-designed trial.",
+      "sentence_sha": "44195c42d6bcb59b",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "d6292f3c92a2389f": {
+      "sentence": "Those newly-included patients start at lower risk of recurrence, which leaves less room for absolute benefit, and Pharmacy Times’ counter is that their risk may be closer to stage III than the staging suggests.",
+      "sentence_sha": "d6292f3c92a2389f",
+      "why_empirical": "names Pharmacy Times",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "3060d6a65e7bff8c": {
+      "sentence": "Primary Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints 19 August 2026.",
+      "sentence_sha": "3060d6a65e7bff8c",
+      "why_empirical": "names INTerpath-001",
       "bucket": null,
       "source_id": null,
       "document_sha": null,

@@ -172,11 +172,17 @@ DID:    Nothing.
 
 **Why it matters.** The figures are correct. The objection is that 'n=14' needs the clarifying context our document provides — that this is 14 total deaths across both arms (7 per arm per ecancer), in a trial of 157 patients, with OS explicitly underpowered and exploratory. Omitting that context does not change the page's conclusion but does change the reader's sense of how immature the OS data are.
 
-MERIT:  
-EFFECT: 
-DID:    
-
-> JUDGEMENT — FOR THE EDITOR. The advocate says 'n=14' is our compression of its fourteen deaths across both arms. It is not ours: S002 prints '(HR=0.471; [95% CI, 0.165-1.345]; n=14)' literally, and the page quotes it as the companies' own label. The counterexample hunt raised the same ambiguity from the other side, and I have glossed it at the two places it appeared bare — 'fourteen deaths, seven in each arm, not fourteen patients'. Whether to keep quoting the label at all is an editorial call.
+MERIT:  no — the editor asked whether the paper states the split explicitly.
+        It does: S004, "Overall, 7 of 107 patients (6.5%) in the intismeran plus
+        pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died".
+        So the label stays. It is the companies' own — S002 prints "n=14"
+        literally — and quoting what they published is the point of the section.
+EFFECT: none
+DID:    Kept the label and made the attribution exact: the release supplies
+        "n=14" and does not say fourteen of what; the paper's own sentence,
+        quoted on the page as Q-13, supplies the split. Also corrected a gloss
+        of my own that said "fourteen deaths in 157 patients" without the
+        per-arm breakdown the paper gives.
 
 
 ---
@@ -516,11 +522,18 @@ DID:    Nothing beyond the S008-21 edit.
 
 **Why it matters.** The page frames the absolute-benefit argument as a bare assertion by Morning Glory Sciences that Pharmacy Times rebuts. Our document does not rest on a single sentence: it supplies a second, independent empirical claim ('Most stage IIB and IIC patients never recur after surgery alone') that reinforces the same concern. Omitting that second sentence makes our position look weaker than it is and makes the Pharmacy Times rebuttal look more decisive than it is. The page's conclusion — that 'neither reading reached the general coverage' — survives, but the characterisation of our reading as a single-sentence hazard-ratio argument is too narrow.
 
-MERIT:  
-EFFECT: 
-DID:    
-
-> JUDGEMENT — FOR THE EDITOR. The advocate says its document carries a second, independent caution the page does not report. It is quoting a passage we now hold (S009, acquired today), so this is answerable — but what to carry from a source into a paragraph about two outlets disagreeing is an editorial choice about balance, not a fact to be checked.
+MERIT:  yes — and my note calling this section a digression was wrong, which
+        the editor said plainly and I withdraw. Identifying a real disagreement
+        between outlets, on a question that decides how to read the result, is
+        the work. The test is whether it bears on the subject, and it does: the
+        Phase 3 widened the population, and whether the benefit reaches the
+        patients it newly includes is the whole question of what the numbers,
+        when they come, will support.
+EFFECT: changes
+DID:    Carried the half of Morning Glory's argument the page had left out, as
+        Q-14, and reorganised the section around it. The disagreement is still
+        set out; what follows it is now what the source actually says about
+        whether the disagreement can be settled.
 
 
 ### S009-27 — SERIOUS / NARROWS
@@ -534,11 +547,29 @@ DID:
 
 **Why it matters.** The page poses the question 'which of them is right' as if it is answerable from existing data and simply ignored by general coverage. Our document establishes that the Phase 3 event rates and hazard ratios are undisclosed, so the question cannot yet be resolved empirically. This changes the nature of the dispute: it is not Morning Glory Sciences vs. Pharmacy Times on a factual question with a knowable answer — it is two priors about stage IIB/IIC risk applied to a data gap. The page's framing implies a resolvable factual disagreement; our document shows it is currently unresolvable.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes, and it changes what the section is about. The advocate was right
+        that we posed "which of them is right" as though it were answerable and
+        merely ignored. It is not answerable, and the reason is checkable rather
+        than rhetorical, so the page now shows the checking:
 
-> JUDGEMENT — FOR THE EDITOR. The strongest of the twenty-eight. S009 says: 'Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result.' Our sentence asks which of the two outlets is right, as though the answer were available and merely ignored. On the advocate's reading — and it is quoting a document we hold — the question cannot be resolved by anyone until the Phase 3 figures exist. That would change what the paragraph is about.
+          - no hazard ratio, interval or p-value for this trial is in either
+            company release, in any coverage we hold, or in the registry;
+          - ClinicalTrials.gov NCT05933577 carries hasResults = false, has never
+            had results submitted, and gives an estimated primary completion of
+            26 October 2029 — which is why the August announcement is a
+            prespecified interim look and says so. Entered as S013 and held.
+
+        The editor also asked whether placing the 157-patient figures beside the
+        1,137-patient result would mislead. It would, and the page now says how,
+        from held documents: different populations (IIIB-IV against IIB-IV),
+        different design (open-label against double-blind with the outcomes
+        assessor masked), different statistical standing (the Phase 2b's later
+        analyses "descriptive only" against a one-sided alpha of 0.10; the
+        Phase 3 a prespecified interim threshold) — and no Phase 3 effect size
+        to compare to at all, so quoting 0.51 beside "met its endpoints" is a
+        substitution rather than a comparison.
+EFFECT: changes
+DID:    Rewrote the section. Added S013 (the registry record) and Q-14.
 
 
 ### S009-28 — MINOR / NONE

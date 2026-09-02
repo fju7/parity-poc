@@ -78,7 +78,19 @@ def norm(text: str) -> str:
     """
     for a, b in _SMART.items():
         text = text.replace(a, b)
-    return " ".join(text.lower().split())
+    text = " ".join(text.lower().split())
+    # A SPACE BEFORE A FULL STOP IS TYPESETTING, NOT IDENTITY.
+    #
+    # Extraction puts one there: S009 comes back as "...the 1,137-patient
+    # result ." and the page prints "result." Those are the same words, and on
+    # 2026-09-02 this check called the quotation altered because of the gap.
+    #
+    # Third character-level false alarm in two days -- The Lancet's middle dot,
+    # a Greek alpha that extracts as "a", and now whitespace. None was about a
+    # fact. A comparison form that is defeated by typography reports absence
+    # where there is none, which is the failure this repository has recorded
+    # more than any other.
+    return re.sub(r"\s+([.,;:!?])", r"\1", text)
 
 
 def case_dir(slug: str) -> Path:

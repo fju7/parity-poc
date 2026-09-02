@@ -393,6 +393,22 @@ def self_description(html_text: str) -> list[str]:
             continue
         m = re.search(r"(?:^|\s)(Draft\.|Draft\s*[:\u2014-]|not published|"
                       r"unpublished|not yet published|Outstanding:)", sent)
+        # ...ABOUT THIS PAGE. On 2026-09-02 this fired on "Merck and Moderna
+        # have not published one", a sentence about a subgroup breakdown the
+        # companies have not released, and reported it as the page calling
+        # itself unpublished. A page that writes about publication -- which
+        # this one does constantly, because its subject is what a company did
+        # and did not publish -- would otherwise be unable to use the word.
+        #
+        # The check is about the page's ACCOUNT OF ITSELF, so the sentence has
+        # to be about the page. A named third party as the subject is not.
+        if m and re.search(r"\b(?:[A-Z][a-z]+|\w+)\s+and\s+[A-Z][a-z]+\s+"
+                           r"(?:have|has)\s+not\s+published\b", sent):
+            continue
+        if m and re.search(r"\b(?:they|he|she|the (?:companies|authors|sponsors|"
+                           r"investigators)|Merck|Moderna|the trial|the study)\b"
+                           r"[^.]{0,40}\bnot (?:yet )?published\b", sent, re.I):
+            continue
         if m:
             out.append(f"masthead says {published.group(0)!r}, and the page "
                        f"says {m.group(1)!r}: {sent[:110]}")
