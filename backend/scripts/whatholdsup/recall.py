@@ -320,6 +320,18 @@ CASES = [
             "were real",
        figures=["0.0075", "35.4", "68.8", "71.3"]),
 
+
+  # The class that produced 3 of the 4 real findings in the second gate run,
+  # all written while fixing the first.
+  dict(id="MEL-13", slug="melanoma", check="B16", check_kind="changecheck",
+       found_by="check",
+       what="a correction is new prose, written fast, in exactly the classes no "
+            "deterministic check here covers -- a sentence contradicting "
+            "another sentence on the page, an inference presented as fact, a "
+            "claim the page sources nowhere. Between two $6 gate runs it is the "
+            "only text on the page nobody has read, and 35% of adjudicated "
+            "errors came in with an earlier correction"),
+
   dict(id="DESK-01", slug="deskilling", check="B10",
        what="issue three's central study carries a 2025 correction",
        sid="S021", check_kind="errata"),
@@ -446,6 +458,41 @@ def run_case(c: dict) -> tuple[str, str]:
                         "in any paper that reads 'this figure appears nowhere' "
                         "— so the claim that reached a reader could not have "
                         "been recorded as settled")
+
+    if kind == "changecheck":
+        # Replay the day: the page the second gate judged, against the version
+        # before that day's corrections. A check that only passes on today's
+        # page proves nothing.
+        import subprocess, changecheck as CC
+        repo = str(Path(__file__).resolve().parents[3])
+        def at(rev):
+            return subprocess.run(["git", "show",
+                                   "%s:site/whatholdsup/melanoma.html" % rev],
+                                  cwd=repo, capture_output=True, text=True).stdout
+        before, after = at("cee46af"), at("da9e6c0")
+        if not before or not after:
+            return MISSED, "could not recover the two versions from git"
+        new = CC.changed(before, after)
+        if not new:
+            return MISSED, "no changed sentences recovered"
+        det = CC.deterministic(c["slug"], new)
+        # The deterministic half alone must see the unbound new figure; the
+        # model half is what reaches contradiction and inference, and is
+        # exercised by the recorded review rather than paid for here.
+        if not any(f["kind"] == "NEW_AND_UNBOUND" for f in det):
+            return MISSED, ("B16 does not report a new sentence carrying a "
+                            "figure and bound to nothing")
+        doc = CC.load_reviews(c["slug"])
+        kinds = {f.get("kind") for r in (doc.get("reviews") or [])
+                 for f in (r.get("findings") or [])}
+        if not ({"CONTRADICTION", "OURS"} & kinds):
+            return MISSED, ("no recorded review has ever reported a "
+                            "CONTRADICTION or an OURS, so the model half is "
+                            "unproven")
+        return CAUGHT, ("B16 reports %d finding(s) in the %d sentence(s) that "
+                        "changed that day, and its recorded reviews include "
+                        "%s" % (len(det), len(new),
+                                ", ".join(sorted({"CONTRADICTION","OURS"} & kinds))))
 
     if kind == "uncovered":
         return UNCOVERED, c.get("why_uncaught", "")

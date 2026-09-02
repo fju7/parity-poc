@@ -1,0 +1,38 @@
+{
+  "_what_this_is": "Reviews of what changed, bound to the page's content hash. See changecheck.py: between two gate runs every correction is text nobody has read, and 35% of recorded errors came in with one.",
+  "reviews": [
+    {
+      "sha": "8ecb9db083398f26",
+      "against": "0b6442a",
+      "changed": 0,
+      "at": "2026-09-02T17:52:40+00:00",
+      "findings": []
+    },
+    {
+      "sha": "e166e9597e0b6636",
+      "against": "cee46af",
+      "changed": 8,
+      "at": "2026-09-02T17:53:51+00:00",
+      "findings": [
+        {
+          "sentence": "It is the company's figure, and the peer-reviewed Lancet paper prints the two-sided 0.053 instead.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 0.053 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "That is what the headlines did.",
+          "kind": "CONTRADICTION",
+          "why": "The page states 'Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942' and several said plainly no Phase 3 numbers had been released, yet this sentence accuses the headlines of substituting the Phase 2b figure for the missing Phase 3 number as though that were a documented error in the held articles.",
+          "other": "Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released."
+        },
+        {
+          "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — and the same data, read against the one-sided 90% interval the trial actually registered, would not cross it.",
+          "kind": "OURS",
+          "why": "The claim that the one-sided 90% interval for HR 0.561 would not cross 1.0 is a calculation performed by this page; no source on the page reports or publishes that one-sided 90% interval or states that it clears 1.0.",
+          "other": ""
+        }
+      ]
+    }
+  ]
+}

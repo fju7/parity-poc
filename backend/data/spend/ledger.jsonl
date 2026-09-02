@@ -188,3 +188,7 @@
 {"at": "2026-09-02T16:46:38+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "melanoma", "usd": 0.3452, "input": 78222, "output": 4703, "web_searches": 4, "note": ""}
 {"at": "2026-09-02T16:49:07+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "melanoma", "usd": 0.5393, "input": 130221, "output": 6575, "web_searches": 5, "note": ""}
 {"at": "2026-09-02T16:50:58+00:00", "script": "factcheck_draft.py", "role": "coverage", "issue": "melanoma", "usd": 0.7223, "input": 189109, "output": 4996, "web_searches": 8, "note": ""}
+{"at": "2026-09-02T17:50:57+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "melanoma", "usd": 0.025, "input": 7663, "output": 134, "web_searches": 0, "note": ""}
+{"at": "2026-09-02T17:51:27+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "melanoma", "usd": 0.0257, "input": 7845, "output": 147, "web_searches": 0, "note": ""}
+{"at": "2026-09-02T17:52:01+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "melanoma", "usd": 0.0281, "input": 7815, "output": 310, "web_searches": 0, "note": ""}
+{"at": "2026-09-02T17:53:51+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "melanoma", "usd": 0.0281, "input": 7815, "output": 313, "web_searches": 0, "note": ""}

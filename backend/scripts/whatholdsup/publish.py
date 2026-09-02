@@ -211,6 +211,10 @@ deletions = _sibling("deletions")
 # a correction notice that asserted more than the check which prompted it, on a
 # live page. See findings.py.
 findings = _sibling("findings")
+# B16: read what changed. Between two $6 gate runs, every correction is text
+# nobody has read -- and corrections are where a third of the errors come from.
+# Three cents a run. See changecheck.py.
+changecheck = _sibling("changecheck")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -1145,6 +1149,12 @@ def preflight(slug: str, *, for_email: bool,
             slug, page.with_suffix(page.suffix + ".gate.json")))
     except BaseException as exc:
         out.append(("gate findings settled", WARN,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
+
+    try:
+        out.extend(changecheck.gate_rows(slug, page.read_text(encoding="utf-8")))
+    except BaseException as exc:
+        out.append(("changed sentences reviewed", WARN,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     _pp = fc_parity_provenance(ptext, etext)
