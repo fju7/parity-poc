@@ -912,6 +912,54 @@
         "melanoma:S021"
       ],
       "note": ""
+    },
+    "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4": {
+      "file": "docs/bb/bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4.xml",
+      "bytes": 154617,
+      "content_type": "application/xml",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4877414/fullTextXML"
+      ],
+      "titles": [
+        "Greenland, Senn, Rothman, Carlin, Poole, Goodman, Altman — Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. Eur J Epidemiol, 2016"
+      ],
+      "used_by": [
+        "melanoma:S022"
+      ],
+      "note": ""
+    },
+    "c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38": {
+      "file": "docs/c4/c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38.html",
+      "bytes": 62654,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK560604/"
+      ],
+      "titles": [
+        "Survival Analysis — StatPearls, NCBI Bookshelf"
+      ],
+      "used_by": [
+        "melanoma:S024"
+      ],
+      "note": ""
+    },
+    "58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36": {
+      "file": "docs/58/58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36.xml",
+      "bytes": 26370,
+      "content_type": "application/xml",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3227332/fullTextXML"
+      ],
+      "titles": [
+        "Singh, Mukhopadhyay — Survival analysis in clinical trials: Basics and must know areas. Perspect Clin Res, 2011"
+      ],
+      "used_by": [
+        "melanoma:S025"
+      ],
+      "note": ""
     }
   }
 }

@@ -235,6 +235,45 @@
       "kind_why": "form 'record' — 135297 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
+    },
+    "S022": {
+      "sha256": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
+      "file": "docs/bb/bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4.xml",
+      "bytes": 154617,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4877414/fullTextXML",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "undetermined",
+      "kind_why": "type 'reference' does not settle whether this is a journal article, and the source declares no form — so no substance test applies and none has run",
+      "superseded": [],
+      "also_held": []
+    },
+    "S024": {
+      "sha256": "c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38",
+      "file": "docs/c4/c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38.html",
+      "bytes": 62654,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK560604/",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "undetermined",
+      "kind_why": "type 'reference' does not settle whether this is a journal article, and the source declares no form — so no substance test applies and none has run",
+      "superseded": [],
+      "also_held": []
+    },
+    "S025": {
+      "sha256": "58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36",
+      "file": "docs/58/58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36.xml",
+      "bytes": 26370,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3227332/fullTextXML",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "undetermined",
+      "kind_why": "type 'reference' does not settle whether this is a journal article, and the source declares no form — so no substance test applies and none has run",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

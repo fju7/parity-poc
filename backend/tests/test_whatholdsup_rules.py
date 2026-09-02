@@ -327,3 +327,57 @@ def test_bind_field_refuses_a_document_that_is_not_json(tmp_path, monkeypatch):
     sha = list(B.load(SLUG)["bindings"])[0]
     ok, why = B.bind_field(SLUG, sha, "S013", "hasResults")
     assert not ok and "not JSON" in why
+
+
+# ---------------------------------------------------------------------------
+# A judgement satisfies rule 1 through its premises, and pays more for it
+# ---------------------------------------------------------------------------
+
+def test_a_judgement_with_premises_satisfies_rule_one_without_its_own_span():
+    put({"sentence": "So the two figures are the same result.", "on_page": True,
+         "bucket": "judgement", "step": "One is the one-sided p and the other "
+         "the two-sided p for the same comparison.",
+         "premises": [{"source_id": "S002",
+                       "span": "still alive at five years"}]})
+    v = verdicts()
+    assert v[R1] == B.OK and v[R2] == B.OK
+
+
+def test_declaring_a_judgement_is_not_a_way_out_of_rule_one():
+    """It buys strictly more work, which is what keeps the bucket honest."""
+    put({"sentence": "So the two figures are the same result.", "on_page": True,
+         "bucket": "judgement"})
+    v = verdicts()
+    assert v[R1] == B.BAD, "no premises means nothing it rests on"
+    assert v[R2] == B.BAD, "and no step written out"
+
+
+def test_a_judgements_figures_must_be_in_its_premises():
+    HELD["S100"] = "The trial enrolled 1,137 patients in total."
+    put({"sentence": "Reading 1,137 beside 60.3 months is what misleads.",
+         "on_page": True, "bucket": "judgement", "step": "because x",
+         "premises": [{"source_id": "S100", "span": "enrolled 1,137 patients"}]})
+    assert verdicts()[R1] == B.BAD, "60.3 is in no premise"
+
+
+def test_a_report_still_needs_its_own_span():
+    put({"sentence": "The trial enrolled 1,137 patients.", "on_page": True,
+         "bucket": "deterministic"})
+    assert verdicts()[R1] == B.BAD
+
+
+def test_a_figure_is_covered_by_the_same_number_spelled_differently():
+    """1.0 and 1 are the same number. So are 0.51 and 0.510, and 1,137 and 1137."""
+    HELD["S100"] = "If HR = 1 then the two hazard functions are equal."
+    put({"sentence": "An HR of 1.0 means the groups' hazard rates are the same.",
+         "on_page": True, "bucket": "context",
+         "source_id": "S100", "span": "If HR = 1 then the two hazard functions"})
+    assert verdicts()[R1] == B.OK
+
+
+def test_numeric_comparison_does_not_cover_a_figure_that_is_absent():
+    HELD["S100"] = "If HR = 1 then the two hazard functions are equal."
+    put({"sentence": "An HR of 0.51 halves the hazard.", "on_page": True,
+         "bucket": "context", "source_id": "S100",
+         "span": "If HR = 1 then the two hazard functions"})
+    assert verdicts()[R1] == B.BAD

@@ -67,7 +67,7 @@
       "sentence": "So the numbers carried in the coverage — the 49% reduction in the hazard of recurrence or death, the 59% reduction in the hazard of distant metastasis or death — describe a different trial : an open-label study of 157 patients, not the blinded study of 1,137 that was announced.",
       "sentence_sha": "0436c6ee06315550",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S006",
       "document_sha": "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1",
       "locator_type": "prose",
@@ -109,7 +109,7 @@
       "sentence": "The interval around it runs from a hazard ratio of 0.165 — a rate of death about 84% lower than the comparison group's — to 1.345, about 35% higher.",
       "sentence_sha": "42e607450a6b1ad7",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -137,7 +137,7 @@
       "sentence": "On 19 August 2026, Merck and Moderna announced that INTerpath-001 — a randomised, double-blind, placebo- and active-comparator-controlled Phase 3 trial in 1,137 patients — met its primary endpoint of recurrence-free survival and its key secondary endpoint of distant metastasis-free survival at an interim analysis.",
       "sentence_sha": "dde5cc8e1babb00c",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S001",
       "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
       "locator_type": "prose",
@@ -200,7 +200,7 @@
       "sentence": "Of the 1,137-patient trial it is announcing, the release states that both endpoints were met and gives no figure for either.",
       "sentence_sha": "1e5061ab408e4aeb",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S001",
       "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
       "locator_type": "prose",
@@ -276,7 +276,7 @@
       "sentence": "A reader who sees \"49% reduction\" three paragraphs under \"Phase 3 succeeds\" comes away with a sense of how large this effect is.",
       "sentence_sha": "1fb7e3d56ed92a57",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -292,13 +292,20 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        }
+      ],
+      "step": "The release states the endpoints were met and gives the 49% figure only for the earlier Phase 2b trial. A reader meeting the two within a few paragraphs has no cue that they belong to different trials, so the figure reads as the magnitude of the result just announced."
     },
     "dd1049391405e77c": {
       "sentence": "An HR of 1.0 means the groups are identical.",
       "sentence_sha": "dd1049391405e77c",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S025",
       "document_sha": "58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36",
       "locator_type": "prose",
@@ -324,7 +331,7 @@
       "sentence": "Below 1.0 means the treatment group is doing better; above 1.0 means worse.",
       "sentence_sha": "aa9a9572654404b7",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S024",
       "document_sha": "c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38",
       "locator_type": "prose",
@@ -350,7 +357,7 @@
       "sentence": "An HR of 0.51 does not mean 49% of patients were saved.",
       "sentence_sha": "d6441ccba943c432",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -366,13 +373,20 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.51 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.51 (strength 1, need 4)",
+      "premises": [
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "The hazard ratio is a ratio of hazard RATES between two groups, not a count or share of individuals. A quantity defined as a ratio of rates cannot also be a percentage of patients, so 0.51 does not license 'half the patients were saved' — that reading substitutes people for rates."
     },
     "2c267ff81fe18aab": {
       "sentence": "In this story At five years of follow-up, KEYNOTE-942 reported a recurrence-free survival hazard ratio of 0.510 .",
       "sentence_sha": "2c267ff81fe18aab",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -401,7 +415,7 @@
       "sentence": "Reported as a percentage that becomes \"a 49% reduction in the hazard of recurrence or death\" — a correct restatement of the ratio, and still a relative rate rather than a share of patients spared.",
       "sentence_sha": "30f541e0460fd7b3",
       "why_empirical": "quoted passage",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S002",
       "document_sha": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
       "locator_type": "prose",
@@ -475,7 +489,7 @@
       "sentence": "The single most useful question to ask of any interval: does it cross 1.0?",
       "sentence_sha": "eb82e4c6ade97876",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -491,13 +505,24 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)",
+      "premises": [
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        },
+        {
+          "source_id": "S022",
+          "span": "The P value is then the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."
+        }
+      ],
+      "step": "Our own editorial advice, not a finding. It follows from the two premises: 1.0 is the no-difference value for a ratio, and an interval is the range not excluded — so whether the interval covers 1.0 is the question that decides whether 'no effect' remains available."
     },
     "9ae1c6ee33edf475": {
       "sentence": "Because 1.0 means no difference at all.",
       "sentence_sha": "9ae1c6ee33edf475",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -513,13 +538,20 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)",
+      "premises": [
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "Singh and Mukhopadhyay define the hazard ratio as a ratio of two groups' hazard rates and state that if HR = 1 the two hazard functions are equal. Two quantities whose ratio is 1 are the same quantity, so a hazard ratio of 1.0 is the value at which the two groups' hazard rates do not differ."
     },
     "29857f6e7262aaad": {
       "sentence": "If the range includes 1.0, then \"this treatment does nothing\" is still among the possibilities the data cannot rule out.",
       "sentence_sha": "29857f6e7262aaad",
       "why_empirical": "quoted passage",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -535,7 +567,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 2 anchors: 1.0, this treatment does nothing"
+      "autobind": "no held document contains all 2 anchors: 1.0, this treatment does nothing",
+      "premises": [
+        {
+          "source_id": "S022",
+          "span": "The P value is then the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."
+        },
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "A confidence interval is the set of effect sizes not rejected at the corresponding cut-off, and a hazard ratio of 1 is the value at which the groups' hazard rates are equal. So if 1.0 lies inside the interval, 'no difference' is one of the values the data do not exclude."
     },
     "f78278a06de20599": {
       "sentence": "Recurrence-free first readout, 2023 · HR 0.561 Recurrence-free 5-year · HR 0.510 Distant metastasis-free 5-year · HR 0.411 Overall survival exploratory · HR 0.471 · \"n=14\" 0 0.5 1.0 — no effect 1.5 All four intervals are from KEYNOTE-942, the 157-patient Phase 2b.",
@@ -570,7 +613,7 @@
       "sentence": "What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so \"no effect\" could not be ruled out.",
       "sentence_sha": "926d08585c2098c1",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S003",
       "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
       "locator_type": "prose",
@@ -628,7 +671,7 @@
       "sentence": "At five years the point estimate was unchanged at 0.510 and the interval read 0.294–0.887 — the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close to unchanged.",
       "sentence_sha": "ca51c4a1a62dc00b",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -662,7 +705,7 @@
       "sentence": "Distant metastasis-free survival was a 62% reduction in hazard at three years and 59% at five.",
       "sentence_sha": "af33b2d95bcce8b6",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S002",
       "document_sha": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
       "locator_type": "prose",
@@ -690,7 +733,7 @@
       "sentence": "What the bottom bar is telling you The overall survival interval runs 0.165 to 1.345 .",
       "sentence_sha": "5ca6a9cd32ed495a",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "locator": null,
       "scope_words": [],
       "falsifier": null,
@@ -765,7 +808,7 @@
       "sentence": "By convention, below 0.05 is called statistically significant — an arbitrary line, but a widely used one.",
       "sentence_sha": "582aa366f92596e0",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S022",
       "document_sha": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
       "locator_type": "prose",
@@ -791,7 +834,7 @@
       "sentence": "The universal misreading A p-value of 0.05 does not mean a 95% chance the drug works.",
       "sentence_sha": "e70db7671fac367f",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S022",
       "document_sha": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
       "locator_type": "prose",
@@ -818,7 +861,7 @@
       "sentence": "It means: if the drug were useless, you would see a result this good about 5% of the time by luck.",
       "sentence_sha": "add5e46e440fe9d0",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -834,13 +877,20 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "premises": [
+        {
+          "source_id": "S022",
+          "span": "The P value is then the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."
+        }
+      ],
+      "step": "Greenland et al. define the P value as the probability of a test statistic at least as extreme as the one observed, computed on the assumption that the test hypothesis and the rest of the model are correct. Stated in plain words with the test hypothesis being 'the drug does nothing', that is the frequency with which a result this strong would arise by chance alone."
     },
     "a280ba77f0e86253": {
       "sentence": "In this story — and this is the interesting part The April 2023 press release reported KEYNOTE-942 as one-sided p = 0.0266 .",
       "sentence_sha": "a280ba77f0e86253",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S005",
       "document_sha": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
       "locator_type": "prose",
@@ -869,7 +919,7 @@
       "sentence": "When the same data were published in The Lancet , they came with two-sided p = 0.053 , although the prespecified analysis was one-sided.",
       "sentence_sha": "d1c8e04b1b2ad6d1",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S003",
       "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
       "locator_type": "prose",
@@ -897,7 +947,7 @@
       "sentence": "A one-sided test asks only \"is it better?\" A two-sided test asks \"is it different, in either direction?\" For a symmetric test the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question.",
       "sentence_sha": "719177281168499d",
       "why_empirical": "quoted passage",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S022",
       "document_sha": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
       "locator_type": "prose",
@@ -998,7 +1048,7 @@
       "sentence": "A therapy that reduces the hazard of recurrence by 8% and one that halves it both produce that sentence.",
       "sentence_sha": "0fa58168803686c3",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -1014,13 +1064,24 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        },
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        }
+      ],
+      "step": "Since the announcement gives no effect size, the same sentence 'met its endpoint' would have been written for a small benefit and a large one. The sentence therefore does not distinguish between them."
     },
     "c69b7894d45fcfcd": {
       "sentence": "This is why the absence of a hazard ratio in the Phase 3 announcement matters: \"met its endpoint\" is the floor of what could be said, not a summary of what was found.",
       "sentence_sha": "c69b7894d45fcfcd",
       "why_empirical": "names the Phase 3 announcement",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -1036,7 +1097,18 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        },
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        }
+      ],
+      "step": "The release states only that the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. 'Met its endpoint' is therefore compatible with any effect size large enough to clear the threshold, and reports nothing about which."
     },
     "314e3e5fe4a035c5": {
       "sentence": "KEYNOTE-942 INTerpath-001 Phase 2b 3 Patients 157 (107 vs 50) 1,137 (2:1) Population Stage IIIB–IV resected Stage IIB –IV resected Blinding Open-label — everyone knew who got what Double-blind, placebo- and active-comparator-controlled Recurrence-free survival HR 0.510 (0.294–0.887) at 5 years met endpoint · not released Distant metastasis-free HR 0.411 (0.200–0.843) met endpoint · not released Overall survival HR 0.471 (0.165–1.345) exploratory, \"n=14\" still being measured Why the blinding row matters KEYNOTE-942 was open-label : patients and doctors both knew which arm they were in, and the ",
@@ -1065,7 +1137,7 @@
       "sentence": "Merck's own description of the Phase 3 defines its primary endpoint as recurrence \"as assessed by the investigator\" rather than by central adjudication.",
       "sentence_sha": "be0bfb3078f25857",
       "why_empirical": "quoted passage",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S001",
       "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
       "locator_type": "prose",
@@ -1114,7 +1186,7 @@
       "sentence": "In the earlier Phase 2b at five years, patients on the combination were recurring or dying at about half the rate (HR 0.510, 0.294–0.887) and reaching distant metastasis at about two-fifths the rate (HR 0.411, 0.200–0.843).",
       "sentence_sha": "191e7be0d50f8057",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -1140,7 +1212,7 @@
       "sentence": "Any-grade immune-related adverse events were similar — 45.2% on the combination versus 44% on pembrolizumab alone — but grade 3 or worse treatment-related events were higher: 25% versus 18%.",
       "sentence_sha": "113d1ac01b52cc9d",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S002",
       "document_sha": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
       "locator_type": "prose",
@@ -1172,7 +1244,7 @@
       "sentence": "Most of the side effects attributed to the vaccine were mild to moderate — fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
       "sentence_sha": "6be71ce586f1b9e5",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S002",
       "document_sha": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
       "locator_type": "prose",
@@ -1198,7 +1270,7 @@
       "sentence": "The only survival figure in the programme is descriptive and rests on fourteen deaths; its interval, 0.165 to 1.345, is too wide to separate a large benefit from a small harm.",
       "sentence_sha": "3580c200250f4ff8",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -1247,7 +1319,7 @@
       "sentence": "Rigor scores 5 — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets.",
       "sentence_sha": "1e0f81bd919ac7ff",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -1263,13 +1335,24 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "randomized, double-blind, placebo- and active-comparator-controlled global Phase 3 trial"
+        },
+        {
+          "source_id": "S001",
+          "span": "The trial enrolled 1,137 patients who, following complete surgical resection, were randomized 2:1"
+        }
+      ],
+      "step": "Our rubric's rigor dimension scores trial design. The release records a randomised, double-blind, placebo- and active-comparator-controlled Phase 3 of 1,137 patients, which carries every design feature the top score names."
     },
     "d8ceb43225feb4f8": {
       "sentence": "Source quality scores 3 rather than 5 for the same reason: the claim currently rests on a corporate press release, which the rubric ranks as industry analysis, not the peer-reviewed publication it will eventually become.",
       "sentence_sha": "d8ceb43225feb4f8",
       "why_empirical": "names the peer-reviewed publication",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -1285,13 +1368,24 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        },
+        {
+          "source_id": "S018",
+          "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
+        }
+      ],
+      "step": "Our rubric scores source quality by what the claim currently rests on. The only account of this result is the companies' own announcement, which as Practical Dermatology records disclosed no efficacy estimates; there is no peer-reviewed publication of the Phase 3 to rest on yet."
     },
     "0109b0cf7e73e142": {
       "sentence": "\"Landmark trial succeeds\" and \"3.4, moderate\" describe the same event, and only one of them tells you the numbers are still missing.",
       "sentence_sha": "0109b0cf7e73e142",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -1307,13 +1401,24 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 3.4 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 3.4 (strength 1, need 4)",
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        },
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        }
+      ],
+      "step": "Our scorecard's 3.4 and the headline 'landmark trial succeeds' describe the same announcement. The announcement discloses no effect size, which the score reflects and the headline does not."
     },
     "aa13a72c97ee7cf8": {
       "sentence": "If someone quotes \"49%\" at you, ask which trial.",
       "sentence_sha": "aa13a72c97ee7cf8",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -1329,13 +1434,24 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        },
+        {
+          "source_id": "S004",
+          "span": "Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab."
+        }
+      ],
+      "step": "The 49% figure belongs to the Phase 2b five-year analysis, and the Phase 3 announcement carries no effect size at all. So the question that settles which result a quoted 49% describes is which trial it came from."
     },
     "dd3679e227a24ed7": {
       "sentence": "Source of HR 0.510 (0.294–0.887), HR 0.411 (0.200–0.843), the exploratory OS figure HR 0.471 (0.165–1.345) reported as \"n=14\", and the adverse-event rates.",
       "sentence_sha": "dd3679e227a24ed7",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -1367,13 +1483,13 @@
       "sentence": "Primary KEYNOTE-942: a randomised, phase 2b study — The Lancet , 2024 The peer-reviewed publication.",
       "sentence_sha": "8349d700f3568a14",
       "why_empirical": "names The Lancet",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "bucket": "context",
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Individualised neoantigen therapy mRNA-4157 (V940) plus pembrolizumab versus pembrolizumab monotherapy in resected melanoma (KEYNOTE-942): a randomised, phase 2b study",
+      "envelope": "Individualised neoantigen therapy mRNA-4157 (V940) plus pembrolizumab versus pembrolizumab monotherapy in resected melanoma (KEYNOTE-942): a randomised, phase 2b study - PubMed This site needs JavaScript to work properly. Please enable it to take advantage of the complete set of features! Clipboard, Search History, and several other advanced features are temporarily unavailable. Skip ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1384,13 +1500,17 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
-      "left_page": "2026-09-01"
+      "left_page": "2026-09-01",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it"
     },
     "8173b971dc258e03": {
       "sentence": "Source of HR 0.561 (0.309–1.017) with two-sided p = 0.053 , the stage IIIB–IV enrolment, the 107/50 arm sizes, the open-label design, and grade 3+ treatment-related events at 25% versus 18%.",
       "sentence_sha": "8173b971dc258e03",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S003",
       "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
       "locator_type": "prose",
@@ -1422,13 +1542,13 @@
       "sentence": "Primary Five-year results — Journal of Clinical Oncology , 1 June 2026 The peer-reviewed five-year analysis, published the day it was presented.",
       "sentence_sha": "0bd99da75af4bb4d",
       "why_empirical": "names Journal of Clinical Oncology",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "bucket": "context",
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Accepted May 20, 2026 Published June 1, 2026 J Clin Oncol 00:1-8 © 2026 by American Society of Clinical Oncology",
+      "envelope": " metastasis-free survival (DMFS; HR, 0.347 [95% CI, 0.145 to 0.828]; two-sided P 5 .013) with manageable safety versus pembrolizumab alone in resected high-risk melanoma.2 Data Sharing Statement Data Supplement Protocol Accepted May 20, 2026 Published June 1, 2026 J Clin Oncol 00:1-8 © 2026 by American Society of Clinical Oncology View Online Article We present outcomes from KEYNOTE-942 after a planned follow-up of 5 years and describe the effects of intismeran plus pembrolizumab on T-cell receptor (TCR) repertoire dynamics. METHODS Study Design ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1439,13 +1559,17 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
-      "left_page": "2026-09-01"
+      "left_page": "2026-09-01",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "cad9c81fc170a16d": {
       "sentence": "Median follow-up 60.3 months, data cutoff 15 December 2025, and the statement that the five-year analyses were descriptive.",
       "sentence_sha": "cad9c81fc170a16d",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -1496,13 +1620,13 @@
       "sentence": "Trade The ASCO Post — INTerpath-001 meets primary and key secondary endpoints Morning Glory Sciences — INTerpath-001 Specialist coverage.",
       "sentence_sha": "cbbebbc8ebea4d9b",
       "why_empirical": "names Morning Glory Sciences",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "bucket": "context",
+      "source_id": "S006",
+      "document_sha": "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "INTerpath-001 Trial of mRNA-Based Individualized Neoantigen Therapy Meets Primary and Key Secondary Endpoints in Patients With High-Risk Resected Melanoma - The ASCO Post",
+      "envelope": "INTerpath-001 Trial of mRNA-Based Individualized Neoantigen Therapy Meets Primary and Key Secondary Endpoints in Patients With High-Risk Resected Melanoma - The ASCO Post --> --> Toggle navigation About About The ASCO Post Editorial Board Rights and Permissions Contact Subscribe News FDA Update Journal Spotlight Expert&apos;s Corner In the Clinic View By Issue View All Meetings 2026 ASCO",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1513,19 +1637,23 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
-      "left_page": "2026-09-01"
+      "left_page": "2026-09-01",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S006; nobody has yet signed that the sentence is warranted by it"
     },
     "0101b9e00164637e": {
       "sentence": "Pharmacy Times — Phase 3 trial marks first success Specialist coverage.",
       "sentence_sha": "0101b9e00164637e",
       "why_empirical": "names Pharmacy Times",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "bucket": "context",
+      "source_id": "S010",
+      "document_sha": "10e432848b1993c81fa848aa3c76555224724759615b38248ffbd7969181d0b0",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma | Pharmacy Times",
+      "envelope": "9/2/26, 8:25 AM Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma | Pharmacy Times Advertisement News | Articles | August 19, 2026 Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma Author(s) Ryu Kariyawasam-Chavez, Content Associate Fact checked by: Alexandra ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1536,7 +1664,11 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
-      "left_page": "2026-09-01"
+      "left_page": "2026-09-01",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it"
     },
     "7a31eef9a444229b": {
       "sentence": "Primary Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026 DOI 10.1200/OA-25-00008.",
@@ -1862,7 +1994,7 @@
       "sentence": "0.165–1.345 the interval around that trend",
       "sentence_sha": "e128b5bfbdc57d10",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -1888,7 +2020,7 @@
       "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\"",
       "sentence_sha": "fa3b7745cc06ce41",
       "why_empirical": "quoted passage",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S001",
       "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
       "locator_type": "prose",
@@ -1987,7 +2119,7 @@
       "sentence": "Recurrence-free first readout, 2023 · HR 0.561",
       "sentence_sha": "54da954fff6294e8",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S003",
       "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
       "locator_type": "prose",
@@ -2013,7 +2145,7 @@
       "sentence": "Recurrence-free 5-year · HR 0.510",
       "sentence_sha": "b7ec0d96346893ab",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -2039,7 +2171,7 @@
       "sentence": "Distant metastasis-free 5-year · HR 0.411",
       "sentence_sha": "2560dcc038541b47",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -2065,7 +2197,7 @@
       "sentence": "Overall survival exploratory · HR 0.471 · \"n=14\"",
       "sentence_sha": "6d8b1ca818cb8d50",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -2242,7 +2374,7 @@
       "sentence": "HR 0.510 (0.294–0.887)",
       "sentence_sha": "b003ac91d8f72c71",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -2268,7 +2400,7 @@
       "sentence": "HR 0.411 (0.200–0.843)",
       "sentence_sha": "249bf5363088486d",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -2294,7 +2426,7 @@
       "sentence": "HR 0.471 (0.165–1.345)",
       "sentence_sha": "33aa3fcd1fb9c5e5",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -2518,7 +2650,7 @@
       "sentence": "It does contain hazard ratios — 0.51 for recurrence, 0.411 for distant metastasis — but those are the five-year results of KEYNOTE-942, the 157-patient trial that preceded this one, and the release says so.",
       "sentence_sha": "9b941c6a6b233cf3",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S001",
       "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
       "locator_type": "prose",
@@ -2601,7 +2733,7 @@
       "sentence": "The Melanoma Result — What Holds Up 1,137 patients in the Phase 3 trial",
       "sentence_sha": "6877a3601e07fc94",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S001",
       "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
       "locator_type": "prose",
@@ -2627,7 +2759,7 @@
       "sentence": "Of the study it is actually announcing it says only that the endpoints were met, \"statistically significant and clinically meaningful\".",
       "sentence_sha": "a91903fd523589f3",
       "why_empirical": "quoted passage",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S001",
       "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
       "locator_type": "prose",
@@ -2751,7 +2883,7 @@
       "sentence": "By the three-year readout at ASCO 2024, since published in full, the interval no longer crossed it: HR 0.510, 95% CI 0.288–0.906 — though that paper states plainly that its analyses were descriptive only and not intended for formal hypothesis testing, so this is an interval that stopped including 1.0 rather than a threshold anyone crossed.",
       "sentence_sha": "389fa2fdb6bcd167",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S007",
       "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
       "locator_type": "prose",
@@ -2783,13 +2915,13 @@
       "sentence": "Primary Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026 DOI 10.1200/OA-25-00008.",
       "sentence_sha": "5685121c9e992b4c",
       "why_empirical": "DOI",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "bucket": "context",
+      "source_id": "S007",
+      "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma",
+      "envelope": "Brief Reports Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma Downloaded from ascopubs.org by 73.135.186.24 on September 1, 2026 from 073.135.186.024 Copyright © 2026 American Society of Clinical Oncology. All rights reserved. Matteo S. Carlino, MD, PhD1 ; Adnan Khattak, MD, PhD2;",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2799,7 +2931,17 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 10.1200/OA-25-00008. (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 10.1200/OA-25-00008. (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S007",
+          "span": "Accepted September 30, 2025 Published February 12, 2026 JCO Oncology Adv 3:e2500008 © 2026 by American Society of Clinical Oncology"
+        }
+      ]
     },
     "60c85b96f39cb5e4": {
       "sentence": "The peer-reviewed publication of the three-year readout, held in full and read since 1 September 2026.",
@@ -2827,7 +2969,7 @@
       "sentence": "It reports the recurrence hazard ratio with an 80% confidence interval of 0.351–0.743 in the text, and the 95% interval 0.288–0.906 in its results table; the 95% interval is the one quoted above, so that it can be read beside the others on this page.",
       "sentence_sha": "a0a2e2b7553ee03a",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S007",
       "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
       "locator_type": "prose",
@@ -2853,7 +2995,7 @@
       "sentence": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and the ASCO 2024 deck states the same threshold in its own words — 1-sided alpha of 0.1 per protocol .",
       "sentence_sha": "b2a23d9e1175f003",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S007",
       "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
       "locator_type": "prose",
@@ -2885,7 +3027,7 @@
       "sentence": "So 0.0266 was inside its own prespecified threshold by a wide margin , and 0.053 is a near miss only against a 0.05 line this trial never used.",
       "sentence_sha": "cca48cac28c58871",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -2901,13 +3043,28 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 0.0266, 0.053, 0.05"
+      "autobind": "no held document contains all 3 anchors: 0.0266, 0.053, 0.05",
+      "premises": [
+        {
+          "source_id": "S007",
+          "span": "The trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 with a one-sided a of 0.10 after 40 RFS events."
+        },
+        {
+          "source_id": "S005",
+          "span": "reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone"
+        },
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        }
+      ],
+      "step": "The three-year paper records that the trial was designed against a one-sided alpha of 0.10. The company release reports one-sided p = 0.0266 and the Lancet reports two-sided p = 0.053 for the same comparison. 0.0266 is below 0.10; 0.053 is above 0.05 but 0.05 is not the threshold this trial registered."
     },
     "aa435898838c3cee": {
       "sentence": "0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.",
       "sentence_sha": "aa435898838c3cee",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -2923,13 +3080,24 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.0266, 0.053 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.0266, 0.053 (strength 3, need 4)",
+      "premises": [
+        {
+          "source_id": "S005",
+          "span": "reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone"
+        },
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        }
+      ],
+      "step": "Both figures describe the same comparison in the same trial — the release's one-sided p and the Lancet's two-sided p, either side of the same hazard ratio 0.561 and interval 0.309-1.017. They differ in which test was reported, not in what was observed."
     },
     "cd91d64a4b01292f": {
       "sentence": "The label is the release's and it does not say fourteen of what; the paper does, in its own sentence: 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died .",
       "sentence_sha": "cd91d64a4b01292f",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S004",
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
@@ -2977,7 +3145,7 @@
       "sentence": "Morning Glory Sciences: the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading reached the general coverage.",
       "sentence_sha": "f088ceecb9290762",
       "why_empirical": "quoted passage",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S009",
       "document_sha": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
       "locator_type": "prose",
@@ -3009,7 +3177,7 @@
       "sentence": "Morning Glory says as much in the same article, and it is the more important half of its argument: Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result.",
       "sentence_sha": "a1c0d514137eace8",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S009",
       "document_sha": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
       "locator_type": "prose",
@@ -3035,7 +3203,7 @@
       "sentence": "We looked: no hazard ratio, interval or p-value for this trial appears in either company release, in any of the specialist or general coverage we hold, or in the trial’s own registry record, which as of 2 September 2026 carries no posted results at all and gives an estimated primary completion date of 26 October 2029 ( NCT05933577 ).",
       "sentence_sha": "e40ceb0952ce74d1",
       "why_empirical": "registry identifier",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S013",
       "document_sha": "5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59",
       "locator_type": "field",
@@ -3067,7 +3235,7 @@
       "sentence": "They do not share a statistical standing: the Phase 2b’s later analyses are, in its own words, descriptive only , against a one-sided alpha of 0.10, while the Phase 3 crossed a prespecified interim threshold.",
       "sentence_sha": "075bae729c357078",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S007",
       "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
       "locator_type": "prose",
@@ -3099,7 +3267,7 @@
       "sentence": "And most simply, there is nothing to put beside them: the Phase 3 has released no effect size, so quoting 0.51 next to “met its endpoints” is not a comparison but a substitution — the reader supplies the missing number from the smaller, older, differently-designed trial.",
       "sentence_sha": "44195c42d6bcb59b",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -3115,13 +3283,24 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.51 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.51 (strength 1, need 4)",
+      "premises": [
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        },
+        {
+          "source_id": "S004",
+          "span": "Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab."
+        }
+      ],
+      "step": "No Phase 3 effect size has been released, and the 0.51 in circulation is the five-year Phase 2b figure from a different trial and population. Placing them side by side offers the reader no second quantity to compare, so the Phase 2b number occupies the place where the Phase 3 number would go."
     },
     "d6292f3c92a2389f": {
       "sentence": "Those newly-included patients start at lower risk of recurrence, which leaves less room for absolute benefit, and Pharmacy Times’ counter is that their risk may be closer to stage III than the staging suggests.",
       "sentence_sha": "d6292f3c92a2389f",
       "why_empirical": "names Pharmacy Times",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S009",
       "document_sha": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
       "locator_type": "prose",
@@ -3175,7 +3354,7 @@
       "sentence": "The absolute figures, at five years: 68.8% of combination patients were recurrence-free (95% CI 56.3–78.3) versus 49.1% on pembrolizumab alone (33.3–63.0).",
       "sentence_sha": "ed441bb66a145bb8",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S015",
       "document_sha": "d5a0dc0fa9e7ba4ec017203ec01779726a0b8b762fb16501cd2901692186fdc2",
       "locator_type": "prose",
@@ -3199,7 +3378,7 @@
       "sentence": "Reported as survival rates, the same analysis reads 92.2% alive at five years versus 71.3% — 95% CI 84.2–96.3 and 35.4–89.6 .",
       "sentence_sha": "387ebc8bd86908d9",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S015",
       "document_sha": "d5a0dc0fa9e7ba4ec017203ec01779726a0b8b762fb16501cd2901692186fdc2",
       "locator_type": "prose",
@@ -3245,7 +3424,7 @@
       "sentence": "The registry was checked that day: NCT05933577 still carries no posted results.",
       "sentence_sha": "415dd318acf7a9c1",
       "why_empirical": "registry identifier",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S013",
       "document_sha": "5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59",
       "locator_type": "field",
@@ -3271,7 +3450,7 @@
       "sentence": "Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released.",
       "sentence_sha": "706ba49ee7f5bd0a",
       "why_empirical": "names MLQ News",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -3287,13 +3466,24 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "premises": [
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        },
+        {
+          "source_id": "S018",
+          "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
+        }
+      ],
+      "step": "Each outlet we hold attributes the 49% and 59% figures to KEYNOTE-942 rather than to the Phase 3, and several state in their own words that no Phase 3 efficacy estimates were released. The claim is a summary of the held coverage and can be checked against it article by article."
     },
     "180a81052fba84f6": {
       "sentence": "MLQ News : The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.",
       "sentence_sha": "180a81052fba84f6",
       "why_empirical": "names MLQ News",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S011",
       "document_sha": "a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253",
       "locator_type": "prose",
@@ -3319,7 +3509,7 @@
       "sentence": "Practical Dermatology : The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
       "sentence_sha": "e7d5b14d13996719",
       "why_empirical": "names Practical Dermatology",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S018",
       "document_sha": "6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02",
       "locator_type": "prose",
@@ -3389,7 +3579,7 @@
       "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — and the same data, read against the one-sided 90% interval the trial actually registered, would not cross it.",
       "sentence_sha": "213d41f92f5db000",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S003",
       "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
       "locator_type": "prose",
@@ -3415,7 +3605,7 @@
       "sentence": "The source of the one-sided p = 0.0266.",
       "sentence_sha": "9896f5ed7196d682",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S005",
       "document_sha": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
       "locator_type": "prose",
@@ -3441,7 +3631,7 @@
       "sentence": "It is the company's figure, and the peer-reviewed Lancet paper prints the two-sided 0.053 instead.",
       "sentence_sha": "984d7992fdf5948f",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S003",
       "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
       "locator_type": "prose",
@@ -3467,7 +3657,7 @@
       "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature (An earlier version of this sentence also named OncLive and FierceBiotech.",
       "sentence_sha": "5a291aed136e394e",
       "why_empirical": "names OncLive",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S016",
       "document_sha": "d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44",
       "locator_type": "prose",
@@ -3493,7 +3683,7 @@
       "sentence": "That rests on the two registry records: KEYNOTE-054 , which is pembrolizumab against placebo, lists overall survival as a secondary endpoint with no result posted and a time frame running to about eleven years; and CheckMate 238 , whose arms are nivolumab and ipilimumab — there is no placebo arm to report against.",
       "sentence_sha": "d05f97fc20a30388",
       "why_empirical": "names CheckMate 238",
-      "bucket": null,
+      "bucket": "context",
       "source_id": "S020",
       "document_sha": "7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316",
       "locator_type": "field",

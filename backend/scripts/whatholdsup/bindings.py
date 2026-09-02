@@ -423,6 +423,28 @@ def _held_text(slug: str, sid: str):
     return SC._text(slug, sid)
 
 
+def _as_numbers(figs) -> set[float]:
+    """Figures compared as NUMBERS, because 1.0 and 1 are the same number.
+
+    The coverage check first compared figure strings, and reported that "an HR
+    of 1.0" was unsupported by a source saying "if HR = 1". Same number, two
+    spellings, and the check could not see it -- the same family as The
+    Lancet's middle dot and the Greek alpha extracting as "a". A comparison
+    that cannot see the thing it is comparing does not get to report an
+    absence.
+
+    Precision differences are B12's question, not this one. This check asks
+    only whether the quantity appears at all.
+    """
+    out = set()
+    for f in figs:
+        try:
+            out.add(float(f))
+        except ValueError:
+            continue
+    return out
+
+
 def _claim_figures(text: str) -> set[str]:
     """The figures a sentence CLAIMS, which is not every digit string in it.
 
@@ -450,7 +472,34 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     rows = doc.get("bindings") or {}
     on_page = {k: v for k, v in rows.items() if v.get("on_page")}
 
-    unbound = [k for k, v in on_page.items() if not v.get("span")]
+    # WHAT RULE 1 ASKS OF A JUDGEMENT, AND WHY IT IS NOT A SPAN
+    #
+    # The editor's two rules divide the page: a FACTUAL STATEMENT rests on a
+    # document we hold and read; an INFERENCE is flagged and shows the logic
+    # and the facts behind it. The first version of this check demanded a span
+    # from every sentence including the judgements, which would have pushed me
+    # to point "0.0266 and 0.053 are the same result" at some passage it does
+    # not rest on -- inventing a binding to satisfy a check, which is the
+    # failure mode this whole file exists to prevent.
+    #
+    # So a judgement satisfies rule 1 through its PREMISES, each of which is a
+    # span in a held document, checked by rule 2 below. This is not a softer
+    # requirement: a judgement must carry premises AND a written-out step,
+    # where a report needs only its span. Declaring a sentence a judgement to
+    # escape rule 1 buys strictly more work, which is the property that keeps
+    # the bucket honest.
+    def covering(v):
+        spans = []
+        if v.get("span"):
+            spans.append((v.get("source_id"), v["span"]))
+        spans += [(x.get("source_id"), x.get("span") or "")
+                  for x in (v.get("also_rests_on") or [])]
+        if (v.get("bucket") or "") == "judgement":
+            spans += [(x.get("source_id"), x.get("span") or "")
+                      for x in (v.get("premises") or [])]
+        return [(sid, sp) for sid, sp in spans if sid and sp]
+
+    unbound = [k for k, v in on_page.items() if not covering(v)]
 
     # A SENTENCE IS NOT BOUND BECAUSE ONE OF ITS FIGURES IS.
     #
@@ -460,27 +509,23 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # nothing -- a check applied where its premise holds, and nothing asking
     # the other question, which is the shape of every failure in this file's
     # history. So: every figure the sentence carries must appear in a span the
-    # sentence is actually bound to. A row may name further spans in
-    # `also_rests_on`; each is checked against the held bytes like the first.
+    # sentence is actually bound to.
     loose, loose_keys = [], set()
     for k, v in on_page.items():
-        if not v.get("span"):
+        spans = covering(v)
+        if not spans:
             continue
-        covered = SC._norm(v.get("span") or "")
-        for extra in (v.get("also_rests_on") or []):
-            sid, span = extra.get("source_id"), extra.get("span") or ""
-            if not sid or not span:
-                loose.append("%s: an extra span with no source" % k[:8])
-                loose_keys.add(k)
-                continue
+        covered = ""
+        for sid, span in spans:
             present, why = SC.b2_present(span, slug, sid)
             if present is not True:
-                loose.append("%s: an extra span is not in %s" % (k[:8], sid))
+                loose.append("%s: a span it names is not in %s" % (k[:8], sid))
                 loose_keys.add(k)
                 continue
             covered += " " + SC._norm(span)
+        held = _as_numbers(MB.figures(covered))
         missing = [f for f in _claim_figures(v["sentence"])
-                   if MB._weight(f) and f not in MB.figures(covered)]
+                   if MB._weight(f) and not _as_numbers([f]) <= held]
         if missing:
             loose.append("%s: %s in no span it is bound to (%s)"
                          % (k[:8], ", ".join(sorted(missing)[:4]),
