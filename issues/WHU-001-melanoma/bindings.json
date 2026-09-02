@@ -89,7 +89,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S006; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "42e607450a6b1ad7": {
       "sentence": "The interval around it runs from a hazard ratio of 0.165 — a rate of death about 84% lower than the comparison group's — to 1.345, about 35% higher.",
@@ -117,7 +117,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "dde5cc8e1babb00c": {
       "sentence": "On 19 August 2026, Merck and Moderna announced that INTerpath-001 — a randomised, double-blind, placebo- and active-comparator-controlled Phase 3 trial in 1,137 patients — met its primary endpoint of recurrence-free survival and its key secondary endpoint of distant metastasis-free survival at an interim analysis.",
@@ -145,7 +145,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "26e08f1c59095a38": {
       "sentence": "It does contain hazard ratios — 0.510 for recurrence, 0.411 for distant metastasis — but those are the five-year results of KEYNOTE-942, the 157-patient trial that preceded this one, and the release says so.",
@@ -358,7 +358,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "left_page": "2026-09-01"
     },
     "30f541e0460fd7b3": {
@@ -387,7 +387,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S002; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "3539d41e4e4da4c5": {
       "sentence": "The absolute figures from the same trial, at five years: 68.8% of combination patients were recurrence-free versus 49.1% on pembrolizumab alone.",
@@ -556,7 +556,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "left_page": "2026-09-01"
     },
     "4751c2ec2e6d93bb": {
@@ -614,7 +614,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "af33b2d95bcce8b6": {
       "sentence": "Distant metastasis-free survival was a 62% reduction in hazard at three years and 59% at five.",
@@ -642,7 +642,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S002; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "5ca6a9cd32ed495a": {
       "sentence": "What the bottom bar is telling you The overall survival interval runs 0.165 to 1.345 .",
@@ -670,7 +670,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "left_page": "2026-09-01"
     },
     "830a84cf800eb508": {
@@ -812,7 +812,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-02",
       "left_page": "2026-09-01"
     },
     "d1c8e04b1b2ad6d1": {
@@ -841,7 +841,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "719177281168499d": {
       "sentence": "A one-sided test asks only \"is it better?\" A two-sided test asks \"is it different, in either direction?\" For a symmetric test the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question.",
@@ -884,8 +884,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.0266, 0.053 (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.0266, 0.053 (strength 3, need 4)",
+      "left_page": "2026-09-02"
     },
     "e1c3d925d06311dd": {
       "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided test keys on.",
@@ -913,7 +914,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "9bb4125d2d1163ac": {
       "sentence": "The companies' five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075 .",
@@ -1117,7 +1118,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (59.6%, 51.0%), sharing 4 subject word(s) with the sentence: attributed, chills, fatigue, injection",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "3580c200250f4ff8": {
       "sentence": "The only survival figure in the programme is descriptive and rests on fourteen deaths; its interval, 0.165 to 1.345, is too wide to separate a large benefit from a small harm.",
@@ -1368,7 +1369,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "595504aa7d365ad8": {
       "sentence": "The source of the one-sided p = 0.0266, which is a company figure and not a journal one.",
@@ -1804,7 +1805,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "d1e8f24478af9d9d": {
       "sentence": "The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.",
@@ -1966,7 +1967,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "ce4dfd12e8ef5751": {
       "sentence": "0 0.5 1.0 — no effect 1.5",
@@ -2401,7 +2402,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "58c4dba68702236f": {
       "sentence": "The absolute figures the paper reports — the five-year update gives its recurrence-free rates at four years — are 72.4% of combination patients recurrence-free (95% CI 62.2–80.2) versus 49.1% on pembrolizumab alone (33.3–63.0).",
@@ -2428,7 +2429,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "061aabbc00bc6585": {
       "sentence": "Reported as survival rates, the same analysis reads 92.2% alive versus 85.6% at four years — 95% CI 84.2–96.3 and 70.5–93.3.",
@@ -2455,7 +2456,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "6877a3601e07fc94": {
       "sentence": "The Melanoma Result — What Holds Up 1,137 patients in the Phase 3 trial",
@@ -2512,7 +2513,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-02"
     },
     "63643ad6aacfb654": {
       "sentence": "Why this is worth a whole article The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.",
@@ -2680,6 +2681,69 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
+      "on_page": true
+    },
+    "b2a23d9e1175f003": {
+      "sentence": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and the ASCO 2024 deck states the same threshold in its own words — 1-sided alpha of 0.1 per protocol .",
+      "sentence_sha": "b2a23d9e1175f003",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "cca48cac28c58871": {
+      "sentence": "So 0.0266 was inside its own prespecified threshold by a wide margin , and 0.053 is a near miss only against a 0.05 line this trial never used.",
+      "sentence_sha": "cca48cac28c58871",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "aa435898838c3cee": {
+      "sentence": "0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.",
+      "sentence_sha": "aa435898838c3cee",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
       "on_page": true
     }
   }

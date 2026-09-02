@@ -122,6 +122,30 @@
         "by": "claude",
         "on": "2026-09-01"
       }
+    },
+    {
+      "id": "Q-11",
+      "quote": "designed with approximately 80% power to detect a hazard ratio (HR) of 0.5",
+      "kind": "source",
+      "source_id": "S007",
+      "verbatim": "The trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 with a one-sided a of 0.10 after 40 RFS events.",
+      "why": "The trial's own prespecified threshold, which decides whether 0.0266 and 0.053 are a win and a near miss or the same result well inside a registered line. Read off S007, held in full.\n\nTHE QUOTATION STOPS BEFORE THE ALPHA ON PURPOSE. The paper prints a Greek alpha and the PDF extracts it as the letter 'a', so a page quotation containing the character can never match the bytes we hold. The threshold is stated outside the quotation marks and carried verbatim by Q-12, from a second document that spells it out. Same shape as The Lancet's middle dot: a character, not a fact, deciding whether a check can see something.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
+    },
+    {
+      "id": "Q-12",
+      "quote": "1-sided alpha of 0.1 per protocol",
+      "kind": "source",
+      "source_id": "S008",
+      "verbatim": "Designed with 80% power to detect a hazard ratio of 0.5 with 40 RFS events (with a 1-sided alpha of 0.1 per protocol)",
+      "why": "The same threshold, stated independently in the ASCO 2024 presentation. Two held documents agree, which is why the sentence does not rest on one reading.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
     }
   ]
 }

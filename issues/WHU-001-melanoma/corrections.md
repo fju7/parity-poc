@@ -144,3 +144,52 @@ sentence that is false.
 
 Nothing else on this page changed. The hazard ratios, intervals, event counts
 and conclusions are as published.
+
+## 2 September 2026 — what two adversarial checks found
+
+The source advocate (which argues each source's case against our page) and the
+counterexample hunt (which tries to break every universal negative) ran on this
+issue for the first time. Thirty-six findings, thirty-one closed with a reason
+on the record, five of them upheld and acted on.
+
+**"Cleared the line."** We said the recurrence interval cleared the no-effect
+line at the three-year readout. The three-year paper says of that analysis:
+"These subsequent analyses are not intended for formal hypothesis testing (ie,
+are descriptive only)." An interval that stops including 1.0 is not a threshold
+crossed in a test, and the page now says which of the two happened. The same
+paper leads with an 80% confidence interval (0.351–0.743) and gives the 95%
+(0.288–0.906) in its table; the note now says which we quote and why.
+
+**A source we said we could not read.** The note on that paper read: "the
+journal site blocks automated access, so we have verified the citation but not
+read the full text ourselves." We hold it in full. The note is rewritten from
+the document. The check built to catch a page claiming a held source is
+unreachable did not fire, because neither phrasing was in its list.
+
+**A truncated title.** We had dropped "the Individualized Neoantigen Therapy"
+and "(mRNA-4157, V940)" from the three-year paper's title — the words a reader
+uses to find it. Restored.
+
+**"n=14".** A faithful quotation of the companies' own label that reads as
+fourteen patients. It is fourteen deaths, seven in each arm, and the page now
+says so where the label first appears.
+
+**A claim wider than its evidence.** A sentence opened on adjuvant melanoma
+trials before narrowing to PD-1 inhibitors, so a reader could take the broader
+class as the claim. It now says what it is not about. The hunt named a trial
+that broke the wider pattern; we do not hold that paper, and when we tried to
+get it we found it carries a correction nobody has read. The sentence steps
+around the claim rather than making it on a finding.
+
+**The threshold the trial actually set.** The section contrasting one-sided
+0.0266 with two-sided 0.053 left a reader to supply 0.05 as the line. The trial
+prespecified a one-sided alpha of 0.10 — "designed with approximately 80% power
+to detect a hazard ratio (HR) of 0.5", against that threshold, in the three-year
+paper, and "1-sided alpha of 0.1 per protocol" in the ASCO 2024 presentation. So
+0.0266 cleared its own threshold by a wide margin and 0.053 misses a line this
+trial never used. The section's point is unchanged and better founded.
+
+Five findings remain open, and they are judgement rather than fact: how much of
+one outlet's argument to carry, and whether a question we pose as unanswered is
+in fact unanswerable. They are recorded in this issue's adjudication files with
+what is known and what is not.

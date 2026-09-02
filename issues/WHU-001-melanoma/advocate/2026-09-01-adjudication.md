@@ -129,11 +129,20 @@ DID:    Nothing.
 
 **Why it matters.** If the page's summary credits the five-year data with the first exclusion of the null, that is factually wrong: the upper bound of the CI fell below 1.0 at the three-year analysis. Our document's body explicitly frames the five-year result as a continuation, not a new threshold crossing. A conclusion built on 'the five-year data finally cleared the no-effect line' does not survive.
 
-MERIT:  
-EFFECT: 
-DID:    
-
-> JUDGEMENT — FOR THE EDITOR. A change-log entry, so the advocate should not have seen it, and the underlying question is real: our correction says we credited the five-year data with clearing the no-effect line when it cleared at year three. S007 confirms the three-year 95% CI was 0.288-0.906. What needs a person is whether the correction entry describes the original error accurately enough, which is a question about our own record and not about a source.
+MERIT:  no — settled from this repository's own history, not from a source.
+        The correction entry says: "We had skipped the three-year readout, which
+        is where the recurrence interval actually cleared the no-effect line."
+        The page before that correction (54b9c88 and 378a976, 26 and 27 August)
+        read: "By five years it had tightened to 0.294-0.887 and cleared the
+        line." So the page DID credit the five-year data, and the entry
+        describes the error it fixed accurately. S007 confirms the three-year
+        95% CI was 0.288-0.906, which is where it actually happened.
+EFFECT: none
+DID:    Nothing. The entry stands as written. Note that the live sentences no
+        longer say "cleared the line" at all — S007-17 replaced that with "the
+        interval no longer crossed it", because the three-year analysis was
+        descriptive. The change log keeps the old wording, which is what a
+        record of a correction is for.
 
 
 ### S002-07 — MINOR / NONE
@@ -187,11 +196,28 @@ DID:
 
 **Why it matters.** The page implies the Lancet publication reframed a one-sided result as two-sided, suggesting a post-hoc statistical shift. In fact, the Lancet paper reports both; the one-sided primary endpoint was met (p = 0.0266 vs. prespecified alpha of 0.10 one-sided), and the two-sided p = 0.053 is a conventional supplementary presentation. The conclusion that the result is borderline or that the publication obscured the one-sided design does not survive: the paper discloses both, and the primary endpoint was formally met.
 
-MERIT:  
-EFFECT: 
-DID:    
+MERIT:  yes — and the evidence was in the library, not in the paper the
+        objection pointed at. The advocate cited a prespecified one-sided alpha
+        of 0.10. It is not in S003, which we hold only as an abstract. It IS in
+        two documents we hold in full: S007 — "The trial was designed with
+        approximately 80% power to detect a hazard ratio (HR) of 0.5 with a
+        one-sided a of 0.10 after 40 RFS events" — and S008, independently:
+        "1-sided alpha of 0.1 per protocol". Two sources, agreeing.
+EFFECT: changes
+DID:    The paragraph now states the trial's own threshold and what follows from
+        it: 0.0266 was inside a prespecified one-sided 0.10 by a wide margin,
+        and 0.053 is a near miss only against a 0.05 line this trial never used.
+        The section's point is unchanged and better founded — the two p-values
+        are the same result — but it no longer leaves a reader to supply 0.05 as
+        the threshold. Recorded as Q-11 and Q-12.
 
-> JUDGEMENT — FOR THE EDITOR. The advocate says The Lancet reports both the two-sided p and the prespecified one-sided design, so the page's framing implies a shift the paper did not make. It cites a prespecified one-sided alpha of 0.10; that figure is in NO document this issue holds, and the abstract we hold for S003 does not contain the strings 'one-sided', 'alpha' or '0.0266'. So the objection cannot be closed on the advocate's evidence, and closing it on our own reading of an abstract we hold only in part is the error this page has already made three times today.
+        The objection also says The Lancet reports both framings, so our
+        sentence implies a shift the paper did not make. That half is NOT closed:
+        S003 is abstract_held and the abstract carries neither "one-sided" nor
+        "0.0266". The page no longer implies a post-hoc shift, because it now
+        names the prespecified design, so nothing turns on it — but if the full
+        text is ever held, check whether the paper states the one-sided analysis
+        alongside the two-sided p, and say so if it does.
 
 
 ### S003-10 — SERIOUS / CHANGES

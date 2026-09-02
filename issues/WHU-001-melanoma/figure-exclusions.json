@@ -17,6 +17,14 @@
       "by": "claude",
       "on": "2026-09-01",
       "falsifier": "the sentence is rewritten to report 0.05 as a value some study obtained"
+    },
+    {
+      "figure": "0.05",
+      "in_sentence": "a near miss only against a 0.05 line this trial never used",
+      "why": "The conventional 0.05, named in order to say the trial did NOT use it — its prespecified threshold was a one-sided 0.10, which is quoted from two held documents in the same sentence. The figure is the convention, not a value taken from any source.",
+      "by": "claude",
+      "on": "2026-09-02",
+      "falsifier": "the sentence is rewritten to attribute 0.05 to this trial's protocol or to any document, at which point it is a claim about a source and this exclusion must go"
     }
   ]
 }
