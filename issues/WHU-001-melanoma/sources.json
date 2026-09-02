@@ -501,6 +501,83 @@
           "identified_by": "contains its identifier NCT02388906"
         }
       }
+    },
+    {
+      "id": "S022",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4877414/",
+      "type": "reference",
+      "title": "Greenland, Senn, Rothman, Carlin, Poole, Goodman, Altman — Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. Eur J Epidemiol, 2016",
+      "accessed": "2026-09-02",
+      "used_for": "The statistics explainer's claims about what a p-value is and is not: that it assumes the test hypothesis is true and is not the probability that hypothesis is true, and what a confidence interval does and does not tell a reader. Acquired 2 September 2026 because these sentences had been on the page since publication resting on no document at all.",
+      "also_called": [
+        "Greenland et al. 2016",
+        "the guide to misinterpretations"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/bb/bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4.xml",
+          "sha256": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
+          "bytes": 154617,
+          "identified_by": "contains its identifier PMC4877414"
+        },
+        "on": "2026-09-02"
+      }
+    },
+    {
+      "id": "S023",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC478551/",
+      "type": "reference",
+      "title": "Spruance, Reid, Grace, Samore — Hazard Ratio in Clinical Trials. Antimicrob Agents Chemother, 2004",
+      "accessed": "2026-09-02",
+      "used_for": "The explainer's definition of the hazard ratio, what a value of 1 means, what values above and below 1 mean, and the caution that a hazard ratio is not a proportion of patients benefited.",
+      "also_called": [
+        "Spruance et al. 2004"
+      ],
+      "access": {},
+      "note": "The publisher copy at journals.asm.org returns 403 to a script. This is the same article in PubMed Central, and the identity test decides that, not the hostname."
+    },
+    {
+      "id": "S024",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK560604/",
+      "type": "reference",
+      "title": "Survival Analysis — StatPearls, NCBI Bookshelf",
+      "accessed": "2026-09-02",
+      "used_for": "Backstop for the hazard-ratio definition if the Spruance paper cannot be held: states that risk increases as the value rises above 1 and decreases as it falls below 1.",
+      "also_called": [
+        "StatPearls, Survival Analysis"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/c4/c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38.html",
+          "sha256": "c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38",
+          "bytes": 62654,
+          "identified_by": "contains 5 of 5 distinctive title words"
+        },
+        "on": "2026-09-02"
+      }
+    },
+    {
+      "id": "S025",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3227332/",
+      "type": "reference",
+      "title": "Singh, Mukhopadhyay — Survival analysis in clinical trials: Basics and must know areas. Perspect Clin Res, 2011",
+      "accessed": "2026-09-02",
+      "used_for": "Sought for an explicit statement of what a hazard ratio of 1 means, which neither Greenland 2016 nor the StatPearls survival-analysis chapter states in those terms.",
+      "also_called": [
+        "Singh and Mukhopadhyay 2011"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/58/58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36.xml",
+          "sha256": "58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36",
+          "bytes": 26370,
+          "identified_by": "contains its identifier PMC3227332"
+        },
+        "on": "2026-09-02"
+      }
     }
   ],
   "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."

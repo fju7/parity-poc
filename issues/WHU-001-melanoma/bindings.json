@@ -201,12 +201,12 @@
       "sentence_sha": "1e5061ab408e4aeb",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The trial enrolled 1,137 patients who, following complete surgical resection, were randomized 2:1 to receive intismeran (1 mg every three weeks for up to nine doses) and KEYTRUDA (400 mg every six weeks up to nine cycles [for approximately one year]) versus KEYTRUDA alone",
+      "envelope": " 3 trial (ClinicalTrials.gov, NCT05933577 ) evaluating the safety and efficacy of intismeran in combination with KEYTRUDA compared to KEYTRUDA alone in patients with high-risk (stage IIB-IV) resected cutaneous melanoma. The trial enrolled 1,137 patients who, following complete surgical resection, were randomized 2:1 to receive intismeran (1 mg every three weeks for up to nine doses) and KEYTRUDA (400 mg every six weeks up to nine cycles [for approximately one year]) versus KEYTRUDA alone for approximately one year until disease recurrence or unacceptable toxicity, or for a total treatment duration of up to approximately 56 weeks, whichever was sooner. The primary endpoint is RFS, defined as the time fro",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -216,7 +216,21 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S001",
+          "span": "The trial enrolled 1,137 patients who, following complete surgical resection, were randomized 2:1"
+        },
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        }
+      ]
     },
     "0a832252c2769c9a": {
       "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\" Why this is worth a whole article The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.",
@@ -285,12 +299,12 @@
       "sentence_sha": "dd1049391405e77c",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S025",
+      "document_sha": "58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t).",
+      "envelope": "d out. Hazard ratio Hazard ratio (HR) is akin to relative risk. It has been used to describe the outcome of therapeutic trials where the question is, to what extent can treatment shorten the duration of an illness.[ 7 ] The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t). COX PROPORTIONAL HAZARDS MODEL Clinical trials commonly record the length of time from study entry to a disease endpoint for a treatment and a control group. These data are commonly depicted with a Kaplan-Meier curve, f",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -300,19 +314,23 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S025; nobody has yet signed that the sentence is warranted by it"
     },
     "aa9a9572654404b7": {
       "sentence": "Below 1.0 means the treatment group is doing better; above 1.0 means worse.",
       "sentence_sha": "aa9a9572654404b7",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S024",
+      "document_sha": "c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "As the value above 1 increases, the risk increases for the event associated with that variable. As HR decreases below 1, the risk decreases.",
+      "envelope": "of an event/outcome to occur within a unit of time, assuming that the subject has survived up to that time. [7] [5] &#x000a0;The hazard ratio (HR) represents the ratio of the two different treatment groups. [3] &#x000a0;As the value above 1 increases, the risk increases for the event associated with that variable. As HR decreases below 1, the risk decreases. Cox proportional hazards model investigates relationships of predictors in these analyses and develops HRs. [2] An important assumption made by the Cox model is that the proportional hazards between the variables remain",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -322,7 +340,11 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S024; nobody has yet signed that the sentence is warranted by it"
     },
     "d6441ccba943c432": {
       "sentence": "An HR of 0.51 does not mean 49% of patients were saved.",
@@ -744,34 +766,12 @@
       "sentence_sha": "582aa366f92596e0",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S022",
+      "document_sha": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
-      "scope_words": [],
-      "falsifier": null,
-      "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
-      },
-      "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)"
-    },
-    "e70db7671fac367f": {
-      "sentence": "The universal misreading A p-value of 0.05 does not mean a 95% chance the drug works.",
-      "sentence_sha": "e70db7671fac367f",
-      "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "the P value is degraded into a dichotomy in which results are declared \"statistically significant\" if P falls on or below a cut-off (usually 0.05) and declared \"nonsignificant\" otherwise",
+      "envelope": "ata and the entire model used to compute it, ranging from 0 for complete incompatibility to 1 for perfect compatibility, and in this sense may be viewed as measuring the fit of the model to the data. Too often, however, the P value is degraded into a dichotomy in which results are declared \"statistically significant\" if P falls on or below a cut-off (usually 0.05) and declared \"nonsignificant\" otherwise. The terms \"significance level\" and \"alpha level\" (α) are often used to refer to the cut-off; however, the term \"significance level\" invites confusion of the cut-off with the P value itself. Their difference is profound",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -782,7 +782,37 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)",
-      "left_page": "2026-09-01"
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it"
+    },
+    "e70db7671fac367f": {
+      "sentence": "The universal misreading A p-value of 0.05 does not mean a 95% chance the drug works.",
+      "sentence_sha": "e70db7671fac367f",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S022",
+      "document_sha": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "The P value is the probability that the test hypothesis is true; for example, if a test of the null hypothesis gave P = 0.01, the null hypothesis has only a 1 % chance of being true; if instead it gave P = 0.40, the null hypothesis has a 40 % chance of being true . No! The P value assumes the test hypothesis is true-it is not a hypothesis probability and may be far from any reasonable probability for the test hypothesis.",
+      "envelope": "istortion of the scientific literature, and we add the emphatic \"No!\" to underscore statements that are not only fallacious but also not \"true enough for practical purposes.\" Common misinterpretations of single P values The P value is the probability that the test hypothesis is true; for example, if a test of the null hypothesis gave P = 0.01, the null hypothesis has only a 1 % chance of being true; if instead it gave P = 0.40, the null hypothesis has a 40 % chance of being true . No! The P value assumes the test hypothesis is true-it is not a hypothesis probability and may be far from any reasonable probability for the test hypothesis. The P value simply indicates the degree to which the data conform to the pattern predicted by the test hypothesis and all the other assumptions used in the test (the underlying statistical model). Thus P = 0.01 would in",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-01",
+      "on_page": true,
+      "autobind": "anchors too weak to identify a document: 0.05 (strength 1, need 4)",
+      "left_page": "2026-09-01",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it"
     },
     "add5e46e440fe9d0": {
       "sentence": "It means: if the drug were useless, you would see a result this good about 5% of the time by luck.",
@@ -868,12 +898,12 @@
       "sentence_sha": "719177281168499d",
       "why_empirical": "quoted passage",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S022",
+      "document_sha": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Two-sided P values are designed to test hypotheses that the targeted effect measure equals a specific value (e.g., zero), and is neither above nor below this value. When, however, the test hypothesis of scientific or practical interest is a one-sided (dividing) hypothesis, a one-sided P value is appropriate.",
+      "envelope": "of a P value (that it is below the chosen cut-off) and thus is a property of a result of a statistical test; it is not a property of the effect or population being studied. One should always use two-sided P values . No! Two-sided P values are designed to test hypotheses that the targeted effect measure equals a specific value (e.g., zero), and is neither above nor below this value. When, however, the test hypothesis of scientific or practical interest is a one-sided (dividing) hypothesis, a one-sided P value is appropriate. For example, consider the practical question of whether a new drug is at least as good as the standard drug for increasing survival time. This question is one-sided, so testing this hypothesis calls for a one-sided P va",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -883,7 +913,11 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 0.0266, 0.053, is it different, in either direction?"
+      "autobind": "no held document contains all 3 anchors: 0.0266, 0.053, is it different, in either direction?",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it"
     },
     "f9afac861dfe75a4": {
       "sentence": "But 0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.",
@@ -1032,12 +1066,12 @@
       "sentence_sha": "be0bfb3078f25857",
       "why_empirical": "quoted passage",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The primary endpoint is RFS, defined as the time from randomization to any disease recurrence (local, locoregional, regional or distant) as assessed by the investigator, or death due to any cause.",
+      "envelope": " [for approximately one year]) versus KEYTRUDA alone for approximately one year until disease recurrence or unacceptable toxicity, or for a total treatment duration of up to approximately 56 weeks, whichever was sooner. The primary endpoint is RFS, defined as the time from randomization to any disease recurrence (local, locoregional, regional or distant) as assessed by the investigator, or death due to any cause. Key secondary endpoints include DMFS, OS, safety, tolerability and quality of life. About intismeran autogene Intismeran autogene (intismeran; V940 or mRNA-4157) is a novel, potential first-in-class investigational mess",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1047,7 +1081,11 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: as assessed by the investigator (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: as assessed by the investigator (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it"
     },
     "1abe12d66c86644a": {
       "sentence": "Morning Glory Sciences: the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Which of them is right determines how much of the Phase 3 benefit reaches the patients it newly includes, and neither reading reached the general coverage.",
@@ -1077,12 +1115,12 @@
       "sentence_sha": "191e7be0d50f8057",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety profile continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1092,19 +1130,23 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S004, S019) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "2 held documents contain all these anchors (S004, S019) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "113d1ac01b52cc9d": {
       "sentence": "Any-grade immune-related adverse events were similar — 45.2% on the combination versus 44% on pembrolizumab alone — but grade 3 or worse treatment-related events were higher: 25% versus 18%.",
       "sentence_sha": "113d1ac01b52cc9d",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S002",
+      "document_sha": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Immune-related adverse events occurred in 45.2% of patients receiving the combination and 44% receiving KEYTRUDA alone.",
+      "envelope": "59.6%), and chills (51.0%). The majority of the adverse events attributed to intismeran autogene were Grade 1 (31.7%) and Grade 2 (51.9%), with fatigue being the most common Grade 3 event (4.8%) and no Grade 4-5 events. Immune-related adverse events occurred in 45.2% of patients receiving the combination and 44% receiving KEYTRUDA alone. Intismeran autogene in combination with KEYTRUDA did not result in potentiation of immune-related AEs. The findings build on the primary analysis and supportive analysis at an approximately three-year follow-up (34.9 mo",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1114,7 +1156,17 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 45.2% (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 45.2% (strength 2, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S002; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S003",
+          "span": "Grade ≥3 treatment-related adverse events occurred in 25% of patients in the combination group and 18% of patients in the monotherapy group, with no mRNA-4157-related grade 4-5 events."
+        }
+      ]
     },
     "6be71ce586f1b9e5": {
       "sentence": "Most of the side effects attributed to the vaccine were mild to moderate — fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
@@ -1147,12 +1199,12 @@
       "sentence_sha": "3580c200250f4ff8",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+      "envelope": " 83.9% (74.1 to 90.3) with intismeran plus pembrolizumab versus 65.4% (49.1 to 77.6) with pembrolizumab. DMFS results were generally consistent across baseline subgroups analyzed (Data Supplement, Table S3 and Fig S2B). Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345). T-Cell Receptor Repertoire Analyses Among patients with available data (intismeran plus pembrolizumab, n 5 78; pembrolizumab, n 5 38), baseline TCR clonality was comparable between treatment arms (intismeran plus pembro",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1162,7 +1214,11 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "ee91cf76edff9ccb": {
       "sentence": "\"Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.\" Source quality 3 / 5 Data support 1 / 5 Reproducibility 4 / 5 Consensus 4 / 5 Recency 5 / 5 Rigor 5 / 5 3.4 Moderate (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10) The two extremes are the whole story.",
@@ -1280,12 +1336,12 @@
       "sentence_sha": "dd3679e227a24ed7",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety profile continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1295,7 +1351,17 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S004) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "the only document with these anchors (S004) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S004",
+          "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345)."
+        }
+      ]
     },
     "8349d700f3568a14": {
       "sentence": "Primary KEYNOTE-942: a randomised, phase 2b study — The Lancet , 2024 The peer-reviewed publication.",
@@ -1325,12 +1391,12 @@
       "sentence_sha": "8173b971dc258e03",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50)",
+      "envelope": "om July 18, 2019, to Sept 30, 2021, 157 patients were assigned to mRNA-4157 plus pembrolizumab combination therapy (n=107) or pembrolizumab monotherapy (n=50); median follow-up was 23 months and 24 months, respectively. Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69.0-85.6) versus 62% (46.9-74.3). Most treatment-related adverse events were grade 1-2. Grade ≥3 treatment-related adverse events occurred in 25% of patients in the co",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1340,7 +1406,17 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S003) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "the only document with these anchors (S003) shares no subject matter with the sentence — 1 word(s) in common, so the numbers coincide and the passage does not",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S003",
+          "span": "Grade ≥3 treatment-related adverse events occurred in 25% of patients in the combination group and 18% of patients in the monotherapy group, with no mRNA-4157-related grade 4-5 events."
+        }
+      ]
     },
     "0bd99da75af4bb4d": {
       "sentence": "Primary Five-year results — Journal of Clinical Oncology , 1 June 2026 The peer-reviewed five-year analysis, published the day it was presented.",
@@ -1787,12 +1863,12 @@
       "sentence_sha": "e128b5bfbdc57d10",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+      "envelope": " 83.9% (74.1 to 90.3) with intismeran plus pembrolizumab versus 65.4% (49.1 to 77.6) with pembrolizumab. DMFS results were generally consistent across baseline subgroups analyzed (Data Supplement, Table S3 and Fig S2B). Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345). T-Cell Receptor Repertoire Analyses Among patients with available data (intismeran plus pembrolizumab, n 5 78; pembrolizumab, n 5 38), baseline TCR clonality was comparable between treatment arms (intismeran plus pembro",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1802,7 +1878,11 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "fa3b7745cc06ce41": {
       "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\"",
@@ -1908,12 +1988,12 @@
       "sentence_sha": "54da954fff6294e8",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50)",
+      "envelope": "om July 18, 2019, to Sept 30, 2021, 157 patients were assigned to mRNA-4157 plus pembrolizumab combination therapy (n=107) or pembrolizumab monotherapy (n=50); median follow-up was 23 months and 24 months, respectively. Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69.0-85.6) versus 62% (46.9-74.3). Most treatment-related adverse events were grade 1-2. Grade ≥3 treatment-related adverse events occurred in 25% of patients in the co",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1923,19 +2003,23 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.561 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.561 (strength 2, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it"
     },
     "b7ec0d96346893ab": {
       "sentence": "Recurrence-free 5-year · HR 0.510",
       "sentence_sha": "b7ec0d96346893ab",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "gned 2:1 to receive nine doses of intramuscular intismeran 1 mg once every 3 weeks plus 18 doses of intravenous pembrolizumab 200 mg once every 3 weeks or 18 doses of intravenous pembrolizumab 200 mg once every 3 weeks. The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety profile continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1945,19 +2029,23 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.510 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.510 (strength 2, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "2560dcc038541b47": {
       "sentence": "Distant metastasis-free 5-year · HR 0.411",
       "sentence_sha": "2560dcc038541b47",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "gned 2:1 to receive nine doses of intramuscular intismeran 1 mg once every 3 weeks plus 18 doses of intravenous pembrolizumab 200 mg once every 3 weeks or 18 doses of intravenous pembrolizumab 200 mg once every 3 weeks. The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety profile continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -1967,7 +2055,11 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.411 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.411 (strength 2, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "6d8b1ca818cb8d50": {
       "sentence": "Overall survival exploratory · HR 0.471 · \"n=14\"",
@@ -2151,12 +2243,12 @@
       "sentence_sha": "b003ac91d8f72c71",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety profile continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2166,19 +2258,23 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S004, S019) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "2 held documents contain all these anchors (S004, S019) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "249bf5363088486d": {
       "sentence": "HR 0.411 (0.200–0.843)",
       "sentence_sha": "249bf5363088486d",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": "were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab. Safety profile continued to be manageable, with no new safety signals. Intismeran plus pembrolizumab was associated with increased T-cell receptor clonality and novel clonotypes versus pembrolizumab; greater novel clone",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2188,19 +2284,23 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "8 held documents contain all these anchors (S001, S002, S004, S006, S009) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "8 held documents contain all these anchors (S001, S002, S004, S006, S009) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "33aa3fcd1fb9c5e5": {
       "sentence": "HR 0.471 (0.165–1.345)",
       "sentence_sha": "33aa3fcd1fb9c5e5",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+      "envelope": " 83.9% (74.1 to 90.3) with intismeran plus pembrolizumab versus 65.4% (49.1 to 77.6) with pembrolizumab. DMFS results were generally consistent across baseline subgroups analyzed (Data Supplement, Table S3 and Fig S2B). Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345). T-Cell Receptor Repertoire Analyses Among patients with available data (intismeran plus pembrolizumab, n 5 78; pembrolizumab, n 5 38), baseline TCR clonality was comparable between treatment arms (intismeran plus pembro",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2210,7 +2310,11 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "669e6a70d9211c32": {
       "sentence": "\"Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.\"",
@@ -2498,12 +2602,12 @@
       "sentence_sha": "6877a3601e07fc94",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S001",
+      "document_sha": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The trial enrolled 1,137 patients who, following complete surgical resection, were randomized 2:1",
+      "envelope": " 3 trial (ClinicalTrials.gov, NCT05933577 ) evaluating the safety and efficacy of intismeran in combination with KEYTRUDA compared to KEYTRUDA alone in patients with high-risk (stage IIB-IV) resected cutaneous melanoma. The trial enrolled 1,137 patients who, following complete surgical resection, were randomized 2:1 to receive intismeran (1 mg every three weeks for up to nine doses) and KEYTRUDA (400 mg every six weeks up to nine cycles [for approximately one year]) versus KEYTRUDA alone for approximately one year until disease rec",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2513,7 +2617,11 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it"
     },
     "a91903fd523589f3": {
       "sentence": "Of the study it is actually announcing it says only that the endpoints were met, \"statistically significant and clinically meaningful\".",
@@ -2644,12 +2752,12 @@
       "sentence_sha": "389fa2fdb6bcd167",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S007",
+      "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906",
+      "envelope": " were 90.9% ( D 5 14.1%) at 1.5 years, 89.3% (D 5 15.1%) at 2 years, and 89.3% (D 5 20.6%) at 2.5 years, versus 76.8%, 74.2%, and 68.7% with pembrolizumab, respectively (Fig 2B). 42.51 - 24.38 to NE 95% CI - 16.59 to NE HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906 DMFS Events, % (n/N) 10.3 (11/107) 26.0 (13/50) Median, months NE NE 80% CI - - 95% CI - HR RESULTS Updated Primary End Point Results NE 80% CI - 0.384 80% CI 0.227 to 0.650 95% CI 0.172 to 0.858 OS Events, % (n/N) 3.7 ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2659,7 +2767,17 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "the only document with these anchors (S019) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not"
+      "autobind": "the only document with these anchors (S019) shares no subject matter with the sentence — 0 word(s) in common, so the numbers coincide and the passage does not",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S007",
+          "span": "These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only)."
+        }
+      ]
     },
     "5685121c9e992b4c": {
       "sentence": "Primary Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026 DOI 10.1200/OA-25-00008.",
@@ -2710,12 +2828,12 @@
       "sentence_sha": "a0a2e2b7553ee03a",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S007",
+      "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906",
+      "envelope": " were 90.9% ( D 5 14.1%) at 1.5 years, 89.3% (D 5 15.1%) at 2 years, and 89.3% (D 5 20.6%) at 2.5 years, versus 76.8%, 74.2%, and 68.7% with pembrolizumab, respectively (Fig 2B). 42.51 - 24.38 to NE 95% CI - 16.59 to NE HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906 DMFS Events, % (n/N) 10.3 (11/107) 26.0 (13/50) Median, months NE NE 80% CI - - 95% CI - HR RESULTS Updated Primary End Point Results NE 80% CI - 0.384 80% CI 0.227 to 0.650 95% CI 0.172 to 0.858 OS Events, % (n/N) 3.7 ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2725,19 +2843,23 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 0.351, 0.743, 0.288, 0.906"
+      "autobind": "no held document contains all 4 anchors: 0.351, 0.743, 0.288, 0.906",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it"
     },
     "b2a23d9e1175f003": {
       "sentence": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and the ASCO 2024 deck states the same threshold in its own words — 1-sided alpha of 0.1 per protocol .",
       "sentence_sha": "b2a23d9e1175f003",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S007",
+      "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "The trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 with a one-sided a of 0.10 after 40 RFS events.",
+      "envelope": "3.4 (25/107) 44.0 (22/50) Median, months End Point Downloaded from ascopubs.org by 73.135.186.24 on September 1, 2026 from 073.135.186.024 Copyright © 2026 American Society of Clinical Oncology. All rights reserved. RFS The trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 with a one-sided a of 0.10 after 40 RFS events. The primary analysis to support formal hypothesis testing was triggered by 1-year minimum followup and 44 RFS events, with results reported previously.7 This analysis was conducted when the last enrolled patient had bee",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2747,7 +2869,17 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.5, 0.10, 0.1 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.5, 0.10, 0.1 (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S008",
+          "span": "Designed with 80% power to detect a hazard ratio of 0.5 with 40 RFS events (with a 1-sided alpha of 0.1 per protocol)"
+        }
+      ]
     },
     "cca48cac28c58871": {
       "sentence": "So 0.0266 was inside its own prespecified threshold by a wide margin , and 0.053 is a near miss only against a 0.05 line this trial never used.",
@@ -2798,12 +2930,12 @@
       "sentence_sha": "cd91d64a4b01292f",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S004",
+      "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+      "envelope": " 83.9% (74.1 to 90.3) with intismeran plus pembrolizumab versus 65.4% (49.1 to 77.6) with pembrolizumab. DMFS results were generally consistent across baseline subgroups analyzed (Data Supplement, Table S3 and Fig S2B). Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345). T-Cell Receptor Repertoire Analyses Among patients with available data (intismeran plus pembrolizumab, n 5 78; pembrolizumab, n 5 38), baseline TCR clonality was comparable between treatment arms (intismeran plus pembro",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2813,7 +2945,11 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 6.5%, 14.0% (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 6.5%, 14.0% (strength 3, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
     },
     "158f4e8d35f55013": {
       "sentence": "INTerpath-001",
@@ -2908,12 +3044,12 @@
       "sentence_sha": "075bae729c357078",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S007",
+      "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only).",
+      "envelope": "support formal hypothesis testing was triggered by 1-year minimum followup and 44 RFS events, with results reported previously.7 This analysis was conducted when the last enrolled patient had been followed for ≥2 years. These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only). The statistical analysis plan prespecified estimation of HRs and 95% CIs using stratified Cox proportional hazards models; 80% CIs were included in this report to reflect the type I error control (one-sided 10%) in this",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2923,7 +3059,17 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.10 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.10 (strength 1, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S007",
+          "span": "The trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 with a one-sided a of 0.10 after 40 RFS events."
+        }
+      ]
     },
     "44195c42d6bcb59b": {
       "sentence": "And most simply, there is nothing to put beside them: the Phase 3 has released no effect size, so quoting 0.51 next to “met its endpoints” is not a comparison but a substitution — the reader supplies the missing number from the smaller, older, differently-designed trial.",
@@ -3198,12 +3344,12 @@
       "sentence_sha": "213d41f92f5db000",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50)",
+      "envelope": "om July 18, 2019, to Sept 30, 2021, 157 patients were assigned to mRNA-4157 plus pembrolizumab combination therapy (n=107) or pembrolizumab monotherapy (n=50); median follow-up was 23 months and 24 months, respectively. Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69.0-85.6) versus 62% (46.9-74.3). Most treatment-related adverse events were grade 1-2. Grade ≥3 treatment-related adverse events occurred in 25% of patients in the co",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3213,19 +3359,23 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "4 held documents contain all these anchors (S003, S004, S005, S019) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "4 held documents contain all these anchors (S003, S004, S005, S019) — which one the sentence rests on is not decidable by presence alone",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it"
     },
     "9896f5ed7196d682": {
       "sentence": "The source of the one-sided p = 0.0266.",
       "sentence_sha": "9896f5ed7196d682",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S005",
+      "document_sha": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone",
+      "envelope": " intention-to-treat population, adjuvant treatment with mRNA-4157 (V940) in combination with KEYTRUDA demonstrated a statistically significant and clinically meaningful improvement in recurrence-free survival (RFS), and reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone. These findings will be presented during the American Association for Cancer Research (AACR) Annual Meeting 2023 plenary session and press conference (Abstract #CT001). Data from a subgroup analysis of KEYNOTE-942/mRNA-",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3235,19 +3385,23 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.0266 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.0266 (strength 2, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it"
     },
     "984d7992fdf5948f": {
       "sentence": "It is the company's figure, and the peer-reviewed Lancet paper prints the two-sided 0.053 instead.",
       "sentence_sha": "984d7992fdf5948f",
       "why_empirical": "figure",
       "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
+      "source_id": "S003",
+      "document_sha": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+      "locator_type": "prose",
       "locator": null,
-      "span": null,
-      "envelope": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50)",
+      "envelope": "om July 18, 2019, to Sept 30, 2021, 157 patients were assigned to mRNA-4157 plus pembrolizumab combination therapy (n=107) or pembrolizumab monotherapy (n=50); median follow-up was 23 months and 24 months, respectively. Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50); 18-month recurrence-free survival was 79% (95% CI 69.0-85.6) versus 62% (46.9-74.3). Most treatment-related adverse events were grade 1-2. Grade ≥3 treatment-related adverse events occurred in 25% of patients in the co",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3257,7 +3411,11 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.053 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.053 (strength 1, need 4)",
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-02",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it"
     },
     "5a291aed136e394e": {
       "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature (An earlier version of this sentence also named OncLive and FierceBiotech.",
