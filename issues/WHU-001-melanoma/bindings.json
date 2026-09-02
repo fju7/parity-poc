@@ -89,7 +89,21 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S006; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-02"
+      "checked_on": "2026-09-02",
+      "also_rests_on": [
+        {
+          "source_id": "S006",
+          "span": "The trial enrolled 1,137 patients who, following complete surgical resection, were randomly assigned 2:1"
+        },
+        {
+          "source_id": "S006",
+          "span": "Additional clinical studies include the phase IIb KEYNOTE-942/mRNA-4157-P201 trial"
+        },
+        {
+          "source_id": "S004",
+          "span": "Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50)"
+        }
+      ]
     },
     "42e607450a6b1ad7": {
       "sentence": "The interval around it runs from a hazard ratio of 0.165 — a rate of death about 84% lower than the comparison group's — to 1.345, about 35% higher.",
@@ -614,7 +628,13 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-02"
+      "checked_on": "2026-09-02",
+      "also_rests_on": [
+        {
+          "source_id": "S007",
+          "span": "HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906"
+        }
+      ]
     },
     "af33b2d95bcce8b6": {
       "sentence": "Distant metastasis-free survival was a 62% reduction in hazard at three years and 59% at five.",
@@ -1354,7 +1374,7 @@
       "document_sha": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
       "locator_type": "prose",
       "locator": null,
-      "span": "Five-year analyses were descriptive.",
+      "span": "Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months.",
       "envelope": "ery 3 weeks or 18 doses of intravenous pembrolizumab 200 mg once every 3 weeks. The primary end point was recurrence-free survival (RFS); secondary end points included distant metastasis-free survival (DMFS) and safety. Five-year analyses were descriptive. Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50), the median planned follow-up at data cutoff (December 15, 2025) was 60.3 (range, 50.5-76.4) months. Intismeran plus p",
       "scope_words": [],
       "falsifier": null,

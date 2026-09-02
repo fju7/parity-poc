@@ -65,6 +65,10 @@ class _Stub:
     UNDETERMINED = "undetermined"
 
     @staticmethod
+    def _norm(text):
+        return " ".join((text or "").split())
+
+    @staticmethod
     def b2_present(span, slug, sid, **kw):
         doc = HELD.get(sid)
         if doc is None:
@@ -76,7 +80,10 @@ class _Stub:
 def stub_store(tmp_path, monkeypatch):
     monkeypatch.setitem(sys.modules, "spancheck", _Stub())
     monkeypatch.setattr(B, "path", lambda slug: tmp_path / "bindings.json")
+    keep = dict(HELD)
     yield
+    HELD.clear()
+    HELD.update(keep)
 
 
 def put(*rows):
@@ -220,3 +227,62 @@ def test_a_figure_based_sentence_needs_a_named_human_and_a_record():
              attested_in="advocate/2026-08-29-adjudication.md",
              locator="Categories of Preference table, BINV-Q 3 of 5"))
     assert verdicts()[R2] == B.OK
+
+
+# ---------------------------------------------------------------------------
+# A sentence is not bound because ONE of its figures is
+# ---------------------------------------------------------------------------
+#
+# Found in the live corpus the hour this check was written: four sentences that
+# rule 1 called bound, each carrying a figure that appeared in no span it was
+# bound to. One of them -- "an open-label study of 157 patients, not the
+# blinded study of 1,137" -- was bound to a trade article that contains "157"
+# only inside "mRNA-4157". The count came from a different paper entirely.
+
+TWO_FIGURES = "The trial enrolled 1,137 patients and reported 60.3 months of follow-up."
+
+
+def test_a_figure_in_no_bound_span_blocks():
+    HELD["S100"] = "The trial enrolled 1,137 patients in total."
+    put({"sentence": TWO_FIGURES, "on_page": True, "bucket": "deterministic",
+         "source_id": "S100", "span": "enrolled 1,137 patients"})
+    assert verdicts()[R1] == B.BAD, "60.3 is in no span this sentence is bound to"
+
+
+def test_a_second_span_covers_the_second_figure():
+    HELD["S100"] = "The trial enrolled 1,137 patients in total."
+    HELD["S101"] = "Median follow-up was 60.3 months at data cutoff."
+    put({"sentence": TWO_FIGURES, "on_page": True, "bucket": "deterministic",
+         "source_id": "S100", "span": "enrolled 1,137 patients",
+         "also_rests_on": [{"source_id": "S101",
+                            "span": "follow-up was 60.3 months"}]})
+    assert verdicts()[R1] == B.OK
+
+
+def test_a_second_span_that_is_not_in_its_document_blocks():
+    """An extra span is evidence only if it is really there."""
+    HELD["S100"] = "The trial enrolled 1,137 patients in total."
+    HELD["S101"] = "Median follow-up was 60.3 months at data cutoff."
+    put({"sentence": TWO_FIGURES, "on_page": True, "bucket": "deterministic",
+         "source_id": "S100", "span": "enrolled 1,137 patients",
+         "also_rests_on": [{"source_id": "S101",
+                            "span": "follow-up was 71.2 months"}]})
+    assert verdicts()[R1] == B.BAD
+
+
+def test_a_number_inside_an_identifier_is_not_a_figure():
+    """KEYNOTE-942 is a name. mRNA-4157 is a name. Neither is a measurement.
+
+    Stated as a rule about token shape, not as a list of the identifiers we
+    have happened to meet -- every allowlist built from met vocabulary in this
+    repository has turned out wrong.
+    """
+    assert "942" not in B._claim_figures("KEYNOTE-942 reported its result.")
+    assert "4157" not in B._claim_figures("intismeran (V940 or mRNA-4157)")
+    assert "1137" in B._claim_figures("The trial enrolled 1,137 patients.")
+    assert "05933577" not in B._claim_figures("the registry record NCT05933577")
+
+
+def test_the_identifier_rule_does_not_hide_a_real_figure_beside_a_name():
+    got = B._claim_figures("KEYNOTE-942 enrolled 157 patients.")
+    assert "157" in got and "942" not in got

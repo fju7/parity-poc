@@ -361,21 +361,80 @@ def run_checks(slug: str, *, only: str = "") -> dict:
 RULE_ADOPTED = "2026-09-02"
 
 
+def _claim_figures(text: str) -> set[str]:
+    """The figures a sentence CLAIMS, which is not every digit string in it.
+
+    "KEYNOTE-942" and "mRNA-4157" are names. The first run of the coverage
+    check read 942 as a figure and reported it missing from the span the
+    sentence was bound to, which is true and meaningless. A number inside a
+    token that also carries letters is part of an identifier, not a
+    measurement -- stated as a rule about token shape rather than as a list of
+    the identifiers we happen to have met, because every allowlist built from
+    met vocabulary in this repository has been wrong.
+    """
+    import modelbind as MB
+    named = set()
+    for tok in re.split(r"\s+", text):
+        if re.search(r"[A-Za-z]", tok) and re.search(r"\d", tok):
+            named |= MB.figures(tok)
+    return {f for f in MB.figures(text) if f not in named}
+
+
 def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     """The two rules, as blocking rows. Every sentence on the page, no exemptions."""
     import spancheck as SC
+    import modelbind as MB
     doc = load(slug)
     rows = doc.get("bindings") or {}
     on_page = {k: v for k, v in rows.items() if v.get("on_page")}
 
     unbound = [k for k, v in on_page.items() if not v.get("span")]
+
+    # A SENTENCE IS NOT BOUND BECAUSE ONE OF ITS FIGURES IS.
+    #
+    # "the three-year paper says 80% power against a one-sided alpha of 0.10,
+    # and the ASCO deck states the same threshold" rests on two documents. Bind
+    # it to the paper and rule 1 goes green with half the sentence resting on
+    # nothing -- a check applied where its premise holds, and nothing asking
+    # the other question, which is the shape of every failure in this file's
+    # history. So: every figure the sentence carries must appear in a span the
+    # sentence is actually bound to. A row may name further spans in
+    # `also_rests_on`; each is checked against the held bytes like the first.
+    loose, loose_keys = [], set()
+    for k, v in on_page.items():
+        if not v.get("span"):
+            continue
+        covered = SC._norm(v.get("span") or "")
+        for extra in (v.get("also_rests_on") or []):
+            sid, span = extra.get("source_id"), extra.get("span") or ""
+            if not sid or not span:
+                loose.append("%s: an extra span with no source" % k[:8])
+                loose_keys.add(k)
+                continue
+            present, why = SC.b2_present(span, slug, sid)
+            if present is not True:
+                loose.append("%s: an extra span is not in %s" % (k[:8], sid))
+                loose_keys.add(k)
+                continue
+            covered += " " + SC._norm(span)
+        missing = [f for f in _claim_figures(v["sentence"])
+                   if MB._weight(f) and f not in MB.figures(covered)]
+        if missing:
+            loose.append("%s: %s in no span it is bound to (%s)"
+                         % (k[:8], ", ".join(sorted(missing)[:4]),
+                            v["sentence"][:40]))
+            loose_keys.add(k)
+
     out = [("rule 1 — written from a document we hold",
-            OK if not unbound else BAD,
-            "all %d sentence(s) name the words they rest on" % len(on_page)
-            if not unbound else
-            "%d of %d sentence(s) rest on nothing this system can name: %s"
-            % (len(unbound), len(on_page),
-               " || ".join(on_page[k]["sentence"][:60] for k in unbound[:3])))]
+            OK if not (unbound or loose) else BAD,
+            "all %d sentence(s) name the words they rest on, and every figure "
+            "they carry is in one of those spans" % len(on_page)
+            if not (unbound or loose) else
+            "%d of %d rest on nothing, %d carry a figure no bound span "
+            "contains: %s"
+            % (len(unbound), len(on_page), len(loose),
+               " || ".join(([on_page[k]["sentence"][:50] for k in unbound[:2]]
+                            + loose)[:3])))]
 
     # RULE 2, IN THE SPEC'S VOCABULARY AND NOT A NEW ONE
     #
@@ -442,6 +501,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                                        for k in unbucketed])[:3]))))
 
     todo = set(unbound) | set(unbucketed) | set(wrong)
+    todo |= loose_keys
     if todo:
         out.append(("sentences still to revalidate", WARN,
                     "%d of %d. Adopted %s with no exemption for what was "
