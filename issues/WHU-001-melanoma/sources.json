@@ -361,6 +361,146 @@
         ],
         "note": "Acquired after the page gate reported that the figures removed from this page on 1 September were this document's. They were."
       }
+    },
+    {
+      "id": "S016",
+      "url": "https://www.dermatologytimes.com/view/personalized-mrna-based-melanoma-vaccine-meets-primary-endpoints-in-landmark-phase-3-trial",
+      "type": "coverage",
+      "title": "Dermatology Times — Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints in Landmark Phase 3 Trial",
+      "accessed": "",
+      "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
+      "also_called": [
+        "Dermatology Times"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "by": "",
+        "on": "",
+        "sections": [],
+        "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
+        "held": {
+          "file": "docs/d3/d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44.html",
+          "sha256": "d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44",
+          "bytes": 634333,
+          "identified_by": "contains 12 of 12 distinctive title words"
+        }
+      }
+    },
+    {
+      "id": "S017",
+      "url": "https://www.onclive.com/view/intismeran-autogene-plus-pembrolizumab-meets-rfs-dmfs-end-points-in-resected-melanoma",
+      "type": "coverage",
+      "title": "OncLive — Intismeran Autogene Plus Pembrolizumab Meets RFS, DMFS End Points in Resected Melanoma",
+      "accessed": "",
+      "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
+      "also_called": [
+        "OncLive"
+      ],
+      "access": {
+        "state": "blocked",
+        "by": "acquire_sources.py",
+        "on": "2026-09-02",
+        "sections": [],
+        "note": "HTTP 403 at onclive.com. Entered because the page named OncLive as an outlet that attributed the figures correctly. We do not hold it, so the page no longer names it."
+      }
+    },
+    {
+      "id": "S018",
+      "url": "https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/",
+      "type": "coverage",
+      "title": "Practical Dermatology — Intismeran Plus Pembrolizumab Meets Dual Phase 3 Melanoma Endpoints",
+      "accessed": "",
+      "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
+      "also_called": [
+        "Practical Dermatology"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "by": "",
+        "on": "",
+        "sections": [],
+        "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
+        "held": {
+          "file": "docs/6c/6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02.html",
+          "sha256": "6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02",
+          "bytes": 97483,
+          "identified_by": "contains 10 of 10 distinctive title words"
+        }
+      }
+    },
+    {
+      "id": "S019",
+      "url": "https://kolpulse.com/kol-pulse-trial-profile-interpath001",
+      "type": "coverage",
+      "title": "KOL Pulse — INTerpath-001 trial profile",
+      "accessed": "",
+      "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
+      "also_called": [
+        "KOL Pulse"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "by": "",
+        "on": "",
+        "sections": [],
+        "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
+        "held": {
+          "file": "docs/ab/ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb.html",
+          "sha256": "ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb",
+          "bytes": 98325,
+          "identified_by": "contains 4 of 4 distinctive title words"
+        }
+      }
+    },
+    {
+      "id": "S020",
+      "url": "https://clinicaltrials.gov/study/NCT02362594",
+      "type": "registry",
+      "title": "KEYNOTE-054 — ClinicalTrials.gov record. NCT02362594.",
+      "accessed": "",
+      "used_for": "Evidence for the page's claim about adjuvant PD-1 inhibitors and overall survival, which the page gate flagged as having no citation. What the registry can settle: whether an overall-survival result has been posted, and what the comparator arm is.",
+      "also_called": [
+        "NCT02362594",
+        "KEYNOTE-054"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "by": "",
+        "on": "",
+        "sections": [],
+        "note": "Entered 2026-09-02 to settle gate finding obj-3.",
+        "held": {
+          "file": "docs/78/7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316.json",
+          "sha256": "7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316",
+          "bytes": 98826,
+          "identified_by": "contains its identifier NCT02362594"
+        }
+      }
+    },
+    {
+      "id": "S021",
+      "url": "https://clinicaltrials.gov/study/NCT02388906",
+      "type": "registry",
+      "title": "CheckMate 238 — ClinicalTrials.gov record. NCT02388906.",
+      "accessed": "",
+      "used_for": "Evidence for the page's claim about adjuvant PD-1 inhibitors and overall survival, which the page gate flagged as having no citation. What the registry can settle: whether an overall-survival result has been posted, and what the comparator arm is.",
+      "also_called": [
+        "NCT02388906",
+        "CheckMate 238"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "by": "",
+        "on": "",
+        "sections": [],
+        "note": "Entered 2026-09-02 to settle gate finding obj-3.",
+        "held": {
+          "file": "docs/48/48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3.json",
+          "sha256": "48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3",
+          "bytes": 135307,
+          "identified_by": "contains its identifier NCT02388906"
+        }
+      }
     }
   ],
   "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."

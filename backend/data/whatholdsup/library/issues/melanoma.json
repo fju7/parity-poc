@@ -170,6 +170,71 @@
       "kind_why": "form 'page' — 22 prose sentence(s) over sixty characters, 799 words — this reads as the page itself",
       "superseded": [],
       "also_held": []
+    },
+    "S016": {
+      "sha256": "d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44",
+      "file": "docs/d3/d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44.html",
+      "bytes": 634333,
+      "url": "https://www.dermatologytimes.com/view/personalized-mrna-based-melanoma-vaccine-meets-primary-endpoints-in-landmark-phase-3-trial",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 39 prose sentence(s) over sixty characters, 1490 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
+    },
+    "S018": {
+      "sha256": "6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02",
+      "file": "docs/6c/6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02.html",
+      "bytes": 97483,
+      "url": "https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 17 prose sentence(s) over sixty characters, 785 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
+    },
+    "S019": {
+      "sha256": "ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb",
+      "file": "docs/ab/ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb.html",
+      "bytes": 98325,
+      "url": "https://kolpulse.com/kol-pulse-trial-profile-interpath001",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 117 prose sentence(s) over sixty characters, 3770 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
+    },
+    "S020": {
+      "sha256": "7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316",
+      "file": "docs/78/7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316.json",
+      "bytes": 98826,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT02362594?format=json",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'record' — 98815 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
+    },
+    "S021": {
+      "sha256": "48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3",
+      "file": "docs/48/48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3.json",
+      "bytes": 135307,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT02388906?format=json",
+      "held": "2026-09-02",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'record' — 135297 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

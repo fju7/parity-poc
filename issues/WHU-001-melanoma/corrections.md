@@ -278,3 +278,45 @@ source list on this page, and nothing found since has changed it. It stays out.
 49.1% (33.3 to 63.0) with pembrolizumab" — is real too, at a different time
 point. The page carries the five-year rates, which is what it always meant to
 report, and notes the 48-month values where they differ.
+
+## 2 September 2026, later still — what the first page gate found
+
+The gate ran on the corrected text and made thirteen blocking findings. Each is
+now closed against a document, recorded in `gate-findings.json`, with the
+quotation checked against the bytes.
+
+**Where it was right.** The claim about adjuvant PD-1 inhibitors and overall
+survival carried no citation at all; it now rests on two registry records —
+KEYNOTE-054, which is pembrolizumab against placebo and lists overall survival
+as a secondary endpoint with no result posted, and CheckMate 238, whose
+comparator is ipilimumab, so there is no placebo arm to report against. The
+Phase 3 widened its population downward only: stage IV was in both trials, and
+IIB, IIC and IIIA sit below the earlier trial's floor of IIIB. The list of
+outlets named FierceBiotech and OncLive, neither of which we hold; both are
+removed and the sentence now names only outlets whose articles are in the
+library, quoting three of them. And a change-log entry gave a gap of "four and a
+half months" that matches no pair of dates we hold; it is nine months, 16 April
+2023 to 18 January 2024.
+
+**Where it was wrong, in the way we keep being wrong.** It reported our account
+of MLQ News as contradicted, because no MLQ News article appeared in its search
+results. We hold that article. It says, word for word, what the page said it
+says. That is the same error as our own correction notice of the day before: a
+finding about what a check could reach, stated as a finding about the world.
+Roles do it to each other, and a finding reads like evidence because it arrives
+in the same shape as evidence.
+
+**So a finding can no longer close itself.** A new check requires every gate
+finding to be settled by a quotation from a document we hold, and verifies that
+quotation against the bytes. Prose cannot close one. Nor can an absence — there
+is no sentence in any paper reading "this figure appears nowhere", so a claim of
+that shape can never be recorded as settled, which is the outcome we wanted and
+did not get on 1 September.
+
+**And building it found something worse.** The check that guards quotations —
+the most damaging error this publication could make — compared the page against
+a transcription somebody had typed. It never opened the source. A mistyped
+transcription that matched the page passed. It reads the document now, and the
+first run turned up two of our own quotations that do not survive it: one where
+the page ends a sentence the source continues, and one where a PDF ligature made
+a true quotation unmatchable. Both are fixed.

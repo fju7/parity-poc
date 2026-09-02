@@ -145,6 +145,60 @@
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
+    },
+    "S016": {
+      "source": "S016",
+      "title": "Dermatology Times — Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints in Landmark Phase 3 Trial",
+      "checked_on": "2026-09-02",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S017": {
+      "source": "S017",
+      "title": "OncLive — Intismeran Autogene Plus Pembrolizumab Meets RFS, DMFS End Points in Resected Melanoma",
+      "checked_on": "2026-09-02",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S018": {
+      "source": "S018",
+      "title": "Practical Dermatology — Intismeran Plus Pembrolizumab Meets Dual Phase 3 Melanoma Endpoints",
+      "checked_on": "2026-09-02",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S019": {
+      "source": "S019",
+      "title": "KOL Pulse — INTerpath-001 trial profile",
+      "checked_on": "2026-09-02",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S020": {
+      "source": "S020",
+      "title": "KEYNOTE-054 — ClinicalTrials.gov record. NCT02362594.",
+      "checked_on": "2026-09-02",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S021": {
+      "source": "S021",
+      "title": "CheckMate 238 — ClinicalTrials.gov record. NCT02388906.",
+      "checked_on": "2026-09-02",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
     }
   }
 }

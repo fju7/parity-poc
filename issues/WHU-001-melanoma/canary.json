@@ -153,6 +153,84 @@
         "122.41942"
       ],
       "why": "6 figures round-tripped"
+    },
+    "S015": {
+      "source": "S015",
+      "state": "READABLE",
+      "tried": [
+        "0.51",
+        "0.29",
+        "0.89",
+        "0.41",
+        "0.20",
+        "0.84"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S016": {
+      "source": "S016",
+      "state": "READABLE",
+      "tried": [
+        "0.51",
+        "0.294",
+        "0.887",
+        "0.411",
+        "0.200",
+        "0.843"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S018": {
+      "source": "S018",
+      "state": "READABLE",
+      "tried": [
+        "0.51",
+        "0.294",
+        "0.887",
+        "0.411",
+        "0.200",
+        "0.843"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S019": {
+      "source": "S019",
+      "state": "READABLE",
+      "tried": [
+        "0.561",
+        "0.309",
+        "1.017",
+        "0.0266",
+        "0.510",
+        "0.288"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S020": {
+      "source": "S020",
+      "state": "READABLE",
+      "tried": [
+        "10.1016",
+        "10.1056",
+        "10.1200",
+        "10.1001",
+        "10.1186",
+        "0.0001"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S021": {
+      "source": "S021",
+      "state": "READABLE",
+      "tried": [
+        "34.74648",
+        "92.28959",
+        "32.84727",
+        "117.2742",
+        "34.05223",
+        "118.24368"
+      ],
+      "why": "6 figures round-tripped"
     }
   }
 }

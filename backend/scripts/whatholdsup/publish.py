@@ -207,6 +207,10 @@ b13 = _sibling("b13")
 # page is supported; none asked whether a REMOVAL was, and 35% of the recorded
 # errors on issue two came in with an earlier correction. See deletions.py.
 deletions = _sibling("deletions")
+# B15: a finding is settled by a DOCUMENT, never by the finding. Closes MEL-11 --
+# a correction notice that asserted more than the check which prompted it, on a
+# live page. See findings.py.
+findings = _sibling("findings")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -1134,6 +1138,13 @@ def preflight(slug: str, *, for_email: bool,
                         "knows what a correction took out"))
     except BaseException as exc:
         out.append(("figures a correction removed", WARN,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
+
+    try:
+        out.extend(findings.preflight_rows(
+            slug, page.with_suffix(page.suffix + ".gate.json")))
+    except BaseException as exc:
+        out.append(("gate findings settled", WARN,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     _pp = fc_parity_provenance(ptext, etext)

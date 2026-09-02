@@ -832,6 +832,86 @@
         "melanoma:S015"
       ],
       "note": ""
+    },
+    "d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44": {
+      "file": "docs/d3/d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44.html",
+      "bytes": 634333,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://www.dermatologytimes.com/view/personalized-mrna-based-melanoma-vaccine-meets-primary-endpoints-in-landmark-phase-3-trial"
+      ],
+      "titles": [
+        "Dermatology Times — Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints in Landmark Phase 3 Trial"
+      ],
+      "used_by": [
+        "melanoma:S016"
+      ],
+      "note": ""
+    },
+    "6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02": {
+      "file": "docs/6c/6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02.html",
+      "bytes": 97483,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/"
+      ],
+      "titles": [
+        "Practical Dermatology — Intismeran Plus Pembrolizumab Meets Dual Phase 3 Melanoma Endpoints"
+      ],
+      "used_by": [
+        "melanoma:S018"
+      ],
+      "note": ""
+    },
+    "ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb": {
+      "file": "docs/ab/ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb.html",
+      "bytes": 98325,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://kolpulse.com/kol-pulse-trial-profile-interpath001"
+      ],
+      "titles": [
+        "KOL Pulse — INTerpath-001 trial profile"
+      ],
+      "used_by": [
+        "melanoma:S019"
+      ],
+      "note": ""
+    },
+    "7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316": {
+      "file": "docs/78/7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316.json",
+      "bytes": 98826,
+      "content_type": "application/json",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://clinicaltrials.gov/api/v2/studies/NCT02362594?format=json"
+      ],
+      "titles": [
+        "KEYNOTE-054 — ClinicalTrials.gov record. NCT02362594."
+      ],
+      "used_by": [
+        "melanoma:S020"
+      ],
+      "note": ""
+    },
+    "48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3": {
+      "file": "docs/48/48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3.json",
+      "bytes": 135307,
+      "content_type": "application/json",
+      "first_held": "2026-09-02",
+      "urls": [
+        "https://clinicaltrials.gov/api/v2/studies/NCT02388906?format=json"
+      ],
+      "titles": [
+        "CheckMate 238 — ClinicalTrials.gov record. NCT02388906."
+      ],
+      "used_by": [
+        "melanoma:S021"
+      ],
+      "note": ""
     }
   }
 }

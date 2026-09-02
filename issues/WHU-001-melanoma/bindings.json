@@ -907,14 +907,15 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "3 held documents contain all these anchors (S003, S004, S005) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-02"
+      "checked_on": "2026-09-02",
+      "left_page": "2026-09-02"
     },
     "9bb4125d2d1163ac": {
       "sentence": "The companies' five-year topline of 20 January 2026 reported one-sided nominal p = 0.0075 .",
@@ -1391,8 +1392,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.0266 (strength 2, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.0266 (strength 2, need 4)",
+      "left_page": "2026-09-02"
     },
     "cbbebbc8ebea4d9b": {
       "sentence": "Trade The ASCO Post — INTerpath-001 meets primary and key secondary endpoints Morning Glory Sciences — INTerpath-001 Specialist coverage.",
@@ -2537,7 +2539,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-02"
     },
     "a5c078a60f5f07c0": {
       "sentence": "MLQ News enumerated what was missing: hazard ratios, confidence intervals, p-values, median follow-up, event counts.",
@@ -2558,7 +2561,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": false,
+      "left_page": "2026-09-02"
     },
     "6d6910cf08bebf0b": {
       "sentence": "Confidence interval 95% CI",
@@ -3005,6 +3009,174 @@
       "sentence": "The registry was checked that day: NCT05933577 still carries no posted results.",
       "sentence_sha": "415dd318acf7a9c1",
       "why_empirical": "registry identifier",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "706ba49ee7f5bd0a": {
+      "sentence": "Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released.",
+      "sentence_sha": "706ba49ee7f5bd0a",
+      "why_empirical": "names MLQ News",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "180a81052fba84f6": {
+      "sentence": "MLQ News : The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.",
+      "sentence_sha": "180a81052fba84f6",
+      "why_empirical": "names MLQ News",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "e7d5b14d13996719": {
+      "sentence": "Practical Dermatology : The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
+      "sentence_sha": "e7d5b14d13996719",
+      "why_empirical": "names Practical Dermatology",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "3cb4fe795701a102": {
+      "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature.",
+      "sentence_sha": "3cb4fe795701a102",
+      "why_empirical": "names Dermatology Times",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "cafc712a810e5586": {
+      "sentence": "(An earlier version of this sentence also named OncLive and FierceBiotech.",
+      "sentence_sha": "cafc712a810e5586",
+      "why_empirical": "names OncLive",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "213d41f92f5db000": {
+      "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — and the same data, read against the one-sided 90% interval the trial actually registered, would not cross it.",
+      "sentence_sha": "213d41f92f5db000",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "9896f5ed7196d682": {
+      "sentence": "The source of the one-sided p = 0.0266.",
+      "sentence_sha": "9896f5ed7196d682",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-02",
+      "on_page": true
+    },
+    "984d7992fdf5948f": {
+      "sentence": "It is the company's figure, and the peer-reviewed Lancet paper prints the two-sided 0.053 instead.",
+      "sentence_sha": "984d7992fdf5948f",
+      "why_empirical": "figure",
       "bucket": null,
       "source_id": null,
       "document_sha": null,

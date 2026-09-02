@@ -205,6 +205,42 @@
         "by": "claude",
         "on": "2026-09-02"
       }
+    },
+    {
+      "id": "Q-18",
+      "kind": "source",
+      "source_id": "S011",
+      "quote": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.",
+      "verbatim": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.",
+      "why": "MLQ News' enumeration of what the announcement withheld. The page gate reported this attribution as CONTRADICTED because no MLQ News article appeared in its search results. We hold the article; it reads exactly as the page said. Quoted now so the next run can see it too.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
+    },
+    {
+      "id": "Q-19",
+      "kind": "source",
+      "source_id": "S018",
+      "quote": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
+      "verbatim": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
+      "why": "Practical Dermatology's own enumeration, which the gate rightly said we had understated by paraphrasing it.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
+    },
+    {
+      "id": "Q-20",
+      "kind": "source",
+      "source_id": "S016",
+      "quote": "Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature",
+      "verbatim": "Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature, while safety was consistent with prior combination experience.",
+      "why": "Dermatology Times, acquired 2026-09-02 so that what this page says about it can be checked against it. The page's quotation originally closed with a full stop the source does not have there — its sentence continues 'while safety was consistent…'. Caught by comparing the transcription to the bytes, which this check had never done.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-02"
+      }
     }
   ]
 }

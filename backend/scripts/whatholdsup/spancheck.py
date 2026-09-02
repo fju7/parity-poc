@@ -57,6 +57,12 @@ def _norm(s: str) -> str:
 
     Only BETWEEN DIGITS, so a middle dot used as anything else is left alone.
     """
+    # PDF ligatures: pdftotext returns "prespeci\ufb01ed" as one glyph, so a
+    # span typed with two letters is unfindable in a paper we hold.
+    for _lig, _pair in (("\ufb00","ff"),("\ufb01","fi"),("\ufb02","fl"),
+                        ("\ufb03","ffi"),("\ufb04","ffl"),("\ufb05","st"),
+                        ("\ufb06","st")):
+        s = s.replace(_lig, _pair)
     s = re.sub(r"(?<=\d)[·•](?=\d)", ".", s)
     s = s.replace("–", "-").replace("—", "-").replace("−", "-")
     s = s.replace("’", "'").replace("“", '"').replace("”", '"')

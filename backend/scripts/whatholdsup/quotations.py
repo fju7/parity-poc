@@ -61,7 +61,15 @@ OK, BAD, WARN = "ok", "BLOCKED", "warn"
 MIN_QUOTE = 25
 
 _SMART = {u"‘": "'", u"’": "'", u"“": '"', u"”": '"',
-          u"–": "-", u"—": "-", u" ": " ", u"…": "..."}
+          u"–": "-", u"—": "-", u" ": " ", u"…": "...",
+          # PDF LIGATURES. pdftotext returns "prespecified" and "stratified"
+          # with a single fi glyph, so a transcription typed with two letters
+          # never matches the bytes. Fourth character class to defeat a
+          # comparison here, after The Lancet's middle dot, a Greek alpha and a
+          # space before a full stop -- and the first caught by a check rather
+          # than by somebody wondering why a true quotation would not match.
+          u"ﬀ": "ff", u"ﬁ": "fi", u"ﬂ": "fl",
+          u"ﬃ": "ffi", u"ﬄ": "ffl", u"ﬅ": "st", u"ﬆ": "st"}
 
 # The states source_ledger.py treats as "somebody opened this". Kept as a
 # literal rather than imported so this module has no load-order dependency on
@@ -303,6 +311,14 @@ def attestations_on_file(slug: str, page: Path | None = None) -> list[dict]:
     return out
 
 
+def _held_ids(slug: str) -> set:
+    try:
+        import source_store as _store
+        return set(_store.held(slug))
+    except Exception:
+        return set()
+
+
 def already_recorded(quote: str, on_file: list[dict]) -> dict | None:
     """The attestation that already contains this quotation, if there is one."""
     q = norm(quote)
@@ -374,6 +390,29 @@ def preflight_rows(slug: str, page_text: str,
             altered.append("%s: page has %r; source has %r"
                            % (r.get("id") or "?", q[:60], r.get("verbatim", "")[:60]))
             continue
+        # AND THE TRANSCRIPTION AGAINST THE BYTES.
+        #
+        # Until 2026-09-02 the row above was the whole of "quotations match the
+        # source": it compared the page's quotation against the `verbatim` field
+        # -- WHICH A PERSON OR A MODEL TYPED. The document was never opened. A
+        # mistyped transcription that matched the page passed, and a page
+        # quotation that had drifted from the document passed with it, so long
+        # as both drifted together. The check guarding the most damaging error
+        # this publication can make had never read a source.
+        #
+        # Found by B15, which had to compare a quotation to the bytes for a
+        # different reason and turned up two that do not survive it -- including
+        # one where the page ends a sentence the source continues with a comma.
+        import spancheck as _SC
+        sid_now = r.get("source_id")
+        if sid_now and sid_now in _held_ids(slug):
+            body = norm(_SC._norm(_SC._text(slug, sid_now) or ""))
+            if norm(r.get("verbatim", "")) not in body:
+                altered.append(
+                    "%s: the recorded wording is not in %s as printed — the "
+                    "transcription is wrong, or the source is not what it was"
+                    % (r.get("id") or "?", sid_now))
+                continue
         sid = r.get("source_id")
         s = srcs.get(sid)
         state = ((s or {}).get("access") or {}).get("state")

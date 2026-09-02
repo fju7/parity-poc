@@ -301,35 +301,15 @@ CASES = [
             "against no issue and no limit"),
 
   # THE ERROR OF 2026-09-01, recorded on 2026-09-02.
-  dict(id="MEL-11", slug="melanoma", check="—", check_kind="uncovered",
+  dict(id="MEL-11", slug="melanoma", check="B15", check_kind="findings",
        found_by="check",
        what="the correction notice asserted more than the check that prompted "
             "it. B13 reported three figures as being in NOTHING WE HOLD and "
-            "printed, under every run, that a miss is not a falsehood and that "
-            "a figure can be absent because the source is not held. The notice "
-            "published on a live page said the figures 'came from no document' "
-            "and that one 'exists nowhere', and drew a general lesson about "
-            "prose written before documents existed. Two of the three were "
+            "printed, under every run, that a miss is not a falsehood. The "
+            "notice published on a live page said the figures 'came from no "
+            "document' and that one 'exists nowhere'. Two of the three were "
             "real. Accusing ourselves of inventing figures we had not invented "
-            "is worse than the missing intervals it replaced",
-       why_uncaught="Half of this is now covered. B14 (deletions.py) refuses a "
-                    "removal argued from ABSENCE unless a bound row's span was "
-                    "reported missing from the source that row names -- which "
-                    "is the spec's own rule, written the same day and deferred "
-                    "-- and it adds the word the correction lacked: UNSOURCED, "
-                    "we cannot show where this came from, which is a claim "
-                    "about our shelf rather than about the world. Run against "
-                    "the 1 September draft it fires on all four removed "
-                    "figures. What is still open: NOTHING AUDITS THE PROSE "
-                    "WRITTEN ABOUT A FINDING. Every "
-                    "check here examines the page against documents; none "
-                    "examines a claim about what a check found against what the "
-                    "check actually said. This is the same shape as the "
-                    "corrections written from gate findings on 2026-08-31 and "
-                    "the ipilimumab sentence nearly written from the "
-                    "counterexample hunt on 2026-09-01 -- a finding treated as "
-                    "evidence -- and it is the only one of the three that "
-                    "reached a reader. Open."),
+            "is worse than the missing intervals it replaced"),
 
 
   # Proves B14 by replaying the day it was needed.
@@ -447,6 +427,25 @@ def run_case(c: dict) -> tuple[str, str]:
                             "unaccounted for: %s"
                             % (len(want), ", ".join(sorted(want))))
         return MISSED, ("B14 misses %s" % ", ".join(sorted(want - missing)))
+
+    if kind == "findings":
+        # Prove it by trying to settle a finding the way the correction did:
+        # with prose, and with a claim no document can carry.
+        import findings as F
+        rep = {"verdicts": {"probe": {"verdict": "NOT_FOUND",
+                                      "found_value": "in nothing we hold"}}}
+        opens = F.open_findings(rep)
+        if len(opens) != 1:
+            return MISSED, "B15 does not treat a NOT_FOUND verdict as open"
+        ok, why = F.quote_is_in_source(c["slug"], "S004",
+                                       "68.8% appears in no document")
+        if ok:
+            return MISSED, "B15 accepted a quotation that is in no source"
+        return CAUGHT, ("B15 requires a finding to be closed by a quotation "
+                        "verified in a held document, and there is no sentence "
+                        "in any paper that reads 'this figure appears nowhere' "
+                        "— so the claim that reached a reader could not have "
+                        "been recorded as settled")
 
     if kind == "uncovered":
         return UNCOVERED, c.get("why_uncaught", "")
