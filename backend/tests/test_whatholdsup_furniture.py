@@ -189,3 +189,50 @@ def test_stripping_handles_nested_elements_inside_the_mark():
 def test_a_page_with_no_marks_is_returned_unchanged():
     html = '<h2>Heading</h2><p>Body with 60.3 in it.</p>'
     assert F.strip_marked(html) == html
+
+
+# ---------------------------------------------------------------------------
+# Two composites, each over its own divisor
+# ---------------------------------------------------------------------------
+#
+# Rule 8: direction and magnitude are separate questions and one verdict cannot
+# express both. Each composite uses a SUBSET of the dimensions shown beside it
+# and renormalises, so the working is a weighted sum over a divisor. The
+# divisor is checked, because a renormalisation nobody verifies is a place to
+# hide a number.
+
+SCORES = "3 / 5   1 / 5   4 / 5   4 / 5   5 / 5   5 / 5"
+DIR = " 3.94 moderate (3×.25 + 4×.20 + 4×.15 + 5×.10 + 5×.10) ÷ .80"
+MAG = " 1.0 weak (1×.20) ÷ .20"
+
+
+def test_two_composites_over_their_divisors_check_out():
+    assert F.check_computed(SCORES + DIR + MAG) is None
+
+
+def test_a_composite_that_misses_its_own_total_blocks():
+    why = F.check_computed(SCORES + DIR.replace("3.94", "4.60") + MAG)
+    assert why and "comes to" in why
+
+
+def test_a_divisor_that_is_not_the_weights_it_closes_blocks():
+    """Renormalising by the wrong number is how a score gets flattered."""
+    why = F.check_computed(SCORES + DIR.replace("÷ .80", "÷ 1.00") + MAG)
+    assert why and "renormalisation" in why
+
+
+def test_a_working_that_multiplies_a_score_the_page_never_shows_blocks():
+    why = F.check_computed(SCORES + DIR.replace("3×.25", "2×.25") + MAG)
+    assert why and "not among the scores shown" in why
+
+
+def test_a_subset_of_the_dimensions_is_allowed():
+    """The magnitude composite legitimately uses one of six."""
+    assert F.check_computed(SCORES + MAG) is None
+
+
+def test_the_older_single_composite_form_still_checks_out():
+    """A page that prints its working the old way must not fail for that alone."""
+    old = SCORES + " 3.35 moderate (3×.25)+(1×.20)+(4×.20)+(4×.15)+(5×.10)+(5×.10)"
+    assert F.check_computed(old) is None
+    assert F.check_computed(old.replace("3.35", "4.90")) is not None

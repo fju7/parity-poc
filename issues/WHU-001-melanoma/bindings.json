@@ -3429,12 +3429,12 @@
       "sentence_sha": "ed441bb66a145bb8",
       "why_empirical": "figure",
       "bucket": "context",
-      "source_id": "S015",
-      "document_sha": "d5a0dc0fa9e7ba4ec017203ec01779726a0b8b762fb16501cd2901692186fdc2",
+      "source_id": "S014",
+      "document_sha": "379395649fe30712f01537ab60bd7ec7b24766dda5d40491882d378cdab53131",
       "locator_type": "prose",
       "locator": null,
-      "span": "At 5 years, the recurrence-free survival rate was 68.8% (95% confidence interval [CI] = 56.3%-78.3%) in the combination arm and 49.1% (95% CI = 33.3%-63.0%) in the monotherapy arm.",
-      "envelope": "as presented at the ASCO Annual Meeting. Key Findings The combination of intismeran autogene and pembrolizumab reduced the risk of recurrence vs pembrolizumab alone by 49% (hazard ratio [HR] = 0.51; 95% CI = 0.29-0.89). At 5 years, the recurrence-free survival rate was 68.8% (95% confidence interval [CI] = 56.3%-78.3%) in the combination arm and 49.1% (95% CI = 33.3%-63.0%) in the monotherapy arm. The risk of distant metastasis was reduced by 59% with the addition of intismeran autogene (HR = 0.41; 95% CI = 0.20-0.84). Seven patients died during follow-up in each arm. There was a trend for improved overall surviv",
+      "span": "landmark 5-y RFS rates of 68.8% (95% CI, 56.3%-78.3%) for intismeran + pembro vs 49.1% (95% CI, 33.3%-63.0%) for pembro alone",
+      "envelope": "15, 2025; median planned follow-up, 60.3 [range, 50.5-76.4] mo) after the 3-y analysis, minimal new events occurred. RFS risk reduction for intismeran + pembro vs pembro alone was 49% (HR, 0.51; 95% CI, 0.29-0.89), with landmark 5-y RFS rates of 68.8% (95% CI, 56.3%-78.3%) for intismeran + pembro vs 49.1% (95% CI, 33.3%-63.0%) for pembro alone. DMFS risk reduction was 59% (HR, 0.41; 95% CI, 0.20-0.84). In the intismeran + pembro arm, 7 pts (6.5%) died (disease progression, n=4) vs 7 pts (14.0%) in the pembro arm (disease progression, n=6). There was a trend f",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3444,21 +3444,23 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "proposed_by": "autobind",
+      "proposed_by": "model",
       "confirmed": false,
-      "autobind": "the only held document containing all 6 anchors (68.8%, 56.3, 78.3, 49.1%, 33.3), sharing 3 subject word(s) with the sentence: combination, recurrence, years"
+      "autobind": "the only held document containing all 6 anchors (68.8%, 56.3, 78.3, 49.1%, 33.3), sharing 3 subject word(s) with the sentence: combination, recurrence, years",
+      "proposed_on": "2026-09-03",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S014; nobody has yet signed that the sentence is warranted by it"
     },
     "387ebc8bd86908d9": {
       "sentence": "Reported as survival rates, the same analysis reads 92.2% alive at five years versus 71.3% — 95% CI 84.2–96.3 and 35.4–89.6 .",
       "sentence_sha": "387ebc8bd86908d9",
       "why_empirical": "figure",
       "bucket": "context",
-      "source_id": "S015",
-      "document_sha": "d5a0dc0fa9e7ba4ec017203ec01779726a0b8b762fb16501cd2901692186fdc2",
+      "source_id": "S014",
+      "document_sha": "379395649fe30712f01537ab60bd7ec7b24766dda5d40491882d378cdab53131",
       "locator_type": "prose",
       "locator": null,
-      "span": "There was a trend for improved overall survival as well, an exploratory endpoint (HR = 0.47; 95% CI = 0.17-1.35) with 5-year rates of 92.2% (95% CI = 84.2%-96.3%) in the combination arm and 71.3% (95% CI = 35.4%-89.6%) in the pembrolizumab alone arm.",
-      "envelope": "95% CI = 33.3%-63.0%) in the monotherapy arm. The risk of distant metastasis was reduced by 59% with the addition of intismeran autogene (HR = 0.41; 95% CI = 0.20-0.84). Seven patients died during follow-up in each arm. There was a trend for improved overall survival as well, an exploratory endpoint (HR = 0.47; 95% CI = 0.17-1.35) with 5-year rates of 92.2% (95% CI = 84.2%-96.3%) in the combination arm and 71.3% (95% CI = 35.4%-89.6%) in the pembrolizumab alone arm. The safety profile for intismeran autogene was considered consistent with prior analyses. Dr. Mehnert noted that a phase III multicenter trial has already begun to determine the benefit of intismeran autogene in the fir",
+      "span": "5-y rate was 92.2% (95% CI, 84.2%-96.3%) for intismeran + pembro vs 71.3% (95% CI, 35.4%-89.6%) for pembro alone",
+      "envelope": "I, 0.20-0.84). In the intismeran + pembro arm, 7 pts (6.5%) died (disease progression, n=4) vs 7 pts (14.0%) in the pembro arm (disease progression, n=6). There was a trend for improved OS (HR, 0.47; 95% CI, 0.17-1.35); 5-y rate was 92.2% (95% CI, 84.2%-96.3%) for intismeran + pembro vs 71.3% (95% CI, 35.4%-89.6%) for pembro alone. The safety profile of intismeran was consistent with prior analyses. Conclusions: After a median 5 y of follow-up, intismeran + pembro continued to prolong RFS and DMFS, along with a trend for improved OS vs pembro alo",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -3468,9 +3470,11 @@
       },
       "first_seen": "2026-09-02",
       "on_page": true,
-      "proposed_by": "autobind",
+      "proposed_by": "model",
       "confirmed": false,
-      "autobind": "the only held document containing all 6 anchors (92.2%, 71.3%, 84.2, 96.3, 35.4), sharing 2 subject word(s) with the sentence: rates, survival"
+      "autobind": "the only held document containing all 6 anchors (92.2%, 71.3%, 84.2, 96.3, 35.4), sharing 2 subject word(s) with the sentence: rates, survival",
+      "proposed_on": "2026-09-03",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S014; nobody has yet signed that the sentence is warranted by it"
     },
     "8a5c58222fbd7bc0": {
       "sentence": "(The full paper reports its landmark rates only to 48 months, where the same two arms read 92.2% and 85.6%; the five-year figures above are the ones reported from the analysis, and the difference between them is a year of follow-up, not a disagreement.) This is what \"an encouraging trend\" looks like underneath, and it is why the trend is labelled exploratory.",
@@ -4162,7 +4166,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S001",
@@ -4173,7 +4177,8 @@
           "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
         }
       ],
-      "step": "The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our composite is 3.35 because data support scores 1 against the rubric's anchor for a purely qualitative assertion. Both describe the same announcement; only the score carries the fact that the magnitude is missing."
+      "step": "The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our composite is 3.35 because data support scores 1 against the rubric's anchor for a purely qualitative assertion. Both describe the same announcement; only the score carries the fact that the magnitude is missing.",
+      "left_page": "2026-09-03"
     },
     "5f516bdf0edfb970": {
       "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\" Announcing topline results ahead of a conference presentation is routine, and this piece is not an accusation that anything improper happened.",
@@ -4291,6 +4296,102 @@
       },
       "first_seen": "2026-09-03",
       "on_page": true
+    },
+    "86aabb4b765dae76": {
+      "sentence": "Is the effect real scores 3.94; how large is it scores 1.0.",
+      "sentence_sha": "86aabb4b765dae76",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "randomized, double-blind, placebo- and active-comparator-controlled global Phase 3 trial"
+        },
+        {
+          "source_id": "S018",
+          "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
+        }
+      ],
+      "step": "The two numbers are the published rubric applied by hand to the six dimension scores shown above, and the working for each is printed beside it so a reader can redo the arithmetic. They diverge because the evidence does: the release describes a randomised, double-blind, placebo- and active-comparator-controlled Phase 3, which is what the direction dimensions reward, and discloses no efficacy estimate at all, which is what the magnitude dimension measures. Neither figure is reported by any document; both are ours, computed here."
+    },
+    "46c7d03abbbcdd03": {
+      "sentence": "Those are different things, and until 3 September this scorecard averaged them into a single 3.35 that was wrong about both halves — understating the trial and overstating what is known about the size of what it found.",
+      "sentence_sha": "46c7d03abbbcdd03",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        },
+        {
+          "source_id": "S018",
+          "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
+        }
+      ],
+      "step": "A claim about this publication's own history rather than about the trial. The single composite was 3.35 and is in the change log and in git. It averaged a well-designed trial against an announcement carrying no efficacy estimate, so it sat below what the design deserves and above what the disclosure supports. An outside reviewer identified it as a breach of our own rule 8 on 3 September and the scorecard was split the same day."
+    },
+    "6906d38be54b795d": {
+      "sentence": "“Landmark trial succeeds” and “real: 3.94, size: 1.0” describe the same event, and only one of them tells you the numbers are still missing.",
+      "sentence_sha": "6906d38be54b795d",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        },
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        }
+      ],
+      "step": "The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our two scores read 3.94 for whether the effect is real and 1.0 for how large it is, and both are computed on this page from the six dimension scores shown. The headline and the pair describe the same announcement; only the pair carries the fact that the magnitude is missing, which a single averaged number did not."
     }
   }
 }

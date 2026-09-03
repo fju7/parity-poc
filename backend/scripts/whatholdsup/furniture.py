@@ -195,23 +195,65 @@ def check_scale(text: str, *_ignored) -> str | None:
     return None
 
 
+# "(3x.25 + 4x.20) / .80" -- a weighted sum over a divisor. The scorecard
+# prints this form because a composite restricted to some of the dimensions
+# renormalises, and the renormalised weights do not reproduce the answer at the
+# precision a reader can see. The divisor is checked, not decoration.
+SUM = re.compile(r"\(([^()]*?[x×*][^()]*?)\)\s*(?:(?:÷|/)\s*(\.?\d+(?:\.\d+)?))?")
+
+
 def check_computed(text: str, *_ignored) -> str | None:
-    terms = TERM.findall(text)
-    if not terms:
+    """The working must be one a reader can redo and get the printed number.
+
+    A scorecard may print more than one composite -- issue one prints two, for
+    direction and for magnitude -- and each uses a SUBSET of the dimensions
+    shown beside it. So the test is that every multiplicand is one of the
+    scores displayed, not that it uses all of them; a working that multiplies a
+    number the page never shows is inventing an input.
+
+    Where a composite renormalises, the working shows the engine's own weights
+    over a divisor, because renormalised weights do not reproduce the answer at
+    the precision a reader can see. The divisor must equal the weights of the
+    sum it closes, or the renormalisation is not the one being claimed.
+    """
+    sums = [(b, d) for b, d in SUM.findall(text) if len(TERM.findall(b)) > 1 or d]
+    if not sums:
+        # The older single-composite form brackets each term separately --
+        # "(3x.25)+(1x.20)+..." -- so no single bracket holds the whole sum.
+        # Treat the text's terms as one unrenormalised sum. Written as a
+        # fallback rather than a second format, because a page that prints its
+        # working one way today may print it the other way tomorrow and the
+        # check must not fail it for that alone.
+        if TERM.findall(text):
+            sums = [(text, "")]
+    if not sums:
         return "marked computed but shows no arithmetic to check"
-    scores = [float(s) for s in SCORE.findall(text)]
-    inputs = [float(a) for a, _ in terms]
-    weights = [float(w) for _, w in terms]
-    if scores and inputs != scores:
-        return ("the working multiplies %s but the scores shown are %s"
-                % (inputs, scores))
-    if abs(sum(weights) - 1.0) > 1e-9:
-        return "the weights %s sum to %g, not 1" % (weights, sum(weights))
-    total = round(sum(a * w for a, w in zip(inputs, weights)), 10)
-    shown = B._as_numbers(MB.figures(text)) - set(inputs) - set(weights)
-    if not any(abs(total - v) < 5e-2 for v in shown):
-        return ("the working comes to %g, which is not among the figures shown "
-                "(%s)" % (total, sorted(shown)))
+    shown = [float(s) for s in SCORE.findall(text)]
+    figures = B._as_numbers(MB.figures(text))
+    for body, div in sums:
+        terms = TERM.findall(body)
+        if not terms:
+            continue
+        inputs = [float(a) for a, _ in terms]
+        weights = [float(w) for _, w in terms]
+        if shown:
+            pool = list(shown)
+            for v in inputs:
+                if v not in pool:
+                    return ("the working multiplies %g, which is not among the "
+                            "scores shown (%s)" % (v, sorted(shown)))
+                pool.remove(v)
+        divisor = float(div) if div else 1.0
+        if div and abs(sum(weights) - divisor) > 1e-9:
+            return ("the weights %s sum to %g but the working divides by %g, so "
+                    "the renormalisation is not the one shown"
+                    % (weights, sum(weights), divisor))
+        if not div and abs(sum(weights) - 1.0) > 1e-9:
+            return "the weights %s sum to %g, not 1" % (weights, sum(weights))
+        total = round(sum(a * w for a, w in zip(inputs, weights)) / divisor, 10)
+        if not any(abs(total - v) < 5e-2 for v in figures):
+            return ("the working comes to %g, which is not among the figures "
+                    "shown (%s)" % (total, sorted(figures)))
     return None
 
 

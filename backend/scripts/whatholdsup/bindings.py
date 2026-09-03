@@ -480,6 +480,49 @@ def _claim_figures(text: str, names: set[str] | None = None) -> set[str]:
     return {f for f in MB.figures(text) if f not in named}
 
 
+# Source kinds that are somebody's account of a document rather than the
+# document. Read from the ledger's own `type` field, not from a list of outlets
+# we have met.
+REPORTING = {"coverage", "trade"}
+
+
+def figures_resting_only_on_reporting(slug: str) -> list[tuple[str, str]]:
+    """Sentences carrying a figure whose every source is somebody's reporting.
+
+    Issue one tells a reader "every number above traces to one of these" and
+    lists its sources. On 3 September an outside reviewer showed the page then
+    said "and none to a news report", which was false: its five-year landmark
+    rates were credited to a trade article because the primary abstract had
+    returned 403 to every fetch. The abstract was obtained by hand the same day
+    and those two sentences moved onto it.
+
+    That fixed the instance. This function is here so the claim cannot quietly
+    become false again -- a figure may be bound to reporting on the way to
+    finding the document, and this says so out loud while it is.
+
+    It is deliberately narrow: it asks about SENTENCES CARRYING FIGURES, since
+    a quotation from an outlet is properly sourced to that outlet and only a
+    number is expected to come from the record.
+    """
+    import modelbind as MB
+    kinds = {x["id"]: x.get("type") for x in store.sources(slug)}
+    names = trial_names(store.sources(slug))
+    doc = load(slug)
+    out = []
+    for k, v in (doc.get("bindings") or {}).items():
+        if not v.get("on_page"):
+            continue
+        if not [f for f in _claim_figures(v["sentence"], names) if MB._weight(f)]:
+            continue
+        sids = ([v["source_id"]] if v.get("source_id") else []) + \
+               [x.get("source_id") for x in (v.get("also_rests_on") or [])] + \
+               [x.get("source_id") for x in (v.get("premises") or [])]
+        seen = {kinds.get(s) for s in sids if s}
+        if seen and seen <= REPORTING:
+            out.append((k, v["sentence"]))
+    return out
+
+
 def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     """The two rules, as blocking rows. Every sentence on the page, no exemptions."""
     import spancheck as SC
@@ -670,7 +713,18 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                                        for k in unbucketed])[:3]))))
 
     out.extend(out_extra)
+    onlyreporting = figures_resting_only_on_reporting(slug)
+    out.append(("figures resting only on somebody's reporting",
+                OK if not onlyreporting else BAD,
+                "no sentence carrying a figure rests only on coverage — every "
+                "number on the page reaches a release, a paper or a registry "
+                "record" if not onlyreporting else
+                "%d sentence(s) carry a figure whose only source is reporting: %s"
+                % (len(onlyreporting),
+                   " || ".join(t[:60] for _, t in onlyreporting[:3]))))
+
     todo = set(unbound) | set(unbucketed) | set(wrong)
+    todo |= {k for k, _ in onlyreporting}
     todo |= loose_keys
     if todo:
         out.append(("sentences still to revalidate", WARN,

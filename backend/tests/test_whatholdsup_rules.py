@@ -449,3 +449,33 @@ def test_the_figure_bucket_does_not_excuse_a_sentence_from_a_bucket_check():
     put({"sentence": "The guideline assigns ribociclib category 1.",
          "on_page": True, "bucket": "figure"})
     assert verdicts()[R2] == B.BAD, "no attestation at all"
+
+
+def test_a_figure_resting_only_on_reporting_is_reported(monkeypatch):
+    """"Every number traces to a primary document" must be enforced, not asserted.
+
+    The outside review of 2026-09-03 found the page claiming no number came
+    from a news report while its five-year rates were credited to a trade
+    article. The abstract was obtained by hand and they moved; this check is
+    why the claim can be made again.
+    """
+    monkeypatch.setattr(B.store, "sources", lambda slug: [
+        {"id": "S100", "type": "coverage"}, {"id": "S200", "type": "primary"}])
+    HELD["S100"] = "The trial enrolled 1,137 patients in total."
+    put({"sentence": "The trial enrolled 1,137 patients.", "on_page": True,
+         "bucket": "context", "source_id": "S100",
+         "span": "enrolled 1,137 patients"})
+    assert B.figures_resting_only_on_reporting(SLUG)
+    rows = {n: s for n, s, _ in B.rule_rows(SLUG)}
+    assert rows["figures resting only on somebody's reporting"] == B.BAD
+
+
+def test_a_quotation_from_an_outlet_is_not_flagged(monkeypatch):
+    """Only sentences carrying FIGURES. An outlet's words belong to the outlet."""
+    monkeypatch.setattr(B.store, "sources", lambda slug: [
+        {"id": "S100", "type": "coverage"}])
+    HELD["S100"] = "The companies did not disclose hazard ratios."
+    put({"sentence": "Practical Dermatology: the companies did not disclose hazard ratios.",
+         "on_page": True, "bucket": "context", "source_id": "S100",
+         "span": "did not disclose hazard ratios"})
+    assert not B.figures_resting_only_on_reporting(SLUG)

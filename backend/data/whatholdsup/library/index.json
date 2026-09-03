@@ -976,6 +976,38 @@
         "melanoma:S026"
       ],
       "note": ""
+    },
+    "379395649fe30712f01537ab60bd7ec7b24766dda5d40491882d378cdab53131": {
+      "file": "docs/37/379395649fe30712f01537ab60bd7ec7b24766dda5d40491882d378cdab53131.pdf",
+      "bytes": 122844,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-03",
+      "urls": [
+        "https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500"
+      ],
+      "titles": [
+        "KEYNOTE-942 five-year update — ASCO 2026 abstract 9500. J Clin Oncol 44 (suppl 16; abstr 9500)"
+      ],
+      "used_by": [
+        "melanoma:S014"
+      ],
+      "note": ""
+    },
+    "f6c50c89372c4b157c166673fd0b3c22ffd1538e868f9c7835cffe98fdbd0687": {
+      "file": "docs/f6/f6c50c89372c4b157c166673fd0b3c22ffd1538e868f9c7835cffe98fdbd0687.pdf",
+      "bytes": 6165710,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-03",
+      "urls": [
+        "https://www.onclive.com/view/intismeran-autogene-plus-pembrolizumab-meets-rfs-dmfs-end-points-in-resected-melanoma"
+      ],
+      "titles": [
+        "OncLive — Intismeran Autogene Plus Pembrolizumab Meets RFS, DMFS End Points in Resected Melanoma"
+      ],
+      "used_by": [
+        "melanoma:S017"
+      ],
+      "note": ""
     }
   }
 }

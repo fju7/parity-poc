@@ -241,6 +241,24 @@
         "by": "claude",
         "on": "2026-09-02"
       }
+    },
+    {
+      "quote": "purely qualitative assertion with no numeric support",
+      "kind": "rhetorical",
+      "source_id": "",
+      "verbatim": "",
+      "why": "Our own rubric's anchor for a data-support score of 1, quoted from backend/scripts/signal/score_claims.py, which is the file that defines the six dimensions and their anchors and is published in full at /the-rubric. Not a document anyone else wrote, so there is no external source to match it against; a reader checks it against the rubric page.",
+      "attested": "claude, 2026-09-03",
+      "id": "Q-21"
+    },
+    {
+      "quote": "No alpha was assigned to this analysis",
+      "kind": "source",
+      "source_id": "S014",
+      "verbatim": "Exploratory endpoints included OS. No alpha was assigned to this analysis.",
+      "why": "From the ASCO 2026 abstract, obtained by hand on 3 September after every automated fetch returned 403. It is the plainest support available for the page's point that the later KEYNOTE-942 analyses were descriptive rather than formal tests, which until now rested on the three-year paper's wording alone.",
+      "attested": "claude, 2026-09-03",
+      "id": "Q-22"
     }
   ]
 }

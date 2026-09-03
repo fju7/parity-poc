@@ -71,6 +71,26 @@
 </section>
 
 <section>
+  <div class="section-head"><h2>Two scores, not one</h2></div>
+  <p>Every claim gets two composites, because <em>is the effect real</em> and <em>how large is it</em> are different questions and one number cannot answer both. A trial can settle the first and tell you nothing about the second — which is exactly what happened in <a href="/melanoma">issue one</a>, where a double-blind 1,137-patient phase 3 crossed its prespecified threshold and released no effect size at all.</p>
+  <p>No weight is invented for the split. Each dimension is assigned to the question its own anchors actually answer, and the weights above are renormalised within each group so they still sum to 1. That is why the working on each issue is printed as a sum over a divisor — <code>(3×.25 + 4×.20 + … ) ÷ .80</code> — rather than as rounded weights that would not reproduce the answer.</p>
+  <div class="scrollx">
+  <table class="rub">
+    <thead><tr><th>Question</th><th>Dimensions it uses</th><th class="n">Divisor</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Is the effect real?</strong></td><td>Source quality, reproducibility, consensus, recency, rigor</td><td class="n">0.80</td></tr>
+      <tr><td><strong>How large is it?</strong></td><td>Data support</td><td class="n">0.20</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">
+    <span class="kicker">The magnitude score rests on one dimension</span>
+    <p>That is a fact about this rubric and it is printed rather than hidden. Only data support's anchors speak about magnitude at all — 5 is specific statistical results, 1 is a purely qualitative assertion. Every other dimension asks about provenance, replication, currency or study design, all of which bear on whether an effect is real and none of which tell you how big it is.</p>
+    <p>The tempting move is to fold rigor in, since a phase 3 estimates an effect size more precisely than a case series. It is wrong: it would let a superb trial that published no numbers score above the floor for magnitude, which is the error the split exists to correct. A trial's quality governs how much you <em>could</em> learn from its numbers, not how much you <em>have</em> learned from numbers nobody released.</p>
+  </div>
+</section>
+
+<section>
   <div class="section-head"><h2>The anchors</h2></div>
   <p>These are the words a score is measured against. They are quoted here as they are written in the scoring code, not paraphrased.</p>
 
@@ -144,10 +164,11 @@
 <section>
   <div class="section-head"><h2>What the score is not</h2></div>
   <p>It is not a verdict on the treatment. Five of the six dimensions are about the <em>evidence</em> and how it reached us — who published it, whether anyone else has seen the same thing, how old it is. A trial can be excellent and score low here, because what is being scored is what has been released about it rather than the study itself. Issue one is exactly that case: rigor 5, data support 1.</p>
-  <p>It is also not precise. A weighted average of six hand-assigned integers carries the precision of the integers, which is to say not much. It is published to two decimal places because that is what the arithmetic gives, not because the second decimal means anything. Two claims a tenth of a point apart are not distinguishable.</p>
+  <p>It is also not precise. A weighted average of hand-assigned integers carries the precision of the integers, which is to say not much. It is published to two decimal places because that is what the arithmetic gives, not because the second decimal means anything. Two claims a tenth of a point apart are not distinguishable.</p>
   <div class="note">
     <span class="kicker">Why this page exists</span>
-    <p>Until 3 September 2026 the issues referred to <q>our published six-dimension rubric</q> and quoted its anchors, and the rubric was not published anywhere. Worse, one issue printed working whose weights were not the rubric's — it used 15% for reproducibility and recency instead of 20% and 10% — and reached 3.40 where the rubric gives 3.35. Both fall in the same band, which is why nobody noticed. Both are corrected, and the rubric is here so the next such error is one a reader can catch.</p>
+    <p>Until 3 September 2026 the issues referred to <q>our published six-dimension rubric</q> and quoted its anchors, and the rubric was not published anywhere. Worse, one issue printed working whose weights were not the rubric's — it used 15% for reproducibility and recency instead of 20% and 10% — and reached 3.40 where the rubric gives 3.35. Both fall in the same band, which is why nobody noticed.</p>
+    <p>Later the same day an outside reviewer pointed out that the single composite breached our own standard: direction and magnitude are separate questions and one verdict cannot express both. That 3.35 was wrong about both halves — it understated the trial and overstated what was known about the size of what it found. Hence the two scores above. All three problems are corrected, and the rubric is here so the next such error is one a reader can catch.</p>
   </div>
 </section>
 

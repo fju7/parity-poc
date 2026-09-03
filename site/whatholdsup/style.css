@@ -408,6 +408,14 @@ footer p { color: var(--ink-3); font-size: .85rem; }
 .composite .val { font-family: "IBM Plex Mono", monospace; font-size: 1.9rem; color: var(--ink); font-variant-numeric: tabular-nums; }
 .composite .band { font-family: "IBM Plex Mono", monospace; font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; background: var(--partly-bg); color: var(--partly); padding: .2rem .5rem; border-radius: 4px; }
 .composite .why { font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--ink-3); }
+/* Two composites, one per question. Rule 8: direction and magnitude are
+   separate questions and one verdict cannot express both, so they are laid out
+   as two blocks rather than two numbers on one line. */
+.composite.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.1rem 1.6rem; align-items: start; }
+.composite.two .half { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem; }
+.composite.two .qn { flex-basis: 100%; font-size: .82rem; color: var(--ink-2); margin-bottom: .1rem; }
+.composite.two .why { flex-basis: 100%; }
+.composite.two .half:last-child .band { background: var(--nope-bg); color: var(--nope); }
 @media (max-width: 34rem) { .dimrow { grid-template-columns: 7rem 1fr 2.4rem; gap: .5rem; } }
 
 /* ---------- patient box ---------- */

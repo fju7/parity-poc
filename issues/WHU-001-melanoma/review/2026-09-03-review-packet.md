@@ -1,7 +1,7 @@
 # Outside review packet — The Melanoma Result
 
 Page under review: `site/whatholdsup/melanoma.html`
-sha256 (first 16): `09f91562bb645ec1`
+sha256 (first 16): `39dee790b0b6a2a0`
 Built: 2026-09-03
 
 This packet is the piece, plus two things that did not exist at the last
@@ -16,7 +16,7 @@ our findings anchors on them.
 
 ## Appendix A — every inference the piece makes, and its reasoning
 
-The piece distinguishes what it REPORTS from what it INFERS. Below are all 26
+The piece distinguishes what it REPORTS from what it INFERS. Below are all 29
 inferences, each with the exact words from the documents it rests on and the
 step taken from those words to the claim.
 
@@ -31,6 +31,17 @@ time; any that failed would be marked, and none is.
 
 ### J01
 
+**The sentence.** The companies say the data "will be presented at an upcoming international medical meeting and shared with regulatory authorities." Announcing topline results ahead of a conference presentation is routine, and this piece is not an accusation that anything improper happened.
+
+**Rests on:**
+  - [S001] These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.
+  - [S011] The study will continue to assess other key secondary endpoints, including overall survival.
+  - [S018] According to a news release from Merck, the study will continue according to protocol to evaluate additional secondary endpoints, including overall survival.
+
+**The step we take.** The release itself states that the data will be presented at a medical meeting and shared with regulators, and two outlets we hold report the same sequence as the expected one — the study continuing to protocol with fuller results to come. Nothing in any document we hold treats the topline-first order as irregular, and neither do we. The sentence exists because criticism of an information environment reads as an accusation unless the normal practice is named as normal, which is rule 6 of our own standard.
+
+### J02
+
 **The sentence.** Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released.
 
 **Rests on:**
@@ -44,7 +55,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** All five articles we hold are quoted above, and each attributes the 49% and 59% figures to KEYNOTE-942 — four naming the phase 2b trial explicitly and KOL Pulse calling it a phase 2 trial. Two of the five separately state that no Phase 3 efficacy estimates were released. So the claim is a summary of five specific documents and can be checked against them article by article; it says nothing about coverage we do not hold.
 
-### J02
+### J03
 
 **The sentence.** A reader who sees "49% reduction" three paragraphs under "Phase 3 succeeds" comes away with a sense of how large this effect is.
 
@@ -53,7 +64,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** The release states the endpoints were met and gives the 49% figure only for the earlier Phase 2b trial. A reader meeting the two within a few paragraphs has no cue that they belong to different trials, so the figure reads as the magnitude of the result just announced.
 
-### J03
+### J04
 
 **The sentence.** An HR of 0.51 does not mean 49% of patients were saved.
 
@@ -63,7 +74,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** 0.51 is the hazard ratio this programme reported, and a hazard ratio is a ratio of hazard rates between two groups, not a count or share of individuals. So it cannot be read as a percentage of patients.
 
-### J04
+### J05
 
 **The sentence.** The single most useful question to ask of any interval: does it cross 1.0?
 
@@ -73,7 +84,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** Our own editorial advice, not a finding. It follows from the two premises: 1.0 is the no-difference value for a ratio, and an interval is the range not excluded — so whether the interval covers 1.0 is the question that decides whether 'no effect' remains available.
 
-### J05
+### J06
 
 **The sentence.** Because 1.0 means no difference at all.
 
@@ -82,7 +93,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** Singh and Mukhopadhyay define the hazard ratio as a ratio of two groups' hazard rates and state that if HR = 1 the two hazard functions are equal. Two quantities whose ratio is 1 are the same quantity, so a hazard ratio of 1.0 is the value at which the two groups' hazard rates do not differ.
 
-### J06
+### J07
 
 **The sentence.** If the range includes 1.0, then "this treatment does nothing" is still among the possibilities the data cannot rule out.
 
@@ -92,17 +103,17 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** A confidence interval is the set of effect sizes not rejected at the corresponding cut-off, and a hazard ratio of 1 is the value at which the groups' hazard rates are equal. So if 1.0 lies inside the interval, 'no difference' is one of the values the data do not exclude.
 
-### J07
+### J08
 
-**The sentence.** What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so "no effect" could not be ruled out.
+**The sentence.** What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so on a two-sided 5% criterion "no effect" could not be ruled out.
 
 **Rests on:**
   - [S003] hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053
   - [S025] The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t).
 
-**The step we take.** The Lancet reports the interval as 0.309 to 1.017, and a hazard ratio of 1 is the value at which the two groups' hazard rates are equal. 1.0 lies between 0.309 and 1.017, so 'no difference' is inside the range the data do not exclude.
+**The step we take.** The Lancet reports the interval as 0.309 to 1.017, and a hazard ratio of 1 is the value at which the two groups' hazard rates are equal. 1.0 lies between 0.309 and 1.017, so a two-sided 95% interval does not exclude no difference. The criterion is named because this trial's own prespecified analysis was one-sided at alpha 0.10, under which the same data did clear its threshold — an unqualified 'could not be ruled out' would imply the trial failed a test it never set itself.
 
-### J08
+### J09
 
 **The sentence.** By the three-year readout at ASCO 2024, since published in full, the interval no longer crossed it: HR 0.510, 95% CI 0.288–0.906 — though that paper states plainly that its analyses were descriptive only and not intended for formal hypothesis testing, so this is an interval that stopped including 1.0 rather than a threshold anyone crossed.
 
@@ -112,7 +123,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** The three-year paper's 95% interval runs from 0.288 to 0.906. 1.0 is above 0.906, so unlike the first readout's interval this one does not contain the no-difference value.
 
-### J09
+### J10
 
 **The sentence.** The universal misreading A p-value of 0.05 does not mean a 95% chance the drug works.
 
@@ -121,16 +132,16 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** 0.05 is named in the source only as the conventional cut-off. Greenland et al. state that the P value is not a hypothesis probability, so a p of 0.05 cannot be read as a 95% chance that the drug works.
 
-### J10
+### J11
 
-**The sentence.** It means: if the drug were useless, you would see a result this good about 5% of the time by luck.
+**The sentence.** It means: if the no-effect hypothesis and the other assumptions behind the analysis were all correct, a result at least this extreme would turn up about 5% of the time.
 
 **Rests on:**
   - [S022] The P value is then the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis.
 
-**The step we take.** Greenland et al. define the P value as the probability of a test statistic at least as extreme as the one observed, computed on the assumption that the test hypothesis and the rest of the model are correct. Stated in plain words with the test hypothesis being 'the drug does nothing', that is the frequency with which a result this strong would arise by chance alone.
+**The step we take.** Greenland et al. define the P value as the probability of a test statistic at least as extreme as the one observed, computed on the assumption that the test hypothesis AND every other model assumption is correct. The earlier wording here — 'if the drug were useless, you would see a result this good 5% of the time' — conditioned on the test hypothesis alone and dropped the rest of the model, which is the misinterpretation that paper exists to correct. The sentence now carries the whole condition.
 
-### J11
+### J12
 
 **The sentence.** A one-sided test asks only "is it better?" A two-sided test asks "is it different, in either direction?" For a symmetric test the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question.
 
@@ -140,7 +151,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** The company release reports one-sided p = 0.0266 and the Lancet reports two-sided p = 0.053 for the same hazard ratio and the same interval. The pair shows what the one-sided and two-sided questions do to the same data.
 
-### J12
+### J13
 
 **The sentence.** So 0.0266 was inside its own prespecified threshold by a wide margin , and 0.053 is a near miss only against a 0.05 line this trial never used.
 
@@ -152,7 +163,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** The three-year paper records that the trial was designed against a one-sided alpha of 0.10. The company release reports one-sided p = 0.0266 and the Lancet reports two-sided p = 0.053 for the same comparison. 0.0266 is below 0.10; 0.053 is above 0.05 but 0.05 is not the threshold this trial registered.
 
-### J13
+### J14
 
 **The sentence.** 0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.
 
@@ -162,7 +173,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** Both figures describe the same comparison in the same trial — the release's one-sided p and the Lancet's two-sided p, either side of the same hazard ratio 0.561 and interval 0.309-1.017. They differ in which test was reported, not in what was observed.
 
-### J14
+### J15
 
 **The sentence.** The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on.
 
@@ -172,7 +183,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** The two-sided 95% interval is 0.309 to 1.017 and a hazard ratio of 1 is the value at which the groups' hazard rates are equal. 1.0 falls inside that interval, which is the same statement as the two-sided p of 0.053 sitting just above 0.05.
 
-### J15
+### J16
 
 **The sentence.** A therapy that reduces the hazard of recurrence by 8% and one that halves it both produce that sentence.
 
@@ -182,7 +193,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** Since the announcement gives no effect size, the same sentence 'met its endpoint' would have been written for a small benefit and a large one. The sentence therefore does not distinguish between them.
 
-### J16
+### J17
 
 **The sentence.** This is why the absence of a hazard ratio in the Phase 3 announcement matters: "met its endpoint" is the floor of what could be said, not a summary of what was found.
 
@@ -192,7 +203,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** The release states only that the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. 'Met its endpoint' is therefore compatible with any effect size large enough to clear the threshold, and reports nothing about which.
 
-### J17
+### J18
 
 **The sentence.** For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — in the three trials whose registry records we hold — KEYNOTE-054, KEYNOTE-716 and CheckMate 238 — none has reported a statistically significant overall survival benefit against placebo as a prespecified endpoint in its own population, though indirect comparisons have suggested a signal.
 
@@ -203,7 +214,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** All three registry records are held in full and were read on 3 September 2026. In KEYNOTE-054 and KEYNOTE-716 — both pembrolizumab against placebo — the overall-survival measure appears in the posted results with an empty analyses list, so no hazard ratio, interval or p-value was ever posted for it. CheckMate 238 randomises nivolumab against ipilimumab and so cannot report against placebo at all. The claim is deliberately bounded to these three: it says what we checked rather than what is true of every trial that exists.
 
-### J18
+### J19
 
 **The sentence.** KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; each lists overall survival as a secondary endpoint, and each has posted an overall-survival result that carries no statistical analysis at all — no hazard ratio, no confidence interval, no p-value.
 
@@ -213,7 +224,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** All three registry records are held in full and were read on 3 September 2026. In KEYNOTE-054 and KEYNOTE-716 the overall-survival measure appears in the posted results with an empty analyses list — the field that would carry a hazard ratio, interval or p-value is absent, not merely unfavourable. The earlier version of this sentence said KEYNOTE-054 had no result posted, which was wrong: results are posted, and it is the statistical analysis that is missing.
 
-### J19
+### J20
 
 **The sentence.** CheckMate 238 ’s arms are nivolumab and ipilimumab, so there is no placebo arm to report against.
 
@@ -222,7 +233,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** CheckMate 238 randomises nivolumab against ipilimumab. Its registry title states both arms, so there is no placebo arm in it and it cannot bear on a claim about trials against placebo.
 
-### J20
+### J21
 
 **The sentence.** And most simply, there is nothing to put beside them: the Phase 3 has released no effect size, so quoting 0.51 next to “met its endpoints” is not a comparison but a substitution — the reader supplies the missing number from the smaller, older, differently-designed trial.
 
@@ -232,7 +243,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** No Phase 3 effect size has been released, and the 0.51 in circulation is the five-year Phase 2b figure from a different trial and population. Placing them side by side offers the reader no second quantity to compare, so the Phase 2b number occupies the place where the Phase 3 number would go.
 
-### J21
+### J22
 
 **The sentence.** Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients.
 
@@ -242,7 +253,17 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** The three percentages are the five-year KEYNOTE-942 release's, verbatim. MLQ News, reading the Phase 3 announcement, records that it gave no adverse-event table or rates for the 1,137-patient trial. So the percentages in the bullet above belong to the smaller earlier trial, and there is no Phase 3 equivalent to compare them with. The Phase 3 release does carry adverse-event percentages, but they are KEYTRUDA label text about other trials, which is why the sentence says rates for its own 1,137 patients rather than percentages at all.
 
-### J22
+### J23
+
+**The sentence.** Is the effect real scores 3.94; how large is it scores 1.0.
+
+**Rests on:**
+  - [S001] randomized, double-blind, placebo- and active-comparator-controlled global Phase 3 trial
+  - [S018] The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.
+
+**The step we take.** The two numbers are the published rubric applied by hand to the six dimension scores shown above, and the working for each is printed beside it so a reader can redo the arithmetic. They diverge because the evidence does: the release describes a randomised, double-blind, placebo- and active-comparator-controlled Phase 3, which is what the direction dimensions reward, and discloses no efficacy estimate at all, which is what the magnitude dimension measures. Neither figure is reported by any document; both are ours, computed here.
+
+### J24
 
 **The sentence.** Rigor scores 5 — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets.
 
@@ -252,7 +273,17 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** Our rubric's rigor dimension scores trial design. The release records a randomised, double-blind, placebo- and active-comparator-controlled Phase 3 of 1,137 patients, which carries every design feature the top score names.
 
-### J23
+### J25
+
+**The sentence.** Those are different things, and until 3 September this scorecard averaged them into a single 3.35 that was wrong about both halves — understating the trial and overstating what is known about the size of what it found.
+
+**Rests on:**
+  - [S001] The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS).
+  - [S018] The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.
+
+**The step we take.** A claim about this publication's own history rather than about the trial. The single composite was 3.35 and is in the change log and in git. It averaged a well-designed trial against an announcement carrying no efficacy estimate, so it sat below what the design deserves and above what the disclosure supports. An outside reviewer identified it as a breach of our own rule 8 on 3 September and the scorecard was split the same day.
+
+### J26
 
 **The sentence.** Source quality scores 3 rather than 5 for the same reason: the claim currently rests on a corporate press release, which the rubric ranks as industry analysis, not the peer-reviewed publication it will eventually become.
 
@@ -262,17 +293,17 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** Our rubric scores source quality by what the claim currently rests on. The only account of this result is the companies' own announcement, which as Practical Dermatology records disclosed no efficacy estimates; there is no peer-reviewed publication of the Phase 3 to rest on yet.
 
-### J24
+### J27
 
-**The sentence.** “Landmark trial succeeds” and “3.35, moderate” describe the same event, and only one of them tells you the numbers are still missing.
+**The sentence.** “Landmark trial succeeds” and “real: 3.94, size: 1.0” describe the same event, and only one of them tells you the numbers are still missing.
 
 **Rests on:**
   - [S001] The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS).
   - [S011] The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.
 
-**The step we take.** The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our composite is 3.35 because data support scores 1 against the rubric's anchor for a purely qualitative assertion. Both describe the same announcement; only the score carries the fact that the magnitude is missing.
+**The step we take.** The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our two scores read 3.94 for whether the effect is real and 1.0 for how large it is, and both are computed on this page from the six dimension scores shown. The headline and the pair describe the same announcement; only the pair carries the fact that the magnitude is missing, which a single averaged number did not.
 
-### J25
+### J28
 
 **The sentence.** If someone quotes "49%" at you, ask which trial.
 
@@ -282,7 +313,7 @@ time; any that failed would be marked, and none is.
 
 **The step we take.** The 49% figure belongs to the Phase 2b five-year analysis, and the Phase 3 announcement carries no effect size at all. So the question that settles which result a quoted 49% describes is which trial it came from.
 
-### J26
+### J29
 
 **The sentence.** Morning Glory Sciences — the English edition of a non-English industry site, which we cite for an argument we have checked ourselves rather than on its standing — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading reached the
 
@@ -421,7 +452,7 @@ The full page follows as HTML. Read it as a reader would.
 <div class="strip">
   <div><b>1,137</b><span>patients in the Phase&nbsp;3 trial</span></div>
   <div><b>0</b><span>Phase&nbsp;3 efficacy numbers released</span></div>
-  <div><b>n=14</b><span>the whole survival analysis</span></div>
+  <div><b>14 deaths</b><span>the whole survival analysis</span></div>
   <div><b>0.165–1.345</b><span>the interval around that trend</span></div>
 </div>
 
@@ -443,7 +474,7 @@ The full page follows as HTML. Read it as a reader would.
 
   <p>That is a real and significant result. A double-blind trial of that size is the strongest instrument this field has, and it agreed with the smaller study that preceded it.</p>
 
-  <p><strong>The release contains no hazard ratio, no confidence interval, no p-value and no percentage describing the size of that effect.</strong> It does contain hazard ratios — 0.51 for recurrence, 0.411 for distant metastasis — but those are the five-year results of KEYNOTE-942, the 157-patient trial that preceded this one, and the release says so. Of the 1,137-patient trial it is announcing, the release states that both endpoints were met and gives no figure for either. A week on, no numbers have been released. The companies say the data "will be presented at an upcoming international medical meeting and shared with regulatory authorities."</p>
+  <p><strong>The release contains no hazard ratio, no confidence interval, no p-value and no percentage describing the size of that effect.</strong> It does contain hazard ratios — 0.51 for recurrence, 0.411 for distant metastasis — but those are the five-year results of KEYNOTE-942, the 157-patient trial that preceded this one, and the release says so. Of the 1,137-patient trial it is announcing, the release states that both endpoints were met and gives no figure for either. No numbers have been released since. The companies say the data "will be presented at an upcoming international medical meeting and shared with regulatory authorities." Announcing topline results ahead of a conference presentation is routine, and this piece is not an accusation that anything improper happened. It is about what a reader can and cannot conclude in the interval.</p>
 
   <div class="note">
     <span class="kicker">Why this is worth a whole article</span>
@@ -464,7 +495,7 @@ The full page follows as HTML. Read it as a reader would.
       <span class="term-sym">HR</span>
     </div>
     <p>A comparison of how <em>fast</em> something is happening in two groups. An HR of 1.0 means the groups are identical. Below 1.0 means the treatment group is doing better; above 1.0 means worse.</p>
-    <p>The value is a rate, not a headcount. <strong>An HR of 0.51 does not mean 49% of patients were saved.</strong> It means that at any given moment during the trial, someone in the treatment group was recurring at about half the rate of someone in the comparison group.</p>
+    <p>The value is a rate, not a headcount. <strong>An HR of 0.51 does not mean 49% of patients were saved.</strong> It means that at any given moment during the trial, someone in the treatment group was recurring or dying at about half the rate of someone in the comparison group.</p>
     <div class="worked">
       <span class="lbl">In this story</span>
       At five years of follow-up, KEYNOTE-942 reported a recurrence-free survival hazard ratio of <b>0.510</b>. Reported as a percentage that becomes "a 49% reduction in the hazard of recurrence or death" — a correct restatement of the ratio, and still a relative rate rather than a share of patients spared.
@@ -527,7 +558,7 @@ The full page follows as HTML. Read it as a reader would.
 
     <div class="worked">
       <span class="lbl">What time did to the top two bars</span>
-      When KEYNOTE-942 first reported in 2023, its recurrence result was <b>HR 0.561, 95% CI 0.309–1.017</b> — the interval crossed 1.0, so "no effect" could not be ruled out. By the three-year readout at ASCO 2024, since published in full, the interval no longer crossed it: <b>HR 0.510, 95% CI 0.288–0.906</b> — though that paper states plainly that its analyses were <b>descriptive only</b> and not intended for formal hypothesis testing, so this is an interval that stopped including 1.0 rather than a threshold anyone crossed. At five years the point estimate was unchanged at <b>0.510</b> and the interval read <b>0.294–0.887</b> — the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close to unchanged. So the crossing was resolved by year three, not year five, and what the last two years added was two more years of it holding rather than a sharper measurement. More data, more certainty, and a recurrence effect that <b>held up rather than fading</b> — one of the better signs that an effect is real.<br><br>
+      When KEYNOTE-942 first reported in 2023, its recurrence result was <b>HR 0.561, 95% CI 0.309–1.017</b> — the interval crossed 1.0, so on a two-sided 5% criterion "no effect" could not be ruled out. By the three-year readout at ASCO 2024, since published in full, the interval no longer crossed it: <b>HR 0.510, 95% CI 0.288–0.906</b> — though that paper states plainly that its analyses were <b>descriptive only</b> and not intended for formal hypothesis testing, so this is an interval that stopped including 1.0 rather than a threshold anyone crossed. At five years the point estimate was unchanged at <b>0.510</b> and the interval read <b>0.294–0.887</b> — the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close to unchanged. So the crossing was resolved by year three, not year five, and what the last two years added was two more years of it holding rather than a sharper measurement. More data, more certainty, and a recurrence effect that <b>held up rather than fading</b> — one of the better signs that an effect is real.<br><br>
       Not everything moved that way. Distant metastasis-free survival was a <b>62%</b> reduction in hazard at three years and <b>59%</b> at five. That is a small easing, well inside the noise of a trial this size, and we mention it because a piece that only reported the numbers moving in the flattering direction would be doing the thing this article is about.
     </div>
     <div class="warn">
@@ -544,12 +575,12 @@ The full page follows as HTML. Read it as a reader would.
     <p>The probability of seeing a result at least this good <em>if the treatment actually did nothing</em>. A small p-value means the result would be a surprising fluke. By convention, below 0.05 is called statistically significant — an arbitrary line, but a widely used one.</p>
     <div class="warn">
       <span class="lbl">The universal misreading</span>
-      A p-value of 0.05 does <b>not</b> mean a 95% chance the drug works. It means: if the drug were useless, you would see a result this good about 5% of the time by luck. It describes the surprise, not the probability of the conclusion.
+      A p-value of 0.05 does <b>not</b> mean a 95% chance the drug works. It means: if the no-effect hypothesis and the other assumptions behind the analysis were all correct, a result at least this extreme would turn up about 5% of the time. The assumptions are part of the claim, not a footnote to it. It describes the surprise, not the probability of the conclusion.
     </div>
     <div class="worked">
       <span class="lbl">In this story — and this is the interesting part</span>
       The April 2023 press release reported KEYNOTE-942 as <b>one-sided p = 0.0266</b>. When the same data were published in <em>The Lancet</em>, they came with <b>two-sided p = 0.053</b>, although the prespecified analysis was one-sided.<br><br>
-      A one-sided test asks only "is it better?" A two-sided test asks "is it different, in either direction?" For a symmetric test the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question. Neither is dishonest, and a one-sided test pre-specified for a mid-stage trial is a normal choice. This trial's own threshold is on the record: the three-year paper says the trial was <q>designed with approximately 80% power to detect a hazard ratio (HR) of 0.5</q> against a one-sided alpha of 0.10, and the ASCO 2024 deck states the same threshold in its own words &mdash; <q>1-sided alpha of 0.1 per protocol</q>. So <b>0.0266 was inside its own prespecified threshold by a wide margin</b>, and 0.053 is a near miss only against a 0.05 line this trial never used. <b>0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.</b> The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on. The framing was never explained to readers.
+      A one-sided test asks only "is it better?" A two-sided test asks "is it different, in either direction?" For a symmetric test the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question. Neither is dishonest, and a one-sided test pre-specified for a mid-stage trial is a normal choice. This trial's own threshold is on the record: the three-year paper says the trial was <q>designed with approximately 80% power to detect a hazard ratio (HR) of 0.5</q> against a one-sided alpha of 0.10, and the ASCO 2024 deck states the same threshold in its own words &mdash; <q>1-sided alpha of 0.1 per protocol</q>. So <b>0.0266 was inside its own prespecified threshold by a wide margin</b>, and 0.053 is a near miss only against a 0.05 line this trial never used. <b>0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.</b> The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on.
     </div>
   </div>
 
@@ -571,7 +602,7 @@ The full page follows as HTML. Read it as a reader would.
       <span class="term-sym">RFS · DMFS · OS</span>
     </div>
     <p>Three different questions, routinely blurred together in coverage.</p>
-    <p><strong>Recurrence-free survival (RFS)</strong> — how long until the cancer comes back anywhere, or the patient dies. <strong>Distant metastasis-free survival (DMFS)</strong> — how long until it spreads to distant organs, the more dangerous kind of return. <strong>Overall survival (OS)</strong> — how long until death, from any cause.</p>
+    <p><strong>Recurrence-free survival (RFS)</strong> — how long until the cancer comes back anywhere, or the patient dies. <strong>Distant metastasis-free survival (DMFS)</strong> — how long until it spreads to distant organs or the patient dies; the spread is the more dangerous kind of return. <strong>Overall survival (OS)</strong> — how long until death, from any cause.</p>
     <div class="warn">
       <span class="lbl">The distinction that matters most</span>
       OS is the only endpoint that measures <b>length of life</b> directly. DMFS tells you the cancer did not reach distant organs — a clinically important outcome in its own right, not a stand-in for survival. RFS tells you the cancer stayed away anywhere, or the patient survived. All three are meaningful and none is a substitute for another. Adjuvant melanoma trials have a history of recurrence benefits that took years to translate into survival benefits, and sometimes never did. For adjuvant <b>PD-1</b> inhibitors specifically &mdash; the comparison arm in this very trial &mdash; in the three trials whose registry records we hold &mdash; KEYNOTE-054, KEYNOTE-716 and CheckMate&nbsp;238 &mdash; none has reported a statistically significant overall survival benefit against placebo as a prespecified endpoint in its own population, though indirect comparisons have suggested a signal. That rests on three registry records. <b>KEYNOTE-054</b> and <b>KEYNOTE-716</b> are both pembrolizumab against placebo; each lists overall survival as a secondary endpoint, and each has posted an overall-survival result that carries no statistical analysis at all &mdash; no hazard ratio, no confidence interval, no p-value. <b>CheckMate 238</b>&rsquo;s arms are nivolumab and ipilimumab, so there is no placebo arm to report against. That is a claim about PD-1 inhibitors and not about adjuvant checkpoint inhibitors as a class; a CTLA-4 inhibitor is a different drug against a different target, and this page holds no document about one. In this programme, overall survival has been reported only as an exploratory analysis in the smaller trial, on an "n=14" &mdash; fourteen deaths among 157 patients, seven in each arm. The Phase 3 is still measuring it.
@@ -626,7 +657,7 @@ The full page follows as HTML. Read it as a reader would.
       <h3>Established</h3>
       <ul>
         <li>A large, well-designed, properly blinded Phase 3 crossed its pre-registered threshold on recurrence at an interim analysis.</li>
-        <li>In the earlier Phase 2b at five years, patients on the combination were recurring or dying at about <strong>half the rate</strong> (HR 0.510, 0.294–0.887) and reaching distant metastasis at about <strong>two-fifths the rate</strong> (HR 0.411, 0.200–0.843).</li>
+        <li>In the earlier Phase 2b at five years, patients on the combination were recurring or dying at about <strong>half the rate</strong> (HR 0.510, 0.294–0.887) and reaching distant metastasis or dying at about <strong>two-fifths the rate</strong> (HR 0.411, 0.200–0.843).</li>
         <li>The recurrence effect <strong>held up over five years</strong> rather than fading, and its interval stopped including the no-effect line by year three and stayed clear — often a sign an effect is real, though the three-year analysis was descriptive rather than a formal test.</li>
         <li>Any-grade immune-related adverse events were similar — <strong>45.2%</strong> on the combination versus <strong>44%</strong> on pembrolizumab alone — but <strong>grade 3 or worse treatment-related events were higher: 25% versus 18%.</strong> Reading only the first pair would tell you the added therapy costs nothing, and it does.</li>
         <li>Most of the side effects attributed to the vaccine were mild to moderate — fatigue 59.6%, injection-site pain 59.6%, chills 51.0%. Those are KEYNOTE-942 figures, from the five-year release; the Phase&nbsp;3 announcement gave no adverse-event rates for its own 1,137 patients.</li>
@@ -668,16 +699,25 @@ The full page follows as HTML. Read it as a reader would.
     <div class="dimrow"><span class="nm">Recency</span><span class="bar"><span class="fill" style="width:100%;background:var(--holds)"></span></span><span class="sc">5 / 5</span></div>
     <div class="dimrow"><span class="nm">Rigor</span><span class="bar"><span class="fill" style="width:100%;background:var(--holds)"></span></span><span class="sc">5 / 5</span></div>
 
-    <div class="composite">
-      <span class="val">3.35</span>
-      <span class="band">Moderate</span>
-      <span class="why">(3×.25)+(1×.20)+(4×.20)+(4×.15)+(5×.10)+(5×.10)</span>
+    <div class="composite two">
+      <div class="half">
+        <span class="qn">Is the effect real?</span>
+        <span class="val">3.94</span>
+        <span class="band">Moderate</span>
+        <span class="why">(3×.25 + 4×.20 + 4×.15 + 5×.10 + 5×.10) ÷ .80</span>
+      </div>
+      <div class="half">
+        <span class="qn">How large is it?</span>
+        <span class="val">1.0</span>
+        <span class="band">Weak</span>
+        <span class="why">(1×.20) ÷ .20</span>
+      </div>
     </div>
   </div>
 
-  <p>The two extremes are the whole story. <strong>Rigor scores 5</strong> — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets. <strong>Data support scores 1</strong> &mdash; the rubric's anchor for 1 is <q>purely qualitative assertion with no numeric support</q>, which is what a statement that two endpoints were met, with no figure for either, is.</p>
-  <p>So the study is excellent and the evidence released about it is almost nothing. Those are different things, and a scoring system worth having has to be able to say both at once. <strong>Source quality scores 3</strong> rather than 5 for the same reason: the claim currently rests on a corporate press release, which the rubric ranks as industry analysis, not the peer-reviewed publication it will eventually become.</p>
-  <p>This is what a headline cannot do. &ldquo;Landmark trial succeeds&rdquo; and &ldquo;3.35, moderate&rdquo; describe the same event, and only one of them tells you the numbers are still missing.</p>
+  <p>Two scores, not one, because these are two questions and one number cannot answer both. <strong>Is the effect real</strong> scores 3.94; <strong>how large is it</strong> scores 1.0. The gap between them is the story. <strong>Rigor scores 5</strong> — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets. <strong>Data support scores 1</strong> &mdash; the rubric's anchor for 1 is <q>purely qualitative assertion with no numeric support</q>, which is what a statement that two endpoints were met, with no figure for either, is.</p>
+  <p>So the study is excellent and the evidence released about it is almost nothing. Those are different things, and until 3 September this scorecard averaged them into a single 3.35 that was wrong about both halves &mdash; understating the trial and overstating what is known about the size of what it found. An outside reviewer said so and the scorecard was split. Only one of the six dimensions, data support, asks whether an effect size exists at all, so the magnitude score rests on that dimension alone; the <a href='/the-rubric'>rubric</a> says so rather than hiding it. <strong>Source quality scores 3</strong> rather than 5 for the same reason: the claim currently rests on a corporate press release, which the rubric ranks as industry analysis, not the peer-reviewed publication it will eventually become.</p>
+  <p>This is what a headline cannot do. &ldquo;Landmark trial succeeds&rdquo; and &ldquo;real: 3.94, size: 1.0&rdquo; describe the same event, and only one of them tells you the numbers are still missing.</p>
 
   <div class="note">
     <span class="kicker">What would settle this</span>
@@ -706,7 +746,7 @@ The full page follows as HTML. Read it as a reader would.
 <section>
   <div class="section-head">
     <h2>Sources</h2>
-    <p>Primary sources first. Every number above traces to one of these, and none to a news report.</p>
+    <p>Primary sources first. Every number above traces to one of these, and none to a news report &mdash; a check that runs before this page can publish refuses it otherwise.</p>
   </div>
   <div class="sources">
     <div class="src">
@@ -852,6 +892,24 @@ The full page follows as HTML. Read it as a reader would.
   correctly, and the section now says so and leads with it. What is left is subtler and
   harder to fix &mdash; correctly attributed figures still doing work they cannot do,
   three paragraphs under a headline about a different trial.</p>
+
+  <p><strong>The scorecard was one number and is now two.</strong> An outside
+  reviewer found that a single composite breaches this publication&rsquo;s own rule
+  against expressing confidence in a result&rsquo;s <em>direction</em> and confidence in
+  its <em>size</em> in one verdict. The old composite read <span data-whu="computed">3.35,
+  from 3 / 5 &middot; 1 / 5 &middot; 4 / 5 &middot; 4 / 5 &middot; 5 / 5 &middot; 5 / 5 and
+  (3&times;.25 + 1&times;.20 + 4&times;.20 + 4&times;.15 + 5&times;.10 + 5&times;.10)</span>
+  &mdash; a number below what the trial design deserves and above what the disclosure
+  supports. It is now 3.94 for whether the effect is real and 1.0 for how large it is.
+  The <a href="/the-rubric">rubric</a> carries the split and says plainly that only one
+  of the six dimensions measures magnitude at all.</p>
+
+  <p><strong>The five-year rates moved to the primary document.</strong> They had been
+  credited to <em>The ASCO Post</em>, because the ASCO abstract that carries them
+  returned an error to every automated attempt to fetch it. It was obtained by hand on
+  3&nbsp;September and those figures now rest on it. The same abstract states in its own
+  words that <q>No alpha was assigned to this analysis</q>, which is the plainest
+  available support for a point this piece already made from the three-year paper.</p>
 
   <p><strong>Statistical language.</strong> Four corrections. We had called a 62%
   figure a &ldquo;risk reduction&rdquo; where it is a reduction in hazard. We had
