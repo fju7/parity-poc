@@ -364,6 +364,114 @@
       "by": "claude",
       "on": "2026-09-02",
       "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document."
+    },
+    {
+      "id": "c43",
+      "kind": "claim",
+      "gate_verdict": "WRONG_SOURCE",
+      "gate_said": "OS was an exploratory end point as the study was not sufficiently powered for an OS evaluation, and no alpha was assigned to this analysis.",
+      "decision": "rejected",
+      "source_id": "S014",
+      "quote": "no alpha was assigned to this analysis",
+      "why": "A reach failure, not an error. The role searched and found ASCO 2024's LBA9512 — the THREE-year update — and correctly reported that our sentence about the FIVE-year analysis did not match it. The five-year abstract is number 9500, presented at ASCO 2026, and it has been in the library since the editor obtained it on 3 September. The phrase is in it verbatim. An absence observed by something that could not see the document is not an absence.",
+      "by": "claude",
+      "on": "2026-09-03"
+    },
+    {
+      "id": "c45",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "The paper at DOI 10.1200/OA-25-00008 is paywalled beyond the abstract; the exact quoted phrase does not appear in any accessible snippet.",
+      "decision": "rejected",
+      "source_id": "S007",
+      "quote": "not intended for formal hypothesis testing",
+      "why": "The role said so itself: the paper is paywalled to it. We hold the full text, and the sentence reads 'These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only).' Both halves of our phrasing are in the document, and the binding row for this sentence already rests on that span. What the role could not reach it could not judge.",
+      "by": "claude",
+      "on": "2026-09-03"
+    },
+    {
+      "id": "c50",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "Published in JCO Oncology Advances 2026, Vol. 3, No. 1 (exact date not accessible)",
+      "decision": "rejected",
+      "source_id": "S007",
+      "quote": "February 12, 2026",
+      "why": "The role reached the volume and issue and not the date. The held PDF prints the date in American order; the page prints it in British order. Same date, and it is the one place a publication date is authoritative — the paper itself.",
+      "by": "claude",
+      "on": "2026-09-03"
+    },
+    {
+      "id": "c53",
+      "kind": "claim",
+      "gate_verdict": "WRONG_SOURCE",
+      "gate_said": "The quoted phrase matches the press release body text, but the draft omits the opening 'These data'.",
+      "decision": "rejected",
+      "source_id": "S001",
+      "quote": "These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "why": "The finding was right when it was written and the page had already been fixed before this run. It now quotes the sentence whole, opening words included, and the string above is in S001 exactly as we print it. Recorded rather than dropped because a finding that stops applying is still a finding somebody made.",
+      "by": "claude",
+      "on": "2026-09-03"
+    },
+    {
+      "id": "c54",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "The ClinicalTrials.gov page was reached but returned only boilerplate administrative text with no results section.",
+      "decision": "rejected",
+      "source_id": "S013",
+      "quote": "\"hasResults\":false",
+      "why": "The role got the rendered page; we hold the record. The field that answers the question outright is in the JSON, and the binding row for this sentence names it by path ($.hasResults). This is the exact shape the whole binding layer exists for: a structured record answers a yes/no question that a rendered page cannot.",
+      "by": "claude",
+      "on": "2026-09-03"
+    },
+    {
+      "id": "inf-4",
+      "kind": "inference",
+      "gate_verdict": "FACT",
+      "gate_said": "The draft's own sources section lists overall survival as a secondary endpoint, not a KEY secondary endpoint.",
+      "decision": "accepted",
+      "source_id": "S013",
+      "quote": "\"hasResults\":false",
+      "why": "Right, and acted on before this run: the quoted ASCO Post sentence describing overall survival as a 'key secondary endpoint' is no longer on the page. The registry record we hold is what settles the endpoint hierarchy, and it does not call overall survival key. Two findings, inf-4 and inf-17, are the same sentence quoted twice by the same run.",
+      "by": "claude",
+      "on": "2026-09-03"
+    },
+    {
+      "id": "inf-17",
+      "kind": "inference",
+      "gate_verdict": "FACT",
+      "gate_said": "This is the same finding as inf-4 (the ASCO Post quote).",
+      "decision": "accepted",
+      "source_id": "S013",
+      "quote": "\"hasResults\":false",
+      "why": "The same sentence as inf-4, quoted twice by one run. Removed from the page; see inf-4.",
+      "by": "claude",
+      "on": "2026-09-03"
+    },
+    {
+      "id": "inf-6",
+      "kind": "inference",
+      "gate_verdict": "CONTRADICTION",
+      "gate_said": "A two-sided 95% CI corresponds to a two-sided alpha of 0.05, but the trial's prespecified analysis used a one-sided alpha of 0.10.",
+      "decision": "accepted",
+      "source_id": "S019",
+      "quote": "overall one-sided alpha=0.10",
+      "why": "Not a contradiction, but the sentence invited one and has been changed. Both statements are true of different thresholds: a 95% interval crossing 1.0 is the two-sided 0.05 convention journals print, and this trial's own prespecified threshold was a one-sided alpha of 0.10, which 0.0266 was inside. The sentence said the first and let a reader take it for the second. It now names which threshold it is talking about. The alpha is on the record in two documents we hold — S019 as quoted, and S007 as 'a one-sided a of 0.10', where the Greek alpha extracts as a bare 'a'.",
+      "by": "claude",
+      "on": "2026-09-03"
+    },
+    {
+      "id": "inf-8",
+      "kind": "inference",
+      "gate_verdict": "CONTRADICTION",
+      "gate_said": "CheckMate 238 compares nivolumab to ipilimumab — it has no placebo arm — but the sentence groups it with the placebo-controlled trials.",
+      "decision": "accepted",
+      "source_id": "S021",
+      "quote": "Ipilimumab",
+      "why": "Right, and acted on before this run. The sentence used to say 'the three trials whose registry records we hold ... none has reported'. It now says the two PLACEBO-CONTROLLED trials, names them, and says separately that CheckMate 238 cannot bear on the question because its arms are nivolumab and ipilimumab. The registry record we hold names the comparator.",
+      "by": "claude",
+      "on": "2026-09-03"
     }
   ]
 }

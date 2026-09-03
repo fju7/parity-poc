@@ -1002,7 +1002,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "no held document contains all 3 anchors: 0.0266, 0.053, is it different, in either direction?",
       "proposed_by": "model",
       "confirmed": false,
@@ -1026,7 +1026,8 @@
           "why": "only — the sentence says 'only' and the span contains no word carrying that force"
         }
       ],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-03",
+      "left_page": "2026-09-03"
     },
     "f9afac861dfe75a4": {
       "sentence": "But 0.0266 reads as a clear win and 0.053 reads as a near miss, and they are the same result.",
@@ -4007,7 +4008,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S003",
@@ -4018,7 +4019,8 @@
           "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
         }
       ],
-      "step": "The two-sided 95% interval is 0.309 to 1.017 and a hazard ratio of 1 is the value at which the groups' hazard rates are equal. 1.0 falls inside that interval, which is the same statement as the two-sided p of 0.053 sitting just above 0.05."
+      "step": "The two-sided 95% interval is 0.309 to 1.017 and a hazard ratio of 1 is the value at which the groups' hazard rates are equal. 1.0 falls inside that interval, which is the same statement as the two-sided p of 0.053 sitting just above 0.05.",
+      "left_page": "2026-09-03"
     },
     "2fe183f5ccda1521": {
       "sentence": "The Three-Year Update, published in JCO Oncology Advances on 12 February 2026.",
@@ -4479,7 +4481,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S001",
@@ -4490,7 +4492,8 @@
           "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
         }
       ],
-      "step": "A claim about this publication's own history rather than about the trial. The single composite was 3.35 and is in the change log and in git. It averaged a well-designed trial against an announcement carrying no efficacy estimate, so it sat below what the design deserves and above what the disclosure supports. An outside reviewer identified it as a breach of our own rule 8 on 3 September and the scorecard was split the same day."
+      "step": "A claim about this publication's own history rather than about the trial. The single composite was 3.35 and is in the change log and in git. It averaged a well-designed trial against an announcement carrying no efficacy estimate, so it sat below what the design deserves and above what the disclosure supports. An outside reviewer identified it as a breach of our own rule 8 on 3 September and the scorecard was split the same day.",
+      "left_page": "2026-09-03"
     },
     "6906d38be54b795d": {
       "sentence": "“Landmark trial succeeds” and “real: 3.94, size: 1.0” describe the same event, and only one of them tells you the numbers are still missing.",
@@ -4807,6 +4810,125 @@
         }
       ],
       "step": "The one thing we can show about the outlet is negative and narrow: a search of the open web excluding its own domain on 3 September returned no third party citing it. An earlier version also called it an English translation, which the page gate reported as an unevidenced claim about its publishing practice — we inferred it from the site's URL and strapline and had no source, so it is gone. What remains is the argument, and its premises are checkable: the stage widening is in the Phase 3 release and Pharmacy Times makes the opposing case in its own words."
+    },
+    "2296db9e54a06b1e": {
+      "sentence": "A one-sided test asks only \"is it better?\" A two-sided test asks \"is it different, in either direction?\" For a symmetric test, and when the one-sided test points the way the effect actually went, the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question.",
+      "sentence_sha": "2296db9e54a06b1e",
+      "why_empirical": "quoted passage",
+      "bucket": "judgement",
+      "source_id": "S022",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "Two-sided P values are designed to test hypotheses that the targeted effect measure equals a specific value (e.g., zero), and is neither above nor below this value. When, however, the test hypothesis of scientific or practical interest is a one-sided (dividing) hypothesis, a one-sided P value is appropriate.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S005",
+          "span": "reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone"
+        },
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        }
+      ],
+      "step": "The company release reports one-sided p = 0.0266 and the Lancet reports two-sided p = 0.053 for the same hazard ratio and the same interval. The pair shows what the one-sided and two-sided questions do to the same data.",
+      "proposed_by": "carried",
+      "confirmed": false,
+      "proposed_on": "2026-09-03",
+      "why_bound": "Carried from 719177281168499d, the same sentence before inf-4 was acted on. The claim did not change; a qualification was added — the doubling holds when the one-sided test points the way the effect actually went. The premises are unchanged and still name where 0.0266 and 0.053 come from.",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "only — the sentence says 'only' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-09-03"
+    },
+    "83f9eaef8192e810": {
+      "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — the convention journals print, and not the threshold this trial set for itself, which was a one-sided alpha of 0.10 and which 0.0266 was inside.",
+      "sentence_sha": "83f9eaef8192e810",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": "S003",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "Recurrence-free survival was longer with combination versus monotherapy (hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053), with lower recurrence or death event rate (24 [22%] of 107 vs 20 [40%] of 50)",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S019",
+          "span": "overall one-sided alpha=0.10"
+        },
+        {
+          "source_id": "S005",
+          "span": "reduced the risk of recurrence or death by 44% (HR=0.56 [95% CI, 0.309-1.017]; one-sided p value=0.0266) compared with KEYTRUDA alone"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        },
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "The two-sided 95% interval is 0.309 to 1.017 and 1.0 falls inside it, which is why the two-sided p of 0.053 sits just above 0.05: the interval and the test are the same statement about the same data. The added clause names which threshold the 1.0 crossing belongs to: the two-sided 0.05 convention journals print, not this trial's prespecified one-sided alpha of 0.10. Both are documents we hold — S019 states the alpha outright, and S007 prints it as 'a one-sided a of 0.10', the Greek alpha extracting as a bare a.",
+      "proposed_by": "carried",
+      "confirmed": false,
+      "proposed_on": "2026-09-03",
+      "why_bound": "Carried from 213d41f92f5db000 and extended. inf-6 said the sentence contradicted the draft's own account of the prespecified threshold; it did not, but it let a reader take one threshold for the other, so it now names both and rests on the document for each.",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "e3e15ae33a7b24e7": {
+      "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+      "sentence_sha": "e3e15ae33a7b24e7",
+      "why_empirical": "figure",
+      "bucket": "figure",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": "3.4 in site/whatholdsup/melanoma.html at every commit through 3ab4bf51 and in the deployed page at whatholdsup.org/melanoma; 3.35 from 87b8d9d0, which is also the commit that applied the `computed` mark whose working produces it; 3.94 and 1.0 from e5d29666",
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "attested_by": "Claude (Opus 5)",
+      "attested_in": "the repository's own git history, read on 3 September 2026, and the live page fetched the same day",
+      "why_bound": "NOT LOCATABLE BY MACHINE, and not for the usual reason. This sentence is a claim about what THIS PAGE used to say, so the document that settles it is the page's own history rather than anything in the library. No span check can reach a git object. A person read the commits and the live page and is named above; the two figures also carry declared exclusions saying they are the page's own arithmetic, with the `computed` mark as their falsifier.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03"
     }
   }
 }
