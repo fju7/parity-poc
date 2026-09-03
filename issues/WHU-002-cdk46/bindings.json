@@ -42,8 +42,8 @@
       "sentence": "The NCCN breast cancer guidelines, version 6.2026, cover first-line treatment of hormone-receptor-positive, HER2-negative advanced breast cancer.",
       "sentence_sha": "f313e987bb86b905",
       "why_empirical": "figure",
-      "bucket": null,
-      "locator": null,
+      "bucket": "figure",
+      "locator": "S001-01, S001-06 and S001-12 together — each answer locates content in the guideline's first-line HR+/HER2- advanced breast cancer tables and in its Preferred First-Line Therapy Options discussion, which is the section this sentence describes",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -53,7 +53,12 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 6.2026 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 6.2026 (strength 3, need 4)",
+      "source_id": "S001",
+      "attested_by": "fred",
+      "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
+      "locator_type": "figure",
+      "why_bound": "No new question was needed. The thirteen answers already on file all locate content inside a first-line HR+/HER2- advanced breast cancer section, which is what this sentence claims the guideline covers. Asking the operator to re-open a licence-bound document for a fact his own record already establishes spends his attention on nothing."
     },
     "02311196265d1957": {
       "sentence": "For an aromatase inhibitor combined with a CDK4/6 inhibitor, the guideline assigns ribociclib category 1 .",

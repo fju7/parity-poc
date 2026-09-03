@@ -265,8 +265,24 @@ LOCATOR:     Searched the whole HR+/HER2- section, its tables and footnotes
 EFFECT:      corrects
 DID:         The page said "the guideline says so plainly." It does not. What the guideline does is give the OS-benefit reason for specific assignments; the generalisation from those instances to what the category records is OURS. The claim is now made in our own voice, with the instances as its premises.
 
-### Still outstanding
+### S001-14 — withdrawn, not answered
 
-**S001-14.** What is the guideline's own wording for the scope of the section —
-the sentence the page paraphrases as "covers first-line treatment of
+**Question as put.** What is the guideline's own wording for the scope of the
+section — the sentence the page paraphrases as "covers first-line treatment of
 hormone-receptor-positive, HER2-negative advanced breast cancer"?
+
+WITHDRAWN BY: claude
+ON:           2026-09-03
+WHY:          It did not need asking. Every one of the thirteen answers above
+              locates its content inside a first-line HR+/HER2- advanced breast
+              cancer section — S001-01 in its first-line preference tables,
+              S001-06 in its first-line evidence categories, S001-12 in its
+              "Preferred First-Line Therapy Options for HR-Positive,
+              HER2-Negative Breast Cancer" discussion at page 188. That the
+              section exists and covers what the sentence says it covers is
+              established by the existing record. Asking the operator to
+              re-open a licence-bound document for a fact his own answers
+              already carry spends his attention on nothing, and a question
+              that cannot change any sentence is not worth a reading.
+DID:          Bound the sentence as an attestation citing those three answers
+              rather than opening a fourteenth question.
