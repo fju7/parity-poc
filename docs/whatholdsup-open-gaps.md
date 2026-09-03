@@ -50,3 +50,51 @@ ratio, and asserts the check surfaces it.
 sentences we happen to have met. Four such lists in this repository have been
 wrong. The trigger is a grammatical shape, and the output is a question for a
 human, not a verdict.
+
+
+---
+
+## GAP-002 — there are two decisions files and only one of them is read
+
+**Raised by** trying to re-gate issue one on 2026-09-03.
+**Fix when** issue one is published, with GAP-001.
+
+Eleven adjudications written on 3 September were recorded, correct, and
+invisible. The board read none of them and the gate would have re-reported
+every finding as new — a $4.61 run to rediscover judgements already made.
+
+Two causes, both worth fixing:
+
+**The path.** `factcheck_draft.DECISIONS` defaults to
+`backend/tests/fixtures/draft_decisions.json`, which is where the board reads
+from and where 239 production adjudications actually live. The issue folders
+also contain `draft_decisions.json`, which is what a person naturally writes to
+and what the queued gate jobs pass with `--decisions`. So a decision written in
+the obvious place is read by the gate run and not by the board, and a decision
+written in the fixtures place is read by the board and not by a gate run that
+passes `--decisions`. Production adjudication records should not live under
+`tests/fixtures` in either case.
+
+**The key.** A decision matches on `(ROLE_OF[kind], normalised quote)` and then
+on severity, where the role is `ADVOCATE`, `INFERENCE` or `SOURCE` and the
+severity for a SOURCE finding is its CLASS — `NOT_FOUND`, `WRONG_VALUE`,
+`WRONG_SOURCE` — not the display word. Ten decisions were written with roles
+taken from the report's section headings and no severity at all, and matched
+nothing.
+
+`publish.py` already carries a comment about this exact failure: thirty-one
+SOURCE decisions went silently unmatched because the key was the display word
+rather than the class. The lesson did not transfer, because the recorder is a
+person writing JSON by hand and nothing checks what they wrote against what the
+matcher expects.
+
+**Shape of the fix.** One path, not under `tests/`. A writer function that takes
+a finding and a disposition and derives role, severity and quote from the
+finding itself, so the key cannot be typed wrong. And a preflight row reporting
+orphaned decisions — entries matching no finding — which is the signal that
+would have shown this in seconds. `publish.py status` already computes an
+orphan count; it is not on the board.
+
+**What would show the gap is closed.** A test that writes a decision through
+the writer for each of the three roles and asserts `gate_state` reports each
+as ADJUDICATED rather than NEW.
