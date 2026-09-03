@@ -545,3 +545,56 @@ def test_the_page_title_is_not_a_sentence_on_the_page():
             '</body></html>')
     assert "The Melanoma Result" not in B.HEAD.sub(" ", html)
     assert "1,137" in B.HEAD.sub(" ", html)
+
+
+# --- a negation can be a value rather than a word ----------------------------
+
+FIELD = [("S013", '"hasResults":false')]
+
+
+def test_a_boolean_false_carries_the_negation():
+    """The registry record contains no "no results", no "not posted", no
+    "none" anywhere in it. The negation is a JSON boolean, and B6 was looking
+    for a word."""
+    row = {"locator": "$.hasResults", "span": '"hasResults":false',
+           "source_id": "S013"}
+    assert B.field_negation(row, FIELD)
+
+
+def test_a_true_value_carries_nothing():
+    """The control has to be able to fail, or it is an exemption."""
+    row = {"locator": "$.hasResults", "span": '"hasResults":true',
+           "source_id": "S013"}
+    assert B.field_negation(row, [("S013", '"hasResults":true')]) == ""
+
+
+def test_a_field_with_no_locator_carries_nothing():
+    """Relevance is the named field path. A structured-looking span nobody
+    bound by path is prose that happens to contain a colon."""
+    row = {"span": '"hasResults":false', "source_id": "S013"}
+    assert B.field_negation(row, FIELD) == ""
+
+
+def test_one_field_cannot_carry_a_claim_wider_than_itself():
+    """The case that shaped the rule.
+
+    "no hazard ratio ... appears in either company release, in any of the
+    specialist or general coverage we hold, or in the trial's own registry
+    record" ALSO rests on $.hasResults. That field settles the registry clause
+    and says nothing whatever about the coverage. Clearing its negation on the
+    strength of one boolean would be the check reporting an absence over
+    documents it never looked at — this repository's oldest error, committed by
+    the fix for it.
+    """
+    row = {"locator": "$.protocolSection...date", "source_id": "S013",
+           "span": '"date":"2029-10-26"'}
+    cover = [("S013", '"date":"2029-10-26"'), ("S013", '"hasResults":false')]
+    assert B.field_negation(row, cover) == ""
+
+
+def test_the_field_reading_clears_negations_and_not_quantifiers():
+    """A boolean says "not so". It does not say "every", "any" or "only"."""
+    assert "no" in B.NEGATION_WORDS and "none" in B.NEGATION_WORDS
+    for w in ("any", "all", "every", "each", "only"):
+        assert w not in B.NEGATION_WORDS
+

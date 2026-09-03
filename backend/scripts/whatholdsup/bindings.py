@@ -312,6 +312,50 @@ def covering_spans(row: dict) -> list[tuple[str, str]]:
     return keep
 
 
+# A NEGATION CAN BE A VALUE RATHER THAN A WORD.
+#
+# "NCT05933577 still carries no posted results" rests on the trial's own
+# registry record, bound BY FIELD PATH -- $.hasResults -- whose value is false.
+# B6 looked for a word carrying negative force and reported that the span had
+# none. It was right: the record contains no "no results", no "not posted", no
+# "none" anywhere in it. The negation is a JSON boolean.
+#
+# So the check learns to read one evidence format. It is not an exemption: a
+# row whose locator resolves to true, or to a value not in this set, flags
+# exactly as before.
+FIELD_NEGATIVES = {"false", "null", "none", "0", "[]", "{}", '""',
+                   "not_posted", "no", "n/a"}
+NEGATION_WORDS = {"no", "none", "never", "nothing", "neither", "not"}
+_FIELD = re.compile(r'^\s*"[^"]+"\s*:\s*(.+?)\s*$', re.S)
+
+
+def field_negation(row: dict, cover: list) -> str:
+    """Why a structured field carries this row's negation, or "".
+
+    EXACTLY ONE COVERING SPAN, and it must be a field the row named by path.
+    A sentence resting on several spans is making a claim wider than any one of
+    them, and a single boolean cannot carry a wider claim. Issue one has the
+    case that proves it: "no hazard ratio ... appears in either company
+    release, in any of the specialist or general coverage we hold, or in the
+    trial's own registry record" ALSO rests on $.hasResults, and that field
+    settles the registry clause and says nothing whatever about the coverage.
+    Clearing its negation on the strength of one boolean would be the check
+    reporting an absence over documents it never looked at -- this repository's
+    oldest error, committed by the fix for it.
+    """
+    if not (row.get("locator") or "").strip() or len(cover) != 1:
+        return ""
+    m = _FIELD.match(cover[0][1])
+    if not m:
+        return ""
+    value = m.group(1).strip().strip(",").strip('"').lower()
+    if value not in FIELD_NEGATIVES:
+        return ""
+    return ("the row names the field %s, and its value is %r — the negation is "
+            "the value, not a word in the document"
+            % (row.get("locator"), m.group(1).strip()))
+
+
 def run_checks(slug: str, *, only: str = "") -> dict:
     """Run every span check against the source THE ROW NAMES.
 
@@ -401,11 +445,16 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                         (d.get("falsifier") or "").strip() and \
                         (d.get("by") or "").strip():
                     disposed[d["word"]] = d
+            by_field = field_negation(row, cover)
             for w, why6 in SC.b6_scope(sent, all_spans):
                 if w in disposed:
                     continue
+                if by_field and w in NEGATION_WORDS:
+                    continue
                 found.append({"check": "B6", "verdict": "unmapped scope word",
                               "why": "%s — %s" % (w, why6)})
+            if by_field:
+                row["negation_read_from_field"] = by_field
             live_words = {w for w, _ in SC.b6_scope(sent, "")}
             for w, d in disposed.items():
                 if w not in live_words:

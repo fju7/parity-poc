@@ -3628,14 +3628,9 @@
       "confirmed": false,
       "proposed_on": "2026-09-02",
       "why_bound": "the field hasResults in S013 carries this value; relevance is the named field path, not prose overlap",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
-        }
-      ],
-      "checked_on": "2026-09-03"
+      "check_flags": [],
+      "checked_on": "2026-09-03",
+      "negation_read_from_field": "the row names the field $.hasResults, and its value is 'false' — the negation is the value, not a word in the document"
     },
     "706ba49ee7f5bd0a": {
       "sentence": "Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released.",
