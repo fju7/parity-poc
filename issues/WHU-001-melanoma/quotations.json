@@ -316,6 +316,30 @@
         "by": "claude",
         "on": "2026-09-03"
       }
+    },
+    {
+      "id": "Q-27",
+      "quote": "Ipilimumab and Placebo matching Nivolumab",
+      "kind": "quotation",
+      "source_id": "S021",
+      "verbatim": "Ipilimumab and Placebo matching Nivolumab",
+      "why": "CheckMate 238's two arm-group labels, quoted from its registry record. Added 3 September after a counterexample hunt read the word 'Placebo' in them and concluded at HIGH confidence that the trial has placebo data. Both arms are typed EXPERIMENTAL: the placebos are the matching dummies that keep it blinded. Quoting the labels lets a reader see that for themselves.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-03"
+      }
+    },
+    {
+      "id": "Q-28",
+      "quote": "Nivolumab and Placebo matching Ipilimumab",
+      "kind": "quotation",
+      "source_id": "S021",
+      "verbatim": "Nivolumab and Placebo matching Ipilimumab",
+      "why": "CheckMate 238's two arm-group labels, quoted from its registry record. Added 3 September after a counterexample hunt read the word 'Placebo' in them and concluded at HIGH confidence that the trial has placebo data. Both arms are typed EXPERIMENTAL: the placebos are the matching dummies that keep it blinded. Quoting the labels lets a reader see that for themselves.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-03"
+      }
     }
   ]
 }
