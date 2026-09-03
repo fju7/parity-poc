@@ -1,0 +1,9 @@
+{
+  "note": "Issue one, second and last run of this cycle. Run 014's eight findings are all adjudicated: four rejected as reach failures against documents we hold in full, four accepted and fixed. The largest fix restored a figure the page had removed — the January 2026 five-year topline carrying one-sided nominal p = 0.0075 — because run 014 produced the Merck announcement the page said would keep it out until somebody did. That release is now held as S027, and three sentences explaining it have never been examined by any role. Also since 014: the blinding claim narrowed to what double-blinding actually governs, the Morning Glory description reduced to what we can evidence, and a change-log entry corrected where it recorded a phantom correction. Asking what a fresh read finds in the paragraphs written today.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html",
+           "--since", "../site/whatholdsup/melanoma.html.gate.json",
+           "--report", "../site/whatholdsup/melanoma.html.gate.json"]
+}

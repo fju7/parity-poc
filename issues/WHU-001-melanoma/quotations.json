@@ -259,6 +259,15 @@
       "why": "From the ASCO 2026 abstract, obtained by hand on 3 September after every automated fetch returned 403. It is the plainest support available for the page's point that the later KEYNOTE-942 analyses were descriptive rather than formal tests, which until now rested on the three-year paper's wording alone.",
       "attested": "claude, 2026-09-03",
       "id": "Q-22"
+    },
+    {
+      "id": "Q-23",
+      "quote": "These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "kind": "source",
+      "source_id": "S001",
+      "verbatim": "These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
+      "why": "The Phase 3 release's own statement of what happens next. Quoted in full from where its sentence begins, after the page gate reported on 3 September that starting at 'will be presented' clipped the subject and left the quotation less exact than it could be.",
+      "attested": "claude, 2026-09-03"
     }
   ]
 }

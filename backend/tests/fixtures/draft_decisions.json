@@ -2548,6 +2548,105 @@
       "decided": "2026-09-03",
       "reason": "The role says no source it reached displays the publication date. We hold the full text and it carries its own front matter: 'Accepted September 30, 2025 Published February 12, 2026 JCO Oncology Adv 3:e2500008'. Verified against the held bytes on 3 September. A NOT_FOUND is a statement about what the role reached.",
       "what_would_change_it": "That front matter no longer being in the held bytes of S007."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "severity": "SERIOUS",
+      "finding_id": "o1 (run 015)",
+      "quote": "KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; each lists overall survival as a secondary endpoint, and each has posted an overall-survival result that carries no statistical analysis at all — no hazard ratio, no confidence interval, no p-value.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "The role is right and the sentence was mine, written four hours earlier. Both registry records mark the overall-survival measure reportingStatus NOT_POSTED with an anticipated date — November 2026 and October 2033 — and carry no measurement classes. I had read the trial-level hasResults flag as true, seen the measure listed, and concluded a result was posted without an analysis. Worse: this MORNING the page said 'no result posted', which was correct, and I changed it. Fixed, and now bound to the reportingStatus field itself rather than to my reading of the record.",
+      "what_would_change_it": "n/a — accepted and fixed."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "severity": "MINOR",
+      "finding_id": "o2 (run 015)",
+      "quote": "Morning Glory Sciences — a site publishing this article in English translation, and one we can find no other publication citing",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "Right. 'In English translation' was inferred from the site's /en/ URL and its strapline, and we hold no source for it — an unevidenced claim about a third party's publishing practice, which is the thing rule 11 exists to stop. Gone. What remains is the one thing we can show, that no other publication cites it.",
+      "what_would_change_it": "n/a — accepted and fixed."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "INFERENCE",
+      "severity": "SERIOUS",
+      "finding_id": "i8 (run 015)",
+      "quote": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — in the three trials whose registry records we hold — KEYNOTE-054, KEYNOTE-716 and CheckMate 238 — none has reported a statistically significant overall survival benefit against placebo as a prespecified endpoint in its own population",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "Right. CheckMate 238 has no placebo arm, so listing it among trials that 'have reported no significant OS benefit against placebo' put it inside a claim it cannot bear on, and the next sentence said so. Split: the claim is now about the two placebo-controlled records, and CheckMate 238 is named as the one that cannot speak to the question.",
+      "what_would_change_it": "n/a — accepted and fixed."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "WRONG_SOURCE",
+      "finding_id": "c53 (run 015)",
+      "quote": "The companies stated that Phase 3 data 'will be presented at an upcoming international medical meeting and shared with regulatory authorities.'",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "Fair and small. The quotation started mid-sentence. It now begins where the release's sentence begins — 'These data will be presented…' — which is verbatim in the held bytes.",
+      "what_would_change_it": "n/a — accepted and fixed."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "WRONG_SOURCE",
+      "finding_id": "c43 (run 015)",
+      "quote": "The ASCO abstract for the five-year KEYNOTE-942 analysis states that no alpha was assigned to that analysis.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "Fair. The page said 'the ASCO abstract for the same readout', which the role reasonably read as ambiguous between the 2024 three-year abstract and the 2026 five-year one. It now names ASCO 2026 abstract 9500, which is the document we hold as S014 and the one carrying the language.",
+      "what_would_change_it": "n/a — accepted and fixed."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "WRONG_SOURCE",
+      "finding_id": "c38 (run 015)",
+      "quote": "Practical Dermatology stated that the companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "Second run to report this. Both wordings are in the held article: the short 'have not yet disclosed phase 3 efficacy estimates' AND the long sentence the page quotes, 'The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.' Verified against the bytes again on 3 September. The role reaches one and infers the other is absent.",
+      "what_would_change_it": "The span no longer being in the held bytes."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c45 (run 015)",
+      "quote": "The three-year KEYNOTE-942 update published in JCO Oncology Advances states that its subsequent analyses are not intended for formal hypothesis testing and are descriptive only.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The role could not open OA-25-00008. We hold it in full: 'These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only).' Verified against the held bytes.",
+      "what_would_change_it": "The span no longer being in the held bytes."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c50 (run 015)",
+      "quote": "The three-year KEYNOTE-942 update was published in JCO Oncology Advances on 12 February 2026.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "Same document, same reach failure. The held full text carries 'Accepted September 30, 2025 Published February 12, 2026 JCO Oncology Adv 3:e2500008'.",
+      "what_would_change_it": "The span no longer being in the held bytes."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c54 (run 015)",
+      "quote": "As of 2 September 2026, the INTerpath-001 trial registry record NCT05933577 carries no posted results.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The role says the registry page could not be fully read. We hold the record and the sentence is bound to its $.hasResults field, which is false.",
+      "what_would_change_it": "The span no longer being in the held bytes."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

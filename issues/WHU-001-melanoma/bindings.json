@@ -4039,7 +4039,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S020",
@@ -4050,7 +4050,8 @@
           "span": "\"title\":\"Overall Survival (OS)\""
         }
       ],
-      "step": "All three registry records are held in full and were read on 3 September 2026. In KEYNOTE-054 and KEYNOTE-716 the overall-survival measure appears in the posted results with an empty analyses list — the field that would carry a hazard ratio, interval or p-value is absent, not merely unfavourable. The earlier version of this sentence said KEYNOTE-054 had no result posted, which was wrong: results are posted, and it is the statistical analysis that is missing."
+      "step": "All three registry records are held in full and were read on 3 September 2026. In KEYNOTE-054 and KEYNOTE-716 the overall-survival measure appears in the posted results with an empty analyses list — the field that would carry a hazard ratio, interval or p-value is absent, not merely unfavourable. The earlier version of this sentence said KEYNOTE-054 had no result posted, which was wrong: results are posted, and it is the statistical analysis that is missing.",
+      "left_page": "2026-09-03"
     },
     "8423b74ffbd91de2": {
       "sentence": "CheckMate 238 ’s arms are nivolumab and ipilimumab, so there is no placebo arm to report against.",
@@ -4099,7 +4100,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S020",
@@ -4114,7 +4115,8 @@
           "span": "Nivolumab Versus Ipilimumab"
         }
       ],
-      "step": "All three registry records are held in full and were read on 3 September 2026. In KEYNOTE-054 and KEYNOTE-716 — both pembrolizumab against placebo — the overall-survival measure appears in the posted results with an empty analyses list, so no hazard ratio, interval or p-value was ever posted for it. CheckMate 238 randomises nivolumab against ipilimumab and so cannot report against placebo at all. The claim is deliberately bounded to these three: it says what we checked rather than what is true of every trial that exists."
+      "step": "All three registry records are held in full and were read on 3 September 2026. In KEYNOTE-054 and KEYNOTE-716 — both pembrolizumab against placebo — the overall-survival measure appears in the posted results with an empty analyses list, so no hazard ratio, interval or p-value was ever posted for it. CheckMate 238 randomises nivolumab against ipilimumab and so cannot report against placebo at all. The claim is deliberately bounded to these three: it says what we checked rather than what is true of every trial that exists.",
+      "left_page": "2026-09-03"
     },
     "febf876e370134bb": {
       "sentence": "Morning Glory Sciences — the English edition of a non-English industry site, which we cite for an argument we have checked ourselves rather than on its standing — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading reached the",
@@ -4201,7 +4203,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S001",
@@ -4216,7 +4218,8 @@
           "span": "According to a news release from Merck, the study will continue according to protocol to evaluate additional secondary endpoints, including overall survival."
         }
       ],
-      "step": "The release itself states that the data will be presented at a medical meeting and shared with regulators, and two outlets we hold report the same sequence as the expected one — the study continuing to protocol with fuller results to come. Nothing in any document we hold treats the topline-first order as irregular, and neither do we. The sentence exists because criticism of an information environment reads as an accusation unless the normal practice is named as normal, which is rule 6 of our own standard."
+      "step": "The release itself states that the data will be presented at a medical meeting and shared with regulators, and two outlets we hold report the same sequence as the expected one — the study continuing to protocol with fuller results to come. Nothing in any document we hold treats the topline-first order as irregular, and neither do we. The sentence exists because criticism of an information environment reads as an accusation unless the normal practice is named as normal, which is rule 6 of our own standard.",
+      "left_page": "2026-09-03"
     },
     "e1ea2e2f0dd8f9ba": {
       "sentence": "What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so on a two-sided 5% criterion \"no effect\" could not be ruled out.",
@@ -4519,6 +4522,143 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
+      "on_page": false,
+      "premises": [
+        {
+          "source_id": "S009",
+          "span": "The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit."
+        },
+        {
+          "source_id": "S010",
+          "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
+        }
+      ],
+      "step": "Two things we can show, and nothing beyond them. The article is published under an /en/ path on a site whose strapline reads as translated, and a search of the open web excluding that domain on 3 September 2026 returned no third party citing it. Neither fact establishes that the outlet is weak — only that we cannot vouch for it — so the sentence claims no more than that and rests the argument on its premises instead. Those premises are checkable: the stage widening is in the Phase 3 release, and Pharmacy Times makes the opposing case in its own words in the same section.",
+      "left_page": "2026-09-03"
+    },
+    "d0b1356246c6a7fd": {
+      "sentence": "KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; each lists overall survival as a secondary endpoint, and each registry record marks that result NOT_POSTED with a posting date still ahead of it — November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716.",
+      "sentence_sha": "d0b1356246c6a7fd",
+      "why_empirical": "names KEYNOTE-716",
+      "bucket": "judgement",
+      "source_id": "S020",
+      "document_sha": "7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316",
+      "locator_type": "field",
+      "locator": "$.resultsSection.outcomeMeasuresModule.outcomeMeasures.4.reportingStatus",
+      "span": "\"reportingStatus\":\"NOT_POSTED\"",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "proposed_by": "bind_field",
+      "confirmed": false,
+      "proposed_on": "2026-09-03",
+      "why_bound": "the field resultsSection.outcomeMeasuresModule.outcomeMeasures.4.reportingStatus in S020 carries this value; relevance is the named field path, not prose overlap",
+      "premises": [
+        {
+          "source_id": "S020",
+          "span": "\"reportingStatus\":\"NOT_POSTED\""
+        },
+        {
+          "source_id": "S026",
+          "span": "\"reportingStatus\":\"NOT_POSTED\""
+        },
+        {
+          "source_id": "S020",
+          "span": "\"anticipatedPostingDate\":\"2026-11\""
+        },
+        {
+          "source_id": "S026",
+          "span": "\"anticipatedPostingDate\":\"2033-10\""
+        }
+      ],
+      "step": "Both records are held in full and were read again on 3 September after this sentence was challenged. In each, the overall-survival measure appears in the posted results section as a DECLARATION with reportingStatus NOT_POSTED and an anticipated posting date — November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716 — and no measurement classes at all. An earlier version of this sentence said each had posted a result carrying no statistical analysis. That was wrong, and wrong in a way worth recording: it came from reading the trial-level hasResults flag as true and finding the measure listed, without reading the field on the measure itself. The page gate caught it."
+    },
+    "546d2d1669387960": {
+      "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — the two placebo-controlled trials whose registry records we hold — KEYNOTE-054 and KEYNOTE-716 — have between them reported no statistically significant overall survival benefit as a prespecified endpoint in their own populations.",
+      "sentence_sha": "546d2d1669387960",
+      "why_empirical": "names KEYNOTE-716",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S020",
+          "span": "\"reportingStatus\":\"NOT_POSTED\""
+        },
+        {
+          "source_id": "S026",
+          "span": "\"reportingStatus\":\"NOT_POSTED\""
+        }
+      ],
+      "step": "Both records are held in full. In each, the overall-survival measure carries reportingStatus NOT_POSTED, so neither trial has reported an OS result at all, let alone a significant one. The claim is bounded to these two by name because they are the placebo-controlled records we hold; it says nothing about trials we have not checked."
+    },
+    "f22080d86bf3682c": {
+      "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have suggested a signal.",
+      "sentence_sha": "f22080d86bf3682c",
+      "why_empirical": "names CheckMate 238",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S021",
+          "span": "Efficacy Study of Nivolumab Compared to Ipilimumab in Prevention of Recurrence of Melanoma After Complete Resection of Stage IIIb/c or Stage IV Melanoma"
+        }
+      ],
+      "step": "The registry title states both arms: nivolumab against ipilimumab. A trial with no placebo arm cannot report a benefit against placebo, so it is evidence about neither side of the question. An earlier version of this passage listed it among the trials the claim was made about, which the page gate reported as a contradiction with the sentence that followed. It was right."
+    },
+    "e0064732fac589ce": {
+      "sentence": "Morning Glory Sciences — an outlet we can find no other publication citing, so we give the argument on its merits rather than on its authority — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading reached the general coverage.",
+      "sentence_sha": "e0064732fac589ce",
+      "why_empirical": "quoted passage",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
       "on_page": true,
       "premises": [
         {
@@ -4530,7 +4670,7 @@
           "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
         }
       ],
-      "step": "Two things we can show, and nothing beyond them. The article is published under an /en/ path on a site whose strapline reads as translated, and a search of the open web excluding that domain on 3 September 2026 returned no third party citing it. Neither fact establishes that the outlet is weak — only that we cannot vouch for it — so the sentence claims no more than that and rests the argument on its premises instead. Those premises are checkable: the stage widening is in the Phase 3 release, and Pharmacy Times makes the opposing case in its own words in the same section."
+      "step": "The one thing we can show about the outlet is negative and narrow: a search of the open web excluding its own domain on 3 September returned no third party citing it. An earlier version also called it an English translation, which the page gate reported as an unevidenced claim about its publishing practice — we inferred it from the site's URL and strapline and had no source, so it is gone. What remains is the argument, and its premises are checkable: the stage widening is in the Phase 3 release and Pharmacy Times makes the opposing case in its own words."
     }
   }
 }

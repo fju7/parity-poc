@@ -5,6 +5,11 @@
       "at": "2026-09-03T17:40:07+00:00",
       "sha": "6d94e9ff622d32abe9645a27c7ab248571c28b852a740c6f01d4c6cbfc513025",
       "past_cap": null
+    },
+    {
+      "at": "2026-09-03T18:29:00+00:00",
+      "sha": "d3ca57879deae3d95e8402c26a4c8517676870ee951bea8a2ae0b137a53010bb",
+      "past_cap": null
     }
   ],
   "reason": null
