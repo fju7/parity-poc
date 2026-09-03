@@ -335,11 +335,16 @@
         "abstract 9500"
       ],
       "access": {
-        "state": "blocked",
-        "by": "acquire_sources.py",
-        "on": "2026-09-02",
-        "sections": [],
-        "note": "HTTP 403 at ascopubs.org. Entered because the page gate named it as the document carrying the five-year landmark rates. The ASCO Post (S015) reports the same figures and IS held, so nothing on the page depends on this entry; it is kept because the abstract and the full paper give landmark rates at different time points, and somebody should eventually read both."
+        "state": "full_text_held",
+        "by": "Fred Ugast",
+        "on": "2026-09-03",
+        "sections": [
+          "abstract",
+          "methods",
+          "results",
+          "conclusion"
+        ],
+        "note": "ASCO 2026 abstract 9500, obtained by the editor inside a zip after the scripted route was blocked. 122,844-byte PDF now in the library. Contains the sentence 'No alpha was assigned to this analysis'."
       }
     },
     {
@@ -397,11 +402,13 @@
         "OncLive"
       ],
       "access": {
-        "state": "blocked",
-        "by": "acquire_sources.py",
-        "on": "2026-09-02",
-        "sections": [],
-        "note": "HTTP 403 at onclive.com. Entered because the page named OncLive as an outlet that attributed the figures correctly. We do not hold it, so the page no longer names it."
+        "state": "full_text_held",
+        "by": "Fred Ugast",
+        "on": "2026-09-03",
+        "sections": [
+          "full article"
+        ],
+        "note": "OncLive article, saved to PDF by the editor after the scripted route was blocked. 6,165,710-byte PDF now in the library."
       }
     },
     {
@@ -522,7 +529,8 @@
           "identified_by": "contains its identifier PMC4877414"
         },
         "on": "2026-09-02"
-      }
+      },
+      "form": "article"
     },
     {
       "id": "S023",
@@ -534,8 +542,20 @@
       "also_called": [
         "Spruance et al. 2004"
       ],
-      "access": {},
-      "note": "The publisher copy at journals.asm.org returns 403 to a script. This is the same article in PubMed Central, and the identity test decides that, not the hostname."
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast",
+        "on": "2026-09-03",
+        "sections": [
+          "abstract",
+          "introduction",
+          "cox proportional hazards model and hazard ratio",
+          "discussion"
+        ],
+        "note": "Publisher PDF, ASM, Antimicrob Agents Chemother 2004;48(8):2787-2792. Downloaded by the editor after both scripted routes returned 403. Identity test: 11 of 11 distinctive title words present."
+      },
+      "note": "The publisher copy at journals.asm.org returns 403 to a script. This is the same article in PubMed Central, and the identity test decides that, not the hostname.",
+      "form": "article"
     },
     {
       "id": "S024",
@@ -556,7 +576,9 @@
           "identified_by": "contains 5 of 5 distinctive title words"
         },
         "on": "2026-09-02"
-      }
+      },
+      "form": "page",
+      "form_note": "NCBI Bookshelf chapter (StatPearls). A book chapter is not a journal article and has no reference list or discussion of its own, so the article test would fail it for being what it is."
     },
     {
       "id": "S025",
@@ -577,7 +599,8 @@
           "identified_by": "contains its identifier PMC3227332"
         },
         "on": "2026-09-02"
-      }
+      },
+      "form": "article"
     },
     {
       "id": "S026",

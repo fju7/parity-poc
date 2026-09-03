@@ -271,6 +271,8 @@ TYPES = {
     # the type names a ROLE and does not settle the form
     "critique":      ("a critique of a study, in any form", None),
     "prior_art":     ("earlier work the page cites for context, in any form", None),
+    "reference":     ("a work cited for a definition, a standard or a method "
+                      "rather than for a result, in any form", None),
 }
 
 # THE TYPE FIELD IS OVERLOADED, and this is the finding that mattered on
