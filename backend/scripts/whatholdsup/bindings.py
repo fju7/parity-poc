@@ -356,6 +356,59 @@ def field_negation(row: dict, cover: list) -> str:
             % (row.get("locator"), m.group(1).strip()))
 
 
+# A QUANTIFIER OVER NAMED THINGS IS A COUNT, NOT A WORD.
+#
+# "KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; EACH
+# lists overall survival as a secondary endpoint, and EACH registry record
+# marks that result NOT_POSTED" -- B6 reported that no span carried the force
+# of "each", and no span ever will. "Each" is not a word to be matched. It is
+# a claim that the row rests on every thing the sentence names, and that is
+# checkable: the sentence names two trials, the ledger resolves both to
+# sources, and the row must carry a covering span from each of them.
+#
+# It fails the way it should. Cite only KEYNOTE-054's record, leave "each" in
+# the sentence, and the count comes up short.
+#
+# ONLY THE DISTRIBUTIVE QUANTIFIERS. "each", "every" and "both" range over
+# items. "all" and "any" usually range over a corpus nobody enumerated -- "any
+# of the specialist coverage we hold", "no posted results at all" -- and an
+# enumeration of named trials says nothing about those.
+ENUMERATING = {"each", "every", "both"}
+
+
+def named_sources(sent: str, slug: str) -> dict:
+    """{name found in this sentence: the source id it resolves to}.
+
+    From the ledger's own also_called, which is where trial names are already
+    kept, so this cannot become a list of names we happened to meet.
+    """
+    out = {}
+    for src in store.sources(slug):
+        sid = src.get("id")
+        for name in (src.get("also_called") or []):
+            if len(name) > 3 and re.search(r"\b%s\b" % re.escape(name), sent):
+                out[name] = sid
+    return out
+
+
+def enumeration_covered(sent: str, cover: list, slug: str) -> str:
+    """Why the row covers everything the sentence enumerates, or "".
+
+    Two or more named things, because a quantifier over one thing is not a
+    quantifier. Every one of them must resolve to a source the row rests on.
+    """
+    named = named_sources(sent, slug)
+    if len(set(named.values())) < 2:
+        return ""
+    have = {sid for sid, _ in cover}
+    missing = sorted(set(named.values()) - have)
+    if missing:
+        return ""
+    return ("the sentence names %s, and this row rests on a span from every one "
+            "of them (%s)"
+            % (", ".join(sorted(named)), ", ".join(sorted(set(named.values())))))
+
+
 def run_checks(slug: str, *, only: str = "") -> dict:
     """Run every span check against the source THE ROW NAMES.
 
@@ -446,15 +499,20 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                         (d.get("by") or "").strip():
                     disposed[d["word"]] = d
             by_field = field_negation(row, cover)
+            by_count = enumeration_covered(sent, cover, slug)
             for w, why6 in SC.b6_scope(sent, all_spans):
                 if w in disposed:
                     continue
                 if by_field and w in NEGATION_WORDS:
                     continue
+                if by_count and w in ENUMERATING:
+                    continue
                 found.append({"check": "B6", "verdict": "unmapped scope word",
                               "why": "%s — %s" % (w, why6)})
             if by_field:
                 row["negation_read_from_field"] = by_field
+            if by_count:
+                row["enumeration_counted"] = by_count
             live_words = {w for w, _ in SC.b6_scope(sent, "")}
             for w, d in disposed.items():
                 if w not in live_words:

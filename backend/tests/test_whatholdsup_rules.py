@@ -598,3 +598,52 @@ def test_the_field_reading_clears_negations_and_not_quantifiers():
     for w in ("any", "all", "every", "each", "only"):
         assert w not in B.NEGATION_WORDS
 
+
+# --- a quantifier over named things is a count -------------------------------
+
+TWO_TRIALS = [{"id": "S020", "also_called": ["KEYNOTE-054"]},
+              {"id": "S026", "also_called": ["KEYNOTE-716"]},
+              {"id": "S021", "also_called": ["CheckMate 238"]}]
+SENT = ("KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; "
+        "each registry record marks that result NOT_POSTED.")
+
+
+def test_each_is_mapped_when_the_row_rests_on_every_trial_named(monkeypatch):
+    """No span will ever contain the force of "each". It is not a word to be
+    matched; it is a claim that the row rests on every thing the sentence
+    names, and that is a count."""
+    monkeypatch.setattr(B.store, "sources", lambda slug: TWO_TRIALS)
+    cover = [("S020", '"reportingStatus":"NOT_POSTED"'),
+             ("S026", '"reportingStatus":"NOT_POSTED"')]
+    assert B.enumeration_covered(SENT, cover, SLUG)
+
+
+def test_each_is_not_mapped_when_a_named_trial_is_missing(monkeypatch):
+    """The whole point. Cite one record, leave "each" in the sentence, and the
+    count comes up short."""
+    monkeypatch.setattr(B.store, "sources", lambda slug: TWO_TRIALS)
+    cover = [("S020", '"reportingStatus":"NOT_POSTED"')]
+    assert B.enumeration_covered(SENT, cover, SLUG) == ""
+
+
+def test_one_named_thing_is_not_an_enumeration(monkeypatch):
+    """A quantifier over one thing is not a quantifier."""
+    monkeypatch.setattr(B.store, "sources", lambda slug: TWO_TRIALS)
+    sent = "KEYNOTE-054's registry record marks every result NOT_POSTED."
+    assert B.enumeration_covered(sent, [("S020", "x")], SLUG) == ""
+
+
+def test_a_sentence_naming_nothing_is_not_an_enumeration(monkeypatch):
+    monkeypatch.setattr(B.store, "sources", lambda slug: TWO_TRIALS)
+    sent = "Each of the trials we hold lists overall survival as secondary."
+    assert B.enumeration_covered(sent, [("S020", "x"), ("S026", "y")], SLUG) == ""
+
+
+def test_only_the_distributive_quantifiers_are_counted():
+    """"all" and "any" usually range over a corpus nobody enumerated — "any of
+    the specialist coverage we hold", "no posted results at all" — and a count
+    of named trials says nothing about those."""
+    assert B.ENUMERATING == {"each", "every", "both"}
+    for w in ("all", "any", "no", "none", "only"):
+        assert w not in B.ENUMERATING
+

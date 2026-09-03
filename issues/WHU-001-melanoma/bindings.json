@@ -4705,14 +4705,9 @@
         }
       ],
       "step": "Both records are held in full and were read again on 3 September after this sentence was challenged. In each, the overall-survival measure appears in the posted results section as a DECLARATION with reportingStatus NOT_POSTED and an anticipated posting date — November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716 — and no measurement classes at all. An earlier version of this sentence said each had posted a result carrying no statistical analysis. That was wrong, and wrong in a way worth recording: it came from reading the trial-level hasResults flag as true and finding the measure listed, without reading the field on the measure itself. The page gate caught it.",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "each — the sentence says 'each' and the span contains no word carrying that force"
-        }
-      ],
-      "checked_on": "2026-09-03"
+      "check_flags": [],
+      "checked_on": "2026-09-03",
+      "enumeration_counted": "the sentence names KEYNOTE-054, KEYNOTE-716, and this row rests on a span from every one of them (S020, S026)"
     },
     "546d2d1669387960": {
       "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — the two placebo-controlled trials whose registry records we hold — KEYNOTE-054 and KEYNOTE-716 — have between them reported no statistically significant overall survival benefit as a prespecified endpoint in their own populations.",
