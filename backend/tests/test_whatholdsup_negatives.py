@@ -187,3 +187,39 @@ def test_a_read_candidate_stops_blocking():
          "why_not": "it is the earlier trial's figure, named two sentences up",
          "by": "claude", "on": "2026-09-03"}])}
     assert len(N.unread(row, cands)) == len(cands) - 1
+
+
+# --- where the window came from ----------------------------------------------
+
+WINDOW_CASES = [
+    ("report", "the trial reported a hazard ratio of 0.55 (95% CI, 0.30-0.99)"),
+    ("report", "reduced the risk of recurrence or death by 49% compared with "
+               "pembrolizumab alone (HR, 0.51; 95% CI, 0.294-0.887)"),
+    ("report", "HR 0.561 (95% CI 0.309-1.017), P=0.0266"),
+    ("report", "with a recurrence-free-survival hazard ratio of 0.51."),
+    ("report", "| RFS HR=0.51 & DMFS HR=0.41"),
+    ("denial", "Because the Phase 3 hazard ratios have not been disclosed, those "
+               "157-patient figures cannot be placed alongside the result."),
+    ("denial", "The press release did not provide numerical hazard ratios or other "
+               "detailed efficacy data from the phase 3 trial."),
+    ("denial", "The companies did not disclose hazard ratios, absolute event rates, "
+               "P values, or other phase 3 efficacy estimates."),
+    ("denial", "The hazard ratio for INTerpath-001 has been the subject of comment."),
+]
+
+
+def test_the_value_window_separates_a_report_from_a_denial():
+    """The window is 25 characters and this table is why.
+
+    At 60 it kept three denials, because "hazard ratios have not been disclosed,
+    those 157-patient figures" carries a number forty characters later that
+    belongs to a different claim. Every one of the five reports below survives
+    the narrower window, which is the direction that matters: a report wrongly
+    dropped is a counterexample nobody sees.
+    """
+    for want, sentence in WINDOW_CASES:
+        m = N.CLASSES["efficacy_figure"].search(sentence)
+        assert m, sentence
+        got = N.reports_a_value(sentence, m.end())
+        assert got == (want == "report"), "%s: %s" % (want, sentence[:70])
+

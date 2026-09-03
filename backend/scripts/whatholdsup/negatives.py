@@ -96,7 +96,12 @@ CLAIMS = ("none", "one")
 # first version counted the 001 in the trial's name as one — the same defect as
 # every other figure check in this repository has had, in a fifth place.
 VALUE = re.compile(r"(?<![A-Za-z0-9.\-])\d+(?:[.,]\d+)?")
-VALUE_WINDOW = 60
+# TWENTY-FIVE CHARACTERS, chosen by running the nine sentences in
+# test_the_value_window_separates_a_report_from_a_denial and picking the widest
+# window that gets all nine right. At 60 it kept three denials, because "hazard
+# ratios have not been disclosed, those 157-patient figures" has a number in it
+# forty characters later that belongs to a different claim.
+VALUE_WINDOW = 25
 
 
 def reports_a_value(sentence: str, at: int) -> bool:

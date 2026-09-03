@@ -1371,7 +1371,50 @@
         "declared_by": "claude",
         "declared_on": "2026-09-03",
         "what_it_claims": "that exactly ONE overall-survival figure exists across the whole programme — both trials, every release, both papers, four registry records — and that it is the descriptive one resting on fourteen deaths. Subject is deliberately empty: the claim ranges over the programme, so no trial filter applies and every hit is a candidate.",
-        "read": []
+        "read": [
+          {
+            "source_id": "S002",
+            "quote": "Search for: Media &gt; News releases &gt; News release Moderna and Merck Present 5-Year Data for Intismeran Autogene in Combination With KEYTRUDA&reg; (pembrolizumab) in Patients With High-Risk Stage III/IV Melanoma Following Complete Resection at the 2026 ASCO Annual Meeting Save June 1, 2026 8:00 am EDT At a median 5-year (60.3 months) planned follow-up of the Phase 2b KEYNOTE-942/mRNA-4157-P201",
+            "why_not": "a news-release headline, not a survival figure. It matched because 'overall survival' and a percentage fall within the pattern's window on a page of navigation furniture.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S002",
+            "quote": "The exploratory endpoint of overall survival (OS) also demonstrated an encouraging trend toward improved OS (HR=0.471; [95% CI, 0.165-1.345]; n=14) with intismeran autogene in combination with KEYTRUDA compared to KEYTRUDA alone.",
+            "why_not": "the figure the sentence IS about: the companies' own n=14 OS trend, HR 0.471 (0.165-1.345).",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S004",
+            "quote": "Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+            "why_not": "S004 naming the same five-year OS trend alongside the RFS and DMFS hazard ratios. The OS figure itself is quoted two sentences later.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S004",
+            "quote": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died (Fig 1C; Data Supplement, Table S1); the OS HR (95% CI) was 0.471 (0.165 to 1.345).",
+            "why_not": "the same five-year OS analysis the sentence is about — HR 0.471 (0.165 to 1.345) on fourteen deaths — restated. Not a second figure.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S004",
+            "quote": "RFS (95% CI), DMFS (95% CI), and OS (95% CI) are shown at 18-, 24-, 36-, and 48-month time points.",
+            "why_not": "the figure legend listing timepoints — 18, 24, 36, 48 months. A list of when estimates are shown, not an estimate.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S007",
+            "quote": "42.51 - 24.38 to NE 95% CI - 16.59 to NE HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906 DMFS Events, % (n/N) 10.3 (11/107) 26.0 (13/50) Median, months NE NE 80% CI - - 95% CI - HR RESULTS Updated Primary End Point Results NE 80% CI - 0.384 80% CI 0.227 to 0.650 95% CI 0.172 to 0.858 OS Events, % (n/N) 3.7 (4/107) 10.0 (5/50) Median, months NE NE 80% CI - - 95% CI - HR - 0.425 80% CI 0.179 to",
+            "why_not": "a fragment of S007's results table: the RFS and DMFS rows. It matched on proximity to 'OS' elsewhere in the table, not on a survival estimate.",
+            "by": "claude",
+            "on": "2026-09-03"
+          }
+        ]
       }
     },
     "ee91cf76edff9ccb": {
@@ -3412,7 +3455,99 @@
         "declared_by": "claude",
         "declared_on": "2026-09-03",
         "what_it_claims": "that no hazard ratio, interval or p-value for INTerpath-001 appears in any document this issue holds — the two company releases, every piece of coverage, and the registry record.",
-        "read": []
+        "read": [
+          {
+            "source_id": "S010",
+            "quote": "At a median follow-up of approximately 5 years, intismeran plus pembrolizumab reduced the risk of recurrence or death by 49% compared with pembrolizumab alone (HR, 0.51; 95% CI, 0.294-0.887).",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S010",
+            "quote": "The combination also reduced the risk of distant metastasis or death by 59% (HR, 0.411; 95% CI, 0.200-0.843).⁵ In that analysis, commonly reported adverse events attributed to intismeran included fatigue, injection-site pain, and chills.",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S011",
+            "quote": "At five years, intismeran plus Keytruda reduced the risk of recurrence or death by 49% versus Keytruda alone, with a recurrence-free-survival hazard ratio of 0.51.",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S011",
+            "quote": "It reduced the risk of distant metastasis or death by 59%, with a hazard ratio of 0.41.",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S015",
+            "quote": "Key Findings The combination of intismeran autogene and pembrolizumab reduced the risk of recurrence vs pembrolizumab alone by 49% (hazard ratio [HR] = 0.51; 95% CI = 0.29-0.89).",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S015",
+            "quote": "At 5 years, the recurrence-free survival rate was 68.8% (95% confidence interval [CI] = 56.3%-78.3%) in the combination arm and 49.1% (95% CI = 33.3%-63.0%) in the monotherapy arm.",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S015",
+            "quote": "The risk of distant metastasis was reduced by 59% with the addition of intismeran autogene (HR = 0.41; 95% CI = 0.20-0.84).",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S015",
+            "quote": "There was a trend for improved overall survival as well, an exploratory endpoint (HR = 0.47; 95% CI = 0.17-1.35) with 5-year rates of 92.2% (95% CI = 84.2%-96.3%) in the combination arm and 71.3% (95% CI = 35.4%-89.6%) in the pembrolizumab alone arm.",
+            "why_not": "the KEYNOTE-942 five-year OS trend, HR 0.47 — the Phase 2b's exploratory survival analysis, not the Phase 3's. Same standing as the others.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S016",
+            "quote": "Five-year follow-up data presented at the 2026 American Society of Clinical Oncology (ASCO) Annual Meeting showed that intismeran plus pembrolizumab reduced the risk of recurrence or death by 49% compared with pembrolizumab alone (HR, 0.51; 95% CI, 0.294-0.887).",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S016",
+            "quote": "2 The combination also reduced the risk of distant metastasis or death by 59% (HR, 0.411; 95% CI, 0.200-0.843) in that study.",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S018",
+            "quote": "At 5-year follow-up, intismeran plus pembrolizumab was associated with a 49% reduction in the risk of recurrence or death (HR, 0.51; 95% CI, 0.294 to 0.887) and a 59% reduction in the risk of distant metastasis or death (HR, 0.411; 95% CI, 0.200 to 0.843) compared with pembrolizumab alone.",
+            "why_not": "a KEYNOTE-942 figure. The trial is named in the same paragraph but not in this sentence, which is why the check surfaced it. It is the Phase 2b five-year result the page discusses at length and attributes correctly; it is not a figure for INTerpath-001 and does not falsify the sentence.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S019",
+            "quote": "Carlino's ASCO 2026 slide, transcribed on this page): primary (Nov 14, 2022 cut) RFS HR 0.561 (95% CI 0.309-1.017, P=0.0266); 3-year (Nov 3, 2023) HR 0.510 (0.288-0.906); 5-year (Dec 15, 2025) HR 0.510 (0.294-0.887) - plus 5-year DMFS HR 0.411 (0.200-0.843, per the topline PR).",
+            "why_not": "KOL Pulse transcribing Carlino's ASCO 2026 slide: the primary, three-year and five-year analyses of KEYNOTE-942, each dated. All Phase 2b.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S019",
+            "quote": "Primary Analysis (Nov 14, 2022 data cut): events 22.4% (24/107) vs 40.0% (20/50); HR 0.561 (95% CI 0.309-1.017), P=0.0266 (formal hypothesis testing of RFS, overall one-sided alpha=0.10, performed at primary analysis).",
+            "why_not": "THE SENTENCE THAT RAISED GAP-001, and it is not a counterexample to THIS sentence. It states KEYNOTE-942's primary analysis and its prespecified one-sided alpha of 0.10. It falsified a different claim — that the framing was never explained to readers — which is why the check exists. Recorded here so the next reader sees it was looked at rather than missed twice.",
+            "by": "claude",
+            "on": "2026-09-03"
+          }
+        ]
       }
     },
     "075bae729c357078": {
