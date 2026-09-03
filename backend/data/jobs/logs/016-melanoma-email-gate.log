@@ -1,0 +1,251 @@
+=== 016-melanoma-email-gate
+=== queued job:
+{
+  "note": "Issue one, the email gate. The email summarises a page that changed substantially on 3 September, so it was updated first: the claim that the draft 'was checked twice' is replaced by what is now true — an independent outside review and four adversarial checks, each of which found something, with what they changed recorded on the page including where a correction of ours was itself wrong. The HTML and text versions were compared and differ only in the unsubscribe token. The eight findings from the 28 August email gate are all resolved: three gone from the text, five decided. Four of those five had been adjudicated correctly on 27 August, re-recorded on 28 August with an empty severity field, and silently overridden — repaired today from evidence in the file rather than by assumption. This run is the first read of the email as it now stands.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/email/issue1-melanoma.html",
+           "--new-cycle",
+           "--since", "../site/whatholdsup/email/issue1-melanoma.html.gate.json",
+           "--report", "../site/whatholdsup/email/issue1-melanoma.html.gate.json"]
+}
+=== started 2026-09-03T18:37:01Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+  Cycle 2. The run counter is reset.
+
+Fact-checking issue1-melanoma.html (4,366 chars of prose) as of 2026-09-03
+
+[1/6] Extracting checkable claims...
+      22 claims extracted
+      registry pre-check: 0 figure(s) and 0 trial fact(s) confirmed at ClinicalTrials.gov
+      10 claim(s) unchanged since dc65193a2818 — verdicts carried, 12 to check
+      5 internal claim(s) recorded, not source-checked
+[2/6] Source audit across 2 attributed source(s)...
+      checking  5 claim(s) against: no source credited in the draft
+      checking  2 claim(s) against: Merck and Moderna
+[3/6] Recency sweep... carried (6d old, fresh under 7d — the literature does not move because we edited)
+[4/6] Subject's advocate...
+      4 objection(s), 2 serious
+[5/6] Statistical inference...
+      10 finding(s), 0 serious
+[6/6] Best coverage elsewhere... carried (6d old, fresh under 14d — other outlets did not republish because we edited)
+
+========================================================================
+CLAIMS   17 external · 16 verified · 1 not, 1 already decided  (5 internal, not source-checkable)
+========================================================================
+
+  A NOT_FOUND means we could not REACH a source, not that none exists.
+  Open any URL above before treating one as a finding — and check
+  whether COVERAGE cited the same page, because it often has the link.
+
+  Internal claims — no external source can confirm these. Check them
+  against your own records before publishing:
+     · 35% higher
+     · roughly 84% lower
+     · four adversarial checks
+     · 48 hours
+     · Neither Merck nor Moderna saw the assessment before publication.
+
+========================================================================
+RECENCY  2 assessed · 0 superseded or unknown
+========================================================================
+
+========================================================================
+FAIRNESS 4 objection(s) · 2 serious
+========================================================================
+
+  [OVERLAP · SERIOUS · FACT] The draft states 'seven in each arm' as a specific fact, but no source in the public record confirms the per-arm death split.
+     already decided about this sentence, on other grounds: The objection is that the JCO paper pre-specified the five-year analyses as descriptive, so 'never powered to test' reads as a post-hoc dig at a plann
+     If this is that same finding, it is settled. If it is a different
+     fault in the same sentence, it is new and needs its own decision.
+     quote         : “five-year overall survival — an exploratory endpoint the trial was never powered to test — rests on fourteen deaths in total — seven in each arm”
+     why           : The total of fourteen deaths and the OS hazard ratio (0.471, CI 0.165–1.345) are confirmed by the Merck/Moderna press release and the JCO publication. The per-arm split of seven and seven is not confirmed by any publicly available source retrieved. If the draft's own sourcing rule is that every sentence names the words in the document that support it, this specific figure must be traceable. A wrong per-arm split would require a correction.
+     fix           : Either cite the exact line in the source document that gives the per-arm death count, or replace 'seven in each arm' with 'distributed across both arms' until the per-arm figure is confirmed in the published paper.
+
+  [NEW · MINOR · CALIBRATION] The draft omits that the DMFS benefit weakened from 65% at two years to 59% at five years in KEYNOTE-942, while reporting the RFS figure as durable.
+     quote         : “Those are numbers with five years behind them.”
+     why           : The draft presents the 49% RFS and 59% DMFS figures as the five-year read without noting that the DMFS figure represents a weakening from the 65% reduction reported at the two-year primary analysis. Reporting the five-year figures as simply 'numbers with five years behind them' without noting the trajectory is selective: the RFS figure strengthened (44% to 49%) while DMFS weakened (65% to 59%). A reader cannot assess durability from the five-year figures alone without knowing the direction of travel.
+     fix           : Add a clause noting that the DMFS reduction eased from 65% at two years to 59% at five years, alongside the RFS improvement from 44% to 49%, so the reader can see both directions.
+
+  [OVERLAP · MINOR · CALIBRATION] The draft omits the grade 3+ adverse event rate difference between arms in KEYNOTE-942, which is relevant safety context.
+     already decided about this sentence, on other grounds: The gate raised this as SERIOUS on the ground that KEYNOTE-942 used blinded independent central review for RFS and DMFS, so the open-label contrast ov
+     If this is that same finding, it is settled. If it is a different
+     fault in the same sentence, it is new and needs its own decision.
+     quote         : “Those are numbers with five years behind them. They are just not this trial's, and 157 patients in an open-label trial is not 1,137 in a double-blind one.”
+     why           : The three-year KEYNOTE-942 data show grade ≥3 adverse events at 25% in the combination arm versus 20% for pembrolizumab alone. The draft discusses the trial's efficacy figures in detail but does not mention any safety signal. For a newsletter that positions itself as showing 'what the absolute numbers look like beside the relative ones,' omitting the only available safety differential is a selective presentation.
+     fix           : Add one sentence noting the grade ≥3 AE rates from the three-year update (25% combination vs 20% monotherapy) as the available safety comparator, with the caveat that Phase 3 safety data are not yet reported.
+
+  [NEW · SERIOUS · CONTRADICTION] The paragraph beginning 'Every figure above traces to a company release' appears verbatim twice in the draft.
+     quote         : “Every figure above traces to a company release, a peer-reviewed paper or a trial registry record, and every sentence in the assessment names the words in that document which support it. Since this issue first went out it has been through an independent outside review and four adversarial checks, and each of them found something. What they changed is recorded at the bottom of the page, including where a correction of ours was itself wrong.”
+     why           : The paragraph is reproduced word-for-word in two separate sections of the draft — once under 'What the full assessment adds' and once as a standalone closing paragraph. This is either a copy-paste error or a structural accident. As published it reads as though the newsletter is repeating its own credentialing language, which undermines the credibility it is trying to establish. It would also require a correction in the sense that one instance is clearly unintended.
+     fix           : Delete one instance. The closing standalone paragraph is the more natural position; remove the copy embedded within 'What the full assessment adds.'
+
+========================================================================
+INFERENCE 10 finding(s) · 0 serious
+========================================================================
+
+  [NEW · None · None] This phrasing is accurate and avoids the ENDPOINT_ROLE_CONFLATED error recorded in earlier drafts; no finding here. Included only to confirm the check was run.
+     quote         : “a large Phase 3 trial of a personalised mRNA cancer therapy met its primary endpoint in melanoma, and a key secondary endpoint as well”
+
+  [OVERLAP · None · None] The 49% figure corresponds to HR 0.51, which is a 49% lower hazard — correctly described. However the 59% figure corresponds to HR 0.411, which is a 58.9% lower hazard — rounding to 59% is defensible. More importantly, the draft describes these as reductions 'in the hazard of recurrence or death' and 'in the hazard of distant metastasis or death', which is the correct framing for a hazard ratio. No inferential error here.
+     already decided about this sentence, on other grounds: The objection is that a hazard reduction is relative and readers may take it as an absolute risk reduction. The draft already uses the word 'hazard' r
+     If this is that same finding, it is settled. If it is a different
+     fault in the same sentence, it is new and needs its own decision.
+     quote         : “the figures in the headlines, a 49% reduction in the hazard of recurrence or death and 59% in the hazard of distant metastasis or death”
+
+  [STALE · None · None] The draft correctly avoids the TERM_IMPLIES_A_DIFFERENT_FAULT error ('unblinded') recorded in earlier drafts. The phrasing 'open-label' is accurate. No finding.
+     quote         : “157 patients in an open-label trial is not 1,137 in a double-blind one”
+
+  [OVERLAP · None · None] The upper bound of 1.345 means the treated group's hazard of death could be up to 34.5% higher than the control group's — the draft says 'about 35% higher', which is correct. The lower bound of 0.165 means the hazard could be as low as 16.5% of the control group's, i.e. roughly 83.5% lower — the draft says 'roughly 84% lower', which is correct. Both bounds are accurately characterised on the hazard ratio scale. No inferential error.
+     already decided about this sentence, on other grounds: The objection is correct and worth recording: a 95% interval is not a set of equally plausible values, and values near HR 0.471 are more consistent wi
+     If this is that same finding, it is settled. If it is a different
+     fault in the same sentence, it is new and needs its own decision.
+     quote         : “the interval runs from 0.165 to 1.345 — compatible with the treated group's hazard of death being about 35% higher than the comparison group's, and with it being roughly 84% lower”
+
+  [NEW · MINOR · CALIBRATION] The first half ('size of the effect') is fully warranted given the wide interval. The second half ('nor the direction') is also technically correct — the interval crosses 1.0, so the direction is not established at conventional significance. However, the sentence treats both claims as equivalent in weight. The point estimate (HR 0.471) favours benefit, and the draft itself says so in the immediately preceding sentence. The sentence as written is accurate but risks being read as 'we have no idea whether this helps or harms', which is stronger than the evidence warrants. This is a calibration issue, not a factual error.
+     quote         : “On this exploratory analysis alone, neither the size of the effect nor the direction is established with any statistical confidence.”
+     evidence says : The interval crosses 1.0, so neither the magnitude nor the direction of the overall survival effect is established with statistical confidence. The point estimate favours benefit, but the trial was never powered for this endpoint and fourteen deaths are too few to resolve the question.
+     fix           : On this exploratory analysis alone, the size of the effect is not established, and the direction — though the point estimate favours benefit — is not established with statistical confidence either.
+
+  [NEW · None · None] The draft correctly identifies that KEYNOTE-942 (Phase 2) used investigator-assessed RFS and that INTerpath-001 (Phase 3) is double-blind, meaning investigators assessing recurrence do not know treatment allocation. This is an accurate and fair description of the design difference. No finding.
+     quote         : “Both trials leave the recurrence call to the investigator; the difference is that in the Phase 3 those investigators do not know who got what.”
+
+  [NEW · None · None] The draft correctly applies the open-label criticism only to the open-label Phase 2 trial and does not import it to the double-blind Phase 3. This avoids the DESIGN_CRITICISM_IMPORTED error recorded in earlier drafts. No finding.
+     quote         : “In an open-label trial scan timing and ambiguous calls can tilt a result without anyone intending it, which is why the blinded trial's own numbers are the ones that matter.”
+
+  [NEW · MINOR · CALIBRATION] The announcement states the trial met its prespecified endpoints at a prespecified interim analysis, which is consistent with statistical significance under the trial's own testing hierarchy. However, no p-value, hazard ratio, or confidence interval has been released for INTerpath-001. 'Statistically significant' is an inferential conclusion the draft draws from 'met its prespecified endpoints' — which is a reasonable inference, but the draft presents it as established fact rather than as what the announcement implies. More precisely: the announcement establishes that the prespecified statistical threshold was crossed; it does not establish the size or the p-value. The word 'real' also conflates statistical significance with clinical reality. This is a calibration issue.
+     quote         : “The announcement establishes that the effect is real and statistically significant.”
+     evidence says : The announcement establishes that the trial crossed its prespecified statistical threshold for both endpoints. It does not report the p-value, hazard ratio, or confidence interval.
+     fix           : The announcement establishes that the trial crossed its prespecified statistical threshold for both endpoints — direction is established. What is missing is the size: no hazard ratio, no interval, no p-value.
+
+  [STALE · None · None] Accurate and precise. The draft correctly distinguishes absence of magnitude from absence of evidence. No finding.
+     quote         : “It does not say how large.”
+
+  [OVERLAP · None · None] Confirmed accurate. KEYNOTE-942 enrolled stage IIIB–IV; INTerpath-001 enrolled stage IIB–IV. No finding.
+     already decided about this sentence, on other grounds: The objection says lower baseline risk implies smaller absolute benefit as a matter of arithmetic, so 'genuinely disputed' overstates it. The arithmet
+     If this is that same finding, it is settled. If it is a different
+     fault in the same sentence, it is new and needs its own decision.
+     quote         : “the earlier trial enrolled stage IIIB–IV, while the Phase 3 reaches down into stage IIB”
+
+========================================================================
+COVERAGE 10 careful treatment(s) elsewhere · 3 contradiction(s), 0 serious
+========================================================================
+
+  Practical Dermatology
+     got right     : Explicitly stated that 'the companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement' — the clearest single-sentence statement of what is missing from the Phase 3 release. Also correctly attributed the 49%/59% figures to the Phase 2b KEYNOTE-942 five-year follow-up, with full HRs and CIs (HR 0.51, 95% CI 0.294–0.887; HR 0.411, 95% CI 0.200–0.843), and noted that OS follow-up continues per protocol.
+     still omitted : No discussion of why the open-label design of KEYNOTE-942 limits the inferential weight of those Phase 2b figures as a proxy for the Phase 3 effect size; no mention of the 14-death OS exploratory analysis or its wide confidence interval; no discussion of the stage IIB extension in INTerpath-001 versus the IIIB–IV population of KEYNOTE-942.
+     https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/
+
+  OncoDaily / KOL Pulse
+     got right     : Stated explicitly that 'the Phase 3 hazard ratios, confidence intervals, absolute RFS and DMFS rates, subgroup analyses, and detailed safety results have not yet been reported in the available announcement' and that 'these data will therefore be essential for determining the magnitude and clinical context of the observed benefit.' Correctly distinguished the Phase 2b figures from the Phase 3 announcement.
+     still omitted : No discussion of the open-label limitation of KEYNOTE-942 as a source of potential assessment bias; no mention of the OS exploratory analysis (HR 0.471, 95% CI 0.165–1.345, n=14 events) or what 14 deaths can and cannot establish; no discussion of the stage population difference between the two trials.
+     https://oncodaily.com/oncolibrary/immune-oncology/interpath-001
+
+  KOL Pulse
+     got right     : Explicitly flagged that 'hazard-ratio figures circulating on announcement day are these KEYNOTE-942 Phase 2b numbers — INTerpath-001's own magnitude of benefit has not yet been disclosed.' Provided the full series of KEYNOTE-942 RFS HRs across all analyses (primary, 3-year, 5-year) and noted OS follow-up continues. Correctly identified the stage IIB–IV scope of INTerpath-001 versus the IIIB–IV scope of KEYNOTE-942.
+     still omitted : No discussion of the open-label design of KEYNOTE-942 as a source of potential bias in the recurrence endpoint; no mention of the OS exploratory analysis HR or its confidence interval; no analysis of what 14 deaths can establish about direction versus magnitude.
+     https://kolpulse.com/kol-pulse-trial-profile-interpath001
+
+  Morning Glory Sciences
+     got right     : Stated that 'what is settled is direction and statistical significance, and nothing more' and that 'the magnitude of effect cannot be assessed.' Explicitly noted that KEYNOTE-942 was open-label and provided the full Phase 2b HRs and CIs. Noted that the double-blind design of INTerpath-001 limits the scope for assessment bias as an alternative explanation for the direction of the result.
+     still omitted : No mention of the OS exploratory analysis (HR 0.471, 95% CI 0.165–1.345, n=14 events) or the specific problem of what 14 deaths can and cannot establish; no discussion of the stage population difference (IIB extension in Phase 3 vs. IIIB–IV in Phase 2b) and whether that affects expected effect size.
+     https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/
+
+  Biotech Blueprint (Substack)
+     got right     : Stated clearly that 'the companies released no effect sizes, no hazard ratios and no survival curves' and that 'overall survival data are still being collected.' Correctly attributed the 0.51 and 0.411 HRs to the Phase 2b trial and explained that the wide CI (0.294–0.887) reflects the small sample size. Noted that crossing an interim boundary means the effect was large enough to be convincing early, but that interim estimates can be inflated. Correctly identified the stage IIB extension in INTerpath-001.
+     still omitted : No mention of the OS exploratory analysis HR or its confidence interval; no discussion of the open-label design of KEYNOTE-942 as a source of potential investigator-assessment bias in the recurrence endpoint specifically; no analysis of what 14 deaths can establish about direction versus magnitude.
+     https://www.biotechblueprint.com/p/moderna-mrna-cancer-vaccine-won-phase
+
+  AJMC
+     got right     : Correctly attributed the 49% and 59% figures to the Phase 2b KEYNOTE-942 five-year follow-up with full HRs and CIs. Noted that OS and other secondary outcomes 'continue to mature ahead of medical meeting presentation.' Correctly described the Phase 3 as the first positive readout for an individualized neoantigen therapy.
+     still omitted : No discussion of the open-label limitation of KEYNOTE-942; no mention of the OS exploratory analysis or the 14-death basis for it; no discussion of the stage population difference between the two trials.
+     https://www.ajmc.com/view/moderna-merck-mrna-cancer-vaccine-succeeds-in-late-stage-trial
+
+  ASCO Post
+     got right     : Correctly attributed the 49%/59% figures to the Phase 2b KEYNOTE-942 five-year data with full HRs and CIs. Clearly framed the Phase 3 announcement as a topline result with data to follow at a medical meeting.
+     still omitted : No mention of the open-label design of KEYNOTE-942 as a limitation; no mention of the OS exploratory analysis or the 14-death basis; no discussion of the stage population difference.
+     https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/
+
+  Dr. Gator (Substack)
+     got right     : Stated explicitly that 'as of this writing, we do not know the hazard ratio for recurrence-free survival,' 'we do not know the absolute difference between groups,' and 'we do not know how many recurrences occurred.' Correctly attributed the Phase 2b HRs and absolute RFS rates to KEYNOTE-942 and noted the OS signal was 'encouraging' without overstating it.
+     still omitted : No discussion of the open-label design of KEYNOTE-942 as a source of potential bias; no mention of the OS exploratory HR, its CI, or the 14-death basis; no discussion of the stage population difference.
+     https://drgator.substack.com/p/modernas-mrna-cancer-vaccine-just
+
+  Planet Today
+     got right     : Stated that 'no hazard ratios, confidence intervals, p-values, or Kaplan-Meier curves were released' and that 'overall survival remains immature.' Correctly noted that the smaller earlier trial produced HRs in the 0.4–0.5 range for similar endpoints. Noted the trial excluded ocular and mucosal melanoma and that the result applies to a defined adjuvant cutaneous population.
+     still omitted : No discussion of the open-label design of KEYNOTE-942 as a source of potential bias; no mention of the OS exploratory HR or the 14-death basis; no discussion of the stage population difference.
+     https://www.planet-today.com/2026/08/personalized-mrna-melanoma-vaccine-hits.html
+
+  ecancer
+     got right     : Reported the five-year OS rates (92.2% vs. 71.3%) and noted that 'seven patients in each treatment group died during follow-up' — the only outlet found that explicitly reported the 14-death basis for the OS analysis in accessible language.
+     still omitted : Did not report the OS hazard ratio (0.471), its confidence interval (0.165–1.345), or the exploratory status of the OS endpoint; did not discuss what 14 deaths can and cannot establish statistically; did not discuss the open-label design limitation.
+     https://ecancer.org/en/news/28383-asco-2026-cancer-vaccine-sustains-49-percent-melanoma-reduction-after-5-years
+
+  [OVERLAP · MINOR] the draft's claim about the coverage is contradicted
+     already decided about this sentence, on other grounds: Three of the four COVERAGE contradictions in this run end by saying no change is needed: that the open-label mechanism is the draft's addition, that t
+     If this is that same finding, it is settled. If it is a different
+     fault in the same sentence, it is new and needs its own decision.
+     quote         : “What the full assessment adds is the layer underneath. Why figures from a smaller trial — randomised, but open-label, with its recurrence endpoint judged by investigators who knew the assignment — cannot be read as the size of a blinded trial's effect.”
+     but           : Morning Glory Sciences explicitly noted that KEYNOTE-942 was open-label and that the double-blind design of INTerpath-001 'limits the room to explain that direction away as assessment bias arising from an open-label design.' Biotech Blueprint also noted the open-label nature of the Phase 2b trial. These outlets did not, however, develop the specific mechanism (scan timing, ambiguous calls) by which open-label assessment could inflate a recurrence endpoint.
+     see           : https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/
+     fix           : Reframe: 'A few specialist outlets noted that KEYNOTE-942 was open-label and that this limits its value as a proxy for the Phase 3 effect size. What the full assessment adds is the specific mechanism — scan timing and ambiguous calls — by which open-label investigator assessment can tilt a recurrence endpoint, and why this matters even when no one intends it.'
+
+  What this piece can add that careful coverage does not:
+     No outlet found reported the OS hazard ratio (0.471, 95% CI 0.165–1.345) from the KEYNOTE-942 five-year analysis, explained that the interval is compatible with the treated group's hazard of death being higher than the control group's, or discussed the specific mechanism by which open-label investigator assessment of recurrence — through scan timing and ambiguous calls — can inflate an effect estimate even without intent; the stage IIB population extension in INTerpath-001 relative to KEYNOTE-942's IIIB–IV enrollment, and what that implies for expected effect size, was also absent from all coverage found.
+
+========================================================================
+CALIBRATION  4 finding(s) recorded, none blocking
+========================================================================
+
+  Matters of phrasing, ordering, emphasis and degree. Real, and not
+  corrections. There is always a defensible alternative wording, so a
+  check that blocks on wording never stops. Read them; fix what you
+  agree with; publish either way.
+
+  [MINOR] The draft omits that the DMFS benefit weakened from 65% at two years to 59% at five years in KEYNOTE-942, while reporting the RFS figure as durable.
+     quote : Those are numbers with five years behind them.
+
+  [MINOR] The draft omits the grade 3+ adverse event rate difference between arms in KEYNOTE-942, which is relevant safety context.
+     quote : Those are numbers with five years behind them. They are just not this trial's, and 157 patients in an open-label trial i
+
+  [MINOR] The first half ('size of the effect') is fully warranted given the wide interval. The second half ('nor the direction') is also technically correct — 
+     quote : On this exploratory analysis alone, neither the size of the effect nor the direction is established with any statistical
+
+  [MINOR] The announcement states the trial met its prespecified endpoints at a prespecified interim analysis, which is consistent with statistical significance
+     quote : The announcement establishes that the effect is real and statistically significant.
+
+========================================================================
+ADJUDICATION  3 already decided · 2 moved since
+========================================================================
+
+  Decided once, reported differently now — read these again:
+    [INFERENCE] was MINOR, now None: The draft correctly avoids the TERM_IMPLIES_A_DIFFERENT_FAULT error ('unblinded') recorded in earlier drafts. The phrasing 'open-label' is accurate. No finding.
+    [INFERENCE] was MINOR, now None: Accurate and precise. The draft correctly distinguishes absence of magnitude from absence of evidence. No finding.
+
+  Read before and accepted, not repeated above:
+    [SOURCE NOT_FOUND] CivicScale takes no outside investment.
+        2026-08-28: Same class. A disclosure about our own funding, verifiable only by us, and stated on the who-pays-for-this page for that reason.
+    [COVERAGE MINOR] This is broadly accurate. Practical Dermatology, OncoDaily, KOL Pulse, AJMC, ASCO Post, Mo
+        2026-08-27: The role confirms the claim and then asks us to name which outlets did and did not flag the missing Phase 3 figures. 'Most' is the honest quantifier and the role's own finding supports it: nine outlets attributed the figures correctly and two of them did not flag the omission. Naming outlets in a five-paragraph email turns a summary into a scorecard we would then have to keep accurate, and it is the accusatory register we already cut once from this issue.
+    [COVERAGE MINOR] ecancer reported that 'seven patients in each treatment group died during follow-up' — the
+        2026-08-27: The role notes that the ASCO Post reported fourteen deaths and the interval, and a specialist visualisation flagged that the interval crosses 1.0 -- then says neither drew out the implication. The sentence does not claim to have found the number. It claims the inferential step as the addition, which is exactly what the role says is missing elsewhere, and its own closing summary names that step as what this piece is uniquely positioned to make.
+========================================================================
+COST     $0.99 - 5 API call(s) - 226,933 tokens in, 10,097 out - 16 web search(es)
+========================================================================
+
+  source:no source credited in the draf    $0.51  133,679 tok   8 search
+  advocate                                 $0.24   55,526 tok   4 search
+  inference                                $0.12   25,834 tok   2 search
+  source:Merck and Moderna                 $0.09   18,694 tok   2 search
+  extract                                  $0.03    3,297 tok   0 search
+
+  Priced from https://platform.claude.com/docs/en/about-claude/pricing,
+  read 2026-08-28. Prices go stale; a figure here older than the
+  page it came from is a figure to re-check.
+
+Full result written to ../site/whatholdsup/email/issue1-melanoma.html.gate.json
+
+BLOCKED — resolve every item above, or record it in the piece, before publishing.
+=== finished 2026-09-03T18:40:30Z exit=1

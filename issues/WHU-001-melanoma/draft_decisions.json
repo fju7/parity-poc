@@ -358,6 +358,116 @@
       "decided": "2026-09-03",
       "reason": "The role says the registry page could not be fully read. We hold the record and the sentence is bound to its $.hasResults field, which is false.",
       "what_would_change_it": "The span no longer being in the held bytes."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c7 (email)",
+      "quote": "The five-year overall survival analysis in the earlier trial rests on fourteen total deaths, seven in each arm.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The role could not reach the death counts. Two documents we hold carry them verbatim: the five-year JCO paper — '7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died' — and ASCO abstract 9500, obtained by hand on 3 September, which says the same. A NOT_FOUND is a statement about what the role reached.",
+      "what_would_change_it": "The quoted words no longer being in the held bytes, or the role gaining an INTERNAL verdict and still reporting NOT_FOUND."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c14 (email)",
+      "quote": "Most specialist outlets correctly attributed the 49% and 59% figures to the earlier trial and stated plainly that Phase 3 numbers had not been released.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The role calls this unverifiable for want of a systematic survey. It is not a claim about specialist coverage in general; it is a claim about the six articles we hold, and each was checked against its own bytes on 3 September. The ASCO Post, Dermatology Times, Practical Dermatology and OncLive name the phase 2b trial explicitly, MLQ News names KEYNOTE-942, KOL Pulse says phase 2. Six of six. The email's word 'most' is weaker than what we can show.",
+      "what_would_change_it": "The quoted words no longer being in the held bytes, or the role gaining an INTERNAL verdict and still reporting NOT_FOUND."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c16 (email)",
+      "quote": "Neither Merck nor Moderna saw the assessment before publication.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The report flags its own defect on this one: INTERNAL_MISCLASSED_AS_NOT_FOUND. The role has an INTERNAL verdict for claims about ourselves and returned NOT_FOUND instead. Whether Merck and Moderna saw the assessment before publication is a fact about our process, and the absence of an external source for it is the expected result rather than a finding.",
+      "what_would_change_it": "The quoted words no longer being in the held bytes, or the role gaining an INTERNAL verdict and still reporting NOT_FOUND."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c17 (email)",
+      "quote": "CivicScale takes no outside investment.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "Same defect, same class. CivicScale's funding is a disclosure about the publisher, and no external source is expected to carry it. It is stated on the Who Pays For This page and stands or falls on our own word, which is what a disclosure is.",
+      "what_would_change_it": "The quoted words no longer being in the held bytes, or the role gaining an INTERNAL verdict and still reporting NOT_FOUND."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "ADVOCATE",
+      "severity": "SERIOUS",
+      "finding_id": "o4 (email run 016)",
+      "quote": "Every figure above traces to a company release, a peer-reviewed paper or a trial registry record, and every sentence in the assessment names the words in that document which support it. Since this issue first went out it has been through an independent outside review and four adversarial checks, and each of them found something. What they changed is recorded at the bottom of the page, including where a correction of ours was itself wrong.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "Mine, introduced minutes before this run. The email carried two different sentences that both opened 'Every figure above was verified…', and the replacement collapsed them into one paragraph printed twice — once in the body and once in the small print. The footer copy now has its own shorter wording. The gate caught an edit made to satisfy the gate, which is the loop working.",
+      "what_would_change_it": "The duplicate returning."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "severity": "",
+      "finding_id": "i1 (email run 016)",
+      "quote": "a large Phase 3 trial of a personalised mRNA cancer therapy met its primary endpoint in melanoma, and a key secondary endpoint as well",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "The role states in its own words that this is not a finding — it names an error class recorded in earlier drafts and confirms the current text avoids it. Recorded as accepted so the board does not carry a confirmation as an open item; nothing in the text changes.",
+      "what_would_change_it": "The role reclassifying it as a finding."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "severity": "",
+      "finding_id": "i3 (email run 016)",
+      "quote": "157 patients in an open-label trial is not 1,137 in a double-blind one",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "The role states in its own words that this is not a finding — it names an error class recorded in earlier drafts and confirms the current text avoids it. Recorded as accepted so the board does not carry a confirmation as an open item; nothing in the text changes.",
+      "what_would_change_it": "The role reclassifying it as a finding."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "severity": "",
+      "finding_id": "i6 (email run 016)",
+      "quote": "Both trials leave the recurrence call to the investigator; the difference is that in the Phase 3 those investigators do not know who got what.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "The role states in its own words that this is not a finding — it names an error class recorded in earlier drafts and confirms the current text avoids it. Recorded as accepted so the board does not carry a confirmation as an open item; nothing in the text changes.",
+      "what_would_change_it": "The role reclassifying it as a finding."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "severity": "",
+      "finding_id": "i7 (email run 016)",
+      "quote": "In an open-label trial scan timing and ambiguous calls can tilt a result without anyone intending it, which is why the blinded trial's own numbers are the ones that matter.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "The role states in its own words that this is not a finding — it names an error class recorded in earlier drafts and confirms the current text avoids it. Recorded as accepted so the board does not carry a confirmation as an open item; nothing in the text changes.",
+      "what_would_change_it": "The role reclassifying it as a finding."
+    },
+    {
+      "draft": "site/whatholdsup/email/issue1-melanoma.html",
+      "role": "INFERENCE",
+      "severity": "",
+      "finding_id": "i9 (email run 016)",
+      "quote": "It does not say how large.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "The role states in its own words that this is not a finding — it names an error class recorded in earlier drafts and confirms the current text avoids it. Recorded as accepted so the board does not carry a confirmation as an open item; nothing in the text changes.",
+      "what_would_change_it": "The role reclassifying it as a finding."
     }
   ]
 }

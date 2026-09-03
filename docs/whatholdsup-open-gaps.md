@@ -88,6 +88,25 @@ rather than the class. The lesson did not transfer, because the recorder is a
 person writing JSON by hand and nothing checks what they wrote against what the
 matcher expects.
 
+**Found in the wild, 3 September.** Seven decisions written on 28 August carry
+an EMPTY severity. `classify()` keys on (role, quote), finds them, compares
+severity, and reports STALE — which blocks. Worse, `load_decisions` keeps the
+LAST entry for a key, so a malformed row written after a good one silently
+overrides it: two email findings had been correctly adjudicated on 27 August
+and re-adjudicated badly on 28 August, and the bad row won. The email gate had
+read STOP ever since for no reason anyone could see.
+
+Four were repaired by copying the severity from an identical decision elsewhere
+in the file — evidence, not assumption. Three could not be, and are left
+malformed rather than guessed:
+
+    2026-08-28  melanoma.html  "The outlets The ASCO Post, Dermatology Times, OncLive, FierceBiotech…"
+    2026-08-28  melanoma.html  "Dermatology Times, Pharmacy Times and Medical Daily stated plainly…"
+    2026-08-28  melanoma.html  "Pharmacy Times published its coverage of the Phase 3 trial result on 19 August…"
+
+All three quote text no longer on the page, so they block nothing today. They
+are listed here because a repair nobody records is a repair nobody can check.
+
 **Shape of the fix.** One path, not under `tests/`. A writer function that takes
 a finding and a disposition and derives role, severity and quote from the
 finding itself, so the key cannot be typed wrong. And a preflight row reporting

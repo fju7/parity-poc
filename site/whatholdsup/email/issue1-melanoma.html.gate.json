@@ -1,9 +1,120 @@
 {
   "draft": "../site/whatholdsup/email/issue1-melanoma.html",
-  "sha256": "dc65193a28188e327fb655ae5f85de602c6b0b38110161ecdeb4918a1fcfa3b7",
+  "sha256": "cdea37d3a7a27817d73fd57e12e40b149b36584c0d3ddca6869ed5fef99a140f",
+  "sentence_fingerprints": [
+    "08284f25024243a1",
+    "20dbb29afe2d8eb1",
+    "22d351fc93a7ecae",
+    "27224d75035bff07",
+    "3847779f5cc05386",
+    "3936ecacdedfd2d3",
+    "399e270fe783764e",
+    "4f51070adf76d63c",
+    "67727f9159669d97",
+    "6d7f291fe80b7488",
+    "6e8b63d7f177796b",
+    "72de718a7ddbc5a3",
+    "75a9984e6aa3d8ca",
+    "7a076b8f31c03c3f",
+    "7f4ff79f4f3a90f7",
+    "8106912af3b2e150",
+    "94264384720bc44d",
+    "98b7d7fc4de6e009",
+    "9bb990555cf7c43f",
+    "a7a96123d25732a8",
+    "aee9fc5d67b2d922",
+    "af04fd474ed111d0",
+    "b0f0a28b9ac00a38",
+    "b6c892f1d35a876d",
+    "c2f89c10bd33d93e",
+    "c84f5fc06bc9fdfe",
+    "cd6669b95869ce29",
+    "d9031f7f38baafd0",
+    "df6dcf2d51b335eb",
+    "e2f00962a9f4edd2",
+    "e33a6e66d29f6b36",
+    "e9eadb7adc486f01",
+    "f18803e7f7379dbc",
+    "f6ce3da32724833c",
+    "f837a577814ccd26"
+  ],
   "passed": false,
-  "checked_at": "2026-08-28",
+  "carried": [
+    "10 claim verdict(s) carried forward",
+    "recency carried (6d)",
+    "coverage carried (6d)"
+  ],
+  "checked_at": "2026-09-03",
   "model": "claude-sonnet-4-6",
+  "usage": {
+    "total": {
+      "calls": 5,
+      "input": 226933,
+      "output": 10097,
+      "cache_write": 0,
+      "cache_read": 0,
+      "web_searches": 16,
+      "usd": 0.9923,
+      "priced": true
+    },
+    "by_role": {
+      "extract": {
+        "calls": 1,
+        "input": 1546,
+        "output": 1751,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 0,
+        "usd": 0.0309,
+        "priced": true
+      },
+      "source:no source credited in the draf": {
+        "calls": 1,
+        "input": 131443,
+        "output": 2236,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 8,
+        "usd": 0.5079,
+        "priced": true
+      },
+      "source:Merck and Moderna": {
+        "calls": 1,
+        "input": 17738,
+        "output": 956,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.0876,
+        "priced": true
+      },
+      "advocate": {
+        "calls": 1,
+        "input": 52644,
+        "output": 2882,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 4,
+        "usd": 0.2412,
+        "priced": true
+      },
+      "inference": {
+        "calls": 1,
+        "input": 23562,
+        "output": 2272,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.1248,
+        "priced": true
+      }
+    },
+    "models": [
+      "claude-sonnet-4-6"
+    ],
+    "prices_checked": "2026-08-28",
+    "prices_source": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
   "claims": [
     {
       "id": "c1",
@@ -24,7 +135,7 @@
     {
       "id": "c3",
       "figure": "49% reduction in the hazard of recurrence or death",
-      "claim": "The 49% reduction in the hazard of recurrence or death comes from the earlier open-label trial of 157 patients, not the Phase 3 trial.",
+      "claim": "The 49% reduction in the hazard of recurrence or death comes from the earlier randomised open-label trial, not the Phase 3 trial.",
       "attributed_to": null,
       "kind": "figure",
       "scope": "external"
@@ -32,7 +143,7 @@
     {
       "id": "c4",
       "figure": "59% in the hazard of distant metastasis or death",
-      "claim": "The 59% reduction in the hazard of distant metastasis or death comes from the earlier open-label trial of 157 patients, not the Phase 3 trial.",
+      "claim": "The 59% reduction in the hazard of distant metastasis or death comes from the earlier randomised open-label trial, not the Phase 3 trial.",
       "attributed_to": null,
       "kind": "figure",
       "scope": "external"
@@ -40,7 +151,7 @@
     {
       "id": "c5",
       "figure": "157 patients",
-      "claim": "The earlier trial was a randomised but open-label trial of 157 patients.",
+      "claim": "The earlier open-label trial enrolled 157 patients.",
       "attributed_to": null,
       "kind": "figure",
       "scope": "external"
@@ -48,7 +159,7 @@
     {
       "id": "c6",
       "figure": "five-year results",
-      "claim": "The five-year results of the earlier 157-patient trial were presented at ASCO in June.",
+      "claim": "The five-year results of the earlier open-label trial were presented at ASCO in June.",
       "attributed_to": null,
       "kind": "figure",
       "scope": "external"
@@ -64,7 +175,7 @@
     {
       "id": "c8",
       "figure": "0.471",
-      "claim": "The hazard ratio for overall survival in the earlier trial's exploratory analysis is 0.471.",
+      "claim": "The hazard ratio for overall survival in the earlier trial is 0.471.",
       "attributed_to": null,
       "kind": "figure",
       "scope": "external"
@@ -96,7 +207,7 @@
     {
       "id": "c12",
       "figure": "stage IIIB\u2013IV",
-      "claim": "The earlier trial enrolled patients with stage IIIB\u2013IV melanoma.",
+      "claim": "The earlier open-label trial enrolled patients at stage IIIB\u2013IV.",
       "attributed_to": null,
       "kind": "figure",
       "scope": "external"
@@ -104,21 +215,29 @@
     {
       "id": "c13",
       "figure": "stage IIB",
-      "claim": "The Phase 3 trial reaches down into stage IIB melanoma.",
+      "claim": "The Phase 3 trial reaches down into stage IIB, enrolling lower-stage patients than the earlier trial.",
       "attributed_to": null,
       "kind": "figure",
       "scope": "external"
     },
     {
       "id": "c14",
-      "figure": null,
-      "claim": "Most specialist outlets correctly attributed the 49% and 59% figures to the earlier trial and stated plainly that Phase 3 numbers had not been released.",
+      "figure": "49% and 59%",
+      "claim": "Most specialist coverage of the announcement correctly attributed the 49% and 59% figures to the earlier trial and stated plainly that Phase 3 numbers had not been released.",
       "attributed_to": null,
       "kind": "characterisation",
       "scope": "external"
     },
     {
       "id": "c15",
+      "figure": "four adversarial checks",
+      "claim": "Since first publication, the assessment has been through an independent outside review and four adversarial checks.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c16",
       "figure": "48 hours",
       "claim": "The publication acknowledges corrections within 48 hours.",
       "attributed_to": null,
@@ -126,17 +245,49 @@
       "scope": "internal"
     },
     {
-      "id": "c16",
+      "id": "c17",
       "figure": null,
       "claim": "Neither Merck nor Moderna saw the assessment before publication.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "internal"
+    },
+    {
+      "id": "c18",
+      "figure": null,
+      "claim": "CivicScale takes no outside investment.",
       "attributed_to": null,
       "kind": "characterisation",
       "scope": "external"
     },
     {
-      "id": "c17",
+      "id": "c19",
       "figure": null,
-      "claim": "CivicScale takes no outside investment.",
+      "claim": "The Phase 3 trial met its primary endpoint and a key secondary endpoint in melanoma.",
+      "attributed_to": "Merck and Moderna",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c20",
+      "figure": null,
+      "claim": "The companies stated that full figures would be presented at a medical meeting.",
+      "attributed_to": "Merck and Moderna",
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c21",
+      "figure": null,
+      "claim": "The earlier trial was randomised and open-label.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    },
+    {
+      "id": "c22",
+      "figure": null,
+      "claim": "Five-year overall survival was an exploratory endpoint that the earlier trial was never powered to test.",
       "attributed_to": null,
       "kind": "characterisation",
       "scope": "external"
@@ -149,7 +300,8 @@
       "found_value": "August 19, 2026",
       "actual_source": "Merck/Moderna joint press release via BusinessWire and Moderna newsroom, dated August 19, 2026",
       "url": "https://news.modernatx.com/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-plus-keytruda-met-endpoints-of-rfs-and-dmfs-in-melanoma",
-      "note": null
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c2": {
       "id": "c2",
@@ -157,7 +309,8 @@
       "found_value": "1,137 patients",
       "actual_source": "Merck press release (August 19, 2026); confirmed by OncLive, BioPharm International, Cancer Therapy Advisor, and multiple other outlets citing the INTerpath-001 trial",
       "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
-      "note": null
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c3": {
       "id": "c3",
@@ -165,7 +318,8 @@
       "found_value": "49% reduction in risk of recurrence or death (HR=0.51) from the Phase 2b KEYNOTE-942 5-year follow-up, not the Phase 3 trial",
       "actual_source": "Merck/Moderna ASCO press release June 1, 2026; confirmed by AJMC, BioPharm International, and multiple outlets explicitly attributing the 49% figure to the Phase 2b KEYNOTE-942 5-year data",
       "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
-      "note": null
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c4": {
       "id": "c4",
@@ -173,7 +327,8 @@
       "found_value": "59% reduction in risk of distant metastasis or death (HR=0.411) from the Phase 2b KEYNOTE-942 5-year follow-up, not the Phase 3 trial",
       "actual_source": "Merck/Moderna ASCO press release June 1, 2026; confirmed by AJMC and BioPharm International explicitly attributing the 59% figure to the Phase 2b KEYNOTE-942 5-year data",
       "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
-      "note": null
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c5": {
       "id": "c5",
@@ -181,7 +336,8 @@
       "found_value": "157 patients; open-label; randomised phase 2b",
       "actual_source": "The Lancet (PIIS0140-6736(23)02268-7); Merck press release December 13, 2022; PubMed abstract PMID 38246194",
       "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)02268-7/abstract",
-      "note": null
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c6": {
       "id": "c6",
@@ -189,15 +345,8 @@
       "found_value": "Five-year results presented at the 2026 ASCO Annual Meeting (May 29\u2013June 2, 2026) and simultaneously published in the Journal of Clinical Oncology",
       "actual_source": "Merck/Moderna press release June 1, 2026; JCO publication DOI 10.1200/JCO-26-00835; ASCO Post June 3, 2026",
       "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
-      "note": null
-    },
-    "c7": {
-      "id": "c7",
-      "verdict": "NOT_FOUND",
-      "found_value": null,
-      "actual_source": null,
-      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
-      "note": "The JCO paper (DOI 10.1200/JCO-26-00835) and the Merck/Moderna press release confirm the OS HR and CI but do not surface the raw death count of 14 (7 per arm) in any accessible excerpt; the full text of the JCO paper is paywalled and no secondary source I could reach reports this specific figure."
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c8": {
       "id": "c8",
@@ -205,7 +354,8 @@
       "found_value": "HR=0.471 (95% CI, 0.165\u20131.345) for overall survival exploratory analysis",
       "actual_source": "Merck/Moderna ASCO press release June 1, 2026",
       "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
-      "note": null
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c9": {
       "id": "c9",
@@ -213,7 +363,8 @@
       "found_value": "95% CI 0.165\u20131.345 for the OS exploratory HR",
       "actual_source": "Merck/Moderna ASCO press release June 1, 2026",
       "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
-      "note": null
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c12": {
       "id": "c12",
@@ -221,7 +372,8 @@
       "found_value": "Stage IIIB\u2013IV melanoma",
       "actual_source": "The Lancet phase 2b paper (PIIS0140-6736(23)02268-7); PubMed PMID 38246194; JCO 5-year update DOI 10.1200/JCO-26-00835",
       "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)02268-7/abstract",
-      "note": null
+      "note": null,
+      "carried_from": "dc65193a28188e32"
     },
     "c13": {
       "id": "c13",
@@ -229,31 +381,64 @@
       "found_value": "Stage IIB, IIC, III, or IV cutaneous melanoma",
       "actual_source": "Merck press release August 19, 2026; MSD Clinical Trials registry; OncLive; Cancer Therapy Advisor",
       "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "note": null,
+      "carried_from": "dc65193a28188e32"
+    },
+    "c7": {
+      "id": "c7",
+      "verdict": "VERIFIED",
+      "found_value": "Seven patients in each treatment group died (14 total), per the five-year KEYNOTE-942 data reported at ASCO 2026",
+      "actual_source": "Oncology Central report on KEYNOTE-942 five-year data (citing ASCO 2026 presentation); corroborated by NYU Langone news release on the same data",
+      "url": "https://www.oncology-central.com/keynote-942-study-pembrolizumab-vaccine-combination-cuts-melanoma-recurrence-by-49/",
       "note": null
     },
     "c14": {
       "id": "c14",
-      "verdict": "NOT_FOUND",
-      "found_value": null,
-      "actual_source": null,
-      "url": null,
-      "note": "This is an editorial claim about how specialist outlets covered the story; it cannot be verified against a primary source and no systematic survey of specialist outlet coverage is available."
+      "verdict": "VERIFIED",
+      "found_value": "Multiple specialist outlets (Healthline, BioSpace, CEN ACS Chemistry, Oncology Central) correctly attribute the 49% (RFS) and 59% (DMFS) figures to the Phase 2b KEYNOTE-942 trial and note that detailed Phase 3 efficacy data had not been released",
+      "actual_source": "Healthline (https://www.healthline.com/health-news/moderna-personalized-melanoma-vaccine-reduces-recurrence), BioSpace (https://www.biospace.com/drug-development/moderna-stock-nearly-doubles-as-merck-partnered-mrna-cancer-vaccine-meets-phase-3-goal), CEN ACS (https://cen.acs.org/pharmaceuticals/vaccines/mrna-cancer-vaccine-succeeds-clinical-trial/104/web/2026/08)",
+      "url": "https://www.healthline.com/health-news/moderna-personalized-melanoma-vaccine-reduces-recurrence",
+      "note": "This claim is about the accuracy of media coverage rather than a single verifiable figure; the sources found do correctly attribute the figures to Phase 2b and note Phase 3 detail was not released, but exhaustive survey of all specialist coverage is not possible."
     },
-    "c16": {
-      "id": "c16",
+    "c18": {
+      "id": "c18",
       "verdict": "NOT_FOUND",
       "found_value": null,
       "actual_source": null,
       "url": null,
-      "note": "This is an internal editorial disclosure about the publication's own review process; it is not verifiable against any external primary source."
+      "note": "No entity named 'CivicScale' appears in any source reachable via web search; searches returned CivicScience, CivicPlus, CivicTechnologies, and Civica \u2014 none of which matches. Cannot verify or refute the investment claim because the company itself could not be located."
     },
-    "c17": {
-      "id": "c17",
-      "verdict": "NOT_FOUND",
-      "found_value": null,
-      "actual_source": null,
-      "url": null,
-      "note": "This is an internal disclosure about CivicScale's funding model; no external primary source (e.g., company filings, about page) was reachable to verify or refute it."
+    "c21": {
+      "id": "c21",
+      "verdict": "VERIFIED",
+      "found_value": "KEYNOTE-942 is described as 'an ongoing randomized, open-label Phase 2b trial' in the Merck press release and as a 'randomised, phase 2b study' in The Lancet publication",
+      "actual_source": "Merck press release on ASCO 2026 five-year data; The Lancet abstract (PIIS0140-6736(23)02268-7)",
+      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+      "note": null
+    },
+    "c22": {
+      "id": "c22",
+      "verdict": "VERIFIED",
+      "found_value": "The primary endpoint was RFS; secondary endpoints were DMFS and safety. The five-year OS analysis is described as 'an exploratory analysis' in the Merck press release, and the JCO publication states 'Five-year analyses were descriptive' \u2014 consistent with the trial not being powered to test OS",
+      "actual_source": "Merck/ASCO 2026 press release; JCO abstract (ascopubs.org/doi/10.1200/JCO-26-00835)",
+      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+      "note": null
+    },
+    "c19": {
+      "id": "c19",
+      "verdict": "VERIFIED",
+      "found_value": "The Phase 3 INTerpath-001 trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS) in patients with completely resected stage IIB-IV melanoma.",
+      "actual_source": "Merck and Moderna joint press release, August 19, 2026",
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "note": null
+    },
+    "c20": {
+      "id": "c20",
+      "verdict": "VERIFIED",
+      "found_value": "The Companies plan to present data at an upcoming international medical meeting and will engage with regulators on filing submissions for intismeran autogene in combination with KEYTRUDA.",
+      "actual_source": "Merck and Moderna joint press release, August 19, 2026",
+      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+      "note": null
     },
     "c10": {
       "id": "c10",
@@ -267,6 +452,16 @@
     },
     "c15": {
       "id": "c15",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c16": {
+      "id": "c16",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c17": {
+      "id": "c17",
       "verdict": "INTERNAL",
       "note": "Claim about this publication's own records or policy. Verify against your own files."
     }
@@ -293,34 +488,118 @@
   },
   "objections": [
     {
-      "objection": "The draft calls the KEYNOTE-942 five-year figures 'mature numbers' without disclosing that the five-year analyses were explicitly described as descriptive, not formally powered or hypothesis-testing.",
-      "quote": "Those are mature numbers.",
+      "objection": "The draft states 'seven in each arm' as a specific fact, but no source in the public record confirms the per-arm death split.",
+      "quote": "five-year overall survival \u2014 an exploratory endpoint the trial was never powered to test \u2014 rests on fourteen deaths in total \u2014 seven in each arm",
       "severity": "SERIOUS",
-      "why": "The JCO publication of the KEYNOTE-942 five-year update states explicitly that 'Five-year analyses were descriptive.' Calling them 'mature' implies statistical robustness the authors themselves do not claim. A reader will understand 'mature' to mean 'reliable and settled'; the paper's own characterisation is that these are descriptive follow-up figures. The contrast the draft draws \u2014 mature KEYNOTE-942 numbers versus unreleased Phase 3 numbers \u2014 is therefore overstated on one side.",
-      "fix": "Replace 'Those are mature numbers' with 'Those are long-follow-up numbers from a descriptive analysis \u2014 the five-year update was not a formally powered hypothesis test.'"
+      "why": "The total of fourteen deaths and the OS hazard ratio (0.471, CI 0.165\u20131.345) are confirmed by the Merck/Moderna press release and the JCO publication. The per-arm split of seven and seven is not confirmed by any publicly available source retrieved. If the draft's own sourcing rule is that every sentence names the words in the document that support it, this specific figure must be traceable. A wrong per-arm split would require a correction.",
+      "fix": "Either cite the exact line in the source document that gives the per-arm death count, or replace 'seven in each arm' with 'distributed across both arms' until the per-arm figure is confirmed in the published paper.",
+      "class": "FACT"
     },
     {
-      "objection": "The draft implies that investigator assessment of recurrence is a bias specific to KEYNOTE-942's open-label design, without disclosing that INTerpath-001's primary RFS endpoint is also investigator-assessed by the companies' own definition.",
-      "quote": "Why figures from a smaller trial \u2014 randomised, but open-label, with its recurrence endpoint judged by investigators who knew the assignment \u2014 cannot be read as the size of a blinded trial's effect. Scan timing and ambiguous calls can tilt a result that way without anyone intending it.",
-      "severity": "SERIOUS",
-      "why": "Merck's own August 19 press release defines INTerpath-001's primary endpoint as RFS 'as assessed by the investigator.' The draft correctly notes one sentence later that 'both trials leave the recurrence call to the investigator,' but that acknowledgement appears after the passage that frames investigator assessment as the mechanism of bias in KEYNOTE-942. A reader who does not reach the later sentence \u2014 or who reads the two passages as making different points \u2014 will conclude that investigator assessment is a flaw of the earlier trial that the Phase 3 corrects. It does not. The blinding removes knowledge of assignment, but the assessor type is identical. The draft's own later sentence is the correct framing; the earlier passage contradicts it and should be revised to lead with the shared limitation.",
-      "fix": "Revise the earlier passage to make clear upfront that both trials use investigator-assessed RFS, and that what the Phase 3 adds is blinding of those investigators \u2014 not a different assessor type. For example: 'Why figures from a smaller open-label trial cannot be read as the size of a blinded trial's effect \u2014 both use investigator-assessed recurrence, but in the Phase 3 those investigators do not know who received what, which is the relevant difference. Scan timing and ambiguous calls can tilt an open-label result without anyone intending it.'"
-    },
-    {
-      "objection": "The draft states the Phase 3 'settles the direction' of the effect without hazard ratios or confidence intervals being disclosed, which is a stronger claim than the topline data support.",
-      "quote": "it settles the direction",
+      "objection": "The draft omits that the DMFS benefit weakened from 65% at two years to 59% at five years in KEYNOTE-942, while reporting the RFS figure as durable.",
+      "quote": "Those are numbers with five years behind them.",
       "severity": "MINOR",
-      "why": "A statistically significant result at a prespecified interim analysis does establish that the direction is unlikely to be due to chance, so this is defensible. However, 'settles' is a strong word for a topline announcement with no released hazard ratio or confidence interval. The interval could in principle be very wide. The draft itself argues elsewhere that without the interval the size is unknown; the same logic applies to how firmly direction is 'settled.' The word 'settles' is inconsistent with the draft's own epistemic caution elsewhere.",
-      "fix": "Replace 'it settles the direction' with 'it establishes the direction with statistical confidence' \u2014 which is accurate and consistent with the draft's own framing of what a statistically significant result does and does not show."
+      "why": "The draft presents the 49% RFS and 59% DMFS figures as the five-year read without noting that the DMFS figure represents a weakening from the 65% reduction reported at the two-year primary analysis. Reporting the five-year figures as simply 'numbers with five years behind them' without noting the trajectory is selective: the RFS figure strengthened (44% to 49%) while DMFS weakened (65% to 59%). A reader cannot assess durability from the five-year figures alone without knowing the direction of travel.",
+      "fix": "Add a clause noting that the DMFS reduction eased from 65% at two years to 59% at five years, alongside the RFS improvement from 44% to 49%, so the reader can see both directions.",
+      "class": "CALIBRATION"
+    },
+    {
+      "objection": "The draft omits the grade 3+ adverse event rate difference between arms in KEYNOTE-942, which is relevant safety context.",
+      "quote": "Those are numbers with five years behind them. They are just not this trial's, and 157 patients in an open-label trial is not 1,137 in a double-blind one.",
+      "severity": "MINOR",
+      "why": "The three-year KEYNOTE-942 data show grade \u22653 adverse events at 25% in the combination arm versus 20% for pembrolizumab alone. The draft discusses the trial's efficacy figures in detail but does not mention any safety signal. For a newsletter that positions itself as showing 'what the absolute numbers look like beside the relative ones,' omitting the only available safety differential is a selective presentation.",
+      "fix": "Add one sentence noting the grade \u22653 AE rates from the three-year update (25% combination vs 20% monotherapy) as the available safety comparator, with the caveat that Phase 3 safety data are not yet reported.",
+      "class": "CALIBRATION"
+    },
+    {
+      "objection": "The paragraph beginning 'Every figure above traces to a company release' appears verbatim twice in the draft.",
+      "quote": "Every figure above traces to a company release, a peer-reviewed paper or a trial registry record, and every sentence in the assessment names the words in that document which support it. Since this issue first went out it has been through an independent outside review and four adversarial checks, and each of them found something. What they changed is recorded at the bottom of the page, including where a correction of ours was itself wrong.",
+      "severity": "SERIOUS",
+      "why": "The paragraph is reproduced word-for-word in two separate sections of the draft \u2014 once under 'What the full assessment adds' and once as a standalone closing paragraph. This is either a copy-paste error or a structural accident. As published it reads as though the newsletter is repeating its own credentialing language, which undermines the credibility it is trying to establish. It would also require a correction in the sense that one instance is clearly unintended.",
+      "fix": "Delete one instance. The closing standalone paragraph is the more natural position; remove the copy embedded within 'What the full assessment adds.'",
+      "class": "CONTRADICTION"
     }
   ],
   "inferences": [
     {
-      "quote": "seven in each arm",
-      "problem": "The draft asserts a specific per-arm death count (7 vs 7) that is not confirmed by any published source; with a 2:1 enrolment ratio (107 vs 50 patients), a perfectly equal split would be unusual and, if wrong, would materially misrepresent the OS data.",
-      "severity": "SERIOUS",
-      "correct_reading": "Published sources confirm only that 14 deaths total occurred in the OS exploratory analysis; the per-arm breakdown has not been publicly reported and should not be stated as fact.",
-      "fix": "Replace 'seven in each arm' with 'the per-arm breakdown has not been publicly reported' \u2014 e.g. 'In that earlier trial, five-year overall survival rests on fourteen deaths in total; the split between arms has not been disclosed.'"
+      "quote": "a large Phase 3 trial of a personalised mRNA cancer therapy met its primary endpoint in melanoma, and a key secondary endpoint as well",
+      "problem": "This phrasing is accurate and avoids the ENDPOINT_ROLE_CONFLATED error recorded in earlier drafts; no finding here. Included only to confirm the check was run.",
+      "severity": null,
+      "correct_reading": null,
+      "fix": null,
+      "class": null
+    },
+    {
+      "quote": "the figures in the headlines, a 49% reduction in the hazard of recurrence or death and 59% in the hazard of distant metastasis or death",
+      "problem": "The 49% figure corresponds to HR 0.51, which is a 49% lower hazard \u2014 correctly described. However the 59% figure corresponds to HR 0.411, which is a 58.9% lower hazard \u2014 rounding to 59% is defensible. More importantly, the draft describes these as reductions 'in the hazard of recurrence or death' and 'in the hazard of distant metastasis or death', which is the correct framing for a hazard ratio. No inferential error here.",
+      "severity": null,
+      "correct_reading": null,
+      "fix": null,
+      "class": null
+    },
+    {
+      "quote": "157 patients in an open-label trial is not 1,137 in a double-blind one",
+      "problem": "The draft correctly avoids the TERM_IMPLIES_A_DIFFERENT_FAULT error ('unblinded') recorded in earlier drafts. The phrasing 'open-label' is accurate. No finding.",
+      "severity": null,
+      "correct_reading": null,
+      "fix": null,
+      "class": null
+    },
+    {
+      "quote": "the interval runs from 0.165 to 1.345 \u2014 compatible with the treated group's hazard of death being about 35% higher than the comparison group's, and with it being roughly 84% lower",
+      "problem": "The upper bound of 1.345 means the treated group's hazard of death could be up to 34.5% higher than the control group's \u2014 the draft says 'about 35% higher', which is correct. The lower bound of 0.165 means the hazard could be as low as 16.5% of the control group's, i.e. roughly 83.5% lower \u2014 the draft says 'roughly 84% lower', which is correct. Both bounds are accurately characterised on the hazard ratio scale. No inferential error.",
+      "severity": null,
+      "correct_reading": null,
+      "fix": null,
+      "class": null
+    },
+    {
+      "quote": "On this exploratory analysis alone, neither the size of the effect nor the direction is established with any statistical confidence.",
+      "problem": "The first half ('size of the effect') is fully warranted given the wide interval. The second half ('nor the direction') is also technically correct \u2014 the interval crosses 1.0, so the direction is not established at conventional significance. However, the sentence treats both claims as equivalent in weight. The point estimate (HR 0.471) favours benefit, and the draft itself says so in the immediately preceding sentence. The sentence as written is accurate but risks being read as 'we have no idea whether this helps or harms', which is stronger than the evidence warrants. This is a calibration issue, not a factual error.",
+      "severity": "MINOR",
+      "correct_reading": "The interval crosses 1.0, so neither the magnitude nor the direction of the overall survival effect is established with statistical confidence. The point estimate favours benefit, but the trial was never powered for this endpoint and fourteen deaths are too few to resolve the question.",
+      "fix": "On this exploratory analysis alone, the size of the effect is not established, and the direction \u2014 though the point estimate favours benefit \u2014 is not established with statistical confidence either.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "Both trials leave the recurrence call to the investigator; the difference is that in the Phase 3 those investigators do not know who got what.",
+      "problem": "The draft correctly identifies that KEYNOTE-942 (Phase 2) used investigator-assessed RFS and that INTerpath-001 (Phase 3) is double-blind, meaning investigators assessing recurrence do not know treatment allocation. This is an accurate and fair description of the design difference. No finding.",
+      "severity": null,
+      "correct_reading": null,
+      "fix": null,
+      "class": null
+    },
+    {
+      "quote": "In an open-label trial scan timing and ambiguous calls can tilt a result without anyone intending it, which is why the blinded trial's own numbers are the ones that matter.",
+      "problem": "The draft correctly applies the open-label criticism only to the open-label Phase 2 trial and does not import it to the double-blind Phase 3. This avoids the DESIGN_CRITICISM_IMPORTED error recorded in earlier drafts. No finding.",
+      "severity": null,
+      "correct_reading": null,
+      "fix": null,
+      "class": null
+    },
+    {
+      "quote": "The announcement establishes that the effect is real and statistically significant.",
+      "problem": "The announcement states the trial met its prespecified endpoints at a prespecified interim analysis, which is consistent with statistical significance under the trial's own testing hierarchy. However, no p-value, hazard ratio, or confidence interval has been released for INTerpath-001. 'Statistically significant' is an inferential conclusion the draft draws from 'met its prespecified endpoints' \u2014 which is a reasonable inference, but the draft presents it as established fact rather than as what the announcement implies. More precisely: the announcement establishes that the prespecified statistical threshold was crossed; it does not establish the size or the p-value. The word 'real' also conflates statistical significance with clinical reality. This is a calibration issue.",
+      "severity": "MINOR",
+      "correct_reading": "The announcement establishes that the trial crossed its prespecified statistical threshold for both endpoints. It does not report the p-value, hazard ratio, or confidence interval.",
+      "fix": "The announcement establishes that the trial crossed its prespecified statistical threshold for both endpoints \u2014 direction is established. What is missing is the size: no hazard ratio, no interval, no p-value.",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "It does not say how large.",
+      "problem": "Accurate and precise. The draft correctly distinguishes absence of magnitude from absence of evidence. No finding.",
+      "severity": null,
+      "correct_reading": null,
+      "fix": null,
+      "class": null
+    },
+    {
+      "quote": "the earlier trial enrolled stage IIIB\u2013IV, while the Phase 3 reaches down into stage IIB",
+      "problem": "Confirmed accurate. KEYNOTE-942 enrolled stage IIIB\u2013IV; INTerpath-001 enrolled stage IIB\u2013IV. No finding.",
+      "severity": null,
+      "correct_reading": null,
+      "fix": null,
+      "class": null
     }
   ],
   "coverage": {

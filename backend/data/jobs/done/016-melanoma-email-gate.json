@@ -1,0 +1,10 @@
+{
+  "note": "Issue one, the email gate. The email summarises a page that changed substantially on 3 September, so it was updated first: the claim that the draft 'was checked twice' is replaced by what is now true — an independent outside review and four adversarial checks, each of which found something, with what they changed recorded on the page including where a correction of ours was itself wrong. The HTML and text versions were compared and differ only in the unsubscribe token. The eight findings from the 28 August email gate are all resolved: three gone from the text, five decided. Four of those five had been adjudicated correctly on 27 August, re-recorded on 28 August with an empty severity field, and silently overridden — repaired today from evidence in the file rather than by assumption. This run is the first read of the email as it now stands.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/email/issue1-melanoma.html",
+           "--new-cycle",
+           "--since", "../site/whatholdsup/email/issue1-melanoma.html.gate.json",
+           "--report", "../site/whatholdsup/email/issue1-melanoma.html.gate.json"]
+}

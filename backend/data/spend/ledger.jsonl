@@ -225,3 +225,8 @@
 {"at": "2026-09-03T18:24:09+00:00", "script": "factcheck_draft.py", "role": "source:Moderna and Merck announcement", "issue": "melanoma", "usd": 0.1222, "input": 30856, "output": 645, "web_searches": 2, "note": ""}
 {"at": "2026-09-03T18:26:49+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "melanoma", "usd": 0.7629, "input": 194661, "output": 7264, "web_searches": 7, "note": ""}
 {"at": "2026-09-03T18:29:00+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "melanoma", "usd": 0.3891, "input": 85191, "output": 6233, "web_searches": 4, "note": ""}
+{"at": "2026-09-03T18:37:21+00:00", "script": "factcheck_draft.py", "role": "extract", "issue": "melanoma", "usd": 0.0309, "input": 1546, "output": 1751, "web_searches": 0, "note": ""}
+{"at": "2026-09-03T18:38:14+00:00", "script": "factcheck_draft.py", "role": "source:no source credited in the draf", "issue": "melanoma", "usd": 0.5079, "input": 131443, "output": 2236, "web_searches": 8, "note": ""}
+{"at": "2026-09-03T18:38:32+00:00", "script": "factcheck_draft.py", "role": "source:Merck and Moderna", "issue": "melanoma", "usd": 0.0876, "input": 17738, "output": 956, "web_searches": 2, "note": ""}
+{"at": "2026-09-03T18:39:40+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "melanoma", "usd": 0.2412, "input": 52644, "output": 2882, "web_searches": 4, "note": ""}
+{"at": "2026-09-03T18:40:30+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "melanoma", "usd": 0.1248, "input": 23562, "output": 2272, "web_searches": 2, "note": ""}
