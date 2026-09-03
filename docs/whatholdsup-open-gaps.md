@@ -12,7 +12,8 @@ whether the gap is still real.
 ## GAP-001 — nothing checks a universal negative against our own library
 
 **Raised by** the outside review of 2026-09-03, finding OR-1.
-**Fix when** issue one is published. Before issue two's revalidation, because
+**Fix when** — CHANGED 2026-09-03, BEFORE ISSUE ONE PUBLISHES. See the
+decision at the foot of this entry. Before issue two's revalidation, because
 that piece is built almost entirely on claims about what a guideline does and
 does not say.
 
@@ -66,7 +67,46 @@ rather than a presence in one:
     "each registry record marks that result NOT_POSTED"   enumerated: S020 and S026
 
 The two bounded ones and the enumerated one are checkable today and are not
-checked. The registry pair is the clearest: the row's premises already carry
+checked.
+
+### What was closed on 3 September, and what the editor left open
+
+Working through the flags one at a time closed four of the six by teaching
+checks to read evidence they could not read before, and NONE of them by
+signature:
+
+  * **a negation can be a value.** A row bound BY LOCATOR whose field is false,
+    null, 0, empty or a declared negative state has its negation carried by
+    that value. The registry record contains no "no results", no "not posted",
+    no "none" anywhere in it — the negation is a JSON boolean. Narrowed after
+    implementation showed the wider version would clear a corpus claim on the
+    strength of one field.
+  * **a quantifier over named things is a count.** "each" is mapped when the
+    sentence names trials the ledger resolves and the row rests on a span from
+    every one of them. Cite one record of two and it flags.
+  * **B14, a bounded figure negative.** One source, held in full: does it carry
+    a hazard ratio, interval or p-value in a sentence about its OWN subject
+    rather than another trial? This is the tractable corner of this gap, and
+    building it exposed that KEYNOTE-942 — the most-cited trial on the page —
+    was in no source's also_called, so nothing could resolve its name.
+
+**The two the editor declined to sign, 2026-09-03.**
+
+    "The ONLY survival figure in the programme ..."
+    "... appears in ANY of the specialist or general coverage we hold ... ALL"
+
+Both range over the whole programme — two trials, five releases, the papers,
+four registry records. No search of one document settles either, and B14
+correctly declines to try. The editor was offered a signed disposition with a
+falsifier and chose not to take it:
+
+> "Leave it for GAP-001."
+
+**So this gap now blocks publication of issue one.** That is the consequence of
+the decision and it is written here rather than discovered later: the
+span-check row stays BLOCKED, and the only thing that clears it is the
+library-wide search this entry describes. The signature was the cheaper route
+and it was refused on purpose. The registry pair is the clearest: the row's premises already carry
 `"reportingStatus":"NOT_POSTED"` from BOTH records, so "each" is satisfied by
 evidence the row names and B6 cannot see it, because B6 looks for a WORD and
 the force is carried by there being one span per record. A quantifier over

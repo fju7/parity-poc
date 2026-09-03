@@ -1358,7 +1358,12 @@
           "why": "only — the sentence says 'only' and the span contains no word carrying that force"
         }
       ],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-03",
+      "deferred_to": "GAP-001",
+      "deferred_why": "DEFERRED TO GAP-001 by the editor, 2026-09-03. This scope word ranges over the whole programme — both trials, five releases, the papers and four registry records — so no search of one document can settle it and B14 correctly declines. The editor chose not to sign a disposition: it stays flagged and it keeps blocking until the library-wide check exists. THIS FIELD CLEARS NOTHING; it records why the flag is still here.",
+      "deferred_words": "only",
+      "deferred_by": "Fred Ugast",
+      "deferred_on": "2026-09-03"
     },
     "ee91cf76edff9ccb": {
       "sentence": "\"Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.\" Source quality 3 / 5 Data support 1 / 5 Reproducibility 4 / 5 Consensus 4 / 5 Recency 5 / 5 Rigor 5 / 5 3.4 Moderate (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10) The two extremes are the whole story.",
@@ -3385,7 +3390,12 @@
         }
       ],
       "checked_on": "2026-09-03",
-      "bounded_negative_searched": "every sentence in S013 carrying a hazard ratio, interval or p-value names a trial other than INTerpath-001, which is what the document is announcing"
+      "bounded_negative_searched": "every sentence in S013 carrying a hazard ratio, interval or p-value names a trial other than INTerpath-001, which is what the document is announcing",
+      "deferred_to": "GAP-001",
+      "deferred_why": "DEFERRED TO GAP-001 by the editor, 2026-09-03. This scope word ranges over the whole programme — both trials, five releases, the papers and four registry records — so no search of one document can settle it and B14 correctly declines. The editor chose not to sign a disposition: it stays flagged and it keeps blocking until the library-wide check exists. THIS FIELD CLEARS NOTHING; it records why the flag is still here.",
+      "deferred_words": "any, all",
+      "deferred_by": "Fred Ugast",
+      "deferred_on": "2026-09-03"
     },
     "075bae729c357078": {
       "sentence": "They do not share a statistical standing: the Phase 2b’s later analyses are, in its own words, descriptive only , against a one-sided alpha of 0.10, while the Phase 3 crossed a prespecified interim threshold.",
