@@ -1,5 +1,56 @@
 {
   "cycle": 5,
   "runs": [],
-  "reason": null
+  "reason": "Run history reconstructed 2026-09-03. --new-cycle used to delete the run list, so cycles 1-4 left no record; the spend ledger did, because every run makes exactly one 'extract' call. Seven runs, 2 Sep 12:32 to 3 Sep 18:47. The ledger itself only begins 28 Aug, so this is a floor.",
+  "closed": [
+    {
+      "at": "2026-09-02T12:32:52+00:00",
+      "sha": null,
+      "past_cap": null,
+      "cycle": null,
+      "reconstructed": "from the spend ledger: one extract call is one gate run. The runs file was emptied by --new-cycle before this was recorded."
+    },
+    {
+      "at": "2026-09-02T12:35:25+00:00",
+      "sha": null,
+      "past_cap": null,
+      "cycle": null,
+      "reconstructed": "from the spend ledger: one extract call is one gate run. The runs file was emptied by --new-cycle before this was recorded."
+    },
+    {
+      "at": "2026-09-02T16:35:02+00:00",
+      "sha": null,
+      "past_cap": null,
+      "cycle": null,
+      "reconstructed": "from the spend ledger: one extract call is one gate run. The runs file was emptied by --new-cycle before this was recorded."
+    },
+    {
+      "at": "2026-09-03T17:32:02+00:00",
+      "sha": null,
+      "past_cap": null,
+      "cycle": null,
+      "reconstructed": "from the spend ledger: one extract call is one gate run. The runs file was emptied by --new-cycle before this was recorded."
+    },
+    {
+      "at": "2026-09-03T18:18:07+00:00",
+      "sha": null,
+      "past_cap": null,
+      "cycle": null,
+      "reconstructed": "from the spend ledger: one extract call is one gate run. The runs file was emptied by --new-cycle before this was recorded."
+    },
+    {
+      "at": "2026-09-03T18:37:21+00:00",
+      "sha": null,
+      "past_cap": null,
+      "cycle": null,
+      "reconstructed": "from the spend ledger: one extract call is one gate run. The runs file was emptied by --new-cycle before this was recorded."
+    },
+    {
+      "at": "2026-09-03T18:47:00+00:00",
+      "sha": null,
+      "past_cap": null,
+      "cycle": null,
+      "reconstructed": "from the spend ledger: one extract call is one gate run. The runs file was emptied by --new-cycle before this was recorded."
+    }
+  ]
 }

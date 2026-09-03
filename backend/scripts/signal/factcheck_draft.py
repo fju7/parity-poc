@@ -918,6 +918,27 @@ def recall_brief(role: str) -> str:
 
 RUNS_PER_CYCLE = 2
 
+# THE WHOLE BUDGET FOR AN ISSUE, ACROSS EVERY CYCLE.
+#
+# Set by the editor on 2026-09-03: two runs, then the outside review, then one
+# run to close it. Three. "If we are still finding mistakes that need to be
+# corrected after those three, the answer is not to run more gates but revise
+# the drafting and editing process."
+#
+# It needed a number because the per-cycle cap was not a budget. --new-cycle
+# reset the counter, required no reason, and DELETED the run list, so there was
+# no record anywhere of how many times an issue had been gated. Issue one shows
+# the result: its runs file said "cycle 5, runs: []" while the spend ledger
+# showed SEVEN gate runs in thirty hours for $30.53.
+#
+# Both of those cycles were opened by me. One followed a real outside review.
+# The other did not: it was a one-sentence re-read that the cap would have
+# stopped, and --new-cycle was the way past it that asks for nothing.
+# --past-cap demands a written reason on the record; --new-cycle demanded
+# silence. Given a priced override and a free one, the free one gets used, and
+# the accountability was on the branch nobody had to take.
+RUNS_PER_ISSUE = 3
+
 
 def _cycle_path(report: str) -> Path:
     return Path(report + ".runs.json")
@@ -933,10 +954,22 @@ def cycle_state(report: str) -> dict:
         return {"cycle": 1, "runs": [], "reason": None}
 
 
+def all_runs(st: dict) -> list[dict]:
+    """Every run this draft has had, in every cycle.
+
+    st["runs"] is the current cycle. st["closed"] is what earlier cycles held
+    before --new-cycle reset the counter, kept rather than dropped: a budget
+    counted per cycle is not a budget, because the thing that resets the cycle
+    is a flag.
+    """
+    return list(st.get("closed") or []) + list(st.get("runs") or [])
+
+
 def cycle_record(report: str, sha: str, past_cap: str | None) -> None:
     st = cycle_state(report)
     st["runs"].append({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                       "sha": sha, "past_cap": past_cap})
+                       "sha": sha, "past_cap": past_cap,
+                       "cycle": st.get("cycle", 1)})
     _cycle_path(report).write_text(json.dumps(st, indent=2), encoding="utf-8")
 
 
@@ -946,12 +979,50 @@ def cycle_check(report: str, past_cap: str | None, new_cycle: bool) -> bool:
         return True
     p = _cycle_path(report)
     st = cycle_state(report)
+    lifetime = len(all_runs(st))
     if new_cycle:
-        st = {"cycle": st.get("cycle", 1) + 1, "runs": [], "reason": None}
+        # A NEW CYCLE KEEPS THE OLD RUNS. It used to drop them, which made the
+        # per-cycle cap unenforceable by the one flag that asks for nothing.
+        st = {"cycle": st.get("cycle", 1) + 1,
+              "runs": [],
+              "closed": all_runs(st),
+              "reason": None}
+        if lifetime >= RUNS_PER_ISSUE and not past_cap:
+            print()
+            print("  STOP. This draft has been gated %d times across %d cycle(s)."
+                  % (lifetime, st["cycle"] - 1))
+            print("  The budget for an issue is %d: two runs, the outside review, one"
+                  % RUNS_PER_ISSUE)
+            print("  run to close it. Opening another cycle does not create more.")
+            print()
+            print("  The editor set that number on 2026-09-03: \"If we are still")
+            print("  finding mistakes that need to be corrected after those three, the")
+            print("  answer is not to run more gates but revise the drafting and")
+            print("  editing process.\" So the next move is a change to how the draft")
+            print("  is written, not another pass over what was written.")
+            print()
+            print("  If this cycle really does follow an outside review that found")
+            print("  something a run must confirm, say so on the record:")
+            print("    --past-cap \"what the review found and why a run settles it\"")
+            print()
+            return False
         p.write_text(json.dumps(st, indent=2), encoding="utf-8")
-        print("  Cycle %d. The run counter is reset." % st["cycle"])
+        print("  Cycle %d. The run counter is reset; %d earlier run(s) kept."
+              % (st["cycle"], len(st["closed"])))
         return True
     used = len(st.get("runs", []))
+    if lifetime >= RUNS_PER_ISSUE and not past_cap:
+        print()
+        print("  STOP. This draft has been gated %d times, which is the whole budget."
+              % lifetime)
+        print("  Two runs, the outside review, one run to close it. That is three.")
+        print()
+        print("  What is left is not another pass. It is the drafting change that")
+        print("  stops the next issue needing one.")
+        print()
+        print("    --past-cap \"why this run is different from the last %d\"" % lifetime)
+        print()
+        return False
     if used < RUNS_PER_CYCLE or past_cap:
         if past_cap:
             print("  Past the cap of %d, on the record: %s" % (RUNS_PER_CYCLE, past_cap))
@@ -2130,9 +2201,11 @@ def main():
                          "matching one are reported as ADJUDICATED and do not block; "
                          "a finding whose severity has moved since is STALE and does.")
     ap.add_argument("--new-cycle", action="store_true",
-                    help="Start a new gate cycle and reset the run counter. This is what "
-                         "happens after an outside review: the draft has changed for a "
-                         "reason other than our own findings.")
+                    help="Start a new gate cycle. This is what happens after an outside "
+                         "review: the draft has changed for a reason other than our own "
+                         "findings. It resets the per-cycle counter and KEEPS the run "
+                         "history, so it cannot be used to buy runs past the %d-run "
+                         "budget for an issue." % RUNS_PER_ISSUE)
     ap.add_argument("--past-cap", metavar="REASON",
                     help="Run past the per-cycle cap, recording why. A cap with no "
                          "override gets worked around; one with a required reason gets "
