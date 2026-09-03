@@ -578,6 +578,28 @@
         },
         "on": "2026-09-02"
       }
+    },
+    {
+      "id": "S026",
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT03553836",
+      "type": "registry",
+      "title": "KEYNOTE-716 — ClinicalTrials.gov record. NCT03553836.",
+      "accessed": "2026-09-03",
+      "used_for": "The page asserts that no randomised trial against placebo has reported a statistically significant overall survival benefit as a prespecified endpoint in its own population. KEYNOTE-716 is pembrolizumab against placebo in resected stage IIB/IIC melanoma — squarely inside that class and not previously checked. Acquired 3 September 2026 because a universal negative had been asserted over a class of which we held two members, one of which has no placebo arm.",
+      "also_called": [
+        "KEYNOTE-716",
+        "NCT03553836"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/26/266e8448b1083b0c54a8908ef6ec9a97ff721da8bf2699cd592abb564b4d379a.json",
+          "sha256": "266e8448b1083b0c54a8908ef6ec9a97ff721da8bf2699cd592abb564b4d379a",
+          "bytes": 121630,
+          "identified_by": "contains its identifier NCT03553836"
+        },
+        "on": "2026-09-03"
+      }
     }
   ],
   "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."
